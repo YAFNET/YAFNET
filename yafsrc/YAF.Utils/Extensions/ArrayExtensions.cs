@@ -5,6 +5,8 @@ using System.Text;
 
 namespace YAF.Utils
 {
+  using YAF.Types;
+
   public static class BitBoolExtensions
   {
     /// <summary>
@@ -76,6 +78,30 @@ namespace YAF.Utils
       arrayBool.ForEachIndex((b, i) => finalValue = SetBitFromBool(finalValue, i, b));
       
       return finalValue;
+    }
+
+    /// <summary>
+    /// The to hex string.
+    /// </summary>
+    /// <param name="hashedBytes">
+    /// The hashed bytes.
+    /// </param>
+    /// <returns>
+    /// The to hex string.
+    /// </returns>
+    [NotNull]
+    public static string ToHexString([NotNull] this byte[] hashedBytes)
+    {
+      CodeContracts.ArgumentNotNull(hashedBytes, "hashedBytes");
+
+      var hashedSB = new StringBuilder((hashedBytes.Length * 2) + 2);
+
+      foreach (byte b in hashedBytes)
+      {
+        hashedSB.AppendFormat("{0:X2}", b);
+      }
+
+      return hashedSB.ToString();
     }
   }
 }

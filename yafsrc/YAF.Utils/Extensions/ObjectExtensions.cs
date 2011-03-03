@@ -445,6 +445,21 @@ namespace YAF.Utils
       return Convert.ToInt32(o);
     }
 
+    /// <summary>
+    /// Checks if source is in the list provided.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="source"></param>
+    /// <param name="list"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentNullException"><paramref name="source" /> is <c>null</c>.</exception>
+    public static bool IsIn<T>(this T source, [NotNull] params T[] list)
+    {
+      CodeContracts.ArgumentNotNull(list, "list");
+
+      return list.Contains(source);
+    }
+
     #endregion
   }
 }

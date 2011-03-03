@@ -22,6 +22,7 @@ namespace YAF.Controls
   #region Using
 
   using System.Text;
+  using System.Web;
   using System.Web.UI;
 
   using YAF.Classes;
@@ -89,55 +90,125 @@ namespace YAF.Controls
       // BEGIN FOOTER
       var footer = new StringBuilder();
 
-      // get the theme credit info from the theme file
-      // it's not really an error if it doesn't exist
-      string themeCredit = this.PageContext.Theme.GetItem("THEME", "CREDIT", null);
-
       this.Get<IStopWatch>().Stop();
 
       footer.Append(@"<br /><div class=""content"" style=""text-align:right;font-size:7pt"">");
 
       bool br = false;
 
-      // append theme Credit if it exists...
-      if (themeCredit.IsSet())
-      {
-        footer.AppendFormat(@"<span id=""themecredit"" style=""color:#999999"">{0}</span>", themeCredit);
-        br = true;
-      }
-
       if (this.PageContext.CurrentForumPage.IsAdminPage)
       {
-        if (br)
-        {
-          footer.Append(" | ");
-        }
-
         // show admin icons license...
         footer.Append(
           @"<span style=""color:#999999""><a target=""_blank"" href=""http://www.pinvoke.com/"">Fugue Icons</a> &copy; 2009 Yusuke Kamiyamane</span>");
-        br = true;
-      }
-
-      if (br)
-      {
         footer.Append("<br />");
       }
 
+      this.RenderMobileLink(footer);
+
+      this.RenderVersion(footer);
+
+      this.RenderGeneratedAndDebug(footer);
+
+      // write CSS, Refresh, then header...
+      writer.Write(footer);
+    }
+
+    /// <summary>
+    /// The render generated and debug.
+    /// </summary>
+    /// <param name="footer">
+    /// The footer.
+    /// </param>
+    private void RenderGeneratedAndDebug([NotNull] StringBuilder footer)
+    {
+      if (this.PageContext.BoardSettings.ShowPageGenerationTime)
+      {
+        footer.Append("<br />");
+        footer.AppendFormat(this.GetText("COMMON", "GENERATED"), this.Get<IStopWatch>().Duration);
+      }
+
+      footer.Append(@"</div>");
+
+#if DEBUG
+      if (!this.PageContext.IsAdmin)
+      {
+        return;
+      }
+
+      footer.AppendFormat(
+        @"<br /><br /><div style=""width:350px;margin:auto;padding:5px;text-align:right;font-size:7pt;""><span style=""color:#990000"">YAF Compiled in <strong>DEBUG MODE</strong></span>.<br />Recompile in <strong>RELEASE MODE</strong> to remove this information:");
+      footer.Append(@"<br></br><a href=""http://validator.w3.org/check?uri=referer"" >XHTML</a> | ");
+      footer.Append(@"<a href=""http://jigsaw.w3.org/css-validator/check/referer"" >CSS</a><br></br>");
+      footer.AppendFormat(
+        @"<br></br>{0} sql queries ({1:N3} seconds, {2:N2}%).<br></br>{3}", 
+        QueryCounter.Count, 
+        QueryCounter.Duration, 
+        (100 * QueryCounter.Duration) / this.Get<IStopWatch>().Duration, 
+        QueryCounter.Commands);
+      footer.Append("</div>");
+#endif
+
+    }
+
+    /// <summary>
+    /// The render mobile link.
+    /// </summary>
+    /// <param name="footer">
+    /// The footer.
+    /// </param>
+    private void RenderMobileLink([NotNull] StringBuilder footer)
+    {
       if (this.Get<IYafSession>().UseMobileTheme ?? false)
       {
         footer.Append(
           @"<a target=""_top"" title=""{1}"" href=""{0}"">{1}</a> | ".FormatWith(
-            YafBuildLink.GetLink(ForumPages.forum, "fullsite=true"), 
-            this.GetText("COMMON", "MOBILE_FULLSITE")));
+            YafBuildLink.GetLink(ForumPages.forum, "fullsite=true"), this.GetText("COMMON", "MOBILE_FULLSITE")));
       }
       else if (this.PageContext.Vars.ContainsKey("IsMobile") && this.PageContext.Vars["IsMobile"] != null &&
                this.PageContext.Vars["IsMobile"].ToType<bool>())
       {
         footer.Append(
           @"<a target=""_top"" title=""{1}"" href=""{0}"">{1}</a> | ".FormatWith(
-            YafBuildLink.GetLink(ForumPages.forum, "mobilesite=true"), 
-            this.GetText("COMMON", "MOBILE_VIEWSITE")));
+            YafBuildLink.GetLink(ForumPages.forum, "mobilesite=true"), this.GetText("COMMON", "MOBILE_VIEWSITE")));
+      }
+    }
+
+    /// <summary>
+    /// The render version.
+    /// </summary>
+    /// <param name="footer">
+    /// The footer.
+    /// </param>
+    private void RenderVersion([NotNull] StringBuilder footer)
+    {
+      CodeContracts.ArgumentNotNull(footer, "footer");
+
+      var domainKey = this.Get<YafBoardSettings>().CopyrightRemovalDomainKey;
+
+      if (domainKey.IsSet())
+      {
+        var currentDomainHash = HashHelper.Hash(
+          this.Get<HttpRequestBase>().Url.DnsSafeHost.ToLower(), 
+          HashHelper.HashAlgorithmType.SHA1, 
+          this.GetType().GetSigningKey().ToString(), 
+          false);
+
+        if (domainKey.Equals(currentDomainHash))
+        {
+          return;
+        }
+      }
+
+      // get the theme credit info from the theme file
+      // it's not really an error if it doesn't exist
+      string themeCredit = this.PageContext.Theme.GetItem("THEME", "CREDIT", null);
+
+      // append theme Credit if it exists...
+      if (themeCredit.IsSet())
+      {
+        footer.AppendFormat(@"<span id=""themecredit"" style=""color:#999999"">{0}</span>", themeCredit);
+        footer.Append("<br />");
       }
 
       footer.Append(@"<a target=""_top"" title=""YetAnotherForum.NET"" href=""http://www.yetanotherforum.net"">");
@@ -169,36 +240,6 @@ namespace YAF.Controls
         @"</a> | <a target=""_top"" title=""{0}"" href=""{1}"">YAF &copy; 2003-2011, Yet Another Forum.NET</a>", 
         "YetAnotherForum.NET", 
         "http://www.yetanotherforum.net");
-
-      if (this.PageContext.BoardSettings.ShowPageGenerationTime)
-      {
-        footer.Append("<br />");
-        footer.AppendFormat(
-          this.GetText("COMMON", "GENERATED"), this.Get<IStopWatch>().Duration);
-      }
-
-      footer.Append(@"</div>");
-
-#if DEBUG
-      if (this.PageContext.IsAdmin)
-      {
-        footer.AppendFormat(
-          @"<br /><br /><div style=""width:350px;margin:auto;padding:5px;text-align:right;font-size:7pt;""><span style=""color:#990000"">YAF Compiled in <strong>DEBUG MODE</strong></span>.<br />Recompile in <strong>RELEASE MODE</strong> to remove this information:");
-        footer.Append(@"<br></br><a href=""http://validator.w3.org/check?uri=referer"" >XHTML</a> | ");
-        footer.Append(@"<a href=""http://jigsaw.w3.org/css-validator/check/referer"" >CSS</a><br></br>");
-        footer.AppendFormat(
-          @"<br></br>{0} sql queries ({1:N3} seconds, {2:N2}%).<br></br>{3}", 
-          QueryCounter.Count, 
-          QueryCounter.Duration, 
-          (100 * QueryCounter.Duration) / this.Get<IStopWatch>().Duration, 
-          QueryCounter.Commands);
-        footer.Append("</div>");
-      }
-
-#endif
-
-      // write CSS, Refresh, then header...
-      writer.Write(footer);
     }
 
     #endregion

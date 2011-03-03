@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\HashHelper.cs" />
     <Compile Include="Helpers\ImageUtils\CaptchaImage.cs" />
     <Compile Include="Extensions\ArrayExtensions.cs" />
     <Compile Include="Extensions\DataContainerExtensions.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="Helpers\IPHelper.cs" />
     <Compile Include="Helpers\JsAndCssHelper.cs" />
     <Compile Include="Helpers\QueryStringIDHelper.cs" />
+    <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Helpers\StringUtils\Characters.cs" />
     <Compile Include="Helpers\StringUtils\Unidecoder.cs" />
     <Compile Include="Helpers\UserAgentHelper.cs" />
