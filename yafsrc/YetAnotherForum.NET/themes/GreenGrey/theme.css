@@ -1318,7 +1318,17 @@ height:80em;
 	box-shadow: 0 1px 4px rgba(0,0,0,.4);
 }
 .yafnet tr.forumRowTitle .headerForum {padding-left:34px;}
+
 .yafnet tr.forumRowTitle .headerLastPost,
 .yafnet tr.forumRowTitle .headerModerators,
 .yafnet tr.forumRowTitle .headerPosts,
 .yafnet tr.forumRowTitle .headerLastPost {text-align:left;}
+
+.yafnet .topicCountCol,
+.yafnet .postCountCol {text-align:center}
+
+/* model dialog theming */
+.ModalDialog input[type=text], .ModalDialog input[type=password] {
+	background-color:#446bb8;
+	color: #efefef;
+}

@@ -1330,3 +1330,12 @@ height:80em;
 .yafnet tr.forumRowTitle .headerModerators,
 .yafnet tr.forumRowTitle .headerPosts,
 .yafnet tr.forumRowTitle .headerLastPost {text-align:left;}
+
+.yafnet .topicCountCol,
+.yafnet .postCountCol {text-align:center}
+
+/* model dialog theming */
+.ModalDialog input[type=text], .ModalDialog input[type=password] {
+	background-color:#446bb8;
+	color: #efefef;
+}
