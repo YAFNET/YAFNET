@@ -13,6 +13,8 @@
     <Resource tag="EMAIL">~/icon_email.png</Resource>
     <Resource tag="HOME">~/icon_home.png</Resource>
     <Resource tag="BLOG">~/icon_blog.png</Resource>
+    <Resource tag="DUSTBIN_SMALL">~/dustbin.gif</Resource>
+    <Resource tag="MULTIPAGES_SMALL">~/multipages_small.gif</Resource>
     <Resource tag="MSN">~/icon_msn.png</Resource>
     <Resource tag="AIM">~/icon_aim.png</Resource>
     <Resource tag="YIM">~/icon_yahoo.png</Resource>
@@ -65,5 +67,7 @@
     <Resource tag="POLL_MASK">~/mask.gif</Resource>
     <Resource tag="POLL_NOTCLOSED">~/sandclock.gif</Resource>
     <Resource tag="POLL_VOTED">~/handpointer1.png</Resource>
+    <Resource tag="VOTE_USERS">~/users_poll.gif</Resource>
+    <Resource tag="VOTE_REFUSE">~/vote_refuse.gif</Resource>
   </page>
 </Resources>

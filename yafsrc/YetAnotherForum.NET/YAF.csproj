@@ -1973,6 +1973,7 @@
     <Content Include="themes\BlackGrey\collapse.gif" />
     <Content Include="themes\BlackGrey\DownArrow.png" />
     <Content Include="themes\BlackGrey\DownArrowWhite.png" />
+    <Content Include="themes\BlackGrey\dustbun.gif" />
     <Content Include="themes\BlackGrey\error.png" />
     <Content Include="themes\BlackGrey\expand.gif" />
     <Content Include="themes\BlackGrey\female.gif" />
@@ -2013,6 +2014,7 @@
     <Content Include="themes\BlackGrey\lock_small.png" />
     <Content Include="themes\BlackGrey\male.gif" />
     <Content Include="themes\BlackGrey\mask.gif" />
+    <Content Include="themes\BlackGrey\multipages_small.gif" />
     <Content Include="themes\BlackGrey\poll_choice.png" />
     <Content Include="themes\BlackGrey\poll_question.png" />
     <Content Include="themes\BlackGrey\PostHeader.png" />
@@ -2035,11 +2037,13 @@
     <Content Include="themes\BlackGrey\topic_poll.png" />
     <Content Include="themes\BlackGrey\topic_poll_new.png" />
     <Content Include="themes\BlackGrey\topic_sticky.png" />
+    <Content Include="themes\BlackGrey\users_poll.gif" />
     <Content Include="themes\BlackGrey\user_rank1.gif" />
     <Content Include="themes\BlackGrey\user_rank2.gif" />
     <Content Include="themes\BlackGrey\user_rank3.gif" />
     <Content Include="themes\BlackGrey\vote_lcap.gif" />
     <Content Include="themes\BlackGrey\vote_rcap.gif" />
+    <Content Include="themes\BlackGrey\vote_refuse.gif" />
     <Content Include="themes\BlackGrey\voting_bar.gif" />
     <Content Include="themes\BlueGrey.xml" />
     <Content Include="themes\BlueGrey\atomfeed.png" />
@@ -2048,6 +2052,7 @@
     <Content Include="themes\BlueGrey\collapse.gif" />
     <Content Include="themes\BlueGrey\DownArrow.png" />
     <Content Include="themes\BlueGrey\DownArrowWhite.png" />
+    <Content Include="themes\BlueGrey\dustbun.gif" />
     <Content Include="themes\BlueGrey\error.png" />
     <Content Include="themes\BlueGrey\expand.gif" />
     <Content Include="themes\BlueGrey\female.gif" />
@@ -2088,6 +2093,7 @@
     <Content Include="themes\BlueGrey\lock_small.png" />
     <Content Include="themes\BlueGrey\male.gif" />
     <Content Include="themes\BlueGrey\mask.gif" />
+    <Content Include="themes\BlueGrey\multipages_small.gif" />
     <Content Include="themes\BlueGrey\poll_choice.png" />
     <Content Include="themes\BlueGrey\poll_question.png" />
     <Content Include="themes\BlueGrey\PostHeader.png" />
@@ -2110,11 +2116,13 @@
     <Content Include="themes\BlueGrey\topic_poll.png" />
     <Content Include="themes\BlueGrey\topic_poll_new.png" />
     <Content Include="themes\BlueGrey\topic_sticky.png" />
+    <Content Include="themes\BlueGrey\users_poll.gif" />
     <Content Include="themes\BlueGrey\user_rank1.gif" />
     <Content Include="themes\BlueGrey\user_rank2.gif" />
     <Content Include="themes\BlueGrey\user_rank3.gif" />
     <Content Include="themes\BlueGrey\vote_lcap.gif" />
     <Content Include="themes\BlueGrey\vote_rcap.gif" />
+    <Content Include="themes\BlueGrey\vote_refuse.gif" />
     <Content Include="themes\BlueGrey\voting_bar.gif" />
     <Content Include="themes\cleanSlate.xml">
       <SubType>Designer</SubType>
@@ -2126,6 +2134,7 @@
     <Content Include="themes\cleanSlate\buttonEndB.gif" />
     <Content Include="themes\cleanSlate\collapse.gif" />
     <Content Include="themes\cleanSlate\DownArrow.png" />
+    <Content Include="themes\cleanSlate\dustbun.gif" />
     <Content Include="themes\cleanSlate\error.png" />
     <Content Include="themes\cleanSlate\expand.gif" />
     <Content Include="themes\cleanSlate\female.gif" />
@@ -2158,6 +2167,7 @@
     <Content Include="themes\cleanSlate\lock_small.png" />
     <Content Include="themes\cleanSlate\male.gif" />
     <Content Include="themes\cleanSlate\mask.gif" />
+    <Content Include="themes\cleanSlate\multipages_small.gif" />
     <Content Include="themes\cleanSlate\poll_choice.png" />
     <Content Include="themes\cleanSlate\poll_question.png" />
     <Content Include="themes\cleanSlate\RightArrow.png" />
@@ -2180,11 +2190,13 @@
     <Content Include="themes\cleanSlate\topic_poll.gif" />
     <Content Include="themes\cleanSlate\topic_poll_new.gif" />
     <Content Include="themes\cleanSlate\topic_sticky.gif" />
+    <Content Include="themes\cleanSlate\users_poll.gif" />
     <Content Include="themes\cleanSlate\user_rank1.gif" />
     <Content Include="themes\cleanSlate\user_rank2.gif" />
     <Content Include="themes\cleanSlate\user_rank3.gif" />
     <Content Include="themes\cleanSlate\vote_lcap.gif" />
     <Content Include="themes\cleanSlate\vote_rcap.gif" />
+    <Content Include="themes\cleanSlate\vote_refuse.gif" />
     <Content Include="themes\cleanSlate\voting_bar.gif" />
     <Content Include="themes\cleanSlate\cleanslate.js" />
     <Content Include="themes\GreenGrey.xml" />
@@ -2194,6 +2206,7 @@
     <Content Include="themes\GreenGrey\collapse.gif" />
     <Content Include="themes\GreenGrey\DownArrow.png" />
     <Content Include="themes\GreenGrey\DownArrowWhite.png" />
+    <Content Include="themes\GreenGrey\dustbun.gif" />
     <Content Include="themes\GreenGrey\error.png" />
     <Content Include="themes\GreenGrey\expand.gif" />
     <Content Include="themes\GreenGrey\female.gif" />
@@ -2234,6 +2247,7 @@
     <Content Include="themes\GreenGrey\lock_small.png" />
     <Content Include="themes\GreenGrey\male.gif" />
     <Content Include="themes\GreenGrey\mask.gif" />
+    <Content Include="themes\GreenGrey\multipages_small.gif" />
     <Content Include="themes\GreenGrey\poll_choice.png" />
     <Content Include="themes\GreenGrey\poll_question.png" />
     <Content Include="themes\GreenGrey\PostHeader.png" />
@@ -2257,11 +2271,13 @@
     <Content Include="themes\GreenGrey\topic_poll.png" />
     <Content Include="themes\GreenGrey\topic_poll_new.png" />
     <Content Include="themes\GreenGrey\topic_sticky.png" />
+    <Content Include="themes\GreenGrey\users_poll.gif" />
     <Content Include="themes\GreenGrey\user_rank1.gif" />
     <Content Include="themes\GreenGrey\user_rank2.gif" />
     <Content Include="themes\GreenGrey\user_rank3.gif" />
     <Content Include="themes\GreenGrey\vote_lcap.gif" />
     <Content Include="themes\GreenGrey\vote_rcap.gif" />
+    <Content Include="themes\GreenGrey\vote_refuse.gif" />
     <Content Include="themes\GreenGrey\voting_bar.gif" />
     <Content Include="themes\GreyGrey.xml" />
     <Content Include="themes\GreyGrey\atomfeed.png" />
@@ -2269,6 +2285,7 @@
     <Content Include="themes\GreyGrey\ButtonHover.png" />
     <Content Include="themes\GreyGrey\collapse.gif" />
     <Content Include="themes\GreyGrey\DownArrow.png" />
+    <Content Include="themes\GreyGrey\dustbun.gif" />
     <Content Include="themes\GreyGrey\error.png" />
     <Content Include="themes\GreyGrey\expand.gif" />
     <Content Include="themes\GreyGrey\female.gif" />
@@ -2308,6 +2325,7 @@
     <Content Include="themes\GreyGrey\lock_small.png" />
     <Content Include="themes\GreyGrey\male.gif" />
     <Content Include="themes\GreyGrey\mask.gif" />
+    <Content Include="themes\GreyGrey\multipages_small.gif" />
     <Content Include="themes\GreyGrey\poll_choice.png" />
     <Content Include="themes\GreyGrey\poll_question.png" />
     <Content Include="themes\GreyGrey\PostHeader.png" />
@@ -2329,11 +2347,13 @@
     <Content Include="themes\GreyGrey\topic_poll.png" />
     <Content Include="themes\GreyGrey\topic_poll_new.png" />
     <Content Include="themes\GreyGrey\topic_sticky.png" />
+    <Content Include="themes\GreyGrey\users_poll.gif" />
     <Content Include="themes\GreyGrey\user_rank1.gif" />
     <Content Include="themes\GreyGrey\user_rank2.gif" />
     <Content Include="themes\GreyGrey\user_rank3.gif" />
     <Content Include="themes\GreyGrey\vote_lcap.gif" />
     <Content Include="themes\GreyGrey\vote_rcap.gif" />
+    <Content Include="themes\GreyGrey\vote_refuse.gif" />
     <Content Include="themes\GreyGrey\voting_bar.gif" />
     <Content Include="themes\OrangeGrey.xml" />
     <Content Include="themes\OrangeGrey\atomfeed.png" />
@@ -2342,6 +2362,7 @@
     <Content Include="themes\OrangeGrey\collapse.gif" />
     <Content Include="themes\OrangeGrey\DownArrow.png" />
     <Content Include="themes\OrangeGrey\DownArrowWhite.png" />
+    <Content Include="themes\OrangeGrey\dustbun.gif" />
     <Content Include="themes\OrangeGrey\error.png" />
     <Content Include="themes\OrangeGrey\expand.gif" />
     <Content Include="themes\OrangeGrey\female.gif" />
@@ -2382,6 +2403,7 @@
     <Content Include="themes\OrangeGrey\lock_small.png" />
     <Content Include="themes\OrangeGrey\male.gif" />
     <Content Include="themes\OrangeGrey\mask.gif" />
+    <Content Include="themes\OrangeGrey\multipages_small.gif" />
     <Content Include="themes\OrangeGrey\poll_choice.png" />
     <Content Include="themes\OrangeGrey\poll_question.png" />
     <Content Include="themes\OrangeGrey\PostHeader.png" />
@@ -2404,11 +2426,13 @@
     <Content Include="themes\OrangeGrey\topic_poll.png" />
     <Content Include="themes\OrangeGrey\topic_poll_new.png" />
     <Content Include="themes\OrangeGrey\topic_sticky.png" />
+    <Content Include="themes\OrangeGrey\users_poll.gif" />
     <Content Include="themes\OrangeGrey\user_rank1.gif" />
     <Content Include="themes\OrangeGrey\user_rank2.gif" />
     <Content Include="themes\OrangeGrey\user_rank3.gif" />
     <Content Include="themes\OrangeGrey\vote_lcap.gif" />
     <Content Include="themes\OrangeGrey\vote_rcap.gif" />
+    <Content Include="themes\OrangeGrey\vote_refuse.gif" />
     <Content Include="themes\OrangeGrey\voting_bar.gif" />
     <Content Include="themes\RedGrey.xml" />
     <Content Include="themes\RedGrey\atomfeed.png" />
@@ -2417,6 +2441,7 @@
     <Content Include="themes\RedGrey\collapse.gif" />
     <Content Include="themes\RedGrey\DownArrow.png" />
     <Content Include="themes\RedGrey\DownArrowWhite.png" />
+    <Content Include="themes\RedGrey\dustbun.gif" />
     <Content Include="themes\RedGrey\error.png" />
     <Content Include="themes\RedGrey\expand.gif" />
     <Content Include="themes\RedGrey\female.gif" />
@@ -2457,6 +2482,7 @@
     <Content Include="themes\RedGrey\lock_small.png" />
     <Content Include="themes\RedGrey\male.gif" />
     <Content Include="themes\RedGrey\mask.gif" />
+    <Content Include="themes\RedGrey\multipages_small.gif" />
     <Content Include="themes\RedGrey\poll_choice.png" />
     <Content Include="themes\RedGrey\poll_question.png" />
     <Content Include="themes\RedGrey\PostHeader.png" />
@@ -2479,15 +2505,18 @@
     <Content Include="themes\RedGrey\topic_poll.png" />
     <Content Include="themes\RedGrey\topic_poll_new.png" />
     <Content Include="themes\RedGrey\topic_sticky.png" />
+    <Content Include="themes\RedGrey\users_poll.gif" />
     <Content Include="themes\RedGrey\user_rank1.gif" />
     <Content Include="themes\RedGrey\user_rank2.gif" />
     <Content Include="themes\RedGrey\user_rank3.gif" />
     <Content Include="themes\RedGrey\vote_lcap.gif" />
     <Content Include="themes\RedGrey\vote_rcap.gif" />
+    <Content Include="themes\RedGrey\vote_refuse.gif" />
     <Content Include="themes\RedGrey\voting_bar.gif" />
     <Content Include="themes\soclean\atomfeed.png" />
     <Content Include="themes\soclean\DownArrow.png" />
     <Content Include="themes\soclean\DownArrowWhite.png" />
+    <Content Include="themes\soclean\dustbun.gif" />
     <Content Include="themes\soclean\error.png" />
     <Content Include="themes\soclean\female.gif" />
     <Content Include="themes\soclean\handpointer1.png" />
@@ -2500,6 +2529,7 @@
     <Content Include="themes\soclean\lock_small.png" />
     <Content Include="themes\soclean\male.gif" />
     <Content Include="themes\soclean\mask.gif" />
+    <Content Include="themes\soclean\multipages_small.gif" />
     <Content Include="themes\soclean\poll_choice.png" />
     <Content Include="themes\soclean\poll_question.png" />
     <Content Include="themes\soclean\RightArrow.png" />
@@ -2508,10 +2538,13 @@
     <Content Include="themes\soclean\sandclock.gif" />
     <Content Include="themes\soclean\tab-line.png" />
     <Content Include="themes\soclean\tab.png" />
+    <Content Include="themes\soclean\users_poll.gif" />
+    <Content Include="themes\soclean\vote_refuse.gif" />
     <Content Include="themes\YafMobile.xml" />
     <Content Include="themes\Yafmobile\chart.png" />
     <Content Include="themes\Yafmobile\collapse.png" />
     <Content Include="themes\Yafmobile\DownArrow.png" />
+    <Content Include="themes\Yafmobile\dustbun.gif" />
     <Content Include="themes\Yafmobile\expand.png" />
     <Content Include="themes\Yafmobile\folder_who.gif" />
     <Content Include="themes\Yafmobile\folder_who.png" />
@@ -2541,6 +2574,7 @@
     <Content Include="themes\Yafmobile\MobilePages\profile.ascx" />
     <Content Include="themes\Yafmobile\MobilePages\TopicLine.ascx" />
     <Content Include="themes\Yafmobile\MobilePages\topics.ascx" />
+    <Content Include="themes\Yafmobile\multipages_small.gif" />
     <Content Include="themes\Yafmobile\poll_choice.png" />
     <Content Include="themes\Yafmobile\poll_question.png" />
     <Content Include="themes\Yafmobile\RightArrow.png" />
@@ -2560,10 +2594,13 @@
     <Content Include="themes\Yafmobile\topic_poll.gif" />
     <Content Include="themes\Yafmobile\topic_poll_new.gif" />
     <Content Include="themes\Yafmobile\topic_sticky.gif" />
+    <Content Include="themes\Yafmobile\users_poll.gif" />
     <Content Include="themes\Yafmobile\vote_lcap.gif" />
     <Content Include="themes\Yafmobile\vote_rcap.gif" />
+    <Content Include="themes\Yafmobile\vote_refuse.gif" />
     <Content Include="themes\Yafmobile\voting_bar.gif" />
     <Content Include="themes\yafpro\atomfeed.png" />
+    <Content Include="themes\yafpro\dustbun.gif" />
     <Content Include="themes\yafpro\female.gif" />
     <Content Include="themes\yafpro\icon_search.png" />
     <Content Include="themes\yafpro\icon_useroffline.png" />
@@ -2571,14 +2608,18 @@
     <Content Include="themes\yafpro\icon_xmpp.png" />
     <Content Include="themes\yafpro\male.gif" />
     <Content Include="themes\yafpro\mask.gif" />
+    <Content Include="themes\yafpro\multipages_small.gif" />
     <Content Include="themes\yafpro\poll_choice.png" />
     <Content Include="themes\yafpro\poll_question.png" />
     <Content Include="themes\yafpro\rssfeed.gif" />
     <Content Include="themes\yafpro\tab-line.png" />
     <Content Include="themes\yafpro\tab.png" />
+    <Content Include="themes\yafpro\users_poll.gif" />
+    <Content Include="themes\yafpro\vote_refuse.gif" />
     <Content Include="themes\yafvision\atomfeed.png" />
     <Content Include="themes\yafvision\DownArrow.png" />
     <Content Include="themes\yafvision\DownArrowWhite.png" />
+    <Content Include="themes\yafvision\dustbun.gif" />
     <Content Include="themes\yafvision\error.png" />
     <Content Include="themes\yafvision\female.gif" />
     <Content Include="themes\yafvision\handpointer1.png" />
@@ -2591,6 +2632,7 @@
     <Content Include="themes\yafvision\lock_small.png" />
     <Content Include="themes\yafvision\male.gif" />
     <Content Include="themes\yafvision\mask.gif" />
+    <Content Include="themes\yafvision\multipages_small.gif" />
     <Content Include="themes\yafvision\poll_choice.png" />
     <Content Include="themes\yafvision\poll_question.png" />
     <Content Include="themes\yafvision\RightArrow.png" />
@@ -2599,6 +2641,8 @@
     <Content Include="themes\yafvision\sandclock.gif" />
     <Content Include="themes\yafvision\tab-line.png" />
     <Content Include="themes\yafvision\tab.png" />
+    <Content Include="themes\yafvision\users_poll.gif" />
+    <Content Include="themes\yafvision\vote_refuse.gif" />
     <Content Include="themes\yafvision\yafvision.js" />
     <None Include="Web References\RegisterV2\LatestVersionInformation.datasource">
       <DependentUpon>Reference.map</DependentUpon>
@@ -2751,7 +2795,6 @@
     <Content Include="webconfigs\recommended-NET-web.config" />
     <Content Include="webconfigs\v191-upgrade-web.config" />
     <Content Include="UrlRewriter.config" />
-    <Content Include="web.config" />
     <None Include="Web References\RegisterV2\RegisterV2.wsdl" />
   </ItemGroup>
   <ItemGroup>
