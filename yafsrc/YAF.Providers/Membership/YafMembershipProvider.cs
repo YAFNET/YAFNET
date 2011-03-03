@@ -420,7 +420,7 @@ namespace YAF.Providers.Membership
 
       string hashedString;
 
-      hashedString = hashHex ? hashedBytes.ToHexString() : Convert.ToBase64String(hashedBytes);
+      hashedString = hashHex ? BitBoolExtensions.ToHexString(hashedBytes) : Convert.ToBase64String(hashedBytes);
 
       // Adjust the case of the hash output
       switch (hashCase.ToLower())
