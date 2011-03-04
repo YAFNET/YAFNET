@@ -691,6 +691,7 @@
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
     <Content Include="advanced.aspx" />
+    <Content Include="App_Data\Database.mdf" />
     <Content Include="controls\AlbumImageList.ascx" />
     <Content Include="controls\AlbumList.ascx" />
     <Content Include="controls\BuddyList.ascx" />
