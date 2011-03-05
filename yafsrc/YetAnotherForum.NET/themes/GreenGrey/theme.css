@@ -21,6 +21,10 @@
     padding: 4px;
     background-color: #f5f5f5;
 }
+.yafnet textarea {
+		width:98%;
+		padding:0px;
+}
 .yafnet input[type="image"]
 {
     padding: 0px;
