@@ -2522,6 +2522,8 @@
     <Content Include="themes\soclean\female.gif" />
     <Content Include="themes\soclean\handpointer1.png" />
     <Content Include="themes\soclean\icon_search.png" />
+    <Content Include="themes\soclean\icon_topiclatestunread_newest.gif" />
+    <Content Include="themes\soclean\icon_topic_latestunread.gif" />
     <Content Include="themes\soclean\icon_useroffline.png" />
     <Content Include="themes\soclean\icon_useronline.png" />
     <Content Include="themes\soclean\icon_xmpp.png" />
@@ -2556,6 +2558,8 @@
     <Content Include="themes\Yafmobile\icon_search.png" />
     <Content Include="themes\Yafmobile\icon_subforum.gif" />
     <Content Include="themes\Yafmobile\icon_subforum_new.gif" />
+    <Content Include="themes\Yafmobile\icon_topiclatestunread_newest.gif" />
+    <Content Include="themes\Yafmobile\icon_topic_latestunread.gif" />
     <Content Include="themes\Yafmobile\icon_useroffline.png" />
     <Content Include="themes\Yafmobile\icon_useronline.png" />
     <Content Include="themes\Yafmobile\LeftArrow.png" />
@@ -2601,22 +2605,35 @@
     <Content Include="themes\Yafmobile\vote_refuse.gif" />
     <Content Include="themes\Yafmobile\voting_bar.gif" />
     <Content Include="themes\yafpro\atomfeed.png" />
+    <Content Include="themes\yafpro\DownArrow.png" />
+    <Content Include="themes\yafpro\DownArrowWhite.png" />
     <Content Include="themes\yafpro\dustbun.gif" />
+    <Content Include="themes\yafpro\error.png" />
     <Content Include="themes\yafpro\female.gif" />
+    <Content Include="themes\yafpro\handpointer1.png" />
     <Content Include="themes\yafpro\icon_search.png" />
+    <Content Include="themes\yafpro\icon_topiclatestunread_newest.gif" />
+    <Content Include="themes\yafpro\icon_topic_latestunread.gif" />
     <Content Include="themes\yafpro\icon_useroffline.png" />
     <Content Include="themes\yafpro\icon_useronline.png" />
     <Content Include="themes\yafpro\icon_xmpp.png" />
+    <Content Include="themes\yafpro\LeftArrow.png" />
+    <Content Include="themes\yafpro\LeftArrowWhite.png" />
+    <Content Include="themes\yafpro\lock_small.png" />
     <Content Include="themes\yafpro\male.gif" />
     <Content Include="themes\yafpro\mask.gif" />
     <Content Include="themes\yafpro\multipages_small.gif" />
     <Content Include="themes\yafpro\poll_choice.png" />
     <Content Include="themes\yafpro\poll_question.png" />
+    <Content Include="themes\yafpro\RightArrow.png" />
+    <Content Include="themes\yafpro\RightArrowWhite.png" />
     <Content Include="themes\yafpro\rssfeed.gif" />
+    <Content Include="themes\yafpro\sandclock.gif" />
     <Content Include="themes\yafpro\tab-line.png" />
     <Content Include="themes\yafpro\tab.png" />
     <Content Include="themes\yafpro\users_poll.gif" />
     <Content Include="themes\yafpro\vote_refuse.gif" />
+    <Content Include="themes\yafpro\yafpro.js" />
     <Content Include="themes\yafvision\atomfeed.png" />
     <Content Include="themes\yafvision\DownArrow.png" />
     <Content Include="themes\yafvision\DownArrowWhite.png" />
@@ -2625,6 +2642,8 @@
     <Content Include="themes\yafvision\female.gif" />
     <Content Include="themes\yafvision\handpointer1.png" />
     <Content Include="themes\yafvision\icon_search.png" />
+    <Content Include="themes\yafvision\icon_topiclatestunread_newest.gif" />
+    <Content Include="themes\yafvision\icon_topic_latestunread.gif" />
     <Content Include="themes\yafvision\icon_useroffline.png" />
     <Content Include="themes\yafvision\icon_useronline.png" />
     <Content Include="themes\yafvision\icon_xmpp.png" />
@@ -2829,7 +2848,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="editors\ckeditor\adapters\" />
     <Folder Include="editors\ckeditor\images\" />
     <Folder Include="editors\ckeditor\lang\" />
