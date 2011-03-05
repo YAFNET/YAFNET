@@ -1967,7 +1967,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.LegacyDb.message_findunread(System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.message_findunread(System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The message_findunread.
             </summary>
@@ -3754,7 +3754,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.LegacyDb.user_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The user_save.
             </summary>

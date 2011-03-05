@@ -1227,6 +1227,11 @@
               Gets SchemaName.
             </summary>
         </member>
+        <member name="P:YAF.Classes.Config.BrowserJSVersion">
+            <summary>
+              Allowed browser JS version.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.Config.ServerFileRoot">
             <summary>
               Gets ServerFileRoot.
@@ -1437,6 +1442,16 @@
             Gets SQLVersion.
             </summary>
         </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ShowTeamTo">
+            <summary>
+             Gets or sets a value indicating whether Show Team Page To or not.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ShowHelpTo">
+            <summary>
+             Gets or sets a value indicating whether Show Help Page To or not.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.YafBoardSettings.ServerTimeCorrection">
             <summary>
             Gets or sets ServerTimeCorrection.
@@ -1455,6 +1470,11 @@
         <member name="P:YAF.Classes.YafBoardSettings.PostsFeedAccess">
             <summary>
             Gets or sets PostsFeedAccess.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.DigestSendEveryXHours">
+            <summary>
+            Gets or sets DigestSendEveryXHours.
             </summary>
         </member>
         <member name="P:YAF.Classes.YafBoardSettings.TopicsFeedAccess">
@@ -1737,6 +1757,11 @@
             Gets or sets User Name Max Length.
             </summary>
         </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AllowUsersTextEditor">
+            <summary>
+            Gets or sets a value indicating whether AllowUsersTextEditor.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.YafBoardSettings.EmailVerification">
             <summary>
             Gets or sets a value indicating whether EmailVerification.
@@ -1745,6 +1770,11 @@
         <member name="P:YAF.Classes.YafBoardSettings.UseFullTextSearch">
             <summary>
             Gets or sets a value indicating whether UseFullTextSearch.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ShowLastUnreadPost">
+            <summary>
+            Gets or sets a value indicating whether ShowLastUnreadPost is enabled.
             </summary>
         </member>
         <member name="P:YAF.Classes.YafBoardSettings.EnableIPInfoService">
@@ -2107,11 +2137,6 @@
         <member name="P:YAF.Classes.YafBoardSettings.AddDynamicPageMetaTags">
             <summary>
             Gets or sets a value indicating whether to AddDynamicPageMetaTags.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.YafBoardSettings.ShowHelp">
-            <summary>
-             Gets or sets a value indicating whether Show Help or not.
             </summary>
         </member>
         <member name="P:YAF.Classes.YafBoardSettings.ImageAttachmentResizeCropped">

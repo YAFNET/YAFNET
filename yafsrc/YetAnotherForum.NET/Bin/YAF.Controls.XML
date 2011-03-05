@@ -221,6 +221,30 @@
             The writer.
             </param>
         </member>
+        <member name="M:YAF.Controls.Footer.RenderGeneratedAndDebug(System.Text.StringBuilder)">
+            <summary>
+            The render generated and debug.
+            </summary>
+            <param name="footer">
+            The footer.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.Footer.RenderMobileLink(System.Text.StringBuilder)">
+            <summary>
+            The render mobile link.
+            </summary>
+            <param name="footer">
+            The footer.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.Footer.RenderVersion(System.Text.StringBuilder)">
+            <summary>
+            The render version.
+            </summary>
+            <param name="footer">
+            The footer.
+            </param>
+        </member>
         <member name="P:YAF.Controls.Footer.SimpleRender">
             <summary>
               Gets or sets a value indicating whether SimpleRender.
@@ -2602,6 +2626,37 @@
               Gets or sets a value indicating whether TreatGuestAsHidden.
             </summary>
         </member>
+        <member name="T:YAF.Controls.RoleRankStyles">
+            <summary>
+            Control displaying list of user currently active on a forum.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RoleRankStyles._rawStyles">
+            <summary>
+              The _active user table.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.RoleRankStyles.OnPreRender(System.EventArgs)">
+            <summary>
+            Raises PreRender event.
+            </summary>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.RoleRankStyles.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            Implements rendering of control to the client through use of <see cref="T:System.Web.UI.HtmlTextWriter"/>.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+        </member>
+        <member name="P:YAF.Controls.RoleRankStyles.RawStyles">
+            <summary>
+              Gets or sets styles data string to display in control.
+            </summary>
+        </member>
         <member name="T:YAF.Controls.ThemeImage">
             <summary>
             Provides a image with themed src
@@ -3024,7 +3079,7 @@
         </member>
         <member name="P:YAF.Controls.UserBox.TransformStyle">
             <summary>
-              Refines style string from other skins info
+              Gets Refines style string from other skins info
             </summary>
         </member>
         <member name="T:YAF.Controls.PopMenu">

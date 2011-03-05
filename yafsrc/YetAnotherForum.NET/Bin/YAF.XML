@@ -1981,6 +1981,10 @@
             The digest.
             </summary>
         </member>
+        <member name="M:YAF.Pages.Admin.digest.#ctor">
+            <summary>
+            </summary>
+        </member>
         <member name="M:YAF.Pages.Admin.digest.ForceSend_Click(System.Object,System.EventArgs)">
             <summary>
             The force send_ click.
@@ -2723,6 +2727,33 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Controls.EditUsersProfile.TrTextEditors">
+            <summary>
+            TrTextEditors control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.EditUsersProfile.LocalizedLabel19">
+            <summary>
+            LocalizedLabel19 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.EditUsersProfile.ForumEditor">
+            <summary>
+            ForumEditor control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Controls.EditUsersProfile.UseMobileThemeRow">
             <summary>
             UseMobileThemeRow control.
@@ -2939,435 +2970,6 @@
               Gets UserData.
             </summary>
         </member>
-        <member name="T:YAF.RegisterForum.Register">
-            <summary>
-            The register.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="F:YAF.RegisterForum.Register.LatestVersionDateOperationCompleted">
-            <summary>
-              The latest version date operation completed.
-            </summary>
-        </member>
-        <member name="F:YAF.RegisterForum.Register.LatestVersionOperationCompleted">
-            <summary>
-              The latest version operation completed.
-            </summary>
-        </member>
-        <member name="F:YAF.RegisterForum.Register.RegisterForumOperationCompleted">
-            <summary>
-              The register forum operation completed.
-            </summary>
-        </member>
-        <member name="F:YAF.RegisterForum.Register.useDefaultCredentialsSetExplicitly">
-            <summary>
-              The use default credentials set explicitly.
-            </summary>
-        </member>
-        <member name="M:YAF.RegisterForum.Register.#ctor">
-            <summary>
-              Initializes a new instance of the <see cref="T:YAF.RegisterForum.Register"/> class. 
-              The register.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="M:YAF.RegisterForum.Register.BeginLatestVersion(System.AsyncCallback,System.Object)">
-            <summary>
-            The begin latest version.
-            </summary>
-            <param name="callback">
-            The callback.
-            </param>
-            <param name="asyncState">
-            The async State.
-            </param>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="M:YAF.RegisterForum.Register.BeginLatestVersionDate(System.AsyncCallback,System.Object)">
-            <summary>
-            The begin latest version date.
-            </summary>
-            <param name="callback">
-            The callback.
-            </param>
-            <param name="asyncState">
-            The async State.
-            </param>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="M:YAF.RegisterForum.Register.BeginRegisterForum(System.Int64,System.String,System.String,System.AsyncCallback,System.Object)">
-            <summary>
-            The begin register forum.
-            </summary>
-            <param name="id">
-            The id.
-            </param>
-            <param name="name">
-            The name.
-            </param>
-            <param name="address">
-            The address.
-            </param>
-            <param name="callback">
-            The callback.
-            </param>
-            <param name="asyncState">
-            The async State.
-            </param>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="M:YAF.RegisterForum.Register.CancelAsync(System.Object)">
-            <summary>
-            The cancel async.
-            </summary>
-            <param name="userState">
-            The user State.
-            </param>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="M:YAF.RegisterForum.Register.EndLatestVersion(System.IAsyncResult)">
-            <summary>
-            The end latest version.
-            </summary>
-            <param name="asyncResult">
-            The async Result.
-            </param>
-            <remarks>
-            </remarks>
-            <returns>
-            The end latest version.
-            </returns>
-        </member>
-        <member name="M:YAF.RegisterForum.Register.EndLatestVersionDate(System.IAsyncResult)">
-            <summary>
-            The end latest version date.
-            </summary>
-            <param name="asyncResult">
-            The async Result.
-            </param>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="M:YAF.RegisterForum.Register.EndRegisterForum(System.IAsyncResult)">
-            <summary>
-            The end register forum.
-            </summary>
-            <param name="asyncResult">
-            The async Result.
-            </param>
-            <remarks>
-            </remarks>
-            <returns>
-            The end register forum.
-            </returns>
-        </member>
-        <member name="M:YAF.RegisterForum.Register.LatestVersion">
-            <summary>
-            The latest version.
-            </summary>
-            <remarks>
-            </remarks>
-            <returns>
-            The latest version.
-            </returns>
-        </member>
-        <member name="M:YAF.RegisterForum.Register.LatestVersionAsync">
-            <summary>
-            The latest version async.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="M:YAF.RegisterForum.Register.LatestVersionAsync(System.Object)">
-            <summary>
-            The latest version async.
-            </summary>
-            <param name="userState">
-            The user State.
-            </param>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="M:YAF.RegisterForum.Register.LatestVersionDate">
-            <summary>
-            The latest version date.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="M:YAF.RegisterForum.Register.LatestVersionDateAsync">
-            <summary>
-            The latest version date async.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="M:YAF.RegisterForum.Register.LatestVersionDateAsync(System.Object)">
-            <summary>
-            The latest version date async.
-            </summary>
-            <param name="userState">
-            The user State.
-            </param>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="M:YAF.RegisterForum.Register.RegisterForum(System.Int64,System.String,System.String)">
-            <summary>
-            The register forum.
-            </summary>
-            <param name="id">
-            The id.
-            </param>
-            <param name="name">
-            The name.
-            </param>
-            <param name="address">
-            The address.
-            </param>
-            <remarks>
-            </remarks>
-            <returns>
-            The register forum.
-            </returns>
-        </member>
-        <member name="M:YAF.RegisterForum.Register.RegisterForumAsync(System.Int64,System.String,System.String)">
-            <summary>
-            The register forum async.
-            </summary>
-            <param name="id">
-            The id.
-            </param>
-            <param name="name">
-            The name.
-            </param>
-            <param name="address">
-            The address.
-            </param>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="M:YAF.RegisterForum.Register.RegisterForumAsync(System.Int64,System.String,System.String,System.Object)">
-            <summary>
-            The register forum async.
-            </summary>
-            <param name="id">
-            The id.
-            </param>
-            <param name="name">
-            The name.
-            </param>
-            <param name="address">
-            The address.
-            </param>
-            <param name="userState">
-            The user State.
-            </param>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="M:YAF.RegisterForum.Register.IsLocalFileSystemWebService(System.String)">
-            <summary>
-            The is local file system web service.
-            </summary>
-            <param name="url">
-            The url.
-            </param>
-            <returns>
-            The is local file system web service.
-            </returns>
-        </member>
-        <member name="M:YAF.RegisterForum.Register.OnLatestVersionDateOperationCompleted(System.Object)">
-            <summary>
-            The on latest version date operation completed.
-            </summary>
-            <param name="arg">
-            The arg.
-            </param>
-        </member>
-        <member name="M:YAF.RegisterForum.Register.OnLatestVersionOperationCompleted(System.Object)">
-            <summary>
-            The on latest version operation completed.
-            </summary>
-            <param name="arg">
-            The arg.
-            </param>
-        </member>
-        <member name="M:YAF.RegisterForum.Register.OnRegisterForumOperationCompleted(System.Object)">
-            <summary>
-            The on register forum operation completed.
-            </summary>
-            <param name="arg">
-            The arg.
-            </param>
-        </member>
-        <member name="E:YAF.RegisterForum.Register.LatestVersionCompleted">
-            <summary>
-              The latest version completed.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="E:YAF.RegisterForum.Register.LatestVersionDateCompleted">
-            <summary>
-              The latest version date completed.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="E:YAF.RegisterForum.Register.RegisterForumCompleted">
-            <summary>
-              The register forum completed.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="P:YAF.RegisterForum.Register.Url">
-            <summary>
-              Gets or sets Url.
-            </summary>
-        </member>
-        <member name="P:YAF.RegisterForum.Register.UseDefaultCredentials">
-            <summary>
-              Gets or sets a value indicating whether UseDefaultCredentials.
-            </summary>
-        </member>
-        <member name="T:YAF.RegisterForum.RegisterForumCompletedEventHandler">
-            <summary>
-            The register forum completed event handler.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="T:YAF.RegisterForum.RegisterForumCompletedEventArgs">
-            <summary>
-            The register forum completed event args.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="F:YAF.RegisterForum.RegisterForumCompletedEventArgs.results">
-            <summary>
-              The results.
-            </summary>
-        </member>
-        <member name="M:YAF.RegisterForum.RegisterForumCompletedEventArgs.#ctor(System.Object[],System.Exception,System.Boolean,System.Object)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.RegisterForum.RegisterForumCompletedEventArgs"/> class.
-            </summary>
-            <param name="results">
-            The results.
-            </param>
-            <param name="exception">
-            The exception.
-            </param>
-            <param name="cancelled">
-            The cancelled.
-            </param>
-            <param name="userState">
-            The user state.
-            </param>
-        </member>
-        <member name="P:YAF.RegisterForum.RegisterForumCompletedEventArgs.Result">
-            <summary>
-              The result.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="T:YAF.RegisterForum.LatestVersionCompletedEventHandler">
-            <summary>
-            The latest version completed event handler.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="T:YAF.RegisterForum.LatestVersionCompletedEventArgs">
-            <summary>
-            The latest version completed event args.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="F:YAF.RegisterForum.LatestVersionCompletedEventArgs.results">
-            <summary>
-              The results.
-            </summary>
-        </member>
-        <member name="M:YAF.RegisterForum.LatestVersionCompletedEventArgs.#ctor(System.Object[],System.Exception,System.Boolean,System.Object)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.RegisterForum.LatestVersionCompletedEventArgs"/> class.
-            </summary>
-            <param name="results">
-            The results.
-            </param>
-            <param name="exception">
-            The exception.
-            </param>
-            <param name="cancelled">
-            The cancelled.
-            </param>
-            <param name="userState">
-            The user state.
-            </param>
-        </member>
-        <member name="P:YAF.RegisterForum.LatestVersionCompletedEventArgs.Result">
-            <summary>
-              The result.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="T:YAF.RegisterForum.LatestVersionDateCompletedEventHandler">
-            <summary>
-            The latest version date completed event handler.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="T:YAF.RegisterForum.LatestVersionDateCompletedEventArgs">
-            <summary>
-            The latest version date completed event args.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="F:YAF.RegisterForum.LatestVersionDateCompletedEventArgs.results">
-            <summary>
-              The results.
-            </summary>
-        </member>
-        <member name="M:YAF.RegisterForum.LatestVersionDateCompletedEventArgs.#ctor(System.Object[],System.Exception,System.Boolean,System.Object)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.RegisterForum.LatestVersionDateCompletedEventArgs"/> class.
-            </summary>
-            <param name="results">
-            The results.
-            </param>
-            <param name="exception">
-            The exception.
-            </param>
-            <param name="cancelled">
-            The cancelled.
-            </param>
-            <param name="userState">
-            The user state.
-            </param>
-        </member>
-        <member name="P:YAF.RegisterForum.LatestVersionDateCompletedEventArgs.Result">
-            <summary>
-              The result.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
         <member name="T:YAF.ForumPageTitleArgs">
             <summary>
             EventArgs class for the PageTitleSet event
@@ -3439,6 +3041,11 @@
         <member name="M:YAF.Forum.#ctor">
             <summary>
               Initializes a new instance of the <see cref="T:YAF.Forum"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Forum.TaskModuleRunning">
+            <summary>
+            Validates that the Task Module is running...
             </summary>
         </member>
         <member name="M:YAF.Forum.FirePageTitleSet(System.Object,YAF.ForumPageTitleArgs)">
@@ -5670,6 +5277,16 @@
             The create images data table.
             </summary>
         </member>
+        <member name="M:YAF.Pages.Admin.editforum.GetQueryStringAsInt(System.String)">
+            <summary>
+            The get query string as int.
+            </summary>
+            <param name="name">
+            The name.
+            </param>
+            <returns>
+            </returns>
+        </member>
         <member name="M:YAF.Pages.Admin.editforum.OnInit(System.EventArgs)">
             <summary>
             The on init.
@@ -6847,7 +6464,7 @@
         </member>
         <member name="P:YAF.Pages.postmessage.PollGroupId">
             <summary>
-              Gets PollGroupId if the topic has a poll attached
+              Gets or sets the PollGroupId if the topic has a poll attached
             </summary>
         </member>
         <member name="P:YAF.Pages.postmessage.QuotedMessageID">
@@ -10386,6 +10003,17 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="M:YAF.error.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            The page_ load.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
         <member name="T:YAF.Pages.printtopic">
             <summary>
             Summary description for printtopic.
@@ -13615,6 +13243,20 @@
             The e.
             </param>
         </member>
+        <member name="M:YAF.Pages.search.GetThemeContents(System.String,System.String)">
+            <summary>
+            Get Theme Contents
+            </summary>
+            <param name="page">
+            The Localization Page.
+            </param>
+            <param name="tag">
+            The Localisation Page Tag.
+            </param>
+            <returns>
+            Returns Theme Content.
+            </returns>
+        </member>
         <member name="M:YAF.Pages.search.btnSearch_Click(System.Object,System.EventArgs)">
             <summary>
             The btn search_ click.
@@ -15931,7 +15573,7 @@
             The bind data.
             </summary>
         </member>
-        <member name="M:YAF.Pages.posts.GetFindMessageId(System.Int32@,System.Boolean@)">
+        <member name="M:YAF.Pages.posts.GetFindMessageId(System.Boolean,System.Int32,System.Int32@)">
             <summary>
             Gets the message ID if "find" is in the query string
             </summary>
@@ -19986,6 +19628,15 @@
             Returns user to the original call page.
             </summary>
         </member>
+        <member name="F:YAF.Controls.PollList.PollListHolder">
+            <summary>
+            PollListHolder control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Controls.PollList.PollGroup">
             <summary>
             PollGroup control.
@@ -23667,6 +23318,24 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.boardsettings.HelpLabel2">
+            <summary>
+            HelpLabel2 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.boardsettings.CopyrightRemovalKey">
+            <summary>
+            CopyrightRemovalKey control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.boardsettings.LocalizedLabel4">
             <summary>
             LocalizedLabel4 control.
@@ -23910,6 +23579,24 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.boardsettings.HelpLabelDigest1">
+            <summary>
+            HelpLabelDigest1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.boardsettings.DigestSendEveryXHours">
+            <summary>
+            DigestSendEveryXHours control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.boardsettings.LocalizedLabel16">
             <summary>
             LocalizedLabel16 control.
@@ -24052,7 +23739,12 @@
         </member>
         <member name="F:YAF.Controls.ForumActiveDiscussion.lastPostToolTip">
             <summary>
-              The last post tooltip string.
+             The last post tooltip string.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.ForumActiveDiscussion.lastUnreadPostToolTip">
+            <summary>
+             The last Unread post tooltip string
             </summary>
         </member>
         <member name="M:YAF.Controls.ForumActiveDiscussion.LatestPosts_ItemDataBound(System.Object,System.Web.UI.WebControls.RepeaterItemEventArgs)">
@@ -26153,9 +25845,108 @@
             The yaf header.
             </summary>
         </member>
+        <member name="F:YAF.Controls.YafHeader.GuestUserMessage">
+            <summary>
+            GuestUserMessage control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.YafHeader.GuestMessage">
+            <summary>
+            GuestMessage control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.YafHeader.UserContainer">
+            <summary>
+            UserContainer control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.YafHeader.MyProfile">
+            <summary>
+            MyProfile control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.YafHeader.MyInboxItem">
+            <summary>
+            MyInboxItem control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.YafHeader.MyBuddiesItem">
+            <summary>
+            MyBuddiesItem control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.YafHeader.MyAlbumsItem">
+            <summary>
+            MyAlbumsItem control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.YafHeader.MyTopics">
+            <summary>
+            MyTopics control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.YafHeader.LogutItem">
+            <summary>
+            LogutItem control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Controls.YafHeader.LogOutButton">
             <summary>
             LogOutButton control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.YafHeader.LoggedInUserPanel">
+            <summary>
+            LoggedInUserPanel control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.YafHeader.menuListItems">
+            <summary>
+            menuListItems control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -26183,6 +25974,24 @@
         <member name="F:YAF.Controls.YafHeader.doQuickSearch">
             <summary>
             doQuickSearch control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.YafHeader.AdminModHolder">
+            <summary>
+            AdminModHolder control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.YafHeader.menuAdminItems">
+            <summary>
+            menuAdminItems control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -26237,6 +26046,60 @@
             <param name="e">
             The e.
             </param>
+        </member>
+        <member name="M:YAF.Controls.YafHeader.RenderMenuItem(System.Web.UI.Control,System.String,System.String,System.String,System.String,System.Boolean,System.Boolean,System.String)">
+            <summary>
+            Render Li and a Item
+            </summary>
+            <param name="holder">
+            The holder.
+            </param>
+            <param name="liCssClass">
+            The li Css Class.
+            </param>
+            <param name="linkCssClass">
+            The link Css Class.
+            </param>
+            <param name="linkText">
+            The link text.
+            </param>
+            <param name="linkUrl">
+            The link url.
+            </param>
+            <param name="noFollow">
+            Add rel="nofollow" to the link
+            </param>
+            <param name="showUnread">
+            The show unread.
+            </param>
+            <param name="unreadText">
+            The unread text.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.YafHeader.RenderQuickSearch">
+            <summary>
+             Render the Quick Search
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.YafHeader.RenderAdminModMenu">
+            <summary>
+            Render the Admin/Moderater Menu Links
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.YafHeader.RenderMainHeaderMenu">
+            <summary>
+            Render the Main Header Menu Links
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.YafHeader.RenderUserContainer">
+            <summary>
+            Render The User related Links
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.YafHeader.RenderGuestControls">
+            <summary>
+            Render The GuestBar
+            </summary>
         </member>
         <member name="T:YAF.Controls.DialogBox">
             <summary>
@@ -26621,17 +26484,6 @@
             The e.
             </param>
         </member>
-        <member name="M:YAF.Pages.Admin.admin.Pager_PageChange(System.Object,System.EventArgs)">
-            <summary>
-            The pager_ page change.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
         <member name="M:YAF.Pages.Admin.admin.ApproveAll_Load(System.Object,System.EventArgs)">
             <summary>
             The approve all_ load.
@@ -26715,9 +26567,30 @@
             The e.
             </param>
         </member>
+        <member name="M:YAF.Pages.Admin.admin.Pager_PageChange(System.Object,System.EventArgs)">
+            <summary>
+            The pager_ page change.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.Admin.admin.BindActiveUserData">
+            <summary>
+            The bind data.
+            </summary>
+        </member>
         <member name="M:YAF.Pages.Admin.admin.BindBoardsList">
             <summary>
             Bind list of boards to dropdown
+            </summary>
+        </member>
+        <member name="M:YAF.Pages.Admin.admin.BindData">
+            <summary>
+            The bind data.
             </summary>
         </member>
         <member name="M:YAF.Pages.Admin.admin.GetActiveUsersData(System.Boolean,System.Boolean)">
@@ -26733,16 +26606,6 @@
             <returns>
             A DataTable
             </returns>
-        </member>
-        <member name="M:YAF.Pages.Admin.admin.BindData">
-            <summary>
-            The bind data.
-            </summary>
-        </member>
-        <member name="M:YAF.Pages.Admin.admin.BindActiveUserData">
-            <summary>
-            The bind data.
-            </summary>
         </member>
         <member name="M:YAF.Pages.Admin.admin.GetSelectedBoardID">
             <summary>
@@ -26764,6 +26627,42 @@
         <member name="F:YAF.Pages.Admin.admin.Adminmenu1">
             <summary>
             Adminmenu1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.admin.UpdateHightlight">
+            <summary>
+            UpdateHightlight control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.admin.UpdateLinkHighlight">
+            <summary>
+            UpdateLinkHighlight control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.admin.UpdateWarning">
+            <summary>
+            UpdateWarning control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.admin.UpdateLinkWarning">
+            <summary>
+            UpdateLinkWarning control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -27233,42 +27132,6 @@
         <member name="F:YAF.Controls.MyTopicsList.PagerTop">
             <summary>
             PagerTop control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Controls.MyTopicsList.LocalizedLabel6">
-            <summary>
-            LocalizedLabel6 control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Controls.MyTopicsList.LocalizedLabel8">
-            <summary>
-            LocalizedLabel8 control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Controls.MyTopicsList.LocalizedLabel9">
-            <summary>
-            LocalizedLabel9 control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Controls.MyTopicsList.LocalizedLabel10">
-            <summary>
-            LocalizedLabel10 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -30763,6 +30626,11 @@
               The last post tooltip string.
             </summary>
         </member>
+        <member name="F:YAF.Controls.TopicLine._altLastUnreadPost">
+            <summary>
+              The last unread post tooltip string.
+            </summary>
+        </member>
         <member name="F:YAF.Controls.TopicLine._selectedCheckbox">
             <summary>
               The _selected checkbox.
@@ -30898,6 +30766,11 @@
         <member name="P:YAF.Controls.TopicLine.AltLastPost">
             <summary>
               Gets or sets Alt.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.TopicLine.AltLastUnreadPost">
+            <summary>
+              Gets or sets Alt Unread Post.
             </summary>
         </member>
         <member name="P:YAF.Controls.TopicLine.DataRow">
@@ -31619,6 +31492,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.pmessage.PreviewCell">
+            <summary>
+            PreviewCell control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.pmessage.PreviewMessagePost">
             <summary>
             PreviewMessagePost control.
@@ -31718,18 +31600,27 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Pages.pmessage.EditorLine">
+        <member name="F:YAF.Pages.pmessage.LocalizedLabel5">
             <summary>
-            EditorLine control.
+            LocalizedLabel5 control.
             </summary>
             <remarks>
             Auto-generated field.
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Pages.pmessage.LocalizedLabel5">
+        <member name="F:YAF.Pages.pmessage.SmileysBox">
             <summary>
-            LocalizedLabel5 control.
+            SmileysBox control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.pmessage.EditorLine">
+            <summary>
+            EditorLine control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -32102,6 +31993,24 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Controls.ForumLastPost.ImageLastUnreadMessageLink">
+            <summary>
+            ImageLastUnreadMessageLink control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.ForumLastPost.LastUnreadImage">
+            <summary>
+            LastUnreadImage control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Controls.ForumLastPost.LastPostDate">
             <summary>
             LastPostDate control.
@@ -32373,6 +32282,141 @@
             <summary>
               Gets a value indicating whether UsesHTML.
             </summary>
+        </member>
+        <member name="T:YAF.RegisterV2.RegisterV2">
+            <remarks/>
+        </member>
+        <member name="M:YAF.RegisterV2.RegisterV2.#ctor">
+            <remarks/>
+        </member>
+        <member name="M:YAF.RegisterV2.RegisterV2.LatestInfo(System.Int64,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:YAF.RegisterV2.RegisterV2.BeginLatestInfo(System.Int64,System.String,System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:YAF.RegisterV2.RegisterV2.EndLatestInfo(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:YAF.RegisterV2.RegisterV2.LatestInfoAsync(System.Int64,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:YAF.RegisterV2.RegisterV2.LatestInfoAsync(System.Int64,System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:YAF.RegisterV2.RegisterV2.LatestVersion">
+            <remarks/>
+        </member>
+        <member name="M:YAF.RegisterV2.RegisterV2.BeginLatestVersion(System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:YAF.RegisterV2.RegisterV2.EndLatestVersion(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:YAF.RegisterV2.RegisterV2.LatestVersionAsync">
+            <remarks/>
+        </member>
+        <member name="M:YAF.RegisterV2.RegisterV2.LatestVersionAsync(System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:YAF.RegisterV2.RegisterV2.LatestVersionDate">
+            <remarks/>
+        </member>
+        <member name="M:YAF.RegisterV2.RegisterV2.BeginLatestVersionDate(System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:YAF.RegisterV2.RegisterV2.EndLatestVersionDate(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:YAF.RegisterV2.RegisterV2.LatestVersionDateAsync">
+            <remarks/>
+        </member>
+        <member name="M:YAF.RegisterV2.RegisterV2.LatestVersionDateAsync(System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:YAF.RegisterV2.RegisterV2.RegisterForum(System.Int64,System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:YAF.RegisterV2.RegisterV2.BeginRegisterForum(System.Int64,System.String,System.String,System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:YAF.RegisterV2.RegisterV2.EndRegisterForum(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:YAF.RegisterV2.RegisterV2.RegisterForumAsync(System.Int64,System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:YAF.RegisterV2.RegisterV2.RegisterForumAsync(System.Int64,System.String,System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:YAF.RegisterV2.RegisterV2.CancelAsync(System.Object)">
+            <remarks/>
+        </member>
+        <member name="E:YAF.RegisterV2.RegisterV2.LatestInfoCompleted">
+            <remarks/>
+        </member>
+        <member name="E:YAF.RegisterV2.RegisterV2.LatestVersionCompleted">
+            <remarks/>
+        </member>
+        <member name="E:YAF.RegisterV2.RegisterV2.LatestVersionDateCompleted">
+            <remarks/>
+        </member>
+        <member name="E:YAF.RegisterV2.RegisterV2.RegisterForumCompleted">
+            <remarks/>
+        </member>
+        <member name="T:YAF.RegisterV2.LatestVersionInformation">
+            <remarks/>
+        </member>
+        <member name="P:YAF.RegisterV2.LatestVersionInformation.Date">
+            <remarks/>
+        </member>
+        <member name="P:YAF.RegisterV2.LatestVersionInformation.Link">
+            <remarks/>
+        </member>
+        <member name="P:YAF.RegisterV2.LatestVersionInformation.Message">
+            <remarks/>
+        </member>
+        <member name="P:YAF.RegisterV2.LatestVersionInformation.Version">
+            <remarks/>
+        </member>
+        <member name="P:YAF.RegisterV2.LatestVersionInformation.IsWarning">
+            <remarks/>
+        </member>
+        <member name="T:YAF.RegisterV2.LatestInfoCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:YAF.RegisterV2.LatestInfoCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:YAF.RegisterV2.LatestInfoCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:YAF.RegisterV2.LatestVersionCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:YAF.RegisterV2.LatestVersionCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:YAF.RegisterV2.LatestVersionCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:YAF.RegisterV2.LatestVersionDateCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:YAF.RegisterV2.LatestVersionDateCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:YAF.RegisterV2.LatestVersionDateCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:YAF.RegisterV2.RegisterForumCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:YAF.RegisterV2.RegisterForumCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:YAF.RegisterV2.RegisterForumCompletedEventArgs.Result">
+            <remarks/>
         </member>
         <member name="T:YAF.Pages.Albums">
             <summary>
@@ -35436,9 +35480,9 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel160">
+        <member name="F:YAF.Pages.Admin.hostsettings.BlankLinksHelpLabel">
             <summary>
-            HelpLabel160 control.
+            BlankLinksHelpLabel control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -35448,6 +35492,24 @@
         <member name="F:YAF.Pages.Admin.hostsettings.BlankLinks">
             <summary>
             BlankLinks control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.ShowLastUnreadPostHelpLabel">
+            <summary>
+            ShowLastUnreadPostHelpLabel control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.ShowLastUnreadPost">
+            <summary>
+            ShowLastUnreadPost control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -35670,18 +35732,36 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel173">
+        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel182">
             <summary>
-            HelpLabel173 control.
+            HelpLabel182 control.
             </summary>
             <remarks>
             Auto-generated field.
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Pages.Admin.hostsettings.ShowHelp">
+        <member name="F:YAF.Pages.Admin.hostsettings.ShowHelpTo">
             <summary>
-            ShowHelp control.
+            ShowHelpTo control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel183">
+            <summary>
+            HelpLabel183 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.ShowTeamTo">
+            <summary>
+            ShowTeamTo control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -35862,6 +35942,24 @@
         <member name="F:YAF.Pages.Admin.hostsettings.ForumEditor">
             <summary>
             ForumEditor control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel160">
+            <summary>
+            HelpLabel160 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.AllowUsersTextEditor">
+            <summary>
+            AllowUsersTextEditor control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -37726,8 +37824,11 @@
             <param name="serviceLocator">
             The service locator.
             </param>
+            <param name="dataCache">
+            The data Cache.
+            </param>
         </member>
-        <member name="M:YAF.Modules.ClearCacheOnEvents.YAF#Types#Interfaces#IHandleEvent{YAF#Types#EventProxies#UserLogoutEvent}#Handle(YAF.Types.EventProxies.UserLogoutEvent)">
+        <member name="M:YAF.Modules.ClearCacheOnEvents.YAF#Types#Interfaces#IHandleEvent{YAF#Types#EventProxies#SuccessfulUserLoginEvent}#Handle(YAF.Types.EventProxies.SuccessfulUserLoginEvent)">
             <summary>
             The handle.
             </summary>
@@ -37743,13 +37844,18 @@
             The event.
             </param>
         </member>
-        <member name="M:YAF.Modules.ClearCacheOnEvents.YAF#Types#Interfaces#IHandleEvent{YAF#Types#EventProxies#SuccessfulUserLoginEvent}#Handle(YAF.Types.EventProxies.SuccessfulUserLoginEvent)">
+        <member name="M:YAF.Modules.ClearCacheOnEvents.YAF#Types#Interfaces#IHandleEvent{YAF#Types#EventProxies#UserLogoutEvent}#Handle(YAF.Types.EventProxies.UserLogoutEvent)">
             <summary>
             The handle.
             </summary>
             <param name="event">
             The event.
             </param>
+        </member>
+        <member name="P:YAF.Modules.ClearCacheOnEvents.DataCache">
+            <summary>
+            Gets or sets DataCache.
+            </summary>
         </member>
         <member name="P:YAF.Modules.ClearCacheOnEvents.Order">
             <summary>
@@ -37758,7 +37864,7 @@
         </member>
         <member name="P:YAF.Modules.ClearCacheOnEvents.ServiceLocator">
             <summary>
-            Gets or sets ServiceLocator.
+              Gets or sets ServiceLocator.
             </summary>
         </member>
         <member name="T:YAF.Classes.YafAjax">
@@ -38054,6 +38160,33 @@
         <member name="F:YAF.Utilities.MetaWeblog.Post.userid">
             <summary>
               The userid.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.LatestInformationTask">
+            <summary>
+            Gets the latest information from YAF headquarters
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.LatestInformationTask._taskName">
+            <summary>
+              The _task name.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.LatestInformationTask.RunOnce">
+            <summary>
+            The run once.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.LatestInformationTask.Start(YAF.Types.Interfaces.ITaskModuleManager)">
+            <summary>
+            Start various tasks
+            </summary>
+            <param name="manager">
+            </param>
+        </member>
+        <member name="P:YAF.Classes.LatestInformationTask.Culture">
+            <summary>
+            Gets or sets Culture.
             </summary>
         </member>
         <member name="T:YAF.Editors.CKEditorHtmlEditor">
