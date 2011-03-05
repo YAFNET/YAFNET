@@ -24,6 +24,7 @@ namespace YAF.Core
   using System.Web;
   using System.Web.UI;
 
+  using YAF.Core.Services;
   using YAF.Types;
   using YAF.Types.Attributes;
   using YAF.Types.Interfaces;
@@ -70,6 +71,11 @@ namespace YAF.Core
     /// </param>
     private void UnloadSessionModule_Unload([NotNull] object sender, [NotNull] EventArgs e)
     {
+      if (!this.Get<StartupInitializeDb>().Initialized)
+      {
+        return;
+      }
+
       if (YafContext.Current.BoardSettings.AbandonSessionsForDontTrack &&
           (YafContext.Current.Vars.AsBoolean("DontTrack") ?? false) && this.Get<HttpSessionStateBase>().IsNewSession)
       {
