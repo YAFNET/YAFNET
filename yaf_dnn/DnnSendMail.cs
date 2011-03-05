@@ -30,6 +30,7 @@ namespace YAF.DotNetNuke
   using global::DotNetNuke.Entities.Host;
   using global::DotNetNuke.Entities.Portals;
   using global::DotNetNuke.Services.Mail;
+  using global::DotNetNuke.Services.Messaging;
 
   using YAF.Types;
   using YAF.Types.Attributes;

@@ -227,8 +227,7 @@
 				<p>
 				Make sure your server / Host has the following requirements:</p>
 				<ol>
-					<li>Microsoft .NET Framework 3.5 SP1 (Use version 1.9.3 or earlier for .NET 
-                        Framework 2.0)</li>
+					<li>Microsoft .NET Framework 3.5 SP1</li>
 					<li>Microsoft SQL Server 2005 or above. SQL Server 2000 works, but requires removal 
                         of some SQL forum database optimizations.</li>
 				</ol>
@@ -246,16 +245,9 @@
 					<li>
 					  <p><strong> </strong>Replace the <strong>YAF Config Password</strong> <code>&lt;add key=&quot;YAF.ConfigPassword&quot; value=&quot;<strong>XXXX</strong>&quot; /&gt;</code> with one you like.				      </p>
 			  </ol>
-			  <h3>STEP 5. MODIFY &quot;mail.config&quot; FILE:</h3>
-				<ol>
-					<li>Modify the SMTP settings by entering your mail server information. If you SMTP
-						server requires SSL, you must add:
-						<br>
-				  <strong>&lt;add key=&quot;YAF.UseSMTPSSL&quot; value=&quot;false&quot; /&gt;</strong> to your app.config or appSettings.</li>
-</ol>
-				<h3>STEP 6a. NEW INSTALLATION:</h3>
-				<p>Now you can place the YAF Module on a Page you like, but make sure you are logged into DNN using the HOST account, it will automatically starts the Installation!</p>
-<h3>STEP 6b. UPGRADE:</h3>
+			  <h3>STEP 5a. NEW INSTALLATION:</h3>
+<p>Now you can place the YAF Module on a Page you like, but make sure you are logged into DNN using the HOST account, it will automatically starts the Installation!</p>
+<h3>STEP 5b. UPGRADE:</h3>
 				<p>
 					Open the file YourWebsite.com/DesktopModules/YetAnotherForumDotNet/install/ on your web site. If you are testing
 					on your local computer, under a directory called YetAnotherForum.Net, the address

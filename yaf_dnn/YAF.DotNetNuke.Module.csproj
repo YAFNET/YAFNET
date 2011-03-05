@@ -29,16 +29,17 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\YetAnotherForum.NET\Bin\</OutputPath>
+    <OutputPath>..\yafsrc\YetAnotherForum.NET\Bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\YetAnotherForum.NET\Bin\YAF.DotNetNuke.Module.XML</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DotNetNuke">
       <HintPath>Libaries\DotNetNuke.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -71,6 +72,7 @@
     <Compile Include="ProfileSyncronizer.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="DnnUtils\DnnFileSystem.cs" />
     <Compile Include="YafDnnWhatsNew.ascx.cs">
       <DependentUpon>YafDnnWhatsNew.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -179,7 +181,7 @@
     <Content Include="App_LocalResources\YafDnnWhatsNew.ascx.de-DE.resx" />
     <Content Include="App_LocalResources\YafDnnWhatsNewSettings.ascx.de-DE.resx" />
   </ItemGroup>
-   <ItemGroup>
+  <ItemGroup>
     <Content Include="App_LocalResources\YafDnnModule.ascx.de-DE.resx" />
     <Content Include="App_LocalResources\YafDnnModule.ascx.resx" />
     <Content Include="App_LocalResources\YafDnnModuleEdit.ascx.de-DE.resx" />

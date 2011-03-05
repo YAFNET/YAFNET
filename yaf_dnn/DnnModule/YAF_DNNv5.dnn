@@ -1,6 +1,6 @@
 <dotnetnuke type="Package" version="5.0">
   <packages>
-    <package name="YetAnotherForumDotNet" type="Module" version="01.95.54461">
+    <package name="YetAnotherForumDotNet" type="Module" version="01.95.54750">
       <friendlyName>YetAnotherForumDotNet</friendlyName>
       <description>
         &lt;strong&gt;YetAnotherForum.NET&lt;/strong&gt; as DotNetNuke Module. Yet Another Forum.NET (YAF) is an open source ASP.NET forum system.&lt;br /&gt;
@@ -155,13 +155,13 @@
               <path>bin</path>
               <name>jQueryNet.dll</name>
             </file>
+            <file>
+              <name>mail.config</name>
+            </file>
           </files>
         </component>
         <component type="File">
           <files>
-            <file>
-              <name>mail.config</name>
-            </file>
             <file>
               <name>UrlRewriter.config</name>
             </file>
@@ -176,13 +176,7 @@
                   <node path="/configuration" action="update" key="configSource" collision="overwrite">
                     <rewriter configSource="URLRewriter.config" />
                   </node>
-                  <node path="/configuration" action="update" targetpath="system.net" collision="overwrite">
-                    <system.net>
-                      <mailSettings>
-                        <smtp configSource="mail.config" />
-                      </mailSettings>
-                    </system.net>
-                  </node>
+                  <node path="/configuration/system.net" action="remove" />
                   <node path="/configuration/configSections" action="update" key="name" collision="overwrite">
                      <section name="rewriter" type="Intelligencia.UrlRewriter.Configuration.RewriterConfigurationSectionHandler, Intelligencia.UrlRewriter" requirePermission="false" />
                   </node>
@@ -352,7 +346,7 @@
             </script>
             <script type="Install">
               <name>01.95.50.SqlDataProvider</name>
-              <version>01.95.54461</version>
+              <version>01.95.54750</version>
             </script>
             <script type="UnInstall">
               <name>Uninstall.SqlDataProvider</name>
@@ -361,7 +355,7 @@
         </component>
       </components>
     </package>
-    <package name="YAF.WhatsNew" type="Module" version="1.95.54461">
+    <package name="YAF.WhatsNew" type="Module" version="1.95.54750">
       <friendlyName>YAF What's New</friendlyName>
       <description>
         &lt;p&gt;This Module displays the Latest Posts from a  &lt;strong&gt;YetAnotherForum.NET&lt;/strong&gt; Module. Based on the Current Users Authorization Level. You can define Which Forum should been used, and how many Posts should displayed.
