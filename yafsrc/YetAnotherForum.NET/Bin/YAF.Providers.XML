@@ -2498,6 +2498,17 @@
             The to int.
             </returns>
         </member>
+        <member name="M:YAF.Providers.Utils.Transform.ToHexString(System.Byte[])">
+            <summary>
+            The to hex string.
+            </summary>
+            <param name="hashedBytes">
+            The hashed bytes.
+            </param>
+            <returns>
+            The to hex string.
+            </returns>
+        </member>
         <member name="T:YAF.Providers.Roles.MsSqlRolesDbConnectionManager">
             <summary>
             The yaf roles db conn manager.
