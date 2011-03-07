@@ -1638,6 +1638,7 @@
     <Resource tag="REGMAIL_WILL_BE_SEND">وسوف يتم إرسال رسالة عند التسجيل. من أجل الدخول يجب أن التحقق من البريد الوارد وانقر على الرابط في الرسالة.</Resource>
     <Resource tag="REPLY">Reply</Resource>
     <Resource tag="SAVE">حفظ</Resource>
+    <Resource tag="SHOWHIDE">Show/Hide</Resource>
     <Resource tag="SUBMIT">تقدم</Resource>
     <Resource tag="TIMEAGO_JS">
       // english
@@ -2373,6 +2374,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="TITLE">مشاركة  برسالة خاصة</Resource>
     <Resource tag="TO">الى:</Resource>
     <Resource tag="TOO_MANY_RECIPIENTS"> اشخاص{0}الحد القصى  الاشخاص الذي  تود ارسال الرسالة  لهم  </Resource>
+    <Resource tag="USER_NOTFOUND">The User you are looking for does not exist. Please try again or use the show "All Users" Button.</Resource>
   </page>
   <page name="POLLEDIT">
     <Resource tag="ASK_POLL_DELETE">هل تريد  ازلة  الاستفتاء?</Resource>

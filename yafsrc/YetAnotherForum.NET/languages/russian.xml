@@ -2540,6 +2540,7 @@
     <Resource tag="TITLE">Отправить личное сообщение</Resource>
     <Resource tag="TO">Кому:</Resource>
     <Resource tag="TOO_MANY_RECIPIENTS">Слишком много адресатов. Разрешено не более {0}.</Resource>
+    <Resource tag="USER_NOTFOUND">The User you are looking for does not exist. Please try again or use the show "All Users" Button.</Resource>
   </page>
   <page name="POLLEDIT">
     <Resource tag="ASK_POLL_DELETE">Вы действительно желаете удалить этот опрос?</Resource>

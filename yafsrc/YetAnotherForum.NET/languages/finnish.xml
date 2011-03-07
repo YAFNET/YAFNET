@@ -1638,6 +1638,7 @@
     <Resource tag="REGMAIL_WILL_BE_SEND">Rekisteröinnin yhteydessä lähetetään sähköpostia sinulle. Ennen kuin voit kirjautua sisään, tulee sinun varmistaa sähköpostin toimivuus seuraamalla postissa olevaa linkkiä.</Resource>
     <Resource tag="REPLY">Reply</Resource>
     <Resource tag="SAVE">Tallenna</Resource>
+    <Resource tag="SHOWHIDE">Show/Hide</Resource>
     <Resource tag="SUBMIT">Submit</Resource>
     <Resource tag="TIMEAGO_JS">
       // defaults to english... no need for localization.
@@ -2515,6 +2516,7 @@
     <Resource tag="TITLE">Lähetä yksityisviesti</Resource>
     <Resource tag="TO">Vastaanottaja:</Resource>
     <Resource tag="TOO_MANY_RECIPIENTS">Too many recipients. Maximum allowed is {0}.</Resource>
+    <Resource tag="USER_NOTFOUND">The User you are looking for does not exist. Please try again or use the show "All Users" Button.</Resource>
   </page>
   <page name="POLLEDIT">
     <Resource tag="ASK_POLL_DELETE">Do you really want to remove the poll?</Resource>

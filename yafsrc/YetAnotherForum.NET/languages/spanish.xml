@@ -1638,6 +1638,7 @@
     <Resource tag="REGMAIL_WILL_BE_SEND">Un correo será enviado cuando te registres. Para iniciar sesión debes revisar tu bandeja de entrada y hacer clic en el link del correo.</Resource>
     <Resource tag="REPLY">Reply</Resource>
     <Resource tag="SAVE">Guardar</Resource>
+    <Resource tag="SHOWHIDE">Show/Hide</Resource>
     <Resource tag="SUBMIT">Enviar</Resource>
     <Resource tag="TIMEAGO_JS">
       // Spanish
@@ -2532,6 +2533,7 @@
     <Resource tag="TITLE">Enviar mensaje privado</Resource>
     <Resource tag="TO">Para:</Resource>
     <Resource tag="TOO_MANY_RECIPIENTS">Demasiados usuarios. El maximo permitido es {0}.</Resource>
+    <Resource tag="USER_NOTFOUND">The User you are looking for does not exist. Please try again or use the show "All Users" Button.</Resource>
   </page>
   <page name="POLLEDIT">
     <Resource tag="ASK_POLL_DELETE">Do you really want to remove the poll?</Resource>

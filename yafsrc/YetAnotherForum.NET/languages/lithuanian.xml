@@ -1684,6 +1684,7 @@
     </Resource>
     <Resource tag="REPLY">Reply</Resource>
     <Resource tag="SAVE">Išsaugoti </Resource>
+    <Resource tag="SHOWHIDE">Show/Hide</Resource>
     <Resource tag="SUBMIT">Submit</Resource>
     <Resource tag="TIMEAGO_JS">
       // defaults to english... no need for localization.
@@ -2631,6 +2632,7 @@
     <Resource tag="TITLE">Rašyti privačią žinutę </Resource>
     <Resource tag="TO">Kam: </Resource>
     <Resource tag="TOO_MANY_RECIPIENTS">Too many recipients. Maximum allowed is {0}.</Resource>
+    <Resource tag="USER_NOTFOUND">The User you are looking for does not exist. Please try again or use the show "All Users" Button.</Resource>
   </page>
   <page name="POLLEDIT">
     <Resource tag="ASK_POLL_DELETE">Do you really want to remove the poll?</Resource>

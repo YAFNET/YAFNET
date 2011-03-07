@@ -1158,7 +1158,8 @@
       <Resource tag="TOO_MANY_RECIPIENTS">Too many recipients. Maximum allowed is {0}.</Resource>
       <Resource tag="PMLIMIT_ALL">
         You have {0} private messages: {1} in Inbox and {2} in Outbox, {3} In Archive from a total of {4} allowed. Your mail box is filled to {5}%.
-    </Resource>
+      </Resource>
+	  <Resource tag="USER_NOTFOUND">The User you are looking for does not exist. Please try again or use the show "All Users" Button.</Resource>
    </page>
    <page name="POLLEDIT">
       <Resource tag="ASK_POLL_DELETE">Do you really want to remove the poll?</Resource>

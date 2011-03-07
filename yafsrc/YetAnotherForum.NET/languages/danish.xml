@@ -1638,6 +1638,7 @@
     <Resource tag="REGMAIL_WILL_BE_SEND">En e-mail bliver afsendt når du tilmelder dig. For at logge ind skal du tjekke din indbakke og klikke på linket i e-mailen.</Resource>
     <Resource tag="REPLY">Reply</Resource>
     <Resource tag="SAVE">Gem</Resource>
+    <Resource tag="SHOWHIDE">Show/Hide</Resource>
     <Resource tag="SUBMIT">Indsend</Resource>
     <Resource tag="TIMEAGO_JS">
       // Danish
@@ -2532,6 +2533,7 @@
     <Resource tag="TITLE">Skriv en Privat Besked</Resource>
     <Resource tag="TO">Til:</Resource>
     <Resource tag="TOO_MANY_RECIPIENTS">For mange modtagere, maksimum er {0}.</Resource>
+    <Resource tag="USER_NOTFOUND">The User you are looking for does not exist. Please try again or use the show "All Users" Button.</Resource>
   </page>
   <page name="POLLEDIT">
     <Resource tag="ASK_POLL_DELETE">Do you really want to remove the poll?</Resource>

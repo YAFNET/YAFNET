@@ -205,6 +205,12 @@ namespace YAF.Pages
         // we need clear button displayed now
         this.Clear.Visible = true;
       }
+      else
+      {
+          // user not found
+          YafContext.Current.AddLoadMessage(this.GetText("USER_NOTFOUND"));
+          return;
+      }
 
       // re-bind data to the controls
       this.DataBind();
