@@ -22,8 +22,6 @@ using System.Web;
 namespace YAF.Utils
 {
   using YAF.Classes;
-  using YAF.Utils;
-  using YAF.Utils.Helpers.StringUtils;
   using YAF.Types;
   using YAF.Types.Constants;
 
@@ -136,7 +134,7 @@ namespace YAF.Utils
     {
       get
       {
-        return 0x01095500;
+        return 0x01095600;
       }
     }
 
@@ -147,7 +145,7 @@ namespace YAF.Utils
     {
       get
       {
-        return new DateTime(2011, 3, 4);
+        return new DateTime(2011, 3, 7);
       }
     }
 
