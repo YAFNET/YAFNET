@@ -2631,19 +2631,6 @@
             Control displaying list of user currently active on a forum.
             </summary>
         </member>
-        <member name="F:YAF.Controls.RoleRankStyles._rawStyles">
-            <summary>
-              The _active user table.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.RoleRankStyles.OnPreRender(System.EventArgs)">
-            <summary>
-            Raises PreRender event.
-            </summary>
-            <param name="e">
-            The e.
-            </param>
-        </member>
         <member name="M:YAF.Controls.RoleRankStyles.Render(System.Web.UI.HtmlTextWriter)">
             <summary>
             Implements rendering of control to the client through use of <see cref="T:System.Web.UI.HtmlTextWriter"/>.
