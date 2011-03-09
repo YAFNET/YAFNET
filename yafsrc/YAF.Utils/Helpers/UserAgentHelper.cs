@@ -134,7 +134,7 @@ namespace YAF.Utils.Helpers
       var mobileContains =
         Config.MobileUserAgents.Split(',').Where(m => m.IsSet()).Select(m => m.Trim().ToLowerInvariant());
 
-      return userAgent.IsSet() && mobileContains.Any(s => userAgent.Contains(s));
+      return userAgent.IsSet() && mobileContains.Any(s => userAgent.ToLowerInvariant().Contains(s));
     }
 
     /// <summary>
