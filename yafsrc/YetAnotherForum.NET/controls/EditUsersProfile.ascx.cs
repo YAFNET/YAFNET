@@ -227,18 +227,18 @@ namespace YAF.Controls
       this.UpdateProfile.Text = this.GetText("COMMON", "SAVE");
       this.Cancel.Text = this.GetText("COMMON", "CANCEL");
 
-      this.ForumSettingsRows.Visible = this.PageContext.BoardSettings.AllowUserTheme ||
-                                       this.PageContext.BoardSettings.AllowUserLanguage ||
-                                       this.PageContext.BoardSettings.AllowPMEmailNotification;
+      this.ForumSettingsRows.Visible = this.Get<YafBoardSettings>().AllowUserTheme ||
+                                       this.Get<YafBoardSettings>().AllowUserLanguage ||
+                                       this.Get<YafBoardSettings>().AllowPMEmailNotification;
 
-      this.UserThemeRow.Visible = this.PageContext.BoardSettings.AllowUserTheme;
-      this.TrTextEditors.Visible = this.PageContext.BoardSettings.AllowUsersTextEditor;
-      this.UserLanguageRow.Visible = this.PageContext.BoardSettings.AllowUserLanguage;
-      this.MetaWeblogAPI.Visible = this.PageContext.BoardSettings.AllowPostToBlog;
-      this.LoginInfo.Visible = this.PageContext.BoardSettings.AllowEmailChange;
+      this.UserThemeRow.Visible = this.Get<YafBoardSettings>().AllowUserTheme;
+      this.TrTextEditors.Visible = this.Get<YafBoardSettings>().AllowUsersTextEditor;
+      this.UserLanguageRow.Visible = this.Get<YafBoardSettings>().AllowUserLanguage;
+      this.MetaWeblogAPI.Visible = this.Get<YafBoardSettings>().AllowPostToBlog;
+      this.LoginInfo.Visible = this.Get<YafBoardSettings>().AllowEmailChange;
       this.currentCulture = Thread.CurrentThread.CurrentCulture.IetfLanguageTag;
-      this.DisplayNamePlaceholder.Visible = this.PageContext.BoardSettings.EnableDisplayName &&
-                                            this.PageContext.BoardSettings.AllowDisplayNameModification;
+      this.DisplayNamePlaceholder.Visible = this.Get<YafBoardSettings>().EnableDisplayName &&
+                                            this.Get<YafBoardSettings>().AllowDisplayNameModification;
 
       this.BindData();
     }
@@ -296,8 +296,8 @@ namespace YAF.Controls
 
       string displayName = null;
 
-      if (this.PageContext.BoardSettings.EnableDisplayName &&
-          this.PageContext.BoardSettings.AllowDisplayNameModification)
+      if (this.Get<YafBoardSettings>().EnableDisplayName &&
+          this.Get<YafBoardSettings>().AllowDisplayNameModification)
       {
         if (this.DisplayName.Text.Trim().Length < 2)
         {
@@ -329,7 +329,7 @@ namespace YAF.Controls
           return;
         }
 
-        if (this.PageContext.BoardSettings.EmailVerification)
+        if (this.Get<YafBoardSettings>().EmailVerification)
         {
           this.SendEmailVerification(newEmail);
         }
@@ -407,6 +407,8 @@ namespace YAF.Controls
       // clear the cache for this user...
       this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.CurrentUserID));
 
+      YafContext.Current.Get<IDataCache>().Clear();
+
       if (!this.AdminEditMode)
       {
         YafBuildLink.Redirect(ForumPages.cp_profile);
@@ -423,30 +425,30 @@ namespace YAF.Controls
     private void BindData()
     {
       this.TimeZones.DataSource = StaticDataHelper.TimeZones();
-      if (this.PageContext.BoardSettings.AllowUserTheme)
+      if (this.Get<YafBoardSettings>().AllowUserTheme)
       {
         this.Theme.DataSource = StaticDataHelper.Themes();
         this.Theme.DataTextField = "Theme";
         this.Theme.DataValueField = "FileName";
       }
 
-      if (this.PageContext.BoardSettings.AllowUserLanguage)
+      if (this.Get<YafBoardSettings>().AllowUserLanguage)
       {
         this.Culture.DataSource = StaticDataHelper.Cultures();
         this.Culture.DataValueField = "CultureTag";
         this.Culture.DataTextField = "CultureNativeName";
       }
 
-      if (this.PageContext.BoardSettings.AllowUsersTextEditor)
+      if (this.Get<YafBoardSettings>().AllowUsersTextEditor)
       {
-          this.ForumEditor.DataSource = this.PageContext.EditorModuleManager.ActiveAsDataTable("Editors");
+          this.ForumEditor.DataSource = this.Get<IModuleManager<ForumEditor>>().ActiveAsDataTable("Editors");
           this.ForumEditor.DataValueField = "Value";
           this.ForumEditor.DataTextField = "Name";
       }
 
         this.DataBind();
 
-      if (this.PageContext.BoardSettings.EnableDNACalendar)
+      if (this.Get<YafBoardSettings>().EnableDNACalendar)
       {
         this.Birthday.Text = this.UserData.Profile.Birthday > DateTime.MinValue
                                ? this.UserData.Profile.Birthday.Date.ToString(
@@ -489,21 +491,21 @@ namespace YAF.Controls
 
       this.DSTUser.Checked = this.UserData.DSTUser;
       this.HideMe.Checked = this.UserData.IsActiveExcluded &&
-                            (this.PageContext.BoardSettings.AllowUserHideHimself || this.PageContext.IsAdmin);
+                            (this.Get<YafBoardSettings>().AllowUserHideHimself || this.PageContext.IsAdmin);
 
-      if (YafContext.Current.BoardSettings.MobileTheme.IsSet() &&
+      if (this.Get<YafBoardSettings>().MobileTheme.IsSet() &&
           UserAgentHelper.IsMobileDevice(HttpContext.Current.Request.UserAgent) ||
           HttpContext.Current.Request.Browser.IsMobileDevice)
       {
-        this.UseMobileThemeRow.Visible = true;
-        this.UseMobileTheme.Checked = this.UserData.UseMobileTheme;
+          this.UseMobileThemeRow.Visible = true;
+          this.UseMobileTheme.Checked = this.UserData.UseMobileTheme;
       }
 
-      if (this.PageContext.BoardSettings.AllowUserTheme && this.Theme.Items.Count > 0)
+        if (this.Get<YafBoardSettings>().AllowUserTheme && this.Theme.Items.Count > 0)
       {
         // Allows to use different per-forum themes,
         // While "Allow User Change Theme" option in hostsettings is true
-        string themeFile = this.PageContext.BoardSettings.Theme;
+        string themeFile = this.Get<YafBoardSettings>().Theme;
 
         if (!string.IsNullOrEmpty(this.UserData.ThemeFile))
         {
@@ -517,12 +519,12 @@ namespace YAF.Controls
         }
       }
 
-      if (this.PageContext.BoardSettings.AllowUsersTextEditor && this.ForumEditor.Items.Count > 0)
+      if (this.Get<YafBoardSettings>().AllowUsersTextEditor && this.ForumEditor.Items.Count > 0)
       {
           // Text editor
           string textEditor = !string.IsNullOrEmpty(this.UserData.TextEditor)
                                   ? this.UserData.TextEditor
-                                  : this.PageContext.BoardSettings.ForumEditor;
+                                  : this.Get<YafBoardSettings>().ForumEditor;
 
           ListItem editorItem = this.ForumEditor.Items.FindByValue(textEditor);
           if (editorItem != null)
@@ -531,14 +533,14 @@ namespace YAF.Controls
           }
       }
 
-        if (!this.PageContext.BoardSettings.AllowUserLanguage || this.Culture.Items.Count <= 0)
+        if (!this.Get<YafBoardSettings>().AllowUserLanguage || this.Culture.Items.Count <= 0)
       {
         return;
       }
 
       // Language and culture
-      string languageFile = this.PageContext.BoardSettings.Language;
-      string culture4tag = this.PageContext.BoardSettings.Culture;
+      string languageFile = this.Get<YafBoardSettings>().Language;
+      string culture4tag = this.Get<YafBoardSettings>().Culture;
 
       if (!string.IsNullOrEmpty(this.UserData.LanguageFile))
       {
@@ -582,7 +584,7 @@ namespace YAF.Controls
         "{0}\r\n\r\n".FormatWith(YafBuildLink.GetLinkNotEscaped(ForumPages.approve, true, "k={0}", hash));
       changeEmail.TemplateParams["{newemail}"] = this.Email.Text;
       changeEmail.TemplateParams["{key}"] = hash;
-      changeEmail.TemplateParams["{forumname}"] = this.PageContext.BoardSettings.Name;
+      changeEmail.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
       changeEmail.TemplateParams["{forumlink}"] = YafForumInfo.ForumURL;
 
       // save a change email reference to the db
@@ -621,7 +623,7 @@ namespace YAF.Controls
       userProfile.Gender = this.Gender.SelectedIndex;
       userProfile.Blog = this.Weblog.Text.Trim();
 
-      if (this.PageContext.BoardSettings.EnableDNACalendar && this.Birthday.Text.IsSet())
+      if (this.Get<YafBoardSettings>().EnableDNACalendar && this.Birthday.Text.IsSet())
       {
         DateTime userBirthdate;
 
