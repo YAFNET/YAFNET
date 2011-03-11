@@ -5678,7 +5678,7 @@ namespace YAF.Classes.Data
 
         // The cycle through question reply choices
 
-        for (uint choiceCount = 0; choiceCount < question.Choice.GetUpperBound(1); choiceCount++)
+        for (uint choiceCount = 0; choiceCount < question.Choice.GetUpperBound(1)+1; choiceCount++)
         {
             if (!string.IsNullOrEmpty(question.Choice[0,choiceCount]))
             {
@@ -5784,7 +5784,7 @@ namespace YAF.Classes.Data
                                     pollFlags);
      
          
-            for (uint choiceCount1 = 0; choiceCount1 < question.Choice.GetUpperBound(1); choiceCount1++)
+            for (uint choiceCount1 = 0; choiceCount1 < question.Choice.GetUpperBound(1)+1; choiceCount1++)
           {
             if (!string.IsNullOrEmpty(question.Choice[0,choiceCount1]))
             {

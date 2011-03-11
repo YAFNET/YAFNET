@@ -180,8 +180,9 @@ namespace YAF.Core.Services
                TemplateLanguageFile = UserHelper.GetUserLanguageFile(toUserId) 
             };
 
+          string displayName = YafContext.Current.Get<IUserDisplayName>().GetName(YafContext.Current.PageUserID); 
           // fill the template with relevant info
-          notificationTemplate.TemplateParams["{fromuser}"] = YafContext.Current.PageUserName;
+          notificationTemplate.TemplateParams["{fromuser}"] = displayName.IsNotSet() ? YafContext.Current.PageUserName : displayName;
           notificationTemplate.TemplateParams["{link}"] =
             "{0}\r\n\r\n".FormatWith(
               YafBuildLink.GetLinkNotEscaped(ForumPages.cp_message, true, "pm={0}", userPMessageId));

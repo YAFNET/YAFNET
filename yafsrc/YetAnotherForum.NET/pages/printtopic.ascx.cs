@@ -86,13 +86,11 @@ namespace YAF.Pages
     /// <returns>
     /// The get print header.
     /// </returns>
-    protected string GetPrintHeader([NotNull] object o)
-    {
-      var row = (DataRow)o;
-      return "<strong>{2}: {0}</strong> - {1}".FormatWith(
-        row["UserName"], this.Get<IDateTime>().FormatDateTime((DateTime)row["Posted"]), this.GetText("postedby"));
+    protected string GetPrintHeader([NotNull] object o) 
+    { var row = (DataRow)o; 
+      string displayName = this.PageContext.Get<IUserDisplayName>().GetName((int)row["UserID"]);
+      return "<strong>{2}: {0}</strong> - {1}".FormatWith(displayName.IsNotSet() ? row["UserName"] : displayName, this.Get<IDateTime>().FormatDateTime((DateTime)row["Posted"]), this.GetText("postedby"));
     }
-
     /// <summary>
     /// The on init.
     /// </summary>

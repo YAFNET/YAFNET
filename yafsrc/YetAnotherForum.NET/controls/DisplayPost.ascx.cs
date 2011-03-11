@@ -475,8 +475,9 @@ namespace YAF.Controls
         case "userprofile":
           YafBuildLink.Redirect(ForumPages.profile, "u={0}", this.PostData.UserId);
           break;
-        case "lastposts":
-          YafBuildLink.Redirect(ForumPages.search, "postedby={0}", this.PostData.UserProfile.UserName);
+        case "lastposts": 
+            string displayName = this.PageContext.Get<IUserDisplayName>().GetName(this.PostData.UserId);
+            YafBuildLink.Redirect(ForumPages.search, "postedby={0}", displayName.IsNotSet() ? this.PostData.UserProfile.UserName : displayName);
           break;
         case "addbuddy":
           var strBuddyRequest = new string[2];
