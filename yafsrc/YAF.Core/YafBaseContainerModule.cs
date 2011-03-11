@@ -22,6 +22,7 @@ namespace YAF.Core
 
   using System;
   using System.Collections.Generic;
+  using System.Diagnostics;
   using System.Linq;
   using System.Reflection;
   using System.Web;
@@ -241,9 +242,25 @@ namespace YAF.Core
       foreach (var c in classes)
       {
         var built = builder.RegisterType(c).As(c);
-        c.GetInterfaces().Where(i => !exclude.Contains(i)).ForEach(i => built.As(i));
-        
+
         var exportAttribute = c.GetAttribute<ExportServiceAttribute>();
+
+        if (exportAttribute != null && exportAttribute.RegisterSpecifiedTypes != null && exportAttribute.RegisterSpecifiedTypes.Length > 0)
+        {
+          // only register types provided...
+          foreach (var regType in exportAttribute.RegisterSpecifiedTypes)
+          {
+            built.As(regType);
+          }
+        }
+        else
+        {
+          // register all associated interfaces including inheritated interfaces!
+          foreach(var regType in c.GetInterfaces().Where(i => !exclude.Contains(i)))
+          {
+            built.As(regType);
+          }
+        }
 
         if (exportAttribute != null && built != null)
         {

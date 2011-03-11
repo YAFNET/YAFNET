@@ -117,16 +117,29 @@ namespace YAF.Core.Services
             continue;
           }
 
-          MailAddress toEmailAddress = mail.ToUserName.IsSet()
-                                         ? new MailAddress(mail.ToUser, mail.ToUserName)
-                                         : new MailAddress(mail.ToUser);
-          MailAddress fromEmailAddress = mail.FromUserName.IsSet()
-                                           ? new MailAddress(mail.FromUser, mail.FromUserName)
-                                           : new MailAddress(mail.FromUser);
+          try
+          {
+            MailAddress toEmailAddress = mail.ToUserName.IsSet()
+                                       ? new MailAddress(mail.ToUser, mail.ToUserName)
+                                       : new MailAddress(mail.ToUser);
+            MailAddress fromEmailAddress = mail.FromUserName.IsSet()
+                                             ? new MailAddress(mail.FromUser, mail.FromUserName)
+                                             : new MailAddress(mail.FromUser);
 
-          var newMessage = new MailMessage();
-          newMessage.Populate(fromEmailAddress, toEmailAddress, mail.Subject, mail.Body, mail.BodyHtml);
-          mailMessages.Add(newMessage, mail);
+            var newMessage = new MailMessage();
+            newMessage.Populate(fromEmailAddress, toEmailAddress, mail.Subject, mail.Body, mail.BodyHtml);
+            mailMessages.Add(newMessage, mail);
+          }
+          catch (FormatException ex)
+          {
+            // incorrect email format -- delete this message immediately
+            LegacyDb.mail_delete(mail.MailID);
+
+            this.Logger.Debug("Invalid Email Address: {0}".FormatWith(ex.ToString()));
+#if (DEBUG)
+            this.Logger.Warn("Invalid Email Address: {0}".FormatWith(ex.ToString()), ex.ToString());
+#endif
+          }
         }
 
         this.SendMail.SendAllIsolated(

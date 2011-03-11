@@ -54,13 +54,16 @@ namespace YAF.Core.Services
     /// <summary>
     /// Initializes a new instance of the <see cref="YafBadWordReplace"/> class.
     /// </summary>
-    /// <param name="dataCache">
-    /// The data cache.
+    /// <param name="objectStore">
+    /// The object Store.
     /// </param>
-    public YafBadWordReplace([NotNull] IDataCache dataCache, ILogger logger)
+    /// <param name="logger">
+    /// The logger.
+    /// </param>
+    public YafBadWordReplace([NotNull] IObjectStore objectStore, [NotNull] ILogger logger)
     {
-      this.DataCache = dataCache;
-      Logger = logger;
+      this.ObjectStore = objectStore;
+      this.Logger = logger;
     }
 
     #endregion
@@ -68,11 +71,14 @@ namespace YAF.Core.Services
     #region Properties
 
     /// <summary>
-    /// Gets or sets DataCache.
+    /// Gets or sets Logger.
     /// </summary>
-    public IDataCache DataCache { get; set; }
-
     public ILogger Logger { get; set; }
+
+    /// <summary>
+    /// Gets or sets ObjectStore.
+    /// </summary>
+    public IObjectStore ObjectStore { get; set; }
 
     /// <summary>
     ///   Gets ReplaceItems.
@@ -81,7 +87,7 @@ namespace YAF.Core.Services
     {
       get
       {
-        var replaceItems = this.DataCache.GetOrSet(
+        var replaceItems = this.ObjectStore.GetOrSet(
           Constants.Cache.ReplaceWords, 
           () =>
             {
@@ -92,8 +98,7 @@ namespace YAF.Core.Services
                 replaceWords.Select(
                   row => new BadWordReplaceItem(row.Field<string>("goodword"), row.Field<string>("badword"), _options)).
                   ToList();
-            }, 
-          TimeSpan.FromMinutes(30));
+            });
 
         return replaceItems;
       }
