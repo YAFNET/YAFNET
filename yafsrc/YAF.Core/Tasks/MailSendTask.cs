@@ -42,7 +42,7 @@ namespace YAF.Core.Tasks
     ///   The _send mail threaded.
     /// </summary>
     [Inject]
-    public YafSendMailThreaded SendMailThreaded { get; set; }
+    public ISendMailThreaded SendMailThreaded { get; set; }
     
     #endregion
 

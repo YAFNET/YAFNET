@@ -22,8 +22,6 @@ namespace YAF.Types.Attributes
 
   using System;
 
-  using YAF.Types.Interfaces;
-
   #endregion
 
   /// <summary>
@@ -68,8 +66,6 @@ namespace YAF.Types.Attributes
   [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
   public class ExportServiceAttribute : Attribute
   {
-    public string Named { get; set; }
-
     #region Constructors and Destructors
 
     /// <summary>
@@ -78,10 +74,18 @@ namespace YAF.Types.Attributes
     /// <param name="serviceLifetimeScope">
     /// The service lifetime scope.
     /// </param>
-    public ExportServiceAttribute(ServiceLifetimeScope serviceLifetimeScope, [NotNull] string named)
-      : this(serviceLifetimeScope)
+    /// <param name="named">
+    /// The named.
+    /// </param>
+    /// <param name="registerSpecifiedTypes">
+    /// The register Specified Types.
+    /// </param>
+    public ExportServiceAttribute(
+      ServiceLifetimeScope serviceLifetimeScope, [CanBeNull] string named, [NotNull] params Type[] registerSpecifiedTypes)
     {
-      Named = named;
+      this.Named = named;
+      this.ServiceLifetimeScope = serviceLifetimeScope;
+      this.RegisterSpecifiedTypes = registerSpecifiedTypes;
     }
 
     /// <summary>
@@ -91,13 +95,23 @@ namespace YAF.Types.Attributes
     /// The service lifetime scope.
     /// </param>
     public ExportServiceAttribute(ServiceLifetimeScope serviceLifetimeScope)
+      : this(serviceLifetimeScope, null)
     {
-      this.ServiceLifetimeScope = serviceLifetimeScope;
     }
 
     #endregion
 
     #region Properties
+
+    /// <summary>
+    ///   Gets or sets Named.
+    /// </summary>
+    public string Named { get; set; }
+
+    /// <summary>
+    ///   Gets or sets RegisterSpecifiedTypes.
+    /// </summary>
+    public Type[] RegisterSpecifiedTypes { get; set; }
 
     /// <summary>
     ///   Gets or sets ServiceLifetimeScope.

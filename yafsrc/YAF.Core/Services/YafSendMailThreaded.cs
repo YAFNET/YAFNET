@@ -39,7 +39,7 @@ namespace YAF.Core.Services
   /// Separate class since SendThreaded isn't needed functionality
   ///   for any instance except the <see cref="HttpModule"/> instance.
   /// </summary>
-  public class YafSendMailThreaded
+  public class YafSendMailThreaded : ISendMailThreaded
   {
     #region Constants and Fields
 

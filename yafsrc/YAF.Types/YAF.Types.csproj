@@ -139,6 +139,7 @@
     <Compile Include="Interfaces\IScriptStatement.cs" />
     <Compile Include="Interfaces\IScriptStatementContext.cs" />
     <Compile Include="Interfaces\ISendMail.cs" />
+    <Compile Include="Interfaces\ISendMailThreaded.cs" />
     <Compile Include="Interfaces\ISendNotification.cs" />
     <Compile Include="Interfaces\IServiceLocator.cs" />
     <Compile Include="Interfaces\IReadOnlyProvider.cs" />
