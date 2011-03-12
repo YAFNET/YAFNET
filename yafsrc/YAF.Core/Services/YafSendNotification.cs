@@ -180,7 +180,8 @@ namespace YAF.Core.Services
                TemplateLanguageFile = UserHelper.GetUserLanguageFile(toUserId) 
             };
 
-          string displayName = YafContext.Current.Get<IUserDisplayName>().GetName(YafContext.Current.PageUserID); 
+          string displayName = this.Get<IUserDisplayName>().GetName(YafContext.Current.PageUserID); 
+
           // fill the template with relevant info
           notificationTemplate.TemplateParams["{fromuser}"] = displayName.IsNotSet() ? YafContext.Current.PageUserName : displayName;
           notificationTemplate.TemplateParams["{link}"] =
