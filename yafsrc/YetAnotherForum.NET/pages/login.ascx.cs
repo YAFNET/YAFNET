@@ -1,5 +1,5 @@
-/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bjørnar Henden
+ï»¿/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjï¿½rnar Henden
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -30,7 +30,6 @@ namespace YAF.Pages
 
   using YAF.Classes;
   using YAF.Core;
-  using YAF.Core.Services;
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Types.EventProxies;
@@ -174,11 +173,14 @@ namespace YAF.Pages
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!this.IsPostBack)
-      {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
         this.Login1.MembershipProvider = Config.MembershipProvider;
 
-        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
         this.PageLinks.AddLink(this.GetText("title"));
 
         // Login1.CreateUserText = "Sign up for a new account.";
@@ -189,12 +191,12 @@ namespace YAF.Pages
 
         if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("ReturnUrl").IsSet())
         {
-          this.Login1.DestinationPageUrl = this.Server.UrlDecode(
-            this.Request.QueryString.GetFirstOrDefault("ReturnUrl"));
+            this.Login1.DestinationPageUrl = this.Server.UrlDecode(
+                this.Request.QueryString.GetFirstOrDefault("ReturnUrl"));
         }
         else
         {
-          this.Login1.DestinationPageUrl = YafBuildLink.GetLink(ForumPages.forum);
+            this.Login1.DestinationPageUrl = YafBuildLink.GetLink(ForumPages.forum);
         }
 
         // localize controls
@@ -215,29 +217,28 @@ namespace YAF.Pages
         */
         if (rememberMe != null)
         {
-          rememberMe.Text = this.GetText("auto");
+            rememberMe.Text = this.GetText("auto");
         }
 
         if (forumLogin != null)
         {
-          forumLogin.Text = this.GetText("forum_login");
+            forumLogin.Text = this.GetText("FORUM_LOGIN");
         }
 
         if (passwordRecovery != null)
         {
-          passwordRecovery.Text = this.GetText("lostpassword");
+            passwordRecovery.Text = this.GetText("LOSTPASSWORD");
         }
 
         if (password != null && forumLogin != null)
         {
-          password.Attributes.Add(
-            "onkeydown", 
-            "if(event.which || event.keyCode){if ((event.which == 13) || (event.keyCode == 13)) {document.getElementById('" +
-            forumLogin.ClientID + "').click();return false;}} else {return true}; ");
+            password.Attributes.Add(
+                "onkeydown", 
+                "if(event.which || event.keyCode){if ((event.which == 13) || (event.keyCode == 13)) {document.getElementById('" +
+                forumLogin.ClientID + "').click();return false;}} else {return true}; ");
         }
 
         this.DataBind();
-      }
     }
 
     /// <summary>
@@ -256,7 +257,16 @@ namespace YAF.Pages
 
     #endregion
 
-    protected void Login1_LoggedIn(object sender, EventArgs e)
+      /// <summary>
+      /// The Logged In Event
+      /// </summary>
+      /// <param name="sender">
+      /// The sender.
+      /// </param>
+      /// <param name="e">
+      /// The e.
+      /// </param>
+      protected void Login1_LoggedIn(object sender, EventArgs e)
     {
       this.Get<IRaiseEvent>().Raise(new SuccessfulUserLoginEvent(this.PageContext.PageUserID));
     }
