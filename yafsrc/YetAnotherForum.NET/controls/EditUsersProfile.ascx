@@ -1,9 +1,10 @@
-<%@ Control Language="C#" AutoEventWireup="true"
+﻿<%@ Control Language="C#" AutoEventWireup="true"
     Inherits="YAF.Controls.EditUsersProfile" Codebehind="EditUsersProfile.ascx.cs" %>
+<%@ Import Namespace="YAF.Types.Interfaces" %>
 <table width="100%" class="content EditUserProfileTable" cellspacing="1" cellpadding="4">
     <tr>
         <td class="header1" colspan="2">
-            <YAF:LocalizedLabel runat="server" LocalizedPage="CP_EDITPROFILE" LocalizedTag="title" />
+            <YAF:LocalizedLabel runat="server" LocalizedPage="CP_EDITPROFILE" LocalizedTag="TITLE" />
         </td>
     </tr>
     <tr>
@@ -28,13 +29,13 @@
     <tr>
         <td class="postheader" style="width:50%">
             <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedPage="CP_EDITPROFILE"
-                LocalizedTag="realname2" />
+                LocalizedTag="REALNAME2" />
         </td>
         <td class="post">
             <asp:TextBox ID="Realname" runat="server" CssClass="edit" />
         </td>
      </tr>
-     <tr id="HideTr" visible="<%# this.PageContext.BoardSettings.AllowUserHideHimself || this.PageContext.IsAdmin %>" runat="server">
+     <tr id="HideTr" visible="<%# this.Get<YafBoardSettings>().AllowUserHideHimself || this.PageContext.IsAdmin %>" runat="server">
         <td class="postheader">
             <YAF:LocalizedLabel ID="LocalizedLabel35" runat="server" LocalizedPage="CP_EDITPROFILE"
                 LocalizedTag="HIDEME" />
@@ -55,7 +56,7 @@
     <tr>
         <td class="postheader">
             <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedPage="CP_EDITPROFILE"
-                LocalizedTag="occupation" />
+                LocalizedTag="OCCUPATION" />
         </td>
         <td class="post">
             <asp:TextBox ID="Occupation" runat="server" CssClass="edit" />
@@ -64,7 +65,7 @@
     <tr>
         <td class="postheader">
             <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedPage="CP_EDITPROFILE"
-                LocalizedTag="interests" />
+                LocalizedTag="INTERESTS" />
         </td>
         <td class="post">
             <asp:TextBox ID="Interests" runat="server" CssClass="edit" />
@@ -73,7 +74,7 @@
     <tr>
         <td class="postheader">
             <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedPage="CP_EDITPROFILE"
-                LocalizedTag="gender" />
+                LocalizedTag="GENDER" />
         </td>
         <td class="post">
             <asp:DropDownList ID="Gender" runat="server" CssClass="edit" />
@@ -83,7 +84,7 @@
         <td colspan="2" class="header2">
             <b>
                 <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedPage="CP_EDITPROFILE"
-                    LocalizedTag="location" />
+                    LocalizedTag="LOCATION" />
             </b>
         </td>
     </tr>
@@ -173,7 +174,7 @@
     <tr>
         <td class="postheader">
             <YAF:LocalizedLabel ID="LocalizedLabel29" runat="server" LocalizedPage="CP_EDITPROFILE"
-                LocalizedTag="msn" />
+                LocalizedTag="MSN" />
         </td>
         <td class="post">
             <asp:TextBox runat="server" ID="MSN" CssClass="edit" />
@@ -182,7 +183,7 @@
     <tr>
         <td class="postheader">
             <YAF:LocalizedLabel ID="LocalizedLabel28" runat="server" LocalizedPage="CP_EDITPROFILE"
-                LocalizedTag="yim" />
+                LocalizedTag="YIM" />
         </td>
         <td class="post">
             <asp:TextBox runat="server" ID="YIM" CssClass="edit" />
@@ -191,7 +192,7 @@
     <tr>
         <td class="postheader">
             <YAF:LocalizedLabel ID="LocalizedLabel27" runat="server" LocalizedPage="CP_EDITPROFILE"
-                LocalizedTag="aim" />
+                LocalizedTag="AIM" />
         </td>
         <td class="post">
             <asp:TextBox runat="server" ID="AIM" CssClass="edit" />
@@ -200,7 +201,7 @@
     <tr>
         <td class="postheader">
             <YAF:LocalizedLabel ID="LocalizedLabel26" runat="server" LocalizedPage="CP_EDITPROFILE"
-                LocalizedTag="icq" />
+                LocalizedTag="ICQ" />
         </td>
         <td class="post">
             <asp:TextBox runat="server" ID="ICQ" CssClass="edit" />
@@ -228,7 +229,7 @@
         <td colspan="2" class="header2">
             <b>
                 <YAF:LocalizedLabel ID="LocalizedLabel25" runat="server" LocalizedPage="CP_EDITPROFILE"
-                    LocalizedTag="timezone" />
+                    LocalizedTag="TIMEZONE" />
             </b>
         </td>
     </tr>
@@ -244,7 +245,7 @@
     <tr>
         <td class="postheader">
             <YAF:LocalizedLabel ID="LocalizedLabel24" runat="server" LocalizedPage="CP_EDITPROFILE"
-                LocalizedTag="timezone2" />
+                LocalizedTag="TIMEZONE2" />
         </td>
         <td class="post">
             <asp:DropDownList runat="server" ID="TimeZones" DataTextField="Name" DataValueField="Value" CssClass="edit" />
@@ -299,13 +300,13 @@
         <tr>
             <td colspan="2" class="header2">
                 <YAF:LocalizedLabel ID="LocalizedLabel18" runat="server" LocalizedPage="CP_EDITPROFILE"
-                    LocalizedTag="change_email" />
+                    LocalizedTag="CHANGE_EMAIL" />
             </td>
         </tr>
         <tr>
             <td class="postheader">
                 <YAF:LocalizedLabel ID="LocalizedLabel17" runat="server" LocalizedPage="CP_EDITPROFILE"
-                    LocalizedTag="email" />
+                    LocalizedTag="EMAIL" />
             </td>
             <td class="post">
                 <asp:TextBox ID="Email" CssClass="edit" runat="server" OnTextChanged="Email_TextChanged" />

@@ -139,7 +139,7 @@ namespace YAF.Core
       // default the out parameters
       localizedText = string.Empty;
 
-      tag = tag.ToUpper(this._currentCulture);
+      tag = tag.ToUpper(); //ToUpper(this._currentCulture);
 
       var pagePointer =
         this._localizationLanguageResources.page.Where(p => p.name.Equals(this._currentPage)).FirstOrDefault();
