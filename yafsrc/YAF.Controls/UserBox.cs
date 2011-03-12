@@ -532,7 +532,7 @@ namespace YAF.Controls
       {
         filler =
           this.Get<YafBoardSettings>().UserBoxJoinDate.FormatWith(
-            this.GetText("joined"), 
+            this.GetText("JOINED"), 
             this.Get<IDateTime>().FormatDateShort((DateTime)this.DataRow["Joined"]));
       }
 
@@ -560,7 +560,7 @@ namespace YAF.Controls
       {
         filler =
           this.Get<YafBoardSettings>().UserBoxLocation.FormatWith(
-            this.GetText("location"), 
+            this.GetText("LOCATION"), 
             this.Get<IFormatMessage>().RepairHtml(this.UserProfile.Location, false));
       }
 
