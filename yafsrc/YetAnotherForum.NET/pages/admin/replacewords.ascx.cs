@@ -183,7 +183,7 @@ namespace YAF.Pages.Admin
                 break;
             case "delete":
                 LegacyDb.replace_words_delete(e.CommandArgument);
-                this.Get<IDataCache>().Remove(Constants.Cache.ReplaceWords);
+                this.Get<IObjectStore>().Remove(Constants.Cache.ReplaceWords);
                 this.BindData();
                 break;
             case "export":
