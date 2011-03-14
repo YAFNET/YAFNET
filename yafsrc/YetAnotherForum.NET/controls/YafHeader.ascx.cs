@@ -225,10 +225,10 @@ namespace YAF.Controls
         /// </summary>
         private void RenderQuickSearch()
         {
-            if ((!this.PageContext.BoardSettings.ShowQuickSearch ||
-                 !this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ExternalSearchPermissions)) &&
-                (!this.PageContext.BoardSettings.ShowQuickSearch ||
-                 !this.Get<IPermissions>().Check(this.PageContext.BoardSettings.SearchPermissions)))
+            if ((!this.Get<YafBoardSettings>().ShowQuickSearch ||
+                 !this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ExternalSearchPermissions)) &&
+                (!this.Get<YafBoardSettings>().ShowQuickSearch ||
+                 !this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().SearchPermissions)))
             {
                 return;
             }
@@ -348,7 +348,7 @@ namespace YAF.Controls
             }
 
             // Search
-            if (this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ExternalSearchPermissions) || this.Get<IPermissions>().Check(this.PageContext.BoardSettings.SearchPermissions))
+            if (this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ExternalSearchPermissions) || this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().SearchPermissions))
             {
                 RenderMenuItem(
                     menuListItems,
@@ -362,7 +362,7 @@ namespace YAF.Controls
             }
 
             // Members
-            if (this.Get<IPermissions>().Check(this.PageContext.BoardSettings.MembersListViewPermissions))
+            if (this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().MembersListViewPermissions))
             {
                 RenderMenuItem(
                     menuListItems,
@@ -376,7 +376,7 @@ namespace YAF.Controls
             }
 
             // Team
-            if ( this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ShowTeamTo))
+            if (this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ShowTeamTo))
             {
                 RenderMenuItem(
                     menuListItems,
@@ -390,7 +390,7 @@ namespace YAF.Controls
             }
 
             // Help
-            if (this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ShowHelpTo))
+            if (this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ShowHelpTo))
             {
                 RenderMenuItem(
                     menuListItems,
@@ -406,14 +406,14 @@ namespace YAF.Controls
             // Login
             if (this.PageContext.IsGuest && !Config.IsAnyPortal && Config.AllowLoginAndLogoff)
             {
-                if (this.PageContext.BoardSettings.UseLoginBox && !(this.Get<IYafSession>().UseMobileTheme ?? false))
+                if (this.Get<YafBoardSettings>().UseLoginBox && !(this.Get<IYafSession>().UseMobileTheme ?? false))
                 {
                     RenderMenuItem(
                         menuListItems,
                         "menuAccount",
                         "LoginLink",
                         this.GetText("TOOLBAR", "LOGIN"),
-                        "{0}#".FormatWith(YafBuildLink.GetLink(this.PageContext.ForumPageType)),
+                        "javascript:void(0);",
                         true,
                         false,
                         null);
@@ -422,7 +422,7 @@ namespace YAF.Controls
                 {
                     string returnUrl = this.GetReturnUrl().IsSet()
                                              ? "ReturnUrl={0}".FormatWith(
-                                               this.PageContext.BoardSettings.UseSSLToLogIn
+                                               this.Get<YafBoardSettings>().UseSSLToLogIn
                                                  ? this.GetReturnUrl().Replace("http:", "https:")
                                                  : this.GetReturnUrl())
                                              : string.Empty;
@@ -440,16 +440,16 @@ namespace YAF.Controls
             }
 
             // Register
-            if (this.PageContext.IsGuest && !this.PageContext.BoardSettings.DisableRegistrations && !Config.IsAnyPortal)
+            if (this.PageContext.IsGuest && !this.Get<YafBoardSettings>().DisableRegistrations && !Config.IsAnyPortal)
             {
                 RenderMenuItem(
                     menuListItems,
                     "menuGeneral",
                     null,
                     this.GetText("TOOLBAR", "REGISTER"),
-                    this.PageContext.BoardSettings.ShowRulesForRegistration
+                    this.Get<YafBoardSettings>().ShowRulesForRegistration
                         ? YafBuildLink.GetLink(ForumPages.rules)
-                        : (!this.PageContext.BoardSettings.UseSSLToRegister
+                        : (!this.Get<YafBoardSettings>().UseSSLToRegister
                                ? YafBuildLink.GetLink(ForumPages.register)
                                : YafBuildLink.GetLink(ForumPages.register).Replace("http:", "https:")),
                     true,
@@ -476,7 +476,7 @@ namespace YAF.Controls
             this.MyProfile.Text = this.GetText("TOOLBAR", "MYPROFILE");
 
             // My Inbox
-            if (this.PageContext.BoardSettings.AllowPrivateMessages)
+            if (this.Get<YafBoardSettings>().AllowPrivateMessages)
             {
                 RenderMenuItem(
                     MyInboxItem,
@@ -490,7 +490,7 @@ namespace YAF.Controls
             }
 
             // My Buddies
-            if (this.PageContext.BoardSettings.EnableBuddyList && this.PageContext.UserHasBuddies)
+            if (this.Get<YafBoardSettings>().EnableBuddyList && this.PageContext.UserHasBuddies)
             {
                 RenderMenuItem(
                     MyBuddiesItem,
@@ -504,7 +504,7 @@ namespace YAF.Controls
             }
 
             // My Albums
-            if (this.PageContext.BoardSettings.EnableAlbum && (this.PageContext.UsrAlbums > 0 || this.PageContext.NumAlbums > 0))
+            if (this.Get<YafBoardSettings>().EnableAlbum && (this.PageContext.UsrAlbums > 0 || this.PageContext.NumAlbums > 0))
             {
                 RenderMenuItem(
                     MyAlbumsItem,
@@ -580,9 +580,9 @@ namespace YAF.Controls
                         ToolTip = this.GetText("TOOLBAR", "LOGIN")
                     };
 
-                    if (this.PageContext.BoardSettings.UseLoginBox && !(this.Get<IYafSession>().UseMobileTheme ?? false))
+                    if (this.Get<YafBoardSettings>().UseLoginBox && !(this.Get<IYafSession>().UseMobileTheme ?? false))
                     {
-                        loginLink.NavigateUrl = "{0}#".FormatWith(YafBuildLink.GetLink(this.PageContext.ForumPageType));
+                        loginLink.NavigateUrl = "javascript:void(0);";
 
                         loginLink.CssClass = "LoginLink";
                     }
@@ -590,11 +590,10 @@ namespace YAF.Controls
                     {
                         string returnUrl = this.GetReturnUrl().IsSet()
                                                  ? "ReturnUrl={0}".FormatWith(
-                                                   this.PageContext.BoardSettings.UseSSLToLogIn
+                                                   this.Get<YafBoardSettings>().UseSSLToLogIn
                                                      ? this.GetReturnUrl().Replace("http:", "https:")
                                                      : this.GetReturnUrl())
                                                  : string.Empty;
-
 
                         loginLink.NavigateUrl = YafBuildLink.GetLink(ForumPages.login, returnUrl);
                     }
@@ -604,7 +603,7 @@ namespace YAF.Controls
                     isLoginAllowed = true;
                 }
 
-                if (!this.PageContext.BoardSettings.DisableRegistrations)
+                if (!this.Get<YafBoardSettings>().DisableRegistrations)
                 {
                     if (isLoginAllowed)
                     {
@@ -617,9 +616,9 @@ namespace YAF.Controls
                     {
                         Text = this.GetText("TOOLBAR", "REGISTER"),
                         NavigateUrl =
-                            this.PageContext.BoardSettings.ShowRulesForRegistration
+                            this.Get<YafBoardSettings>().ShowRulesForRegistration
                                 ? YafBuildLink.GetLink(ForumPages.rules)
-                                : (!this.PageContext.BoardSettings.UseSSLToRegister
+                                : (!this.Get<YafBoardSettings>().UseSSLToRegister
                                        ? YafBuildLink.GetLink(ForumPages.register)
                                        : YafBuildLink.GetLink(ForumPages.register).Replace("http:", "https:"))
                     };
@@ -637,7 +636,6 @@ namespace YAF.Controls
                     this.GuestUserMessage.Controls.Add(
                           new Label { Text = this.GetText("TOOLBAR", "DISABLED_REGISTER") });
                 }
-
 
                 // If both disallowed
                 if (!isLoginAllowed && !isRegisterAllowed)
