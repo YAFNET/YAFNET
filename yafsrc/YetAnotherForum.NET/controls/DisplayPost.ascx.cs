@@ -27,6 +27,7 @@ namespace YAF.Controls
   using System.Text;
   using System.Web;
 
+  using YAF.Classes;
   using YAF.Core;
   using YAF.Core.Services;
   using YAF.Types;
@@ -35,8 +36,9 @@ namespace YAF.Controls
   using YAF.Types.Interfaces;
   using YAF.Utilities;
   using YAF.Utils;
+  using YAF.Utils.Helpers;
 
-  #endregion
+    #endregion
 
   /// <summary>
   /// Summary description for DisplayPost.
@@ -131,7 +133,7 @@ namespace YAF.Controls
       var sb = new StringBuilder();
       string strDate = string.Empty;
 
-      bool showDate = YafContext.Current.BoardSettings.ShowThanksDate;
+      bool showDate = this.Get<YafBoardSettings>().ShowThanksDate;
 
       // Extract all user IDs, usernames and (If enabled thanks dates) related to this message.
       foreach (var chunk in rawStr.Split(','))
@@ -263,7 +265,7 @@ namespace YAF.Controls
 
         this.PopMenu1.AddPostBackItem("lastposts", this.GetText("PROFILE", "SEARCHUSER"));
 
-        if (YafContext.Current.BoardSettings.EnableThanksMod)
+        if (this.Get<YafBoardSettings>().EnableThanksMod)
         {
           this.PopMenu1.AddPostBackItem("viewthanks", this.GetText("VIEWTHANKS", "TITLE"));
         }
@@ -287,7 +289,7 @@ namespace YAF.Controls
           }
         }
 
-        if (YafContext.Current.BoardSettings.EnableBuddyList &&
+        if (this.Get<YafBoardSettings>().EnableBuddyList &&
             this.PageContext.PageUserID != (int)this.DataRow["UserID"])
         {
           // Should we add the "Add Buddy" item?
@@ -340,6 +342,25 @@ namespace YAF.Controls
         this.panMessage.Visible = true;
       }
 
+      this.Retweet.Visible = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ShowRetweetMessageTo);
+
+      var twitterName = this.Get<YafBoardSettings>().TwitterUserName.IsSet()
+                                            ? "@{0} ".FormatWith(this.Get<YafBoardSettings>().TwitterUserName)
+                                            : string.Empty;
+
+      // process message... clean html, strip html, remove bbcode, etc...
+      var twitterMsg =
+        StringExtensions.RemoveMultipleWhitespace(
+          BBCodeHelper.StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString((string)this.DataRow["Message"]))));
+
+      var tweetUrl =
+          "http://twitter.com/share?url={0}&text={1}".FormatWith(
+              this.Server.UrlEncode(this.Get<HttpRequestBase>().Url.ToString()),
+              this.Server.UrlEncode(
+                  "RT {1}: {0}".FormatWith(StringExtensions.Truncate(twitterMsg, 100), twitterName)));
+
+      this.Retweet.NavigateUrl = tweetUrl;
+
       this.Attach.Visible = !this.PostData.PostDeleted && this.PostData.CanAttach && !this.PostData.IsLocked;
       this.Attach.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.attachments, "m={0}", this.PostData.MessageId);
       this.Edit.Visible = !this.PostData.PostDeleted && this.PostData.CanEditPost && !this.PostData.IsLocked;
@@ -362,7 +383,7 @@ namespace YAF.Controls
         this.PostData.MessageId);
 
       // Irkoo Service Enabled?
-      if (YafContext.Current.BoardSettings.EnableIrkoo)
+      if (this.Get<YafBoardSettings>().EnableIrkoo)
       {
         YafContext.Current.PageElements.RegisterJsBlockStartup("IrkooMethods", YafIrkoo.IrkJsCode());
       }
@@ -385,31 +406,33 @@ namespace YAF.Controls
       YafContext.Current.PageElements.RegisterJsBlockStartup(
         "syntaxhighlighterjs", JavaScriptBlocks.SyntaxHighlightLoadJs);
 
-      if (this.PageContext.BoardSettings.EnableThanksMod)
-      {
-          // Register Javascript
-          const string AddThankBoxHTML =
+        if (!this.Get<YafBoardSettings>().EnableThanksMod)
+        {
+            return;
+        }
+
+        // Register Javascript
+        const string AddThankBoxHTML =
             "'<a class=\"yaflittlebutton\" href=\"javascript:addThanks(' + res.d.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + res.d.Title + '><span>' + res.d.Text + '</span></a>'";
 
-          const string RemoveThankBoxHTML =
+        const string RemoveThankBoxHTML =
             "'<a class=\"yaflittlebutton\" href=\"javascript:removeThanks(' + res.d.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + res.d.Title + '><span>' + res.d.Text + '</span></a>'";
 
-          var thanksJs =
+        var thanksJs =
             this.Get<IScriptBuilder>().CreateStatement().Add(JavaScriptBlocks.AddThanksJs(RemoveThankBoxHTML)).AddLine().Add(
-              JavaScriptBlocks.RemoveThanksJs(AddThankBoxHTML));
+                JavaScriptBlocks.RemoveThanksJs(AddThankBoxHTML));
 
-          YafContext.Current.PageElements.RegisterJsBlockStartup(
-          "ThanksJs", thanksJs);
+        YafContext.Current.PageElements.RegisterJsBlockStartup(
+            "ThanksJs", thanksJs);
 
-          var asynchCallFailedJs =
+        var asynchCallFailedJs =
             this.Get<IScriptBuilder>().CreateStatement().AddFunc(
-              f => f.Name("CallFailed").WithParams("res").Func(s => s.Add("alert('Error Occurred');")));
+                f => f.Name("CallFailed").WithParams("res").Func(s => s.Add("alert('Error Occurred');")));
 
-          YafContext.Current.PageElements.RegisterJsBlockStartup(
+        YafContext.Current.PageElements.RegisterJsBlockStartup(
             "asynchCallFailedJs", asynchCallFailedJs);
 
-           this.FormatThanksRow();
-      }
+        this.FormatThanksRow();
     }
 
     /// <summary>
@@ -417,9 +440,8 @@ namespace YAF.Controls
     /// </summary>
     private void FormatThanksRow()
     {
-
       this.Thank.Visible = this.PostData.CanThankPost && !this.PageContext.IsGuest &&
-                           YafContext.Current.BoardSettings.EnableThanksMod;
+                           this.Get<YafBoardSettings>().EnableThanksMod;
 
       if (Convert.ToBoolean(this.DataRow["IsThankedByUser"]))
       {

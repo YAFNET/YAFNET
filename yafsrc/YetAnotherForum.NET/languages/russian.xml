@@ -797,6 +797,8 @@
     <Resource tag="ALLOW_QUICK_ANSWER_HELP">Разрешить отображение формы быстрого ответа в низу страницы с сообщениями</Resource>
     <Resource tag="ALLOW_SENDMAIL">Разрешить отправлять Email:</Resource>
     <Resource tag="ALLOW_SENDMAIL_HELP">Разрешить пользователям отправлять сообщения друг другу по электронной почте.</Resource>
+    <Resource tag="ALLOW_SHARE_TOPIC">Enable Share Menu:</Resource>
+    <Resource tag="ALLOW_SHARE_TOPIC_HELP">Enables/disables the share Menu, where a user can Email, Tweet, Buzz, Like on Facebook, Digg or Reddit a Topic.</Resource>
     <Resource tag="ALLOW_SIGNATURE">Разрешить подписи:</Resource>
     <Resource tag="ALLOW_SIGNATURE_HELP">Разрешить пользователям добавлять подписи к сообщениям. Вы должны также установить параметры подписи(кол-во символов, разрешённые BBCode...) для каждой роли и/или статуса, чтобы действительно включить эту опцию.</Resource>
     <Resource tag="ALLOW_THANKS">Разрешить «Спасибо»</Resource>
@@ -862,6 +864,8 @@
     <Resource tag="ENABLE_IRKOO_HELP">Irkoo - это бесплатная служба, добавляющая функции репутации к вашему форуму. Посетите &lt;strong&gt;http://www.Irkoo.com&lt;/strong&gt; чтобы получить ID сайта и секретный ключ.</Resource>
     <Resource tag="ENABLE_LOCATIONPATH_ERRORS">Включить журналирование ошибок списка нахождения активных пользователей:</Resource>
     <Resource tag="ENABLE_LOCATIONPATH_ERRORS_HELP">Журналирование ошибок списка нахождения активных пользователей. Используется при отладке.</Resource>
+    <Resource tag="ENABLE_RETWEET_MSG">Enable Retweet Message Button:</Resource>
+    <Resource tag="ENABLE_RETWEET_MSG_HELP">Enables/disables the Retweet Button, where the User can retweet a topic message.</Resource>
     <Resource tag="EXTERN_NEWWINDOW">Показывать результаты внешнего поиска в новом окне:</Resource>
     <Resource tag="EXTERN_NEWWINDOW_HELP">Показывать результаты внешнего поиска в новом окне.</Resource>
     <Resource tag="EXTERN_SEARCH_PERMISS">Разрешения для внешнего поиска:</Resource>
@@ -1130,6 +1134,8 @@
     <Resource tag="TOPIC_FEEDS_ACCESS_HELP">Ограничить доступ к лентам тем.</Resource>
     <Resource tag="TOPICS_PER_PAGE">Темы на странице:</Resource>
     <Resource tag="TOPICS_PER_PAGE_HELP">Количество тем для отображения на одной странице.</Resource>
+    <Resource tag="TWITTER_USERNAME">Twitter Username for Retweets:</Resource>
+    <Resource tag="TWITTER_USERNAME_HELP">Twitter Username that is mentioned when Retweeting a Topic or Message.</Resource>
     <Resource tag="UNHANDLED_USERAGENT_LOG">Включить журналирование для UserAgent:</Resource>
     <Resource tag="UNHANDLED_USERAGENT_LOG_HELP">Все неидентифицируемы UserAgent будут в журнале. Не включайте это постоянно.</Resource>
     <Resource tag="USER_CHANGE_LANGUAGE">Разрешить пользователям менять язык:</Resource>
@@ -1530,6 +1536,8 @@
     <Resource tag="BUTTON_REPLY">Ответить</Resource>
     <Resource tag="BUTTON_REPLY_TT">Ответить на сообщение</Resource>
     <Resource tag="BUTTON_RESETCOVER">Удалить обложку</Resource>
+    <Resource tag="BUTTON_RETWEET">Retweet</Resource>
+    <Resource tag="BUTTON_RETWEET_TT">Retweet this Message</Resource>
     <Resource tag="BUTTON_SETCOVER">Использовать как обложку</Resource>
     <Resource tag="BUTTON_TAGFAVORITE">Добавить в избранные</Resource>
     <Resource tag="BUTTON_TAGFAVORITE_TT">Добавить эту тему в избранные темы.</Resource>
@@ -2638,6 +2646,7 @@
     <Resource tag="ATTACHMENTINFO">({0:N0}kb) загружен [b]{1:N0}[/b] раз(а).</Resource>
     <Resource tag="ATTACHMENTS">Вложение(я):</Resource>
     <Resource tag="BLOG">БЛОГ</Resource>
+    <Resource tag="BUZZ_TOPIC">Buzz this Topic</Resource>
     <Resource tag="CANT_DOWNLOAD">У Вас нет прав для просмотра или загрузки вложений.</Resource>
     <Resource tag="CANT_DOWNLOAD_REGISTER">У Вас нет прав для просмотра или загрузки вложений. Попробуйте зарегистрироваться.</Resource>
     <Resource tag="CHOICE">Вариант</Resource>
@@ -2645,6 +2654,7 @@
     <Resource tag="CONFIRM_DELETEMESSAGE">Удалить это сообщение?</Resource>
     <Resource tag="CONFIRM_DELETETOPIC">Удалить эту тему?</Resource>
     <Resource tag="CONFIRM_REPORTPOST">Вы уверены, что хотите пожаловаться на это сообщение?</Resource>
+    <Resource tag="DIGG_TOPIC">Digg this Topic</Resource>
     <Resource tag="EDIT_REASON">Причина</Resource>
     <Resource tag="EDIT_REASON_NA">Не указана</Resource>
     <Resource tag="EDITED">Отредактировано</Resource>
@@ -2654,6 +2664,7 @@
     <Resource tag="EMAIL">Email</Resource>
     <Resource tag="EMAILTOPIC">Отправить тему по почте</Resource>
     <Resource tag="EMPTY_MESSAGE">Сообщение должно содержать текст.</Resource>
+    <Resource tag="FACEBOOK_TOPIC">Like this Topic</Resource>
     <Resource tag="FORUM_JUMP">Быстрый переход</Resource>
     <Resource tag="GROUPS">Группы</Resource>
     <Resource tag="HOME">WWW</Resource>
@@ -2678,6 +2689,7 @@
     <Resource tag="NEXTTOPIC">Следующая тема</Resource>
     <Resource tag="NORMAL">Обычный</Resource>
     <Resource tag="OPTIONS">Опции</Resource>
+    <Resource tag="OPTIONS_TOOLTIP">Topic Options to Subscribe via Email, RSS, Atom, and to view Printer Friendly Page.</Resource>
     <Resource tag="PM">ЛС</Resource>
     <Resource tag="POINTS">Баллов</Resource>
     <Resource tag="POLL_CLOSED">Опрос завершён</Resource>
@@ -2691,9 +2703,13 @@
     <Resource tag="QUICKREPLY_HIDE">Скрыть форму быстрого ответа</Resource>
     <Resource tag="QUICKREPLY_SHOW">Показать форму быстрого ответа</Resource>
     <Resource tag="RANK">Ранг</Resource>
+    <Resource tag="REDDIT_TOPIC">Reddit this Topic</Resource>
     <Resource tag="REPORTEDFEEDBACK">Спасибо за информацию об этом сообщении.</Resource>
     <Resource tag="REPORTPOST">Жалоба!</Resource>
+    <Resource tag="RETWEET_TOPIC">Retweet this Topic</Resource>
     <Resource tag="RSSTOPIC">RSS-лента темы</Resource>
+    <Resource tag="SHARE">Share</Resource>
+    <Resource tag="SHARE_TOOLTIP">Share this Topic via Email, Twitter, Buzz, Facebook, Digg or Reddit.</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
     <Resource tag="STATISTICS">Статистика</Resource>
     <Resource tag="THANKSFROM">Сказал(а) «Спасибо»: {0} раз</Resource>
@@ -2722,6 +2738,7 @@
     <Resource tag="USERONLINESTATUS">Пользователь находится на форуме</Resource>
     <Resource tag="USERPROFILE">Профиль пользователя</Resource>
     <Resource tag="VIEW">Просмотр</Resource>
+    <Resource tag="VIEW_TOOLTIP">Change Topic View between Normal or Thread View.</Resource>
     <Resource tag="VOTES">Голоса</Resource>
     <Resource tag="WARN_ALREADY_VOTED">Вы уже голосовали в этом опросе.</Resource>
     <Resource tag="WARN_EMAILLOGIN">Вы должны зарегистрироваться для отправки электронной почты.</Resource>

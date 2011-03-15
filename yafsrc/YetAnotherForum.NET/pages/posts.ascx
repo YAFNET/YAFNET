@@ -1,7 +1,5 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.posts" Codebehind="posts.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.posts" Codebehind="posts.ascx.cs" %>
 <%@ Import Namespace="YAF.Core" %>
-<%@ Import Namespace="YAF.Core.Services" %>
-<%@ Import Namespace="YAF.Utils.Helpers.StringUtils" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Utils" %>
 <%@ Register TagPrefix="YAF" TagName="DisplayPost" Src="../controls/DisplayPost.ascx" %>
@@ -43,6 +41,9 @@
                 <asp:Label ID="TopicTitle" runat="server" />
             </div>
             <div class="rightItem">
+                <asp:HyperLink ID="ShareLink" runat="server" CssClass="PopMenuLink">
+                    <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="Share" />
+                </asp:HyperLink>
                 <asp:HyperLink ID="OptionsLink" runat="server" CssClass="PopMenuLink">
                     <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="Options" />
                 </asp:HyperLink>
@@ -135,11 +136,11 @@
         </tr>
     </table>
 </asp:PlaceHolder>
-<table class="header2 postNavigation" width="100%"  id="tbFeeds" runat="server" visible="<%# this.Get<IPermissions>().Check(PageContext.BoardSettings.PostsFeedAccess) %>">
+<table class="header2 postNavigation" width="100%"  id="tbFeeds" runat="server" visible="<%# this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().PostsFeedAccess) %>">
 <tr>
 <td class="post">
-    <YAF:RssFeedLink ID="RssFeed" runat="server" FeedType="Posts"  AdditionalParameters='<%# "t={0}".FormatWith(PageContext.PageTopicID) %>' TitleLocalizedTag="RSSICONTOOLTIPACTIVE" Visible="<%# PageContext.BoardSettings.ShowRSSLink && this.Get<IPermissions>().Check(PageContext.BoardSettings.PostsFeedAccess) %>" />&nbsp; 
-    <YAF:RssFeedLink ID="AtomFeed" runat="server" FeedType="Posts" AdditionalParameters='<%# "t={0}".FormatWith(PageContext.PageTopicID) %>' IsAtomFeed="true" Visible="<%# PageContext.BoardSettings.ShowAtomLink && this.Get<IPermissions>().Check(PageContext.BoardSettings.PostsFeedAccess) %>" ImageThemeTag="ATOMFEED" TextLocalizedTag="ATOMFEED" TitleLocalizedTag="ATOMICONTOOLTIPACTIVE" />
+    <YAF:RssFeedLink ID="RssFeed" runat="server" FeedType="Posts"  AdditionalParameters='<%# "t={0}".FormatWith(PageContext.PageTopicID) %>' TitleLocalizedTag="RSSICONTOOLTIPACTIVE" Visible="<%# this.Get<YafBoardSettings>().ShowRSSLink && this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().PostsFeedAccess) %>" />&nbsp; 
+    <YAF:RssFeedLink ID="AtomFeed" runat="server" FeedType="Posts" AdditionalParameters='<%# "t={0}".FormatWith(PageContext.PageTopicID) %>' IsAtomFeed="true" Visible="<%# this.Get<YafBoardSettings>().ShowAtomLink && this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().PostsFeedAccess) %>" ImageThemeTag="ATOMFEED" TextLocalizedTag="ATOMFEED" TitleLocalizedTag="ATOMICONTOOLTIPACTIVE" />
 </td>
 </tr>
 </table>                           
@@ -185,6 +186,7 @@
 <div id="DivSmartScroller">
     <YAF:SmartScroller ID="SmartScroller1" runat="server" />
 </div>
+<YAF:PopMenu ID="ShareMenu" runat="server" Control="ShareLink" />
 <asp:UpdatePanel ID="PopupMenuUpdatePanel" runat="server">
     <ContentTemplate>
         <YAF:PopMenu runat="server" ID="OptionsMenu" Control="OptionsLink" />

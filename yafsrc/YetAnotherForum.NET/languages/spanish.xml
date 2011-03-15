@@ -798,6 +798,8 @@
     <Resource tag="ALLOW_QUICK_ANSWER_HELP">Enable or disable display of the Quick Reply Box at the bottom of the Posts page</Resource>
     <Resource tag="ALLOW_SENDMAIL">Allow Email Sending:</Resource>
     <Resource tag="ALLOW_SENDMAIL_HELP">Allow users to send emails to each other.</Resource>
+    <Resource tag="ALLOW_SHARE_TOPIC">Enable Share Menu:</Resource>
+    <Resource tag="ALLOW_SHARE_TOPIC_HELP">Enables/disables the share Menu, where a user can Email, Tweet, Buzz, Like on Facebook, Digg or Reddit a Topic.</Resource>
     <Resource tag="ALLOW_SIGNATURE">Allow Signatures:</Resource>
     <Resource tag="ALLOW_SIGNATURE_HELP">Allow users to create signatures. You should set allowed number of characters and BBCodes for each group and/or rank to really enable the feature.</Resource>
     <Resource tag="ALLOW_THANKS">Allow Users to Thank Posts:</Resource>
@@ -863,6 +865,8 @@
     <Resource tag="ENABLE_IRKOO_HELP">Irkoo is a free service that adds user reputations to your site  Visit &lt;strong&gt;http://www.Irkoo.com&lt;/strong&gt; to get the site ID and secret key for your website.</Resource>
     <Resource tag="ENABLE_LOCATIONPATH_ERRORS">Enable Active Location Error Log:</Resource>
     <Resource tag="ENABLE_LOCATIONPATH_ERRORS_HELP">If checked, all active location path errors are logged.</Resource>
+    <Resource tag="ENABLE_RETWEET_MSG">Enable Retweet Message Button:</Resource>
+    <Resource tag="ENABLE_RETWEET_MSG_HELP">Enables/disables the Retweet Button, where the User can retweet a topic message.</Resource>
     <Resource tag="EXTERN_NEWWINDOW">External Search Results In A New Window:</Resource>
     <Resource tag="EXTERN_NEWWINDOW_HELP">Show External Search Results In A New Window.</Resource>
     <Resource tag="EXTERN_SEARCH_PERMISS">External Search Permissions:</Resource>
@@ -1131,6 +1135,8 @@
     <Resource tag="TOPIC_FEEDS_ACCESS_HELP">Restrict display of topics feeds.</Resource>
     <Resource tag="TOPICS_PER_PAGE">Topics Per Page:</Resource>
     <Resource tag="TOPICS_PER_PAGE_HELP">Number of topics to show per page.</Resource>
+    <Resource tag="TWITTER_USERNAME">Twitter Username for Retweets:</Resource>
+    <Resource tag="TWITTER_USERNAME_HELP">Twitter Username that is mentioned when Retweeting a Topic or Message.</Resource>
     <Resource tag="UNHANDLED_USERAGENT_LOG">Enable Unhandled UserAgent Log:</Resource>
     <Resource tag="UNHANDLED_USERAGENT_LOG_HELP">If checked, all unhandled UserAgent strings are logged.</Resource>
     <Resource tag="USER_CHANGE_LANGUAGE">Allow User Change Language:</Resource>
@@ -1537,6 +1543,8 @@
     <Resource tag="BUTTON_REPLY">Contestar</Resource>
     <Resource tag="BUTTON_REPLY_TT">Contestar este mensaje</Resource>
     <Resource tag="BUTTON_RESETCOVER">Remove Cover</Resource>
+    <Resource tag="BUTTON_RETWEET">Retweet</Resource>
+    <Resource tag="BUTTON_RETWEET_TT">Retweet this Message</Resource>
     <Resource tag="BUTTON_SETCOVER">Set as Cover</Resource>
     <Resource tag="BUTTON_TAGFAVORITE">Tag as favorite</Resource>
     <Resource tag="BUTTON_TAGFAVORITE_TT">Tag this topic as a favorite.</Resource>
@@ -2632,6 +2640,7 @@
     <Resource tag="ATTACHMENTINFO">{0:N0} KB, descargado {1:N0} veces.</Resource>
     <Resource tag="ATTACHMENTS">Adjuntos:</Resource>
     <Resource tag="BLOG">BLOG</Resource>
+    <Resource tag="BUZZ_TOPIC">Buzz this Topic</Resource>
     <Resource tag="CANT_DOWNLOAD">You don't have permission to view/download attachments.</Resource>
     <Resource tag="CANT_DOWNLOAD_REGISTER">You [b]cannot[/b] view/download attachments. Try register.</Resource>
     <Resource tag="CHOICE">Opción</Resource>
@@ -2639,6 +2648,7 @@
     <Resource tag="CONFIRM_DELETEMESSAGE">¿Eliminar este mensaje?</Resource>
     <Resource tag="CONFIRM_DELETETOPIC">¿Eliminar este tema?</Resource>
     <Resource tag="CONFIRM_REPORTPOST">Seguro desea reportar este mensaje como abusivo?</Resource>
+    <Resource tag="DIGG_TOPIC">Digg this Topic</Resource>
     <Resource tag="EDIT_REASON">Razon</Resource>
     <Resource tag="EDIT_REASON_NA">No especificada</Resource>
     <Resource tag="EDITED">Editar</Resource>
@@ -2648,6 +2658,7 @@
     <Resource tag="EMAIL">EMail</Resource>
     <Resource tag="EMAILTOPIC">Enviar correo de este tema</Resource>
     <Resource tag="EMPTY_MESSAGE">Debe escribir algo en su mensaje.</Resource>
+    <Resource tag="FACEBOOK_TOPIC">Like this Topic</Resource>
     <Resource tag="FORUM_JUMP">Salto de foro</Resource>
     <Resource tag="GROUPS">Grupos</Resource>
     <Resource tag="HOME">WWW</Resource>
@@ -2672,6 +2683,7 @@
     <Resource tag="NEXTTOPIC">Tema siguiente</Resource>
     <Resource tag="NORMAL">Normal</Resource>
     <Resource tag="OPTIONS">Opciones</Resource>
+    <Resource tag="OPTIONS_TOOLTIP">Topic Options to Subscribe via Email, RSS, Atom, and to view Printer Friendly Page.</Resource>
     <Resource tag="PM">MP</Resource>
     <Resource tag="POINTS">Puntos</Resource>
     <Resource tag="POLL_CLOSED">(La encuesta ha finalizado)</Resource>
@@ -2685,9 +2697,13 @@
     <Resource tag="QUICKREPLY_HIDE">Ocultar Respuesta Rápida</Resource>
     <Resource tag="QUICKREPLY_SHOW">Mostrar Respuesta Rápida</Resource>
     <Resource tag="RANK">Posición</Resource>
+    <Resource tag="REDDIT_TOPIC">Reddit this Topic</Resource>
     <Resource tag="REPORTEDFEEDBACK">Gracias por reportar este mensaje.</Resource>
     <Resource tag="REPORTPOST">Reportar Abuso</Resource>
+    <Resource tag="RETWEET_TOPIC">Retweet this Topic</Resource>
     <Resource tag="RSSTOPIC">RSS</Resource>
+    <Resource tag="SHARE">Share</Resource>
+    <Resource tag="SHARE_TOOLTIP">Share this Topic via Email, Twitter, Buzz, Facebook, Digg or Reddit.</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
     <Resource tag="STATISTICS">Estadísticas</Resource>
     <Resource tag="THANKSFROM">Thanks: {0} times</Resource>
@@ -2716,6 +2732,7 @@
     <Resource tag="USERONLINESTATUS">User Is Online</Resource>
     <Resource tag="USERPROFILE">Perfil de usuario</Resource>
     <Resource tag="VIEW">Ver</Resource>
+    <Resource tag="VIEW_TOOLTIP">Change Topic View between Normal or Thread View.</Resource>
     <Resource tag="VOTES">Votos</Resource>
     <Resource tag="WARN_ALREADY_VOTED">Ya votaste antes.</Resource>
     <Resource tag="WARN_EMAILLOGIN">Debes estar registrado para enviar correos.</Resource>

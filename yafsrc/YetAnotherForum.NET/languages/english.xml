@@ -550,7 +550,9 @@
       <Resource tag="BUTTON_UNDELETE">Undelete</Resource>
       <Resource tag="BUTTON_UNDELETE_TT">Undelete this post</Resource>
       <Resource tag="BUTTON_UNLOCKTOPIC">Unlock Topic</Resource>
-      <Resource tag="BUTTON_UNLOCKTOPIC_TT">Unlock this topic</Resource>      
+      <Resource tag="BUTTON_UNLOCKTOPIC_TT">Unlock this topic</Resource>
+	  <Resource tag="BUTTON_RETWEET">Retweet</Resource>
+      <Resource tag="BUTTON_RETWEET_TT">Retweet this Message</Resource>      
    </page>
    <page name="COMMON">
       <Resource tag="OR">or</Resource>
@@ -1372,6 +1374,15 @@
       <Resource tag="WARN_WATCHLOGIN">You must be registered to watch topics.</Resource>
       <Resource tag="WATCHTOPIC">Watch this topic</Resource>
       <Resource tag="YIM">YAHOO</Resource>
+	  <Resource tag="SHARE">Share</Resource>
+	  <Resource tag="SHARE_TOOLTIP">Share this Topic via Email, Twitter, Buzz, Facebook, Digg or Reddit.</Resource>
+	  <Resource tag="RETWEET_TOPIC">Retweet this Topic</Resource>
+	  <Resource tag="BUZZ_TOPIC">Buzz this Topic</Resource>
+	  <Resource tag="FACEBOOK_TOPIC">Like this Topic</Resource>
+	  <Resource tag="DIGG_TOPIC">Digg this Topic</Resource>
+	  <Resource tag="REDDIT_TOPIC">Reddit this Topic</Resource>
+	  <Resource tag="OPTIONS_TOOLTIP">Topic Options to Subscribe via Email, RSS, Atom, and to view Printer Friendly Page.</Resource>
+	  <Resource tag="VIEW_TOOLTIP">Change Topic View between Normal or Thread View.</Resource>
    </page>
    <page name="BUDDY">
       <Resource tag="ADDBUDDY">Add as buddy</Resource>
@@ -3180,8 +3191,14 @@ Visit {forumname} at {forumlink}
        <Resource tag="SHOWAD_LOGINUSERS_HELP">If checked, signed in users will see ads.</Resource>
 	   <Resource tag="SHOWTEAM">Show Team Page:</Resource>
        <Resource tag="SHOWTEAM_HELP">Enable or disable display the Team Link in the Header that Shows the Team Page</Resource>
-     <Resource tag="SHOW_UNREAD_LINKS">Show Unread Links:</Resource>
+       <Resource tag="SHOW_UNREAD_LINKS">Show Unread Links:</Resource>
        <Resource tag="SHOW_UNREAD_LINKS_HELP">Unread Links will be displayed.</Resource>
+	   <Resource tag="ALLOW_SHARE_TOPIC">Enable Share Menu:</Resource>
+       <Resource tag="ALLOW_SHARE_TOPIC_HELP">Enables/disables the share Menu, where a user can Email, Tweet, Buzz, Like on Facebook, Digg or Reddit a Topic.</Resource>
+	   <Resource tag="TWITTER_USERNAME">Twitter Username for Retweets:</Resource>
+       <Resource tag="TWITTER_USERNAME_HELP">Twitter Username that is mentioned when Retweeting a Topic or Message.</Resource>
+	   <Resource tag="ENABLE_RETWEET_MSG">Enable Retweet Message Button:</Resource>
+       <Resource tag="ENABLE_RETWEET_MSG_HELP">Enables/disables the Retweet Button, where the User can retweet a topic message.</Resource>
    </page>
 	  <page name="ADMIN_TEST_DATA">
 	   <Resource tag="TITLE">Create Test Data (DEBUG Only)</Resource>

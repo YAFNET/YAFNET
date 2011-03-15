@@ -112,6 +112,24 @@ namespace YAF.Pages {
         protected global::System.Web.UI.WebControls.Label TopicTitle;
         
         /// <summary>
+        /// ShareLink control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink ShareLink;
+        
+        /// <summary>
+        /// LocalizedLabel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel1;
+        
+        /// <summary>
         /// OptionsLink control.
         /// </summary>
         /// <remarks>
@@ -515,6 +533,15 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Controls.SmartScroller SmartScroller1;
+        
+        /// <summary>
+        /// ShareMenu control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.PopMenu ShareMenu;
         
         /// <summary>
         /// PopupMenuUpdatePanel control.

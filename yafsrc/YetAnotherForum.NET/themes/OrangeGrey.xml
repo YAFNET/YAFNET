@@ -52,6 +52,12 @@
 	  <Resource tag="GENDER_FEMALE">~/female.gif</Resource>
     <Resource tag="RSSFEED">~/rssfeed.gif</Resource>
     <Resource tag="ATOMFEED">~/atomfeed.png</Resource>
+		  <Resource tag="TWITTER">~/icon_twitter.png</Resource>
+	  <Resource tag="DIGG">~/icon_digg.png</Resource>
+	  <Resource tag="REDDIT">~/icon_reddit.png</Resource>
+	  <Resource tag="FACEBOOK">~/icon_facebook.png</Resource>
+	  <Resource tag="BUZZ">~/icon_buzz.png</Resource>
+	  <Resource tag="PRINT">~/icon_print.png</Resource>
   </page>
     <page name="SORT">
 	  <Resource tag="ASCENDING">~/sort_up.gif</Resource>

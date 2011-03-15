@@ -134,6 +134,23 @@ namespace YAF.Controls
         }
 
         /// <summary>
+        /// The add client script item with Icon.
+        /// </summary>
+        /// <param name="description">
+        /// The description.
+        /// </param>
+        /// <param name="clientScript">
+        /// The client script.
+        /// </param>
+        /// <param name="icon">
+        /// The icon.
+        /// </param>
+        public void AddClientScriptItem([NotNull] string description, [NotNull] string clientScript, [NotNull] string icon)
+        {
+            this._items.Add(new InternalPopMenuItem(description, null, clientScript, icon));
+        }
+
+        /// <summary>
         /// Add a item with a client script and post back option. (Use {postbackcode} in the <paramref name="clientScript"/> code for the postback code.)
         /// </summary>
         /// <param name="description">
@@ -208,12 +225,12 @@ namespace YAF.Controls
         /// <summary>
         /// The remove post back item.
         /// </summary>
-        /// <param name="Argument">
+        /// <param name="argument">
         /// The argument.
         /// </param>
-        public void RemovePostBackItem([NotNull] string Argument)
+        public void RemovePostBackItem([NotNull] string argument)
         {
-            foreach (InternalPopMenuItem item in this._items.Where(item => item.PostBackArgument == Argument))
+            foreach (InternalPopMenuItem item in this._items.Where(item => item.PostBackArgument == argument))
             {
                 this._items.Remove(item);
                 break;
@@ -289,7 +306,7 @@ namespace YAF.Controls
                 }
 
                 sb.AppendFormat(
-                  @"<li class=""popupitem"" onmouseover=""mouseHover(this,true)"" onmouseout=""mouseHover(this,false)"" onclick=""{2}"" style=""white-space:nowrap"">{0}{1}</li>",
+                  @"<li class=""popupitem"" onmouseover=""mouseHover(this,true)"" onmouseout=""mouseHover(this,false)"" onclick=""{2}"" style=""white-space:nowrap"" title=""{1}"">{0}{1}</li>",
                   iconImage,
                   thisItem.Description,
                   onClick);

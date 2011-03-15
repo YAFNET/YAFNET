@@ -135,22 +135,22 @@
     <Resource tag="USERNAME">Benutzername</Resource>
   </page>
   <page name="ADMIN_ACCESSMASKS">
-    <Resource tag="CONFIRM_DELETE">Delete this access mask?</Resource>
-    <Resource tag="DELETE">Delete</Resource>
-    <Resource tag="DOWNLOAD">Download</Resource>
-    <Resource tag="EDIT">Edit</Resource>
-    <Resource tag="MODERATOR">Moderate</Resource>
+    <Resource tag="CONFIRM_DELETE">Diese Zugangsmaske löschen?</Resource>
+    <Resource tag="DELETE">Löschen</Resource>
+    <Resource tag="DOWNLOAD">Herunterladen</Resource>
+    <Resource tag="EDIT">Bearbeiten</Resource>
+    <Resource tag="MODERATOR">Moderieren</Resource>
     <Resource tag="MSG_NOT_DELETE">You cannot delete this access mask because it is in use.</Resource>
     <Resource tag="NAME">Name</Resource>
-    <Resource tag="NEW_MASK">New Access Mask</Resource>
-    <Resource tag="POLL">Poll</Resource>
-    <Resource tag="POST">Post</Resource>
-    <Resource tag="PRIORITY">Priority</Resource>
-    <Resource tag="READ">Read</Resource>
-    <Resource tag="REPLY">Reply</Resource>
-    <Resource tag="TITLE">Access Masks</Resource>
-    <Resource tag="UPLOAD">Upload</Resource>
-    <Resource tag="VOTE">Vote</Resource>
+    <Resource tag="NEW_MASK">Neue Zugangsmaske</Resource>
+    <Resource tag="POLL">Umfrage</Resource>
+    <Resource tag="POST">Posten</Resource>
+    <Resource tag="PRIORITY">Priorität</Resource>
+    <Resource tag="READ">Lesen</Resource>
+    <Resource tag="REPLY">Antworten</Resource>
+    <Resource tag="TITLE">Zugangsmasken</Resource>
+    <Resource tag="UPLOAD">Hochladen</Resource>
+    <Resource tag="VOTE">Abstimmen</Resource>
   </page>
   <page name="ADMIN_ADMIN">
     <Resource tag="ADMIN_APPROVE">Genehmigen</Resource>
@@ -186,40 +186,40 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="USERS_DAY">Benutzer pro Tag:</Resource>
   </page>
   <page name="ADMIN_ATTACHMENTS">
-    <Resource tag="CONFIRM_DELETE">Delete this attachment?</Resource>
-    <Resource tag="CONTENT_TYPE">Content Type</Resource>
+    <Resource tag="CONFIRM_DELETE">Diesen Anhang löschen?</Resource>
+    <Resource tag="CONTENT_TYPE">Content-Typ</Resource>
     <Resource tag="DOWNLOADS">Downloads</Resource>
-    <Resource tag="POSTED">Posted</Resource>
-    <Resource tag="TITLE">Attachments</Resource>
+    <Resource tag="POSTED">Geschrieben</Resource>
+    <Resource tag="TITLE">Anhänge</Resource>
   </page>
   <page name="ADMIN_BANNEDIP">
-    <Resource tag="ADD_IP">Add New Adress</Resource>
-    <Resource tag="BAN_BY">Banned By</Resource>
-    <Resource tag="MASK">Mask</Resource>
-    <Resource tag="REASON">Reason</Resource>
-    <Resource tag="SINCE">Since</Resource>
-    <Resource tag="TITLE">Banned IP Addresses</Resource>
+    <Resource tag="ADD_IP">Neue Adresse hinzufügen</Resource>
+    <Resource tag="BAN_BY">Gebannt durch</Resource>
+    <Resource tag="MASK">Maske</Resource>
+    <Resource tag="REASON">Grund</Resource>
+    <Resource tag="SINCE">Seit</Resource>
+    <Resource tag="TITLE">Gesperrte IP-Adressen</Resource>
   </page>
   <page name="ADMIN_BANNEDIP_EDIT">
-    <Resource tag="INVALID_ADRESS">Invalid IP address.</Resource>
-    <Resource tag="INVALID_LESS">"{0}" is not a valid IP section value (must be less then 255).</Resource>
+    <Resource tag="INVALID_ADRESS">Ungültige IP-Adresse.</Resource>
+    <Resource tag="INVALID_LESS">"{0}" ist kein gültiger IP Bereichswert (Muss kleiner als 255 sein).</Resource>
     <Resource tag="INVALID_SECTION">"{0}" is not a valid IP section value.</Resource>
-    <Resource tag="INVALID_VALUE">One of the IP section does not have a value. Valid values are 0-255 or "*" for a wildcard.</Resource>
-    <Resource tag="MASK">Mask:</Resource>
+    <Resource tag="INVALID_VALUE">Einer der IP Werte ist ungültigt. Gültige Wert sind zwischen 0-255 oder "*" für eine wildcard.</Resource>
+    <Resource tag="MASK">Maske:</Resource>
     <Resource tag="MASK_HELP">The ip address to ban. You can use wildcards (127.0.0.*).</Resource>
-    <Resource tag="REASON">Reason:</Resource>
+    <Resource tag="REASON">Grund:</Resource>
     <Resource tag="REASON_HELP">The reason why the ip was banned.</Resource>
-    <Resource tag="TITLE">Add/Edit Banned IP Address</Resource>
+    <Resource tag="TITLE">Gesperrte IP-Adresse Hinzufügen / Bearbeiten</Resource>
   </page>
   <page name="ADMIN_BBCODE">
-    <Resource tag="ADD">Add new BBCode</Resource>
+    <Resource tag="ADD">Neuen BBCode hinzufügen</Resource>
     <Resource tag="CONFIRM_DELETE">Delete this YafBBCode Extension?</Resource>
-    <Resource tag="DESCRIPTION">Description</Resource>
-    <Resource tag="EXPORT">Export Selected to XML</Resource>
-    <Resource tag="HEADER">BBCode Extensions</Resource>
-    <Resource tag="MSG_NOTHING_SELECTED">Nothing selected to export.</Resource>
+    <Resource tag="DESCRIPTION">Beschreibung</Resource>
+    <Resource tag="EXPORT">Gewählte als XML exportieren</Resource>
+    <Resource tag="HEADER">BBCode Erweiterungen</Resource>
+    <Resource tag="MSG_NOTHING_SELECTED">Nichts ausgewählt zum exportieren.</Resource>
     <Resource tag="NAME">Name</Resource>
-    <Resource tag="TITLE">YafBBCode Extensions</Resource>
+    <Resource tag="TITLE">YafBBCode Erweiterungen</Resource>
   </page>
   <page name="ADMIN_BBCODE_EDIT">
     <Resource tag="BBCODE_DESC">Description:</Resource>
@@ -255,11 +255,11 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="USE_MODULE_HELP">Use server-side module (class) instead of replace regex?</Resource>
   </page>
   <page name="ADMIN_BBCODE_IMPORT">
-    <Resource tag="HEADER">Import Custom BBCode</Resource>
-    <Resource tag="IMPORT_FAILED">Failed to import: {0}</Resource>
-    <Resource tag="IMPORT_NOTHING">Nothing imported: no new custom bbcode was found in the upload.</Resource>
+    <Resource tag="HEADER">BBCode importieren</Resource>
+    <Resource tag="IMPORT_FAILED">Importieren fehlgeschlagen: {0}</Resource>
+    <Resource tag="IMPORT_NOTHING">Nichts importiert, da kein neues BBCode gefunden wurde.</Resource>
     <Resource tag="IMPORT_SUCESS">{0} new custom bbcode(s) imported successfully.</Resource>
-    <Resource tag="TITLE">Import Custom YafBBCode</Resource>
+    <Resource tag="TITLE">YafBBCode importieren</Resource>
   </page>
   <page name="ADMIN_BOARDS">
     <Resource tag="CONFIRM_DELETE">Dieses Board löschen?</Resource>
@@ -308,69 +308,69 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="TITLE">Board Settings</Resource>
   </page>
   <page name="ADMIN_COMMON">
-    <Resource tag="CANCEL">Cancel</Resource>
-    <Resource tag="CLEAR">Clear</Resource>
+    <Resource tag="CANCEL">Abbruch</Resource>
+    <Resource tag="CLEAR">Leeren</Resource>
     <Resource tag="DISABLED">Deaktiviert</Resource>
     <Resource tag="NO">Nein </Resource>
-    <Resource tag="SAVE">Save</Resource>
+    <Resource tag="SAVE">Speichern</Resource>
     <Resource tag="YES">Ja</Resource>
   </page>
   <page name="ADMIN_DIGEST">
     <Resource tag="CONFIRM_FORCE">Are you sure you want to schedule a digest send right now?</Resource>
-    <Resource tag="DIGEST_EMAIL">Email:</Resource>
+    <Resource tag="DIGEST_EMAIL">E-mail:</Resource>
     <Resource tag="DIGEST_EMAIL_HELP">Send a test digest to the email.</Resource>
-    <Resource tag="DIGEST_ENABLED">Digest Enabled:</Resource>
-    <Resource tag="DIGEST_ENABLED_HELP">Change in your Board Settings.</Resource>
-    <Resource tag="DIGEST_GENERATE">Digest:</Resource>
-    <Resource tag="DIGEST_GENERATE_HELP">Generate Digest for this admin account and currently selected theme. (May not actually look like this rendered in an email client.)</Resource>
-    <Resource tag="DIGEST_LAST">Last Digest Send:</Resource>
-    <Resource tag="DIGEST_LAST_HELP">The last time (based on server time) the digest task was run.&gt;</Resource>
-    <Resource tag="DIGEST_METHOD">Send Method:</Resource>
-    <Resource tag="DIGEST_METHOD_HELP">Type of System Send to Test.</Resource>
-    <Resource tag="DIGEST_NEVER">Never</Resource>
-    <Resource tag="FORCE_SEND">Force Digest Send</Resource>
-    <Resource tag="GENERATE_DIGEST">Generate Digest</Resource>
-    <Resource tag="HEADER2">View Current Digest</Resource>
-    <Resource tag="HEADER3">Send Test Digest</Resource>
+    <Resource tag="DIGEST_ENABLED">Zusammenfassung aktiviert:</Resource>
+    <Resource tag="DIGEST_ENABLED_HELP">Ändern in Ihrem Board-Einstellungen.</Resource>
+    <Resource tag="DIGEST_GENERATE">Zusammenfassung:</Resource>
+    <Resource tag="DIGEST_GENERATE_HELP">Zusammenfassung generieren für den aktuellen Admin Account und dem aktuellen Theme (Sieht evtl. nicht so aus wie in einem Email Programm).</Resource>
+    <Resource tag="DIGEST_LAST">Letzte Zusammenfassung gesendet:</Resource>
+    <Resource tag="DIGEST_LAST_HELP">Das letzte mal (basierend auf der Serverzeit) an dem der Zusammenfassungs-Task gelaufen ist.&gt;</Resource>
+    <Resource tag="DIGEST_METHOD">Senden Methode:</Resource>
+    <Resource tag="DIGEST_METHOD_HELP">System Typ zum Testsenden.</Resource>
+    <Resource tag="DIGEST_NEVER">Nie</Resource>
+    <Resource tag="FORCE_SEND">Zusammenfassung senden forcieren</Resource>
+    <Resource tag="GENERATE_DIGEST">Zusammenfassung erstellen</Resource>
+    <Resource tag="HEADER2">Aktueller Zusammenfassung ansehen</Resource>
+    <Resource tag="HEADER3">Test Zusammenfassung senden</Resource>
     <Resource tag="MSG_FORCE_SEND">Digest Send Scheduled for Immediate Sending</Resource>
-    <Resource tag="MSG_SEND_ERR">Exception Getting Digest: {0}</Resource>
-    <Resource tag="MSG_SEND_SUC">Sent via {0} successfully.</Resource>
+    <Resource tag="MSG_SEND_ERR">Ausnahme beim empfangen: {0}</Resource>
+    <Resource tag="MSG_SEND_SUC">Senden via {0} erfolgreich.</Resource>
     <Resource tag="MSG_VALID_MAIL">Please enter a valid email address to send a test.</Resource>
-    <Resource tag="SEND_TEST">Send Test</Resource>
-    <Resource tag="TITLE">Digest</Resource>
+    <Resource tag="SEND_TEST">Test senden</Resource>
+    <Resource tag="TITLE">Zusamenfassung (Digest)</Resource>
   </page>
   <page name="ADMIN_EDITACCESSMASKS">
-    <Resource tag="ACCESS">Access</Resource>
+    <Resource tag="ACCESS">Zugang</Resource>
     <Resource tag="MASK_NAME">Name:</Resource>
-    <Resource tag="MASK_NAME_HELP">Name of this access mask.</Resource>
-    <Resource tag="MASK_ORDER">Order:</Resource>
+    <Resource tag="MASK_NAME_HELP">Name dieser Zugangsmaske.</Resource>
+    <Resource tag="MASK_ORDER">Reihenfolge:</Resource>
     <Resource tag="MASK_ORDER_HELP">Sort order for this access mask.</Resource>
     <Resource tag="MSG_MASK_NAME">You must enter a name for the Access Mask.</Resource>
-    <Resource tag="MSG_NUMBER_SORT">You must enter a number value from 0 to 32767 for sort order.</Resource>
-    <Resource tag="MSG_POSITIVE_SORT">The Sort Order value should be a positive integer from 0 to 32767.</Resource>
-    <Resource tag="TITLE">Add/Edit Access Masks</Resource>
+    <Resource tag="MSG_NUMBER_SORT">Sie müssen eine Zahl zwischen 0 und 32767 eingeben.</Resource>
+    <Resource tag="MSG_POSITIVE_SORT">Der Reihenfolge Wert sollte eine Zahl zwischen 0 und 32767 sein.</Resource>
+    <Resource tag="TITLE">Zugangsmasken Hinzufügen / Bearbeiten </Resource>
   </page>
   <page name="ADMIN_EDITBOARD">
     <Resource tag="ADMIN_USER">Create New Admin User:</Resource>
     <Resource tag="ADMIN_USER_HELP">Only required when creating a board using a new &amp; different membership application name.</Resource>
-    <Resource tag="CULTURE">Culture:</Resource>
-    <Resource tag="CULTURE_HELP">The Culture of the board.</Resource>
-    <Resource tag="HEADER2">New Administrator Information</Resource>
+    <Resource tag="CULTURE">Sprache:</Resource>
+    <Resource tag="CULTURE_HELP">Die Sprache des Boards.</Resource>
+    <Resource tag="HEADER2">Informationen für neue Administratoren</Resource>
     <Resource tag="MEMBSHIP_APP_NAME">Membership Application Name:</Resource>
     <Resource tag="MEMBSHIP_APP_NAME_HELP">Application name required for provider, blank will use ApplicationName in web.config.</Resource>
     <Resource tag="MSG_EMAIL_ADMIN">You must enter the email address of the administrator user.</Resource>
     <Resource tag="MSG_NAME_ADMIN">You must enter the name of a administrator user.</Resource>
     <Resource tag="MSG_NAME_BOARD">You must enter a name for the board.</Resource>
     <Resource tag="MSG_PASS_ADMIN">You must enter a password for the administrator user.</Resource>
-    <Resource tag="MSG_PASS_MATCH">The passwords don't match.</Resource>
+    <Resource tag="MSG_PASS_MATCH">Die Passwörter stimmen nicht überein.</Resource>
     <Resource tag="NAME">Name:</Resource>
-    <Resource tag="NAME_HELP">The name of the board.</Resource>
-    <Resource tag="SECURITY_ANSWER">Security Answer:</Resource>
+    <Resource tag="NAME_HELP">Der Name des Boards.</Resource>
+    <Resource tag="SECURITY_ANSWER">Sicherheits-Antwort:</Resource>
     <Resource tag="SECURITY_ANSWER_HELP">The answer to the security question.</Resource>
-    <Resource tag="SECURITY_QUESTION">Security Question:</Resource>
-    <Resource tag="SECURITY_QUESTION_HELP">The question you will be asked when you need to retrieve your lost password.</Resource>
+    <Resource tag="SECURITY_QUESTION">Sicherheits-Frage:</Resource>
+    <Resource tag="SECURITY_QUESTION_HELP">Diese Frage wird gestellt wenn Sie versuchen ein verlorenes Passwort wiederherzustellen</Resource>
     <Resource tag="STATUS_DUP_EMAIL">A username for that e-mail address already exists. Please enter a different e-mail address.</Resource>
-    <Resource tag="STATUS_DUP_NAME">Username already exists. Please enter a different user name.</Resource>
+    <Resource tag="STATUS_DUP_NAME">Benutzername exestiert bereits. Bitte wählen Sie einen anderen Namen.</Resource>
     <Resource tag="STATUS_INVAL_ANSWER">The password retrieval answer provided is invalid. Please check the value and try again.</Resource>
     <Resource tag="STATUS_INVAL_MAIL">The e-mail address provided is invalid. Please check the value and try again.</Resource>
     <Resource tag="STATUS_INVAL_NAME">The user name provided is invalid. Please check the value and try again.</Resource>
@@ -378,17 +378,17 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="STATUS_INVAL_QUESTION">The password retrieval question provided is invalid. Please check the value and try again.</Resource>
     <Resource tag="STATUS_PROVIDER_ERR">The authentication provider returned an error. Please verify your entry and try again. If the problem persists, please contact your system administrator.</Resource>
     <Resource tag="STATUS_USR_REJECTED">The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator.</Resource>
-    <Resource tag="THREADED">Allow Threaded:</Resource>
+    <Resource tag="THREADED">Threaded Ansicht erlauben:</Resource>
     <Resource tag="THREADED_HELP">Allow threaded view for posts.</Resource>
-    <Resource tag="TITLE">Add/Edit Board</Resource>
-    <Resource tag="USER_MAIL">User Email:</Resource>
+    <Resource tag="TITLE">Board Hinzufügen/Bearbeiten</Resource>
+    <Resource tag="USER_MAIL">Benutzer E-Mail:</Resource>
     <Resource tag="USER_MAIL_HELP">Email address for administrator.</Resource>
-    <Resource tag="USER_NAME">User Name:</Resource>
+    <Resource tag="USER_NAME">Benutzername:</Resource>
     <Resource tag="USER_NAME_HELP">This will be the administrator for the board.</Resource>
-    <Resource tag="USER_PASS">Password:</Resource>
+    <Resource tag="USER_PASS">Passwort:</Resource>
     <Resource tag="USER_PASS_HELP">Enter password for administrator here.</Resource>
-    <Resource tag="VERIFY_PASS">Verify Password:</Resource>
-    <Resource tag="VERIFY_PASS_HELP">Verify the password.</Resource>
+    <Resource tag="VERIFY_PASS">Passwort bestätigen:</Resource>
+    <Resource tag="VERIFY_PASS_HELP">Überprüfen Sie das Kennwort.</Resource>
   </page>
   <page name="ADMIN_EDITCATEGORY">
     <Resource tag="CATEGORY_IMAGE">Kategorie Bild:</Resource>
@@ -492,14 +492,14 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="TITLE">Add/Edit Role</Resource>
   </page>
   <page name="ADMIN_EDITLANGUAGE">
-    <Resource tag="AUTO_SYNC">Missing Translation Resources are Automatically Syncronized and Updated.</Resource>
+    <Resource tag="AUTO_SYNC">Fehlende Ressourcen wurden automatisc syncronisiert und aktualisiert.</Resource>
     <Resource tag="HEADER">Language Translation - &lt;em&gt;Current Ressource Page : </Resource>
-    <Resource tag="LOAD_PAGE">Load Page Localization</Resource>
-    <Resource tag="LOCALIZED_RESOURCE">Localized Resource</Resource>
-    <Resource tag="ORIGINAL_RESOURCE">Original Resource</Resource>
-    <Resource tag="RESOURCE_NAME">Resource Name</Resource>
-    <Resource tag="SELECT_PAGE">Select a Page:</Resource>
-    <Resource tag="TITLE">Language Translator</Resource>
+    <Resource tag="LOAD_PAGE">Load Page Lokalisierung</Resource>
+    <Resource tag="LOCALIZED_RESOURCE">Lokalisierte Ressource</Resource>
+    <Resource tag="ORIGINAL_RESOURCE">Originale Ressource</Resource>
+    <Resource tag="RESOURCE_NAME">Ressource Name</Resource>
+    <Resource tag="SELECT_PAGE">Wählen Sie eine Seite:</Resource>
+    <Resource tag="TITLE">Sprachübersetzer</Resource>
   </page>
   <page name="ADMIN_EDITMEDAL">
     <Resource tag="ADD_GROUP">Add Group</Resource>
@@ -559,32 +559,32 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="TITLE">Add/Edit Medal</Resource>
   </page>
   <page name="ADMIN_EDITNNTPFORUM">
-    <Resource tag="ACTIVE">Active:</Resource>
+    <Resource tag="ACTIVE">Aktiv:</Resource>
     <Resource tag="ACTIVE_HELP">Check this to make the forum active.</Resource>
     <Resource tag="FORUM">Forum:</Resource>
     <Resource tag="FORUM_HELP">The forum messages will be inserted into.</Resource>
-    <Resource tag="GROUP">Group:</Resource>
-    <Resource tag="GROUP_HELP">The name of the newsgroup.</Resource>
+    <Resource tag="GROUP">Gruppe:</Resource>
+    <Resource tag="GROUP_HELP">Der Name der Newsgroup.</Resource>
     <Resource tag="MSG_SELECT_FORUM">You must select a forum to save NNTP messages.</Resource>
     <Resource tag="MSG_VALID_GROUP">You should enter a valid group name.</Resource>
     <Resource tag="SERVER">Server:</Resource>
     <Resource tag="SERVER_HELP">What server this groups is located.</Resource>
-    <Resource tag="TITLE">Add/Edit NNTP Forum</Resource>
+    <Resource tag="TITLE">Hinzufügen / Bearbeiten NNTP-Forum</Resource>
   </page>
   <page name="ADMIN_EDITNNTPSERVER">
-    <Resource tag="MSG_SERVER_ADR">Missing server address.</Resource>
-    <Resource tag="MSG_SERVER_NAME">Missing server name.</Resource>
-    <Resource tag="NNTP_ADRESS">Address:</Resource>
-    <Resource tag="NNTP_ADRESS_HELP">The host name of the server.</Resource>
+    <Resource tag="MSG_SERVER_ADR">Fehlende Server-Adresse.</Resource>
+    <Resource tag="MSG_SERVER_NAME">Fehlende Server-Name.</Resource>
+    <Resource tag="NNTP_ADRESS">Adresse:</Resource>
+    <Resource tag="NNTP_ADRESS_HELP">Der Hostname des Servers.</Resource>
     <Resource tag="NNTP_NAME">Name:</Resource>
-    <Resource tag="NNTP_NAME_HELP">Name of this server.</Resource>
-    <Resource tag="NNTP_PASSWORD">Password:</Resource>
+    <Resource tag="NNTP_NAME_HELP">Name dieses Servers.</Resource>
+    <Resource tag="NNTP_PASSWORD">Passwort:</Resource>
     <Resource tag="NNTP_PASSWORD_HELP">The password used to log on to the nntp server.</Resource>
     <Resource tag="NNTP_PORT">Port:</Resource>
-    <Resource tag="NNTP_PORT_HELP">The port number to connect to.</Resource>
-    <Resource tag="NNTP_USERNAME">User Name:</Resource>
+    <Resource tag="NNTP_PORT_HELP">Die Port-Nummer zum verbinden.</Resource>
+    <Resource tag="NNTP_USERNAME">Benutzername:</Resource>
     <Resource tag="NNTP_USERNAME_HELP">The user name used to log on to the nntp server.</Resource>
-    <Resource tag="TITLE">Add/Edit NNTP Server</Resource>
+    <Resource tag="TITLE">Hinzufügen / Bearbeiten NNTP-Server</Resource>
   </page>
   <page name="ADMIN_EDITRANK">
     <Resource tag="ALBUMS_NUMBER">User Albums Number:</Resource>
@@ -680,72 +680,72 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="VIEW_ALL">View All</Resource>
   </page>
   <page name="ADMIN_EVENTLOG">
-    <Resource tag="CONFIRM_DELETE">Delete this event log entry?</Resource>
-    <Resource tag="CONFIRM_DELETE_ALL">Delete all event log entries?</Resource>
-    <Resource tag="DELETE_ALL">Delete All</Resource>
-    <Resource tag="HIDE">Hide</Resource>
-    <Resource tag="SHOW">Show</Resource>
-    <Resource tag="SOURCE">Source</Resource>
-    <Resource tag="TIME">Time</Resource>
-    <Resource tag="TITLE">Event Log</Resource>
-    <Resource tag="TYPE">Type</Resource>
+    <Resource tag="CONFIRM_DELETE">Diesen Eintrag im Ereignisprotokoll löschen?</Resource>
+    <Resource tag="CONFIRM_DELETE_ALL">Alle Einträge löschen?</Resource>
+    <Resource tag="DELETE_ALL">Alle löschen</Resource>
+    <Resource tag="HIDE">Verstecken</Resource>
+    <Resource tag="SHOW">Zeigen</Resource>
+    <Resource tag="SOURCE">Quelle</Resource>
+    <Resource tag="TIME">Zeit</Resource>
+    <Resource tag="TITLE">Ergeignisprotokoll</Resource>
+    <Resource tag="TYPE">Typ</Resource>
   </page>
   <page name="ADMIN_EXTENSIONS">
-    <Resource tag="ADD">Add</Resource>
-    <Resource tag="CONFIRM_DELETE">Delete this Extension?</Resource>
-    <Resource tag="EXPORT">Export to XML</Resource>
-    <Resource tag="HEADER">Allowed File Extensions</Resource>
-    <Resource tag="IMPORT">Import from XML</Resource>
-    <Resource tag="TITLE">File Extensions</Resource>
+    <Resource tag="ADD">Hinzufügen</Resource>
+    <Resource tag="CONFIRM_DELETE">Diese Erweiterung löschen?</Resource>
+    <Resource tag="EXPORT">Export in XML</Resource>
+    <Resource tag="HEADER">Erlaubte Dateiendungen</Resource>
+    <Resource tag="IMPORT">Import von XML</Resource>
+    <Resource tag="TITLE">Dateierweiterungen</Resource>
   </page>
   <page name="ADMIN_EXTENSIONS_EDIT">
-    <Resource tag="FILE_EXTENSION">File Extension:</Resource>
+    <Resource tag="FILE_EXTENSION">Dateierweiterung:</Resource>
     <Resource tag="FILE_EXTENSION_HELP">Example: Enter "jpg" for a JPEG graphic file.</Resource>
     <Resource tag="HEADER">Add/Edit Allowed File Extensions</Resource>
-    <Resource tag="MSG_ENTER">You must enter something.</Resource>
+    <Resource tag="MSG_ENTER">Sie müssen etwas eingeben.</Resource>
     <Resource tag="MSG_REMOVE">Remove the period in the extension.</Resource>
-    <Resource tag="TITLE">Add/Edit File Extensions</Resource>
+    <Resource tag="TITLE">Hinzufügen / Bearbeiten von Dateierweiterungen</Resource>
   </page>
   <page name="ADMIN_EXTENSIONS_IMPORT">
-    <Resource tag="HEADER">Import Extension List</Resource>
-    <Resource tag="IMPORT">Import List</Resource>
-    <Resource tag="IMPORT_FAILED">Failed to import: {0}</Resource>
-    <Resource tag="IMPORT_FILE">Select Import File:</Resource>
-    <Resource tag="IMPORT_FILE_HELP">Must be *.xml file</Resource>
+    <Resource tag="HEADER">Erweiterungsliste Importieren</Resource>
+    <Resource tag="IMPORT">Importliste</Resource>
+    <Resource tag="IMPORT_FAILED">Import fehlgeschlagen: {0}</Resource>
+    <Resource tag="IMPORT_FILE">Importdatei wählen:</Resource>
+    <Resource tag="IMPORT_FILE_HELP">Muss eine *.xml Datei sein</Resource>
     <Resource tag="IMPORT_NOTHING">Nothing imported: no new extension was found in the upload.</Resource>
     <Resource tag="IMPORT_SUCESS">{0} new extension(s) imported successfully.</Resource>
-    <Resource tag="TITLE">Import Extensions</Resource>
+    <Resource tag="TITLE">Erweiterungen importieren</Resource>
   </page>
   <page name="ADMIN_FORUMS">
-    <Resource tag="CONFIRM_DELETE">Permanently delete this Forum including ALL topics, polls, attachments and messages associated with it?</Resource>
-    <Resource tag="CONFIRM_DELETE_CAT">Delete this category?</Resource>
-    <Resource tag="CONFIRM_DELETE_POSITIVE">Are you POSITIVE?</Resource>
-    <Resource tag="DELETE_MSG">Please do not navigate away from this page while the deletion is in progress...</Resource>
-    <Resource tag="DELETE_TITLE">Deleting Forum</Resource>
-    <Resource tag="MSG_NOT_DELETE">You cannot delete this Category as it has at least one forum assigned to it.\nTo move forums click on \"Edit\" and change the category the forum is assigned to.</Resource>
-    <Resource tag="NEW_CATEGORY">New Category</Resource>
-    <Resource tag="NEW_FORUM">New Forum</Resource>
+    <Resource tag="CONFIRM_DELETE">Dieses Forum permanent löschen inkl. ALLER Themen, Umfragen, Anhänge und Beiträge die darin enthalten sind?</Resource>
+    <Resource tag="CONFIRM_DELETE_CAT">Dieser Kategorie löschen?</Resource>
+    <Resource tag="CONFIRM_DELETE_POSITIVE">Sie sind SICHER?</Resource>
+    <Resource tag="DELETE_MSG">Bitte entfernen Sie sich nicht von dieser Seite während der Löschvorgang läuft...</Resource>
+    <Resource tag="DELETE_TITLE">Forum löschen</Resource>
+    <Resource tag="MSG_NOT_DELETE">Sie können diese Kategorie nicht löschen da Sie mindestens ein Forum enthällt.\nUm das Forum zu verschieben klicken Sie auf  \"Bearbeiten\" und ändern Sie die Kategorie.</Resource>
+    <Resource tag="NEW_CATEGORY">Neue Kategorie</Resource>
+    <Resource tag="NEW_FORUM">Neues Forum</Resource>
   </page>
   <page name="ADMIN_GROUPS">
-    <Resource tag="ADD_ROLETOYAF">Add to YAF</Resource>
-    <Resource tag="COMMAND">Command</Resource>
-    <Resource tag="CONFIRM_DELETE">Delete this Role?</Resource>
-    <Resource tag="DELETE_ROLEFROMYAF">Delete Role</Resource>
-    <Resource tag="HEADER">YetAnotherForum Roles</Resource>
-    <Resource tag="IS_ADMIN">Is Admin</Resource>
-    <Resource tag="IS_GUEST">Is Guest</Resource>
-    <Resource tag="IS_MOD">Is Moderator</Resource>
-    <Resource tag="IS_START">Is Start</Resource>
-    <Resource tag="LINKED">Linked</Resource>
+    <Resource tag="ADD_ROLETOYAF">Zu YAF hinzufügen</Resource>
+    <Resource tag="COMMAND">Kommand</Resource>
+    <Resource tag="CONFIRM_DELETE">Diese Rolle löschen?</Resource>
+    <Resource tag="DELETE_ROLEFROMYAF">Rolle löschen</Resource>
+    <Resource tag="HEADER">YetAnotherForum Rollen</Resource>
+    <Resource tag="IS_ADMIN">Ist Admin</Resource>
+    <Resource tag="IS_GUEST">Ist Gast</Resource>
+    <Resource tag="IS_MOD">Ist Moderator</Resource>
+    <Resource tag="IS_START">Ist Start</Resource>
+    <Resource tag="LINKED">Verlinkt</Resource>
     <Resource tag="NAME">Name</Resource>
-    <Resource tag="NEW_ROLE">New Role</Resource>
-    <Resource tag="NOTE_DELETE">Note: Deleting a role here removes it completely from the provider. "Add to YAF" to make this role accessible in the forum.</Resource>
-    <Resource tag="NOTE_DELETE_LINKED">Note: Deleting one of these "linked" roles outside of YAF will cause user data loss. If you want to delete the role, first "Delete from YAF" then the role can be managed outside of YAF.</Resource>
-    <Resource tag="PMS">PMs</Resource>
-    <Resource tag="PROVIDER_ROLES">Provider Roles</Resource>
-    <Resource tag="TITLE">Roles</Resource>
+    <Resource tag="NEW_ROLE">Neue Rolle</Resource>
+    <Resource tag="NOTE_DELETE">Notiz: Das Löschen einer Rolle hier löscht sie komplett vom Provider. "Zu YAF hinzufügen" um der Rolle Zugang zum Forum zu geben.</Resource>
+    <Resource tag="NOTE_DELETE_LINKED">Notiz: Das löschen einer dieser "verlinkten" Rollen außerhalb von YAF wird zu Benutzerdaten Verlust verursachen. Wenn Sie diese Rolle löschen möchten klicken Sie zunächst auf "Von YAF löschen" dann kann die Rolle außerhalb von YAF gelöscht werden.</Resource>
+    <Resource tag="PMS">PNs</Resource>
+    <Resource tag="PROVIDER_ROLES">Provider Rollen</Resource>
+    <Resource tag="TITLE">Rollen</Resource>
     <Resource tag="UNLINKABLE">Unlinkable</Resource>
-    <Resource tag="UNLINKED">Unlinked</Resource>
+    <Resource tag="UNLINKED">Unlinkt</Resource>
   </page>
   <page name="ADMIN_HOSTSETTINGS">
     <Resource tag="ABANDON_TRACKUSR">Abandon Sessions for "Don't Track" Users:</Resource>
@@ -797,6 +797,8 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="ALLOW_QUICK_ANSWER_HELP">Enable or disable display of the Quick Reply Box at the bottom of the Posts page</Resource>
     <Resource tag="ALLOW_SENDMAIL">Allow Email Sending:</Resource>
     <Resource tag="ALLOW_SENDMAIL_HELP">Allow users to send emails to each other.</Resource>
+    <Resource tag="ALLOW_SHARE_TOPIC">Enable Share Menu:</Resource>
+    <Resource tag="ALLOW_SHARE_TOPIC_HELP">Enables/disables the share Menu, where a user can Email, Tweet, Buzz, Like on Facebook, Digg or Reddit a Topic.</Resource>
     <Resource tag="ALLOW_SIGNATURE">Allow Signatures:</Resource>
     <Resource tag="ALLOW_SIGNATURE_HELP">Allow users to create signatures. You should set allowed number of characters and BBCodes for each group and/or rank to really enable the feature.</Resource>
     <Resource tag="ALLOW_THANKS">Allow Users to Thank Posts:</Resource>
@@ -862,6 +864,8 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="ENABLE_IRKOO_HELP">Irkoo is a free service that adds user reputations to your site  Visit &lt;strong&gt;http://www.Irkoo.com&lt;/strong&gt; to get the site ID and secret key for your website.</Resource>
     <Resource tag="ENABLE_LOCATIONPATH_ERRORS">Enable Active Location Error Log:</Resource>
     <Resource tag="ENABLE_LOCATIONPATH_ERRORS_HELP">If checked, all active location path errors are logged.</Resource>
+    <Resource tag="ENABLE_RETWEET_MSG">Enable Retweet Message Button:</Resource>
+    <Resource tag="ENABLE_RETWEET_MSG_HELP">Enables/disables the Retweet Button, where the User can retweet a topic message.</Resource>
     <Resource tag="EXTERN_NEWWINDOW">External Search Results In A New Window:</Resource>
     <Resource tag="EXTERN_NEWWINDOW_HELP">Show External Search Results In A New Window.</Resource>
     <Resource tag="EXTERN_SEARCH_PERMISS">External Search Permissions:</Resource>
@@ -1130,6 +1134,8 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS_HELP">Restrict display of topics feeds.</Resource>
     <Resource tag="TOPICS_PER_PAGE">Topics Per Page:</Resource>
     <Resource tag="TOPICS_PER_PAGE_HELP">Number of topics to show per page.</Resource>
+    <Resource tag="TWITTER_USERNAME">Twitter Username for Retweets:</Resource>
+    <Resource tag="TWITTER_USERNAME_HELP">Twitter Username that is mentioned when Retweeting a Topic or Message.</Resource>
     <Resource tag="UNHANDLED_USERAGENT_LOG">Enable Unhandled UserAgent Log:</Resource>
     <Resource tag="UNHANDLED_USERAGENT_LOG_HELP">If checked, all unhandled UserAgent strings are logged.</Resource>
     <Resource tag="USER_CHANGE_LANGUAGE">Allow User Change Language:</Resource>
@@ -1150,29 +1156,29 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="WSERVICE_TOKEN_HELP">Token used to make secure web service calls. Constantly changing until you save your host settings.</Resource>
   </page>
   <page name="ADMIN_LANGUAGES">
-    <Resource tag="CULTURE_TAG">Culture Tag</Resource>
-    <Resource tag="LANG_NAME">Language English Name</Resource>
-    <Resource tag="NATIVE_NAME">Language Native Name</Resource>
-    <Resource tag="TITLE">Languages</Resource>
+    <Resource tag="CULTURE_TAG">Kultur Tag</Resource>
+    <Resource tag="LANG_NAME">Englischer Sprachname</Resource>
+    <Resource tag="NATIVE_NAME">Nativer Sprachname</Resource>
+    <Resource tag="TITLE">Sprachen</Resource>
   </page>
   <page name="ADMIN_MAIL">
-    <Resource tag="ALL_USERS">All Users</Resource>
+    <Resource tag="ALL_USERS">Alle Benutzer</Resource>
     <Resource tag="CONFIRM_SEND">Are you sure you want to send this mail?</Resource>
-    <Resource tag="HEADER">Compose Email</Resource>
-    <Resource tag="MAIL_MESSAGE">Message:</Resource>
-    <Resource tag="MAIL_SUBJECT">Subject:</Resource>
-    <Resource tag="MAIL_TO">To:</Resource>
-    <Resource tag="MSG_QUEUED">Mails queued.</Resource>
-    <Resource tag="MSG_SUBJECT">Subject is Required</Resource>
-    <Resource tag="SEND_MAIL">Send Mail</Resource>
-    <Resource tag="TITLE">Mail</Resource>
+    <Resource tag="HEADER">E-Mail verfassen</Resource>
+    <Resource tag="MAIL_MESSAGE">Nachricht:</Resource>
+    <Resource tag="MAIL_SUBJECT">Betreff:</Resource>
+    <Resource tag="MAIL_TO">An:</Resource>
+    <Resource tag="MSG_QUEUED">Mail ist  in der Warteschlange.</Resource>
+    <Resource tag="MSG_SUBJECT">Betreff ist erforderlich</Resource>
+    <Resource tag="SEND_MAIL">E-Mail senden</Resource>
+    <Resource tag="TITLE">E-Mail</Resource>
   </page>
   <page name="ADMIN_MEDALS">
-    <Resource tag="CONFIRM_DELETE">Delete this Medal?</Resource>
+    <Resource tag="CONFIRM_DELETE">Diese Medaille löschen?</Resource>
     <Resource tag="DISPLAY_BOX">Medal image as it'll be displayed in user box.</Resource>
     <Resource tag="DISPLAY_RIBBON">Ribbon bar image as it'll be displayed in user box.</Resource>
-    <Resource tag="NEW_MEDAL">New Medal</Resource>
-    <Resource tag="TITLE">Medals</Resource>
+    <Resource tag="NEW_MEDAL">Neue Medaille</Resource>
+    <Resource tag="TITLE">Medaillen</Resource>
   </page>
   <page name="ADMIN_NNTPFORUMS">
     <Resource tag="ACTIVE">Aktiv</Resource>
@@ -1221,13 +1227,13 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="USERNAME">Benutzername</Resource>
   </page>
   <page name="ADMIN_PM">
-    <Resource tag="CONFIRM_DELETE">Do you really want to delete private messages? This process is irreversible.</Resource>
-    <Resource tag="DAYS">days</Resource>
+    <Resource tag="CONFIRM_DELETE">Wollen Sie wirklich die Private Nacrichten löschen?</Resource>
+    <Resource tag="DAYS">Tage</Resource>
     <Resource tag="DELETE_READ">Delete read messages older than:</Resource>
     <Resource tag="DELETE_UNREAD">Delete unread messages older than:</Resource>
-    <Resource tag="HEADER">Private messages</Resource>
-    <Resource tag="PM_NUMBER">Number of private messages:</Resource>
-    <Resource tag="TITLE">PM Maintenance</Resource>
+    <Resource tag="HEADER">Private Nachrichten</Resource>
+    <Resource tag="PM_NUMBER">Anzahl der privaten Nachrichten:</Resource>
+    <Resource tag="TITLE">PN Wartung</Resource>
   </page>
   <page name="ADMIN_PRUNE">
     <Resource tag="ALL_FORUMS">All Forums</Resource>
@@ -1244,27 +1250,27 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="TITLE">Prune Topics</Resource>
   </page>
   <page name="ADMIN_RANKS">
-    <Resource tag="COMMAND">Command</Resource>
-    <Resource tag="CONFIRM_DELETE">Delete this rank?</Resource>
-    <Resource tag="IS_LADDER">Is Ladder</Resource>
-    <Resource tag="IS_START">Is Start</Resource>
+    <Resource tag="COMMAND">Kommand</Resource>
+    <Resource tag="CONFIRM_DELETE">Diesen Rang löschen?</Resource>
+    <Resource tag="IS_LADDER">Ist Ladder</Resource>
+    <Resource tag="IS_START">Ist Start</Resource>
     <Resource tag="NAME">Name</Resource>
-    <Resource tag="NEW_RANK">New Rank</Resource>
-    <Resource tag="PM_LIMIT">PM limit</Resource>
-    <Resource tag="POSTS">posts</Resource>
-    <Resource tag="TITLE">Ranks</Resource>
+    <Resource tag="NEW_RANK">Neuer Rang</Resource>
+    <Resource tag="PM_LIMIT">PN Limit</Resource>
+    <Resource tag="POSTS">Beiträge</Resource>
+    <Resource tag="TITLE">Ränge</Resource>
   </page>
   <page name="ADMIN_REGUSER">
-    <Resource tag="HEADER">Create New User</Resource>
-    <Resource tag="HEADER2">Registration Details</Resource>
-    <Resource tag="HEADER3">Profile Information</Resource>
-    <Resource tag="HEADER4">Forum Preferences</Resource>
-    <Resource tag="MSG_CREATED">User {0} Created Successfully.</Resource>
+    <Resource tag="HEADER">Neuen Benutzer erstellen</Resource>
+    <Resource tag="HEADER2">Anmeldung Details</Resource>
+    <Resource tag="HEADER3">Profil-Information</Resource>
+    <Resource tag="HEADER4">Forum Einstellungen</Resource>
+    <Resource tag="MSG_CREATED">Benutzer {0} Erfolgreich erstellt.</Resource>
     <Resource tag="MSG_ERROR_CREATE">Membership Error Creating User: {0}</Resource>
     <Resource tag="MSG_INVALID_MAIL">You have entered an illegal e-mail address.</Resource>
     <Resource tag="MSG_NAME_EXISTS">Username or email are already registered.</Resource>
-    <Resource tag="REGISTER">Register User</Resource>
-    <Resource tag="TITLE">New User</Resource>
+    <Resource tag="REGISTER">Benutzer registrieren</Resource>
+    <Resource tag="TITLE">Neuer Nutzer</Resource>
   </page>
   <page name="ADMIN_REINDEX">
     <Resource tag="CONFIRM_RECOVERY">Are you sure you want to change your database recovery mode?\nThe operation may make the DB inaccessible and may take a little while.\nDO THIS ONLY IF YOU KNOW WHAT YOU ARE DOING!</Resource>
@@ -1297,9 +1303,9 @@ Diesen  Benutzer löschen?</Resource>
   </page>
   <page name="ADMIN_REPLACEWORDS_EDIT">
     <Resource tag="BAD">"Bad" Ausdruck:</Resource>
-    <Resource tag="BAD_HELP">Regular expression statement. Escape puncutation with a preceeding slash (e.g. '\.').</Resource>
+    <Resource tag="BAD_HELP">Regulärer Ausdrucks Anweisung. Escape Punkte mit einem vorangestellten Schrägstrich (e.g. '\.').</Resource>
     <Resource tag="GOOD">"Good" Ausdruck:</Resource>
-    <Resource tag="GOOD_HELP">Regular expression statement. Escape puncutation with a preceeding slash (e.g. '\.').</Resource>
+    <Resource tag="GOOD_HELP">Regulärer Ausdrucks Anweisung. Escape Punkte mit einem vorangestellten Schrägstrich (e.g. '\.').</Resource>
     <Resource tag="TITLE">Hinzufügen / Bearbeiten von Word ersetzen</Resource>
   </page>
   <page name="ADMIN_REPLACEWORDS_IMPORT">
@@ -1397,7 +1403,7 @@ Diesen  Benutzer löschen?</Resource>
   <page name="ADMIN_VERSION">
     <Resource tag="LATEST_VERSION">Di aktuell letzte Finale Version ist verfügbar&lt;strong&gt;{0}&lt;/strong&gt; veröffentlicht am &lt;strong&gt;{1}&lt;/strong&gt;.</Resource>
     <Resource tag="RUNNING_VERSION">Sie verwenden YetAnotherForum.NET version &lt;strong&gt;{0}&lt;/strong&gt; (Datum: {1}).</Resource>
-    <Resource tag="TITLE">Version Check</Resource>
+    <Resource tag="TITLE">Version Checken</Resource>
     <Resource tag="UPGRADE_VERSION">You can download the latest version from &lt;a target="_top" href="http://yafnet.codeplex.com/"&gt;
 						here&lt;/a&gt;.</Resource>
   </page>
@@ -1535,6 +1541,8 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="BUTTON_REPLY">Antworten</Resource>
     <Resource tag="BUTTON_REPLY_TT">Auf diese Nachricht antworten</Resource>
     <Resource tag="BUTTON_RESETCOVER">Cover entfernen</Resource>
+    <Resource tag="BUTTON_RETWEET">Retweet</Resource>
+    <Resource tag="BUTTON_RETWEET_TT">Diesen Beitrag Retweeten</Resource>
     <Resource tag="BUTTON_SETCOVER">Als Cover auswählen</Resource>
     <Resource tag="BUTTON_TAGFAVORITE">Als Favorit markieren</Resource>
     <Resource tag="BUTTON_TAGFAVORITE_TT">Dieses Thema als Favorit taggen.</Resource>
@@ -1585,16 +1593,16 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="CHANGEEMAIL_SUBJECT">E-Mail geändet</Resource>
     <Resource tag="COMMON_WORDS">out,please,a,able,about,across,after,all,almost,also,am,among,an,and,any,are,as,at,be,because,been,but,by,can,cannot,could,dear,did,do,does,either,else,ever,every,for,from,get,got,had,has,have,he,her,hers,him,his,how,however,i,if,in,into,is,it,its,just,least,let,like,likely,may,me,might,most,must,my,neither,no,nor,not,of,off,often,on,only,or,other,our,own,rather,said,say,says,she,should,since,so,some,than,that,the,their,them,then,there,these,they,this,tis,to,too,twas,us,wants,was,we,were,what,when,where,which,while,who,whom,why,will,with,would,yet,you,your</Resource>
     <Resource tag="CONTINUE">Weiter</Resource>
-    <Resource tag="COPY">Copy</Resource>
+    <Resource tag="COPY">Kopieren</Resource>
     <Resource tag="CUSTOM_BBCODE">Zusätzliche BB-Codes:</Resource>
     <Resource tag="DELETE">Löschen</Resource>
     <Resource tag="DISALLOWED">Nicht erlaubt</Resource>
-    <Resource tag="DOWNLOAD">Download</Resource>
+    <Resource tag="DOWNLOAD">Herunterladen</Resource>
     <Resource tag="EDIT">Bearbeiten</Resource>
     <Resource tag="EMAILVERIFICATION_SUBJECT">{0} E-Mail Verifizierung</Resource>
     <Resource tag="FONT_COLOR">Schriftfarbe:</Resource>
     <Resource tag="FONT_SIZE">Schriftgröße:</Resource>
-    <Resource tag="FOR">For</Resource>
+    <Resource tag="FOR">Für</Resource>
     <Resource tag="FORMAT_DATE_LONG">D</Resource>
     <Resource tag="FORMAT_DATE_SHORT">d</Resource>
     <Resource tag="FORMAT_DATE_TIME_LONG">F</Resource>
@@ -1607,7 +1615,7 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="GOTOLASTPAGE_TT">Zur letzten Seite</Resource>
     <Resource tag="GOTONEXTPAGE_TT">Nächste Seite</Resource>
     <Resource tag="GOTOPAGE_HEADER">Wechsle zu Seite...</Resource>
-    <Resource tag="GOTOPOST_ТТ">Go to message</Resource>
+    <Resource tag="GOTOPOST_ТТ">Gehe zu Beitrag</Resource>
     <Resource tag="GOTOPREVPAGE_TT">Vorherige Seite</Resource>
     <Resource tag="HIDDEN">Versteckt</Resource>
     <Resource tag="HTMLTAG_FORBIDDEN">Your input data should not contain HTML tags.</Resource>
@@ -1625,7 +1633,7 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">Neue Nachricht im Forum {0} Forum muss genehmigt werden.</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">Neuer Benutzer in Forum {0} angemeldet</Resource>
     <Resource tag="OK">OK</Resource>
-    <Resource tag="OR">or</Resource>
+    <Resource tag="OR">oder</Resource>
     <Resource tag="PAGES">Seiten</Resource>
     <Resource tag="PM_NOTIFICATION_SUBJECT">Neue private Nachricht von {0} am {1}</Resource>
     <Resource tag="POST">Beitrag</Resource>
@@ -1636,7 +1644,7 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="REGMAIL_WILL_BE_SEND">Eine E-Mail wird nach der Registrierung gesendet. Bitte nutze den Link in der Nachricht, um dich einzuloggen.</Resource>
     <Resource tag="REPLY">Antwort</Resource>
     <Resource tag="SAVE">Speichern</Resource>
-    <Resource tag="SHOWHIDE">Show/Hide</Resource>
+    <Resource tag="SHOWHIDE">Zeigen/Verstecken</Resource>
     <Resource tag="SUBMIT">Abschicken</Resource>
     <Resource tag="TIMEAGO_JS">
       // German
@@ -1911,7 +1919,7 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="CURRENT_TIME">Aktuelle Zeit: {0}.</Resource>
     <Resource tag="FORUM">Forum</Resource>
     <Resource tag="GO_LAST_POST">Gehe zum aktuellsten Beitrag</Resource>
-    <Resource tag="GO_LASTUNREAD_POST">Go to last unread</Resource>
+    <Resource tag="GO_LASTUNREAD_POST">Gehe zum letzten Ungelesenen</Resource>
     <Resource tag="IN">in {0}</Resource>
     <Resource tag="INFORMATION">Informationen</Resource>
     <Resource tag="LAST_VISIT">Dein letzter Besuch: {0}.</Resource>
@@ -2531,7 +2539,7 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="TITLE">Schreibe eine private Nachricht (PN)</Resource>
     <Resource tag="TO">An:</Resource>
     <Resource tag="TOO_MANY_RECIPIENTS">Zu viele Empfänger. Maximal sind {0} Empfänger erlaubt.</Resource>
-    <Resource tag="USER_NOTFOUND">The User you are looking for does not exist. Please try again or use the show "All Users" Button.</Resource>
+    <Resource tag="USER_NOTFOUND">Der Benutzer nach dem Sie suchen exestiert nicht. Bitt versuchen Sie es erneut oder benutzen Sie den zeige "Alle Benutzer" Button.</Resource>
   </page>
   <page name="POLLEDIT">
     <Resource tag="ASK_POLL_DELETE">Wollen Sie diese Umfrage wirklich löschen?</Resource>
@@ -2625,6 +2633,7 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="ATTACHMENTINFO">({0:N0}kb) [b]{1:N0}x[/b] heruntergeladen.</Resource>
     <Resource tag="ATTACHMENTS">Dateianhänge:</Resource>
     <Resource tag="BLOG">BLOG</Resource>
+    <Resource tag="BUZZ_TOPIC">Thema Buzzen</Resource>
     <Resource tag="CANT_DOWNLOAD">Sie haben keine Berechtigung diese Anhänge Ansehen oder Herunterzuladen.</Resource>
     <Resource tag="CANT_DOWNLOAD_REGISTER">Sie können diese Anhänge [b]NICHT[/b] Ansehen/Herunterladen. Sie müssen Sich zunächst Registrieren.-</Resource>
     <Resource tag="CHOICE">Antwort</Resource>
@@ -2632,6 +2641,7 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">Diese Nachricht wirklich löschen?</Resource>
     <Resource tag="CONFIRM_DELETETOPIC">Dieses Thema wirklich löschen?</Resource>
     <Resource tag="CONFIRM_REPORTPOST">Bist Du sicher, dass du den Beitrag melden möchtest?</Resource>
+    <Resource tag="DIGG_TOPIC">Thema Diggen</Resource>
     <Resource tag="EDIT_REASON">Grund</Resource>
     <Resource tag="EDIT_REASON_NA">Nicht angegeben</Resource>
     <Resource tag="EDITED">Bearbeitet</Resource>
@@ -2641,6 +2651,7 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="EMAIL">E-Mail</Resource>
     <Resource tag="EMAILTOPIC">Thema per E-Mail verschicken</Resource>
     <Resource tag="EMPTY_MESSAGE">Du musst etwas in den Beitrag eintippen.</Resource>
+    <Resource tag="FACEBOOK_TOPIC">Thema mögen</Resource>
     <Resource tag="FORUM_JUMP">Das Forum wechseln</Resource>
     <Resource tag="GROUPS">Gruppe</Resource>
     <Resource tag="HOME">WWW</Resource>
@@ -2665,6 +2676,7 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="NEXTTOPIC">Nächstes Thema</Resource>
     <Resource tag="NORMAL">Normal</Resource>
     <Resource tag="OPTIONS">Optionen</Resource>
+    <Resource tag="OPTIONS_TOOLTIP">Optionen um das Thema via Email, RSS, Atom, zu abonieren. Und eine Option für eine Druckfreundliche Ansicht.</Resource>
     <Resource tag="PM">Private Nachricht</Resource>
     <Resource tag="POINTS">Punkte</Resource>
     <Resource tag="POLL_CLOSED">(Umfrage abgeschlossen)</Resource>
@@ -2678,9 +2690,13 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="QUICKREPLY_HIDE">Schnelles Antworten: Formular ausblenden</Resource>
     <Resource tag="QUICKREPLY_SHOW">Schnelles Antworten: Formular anzeigen</Resource>
     <Resource tag="RANK">Rang</Resource>
+    <Resource tag="REDDIT_TOPIC">Thema an Reddit übermitteln</Resource>
     <Resource tag="REPORTEDFEEDBACK">Danke, dass du den Beitrag gemeldet hast</Resource>
     <Resource tag="REPORTPOST">Diesen Beitrag melden</Resource>
+    <Resource tag="RETWEET_TOPIC">Thema retweeten</Resource>
     <Resource tag="RSSTOPIC">RSS-Feed</Resource>
+    <Resource tag="SHARE">Share</Resource>
+    <Resource tag="SHARE_TOOLTIP">Dieses Thema via Email, Twitter, Buzz, Facebook, Digg oder Reddit verbreiten</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
     <Resource tag="STATISTICS">Statistik</Resource>
     <Resource tag="THANKSFROM">Dankte: {0} mal</Resource>
@@ -2709,6 +2725,7 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="USERONLINESTATUS">Benutzer ist Online</Resource>
     <Resource tag="USERPROFILE">Benutzerprofil</Resource>
     <Resource tag="VIEW">Ansicht</Resource>
+    <Resource tag="VIEW_TOOLTIP">Change Topic View between Normal or Thread View.</Resource>
     <Resource tag="VOTES">Stimmen</Resource>
     <Resource tag="WARN_ALREADY_VOTED">Du hast bereits abgestimmt.</Resource>
     <Resource tag="WARN_EMAILLOGIN">Um E-Mails versenden zu können, musst Du registriert sein.</Resource>
@@ -2774,7 +2791,7 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="THANKSTOTIMES">Anzahl wie oft dem Benutzer gedankt wurde</Resource>
     <Resource tag="TOPIC">Thema:</Resource>
     <Resource tag="USERNAME">Benutzername:</Resource>
-    <Resource tag="WEBLOG">Weblog:</Resource>
+    <Resource tag="WEBLOG">Web-Blog:</Resource>
     <Resource tag="WEBSITE">Webseite:</Resource>
     <Resource tag="XMPP">XMPP Name:</Resource>
     <Resource tag="YIM">Yahoo!-Messenger:</Resource>
@@ -2925,7 +2942,7 @@ Durch das Abschließen der Registrierung stimmst Du diesen Nutzungsbedingungen z
     <Resource tag="ADMINS">Admins</Resource>
     <Resource tag="FORUMS">Foren</Resource>
     <Resource tag="FORUMS_ALL">Alle Foren...</Resource>
-    <Resource tag="GO">Go</Resource>
+    <Resource tag="GO">GO</Resource>
     <Resource tag="MODS">Moderatoren</Resource>
     <Resource tag="TITLE">Team</Resource>
     <Resource tag="USER">Benutzer</Resource>
@@ -3111,7 +3128,7 @@ Der Bestätigungscode lautet
     <Resource tag="TEAM">Team</Resource>
     <Resource tag="WELCOME_GUEST">Willkommen, Gast!</Resource>
     <Resource tag="WELCOME_GUEST_FULL">Welcome Guest! To enable all features please </Resource>
-    <Resource tag="WELCOME_GUEST_NO">Welcome Guest! You can &lt;strong&gt;not&lt;/strong&gt; login or register.</Resource>
+    <Resource tag="WELCOME_GUEST_NO">Willkommen Gast! Sie können sich &lt;strong&gt;nicht&lt;/strong&gt; anmelden oder registrieren.</Resource>
   </page>
   <page name="TOPICS">
     <Resource tag="ALL">Alle</Resource>

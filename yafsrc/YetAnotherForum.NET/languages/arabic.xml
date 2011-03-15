@@ -798,6 +798,8 @@
     <Resource tag="ALLOW_QUICK_ANSWER_HELP">Enable or disable display of the Quick Reply Box at the bottom of the Posts page</Resource>
     <Resource tag="ALLOW_SENDMAIL">Allow Email Sending:</Resource>
     <Resource tag="ALLOW_SENDMAIL_HELP">Allow users to send emails to each other.</Resource>
+    <Resource tag="ALLOW_SHARE_TOPIC">Enable Share Menu:</Resource>
+    <Resource tag="ALLOW_SHARE_TOPIC_HELP">Enables/disables the share Menu, where a user can Email, Tweet, Buzz, Like on Facebook, Digg or Reddit a Topic.</Resource>
     <Resource tag="ALLOW_SIGNATURE">Allow Signatures:</Resource>
     <Resource tag="ALLOW_SIGNATURE_HELP">Allow users to create signatures. You should set allowed number of characters and BBCodes for each group and/or rank to really enable the feature.</Resource>
     <Resource tag="ALLOW_THANKS">Allow Users to Thank Posts:</Resource>
@@ -863,6 +865,8 @@
     <Resource tag="ENABLE_IRKOO_HELP">Irkoo is a free service that adds user reputations to your site  Visit &lt;strong&gt;http://www.Irkoo.com&lt;/strong&gt; to get the site ID and secret key for your website.</Resource>
     <Resource tag="ENABLE_LOCATIONPATH_ERRORS">Enable Active Location Error Log:</Resource>
     <Resource tag="ENABLE_LOCATIONPATH_ERRORS_HELP">If checked, all active location path errors are logged.</Resource>
+    <Resource tag="ENABLE_RETWEET_MSG">Enable Retweet Message Button:</Resource>
+    <Resource tag="ENABLE_RETWEET_MSG_HELP">Enables/disables the Retweet Button, where the User can retweet a topic message.</Resource>
     <Resource tag="EXTERN_NEWWINDOW">External Search Results In A New Window:</Resource>
     <Resource tag="EXTERN_NEWWINDOW_HELP">Show External Search Results In A New Window.</Resource>
     <Resource tag="EXTERN_SEARCH_PERMISS">External Search Permissions:</Resource>
@@ -1131,6 +1135,8 @@
     <Resource tag="TOPIC_FEEDS_ACCESS_HELP">Restrict display of topics feeds.</Resource>
     <Resource tag="TOPICS_PER_PAGE">Topics Per Page:</Resource>
     <Resource tag="TOPICS_PER_PAGE_HELP">Number of topics to show per page.</Resource>
+    <Resource tag="TWITTER_USERNAME">Twitter Username for Retweets:</Resource>
+    <Resource tag="TWITTER_USERNAME_HELP">Twitter Username that is mentioned when Retweeting a Topic or Message.</Resource>
     <Resource tag="UNHANDLED_USERAGENT_LOG">Enable Unhandled UserAgent Log:</Resource>
     <Resource tag="UNHANDLED_USERAGENT_LOG_HELP">If checked, all unhandled UserAgent strings are logged.</Resource>
     <Resource tag="USER_CHANGE_LANGUAGE">Allow User Change Language:</Resource>
@@ -1537,6 +1543,8 @@
     <Resource tag="BUTTON_REPLY">رد</Resource>
     <Resource tag="BUTTON_REPLY_TT">رد على الرسالة</Resource>
     <Resource tag="BUTTON_RESETCOVER">ازالة الغطاء</Resource>
+    <Resource tag="BUTTON_RETWEET">Retweet</Resource>
+    <Resource tag="BUTTON_RETWEET_TT">Retweet this Message</Resource>
     <Resource tag="BUTTON_SETCOVER">اختياره كغطاء</Resource>
     <Resource tag="BUTTON_TAGFAVORITE">تعين كمفضل </Resource>
     <Resource tag="BUTTON_TAGFAVORITE_TT">تعين الموضع كمفضل </Resource>
@@ -2472,6 +2480,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="ATTACHMENTINFO">({0:N0}kb) تحميل [b]{1:في}[/b] الوقت.</Resource>
     <Resource tag="ATTACHMENTS">المرفقات :</Resource>
     <Resource tag="BLOG">BLOG</Resource>
+    <Resource tag="BUZZ_TOPIC">Buzz this Topic</Resource>
     <Resource tag="CANT_DOWNLOAD">لايوجد لديك صلاحية  لتحميل من المرفقات  يرجى التسجيل اولا</Resource>
     <Resource tag="CANT_DOWNLOAD_REGISTER">انت [b]لايمكنك [/b] مشاهدت او تحميل  اي من المرفقات  مالا تتم عملية التسجيل  </Resource>
     <Resource tag="CHOICE">إختيار</Resource>
@@ -2479,6 +2488,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="CONFIRM_DELETEMESSAGE">هل  تريد  حذف هذه  الرسالة ?</Resource>
     <Resource tag="CONFIRM_DELETETOPIC">هل تريد حذف هذه الموضوع ?</Resource>
     <Resource tag="CONFIRM_REPORTPOST">هل تيرد  التبليغ عن هذه المشاركة ؟</Resource>
+    <Resource tag="DIGG_TOPIC">Digg this Topic</Resource>
     <Resource tag="EDIT_REASON">السبب</Resource>
     <Resource tag="EDIT_REASON_NA">غير محدد</Resource>
     <Resource tag="EDITED">تعديل</Resource>
@@ -2488,6 +2498,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="EMAIL">البريد الالكتروني</Resource>
     <Resource tag="EMAILTOPIC">البريد الالكتروني  لهذه المشركة</Resource>
     <Resource tag="EMPTY_MESSAGE">يجب  عليك ادخال   اي  كلمة    لتثبيت المشاركة </Resource>
+    <Resource tag="FACEBOOK_TOPIC">Like this Topic</Resource>
     <Resource tag="FORUM_JUMP">الذهاب السريع الى منتدى </Resource>
     <Resource tag="GROUPS">المجموعات </Resource>
     <Resource tag="HOME">WWW</Resource>
@@ -2512,6 +2523,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="NEXTTOPIC"> الموضوع التالي</Resource>
     <Resource tag="NORMAL">عادي</Resource>
     <Resource tag="OPTIONS">خيارات </Resource>
+    <Resource tag="OPTIONS_TOOLTIP">Topic Options to Subscribe via Email, RSS, Atom, and to view Printer Friendly Page.</Resource>
     <Resource tag="PM">رسالة خاصة</Resource>
     <Resource tag="POINTS">نقاط</Resource>
     <Resource tag="POLL_CLOSED">(تم إغلاق عملية الإستفتاء)</Resource>
@@ -2525,9 +2537,13 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="QUICKREPLY_HIDE">إخفاء الرد السريع </Resource>
     <Resource tag="QUICKREPLY_SHOW">اظهار الرد السريع </Resource>
     <Resource tag="RANK">الرتبة </Resource>
+    <Resource tag="REDDIT_TOPIC">Reddit this Topic</Resource>
     <Resource tag="REPORTEDFEEDBACK">الشكر التبليع عن مشاركة .</Resource>
     <Resource tag="REPORTPOST">تبليغ  عن مشاركة  بتقرير ؟</Resource>
+    <Resource tag="RETWEET_TOPIC">Retweet this Topic</Resource>
     <Resource tag="RSSTOPIC">ملخص المواضيع </Resource>
+    <Resource tag="SHARE">Share</Resource>
+    <Resource tag="SHARE_TOOLTIP">Share this Topic via Email, Twitter, Buzz, Facebook, Digg or Reddit.</Resource>
     <Resource tag="SKYPE">(SKYPE)سكاي بي</Resource>
     <Resource tag="STATISTICS">إحصاءات</Resource>
     <Resource tag="THANKSFROM"> تم الشكر {0} مرات </Resource>
@@ -2556,6 +2572,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="USERONLINESTATUS">متواجد حاليا </Resource>
     <Resource tag="USERPROFILE">الملف الشخصي  لعضو</Resource>
     <Resource tag="VIEW">عرض</Resource>
+    <Resource tag="VIEW_TOOLTIP">Change Topic View between Normal or Thread View.</Resource>
     <Resource tag="VOTES">تصويت</Resource>
     <Resource tag="WARN_ALREADY_VOTED">لقد قمت بالتصويت .</Resource>
     <Resource tag="WARN_EMAILLOGIN">يجب عليك  التسجيل اوالا</Resource>

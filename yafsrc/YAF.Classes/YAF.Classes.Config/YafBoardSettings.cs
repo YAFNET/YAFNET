@@ -78,6 +78,7 @@ namespace YAF.Classes
 
         // Board/Override properties...
         // Future stuff... still in progress.
+
         /// <summary>
         /// Gets or sets a value indicating whether SetBoardRegistryOnly.
         /// </summary>
@@ -134,9 +135,9 @@ namespace YAF.Classes
             }
         }
 
-        // individual board settings
         /// <summary>
         /// Gets Name.
+        /// individual board settings
         /// </summary>
         public string Name
         {
@@ -164,12 +165,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("AllowThemedLogo", false);
+                return this._reg.GetValue("AllowThemedLogo", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("AllowThemedLogo", value);
+                this._reg.SetValue("AllowThemedLogo", value);
             }
         }
 
@@ -180,12 +181,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("AllowGenderInUserBox", true);
+                return this._reg.GetValue("AllowGenderInUserBox", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("AllowGenderInUserBox", value);
+                this._reg.SetValue("AllowGenderInUserBox", value);
             }
         }
 
@@ -196,12 +197,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("EnableDisplayName", false);
+                return this._reg.GetValue("EnableDisplayName", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("EnableDisplayName", value);
+                this._reg.SetValue("EnableDisplayName", value);
             }
         }
 
@@ -212,12 +213,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("JqueryUIThemeCDNHosted", true);
+                return this._reg.GetValue("JqueryUIThemeCDNHosted", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("JqueryUIThemeCDNHosted", value);
+                this._reg.SetValue("JqueryUIThemeCDNHosted", value);
             }
         }
 
@@ -228,7 +229,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._regBoard.GetValue<int>("MaxUsers", 1);
+                return this._regBoard.GetValue("MaxUsers", 1);
             }
         }
 
@@ -239,7 +240,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._regBoard.GetValue<DateTime>("MaxUsersWhen", DateTime.UtcNow);
+                return this._regBoard.GetValue("MaxUsersWhen", DateTime.UtcNow);
             }
         }
 
@@ -250,12 +251,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._regBoard.GetValue<string>("MobileTheme", string.Empty);
+                return this._regBoard.GetValue("MobileTheme", string.Empty);
             }
 
             set
             {
-                this._regBoard.SetValue<string>("MobileTheme", value);
+                this._regBoard.SetValue("MobileTheme", value);
             }
         }
 
@@ -266,12 +267,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._regBoard.GetValue<string>("JqueryUITheme", "smoothness");
+                return this._regBoard.GetValue("JqueryUITheme", "smoothness");
             }
 
             set
             {
-                this._regBoard.SetValue<string>("JqueryUITheme", value);
+                this._regBoard.SetValue("JqueryUITheme", value);
             }
         }
 
@@ -282,12 +283,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._regBoard.GetValue<string>("Theme", "cleanSlate.xml");
+                return this._regBoard.GetValue("Theme", "cleanSlate.xml");
             }
 
             set
             {
-                this._regBoard.SetValue<string>("Theme", value);
+                this._regBoard.SetValue("Theme", value);
             }
         }
 
@@ -298,12 +299,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._regBoard.GetValue<string>("Language", "english.xml");
+                return this._regBoard.GetValue("Language", "english.xml");
             }
 
             set
             {
-                this._regBoard.SetValue<string>("Language", value);
+                this._regBoard.SetValue("Language", value);
             }
         }
 
@@ -314,51 +315,60 @@ namespace YAF.Classes
         {
             get
             {
-                return this._regBoard.GetValue<string>("Culture", "en-US");
+                return this._regBoard.GetValue("Culture", "en-US");
             }
 
             set
             {
-                this._regBoard.SetValue<string>("Culture", value);
+                this._regBoard.SetValue("Culture", value);
             }
         }
 
-        public UserNotificationSetting DefaultNotificationSetting
+      /// <summary>
+      /// Gets or sets Default Notification Setting.
+      /// </summary>
+      public UserNotificationSetting DefaultNotificationSetting
         {
             get
             {
-                return this._regBoard.GetValue<UserNotificationSetting>("DefaultNotificationSetting", UserNotificationSetting.TopicsIPostToOrSubscribeTo);
+                return this._regBoard.GetValue("DefaultNotificationSetting", UserNotificationSetting.TopicsIPostToOrSubscribeTo);
             }
 
             set
             {
-                this._regBoard.SetValue<UserNotificationSetting>("DefaultNotificationSetting", value);
+                this._regBoard.SetValue("DefaultNotificationSetting", value);
             }
         }
 
-        public bool DefaultSendDigestEmail
+      /// <summary>
+      /// Gets or sets a value indicating whether Default Send Digest Email.
+      /// </summary>
+      public bool DefaultSendDigestEmail
         {
             get
             {
-                return this._regBoard.GetValue<bool>("DefaultSendDigestEmail", false);
+                return this._regBoard.GetValue("DefaultSendDigestEmail", false);
             }
 
             set
             {
-                this._regBoard.SetValue<bool>("DefaultSendDigestEmail", value);
+                this._regBoard.SetValue("DefaultSendDigestEmail", value);
             }
         }
 
-        public bool AllowDigestEmail
+      /// <summary>
+      /// Gets or sets a value indicating whether Allow Digest Email.
+      /// </summary>
+      public bool AllowDigestEmail
         {
             get
             {
-                return this._regBoard.GetValue<bool>("AllowDigestEmail", false);
+                return this._regBoard.GetValue("AllowDigestEmail", false);
             }
 
             set
             {
-                this._regBoard.SetValue<bool>("AllowDigestEmail", value);
+                this._regBoard.SetValue("AllowDigestEmail", value);
             }
         }
 
@@ -369,7 +379,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._regBoard.GetValue<int>("ShowTopicsDefault", 0);
+                return this._regBoard.GetValue("ShowTopicsDefault", 0);
             }
 
             set
@@ -385,12 +395,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._regBoard.GetValue<bool>("FileExtensionAreAllowed", true);
+                return this._regBoard.GetValue("FileExtensionAreAllowed", true);
             }
 
             set
             {
-                this._regBoard.SetValue<bool>("FileExtensionAreAllowed", value);
+                this._regBoard.SetValue("FileExtensionAreAllowed", value);
             }
         }
 
@@ -401,12 +411,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._regBoard.GetValue<bool>("RecaptureMultipleInstances", true);
+                return this._regBoard.GetValue("RecaptureMultipleInstances", true);
             }
 
             set
             {
-                this._regBoard.SetValue<bool>("RecaptureMultipleInstances", value);
+                this._regBoard.SetValue("RecaptureMultipleInstances", value);
             }
         }
 
@@ -426,35 +436,41 @@ namespace YAF.Classes
             }
         }
 
-        public string CopyrightRemovalDomainKey
+      /// <summary>
+      /// Gets or sets Copyright Removal Domain Key.
+      /// </summary>
+      public string CopyrightRemovalDomainKey
         {
           get
           {
-            return this._regBoard.GetValue<string>("CopyrightRemovalDomainKey", null);
+              return this._regBoard.GetValue<string>("CopyrightRemovalDomainKey", null);
           }
 
           set
           {
-            this._regBoard.SetValue<string>("CopyrightRemovalDomainKey", value);
+              this._regBoard.SetValue<string>("CopyrightRemovalDomainKey", value);
           }
         }
 
-        public bool EmailModeratorsOnModeratedPost
+      /// <summary>
+      /// Gets or sets a value indicating whether Email Moderators On Moderated Post.
+      /// </summary>
+      public bool EmailModeratorsOnModeratedPost
         {
             get
             {
-                return this._regBoard.GetValue<bool>("EmailModeratorsOnModeratedPost", true);
+                return this._regBoard.GetValue("EmailModeratorsOnModeratedPost", true);
             }
 
             set
             {
-                this._regBoard.SetValue<bool>("EmailModeratorsOnModeratedPost", value);
+                this._regBoard.SetValue("EmailModeratorsOnModeratedPost", value);
             }
         }
 
-        // didn't know where else to put this :)
         /// <summary>
         /// Gets SQLVersion.
+        /// NOTE : didn't know where else to put this :)
         /// </summary>
         public string SQLVersion
         {
@@ -467,13 +483,45 @@ namespace YAF.Classes
         #region int settings
 
         /// <summary>
+        /// Gets or sets a value indicating whether Show Share Topic To.
+        /// </summary>
+        public int ShowShareTopicTo
+        {
+            get
+            {
+                return this._reg.GetValue("ShowShareTopicTo", 1);
+            }
+
+            set
+            {
+                this._reg.SetValue<int>("ShowShareTopicTo", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether Enable Retweet Message.
+        /// </summary>
+        public int ShowRetweetMessageTo
+        {
+            get
+            {
+                return this._reg.GetValue("ShowRetweetMessageTo", 1);
+            }
+
+            set
+            {
+                this._reg.SetValue<int>("ShowRetweetMessageTo", value);
+            }
+        }
+
+        /// <summary>
         ///  Gets or sets a value indicating whether Show Team Page To or not.
         /// </summary>
         public int ShowTeamTo
         {
             get
             {
-                return this._reg.GetValue<int>("ShowTeamTo", 0);
+                return this._reg.GetValue("ShowTeamTo", 0);
             }
 
             set
@@ -489,7 +537,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("ShowHelpTo", 0);
+                return this._reg.GetValue("ShowHelpTo", 2);
             }
 
             set
@@ -497,6 +545,7 @@ namespace YAF.Classes
                 this._reg.SetValue<int>("ShowHelpTo", value);
             }
         }
+
         /// <summary>
         /// Gets or sets ServerTimeCorrection.
         /// </summary>
@@ -504,7 +553,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("ServerTimeCorrection", 0);
+                return this._reg.GetValue("ServerTimeCorrection", 0);
             }
 
             set
@@ -520,7 +569,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("MemberListPageSize", 20);
+                return this._reg.GetValue("MemberListPageSize", 20);
             }
 
             set
@@ -536,7 +585,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("PostLatestFeedAccess", 1);
+                return this._reg.GetValue("PostLatestFeedAccess", 1);
             }
 
             set
@@ -552,7 +601,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("PostsFeedAccess", 1);
+                return this._reg.GetValue("PostsFeedAccess", 1);
             }
 
             set
@@ -568,7 +617,7 @@ namespace YAF.Classes
         {
           get
           {
-            return this._reg.GetValue<int>("DigestSendEveryXHours", 24);
+            return this._reg.GetValue("DigestSendEveryXHours", 24);
           }
 
           set
@@ -584,7 +633,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("TopicsFeedAccess", 1);
+                return this._reg.GetValue("TopicsFeedAccess", 1);
             }
 
             set
@@ -600,7 +649,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("ForumFeedAccess", 1);
+                return this._reg.GetValue("ForumFeedAccess", 1);
             }
 
             set
@@ -616,7 +665,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("ActiveTopicFeedAccess", 1);
+                return this._reg.GetValue("ActiveTopicFeedAccess", 1);
             }
 
             set
@@ -632,7 +681,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("FavoriteTopicFeedAccess", 1);
+                return this._reg.GetValue("FavoriteTopicFeedAccess", 1);
             }
 
             set
@@ -641,7 +690,6 @@ namespace YAF.Classes
             }
         }
 
-
         /// <summary>
         /// Gets or sets AvatarWidth.
         /// </summary>
@@ -649,7 +697,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("AvatarWidth", 50);
+                return this._reg.GetValue("AvatarWidth", 50);
             }
 
             set
@@ -665,7 +713,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("AvatarHeight", 80);
+                return this._reg.GetValue("AvatarHeight", 80);
             }
 
             set
@@ -681,7 +729,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("AllowCreateTopicsSameName", 0);
+                return this._reg.GetValue("AllowCreateTopicsSameName", 0);
             }
 
             set
@@ -697,7 +745,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("AvatarSize", 50000);
+                return this._reg.GetValue("AvatarSize", 50000);
             }
 
             set
@@ -713,7 +761,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("MaxWordLength", 40);
+                return this._reg.GetValue("MaxWordLength", 40);
             }
 
             set
@@ -721,6 +769,7 @@ namespace YAF.Classes
                 this._reg.SetValue<int>("MaxWordLength", value);
             }
         }
+
         /// <summary>
         /// Gets or sets MaxFileSize.
         /// </summary>
@@ -728,7 +777,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("MaxFileSize", 0);
+                return this._reg.GetValue("MaxFileSize", 0);
             }
 
             set
@@ -736,6 +785,7 @@ namespace YAF.Classes
                 this._reg.SetValue<int>("MaxFileSize", value);
             }
         }
+
         /// <summary>
         /// Gets or sets SmiliesColumns.
         /// </summary>
@@ -743,7 +793,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("SmiliesColumns", 3);
+                return this._reg.GetValue("SmiliesColumns", 3);
             }
 
             set
@@ -759,7 +809,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("SmiliesPerRow", 6);
+                return this._reg.GetValue("SmiliesPerRow", 6);
             }
 
             set
@@ -775,7 +825,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("MessageHistoryDaysToLog", 30);
+                return this._reg.GetValue("MessageHistoryDaysToLog", 30);
             }
 
             set
@@ -791,7 +841,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("LockPosts", 0);
+                return this._reg.GetValue("LockPosts", 0);
             }
 
             set
@@ -807,7 +857,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("PostsPerPage", 20);
+                return this._reg.GetValue("PostsPerPage", 20);
             }
 
             set
@@ -823,7 +873,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("TopicsPerPage", 15);
+                return this._reg.GetValue("TopicsPerPage", 15);
             }
 
             set
@@ -839,12 +889,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<string>("ForumEditor", "1");
+                return this._reg.GetValue("ForumEditor", "1");
             }
 
             set
             {
-              this._reg.SetValue<string>("ForumEditor", value);
+              this._reg.SetValue("ForumEditor", value);
             }
         }
 
@@ -855,7 +905,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("PostFloodDelay", 30);
+                return this._reg.GetValue("PostFloodDelay", 30);
             }
 
             set
@@ -871,7 +921,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("AllowedPollChoiceNumber", 10);
+                return this._reg.GetValue("AllowedPollChoiceNumber", 10);
             }
 
             set
@@ -887,7 +937,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("AllowedPollNumber", 3);
+                return this._reg.GetValue("AllowedPollNumber", 3);
             }
 
             set
@@ -903,7 +953,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("PollImageMaxFileSize", 100);
+                return this._reg.GetValue("PollImageMaxFileSize", 100);
             }
 
             set
@@ -919,7 +969,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("CaptchaTypeRegister", 1);
+                return this._reg.GetValue("CaptchaTypeRegister", 1);
             }
 
             set
@@ -935,7 +985,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("EditTimeOut", 30);
+                return this._reg.GetValue("EditTimeOut", 30);
             }
 
             set
@@ -952,7 +1002,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("ReportPostPermissions", (int)ViewPermissions.RegisteredUsers);
+                return this._reg.GetValue("ReportPostPermissions", (int)ViewPermissions.RegisteredUsers);
             }
 
             set
@@ -968,7 +1018,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("CaptchaSize", 8);
+                return this._reg.GetValue("CaptchaSize", 8);
             }
 
             set
@@ -985,7 +1035,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("ProfileViewPermission", (int)ViewPermissions.RegisteredUsers);
+                return this._reg.GetValue("ProfileViewPermission", (int)ViewPermissions.RegisteredUsers);
             }
 
             set
@@ -1001,7 +1051,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("ReturnSearchMax", 100);
+                return this._reg.GetValue("ReturnSearchMax", 100);
             }
 
             set
@@ -1018,7 +1068,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("ActiveUsersViewPermissions", (int)ViewPermissions.RegisteredUsers);
+                return this._reg.GetValue("ActiveUsersViewPermissions", (int)ViewPermissions.RegisteredUsers);
             }
 
             set
@@ -1034,7 +1084,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("MembersListViewPermissions", (int)ViewPermissions.RegisteredUsers);
+                return this._reg.GetValue("MembersListViewPermissions", (int)ViewPermissions.RegisteredUsers);
             }
 
             set
@@ -1051,7 +1101,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("ActiveDiscussionsCount", 5);
+                return this._reg.GetValue("ActiveDiscussionsCount", 5);
             }
 
             set
@@ -1067,7 +1117,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("ActiveDiscussionsCacheTimeout", 1);
+                return this._reg.GetValue("ActiveDiscussionsCacheTimeout", 1);
             }
 
             set
@@ -1083,7 +1133,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("SearchStringMinLength", 4);
+                return this._reg.GetValue("SearchStringMinLength", 4);
             }
 
             set
@@ -1099,7 +1149,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("SearchStringMaxLength", 50);
+                return this._reg.GetValue("SearchStringMaxLength", 50);
             }
 
             set
@@ -1115,7 +1165,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("SearchPermissions", (int)ViewPermissions.Everyone);
+                return this._reg.GetValue("SearchPermissions", (int)ViewPermissions.Everyone);
             }
 
             set
@@ -1132,7 +1182,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("BoardPollID", 0);
+                return this._reg.GetValue("BoardPollID", 0);
             }
 
             set
@@ -1148,7 +1198,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("ExternalSearchPermissions", (int)ViewPermissions.Nobody);
+                return this._reg.GetValue("ExternalSearchPermissions", (int)ViewPermissions.Nobody);
             }
 
             set
@@ -1164,7 +1214,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("ForumStatisticsCacheTimeout", 60);
+                return this._reg.GetValue("ForumStatisticsCacheTimeout", 60);
             }
 
             set
@@ -1180,7 +1230,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("BoardUserStatsCacheTimeout", 60);
+                return this._reg.GetValue("BoardUserStatsCacheTimeout", 60);
             }
 
             set
@@ -1197,7 +1247,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("PrivateMessageMaxRecipients", 1);
+                return this._reg.GetValue("PrivateMessageMaxRecipients", 1);
             }
 
             set
@@ -1213,7 +1263,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("DisableNoFollowLinksAfterDay", 0);
+                return this._reg.GetValue("DisableNoFollowLinksAfterDay", 0);
             }
 
             set
@@ -1230,7 +1280,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("BoardForumListAllGuestCacheTimeout", 1440);
+                return this._reg.GetValue("BoardForumListAllGuestCacheTimeout", 1440);
             }
 
             set
@@ -1246,7 +1296,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("BoardModeratorsCacheTimeout", 1440);
+                return this._reg.GetValue("BoardModeratorsCacheTimeout", 1440);
             }
 
             set
@@ -1262,7 +1312,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("BoardCategoriesCacheTimeout", 1440);
+                return this._reg.GetValue("BoardCategoriesCacheTimeout", 1440);
             }
 
             set
@@ -1279,7 +1329,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("ReplaceRulesCacheTimeout", 1440);
+                return this._reg.GetValue("ReplaceRulesCacheTimeout", 1440);
             }
 
             set
@@ -1295,7 +1345,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("FirstPostCacheTimeout", 120);
+                return this._reg.GetValue("FirstPostCacheTimeout", 120);
             }
 
             set
@@ -1311,7 +1361,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("MaxPostSize", Int16.MaxValue);
+                return this._reg.GetValue("MaxPostSize", Int16.MaxValue);
             }
 
             set
@@ -1327,7 +1377,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("MaxReportPostChars", 128);
+                return this._reg.GetValue("MaxReportPostChars", 128);
             }
 
             set
@@ -1343,7 +1393,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("MaxNumberOfAttachments", 5);
+                return this._reg.GetValue("MaxNumberOfAttachments", 5);
             }
 
             set
@@ -1360,7 +1410,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("PictureAttachmentDisplayTreshold", 262144);
+                return this._reg.GetValue("PictureAttachmentDisplayTreshold", 262144);
             }
 
             set
@@ -1376,7 +1426,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("ImageAttachmentResizeWidth", 200);
+                return this._reg.GetValue("ImageAttachmentResizeWidth", 200);
             }
 
             set
@@ -1392,7 +1442,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("ImageAttachmentResizeHeight", 200);
+                return this._reg.GetValue("ImageAttachmentResizeHeight", 200);
             }
 
             set
@@ -1408,7 +1458,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("ShoutboxShowMessageCount", 30);
+                return this._reg.GetValue("ShoutboxShowMessageCount", 30);
             }
 
             set
@@ -1425,7 +1475,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._regBoard.GetValue<int>("ActiveListTime", 5);
+                return this._regBoard.GetValue("ActiveListTime", 5);
             }
 
             set
@@ -1441,7 +1491,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("ActiveUserLazyDataCacheTimeout", 10);
+                return this._reg.GetValue("ActiveUserLazyDataCacheTimeout", 10);
             }
 
             set
@@ -1457,7 +1507,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("OnlineStatusCacheTimeout", 60000);
+                return this._reg.GetValue("OnlineStatusCacheTimeout", 60000);
             }
 
             set
@@ -1473,7 +1523,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("UserNameMaxLength", 50);
+                return this._reg.GetValue("UserNameMaxLength", 50);
             }
 
             set
@@ -1494,12 +1544,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("AllowUsersTextEditor", false);
+                return this._reg.GetValue("AllowUsersTextEditor", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("AllowUsersTextEditor", value);
+                this._reg.SetValue("AllowUsersTextEditor", value);
             }
         }
 
@@ -1510,12 +1560,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("EmailVerification", false);
+                return this._reg.GetValue("EmailVerification", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("EmailVerification", value);
+                this._reg.SetValue("EmailVerification", value);
             }
         }
 
@@ -1523,12 +1573,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("AllowNotificationAllPostsAllTopics", false);
+                return this._reg.GetValue("AllowNotificationAllPostsAllTopics", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("AllowNotificationAllPostsAllTopics", value);
+                this._reg.SetValue("AllowNotificationAllPostsAllTopics", value);
             }
         }
 
@@ -1536,12 +1586,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("AllowForumsWithSameName", false);
+                return this._reg.GetValue("AllowForumsWithSameName", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("AllowForumsWithSameName", value);
+                this._reg.SetValue("AllowForumsWithSameName", value);
             }
         }
 
@@ -1552,12 +1602,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("UseFullTextSearch", false);
+                return this._reg.GetValue("UseFullTextSearch", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("UseFullTextSearch", value);
+                this._reg.SetValue("UseFullTextSearch", value);
             }
         }
 
@@ -1568,12 +1618,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("ShowLastUnreadPost", true);
+                return this._reg.GetValue("ShowLastUnreadPost", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("ShowLastUnreadPost", value);
+                this._reg.SetValue("ShowLastUnreadPost", value);
             }
         }
 
@@ -1584,12 +1634,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("EnableIPInfoService", false);
+                return this._reg.GetValue("EnableIPInfoService", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("EnableIPInfoService", value);
+                this._reg.SetValue("EnableIPInfoService", value);
             }
         }
 
@@ -1600,12 +1650,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("AbadonSessionsForDontTrack", false);
+                return this._reg.GetValue("AbadonSessionsForDontTrack", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("AbadonSessionsForDontTrack", value);
+                this._reg.SetValue("AbadonSessionsForDontTrack", value);
             }
         }
 
@@ -1617,12 +1667,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("UseSSLToLogIn", false);
+                return this._reg.GetValue("UseSSLToLogIn", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("UseSSLToLogIn", value);
+                this._reg.SetValue("UseSSLToLogIn", value);
             }
         }
 
@@ -1633,12 +1683,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("UseSSLToRegister", false);
+                return this._reg.GetValue("UseSSLToRegister", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("UseSSLToRegister", value);
+                this._reg.SetValue("UseSSLToRegister", value);
             }
         }
 
@@ -1649,12 +1699,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("ShowMoved", true);
+                return this._reg.GetValue("ShowMoved", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("ShowMoved", value);
+                this._reg.SetValue("ShowMoved", value);
             }
         }
 
@@ -1665,12 +1715,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("ShowAvatarsInTopic", false);
+                return this._reg.GetValue("ShowAvatarsInTopic", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("ShowAvatarsInTopic", value);
+                this._reg.SetValue("ShowAvatarsInTopic", value);
             }
         }
 
@@ -1681,12 +1731,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("ShowGuestsInDetailedActiveList", false);
+                return this._reg.GetValue("ShowGuestsInDetailedActiveList", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("ShowGuestsInDetailedActiveList", value);
+                this._reg.SetValue("ShowGuestsInDetailedActiveList", value);
             }
         }
 
@@ -1697,12 +1747,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("ShowCrawlersInActiveList", false);
+                return this._reg.GetValue("ShowCrawlersInActiveList", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("ShowCrawlersInActiveList", value);
+                this._reg.SetValue("ShowCrawlersInActiveList", value);
             }
         }
 
@@ -1714,12 +1764,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("ShowGroups", true);
+                return this._reg.GetValue("ShowGroups", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("ShowGroups", value);
+                this._reg.SetValue("ShowGroups", value);
             }
         }
 
@@ -1730,12 +1780,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("BlankLinks", false);
+                return this._reg.GetValue("BlankLinks", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("BlankLinks", value);
+                this._reg.SetValue("BlankLinks", value);
             }
         }
 
@@ -1746,12 +1796,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("AllowUserTheme", false);
+                return this._reg.GetValue("AllowUserTheme", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("AllowUserTheme", value);
+                this._reg.SetValue("AllowUserTheme", value);
             }
         }
 
@@ -1762,12 +1812,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("AllowUserHideHimself", false);
+                return this._reg.GetValue("AllowUserHideHimself", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("AllowUserHideHimself", value);
+                this._reg.SetValue("AllowUserHideHimself", value);
             }
         }
 
@@ -1778,12 +1828,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("AllowUserLanguage", false);
+                return this._reg.GetValue("AllowUserLanguage", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("AllowUserLanguage", value);
+                this._reg.SetValue("AllowUserLanguage", value);
             }
         }
 
@@ -1794,12 +1844,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("AllowModeratorsViewIPs", false);
+                return this._reg.GetValue("AllowModeratorsViewIPs", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("AllowModeratorsViewIPs", value);
+                this._reg.SetValue("AllowModeratorsViewIPs", value);
             }
         }
 
@@ -1810,12 +1860,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("AllowPMEmailNotification", true);
+                return this._reg.GetValue("AllowPMEmailNotification", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("AllowPMEmailNotification", value);
+                this._reg.SetValue("AllowPMEmailNotification", value);
             }
         }
 
@@ -1826,12 +1876,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("AllowPollChangesAfterFirstVote", false);
+                return this._reg.GetValue("AllowPollChangesAfterFirstVote", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("AllowPollChangesAfterFirstVote", value);
+                this._reg.SetValue("AllowPollChangesAfterFirstVote", value);
             }
         }
 
@@ -1842,12 +1892,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("AllowViewPollVotesIfNoPollAcces", true);
+                return this._reg.GetValue("AllowViewPollVotesIfNoPollAcces", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("AllowViewPollVotesIfNoPollAcces", value);
+                this._reg.SetValue("AllowViewPollVotesIfNoPollAcces", value);
             }
         }
 
@@ -1858,12 +1908,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("ShowRelativeTime", true);
+                return this._reg.GetValue("ShowRelativeTime", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("ShowRelativeTime", value);
+                this._reg.SetValue("ShowRelativeTime", value);
             }
         }
 
@@ -1874,7 +1924,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<int>("RelativeTimeRefreshTime", 60000);
+                return this._reg.GetValue("RelativeTimeRefreshTime", 60000);
             }
 
             set
@@ -1890,12 +1940,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("AllowMultipleChoices", true);
+                return this._reg.GetValue("AllowMultipleChoices", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("AllowMultipleChoices", value);
+                this._reg.SetValue("AllowMultipleChoices", value);
             }
         }
 
@@ -1906,12 +1956,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("AllowGuestsViewPollOptions", true);
+                return this._reg.GetValue("AllowGuestsViewPollOptions", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("AllowGuestsViewPollOptions", value);
+                this._reg.SetValue("AllowGuestsViewPollOptions", value);
             }
         }
 
@@ -1922,12 +1972,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("AllowUsersImagedPoll", false);
+                return this._reg.GetValue("AllowUsersImagedPoll", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("AllowUsersImagedPoll", value);
+                this._reg.SetValue("AllowUsersImagedPoll", value);
             }
         }
 
@@ -1938,12 +1988,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("AvatarUpload", false);
+                return this._reg.GetValue("AvatarUpload", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("AvatarUpload", value);
+                this._reg.SetValue("AvatarUpload", value);
             }
         }
 
@@ -1954,12 +2004,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("AvatarRemote", false);
+                return this._reg.GetValue("AvatarRemote", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("AvatarRemote", value);
+                this._reg.SetValue("AvatarRemote", value);
             }
         }
 
@@ -1971,12 +2021,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("AvatarGravatar", false);
+                return this._reg.GetValue("AvatarGravatar", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("AvatarGravatar", value);
+                this._reg.SetValue("AvatarGravatar", value);
             }
         }
 
@@ -1987,12 +2037,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("AllowEmailChange", true);
+                return this._reg.GetValue("AllowEmailChange", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("AllowEmailChange", value);
+                this._reg.SetValue("AllowEmailChange", value);
             }
         }
 
@@ -2003,12 +2053,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("AllowPasswordChange", true);
+                return this._reg.GetValue("AllowPasswordChange", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("AllowPasswordChange", value);
+                this._reg.SetValue("AllowPasswordChange", value);
             }
         }
 
@@ -2019,12 +2069,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("UseFileTable", false);
+                return this._reg.GetValue("UseFileTable", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("UseFileTable", value);
+                this._reg.SetValue("UseFileTable", value);
             }
         }
 
@@ -2035,12 +2085,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("ShowRSSLink", true);
+                return this._reg.GetValue("ShowRSSLink", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("ShowRSSLink", value);
+                this._reg.SetValue("ShowRSSLink", value);
             }
         }
 
@@ -2051,12 +2101,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("ShowAtomLink", true);
+                return this._reg.GetValue("ShowAtomLink", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("ShowAtomLink", value);
+                this._reg.SetValue("ShowAtomLink", value);
             }
         }
 
@@ -2067,12 +2117,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("ShowPageGenerationTime", true);
+                return this._reg.GetValue("ShowPageGenerationTime", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("ShowPageGenerationTime", value);
+                this._reg.SetValue("ShowPageGenerationTime", value);
             }
         }
 
@@ -2083,12 +2133,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("ShowYAFVersion", true);
+                return this._reg.GetValue("ShowYAFVersion", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("ShowYAFVersion", value);
+                this._reg.SetValue("ShowYAFVersion", value);
             }
         }
 
@@ -2099,12 +2149,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("ShowForumJump", true);
+                return this._reg.GetValue("ShowForumJump", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("ShowForumJump", value);
+                this._reg.SetValue("ShowForumJump", value);
             }
         }
 
@@ -2115,12 +2165,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("AllowPrivateMessages", true);
+                return this._reg.GetValue("AllowPrivateMessages", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("AllowPrivateMessages", value);
+                this._reg.SetValue("AllowPrivateMessages", value);
             }
         }
 
@@ -2131,12 +2181,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("AllowEmailSending", true);
+                return this._reg.GetValue("AllowEmailSending", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("AllowEmailSending", value);
+                this._reg.SetValue("AllowEmailSending", value);
             }
         }
 
@@ -2147,12 +2197,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("AllowSignatures", true);
+                return this._reg.GetValue("AllowSignatures", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("AllowSignatures", value);
+                this._reg.SetValue("AllowSignatures", value);
             }
         }
 
@@ -2163,12 +2213,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("ExternalSearchInNewWindow", false);
+                return this._reg.GetValue("ExternalSearchInNewWindow", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("ExternalSearchInNewWindow", value);
+                this._reg.SetValue("ExternalSearchInNewWindow", value);
             }
         }
 
@@ -2179,12 +2229,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("ShowQuickSearch", false);
+                return this._reg.GetValue("ShowQuickSearch", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("ShowQuickSearch", value);
+                this._reg.SetValue("ShowQuickSearch", value);
             }
         }
 
@@ -2195,12 +2245,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("RemoveNestedQuotes", false);
+                return this._reg.GetValue("RemoveNestedQuotes", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("RemoveNestedQuotes", value);
+                this._reg.SetValue("RemoveNestedQuotes", value);
             }
         }
 
@@ -2212,12 +2262,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("DisableRegistrations", false);
+                return this._reg.GetValue("DisableRegistrations", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("DisableRegistrations", value);
+                this._reg.SetValue("DisableRegistrations", value);
             }
         }
 
@@ -2228,12 +2278,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("CreateNntpUsers", false);
+                return this._reg.GetValue("CreateNntpUsers", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("CreateNntpUsers", value);
+                this._reg.SetValue("CreateNntpUsers", value);
             }
         }
 
@@ -2244,12 +2294,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("ShowGroupsProfile", false);
+                return this._reg.GetValue("ShowGroupsProfile", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("ShowGroupsProfile", value);
+                this._reg.SetValue("ShowGroupsProfile", value);
             }
         }
 
@@ -2260,12 +2310,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("PollVoteTiedToIP", true);
+                return this._reg.GetValue("PollVoteTiedToIP", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("PollVoteTiedToIP", value);
+                this._reg.SetValue("PollVoteTiedToIP", value);
             }
         }
 
@@ -2276,12 +2326,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("ShowAdsToSignedInUsers", true);
+                return this._reg.GetValue("ShowAdsToSignedInUsers", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("ShowAdsToSignedInUsers", value);
+                this._reg.SetValue("ShowAdsToSignedInUsers", value);
             }
         }
 
@@ -2292,12 +2342,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("DisplayPoints", false);
+                return this._reg.GetValue("DisplayPoints", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("DisplayPoints", value);
+                this._reg.SetValue("DisplayPoints", value);
             }
         }
 
@@ -2308,12 +2358,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("ShowQuickAnswer", true);
+                return this._reg.GetValue("ShowQuickAnswer", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("ShowQuickAnswer", value);
+                this._reg.SetValue("ShowQuickAnswer", value);
             }
         }
 
@@ -2324,12 +2374,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("ShowDeletedMessages", true);
+                return this._reg.GetValue("ShowDeletedMessages", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("ShowDeletedMessages", value);
+                this._reg.SetValue("ShowDeletedMessages", value);
             }
         }
 
@@ -2340,12 +2390,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("ShowDeletedMessagesToAll", false);
+                return this._reg.GetValue("ShowDeletedMessagesToAll", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("ShowDeletedMessagesToAll", value);
+                this._reg.SetValue("ShowDeletedMessagesToAll", value);
             }
         }
 
@@ -2356,12 +2406,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("ShowModeratorList", true);
+                return this._reg.GetValue("ShowModeratorList", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("ShowModeratorList", value);
+                this._reg.SetValue("ShowModeratorList", value);
             }
         }
 
@@ -2372,12 +2422,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("EnableCaptchaForPost", false);
+                return this._reg.GetValue("EnableCaptchaForPost", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("EnableCaptchaForPost", value);
+                this._reg.SetValue("EnableCaptchaForPost", value);
             }
         }
 
@@ -2388,12 +2438,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("EnableCaptchaForRegister", false);
+                return this._reg.GetValue("EnableCaptchaForRegister", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("EnableCaptchaForRegister", value);
+                this._reg.SetValue("EnableCaptchaForRegister", value);
             }
         }
 
@@ -2404,12 +2454,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("EnableCaptchaForGuests", true);
+                return this._reg.GetValue("EnableCaptchaForGuests", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("EnableCaptchaForGuests", value);
+                this._reg.SetValue("EnableCaptchaForGuests", value);
             }
         }
 
@@ -2420,12 +2470,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("UseNoFollowLinks", true);
+                return this._reg.GetValue("UseNoFollowLinks", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("UseNoFollowLinks", value);
+                this._reg.SetValue("UseNoFollowLinks", value);
             }
         }
 
@@ -2436,12 +2486,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("DoUrlReferrerSecurityCheck", false);
+                return this._reg.GetValue("DoUrlReferrerSecurityCheck", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("DoUrlReferrerSecurityCheck", value);
+                this._reg.SetValue("DoUrlReferrerSecurityCheck", value);
             }
         }
 
@@ -2452,12 +2502,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("EnableImageAttachmentResize", true);
+                return this._reg.GetValue("EnableImageAttachmentResize", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("EnableImageAttachmentResize", value);
+                this._reg.SetValue("EnableImageAttachmentResize", value);
             }
         }
 
@@ -2468,12 +2518,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("ShowShoutbox", true);
+                return this._reg.GetValue("ShowShoutbox", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("ShowShoutbox", value);
+                this._reg.SetValue("ShowShoutbox", value);
             }
         }
 
@@ -2484,12 +2534,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("ShowShoutboxSmiles", true);
+                return this._reg.GetValue("ShowShoutboxSmiles", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("ShowShoutboxSmiles", value);
+                this._reg.SetValue("ShowShoutboxSmiles", value);
             }
         }
 
@@ -2500,12 +2550,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("AllowUserInfoCaching", true);
+                return this._reg.GetValue("AllowUserInfoCaching", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("AllowUserInfoCaching", value);
+                this._reg.SetValue("AllowUserInfoCaching", value);
             }
         }
 
@@ -2516,12 +2566,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("NoCountForumsInActiveDiscussions", true);
+                return this._reg.GetValue("NoCountForumsInActiveDiscussions", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("NoCountForumsInActiveDiscussions", value);
+                this._reg.SetValue("NoCountForumsInActiveDiscussions", value);
             }
         }
 
@@ -2532,12 +2582,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("UseStyledNicks", false);
+                return this._reg.GetValue("UseStyledNicks", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("UseStyledNicks", value);
+                this._reg.SetValue("UseStyledNicks", value);
             }
         }
 
@@ -2548,12 +2598,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("ShowUserOnlineStatus", false);
+                return this._reg.GetValue("ShowUserOnlineStatus", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("ShowUserOnlineStatus", value);
+                this._reg.SetValue("ShowUserOnlineStatus", value);
             }
         }
 
@@ -2564,12 +2614,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("ShowThanksDate", true);
+                return this._reg.GetValue("ShowThanksDate", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("ShowThanksDate", value);
+                this._reg.SetValue("ShowThanksDate", value);
             }
         }
 
@@ -2580,12 +2630,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("EnableThanksMod", true);
+                return this._reg.GetValue("EnableThanksMod", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("EnableThanksMod", value);
+                this._reg.SetValue("EnableThanksMod", value);
             }
         }
 
@@ -2596,12 +2646,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("EnableBuddyList", true);
+                return this._reg.GetValue("EnableBuddyList", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("EnableBuddyList", value);
+                this._reg.SetValue("EnableBuddyList", value);
             }
         }
         /// <summary>
@@ -2613,12 +2663,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("EnableDNACalendar", true);
+                return this._reg.GetValue("EnableDNACalendar", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("EnableDNACalendar", value);
+                this._reg.SetValue("EnableDNACalendar", value);
             }
         }
 
@@ -2629,12 +2679,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("EnableActiveLocationErrorsLog", false);
+                return this._reg.GetValue("EnableActiveLocationErrorsLog", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("EnableActiveLocationErrorsLog", value);
+                this._reg.SetValue("EnableActiveLocationErrorsLog", value);
             }
         }
 
@@ -2645,12 +2695,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("UserAgentBadLog", false);
+                return this._reg.GetValue("UserAgentBadLog", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("UserAgentBadLog", value);
+                this._reg.SetValue("UserAgentBadLog", value);
             }
         }
 
@@ -2661,12 +2711,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("EnableAlbum", true);
+                return this._reg.GetValue("EnableAlbum", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("EnableAlbum", value);
+                this._reg.SetValue("EnableAlbum", value);
             }
         }
 
@@ -2677,7 +2727,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._regBoard.GetValue<int>("AlbumImagesSizeMax", 1048576);
+                return this._regBoard.GetValue("AlbumImagesSizeMax", 1048576);
             }
 
             set
@@ -2693,7 +2743,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._regBoard.GetValue<int>("AlbumsPerPage", 6);
+                return this._regBoard.GetValue("AlbumsPerPage", 6);
             }
 
             set
@@ -2709,7 +2759,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._regBoard.GetValue<int>("AlbumImagesPerPage", 10);
+                return this._regBoard.GetValue("AlbumImagesPerPage", 10);
             }
 
             set
@@ -2725,12 +2775,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("AddDynamicPageMetaTags", true);
+                return this._reg.GetValue("AddDynamicPageMetaTags", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("AddDynamicPageMetaTags", value);
+                this._reg.SetValue("AddDynamicPageMetaTags", value);
             }
         }
 
@@ -2738,12 +2788,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("AllowDisplayNameModification", true);
+                return this._reg.GetValue("AllowDisplayNameModification", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("AllowDisplayNameModification", value);
+                this._reg.SetValue("AllowDisplayNameModification", value);
             }
         }
 
@@ -2754,12 +2804,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("ImageAttachmentResizeCropped", false);
+                return this._reg.GetValue("ImageAttachmentResizeCropped", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("ImageAttachmentResizeCropped", value);
+                this._reg.SetValue("ImageAttachmentResizeCropped", value);
             }
         }
 
@@ -2770,12 +2820,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("UseLoginBox", false);
+                return this._reg.GetValue("UseLoginBox", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("UseLoginBox", value);
+                this._reg.SetValue("UseLoginBox", value);
             }
         }
 
@@ -2790,12 +2840,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<string>("IPInfoPageURL", "http://www.dnsstuff.com/tools/whois.ch?ip={0}");
+                return this._reg.GetValue("IPInfoPageURL", "http://www.dnsstuff.com/tools/whois.ch?ip={0}");
             }
 
             set
             {
-                this._reg.SetValue<string>("IPInfoPageURL", value);
+                this._reg.SetValue("IPInfoPageURL", value);
             }
         }
 
@@ -2806,12 +2856,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<string>("IPLocatorPath", "http://ipinfodb.com/ip_query.php?ip={0}&timezone={1}");
+                return this._reg.GetValue("IPLocatorPath", "http://ipinfodb.com/ip_query.php?ip={0}&timezone={1}");
             }
 
             set
             {
-                this._reg.SetValue<string>("IPLocatorPath", value);
+                this._reg.SetValue("IPLocatorPath", value);
             }
         }
 
@@ -2822,12 +2872,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<string>("ForumEmail", string.Empty);
+                return this._reg.GetValue("ForumEmail", string.Empty);
             }
 
             set
             {
-                this._reg.SetValue<string>("ForumEmail", value);
+                this._reg.SetValue("ForumEmail", value);
             }
         }
 
@@ -2838,12 +2888,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("EnableIrkoo", false);
+                return this._reg.GetValue("EnableIrkoo", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("EnableIrkoo", value);
+                this._reg.SetValue("EnableIrkoo", value);
             }
         }
 
@@ -2854,12 +2904,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<string>("IrkooSiteID", string.Empty);
+                return this._reg.GetValue("IrkooSiteID", string.Empty);
             }
 
             set
             {
-                this._reg.SetValue<string>("IrkooSiteID", value);
+                this._reg.SetValue("IrkooSiteID", value);
             }
         }
 
@@ -2870,12 +2920,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<string>("IrkooSecretKey", string.Empty);
+                return this._reg.GetValue("IrkooSecretKey", string.Empty);
             }
 
             set
             {
-                this._reg.SetValue<string>("IrkooSecretKey", value);
+                this._reg.SetValue("IrkooSecretKey", value);
             }
         }
 
@@ -2886,12 +2936,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("ShowIrkooRepOnlyInTopics", false);
+                return this._reg.GetValue("ShowIrkooRepOnlyInTopics", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("ShowIrkooRepOnlyInTopics", value);
+                this._reg.SetValue("ShowIrkooRepOnlyInTopics", value);
             }
         }
 
@@ -2902,12 +2952,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("AllowGuestsViewReputation", true);
+                return this._reg.GetValue("AllowGuestsViewReputation", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("AllowGuestsViewReputation", value);
+                this._reg.SetValue("AllowGuestsViewReputation", value);
             }
         }
 
@@ -2918,12 +2968,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<string>("RecaptchaPublicKey", string.Empty);
+                return this._reg.GetValue("RecaptchaPublicKey", string.Empty);
             }
 
             set
             {
-                this._reg.SetValue<string>("RecaptchaPublicKey", value);
+                this._reg.SetValue("RecaptchaPublicKey", value);
             }
         }
 
@@ -2934,12 +2984,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<string>("RecaptchaPrivateKey", string.Empty);
+                return this._reg.GetValue("RecaptchaPrivateKey", string.Empty);
             }
 
             set
             {
-                this._reg.SetValue<string>("RecaptchaPrivateKey", value);
+                this._reg.SetValue("RecaptchaPrivateKey", value);
             }
         }
 
@@ -2950,12 +3000,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<string>("SearchEngine1", "http://google.com/search?as_q={Word}&hl={Language}&num={ResultsPerPage}&btnG={ButtonName}&as_epq={Word}&as_oq={Word}&as_eq={Word}&lr=&cr=&as_ft=i&as_filetype=&as_qdr=&as_occt=&as_dt=i&as_sitesearch={Site}&as_rights=&safe=off");
+                return this._reg.GetValue("SearchEngine1", "http://google.com/search?as_q={Word}&hl={Language}&num={ResultsPerPage}&btnG={ButtonName}&as_epq={Word}&as_oq={Word}&as_eq={Word}&lr=&cr=&as_ft=i&as_filetype=&as_qdr=&as_occt=&as_dt=i&as_sitesearch={Site}&as_rights=&safe=off");
             }
 
             set
             {
-                this._reg.SetValue<string>("SearchEngine1", value);
+                this._reg.SetValue("SearchEngine1", value);
             }
         }
 
@@ -2967,12 +3017,12 @@ namespace YAF.Classes
             get
             {
 
-                return this._reg.GetValue<string>("SearchEngine2", "http://yandex.ru/yandsearch?date=all&text=&site={Site}&rstr=&zone=all&wordforms=&lang={Language}&within=&from_day=&from_month=&from_year=&to_day=&to_month=&to_year=&mime=&numdoc={ResultsPerPage}&lr=");
+                return this._reg.GetValue("SearchEngine2", "http://yandex.ru/yandsearch?date=all&text=&site={Site}&rstr=&zone=all&wordforms=&lang={Language}&within=&from_day=&from_month=&from_year=&to_day=&to_month=&to_year=&mime=&numdoc={ResultsPerPage}&lr=");
             }
 
             set
             {
-                this._reg.SetValue<string>("SearchEngine2", value);
+                this._reg.SetValue("SearchEngine2", value);
             }
         }
 
@@ -2983,12 +3033,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<string>("SearchEngine1Parameters", "Google^?^&^+^;^AnyWord:as_oq={Word}^AllWords:as_q={Word}^ExactFrase:as_epq={Word}^WithoutWords:as_eq={Word}");
+                return this._reg.GetValue("SearchEngine1Parameters", "Google^?^&^+^;^AnyWord:as_oq={Word}^AllWords:as_q={Word}^ExactFrase:as_epq={Word}^WithoutWords:as_eq={Word}");
             }
 
             set
             {
-                this._reg.SetValue<string>("SearchEngine1Parameters", value);
+                this._reg.SetValue("SearchEngine1Parameters", value);
             }
         }
 
@@ -2999,12 +3049,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<string>("SearchEngine2Parameters", "Yandex^?^&^+^;^AnyWord:text={Word}/wordforms=any^AllWords:text={Word}/wordforms=all^ExactFrase:text={Word}/wordforms=exact^WithoutWords:text=~~{Word}");
+                return this._reg.GetValue("SearchEngine2Parameters", "Yandex^?^&^+^;^AnyWord:text={Word}/wordforms=any^AllWords:text={Word}/wordforms=all^ExactFrase:text={Word}/wordforms=exact^WithoutWords:text=~~{Word}");
             }
 
             set
             {
-                this._reg.SetValue<string>("SearchEngine2Parameters", value);
+                this._reg.SetValue("SearchEngine2Parameters", value);
             }
         }
 
@@ -3016,12 +3066,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<string>("GravatarRating", "G");
+                return this._reg.GetValue("GravatarRating", "G");
             }
 
             set
             {
-                this._reg.SetValue<string>("GravatarRating", value);
+                this._reg.SetValue("GravatarRating", value);
             }
         }
 
@@ -3032,12 +3082,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<string>("AcceptedHTML", "br,hr,b,i,u,a,div,ol,ul,li,blockquote,img,span,p,em,strong,font,pre,h1,h2,h3,h4,h5,h6,address");
+                return this._reg.GetValue("AcceptedHTML", "br,hr,b,i,u,a,div,ol,ul,li,blockquote,img,span,p,em,strong,font,pre,h1,h2,h3,h4,h5,h6,address");
             }
 
             set
             {
-                this._reg.SetValue<string>("AcceptedHTML", value.ToLower());
+                this._reg.SetValue("AcceptedHTML", value.ToLower());
             }
         }
 
@@ -3048,12 +3098,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<string>("AcceptedHeadersHTML", String.Empty);
+                return this._reg.GetValue("AcceptedHeadersHTML", String.Empty);
             }
 
             set
             {
-                this._reg.SetValue<string>("AcceptedHeadersHTML", value.ToLower());
+                this._reg.SetValue("AcceptedHeadersHTML", value.ToLower());
             }
         }
 
@@ -3069,7 +3119,7 @@ namespace YAF.Classes
 
             set
             {
-                this._reg.SetValue<string>("AdPost", value);
+                this._reg.SetValue("AdPost", value);
             }
         }
 
@@ -3085,7 +3135,7 @@ namespace YAF.Classes
 
             set
             {
-                this._reg.SetValue<string>("CustomLoginRedirectUrl", value);
+                this._reg.SetValue("CustomLoginRedirectUrl", value);
             }
         }
 
@@ -3096,12 +3146,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<string>("WebServiceToken", Guid.NewGuid().ToString());
+                return this._reg.GetValue("WebServiceToken", Guid.NewGuid().ToString());
             }
 
             set
             {
-                this._reg.SetValue<string>("WebServiceToken", value);
+                this._reg.SetValue("WebServiceToken", value);
             }
         }
 
@@ -3112,12 +3162,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<string>("SearchStringPattern", ".*");
+                return this._reg.GetValue("SearchStringPattern", ".*");
             }
 
             set
             {
-                this._reg.SetValue<string>("SearchStringPattern", value);
+                this._reg.SetValue("SearchStringPattern", value);
             }
         }
 
@@ -3130,12 +3180,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("DisplayJoinDate", true);
+                return this._reg.GetValue("DisplayJoinDate", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("DisplayJoinDate", value);
+                this._reg.SetValue("DisplayJoinDate", value);
             }
         }
 
@@ -3146,12 +3196,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("ShowBrowsingUsers", true);
+                return this._reg.GetValue("ShowBrowsingUsers", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("ShowBrowsingUsers", value);
+                this._reg.SetValue("ShowBrowsingUsers", value);
             }
         }
 
@@ -3162,12 +3212,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("ShowMedals", true);
+                return this._reg.GetValue("ShowMedals", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("ShowMedals", value);
+                this._reg.SetValue("ShowMedals", value);
             }
         }
 
@@ -3178,12 +3228,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("AllowPostToBlog", false);
+                return this._reg.GetValue("AllowPostToBlog", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("AllowPostToBlog", value);
+                this._reg.SetValue("AllowPostToBlog", value);
             }
         }
 
@@ -3194,32 +3244,33 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("AllowReportPosts", true);
+                return this._reg.GetValue("AllowReportPosts", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("AllowReportPosts", value);
+                this._reg.SetValue("AllowReportPosts", value);
             }
         }
+
         /* Ederon : 8/29/2007 */
 
         /// <summary>
-        /// Gets or sets a value indicating whether AllowEmailTopic.
+        /// Gets or sets a value indicating whether Allow Email Topic.
         /// </summary>
         public bool AllowEmailTopic
         {
             get
             {
-                return this._reg.GetValue<bool>("AllowEmailTopic", true);
+                return this._reg.GetValue("AllowEmailTopic", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("AllowEmailTopic", value);
+                this._reg.SetValue("AllowEmailTopic", value);
             }
         }
-
+        
         /* Ederon : 12/9/2007 */
 
         /// <summary>
@@ -3229,12 +3280,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("RequireLogin", false);
+                return this._reg.GetValue("RequireLogin", false);
             }
 
             set
             {
-                this._reg.SetValue<bool>("RequireLogin", value);
+                this._reg.SetValue("RequireLogin", value);
             }
         }
 
@@ -3247,12 +3298,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("ShowActiveDiscussions", true);
+                return this._reg.GetValue("ShowActiveDiscussions", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("ShowActiveDiscussions", value);
+                this._reg.SetValue("ShowActiveDiscussions", value);
             }
         }
 
@@ -3263,12 +3314,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("ShowForumStatistics", true);
+                return this._reg.GetValue("ShowForumStatistics", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("ShowForumStatistics", value);
+                this._reg.SetValue("ShowForumStatistics", value);
             }
         }
 
@@ -3279,12 +3330,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<bool>("ShowRulesForRegistration", true);
+                return this._reg.GetValue("ShowRulesForRegistration", true);
             }
 
             set
             {
-                this._reg.SetValue<bool>("ShowRulesForRegistration", value);
+                this._reg.SetValue("ShowRulesForRegistration", value);
             }
         }
 
@@ -3298,12 +3349,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<string>("UserBox", Constants.UserBox.DisplayTemplateDefault);
+                return this._reg.GetValue("UserBox", Constants.UserBox.DisplayTemplateDefault);
             }
 
             set
             {
-                this._reg.SetValue<string>("UserBox", value);
+                this._reg.SetValue("UserBox", value);
             }
         }
 
@@ -3314,12 +3365,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<string>("UserBoxAvatar", @"<div class=""section"">{0}</div><br clear=""all"" />");
+                return this._reg.GetValue("UserBoxAvatar", @"<div class=""section"">{0}</div><br clear=""all"" />");
             }
 
             set
             {
-                this._reg.SetValue<string>("UserBoxAvatar", value);
+                this._reg.SetValue("UserBoxAvatar", value);
             }
         }
 
@@ -3330,12 +3381,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<string>("UserBoxMedals", @"<div class=""section medals"">{0} {1}{2}</div><br clear=""all"" />");
+                return this._reg.GetValue("UserBoxMedals", @"<div class=""section medals"">{0} {1}{2}</div><br clear=""all"" />");
             }
 
             set
             {
-                this._reg.SetValue<string>("UserBoxMedals", value);
+                this._reg.SetValue("UserBoxMedals", value);
             }
         }
 
@@ -3346,12 +3397,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<string>("UserBoxRankImage", "{0}<br clear=\"all\" />");
+                return this._reg.GetValue("UserBoxRankImage", "{0}<br clear=\"all\" />");
             }
 
             set
             {
-                this._reg.SetValue<string>("UserBoxRankImage", value);
+                this._reg.SetValue("UserBoxRankImage", value);
             }
         }
 
@@ -3362,12 +3413,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<string>("UserBoxRank", "{0}: {1}<br clear=\"all\" />");
+                return this._reg.GetValue("UserBoxRank", "{0}: {1}<br clear=\"all\" />");
             }
 
             set
             {
-                this._reg.SetValue<string>("UserBoxRank", value);
+                this._reg.SetValue("UserBoxRank", value);
             }
         }
 
@@ -3378,12 +3429,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<string>("UserBoxGroups", "{0}: {1}<br clear=\"all\" />");
+                return this._reg.GetValue("UserBoxGroups", "{0}: {1}<br clear=\"all\" />");
             }
 
             set
             {
-                this._reg.SetValue<string>("UserBoxGroups", value);
+                this._reg.SetValue("UserBoxGroups", value);
             }
         }
 
@@ -3394,27 +3445,30 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<string>("UserBoxJoinDate", "{0}: {1}<br />");
+                return this._reg.GetValue("UserBoxJoinDate", "{0}: {1}<br />");
             }
 
             set
             {
-                this._reg.SetValue<string>("UserBoxJoinDate", value);
+                this._reg.SetValue("UserBoxJoinDate", value);
             }
         }
-        public string UserBoxGender
+
+      /// <summary>
+      /// Gets or sets UserBoxGender.
+      /// </summary>
+      public string UserBoxGender
         {
             get
             {
-                return this._reg.GetValue<string>("UserBoxGender", "{0}<br />");
+                return this._reg.GetValue("UserBoxGender", "{0}<br />");
             }
 
             set
             {
-                this._reg.SetValue<string>("UserBoxGender", value);
+                this._reg.SetValue("UserBoxGender", value);
             }
         }
-
 
         /// <summary>
         /// Gets or sets UserBoxPosts.
@@ -3423,12 +3477,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<string>("UserBoxPosts", "{0}: {1:N0}<br />");
+                return this._reg.GetValue("UserBoxPosts", "{0}: {1:N0}<br />");
             }
 
             set
             {
-                this._reg.SetValue<string>("UserBoxPosts", value);
+                this._reg.SetValue("UserBoxPosts", value);
             }
         }
 
@@ -3439,12 +3493,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<string>("UserBoxPoints", "{0}: {1:N0}<br />");
+                return this._reg.GetValue("UserBoxPoints", "{0}: {1:N0}<br />");
             }
 
             set
             {
-                this._reg.SetValue<string>("UserBoxPoints", value);
+                this._reg.SetValue("UserBoxPoints", value);
             }
         }
 
@@ -3455,12 +3509,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<string>("UserBoxLocation", "{0}: {1}<br />");
+                return this._reg.GetValue("UserBoxLocation", "{0}: {1}<br />");
             }
 
             set
             {
-                this._reg.SetValue<string>("UserBoxLocation", value);
+                this._reg.SetValue("UserBoxLocation", value);
             }
         }
 
@@ -3473,12 +3527,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<string>("UserBoxThanksFrom", "{0}<br />");
+                return this._reg.GetValue("UserBoxThanksFrom", "{0}<br />");
             }
 
             set
             {
-                this._reg.SetValue<string>("UserBoxThanksFrom", value);
+                this._reg.SetValue("UserBoxThanksFrom", value);
             }
         }
 
@@ -3489,36 +3543,59 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue<string>("UserBoxThanksTo", "{0}<br />");
+                return this._reg.GetValue("UserBoxThanksTo", "{0}<br />");
             }
 
             set
             {
-                this._reg.SetValue<string>("UserBoxThanksTo", value);
+                this._reg.SetValue("UserBoxThanksTo", value);
             }
         }
 
-        public string LastDigestSend
+      /// <summary>
+      /// Gets or sets LastDigestSend.
+      /// </summary>
+      public string LastDigestSend
         {
             get
             {
                 return this._regBoard.GetValue<string>("LastDigestSend", null);
             }
+
             set
             {
-                this._regBoard.SetValue<string>("LastDigestSend", value);
+                this._regBoard.SetValue("LastDigestSend", value);
             }
         }
 
-        public bool ForceDigestSend
+      /// <summary>
+      /// Gets or sets TwitterUserName.
+      /// </summary>
+      public string TwitterUserName
+      {
+          get
+          {
+              return this._regBoard.GetValue<string>("TwitterUserName", null);
+          }
+
+          set
+          {
+              this._regBoard.SetValue("TwitterUserName", value);
+          }
+      }
+
+      /// <summary>
+      /// Gets or sets a value indicating whether ForceDigestSend.
+      /// </summary>
+      public bool ForceDigestSend
         {
             get
             {
-                return this._regBoard.GetValue<bool>("ForceDigestSend", false);
+                return this._regBoard.GetValue("ForceDigestSend", false);
             }
             set
             {
-                this._regBoard.SetValue<bool>("ForceDigestSend", value);
+                this._regBoard.SetValue("ForceDigestSend", value);
             }
         }
 

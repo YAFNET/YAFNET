@@ -1,5 +1,5 @@
-/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bjørnar Henden
+ï»¿/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjï¿½rnar Henden
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -213,7 +213,7 @@ namespace YAF.Pages.Admin
       {
         var localizations = new[] { "FORBIDDEN", "REG_USERS", "ALL_USERS" };
 
-        var dropDownLists = new []
+        var dropDownLists = new[]
           {
             PostsFeedAccess,
             AllowCreateTopicsSameName,
@@ -230,6 +230,8 @@ namespace YAF.Pages.Admin
             SearchPermissions,
             ShowHelpTo,
             ShowTeamTo,
+            ShowRetweetMessageTo,
+            ShowShareTopicTo
           };
 
         foreach (var ddl in dropDownLists)
@@ -238,7 +240,7 @@ namespace YAF.Pages.Admin
         }
 
         CaptchaTypeRegister.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "DISABLED"), "0"));
-          CaptchaTypeRegister.Items.Add(new ListItem("YafCaptcha","1"));
+          CaptchaTypeRegister.Items.Add(new ListItem("YafCaptcha", "1"));
           CaptchaTypeRegister.Items.Add(new ListItem("ReCaptcha", "2"));
       }
 

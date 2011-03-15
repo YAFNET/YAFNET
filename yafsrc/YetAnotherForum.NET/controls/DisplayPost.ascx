@@ -1,4 +1,4 @@
-<%@ Register TagPrefix="user" TagName="DisplayPostFooter" Src="DisplayPostFooter.ascx" %>
+﻿<%@ Register TagPrefix="user" TagName="DisplayPostFooter" Src="DisplayPostFooter.ascx" %>
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Controls.DisplayPost"
 	EnableViewState="false" Codebehind="DisplayPost.ascx.cs" %>
 <%@ Register TagPrefix="YAF" TagName="DisplayPostFooter" Src="DisplayPostFooter.ascx" %>
@@ -6,13 +6,14 @@
 <%@ Import Namespace="YAF.Core.Services" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Utils" %>
+<%@ Import Namespace="YAF.Types.Interfaces" %>
 <tr class="postheader">		
     <%#GetIndentCell()%>
     <td width="140" id="NameCell" class="postUser" runat="server">
         <a name="post<%# DataRow["MessageID"] %>" /><b>						
             <YAF:UserLink ID="UserProfileLink" runat="server" UserID='<%#DataRow["UserID"]%>' Style='<%#DataRow["Style"]%>' CssClass="UserPopMenuLink" />
-            <%#PageContext.BoardSettings.ShowIrkooRepOnlyInTopics ? YafIrkoo.IrkRating(DataRow["UserID"]) : string.Empty%>
-            <YAF:OnlineStatusImage id="OnlineStatusImage" runat="server" Visible='<%# PageContext.BoardSettings.ShowUserOnlineStatus && !UserMembershipHelper.IsGuestUser( DataRow["UserID"] )%>' Style="vertical-align: bottom" UserID='<%# DataRow["UserID"] %>'  />
+            <%# this.Get<YafBoardSettings>().ShowIrkooRepOnlyInTopics ? YafIrkoo.IrkRating(DataRow["UserID"]) : string.Empty%>
+            <YAF:OnlineStatusImage id="OnlineStatusImage" runat="server" Visible='<%# this.Get<YafBoardSettings>().ShowUserOnlineStatus && !UserMembershipHelper.IsGuestUser( DataRow["UserID"] )%>' Style="vertical-align: bottom" UserID='<%# DataRow["UserID"] %>'  />
         </b>
         <div class="Irkoo" style="float:right">
             <%#YafIrkoo.IrkVote(DataRow["MessageID"], DataRow["UserID"])%>
@@ -27,6 +28,8 @@
             <YAF:DisplayDateTime id="DisplayDateTime" runat="server" DateTime='<%# DataRow["Posted"] %>'></YAF:DisplayDateTime>
             </div>
         <div class="rightItem postedRight">
+            <YAF:ThemeButton ID="Retweet" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_RETWEET"
+                TitleLocalizedTag="BUTTON_RETWEET_TT" />
             <span id="<%# "dvThankBox" + DataRow["MessageID"] %>">
                 <YAF:ThemeButton ID="Thank" runat="server" CssClass="yaflittlebutton" Visible="false" TextLocalizedTag="BUTTON_THANKS"
                     TitleLocalizedTag="BUTTON_THANKS_TT" />
