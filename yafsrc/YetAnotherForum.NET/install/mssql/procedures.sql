@@ -1970,6 +1970,15 @@ begin
 	delete from [{databaseOwner}].[{objectQualifier}Rank] where BoardID=@BoardID
 	delete from [{databaseOwner}].[{objectQualifier}Group] where BoardID=@BoardID
 	delete from [{databaseOwner}].[{objectQualifier}AccessMask] where BoardID=@BoardID	
+	delete from [{databaseOwner}].[{objectQualifier}BBCode] where BoardID=@BoardID
+	delete from [{databaseOwner}].[{objectQualifier}Extension] where BoardID=@BoardID
+	delete from [{databaseOwner}].[{objectQualifier}ShoutboxMessage] where BoardID=@BoardID
+	delete from [{databaseOwner}].[{objectQualifier}Medal] where BoardID=@BoardID
+	delete from [{databaseOwner}].[{objectQualifier}Smiley] where BoardID=@BoardID
+	delete from [{databaseOwner}].[{objectQualifier}Replace_Words] where BoardID=@BoardID
+	delete from [{databaseOwner}].[{objectQualifier}NntpServer] where BoardID=@BoardID
+	delete from [{databaseOwner}].[{objectQualifier}BannedIP] where BoardID=@BoardID
+	delete from [{databaseOwner}].[{objectQualifier}Registry] where BoardID=@BoardID
 	delete from [{databaseOwner}].[{objectQualifier}Board] where BoardID=@BoardID
 end
 GO
