@@ -2706,9 +2706,7 @@ select
 		(@CategoryID is null or a.CategoryID=@CategoryID) and
 		((@ParentID is null and b.ParentID is null) or b.ParentID=@ParentID) and
 		x.UserID = @UserID
-	order by
-		a.SortOrder,
-		b.SortOrder
+			
 -- child forums
 insert into @tbl(ForumID,ParentID)
 select 	
@@ -2723,10 +2721,7 @@ select
 		((b.Flags & 2)=0 or x.ReadAccess<>0) and
 		(@CategoryID is null or a.CategoryID=@CategoryID) and
 		(b.ParentID IN (SELECT ForumID FROM @tbl1)) and
-		x.UserID = @UserID
-	order by
-		a.SortOrder,
-		b.SortOrder
+		x.UserID = @UserID	
 
  insert into @tbl(ForumID,ParentID)
  select * FROM @tbl1
@@ -2773,7 +2768,9 @@ select
 		(b.ForumID IN (SELECT ForumID FROM @tbl) )
 	order by
 		a.SortOrder,
-		b.SortOrder
+		b.SortOrder,
+		a.Name,
+		b.Name
 end
 GO
 
