@@ -493,6 +493,11 @@ if exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwn
     alter table [{databaseOwner}].[{objectQualifier}Thanks] drop constraint [IX_{objectQualifier}Thanks_UserID]
 go
 
+-- vzrus: to allow duplicate forum names
+if exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='IX_{objectQualifier}Forum')
+    alter table [{databaseOwner}].[{objectQualifier}Forum] drop constraint IX_{objectQualifier}Forum
+go
+
 
 /* Build new constraints */
 
@@ -724,9 +729,9 @@ if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databas
 go
 
 
-if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='IX_{objectQualifier}Forum')
+/* if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='IX_{objectQualifier}Forum')
 	alter table [{databaseOwner}].[{objectQualifier}Forum] add constraint IX_{objectQualifier}Forum unique nonclustered(CategoryID,Name)   
-go
+*/
 
 
 if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='IX_{objectQualifier}Group')

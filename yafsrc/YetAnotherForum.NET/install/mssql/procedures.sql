@@ -2917,8 +2917,7 @@ begin
 			Flags = @Flags
 		where ForumID=@ForumID
 	end
-	else begin
-		select @BoardID=BoardID from [{databaseOwner}].[{objectQualifier}Category] where CategoryID=@CategoryID
+	else begin		
 	
 		insert into [{databaseOwner}].[{objectQualifier}Forum](ParentID,Name,Description,SortOrder,CategoryID,NumTopics,NumPosts,RemoteURL,ThemeURL,Flags,ImageURL,Styles)
 		values(@ParentID,@Name,@Description,@SortOrder,@CategoryID,0,0,@RemoteURL,@ThemeURL,@Flags,@ImageURL,@Styles)
@@ -2927,7 +2926,7 @@ begin
 		insert into [{databaseOwner}].[{objectQualifier}ForumAccess](GroupID,ForumID,AccessMaskID) 
 		select GroupID,@ForumID,@AccessMaskID
 		from [{databaseOwner}].[{objectQualifier}Group]
-		where BoardID=@BoardID
+		where BoardID IN (select BoardID from [{databaseOwner}].[{objectQualifier}Category] where CategoryID=@CategoryID)
 	end
 	select ForumID = @ForumID
 end
