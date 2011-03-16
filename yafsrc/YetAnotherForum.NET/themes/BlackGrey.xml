@@ -4,7 +4,6 @@
     <Resource tag="CREDIT"></Resource>
 	<Resource tag="HEADER">
 	&lt;script type="text/javascript" src="~/js/jquery.tipTip.minified.js"&gt;&lt;/script&gt;
-	&lt;script type="text/javascript" src="~/js/jquery.corner.js"&gt;&lt;/script&gt;
 	&lt;script type="text/javascript" src="~/js/ColorGrey.js"&gt;&lt;/script&gt;
 	</Resource>
   </page>

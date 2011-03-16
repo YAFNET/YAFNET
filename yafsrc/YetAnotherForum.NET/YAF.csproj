@@ -31,6 +31,7 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <OldToolsVersion>2.0</OldToolsVersion>
     <TargetFrameworkProfile />
+    <UseIISExpress>false</UseIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\</OutputPath>
@@ -55,7 +56,7 @@
     <DebugType>full</DebugType>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <ExcludeGeneratedDebugSymbol>false</ExcludeGeneratedDebugSymbol>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\</OutputPath>
@@ -79,14 +80,15 @@
     <DebugType>none</DebugType>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CookComputing.XmlRpcV2, Version=2.5.0.0, Culture=neutral, PublicKeyToken=a7d6e17aa302004d, processorArchitecture=MSIL" />
-    <Reference Include="nStuff.UpdateControls, Version=1.2.0.0, Culture=neutral, PublicKeyToken=72f3f55dd4809977, processorArchitecture=MSIL" />
+    <Reference Include="CookComputing.XmlRpcV2, Version=2.5.0.0, Culture=neutral, PublicKeyToken=a7d6e17aa302004d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Bin\CookComputing.XmlRpcV2.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -122,6 +124,7 @@
     <Compile Include="Classes\Editors\CKEditor.cs" />
     <Compile Include="Classes\Editors\CKEditorBBCodeEditor.cs" />
     <Compile Include="Classes\Editors\CKEditorHtmlEditor.cs" />
+    <Compile Include="Classes\Editors\CuteEditor.cs" />
     <Compile Include="Classes\Editors\FCKEditorV2.cs" />
     <Compile Include="Classes\Editors\FCKEditorV1.cs" />
     <Compile Include="Classes\Editors\FreeTextBoxEditor.cs" />
@@ -233,9 +236,6 @@
     <Compile Include="controls\ProfileYourAccount.ascx.designer.cs">
       <DependentUpon>ProfileYourAccount.ascx</DependentUpon>
     </Compile>
-    <Compile Include="controls\ShoutBox.ascx.designer.cs">
-      <DependentUpon>ShoutBox.ascx</DependentUpon>
-    </Compile>
     <Compile Include="controls\smileys.ascx.designer.cs">
       <DependentUpon>smileys.ascx</DependentUpon>
     </Compile>
@@ -259,12 +259,13 @@
     <Compile Include="install\default.aspx.designer.cs">
       <DependentUpon>default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Modules\BBCode\ExampleBBCodeModule.cs" />
+    <Compile Include="Modules\BBCode\SpoilerBBCodeModule.cs" />
+    <Compile Include="Modules\BBCode\UserLinkBBCodeModule.cs" />
     <Compile Include="Modules\Events\ClearCacheOnEvents.cs" />
+    <Compile Include="Modules\Events\LastVisitEventHandler.cs" />
     <Compile Include="Modules\PopupDialogNotification.cs" />
     <Compile Include="Modules\TimeAgoForumModule.cs" />
-    <Compile Include="Modules\BBCode\UserLinkBBCodeModule.cs" />
-    <Compile Include="Modules\BBCode\ExampleBBCodeModule.cs" />
-    <Compile Include="Modules\Events\LastVisitEventHandler.cs" />
     <Compile Include="Modules\PageBBCodeRegistration.cs" />
     <Compile Include="Modules\PageLogoHandlerForumModule.cs" />
     <Compile Include="Modules\PagePermissionForumModule.cs" />
@@ -276,7 +277,6 @@
     <Compile Include="Modules\PageTitleForumModule.cs" />
     <Compile Include="Modules\SearchDataCleanupForumModule.cs" />
     <Compile Include="Modules\SimpleBaseForumModule.cs" />
-    <Compile Include="Modules\BBCode\SpoilerBBCodeModule.cs" />
     <Compile Include="Modules\SuspendCheckForumModule.cs" />
     <Compile Include="pages\activeusers.ascx.designer.cs">
       <DependentUpon>activeusers.ascx</DependentUpon>
@@ -740,6 +740,230 @@
     <Content Include="controls\YafHeader.ascx" />
     <Content Include="digest.aspx" />
     <Content Include="default.aspx" />
+    <Content Include="editors\ckeditor\adapters\jquery.js" />
+    <Content Include="editors\ckeditor\ckeditor.js" />
+    <Content Include="editors\ckeditor\ckeditor_basic.js" />
+    <Content Include="editors\ckeditor\ckeditor_init.js" />
+    <Content Include="editors\ckeditor\ckeditor_initbbcode.js" />
+    <Content Include="editors\ckeditor\config.js" />
+    <Content Include="editors\ckeditor\contents.css" />
+    <Content Include="editors\ckeditor\images\spacer.gif" />
+    <Content Include="editors\ckeditor\lang\af.js" />
+    <Content Include="editors\ckeditor\lang\ar.js" />
+    <Content Include="editors\ckeditor\lang\bg.js" />
+    <Content Include="editors\ckeditor\lang\bn.js" />
+    <Content Include="editors\ckeditor\lang\bs.js" />
+    <Content Include="editors\ckeditor\lang\ca.js" />
+    <Content Include="editors\ckeditor\lang\cs.js" />
+    <Content Include="editors\ckeditor\lang\cy.js" />
+    <Content Include="editors\ckeditor\lang\da.js" />
+    <Content Include="editors\ckeditor\lang\de.js" />
+    <Content Include="editors\ckeditor\lang\el.js" />
+    <Content Include="editors\ckeditor\lang\en-au.js" />
+    <Content Include="editors\ckeditor\lang\en-ca.js" />
+    <Content Include="editors\ckeditor\lang\en-gb.js" />
+    <Content Include="editors\ckeditor\lang\en.js" />
+    <Content Include="editors\ckeditor\lang\eo.js" />
+    <Content Include="editors\ckeditor\lang\es.js" />
+    <Content Include="editors\ckeditor\lang\et.js" />
+    <Content Include="editors\ckeditor\lang\eu.js" />
+    <Content Include="editors\ckeditor\lang\fa.js" />
+    <Content Include="editors\ckeditor\lang\fi.js" />
+    <Content Include="editors\ckeditor\lang\fo.js" />
+    <Content Include="editors\ckeditor\lang\fr-ca.js" />
+    <Content Include="editors\ckeditor\lang\fr.js" />
+    <Content Include="editors\ckeditor\lang\gl.js" />
+    <Content Include="editors\ckeditor\lang\gu.js" />
+    <Content Include="editors\ckeditor\lang\he.js" />
+    <Content Include="editors\ckeditor\lang\hi.js" />
+    <Content Include="editors\ckeditor\lang\hr.js" />
+    <Content Include="editors\ckeditor\lang\hu.js" />
+    <Content Include="editors\ckeditor\lang\is.js" />
+    <Content Include="editors\ckeditor\lang\it.js" />
+    <Content Include="editors\ckeditor\lang\ja.js" />
+    <Content Include="editors\ckeditor\lang\km.js" />
+    <Content Include="editors\ckeditor\lang\ko.js" />
+    <Content Include="editors\ckeditor\lang\lt.js" />
+    <Content Include="editors\ckeditor\lang\lv.js" />
+    <Content Include="editors\ckeditor\lang\mn.js" />
+    <Content Include="editors\ckeditor\lang\ms.js" />
+    <Content Include="editors\ckeditor\lang\nb.js" />
+    <Content Include="editors\ckeditor\lang\nl.js" />
+    <Content Include="editors\ckeditor\lang\no.js" />
+    <Content Include="editors\ckeditor\lang\pl.js" />
+    <Content Include="editors\ckeditor\lang\pt-br.js" />
+    <Content Include="editors\ckeditor\lang\pt.js" />
+    <Content Include="editors\ckeditor\lang\ro.js" />
+    <Content Include="editors\ckeditor\lang\ru.js" />
+    <Content Include="editors\ckeditor\lang\sk.js" />
+    <Content Include="editors\ckeditor\lang\sl.js" />
+    <Content Include="editors\ckeditor\lang\sr-latn.js" />
+    <Content Include="editors\ckeditor\lang\sr.js" />
+    <Content Include="editors\ckeditor\lang\sv.js" />
+    <Content Include="editors\ckeditor\lang\th.js" />
+    <Content Include="editors\ckeditor\lang\tr.js" />
+    <Content Include="editors\ckeditor\lang\uk.js" />
+    <Content Include="editors\ckeditor\lang\vi.js" />
+    <Content Include="editors\ckeditor\lang\zh-cn.js" />
+    <Content Include="editors\ckeditor\lang\zh.js" />
+    <Content Include="editors\ckeditor\lang\_languages.js" />
+    <Content Include="editors\ckeditor\lang\_translationstatus.txt" />
+    <Content Include="editors\ckeditor\LICENSE.html" />
+    <Content Include="editors\ckeditor\plugins\a11yhelp\dialogs\a11yhelp.js" />
+    <Content Include="editors\ckeditor\plugins\a11yhelp\lang\en.js" />
+    <Content Include="editors\ckeditor\plugins\a11yhelp\lang\he.js" />
+    <Content Include="editors\ckeditor\plugins\about\dialogs\about.js" />
+    <Content Include="editors\ckeditor\plugins\about\dialogs\logo_ckeditor.png" />
+    <Content Include="editors\ckeditor\plugins\adobeair\plugin.js" />
+    <Content Include="editors\ckeditor\plugins\autogrow\plugin.js" />
+    <Content Include="editors\ckeditor\plugins\bbcode\plugin.js" />
+    <Content Include="editors\ckeditor\plugins\clipboard\dialogs\paste.js" />
+    <Content Include="editors\ckeditor\plugins\colordialog\dialogs\colordialog.js" />
+    <Content Include="editors\ckeditor\plugins\dialog\dialogDefinition.js" />
+    <Content Include="editors\ckeditor\plugins\div\dialogs\div.js" />
+    <Content Include="editors\ckeditor\plugins\find\dialogs\find.js" />
+    <Content Include="editors\ckeditor\plugins\flash\dialogs\flash.js" />
+    <Content Include="editors\ckeditor\plugins\flash\images\placeholder.png" />
+    <Content Include="editors\ckeditor\plugins\forms\dialogs\button.js" />
+    <Content Include="editors\ckeditor\plugins\forms\dialogs\checkbox.js" />
+    <Content Include="editors\ckeditor\plugins\forms\dialogs\form.js" />
+    <Content Include="editors\ckeditor\plugins\forms\dialogs\hiddenfield.js" />
+    <Content Include="editors\ckeditor\plugins\forms\dialogs\radio.js" />
+    <Content Include="editors\ckeditor\plugins\forms\dialogs\select.js" />
+    <Content Include="editors\ckeditor\plugins\forms\dialogs\textarea.js" />
+    <Content Include="editors\ckeditor\plugins\forms\dialogs\textfield.js" />
+    <Content Include="editors\ckeditor\plugins\forms\images\hiddenfield.gif" />
+    <Content Include="editors\ckeditor\plugins\iframedialog\plugin.js" />
+    <Content Include="editors\ckeditor\plugins\iframe\dialogs\iframe.js" />
+    <Content Include="editors\ckeditor\plugins\iframe\images\placeholder.png" />
+    <Content Include="editors\ckeditor\plugins\image\dialogs\image.js" />
+    <Content Include="editors\ckeditor\plugins\link\dialogs\anchor.js" />
+    <Content Include="editors\ckeditor\plugins\link\dialogs\link.js" />
+    <Content Include="editors\ckeditor\plugins\link\images\anchor.gif" />
+    <Content Include="editors\ckeditor\plugins\liststyle\dialogs\liststyle.js" />
+    <Content Include="editors\ckeditor\plugins\pagebreak\images\pagebreak.gif" />
+    <Content Include="editors\ckeditor\plugins\pastefromword\filter\default.js" />
+    <Content Include="editors\ckeditor\plugins\pastetext\dialogs\pastetext.js" />
+    <Content Include="editors\ckeditor\plugins\placeholder\dialogs\placeholder.js" />
+    <Content Include="editors\ckeditor\plugins\placeholder\lang\en.js" />
+    <Content Include="editors\ckeditor\plugins\placeholder\placeholder.gif" />
+    <Content Include="editors\ckeditor\plugins\placeholder\plugin.js" />
+    <Content Include="editors\ckeditor\plugins\scayt\dialogs\options.js" />
+    <Content Include="editors\ckeditor\plugins\scayt\dialogs\toolbar.css" />
+    <Content Include="editors\ckeditor\plugins\showblocks\images\block_address.png" />
+    <Content Include="editors\ckeditor\plugins\showblocks\images\block_blockquote.png" />
+    <Content Include="editors\ckeditor\plugins\showblocks\images\block_div.png" />
+    <Content Include="editors\ckeditor\plugins\showblocks\images\block_h1.png" />
+    <Content Include="editors\ckeditor\plugins\showblocks\images\block_h2.png" />
+    <Content Include="editors\ckeditor\plugins\showblocks\images\block_h3.png" />
+    <Content Include="editors\ckeditor\plugins\showblocks\images\block_h4.png" />
+    <Content Include="editors\ckeditor\plugins\showblocks\images\block_h5.png" />
+    <Content Include="editors\ckeditor\plugins\showblocks\images\block_h6.png" />
+    <Content Include="editors\ckeditor\plugins\showblocks\images\block_p.png" />
+    <Content Include="editors\ckeditor\plugins\showblocks\images\block_pre.png" />
+    <Content Include="editors\ckeditor\plugins\smiley\dialogs\smiley.js" />
+    <Content Include="editors\ckeditor\plugins\smiley\images\angel_smile.gif" />
+    <Content Include="editors\ckeditor\plugins\smiley\images\angry_smile.gif" />
+    <Content Include="editors\ckeditor\plugins\smiley\images\broken_heart.gif" />
+    <Content Include="editors\ckeditor\plugins\smiley\images\confused_smile.gif" />
+    <Content Include="editors\ckeditor\plugins\smiley\images\cry_smile.gif" />
+    <Content Include="editors\ckeditor\plugins\smiley\images\devil_smile.gif" />
+    <Content Include="editors\ckeditor\plugins\smiley\images\embaressed_smile.gif" />
+    <Content Include="editors\ckeditor\plugins\smiley\images\envelope.gif" />
+    <Content Include="editors\ckeditor\plugins\smiley\images\heart.gif" />
+    <Content Include="editors\ckeditor\plugins\smiley\images\kiss.gif" />
+    <Content Include="editors\ckeditor\plugins\smiley\images\lightbulb.gif" />
+    <Content Include="editors\ckeditor\plugins\smiley\images\omg_smile.gif" />
+    <Content Include="editors\ckeditor\plugins\smiley\images\regular_smile.gif" />
+    <Content Include="editors\ckeditor\plugins\smiley\images\sad_smile.gif" />
+    <Content Include="editors\ckeditor\plugins\smiley\images\shades_smile.gif" />
+    <Content Include="editors\ckeditor\plugins\smiley\images\teeth_smile.gif" />
+    <Content Include="editors\ckeditor\plugins\smiley\images\thumbs_down.gif" />
+    <Content Include="editors\ckeditor\plugins\smiley\images\thumbs_up.gif" />
+    <Content Include="editors\ckeditor\plugins\smiley\images\tounge_smile.gif" />
+    <Content Include="editors\ckeditor\plugins\smiley\images\whatchutalkingabout_smile.gif" />
+    <Content Include="editors\ckeditor\plugins\smiley\images\wink_smile.gif" />
+    <Content Include="editors\ckeditor\plugins\specialchar\dialogs\specialchar.js" />
+    <Content Include="editors\ckeditor\plugins\specialchar\lang\en.js" />
+    <Content Include="editors\ckeditor\plugins\styles\styles\default.js" />
+    <Content Include="editors\ckeditor\plugins\tableresize\plugin.js" />
+    <Content Include="editors\ckeditor\plugins\tabletools\dialogs\tableCell.js" />
+    <Content Include="editors\ckeditor\plugins\table\dialogs\table.js" />
+    <Content Include="editors\ckeditor\plugins\templates\dialogs\templates.js" />
+    <Content Include="editors\ckeditor\plugins\templates\templates\default.js" />
+    <Content Include="editors\ckeditor\plugins\templates\templates\images\template1.gif" />
+    <Content Include="editors\ckeditor\plugins\templates\templates\images\template2.gif" />
+    <Content Include="editors\ckeditor\plugins\templates\templates\images\template3.gif" />
+    <Content Include="editors\ckeditor\plugins\uicolor\dialogs\uicolor.js" />
+    <Content Include="editors\ckeditor\plugins\uicolor\lang\en.js" />
+    <Content Include="editors\ckeditor\plugins\uicolor\lang\he.js" />
+    <Content Include="editors\ckeditor\plugins\uicolor\plugin.js" />
+    <Content Include="editors\ckeditor\plugins\uicolor\uicolor.gif" />
+    <Content Include="editors\ckeditor\plugins\uicolor\yui\assets\hue_bg.png" />
+    <Content Include="editors\ckeditor\plugins\uicolor\yui\assets\hue_thumb.png" />
+    <Content Include="editors\ckeditor\plugins\uicolor\yui\assets\picker_mask.png" />
+    <Content Include="editors\ckeditor\plugins\uicolor\yui\assets\picker_thumb.png" />
+    <Content Include="editors\ckeditor\plugins\uicolor\yui\assets\yui.css" />
+    <Content Include="editors\ckeditor\plugins\uicolor\yui\yui.js" />
+    <Content Include="editors\ckeditor\plugins\wsc\dialogs\ciframe.html" />
+    <Content Include="editors\ckeditor\plugins\wsc\dialogs\tmpFrameset.html" />
+    <Content Include="editors\ckeditor\plugins\wsc\dialogs\wsc.css" />
+    <Content Include="editors\ckeditor\plugins\wsc\dialogs\wsc.js" />
+    <Content Include="editors\ckeditor\skins\black\dialog.css" />
+    <Content Include="editors\ckeditor\skins\black\editor.css" />
+    <Content Include="editors\ckeditor\skins\black\icons.png" />
+    <Content Include="editors\ckeditor\skins\black\images\Background.gif" />
+    <Content Include="editors\ckeditor\skins\black\images\dialog_sides.gif" />
+    <Content Include="editors\ckeditor\skins\black\images\dialog_sides.png" />
+    <Content Include="editors\ckeditor\skins\black\images\dialog_sides_rtl.png" />
+    <Content Include="editors\ckeditor\skins\black\images\mini.gif" />
+    <Content Include="editors\ckeditor\skins\black\images\noimage.png" />
+    <Content Include="editors\ckeditor\skins\black\images\sprites.png" />
+    <Content Include="editors\ckeditor\skins\black\images\sprites_ie6.png" />
+    <Content Include="editors\ckeditor\skins\black\skin.js" />
+    <Content Include="editors\ckeditor\skins\black\templates.css" />
+    <Content Include="editors\ckeditor\skins\kama\dialog.css" />
+    <Content Include="editors\ckeditor\skins\kama\editor.css" />
+    <Content Include="editors\ckeditor\skins\kama\icons.png" />
+    <Content Include="editors\ckeditor\skins\kama\icons_rtl.png" />
+    <Content Include="editors\ckeditor\skins\kama\images\dialog_sides.gif" />
+    <Content Include="editors\ckeditor\skins\kama\images\dialog_sides.png" />
+    <Content Include="editors\ckeditor\skins\kama\images\dialog_sides_rtl.png" />
+    <Content Include="editors\ckeditor\skins\kama\images\mini.gif" />
+    <Content Include="editors\ckeditor\skins\kama\images\noimage.png" />
+    <Content Include="editors\ckeditor\skins\kama\images\sprites.png" />
+    <Content Include="editors\ckeditor\skins\kama\images\sprites_ie6.png" />
+    <Content Include="editors\ckeditor\skins\kama\images\toolbar_start.gif" />
+    <Content Include="editors\ckeditor\skins\kama\skin.js" />
+    <Content Include="editors\ckeditor\skins\kama\templates.css" />
+    <Content Include="editors\ckeditor\skins\office2003\dialog.css" />
+    <Content Include="editors\ckeditor\skins\office2003\editor.css" />
+    <Content Include="editors\ckeditor\skins\office2003\icons.png" />
+    <Content Include="editors\ckeditor\skins\office2003\icons_rtl.png" />
+    <Content Include="editors\ckeditor\skins\office2003\images\dialog_sides.gif" />
+    <Content Include="editors\ckeditor\skins\office2003\images\dialog_sides.png" />
+    <Content Include="editors\ckeditor\skins\office2003\images\dialog_sides_rtl.png" />
+    <Content Include="editors\ckeditor\skins\office2003\images\mini.gif" />
+    <Content Include="editors\ckeditor\skins\office2003\images\noimage.png" />
+    <Content Include="editors\ckeditor\skins\office2003\images\sprites.png" />
+    <Content Include="editors\ckeditor\skins\office2003\images\sprites_ie6.png" />
+    <Content Include="editors\ckeditor\skins\office2003\skin.js" />
+    <Content Include="editors\ckeditor\skins\office2003\templates.css" />
+    <Content Include="editors\ckeditor\skins\v2\dialog.css" />
+    <Content Include="editors\ckeditor\skins\v2\editor.css" />
+    <Content Include="editors\ckeditor\skins\v2\icons.png" />
+    <Content Include="editors\ckeditor\skins\v2\icons_rtl.png" />
+    <Content Include="editors\ckeditor\skins\v2\images\dialog_sides.gif" />
+    <Content Include="editors\ckeditor\skins\v2\images\dialog_sides.png" />
+    <Content Include="editors\ckeditor\skins\v2\images\dialog_sides_rtl.png" />
+    <Content Include="editors\ckeditor\skins\v2\images\mini.gif" />
+    <Content Include="editors\ckeditor\skins\v2\images\noimage.png" />
+    <Content Include="editors\ckeditor\skins\v2\images\sprites.png" />
+    <Content Include="editors\ckeditor\skins\v2\images\sprites_ie6.png" />
+    <Content Include="editors\ckeditor\skins\v2\images\toolbar_start.gif" />
+    <Content Include="editors\ckeditor\skins\v2\skin.js" />
+    <Content Include="editors\ckeditor\skins\v2\templates.css" />
+    <Content Include="editors\ckeditor\themes\default\theme.js" />
     <Content Include="editors\radEditor\toolsFile.xml" />
     <Content Include="editors\yafEditor\backcolor.gif" />
     <Content Include="editors\yafEditor\bbcode.gif" />
@@ -789,6 +1013,7 @@
     <Content Include="images\medals\medal_small.png" />
     <Content Include="images\YafLogo.png" />
     <Content Include="install\wizard.css" />
+    <Content Include="languages\arabic.xml" />
     <Content Include="languages\estonian.xml" />
     <Content Include="resources\images\ceebox\cee-close-btn.png" />
     <Content Include="resources\images\ceebox\cee-next-btn.gif" />
@@ -824,7 +1049,6 @@
     <Content Include="install\mssql\tables.sql" />
     <Content Include="install\mssql\triggers.sql" />
     <Content Include="install\mssql\views.sql" />
-    <Content Include="languages\arabic.xml" />
     <Content Include="languages\china.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -1564,6 +1788,9 @@
       <DependentUpon>ShoutBox.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\ShoutBox.ascx.designer.cs">
+      <DependentUpon>ShoutBox.ascx</DependentUpon>
+    </Compile>
     <Compile Include="controls\smileys.ascx.cs">
       <DependentUpon>smileys.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1989,7 +2216,10 @@
     <Content Include="themes\BlackGrey\HeaderBack.png" />
     <Content Include="themes\BlackGrey\icon_aim.png" />
     <Content Include="themes\BlackGrey\icon_blog.png" />
+    <Content Include="themes\BlackGrey\icon_buzz.png" />
+    <Content Include="themes\BlackGrey\icon_digg.png" />
     <Content Include="themes\BlackGrey\icon_email.png" />
+    <Content Include="themes\BlackGrey\icon_facebook.png" />
     <Content Include="themes\BlackGrey\icon_file.gif" />
     <Content Include="themes\BlackGrey\icon_home.png" />
     <Content Include="themes\BlackGrey\icon_icq.png" />
@@ -1997,18 +2227,20 @@
     <Content Include="themes\BlackGrey\icon_msn.png" />
     <Content Include="themes\BlackGrey\icon_newest_reply.gif" />
     <Content Include="themes\BlackGrey\icon_pm.png" />
+    <Content Include="themes\BlackGrey\icon_print.png" />
+    <Content Include="themes\BlackGrey\icon_reddit.png" />
     <Content Include="themes\BlackGrey\icon_search.png" />
     <Content Include="themes\BlackGrey\icon_skype.png" />
     <Content Include="themes\BlackGrey\icon_subforum.gif" />
     <Content Include="themes\BlackGrey\icon_subforum_new.gif" />
     <Content Include="themes\BlackGrey\icon_topiclatestunread_newest.gif" />
     <Content Include="themes\BlackGrey\icon_topic_latestunread.gif" />
+    <Content Include="themes\BlackGrey\icon_twitter.png" />
     <Content Include="themes\BlackGrey\icon_useroffline.png" />
     <Content Include="themes\BlackGrey\icon_useronline.png" />
     <Content Include="themes\BlackGrey\icon_xmpp.png" />
     <Content Include="themes\BlackGrey\icon_yahoo.png" />
     <Content Include="themes\BlackGrey\js\ColorGrey.js" />
-    <Content Include="themes\BlackGrey\js\jquery.corner.js" />
     <Content Include="themes\BlackGrey\js\jquery.tipTip.minified.js" />
     <Content Include="themes\BlackGrey\LeftArrow.png" />
     <Content Include="themes\BlackGrey\LeftArrowWhite.png" />
@@ -2068,7 +2300,10 @@
     <Content Include="themes\BlueGrey\HeaderBack.png" />
     <Content Include="themes\BlueGrey\icon_aim.png" />
     <Content Include="themes\BlueGrey\icon_blog.png" />
+    <Content Include="themes\BlueGrey\icon_buzz.png" />
+    <Content Include="themes\BlueGrey\icon_digg.png" />
     <Content Include="themes\BlueGrey\icon_email.png" />
+    <Content Include="themes\BlueGrey\icon_facebook.png" />
     <Content Include="themes\BlueGrey\icon_file.gif" />
     <Content Include="themes\BlueGrey\icon_home.png" />
     <Content Include="themes\BlueGrey\icon_icq.png" />
@@ -2076,18 +2311,20 @@
     <Content Include="themes\BlueGrey\icon_msn.png" />
     <Content Include="themes\BlueGrey\icon_newest_reply.gif" />
     <Content Include="themes\BlueGrey\icon_pm.png" />
+    <Content Include="themes\BlueGrey\icon_print.png" />
+    <Content Include="themes\BlueGrey\icon_reddit.png" />
     <Content Include="themes\BlueGrey\icon_search.png" />
     <Content Include="themes\BlueGrey\icon_skype.png" />
     <Content Include="themes\BlueGrey\icon_subforum.gif" />
     <Content Include="themes\BlueGrey\icon_subforum_new.gif" />
     <Content Include="themes\BlueGrey\icon_topiclatestunread_newest.gif" />
     <Content Include="themes\BlueGrey\icon_topic_latestunread.gif" />
+    <Content Include="themes\BlueGrey\icon_twitter.png" />
     <Content Include="themes\BlueGrey\icon_useroffline.png" />
     <Content Include="themes\BlueGrey\icon_useronline.png" />
     <Content Include="themes\BlueGrey\icon_xmpp.png" />
     <Content Include="themes\BlueGrey\icon_yahoo.png" />
     <Content Include="themes\BlueGrey\js\ColorGrey.js" />
-    <Content Include="themes\BlueGrey\js\jquery.corner.js" />
     <Content Include="themes\BlueGrey\js\jquery.tipTip.minified.js" />
     <Content Include="themes\BlueGrey\LeftArrow.png" />
     <Content Include="themes\BlueGrey\LeftArrowWhite.png" />
@@ -2146,7 +2383,10 @@
     <Content Include="themes\cleanSlate\handpointer1.png" />
     <Content Include="themes\cleanSlate\icon_aim.png" />
     <Content Include="themes\cleanSlate\icon_blog.png" />
+    <Content Include="themes\cleanSlate\icon_buzz.png" />
+    <Content Include="themes\cleanSlate\icon_digg.png" />
     <Content Include="themes\cleanSlate\icon_email.png" />
+    <Content Include="themes\cleanSlate\icon_facebook.png" />
     <Content Include="themes\cleanSlate\icon_file.gif" />
     <Content Include="themes\cleanSlate\icon_home.png" />
     <Content Include="themes\cleanSlate\icon_icq.png" />
@@ -2154,12 +2394,15 @@
     <Content Include="themes\cleanSlate\icon_msn.png" />
     <Content Include="themes\cleanSlate\icon_newest_reply.gif" />
     <Content Include="themes\cleanSlate\icon_pm.png" />
+    <Content Include="themes\cleanSlate\icon_print.png" />
+    <Content Include="themes\cleanSlate\icon_reddit.png" />
     <Content Include="themes\cleanSlate\icon_search.png" />
     <Content Include="themes\cleanSlate\icon_skype.png" />
     <Content Include="themes\cleanSlate\icon_subforum.gif" />
     <Content Include="themes\cleanSlate\icon_subforum_new.gif" />
     <Content Include="themes\cleanSlate\icon_topiclatestunread_newest.gif" />
     <Content Include="themes\cleanSlate\icon_topic_latestunread.gif" />
+    <Content Include="themes\cleanSlate\icon_twitter.png" />
     <Content Include="themes\cleanSlate\icon_useroffline.png" />
     <Content Include="themes\cleanSlate\icon_useronline.png" />
     <Content Include="themes\cleanSlate\icon_xmpp.png" />
@@ -2222,7 +2465,10 @@
     <Content Include="themes\GreenGrey\HeaderBack.png" />
     <Content Include="themes\GreenGrey\icon_aim.png" />
     <Content Include="themes\GreenGrey\icon_blog.png" />
+    <Content Include="themes\GreenGrey\icon_buzz.png" />
+    <Content Include="themes\GreenGrey\icon_digg.png" />
     <Content Include="themes\GreenGrey\icon_email.png" />
+    <Content Include="themes\GreenGrey\icon_facebook.png" />
     <Content Include="themes\GreenGrey\icon_file.gif" />
     <Content Include="themes\GreenGrey\icon_home.png" />
     <Content Include="themes\GreenGrey\icon_icq.png" />
@@ -2230,18 +2476,20 @@
     <Content Include="themes\GreenGrey\icon_msn.png" />
     <Content Include="themes\GreenGrey\icon_newest_reply.gif" />
     <Content Include="themes\GreenGrey\icon_pm.png" />
+    <Content Include="themes\GreenGrey\icon_print.png" />
+    <Content Include="themes\GreenGrey\icon_reddit.png" />
     <Content Include="themes\GreenGrey\icon_search.png" />
     <Content Include="themes\GreenGrey\icon_skype.png" />
     <Content Include="themes\GreenGrey\icon_subforum.gif" />
     <Content Include="themes\GreenGrey\icon_subforum_new.gif" />
     <Content Include="themes\GreenGrey\icon_topiclatestunread_newest.gif" />
     <Content Include="themes\GreenGrey\icon_topic_latestunread.gif" />
+    <Content Include="themes\GreenGrey\icon_twitter.png" />
     <Content Include="themes\GreenGrey\icon_useroffline.png" />
     <Content Include="themes\GreenGrey\icon_useronline.png" />
     <Content Include="themes\GreenGrey\icon_xmpp.png" />
     <Content Include="themes\GreenGrey\icon_yahoo.png" />
     <Content Include="themes\GreenGrey\js\ColorGrey.js" />
-    <Content Include="themes\GreenGrey\js\jquery.corner.js" />
     <Content Include="themes\GreenGrey\js\jquery.tipTip.minified.js" />
     <Content Include="themes\GreenGrey\LeftArrow.png" />
     <Content Include="themes\GreenGrey\LeftArrowWhite.png" />
@@ -2301,7 +2549,10 @@
     <Content Include="themes\GreyGrey\HeaderBack.png" />
     <Content Include="themes\GreyGrey\icon_aim.png" />
     <Content Include="themes\GreyGrey\icon_blog.png" />
+    <Content Include="themes\GreyGrey\icon_buzz.png" />
+    <Content Include="themes\GreyGrey\icon_digg.png" />
     <Content Include="themes\GreyGrey\icon_email.png" />
+    <Content Include="themes\GreyGrey\icon_facebook.png" />
     <Content Include="themes\GreyGrey\icon_file.gif" />
     <Content Include="themes\GreyGrey\icon_home.png" />
     <Content Include="themes\GreyGrey\icon_icq.png" />
@@ -2309,18 +2560,20 @@
     <Content Include="themes\GreyGrey\icon_msn.png" />
     <Content Include="themes\GreyGrey\icon_newest_reply.gif" />
     <Content Include="themes\GreyGrey\icon_pm.png" />
+    <Content Include="themes\GreyGrey\icon_print.png" />
+    <Content Include="themes\GreyGrey\icon_reddit.png" />
     <Content Include="themes\GreyGrey\icon_search.png" />
     <Content Include="themes\GreyGrey\icon_skype.png" />
     <Content Include="themes\GreyGrey\icon_subforum.gif" />
     <Content Include="themes\GreyGrey\icon_subforum_new.gif" />
     <Content Include="themes\GreyGrey\icon_topiclatestunread_newest.gif" />
     <Content Include="themes\GreyGrey\icon_topic_latestunread.gif" />
+    <Content Include="themes\GreyGrey\icon_twitter.png" />
     <Content Include="themes\GreyGrey\icon_useroffline.png" />
     <Content Include="themes\GreyGrey\icon_useronline.png" />
     <Content Include="themes\GreyGrey\icon_xmpp.png" />
     <Content Include="themes\GreyGrey\icon_yahoo.png" />
     <Content Include="themes\GreyGrey\js\ColorGrey.js" />
-    <Content Include="themes\GreyGrey\js\jquery.corner.js" />
     <Content Include="themes\GreyGrey\js\jquery.tipTip.minified.js" />
     <Content Include="themes\GreyGrey\LeftArrow.png" />
     <Content Include="themes\GreyGrey\lock_small.png" />
@@ -2378,7 +2631,10 @@
     <Content Include="themes\OrangeGrey\HeaderBack.png" />
     <Content Include="themes\OrangeGrey\icon_aim.png" />
     <Content Include="themes\OrangeGrey\icon_blog.png" />
+    <Content Include="themes\OrangeGrey\icon_buzz.png" />
+    <Content Include="themes\OrangeGrey\icon_digg.png" />
     <Content Include="themes\OrangeGrey\icon_email.png" />
+    <Content Include="themes\OrangeGrey\icon_facebook.png" />
     <Content Include="themes\OrangeGrey\icon_file.gif" />
     <Content Include="themes\OrangeGrey\icon_home.png" />
     <Content Include="themes\OrangeGrey\icon_icq.png" />
@@ -2386,18 +2642,20 @@
     <Content Include="themes\OrangeGrey\icon_msn.png" />
     <Content Include="themes\OrangeGrey\icon_newest_reply.gif" />
     <Content Include="themes\OrangeGrey\icon_pm.png" />
+    <Content Include="themes\OrangeGrey\icon_print.png" />
+    <Content Include="themes\OrangeGrey\icon_reddit.png" />
     <Content Include="themes\OrangeGrey\icon_search.png" />
     <Content Include="themes\OrangeGrey\icon_skype.png" />
     <Content Include="themes\OrangeGrey\icon_subforum.gif" />
     <Content Include="themes\OrangeGrey\icon_subforum_new.gif" />
     <Content Include="themes\OrangeGrey\icon_topiclatestunread_newest.gif" />
     <Content Include="themes\OrangeGrey\icon_topic_latestunread.gif" />
+    <Content Include="themes\OrangeGrey\icon_twitter.png" />
     <Content Include="themes\OrangeGrey\icon_useroffline.png" />
     <Content Include="themes\OrangeGrey\icon_useronline.png" />
     <Content Include="themes\OrangeGrey\icon_xmpp.png" />
     <Content Include="themes\OrangeGrey\icon_yahoo.png" />
     <Content Include="themes\OrangeGrey\js\ColorGrey.js" />
-    <Content Include="themes\OrangeGrey\js\jquery.corner.js" />
     <Content Include="themes\OrangeGrey\js\jquery.tipTip.minified.js" />
     <Content Include="themes\OrangeGrey\LeftArrow.png" />
     <Content Include="themes\OrangeGrey\LeftArrowWhite.png" />
@@ -2457,7 +2715,10 @@
     <Content Include="themes\RedGrey\HeaderBack.png" />
     <Content Include="themes\RedGrey\icon_aim.png" />
     <Content Include="themes\RedGrey\icon_blog.png" />
+    <Content Include="themes\RedGrey\icon_buzz.png" />
+    <Content Include="themes\RedGrey\icon_digg.png" />
     <Content Include="themes\RedGrey\icon_email.png" />
+    <Content Include="themes\RedGrey\icon_facebook.png" />
     <Content Include="themes\RedGrey\icon_file.gif" />
     <Content Include="themes\RedGrey\icon_home.png" />
     <Content Include="themes\RedGrey\icon_icq.png" />
@@ -2465,18 +2726,20 @@
     <Content Include="themes\RedGrey\icon_msn.png" />
     <Content Include="themes\RedGrey\icon_newest_reply.gif" />
     <Content Include="themes\RedGrey\icon_pm.png" />
+    <Content Include="themes\RedGrey\icon_print.png" />
+    <Content Include="themes\RedGrey\icon_reddit.png" />
     <Content Include="themes\RedGrey\icon_search.png" />
     <Content Include="themes\RedGrey\icon_skype.png" />
     <Content Include="themes\RedGrey\icon_subforum.gif" />
     <Content Include="themes\RedGrey\icon_subforum_new.gif" />
     <Content Include="themes\RedGrey\icon_topiclatestunread_newest.gif" />
     <Content Include="themes\RedGrey\icon_topic_latestunread.gif" />
+    <Content Include="themes\RedGrey\icon_twitter.png" />
     <Content Include="themes\RedGrey\icon_useroffline.png" />
     <Content Include="themes\RedGrey\icon_useronline.png" />
     <Content Include="themes\RedGrey\icon_xmpp.png" />
     <Content Include="themes\RedGrey\icon_yahoo.png" />
     <Content Include="themes\RedGrey\js\ColorGrey.js" />
-    <Content Include="themes\RedGrey\js\jquery.corner.js" />
     <Content Include="themes\RedGrey\js\jquery.tipTip.minified.js" />
     <Content Include="themes\RedGrey\LeftArrow.png" />
     <Content Include="themes\RedGrey\LeftArrowWhite.png" />
@@ -2521,9 +2784,13 @@
     <Content Include="themes\soclean\error.png" />
     <Content Include="themes\soclean\female.gif" />
     <Content Include="themes\soclean\handpointer1.png" />
+    <Content Include="themes\soclean\icon_buzz.png" />
+    <Content Include="themes\soclean\icon_digg.png" />
+    <Content Include="themes\soclean\icon_facebook.png" />
+    <Content Include="themes\soclean\icon_print.png" />
+    <Content Include="themes\soclean\icon_reddit.png" />
     <Content Include="themes\soclean\icon_search.png" />
-    <Content Include="themes\soclean\icon_topiclatestunread_newest.gif" />
-    <Content Include="themes\soclean\icon_topic_latestunread.gif" />
+    <Content Include="themes\soclean\icon_twitter.png" />
     <Content Include="themes\soclean\icon_useroffline.png" />
     <Content Include="themes\soclean\icon_useronline.png" />
     <Content Include="themes\soclean\icon_xmpp.png" />
@@ -2552,33 +2819,25 @@
     <Content Include="themes\Yafmobile\folder_who.gif" />
     <Content Include="themes\Yafmobile\folder_who.png" />
     <Content Include="themes\Yafmobile\handpointer1.png" />
+    <Content Include="themes\Yafmobile\icon_buzz.png" />
+    <Content Include="themes\Yafmobile\icon_digg.png" />
+    <Content Include="themes\Yafmobile\icon_facebook.png" />
     <Content Include="themes\Yafmobile\icon_file.gif" />
     <Content Include="themes\Yafmobile\icon_latest_reply.gif" />
     <Content Include="themes\Yafmobile\icon_newest_reply.gif" />
+    <Content Include="themes\Yafmobile\icon_print.png" />
+    <Content Include="themes\Yafmobile\icon_reddit.png" />
     <Content Include="themes\Yafmobile\icon_search.png" />
     <Content Include="themes\Yafmobile\icon_subforum.gif" />
     <Content Include="themes\Yafmobile\icon_subforum_new.gif" />
     <Content Include="themes\Yafmobile\icon_topiclatestunread_newest.gif" />
     <Content Include="themes\Yafmobile\icon_topic_latestunread.gif" />
+    <Content Include="themes\Yafmobile\icon_twitter.png" />
     <Content Include="themes\Yafmobile\icon_useroffline.png" />
     <Content Include="themes\Yafmobile\icon_useronline.png" />
     <Content Include="themes\Yafmobile\LeftArrow.png" />
     <Content Include="themes\Yafmobile\lock_small.png" />
     <Content Include="themes\Yafmobile\mask.gif" />
-    <Content Include="themes\Yafmobile\MobilePages\displaypost.ascx" />
-    <Content Include="themes\Yafmobile\MobilePages\forum.ascx" />
-    <Content Include="themes\Yafmobile\MobilePages\forumactivediscussion.ascx" />
-    <Content Include="themes\Yafmobile\MobilePages\forumcategorylist.ascx" />
-    <Content Include="themes\Yafmobile\MobilePages\forumList.ascx" />
-    <Content Include="themes\Yafmobile\MobilePages\forumwelcome.ascx" />
-    <Content Include="themes\Yafmobile\MobilePages\mytopics.ascx" />
-    <Content Include="themes\Yafmobile\MobilePages\mytopicslist.ascx" />
-    <Content Include="themes\Yafmobile\MobilePages\pmessage.ascx" />
-    <Content Include="themes\Yafmobile\MobilePages\postmessage.ascx" />
-    <Content Include="themes\Yafmobile\MobilePages\posts.ascx" />
-    <Content Include="themes\Yafmobile\MobilePages\profile.ascx" />
-    <Content Include="themes\Yafmobile\MobilePages\TopicLine.ascx" />
-    <Content Include="themes\Yafmobile\MobilePages\topics.ascx" />
     <Content Include="themes\Yafmobile\multipages_small.gif" />
     <Content Include="themes\Yafmobile\poll_choice.png" />
     <Content Include="themes\Yafmobile\poll_question.png" />
@@ -2611,9 +2870,15 @@
     <Content Include="themes\yafpro\error.png" />
     <Content Include="themes\yafpro\female.gif" />
     <Content Include="themes\yafpro\handpointer1.png" />
+    <Content Include="themes\yafpro\icon_buzz.png" />
+    <Content Include="themes\yafpro\icon_digg.png" />
+    <Content Include="themes\yafpro\icon_facebook.png" />
+    <Content Include="themes\yafpro\icon_print.png" />
+    <Content Include="themes\yafpro\icon_reddit.png" />
     <Content Include="themes\yafpro\icon_search.png" />
     <Content Include="themes\yafpro\icon_topiclatestunread_newest.gif" />
     <Content Include="themes\yafpro\icon_topic_latestunread.gif" />
+    <Content Include="themes\yafpro\icon_twitter.png" />
     <Content Include="themes\yafpro\icon_useroffline.png" />
     <Content Include="themes\yafpro\icon_useronline.png" />
     <Content Include="themes\yafpro\icon_xmpp.png" />
@@ -2641,9 +2906,15 @@
     <Content Include="themes\yafvision\error.png" />
     <Content Include="themes\yafvision\female.gif" />
     <Content Include="themes\yafvision\handpointer1.png" />
+    <Content Include="themes\yafvision\icon_buzz.png" />
+    <Content Include="themes\yafvision\icon_digg.png" />
+    <Content Include="themes\yafvision\icon_facebook.png" />
+    <Content Include="themes\yafvision\icon_print.png" />
+    <Content Include="themes\yafvision\icon_reddit.png" />
     <Content Include="themes\yafvision\icon_search.png" />
     <Content Include="themes\yafvision\icon_topiclatestunread_newest.gif" />
     <Content Include="themes\yafvision\icon_topic_latestunread.gif" />
+    <Content Include="themes\yafvision\icon_twitter.png" />
     <Content Include="themes\yafvision\icon_useroffline.png" />
     <Content Include="themes\yafvision\icon_useronline.png" />
     <Content Include="themes\yafvision\icon_xmpp.png" />
@@ -2677,6 +2948,7 @@
     <Content Include="db.config">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="editors\ckeditor\skins\black\images\Thumbs.db" />
     <None Include="images\emoticons\eusa.pak" />
     <None Include="images\emoticons\ModernSmileyPack.pak" />
     <Content Include="mail.config">
@@ -2815,9 +3087,20 @@
     <Content Include="webconfigs\recommended-NET-web.config" />
     <Content Include="webconfigs\v191-upgrade-web.config" />
     <Content Include="UrlRewriter.config" />
+    <Content Include="web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Web References\RegisterV2\RegisterV2.wsdl" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\nStuff.UpdateControls\nSuff.UpdateControls.csproj">
+      <Project>{D646044E-19AE-46B5-AA85-228662B2B6C8}</Project>
+      <Name>nSuff.UpdateControls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\URLRewriter.NET\Intelligencia.UrlRewriter.csproj">
+      <Project>{F8516C67-92BE-43FF-A8A9-B71A3EA4BE0D}</Project>
+      <Name>Intelligencia.UrlRewriter</Name>
+    </ProjectReference>
     <ProjectReference Include="..\YAF.Classes\YAF.Classes.Config\YAF.Classes.Config.csproj">
       <Project>{05E50D2F-9527-4CE8-A0F8-168281C426CB}</Project>
       <Name>YAF.Classes.Config</Name>
@@ -2848,64 +3131,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="editors\ckeditor\adapters\" />
-    <Folder Include="editors\ckeditor\images\" />
-    <Folder Include="editors\ckeditor\lang\" />
-    <Folder Include="editors\ckeditor\plugins\a11yhelp\dialogs\" />
-    <Folder Include="editors\ckeditor\plugins\a11yhelp\lang\" />
-    <Folder Include="editors\ckeditor\plugins\about\dialogs\" />
-    <Folder Include="editors\ckeditor\plugins\adobeair\" />
-    <Folder Include="editors\ckeditor\plugins\autogrow\" />
-    <Folder Include="editors\ckeditor\plugins\bbcode\" />
-    <Folder Include="editors\ckeditor\plugins\clipboard\dialogs\" />
-    <Folder Include="editors\ckeditor\plugins\colordialog\dialogs\" />
-    <Folder Include="editors\ckeditor\plugins\dialog\" />
-    <Folder Include="editors\ckeditor\plugins\div\dialogs\" />
-    <Folder Include="editors\ckeditor\plugins\find\dialogs\" />
-    <Folder Include="editors\ckeditor\plugins\flash\dialogs\" />
-    <Folder Include="editors\ckeditor\plugins\flash\images\" />
-    <Folder Include="editors\ckeditor\plugins\forms\dialogs\" />
-    <Folder Include="editors\ckeditor\plugins\forms\images\" />
-    <Folder Include="editors\ckeditor\plugins\iframedialog\" />
-    <Folder Include="editors\ckeditor\plugins\iframe\dialogs\" />
-    <Folder Include="editors\ckeditor\plugins\iframe\images\" />
-    <Folder Include="editors\ckeditor\plugins\image\dialogs\" />
-    <Folder Include="editors\ckeditor\plugins\link\dialogs\" />
-    <Folder Include="editors\ckeditor\plugins\link\images\" />
-    <Folder Include="editors\ckeditor\plugins\liststyle\dialogs\" />
-    <Folder Include="editors\ckeditor\plugins\pagebreak\images\" />
-    <Folder Include="editors\ckeditor\plugins\pastefromword\filter\" />
-    <Folder Include="editors\ckeditor\plugins\pastetext\dialogs\" />
-    <Folder Include="editors\ckeditor\plugins\placeholder\dialogs\" />
-    <Folder Include="editors\ckeditor\plugins\placeholder\lang\" />
-    <Folder Include="editors\ckeditor\plugins\scayt\dialogs\" />
-    <Folder Include="editors\ckeditor\plugins\showblocks\images\" />
-    <Folder Include="editors\ckeditor\plugins\smiley\dialogs\" />
-    <Folder Include="editors\ckeditor\plugins\smiley\images\" />
-    <Folder Include="editors\ckeditor\plugins\specialchar\dialogs\" />
-    <Folder Include="editors\ckeditor\plugins\specialchar\lang\" />
-    <Folder Include="editors\ckeditor\plugins\styles\styles\" />
-    <Folder Include="editors\ckeditor\plugins\tableresize\" />
-    <Folder Include="editors\ckeditor\plugins\tabletools\dialogs\" />
-    <Folder Include="editors\ckeditor\plugins\table\dialogs\" />
-    <Folder Include="editors\ckeditor\plugins\templates\dialogs\" />
-    <Folder Include="editors\ckeditor\plugins\templates\templates\images\" />
-    <Folder Include="editors\ckeditor\plugins\uicolor\dialogs\" />
-    <Folder Include="editors\ckeditor\plugins\uicolor\lang\" />
-    <Folder Include="editors\ckeditor\plugins\uicolor\yui\assets\" />
-    <Folder Include="editors\ckeditor\plugins\wsc\dialogs\" />
-    <Folder Include="editors\ckeditor\skins\black\images\" />
-    <Folder Include="editors\ckeditor\skins\kama\images\" />
-    <Folder Include="editors\ckeditor\skins\office2003\images\" />
-    <Folder Include="editors\ckeditor\skins\v2\images\" />
-    <Folder Include="editors\ckeditor\themes\default\" />
     <Folder Include="uploads\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
     <WebReferenceUrl Include="http://yetanotherforum.net/RegisterV2.asmx">
@@ -2935,7 +3164,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>42648</DevelopmentServerPort>
+          <DevelopmentServerPort>48440</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost/yetanotherforum.net</IISUrl>
           <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
