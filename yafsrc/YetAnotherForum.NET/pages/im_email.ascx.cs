@@ -1,5 +1,5 @@
-/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bjørnar Henden
+ï»¿/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjï¿½rnar Henden
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -28,6 +28,7 @@ namespace YAF.Pages
   using System.Web;
   using System.Web.Security;
 
+  using YAF.Classes;
   using YAF.Classes.Data;
   using YAF.Core;
   using YAF.Types;
@@ -82,31 +83,33 @@ namespace YAF.Pages
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (this.User == null || !this.PageContext.BoardSettings.AllowEmailSending)
+      if (this.User == null || !this.Get<YafBoardSettings>().AllowEmailSending)
       {
         YafBuildLink.AccessDenied();
       }
 
-      if (!this.IsPostBack)
-      {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
         // get user data...
         MembershipUser user = UserMembershipHelper.GetMembershipUserById(this.UserID);
 
         if (user == null)
         {
-          YafBuildLink.AccessDenied( /*No such user exists*/);
+            YafBuildLink.AccessDenied(/*No such user exists*/);
         }
 
         string displayName = UserMembershipHelper.GetDisplayNameFromID(this.UserID);
 
-        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
         this.PageLinks.AddLink(
-          !string.IsNullOrEmpty(displayName) ? displayName : user.UserName, 
-          YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.UserID));
+            !string.IsNullOrEmpty(displayName) ? displayName : user.UserName, 
+            YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.UserID));
         this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
         this.Send.Text = this.GetText("SEND");
-      }
     }
 
     /// <summary>
@@ -133,19 +136,13 @@ namespace YAF.Pages
           this.Body.Text.Trim());
 
         // redirect to profile page...
-        YafBuildLink.Redirect(ForumPages.profile, "u={0}", this.UserID);
+        YafBuildLink.Redirect(ForumPages.profile, false, "u={0}", this.UserID);
       }
       catch (Exception x)
       {
-        LegacyDb.eventlog_create(this.PageContext.PageUserID, this, x);
-        if (this.PageContext.IsAdmin)
-        {
-          this.PageContext.AddLoadMessage(x.Message);
-        }
-        else
-        {
-          this.PageContext.AddLoadMessage(this.GetText("ERROR"));
-        }
+          LegacyDb.eventlog_create(this.PageContext.PageUserID, this, x);
+
+          this.PageContext.AddLoadMessage(this.PageContext.IsAdmin ? x.Message : this.GetText("ERROR"));
       }
     }
 

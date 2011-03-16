@@ -277,6 +277,24 @@ namespace YAF.Utils
     }
 
     /// <summary>
+    /// Redirects to the given page with parameters.
+    /// </summary>
+    /// <param name="page">
+    /// Page to which to redirect response.
+    /// </param>
+    /// <param name="endResponse">True to end the Response, false otherwise.</param>
+    /// <param name="format">
+    /// Format of parameters.
+    /// </param>
+    /// <param name="args">
+    /// Array of page parameters.
+    /// </param>
+    public static void Redirect(ForumPages page, bool endResponse, string format, params object[] args)
+    {
+        HttpContext.Current.Response.Redirect(GetLinkNotEscaped(page, format, args), endResponse);
+    }
+
+    /// <summary>
     /// Redirects response to the info page.
     /// </summary>
     /// <param name="infoMessage">
