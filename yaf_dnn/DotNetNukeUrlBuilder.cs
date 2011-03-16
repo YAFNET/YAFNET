@@ -23,7 +23,6 @@ namespace YAF.DotNetNuke
 
     using System;
     using System.Text;
-    using System.Text.RegularExpressions;
     using System.Web;
     using global::DotNetNuke.Common;
     using global::DotNetNuke.Entities.Portals;
@@ -83,7 +82,12 @@ namespace YAF.DotNetNuke
           oldUrl = Globals.ResolveUrl("~/tabid/{0}/".FormatWith(curTab.TabID));
         }
           
-          newUrl.Append(oldUrl);
+        newUrl.Append(oldUrl);
+
+        if (!newUrl.ToString().EndsWith("/"))
+        {
+            newUrl.Append("/");
+        }
 
         var parser = new SimpleURLParameterParser(url);
 
@@ -101,7 +105,7 @@ namespace YAF.DotNetNuke
             break;
           case "posts":
             {
-              if (!String.IsNullOrEmpty(parser["t"]))
+              if (parser["t"].IsSet())
               {
                 useKey = "t";
 
@@ -115,7 +119,7 @@ namespace YAF.DotNetNuke
                 newUrl.AppendFormat(
                   "g/{2}/t/{0}/{1}", parser["t"], topicName, parser["g"]);
               }
-              else if (!String.IsNullOrEmpty(parser["m"]))
+              else if (parser["m"].IsSet())
               {
                 useKey = "m";
 
@@ -155,7 +159,7 @@ namespace YAF.DotNetNuke
             break;
           case "forum":
             {
-              if (!String.IsNullOrEmpty(parser["c"]))
+              if (parser["c"].IsSet())
               {
                 useKey = "c";
 
