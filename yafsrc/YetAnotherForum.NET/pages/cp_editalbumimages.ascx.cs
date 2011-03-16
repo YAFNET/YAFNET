@@ -102,6 +102,7 @@ namespace YAF.Pages
         sUpDir, this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"), this.PageContext.PageUserID, null);
       // clear the cache for this user to update albums|images stats...
       this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
+   
       YafBuildLink.Redirect(ForumPages.albums, "u={0}", this.PageContext.PageUserID);
     }
 
@@ -152,7 +153,7 @@ namespace YAF.Pages
               String.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
           YafAlbum.Album_Image_Delete(sUpDir, null, this.PageContext.PageUserID, Convert.ToInt32(e.CommandArgument));
 
-          this.BindData();
+          BindVariousControls();
 
           DataTable sigData = LegacyDb.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
 
@@ -345,7 +346,7 @@ namespace YAF.Pages
 
         DataTable sigData = LegacyDb.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
 
-        int[] albumSize = LegacyDb.album_getstats(this.PageContext.PageUserID, null);
+      //  int[] albumSize = LegacyDb.album_getstats(this.PageContext.PageUserID, null);
 
         var usrAlbumImagesAllowed = sigData.GetFirstRowColumnAsValue<int?>("UsrAlbumImages", null);
 
@@ -389,12 +390,7 @@ namespace YAF.Pages
       // If the user is trying to edit an existing album, initialize the repeater.
       if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a") != "new")
       {
-        this.txtTitle.Text = LegacyDb.album_gettitle(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"));
-        DataTable dt = LegacyDb.album_image_list(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"), null);
-        this.List.DataSource = dt;
-        this.List.Visible = (dt.Rows.Count > 0) ? true : false;
-        this.Delete.Visible = true;
-        this.DataBind();
+          BindVariousControls();
       }
       else
       {
@@ -403,6 +399,19 @@ namespace YAF.Pages
     }
 
     /// <summary>
+    /// Binds the repeater and title controls and the visibilities of form elements.
+    /// </summary>
+    private void BindVariousControls()
+    {
+        this.txtTitle.Text = LegacyDb.album_gettitle(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"));
+        DataTable dt = LegacyDb.album_image_list(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"), null);
+        this.List.DataSource = dt;
+        this.List.Visible = (dt.Rows.Count > 0) ? true : false;
+        this.Delete.Visible = true;
+        this.DataBind();
+    }
+
+      /// <summary>
     /// Check to see if the user is trying to upload a valid file.
     /// </summary>
     /// <param name="uploadedFile">
@@ -502,7 +511,15 @@ namespace YAF.Pages
 
         // clear the cache for this user to update albums|images stats...
         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
-        YafBuildLink.Redirect(ForumPages.cp_editalbumimages, "a={0}", albumID);
+       //  Response.Write("<script>document.forms[0].submit();</script>");
+       // this.Get<IRaiseEvent>().Raise(new Page_Load());
+        this.txtTitle.Text = LegacyDb.album_gettitle(albumID);
+        DataTable dt = LegacyDb.album_image_list(albumID, null);
+        this.List.DataSource = dt;
+        this.List.Visible = (dt.Rows.Count > 0) ? true : false;
+        this.Delete.Visible = true;
+        this.DataBind();
+      
       }
       else
       {
