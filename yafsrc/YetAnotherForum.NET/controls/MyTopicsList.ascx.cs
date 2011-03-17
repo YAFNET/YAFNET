@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bj?rnar Henden
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
@@ -20,409 +20,422 @@
 
 namespace YAF.Controls
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.Data;
-  using System.Data.SqlTypes;
-  using System.Web.UI.WebControls;
+    using System;
+    using System.Data;
+    using System.Data.SqlTypes;
+    using System.Web.UI.WebControls;
 
-  using YAF.Classes.Data;
-  using YAF.Core;
-  using YAF.Types;
-  using YAF.Types.Constants;
-  using YAF.Types.Interfaces;
-  using YAF.Utils;
-
-  #endregion
-
-  /// <summary>
-  /// The topic list mode.
-  /// </summary>
-  public enum TopicListMode
-  {
-    /// <summary>
-    ///   The active.
-    /// </summary>
-    Active, 
-
-    /// <summary>
-    ///   The favorite.
-    /// </summary>
-    Favorite
-  }
-
-  /// <summary>
-  /// Summary description for buddies.
-  /// </summary>
-  public partial class MyTopicsList : BaseUserControl
-  {
-    /* Data Fields */
-    #region Constants and Fields
-
-    /// <summary>
-    ///   The last post image tooltip.
-    /// </summary>
-    protected string lastPostImageTT = string.Empty;
-
-    /// <summary>
-    ///   The _last forum name.
-    /// </summary>
-    private string _lastForumName = string.Empty;
-
-    /// <summary>
-    ///   default since date is now
-    /// </summary>
-    private DateTime sinceDate = DateTime.UtcNow;
-
-    /// <summary>
-    ///   default since option is "since last visit"
-    /// </summary>
-    private int sinceValue;
+    using YAF.Classes;
+    using YAF.Classes.Data;
+    using YAF.Core;
+    using YAF.Types;
+    using YAF.Types.Constants;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
 
     #endregion
 
-    /* Properties */
-    #region Properties
-
     /// <summary>
-    ///   Determines what is th current mode of the control.
+    /// The topic list mode.
     /// </summary>
-    public TopicListMode CurrentMode { get; set; }
-
-    #endregion
-
-    /* Event Handlers */
-
-    /* Methods */
-    #region Public Methods
-
-    /// <summary>
-    /// The bind data.
-    /// </summary>
-    public void BindData()
+    public enum TopicListMode
     {
-      // default since date is now
-      this.sinceDate = DateTime.UtcNow;
+        /// <summary>
+        ///   The active.
+        /// </summary>
+        Active,
 
-      // default since option is "since last visit"
-      this.sinceValue = 0;
-
-      // is any "since"option selected
-      if (this.Since.SelectedItem != null)
-      {
-        // get selected value
-        this.sinceValue = int.Parse(this.Since.SelectedItem.Value);
-
-        // sinceDate = DateTime.UtcNow;	// no need to do it again (look above)
-
-        // decrypt selected option
-        if (this.sinceValue == 9999)
-        {
-          // all
-          // get all, from the beginning
-          this.sinceDate = (DateTime)SqlDateTime.MinValue;
-        }
-        else if (this.sinceValue > 0)
-        {
-          // days
-          // get posts newer then defined number of days
-          this.sinceDate = DateTime.UtcNow - TimeSpan.FromDays(this.sinceValue);
-        }
-        else if (this.sinceValue < 0)
-        {
-          // hours
-          // get posts newer then defined number of hours
-          this.sinceDate = DateTime.UtcNow + TimeSpan.FromHours(this.sinceValue);
-        }
-      }
-
-      // we want to filter topics since last visit
-      if (this.sinceValue == 0)
-      {
-        this.sinceDate = this.Get<IYafSession>().LastVisit;
-      }
-
-      // we want to page results
-      var pds = new PagedDataSource();
-      pds.AllowPaging = true;
-
-      // filter by category
-      object categoryIDObject = null;
-
-      // is category set?
-      if (this.PageContext.Settings.CategoryID != 0)
-      {
-        categoryIDObject = this.PageContext.Settings.CategoryID;
-      }
-
-      // we'll hold topics in this table
-      DataTable topicList = null;
-
-      // now depending on mode fill the table
-      if (this.CurrentMode == TopicListMode.Active)
-      {
-        // we are getting active topics
-        topicList = LegacyDb.topic_active(
-          this.PageContext.PageBoardID, 
-          this.PageContext.PageUserID, 
-          this.sinceDate, 
-          categoryIDObject, 
-          this.PageContext.BoardSettings.UseStyledNicks);
-      }
-      else if (this.CurrentMode == TopicListMode.Favorite)
-      {
-        // we are getting favotes
-        topicList = this.Get<IFavoriteTopic>().FavoriteTopicDetails(this.sinceDate);
-      }
-
-      if (topicList != null)
-      {
-        // styled nicks
-        if (this.PageContext.BoardSettings.UseStyledNicks)
-        {
-          this.Get<IStyleTransform>().DecodeStyleByTable(ref topicList, true, "LastUserStyle", "StarterStyle");
-        }
-
-        // let's page the results
-        DataView dv = topicList.DefaultView;
-        pds.DataSource = dv;
-        this.PagerTop.Count = dv.Count;
-
-        // TODO : page size definable?
-        this.PagerTop.PageSize = 15;
-        pds.PageSize = this.PagerTop.PageSize;
-        pds.CurrentPageIndex = this.PagerTop.CurrentPageIndex;
-
-        // set datasource of repeater
-        this.TopicList.DataSource = pds;
-
-        // Get new Feeds links
-        this.BindFeeds();
-
-        // data bind controls
-        this.DataBind();
-      }
-    }
-
-    #endregion
-
-    #region Methods
-
-    /// <summary>
-    /// Initializes dropdown with options to filter results by date.
-    /// </summary>
-    protected void InitSinceDropdown()
-    {
-      // value 0, for since last visted
-      this.Since.Items.Add(
-        new ListItem(
-          this.GetTextFormatted(
-            "last_visit", this.Get<IDateTime>().FormatDateTime(this.Get<IYafSession>().LastVisit)), 
-          "0"));
-
-      // negative values for hours backward
-      this.Since.Items.Add(new ListItem(this.GetText("last_hour"), "-1"));
-      this.Since.Items.Add(new ListItem(this.GetText("last_two_hours"), "-2"));
-
-      // positive values for days backward
-      this.Since.Items.Add(new ListItem(this.GetText("last_day"), "1"));
-      this.Since.Items.Add(new ListItem(this.GetText("last_two_days"), "2"));
-      this.Since.Items.Add(new ListItem(this.GetText("last_week"), "7"));
-      this.Since.Items.Add(new ListItem(this.GetText("last_two_weeks"), "14"));
-      this.Since.Items.Add(new ListItem(this.GetText("last_month"), "31"));
+        /// <summary>
+        ///   The favorite.
+        /// </summary>
+        Favorite
     }
 
     /// <summary>
-    /// The page_ load.
+    /// Summary description for buddies.
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    public partial class MyTopicsList : BaseUserControl
     {
-      this.lastPostImageTT = this.GetText("DEFAULT", "GO_LAST_POST");
-      if (!this.IsPostBack)
-      {
-        this.InitSinceDropdown();
+        /* Data Fields */
+        #region Constants and Fields
 
-        int? previousSince = null;
+        /// <summary>
+        ///   The last post image tooltip.
+        /// </summary>
+        protected string lastPostImageTT = string.Empty;
 
-        if (this.CurrentMode == TopicListMode.Active)
+        /// <summary>
+        ///   The _last forum name.
+        /// </summary>
+        private string _lastForumName = string.Empty;
+
+        /// <summary>
+        ///   default since date is now
+        /// </summary>
+        private DateTime sinceDate = DateTime.UtcNow;
+
+        /// <summary>
+        ///   default since option is "since last visit"
+        /// </summary>
+        private int sinceValue;
+
+        #endregion
+
+        /* Properties */
+        #region Properties
+
+        /// <summary>
+        ///   Determines what is th current mode of the control.
+        /// </summary>
+        public TopicListMode CurrentMode { get; set; }
+
+        #endregion
+
+        /* Event Handlers */
+
+        /* Methods */
+        #region Public Methods
+
+        /// <summary>
+        /// The bind data.
+        /// </summary>
+        public void BindData()
         {
-          // active topics mode
-          previousSince = this.Get<IYafSession>().ActiveTopicSince;
+            // default since date is now
+            this.sinceDate = DateTime.UtcNow;
 
-          // by default select "Last visited..." for active discussions
-          this.Since.SelectedIndex = 0;
+            // default since option is "since last visit"
+            this.sinceValue = 0;
+
+            // is any "since"option selected
+            if (this.Since.SelectedItem != null)
+            {
+                // get selected value
+                this.sinceValue = int.Parse(this.Since.SelectedItem.Value);
+
+                // sinceDate = DateTime.UtcNow;	// no need to do it again (look above)
+
+                // decrypt selected option
+                if (this.sinceValue == 9999)
+                {
+                    // all
+                    // get all, from the beginning
+                    this.sinceDate = (DateTime)SqlDateTime.MinValue;
+                }
+                else if (this.sinceValue > 0)
+                {
+                    // days
+                    // get posts newer then defined number of days
+                    this.sinceDate = DateTime.UtcNow - TimeSpan.FromDays(this.sinceValue);
+                }
+                else if (this.sinceValue < 0)
+                {
+                    // hours
+                    // get posts newer then defined number of hours
+                    this.sinceDate = DateTime.UtcNow + TimeSpan.FromHours(this.sinceValue);
+                }
+            }
+
+            // we want to filter topics since last visit
+            if (this.sinceValue == 0)
+            {
+                this.sinceDate = this.Get<IYafSession>().LastVisit;
+            }
+
+            // we want to page results
+            var pds = new PagedDataSource { AllowPaging = true };
+
+            // filter by category
+            object categoryIDObject = null;
+
+            // is category set?
+            if (this.PageContext.Settings.CategoryID != 0)
+            {
+                categoryIDObject = this.PageContext.Settings.CategoryID;
+            }
+
+            // we'll hold topics in this table
+            DataTable topicList = null;
+
+            // now depending on mode fill the table
+            switch (this.CurrentMode)
+            {
+                case TopicListMode.Active:
+                    topicList = LegacyDb.topic_active(
+                        this.PageContext.PageBoardID,
+                        this.PageContext.PageUserID,
+                        this.sinceDate,
+                        categoryIDObject,
+                        this.Get<YafBoardSettings>().UseStyledNicks);
+                    break;
+                case TopicListMode.Favorite:
+                    topicList = this.Get<IFavoriteTopic>().FavoriteTopicDetails(this.sinceDate);
+                    break;
+            }
+
+            if (topicList == null)
+            {
+                return;
+            }
+
+            // styled nicks
+            if (this.Get<YafBoardSettings>().UseStyledNicks)
+            {
+                this.Get<IStyleTransform>().DecodeStyleByTable(ref topicList, true, "LastUserStyle", "StarterStyle");
+            }
+
+            // let's page the results
+            DataView dv = topicList.DefaultView;
+            pds.DataSource = dv;
+            this.PagerTop.Count = dv.Count;
+
+            // TODO : page size definable?
+            this.PagerTop.PageSize = 15;
+            pds.PageSize = this.PagerTop.PageSize;
+            pds.CurrentPageIndex = this.PagerTop.CurrentPageIndex;
+
+            // set datasource of repeater
+            this.TopicList.DataSource = pds;
+
+            // Get new Feeds links
+            this.BindFeeds();
+
+            // data bind controls
+            this.DataBind();
         }
-        else if (this.CurrentMode == TopicListMode.Favorite)
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// The mark all_ click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void MarkAll_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-          // favorites mode
-          previousSince = this.Get<IYafSession>().FavoriteTopicSince;
-
-          // add "Show All" option
-          this.Since.Items.Add(new ListItem(this.GetText("show_all"), "9999"));
-
-          // by default select "Show All" for favorites topics
-          this.Since.SelectedIndex = this.Since.Items.Count - 1;
+            this.Get<IYafSession>().LastVisit = DateTime.UtcNow;
         }
 
-        // has user selected any "since" value before we can remember now?
-        if (previousSince.HasValue)
+        /// <summary>
+        /// Initializes dropdown with options to filter results by date.
+        /// </summary>
+        protected void InitSinceDropdown()
         {
-          // look for value previously selected
-          ListItem sinceItem = this.Since.Items.FindByValue(previousSince.Value.ToString());
+            // value 0, for since last visted
+            this.Since.Items.Add(
+              new ListItem(
+                this.GetTextFormatted(
+                  "last_visit", this.Get<IDateTime>().FormatDateTime(this.Get<IYafSession>().LastVisit)),
+                "0"));
 
-          // and select it if found
-          if (sinceItem != null)
-          {
-            this.Since.SelectedIndex = this.Since.Items.IndexOf(sinceItem);
-          }
+            // negative values for hours backward
+            this.Since.Items.Add(new ListItem(this.GetText("last_hour"), "-1"));
+            this.Since.Items.Add(new ListItem(this.GetText("last_two_hours"), "-2"));
+
+            // positive values for days backward
+            this.Since.Items.Add(new ListItem(this.GetText("last_day"), "1"));
+            this.Since.Items.Add(new ListItem(this.GetText("last_two_days"), "2"));
+            this.Since.Items.Add(new ListItem(this.GetText("last_week"), "7"));
+            this.Since.Items.Add(new ListItem(this.GetText("last_two_weeks"), "14"));
+            this.Since.Items.Add(new ListItem(this.GetText("last_month"), "31"));
         }
-      }
 
-      this.BindData();
+        /// <summary>
+        /// The page_ load.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            this.lastPostImageTT = this.GetText("DEFAULT", "GO_LAST_POST");
+            this.MarkAll.Text = this.GetText("DEFAULT", "MARK_ALL_ASREAD");
+
+            if (!this.IsPostBack)
+            {
+                this.InitSinceDropdown();
+
+                int? previousSince = null;
+
+                switch (this.CurrentMode)
+                {
+                    case TopicListMode.Active:
+                        previousSince = this.Get<IYafSession>().ActiveTopicSince;
+                        this.Since.SelectedIndex = 0;
+                        break;
+                    case TopicListMode.Favorite:
+                        previousSince = this.Get<IYafSession>().FavoriteTopicSince;
+                        this.Since.Items.Add(new ListItem(this.GetText("show_all"), "9999"));
+                        this.Since.SelectedIndex = this.Since.Items.Count - 1;
+                        break;
+                }
+
+                // has user selected any "since" value before we can remember now?
+                if (previousSince.HasValue)
+                {
+                    // look for value previously selected
+                    ListItem sinceItem = this.Since.Items.FindByValue(previousSince.Value.ToString());
+
+                    // and select it if found
+                    if (sinceItem != null)
+                    {
+                        this.Since.SelectedIndex = this.Since.Items.IndexOf(sinceItem);
+                    }
+                }
+            }
+
+            this.BindData();
+        }
+
+        /// <summary>
+        /// The pager_ page change.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Pager_PageChange([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            this.BindData();
+        }
+
+        /// <summary>
+        /// The print forum name.
+        /// </summary>
+        /// <param name="row">
+        /// The row.
+        /// </param>
+        /// <returns>
+        /// The print forum name.
+        /// </returns>
+        protected string PrintForumName([NotNull] DataRowView row)
+        {
+            var forumName = this.Page.HtmlEncode(row["ForumName"]);
+            string html = string.Empty;
+            if (forumName != this._lastForumName)
+            {
+                html = @"<tr><td class=""header2"" colspan=""6""><a href=""{1}"" alt=""{2}"" title=""{2}"" >{0}</a></td></tr>".FormatWith(
+                    forumName,
+                    YafBuildLink.GetLink(ForumPages.topics, "f={0}", row["ForumID"]),
+                    this.GetText("COMMON", "VIEW_FORUM"));
+                this._lastForumName = forumName;
+            }
+
+            return html;
+        }
+
+        /// <summary>
+        /// The since_ selected index changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Since_SelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            // Set the controls' pager index to 0.
+            this.PagerTop.CurrentPageIndex = 0;
+
+            // save since option to rememver it next time
+            switch (this.CurrentMode)
+            {
+                case TopicListMode.Active:
+                    this.Get<IYafSession>().ActiveTopicSince = this.Since.SelectedValue.ToType<int>();
+                    break;
+                case TopicListMode.Favorite:
+                    this.Get<IYafSession>().FavoriteTopicSince = this.Since.SelectedValue.ToType<int>();
+                    break;
+            }
+
+            // re-bind data
+            this.BindData();
+        }
+
+        /// <summary>
+        /// The bind feeds.
+        /// </summary>
+        private void BindFeeds()
+        {
+            bool groupAccess = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ActiveTopicFeedAccess);
+
+            this.AtomFeed.Visible = this.Get<YafBoardSettings>().ShowAtomLink && groupAccess;
+            this.RssFeed.Visible = this.Get<YafBoardSettings>().ShowRSSLink && groupAccess;
+
+            // RSS link setup 
+            if (this.Get<YafBoardSettings>().ShowRSSLink && groupAccess)
+            {
+                switch (this.CurrentMode)
+                {
+                    case TopicListMode.Active:
+                        this.RssFeed.TitleLocalizedTag = "RSSICONTOOLTIPACTIVE";
+                        this.RssFeed.FeedType = YafRssFeeds.Active;
+                        this.RssFeed.AdditionalParameters =
+                            "txt={0}&d={1}".FormatWith(
+                                this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text)),
+                                this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString())));
+                        break;
+                    case TopicListMode.Favorite:
+                        this.RssFeed.TitleLocalizedTag = "RSSICONTOOLTIPFAVORITE";
+                        this.RssFeed.FeedType = YafRssFeeds.Favorite;
+                        this.RssFeed.AdditionalParameters =
+                            "txt={0}&d={1}".FormatWith(
+                                this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text)),
+                                this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString())));
+                        break;
+                }
+
+                this.RssFeed.Visible = true;
+            }
+
+            // Atom link setup 
+            if (!this.Get<YafBoardSettings>().ShowAtomLink || !groupAccess)
+            {
+                return;
+            }
+
+            switch (this.CurrentMode)
+            {
+                case TopicListMode.Active:
+                    this.AtomFeed.TitleLocalizedTag = "ATOMICONTOOLTIPACTIVE";
+                    this.AtomFeed.FeedType = YafRssFeeds.Active;
+                    this.AtomFeed.ImageThemeTag = "ATOMFEED";
+                    this.AtomFeed.TextLocalizedTag = "ATOMFEED";
+                    this.AtomFeed.AdditionalParameters =
+                        "txt={0}&d={1}".FormatWith(
+                            this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text)),
+                            this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString())));
+                    break;
+                case TopicListMode.Favorite:
+                    this.AtomFeed.TitleLocalizedTag = "ATOMICONTOOLTIPFAVORITE";
+                    this.AtomFeed.FeedType = YafRssFeeds.Favorite;
+                    this.AtomFeed.ImageThemeTag = "ATOMFEED";
+                    this.AtomFeed.TextLocalizedTag = "ATOMFEED";
+                    this.AtomFeed.AdditionalParameters =
+                        "txt={0}&d={1}".FormatWith(
+                            this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text)),
+                            this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString())));
+                    break;
+            }
+
+            this.AtomFeed.IsAtomFeed = true;
+            this.AtomFeed.Visible = true;
+        }
+
+        #endregion
     }
-
-    /// <summary>
-    /// The pager_ page change.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Pager_PageChange([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      this.BindData();
-    }
-
-    /// <summary>
-    /// The print forum name.
-    /// </summary>
-    /// <param name="row">
-    /// The row.
-    /// </param>
-    /// <returns>
-    /// The print forum name.
-    /// </returns>
-    protected string PrintForumName([NotNull] DataRowView row)
-    {
-      var forumName = this.Page.HtmlEncode(row["ForumName"]);
-      string html = string.Empty;
-      if (forumName != this._lastForumName)
-      {
-          html = @"<tr><td class=""header2"" colspan=""6""><a href=""{1}"" alt=""{2}"" title=""{2}"" >{0}</a></td></tr>".FormatWith(
-          forumName, YafBuildLink.GetLink(ForumPages.topics, "f={0}", row["ForumID"]), this.GetText("COMMON","VIEW_FORUM"));
-        this._lastForumName = forumName;
-      }
-
-      return html;
-    }
-
-    /// <summary>
-    /// The since_ selected index changed.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Since_SelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      // Set the controls' pager index to 0.
-      this.PagerTop.CurrentPageIndex = 0;
-
-      // save since option to rememver it next time
-      if (this.CurrentMode == TopicListMode.Active)
-      {
-        // for active topics
-        this.Get<IYafSession>().ActiveTopicSince = Convert.ToInt32(this.Since.SelectedValue);
-      }
-      else if (this.CurrentMode == TopicListMode.Favorite)
-      {
-        // for favorites
-        this.Get<IYafSession>().FavoriteTopicSince = Convert.ToInt32(this.Since.SelectedValue);
-      }
-
-      // re-bind data
-      this.BindData();
-    }
-
-    /// <summary>
-    /// The bind feeds.
-    /// </summary>
-    private void BindFeeds()
-    {
-      bool groupAccess = this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ActiveTopicFeedAccess);
-
-      this.AtomFeed.Visible = this.PageContext.BoardSettings.ShowAtomLink && groupAccess;
-      this.RssFeed.Visible = this.PageContext.BoardSettings.ShowRSSLink && groupAccess;
-
-      // RSS link setup 
-      if (this.PageContext.BoardSettings.ShowRSSLink && groupAccess)
-      {
-        if (this.CurrentMode == TopicListMode.Active)
-        {
-          this.RssFeed.TitleLocalizedTag = "RSSICONTOOLTIPACTIVE";
-          this.RssFeed.FeedType = YafRssFeeds.Active;
-          this.RssFeed.AdditionalParameters =
-            "txt={0}&d={1}".FormatWith(
-              this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text)), 
-              this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString())));
-        }
-        else if (this.CurrentMode == TopicListMode.Favorite)
-        {
-          this.RssFeed.TitleLocalizedTag = "RSSICONTOOLTIPFAVORITE";
-          this.RssFeed.FeedType = YafRssFeeds.Favorite;
-          this.RssFeed.AdditionalParameters =
-            "txt={0}&d={1}".FormatWith(
-              this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text)), 
-              this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString())));
-        }
-
-        this.RssFeed.Visible = true;
-      }
-
-      // Atom link setup 
-      if (this.PageContext.BoardSettings.ShowAtomLink && groupAccess)
-      {
-        {
-          if (this.CurrentMode == TopicListMode.Active)
-          {
-            this.AtomFeed.TitleLocalizedTag = "ATOMICONTOOLTIPACTIVE";
-            this.AtomFeed.FeedType = YafRssFeeds.Active;
-            this.AtomFeed.ImageThemeTag = "ATOMFEED";
-            this.AtomFeed.TextLocalizedTag = "ATOMFEED";
-            this.AtomFeed.AdditionalParameters =
-              "txt={0}&d={1}".FormatWith(
-                this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text)), 
-                this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString())));
-          }
-          else if (this.CurrentMode == TopicListMode.Favorite)
-          {
-            this.AtomFeed.TitleLocalizedTag = "ATOMICONTOOLTIPFAVORITE";
-            this.AtomFeed.FeedType = YafRssFeeds.Favorite;
-            this.AtomFeed.ImageThemeTag = "ATOMFEED";
-            this.AtomFeed.TextLocalizedTag = "ATOMFEED";
-            this.AtomFeed.AdditionalParameters =
-              "txt={0}&d={1}".FormatWith(
-                this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text)), 
-                this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString())));
-          }
-
-          this.AtomFeed.IsAtomFeed = true;
-          this.AtomFeed.Visible = true;
-        }
-      }
-    }
-
-    #endregion
-  }
 }

@@ -1,4 +1,8 @@
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.MyTopicsList" CodeBehind="MyTopicsList.ascx.cs"  EnableViewState="true" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.MyTopicsList" CodeBehind="MyTopicsList.ascx.cs"  EnableViewState="true" %>
+<%@ Import Namespace="YAF.Core" %>
+<%@ Import Namespace="YAF.Types.Constants" %>
+<%@ Import Namespace="YAF.Utils" %>
+<%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Register TagPrefix="YAF" TagName="TopicLine" Src="TopicLine.ascx" %>
 <table class="command" cellspacing="0" cellpadding="0" width="100%" style="padding-bottom: 10px;">
     <tr>
@@ -42,8 +46,9 @@
     </asp:Repeater>
     <tr>
         <td class="footer1" align="right" width="100%" colspan="5">
-            <YAF:RssFeedLink ID="RssFeed" runat="server" />
-            <YAF:RssFeedLink ID="AtomFeed" runat="server" />   
+            <asp:LinkButton runat="server" OnClick="MarkAll_Click" ID="MarkAll" />
+            <YAF:RssFeedLink ID="RssFeed" runat="server" ShowSpacerBefore="true" Visible="<%# this.Get<YafBoardSettings>().ShowRSSLink && this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ForumFeedAccess) %>" />
+            <YAF:RssFeedLink ID="AtomFeed" runat="server" ShowSpacerBefore="true" Visible="<%# this.Get<YafBoardSettings>().ShowAtomLink && this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ForumFeedAccess) %>"  />   
         </td>
     </tr>
 </table>

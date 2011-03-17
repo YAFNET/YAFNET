@@ -40,6 +40,42 @@ namespace YAF.Controls {
         protected global::YAF.Controls.Pager PagerTop;
         
         /// <summary>
+        /// LocalizedLabel6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel6;
+        
+        /// <summary>
+        /// LocalizedLabel8 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel8;
+        
+        /// <summary>
+        /// LocalizedLabel9 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel9;
+        
+        /// <summary>
+        /// LocalizedLabel10 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel10;
+        
+        /// <summary>
         /// TopicList control.
         /// </summary>
         /// <remarks>
@@ -47,6 +83,15 @@ namespace YAF.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater TopicList;
+        
+        /// <summary>
+        /// MarkAll control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton MarkAll;
         
         /// <summary>
         /// RssFeed control.
