@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -25,6 +25,7 @@ namespace YAF.Pages
   using System.Data;
   using System.Web;
 
+  using YAF.Classes;
   using YAF.Classes.Data;
   using YAF.Core;
   using YAF.Types;
@@ -97,10 +98,10 @@ namespace YAF.Pages
     /// </param>
     protected void BtnReport_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (this.reportEditor.Text.Length > this.PageContext.BoardSettings.MaxReportPostChars)
+      if (this.reportEditor.Text.Length > this.Get<YafBoardSettings>().MaxReportPostChars)
       {
         this.IncorrectReportLabel.Text = this.GetTextFormatted(
-          "REPORTTEXT_TOOLONG", this.PageContext.BoardSettings.MaxReportPostChars);
+          "REPORTTEXT_TOOLONG", this.Get<YafBoardSettings>().MaxReportPostChars);
         this.IncorrectReportLabel.DataBind();
         return;
       }
@@ -125,9 +126,19 @@ namespace YAF.Pages
     /// </param>
     protected void Page_Init([NotNull] object sender, [NotNull] EventArgs e)
     {
-      // create editor based on administrator's settings
-      this.reportEditor =
-        YafContext.Current.EditorModuleManager.GetBy(YafContext.Current.BoardSettings.ForumEditor);
+        // get the forum editor based on the settings
+        string editorId = this.Get<YafBoardSettings>().ForumEditor;
+
+        if (this.Get<YafBoardSettings>().AllowUsersTextEditor)
+        {
+            // Text editor
+            editorId = !string.IsNullOrEmpty(this.PageContext.TextEditor)
+                                    ? this.PageContext.TextEditor
+                                    : this.Get<YafBoardSettings>().ForumEditor;
+        }
+
+        this.reportEditor =
+            this.Get<IModuleManager<ForumEditor>>().GetBy(editorId);
 
       // add editor to the page
       this.EditorLine.Controls.Add(this.reportEditor);
@@ -146,12 +157,12 @@ namespace YAF.Pages
     {
       // set attributes of editor
       this.reportEditor.BaseDir = YafForumInfo.ForumClientFileRoot + "editors";
-      this.reportEditor.StyleSheet = YafContext.Current.Theme.BuildThemePath("theme.css");
+      this.reportEditor.StyleSheet = this.Get<ITheme>().BuildThemePath("theme.css");
 
       if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m").IsSet())
       {
         // We check here if the user have access to the option
-        if (!this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ReportPostPermissions))
+        if (!this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ReportPostPermissions))
         {
           YafBuildLink.Redirect(ForumPages.info, "i=1");
         }
@@ -162,28 +173,30 @@ namespace YAF.Pages
         }
       }
 
-      if (!this.IsPostBack)
-      {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
         // Get reported message text for better quoting                    
         DataTable messageRow = LegacyDb.message_secdata(this.messageID, this.PageContext.PageUserID);
 
         // Checking if the user has a right to view the message and getting data  
         if (messageRow.Rows.Count > 0)
         {
-          // populate the repeater with the message datarow...
-          this.MessageList.DataSource = LegacyDb.message_secdata(this.messageID, this.PageContext.PageUserID);
-          this.MessageList.DataBind();
+            // populate the repeater with the message datarow...
+            this.MessageList.DataSource = LegacyDb.message_secdata(this.messageID, this.PageContext.PageUserID);
+            this.MessageList.DataBind();
         }
         else
         {
-          YafBuildLink.Redirect(ForumPages.info, "i=1");
+            YafBuildLink.Redirect(ForumPages.info, "i=1");
         }
 
         // Get Forum Link
-        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
         this.btnReport.Attributes.Add(
-          "onclick", "return confirm('{0}');".FormatWith(this.GetText("CONFIRM_REPORTPOST")));
-      }
+            "onclick", "return confirm('{0}');".FormatWith(this.GetText("CONFIRM_REPORTPOST")));
     }
 
     /// <summary>
