@@ -1084,6 +1084,24 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox AllowEmailTopic;
         
         /// <summary>
+        /// HelpLabel185 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel185;
+        
+        /// <summary>
+        /// CheckForSpamContent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox CheckForSpamContent;
+        
+        /// <summary>
         /// LocalizedLabel23 control.
         /// </summary>
         /// <remarks>

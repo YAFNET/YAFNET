@@ -830,6 +830,8 @@
     <Resource tag="CAPTCHA_SIZE_HELP">Size (length) of the CAPTCHA random alphanumeric string.</Resource>
     <Resource tag="CAT_CACHE_TIMEOUT">Board Categories Cache Timeout:</Resource>
     <Resource tag="CAT_CACHE_TIMEOUT_HELP">In minutes</Resource>
+    <Resource tag="CHECK_FOR_SPAM">Automatically Check Postings for SPAM:</Resource>
+    <Resource tag="CHECK_FOR_SPAM_HELP">Enables/disables automatically SPAM Checking via the &lt;a href="http://blogspam.net/"&gt;BlogSpam.net API&lt;/a&gt;, SPAM Post gets rejected if detected.</Resource>
     <Resource tag="CLEAR_CACHE">Clear Cache</Resource>
     <Resource tag="CREATE_NNTPNAMES">Create NNTP user names:</Resource>
     <Resource tag="CREATE_NNTPNAMES_HELP">Check to allow users to automatically be created when downloading usenet messages. Only enable this in a test environment, and &lt;em&gt;NEVER&lt;/em&gt; in a production environment. The main purpose of this option is for performance testing.</Resource>
@@ -2308,6 +2310,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="NUMBERREPORTED">عدد التبليغ عن مشاركة :</Resource>
     <Resource tag="ORIGINALMESSAGE">النص الاصلي الرسالة:</Resource>
     <Resource tag="REPLYTO">الرد برسالة خاصة </Resource>
+    <Resource tag="REPORT_SPAM">Report as SPAM</Resource>
     <Resource tag="REPORTED">مشاركات مبلغ عنها</Resource>
     <Resource tag="REPORTEDBY">أعداد التقرير بواسطة :</Resource>
     <Resource tag="RESOLVE">إعادة حل ونسخ المشاركة </Resource>

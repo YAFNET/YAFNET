@@ -1094,6 +1094,7 @@
       <Resource tag="TOPIC">Topic:</Resource>
       <Resource tag="UNAPPROVED">Unapproved Posts</Resource>
       <Resource tag="HISTORY">History</Resource>
+      <Resource tag="REPORT_SPAM">Report as SPAM</Resource>
    </page>
    <page name="MOVEMESSAGE">
       <Resource tag="CREATE_TOPIC">Create Topic From Message</Resource>
@@ -3199,6 +3200,8 @@ Visit {forumname} at {forumlink}
        <Resource tag="TWITTER_USERNAME_HELP">Twitter Username that is mentioned when Retweeting a Topic or Message.</Resource>
 	   <Resource tag="ENABLE_RETWEET_MSG">Enable Retweet Message Button:</Resource>
        <Resource tag="ENABLE_RETWEET_MSG_HELP">Enables/disables the Retweet Button, where the User can retweet a topic message.</Resource>
+     <Resource tag="CHECK_FOR_SPAM">Automatically Check Postings for SPAM:</Resource>
+     <Resource tag="CHECK_FOR_SPAM_HELP">Enables/disables automatically SPAM Checking via the &lt;a href=&quot;http://blogspam.net/&quot;&gt;BlogSpam.net API&lt;/a&gt;, SPAM Post gets rejected if detected.</Resource>
    </page>
 	  <page name="ADMIN_TEST_DATA">
 	   <Resource tag="TITLE">Create Test Data (DEBUG Only)</Resource>

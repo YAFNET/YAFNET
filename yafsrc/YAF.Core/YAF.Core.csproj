@@ -154,12 +154,17 @@
     <Compile Include="Services\ScriptBuilder\JavaScriptFunction.cs" />
     <Compile Include="Services\CheckForSpam\AkismetSpamClient.cs" />
     <Compile Include="Services\CheckForSpam\AntiSpamTypePadClient.cs" />
+    <Compile Include="Services\CheckForSpam\BlogSpamNet.cs" />
+    <Compile Include="Services\CheckForSpam\BlogSpamComment.cs" />
     <Compile Include="Services\CheckForSpam\CheckForSpamClientBase.cs" />
     <Compile Include="Services\CheckForSpam\Comment.cs" />
     <Compile Include="Services\CheckForSpam\HttpClient.cs" />
+    <Compile Include="Services\CheckForSpam\IBlogSpamNet.cs" />
     <Compile Include="Services\CheckForSpam\ICheckForSpamClient.cs" />
     <Compile Include="Services\CheckForSpam\IComment.cs" />
     <Compile Include="Services\CheckForSpam\InvalidResponseException.cs" />
+    <Compile Include="Services\CheckForSpam\Stats.cs" />
+    <Compile Include="Services\CheckForSpam\TrainComment.cs" />
     <Compile Include="Services\ScriptBuilder\JavaScriptStatement.cs" />
     <Compile Include="Services\LoadMessage.cs" />
     <Compile Include="Services\PageElementRegister.cs" />

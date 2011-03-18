@@ -1,5 +1,5 @@
-/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bjørnar Henden
+ï»¿/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjï¿½rnar Henden
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -30,6 +30,7 @@ namespace YAF.Pages
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Services.CheckForSpam;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Flags;
@@ -326,6 +327,7 @@ namespace YAF.Pages
         {
             // get the forum editor based on the settings
             string editorId = this.Get<YafBoardSettings>().ForumEditor;
+
             if (this.Get<YafBoardSettings>().AllowUsersTextEditor)
             {
                 // Text editor
@@ -334,8 +336,10 @@ namespace YAF.Pages
                                         : this.Get<YafBoardSettings>().ForumEditor;
             }
 
+            // TODO : Check if Editor exists, if not fallback to default editorid=1
             this._forumEditor =
                 this.Get<IModuleManager<ForumEditor>>().GetBy(editorId);
+
             this.EditorLine.Controls.Add(this._forumEditor);
 
             base.OnInit(e);
@@ -716,6 +720,15 @@ namespace YAF.Pages
                 return;
             }
 
+            // Check for SPAM
+            if (this.IsPostSpam())
+            {
+
+                // TODO: Handle what to do with the SPAM Users
+                //this.PageContext.AddLoadMessage("SPAM Is not allowed");
+                return;
+            }
+
             // vzrus: Common users should not use HTML tags in a topic header if not allowed
             if (!(this.PageContext.IsModerator || this.PageContext.IsForumModerator || this.PageContext.IsAdmin))
             {
@@ -845,6 +858,49 @@ namespace YAF.Pages
                         YafBuildLink.Redirect(ForumPages.info, "i=1");
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// Check This Post for SPAM against the BlogSpam.NET API
+        /// </summary>
+        /// <returns>
+        /// Returns if Post is SPAM or not
+        /// </returns>
+        private bool IsPostSpam()
+        {
+            if (!this.Get<YafBoardSettings>().CheckForSpamContent)
+            {
+                return false;
+            }
+
+            string ipAdress = this.Get<HttpRequestBase>().UserHostAddress;
+
+            if (ipAdress == "::1")
+            {
+                ipAdress = "127.0.0.1";
+            }
+
+            try
+            {
+                return
+                    BlogSpamNet.CommentIsSpam(
+                        new BlogSpamComment
+                            {
+                                comment = this._forumEditor.Text,
+                                ip = ipAdress,
+                                agent = this.Get<HttpRequestBase>().UserAgent,
+                                email = this.User == null ? this.User.Email : null,
+                                name = this.User == null ? this.User.UserName : this.From.Text,
+                                version = String.Empty,
+                                options = String.Empty,
+                                subject = this.TopicSubjectTextBox.Text
+                            },
+                        true);
+            }
+            catch (Exception)
+            {
+                return false;
             }
         }
 

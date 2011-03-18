@@ -830,6 +830,8 @@
     <Resource tag="CAPTCHA_SIZE_HELP">Size (length) of the CAPTCHA random alphanumeric string.</Resource>
     <Resource tag="CAT_CACHE_TIMEOUT">Board Categories Cache Timeout:</Resource>
     <Resource tag="CAT_CACHE_TIMEOUT_HELP">In minutes</Resource>
+    <Resource tag="CHECK_FOR_SPAM">Automatically Check Postings for SPAM:</Resource>
+    <Resource tag="CHECK_FOR_SPAM_HELP">Enables/disables automatically SPAM Checking via the &lt;a href="http://blogspam.net/"&gt;BlogSpam.net API&lt;/a&gt;, SPAM Post gets rejected if detected.</Resource>
     <Resource tag="CLEAR_CACHE">Clear Cache</Resource>
     <Resource tag="CREATE_NNTPNAMES">Create NNTP user names:</Resource>
     <Resource tag="CREATE_NNTPNAMES_HELP">Check to allow users to automatically be created when downloading usenet messages. Only enable this in a test environment, and &lt;em&gt;NEVER&lt;/em&gt; in a production environment. The main purpose of this option is for performance testing.</Resource>
@@ -2287,6 +2289,7 @@
     <Resource tag="NUMBERREPORTED">Bildirilme Adedi :</Resource>
     <Resource tag="ORIGINALMESSAGE">Orjinal Mesaj:</Resource>
     <Resource tag="REPLYTO">Özel Mesaj ile cevap ver</Resource>
+    <Resource tag="REPORT_SPAM">Report as SPAM</Resource>
     <Resource tag="REPORTED">Şkayet edilmiş mesajlar</Resource>
     <Resource tag="REPORTEDBY">Tarafından Bildirildi:</Resource>
     <Resource tag="RESOLVE">Mesajın kopyalarını çöz</Resource>

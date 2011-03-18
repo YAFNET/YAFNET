@@ -468,6 +468,22 @@ namespace YAF.Classes
             }
         }
 
+      /// <summary>
+      /// Gets or sets a value indicating whether to enable Check For Spam Content.
+      /// </summary>
+      public bool CheckForSpamContent
+      {
+          get
+          {
+              return this._reg.GetValue("CheckForSpamContent", true);
+          }
+
+          set
+          {
+              this._reg.SetValue("CheckForSpamContent", value);
+          }
+      }
+
         /// <summary>
         /// Gets SQLVersion.
         /// NOTE : didn't know where else to put this :)

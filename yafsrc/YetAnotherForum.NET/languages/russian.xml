@@ -829,6 +829,8 @@
     <Resource tag="CAPTCHA_SIZE_HELP">Длина(символы) генерируемой случайной строки CAPTCHA.</Resource>
     <Resource tag="CAT_CACHE_TIMEOUT">Таймаут кэша для категорий конференции:</Resource>
     <Resource tag="CAT_CACHE_TIMEOUT_HELP">В минутах</Resource>
+    <Resource tag="CHECK_FOR_SPAM">Automatically Check Postings for SPAM:</Resource>
+    <Resource tag="CHECK_FOR_SPAM_HELP">Enables/disables automatically SPAM Checking via the &lt;a href="http://blogspam.net/"&gt;BlogSpam.net API&lt;/a&gt;, SPAM Post gets rejected if detected.</Resource>
     <Resource tag="CLEAR_CACHE">Очистить кэш</Resource>
     <Resource tag="CREATE_NNTPNAMES">Создавать имена пользователей NNTP:</Resource>
     <Resource tag="CREATE_NNTPNAMES_HELP">Включите, чтобы пользователи добавлялись из сообщений usenet. Включайте это только в тестовых случаях и &lt;em&gt;НИКОГДА&lt;/em&gt; на работающем сервере. Главная цель этой опции - тестирование производительности.</Resource>
@@ -2472,6 +2474,7 @@
     <Resource tag="NUMBERREPORTED">Сообщённое число случаев :</Resource>
     <Resource tag="ORIGINALMESSAGE">Текст сообщения:</Resource>
     <Resource tag="REPLYTO">Послать личное сообщение пользователю </Resource>
+    <Resource tag="REPORT_SPAM">Report as SPAM</Resource>
     <Resource tag="REPORTED">Жалобы на сообщения в этом подфоруме</Resource>
     <Resource tag="REPORTEDBY">Пожаловались:</Resource>
     <Resource tag="RESOLVE">Урегулировать копии сообщения</Resource>
