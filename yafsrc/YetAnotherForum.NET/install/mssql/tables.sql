@@ -805,9 +805,9 @@ END
 GO
 
 -- User Table
-if exists(select 1 from [{databaseOwner}].[{objectQualifier}Group] where (Flags & 2)=2)
+if exists(select top 1 1 from [{databaseOwner}].[{objectQualifier}Group] where ([Flags] & 2)=2)
 begin
-	update [{databaseOwner}].[{objectQualifier}User] set Flags = Flags | 4 where UserID in(select distinct UserID from [{databaseOwner}].[{objectQualifier}UserGroup] a join [{databaseOwner}].[{objectQualifier}Group] b on b.GroupID=a.GroupID and (b.Flags & 2)=2)
+  update [{databaseOwner}].[{objectQualifier}User] set [Flags] = [Flags] | 4 where UserID in (select distinct UserID from [{databaseOwner}].[{objectQualifier}UserGroup] a join [{databaseOwner}].[{objectQualifier}Group] b on b.GroupID=a.GroupID and (b.[Flags] & 2)=2)
 end
 GO
 
@@ -841,7 +841,7 @@ go
 
 if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Flags')
 begin
-	alter table [{databaseOwner}].[{objectQualifier}User] add Flags int not null constraint DF_{objectQualifier}User_Flags default (0)
+	alter table [{databaseOwner}].[{objectQualifier}User] add [Flags] int not null constraint DF_{objectQualifier}User_Flags default (0)
 end
 GO
 
