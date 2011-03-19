@@ -3015,7 +3015,7 @@ GO
 create procedure [{databaseOwner}].[{objectQualifier}group_list](@BoardID int,@GroupID int=null) as
 begin
 		if @GroupID is null
-		select * from [{databaseOwner}].[{objectQualifier}Group] where BoardID=@BoardID
+		select * from [{databaseOwner}].[{objectQualifier}Group] where BoardID=@BoardID order by SortOrder 
 	else
 		select * from [{databaseOwner}].[{objectQualifier}Group] where BoardID=@BoardID and GroupID=@GroupID
 end
@@ -4914,7 +4914,7 @@ create procedure [{databaseOwner}].[{objectQualifier}rank_list](@BoardID int,@Ra
 		where
 			a.BoardID=@BoardID
 		order by
-			a.MinPosts,
+			a.SortOrder,
 			a.Name
 	else
 		select
@@ -6651,7 +6651,7 @@ begin
   
    declare @user_totalrowsnumber int 
    declare @firstselectrownum int 
-   declare @firstselectuserid int
+   declare @firstselectuserid nvarchar(255)
    declare @firstselectrankid int
    declare @firstselectlastvisit datetime
    declare @firstselectjoined datetime
@@ -6696,7 +6696,7 @@ begin
 	  else
 	  set rowcount	1 
 
-      select @firstselectuserid = a.UserID ,  
+      select @firstselectuserid = a.[Name] ,  
 	         @firstselectlastvisit = a.LastVisit, 
 			 @firstselectjoined = a.Joined, 
 			 @firstselectrankid = a.RankID, 
@@ -6725,9 +6725,9 @@ begin
         when @NumPostsCompare = 1 then @NumPosts end)) 
      order by  	 
 	    (case 
-        when @SortName = 2 then a.UserID end) DESC,
+        when @SortName = 2 then a.[Name] end) DESC,
 		(case 
-        when @SortName = 1 then a.UserID end) ASC, 
+        when @SortName = 1 then a.[Name] end) ASC, 
 		(case 
         when @SortRank = 2 then a.RankID end) DESC,
 		(case 
@@ -6767,11 +6767,11 @@ begin
 			TotalCount =  @user_totalrowsnumber 
 			from [{databaseOwner}].[{objectQualifier}User] a with(nolock)
 			join [{databaseOwner}].[{objectQualifier}Rank] b with(nolock) on b.RankID=a.RankID	
-      where (a.UserID >= (case 
-        when @SortName = 1 then @firstselectuserid end) OR a.UserID <= (case 
+      where (a.[Name] >= (case 
+        when @SortName = 1 then @firstselectuserid end) OR a.[Name] <= (case 
         when @SortName = 2 then @firstselectuserid end) OR
-		a.UserID >= (case 
-        when @SortName = 0 then 0 end)) and
+		a.[Name] >= (case 
+        when @SortName = 0 then '' end)) and
 		(a.Joined >= (case 
         when @SortJoined = 1 then @firstselectjoined end) 
 		OR a.Joined <= (case 
@@ -6816,9 +6816,9 @@ begin
 			ELSE '%' END 
     ORDER BY 	
 	 (case 
-        when @SortName = 2 then a.UserID end) DESC,
+        when @SortName = 2 then a.[Name] end) DESC,
 		(case 
-        when @SortName = 1 then a.UserID end) ASC, 
+        when @SortName = 1 then a.[Name] end) ASC, 
 		(case 
         when @SortRank = 2 then a.RankID end) DESC,
 		(case 
