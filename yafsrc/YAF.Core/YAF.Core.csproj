@@ -34,6 +34,10 @@
     <Reference Include="Autofac">
       <HintPath>..\YetAnotherForum.NET\Bin\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="CookComputing.XmlRpcV2, Version=2.5.0.0, Culture=neutral, PublicKeyToken=a7d6e17aa302004d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\YetAnotherForum.NET\Bin\CookComputing.XmlRpcV2.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
