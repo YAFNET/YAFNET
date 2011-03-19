@@ -238,7 +238,7 @@
       {
         if (pageCount > NumToDisplay)
         {
-          strReturn += this.MakeLink("1", YafBuildLink.GetLink(ForumPages.posts, "t={0}", topicID));
+          strReturn += this.MakeLink("1", YafBuildLink.GetLink(ForumPages.posts, "t={0}", topicID),1);
           strReturn += " ... ";
           bool bFirst = true;
 
@@ -257,7 +257,7 @@
             }
 
             strReturn += this.MakeLink(
-              iPost.ToString(), YafBuildLink.GetLink(ForumPages.posts, "t={0}&p={1}", topicID, iPost));
+              iPost.ToString(), YafBuildLink.GetLink(ForumPages.posts, "t={0}&p={1}", topicID, iPost), iPost);
           }
         }
         else
@@ -277,7 +277,7 @@
             }
 
             strReturn += this.MakeLink(
-              iPost.ToString(), YafBuildLink.GetLink(ForumPages.posts, "t={0}&p={1}", topicID, iPost));
+              iPost.ToString(), YafBuildLink.GetLink(ForumPages.posts, "t={0}&p={1}", topicID, iPost), iPost);
           }
         }
       }
@@ -498,21 +498,24 @@
       }
     }
 
-    /// <summary>
-    /// The make link.
-    /// </summary>
-    /// <param name="text">
-    /// The text.
-    /// </param>
-    /// <param name="link">
-    /// The link.
-    /// </param>
-    /// <returns>
-    /// The make link.
-    /// </returns>
-    protected string MakeLink([NotNull] string text, [NotNull] string link)
+      /// <summary>
+      /// The make link.
+      /// </summary>
+      /// <param name="text">
+      /// The text.
+      /// </param>
+      /// <param name="link">
+      /// The link.
+      /// </param>
+      /// <param name="pageid">
+      /// The pageid.
+      /// </param>
+      /// <returns>
+      /// The make link.
+      /// </returns>
+      protected string MakeLink([NotNull] string text, [NotNull] string link, [NotNull] int pageid)
     {
-      return "<a href=\"{0}\">{1}</a>".FormatWith(link, text);
+        return "<a href=\"{0}\" title=\"{1}\">{2}</a>".FormatWith(link, this.GetText("GOTO_POST_PAGER").FormatWith(pageid), text);
     }
 
     /// <summary>

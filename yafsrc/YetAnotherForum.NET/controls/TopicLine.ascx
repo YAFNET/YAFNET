@@ -84,9 +84,11 @@
 
       if (tPager != String.Empty)
       {
+          string altMultipages = this.GetText("GOTO_POST_PAGER").FormatWith(string.Empty);
         %>
-        <span class="topicPager smallfont">-
-            <%=this.GetText("GOTO_POST_PAGER").FormatWith(tPager) %></span>
+        <span class="topicPager smallfont">- <img src="<%=this.Get<ITheme>().GetItem(
+          "ICONS","MULTIPAGES_SMALL")%>" alt="<%=altMultipages%>" title="<%=altMultipages%>" />  
+            <%=tPager%></span>
         <%
       }      
         %>
