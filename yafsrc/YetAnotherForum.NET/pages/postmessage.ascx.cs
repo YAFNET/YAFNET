@@ -723,7 +723,6 @@ namespace YAF.Pages
             // Check for SPAM
             if (this.IsPostSpam())
             {
-
                 // TODO: Handle what to do with the SPAM Users
                 //this.PageContext.AddLoadMessage("SPAM Is not allowed");
                 return;
@@ -876,9 +875,16 @@ namespace YAF.Pages
 
             string ipAdress = this.Get<HttpRequestBase>().UserHostAddress;
 
-            if (ipAdress == "::1")
+            if (ipAdress.Equals("::1"))
             {
                 ipAdress = "127.0.0.1";
+            }
+
+            string whiteList = String.Empty;
+
+            if (ipAdress.Equals("127.0.0.1"))
+            {
+                whiteList = "whitelist=127.0.0.1";
             }
 
             try
@@ -893,7 +899,7 @@ namespace YAF.Pages
                                 email = this.User == null ? this.User.Email : null,
                                 name = this.User == null ? this.User.UserName : this.From.Text,
                                 version = String.Empty,
-                                options = String.Empty,
+                                options = whiteList,
                                 subject = this.TopicSubjectTextBox.Text
                             },
                         true);
