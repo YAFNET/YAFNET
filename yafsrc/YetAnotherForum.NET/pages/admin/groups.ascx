@@ -1,6 +1,7 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.groups" Codebehind="groups.ascx.cs" %>
 <%@ Import Namespace="System.Data" %>
 <%@ Import Namespace="YAF.Core" %>
+<%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Utils" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server" ID="AdminMenu">
@@ -28,7 +29,7 @@
 			</HeaderTemplate>
 			<ItemTemplate>
 				<tr>
-					<td class="post">
+					<td class="post">                     
 						<%# Container.DataItem %>
 						(<YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" LocalizedPage="ADMIN_GROUPS" LocalizedTag="UNLINKED" />)
 					</td>
@@ -69,6 +70,7 @@
 			<ItemTemplate>
 				<tr>
 					<td class="header2">
+                    <img alt="" title="" src='<%# this.Get<ITheme>().GetItem("VOTE","VOTE_USERS") %>' />&nbsp;
 						<%# Eval( "Name" ) %>
 						(<%# GetLinkedStatus( (DataRowView) Container.DataItem )%>)&nbsp;&nbsp;                        
 					</td>

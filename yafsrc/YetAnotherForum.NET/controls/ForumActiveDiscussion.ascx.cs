@@ -193,6 +193,8 @@ namespace YAF.Controls
                 }
             }
 
+            this.CollapsibleImage.ToolTip = this.GetText("COMMON", "SHOWHIDE");
+
             bool groupAccess = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().PostLatestFeedAccess);
             this.AtomFeed.Visible = this.Get<YafBoardSettings>().ShowAtomLink && groupAccess;
             this.RssFeed.Visible = this.Get<YafBoardSettings>().ShowRSSLink && groupAccess;

@@ -279,6 +279,7 @@ namespace YAF.Controls
       // Newest Member
       this.StatsNewestMember.Text = this.GetText("stats_lastmember");
       this.NewestMemberUserLink.UserID = Convert.ToInt32(userStatisticsDataRow["LastMemberID"]);
+      this.CollapsibleImage.ToolTip = this.GetText("COMMON", "SHOWHIDE");
 
       // Todays Birthdays
       // tha_watcha : Disabled as future feature, until its cached?!

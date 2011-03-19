@@ -1,4 +1,5 @@
 <%@ Control Language="C#" AutoEventWireup="True" Inherits="YAF.Controls.ShoutBox" CodeBehind="ShoutBox.ascx.cs" EnableViewState="false" %>
+<%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Utils" %>
 <script type="text/javascript">
     var lastMessageId = 0;
@@ -71,7 +72,7 @@
                     <td class="header1" colspan="2">
                         <YAF:CollapsibleImage ID="CollapsibleImageShoutBox" runat="server" BorderWidth="0"
                             Style="vertical-align: middle" DefaultState="Collapsed" PanelID='ShoutBoxPanel'
-                            AttachedControlID="shoutBoxPlaceHolder" OnClick="CollapsibleImageShoutBox_Click" />&nbsp;&nbsp;
+                            AttachedControlID="shoutBoxPlaceHolder" ToolTip='<%# this.GetText("COMMON", "SHOWHIDE") %>' OnClick="CollapsibleImageShoutBox_Click" />&nbsp;&nbsp;
                         <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedPage="SHOUTBOX"
                             LocalizedTag="TITLE">
                         </YAF:LocalizedLabel>
