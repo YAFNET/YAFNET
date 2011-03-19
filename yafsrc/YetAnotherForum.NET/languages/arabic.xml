@@ -2211,6 +2211,9 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="MIN_VOTE_UP">Vote Up requires %min_rating% reputation</Resource>
     <Resource tag="NOT_AUTHORIZED">Please login to vote</Resource>
     <Resource tag="SELF">You cannot vote for your message</Resource>
+    <Resource tag="USER_REPUTATION">Users Reputation</Resource>
+    <Resource tag="VOTE_DOWN">Vote Down</Resource>
+    <Resource tag="VOTE_UP">Vote Up</Resource>
   </page>
   <page name="LANGUAGE">
     <Resource tag="CHARSET">#أ ب ت ث ج ح خ د ذ ر ز س ش ص ض ط ظ ع غ ف ق ك ل م ن ه و ي Z Y X W V U T S R Q P O N M L K J I H G F E D C B A  </Resource>

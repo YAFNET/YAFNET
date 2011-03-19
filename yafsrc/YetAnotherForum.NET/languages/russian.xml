@@ -2375,6 +2375,9 @@
     <Resource tag="MIN_VOTE_UP">Минимальная репутация для повышения: %min_rating% </Resource>
     <Resource tag="NOT_AUTHORIZED">Зарегистрируйтесь для голосования</Resource>
     <Resource tag="SELF">Вы не можете голосовать за своё сообщение</Resource>
+    <Resource tag="USER_REPUTATION">Users Reputation</Resource>
+    <Resource tag="VOTE_DOWN">Vote Down</Resource>
+    <Resource tag="VOTE_UP">Vote Up</Resource>
   </page>
   <page name="LANGUAGE">
     <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ/АБВГДЕЁЖЗИКЛМНОПРСТУФХЦЧШЩЭЮЯ</Resource>

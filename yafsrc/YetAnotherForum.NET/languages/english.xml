@@ -1872,6 +1872,9 @@ Visit {forumname} at {forumlink}
       <Resource tag="MIN_VOTE_UP">Vote Up requires %min_rating% reputation</Resource>
       <Resource tag="MIN_VOTE_DOWN">Vote Down requires %min_rating% reputation</Resource>
       <Resource tag="SELF">You cannot vote for your message</Resource>
+      <Resource tag="VOTE_DOWN">Vote Down</Resource>
+      <Resource tag="VOTE_UP">Vote Up</Resource>
+      <Resource tag="USER_REPUTATION">Users Reputation</Resource>
    </page>
    <page name="TEAM">
       <Resource tag="TITLE">Council Members</Resource>

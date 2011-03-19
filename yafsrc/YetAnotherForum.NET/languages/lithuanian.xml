@@ -2451,6 +2451,9 @@
     <Resource tag="MIN_VOTE_UP">Vote Up requires %min_rating% reputation</Resource>
     <Resource tag="NOT_AUTHORIZED">Please login to vote</Resource>
     <Resource tag="SELF">You cannot vote for your message</Resource>
+    <Resource tag="USER_REPUTATION">Users Reputation</Resource>
+    <Resource tag="VOTE_DOWN">Vote Down</Resource>
+    <Resource tag="VOTE_UP">Vote Up</Resource>
   </page>
   <page name="LANGUAGE">
     <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ</Resource>

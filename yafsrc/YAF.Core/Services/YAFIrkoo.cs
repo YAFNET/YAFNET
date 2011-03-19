@@ -20,14 +20,15 @@ namespace YAF.Core.Services
 {
   #region Using
 
-  using System;
-  using System.Security.Cryptography;
-  using System.Text;
+    using System;
+    using System.Security.Cryptography;
+    using System.Text;
 
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Utils;
-  using YAF.Utils.Helpers.StringUtils;
-  using YAF.Types;
+    using YAF.Classes;
+    using YAF.Core;
+    using YAF.Types;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
 
   #endregion
 
@@ -60,12 +61,12 @@ namespace YAF.Core.Services
                 irk.src = document.location.protocol + '//z.irkoo.com/irk.js'; var s = document.getElementsByTagName('script')[0];
                 s.parentNode.insertBefore(irk, s);}})();"
           .FormatWith(
-            YafContext.Current.BoardSettings.IrkooSiteID, 
+            YafContext.Current.Get<YafBoardSettings>().IrkooSiteID, 
             (!YafContext.Current.IsGuest)
                ? CreateIrkooCode(
                  YafContext.Current.PageUserID, 
-                 YafContext.Current.PageUserName, 
-                 YafContext.Current.BoardSettings.IrkooSecretKey)
+                 YafContext.Current.PageUserName,
+                 YafContext.Current.Get<YafBoardSettings>().IrkooSecretKey)
                : string.Empty, 
             YafContext.Current.Get<ILocalization>().GetText("IRKOO", "NOT_AUTHORIZED"), 
             YafContext.Current.Get<ILocalization>().GetText("IRKOO", "MIN_VOTE_UP"), 
@@ -76,50 +77,56 @@ namespace YAF.Core.Services
     /// <summary>
     /// The rating html.
     /// </summary>
-    /// <param name="UserID">
+    /// <param name="userID">
     /// The User ID.
     /// </param>
     /// <returns>
     /// The Irkoo rating html, if Irkoo Service is enabled. Otherwise returns null.
     /// </returns>
-    public static string IrkRating([NotNull] object UserID)
+    public static string IrkRating([NotNull] object userID)
     {
-      CodeContracts.ArgumentNotNull(UserID, "UserID");
+      CodeContracts.ArgumentNotNull(userID, "UserID");
 
-      return (YafContext.Current.BoardSettings.EnableIrkoo &&
-              (!YafContext.Current.IsGuest || YafContext.Current.BoardSettings.AllowGuestsViewReputation))
-               ? @"<small class='irk-rating' data-author-id='{0}'
-                style='position:relative; top:-0.5em'></small>"
-                   .FormatWith(UserID.ToString())
-               : string.Empty;
+        return (YafContext.Current.Get<YafBoardSettings>().EnableIrkoo &&
+                (!YafContext.Current.IsGuest || YafContext.Current.Get<YafBoardSettings>().AllowGuestsViewReputation))
+                   ? @"<small class='irk-rating' data-author-id='{0}'
+                style='position:relative; top:-0.5em' title='{1}'></small>"
+                         .FormatWith(
+                             userID.ToString(),
+                             YafContext.Current.Get<ILocalization>().GetText("IRKOO", "USER_REPUTATION"))
+                   : string.Empty;
     }
 
     /// <summary>
     /// The vote html.
     /// </summary>
-    /// <param name="MessageID">
+    /// <param name="messageID">
     /// The Message ID.
     /// </param>
-    /// <param name="UserID">
+    /// <param name="userID">
     /// The User ID.
     /// </param>
     /// <returns>
     /// The Irkoo vote html, if Irkoo Service is enabled. Otherwise returns null.
     /// </returns>
-    public static string IrkVote([NotNull] object MessageID, [NotNull] object UserID)
+    public static string IrkVote([NotNull] object messageID, [NotNull] object userID)
     {
-      CodeContracts.ArgumentNotNull(MessageID, "MessageID");
-      CodeContracts.ArgumentNotNull(UserID, "UserID");
+      CodeContracts.ArgumentNotNull(messageID, "MessageID");
+      CodeContracts.ArgumentNotNull(userID, "UserID");
 
-      return YafContext.Current.BoardSettings.EnableIrkoo
-               ? @"<div class='irk-vote' data-msg-id='{0}'
+        return YafContext.Current.Get<YafBoardSettings>().EnableIrkoo
+                   ? @"<div class='irk-vote' data-msg-id='{0}'
                 data-author-id='{1}'>
-                <img class='irk-down' src='http://z.irkoo.com/pix.gif' alt='' />
+                <img class='irk-down' src='http://z.irkoo.com/pix.gif' alt='{2}' title='{2}' />
                 <span class='irk-count'>0</span>
-                <img class='irk-up' src='http://z.irkoo.com/pix.gif' alt='' />
+                <img class='irk-up' src='http://z.irkoo.com/pix.gif' alt='{3}' title='{3}' />
                 </div>"
-                   .FormatWith(MessageID.ToString(), UserID.ToString())
-               : string.Empty;
+                         .FormatWith(
+                             messageID.ToString(),
+                             userID.ToString(),
+                             YafContext.Current.Get<ILocalization>().GetText("IRKOO", "VOTE_DOWN"),
+                             YafContext.Current.Get<ILocalization>().GetText("IRKOO", "VOTE_UP"))
+                   : string.Empty;
     }
 
     #endregion
