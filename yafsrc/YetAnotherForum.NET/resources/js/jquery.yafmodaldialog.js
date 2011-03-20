@@ -66,8 +66,18 @@
 		
 		settings = $.extend( {Dialog: "#MessageBox", ImagePath: "images/"}, settings);
 		
-		var top = getPageScroll()[1] + (getPageHeight() / 10);
+
+        var top = getPageScroll()[1] + (getPageHeight() / 100);
 		var left =  $(window).width() / 2 - 205;
+
+		var cookieScroll = readCookie('ScrollPosition') 
+	
+		if (cookieScroll != null)
+		{
+	      eraseCookie('ScrollPosition');
+		  top = 0;
+		  top = parseInt(cookieScroll) + 100;
+		}
 		
 		var DialogId = settings.Dialog;
 		DialogId = DialogId.replace("#", "");
@@ -94,32 +104,8 @@
 				});
 };
 	
-	// getPageScroll() by quirksmode.com
-  function getPageScroll() {
-    var xScroll, yScroll;
-    if (self.pageYOffset) {
-      yScroll = self.pageYOffset;
-      xScroll = self.pageXOffset;
-    } else if (document.documentElement && document.documentElement.scrollTop) {	 // Explorer 6 Strict
-      yScroll = document.documentElement.scrollTop;
-      xScroll = document.documentElement.scrollLeft;
-    } else if (document.body) {// all other Explorers
-      yScroll = document.body.scrollTop;
-      xScroll = document.body.scrollLeft;
-    }
-    return new Array(xScroll,yScroll)
-  }
-  
-  // Adapted from getPageSize() by quirksmode.com
-  function getPageHeight() {
-    var windowHeight
-    if (self.innerHeight) {	// all except Explorer
-      windowHeight = self.innerHeight;
-    } else if (document.documentElement && document.documentElement.clientHeight) { // Explorer 6 Strict Mode
-      windowHeight = document.documentElement.clientHeight;
-    } else if (document.body) { // other Explorers
-      windowHeight = document.body.clientHeight;
-    }
-    return windowHeight
-  }
+function getPageScroll(){var xScroll,yScroll;if(self.pageYOffset){yScroll=self.pageYOffset;xScroll=self.pageXOffset}else if(document.documentElement&&document.documentElement.scrollTop){yScroll=document.documentElement.scrollTop;xScroll=document.documentElement.scrollLeft}else if(document.body){yScroll=document.body.scrollTop;xScroll=document.body.scrollLeft}return new Array(xScroll,yScroll)}function getPageHeight(){var windowHeight;if(self.innerHeight){windowHeight=self.innerHeight}else if(document.documentElement&&document.documentElement.clientHeight){windowHeight=document.documentElement.clientHeight}else if(document.body){windowHeight=document.body.clientHeight}return windowHeight}
+
 })(jQuery);
+
+function createCookie(name,value){var expires="";document.cookie=name+"="+value+expires+"; path=/"}function readCookie(name){var nameEQ=name+"=";var ca=document.cookie.split(';');for(var i=0;i<ca.length;i++){var c=ca[i];while(c.charAt(0)==' ')c=c.substring(1,c.length);if(c.indexOf(nameEQ)==0)return c.substring(nameEQ.length,c.length)}return null}function eraseCookie(name){createCookie(name,"",-1)}
