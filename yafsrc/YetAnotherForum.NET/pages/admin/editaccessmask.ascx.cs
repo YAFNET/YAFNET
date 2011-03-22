@@ -166,6 +166,9 @@ namespace YAF.Pages.Admin
         this.DownloadAccess.Checked, 
         sortOrder);
 
+      // empty out access table
+      LegacyDb.activeaccess_reset();
+
       // clear cache
       this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
 

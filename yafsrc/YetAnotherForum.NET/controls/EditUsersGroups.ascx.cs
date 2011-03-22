@@ -148,11 +148,16 @@ namespace YAF.Controls
         // save user in role
         LegacyDb.usergroup_save(this.CurrentUserID, roleID, isChecked);
 
+        // empty out access table
+        LegacyDb.activeaccess_reset();
+
         // update roles if this user isn't the guest
           if (UserMembershipHelper.IsGuestUser(this.CurrentUserID))
           {
               continue;
           }
+
+         
 
           // get user's name
           string userName = UserMembershipHelper.GetUserNameFromID(this.CurrentUserID);
