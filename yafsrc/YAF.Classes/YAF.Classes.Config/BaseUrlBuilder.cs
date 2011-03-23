@@ -57,50 +57,48 @@ namespace YAF.Classes
       get
       {
         string baseUrl;
-        // urlKey requires SERVER_NAME in case of systems that use HostNames for seperate sites or in our cases Boards as well as FilePath for multiboards in seperate folders.
-        var urlKey = String.Format("{0}{1}", HttpContext.Current.Request.ServerVariables["SERVER_NAME"], HttpContext.Current.Request.FilePath);
-          
+
         try
         {
-          if (HttpContext.Current != null)
-          {
-              
-            // Lookup the AppRoot based on the current host + path. 
-              baseUrl = _baseUrls[urlKey];
-
-            if (String.IsNullOrEmpty(baseUrl))
+            if (HttpContext.Current != null)
             {
-              // Each different filepath (multiboard) will specify a AppRoot key in their own web.config in their directory.
-              if (!String.IsNullOrEmpty(Config.BaseUrlMask))
-              {
+                // urlKey requires SERVER_NAME in case of systems that use HostNames for seperate sites or in our cases Boards as well as FilePath for multiboards in seperate folders.
+                var urlKey = String.Format(
+                    "{0}{1}",
+                    HttpContext.Current.Request.ServerVariables["SERVER_NAME"],
+                    HttpContext.Current.Request.FilePath);
+
+                // Lookup the AppRoot based on the current host + path. 
+                baseUrl = _baseUrls[urlKey];
+
+                if (String.IsNullOrEmpty(baseUrl))
+                {
+                    // Each different filepath (multiboard) will specify a AppRoot key in their own web.config in their directory.
+                    baseUrl = !String.IsNullOrEmpty(Config.BaseUrlMask)
+                                  ? TreatBaseUrl(Config.BaseUrlMask)
+                                  : GetBaseUrlFromVariables();
+
+                    // save to cache
+                    _baseUrls[urlKey] = baseUrl;
+                }
+            }
+            else
+            {
+                if (String.IsNullOrEmpty(Config.BaseUrlMask))
+                {
+                    throw new BaseUrlMaskRequiredException(
+                      "Since there is no active context, a base url mask is required. Please specify in the AppSettings in your web.config: YAF.BaseUrlMask");
+                }
+
                 baseUrl = TreatBaseUrl(Config.BaseUrlMask);
-              }
-              else
-              {
-                baseUrl = GetBaseUrlFromVariables();
-              }
-
-              // save to cache
-              _baseUrls[urlKey] = baseUrl;
             }
-          }
-          else
-          {
-            if (String.IsNullOrEmpty(Config.BaseUrlMask))
-            {
-              throw new BaseUrlMaskRequiredException(
-                "Since there is no active context, a base url mask is required. Please specify in the AppSettings in your web.config: YAF.BaseUrlMask");
-            }
-
-            baseUrl = TreatBaseUrl(Config.BaseUrlMask);
-          }
         }
         catch (Exception)
         {
-          baseUrl = GetBaseUrlFromVariables();
+            baseUrl = GetBaseUrlFromVariables();
         }
 
-        return baseUrl;
+          return baseUrl;
       }
     }
 
