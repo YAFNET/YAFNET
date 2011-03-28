@@ -40,15 +40,30 @@ namespace YAF.Core.BBCode
   /// </summary>
   public class YafBBCode : IBBCode, IHaveServiceLocator
   {
-    public IServiceLocator ServiceLocator { get; set; }
+      /// <summary>
+      /// Initializes a new instance of the <see cref="YafBBCode"/> class.
+      /// </summary>
+      /// <param name="serviceLocator">
+      /// The service locator.
+      /// </param>
+      /// <param name="processReplaceRulesFactory">
+      /// The process replace rules factory.
+      /// </param>
+      public YafBBCode(IServiceLocator serviceLocator, Func<IEnumerable<bool>, IProcessReplaceRules> processReplaceRulesFactory)
+      {
+          this.ServiceLocator = serviceLocator;
+          this.ProcessReplaceRulesFactory = processReplaceRulesFactory;
+      }
 
-    public Func<IEnumerable<bool>, IProcessReplaceRules> ProcessReplaceRulesFactory { get; set; }
+      /// <summary>
+      /// Gets or sets ServiceLocator.
+      /// </summary>
+      public IServiceLocator ServiceLocator { get; set; }
 
-    public YafBBCode(IServiceLocator serviceLocator, Func<IEnumerable<bool>, IProcessReplaceRules> processReplaceRulesFactory)
-    {
-      ServiceLocator = serviceLocator;
-      ProcessReplaceRulesFactory = processReplaceRulesFactory;
-    }
+      /// <summary>
+      /// Gets or sets ProcessReplaceRulesFactory.
+      /// </summary>
+      public Func<IEnumerable<bool>, IProcessReplaceRules> ProcessReplaceRulesFactory { get; set; }
 
     /* Ederon : 6/16/2007 - conventions */
 
@@ -121,13 +136,13 @@ namespace YAF.Core.BBCode
     /// The _rgx img.
     /// </summary>
     private static readonly Regex _rgxImg = new Regex(
-      @"\[img\](?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>(.+?\.((jpg)|(png)|(gif)|(tif)|(ashx(.*?)))))\[/img\]", _options | RegexOptions.Compiled);
+      @"\[img\](?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>(.+?\.((jpg(.*?))|(png(.*?))|(gif(.*?))|(tif(.*?))|(ashx(.*?))|(php(.*?)))))\[/img\]", _options | RegexOptions.Compiled);
 
        /// <summary>
     /// The _rgx img Title.
     /// </summary>
     private static readonly Regex _rgxImgTitle = new Regex(
-      @"\[img=(?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>(.+?\.((jpg)|(png)|(gif)|(tif)|(ashx(.*?)))))\](?<description>(.*?))\[/img\]", _options | RegexOptions.Compiled);
+      @"\[img=(?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>(.+?\.((jpg(.*?))|(png(.*?))|(gif(.*?))|(tif(.*?))|(ashx(.*?))|(php(.*?)))))\](?<description>(.*?))\[/img\]", _options | RegexOptions.Compiled);
 
     /// <summary>
     /// The _rgx italic.
@@ -503,10 +518,7 @@ namespace YAF.Core.BBCode
                     new[]
                         {
                             "http://"
-                        }));
-
-
-           
+                        }));           
 
             // basic hr and br rules
             var hrRule = new SingleRegexReplaceRule(_rgxHr, "<hr />", _options | RegexOptions.Multiline);
@@ -605,9 +617,6 @@ namespace YAF.Core.BBCode
     /// </param>
     public void CreateHtmlRules(IProcessReplaceRules ruleEngine, bool doFormatting, bool convertBBQuotes)
     {
-        // TODO : handle custom YafBBCode
-        //AddCustomBBCodeRules(ruleEngine);
-
         // e-mails
         ruleEngine.AddRule(
             new VariableRegexReplaceRule(
@@ -831,7 +840,7 @@ namespace YAF.Core.BBCode
     public void RegisterCustomBBCodePageElements(Page currentPage, Type currentType, string editorID)
     {
       var bbCodeTable = YafContext.Current.Get<IDBBroker>().GetCustomBBCode();
-      const string scriptID = "custombbcode";
+      const string ScriptID = "custombbcode";
       var jsScriptBuilder = new StringBuilder();
       var cssBuilder = new StringBuilder();
 
@@ -871,13 +880,13 @@ namespace YAF.Core.BBCode
 
       if (jsScriptBuilder.ToString().Trim().Length > 0)
       {
-        YafContext.Current.PageElements.RegisterJsBlock(currentPage, scriptID + "_script", jsScriptBuilder.ToString());
+        YafContext.Current.PageElements.RegisterJsBlock(currentPage, "{0}_script".FormatWith(ScriptID), jsScriptBuilder.ToString());
       }
 
       if (cssBuilder.ToString().Trim().Length > 0)
       {
         // register the CSS from all custom bbcode...
-        YafContext.Current.PageElements.RegisterCssBlock(scriptID + "_css", cssBuilder.ToString());
+        YafContext.Current.PageElements.RegisterCssBlock("{0}_css".FormatWith(ScriptID), cssBuilder.ToString());
       }
     }
 
