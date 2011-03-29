@@ -16,6 +16,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+using YAF.Classes;
+
 namespace YAF.Controls
 {
   #region Using
@@ -103,9 +105,11 @@ namespace YAF.Controls
     {
       if (this.DataRow != null)
       {
+        bool showLastLinks = true;
         if (this.DataRow["ReadAccess"].ToType<int>() == 0)
         {
           this.TopicInPlaceHolder.Visible = false;
+          showLastLinks = false;
         }
 
         if (this.DataRow["LastPosted"] != DBNull.Value)
@@ -118,8 +122,9 @@ namespace YAF.Controls
           this.topicLink.Text =
             StringExtensions.Truncate(
               this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.DataRow["LastTopicName"].ToString())), 50);
+         
           this.ProfileUserLink.UserID = Convert.ToInt32(this.DataRow["LastUserID"]);
-          this.ProfileUserLink.Style = this.PageContext.BoardSettings.UseStyledNicks
+          this.ProfileUserLink.Style = this.Get<YafBoardSettings>().UseStyledNicks
                                          ? this.Get<IStyleTransform>().DecodeStyleByString(
                                            this.DataRow["Style"].ToString(), false)
                                          : string.Empty;
@@ -129,12 +134,15 @@ namespace YAF.Controls
           }
 
           this.LastTopicImgLink.ToolTip = this.Alt;
+         
           this.LastTopicImgLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-            ForumPages.posts, "m={0}&find=lastpost", this.DataRow["LastMessageID"]);
+                  ForumPages.posts, "m={0}&find=lastpost", this.DataRow["LastMessageID"]);
+        
           this.Icon.ThemeTag = (DateTime.Parse(Convert.ToString(this.DataRow["LastPosted"])) >
-                                this.Get<IYafSession>().GetTopicRead((int)this.DataRow["LastTopicID"]))
-                                 ? "ICON_NEWEST"
-                                 : "ICON_LATEST";
+                                    this.Get<IYafSession>().GetTopicRead((int) this.DataRow["LastTopicID"]))
+                                       ? "ICON_NEWEST"
+                                       : "ICON_LATEST";
+         
           this.Icon.Alt = this.LastTopicImgLink.ToolTip;
 
           ImageLastUnreadMessageLink.Visible = this.PageContext.BoardSettings.ShowLastUnreadPost;
@@ -151,6 +159,8 @@ namespace YAF.Controls
                                                   ? "ICON_NEWEST_UNREAD"
                                                   : "ICON_LATEST_UNREAD";
           }
+
+          this.LastTopicImgLink.Enabled = this.ImageLastUnreadMessageLink.Enabled = showLastLinks;
 
           this.LastPostedHolder.Visible = true;
           this.NoPostsLabel.Visible = false;
