@@ -137,8 +137,10 @@ namespace YAF.Pages
                                     : this.Get<YafBoardSettings>().ForumEditor;
         }
 
+        // Check if Editor exists, if not fallback to default editorid=1
         this.reportEditor =
-            this.Get<IModuleManager<ForumEditor>>().GetBy(editorId);
+           this.Get<IModuleManager<ForumEditor>>().GetBy(editorId, false) ??
+           this.Get<IModuleManager<ForumEditor>>().GetBy("1");
 
       // add editor to the page
       this.EditorLine.Controls.Add(this.reportEditor);

@@ -18,40 +18,56 @@
  */
 namespace YAF.Types.Interfaces
 {
-  #region Using
+    #region Using
 
-  using System.Collections.Generic;
-
-  #endregion
-
-  /// <summary>
-  /// The i module manager.
-  /// </summary>
-  /// <typeparam name="TModule">
-  /// The module type of this module manager.
-  /// </typeparam>
-  public interface IModuleManager<TModule>
-    where TModule : IBaseModule
-  {
-    #region Public Methods
-
-    /// <summary>
-    /// Get an instance of a module (based on it's id).
-    /// </summary>
-    /// <param name="id">
-    /// The id.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    TModule GetBy(string id);
-
-    /// <summary>
-    /// Gets all the instances of the modules.
-    /// </summary>
-    /// <param name="active"></param>
-    /// <returns></returns>
-    IEnumerable<TModule> GetAll(bool getInactive);
+    using System.Collections.Generic;
 
     #endregion
-  }
+
+    /// <summary>
+    /// The i module manager.
+    /// </summary>
+    /// <typeparam name="TModule">
+    /// The module type of this module manager.
+    /// </typeparam>
+    public interface IModuleManager<TModule>
+      where TModule : IBaseModule
+    {
+        #region Public Methods
+
+        /// <summary>
+        /// Get an instance of a module (based on it's id).
+        /// </summary>
+        /// <param name="id">
+        /// The id.
+        /// </param>
+        /// <param name="getInactive">
+        /// The get Inactive.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        TModule GetBy(string id, bool getInactive);
+
+        /// <summary>
+        /// Get an instance of a module (based on it's id).
+        /// </summary>
+        /// <param name="id">
+        /// The id.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        TModule GetBy(string id);
+
+        /// <summary>
+        /// Gets all the instances of the modules.
+        /// </summary>
+        /// <param name="getInactive">
+        /// The get Inactive.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        IEnumerable<TModule> GetAll(bool getInactive);
+
+        #endregion
+    }
 }

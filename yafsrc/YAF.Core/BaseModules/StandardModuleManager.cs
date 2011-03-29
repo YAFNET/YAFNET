@@ -86,14 +86,35 @@ namespace YAF.Core
     /// <param name="id">
     /// The id.
     /// </param>
+    /// <param name="getInactive">
+    /// The get Inactive.
+    /// </param>
     /// <returns>
     /// Instance of TModule or null if not found.
     /// </returns>
-    public TModule GetBy([NotNull] string id)
+    public TModule GetBy([NotNull] string id, bool getInactive)
     {
       CodeContracts.ArgumentNotNull(id, "id");
 
-      return this._modules.Where(e => e.ModuleId.Equals(id)).SingleOrDefault();
+        return !getInactive
+                   ? this._modules.Where(e => e.ModuleId.Equals(id) && e.Active).SingleOrDefault()
+                   : this._modules.Where(e => e.ModuleId.Equals(id)).SingleOrDefault();
+    }
+
+      /// <summary>
+      /// Get an instance of a module (based on it's id).
+      /// </summary>
+      /// <param name="id">
+      /// The id.
+      /// </param>
+      /// <returns>
+      /// Instance of TModule or null if not found.
+      /// </returns>
+      public TModule GetBy([NotNull] string id)
+    {
+        CodeContracts.ArgumentNotNull(id, "id");
+
+        return this._modules.Where(e => e.ModuleId.Equals(id)).SingleOrDefault();
     }
 
     #endregion
