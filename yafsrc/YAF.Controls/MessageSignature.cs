@@ -20,16 +20,12 @@ namespace YAF.Controls
 {
   #region Using
 
-  using System;
-  using System.Web.UI;
-
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Core.Services;
-  using YAF.Utils;
-  using YAF.Utils.Structures;
-  using YAF.Types;
-  using YAF.Types.Constants;
-  using YAF.Types.Flags;
+    using System.Web.UI;
+    using YAF.Core;
+    using YAF.Types;
+    using YAF.Types.Flags;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
 
   #endregion
 
@@ -44,6 +40,11 @@ namespace YAF.Controls
     ///   Gets or sets DisplayUserID.
     /// </summary>
     public int? DisplayUserID { get; set; }
+
+    /// <summary>
+    ///   Gets or sets MessageID.
+    /// </summary>
+    public int? MessageID { get; set; }
 
     /// <summary>
     ///   Gets or sets HtmlPrefix.
@@ -117,7 +118,7 @@ namespace YAF.Controls
 
       string signatureRendered = this.Get<IFormatMessage>().FormatMessage(this.Signature, signatureFlags);
 
-      this.RenderModulesInBBCode(writer, signatureRendered, signatureFlags, this.DisplayUserID);
+      this.RenderModulesInBBCode(writer, signatureRendered, signatureFlags, this.DisplayUserID, this.MessageID);
     }
 
     #endregion

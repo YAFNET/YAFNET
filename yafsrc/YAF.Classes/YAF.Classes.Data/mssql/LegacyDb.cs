@@ -878,6 +878,33 @@ namespace YAF.Classes.Data
 
     #region Forum
 
+    /// <summary>
+    /// Get the list of recently logged in users.
+    /// </summary>
+    /// <param name="boardID">
+    /// The board ID.
+    /// </param>
+    /// <param name="timeSinceLastLogin">
+    /// The time since last login in minutes.
+    /// </param>
+    /// <param name="styledNicks">
+    /// The styled Nicks.
+    /// </param>
+    /// <returns>
+    /// The list of users in Datatable format.
+    /// </returns>
+    public static DataTable recent_users(object boardID, int timeSinceLastLogin, object styledNicks)
+    {
+        using (var cmd = MsSqlDbAccess.GetCommand("recent_users"))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("BoardID", boardID);
+            cmd.Parameters.AddWithValue("TimeSinceLastLogin", timeSinceLastLogin);
+            cmd.Parameters.AddWithValue("StyledNicks", styledNicks);
+            return MsSqlDbAccess.Current.GetData(cmd);
+        }
+    }
+
 
     public static void activeaccess_reset()
     {
@@ -887,6 +914,7 @@ namespace YAF.Classes.Data
             MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
         }
     }
+
       /// <summary>
       /// The pageload.
       /// </summary>
@@ -982,14 +1010,7 @@ namespace YAF.Classes.Data
 
             using (DataTable dt = MsSqlDbAccess.Current.GetData(cmd))
             {
-              if (dt.Rows.Count > 0)
-              {
-                return dt.Rows[0];
-              }
-              else
-              {
-                return null;
-              }
+                return dt.Rows.Count > 0 ? dt.Rows[0] : null;
             }
           }
         }
@@ -4477,6 +4498,35 @@ namespace YAF.Classes.Data
     }
 
     // functions for Thanks feature
+
+    /// <summary>
+    /// Is User Thanked the current Message
+    /// </summary>
+    /// <param name="messageId">
+    /// The message Id.
+    /// </param>
+    /// <param name="userId">
+    /// The user id.
+    /// </param>
+    /// <returns>
+    /// If the User Thanked the the Current Message
+    /// </returns>
+    public static bool user_ThankedMessage(object messageId, object userId)
+    {
+        using (var cmd = MsSqlDbAccess.GetCommand("user_thankedmessage"))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("MessageID", messageId);
+            cmd.Parameters.AddWithValue("UserID", userId);
+
+            cmd.CommandTimeout = int.Parse(Config.SqlCommandTimeout);
+
+            int thankCount = (int)MsSqlDbAccess.Current.ExecuteScalar(cmd);
+
+            return thankCount > 0;
+        }
+    }
 
     // <summary> Return the number of times the message with the provided messageID
     // has been thanked. </summary>

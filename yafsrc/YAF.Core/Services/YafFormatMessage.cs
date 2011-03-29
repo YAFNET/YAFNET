@@ -374,7 +374,12 @@ namespace YAF.Core.Services
             message =
               @"<table class=""{0}"" width=""100%""><tr><td>{1}</td></tr></table>".FormatWith(
                 altItem ? "content postContainer" : "content postContainer_Alt", this.FormatMessage(message, messageFlags, false));
+
             message = message.Replace("<div class=\"innerquote\">", "<blockquote>").Replace("[quote]", "</blockquote>");
+
+            // Remove HIDDEN Text TODO: Check before Remove
+            message = this.RemoveHiddenBBCodeContent(message);
+
             return message;
 
             // <span class=\"quotetitle\">tester1 написал:</span><div class=\"innerquote\">gfhgfhdf</div></div><br />vcxvxcvzcxv</td></tr></tab
@@ -579,6 +584,32 @@ namespace YAF.Core.Services
 
             // remove quotes from old messages
             return quote.Replace(body, string.Empty).TrimStart();
+        }
+
+        /// <summary>
+        /// Removes BBCode Posted Hidden Content
+        /// </summary>
+        /// <param name="body">
+        /// Message body to remove the hidden content from
+        /// </param>
+        /// <returns>
+        /// The Cleaned body.
+        /// </returns>
+        [NotNull]
+        public string RemoveHiddenBBCodeContent([NotNull] string body)
+        {
+            const RegexOptions Options = RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline;
+
+            var hiddenRegex = new Regex(@"\[hidden\](?<inner>(.|\n)*?)\[\/hidden\]", Options);
+
+            Match hiddenTagMatch = hiddenRegex.Match(body);
+
+            if (hiddenTagMatch.Success)
+            {
+                body = hiddenRegex.Replace(body, string.Empty);
+            }
+
+            return body;
         }
 
         /// <summary>

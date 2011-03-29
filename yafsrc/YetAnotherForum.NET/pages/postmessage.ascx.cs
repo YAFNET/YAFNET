@@ -24,6 +24,7 @@ namespace YAF.Pages
 
     using System;
     using System.Data;
+    using System.Text.RegularExpressions;
     using System.Web;
     using System.Web.UI.WebControls;
 
@@ -1163,6 +1164,9 @@ namespace YAF.Pages
 
             // Ensure quoted replies have bad words removed from them
             message = this.Get<IBadWordReplace>().Replace(message);
+
+            // Remove HIDDEN Text
+            message = this.Get<IFormatMessage>().RemoveHiddenBBCodeContent(message);
 
             // Quote the original message
             this._forumEditor.Text =

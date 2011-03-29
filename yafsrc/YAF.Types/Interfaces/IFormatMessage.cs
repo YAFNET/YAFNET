@@ -25,7 +25,10 @@ namespace YAF.Types.Interfaces
   using YAF.Types;
   using YAF.Types.Flags;
 
-  public interface IFormatMessage
+    /// <summary>
+    /// The FormatMessage Interface
+    /// </summary>
+    public interface IFormatMessage
   {
     /// <summary>
     /// The method to detect a forbidden BBCode tag from delimited by 'delim' list 
@@ -110,7 +113,6 @@ namespace YAF.Types.Interfaces
     /// The message to clean.
     /// </param>
     /// <param name="topicId">
-    /// 
     ///   The topic id.
     /// </param>
     /// <returns>
@@ -144,6 +146,18 @@ namespace YAF.Types.Interfaces
     /// </returns>
     [NotNull]
     string RemoveNestedQuotes([NotNull] string body);
+
+    /// <summary>
+    /// Removes BBCode Posted Hidden Content
+    /// </summary>
+    /// <param name="body">
+    /// Message body to remove the hidden content from
+    /// </param>
+    /// <returns>
+    /// The Cleaned body.
+    /// </returns>
+    [NotNull]
+    string RemoveHiddenBBCodeContent([NotNull] string body);
 
     /// <summary>
     /// The repair html.

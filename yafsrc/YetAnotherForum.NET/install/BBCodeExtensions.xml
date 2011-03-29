@@ -121,4 +121,18 @@
     <ModuleClass />
     <ExecOrder>1</ExecOrder>
   </YafBBCode>
+  <YafBBCode>
+    <Name>HIDDEN</Name>
+    <Description>[HIDDEN][localization=HIDEMOD_DESCRIPTION]The tag hides content from people until they press the thank you button for the post.[/localization][/HIDDEN]</Description>
+    <OnClickJS />
+    <DisplayJS />
+    <EditJS />
+    <DisplayCSS>.HiddenGuestBox {border:1px solid #ccc;background-color:white;color:red;padding-top:5px;}.HiddenGuestBox img {float: left; padding: 0 0 5px 5px;}.HiddenGuestBox br {clear:both}</DisplayCSS>
+    <SearchRegex>\[hidden\](?&lt;inner&gt;(.|\n)*?)\[\/hidden\]</SearchRegex>
+    <ReplaceRegex />
+    <Variables />
+    <UseModule>true</UseModule>
+    <ModuleClass>YAF.Modules.BBCode.HideBBCodeModule</ModuleClass>
+    <ExecOrder>60</ExecOrder>
+  </YafBBCode>
 </YafBBCodeList>

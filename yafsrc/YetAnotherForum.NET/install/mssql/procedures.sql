@@ -6,6 +6,10 @@
   Remove Extra Stuff: SET ANSI_NULLS ON\nGO\nSET QUOTED_IDENTIFIER ON\nGO\n\n\n 
 */
 
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifieruser_thankedmessage]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_thankedmessage]
+GO
+
 IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}accessmask_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}accessmask_delete]
 GO
@@ -9344,3 +9348,10 @@ DECLARE @ParsedMessageIDs TABLE
 END
 GO
 
+CREATE procedure [{databaseOwner}].[{objectQualifier}user_thankedmessage]
+(@MessageID int, @UserID int) as
+begin
+		SELECT COUNT(TH.ThanksID)
+        FROM [{databaseOwner}].[{objectQualifier}Thanks] AS TH WHERE (TH.MessageID=@MessageID) AND (TH.ThanksFromUserID = @UserID)
+end
+GO

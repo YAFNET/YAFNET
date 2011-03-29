@@ -20,12 +20,11 @@ namespace YAF.Controls
 {
   #region Using
 
-  using System.Collections.Generic;
-
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Core.Services;
-  using YAF.Types;
-  using YAF.Types.Flags;
+    using System.Collections.Generic;
+    using YAF.Core;
+    using YAF.Types;
+    using YAF.Types.Flags;
+    using YAF.Types.Interfaces;
 
   #endregion
 
@@ -39,12 +38,17 @@ namespace YAF.Controls
     /// <summary>
     ///   The _current message flags.
     /// </summary>
-    protected MessageFlags _currentMessageFlags = null;
+    protected MessageFlags _currentMessageFlags;
 
     /// <summary>
     ///   The _display user id.
     /// </summary>
     protected int? _displayUserId;
+
+    /// <summary>
+    ///   The _message id.
+    /// </summary>
+    protected int? _messageId;
 
     /// <summary>
     ///   The _parameters.
@@ -69,6 +73,22 @@ namespace YAF.Controls
       {
         this._currentMessageFlags = value;
       }
+    }
+
+    /// <summary>
+    ///   Gets or sets MessageID.
+    /// </summary>
+    public int? MessageID
+    {
+        get
+        {
+            return this._messageId;
+        }
+
+        set
+        {
+            this._messageId = value;
+        }
     }
 
     /// <summary>
@@ -121,15 +141,12 @@ namespace YAF.Controls
     /// </returns>
     protected string LocalizedString([NotNull] string tag, [NotNull] string defaultStr)
     {
-      if (this.Get<ILocalization>().GetTextExists("BBCODEMODULE", tag))
-      {
-        return this.GetText("BBCODEMODULE", tag);
-      }
-
-      return defaultStr;
+        return this.Get<ILocalization>().GetTextExists("BBCODEMODULE", tag)
+                   ? this.GetText("BBCODEMODULE", tag)
+                   : defaultStr;
     }
 
-    /// <summary>
+      /// <summary>
     /// The process bb code string.
     /// </summary>
     /// <param name="bbCodeString">

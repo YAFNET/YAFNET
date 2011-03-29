@@ -1489,6 +1489,9 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="TITLE">Avatar</Resource>
   </page>
   <page name="BBCODEMODULE">
+    <Resource tag="HIDDENMOD_DESC">The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post</Resource>
+    <Resource tag="HIDDENMOD_GUEST">This board requires you to be registered and logged-in before you can view hidden messages.</Resource>
+    <Resource tag="HIDEMOD_DESCRIPTION">This tag hides content from people until they press the thank you button for the post.</Resource>
     <Resource tag="SPOILERMOD_DESCRIPTION">"Spoiler"-Text hier eingeben</Resource>
     <Resource tag="SPOILERMOD_HIDE">"Spoiler"-Text verbergen</Resource>
     <Resource tag="SPOILERMOD_SHOW">"Spoiler"-Text anzeigen</Resource>
@@ -3133,7 +3136,7 @@ Der Bestätigungscode lautet
     <Resource tag="SEARCHKEYWORD">Suchbegriff...</Resource>
     <Resource tag="TEAM">Team</Resource>
     <Resource tag="WELCOME_GUEST">Willkommen, Gast!</Resource>
-    <Resource tag="WELCOME_GUEST_FULL">Welcome Guest! To enable all features please </Resource>
+    <Resource tag="WELCOME_GUEST_FULL">Willkommen Gast! Um alle Funktionen zu aktivieren müssen Sie sich </Resource>
     <Resource tag="WELCOME_GUEST_NO">Willkommen Gast! Sie können sich &lt;strong&gt;nicht&lt;/strong&gt; anmelden oder registrieren.</Resource>
   </page>
   <page name="TOPICS">

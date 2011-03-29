@@ -20,15 +20,14 @@ namespace YAF.Controls
 {
   #region Using
 
-  using System;
-  using System.Collections.Generic;
-  using System.Web.UI;
-
-  using YAF.Types.Interfaces;
-  using YAF.Utils;
-  using YAF.Core;
-  using YAF.Types;
-  using YAF.Types.Flags;
+    using System;
+    using System.Collections.Generic;
+    using System.Web.UI;
+    using YAF.Core;
+    using YAF.Types;
+    using YAF.Types.Flags;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
 
   #endregion
 
@@ -48,7 +47,7 @@ namespace YAF.Controls
       {
         if (this.ViewState["DisplayUserID"] != null)
         {
-          return Convert.ToInt32(this.ViewState["DisplayUserID"]);
+          return this.ViewState["DisplayUserID"].ToType<int>();
         }
 
         return null;
@@ -61,7 +60,28 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    ///   Words to highlight in this message
+    ///   Gets or sets MessageID.
+    /// </summary>
+    public virtual int? MessageID
+    {
+        get
+        {
+            if (this.ViewState["MessageID"] != null)
+            {
+                return this.ViewState["MessageID"].ToType<int>();
+            }
+
+            return null;
+        }
+
+        set
+        {
+            this.ViewState["MessageID"] = value;
+        }
+    }
+
+    /// <summary>
+    ///   Gets or sets the Words to highlight in this message
     /// </summary>
     [CanBeNull]
     public virtual IList<string> HighlightWords
@@ -89,15 +109,10 @@ namespace YAF.Controls
     {
       get
       {
-        if (this.ViewState["IsModeratorChanged"] != null)
-        {
-          return Convert.ToBoolean(this.ViewState["IsModeratorChanged"]);
-        }
-
-        return false;
+          return this.ViewState["IsModeratorChanged"] != null && Convert.ToBoolean(this.ViewState["IsModeratorChanged"]);
       }
 
-      set
+        set
       {
         this.ViewState["IsModeratorChanged"] = value;
       }
@@ -110,15 +125,10 @@ namespace YAF.Controls
     {
       get
       {
-        if (this.ViewState["Message"] != null)
-        {
-          return this.ViewState["Message"].ToString();
-        }
-
-        return null;
+          return this.ViewState["Message"] != null ? this.ViewState["Message"].ToString() : null;
       }
 
-      set
+        set
       {
         this.ViewState["Message"] = value;
       }
@@ -152,15 +162,10 @@ namespace YAF.Controls
     {
       get
       {
-        if (this.ViewState["Signature"] != null)
-        {
-          return this.ViewState["Signature"].ToString();
-        }
-
-        return null;
+          return this.ViewState["Signature"] != null ? this.ViewState["Signature"].ToString() : null;
       }
 
-      set
+        set
       {
         this.ViewState["Signature"] = value;
       }
@@ -201,7 +206,11 @@ namespace YAF.Controls
     {
       if (this.Signature.IsSet())
       {
-        var sig = new MessageSignature { Signature = this.Signature, DisplayUserID = this.DisplayUserID };
+          var sig = new MessageSignature
+              {
+                  Signature = this.Signature, DisplayUserID = this.DisplayUserID, MessageID = this.MessageID
+              };
+
         this.Controls.Add(sig);
       }
 
@@ -241,16 +250,10 @@ namespace YAF.Controls
       // if message was deleted then write that instead of real body
       if (this.MessageFlags.IsDeleted)
       {
-        if (this.IsModeratorChanged)
-        {
-          // deleted by mod
-          writer.Write(this.GetText("POSTS", "MESSAGEDELETED_MOD"));
-        }
-        else
-        {
-          // deleted by user
-          writer.Write(this.GetText("POSTS", "MESSAGEDELETED_USER"));
-        }
+          writer.Write(
+              this.IsModeratorChanged
+                  ? this.GetText("POSTS", "MESSAGEDELETED_MOD")
+                  : this.GetText("POSTS", "MESSAGEDELETED_USER"));
       }
     }
 
@@ -276,7 +279,7 @@ namespace YAF.Controls
         string formattedMessage = this.HighlightMessage(this.Get<IFormatMessage>().FormatMessage(this.Message, this.MessageFlags));
 
         // tha_watcha : Since html message and bbcode can be mixed now, message should be always replace bbcode
-        this.RenderModulesInBBCode(writer, formattedMessage, this.MessageFlags, this.DisplayUserID);
+        this.RenderModulesInBBCode(writer, formattedMessage, this.MessageFlags, this.DisplayUserID, this.MessageID);
 
         /*if (this.MessageFlags.IsBBCode)
         {
