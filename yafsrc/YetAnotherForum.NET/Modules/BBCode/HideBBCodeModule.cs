@@ -21,6 +21,7 @@ namespace YAF.Modules.BBCode
 {
     using System.Web.UI;
 
+    using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
@@ -63,6 +64,12 @@ namespace YAF.Modules.BBCode
 
             string shownContent = "<img src=\"{1}\" alt=\"{0}\" title=\"{0}\" />".FormatWith(
                 description, YafForumInfo.GetURLToResource("images/HiddenWarnDescription.png"));
+
+            if (!this.Get<YafBoardSettings>().EnableThanksMod)
+            {
+                writer.Write(hiddenContent);
+                return;
+            }
 
             if (YafContext.Current.IsGuest)
             {

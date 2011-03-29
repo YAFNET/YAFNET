@@ -20,165 +20,173 @@
 
 namespace YAF.Pages
 {
-  // YAF.Pages
-  #region Using
+    // YAF.Pages
+    #region Using
 
-  using System;
-  using System.Data;
-  using System.Linq;
+    using System;
+    using System.Data;
 
-  using YAF.Classes.Data;
-  using YAF.Core;
-  using YAF.Core.Services;
-  using YAF.Types;
-  using YAF.Types.Constants;
-  using YAF.Types.Flags;
-  using YAF.Types.Interfaces;
-  using YAF.Utils;
-
-  #endregion
-
-  /// <summary>
-  /// Summary description for printtopic.
-  /// </summary>
-  public partial class printtopic : ForumPage
-  {
-    #region Constructors and Destructors
-
-    /// <summary>
-    ///   Initializes a new instance of the <see cref = "printtopic" /> class.
-    /// </summary>
-    public printtopic()
-      : base("PRINTTOPIC")
-    {
-    }
+    using YAF.Classes;
+    using YAF.Classes.Data;
+    using YAF.Core;
+    using YAF.Types;
+    using YAF.Types.Constants;
+    using YAF.Types.Flags;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
 
     #endregion
 
-    #region Methods
-
     /// <summary>
-    /// The get print body.
+    /// Summary description for printtopic.
     /// </summary>
-    /// <param name="o">
-    /// The o.
-    /// </param>
-    /// <returns>
-    /// The get print body.
-    /// </returns>
-    protected string GetPrintBody([NotNull] object o)
+    public partial class printtopic : ForumPage
     {
-      var row = (DataRow)o;
+        #region Constructors and Destructors
 
-      string message = row["Message"].ToString();
-
-      message = this.Get<IFormatMessage>().FormatMessage(message, new MessageFlags(Convert.ToInt32(row["Flags"])));
-
-      return message;
-    }
-
-    /// <summary>
-    /// The get print header.
-    /// </summary>
-    /// <param name="o">
-    /// The o.
-    /// </param>
-    /// <returns>
-    /// The get print header.
-    /// </returns>
-    protected string GetPrintHeader([NotNull] object o) 
-    { var row = (DataRow)o; 
-      string displayName = this.PageContext.Get<IUserDisplayName>().GetName((int)row["UserID"]);
-      return "<strong>{2}: {0}</strong> - {1}".FormatWith(displayName.IsNotSet() ? row["UserName"] : displayName, this.Get<IDateTime>().FormatDateTime((DateTime)row["Posted"]), this.GetText("postedby"));
-    }
-    /// <summary>
-    /// The on init.
-    /// </summary>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected override void OnInit([NotNull] EventArgs e)
-    {
-      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-      InitializeComponent();
-      base.OnInit(e);
-    }
-
-    /// <summary>
-    /// The page_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      if (this.Request.QueryString.GetFirstOrDefault("t") == null || !this.PageContext.ForumReadAccess)
-      {
-        YafBuildLink.AccessDenied();
-      }
-
-      this.ShowToolBar = false;
-
-      if (!this.IsPostBack)
-      {
-        if (this.PageContext.Settings.LockedForum == 0)
+        /// <summary>
+        ///   Initializes a new instance of the <see cref = "printtopic" /> class.
+        /// </summary>
+        public printtopic()
+            : base("PRINTTOPIC")
         {
-          this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-          this.PageLinks.AddLink(
-            this.PageContext.PageCategoryName, 
-            YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
         }
 
-        this.PageLinks.AddForumLinks(this.PageContext.PageForumID);
-        this.PageLinks.AddLink(
-          this.PageContext.PageTopicName, YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.PageContext.PageTopicID));
-        bool showDeleted = false;
-        int userId = 0;
-        if (this.PageContext.BoardSettings.ShowDeletedMessagesToAll)
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// The get print body.
+        /// </summary>
+        /// <param name="o">
+        /// The o.
+        /// </param>
+        /// <returns>
+        /// The get print body.
+        /// </returns>
+        protected string GetPrintBody([NotNull] object o)
         {
-            showDeleted = true;
+            var row = (DataRow)o;
+
+            string message = row["Message"].ToString();
+
+            message = this.Get<IFormatMessage>().FormatMessage(message, new MessageFlags(row["Flags"].ToType<int>()));
+
+            // Remove HIDDEN Text
+            message = this.Get<IFormatMessage>().RemoveHiddenBBCodeContent(message);
+
+            return message;
         }
-        if (!showDeleted && ((this.PageContext.BoardSettings.ShowDeletedMessages &&
-                           !this.PageContext.BoardSettings.ShowDeletedMessagesToAll)
-            || this.PageContext.IsAdmin ||
-                           this.PageContext.IsForumModerator))
+
+        /// <summary>
+        /// The get print header.
+        /// </summary>
+        /// <param name="o">
+        /// The o.
+        /// </param>
+        /// <returns>
+        /// The get print header.
+        /// </returns>
+        protected string GetPrintHeader([NotNull] object o)
         {
-            userId = this.PageContext.PageUserID;
+            var row = (DataRow)o;
+            string displayName = this.PageContext.Get<IUserDisplayName>().GetName((int)row["UserID"]);
+            return "<strong>{2}: {0}</strong> - {1}".FormatWith(displayName.IsNotSet() ? row["UserName"] : displayName, this.Get<IDateTime>().FormatDateTime((DateTime)row["Posted"]), this.GetText("postedby"));
         }
-          var dt = LegacyDb.post_list(this.PageContext.PageTopicID,
-              userId,
-              1,
-              showDeleted, 
-              false, 
-              DateTime.MinValue.AddYears(1901),
-              DateTime.UtcNow,
-              DateTime.MinValue.AddYears(1901),
-              DateTime.UtcNow,
-              0, 
-              500, 
-              2, 
-              0, 
-              0, 
-              false,
-              -1);
 
-        this.Posts.DataSource = dt.AsEnumerable(); 
+        /// <summary>
+        /// The on init.
+        /// </summary>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected override void OnInit([NotNull] EventArgs e)
+        {
+            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
+            this.InitializeComponent();
+            base.OnInit(e);
+        }
 
-        this.DataBind();
-      }
+        /// <summary>
+        /// The page_ load.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            if (this.Request.QueryString.GetFirstOrDefault("t") == null || !this.PageContext.ForumReadAccess)
+            {
+                YafBuildLink.AccessDenied();
+            }
+
+            this.ShowToolBar = false;
+
+            if (this.IsPostBack)
+            {
+                return;
+            }
+
+            if (this.PageContext.Settings.LockedForum == 0)
+            {
+                this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+                this.PageLinks.AddLink(
+                    this.PageContext.PageCategoryName,
+                    YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
+            }
+
+            this.PageLinks.AddForumLinks(this.PageContext.PageForumID);
+            this.PageLinks.AddLink(
+                this.PageContext.PageTopicName, YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.PageContext.PageTopicID));
+            bool showDeleted = false;
+            int userId = 0;
+            if (this.Get<YafBoardSettings>().ShowDeletedMessagesToAll)
+            {
+                showDeleted = true;
+            }
+            if (!showDeleted && ((this.Get<YafBoardSettings>().ShowDeletedMessages &&
+                                  !this.Get<YafBoardSettings>().ShowDeletedMessagesToAll)
+                                 || this.PageContext.IsAdmin ||
+                                 this.PageContext.IsForumModerator))
+            {
+                userId = this.PageContext.PageUserID;
+            }
+
+            var dt = LegacyDb.post_list(
+                this.PageContext.PageTopicID,
+                userId,
+                1,
+                showDeleted,
+                false,
+                DateTime.MinValue.AddYears(1901),
+                DateTime.UtcNow,
+                DateTime.MinValue.AddYears(1901),
+                DateTime.UtcNow,
+                0,
+                500,
+                2,
+                0,
+                0,
+                false,
+                -1);
+
+            this.Posts.DataSource = dt.AsEnumerable();
+
+            this.DataBind();
+        }
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        ///   the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+        }
+
+        #endregion
     }
-
-    /// <summary>
-    /// Required method for Designer support - do not modify
-    ///   the contents of this method with the code editor.
-    /// </summary>
-    private void InitializeComponent()
-    {
-    }
-
-    #endregion
-  }
 }
