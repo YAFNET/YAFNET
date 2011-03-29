@@ -2251,6 +2251,8 @@
     <Content Include="themes\BlackGrey\male.gif" />
     <Content Include="themes\BlackGrey\mask.gif" />
     <Content Include="themes\BlackGrey\multipages_small.gif" />
+    <Content Include="themes\BlackGrey\pm_new.png" />
+    <Content Include="themes\BlackGrey\pm_read.png" />
     <Content Include="themes\BlackGrey\poll_choice.png" />
     <Content Include="themes\BlackGrey\poll_question.png" />
     <Content Include="themes\BlackGrey\PostHeader.png" />
@@ -2335,6 +2337,8 @@
     <Content Include="themes\BlueGrey\male.gif" />
     <Content Include="themes\BlueGrey\mask.gif" />
     <Content Include="themes\BlueGrey\multipages_small.gif" />
+    <Content Include="themes\BlueGrey\pm_new.png" />
+    <Content Include="themes\BlueGrey\pm_read.png" />
     <Content Include="themes\BlueGrey\poll_choice.png" />
     <Content Include="themes\BlueGrey\poll_question.png" />
     <Content Include="themes\BlueGrey\PostHeader.png" />
@@ -2500,6 +2504,8 @@
     <Content Include="themes\GreenGrey\male.gif" />
     <Content Include="themes\GreenGrey\mask.gif" />
     <Content Include="themes\GreenGrey\multipages_small.gif" />
+    <Content Include="themes\GreenGrey\pm_new.png" />
+    <Content Include="themes\GreenGrey\pm_read.png" />
     <Content Include="themes\GreenGrey\poll_choice.png" />
     <Content Include="themes\GreenGrey\poll_question.png" />
     <Content Include="themes\GreenGrey\PostHeader.png" />
@@ -2583,6 +2589,8 @@
     <Content Include="themes\GreyGrey\male.gif" />
     <Content Include="themes\GreyGrey\mask.gif" />
     <Content Include="themes\GreyGrey\multipages_small.gif" />
+    <Content Include="themes\GreyGrey\pm_new.png" />
+    <Content Include="themes\GreyGrey\pm_read.png" />
     <Content Include="themes\GreyGrey\poll_choice.png" />
     <Content Include="themes\GreyGrey\poll_question.png" />
     <Content Include="themes\GreyGrey\PostHeader.png" />
@@ -2666,6 +2674,8 @@
     <Content Include="themes\OrangeGrey\male.gif" />
     <Content Include="themes\OrangeGrey\mask.gif" />
     <Content Include="themes\OrangeGrey\multipages_small.gif" />
+    <Content Include="themes\OrangeGrey\pm_new.png" />
+    <Content Include="themes\OrangeGrey\pm_read.png" />
     <Content Include="themes\OrangeGrey\poll_choice.png" />
     <Content Include="themes\OrangeGrey\poll_question.png" />
     <Content Include="themes\OrangeGrey\PostHeader.png" />
@@ -2750,6 +2760,8 @@
     <Content Include="themes\RedGrey\male.gif" />
     <Content Include="themes\RedGrey\mask.gif" />
     <Content Include="themes\RedGrey\multipages_small.gif" />
+    <Content Include="themes\RedGrey\pm_new.png" />
+    <Content Include="themes\RedGrey\pm_read.png" />
     <Content Include="themes\RedGrey\poll_choice.png" />
     <Content Include="themes\RedGrey\poll_question.png" />
     <Content Include="themes\RedGrey\PostHeader.png" />
