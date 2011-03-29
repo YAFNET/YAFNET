@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -32,6 +32,7 @@ namespace YAF.Controls
   using System.Web.UI.WebControls;
   using System.Xml;
 
+  using YAF.Classes;
   using YAF.Classes.Data;
   using YAF.Core;
   using YAF.Types;
@@ -140,13 +141,12 @@ namespace YAF.Controls
       }
 
       long archivedCount = 0;
-      foreach (GridViewRow item in this.MessagesView.Rows)
+
+      foreach (GridViewRow item in
+          this.MessagesView.Rows.Cast<GridViewRow>().Where(item => ((CheckBox)item.FindControl("ItemCheck")).Checked))
       {
-        if (((CheckBox)item.FindControl("ItemCheck")).Checked)
-        {
           LegacyDb.pmessage_archive(this.MessagesView.DataKeys[item.RowIndex].Value);
           archivedCount++;
-        }
       }
 
       this.BindData();
@@ -437,7 +437,7 @@ namespace YAF.Controls
     protected string GetImage([NotNull] object o)
     {
       return this.Get<ITheme>().GetItem(
-        "ICONS", SqlDataLayerConverter.VerifyBool(((DataRowView)o)["IsRead"]) ? "TOPIC" : "TOPIC_NEW");
+        "ICONS", SqlDataLayerConverter.VerifyBool(((DataRowView)o)["IsRead"]) ? "PM_READ" : "PM_NEW");
     }
 
     /// <summary>
@@ -513,9 +513,9 @@ namespace YAF.Controls
       [NotNull] object _limit)
     {
       object _percentage = 0;
-      if (Convert.ToInt32(_limit) != 0)
+      if (_limit.ToType<int>() != 0)
       {
-        _percentage = decimal.Round((Convert.ToDecimal(_total) / Convert.ToDecimal(_limit)) * 100, 2);
+        _percentage = decimal.Round((_total.ToType<decimal>() / _limit.ToType<decimal>()) * 100, 2);
       }
 
       if (YafContext.Current.IsAdmin)
@@ -566,16 +566,17 @@ namespace YAF.Controls
 
       using (DataView dv = LegacyDb.pmessage_list(this.PageContext.PageUserID, null, null).DefaultView)
       {
-        if (this.View == PMView.Inbox)
-        {
-          dv.RowFilter = "IsRead = False AND IsDeleted = False AND IsArchived = False";
-        }
-        else if (this.View == PMView.Archive)
-        {
-          dv.RowFilter = "IsRead = False AND IsArchived = True";
-        }
+          switch (this.View)
+          {
+              case PMView.Inbox:
+                  dv.RowFilter = "IsRead = False AND IsDeleted = False AND IsArchived = False";
+                  break;
+              case PMView.Archive:
+                  dv.RowFilter = "IsRead = False AND IsArchived = True";
+                  break;
+          }
 
-        foreach (DataRowView item in dv)
+          foreach (DataRowView item in dv)
         {
           LegacyDb.pmessage_markread(item["UserPMessageID"]);
 
@@ -584,7 +585,7 @@ namespace YAF.Controls
         }
       }
 
-      this.BindData();
+        this.BindData();
     }
 
     /// <summary>
@@ -598,49 +599,56 @@ namespace YAF.Controls
     /// </param>
     protected void MessagesView_RowCreated([NotNull] object sender, [NotNull] GridViewRowEventArgs e)
     {
-      if (e.Row.RowType == DataControlRowType.Header)
-      {
-        var oGridView = (GridView)sender;
-        var oGridViewRow = new GridViewRow(0, 0, DataControlRowType.Header, DataControlRowState.Insert);
-
-        var oTableCell = new TableCell { Text = this.GetTitle(), CssClass = "header1", ColumnSpan = 5 };
-
-        // Add Header to top with column span of 5... no need for two tables.
-        oGridViewRow.Cells.Add(oTableCell);
-        oGridView.Controls[0].Controls.AddAt(0, oGridViewRow);
-
-        var SortFrom = (Image)e.Row.FindControl("SortFrom");
-        var SortSubject = (Image)e.Row.FindControl("SortSubject");
-        var SortDate = (Image)e.Row.FindControl("SortDate");
-
-        SortFrom.Visible = (this.View == PMView.Outbox)
-                             ? (string)this.ViewState["SortField"] == "ToUser"
-                             : (string)this.ViewState["SortField"] == "FromUser";
-        SortFrom.ImageUrl = this.Get<ITheme>().GetItem(
-          "SORT", (bool)this.ViewState["SortAsc"] ? "ASCENDING" : "DESCENDING");
-
-        SortSubject.Visible = (string)this.ViewState["SortField"] == "Subject";
-        SortSubject.ImageUrl = this.Get<ITheme>().GetItem(
-          "SORT", (bool)this.ViewState["SortAsc"] ? "ASCENDING" : "DESCENDING");
-
-        SortDate.Visible = (string)this.ViewState["SortField"] == "Created";
-        SortDate.ImageUrl = this.Get<ITheme>().GetItem(
-          "SORT", (bool)this.ViewState["SortAsc"] ? "ASCENDING" : "DESCENDING");
-      }
-      else if (e.Row.RowType == DataControlRowType.Footer)
-      {
-        int rolCount = e.Row.Cells.Count;
-
-        for (int i = rolCount - 1; i >= 1; i--)
+        switch (e.Row.RowType)
         {
-          e.Row.Cells.RemoveAt(i);
-        }
+            case DataControlRowType.Header:
+                {
+                    var oGridView = (GridView)sender;
+                    var oGridViewRow = new GridViewRow(0, 0, DataControlRowType.Header, DataControlRowState.Insert);
 
-        e.Row.Cells[0].ColumnSpan = rolCount;
-      }
+                    var oTableCell = new TableCell { Text = this.GetTitle(), CssClass = "header1", ColumnSpan = 5 };
+
+                    // Add Header to top with column span of 5... no need for two tables.
+                    oGridViewRow.Cells.Add(oTableCell);
+                    oGridView.Controls[0].Controls.AddAt(0, oGridViewRow);
+
+                    var sortFrom = (Image)e.Row.FindControl("SortFrom");
+                    var sortSubject = (Image)e.Row.FindControl("SortSubject");
+                    var sortDate = (Image)e.Row.FindControl("SortDate");
+
+                    sortFrom.Visible = (this.View == PMView.Outbox)
+                                           ? (string)this.ViewState["SortField"] == "ToUser"
+                                           : (string)this.ViewState["SortField"] == "FromUser";
+                    sortFrom.ImageUrl = this.Get<ITheme>().GetItem(
+                        "SORT", (bool)this.ViewState["SortAsc"] ? "ASCENDING" : "DESCENDING");
+
+                    sortSubject.Visible = (string)this.ViewState["SortField"] == "Subject";
+                    sortSubject.ImageUrl = this.Get<ITheme>().GetItem(
+                        "SORT", (bool)this.ViewState["SortAsc"] ? "ASCENDING" : "DESCENDING");
+
+                    sortDate.Visible = (string)this.ViewState["SortField"] == "Created";
+                    sortDate.ImageUrl = this.Get<ITheme>().GetItem(
+                        "SORT", (bool)this.ViewState["SortAsc"] ? "ASCENDING" : "DESCENDING");
+                }
+
+                break;
+            case DataControlRowType.Footer:
+                {
+                    int rolCount = e.Row.Cells.Count;
+
+                    for (int i = rolCount - 1; i >= 1; i--)
+                    {
+                        e.Row.Cells.RemoveAt(i);
+                    }
+
+                    e.Row.Cells[0].ColumnSpan = rolCount;
+                }
+
+                break;
+        }
     }
 
-    /// <summary>
+      /// <summary>
     /// The page_ load.
     /// </summary>
     /// <param name="sender">
@@ -870,7 +878,7 @@ namespace YAF.Controls
 
       var sw = new StreamWriter(HttpContext.Current.Response.OutputStream);
 
-      sw.Write("{0};{1}".FormatWith(YafContext.Current.BoardSettings.Name, YafForumInfo.ForumURL));
+      sw.Write("{0};{1}".FormatWith(this.Get<YafBoardSettings>().Name, YafForumInfo.ForumURL));
       sw.Write(sw.NewLine);
       sw.Write("Private Message Dump for User {0}; {1}".FormatWith(this.PageContext.PageUserName, DateTime.Now));
       sw.Write(sw.NewLine);
@@ -923,7 +931,7 @@ namespace YAF.Controls
 
       messageList.Table.DataSet.DataSetName = "PrivateMessages";
 
-      xw.WriteComment(" {0};{1} ".FormatWith(YafContext.Current.BoardSettings.Name, YafForumInfo.ForumURL));
+      xw.WriteComment(" {0};{1} ".FormatWith(this.Get<YafBoardSettings>().Name, YafForumInfo.ForumURL));
       xw.WriteComment(
         " Private Message Dump for User {0}; {1} ".FormatWith(this.PageContext.PageUserName, DateTime.Now));
 

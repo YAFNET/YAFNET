@@ -57,6 +57,8 @@
 	  <Resource tag="FACEBOOK">~/icon_facebook.png</Resource>
 	  <Resource tag="BUZZ">~/icon_buzz.png</Resource>
 	  <Resource tag="PRINT">~/icon_print.png</Resource>
+	  <Resource tag="PM_READ">~/pm_read.png</Resource>
+	  <Resource tag="PM_NEW">~/pm_new.png</Resource>
   </page>
   <page name="SORT">
 	<Resource tag="ASCENDING">~/sort_up.gif</Resource>
