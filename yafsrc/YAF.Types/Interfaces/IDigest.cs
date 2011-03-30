@@ -54,6 +54,23 @@ namespace YAF.Types.Interfaces
     string GetDigestUrl(int userId, int boardId);
 
     /// <summary>
+    /// The get digest url.
+    /// </summary>
+    /// <param name="userId">
+    /// The user id.
+    /// </param>
+    /// <param name="boardId">
+    /// The board id.
+    /// </param>
+    /// <param name="showErrors">
+    /// Show digest generation errors 
+    /// </param>
+    /// <returns>
+    /// The get digest url.
+    /// </returns>
+    string GetDigestUrl(int userId, int boardId, bool showErrors);
+
+    /// <summary>
     /// Sends the digest html to the email/name specified.
     /// </summary>
     /// <param name="digestHtml">
