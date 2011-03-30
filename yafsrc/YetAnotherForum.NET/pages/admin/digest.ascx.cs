@@ -75,7 +75,7 @@ namespace YAF.Pages.Admin
     {
       this.DigestHtmlPlaceHolder.Visible = true;
       this.DigestFrame.Attributes["src"] = this.Get<IDigest>().GetDigestUrl(
-        this.PageContext.PageUserID, this.PageContext.PageBoardID);
+        this.PageContext.PageUserID, this.PageContext.PageBoardID, true);
     }
 
     /// <summary>
