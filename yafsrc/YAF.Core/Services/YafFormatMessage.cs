@@ -377,8 +377,10 @@ namespace YAF.Core.Services
 
             message = message.Replace("<div class=\"innerquote\">", "<blockquote>").Replace("[quote]", "</blockquote>");
 
-            // Remove HIDDEN Text TODO: Check before Remove
+            // Remove HIDDEN Text
             message = this.RemoveHiddenBBCodeContent(message);
+
+            message = this.RemoveCustomBBCodes(message);
 
             return message;
 
@@ -607,6 +609,32 @@ namespace YAF.Core.Services
             if (hiddenTagMatch.Success)
             {
                 body = hiddenRegex.Replace(body, string.Empty);
+            }
+
+            return body;
+        }
+
+        /// <summary>
+        /// Removes Custom BBCodes
+        /// </summary>
+        /// <param name="body">
+        /// Message body to remove the hidden content from
+        /// </param>
+        /// <returns>
+        /// The Cleaned body.
+        /// </returns>
+        [NotNull]
+        public string RemoveCustomBBCodes([NotNull] string body)
+        {
+            const RegexOptions Options = RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline;
+
+            var spoilerRegex = new Regex(@"\[SPOILER\](?<inner>(.|\n)*?)\[\/SPOILER\]", Options);
+
+            Match spoilerTagMatch = spoilerRegex.Match(body);
+
+            if (spoilerTagMatch.Success)
+            {
+                body = spoilerTagMatch.Groups["inner"].Value;
             }
 
             return body;
