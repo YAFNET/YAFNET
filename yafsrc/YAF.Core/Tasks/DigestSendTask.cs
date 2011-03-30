@@ -227,7 +227,7 @@ namespace YAF.Core
           }
 
           // send the digest...
-          this.Get<YafDigest>().SendDigest(digestHtml, forumName, membershipUser.Email, user.DisplayName, true);
+          this.Get<IDigest>().SendDigest(digestHtml, forumName, membershipUser.Email, user.DisplayName, true);
         }
       }
     }
