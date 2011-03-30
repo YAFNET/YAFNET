@@ -1075,6 +1075,8 @@
       <Resource tag="REPORTED">Reported Posts</Resource>
       <Resource tag="TITLE">Moderate</Resource>
       <Resource tag="UNAPPROVED">Unapproved Posts</Resource>
+	  <Resource tag="SPAM_REPORTED">Message was successfully reported as SPAM to the Akismet SPAM Service</Resource>
+	  <Resource tag="SPAM_REPORTED_FAILED">SPAM Reporting has been failded. Please Check your API Key!</Resource>
    </page>
    <page name="MODERATE_FORUM">
       <Resource tag="APPROVE">Approve Post</Resource>
@@ -3206,8 +3208,10 @@ Visit {forumname} at {forumlink}
        <Resource tag="TWITTER_USERNAME_HELP">Twitter Username that is mentioned when Retweeting a Topic or Message.</Resource>
 	   <Resource tag="ENABLE_RETWEET_MSG">Enable Retweet Message Button:</Resource>
        <Resource tag="ENABLE_RETWEET_MSG_HELP">Enables/disables the Retweet Button, where the User can retweet a topic message.</Resource>
-     <Resource tag="CHECK_FOR_SPAM">Automatically Check Postings for SPAM:</Resource>
-     <Resource tag="CHECK_FOR_SPAM_HELP">Enables/disables automatically SPAM Checking via the &lt;a href=&quot;http://blogspam.net/&quot;&gt;BlogSpam.net API&lt;/a&gt;, SPAM Post gets rejected if detected.</Resource>
+     <Resource tag="CHECK_FOR_SPAM">Choose a SPAM Service for Automatically SPAM Checking:</Resource>
+     <Resource tag="CHECK_FOR_SPAM_HELP">Enables/disables automatically SPAM Checking via the &lt;a href=&quot;http://blogspam.net/&quot;&gt;BlogSpam.net API&lt;/a&gt; or Akismet.com. If enabled SPAM Post gets rejected if detected.</Resource>
+	 <Resource tag="AKISMET_KEY">Akismet API Key:</Resource>
+     <Resource tag="AKISMET_KEY_HELP">To Use the Akismet comment SPAM Service you need an API Key &lt;a href=&quot;https://akismet.com/signup/&quot;&gt;Sign Up here&lt;a&gt;</Resource>
    </page>
 	  <page name="ADMIN_TEST_DATA">
 	   <Resource tag="TITLE">Create Test Data (DEBUG Only)</Resource>

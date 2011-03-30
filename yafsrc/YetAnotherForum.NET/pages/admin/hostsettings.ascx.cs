@@ -239,9 +239,13 @@ namespace YAF.Pages.Admin
           ddl.Items.AddRange(localizations.Select((t, i) => new ListItem(this.GetText("ADMIN_HOSTSETTINGS", t), i.ToString())).ToArray());
         }
 
-        CaptchaTypeRegister.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "DISABLED"), "0"));
+        CaptchaTypeRegister.Items.Add(new ListItem(this.GetText("ADMIN_COMMON", "DISABLED"), "0"));
           CaptchaTypeRegister.Items.Add(new ListItem("YafCaptcha", "1"));
           CaptchaTypeRegister.Items.Add(new ListItem("ReCaptcha", "2"));
+
+          SpamServiceType.Items.Add(new ListItem(this.GetText("ADMIN_COMMON", "DISABLED"), "0"));
+          SpamServiceType.Items.Add(new ListItem("BlogSpam.NET API", "1"));
+          SpamServiceType.Items.Add(new ListItem("Akismet API (Needs Registration)", "2"));
       }
 
       /// <summary>
@@ -408,7 +412,7 @@ namespace YAF.Pages.Admin
     /// </summary>
     private void BindData()
     {
-      this.ForumEditor.DataSource = this.PageContext.EditorModuleManager.ActiveAsDataTable("Editors");
+      this.ForumEditor.DataSource = this.Get<IModuleManager<ForumEditor>>().ActiveAsDataTable("Editors");
 
       // TODO: vzrus: UseFullTextSearch check box is data layer specific and can be hidden by YAF.Classes.Data.LegacyDb.FullTextSupported  property.)
       this.DataBind();

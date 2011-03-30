@@ -159,7 +159,16 @@
                             <YAF:HelpLabel ID="HelpLabel185" runat="server" LocalizedTag="CHECK_FOR_SPAM" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
-                            <asp:CheckBox ID="CheckForSpamContent" runat="server"></asp:CheckBox>
+                            <asp:DropDownList Style="width:350px" ID="SpamServiceType" runat="server">
+                            </asp:DropDownList>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel186" runat="server" LocalizedTag="AKISMET_KEY" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:TextBox ID="AkismetApiKey" Style="width:350px" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>

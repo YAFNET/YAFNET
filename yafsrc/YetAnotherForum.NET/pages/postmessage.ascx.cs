@@ -24,13 +24,14 @@ namespace YAF.Pages
 
     using System;
     using System.Data;
-    using System.Text.RegularExpressions;
+    using System.Net;
     using System.Web;
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Services;
     using YAF.Core.Services.CheckForSpam;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -726,7 +727,7 @@ namespace YAF.Pages
             if (this.IsPostSpam())
             {
                 // TODO: Handle what to do with the SPAM Users
-                //this.PageContext.AddLoadMessage("SPAM Is not allowed");
+                this.PageContext.AddLoadMessage("SPAM Is not allowed");
                 return;
             }
 
@@ -870,7 +871,7 @@ namespace YAF.Pages
         /// </returns>
         private bool IsPostSpam()
         {
-            if (!this.Get<YafBoardSettings>().CheckForSpamContent)
+            if (this.Get<YafBoardSettings>().SpamServiceType.Equals(0))
             {
                 return false;
             }
@@ -889,11 +890,14 @@ namespace YAF.Pages
                 whiteList = "whitelist=127.0.0.1";
             }
 
-            try
+            // Use BlogSpam.NET API
+            if (this.Get<YafBoardSettings>().SpamServiceType.Equals(1))
             {
-                return
-                    BlogSpamNet.CommentIsSpam(
-                        new BlogSpamComment
+                try
+                {
+                    return
+                        BlogSpamNet.CommentIsSpam(
+                            new BlogSpamComment
                             {
                                 comment = this._forumEditor.Text,
                                 ip = ipAdress,
@@ -904,12 +908,37 @@ namespace YAF.Pages
                                 options = whiteList,
                                 subject = this.TopicSubjectTextBox.Text
                             },
-                        true);
+                            true);
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
             }
-            catch (Exception)
+
+            // Use Akismet API
+            if (this.Get<YafBoardSettings>().SpamServiceType.Equals(2) && !string.IsNullOrEmpty(this.Get<YafBoardSettings>().AkismetApiKey))
             {
-                return false;
+                try
+                {
+                    var service = new AkismetSpamClient(this.Get<YafBoardSettings>().AkismetApiKey, new Uri(BaseUrlBuilder.BaseUrl));
+
+                    return
+                        service.CheckCommentForSpam(
+                            new Comment(IPAddress.Parse(ipAdress), this.Get<HttpRequestBase>().UserAgent)
+                                {
+                                    Content = this._forumEditor.Text,
+                                    Author = this.User == null ? this.User.UserName : this.From.Text,
+                                    AuthorEmail = this.User == null ? this.User.Email : null
+                                });
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
             }
+
+            return false;
         }
 
         /// <summary>

@@ -758,6 +758,8 @@
     <Resource tag="ACTIVE_USERTIME_HELP">Число минут для отображения пользователей в списке активных.</Resource>
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS">Доступ к ленте Активных тем:</Resource>
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS_HELP">Ограничить/запретить показ лент активных тем.</Resource>
+    <Resource tag="AKISMET_KEY">Akismet API Key:</Resource>
+    <Resource tag="AKISMET_KEY_HELP">To Use the Akismet comment SPAM Service you need an API Key &lt;a href="https://akismet.com/signup/"&gt;Sign Up here&lt;a&gt;</Resource>
     <Resource tag="ALBUMS_PER_PAGE">Кол-во альбомов на странице:</Resource>
     <Resource tag="ALBUMS_PER_PAGE_HELP">Кол-во альбомов отображаемых на одной странице.</Resource>
     <Resource tag="ALL_USERS">Все пользователи</Resource>
@@ -829,8 +831,8 @@
     <Resource tag="CAPTCHA_SIZE_HELP">Длина(символы) генерируемой случайной строки CAPTCHA.</Resource>
     <Resource tag="CAT_CACHE_TIMEOUT">Таймаут кэша для категорий конференции:</Resource>
     <Resource tag="CAT_CACHE_TIMEOUT_HELP">В минутах</Resource>
-    <Resource tag="CHECK_FOR_SPAM">Automatically Check Postings for SPAM:</Resource>
-    <Resource tag="CHECK_FOR_SPAM_HELP">Enables/disables automatically SPAM Checking via the &lt;a href="http://blogspam.net/"&gt;BlogSpam.net API&lt;/a&gt;, SPAM Post gets rejected if detected.</Resource>
+    <Resource tag="CHECK_FOR_SPAM">Choose a SPAM Service for Automatically SPAM Checking:</Resource>
+    <Resource tag="CHECK_FOR_SPAM_HELP">Enables/disables automatically SPAM Checking via the &lt;a href="http://blogspam.net/"&gt;BlogSpam.net API&lt;/a&gt; or Akismet.com. If enabled SPAM Post gets rejected if detected.</Resource>
     <Resource tag="CLEAR_CACHE">Очистить кэш</Resource>
     <Resource tag="CREATE_NNTPNAMES">Создавать имена пользователей NNTP:</Resource>
     <Resource tag="CREATE_NNTPNAMES_HELP">Включите, чтобы пользователи добавлялись из сообщений usenet. Включайте это только в тестовых случаях и &lt;em&gt;НИКОГДА&lt;/em&gt; на работающем сервере. Главная цель этой опции - тестирование производительности.</Resource>
@@ -2465,6 +2467,8 @@
     <Resource tag="CATEGORY">Категория</Resource>
     <Resource tag="FORUM">Форум</Resource>
     <Resource tag="REPORTED">Сообщено как нарушение</Resource>
+    <Resource tag="SPAM_REPORTED">Message was successfully reported as SPAM to the Akismet SPAM Service</Resource>
+    <Resource tag="SPAM_REPORTED_FAILED">SPAM Reporting has been failded. Please Check your API Key!</Resource>
     <Resource tag="TITLE">Модерировать</Resource>
     <Resource tag="UNAPPROVED">Неодобренные сообщения</Resource>
   </page>

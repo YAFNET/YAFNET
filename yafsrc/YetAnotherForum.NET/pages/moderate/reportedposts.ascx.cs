@@ -253,9 +253,7 @@ namespace YAF.Pages.moderate
                     break;
                 case "spam":
 
-                    string message = BlogSpamNet.ClassifyComment((string)e.CommandArgument, true);
-
-                    this.PageContext.AddLoadMessage(message);
+                    this.ReportSpam((string)e.CommandArgument);
 
                     break;
             }
@@ -268,6 +266,39 @@ namespace YAF.Pages.moderate
                 // nope -- redirect back to the moderate main...
                 YafBuildLink.Redirect(ForumPages.moderate_index);
             }
+        }
+
+        /// <summary>
+        /// Report Message as Spam
+        /// </summary>
+        /// <param name="comment">
+        /// The comment.
+        /// </param>
+        private void ReportSpam(string comment)
+        {
+            if (this.Get<YafBoardSettings>().SpamServiceType.Equals(1))
+            {
+                string message = BlogSpamNet.ClassifyComment(comment, true);
+
+                this.PageContext.AddLoadMessage(message);
+            }
+
+            try
+            {
+                if (this.Get<YafBoardSettings>().SpamServiceType.Equals(2) && !string.IsNullOrEmpty(this.Get<YafBoardSettings>().AkismetApiKey))
+                {
+                    var service = new AkismetSpamClient(this.Get<YafBoardSettings>().AkismetApiKey, new Uri(BaseUrlBuilder.BaseUrl));
+
+                    service.SubmitSpam(new Comment(null, string.Empty) { Content = comment });
+
+                    this.PageContext.AddLoadMessage(this.GetText("MODERATE_DEFAULT", "SPAM_REPORTED"));
+                }
+            }
+            catch (Exception)
+            {
+                this.PageContext.AddLoadMessage(this.GetText("MODERATE_DEFAULT", "SPAM_REPORTED_FAILED"));
+            }
+            
         }
 
         #endregion

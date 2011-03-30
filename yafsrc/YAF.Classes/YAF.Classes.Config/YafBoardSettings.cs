@@ -469,18 +469,35 @@ namespace YAF.Classes
         }
 
       /// <summary>
-      /// Gets or sets a value indicating whether to enable Check For Spam Content.
+      /// Gets or sets a value indicating whether 
+      /// which Spam Service Type should been used
       /// </summary>
-      public bool CheckForSpamContent
+      public int SpamServiceType
       {
           get
           {
-              return this._reg.GetValue("CheckForSpamContent", true);
+              return this._reg.GetValue("SpamServiceType", 1);
           }
 
           set
           {
-              this._reg.SetValue("CheckForSpamContent", value);
+              this._reg.SetValue("SpamServiceType", value);
+          }
+      }
+
+      /// <summary>
+      /// Gets or sets a value indicating whether to Use Akismet Service.
+      /// </summary>
+     public string AkismetApiKey
+      {
+          get
+          {
+              return this._reg.GetValue("AkismetApiKey", string.Empty);
+          }
+
+          set
+          {
+              this._reg.SetValue("AkismetApiKey", value);
           }
       }
 
