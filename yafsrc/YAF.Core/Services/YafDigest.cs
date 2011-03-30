@@ -115,6 +115,30 @@ namespace YAF.Core.Services
     }
 
     /// <summary>
+    /// The get digest url.
+    /// </summary>
+    /// <param name="userId">
+    /// The user id.
+    /// </param>
+    /// <param name="boardId">
+    /// The board id.
+    /// </param>
+    /// <param name="showErrors">
+    /// Show errors creating the digest.
+    /// </param>
+    /// <returns>
+    /// The get digest url.
+    /// </returns>
+    public string GetDigestUrl(int userId, int boardId, bool showErrors)
+    {
+        return "{0}{1}{2}?{3}".FormatWith(
+          BaseUrlBuilder.BaseUrl,
+          BaseUrlBuilder.AppPath,
+          "digest.aspx",
+          "token={0}&userid={1}&boardid={2}&showerror={3}".FormatWith(YafContext.Current.BoardSettings.WebServiceToken, userId, boardId, showErrors.ToString().ToLower()));
+    }
+    
+    /// <summary>
     /// Sends the digest html to the email/name specified.
     /// </summary>
     /// <param name="digestHtml">
