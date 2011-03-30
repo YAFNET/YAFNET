@@ -76,6 +76,8 @@ namespace YAF.Pages
             // Remove HIDDEN Text
             message = this.Get<IFormatMessage>().RemoveHiddenBBCodeContent(message);
 
+            message = this.Get<IFormatMessage>().RemoveCustomBBCodes(message);
+
             return message;
         }
 

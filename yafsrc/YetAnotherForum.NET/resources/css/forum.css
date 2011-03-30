@@ -6,6 +6,26 @@
 	margin: 0;
 	padding: 0;
 }
+
+.PopupBody .ShoutBoxPanel .content
+{
+	position:absolute;
+	top: 5px;
+	bottom:0px;
+	right:0px;
+	left:5px;
+	height:97%;
+	width:99%;
+	min-height:300px;
+}
+#shoutBoxChatArea {
+	overflow-y: scroll;
+	height:150px;
+	min-width:500px;
+	width: 99%; 
+	padding: 0; 
+	margin: 0
+}
 .yafnet
 {
 	padding: 5px;
@@ -281,3 +301,5 @@
 {
     width: 98%;
 }
+
+#yafpage_shoutbox {height:100%;}

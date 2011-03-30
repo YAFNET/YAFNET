@@ -1,6 +1,6 @@
-<%@ Control Language="C#" AutoEventWireup="True" Inherits="YAF.Controls.ShoutBox" CodeBehind="ShoutBox.ascx.cs" EnableViewState="false" %>
-<%@ Import Namespace="YAF.Types.Interfaces" %>
+﻿<%@ Control Language="C#" AutoEventWireup="True" Inherits="YAF.Controls.ShoutBox" CodeBehind="ShoutBox.ascx.cs" EnableViewState="false" %>
 <%@ Import Namespace="YAF.Utils" %>
+<%@ Import Namespace="YAF.Types.Interfaces" %>
 <script type="text/javascript">
     var lastMessageId = 0;
     var clearOnEndRequest = false;
@@ -21,7 +21,7 @@
     }
     function openShoutBoxWin() {  
         var hostname = window.location.hostname
-        window.open("<%=YafForumInfo.ForumClientFileRoot %>popup.aspx?g=shoutbox", "mywindow", "location=0,status=0,scrollbars=0,resizable=1,width=475,height=300");
+        window.open("<%=YafForumInfo.ForumClientFileRoot %>popup.aspx?g=shoutbox", "mywindow", "location=0,status=0,scrollbars=0,resizable=1,width=555,height=400");
         return false;
     }
 
@@ -49,6 +49,8 @@
     }   
 
     jQuery(document).ready(function () {
+		jQuery(".PopupBody #shoutBoxChatArea").height($(window).height()- 250);
+		
         Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function() {
             if (clearOnEndRequest)
             {
@@ -61,25 +63,29 @@
             setTimeout('checkForNewMessages()', 5000);
         }
     });
+	
+	jQuery(window).resize(function() {
+       jQuery(".PopupBody #shoutBoxChatArea").height($(window).height()- 250);
+      });
 </script>
 <div id="testing1"></div>
-<asp:Panel ID="shoutBoxPanel" DefaultButton="btnButton" runat="server" Visible="false">
+<asp:Panel ID="shoutBoxPanel" DefaultButton="btnButton" runat="server" Visible="false" CssClass="ShoutBoxPanel">
 <%--    <asp:UpdatePanel ID="shoutBoxUpdatePanel" UpdateMode="conditional" runat="server"
         EnableViewState="false">
         <ContentTemplate>--%>
             <table border="0" class="content" cellspacing="1" cellpadding="0" width="100%">
-                <tr>
+                <tr style="height:30px">
                     <td class="header1" colspan="2">
                         <YAF:CollapsibleImage ID="CollapsibleImageShoutBox" runat="server" BorderWidth="0"
                             Style="vertical-align: middle" DefaultState="Collapsed" PanelID='ShoutBoxPanel'
-                            AttachedControlID="shoutBoxPlaceHolder" ToolTip='<%# this.GetText("COMMON", "SHOWHIDE") %>' OnClick="CollapsibleImageShoutBox_Click" />&nbsp;&nbsp;
+                            AttachedControlID="shoutBoxPlaceHolder" OnClick="CollapsibleImageShoutBox_Click" />&nbsp;&nbsp;
                         <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedPage="SHOUTBOX"
                             LocalizedTag="TITLE">
                         </YAF:LocalizedLabel>
                     </td>
                 </tr>
                 <asp:PlaceHolder ID="shoutBoxPlaceHolder" runat="server">
-                    <tr>
+                    <tr style="height:30px">
                         <td class="header2" colspan="2">
                             <span>
                                 <YAF:LocalizedLabel ID="lblMemberchat" runat="server" LocalizedPage="SHOUTBOX" LocalizedTag="HEADING">
@@ -87,10 +93,9 @@
                             </span>
                         </td>    
                     </tr>
-                    <tr>
-                        <td class="post" style="padding-left: 5px; margin: 0" colspan="2">
-                            <div class="post" id="shoutBoxChatArea" style="overflow-y: scroll; height: 150px; width: 100%; padding: 0;
-                                margin: 0">
+                    <tr style="height:100%">
+                        <td class="post" style="padding-left: 5px; margin: 0;" colspan="2">
+                            <div class="post" id="shoutBoxChatArea">
                                 <asp:UpdatePanel ID="shoutBoxChatUpdatePanel" UpdateMode="conditional" runat="server">
                                     <Triggers>
                                         <asp:AsyncPostBackTrigger ControlID="btnButton" />
@@ -127,15 +132,15 @@
                             <td class="footer1" style="text-align: center; white-space: nowrap;">
                                 <asp:Button ID="btnButton" OnClick="btnButton_Click" CssClass="pbutton" Text="Submit" OnClientClick="clearOnEndRequest = true;"
                                     Visible="true" runat="server" />
-                                <asp:Button ID="btnClear" OnClick="btnClear_Click" CssClass="pbutton" Text="Clear"
+                                <asp:Button ID="btnClear" OnClick="btnClear_Click" CssClass="pbutton" Text="Clear"  OnClientClick="clearOnEndRequest = true;"
                                     Visible="false" runat="server" />
                                 <asp:Button ID="btnRefresh" runat="server" OnClick="btnRefresh_Click" style="display:none;"/>
                             </td>
                         </tr>
-                        <tr>
+                        <tr style="height:30px">
                             <%--<td colspan="2" class="post" style="overflow-y: scroll; height: 10px; width: 99%; padding: 0px 0px 0px 5px; margin: 0;">--%>
                             <td class="post" style="padding-left: 5px; margin: 0;">
-                                <asp:Repeater ID="smiliesRepeater" Visible="<%# PageContext.BoardSettings.ShowShoutboxSmiles %>"
+                                <asp:Repeater ID="smiliesRepeater" Visible="<%# this.Get<YafBoardSettings>().ShowShoutboxSmiles %>"
                                     runat="server">
                                     <ItemTemplate>
                                         <asp:ImageButton ID="ImageButton1" ImageUrl='<%# YafForumInfo.ForumClientFileRoot + YafBoardFolders.Current.Emoticons + "/" + Eval("Icon") %>'
