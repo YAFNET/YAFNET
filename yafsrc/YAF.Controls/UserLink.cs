@@ -16,6 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
 namespace YAF.Controls
 {
   #region Using
@@ -23,7 +24,7 @@ namespace YAF.Controls
   using System;
   using System.Web.UI;
 
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Core; 
   using YAF.Core.Services;
   using YAF.Utils;
   using YAF.Types;
@@ -86,6 +87,7 @@ namespace YAF.Controls
     /// </param>
     protected override void Render([NotNull] HtmlTextWriter output)
     {
+
       string displayName = this.Get<IUserDisplayName>().GetName(this.UserID);
 
       if (this.UserID != -1 && displayName.IsSet())
@@ -100,6 +102,11 @@ namespace YAF.Controls
           output.WriteBeginTag("a");
 
           output.WriteAttribute("href", YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.UserID));
+
+          if (this.PageContext.BoardSettings.UseNoFollowLinks)
+          {
+              output.WriteAttribute("rel", "nofollow");
+          }
 
           output.WriteAttribute("title", this.GetText("COMMON", "VIEW_USRPROFILE"));
 
