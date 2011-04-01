@@ -23,18 +23,36 @@
 {
 	float: right;
 }
+.FeatureHeader {
+	color: #C00;
+	font-family: Georgia;
+	font-weight:bold;
+	font-size:150%;
+	padding:20px 0px 6px 0px;
+	display:block;
+}
+#Content {
+	width: 90%;
+	margin: 20px auto;
+}
+body {
+	
+	color: black;
+	font: 80% Georgia;
+	font-weight:normal;
+}
 
 	</style>
 </head>
 <body>
+<div id="Content">
 <h1>
 <a href="http://www.yetanotherforum.net"><img src="forumlogo.jpg" alt="YAF logo" style="border: 0"></a></h1>
 <h1>YetAnotherForum.NET Changelog </h1>
-	<h3>
-			YetAnotherForum.NET 1.9.5.6</h3>
-<p>
-New features:</p>
+	<span class="FeatureHeader">YetAnotherForum.NET 1.9.5.6</span>
 	<ul>
+		<li>Rev. #4814 - Akismet Spam Service can be used for SPAM Checking (Needs an API Key)</li>
+		<li>Rev. #4814 - SPAM Service can be selected in Host Settings between Disabled, BlogSpam.Net  or Akismet</li>
 		<li>Rev. #4804 - Added a New BBCode [hidden]Hidden Content[/hidden] The Content is Hidden until a User uses The Thank Button.</li>
 		<li>Rev. #4802 - Added optionally Icons for Private Message Read/Unread</li>
 		<li>Rev. #4787 - Added SPAM Protection to YAF via the Open Source SPAM Service BlogSpam.net every Post is checked for SPAM (Detection based on Post, IP, and Name)</li>
@@ -44,7 +62,8 @@ New features:</p>
 	</ul>
 <p><em>changes</em></p>
 	<ul>
-		
+		<li>Rev. #4816 - Upded jQuery Libary to Version 1.5.2</li>
+		<li>Rev. #4815 - Don't allow crawlers to follow user profile links.</li>
 		<li>Rev. #4813 - Fixed [YAF-106] ShoutBox - Unable to resize popup box </li>
 		<li>Rev. #4812 -   Fixed [YAF-156] Remove unwanted Custom BBCodes in Feeds</li>
 		<li>Rev. #4811 - Better Error Handling for Digest Sending</li>
@@ -76,8 +95,7 @@ New features:</p>
 		<li>Rev. #4756 - Fix for issue with YAF.Controls Style render throwing an out of bounds array exception.</li>
 		<li>Rev. #4754 - Added Message  to Post a Private Message Page when User doesn't exists after clicking &quot;Find User...&quot;</li>
 </ul>
-<h3>YetAnotherForum.NET 1.9.5.5
-</h3>
+<span class="FeatureHeader">YetAnotherForum.NET 1.9.5.5</span>
 <p><em>Change log starts at this release.</em></p>
 	<p>
 New features:</p>
@@ -241,6 +259,7 @@ New features:</p>
 		<li>Rev. #4151 - Fixed Font Size for ColorGrey Themes</li>
 		<li>Rev. #4149 - Fixed Album Cover Image Preview</li>
 </ul>
+</div>
 	<div id="footer">
 <hr />
 		<p>
@@ -249,5 +268,6 @@ New features:</p>
 		<p id="copy">
 		YetAnotherForum.NET Copyright © 2011 <a href="http://www.tinygecko.com/">Tiny Gecko</a>. </p>
 </div>
+
 </body>
 </html>
