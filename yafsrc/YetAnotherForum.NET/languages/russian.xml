@@ -758,8 +758,8 @@
     <Resource tag="ACTIVE_USERTIME_HELP">Число минут для отображения пользователей в списке активных.</Resource>
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS">Доступ к ленте Активных тем:</Resource>
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS_HELP">Ограничить/запретить показ лент активных тем.</Resource>
-    <Resource tag="AKISMET_KEY">Akismet API Key:</Resource>
-    <Resource tag="AKISMET_KEY_HELP">To Use the Akismet comment SPAM Service you need an API Key &lt;a href="https://akismet.com/signup/"&gt;Sign Up here&lt;a&gt;</Resource>
+    <Resource tag="AKISMET_KEY">Ключ Akismet API:</Resource>
+    <Resource tag="AKISMET_KEY_HELP">Чтобы использовать службу антиспама Akismet необходим ключ API Key &lt;a href="https://akismet.com/signup/"&gt;Подпишитесь здесь&lt;a&gt;</Resource>
     <Resource tag="ALBUMS_PER_PAGE">Кол-во альбомов на странице:</Resource>
     <Resource tag="ALBUMS_PER_PAGE_HELP">Кол-во альбомов отображаемых на одной странице.</Resource>
     <Resource tag="ALL_USERS">Все пользователи</Resource>
@@ -799,8 +799,8 @@
     <Resource tag="ALLOW_QUICK_ANSWER_HELP">Разрешить отображение формы быстрого ответа в низу страницы с сообщениями</Resource>
     <Resource tag="ALLOW_SENDMAIL">Разрешить отправлять Email:</Resource>
     <Resource tag="ALLOW_SENDMAIL_HELP">Разрешить пользователям отправлять сообщения друг другу по электронной почте.</Resource>
-    <Resource tag="ALLOW_SHARE_TOPIC">Enable Share Menu:</Resource>
-    <Resource tag="ALLOW_SHARE_TOPIC_HELP">Enables/disables the share Menu, where a user can Email, Tweet, Buzz, Like on Facebook, Digg or Reddit a Topic.</Resource>
+    <Resource tag="ALLOW_SHARE_TOPIC">Включить меню расшаривания:</Resource>
+    <Resource tag="ALLOW_SHARE_TOPIC_HELP">Включить меню при помощи которого пользователь сможет отправить по почтеЮ использовать Твиттерt, Buzz, Like on Facebook, Digg или Reddit для темы.</Resource>
     <Resource tag="ALLOW_SIGNATURE">Разрешить подписи:</Resource>
     <Resource tag="ALLOW_SIGNATURE_HELP">Разрешить пользователям добавлять подписи к сообщениям. Вы должны также установить параметры подписи(кол-во символов, разрешённые BBCode...) для каждой роли и/или статуса, чтобы действительно включить эту опцию.</Resource>
     <Resource tag="ALLOW_THANKS">Разрешить «Спасибо»</Resource>
@@ -831,8 +831,8 @@
     <Resource tag="CAPTCHA_SIZE_HELP">Длина(символы) генерируемой случайной строки CAPTCHA.</Resource>
     <Resource tag="CAT_CACHE_TIMEOUT">Таймаут кэша для категорий конференции:</Resource>
     <Resource tag="CAT_CACHE_TIMEOUT_HELP">В минутах</Resource>
-    <Resource tag="CHECK_FOR_SPAM">Choose a SPAM Service for Automatically SPAM Checking:</Resource>
-    <Resource tag="CHECK_FOR_SPAM_HELP">Enables/disables automatically SPAM Checking via the &lt;a href="http://blogspam.net/"&gt;BlogSpam.net API&lt;/a&gt; or Akismet.com. If enabled SPAM Post gets rejected if detected.</Resource>
+    <Resource tag="CHECK_FOR_SPAM">Служба анти-СПАМА.</Resource>
+    <Resource tag="CHECK_FOR_SPAM_HELP">Включает/отключает автоматичсекую проверку спама при помощи &lt;a href="http://blogspam.net/"&gt;BlogSpam.net API&lt;/a&gt; или Akismet.com. Если включено, то спам автоматически отвергается.</Resource>
     <Resource tag="CLEAR_CACHE">Очистить кэш</Resource>
     <Resource tag="CREATE_NNTPNAMES">Создавать имена пользователей NNTP:</Resource>
     <Resource tag="CREATE_NNTPNAMES_HELP">Включите, чтобы пользователи добавлялись из сообщений usenet. Включайте это только в тестовых случаях и &lt;em&gt;НИКОГДА&lt;/em&gt; на работающем сервере. Главная цель этой опции - тестирование производительности.</Resource>
@@ -868,8 +868,8 @@
     <Resource tag="ENABLE_IRKOO_HELP">Irkoo - это бесплатная служба, добавляющая функции репутации к вашему форуму. Посетите &lt;strong&gt;http://www.Irkoo.com&lt;/strong&gt; чтобы получить ID сайта и секретный ключ.</Resource>
     <Resource tag="ENABLE_LOCATIONPATH_ERRORS">Включить журналирование ошибок списка нахождения активных пользователей:</Resource>
     <Resource tag="ENABLE_LOCATIONPATH_ERRORS_HELP">Журналирование ошибок списка нахождения активных пользователей. Используется при отладке.</Resource>
-    <Resource tag="ENABLE_RETWEET_MSG">Enable Retweet Message Button:</Resource>
-    <Resource tag="ENABLE_RETWEET_MSG_HELP">Enables/disables the Retweet Button, where the User can retweet a topic message.</Resource>
+    <Resource tag="ENABLE_RETWEET_MSG">Включить кнопку ретвиттера:</Resource>
+    <Resource tag="ENABLE_RETWEET_MSG_HELP">Делает доступной кнопку ретвита и пользователь может проретвитить сообщение.</Resource>
     <Resource tag="EXTERN_NEWWINDOW">Показывать результаты внешнего поиска в новом окне:</Resource>
     <Resource tag="EXTERN_NEWWINDOW_HELP">Показывать результаты внешнего поиска в новом окне.</Resource>
     <Resource tag="EXTERN_SEARCH_PERMISS">Разрешения для внешнего поиска:</Resource>
@@ -1138,8 +1138,8 @@
     <Resource tag="TOPIC_FEEDS_ACCESS_HELP">Ограничить доступ к лентам тем.</Resource>
     <Resource tag="TOPICS_PER_PAGE">Темы на странице:</Resource>
     <Resource tag="TOPICS_PER_PAGE_HELP">Количество тем для отображения на одной странице.</Resource>
-    <Resource tag="TWITTER_USERNAME">Twitter Username for Retweets:</Resource>
-    <Resource tag="TWITTER_USERNAME_HELP">Twitter Username that is mentioned when Retweeting a Topic or Message.</Resource>
+    <Resource tag="TWITTER_USERNAME">Имя пользователя твитера для ретвитов:</Resource>
+    <Resource tag="TWITTER_USERNAME_HELP">Упомянутое имя полязователя при ретвите темы или сообщения.</Resource>
     <Resource tag="UNHANDLED_USERAGENT_LOG">Включить журналирование для UserAgent:</Resource>
     <Resource tag="UNHANDLED_USERAGENT_LOG_HELP">Все неидентифицируемы UserAgent будут в журнале. Не включайте это постоянно.</Resource>
     <Resource tag="USER_CHANGE_LANGUAGE">Разрешить пользователям менять язык:</Resource>
@@ -1275,10 +1275,10 @@
     <Resource tag="CONFIRM_REINDEX">Вы уверены, что хотите реиндексировать все таблицы YAF?\n Это действие может прервать доступ к БД и займёт много времени.</Resource>
     <Resource tag="CONFIRM_SHRINK">Вы уверены, что хотите сжать БД?\nЭто действие может прервать доступ к БД и займёт много времени.</Resource>
     <Resource tag="HEADER">Сообщение об операции с БД YAF</Resource>
-    <Resource tag="INDEX_SHRINK">Операция сжатия успешно завершена. Текущий размер ващей БД: {0}МБ</Resource>
+    <Resource tag="INDEX_SHRINK">Операция сжатия успешно завершена. Текущий размер вашей БД: {0}МБ</Resource>
     <Resource tag="INDEX_STATS">Режим восстановления бащзы данных успешно установлен на {0}</Resource>
     <Resource tag="INDEX_STATS_FAIL">Произошла ошибка. Сообщение системы: {0}</Resource>
-    <Resource tag="RECOVERY1">Полное (Full Recovery allows the database to be recovered to the point of failure.)</Resource>
+    <Resource tag="RECOVERY1">Полное (Полное восстановление позволяет откатить базу к точке сбоя.)</Resource>
     <Resource tag="RECOVERY2">Простое (Простоое восстановление позволяет восстановить копию последнего резервного бэкапа. Вы должны делать регулярные бэкапы.)</Resource>
     <Resource tag="RECOVERY3">Bulk-Logged (Восстановление в режиме Bulk-Logged выполняет такие операции.)</Resource>
     <Resource tag="REINDEX">При любых модификациях данных происходит фрагментация данных в таблицах. Эта команда может быть использована для воссоздания индексов во всех таблицах БД, чтобы увеличить скорость.</Resource>
@@ -1486,9 +1486,9 @@
     <Resource tag="TITLE">Аватары</Resource>
   </page>
   <page name="BBCODEMODULE">
-    <Resource tag="HIDDENMOD_DESC">The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post</Resource>
-    <Resource tag="HIDDENMOD_GUEST">This board requires you to be registered and logged-in before you can view hidden messages.</Resource>
-    <Resource tag="HIDEMOD_DESCRIPTION">This tag hides content from people until they press the thank you button for the post.</Resource>
+    <Resource tag="HIDDENMOD_DESC">Контент этого поста скрыт. После того, как вы поблагодарите постящего за это сообщение он будет доступен, обновите страницу для просмотра скрытого контента. You need to thank the Current Post</Resource>
+    <Resource tag="HIDDENMOD_GUEST">Эта конференция требует регистрации перед тем как вы сможете увидеть скрытые сообщения.</Resource>
+    <Resource tag="HIDEMOD_DESCRIPTION">Этот тэг скрывает содержимое поста до тех пор пока они не нажмут кнопку Спасибо.</Resource>
     <Resource tag="SPOILERMOD_DESCRIPTION">Поместите сюда текст спойлера</Resource>
     <Resource tag="SPOILERMOD_HIDE">Скрыть спойлер</Resource>
     <Resource tag="SPOILERMOD_SHOW">Открыть спойлер</Resource>
@@ -1543,8 +1543,8 @@
     <Resource tag="BUTTON_REPLY">Ответить</Resource>
     <Resource tag="BUTTON_REPLY_TT">Ответить на сообщение</Resource>
     <Resource tag="BUTTON_RESETCOVER">Удалить обложку</Resource>
-    <Resource tag="BUTTON_RETWEET">Retweet</Resource>
-    <Resource tag="BUTTON_RETWEET_TT">Retweet this Message</Resource>
+    <Resource tag="BUTTON_RETWEET">Ретвит</Resource>
+    <Resource tag="BUTTON_RETWEET_TT">Выполнить ретвит сообщения</Resource>
     <Resource tag="BUTTON_SETCOVER">Использовать как обложку</Resource>
     <Resource tag="BUTTON_TAGFAVORITE">Добавить в избранные</Resource>
     <Resource tag="BUTTON_TAGFAVORITE_TT">Добавить эту тему в избранные темы.</Resource>
@@ -1593,7 +1593,7 @@
     <Resource tag="CAPTCHA_ENTER">Введите символы на этом изображении:</Resource>
     <Resource tag="CAPTCHA_IMAGE">Изображение для проверки:</Resource>
     <Resource tag="CHANGEEMAIL_SUBJECT">E-mail изменён</Resource>
-    <Resource tag="COMMON_WORDS">out,please,a,able,about,across,after,all,almost,also,am,among,an,and,any,are,as,at,be,because,been,but,by,can,cannot,could,dear,did,do,does,either,else,ever,every,for,from,get,got,had,has,have,he,her,hers,him,his,how,however,i,if,in,into,is,it,its,just,least,let,like,likely,may,me,might,most,must,my,neither,no,nor,not,of,off,often,on,only,or,other,our,own,rather,said,say,says,she,should,since,so,some,than,that,the,their,them,then,there,these,they,this,tis,to,too,twas,us,wants,was,we,were,what,when,where,which,while,who,whom,why,will,with,would,yet,you,your</Resource>
+    <Resource tag="COMMON_WORDS">а,о,или,out,please,a,able,about,across,after,all,almost,also,am,among,an,and,any,are,as,at,be,because,been,but,by,can,cannot,could,dear,did,do,does,either,else,ever,every,for,from,get,got,had,has,have,he,her,hers,him,his,how,however,i,if,in,into,is,it,its,just,least,let,like,likely,may,me,might,most,must,my,neither,no,nor,not,of,off,often,on,only,or,other,our,own,rather,said,say,says,she,should,since,so,some,than,that,the,their,them,then,there,these,they,this,tis,to,too,twas,us,wants,was,we,were,what,when,where,which,while,who,whom,why,will,with,would,yet,you,your</Resource>
     <Resource tag="CONTINUE">Продолжить</Resource>
     <Resource tag="COPY">Клонировать</Resource>
     <Resource tag="CUSTOM_BBCODE">Больше BBCode</Resource>
@@ -2380,9 +2380,9 @@
     <Resource tag="MIN_VOTE_UP">Минимальная репутация для повышения: %min_rating% </Resource>
     <Resource tag="NOT_AUTHORIZED">Зарегистрируйтесь для голосования</Resource>
     <Resource tag="SELF">Вы не можете голосовать за своё сообщение</Resource>
-    <Resource tag="USER_REPUTATION">Users Reputation</Resource>
-    <Resource tag="VOTE_DOWN">Vote Down</Resource>
-    <Resource tag="VOTE_UP">Vote Up</Resource>
+    <Resource tag="USER_REPUTATION">Репутация пользователя</Resource>
+    <Resource tag="VOTE_DOWN">Поднять</Resource>
+    <Resource tag="VOTE_UP">Уронить</Resource>
   </page>
   <page name="LANGUAGE">
     <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ/АБВГДЕЁЖЗИКЛМНОПРСТУФХЦЧШЩЭЮЯ</Resource>
@@ -2467,8 +2467,8 @@
     <Resource tag="CATEGORY">Категория</Resource>
     <Resource tag="FORUM">Форум</Resource>
     <Resource tag="REPORTED">Сообщено как нарушение</Resource>
-    <Resource tag="SPAM_REPORTED">Message was successfully reported as SPAM to the Akismet SPAM Service</Resource>
-    <Resource tag="SPAM_REPORTED_FAILED">SPAM Reporting has been failded. Please Check your API Key!</Resource>
+    <Resource tag="SPAM_REPORTED">Сообщение было успешно сообщено как спам SPAM  в службу Akismet</Resource>
+    <Resource tag="SPAM_REPORTED_FAILED">Сообщение о спаме не удалось. Проверьте ваш ключ API!</Resource>
     <Resource tag="TITLE">Модерировать</Resource>
     <Resource tag="UNAPPROVED">Неодобренные сообщения</Resource>
   </page>
@@ -2561,7 +2561,7 @@
     <Resource tag="TITLE">Отправить личное сообщение</Resource>
     <Resource tag="TO">Кому:</Resource>
     <Resource tag="TOO_MANY_RECIPIENTS">Слишком много адресатов. Разрешено не более {0}.</Resource>
-    <Resource tag="USER_NOTFOUND">The User you are looking for does not exist. Please try again or use the show "All Users" Button.</Resource>
+    <Resource tag="USER_NOTFOUND">Пользователь которого вы искали не существует. Пожалуйста попытайтесь снова или используйте кнопку "Все пользователи".</Resource>
   </page>
   <page name="POLLEDIT">
     <Resource tag="ASK_POLL_DELETE">Вы действительно желаете удалить этот опрос?</Resource>
@@ -2580,8 +2580,8 @@
     <Resource tag="EXPIRE_BAD">Неверная дата окончания опроса</Resource>
     <Resource tag="NEED_CHOICES">Опрос должен иметь по меньшей мере два варианта ответа.</Resource>
     <Resource tag="NEED_QUESTION">Необходимо ввести вопрос.</Resource>
-    <Resource tag="POLL_ALLOWSKIPVOTE">Allow to not vote and see results.</Resource>
-    <Resource tag="POLL_ALLOWSKIPVOTE_INFO">You can skip voting and results.</Resource>
+    <Resource tag="POLL_ALLOWSKIPVOTE">Отказ от голосования.</Resource>
+    <Resource tag="POLL_ALLOWSKIPVOTE_INFO">Разрешить не голосовать и просмотреть результаты.</Resource>
     <Resource tag="POLL_CLOSEDBOUND">Результаты скрыты пока срок вопроса не истёк.</Resource>
     <Resource tag="POLL_EXPIRE">Проводить опрос в течение:</Resource>
     <Resource tag="POLL_EXPIRE_EXPLAIN">[b]дней[/b] [ Оставьте пустым в случае бессрочного опроса ]</Resource>
@@ -2659,7 +2659,7 @@
     <Resource tag="ATTACHMENTINFO">({0:N0}kb) загружен [b]{1:N0}[/b] раз(а).</Resource>
     <Resource tag="ATTACHMENTS">Вложение(я):</Resource>
     <Resource tag="BLOG">БЛОГ</Resource>
-    <Resource tag="BUZZ_TOPIC">Buzz this Topic</Resource>
+    <Resource tag="BUZZ_TOPIC">Расшарить тему в Buzz</Resource>
     <Resource tag="CANT_DOWNLOAD">У Вас нет прав для просмотра или загрузки вложений.</Resource>
     <Resource tag="CANT_DOWNLOAD_REGISTER">У Вас нет прав для просмотра или загрузки вложений. Попробуйте зарегистрироваться.</Resource>
     <Resource tag="CHOICE">Вариант</Resource>
@@ -2667,7 +2667,7 @@
     <Resource tag="CONFIRM_DELETEMESSAGE">Удалить это сообщение?</Resource>
     <Resource tag="CONFIRM_DELETETOPIC">Удалить эту тему?</Resource>
     <Resource tag="CONFIRM_REPORTPOST">Вы уверены, что хотите пожаловаться на это сообщение?</Resource>
-    <Resource tag="DIGG_TOPIC">Digg this Topic</Resource>
+    <Resource tag="DIGG_TOPIC">Расшарить тему в Digg</Resource>
     <Resource tag="EDIT_REASON">Причина</Resource>
     <Resource tag="EDIT_REASON_NA">Не указана</Resource>
     <Resource tag="EDITED">Отредактировано</Resource>
@@ -2677,7 +2677,7 @@
     <Resource tag="EMAIL">Email</Resource>
     <Resource tag="EMAILTOPIC">Отправить тему по почте</Resource>
     <Resource tag="EMPTY_MESSAGE">Сообщение должно содержать текст.</Resource>
-    <Resource tag="FACEBOOK_TOPIC">Like this Topic</Resource>
+    <Resource tag="FACEBOOK_TOPIC">Смотреть в этой теме</Resource>
     <Resource tag="FORUM_JUMP">Быстрый переход</Resource>
     <Resource tag="GROUPS">Группы</Resource>
     <Resource tag="HOME">WWW</Resource>
@@ -2702,7 +2702,7 @@
     <Resource tag="NEXTTOPIC">Следующая тема</Resource>
     <Resource tag="NORMAL">Обычный</Resource>
     <Resource tag="OPTIONS">Опции</Resource>
-    <Resource tag="OPTIONS_TOOLTIP">Topic Options to Subscribe via Email, RSS, Atom, and to view Printer Friendly Page.</Resource>
+    <Resource tag="OPTIONS_TOOLTIP">Опции темы дял подписки посредством почты, RSS, Atom, и другие опции.</Resource>
     <Resource tag="PM">ЛС</Resource>
     <Resource tag="POINTS">Баллов</Resource>
     <Resource tag="POLL_CLOSED">Опрос завершён</Resource>
@@ -2716,13 +2716,13 @@
     <Resource tag="QUICKREPLY_HIDE">Скрыть форму быстрого ответа</Resource>
     <Resource tag="QUICKREPLY_SHOW">Показать форму быстрого ответа</Resource>
     <Resource tag="RANK">Ранг</Resource>
-    <Resource tag="REDDIT_TOPIC">Reddit this Topic</Resource>
+    <Resource tag="REDDIT_TOPIC">Поделиться в Reddit</Resource>
     <Resource tag="REPORTEDFEEDBACK">Спасибо за информацию об этом сообщении.</Resource>
     <Resource tag="REPORTPOST">Жалоба!</Resource>
-    <Resource tag="RETWEET_TOPIC">Retweet this Topic</Resource>
+    <Resource tag="RETWEET_TOPIC">Ретвит темы</Resource>
     <Resource tag="RSSTOPIC">RSS-лента темы</Resource>
-    <Resource tag="SHARE">Share</Resource>
-    <Resource tag="SHARE_TOOLTIP">Share this Topic via Email, Twitter, Buzz, Facebook, Digg or Reddit.</Resource>
+    <Resource tag="SHARE">Поделиться</Resource>
+    <Resource tag="SHARE_TOOLTIP">Расшарить эту тему по почте, Твиттеру, Facebook и другими способами.</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
     <Resource tag="STATISTICS">Статистика</Resource>
     <Resource tag="THANKSFROM">Сказал(а) «Спасибо»: {0} раз</Resource>
@@ -2751,7 +2751,7 @@
     <Resource tag="USERONLINESTATUS">Пользователь находится на форуме</Resource>
     <Resource tag="USERPROFILE">Профиль пользователя</Resource>
     <Resource tag="VIEW">Просмотр</Resource>
-    <Resource tag="VIEW_TOOLTIP">Change Topic View between Normal or Thread View.</Resource>
+    <Resource tag="VIEW_TOOLTIP">Изсенить режим просмотра с номального на дерево.</Resource>
     <Resource tag="VOTES">Голоса</Resource>
     <Resource tag="WARN_ALREADY_VOTED">Вы уже голосовали в этом опросе.</Resource>
     <Resource tag="WARN_EMAILLOGIN">Вы должны зарегистрироваться для отправки электронной почты.</Resource>

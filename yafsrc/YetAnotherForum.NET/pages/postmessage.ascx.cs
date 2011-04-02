@@ -902,8 +902,8 @@ namespace YAF.Pages
                                 comment = this._forumEditor.Text,
                                 ip = ipAdress,
                                 agent = this.Get<HttpRequestBase>().UserAgent,
-                                email = this.User == null ? this.User.Email : null,
-                                name = this.User == null ? this.User.UserName : this.From.Text,
+                                email = this.User != null ? this.User.Email : null,
+                                name = this.User != null ? this.User.UserName : this.From.Text,
                                 version = String.Empty,
                                 options = whiteList,
                                 subject = this.TopicSubjectTextBox.Text
