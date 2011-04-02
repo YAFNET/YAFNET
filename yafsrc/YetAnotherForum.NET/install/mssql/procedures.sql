@@ -6,7 +6,7 @@
   Remove Extra Stuff: SET ANSI_NULLS ON\nGO\nSET QUOTED_IDENTIFIER ON\nGO\n\n\n 
 */
 
-IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifieruser_thankedmessage]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_thankedmessage]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_thankedmessage]
 GO
 
@@ -6573,7 +6573,7 @@ begin
 			a.BoardID = @BoardID and
 			-- is not guest 
 			IsNull(a.Flags & 4,0) = 0 and
-			IsNull(c.ForumID,0) = 0 and
+			c.ForumID = 0 and
 			-- is admin 
 			(IsNull(c.IsAdmin,0) <> 0 OR 
 			-- or forum admin
