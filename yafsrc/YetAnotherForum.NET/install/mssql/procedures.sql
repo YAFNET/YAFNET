@@ -4205,59 +4205,10 @@ begin
 	end
 	-- update active
 	-- ensure that access right are in place		
-		if exists (select top 1
+		if not exists (select top 1
 			UserID	
 			from [{databaseOwner}].[{objectQualifier}ActiveAccess] WITH(NOLOCK) 
-			where UserID = @UserID )
-			begin
-
-			if not exists (select  top 1
-			UserID	
-			from [{databaseOwner}].[{objectQualifier}ActiveAccess]  WITH(NOLOCK)
-			where UserID = @UserID and ForumID=IsNull(@ForumID,0)) 
-			begin				
-			insert into [{databaseOwner}].[{objectQualifier}ActiveAccess](
-			UserID,
-			BoardID,
-			ForumID,
-			IsAdmin, 
-			IsForumModerator,
-			IsModerator, 
-			ReadAccess,
-			PostAccess,
-			ReplyAccess,
-			PriorityAccess,
-			PollAccess,
-			VoteAccess,	
-			ModeratorAccess,
-			EditAccess,
-			DeleteAccess,
-			UploadAccess,
-			DownloadAccess)
-			select 
-			UserID, 
-			@BoardID, 
-			ForumID, 
-			IsAdmin,
-			IsForumModerator,
-			IsModerator,
-			ReadAccess,
-			(CONVERT([bit],sign([PostAccess]&(2)),(0))),
-			ReplyAccess,
-			PriorityAccess,
-			PollAccess,
-			VoteAccess,
-			ModeratorAccess,
-			EditAccess,
-			DeleteAccess,
-			UploadAccess,
-			DownloadAccess			
-			from [{databaseOwner}].[{objectQualifier}vaccess] 
-			where UserID = @UserID
-			and ForumID=IsNull(@ForumID,0)
-			end
-			end
-			else
+			where UserID = @UserID )		
 			begin
 			insert into [{databaseOwner}].[{objectQualifier}ActiveAccess](
 			UserID,
