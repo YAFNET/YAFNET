@@ -1355,6 +1355,7 @@
         <member name="P:YAF.Classes.YafBoardSettings.Name">
             <summary>
             Gets Name.
+            individual board settings
             </summary>
         </member>
         <member name="P:YAF.Classes.YafBoardSettings.AllowThreaded">
@@ -1417,6 +1418,21 @@
             Gets or sets Culture.
             </summary>
         </member>
+        <member name="P:YAF.Classes.YafBoardSettings.DefaultNotificationSetting">
+            <summary>
+            Gets or sets Default Notification Setting.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.DefaultSendDigestEmail">
+            <summary>
+            Gets or sets a value indicating whether Default Send Digest Email.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AllowDigestEmail">
+            <summary>
+            Gets or sets a value indicating whether Allow Digest Email.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.YafBoardSettings.ShowTopicsDefault">
             <summary>
             Gets or sets ShowTopicsDefault.
@@ -1437,9 +1453,41 @@
             Gets or sets NotificationOnUserRegisterEmailList.
             </summary>
         </member>
+        <member name="P:YAF.Classes.YafBoardSettings.CopyrightRemovalDomainKey">
+            <summary>
+            Gets or sets Copyright Removal Domain Key.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.EmailModeratorsOnModeratedPost">
+            <summary>
+            Gets or sets a value indicating whether Email Moderators On Moderated Post.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.SpamServiceType">
+            <summary>
+            Gets or sets a value indicating whether 
+            which Spam Service Type should been used
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AkismetApiKey">
+            <summary>
+            Gets or sets a value indicating whether to Use Akismet Service.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.YafBoardSettings.SQLVersion">
             <summary>
             Gets SQLVersion.
+            NOTE : didn't know where else to put this :)
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ShowShareTopicTo">
+            <summary>
+            Gets or sets a value indicating whether Show Share Topic To.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ShowRetweetMessageTo">
+            <summary>
+            Gets or sets a value indicating whether Enable Retweet Message.
             </summary>
         </member>
         <member name="P:YAF.Classes.YafBoardSettings.ShowTeamTo">
@@ -2281,7 +2329,7 @@
         </member>
         <member name="P:YAF.Classes.YafBoardSettings.AllowEmailTopic">
             <summary>
-            Gets or sets a value indicating whether AllowEmailTopic.
+            Gets or sets a value indicating whether Allow Email Topic.
             </summary>
         </member>
         <member name="P:YAF.Classes.YafBoardSettings.RequireLogin">
@@ -2339,6 +2387,11 @@
             Gets or sets UserBoxJoinDate.
             </summary>
         </member>
+        <member name="P:YAF.Classes.YafBoardSettings.UserBoxGender">
+            <summary>
+            Gets or sets UserBoxGender.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.YafBoardSettings.UserBoxPosts">
             <summary>
             Gets or sets UserBoxPosts.
@@ -2362,6 +2415,21 @@
         <member name="P:YAF.Classes.YafBoardSettings.UserBoxThanksTo">
             <summary>
             Gets or sets UserBoxThanksTo.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.LastDigestSend">
+            <summary>
+            Gets or sets LastDigestSend.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.TwitterUserName">
+            <summary>
+            Gets or sets TwitterUserName.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ForceDigestSend">
+            <summary>
+            Gets or sets a value indicating whether ForceDigestSend.
             </summary>
         </member>
         <member name="T:YAF.Classes.YafBoardSettings.YafLegacyBoardSettings">

@@ -69,6 +69,17 @@
             event args
             </param>
         </member>
+        <member name="M:YAF.Pages.login.Login1_LoggedIn(System.Object,System.EventArgs)">
+            <summary>
+            The Logged In Event
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
         <member name="F:YAF.Pages.login.PageLinks">
             <summary>
             PageLinks control.
@@ -6324,6 +6335,14 @@
             </param>
             <param name="e">
             </param>
+        </member>
+        <member name="M:YAF.Pages.postmessage.IsPostSpam">
+            <summary>
+            Check This Post for SPAM against the BlogSpam.NET API
+            </summary>
+            <returns>
+            Returns if Post is SPAM or not
+            </returns>
         </member>
         <member name="M:YAF.Pages.postmessage.Preview_Click(System.Object,System.EventArgs)">
             <summary>
@@ -12843,24 +12862,6 @@
             The bind data.
             </summary>
         </member>
-        <member name="T:YAF.Modules.SpoilerBBCodeModule">
-            <summary>
-            The spoiler bb code module.
-            </summary>
-        </member>
-        <member name="M:YAF.Modules.SpoilerBBCodeModule.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Modules.SpoilerBBCodeModule"/> class.
-            </summary>
-        </member>
-        <member name="M:YAF.Modules.SpoilerBBCodeModule.Render(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            The render.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-        </member>
         <member name="T:YAF.Modules.PageRequiresSecureConnectionForumModule">
             <summary>
             The page requires secure connection module.
@@ -12880,6 +12881,24 @@
             </param>
             <param name="e">
             The e.
+            </param>
+        </member>
+        <member name="T:YAF.Modules.SpoilerBBCodeModule">
+            <summary>
+            The spoiler bb code module.
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.SpoilerBBCodeModule.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Modules.SpoilerBBCodeModule"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.SpoilerBBCodeModule.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The render.
+            </summary>
+            <param name="writer">
+            The writer.
             </param>
         </member>
         <member name="T:YAF.Controls.PollChoiceList">
@@ -14585,6 +14604,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Controls.DisplayPost.Retweet">
+            <summary>
+            Retweet control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Controls.DisplayPost.Thank">
             <summary>
             Thank control.
@@ -14843,6 +14871,24 @@
         <member name="F:YAF.Pages.posts.TopicTitle">
             <summary>
             TopicTitle control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.posts.ShareLink">
+            <summary>
+            ShareLink control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.posts.LocalizedLabel1">
+            <summary>
+            LocalizedLabel1 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -15254,6 +15300,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.posts.ShareMenu">
+            <summary>
+            ShareMenu control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.posts.PopupMenuUpdatePanel">
             <summary>
             PopupMenuUpdatePanel control.
@@ -15577,6 +15632,15 @@
             <summary>
             Gets the message ID if "find" is in the query string
             </summary>
+            <param name="showDeleted">
+            The show Deleted.
+            </param>
+            <param name="userId">
+            The user Id.
+            </param>
+            <param name="messagePosition">
+            The message Position.
+            </param>
             <returns>
             The get find message id.
             </returns>
@@ -15594,6 +15658,19 @@
             Required method for Designer support - do not modify
               the contents of this method with the code editor.
             </summary>
+        </member>
+        <member name="M:YAF.Pages.posts.ShareMenu_ItemClick(System.Object,YAF.Controls.PopEventArgs)">
+            <summary>
+            The options menu_ item click.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+            <exception cref="T:System.ApplicationException">
+            </exception>
         </member>
         <member name="M:YAF.Pages.posts.OptionsMenu_ItemClick(System.Object,YAF.Controls.PopEventArgs)">
             <summary>
@@ -16437,6 +16514,14 @@
             </param>
             <param name="e">
             The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.moderate.reportedposts.ReportSpam(System.String)">
+            <summary>
+            Report Message as Spam
+            </summary>
+            <param name="comment">
+            The comment.
             </param>
         </member>
         <member name="F:YAF.Pages.moderate.reportedposts.PageLinks">
@@ -18995,6 +19080,11 @@
         <member name="M:YAF.Pages.cp_editalbumimages.BindData">
             <summary>
             Initializes the repeater control and the visibilities of form elements.
+            </summary>
+        </member>
+        <member name="M:YAF.Pages.cp_editalbumimages.BindVariousControls">
+            <summary>
+            Binds the repeater and title controls and the visibilities of form elements.
             </summary>
         </member>
         <member name="M:YAF.Pages.cp_editalbumimages.CheckValidFile(System.Web.UI.HtmlControls.HtmlInputFile)">
@@ -27138,9 +27228,54 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Controls.MyTopicsList.LocalizedLabel6">
+            <summary>
+            LocalizedLabel6 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.MyTopicsList.LocalizedLabel8">
+            <summary>
+            LocalizedLabel8 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.MyTopicsList.LocalizedLabel9">
+            <summary>
+            LocalizedLabel9 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.MyTopicsList.LocalizedLabel10">
+            <summary>
+            LocalizedLabel10 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Controls.MyTopicsList.TopicList">
             <summary>
             TopicList control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.MyTopicsList.MarkAll">
+            <summary>
+            MarkAll control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -27198,6 +27333,17 @@
             <summary>
             The bind data.
             </summary>
+        </member>
+        <member name="M:YAF.Controls.MyTopicsList.MarkAll_Click(System.Object,System.EventArgs)">
+            <summary>
+            The mark all_ click.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
         </member>
         <member name="M:YAF.Controls.MyTopicsList.InitSinceDropdown">
             <summary>
@@ -30710,7 +30856,7 @@
             The get topic image.
             </returns>
         </member>
-        <member name="M:YAF.Controls.TopicLine.MakeLink(System.String,System.String)">
+        <member name="M:YAF.Controls.TopicLine.MakeLink(System.String,System.String,System.Int32)">
             <summary>
             The make link.
             </summary>
@@ -30719,6 +30865,9 @@
             </param>
             <param name="link">
             The link.
+            </param>
+            <param name="pageid">
+            The pageid.
             </param>
             <returns>
             The make link.
@@ -33959,6 +34108,42 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel185">
+            <summary>
+            HelpLabel185 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.SpamServiceType">
+            <summary>
+            SpamServiceType control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel186">
+            <summary>
+            HelpLabel186 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.AkismetApiKey">
+            <summary>
+            AkismetApiKey control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.hostsettings.LocalizedLabel21">
             <summary>
             LocalizedLabel21 control.
@@ -34508,24 +34693,6 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel112">
-            <summary>
-            HelpLabel112 control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Pages.Admin.hostsettings.AllowEmailTopic">
-            <summary>
-            AllowEmailTopic control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
         <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel113">
             <summary>
             HelpLabel113 control.
@@ -34556,6 +34723,78 @@
         <member name="F:YAF.Pages.Admin.hostsettings.EnableDNACalendar">
             <summary>
             EnableDNACalendar control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel105">
+            <summary>
+            HelpLabel105 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.ShowShareTopicTo">
+            <summary>
+            ShowShareTopicTo control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel184">
+            <summary>
+            HelpLabel184 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.ShowRetweetMessageTo">
+            <summary>
+            ShowRetweetMessageTo control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel173">
+            <summary>
+            HelpLabel173 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.TwitterUserName">
+            <summary>
+            TwitterUserName control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel112">
+            <summary>
+            HelpLabel112 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.AllowEmailTopic">
+            <summary>
+            AllowEmailTopic control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -37409,6 +37648,19 @@
             </param>
             <param name="e">
             The e.
+            </param>
+        </member>
+        <member name="T:YAF.Modules.BBCode.HideBBCodeModule">
+            <summary>
+            Hidden BBCode Module
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.BBCode.HideBBCodeModule.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The render.
+            </summary>
+            <param name="writer">
+            The writer.
             </param>
         </member>
         <member name="T:YAF.Controls.ForumSubForumList">

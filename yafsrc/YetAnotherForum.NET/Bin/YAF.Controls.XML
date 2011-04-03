@@ -384,12 +384,12 @@
             The message base.
             </summary>
         </member>
-        <member name="F:YAF.Controls.MessageBase._options">
+        <member name="F:YAF.Controls.MessageBase._Options">
             <summary>
               The _options.
             </summary>
         </member>
-        <member name="M:YAF.Controls.MessageBase.RenderModulesInBBCode(System.Web.UI.HtmlTextWriter,System.String,YAF.Types.Flags.MessageFlags,System.Nullable{System.Int32})">
+        <member name="M:YAF.Controls.MessageBase.RenderModulesInBBCode(System.Web.UI.HtmlTextWriter,System.String,YAF.Types.Flags.MessageFlags,System.Nullable{System.Int32},System.Nullable{System.Int32})">
             <summary>
             The render modules in bb code.
             </summary>
@@ -405,6 +405,14 @@
             <param name="displayUserId">
             The display user id.
             </param>
+            <param name="messageId">
+            The Message Id.
+            </param>
+        </member>
+        <member name="P:YAF.Controls.MessageBase.CustomBBCode">
+            <summary>
+            Gets CustomBBCode.
+            </summary>
         </member>
         <member name="M:YAF.Controls.MessagePost.HighlightMessage(System.String)">
             <summary>
@@ -454,9 +462,14 @@
               Gets or sets DisplayUserID.
             </summary>
         </member>
+        <member name="P:YAF.Controls.MessagePost.MessageID">
+            <summary>
+              Gets or sets MessageID.
+            </summary>
+        </member>
         <member name="P:YAF.Controls.MessagePost.HighlightWords">
             <summary>
-              Words to highlight in this message
+              Gets or sets the Words to highlight in this message
             </summary>
         </member>
         <member name="P:YAF.Controls.MessagePost.IsModeratorChanged">
@@ -534,6 +547,11 @@
         <member name="P:YAF.Controls.MessagePostData.Message">
             <summary>
               Gets Message.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.MessagePostData.MessageId">
+            <summary>
+              Gets Message Id.
             </summary>
         </member>
         <member name="P:YAF.Controls.MessagePostData.Posted">
@@ -1084,6 +1102,11 @@
               The _display user id.
             </summary>
         </member>
+        <member name="F:YAF.Controls.YafBBCodeControl._messageId">
+            <summary>
+              The _message id.
+            </summary>
+        </member>
         <member name="F:YAF.Controls.YafBBCodeControl._parameters">
             <summary>
               The _parameters.
@@ -1117,6 +1140,11 @@
         <member name="P:YAF.Controls.YafBBCodeControl.CurrentMessageFlags">
             <summary>
               Gets or sets CurrentMessageFlags.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.YafBBCodeControl.MessageID">
+            <summary>
+              Gets or sets MessageID.
             </summary>
         </member>
         <member name="P:YAF.Controls.YafBBCodeControl.DisplayUserID">
@@ -1355,6 +1383,11 @@
         <member name="P:YAF.Controls.MessageSignature.DisplayUserID">
             <summary>
               Gets or sets DisplayUserID.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.MessageSignature.MessageID">
+            <summary>
+              Gets or sets MessageID.
             </summary>
         </member>
         <member name="P:YAF.Controls.MessageSignature.HtmlPrefix">
@@ -3100,6 +3133,20 @@
             The client script.
             </param>
         </member>
+        <member name="M:YAF.Controls.PopMenu.AddClientScriptItem(System.String,System.String,System.String)">
+            <summary>
+            The add client script item with Icon.
+            </summary>
+            <param name="description">
+            The description.
+            </param>
+            <param name="clientScript">
+            The client script.
+            </param>
+            <param name="icon">
+            The icon.
+            </param>
+        </member>
         <member name="M:YAF.Controls.PopMenu.AddClientScriptItemWithPostback(System.String,System.String,System.String)">
             <summary>
             Add a item with a client script and post back option. (Use {postbackcode} in the <paramref name="clientScript"/> code for the postback code.)
@@ -3125,6 +3172,20 @@
             The description.
             </param>
         </member>
+        <member name="M:YAF.Controls.PopMenu.AddPostBackItem(System.String,System.String,System.String)">
+            <summary>
+            The add post back item with an Icon
+            </summary>
+            <param name="argument">
+            The argument.
+            </param>
+            <param name="description">
+            The description.
+            </param>
+            <param name="icon">
+            The icon.
+            </param>
+        </member>
         <member name="M:YAF.Controls.PopMenu.Attach(System.Web.UI.WebControls.WebControl)">
             <summary>
             The attach.
@@ -3145,7 +3206,7 @@
             <summary>
             The remove post back item.
             </summary>
-            <param name="Argument">
+            <param name="argument">
             The argument.
             </param>
         </member>
@@ -3235,7 +3296,7 @@
             The internal pop menu item.
             </summary>
         </member>
-        <member name="M:YAF.Controls.InternalPopMenuItem.#ctor(System.String,System.String,System.String)">
+        <member name="M:YAF.Controls.InternalPopMenuItem.#ctor(System.String,System.String,System.String,System.String)">
             <summary>
             Initializes a new instance of the <see cref="T:YAF.Controls.InternalPopMenuItem"/> class.
             </summary>
@@ -3248,6 +3309,14 @@
             <param name="clientScript">
             The client script.
             </param>
+            <param name="icon">
+            The icon.
+            </param>
+        </member>
+        <member name="P:YAF.Controls.InternalPopMenuItem.Icon">
+            <summary>
+              Gets or sets Icon.
+            </summary>
         </member>
         <member name="P:YAF.Controls.InternalPopMenuItem.ClientScript">
             <summary>

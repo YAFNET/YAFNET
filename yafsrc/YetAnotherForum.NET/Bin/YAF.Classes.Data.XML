@@ -180,6 +180,23 @@
             The get boolean registry value.
             </returns>
         </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.recent_users(System.Object,System.Int32,System.Object)">
+            <summary>
+            Get the list of recently logged in users.
+            </summary>
+            <param name="boardID">
+            The board ID.
+            </param>
+            <param name="timeSinceLastLogin">
+            The time since last login in minutes.
+            </param>
+            <param name="styledNicks">
+            The styled Nicks.
+            </param>
+            <returns>
+            The list of users in Datatable format.
+            </returns>
+        </member>
         <member name="M:YAF.Classes.Data.LegacyDb.pageload(System.Object,System.Object,System.Guid,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The pageload.
@@ -2004,6 +2021,20 @@
             <param name="moveToTopic">
             The move to topic.
             </param>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.user_ThankedMessage(System.Object,System.Object)">
+            <summary>
+            Is User Thanked the current Message
+            </summary>
+            <param name="messageId">
+            The message Id.
+            </param>
+            <param name="userId">
+            The user id.
+            </param>
+            <returns>
+            If the User Thanked the the Current Message
+            </returns>
         </member>
         <member name="M:YAF.Classes.Data.LegacyDb.message_ThanksNumber(System.Object)">
             <summary>
