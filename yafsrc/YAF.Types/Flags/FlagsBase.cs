@@ -19,25 +19,34 @@
  */
 namespace YAF.Types.Flags
 {
+  #region Using
+
   using System;
   using System.Runtime.Serialization;
+  using System.Security;
+
+  #endregion
 
   /// <summary>
   /// Abstract class as a foundation for various flags implementations
   /// </summary>
-  [Serializable()]
-  public abstract class FlagsBase : ISerializationSurrogate
+  [Serializable]
+  public abstract class FlagsBase
   {
+    #region Constants and Fields
+
     /// <summary>
-    /// integer value stores up to 64 flags/bits
+    ///   integer value stores up to 64 flags/bits
     /// </summary>
     protected int _bitValue;
 
-    #region Constructors
+    #endregion
+
+    #region Constructors and Destructors
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="FlagsBase"/> class. 
-    /// Creates new instance with all bits set to false (integer 0).
+    ///   Initializes a new instance of the <see cref = "FlagsBase" /> class. 
+    ///   Creates new instance with all bits set to false (integer 0).
     /// </summary>
     public FlagsBase()
       : this(0)
@@ -46,20 +55,14 @@ namespace YAF.Types.Flags
 
     /// <summary>
     /// Initializes a new instance of the <see cref="FlagsBase"/> class. 
-    /// Creates new instance and initialize it with value of bitValue parameter.
+    ///   Creates new instance and initialize it with value of bitValue parameter.
     /// </summary>
     /// <param name="bitValue">
     /// Initialize integer value.
     /// </param>
-    /* public FlagsBase(int bitValue)
-      : this((int)bitValue)
-    {
-
-    } */
-
     /// <summary>
     /// Initializes a new instance of the <see cref="FlagsBase"/> class. 
-    /// Creates new instance and initialize it with value of bitValue parameter.
+    ///   Creates new instance and initialize it with value of bitValue parameter.
     /// </summary>
     /// <param name="bitValue">
     /// Initialize integer value.
@@ -71,12 +74,12 @@ namespace YAF.Types.Flags
 
     /// <summary>
     /// Initializes a new instance of the <see cref="FlagsBase"/> class. 
-    /// Creates new instance with bits set according to param array.
+    ///   Creates new instance with bits set according to param array.
     /// </summary>
     /// <param name="bits">
     /// Boolean values to initialize class with. If their number is lower than 32, remaining bits are set to false. If more than 32 values is specified, excess values are ignored.
     /// </param>
-    public FlagsBase(params bool[] bits)
+    public FlagsBase([NotNull] params bool[] bits)
       : this(0)
     {
       // process up to 32 parameters
@@ -89,26 +92,10 @@ namespace YAF.Types.Flags
 
     #endregion
 
-    /// <summary>
-    /// Gets or sets bit at position specified by index.
-    /// </summary>
-    /// <param name="index">Zero-based index of bit to get or set.</param>
-    /// <returns>Boolean value indicating whether bit at position specified by index is set or not.</returns>
-    public bool this[int index]
-    {
-      get
-      {
-        return GetBitAsBool(this._bitValue, index);
-      }
-
-      set
-      {
-        this._bitValue = SetBitFromBool(this._bitValue, index, value);
-      }
-    }
+    #region Properties
 
     /// <summary>
-    /// Gets or sets integer value of flags.
+    ///   Gets or sets integer value of flags.
     /// </summary>
     public int BitValue
     {
@@ -123,59 +110,31 @@ namespace YAF.Types.Flags
       }
     }
 
-    #region ISerializationSurrogate Members
+    #endregion
+
+    #region Indexers
 
     /// <summary>
-    /// The get object data.
+    ///   Gets or sets bit at position specified by index.
     /// </summary>
-    /// <param name="obj">
-    /// The obj.
-    /// </param>
-    /// <param name="info">
-    /// The info.
-    /// </param>
-    /// <param name="context">
-    /// The context.
-    /// </param>
-    public void GetObjectData(object obj, SerializationInfo info, StreamingContext context)
+    /// <param name = "index">Zero-based index of bit to get or set.</param>
+    /// <returns>Boolean value indicating whether bit at position specified by index is set or not.</returns>
+    public bool this[int index]
     {
-      var flags = obj as FlagsBase;
-      if (flags != null)
+      get
       {
-        info.AddValue("BitValue", flags.BitValue);
-      }
-    }
-
-    /// <summary>
-    /// The set object data.
-    /// </summary>
-    /// <param name="obj">
-    /// The obj.
-    /// </param>
-    /// <param name="info">
-    /// The info.
-    /// </param>
-    /// <param name="context">
-    /// The context.
-    /// </param>
-    /// <param name="selector">
-    /// The selector.
-    /// </param>
-    /// <returns>
-    /// The set object data.
-    /// </returns>
-    public object SetObjectData(object obj, SerializationInfo info, StreamingContext context, ISurrogateSelector selector)
-    {
-      var flags = obj as FlagsBase;
-      if (flags != null)
-      {
-        flags.BitValue = info.GetInt32("BitValue");
+        return GetBitAsBool(this._bitValue, index);
       }
 
-      return null;
+      set
+      {
+        this._bitValue = SetBitFromBool(this._bitValue, index, value);
+      }
     }
 
     #endregion
+
+    #region Public Methods
 
     /// <summary>
     /// Gets boolean indicating whether bit on bitShift position in bitValue integer is set or not.
@@ -229,7 +188,7 @@ namespace YAF.Types.Flags
       if (GetBitAsBool(bitValue, bitShift) != value)
       {
         // toggle that value using XOR
-        int tV = (int)0x00000001 << bitShift;
+        int tV = 0x00000001 << bitShift;
         bitValue ^= tV;
       }
 
@@ -250,5 +209,7 @@ namespace YAF.Types.Flags
 
       return Convert.ToInt32(Math.Sqrt(Convert.ToInt32(theEnum))) - 1;
     }
+
+    #endregion
   }
 }

@@ -24,6 +24,7 @@ namespace YAF.Core.Services
   using System;
   using System.Net;
   using System.Runtime.Serialization;
+  using System.Security;
   using System.Security.Permissions;
 
   using YAF.Types;
@@ -38,7 +39,7 @@ namespace YAF.Core.Services
   ///   thus it does not implement ISerializable.
   /// </remarks>
   [Serializable]
-  public sealed class InvalidResponseException : Exception, ISerializable
+  public sealed class InvalidResponseException : Exception
   {
     #region Constants and Fields
 
@@ -127,31 +128,6 @@ namespace YAF.Core.Services
         return this.status;
       }
     }
-
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region ISerializable
-
-    /// <summary>
-    /// When overridden in a derived class, sets the <see cref="T:System.Runtime.Serialization.SerializationInfo"/>
-    ///   with information about the exception.
-    /// </summary>
-    /// <param name="info">
-    /// The <see cref="T:System.Runtime.Serialization.SerializationInfo"/> that holds the serialized object data about the exception being thrown.
-    /// </param>
-    /// <param name="context">
-    /// The <see cref="T:System.Runtime.Serialization.StreamingContext"/> that contains contextual information about the source or destination.
-    /// </param>
-    [SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.SerializationFormatter)]
-    void ISerializable.GetObjectData([NotNull] SerializationInfo info, StreamingContext context)
-    {
-      info.AddValue("Status", this.status);
-      this.GetObjectData(info, context);
-    }
-
-    #endregion
 
     #endregion
   }
