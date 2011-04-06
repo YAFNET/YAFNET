@@ -463,8 +463,24 @@ namespace YAF.Pages
                 this.PostOptions1.WatchOptionVisible = !this.PageContext.IsGuest;
                 this.PostOptions1.PollOptionVisible = this.PageContext.ForumPollAccess && isNewTopic;
 
+                //this.Attachments1.Visible = !this.PageContext.IsGuest;
+
+                DataRow forumInfo;
+
+                // get topic and forum information
+                DataRow topicInfo = LegacyDb.topic_info(this.PageContext.PageTopicID);
+                using (DataTable dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
+                {
+                    forumInfo = dt.Rows[0];
+                }
+
                 if (!this.PageContext.IsGuest)
                 {
+                    /*this.Attachments1.Visible = this.PageContext.ForumUploadAccess;
+                    this.Attachments1.Forum = forumInfo;
+                    this.Attachments1.Topic = topicInfo;
+                    // todo message id*/
+
                     this.PostOptions1.WatchChecked = this.PageContext.PageTopicID > 0
                                                          ? this.TopicWatchedId(
                                                              this.PageContext.PageUserID, this.PageContext.PageTopicID).
@@ -864,7 +880,7 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// Check This Post for SPAM against the BlogSpam.NET API
+        /// Check This Post for SPAM against the BlogSpam.NET API or Akismet Service
         /// </summary>
         /// <returns>
         /// Returns if Post is SPAM or not
@@ -890,6 +906,19 @@ namespace YAF.Pages
                 whiteList = "whitelist=127.0.0.1";
             }
 
+            string email, username;
+
+            if (this.User == null)
+            {
+                email = null;
+                username = this.From.Text;
+            }
+            else
+            {
+                email = this.User.Email;
+                username = this.User.UserName;
+            }
+
             // Use BlogSpam.NET API
             if (this.Get<YafBoardSettings>().SpamServiceType.Equals(1))
             {
@@ -902,8 +931,8 @@ namespace YAF.Pages
                                 comment = this._forumEditor.Text,
                                 ip = ipAdress,
                                 agent = this.Get<HttpRequestBase>().UserAgent,
-                                email = this.User != null ? this.User.Email : null,
-                                name = this.User != null ? this.User.UserName : this.From.Text,
+                                email = email,
+                                name = username,
                                 version = String.Empty,
                                 options = whiteList,
                                 subject = this.TopicSubjectTextBox.Text
@@ -928,8 +957,8 @@ namespace YAF.Pages
                             new Comment(IPAddress.Parse(ipAdress), this.Get<HttpRequestBase>().UserAgent)
                                 {
                                     Content = this._forumEditor.Text,
-                                    Author = this.User == null ? this.User.UserName : this.From.Text,
-                                    AuthorEmail = this.User == null ? this.User.Email : null
+                                    Author = username,
+                                    AuthorEmail = email
                                 });
                 }
                 catch (Exception)
@@ -1157,6 +1186,8 @@ namespace YAF.Pages
             this.EditReasonRow.Visible = true;
             this.ReasonEditor.Text = this.Server.HtmlDecode(Convert.ToString(currentRow["EditReason"]));
             this.PostOptions1.PersistantChecked = messageFlags.IsPersistent;
+
+            //this.Attachments1.MessageID = (int)this.EditMessageID;
         }
 
         /// <summary>
@@ -1234,6 +1265,7 @@ namespace YAF.Pages
             {
                 this.PostOptions1.Visible = true;
                 this.PostOptions1.AttachOptionVisible = true;
+                //this.Attachments1.Visible = true;
             }
 
             // show the last posts AJAX frame...
