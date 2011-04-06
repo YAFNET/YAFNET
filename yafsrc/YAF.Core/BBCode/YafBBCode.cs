@@ -85,7 +85,7 @@ namespace YAF.Core.BBCode
     /// <summary>
     /// The _rgx br.
     /// </summary>
-    private static readonly string _rgxBr = "[\r]?\n";
+    private static readonly string _rgxBr = "[\r]?\n(?!<)"; // "[\r]?\n";
 
     /// <summary>
     /// The _rgx bullet.
@@ -524,7 +524,7 @@ namespace YAF.Core.BBCode
             var hrRule = new SingleRegexReplaceRule(_rgxHr, "<hr />", _options | RegexOptions.Multiline);
 
             // Multiline, since ^ must match beginning of line
-            var brRule = new SingleRegexReplaceRule(_rgxBr, "<br />", _options) { RuleRank = hrRule.RuleRank + 1 };
+            var brRule = new SingleRegexReplaceRule(_rgxBr, "<br />", _options | RegexOptions.Multiline) { RuleRank = hrRule.RuleRank + 1 };
 
             // Ensure the newline rule is processed after the HR rule, otherwise the newline characters in the HR regex will never match
             ruleEngine.AddRule(hrRule);
