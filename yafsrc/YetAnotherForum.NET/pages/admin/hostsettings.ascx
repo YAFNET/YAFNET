@@ -172,6 +172,15 @@
                         </td>
                     </tr>
                     <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel187" runat="server" LocalizedTag="SPAM_MESSAGE_HANDLING" LocalizedPage="ADMIN_HOSTSETTINGS" Suffix=":" />
+                        </td>
+                        <td class="post">
+                            <asp:DropDownList Style="width:350px" ID="SpamMessageHandling" runat="server">
+                            </asp:DropDownList>
+                        </td>
+                    </tr>
+                    <tr>
                         <td class="header1" colspan="2">
                             <YAF:LocalizedLabel ID="LocalizedLabel21" runat="server" LocalizedTag="HEADER_LOGIN" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>

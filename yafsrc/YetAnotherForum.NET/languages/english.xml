@@ -1252,6 +1252,7 @@
     <Resource tag="ISQUESTION">Is this topic in question and answer format?</Resource>
       <Resource tag="TOPICNAME_TOOLONG">Topic name length cannot be be more then {0} characters. Suggestion: use abbreviations to shorten.</Resource>
       <Resource tag="WAIT">You can't post in the next {0:N0} seconds.</Resource>
+	  <Resource tag="SPAM_MESSAGE">Your Message was rejected because it was detected as SPAM!</Resource>
    </page>
    <page name="CP_EDITALBUMIMAGES">
       <Resource tag="TITLE">Add/Edit Album</Resource>
@@ -3212,6 +3213,11 @@ Visit {forumname} at {forumlink}
      <Resource tag="CHECK_FOR_SPAM_HELP">Enables/disables automatically SPAM Checking via the &lt;a href=&quot;http://blogspam.net/&quot;&gt;BlogSpam.net API&lt;/a&gt; or Akismet.com. If enabled SPAM Post gets rejected if detected.</Resource>
 	 <Resource tag="AKISMET_KEY">Akismet API Key:</Resource>
      <Resource tag="AKISMET_KEY_HELP">To Use the Akismet comment SPAM Service you need an API Key &lt;a href=&quot;https://akismet.com/signup/&quot;&gt;Sign Up here&lt;a&gt;</Resource>
+	 <Resource tag="SPAM_MESSAGE_HANDLING">Handling of as SPAM Detected Messages</Resource>
+     <Resource tag="SPAM_MESSAGE_HANDLING_HELP">Choose what to do when a Message was detected a SPAM, You can choose between Do Nothing, Flag Message as Unapproved, or reject the Message.</Resource>
+	 <Resource tag="SPAM_MESSAGE_0">Do nothing</Resource>
+	 <Resource tag="SPAM_MESSAGE_1">Flag Message as Unapproved</Resource>
+	 <Resource tag="SPAM_MESSAGE_2">Reject Message</Resource>
    </page>
 	  <page name="ADMIN_TEST_DATA">
 	   <Resource tag="TITLE">Create Test Data (DEBUG Only)</Resource>

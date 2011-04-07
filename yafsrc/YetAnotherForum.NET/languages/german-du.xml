@@ -369,7 +369,7 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="SECURITY_ANSWER_HELP">The answer to the security question.</Resource>
     <Resource tag="SECURITY_QUESTION">Sicherheits-Frage:</Resource>
     <Resource tag="SECURITY_QUESTION_HELP">Diese Frage wird gestellt wenn Sie versuchen ein verlorenes Passwort wiederherzustellen</Resource>
-    <Resource tag="STATUS_DUP_EMAIL">A username for that e-mail address already exists. Please enter a different e-mail address.</Resource>
+    <Resource tag="STATUS_DUP_EMAIL">Ein Benutzername für diese E-Mail Adress exestiert bereits. Bitte verwenden Sie eine Andere E-Mail Adresse.</Resource>
     <Resource tag="STATUS_DUP_NAME">Benutzername exestiert bereits. Bitte wählen Sie einen anderen Namen.</Resource>
     <Resource tag="STATUS_INVAL_ANSWER">The password retrieval answer provided is invalid. Please check the value and try again.</Resource>
     <Resource tag="STATUS_INVAL_MAIL">The e-mail address provided is invalid. Please check the value and try again.</Resource>
@@ -750,15 +750,15 @@ Diesen  Benutzer löschen?</Resource>
   <page name="ADMIN_HOSTSETTINGS">
     <Resource tag="ABANDON_TRACKUSR">Abandon Sessions for "Don't Track" Users:</Resource>
     <Resource tag="ABANDON_TRACKUSR_HELP">Automatically abandon sessions for users who are marked as "Don't Track" such as Search Engines and Bots. Enable if you're having any session issues.</Resource>
-    <Resource tag="ACCEPT_HEADER_HTML">Accepted Header HTML Tags:</Resource>
+    <Resource tag="ACCEPT_HEADER_HTML">Akzeptiert Header HTML-Tags:</Resource>
     <Resource tag="ACCEPT_HEADER_HTML_HELP">Comma seperated list (no spaces) of HTML tags that are allowed in posts headers for common users editors.</Resource>
-    <Resource tag="ACCEPT_HTML">Accepted HTML Tags:</Resource>
+    <Resource tag="ACCEPT_HTML">Akzeptiert HTML-Tags:</Resource>
     <Resource tag="ACCEPT_HTML_HELP">Comma seperated list (no spaces) of HTML tags that are allowed in posts using HTML editors.</Resource>
-    <Resource tag="ACTIVE_USERTIME">Active Users Time:</Resource>
+    <Resource tag="ACTIVE_USERTIME">Aktive Benutzer Zeit:</Resource>
     <Resource tag="ACTIVE_USERTIME_HELP">Number of minutes to display users in Active Users list.</Resource>
-    <Resource tag="ACTIVETOPIC_FEEDS_ACCESS">Active Topics Feeds Access:</Resource>
+    <Resource tag="ACTIVETOPIC_FEEDS_ACCESS">Aktive Themen Feeds-Zugang:</Resource>
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS_HELP">Restrict display of active topics feeds.</Resource>
-    <Resource tag="AKISMET_KEY">Akismet API Key:</Resource>
+    <Resource tag="AKISMET_KEY">Akismet API Schlüssel:</Resource>
     <Resource tag="AKISMET_KEY_HELP">To Use the Akismet comment SPAM Service you need an API Key &lt;a href="https://akismet.com/signup/"&gt;Sign Up here&lt;a&gt;</Resource>
     <Resource tag="ALBUMS_PER_PAGE">Albums Per Page:</Resource>
     <Resource tag="ALBUMS_PER_PAGE_HELP">Number of albums to show per page.</Resource>
@@ -850,7 +850,7 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="DISPLAY_POINTS_HELP">If checked, points for posting will be displayed for each user.</Resource>
     <Resource tag="DISPLAY_TRESHOLD_IMGATTACH">Image Attachment Display Treshold:</Resource>
     <Resource tag="DISPLAY_TRESHOLD_IMGATTACH_HELP">Maximum size of picture attachment to display as picture. Pictures over this size will be displayed as links.</Resource>
-    <Resource tag="DYNAMIC_METATAGS">Add Dynamic Page Meta Tags:</Resource>
+    <Resource tag="DYNAMIC_METATAGS">Dynamic Seiten Meta-Tags hinufügen:</Resource>
     <Resource tag="DYNAMIC_METATAGS_HELP">If checked, description and keywords meta tags will be created dynamically on the post pages.</Resource>
     <Resource tag="EMAIL_VERIFICATION">Require Email Verification:</Resource>
     <Resource tag="EMAIL_VERIFICATION_HELP">If unchecked users will not need to verify their email address.</Resource>
@@ -895,7 +895,7 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="GROUPS_TEMPLATE_HELP">Template for rendering user's groups.</Resource>
     <Resource tag="GUESTS_VIEW_IRKOO">Allow guests to view users' reputations:</Resource>
     <Resource tag="GUESTS_VIEW_IRKOO_HELP">If checked, guests can view members' reputations.</Resource>
-    <Resource tag="HEADER_ADVERTS">Advert Settings</Resource>
+    <Resource tag="HEADER_ADVERTS">Anzeige Einstellungen</Resource>
     <Resource tag="HEADER_ALBUM">Album Settings</Resource>
     <Resource tag="HEADER_AVATARS">Avatar Settings</Resource>
     <Resource tag="HEADER_CACHE">Cache Settings</Resource>
@@ -914,7 +914,7 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="HEADER_SETUP">Host Setup</Resource>
     <Resource tag="HEADER_SYNDICATION">Syndication Feed Settings</Resource>
     <Resource tag="HEADER_TEMPLATES">Template Settings</Resource>
-    <Resource tag="HOST_ADVERTS">Adverts</Resource>
+    <Resource tag="HOST_ADVERTS">Anzeigen</Resource>
     <Resource tag="HOST_AVATARS">Avatars</Resource>
     <Resource tag="HOST_CACHE">Cache</Resource>
     <Resource tag="HOST_DISPLAY">Display</Resource>
@@ -945,7 +945,7 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="IRKOO_SITEID_HELP">Enter your Irkoo site ID.</Resource>
     <Resource tag="JOINDATE_TEMPLATE">Join date template:</Resource>
     <Resource tag="JOINDATE_TEMPLATE_HELP">Template for rendering user's joine date.</Resource>
-    <Resource tag="LASTPOST_COUNT">Active Discussions Count:</Resource>
+    <Resource tag="LASTPOST_COUNT">Aktive Diskussionen Anzahl:</Resource>
     <Resource tag="LASTPOST_COUNT_HELP">Number of records to display in Active Discussions list on forum index.</Resource>
     <Resource tag="LASTPOSTS_FEEDS_ACCESS">Post Latest Feeds Access:</Resource>
     <Resource tag="LASTPOSTS_FEEDS_ACCESS_HELP">Restrict display of posts feeds for latest posts.</Resource>
@@ -997,7 +997,7 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE_HELP">Max. file size for poll images in KB.</Resource>
     <Resource tag="POLLVOTING_PERIP">Poll Votes Dependant on IP:</Resource>
     <Resource tag="POLLVOTING_PERIP_HELP">By default, poll voting is tracked via username and client-side cookie. (One vote per username. Cookies are used if guest voting is allowed.) &lt;br /&gt;If this option is enabled, votes also use IP as a reference providing the most security against voter fraud.</Resource>
-    <Resource tag="POST_AD">2nd post ad:</Resource>
+    <Resource tag="POST_AD">2. Beitrag Werbung:</Resource>
     <Resource tag="POST_AD_HELP">Place the code that you wish to be displayed in each thread after the 1st post. If you do not want an ad to be displayed, don't put anything in the box.</Resource>
     <Resource tag="POSTEDIT_TIMEOUT">Post editing timeout:</Resource>
     <Resource tag="POSTEDIT_TIMEOUT_HELP">Number of seconds while post may be modified without showing that to other users</Resource>
@@ -1117,6 +1117,11 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="SHOWHELP_HELP">Enable or disable display the Help Link in the Header that Shows the Help Files Pages</Resource>
     <Resource tag="SHOWTEAM">Show Team Page:</Resource>
     <Resource tag="SHOWTEAM_HELP">Enable or disable display the Team Link in the Header that Shows the Team Page</Resource>
+    <Resource tag="SPAM_MESSAGE_0">Do nothing</Resource>
+    <Resource tag="SPAM_MESSAGE_1">Flag Message as Unapproved</Resource>
+    <Resource tag="SPAM_MESSAGE_2">Reject Message</Resource>
+    <Resource tag="SPAM_MESSAGE_HANDLING">Handling of as SPAM Detected Messages</Resource>
+    <Resource tag="SPAM_MESSAGE_HANDLING_HELP">Choose what to do when a Message was detected a SPAM, You can choose between Do Nothing, Flag Message as Unapproved, or reject the Message.</Resource>
     <Resource tag="SQL_FULLTEXT">Use SQL Full Text Search:</Resource>
     <Resource tag="SQL_FULLTEXT_HELP">Toggle use of FULLTEXT SQL Server support on searches.</Resource>
     <Resource tag="SSL_LOGIN">Use SSL while logging in:</Resource>
@@ -1491,9 +1496,9 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="TITLE">Avatar</Resource>
   </page>
   <page name="BBCODEMODULE">
-    <Resource tag="HIDDENMOD_DESC">The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post</Resource>
-    <Resource tag="HIDDENMOD_GUEST">This board requires you to be registered and logged-in before you can view hidden messages.</Resource>
-    <Resource tag="HIDEMOD_DESCRIPTION">This tag hides content from people until they press the thank you button for the post.</Resource>
+    <Resource tag="HIDDENMOD_DESC">Der Inhalt dieses Beitrages ist versteckt. Nachdem Sie dem Autor DANKE Gesagt haben, und die Seite neugeladen haben, können Sie den Inhalt sehen.</Resource>
+    <Resource tag="HIDDENMOD_GUEST">Das Forum verlangt das Sie registriert sind und angemeldet bevor Sie die Versteckten Beiträge sehen können</Resource>
+    <Resource tag="HIDEMOD_DESCRIPTION">Dieser Tag Verteckt den Inhalt bis der Benutzer die Danke Funktion für diesen Beitrag verwendet hat.</Resource>
     <Resource tag="SPOILERMOD_DESCRIPTION">"Spoiler"-Text hier eingeben</Resource>
     <Resource tag="SPOILERMOD_HIDE">"Spoiler"-Text verbergen</Resource>
     <Resource tag="SPOILERMOD_SHOW">"Spoiler"-Text anzeigen</Resource>
@@ -1598,7 +1603,7 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="CAPTCHA_ENTER">Die Buchstaben des Sicherheitscode eingeben</Resource>
     <Resource tag="CAPTCHA_IMAGE">Sicherheitscode</Resource>
     <Resource tag="CHANGEEMAIL_SUBJECT">E-Mail geändet</Resource>
-    <Resource tag="COMMON_WORDS">out,please,a,able,about,across,after,all,almost,also,am,among,an,and,any,are,as,at,be,because,been,but,by,can,cannot,could,dear,did,do,does,either,else,ever,every,for,from,get,got,had,has,have,he,her,hers,him,his,how,however,i,if,in,into,is,it,its,just,least,let,like,likely,may,me,might,most,must,my,neither,no,nor,not,of,off,often,on,only,or,other,our,own,rather,said,say,says,she,should,since,so,some,than,that,the,their,them,then,there,these,they,this,tis,to,too,twas,us,wants,was,we,were,what,when,where,which,while,who,whom,why,will,with,would,yet,you,your</Resource>
+    <Resource tag="COMMON_WORDS">aus, bitte, ein, in der Lage, über, überall, nachdem alle, fast, auch bin, unter ein, und alle sind, wie, bei,, da werden, aber durch kann, kann nicht, könnte, lieber habe, zu tun, ist, entweder, sonst, je, jede, für, von, zu bekommen, bekam, hatte, hat, haben er, sie, ihr, ihn, seine, wie ich jedoch, wenn, in, in, ist, es, seine, gerade, zumindest lassen, wie, wahrscheinlich, kann mir vielleicht die meisten, muss, meiner, weder, nein, noch nicht, der, aus, oft auf, nur, oder andere, unsere, eigene, sondern sagte, sagen wir, sagt, sie sollten, da so einige, als, dass das, ihr, sie, dann gibt es diese, sie, diese, tis, zu, Auch twas, uns will, war, wir wurden, was, wann, wo, was, während wer, wen, warum, wird mit, wäre doch, Sie, Ihre</Resource>
     <Resource tag="CONTINUE">Weiter</Resource>
     <Resource tag="COPY">Kopieren</Resource>
     <Resource tag="CUSTOM_BBCODE">Zusätzliche BB-Codes:</Resource>
@@ -2371,7 +2376,7 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="MIN_VOTE_UP">Vote Up requires %min_rating% reputation</Resource>
     <Resource tag="NOT_AUTHORIZED">Bitte Anmelden um abzustimmen</Resource>
     <Resource tag="SELF">You cannot vote for your message</Resource>
-    <Resource tag="USER_REPUTATION">Users Reputation</Resource>
+    <Resource tag="USER_REPUTATION">Benutzer Reputation</Resource>
     <Resource tag="VOTE_DOWN">Vote Down</Resource>
     <Resource tag="VOTE_UP">Vote Up</Resource>
   </page>
@@ -2630,6 +2635,7 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="SAVE">Senden</Resource>
     <Resource tag="SMILIES_HEADER">[b]Smiley hinzufügen[/b]</Resource>
     <Resource tag="SMILIES_MORE">Mehr Smilies...</Resource>
+    <Resource tag="SPAM_MESSAGE">Your Message was rejected because it was detected as SPAM!</Resource>
     <Resource tag="STICKY">Wichtig</Resource>
     <Resource tag="SUBJECT">Betreff:</Resource>
     <Resource tag="SUBJECT_DUPLICATE">Ein Beitrag mit diesem Namen exestiert bereits oder ist nicht eindeutig genug um ihn verwenden zu können.</Resource>

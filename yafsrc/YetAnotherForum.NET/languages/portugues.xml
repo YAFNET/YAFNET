@@ -1118,6 +1118,11 @@
     <Resource tag="SHOWHELP_HELP">Enable or disable display the Help Link in the Header that Shows the Help Files Pages</Resource>
     <Resource tag="SHOWTEAM">Show Team Page:</Resource>
     <Resource tag="SHOWTEAM_HELP">Enable or disable display the Team Link in the Header that Shows the Team Page</Resource>
+    <Resource tag="SPAM_MESSAGE_0">Do nothing</Resource>
+    <Resource tag="SPAM_MESSAGE_1">Flag Message as Unapproved</Resource>
+    <Resource tag="SPAM_MESSAGE_2">Reject Message</Resource>
+    <Resource tag="SPAM_MESSAGE_HANDLING">Handling of as SPAM Detected Messages</Resource>
+    <Resource tag="SPAM_MESSAGE_HANDLING_HELP">Choose what to do when a Message was detected a SPAM, You can choose between Do Nothing, Flag Message as Unapproved, or reject the Message.</Resource>
     <Resource tag="SQL_FULLTEXT">Use SQL Full Text Search:</Resource>
     <Resource tag="SQL_FULLTEXT_HELP">Toggle use of FULLTEXT SQL Server support on searches.</Resource>
     <Resource tag="SSL_LOGIN">Use SSL while logging in:</Resource>
@@ -2635,6 +2640,7 @@
     <Resource tag="SAVE">Enviar</Resource>
     <Resource tag="SMILIES_HEADER">[b]Adicionar Smiley[/b]</Resource>
     <Resource tag="SMILIES_MORE">More Smilies...</Resource>
+    <Resource tag="SPAM_MESSAGE">Your Message was rejected because it was detected as SPAM!</Resource>
     <Resource tag="STICKY">Destacado</Resource>
     <Resource tag="SUBJECT">Assunto:</Resource>
     <Resource tag="SUBJECT_DUPLICATE">A topic with the subject already exists or the subject is not unique enough to be added.</Resource>

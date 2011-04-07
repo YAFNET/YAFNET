@@ -471,6 +471,9 @@ namespace YAF.Classes
       /// <summary>
       /// Gets or sets a value indicating whether 
       /// which Spam Service Type should been used
+      /// 0 = No Service
+      /// 1 = BlogSpam.NET Service
+      /// 2 = Akismet.com Servive
       /// </summary>
       public int SpamServiceType
       {
@@ -482,6 +485,26 @@ namespace YAF.Classes
           set
           {
               this._reg.SetValue("SpamServiceType", value);
+          }
+      }
+
+      /// <summary>
+      /// Gets or sets a value indicating whether 
+      /// what to to with a SPAM Message
+      /// 0 = Do nothing
+      /// 1 = Flag Message as Unapproved
+      /// 2 = Dont allow posting
+      /// </summary>
+      public int SpamMessageHandling
+      {
+          get
+          {
+              return this._reg.GetValue("SpamMessageHandling", 1);
+          }
+
+          set
+          {
+              this._reg.SetValue("SpamMessageHandling", value);
           }
       }
 

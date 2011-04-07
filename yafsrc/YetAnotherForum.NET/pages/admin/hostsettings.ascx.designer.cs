@@ -463,6 +463,24 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.TextBox AkismetApiKey;
         
         /// <summary>
+        /// HelpLabel187 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel187;
+        
+        /// <summary>
+        /// SpamMessageHandling control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList SpamMessageHandling;
+        
+        /// <summary>
         /// LocalizedLabel21 control.
         /// </summary>
         /// <remarks>
