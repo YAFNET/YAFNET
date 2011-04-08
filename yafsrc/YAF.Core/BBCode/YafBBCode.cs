@@ -85,7 +85,7 @@ namespace YAF.Core.BBCode
     /// <summary>
     /// The _rgx br.
     /// </summary>
-    private static readonly string _rgxBr = "[\r]?\n(?!<)"; // "[\r]?\n";
+    private static readonly string _rgxBr = "[\r]?\n(?!.*<[^>]+>.*)"; // "[\r]?\n";
 
     /// <summary>
     /// The _rgx bullet.
