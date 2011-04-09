@@ -1467,6 +1467,18 @@
             <summary>
             Gets or sets a value indicating whether 
             which Spam Service Type should been used
+            0 = No Service
+            1 = BlogSpam.NET Service
+            2 = Akismet.com Servive
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.SpamMessageHandling">
+            <summary>
+            Gets or sets a value indicating whether 
+            what to to with a SPAM Message
+            0 = Do nothing
+            1 = Flag Message as Unapproved
+            2 = Dont allow posting
             </summary>
         </member>
         <member name="P:YAF.Classes.YafBoardSettings.AkismetApiKey">

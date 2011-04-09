@@ -2110,7 +2110,7 @@
               The _menu def.
             </summary>
         </member>
-        <member name="M:YAF.Controls.AdminMenu.BuildUrlList(System.Web.UI.HtmlTextWriter,YafMenuYafMenuSectionYafMenuItem[])">
+        <member name="M:YAF.Controls.AdminMenu.BuildUrlList(System.Web.UI.HtmlTextWriter,System.Collections.Generic.IEnumerable{YafMenuYafMenuSectionYafMenuItem})">
             <summary>
             Builds a Url List
             </summary>
@@ -2136,6 +2136,18 @@
             <param name="writer">
             The writer.
             </param>
+        </member>
+        <member name="M:YAF.Controls.AdminMenu.GetMenuSections">
+            <summary>
+            The get menu sections.
+            </summary>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.AdminMenu.LoadMenuFromXML">
+            <summary>
+            The load menu from xml.
+            </summary>
         </member>
         <member name="M:YAF.Controls.AdminMenu.RenderAccordian(System.Web.UI.HtmlTextWriter)">
             <summary>
