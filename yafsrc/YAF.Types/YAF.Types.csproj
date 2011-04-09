@@ -125,6 +125,7 @@
     <Compile Include="Interfaces\ILoggerProvider.cs" />
     <Compile Include="Interfaces\IModuleManager.cs" />
     <Compile Include="Interfaces\INavigatablePage.cs" />
+    <Compile Include="Interfaces\INewsReader.cs" />
     <Compile Include="Interfaces\IObjectStore.cs" />
     <Compile Include="Interfaces\IPanelSessionState.cs" />
     <Compile Include="Interfaces\IPermissions.cs" />

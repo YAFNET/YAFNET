@@ -26,12 +26,17 @@ namespace YAF.Types.Interfaces
     #region Properties
 
     /// <summary>
-    /// Gets PageCategory.
+    /// Gets a value indicating whether IsDebugOnly.
+    /// </summary>
+    bool IsDebugOnly { get; }
+
+    /// <summary>
+    ///   Gets PageCategory.
     /// </summary>
     string PageCategory { get; }
 
     /// <summary>
-    /// Gets ParentPageName.
+    ///   Gets ParentPageName.
     /// </summary>
     string ParentPageName { get; }
 

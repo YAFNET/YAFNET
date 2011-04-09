@@ -26,17 +26,22 @@ namespace YAF.Types.Interfaces
     #region Properties
 
     /// <summary>
-    /// Gets a value indicating whether IsAdminPage.
+    ///   Gets a value indicating whether IsAdminPage.
     /// </summary>
     bool IsAdminPage { get; }
 
     /// <summary>
-    /// Gets a value indicating whether IsProtected.
+    ///   Gets a value indicating whether IsHostAdminOnly.
     /// </summary>
-    bool IsProtected { get; }
+    bool IsHostAdminOnly { get; }
 
     /// <summary>
-    /// Gets PageName.
+    /// Gets a value indicating whether IsRegisteredPage.
+    /// </summary>
+    bool IsRegisteredPage { get; }
+
+    /// <summary>
+    ///   Gets PageName.
     /// </summary>
     string PageName { get; }
 
