@@ -103,8 +103,9 @@ namespace YAF.Pages.Admin
         nSeconds = 1;
       }
 
-      int nArticleCount = YafNntp.ReadArticles(
+      int nArticleCount = this.Get<INewsreader>().ReadArticles(
         this.PageContext.PageBoardID, 10, nSeconds, this.PageContext.BoardSettings.CreateNntpUsers);
+
       this.PageContext.AddLoadMessage(
         this.GetText("ADMIN_NNTPRETRIEVE", "Retrieved").FormatWith(
           nArticleCount, (double)nArticleCount / nSeconds));
