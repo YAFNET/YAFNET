@@ -32,6 +32,7 @@ namespace YAF.Core
 
   using YAF.Classes;
   using YAF.Core.BBCode;
+  using YAF.Core.Nntp;
   using YAF.Core.Services;
   using YAF.Types;
   using YAF.Types.Attributes;
@@ -119,6 +120,8 @@ namespace YAF.Core
       builder.RegisterType<CurrentTaskModuleProvider>().SingleInstance().PreserveExistingDefaults();
       builder.Register(k => k.Resolve<CurrentTaskModuleProvider>().Instance).ExternallyOwned().PreserveExistingDefaults(
         );
+
+      builder.RegisterType<YafNntp>().As<INewsreader>().InstancePerLifetimeScope().PreserveExistingDefaults();
 
       // optional defaults.
       builder.RegisterType<YafSendMail>().As<ISendMail>().SingleInstance().PreserveExistingDefaults();

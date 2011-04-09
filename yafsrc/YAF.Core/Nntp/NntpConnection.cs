@@ -184,9 +184,7 @@ namespace YAF.Core.Nntp
         }
       }
 
-      this.tcpClient = new TcpClient();
-      this.tcpClient.SendTimeout = this.timeout;
-      this.tcpClient.ReceiveTimeout = this.timeout;
+      this.tcpClient = new TcpClient { SendTimeout = this.timeout, ReceiveTimeout = this.timeout };
     }
 
     /// <summary>
@@ -443,10 +441,8 @@ namespace YAF.Core.Nntp
         this.sr.Read(buff, 0, 1);
       }
 
-      var ab = new ArticleBody();
-      ab.IsHtml = false;
-      ab.Text = sb.ToString();
-      ab.Attachments = (Attachment[]) list.ToArray(typeof (Attachment));
+      var ab = new ArticleBody
+        { IsHtml = false, Text = sb.ToString(), Attachments = (Attachment[])list.ToArray(typeof(Attachment)) };
       return ab;
     }
 
@@ -823,8 +819,7 @@ namespace YAF.Core.Nntp
       {
         try
         {
-          article = new Article();
-          article.Header = new ArticleHeader();
+          article = new Article { Header = new ArticleHeader() };
           values = response.Split('\t');
           article.ArticleId = int.Parse(values[0]);
           article.Header.Subject = NntpUtil.Base64HeaderDecode(values[1]);

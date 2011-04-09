@@ -42,7 +42,7 @@ namespace YAF.Core.Nntp
   /// <summary>
   /// The yaf nntp.
   /// </summary>
-  public static class YafNntp
+  public class YafNntp : INewsreader
   {
     #region Public Methods
 
@@ -64,7 +64,7 @@ namespace YAF.Core.Nntp
     /// <returns>
     /// The read articles.
     /// </returns>
-    public static int ReadArticles(object boardID, int lastUpdate, int timeToRun, bool createUsers)
+    public int ReadArticles(object boardID, int lastUpdate, int timeToRun, bool createUsers)
     {
       int guestUserId = UserMembershipHelper.GuestUserId; // Use guests user-id
       string hostAddress = YafContext.Current.Get<HttpRequestBase>().UserHostAddress;     

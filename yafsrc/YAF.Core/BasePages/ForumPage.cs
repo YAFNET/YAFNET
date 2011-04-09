@@ -180,14 +180,13 @@ namespace YAF.Core
     /// </summary>
     public bool IsAdminPage { get; protected set; }
 
-    /// <summary>
-    ///   Gets info whether page should be hidden to guest users when forum admin requires login.
-    /// </summary>
-    public virtual bool IsProtected
+    public virtual bool IsProtected { get; protected set; }
+
+    public virtual bool IsHostAdminOnly
     {
       get
       {
-        return true;
+        return false;
       }
     }
 

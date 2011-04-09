@@ -22,6 +22,7 @@ namespace YAF.Controls
   #region Using
 
   using System;
+  using System.Collections.Generic;
   using System.IO;
   using System.Linq;
   using System.Reflection;
@@ -62,9 +63,10 @@ namespace YAF.Controls
     /// <param name="listItems">
     /// Menu Items
     /// </param>
-    protected void BuildUrlList([NotNull] HtmlTextWriter writer, [NotNull] YafMenuYafMenuSectionYafMenuItem[] listItems)
+    protected void BuildUrlList(
+      [NotNull] HtmlTextWriter writer, [NotNull] IEnumerable<YafMenuYafMenuSectionYafMenuItem> listItems)
     {
-      if (listItems.Length <= 0)
+      if (!listItems.Any())
       {
         return;
       }
@@ -76,9 +78,9 @@ namespace YAF.Controls
       {
         bool isVisible = true;
 
-        #if !DEBUG
+#if !DEBUG
         isVisible = !(item.Debug.IsSet() && Convert.ToBoolean(item.Debug));
-        #endif
+#endif
 
         if (!isVisible)
         {
@@ -147,26 +149,12 @@ namespace YAF.Controls
     /// </param>
     protected override void OnPreRender([NotNull] EventArgs e)
     {
-      const string DefFile = "YAF.Controls.YafAdminMenu.AdminMenuDef.xml";
-
-      // load menu definition...
-      var deserializer = new XmlSerializer(typeof(YafMenu));
-      using (Stream resourceStream = Assembly.GetAssembly(this.GetType()).GetManifestResourceStream(DefFile))
-      {
-        if (resourceStream != null)
-        {
-          this._menuDef = (YafMenu)deserializer.Deserialize(resourceStream);
-        }
-      }
-
       //// select the view that has the current page...
       string currentPage = this.PageContext.ForumPageType.ToString();
 
       // build menu...
-      int viewIndex = (from value in this._menuDef.Items
-                       let addView = !(Convert.ToBoolean(value.HostAdminOnly) && !this.PageContext.IsHostAdmin)
-                       where addView
-                       select value).TakeWhile(value => !value.YafMenuItem.Any(x => x.ForumPage == currentPage)).Count();
+      int viewIndex =
+        this.GetMenuSections().TakeWhile(value => !value.YafMenuItem.Any(x => x.ForumPage == currentPage)).Count();
 
       // setup jQuery
       this.PageContext.PageElements.RegisterJQuery();
@@ -229,6 +217,57 @@ namespace YAF.Controls
     }
 
     /// <summary>
+    /// The get menu sections.
+    /// </summary>
+    /// <returns>
+    /// </returns>
+    [NotNull]
+    private IEnumerable<YafMenuYafMenuSection> GetMenuSections()
+    {
+      if (this._menuDef == null)
+      {
+        this.LoadMenuFromXML();
+      }
+
+      var menuItems = this._menuDef.Items.ToList();
+
+      var dynamicPages = this.Get<IEnumerable<ILocatablePage>>().Where(p => p.IsAdminPage && p.HasInterface<INavigatablePage>());
+
+      menuItems.AddRange(
+        dynamicPages.Select(
+          p =>
+          new YafMenuYafMenuSection()
+            {
+              HostAdminOnly = p.IsHostAdminOnly.ToString(),
+              Title = p.PageName,
+              Tag = (p as INavigatablePage).PageCategory
+            }));
+
+      return from value in menuItems
+             let addView = !(Convert.ToBoolean(value.HostAdminOnly) && !this.PageContext.IsHostAdmin)
+             where addView
+             select value;
+    }
+
+    /// <summary>
+    /// The load menu from xml.
+    /// </summary>
+    private void LoadMenuFromXML()
+    {
+      const string DefFile = "YAF.Controls.YafAdminMenu.AdminMenuDef.xml";
+
+      // load menu definition...
+      var deserializer = new XmlSerializer(typeof(YafMenu));
+      using (Stream resourceStream = Assembly.GetAssembly(this.GetType()).GetManifestResourceStream(DefFile))
+      {
+        if (resourceStream != null)
+        {
+          this._menuDef = (YafMenu)deserializer.Deserialize(resourceStream);
+        }
+      }
+    }
+
+    /// <summary>
     /// Render the Admin Menu Items
     /// </summary>
     /// <param name="writer">
@@ -237,10 +276,7 @@ namespace YAF.Controls
     private void RenderAccordian([NotNull] HtmlTextWriter writer)
     {
       // build menu...
-      foreach (var value in from value in this._menuDef.Items
-                            let addView = !(Convert.ToBoolean(value.HostAdminOnly) && !this.PageContext.IsHostAdmin)
-                            where addView
-                            select value)
+      foreach (var value in this.GetMenuSections())
       {
         writer.WriteLine(@"<h3><a href=""#"">{0}</a></h3>".FormatWith(this.GetText("ADMINMENU", value.Tag)));
 
