@@ -6338,7 +6338,7 @@
         </member>
         <member name="M:YAF.Pages.postmessage.IsPostSpam">
             <summary>
-            Check This Post for SPAM against the BlogSpam.NET API
+            Check This Post for SPAM against the BlogSpam.NET API or Akismet Service
             </summary>
             <returns>
             Returns if Post is SPAM or not
@@ -34138,6 +34138,24 @@
         <member name="F:YAF.Pages.Admin.hostsettings.AkismetApiKey">
             <summary>
             AkismetApiKey control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel187">
+            <summary>
+            HelpLabel187 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.SpamMessageHandling">
+            <summary>
+            SpamMessageHandling control.
             </summary>
             <remarks>
             Auto-generated field.
