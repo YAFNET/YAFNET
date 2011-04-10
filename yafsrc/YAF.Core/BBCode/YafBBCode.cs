@@ -136,13 +136,13 @@ namespace YAF.Core.BBCode
     /// The _rgx img.
     /// </summary>
     private static readonly Regex _rgxImg = new Regex(
-      @"\[img\](?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>(.+?\.((jpg(.*?))|(png(.*?))|(gif(.*?))|(tif(.*?))|(ashx(.*?))|(php(.*?)))))\[/img\]", _options | RegexOptions.Compiled);
+      @"\[img\](?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>(.+?\.((jpg[^\[]*)|(png[^\[]*)|(gif[^\[]*)|(tif[^\[]*)|(ashx[^\[]*)|(php[^\[]*))))\[/img\]", _options | RegexOptions.Compiled);
 
        /// <summary>
     /// The _rgx img Title.
     /// </summary>
     private static readonly Regex _rgxImgTitle = new Regex(
-      @"\[img=(?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>(.+?\.((jpg(.*?))|(png(.*?))|(gif(.*?))|(tif(.*?))|(ashx(.*?))|(php(.*?)))))\](?<description>(.*?))\[/img\]", _options | RegexOptions.Compiled);
+      @"\[img=(?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>(.+?\.((jpg[^\]]*)|(png[^\]]*)|(gif[^\]]*)|(tif[^\]]*)|(ashx[^\]]*)|(php[^\]]*))))\](?<description>(.+?))\[/img\]", _options | RegexOptions.Compiled);
 
     /// <summary>
     /// The _rgx italic.
