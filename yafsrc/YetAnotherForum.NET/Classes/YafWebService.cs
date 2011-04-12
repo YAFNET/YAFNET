@@ -106,7 +106,7 @@ public class YafWebService : WebService, IHaveServiceLocator
     string subjectEncoded = this.Server.HtmlEncode(subject);
 
     return LegacyDb.topic_save(
-      forumid, subjectEncoded, post, userid, priority, username, ip, null, null, flags, ref messageId);
+      forumid, subjectEncoded, post, userid, priority, username, ip, DateTime.UtcNow, null, flags, ref messageId);
   }
 
   /// <summary>

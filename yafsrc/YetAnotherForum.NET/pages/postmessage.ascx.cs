@@ -655,7 +655,7 @@ namespace YAF.Pages
               this.Priority.SelectedValue,
               this.User != null ? null : this.From.Text,
               this.Get<HttpRequestBase>().UserHostAddress,
-              null,
+              DateTime.UtcNow,
               blogPostID,
               messageFlags.BitValue,
               ref messageId);

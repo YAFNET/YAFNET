@@ -1004,8 +1004,8 @@ namespace YAF.Pages.Admin
           this.PageContext.PageUserID, 
           _priority, 
           this.PageContext.User.UserName, 
-          this.Request.UserHostAddress, 
-          null, 
+          this.Request.UserHostAddress,
+          DateTime.UtcNow, 
           string.Empty, 
           this.GetMessageFlags(), 
           ref messageid);
