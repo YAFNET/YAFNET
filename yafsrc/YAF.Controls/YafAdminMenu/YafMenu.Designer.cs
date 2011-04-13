@@ -637,6 +637,10 @@ namespace YAF.Controls.YafAdminMenu {
             
             private global::System.Data.DataColumn columnDebug;
             
+            private global::System.Data.DataColumn columnSubForumPage_0;
+            
+            private global::System.Data.DataColumn columnSubForumPage_1;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public YafMenuItemDataTable() {
@@ -720,6 +724,22 @@ namespace YAF.Controls.YafAdminMenu {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn SubForumPage_0Column {
+                get {
+                    return this.columnSubForumPage_0;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn SubForumPage_1Column {
+                get {
+                    return this.columnSubForumPage_1;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -755,7 +775,7 @@ namespace YAF.Controls.YafAdminMenu {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public YafMenuItemRow AddYafMenuItemRow(YafMenuSectionRow parentYafMenuSectionRowByYafMenuSection_YafMenuItem, string Title, string ForumPage, string Image, string Link, string Debug) {
+            public YafMenuItemRow AddYafMenuItemRow(YafMenuSectionRow parentYafMenuSectionRowByYafMenuSection_YafMenuItem, string Title, string ForumPage, string Image, string Link, string Debug, string SubForumPage_0, string SubForumPage_1) {
                 YafMenuItemRow rowYafMenuItemRow = ((YafMenuItemRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -763,7 +783,9 @@ namespace YAF.Controls.YafAdminMenu {
                         ForumPage,
                         Image,
                         Link,
-                        Debug};
+                        Debug,
+                        SubForumPage_0,
+                        SubForumPage_1};
                 if ((parentYafMenuSectionRowByYafMenuSection_YafMenuItem != null)) {
                     columnValuesArray[0] = parentYafMenuSectionRowByYafMenuSection_YafMenuItem[1];
                 }
@@ -795,6 +817,8 @@ namespace YAF.Controls.YafAdminMenu {
                 this.columnImage = base.Columns["Image"];
                 this.columnLink = base.Columns["Link"];
                 this.columnDebug = base.Columns["Debug"];
+                this.columnSubForumPage_0 = base.Columns["SubForumPage_0"];
+                this.columnSubForumPage_1 = base.Columns["SubForumPage_1"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -812,6 +836,10 @@ namespace YAF.Controls.YafAdminMenu {
                 base.Columns.Add(this.columnLink);
                 this.columnDebug = new global::System.Data.DataColumn("Debug", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDebug);
+                this.columnSubForumPage_0 = new global::System.Data.DataColumn("SubForumPage_0", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSubForumPage_0);
+                this.columnSubForumPage_1 = new global::System.Data.DataColumn("SubForumPage_1", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSubForumPage_1);
                 this.columnYafMenuSection_Id.Namespace = "";
             }
             
@@ -1172,6 +1200,38 @@ namespace YAF.Controls.YafAdminMenu {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string SubForumPage_0 {
+                get {
+                    try {
+                        return ((string)(this[this.tableYafMenuItem.SubForumPage_0Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'SubForumPage_0\' in table \'YafMenuItem\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableYafMenuItem.SubForumPage_0Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string SubForumPage_1 {
+                get {
+                    try {
+                        return ((string)(this[this.tableYafMenuItem.SubForumPage_1Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'SubForumPage_1\' in table \'YafMenuItem\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableYafMenuItem.SubForumPage_1Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public YafMenuSectionRow YafMenuSectionRow {
                 get {
                     return ((YafMenuSectionRow)(this.GetParentRow(this.Table.ParentRelations["YafMenuSection_YafMenuItem"])));
@@ -1251,6 +1311,30 @@ namespace YAF.Controls.YafAdminMenu {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetDebugNull() {
                 this[this.tableYafMenuItem.DebugColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsSubForumPage_0Null() {
+                return this.IsNull(this.tableYafMenuItem.SubForumPage_0Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetSubForumPage_0Null() {
+                this[this.tableYafMenuItem.SubForumPage_0Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsSubForumPage_1Null() {
+                return this.IsNull(this.tableYafMenuItem.SubForumPage_1Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetSubForumPage_1Null() {
+                this[this.tableYafMenuItem.SubForumPage_1Column] = global::System.Convert.DBNull;
             }
         }
         

@@ -9,6 +9,7 @@
     <YafMenuItem>
       <Title>Boards</Title>
       <ForumPage>admin_boards</ForumPage>
+      <SubForumPage_0>admin_editboard</SubForumPage_0>
       <Image>tables</Image>
     </YafMenuItem>
 	</YafMenuSection>
@@ -26,31 +27,42 @@
     <YafMenuItem>
       <Title>Forums</Title>
       <ForumPage>admin_forums</ForumPage>
+      <SubForumPage_0>admin_editcategory</SubForumPage_0>
+      <SubForumPage_1>admin_editforum</SubForumPage_1>
       <Image>sticky-notes-pin</Image>
     </YafMenuItem>
     <YafMenuItem>
       <Title>Smiles</Title>
       <ForumPage>admin_smilies</ForumPage>
+      <SubForumPage_0>admin_smilies_edit</SubForumPage_0>
+      <SubForumPage_1>admin_smilies_import</SubForumPage_1>
       <Image>smiley</Image>
     </YafMenuItem>
 		<YafMenuItem>
 			<Title>Replace Words</Title>
 			<ForumPage>admin_replacewords</ForumPage>
+      <SubForumPage_0>admin_replacewords_edit</SubForumPage_0>
+      <SubForumPage_1>admin_replacewords_import</SubForumPage_1>
 			<Image>sticky-note-text</Image>
 		</YafMenuItem>
 		<YafMenuItem>
       <Title>File Extensions</Title>
       <ForumPage>admin_extensions</ForumPage>
+      <SubForumPage_0>admin_extensions_edit</SubForumPage_0>
+      <SubForumPage_1>admin_extensions_import</SubForumPage_1>
       <Image>gear--pencil</Image>
     </YafMenuItem>
     <YafMenuItem>
       <Title>BBCode Extensions</Title>
       <ForumPage>admin_bbcode</ForumPage>
+      <SubForumPage_0>admin_bbcode_edit</SubForumPage_0>
+      <SubForumPage_1>admin_bbcode_import</SubForumPage_1>
       <Image>script-text</Image>
     </YafMenuItem>
     <YafMenuItem>
       <Title>Languages</Title>
       <ForumPage>admin_languages</ForumPage>
+      <SubForumPage_0>admin_editlanguage</SubForumPage_0>
       <Image>globe-green</Image>
     </YafMenuItem>
   </YafMenuSection>
@@ -58,31 +70,38 @@
     <YafMenuItem>
       <Title>Access Masks</Title>
       <ForumPage>admin_accessmasks</ForumPage>
+      <SubForumPage_0>admin_editaccessmask</SubForumPage_0>
       <Image>puzzle</Image>
     </YafMenuItem>
     <YafMenuItem>
       <Title>Roles</Title>
       <ForumPage>admin_groups</ForumPage>
+      <SubForumPage_0>admin_editgroup</SubForumPage_0>
       <Image>marker</Image>
     </YafMenuItem>
     <YafMenuItem>
       <Title>Users</Title>
       <ForumPage>admin_users</ForumPage>
+      <SubForumPage_0>admin_edituser</SubForumPage_0>
+      <SubForumPage_1>admin_reguser</SubForumPage_1>
       <Image>user</Image>			
     </YafMenuItem>
 		<YafMenuItem>
 			<Title>Ranks</Title>
 			<ForumPage>admin_ranks</ForumPage>
+      <SubForumPage_0>admin_editrank</SubForumPage_0>
 			<Image>target</Image>
 		</YafMenuItem>
 		<YafMenuItem>
       <Title>Banned IPs</Title>
       <ForumPage>admin_bannedip</ForumPage>
+      <SubForumPage_0>admin_bannedip_edit</SubForumPage_0>
       <Image>lock</Image>
     </YafMenuItem>
     <YafMenuItem>
       <Title>Medals</Title>
       <ForumPage>admin_medals</ForumPage>
+      <SubForumPage_0>admin_editmedal</SubForumPage_0>
       <Image>trophy</Image>
     </YafMenuItem>
     <YafMenuItem>
@@ -150,11 +169,13 @@
     <YafMenuItem>
       <Title>NNTP Servers</Title>
       <ForumPage>admin_nntpservers</ForumPage>
+      <SubForumPage_0>admin_editnntpserver</SubForumPage_0>
       <Image>newspaper</Image>
     </YafMenuItem>
     <YafMenuItem>
       <Title>NNTP Forums</Title>
       <ForumPage>admin_nntpforums</ForumPage>
+      <SubForumPage_0>admin_editnntpforum</SubForumPage_0>
       <Image>newspaper</Image>
     </YafMenuItem>
     <YafMenuItem>

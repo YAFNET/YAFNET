@@ -99,13 +99,29 @@ namespace YAF.Controls
         {
           var itemPage = item.ForumPage.ToEnum<ForumPages>();
 
-          // internal "page" link...
+            // internal "page" link...
           url = YafBuildLink.GetLink(itemPage);
 
           // Highlight the Current Page
           if (this.PageContext.ForumPageType.Equals(itemPage))
           {
-            highlightPage = true;
+              highlightPage = true;
+          }
+
+          if (!string.IsNullOrEmpty(item.SubForumPage_0))
+          {
+              if (this.PageContext.ForumPageType.Equals(item.SubForumPage_0.ToEnum<ForumPages>()))
+              {
+                  highlightPage = true;
+              }
+          }
+
+          if (!string.IsNullOrEmpty(item.SubForumPage_1))
+          {
+              if (this.PageContext.ForumPageType.Equals(item.SubForumPage_1.ToEnum<ForumPages>()))
+              {
+                  highlightPage = true;
+              }
           }
         }
 
@@ -153,18 +169,22 @@ namespace YAF.Controls
       string currentPage = this.PageContext.ForumPageType.ToString();
 
       // build menu...
-      int viewIndex =
-        this.GetMenuSections().TakeWhile(value => !value.YafMenuItem.Any(x => x.ForumPage == currentPage)).Count();
+        int viewIndex =
+            this.GetMenuSections().TakeWhile(
+                value =>
+                !value.YafMenuItem.Any(
+                    x => x.ForumPage.Equals(currentPage) || 
+                    x.SubForumPage_0 != null && x.SubForumPage_0.Equals(currentPage) ||
+                    x.SubForumPage_1 != null && x.SubForumPage_1.Equals(currentPage))).Count();
 
       // setup jQuery
       this.PageContext.PageElements.RegisterJQuery();
       YafContext.Current.PageElements.RegisterJQueryUI();
 
-      var accordianJs = string.Empty;
+      string accordianJs;
 
       if (viewIndex >= 7)
       {
-        // TODO : Shows default Tab on sub pages. Needs a better detection for subpages that are not included in Admin Menu.
         accordianJs =
           @"jQuery(document).ready(function() {
 					jQuery('.adminMenuAccordian').accordion({ autoHeight:false,animated:'bounceslide',event:'click' });});";
@@ -220,36 +240,38 @@ namespace YAF.Controls
     /// The get menu sections.
     /// </summary>
     /// <returns>
+    /// Returns the Menu Sections
     /// </returns>
     [NotNull]
     private IEnumerable<YafMenuYafMenuSection> GetMenuSections()
     {
-      if (this._menuDef == null)
-      {
-        this.LoadMenuFromXML();
-      }
+        if (this._menuDef == null)
+        {
+            this.LoadMenuFromXML();
+        }
 
-      var menuItems = this._menuDef.Items.ToList();
+        var menuItems = this._menuDef.Items.ToList();
 
-      var dynamicPages = this.Get<IEnumerable<ILocatablePage>>().Where(p => p.IsAdminPage && p.HasInterface<INavigatablePage>());
+        var dynamicPages =
+            this.Get<IEnumerable<ILocatablePage>>().Where(p => p.IsAdminPage && p.HasInterface<INavigatablePage>());
 
-      menuItems.AddRange(
-        dynamicPages.Select(
-          p =>
-          new YafMenuYafMenuSection()
-            {
-              HostAdminOnly = p.IsHostAdminOnly.ToString(),
-              Title = p.PageName,
-              Tag = (p as INavigatablePage).PageCategory
-            }));
+        menuItems.AddRange(
+            dynamicPages.Select(
+                p =>
+                new YafMenuYafMenuSection
+                    {
+                        HostAdminOnly = p.IsHostAdminOnly.ToString(),
+                        Title = p.PageName,
+                        Tag = (p as INavigatablePage).PageCategory
+                    }));
 
-      return from value in menuItems
-             let addView = !(Convert.ToBoolean(value.HostAdminOnly) && !this.PageContext.IsHostAdmin)
-             where addView
-             select value;
+        return from value in menuItems
+               let addView = !(Convert.ToBoolean(value.HostAdminOnly) && !this.PageContext.IsHostAdmin)
+               where addView
+               select value;
     }
 
-    /// <summary>
+      /// <summary>
     /// The load menu from xml.
     /// </summary>
     private void LoadMenuFromXML()
