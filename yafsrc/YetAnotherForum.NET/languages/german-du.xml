@@ -3171,9 +3171,11 @@ Der Bestätigungscode lautet
     <Resource tag="LASTPOST">Letzter Beitrag</Resource>
     <Resource tag="MARKREAD">Dieses Forum als gelesen markieren</Resource>
     <Resource tag="NO_POSTS">Keine Beiträge</Resource>
+    <Resource tag="OK_TT">Search this Forum</Resource>
     <Resource tag="POSTS">Beiträge</Resource>
     <Resource tag="REPLIES">Antworten</Resource>
     <Resource tag="RSSFEED">RSS-Feed</Resource>
+    <Resource tag="SEARCH_FORUM">Search Forum</Resource>
     <Resource tag="SHOWTOPICS">Zeige Themen</Resource>
     <Resource tag="SUBFORUMS">{0} Unterforen</Resource>
     <Resource tag="TODAYAT">[b]Heute[/b], um {0:T}</Resource>

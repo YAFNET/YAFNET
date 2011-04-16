@@ -3190,9 +3190,11 @@ Visit {forumname} at {forumlink}
     <Resource tag="LASTPOST">Ostatni Post</Resource>
     <Resource tag="MARKREAD">Zaznacz to forum jako przeczytane</Resource>
     <Resource tag="NO_POSTS">Nie ma Postów</Resource>
+    <Resource tag="OK_TT">Search this Forum</Resource>
     <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REPLIES">Odpowiedzi</Resource>
     <Resource tag="RSSFEED">Źródło Rss</Resource>
+    <Resource tag="SEARCH_FORUM">Search Forum</Resource>
     <Resource tag="SHOWTOPICS">Pokaż Tematy</Resource>
     <Resource tag="SUBFORUMS">Pod fora</Resource>
     <Resource tag="TODAYAT">[b]Today[/b] at {0:T}</Resource>

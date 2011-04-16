@@ -3303,9 +3303,11 @@
     <Resource tag="LASTPOST">הודעה אחרונה</Resource>
     <Resource tag="MARKREAD">סמן פורום זה כ'נקרא'</Resource>
     <Resource tag="NO_POSTS">אין הודעות</Resource>
+    <Resource tag="OK_TT">Search this Forum</Resource>
     <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REPLIES">תגובות</Resource>
     <Resource tag="RSSFEED">הזנת RSS</Resource>
+    <Resource tag="SEARCH_FORUM">Search Forum</Resource>
     <Resource tag="SHOWTOPICS">הצג דיונים</Resource>
     <Resource tag="SUBFORUMS">{0} תת-פורומים</Resource>
     <Resource tag="TODAYAT">[b]היום[/b] ב- {0:T}</Resource>

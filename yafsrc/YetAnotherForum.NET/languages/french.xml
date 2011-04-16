@@ -3176,9 +3176,11 @@ Visitez {forumname} à l'adresse {forumlink}
     <Resource tag="LASTPOST">Dernier Message</Resource>
     <Resource tag="MARKREAD">Marquer ce forum comme lu</Resource>
     <Resource tag="NO_POSTS">Aucun Messages</Resource>
+    <Resource tag="OK_TT">Search this Forum</Resource>
     <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REPLIES">Réponses</Resource>
     <Resource tag="RSSFEED">Flux RSS</Resource>
+    <Resource tag="SEARCH_FORUM">Search Forum</Resource>
     <Resource tag="SHOWTOPICS">Montrer les sujets</Resource>
     <Resource tag="SUBFORUMS">Sous-forums</Resource>
     <Resource tag="TODAYAT">[b]Aujourd'hui[/b] à {0:T}</Resource>

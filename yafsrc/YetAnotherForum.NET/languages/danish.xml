@@ -3166,9 +3166,11 @@ Visit {forumname} at {forumlink}
     <Resource tag="LASTPOST">Sidste indlæg</Resource>
     <Resource tag="MARKREAD">Marker dette forum som læst</Resource>
     <Resource tag="NO_POSTS">Ingen indlæg</Resource>
+    <Resource tag="OK_TT">Search this Forum</Resource>
     <Resource tag="POSTS">Indlæg</Resource>
     <Resource tag="REPLIES">Svar</Resource>
     <Resource tag="RSSFEED">Rss Feed</Resource>
+    <Resource tag="SEARCH_FORUM">Search Forum</Resource>
     <Resource tag="SHOWTOPICS">Vis Emner</Resource>
     <Resource tag="SUBFORUMS">Under fora</Resource>
     <Resource tag="TODAYAT">[b]I dag[/b] klokken {0:T}</Resource>

@@ -3023,9 +3023,11 @@ Visit {forumname} at {forumlink}
     <Resource tag="LASTPOST">آخر التعليقات </Resource>
     <Resource tag="MARKREAD">تعين هذه المنتدى مقروء</Resource>
     <Resource tag="NO_POSTS">لا يوجد تعليقات  </Resource>
+    <Resource tag="OK_TT">Search this Forum</Resource>
     <Resource tag="POSTS">تعليقات </Resource>
     <Resource tag="REPLIES">الردود</Resource>
     <Resource tag="RSSFEED">RSS خدمة </Resource>
+    <Resource tag="SEARCH_FORUM">Search Forum</Resource>
     <Resource tag="SHOWTOPICS">مشاهدة مواضيع </Resource>
     <Resource tag="SUBFORUMS">منتدى فرعي</Resource>
     <Resource tag="TODAYAT">[b]اليوم [/b] في {0:T}</Resource>

@@ -48,7 +48,11 @@
 .yafnet #DivForumJump
 {
 	float:right;
-	margin-top: 10px;
+}
+.yafnet #ForumSearchDiv
+{
+	display:inline;
+	float:left;
 }
 .yafnet #DivPageAccess
 {

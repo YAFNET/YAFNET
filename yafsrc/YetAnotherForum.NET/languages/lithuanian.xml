@@ -3320,9 +3320,11 @@ Visit {forumname} at {forumlink}
     <Resource tag="LASTPOST">Last Post </Resource>
     <Resource tag="MARKREAD">Pažymėti šį forumą kaip perskaitytą </Resource>
     <Resource tag="NO_POSTS">Komentarų nėra </Resource>
+    <Resource tag="OK_TT">Search this Forum</Resource>
     <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REPLIES">Atsakymai </Resource>
     <Resource tag="RSSFEED">Rss feed </Resource>
+    <Resource tag="SEARCH_FORUM">Search Forum</Resource>
     <Resource tag="SHOWTOPICS">Rodyti Temos </Resource>
     <Resource tag="SUBFORUMS">{0} Subforums </Resource>
     <Resource tag="TODAYAT">[b] Šiandien [/b] į {0:T} </Resource>

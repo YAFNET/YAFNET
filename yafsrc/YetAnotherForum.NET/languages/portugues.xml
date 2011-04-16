@@ -3175,9 +3175,11 @@ Visit {forumname} at {forumlink}
     <Resource tag="LASTPOST">Última Participação</Resource>
     <Resource tag="MARKREAD">Marcar este fórum como lido</Resource>
     <Resource tag="NO_POSTS">Nenhuma Participação</Resource>
+    <Resource tag="OK_TT">Search this Forum</Resource>
     <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REPLIES">Respostas</Resource>
     <Resource tag="RSSFEED">Notícias RSS</Resource>
+    <Resource tag="SEARCH_FORUM">Search Forum</Resource>
     <Resource tag="SHOWTOPICS">Mostrar Tópicos</Resource>
     <Resource tag="SUBFORUMS">{0} Subforuns</Resource>
     <Resource tag="TODAYAT">[b]Hoje[/b] às {0:T}</Resource>

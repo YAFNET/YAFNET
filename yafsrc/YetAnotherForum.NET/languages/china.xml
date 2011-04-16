@@ -3178,9 +3178,11 @@ Visit {forumname} at {forumlink}
     <Resource tag="LASTPOST">最后发表</Resource>
     <Resource tag="MARKREAD">标注本论坛为已读</Resource>
     <Resource tag="NO_POSTS">没有新贴</Resource>
+    <Resource tag="OK_TT">Search this Forum</Resource>
     <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REPLIES">回复</Resource>
     <Resource tag="RSSFEED">Rss Feed</Resource>
+    <Resource tag="SEARCH_FORUM">Search Forum</Resource>
     <Resource tag="SHOWTOPICS">显示话题</Resource>
     <Resource tag="SUBFORUMS">子论坛</Resource>
     <Resource tag="TODAYAT">[b]今天[/b] 于 {0:T}</Resource>

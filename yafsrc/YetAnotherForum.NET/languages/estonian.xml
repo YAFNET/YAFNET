@@ -3008,9 +3008,11 @@ Külastage {forumname} aadressil {forumlink}
     <Resource tag="LASTPOST">Viimane postitus</Resource>
     <Resource tag="MARKREAD">Märgi antud foorum loetuks</Resource>
     <Resource tag="NO_POSTS">Postitusi ei ole</Resource>
+    <Resource tag="OK_TT">Search this Forum</Resource>
     <Resource tag="POSTS">Postitusi</Resource>
     <Resource tag="REPLIES">Vastuseid</Resource>
     <Resource tag="RSSFEED">Rss voog</Resource>
+    <Resource tag="SEARCH_FORUM">Search Forum</Resource>
     <Resource tag="SHOWTOPICS">Näita teemasid</Resource>
     <Resource tag="SUBFORUMS">Alamfoorumid</Resource>
     <Resource tag="TODAYAT">[b]Täna[/b] kell {0:T}</Resource>

@@ -1,5 +1,5 @@
-/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bjørnar Henden
+ï»¿/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjï¿½rnar Henden
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -33,6 +33,7 @@ namespace YAF.Pages
 
   using nStuff.UpdateControls;
 
+  using YAF.Classes;
   using YAF.Classes.Data;
   using YAF.Core;
   using YAF.Types;
@@ -185,7 +186,7 @@ namespace YAF.Pages
         return;
       }
 
-      if (this.PageContext.BoardSettings.ExternalSearchInNewWindow)
+      if (this.Get<YafBoardSettings>().ExternalSearchInNewWindow)
       {
         YafContext.Current.PageElements.RegisterJsBlockStartup(
           "openBrowserTabJs", "window.open('{0}', '', '');".FormatWith(this.GetExtSearchLink(1)));
@@ -212,7 +213,7 @@ namespace YAF.Pages
         return;
       }
 
-      if (this.PageContext.BoardSettings.ExternalSearchInNewWindow)
+      if (this.Get<YafBoardSettings>().ExternalSearchInNewWindow)
       {
         YafContext.Current.PageElements.RegisterJsBlockStartup(
           "openBrowserTabJs", "window.open('{0}', '', '');".FormatWith(this.GetExtSearchLink(2)));
@@ -234,7 +235,7 @@ namespace YAF.Pages
     /// </returns>
     protected bool IsSearchTextTooLarge([NotNull] string text)
     {
-      return text.Length > this.PageContext.BoardSettings.SearchStringMaxLength;
+      return text.Length > this.Get<YafBoardSettings>().SearchStringMaxLength;
     }
 
     /// <summary>
@@ -248,7 +249,7 @@ namespace YAF.Pages
     /// </returns>
     protected bool IsSearchTextTooSmall([NotNull] string text)
     {
-      return text.Length < this.PageContext.BoardSettings.SearchStringMinLength;
+      return text.Length < this.Get<YafBoardSettings>().SearchStringMinLength;
     }
 
     /// <summary>
@@ -311,12 +312,12 @@ namespace YAF.Pages
       if (searchTooSmall)
       {
         this.PageContext.AddLoadMessage(
-          this.GetTextFormatted("SEARCH_CRITERIA_ERROR_MIN", this.PageContext.BoardSettings.SearchStringMinLength));
+          this.GetTextFormatted("SEARCH_CRITERIA_ERROR_MIN", this.Get<YafBoardSettings>().SearchStringMinLength));
       }
       else if (searchTooLarge)
       {
         this.PageContext.AddLoadMessage(
-          this.GetTextFormatted("SEARCH_CRITERIA_ERROR_MAX", this.PageContext.BoardSettings.SearchStringMaxLength));
+          this.GetTextFormatted("SEARCH_CRITERIA_ERROR_MAX", this.Get<YafBoardSettings>().SearchStringMaxLength));
       }
 
       return false;
@@ -334,7 +335,7 @@ namespace YAF.Pages
     protected bool IsValidSearchText([NotNull] string searchText)
     {
       return searchText.IsSet() && !this.IsSearchTextTooSmall(searchText) && !this.IsSearchTextTooLarge(searchText) &&
-             Regex.IsMatch(searchText, this.PageContext.BoardSettings.SearchStringPattern);
+             Regex.IsMatch(searchText, this.Get<YafBoardSettings>().SearchStringPattern);
     }
 
     /// <summary>
@@ -390,40 +391,40 @@ namespace YAF.Pages
         return;
       }
 
-      this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+      this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
       this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
       this.btnSearch.Text = "{0}".FormatWith(this.GetText("btnsearch"));
 
-      if (this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ExternalSearchPermissions))
+      if (this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ExternalSearchPermissions))
       {
         // vzrus: If an exteranl search only - it should be disabled. YAF doesn't have a forum id as a token in post links. 
-        if (!this.Get<IPermissions>().Check(this.PageContext.BoardSettings.SearchPermissions))
+        if (!this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().SearchPermissions))
         {
           this.listForum.Enabled = false;
         }
 
-        if (!string.IsNullOrEmpty(this.PageContext.BoardSettings.SearchEngine1) &&
-            (!string.IsNullOrEmpty(this.PageContext.BoardSettings.SearchEngine1Parameters)))
+        if (!string.IsNullOrEmpty(this.Get<YafBoardSettings>().SearchEngine1) &&
+            (!string.IsNullOrEmpty(this.Get<YafBoardSettings>().SearchEngine1Parameters)))
         {
           this.btnSearchExt1.Visible = true;
           this.btnSearchExt1.Text =
             this.btnSearchExt1.ToolTip =
             this.GetText("btnsearch_external").FormatWith(
-              this.PageContext.BoardSettings.SearchEngine1Parameters.Split('^')[0]);
+              this.Get<YafBoardSettings>().SearchEngine1Parameters.Split('^')[0]);
         }
 
-        if (!string.IsNullOrEmpty(this.PageContext.BoardSettings.SearchEngine2) &&
-            (!string.IsNullOrEmpty(this.PageContext.BoardSettings.SearchEngine2Parameters)))
+        if (!string.IsNullOrEmpty(this.Get<YafBoardSettings>().SearchEngine2) &&
+            (!string.IsNullOrEmpty(this.Get<YafBoardSettings>().SearchEngine2Parameters)))
         {
           this.btnSearchExt2.Visible = true;
           this.btnSearchExt2.Text =
             this.btnSearchExt2.ToolTip =
             this.GetText("btnsearch_external").FormatWith(
-              this.PageContext.BoardSettings.SearchEngine2Parameters.Split('^')[0]);
+              this.Get<YafBoardSettings>().SearchEngine2Parameters.Split('^')[0]);
         }
       }
 
-      if (this.Get<IPermissions>().Check(this.PageContext.BoardSettings.SearchPermissions))
+      if (this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().SearchPermissions))
       {
         this.btnSearch.Visible = true;
       }
@@ -487,6 +488,21 @@ namespace YAF.Pages
         doSearch = true;
       }
 
+      string forumString = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("forum");
+
+      if (searchString.IsSet() && this.listForum.Enabled)
+      {
+          try
+          {
+              this.listForum.SelectedValue = forumString;
+          }
+          catch (Exception)
+          {
+
+              this.listForum.SelectedValue = "0";
+          }
+      }
+
       string postedBy = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("postedby");
       if (postedBy.IsSet() && postedBy.Length < 50)
       {
@@ -495,10 +511,10 @@ namespace YAF.Pages
       }
 
       // set the search box size via the max settings in the boardsettings.
-      if (this.PageContext.BoardSettings.SearchStringMaxLength > 0)
+      if (this.Get<YafBoardSettings>().SearchStringMaxLength > 0)
       {
-        this.txtSearchStringWhat.MaxLength = this.PageContext.BoardSettings.SearchStringMaxLength;
-        this.txtSearchStringFromWho.MaxLength = this.PageContext.BoardSettings.SearchStringMaxLength;
+        this.txtSearchStringWhat.MaxLength = this.Get<YafBoardSettings>().SearchStringMaxLength;
+        this.txtSearchStringFromWho.MaxLength = this.Get<YafBoardSettings>().SearchStringMaxLength;
       }
 
       if (doSearch)
@@ -596,12 +612,12 @@ namespace YAF.Pages
       switch (i)
       {
         case 1:
-          searchEngine = this.PageContext.BoardSettings.SearchEngine1;
-          searchParams = this.PageContext.BoardSettings.SearchEngine1Parameters;
+          searchEngine = this.Get<YafBoardSettings>().SearchEngine1;
+          searchParams = this.Get<YafBoardSettings>().SearchEngine1Parameters;
           break;
         case 2:
-          searchEngine = this.PageContext.BoardSettings.SearchEngine2;
-          searchParams = this.PageContext.BoardSettings.SearchEngine2Parameters;
+          searchEngine = this.Get<YafBoardSettings>().SearchEngine2;
+          searchParams = this.Get<YafBoardSettings>().SearchEngine2Parameters;
           break;
       }
 
@@ -670,9 +686,9 @@ namespace YAF.Pages
           forumId, 
           this.PageContext.PageUserID, 
           this.PageContext.PageBoardID, 
-          this.PageContext.BoardSettings.ReturnSearchMax, 
-          this.PageContext.BoardSettings.UseFullTextSearch, 
-          this.PageContext.BoardSettings.EnableDisplayName);
+          this.Get<YafBoardSettings>().ReturnSearchMax, 
+          this.Get<YafBoardSettings>().UseFullTextSearch, 
+          this.Get<YafBoardSettings>().EnableDisplayName);
 
         if (newSearch)
         {

@@ -3177,9 +3177,11 @@ Visit {forumname} at {forumlink}
     <Resource tag="LASTPOST">Senaste meddelande</Resource>
     <Resource tag="MARKREAD">Markera detta forum som läst</Resource>
     <Resource tag="NO_POSTS">Inga meddelanden</Resource>
+    <Resource tag="OK_TT">Search this Forum</Resource>
     <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REPLIES">Svar</Resource>
     <Resource tag="RSSFEED">Rsskanal</Resource>
+    <Resource tag="SEARCH_FORUM">Search Forum</Resource>
     <Resource tag="SHOWTOPICS">Visa konversationer</Resource>
     <Resource tag="SUBFORUMS">{0} Underforum</Resource>
     <Resource tag="TODAYAT">[b]idag[/b] kl {0:T}</Resource>

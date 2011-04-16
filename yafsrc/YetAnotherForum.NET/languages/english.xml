@@ -1855,6 +1855,8 @@ Visit {forumname} at {forumlink}
       <Resource tag="WARN_LOGIN_FORUMWATCH">You must be registered to watch forums.</Resource>
       <Resource tag="WATCHFORUM">Watch Forum</Resource>
       <Resource tag="YESTERDAYAT">[b]Yesterday[/b] at {0:T}</Resource>
+	  <Resource tag="OK_TT">Search this Forum</Resource>
+	  <Resource tag="SEARCH_FORUM">Search Forum</Resource>
    </page>
    <page name="CHARACTER_CHECKER">
       <Resource tag="ISEMPTY">Message body cannot be empty.</Resource>

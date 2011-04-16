@@ -3166,9 +3166,11 @@ Vizitati forumul {forumname} la adresa {forumlink}
     <Resource tag="LASTPOST">Ultimul post</Resource>
     <Resource tag="MARKREAD">Marcheaza forumul ca fiind  citit</Resource>
     <Resource tag="NO_POSTS">Nu sunt postari</Resource>
+    <Resource tag="OK_TT">Search this Forum</Resource>
     <Resource tag="POSTS">Posturi</Resource>
     <Resource tag="REPLIES">Raspunsuri</Resource>
     <Resource tag="RSSFEED">Rss Feed</Resource>
+    <Resource tag="SEARCH_FORUM">Search Forum</Resource>
     <Resource tag="SHOWTOPICS">Arata teme</Resource>
     <Resource tag="SUBFORUMS">Sub forumuri</Resource>
     <Resource tag="TODAYAT">[b]Azi[/b] la {0:T}</Resource>

@@ -3183,9 +3183,11 @@
     <Resource tag="LASTPOST">Последнее сообщение</Resource>
     <Resource tag="MARKREAD">Отметить форум как прочитанный</Resource>
     <Resource tag="NO_POSTS">Нет сообщений</Resource>
+    <Resource tag="OK_TT">Search this Forum</Resource>
     <Resource tag="POSTS">Сообщения</Resource>
     <Resource tag="REPLIES">Ответы</Resource>
     <Resource tag="RSSFEED">Лента RSS</Resource>
+    <Resource tag="SEARCH_FORUM">Search Forum</Resource>
     <Resource tag="SHOWTOPICS">Показать темы</Resource>
     <Resource tag="SUBFORUMS">Подфорумы</Resource>
     <Resource tag="TODAYAT">[b]Сегодня[/b] в {0:T}</Resource>

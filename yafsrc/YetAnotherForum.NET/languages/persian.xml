@@ -3158,9 +3158,11 @@ Visit {forumname} at {forumlink}
     <Resource tag="LASTPOST">آخرین ارسال</Resource>
     <Resource tag="MARKREAD">این انجمن بصورت خوانده شده درآید</Resource>
     <Resource tag="NO_POSTS">هیچ ارسالی وجود ندارد</Resource>
+    <Resource tag="OK_TT">Search this Forum</Resource>
     <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REPLIES">پاسخها</Resource>
     <Resource tag="RSSFEED">اشتراک خبر</Resource>
+    <Resource tag="SEARCH_FORUM">Search Forum</Resource>
     <Resource tag="SHOWTOPICS">نمایش عناوین</Resource>
     <Resource tag="SUBFORUMS">انجمنهای فرعی</Resource>
     <Resource tag="TODAYAT">[b]امروز[/b] در {0:T}</Resource>

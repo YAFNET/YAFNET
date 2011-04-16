@@ -2998,9 +2998,11 @@ Ziyaret için {forumname}  {forumlink}
     <Resource tag="LASTPOST">Son Mesaj</Resource>
     <Resource tag="MARKREAD">Forumu okundu olarak işaretle</Resource>
     <Resource tag="NO_POSTS">Mesaj Yok</Resource>
+    <Resource tag="OK_TT">Search this Forum</Resource>
     <Resource tag="POSTS">Mesajlar</Resource>
     <Resource tag="REPLIES">Cevaplar</Resource>
     <Resource tag="RSSFEED">Rss Yayını</Resource>
+    <Resource tag="SEARCH_FORUM">Search Forum</Resource>
     <Resource tag="SHOWTOPICS">Konuları Göster</Resource>
     <Resource tag="SUBFORUMS">Alt Forumlar</Resource>
     <Resource tag="TODAYAT">[b]Bugün[/b] : {0:T}</Resource>

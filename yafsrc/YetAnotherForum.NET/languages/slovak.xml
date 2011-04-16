@@ -3160,9 +3160,11 @@ Visit {forumname} at {forumlink}
     <Resource tag="LASTPOST">Posledná správa</Resource>
     <Resource tag="MARKREAD">Označiť toto fórum ako prečítané</Resource>
     <Resource tag="NO_POSTS">Žiadne správy</Resource>
+    <Resource tag="OK_TT">Search this Forum</Resource>
     <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REPLIES">Reakcie</Resource>
     <Resource tag="RSSFEED">Rss Feed</Resource>
+    <Resource tag="SEARCH_FORUM">Search Forum</Resource>
     <Resource tag="SHOWTOPICS">Ukázať témy</Resource>
     <Resource tag="SUBFORUMS">{0} fór druhej úrovne</Resource>
     <Resource tag="TODAYAT">[b]Dnes[/b] o {0:T}</Resource>

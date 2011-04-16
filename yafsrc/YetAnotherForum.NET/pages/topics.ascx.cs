@@ -1,5 +1,5 @@
-/* Yet Another Forum.net
- * Copyright (C) 2003-2005 Bjørnar Henden
+ï»¿/* Yet Another Forum.net
+ * Copyright (C) 2003-2005 Bjï¿½rnar Henden
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -27,6 +27,7 @@ namespace YAF.Pages
   using System.Data;
   using System.Web;
 
+  using YAF.Classes;
   using YAF.Classes.Data;
   using YAF.Controls;
   using YAF.Core;
@@ -93,7 +94,7 @@ namespace YAF.Pages
     /// </returns>
     public DataTable StyleTransformDataTable([NotNull] DataTable dt)
     {
-      if (YafContext.Current.BoardSettings.UseStyledNicks)
+      if (this.Get<YafBoardSettings>().UseStyledNicks)
       {
         var styleTransform = this.Get<IStyleTransform>();
         styleTransform.DecodeStyleByTable(ref dt, true, "StarterStyle", "LastUserStyle");
@@ -142,6 +143,25 @@ namespace YAF.Pages
       YafBuildLink.Redirect(ForumPages.postmessage, "f={0}", this.PageContext.PageForumID);
     }
 
+      /// <summary>
+      /// The Forum Search
+      /// </summary>
+      /// <param name="sender">
+      /// The sender.
+      /// </param>
+      /// <param name="e">
+      /// The e.
+      /// </param>
+      protected void ForumSearch_Click(object sender, EventArgs e)
+    {
+        if (string.IsNullOrEmpty(this.forumSearch.Text))
+        {
+            return;
+        }
+
+        YafBuildLink.Redirect(ForumPages.search, "search={0}&forum={1}", this.forumSearch.Text, this.PageContext.PageForumID);
+    }
+
     /// <summary>
     /// The initialization script for the topics page.
     /// </summary>
@@ -181,7 +201,7 @@ namespace YAF.Pages
       this.RssFeed.AdditionalParameters =
         "f={0}".FormatWith(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f"));
       this.MarkRead.Text = this.GetText("MARKREAD");
-      this.ForumJumpHolder.Visible = this.PageContext.BoardSettings.ShowForumJump &&
+      this.ForumJumpHolder.Visible = this.Get<YafBoardSettings>().ShowForumJump &&
                                      this.PageContext.Settings.LockedForum == 0;
       this.lastPostImageTT = this.GetText("DEFAULT", "GO_LAST_POST");
 
@@ -190,7 +210,7 @@ namespace YAF.Pages
         // PageLinks.Clear();
         if (this.PageContext.Settings.LockedForum == 0)
         {
-          this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+          this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
           this.PageLinks.AddLink(
             this.PageContext.PageCategoryName, 
             YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
@@ -202,7 +222,7 @@ namespace YAF.Pages
         this.ShowList.DataTextField = "TopicText";
         this.ShowList.DataValueField = "TopicValue";
         this._showTopicListSelected = (this.Get<IYafSession>().ShowList == -1)
-                                        ? this.PageContext.BoardSettings.ShowTopicsDefault
+                                        ? this.Get<YafBoardSettings>().ShowTopicsDefault
                                         : this.Get<IYafSession>().ShowList;
 
         this.HandleWatchForum();
@@ -341,13 +361,13 @@ namespace YAF.Pages
         this.SubForums.Visible = true;
       }
 
-      this.Pager.PageSize = this.PageContext.BoardSettings.TopicsPerPage;
+      this.Pager.PageSize = this.Get<YafBoardSettings>().TopicsPerPage;
 
       // when userId is null it returns the count of all deleted messages
       int? userId = null;
 
       // get the userID to use for the deleted posts count...
-      if (!this.PageContext.BoardSettings.ShowDeletedMessagesToAll)
+      if (!this.Get<YafBoardSettings>().ShowDeletedMessagesToAll)
       {
         // only show deleted messages that belong to this user if they are not admin/mod
         if (!this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess)
@@ -359,7 +379,7 @@ namespace YAF.Pages
       DataTable dt =
         this.StyleTransformDataTable(
           LegacyDb.topic_list(
-            this.PageContext.PageForumID, userId, 1, null, 0, 10, this.PageContext.BoardSettings.UseStyledNicks, true));
+            this.PageContext.PageForumID, userId, 1, null, 0, 10, this.Get<YafBoardSettings>().UseStyledNicks, true));
 
       int nPageSize = Math.Max(5, this.Pager.PageSize - dt.Rows.Count);
       this.Announcements.DataSource = dt;
@@ -374,6 +394,7 @@ namespace YAF.Pages
 					Pager.CurrentPageIndex = tPage - 1;
 				}
 			}*/
+
       int nCurrentPageIndex = this.Pager.CurrentPageIndex;
 
       DataTable dtTopics;
@@ -388,7 +409,7 @@ namespace YAF.Pages
               null, 
               nCurrentPageIndex * nPageSize, 
               nPageSize, 
-              this.PageContext.BoardSettings.UseStyledNicks, 
+              this.Get<YafBoardSettings>().UseStyledNicks, 
               true));
       }
       else
@@ -431,7 +452,7 @@ namespace YAF.Pages
               date, 
               nCurrentPageIndex * nPageSize, 
               nPageSize, 
-              this.PageContext.BoardSettings.UseStyledNicks, 
+              this.Get<YafBoardSettings>().UseStyledNicks, 
               true));
       }
 

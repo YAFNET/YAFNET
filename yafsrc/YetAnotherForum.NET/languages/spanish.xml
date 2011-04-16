@@ -3177,9 +3177,11 @@
     <Resource tag="LASTPOST">Ultimo mensaje</Resource>
     <Resource tag="MARKREAD">Marcar foro como leído</Resource>
     <Resource tag="NO_POSTS">No hay mensajes</Resource>
+    <Resource tag="OK_TT">Search this Forum</Resource>
     <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REPLIES">Respuestas</Resource>
     <Resource tag="RSSFEED">Rss</Resource>
+    <Resource tag="SEARCH_FORUM">Search Forum</Resource>
     <Resource tag="SHOWTOPICS">Mostrar temas</Resource>
     <Resource tag="SUBFORUMS">Subforos</Resource>
     <Resource tag="TODAYAT">[b]Hoy[/b] a las {0:T}</Resource>
