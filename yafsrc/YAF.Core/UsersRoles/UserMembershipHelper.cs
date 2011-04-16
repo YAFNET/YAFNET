@@ -19,25 +19,21 @@
 
 namespace YAF.Core
 {
-  using System;
-  using System.Data;
-  using System.Linq;
-  using System.Web;
-  using System.Web.Security;
+    using System;
+    using System.Data;
+    using System.Linq;
+    using System.Web;
+    using System.Web.Security;
+    using YAF.Classes;
+    using YAF.Classes.Data;
+    using YAF.Core.Services;
+    using YAF.Types.Constants;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
+    using YAF.Utils.Helpers;
+    using YAF.Utils.Structures;
 
-  using YAF.Classes;
-  using YAF.Core;
-  using YAF.Core.Services;
-  using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Classes.Data;
-  using YAF.Utils;
-  using YAF.Utils.Helpers;
-  using YAF.Utils.Helpers.StringUtils;
-  using YAF.Utils.Structures;
-  using YAF.Types.Constants;
-  using YAF.Types.Interfaces;
-
-  /// <summary>
+    /// <summary>
   /// This is a stop-gap class to help with syncing operations
   /// with users/membership.
   /// </summary>
@@ -63,7 +59,7 @@ namespace YAF.Core
               if (!guestUserID.HasValue)
               {
                 //// attempt to fix the guest user by re-associating them with the guest group...
-                //FixGuestUserForBoard(YafContext.Current.PageBoardID);
+                // FixGuestUserForBoard(YafContext.Current.PageBoardID);
 
                 // attempt to get the guestUser again...
                 guestUserID = LegacyDb.user_guest(YafContext.Current.PageBoardID);
@@ -84,7 +80,7 @@ namespace YAF.Core
       }
     }
 
-    //public static void FixGuestUserForBoard(int boardId)
+    /*public static void FixGuestUserForBoard(int boardId)
     //{
     //  // find the most likely guest user...
     //  var users = DB.UserFind(boardId, false, null, null, null, null, null);
@@ -95,10 +91,10 @@ namespace YAF.Core
     //    // add guest user to guest group...
     //    DB.usergroup_save(users.First(), guestGroup.First().Field<int>("GroupID"), 1);
     //  }
-    //}
+    }*/
 
     /// <summary>
-    /// Username of the Guest user for the current board.
+    /// Gets the Username of the Guest user for the current board.
     /// </summary>
     public static string GuestUserName
     {
@@ -129,19 +125,16 @@ namespace YAF.Core
         MembershipUserCollection allUsers = GetAllUsers(pageCount, out exitCount, 1000);
 
         // iterate through each one...
-        foreach (MembershipUser user in allUsers)
+        foreach (MembershipUser user in allUsers.Cast<MembershipUser>().Where(user => !user.IsApproved))
         {
-          if (!user.IsApproved)
-          {
             // approve this user...
             user.IsApproved = true;
             YafContext.Current.Get<MembershipProvider>().UpdateUser(user);
             int id = GetUserIDFromProviderUserKey(user.ProviderUserKey);
             if (id > 0)
             {
-              LegacyDb.user_approve(id);
+                LegacyDb.user_approve(id);
             }
-          }
         }
 
         pageCount++;
@@ -269,11 +262,12 @@ namespace YAF.Core
     /// The email.
     /// </param>
     /// <returns>
+    /// Returns the Collection of founded Users
     /// </returns>
     public static MembershipUserCollection FindUsersByEmail(string email)
     {
       int totalRecords;
-      return YafContext.Current.Get<MembershipProvider>().FindUsersByEmail(email, 1, 999999, out totalRecords);
+      return YafContext.Current.Get<MembershipProvider>().FindUsersByEmail(email, 0, 999999, out totalRecords);
     }
 
     /// <summary>
@@ -283,11 +277,12 @@ namespace YAF.Core
     /// The username.
     /// </param>
     /// <returns>
+    /// Returns the Collection of founded Users
     /// </returns>
     public static MembershipUserCollection FindUsersByName(string username)
     {
       int totalRecords;
-      return YafContext.Current.Get<MembershipProvider>().FindUsersByName(username, 1, 999999, out totalRecords);
+      return YafContext.Current.Get<MembershipProvider>().FindUsersByName(username, 0, 999999, out totalRecords);
     }
 
     /// <summary>
@@ -303,6 +298,7 @@ namespace YAF.Core
     /// The user number.
     /// </param>
     /// <returns>
+    /// Returns Collection of All Users
     /// </returns>
     public static MembershipUserCollection GetAllUsers(int pageCount, out int exitCount, int userNumber)
     {
@@ -333,15 +329,10 @@ namespace YAF.Core
     /// </returns>
     public static MembershipUser GetMembershipUserById(long? userID)
     {
-      if (userID.HasValue)
-      {
-        return GetMembershipUserById(userID.Value);
-      }
-
-      return null;
+        return userID.HasValue ? GetMembershipUserById(userID.Value) : null;
     }
 
-    /// <summary>
+        /// <summary>
     /// get the membership user from the userID
     /// </summary>
     /// <param name="userID">
@@ -351,12 +342,8 @@ namespace YAF.Core
     public static MembershipUser GetMembershipUserById(long userID)
     {
       object providerUserKey = GetProviderUserKeyFromID(userID);
-      if (providerUserKey != null)
-      {
-        return GetMembershipUserByKey(providerUserKey);
-      }
 
-      return null;
+            return providerUserKey != null ? GetMembershipUserByKey(providerUserKey) : null;
     }
 
     /// <summary>
@@ -632,19 +619,10 @@ namespace YAF.Core
     /// </returns>
     public static bool IsGuestUser(object userID)
     {
-      if (userID == null || userID is DBNull)
-      {
-        // if supplied userID is null,user is guest
-        return true;
-      }
-      else
-      {
-        // otherwise evaluate him
-        return IsGuestUser((int)userID);
-      }
+        return userID == null || userID is DBNull || IsGuestUser((int)userID);
     }
 
-    /// <summary>
+        /// <summary>
     /// Simply tells you if the userID passed is the Guest user
     /// for the current board
     /// </summary>
