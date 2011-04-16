@@ -2833,7 +2833,9 @@ BEGIN
 		ForumID = a.ForumID, 
 		ModeratorID = a.GroupID, 
 		ModeratorName = b.Name,	
-		Style = '',						
+		Style = case(@StyledNicks)
+			when 1 then b.Style  
+			else ''	 end,						
 		IsGroup=1
 	from
 		[{databaseOwner}].[{objectQualifier}ForumAccess] a WITH(NOLOCK)
@@ -6560,9 +6562,7 @@ begin
 			NumPostsForum = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where (x.Flags & 24)=16),
 			HasAvatarImage = (select count(1) from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=a.UserID and AvatarImage is not null),
 			IsAdmin	= IsNull(c.IsAdmin,0),			
-			IsHostAdmin	= IsNull(a.Flags & 1,0),
-			IsForumModerator	= IsNull(c.IsForumModerator,0),
-			IsModerator		= IsNull(c.IsModerator,0)
+			IsHostAdmin	= IsNull(a.Flags & 1,0)
 		from 
 			[{databaseOwner}].[{objectQualifier}User] a	
 			JOIN
@@ -6575,9 +6575,7 @@ begin
 			IsNull(a.Flags & 4,0) = 0 and
 			c.ForumID = 0 and
 			-- is admin 
-			(IsNull(c.IsAdmin,0) <> 0 OR 
-			-- or forum admin
-			IsNull(c.IsForumModerator,0) <> 0) 
+			(IsNull(c.IsAdmin,0) <> 0) 
 		order by 
 			a.Name
 end
