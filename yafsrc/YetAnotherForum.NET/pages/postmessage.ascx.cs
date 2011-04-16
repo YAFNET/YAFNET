@@ -30,6 +30,7 @@ namespace YAF.Pages
 
     using YAF.Classes;
     using YAF.Classes.Data;
+    using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Services;
     using YAF.Core.Services.CheckForSpam;
@@ -860,8 +861,13 @@ namespace YAF.Pages
                 else
                 {
                     // Tell user that his message will have to be approved by a moderator
-                    // PageContext.AddLoadMessage("Since you posted to a moderated forum, a forum moderator must approve your post before it will become visible.");
                     string url = YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
+                    
+                    if (this.PageContext.PageTopicID > 0)
+                    {
+                        url = YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.PageContext.PageTopicID);
+                    }
+                    
                     if (attachp.Length <= 0)
                     {
                         YafBuildLink.Redirect(ForumPages.info, "i=1&url={0}", this.Server.UrlEncode(url));

@@ -1,5 +1,5 @@
-/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bjørnar Henden
+ï»¿/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjï¿½rnar Henden
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -19,186 +19,187 @@
  */
 namespace YAF.Pages
 {
-  // YAF.Pages
-  #region Using
+    // YAF.Pages
+    #region Using
 
-  using System;
+    using System;
 
-  using YAF.Core;
-  using YAF.Types;
-  using YAF.Types.Constants;
-  using YAF.Types.Interfaces;
-  using YAF.Utils;
-
-  #endregion
-
-  /// <summary>
-  /// Information control displaying feedback information to users.
-  /// </summary>
-  public partial class info : ForumPage
-  {
-    #region Constructors and Destructors
-
-    /// <summary>
-    ///   Initializes a new instance of the <see cref = "info" /> class. 
-    ///   Default constructor.
-    /// </summary>
-    public info()
-      : base("INFO")
-    {
-      this.PageContext.Globals.IsSuspendCheckEnabled = false;
-    }
+    using YAF.Classes;
+    using YAF.Core;
+    using YAF.Types;
+    using YAF.Types.Constants;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
 
     #endregion
 
-    #region Methods
-
     /// <summary>
-    /// Creates page links for this page.
+    /// Information control displaying feedback information to users.
     /// </summary>
-    protected override void CreatePageLinks()
+    public partial class info : ForumPage
     {
-      // forum index
-      this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        #region Constructors and Destructors
 
-      // information title text
-      this.PageLinks.AddLink(this.Title.Text);
-    }
-
-    /// <summary>
-    /// The on init.
-    /// </summary>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected override void OnInit([NotNull] EventArgs e)
-    {
-      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-      InitializeComponent();
-      base.OnInit(e);
-    }
-
-    /// <summary>
-    /// The page_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// </param>
-    /// <param name="e">
-    /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      // Put user code to initialize the page here
-      if (!this.IsPostBack)
-      {
-        // localize button label
-        this.Continue.Text = this.GetText("continue");
-
-        // get redirect URL from parameter
-        if (this.Request.QueryString.GetFirstOrDefault("url") != null)
+        /// <summary>
+        ///   Initializes a new instance of the <see cref = "info" /> class. 
+        ///   Default constructor.
+        /// </summary>
+        public info()
+            : base("INFO")
         {
-          // unescape ampersands
-          this.RefreshURL = this.Request.QueryString.GetFirstOrDefault("url").Replace("&amp;", "&");
+            this.PageContext.Globals.IsSuspendCheckEnabled = false;
         }
 
-        // try to get infomessage code from parameter
-        try
-        {
-          // compare it converted to enumeration
-          switch ((InfoMessage)int.Parse(this.Request.QueryString.GetFirstOrDefault("i")))
-          {
-            case InfoMessage.Moderated: // Moderated
-              this.Title.Text = this.GetText("title_moderated");
-              this.Info.Text = this.GetText("moderated");
-              break;
-            case InfoMessage.Suspended: // Suspended
-              this.Title.Text = this.GetText("title_suspended");
-              this.Info.Text = this.GetTextFormatted(
-                "suspended", this.Get<IDateTime>().FormatDateTime(this.PageContext.SuspendedUntil));
-              break;
-            case InfoMessage.RegistrationEmail: // Registration email
-              this.Title.Text = this.GetText("title_registration");
-              this.Info.Text = this.GetText("registration");
-              this.RefreshTime = 10;
-              this.RefreshURL = YafBuildLink.GetLink(ForumPages.login);
-              break;
-            case InfoMessage.AccessDenied: // Access Denied
-              this.Title.Text = this.GetText("title_accessdenied");
-              this.Info.Text = this.GetText("accessdenied");
-              this.RefreshTime = 10;
-              this.RefreshURL = YafBuildLink.GetLink(ForumPages.forum);
-              break;
-            case InfoMessage.Disabled: // Disabled feature
-              this.Title.Text = this.GetText("TITLE_ACCESSDENIED");
-              this.Info.Text = this.GetText("DISABLED");
-              this.RefreshTime = 10;
-              this.RefreshURL = YafBuildLink.GetLink(ForumPages.forum);
-              break;
-            case InfoMessage.Invalid: // Invalid argument!
-              this.Title.Text = this.GetText("TITLE_INVALID");
-              this.Info.Text = this.GetText("INVALID");
-              this.RefreshTime = 10;
-              this.RefreshURL = YafBuildLink.GetLink(ForumPages.forum);
-              break;
-            case InfoMessage.Failure: // some sort of failure
-              this.Title.Text = this.GetText("TITLE_FAILURE");
-              this.Info.Text = this.GetText("FAILURE");
-              this.RefreshTime = 10;
-              this.RefreshURL = YafBuildLink.GetLink(ForumPages.forum);
-              break;
-            case InfoMessage.RequiresCookies: // some sort of failure
-              this.Title.Text = this.GetText("TITLE_COOKIES");
-              this.Info.Text = this.GetText("COOKIES");
-              this.RefreshTime = 10;
-              this.RefreshURL = YafBuildLink.GetLink(ForumPages.forum);
-              break;
-            case InfoMessage.RequiresEcmaScript: // some sort of failure
-              this.Title.Text = this.GetText("TITLE_ECMAREQUIRED");
-              this.Info.Text = this.GetText("ECMAREQUIRED");
-              this.RefreshTime = 10;
-              this.RefreshURL = YafBuildLink.GetLink(ForumPages.forum);
-              break;
-            case InfoMessage.EcmaScriptVersionUnsupported: // some sort of failure
-              this.Title.Text = this.GetText("TITLE_ECMAVERSION");
-              this.Info.Text = this.GetText("ECMAVERSION");
-              this.RefreshTime = 10;
-              this.RefreshURL = YafBuildLink.GetLink(ForumPages.forum);
-              break;
-          }
-        }
-          
-          
-          // exception was thrown
-        catch (Exception)
-        {
-          // get title for exception message
-          this.Title.Text = this.GetText("title_exception");
+        #endregion
 
-          // exception message
-          this.Info.Text = "{1} <strong>{0}</strong>.".FormatWith(
-            this.PageContext.PageUserName, this.GetText("exception"));
+        #region Methods
 
-          // redirect to forum main after 2 seconds
-          this.RefreshTime = 2;
-          this.RefreshURL = YafBuildLink.GetLink(ForumPages.forum);
+        /// <summary>
+        /// Creates page links for this page.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
+            // forum index
+            this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+
+            // information title text
+            this.PageLinks.AddLink(this.Title.Text);
         }
 
-        // set continue button URL and visibility
-        this.Continue.NavigateUrl = this.RefreshURL;
-        this.Continue.Visible = this.RefreshURL != null;
+        /// <summary>
+        /// The on init.
+        /// </summary>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected override void OnInit([NotNull] EventArgs e)
+        {
+            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
+            this.InitializeComponent();
+            base.OnInit(e);
+        }
 
-        // create page links - must be placed after switch to display correct title (last breadcrumb trail)
-        this.CreatePageLinks();
-      }
+        /// <summary>
+        /// The page_ load.
+        /// </summary>
+        /// <param name="sender">
+        /// </param>
+        /// <param name="e">
+        /// </param>
+        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            // Put user code to initialize the page here
+            if (this.IsPostBack)
+            {
+                return;
+            }
+
+            // localize button label
+            this.Continue.Text = this.GetText("continue");
+
+            // get redirect URL from parameter
+            if (this.Request.QueryString.GetFirstOrDefault("url") != null)
+            {
+                // unescape ampersands
+                this.RefreshURL = this.Request.QueryString.GetFirstOrDefault("url").Replace("&amp;", "&");
+            }
+
+            // try to get infomessage code from parameter
+            try
+            {
+                // compare it converted to enumeration
+                switch ((InfoMessage)int.Parse(this.Request.QueryString.GetFirstOrDefault("i")))
+                {
+                    case InfoMessage.Moderated: // Moderated
+                        this.Title.Text = this.GetText("title_moderated");
+                        this.Info.Text = this.GetText("moderated");
+                        this.RefreshTime = 10;
+                        break;
+                    case InfoMessage.Suspended: // Suspended
+                        this.Title.Text = this.GetText("title_suspended");
+                        this.Info.Text = this.GetTextFormatted(
+                            "suspended", this.Get<IDateTime>().FormatDateTime(this.PageContext.SuspendedUntil));
+                        break;
+                    case InfoMessage.RegistrationEmail: // Registration email
+                        this.Title.Text = this.GetText("title_registration");
+                        this.Info.Text = this.GetText("registration");
+                        this.RefreshTime = 10;
+                        this.RefreshURL = YafBuildLink.GetLink(ForumPages.login);
+                        break;
+                    case InfoMessage.AccessDenied: // Access Denied
+                        this.Title.Text = this.GetText("title_accessdenied");
+                        this.Info.Text = this.GetText("accessdenied");
+                        this.RefreshTime = 10;
+                        this.RefreshURL = YafBuildLink.GetLink(ForumPages.forum);
+                        break;
+                    case InfoMessage.Disabled: // Disabled feature
+                        this.Title.Text = this.GetText("TITLE_ACCESSDENIED");
+                        this.Info.Text = this.GetText("DISABLED");
+                        this.RefreshTime = 10;
+                        this.RefreshURL = YafBuildLink.GetLink(ForumPages.forum);
+                        break;
+                    case InfoMessage.Invalid: // Invalid argument!
+                        this.Title.Text = this.GetText("TITLE_INVALID");
+                        this.Info.Text = this.GetText("INVALID");
+                        this.RefreshTime = 10;
+                        this.RefreshURL = YafBuildLink.GetLink(ForumPages.forum);
+                        break;
+                    case InfoMessage.Failure: // some sort of failure
+                        this.Title.Text = this.GetText("TITLE_FAILURE");
+                        this.Info.Text = this.GetText("FAILURE");
+                        this.RefreshTime = 10;
+                        this.RefreshURL = YafBuildLink.GetLink(ForumPages.forum);
+                        break;
+                    case InfoMessage.RequiresCookies: // some sort of failure
+                        this.Title.Text = this.GetText("TITLE_COOKIES");
+                        this.Info.Text = this.GetText("COOKIES");
+                        this.RefreshTime = 10;
+                        this.RefreshURL = YafBuildLink.GetLink(ForumPages.forum);
+                        break;
+                    case InfoMessage.RequiresEcmaScript: // some sort of failure
+                        this.Title.Text = this.GetText("TITLE_ECMAREQUIRED");
+                        this.Info.Text = this.GetText("ECMAREQUIRED");
+                        this.RefreshTime = 10;
+                        this.RefreshURL = YafBuildLink.GetLink(ForumPages.forum);
+                        break;
+                    case InfoMessage.EcmaScriptVersionUnsupported: // some sort of failure
+                        this.Title.Text = this.GetText("TITLE_ECMAVERSION");
+                        this.Info.Text = this.GetText("ECMAVERSION");
+                        this.RefreshTime = 10;
+                        this.RefreshURL = YafBuildLink.GetLink(ForumPages.forum);
+                        break;
+                }
+            }
+            catch (Exception)
+            {
+                // get title for exception message
+                this.Title.Text = this.GetText("title_exception");
+
+                // exception message
+                this.Info.Text = "{1} <strong>{0}</strong>.".FormatWith(
+                    this.PageContext.PageUserName, this.GetText("exception"));
+
+                // redirect to forum main after 2 seconds
+                this.RefreshTime = 2;
+                this.RefreshURL = YafBuildLink.GetLink(ForumPages.forum);
+            }
+
+            // set continue button URL and visibility
+            this.Continue.NavigateUrl = this.RefreshURL;
+            this.Continue.Visible = this.RefreshURL != null;
+
+            // create page links - must be placed after switch to display correct title (last breadcrumb trail)
+            this.CreatePageLinks();
+        }
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        ///   the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+        }
+
+        #endregion
     }
-
-    /// <summary>
-    /// Required method for Designer support - do not modify
-    ///   the contents of this method with the code editor.
-    /// </summary>
-    private void InitializeComponent()
-    {
-    }
-
-    #endregion
-  }
 }
