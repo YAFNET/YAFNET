@@ -511,7 +511,7 @@ namespace YAF.Controls
                     "menuMy",
                     null,
                     this.GetText("TOOLBAR", "MYALBUMS"),
-                    YafBuildLink.GetLink(ForumPages.albums, "u={0}", this.PageContext.PageUserID),
+                    YafBuildLink.GetLinkNotEscaped(ForumPages.albums, "u={0}", this.PageContext.PageUserID),
                     false,
                     false,
                     null);
