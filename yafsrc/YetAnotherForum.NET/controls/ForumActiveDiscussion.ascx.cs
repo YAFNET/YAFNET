@@ -126,6 +126,7 @@ namespace YAF.Controls
             {
                 lastUserLink.UserID = currentRow["LastUserID"].ToType<int>();
                 lastUserLink.Style = currentRow["LastUserStyle"].ToString();
+              lastUserLink.ReplaceName = currentRow["LastUserName"].ToString();
             }
 
             if (currentRow["LastPosted"] != DBNull.Value)

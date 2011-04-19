@@ -1417,9 +1417,7 @@ begin
 		from
 			[{databaseOwner}].[{objectQualifier}User] a	
 			JOIN [{databaseOwner}].[{objectQualifier}Rank] r on r.RankID=a.RankID	
-			INNER JOIN [{databaseOwner}].[{objectQualifier}Active] c ON c.UserID = a.UserID	
-			
-				  
+			INNER JOIN [{databaseOwner}].[{objectQualifier}Active] c ON c.UserID = a.UserID
 		where
 			c.BoardID = @BoardID 	
 				
@@ -3652,6 +3650,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_save](
 	@Posted			datetime=null,
 	@ReplyTo		int,
 	@BlogPostID		nvarchar(50) = null,
+	@ExternalMessageId nvarchar(64) = null,
 	@Flags			int,	
 	@MessageID		int output
 )
@@ -3711,8 +3710,8 @@ BEGIN
 	-- Add points to Users total points
 	UPDATE [{databaseOwner}].[{objectQualifier}User] SET Points = Points + 3 WHERE UserID = @UserID
 
-	INSERT [{databaseOwner}].[{objectQualifier}Message] ( UserID, [Message], TopicID, Posted, UserName, IP, ReplyTo, Position, Indent, Flags, BlogPostID)
-	VALUES ( @UserID, @Message, @TopicID, @Posted, @UserName, @IP, @ReplyTo, @Position, @Indent, @Flags & ~16, @BlogPostID)	
+	INSERT [{databaseOwner}].[{objectQualifier}Message] ( UserID, [Message], TopicID, Posted, UserName, IP, ReplyTo, Position, Indent, Flags, BlogPostID, ExternalMessageId)
+	VALUES ( @UserID, @Message, @TopicID, @Posted, @UserName, @IP, @ReplyTo, @Position, @Indent, @Flags & ~16, @BlogPostID, @ExternalMessageId)	
 	
 	SET @MessageID = SCOPE_IDENTITY()
 
@@ -3955,56 +3954,35 @@ create procedure [{databaseOwner}].[{objectQualifier}nntptopic_savemessage](
 	@UserName		nvarchar(255),
 	@IP				varchar(39),
 	@Posted			datetime,
-	@Thread			char(32)
+	@ExternalMessageId	nvarchar(64),
+	@ReferenceMessageId nvarchar(64) = null
 ) as 
 begin
 	declare	@ForumID	int
 	declare @TopicID	int
 	declare	@MessageID	int
+	declare @ReplyTo	int
+	
+	SET @ReplyTo = NULL
 
-	select @ForumID=ForumID from [{databaseOwner}].[{objectQualifier}NntpForum] where NntpForumID=@NntpForumID
+	select @ForumID = ForumID from [{databaseOwner}].[{objectQualifier}NntpForum] where NntpForumID=@NntpForumID
 
-	if exists(select 1 from [{databaseOwner}].[{objectQualifier}NntpTopic] where Thread=@Thread)
+	if exists(select 1 from [{databaseOwner}].[{objectQualifier}Message] where ExternalMessageId = @ReferenceMessageId)
 	begin
-		-- thread exists
-		select @TopicID=TopicID from [{databaseOwner}].[{objectQualifier}NntpTopic] where Thread=@Thread
+		-- message exists
+		select @TopicID = TopicID, @ReplyTo = MessageID from [{databaseOwner}].[{objectQualifier}Message] where ExternalMessageId = @ReferenceMessageId
 	end else
 	begin
 		-- thread doesn't exists
 		insert into [{databaseOwner}].[{objectQualifier}Topic](ForumID,UserID,UserName,Posted,Topic,[Views],Priority,NumPosts)
-		values(@ForumID,@UserID,@UserName,@Posted,@Topic,0,0,0)
+		values (@ForumID,@UserID,@UserName,@Posted,@Topic,0,0,0)
 		set @TopicID=SCOPE_IDENTITY()
 
 		insert into [{databaseOwner}].[{objectQualifier}NntpTopic](NntpForumID,Thread,TopicID)
-		values(@NntpForumID,@Thread,@TopicID)
-	end
-
-	-- save message
-	insert into [{databaseOwner}].[{objectQualifier}Message](TopicID,UserID,UserName,Posted,Message,IP,Position,Indent)
-	values(@TopicID,@UserID,@UserName,@Posted,@Body,@IP,0,0)
-	set @MessageID=SCOPE_IDENTITY()
-
-	-- update user
-	if exists(select 1 from [{databaseOwner}].[{objectQualifier}Forum] where ForumID=@ForumID and (Flags & 4)=0)
-	begin
-		update [{databaseOwner}].[{objectQualifier}User] set NumPosts=NumPosts+1 where UserID=@UserID
+		values (@NntpForumID,@ExternalMessageId,@TopicID)
 	end
 	
-	-- update topic
-	update [{databaseOwner}].[{objectQualifier}Topic] set 
-		LastPosted		= @Posted,
-		LastMessageID	= @MessageID,
-		LastUserID		= @UserID,
-		LastUserName	= @UserName
-	where TopicID=@TopicID	
-	-- update forum
-	update [{databaseOwner}].[{objectQualifier}Forum] set
-		LastPosted		= @Posted,
-		LastTopicID	= @TopicID,
-		LastMessageID	= @MessageID,
-		LastUserID		= @UserID,
-		LastUserName	= @UserName
-	where ForumID=@ForumID and (LastPosted is null or LastPosted<@Posted)
+	exec [{databaseOwner}].[{objectQualifier}message_save]  @TopicID, @UserID, @Body, @UserName, @IP, @Posted, @ReplyTo, NULL, @ExternalMessageId, 17, @MessageID OUTPUT
 end
 GO
 
@@ -6841,8 +6819,9 @@ begin
 	if @@ROWCOUNT<1
 	begin
 		exec [{databaseOwner}].[{objectQualifier}user_save] null,@BoardID,@UserName,@UserName,@Email,@TimeZone,null,null,null,null,null, 1, null, null, null, 0, 0
+		
 		-- The next one is not safe, but this procedure is only used for testing
-		select @UserID=max(UserID) from [{databaseOwner}].[{objectQualifier}User]
+		select @UserID = @@IDENTITY
 	end
 
 	select UserID=@UserID

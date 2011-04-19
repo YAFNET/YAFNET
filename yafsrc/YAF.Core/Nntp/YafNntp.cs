@@ -23,6 +23,7 @@ namespace YAF.Core.Nntp
 
   using System;
   using System.Data;
+  using System.Linq;
   using System.Web;
 
   using YAF.Core; using YAF.Types.Interfaces;
@@ -67,7 +68,9 @@ namespace YAF.Core.Nntp
     public int ReadArticles(object boardID, int lastUpdate, int timeToRun, bool createUsers)
     {
       int guestUserId = UserMembershipHelper.GuestUserId; // Use guests user-id
-      string hostAddress = YafContext.Current.Get<HttpRequestBase>().UserHostAddress;     
+
+      //string hostAddress = YafContext.Current.Get<HttpRequestBase>().UserHostAddress;     
+
       DateTime dateTimeStart = DateTime.UtcNow;
       int articleCount = 0;
 
@@ -116,7 +119,7 @@ namespace YAF.Core.Nntp
               currentMessage = lastMessageNo + 1;
             }
 
-            var forumID = (int)forumDataRow["ForumID"];
+            var nntpForumID = (int)forumDataRow["NntpForumID"];
 
             for (; currentMessage <= group.High; currentMessage++)
             {
@@ -127,8 +130,11 @@ namespace YAF.Core.Nntp
                 string body = article.Body.Text.Trim();
                 string subject = article.Header.Subject.Trim();
                 string fromName = article.Header.From.Trim();
-                string thread = article.ArticleId.ToString();
                 DateTime dateTime = article.Header.Date;
+
+                string externalMessageId = article.MessageId;
+
+                string referenceId = article.Header.ReferenceIds.FirstOrDefault();
 
                 if (dateTime.Year < 1950 || dateTime > DateTime.UtcNow)
                 {
@@ -140,29 +146,12 @@ namespace YAF.Core.Nntp
                   guestUserId = LegacyDb.user_nntp(boardID, fromName, string.Empty, article.Header.TimeZoneOffset);
                 }
 
-                // Incorrect tags fixes which are common in nntp messages and cause display problems.
-                // These are spotted ones.
-                body = body.Replace("<br>", "<br />");
-                body = body.Replace("<hr>", "<hr />");
+                body = ReplaceBody(body);
 
-                //body = "Date: {0}\r\n\r\n".FormatWith(article.Header.Date) + body;
-                //body = "Date parsed: {0}(UTC)\r\n".FormatWith(dateTime) + body;
+                LegacyDb.nntptopic_savemessage(nntpForumID, subject, body, guestUserId, fromName, "NNTP", dateTime, externalMessageId, referenceId);
 
-                //// vzrus: various wrong NNTP tags replacements
-
-                //body = body.Replace("&amp;lt;", "&lt;");
-                //body = body.Replace("&amp;gt;", "&gt;");
-                //body = body.Replace("&lt;br&gt;", "");
-                //body = body.Replace("&lt;hr&gt;", "<hr />");
-
-                //body = body.Replace("&amp;quot;", @"&#34;");
-                 
-                // Innerquote class in yaf terms, should be replaced while displaying     
-                //body = body.Replace("&lt;quote&gt;", @"[quote]");
-                //body = body.Replace("&lt;/quote&gt;", @"[/quote]");
-
-                LegacyDb.nntptopic_savemessage(forumDataRow["NntpForumID"], subject, body, guestUserId, fromName, hostAddress, dateTime, thread);
                 lastMessageNo = currentMessage;
+
                 articleCount++;
 
                 // We don't wanna retrieve articles forever...
@@ -196,6 +185,32 @@ namespace YAF.Core.Nntp
       }
 
       return articleCount;
+    }
+
+    private string ReplaceBody(string body)
+    {
+      // Incorrect tags fixes which are common in nntp messages and cause display problems.
+      // These are spotted ones.
+      body = body.Replace("<br>", "<br />");
+      body = body.Replace("<hr>", "<hr />");
+
+      //body = "Date: {0}\r\n\r\n".FormatWith(article.Header.Date) + body;
+      //body = "Date parsed: {0}(UTC)\r\n".FormatWith(dateTime) + body;
+
+      //// vzrus: various wrong NNTP tags replacements
+
+      //body = body.Replace("&amp;lt;", "&lt;");
+      //body = body.Replace("&amp;gt;", "&gt;");
+      //body = body.Replace("&lt;br&gt;", "");
+      //body = body.Replace("&lt;hr&gt;", "<hr />");
+
+      //body = body.Replace("&amp;quot;", @"&#34;");
+
+      // Innerquote class in yaf terms, should be replaced while displaying     
+      //body = body.Replace("&lt;quote&gt;", @"[quote]");
+      //body = body.Replace("&lt;/quote&gt;", @"[/quote]");
+
+      return body;
     }
 
     #endregion

@@ -234,6 +234,7 @@ if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseO
 		EditReason          nvarchar (100) NULL ,
 		IsModeratorChanged  bit NOT NULL CONSTRAINT [DF_{objectQualifier}Message_IsModeratorChanged] DEFAULT (0),
 	    DeleteReason        nvarchar (100)  NULL,
+		ExternalMessageId	nvarchar(64) NULL,
 		IsDeleted		    AS (CONVERT([bit],sign([Flags]&(8)),0)),
 		IsApproved		    AS (CONVERT([bit],sign([Flags]&(16)),(0)))
 	)
@@ -1445,6 +1446,10 @@ end
 
 if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='EditedBy')
 	alter table [{databaseOwner}].[{objectQualifier}Message] add [EditedBy]   int  NULL
+GO
+
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='ExternalMessageId')
+	alter table [{databaseOwner}].[{objectQualifier}Message] add [ExternalMessageId]   nvarchar(64) NULL
 GO
 
 if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='IP' and prec < 39)

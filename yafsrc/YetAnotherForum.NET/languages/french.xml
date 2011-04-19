@@ -1614,6 +1614,7 @@
     <Resource tag="DOWNLOAD">Download</Resource>
     <Resource tag="EDIT">Edit</Resource>
     <Resource tag="EMAILVERIFICATION_SUBJECT">Vérification email {0}</Resource>
+    <Resource tag="EXTERNALUSER">(External User)</Resource>
     <Resource tag="FONT_COLOR">Couleur de police :</Resource>
     <Resource tag="FONT_SIZE">Taille de police :</Resource>
     <Resource tag="FOR">For</Resource>

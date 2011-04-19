@@ -308,11 +308,13 @@ namespace YAF.Pages
                 brief);
 
             html.Append(" (");
-            html.Append(
-                new UserLink
-                    {
-                        ID = "UserLinkForRow{0}".FormatWith(messageId), UserID = row.Field<int>("UserID")
-                    }.RenderToString());
+          html.Append(
+            new UserLink
+              {
+                ID = "UserLinkForRow{0}".FormatWith(messageId),
+                UserID = row.Field<int>("UserID"),
+                ReplaceName = row.Field<string>("UserName")
+              }.RenderToString());
 
             html.AppendFormat(
                 " - {0})</span>",

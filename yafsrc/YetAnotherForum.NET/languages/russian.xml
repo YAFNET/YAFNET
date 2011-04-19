@@ -1607,6 +1607,7 @@
     <Resource tag="DOWNLOAD">Загрузка</Resource>
     <Resource tag="EDIT">Редактировать</Resource>
     <Resource tag="EMAILVERIFICATION_SUBJECT">Проверка Email {0}  </Resource>
+    <Resource tag="EXTERNALUSER">(External User)</Resource>
     <Resource tag="FONT_COLOR">Цвет шрифта:</Resource>
     <Resource tag="FONT_SIZE">Размер шрифта:</Resource>
     <Resource tag="FOR" />

@@ -1614,6 +1614,7 @@
     <Resource tag="DOWNLOAD">Download</Resource>
     <Resource tag="EDIT">Edit</Resource>
     <Resource tag="EMAILVERIFICATION_SUBJECT">{0} E-Posta onayı</Resource>
+    <Resource tag="EXTERNALUSER">(External User)</Resource>
     <Resource tag="FONT_COLOR">Font Rengi:</Resource>
     <Resource tag="FONT_SIZE">Font Büyüklüğü:</Resource>
     <Resource tag="FOR">İçin</Resource>

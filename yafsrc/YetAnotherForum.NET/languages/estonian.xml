@@ -1614,6 +1614,7 @@
     <Resource tag="DOWNLOAD">Download</Resource>
     <Resource tag="EDIT">Edit</Resource>
     <Resource tag="EMAILVERIFICATION_SUBJECT">{0} E-kirja valideerimine</Resource>
+    <Resource tag="EXTERNALUSER">(External User)</Resource>
     <Resource tag="FONT_COLOR">Fondi värv:</Resource>
     <Resource tag="FONT_SIZE">Fondi Suurus:</Resource>
     <Resource tag="FOR">Kellele</Resource>

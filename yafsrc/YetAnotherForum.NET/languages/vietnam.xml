@@ -1614,6 +1614,7 @@
     <Resource tag="DOWNLOAD">Download</Resource>
     <Resource tag="EDIT">Edit</Resource>
     <Resource tag="EMAILVERIFICATION_SUBJECT">{0} Xác nhận Email</Resource>
+    <Resource tag="EXTERNALUSER">(External User)</Resource>
     <Resource tag="FONT_COLOR">Màu chữ:</Resource>
     <Resource tag="FONT_SIZE">Cỡ chữ:</Resource>
     <Resource tag="FOR">For</Resource>

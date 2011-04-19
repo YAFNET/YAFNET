@@ -558,6 +558,7 @@
       <Resource tag="BUTTON_RETWEET_TT">Retweet this Message</Resource>      
    </page>
    <page name="COMMON">
+     <Resource tag="EXTERNALUSER">(External User)</Resource>
       <Resource tag="OR">or</Resource>
      <Resource tag="SHOWHIDE">Show/Hide</Resource>
       <Resource tag="MESSAGE">Message</Resource>

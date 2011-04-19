@@ -1352,57 +1352,64 @@ namespace YAF
 
       var webClient = new WebClient();
 
-      using (var avatarStream = webClient.OpenRead(avatarUrl))
+      try
       {
-        if (avatarStream == null)
+        using (var avatarStream = webClient.OpenRead(avatarUrl))
         {
-          return;
-        }
-
-        using (var img = new Bitmap(avatarStream))
-        {
-          int width = img.Width;
-          int height = img.Height;
-
-          if (width <= maxwidth && height <= maxheight)
+          if (avatarStream == null)
           {
-            context.Response.Redirect(avatarUrl);
+            return;
           }
 
-          if (width > maxwidth)
+          using (var img = new Bitmap(avatarStream))
           {
-            height = (height / (double)width * maxwidth).ToType<int>();
-            width = maxwidth;
-          }
+            int width = img.Width;
+            int height = img.Height;
 
-          if (height > maxheight)
-          {
-            width = (width / (double)height * maxheight).ToType<int>();
-            height = maxheight;
-          }
-
-          // Create the target bitmap
-          using (var bmp = new Bitmap(width, height))
-          {
-            // Create the graphics object to do the high quality resizing
-            using (var gfx = Graphics.FromImage(bmp))
+            if (width <= maxwidth && height <= maxheight)
             {
-              gfx.CompositingQuality = CompositingQuality.HighQuality;
-              gfx.InterpolationMode = InterpolationMode.HighQualityBicubic;
-              gfx.SmoothingMode = SmoothingMode.HighQuality;
-
-              // Draw the source image
-              gfx.DrawImage(img, new Rectangle(new Point(0, 0), new Size(width, height)));
+              context.Response.Redirect(avatarUrl);
             }
 
-            // Output the data
-            context.Response.ContentType = "image/jpeg";
-            context.Response.Cache.SetCacheability(HttpCacheability.Public);
-            context.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(2));
-            context.Response.Cache.SetETag(eTag);
-            bmp.Save(context.Response.OutputStream, ImageFormat.Jpeg);
+            if (width > maxwidth)
+            {
+              height = (height / (double)width * maxwidth).ToType<int>();
+              width = maxwidth;
+            }
+
+            if (height > maxheight)
+            {
+              width = (width / (double)height * maxheight).ToType<int>();
+              height = maxheight;
+            }
+
+            // Create the target bitmap
+            using (var bmp = new Bitmap(width, height))
+            {
+              // Create the graphics object to do the high quality resizing
+              using (var gfx = Graphics.FromImage(bmp))
+              {
+                gfx.CompositingQuality = CompositingQuality.HighQuality;
+                gfx.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                gfx.SmoothingMode = SmoothingMode.HighQuality;
+
+                // Draw the source image
+                gfx.DrawImage(img, new Rectangle(new Point(0, 0), new Size(width, height)));
+              }
+
+              // Output the data
+              context.Response.ContentType = "image/jpeg";
+              context.Response.Cache.SetCacheability(HttpCacheability.Public);
+              context.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(2));
+              context.Response.Cache.SetETag(eTag);
+              bmp.Save(context.Response.OutputStream, ImageFormat.Jpeg);
+            }
           }
         }
+      }
+      catch (System.Net.WebException)
+      {
+        // issue getting access to the avatar...
       }
     }
 

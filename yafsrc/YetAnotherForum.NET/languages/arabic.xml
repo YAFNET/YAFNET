@@ -1614,6 +1614,7 @@
     <Resource tag="DOWNLOAD">Download</Resource>
     <Resource tag="EDIT">Edit</Resource>
     <Resource tag="EMAILVERIFICATION_SUBJECT">{0} التحقق من البريد الالكتروني</Resource>
+    <Resource tag="EXTERNALUSER">(External User)</Resource>
     <Resource tag="FONT_COLOR"> :لون الخط  </Resource>
     <Resource tag="FONT_SIZE"> :حجم الخط </Resource>
     <Resource tag="FOR">لأجل</Resource>

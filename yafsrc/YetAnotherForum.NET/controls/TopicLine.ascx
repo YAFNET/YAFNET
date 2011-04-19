@@ -41,7 +41,7 @@
         %>
         <a href="<%=YafBuildLink.GetLink(ForumPages.posts, linkParams, this.TopicRow["LinkTopicID"])%>"
             class="post_link" title="<%=this.Get<IFormatMessage>().GetCleanedTopicMessage(this.TopicRow["FirstMessage"], this.TopicRow["LinkTopicID"]).MessageTruncated%>">
-            <%=this.Get<IBadWordReplace>().Replace(Convert.ToString(this.HtmlEncode(this.TopicRow["Subject"])))%></a>
+            <%=this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.TopicRow["Subject"]))%></a>
         <%
             var favoriteCount = this.TopicRow["FavoriteCount"].ToType<int>();
             
@@ -58,6 +58,7 @@
         {
           ID = "topicStarterLink",
           UserID = this.TopicRow["UserID"].ToType<int>(),
+          ReplaceName = this.TopicRow["Starter"].ToString(),
           Style = this.TopicRow["StarterStyle"].ToString()
         }.RenderToString() %>
         </span>
@@ -134,7 +135,7 @@
         }    
                 
         %>
-        <%=new UserLink { UserID = userID, Style = this.TopicRow["LastUserStyle"].ToString() }.RenderToString() %>
+        <%=new UserLink { UserID = userID, ReplaceName = this.TopicRow["LastUserName"].ToString(), Style = this.TopicRow["LastUserStyle"].ToString() }.RenderToString() %>
         <a href="<%=YafBuildLink.GetLink(ForumPages.posts, "m={0}&find=lastpost", this.TopicRow["LastMessageID"]) %>"
             title="<%=this.AltLastPost%>">
             <img src="<%=strMiniPost%>" alt="<%=this.AltLastPost%>" title="<%=this.AltLastPost%>" />            

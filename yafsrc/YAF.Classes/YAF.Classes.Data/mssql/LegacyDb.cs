@@ -5402,11 +5402,12 @@ namespace YAF.Classes.Data
     /// The thread.
     /// </param>
     public static void nntptopic_savemessage(
-      object nntpForumID, object topic, object body, object userID, object userName, object ip, object posted, object thread)
+      object nntpForumID, object topic, object body, object userID, object userName, object ip, object posted, object externalMessageId, object referenceMessageId)
     {
       using (var cmd = MsSqlDbAccess.GetCommand("nntptopic_savemessage"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
+
         cmd.Parameters.AddWithValue("NntpForumID", nntpForumID);
         cmd.Parameters.AddWithValue("Topic", topic);
         cmd.Parameters.AddWithValue("Body", body);
@@ -5414,7 +5415,9 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("UserName", userName);
         cmd.Parameters.AddWithValue("IP", ip);
         cmd.Parameters.AddWithValue("Posted", posted);
-        cmd.Parameters.AddWithValue("Thread", thread);
+        cmd.Parameters.AddWithValue("ExternalMessageId", externalMessageId);
+        cmd.Parameters.AddWithValue("ReferenceMessageId", referenceMessageId);
+
         MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
       }
     }

@@ -111,25 +111,11 @@ namespace YAF.Utils
     /// <returns>
     /// URL to the given page.
     /// </returns>
-    public static string GetLink(ForumPages page, bool fullUrl)
+    public static string GetLink(ForumPages page, bool fullUrl = false)
     {
       return fullUrl
                ? YafFactoryProvider.UrlBuilder.BuildUrlFull("g={0}".FormatWith(page))
                : YafFactoryProvider.UrlBuilder.BuildUrl("g={0}".FormatWith(page));
-    }
-
-    /// <summary>
-    /// Gets link to the page.
-    /// </summary>
-    /// <param name="page">
-    /// Page to which to create a link.
-    /// </param>
-    /// <returns>
-    /// URL to the given page.
-    /// </returns>
-    public static string GetLink(ForumPages page)
-    {
-      return GetLink(page, false);
     }
 
     /// <summary>
@@ -187,23 +173,9 @@ namespace YAF.Utils
     /// <returns>
     /// URL to the given page with unescaped ampersands.
     /// </returns>
-    public static string GetLinkNotEscaped(ForumPages page, bool fullUrl)
+    public static string GetLinkNotEscaped(ForumPages page, bool fullUrl = false)
     {
       return GetLink(page, fullUrl).Replace("&amp;", "&");
-    }
-
-    /// <summary>
-    /// Unescapes ampersands in the link to the given page.
-    /// </summary>
-    /// <param name="page">
-    /// Page to which to create a link.
-    /// </param>
-    /// <returns>
-    /// URL to the given page with unescaped ampersands.
-    /// </returns>
-    public static string GetLinkNotEscaped(ForumPages page)
-    {
-      return GetLink(page, false).Replace("&amp;", "&");
     }
 
     /// <summary>

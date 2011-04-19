@@ -23,10 +23,10 @@ namespace YAF.Utils.Helpers
   using System;
   using System.Collections.Generic;
   using System.Data;
+  using System.Data.Common;
+  using System.Data.SqlClient;
   using System.Linq;
 
-  using YAF.Utils;
-  using YAF.Utils.Helpers.StringUtils;
   using YAF.Types;
 
   #endregion
@@ -37,29 +37,6 @@ namespace YAF.Utils.Helpers
   public static class DBHelper
   {
     #region Public Methods
-
-    /// <summary>
-    /// Selects a typed list of rows using the <paramref name="createNew"/> delegate.
-    /// </summary>
-    /// <param name="dataTable">
-    /// The data table.
-    /// </param>
-    /// <param name="createNew">
-    /// The create new.
-    /// </param>
-    /// <typeparam name="T">
-    /// </typeparam>
-    /// <returns>
-    /// </returns>
-    [NotNull]
-    public static IEnumerable<T> SelectTypedList<T>(
-      [NotNull] this DataTable dataTable, [NotNull] Func<DataRow, T> createNew)
-    {
-      CodeContracts.ArgumentNotNull(dataTable, "dataTable");
-      CodeContracts.ArgumentNotNull(createNew, "createNew");
-
-      return dataTable.AsEnumerable().Select(createNew);
-    }
 
     /// <summary>
     /// Converts <paramref name="columnName"/> in a <see cref="DataTable"/> to a generic List of type T.
@@ -122,7 +99,8 @@ namespace YAF.Utils.Helpers
     /// </param>
     /// <returns>
     /// </returns>
-    public static T GetFirstRowColumnAsValue<T>([NotNull] this DataTable dt, [NotNull] string columnName, T defaultValue)
+    public static T GetFirstRowColumnAsValue<T>(
+      [NotNull] this DataTable dt, [NotNull] string columnName, T defaultValue)
     {
       if (dt.Rows.Count > 0 && dt.Columns.Contains(columnName))
       {
@@ -178,6 +156,60 @@ namespace YAF.Utils.Helpers
       }
 
       return false;
+    }
+
+    /// <summary>
+    /// Selects a typed list of rows using the <paramref name="createNew"/> delegate.
+    /// </summary>
+    /// <param name="dataTable">
+    /// The data table.
+    /// </param>
+    /// <param name="createNew">
+    /// The create new.
+    /// </param>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <returns>
+    /// </returns>
+    [NotNull]
+    public static IEnumerable<T> SelectTypedList<T>(
+      [NotNull] this DataTable dataTable, [NotNull] Func<DataRow, T> createNew)
+    {
+      CodeContracts.ArgumentNotNull(dataTable, "dataTable");
+      CodeContracts.ArgumentNotNull(createNew, "createNew");
+
+      return dataTable.AsEnumerable().Select(createNew);
+    }
+
+    /// <summary>
+    /// The to trace string.
+    /// </summary>
+    /// <param name="command">
+    /// The command.
+    /// </param>
+    /// <returns>
+    /// The to trace string.
+    /// </returns>
+    public static string ToDebugString([NotNull] this IDbCommand command)
+    {
+      CodeContracts.ArgumentNotNull(command, "command");
+
+      string debugString = command.CommandText;
+
+      try
+      {
+        if (command.Parameters != null)
+        {
+          debugString = command.Parameters.Cast<DbParameter>().Aggregate(
+            debugString, (current, p) => current + ("\n[" + p.ParameterName + "] - [" + p.DbType + "] - [" + p.Value + "]"));
+        }
+      }
+      catch (Exception ex)
+      {
+        debugString += "Error in getting parameters " + ex;
+      }
+
+      return debugString;
     }
 
     #endregion

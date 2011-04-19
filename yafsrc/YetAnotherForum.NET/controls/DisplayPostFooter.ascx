@@ -36,7 +36,7 @@
 		<asp:Literal id="MessageDetails" runat="server" visible="false" Mode="PassThrough"></asp:Literal>
 		<span id="IPSpan1" runat="server" visible="false"> 
 		&nbsp;|&nbsp;
-		<strong><%# this.GetText("IP") %>:</strong><a id="IPLink1" target="_blank" runat="server"/>			   
+		<b><%# this.GetText("IP") %>:</b>&nbsp;<a id="IPLink1" target="_blank" runat="server"/>			   
 		</span> 		
 	</div>
 </div>

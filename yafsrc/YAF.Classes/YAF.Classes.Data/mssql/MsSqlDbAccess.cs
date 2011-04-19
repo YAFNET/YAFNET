@@ -25,11 +25,13 @@ namespace YAF.Classes.Data
   using System.Collections.Generic;
   using System.Data;
   using System.Data.SqlClient;
+  using System.Diagnostics;
   using System.Linq;
 
   using YAF.Types;
   using YAF.Types.Interfaces;
   using YAF.Utils;
+  using YAF.Utils.Helpers;
 
   #endregion
 
@@ -425,6 +427,8 @@ namespace YAF.Classes.Data
           // get an open connection
           cmd.Connection = connectionManager.OpenDBConnection;
 
+          Trace.WriteLine(cmd.ToDebugString(), "DbAccess");
+
           if (transaction)
           {
             // execute using a transaction
@@ -464,6 +468,8 @@ namespace YAF.Classes.Data
         {
           // get an open connection
           cmd.Connection = connectionManager.OpenDBConnection;
+
+          Trace.WriteLine(cmd.ToDebugString(), "DbAccess");
 
           if (transaction)
           {
@@ -596,6 +602,7 @@ namespace YAF.Classes.Data
           {
             da.SelectCommand = (SqlCommand)cmd;
             da.SelectCommand.Connection = (SqlConnection)cmd.Connection;
+            Trace.WriteLine(cmd.ToDebugString(), "DbAccess");
 
             // use a transaction
             if (transaction)

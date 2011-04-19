@@ -1612,6 +1612,7 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="DOWNLOAD">Herunterladen</Resource>
     <Resource tag="EDIT">Bearbeiten</Resource>
     <Resource tag="EMAILVERIFICATION_SUBJECT">{0} E-Mail Verifizierung</Resource>
+    <Resource tag="EXTERNALUSER">(External User)</Resource>
     <Resource tag="FONT_COLOR">Schriftfarbe:</Resource>
     <Resource tag="FONT_SIZE">Schriftgröße:</Resource>
     <Resource tag="FOR">Für</Resource>

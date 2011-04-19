@@ -1609,6 +1609,7 @@
     <Resource tag="DOWNLOAD">Downloaden</Resource>
     <Resource tag="EDIT">Bewerk</Resource>
     <Resource tag="EMAILVERIFICATION_SUBJECT">{0} Email Controle</Resource>
+    <Resource tag="EXTERNALUSER">(External User)</Resource>
     <Resource tag="FONT_COLOR">Tekstkleur:</Resource>
     <Resource tag="FONT_SIZE">Lettergrootte:</Resource>
     <Resource tag="FOR">Voor</Resource>
