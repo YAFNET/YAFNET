@@ -28467,6 +28467,17 @@
             The e.
             </param>
         </member>
+        <member name="M:YAF.Pages.topics.ForumSearch_Click(System.Object,System.EventArgs)">
+            <summary>
+            The Forum Search
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
         <member name="M:YAF.Pages.topics.OnInit(System.EventArgs)">
             <summary>
             The initialization script for the topics page.
@@ -28817,6 +28828,33 @@
         <member name="F:YAF.Pages.topics.NewTopic2">
             <summary>
             NewTopic2 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.topics.LocalizedLabel7">
+            <summary>
+            LocalizedLabel7 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.topics.forumSearch">
+            <summary>
+            forumSearch control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.topics.forumSearchOK">
+            <summary>
+            forumSearchOK control.
             </summary>
             <remarks>
             Auto-generated field.

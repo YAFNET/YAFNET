@@ -2021,6 +2021,16 @@
             The forum page field.
             </summary>
         </member>
+        <member name="F:YafMenuYafMenuSectionYafMenuItem.subForumPageField_0">
+            <summary>
+            The sub forum page field 0.
+            </summary>
+        </member>
+        <member name="F:YafMenuYafMenuSectionYafMenuItem.subForumPageField_1">
+            <summary>
+            The sub forum page field 1.
+            </summary>
+        </member>
         <member name="F:YafMenuYafMenuSectionYafMenuItem.imageField">
             <summary>
             The image field.
@@ -2046,6 +2056,20 @@
         <member name="P:YafMenuYafMenuSectionYafMenuItem.ForumPage">
             <summary>
             The forum page.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="P:YafMenuYafMenuSectionYafMenuItem.SubForumPage_0">
+            <summary>
+            The sub forum page 0.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="P:YafMenuYafMenuSectionYafMenuItem.SubForumPage_1">
+            <summary>
+            The sub forum page 1.
             </summary>
             <remarks>
             </remarks>
@@ -2142,6 +2166,7 @@
             The get menu sections.
             </summary>
             <returns>
+            Returns the Menu Sections
             </returns>
         </member>
         <member name="M:YAF.Controls.AdminMenu.LoadMenuFromXML">
