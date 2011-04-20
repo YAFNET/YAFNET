@@ -228,21 +228,21 @@ namespace YAF.Core.BBCode
     /// The _rgx url 1.
     /// </summary>
     private static readonly Regex _rgxUrl1 = new Regex(
-      @"\[url\](?<http>(skype:)|(http://)|(https://)|(ftp://)|(ftps://)|(mailto:))(?<inner>([^""\r\n\]\[]+?))\[/url\]", _options | RegexOptions.Compiled);
+      @"\[url\](?<http>(skype:)|(http://)|(https://)|(ftp://)|(ftps://)|(mailto:))?(?<inner>(.+?))\[/url\]", _options | RegexOptions.Compiled);
 
     /// <summary>
     /// The _rgx url 2.
     /// </summary>
     private static readonly Regex _rgxUrl2 =
       new Regex(
-        @"\[url\=(?<http>(skype:)|(http://)|(https://)|(ftp://)|(ftps://))?(?<url>([^""\r\n\]\[]*?))\](?<inner>([^""\r\n\]\[]+?))\[/url\]", _options | RegexOptions.Compiled);
+        @"\[url\=(?<http>(skype:)|(http://)|(https://)|(ftp://)|(ftps://))?(?<url>([^""\r\n\]\[]*?))\](?<inner>(.+?))\[/url\]", _options | RegexOptions.Compiled);
 
       /// <summary>
       /// The _rgx url 1.
       /// </summary>
       private static readonly Regex _rgxModalUrl1 =
           new Regex(
-              @"\[modalurl](?<http>(skype:)|(http://)|(https://)|(ftp://)|(ftps://))(?<inner>([^""\r\n\]\[]+?))\[/modalurl\]",
+              @"\[modalurl](?<http>(skype:)|(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>(.+?))\[/modalurl\]",
               _options | RegexOptions.Compiled);
 
       /// <summary>
@@ -250,7 +250,7 @@ namespace YAF.Core.BBCode
       /// </summary>
       private static readonly Regex _rgxModalUrl2 =
           new Regex(
-              @"\[modalurl\=(?<http>(skype:)|(http://)|(https://)|(ftp://)|(ftps://))(?<url>([^""\r\n\]\[]*?))\](?<inner>([^""\r\n\]\[]+?))\[/modalurl\]",
+              @"\[modalurl\=(?<http>(skype:)|(http://)|(https://)|(ftp://)|(ftps://))(?<url>([^""\r\n\]\[]*?))\](?<inner>(.+?))\[/modalurl\]",
               _options | RegexOptions.Compiled);
 
     /// <summary>
