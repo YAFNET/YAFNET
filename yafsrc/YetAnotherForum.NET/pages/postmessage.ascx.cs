@@ -30,7 +30,6 @@ namespace YAF.Pages
 
     using YAF.Classes;
     using YAF.Classes.Data;
-    using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Services;
     using YAF.Core.Services.CheckForSpam;
@@ -634,16 +633,42 @@ namespace YAF.Pages
             {
                 YafBuildLink.AccessDenied();
             }
+            
+            // Check if Forum is Moderated
+            DataRow forumInfo;
+            bool isForumModerated = false;
+
+            using (DataTable dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
+            {
+                forumInfo = dt.Rows[0];
+            }
+
+            if (forumInfo != null)
+            {
+                isForumModerated = forumInfo["Flags"].BinaryAnd(ForumFlags.Flags.IsModerated);
+            }
+
+            // If Forum is Moderated
+            if (isForumModerated)
+            {
+                this.spamApproved = false;
+            }
+
+            // Bypass Approval if Admin or Moderator
+            if (this.PageContext.IsAdmin || this.PageContext.IsModerator)
+            {
+                this.spamApproved = true;
+            }
+            
 
             // make message flags
             var messageFlags = new MessageFlags
-              {
-                  IsHtml = this._forumEditor.UsesHTML,
-                  IsBBCode = this._forumEditor.UsesBBCode,
-                  IsPersistent = this.PostOptions1.PersistantChecked,
-                  /* Bypass Approval if Admin or Moderator.*/
-                  IsApproved = this.PageContext.IsAdmin || this.PageContext.IsModerator
-              };
+            {
+                IsHtml = this._forumEditor.UsesHTML,
+                IsBBCode = this._forumEditor.UsesBBCode,
+                IsPersistent = this.PostOptions1.PersistantChecked,
+                IsApproved = this.spamApproved
+            };
 
             string blogPostID = this.HandlePostToBlog(this._forumEditor.Text, this.TopicSubjectTextBox.Text);
 
@@ -676,16 +701,45 @@ namespace YAF.Pages
         /// <summary>
         /// The post reply handle reply to topic.
         /// </summary>
+        /// <param name="isSpamApproved">
+        /// The is Spam Approved.
+        /// </param>
         /// <returns>
         /// The post reply handle reply to topic.
         /// </returns>
-        protected long PostReplyHandleReplyToTopic()
+        protected long PostReplyHandleReplyToTopic(bool isSpamApproved)
         {
             long messageId = 0;
 
             if (!this.PageContext.ForumReplyAccess)
             {
                 YafBuildLink.AccessDenied();
+            }
+
+            // Check if Forum is Moderated
+            DataRow forumInfo;
+            bool isForumModerated = false;
+
+            using (DataTable dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
+            {
+                forumInfo = dt.Rows[0];
+            }
+
+            if (forumInfo != null)
+            {
+                isForumModerated = forumInfo["Flags"].BinaryAnd(ForumFlags.Flags.IsModerated);
+            }
+
+            // If Forum is Moderated
+            if (isForumModerated)
+            {
+                isSpamApproved = false;
+            }
+
+            // Bypass Approval if Admin or Moderator
+            if (this.PageContext.IsAdmin || this.PageContext.IsModerator)
+            {
+                isSpamApproved = true;
             }
 
             object replyTo = (this.QuotedMessageID != null) ? this.QuotedMessageID.Value : -1;
@@ -696,7 +750,7 @@ namespace YAF.Pages
                     IsHtml = this._forumEditor.UsesHTML,
                     IsBBCode = this._forumEditor.UsesBBCode,
                     IsPersistent = this.PostOptions1.PersistantChecked,
-                    IsApproved = this.PageContext.IsAdmin || this.PageContext.IsModerator
+                    IsApproved = isSpamApproved
                 };
 
             LegacyDb.message_save(
@@ -741,11 +795,20 @@ namespace YAF.Pages
             }
 
             // Check for SPAM
-            if (this.IsPostSpam())
+            if (!this.PageContext.IsAdmin || !this.PageContext.IsModerator)
             {
-                // TODO: Handle what to do with the SPAM Users
-                this.PageContext.AddLoadMessage("SPAM Is not allowed");
-                return;
+                if (this.IsPostSpam())
+                {
+                    if (this.Get<YafBoardSettings>().SpamMessageHandling.Equals(1))
+                    {
+                        this.spamApproved = false;
+                    }
+                    else if (this.Get<YafBoardSettings>().SpamMessageHandling.Equals(2))
+                    {
+                        this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"));
+                        return;
+                    }
+                }
             }
 
             // vzrus: Common users should not use HTML tags in a topic header if not allowed
@@ -770,7 +833,7 @@ namespace YAF.Pages
             if (this.TopicID != null)
             {
                 // Reply to topic
-                messageId = this.PostReplyHandleReplyToTopic();
+                messageId = this.PostReplyHandleReplyToTopic(this.spamApproved);
                 newTopic = (long)this.TopicID;
             }
             else if (this.EditMessageID != null)
@@ -884,6 +947,8 @@ namespace YAF.Pages
                 }
             }
         }
+
+        private bool spamApproved = true;
 
         /// <summary>
         /// Check This Post for SPAM against the BlogSpam.NET API or Akismet Service

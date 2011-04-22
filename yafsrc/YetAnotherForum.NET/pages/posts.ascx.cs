@@ -26,6 +26,7 @@ namespace YAF.Pages
     using System;
     using System.Data;
     using System.Linq;
+    using System.Net;
     using System.Text;
     using System.Web;
     using System.Web.UI.HtmlControls;
@@ -36,6 +37,7 @@ namespace YAF.Pages
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Services;
+    using YAF.Core.Services.CheckForSpam;
     using YAF.Editors;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -308,13 +310,11 @@ namespace YAF.Pages
                 brief);
 
             html.Append(" (");
-          html.Append(
-            new UserLink
-              {
-                ID = "UserLinkForRow{0}".FormatWith(messageId),
-                UserID = row.Field<int>("UserID"),
-                ReplaceName = row.Field<string>("UserName")
-              }.RenderToString());
+            html.Append(
+                new UserLink
+                    {
+                        ID = "UserLinkForRow{0}".FormatWith(messageId), UserID = row.Field<int>("UserID")
+                    }.RenderToString());
 
             html.AppendFormat(
                 " - {0})</span>",
@@ -911,6 +911,8 @@ namespace YAF.Pages
 
             var keywordStr = message.MessageKeywords.Where(x => x.IsSet()).ToList().ToDelimitedString(",");
 
+            //this.Tags.Text = "Tags: {0}".FormatWith(keywordStr);
+
             if (meta.Any(x => x.Name.Equals("keywords")))
             {
                 // use existing...
@@ -1445,11 +1447,58 @@ namespace YAF.Pages
             string msg = this._quickReplyEditor.Text;
             long topicID = this.PageContext.PageTopicID;
 
+            // SPAM Check
+
+            // Check if Forum is Moderated
+            DataRow forumInfo;
+            bool isForumModerated = false;
+
+            using (DataTable dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
+            {
+                forumInfo = dt.Rows[0];
+            }
+
+            if (forumInfo != null)
+            {
+                isForumModerated = forumInfo["Flags"].BinaryAnd(ForumFlags.Flags.IsModerated);
+            }
+
+            bool spamApproved = true;
+
+            // Check for SPAM
+            if (!this.PageContext.IsAdmin || !this.PageContext.IsModerator)
+            {
+                if (this.IsPostSpam())
+                {
+                    if (this.Get<YafBoardSettings>().SpamMessageHandling.Equals(1))
+                    {
+                        spamApproved = false;
+                    }
+                    else if (this.Get<YafBoardSettings>().SpamMessageHandling.Equals(2))
+                    {
+                        this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"));
+                        return;
+                    }
+                }
+            }
+
+            // If Forum is Moderated
+            if (isForumModerated)
+            {
+                spamApproved = false;
+            }
+
+            // Bypass Approval if Admin or Moderator
+            if (this.PageContext.IsAdmin || this.PageContext.IsModerator)
+            {
+                spamApproved = true;
+            }
+
             var tFlags = new MessageFlags
               {
                   IsHtml = this._quickReplyEditor.UsesHTML,
                   IsBBCode = this._quickReplyEditor.UsesBBCode,
-                  IsApproved = this.PageContext.IsAdmin || this.PageContext.IsModerator
+                  IsApproved = spamApproved
               };
 
             // Bypass Approval if Admin or Moderator.
@@ -1518,6 +1567,97 @@ namespace YAF.Pages
                     YafBuildLink.Redirect(ForumPages.info, "i=1&url={0}", this.Server.UrlEncode(url));
                 }
             }
+        }
+
+        /// <summary>
+        /// Check This Post for SPAM against the BlogSpam.NET API or Akismet Service
+        /// </summary>
+        /// <returns>
+        /// Returns if Post is SPAM or not
+        /// </returns>
+        private bool IsPostSpam()
+        {
+            if (this.Get<YafBoardSettings>().SpamServiceType.Equals(0))
+            {
+                return false;
+            }
+
+            string ipAdress = this.Get<HttpRequestBase>().UserHostAddress;
+
+            if (ipAdress.Equals("::1"))
+            {
+                ipAdress = "127.0.0.1";
+            }
+
+            string whiteList = String.Empty;
+
+            if (ipAdress.Equals("127.0.0.1"))
+            {
+                whiteList = "whitelist=127.0.0.1";
+            }
+
+            string email, username;
+
+            if (this.User == null)
+            {
+                email = null;
+                username = "Guest";
+            }
+            else
+            {
+                email = this.User.Email;
+                username = this.User.UserName;
+            }
+
+            // Use BlogSpam.NET API
+            if (this.Get<YafBoardSettings>().SpamServiceType.Equals(1))
+            {
+                try
+                {
+                    return
+                        BlogSpamNet.CommentIsSpam(
+                            new BlogSpamComment
+                            {
+                                comment = this._quickReplyEditor.Text,
+                                ip = ipAdress,
+                                agent = this.Get<HttpRequestBase>().UserAgent,
+                                email = email,
+                                name = username,
+                                version = String.Empty,
+                                options = whiteList,
+                                subject = this.PageContext.PageTopicName
+                            },
+                            true);
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+
+            // Use Akismet API
+            if (this.Get<YafBoardSettings>().SpamServiceType.Equals(2) && !string.IsNullOrEmpty(this.Get<YafBoardSettings>().AkismetApiKey))
+            {
+                try
+                {
+                    var service = new AkismetSpamClient(this.Get<YafBoardSettings>().AkismetApiKey, new Uri(BaseUrlBuilder.BaseUrl));
+
+                    return
+                        service.CheckCommentForSpam(
+                            new Comment(IPAddress.Parse(ipAdress), this.Get<HttpRequestBase>().UserAgent)
+                            {
+                                Content = this._quickReplyEditor.Text,
+                                Author = username,
+                                AuthorEmail = email
+                            });
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -1593,7 +1733,6 @@ namespace YAF.Pages
                     this.GetText("FACEBOOK_TOPIC"),
                     @"window.open('{0}','Facebook','width=300,height=200,resizable=yes');".FormatWith(facebookUrl),
                     this.Get<ITheme>().GetItem("ICONS", "FACEBOOK"));
-
 
                 this.ShareMenu.AddPostBackItem(
                     "digg", this.GetText("DIGG_TOPIC"), this.Get<ITheme>().GetItem("ICONS", "DIGG"));

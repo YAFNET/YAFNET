@@ -3715,7 +3715,7 @@ BEGIN
 	
 	SET @MessageID = SCOPE_IDENTITY()
 
-	IF ((@ForumFlags & 8) = 0) OR ((@Flags & 16) = 16)
+	IF ((@Flags & 16) = 16)
 		EXEC [{databaseOwner}].[{objectQualifier}message_approve] @MessageID	
 END
 	
@@ -5829,7 +5829,7 @@ create procedure [{databaseOwner}].[{objectQualifier}topic_save](
 	@IP			varchar(39),
 	@Posted		datetime=null,
 	@BlogPostID	nvarchar(50),
-	@Flags		int
+	@Flags		int,
 ) as
 begin
 		declare @TopicID int
@@ -5845,7 +5845,7 @@ begin
 	set @TopicID = SCOPE_IDENTITY()
 	
 	-- add message to the topic
-	exec [{databaseOwner}].[{objectQualifier}message_save] @TopicID,@UserID,@Message,@UserName,@IP,@Posted,null,@BlogPostID,@Flags,@MessageID output
+	exec [{databaseOwner}].[{objectQualifier}message_save] @TopicID,@UserID,@Message,@UserName,@IP,@Posted,null,@BlogPostID,null,@Flags,@MessageID output
 
 	select TopicID = @TopicID, MessageID = @MessageID
 end
