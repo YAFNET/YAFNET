@@ -5829,7 +5829,7 @@ create procedure [{databaseOwner}].[{objectQualifier}topic_save](
 	@IP			varchar(39),
 	@Posted		datetime=null,
 	@BlogPostID	nvarchar(50),
-	@Flags		int,
+	@Flags		int
 ) as
 begin
 		declare @TopicID int
