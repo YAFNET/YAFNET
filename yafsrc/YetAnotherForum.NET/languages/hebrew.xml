@@ -1805,8 +1805,10 @@
   </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">אודותיך/ייך</Resource>
+    <Resource tag="AIM">Your AIM Name:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Watch every topic in which you have made a post and receive email notifications of activities in those topics?</Resource>
     <Resource tag="BAD_EMAIL">הזנת כתובת דוא"ל לא תקינה.</Resource>
+    <Resource tag="BAD_FACEBOOk">You have entered a invalid address for your Facebook Profile Page. (Example URL : http://www.facebook.com/yourname)</Resource>
     <Resource tag="BAD_HOME">הזנת כתובת לא תקינה לדף הבית שלך.</Resource>
     <Resource tag="BAD_ICQ">הזנת ערך לא תקין למספר הICQ.</Resource>
     <Resource tag="BAD_MSN">הזנת כתובת דוא"ל לא תקינה לחשבון הMSN.</Resource>
@@ -1819,10 +1821,12 @@
     <Resource tag="DUPLICATED_EMAIL">The e-mail adress you have entered is already in use.</Resource>
     <Resource tag="EDIT_ALBUMS">Edit Albums</Resource>
     <Resource tag="EMAIL">כתובת דוא"ל תקינה הינה חובה.</Resource>
+    <Resource tag="FACEBOOK">Your Facebook Profile Page (URL):</Resource>
     <Resource tag="FORUM_SETTINGS">הגדרות פורום</Resource>
     <Resource tag="HIDEME">Hide me from active users</Resource>
     <Resource tag="HOMEPAGE">דף הבית</Resource>
     <Resource tag="HOMEPAGE2">דף הבית שלך:</Resource>
+    <Resource tag="ICQ">Your ICQ Number:</Resource>
     <Resource tag="LOCATION">מיקום</Resource>
     <Resource tag="MAIL_SENT">הודעה דוא"ל נשלחה אל {0}.\n\nחובה לאמת את כתובת הדואר האלקטרוני ע"י\nפתיחת הקישור בהודעה לפני שכתובת הדואר האלקטרוני תתעדכן.</Resource>
     <Resource tag="MESSENGER">שירות מסרים מיידיים</Resource>
@@ -1831,18 +1835,23 @@
     <Resource tag="METAWEBLOG_API_URL">MetaWeblog API URL:</Resource>
     <Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API Username:</Resource>
     <Resource tag="METAWEBLOG_TITLE">שלח אל MetaWeblog (הגדרות API)</Resource>
+    <Resource tag="MSN">Your Windows Live-ID (MSN) Name:</Resource>
     <Resource tag="OVERRIDE_DEFAULT_THEMES">עקוף את ערכת הנושא ברירת המחדל</Resource>
     <Resource tag="PM_EMAIL_NOTIFICATION">האם ברצונך לקבל הודעה בדוא"ל כשמתקבלת הודעה פרטית חדשה?</Resource>
     <Resource tag="REALNAME2">מהו שמך האמיתי?</Resource>
     <Resource tag="SELECT_LANGUAGE">באיזו שפה ברצונך להשתמש:</Resource>
     <Resource tag="SELECT_TEXTEDITOR">Select your text editor:</Resource>
     <Resource tag="SELECT_THEME">בחר את ערכת הדיון המועדפת עליך:</Resource>
+    <Resource tag="SKYPE">Your SKYPE ID:</Resource>
     <Resource tag="TIMEZONE">איזור זמן</Resource>
     <Resource tag="TIMEZONE2">על מנת להציג את הזמנים והתאריכים בזמן שלך, אנו צריכים לדעת את איזור הזמן שלך. (ישראל נמצאת ב GMT+2)</Resource>
     <Resource tag="TITLE">עריכת פרופיל</Resource>
+    <Resource tag="TWITTER">Your Twitter Name:</Resource>
     <Resource tag="USE_MOBILE_THEME">Use Mobile Forum Theme:</Resource>
     <Resource tag="WEBLOG2">הבלוג שלך:</Resource>
     <Resource tag="WHERE">היכן את/ה גר/ה?</Resource>
+    <Resource tag="XMPP">Your Jabber ID:</Resource>
+    <Resource tag="YIM">Your Yahoo ID:</Resource>
   </page>
   <page name="CP_MESSAGE">
     <Resource tag="INBOX">תיבת דואר נכנס</Resource>
@@ -2717,6 +2726,7 @@
     <Resource tag="EMAIL">דוא"ל</Resource>
     <Resource tag="EMAILTOPIC">שלח דיון זה בדוא"ל</Resource>
     <Resource tag="EMPTY_MESSAGE">חובה להזין תוכן בהודעה.</Resource>
+    <Resource tag="FACEBOOK">Facebook</Resource>
     <Resource tag="FACEBOOK_TOPIC">Like this Topic</Resource>
     <Resource tag="FORUM_JUMP">עבור לפורום</Resource>
     <Resource tag="GROUPS">קבוצות</Resource>
@@ -2784,6 +2794,7 @@
     <Resource tag="TOP">חזור למעלה</Resource>
     <Resource tag="TOPICBROWSERS">משתמשים הצופים בדיון זה</Resource>
     <Resource tag="TOTAL">Total</Resource>
+    <Resource tag="Twitter">Twitter</Resource>
     <Resource tag="UNWATCHTOPIC">בטל מעקב אחר דיון זה</Resource>
     <Resource tag="USERGENDER_FEM">Woman</Resource>
     <Resource tag="USERGENDER_MAS">Man</Resource>
@@ -2821,6 +2832,7 @@
     <Resource tag="ERROR_ADMINISTRATORS">אינך יכול/ה להשעות מנהלים.</Resource>
     <Resource tag="ERROR_FORUMMODERATORS">אינך יכול/ה להשעות מנהלי פורום.</Resource>
     <Resource tag="ERROR_GUESTACCOUNT">אינך יכול/ה להשעות את חשבון האורח.</Resource>
+    <Resource tag="FACEBOOK">Facebook Profile:</Resource>
     <Resource tag="GENDER">מין:</Resource>
     <Resource tag="GENDER0">לא נבחר</Resource>
     <Resource tag="GENDER1">זכר</Resource>
@@ -2856,6 +2868,7 @@
     <Resource tag="THANKSTOPOSTS">Number of posts for which this user was thanked</Resource>
     <Resource tag="THANKSTOTIMES">Number of times this user was thanked</Resource>
     <Resource tag="TOPIC">דיון:</Resource>
+    <Resource tag="Twitter">Twitter Name:</Resource>
     <Resource tag="USERNAME">שם משתמש:</Resource>
     <Resource tag="WEBLOG">בלוג:</Resource>
     <Resource tag="WEBSITE">דף הבית:</Resource>

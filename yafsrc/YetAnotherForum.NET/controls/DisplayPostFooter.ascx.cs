@@ -316,6 +316,14 @@
         this.Skype.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_skype, "u={0}", this.PostData.UserId);
       }
 
+      // Facebook
+      this.Facebook.Visible = this.PostData.UserProfile.Facebook.IsSet();
+      this.Facebook.NavigateUrl = this.PostData.UserProfile.Facebook;
+
+      // Twitter
+      this.Twitter.Visible = this.PostData.UserProfile.Twitter.IsSet();
+      this.Twitter.NavigateUrl = "http://twitter.com/{0}".FormatWith(this.PostData.UserProfile.Twitter);
+
       this.CreateMessageDetails();
     }
 

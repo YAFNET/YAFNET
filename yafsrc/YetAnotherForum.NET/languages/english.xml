@@ -768,6 +768,15 @@
       <Resource tag="WEBLOG2">Your Blog URL (public):</Resource>
       <Resource tag="WHERE">Where do you live?</Resource>
       <Resource tag="EDIT_ALBUMS">Edit Albums</Resource>
+	  <Resource tag="FACEBOOK">Your Facebook Profile Page (URL):</Resource>
+	  <Resource tag="TWITTER">Your Twitter Name:</Resource>
+	  <Resource tag="SKYPE">Your SKYPE ID:</Resource>
+	  <Resource tag="YIM">Your Yahoo ID:</Resource>
+  	  <Resource tag="MSN">Your Windows Live-ID (MSN) Name:</Resource>
+	  <Resource tag="AIM">Your AIM Name:</Resource>
+	  <Resource tag="ICQ">Your ICQ Number:</Resource>
+      <Resource tag="XMPP">Your Jabber ID:</Resource>
+	  <Resource tag="BAD_FACEBOOk">You have entered a invalid address for your Facebook Profile Page. (Example URL : http://www.facebook.com/yourname)</Resource>
    </page>
    <page name="CP_MESSAGE">
       <Resource tag="INBOX">Inbox</Resource>
@@ -1391,6 +1400,8 @@
 	  <Resource tag="REDDIT_TOPIC">Reddit this Topic</Resource>
 	  <Resource tag="OPTIONS_TOOLTIP">Topic Options to Subscribe via Email, RSS, Atom, and to view Printer Friendly Page.</Resource>
 	  <Resource tag="VIEW_TOOLTIP">Change Topic View between Normal or Thread View.</Resource>
+	  <Resource tag="FACEBOOK">Facebook</Resource>
+	  <Resource tag="Twitter">Twitter</Resource>
    </page>
    <page name="BUDDY">
       <Resource tag="ADDBUDDY">Add as buddy</Resource>
@@ -1486,6 +1497,8 @@
       <Resource tag="WEBSITE">Home Page:</Resource>
       <Resource tag="XMPP">XMPP Name:</Resource>
       <Resource tag="YIM">Yahoo Messenger:</Resource>
+	  <Resource tag="FACEBOOK">Facebook Profile:</Resource>
+	  <Resource tag="Twitter">Twitter Name:</Resource>
    </page>
    <page name="RECOVER_PASSWORD">
       <Resource tag="ACCOUNT_NOT_APPROVED">Your account has not been approved by the admininstrator yet. You cannot reset your password unless you are approved.</Resource>

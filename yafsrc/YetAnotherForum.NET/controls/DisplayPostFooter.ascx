@@ -25,6 +25,10 @@
 			TextLocalizedTag="Xmpp" ImageThemeTag="XMPP" Visible="false" />	
 		<YAF:ThemeButton ID="Skype" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
 			TextLocalizedTag="SKYPE" ImageThemeTag="SKYPE" Visible="false" />
+        <YAF:ThemeButton ID="Facebook" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS"
+				TextLocalizedTag="Facebook" ImageThemeTag="Facebook2" />
+        <YAF:ThemeButton ID="Twitter" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS"
+				TextLocalizedTag="Twitter" ImageThemeTag="Twitter2" />
 	</div>
 	<div class="rightItem postInfoRight">			
 		<a id="reportPostLink" rel="nofollow" runat="server" visible="false" />				

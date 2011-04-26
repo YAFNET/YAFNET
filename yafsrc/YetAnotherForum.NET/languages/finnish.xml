@@ -1765,8 +1765,10 @@
   </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">Tietoja itsestäsi</Resource>
+    <Resource tag="AIM">Your AIM Name:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Watch every topic in which you have made a post and receive email notifications of activities in those topics?</Resource>
     <Resource tag="BAD_EMAIL">Annoit virheellisen sähköpostiosoitteen.</Resource>
+    <Resource tag="BAD_FACEBOOk">You have entered a invalid address for your Facebook Profile Page. (Example URL : http://www.facebook.com/yourname)</Resource>
     <Resource tag="BAD_HOME">Annoit virheellisen osoitteen kotisivuille.</Resource>
     <Resource tag="BAD_ICQ">Annoit virheellisen ICQ -numeron.</Resource>
     <Resource tag="BAD_MSN">Annoit virheellisen sähköpostiosoitteen MSN -tiliin.</Resource>
@@ -1779,10 +1781,12 @@
     <Resource tag="DUPLICATED_EMAIL">The e-mail adress you have entered is already in use.</Resource>
     <Resource tag="EDIT_ALBUMS">Edit Albums</Resource>
     <Resource tag="EMAIL">Sähköpostin on aina oltava toimiva.</Resource>
+    <Resource tag="FACEBOOK">Your Facebook Profile Page (URL):</Resource>
     <Resource tag="FORUM_SETTINGS">Keskustelualueen asetukset</Resource>
     <Resource tag="HIDEME">Hide me from active users</Resource>
     <Resource tag="HOMEPAGE">Kotisivu</Resource>
     <Resource tag="HOMEPAGE2">Kotisivujen osoite:</Resource>
+    <Resource tag="ICQ">Your ICQ Number:</Resource>
     <Resource tag="LOCATION">Paikka</Resource>
     <Resource tag="MAIL_SENT">Osoitteeseen {0} on lähetetty sähköposti.\n\nSinun pitää varmistaa sähköpostin toimivuus\nseuraamalla linkkiä viestissä ennen kuin sähköpostisi vaihdetaan.</Resource>
     <Resource tag="MESSENGER">Pikaviestinpalvelut</Resource>
@@ -1791,18 +1795,23 @@
     <Resource tag="METAWEBLOG_API_URL">MetaWeblog API URL:</Resource>
     <Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API Username:</Resource>
     <Resource tag="METAWEBLOG_TITLE">Post to MetaWeblog (API Settings)</Resource>
+    <Resource tag="MSN">Your Windows Live-ID (MSN) Name:</Resource>
     <Resource tag="OVERRIDE_DEFAULT_THEMES">Select different forum theme:</Resource>
     <Resource tag="PM_EMAIL_NOTIFICATION">Receive an email notification when you get a new private message?</Resource>
     <Resource tag="REALNAME2">Oikea nimesi:</Resource>
     <Resource tag="SELECT_LANGUAGE">Mitä kieltä haluat käyttää:</Resource>
     <Resource tag="SELECT_TEXTEDITOR">Select your text editor:</Resource>
     <Resource tag="SELECT_THEME">Valitse haluamasi teema:</Resource>
+    <Resource tag="SKYPE">Your SKYPE ID:</Resource>
     <Resource tag="TIMEZONE">Aikavyöhyke</Resource>
     <Resource tag="TIMEZONE2">nähdäksesi ajat oikein, tarvitsemme tietoomme aikavyöhykkeesi.</Resource>
     <Resource tag="TITLE">Muokkaa profiilia</Resource>
+    <Resource tag="TWITTER">Your Twitter Name:</Resource>
     <Resource tag="USE_MOBILE_THEME">Use Mobile Forum Theme:</Resource>
     <Resource tag="WEBLOG2">Blogisi:</Resource>
     <Resource tag="WHERE">Missä asut?</Resource>
+    <Resource tag="XMPP">Your Jabber ID:</Resource>
+    <Resource tag="YIM">Your Yahoo ID:</Resource>
   </page>
   <page name="CP_MESSAGE">
     <Resource tag="INBOX">Postilaatikko</Resource>
@@ -2661,6 +2670,7 @@
     <Resource tag="EMAIL">EMail</Resource>
     <Resource tag="EMAILTOPIC">Lähetä aihe sähköpostilla</Resource>
     <Resource tag="EMPTY_MESSAGE">You must enter something into your post.</Resource>
+    <Resource tag="FACEBOOK">Facebook</Resource>
     <Resource tag="FACEBOOK_TOPIC">Like this Topic</Resource>
     <Resource tag="FORUM_JUMP">Siirry alueelle </Resource>
     <Resource tag="GROUPS">Ryhmät</Resource>
@@ -2728,6 +2738,7 @@
     <Resource tag="TOP">Takaisin ylös</Resource>
     <Resource tag="TOPICBROWSERS">Käyttäjät lukemassa tätä aihetta</Resource>
     <Resource tag="TOTAL">Total</Resource>
+    <Resource tag="Twitter">Twitter</Resource>
     <Resource tag="UNWATCHTOPIC">Lopeta aiheen seuranta</Resource>
     <Resource tag="USERGENDER_FEM">Woman</Resource>
     <Resource tag="USERGENDER_MAS">Man</Resource>
@@ -2765,6 +2776,7 @@
     <Resource tag="ERROR_ADMINISTRATORS">Et voi laittaa adminia jäähylle.</Resource>
     <Resource tag="ERROR_FORUMMODERATORS">Et voi laittaa moderaattoria jäähylle.</Resource>
     <Resource tag="ERROR_GUESTACCOUNT">Et voi laittaa vieras-tiliä jäähylle.</Resource>
+    <Resource tag="FACEBOOK">Facebook Profile:</Resource>
     <Resource tag="GENDER">Sukupuoli:</Resource>
     <Resource tag="GENDER0">Määrittelemätön</Resource>
     <Resource tag="GENDER1">Mies</Resource>
@@ -2800,6 +2812,7 @@
     <Resource tag="THANKSTOPOSTS">Number of posts for which this user was thanked</Resource>
     <Resource tag="THANKSTOTIMES">Number of times this user was thanked</Resource>
     <Resource tag="TOPIC">Aihe:</Resource>
+    <Resource tag="Twitter">Twitter Name:</Resource>
     <Resource tag="USERNAME">Käyttäjätunnus:</Resource>
     <Resource tag="WEBLOG">Blogi:</Resource>
     <Resource tag="WEBSITE">Kotisivut:</Resource>

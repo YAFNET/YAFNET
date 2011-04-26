@@ -1791,8 +1791,10 @@
   </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">О Вас</Resource>
+    <Resource tag="AIM">Your AIM Name:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Желаете ли Вы получать уведомление по электронной почте каждый раз, когда кто-либо оставляет сообщение во [b]всех[/b] обсуждениях с вашим участием?</Resource>
     <Resource tag="BAD_EMAIL">Вы ввели недопустимый адрес электронной почты.</Resource>
+    <Resource tag="BAD_FACEBOOk">You have entered a invalid address for your Facebook Profile Page. (Example URL : http://www.facebook.com/yourname)</Resource>
     <Resource tag="BAD_HOME">Вы ввели неработающий адрес своей домашней страницы.</Resource>
     <Resource tag="BAD_ICQ">Вы ввели недопустимое значение для вашего номера ICQ.</Resource>
     <Resource tag="BAD_MSN">Вы ввели неверный адрес электронной почты для учётной записи MSN.</Resource>
@@ -1805,10 +1807,12 @@
     <Resource tag="DUPLICATED_EMAIL">Этот адрес электронной почты уже используется.</Resource>
     <Resource tag="EDIT_ALBUMS">Изменить альбомы</Resource>
     <Resource tag="EMAIL">Ваш адрес электронной почты должен быть всегда действительным.</Resource>
+    <Resource tag="FACEBOOK">Your Facebook Profile Page (URL):</Resource>
     <Resource tag="FORUM_SETTINGS">Настройки форума</Resource>
     <Resource tag="HIDEME">Не отображать в активных</Resource>
     <Resource tag="HOMEPAGE">Домашняя страница</Resource>
     <Resource tag="HOMEPAGE2">Ваш веб-сайт (публичный):</Resource>
+    <Resource tag="ICQ">Your ICQ Number:</Resource>
     <Resource tag="LOCATION">Место</Resource>
     <Resource tag="MAIL_SENT">Сообщение по электронной почте было отправлено {0}.\n\nВам необходимо подтвердить ваш адрес электронной почты перейдя по ссылке в сообщении перед тем, как адрес электронной почты будет изменён.</Resource>
     <Resource tag="MESSENGER">Службы мгновенных сообщений</Resource>
@@ -1817,18 +1821,23 @@
     <Resource tag="METAWEBLOG_API_URL"> URL для MetaWeblog API:</Resource>
     <Resource tag="METAWEBLOG_API_USERNAME">Имя пользователя для MetaWeblog API:</Resource>
     <Resource tag="METAWEBLOG_TITLE">Разместить при помощи MetaWeblog (Настройки API)</Resource>
+    <Resource tag="MSN">Your Windows Live-ID (MSN) Name:</Resource>
     <Resource tag="OVERRIDE_DEFAULT_THEMES">Выберите другую тему форума:</Resource>
     <Resource tag="PM_EMAIL_NOTIFICATION">Желаете ли Вы получать уведомление по электронной почте при получении нового личного сообщения?</Resource>
     <Resource tag="REALNAME2">Ваше настоящее имя:</Resource>
     <Resource tag="SELECT_LANGUAGE">Какой язык вы хотите использовать:</Resource>
     <Resource tag="SELECT_TEXTEDITOR">Текстовой редактор:</Resource>
     <Resource tag="SELECT_THEME">Выберите нужную тему:</Resource>
+    <Resource tag="SKYPE">Your SKYPE ID:</Resource>
     <Resource tag="TIMEZONE">Часовой пояс</Resource>
     <Resource tag="TIMEZONE2">Чтобы показывать местную дату и время мы должны знать Ваш часовой пояс.</Resource>
     <Resource tag="TITLE">Изменить профиль</Resource>
+    <Resource tag="TWITTER">Your Twitter Name:</Resource>
     <Resource tag="USE_MOBILE_THEME">Использовать тему для мобильного устройства:</Resource>
     <Resource tag="WEBLOG2">URL вашего публичного блога:</Resource>
     <Resource tag="WHERE">Где Вы живете?</Resource>
+    <Resource tag="XMPP">Your Jabber ID:</Resource>
+    <Resource tag="YIM">Your Yahoo ID:</Resource>
   </page>
   <page name="CP_MESSAGE">
     <Resource tag="INBOX">Входящие</Resource>
@@ -2684,6 +2693,7 @@
     <Resource tag="EMAIL">Email</Resource>
     <Resource tag="EMAILTOPIC">Отправить тему по почте</Resource>
     <Resource tag="EMPTY_MESSAGE">Сообщение должно содержать текст.</Resource>
+    <Resource tag="FACEBOOK">Facebook</Resource>
     <Resource tag="FACEBOOK_TOPIC">Смотреть в этой теме</Resource>
     <Resource tag="FORUM_JUMP">Быстрый переход</Resource>
     <Resource tag="GROUPS">Группы</Resource>
@@ -2751,6 +2761,7 @@
     <Resource tag="TOP">Вверх</Resource>
     <Resource tag="TOPICBROWSERS">Пользователи, просматривающие эту тему</Resource>
     <Resource tag="TOTAL">Всего</Resource>
+    <Resource tag="Twitter">Twitter</Resource>
     <Resource tag="UNWATCHTOPIC">Не отслеживать эту тему</Resource>
     <Resource tag="USERGENDER_FEM">Женщина</Resource>
     <Resource tag="USERGENDER_MAS">Мужчина</Resource>
@@ -2788,6 +2799,7 @@
     <Resource tag="ERROR_ADMINISTRATORS">Вы не можете банить администраторов.</Resource>
     <Resource tag="ERROR_FORUMMODERATORS">Вы не можете банить модераторов.</Resource>
     <Resource tag="ERROR_GUESTACCOUNT">Вы не можете банить учётную запись гостя.</Resource>
+    <Resource tag="FACEBOOK">Facebook Profile:</Resource>
     <Resource tag="GENDER">Пол:</Resource>
     <Resource tag="GENDER0">Не указан</Resource>
     <Resource tag="GENDER1">Мужской</Resource>
@@ -2823,6 +2835,7 @@
     <Resource tag="THANKSTOPOSTS">Количество сказанных «Спасибо» пользователя</Resource>
     <Resource tag="THANKSTOTIMES">Сколько раз пользователю сказали «Спасибо»</Resource>
     <Resource tag="TOPIC">Тема:</Resource>
+    <Resource tag="Twitter">Twitter Name:</Resource>
     <Resource tag="USERNAME">Имя пользователя:</Resource>
     <Resource tag="WEBLOG">Блог:</Resource>
     <Resource tag="WEBSITE">Домашняя страница:</Resource>

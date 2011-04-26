@@ -1827,8 +1827,10 @@
   </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">Apie jus </Resource>
+    <Resource tag="AIM">Your AIM Name:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Watch every topic in which you have made a post and receive email notifications of activities in those topics?</Resource>
     <Resource tag="BAD_EMAIL">Jūs įvedėte nelegalios el. </Resource>
+    <Resource tag="BAD_FACEBOOk">You have entered a invalid address for your Facebook Profile Page. (Example URL : http://www.facebook.com/yourname)</Resource>
     <Resource tag="BAD_HOME">
       Jūs įvedėte neteisingą adresą jūsų pagrindinį
 
@@ -1845,10 +1847,12 @@
     <Resource tag="DUPLICATED_EMAIL">The e-mail adress you have entered is already in use.</Resource>
     <Resource tag="EDIT_ALBUMS">Edit Albums</Resource>
     <Resource tag="EMAIL">Jūs turite turėti galiojantį elektroninio pašto adresą. </Resource>
+    <Resource tag="FACEBOOK">Your Facebook Profile Page (URL):</Resource>
     <Resource tag="FORUM_SETTINGS">Forumas Parametrai </Resource>
     <Resource tag="HIDEME">Hide me from active users</Resource>
     <Resource tag="HOMEPAGE">Pradžia </Resource>
     <Resource tag="HOMEPAGE2">Jūsų puslapis: </Resource>
+    <Resource tag="ICQ">Your ICQ Number:</Resource>
     <Resource tag="LOCATION">Vieta </Resource>
     <Resource tag="MAIL_SENT">
       A laiškas buvo nusiųstas į {0}.\n\nYou turės patvirtinti savo
@@ -1863,6 +1867,7 @@
     <Resource tag="METAWEBLOG_API_URL">MetaWeblog API URL:</Resource>
     <Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API Username:</Resource>
     <Resource tag="METAWEBLOG_TITLE">Post to MetaWeblog (API Settings)</Resource>
+    <Resource tag="MSN">Your Windows Live-ID (MSN) Name:</Resource>
     <Resource tag="OVERRIDE_DEFAULT_THEMES">Select different forum theme:</Resource>
     <Resource tag="PM_EMAIL_NOTIFICATION">
       Gauti pranešimą elektroniniu paštu, kai gausite
@@ -1873,6 +1878,7 @@
     <Resource tag="SELECT_LANGUAGE">Kokia kalba norėtumėte naudoti: </Resource>
     <Resource tag="SELECT_TEXTEDITOR">Select your text editor:</Resource>
     <Resource tag="SELECT_THEME">Pasirinkite norimą temą: </Resource>
+    <Resource tag="SKYPE">Your SKYPE ID:</Resource>
     <Resource tag="TIMEZONE">Laiko juosta </Resource>
     <Resource tag="TIMEZONE2">
       Norėdami suteikti jums laikus ir datas savo vietos laiko, mes
@@ -1880,9 +1886,12 @@
       turime žinoti savo laiko juostą. 
     </Resource>
     <Resource tag="TITLE">Redaguoti profilį </Resource>
+    <Resource tag="TWITTER">Your Twitter Name:</Resource>
     <Resource tag="USE_MOBILE_THEME">Use Mobile Forum Theme:</Resource>
     <Resource tag="WEBLOG2">Jūsų Weblog: </Resource>
     <Resource tag="WHERE">Kur jūs gyvenate? </Resource>
+    <Resource tag="XMPP">Your Jabber ID:</Resource>
+    <Resource tag="YIM">Your Yahoo ID:</Resource>
   </page>
   <page name="CP_MESSAGE">
     <Resource tag="INBOX">Gauti laiškai </Resource>
@@ -2785,6 +2794,7 @@
     <Resource tag="EMAIL">EMail</Resource>
     <Resource tag="EMAILTOPIC">Siųsti šią temą </Resource>
     <Resource tag="EMPTY_MESSAGE">You must enter something into your post.</Resource>
+    <Resource tag="FACEBOOK">Facebook</Resource>
     <Resource tag="FACEBOOK_TOPIC">Like this Topic</Resource>
     <Resource tag="FORUM_JUMP">Forumas Peršokti </Resource>
     <Resource tag="GROUPS">Grupės </Resource>
@@ -2860,6 +2870,7 @@
     <Resource tag="TOP">Atgal į viršų </Resource>
     <Resource tag="TOPICBROWSERS">Vartotojai peržiūrėti šią temą </Resource>
     <Resource tag="TOTAL">Total</Resource>
+    <Resource tag="Twitter">Twitter</Resource>
     <Resource tag="UNWATCHTOPIC">Nebestebėti šią temą </Resource>
     <Resource tag="USERGENDER_FEM">Woman</Resource>
     <Resource tag="USERGENDER_MAS">Man</Resource>
@@ -2913,6 +2924,7 @@
       moderatoriai. 
     </Resource>
     <Resource tag="ERROR_GUESTACCOUNT">Jūs negalite sustabdyti svečių sąskaitą. </Resource>
+    <Resource tag="FACEBOOK">Facebook Profile:</Resource>
     <Resource tag="GENDER">Lytis: </Resource>
     <Resource tag="GENDER0">Nenurodyta </Resource>
     <Resource tag="GENDER1">Vyras </Resource>
@@ -2948,6 +2960,7 @@
     <Resource tag="THANKSTOPOSTS">Number of posts for which this user was thanked</Resource>
     <Resource tag="THANKSTOTIMES">Number of times this user was thanked</Resource>
     <Resource tag="TOPIC">Tema: </Resource>
+    <Resource tag="Twitter">Twitter Name:</Resource>
     <Resource tag="USERNAME">Vartotojo vardas: </Resource>
     <Resource tag="WEBLOG">Weblog: </Resource>
     <Resource tag="WEBSITE">Home Page: </Resource>

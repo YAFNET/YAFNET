@@ -209,6 +209,24 @@
     </tr>
     <tr>
         <td class="postheader">
+            <YAF:LocalizedLabel ID="LocalizedLabel31" runat="server" LocalizedPage="CP_EDITPROFILE"
+                LocalizedTag="Facebook" />
+        </td>
+        <td class="post">
+            <asp:TextBox runat="server" ID="Facebook" CssClass="edit" />
+        </td>
+    </tr>
+    <tr>
+        <td class="postheader">
+            <YAF:LocalizedLabel ID="LocalizedLabel33" runat="server" LocalizedPage="CP_EDITPROFILE"
+                LocalizedTag="Twitter" />
+        </td>
+        <td class="post">
+            <asp:TextBox runat="server" ID="Twitter" CssClass="edit" />
+        </td>
+    </tr>
+    <tr>
+        <td class="postheader">
             <YAF:LocalizedLabel ID="LocalizedLabel32" runat="server" LocalizedPage="CP_EDITPROFILE"
                 LocalizedTag="xmpp" />
         </td>

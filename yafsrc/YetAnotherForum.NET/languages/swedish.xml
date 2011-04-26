@@ -1782,8 +1782,10 @@
   </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">Om dig</Resource>
+    <Resource tag="AIM">Your AIM Name:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Watch every topic in which you have made a post and receive email notifications of activities in those topics?</Resource>
     <Resource tag="BAD_EMAIL">Du har angett en ogiltig e-postadress.</Resource>
+    <Resource tag="BAD_FACEBOOk">You have entered a invalid address for your Facebook Profile Page. (Example URL : http://www.facebook.com/yourname)</Resource>
     <Resource tag="BAD_HOME">Du har angett en ogiltig länk till din hemsida.</Resource>
     <Resource tag="BAD_ICQ">Du har angett ett ogiltigt värde som ditt ICQ-nummer.</Resource>
     <Resource tag="BAD_MSN">Du har angett en ogiltig e-postadress för ditt MSN-konto.</Resource>
@@ -1796,10 +1798,12 @@
     <Resource tag="DUPLICATED_EMAIL">The e-mail adress you have entered is already in use.</Resource>
     <Resource tag="EDIT_ALBUMS">Edit Albums</Resource>
     <Resource tag="EMAIL">Du måste alltid ha en giltig e-postadress.</Resource>
+    <Resource tag="FACEBOOK">Your Facebook Profile Page (URL):</Resource>
     <Resource tag="FORUM_SETTINGS">Foruminställningar</Resource>
     <Resource tag="HIDEME">Hide me from active users</Resource>
     <Resource tag="HOMEPAGE">Hemsida</Resource>
     <Resource tag="HOMEPAGE2">Din hemsida:</Resource>
+    <Resource tag="ICQ">Your ICQ Number:</Resource>
     <Resource tag="LOCATION">Område</Resource>
     <Resource tag="MAIL_SENT">A mail has been sent to {0}.\n\nYou will need to verify your new email address by\nopening the link in the email before your email will be modified.</Resource>
     <Resource tag="MESSENGER">Tjänster för direktmeddelanden</Resource>
@@ -1808,18 +1812,23 @@
     <Resource tag="METAWEBLOG_API_URL">MetaWeblog API URL:</Resource>
     <Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API Username:</Resource>
     <Resource tag="METAWEBLOG_TITLE">Post to MetaWeblog (API Settings)</Resource>
+    <Resource tag="MSN">Your Windows Live-ID (MSN) Name:</Resource>
     <Resource tag="OVERRIDE_DEFAULT_THEMES">Select different forum theme:</Resource>
     <Resource tag="PM_EMAIL_NOTIFICATION">Receive an email notification when you get a new private message?</Resource>
     <Resource tag="REALNAME2">Vad är ditt riktiga namn?</Resource>
     <Resource tag="SELECT_LANGUAGE">Vilket språk vill du använda:</Resource>
     <Resource tag="SELECT_TEXTEDITOR">Select your text editor:</Resource>
     <Resource tag="SELECT_THEME">Välj tema:</Resource>
+    <Resource tag="SKYPE">Your SKYPE ID:</Resource>
     <Resource tag="TIMEZONE">Tidszon</Resource>
     <Resource tag="TIMEZONE2">För att du ska få tider och datum i din lokala tid behöver vi veta vilken tidszon du befinner dig i.</Resource>
     <Resource tag="TITLE">Ändra profil</Resource>
+    <Resource tag="TWITTER">Your Twitter Name:</Resource>
     <Resource tag="USE_MOBILE_THEME">Use Mobile Forum Theme:</Resource>
     <Resource tag="WEBLOG2">Din webblogg:</Resource>
     <Resource tag="WHERE">Vart bor du?</Resource>
+    <Resource tag="XMPP">Your Jabber ID:</Resource>
+    <Resource tag="YIM">Your Yahoo ID:</Resource>
   </page>
   <page name="CP_MESSAGE">
     <Resource tag="INBOX">Inkorg</Resource>
@@ -2678,6 +2687,7 @@
     <Resource tag="EMAIL">EMail</Resource>
     <Resource tag="EMAILTOPIC">Skicka denna konversation som e-post</Resource>
     <Resource tag="EMPTY_MESSAGE">You must enter something into your post.</Resource>
+    <Resource tag="FACEBOOK">Facebook</Resource>
     <Resource tag="FACEBOOK_TOPIC">Like this Topic</Resource>
     <Resource tag="FORUM_JUMP">Gå till</Resource>
     <Resource tag="GROUPS">Grupper</Resource>
@@ -2745,6 +2755,7 @@
     <Resource tag="TOP">Tillbaka till toppen</Resource>
     <Resource tag="TOPICBROWSERS">Användare som läser denna konversation</Resource>
     <Resource tag="TOTAL">Total</Resource>
+    <Resource tag="Twitter">Twitter</Resource>
     <Resource tag="UNWATCHTOPIC">Avbryt prenumeration på denna konversation</Resource>
     <Resource tag="USERGENDER_FEM">Woman</Resource>
     <Resource tag="USERGENDER_MAS">Man</Resource>
@@ -2782,6 +2793,7 @@
     <Resource tag="ERROR_ADMINISTRATORS">Du kan inte stänga av en administratör.</Resource>
     <Resource tag="ERROR_FORUMMODERATORS">Du kan inte stänga av en moderator.</Resource>
     <Resource tag="ERROR_GUESTACCOUNT">Du kan inte stänga av gästkontot.</Resource>
+    <Resource tag="FACEBOOK">Facebook Profile:</Resource>
     <Resource tag="GENDER">Kön:</Resource>
     <Resource tag="GENDER0">Ej specificerat</Resource>
     <Resource tag="GENDER1">Man</Resource>
@@ -2817,6 +2829,7 @@
     <Resource tag="THANKSTOPOSTS">Number of posts for which this user was thanked</Resource>
     <Resource tag="THANKSTOTIMES">Number of times this user was thanked</Resource>
     <Resource tag="TOPIC">Konversation:</Resource>
+    <Resource tag="Twitter">Twitter Name:</Resource>
     <Resource tag="USERNAME">Användarnamn:</Resource>
     <Resource tag="WEBLOG">Webblogg:</Resource>
     <Resource tag="WEBSITE">Hemsida:</Resource>

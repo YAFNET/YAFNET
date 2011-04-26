@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.profile" Codebehind="profile.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.profile" Codebehind="profile.ascx.cs" %>
 <%@ Import Namespace="YAF.Core" %>
 <%@ Import Namespace="YAF.Core.Services" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
@@ -39,6 +39,10 @@
 				TextLocalizedTag="XMPP" ImageThemeTag="XMPP" />	
 			<YAF:ThemeButton ID="Skype" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS"
 				TextLocalizedTag="SKYPE" ImageThemeTag="SKYPE" />
+            <YAF:ThemeButton ID="Facebook" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS"
+				TextLocalizedTag="Facebook" ImageThemeTag="Facebook2" />
+            <YAF:ThemeButton ID="Twitter" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS"
+				TextLocalizedTag="Twitter" ImageThemeTag="Twitter2" />
 			<YAF:ThemeButton ID="AdminUserButton" runat="server" CssClass="yaflittlebutton" Visible="false"
 				TextLocalizedTag="ADMIN_USER" NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", this.UserId ) %>'>
 			</YAF:ThemeButton>
@@ -182,6 +186,22 @@
 								</td>
 								<td class="post">
 									<asp:Label ID="lblskype" runat="server" />
+								</td>
+							</tr>
+                            <tr  runat="server" id="FacebookTR" visible="false">
+								<td class="postheader">
+									<YAF:LocalizedLabel ID="LocalizedLabel24" runat="server" LocalizedTag="Facebook" />
+								</td>
+								<td class="post">
+									<asp:Label ID="lblfacebook" runat="server" />
+								</td>
+							</tr>
+                            <tr  runat="server" id="TwitterTR" visible="false">
+								<td class="postheader">
+									<YAF:LocalizedLabel ID="LocalizedLabel25" runat="server" LocalizedTag="Twitter" />
+								</td>
+								<td class="post">
+									<asp:Label ID="lbltwitter" runat="server" />
 								</td>
 							</tr>
 						</table>

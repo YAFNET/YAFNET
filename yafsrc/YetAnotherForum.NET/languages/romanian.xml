@@ -1765,8 +1765,10 @@
   </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">Despre tine</Resource>
+    <Resource tag="AIM">Your AIM Name:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Watch every topic in which you have made a post and receive email notifications of activities in those topics?</Resource>
     <Resource tag="BAD_EMAIL">Ai introdus o adresa e-mail gresita.</Resource>
+    <Resource tag="BAD_FACEBOOk">You have entered a invalid address for your Facebook Profile Page. (Example URL : http://www.facebook.com/yourname)</Resource>
     <Resource tag="BAD_HOME">Ai introdus o adresa  gresita pentru pagina personala.</Resource>
     <Resource tag="BAD_ICQ">Ai introdus un numar ICQ gresit. </Resource>
     <Resource tag="BAD_MSN">Ai introdus o adresa e-mail gresita pentru contul  MSN.</Resource>
@@ -1779,10 +1781,12 @@
     <Resource tag="DUPLICATED_EMAIL">The e-mail adress you have entered is already in use.</Resource>
     <Resource tag="EDIT_ALBUMS">Editeaza Albums</Resource>
     <Resource tag="EMAIL">Trebuie sa ai o adresa valida de email.</Resource>
+    <Resource tag="FACEBOOK">Your Facebook Profile Page (URL):</Resource>
     <Resource tag="FORUM_SETTINGS">Setari forum</Resource>
     <Resource tag="HIDEME">Hide me from active users</Resource>
     <Resource tag="HOMEPAGE">Pagina</Resource>
     <Resource tag="HOMEPAGE2">Pagian ta personala:</Resource>
+    <Resource tag="ICQ">Your ICQ Number:</Resource>
     <Resource tag="LOCATION">Locatie</Resource>
     <Resource tag="MAIL_SENT">Un email a fost trimis la {0}.\n\n Trebuie sa verifici noua adresa de email \n deschizand linkul din 
 		email inaine ca emailul tau sa fie modificat.</Resource>
@@ -1792,18 +1796,23 @@
     <Resource tag="METAWEBLOG_API_URL">MetaWeblog API URL:</Resource>
     <Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API Nume utilizator:</Resource>
     <Resource tag="METAWEBLOG_TITLE">Postare noua MetaWeblog (API Settings)</Resource>
+    <Resource tag="MSN">Your Windows Live-ID (MSN) Name:</Resource>
     <Resource tag="OVERRIDE_DEFAULT_THEMES">Selecteaza o tema diferita:</Resource>
     <Resource tag="PM_EMAIL_NOTIFICATION">Dorest notificare mail in cazul unui messaj privat nou?</Resource>
     <Resource tag="REALNAME2">Care este numele tau real?</Resource>
     <Resource tag="SELECT_LANGUAGE">Ce limba preferi sa utilizezi.</Resource>
     <Resource tag="SELECT_TEXTEDITOR">Select your text editor:</Resource>
     <Resource tag="SELECT_THEME">Selectati tema preferata:</Resource>
+    <Resource tag="SKYPE">Your SKYPE ID:</Resource>
     <Resource tag="TIMEZONE">Timpul zonei</Resource>
     <Resource tag="TIMEZONE2">Ca sa ai timpul si data ta locala, avem nevoie de timpul zonei tale.</Resource>
     <Resource tag="TITLE">Editeaza Profil</Resource>
+    <Resource tag="TWITTER">Your Twitter Name:</Resource>
     <Resource tag="USE_MOBILE_THEME">Use Mobile Forum Theme:</Resource>
     <Resource tag="WEBLOG2">Weblogul tau:</Resource>
     <Resource tag="WHERE">Unde traiesti?</Resource>
+    <Resource tag="XMPP">Your Jabber ID:</Resource>
+    <Resource tag="YIM">Your Yahoo ID:</Resource>
   </page>
   <page name="CP_MESSAGE">
     <Resource tag="INBOX">Primite</Resource>
@@ -2662,6 +2671,7 @@
     <Resource tag="EMAIL">EMail</Resource>
     <Resource tag="EMAILTOPIC">Trimite pe email tema</Resource>
     <Resource tag="EMPTY_MESSAGE">Trebuie sa scrii ceva in postare.</Resource>
+    <Resource tag="FACEBOOK">Facebook</Resource>
     <Resource tag="FACEBOOK_TOPIC">Like this Topic</Resource>
     <Resource tag="FORUM_JUMP">Salt la forum </Resource>
     <Resource tag="GROUPS">Groupuri</Resource>
@@ -2729,6 +2739,7 @@
     <Resource tag="TOP">Inapoi sus</Resource>
     <Resource tag="TOPICBROWSERS">Utilizatori pe tema</Resource>
     <Resource tag="TOTAL">Total</Resource>
+    <Resource tag="Twitter">Twitter</Resource>
     <Resource tag="UNWATCHTOPIC">Unwatch this topic</Resource>
     <Resource tag="USERGENDER_FEM">Femeie</Resource>
     <Resource tag="USERGENDER_MAS">Barbat</Resource>
@@ -2766,6 +2777,7 @@
     <Resource tag="ERROR_ADMINISTRATORS">Nu poti suspenda administratorii.</Resource>
     <Resource tag="ERROR_FORUMMODERATORS">Nu poti suspenda moderatorii.</Resource>
     <Resource tag="ERROR_GUESTACCOUNT">Nu poti suspenda contul de oaspete.</Resource>
+    <Resource tag="FACEBOOK">Facebook Profile:</Resource>
     <Resource tag="GENDER">Sex:</Resource>
     <Resource tag="GENDER0">Nedefinit</Resource>
     <Resource tag="GENDER1">Barbat</Resource>
@@ -2801,6 +2813,7 @@
     <Resource tag="THANKSTOPOSTS">Numarul posturilor pentru care a primit Multumiri</Resource>
     <Resource tag="THANKSTOTIMES">Numarul Multumirilor primite a utilizatorului</Resource>
     <Resource tag="TOPIC">Tema:</Resource>
+    <Resource tag="Twitter">Twitter Name:</Resource>
     <Resource tag="USERNAME">Utilizator:</Resource>
     <Resource tag="WEBLOG">Weblog:</Resource>
     <Resource tag="WEBSITE">Pagina personala:</Resource>

@@ -259,7 +259,7 @@ namespace YAF.Controls
         // add http:// by default
         if (!Regex.IsMatch(this.HomePage.Text.Trim(), @"^(http|https|ftp|ftps|git|svn|news)\://.*"))
         {
-          this.HomePage.Text = "http://" + this.HomePage.Text.Trim();
+          this.HomePage.Text = "http://{0}".FormatWith(this.HomePage.Text.Trim());
         }
 
         if (!ValidationHelper.IsValidURL(this.HomePage.Text))
@@ -292,6 +292,26 @@ namespace YAF.Controls
       {
         this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_ICQ"));
         return;
+      }
+
+      if (this.Facebook.Text.IsSet())
+      {
+          // add http:// by default
+          if (!Regex.IsMatch(this.HomePage.Text.Trim(), @"^(http|https)\://.*"))
+          {
+              this.Facebook.Text = "http://{0}".FormatWith(this.HomePage.Text.Trim());
+          }
+
+          if (this.HomePage.Text.Trim().Contains(@"facebook.com"))
+          {
+              this.Facebook.Text = "http://www.facebook.com/{0}".FormatWith(this.HomePage.Text.Trim());
+          }
+
+          if (!ValidationHelper.IsValidURL(this.HomePage.Text))
+          {
+              this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_HOME"));
+              return;
+          }
       }
 
       string displayName = null;
@@ -479,6 +499,8 @@ namespace YAF.Controls
       this.YIM.Text = this.UserData.Profile.YIM;
       this.AIM.Text = this.UserData.Profile.AIM;
       this.ICQ.Text = this.UserData.Profile.ICQ;
+      this.Facebook.Text = this.UserData.Profile.Facebook;
+      this.Twitter.Text = this.UserData.Profile.Twitter;
       this.Xmpp.Text = this.UserData.Profile.XMPP;
       this.Skype.Text = this.UserData.Profile.Skype;
       this.Gender.SelectedIndex = this.UserData.Profile.Gender;
@@ -615,6 +637,8 @@ namespace YAF.Controls
       userProfile.YIM = this.YIM.Text.Trim();
       userProfile.AIM = this.AIM.Text.Trim();
       userProfile.ICQ = this.ICQ.Text.Trim();
+      userProfile.Facebook = this.Facebook.Text.Trim();
+      userProfile.Twitter = this.Twitter.Text.Trim();
       userProfile.XMPP = this.Xmpp.Text.Trim();
       userProfile.Skype = this.Skype.Text.Trim();
       userProfile.RealName = this.Realname.Text.Trim();

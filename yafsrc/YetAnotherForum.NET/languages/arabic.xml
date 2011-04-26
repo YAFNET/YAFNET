@@ -1783,8 +1783,10 @@
   </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">معلومات شخصية</Resource>
+    <Resource tag="AIM">Your AIM Name:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Watch every topic in which you have made a post and receive email notifications of activities in those topics?</Resource>
     <Resource tag="BAD_EMAIL">لقد قمت بادخال عنوان بريد الكتروني غير قانوني</Resource>
+    <Resource tag="BAD_FACEBOOk">You have entered a invalid address for your Facebook Profile Page. (Example URL : http://www.facebook.com/yourname)</Resource>
     <Resource tag="BAD_HOME">لقد قمت بإدخال عنوان غير صالح لصفحتك الرئيسية</Resource>
     <Resource tag="BAD_ICQ">غير صحيح(ICQ)لقد أدخلت رقم</Resource>
     <Resource tag="BAD_MSN"> غير صحيح(msn)لقد أدخلت عنوان ماسنجر</Resource>
@@ -1797,10 +1799,12 @@
     <Resource tag="DUPLICATED_EMAIL">The e-mail adress you have entered is already in use.</Resource>
     <Resource tag="EDIT_ALBUMS">تعديل الألبومات </Resource>
     <Resource tag="EMAIL">يجب أن يكون دائما لديك عنوان بريد الكتروني صحيح</Resource>
+    <Resource tag="FACEBOOK">Your Facebook Profile Page (URL):</Resource>
     <Resource tag="FORUM_SETTINGS">اعدادات المنتدى</Resource>
     <Resource tag="HIDEME">اخفائي من المستخدمين الحاليين </Resource>
     <Resource tag="HOMEPAGE">الصفحة الرئيسية</Resource>
     <Resource tag="HOMEPAGE2">صفحتك الرئيسية:</Resource>
+    <Resource tag="ICQ">Your ICQ Number:</Resource>
     <Resource tag="LOCATION">الموقع</Resource>
     <Resource tag="MAIL_SENT">تم إرسال بريد إلى {0}.\n\nتحتاج لتأكيد بريدك الإلكتروني \nافتح الرابط المرفق في الرسالة قبل تغيير بريدك الإلكتروني.</Resource>
     <Resource tag="MESSENGER">خدمات المراسلة الفورية</Resource>
@@ -1809,18 +1813,23 @@
     <Resource tag="METAWEBLOG_API_URL">MetaWeblog API URL:</Resource>
     <Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API Username:</Resource>
     <Resource tag="METAWEBLOG_TITLE">Post to MetaWeblog (API Settings)</Resource>
+    <Resource tag="MSN">Your Windows Live-ID (MSN) Name:</Resource>
     <Resource tag="OVERRIDE_DEFAULT_THEMES">:اختيار تطبيق مختلف للمنتدى </Resource>
     <Resource tag="PM_EMAIL_NOTIFICATION">تلقى إشعارا بالبريد الالكتروني عندما تحصل على رسالة خاصة جديدة؟</Resource>
     <Resource tag="REALNAME2">ما هو اسمك الحقيقي؟ </Resource>
     <Resource tag="SELECT_LANGUAGE">:ماهي اللغة التي تود استخدامها</Resource>
     <Resource tag="SELECT_TEXTEDITOR">Select your text editor:</Resource>
     <Resource tag="SELECT_THEME"> :اختيار الموضوع المفضل لديك </Resource>
+    <Resource tag="SKYPE">Your SKYPE ID:</Resource>
     <Resource tag="TIMEZONE">التوقيت</Resource>
     <Resource tag="TIMEZONE2">لتحصل على الوقت والتاريخ حسب توقيتك الحالي , نحتاج لمعرفة توقيتك.</Resource>
     <Resource tag="TITLE">تعديل الملف الشخصي</Resource>
+    <Resource tag="TWITTER">Your Twitter Name:</Resource>
     <Resource tag="USE_MOBILE_THEME">Use Mobile Forum Theme:</Resource>
     <Resource tag="WEBLOG2">مدونتك الإلكترونية:</Resource>
     <Resource tag="WHERE">أين تعيش؟ </Resource>
+    <Resource tag="XMPP">Your Jabber ID:</Resource>
+    <Resource tag="YIM">Your Yahoo ID:</Resource>
   </page>
   <page name="CP_MESSAGE">
     <Resource tag="INBOX">الصندوق الوارد</Resource>
@@ -2518,6 +2527,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="EMAIL">البريد الالكتروني</Resource>
     <Resource tag="EMAILTOPIC">البريد الالكتروني  لهذه المشركة</Resource>
     <Resource tag="EMPTY_MESSAGE">يجب  عليك ادخال   اي  كلمة    لتثبيت المشاركة </Resource>
+    <Resource tag="FACEBOOK">Facebook</Resource>
     <Resource tag="FACEBOOK_TOPIC">Like this Topic</Resource>
     <Resource tag="FORUM_JUMP">الذهاب السريع الى منتدى </Resource>
     <Resource tag="GROUPS">المجموعات </Resource>
@@ -2585,6 +2595,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="TOP">الذهاب الى اعلى </Resource>
     <Resource tag="TOPICBROWSERS">المشتركة يتصفح حاليا </Resource>
     <Resource tag="TOTAL">المجموع</Resource>
+    <Resource tag="Twitter">Twitter</Resource>
     <Resource tag="UNWATCHTOPIC">الموضيع التي لم تشاهد</Resource>
     <Resource tag="USERGENDER_FEM">أنثى</Resource>
     <Resource tag="USERGENDER_MAS">ذكر </Resource>
@@ -2622,6 +2633,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="ERROR_ADMINISTRATORS">لا يكمن  إستبعاد  مدير المنتدى </Resource>
     <Resource tag="ERROR_FORUMMODERATORS">لا يمكن إستبعاد  مشرفين .</Resource>
     <Resource tag="ERROR_GUESTACCOUNT">لا يمكن إستبعاد زائر .</Resource>
+    <Resource tag="FACEBOOK">Facebook Profile:</Resource>
     <Resource tag="GENDER">الجنس:</Resource>
     <Resource tag="GENDER0">غير محدد</Resource>
     <Resource tag="GENDER1">ذكر</Resource>
@@ -2657,6 +2669,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="THANKSTOPOSTS">عدد المشاركات التي تم فيها شكر هذا العضو</Resource>
     <Resource tag="THANKSTOTIMES">عدد مرات التي  تم فيها شكر  هذا العضو</Resource>
     <Resource tag="TOPIC">الموضوع:</Resource>
+    <Resource tag="Twitter">Twitter Name:</Resource>
     <Resource tag="USERNAME">الاسم :</Resource>
     <Resource tag="WEBLOG">مدونتك الإلكترونية: </Resource>
     <Resource tag="WEBSITE">الصفحة الرئيسية :</Resource>

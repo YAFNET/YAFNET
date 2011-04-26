@@ -215,6 +215,42 @@ namespace YAF.Utils
     }
 
     /// <summary>
+    /// Gets or sets Facebook.
+    /// </summary>
+    [SettingsAllowAnonymous(false)]
+    [CustomProviderData("Facebook;nvarchar;400")]
+    public string Facebook
+    {
+        get
+        {
+            return base["Facebook"] as string;
+        }
+
+        set
+        {
+            base["Facebook"] = value;
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets Twitter.
+    /// </summary>
+    [SettingsAllowAnonymous(false)]
+    [CustomProviderData("Twitter;nvarchar;400")]
+    public string Twitter
+    {
+        get
+        {
+            return base["Twitter"] as string;
+        }
+
+        set
+        {
+            base["Twitter"] = value;
+        }
+    }
+
+    /// <summary>
     /// Gets or sets Interests.
     /// </summary>
     [SettingsAllowAnonymous(false)]

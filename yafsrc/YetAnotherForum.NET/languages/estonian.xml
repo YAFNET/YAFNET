@@ -1783,8 +1783,10 @@
   </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">Sinust</Resource>
+    <Resource tag="AIM">Your AIM Name:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Kas soovite jälgida teemasid, kus te olete teinud postituse, ja saada e-posti teel teavitusi nende teemadega seotud tegevuste kohta?</Resource>
     <Resource tag="BAD_EMAIL">E-kirja aadress on vigane.</Resource>
+    <Resource tag="BAD_FACEBOOk">You have entered a invalid address for your Facebook Profile Page. (Example URL : http://www.facebook.com/yourname)</Resource>
     <Resource tag="BAD_HOME">Kodulehe aadress on vigane.</Resource>
     <Resource tag="BAD_ICQ">ICQ number on vigane.</Resource>
     <Resource tag="BAD_MSN">E-kirja aadress on vigane.</Resource>
@@ -1797,10 +1799,12 @@
     <Resource tag="DUPLICATED_EMAIL">The e-mail adress you have entered is already in use.</Resource>
     <Resource tag="EDIT_ALBUMS">Muuda albumid</Resource>
     <Resource tag="EMAIL">Teil peab alati olema kehtiv e-posti aadress.</Resource>
+    <Resource tag="FACEBOOK">Your Facebook Profile Page (URL):</Resource>
     <Resource tag="FORUM_SETTINGS">Foorumi seaded</Resource>
     <Resource tag="HIDEME">Peida mind aktiivsete kasutajate eest</Resource>
     <Resource tag="HOMEPAGE">Kodulehekülg</Resource>
     <Resource tag="HOMEPAGE2">Teie kodulehekülg (avalik):</Resource>
+    <Resource tag="ICQ">Your ICQ Number:</Resource>
     <Resource tag="LOCATION">Asukoht</Resource>
     <Resource tag="MAIL_SENT">E-kiri on saadetud {0}.\n\nTe peate oma uue e-posti aadressi kinnitama,\navades e-kirjas oleva lingi enne e-posti aadressi muutmist.</Resource>
     <Resource tag="MESSENGER">Kiirsõnumiteenused</Resource>
@@ -1809,18 +1813,23 @@
     <Resource tag="METAWEBLOG_API_URL">MetaWeblog API URL:</Resource>
     <Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API kasutajanimi:</Resource>
     <Resource tag="METAWEBLOG_TITLE">Postitus MetaWeblogi (API seaded)</Resource>
+    <Resource tag="MSN">Your Windows Live-ID (MSN) Name:</Resource>
     <Resource tag="OVERRIDE_DEFAULT_THEMES">Valige erinev foorumiteema:</Resource>
     <Resource tag="PM_EMAIL_NOTIFICATION">Kas saata e-posti teavitus uue privaatsõnumi laekumise kohta?</Resource>
     <Resource tag="REALNAME2">Mis on teie tegelik nimi?</Resource>
     <Resource tag="SELECT_LANGUAGE">Mis keelt soovite kasutada:</Resource>
     <Resource tag="SELECT_TEXTEDITOR">Select your text editor:</Resource>
     <Resource tag="SELECT_THEME">Valige eelistatud kujundus:</Resource>
+    <Resource tag="SKYPE">Your SKYPE ID:</Resource>
     <Resource tag="TIMEZONE">Ajavöönd</Resource>
     <Resource tag="TIMEZONE2">Kellaaegade ja kuupäevade kuvamiseks vastavalt kohalikule ajale, palume märkida teie ajavöönd.</Resource>
     <Resource tag="TITLE">Profiili muutmine</Resource>
+    <Resource tag="TWITTER">Your Twitter Name:</Resource>
     <Resource tag="USE_MOBILE_THEME">Use Mobile Forum Theme:</Resource>
     <Resource tag="WEBLOG2">Ajaveebi URL (avalik):</Resource>
     <Resource tag="WHERE">Kus Te elate?</Resource>
+    <Resource tag="XMPP">Your Jabber ID:</Resource>
+    <Resource tag="YIM">Your Yahoo ID:</Resource>
   </page>
   <page name="CP_MESSAGE">
     <Resource tag="INBOX">Postkast</Resource>
@@ -2515,6 +2524,7 @@
     <Resource tag="EMAIL">E-post</Resource>
     <Resource tag="EMAILTOPIC">Saada see teema e-postiga</Resource>
     <Resource tag="EMPTY_MESSAGE">Palun sisestage postituse tekst.</Resource>
+    <Resource tag="FACEBOOK">Facebook</Resource>
     <Resource tag="FACEBOOK_TOPIC">Like this Topic</Resource>
     <Resource tag="FORUM_JUMP">Hüppa foorumisse</Resource>
     <Resource tag="GROUPS">Grupid</Resource>
@@ -2582,6 +2592,7 @@
     <Resource tag="TOP">Tagasi üles</Resource>
     <Resource tag="TOPICBROWSERS">Seda teemat vaatavad kasutajad</Resource>
     <Resource tag="TOTAL">Kokku</Resource>
+    <Resource tag="Twitter">Twitter</Resource>
     <Resource tag="UNWATCHTOPIC">Lõpeta selle teema jälgimine</Resource>
     <Resource tag="USERGENDER_FEM">Naine</Resource>
     <Resource tag="USERGENDER_MAS">Mees</Resource>
@@ -2619,6 +2630,7 @@
     <Resource tag="ERROR_ADMINISTRATORS">Te ei saa lukustada administraatoreid.</Resource>
     <Resource tag="ERROR_FORUMMODERATORS">Te ei saa lukustada foorumi moderaatoreid.</Resource>
     <Resource tag="ERROR_GUESTACCOUNT">Te ei saa lukustada külaliskontot.</Resource>
+    <Resource tag="FACEBOOK">Facebook Profile:</Resource>
     <Resource tag="GENDER">Sugu:</Resource>
     <Resource tag="GENDER0">Määramata</Resource>
     <Resource tag="GENDER1">Mees</Resource>
@@ -2654,6 +2666,7 @@
     <Resource tag="THANKSTOPOSTS">Postituste arv, mille eest kasutajale avaldati tänu</Resource>
     <Resource tag="THANKSTOTIMES">Sellele kasutajale tehtud tänuavalduste arv</Resource>
     <Resource tag="TOPIC">Teema:</Resource>
+    <Resource tag="Twitter">Twitter Name:</Resource>
     <Resource tag="USERNAME">Nimi:</Resource>
     <Resource tag="WEBLOG">Ajaveeb:</Resource>
     <Resource tag="WEBSITE">Kodulehekülg:</Resource>

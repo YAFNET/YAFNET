@@ -138,6 +138,8 @@ namespace YAF.DotNetNuke
             AddYafProfileDefinition(portalId, "YAF Profile", "YIM", "Text", 50, dataTypes);
             AddYafProfileDefinition(portalId, "YAF Profile", "AIM", "Text", 50, dataTypes);
             AddYafProfileDefinition(portalId, "YAF Profile", "ICQ", "Text", 50, dataTypes);
+            AddYafProfileDefinition(portalId, "YAF Profile", "Facebook", "Text", 400, dataTypes);
+            AddYafProfileDefinition(portalId, "YAF Profile", "Twitter", "Text", 400, dataTypes);
             AddYafProfileDefinition(portalId, "YAF Profile", "Region", "Text", 50, dataTypes);
             AddYafProfileDefinition(portalId, "YAF Profile", "XMPP", "Text", 50, dataTypes);
         }

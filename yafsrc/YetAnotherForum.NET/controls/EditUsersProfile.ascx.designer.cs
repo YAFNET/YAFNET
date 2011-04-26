@@ -400,6 +400,42 @@ namespace YAF.Controls {
         protected global::System.Web.UI.WebControls.TextBox ICQ;
         
         /// <summary>
+        /// LocalizedLabel31 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel31;
+        
+        /// <summary>
+        /// Facebook control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Facebook;
+        
+        /// <summary>
+        /// LocalizedLabel33 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel33;
+        
+        /// <summary>
+        /// Twitter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Twitter;
+        
+        /// <summary>
         /// LocalizedLabel32 control.
         /// </summary>
         /// <remarks>

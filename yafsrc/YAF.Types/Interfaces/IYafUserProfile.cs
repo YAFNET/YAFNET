@@ -78,6 +78,16 @@ namespace YAF.Types.Interfaces
     string ICQ { get; set; }
 
     /// <summary>
+    /// Gets or sets Facebook.
+    /// </summary>
+    string Facebook { get; set; }
+
+    /// <summary>
+    /// Gets or sets Twitter.
+    /// </summary>
+    string Twitter { get; set; }
+
+    /// <summary>
     /// Gets or sets Interests.
     /// </summary>
     string Interests { get; set; }

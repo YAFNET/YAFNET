@@ -1783,8 +1783,10 @@
   </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">关于您</Resource>
+    <Resource tag="AIM">Your AIM Name:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Watch every topic in which you have made a post and receive email notifications of activities in those topics?</Resource>
     <Resource tag="BAD_EMAIL">您输入了一个无效的电子邮件地址.</Resource>
+    <Resource tag="BAD_FACEBOOk">You have entered a invalid address for your Facebook Profile Page. (Example URL : http://www.facebook.com/yourname)</Resource>
     <Resource tag="BAD_HOME">You have entered a invalid address for your home page.</Resource>
     <Resource tag="BAD_ICQ">You have entered an illegal value as your ICQ number.</Resource>
     <Resource tag="BAD_MSN">You have entered an invalid e-mail address for your MSN account.</Resource>
@@ -1797,10 +1799,12 @@
     <Resource tag="DUPLICATED_EMAIL">The e-mail adress you have entered is already in use.</Resource>
     <Resource tag="EDIT_ALBUMS">Edit Albums</Resource>
     <Resource tag="EMAIL">您必须拥有一个有效的电子邮件地址.</Resource>
+    <Resource tag="FACEBOOK">Your Facebook Profile Page (URL):</Resource>
     <Resource tag="FORUM_SETTINGS">论坛设定</Resource>
     <Resource tag="HIDEME">Hide me from active users</Resource>
     <Resource tag="HOMEPAGE">主页</Resource>
     <Resource tag="HOMEPAGE2">您的主页地址:</Resource>
+    <Resource tag="ICQ">Your ICQ Number:</Resource>
     <Resource tag="LOCATION">位置</Resource>
     <Resource tag="MAIL_SENT">一封邮件已经发送到您的信箱 {0} 里.\n\n 您需要打开邮件，点击链接，以便校验您的电子邮件地址.</Resource>
     <Resource tag="MESSENGER">即时消息服务</Resource>
@@ -1809,18 +1813,23 @@
     <Resource tag="METAWEBLOG_API_URL">MetaWeblog API URL:</Resource>
     <Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API Username:</Resource>
     <Resource tag="METAWEBLOG_TITLE">Post to MetaWeblog (API Settings)</Resource>
+    <Resource tag="MSN">Your Windows Live-ID (MSN) Name:</Resource>
     <Resource tag="OVERRIDE_DEFAULT_THEMES">Select different forum theme:</Resource>
     <Resource tag="PM_EMAIL_NOTIFICATION">Receive an email notification when you get a new private message?</Resource>
     <Resource tag="REALNAME2">您的真实名字?</Resource>
     <Resource tag="SELECT_LANGUAGE">请选择您使用的语言:</Resource>
     <Resource tag="SELECT_TEXTEDITOR">Select your text editor:</Resource>
     <Resource tag="SELECT_THEME">请选择您要使用的页面主题:</Resource>
+    <Resource tag="SKYPE">Your SKYPE ID:</Resource>
     <Resource tag="TIMEZONE">时区</Resource>
     <Resource tag="TIMEZONE2">请输入您所在的时区，GMT+8:00 表示中国.</Resource>
     <Resource tag="TITLE">个人配置</Resource>
+    <Resource tag="TWITTER">Your Twitter Name:</Resource>
     <Resource tag="USE_MOBILE_THEME">Use Mobile Forum Theme:</Resource>
     <Resource tag="WEBLOG2">您的博客:</Resource>
     <Resource tag="WHERE">您住在哪里?</Resource>
+    <Resource tag="XMPP">Your Jabber ID:</Resource>
+    <Resource tag="YIM">Your Yahoo ID:</Resource>
   </page>
   <page name="CP_MESSAGE">
     <Resource tag="INBOX">收件箱</Resource>
@@ -2679,6 +2688,7 @@
     <Resource tag="EMAIL">EMail</Resource>
     <Resource tag="EMAILTOPIC">发送邮件</Resource>
     <Resource tag="EMPTY_MESSAGE">You must enter something into your post.</Resource>
+    <Resource tag="FACEBOOK">Facebook</Resource>
     <Resource tag="FACEBOOK_TOPIC">Like this Topic</Resource>
     <Resource tag="FORUM_JUMP">论坛跳转</Resource>
     <Resource tag="GROUPS">组</Resource>
@@ -2746,6 +2756,7 @@
     <Resource tag="TOP">到顶</Resource>
     <Resource tag="TOPICBROWSERS">浏览本话题的用户</Resource>
     <Resource tag="TOTAL">Total</Resource>
+    <Resource tag="Twitter">Twitter</Resource>
     <Resource tag="UNWATCHTOPIC">取消订阅</Resource>
     <Resource tag="USERGENDER_FEM">Woman</Resource>
     <Resource tag="USERGENDER_MAS">Man</Resource>
@@ -2783,6 +2794,7 @@
     <Resource tag="ERROR_ADMINISTRATORS">您不能忽略管理员.</Resource>
     <Resource tag="ERROR_FORUMMODERATORS">您不能忽略论坛版主</Resource>
     <Resource tag="ERROR_GUESTACCOUNT">您不能忽略来宾帐号.</Resource>
+    <Resource tag="FACEBOOK">Facebook Profile:</Resource>
     <Resource tag="GENDER">性别:</Resource>
     <Resource tag="GENDER0">未知</Resource>
     <Resource tag="GENDER1">男</Resource>
@@ -2818,6 +2830,7 @@
     <Resource tag="THANKSTOPOSTS">Number of posts for which this user was thanked</Resource>
     <Resource tag="THANKSTOTIMES">Number of times this user was thanked</Resource>
     <Resource tag="TOPIC">话题:</Resource>
+    <Resource tag="Twitter">Twitter Name:</Resource>
     <Resource tag="USERNAME">用户名:</Resource>
     <Resource tag="WEBLOG">博客</Resource>
     <Resource tag="WEBSITE">主页:</Resource>

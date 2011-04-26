@@ -1774,9 +1774,11 @@
   </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">Over jezelf</Resource>
+    <Resource tag="AIM">Your AIM Name:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Abbonneer je op elk topic waar je een bericht hebt geplaatst en ontvang updates via e-mail?
 </Resource>
     <Resource tag="BAD_EMAIL">Je hebt een ongeldig e-mail adres ingevoerd.</Resource>
+    <Resource tag="BAD_FACEBOOk">You have entered a invalid address for your Facebook Profile Page. (Example URL : http://www.facebook.com/yourname)</Resource>
     <Resource tag="BAD_HOME">Je hebt een ongeldig homepage adres ingevoerd.</Resource>
     <Resource tag="BAD_ICQ">Je hebt een ongeldig ICQ-nummer ingevoerd.</Resource>
     <Resource tag="BAD_MSN">Je hebt een ongeldig e-mail adres ingevoerd voor je MSN-account.</Resource>
@@ -1789,10 +1791,12 @@
     <Resource tag="DUPLICATED_EMAIL">Dit e-mail adres wordt al door iemand gebruikt.</Resource>
     <Resource tag="EDIT_ALBUMS">Bewerk Albums</Resource>
     <Resource tag="EMAIL">Je dient altijd over een geldig e-mail adres te beschikken:</Resource>
+    <Resource tag="FACEBOOK">Your Facebook Profile Page (URL):</Resource>
     <Resource tag="FORUM_SETTINGS">Forum-instellingen</Resource>
     <Resource tag="HIDEME">Laat me niet zien aan andere gebruikers</Resource>
     <Resource tag="HOMEPAGE">Homepage</Resource>
     <Resource tag="HOMEPAGE2">Jouw internet homepage:</Resource>
+    <Resource tag="ICQ">Your ICQ Number:</Resource>
     <Resource tag="LOCATION">Locatie</Resource>
     <Resource tag="MAIL_SENT">Er is een e-mail verzonden naar {0}.\n\nJe dient je e-mail adres te verifi&amp;euml;ren door\nde link in deze e-mail te volgen voordat de wijziging wordt doorgevoerd.</Resource>
     <Resource tag="MESSENGER">Instant Messaging diensten</Resource>
@@ -1801,18 +1805,23 @@
     <Resource tag="METAWEBLOG_API_URL">MetaWeblog API URL:</Resource>
     <Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API Gebruikersnaam:</Resource>
     <Resource tag="METAWEBLOG_TITLE">Post naar MetaWeblog (API instellingen)</Resource>
+    <Resource tag="MSN">Your Windows Live-ID (MSN) Name:</Resource>
     <Resource tag="OVERRIDE_DEFAULT_THEMES">Kies een ander forum-thema:</Resource>
     <Resource tag="PM_EMAIL_NOTIFICATION">E-mail ontvangen als iemand jou een privé-bericht stuurt?</Resource>
     <Resource tag="REALNAME2">Wat is je echte naam?</Resource>
     <Resource tag="SELECT_LANGUAGE">Welke taal wil je gebruiken:</Resource>
     <Resource tag="SELECT_TEXTEDITOR">Kies je texteditor:</Resource>
     <Resource tag="SELECT_THEME">Selecteer je gewenste forum-thema:</Resource>
+    <Resource tag="SKYPE">Your SKYPE ID:</Resource>
     <Resource tag="TIMEZONE">Tijdzone</Resource>
     <Resource tag="TIMEZONE2">Om data en tijden correct weer te geven, moeten we je tijdzone weten:</Resource>
     <Resource tag="TITLE">Profiel bewerken</Resource>
+    <Resource tag="TWITTER">Your Twitter Name:</Resource>
     <Resource tag="USE_MOBILE_THEME">Gebruik mobiel forum thema</Resource>
     <Resource tag="WEBLOG2">Jouw weblog:</Resource>
     <Resource tag="WHERE">Waar woon je?</Resource>
+    <Resource tag="XMPP">Your Jabber ID:</Resource>
+    <Resource tag="YIM">Your Yahoo ID:</Resource>
   </page>
   <page name="CP_MESSAGE">
     <Resource tag="INBOX">Postvak IN</Resource>
@@ -2629,6 +2638,7 @@
     <Resource tag="EMAIL">E-mail</Resource>
     <Resource tag="EMAILTOPIC">Topic mailen</Resource>
     <Resource tag="EMPTY_MESSAGE">Je moet wel een stukje tekst typen ;)</Resource>
+    <Resource tag="FACEBOOK">Facebook</Resource>
     <Resource tag="FACEBOOK_TOPIC">Like this Topic</Resource>
     <Resource tag="FORUM_JUMP">Spring naar forum</Resource>
     <Resource tag="GROUPS">Groep</Resource>
@@ -2696,6 +2706,7 @@
     <Resource tag="TOP">Terug naar boven</Resource>
     <Resource tag="TOPICBROWSERS">Gebruikers die dit onderwerp bekijken</Resource>
     <Resource tag="TOTAL">Totaal</Resource>
+    <Resource tag="Twitter">Twitter</Resource>
     <Resource tag="UNWATCHTOPIC">Topic niet meer volgen</Resource>
     <Resource tag="USERGENDER_FEM">Vrouw</Resource>
     <Resource tag="USERGENDER_MAS">Man</Resource>
@@ -2733,6 +2744,7 @@
     <Resource tag="ERROR_ADMINISTRATORS">Je kunt geen beheerders bannen.</Resource>
     <Resource tag="ERROR_FORUMMODERATORS">Je kunt geen moderators bannen.</Resource>
     <Resource tag="ERROR_GUESTACCOUNT">Je kunt het gast-account niet bannen.</Resource>
+    <Resource tag="FACEBOOK">Facebook Profile:</Resource>
     <Resource tag="GENDER">Geslacht:</Resource>
     <Resource tag="GENDER0">Niet opgegeven</Resource>
     <Resource tag="GENDER1">Man</Resource>
@@ -2768,6 +2780,7 @@
     <Resource tag="THANKSTOPOSTS">Aantal berichten waarvoor is bedankt</Resource>
     <Resource tag="THANKSTOTIMES">Aantal keer deze gebruiker is bedankt</Resource>
     <Resource tag="TOPIC">Topic:</Resource>
+    <Resource tag="Twitter">Twitter Name:</Resource>
     <Resource tag="USERNAME">Gebruikersnaam:</Resource>
     <Resource tag="WEBLOG">Weblog:</Resource>
     <Resource tag="WEBSITE">Homepage:</Resource>

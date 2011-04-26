@@ -1765,8 +1765,10 @@
   </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">Thông tin của bạn</Resource>
+    <Resource tag="AIM">Your AIM Name:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Watch every topic in which you have made a post and receive email notifications of activities in those topics?</Resource>
     <Resource tag="BAD_EMAIL">Bạn đã nhập địa chỉ email không hợp lệ.</Resource>
+    <Resource tag="BAD_FACEBOOk">You have entered a invalid address for your Facebook Profile Page. (Example URL : http://www.facebook.com/yourname)</Resource>
     <Resource tag="BAD_HOME">Bạn đã nhập địa chỉ không hợp lệ cho trang chủ của bạn.</Resource>
     <Resource tag="BAD_ICQ">Bạn đã nhập không hợp lệ cho số ICQ.</Resource>
     <Resource tag="BAD_MSN">Bạn đã nhập địa chỉ email không hợp lệ cho tài khoản MSN.</Resource>
@@ -1779,10 +1781,12 @@
     <Resource tag="DUPLICATED_EMAIL">The e-mail adress you have entered is already in use.</Resource>
     <Resource tag="EDIT_ALBUMS">Edit Albums</Resource>
     <Resource tag="EMAIL">Bạn phải nhập địa chỉ email chính xác.</Resource>
+    <Resource tag="FACEBOOK">Your Facebook Profile Page (URL):</Resource>
     <Resource tag="FORUM_SETTINGS">Thiết lập diễn đàn</Resource>
     <Resource tag="HIDEME">Hide me from active users</Resource>
     <Resource tag="HOMEPAGE">Trang chủ</Resource>
     <Resource tag="HOMEPAGE2">Trang chủ của bạn:</Resource>
+    <Resource tag="ICQ">Your ICQ Number:</Resource>
     <Resource tag="LOCATION">Đến từ</Resource>
     <Resource tag="MAIL_SENT">Một email được gửi đến {0}.\n\nBạn cần phải xác nhận địa chỉ mail bằng cách click vào đường dẫn đã gửi đến cho bạn.</Resource>
     <Resource tag="MESSENGER">Instant messaging services</Resource>
@@ -1791,18 +1795,23 @@
     <Resource tag="METAWEBLOG_API_URL">MetaWeblog API URL:</Resource>
     <Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API Username:</Resource>
     <Resource tag="METAWEBLOG_TITLE">Post to MetaWeblog (API Settings)</Resource>
+    <Resource tag="MSN">Your Windows Live-ID (MSN) Name:</Resource>
     <Resource tag="OVERRIDE_DEFAULT_THEMES">Select different forum theme:</Resource>
     <Resource tag="PM_EMAIL_NOTIFICATION">Nhận email thông báo khi có tin nhắn mới?</Resource>
     <Resource tag="REALNAME2">Tên thật của bạn?</Resource>
     <Resource tag="SELECT_LANGUAGE">Chọn ngôn ngữ:</Resource>
     <Resource tag="SELECT_TEXTEDITOR">Select your text editor:</Resource>
     <Resource tag="SELECT_THEME">Chọn giao diện:</Resource>
+    <Resource tag="SKYPE">Your SKYPE ID:</Resource>
     <Resource tag="TIMEZONE">Múi giờ</Resource>
     <Resource tag="TIMEZONE2">Chọn múi giờ của bạn.</Resource>
     <Resource tag="TITLE">Sửa lý lịch</Resource>
+    <Resource tag="TWITTER">Your Twitter Name:</Resource>
     <Resource tag="USE_MOBILE_THEME">Use Mobile Forum Theme:</Resource>
     <Resource tag="WEBLOG2">Weblog:</Resource>
     <Resource tag="WHERE">Bạn đang ở đâu?</Resource>
+    <Resource tag="XMPP">Your Jabber ID:</Resource>
+    <Resource tag="YIM">Your Yahoo ID:</Resource>
   </page>
   <page name="CP_MESSAGE">
     <Resource tag="INBOX">Tin nhắn</Resource>
@@ -2661,6 +2670,7 @@
     <Resource tag="EMAIL">Email</Resource>
     <Resource tag="EMAILTOPIC">Email chủ đề này</Resource>
     <Resource tag="EMPTY_MESSAGE">Xin nhập nội dung bài viết.</Resource>
+    <Resource tag="FACEBOOK">Facebook</Resource>
     <Resource tag="FACEBOOK_TOPIC">Like this Topic</Resource>
     <Resource tag="FORUM_JUMP">Di chuyển</Resource>
     <Resource tag="GROUPS">Nhóm</Resource>
@@ -2728,6 +2738,7 @@
     <Resource tag="TOP">Chuyển lên trên</Resource>
     <Resource tag="TOPICBROWSERS">Ai đang xem chủ đề này?</Resource>
     <Resource tag="TOTAL">Tổng</Resource>
+    <Resource tag="Twitter">Twitter</Resource>
     <Resource tag="UNWATCHTOPIC">chưa xem chủ đề này</Resource>
     <Resource tag="USERGENDER_FEM">Woman</Resource>
     <Resource tag="USERGENDER_MAS">Man</Resource>
@@ -2765,6 +2776,7 @@
     <Resource tag="ERROR_ADMINISTRATORS">Bạn không thể tạm khoá Quản trị viên.</Resource>
     <Resource tag="ERROR_FORUMMODERATORS">Bạn không thể tạm khoá Người điều hành.</Resource>
     <Resource tag="ERROR_GUESTACCOUNT">Bạn không thể tạm khoá tài khoản của Khách viếng thăm(guest).</Resource>
+    <Resource tag="FACEBOOK">Facebook Profile:</Resource>
     <Resource tag="GENDER">Giới tính:</Resource>
     <Resource tag="GENDER0">Chưa chọn</Resource>
     <Resource tag="GENDER1">Nam</Resource>
@@ -2800,6 +2812,7 @@
     <Resource tag="THANKSTOPOSTS">Số bài viết được cảm ơn</Resource>
     <Resource tag="THANKSTOTIMES">Số lần được cảm ơn</Resource>
     <Resource tag="TOPIC">Chủ đề:</Resource>
+    <Resource tag="Twitter">Twitter Name:</Resource>
     <Resource tag="USERNAME">Tên sử dụng:</Resource>
     <Resource tag="WEBLOG">Blog:</Resource>
     <Resource tag="WEBSITE">Trang chủ:</Resource>

@@ -112,6 +112,24 @@ namespace YAF.Controls {
         protected global::YAF.Controls.ThemeButton Skype;
         
         /// <summary>
+        /// Facebook control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.ThemeButton Facebook;
+        
+        /// <summary>
+        /// Twitter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.ThemeButton Twitter;
+        
+        /// <summary>
         /// reportPostLink control.
         /// </summary>
         /// <remarks>

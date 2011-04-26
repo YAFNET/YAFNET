@@ -1780,8 +1780,10 @@ Diesen  Benutzer löschen?</Resource>
   </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">Über dich</Resource>
+    <Resource tag="AIM">Your AIM Name:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Beobachten Sie jedes Thema, in dem Sie einen Post gemacht haben und empfangen E-Mail-Benachrichtigungen der Aktivitäten in diesen Themen?</Resource>
     <Resource tag="BAD_EMAIL">E-Mail-Adresse nicht zulässig.</Resource>
+    <Resource tag="BAD_FACEBOOk">You have entered a invalid address for your Facebook Profile Page. (Example URL : http://www.facebook.com/yourname)</Resource>
     <Resource tag="BAD_HOME">Keine zulässige Adresse für Deine Homepage.</Resource>
     <Resource tag="BAD_ICQ">Unzulässige ICQ-Daten.</Resource>
     <Resource tag="BAD_MSN">E-Mail-Adresse nicht zulässig für Dein MSN Konto.</Resource>
@@ -1794,10 +1796,12 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="DUPLICATED_EMAIL">The e-mail adress you have entered is already in use.</Resource>
     <Resource tag="EDIT_ALBUMS">Alben bearbeiten</Resource>
     <Resource tag="EMAIL">Du musst immer eine gültige E-Mail-Adresse angeben.</Resource>
+    <Resource tag="FACEBOOK">Your Facebook Profile Page (URL):</Resource>
     <Resource tag="FORUM_SETTINGS">Einstellungen des Forums</Resource>
     <Resource tag="HIDEME">Verstecken Sie mich aus der aktiven Nutzerliste</Resource>
     <Resource tag="HOMEPAGE">Webseite</Resource>
     <Resource tag="HOMEPAGE2">Deine Webseite:</Resource>
+    <Resource tag="ICQ">Your ICQ Number:</Resource>
     <Resource tag="LOCATION">Wohnort</Resource>
     <Resource tag="MAIL_SENT">Eine E-Mail wurde an {0} gesendet.\n\nDu musst diese Adresse bestätigen, indem du\nden Link in der E-Mail aufrufst.</Resource>
     <Resource tag="MESSENGER">Messenger</Resource>
@@ -1806,18 +1810,23 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="METAWEBLOG_API_URL">MetaWeblog API-URL:</Resource>
     <Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API Benutzername:</Resource>
     <Resource tag="METAWEBLOG_TITLE">Post nach MetaWeblog (API Einstellungen)</Resource>
+    <Resource tag="MSN">Your Windows Live-ID (MSN) Name:</Resource>
     <Resource tag="OVERRIDE_DEFAULT_THEMES">Anderes Thema wählen</Resource>
     <Resource tag="PM_EMAIL_NOTIFICATION">Möchtest du eine E-Mail erhalten, wenn dir jemand eine private Nachricht schickt?</Resource>
     <Resource tag="REALNAME2">Wie ist dein richtiger Name?</Resource>
     <Resource tag="SELECT_LANGUAGE">Welche Sprache möchtest Du benutzen:</Resource>
     <Resource tag="SELECT_TEXTEDITOR">Wählen Sie einen Texteditor:</Resource>
     <Resource tag="SELECT_THEME">Wähle dein bevorzugtes Design:</Resource>
+    <Resource tag="SKYPE">Your SKYPE ID:</Resource>
     <Resource tag="TIMEZONE">Zeitzone</Resource>
     <Resource tag="TIMEZONE2">Damit Daten und Uhrzeiten im Forum richtig angezeigt werden, musst du Deine Zeitzone angeben.</Resource>
     <Resource tag="TITLE">Profil bearbeiten</Resource>
+    <Resource tag="TWITTER">Your Twitter Name:</Resource>
     <Resource tag="USE_MOBILE_THEME">Mobile Forum Skin benutzen:</Resource>
     <Resource tag="WEBLOG2">Dein Blog:</Resource>
     <Resource tag="WHERE">Wo lebst du?</Resource>
+    <Resource tag="XMPP">Your Jabber ID:</Resource>
+    <Resource tag="YIM">Your Yahoo ID:</Resource>
   </page>
   <page name="CP_MESSAGE">
     <Resource tag="INBOX">Posteingang</Resource>
@@ -2671,6 +2680,7 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="EMAIL">E-Mail</Resource>
     <Resource tag="EMAILTOPIC">Thema per E-Mail verschicken</Resource>
     <Resource tag="EMPTY_MESSAGE">Du musst etwas in den Beitrag eintippen.</Resource>
+    <Resource tag="FACEBOOK">Facebook</Resource>
     <Resource tag="FACEBOOK_TOPIC">Thema mögen</Resource>
     <Resource tag="FORUM_JUMP">Das Forum wechseln</Resource>
     <Resource tag="GROUPS">Gruppe</Resource>
@@ -2738,6 +2748,7 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="TOP">Zurück zum Anfang</Resource>
     <Resource tag="TOPICBROWSERS">Benutzer, die gerade dieses Thema lesen</Resource>
     <Resource tag="TOTAL">Gesamt</Resource>
+    <Resource tag="Twitter">Twitter</Resource>
     <Resource tag="UNWATCHTOPIC">Dieses Thema nicht mehr abonnieren</Resource>
     <Resource tag="USERGENDER_FEM">Frau</Resource>
     <Resource tag="USERGENDER_MAS">Mann</Resource>
@@ -2775,6 +2786,7 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="ERROR_ADMINISTRATORS">Administratoren können nicht gesperrt werden.</Resource>
     <Resource tag="ERROR_FORUMMODERATORS">Moderatoren können nicht gesperrt werden.</Resource>
     <Resource tag="ERROR_GUESTACCOUNT">Das Gastkonto kann nicht gesperrt werden.</Resource>
+    <Resource tag="FACEBOOK">Facebook Profile:</Resource>
     <Resource tag="GENDER">Geschlecht:</Resource>
     <Resource tag="GENDER0">nicht angegeben</Resource>
     <Resource tag="GENDER1">Männlich</Resource>
@@ -2810,6 +2822,7 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="THANKSTOPOSTS">Anzahl der Beiträge für die der Benutzer gedankt wurde</Resource>
     <Resource tag="THANKSTOTIMES">Anzahl wie oft dem Benutzer gedankt wurde</Resource>
     <Resource tag="TOPIC">Thema:</Resource>
+    <Resource tag="Twitter">Twitter Name:</Resource>
     <Resource tag="USERNAME">Benutzername:</Resource>
     <Resource tag="WEBLOG">Web-Blog:</Resource>
     <Resource tag="WEBSITE">Webseite:</Resource>

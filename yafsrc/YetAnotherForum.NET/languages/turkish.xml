@@ -1765,8 +1765,10 @@
   </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">İsim Bilgileriniz</Resource>
+    <Resource tag="AIM">Your AIM Name:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Mesaj yazdığınız konulara cevap yazıldığında E-posta ile haber almak ister misiniz?</Resource>
     <Resource tag="BAD_EMAIL">Geçersiz bir e-posta adresi girdiniz.</Resource>
+    <Resource tag="BAD_FACEBOOk">You have entered a invalid address for your Facebook Profile Page. (Example URL : http://www.facebook.com/yourname)</Resource>
     <Resource tag="BAD_HOME">Ana sayfanız için geçersiz bir bağlantı adresi girdiniz.</Resource>
     <Resource tag="BAD_ICQ">Geçersiz bir ICQ numaransı girdiniz.</Resource>
     <Resource tag="BAD_MSN">MSN hesabınız için geçersiz bir e-posta adresi girdiniz.</Resource>
@@ -1779,10 +1781,12 @@
     <Resource tag="DUPLICATED_EMAIL">The e-mail adress you have entered is already in use.</Resource>
     <Resource tag="EDIT_ALBUMS">Albümleri Düzenle</Resource>
     <Resource tag="EMAIL">Geçerli e-posta adresiniz</Resource>
+    <Resource tag="FACEBOOK">Your Facebook Profile Page (URL):</Resource>
     <Resource tag="FORUM_SETTINGS">Forum Ayarları</Resource>
     <Resource tag="HIDEME">Forumda beni gizle</Resource>
     <Resource tag="HOMEPAGE">Hakkınızda</Resource>
     <Resource tag="HOMEPAGE2">Bireysel İnternet Siteniz:</Resource>
+    <Resource tag="ICQ">Your ICQ Number:</Resource>
     <Resource tag="LOCATION">Nerede Yaşıyorsunuz</Resource>
     <Resource tag="MAIL_SENT"> {0} bu adrese bir E-Posta gönderildi.\n\n E-Posta adresiniz düzenlenilmeden önce size gelen E-Postadaki linki \ntıklayarak adresinizi onaylamanız gerekmektedir. </Resource>
     <Resource tag="MESSENGER">Hızlı mesajlaşma servisi</Resource>
@@ -1791,18 +1795,23 @@
     <Resource tag="METAWEBLOG_API_URL">MetaWeblog API Adresi:</Resource>
     <Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API Kullanıcı Adı:</Resource>
     <Resource tag="METAWEBLOG_TITLE">MetaWeblog'a gönder (API Ayarları)</Resource>
+    <Resource tag="MSN">Your Windows Live-ID (MSN) Name:</Resource>
     <Resource tag="OVERRIDE_DEFAULT_THEMES">Seçilen temayı etkinleştirmek istiyor musunuz?</Resource>
     <Resource tag="PM_EMAIL_NOTIFICATION">Yeni bir özel mesaj aldığınızda E-Posta ile haber almak ister misiniz?</Resource>
     <Resource tag="REALNAME2">Adınız ve Soyadınız:</Resource>
     <Resource tag="SELECT_LANGUAGE">İstediğiniz dili seçiniz:</Resource>
     <Resource tag="SELECT_TEXTEDITOR">Select your text editor:</Resource>
     <Resource tag="SELECT_THEME">İstediğiniz temayı seçiniz:</Resource>
+    <Resource tag="SKYPE">Your SKYPE ID:</Resource>
     <Resource tag="TIMEZONE">Zaman Dilimi</Resource>
     <Resource tag="TIMEZONE2">Doğru zaman diliminizi seçiniz:</Resource>
     <Resource tag="TITLE">Profili Düzenle</Resource>
+    <Resource tag="TWITTER">Your Twitter Name:</Resource>
     <Resource tag="USE_MOBILE_THEME">Use Mobile Forum Theme:</Resource>
     <Resource tag="WEBLOG2">Blog Sayfanız:</Resource>
     <Resource tag="WHERE">Nerelisiniz?</Resource>
+    <Resource tag="XMPP">Your Jabber ID:</Resource>
+    <Resource tag="YIM">Your Yahoo ID:</Resource>
   </page>
   <page name="CP_MESSAGE">
     <Resource tag="INBOX">Gelen Kutusu</Resource>
@@ -2499,6 +2508,7 @@
     <Resource tag="EMAIL">E-posta</Resource>
     <Resource tag="EMAILTOPIC">Bu Konuyu e-posta ile Gönder</Resource>
     <Resource tag="EMPTY_MESSAGE">Mesajınıza birşeyler girmek zorundasınız.</Resource>
+    <Resource tag="FACEBOOK">Facebook</Resource>
     <Resource tag="FACEBOOK_TOPIC">Like this Topic</Resource>
     <Resource tag="FORUM_JUMP">Forumu Atla</Resource>
     <Resource tag="GROUPS">Gruplar</Resource>
@@ -2566,6 +2576,7 @@
     <Resource tag="TOP">Başa Dön</Resource>
     <Resource tag="TOPICBROWSERS">Bu konudaki kullanıcılar</Resource>
     <Resource tag="TOTAL">Toplam</Resource>
+    <Resource tag="Twitter">Twitter</Resource>
     <Resource tag="UNWATCHTOPIC">Konuyu izlemeyi bırak</Resource>
     <Resource tag="USERGENDER_FEM">Bayan</Resource>
     <Resource tag="USERGENDER_MAS">Bay</Resource>
@@ -2603,6 +2614,7 @@
     <Resource tag="ERROR_ADMINISTRATORS">Yöneticileri askıya alamazsınız.</Resource>
     <Resource tag="ERROR_FORUMMODERATORS">Forum denetleyicilerini askıya alamazsınız.</Resource>
     <Resource tag="ERROR_GUESTACCOUNT">Konuk kullanıcıları askıya alamazsınız.</Resource>
+    <Resource tag="FACEBOOK">Facebook Profile:</Resource>
     <Resource tag="GENDER">Cinsiyetinizi Seçiniz</Resource>
     <Resource tag="GENDER0">Henüz seçilmemiş</Resource>
     <Resource tag="GENDER1">Bay</Resource>
@@ -2638,6 +2650,7 @@
     <Resource tag="THANKSTOPOSTS">Kaç kere Teşekkür edilmiş</Resource>
     <Resource tag="THANKSTOTIMES">Kaç kere Teşekkür etmiş</Resource>
     <Resource tag="TOPIC">Konu:</Resource>
+    <Resource tag="Twitter">Twitter Name:</Resource>
     <Resource tag="USERNAME">Kullanıcı Adı:</Resource>
     <Resource tag="WEBLOG">İnternet Günlüğü:</Resource>
     <Resource tag="WEBSITE">Bireysel İnternet Siteniz:</Resource>

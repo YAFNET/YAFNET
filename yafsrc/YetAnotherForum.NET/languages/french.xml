@@ -1781,8 +1781,10 @@
   </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">A propos de vous</Resource>
+    <Resource tag="AIM">Your AIM Name:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Watch every topic in which you have made a post and receive email notifications of activities in those topics?</Resource>
     <Resource tag="BAD_EMAIL">Adresse e-mail invalide.</Resource>
+    <Resource tag="BAD_FACEBOOk">You have entered a invalid address for your Facebook Profile Page. (Example URL : http://www.facebook.com/yourname)</Resource>
     <Resource tag="BAD_HOME">Adresse de votre site invalide.</Resource>
     <Resource tag="BAD_ICQ">Identifiant ICQ invalide.</Resource>
     <Resource tag="BAD_MSN">Adresse e-mail address pour votre compte MSN.</Resource>
@@ -1795,10 +1797,12 @@
     <Resource tag="DUPLICATED_EMAIL">The e-mail adress you have entered is already in use.</Resource>
     <Resource tag="EDIT_ALBUMS">Modifier albums</Resource>
     <Resource tag="EMAIL">Vous devez toujours avoir une adresse courriel valide.</Resource>
+    <Resource tag="FACEBOOK">Your Facebook Profile Page (URL):</Resource>
     <Resource tag="FORUM_SETTINGS">Propriétés du forum</Resource>
     <Resource tag="HIDEME">Hide me from active users</Resource>
     <Resource tag="HOMEPAGE">Sites Web</Resource>
     <Resource tag="HOMEPAGE2">Votre page d'accueil&amp;nbsp;:</Resource>
+    <Resource tag="ICQ">Your ICQ Number:</Resource>
     <Resource tag="LOCATION">Informations</Resource>
     <Resource tag="MAIL_SENT">Un courriel a été envoyé à {0}.Vous devrez vérifier votre nouvelle adresse courriel en ouvrant le lien contenu dans le courriel envoyé pour que votre adresse courriel soit modifiée.</Resource>
     <Resource tag="MESSENGER">Services de Messagerie Instantanée</Resource>
@@ -1807,18 +1811,23 @@
     <Resource tag="METAWEBLOG_API_URL">MetaWeblog API URL:</Resource>
     <Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API Utilisateur :</Resource>
     <Resource tag="METAWEBLOG_TITLE">Ecrire sur MetaWeblog (Paramètres API)</Resource>
+    <Resource tag="MSN">Your Windows Live-ID (MSN) Name:</Resource>
     <Resource tag="OVERRIDE_DEFAULT_THEMES">Choisir un thème différent pour le forum :</Resource>
     <Resource tag="PM_EMAIL_NOTIFICATION">Voulez vous recevoi un e-mail d'information quand vous recevez un message privé?</Resource>
     <Resource tag="REALNAME2">Quel est votre vrai nom ?</Resource>
     <Resource tag="SELECT_LANGUAGE">Quelle langue voulez vous utiliser&amp;nbsp;:</Resource>
     <Resource tag="SELECT_TEXTEDITOR">Select your text editor:</Resource>
     <Resource tag="SELECT_THEME">Choisissez un thème&amp;nbsp;:</Resource>
+    <Resource tag="SKYPE">Your SKYPE ID:</Resource>
     <Resource tag="TIMEZONE">Fuseau horaire</Resource>
     <Resource tag="TIMEZONE2">Pour avoir les heures dans votre heure locale, choisissez votre fuseau horaire.</Resource>
     <Resource tag="TITLE">Edition du Profil</Resource>
+    <Resource tag="TWITTER">Your Twitter Name:</Resource>
     <Resource tag="USE_MOBILE_THEME">Use Mobile Forum Theme:</Resource>
     <Resource tag="WEBLOG2">Votre blog&amp;nbsp;:</Resource>
     <Resource tag="WHERE">Où habitez-vous ?</Resource>
+    <Resource tag="XMPP">Your Jabber ID:</Resource>
+    <Resource tag="YIM">Your Yahoo ID:</Resource>
   </page>
   <page name="CP_MESSAGE">
     <Resource tag="INBOX">Boite de Réception</Resource>
@@ -2677,6 +2686,7 @@
     <Resource tag="EMAIL">EMail</Resource>
     <Resource tag="EMAILTOPIC">Envoyer ce sujet par courriel</Resource>
     <Resource tag="EMPTY_MESSAGE">Message obligatoire.</Resource>
+    <Resource tag="FACEBOOK">Facebook</Resource>
     <Resource tag="FACEBOOK_TOPIC">Like this Topic</Resource>
     <Resource tag="FORUM_JUMP">Aller au forum</Resource>
     <Resource tag="GROUPS">Groupes</Resource>
@@ -2744,6 +2754,7 @@
     <Resource tag="TOP">Retour en haut</Resource>
     <Resource tag="TOPICBROWSERS">Utilisateurs actuellement sur ce sujet</Resource>
     <Resource tag="TOTAL">Total</Resource>
+    <Resource tag="Twitter">Twitter</Resource>
     <Resource tag="UNWATCHTOPIC">Ne plus surveiller ce sujet</Resource>
     <Resource tag="USERGENDER_FEM">Woman</Resource>
     <Resource tag="USERGENDER_MAS">Man</Resource>
@@ -2781,6 +2792,7 @@
     <Resource tag="ERROR_ADMINISTRATORS">Vous ne pouvez pas suspendre un administrateur.</Resource>
     <Resource tag="ERROR_FORUMMODERATORS">Vous ne pouvez pas suspendre un modérateur de forum.</Resource>
     <Resource tag="ERROR_GUESTACCOUNT">Vous ne pouvez pas suspendre un invité.</Resource>
+    <Resource tag="FACEBOOK">Facebook Profile:</Resource>
     <Resource tag="GENDER">Sexe&amp;nbsp;:</Resource>
     <Resource tag="GENDER0">Non communiqué</Resource>
     <Resource tag="GENDER1">Masculin</Resource>
@@ -2816,6 +2828,7 @@
     <Resource tag="THANKSTOPOSTS">Nombre de messages pour lesquels cet utilisateur a été remercié</Resource>
     <Resource tag="THANKSTOTIMES">Nombre de fois où cet utilisateur a été remercié</Resource>
     <Resource tag="TOPIC">Sujet&amp;nbsp;:</Resource>
+    <Resource tag="Twitter">Twitter Name:</Resource>
     <Resource tag="USERNAME">Nom de l'utilisateur&amp;nbsp;:</Resource>
     <Resource tag="WEBLOG">Weblog&amp;nbsp;:</Resource>
     <Resource tag="WEBSITE">Page d'accueil&amp;nbsp;:</Resource>

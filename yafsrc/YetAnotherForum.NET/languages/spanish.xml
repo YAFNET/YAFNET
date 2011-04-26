@@ -1782,8 +1782,10 @@
   </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">Acerca de</Resource>
+    <Resource tag="AIM">Your AIM Name:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Watch every topic in which you have made a post and receive email notifications of activities in those topics?</Resource>
     <Resource tag="BAD_EMAIL">Has ingresado un correo electrónico no válido.</Resource>
+    <Resource tag="BAD_FACEBOOk">You have entered a invalid address for your Facebook Profile Page. (Example URL : http://www.facebook.com/yourname)</Resource>
     <Resource tag="BAD_HOME">Has ingresado una direccion no válida para tu página web.</Resource>
     <Resource tag="BAD_ICQ">Has ingresado un número no válido como tu cuenta de ICQ.</Resource>
     <Resource tag="BAD_MSN">Has ingresado un correo electrónico no válido para tu cuenta de MSN.</Resource>
@@ -1796,10 +1798,12 @@
     <Resource tag="DUPLICATED_EMAIL">The e-mail adress you have entered is already in use.</Resource>
     <Resource tag="EDIT_ALBUMS">Edit Albums</Resource>
     <Resource tag="EMAIL">Siempre debes tener un correo electrónico válido.</Resource>
+    <Resource tag="FACEBOOK">Your Facebook Profile Page (URL):</Resource>
     <Resource tag="FORUM_SETTINGS">Configuración del foro</Resource>
     <Resource tag="HIDEME">Hide me from active users</Resource>
     <Resource tag="HOMEPAGE">Página web</Resource>
     <Resource tag="HOMEPAGE2">Tu página web:</Resource>
+    <Resource tag="ICQ">Your ICQ Number:</Resource>
     <Resource tag="LOCATION">Ubicación</Resource>
     <Resource tag="MAIL_SENT">Se ha enviado un correo a {0}.\n\nDebes verificar tu nuevo correo electrónico\nabriendo el link en el correo para persistir el cambio.\n\nSi ves que no llega el correo, mira tu carpeta de Spam.</Resource>
     <Resource tag="MESSENGER">Mensajero instantáneo</Resource>
@@ -1808,18 +1812,23 @@
     <Resource tag="METAWEBLOG_API_URL">MetaWeblog API URL:</Resource>
     <Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API Usuario:</Resource>
     <Resource tag="METAWEBLOG_TITLE">Postear en MetaWeblog (API Settings)</Resource>
+    <Resource tag="MSN">Your Windows Live-ID (MSN) Name:</Resource>
     <Resource tag="OVERRIDE_DEFAULT_THEMES">Select different forum theme:</Resource>
     <Resource tag="PM_EMAIL_NOTIFICATION">¿Recibir una notificación por email cuando tengas nuevos mensajes privados?</Resource>
     <Resource tag="REALNAME2">Nombre verdadero</Resource>
     <Resource tag="SELECT_LANGUAGE">Idioma preferido:</Resource>
     <Resource tag="SELECT_TEXTEDITOR">Select your text editor:</Resource>
     <Resource tag="SELECT_THEME">Estilo preferido:</Resource>
+    <Resource tag="SKYPE">Your SKYPE ID:</Resource>
     <Resource tag="TIMEZONE">Zona horaria</Resource>
     <Resource tag="TIMEZONE2">Para mostrar fechas y horas de tu ubicación es necesario saber la zona horaria.</Resource>
     <Resource tag="TITLE">Editar perfil</Resource>
+    <Resource tag="TWITTER">Your Twitter Name:</Resource>
     <Resource tag="USE_MOBILE_THEME">Use Mobile Forum Theme:</Resource>
     <Resource tag="WEBLOG2">Tu blog:</Resource>
     <Resource tag="WHERE">¿Donde vives?</Resource>
+    <Resource tag="XMPP">Your Jabber ID:</Resource>
+    <Resource tag="YIM">Your Yahoo ID:</Resource>
   </page>
   <page name="CP_MESSAGE">
     <Resource tag="INBOX">Bandeja de entrada</Resource>
@@ -2678,6 +2687,7 @@
     <Resource tag="EMAIL">EMail</Resource>
     <Resource tag="EMAILTOPIC">Enviar correo de este tema</Resource>
     <Resource tag="EMPTY_MESSAGE">Debe escribir algo en su mensaje.</Resource>
+    <Resource tag="FACEBOOK">Facebook</Resource>
     <Resource tag="FACEBOOK_TOPIC">Like this Topic</Resource>
     <Resource tag="FORUM_JUMP">Salto de foro</Resource>
     <Resource tag="GROUPS">Grupos</Resource>
@@ -2745,6 +2755,7 @@
     <Resource tag="TOP">Volver arriba</Resource>
     <Resource tag="TOPICBROWSERS">Usuarios navegando este tema</Resource>
     <Resource tag="TOTAL">Total</Resource>
+    <Resource tag="Twitter">Twitter</Resource>
     <Resource tag="UNWATCHTOPIC">Dejar de vigilar este tema</Resource>
     <Resource tag="USERGENDER_FEM">Woman</Resource>
     <Resource tag="USERGENDER_MAS">Man</Resource>
@@ -2782,6 +2793,7 @@
     <Resource tag="ERROR_ADMINISTRATORS">No puedes suspender administradores.</Resource>
     <Resource tag="ERROR_FORUMMODERATORS">No puedes suspender moderadores.</Resource>
     <Resource tag="ERROR_GUESTACCOUNT">No puedes suspender al visitante.</Resource>
+    <Resource tag="FACEBOOK">Facebook Profile:</Resource>
     <Resource tag="GENDER">Género:</Resource>
     <Resource tag="GENDER0">No Especificado</Resource>
     <Resource tag="GENDER1">Masculino</Resource>
@@ -2817,6 +2829,7 @@
     <Resource tag="THANKSTOPOSTS">Number of posts for which this user was thanked</Resource>
     <Resource tag="THANKSTOTIMES">Number of times this user was thanked</Resource>
     <Resource tag="TOPIC">Tema:</Resource>
+    <Resource tag="Twitter">Twitter Name:</Resource>
     <Resource tag="USERNAME">usuario:</Resource>
     <Resource tag="WEBLOG">Blog:</Resource>
     <Resource tag="WEBSITE">Página web:</Resource>

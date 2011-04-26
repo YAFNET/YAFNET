@@ -1765,8 +1765,10 @@
   </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">درباره شما</Resource>
+    <Resource tag="AIM">Your AIM Name:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Watch every topic in which you have made a post and receive email notifications of activities in those topics?</Resource>
     <Resource tag="BAD_EMAIL">آدرس ایمیلی که وارد کرده اید اشتباه میباشد.</Resource>
+    <Resource tag="BAD_FACEBOOk">You have entered a invalid address for your Facebook Profile Page. (Example URL : http://www.facebook.com/yourname)</Resource>
     <Resource tag="BAD_HOME">آدرسی که به عنوان صفحه خانگی خود وارد کرده اید اشتباه میباشد.</Resource>
     <Resource tag="BAD_ICQ">آدرس ایمیلی که برای سرویس ICQ وارد کرده اید اشتباه میباشد.</Resource>
     <Resource tag="BAD_MSN">آدرس ایمیلی که برای سرویس MSN وارد کرده اید اشتباه میباشد.</Resource>
@@ -1779,10 +1781,12 @@
     <Resource tag="DUPLICATED_EMAIL">The e-mail adress you have entered is already in use.</Resource>
     <Resource tag="EDIT_ALBUMS">ویرایش آلبومها</Resource>
     <Resource tag="EMAIL">شما باید یک آدرس ایمیل معتبر داشته باشید.</Resource>
+    <Resource tag="FACEBOOK">Your Facebook Profile Page (URL):</Resource>
     <Resource tag="FORUM_SETTINGS">تنظیمات انجمن</Resource>
     <Resource tag="HIDEME">Hide me from active users</Resource>
     <Resource tag="HOMEPAGE">صفحه اینترنتی خانگی</Resource>
     <Resource tag="HOMEPAGE2">صفحه اینترنتی خانگی شما:</Resource>
+    <Resource tag="ICQ">Your ICQ Number:</Resource>
     <Resource tag="LOCATION">مکان</Resource>
     <Resource tag="MAIL_SENT">ایمیلی به آدرس {0} ارسال شد.\n\nشما باید آدرس ایمیل خود را با با باز کردن لینک ارسال شده برای شما مورد تائید قرار دهید.</Resource>
     <Resource tag="MESSENGER">سرویسهای پیام رسان</Resource>
@@ -1791,18 +1795,23 @@
     <Resource tag="METAWEBLOG_API_URL">MetaWeblog API آدرس:</Resource>
     <Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API نام کاربری:</Resource>
     <Resource tag="METAWEBLOG_TITLE">ارسال به MetaWeblog (API تنظیمات)</Resource>
+    <Resource tag="MSN">Your Windows Live-ID (MSN) Name:</Resource>
     <Resource tag="OVERRIDE_DEFAULT_THEMES">انتخاب پوسته گرافیکی متفاوت</Resource>
     <Resource tag="PM_EMAIL_NOTIFICATION">آیا مایل به دریافت ایمیل یادآوری در زمان دریافت پیغام خصوصی میباشید?</Resource>
     <Resource tag="REALNAME2">نام حقیقی شما چیست؟</Resource>
     <Resource tag="SELECT_LANGUAGE">مایل به استفاده از چه زبانی هستید:</Resource>
     <Resource tag="SELECT_TEXTEDITOR">Select your text editor:</Resource>
     <Resource tag="SELECT_THEME">پوسته گرافیکی مورد علاقه خود را انتخاب کنید:</Resource>
+    <Resource tag="SKYPE">Your SKYPE ID:</Resource>
     <Resource tag="TIMEZONE">منطقه ساعتی</Resource>
     <Resource tag="TIMEZONE2">برای محاسبه تاریخ و زمان بر اساس موقیت شما ,منطقه ساعتی شما باید تعیین شود.</Resource>
     <Resource tag="TITLE">ویرایش پروفایل</Resource>
+    <Resource tag="TWITTER">Your Twitter Name:</Resource>
     <Resource tag="USE_MOBILE_THEME">Use Mobile Forum Theme:</Resource>
     <Resource tag="WEBLOG2">آدرس وبلاگ شما:</Resource>
     <Resource tag="WHERE">محل زندگی شما?</Resource>
+    <Resource tag="XMPP">Your Jabber ID:</Resource>
+    <Resource tag="YIM">Your Yahoo ID:</Resource>
   </page>
   <page name="CP_MESSAGE">
     <Resource tag="INBOX">صندوق</Resource>
@@ -2659,6 +2668,7 @@
     <Resource tag="EMAIL">پست الکترونیک</Resource>
     <Resource tag="EMAILTOPIC">ارسال این عنوان بصورت ایمیل</Resource>
     <Resource tag="EMPTY_MESSAGE">باید مطلبی را در ارسال خود وارد کنید.</Resource>
+    <Resource tag="FACEBOOK">Facebook</Resource>
     <Resource tag="FACEBOOK_TOPIC">Like this Topic</Resource>
     <Resource tag="FORUM_JUMP">جهش به انجمن</Resource>
     <Resource tag="GROUPS">گروه ها</Resource>
@@ -2726,6 +2736,7 @@
     <Resource tag="TOP">برگشت به بالا</Resource>
     <Resource tag="TOPICBROWSERS">کاربرانی که در حال مشاهده انجمن هستند</Resource>
     <Resource tag="TOTAL">مجموع</Resource>
+    <Resource tag="Twitter">Twitter</Resource>
     <Resource tag="UNWATCHTOPIC">عدم پیگیری وضعیت انجمن</Resource>
     <Resource tag="USERGENDER_FEM">Woman</Resource>
     <Resource tag="USERGENDER_MAS">Man</Resource>
@@ -2763,6 +2774,7 @@
     <Resource tag="ERROR_ADMINISTRATORS">شما مجاز به تعلیق کاربر مدیر نمیباشید.</Resource>
     <Resource tag="ERROR_FORUMMODERATORS">شما مجاز به تعلیق کاربران مدیر نمیباشد.</Resource>
     <Resource tag="ERROR_GUESTACCOUNT">شما مجاز به تعلیق کاربر میهمان نمی باشید.</Resource>
+    <Resource tag="FACEBOOK">Facebook Profile:</Resource>
     <Resource tag="GENDER">جنسیت:</Resource>
     <Resource tag="GENDER0">مشخص نمی باشد</Resource>
     <Resource tag="GENDER1">مذکر</Resource>
@@ -2798,6 +2810,7 @@
     <Resource tag="THANKSTOPOSTS">تعداد ارسال هایی که در آنهااز این کاربر تشکر شده است: </Resource>
     <Resource tag="THANKSTOTIMES">تعداد دفعاتی که از این کاربر تشکر شده است:</Resource>
     <Resource tag="TOPIC">عنوان:</Resource>
+    <Resource tag="Twitter">Twitter Name:</Resource>
     <Resource tag="USERNAME">نام کاربری:</Resource>
     <Resource tag="WEBLOG">وب لاگ:</Resource>
     <Resource tag="WEBSITE">صفحه خانگی:</Resource>

@@ -50,6 +50,8 @@
 	  <Resource tag="PRINT">~/icon_print.png</Resource>
 	  	  <Resource tag="PM_READ">~/topic.png</Resource>
 	  <Resource tag="PM_NEW">~/topic_new.png</Resource>
+	  <Resource tag="TWITTER2">~/icon_twitter2.png</Resource>
+	  <Resource tag="FACEBOOK2">~/icon_facebook2.png</Resource>
 	</page>
 	<page name="SORT">
 		<Resource tag="ASCENDING">~/collapse.png</Resource>

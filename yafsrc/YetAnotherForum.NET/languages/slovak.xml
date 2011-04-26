@@ -1765,8 +1765,10 @@
   </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">O vás</Resource>
+    <Resource tag="AIM">Your AIM Name:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Watch every topic in which you have made a post and receive email notifications of activities in those topics?</Resource>
     <Resource tag="BAD_EMAIL">Zadal ste neplatnú e-mailovú adresu.</Resource>
+    <Resource tag="BAD_FACEBOOk">You have entered a invalid address for your Facebook Profile Page. (Example URL : http://www.facebook.com/yourname)</Resource>
     <Resource tag="BAD_HOME">Zadal ste neplatnú adresu vašej domovskej stránky.</Resource>
     <Resource tag="BAD_ICQ">Zadal ste neplatnú hodnotu svojho čísla ICQ.</Resource>
     <Resource tag="BAD_MSN">Zadal ste neplatnú e-mailovú adresu pri vašom účte MSN.</Resource>
@@ -1779,10 +1781,12 @@
     <Resource tag="DUPLICATED_EMAIL">The e-mail adress you have entered is already in use.</Resource>
     <Resource tag="EDIT_ALBUMS">Edit Albums</Resource>
     <Resource tag="EMAIL">Platná e-mailová adresa je nutná.</Resource>
+    <Resource tag="FACEBOOK">Your Facebook Profile Page (URL):</Resource>
     <Resource tag="FORUM_SETTINGS">Nastavenie fóra</Resource>
     <Resource tag="HIDEME">Hide me from active users</Resource>
     <Resource tag="HOMEPAGE">Domovská stránka</Resource>
     <Resource tag="HOMEPAGE2">Vaša domovská stránka:</Resource>
+    <Resource tag="ICQ">Your ICQ Number:</Resource>
     <Resource tag="LOCATION">Bydlisko</Resource>
     <Resource tag="MAIL_SENT">Na adresu {0} bola odoslaná e-mailová správa.\n\nBude potrebné, aby ste novú e-mailovú adresu overili\nkliknutím na odkaz v tomto e-maile; až potom bude vaša adresa zmenená.</Resource>
     <Resource tag="MESSENGER">Služba Instant messaging</Resource>
@@ -1791,18 +1795,23 @@
     <Resource tag="METAWEBLOG_API_URL">MetaWeblog API URL:</Resource>
     <Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API Username:</Resource>
     <Resource tag="METAWEBLOG_TITLE">Post to MetaWeblog (API Settings)</Resource>
+    <Resource tag="MSN">Your Windows Live-ID (MSN) Name:</Resource>
     <Resource tag="OVERRIDE_DEFAULT_THEMES">Select different forum theme:</Resource>
     <Resource tag="PM_EMAIL_NOTIFICATION">Zaslať e-mailovú notifikáciu keď dostaneš novú súkromnú správu?</Resource>
     <Resource tag="REALNAME2">Méno a priezvisko</Resource>
     <Resource tag="SELECT_LANGUAGE">Aký jazyk chcete používať:</Resource>
     <Resource tag="SELECT_TEXTEDITOR">Select your text editor:</Resource>
     <Resource tag="SELECT_THEME">Vyberte si obľúbenú tému:</Resource>
+    <Resource tag="SKYPE">Your SKYPE ID:</Resource>
     <Resource tag="TIMEZONE">Časová zóna</Resource>
     <Resource tag="TIMEZONE2">Aby sme mohli uvádzať čas a dátum vo vašom miestnom čase, musíme poznať vašu časovú zónu.</Resource>
     <Resource tag="TITLE">Úprava profilu</Resource>
+    <Resource tag="TWITTER">Your Twitter Name:</Resource>
     <Resource tag="USE_MOBILE_THEME">Use Mobile Forum Theme:</Resource>
     <Resource tag="WEBLOG2">Váš weblog:</Resource>
     <Resource tag="WHERE">Mesto</Resource>
+    <Resource tag="XMPP">Your Jabber ID:</Resource>
+    <Resource tag="YIM">Your Yahoo ID:</Resource>
   </page>
   <page name="CP_MESSAGE">
     <Resource tag="INBOX">Schránka</Resource>
@@ -2661,6 +2670,7 @@
     <Resource tag="EMAIL">EMail</Resource>
     <Resource tag="EMAILTOPIC">Poslať túto tému e-mailom</Resource>
     <Resource tag="EMPTY_MESSAGE">You must enter something into your post.</Resource>
+    <Resource tag="FACEBOOK">Facebook</Resource>
     <Resource tag="FACEBOOK_TOPIC">Like this Topic</Resource>
     <Resource tag="FORUM_JUMP">Zmeniť fórum</Resource>
     <Resource tag="GROUPS">Skupiny</Resource>
@@ -2728,6 +2738,7 @@
     <Resource tag="TOP">Späť hore</Resource>
     <Resource tag="TOPICBROWSERS">Používatelia, ktorí si prezerajú túto tému</Resource>
     <Resource tag="TOTAL">Total</Resource>
+    <Resource tag="Twitter">Twitter</Resource>
     <Resource tag="UNWATCHTOPIC">Ukončiť sledovanie tejto témy</Resource>
     <Resource tag="USERGENDER_FEM">Woman</Resource>
     <Resource tag="USERGENDER_MAS">Man</Resource>
@@ -2765,6 +2776,7 @@
     <Resource tag="ERROR_ADMINISTRATORS">Administrátorom nie je možné prerušiť členstvo.</Resource>
     <Resource tag="ERROR_FORUMMODERATORS">Moderátorom fóra nie je možné prerušiť členstvo.</Resource>
     <Resource tag="ERROR_GUESTACCOUNT">Účtu kategórie "Hosť" nie je možné prerušiť členstvo.</Resource>
+    <Resource tag="FACEBOOK">Facebook Profile:</Resource>
     <Resource tag="GENDER">Pohlavie:</Resource>
     <Resource tag="GENDER0">Nezadané</Resource>
     <Resource tag="GENDER1">Muž</Resource>
@@ -2800,6 +2812,7 @@
     <Resource tag="THANKSTOPOSTS">Number of posts for which this user was thanked</Resource>
     <Resource tag="THANKSTOTIMES">Number of times this user was thanked</Resource>
     <Resource tag="TOPIC">Téma:</Resource>
+    <Resource tag="Twitter">Twitter Name:</Resource>
     <Resource tag="USERNAME">Používateľské meno:</Resource>
     <Resource tag="WEBLOG">Weblog:</Resource>
     <Resource tag="WEBSITE">Domovská stránka:</Resource>

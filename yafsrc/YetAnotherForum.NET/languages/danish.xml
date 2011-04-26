@@ -1782,8 +1782,10 @@
   </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">Om dig</Resource>
+    <Resource tag="AIM">Your AIM Name:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Se alle emner du har skrevet et indlæg i og modtag en email notifikation når der er aktivitet i disse emner?</Resource>
     <Resource tag="BAD_EMAIL">Du skrev en ugyldig e-mail adresse.</Resource>
+    <Resource tag="BAD_FACEBOOk">You have entered a invalid address for your Facebook Profile Page. (Example URL : http://www.facebook.com/yourname)</Resource>
     <Resource tag="BAD_HOME">Du har skrevet en ugyldig adresse til din hjemmeside.</Resource>
     <Resource tag="BAD_ICQ">Du har skrevet et ugyldigt ICQ nummer.</Resource>
     <Resource tag="BAD_MSN">Du har skrevet en ugyldig e-mail adresse til din MSN konto.</Resource>
@@ -1796,10 +1798,12 @@
     <Resource tag="DUPLICATED_EMAIL">The e-mail adress you have entered is already in use.</Resource>
     <Resource tag="EDIT_ALBUMS">Rediger albums</Resource>
     <Resource tag="EMAIL">Du skal altid have en gyldig e-mail adresse.</Resource>
+    <Resource tag="FACEBOOK">Your Facebook Profile Page (URL):</Resource>
     <Resource tag="FORUM_SETTINGS">Forum indstillinger</Resource>
     <Resource tag="HIDEME">Skjul mig fra aktive brugere</Resource>
     <Resource tag="HOMEPAGE">Hjemmeside</Resource>
     <Resource tag="HOMEPAGE2">Din hjemmeside:</Resource>
+    <Resource tag="ICQ">Your ICQ Number:</Resource>
     <Resource tag="LOCATION">Sted</Resource>
     <Resource tag="MAIL_SENT">En e-mail er blevet sendt til {0}.\n\nDu skal klikke på linket i den mail for at få din nye e-mail adresse godkendt.</Resource>
     <Resource tag="MESSENGER">Direkte besked tjenester</Resource>
@@ -1808,18 +1812,23 @@
     <Resource tag="METAWEBLOG_API_URL">MetaWeblog API URL:</Resource>
     <Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API Brugernavn:</Resource>
     <Resource tag="METAWEBLOG_TITLE">Indlæg til MetaWeblog (API Indstillinger)</Resource>
+    <Resource tag="MSN">Your Windows Live-ID (MSN) Name:</Resource>
     <Resource tag="OVERRIDE_DEFAULT_THEMES">Vælg et andet forum udseende:</Resource>
     <Resource tag="PM_EMAIL_NOTIFICATION">Receive an email notification when you get a new private message?</Resource>
     <Resource tag="REALNAME2">Hvad er dit rigtige navn?</Resource>
     <Resource tag="SELECT_LANGUAGE">Hvilket sprog ønsker du at bruge:</Resource>
     <Resource tag="SELECT_TEXTEDITOR">Select your text editor:</Resource>
     <Resource tag="SELECT_THEME">Vælg dit favorit tema:</Resource>
+    <Resource tag="SKYPE">Your SKYPE ID:</Resource>
     <Resource tag="TIMEZONE">Tidszone</Resource>
     <Resource tag="TIMEZONE2">Vi skal vide hvilken tidszone du befinder dig i for at vise det rigtige klokkeslet.</Resource>
     <Resource tag="TITLE">Ændre profil</Resource>
+    <Resource tag="TWITTER">Your Twitter Name:</Resource>
     <Resource tag="USE_MOBILE_THEME">Use Mobile Forum Theme:</Resource>
     <Resource tag="WEBLOG2">Din Weblog:</Resource>
     <Resource tag="WHERE">Hvor bor du?</Resource>
+    <Resource tag="XMPP">Your Jabber ID:</Resource>
+    <Resource tag="YIM">Your Yahoo ID:</Resource>
   </page>
   <page name="CP_MESSAGE">
     <Resource tag="INBOX">Indbakke</Resource>
@@ -2678,6 +2687,7 @@
     <Resource tag="EMAIL">EMail</Resource>
     <Resource tag="EMAILTOPIC">Email dette emne</Resource>
     <Resource tag="EMPTY_MESSAGE">Du skal skrive et eller andet i dit indlæg</Resource>
+    <Resource tag="FACEBOOK">Facebook</Resource>
     <Resource tag="FACEBOOK_TOPIC">Like this Topic</Resource>
     <Resource tag="FORUM_JUMP">Hop til Forum</Resource>
     <Resource tag="GROUPS">Gruppe</Resource>
@@ -2745,6 +2755,7 @@
     <Resource tag="TOP">Tilbage til toppen</Resource>
     <Resource tag="TOPICBROWSERS">Brugere som besøger dette emne nu:</Resource>
     <Resource tag="TOTAL">Total</Resource>
+    <Resource tag="Twitter">Twitter</Resource>
     <Resource tag="UNWATCHTOPIC">Følg ikke dette emne mere</Resource>
     <Resource tag="USERGENDER_FEM">Kvinde</Resource>
     <Resource tag="USERGENDER_MAS">Mand</Resource>
@@ -2782,6 +2793,7 @@
     <Resource tag="ERROR_ADMINISTRATORS">Du kan ikke suspendere administratorer.</Resource>
     <Resource tag="ERROR_FORUMMODERATORS">Du kan ikke suspendere forum moderatorer.</Resource>
     <Resource tag="ERROR_GUESTACCOUNT">Du kan ikke suspendere gæste kontoen.</Resource>
+    <Resource tag="FACEBOOK">Facebook Profile:</Resource>
     <Resource tag="GENDER">Køn:</Resource>
     <Resource tag="GENDER0">Ikke specificeret</Resource>
     <Resource tag="GENDER1">Hankøn</Resource>
@@ -2817,6 +2829,7 @@
     <Resource tag="THANKSTOPOSTS">Antal indlæg denne bruger er blevet takket for</Resource>
     <Resource tag="THANKSTOTIMES">Antal gange denne bruger er blevet takket</Resource>
     <Resource tag="TOPIC">Emne:</Resource>
+    <Resource tag="Twitter">Twitter Name:</Resource>
     <Resource tag="USERNAME">Brugernavn:</Resource>
     <Resource tag="WEBLOG">Weblog:</Resource>
     <Resource tag="WEBSITE">Hjemmeside:</Resource>
