@@ -1785,7 +1785,7 @@
     <Resource tag="AIM">Your AIM Name:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Se alle emner du har skrevet et indlæg i og modtag en email notifikation når der er aktivitet i disse emner?</Resource>
     <Resource tag="BAD_EMAIL">Du skrev en ugyldig e-mail adresse.</Resource>
-    <Resource tag="BAD_FACEBOOk">You have entered a invalid address for your Facebook Profile Page. (Example URL : http://www.facebook.com/yourname)</Resource>
+    
     <Resource tag="BAD_HOME">Du har skrevet en ugyldig adresse til din hjemmeside.</Resource>
     <Resource tag="BAD_ICQ">Du har skrevet et ugyldigt ICQ nummer.</Resource>
     <Resource tag="BAD_MSN">Du har skrevet en ugyldig e-mail adresse til din MSN konto.</Resource>
@@ -1798,7 +1798,7 @@
     <Resource tag="DUPLICATED_EMAIL">The e-mail adress you have entered is already in use.</Resource>
     <Resource tag="EDIT_ALBUMS">Rediger albums</Resource>
     <Resource tag="EMAIL">Du skal altid have en gyldig e-mail adresse.</Resource>
-    <Resource tag="FACEBOOK">Your Facebook Profile Page (URL):</Resource>
+    <Resource tag="FACEBOOK">Your Facebook Profile Name:</Resource>
     <Resource tag="FORUM_SETTINGS">Forum indstillinger</Resource>
     <Resource tag="HIDEME">Skjul mig fra aktive brugere</Resource>
     <Resource tag="HOMEPAGE">Hjemmeside</Resource>
@@ -2065,7 +2065,7 @@
 &lt;p&gt;&lt;strong&gt;Home Page&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Here you can optionally enter a Home page and/or a Blog.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Instant messaging services&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Here you can optionally enter your messenger Ids of services such as MSN, YAHOO, AIM, ICQ, XMPP, SKYPE.&lt;/p&gt;
+&lt;p&gt;Here you can optionally enter your messenger Ids of services such as MSN, YAHOO, AIM, ICQ, XMPP, SKYPE, Facebook and Twitter.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Time Zone&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Here you can specify the Time Zone to adjust the board Time and Date to your local Time. And set if the Daylight Saving Time should be automatically adjusted.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Forum Settings&lt;/strong&gt;&lt;/p&gt;

@@ -1786,7 +1786,7 @@
     <Resource tag="AIM">Your AIM Name:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Kas soovite jälgida teemasid, kus te olete teinud postituse, ja saada e-posti teel teavitusi nende teemadega seotud tegevuste kohta?</Resource>
     <Resource tag="BAD_EMAIL">E-kirja aadress on vigane.</Resource>
-    <Resource tag="BAD_FACEBOOk">You have entered a invalid address for your Facebook Profile Page. (Example URL : http://www.facebook.com/yourname)</Resource>
+    
     <Resource tag="BAD_HOME">Kodulehe aadress on vigane.</Resource>
     <Resource tag="BAD_ICQ">ICQ number on vigane.</Resource>
     <Resource tag="BAD_MSN">E-kirja aadress on vigane.</Resource>
@@ -1799,7 +1799,7 @@
     <Resource tag="DUPLICATED_EMAIL">The e-mail adress you have entered is already in use.</Resource>
     <Resource tag="EDIT_ALBUMS">Muuda albumid</Resource>
     <Resource tag="EMAIL">Teil peab alati olema kehtiv e-posti aadress.</Resource>
-    <Resource tag="FACEBOOK">Your Facebook Profile Page (URL):</Resource>
+    <Resource tag="FACEBOOK">Your Facebook Profile Name:</Resource>
     <Resource tag="FORUM_SETTINGS">Foorumi seaded</Resource>
     <Resource tag="HIDEME">Peida mind aktiivsete kasutajate eest</Resource>
     <Resource tag="HOMEPAGE">Kodulehekülg</Resource>
@@ -2047,7 +2047,7 @@
 &lt;p&gt;&lt;strong&gt;Home Page&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Here you can optionally enter a Home page and/or a Blog.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Instant messaging services&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Here you can optionally enter your messenger Ids of services such as MSN, YAHOO, AIM, ICQ, XMPP, SKYPE.&lt;/p&gt;
+&lt;p&gt;Here you can optionally enter your messenger Ids of services such as MSN, YAHOO, AIM, ICQ, XMPP, SKYPE, Facebook and Twitter.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Time Zone&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Here you can specify the Time Zone to adjust the board Time and Date to your local time. And set the Daylight Saving Time should it be automatically adjusted.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Forum Settings&lt;/strong&gt;&lt;/p&gt;

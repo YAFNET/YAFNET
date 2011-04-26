@@ -1778,7 +1778,7 @@
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Abbonneer je op elk topic waar je een bericht hebt geplaatst en ontvang updates via e-mail?
 </Resource>
     <Resource tag="BAD_EMAIL">Je hebt een ongeldig e-mail adres ingevoerd.</Resource>
-    <Resource tag="BAD_FACEBOOk">You have entered a invalid address for your Facebook Profile Page. (Example URL : http://www.facebook.com/yourname)</Resource>
+    
     <Resource tag="BAD_HOME">Je hebt een ongeldig homepage adres ingevoerd.</Resource>
     <Resource tag="BAD_ICQ">Je hebt een ongeldig ICQ-nummer ingevoerd.</Resource>
     <Resource tag="BAD_MSN">Je hebt een ongeldig e-mail adres ingevoerd voor je MSN-account.</Resource>
@@ -1791,7 +1791,7 @@
     <Resource tag="DUPLICATED_EMAIL">Dit e-mail adres wordt al door iemand gebruikt.</Resource>
     <Resource tag="EDIT_ALBUMS">Bewerk Albums</Resource>
     <Resource tag="EMAIL">Je dient altijd over een geldig e-mail adres te beschikken:</Resource>
-    <Resource tag="FACEBOOK">Your Facebook Profile Page (URL):</Resource>
+    <Resource tag="FACEBOOK">Your Facebook Profile Name:</Resource>
     <Resource tag="FORUM_SETTINGS">Forum-instellingen</Resource>
     <Resource tag="HIDEME">Laat me niet zien aan andere gebruikers</Resource>
     <Resource tag="HOMEPAGE">Homepage</Resource>

@@ -477,7 +477,7 @@ namespace YAF.Pages
             this.SetupThemeButtonWithLink(this.Blog, userData.Profile.Blog);
 
             this.Facebook.Visible = this.User != null && userData.Profile.Facebook.IsSet();
-            this.Facebook.NavigateUrl = userData.Profile.Facebook;
+            this.Facebook.NavigateUrl = "http://www.facebook.com/{0}".FormatWith(userData.Profile.Facebook);
 
             this.Twitter.Visible = this.User != null && userData.Profile.Twitter.IsSet();
             this.Twitter.NavigateUrl = "http://twitter.com/{0}".FormatWith(userData.Profile.Twitter);

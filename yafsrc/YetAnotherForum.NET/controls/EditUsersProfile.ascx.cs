@@ -294,26 +294,6 @@ namespace YAF.Controls
         return;
       }
 
-      if (this.Facebook.Text.IsSet())
-      {
-          // add http:// by default
-          if (!Regex.IsMatch(this.HomePage.Text.Trim(), @"^(http|https)\://.*"))
-          {
-              this.Facebook.Text = "http://{0}".FormatWith(this.HomePage.Text.Trim());
-          }
-
-          if (this.HomePage.Text.Trim().Contains(@"facebook.com"))
-          {
-              this.Facebook.Text = "http://www.facebook.com/{0}".FormatWith(this.HomePage.Text.Trim());
-          }
-
-          if (!ValidationHelper.IsValidURL(this.HomePage.Text))
-          {
-              this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_HOME"));
-              return;
-          }
-      }
-
       string displayName = null;
 
       if (this.Get<YafBoardSettings>().EnableDisplayName &&
