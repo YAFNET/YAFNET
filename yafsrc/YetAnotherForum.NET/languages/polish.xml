@@ -284,6 +284,8 @@
     <Resource tag="BOARD_EMAIL_MODS_HELP">Should all the moderators of a forum be notified if a new post that needs approval is created?</Resource>
     <Resource tag="BOARD_EMAIL_ONREGISTER">Send Email Notification On User Register to Emails:</Resource>
     <Resource tag="BOARD_EMAIL_ONREGISTER_HELP">Semi-colon (;) separated list of emails to send a notification to on user registration.</Resource>
+    <Resource tag="BOARD_EMAIL_REPORTMODS">Email Moderators On a Reported Post:</Resource>
+    <Resource tag="BOARD_EMAIL_REPORTMODS_HELP">Should all the moderators of a forum be notified if someone reported a post?</Resource>
     <Resource tag="BOARD_FILE_EXTENSIONS">File Extensions List is:</Resource>
     <Resource tag="BOARD_FILE_EXTENSIONS_HELP">Is the list of file extensions allowed files or disallowed files (less secure)?</Resource>
     <Resource tag="BOARD_JQ_THEME">jQuery UI Theme:</Resource>
@@ -1646,6 +1648,7 @@
     <Resource tag="NO">No</Resource>
     <Resource tag="NONE">None</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">New Message on {0} Forum Needs to be Approved</Resource>
+    <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE">A Message on {0} Forum was reported</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">New User Registered on {0} Forum</Resource>
     <Resource tag="OK">OK</Resource>
     <Resource tag="OR">or</Resource>
@@ -3064,6 +3067,13 @@ Hello!
 		
 		Administration Link: {adminlink}
 	</Resource>
+    <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE_TEXT">
+      A message was reported by {reporter} for the following reason: {reason}
+	  
+The Message was posted in the {forumname} forum.
+      
+      Administration Link: {adminlink}
+   </Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER">
 		Hello!
 

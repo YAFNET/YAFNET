@@ -109,11 +109,16 @@ namespace YAF.Pages
       // Save the reported message
       LegacyDb.message_report(this.messageID, this.PageContext.PageUserID, DateTime.UtcNow, this.reportEditor.Text);
 
+      // Send Notification to Mods about the Reported Post.
+      if (this.Get<YafBoardSettings>().EmailModeratorsOnReportedPost)
+      {
+          // not approved, notifiy moderators
+          this.Get<ISendNotification>().ToModeratorsThatMessageWasReported(this.PageContext.PageForumID, this.messageID, this.PageContext.PageUserID, this.reportEditor.Text);
+      }
+
       // Redirect to reported post
       this.RedirectToPost();
     }
-
-    //// public YAF.Editors.BaseForumEditor Editor { get {return _editor}; set; }
 
     /// <summary>
     /// Page initialization handler.

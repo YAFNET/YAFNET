@@ -469,6 +469,22 @@ namespace YAF.Classes
         }
 
       /// <summary>
+      /// Gets or sets a value indicating whether Email Moderators On Reported Post.
+      /// </summary>
+      public bool EmailModeratorsOnReportedPost
+      {
+          get
+          {
+              return this._regBoard.GetValue("EmailModeratorsOnReportedPost", true);
+          }
+
+          set
+          {
+              this._regBoard.SetValue("EmailModeratorsOnReportedPost", value);
+          }
+      }
+
+      /// <summary>
       /// Gets or sets a value indicating whether 
       /// which Spam Service Type should been used
       /// 0 = No Service

@@ -284,6 +284,8 @@
     <Resource tag="BOARD_EMAIL_MODS_HELP">Moeten alle Moderators standaard een mail krijgen als er een post wordt geplaatst die beoordeeld moet worden?</Resource>
     <Resource tag="BOARD_EMAIL_ONREGISTER">Stuur een E-mail Notification On User Register to Emails:</Resource>
     <Resource tag="BOARD_EMAIL_ONREGISTER_HELP">Puntkomma (;) gescheiden lijst van mailadressen die bericht worden bij registratie van een nieuwe gebruiker.</Resource>
+    <Resource tag="BOARD_EMAIL_REPORTMODS">Email Moderators On a Reported Post:</Resource>
+    <Resource tag="BOARD_EMAIL_REPORTMODS_HELP">Should all the moderators of a forum be notified if someone reported a post?</Resource>
     <Resource tag="BOARD_FILE_EXTENSIONS">Lijst van bestandsextensies:</Resource>
     <Resource tag="BOARD_FILE_EXTENSIONS_HELP">Is de lijst van bestandstypen voor goed- of afgekeurde typen. (minder veilig)?</Resource>
     <Resource tag="BOARD_JQ_THEME">jQuery UI Thema:</Resource>
@@ -1641,6 +1643,7 @@
     <Resource tag="NO">Nee</Resource>
     <Resource tag="NONE">Geen</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">Nieuw bericht op {0} Forum heeft goedkeuring nodig</Resource>
+    <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE">A Message on {0} Forum was reported</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">Nieuwe gebruiker geregistreerd op {0} Forum</Resource>
     <Resource tag="OK">OK</Resource>
     <Resource tag="OR">of</Resource>
@@ -2997,6 +3000,13 @@ Als je je e-mail niet wilde wijzigen, dan kun je deze mail negeren.
 		
 		Beheerlink: {adminlink}
 	</Resource>
+    <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE_TEXT">
+      A message was reported by {reporter} for the following reason: {reason}
+	  
+The Message was posted in the {forumname} forum.
+      
+      Administration Link: {adminlink}
+   </Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER">		Hallo!
 
 		Een nieuwe gebruiker heeft zich geregistreerd op het {forumname} forum:

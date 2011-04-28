@@ -284,6 +284,8 @@
     <Resource tag="BOARD_EMAIL_MODS_HELP">Посылать собщение Email модераторам при появлении нового предмодерируемого или подлежащего модерации поста?</Resource>
     <Resource tag="BOARD_EMAIL_ONREGISTER">Посылать уведомление по Email при регистрации пользователя на адреса:</Resource>
     <Resource tag="BOARD_EMAIL_ONREGISTER_HELP">Разделённый точкой с запятой (;) список адресов электронной почты дял посылки уведомлений при регистрации нового пользователя.</Resource>
+    <Resource tag="BOARD_EMAIL_REPORTMODS">Email Moderators On a Reported Post:</Resource>
+    <Resource tag="BOARD_EMAIL_REPORTMODS_HELP">Should all the moderators of a forum be notified if someone reported a post?</Resource>
     <Resource tag="BOARD_FILE_EXTENSIONS">Список разрешённых расширений файлов:</Resource>
     <Resource tag="BOARD_FILE_EXTENSIONS_HELP">Список разрешённых/запрещённых расширений файлов. Последнее менее безопасно.</Resource>
     <Resource tag="BOARD_JQ_THEME">Тема jQuery UI:</Resource>
@@ -1639,6 +1641,7 @@
     <Resource tag="NO">Нет</Resource>
     <Resource tag="NONE">Ничего</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">Новое сообщение на форуме {0} должно быть Вами одобрено</Resource>
+    <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE">A Message on {0} Forum was reported</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">На форуме {0} зарегистрирован новый пользователь.</Resource>
     <Resource tag="OK">ОК</Resource>
     <Resource tag="OR">или</Resource>
@@ -3057,6 +3060,13 @@
 
       Ссылка для одобрения: {adminlink}
     </Resource>
+    <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE_TEXT">
+      A message was reported by {reporter} for the following reason: {reason}
+	  
+The Message was posted in the {forumname} forum.
+      
+      Administration Link: {adminlink}
+   </Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER">
 		Привет!
 

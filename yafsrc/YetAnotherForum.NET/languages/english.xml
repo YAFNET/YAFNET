@@ -608,6 +608,7 @@
       <Resource tag="CAL_JQ_CULTURE_DFORMAT">MM/dd/YY</Resource>
       <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">New User Registered on {0} Forum</Resource>
       <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">New Message on {0} Forum needs to be approved</Resource>
+	  <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE">A Message on {0} Forum was reported</Resource>
       <Resource tag="CUSTOM_BBCODE">More BBCode</Resource>
       <Resource tag="EMAILVERIFICATION_SUBJECT">{0} Email Verification</Resource>
       <Resource tag="FONT_COLOR">Font Color:</Resource>
@@ -1723,6 +1724,13 @@ Hello!
       
       Administration Link: {adminlink}
    </Resource>
+   <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE_TEXT">
+      A message was reported by {reporter} for the following reason: {reason}
+	  
+The Message was posted in the {forumname} forum.
+      
+      Administration Link: {adminlink}
+   </Resource>
       <Resource tag="PASSWORDRETRIEVAL_HTML">
 &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
 &lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
@@ -2309,6 +2317,8 @@ Visit {forumname} at {forumlink}
       <Resource tag="BOARD_DIGEST_NEWUSERS_HELP">When a new user account is created, default send digest to true?</Resource>
       <Resource tag="BOARD_DEFAULT_NOTIFICATION_HELP">When a new user account is created, what notification setting does it default to?</Resource>
       <Resource tag="BOARD_EMAIL_MODS_HELP">Should all the moderators of a forum be notified if a new post that needs approval is created?</Resource>
+	  <Resource tag="BOARD_EMAIL_REPORTMODS">Email Moderators On a Reported Post:</Resource>
+	  <Resource tag="BOARD_EMAIL_REPORTMODS_HELP">Should all the moderators of a forum be notified if someone reported a post?</Resource>
     </page>
      <page name="ADMIN_FORUMS">
       <Resource tag="CONFIRM_DELETE_CAT">Delete this category?</Resource>

@@ -285,6 +285,8 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="BOARD_EMAIL_MODS_HELP">Sollten alle Moderatoren dieses Forums benachrichtigt werden wenn ein neuer Beitrag die Genehmigung erfordert?</Resource>
     <Resource tag="BOARD_EMAIL_ONREGISTER">Send Email Notification On User Register to Emails:</Resource>
     <Resource tag="BOARD_EMAIL_ONREGISTER_HELP">Semi-colon (;) separated list of emails to send a notification to on user registration.</Resource>
+    <Resource tag="BOARD_EMAIL_REPORTMODS">Email Moderators On a Reported Post:</Resource>
+    <Resource tag="BOARD_EMAIL_REPORTMODS_HELP">Should all the moderators of a forum be notified if someone reported a post?</Resource>
     <Resource tag="BOARD_FILE_EXTENSIONS">Dateierweiterungen Liste ist:</Resource>
     <Resource tag="BOARD_FILE_EXTENSIONS_HELP">Is the list of file extensions allowed files or disallowed files (less secure)?</Resource>
     <Resource tag="BOARD_JQ_THEME">jQuery-UI Skin:</Resource>
@@ -1644,6 +1646,7 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="NO">Nein</Resource>
     <Resource tag="NONE">Keine</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">Neue Nachricht im Forum {0} Forum muss genehmigt werden.</Resource>
+    <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE">A Message on {0} Forum was reported</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">Neuer Benutzer in Forum {0} angemeldet</Resource>
     <Resource tag="OK">OK</Resource>
     <Resource tag="OR">oder</Resource>
@@ -3045,6 +3048,13 @@ Hallo!
 		
 		Administration Link: {adminlink}
 	</Resource>
+    <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE_TEXT">
+      A message was reported by {reporter} for the following reason: {reason}
+	  
+The Message was posted in the {forumname} forum.
+      
+      Administration Link: {adminlink}
+   </Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER">
 Hallo,
 

@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.boardsettings"CodeBehind="boardsettings.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.boardsettings"CodeBehind="boardsettings.ascx.cs" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server" ID="Adminmenu1">
     <table class="content" cellspacing="1" cellpadding="0" width="100%">
@@ -140,6 +140,15 @@
             </td>
             <td class="post">
                 <asp:CheckBox ID="EmailModeratorsOnModeratedPost" runat="server"></asp:CheckBox>
+            </td>
+        </tr>
+         <tr>
+            <td class="postheader">
+                <YAF:HelpLabel ID="HelpLabel3" runat="server" LocalizedTag="BOARD_EMAIL_REPORTMODS"
+                    LocalizedPage="ADMIN_BOARDSETTINGS" />
+            </td>
+            <td class="post">
+                <asp:CheckBox ID="EmailModeratorsOnReportedPost" runat="server"></asp:CheckBox>
             </td>
         </tr>
         <tr>
