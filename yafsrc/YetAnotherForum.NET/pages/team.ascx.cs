@@ -325,10 +325,12 @@ namespace YAF.Pages
 
             pm.Visible = !userData.IsGuest && this.User != null && this.Get<YafBoardSettings>().AllowPrivateMessages;
             pm.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", userData.UserID);
+            pm.ParamTitle0 = userData.UserName;
 
             // email link
             email.Visible = !userData.IsGuest && this.User != null && this.Get<YafBoardSettings>().AllowEmailSending;
             email.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", userData.UserID);
+            email.ParamTitle0 = userData.UserName;
 
             if (this.PageContext.IsAdmin)
             {
@@ -438,10 +440,12 @@ namespace YAF.Pages
 
             pm.Visible = !userData.IsGuest && this.User != null && this.Get<YafBoardSettings>().AllowPrivateMessages;
             pm.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", userData.UserID);
+            pm.ParamTitle0 = userData.UserName;
 
             // email link
             email.Visible = !userData.IsGuest && this.User != null && this.Get<YafBoardSettings>().AllowEmailSending;
             email.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", userData.UserID);
+            email.ParamTitle0 = userData.UserName;
 
             if (this.PageContext.IsAdmin)
             {
