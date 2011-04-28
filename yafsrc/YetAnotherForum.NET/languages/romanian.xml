@@ -1768,7 +1768,6 @@
     <Resource tag="AIM">Your AIM Name:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Watch every topic in which you have made a post and receive email notifications of activities in those topics?</Resource>
     <Resource tag="BAD_EMAIL">Ai introdus o adresa e-mail gresita.</Resource>
-    
     <Resource tag="BAD_HOME">Ai introdus o adresa  gresita pentru pagina personala.</Resource>
     <Resource tag="BAD_ICQ">Ai introdus un numar ICQ gresit. </Resource>
     <Resource tag="BAD_MSN">Ai introdus o adresa e-mail gresita pentru contul  MSN.</Resource>
@@ -2649,10 +2648,12 @@
     <Resource tag="AD_SIGNATURE" />
     <Resource tag="AD_USERNAME">Sponsor</Resource>
     <Resource tag="AIM">AIM</Resource>
+    <Resource tag="AIM_TITLE">Contact {0} via AOL Instant Messanger</Resource>
     <Resource tag="ATOMTOPIC">Atom Feed</Resource>
     <Resource tag="ATTACHMENTINFO">{0:N0} KB, salvati {1:N0} ori.</Resource>
     <Resource tag="ATTACHMENTS">Atasamente:</Resource>
     <Resource tag="BLOG">BLOG</Resource>
+    <Resource tag="BLOG_TITLE">Visit {0}'s Blog</Resource>
     <Resource tag="BUZZ_TOPIC">Buzz this Topic</Resource>
     <Resource tag="CANT_DOWNLOAD">Nu aveti permisiunea de a vedea/download-a atasamentele.</Resource>
     <Resource tag="CANT_DOWNLOAD_REGISTER">[b]Nu aveti permisiunea de[/b] vedea/download-a atasamentele. Incercati sa va inregistrati.</Resource>
@@ -2669,14 +2670,18 @@
     <Resource tag="EDITED_BY_USER">de catre utilizator</Resource>
     <Resource tag="EDITUSER">Edit</Resource>
     <Resource tag="EMAIL">EMail</Resource>
+    <Resource tag="EMAIL_TITLE">Send {0} an Email</Resource>
     <Resource tag="EMAILTOPIC">Trimite pe email tema</Resource>
     <Resource tag="EMPTY_MESSAGE">Trebuie sa scrii ceva in postare.</Resource>
     <Resource tag="FACEBOOK">Facebook</Resource>
+    <Resource tag="FACEBOOK_TITLE">Visit {0}'s Facebook Profile</Resource>
     <Resource tag="FACEBOOK_TOPIC">Like this Topic</Resource>
     <Resource tag="FORUM_JUMP">Salt la forum </Resource>
     <Resource tag="GROUPS">Groupuri</Resource>
     <Resource tag="HOME">WWW</Resource>
+    <Resource tag="HOME_TITLE">Visit {0}'s Homepage</Resource>
     <Resource tag="ICQ">ICQ</Resource>
+    <Resource tag="ICQ_TITLE">Contact {0} via ICQ</Resource>
     <Resource tag="IMAGE_ATTACHMENT_TEXT">{0} ataseaza urmatoarea imagine/imagini:</Resource>
     <Resource tag="IMAGE_DOWNLOAD">Descarca Imagine</Resource>
     <Resource tag="IMAGE_RESIZE_ENLARGE">Clic ptr. a vedea imaginea</Resource>
@@ -2694,11 +2699,13 @@
     <Resource tag="MESSAGEDELETED_MOD">Mesaj sters de catre Moderator.</Resource>
     <Resource tag="MESSAGEDELETED_USER">Mesaj sters de catre Utilizator.</Resource>
     <Resource tag="MSN">MSN</Resource>
+    <Resource tag="MSN_TITLE">Contact {0} via MSN</Resource>
     <Resource tag="NEXTTOPIC">Urmatoare tema</Resource>
     <Resource tag="NORMAL">Normal</Resource>
     <Resource tag="OPTIONS">Optiuni</Resource>
     <Resource tag="OPTIONS_TOOLTIP">Topic Options to Subscribe via Email, RSS, Atom, and to view Printer Friendly Page.</Resource>
     <Resource tag="PM">PM</Resource>
+    <Resource tag="PM_TITLE">Send {0} a Private Message</Resource>
     <Resource tag="POINTS">Puncte</Resource>
     <Resource tag="POLL_CLOSED">(Sondaj inchis)</Resource>
     <Resource tag="POST_REPLY">Raspuns la Post</Resource>
@@ -2719,6 +2726,7 @@
     <Resource tag="SHARE">Share</Resource>
     <Resource tag="SHARE_TOOLTIP">Share this Topic via Email, Twitter, Buzz, Facebook, Digg or Reddit.</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
+    <Resource tag="SKYPE_TITLE">Contact {0} via Skype</Resource>
     <Resource tag="STATISTICS">Statistici</Resource>
     <Resource tag="THANKSFROM">Multumiri: {0} times</Resource>
     <Resource tag="THANKSFROM_FEM">Thanks: {0} times</Resource>
@@ -2740,6 +2748,7 @@
     <Resource tag="TOPICBROWSERS">Utilizatori pe tema</Resource>
     <Resource tag="TOTAL">Total</Resource>
     <Resource tag="Twitter">Twitter</Resource>
+    <Resource tag="TWITTER_TITLE">Visit {0}'s Twitter Profile</Resource>
     <Resource tag="UNWATCHTOPIC">Unwatch this topic</Resource>
     <Resource tag="USERGENDER_FEM">Femeie</Resource>
     <Resource tag="USERGENDER_MAS">Barbat</Resource>
@@ -2758,7 +2767,9 @@
     <Resource tag="WARN_WATCHLOGIN">Trebuie sa fii inregistrat sa vezi aceasta tema.</Resource>
     <Resource tag="WATCHTOPIC">Urmareste aceasta tema</Resource>
     <Resource tag="XMPP">XMPP</Resource>
+    <Resource tag="XMPP_TITLE">Contact {0} via Jabber</Resource>
     <Resource tag="YIM">YAHOO</Resource>
+    <Resource tag="YIM_TITLE">Contact {0} via Yahoo Instant Messanger</Resource>
   </page>
   <page name="PRINTTOPIC">
     <Resource tag="POSTEDBY">Postat de </Resource>

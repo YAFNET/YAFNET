@@ -1786,7 +1786,6 @@
     <Resource tag="AIM">Your AIM Name:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Kas soovite jälgida teemasid, kus te olete teinud postituse, ja saada e-posti teel teavitusi nende teemadega seotud tegevuste kohta?</Resource>
     <Resource tag="BAD_EMAIL">E-kirja aadress on vigane.</Resource>
-    
     <Resource tag="BAD_HOME">Kodulehe aadress on vigane.</Resource>
     <Resource tag="BAD_ICQ">ICQ number on vigane.</Resource>
     <Resource tag="BAD_MSN">E-kirja aadress on vigane.</Resource>
@@ -2502,10 +2501,12 @@
     <Resource tag="AD_SIGNATURE" />
     <Resource tag="AD_USERNAME">Sponsor</Resource>
     <Resource tag="AIM">AIM</Resource>
+    <Resource tag="AIM_TITLE">Contact {0} via AOL Instant Messanger</Resource>
     <Resource tag="ATOMTOPIC">Atom voog</Resource>
     <Resource tag="ATTACHMENTINFO">({0:N0}kb) alla laaditud [b]{1:N0}[/b] korda.</Resource>
     <Resource tag="ATTACHMENTS">Manus(ed):</Resource>
     <Resource tag="BLOG">AJAVEEB</Resource>
+    <Resource tag="BLOG_TITLE">Visit {0}'s Blog</Resource>
     <Resource tag="BUZZ_TOPIC">Buzz this Topic</Resource>
     <Resource tag="CANT_DOWNLOAD">Teil ei ole õigust vaadata/alla laadida manuseid.</Resource>
     <Resource tag="CANT_DOWNLOAD_REGISTER">Teil [b]ei ole[/b] õigust vaadata/alla laadida manuseid. Proovige uuesti ja registreeruge</Resource>
@@ -2522,14 +2523,18 @@
     <Resource tag="EDITED_BY_USER">kasutaja järgi</Resource>
     <Resource tag="EDITUSER">Edit</Resource>
     <Resource tag="EMAIL">E-post</Resource>
+    <Resource tag="EMAIL_TITLE">Send {0} an Email</Resource>
     <Resource tag="EMAILTOPIC">Saada see teema e-postiga</Resource>
     <Resource tag="EMPTY_MESSAGE">Palun sisestage postituse tekst.</Resource>
     <Resource tag="FACEBOOK">Facebook</Resource>
+    <Resource tag="FACEBOOK_TITLE">Visit {0}'s Facebook Profile</Resource>
     <Resource tag="FACEBOOK_TOPIC">Like this Topic</Resource>
     <Resource tag="FORUM_JUMP">Hüppa foorumisse</Resource>
     <Resource tag="GROUPS">Grupid</Resource>
     <Resource tag="HOME">WWW</Resource>
+    <Resource tag="HOME_TITLE">Visit {0}'s Homepage</Resource>
     <Resource tag="ICQ">ICQ</Resource>
+    <Resource tag="ICQ_TITLE">Contact {0} via ICQ</Resource>
     <Resource tag="IMAGE_ATTACHMENT_TEXT">{0} lisas alljärgneva(d) pildi(d):</Resource>
     <Resource tag="IMAGE_DOWNLOAD">Laadi alla pilt</Resource>
     <Resource tag="IMAGE_RESIZE_ENLARGE">Vajutage pildi vaatamiseks</Resource>
@@ -2547,11 +2552,13 @@
     <Resource tag="MESSAGEDELETED_MOD">Postitus on moderaatori poolt kustutatud.</Resource>
     <Resource tag="MESSAGEDELETED_USER">Postitus on kasutaja poolt kustutatud.</Resource>
     <Resource tag="MSN">MSN</Resource>
+    <Resource tag="MSN_TITLE">Contact {0} via MSN</Resource>
     <Resource tag="NEXTTOPIC">Järgmine teema</Resource>
     <Resource tag="NORMAL">Tavapärane</Resource>
     <Resource tag="OPTIONS">Valikud</Resource>
     <Resource tag="OPTIONS_TOOLTIP">Topic Options to Subscribe via Email, RSS, Atom, and to view Printer Friendly Page.</Resource>
     <Resource tag="PM">PM</Resource>
+    <Resource tag="PM_TITLE">Send {0} a Private Message</Resource>
     <Resource tag="POINTS">Punktid</Resource>
     <Resource tag="POLL_CLOSED">(Küsitlus on suletud)</Resource>
     <Resource tag="POST_REPLY">Saada vastus</Resource>
@@ -2572,6 +2579,7 @@
     <Resource tag="SHARE">Share</Resource>
     <Resource tag="SHARE_TOOLTIP">Share this Topic via Email, Twitter, Buzz, Facebook, Digg or Reddit.</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
+    <Resource tag="SKYPE_TITLE">Contact {0} via Skype</Resource>
     <Resource tag="STATISTICS">Statistika</Resource>
     <Resource tag="THANKSFROM">Tänuavaldused: {0} korda</Resource>
     <Resource tag="THANKSFROM_FEM">Thanks: {0} times</Resource>
@@ -2593,6 +2601,7 @@
     <Resource tag="TOPICBROWSERS">Seda teemat vaatavad kasutajad</Resource>
     <Resource tag="TOTAL">Kokku</Resource>
     <Resource tag="Twitter">Twitter</Resource>
+    <Resource tag="TWITTER_TITLE">Visit {0}'s Twitter Profile</Resource>
     <Resource tag="UNWATCHTOPIC">Lõpeta selle teema jälgimine</Resource>
     <Resource tag="USERGENDER_FEM">Naine</Resource>
     <Resource tag="USERGENDER_MAS">Mees</Resource>
@@ -2611,7 +2620,9 @@
     <Resource tag="WARN_WATCHLOGIN">Teemade vaatamiseks peate olema registreeritud.</Resource>
     <Resource tag="WATCHTOPIC">Jälgi seda teemat</Resource>
     <Resource tag="XMPP">XMPP</Resource>
+    <Resource tag="XMPP_TITLE">Contact {0} via Jabber</Resource>
     <Resource tag="YIM">YAHOO</Resource>
+    <Resource tag="YIM_TITLE">Contact {0} via Yahoo Instant Messanger</Resource>
   </page>
   <page name="PRINTTOPIC">
     <Resource tag="POSTEDBY">Postitas</Resource>

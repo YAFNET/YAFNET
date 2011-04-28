@@ -1778,7 +1778,6 @@
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Abbonneer je op elk topic waar je een bericht hebt geplaatst en ontvang updates via e-mail?
 </Resource>
     <Resource tag="BAD_EMAIL">Je hebt een ongeldig e-mail adres ingevoerd.</Resource>
-    
     <Resource tag="BAD_HOME">Je hebt een ongeldig homepage adres ingevoerd.</Resource>
     <Resource tag="BAD_ICQ">Je hebt een ongeldig ICQ-nummer ingevoerd.</Resource>
     <Resource tag="BAD_MSN">Je hebt een ongeldig e-mail adres ingevoerd voor je MSN-account.</Resource>
@@ -2616,10 +2615,12 @@
     <Resource tag="AD_SIGNATURE" />
     <Resource tag="AD_USERNAME">Sponsor</Resource>
     <Resource tag="AIM">AIM</Resource>
+    <Resource tag="AIM_TITLE">Contact {0} via AOL Instant Messanger</Resource>
     <Resource tag="ATOMTOPIC">Atom Feed</Resource>
     <Resource tag="ATTACHMENTINFO">{0:N0} KB, aantal downloads: {1:N0}.</Resource>
     <Resource tag="ATTACHMENTS">Bijlagen:</Resource>
     <Resource tag="BLOG">Blog</Resource>
+    <Resource tag="BLOG_TITLE">Visit {0}'s Blog</Resource>
     <Resource tag="BUZZ_TOPIC">Buzz this Topic</Resource>
     <Resource tag="CANT_DOWNLOAD">Je mag geen attachments bekijken/downloaden.</Resource>
     <Resource tag="CANT_DOWNLOAD_REGISTER">je mag [b]geen[/b] attachments bekijken/downloaden. Registreer jezelf</Resource>
@@ -2636,14 +2637,18 @@
     <Resource tag="EDITED_BY_USER">door de gebruiker</Resource>
     <Resource tag="EDITUSER">Edit</Resource>
     <Resource tag="EMAIL">E-mail</Resource>
+    <Resource tag="EMAIL_TITLE">Send {0} an Email</Resource>
     <Resource tag="EMAILTOPIC">Topic mailen</Resource>
     <Resource tag="EMPTY_MESSAGE">Je moet wel een stukje tekst typen ;)</Resource>
     <Resource tag="FACEBOOK">Facebook</Resource>
+    <Resource tag="FACEBOOK_TITLE">Visit {0}'s Facebook Profile</Resource>
     <Resource tag="FACEBOOK_TOPIC">Like this Topic</Resource>
     <Resource tag="FORUM_JUMP">Spring naar forum</Resource>
     <Resource tag="GROUPS">Groep</Resource>
     <Resource tag="HOME">WWW</Resource>
+    <Resource tag="HOME_TITLE">Visit {0}'s Homepage</Resource>
     <Resource tag="ICQ">ICQ</Resource>
+    <Resource tag="ICQ_TITLE">Contact {0} via ICQ</Resource>
     <Resource tag="IMAGE_ATTACHMENT_TEXT">{0} heeft deze afbeelding(en) toegevoegd als bijlage:</Resource>
     <Resource tag="IMAGE_DOWNLOAD">Plaatje downloaden</Resource>
     <Resource tag="IMAGE_RESIZE_ENLARGE">Klik om het plaatje te bekijken</Resource>
@@ -2661,11 +2666,13 @@
     <Resource tag="MESSAGEDELETED_MOD">Bericht is verwijderd door een Moderator.</Resource>
     <Resource tag="MESSAGEDELETED_USER">Bericht is verwijderd door de gebruiker</Resource>
     <Resource tag="MSN">MSN</Resource>
+    <Resource tag="MSN_TITLE">Contact {0} via MSN</Resource>
     <Resource tag="NEXTTOPIC">Volgende topic</Resource>
     <Resource tag="NORMAL">Normaal</Resource>
     <Resource tag="OPTIONS">Opties</Resource>
     <Resource tag="OPTIONS_TOOLTIP">Topic Options to Subscribe via Email, RSS, Atom, and to view Printer Friendly Page.</Resource>
     <Resource tag="PM">Stuur PM</Resource>
+    <Resource tag="PM_TITLE">Send {0} a Private Message</Resource>
     <Resource tag="POINTS">Punten</Resource>
     <Resource tag="POLL_CLOSED">(Poll is gesloten)</Resource>
     <Resource tag="POST_REPLY">Reageer</Resource>
@@ -2686,6 +2693,7 @@
     <Resource tag="SHARE">Share</Resource>
     <Resource tag="SHARE_TOOLTIP">Share this Topic via Email, Twitter, Buzz, Facebook, Digg or Reddit.</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
+    <Resource tag="SKYPE_TITLE">Contact {0} via Skype</Resource>
     <Resource tag="STATISTICS">Statistieken</Resource>
     <Resource tag="THANKSFROM">Bedankjes: {0} keer</Resource>
     <Resource tag="THANKSFROM_FEM">Bedankjes: {0} keer</Resource>
@@ -2707,6 +2715,7 @@
     <Resource tag="TOPICBROWSERS">Gebruikers die dit onderwerp bekijken</Resource>
     <Resource tag="TOTAL">Totaal</Resource>
     <Resource tag="Twitter">Twitter</Resource>
+    <Resource tag="TWITTER_TITLE">Visit {0}'s Twitter Profile</Resource>
     <Resource tag="UNWATCHTOPIC">Topic niet meer volgen</Resource>
     <Resource tag="USERGENDER_FEM">Vrouw</Resource>
     <Resource tag="USERGENDER_MAS">Man</Resource>
@@ -2725,7 +2734,9 @@
     <Resource tag="WARN_WATCHLOGIN">Je moet geregistreerd zijn om topics te kunnen volgen.</Resource>
     <Resource tag="WATCHTOPIC">Topic volgen</Resource>
     <Resource tag="XMPP">XMPP</Resource>
+    <Resource tag="XMPP_TITLE">Contact {0} via Jabber</Resource>
     <Resource tag="YIM">YAHOO</Resource>
+    <Resource tag="YIM_TITLE">Contact {0} via Yahoo Instant Messanger</Resource>
   </page>
   <page name="PRINTTOPIC">
     <Resource tag="POSTEDBY">Geplaatst door</Resource>

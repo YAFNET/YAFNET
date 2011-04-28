@@ -1768,7 +1768,6 @@
     <Resource tag="AIM">Your AIM Name:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Watch every topic in which you have made a post and receive email notifications of activities in those topics?</Resource>
     <Resource tag="BAD_EMAIL">Bạn đã nhập địa chỉ email không hợp lệ.</Resource>
-    
     <Resource tag="BAD_HOME">Bạn đã nhập địa chỉ không hợp lệ cho trang chủ của bạn.</Resource>
     <Resource tag="BAD_ICQ">Bạn đã nhập không hợp lệ cho số ICQ.</Resource>
     <Resource tag="BAD_MSN">Bạn đã nhập địa chỉ email không hợp lệ cho tài khoản MSN.</Resource>
@@ -2648,10 +2647,12 @@
     <Resource tag="AD_SIGNATURE" />
     <Resource tag="AD_USERNAME">Quảng cáo</Resource>
     <Resource tag="AIM">AIM</Resource>
+    <Resource tag="AIM_TITLE">Contact {0} via AOL Instant Messanger</Resource>
     <Resource tag="ATOMTOPIC">Atom Feed</Resource>
     <Resource tag="ATTACHMENTINFO">({0:N0}kb) đã được dowbload [b]{1:N0}[/b] lần.</Resource>
     <Resource tag="ATTACHMENTS">Tập tin đính kèm(s):</Resource>
     <Resource tag="BLOG">BLOG</Resource>
+    <Resource tag="BLOG_TITLE">Visit {0}'s Blog</Resource>
     <Resource tag="BUZZ_TOPIC">Buzz this Topic</Resource>
     <Resource tag="CANT_DOWNLOAD">You don't have permission to view/download attachments.</Resource>
     <Resource tag="CANT_DOWNLOAD_REGISTER">You [b]cannot[/b] view/download attachments. Try register.</Resource>
@@ -2668,14 +2669,18 @@
     <Resource tag="EDITED_BY_USER">bởi người viết</Resource>
     <Resource tag="EDITUSER">Edit</Resource>
     <Resource tag="EMAIL">Email</Resource>
+    <Resource tag="EMAIL_TITLE">Send {0} an Email</Resource>
     <Resource tag="EMAILTOPIC">Email chủ đề này</Resource>
     <Resource tag="EMPTY_MESSAGE">Xin nhập nội dung bài viết.</Resource>
     <Resource tag="FACEBOOK">Facebook</Resource>
+    <Resource tag="FACEBOOK_TITLE">Visit {0}'s Facebook Profile</Resource>
     <Resource tag="FACEBOOK_TOPIC">Like this Topic</Resource>
     <Resource tag="FORUM_JUMP">Di chuyển</Resource>
     <Resource tag="GROUPS">Nhóm</Resource>
     <Resource tag="HOME">WWW</Resource>
+    <Resource tag="HOME_TITLE">Visit {0}'s Homepage</Resource>
     <Resource tag="ICQ">ICQ</Resource>
+    <Resource tag="ICQ_TITLE">Contact {0} via ICQ</Resource>
     <Resource tag="IMAGE_ATTACHMENT_TEXT">{0} hình được đính kèm:</Resource>
     <Resource tag="IMAGE_DOWNLOAD">Download Image</Resource>
     <Resource tag="IMAGE_RESIZE_ENLARGE">Click to View Image</Resource>
@@ -2693,11 +2698,13 @@
     <Resource tag="MESSAGEDELETED_MOD">Bài viết được xoá bởi quản trị viên.</Resource>
     <Resource tag="MESSAGEDELETED_USER">Bài viết được xoá bởi người gửi.</Resource>
     <Resource tag="MSN">MSN</Resource>
+    <Resource tag="MSN_TITLE">Contact {0} via MSN</Resource>
     <Resource tag="NEXTTOPIC">Chủ đề kế tiếp</Resource>
     <Resource tag="NORMAL">Bình thường</Resource>
     <Resource tag="OPTIONS">Tùy chọn</Resource>
     <Resource tag="OPTIONS_TOOLTIP">Topic Options to Subscribe via Email, RSS, Atom, and to view Printer Friendly Page.</Resource>
     <Resource tag="PM">PM</Resource>
+    <Resource tag="PM_TITLE">Send {0} a Private Message</Resource>
     <Resource tag="POINTS">Điểm</Resource>
     <Resource tag="POLL_CLOSED">(Bình chọn đã đóng)</Resource>
     <Resource tag="POST_REPLY">Viết bài trả lời</Resource>
@@ -2718,6 +2725,7 @@
     <Resource tag="SHARE">Share</Resource>
     <Resource tag="SHARE_TOOLTIP">Share this Topic via Email, Twitter, Buzz, Facebook, Digg or Reddit.</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
+    <Resource tag="SKYPE_TITLE">Contact {0} via Skype</Resource>
     <Resource tag="STATISTICS">Thống kê</Resource>
     <Resource tag="THANKSFROM">Cảm ơn: {0} lần</Resource>
     <Resource tag="THANKSFROM_FEM">Thanks: {0} times</Resource>
@@ -2739,6 +2747,7 @@
     <Resource tag="TOPICBROWSERS">Ai đang xem chủ đề này?</Resource>
     <Resource tag="TOTAL">Tổng</Resource>
     <Resource tag="Twitter">Twitter</Resource>
+    <Resource tag="TWITTER_TITLE">Visit {0}'s Twitter Profile</Resource>
     <Resource tag="UNWATCHTOPIC">chưa xem chủ đề này</Resource>
     <Resource tag="USERGENDER_FEM">Woman</Resource>
     <Resource tag="USERGENDER_MAS">Man</Resource>
@@ -2757,7 +2766,9 @@
     <Resource tag="WARN_WATCHLOGIN">Bạn cần đăng nhập để tiếp tục.</Resource>
     <Resource tag="WATCHTOPIC">Xem chủ đề này</Resource>
     <Resource tag="XMPP">XMPP</Resource>
+    <Resource tag="XMPP_TITLE">Contact {0} via Jabber</Resource>
     <Resource tag="YIM">YAHOO</Resource>
+    <Resource tag="YIM_TITLE">Contact {0} via Yahoo Instant Messanger</Resource>
   </page>
   <page name="PRINTTOPIC">
     <Resource tag="POSTEDBY">Viết bởi</Resource>

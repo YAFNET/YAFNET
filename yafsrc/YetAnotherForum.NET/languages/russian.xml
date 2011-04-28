@@ -1794,7 +1794,6 @@
     <Resource tag="AIM">Your AIM Name:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Желаете ли Вы получать уведомление по электронной почте каждый раз, когда кто-либо оставляет сообщение во [b]всех[/b] обсуждениях с вашим участием?</Resource>
     <Resource tag="BAD_EMAIL">Вы ввели недопустимый адрес электронной почты.</Resource>
-    
     <Resource tag="BAD_HOME">Вы ввели неработающий адрес своей домашней страницы.</Resource>
     <Resource tag="BAD_ICQ">Вы ввели недопустимое значение для вашего номера ICQ.</Resource>
     <Resource tag="BAD_MSN">Вы ввели неверный адрес электронной почты для учётной записи MSN.</Resource>
@@ -2671,10 +2670,12 @@
     <Resource tag="AD_SIGNATURE" />
     <Resource tag="AD_USERNAME">Реклама</Resource>
     <Resource tag="AIM">AIM</Resource>
+    <Resource tag="AIM_TITLE">Contact {0} via AOL Instant Messanger</Resource>
     <Resource tag="ATOMTOPIC">Atom-лента темы</Resource>
     <Resource tag="ATTACHMENTINFO">({0:N0}kb) загружен [b]{1:N0}[/b] раз(а).</Resource>
     <Resource tag="ATTACHMENTS">Вложение(я):</Resource>
     <Resource tag="BLOG">БЛОГ</Resource>
+    <Resource tag="BLOG_TITLE">Visit {0}'s Blog</Resource>
     <Resource tag="BUZZ_TOPIC">Расшарить тему в Buzz</Resource>
     <Resource tag="CANT_DOWNLOAD">У Вас нет прав для просмотра или загрузки вложений.</Resource>
     <Resource tag="CANT_DOWNLOAD_REGISTER">У Вас нет прав для просмотра или загрузки вложений. Попробуйте зарегистрироваться.</Resource>
@@ -2691,14 +2692,18 @@
     <Resource tag="EDITED_BY_USER">пользователем</Resource>
     <Resource tag="EDITUSER">Редактировать</Resource>
     <Resource tag="EMAIL">Email</Resource>
+    <Resource tag="EMAIL_TITLE">Send {0} an Email</Resource>
     <Resource tag="EMAILTOPIC">Отправить тему по почте</Resource>
     <Resource tag="EMPTY_MESSAGE">Сообщение должно содержать текст.</Resource>
     <Resource tag="FACEBOOK">Facebook</Resource>
+    <Resource tag="FACEBOOK_TITLE">Visit {0}'s Facebook Profile</Resource>
     <Resource tag="FACEBOOK_TOPIC">Смотреть в этой теме</Resource>
     <Resource tag="FORUM_JUMP">Быстрый переход</Resource>
     <Resource tag="GROUPS">Группы</Resource>
     <Resource tag="HOME">WWW</Resource>
+    <Resource tag="HOME_TITLE">Visit {0}'s Homepage</Resource>
     <Resource tag="ICQ">ICQ</Resource>
+    <Resource tag="ICQ_TITLE">Contact {0} via ICQ</Resource>
     <Resource tag="IMAGE_ATTACHMENT_TEXT">Пользователь {0} прикрепил следующие файлы:</Resource>
     <Resource tag="IMAGE_DOWNLOAD">Загрузить изображение</Resource>
     <Resource tag="IMAGE_RESIZE_ENLARGE">Ω Увеличить</Resource>
@@ -2716,11 +2721,13 @@
     <Resource tag="MESSAGEDELETED_MOD">Собщение удалено модератором.</Resource>
     <Resource tag="MESSAGEDELETED_USER">Сообщение удалено пользователем.</Resource>
     <Resource tag="MSN">MSN</Resource>
+    <Resource tag="MSN_TITLE">Contact {0} via MSN</Resource>
     <Resource tag="NEXTTOPIC">Следующая тема</Resource>
     <Resource tag="NORMAL">Обычный</Resource>
     <Resource tag="OPTIONS">Опции</Resource>
     <Resource tag="OPTIONS_TOOLTIP">Опции темы дял подписки посредством почты, RSS, Atom, и другие опции.</Resource>
     <Resource tag="PM">ЛС</Resource>
+    <Resource tag="PM_TITLE">Send {0} a Private Message</Resource>
     <Resource tag="POINTS">Баллов</Resource>
     <Resource tag="POLL_CLOSED">Опрос завершён</Resource>
     <Resource tag="POST_REPLY">Ответить на сообщение</Resource>
@@ -2741,6 +2748,7 @@
     <Resource tag="SHARE">Поделиться</Resource>
     <Resource tag="SHARE_TOOLTIP">Расшарить эту тему по почте, Твиттеру, Facebook и другими способами.</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
+    <Resource tag="SKYPE_TITLE">Contact {0} via Skype</Resource>
     <Resource tag="STATISTICS">Статистика</Resource>
     <Resource tag="THANKSFROM">Сказал(а) «Спасибо»: {0} раз</Resource>
     <Resource tag="THANKSFROM_FEM">Сказала «Спасибо»: {0} раз</Resource>
@@ -2762,6 +2770,7 @@
     <Resource tag="TOPICBROWSERS">Пользователи, просматривающие эту тему</Resource>
     <Resource tag="TOTAL">Всего</Resource>
     <Resource tag="Twitter">Twitter</Resource>
+    <Resource tag="TWITTER_TITLE">Visit {0}'s Twitter Profile</Resource>
     <Resource tag="UNWATCHTOPIC">Не отслеживать эту тему</Resource>
     <Resource tag="USERGENDER_FEM">Женщина</Resource>
     <Resource tag="USERGENDER_MAS">Мужчина</Resource>
@@ -2780,7 +2789,9 @@
     <Resource tag="WARN_WATCHLOGIN">Вы должны быть зарегистрированным пользователем, чтобы просматривать темы.</Resource>
     <Resource tag="WATCHTOPIC">Отслеживать эту тему</Resource>
     <Resource tag="XMPP">XMPP</Resource>
+    <Resource tag="XMPP_TITLE">Contact {0} via Jabber</Resource>
     <Resource tag="YIM">YAHOO</Resource>
+    <Resource tag="YIM_TITLE">Contact {0} via Yahoo Instant Messanger</Resource>
   </page>
   <page name="PRINTTOPIC">
     <Resource tag="POSTEDBY">Автор</Resource>

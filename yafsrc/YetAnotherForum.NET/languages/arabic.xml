@@ -1786,7 +1786,6 @@
     <Resource tag="AIM">Your AIM Name:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Watch every topic in which you have made a post and receive email notifications of activities in those topics?</Resource>
     <Resource tag="BAD_EMAIL">لقد قمت بادخال عنوان بريد الكتروني غير قانوني</Resource>
-    
     <Resource tag="BAD_HOME">لقد قمت بإدخال عنوان غير صالح لصفحتك الرئيسية</Resource>
     <Resource tag="BAD_ICQ">غير صحيح(ICQ)لقد أدخلت رقم</Resource>
     <Resource tag="BAD_MSN"> غير صحيح(msn)لقد أدخلت عنوان ماسنجر</Resource>
@@ -2505,10 +2504,12 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="AD_SIGNATURE" />
     <Resource tag="AD_USERNAME">الراعي</Resource>
     <Resource tag="AIM">AIM</Resource>
+    <Resource tag="AIM_TITLE">Contact {0} via AOL Instant Messanger</Resource>
     <Resource tag="ATOMTOPIC">الموضيع  المهمة </Resource>
     <Resource tag="ATTACHMENTINFO">({0:N0}kb) تحميل [b]{1:في}[/b] الوقت.</Resource>
     <Resource tag="ATTACHMENTS">المرفقات :</Resource>
     <Resource tag="BLOG">BLOG</Resource>
+    <Resource tag="BLOG_TITLE">Visit {0}'s Blog</Resource>
     <Resource tag="BUZZ_TOPIC">Buzz this Topic</Resource>
     <Resource tag="CANT_DOWNLOAD">لايوجد لديك صلاحية  لتحميل من المرفقات  يرجى التسجيل اولا</Resource>
     <Resource tag="CANT_DOWNLOAD_REGISTER">انت [b]لايمكنك [/b] مشاهدت او تحميل  اي من المرفقات  مالا تتم عملية التسجيل  </Resource>
@@ -2525,14 +2526,18 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="EDITED_BY_USER">بواسطة عضو</Resource>
     <Resource tag="EDITUSER">Edit</Resource>
     <Resource tag="EMAIL">البريد الالكتروني</Resource>
+    <Resource tag="EMAIL_TITLE">Send {0} an Email</Resource>
     <Resource tag="EMAILTOPIC">البريد الالكتروني  لهذه المشركة</Resource>
     <Resource tag="EMPTY_MESSAGE">يجب  عليك ادخال   اي  كلمة    لتثبيت المشاركة </Resource>
     <Resource tag="FACEBOOK">Facebook</Resource>
+    <Resource tag="FACEBOOK_TITLE">Visit {0}'s Facebook Profile</Resource>
     <Resource tag="FACEBOOK_TOPIC">Like this Topic</Resource>
     <Resource tag="FORUM_JUMP">الذهاب السريع الى منتدى </Resource>
     <Resource tag="GROUPS">المجموعات </Resource>
     <Resource tag="HOME">WWW</Resource>
+    <Resource tag="HOME_TITLE">Visit {0}'s Homepage</Resource>
     <Resource tag="ICQ">ICQ</Resource>
+    <Resource tag="ICQ_TITLE">Contact {0} via ICQ</Resource>
     <Resource tag="IMAGE_ATTACHMENT_TEXT"> {0} أرفق الصورة التالية:</Resource>
     <Resource tag="IMAGE_DOWNLOAD">تحميل هذه الصورة </Resource>
     <Resource tag="IMAGE_RESIZE_ENLARGE">اظهار هذه الطورة </Resource>
@@ -2550,11 +2555,13 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="MESSAGEDELETED_MOD">حذف هذه الرساله بواسطة المشرف </Resource>
     <Resource tag="MESSAGEDELETED_USER">حذف الرسالة بواسطة عضو.</Resource>
     <Resource tag="MSN">(MSN)مسنجر </Resource>
+    <Resource tag="MSN_TITLE">Contact {0} via MSN</Resource>
     <Resource tag="NEXTTOPIC"> الموضوع التالي</Resource>
     <Resource tag="NORMAL">عادي</Resource>
     <Resource tag="OPTIONS">خيارات </Resource>
     <Resource tag="OPTIONS_TOOLTIP">Topic Options to Subscribe via Email, RSS, Atom, and to view Printer Friendly Page.</Resource>
     <Resource tag="PM">رسالة خاصة</Resource>
+    <Resource tag="PM_TITLE">Send {0} a Private Message</Resource>
     <Resource tag="POINTS">نقاط</Resource>
     <Resource tag="POLL_CLOSED">(تم إغلاق عملية الإستفتاء)</Resource>
     <Resource tag="POST_REPLY">الرد بمشاركة </Resource>
@@ -2575,6 +2582,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="SHARE">Share</Resource>
     <Resource tag="SHARE_TOOLTIP">Share this Topic via Email, Twitter, Buzz, Facebook, Digg or Reddit.</Resource>
     <Resource tag="SKYPE">(SKYPE)سكاي بي</Resource>
+    <Resource tag="SKYPE_TITLE">Contact {0} via Skype</Resource>
     <Resource tag="STATISTICS">إحصاءات</Resource>
     <Resource tag="THANKSFROM"> تم الشكر {0} مرات </Resource>
     <Resource tag="THANKSFROM_FEM">Thanks: {0} times</Resource>
@@ -2596,6 +2604,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="TOPICBROWSERS">المشتركة يتصفح حاليا </Resource>
     <Resource tag="TOTAL">المجموع</Resource>
     <Resource tag="Twitter">Twitter</Resource>
+    <Resource tag="TWITTER_TITLE">Visit {0}'s Twitter Profile</Resource>
     <Resource tag="UNWATCHTOPIC">الموضيع التي لم تشاهد</Resource>
     <Resource tag="USERGENDER_FEM">أنثى</Resource>
     <Resource tag="USERGENDER_MAS">ذكر </Resource>
@@ -2614,7 +2623,9 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="WARN_WATCHLOGIN">يجب عليك تسجيل الدخول اولا لمشاهدة الموضوع .</Resource>
     <Resource tag="WATCHTOPIC">مشاهدة موضوع</Resource>
     <Resource tag="XMPP">XMPP</Resource>
+    <Resource tag="XMPP_TITLE">Contact {0} via Jabber</Resource>
     <Resource tag="YIM">(YAHOO)ياهو </Resource>
+    <Resource tag="YIM_TITLE">Contact {0} via Yahoo Instant Messanger</Resource>
   </page>
   <page name="PRINTTOPIC">
     <Resource tag="POSTEDBY">مشاركة بواسطة </Resource>

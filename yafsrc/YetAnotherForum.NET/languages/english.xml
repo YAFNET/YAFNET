@@ -1401,7 +1401,19 @@
 	  <Resource tag="OPTIONS_TOOLTIP">Topic Options to Subscribe via Email, RSS, Atom, and to view Printer Friendly Page.</Resource>
 	  <Resource tag="VIEW_TOOLTIP">Change Topic View between Normal or Thread View.</Resource>
 	  <Resource tag="FACEBOOK">Facebook</Resource>
-	  <Resource tag="Twitter">Twitter</Resource>
+	  <Resource tag="TWITTER">Twitter</Resource>
+	  <Resource tag="PM_TITLE">Send {0} a Private Message</Resource>
+	  <Resource tag="EMAIL_TITLE">Send {0} an Email</Resource>
+	  <Resource tag="HOME_TITLE">Visit {0}'s Homepage</Resource>
+	  <Resource tag="BLOG_TITLE">Visit {0}'s Blog</Resource>
+	  <Resource tag="MSN_TITLE">Contact {0} via MSN</Resource>
+	  <Resource tag="AIM_TITLE">Contact {0} via AOL Instant Messanger</Resource>
+	  <Resource tag="YIM_TITLE">Contact {0} via Yahoo Instant Messanger</Resource>
+	  <Resource tag="ICQ_TITLE">Contact {0} via ICQ</Resource>
+	  <Resource tag="XMPP_TITLE">Contact {0} via Jabber</Resource>
+	  <Resource tag="SKYPE_TITLE">Contact {0} via Skype</Resource>
+	  <Resource tag="TWITTER_TITLE">Visit {0}'s Twitter Profile</Resource>
+	  <Resource tag="FACEBOOK_TITLE">Visit {0}'s Facebook Profile</Resource>
    </page>
    <page name="BUDDY">
       <Resource tag="ADDBUDDY">Add as buddy</Resource>

@@ -1768,7 +1768,6 @@
     <Resource tag="AIM">Your AIM Name:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Watch every topic in which you have made a post and receive email notifications of activities in those topics?</Resource>
     <Resource tag="BAD_EMAIL">آدرس ایمیلی که وارد کرده اید اشتباه میباشد.</Resource>
-    
     <Resource tag="BAD_HOME">آدرسی که به عنوان صفحه خانگی خود وارد کرده اید اشتباه میباشد.</Resource>
     <Resource tag="BAD_ICQ">آدرس ایمیلی که برای سرویس ICQ وارد کرده اید اشتباه میباشد.</Resource>
     <Resource tag="BAD_MSN">آدرس ایمیلی که برای سرویس MSN وارد کرده اید اشتباه میباشد.</Resource>
@@ -2646,10 +2645,12 @@
     <Resource tag="AD_SIGNATURE">توضیحات</Resource>
     <Resource tag="AD_USERNAME">تبلیغات</Resource>
     <Resource tag="AIM">AIM</Resource>
+    <Resource tag="AIM_TITLE">Contact {0} via AOL Instant Messanger</Resource>
     <Resource tag="ATOMTOPIC">Atom Feed</Resource>
     <Resource tag="ATTACHMENTINFO">({0:N0}kb) تعداد دانلود [b]{1:N0}[/b] بار.</Resource>
     <Resource tag="ATTACHMENTS">فایلهای الصاق شده :</Resource>
     <Resource tag="BLOG">بلاگ</Resource>
+    <Resource tag="BLOG_TITLE">Visit {0}'s Blog</Resource>
     <Resource tag="BUZZ_TOPIC">Buzz this Topic</Resource>
     <Resource tag="CANT_DOWNLOAD">You don't have permission to view/download attachments.</Resource>
     <Resource tag="CANT_DOWNLOAD_REGISTER">You [b]cannot[/b] view/download attachments. Try register.</Resource>
@@ -2666,14 +2667,18 @@
     <Resource tag="EDITED_BY_USER">بوسیله کاربر</Resource>
     <Resource tag="EDITUSER">Edit</Resource>
     <Resource tag="EMAIL">پست الکترونیک</Resource>
+    <Resource tag="EMAIL_TITLE">Send {0} an Email</Resource>
     <Resource tag="EMAILTOPIC">ارسال این عنوان بصورت ایمیل</Resource>
     <Resource tag="EMPTY_MESSAGE">باید مطلبی را در ارسال خود وارد کنید.</Resource>
     <Resource tag="FACEBOOK">Facebook</Resource>
+    <Resource tag="FACEBOOK_TITLE">Visit {0}'s Facebook Profile</Resource>
     <Resource tag="FACEBOOK_TOPIC">Like this Topic</Resource>
     <Resource tag="FORUM_JUMP">جهش به انجمن</Resource>
     <Resource tag="GROUPS">گروه ها</Resource>
     <Resource tag="HOME">وب سایت</Resource>
+    <Resource tag="HOME_TITLE">Visit {0}'s Homepage</Resource>
     <Resource tag="ICQ">ICQ</Resource>
+    <Resource tag="ICQ_TITLE">Contact {0} via ICQ</Resource>
     <Resource tag="IMAGE_ATTACHMENT_TEXT">{0} تصاویر زیر را ارسال کرده است:</Resource>
     <Resource tag="IMAGE_DOWNLOAD">دریافت تصویر</Resource>
     <Resource tag="IMAGE_RESIZE_ENLARGE">مشاهده تصویر</Resource>
@@ -2691,11 +2696,13 @@
     <Resource tag="MESSAGEDELETED_MOD">پیغام بوسیله مدیر حذف شد.</Resource>
     <Resource tag="MESSAGEDELETED_USER">پیغام بوسیله کاربر حذف شد.</Resource>
     <Resource tag="MSN">MSN</Resource>
+    <Resource tag="MSN_TITLE">Contact {0} via MSN</Resource>
     <Resource tag="NEXTTOPIC">عنوان بعدی</Resource>
     <Resource tag="NORMAL">عادی</Resource>
     <Resource tag="OPTIONS">انتخابها</Resource>
     <Resource tag="OPTIONS_TOOLTIP">Topic Options to Subscribe via Email, RSS, Atom, and to view Printer Friendly Page.</Resource>
     <Resource tag="PM">پیغام شخصی</Resource>
+    <Resource tag="PM_TITLE">Send {0} a Private Message</Resource>
     <Resource tag="POINTS">امتیازات</Resource>
     <Resource tag="POLL_CLOSED">(نظر سنجی غیر فعال است)</Resource>
     <Resource tag="POST_REPLY">ارسال پاسخ</Resource>
@@ -2716,6 +2723,7 @@
     <Resource tag="SHARE">Share</Resource>
     <Resource tag="SHARE_TOOLTIP">Share this Topic via Email, Twitter, Buzz, Facebook, Digg or Reddit.</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
+    <Resource tag="SKYPE_TITLE">Contact {0} via Skype</Resource>
     <Resource tag="STATISTICS">آمار</Resource>
     <Resource tag="THANKSFROM">تشکرها: {0} بار</Resource>
     <Resource tag="THANKSFROM_FEM">Thanks: {0} times</Resource>
@@ -2737,6 +2745,7 @@
     <Resource tag="TOPICBROWSERS">کاربرانی که در حال مشاهده انجمن هستند</Resource>
     <Resource tag="TOTAL">مجموع</Resource>
     <Resource tag="Twitter">Twitter</Resource>
+    <Resource tag="TWITTER_TITLE">Visit {0}'s Twitter Profile</Resource>
     <Resource tag="UNWATCHTOPIC">عدم پیگیری وضعیت انجمن</Resource>
     <Resource tag="USERGENDER_FEM">Woman</Resource>
     <Resource tag="USERGENDER_MAS">Man</Resource>
@@ -2755,7 +2764,9 @@
     <Resource tag="WARN_WATCHLOGIN">برای مشاهده عنوان باید ثب نام کرده باشید.</Resource>
     <Resource tag="WATCHTOPIC">پیگیری وضعیت انجمن</Resource>
     <Resource tag="XMPP">XMPP</Resource>
+    <Resource tag="XMPP_TITLE">Contact {0} via Jabber</Resource>
     <Resource tag="YIM">YAHOO</Resource>
+    <Resource tag="YIM_TITLE">Contact {0} via Yahoo Instant Messanger</Resource>
   </page>
   <page name="PRINTTOPIC">
     <Resource tag="POSTEDBY">ارسال شده توسط:</Resource>

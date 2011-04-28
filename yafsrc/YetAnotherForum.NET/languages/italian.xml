@@ -1786,7 +1786,6 @@
     <Resource tag="AIM">Your AIM Name:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Watch every topic in which you have made a post and receive email notifications of activities in those topics?</Resource>
     <Resource tag="BAD_EMAIL">Hai inserito una e-mail non valida.</Resource>
-    
     <Resource tag="BAD_HOME">Hai inserito un indirizzo non valido per la tua home page.</Resource>
     <Resource tag="BAD_ICQ">Hai inserito un valore non valido come numero ICQ.</Resource>
     <Resource tag="BAD_MSN">Hai inserito un indirizzo e-mail non valido per il tuo account MSN.</Resource>
@@ -2507,10 +2506,12 @@
     <Resource tag="AD_SIGNATURE" />
     <Resource tag="AD_USERNAME">Sponsor</Resource>
     <Resource tag="AIM">AIM</Resource>
+    <Resource tag="AIM_TITLE">Contact {0} via AOL Instant Messanger</Resource>
     <Resource tag="ATOMTOPIC">Feed Atom</Resource>
     <Resource tag="ATTACHMENTINFO">({0:N0}kb) scaricato [b]{1:N0}[/b] volta(e).</Resource>
     <Resource tag="ATTACHMENTS">File allegato(i):</Resource>
     <Resource tag="BLOG">BLOG</Resource>
+    <Resource tag="BLOG_TITLE">Visit {0}'s Blog</Resource>
     <Resource tag="BUZZ_TOPIC">Buzz this Topic</Resource>
     <Resource tag="CANT_DOWNLOAD">Non sei autorizzato a visualizzare e scaricare gli allegati.</Resource>
     <Resource tag="CANT_DOWNLOAD_REGISTER">Non puoi visualizzare e scaricare allegati. Ti suggeriamo di accedere o registrarti.</Resource>
@@ -2527,14 +2528,18 @@
     <Resource tag="EDITED_BY_USER">dall'utente</Resource>
     <Resource tag="EDITUSER">Edit</Resource>
     <Resource tag="EMAIL">E-mail</Resource>
+    <Resource tag="EMAIL_TITLE">Send {0} an Email</Resource>
     <Resource tag="EMAILTOPIC">Invia questa discussione tramite e-mail</Resource>
     <Resource tag="EMPTY_MESSAGE">Devi scrivere qualcosa nel tuo messaggio.</Resource>
     <Resource tag="FACEBOOK">Facebook</Resource>
+    <Resource tag="FACEBOOK_TITLE">Visit {0}'s Facebook Profile</Resource>
     <Resource tag="FACEBOOK_TOPIC">Like this Topic</Resource>
     <Resource tag="FORUM_JUMP">Vai al forum</Resource>
     <Resource tag="GROUPS">Gruppi</Resource>
     <Resource tag="HOME">WWW</Resource>
+    <Resource tag="HOME_TITLE">Visit {0}'s Homepage</Resource>
     <Resource tag="ICQ">ICQ</Resource>
+    <Resource tag="ICQ_TITLE">Contact {0} via ICQ</Resource>
     <Resource tag="IMAGE_ATTACHMENT_TEXT">{0} ha allegato le seguenti immagini:</Resource>
     <Resource tag="IMAGE_DOWNLOAD">Scarica immagine</Resource>
     <Resource tag="IMAGE_RESIZE_ENLARGE">Click per visualizzare l'immagine</Resource>
@@ -2552,11 +2557,13 @@
     <Resource tag="MESSAGEDELETED_MOD">Messaggio eliminato dal moderatore.</Resource>
     <Resource tag="MESSAGEDELETED_USER">Messaggio eliminato dall'utente.</Resource>
     <Resource tag="MSN">MSN</Resource>
+    <Resource tag="MSN_TITLE">Contact {0} via MSN</Resource>
     <Resource tag="NEXTTOPIC">Discussione successiva</Resource>
     <Resource tag="NORMAL">Normale</Resource>
     <Resource tag="OPTIONS">Opzioni</Resource>
     <Resource tag="OPTIONS_TOOLTIP">Topic Options to Subscribe via Email, RSS, Atom, and to view Printer Friendly Page.</Resource>
     <Resource tag="PM">PM</Resource>
+    <Resource tag="PM_TITLE">Send {0} a Private Message</Resource>
     <Resource tag="POINTS">Punti</Resource>
     <Resource tag="POLL_CLOSED">(Sondaggio chiuso)</Resource>
     <Resource tag="POST_REPLY">Rispondi</Resource>
@@ -2577,6 +2584,7 @@
     <Resource tag="SHARE">Share</Resource>
     <Resource tag="SHARE_TOOLTIP">Share this Topic via Email, Twitter, Buzz, Facebook, Digg or Reddit.</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
+    <Resource tag="SKYPE_TITLE">Contact {0} via Skype</Resource>
     <Resource tag="STATISTICS">Statistiche</Resource>
     <Resource tag="THANKSFROM">Ringraziato: {0} volte</Resource>
     <Resource tag="THANKSFROM_FEM">Thanks: {0} times</Resource>
@@ -2598,6 +2606,7 @@
     <Resource tag="TOPICBROWSERS">Utenti che leggono la discussione</Resource>
     <Resource tag="TOTAL">Totale</Resource>
     <Resource tag="Twitter">Twitter</Resource>
+    <Resource tag="TWITTER_TITLE">Visit {0}'s Twitter Profile</Resource>
     <Resource tag="UNWATCHTOPIC">Non seguire questa discussione</Resource>
     <Resource tag="USERGENDER_FEM">Donna</Resource>
     <Resource tag="USERGENDER_MAS">Uomo</Resource>
@@ -2616,7 +2625,9 @@
     <Resource tag="WARN_WATCHLOGIN">Devi essere registrato per seguire le discussioni.</Resource>
     <Resource tag="WATCHTOPIC">Segui questa discussione</Resource>
     <Resource tag="XMPP">XMPP</Resource>
+    <Resource tag="XMPP_TITLE">Contact {0} via Jabber</Resource>
     <Resource tag="YIM">YAHOO</Resource>
+    <Resource tag="YIM_TITLE">Contact {0} via Yahoo Instant Messanger</Resource>
   </page>
   <page name="PRINTTOPIC">
     <Resource tag="POSTEDBY">Inviato da</Resource>

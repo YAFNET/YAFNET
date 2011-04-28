@@ -20,29 +20,29 @@
 	<tr class="post">
 		<td colspan="2">
 			<YAF:ThemeButton ID="PM" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS"
-				TextLocalizedTag="PM" ImageThemeTag="PM" />
+				TextLocalizedTag="PM" ImageThemeTag="PM" TitleLocalizedTag="PM_TITLE" TitleLocalizedPage="POSTS" />
 			<YAF:ThemeButton ID="Email" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS"
-				TextLocalizedTag="EMAIL" ImageThemeTag="EMAIL" />
+				TextLocalizedTag="EMAIL" ImageThemeTag="EMAIL" TitleLocalizedTag="EMAIL_TITLE" TitleLocalizedPage="POSTS" />
 			<YAF:ThemeButton ID="Home" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS"
-				TextLocalizedTag="HOME" ImageThemeTag="HOME" />
+				TextLocalizedTag="HOME" ImageThemeTag="HOME" TitleLocalizedTag="HOME_TITLE" TitleLocalizedPage="POSTS" />
 			<YAF:ThemeButton ID="Blog" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS"
-				TextLocalizedTag="BLOG" ImageThemeTag="BLOG" />
+				TextLocalizedTag="BLOG" ImageThemeTag="BLOG" TitleLocalizedTag="BLOG_TITLE" TitleLocalizedPage="POSTS" />
 			<YAF:ThemeButton ID="MSN" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS"
-				TextLocalizedTag="MSN" ImageThemeTag="MSN" />
+				TextLocalizedTag="MSN" ImageThemeTag="MSN" TitleLocalizedTag="MSN_TITLE" TitleLocalizedPage="POSTS" />
 			<YAF:ThemeButton ID="AIM" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS"
-				TextLocalizedTag="AIM" ImageThemeTag="AIM" />
+				TextLocalizedTag="AIM" ImageThemeTag="AIM" TitleLocalizedTag="AIM_TITLE" TitleLocalizedPage="POSTS" />
 			<YAF:ThemeButton ID="YIM" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS"
-				TextLocalizedTag="YIM" ImageThemeTag="YIM" />
+				TextLocalizedTag="YIM" ImageThemeTag="YIM" TitleLocalizedTag="YIM_TITLE" TitleLocalizedPage="POSTS" />
 			<YAF:ThemeButton ID="ICQ" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS"
-				TextLocalizedTag="ICQ" ImageThemeTag="ICQ" />
+				TextLocalizedTag="ICQ" ImageThemeTag="ICQ" TitleLocalizedTag="ICQ_TITLE" TitleLocalizedPage="POSTS" />
 			<YAF:ThemeButton ID="XMPP" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS"
-				TextLocalizedTag="XMPP" ImageThemeTag="XMPP" />	
+				TextLocalizedTag="XMPP" ImageThemeTag="XMPP" TitleLocalizedTag="XMPP_TITLE" TitleLocalizedPage="POSTS" />	
 			<YAF:ThemeButton ID="Skype" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS"
-				TextLocalizedTag="SKYPE" ImageThemeTag="SKYPE" />
+				TextLocalizedTag="SKYPE" ImageThemeTag="SKYPE" TitleLocalizedTag="SKYPE_TITLE" TitleLocalizedPage="POSTS" />
             <YAF:ThemeButton ID="Facebook" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS"
-				TextLocalizedTag="Facebook" ImageThemeTag="Facebook2" />
+				TextLocalizedTag="FACEBOOK" ImageThemeTag="Facebook2" TitleLocalizedTag="FACEBOOK_TITLE" TitleLocalizedPage="POSTS" />
             <YAF:ThemeButton ID="Twitter" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS"
-				TextLocalizedTag="Twitter" ImageThemeTag="Twitter2" />
+				TextLocalizedTag="TWITTER" ImageThemeTag="Twitter2" TitleLocalizedTag="TWITTER_TITLE" TitleLocalizedPage="POSTS" />
 			<YAF:ThemeButton ID="AdminUserButton" runat="server" CssClass="yaflittlebutton" Visible="false"
 				TextLocalizedTag="ADMIN_USER" NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", this.UserId ) %>'>
 			</YAF:ThemeButton>

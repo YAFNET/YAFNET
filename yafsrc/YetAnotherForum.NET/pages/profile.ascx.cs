@@ -468,19 +468,32 @@ namespace YAF.Pages
         /// </param>
         private void SetupUserLinks([NotNull] CombinedUserDataHelper userData)
         {
+            string userName = userData.UserName;
+
             // homepage link
             this.Home.Visible = userData.Profile.Homepage.IsSet();
             this.SetupThemeButtonWithLink(this.Home, userData.Profile.Homepage);
+            this.Skype.ParamTitle0 = userName;
 
             // blog link
             this.Blog.Visible = userData.Profile.Blog.IsSet();
             this.SetupThemeButtonWithLink(this.Blog, userData.Profile.Blog);
+            this.Blog.ParamTitle0 = userName;
 
             this.Facebook.Visible = this.User != null && userData.Profile.Facebook.IsSet();
-            this.Facebook.NavigateUrl = "http://www.facebook.com/{0}".FormatWith(userData.Profile.Facebook);
+
+            if (userData.Profile.Facebook.IsSet())
+            {
+                this.Facebook.NavigateUrl = userData.Profile.Facebook.Contains(@"facebook.com/")
+                                                ? userData.Profile.Facebook
+                                                : "http://www.facebook.com/{0}".FormatWith(userData.Profile.Facebook);
+            }
+
+            this.Facebook.ParamTitle0 = userName;
 
             this.Twitter.Visible = this.User != null && userData.Profile.Twitter.IsSet();
             this.Twitter.NavigateUrl = "http://twitter.com/{0}".FormatWith(userData.Profile.Twitter);
+            this.Twitter.ParamTitle0 = userName;
 
             if (userData.UserID == this.PageContext.PageUserID)
             {
@@ -489,6 +502,7 @@ namespace YAF.Pages
 
             this.PM.Visible = !userData.IsGuest && this.User != null && this.Get<YafBoardSettings>().AllowPrivateMessages;
             this.PM.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", userData.UserID);
+            this.PM.ParamTitle0 = userName;
 
             // email link
             this.Email.Visible = !userData.IsGuest && this.User != null && this.Get<YafBoardSettings>().AllowEmailSending;
@@ -498,23 +512,31 @@ namespace YAF.Pages
                 this.Email.TitleNonLocalized = userData.Membership.Email;
             }
 
+            this.Email.ParamTitle0 = userName;
+
             this.MSN.Visible = this.User != null && userData.Profile.MSN.IsSet();
             this.MSN.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_msn, "u={0}", userData.UserID);
+            this.MSN.ParamTitle0 = userName;
 
             this.YIM.Visible = this.User != null && userData.Profile.YIM.IsSet();
             this.YIM.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_yim, "u={0}", userData.UserID);
+            this.YIM.ParamTitle0 = userName;
 
             this.AIM.Visible = this.User != null && userData.Profile.AIM.IsSet();
             this.AIM.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_aim, "u={0}", userData.UserID);
+            this.AIM.ParamTitle0 = userName;
 
             this.ICQ.Visible = this.User != null && userData.Profile.ICQ.IsSet();
             this.ICQ.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_icq, "u={0}", userData.UserID);
+            this.ICQ.ParamTitle0 = userName;
 
             this.XMPP.Visible = this.User != null && userData.Profile.XMPP.IsSet();
             this.XMPP.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_xmpp, "u={0}", userData.UserID);
+            this.XMPP.ParamTitle0 = userName;
 
             this.Skype.Visible = this.User != null && userData.Profile.Skype.IsSet();
             this.Skype.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_skype, "u={0}", userData.UserID);
+            this.Skype.ParamTitle0 = userName;
         }
 
         /// <summary>

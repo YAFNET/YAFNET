@@ -1783,7 +1783,6 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="AIM">Your AIM Name:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Beobachten Sie jedes Thema, in dem Sie einen Post gemacht haben und empfangen E-Mail-Benachrichtigungen der Aktivitäten in diesen Themen?</Resource>
     <Resource tag="BAD_EMAIL">E-Mail-Adresse nicht zulässig.</Resource>
-    
     <Resource tag="BAD_HOME">Keine zulässige Adresse für Deine Homepage.</Resource>
     <Resource tag="BAD_ICQ">Unzulässige ICQ-Daten.</Resource>
     <Resource tag="BAD_MSN">E-Mail-Adresse nicht zulässig für Dein MSN Konto.</Resource>
@@ -2658,10 +2657,12 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="AD_SIGNATURE" />
     <Resource tag="AD_USERNAME">Sponsor</Resource>
     <Resource tag="AIM">AIM</Resource>
+    <Resource tag="AIM_TITLE">Contact {0} via AOL Instant Messanger</Resource>
     <Resource tag="ATOMTOPIC">Atom Feed</Resource>
     <Resource tag="ATTACHMENTINFO">({0:N0}kb) [b]{1:N0}x[/b] heruntergeladen.</Resource>
     <Resource tag="ATTACHMENTS">Dateianhänge:</Resource>
     <Resource tag="BLOG">BLOG</Resource>
+    <Resource tag="BLOG_TITLE">Visit {0}'s Blog</Resource>
     <Resource tag="BUZZ_TOPIC">Thema Buzzen</Resource>
     <Resource tag="CANT_DOWNLOAD">Sie haben keine Berechtigung diese Anhänge Ansehen oder Herunterzuladen.</Resource>
     <Resource tag="CANT_DOWNLOAD_REGISTER">Sie können diese Anhänge [b]NICHT[/b] Ansehen/Herunterladen. Sie müssen Sich zunächst Registrieren.-</Resource>
@@ -2678,14 +2679,18 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="EDITED_BY_USER">vom Benutzer</Resource>
     <Resource tag="EDITUSER">Edit</Resource>
     <Resource tag="EMAIL">E-Mail</Resource>
+    <Resource tag="EMAIL_TITLE">Send {0} an Email</Resource>
     <Resource tag="EMAILTOPIC">Thema per E-Mail verschicken</Resource>
     <Resource tag="EMPTY_MESSAGE">Du musst etwas in den Beitrag eintippen.</Resource>
     <Resource tag="FACEBOOK">Facebook</Resource>
+    <Resource tag="FACEBOOK_TITLE">Visit {0}'s Facebook Profile</Resource>
     <Resource tag="FACEBOOK_TOPIC">Thema mögen</Resource>
     <Resource tag="FORUM_JUMP">Das Forum wechseln</Resource>
     <Resource tag="GROUPS">Gruppe</Resource>
     <Resource tag="HOME">WWW</Resource>
+    <Resource tag="HOME_TITLE">Visit {0}'s Homepage</Resource>
     <Resource tag="ICQ">ICQ</Resource>
+    <Resource tag="ICQ_TITLE">Contact {0} via ICQ</Resource>
     <Resource tag="IMAGE_ATTACHMENT_TEXT">{0} hat die folgenden Dateien hochgeladen:</Resource>
     <Resource tag="IMAGE_DOWNLOAD">Bild herunterladen</Resource>
     <Resource tag="IMAGE_RESIZE_ENLARGE">Anklicken um Bild zu betrachten</Resource>
@@ -2703,11 +2708,13 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="MESSAGEDELETED_MOD">Beitrag wurde vom Moderator gelöscht.</Resource>
     <Resource tag="MESSAGEDELETED_USER">Beitrag wurde vom Benutzer gelöscht.</Resource>
     <Resource tag="MSN">MSN</Resource>
+    <Resource tag="MSN_TITLE">Contact {0} via MSN</Resource>
     <Resource tag="NEXTTOPIC">Nächstes Thema</Resource>
     <Resource tag="NORMAL">Normal</Resource>
     <Resource tag="OPTIONS">Optionen</Resource>
     <Resource tag="OPTIONS_TOOLTIP">Optionen um das Thema via Email, RSS, Atom, zu abonieren. Und eine Option für eine Druckfreundliche Ansicht.</Resource>
     <Resource tag="PM">Private Nachricht</Resource>
+    <Resource tag="PM_TITLE">Send {0} a Private Message</Resource>
     <Resource tag="POINTS">Punkte</Resource>
     <Resource tag="POLL_CLOSED">(Umfrage abgeschlossen)</Resource>
     <Resource tag="POST_REPLY">Antworten</Resource>
@@ -2728,6 +2735,7 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="SHARE">Share</Resource>
     <Resource tag="SHARE_TOOLTIP">Dieses Thema via Email, Twitter, Buzz, Facebook, Digg oder Reddit verbreiten</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
+    <Resource tag="SKYPE_TITLE">Contact {0} via Skype</Resource>
     <Resource tag="STATISTICS">Statistik</Resource>
     <Resource tag="THANKSFROM">Dankte: {0} mal</Resource>
     <Resource tag="THANKSFROM_FEM">Dankte: {0} mal(e)</Resource>
@@ -2749,6 +2757,7 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="TOPICBROWSERS">Benutzer, die gerade dieses Thema lesen</Resource>
     <Resource tag="TOTAL">Gesamt</Resource>
     <Resource tag="Twitter">Twitter</Resource>
+    <Resource tag="TWITTER_TITLE">Visit {0}'s Twitter Profile</Resource>
     <Resource tag="UNWATCHTOPIC">Dieses Thema nicht mehr abonnieren</Resource>
     <Resource tag="USERGENDER_FEM">Frau</Resource>
     <Resource tag="USERGENDER_MAS">Mann</Resource>
@@ -2767,7 +2776,9 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="WARN_WATCHLOGIN">Du musst registriert sein, um dieses Thema zu lesen.</Resource>
     <Resource tag="WATCHTOPIC">Dieses Thema abonnieren</Resource>
     <Resource tag="XMPP">XMPP</Resource>
+    <Resource tag="XMPP_TITLE">Contact {0} via Jabber</Resource>
     <Resource tag="YIM">YAHOO</Resource>
+    <Resource tag="YIM_TITLE">Contact {0} via Yahoo Instant Messanger</Resource>
   </page>
   <page name="PRINTTOPIC">
     <Resource tag="POSTEDBY">Geschrieben von</Resource>
