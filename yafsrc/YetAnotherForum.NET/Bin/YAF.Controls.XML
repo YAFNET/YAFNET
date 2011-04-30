@@ -3733,6 +3733,21 @@
             The theme button.
             </summary>
         </member>
+        <member name="F:YAF.Controls.ThemeButton._paramTitle0">
+            <summary>
+            The _param Title 0.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.ThemeButton._paramTitle1">
+            <summary>
+            The _param Title 1.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.ThemeButton._paramTitle2">
+            <summary>
+            The _param Title 2.
+            </summary>
+        </member>
         <member name="F:YAF.Controls.ThemeButton._clickEvent">
             <summary>
               The _click event.
@@ -3839,47 +3854,62 @@
         </member>
         <member name="P:YAF.Controls.ThemeButton.CssClass">
             <summary>
-              Defaults to "yafcssbutton"
+              Gets or sets the Defaults to "yafcssbutton"
             </summary>
         </member>
         <member name="P:YAF.Controls.ThemeButton.ImageThemePage">
             <summary>
-              ThemePage for the optional button image
+               Gets or sets the ThemePage for the optional button image
             </summary>
         </member>
         <member name="P:YAF.Controls.ThemeButton.ImageThemeTag">
             <summary>
-              ThemeTag for the optional button image
+               Gets or sets the ThemeTag for the optional button image
             </summary>
         </member>
         <member name="P:YAF.Controls.ThemeButton.NavigateUrl">
             <summary>
-              Setting the link property will make this control non-postback.
+               Gets or sets the Setting the link property will make this control non-postback.
             </summary>
         </member>
         <member name="P:YAF.Controls.ThemeButton.TextLocalizedPage">
             <summary>
-              Localized Page for the optional button text
+               Gets or sets the Localized Page for the optional button text
             </summary>
         </member>
         <member name="P:YAF.Controls.ThemeButton.TextLocalizedTag">
             <summary>
-              Localized Tag for the optional button text
+               Gets or sets the Localized Tag for the optional button text
             </summary>
         </member>
         <member name="P:YAF.Controls.ThemeButton.TitleLocalizedPage">
             <summary>
-              Localized Page for the optional link description (title)
+               Gets or sets the Localized Page for the optional link description (title)
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ThemeButton.ParamTitle0">
+            <summary>
+            Gets or sets Param Title 0.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ThemeButton.ParamTitle1">
+            <summary>
+            Gets or sets Param Title 1.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ThemeButton.ParamTitle2">
+            <summary>
+            Gets or sets Param Title 2.
             </summary>
         </member>
         <member name="P:YAF.Controls.ThemeButton.TitleLocalizedTag">
             <summary>
-              Localized Tag for the optional link description (title)
+               Gets or sets the Localized Tag for the optional link description (title)
             </summary>
         </member>
         <member name="P:YAF.Controls.ThemeButton.TitleNonLocalized">
             <summary>
-              Non-localized Title for optional link description
+               Gets or sets the Non-localized Title for optional link description
             </summary>
         </member>
         <member name="T:YAF.Controls.MessageAttached">

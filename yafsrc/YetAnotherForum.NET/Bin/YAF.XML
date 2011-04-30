@@ -1192,6 +1192,24 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Controls.DisplayPostFooter.Facebook">
+            <summary>
+            Facebook control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.DisplayPostFooter.Twitter">
+            <summary>
+            Twitter control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Controls.DisplayPostFooter.reportPostLink">
             <summary>
             reportPostLink control.
@@ -1257,7 +1275,7 @@
         </member>
         <member name="P:YAF.Controls.DisplayPostFooter.DataRow">
             <summary>
-              Gets and Sets the DataRow.
+              Gets or sets the DataRow.
             </summary>
         </member>
         <member name="P:YAF.Controls.DisplayPostFooter.IsGuest">
@@ -1272,7 +1290,7 @@
         </member>
         <member name="P:YAF.Controls.DisplayPostFooter.TogglePost">
             <summary>
-              Provides access to the Toggle Post button.
+              Gets the Provides access to the Toggle Post button.
             </summary>
         </member>
         <member name="T:YAF.Pages.team">
@@ -2612,6 +2630,42 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Controls.EditUsersProfile.LocalizedLabel31">
+            <summary>
+            LocalizedLabel31 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.EditUsersProfile.Facebook">
+            <summary>
+            Facebook control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.EditUsersProfile.LocalizedLabel33">
+            <summary>
+            LocalizedLabel33 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.EditUsersProfile.Twitter">
+            <summary>
+            Twitter control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Controls.EditUsersProfile.LocalizedLabel32">
             <summary>
             LocalizedLabel32 control.
@@ -3457,6 +3511,24 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.profile.Facebook">
+            <summary>
+            Facebook control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.profile.Twitter">
+            <summary>
+            Twitter control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.profile.AdminUserButton">
             <summary>
             AdminUserButton control.
@@ -3982,6 +4054,60 @@
         <member name="F:YAF.Pages.profile.lblskype">
             <summary>
             lblskype control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.profile.FacebookTR">
+            <summary>
+            FacebookTR control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.profile.LocalizedLabel24">
+            <summary>
+            LocalizedLabel24 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.profile.lblfacebook">
+            <summary>
+            lblfacebook control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.profile.TwitterTR">
+            <summary>
+            TwitterTR control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.profile.LocalizedLabel25">
+            <summary>
+            LocalizedLabel25 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.profile.lbltwitter">
+            <summary>
+            lbltwitter control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -6319,10 +6445,13 @@
             The post reply handle new post.
             </returns>
         </member>
-        <member name="M:YAF.Pages.postmessage.PostReplyHandleReplyToTopic">
+        <member name="M:YAF.Pages.postmessage.PostReplyHandleReplyToTopic(System.Boolean)">
             <summary>
             The post reply handle reply to topic.
             </summary>
+            <param name="isSpamApproved">
+            The is Spam Approved.
+            </param>
             <returns>
             The post reply handle reply to topic.
             </returns>
@@ -15707,6 +15836,14 @@
             The e.
             </param>
         </member>
+        <member name="M:YAF.Pages.posts.IsPostSpam">
+            <summary>
+            Check This Post for SPAM against the BlogSpam.NET API or Akismet Service
+            </summary>
+            <returns>
+            Returns if Post is SPAM or not
+            </returns>
+        </member>
         <member name="M:YAF.Pages.posts.ViewMenu_ItemClick(System.Object,YAF.Controls.PopEventArgs)">
             <summary>
             The view menu_ item click.
@@ -23645,6 +23782,24 @@
         <member name="F:YAF.Pages.Admin.boardsettings.EmailModeratorsOnModeratedPost">
             <summary>
             EmailModeratorsOnModeratedPost control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.boardsettings.HelpLabel3">
+            <summary>
+            HelpLabel3 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.boardsettings.EmailModeratorsOnReportedPost">
+            <summary>
+            EmailModeratorsOnReportedPost control.
             </summary>
             <remarks>
             Auto-generated field.

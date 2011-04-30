@@ -1463,6 +1463,11 @@
             Gets or sets a value indicating whether Email Moderators On Moderated Post.
             </summary>
         </member>
+        <member name="P:YAF.Classes.YafBoardSettings.EmailModeratorsOnReportedPost">
+            <summary>
+            Gets or sets a value indicating whether Email Moderators On Reported Post.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.YafBoardSettings.SpamServiceType">
             <summary>
             Gets or sets a value indicating whether 
