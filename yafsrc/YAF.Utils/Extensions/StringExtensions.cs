@@ -571,14 +571,18 @@ namespace YAF.Utils
     /// <returns>
     /// truncated string
     /// </returns>
-    public static string Truncate(string input, int limit)
+    public static string Truncate([CanBeNull] this string input, int inputLimit, [NotNull] string cutOfString = "...")
     {
+      CodeContracts.ArgumentNotNull(cutOfString, "cutOfString");
+
       string output = input;
 
       if (input.IsNotSet())
       {
         return null;
       }
+
+      int limit = inputLimit - cutOfString.Length;
 
       // Check if the string is longer than the allowed amount
       // otherwise do nothing
@@ -601,8 +605,8 @@ namespace YAF.Utils
           }
         }
 
-        // Finally, add the "..."
-        output += "...";
+        // Finally, add the the cut off string...
+        output += cutOfString;
       }
 
       return output;
@@ -620,7 +624,7 @@ namespace YAF.Utils
     /// <returns>
     /// truncated string
     /// </returns>
-    public static string TruncateMiddle(string input, int limit)
+    public static string TruncateMiddle(this string input, int limit)
     {
       if (input.IsNotSet())
       {
