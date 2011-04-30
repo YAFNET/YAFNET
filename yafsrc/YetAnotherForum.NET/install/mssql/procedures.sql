@@ -3973,13 +3973,16 @@ begin
 		select @TopicID = TopicID, @ReplyTo = MessageID from [{databaseOwner}].[{objectQualifier}Message] where ExternalMessageId = @ReferenceMessageId
 	end else
 	begin
-		-- thread doesn't exists
-		insert into [{databaseOwner}].[{objectQualifier}Topic](ForumID,UserID,UserName,Posted,Topic,[Views],Priority,NumPosts)
-		values (@ForumID,@UserID,@UserName,@Posted,@Topic,0,0,0)
-		set @TopicID=SCOPE_IDENTITY()
+		if (@ReferenceMessageId IS NOT NULL)
+		begin
+			-- thread doesn't exists
+			insert into [{databaseOwner}].[{objectQualifier}Topic](ForumID,UserID,UserName,Posted,Topic,[Views],Priority,NumPosts)
+			values (@ForumID,@UserID,@UserName,@Posted,@Topic,0,0,0)
+			set @TopicID=SCOPE_IDENTITY()
 
-		insert into [{databaseOwner}].[{objectQualifier}NntpTopic](NntpForumID,Thread,TopicID)
-		values (@NntpForumID,@ExternalMessageId,@TopicID)
+			insert into [{databaseOwner}].[{objectQualifier}NntpTopic](NntpForumID,Thread,TopicID)
+			values (@NntpForumID,@ExternalMessageId,@TopicID)
+		end
 	end
 	
 	exec [{databaseOwner}].[{objectQualifier}message_save]  @TopicID, @UserID, @Body, @UserName, @IP, @Posted, @ReplyTo, NULL, @ExternalMessageId, 17, @MessageID OUTPUT
