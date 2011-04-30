@@ -493,7 +493,7 @@ if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseO
 	create table [{databaseOwner}].[{objectQualifier}NntpTopic](
 		NntpTopicID		int IDENTITY (1, 1) not null,
 		NntpForumID		int not null,
-		Thread			char(32) not null,
+		Thread			varchar(64) not null,
 		TopicID			int not null
 	)
 GO
@@ -1095,6 +1095,10 @@ GO
 
 if exists (select * from syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}Forum]') and name='LastUserName' and prec < 255)
  	alter table [{databaseOwner}].[{objectQualifier}Forum] alter column [LastUserName]	nvarchar (255) NULL 
+GO
+
+if exists (select * from syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}nntptopic]') and name='Thread' and prec < 64)
+ 	alter table [{databaseOwner}].[{objectQualifier}nntptopic] alter column [Thread]	nvarchar (64) NULL 
 GO
 
 if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='PollGroupID')
