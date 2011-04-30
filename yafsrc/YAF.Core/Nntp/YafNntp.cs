@@ -22,8 +22,13 @@ namespace YAF.Core.Nntp
   #region Using
 
   using System;
+  using System.Collections;
   using System.Data;
+  using System.Data.SqlClient;
+  using System.IO;
   using System.Linq;
+  using System.Reflection;
+  using System.Text;
   using System.Web;
 
   using YAF.Core; using YAF.Types.Interfaces;
@@ -106,26 +111,20 @@ namespace YAF.Core.Nntp
 
             Newsgroup group = nntpConnection.ConnectGroup(forumDataRow["GroupName"].ToString());
 
-            int currentMessage;
-            int lastMessageNo = (int)forumDataRow["LastMessageNo"];
+            var lastMessageNo = (int)forumDataRow["LastMessageNo"];
             
-            // If this is first retrieve for this group, only fetch last 50
-            if (lastMessageNo == 0)
-            {
-              currentMessage = Math.Max(group.High - 50, 1);
-            }
-            else
-            {
-              currentMessage = lastMessageNo + 1;
-            }
+           // start at the bottom...
+            int currentMessage = lastMessageNo == 0 ? group.Low : lastMessageNo + 1;
 
             var nntpForumID = (int)forumDataRow["NntpForumID"];
 
             for (; currentMessage <= group.High; currentMessage++)
             {
+              Article article = null;
+
               try
               {
-                Article article = nntpConnection.GetArticle(currentMessage);
+                article = nntpConnection.GetArticle(currentMessage);
 
                 string body = article.Body.Text.Trim();
                 string subject = article.Header.Subject.Trim();
@@ -148,7 +147,16 @@ namespace YAF.Core.Nntp
 
                 body = ReplaceBody(body);
 
-                LegacyDb.nntptopic_savemessage(nntpForumID, subject, body, guestUserId, fromName, "NNTP", dateTime, externalMessageId, referenceId);
+                LegacyDb.nntptopic_savemessage(
+                  nntpForumID,
+                  subject.Truncate(75),
+                  body,
+                  guestUserId,
+                  fromName.Truncate(100, String.Empty),
+                  "NNTP",
+                  dateTime,
+                  externalMessageId.Truncate(64, String.Empty),
+                  referenceId.Truncate(64, String.Empty));
 
                 lastMessageNo = currentMessage;
 
@@ -163,9 +171,15 @@ namespace YAF.Core.Nntp
               }
               catch (NntpException exception)
               {
-#if (DEBUG)
-                YafContext.Current.AddLoadMessage("Exception: " + exception.ToString());
-#endif
+                if (exception.ErrorCode != 423)
+                {
+                  LegacyDb.eventlog_create(null, "YafNntp", exception.ToString());
+                }
+              }
+              catch (SqlException exception)
+              {
+                LegacyDb.eventlog_create(
+                  null, "YafNntp DB Failure", exception);
               }
             }
 

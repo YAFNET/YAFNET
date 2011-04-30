@@ -109,6 +109,8 @@ namespace YAF.Core
     {
       var builder = new ContainerBuilder();
 
+      builder.Register(x => this.ExtensionAssemblies).Named<IList<Assembly>>("ExtensionAssemblies").SingleInstance();
+
       builder.RegisterType<AutoFacServiceLocatorProvider>().AsSelf().As<IServiceLocator>().As<IInjectServices>().
         InstancePerLifetimeScope();
 
