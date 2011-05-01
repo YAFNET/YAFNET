@@ -604,6 +604,8 @@
     <Resource tag="PRIVATE_MESSAGES_HELP">Максимальное количество сообщений, разрешённых обладателям статуса.</Resource>
     <Resource tag="RANK_DESC">Описание:</Resource>
     <Resource tag="RANK_DESC_HELP">Введите здесь описание статуса.</Resource>
+    <Resource tag="RANK_IMAGE">Rank Image:</Resource>
+    <Resource tag="RANK_IMAGE_HELP">This image will be shown next to users of this rank.</Resource>
     <Resource tag="RANK_NAME">Название:</Resource>
     <Resource tag="RANK_NAME_HELP">Название статуса.</Resource>
     <Resource tag="RANK_PRIO">Приоритет:</Resource>

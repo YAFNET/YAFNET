@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.editrank" Codebehind="editrank.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.editrank" Codebehind="editrank.ascx.cs" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server">
 	<table class="content" cellspacing="1" cellpadding="0" width="100%">
@@ -104,9 +104,8 @@
 		</tr>
 		<tr>
 			<td class="postheader" colspan="4">
-				<YAF:HelpLabel ID="HelpLabel14" runat="server" LocalizedTag="RANK_NAME" LocalizedPage="ADMIN_EDITRANK" />
-                <strong>Rank Image:</strong><br />
-				This image will be shown next to users of this rank.</td>
+				<YAF:HelpLabel ID="HelpLabel14" runat="server" LocalizedTag="RANK_IMAGE" LocalizedPage="ADMIN_EDITRANK" />
+			</td>
 			<td class="post" colspan="7">
 				<asp:DropDownList Style="width: 250px" ID="RankImage" runat="server" />
 				<img style="vertical-align:middle" src="" alt="Rank Image" runat="server" id="Preview" />

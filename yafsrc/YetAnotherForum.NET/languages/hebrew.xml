@@ -627,6 +627,8 @@
     <Resource tag="PRIVATE_MESSAGES_HELP">Max. Private Messages allowed to Rank members.</Resource>
     <Resource tag="RANK_DESC">Description:</Resource>
     <Resource tag="RANK_DESC_HELP">Enter here a role description.</Resource>
+    <Resource tag="RANK_IMAGE">Rank Image:</Resource>
+    <Resource tag="RANK_IMAGE_HELP">This image will be shown next to users of this rank.</Resource>
     <Resource tag="RANK_NAME">Name:</Resource>
     <Resource tag="RANK_NAME_HELP">Name of this rank.</Resource>
     <Resource tag="RANK_PRIO">Priority:</Resource>

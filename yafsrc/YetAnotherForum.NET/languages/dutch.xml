@@ -603,6 +603,8 @@
     <Resource tag="PRIVATE_MESSAGES_HELP">berichten toegestaan voor leden van deze rang.</Resource>
     <Resource tag="RANK_DESC">Beschrijving:</Resource>
     <Resource tag="RANK_DESC_HELP">Vul hier een rolbeschrijving in.</Resource>
+    <Resource tag="RANK_IMAGE">Rank Image:</Resource>
+    <Resource tag="RANK_IMAGE_HELP">This image will be shown next to users of this rank.</Resource>
     <Resource tag="RANK_NAME">Naam:</Resource>
     <Resource tag="RANK_NAME_HELP">Naam van deze rang.</Resource>
     <Resource tag="RANK_PRIO">Prioriteit:</Resource>

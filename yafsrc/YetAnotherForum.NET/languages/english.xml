@@ -2742,6 +2742,8 @@ Visit {forumname} at {forumlink}
 	   <Resource tag="RANK_PRIO_HELP">Priority of rank is various things.</Resource>
 	   <Resource tag="RANK_STYLE">Style:</Resource>
 	   <Resource tag="RANK_STYLE_HELP">Style of users links in active users, colore, font size...</Resource>
+           <Resource tag="RANK_IMAGE">Rank Image:</Resource>
+	   <Resource tag="RANK_IMAGE_HELP">This image will be shown next to users of this rank.</Resource>
 	 </page>
 	  <page name="ADMIN_USERS">
 	   <Resource tag="TITLE">Users</Resource>
