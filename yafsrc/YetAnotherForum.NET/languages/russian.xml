@@ -284,8 +284,8 @@
     <Resource tag="BOARD_EMAIL_MODS_HELP">Посылать собщение Email модераторам при появлении нового предмодерируемого или подлежащего модерации поста?</Resource>
     <Resource tag="BOARD_EMAIL_ONREGISTER">Посылать уведомление по Email при регистрации пользователя на адреса:</Resource>
     <Resource tag="BOARD_EMAIL_ONREGISTER_HELP">Разделённый точкой с запятой (;) список адресов электронной почты дял посылки уведомлений при регистрации нового пользователя.</Resource>
-    <Resource tag="BOARD_EMAIL_REPORTMODS">Email Moderators On a Reported Post:</Resource>
-    <Resource tag="BOARD_EMAIL_REPORTMODS_HELP">Should all the moderators of a forum be notified if someone reported a post?</Resource>
+    <Resource tag="BOARD_EMAIL_REPORTMODS">Отправить модератором сообщение Email при жалобе:</Resource>
+    <Resource tag="BOARD_EMAIL_REPORTMODS_HELP">Должны ли все модераторы форума быть уведомлены если кто-то пожаловался на сообщение?</Resource>
     <Resource tag="BOARD_FILE_EXTENSIONS">Список разрешённых расширений файлов:</Resource>
     <Resource tag="BOARD_FILE_EXTENSIONS_HELP">Список разрешённых/запрещённых расширений файлов. Последнее менее безопасно.</Resource>
     <Resource tag="BOARD_JQ_THEME">Тема jQuery UI:</Resource>
@@ -303,8 +303,8 @@
     <Resource tag="BOARD_THREADED_HELP">Разрешить отображение в виде дерева для сообщений.</Resource>
     <Resource tag="BOARD_TOPIC_DEFAULT">Показывать темы по умолчанию:</Resource>
     <Resource tag="BOARD_TOPIC_DEFAULT_HELP">Интервал в котором отображать темы по умолчанию.</Resource>
-    <Resource tag="COPYRIGHT_REMOVAL_KEY">Copyright Removal Key:</Resource>
-    <Resource tag="COPYRIGHT_REMOVAL_KEY_HELP">Remove the copyright information and link back to YAF from the footer of your entire forum domain. Avaliable &lt;a href="http://yetanotherforum.net/purchase.aspx"&gt;from YAF.NET site&lt;/a&gt;. </Resource>
+    <Resource tag="COPYRIGHT_REMOVAL_KEY">Ключ удаления копирайта:</Resource>
+    <Resource tag="COPYRIGHT_REMOVAL_KEY_HELP">Удалить информацию о копирайте и ссылку на YAF из подвала вашего форума. Доступно на &lt;a href="http://yetanotherforum.net/purchase.aspx"&gt;сайта YAF.NET &lt;/a&gt;. </Resource>
     <Resource tag="HEADER">Текущие настройки конференции</Resource>
     <Resource tag="TITLE">Настройки конференции</Resource>
   </page>
@@ -605,7 +605,7 @@
     <Resource tag="RANK_DESC">Описание:</Resource>
     <Resource tag="RANK_DESC_HELP">Введите здесь описание статуса.</Resource>
     <Resource tag="RANK_IMAGE">Rank Image:</Resource>
-    <Resource tag="RANK_IMAGE_HELP">This image will be shown next to users of this rank.</Resource>
+    <Resource tag="RANK_IMAGE_HELP">Это изоражение будет отображаться рядом с пользователям с этим статусом.</Resource>
     <Resource tag="RANK_NAME">Название:</Resource>
     <Resource tag="RANK_NAME_HELP">Название статуса.</Resource>
     <Resource tag="RANK_PRIO">Приоритет:</Resource>
@@ -1013,7 +1013,7 @@
     <Resource tag="POSTS_TEMPLATE_HELP">Шаблон для отображения сообщений пользователя.</Resource>
     <Resource tag="QUICK_SEARCH">Показывать быстрый поиск:</Resource>
     <Resource tag="QUICK_SEARCH_HELP">Показывать поле и кнопку быстрого пользователя в меню форума.</Resource>
-    <Resource tag="RANK_TEMPLATE">Шаблон статуса::</Resource>
+    <Resource tag="RANK_TEMPLATE">Шаблон статуса:</Resource>
     <Resource tag="RANK_TEMPLATE_HELP">Шаблон для отображения статуса пользователя в сообщениях.</Resource>
     <Resource tag="RANKIMAGE_TEMPLATE">Шаблон изображения статуса:</Resource>
     <Resource tag="RANKIMAGE_TEMPLATE_HELP">Шаблон для отображения изображения статуса(если есть).</Resource>
@@ -1121,11 +1121,11 @@
     <Resource tag="SHOWHELP_HELP">Показывать ссылку на страницу поиска в заголовке страницы.</Resource>
     <Resource tag="SHOWTEAM">Показывать страницу команды:</Resource>
     <Resource tag="SHOWTEAM_HELP">Показывать ссылку на страницу страницу команды форума(админстраторы, модераторы...) в заголовке</Resource>
-    <Resource tag="SPAM_MESSAGE_0">Do nothing</Resource>
-    <Resource tag="SPAM_MESSAGE_1">Flag Message as Unapproved</Resource>
-    <Resource tag="SPAM_MESSAGE_2">Reject Message</Resource>
-    <Resource tag="SPAM_MESSAGE_HANDLING">Handling of as SPAM Detected Messages</Resource>
-    <Resource tag="SPAM_MESSAGE_HANDLING_HELP">Choose what to do when a Message was detected a SPAM, You can choose between Do Nothing, Flag Message as Unapproved, or reject the Message.</Resource>
+    <Resource tag="SPAM_MESSAGE_0">Ничего не делать</Resource>
+    <Resource tag="SPAM_MESSAGE_1">Отметить как неодобренное</Resource>
+    <Resource tag="SPAM_MESSAGE_2">Удалить сообщение</Resource>
+    <Resource tag="SPAM_MESSAGE_HANDLING">Обработка сообщений детектированных как СПАМ</Resource>
+    <Resource tag="SPAM_MESSAGE_HANDLING_HELP">Выберите действие которое будет выполняться если сообщщение детектировано как спам.</Resource>
     <Resource tag="SQL_FULLTEXT">Использовать полнотекстовой поиск SQL-сервера:</Resource>
     <Resource tag="SQL_FULLTEXT_HELP">Использовать полнотекстовой поиск сервера базы данных.</Resource>
     <Resource tag="SSL_LOGIN">Требовать SSL при входе на форум:</Resource>
@@ -1148,9 +1148,9 @@
     <Resource tag="TOPICS_PER_PAGE">Темы на странице:</Resource>
     <Resource tag="TOPICS_PER_PAGE_HELP">Количество тем для отображения на одной странице.</Resource>
     <Resource tag="TWITTER_USERNAME">Имя пользователя твитера для ретвитов:</Resource>
-    <Resource tag="TWITTER_USERNAME_HELP">Упомянутое имя полязователя при ретвите темы или сообщения.</Resource>
+    <Resource tag="TWITTER_USERNAME_HELP">Упомянутое имя пользователя при ретвите темы или сообщения.</Resource>
     <Resource tag="UNHANDLED_USERAGENT_LOG">Включить журналирование для UserAgent:</Resource>
-    <Resource tag="UNHANDLED_USERAGENT_LOG_HELP">Все неидентифицируемы UserAgent будут в журнале. Не включайте это постоянно.</Resource>
+    <Resource tag="UNHANDLED_USERAGENT_LOG_HELP">Все неидентифицируемые UserAgent будут в журнале. Не включайте это постоянно.</Resource>
     <Resource tag="USER_CHANGE_LANGUAGE">Разрешить пользователям менять язык:</Resource>
     <Resource tag="USER_CHANGE_LANGUAGE_HELP">Пользователя могут выбирать язык конференции(интерфейс).</Resource>
     <Resource tag="USER_CHANGE_THEME">Разрешить пользователям менять тему:</Resource>
@@ -1213,7 +1213,7 @@
 		Статьи только для чтения и вы не сможете посылать ответы на них.
 	&lt;/p&gt;
 	&lt;p style="color: red"&gt;
-		Для защиты польователей групп новостей статьи обновляются раз в 10 минут.
+		Для защиты пользователей групп новостей статьи обновляются раз в 10 минут.
 	&lt;/p&gt;</Resource>
     <Resource tag="GROUPS">Группы готовые для захвата</Resource>
     <Resource tag="HEADER">Получить статьи NNTP</Resource>
@@ -1250,7 +1250,7 @@
     <Resource tag="PRUNE_DAYS_HELP">Темы с последним сообщением старше указанного лимита будут удалены.</Resource>
     <Resource tag="PRUNE_FORUM">Форум:</Resource>
     <Resource tag="PRUNE_FORUM_HELP">Выполнить форум.</Resource>
-    <Resource tag="PRUNE_INFO">ВНИМАНИЕ: Задача очистки уже выполняется. Нельзя запланировать новую задачу до окончания текущей.</Resource>
+    <Resource tag="PRUNE_INFO">ВНИМАНИЕ! Задача очистки уже выполняется. Нельзя запланировать новую задачу до окончания текущей.</Resource>
     <Resource tag="PRUNE_PERMANENT">Навсегда удалить из базы данных:</Resource>
     <Resource tag="PRUNE_PERMANENT_HELP">Все темы с помеченные как удалённые будут удалены.</Resource>
     <Resource tag="PRUNE_START">Начать задачу очистки</Resource>
@@ -1611,7 +1611,7 @@
     <Resource tag="DOWNLOAD">Загрузка</Resource>
     <Resource tag="EDIT">Редактировать</Resource>
     <Resource tag="EMAILVERIFICATION_SUBJECT">Проверка Email {0}  </Resource>
-    <Resource tag="EXTERNALUSER">(External User)</Resource>
+    <Resource tag="EXTERNALUSER">(Внешний пользователь)</Resource>
     <Resource tag="FONT_COLOR">Цвет шрифта:</Resource>
     <Resource tag="FONT_SIZE">Размер шрифта:</Resource>
     <Resource tag="FOR" />
@@ -1796,7 +1796,7 @@
   </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">О Вас</Resource>
-    <Resource tag="AIM">Your AIM Name:</Resource>
+    <Resource tag="AIM">Ваш логин AIM:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Желаете ли Вы получать уведомление по электронной почте каждый раз, когда кто-либо оставляет сообщение во [b]всех[/b] обсуждениях с вашим участием?</Resource>
     <Resource tag="BAD_EMAIL">Вы ввели недопустимый адрес электронной почты.</Resource>
     <Resource tag="BAD_HOME">Вы ввели неработающий адрес своей домашней страницы.</Resource>
@@ -1811,7 +1811,7 @@
     <Resource tag="DUPLICATED_EMAIL">Этот адрес электронной почты уже используется.</Resource>
     <Resource tag="EDIT_ALBUMS">Изменить альбомы</Resource>
     <Resource tag="EMAIL">Ваш адрес электронной почты должен быть всегда действительным.</Resource>
-    <Resource tag="FACEBOOK">Your Facebook Profile Name:</Resource>
+    <Resource tag="FACEBOOK">Ваше имя в Facebook:</Resource>
     <Resource tag="FORUM_SETTINGS">Настройки форума</Resource>
     <Resource tag="HIDEME">Не отображать в активных</Resource>
     <Resource tag="HOMEPAGE">Домашняя страница</Resource>
@@ -1836,12 +1836,12 @@
     <Resource tag="TIMEZONE">Часовой пояс</Resource>
     <Resource tag="TIMEZONE2">Чтобы показывать местную дату и время мы должны знать Ваш часовой пояс.</Resource>
     <Resource tag="TITLE">Изменить профиль</Resource>
-    <Resource tag="TWITTER">Your Twitter Name:</Resource>
+    <Resource tag="TWITTER">Ваш ник в Twitter:</Resource>
     <Resource tag="USE_MOBILE_THEME">Использовать тему для мобильного устройства:</Resource>
     <Resource tag="WEBLOG2">URL вашего публичного блога:</Resource>
     <Resource tag="WHERE">Где Вы живете?</Resource>
-    <Resource tag="XMPP">Your Jabber ID:</Resource>
-    <Resource tag="YIM">Your Yahoo ID:</Resource>
+    <Resource tag="XMPP">Ващ Jabber ID:</Resource>
+    <Resource tag="YIM">Ваш Yahoo ID:</Resource>
   </page>
   <page name="CP_MESSAGE">
     <Resource tag="INBOX">Входящие</Resource>
@@ -2321,7 +2321,7 @@
   &lt;li&gt;&lt;strong&gt;Rss Feed&lt;/strong&gt; - This will show the Feed of this Topic with all Post as Feed Items.&lt;/li&gt;
 &lt;/ul&gt;
 </Resource>
-    <Resource tag="THREADOPTTITLE">Настройки дискуссии</Resource>
+    <Resource tag="THREADOPTTITLE">Настройки темы</Resource>
     <Resource tag="TITLE">Помощь по использованию YAF.NET</Resource>
     <Resource tag="WELCOME">Здесь Вы найдете ответы на вопросы о том, как работает форум. Используйте ссылки слева или окно для поиска, расположенное внизу, чтобы найти интересующие Вас разделы.</Resource>
   </page>
@@ -2503,7 +2503,7 @@
     <Resource tag="NUMBERREPORTED">Сообщённое число случаев :</Resource>
     <Resource tag="ORIGINALMESSAGE">Текст сообщения:</Resource>
     <Resource tag="REPLYTO">Послать личное сообщение пользователю </Resource>
-    <Resource tag="REPORT_SPAM">Report as SPAM</Resource>
+    <Resource tag="REPORT_SPAM">Сообщить как СПАМ</Resource>
     <Resource tag="REPORTED">Жалобы на сообщения в этом подфоруме</Resource>
     <Resource tag="REPORTEDBY">Пожаловались:</Resource>
     <Resource tag="RESOLVE">Урегулировать копии сообщения</Resource>
@@ -2662,7 +2662,7 @@
     <Resource tag="SAVE">Сохранить</Resource>
     <Resource tag="SMILIES_HEADER">[b]Добавить смайлик[/b]</Resource>
     <Resource tag="SMILIES_MORE">Ещё смайлики...</Resource>
-    <Resource tag="SPAM_MESSAGE">Your Message was rejected because it was detected as SPAM!</Resource>
+    <Resource tag="SPAM_MESSAGE">Ваше ссобщение было определено как СПАМ!</Resource>
     <Resource tag="STICKY">Прикреплённое</Resource>
     <Resource tag="SUBJECT">Тема:</Resource>
     <Resource tag="SUBJECT_DUPLICATE">Тема с таким названием или похожим названием уже существует.</Resource>
@@ -2675,12 +2675,12 @@
     <Resource tag="AD_SIGNATURE" />
     <Resource tag="AD_USERNAME">Реклама</Resource>
     <Resource tag="AIM">AIM</Resource>
-    <Resource tag="AIM_TITLE">Contact {0} via AOL Instant Messanger</Resource>
+    <Resource tag="AIM_TITLE">Общаться с {0} при помощи пейджера AOL</Resource>
     <Resource tag="ATOMTOPIC">Atom-лента темы</Resource>
     <Resource tag="ATTACHMENTINFO">({0:N0}kb) загружен [b]{1:N0}[/b] раз(а).</Resource>
     <Resource tag="ATTACHMENTS">Вложение(я):</Resource>
     <Resource tag="BLOG">БЛОГ</Resource>
-    <Resource tag="BLOG_TITLE">Visit {0}'s Blog</Resource>
+    <Resource tag="BLOG_TITLE">Посетите блог {0}</Resource>
     <Resource tag="BUZZ_TOPIC">Расшарить тему в Buzz</Resource>
     <Resource tag="CANT_DOWNLOAD">У Вас нет прав для просмотра или загрузки вложений.</Resource>
     <Resource tag="CANT_DOWNLOAD_REGISTER">У Вас нет прав для просмотра или загрузки вложений. Попробуйте зарегистрироваться.</Resource>
@@ -2701,14 +2701,14 @@
     <Resource tag="EMAILTOPIC">Отправить тему по почте</Resource>
     <Resource tag="EMPTY_MESSAGE">Сообщение должно содержать текст.</Resource>
     <Resource tag="FACEBOOK">Facebook</Resource>
-    <Resource tag="FACEBOOK_TITLE">Visit {0}'s Facebook Profile</Resource>
+    <Resource tag="FACEBOOK_TITLE">Посетите профиль пользователя {0} в Facebook</Resource>
     <Resource tag="FACEBOOK_TOPIC">Смотреть в этой теме</Resource>
     <Resource tag="FORUM_JUMP">Быстрый переход</Resource>
     <Resource tag="GROUPS">Группы</Resource>
     <Resource tag="HOME">WWW</Resource>
-    <Resource tag="HOME_TITLE">Visit {0}'s Homepage</Resource>
+    <Resource tag="HOME_TITLE">Посетите домашнюю страницу {0}</Resource>
     <Resource tag="ICQ">ICQ</Resource>
-    <Resource tag="ICQ_TITLE">Contact {0} via ICQ</Resource>
+    <Resource tag="ICQ_TITLE">Пообщаться с {0} при помощи ICQ</Resource>
     <Resource tag="IMAGE_ATTACHMENT_TEXT">Пользователь {0} прикрепил следующие файлы:</Resource>
     <Resource tag="IMAGE_DOWNLOAD">Загрузить изображение</Resource>
     <Resource tag="IMAGE_RESIZE_ENLARGE">Ω Увеличить</Resource>
@@ -2726,13 +2726,13 @@
     <Resource tag="MESSAGEDELETED_MOD">Собщение удалено модератором.</Resource>
     <Resource tag="MESSAGEDELETED_USER">Сообщение удалено пользователем.</Resource>
     <Resource tag="MSN">MSN</Resource>
-    <Resource tag="MSN_TITLE">Contact {0} via MSN</Resource>
+    <Resource tag="MSN_TITLE">Пообщаться с {0} через MSN</Resource>
     <Resource tag="NEXTTOPIC">Следующая тема</Resource>
     <Resource tag="NORMAL">Обычный</Resource>
     <Resource tag="OPTIONS">Опции</Resource>
     <Resource tag="OPTIONS_TOOLTIP">Опции темы дял подписки посредством почты, RSS, Atom, и другие опции.</Resource>
     <Resource tag="PM">ЛС</Resource>
-    <Resource tag="PM_TITLE">Send {0} a Private Message</Resource>
+    <Resource tag="PM_TITLE">Послать ЛС пользователю {0}</Resource>
     <Resource tag="POINTS">Баллов</Resource>
     <Resource tag="POLL_CLOSED">Опрос завершён</Resource>
     <Resource tag="POST_REPLY">Ответить на сообщение</Resource>
@@ -2753,7 +2753,7 @@
     <Resource tag="SHARE">Поделиться</Resource>
     <Resource tag="SHARE_TOOLTIP">Расшарить эту тему по почте, Твиттеру, Facebook и другими способами.</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
-    <Resource tag="SKYPE_TITLE">Contact {0} via Skype</Resource>
+    <Resource tag="SKYPE_TITLE">Соединиться с {0} через Skype</Resource>
     <Resource tag="STATISTICS">Статистика</Resource>
     <Resource tag="THANKSFROM">Сказал(а) «Спасибо»: {0} раз</Resource>
     <Resource tag="THANKSFROM_FEM">Сказала «Спасибо»: {0} раз</Resource>
@@ -2774,8 +2774,8 @@
     <Resource tag="TOP">Вверх</Resource>
     <Resource tag="TOPICBROWSERS">Пользователи, просматривающие эту тему</Resource>
     <Resource tag="TOTAL">Всего</Resource>
-    <Resource tag="Twitter">Twitter</Resource>
-    <Resource tag="TWITTER_TITLE">Visit {0}'s Twitter Profile</Resource>
+    <Resource tag="Twitter">Твиттер</Resource>
+    <Resource tag="TWITTER_TITLE">Посетите профиль {0} в Твиттере</Resource>
     <Resource tag="UNWATCHTOPIC">Не отслеживать эту тему</Resource>
     <Resource tag="USERGENDER_FEM">Женщина</Resource>
     <Resource tag="USERGENDER_MAS">Мужчина</Resource>
@@ -2783,7 +2783,7 @@
     <Resource tag="USERONLINESTATUS">Пользователь находится на форуме</Resource>
     <Resource tag="USERPROFILE">Профиль пользователя</Resource>
     <Resource tag="VIEW">Просмотр</Resource>
-    <Resource tag="VIEW_TOOLTIP">Изсенить режим просмотра с номального на дерево.</Resource>
+    <Resource tag="VIEW_TOOLTIP">Изменить режим просмотра с номального на дерево.</Resource>
     <Resource tag="VOTES">Голоса</Resource>
     <Resource tag="WARN_ALREADY_VOTED">Вы уже голосовали в этом опросе.</Resource>
     <Resource tag="WARN_EMAILLOGIN">Вы должны зарегистрироваться для отправки электронной почты.</Resource>
@@ -2794,9 +2794,9 @@
     <Resource tag="WARN_WATCHLOGIN">Вы должны быть зарегистрированным пользователем, чтобы просматривать темы.</Resource>
     <Resource tag="WATCHTOPIC">Отслеживать эту тему</Resource>
     <Resource tag="XMPP">XMPP</Resource>
-    <Resource tag="XMPP_TITLE">Contact {0} via Jabber</Resource>
+    <Resource tag="XMPP_TITLE">Соединиться с {0} через Jabber</Resource>
     <Resource tag="YIM">YAHOO</Resource>
-    <Resource tag="YIM_TITLE">Contact {0} via Yahoo Instant Messanger</Resource>
+    <Resource tag="YIM_TITLE">Соединиться с {0} через пейджер Yahoo</Resource>
   </page>
   <page name="PRINTTOPIC">
     <Resource tag="POSTEDBY">Автор</Resource>
@@ -2815,7 +2815,7 @@
     <Resource tag="ERROR_ADMINISTRATORS">Вы не можете банить администраторов.</Resource>
     <Resource tag="ERROR_FORUMMODERATORS">Вы не можете банить модераторов.</Resource>
     <Resource tag="ERROR_GUESTACCOUNT">Вы не можете банить учётную запись гостя.</Resource>
-    <Resource tag="FACEBOOK">Facebook Profile:</Resource>
+    <Resource tag="FACEBOOK">Профиль Facebook:</Resource>
     <Resource tag="GENDER">Пол:</Resource>
     <Resource tag="GENDER0">Не указан</Resource>
     <Resource tag="GENDER1">Мужской</Resource>
@@ -2851,7 +2851,7 @@
     <Resource tag="THANKSTOPOSTS">Количество сказанных «Спасибо» пользователя</Resource>
     <Resource tag="THANKSTOTIMES">Сколько раз пользователю сказали «Спасибо»</Resource>
     <Resource tag="TOPIC">Тема:</Resource>
-    <Resource tag="Twitter">Twitter Name:</Resource>
+    <Resource tag="Twitter">Имя в Твиттере:</Resource>
     <Resource tag="USERNAME">Имя пользователя:</Resource>
     <Resource tag="WEBLOG">Блог:</Resource>
     <Resource tag="WEBSITE">Домашняя страница:</Resource>
@@ -3220,11 +3220,11 @@ The Message was posted in the {forumname} forum.
     <Resource tag="LASTPOST">Последнее сообщение</Resource>
     <Resource tag="MARKREAD">Отметить форум как прочитанный</Resource>
     <Resource tag="NO_POSTS">Нет сообщений</Resource>
-    <Resource tag="OK_TT">Search this Forum</Resource>
+    <Resource tag="OK_TT">Поиск по форуму</Resource>
     <Resource tag="POSTS">Сообщения</Resource>
     <Resource tag="REPLIES">Ответы</Resource>
     <Resource tag="RSSFEED">Лента RSS</Resource>
-    <Resource tag="SEARCH_FORUM">Search Forum</Resource>
+    <Resource tag="SEARCH_FORUM">Поиск по форуму</Resource>
     <Resource tag="SHOWTOPICS">Показать темы</Resource>
     <Resource tag="SUBFORUMS">Подфорумы</Resource>
     <Resource tag="TODAYAT">[b]Сегодня[/b] в {0:T}</Resource>
