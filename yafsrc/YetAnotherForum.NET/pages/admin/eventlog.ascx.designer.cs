@@ -31,15 +31,6 @@ namespace YAF.Pages.Admin {
         protected global::YAF.Controls.AdminMenu AdminMenu1;
         
         /// <summary>
-        /// eventUpdate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel eventUpdate;
-        
-        /// <summary>
         /// PagerTop control.
         /// </summary>
         /// <remarks>
