@@ -3963,6 +3963,7 @@ begin
 	declare	@MessageID	int
 	declare @ReplyTo	int
 	
+	SET @TopicID = NULL
 	SET @ReplyTo = NULL
 
 	select @ForumID = ForumID from [{databaseOwner}].[{objectQualifier}NntpForum] where NntpForumID=@NntpForumID
@@ -3973,7 +3974,7 @@ begin
 		select @TopicID = TopicID, @ReplyTo = MessageID from [{databaseOwner}].[{objectQualifier}Message] where ExternalMessageId = @ReferenceMessageId
 	end else
 	begin
-		if (@ReferenceMessageId IS NOT NULL)
+		if (@ReferenceMessageId IS NULL)
 		begin
 			-- thread doesn't exists
 			insert into [{databaseOwner}].[{objectQualifier}Topic](ForumID,UserID,UserName,Posted,Topic,[Views],Priority,NumPosts)
@@ -3985,7 +3986,10 @@ begin
 		end
 	end
 	
-	exec [{databaseOwner}].[{objectQualifier}message_save]  @TopicID, @UserID, @Body, @UserName, @IP, @Posted, @ReplyTo, NULL, @ExternalMessageId, 17, @MessageID OUTPUT
+	IF @TopicID IS NOT NULL
+	BEGIN
+		exec [{databaseOwner}].[{objectQualifier}message_save]  @TopicID, @UserID, @Body, @UserName, @IP, @Posted, @ReplyTo, NULL, @ExternalMessageId, 17, @MessageID OUTPUT
+	END	
 end
 GO
 
