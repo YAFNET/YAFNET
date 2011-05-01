@@ -68,7 +68,7 @@ namespace YAF.Core
     {
       get
       {
-        return !this._isDebug;
+        return this._isDebug;
       }
     }
 
@@ -101,7 +101,7 @@ namespace YAF.Core
     {
       get
       {
-        return !this._isDebug;
+        return true;
       }
     }
 
@@ -112,7 +112,7 @@ namespace YAF.Core
     {
       get
       {
-        return !this._isDebug;
+        return this._isDebug;
       }
     }
 
@@ -165,7 +165,10 @@ namespace YAF.Core
     /// </param>
     public void Debug(string format, params object[] args)
     {
-      System.Diagnostics.Debug.WriteLine(String.Format(format, args));
+      if (this.IsDebugEnabled)
+      {
+        System.Diagnostics.Debug.WriteLine(String.Format(format, args));
+      }
     }
 
     /// <summary>
@@ -182,8 +185,11 @@ namespace YAF.Core
     /// </param>
     public void Debug(Exception exception, string format, params object[] args)
     {
-      System.Diagnostics.Debug.WriteLine(String.Format(format, args));
-      System.Diagnostics.Debug.WriteLine(exception.ToString());
+      if (this.IsDebugEnabled)
+      {
+        System.Diagnostics.Debug.WriteLine(String.Format(format, args));
+        System.Diagnostics.Debug.WriteLine(exception.ToString());
+      }
     }
 
     /// <summary>
@@ -197,7 +203,10 @@ namespace YAF.Core
     /// </param>
     public void Error(string format, params object[] args)
     {
-      this.Log(String.Format(format, args), EventLogTypes.Error);
+      if (this.IsErrorEnabled)
+      {
+        this.Log(String.Format(format, args), EventLogTypes.Error);
+      }
     }
 
     /// <summary>
@@ -214,7 +223,10 @@ namespace YAF.Core
     /// </param>
     public void Error(Exception exception, string format, params object[] args)
     {
-      this.Log(String.Format(format, args) + "\r\n" + exception, EventLogTypes.Error);
+      if (this.IsErrorEnabled)
+      {
+        this.Log(String.Format(format, args) + "\r\n" + exception, EventLogTypes.Error);
+      }
     }
 
     /// <summary>
@@ -228,7 +240,10 @@ namespace YAF.Core
     /// </param>
     public void Fatal(string format, params object[] args)
     {
-      this.Log(String.Format(format, args), EventLogTypes.Error);
+      if (this.IsFatalEnabled)
+      {
+        this.Log(String.Format(format, args), EventLogTypes.Error);
+      }
     }
 
     /// <summary>
@@ -245,7 +260,10 @@ namespace YAF.Core
     /// </param>
     public void Fatal(Exception exception, string format, params object[] args)
     {
-      this.Log(String.Format(format, args) + "\r\n" + exception, EventLogTypes.Error);
+      if (this.IsFatalEnabled)
+      {
+        this.Log(String.Format(format, args) + "\r\n" + exception, EventLogTypes.Error);
+      }
     }
 
     /// <summary>
@@ -259,7 +277,7 @@ namespace YAF.Core
     /// </param>
     public void Info(string format, params object[] args)
     {
-      if (this.IsDebugEnabled)
+      if (this.IsInfoEnabled)
       {
         this.Log(String.Format(format, args), EventLogTypes.Information);
       }
@@ -279,7 +297,7 @@ namespace YAF.Core
     /// </param>
     public void Info(Exception exception, string format, params object[] args)
     {
-      if (this.IsDebugEnabled)
+      if (this.IsInfoEnabled)
       {
         this.Log(String.Format(format, args) + "\r\n" + exception, EventLogTypes.Information);
       }
@@ -296,7 +314,10 @@ namespace YAF.Core
     /// </param>
     public void Trace(string format, params object[] args)
     {
-      System.Diagnostics.Trace.TraceInformation(String.Format(format, args));
+      if (this.IsTraceEnabled)
+      {
+        System.Diagnostics.Trace.TraceInformation(String.Format(format, args));
+      }
     }
 
     /// <summary>
@@ -313,8 +334,11 @@ namespace YAF.Core
     /// </param>
     public void Trace(Exception exception, string format, params object[] args)
     {
-      System.Diagnostics.Trace.TraceInformation(String.Format(format, args));
-      System.Diagnostics.Trace.TraceError(exception.ToString());
+      if (this.IsTraceEnabled)
+      {
+        System.Diagnostics.Trace.TraceInformation(String.Format(format, args));
+        System.Diagnostics.Trace.TraceError(exception.ToString());
+      }
     }
 
     /// <summary>
@@ -328,7 +352,10 @@ namespace YAF.Core
     /// </param>
     public void Warn(string format, params object[] args)
     {
-      this.Log(String.Format(format, args), EventLogTypes.Warning);
+      if (this.IsWarnEnabled)
+      {
+        this.Log(String.Format(format, args), EventLogTypes.Warning);
+      }
     }
 
     /// <summary>
@@ -345,7 +372,10 @@ namespace YAF.Core
     /// </param>
     public void Warn(Exception exception, string format, params object[] args)
     {
-      this.Log(String.Format(format, args) + "\r\n" + exception, EventLogTypes.Warning);
+      if (this.IsWarnEnabled)
+      {
+        this.Log(String.Format(format, args) + "\r\n" + exception, EventLogTypes.Warning);
+      }
     }
 
     #endregion

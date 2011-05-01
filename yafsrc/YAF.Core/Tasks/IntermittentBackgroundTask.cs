@@ -100,7 +100,7 @@ namespace YAF.Core.Tasks
         this.IsRunning = true;
 
         // create the timer...
-        this._intermittentTimer = new Timer(new TimerCallback(this.TimerCallback), null, this.StartDelayMs, this.RunPeriodMs);
+        this._intermittentTimer = new Timer(this.TimerCallback, null, this.StartDelayMs, this.RunPeriodMs);
       }
     }
 

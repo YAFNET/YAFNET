@@ -50,6 +50,13 @@ namespace YAF.Core.Nntp
   /// </summary>
   public class YafNntp : INewsreader
   {
+    public ILogger Logger { get; set; }
+
+    public YafNntp(ILogger logger)
+    {
+      Logger = logger;
+    }
+
     #region Public Methods
 
     /// <summary>
@@ -173,13 +180,12 @@ namespace YAF.Core.Nntp
               {
                 if (exception.ErrorCode != 423)
                 {
-                  LegacyDb.eventlog_create(null, "YafNntp", exception.ToString());
+                  this.Logger.Error(exception, "YafNntp");
                 }
               }
               catch (SqlException exception)
               {
-                LegacyDb.eventlog_create(
-                  null, "YafNntp DB Failure", exception);
+                this.Logger.Error(exception, "YafNntp DB Failure");
               }
             }
 
