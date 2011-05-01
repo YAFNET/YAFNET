@@ -215,7 +215,7 @@ namespace YAF.Pages
             }
             else
             {
-                ViewState["SortNameField"] = 1;
+                ViewState["SortNameField"] = 0;
                 ViewState["SortRankNameField"] = 0;
                 ViewState["SortJoinedField"] = 0;
                 ViewState["SortNumPostsField"] = 0;
