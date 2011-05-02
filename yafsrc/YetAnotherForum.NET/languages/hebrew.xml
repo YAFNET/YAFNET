@@ -990,6 +990,8 @@
     <Resource tag="MAX_ATTACHMENTS_HELP">Maximum Number of uploaded files per Post. Set to 0 for unlimited.</Resource>
     <Resource tag="MAX_File size">Max File Size:</Resource>
     <Resource tag="MAX_File size_HELP">Maximum size of uploaded files. Leave empty for no limit.</Resource>
+    <Resource tag="MAX_FILESIZE">Max File Size:</Resource>
+    <Resource tag="MAX_FILESIZE_HELP">Maximum size of uploaded files. Leave empty for no limit.</Resource>
     <Resource tag="MAX_IMAGE_SIZE">Maximum Image Size:</Resource>
     <Resource tag="MAX_IMAGE_SIZE_HELP">Maximum size of image in bytes a user can upload.</Resource>
     <Resource tag="MAX_PM_RECIPIENTS">Max no. of PM Recipients:</Resource>
@@ -1022,6 +1024,8 @@
     <Resource tag="POINTS_TEMPLATE_HELP">Template for rendering user's points.</Resource>
     <Resource tag="POLL_IMAGE_File size">Poll Image File size:</Resource>
     <Resource tag="POLL_IMAGE_File size_HELP">Max. file size for poll images in KB.</Resource>
+    <Resource tag="POLL_IMAGE_FILESIZE">Poll Image File size:</Resource>
+    <Resource tag="POLL_IMAGE_FILESIZE_HELP">Max. file size for poll images in KB.</Resource>
     <Resource tag="POLLVOTING_PERIP">Poll Votes Dependent on IP:</Resource>
     <Resource tag="POLLVOTING_PERIP_HELP">By default, poll voting is tracked via username and client-side cookie. (One vote per username. Cookies are used if guest voting is allowed.) &lt;br /&gt;If this option is enabled, votes also use IP as a reference providing the most security against voter fraud.</Resource>
     <Resource tag="POST_AD">2nd post ad:</Resource>

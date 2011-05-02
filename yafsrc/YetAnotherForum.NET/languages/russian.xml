@@ -967,6 +967,8 @@
     <Resource tag="MAX_ATTACHMENTS_HELP">Максимальное число вложение к одному сообщению. Уставновите 0 для неограниченного.</Resource>
     <Resource tag="MAX_File size">Размер файла:</Resource>
     <Resource tag="MAX_File size_HELP">Максимальный размер загружаемых файлов. Оставьте пустым для неограниченного.</Resource>
+    <Resource tag="MAX_FILESIZE">Max File Size:</Resource>
+    <Resource tag="MAX_FILESIZE_HELP">Maximum size of uploaded files. Leave empty for no limit.</Resource>
     <Resource tag="MAX_IMAGE_SIZE">Размер изображения:</Resource>
     <Resource tag="MAX_IMAGE_SIZE_HELP">Максимальный размер изображения, которое может загрузить пользователь, в байтах.</Resource>
     <Resource tag="MAX_PM_RECIPIENTS">Число получателей ЛС:</Resource>
@@ -999,6 +1001,8 @@
     <Resource tag="POINTS_TEMPLATE_HELP">Шаблон для отображения очков пользователя.</Resource>
     <Resource tag="POLL_IMAGE_File size">Размер файла изображения в опросах:</Resource>
     <Resource tag="POLL_IMAGE_File size_HELP">Максимальный размер файла в опросах в КБ.</Resource>
+    <Resource tag="POLL_IMAGE_FILESIZE">Poll Image File size:</Resource>
+    <Resource tag="POLL_IMAGE_FILESIZE_HELP">Max. file size for poll images in KB.</Resource>
     <Resource tag="POLLVOTING_PERIP">Голосование зависит от IP:</Resource>
     <Resource tag="POLLVOTING_PERIP_HELP">По умолчанию, голосование отслеживается по имени пользователя и куки. (Один голос на ник. куки используются если включено гостевое голосование.) &lt;br /&gt;Если эта опция включена, то YAF также использует IP как ссылку обеспечивающую максимальную защиту от фальсификаций.</Resource>
     <Resource tag="POST_AD">Реклама во 2ом сообщении:</Resource>

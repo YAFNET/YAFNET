@@ -219,7 +219,7 @@
 		<Resource tag="REPLYINGTITLE">Auf einen Beitrag antworten</Resource>
 		<Resource tag="EDITDELETETITLE">Bearbeiten und Löschen von Beiträgen</Resource>
 		<Resource tag="ATTACHMENTSTITLE">Anhänge und Bilder</Resource>
-		<Resource tag="SmileysTITLE">Smileys</Resource>
+		<Resource tag="SMILIESTITLE">Smilies</Resource>
 		<Resource tag="MODSADMINSTITLE">Moderatoren und Administratoren</Resource>
 		<Resource tag="POLLSCONTENT">&lt;p&gt;&lt;em&gt;Polls are an Option to vote on an issue or a question.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Create a new poll?&lt;/strong&gt;&lt;/p&gt;
@@ -271,10 +271,10 @@
 &lt;p&gt;&lt;strong&gt;How to add an image to a post?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;If you have uploaded an image as an attachment, there will be automatically generated an thumbnail that will displayed in your message, with an Link to the Full Size Image&lt;/p&gt;
 &lt;p&gt;To include an image that is not uploaded as an attachment and is located on another website, you can do so by copying the full URL to the image, (not the page on which the image is located), and either pressing the 'Insert Image' icon or by typing [img] before the URL and [/img] after it, ensuring that you do not have any spaces before or after the URL of the image.&lt;/p&gt;</Resource>
-		<Resource tag="SmileysCONTENT">&lt;p&gt;Smileys are icons that can be used in your posts to express emotions or feelings. You might wish to use these to show that you are happy, sad, joking, or embarrassed. For example, if you are telling a joke or being sarcastic you may wish to add a wink instead of writing 'this is a joke'.
+		<Resource tag="SMILIESCONTENT">&lt;p&gt;Smilies are icons that can be used in your posts to express emotions or feelings. You might wish to use these to show that you are happy, sad, joking, or embarrassed. For example, if you are telling a joke or being sarcastic you may wish to add a wink instead of writing 'this is a joke'.
 &lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;How to add Smileys to a post message?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Some Smileys can be accessed from the 'Post Reply' or 'New Topic' pages if your administrator has enabled this function. Clicking them will automatically insert them into your message. You can also type the character combinations for the Smileys directly.&lt;/p&gt;</Resource>
+&lt;p&gt;&lt;strong&gt;How to add smilies to a post message?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Some smilies can be accessed from the 'Post Reply' or 'New Topic' pages if your administrator has enabled this function. Clicking them will automatically insert them into your message. You can also type the character combinations for the smilies directly.&lt;/p&gt;</Resource>
 		<Resource tag="MODSADMINSCONTENT">&lt;p&gt;Moderators oversee specific forums. They generally have the ability to edit and delete posts, move topics, and perform other actions. Becoming a moderator for a specific forum is usually rewarded to users who are particularly helpful and knowledgeable in the subject of the forum they are moderating.&lt;/p&gt;
 &lt;p&gt;Administrators are the people who have overall control of everything that happens on the board. They oversee how the board is styled, what forums to create and how to organize them, what information to require from members and who to appoint as moderators.&lt;/p&gt;</Resource>
 		<Resource tag="PROFILETOPICS">Einstellungen und Profil Funktionen</Resource>
@@ -389,7 +389,7 @@
 		<Resource tag="HELP_RECOVER">Keine Daten</Resource>
 		<Resource tag="LASTPOSTS">Keine daten</Resource>
 		<Resource tag="RECOVERPASSWORD">Keine Daten</Resource>
-		<Resource tag="SHOWSmileys">Keine Daten</Resource>
+		<Resource tag="SHOWSMILIES">No data</Resource>
 		<Resource tag="VIEWTHANKS">Sieht Dankesinfo an </Resource>
 		<Resource tag="ADMINTASK">Führt Admin Aufgaben durch</Resource>
 		<Resource tag="ADMIN_ADMIN">Betrachtet Admin Index</Resource>
@@ -398,7 +398,7 @@
 		<Resource tag="ADMIN_BOARDSETTINGS">Betrachtet Boardeinstellungen</Resource>
 		<Resource tag="ADMIN_FORUMS">Betrachtet Foren im Adminbereich</Resource>
 		<Resource tag="ADMIN_BANNEDIP">Betrachtet Gebannte IPs Liste</Resource>
-		<Resource tag="ADMIN_Smileys">Betrachtet Smileys</Resource>
+		<Resource tag="ADMIN_SMILIES">Views smilies</Resource>
 		<Resource tag="ADMIN_ACCESSMASKS">Betrachtet Zugriffssmasken im Adminbereich</Resource>
 		<Resource tag="ADMIN_GROUPS">Betrachtet Gruppen im Adminbereich</Resource>
 		<Resource tag="ADMIN_USERS">Betrachtet Benutzer im Adminbereich</Resource>
@@ -425,8 +425,8 @@
 		<Resource tag="ADMIN_EDITRANK">Bearbeitet Ränge</Resource>
 		<Resource tag="ADMIN_EDITUSER">Bearbeitet Benutzeruser</Resource>
 		<Resource tag="ADMIN_REGUSER">Registriert einen Benutzer</Resource>
-		<Resource tag="ADMIN_Smileys_EDIT">Bearbeitet Smileys</Resource>
-		<Resource tag="ADMIN_Smileys_IMPORT">Importiert Smileys</Resource>
+		<Resource tag="ADMIN_SMILIES_EDIT">Edits smilies</Resource>
+		<Resource tag="ADMIN_SMILIES_IMPORT">Imports smilies</Resource>
 		<Resource tag="ADMIN_REPLACEWORDS">Betrachtet Ersatzwörterliste</Resource>
 		<Resource tag="ADMIN_REPLACEWORDS_EDIT">Bearbeitet Ersatzwörterliste</Resource>
 		<Resource tag="ADMIN_REPLACEWORDS_IMPORT">Importiert Ersatzwörter</Resource>
@@ -1232,8 +1232,8 @@
 		<Resource tag="PRIORITY">Priorität:</Resource>
 		<Resource tag="REPLY">Eine Antwort schreiben</Resource>
 		<Resource tag="SAVE">Senden</Resource>
-		<Resource tag="Smileys_HEADER">[b]Smiley hinzufügen[/b]</Resource>
-		<Resource tag="Smileys_MORE">Mehr Smileys...</Resource>
+		<Resource tag="SMILIES_HEADER">[b]Add Smiley[/b]</Resource>
+		<Resource tag="SMILIES_MORE">More Smilies...</Resource>
 		<Resource tag="STICKY">Wichtig</Resource>
 		<Resource tag="SUBJECT">Betreff:</Resource>
 		<Resource tag="SUBJECT_DUPLICATE">Ein Beitrag mit diesem Namen existiert bereits oder ist nicht eindeutig genug um ihn verwenden zu können.</Resource>
@@ -1626,12 +1626,12 @@ Durch das Abschließen der Registrierung stimmst Du diesen Nutzungsbedingungen z
 		<Resource tag="TITLE">Suche</Resource>
 		<Resource tag="TOPIC">Thema:</Resource>
 	</page>
-	<page name="SHOWSmileys">
-		<Resource tag="CLOSE_WINDOW">Fenster Schließen</Resource>
+	<page name="SHOWSMILIES">
+		<Resource tag="CLOSE_WINDOW">Close Window</Resource>
 		<Resource tag="HEADER_CODE">Code</Resource>
-		<Resource tag="HEADER_MEANING">Bedeutung</Resource>
-		<Resource tag="HEADER_SMILE">Smiley</Resource>
-		<Resource tag="TITLE">Vorhandene Smileys</Resource>
+		<Resource tag="HEADER_MEANING">Meaning</Resource>
+		<Resource tag="HEADER_SMILE">Smile</Resource>
+		<Resource tag="TITLE">Available Smilies</Resource>
 	</page>
 	<page name="SHOUTBOX">
 		<Resource tag="TITLE">ShoutBox (Mini-Chat)</Resource>
@@ -1911,7 +1911,7 @@ Der Bestätigungscode lautet
 		<Resource tag="admin_admin">Admin-Index</Resource>
 		<Resource tag="admin_boardsettings">Board Einstellungen</Resource>
 		<Resource tag="admin_forums">Foren</Resource>
-		<Resource tag="admin_Smileys">Smileys</Resource>
+		<Resource tag="admin_smilies">Smilies</Resource>
 		<Resource tag="admin_replacewords">Ersetzen von Wörtern</Resource>
 		<Resource tag="admin_extensions">Dateierweiterungen</Resource>
 		<Resource tag="admin_bbcode">BBCode Erweiterungen</Resource>
@@ -2053,42 +2053,42 @@ Der Bestätigungscode lautet
 		<Resource tag="RUNNING">Läuft</Resource>
 		<Resource tag="STOP_TASK">Task stoppen</Resource>
 	</page>
-	<page name="ADMIN_Smileys_IMPORT">
-		<Resource tag="TITLE">Smileys Importieren</Resource>
-		<Resource tag="HEADER">Smiley Pack importieren</Resource>
-		<Resource tag="IMPORT">Importieren</Resource>
-		<Resource tag="SELECT_FILE">Datei auswählen (*.pak)</Resource>
-		<Resource tag="ERROR_SELECT_FILE">Sie müssen eine .pak-Datei zum importieren auswählen.</Resource>
-		<Resource tag="CHOOSE_PAK">Wählen Sie eine .pak Datei:</Resource>
-		<Resource tag="DELETE_EXISTING">Löschen Sie vorhandene Smiles:</Resource>
-		<Resource tag="CHOOSE_PAK_HELP">Sie müssen das Smiley Pack zunächst entpacken bevor Sie alle Dateien in den Smileys Ordner hochladen können (Boards/BordNO/Images/Emoticons).</Resource>
-		<Resource tag="DELETE_EXISTING_HELP">Löscht alle vorhandenen Smiles Wenn Sie diese Option aktivieren.</Resource>
+	<page name="ADMIN_SMILIES_IMPORT">
+		<Resource tag="TITLE">Smilies Import</Resource>
+		<Resource tag="HEADER">Import Smiley Pack</Resource>
+		<Resource tag="IMPORT">Import</Resource>
+		<Resource tag="SELECT_FILE">Select File (*.pak)</Resource>
+		<Resource tag="ERROR_SELECT_FILE">You must select a .pak file to import.</Resource>
+		<Resource tag="CHOOSE_PAK">Choose .pak file:</Resource>
+		<Resource tag="DELETE_EXISTING">Delete existing smilies:</Resource>
+		<Resource tag="CHOOSE_PAK_HELP">You'll have to unpack the smiley package and upload all files to your smiley directory (Boards/BoardNo/Images/Emoticons).</Resource>
+		<Resource tag="DELETE_EXISTING_HELP">Will DELETE ALL existing smilies if you check this.</Resource>
 	</page>
-	<page name="ADMIN_Smileys_EDIT">
-		<Resource tag="TITLE">Hinzufügen / Bearbeiten Smiley</Resource>
+	<page name="ADMIN_SMILIES_EDIT">
+		<Resource tag="TITLE">Add/Edit Smiley</Resource>
 		<Resource tag="CODE">Code:</Resource>
 		<Resource tag="ICON">Icon:</Resource>
 		<Resource tag="EMOTION">Emotion:</Resource>
-		<Resource tag="SORT_ORDER">Sortiert nach:</Resource>
-		<Resource tag="SELECT_SMILEY">Smileybild wählen</Resource>
-		<Resource tag="MSG_TOO_LONG">Eine Emotion Beschreibung ist zu lang.</Resource>
-		<Resource tag="MSG_CODE_MISSING">Bitte gib den Code für diese Emotion ein.</Resource>
-		<Resource tag="MSG_CODE_LONG">Der Code der für diese Emotion verwendet wird darf nicht mehr als 10 Zeichen lang sein.</Resource>
-		<Resource tag="MSG_CODE_BRACK">Bitte geben Sie den Code für dieses Emotion in "[...]" ein.</Resource>
-		<Resource tag="MSG_NO_EMOTICON">Bitte geben Sie eine Emotion für dieses Icon ein.</Resource>
-		<Resource tag="MSG_NO_ICON">Bitte wählen Sie ein Icon  für diese Emotion.</Resource>
-		<Resource tag="MSG_SORT_NMBR">Sortierung muss eine  Zahl zwischen 0 und 255 sein.</Resource>
+		<Resource tag="SORT_ORDER">Sort Order:</Resource>
+		<Resource tag="SELECT_SMILEY">Select Smiley Image</Resource>
+		<Resource tag="MSG_TOO_LONG">An emotion description is too long.</Resource>
+		<Resource tag="MSG_CODE_MISSING">Please enter the code to use for this emotion.</Resource>
+		<Resource tag="MSG_CODE_LONG">The code to use for this emotion should not be more then 10 symbols.</Resource>
+		<Resource tag="MSG_CODE_BRACK">Please enter the code to use for this emotion in square brackets.</Resource>
+		<Resource tag="MSG_NO_EMOTICON">Please enter an emotion for this icon.</Resource>
+		<Resource tag="MSG_NO_ICON">Please select an icon to use for this emotion.</Resource>
+		<Resource tag="MSG_SORT_NMBR">Sort order must be number between 0 and 255.</Resource>
 	</page>
-	<page name="ADMIN_Smileys">
-		<Resource tag="TITLE">Smileys</Resource>
-		<Resource tag="ADD">Smiley hinzufügen</Resource>
-		<Resource tag="IMPORT">Smiley Pack importieren</Resource>
+	<page name="ADMIN_SMILIES">
+		<Resource tag="TITLE">Smilies</Resource>
+		<Resource tag="ADD">Add Smiley</Resource>
+		<Resource tag="IMPORT">Import Smiley Pack</Resource>
 		<Resource tag="CODE">Code</Resource>
 		<Resource tag="SMILEY">Smiley</Resource>
-		<Resource tag="ORDER">Reihenfolge</Resource>
+		<Resource tag="ORDER">Order</Resource>
 		<Resource tag="EMOTION">Emotion</Resource>
 		<Resource tag="COMANDS">Emotion</Resource>
-		<Resource tag="MSG_DELETE">Dieses Smiley löschen?</Resource>
+		<Resource tag="MSG_DELETE">Delete this smiley?</Resource>
 	</page>
 	<page name="ADMIN_RESTARTAPP">
 		<Resource tag="TITLE">Anwendung (YAF) neustarten</Resource>
@@ -3027,8 +3027,8 @@ Der Bestätigungscode lautet
 		<Resource tag="ACCEPT_HEADER_HTML_HELP">Durch Komma getrennte Liste (keine Leerzeichen) von HTML-Tags, in den Beiträgen Header für gemeinsame Benutzer-Editoren sind erlaubt.</Resource>
 		<Resource tag="STYLED_NICKS">Gestylte Nicks verwenden:</Resource>
 		<Resource tag="STYLED_NICKS_HELP">Wenn diese Option aktiviert, können Sie Farben, die Schriftgröße, usw. ändern für aktive Benutzer Nicknamen.</Resource>
-		<Resource tag="SHOW_SHOUTBOX_Smileys">Zeige Shoutbox Smileys:</Resource>
-		<Resource tag="SHOW_SHOUTBOX_Smileys_HELP">Aktivieren oder deaktivieren Anzeige der Shoutbox (Chat-Modul) Smileys.</Resource>
+		<Resource tag="SHOW_SHOUTBOX_SMILIES">Zeige Shoutbox Smileys:</Resource>
+		<Resource tag="SHOW_SHOUTBOX_SMILIES_HELP">Aktivieren oder deaktivieren der Anzeige der Shoutbox (Chat-Modul) Smileys.</Resource>
 		<Resource tag="NOFOLLOW_LINKTAGS">"nofollow" Tags in Links verwenden:</Resource>
 		<Resource tag="NOFOLLOW_LINKTAGS_HELP">Wenn aktiviert, werden alle Links ein"nofollow"-Tag haben.</Resource>
 		<Resource tag="ACTIVE_USERTIME">Aktive Benutzer Zeit:</Resource>
@@ -3146,8 +3146,8 @@ Der Bestätigungscode lautet
 		<Resource tag="ALLOW_GUESTS_VIEWPOLL_HELP">Wenn aktiviert Gäste können die Umfrage Optionen ansehen</Resource>
 		<Resource tag="ALLOW_USERS_POLLIMAGES">Benutzer erlauben Umfrage Bilder zu verwenden:</Resource>
 		<Resource tag="ALLOW_USERS_POLLIMAGES_HELP">Wen aktiviert können Benutzer Bilder als Umfrage Optionen verwenden</Resource>
-		<Resource tag="POLL_IMAGE_File size">Umfrage Bildgröße</Resource>
-		<Resource tag="POLL_IMAGE_File size_HELP">Max. Dateigröße für Umfrage Bilder in KB.</Resource>
+		<Resource tag="POLL_IMAGE_FILESIZE">Umfragebild Dateigröße:</Resource>
+		<Resource tag="POLL_IMAGE_FILESIZE_HELP">Max. Dateigröße für Umfrage Bilder in KB.</Resource>
 		<Resource tag="ALLOW_PMS">Private Nachrichten erlauben:</Resource>
 		<Resource tag="ALLOW_PMS_HELP">Benutzern erlauben Private Nachrichten zu verschicken und zu empfangen. Sie sollten ausdrücklich die Erlaubnis für jede Gruppe und / oder Rang definieren, um sie für die Benutzer zu aktivieren.</Resource>
 		<Resource tag="ALLOW_PM_NOTIFICATION">Private Nachrichten Benachrichtigung</Resource>
@@ -3229,6 +3229,8 @@ Der Bestätigungscode lautet
 		<Resource tag="SPAM_MESSAGE_0">Nichts tun</Resource>
 		<Resource tag="SPAM_MESSAGE_1">Beitrag als nicht genehmigt markieren</Resource>
 		<Resource tag="SPAM_MESSAGE_2">Beitrag ablehnen</Resource>
+		<Resource tag="MAX_FILESIZE">Max. Dateigröße:</Resource>
+		<Resource tag="MAX_FILESIZE_HELP">Maximale Größe der hochgeladenen Dateien. Leer lassen für kein Limit.</Resource>
 	</page>
 	<page name="ADMIN_TEST_DATA">
 		<Resource tag="TITLE">Testdaten generieren (Nur DEBUG)</Resource>
