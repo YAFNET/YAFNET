@@ -462,7 +462,7 @@ namespace YAF.Pages
         nRowCount = (int)dtTopics.Rows[0]["RowCount"];
       }
 
-      int nPageCount = (nRowCount + nPageSize - 1) / nPageSize;
+      int nPageCount = (int)Math.Ceiling((double)(nRowCount + nPageSize) / nPageSize);
 
       this.TopicList.DataSource = dtTopics;
 
@@ -472,7 +472,7 @@ namespace YAF.Pages
       this.ShowList.SelectedIndex = this._showTopicListSelected;
       this.Get<IYafSession>().ShowList = this._showTopicListSelected;
 
-      this.Pager.Count = nRowCount;
+      this.Pager.Count = nPageCount;
     }
 
     /// <summary>
