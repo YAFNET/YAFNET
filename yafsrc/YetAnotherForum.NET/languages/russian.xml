@@ -965,8 +965,8 @@
     <Resource tag="MAX_ALLOWED_POLLS_HELP">Максимальное число вопросов в группе. Искусственно ограничено до 99.</Resource>
     <Resource tag="MAX_ATTACHMENTS">Число вложений к сообщению:</Resource>
     <Resource tag="MAX_ATTACHMENTS_HELP">Максимальное число вложение к одному сообщению. Уставновите 0 для неограниченного.</Resource>
-    <Resource tag="MAX_FILESIZE">Размер файла:</Resource>
-    <Resource tag="MAX_FILESIZE_HELP">Максимальный размер загружаемых файлов. Оставьте пустым для неограниченного.</Resource>
+    <Resource tag="MAX_File size">Размер файла:</Resource>
+    <Resource tag="MAX_File size_HELP">Максимальный размер загружаемых файлов. Оставьте пустым для неограниченного.</Resource>
     <Resource tag="MAX_IMAGE_SIZE">Размер изображения:</Resource>
     <Resource tag="MAX_IMAGE_SIZE_HELP">Максимальный размер изображения, которое может загрузить пользователь, в байтах.</Resource>
     <Resource tag="MAX_PM_RECIPIENTS">Число получателей ЛС:</Resource>
@@ -997,8 +997,8 @@
     <Resource tag="ONLINE_STATUS_TIMEOUT_HELP">Вы можете уставливать это значение в зависимости от активности на сайте(в миллисекундах)</Resource>
     <Resource tag="POINTS_TEMPLATE">Шаблон очков:</Resource>
     <Resource tag="POINTS_TEMPLATE_HELP">Шаблон для отображения очков пользователя.</Resource>
-    <Resource tag="POLL_IMAGE_FILESIZE">Размер файла изображения в опросах:</Resource>
-    <Resource tag="POLL_IMAGE_FILESIZE_HELP">Максимальный размер файла в опросах в КБ.</Resource>
+    <Resource tag="POLL_IMAGE_File size">Размер файла изображения в опросах:</Resource>
+    <Resource tag="POLL_IMAGE_File size_HELP">Максимальный размер файла в опросах в КБ.</Resource>
     <Resource tag="POLLVOTING_PERIP">Голосование зависит от IP:</Resource>
     <Resource tag="POLLVOTING_PERIP_HELP">По умолчанию, голосование отслеживается по имени пользователя и куки. (Один голос на ник. куки используются если включено гостевое голосование.) &lt;br /&gt;Если эта опция включена, то YAF также использует IP как ссылку обеспечивающую максимальную защиту от фальсификаций.</Resource>
     <Resource tag="POST_AD">Реклама во 2ом сообщении:</Resource>
@@ -1768,7 +1768,7 @@
     <Resource tag="OURAVATAR_SELECT">Нажмите здесь, чтобы выбрать аватар</Resource>
     <Resource tag="TITLE">Изменить аватар</Resource>
     <Resource tag="WARN_BIGFILE">Размер вашего изображения не может быть более  {0} байт.</Resource>
-    <Resource tag="WARN_FILESIZE">Размер вашего изображения был {0} байт.</Resource>
+    <Resource tag="WARN_File size">Размер вашего изображения был {0} байт.</Resource>
     <Resource tag="WARN_RESIZED">Размер был изменён, чтобы соответствовать разрешённому.</Resource>
     <Resource tag="WARN_SIZE">Размер вашего изображения был {0}x{1} пикселей.</Resource>
     <Resource tag="WARN_TOOBIG">Размер изображения не должен быть больше чем {0}x{1} пикселей.</Resource>

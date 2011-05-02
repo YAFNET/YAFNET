@@ -424,7 +424,7 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="LOCKED">Gesperrt:</Resource>
     <Resource tag="LOCKED_HELP">Wenn dieses Forum gesperrt ist, kann keiner Beiträge verfassen oder antworten.</Resource>
     <Resource tag="MSG_CATEGORY">You must select a category for the forum.</Resource>
-    <Resource tag="MSG_CHILD_PARENT">The choosen forum cannot be child forum as it's a parent.</Resource>
+    <Resource tag="MSG_CHILD_PARENT">The chosen forum cannot be child forum as it's a parent.</Resource>
     <Resource tag="MSG_DESCRIPTION">You must enter a description for the forum.</Resource>
     <Resource tag="MSG_FORUMNAME_EXISTS">A forum with such a name already exists.</Resource>
     <Resource tag="MSG_INITAL_MASK">You must select an initial access mask for the forum.</Resource>
@@ -966,8 +966,8 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="MAX_ALLOWED_POLLS_HELP">Anzahl der Umfragen, max-Wert nicht mehr als 99.</Resource>
     <Resource tag="MAX_ATTACHMENTS">Maximum Number of Attachments per Post:</Resource>
     <Resource tag="MAX_ATTACHMENTS_HELP">Maximale Anzahl an Dateianhängen pro Beitrag. Auf 0 setzen für unbegrenzt.</Resource>
-    <Resource tag="MAX_FILESIZE">Max. Dateigröße:</Resource>
-    <Resource tag="MAX_FILESIZE_HELP">Maximale Größe der hochgeladenen Dateien. Leer lassen für kein Limit.</Resource>
+    <Resource tag="MAX_File size">Max. Dateigröße:</Resource>
+    <Resource tag="MAX_File size_HELP">Maximale Größe der hochgeladenen Dateien. Leer lassen für kein Limit.</Resource>
     <Resource tag="MAX_IMAGE_SIZE">Maximale Bildgröße:</Resource>
     <Resource tag="MAX_IMAGE_SIZE_HELP">Maximale Dateigröße des Bildes in Bytes, die ein Benutzer hochladen kann.</Resource>
     <Resource tag="MAX_PM_RECIPIENTS">Max. Anzahl von PN Empfängern:</Resource>
@@ -998,8 +998,8 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT_HELP">Sie können eine Feinabstimmung je nach der Webseiten Aktivität (in Millisekunden)</Resource>
     <Resource tag="POINTS_TEMPLATE">Punkte Vorlage:</Resource>
     <Resource tag="POINTS_TEMPLATE_HELP">Vorlage für die Darstellung von Benutzer-Punkten.</Resource>
-    <Resource tag="POLL_IMAGE_FILESIZE">Umfrage Bildgröße</Resource>
-    <Resource tag="POLL_IMAGE_FILESIZE_HELP">Max. Dateigröße für Umfrage Bilder in KB.</Resource>
+    <Resource tag="POLL_IMAGE_File size">Umfrage Bildgröße</Resource>
+    <Resource tag="POLL_IMAGE_File size_HELP">Max. Dateigröße für Umfrage Bilder in KB.</Resource>
     <Resource tag="POLLVOTING_PERIP">Umfragestimmen Abhängig von IP:</Resource>
     <Resource tag="POLLVOTING_PERIP_HELP">Standardmäßig werden die Umfrage Abstimmungen verfolgt mit dem Benutzernamen und einem Cookie (Eine Stimme pro Benutzername. Cookies werden verwendet falls Gäste abstimmen dürfen &lt;br /&gt;Wenn diese Option aktiviert ist werden auch die IP Adressen als Referenz verwendet, und ist die Sicherste Methode gegen Wahlbetrug.</Resource>
     <Resource tag="POST_AD">Werbe Code:</Resource>
@@ -1032,7 +1032,7 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="REMOVE_NESTED_QUOTES">Verschachtelte Zitate entfernen:</Resource>
     <Resource tag="REMOVE_NESTED_QUOTES_HELP">Autmatisch verschachtelte [quote] Zitat Tags von Antworten entfernen.</Resource>
     <Resource tag="REPLACE_CACHE_TIMEOUT">Ersetzen Regeln Speicherablaufzeit:</Resource>
-    <Resource tag="REPLACE_CACHE_TIMEOUT_HELP"> Smilies, BB code, bad wordsm, etc. (in minutes)</Resource>
+    <Resource tag="REPLACE_CACHE_TIMEOUT_HELP"> Smilies, BB code, bad words, etc. (in minutes)</Resource>
     <Resource tag="REPORT_POST_PERMISSION">Beitrag Melden Berechtigungen</Resource>
     <Resource tag="REPORT_POST_PERMISSION_HELP">Beitrags melden erlauben für:</Resource>
     <Resource tag="REQUIRE_LOGIN">Benuzter anmelden erfordern:</Resource>
@@ -1215,7 +1215,7 @@ Diesen  Benutzer löschen?</Resource>
 		time zones that are encountered.
 	&lt;/p&gt;
 	&lt;p style="color: red"&gt;
-		The forums usenet artiles are posted to should be read-only, as messages will &lt;strong&gt;not&lt;/strong&gt;
+		The forums usenet Articles are posted to should be read-only, as messages will &lt;strong&gt;not&lt;/strong&gt;
 		be posted back to the usenet. For speed purposes usenet articles are automatically
 		approved, meaning that if the forum is moderated, the posts will be automatically
 		approved.
@@ -1759,7 +1759,7 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="OURAVATAR_SELECT">Wähle einen Avatar aus unserem Verzeichnis aus.</Resource>
     <Resource tag="TITLE">Avatar bearbeiten</Resource>
     <Resource tag="WARN_BIGFILE">Maximale Dateigröße eines Bildes {0} Byte.</Resource>
-    <Resource tag="WARN_FILESIZE">Die originale Dateigröße war: {0} Byte.</Resource>
+    <Resource tag="WARN_File size">Die originale Dateigröße war: {0} Byte.</Resource>
     <Resource tag="WARN_RESIZED">Die Bildgröße wurde angepasst.</Resource>
     <Resource tag="WARN_SIZE">Originalgröße Deines Bildes {0}x{1} Pixel.</Resource>
     <Resource tag="WARN_TOOBIG">Maximale Bildgrösse: {0}x{1} Pixel.</Resource>

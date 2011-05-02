@@ -964,8 +964,8 @@
     <Resource tag="MAX_ALLOWED_POLLS_HELP">Aantal polls, de maximum waarde mag niet meer zijn dan 99.</Resource>
     <Resource tag="MAX_ATTACHMENTS">Maximum Aantal bijlagen per Post:</Resource>
     <Resource tag="MAX_ATTACHMENTS_HELP">Maximum aantal bijlagen per Post. Zet deze waarde op 0 voor een onbeperkt aantal bijlagen.</Resource>
-    <Resource tag="MAX_FILESIZE">Maximum Bestandsgrootte:</Resource>
-    <Resource tag="MAX_FILESIZE_HELP">Maximum grootte van geuploade bestanden. Leeglaten voor 'geen limiet'.</Resource>
+    <Resource tag="MAX_File size">Maximum Bestandsgrootte:</Resource>
+    <Resource tag="MAX_File size_HELP">Maximum grootte van geuploade bestanden. Leeglaten voor 'geen limiet'.</Resource>
     <Resource tag="MAX_IMAGE_SIZE">Maximale grootte per plaatje:</Resource>
     <Resource tag="MAX_IMAGE_SIZE_HELP">Maximale grootte per plaatje wat gebruikers kunnen uploaden.</Resource>
     <Resource tag="MAX_PM_RECIPIENTS">Maximum aantal PB ontvangers:</Resource>
@@ -996,8 +996,8 @@
     <Resource tag="ONLINE_STATUS_TIMEOUT_HELP">Dit kun je Fine-tunen afhankelijk van de activiteit op je forum in milliseconden)</Resource>
     <Resource tag="POINTS_TEMPLATE">Punten template:</Resource>
     <Resource tag="POINTS_TEMPLATE_HELP">Template om de Punten van de gebruiker op te bouwen.</Resource>
-    <Resource tag="POLL_IMAGE_FILESIZE">Poll Afbeelding Bestandsgrootte:</Resource>
-    <Resource tag="POLL_IMAGE_FILESIZE_HELP">Max. bestandsgrootte voor plaatjes die bij Polls worden gebruikt in KB.</Resource>
+    <Resource tag="POLL_IMAGE_File size">Poll Afbeelding Bestandsgrootte:</Resource>
+    <Resource tag="POLL_IMAGE_File size_HELP">Max. bestandsgrootte voor plaatjes die bij Polls worden gebruikt in KB.</Resource>
     <Resource tag="POLLVOTING_PERIP">Poll Stemmen op basis van IP:</Resource>
     <Resource tag="POLLVOTING_PERIP_HELP">Standaard wordt bij het stemmen gekeken naar de Gebruikersnaam en een Cookie. (Een stem per Gebruiker. Cookies worden gebruiker als Gast-stemmen is toegestaan.) &lt;br /&gt;Als deze is aangevinkt, wordt bij het stemmen ook het IP als referentie gebruikt, als een bescherming tegen kiesfraude.</Resource>
     <Resource tag="POST_AD">2e post advertentie:</Resource>
@@ -1751,7 +1751,7 @@
     <Resource tag="OURAVATAR_SELECT">Selecteer uit onze avatar-galerij</Resource>
     <Resource tag="TITLE">Avatar wijzigen</Resource>
     <Resource tag="WARN_BIGFILE">De bestandsgrootte van je afbeelding mag maximaal {0} bytes bedragen.</Resource>
-    <Resource tag="WARN_FILESIZE">De bestandsgrootte van je afbeelding is {0} bytes.</Resource>
+    <Resource tag="WARN_File size">De bestandsgrootte van je afbeelding is {0} bytes.</Resource>
     <Resource tag="WARN_RESIZED">De afmetingen van je afbeelding zijn aangepast.</Resource>
     <Resource tag="WARN_SIZE">De afmetingen van je afbeelding zijn {0}x{1} pixels.</Resource>
     <Resource tag="WARN_TOOBIG">De afmeting van je afbeelding mag niet meer dan {0}x{1} pixels bedragen.</Resource>
@@ -2437,7 +2437,7 @@
     <Resource tag="FORUM">Forum</Resource>
     <Resource tag="REPORTED">Als kwetsend gerapporteerd</Resource>
     <Resource tag="SPAM_REPORTED">Message was successfully reported as SPAM to the Akismet SPAM Service</Resource>
-    <Resource tag="SPAM_REPORTED_FAILED">SPAM Reporting has been failded. Please Check your API Key!</Resource>
+    <Resource tag="SPAM_REPORTED_FAILED">SPAM Reporting has been failed. Please Check your API Key!</Resource>
     <Resource tag="TITLE">Moderatie</Resource>
     <Resource tag="UNAPPROVED">Niet-goedgekeurde berichten</Resource>
   </page>
@@ -2612,7 +2612,7 @@
     <Resource tag="SUBJECT">Onderwerp:</Resource>
     <Resource tag="SUBJECT_DUPLICATE">Een topic met deze titel bestaat al, of de titel is niet uniek genoeg.</Resource>
     <Resource tag="TOPICATTACH">Bestanden bijvoegen bij dit bericht?</Resource>
-    <Resource tag="TOPICNAME_TOOLONG">Maximal tolic name length should not be more then {0} characters. Use abbreviations.</Resource>
+    <Resource tag="TOPICNAME_TOOLONG">Maximal tolic name length should not be more than {0} characters. Use abbreviations.</Resource>
     <Resource tag="TOPICWATCH">Abbonneer aan dit topic en ontvang updates via e-mail?</Resource>
     <Resource tag="WAIT">Je kunt niet posten gedurende de volgende {0:N0} seconden.</Resource>
   </page>
@@ -2620,7 +2620,7 @@
     <Resource tag="AD_SIGNATURE" />
     <Resource tag="AD_USERNAME">Sponsor</Resource>
     <Resource tag="AIM">AIM</Resource>
-    <Resource tag="AIM_TITLE">Contact {0} via AOL Instant Messanger</Resource>
+    <Resource tag="AIM_TITLE">Contact {0} via AOL Instant Messenger</Resource>
     <Resource tag="ATOMTOPIC">Atom Feed</Resource>
     <Resource tag="ATTACHMENTINFO">{0:N0} KB, aantal downloads: {1:N0}.</Resource>
     <Resource tag="ATTACHMENTS">Bijlagen:</Resource>
@@ -2741,7 +2741,7 @@
     <Resource tag="XMPP">XMPP</Resource>
     <Resource tag="XMPP_TITLE">Contact {0} via Jabber</Resource>
     <Resource tag="YIM">YAHOO</Resource>
-    <Resource tag="YIM_TITLE">Contact {0} via Yahoo Instant Messanger</Resource>
+    <Resource tag="YIM_TITLE">Contact {0} via Yahoo Instant Messenger</Resource>
   </page>
   <page name="PRINTTOPIC">
     <Resource tag="POSTEDBY">Geplaatst door</Resource>

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Resources xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" language="English" code="en">
     <page name="HELP_INDEX">
-      <Resource tag="TITLE">YetAnotherForum.NET  Help</Resource>
+      <Resource tag="TITLE">YetAnotherForum.NET Help</Resource>
     <Resource tag="NAVIGATION">Navigation</Resource>
     <Resource tag="INDEX">Index</Resource>
       <Resource tag="SUBTITLE">Forum Help</Resource>
@@ -335,7 +335,7 @@
       <Resource tag="STARTEDBY">Started by {0}</Resource>
       <Resource tag="LINK">More</Resource>
       <Resource tag="LASTBY">By {0}</Resource>
-      <Resource tag="REMOVALTEXT">Don't want to receive anymore email?</Resource>
+      <Resource tag="REMOVALTEXT">Don't want to receive any more email?</Resource>
       <Resource tag="REMOVALLINK">Adjust your notification settings.</Resource>
       <Resource tag="SUBJECT">Active and New Topics - Daily Digest for {0}</Resource>
    </page>
@@ -362,7 +362,7 @@
       <Resource tag="PRINTTOPIC">Prints topic</Resource>
       <Resource tag="MEMBERS">Views members list</Resource>
       <Resource tag="REPORTPOST">Reports a post</Resource>
-      <Resource tag="CP_PM">Views pmessages</Resource>
+      <Resource tag="CP_PM">Views Private Messages</Resource>
       <Resource tag="CP_PROFILE">Views profile settings</Resource>
       <Resource tag="CP_PROFILE_OFUSER">Views profile of user</Resource>
       <Resource tag="CP_EDITBUDDIES">Edits buddies</Resource>
@@ -377,7 +377,7 @@
       <Resource tag="CP_EDITAVATAR">Edit the avatar</Resource>
       <Resource tag="CP_SIGNATURE">Edit the signature</Resource>
       <Resource tag="CP_SUBSCRIPTIONS">Views subscriptions</Resource>
-      <Resource tag="CP_MESSAGE">Views pmessages</Resource>
+      <Resource tag="CP_MESSAGE">Views Private Messages</Resource>
       <Resource tag="CP_CHANGEPASSWORD">Changes password</Resource>
       <Resource tag="LOGIN">Registers on the forum</Resource>
       <Resource tag="APPROVE">Approves</Resource>
@@ -456,7 +456,7 @@
       <Resource tag="ADMIN_BBCODE">Views BBCodes</Resource>
       <Resource tag="ADMIN_BBCODE_IMPORT">Imports BBCodes</Resource>
       <Resource tag="ADMIN_BBCODE_EDIT">Edits BBcodes</Resource>
-      <Resource tag="ADMIN_REINDEX">Maintaines DB</Resource>
+      <Resource tag="ADMIN_REINDEX">Maintains DB</Resource>
       <Resource tag="ADMIN_RUNSQL">Runs SQL query</Resource>
       <Resource tag="ADMIN_TASKMANAGER">Views/manages task manager</Resource>
       <Resource tag="ADMIN_TEST_DATA">Views/edits test data generator</Resource>
@@ -492,7 +492,7 @@
       <Resource tag="TITLE">Attachments</Resource>
       <Resource tag="UPLOAD">Upload</Resource>
       <Resource tag="UPLOAD_TITLE">Upload File</Resource>
-      <Resource tag="UPLOAD_TOOBIG">You cannot attach files that are bigger than {1} KB. Your Filesize is {0} KB.</Resource>
+      <Resource tag="UPLOAD_TOOBIG">You cannot attach files that are bigger than {1} KB. Your File size is {0} KB.</Resource>
       <Resource tag="UPLOAD_NOTE">Note: Max. File Size of an Attachment is {0} KB.</Resource>
    </page>
    <page name="AVATAR">
@@ -581,7 +581,7 @@
     <Resource tag="MOBILE_VIEWSITE">View Mobile Site</Resource>
       <Resource tag="BAD_CAPTCHA">Text Entered Did Not Match Text In Security Image.</Resource>
       <Resource tag="BAD_USERNAME">Username cannot contain semi-colons (;) or some special words.</Resource>
-      <Resource tag="USERNAME_TOOLONG">User Name or Display User Name cannot be more then {0} characters.</Resource>
+      <Resource tag="USERNAME_TOOLONG">User Name or Display User Name cannot be more than {0} characters.</Resource>
       <Resource tag="BBCODE_CODE">Code:</Resource>
       <Resource tag="BBCODE_QUOTE">Quote:</Resource>
       <Resource tag="BBCODE_QUOTEWROTE">{0} wrote:</Resource>
@@ -715,7 +715,7 @@
       <Resource tag="AVATARDELETE">Clear Avatar</Resource>
       <Resource tag="AVATARNEW">Choose a New Avatar</Resource>
       <Resource tag="AVATARREMOTE">Enter URL of Avatar on Remote Server to Use:</Resource>
-      <Resource tag="AVATARTEXT">Avatar Explaination Text</Resource>
+      <Resource tag="AVATARTEXT">Avatar Explanation Text</Resource>
       <Resource tag="AVATARUPLOAD">Upload Avatar from Your Computer:</Resource>
       <Resource tag="INVALID_FILE">The file uploaded is not a proper image file.</Resource>
       <Resource tag="NOAVATAR">[ No Avatar ]</Resource>
@@ -723,7 +723,7 @@
       <Resource tag="OURAVATAR_SELECT">Click here to select an Avatar</Resource>
       <Resource tag="TITLE">Modify Avatar</Resource>
       <Resource tag="WARN_BIGFILE">The size of your image can't be more than {0} bytes.</Resource>
-      <Resource tag="WARN_FILESIZE">The size of your image was {0} bytes.</Resource>
+      <Resource tag="WARN_File size">The size of your image was {0} bytes.</Resource>
       <Resource tag="WARN_RESIZED">The image was resized to fit.</Resource>
       <Resource tag="WARN_SIZE">The size of your image was {0}x{1} pixels.</Resource>
       <Resource tag="WARN_TOOBIG">Image size can't be larger than {0}x{1} pixels.</Resource>
@@ -840,8 +840,8 @@
    </page>
    <page name="CP_SIGNATURE">
       <Resource tag="SIGNATURE">Signature:</Resource>
-      <Resource tag="SIGNATURE_MAX">Your signature is too long. It can have no more then {0} characters.</Resource>
-    <Resource tag="SIGNATURE_CHARSMAX">Your signature can have no more then {0} characters.</Resource>
+      <Resource tag="SIGNATURE_MAX">Your signature is too long. It can have no more than {0} characters.</Resource>
+    <Resource tag="SIGNATURE_CHARSMAX">Your signature can have no more than {0} characters.</Resource>
     <Resource tag="SIGNATURE_NOEDIT">You can't edit your signature, but you can delete it completely.</Resource>
       <Resource tag="SIGNATURE_BBCODE_WRONG">Your signature contains forbidden {0} BBCode.</Resource>
       <Resource tag="BBCODE_FORBIDDEN">Your signature should not contain BBCodes.</Resource>
@@ -978,7 +978,7 @@
       <Resource tag="TITLE">XMPP Messenger</Resource>
       <Resource tag="SERVERSAME">The user uses the same XMPP server - you can connect to him using a client like Pidgin. His account is {0}</Resource>
       <Resource tag="SERVEROTHER">The user uses the servers {0}. To communicate to him you should register there, as you don't have an account.</Resource>
-      <Resource tag="SERVERYOU">Are you sure you want speak to youself?</Resource>
+      <Resource tag="SERVERYOU">Are you sure you want speak to yourself?</Resource>
    </page>
    <page name="IM_SKYPE">
       <Resource tag="TITLE">Skype(tm) Calling</Resource>
@@ -1009,7 +1009,7 @@
       <Resource tag="TITLE_MODERATED">Information</Resource>
       <Resource tag="TITLE_REGISTRATION">Thanks</Resource>
       <Resource tag="TITLE_SUSPENDED">Suspended</Resource>
-      <Resource tag="TITLE_COOKIES">Requies cookies</Resource>
+      <Resource tag="TITLE_COOKIES">Requires cookies</Resource>
       <Resource tag="TITLE_ECMAREQUIRED">JavaScript required</Resource>
       <Resource tag="TITLE_ECMAVERSION">JavaScript version</Resource>
    </page>
@@ -1087,7 +1087,7 @@
       <Resource tag="TITLE">Moderate</Resource>
       <Resource tag="UNAPPROVED">Unapproved Posts</Resource>
 	  <Resource tag="SPAM_REPORTED">Message was successfully reported as SPAM to the Akismet SPAM Service</Resource>
-	  <Resource tag="SPAM_REPORTED_FAILED">SPAM Reporting has been failded. Please Check your API Key!</Resource>
+	  <Resource tag="SPAM_REPORTED_FAILED">SPAM Reporting has been failed. Please Check your API Key!</Resource>
    </page>
    <page name="MODERATE_FORUM">
       <Resource tag="APPROVE">Approve Post</Resource>
@@ -1105,7 +1105,7 @@
       <Resource tag="REPORTED">Reported posts</Resource>
       <Resource tag="RESOLVED">Mark as resolved</Resource>
       <Resource tag="RESOLVEDBY">Resolved by:</Resource>
-      <Resource tag="RESOLVEDFEEDBACK">Message have been marked as resolved.</Resource>
+      <Resource tag="RESOLVEDFEEDBACK">Message has been marked as resolved.</Resource>
       <Resource tag="TOP">Back to top</Resource>
       <Resource tag="TOPIC">Topic:</Resource>
       <Resource tag="UNAPPROVED">Unapproved Posts</Resource>
@@ -1247,7 +1247,7 @@
       <Resource tag="PERSISTENCY">Is this topic persistent?</Resource>
       <Resource tag="PERSISTENCY_INFO">Persistent topics are not pruned</Resource>
       <Resource tag="POSTED">Posted:</Resource>
-      <Resource tag="POSTTOBLOG_FAILED">An error occured posting to your blog. The authentication might have failed.</Resource>
+      <Resource tag="POSTTOBLOG_FAILED">An error occurred posting to your blog. The authentication might have failed.</Resource>
       <Resource tag="PREVIEW">Preview</Resource>
       <Resource tag="PREVIEWTITLE">Preview:</Resource>
       <Resource tag="PRIORITY">Priority:</Resource>
@@ -1261,7 +1261,7 @@
       <Resource tag="TOPICATTACH">Attach files to this post?</Resource>
       <Resource tag="TOPICWATCH">Watch this topic and receive notifications of activity via e-mail?</Resource>
     <Resource tag="ISQUESTION">Is this topic in question and answer format?</Resource>
-      <Resource tag="TOPICNAME_TOOLONG">Topic name length cannot be be more then {0} characters. Suggestion: use abbreviations to shorten.</Resource>
+      <Resource tag="TOPICNAME_TOOLONG">Topic name length cannot be be more than {0} characters. Suggestion: use abbreviations to shorten.</Resource>
       <Resource tag="WAIT">You can't post in the next {0:N0} seconds.</Resource>
 	  <Resource tag="SPAM_MESSAGE">Your Message was rejected because it was detected as SPAM!</Resource>
    </page>
@@ -1274,7 +1274,7 @@
       <Resource tag="ASK_DELETEALBUM">Delete this album?</Resource>
       <Resource tag="ASK_DELETEIMAGE">Delete this image?</Resource>
       <Resource tag="ALBUMS_COUNT_LIMIT">You can't create more than {0} albums.</Resource>
-      <Resource tag="IMAGES_COUNT_LIMIT">Your image limit is reached. You can add no more then {0} images for each album.</Resource>
+      <Resource tag="IMAGES_COUNT_LIMIT">Your image limit is reached. You can add no more than {0} images for each album.</Resource>
       <Resource tag="IMAGES_INFO">Note: Currently this Album contains {0} Image(s) you allowed to have {1} images for each album.</Resource>
    </page>
    <page name="ALBUM">
@@ -1408,8 +1408,8 @@
 	  <Resource tag="HOME_TITLE">Visit {0}'s Homepage</Resource>
 	  <Resource tag="BLOG_TITLE">Visit {0}'s Blog</Resource>
 	  <Resource tag="MSN_TITLE">Contact {0} via MSN</Resource>
-	  <Resource tag="AIM_TITLE">Contact {0} via AOL Instant Messanger</Resource>
-	  <Resource tag="YIM_TITLE">Contact {0} via Yahoo Instant Messanger</Resource>
+	  <Resource tag="AIM_TITLE">Contact {0} via AOL Instant Messenger</Resource>
+	  <Resource tag="YIM_TITLE">Contact {0} via Yahoo Instant Messenger</Resource>
 	  <Resource tag="ICQ_TITLE">Contact {0} via ICQ</Resource>
 	  <Resource tag="XMPP_TITLE">Contact {0} via Jabber</Resource>
 	  <Resource tag="SKYPE_TITLE">Contact {0} via Skype</Resource>
@@ -1451,7 +1451,7 @@
       <Resource tag="NOTIFICATION_APPROVEALL">Approve all requests?</Resource>
       <Resource tag="NOTIFICATION_APPROVEALLADD">Approve all requests and add them to your buddy list too?</Resource>
       <Resource tag="NOTIFICATION_REMOVE">Remove Buddy?</Resource>
-      <Resource tag="NOTIFICATION_REMOVE_OLD_UNAPPROVED">Delete all Unapproved requests more than 14 days old?</Resource>
+      <Resource tag="NOTIFICATION_REMOVE_OLD_UNAPPROVED">Delete all unapproved requests more than 14 days old?</Resource>
    </page>
    <page name="PRINTTOPIC">
       <Resource tag="POSTEDBY">Posted by</Resource>
@@ -1514,7 +1514,7 @@
 	  <Resource tag="Twitter">Twitter Name:</Resource>
    </page>
    <page name="RECOVER_PASSWORD">
-      <Resource tag="ACCOUNT_NOT_APPROVED">Your account has not been approved by the admininstrator yet. You cannot reset your password unless you are approved.</Resource>
+      <Resource tag="ACCOUNT_NOT_APPROVED">Your account has not been approved by the administrator yet. You cannot reset your password unless you are approved.</Resource>
       <Resource tag="ACCOUNT_NOT_APPROVED_VERIFICATION">Your account is not approved yet because you have not validated your email. A new email validation has been sent to {0}. Please verify so you can login.</Resource>
       <Resource tag="GENERAL_FAILURE">Attempt to retrieve your password was not successful.</Resource>
       <Resource tag="IDENTITY_CONFIRMATION_TITLE">Password Retrieval Identity Confirmation</Resource>
@@ -1554,11 +1554,11 @@
       <Resource tag="PASSWORD">Password</Resource>
       <Resource tag="PASSWORD_REQUIREMENTS_WARN">{0} min length. {1} minimum non-alphanumeric characters (jQuery#@!).</Resource>
       <Resource tag="PASSWORD_REQUIREMENTS_TITLE">Password Requirements</Resource>
-      <Resource tag="USERNAME_LENGTH_WARN">User name should not contain more then {0} characters.</Resource>
+      <Resource tag="USERNAME_LENGTH_WARN">User name should not contain more than {0} characters.</Resource>
       <Resource tag="PREFERENCES">Forum Preferences</Resource>
       <Resource tag="PROFILE">Profile Information</Resource>
       <Resource tag="REGISTER">Register</Resource>
-      <Resource tag="RECAPTCHA_BADSETTING">Recapture settings are bad. Report it to adminstration.</Resource>
+      <Resource tag="RECAPTCHA_BADSETTING">Recapture settings are bad. Report it to administration.</Resource>
       <Resource tag="RECATCHA_BADWORDS">You are wrong! Try again.</Resource>
       <Resource tag="RETYPE_PASSWORD">Confirmed password is required.</Resource>
       <Resource tag="SECURITY_ANSWER">Security Answer</Resource>
@@ -1574,7 +1574,7 @@
       <Resource tag="SEND">Report</Resource>
       <Resource tag="CANCEL">Cancel</Resource>
       <Resource tag="ENTER_TEXT">Please enter the reason you're reporting this post:</Resource>
-      <Resource tag="REPORTTEXT_TOOLONG">Your report text length should not be more then {0} characters.</Resource>
+      <Resource tag="REPORTTEXT_TOOLONG">Your report text length should not be more than {0} characters.</Resource>
       <Resource tag="REPORTTEXT_FORBIDDENTAG">The tag [{0}] is not allowed in reports.</Resource>
       <Resource tag="REPORTTEXT_ALLTAGSFORBIDDEN">Tags are not allowed in reports.</Resource>
       <Resource tag="HEADER">Report Post</Resource>
@@ -1977,7 +1977,7 @@ Visit {forumname} at {forumlink}
      <Resource tag="MSG_VALID_DAYS">You should enter a valid integer value for days.</Resource>
      <Resource tag="CONFIRM_APROVE_ALL">Approve all Users?</Resource>
      <Resource tag="CONFIRM_APROVE">Approve this User?</Resource>
-     <Resource tag="CONFIRM_DELETE_ALL">Delete all Unapproved Users more than the specified number of days old?</Resource>
+     <Resource tag="CONFIRM_DELETE_ALL">Delete all unapproved Users more than the specified number of days old?</Resource>
      <Resource tag="CONFIRM_DELETE">Delete this User?</Resource>
      <Resource tag="ALL_BOARDS"> - All Boards - </Resource>
      <Resource tag="DAYS_AGO">{0:d} ({1:N0} days ago)</Resource>
@@ -2037,7 +2037,7 @@ Visit {forumname} at {forumlink}
       time zones that are encountered.
    &lt;/p&gt;
    &lt;p style=&quot;color: red&quot;&gt;
-      The forums usenet artiles are posted to should be read-only, as messages will &lt;strong&gt;not&lt;/strong&gt;
+      The forums usenet Articles are posted to should be read-only, as messages will &lt;strong&gt;not&lt;/strong&gt;
       be posted back to the usenet. For speed purposes usenet articles are automatically
       approved, meaning that if the forum is moderated, the posts will be automatically
       approved.
@@ -2144,8 +2144,8 @@ Visit {forumname} at {forumlink}
       <Resource tag="TITLE">Add/Edit Word Replace</Resource>
       <Resource tag="BAD">"Bad" Expression:</Resource>
       <Resource tag="GOOD">"Good" Expression:</Resource>
-      <Resource tag="BAD_HELP">Regular expression statement. Escape puncutation with a preceeding slash (e.g. &#39;\.&#39;).</Resource>
-      <Resource tag="GOOD_HELP">Regular expression statement. Escape puncutation with a preceeding slash (e.g. &#39;\.&#39;).</Resource>
+      <Resource tag="BAD_HELP">Regular expression statement. Escape punctation with a preceding slash (e.g. &#39;\.&#39;).</Resource>
+      <Resource tag="GOOD_HELP">Regular expression statement. Escape punctation with a preceding slash (e.g. &#39;\.&#39;).</Resource>
     </page>
     <page name="ADMIN_REINDEX">
       <Resource tag="TITLE">Reindex DB</Resource>
@@ -2157,8 +2157,8 @@ Visit {forumname} at {forumlink}
       <Resource tag="RECOVERY2">Simple (Simple Recovery allows the database to be recovered to the most recent backup.You need to backup your DB regularly.)</Resource>
       <Resource tag="RECOVERY3">Bulk-Logged (Bulk-Logged Recovery allows bulk-logged operations.)</Resource>
        <Resource tag="SHOW_STATS">Show statistical information about YAF table indexes.</Resource>
-      <Resource tag="INDEX_STATS">Database recovery mode was successfuly set to {0}</Resource>
-      <Resource tag="INDEX_STATS_FAIL">Something went wrong with this operation.The reported error is: {0}</Resource>
+      <Resource tag="INDEX_STATS">Database recovery mode was successfully set to {0}</Resource>
+      <Resource tag="INDEX_STATS_FAIL">Something went wrong with this operation. The reported error is: {0}</Resource>
       <Resource tag="INDEX_SHRINK">Shrink operation was Successful.Your database size is now: {0}MB</Resource>
       <Resource tag="REINDEX">With any data modification operations, table fragmentation can occur. This command can be used to rebuild all the indexes on all the tables in database to boost performance.</Resource>
       <Resource tag="SHRINK">You can use the Shrink method to reduce the size of the files that make up the database manually. The data is stored more densely and unused pages are removed</Resource>
@@ -2259,12 +2259,12 @@ Visit {forumname} at {forumlink}
     <page name="ADMIN_EDITLANGUAGE">
       <Resource tag="TITLE">Language Translator</Resource>
        <Resource tag="LOAD_PAGE">Load Page Localization</Resource>
-      <Resource tag="HEADER"><![CDATA[Language Translation - <em>Current Ressource Page : ]]></Resource>
+      <Resource tag="HEADER"><![CDATA[Language Translation - <em>Current Resource Page : ]]></Resource>
       <Resource tag="SELECT_PAGE">Select a Page:</Resource>
       <Resource tag="RESOURCE_NAME">Resource Name</Resource>
       <Resource tag="ORIGINAL_RESOURCE">Original Resource</Resource>
       <Resource tag="LOCALIZED_RESOURCE">Localized Resource</Resource>
-      <Resource tag="AUTO_SYNC">Missing Translation Resources are Automatically Syncronized and Updated.</Resource>
+      <Resource tag="AUTO_SYNC">Missing Translation Resources are Automatically Synchronized and Updated.</Resource>
     </page>
     <page name="ADMIN_EVENTLOG">
       <Resource tag="TITLE">Event Log</Resource>
@@ -2288,7 +2288,7 @@ Visit {forumname} at {forumlink}
       <Resource tag="BOARD_THEME">Theme:</Resource>
       <Resource tag="COPYRIGHT_REMOVAL_KEY">Copyright Removal Key:</Resource>
       <Resource tag="COPYRIGHT_REMOVAL_KEY_HELP">
-        <![CDATA[Remove the copyright information and link back to YAF from the footer of your entire forum domain. Avaliable <a href="http://yetanotherforum.net/purchase.aspx">from YAF.NET site</a>. ]]>
+        <![CDATA[Remove the copyright information and link back to YAF from the footer of your entire forum domain. Available<a href="http://yetanotherforum.net/purchase.aspx">from YAF.NET site</a>. ]]>
       </Resource>
       <Resource tag="BOARD_MOBILE_THEME">Mobile Theme:</Resource>
       <Resource tag="BOARD_THEME_LOGO">Allow Themed Logo:</Resource>
@@ -2357,7 +2357,7 @@ Visit {forumname} at {forumlink}
       <Resource tag="MSG_POSITIVE_VALUE">The sort order value should be a positive integer from 0 to 32767.</Resource>
       <Resource tag="MSG_CATEGORY">You must enter an number value from 0 to 32767 for sort order.</Resource>
       <Resource tag="MSG_INVALID_URL">Your entered an invalid Url address.</Resource>
-      <Resource tag="MSG_CHILD_PARENT">The choosen forum cannot be child forum as it's a parent.</Resource>
+      <Resource tag="MSG_CHILD_PARENT">The chosen forum cannot be child forum as it's a parent.</Resource>
       <Resource tag="MSG_INITAL_MASK">You must select an initial access mask for the forum.</Resource>
       <Resource tag="MSG_PARENT_SELF">Forum cannot be parent of itself.</Resource>
       <Resource tag="MSG_FORUMNAME_EXISTS">A forum with such a name already exists.</Resource>
@@ -2609,7 +2609,7 @@ Visit {forumname} at {forumlink}
 	   <Resource tag="PRIORITY">Priority:</Resource>
        <Resource tag="PRIORITY_HELP">Enter here priority for different tasks.</Resource>
 	   <Resource tag="STYLE">Style:</Resource>
-       <Resource tag="STYLE_HELP">Enter here a combined style string for coloured nicks.</Resource>
+       <Resource tag="STYLE_HELP">Enter here a combined style string for colored nicks.</Resource>
 	   <Resource tag="IS_GUEST">Is Guest::</Resource>
        <Resource tag="IS_GUEST_HELP">This flag is internal and makes the role unavailable to .NET membership. Never assign this role to any users except the (1) guest user. If you do flag this role as IsGuest, the guest user must a member of it. Never use this flag in conjunction with any other flags.</Resource>
 	   <Resource tag="INITIAL_MASK">Initial Access Mask:</Resource>
@@ -2741,7 +2741,7 @@ Visit {forumname} at {forumlink}
 	   <Resource tag="RANK_PRIO">Priority:</Resource>
 	   <Resource tag="RANK_PRIO_HELP">Priority of rank is various things.</Resource>
 	   <Resource tag="RANK_STYLE">Style:</Resource>
-	   <Resource tag="RANK_STYLE_HELP">Style of users links in active users, colore, font size...</Resource>
+	   <Resource tag="RANK_STYLE_HELP">Style of users links in active users, color, font size...</Resource>
            <Resource tag="RANK_IMAGE">Rank Image:</Resource>
 	   <Resource tag="RANK_IMAGE_HELP">This image will be shown next to users of this rank.</Resource>
 	 </page>
@@ -2861,7 +2861,7 @@ Visit {forumname} at {forumlink}
 	   <Resource tag="HEADER_FEATURES">Feature Settings</Resource>
 	   <Resource tag="HEADER_DISPLAY">Display Settings</Resource>
 	   <Resource tag="HEADER_ADVERTS">Advert Settings</Resource>
-	   <Resource tag="HEADER_EDITORS">Editting/Formatting Settings</Resource>
+	   <Resource tag="HEADER_EDITORS">Editing/Formatting Settings</Resource>
 	   <Resource tag="HEADER_PERMISSION">Permission Settings</Resource>
 	   <Resource tag="HEADER_TEMPLATES">Template Settings</Resource>
 	   <Resource tag="HEADER_AVATARS">Avatar Settings</Resource>
@@ -2893,8 +2893,8 @@ Visit {forumname} at {forumlink}
        <Resource tag="ABANDON_TRACKUSR_HELP">Automatically abandon sessions for users who are marked as "Don't Track" such as Search Engines and Bots. Enable if you're having any session issues.</Resource>
 	   <Resource tag="MAX_ATTACHMENTS">Maximum Number of Attachments per Post:</Resource>
        <Resource tag="MAX_ATTACHMENTS_HELP">Maximum Number of uploaded files per Post. Set to 0 for unlimited.</Resource>
-	   <Resource tag="MAX_FILESIZE">Max File Size:</Resource>
-       <Resource tag="MAX_FILESIZE_HELP">Maximum size of uploaded files. Leave empty for no limit.</Resource>
+	   <Resource tag="MAX_File size">Max File Size:</Resource>
+       <Resource tag="MAX_File size_HELP">Maximum size of uploaded files. Leave empty for no limit.</Resource>
 	   <Resource tag="POSTEDIT_TIMEOUT">Post editing timeout:</Resource>
        <Resource tag="POSTEDIT_TIMEOUT_HELP">Number of seconds while post may be modified without showing that to other users</Resource>
 	   <Resource tag="WSERVICE_TOKEN">Web Service Token:</Resource>
@@ -2925,7 +2925,7 @@ Visit {forumname} at {forumlink}
        <Resource tag="IMAGE_RESIZE_HEIGHT_HELP">Maximum Height of the resized attachment images.</Resource>
 	   <Resource tag="CROP_IMAGE_ATTACH">Crop Image Attachment Preview:</Resource>
        <Resource tag="CROP_IMAGE_ATTACH_HELP">Crop the Preview of the Image and use above Dimensions as Image Size.</Resource>
-	   <Resource tag="DISPLAY_TRESHOLD_IMGATTACH">Image Attachment Display Treshold:</Resource>
+	   <Resource tag="DISPLAY_TRESHOLD_IMGATTACH">Image Attachment Display Threshold:</Resource>
        <Resource tag="DISPLAY_TRESHOLD_IMGATTACH_HELP">Maximum size of picture attachment to display as picture. Pictures over this size will be displayed as links.</Resource>
 	   <Resource tag="MAX_POST_SIZE">Max Post Size:</Resource>
        <Resource tag="MAX_POST_SIZE_HELP">Maximum size of a post in bytes. Set to 0 for unlimited (not recommended).</Resource>
@@ -2968,7 +2968,7 @@ Visit {forumname} at {forumlink}
 	   <Resource tag="MOD_CACHE_TIMEOUT">Board Moderators Cache Timeout:</Resource>
        <Resource tag="MOD_CACHE_TIMEOUT_HELP">In minutes</Resource>
 	   <Resource tag="REPLACE_CACHE_TIMEOUT">Replace Rules Cache Timeout:</Resource>
-       <Resource tag="REPLACE_CACHE_TIMEOUT_HELP"> Smilies, BB code, bad wordsm, etc. (in minutes)</Resource>
+       <Resource tag="REPLACE_CACHE_TIMEOUT_HELP"> Smilies, BB code, bad words, etc. (in minutes)</Resource>
 	   <Resource tag="SEO_CACHE_TIMEOUT">First Post "Title" Cache Timeout:</Resource>
        <Resource tag="SEO_CACHE_TIMEOUT_HELP">First Post "Title" for SEO Cache Timeout (in minutes)</Resource>
 	   <Resource tag="ONLINE_STATUS_TIMEOUT">Online User Status Cache Timeout:</Resource>
@@ -3002,7 +3002,7 @@ Visit {forumname} at {forumlink}
 	   <Resource tag="GROUPS_TEMPLATE">Groups template:</Resource>
        <Resource tag="GROUPS_TEMPLATE_HELP">Template for rendering user's groups.</Resource>	   
 	   <Resource tag="JOINDATE_TEMPLATE">Join date template:</Resource>
-       <Resource tag="JOINDATE_TEMPLATE_HELP">Template for rendering user's joine date.</Resource>	   
+       <Resource tag="JOINDATE_TEMPLATE_HELP">Template for rendering user's join date.</Resource>	   
 	   <Resource tag="POSTS_TEMPLATE">Posts template:</Resource>
        <Resource tag="POSTS_TEMPLATE_HELP">Template for rendering user's posts.</Resource>	   
 	   <Resource tag="POINTS_TEMPLATE">Points template:</Resource>
@@ -3052,9 +3052,9 @@ Visit {forumname} at {forumlink}
 	   <Resource tag="FORUM_EDITOR">Forum Editor:</Resource>
        <Resource tag="FORUM_EDITOR_HELP">Select global editor type for your forum. To use the HTML editors (FCK and FreeTextBox) the .bin file must be in the \bin directory and the proper support files must be put in \editors.</Resource>
 	   <Resource tag="ACCEPT_HTML">Accepted HTML Tags:</Resource>
-       <Resource tag="ACCEPT_HTML_HELP">Comma seperated list (no spaces) of HTML tags that are allowed in posts using HTML editors.</Resource>
+       <Resource tag="ACCEPT_HTML_HELP">Comma separated list (no spaces) of HTML tags that are allowed in posts using HTML editors.</Resource>
 	   <Resource tag="ACCEPT_HEADER_HTML">Accepted Header HTML Tags:</Resource>
-       <Resource tag="ACCEPT_HEADER_HTML_HELP">Comma seperated list (no spaces) of HTML tags that are allowed in posts headers for common users editors.</Resource>
+       <Resource tag="ACCEPT_HEADER_HTML_HELP">Comma separated list (no spaces) of HTML tags that are allowed in posts headers for common users editors.</Resource>
 	   <Resource tag="STYLED_NICKS">Use styled nicks:</Resource>
        <Resource tag="STYLED_NICKS_HELP">If checked, you can use colors, font size change etc. for active users nicks.</Resource>
 	   <Resource tag="SHOW_SHOUTBOX_SMILIES">Show Shoutbox Smiles:</Resource>
@@ -3074,9 +3074,9 @@ Visit {forumname} at {forumlink}
 	   <Resource tag="SHOW_BOTS_INACTIVE">Show Crawlers In Active Lists:</Resource>
        <Resource tag="SHOW_BOTS_INACTIVE_HELP">If checked, Crawlers will be displayed In Active Lists.</Resource>
 	   <Resource tag="SHOW_DEL_MESSAGES">Show Deleted Messages:</Resource>
-       <Resource tag="SHOW_DEL_MESSAGES_HELP">If this is checked, messsages that are deleted will leave with some notes</Resource>
+       <Resource tag="SHOW_DEL_MESSAGES_HELP">If this is checked, messages that are deleted will leave with some notes</Resource>
 	   <Resource tag="SHOW_DEL_MESSAGES_TOALL">Show Deleted Messages to All:</Resource>
-       <Resource tag="SHOW_DEL_MESSAGES_TOALL_HELP">If Show Deleted Messages is checked above, checking this will force showing the delete message stub to all users.&lt;br /&gt; If it remains unchecked, the deleted message stub will only show to administrators,moderators, and the owner of the deleted message.</Resource>
+       <Resource tag="SHOW_DEL_MESSAGES_TOALL_HELP">If Show Deleted Messages is checked above, checking this will force showing the delete message stub to all users.&lt;br /&gt; If it remains unchecked, the deleted message stub will only show to administrators, moderators, and the owner of the deleted message.</Resource>
 	   <Resource tag="SHOW_LINKS_NEWWINDOW">Show Links in New Window:</Resource>
        <Resource tag="SHOW_LINKS_NEWWINDOW_HELP">If this is checked, links in messages will open in a new window.</Resource>
 	   <Resource tag="SHOW_NOCOUNT_POSTS">Show 'no-count' Forum Posts in Active Discussions:</Resource>
@@ -3116,7 +3116,7 @@ Visit {forumname} at {forumlink}
 	   <Resource tag="SHOW_RELATIVE_TIME">Show Relative Time:</Resource>
        <Resource tag="SHOW_RELATIVE_TIME_HELP">If checked, client-side "Time Ago" library will be used to show "relative times" to users instead of UTC and or imperfect server-side times.</Resource>
 	   <Resource tag="TIMEAGO_INTERVAL">Relative Time Refresh Interval:</Resource>
-       <Resource tag="TIMEAGO_INTERVAL_HELP">This allows to set how often the "Time Ago" libary should refresh the relative time (In Milliseconds, 60000 ms = 60 seconds = 1 minute).</Resource>
+       <Resource tag="TIMEAGO_INTERVAL_HELP">This allows to set how often the "Time Ago" library should refresh the relative time (In Milliseconds, 60000 ms = 60 seconds = 1 minute).</Resource>
 	   <Resource tag="DYNAMIC_METATAGS">Add Dynamic Page Meta Tags:</Resource>
        <Resource tag="DYNAMIC_METATAGS_HELP">If checked, description and keywords meta tags will be created dynamically on the post pages.</Resource>
 	   <Resource tag="ALLOW_DISPLAY_GENDER">Allow Display Gender:</Resource>
@@ -3160,10 +3160,10 @@ Visit {forumname} at {forumlink}
 	   <Resource tag="ENABLE_CALENDER">Enable calendar:</Resource>
        <Resource tag="ENABLE_CALENDER_HELP">Enables/disables calendar in profile, if it causes troubles on servers/for users with different cultures.</Resource>
 	   <Resource tag="MAX_ALLOWED_POLLS">Max. Allowed Number of Polls:</Resource>
-       <Resource tag="MAX_ALLOWED_POLLS_HELP">Number of polls, max value no more then 99.</Resource>
+       <Resource tag="MAX_ALLOWED_POLLS_HELP">Number of polls, max value no more than 99.</Resource>
 	   <Resource tag="MAX_ALLOWED_CHOICES">Max. Allowed Number of Poll Choices:</Resource>
-       <Resource tag="MAX_ALLOWED_CHOICES_HELP">Number of a question choices, max value no more then 99.</Resource>
-	   <Resource tag="POLLVOTING_PERIP">Poll Votes Dependant on IP:</Resource>
+       <Resource tag="MAX_ALLOWED_CHOICES_HELP">Number of a question choices, max value no more than 99.</Resource>
+	   <Resource tag="POLLVOTING_PERIP">Poll Votes Dependent on IP:</Resource>
        <Resource tag="POLLVOTING_PERIP_HELP">By default, poll voting is tracked via username and client-side cookie. (One vote per username. Cookies are used if guest voting is allowed.) &lt;br /&gt;If this option is enabled, votes also use IP as a reference providing the most security against voter fraud.</Resource>
 	   <Resource tag="ALLOW_CHANGE_AFTERVOTE">Allow Poll Changes After First Vote:</Resource>
        <Resource tag="ALLOW_CHANGE_AFTERVOTE_HELP">If enabled a poll creator can change choices and question after the first vote was given.</Resource>
@@ -3175,8 +3175,8 @@ Visit {forumname} at {forumlink}
        <Resource tag="ALLOW_GUESTS_VIEWPOLL_HELP">If enabled Guests can see poll choices.</Resource>
 	   <Resource tag="ALLOW_USERS_POLLIMAGES">Allow Users Poll Images:</Resource>
        <Resource tag="ALLOW_USERS_POLLIMAGES_HELP">If enabled Users can add images as poll options.</Resource>
-	   <Resource tag="POLL_IMAGE_FILESIZE">Poll Image FileSize:</Resource>
-       <Resource tag="POLL_IMAGE_FILESIZE_HELP">Max. file size for poll images in KB.</Resource>
+	   <Resource tag="POLL_IMAGE_File size">Poll Image File size:</Resource>
+       <Resource tag="POLL_IMAGE_File size_HELP">Max. file size for poll images in KB.</Resource>
 	   <Resource tag="ALLOW_PMS">Allow Private Messages:</Resource>
        <Resource tag="ALLOW_PMS_HELP">Allow users to access and send private messages. You should explicitly give permission for each group and/or rank too to enable them for users.</Resource>
 	   <Resource tag="ALLOW_PM_NOTIFICATION">Allow Private Message Notifications:</Resource>
@@ -3231,7 +3231,7 @@ Visit {forumname} at {forumlink}
        <Resource tag="ENABLE_CAPTCHA_FORPOST_HELP">Require users to enter the CAPTCHA when they post or reply to a forum message (including Quick Reply).</Resource>
 	   <Resource tag="CAPTCHA_FOR_REGISTER">Enable CAPTCHA/reCAPTCHA for Register:</Resource>
        <Resource tag="CAPTCHA_FOR_REGISTER_HELP">Require users to enter the CAPTCHA when they register for the forum.</Resource>
-	   <Resource tag="MESSAGE_CHANGE_HISTORY">Message history archieve time</Resource>
+	   <Resource tag="MESSAGE_CHANGE_HISTORY">Message history achive time</Resource>
        <Resource tag="MESSAGE_CHANGE_HISTORY_HELP">Number of days to keep message change history.</Resource>
 	   <Resource tag="ENABLE_LOCATIONPATH_ERRORS">Enable Active Location Error Log:</Resource>
        <Resource tag="ENABLE_LOCATIONPATH_ERRORS_HELP">If checked, all active location path errors are logged.</Resource>
