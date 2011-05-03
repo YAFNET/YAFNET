@@ -2003,21 +2003,11 @@ Der Bestätigungscode lautet
 		<Resource tag="TIME">Geben Sie an, wie viel Zeit für den Artikel Empfang verwendet werden soll.</Resource>
 		<Resource tag="SECONDS">Sekunden</Resource>
 		<Resource tag="RETRIEVE">Abrufen</Resource>
-		<Resource tag="BETA_WARNING">&lt;p style="color: red"&gt;
-		The NNTP feature of Yet Another Forum.net is still beta, and &lt;strong&gt;will&lt;/strong&gt; have bugs.
-		Bugs you should look for is character set conversion, and incorrect time on posts.
-		Usenet articles will be posted to the forum with the date from the article header,
-		meaning that you well could get future dates. Please let me know of any unknown
-		time zones that are encountered.
-	&lt;/p&gt;
+		<Resource tag="BETA_WARNING">&lt;p style="color: red"&gt; &lt;span title="The NNTP feature of Yet Another Forum.net is still beta, and will have bugs." onmouseover="this.style.backgroundColor='#ebeff9'" onmouseout="this.style.backgroundColor='#fff'"&gt;Die NNTP Funktion des Yet Another Forum.net ist noch in der Beta Phase, und hat noch einige Bugs. &lt;/span&gt;&lt;span title="Bugs" onmouseover="this.style.backgroundColor='#ebeff9'" onmouseout="this.style.backgroundColor='#fff'"&gt;Bugs auf die &lt;/span&gt;&lt;span title="you should look for is character set conversion, and incorrect time on posts." onmouseover="this.style.backgroundColor='#ebeff9'" onmouseout="this.style.backgroundColor='#fff'"&gt;Sie achten sollten sind bei der Zeichensatzkonvertierung und falsche Zeiten bei Beiträgen. &lt;br&gt;
+&lt;/span&gt;&lt;span title="Usenet articles will be posted to the forum with the date from the article header," onmouseover="this.style.backgroundColor='#ebeff9'" onmouseout="this.style.backgroundColor='#fff'"&gt;Usenet-Artikel werden im Forum veröffentlicht mit dem Datum des Artikelkopfes  &lt;/span&gt;&lt;span title="meaning that you well could get future dates." onmouseover="this.style.backgroundColor='#ebeff9'" onmouseout="this.style.backgroundColor='#fff'"&gt;bedeutet, dass zukünftige Daten erhalten können. Bitte melden Sie Unbekannte Zeitzonen den YAF Programmieren&lt;/span&gt;&lt;span title="time zones that are encountered." onmouseover="this.style.backgroundColor='#ebeff9'" onmouseout="this.style.backgroundColor='#fff'"&gt;.&lt;/span&gt;&lt;/p&gt;
+	&lt;p style="color: red"&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;Die&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;Foren&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;in denen die &lt;/span&gt;&lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;Usenet-Artikel&lt;/span&gt; veröffentlicht werden sollten schreibge&lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;schützt sein&lt;/span&gt;&lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;,&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;da&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;Nachrichten&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;&lt;strong&gt;nicht&lt;/strong&gt; zurück in der&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;Usenet&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;gepostet werden&lt;/span&gt;&lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;.&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;Aus&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;Geschwindigkeit&lt;/span&gt;sgründen werden &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;Usenet-Artikel&lt;/span&gt;&lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt; automatisch genehmigt&lt;/span&gt;&lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;, was bedeutet,&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;dass&lt;/span&gt;&lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;, wenn&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;das Forum&lt;/span&gt; moderiert &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;wird&lt;/span&gt;&lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;,&lt;/span&gt;&lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt; die&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;Beiträge&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;automatisch&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;genehmigt werden&lt;/span&gt;&lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;.&lt;/span&gt;&lt;/p&gt;
 	&lt;p style="color: red"&gt;
-		The forums usenet Articles are posted to should be read-only, as messages will &lt;strong&gt;not&lt;/strong&gt;
-		be posted back to the usenet. For speed purposes usenet articles are automatically
-		approved, meaning that if the forum is moderated, the posts will be automatically
-		approved.
-	&lt;/p&gt;
-	&lt;p style="color: red"&gt;
-		Zum Schutz Usenet-Server, kann eine Newsgroup nur einmal alle 10 Minuten aktualisiert werden.
+		Zum Schutz der Usenet-Server, kann eine Newsgroup nur einmal alle 10 Minuten aktualisiert werden.
 	&lt;/p&gt;</Resource>
 	</page>
 	<page name="ADMIN_NNTPFORUMS">
@@ -2862,8 +2852,8 @@ Der Bestätigungscode lautet
 		<Resource tag="ABANDON_TRACKUSR_HELP">Automatisch Sessions aufgeben für Benutzer, die als "Nicht verfolgen" markiert sind wie z.B.: Suchmaschinen und Bots. Aktivieren Sie, diese Option wenn Sie Probleme mit Sessions haben.</Resource>
 		<Resource tag="MAX_ATTACHMENTS">Maximale Anzahl an Dateianhängen pro Beitrag:</Resource>
 		<Resource tag="MAX_ATTACHMENTS_HELP">Maximale Anzahl an Dateianhängen pro Beitrag. Auf 0 setzen für unbegrenzt.</Resource>
-		<Resource tag="MAX_File size">Max. Dateigröße:</Resource>
-		<Resource tag="MAX_File size_HELP">Maximale Größe der hochgeladenen Dateien. Leer lassen für kein Limit.</Resource>
+		<Resource tag="MAX_FILESIZE">Max. Dateigröße:</Resource>
+		<Resource tag="MAX_FILESIZE_HELP">Maximale Größe der hochgeladenen Dateien. Leer lassen für kein Limit.</Resource>
 		<Resource tag="POSTEDIT_TIMEOUT">Beitrag bearbeiten Timeout:</Resource>
 		<Resource tag="POSTEDIT_TIMEOUT_HELP">Anzahl der Sekunden, während Beiträge bearbeitet werden können, ohne das es den Benutzern gezeigt wird.</Resource>
 		<Resource tag="WSERVICE_TOKEN">Web-Service-Token:</Resource>
@@ -3146,8 +3136,6 @@ Der Bestätigungscode lautet
 		<Resource tag="ALLOW_GUESTS_VIEWPOLL_HELP">Wenn aktiviert Gäste können die Umfrage Optionen ansehen</Resource>
 		<Resource tag="ALLOW_USERS_POLLIMAGES">Benutzer erlauben Umfrage Bilder zu verwenden:</Resource>
 		<Resource tag="ALLOW_USERS_POLLIMAGES_HELP">Wen aktiviert können Benutzer Bilder als Umfrage Optionen verwenden</Resource>
-		<Resource tag="POLL_IMAGE_FILESIZE">Umfragebild Dateigröße:</Resource>
-		<Resource tag="POLL_IMAGE_FILESIZE_HELP">Max. Dateigröße für Umfrage Bilder in KB.</Resource>
 		<Resource tag="ALLOW_PMS">Private Nachrichten erlauben:</Resource>
 		<Resource tag="ALLOW_PMS_HELP">Benutzern erlauben Private Nachrichten zu verschicken und zu empfangen. Sie sollten ausdrücklich die Erlaubnis für jede Gruppe und / oder Rang definieren, um sie für die Benutzer zu aktivieren.</Resource>
 		<Resource tag="ALLOW_PM_NOTIFICATION">Private Nachrichten Benachrichtigung</Resource>
@@ -3229,8 +3217,6 @@ Der Bestätigungscode lautet
 		<Resource tag="SPAM_MESSAGE_0">Nichts tun</Resource>
 		<Resource tag="SPAM_MESSAGE_1">Beitrag als nicht genehmigt markieren</Resource>
 		<Resource tag="SPAM_MESSAGE_2">Beitrag ablehnen</Resource>
-		<Resource tag="MAX_FILESIZE">Max. Dateigröße:</Resource>
-		<Resource tag="MAX_FILESIZE_HELP">Maximale Größe der hochgeladenen Dateien. Leer lassen für kein Limit.</Resource>
 	</page>
 	<page name="ADMIN_TEST_DATA">
 		<Resource tag="TITLE">Testdaten generieren (Nur DEBUG)</Resource>

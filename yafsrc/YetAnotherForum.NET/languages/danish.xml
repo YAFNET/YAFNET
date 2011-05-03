@@ -966,8 +966,6 @@
     <Resource tag="MAX_ALLOWED_POLLS_HELP">Number of polls, max value no more than 99.</Resource>
     <Resource tag="MAX_ATTACHMENTS">Maximum Number of Attachments per Post:</Resource>
     <Resource tag="MAX_ATTACHMENTS_HELP">Maximum Number of uploaded files per Post. Set to 0 for unlimited.</Resource>
-    <Resource tag="MAX_File size">Max File Size:</Resource>
-    <Resource tag="MAX_File size_HELP">Maximum size of uploaded files. Leave empty for no limit.</Resource>
     <Resource tag="MAX_FILESIZE">Max File Size:</Resource>
     <Resource tag="MAX_FILESIZE_HELP">Maximum size of uploaded files. Leave empty for no limit.</Resource>
     <Resource tag="MAX_IMAGE_SIZE">Maximum Image Size:</Resource>
@@ -1000,8 +998,6 @@
     <Resource tag="ONLINE_STATUS_TIMEOUT_HELP">You can fine-tune it depending on your site activity (in milliseconds)</Resource>
     <Resource tag="POINTS_TEMPLATE">Points template:</Resource>
     <Resource tag="POINTS_TEMPLATE_HELP">Template for rendering user's points.</Resource>
-    <Resource tag="POLL_IMAGE_File size">Poll Image File size:</Resource>
-    <Resource tag="POLL_IMAGE_File size_HELP">Max. file size for poll images in KB.</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE">Poll Image File size:</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE_HELP">Max. file size for poll images in KB.</Resource>
     <Resource tag="POLLVOTING_PERIP">Poll Votes Dependent on IP:</Resource>

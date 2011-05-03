@@ -2893,8 +2893,8 @@ Visit {forumname} at {forumlink}
        <Resource tag="ABANDON_TRACKUSR_HELP">Automatically abandon sessions for users who are marked as "Don't Track" such as Search Engines and Bots. Enable if you're having any session issues.</Resource>
 	   <Resource tag="MAX_ATTACHMENTS">Maximum Number of Attachments per Post:</Resource>
        <Resource tag="MAX_ATTACHMENTS_HELP">Maximum Number of uploaded files per Post. Set to 0 for unlimited.</Resource>
-	   <Resource tag="MAX_File size">Max File Size:</Resource>
-       <Resource tag="MAX_File size_HELP">Maximum size of uploaded files. Leave empty for no limit.</Resource>
+	   <Resource tag="MAX_FILESIZE">Max File Size:</Resource>
+       <Resource tag="MAX_FILESIZE_HELP">Maximum size of uploaded files. Leave empty for no limit.</Resource>
 	   <Resource tag="POSTEDIT_TIMEOUT">Post editing timeout:</Resource>
        <Resource tag="POSTEDIT_TIMEOUT_HELP">Number of seconds while post may be modified without showing that to other users</Resource>
 	   <Resource tag="WSERVICE_TOKEN">Web Service Token:</Resource>
@@ -3175,8 +3175,8 @@ Visit {forumname} at {forumlink}
        <Resource tag="ALLOW_GUESTS_VIEWPOLL_HELP">If enabled Guests can see poll choices.</Resource>
 	   <Resource tag="ALLOW_USERS_POLLIMAGES">Allow Users Poll Images:</Resource>
        <Resource tag="ALLOW_USERS_POLLIMAGES_HELP">If enabled Users can add images as poll options.</Resource>
-	   <Resource tag="POLL_IMAGE_FILESIZE">Poll Image File size:</Resource>
-       <Resource tag="POLL_IMAGE_FILESIZE_HELP">Max. file size for poll images in KB.</Resource>
+	   
+       
 	   <Resource tag="ALLOW_PMS">Allow Private Messages:</Resource>
        <Resource tag="ALLOW_PMS_HELP">Allow users to access and send private messages. You should explicitly give permission for each group and/or rank too to enable them for users.</Resource>
 	   <Resource tag="ALLOW_PM_NOTIFICATION">Allow Private Message Notifications:</Resource>
@@ -3258,8 +3258,8 @@ Visit {forumname} at {forumlink}
 	 <Resource tag="SPAM_MESSAGE_0">Do nothing</Resource>
 	 <Resource tag="SPAM_MESSAGE_1">Flag Message as Unapproved</Resource>
 	 <Resource tag="SPAM_MESSAGE_2">Reject Message</Resource>
-<Resource tag="MAX_FILESIZE">Max File Size:</Resource>
-       <Resource tag="MAX_FILESIZE_HELP">Maximum size of uploaded files. Leave empty for no limit.</Resource>
+
+       
    </page>
 	  <page name="ADMIN_TEST_DATA">
 	   <Resource tag="TITLE">Create Test Data (DEBUG Only)</Resource>
