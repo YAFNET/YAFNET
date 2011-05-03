@@ -21,6 +21,8 @@
 								
 			config.entities_greek = false;
 			config.entities_latin = false;
+			
+			config.contentsCss = 'editors/ckeditor/contents.css';
 		  });
 };
    
