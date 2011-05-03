@@ -1,11 +1,11 @@
-f<%@ Control language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.editlanguage" Codebehind="editlanguage.ascx.cs" %>
+﻿<%@ Control language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.editlanguage" Codebehind="editlanguage.ascx.cs" %>
 <YAF:PageLinks runat="server" id="PageLinks" />
 <YAF:AdminMenu runat="server" id="Adminmenu1">
   <table class="content" width="100%" cellspacing="0" cellpadding="0">
     <tr>
       <td class="header1" colspan="3">
         <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_EDITLANGUAGE" />
-	    <asp:Label runat="server" id="lblPageName"></asp:Label></em>
+	    <asp:Label runat="server" id="lblPageName"></asp:Label>
       </td>
     </tr>
     <tr>
