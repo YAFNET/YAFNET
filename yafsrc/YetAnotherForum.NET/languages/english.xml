@@ -1261,7 +1261,10 @@
       <Resource tag="TOPICATTACH">Attach files to this post?</Resource>
       <Resource tag="TOPICWATCH">Watch this topic and receive notifications of activity via e-mail?</Resource>
     <Resource tag="ISQUESTION">Is this topic in question and answer format?</Resource>
-      <Resource tag="TOPICNAME_TOOLONG">Topic name length cannot be be more than {0} characters. Suggestion: use abbreviations to shorten.</Resource>
+     <Resource tag="TOPIC_NAME_TOOLONG">Topic name length cannot be be more than 255 characters.</Resource>
+     <Resource tag="TOPIC_NAME_WORDTOOLONG">Topic name single word length cannot be be more than {0} characters. Suggestion: use abbreviations to shorten.</Resource>
+     <Resource tag="TOPIC_DESCRIPTION_TOOLONG">Topic description length cannot be be more than 255 characters.</Resource>
+     <Resource tag="TOPIC_DESCRIPTION_WORDTOOLONG">Topic description single word length cannot be be more than {0} characters. Suggestion: use abbreviations to shorten.</Resource>
       <Resource tag="WAIT">You can't post in the next {0:N0} seconds.</Resource>
 	  <Resource tag="SPAM_MESSAGE">Your Message was rejected because it was detected as SPAM!</Resource>
 	  <Resource tag="SAVE_TITLE">Post/Edit the Message</Resource>
@@ -3177,6 +3180,8 @@ Visit {forumname} at {forumlink}
        <Resource tag="ALLOW_POSTBLOG_HELP">If checked, post to blog feature is enabled.</Resource>
 	   <Resource tag="ALLOW_EMAIL_TOPIC">Allow Email Topic:</Resource>
        <Resource tag="ALLOW_EMAIL_TOPIC_HELP">If checked, users will be allowed to email topics.</Resource>
+     <Resource tag="ALLOW_TOPIC_DESCRIPTION">Allow Topic Description:</Resource>
+       <Resource tag="ALLOW_TOPIC_DESCRIPTION_HELP">If checked, users can add a topic description.</Resource>
 	   <Resource tag="ALLOW_QUICK_ANSWER">Allow Quick Answer:</Resource>
        <Resource tag="ALLOW_QUICK_ANSWER_HELP">Enable or disable display of the Quick Reply Box at the bottom of the Posts page</Resource>
 	   <Resource tag="ENABLE_CALENDER">Enable calendar:</Resource>

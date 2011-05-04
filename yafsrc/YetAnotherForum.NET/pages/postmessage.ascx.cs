@@ -278,9 +278,20 @@ namespace YAF.Pages
                 this.TopicSubjectTextBox.Text.Trim().AreAnyWordsOverMaxLength(this.Get<YafBoardSettings>().MaxWordLength))
             {
                 this.PageContext.AddLoadMessage(
-                  this.GetTextFormatted("TOPICNAME_TOOLONG", this.Get<YafBoardSettings>().MaxWordLength));
+                  this.GetTextFormatted("TOPIC_NAME_WORDTOOLONG", this.Get<YafBoardSettings>().MaxWordLength));
                 this.TopicSubjectTextBox.Text =
-                    this.TopicSubjectTextBox.Text.Substring(this.Get<YafBoardSettings>().MaxWordLength);
+                    this.TopicSubjectTextBox.Text.Substring(this.Get<YafBoardSettings>().MaxWordLength).Substring(255);
+                return false;
+            }
+
+            // Check if the topic description words are not too long
+            if (this.Get<YafBoardSettings>().MaxWordLength > 0 &&
+                this.TopicDescriptionTextBox.Text.Trim().AreAnyWordsOverMaxLength(this.Get<YafBoardSettings>().MaxWordLength))
+            {
+                this.PageContext.AddLoadMessage(
+                  this.GetTextFormatted("TOPIC_DESCRIPTION_WORDTOOLONG", this.Get<YafBoardSettings>().MaxWordLength));
+                this.TopicDescriptionTextBox.Text =
+                    this.TopicDescriptionTextBox.Text.Substring(this.Get<YafBoardSettings>().MaxWordLength).Substring(255);
                 return false;
             }
 
@@ -289,6 +300,7 @@ namespace YAF.Pages
                 this.PageContext.AddLoadMessage(this.GetText("NEED_SUBJECT"));
                 return false;
             }
+          
 
             if (this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().AllowCreateTopicsSameName) && LegacyDb.topic_findduplicate(this.TopicSubjectTextBox.Text.Trim()) == 1 && this.TopicID == null &&
                 this.EditMessageID == null)
@@ -441,6 +453,10 @@ namespace YAF.Pages
 
             if (!this.IsPostBack)
             {
+                if (this.Get<YafBoardSettings>().EnableTopicDescription)
+                {
+                    this.DescriptionRow.Visible = true;
+                }
                 // helper bool -- true if this is a completely new topic...
                 bool isNewTopic = (this.TopicID == null) && (this.QuotedMessageID == null) && (this.EditMessageID == null);
 
@@ -576,10 +592,16 @@ namespace YAF.Pages
             }
 
             string subjectSave = string.Empty;
+            string descriptionSave = string.Empty;
 
             if (this.TopicSubjectTextBox.Enabled)
             {
                 subjectSave = this.TopicSubjectTextBox.Text;
+            }
+
+            if (this.TopicDescriptionTextBox.Enabled)
+            {
+                descriptionSave = this.TopicDescriptionTextBox.Text;
             }
 
             // Mek Suggestion: This should be removed, resetting flags on edit is a bit lame.
@@ -597,6 +619,7 @@ namespace YAF.Pages
               this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"),
               this.Priority.SelectedValue,
               this._forumEditor.Text.Trim(),
+              descriptionSave.Trim(),
               subjectSave.Trim(),
               messageFlags.BitValue,
               this.HtmlEncode(this.ReasonEditor.Text),
@@ -676,6 +699,7 @@ namespace YAF.Pages
             topicId = LegacyDb.topic_save(
               this.PageContext.PageForumID,
               this.TopicSubjectTextBox.Text.Trim(),
+              this.TopicDescriptionTextBox.Text.Trim(),
               this._forumEditor.Text,
               this.PageContext.PageUserID,
               this.Priority.SelectedValue,
@@ -816,6 +840,15 @@ namespace YAF.Pages
             {
                 string tag = this.Get<IFormatMessage>().CheckHtmlTags(
                   this.TopicSubjectTextBox.Text, this.Get<YafBoardSettings>().AcceptedHeadersHTML, ',');
+
+                if (tag.IsSet())
+                {
+                    this.PageContext.AddLoadMessage(tag);
+                    return;
+                }
+
+                tag = this.Get<IFormatMessage>().CheckHtmlTags(
+                 this.TopicDescriptionTextBox.Text, this.Get<YafBoardSettings>().AcceptedHeadersHTML, ',');
 
                 if (tag.IsSet())
                 {
@@ -1239,17 +1272,23 @@ namespace YAF.Pages
             }
 
             this.TopicSubjectTextBox.Text = this.Server.HtmlDecode(Convert.ToString(currentRow["Topic"]));
+            this.TopicDescriptionTextBox.Text = this.Server.HtmlDecode(Convert.ToString(currentRow["Description"]));
 
             if ((currentRow["TopicOwnerID"].ToType<int>() == currentRow["UserID"].ToType<int>()) ||
                 this.PageContext.ForumModeratorAccess)
             {
                 // allow editing of the topic subject
                 this.TopicSubjectTextBox.Enabled = true;
+                if (this.Get<YafBoardSettings>().EnableTopicDescription)
+                {
+                    this.DescriptionRow.Visible = true;
+                }
             }
             else
             {
                 // disable the subject
                 this.TopicSubjectTextBox.Enabled = false;
+                this.TopicDescriptionTextBox.Enabled = false;
             }
 
             this.Priority.SelectedItem.Selected = false;
@@ -1322,6 +1361,7 @@ namespace YAF.Pages
             }
 
             this.SubjectRow.Visible = false;
+            this.DescriptionRow.Visible = false;
             this.Title.Text = this.GetText("reply");
 
             // add topic link...

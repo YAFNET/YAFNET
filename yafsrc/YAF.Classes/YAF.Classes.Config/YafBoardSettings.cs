@@ -207,6 +207,22 @@ namespace YAF.Classes
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether to enable topic dwscription.
+        /// </summary>
+        public bool EnableTopicDescription
+        {
+            get
+            {
+                return this._reg.GetValue("EnableTopicDescription", true);
+            }
+
+            set
+            {
+                this._reg.SetValue("EnableTopicDescription", value);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether to enable JqueryUIThemeCDNHosted.
         /// </summary>
         public bool JqueryUIThemeCDNHosted

@@ -192,7 +192,7 @@
     <Resource tag="GENDER_FEMALE">~/female.gif</Resource>
     <Resource tag="RSSFEED">~/rssfeed.gif</Resource>
     <Resource tag="ATOMFEED">~/atomfeed.png</Resource>
-		  <Resource tag="TWITTER">~/icon_twitter.png</Resource>
+		<Resource tag="TWITTER">~/icon_twitter.png</Resource>
 	  <Resource tag="DIGG">~/icon_digg.png</Resource>
 	  <Resource tag="REDDIT">~/icon_reddit.png</Resource>
 	  <Resource tag="FACEBOOK">~/icon_facebook.png</Resource>

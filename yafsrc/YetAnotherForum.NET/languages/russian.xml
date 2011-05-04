@@ -809,6 +809,8 @@
     <Resource tag="ALLOW_SIGNATURE_HELP">Разрешить пользователям добавлять подписи к сообщениям. Вы должны также установить параметры подписи(кол-во символов, разрешённые BBCode...) для каждой роли и/или статуса, чтобы действительно включить эту опцию.</Resource>
     <Resource tag="ALLOW_THANKS">Разрешить «Спасибо»</Resource>
     <Resource tag="ALLOW_THANKS_HELP">Пользователи могут благодарить других пользователей за понравившиеся сообщения.</Resource>
+    <Resource tag="ALLOW_TOPIC_DESCRIPTION">Разрешить описание темы:</Resource>
+    <Resource tag="ALLOW_TOPIC_DESCRIPTION_HELP">Если включено, пользователи могут добавлять описание темы.</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME">Разрешить темы с совпадающим именем для:</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME_HELP">Темы с совпадающим именем разрешены для пользователей из списка.</Resource>
     <Resource tag="ALLOW_USER_HIDE">Разрешить пользователю скрывать себя:</Resource>
@@ -2669,6 +2671,10 @@
     <Resource tag="STICKY">Прикреплённое</Resource>
     <Resource tag="SUBJECT">Тема:</Resource>
     <Resource tag="SUBJECT_DUPLICATE">Тема с таким названием или похожим названием уже существует.</Resource>
+    <Resource tag="TOPIC_DESCRIPTION_TOOLONG">Topic description length cannot be be more than 255 characters.</Resource>
+    <Resource tag="TOPIC_DESCRIPTION_WORDTOOLONG">Topic description single word length cannot be be more than {0} characters. Suggestion: use abbreviations to shorten.</Resource>
+    <Resource tag="TOPIC_NAME_TOOLONG">Topic name length cannot be be more than 255 characters.</Resource>
+    <Resource tag="TOPIC_NAME_WORDTOOLONG">Topic name single word length cannot be be more than {0} characters. Suggestion: use abbreviations to shorten.</Resource>
     <Resource tag="TOPICATTACH">Прикрепить файлы к этому сообщению?</Resource>
     <Resource tag="TOPICNAME_TOOLONG">Максимальная длина темы не должна быть более {0} символов. Используйте сокращения или измените тему на более короткую.</Resource>
     <Resource tag="TOPICWATCH">Следить за этой темой и получать уведомления о новых сообщениях по электронной почте?</Resource>

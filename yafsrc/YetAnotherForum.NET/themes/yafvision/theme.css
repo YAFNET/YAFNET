@@ -199,6 +199,15 @@
 	font-weight: bold;
 }
 
+.yafnet tr.topicRow .topicMain .description,
+.yafnet tr.topicRow_Alt .topicMain .description
+{
+    color: #281b1b;
+    font-size: 9pt;
+    font-style:italic;
+    font-weight:lighter;  
+}
+
 .yafnet tr.topicRow .topicMain img.avatarimage,
 .yafnet tr.topicRow_Alt .topicMain img.avatarimage
 {

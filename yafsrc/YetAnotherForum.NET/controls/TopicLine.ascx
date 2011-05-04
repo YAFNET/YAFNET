@@ -42,6 +42,16 @@
         <a href="<%=YafBuildLink.GetLink(ForumPages.posts, linkParams, this.TopicRow["LinkTopicID"])%>"
             class="post_link" title="<%=this.Get<IFormatMessage>().GetCleanedTopicMessage(this.TopicRow["FirstMessage"], this.TopicRow["LinkTopicID"]).MessageTruncated%>">
             <%=this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.TopicRow["Subject"]))%></a>
+       <%  if (this.TopicRow["Description"].ToString().IsSet())
+            {
+        %>               
+        <span class="description" >
+        <br />
+            <%=this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.TopicRow["Description"]))%>
+        </span>  
+            <%
+            }
+            %>     
         <%
             var favoriteCount = this.TopicRow["FavoriteCount"].ToType<int>();
             
@@ -148,6 +158,6 @@
         <%=new DisplayDateTime() { Format = DateTimeFormat.BothTopic, DateTime = this.TopicRow["LastPosted"] }.RenderToString()%>
         <%
             }    
-        %>
+        %>        
     </td>
 </tr>

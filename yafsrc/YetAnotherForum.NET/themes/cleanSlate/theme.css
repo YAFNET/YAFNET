@@ -317,6 +317,15 @@
     color: #222;
 }
 
+.yafnet tr.topicRow .topicMain .description,
+.yafnet tr.topicRow_Alt .topicMain .description
+{
+    color: #222;
+    font-size: 9pt;
+    font-style:italic;
+    font-weight:lighter;  
+}
+
 .yafnet tr.topicRow .topicMain .post_priority,
 .yafnet tr.topicRow_Alt .topicMain .post_priority
 {

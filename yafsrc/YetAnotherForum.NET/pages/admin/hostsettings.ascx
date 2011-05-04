@@ -483,6 +483,15 @@
                         </td>
                     </tr>
                     <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel188" runat="server" LocalizedTag="ALLOW_TOPIC_DESCRIPTION" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="EnableTopicDescription" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>
+                    
+                    <tr>
                         <td class="header1" colspan="2">
                             <YAF:LocalizedLabel ID="LocalizedLabel23" runat="server" LocalizedTag="HEADER_POLL" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>

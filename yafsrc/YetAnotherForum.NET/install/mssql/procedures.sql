@@ -3480,6 +3480,7 @@ BEGIN
 		c.ForumID,
 		c.Topic,
 		c.Priority,
+		c.Description,
 		a.Flags,
 		c.UserID AS TopicOwnerID,
 		Edited = IsNull(a.Edited,a.Posted),
@@ -3751,6 +3752,7 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}message_update](
 @MessageID int,
 @Priority int,
 @Subject nvarchar(100),
+@Description nvarchar(255),
 @Flags int, 
 @Message ntext, 
 @Reason nvarchar(100), 
@@ -3811,7 +3813,7 @@ begin
 
 	if not @Subject = '' and @Subject is not null begin
 		update [{databaseOwner}].[{objectQualifier}Topic] set
-			Topic = @Subject
+			Topic = @Subject, [Description] = @Description
 		where
 			TopicID = @TopicID
 	end 
@@ -5640,6 +5642,7 @@ begin
 			c.TopicMovedID,
 			FavoriteCount = (SELECT COUNT(1) as [FavoriteCount] FROM [{databaseOwner}].[{objectQualifier}FavoriteTopic] WHERE TopicId = IsNull(c.TopicMovedID,c.TopicID)),
 			[Subject] = c.Topic,
+			[Description] = c.Description,
 			c.UserID,
 			Starter = IsNull(c.UserName,b.Name),
 			Replies = c.NumPosts - 1,
@@ -5831,6 +5834,7 @@ create procedure [{databaseOwner}].[{objectQualifier}topic_save](
 	@Subject	nvarchar(100),
 	@UserID		int,
 	@Message	ntext,
+	@Description	nvarchar(255)=null,
 	@Priority	smallint,
 	@UserName	nvarchar(255)=null,
 	@IP			varchar(39),
@@ -5845,8 +5849,8 @@ begin
 	if @Posted is null set @Posted = GETUTCDATE() 
 
 	-- create the topic
-	insert into [{databaseOwner}].[{objectQualifier}Topic](ForumID,Topic,UserID,Posted,[Views],Priority,UserName,NumPosts)
-	values(@ForumID,@Subject,@UserID,@Posted,0,@Priority,@UserName,0)
+	insert into [{databaseOwner}].[{objectQualifier}Topic](ForumID,Topic,UserID,Posted,[Views],[Priority],UserName,NumPosts, [Description])
+	values(@ForumID,@Subject,@UserID,@Posted,0,@Priority,@UserName,0,@Description)
 
 	-- get its id
 	set @TopicID = SCOPE_IDENTITY()

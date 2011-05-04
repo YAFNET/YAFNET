@@ -4230,75 +4230,81 @@ namespace YAF.Classes.Data
     }
 
     // <summary> Update message to DB. </summary>
-    /// <summary>
-    /// The message_update.
-    /// </summary>
-    /// <param name="messageID">
-    /// The message id.
-    /// </param>
-    /// <param name="priority">
-    /// The priority.
-    /// </param>
-    /// <param name="message">
-    /// The message.
-    /// </param>
-    /// <param name="subject">
-    /// The subject.
-    /// </param>
-    /// <param name="flags">
-    /// The flags.
-    /// </param>
-    /// <param name="reasonOfEdit">
-    /// The reason of edit.
-    /// </param>
-    /// <param name="isModeratorChanged">
-    /// The is moderator changed.
-    /// </param>
-    /// <param name="editedBy">
-    /// UserId of who edited the message.
-    /// </param>
-    public static void message_update(
-      object messageID, object priority, object message, object subject, object flags, object reasonOfEdit, object isModeratorChanged, object origMessage, object editedBy)
+      /// <summary>
+      /// The message_update.
+      /// </summary>
+      /// <param name="messageID">
+      /// The message id.
+      /// </param>
+      /// <param name="priority">
+      /// The priority.
+      /// </param>
+      /// <param name="message">
+      /// The message.
+      /// </param>
+      /// <param name="description">
+      /// The description.
+      /// </param>
+      /// <param name="subject">
+      /// The subject.
+      /// </param>
+      /// <param name="flags">
+      /// The flags.
+      /// </param>
+      /// <param name="reasonOfEdit">
+      /// The reason of edit.
+      /// </param>
+      /// <param name="isModeratorChanged">
+      /// The is moderator changed.
+      /// </param>
+      /// <param name="editedBy">
+      /// UserId of who edited the message.
+      /// </param>
+      public static void message_update(
+      object messageID, object priority, object message, object description, object subject, object flags, object reasonOfEdit, object isModeratorChanged, object origMessage, object editedBy)
     {
-      message_update(messageID, priority, message, subject, flags, reasonOfEdit, isModeratorChanged, null, origMessage, editedBy);
+      message_update(messageID, priority, message, subject, description, flags, reasonOfEdit, isModeratorChanged, null, origMessage, editedBy);
     }
 
-    /// <summary>
-    /// The message_update.
-    /// </summary>
-    /// <param name="messageID">
-    /// The message id.
-    /// </param>
-    /// <param name="priority">
-    /// The priority.
-    /// </param>
-    /// <param name="message">
-    /// The message.
-    /// </param>
-    /// <param name="subject">
-    /// The subject.
-    /// </param>
-    /// <param name="flags">
-    /// The flags.
-    /// </param>
-    /// <param name="reasonOfEdit">
-    /// The reason of edit.
-    /// </param>
-    /// <param name="isModeratorChanged">
-    /// The is moderator changed.
-    /// </param>
-    /// <param name="overrideApproval">
-    /// The override approval.
-    /// </param>
-    /// <param name="originalMessage">
-    /// The original Message.
-    /// </param> 
-    /// <param name="editedBy">
-    /// UserId of who edited the message.
-    /// </param>
-    public static void message_update(
+      /// <summary>
+      /// The message_update.
+      /// </summary>
+      /// <param name="messageID">
+      /// The message id.
+      /// </param>
+      /// <param name="priority">
+      /// The priority.
+      /// </param>
+      /// <param name="message">
+      /// The message.
+      /// </param>
+      /// <param name="description">
+      /// The description.
+      /// </param>
+      /// <param name="subject">
+      /// The subject.
+      /// </param>
+      /// <param name="flags">
+      /// The flags.
+      /// </param>
+      /// <param name="reasonOfEdit">
+      /// The reason of edit.
+      /// </param>
+      /// <param name="isModeratorChanged">
+      /// The is moderator changed.
+      /// </param>
+      /// <param name="overrideApproval">
+      /// The override approval.
+      /// </param>
+      /// <param name="originalMessage">
+      /// The original Message.
+      /// </param> 
+      /// <param name="editedBy">
+      /// UserId of who edited the message.
+      /// </param>
+      public static void message_update(
       object messageID, object priority,
-        object message, object subject,
+        object message, object description, object subject,
         object flags, object reasonOfEdit,
         object isModeratorChanged,
         object overrideApproval,
@@ -4311,6 +4317,7 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("MessageID", messageID);
         cmd.Parameters.AddWithValue("Priority", priority);
         cmd.Parameters.AddWithValue("Message", message);
+        cmd.Parameters.AddWithValue("Description", description);
         cmd.Parameters.AddWithValue("Subject", subject);
         cmd.Parameters.AddWithValue("Flags", flags);
         cmd.Parameters.AddWithValue("Reason", reasonOfEdit);
@@ -7003,6 +7010,9 @@ namespace YAF.Classes.Data
       /// <param name="subject">
       /// The subject.
       /// </param>
+      /// <param name="description">
+      /// The description.
+      /// </param>
       /// <param name="message">
       /// The message.
       /// </param>
@@ -7036,6 +7046,7 @@ namespace YAF.Classes.Data
       public static long topic_save(
       object forumID,
       object subject,
+      object description,
       object message,
       object userID,
       object priority,
@@ -7051,6 +7062,7 @@ namespace YAF.Classes.Data
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("ForumID", forumID);
         cmd.Parameters.AddWithValue("Subject", subject);
+        cmd.Parameters.AddWithValue("Description", description);
         cmd.Parameters.AddWithValue("UserID", userID);
         cmd.Parameters.AddWithValue("Message", message);
         cmd.Parameters.AddWithValue("Priority", priority);

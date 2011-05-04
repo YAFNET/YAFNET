@@ -1000,7 +1000,8 @@ namespace YAF.Pages.Admin
         long topicID = LegacyDb.topic_save(
           forumID, 
           this.TopicPrefixTB.Text.Trim() + this.randomGuid, 
-          this.MessageContentPrefixTB.Text.Trim() + this.randomGuid, 
+          this.MessageContentPrefixTB.Text.Trim() + this.randomGuid,
+          null,
           this.PageContext.PageUserID, 
           _priority, 
           this.PageContext.User.UserName, 

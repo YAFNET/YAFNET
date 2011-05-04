@@ -329,8 +329,9 @@ if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseO
 		UserName		    nvarchar (255) NULL ,		
 		Posted			    datetime NOT NULL ,
 		Topic			    nvarchar (100) NOT NULL ,
+		[Description]		nvarchar (255) NULL ,
 		[Views]			    int NOT NULL ,
-		Priority		    smallint NOT NULL ,
+		[Priority]		    smallint NOT NULL ,
 		PollID			    int NULL ,
 		TopicMovedID	    int NULL ,
 		LastPosted		    datetime NULL ,
@@ -405,7 +406,7 @@ GO
 if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Attachment]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}Attachment](
 		AttachmentID	int IDENTITY (1, 1) not null,
-		MessageID		int not null,
+		MessageID		int not null,		
 		[FileName]		nvarchar(255) not null,
 		Bytes			int not null,
 		FileID			int null,
@@ -1503,6 +1504,12 @@ begin
 	-- vzrus : we don't migrate flags to not slow down update and possible timeouts. Users can run maintenance scripts? Else use cursors.
 	exec('update [{databaseOwner}].[{objectQualifier}Topic] set LastMessageFlags = 22 WHERE LastMessageFlags IS NULL')
 	revoke update on [{databaseOwner}].[{objectQualifier}Topic] from public	
+end
+GO
+
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='Description')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Topic] add [Description] nvarchar(255) null	
 end
 GO
 
