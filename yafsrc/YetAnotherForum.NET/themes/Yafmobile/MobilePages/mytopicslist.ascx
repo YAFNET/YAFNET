@@ -26,6 +26,7 @@
     </asp:Repeater>
     <tr>
         <td class="footer1" align="right" width="100%" colspan="6">
+            <asp:LinkButton runat="server" OnClick="MarkAll_Click" ID="MarkAll" />
             <YAF:RssFeedLink ID="RssFeed" runat="server" />
             <YAF:RssFeedLink ID="AtomFeed" runat="server" />   
         </td>
