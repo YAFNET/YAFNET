@@ -164,6 +164,9 @@ namespace YAF.Controls
         /// <param name="linkText">
         /// The link text.
         /// </param>
+        /// <param name="linkToolTip">
+        /// The link tool tip.
+        /// </param>
         /// <param name="linkUrl">
         /// The link url.
         /// </param>
@@ -177,7 +180,7 @@ namespace YAF.Controls
         /// The unread text.
         /// </param>
         private static void RenderMenuItem(
-            Control holder, string liCssClass, string linkCssClass, string linkText, string linkUrl, bool noFollow, bool showUnread, string unreadText)
+            Control holder, string liCssClass, string linkCssClass, string linkText, string linkToolTip, string linkUrl, bool noFollow, bool showUnread, string unreadText)
         {
             var liElement = new HtmlGenericControl("li");
 
@@ -186,10 +189,15 @@ namespace YAF.Controls
                 liElement.Attributes.Add("class", liCssClass);
             }
 
+            if (string.IsNullOrEmpty(linkToolTip))
+            {
+                linkToolTip = linkText;
+            }
+
             var link = new HyperLink
             {
                 Target = "_top",
-                ToolTip = linkText,
+                ToolTip = linkToolTip,
                 NavigateUrl = linkUrl,
                 Text = linkText
             };
@@ -276,6 +284,7 @@ namespace YAF.Controls
                     "menuAdmin",
                     null,
                     this.GetText("TOOLBAR", "ADMIN"),
+                    this.GetText("TOOLBAR", "ADMIN_TITLE"),
                     YafBuildLink.GetLink(ForumPages.admin_admin),
                     false,
                     false,
@@ -293,6 +302,7 @@ namespace YAF.Controls
                     "menuAdmin",
                     null,
                     this.GetText("TOOLBAR", "HOST"),
+                    this.GetText("TOOLBAR", "HOST_TITLE"),
                     YafBuildLink.GetLink(ForumPages.admin_hostsettings),
                     false,
                     false,
@@ -310,6 +320,7 @@ namespace YAF.Controls
                     "menuAdmin",
                     null,
                     this.GetText("TOOLBAR", "MODERATE"),
+                    this.GetText("TOOLBAR", "MODERATE_TITLE"),
                     YafBuildLink.GetLink(ForumPages.moderate_index),
                     false,
                     false,
@@ -328,6 +339,7 @@ namespace YAF.Controls
                     "menuGeneral",
                     null,
                     this.GetText("DEFAULT", "FORUM"),
+                    this.GetText("TOOLBAR", "FORUM_TITLE"),
                     YafBuildLink.GetLink(ForumPages.forum),
                     false,
                     false,
@@ -341,6 +353,7 @@ namespace YAF.Controls
                     "menuGeneral",
                     null,
                      this.GetText("TOOLBAR", "ACTIVETOPICS"),
+                     this.GetText("TOOLBAR", "ACTIVETOPICS_TITLE"),
                     YafBuildLink.GetLink(ForumPages.mytopics),
                     false,
                     false,
@@ -355,6 +368,7 @@ namespace YAF.Controls
                     "menuGeneral",
                     null,
                     this.GetText("TOOLBAR", "SEARCH"),
+                    this.GetText("TOOLBAR", "SEARCH_TITLE"),
                     YafBuildLink.GetLink(ForumPages.search),
                     false,
                     false,
@@ -369,6 +383,7 @@ namespace YAF.Controls
                     "menuGeneral",
                     null,
                     this.GetText("TOOLBAR", "MEMBERS"),
+                    this.GetText("TOOLBAR", "MEMBERS_TITLE"),
                     YafBuildLink.GetLink(ForumPages.members),
                     false, 
                     false,
@@ -383,6 +398,7 @@ namespace YAF.Controls
                     "menuGeneral",
                     null,
                     this.GetText("TOOLBAR", "TEAM"),
+                    this.GetText("TOOLBAR", "TEAM_TITLE"),
                     YafBuildLink.GetLink(ForumPages.team),
                     false, 
                     false,
@@ -397,6 +413,7 @@ namespace YAF.Controls
                     "menuGeneral",
                     null,
                     this.GetText("TOOLBAR", "HELP"),
+                    this.GetText("TOOLBAR", "HELP_TITLE"),
                     YafBuildLink.GetLink(ForumPages.help_index),
                     false, 
                     false,
@@ -413,6 +430,7 @@ namespace YAF.Controls
                         "menuAccount",
                         "LoginLink",
                         this.GetText("TOOLBAR", "LOGIN"),
+                        this.GetText("TOOLBAR", "LOGIN_TITLE"),
                         "javascript:void(0);",
                         true,
                         false,
@@ -432,6 +450,7 @@ namespace YAF.Controls
                         "menuAccount",
                         null,
                         this.GetText("TOOLBAR", "LOGIN"),
+                        this.GetText("TOOLBAR", "LOGIN_TITLE"),
                         YafBuildLink.GetLink(ForumPages.login, returnUrl),
                         true,
                         false,
@@ -447,6 +466,7 @@ namespace YAF.Controls
                     "menuGeneral",
                     null,
                     this.GetText("TOOLBAR", "REGISTER"),
+                    this.GetText("TOOLBAR", "REGISTER_TITLE"),
                     this.Get<YafBoardSettings>().ShowRulesForRegistration
                         ? YafBuildLink.GetLink(ForumPages.rules)
                         : (!this.Get<YafBoardSettings>().UseSSLToRegister
@@ -471,7 +491,7 @@ namespace YAF.Controls
             this.UserContainer.Visible = true;
 
             // My Profile
-            this.MyProfile.ToolTip = this.GetText("TOOLBAR", "MYPROFILE");
+            this.MyProfile.ToolTip = this.GetText("TOOLBAR", "MYPROFILE_TITLE");
             this.MyProfile.NavigateUrl = YafBuildLink.GetLink(ForumPages.cp_profile);
             this.MyProfile.Text = this.GetText("TOOLBAR", "MYPROFILE");
 
@@ -483,6 +503,7 @@ namespace YAF.Controls
                     "menuMy",
                     null,
                     this.GetText("TOOLBAR", "INBOX"),
+                    this.GetText("TOOLBAR", "INBOX_TITLE"),
                     YafBuildLink.GetLink(ForumPages.cp_pm),
                     false,
                     this.PageContext.PendingBuddies > 0,
@@ -497,6 +518,7 @@ namespace YAF.Controls
                     "menuMy",
                     null,
                     this.GetText("TOOLBAR", "BUDDIES"),
+                    this.GetText("TOOLBAR", "BUDDIES_TITLE"),
                     YafBuildLink.GetLink(ForumPages.cp_editbuddies),
                     false,
                     this.PageContext.PendingBuddies > 0,
@@ -511,6 +533,7 @@ namespace YAF.Controls
                     "menuMy",
                     null,
                     this.GetText("TOOLBAR", "MYALBUMS"),
+                    this.GetText("TOOLBAR", "MYALBUMS_TITLE"),
                     YafBuildLink.GetLinkNotEscaped(ForumPages.albums, "u={0}", this.PageContext.PageUserID),
                     false,
                     false,
