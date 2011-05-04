@@ -2586,6 +2586,7 @@
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">Mededeling</Resource>
     <Resource tag="ASK_POLL_DELETE">Wil je echt de poll uit dit topic verwijderen?</Resource>
+    <Resource tag="CANCEL_TITLE">Cancel Message editing/creating</Resource>
     <Resource tag="EDIT">Bericht wijzigen</Resource>
     <Resource tag="EDITREASON">Reden voor wijzigen:</Resource>
     <Resource tag="FROM">Van:</Resource>
@@ -2601,10 +2602,12 @@
     <Resource tag="POSTED">Gepost:</Resource>
     <Resource tag="POSTTOBLOG_FAILED">Er is een fout opgetreden bij het posten in je blog. Misschien is de authenticatie mislukt.</Resource>
     <Resource tag="PREVIEW">Voorbeeld</Resource>
+    <Resource tag="PREVIEW_TITLE">Get a Preview of the Message</Resource>
     <Resource tag="PREVIEWTITLE">Voorbeeld:</Resource>
     <Resource tag="PRIORITY">Prioriteit:</Resource>
     <Resource tag="REPLY">Antwoord verzenden</Resource>
     <Resource tag="SAVE">Plaatsen</Resource>
+    <Resource tag="SAVE_TITLE">Post/Edit the Message</Resource>
     <Resource tag="SMILIES_HEADER">[b]Smiley invoegen[/b]</Resource>
     <Resource tag="SMILIES_MORE">Meer smiley's...</Resource>
     <Resource tag="SPAM_MESSAGE">Your Message was rejected because it was detected as SPAM!</Resource>
@@ -2862,6 +2865,7 @@
   </page>
   <page name="REPORTPOST">
     <Resource tag="CANCEL">Annuleren</Resource>
+    <Resource tag="CANCEL_TITLE">Cancel Message Report</Resource>
     <Resource tag="ENTER_TEXT">Zet hier de rapport tekst.</Resource>
     <Resource tag="HEADER">Post rapporteren</Resource>
     <Resource tag="POSTEDBY">Gepost door:</Resource>
@@ -2869,6 +2873,7 @@
     <Resource tag="REPORTTEXT_FORBIDDENTAG">De tag [{0}] mag niet in rapporten gebruikt worden.</Resource>
     <Resource tag="REPORTTEXT_TOOLONG">Je rapport tekst kan niet meer dan {0} karakters bevatten.</Resource>
     <Resource tag="SEND">Rapport</Resource>
+    <Resource tag="SEND_TITLE">Report the Message, with the above Reason</Resource>
   </page>
   <page name="RTE">
     <Resource tag="BOLD">Vet</Resource>

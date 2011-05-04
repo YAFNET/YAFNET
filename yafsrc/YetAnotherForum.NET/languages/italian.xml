@@ -2477,6 +2477,7 @@
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">Annunci</Resource>
     <Resource tag="ASK_POLL_DELETE">Vuoi veramente eliminare il sondaggio da questa discussione?</Resource>
+    <Resource tag="CANCEL_TITLE">Cancel Message editing/creating</Resource>
     <Resource tag="EDIT">Modifica messaggio</Resource>
     <Resource tag="EDITREASON">Motivo della modifica:</Resource>
     <Resource tag="FROM">Da:</Resource>
@@ -2492,10 +2493,12 @@
     <Resource tag="POSTED">Inviati:</Resource>
     <Resource tag="POSTTOBLOG_FAILED">Si e` verificato un errore nell'effettuare il post nel tuo blog. Puo` essere fallita l'autenticazione.</Resource>
     <Resource tag="PREVIEW">Anteprima</Resource>
+    <Resource tag="PREVIEW_TITLE">Get a Preview of the Message</Resource>
     <Resource tag="PREVIEWTITLE">Anteprima:</Resource>
     <Resource tag="PRIORITY">Priorità:</Resource>
     <Resource tag="REPLY">Invia una risposta</Resource>
     <Resource tag="SAVE">Invia</Resource>
+    <Resource tag="SAVE_TITLE">Post/Edit the Message</Resource>
     <Resource tag="SMILIES_HEADER">[b]Aggiungi smiley[/b]</Resource>
     <Resource tag="SMILIES_MORE">Altri smiley...</Resource>
     <Resource tag="SPAM_MESSAGE">Your Message was rejected because it was detected as SPAM!</Resource>
@@ -2753,6 +2756,7 @@
   </page>
   <page name="REPORTPOST">
     <Resource tag="CANCEL">Annulla</Resource>
+    <Resource tag="CANCEL_TITLE">Cancel Message Report</Resource>
     <Resource tag="ENTER_TEXT">Scrivi il motivo della segnalazione:</Resource>
     <Resource tag="HEADER">Segnalazione post</Resource>
     <Resource tag="POSTEDBY">Inviato da:</Resource>
@@ -2760,6 +2764,7 @@
     <Resource tag="REPORTTEXT_FORBIDDENTAG">Il tag [{0}] non è ammesso nelle segnalazioni.</Resource>
     <Resource tag="REPORTTEXT_TOOLONG">Il motivo della segnalazione non deve eccedere {0} caratteri.</Resource>
     <Resource tag="SEND">Segnala</Resource>
+    <Resource tag="SEND_TITLE">Report the Message, with the above Reason</Resource>
   </page>
   <page name="RTE">
     <Resource tag="BOLD">Grassetto</Resource>

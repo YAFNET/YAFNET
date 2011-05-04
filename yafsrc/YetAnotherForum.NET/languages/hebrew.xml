@@ -2666,6 +2666,7 @@
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">הכרזה</Resource>
     <Resource tag="ASK_POLL_DELETE">האם את/ה באמת רוצה להסיר סקר זה?</Resource>
+    <Resource tag="CANCEL_TITLE">Cancel Message editing/creating</Resource>
     <Resource tag="CHOICE">{0} בחירה:</Resource>
     <Resource tag="CREATEPOLL">צור סקר</Resource>
     <Resource tag="EDIT">ערוך הודעה</Resource>
@@ -2688,11 +2689,13 @@
     <Resource tag="POSTED">נשלח:</Resource>
     <Resource tag="POSTTOBLOG_FAILED">חלה שגיאה בשליחה לבלוג שלך. ייתכן שהאימות נכשל.</Resource>
     <Resource tag="PREVIEW">תצוגה מקדימה</Resource>
+    <Resource tag="PREVIEW_TITLE">Get a Preview of the Message</Resource>
     <Resource tag="PREVIEWTITLE">תצוגה מקדימה:</Resource>
     <Resource tag="PRIORITY">עדיפות:</Resource>
     <Resource tag="REMOVEPOLL">הסר סקר</Resource>
     <Resource tag="REPLY">שלח תגובה</Resource>
     <Resource tag="SAVE">שלח</Resource>
+    <Resource tag="SAVE_TITLE">Post/Edit the Message</Resource>
     <Resource tag="SMILIES_HEADER">[b]הוסף/י רגשון[/b]</Resource>
     <Resource tag="SMILIES_MORE">עוד רגשונים...</Resource>
     <Resource tag="SPAM_MESSAGE">Your Message was rejected because it was detected as SPAM!</Resource>
@@ -2950,6 +2953,7 @@
   </page>
   <page name="REPORTPOST">
     <Resource tag="CANCEL">Cancel</Resource>
+    <Resource tag="CANCEL_TITLE">Cancel Message Report</Resource>
     <Resource tag="ENTER_TEXT">Enter report text here.</Resource>
     <Resource tag="HEADER">Report post</Resource>
     <Resource tag="POSTEDBY">Posted by:</Resource>
@@ -2957,6 +2961,7 @@
     <Resource tag="REPORTTEXT_FORBIDDENTAG">The tag [{0}] is not allowed in reports.</Resource>
     <Resource tag="REPORTTEXT_TOOLONG">Your report text length should not be more than {0} characters.</Resource>
     <Resource tag="SEND">Report</Resource>
+    <Resource tag="SEND_TITLE">Report the Message, with the above Reason</Resource>
   </page>
   <page name="RTE">
     <Resource tag="BOLD">מודגש</Resource>

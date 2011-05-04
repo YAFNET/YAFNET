@@ -2475,6 +2475,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">إعلان </Resource>
     <Resource tag="ASK_POLL_DELETE">هل  تريد حقا  إلغاء الاستفتاء عن ها الموضوع ؟</Resource>
+    <Resource tag="CANCEL_TITLE">Cancel Message editing/creating</Resource>
     <Resource tag="EDIT">تعديل  تعليق  </Resource>
     <Resource tag="EDITREASON">سبب تعديل  التعليق :</Resource>
     <Resource tag="FROM">من:</Resource>
@@ -2490,10 +2491,12 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="POSTED">مشاركة :</Resource>
     <Resource tag="POSTTOBLOG_FAILED"> (blog)خطائ  في الدخول     .</Resource>
     <Resource tag="PREVIEW">معاينة</Resource>
+    <Resource tag="PREVIEW_TITLE">Get a Preview of the Message</Resource>
     <Resource tag="PREVIEWTITLE">معاينة:</Resource>
     <Resource tag="PRIORITY">الأولوية:</Resource>
     <Resource tag="REPLY">الرد بمشاركة</Resource>
     <Resource tag="SAVE">حفظ</Resource>
+    <Resource tag="SAVE_TITLE">Post/Edit the Message</Resource>
     <Resource tag="SMILIES_HEADER">[b]إضافة ابتسامة[/b]</Resource>
     <Resource tag="SMILIES_MORE">المزيد من  الابتسامات ...</Resource>
     <Resource tag="SPAM_MESSAGE">Your Message was rejected because it was detected as SPAM!</Resource>
@@ -2751,6 +2754,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
   </page>
   <page name="REPORTPOST">
     <Resource tag="CANCEL">إلغاء</Resource>
+    <Resource tag="CANCEL_TITLE">Cancel Message Report</Resource>
     <Resource tag="ENTER_TEXT">اكتب سبب التبليغ عن  هذه  المشاكة </Resource>
     <Resource tag="HEADER">التبليغ  عن مشاركات </Resource>
     <Resource tag="POSTEDBY">مشراكة بواسطة :</Resource>
@@ -2758,6 +2762,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="REPORTTEXT_FORBIDDENTAG">العلامة [{0}] غير مسموح به في التقارير.</Resource>
     <Resource tag="REPORTTEXT_TOOLONG">يجب ان يكون النص  اكثر من  {0} حرف.</Resource>
     <Resource tag="SEND">تقارير</Resource>
+    <Resource tag="SEND_TITLE">Report the Message, with the above Reason</Resource>
   </page>
   <page name="RTE">
     <Resource tag="BOLD">غامق </Resource>

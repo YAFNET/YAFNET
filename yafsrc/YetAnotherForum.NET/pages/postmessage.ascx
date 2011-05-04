@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.postmessage" Codebehind="postmessage.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.postmessage" Codebehind="postmessage.ascx.cs" %>
 <%@ Import Namespace="YAF.Core" %>
 <%@ Register TagPrefix="YAF" TagName="smileys" Src="../controls/smileys.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="LastPosts" Src="../controls/LastPosts.ascx" %>
@@ -68,7 +68,7 @@
 			<!-- editor goes here -->
 		</td>
 	</tr>
-	
+
     <YAF:PostOptions id="PostOptions1" runat="server">
     </YAF:PostOptions>
 
@@ -102,10 +102,10 @@
 		</td>
 		<td class="footer1">
 			<YAF:ThemeButton ID="Preview" runat="server" CssClass="yafcssbigbutton leftItem"
-				OnClick="Preview_Click" TextLocalizedTag="PREVIEW" />
-			<YAF:ThemeButton ID="PostReply" runat="server" CssClass="yafcssbigbutton leftItem"
+				OnClick="Preview_Click" TitleLocalizedTag="PREVIEW_TITLE"  TextLocalizedTag="PREVIEW" />
+			<YAF:ThemeButton ID="PostReply" TitleLocalizedTag="SAVE_TITLE"  runat="server" CssClass="yafcssbigbutton leftItem"
 				OnClick="PostReply_Click" TextLocalizedTag="SAVE" />
-			<YAF:ThemeButton ID="Cancel" runat="server" CssClass="yafcssbigbutton leftItem" OnClick="Cancel_Click"
+			<YAF:ThemeButton ID="Cancel" TitleLocalizedTag="CANCEL_TITLE"  runat="server" CssClass="yafcssbigbutton leftItem" OnClick="Cancel_Click"
 				TextLocalizedTag="CANCEL" />
 		</td>
 	</tr>

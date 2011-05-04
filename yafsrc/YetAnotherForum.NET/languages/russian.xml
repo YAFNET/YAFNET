@@ -2641,6 +2641,7 @@
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">Объявление</Resource>
     <Resource tag="ASK_POLL_DELETE">Вы действительно желаете удалить опрос из этой темы?</Resource>
+    <Resource tag="CANCEL_TITLE">Cancel Message editing/creating</Resource>
     <Resource tag="EDIT">Редактировать сообщение</Resource>
     <Resource tag="EDITREASON">Причина редактирования:</Resource>
     <Resource tag="FROM">Автор:</Resource>
@@ -2656,10 +2657,12 @@
     <Resource tag="POSTED">Дата:</Resource>
     <Resource tag="POSTTOBLOG_FAILED">Произошла ошибка при размещении в Вашем блоге. Видимо, аутентификация не удалась.</Resource>
     <Resource tag="PREVIEW">Предварительный просмотр</Resource>
+    <Resource tag="PREVIEW_TITLE">Get a Preview of the Message</Resource>
     <Resource tag="PREVIEWTITLE">Предварительный просмотр:</Resource>
     <Resource tag="PRIORITY">Приоритет:</Resource>
     <Resource tag="REPLY">Ответить</Resource>
     <Resource tag="SAVE">Сохранить</Resource>
+    <Resource tag="SAVE_TITLE">Post/Edit the Message</Resource>
     <Resource tag="SMILIES_HEADER">[b]Добавить смайлик[/b]</Resource>
     <Resource tag="SMILIES_MORE">Ещё смайлики...</Resource>
     <Resource tag="SPAM_MESSAGE">Ваше ссобщение было определено как СПАМ!</Resource>
@@ -2917,6 +2920,7 @@
   </page>
   <page name="REPORTPOST">
     <Resource tag="CANCEL">Отменить</Resource>
+    <Resource tag="CANCEL_TITLE">Cancel Message Report</Resource>
     <Resource tag="ENTER_TEXT">Введите текст вашей жалобы:</Resource>
     <Resource tag="HEADER">Сообщение о нарушении правил форума</Resource>
     <Resource tag="POSTEDBY">Автор:</Resource>
@@ -2924,6 +2928,7 @@
     <Resource tag="REPORTTEXT_FORBIDDENTAG">Тег [{0}] не разрешён в жалобах на посты.</Resource>
     <Resource tag="REPORTTEXT_TOOLONG">Длина жалобы не должна превышать {0} символов.</Resource>
     <Resource tag="SEND">Сообщить</Resource>
+    <Resource tag="SEND_TITLE">Report the Message, with the above Reason</Resource>
   </page>
   <page name="RTE">
     <Resource tag="BOLD">Жирный</Resource>

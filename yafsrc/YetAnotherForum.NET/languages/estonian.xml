@@ -2472,6 +2472,7 @@
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">Eelteade</Resource>
     <Resource tag="ASK_POLL_DELETE">Kas te soovite eemaldada küsitluse sellest teemast?</Resource>
+    <Resource tag="CANCEL_TITLE">Cancel Message editing/creating</Resource>
     <Resource tag="EDIT">Muuda postitust</Resource>
     <Resource tag="EDITREASON">Muutmise põhjus:</Resource>
     <Resource tag="FROM">Kellelt:</Resource>
@@ -2487,10 +2488,12 @@
     <Resource tag="POSTED">Postitas:</Resource>
     <Resource tag="POSTTOBLOG_FAILED">Teie ajaveebi postituse lisamisel tekkis viga. Võimalik, et autentimine ebaõnnestus.</Resource>
     <Resource tag="PREVIEW">Eelvaade</Resource>
+    <Resource tag="PREVIEW_TITLE">Get a Preview of the Message</Resource>
     <Resource tag="PREVIEWTITLE">Eelvaade:</Resource>
     <Resource tag="PRIORITY">Prioriteet:</Resource>
     <Resource tag="REPLY">Saada vastus</Resource>
     <Resource tag="SAVE">Postitus</Resource>
+    <Resource tag="SAVE_TITLE">Post/Edit the Message</Resource>
     <Resource tag="SMILIES_HEADER">[b]Lisa emotikon[/b]</Resource>
     <Resource tag="SMILIES_MORE">Veel emotikonid...</Resource>
     <Resource tag="SPAM_MESSAGE">Your Message was rejected because it was detected as SPAM!</Resource>
@@ -2748,6 +2751,7 @@
   </page>
   <page name="REPORTPOST">
     <Resource tag="CANCEL">Tühista</Resource>
+    <Resource tag="CANCEL_TITLE">Cancel Message Report</Resource>
     <Resource tag="ENTER_TEXT">Palun sisestage põhjus, miks te soovite saata raporti antud postituse kohta:</Resource>
     <Resource tag="HEADER">Postituse raport</Resource>
     <Resource tag="POSTEDBY">Saatja:</Resource>
@@ -2755,6 +2759,7 @@
     <Resource tag="REPORTTEXT_FORBIDDENTAG">Märgis [{0}] ei ole raportites lubatud.</Resource>
     <Resource tag="REPORTTEXT_TOOLONG">Raporti pikkus peab olema kuni {0} tähemärki.</Resource>
     <Resource tag="SEND">Raport</Resource>
+    <Resource tag="SEND_TITLE">Report the Message, with the above Reason</Resource>
   </page>
   <page name="RTE">
     <Resource tag="BOLD">Rasvane</Resource>

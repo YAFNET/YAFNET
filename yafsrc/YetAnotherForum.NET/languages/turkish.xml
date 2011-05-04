@@ -2454,6 +2454,7 @@
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">Duyuru</Resource>
     <Resource tag="ASK_POLL_DELETE">Bu konudan anketi kaldırmak istediğinizden emin misiniz?</Resource>
+    <Resource tag="CANCEL_TITLE">Cancel Message editing/creating</Resource>
     <Resource tag="EDIT">Mesajı Düzenle</Resource>
     <Resource tag="EDITREASON">Düzenleme Sebebi:</Resource>
     <Resource tag="FROM">Kimden:</Resource>
@@ -2469,10 +2470,12 @@
     <Resource tag="POSTED">Gönderildi:</Resource>
     <Resource tag="POSTTOBLOG_FAILED">Blogunuza mesaj gönderilirken bir sorun oluştu. Kimlik denetlemede bir sorun oluşmuş olabilir.</Resource>
     <Resource tag="PREVIEW">Önizleme</Resource>
+    <Resource tag="PREVIEW_TITLE">Get a Preview of the Message</Resource>
     <Resource tag="PREVIEWTITLE">Önizlenim:</Resource>
     <Resource tag="PRIORITY">Öncelik:</Resource>
     <Resource tag="REPLY">Cevapla</Resource>
     <Resource tag="SAVE">Kaydet</Resource>
+    <Resource tag="SAVE_TITLE">Post/Edit the Message</Resource>
     <Resource tag="SMILIES_HEADER">[b]İfade ekle[/b]</Resource>
     <Resource tag="SMILIES_MORE">Daha fazla ifade...</Resource>
     <Resource tag="SPAM_MESSAGE">Your Message was rejected because it was detected as SPAM!</Resource>
@@ -2730,6 +2733,7 @@
   </page>
   <page name="REPORTPOST">
     <Resource tag="CANCEL">İptal</Resource>
+    <Resource tag="CANCEL_TITLE">Cancel Message Report</Resource>
     <Resource tag="ENTER_TEXT">Mesajınızı buraya yazın</Resource>
     <Resource tag="HEADER">Kötü Kullanım Bildir</Resource>
     <Resource tag="POSTEDBY">Yazan Üye:</Resource>
@@ -2737,6 +2741,7 @@
     <Resource tag="REPORTTEXT_FORBIDDENTAG">The tag [{0}] is not allowed in reports.</Resource>
     <Resource tag="REPORTTEXT_TOOLONG">Your report text length should not be more than {0} characters.</Resource>
     <Resource tag="SEND">Gönder</Resource>
+    <Resource tag="SEND_TITLE">Report the Message, with the above Reason</Resource>
   </page>
   <page name="RTE">
     <Resource tag="BOLD">Kalınlaştır</Resource>

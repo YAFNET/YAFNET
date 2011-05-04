@@ -2616,6 +2616,7 @@
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">اطلاعیه</Resource>
     <Resource tag="ASK_POLL_DELETE">آیااز حذف نظر سنجی مطمئن هستید؟</Resource>
+    <Resource tag="CANCEL_TITLE">Cancel Message editing/creating</Resource>
     <Resource tag="EDIT">ویرایش ارسال</Resource>
     <Resource tag="EDITREASON">دلیل ویرایش:</Resource>
     <Resource tag="FROM">از طرف:</Resource>
@@ -2631,10 +2632,12 @@
     <Resource tag="POSTED">ارسال شده:</Resource>
     <Resource tag="POSTTOBLOG_FAILED">خطایی در هنگام ارسال به بلاگ  رخ داد.شاید دسترسی وجود نداشته باشد</Resource>
     <Resource tag="PREVIEW">پیش نمایش</Resource>
+    <Resource tag="PREVIEW_TITLE">Get a Preview of the Message</Resource>
     <Resource tag="PREVIEWTITLE">پیش نمایش:</Resource>
     <Resource tag="PRIORITY">اهمیت:</Resource>
     <Resource tag="REPLY">ارسال پاسخ</Resource>
     <Resource tag="SAVE">ارسال</Resource>
+    <Resource tag="SAVE_TITLE">Post/Edit the Message</Resource>
     <Resource tag="SMILIES_HEADER">[b]اضافه کردن خندانک[/b]</Resource>
     <Resource tag="SMILIES_MORE">خندانکهای بیشتر...</Resource>
     <Resource tag="SPAM_MESSAGE">Your Message was rejected because it was detected as SPAM!</Resource>
@@ -2892,6 +2895,7 @@
   </page>
   <page name="REPORTPOST">
     <Resource tag="CANCEL">لغو</Resource>
+    <Resource tag="CANCEL_TITLE">Cancel Message Report</Resource>
     <Resource tag="ENTER_TEXT">متن مورد نظر برای گزارش را اینجا وارد کنید</Resource>
     <Resource tag="HEADER">گزارش ارسال</Resource>
     <Resource tag="POSTEDBY">ارسال شده توسط:</Resource>
@@ -2899,6 +2903,7 @@
     <Resource tag="REPORTTEXT_FORBIDDENTAG">The tag [{0}] is not allowed in reports.</Resource>
     <Resource tag="REPORTTEXT_TOOLONG">Your report text length should not be more than {0} characters.</Resource>
     <Resource tag="SEND">گزارش</Resource>
+    <Resource tag="SEND_TITLE">Report the Message, with the above Reason</Resource>
   </page>
   <page name="RTE">
     <Resource tag="BOLD">ضخیم</Resource>

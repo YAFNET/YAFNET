@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.ReportPost"CodeBehind="reportpost.ascx.cs" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.ReportPost"CodeBehind="reportpost.ascx.cs" %>
 <%@ Import Namespace="YAF.Core" %>
 <%@ Import Namespace="YAF.Utils" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
@@ -47,10 +47,10 @@
     </tr>
     <tr class="footer1">
         <td colspan="2" align="center">
-            <YAF:ThemeButton ID="btnCancel" runat="server" CssClass="yafcssbigbutton rightItem"
-                TextLocalizedTag="CANCEL" OnClick="BtnCancel_Click" />
-            <YAF:ThemeButton ID="btnReport" runat="server" CssClass="yafcssbigbutton rightItem"
-                TextLocalizedTag="SEND" OnClick="BtnReport_Click" />
+             <YAF:ThemeButton ID="btnReport" runat="server" CssClass="yafcssbigbutton"
+                TextLocalizedTag="SEND" TitleLocalizedTag="SEND_TITLE" OnClick="BtnReport_Click" />
+             <YAF:ThemeButton ID="btnCancel" runat="server" CssClass="yafcssbigbutton"
+                TextLocalizedTag="CANCEL" TitleLocalizedTag="CANCEL_TITLE" OnClick="BtnCancel_Click" />
         </td>
     </tr>
 </table>

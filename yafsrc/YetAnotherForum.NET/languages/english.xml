@@ -1264,6 +1264,9 @@
       <Resource tag="TOPICNAME_TOOLONG">Topic name length cannot be be more than {0} characters. Suggestion: use abbreviations to shorten.</Resource>
       <Resource tag="WAIT">You can't post in the next {0:N0} seconds.</Resource>
 	  <Resource tag="SPAM_MESSAGE">Your Message was rejected because it was detected as SPAM!</Resource>
+	  <Resource tag="SAVE_TITLE">Post/Edit the Message</Resource>
+      <Resource tag="PREVIEW_TITLE">Get a Preview of the Message</Resource>
+	  <Resource tag="CANCEL_TITLE">Cancel Message editing/creating</Resource>
    </page>
    <page name="CP_EDITALBUMIMAGES">
       <Resource tag="TITLE">Add/Edit Album</Resource>
@@ -1573,6 +1576,8 @@
    <page name="REPORTPOST">
       <Resource tag="SEND">Report</Resource>
       <Resource tag="CANCEL">Cancel</Resource>
+	  <Resource tag="SEND_TITLE">Report the Message, with the above Reason</Resource>
+      <Resource tag="CANCEL_TITLE">Cancel Message Report</Resource>
       <Resource tag="ENTER_TEXT">Please enter the reason you're reporting this post:</Resource>
       <Resource tag="REPORTTEXT_TOOLONG">Your report text length should not be more than {0} characters.</Resource>
       <Resource tag="REPORTTEXT_FORBIDDENTAG">The tag [{0}] is not allowed in reports.</Resource>

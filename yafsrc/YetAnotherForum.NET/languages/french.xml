@@ -2634,6 +2634,7 @@
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">Annonce</Resource>
     <Resource tag="ASK_POLL_DELETE">Etes-vous sur de vouloir supprimer le sondage de ce sujet ?</Resource>
+    <Resource tag="CANCEL_TITLE">Cancel Message editing/creating</Resource>
     <Resource tag="EDIT">Éditer le message</Resource>
     <Resource tag="EDITREASON">Raison pour édition:</Resource>
     <Resource tag="FROM">De&amp;nbsp;:</Resource>
@@ -2649,10 +2650,12 @@
     <Resource tag="POSTED">Envoyé&amp;nbsp;:</Resource>
     <Resource tag="POSTTOBLOG_FAILED">Une erreur est survenue en postant l'article sur le blog. L'authentification a échouée.</Resource>
     <Resource tag="PREVIEW">Aperçu</Resource>
+    <Resource tag="PREVIEW_TITLE">Get a Preview of the Message</Resource>
     <Resource tag="PREVIEWTITLE">Aperçu&amp;nbsp;:</Resource>
     <Resource tag="PRIORITY">Priorité&amp;nbsp;:</Resource>
     <Resource tag="REPLY">Envoyer une réponse</Resource>
     <Resource tag="SAVE">Envoyer</Resource>
+    <Resource tag="SAVE_TITLE">Post/Edit the Message</Resource>
     <Resource tag="SMILIES_HEADER">[b]Ajouter une émoticône[/b]</Resource>
     <Resource tag="SMILIES_MORE">Plus d'émoticônes...</Resource>
     <Resource tag="SPAM_MESSAGE">Your Message was rejected because it was detected as SPAM!</Resource>
@@ -2910,6 +2913,7 @@
   </page>
   <page name="REPORTPOST">
     <Resource tag="CANCEL">Annuler</Resource>
+    <Resource tag="CANCEL_TITLE">Cancel Message Report</Resource>
     <Resource tag="ENTER_TEXT">Entrez le texte du rapport ici.</Resource>
     <Resource tag="HEADER">Rapporter un message</Resource>
     <Resource tag="POSTEDBY">Posted by:</Resource>
@@ -2917,6 +2921,7 @@
     <Resource tag="REPORTTEXT_FORBIDDENTAG">The tag [{0}] is not allowed in reports.</Resource>
     <Resource tag="REPORTTEXT_TOOLONG">Your report text length should not be more than {0} characters.</Resource>
     <Resource tag="SEND">Rapporter</Resource>
+    <Resource tag="SEND_TITLE">Report the Message, with the above Reason</Resource>
   </page>
   <page name="RTE">
     <Resource tag="BOLD">Gras</Resource>

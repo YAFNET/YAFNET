@@ -2633,6 +2633,7 @@
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">Aviso</Resource>
     <Resource tag="ASK_POLL_DELETE">Do you really want to remove poll from this topic?</Resource>
+    <Resource tag="CANCEL_TITLE">Cancel Message editing/creating</Resource>
     <Resource tag="EDIT">Editar Participação</Resource>
     <Resource tag="EDITREASON">Reason for edit:</Resource>
     <Resource tag="FROM">De:</Resource>
@@ -2648,10 +2649,12 @@
     <Resource tag="POSTED">Enviado:</Resource>
     <Resource tag="POSTTOBLOG_FAILED">An error occurred posting to your blog. The authentication might have failed.</Resource>
     <Resource tag="PREVIEW">Visualizar</Resource>
+    <Resource tag="PREVIEW_TITLE">Get a Preview of the Message</Resource>
     <Resource tag="PREVIEWTITLE">Visualizar:</Resource>
     <Resource tag="PRIORITY">Prioridade:</Resource>
     <Resource tag="REPLY">Enviar uma Resposta</Resource>
     <Resource tag="SAVE">Enviar</Resource>
+    <Resource tag="SAVE_TITLE">Post/Edit the Message</Resource>
     <Resource tag="SMILIES_HEADER">[b]Adicionar Smiley[/b]</Resource>
     <Resource tag="SMILIES_MORE">More Smilies...</Resource>
     <Resource tag="SPAM_MESSAGE">Your Message was rejected because it was detected as SPAM!</Resource>
@@ -2909,6 +2912,7 @@
   </page>
   <page name="REPORTPOST">
     <Resource tag="CANCEL">Cancel</Resource>
+    <Resource tag="CANCEL_TITLE">Cancel Message Report</Resource>
     <Resource tag="ENTER_TEXT">Enter report text here.</Resource>
     <Resource tag="HEADER">Report post</Resource>
     <Resource tag="POSTEDBY">Posted by:</Resource>
@@ -2916,6 +2920,7 @@
     <Resource tag="REPORTTEXT_FORBIDDENTAG">The tag [{0}] is not allowed in reports.</Resource>
     <Resource tag="REPORTTEXT_TOOLONG">Your report text length should not be more than {0} characters.</Resource>
     <Resource tag="SEND">Report</Resource>
+    <Resource tag="SEND_TITLE">Report the Message, with the above Reason</Resource>
   </page>
   <page name="RTE">
     <Resource tag="BOLD">Negrito</Resource>

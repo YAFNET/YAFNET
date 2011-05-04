@@ -2618,6 +2618,7 @@
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">Thông báo</Resource>
     <Resource tag="ASK_POLL_DELETE">Bạn thật sự muốn xoá bình chọn của chủ đề này?</Resource>
+    <Resource tag="CANCEL_TITLE">Cancel Message editing/creating</Resource>
     <Resource tag="EDIT">Sửa bài</Resource>
     <Resource tag="EDITREASON">Lý do chỉnh sửa:</Resource>
     <Resource tag="FROM">Từ:</Resource>
@@ -2633,10 +2634,12 @@
     <Resource tag="POSTED">Đã gửi:</Resource>
     <Resource tag="POSTTOBLOG_FAILED">Đã xảy ra lỗi gửi bài đến blog của bạn. Việc xác thực có thể đã không thành công.</Resource>
     <Resource tag="PREVIEW">Xem trước</Resource>
+    <Resource tag="PREVIEW_TITLE">Get a Preview of the Message</Resource>
     <Resource tag="PREVIEWTITLE">Xem trước:</Resource>
     <Resource tag="PRIORITY">Dạng:</Resource>
     <Resource tag="REPLY">Trả lời</Resource>
     <Resource tag="SAVE">gửi</Resource>
+    <Resource tag="SAVE_TITLE">Post/Edit the Message</Resource>
     <Resource tag="SMILIES_HEADER">[b]Chèn biểu tượng[/b]</Resource>
     <Resource tag="SMILIES_MORE">Thêm biểu tượng...</Resource>
     <Resource tag="SPAM_MESSAGE">Your Message was rejected because it was detected as SPAM!</Resource>
@@ -2894,6 +2897,7 @@
   </page>
   <page name="REPORTPOST">
     <Resource tag="CANCEL">Hủy</Resource>
+    <Resource tag="CANCEL_TITLE">Cancel Message Report</Resource>
     <Resource tag="ENTER_TEXT">Nhập văn bản báo cáo.</Resource>
     <Resource tag="HEADER">Gửi báo cáo</Resource>
     <Resource tag="POSTEDBY">Posted by:</Resource>
@@ -2901,6 +2905,7 @@
     <Resource tag="REPORTTEXT_FORBIDDENTAG">The tag [{0}] is not allowed in reports.</Resource>
     <Resource tag="REPORTTEXT_TOOLONG">Your report text length should not be more than {0} characters.</Resource>
     <Resource tag="SEND">Báo cáo</Resource>
+    <Resource tag="SEND_TITLE">Report the Message, with the above Reason</Resource>
   </page>
   <page name="RTE">
     <Resource tag="BOLD">Đậm</Resource>
