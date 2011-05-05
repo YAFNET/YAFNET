@@ -2644,6 +2644,7 @@
     <Resource tag="ANNOUNCEMENT">Объявление</Resource>
     <Resource tag="ASK_POLL_DELETE">Вы действительно желаете удалить опрос из этой темы?</Resource>
     <Resource tag="CANCEL_TITLE">Cancel Message editing/creating</Resource>
+    <Resource tag="DESCRIPTION">Description:</Resource>
     <Resource tag="EDIT">Редактировать сообщение</Resource>
     <Resource tag="EDITREASON">Причина редактирования:</Resource>
     <Resource tag="FROM">Автор:</Resource>

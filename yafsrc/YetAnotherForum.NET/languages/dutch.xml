@@ -808,6 +808,8 @@
     <Resource tag="ALLOW_SIGNATURE_HELP">Gebruikers mogen handtekeningen maken. Je moet wel het aantal karakters/toestaan van BBCodes instellen voor elke groep en/of Rang om het te activeren.</Resource>
     <Resource tag="ALLOW_THANKS">Sta Bedankjes toe:</Resource>
     <Resource tag="ALLOW_THANKS_HELP">Als deze is aangevinkt, kunnen Gebruikers elkaar bedanken voor nuttige posts.</Resource>
+    <Resource tag="ALLOW_TOPIC_DESCRIPTION">Allow Topic Description:</Resource>
+    <Resource tag="ALLOW_TOPIC_DESCRIPTION_HELP">If checked, users can add a topic description.</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME">Sta meerdere Topics met dezelfde naam toe:</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME_HELP">Dubbele Topicnamen toegestaan voor:</Resource>
     <Resource tag="ALLOW_USER_HIDE">Gebruikers mogen zich onzichtbaar maken:</Resource>
@@ -2587,6 +2589,7 @@
     <Resource tag="ANNOUNCEMENT">Mededeling</Resource>
     <Resource tag="ASK_POLL_DELETE">Wil je echt de poll uit dit topic verwijderen?</Resource>
     <Resource tag="CANCEL_TITLE">Cancel Message editing/creating</Resource>
+    <Resource tag="DESCRIPTION">Description:</Resource>
     <Resource tag="EDIT">Bericht wijzigen</Resource>
     <Resource tag="EDITREASON">Reden voor wijzigen:</Resource>
     <Resource tag="FROM">Van:</Resource>
@@ -2614,6 +2617,10 @@
     <Resource tag="STICKY">Sticky</Resource>
     <Resource tag="SUBJECT">Onderwerp:</Resource>
     <Resource tag="SUBJECT_DUPLICATE">Een topic met deze titel bestaat al, of de titel is niet uniek genoeg.</Resource>
+    <Resource tag="TOPIC_DESCRIPTION_TOOLONG">Topic description length cannot be be more than 255 characters.</Resource>
+    <Resource tag="TOPIC_DESCRIPTION_WORDTOOLONG">Topic description single word length cannot be be more than {0} characters. Suggestion: use abbreviations to shorten.</Resource>
+    <Resource tag="TOPIC_NAME_TOOLONG">Topic name length cannot be be more than 255 characters.</Resource>
+    <Resource tag="TOPIC_NAME_WORDTOOLONG">Topic name single word length cannot be be more than {0} characters. Suggestion: use abbreviations to shorten.</Resource>
     <Resource tag="TOPICATTACH">Bestanden bijvoegen bij dit bericht?</Resource>
     <Resource tag="TOPICNAME_TOOLONG">Maximal tolic name length should not be more than {0} characters. Use abbreviations.</Resource>
     <Resource tag="TOPICWATCH">Abbonneer aan dit topic en ontvang updates via e-mail?</Resource>

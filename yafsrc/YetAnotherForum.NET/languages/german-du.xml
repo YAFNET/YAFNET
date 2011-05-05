@@ -808,6 +808,8 @@
     <Resource tag="ALLOW_SIGNATURE_HELP">Benutzern erlauben, Signaturen zu erstellen. Sie sollten die zulässige Anzahl von Zeichen und BBCodes für jede Gruppe und / oder Rang gesetzt haben, um wirklich die Funktion zu aktivieren.</Resource>
     <Resource tag="ALLOW_THANKS">Benutzer Ermöglichen Beiträge zu danken:</Resource>
     <Resource tag="ALLOW_THANKS_HELP">Wenn diese Option aktiviert ist, können sich für Beiträge bedanken die sie für nützlich halten.</Resource>
+    <Resource tag="ALLOW_TOPIC_DESCRIPTION">Themen Beschreibung akivieren?</Resource>
+    <Resource tag="ALLOW_TOPIC_DESCRIPTION_HELP">Wenn aktiviert kann eine Beschreibung zu ein Thema eingegeben werden.</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME">Themen mit gleichem Namen zulassen:</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME_HELP">Gleiche Themen Namen sind erlaubt für:</Resource>
     <Resource tag="ALLOW_USER_HIDE">Benutzer erlauben sich zu verstecken:</Resource>
@@ -2617,6 +2619,7 @@
     <Resource tag="ANNOUNCEMENT">Ankündigung</Resource>
     <Resource tag="ASK_POLL_DELETE">Wirklich die Umfrage löschen?</Resource>
     <Resource tag="CANCEL_TITLE">Beitrag bearbeiten/erstellen abbrechen</Resource>
+    <Resource tag="DESCRIPTION">Beschreibung:</Resource>
     <Resource tag="EDIT">Beitrag bearbeiten</Resource>
     <Resource tag="EDITREASON">Grund der Änderung</Resource>
     <Resource tag="FROM">Von:</Resource>
@@ -2644,8 +2647,11 @@
     <Resource tag="STICKY">Wichtig</Resource>
     <Resource tag="SUBJECT">Betreff:</Resource>
     <Resource tag="SUBJECT_DUPLICATE">Ein Beitrag mit diesem Namen existiert bereits oder ist nicht eindeutig genug um ihn verwenden zu können.</Resource>
+    <Resource tag="TOPIC_DESCRIPTION_TOOLONG">Themen Beschreibung darf nicht mehr als {0} Zeichen lang sein.</Resource>
+    <Resource tag="TOPIC_DESCRIPTION_WORDTOOLONG">Topic description single word length cannot be be more than {0} characters. Suggestion: use abbreviations to shorten.</Resource>
+    <Resource tag="TOPIC_NAME_TOOLONG">Themen Titel darf nicht mehr als {0} Zeichen lang sein.</Resource>
+    <Resource tag="TOPIC_NAME_WORDTOOLONG">Ein Wort im Themen Titel darf nicht mehr als {0} Zeichen lang sein. Vorschlag: Abkürzungen benutzen.</Resource>
     <Resource tag="TOPICATTACH">Bilder oder Dateien an diesen Beitrag anhängen?</Resource>
-    <Resource tag="TOPICNAME_TOOLONG">Maximale Beitragslänge darf nicht mehr als {0} Zeichen lang sein.</Resource>
     <Resource tag="TOPICWATCH">Möchtest Du per E-Mail informiert werden, wenn es Antworten auf das Thema gibt?</Resource>
     <Resource tag="WAIT">Du kannst in den nächsten {0:N0} Sekunden nicht posten.</Resource>
   </page>

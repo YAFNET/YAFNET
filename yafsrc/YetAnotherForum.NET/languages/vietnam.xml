@@ -810,6 +810,8 @@
     <Resource tag="ALLOW_SIGNATURE_HELP">Allow users to create signatures. You should set allowed number of characters and BBCodes for each group and/or rank to really enable the feature.</Resource>
     <Resource tag="ALLOW_THANKS">Allow Users to Thank Posts:</Resource>
     <Resource tag="ALLOW_THANKS_HELP">If checked users can thank posts they consider useful.</Resource>
+    <Resource tag="ALLOW_TOPIC_DESCRIPTION">Allow Topic Description:</Resource>
+    <Resource tag="ALLOW_TOPIC_DESCRIPTION_HELP">If checked, users can add a topic description.</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME">Allow Topics With Same Name:</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME_HELP">Duplicate topic names are allowed to:</Resource>
     <Resource tag="ALLOW_USER_HIDE">Allow User To Hide Himself:</Resource>
@@ -2619,6 +2621,7 @@
     <Resource tag="ANNOUNCEMENT">Thông báo</Resource>
     <Resource tag="ASK_POLL_DELETE">Bạn thật sự muốn xoá bình chọn của chủ đề này?</Resource>
     <Resource tag="CANCEL_TITLE">Cancel Message editing/creating</Resource>
+    <Resource tag="DESCRIPTION">Description:</Resource>
     <Resource tag="EDIT">Sửa bài</Resource>
     <Resource tag="EDITREASON">Lý do chỉnh sửa:</Resource>
     <Resource tag="FROM">Từ:</Resource>
@@ -2646,6 +2649,10 @@
     <Resource tag="STICKY">Chú ý</Resource>
     <Resource tag="SUBJECT">Chủ đề:</Resource>
     <Resource tag="SUBJECT_DUPLICATE">A topic with the subject already exists or the subject is not unique enough to be added.</Resource>
+    <Resource tag="TOPIC_DESCRIPTION_TOOLONG">Topic description length cannot be be more than 255 characters.</Resource>
+    <Resource tag="TOPIC_DESCRIPTION_WORDTOOLONG">Topic description single word length cannot be be more than {0} characters. Suggestion: use abbreviations to shorten.</Resource>
+    <Resource tag="TOPIC_NAME_TOOLONG">Topic name length cannot be be more than 255 characters.</Resource>
+    <Resource tag="TOPIC_NAME_WORDTOOLONG">Topic name single word length cannot be be more than {0} characters. Suggestion: use abbreviations to shorten.</Resource>
     <Resource tag="TOPICATTACH">Đính kèm tập tin?</Resource>
     <Resource tag="TOPICNAME_TOOLONG">Maximal tolic name length should not be more than {0} characters. Use abbreviations.</Resource>
     <Resource tag="TOPICWATCH">Nhận thông báo của chủ đề qua email?</Resource>

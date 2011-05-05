@@ -810,6 +810,8 @@
     <Resource tag="ALLOW_SIGNATURE_HELP">Allow users to create signatures. You should set allowed number of characters and BBCodes for each group and/or rank to really enable the feature.</Resource>
     <Resource tag="ALLOW_THANKS">Allow Users to Thank Posts:</Resource>
     <Resource tag="ALLOW_THANKS_HELP">If checked users can thank posts they consider useful.</Resource>
+    <Resource tag="ALLOW_TOPIC_DESCRIPTION">Allow Topic Description:</Resource>
+    <Resource tag="ALLOW_TOPIC_DESCRIPTION_HELP">If checked, users can add a topic description.</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME">Allow Topics With Same Name:</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME_HELP">Duplicate topic names are allowed to:</Resource>
     <Resource tag="ALLOW_USER_HIDE">Allow User To Hide Himself:</Resource>
@@ -2620,6 +2622,7 @@
     <Resource tag="ANNOUNCEMENT">Anunt</Resource>
     <Resource tag="ASK_POLL_DELETE">Sigur doriti sa inlaturati sondajul din acest topic?</Resource>
     <Resource tag="CANCEL_TITLE">Cancel Message editing/creating</Resource>
+    <Resource tag="DESCRIPTION">Description:</Resource>
     <Resource tag="EDIT">Edit post</Resource>
     <Resource tag="EDITREASON">Motivul pentru editare:</Resource>
     <Resource tag="FROM">De la :</Resource>
@@ -2647,6 +2650,10 @@
     <Resource tag="STICKY">Eticheta</Resource>
     <Resource tag="SUBJECT">Subiect:</Resource>
     <Resource tag="SUBJECT_DUPLICATE">A topic with the subject already exists or the subject is not unique enough to be added.</Resource>
+    <Resource tag="TOPIC_DESCRIPTION_TOOLONG">Topic description length cannot be be more than 255 characters.</Resource>
+    <Resource tag="TOPIC_DESCRIPTION_WORDTOOLONG">Topic description single word length cannot be be more than {0} characters. Suggestion: use abbreviations to shorten.</Resource>
+    <Resource tag="TOPIC_NAME_TOOLONG">Topic name length cannot be be more than 255 characters.</Resource>
+    <Resource tag="TOPIC_NAME_WORDTOOLONG">Topic name single word length cannot be be more than {0} characters. Suggestion: use abbreviations to shorten.</Resource>
     <Resource tag="TOPICATTACH">Ataseaza fisier la acest mesaj?</Resource>
     <Resource tag="TOPICNAME_TOOLONG">Titlul ar trebui sa contina mai putin de {0} caractere. Foloseste abrevieri.</Resource>
     <Resource tag="TOPICWATCH">Urmareste acest topic,si primeste mail de notificare?</Resource>

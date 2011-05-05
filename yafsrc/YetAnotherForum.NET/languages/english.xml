@@ -1270,6 +1270,7 @@
 	  <Resource tag="SAVE_TITLE">Post/Edit the Message</Resource>
       <Resource tag="PREVIEW_TITLE">Get a Preview of the Message</Resource>
 	  <Resource tag="CANCEL_TITLE">Cancel Message editing/creating</Resource>
+	  <Resource tag="DESCRIPTION">Description:</Resource>
    </page>
    <page name="CP_EDITALBUMIMAGES">
       <Resource tag="TITLE">Add/Edit Album</Resource>

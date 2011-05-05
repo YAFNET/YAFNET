@@ -810,6 +810,8 @@
     <Resource tag="ALLOW_SIGNATURE_HELP">Allow users to create signatures. You should set allowed number of characters and BBCodes for each group and/or rank to really enable the feature.</Resource>
     <Resource tag="ALLOW_THANKS">Allow Users to Thank Posts:</Resource>
     <Resource tag="ALLOW_THANKS_HELP">If checked users can thank posts they consider useful.</Resource>
+    <Resource tag="ALLOW_TOPIC_DESCRIPTION">Allow Topic Description:</Resource>
+    <Resource tag="ALLOW_TOPIC_DESCRIPTION_HELP">If checked, users can add a topic description.</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME">Allow Topics With Same Name:</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME_HELP">Duplicate topic names are allowed to:</Resource>
     <Resource tag="ALLOW_USER_HIDE">Allow User To Hide Himself:</Resource>
@@ -2617,6 +2619,7 @@
     <Resource tag="ANNOUNCEMENT">اطلاعیه</Resource>
     <Resource tag="ASK_POLL_DELETE">آیااز حذف نظر سنجی مطمئن هستید؟</Resource>
     <Resource tag="CANCEL_TITLE">Cancel Message editing/creating</Resource>
+    <Resource tag="DESCRIPTION">Description:</Resource>
     <Resource tag="EDIT">ویرایش ارسال</Resource>
     <Resource tag="EDITREASON">دلیل ویرایش:</Resource>
     <Resource tag="FROM">از طرف:</Resource>
@@ -2644,6 +2647,10 @@
     <Resource tag="STICKY">مهم</Resource>
     <Resource tag="SUBJECT">موضوع:</Resource>
     <Resource tag="SUBJECT_DUPLICATE">A topic with the subject already exists or the subject is not unique enough to be added.</Resource>
+    <Resource tag="TOPIC_DESCRIPTION_TOOLONG">Topic description length cannot be be more than 255 characters.</Resource>
+    <Resource tag="TOPIC_DESCRIPTION_WORDTOOLONG">Topic description single word length cannot be be more than {0} characters. Suggestion: use abbreviations to shorten.</Resource>
+    <Resource tag="TOPIC_NAME_TOOLONG">Topic name length cannot be be more than 255 characters.</Resource>
+    <Resource tag="TOPIC_NAME_WORDTOOLONG">Topic name single word length cannot be be more than {0} characters. Suggestion: use abbreviations to shorten.</Resource>
     <Resource tag="TOPICATTACH">فایلی به این ارسال الصاق شود؟</Resource>
     <Resource tag="TOPICNAME_TOOLONG">Maximal tolic name length should not be more than {0} characters. Use abbreviations.</Resource>
     <Resource tag="TOPICWATCH">آیااین موضوع با ارسال ایمیل به من تحت نظر قرار داده شود؟</Resource>
