@@ -498,6 +498,8 @@
    <page name="AVATAR">
       <Resource tag="EDITPROFILE">Change Avatar</Resource>
       <Resource tag="TITLE">Avatars</Resource>
+	  <Resource tag="CANCEL_TITLE">Go Back to the Modify Avatar Page without selecting an Avatar.</Resource>
+	  <Resource tag="UP_TITLE">Go to the Parent Folder.</Resource>
    </page>
    <page name="BBCODEMODULE">
       <Resource tag="SPOILERMOD_DESCRIPTION">Put Spoiler Text in here</Resource>

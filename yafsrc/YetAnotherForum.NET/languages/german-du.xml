@@ -1487,8 +1487,10 @@
     <Resource tag="UPLOAD_TOOBIG">Du kannst keine Dateien anhängen, die größer als {1} KB. Ihre Dateigröße beträgt {0} KB.</Resource>
   </page>
   <page name="AVATAR">
+    <Resource tag="CANCEL_TITLE">Zurück zur Avatar Bearbeiten Seite gehen, ohne eine Avatar ausgewählt zu haben.</Resource>
     <Resource tag="EDITPROFILE">Profil bearbeiten</Resource>
     <Resource tag="TITLE">Avatar</Resource>
+    <Resource tag="UP_TITLE">Zum übergeordneten Ordner gehen.</Resource>
   </page>
   <page name="BBCODEMODULE">
     <Resource tag="HIDDENMOD_DESC">Der Inhalt dieses Beitrages ist versteckt. Nachdem Sie dem Autor DANKE Gesagt haben, und die Seite neugeladen haben, können Sie den Inhalt sehen.</Resource>
@@ -2232,15 +2234,10 @@
 &lt;p&gt;Personal information such as E-Mail Address or Passwords are &lt;strong&gt;NOT&lt;/strong&gt; shown.&lt;/p&gt;</Resource>
     <Resource tag="PUBLICPROFILETITLE">Mein öffentliches Profil</Resource>
     <Resource tag="READPOSTTOPICS">Beiträge lesen und schreiben</Resource>
-    <Resource tag="RECOVERCONTENT">&lt;p&gt;If you forget your password, you can click on the "&lt;a href="{0}"&gt;Lost Password&lt;/a&gt;" 
-  link. This will appear on any page that requires you to fill in your password. &lt;/p&gt;
-&lt;p&gt;This link brings up a page where you should enter your User Name. An email will 
-  be sent to that address shortly, with instructions for resetting your password.&lt;/p&gt;
-&lt;p&gt; Since passwords are encrypted, there is no way to resend your original password. 
-  This option provides you with the ability to reset your password.  &lt;/p&gt;
-&lt;p&gt;You must be able to receive emails to your registered email address for this to 
-  work. You may need to check your spam filters and folder if you do not see this 
-  email in a few minutes. &lt;/p&gt;</Resource>
+    <Resource tag="RECOVERCONTENT">&lt;p&gt;Wenn Sie ihr Passwort vergessen haben klicken Sie auf den &amp;quot;&lt;a href="{0}"&gt;Passwort vergessen&lt;/a&gt;&amp;quot; link. &lt;/p&gt;
+&lt;p&gt;Dieser Link öffnet eine Seite, wo Sie Ihren Benutzernamen eingeben müssen. Eine E-Mail wird an ihre Adresse geschickt, mit Anweisungen zum Zurücksetzen Ihres Passworts.&lt;/p&gt;
+&lt;p&gt;Da Passwörter verschlüsselt sind, gibt es keine Möglichkeit, ihnen Ihr ursprüngliches Passwort zu senden. Diese Option bietet Ihnen die Möglichkeit, Ihr Passwort zurückzusetzen.&lt;/p&gt;
+&lt;p&gt;Ihre hinterlegte Email Adresse muss korrekt sein und funktionieren damit die Email versendet werden kann. Möglicherweise müssen Sie Ihr Spam-Filter und Spam Ordner überprüfen, wenn Sie keine E-Mail erhalten haben.&lt;/p&gt;</Resource>
     <Resource tag="RECOVERTITLE">Vergessenes Passwort wiederherstellen</Resource>
     <Resource tag="REGISTRATIONCONTENT">&lt;p&gt;The administrator will probably require you to register in order to use all the features of the forum. Being registered gives you an identity on the board, a fixed username on all messages you post and an online public profile.&lt;/p&gt;
 &lt;p&gt;Registration is free (unless otherwise specified), and offers an extended range of features, including:&lt;/p&gt;
@@ -2259,9 +2256,9 @@
 &lt;p&gt;A registered user  can go to a forum on a board where he has permission to view Topics and leave replies. To reply you have a few options. You can click on the 'Post Reply' button  and add a new Message to the end of the Topic. Alternatively, you can leave a quick reply in a quick editor box listed below the posts in the Topic.&lt;/p&gt;
 &lt;p&gt;If you want to Reply a Message hit the 'Quote' Button And you can Reply to a Message with the Quoted Text.&lt;/p&gt;</Resource>
     <Resource tag="REPLYINGTITLE">Auf einen Beitrag antworten</Resource>
-    <Resource tag="RSSCONTENT">&lt;p&gt;The feeds are currently provided in two formats, RSS and Atom.&lt;/p&gt;
-&lt;p&gt;If the administrator has enabled Feed syndication, you can get the Feeds for a forums, topics and active topics.&lt;/p&gt;
-&lt;p&gt;Most modern browsers have facilities for reading RSS feeds and will automatically detect the availability of feeds on YAF forum pages.&lt;/p&gt;</Resource>
+    <Resource tag="RSSCONTENT">&lt;p&gt;Die Feeds sind aktuell in zwei Formaten verfügbar, RSS und Atom.&lt;/p&gt;
+&lt;p&gt;Wenn der Administrator Feed Syndication aktiviert hat, können Sie Feeds für Foren, Themen, Aktive Themen und Letzte Beiträge erhalten.&lt;/p&gt;
+&lt;p&gt;Die meisten modernen Browser verfügen über Einrichtungen für das Lesen von RSS-Feeds und erkennen automatisch die Verfügbarkeit von RSS-Feeds in den YAF Forum Seiten.&lt;/p&gt;</Resource>
     <Resource tag="RSSTITLE">RSS</Resource>
     <Resource tag="SEARCHFOR">Geben Sie einen Suchbegriff ein:</Resource>
     <Resource tag="SEARCHHELP">Hilfe durchsuchen</Resource>

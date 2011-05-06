@@ -1495,8 +1495,10 @@
     <Resource tag="UPLOAD_TOOBIG">Je kunt geen bestanden bijsluiten die groter zijn dan {1} KB. Deze grootte is {0} KB.</Resource>
   </page>
   <page name="AVATAR">
+    <Resource tag="CANCEL_TITLE">Go Back to the Modify Avatar Page without selecting an Avatar.</Resource>
     <Resource tag="EDITPROFILE">Avatar bewerken</Resource>
     <Resource tag="TITLE">Avatars</Resource>
+    <Resource tag="UP_TITLE">Go to the Parent Folder.</Resource>
   </page>
   <page name="BBCODEMODULE">
     <Resource tag="HIDDENMOD_DESC">The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post</Resource>

@@ -1,5 +1,5 @@
-/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bjørnar Henden
+ï»¿/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjï¿½rnar Henden
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -124,7 +124,7 @@ namespace YAF.Pages
       var dirName = e.Item.FindControl("dirName") as LinkButton;
       dirName.CommandArgument = directory + Convert.ToString(DataBinder.Eval(e.Item.DataItem, "name"));
       dirName.Text =
-        @"<p style=""text-align:center""><img src=""{0}images/folder.gif"" alt=""{1}"" /><br />{1}</p>".FormatWith(
+        @"<p style=""text-align:center""><img src=""{0}images/folder.gif"" alt=""{1}"" title=""{1}"" /><br />{1}</p>".FormatWith(
           YafForumInfo.ForumClientFileRoot, Convert.ToString(DataBinder.Eval(e.Item.DataItem, "name")));
     }
 
@@ -173,7 +173,7 @@ namespace YAF.Pages
           }
 
           fname.Text =
-            @"<div style=""text-align:center""><a href=""{0}""><img src=""{1}"" alt=""{2}"" class=""borderless"" /></a><br /><small>{2}</small></div>{3}"
+            @"<div style=""text-align:center""><a href=""{0}""><img src=""{1}"" alt=""{2}"" title=""{2}"" class=""borderless"" /></a><br /><small>{2}</small></div>{3}"
               .FormatWith(link, "{0}/{1}".FormatWith(strDirectory, finfo.Name), finfo.Name, Environment.NewLine);
         }
       }
@@ -191,6 +191,13 @@ namespace YAF.Pages
       up.Text =
         @"<p style=""text-align:center""><img src=""{0}images/folder.gif"" alt=""Up"" /><br />UP</p>".FormatWith(
           YafForumInfo.ForumClientFileRoot);
+      up.ToolTip = this.GetText("UP_TITLE");
+
+      // Hide if Top Folder
+      if (this.CurrentDirectory.Equals(previousDirectory))
+      {
+          up.Visible = false;
+      }
     }
 
     #endregion
@@ -276,6 +283,21 @@ namespace YAF.Pages
     }
 
     /// <summary>
+    /// The btn cancel query_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void BtnCancel_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        // Redirect to the edit avatar page
+        YafBuildLink.Redirect(ForumPages.cp_editavatar);
+    }
+
+    /// <summary>
     /// The page_ load.
     /// </summary>
     /// <param name="sender">
@@ -296,7 +318,7 @@ namespace YAF.Pages
         return;
       }
 
-      this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+      this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
 
       if (this.returnUserID > 0)
       {
@@ -312,7 +334,9 @@ namespace YAF.Pages
 
       this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
-      this.BindData(string.Empty);
+      this.CurrentDirectory = Path.Combine(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Avatars);
+
+      this.BindData(this.CurrentDirectory);
     }
 
     /// <summary>

@@ -1493,8 +1493,10 @@
     <Resource tag="UPLOAD_TOOBIG">Вы не можете загружать файлы более чем {1} KB. Ваш файл имеет размер {0} KB.</Resource>
   </page>
   <page name="AVATAR">
+    <Resource tag="CANCEL_TITLE">Go Back to the Modify Avatar Page without selecting an Avatar.</Resource>
     <Resource tag="EDITPROFILE">Изменить аватар</Resource>
     <Resource tag="TITLE">Аватары</Resource>
+    <Resource tag="UP_TITLE">Go to the Parent Folder.</Resource>
   </page>
   <page name="BBCODEMODULE">
     <Resource tag="HIDDENMOD_DESC">Контент этого поста скрыт. После того, как вы поблагодарите постящего за это сообщение он будет доступен, обновите страницу для просмотра скрытого контента. You need to thank the Current Post</Resource>

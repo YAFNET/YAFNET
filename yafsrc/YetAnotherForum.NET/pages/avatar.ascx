@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.avatar" Codebehind="avatar.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.avatar" Codebehind="avatar.ascx.cs" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <div class="DivTopSeparator"></div>
@@ -32,7 +32,16 @@
             </asp:DataList>
         </td>
     </tr>
+    <tr class="footer1">
+        <td style="text-align:center">
+          <YAF:ThemeButton ID="btnCancel" runat="server" CssClass="yafcssbigbutton"
+                TextLocalizedTag="CANCEL" TitleLocalizedTag="CANCEL_TITLE" OnClick="BtnCancel_Click" />
+        </td>
+    </tr>
 </table>
+<div style="text-align:center">
+
+</div>
 <div id="DivSmartScroller">
     <YAF:SmartScroller ID="SmartScroller1" runat="server" />
 </div>

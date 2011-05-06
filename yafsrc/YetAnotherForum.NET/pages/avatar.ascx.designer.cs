@@ -49,6 +49,15 @@ namespace YAF.Pages {
         protected global::System.Web.UI.WebControls.DataList files;
         
         /// <summary>
+        /// btnCancel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.ThemeButton btnCancel;
+        
+        /// <summary>
         /// SmartScroller1 control.
         /// </summary>
         /// <remarks>
