@@ -819,6 +819,8 @@
     <Resource tag="ALLOW_USERS_POLLIMAGES_HELP">Пользователи могут добавлять изображения как опции опроса или как вопрос.</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR">Разрешить выбор текстового редактора</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR_HELP">Пользователи смогут выбирать текстовой редактор в своих профилях.</Resource>
+    <Resource tag="AVATAR_GALLERY">Allow Avatar Gallery:</Resource>
+    <Resource tag="AVATAR_GALLERY_HELP">Can users select an Avatar from the local Avatar Gallery.</Resource>
     <Resource tag="AVATAR_HEIGHT">Высота аватара:</Resource>
     <Resource tag="AVATAR_HEIGHT_HELP">Максимальная высота аватара(пикс.).</Resource>
     <Resource tag="AVATAR_SIZE">Размер аватара:</Resource>

@@ -3181,6 +3181,24 @@ namespace YAF.Pages.Admin {
         protected global::YAF.Controls.LocalizedLabel LocalizedLabel18;
         
         /// <summary>
+        /// HelpLabel189 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel189;
+        
+        /// <summary>
+        /// AvatarGallery control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox AvatarGallery;
+        
+        /// <summary>
         /// HelpLabel50 control.
         /// </summary>
         /// <remarks>

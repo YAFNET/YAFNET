@@ -3007,6 +3007,8 @@ Visit {forumname} at {forumlink}
        <Resource tag="REMOTE_AVATARS_HELP">Can users use avatars from other websites.</Resource>
 	   <Resource tag="AVATAR_UPLOAD">Allow User Avatar uploading:</Resource>
        <Resource tag="AVATAR_UPLOAD_HELP">Can users upload avatars to their profile.</Resource>
+	   <Resource tag="AVATAR_GALLERY">Allow Avatar Gallery:</Resource>
+       <Resource tag="AVATAR_GALLERY_HELP">Can users select an Avatar from the local Avatar Gallery.</Resource>
 	   <Resource tag="ALLOW_GRAVATARS">Allow Gravatars:</Resource>
        <Resource tag="ALLOW_GRAVATARS_HELP">Automatically use users Gavatars if they exist (note: may require additional processing).</Resource>
 	   <Resource tag="GRAVATAR_RATING">Gravatar Rating:</Resource>

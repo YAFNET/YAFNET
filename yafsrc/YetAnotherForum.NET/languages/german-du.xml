@@ -818,6 +818,8 @@
     <Resource tag="ALLOW_USERS_POLLIMAGES_HELP">Wen aktiviert können Benutzer Bilder als Umfrage Optionen verwenden</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR">Benutzern erlauben, Text-Editor auszuwählen</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR_HELP">Benutzern erlauben, Text-Editor in den Profileinstellungen auszuwählen</Resource>
+    <Resource tag="AVATAR_GALLERY">Avatar Gallerie erlauben:</Resource>
+    <Resource tag="AVATAR_GALLERY_HELP">Benutzer erlauben Avatare aus der Lokalen Avatar Gallerie auszuwählen.</Resource>
     <Resource tag="AVATAR_HEIGHT">Avatar Höhe:</Resource>
     <Resource tag="AVATAR_HEIGHT_HELP">Maximale Höhe für Avatare.</Resource>
     <Resource tag="AVATAR_SIZE">Avatar Dateigröße:</Resource>

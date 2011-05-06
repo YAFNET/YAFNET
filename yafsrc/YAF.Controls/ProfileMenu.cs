@@ -21,17 +21,18 @@ namespace YAF.Controls
 {
   #region Using
 
-  using System.Text;
-  using System.Web.UI;
-
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Utils;
-  using YAF.Types;
-  using YAF.Types.Constants;
+    using System.Text;
+    using System.Web.UI;
+    using YAF.Classes;
+    using YAF.Core;
+    using YAF.Types;
+    using YAF.Types.Constants;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
 
   #endregion
 
-  /// <summary>
+    /// <summary>
   /// Summary description for ForumUsers.
   /// </summary>
   public class ProfileMenu : BaseControl
@@ -50,7 +51,7 @@ namespace YAF.Controls
 
       html.Append(@"<table cellspacing=""0"" cellpadding=""0"" class=""content"" id=""yafprofilemenu"">");
 
-      if (this.PageContext.BoardSettings.AllowPrivateMessages)
+      if (this.Get<YafBoardSettings>().AllowPrivateMessages)
       {
         html.AppendFormat(@"<tr class=""header2""><td>{0}</td></tr>", this.GetText("MESSENGER"));
         html.AppendFormat(@"<tr><td class=""post""><ul id=""yafprofilemessenger"">");
@@ -84,7 +85,7 @@ namespace YAF.Controls
         @"<li><a href=""{0}"">{1}</a></li>", 
         YafBuildLink.GetLink(ForumPages.cp_editprofile), 
         this.GetText("EDIT_PROFILE"));
-      if (!this.PageContext.IsGuest && this.PageContext.BoardSettings.EnableThanksMod)
+      if (!this.PageContext.IsGuest && this.Get<YafBoardSettings>().EnableThanksMod)
       {
         html.AppendFormat(
           @"<li><a href=""{0}"">{1}</a></li>", 
@@ -92,7 +93,7 @@ namespace YAF.Controls
           this.GetText("ViewTHANKS", "TITLE"));
       }
 
-      if (!this.PageContext.IsGuest && this.PageContext.BoardSettings.EnableBuddyList & this.PageContext.UserHasBuddies)
+      if (!this.PageContext.IsGuest && this.Get<YafBoardSettings>().EnableBuddyList & this.PageContext.UserHasBuddies)
       {
         html.AppendFormat(
           @"<li><a href=""{0}"">{1}</a></li>", 
@@ -100,19 +101,26 @@ namespace YAF.Controls
           this.GetText("EDIT_BUDDIES"));
       }
 
-      if (!this.PageContext.IsGuest && (this.PageContext.BoardSettings.EnableAlbum || (this.PageContext.NumAlbums > 0)))
+      if (!this.PageContext.IsGuest && (this.Get<YafBoardSettings>().EnableAlbum || (this.PageContext.NumAlbums > 0)))
       {
         html.AppendFormat(
           @"<li><a href=""{0}"">{1}</a></li>", 
           YafBuildLink.GetLink(ForumPages.albums, "u={0}", this.PageContext.PageUserID), 
           this.GetText("EDIT_ALBUMS"));
+     }
+
+      if (this.Get<YafBoardSettings>().AvatarRemote || 
+          this.Get<YafBoardSettings>().AvatarUpload || 
+          this.Get<YafBoardSettings>().AvatarGallery || 
+          this.Get<YafBoardSettings>().AvatarGravatar)
+      {
+          html.AppendFormat(
+              @"<li><a href=""{0}"">{1}</a></li>",
+              YafBuildLink.GetLink(ForumPages.cp_editavatar),
+              this.GetText("EDIT_AVATAR"));
       }
 
-      html.AppendFormat(
-        @"<li><a href=""{0}"">{1}</a></li>", 
-        YafBuildLink.GetLink(ForumPages.cp_editavatar), 
-        this.GetText("EDIT_AVATAR"));
-      if (this.PageContext.BoardSettings.AllowSignatures)
+        if (this.Get<YafBoardSettings>().AllowSignatures)
       {
         html.AppendFormat(
           @"<li><a href=""{0}"">{1}</a></li>", 
@@ -124,7 +132,7 @@ namespace YAF.Controls
         @"<li><a href=""{0}"">{1}</a></li>", 
         YafBuildLink.GetLink(ForumPages.cp_subscriptions), 
         this.GetText("SUBSCRIPTIONS"));
-      if (this.PageContext.BoardSettings.AllowPasswordChange)
+      if (this.Get<YafBoardSettings>().AllowPasswordChange)
       {
         html.AppendFormat(
           @"<li><a href=""{0}"">{1}</a></li>", 

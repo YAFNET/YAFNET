@@ -2101,6 +2101,22 @@ namespace YAF.Classes
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether Avatar Gallery.
+        /// </summary>
+        public bool AvatarGallery
+        {
+            get
+            {
+                return this._reg.GetValue("AvatarGallery", true);
+            }
+
+            set
+            {
+                this._reg.SetValue("AvatarGallery", value);
+            }
+        }
+
         // JoeOuts: added 8/17/09
         /// <summary>
         /// Gets or sets a value indicating whether AvatarGravatar.

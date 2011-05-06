@@ -818,6 +818,8 @@
     <Resource tag="ALLOW_USERS_POLLIMAGES_HELP">Als deze is aangevinkt, kunnen gebruikers plaatjes als keuzes gebruiken.</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR">Gebruikers mogen tekstverwerker kiezen</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR_HELP">Gebruikers kunnen kiezen tussen verschillende tekstverwerkers in hun profiel.</Resource>
+    <Resource tag="AVATAR_GALLERY">Allow Avatar Gallery:</Resource>
+    <Resource tag="AVATAR_GALLERY_HELP">Can users select an Avatar from the local Avatar Gallery.</Resource>
     <Resource tag="AVATAR_HEIGHT">Avatar Hoogte:</Resource>
     <Resource tag="AVATAR_HEIGHT_HELP">Maximale hoogte voor avatars.</Resource>
     <Resource tag="AVATAR_SIZE">Avatar Grootte:</Resource>
