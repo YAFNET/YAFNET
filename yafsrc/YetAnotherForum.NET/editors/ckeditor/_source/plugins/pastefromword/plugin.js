@@ -4,6 +4,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 (function()
 {
+	function forceHtmlMode( evt ) { evt.data.mode = 'html'; }
+
 	CKEDITOR.plugins.add( 'pastefromword',
 	{
 		init : function( editor )
@@ -15,6 +17,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			var resetFromWord = function( evt )
 				{
 					evt && evt.removeListener();
+					editor.removeListener( 'beforePaste', forceHtmlMode );
 					forceFromWord && setTimeout( function() { forceFromWord = 0; }, 0 );
 				};
 
@@ -27,8 +30,11 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				canUndo : false,
 				exec : function()
 				{
+					// Ensure the received data format is HTML and apply content filtering. (#6718)
 					forceFromWord = 1;
-					if ( editor.execCommand( 'paste' ) === false )
+					editor.on( 'beforePaste', forceHtmlMode );
+
+					if ( editor.execCommand( 'paste', 'html' ) === false )
 					{
 						editor.on( 'dialogShow', function ( evt )
 						{

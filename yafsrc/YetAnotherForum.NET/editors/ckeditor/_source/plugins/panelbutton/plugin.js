@@ -17,7 +17,7 @@ CKEDITOR.plugins.add( 'panelbutton',
  * @constant
  * @example
  */
-CKEDITOR.UI_PANELBUTTON = 4;
+CKEDITOR.UI_PANELBUTTON = 'panelbutton';
 
 (function()
 {

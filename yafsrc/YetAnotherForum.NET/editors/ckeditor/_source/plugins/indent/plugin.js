@@ -15,6 +15,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 	function onSelectionChange( evt )
 	{
+		if ( evt.editor.readOnly )
+			return null;
+
 		var editor = evt.editor,
 			elementPath = evt.data.path,
 			list = elementPath && elementPath.contains( listNodeNames ),
@@ -451,7 +454,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
  * and instead the {@link #indentUnit} and {@link #indentOffset} properties will be used.
  * @name CKEDITOR.config.indentClasses
  * @type Array
- * default null
+ * @default null
  * @example
  * // Use the classes 'Indent1', 'Indent2', 'Indent3'
  * config.indentClasses = ['Indent1', 'Indent2', 'Indent3'];

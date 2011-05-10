@@ -214,17 +214,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 		// Turn off design mode temporarily before give focus to the paste bin.
 		if ( mode == 'text' )
-		{
-			if ( CKEDITOR.env.ie )
-			{
-				var ieRange = doc.getBody().$.createTextRange();
-				ieRange.moveToElementText( pastebin.$ );
-				ieRange.execCommand( 'Paste' );
-				evt.data.preventDefault();
-			}
-			else
-				pastebin.$.focus();
-		}
+			pastebin.$.focus();
 		else
 		{
 			range.setStartAt( pastebin, CKEDITOR.POSITION_AFTER_START );
@@ -293,7 +283,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		// keyboard paste or execCommand ) (#4874).
 		CKEDITOR.env.ie && ( depressBeforeEvent = 1 );
 
-		var retval = editor.document.$.queryCommandEnabled( command ) ? CKEDITOR.TRISTATE_OFF : CKEDITOR.TRISTATE_DISABLED;
+		var retval = CKEDITOR.TRISTATE_OFF;
+		try { retval = editor.document.$.queryCommandEnabled( command ) ? CKEDITOR.TRISTATE_OFF : CKEDITOR.TRISTATE_DISABLED; }catch( er ){}
+
 		depressBeforeEvent = 0;
 		return retval;
 	}
@@ -377,29 +369,31 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 				editor.on( 'key', onKey, editor );
 
-				var mode = editor.config.forcePasteAsPlainText ? 'text' : 'html';
-
 				// We'll be catching all pasted content in one line, regardless of whether the
 				// it's introduced by a document command execution (e.g. toolbar buttons) or
 				// user paste behaviors. (e.g. Ctrl-V)
 				editor.on( 'contentDom', function()
 				{
 					var body = editor.document.getBody();
-					body.on( ( ( mode == 'text' && CKEDITOR.env.ie ) || CKEDITOR.env.webkit ) ? 'paste' : 'beforepaste',
-						function( evt )
+					body.on( CKEDITOR.env.webkit ? 'paste' : 'beforepaste', function( evt )
 						{
 							if ( depressBeforeEvent )
 								return;
 
-							getClipboardData.call( editor, evt, mode, function ( data )
+							// Fire 'beforePaste' event so clipboard flavor get customized
+							// by other plugins.
+							var eventData =  { mode : 'html' };
+							editor.fire( 'beforePaste', eventData );
+
+							getClipboardData.call( editor, evt, eventData.mode, function ( data )
 							{
 								// The very last guard to make sure the
 								// paste has successfully happened.
-								if ( !CKEDITOR.tools.trim( data.toLowerCase().replace( /<span[^>]+data-cke-bookmark[^<]*?<\/span>/g,'' ) ) )
+								if ( !( data = CKEDITOR.tools.trim( data.replace( /<span[^>]+data-cke-bookmark[^<]*?<\/span>/ig,'' ) ) ) )
 									return;
 
 								var dataTransfer = {};
-								dataTransfer[ mode ] = data;
+								dataTransfer[ eventData.mode ] = data;
 								editor.fire( 'paste', dataTransfer );
 							} );
 						});

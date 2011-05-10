@@ -663,15 +663,15 @@ CKEDITOR.plugins.scayt =
 						if ( !items_suggestion || !items_suggestion.length )
 							return null;
 						// Remove unused commands and menuitems
-						for ( i in moreSuggestions )
+						for ( var m in moreSuggestions )
 						{
-							delete editor._.menuItems[ i ];
-							delete editor._.commands[ i ];
+							delete editor._.menuItems[ m ];
+							delete editor._.commands[ m ];
 						}
-						for ( i in mainSuggestions )
+						for ( m in mainSuggestions )
 						{
-							delete editor._.menuItems[ i ];
-							delete editor._.commands[ i ];
+							delete editor._.menuItems[ m ];
+							delete editor._.commands[ m ];
 						}
 						moreSuggestions = {};		// Reset items.
 						mainSuggestions = {};

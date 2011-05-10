@@ -95,14 +95,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	delete blockLikeTags.pre;
 	var defaultDataFilterRules =
 	{
-		elements : {
-			a : function( element )
-			{
-				var attrs = element.attributes;
-				if ( attrs && attrs[ 'data-cke-saved-name' ] )
-					attrs[ 'class' ] = ( attrs[ 'class' ] ? attrs[ 'class' ] + ' ' : '' ) + 'cke_anchor';
-			}
-		},
+		elements : {},
 		attributeNames :
 		[
 			// Event attributes (onXYZ) must not be directly set. They can become
