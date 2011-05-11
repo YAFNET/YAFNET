@@ -23,6 +23,7 @@ namespace YAF.DotNetNuke
 
   using System;
   using System.Collections.Generic;
+  using System.IO;
   using System.Linq;
   using System.Net.Mail;
   using System.Threading;
@@ -30,7 +31,6 @@ namespace YAF.DotNetNuke
   using global::DotNetNuke.Entities.Host;
   using global::DotNetNuke.Entities.Portals;
   using global::DotNetNuke.Services.Mail;
-  using global::DotNetNuke.Services.Messaging;
 
   using YAF.Types;
   using YAF.Types.Attributes;
@@ -46,21 +46,6 @@ namespace YAF.DotNetNuke
   [ExportService(ServiceLifetimeScope.Singleton)]
   public class DnnSendMail : ISendMail
   {
-    #region Properties
-
-    /// <summary>
-    ///   Gets CurrentPortalSettings.
-    /// </summary>
-    private PortalSettings CurrentPortalSettings
-    {
-      get
-      {
-        return PortalController.GetCurrentPortalSettings();
-      }
-    }
-
-    #endregion
-
     #region Public Methods
 
     /// <summary>
@@ -75,6 +60,17 @@ namespace YAF.DotNetNuke
 
       var settings = Host.GetHostSettingsDictionary();
 
+        string body = string.Empty;
+
+        if (mailMessage.AlternateViews.Count > 0)
+        {
+            var stream = mailMessage.AlternateViews[0].ContentStream;
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                body = reader.ReadToEnd();
+            }
+        }
+
       Mail.SendMail(
         mailMessage.From.ToString(), 
         mailMessage.To.ToString(), 
@@ -83,8 +79,8 @@ namespace YAF.DotNetNuke
         MailPriority.Normal, 
         mailMessage.Subject, 
         mailMessage.IsBodyHtml ? MailFormat.Html : MailFormat.Text, 
-        mailMessage.BodyEncoding, 
-        mailMessage.Body, 
+        mailMessage.BodyEncoding,
+        body, 
         string.Empty, 
         settings["SMTPServer"], 
         settings["SMTPAuthentication"], 
