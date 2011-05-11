@@ -1496,7 +1496,9 @@
   </page>
   <page name="BBCODEMODULE">
     <Resource tag="HIDDENMOD_DESC">Der Inhalt dieses Beitrages ist versteckt. Nachdem Sie dem Autor DANKE Gesagt haben, und die Seite neugeladen haben, können Sie den Inhalt sehen.</Resource>
+    <Resource tag="HIDDENMOD_GROUP">Sie haben nicht die nötigen Rechte den Versteckten Inhalt sehen zu können.</Resource>
     <Resource tag="HIDDENMOD_GUEST">Das Forum verlangt das Sie registriert sind und angemeldet bevor Sie die Versteckten Beiträge sehen können</Resource>
+    <Resource tag="HIDEGROUPMOD_DESCRIPTION">Den Inhalt verstecken vor Gästen, oder anderen Gruppen falls definiert.</Resource>
     <Resource tag="HIDEMOD_DESCRIPTION">Dieser Tag Versteckt den Inhalt bis der Benutzer die Danke Funktion für diesen Beitrag verwendet hat.</Resource>
     <Resource tag="SPOILERMOD_DESCRIPTION">"Spoiler"-Text hier eingeben</Resource>
     <Resource tag="SPOILERMOD_HIDE">"Spoiler"-Text verbergen</Resource>

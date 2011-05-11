@@ -1502,7 +1502,9 @@
   </page>
   <page name="BBCODEMODULE">
     <Resource tag="HIDDENMOD_DESC">Контент этого поста скрыт. После того, как вы поблагодарите постящего за это сообщение он будет доступен, обновите страницу для просмотра скрытого контента. You need to thank the Current Post</Resource>
+    <Resource tag="HIDDENMOD_GROUP">You have insufficient rights to see the hidden content.</Resource>
     <Resource tag="HIDDENMOD_GUEST">Эта конференция требует регистрации перед тем как вы сможете увидеть скрытые сообщения.</Resource>
+    <Resource tag="HIDEGROUPMOD_DESCRIPTION">Hide the Content from Guests, or other Roles if defined.</Resource>
     <Resource tag="HIDEMOD_DESCRIPTION">Этот тэг скрывает содержимое поста до тех пор пока они не нажмут кнопку Спасибо.</Resource>
     <Resource tag="SPOILERMOD_DESCRIPTION">Поместите сюда текст спойлера</Resource>
     <Resource tag="SPOILERMOD_HIDE">Скрыть спойлер</Resource>

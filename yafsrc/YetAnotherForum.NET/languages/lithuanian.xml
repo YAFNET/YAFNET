@@ -1513,7 +1513,9 @@
   </page>
   <page name="BBCODEMODULE">
     <Resource tag="HIDDENMOD_DESC">The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post</Resource>
+    <Resource tag="HIDDENMOD_GROUP">You have insufficient rights to see the hidden content.</Resource>
     <Resource tag="HIDDENMOD_GUEST">This board requires you to be registered and logged-in before you can view hidden messages.</Resource>
+    <Resource tag="HIDEGROUPMOD_DESCRIPTION">Hide the Content from Guests, or other Roles if defined.</Resource>
     <Resource tag="HIDEMOD_DESCRIPTION">This tag hides content from people until they press the thank you button for the post.</Resource>
     <Resource tag="SPOILERMOD_DESCRIPTION">Put Spoiler Text in Here</Resource>
     <Resource tag="SPOILERMOD_HIDE">Hide Spoiler</Resource>

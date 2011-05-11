@@ -135,4 +135,18 @@
     <ModuleClass>YAF.Modules.BBCode.HideBBCodeModule</ModuleClass>
     <ExecOrder>60</ExecOrder>
   </YafBBCode>
+   <YafBBCode>
+    <Name>HIDE</Name>
+    <Description>[HIDE][localization=HIDEGROUPMOD_DESCRIPTION]The tag hides from Guests[/localization][/HIDE]</Description>
+    <OnClickJS />
+    <DisplayJS />
+    <EditJS />
+    <DisplayCSS>.HiddenGuestBox {border:1px solid #ccc;background-color:white;color:red;padding-top:5px;}.HiddenGuestBox p {padding: 0 0 5px 5px;text-align:center;}</DisplayCSS>
+    <SearchRegex>\[hide\](?&lt;inner&gt;(.|\n)*?)\[\/hide\]|\[hide=(?&lt;group&gt;([^""\r\n\]\[]*?))\](?&lt;inner&gt;(.|\n)*?)\[\/hide\]</SearchRegex>
+    <ReplaceRegex />
+    <Variables>group</Variables>
+    <UseModule>true</UseModule>
+    <ModuleClass>YAF.Modules.BBCode.GroupHide</ModuleClass>
+    <ExecOrder>1</ExecOrder>
+  </YafBBCode>
 </YafBBCodeList>

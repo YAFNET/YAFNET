@@ -36,7 +36,6 @@ namespace YAF.Core.Services
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
-
     #endregion
 
     /// <summary>
@@ -44,12 +43,33 @@ namespace YAF.Core.Services
     /// </summary>
     public class YafFormatMessage : IFormatMessage, IHaveServiceLocator
     {
+        /// <summary>
+        /// Gets or sets ServiceLocator.
+        /// </summary>
         public IServiceLocator ServiceLocator { get; set; }
 
+        /// <summary>
+        /// Gets or sets HttpServer.
+        /// </summary>
         public HttpServerUtilityBase HttpServer { get; set; }
 
+        /// <summary>
+        /// Gets or sets ProcessReplaceRuleFactory.
+        /// </summary>
         public Func<IEnumerable<bool>, IProcessReplaceRules> ProcessReplaceRuleFactory { get; set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="YafFormatMessage"/> class.
+        /// </summary>
+        /// <param name="serviceLocator">
+        /// The service locator.
+        /// </param>
+        /// <param name="httpServer">
+        /// The http server.
+        /// </param>
+        /// <param name="processReplaceRuleFactory">
+        /// The process replace rule factory.
+        /// </param>
         public YafFormatMessage(IServiceLocator serviceLocator, HttpServerUtilityBase httpServer, Func<IEnumerable<bool>, IProcessReplaceRules> processReplaceRuleFactory)
         {
             this.ServiceLocator = serviceLocator;
@@ -142,11 +162,13 @@ namespace YAF.Core.Services
                                 res = string.Empty;
 
                                 // if so we go out from k-loop after we should go out from j-loop too
-                                if (detectedTag)
+                                if (!detectedTag)
                                 {
-                                    currentPosition = j + 1;
-                                    break;
+                                    continue;
                                 }
+
+                                currentPosition = j + 1;
+                                break;
                             }
 
                             currentPosition = j + 1;
@@ -198,12 +220,9 @@ namespace YAF.Core.Services
                     "HTMLTAG_WRONG", HttpUtility.HtmlEncode(detectedHtmlTag));
             }
 
-            if (detectedHtmlTag == "ALL")
-            {
-                return YafContext.Current.Get<ILocalization>().GetText("HTMLTAG_FORBIDDEN");
-            }
-
-            return string.Empty;
+            return detectedHtmlTag == "ALL"
+                       ? YafContext.Current.Get<ILocalization>().GetText("HTMLTAG_FORBIDDEN")
+                       : string.Empty;
         }
 
         private static readonly Regex _rgxEmail =
@@ -262,7 +281,7 @@ namespace YAF.Core.Services
       }
 
       // do html damage control
-      message = RepairHtml(message, messageFlags.IsHtml);
+      message = this.RepairHtml(message, messageFlags.IsHtml);
 
       // get the rules engine from the creator...
       var ruleEngine = this.ProcessReplaceRuleFactory(new[] { true/*messageFlags.IsBBCode*/, targetBlankOverride, useNoFollow }); // tha_watcha : Since html message and bbcode message can be mixed now, always true
@@ -459,9 +478,9 @@ namespace YAF.Core.Services
                           }
                       }
 
-                      return new MessageCleaned(StringExtensions.Truncate(returnMsg, 255), keywordList);
+                      return new MessageCleaned(returnMsg.Truncate(255), keywordList);
                   },
-                  TimeSpan.FromMinutes(YafContext.Current.BoardSettings.FirstPostCacheTimeout));
+                  TimeSpan.FromMinutes(this.Get<YafBoardSettings>().FirstPostCacheTimeout));
             }
 
             return message;
@@ -602,7 +621,10 @@ namespace YAF.Core.Services
         {
             const RegexOptions Options = RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline;
 
-            var hiddenRegex = new Regex(@"\[hidden\](?<inner>(.|\n)*?)\[\/hidden\]", Options);
+            var hiddenRegex =
+                new Regex(
+                    @"\[hidden\](?<inner>(.|\n)*?)\[\/hidden\]|\[hide\](?<inner>(.|\n)*?)\[\/hide\]|\[hide(\=[^\]]*)?\](?<inner>(.|\n)*?)\[\/hide\]",
+                    Options);
 
             Match hiddenTagMatch = hiddenRegex.Match(body);
 
@@ -670,7 +692,7 @@ namespace YAF.Core.Services
 
             html = !allowHtml
                        ? this.HttpServer.HtmlEncode(html)
-                       : RemoveHtmlByList(html, YafContext.Current.BoardSettings.AcceptedHTML.Split(','));
+                       : RemoveHtmlByList(html, this.Get<YafBoardSettings>().AcceptedHTML.Split(','));
 
             return html;
         }
