@@ -1,4 +1,4 @@
-/* YetAnotherForum.NET
+﻿/* YetAnotherForum.NET
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -160,36 +160,6 @@ namespace YAF
       }
     }
 
-    /// <summary>
-    /// Validates that the Task Module is running...
-    /// </summary>
-    private void TaskModuleRunning()
-    {
-      bool debugging = false;
-
-#if DEBUG
-      debugging = true;
-#endif
-
-      if (HttpContext.Current.Application[Constants.Cache.TaskModule] == null)
-      {
-        if (!debugging)
-        {
-          // YAF is not setup properly...
-          HttpContext.Current.Session["StartupException"] =
-            @"YAF.NET is not setup properly. Please add the <add name=""YafTaskModule"" type=""YAF.Core.YafTaskModule, YAF.Core"" /> to the <modules> section of your web.config file.";
-
-          // go immediately to the error page.
-          HttpContext.Current.Response.Redirect(YafForumInfo.ForumClientFileRoot + "error.aspx");
-        }
-        else
-        {
-          throw new YafTaskModuleNotRegisteredException(
-            @"YAF.NET is not setup properly. Please add the <add name=""YafTaskModule"" type=""YAF.Core.YafTaskModule, YAF.Core"" /> to the <modules> section of your web.config file.");
-        }
-      }
-    }
-
     #endregion
 
     #region Events
@@ -213,7 +183,10 @@ namespace YAF
 
     #region Properties
 
-    public IServiceLocator ServiceLocator
+      /// <summary>
+      /// Gets ServiceLocator.
+      /// </summary>
+      public IServiceLocator ServiceLocator
     {
       get
       {
@@ -384,10 +357,10 @@ namespace YAF
     /// </param>
     public void FirePageTitleSet([NotNull] object sender, [NotNull] ForumPageTitleArgs e)
     {
-      if (this.PageTitleSet != null)
-      {
-        this.PageTitleSet(this, e);
-      }
+        if (this.PageTitleSet != null)
+        {
+            this.PageTitleSet(this, e);
+        }
     }
 
     #endregion
@@ -411,6 +384,36 @@ namespace YAF
       base.Render(writer);
 
       writer.WriteLine("</div></div>");
+    }
+
+    /// <summary>
+    /// Validates that the Task Module is running...
+    /// </summary>
+    private void TaskModuleRunning()
+    {
+        bool debugging = false;
+
+#if DEBUG
+      debugging = true;
+#endif
+
+        if (HttpContext.Current.Application[Constants.Cache.TaskModule] == null)
+        {
+            if (!debugging)
+            {
+                // YAF is not setup properly...
+                HttpContext.Current.Session["StartupException"] =
+                  @"YAF.NET is not setup properly. Please add the <add name=""YafTaskModule"" type=""YAF.Core.YafTaskModule, YAF.Core"" /> to the <modules> section of your web.config file.";
+
+                // go immediately to the error page.
+                HttpContext.Current.Response.Redirect(YafForumInfo.ForumClientFileRoot + "error.aspx");
+            }
+            else
+            {
+                throw new YafTaskModuleNotRegisteredException(
+                  @"YAF.NET is not setup properly. Please add the <add name=""YafTaskModule"" type=""YAF.Core.YafTaskModule, YAF.Core"" /> to the <modules> section of your web.config file.");
+            }
+        }
     }
 
     /// <summary>
@@ -478,14 +481,18 @@ namespace YAF
       }
       catch (FileNotFoundException)
       {
-        throw new ApplicationException("Failed to load " + src + ".");
+        throw new ApplicationException("Failed to load {0}.".FormatWith(src));
       }
 
       this._currentForumPage.ForumTopControl = this._topControl;
       this._currentForumPage.ForumFooter = this._footer;
-      this._currentForumPage.ForumHeader = this._header;
 
-      // don't allow as a popup if it's not allowed by the page...
+      if (Config.ShowToolBar)
+      {
+          this._currentForumPage.ForumHeader = this._header;
+      }
+
+        // don't allow as a popup if it's not allowed by the page...
       if (!this._currentForumPage.AllowAsPopup && this.Popup)
       {
         this.Popup = false;
@@ -501,7 +508,7 @@ namespace YAF
       }
 
       // Add the LoginBox to Control, if used and User is Guest
-      if (YafContext.Current.BoardSettings.UseLoginBox && YafContext.Current.IsGuest && !Config.IsAnyPortal &&
+      if (this.Get<YafBoardSettings>().UseLoginBox && YafContext.Current.IsGuest && !Config.IsAnyPortal &&
           Config.AllowLoginAndLogoff)
       {
         this.Controls.Add(
@@ -578,7 +585,7 @@ namespace YAF
 
       string src = "{0}pages/{1}.ascx".FormatWith(YafForumInfo.ForumServerFileRoot, this._page);
 
-      string controlOverride = YafContext.Current.Theme.GetItem("PAGE_OVERRIDE", this._page.ToString(), null);
+      string controlOverride = this.Get<ITheme>().GetItem("PAGE_OVERRIDE", this._page.ToString(), null);
 
       if (controlOverride.IsSet())
       {
