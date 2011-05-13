@@ -404,7 +404,16 @@ namespace YAF.Controls
         this.HideMe.Checked, 
         null);
 
-      // clear the cache for this user...
+        // vzrus: If it's a guest edited by an admin registry value should be changed
+        DataTable dt = LegacyDb.user_list(this.PageContext.PageBoardID, this.CurrentUserID, true, null, null, false);
+
+        if (dt.Rows.Count > 0 && dt.Rows[0]["IsGuest"].ToType<bool>())
+        {
+            LegacyDb.registry_save("timezone", this.TimeZones.SelectedValue, this.PageContext.PageBoardID);
+        }
+
+
+        // clear the cache for this user...)
       this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.CurrentUserID));
 
       YafContext.Current.Get<IDataCache>().Clear();

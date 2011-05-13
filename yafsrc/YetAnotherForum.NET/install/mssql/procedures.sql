@@ -6107,7 +6107,7 @@ BEGIN
 		END		
 
 		INSERT INTO [{databaseOwner}].[{objectQualifier}User](BoardID,RankID,[Name],DisplayName,Password,Email,Joined,LastVisit,NumPosts,TimeZone,Flags,ProviderUserKey) 
-		VALUES(@BoardID,@RankID,@UserName,@DisplayName,'-',@Email,GETUTCDATE() ,GETUTCDATE() ,0,0,@approvedFlag,@ProviderUserKey)
+		VALUES(@BoardID,@RankID,@UserName,@DisplayName,'-',@Email,GETUTCDATE() ,GETUTCDATE() ,0,(SELECT CAST(CAST(Value AS VARCHAR(5)) AS INT) from [{databaseOwner}].[{objectQualifier}Registry] where Name LIKE 'timezone' and BoardID = @BoardID),@approvedFlag,@ProviderUserKey)
 	
 		SET @UserID = SCOPE_IDENTITY()	
 	END
