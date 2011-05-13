@@ -97,34 +97,59 @@ namespace YAF.Pages
     /// </param>
     protected void Login1_Authenticate([NotNull] object sender, [NotNull] AuthenticateEventArgs e)
     {
-      var userName = this.Login1.FindControlAs<TextBox>("UserName").Text.Trim();
-      var password = this.Login1.FindControlAs<TextBox>("Password").Text.Trim();
+      /* var userName = this.Login1.FindControlAs<TextBox>("UserName").Text.Trim();
+      var password = this.Login1.FindControlAs<TextBox>("Password").Text.Trim();*/
 
       e.Authenticated = false;
 
-      // validate userName and password...
-      if (this.Get<MembershipProvider>().ValidateUser(userName, password))
+      if (Login1.UserName.Contains("@"))
       {
-        e.Authenticated = true;
+          // Email Login
+          var username = this.Get<MembershipProvider>().GetUserNameByEmail(Login1.UserName);
+          if (username != null)
+          {
+              if (Membership.ValidateUser(username, Login1.Password))
+              {
+                  Login1.UserName = username;
+                  e.Authenticated = true;
+              }
+              else
+              {
+                  e.Authenticated = false;
+              }
+          }
       }
-      else if (this.Get<YafBoardSettings>().EnableDisplayName)
+      else
       {
-        var id = this.Get<IUserDisplayName>().GetId(userName);
+          // Standard user name login
+          if (this.Get<MembershipProvider>().ValidateUser(Login1.UserName, Login1.Password))
+          {
+              e.Authenticated = true;
+          }
+          else if (this.Get<YafBoardSettings>().EnableDisplayName)
+          {
+              // Display name login
+              var id = this.Get<IUserDisplayName>().GetId(Login1.UserName);
 
-        if (id.HasValue)
-        {
-          // get the username associated with this id...
-          userName = UserMembershipHelper.GetUserNameFromID(id.Value);
+              if (id.HasValue)
+              {
+                  // get the username associated with this id...
+                  var username = UserMembershipHelper.GetUserNameFromID(id.Value);
 
-          // validate again...
-           if (this.Get<MembershipProvider>().ValidateUser(userName, password))
-           {
-             e.Authenticated = true;
+                  // validate again...
+                  if (this.Get<MembershipProvider>().ValidateUser(username, Login1.Password))
+                  {
+                      e.Authenticated = true;
 
-             // update the username
-             this.Login1.UserName = userName;
-           }
-        }
+                      // update the username
+                      this.Login1.UserName = username;
+                  }
+                  else
+                  {
+                      e.Authenticated = false;
+                  }
+              }
+          }
       }
     }
 
