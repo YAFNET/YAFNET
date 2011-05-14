@@ -127,7 +127,7 @@
     <OnClickJS />
     <DisplayJS />
     <EditJS />
-    <DisplayCSS>.HiddenGuestBox {border:1px solid #ccc;background-color:white;color:red;padding-top:5px;}.HiddenGuestBox img {float: left; padding: 0 0 5px 5px;}.HiddenGuestBox br {clear:both}</DisplayCSS>
+    <DisplayCSS>.HiddenGuestBox {padding: 0 .7em;}.HiddenGuestBoxImage img {float: left; padding: 0 0 3px 3px;}.HiddenGuestBox br {clear:both}</DisplayCSS>
     <SearchRegex>\[hidden\](?&lt;inner&gt;(.|\n)*?)\[\/hidden\]</SearchRegex>
     <ReplaceRegex />
     <Variables />
@@ -141,7 +141,7 @@
     <OnClickJS />
     <DisplayJS />
     <EditJS />
-    <DisplayCSS>.HiddenGuestBox {border:1px solid #ccc;background-color:white;color:red;padding-top:5px;}.HiddenGuestBox p {padding: 0 0 5px 5px;text-align:center;}</DisplayCSS>
+    <DisplayCSS>.HiddenGuestBox {padding: 0 .7em;}.HiddenGuestBoxImage {float: left; margin-right: .3em;}</DisplayCSS>
     <SearchRegex>\[hide\](?&lt;inner&gt;(.|\n)*?)\[\/hide\]|\[hide=(?&lt;group&gt;([^""\r\n\]\[]*?))\](?&lt;inner&gt;(.|\n)*?)\[\/hide\]</SearchRegex>
     <ReplaceRegex />
     <Variables>group</Variables>

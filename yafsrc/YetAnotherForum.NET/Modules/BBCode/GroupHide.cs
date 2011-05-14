@@ -53,8 +53,8 @@ namespace YAF.Modules.BBCode
                 "This board requires you to be registered and logged-in before you can view hidden messages.");
 
             string shownContentGuest =
-                "<div class=\"HiddenGuestBox\"><p>{0}</p></div>".FormatWith(
-                    descriptionGuest);
+                "<div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all  HiddenGuestBox\"><p><span class=\"ui-icon ui-icon-alert HiddenGuestBoxImage\"></span>{0}</p></div></div>"
+                    .FormatWith(descriptionGuest);
 
             if (groupString.IsNotSet())
             {
@@ -78,8 +78,8 @@ namespace YAF.Modules.BBCode
                 "You dont´t have the right to see the Hidden Content.");
 
                 shownContentGuest =
-                    "<div class=\"HiddenGuestBox\"><p>{0}</p></div>".FormatWith(
-                        descriptionGuest);
+                    "<div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all  HiddenGuestBox\"><p><span class=\"ui-icon ui-icon-alert HiddenGuestBoxImage\"></span>{0}</p></div></div>"
+                    .FormatWith(descriptionGuest);
 
                 string[] groups = groupString.Split(';');
 

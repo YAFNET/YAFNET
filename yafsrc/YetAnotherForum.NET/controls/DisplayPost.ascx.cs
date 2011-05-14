@@ -390,6 +390,8 @@ namespace YAF.Controls
 
       // setup jQuery and YAF JS...
       YafContext.Current.PageElements.RegisterJQuery();
+      YafContext.Current.PageElements.RegisterJQueryUI();
+
       YafContext.Current.PageElements.RegisterJsResourceInclude("yafjs", "js/yaf.js");
       YafContext.Current.PageElements.RegisterJsBlock("toggleMessageJs", JavaScriptBlocks.ToggleMessageJs);
 
