@@ -1099,6 +1099,8 @@
     <Resource tag="SHOW_MOVED_TOPICS_HELP">Если это включено, то вместо перемещённых тем будут в старом месте будут видны ссылки на них в новом месте месте.</Resource>
     <Resource tag="SHOW_NOCOUNT_POSTS">Отображать "не считаемые" сообщения в активных обсуждениях:</Resource>
     <Resource tag="SHOW_NOCOUNT_POSTS_HELP">Такие сообщения будут отображаться в активных обсуждениях.</Resource>
+    <Resource tag="SHOW_RECENT_USERS">Show Recent Users in Forum Info:</Resource>
+    <Resource tag="SHOW_RECENT_USERS_HELP">Enable to Show Recent Users within the last 24 hours in the forum info on board index page.</Resource>
     <Resource tag="SHOW_RELATIVE_TIME">Показывать относительное время:</Resource>
     <Resource tag="SHOW_RELATIVE_TIME_HELP">На стороне клиента библиотека "Time Ago" будет работать показывая пользователям относительное время вместо UTC.</Resource>
     <Resource tag="SHOW_RENDERTIME">Показывать время генерации страницы:</Resource>
@@ -1978,6 +1980,8 @@
     <Resource tag="NO_POSTS">Нет сообщений</Resource>
     <Resource tag="ONDATE">оставлено {0}</Resource>
     <Resource tag="POSTS">Сообщения</Resource>
+    <Resource tag="RECENT_ONLINE_USERS">{0} Users where online within the last 24 hours, and {1} within the last 30 days.</Resource>
+    <Resource tag="RECENT_USERS">Recent Users</Resource>
     <Resource tag="RSSICONTOOLTIPACTIVE">Подпишитесь на активные темы используя ленту RSS.</Resource>
     <Resource tag="RSSICONTOOLTIPFAVORITE">Подпишитесь на Ваши избранные темы используя ленту RSS.</Resource>
     <Resource tag="RSSICONTOOLTIPFORUM">Подпишитесь на ленту RSS этого форума.</Resource>
@@ -2545,6 +2549,7 @@
     <Resource tag="GUESTTITLE">Активные темы</Resource>
     <Resource tag="LAST_24">( Последние 24 часа )</Resource>
     <Resource tag="LAST_DAY">последний день</Resource>
+    <Resource tag="LAST_EIGHT_HOURS">last 8 hours</Resource>
     <Resource tag="LAST_HOUR">последний час</Resource>
     <Resource tag="LAST_MONTH">последний месяц</Resource>
     <Resource tag="LAST_TWO_DAYS">последние 2 дня</Resource>

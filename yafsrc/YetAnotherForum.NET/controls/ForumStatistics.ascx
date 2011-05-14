@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false"
+﻿<%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false"
     Inherits="YAF.Controls.ForumStatistics" Codebehind="ForumStatistics.ascx.cs" %>
 <asp:UpdatePanel ID="UpdateStatsPanel" runat="server" UpdateMode="Conditional">
     <ContentTemplate>
@@ -29,6 +29,24 @@
 						</YAF:ActiveUsers>
                     </td>
                 </tr>
+                <asp:PlaceHolder runat="server" ID="RecentUsersPlaceHolder">
+                <tr>
+                    <td class="header2" colspan="2">
+                        <YAF:LocalizedLabel ID="RecentUsersLabel" runat="server" LocalizedTag="RECENT_USERS" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="post" width="1%">
+                        <YAF:ThemeImage ID="ThemeImage1" runat="server" ThemeTag="FORUM_USERS" />
+                    </td>
+                    <td class="post">
+                        <asp:Label runat="server" ID="RecentUsersCount" />
+                        <br />
+                        <YAF:ActiveUsers ID="RecentUsers" runat="server">
+						</YAF:ActiveUsers>
+                    </td>
+                </tr>
+                </asp:PlaceHolder>
                 <tr>
                     <td class="header2" colspan="2">
                         <YAF:LocalizedLabel ID="StatsHeader" runat="server" LocalizedTag="STATS" />

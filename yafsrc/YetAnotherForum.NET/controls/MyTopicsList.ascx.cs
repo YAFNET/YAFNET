@@ -87,7 +87,7 @@ namespace YAF.Controls
         #region Properties
 
         /// <summary>
-        ///   Determines what is th current mode of the control.
+        ///   Gets or sets Determines what is th current mode of the control.
         /// </summary>
         public TopicListMode CurrentMode { get; set; }
 
@@ -114,8 +114,6 @@ namespace YAF.Controls
             {
                 // get selected value
                 this.sinceValue = int.Parse(this.Since.SelectedItem.Value);
-
-                // sinceDate = DateTime.UtcNow;	// no need to do it again (look above)
 
                 // decrypt selected option
                 if (this.sinceValue == 9999)
@@ -239,6 +237,7 @@ namespace YAF.Controls
             // negative values for hours backward
             this.Since.Items.Add(new ListItem(this.GetText("last_hour"), "-1"));
             this.Since.Items.Add(new ListItem(this.GetText("last_two_hours"), "-2"));
+            this.Since.Items.Add(new ListItem(this.GetText("last_eight_hours"), "-8"));
 
             // positive values for days backward
             this.Since.Items.Add(new ListItem(this.GetText("last_day"), "1"));

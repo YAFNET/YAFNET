@@ -20,17 +20,17 @@ namespace YAF.Controls
 {
   #region Using
 
-  using System;
-  using System.Data;
-  using System.Linq;
-  using System.Web.UI;
-
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Utils;
-  using YAF.Utils.Helpers;
-  using YAF.Types;
-  using YAF.Types.Interfaces;
-
+    using System;
+    using System.Data;
+    using System.Linq;
+    using System.Web.UI;
+    using YAF.Classes;
+    using YAF.Core;
+    using YAF.Types;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
+    using YAF.Utils.Helpers;
+  
   #endregion
 
   /// <summary>
@@ -89,15 +89,10 @@ namespace YAF.Controls
     {
       get
       {
-        if (this.ViewState["TreatGuestAsHidden"] != null)
-        {
-          return Convert.ToBoolean(this.ViewState["TreatGuestAsHidden"]);
-        }
-
-        return false;
+          return this.ViewState["TreatGuestAsHidden"] != null && Convert.ToBoolean(this.ViewState["TreatGuestAsHidden"]);
       }
 
-      set
+        set
       {
         this.ViewState["TreatGuestAsHidden"] = value;
       }
@@ -118,107 +113,110 @@ namespace YAF.Controls
       // IMPORTANT : call base implementation, raises PreRender event
       base.OnPreRender(e);
 
-      // we shall continue only if there are active user data available
-      if (this.ActiveUserTable != null)
-      {
+        // we shall continue only if there are active user data available
+        if (this.ActiveUserTable == null)
+        {
+            return;
+        }
+
         // add style column if there is no such column in the table
         // style column defines how concrete user's link should be styled
         if (!this.ActiveUserTable.Columns.Contains("Style"))
         {
-          this.ActiveUserTable.Columns.Add("Style", typeof(string));
-          this.ActiveUserTable.AcceptChanges();
+            this.ActiveUserTable.Columns.Add("Style", typeof(string));
+            this.ActiveUserTable.AcceptChanges();
         }
 
         // go through the table and process each row
         foreach (DataRow row in this.ActiveUserTable.Rows)
         {
-          UserLink userLink;
+            UserLink userLink;
 
-          // indicates whether user link should be added or not
-          bool addControl = true;
-          bool isCrawler = Convert.ToInt32(row["IsCrawler"]) > 0;
+            // indicates whether user link should be added or not
+            bool addControl = true;
+            bool isCrawler = row["IsCrawler"].ToType<int>() > 0;
 
-          // create new link and set its parameters
-          if (isCrawler)
-          {
-            userLink = new UserLink
-              {
-                ReplaceName = row["Browser"].ToString(), 
-                UserID = Convert.ToInt32(row["UserID"]), 
-                Style =
-                  this.PageContext.BoardSettings.UseStyledNicks
-                    ? this.Get<IStyleTransform>().DecodeStyleByString(row["Style"].ToString(), false)
-                    : string.Empty
-              };
-          }
-          else
-          {
-            userLink = new UserLink
-              {
-                UserID = Convert.ToInt32(row["UserID"]), 
-                Style =
-                  this.PageContext.BoardSettings.UseStyledNicks
-                    ? this.Get<IStyleTransform>().DecodeStyleByString(row["Style"].ToString(), false)
-                    : string.Empty
-              };
-          }
-
-          
-          if (!isCrawler)
-          {
-              userLink.ID = "UserLink" + userLink.UserID;
-          }
-          else
-          {
-            userLink.ID += userLink.ReplaceName;
-          }
-
-          // how many users of this type is present (valid for guests, others have it 1)
-          int userCount = Convert.ToInt32(row["UserCount"]);
-
-          if (userCount > 1)
-          {
-            // add postfix if there is more the one user of this name
-            userLink.PostfixText = " ({0})".FormatWith(userCount);
-          }
-
-          // we might not want to add this user link if user is marked as hidden
-          if (Convert.ToBoolean(row["IsHidden"]) || // or if user is guest and guest should be hidden
-              (this.TreatGuestAsHidden && Convert.ToBoolean(row["IsGuest"])))
-          {
-            // hidden user are always visible to admin and himself)
-            if (this.PageContext.IsAdmin || userLink.UserID == this.PageContext.PageUserID)
+            // create new link and set its parameters
+            if (isCrawler)
             {
-              // show regardless...
-              addControl = true;
-
-              // but use css style to distinguish such users
-              userLink.CssClass = "active_hidden";
-
-              // and also add postfix
-              userLink.PostfixText = " ({0})".FormatWith(this.GetText("HIDDEN"));
+                userLink = new UserLink
+                    {
+                        ReplaceName = row["Browser"].ToString(), 
+                        UserID = row["UserID"].ToType<int>(), 
+                        Style =
+                            this.Get<YafBoardSettings>().UseStyledNicks
+                                ? this.Get<IStyleTransform>().DecodeStyleByString(row["Style"].ToString(), false)
+                                : string.Empty
+                    };
             }
             else
             {
-              // user is hidden from this user...
-              addControl = false;
+                userLink = new UserLink
+                    {
+                        UserID = row["UserID"].ToType<int>(), 
+                        Style =
+                            this.Get<YafBoardSettings>().UseStyledNicks
+                                ? this.Get<IStyleTransform>().DecodeStyleByString(row["Style"].ToString(), false)
+                                : string.Empty
+                    };
             }
-          }
 
-          // add user link if it's not supressed
-          if (addControl)
-          {
+            if (!isCrawler)
+            {
+                userLink.ID = "UserLink{0}{1}".FormatWith(this.UniqueID, userLink.UserID);
+            }
+            else
+            {
+                userLink.ID += userLink.ReplaceName;
+            }
+
+            // how many users of this type is present (valid for guests, others have it 1)
+            int userCount = row["UserCount"].ToType<int>();
+
+            if (userCount > 1)
+            {
+                // add postfix if there is more the one user of this name
+                userLink.PostfixText = " ({0})".FormatWith(userCount);
+            }
+
+            // we might not want to add this user link if user is marked as hidden
+            if (Convert.ToBoolean(row["IsHidden"]) || // or if user is guest and guest should be hidden
+                (this.TreatGuestAsHidden && Convert.ToBoolean(row["IsGuest"])))
+            {
+                // hidden user are always visible to admin and himself)
+                if (this.PageContext.IsAdmin || userLink.UserID == this.PageContext.PageUserID)
+                {
+                    // show regardless...
+                    addControl = true;
+
+                    // but use css style to distinguish such users
+                    userLink.CssClass = "active_hidden";
+
+                    // and also add postfix
+                    userLink.PostfixText = " ({0})".FormatWith(this.GetText("HIDDEN"));
+                }
+                else
+                {
+                    // user is hidden from this user...
+                    addControl = false;
+                }
+            }
+
+            // add user link if it's not supressed
+            if (!addControl)
+            {
+                continue;
+            }
+
             // vzrus: if guests or crawlers there can be a control with the same id. 
             var ul = this.FindControlRecursiveAs<UserLink>(userLink.ID);
             if (ul != null)
             {
-              this.Controls.Remove(ul);
+                this.Controls.Remove(ul);
             }
 
             this.Controls.Add(userLink);
-          }
         }
-      }
     }
 
     /// <summary>
@@ -236,10 +234,10 @@ namespace YAF.Controls
       bool isFirst = true;
 
       // cycle through active user links contained within this control (see OnPreRender where this links are added)
-      foreach (Control control in this.Controls.Cast<Control>().Where(control => control is UserLink && control.Visible)
-        )
-      {
-        // control is visible UserLink
+        foreach (
+            Control control in this.Controls.Cast<Control>().Where(control => control is UserLink && control.Visible))
+        {
+            // control is visible UserLink
         // if we are rendering other then first UserLink, write down separator first to divide it from previus link
         if (!isFirst)
         {

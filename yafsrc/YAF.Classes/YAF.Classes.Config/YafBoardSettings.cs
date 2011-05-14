@@ -25,7 +25,7 @@ namespace YAF.Classes
     using YAF.Types;
     using YAF.Types.Constants;
 
-  /// <summary>
+    /// <summary>
     /// The yaf board settings.
     /// </summary>
     public class YafBoardSettings
@@ -340,10 +340,10 @@ namespace YAF.Classes
             }
         }
 
-      /// <summary>
-      /// Gets or sets Default Notification Setting.
-      /// </summary>
-      public UserNotificationSetting DefaultNotificationSetting
+        /// <summary>
+        /// Gets or sets Default Notification Setting.
+        /// </summary>
+        public UserNotificationSetting DefaultNotificationSetting
         {
             get
             {
@@ -356,10 +356,10 @@ namespace YAF.Classes
             }
         }
 
-      /// <summary>
-      /// Gets or sets a value indicating whether Default Send Digest Email.
-      /// </summary>
-      public bool DefaultSendDigestEmail
+        /// <summary>
+        /// Gets or sets a value indicating whether Default Send Digest Email.
+        /// </summary>
+        public bool DefaultSendDigestEmail
         {
             get
             {
@@ -372,10 +372,10 @@ namespace YAF.Classes
             }
         }
 
-      /// <summary>
-      /// Gets or sets a value indicating whether Allow Digest Email.
-      /// </summary>
-      public bool AllowDigestEmail
+        /// <summary>
+        /// Gets or sets a value indicating whether Allow Digest Email.
+        /// </summary>
+        public bool AllowDigestEmail
         {
             get
             {
@@ -452,26 +452,26 @@ namespace YAF.Classes
             }
         }
 
-      /// <summary>
-      /// Gets or sets Copyright Removal Domain Key.
-      /// </summary>
-      public string CopyrightRemovalDomainKey
+        /// <summary>
+        /// Gets or sets Copyright Removal Domain Key.
+        /// </summary>
+        public string CopyrightRemovalDomainKey
         {
-          get
-          {
-              return this._regBoard.GetValue<string>("CopyrightRemovalDomainKey", null);
-          }
+            get
+            {
+                return this._regBoard.GetValue<string>("CopyrightRemovalDomainKey", null);
+            }
 
-          set
-          {
-              this._regBoard.SetValue<string>("CopyrightRemovalDomainKey", value);
-          }
+            set
+            {
+                this._regBoard.SetValue<string>("CopyrightRemovalDomainKey", value);
+            }
         }
 
-      /// <summary>
-      /// Gets or sets a value indicating whether Email Moderators On Moderated Post.
-      /// </summary>
-      public bool EmailModeratorsOnModeratedPost
+        /// <summary>
+        /// Gets or sets a value indicating whether Email Moderators On Moderated Post.
+        /// </summary>
+        public bool EmailModeratorsOnModeratedPost
         {
             get
             {
@@ -484,77 +484,77 @@ namespace YAF.Classes
             }
         }
 
-      /// <summary>
-      /// Gets or sets a value indicating whether Email Moderators On Reported Post.
-      /// </summary>
-      public bool EmailModeratorsOnReportedPost
-      {
-          get
-          {
-              return this._regBoard.GetValue("EmailModeratorsOnReportedPost", true);
-          }
+        /// <summary>
+        /// Gets or sets a value indicating whether Email Moderators On Reported Post.
+        /// </summary>
+        public bool EmailModeratorsOnReportedPost
+        {
+            get
+            {
+                return this._regBoard.GetValue("EmailModeratorsOnReportedPost", true);
+            }
 
-          set
-          {
-              this._regBoard.SetValue("EmailModeratorsOnReportedPost", value);
-          }
-      }
+            set
+            {
+                this._regBoard.SetValue("EmailModeratorsOnReportedPost", value);
+            }
+        }
 
-      /// <summary>
-      /// Gets or sets a value indicating whether 
-      /// which Spam Service Type should been used
-      /// 0 = No Service
-      /// 1 = BlogSpam.NET Service
-      /// 2 = Akismet.com Servive
-      /// </summary>
-      public int SpamServiceType
-      {
-          get
-          {
-              return this._reg.GetValue("SpamServiceType", 1);
-          }
+        /// <summary>
+        /// Gets or sets a value indicating whether 
+        /// which Spam Service Type should been used
+        /// 0 = No Service
+        /// 1 = BlogSpam.NET Service
+        /// 2 = Akismet.com Servive
+        /// </summary>
+        public int SpamServiceType
+        {
+            get
+            {
+                return this._reg.GetValue("SpamServiceType", 1);
+            }
 
-          set
-          {
-              this._reg.SetValue("SpamServiceType", value);
-          }
-      }
+            set
+            {
+                this._reg.SetValue("SpamServiceType", value);
+            }
+        }
 
-      /// <summary>
-      /// Gets or sets a value indicating whether 
-      /// what to to with a SPAM Message
-      /// 0 = Do nothing
-      /// 1 = Flag Message as Unapproved
-      /// 2 = Dont allow posting
-      /// </summary>
-      public int SpamMessageHandling
-      {
-          get
-          {
-              return this._reg.GetValue("SpamMessageHandling", 1);
-          }
+        /// <summary>
+        /// Gets or sets a value indicating whether 
+        /// what to to with a SPAM Message
+        /// 0 = Do nothing
+        /// 1 = Flag Message as Unapproved
+        /// 2 = Dont allow posting
+        /// </summary>
+        public int SpamMessageHandling
+        {
+            get
+            {
+                return this._reg.GetValue("SpamMessageHandling", 1);
+            }
 
-          set
-          {
-              this._reg.SetValue("SpamMessageHandling", value);
-          }
-      }
+            set
+            {
+                this._reg.SetValue("SpamMessageHandling", value);
+            }
+        }
 
-      /// <summary>
-      /// Gets or sets a value indicating whether to Use Akismet Service.
-      /// </summary>
-     public string AkismetApiKey
-      {
-          get
-          {
-              return this._reg.GetValue("AkismetApiKey", string.Empty);
-          }
+        /// <summary>
+        /// Gets or sets a value indicating whether to Use Akismet Service.
+        /// </summary>
+        public string AkismetApiKey
+        {
+            get
+            {
+                return this._reg.GetValue("AkismetApiKey", string.Empty);
+            }
 
-          set
-          {
-              this._reg.SetValue("AkismetApiKey", value);
-          }
-      }
+            set
+            {
+                this._reg.SetValue("AkismetApiKey", value);
+            }
+        }
 
         /// <summary>
         /// Gets SQLVersion.
@@ -703,15 +703,15 @@ namespace YAF.Classes
         /// </summary>
         public int DigestSendEveryXHours
         {
-          get
-          {
-            return this._reg.GetValue("DigestSendEveryXHours", 24);
-          }
+            get
+            {
+                return this._reg.GetValue("DigestSendEveryXHours", 24);
+            }
 
-          set
-          {
-            this._reg.SetValue<int>("DigestSendEveryXHours", value);
-          }
+            set
+            {
+                this._reg.SetValue<int>("DigestSendEveryXHours", value);
+            }
         }
 
         /// <summary>
@@ -982,7 +982,7 @@ namespace YAF.Classes
 
             set
             {
-              this._reg.SetValue("ForumEditor", value);
+                this._reg.SetValue("ForumEditor", value);
             }
         }
 
@@ -3374,7 +3374,7 @@ namespace YAF.Classes
                 this._reg.SetValue("AllowEmailTopic", value);
             }
         }
-        
+
         /* Ederon : 12/9/2007 */
 
         /// <summary>
@@ -3424,6 +3424,22 @@ namespace YAF.Classes
             set
             {
                 this._reg.SetValue("ShowForumStatistics", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether Show Recent Users.
+        /// </summary>
+        public bool ShowRecentUsers
+        {
+            get
+            {
+                return this._reg.GetValue("ShowRecentUsers", false);
+            }
+
+            set
+            {
+                this._reg.SetValue("ShowRecentUsers", value);
             }
         }
 
@@ -3558,10 +3574,10 @@ namespace YAF.Classes
             }
         }
 
-      /// <summary>
-      /// Gets or sets UserBoxGender.
-      /// </summary>
-      public string UserBoxGender
+        /// <summary>
+        /// Gets or sets UserBoxGender.
+        /// </summary>
+        public string UserBoxGender
         {
             get
             {
@@ -3656,10 +3672,10 @@ namespace YAF.Classes
             }
         }
 
-      /// <summary>
-      /// Gets or sets LastDigestSend.
-      /// </summary>
-      public string LastDigestSend
+        /// <summary>
+        /// Gets or sets LastDigestSend.
+        /// </summary>
+        public string LastDigestSend
         {
             get
             {
@@ -3672,26 +3688,26 @@ namespace YAF.Classes
             }
         }
 
-      /// <summary>
-      /// Gets or sets TwitterUserName.
-      /// </summary>
-      public string TwitterUserName
-      {
-          get
-          {
-              return this._regBoard.GetValue<string>("TwitterUserName", null);
-          }
+        /// <summary>
+        /// Gets or sets TwitterUserName.
+        /// </summary>
+        public string TwitterUserName
+        {
+            get
+            {
+                return this._regBoard.GetValue<string>("TwitterUserName", null);
+            }
 
-          set
-          {
-              this._regBoard.SetValue("TwitterUserName", value);
-          }
-      }
+            set
+            {
+                this._regBoard.SetValue("TwitterUserName", value);
+            }
+        }
 
-      /// <summary>
-      /// Gets or sets a value indicating whether ForceDigestSend.
-      /// </summary>
-      public bool ForceDigestSend
+        /// <summary>
+        /// Gets or sets a value indicating whether ForceDigestSend.
+        /// </summary>
+        public bool ForceDigestSend
         {
             get
             {

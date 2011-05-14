@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -24,9 +24,9 @@ namespace YAF.Controls
   using System.Data;
   using System.Text;
 
+  using YAF.Classes;
   using YAF.Classes.Data;
   using YAF.Core;
-  using YAF.Core.Services;
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Types.Interfaces;
@@ -68,10 +68,10 @@ namespace YAF.Controls
     {
       var sb = new StringBuilder();
 
-      int activeUsers = Convert.ToInt32(activeStats["ActiveUsers"]);
-      int activeHidden = Convert.ToInt32(activeStats["ActiveHidden"]);
-      int activeMembers = Convert.ToInt32(activeStats["ActiveMembers"]);
-      int activeGuests = Convert.ToInt32(activeStats["ActiveGuests"]);
+      int activeUsers = activeStats["ActiveUsers"].ToType<int>();
+      int activeHidden = activeStats["ActiveHidden"].ToType<int>();
+      int activeMembers = activeStats["ActiveMembers"].ToType<int>();
+      int activeGuests = activeStats["ActiveGuests"].ToType<int>();
 
       // show hidden count to admin...
       if (this.PageContext.IsAdmin)
@@ -79,10 +79,10 @@ namespace YAF.Controls
         activeUsers += activeHidden;
       }
 
-      bool canViewActive = this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ActiveUsersViewPermissions);
+      bool canViewActive = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ActiveUsersViewPermissions);
       bool showGuestTotal = (activeGuests > 0) &&
-                            (this.PageContext.BoardSettings.ShowGuestsInDetailedActiveList ||
-                             this.PageContext.BoardSettings.ShowCrawlersInActiveList);
+                            (this.Get<YafBoardSettings>().ShowGuestsInDetailedActiveList ||
+                             this.Get<YafBoardSettings>().ShowCrawlersInActiveList);
       bool showActiveHidden = (activeHidden > 0) && this.PageContext.IsAdmin;
       if (canViewActive &&
           (showGuestTotal || (activeMembers > 0 && (showGuestTotal || activeGuests <= 0)) ||
@@ -121,8 +121,8 @@ namespace YAF.Controls
       if (activeGuests > 0)
       {
         if (canViewActive &&
-            (this.PageContext.BoardSettings.ShowGuestsInDetailedActiveList ||
-             this.PageContext.BoardSettings.ShowCrawlersInActiveList))
+            (this.Get<YafBoardSettings>().ShowGuestsInDetailedActiveList ||
+             this.Get<YafBoardSettings>().ShowCrawlersInActiveList))
         {
           sb.Append(
             ", <a href=\"{1}\" alt=\"{2}\" title=\"{2}\" >{0}</a>".FormatWith(
@@ -161,7 +161,7 @@ namespace YAF.Controls
       sb.Append(
         " {0}".FormatWith(
           this.GetTextFormatted(
-            "ACTIVE_USERS_TIME", this.PageContext.BoardSettings.ActiveListTime)));
+            "ACTIVE_USERS_TIME", this.Get<YafBoardSettings>().ActiveListTime)));
 
       return sb.ToString();
     }
@@ -201,14 +201,36 @@ namespace YAF.Controls
       // Active users : Call this before forum_stats to clean up active users
       DataTable activeUsers = this.Get<IDataCache>().GetOrSet(
         Constants.Cache.UsersOnlineStatus,
-        () => this.Get<IDBBroker>().GetActiveList(false, YafContext.Current.BoardSettings.ShowCrawlersInActiveList),
-        TimeSpan.FromMilliseconds(YafContext.Current.BoardSettings.OnlineStatusCacheTimeout));
+        () => this.Get<IDBBroker>().GetActiveList(false, this.Get<YafBoardSettings>().ShowCrawlersInActiveList),
+        TimeSpan.FromMilliseconds(this.Get<YafBoardSettings>().OnlineStatusCacheTimeout));
 
       this.ActiveUsers1.ActiveUserTable = activeUsers;
 
-      // "Active Users" Count and Most Users Count
+      // "Active Users" Count and Most Users Count 
       DataRow activeStats = LegacyDb.active_stats(this.PageContext.PageBoardID);
       this.ActiveUserCount.Text = this.FormatActiveUsers(activeStats);
+
+      // Tommy MOD "Recent Users" Count.
+      if (this.Get<YafBoardSettings>().ShowRecentUsers)
+      {
+          DataTable activeUsers1Day = this.Get<IDataCache>().GetOrSet(
+            Constants.Cache.VisitorsInTheLast24Hours,
+            () => this.Get<IDBBroker>().GetRecentUsers(60 * 24),
+            TimeSpan.FromMinutes(this.Get<YafBoardSettings>().ForumStatisticsCacheTimeout));
+          this.RecentUsers.ActiveUserTable = activeUsers1Day;
+
+          DataTable activeUsers30Day = this.Get<IDataCache>().GetOrSet(
+            Constants.Cache.VisitorsInTheLast30Days,
+            () => this.Get<IDBBroker>().GetRecentUsers(60 * 24 * 30),
+            TimeSpan.FromMinutes(this.Get<YafBoardSettings>().ForumStatisticsCacheTimeout));
+
+          this.RecentUsersCount.Text = this.GetTextFormatted(
+              "RECENT_ONLINE_USERS", activeUsers1Day.Rows.Count, activeUsers30Day.Rows.Count);
+      }
+      else
+      {
+          RecentUsersPlaceHolder.Visible = false;
+      }
 
       // Forum Statistics
       var postsStatisticsDataRow = this.Get<IDataCache>().GetOrSet(
@@ -217,22 +239,22 @@ namespace YAF.Controls
           {
             // get the post stats
             DataRow dr = LegacyDb.board_poststats(
-              this.PageContext.PageBoardID, this.PageContext.BoardSettings.UseStyledNicks, true);
+              this.PageContext.PageBoardID, this.Get<YafBoardSettings>().UseStyledNicks, true);
 
             // Set colorOnly parameter to false, as we get here color from data field in the place
-            dr["LastUserStyle"] = this.PageContext.BoardSettings.UseStyledNicks
+            dr["LastUserStyle"] = this.Get<YafBoardSettings>().UseStyledNicks
                                     ? this.Get<IStyleTransform>().DecodeStyleByString(
                                       dr["LastUserStyle"].ToString(), false)
                                     : null;
             return dr.Table;
           },
-        TimeSpan.FromMinutes(this.PageContext.BoardSettings.ForumStatisticsCacheTimeout)).Rows[0];
+        TimeSpan.FromMinutes(this.Get<YafBoardSettings>().ForumStatisticsCacheTimeout)).Rows[0];
 
       // Forum Statistics
       var userStatisticsDataRow = this.Get<IDataCache>().GetOrSet(
         Constants.Cache.BoardUserStats,
         () => LegacyDb.board_userstats(this.PageContext.PageBoardID).Table,
-        TimeSpan.FromMinutes(this.PageContext.BoardSettings.BoardUserStatsCacheTimeout)).Rows[0];
+        TimeSpan.FromMinutes(this.Get<YafBoardSettings>().BoardUserStatsCacheTimeout)).Rows[0];
 
       // show max users...
       if (!userStatisticsDataRow.IsNull("MaxUsers"))
@@ -263,9 +285,11 @@ namespace YAF.Controls
         this.LastPostUserLink.UserID = postsStatisticsDataRow["LastUserID"].ToType<int>();
         this.LastPostUserLink.Style = postsStatisticsDataRow["LastUserStyle"].ToString();
         this.StatsLastPost.Text = this.GetTextFormatted(
-          "stats_lastpost", 
-          new DisplayDateTime { DateTime = postsStatisticsDataRow["LastPost"], Format = DateTimeFormat.BothTopic }.
-            RenderToString());
+            "stats_lastpost",
+            new DisplayDateTime
+                {
+                    DateTime = postsStatisticsDataRow["LastPost"], Format = DateTimeFormat.BothTopic
+                }.RenderToString());
       }
       else
       {
@@ -278,10 +302,10 @@ namespace YAF.Controls
 
       // Newest Member
       this.StatsNewestMember.Text = this.GetText("stats_lastmember");
-      this.NewestMemberUserLink.UserID = Convert.ToInt32(userStatisticsDataRow["LastMemberID"]);
+      this.NewestMemberUserLink.UserID = userStatisticsDataRow["LastMemberID"].ToType<int>();
       this.CollapsibleImage.ToolTip = this.GetText("COMMON", "SHOWHIDE");
 
-      // Todays Birthdays
+      // TODO : Todays Birthdays
       // tha_watcha : Disabled as future feature, until its cached?!
       /*StatsTodaysBirthdays.Text = this.GetText("stats_birthdays");// "";
 

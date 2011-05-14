@@ -1097,6 +1097,8 @@
     <Resource tag="SHOW_MOVED_TOPICS_HELP">Wenn aktiviert, Themen die Verschoben wurden lassen ein Link zurück der zum neuen Thema führt</Resource>
     <Resource tag="SHOW_NOCOUNT_POSTS">Beiträge von dem "Nicht-Zählen" Foren in den Aktiven Diskussionen Anzeigen:</Resource>
     <Resource tag="SHOW_NOCOUNT_POSTS_HELP">Wenn aktiviert, werden Beiträge aus dem "Nicht-Zählen" Foren in den Aktiven Diskussionen gezeigt.</Resource>
+    <Resource tag="SHOW_RECENT_USERS">Show Recent Users in Forum Info:</Resource>
+    <Resource tag="SHOW_RECENT_USERS_HELP">Enable to Show Recent Users within the last 24 hours in the forum info on board index page.</Resource>
     <Resource tag="SHOW_RELATIVE_TIME">Relative Zeit  Anzeigen:</Resource>
     <Resource tag="SHOW_RELATIVE_TIME_HELP">Wenn aktiviert würd die Client-Seitige "Time Ago" Erweiterung  dazu benutzt um die "Relativen Zeiten" anzuzeigen anstatt die UTC  Zeit und die nicht perfekten Server-Seitigen Zeiten.</Resource>
     <Resource tag="SHOW_RENDERTIME">Seiten Generierungzeit Anzeigen:</Resource>
@@ -1926,9 +1928,9 @@
   </page>
   <page name="DEFAULT">
     <Resource tag="ACTIVE_DISCUSSIONS">Aktive Diskussionen</Resource>
-    <Resource tag="ACTIVE_USERS">Aktive Benutzer(innen)</Resource>
-    <Resource tag="ACTIVE_USERS_COUNT1">{0:N0} aktive(r) Benutzer(in)</Resource>
-    <Resource tag="ACTIVE_USERS_COUNT2">{0:N0} aktive Benutzer(innen)</Resource>
+    <Resource tag="ACTIVE_USERS">Aktive Benutzer</Resource>
+    <Resource tag="ACTIVE_USERS_COUNT1">{0:N0} aktive(r) Benutzer</Resource>
+    <Resource tag="ACTIVE_USERS_COUNT2">{0:N0} aktive Benutzer</Resource>
     <Resource tag="ACTIVE_USERS_GUESTS1">{0:N0} Gast</Resource>
     <Resource tag="ACTIVE_USERS_GUESTS2">{0:N0} Gäste</Resource>
     <Resource tag="ACTIVE_USERS_HIDDEN">{0:N0} versteckt</Resource>
@@ -1956,6 +1958,8 @@
     <Resource tag="NO_POSTS">Keine Beiträge</Resource>
     <Resource tag="ONDATE">am {0}</Resource>
     <Resource tag="POSTS">Beiträge</Resource>
+    <Resource tag="RECENT_ONLINE_USERS">{0} Benutzer war(en) online in den letzten 24 Stunden, und {1} in den letzten 30 Tagen.</Resource>
+    <Resource tag="RECENT_USERS">Kürzlich Aktive Benutzer</Resource>
     <Resource tag="RSSICONTOOLTIPACTIVE">Abonnieren Sie ihre Aktiven Themen per RSS.</Resource>
     <Resource tag="RSSICONTOOLTIPFAVORITE">Abonnieren Sie ihre Favorisierten Themen per RSS.</Resource>
     <Resource tag="RSSICONTOOLTIPFORUM">Forum RSS Feed Abonnieren.</Resource>
@@ -2006,9 +2010,8 @@
     <Resource tag="TO">Senden an (E-Mail-Adresse):</Resource>
   </page>
   <page name="HELP_INDEX">
-    <Resource tag="ANOUNCECONTENT">&lt;p&gt;Announcements are special messages posted by the administrator or moderators. They are a simple one-way communication with the users and you can't reply. If you wish to discuss announcements, you will have to create a new thread in the forum.&lt;/p&gt;
-&lt;p&gt;Announcement topics are displayed at the top of forum listing pages, above regular and sticky topics.&lt;/p&gt;
-        </Resource>
+    <Resource tag="ANOUNCECONTENT">&lt;p&gt;Ankündigungen sind spezielle Beiträge, die von einem Administrator oder  Moderator geschrieben werden. Sie sind eine einfache Ein-Wege-Kommunikation mit dem Benutzer und Sie können nicht antworten. Wenn Sie eine Ankündigung diskutieren möchten, müssen Sie ein neues Thema  im Forum erstellen.&lt;/p&gt;
+&lt;p&gt;Ankündigungen sind Themen die ganz am Anfang der Forenlisten angezeigt werden, oberhalb den normalen und gepinnten Themen.&lt;/p&gt;</Resource>
     <Resource tag="ANOUNCETITLE">Ankündigungen</Resource>
     <Resource tag="ATTACHMENTSCONTENT">&lt;p&gt;To attach a file to a post, you need to be using the main 'Post Reply' or 'New Topic' page and not 'Quick Reply', or Click the 'Attach' Button to on an existing Message.&lt;/p&gt;
 &lt;p&gt;On this page, below the message box, you will find a Check box 'Attach files to this post?'. When you Click on the 'Post' Button you are redirected to the Attachments Page where you can Upload an Attach Files.&lt;/p&gt;
@@ -2267,8 +2270,8 @@
     <Resource tag="SEARCHFOR">Geben Sie einen Suchbegriff ein:</Resource>
     <Resource tag="SEARCHHELP">Hilfe durchsuchen</Resource>
     <Resource tag="SEARCHHELPTITLE">Hilfethemen durchsuchen</Resource>
-    <Resource tag="SEARCHINGCONTENT">&lt;p&gt;To quickly find a thread or post of interest anywhere on the forums, click on the 'Search' link in the Header. Then, type in the keyword or phrase you wish to search for.&lt;/p&gt;
-&lt;p&gt;For more control over the search, you can restrict your search individual forums, or find posts or topics written by an specified user. You can also select how many Results should be shown per page.&lt;/p&gt;</Resource>
+    <Resource tag="SEARCHINGCONTENT">&lt;p&gt;Um schnell ein Thema oder Beitrag zu finden für das/den sie sich Interessieren, klicken Sie auf den Suche Link im Kopf der Seite, dann geben Sie ein Suchwort nachdem Sie suchen.&lt;/p&gt;
+&lt;p&gt;Für mehr Kontrolle über die Suche können Sie Ihre Suche weiter einzuschränken auf einzelne Foren, oder finden Sie Beiträge oder Themen von einem bestimmten Benutzer. Sie können auch wählen, wie viele Ergebnisse pro Seite gezeigt werden sollen.&lt;/p&gt;</Resource>
     <Resource tag="SEARCHINGTITLE">Durchsuchen von Foren und Themen</Resource>
     <Resource tag="SEARCHLONGER">Suche Eingabe ist zu kurz, Sie müssen mindestens 3 Buchstaben eingeben.</Resource>
     <Resource tag="SMILIESCONTENT">&lt;p&gt;Smileys sind Icon, die in Ihren Beiträgen verwendet werden, um Emotionen oder Gefühle ausdrücken zu können. Vielleicht möchten Sie diese verwenden, um anzuzeigen, dass Sie glücklich, traurig sind, scherzen, oder verlegen. Zum Beispiel, wenn Sie einen Witz erzählen oder sarkastisch sein möchten.&lt;/p&gt;
@@ -2401,7 +2404,7 @@
     <Resource tag="RECOVER_ERROR">Fehler beim Erstellen eines neuen Passworts.</Resource>
     <Resource tag="SENDPASSWORD">Passwort zusenden</Resource>
     <Resource tag="TITLE">Einloggen</Resource>
-    <Resource tag="USERNAME">Benutzername:</Resource>
+    <Resource tag="USERNAME">Benutzername oder Email Adresse:</Resource>
     <Resource tag="WRONG_USERNAME_EMAIL">Falscher Benutzername oder falsche E-Mail-Adresse.</Resource>
   </page>
   <page name="MEMBERS">
@@ -2519,11 +2522,12 @@
     <Resource tag="GUESTTITLE">Aktive Themen</Resource>
     <Resource tag="LAST_24">( Letzte 24 Stunden )</Resource>
     <Resource tag="LAST_DAY">Letzter Tag</Resource>
+    <Resource tag="LAST_EIGHT_HOURS">Letzten 8 Stunden</Resource>
     <Resource tag="LAST_HOUR">Letzte Stunde</Resource>
     <Resource tag="LAST_MONTH">Letzter Monat</Resource>
-    <Resource tag="LAST_TWO_DAYS">Letzte zwei Tage</Resource>
-    <Resource tag="LAST_TWO_HOURS">Letzte zwei Stunden</Resource>
-    <Resource tag="LAST_TWO_WEEKS">Letzte zwei Wochen</Resource>
+    <Resource tag="LAST_TWO_DAYS">Letzten zwei Tagen</Resource>
+    <Resource tag="LAST_TWO_HOURS">Letzten zwei Stunden</Resource>
+    <Resource tag="LAST_TWO_WEEKS">Letzten zwei Wochen</Resource>
     <Resource tag="LAST_VISIT">Letzter Besuch am {0}</Resource>
     <Resource tag="LAST_WEEK">Letzte Woche</Resource>
     <Resource tag="LASTPOST">Letzter Beitrag</Resource>

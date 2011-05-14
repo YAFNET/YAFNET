@@ -4,8 +4,10 @@
 
   using System;
   using System.Data;
+  using System.Text;
   using System.Web.UI.WebControls;
 
+  using YAF.Classes;
   using YAF.Core;
   using YAF.Types;
   using YAF.Types.Constants;
@@ -75,15 +77,10 @@
     {
       get
       {
-        if (string.IsNullOrEmpty(this._altLastPost))
-        {
-          return string.Empty;
-        }
-
-        return this._altLastPost;
+          return string.IsNullOrEmpty(this._altLastPost) ? string.Empty : this._altLastPost;
       }
 
-      set
+        set
       {
         this._altLastPost = value;
       }
@@ -97,12 +94,7 @@
     {
         get
         {
-            if (string.IsNullOrEmpty(this._altLastUnreadPost))
-            {
-                return string.Empty;
-            }
-
-            return this._altLastUnreadPost;
+            return string.IsNullOrEmpty(this._altLastUnreadPost) ? string.Empty : this._altLastUnreadPost;
         }
 
         set
@@ -119,7 +111,7 @@
       set
       {
         this._theTopicRow = (DataRowView)value;
-        this.TopicRowID = Convert.ToInt32(this.TopicRow["LinkTopicID"]);
+        this.TopicRowID = this.TopicRow["LinkTopicID"].ToType<int>();
       }
     }
 
@@ -198,7 +190,7 @@
     }
 
     /// <summary>
-    ///   The TopicRow.
+    ///  Gets the TopicRow.
     /// </summary>
     protected DataRowView TopicRow
     {
@@ -229,21 +221,21 @@
     /// </returns>
     protected string CreatePostPager(int count, int pageSize, int topicID)
     {
-      string strReturn = string.Empty;
+        var strReturn = new StringBuilder();
 
-      int NumToDisplay = 4;
+      int numToDisplay = 4;
       var pageCount = (int)Math.Ceiling((double)count / pageSize);
 
       if (pageCount > 1)
       {
-        if (pageCount > NumToDisplay)
+        if (pageCount > numToDisplay)
         {
-          strReturn += this.MakeLink("1", YafBuildLink.GetLink(ForumPages.posts, "t={0}", topicID),1);
-          strReturn += " ... ";
+            strReturn.AppendLine(this.MakeLink("1", YafBuildLink.GetLink(ForumPages.posts, "t={0}", topicID), 1));
+          strReturn.AppendLine(" ... ");
           bool bFirst = true;
 
           // show links from the end
-          for (int i = pageCount - (NumToDisplay - 1); i < pageCount; i++)
+          for (int i = pageCount - (numToDisplay - 1); i < pageCount; i++)
           {
             int iPost = i + 1;
 
@@ -253,11 +245,11 @@
             }
             else
             {
-              strReturn += ", ";
+              strReturn.AppendLine(", ");
             }
 
-            strReturn += this.MakeLink(
-              iPost.ToString(), YafBuildLink.GetLink(ForumPages.posts, "t={0}&p={1}", topicID, iPost), iPost);
+             strReturn.AppendLine(this.MakeLink(
+              iPost.ToString(), YafBuildLink.GetLink(ForumPages.posts, "t={0}&p={1}", topicID, iPost), iPost));
           }
         }
         else
@@ -273,16 +265,16 @@
             }
             else
             {
-              strReturn += ", ";
+              strReturn.AppendLine(", ");
             }
 
-            strReturn += this.MakeLink(
-              iPost.ToString(), YafBuildLink.GetLink(ForumPages.posts, "t={0}&p={1}", topicID, iPost), iPost);
+             strReturn.AppendLine(this.MakeLink(
+              iPost.ToString(), YafBuildLink.GetLink(ForumPages.posts, "t={0}&p={1}", topicID, iPost), iPost));
           }
         }
       }
 
-      return strReturn;
+      return strReturn.ToString();
     }
 
     /// <summary>
@@ -295,12 +287,12 @@
     {
       string repStr = "&nbsp;";
 
-      int nReplies = Convert.ToInt32(this.TopicRow["Replies"]);
-      int numDeleted = Convert.ToInt32(this.TopicRow["NumPostsDeleted"]);
+      int nReplies = this.TopicRow["Replies"].ToType<int>();
+      int numDeleted = this.TopicRow["NumPostsDeleted"].ToType<int>();
 
       if (nReplies >= 0)
       {
-        if (this.PageContext.BoardSettings.ShowDeletedMessages && numDeleted > 0)
+        if (this.Get<YafBoardSettings>().ShowDeletedMessages && numDeleted > 0)
         {
           repStr = "{0:N0}".FormatWith(nReplies + numDeleted);
         }
@@ -442,55 +434,51 @@
             imgTitle = this.GetText("POLL_NEW");
             return this.Get<ITheme>().GetItem("ICONS", "TOPIC_POLL_NEW");
           }
-          else if (row["Priority"].ToString() == "1")
-          {
-            imgTitle = this.GetText("STICKY");
-            return this.Get<ITheme>().GetItem("ICONS", "TOPIC_STICKY");
-          }
-          else if (row["Priority"].ToString() == "2")
-          {
-            imgTitle = this.GetText("ANNOUNCEMENT");
-            return this.Get<ITheme>().GetItem("ICONS", "TOPIC_ANNOUNCEMENT_NEW");
-          }
-          else if (topicFlags.IsLocked || forumFlags.IsLocked)
-          {
-            imgTitle = this.GetText("NEW_POSTS_LOCKED");
-            return this.Get<ITheme>().GetItem("ICONS", "TOPIC_NEW_LOCKED");
-          }
-          else
-          {
-            imgTitle = this.GetText("NEW_POSTS");
-            return this.Get<ITheme>().GetItem("ICONS", "TOPIC_NEW");
-          }
+
+            switch (row["Priority"].ToString())
+            {
+                case "1":
+                    imgTitle = this.GetText("STICKY");
+                    return this.Get<ITheme>().GetItem("ICONS", "TOPIC_STICKY");
+                case "2":
+                    imgTitle = this.GetText("ANNOUNCEMENT");
+                    return this.Get<ITheme>().GetItem("ICONS", "TOPIC_ANNOUNCEMENT_NEW");
+                default:
+                    if (topicFlags.IsLocked || forumFlags.IsLocked)
+                    {
+                        imgTitle = this.GetText("NEW_POSTS_LOCKED");
+                        return this.Get<ITheme>().GetItem("ICONS", "TOPIC_NEW_LOCKED");
+                    }
+
+                    imgTitle = this.GetText("NEW_POSTS");
+                    return this.Get<ITheme>().GetItem("ICONS", "TOPIC_NEW");
+            }
         }
-        else
-        {
+
           if (row["PollID"] != DBNull.Value)
           {
-            imgTitle = this.GetText("POLL");
-            return this.Get<ITheme>().GetItem("ICONS", "TOPIC_POLL");
+              imgTitle = this.GetText("POLL");
+              return this.Get<ITheme>().GetItem("ICONS", "TOPIC_POLL");
           }
-          else if (row["Priority"].ToString() == "1")
+
+          switch (row["Priority"].ToString())
           {
-            imgTitle = this.GetText("STICKY");
-            return this.Get<ITheme>().GetItem("ICONS", "TOPIC_STICKY");
+              case "1":
+                  imgTitle = this.GetText("STICKY");
+                  return this.Get<ITheme>().GetItem("ICONS", "TOPIC_STICKY");
+              case "2":
+                  imgTitle = this.GetText("ANNOUNCEMENT");
+                  return this.Get<ITheme>().GetItem("ICONS", "TOPIC_ANNOUNCEMENT");
+              default:
+                  if (topicFlags.IsLocked || forumFlags.IsLocked)
+                  {
+                      imgTitle = this.GetText("NO_NEW_POSTS_LOCKED");
+                      return this.Get<ITheme>().GetItem("ICONS", "TOPIC_LOCKED");
+                  }
+
+                  imgTitle = this.GetText("NO_NEW_POSTS");
+                  return this.Get<ITheme>().GetItem("ICONS", "TOPIC");
           }
-          else if (row["Priority"].ToString() == "2")
-          {
-            imgTitle = this.GetText("ANNOUNCEMENT");
-            return this.Get<ITheme>().GetItem("ICONS", "TOPIC_ANNOUNCEMENT");
-          }
-          else if (topicFlags.IsLocked || forumFlags.IsLocked)
-          {
-            imgTitle = this.GetText("NO_NEW_POSTS_LOCKED");
-            return this.Get<ITheme>().GetItem("ICONS", "TOPIC_LOCKED");
-          }
-          else
-          {
-            imgTitle = this.GetText("NO_NEW_POSTS");
-            return this.Get<ITheme>().GetItem("ICONS", "TOPIC");
-          }
-        }
       }
       catch (Exception)
       {

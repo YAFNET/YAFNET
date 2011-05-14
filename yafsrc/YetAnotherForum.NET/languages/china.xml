@@ -1100,6 +1100,8 @@
     <Resource tag="SHOW_MOVED_TOPICS_HELP">If this is checked, topics that are moved will leave behind a pointer to the new topic.</Resource>
     <Resource tag="SHOW_NOCOUNT_POSTS">Show 'no-count' Forum Posts in Active Discussions:</Resource>
     <Resource tag="SHOW_NOCOUNT_POSTS_HELP">If this is checked, posts from 'no-count' forums will be displayed in Active Discussions.</Resource>
+    <Resource tag="SHOW_RECENT_USERS">Show Recent Users in Forum Info:</Resource>
+    <Resource tag="SHOW_RECENT_USERS_HELP">Enable to Show Recent Users within the last 24 hours in the forum info on board index page.</Resource>
     <Resource tag="SHOW_RELATIVE_TIME">Show Relative Time:</Resource>
     <Resource tag="SHOW_RELATIVE_TIME_HELP">If checked, client-side "Time Ago" library will be used to show "relative times" to users instead of UTC and or imperfect server-side times.</Resource>
     <Resource tag="SHOW_RENDERTIME">Show Page Generated Time:</Resource>
@@ -1970,6 +1972,8 @@
     <Resource tag="NO_POSTS">无新贴</Resource>
     <Resource tag="ONDATE">on {0}</Resource>
     <Resource tag="POSTS">贴子数量</Resource>
+    <Resource tag="RECENT_ONLINE_USERS">{0} Users where online within the last 24 hours, and {1} within the last 30 days.</Resource>
+    <Resource tag="RECENT_USERS">Recent Users</Resource>
     <Resource tag="RSSICONTOOLTIPACTIVE">Subscribe to active topics via RSS.</Resource>
     <Resource tag="RSSICONTOOLTIPFAVORITE">Subscribe to your favorite topics via RSS.</Resource>
     <Resource tag="RSSICONTOOLTIPFORUM">Subscribe to forum RSS feed.</Resource>
@@ -2539,6 +2543,7 @@
     <Resource tag="GUESTTITLE">Active Topics</Resource>
     <Resource tag="LAST_24">( Last 24 Hours )</Resource>
     <Resource tag="LAST_DAY">last day</Resource>
+    <Resource tag="LAST_EIGHT_HOURS">last 8 hours</Resource>
     <Resource tag="LAST_HOUR">last hour</Resource>
     <Resource tag="LAST_MONTH">last month</Resource>
     <Resource tag="LAST_TWO_DAYS">last two days</Resource>

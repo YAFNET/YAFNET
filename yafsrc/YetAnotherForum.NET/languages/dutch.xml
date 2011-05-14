@@ -1098,6 +1098,8 @@
     <Resource tag="SHOW_MOVED_TOPICS_HELP">Als deze is aangevinkt, zullen topics die verplaatst zijn een link achterlaten naar de nieuwe lokatie.</Resource>
     <Resource tag="SHOW_NOCOUNT_POSTS">Laat 'no-count' Forum Berichten zien in Actieve Topics:</Resource>
     <Resource tag="SHOW_NOCOUNT_POSTS_HELP">Als deze is aangevinkt, worden berichten in niet-tellende forums zichtbaar in 'Actieve Topics'.</Resource>
+    <Resource tag="SHOW_RECENT_USERS">Show Recent Users in Forum Info:</Resource>
+    <Resource tag="SHOW_RECENT_USERS_HELP">Enable to Show Recent Users within the last 24 hours in the forum info on board index page.</Resource>
     <Resource tag="SHOW_RELATIVE_TIME">Laat Relatieve tijd zien:</Resource>
     <Resource tag="SHOW_RELATIVE_TIME_HELP">Als deze is aangevinkt, wordt de client-side "...Geleden" bibliotheek gebruikt om de "relatieve tijden" te laten zien in plaats van UTC en/of niet accurate server-side tijden.</Resource>
     <Resource tag="SHOW_RENDERTIME">Laat de opmaaktijd van de pagina zien:</Resource>
@@ -1962,6 +1964,8 @@
     <Resource tag="NO_POSTS">Geen berichten</Resource>
     <Resource tag="ONDATE">op {0}</Resource>
     <Resource tag="POSTS">Berichten</Resource>
+    <Resource tag="RECENT_ONLINE_USERS">{0} Users where online within the last 24 hours, and {1} within the last 30 days.</Resource>
+    <Resource tag="RECENT_USERS">Recent Users</Resource>
     <Resource tag="RSSICONTOOLTIPACTIVE">Meld je aan bij de actieve topics via RSS.</Resource>
     <Resource tag="RSSICONTOOLTIPFAVORITE">Meld je via RSS aan bij je favoriete topics.</Resource>
     <Resource tag="RSSICONTOOLTIPFORUM">Aanmelden bij RSS feed.</Resource>
@@ -2495,6 +2499,7 @@
     <Resource tag="GUESTTITLE">Actieve Topics</Resource>
     <Resource tag="LAST_24">( Laatste 24 Uur )</Resource>
     <Resource tag="LAST_DAY">afgelopen dag</Resource>
+    <Resource tag="LAST_EIGHT_HOURS">last 8 hours</Resource>
     <Resource tag="LAST_HOUR">afgelopen uur</Resource>
     <Resource tag="LAST_MONTH">afgelopen maand</Resource>
     <Resource tag="LAST_TWO_DAYS">laatste twee dagen</Resource>

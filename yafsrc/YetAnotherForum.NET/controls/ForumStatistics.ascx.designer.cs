@@ -94,6 +94,51 @@ namespace YAF.Controls {
         protected global::YAF.Controls.ActiveUsers ActiveUsers1;
         
         /// <summary>
+        /// RecentUsersPlaceHolder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder RecentUsersPlaceHolder;
+        
+        /// <summary>
+        /// RecentUsersLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel RecentUsersLabel;
+        
+        /// <summary>
+        /// ThemeImage1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.ThemeImage ThemeImage1;
+        
+        /// <summary>
+        /// RecentUsersCount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label RecentUsersCount;
+        
+        /// <summary>
+        /// RecentUsers control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.ActiveUsers RecentUsers;
+        
+        /// <summary>
         /// StatsHeader control.
         /// </summary>
         /// <remarks>

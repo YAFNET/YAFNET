@@ -40,10 +40,17 @@ namespace YAF.Types.Interfaces
     IEnumerable<DataRow> GetShoutBoxMessages(int boardId);
 
     /// <summary>
+    /// Get the list of recently logged in users.
+    /// </summary>
+    /// <param name="timeSinceLastLogin">Time since last login in minutes.</param>
+    /// <returns>The DataTable of the users.</returns>
+    DataTable GetRecentUsers(int timeSinceLastLogin);
+
+    /// <summary>
     /// The user lazy data.
     /// </summary>
-    /// <param name="userID">
-    /// The user ID.
+    /// <param name="userId">
+    /// The user Id.
     /// </param>
     /// <returns>
     /// </returns>

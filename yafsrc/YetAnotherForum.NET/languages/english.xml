@@ -923,6 +923,8 @@
       <Resource tag="UNREAD1">You have {0} unread message in your inbox.</Resource>
       <Resource tag="VIEWING">({0} Viewing)</Resource>
       <Resource tag="STATS_BIRTHDAYS">Today's Birthdays: </Resource>
+	  <Resource tag="RECENT_USERS">Recent Users</Resource>
+	  <Resource tag="RECENT_ONLINE_USERS">{0} Users where online within the last 24 hours, and {1} within the last 30 days.</Resource>
    </page>
    <page name="DELETEMESSAGE">
       <Resource tag="DELETE">Delete</Resource>
@@ -1033,7 +1035,7 @@
       <Resource tag="RECOVER_ERROR">There was an error when creating your new password.</Resource>
       <Resource tag="SENDPASSWORD">Send Password</Resource>
       <Resource tag="TITLE">Login</Resource>
-      <Resource tag="USERNAME">User Name:</Resource>
+      <Resource tag="USERNAME">User Name or E-Mail Address:</Resource>
       <Resource tag="WRONG_USERNAME_EMAIL">Wrong user name or email address.</Resource>
    </page>
    <page name="MEMBERS">
@@ -1141,6 +1143,7 @@
       <Resource tag="LAST_MONTH">last month</Resource>
       <Resource tag="LAST_TWO_DAYS">last two days</Resource>
       <Resource tag="LAST_TWO_HOURS">last two hours</Resource>
+	  <Resource tag="LAST_EIGHT_HOURS">last 8 hours</Resource>
       <Resource tag="LAST_TWO_WEEKS">last two weeks</Resource>
       <Resource tag="LAST_VISIT">last visit at {0}</Resource>
       <Resource tag="LAST_WEEK">last week</Resource>
@@ -3292,8 +3295,8 @@ Visit {forumname} at {forumlink}
 	 <Resource tag="SPAM_MESSAGE_0">Do nothing</Resource>
 	 <Resource tag="SPAM_MESSAGE_1">Flag Message as Unapproved</Resource>
 	 <Resource tag="SPAM_MESSAGE_2">Reject Message</Resource>
-
-       
+     <Resource tag="SHOW_RECENT_USERS">Show Recent Users in Forum Info:</Resource>
+     <Resource tag="SHOW_RECENT_USERS_HELP">Enable to Show Recent Users within the last 24 hours in the forum info on board index page.</Resource>
    </page>
 	  <page name="ADMIN_TEST_DATA">
 	   <Resource tag="TITLE">Create Test Data (DEBUG Only)</Resource>

@@ -2146,6 +2146,24 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox ShowForumStatistics;
         
         /// <summary>
+        /// HelpLabel190 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel190;
+        
+        /// <summary>
+        /// ShowRecentUsers control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ShowRecentUsers;
+        
+        /// <summary>
         /// HelpLabel163 control.
         /// </summary>
         /// <remarks>
