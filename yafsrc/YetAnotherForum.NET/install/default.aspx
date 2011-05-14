@@ -1,4 +1,4 @@
-<%@ Page Language="c#" AutoEventWireup="True" Inherits="YAF.Install._default" CodeBehind="default.aspx.cs" %>
+﻿<%@ Page Language="c#" AutoEventWireup="True" Inherits="YAF.Install._default" CodeBehind="default.aspx.cs" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -9,7 +9,7 @@
         content="text/css" />
     <title>Yet Another Forum.NET Installation</title>
    <link type="text/css" rel="stylesheet" href="wizard.css" />
-   <script src="../resources/js/jquery-1.5.min.js" type="text/javascript"></script>    
+   <script src="../resources/js/jquery.min.js" type="text/javascript"></script>    
 </head>
 <body>
     <form id="Form1" runat="server">

@@ -1616,7 +1616,7 @@
     <Content Include="resources\images\loader.gif" />
     <Content Include="resources\images\loading-white.gif" />
     <Content Include="resources\js\DataPanel.js" />
-    <Content Include="resources\js\jquery-1.5.2.min.js" />
+    <Content Include="resources\js\jquery.min.js" />
     <Content Include="resources\js\jquery.blockUI.js" />
     <Content Include="resources\js\jquery.ceebox-min.js" />
     <Content Include="resources\js\jquery.pagemethod.js" />
