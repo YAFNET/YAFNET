@@ -5689,6 +5689,7 @@ begin
 			c.TopicMovedID,
 			FavoriteCount = (SELECT COUNT(1) as [FavoriteCount] FROM [{databaseOwner}].[{objectQualifier}FavoriteTopic] WHERE TopicId = IsNull(c.TopicMovedID,c.TopicID)),
 			[Subject] = c.Topic,
+			c.[Description],
 			c.UserID,
 			Starter = IsNull(c.UserName,b.Name),
 			Replies = c.NumPosts - 1,
