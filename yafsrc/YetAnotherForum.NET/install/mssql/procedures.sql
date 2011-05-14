@@ -6,6 +6,10 @@
   Remove Extra Stuff: SET ANSI_NULLS ON\nGO\nSET QUOTED_IDENTIFIER ON\nGO\n\n\n 
 */
 
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}recent_users]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}recent_users]
+GO
+
 IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_thankedmessage]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_thankedmessage]
 GO
@@ -9297,3 +9301,33 @@ begin
         FROM [{databaseOwner}].[{objectQualifier}Thanks] AS TH WHERE (TH.MessageID=@MessageID) AND (TH.ThanksFromUserID = @UserID)
 end
 GO
+
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}recent_users](@BoardID int,@TimeSinceLastLogin int,@StyledNicks bit=0) as
+begin  
+    SELECT U.UserId,
+    IsCrawler = 0,
+    UserCount = 1,
+    IsHidden = (IsActiveExcluded),
+    Style = CASE(@StyledNicks)
+                WHEN 1 THEN
+                        ISNULL ((SELECT TOP 1 G.Style
+                         FROM [{databaseOwner}].[{objectQualifier}UserGroup] AS UG
+                              JOIN [{databaseOwner}].[{objectQualifier}Group] G on G.GroupID=UG.GroupID
+                              WHERE UG.UserID=U.UserID AND LEN(G.Style) > 2 
+                              ORDER BY G.SortOrder), '')
+                ELSE ''
+            END
+    FROM [{databaseOwner}].[{objectQualifier}User] AS U
+                JOIN [{databaseOwner}].[{objectQualifier}Rank] R on R.RankID=U.RankID
+    WHERE (U.IsApproved = '1') AND
+     U.BoardID = @BoardID AND
+     (DATEADD(mi, 0 - @TimeSinceLastLogin, GETDATE()) < U.LastVisit) AND
+                --Excluding guests
+                NOT EXISTS(             
+                    SELECT 1 
+                        FROM [{databaseOwner}].[{objectQualifier}UserGroup] x
+                            inner join [{databaseOwner}].[{objectQualifier}Group] y ON y.GroupID=x.GroupID 
+                        WHERE x.UserID=U.UserID and (y.Flags & 2)<>0
+                    )
+    ORDER BY U.LastVisit
+end
