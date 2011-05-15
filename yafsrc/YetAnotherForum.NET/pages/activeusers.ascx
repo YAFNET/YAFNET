@@ -7,7 +7,7 @@
 <YAF:Pager runat="server" ID="Pager" OnPageChange="Pager_PageChange" />
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
 	<tr>
-		<td class="header1" colspan="7">
+		<td class="header1" colspan='<%# this.PageContext.IsAdmin ? 8 : 7 %>'> 
 			<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="title" />
 		</td>
 	</tr>
@@ -32,6 +32,9 @@
 		</td>
 		<td class="header2">
 			<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="platform" />
+		</td>
+        <td id="Iptd_header1" class="header2" runat="server" visible='<%# this.PageContext.IsAdmin %>'>
+			<strong>IP</strong>
 		</td>
 	</tr>
 	<asp:Repeater ID="UserList" runat="server">
@@ -62,11 +65,16 @@
 				<td class="post">
 					<%# Eval("Platform") %>
 				</td>
+                <td id="Iptd1" class="post" runat="server" visible='<%# this.PageContext.IsAdmin %>'>
+					 <a id="Iplink1" href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,Eval("IP")) %>'
+                            title='<%# this.GetText("COMMON","TT_IPDETAILS") %>' target="_blank" runat="server">
+                            <%# Eval("IP") %></a>
+				</td>
 			</tr>	
 		</ItemTemplate>
 		<FooterTemplate>
 			<tr class="footer1">
-		    <td colspan="7" align="center">            
+		    <td colspan='<%# this.PageContext.IsAdmin ? 8 : 7 %>' align="center">            
             <YAF:ThemeButton ID="btnReturn" runat="server" CssClass="yafcssbigbutton rightItem"
                 TextLocalizedPage="COMMON" TextLocalizedTag="OK" TitleLocalizedPage="COMMON" TitleLocalizedTag="OK" OnClick="btnReturn_Click" />                
             </td>
