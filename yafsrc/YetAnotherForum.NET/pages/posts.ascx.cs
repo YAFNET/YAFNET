@@ -421,8 +421,7 @@ namespace YAF.Pages
             {
                 YafBuildLink.AccessDenied(/*"You are not a forum moderator."*/);
             }
-
-            YafBuildLink.Redirect(ForumPages.movetopic, "t={0}", this.PageContext.PageTopicID);
+            
         }
 
         /// <summary>
@@ -441,8 +440,6 @@ namespace YAF.Pages
                 this.PageContext.AddLoadMessage(this.GetText("WARN_FORUM_LOCKED"));
                 return;
             }
-
-            YafBuildLink.Redirect(ForumPages.postmessage, "f={0}", this.PageContext.PageForumID);
         }
 
         /// <summary>
@@ -618,6 +615,11 @@ namespace YAF.Pages
                       YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
                 }
 
+                this.NewTopic2.NavigateUrl=
+                    this.NewTopic1.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.postmessage, "f={0}", this.PageContext.PageForumID);
+                this.MoveTopic1.NavigateUrl =
+                    this.MoveTopic2.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.movetopic, "t={0}", this.PageContext.PageTopicID);
+                
                 this.QuickReply.Text = this.GetText("POSTMESSAGE", "SAVE");
                 this.DataPanel1.TitleText = this.GetText("QUICKREPLY");
                 this.DataPanel1.ExpandText = this.GetText("QUICKREPLY_SHOW");
