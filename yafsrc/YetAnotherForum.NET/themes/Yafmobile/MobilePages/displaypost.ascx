@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" CodeBehind="../../../controls/displaypost.ascx.cs"
+﻿<%@ Control Language="c#" AutoEventWireup="True" CodeBehind="../../../controls/displaypost.ascx.cs"
     Inherits="YAF.Controls.DisplayPost" EnableViewState="false" %>
 <%@ Register TagPrefix="YAF" TagName="DisplayPostFooter" Src="../../../controls/DisplayPostFooter.ascx" %>
 <%@ Import Namespace="YAF.Core" %>
@@ -10,6 +10,8 @@
                     TitleLocalizedTag="BUTTON_THANKS_TT" />
             </span>    
             <asp:PlaceHolder ID="buttonsMobile" runat="server" Visible="false">
+            <YAF:ThemeButton ID="Retweet" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_RETWEET"
+                TitleLocalizedTag="BUTTON_RETWEET_TT" />
             <YAF:ThemeButton ID="Attach" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_ATTACH"
                 TitleLocalizedTag="BUTTON_ATTACH_TT" />
             <YAF:ThemeButton ID="MovePost" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_MOVE"

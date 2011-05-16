@@ -1,4 +1,4 @@
-<%@ Control Language="c#" CodeBehind="../../../pages/posts.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.posts" %>
+﻿<%@ Control Language="c#" CodeBehind="../../../pages/posts.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.posts" %>
 <%@ Import Namespace="YAF.Core" %>
 <%@ Register TagPrefix="YAF" TagName="DisplayPost" Src="DisplayPost.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="DisplayAd" Src="../../../controls/DisplayAd.ascx" %>
@@ -38,6 +38,9 @@
                 <asp:Label ID="TopicTitle" runat="server" />
             </div>
             <div class="rightItem"  runat="server" visible="false">
+                <asp:HyperLink ID="ShareLink" runat="server" CssClass="PopMenuLink">
+                    <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="Share" />
+                </asp:HyperLink>
                 <asp:HyperLink ID="OptionsLink" runat="server">
                     <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="Options" />
                 </asp:HyperLink>
@@ -172,6 +175,7 @@
     <YAF:PageAccess ID="PageAccess1" runat="server" />
 </div>
 </asp:PlaceHolder>
+<YAF:PopMenu ID="ShareMenu" runat="server" Control="ShareLink" />
 <asp:UpdatePanel ID="PopupMenuUpdatePanel" runat="server">
     <ContentTemplate>
         <YAF:PopMenu runat="server" ID="OptionsMenu" Control="OptionsLink" />
