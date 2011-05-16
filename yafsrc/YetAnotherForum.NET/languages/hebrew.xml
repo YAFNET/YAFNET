@@ -586,6 +586,8 @@
   <page name="ADMIN_EDITNNTPFORUM">
     <Resource tag="ACTIVE">Active:</Resource>
     <Resource tag="ACTIVE_HELP">Check this to make the forum active.</Resource>
+    <Resource tag="DATECUTOFF">Cut Off Date for Messages:</Resource>
+    <Resource tag="DATECUTOFF_HELP">Messages should not be downloaded if they are older than this date.</Resource>
     <Resource tag="FORUM">Forum:</Resource>
     <Resource tag="FORUM_HELP">The forum messages will be inserted into.</Resource>
     <Resource tag="GROUP">Group:</Resource>

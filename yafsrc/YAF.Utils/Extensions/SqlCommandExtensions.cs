@@ -1,0 +1,173 @@
+/* Yet Another Forum.net
+ * Copyright (C) 2006-2011 Jaben Cargman
+ * http://www.yetanotherforum.net/
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+namespace YAF.Utils
+{
+  using System;
+  using System.Collections.Generic;
+  using System.Data;
+  using System.Data.Common;
+  using System.Dynamic;
+  using System.Linq;
+
+  using YAF.Types;
+
+  public static class SqlCommandExtensions
+  {
+		/// <summary>
+		/// Extension method for adding in a bunch of parameters
+		/// </summary>
+		/// <param name="cmd">
+		/// The cmd.
+		/// </param>
+		/// <param name="parameters">
+		/// </param>
+		/// <param name="excludeNames">
+		/// List of parameter exclusions.
+		/// </param>
+		public static void AddDynamicParams(
+			[NotNull] this DbCommand cmd, [NotNull] dynamic parameters, params string[] excludeNames)
+		{
+			CodeContracts.ArgumentNotNull(cmd, "cmd");
+			CodeContracts.ArgumentNotNull(parameters, "parameters");
+
+			IDictionary<string, object> dictionary = ((object)parameters).AnyToDictionary();
+
+			var excludeList = new List<string>();
+
+			if (excludeNames != null)
+			{
+				excludeList.AddRange(excludeNames.Select(x => x.ToLower()));
+			}
+
+			foreach (var item in dictionary.Where(x => !excludeList.Contains(x.Key.ToLower())))
+			{
+				AddParam(cmd, item);
+			}
+		}
+
+		/// <summary>
+		/// Extension method for adding in a bunch of parameters
+		/// </summary>
+		/// <param name="cmd">
+		/// The cmd.
+		/// </param>
+		/// <param name="args">
+		/// The args.
+		/// </param>
+		public static void AddParams(this DbCommand cmd, object[] args)
+		{
+			foreach (var item in args)
+			{
+				AddParam(cmd, item);
+			}
+		}
+
+		/// <summary>
+		/// Extension method for adding a parameter
+		/// </summary>
+		/// <param name="cmd">
+		/// The cmd.
+		/// </param>
+		/// <param name="item">
+		/// The item.
+		/// </param>
+		public static void AddParam([NotNull] this DbCommand cmd, [NotNull] object item)
+		{
+		  CodeContracts.ArgumentNotNull(cmd, "cmd");
+		  CodeContracts.ArgumentNotNull(item, "item");
+
+		  if (item is KeyValuePair<string, object>)
+			{
+				AddParam(cmd, (KeyValuePair<string, object>)item);
+			}
+			else
+			{
+				AddParam(cmd, new KeyValuePair<string, object>(null, item));
+			}
+		}
+
+    /// <summary>
+		/// Extension method for adding a parameter
+		/// </summary>
+		/// <param name="cmd">
+		/// The cmd.
+		/// </param>
+		/// <param name="item">
+		/// The item.
+		/// </param>
+		public static void AddParam([NotNull] this DbCommand cmd, [NotNull] string name, [NotNull] object item)
+    {
+      CodeContracts.ArgumentNotNull(cmd, "cmd");
+      CodeContracts.ArgumentNotNull(name, "name");
+      CodeContracts.ArgumentNotNull(item, "item");
+
+      AddParam(cmd, new KeyValuePair<string, object>(name, item));
+    }
+
+    /// <summary>
+		/// Extension for adding single parameter named or automatically named by number (1, 2, 3, 4, etc.)
+		/// </summary>
+		/// <param name="cmd">
+		/// The cmd.
+		/// </param>
+		/// <param name="param">
+		/// The param.
+		/// </param>
+		public static void AddParam([NotNull] this DbCommand cmd, KeyValuePair<string, object> param)
+		{
+		  CodeContracts.ArgumentNotNull(cmd, "cmd");
+
+		  var item = param.Value;
+
+			var p = cmd.CreateParameter();
+
+			p.ParameterName = "@{0}".FormatWith(param.Key.IsSet() ? param.Key : cmd.Parameters.Count.ToString());
+
+			if (item == null)
+			{
+				p.Value = DBNull.Value;
+			}
+			else
+			{
+				if (item is Guid)
+				{
+					p.Value = item.ToString();
+					p.DbType = DbType.String;
+					p.Size = 4000;
+				}
+				else if (item.GetType() == typeof(ExpandoObject))
+				{
+					var d = (IDictionary<string, object>)item;
+					p.Value = d.Values.FirstOrDefault();
+				}
+				else
+				{
+					p.Value = item;
+				}
+
+				if (item is string)
+				{
+					p.Size = 4000;
+				}
+			}
+
+			cmd.Parameters.Add(p);
+		}
+  }
+}

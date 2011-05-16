@@ -5,12 +5,13 @@
     <table class="content" cellspacing="1" cellpadding="0" width="100%">
         <tr>
             <td class="header1" colspan="2">
-               <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_EDITNNTPFORUM" />
+                <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_EDITNNTPFORUM" />
             </td>
         </tr>
         <tr>
-			    <td class="header2" height="30" colspan="2"></td>
-		</tr>
+            <td class="header2" height="30" colspan="2">
+            </td>
+        </tr>
         <tr>
             <td class="postheader" width="50%">
                 <YAF:HelpLabel ID="LocalizedLabel2" runat="server" LocalizedTag="SERVER" LocalizedPage="ADMIN_EDITNNTPFORUM" />
@@ -33,6 +34,14 @@
             </td>
             <td class="post">
                 <asp:DropDownList ID="ForumID" runat="server" Width="250" />
+            </td>
+        </tr>
+        <tr>
+            <td class="postheader">
+                <YAF:HelpLabel ID="HelpLabel10" runat="server" LocalizedTag="DATECUTOFF" LocalizedPage="ADMIN_EDITNNTPFORUM" />
+            </td>
+            <td class="post">
+                <asp:TextBox Width="250" ID="DateCutOff" runat="server" Enabled="true" />
             </td>
         </tr>
         <tr>

@@ -563,6 +563,8 @@
   <page name="ADMIN_EDITNNTPFORUM">
     <Resource tag="ACTIVE">Активен:</Resource>
     <Resource tag="ACTIVE_HELP">Включите, чтобы сделать сервер активным.</Resource>
+    <Resource tag="DATECUTOFF">Cut Off Date for Messages:</Resource>
+    <Resource tag="DATECUTOFF_HELP">Messages should not be downloaded if they are older than this date.</Resource>
     <Resource tag="FORUM">Форум:</Resource>
     <Resource tag="FORUM_HELP">Название форума, куда будут добавляться сообщения.</Resource>
     <Resource tag="GROUP">Группа новостей:</Resource>

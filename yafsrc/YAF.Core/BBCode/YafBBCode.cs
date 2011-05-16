@@ -224,6 +224,9 @@ namespace YAF.Core.BBCode
     /// </summary>
     private static readonly string _rgxUnderline = @"\[U\](?<inner>(.*?))\[/U\]";
 
+
+    private static readonly string _rgxEasyQuote = @"(\>)\s(?<inner>(.*?))$";
+
     /// <summary>
     /// The _rgx url 1.
     /// </summary>
@@ -518,15 +521,19 @@ namespace YAF.Core.BBCode
                     new[]
                         {
                             "http://"
-                        }));           
+                        }));
+
+            // add easy quoting...
+            var easyQuoteRule = new SimpleRegexReplaceRule(_rgxEasyQuote, @"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=""easyquote"">${inner}</span>", RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
             // basic hr and br rules
-            var hrRule = new SingleRegexReplaceRule(_rgxHr, "<hr />", _options | RegexOptions.Multiline);
+            var hrRule = new SingleRegexReplaceRule(_rgxHr, "<hr />", RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
             // Multiline, since ^ must match beginning of line
-            var brRule = new SingleRegexReplaceRule(_rgxBr, "<br />", _options | RegexOptions.Multiline) { RuleRank = hrRule.RuleRank + 1 };
+            var brRule = new SingleRegexReplaceRule(_rgxBr, "<br />", RegexOptions.IgnoreCase | RegexOptions.Multiline) { RuleRank = hrRule.RuleRank + 1 };
 
             // Ensure the newline rule is processed after the HR rule, otherwise the newline characters in the HR regex will never match
+            ruleEngine.AddRule(easyQuoteRule);
             ruleEngine.AddRule(hrRule);
             ruleEngine.AddRule(brRule);
         }

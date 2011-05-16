@@ -21,11 +21,14 @@ namespace YAF.Core.Nntp
 {
   using System;
   using System.Collections;
+  using System.Collections.Generic;
   using System.IO;
   using System.Net.Sockets;
   using System.Runtime.CompilerServices;
   using System.Text;
   using System.Text.RegularExpressions;
+
+  using YAF.Types;
 
   /// <summary>
   /// The nntp connection.
@@ -393,12 +396,11 @@ namespace YAF.Core.Nntp
       string response = null;
       var list = new ArrayList();
       var sb = new StringBuilder();
-      Attachment attach = null;
       MemoryStream ms = null;
       this.sr.Read(buff, 0, 1);
       int i = 0;
-      byte[] bytes = null;
       Match m = null;
+
       while ((response = this.sr.ReadLine()) != null)
       {
         if (buff[0] == '.')
@@ -423,9 +425,9 @@ namespace YAF.Core.Nntp
             }
 
             ms.Seek(0, SeekOrigin.Begin);
-            bytes = new byte[ms.Length];
+            byte[] bytes = new byte[ms.Length];
             ms.Read(bytes, 0, (int) ms.Length);
-            attach = new Attachment(messageId + " - " + m.Groups[1].ToString(), m.Groups[1].ToString(), bytes);
+            Attachment attach = new Attachment(messageId + " - " + m.Groups[1].ToString(), m.Groups[1].ToString(), bytes);
             list.Add(attach);
             ms.Close();
             i++;
@@ -468,8 +470,7 @@ namespace YAF.Core.Nntp
         NntpUtil.DispatchMIMEContent(this.sr, part, ".");
         sb = new StringBuilder();
         attachmentList = new ArrayList();
-        body = new ArticleBody();
-        body.IsHtml = true;
+        body = new ArticleBody { IsHtml = true };
         this.ConvertMIMEContent(messageId, part, sb, attachmentList);
         body.Text = sb.ToString();
         body.Attachments = (Attachment[]) attachmentList.ToArray(typeof (Attachment));
@@ -792,7 +793,7 @@ namespace YAF.Core.Nntp
     /// <exception cref="Exception">
     /// </exception>
     [MethodImpl(MethodImplOptions.Synchronized)]
-    public ArrayList GetArticleList(int low, int high)
+    public IList<Article> GetArticleList(int low, int high)
     {
       if (this.connectedServer == null)
       {
@@ -810,10 +811,9 @@ namespace YAF.Core.Nntp
         throw new NntpException(res.Code, res.Request);
       }
 
-      var list = new ArrayList();
+      var list = new List<Article>();
       Article article = null;
       string[] values = null;
-      int i;
       string response = null;
       while ((response = this.sr.ReadLine()) != null && response != ".")
       {
@@ -824,17 +824,10 @@ namespace YAF.Core.Nntp
           article.ArticleId = int.Parse(values[0]);
           article.Header.Subject = NntpUtil.Base64HeaderDecode(values[1]);
           article.Header.From = NntpUtil.Base64HeaderDecode(values[2]);
-          i = values[3].IndexOf(',');
+          int i = values[3].IndexOf(',');
           article.Header.Date = DateTime.Parse(values[3].Substring(i + 1, values[3].Length - 7 - i));
           article.MessageId = values[4];
-          if (values[5].Trim().Length == 0)
-          {
-            article.Header.ReferenceIds = new string[0];
-          }
-          else
-          {
-            article.Header.ReferenceIds = values[5].Split(' ');
-          }
+          article.Header.ReferenceIds = values[5].Trim().Length == 0 ? new string[0] : values[5].Split(' ');
 
           if (values.Length < 8 || values[7] == null || values[7].Trim() == string.Empty)
           {
@@ -912,15 +905,11 @@ namespace YAF.Core.Nntp
 
       article.MessageId = res.Message.Substring(i + 1, end);
       MIMEPart part = null;
+
       article.Header = this.GetHeader(messageId, out part);
-      if (part == null)
-      {
-        article.Body = this.GetNormalBody(messageId);
-      }
-      else
-      {
-        article.Body = this.GetMIMEBody(messageId, part);
-      }
+      article.MimePart = part;
+
+      article.Body = article.MimePart == null ? this.GetNormalBody(article.MessageId) : this.GetMIMEBody(article.MessageId, article.MimePart);
 
       return article;
     }

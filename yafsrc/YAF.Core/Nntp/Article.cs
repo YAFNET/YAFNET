@@ -152,5 +152,7 @@ namespace YAF.Core.Nntp
         this.children = value;
       }
     }
+
+    public MIMEPart MimePart { get; set; }
   }
 }

@@ -22,17 +22,14 @@ namespace YAF.Core.Nntp
   #region Using
 
   using System;
-  using System.Collections;
   using System.Data;
   using System.Data.SqlClient;
-  using System.IO;
   using System.Linq;
-  using System.Reflection;
-  using System.Text;
   using System.Web;
 
-  using YAF.Core; using YAF.Types.Interfaces;
   using YAF.Classes.Data;
+  using YAF.Types;
+  using YAF.Types.Interfaces;
   using YAF.Utils;
 
   #endregion
@@ -50,14 +47,46 @@ namespace YAF.Core.Nntp
   /// </summary>
   public class YafNntp : INewsreader
   {
-    public ILogger Logger { get; set; }
+    #region Constants and Fields
 
-    public YafNntp(ILogger logger)
+    /// <summary>
+    /// The _application state base.
+    /// </summary>
+    private readonly HttpApplicationStateBase _applicationStateBase;
+
+    #endregion
+
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="YafNntp"/> class.
+    /// </summary>
+    /// <param name="logger">
+    /// The logger.
+    /// </param>
+    /// <param name="applicationStateBase">
+    /// The application state base.
+    /// </param>
+    public YafNntp([NotNull] ILogger logger, [NotNull] HttpApplicationStateBase applicationStateBase)
     {
-      Logger = logger;
+      this._applicationStateBase = applicationStateBase;
+      this.Logger = logger;
     }
 
-    #region Public Methods
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// Gets or sets Logger.
+    /// </summary>
+    public ILogger Logger { get; set; }
+
+    #endregion
+
+    #region Implemented Interfaces
+
+    #region INewsreader
 
     /// <summary>
     /// The read articles.
@@ -77,22 +106,31 @@ namespace YAF.Core.Nntp
     /// <returns>
     /// The read articles.
     /// </returns>
+    /// <exception cref="NntpException"><c>NntpException</c>.</exception>
     public int ReadArticles(object boardID, int lastUpdate, int timeToRun, bool createUsers)
     {
+      if (this._applicationStateBase["WorkingInYafNNTP"] != null)
+      {
+        return 0;
+      }
+
       int guestUserId = UserMembershipHelper.GuestUserId; // Use guests user-id
 
-      //string hostAddress = YafContext.Current.Get<HttpRequestBase>().UserHostAddress;     
-
+      // string hostAddress = YafContext.Current.Get<HttpRequestBase>().UserHostAddress;     
       DateTime dateTimeStart = DateTime.UtcNow;
       int articleCount = 0;
 
       string nntpHostName = string.Empty;
       int nntpPort = 119;
 
+      int count = 0;
+
       var nntpConnection = new NntpConnection();
 
       try
       {
+        this._applicationStateBase["WorkingInYafNNTP"] = true;
+
         // Only those not updated in the last 30 minutes
         using (DataTable forumsDataTable = LegacyDb.nntpforum_list(boardID, lastUpdate, null, true))
         {
@@ -119,11 +157,13 @@ namespace YAF.Core.Nntp
             Newsgroup group = nntpConnection.ConnectGroup(forumDataRow["GroupName"].ToString());
 
             var lastMessageNo = (int)forumDataRow["LastMessageNo"];
-            
-           // start at the bottom...
+
+            // start at the bottom...
             int currentMessage = lastMessageNo == 0 ? group.Low : lastMessageNo + 1;
 
             var nntpForumID = (int)forumDataRow["NntpForumID"];
+
+            var cutOffDate = forumDataRow["DateCutOff"].ToType<DateTime?>() ?? DateTime.MinValue;
 
             for (; currentMessage <= group.High; currentMessage++)
             {
@@ -133,36 +173,57 @@ namespace YAF.Core.Nntp
               {
                 article = nntpConnection.GetArticle(currentMessage);
 
-                string body = article.Body.Text.Trim();
                 string subject = article.Header.Subject.Trim();
-                string fromName = article.Header.From.Trim();
+                string originalName = article.Header.From.Trim();
+                string fromName = originalName;
                 DateTime dateTime = article.Header.Date;
-
-                string externalMessageId = article.MessageId;
-
-                string referenceId = article.Header.ReferenceIds.FirstOrDefault();
 
                 if (dateTime.Year < 1950 || dateTime > DateTime.UtcNow)
                 {
                   dateTime = DateTime.UtcNow;
                 }
 
+                if (dateTime < cutOffDate)
+                {
+                  this.Logger.Debug("Skipped message id {0} due to date being {1}.", currentMessage, dateTime);
+                  continue;
+                }
+
+                if (fromName.IsSet() && fromName.LastIndexOf('<') > 0)
+                {
+                  fromName = fromName.Substring(0, fromName.LastIndexOf('<') - 1);
+                  fromName = fromName.Replace("\"", String.Empty).Trim();
+                }
+                else if (fromName.IsSet() && fromName.LastIndexOf('(') > 0)
+                {
+                  fromName = fromName.Substring(0, fromName.LastIndexOf('(') - 1).Trim();
+                }
+
+                if (fromName.IsNotSet())
+                {
+                  fromName = originalName;
+                }
+
+                string externalMessageId = article.MessageId;
+
+                string referenceId = article.Header.ReferenceIds.LastOrDefault();
+
                 if (createUsers)
                 {
                   guestUserId = LegacyDb.user_nntp(boardID, fromName, string.Empty, article.Header.TimeZoneOffset);
                 }
 
-                body = ReplaceBody(body);
+                string body = this.ReplaceBody(article.Body.Text.Trim());
 
                 LegacyDb.nntptopic_savemessage(
-                  nntpForumID,
-                  subject.Truncate(75),
-                  body,
-                  guestUserId,
-                  fromName.Truncate(100, String.Empty),
-                  "NNTP",
-                  dateTime,
-                  externalMessageId.Truncate(64, String.Empty),
+                  nntpForumID, 
+                  subject.Truncate(75), 
+                  body, 
+                  guestUserId, 
+                  fromName.Truncate(100, String.Empty), 
+                  "NNTP", 
+                  dateTime, 
+                  externalMessageId.Truncate(64, String.Empty), 
                   referenceId.Truncate(64, String.Empty));
 
                 lastMessageNo = currentMessage;
@@ -175,10 +236,20 @@ namespace YAF.Core.Nntp
                 {
                   break;
                 }
+
+                if (count++ > 1000)
+                {
+                  count = 0;
+                  LegacyDb.nntpforum_update(forumDataRow["NntpForumID"], lastMessageNo, guestUserId);
+                }
               }
               catch (NntpException exception)
               {
-                if (exception.ErrorCode != 423)
+                if (exception.ErrorCode >= 900)
+                {
+                  throw;
+                }
+                else if (exception.ErrorCode != 423)
                 {
                   this.Logger.Error(exception, "YafNntp");
                 }
@@ -202,34 +273,50 @@ namespace YAF.Core.Nntp
       finally
       {
         nntpConnection.Disconnect();
+        this._applicationStateBase["WorkingInYafNNTP"] = null;
       }
 
       return articleCount;
     }
 
-    private string ReplaceBody(string body)
+    #endregion
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The replace body.
+    /// </summary>
+    /// <param name="body">
+    /// The body.
+    /// </param>
+    /// <returns>
+    /// The replace body.
+    /// </returns>
+    [NotNull]
+    private string ReplaceBody([NotNull] string body)
     {
       // Incorrect tags fixes which are common in nntp messages and cause display problems.
       // These are spotted ones.
       body = body.Replace("<br>", "<br />");
       body = body.Replace("<hr>", "<hr />");
 
-      //body = "Date: {0}\r\n\r\n".FormatWith(article.Header.Date) + body;
-      //body = "Date parsed: {0}(UTC)\r\n".FormatWith(dateTime) + body;
+      // body = "Date: {0}\r\n\r\n".FormatWith(article.Header.Date) + body;
+      // body = "Date parsed: {0}(UTC)\r\n".FormatWith(dateTime) + body;
 
       //// vzrus: various wrong NNTP tags replacements
 
-      //body = body.Replace("&amp;lt;", "&lt;");
-      //body = body.Replace("&amp;gt;", "&gt;");
-      //body = body.Replace("&lt;br&gt;", "");
-      //body = body.Replace("&lt;hr&gt;", "<hr />");
+      // body = body.Replace("&amp;lt;", "&lt;");
+      // body = body.Replace("&amp;gt;", "&gt;");
+      // body = body.Replace("&lt;br&gt;", "");
+      // body = body.Replace("&lt;hr&gt;", "<hr />");
 
-      //body = body.Replace("&amp;quot;", @"&#34;");
+      // body = body.Replace("&amp;quot;", @"&#34;");
 
       // Innerquote class in yaf terms, should be replaced while displaying     
-      //body = body.Replace("&lt;quote&gt;", @"[quote]");
-      //body = body.Replace("&lt;/quote&gt;", @"[/quote]");
-
+      // body = body.Replace("&lt;quote&gt;", @"[quote]");
+      // body = body.Replace("&lt;/quote&gt;", @"[/quote]");
       return body;
     }
 

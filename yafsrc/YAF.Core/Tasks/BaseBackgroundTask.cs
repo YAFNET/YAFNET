@@ -147,6 +147,9 @@ namespace YAF.Core.Tasks
     [Inject]
     public IServiceLocator ServiceLocator { get; set; }
 
+    [Inject]
+    public ILogger Logger { get; set; }
+
     #endregion
   }
 }

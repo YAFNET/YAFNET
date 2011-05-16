@@ -3849,6 +3849,7 @@ begin
 		b.LastMessageNo,
 		b.LastUpdate,
 		b.Active,
+		b.DateCutOff,
 		ForumName = c.Name
 	from
 		[{databaseOwner}].[{objectQualifier}NntpServer] a
@@ -3865,17 +3866,18 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}nntpforum_save](@NntpForumID int=null,@NntpServerID int,@GroupName nvarchar(100),@ForumID int,@Active bit) as
+create procedure [{databaseOwner}].[{objectQualifier}nntpforum_save](@NntpForumID int=null,@NntpServerID int,@GroupName nvarchar(100),@ForumID int,@Active bit,@DateCutOff datetime = null) as
 begin
 		if @NntpForumID is null
-		insert into [{databaseOwner}].[{objectQualifier}NntpForum](NntpServerID,GroupName,ForumID,LastMessageNo,LastUpdate,Active)
-		values(@NntpServerID,@GroupName,@ForumID,0,DATEADD(d,-1,GETUTCDATE()),@Active)
+		insert into [{databaseOwner}].[{objectQualifier}NntpForum](NntpServerID,GroupName,ForumID,LastMessageNo,LastUpdate,Active,DateCutOff)
+		values(@NntpServerID,@GroupName,@ForumID,0,DATEADD(d,-1,GETUTCDATE()),@Active,@DateCutOff)
 	else
 		update [{databaseOwner}].[{objectQualifier}NntpForum] set
 			NntpServerID = @NntpServerID,
 			GroupName = @GroupName,
 			ForumID = @ForumID,
-			Active = @Active
+			Active = @Active,
+			DateCutOff = @DateCutOff
 		where NntpForumID = @NntpForumID
 end
 GO

@@ -99,7 +99,9 @@ namespace YAF.Core.Tasks
         // we're running this thread now...
         this.IsRunning = true;
 
-        // create the timer...
+        this.Logger.Debug("Starting Background Task {0} Now", this.GetType().Name);
+
+        // create the timer...);
         this._intermittentTimer = new Timer(this.TimerCallback, null, this.StartDelayMs, this.RunPeriodMs);
       }
     }

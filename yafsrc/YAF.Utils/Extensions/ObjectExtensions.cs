@@ -23,7 +23,9 @@ namespace YAF.Utils
   using System;
   using System.Collections;
   using System.Collections.Generic;
+  using System.Collections.Specialized;
   using System.ComponentModel;
+  using System.Dynamic;
   using System.Linq;
   using System.Reflection;
   using System.Text;
@@ -31,6 +33,7 @@ namespace YAF.Utils
   using System.Web.UI;
 
   using YAF.Types;
+  using YAF.Types.Attributes;
 
   #endregion
 
@@ -40,6 +43,19 @@ namespace YAF.Utils
   public static class ObjectExtensions
   {
     #region Public Methods
+
+    /// <summary>
+    /// Turns any object into a Dictionary
+    /// </summary>
+    /// <param name="thingy">
+    /// The thingy.
+    /// </param>
+    public static IDictionary<string, object> AnyToDictionary([NotNull] this object thingy)
+    {
+      CodeContracts.ArgumentNotNull(thingy, "thingy");
+
+      return (IDictionary<string, object>)thingy.ToExpando();
+    }
 
     /// <summary>
     /// Converts an object to a type.
@@ -159,6 +175,28 @@ namespace YAF.Utils
     }
 
     /// <summary>
+    /// Checks if source is in the list provided.
+    /// </summary>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <param name="source">
+    /// </param>
+    /// <param name="list">
+    /// </param>
+    /// <returns>
+    /// The is in.
+    /// </returns>
+    /// <exception cref="ArgumentNullException">
+    /// <paramref name="source"/> is <c>null</c>.
+    /// </exception>
+    public static bool IsIn<T>(this T source, [NotNull] params T[] list)
+    {
+      CodeContracts.ArgumentNotNull(list, "list");
+
+      return list.Contains(source);
+    }
+
+    /// <summary>
     /// Converts the object to the class (T) or returns null if it's not 
     ///   an instance of that class or instance is null.
     /// </summary>
@@ -212,6 +250,46 @@ namespace YAF.Utils
     }
 
     /// <summary>
+    /// Turns the object into an ExpandoObject
+    /// </summary>
+    /// <param name="obj">
+    /// The object.
+    /// </param>
+    /// <returns>
+    /// The to expando.
+    /// </returns>
+    [NotNull]
+    public static dynamic ToExpando([NotNull] this object obj)
+    {
+      CodeContracts.ArgumentNotNull(obj, "obj");
+
+      var result = new ExpandoObject();
+
+      var d = result as IDictionary<string, object>;
+
+      if (obj.GetType() == typeof(ExpandoObject))
+      {
+        return obj;
+      }
+
+      if (obj.GetType().IsSubclassOf(typeof(NameValueCollection)))
+      {
+        var nameValueCollection = (NameValueCollection)obj;
+        nameValueCollection.Cast<string>().Select(
+          key => new KeyValuePair<string, object>(key, nameValueCollection[key])).ToList().ForEach(d.Add);
+      }
+      else
+      {
+        var props = obj.GetType().GetProperties();
+
+        props.Where(p => !p.GetCustomAttributes(typeof(ExcludeAttribute), true).Any()).ToList().ForEach(
+          item => d.Add(item.Name, item.GetValue(obj, null)));
+      }
+
+      return result;
+    }
+
+    /// <summary>
     /// The to generic list.
     /// </summary>
     /// <param name="listObjects">
@@ -257,6 +335,7 @@ namespace YAF.Utils
     /// To embed a pair of {} on the string, simply double them: 
     ///   "I am a {{Literal}}".
     /// </remarks>
+    [NotNull]
     public static string ToString([NotNull] this object anObject, [NotNull] string aFormat)
     {
       return anObject.ToString(aFormat, null);
@@ -286,7 +365,8 @@ namespace YAF.Utils
     ///   "I am a {{Literal}}".
     /// </remarks>
     [NotNull]
-    public static string ToString([NotNull] this object anObject, [NotNull] string aFormat, [NotNull] IFormatProvider formatProvider)
+    public static string ToString(
+      [NotNull] this object anObject, [NotNull] string aFormat, [NotNull] IFormatProvider formatProvider)
     {
       var sb = new StringBuilder();
       Type type = anObject.GetType();
@@ -443,21 +523,6 @@ namespace YAF.Utils
     public static int VerifyInt32([NotNull] object o)
     {
       return Convert.ToInt32(o);
-    }
-
-    /// <summary>
-    /// Checks if source is in the list provided.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="source"></param>
-    /// <param name="list"></param>
-    /// <returns></returns>
-    /// <exception cref="ArgumentNullException"><paramref name="source" /> is <c>null</c>.</exception>
-    public static bool IsIn<T>(this T source, [NotNull] params T[] list)
-    {
-      CodeContracts.ArgumentNotNull(list, "list");
-
-      return list.Contains(source);
     }
 
     #endregion

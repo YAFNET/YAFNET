@@ -475,6 +475,7 @@ if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseO
 		Port			int null,
 		UserName		nvarchar(255) null,
 		UserPass		nvarchar(50) null
+		
 	)
 GO
 
@@ -486,7 +487,8 @@ if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseO
 		ForumID			int not null,
 		LastMessageNo	int not null,
 		LastUpdate		datetime not null,
-		Active			bit not null
+		Active			bit not null,
+		DateCutOff		datetime null
 	)
 GO
 
@@ -1100,6 +1102,10 @@ GO
 
 if exists (select * from syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}nntptopic]') and name='Thread' and prec < 64)
  	alter table [{databaseOwner}].[{objectQualifier}nntptopic] alter column [Thread]	nvarchar (64) NULL 
+GO
+
+if not exists (select * from syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}NntpForum]') and name='DateCutOff')
+ 	alter table [{databaseOwner}].[{objectQualifier}NntpForum] ADD	DateCutOff datetime NULL
 GO
 
 if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='PollGroupID')

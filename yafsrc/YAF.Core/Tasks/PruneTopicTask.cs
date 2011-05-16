@@ -163,13 +163,15 @@ namespace YAF.Core.Tasks
     {
       try
       {
+        this.Logger.Info("Starting Prune Task for ForumID {0}, {1} Days, Perm Delete {2}.", this.ForumId, this.Days, this.PermDelete);
+
         int count = LegacyDb.topic_prune((int)this.Data, this.ForumId, this.Days, this.PermDelete);
 
-        LegacyDb.eventlog_create(null, TaskName, "Prune Task Complete. Pruned {0} topics.".FormatWith(count), 2);
+        this.Logger.Info("Prune Task Complete. Pruned {0} topics.", count);
       }
       catch (Exception x)
       {
-        LegacyDb.eventlog_create(null, TaskName, "Error In Prune Topic Task: {0}".FormatWith(x));
+        this.Logger.Error(x, "Error In Prune Topic Task: {0}", x);
       }
     }
   }

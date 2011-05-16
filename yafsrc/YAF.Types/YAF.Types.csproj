@@ -46,6 +46,7 @@
     <Compile Include="Annotations.cs" />
     <Compile Include="Attributes\AltStringValueAttribute.cs" />
     <Compile Include="Attributes\AssemblyModuleSortOrder.cs" />
+    <Compile Include="Attributes\ExcludeAttribute.cs" />
     <Compile Include="Attributes\ExportServiceAttribute.cs" />
     <Compile Include="Attributes\InjectAttribute.cs" />
     <Compile Include="Attributes\StringValueAttribute.cs" />

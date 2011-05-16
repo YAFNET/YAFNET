@@ -407,6 +407,22 @@
     margin: 0;
 }
 
+.yafnet .easyquote
+{
+    color: green;
+    border-left: 1px solid #555;
+    padding-left: 5px;
+    line-height: 1.2em;
+}
+.yafnet .easyquote .easyquote
+{
+    color: red;
+}
+.yafnet .easyquote .easyquote .easyquote
+{
+    color: Blue;
+}
+
 .yafnet div.postedLeft
 {
     line-height: 30px;
