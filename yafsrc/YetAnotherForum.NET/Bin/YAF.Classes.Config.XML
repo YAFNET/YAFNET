@@ -1378,6 +1378,11 @@
             Gets or sets a value indicating whether to enable Display Name.
             </summary>
         </member>
+        <member name="P:YAF.Classes.YafBoardSettings.EnableTopicDescription">
+            <summary>
+            Gets or sets a value indicating whether to enable topic dwscription.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.YafBoardSettings.JqueryUIThemeCDNHosted">
             <summary>
             Gets or sets a value indicating whether to enable JqueryUIThemeCDNHosted.
@@ -1962,6 +1967,11 @@
             Gets or sets a value indicating whether AvatarRemote.
             </summary>
         </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AvatarGallery">
+            <summary>
+            Gets or sets a value indicating whether Avatar Gallery.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.YafBoardSettings.AvatarGravatar">
             <summary>
             Gets or sets a value indicating whether AvatarGravatar.
@@ -2362,6 +2372,11 @@
         <member name="P:YAF.Classes.YafBoardSettings.ShowForumStatistics">
             <summary>
             Gets or sets a value indicating whether ShowForumStatistics.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ShowRecentUsers">
+            <summary>
+            Gets or sets a value indicating whether Show Recent Users.
             </summary>
         </member>
         <member name="P:YAF.Classes.YafBoardSettings.ShowRulesForRegistration">
