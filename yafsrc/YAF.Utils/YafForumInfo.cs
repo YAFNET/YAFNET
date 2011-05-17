@@ -123,7 +123,7 @@ namespace YAF.Utils
     {
       get
       {
-        return 46;
+        return 47;
       }
     }
 
