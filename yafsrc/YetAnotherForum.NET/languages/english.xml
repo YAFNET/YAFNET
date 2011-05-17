@@ -2323,7 +2323,7 @@ Visit {forumname} at {forumlink}
       <Resource tag="BOARD_THEME">Theme:</Resource>
       <Resource tag="COPYRIGHT_REMOVAL_KEY">Copyright Removal Key:</Resource>
       <Resource tag="COPYRIGHT_REMOVAL_KEY_HELP">
-        <![CDATA[Remove the copyright information and link back to YAF from the footer of your entire forum domain. Available<a href="http://yetanotherforum.net/purchase.aspx">from YAF.NET site</a>. ]]>
+        <![CDATA[Remove the copyright information and link back to YAF from the footer of your entire forum domain. Available <a href="http://yetanotherforum.net/purchase.aspx">from YAF.NET site</a>. ]]>
       </Resource>
       <Resource tag="BOARD_MOBILE_THEME">Mobile Theme:</Resource>
       <Resource tag="BOARD_THEME_LOGO">Allow Themed Logo:</Resource>
