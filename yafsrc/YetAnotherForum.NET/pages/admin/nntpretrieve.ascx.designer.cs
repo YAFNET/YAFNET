@@ -19,7 +19,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.PageLinks PageLinks;
+        protected global::YAF.Controls.PageLinks PageLinks;
         
         /// <summary>
         /// LocalizedLabel1 control.
@@ -28,7 +28,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.LocalizedLabel LocalizedLabel1;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel1;
         
         /// <summary>
         /// List control.
@@ -46,7 +46,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.LocalizedLabel LocalizedLabel3;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel3;
         
         /// <summary>
         /// Seconds control.
@@ -64,7 +64,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.LocalizedLabel LocalizedLabel6;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel6;
         
         /// <summary>
         /// Retrieve control.
@@ -82,6 +82,6 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.SmartScroller SmartScroller1;
+        protected global::YAF.Controls.SmartScroller SmartScroller1;
     }
 }

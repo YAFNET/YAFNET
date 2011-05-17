@@ -1,5 +1,6 @@
 <%@ Control Language="c#" AutoEventWireup="True"
 	Inherits="YAF.Pages.Admin.nntpretrieve" Codebehind="nntpretrieve.ascx.cs" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" %>
 <%@ Import Namespace="YAF.Core"%>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
@@ -10,8 +11,8 @@
                 <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_NNTPRETRIEVE" />
 			</td>
 		</tr>
-		<asp:Repeater runat="server" ID="List">
-			<HeaderTemplate>
+		<asp:Repeater runat="server" ID="List">  
+			<HeaderTemplate>  
 				<tr class="header2">
 					<td>
                         <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="GROUPS" LocalizedPage="ADMIN_NNTPRETRIEVE" />

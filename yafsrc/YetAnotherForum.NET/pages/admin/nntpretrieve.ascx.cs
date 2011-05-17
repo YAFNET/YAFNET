@@ -27,7 +27,6 @@ namespace YAF.Pages.Admin
 
   using YAF.Classes.Data;
   using YAF.Core;
-  using YAF.Core.Nntp;
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Types.Interfaces;
@@ -68,22 +67,22 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        if (this.IsPostBack)
-        {
-            return;
-        }
+      if (this.IsPostBack)
+      {
+        return;
+      }
 
-        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-        this.PageLinks.AddLink(this.GetText("ADMIN_NNTPRETRIEVE", "TITLE"), string.Empty);
+      this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+      this.PageLinks.AddLink(
+        this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+      this.PageLinks.AddLink(this.GetText("ADMIN_NNTPRETRIEVE", "TITLE"), string.Empty);
 
-        this.Page.Header.Title = "{0} - {1}".FormatWith(
-             this.GetText("ADMIN_ADMIN", "Administration"),
-             this.GetText("ADMIN_NNTPRETRIEVE", "TITLE"));
+      this.Page.Header.Title = "{0} - {1}".FormatWith(
+        this.GetText("ADMIN_ADMIN", "Administration"), this.GetText("ADMIN_NNTPRETRIEVE", "TITLE"));
 
-        this.Retrieve.Text = this.GetText("ADMIN_NNTPRETRIEVE", "RETRIEVE");
+      this.Retrieve.Text = this.GetText("ADMIN_NNTPRETRIEVE", "RETRIEVE");
 
-        this.BindData();
+      this.BindData();
     }
 
     /// <summary>
@@ -107,8 +106,7 @@ namespace YAF.Pages.Admin
         this.PageContext.PageBoardID, 10, nSeconds, this.PageContext.BoardSettings.CreateNntpUsers);
 
       this.PageContext.AddLoadMessage(
-        this.GetText("ADMIN_NNTPRETRIEVE", "Retrieved").FormatWith(
-          nArticleCount, (double)nArticleCount / nSeconds));
+        this.GetText("ADMIN_NNTPRETRIEVE", "Retrieved").FormatWith(nArticleCount, (double)nArticleCount / nSeconds));
       this.BindData();
     }
 
