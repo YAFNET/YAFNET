@@ -3978,9 +3978,10 @@ begin
 
 	if exists(select 1 from [{databaseOwner}].[{objectQualifier}Message] where ExternalMessageId = @ReferenceMessageId)
 	begin
-		-- message exists
+		-- referenced message exists
 		select @TopicID = TopicID, @ReplyTo = MessageID from [{databaseOwner}].[{objectQualifier}Message] where ExternalMessageId = @ReferenceMessageId
 	end else
+	if not exists(select 1 from [{databaseOwner}].[{objectQualifier}Message] where ExternalMessageId = @ExternalMessageId)
 	begin
 		if (@ReferenceMessageId IS NULL)
 		begin
