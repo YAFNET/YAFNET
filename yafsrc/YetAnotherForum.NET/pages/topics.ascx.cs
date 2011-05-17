@@ -139,8 +139,7 @@ namespace YAF.Pages
       {
         YafBuildLink.AccessDenied( /*"You don't have access to post new topics in this forum."*/);
       }
-
-      YafBuildLink.Redirect(ForumPages.postmessage, "f={0}", this.PageContext.PageForumID);
+      
     }
 
       /// <summary>
@@ -171,8 +170,7 @@ namespace YAF.Pages
     protected override void OnInit([NotNull] EventArgs e)
     {
       this.Unload += this.topics_Unload;
-      moderate1.Click += this.moderate_Click;
-      moderate2.Click += this.moderate_Click;
+
       ShowList.SelectedIndexChanged += this.ShowList_SelectedIndexChanged;
       MarkRead.Click += this.MarkRead_Click;
       Pager.PageChange += this.Pager_PageChange;
@@ -224,6 +222,14 @@ namespace YAF.Pages
         this._showTopicListSelected = (this.Get<IYafSession>().ShowList == -1)
                                         ? this.Get<YafBoardSettings>().ShowTopicsDefault
                                         : this.Get<IYafSession>().ShowList;
+
+        this.moderate1.NavigateUrl =
+            this.moderate2.NavigateUrl =
+               YafBuildLink.GetLinkNotEscaped(ForumPages.moderate, "f={0}", this.PageContext.PageForumID);
+
+        this.NewTopic1.NavigateUrl =
+            this.NewTopic2.NavigateUrl =
+                YafBuildLink.GetLinkNotEscaped(ForumPages.postmessage, "f={0}", this.PageContext.PageForumID);
 
         this.HandleWatchForum();
       }
@@ -328,22 +334,7 @@ namespace YAF.Pages
       this.HandleWatchForum();
     }
 
-    /// <summary>
-    /// The moderate_ click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void moderate_Click([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      if (this.PageContext.ForumModeratorAccess)
-      {
-        YafBuildLink.Redirect(ForumPages.moderate, "f={0}", this.PageContext.PageForumID);
-      }
-    }
+
 
     /// <summary>
     /// The bind data.

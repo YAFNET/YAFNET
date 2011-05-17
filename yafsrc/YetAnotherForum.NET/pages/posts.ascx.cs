@@ -616,10 +616,17 @@ namespace YAF.Pages
                 }
 
                 this.NewTopic2.NavigateUrl=
-                    this.NewTopic1.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.postmessage, "f={0}", this.PageContext.PageForumID);
+                    this.NewTopic1.NavigateUrl = 
+                    YafBuildLink.GetLinkNotEscaped(ForumPages.postmessage, "f={0}", this.PageContext.PageForumID);
+
                 this.MoveTopic1.NavigateUrl =
-                    this.MoveTopic2.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.movetopic, "t={0}", this.PageContext.PageTopicID);
-                
+                    this.MoveTopic2.NavigateUrl = 
+                    YafBuildLink.GetLinkNotEscaped(ForumPages.movetopic, "t={0}", this.PageContext.PageTopicID);
+
+                this.PostReplyLink1.NavigateUrl = 
+                    this.PostReplyLink2.NavigateUrl = 
+                    YafBuildLink.GetLinkNotEscaped(ForumPages.postmessage, "t={0}&f={1}", this.PageContext.PageTopicID, this.PageContext.PageForumID);
+
                 this.QuickReply.Text = this.GetText("POSTMESSAGE", "SAVE");
                 this.DataPanel1.TitleText = this.GetText("QUICKREPLY");
                 this.DataPanel1.ExpandText = this.GetText("QUICKREPLY_SHOW");
@@ -739,9 +746,7 @@ namespace YAF.Pages
                     return;
                 }
             }
-
-            YafBuildLink.Redirect(
-              ForumPages.postmessage, "t={0}&f={1}", this.PageContext.PageTopicID, this.PageContext.PageForumID);
+           
         }
 
         /// <summary>
@@ -1759,7 +1764,7 @@ namespace YAF.Pages
                 this.Get<ITheme>().GetItem("ICONS", "EMAIL"));
 
             this.OptionsMenu.AddPostBackItem("print", this.GetText("PRINTTOPIC"), this.Get<ITheme>().GetItem("ICONS", "PRINT"));
-
+        
             if (this.Get<YafBoardSettings>().ShowAtomLink &&
                 this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().PostsFeedAccess))
             {

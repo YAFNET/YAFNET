@@ -105,21 +105,25 @@ namespace YAF.Pages.moderate
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      // Only moderators are allowed here
-      if (!this.PageContext.IsModerator)
-      {
-        YafBuildLink.AccessDenied();
-      }
-
-      // this needs to be done just once, not during postbacks
-      if (!this.IsPostBack)
-      {
-        // create page links
-        this.CreatePageLinks();
-
-        // bind data
-        this.BindData();
-      }
+        // Only moderators are allowed here
+        if (!this.PageContext.ForumModeratorAccess)
+        {
+            YafBuildLink.AccessDenied();
+        }
+        if (!this.PageContext.IsModerator)
+        {
+            YafBuildLink.AccessDenied();
+        }
+        
+        // this needs to be done just once, not during postbacks
+        if (!this.IsPostBack)
+        {
+            // create page links
+            this.CreatePageLinks();
+            
+            // bind data
+            this.BindData();
+        }
     }
 
     /// <summary>
