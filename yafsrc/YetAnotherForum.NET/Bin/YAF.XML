@@ -28561,17 +28561,6 @@
             The e.
             </param>
         </member>
-        <member name="M:YAF.Pages.topics.moderate_Click(System.Object,System.EventArgs)">
-            <summary>
-            The moderate_ click.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
         <member name="M:YAF.Pages.topics.BindData">
             <summary>
             The bind data.
