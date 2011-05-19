@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.register" Codebehind="register.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.register" Codebehind="register.ascx.cs" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <div align="center">
 	<asp:CreateUserWizard ID="CreateUserWizard1" runat="server" StartNextButtonText="Agree"
@@ -81,8 +81,11 @@
 									:</asp:Label></td>
 							<td class="post">
 								<asp:TextBox ID="Email" runat="server"></asp:TextBox>
-								<asp:RequiredFieldValidator ID="EmailRequired" runat="server" ControlToValidate="Email"
+								<asp:RequiredFieldValidator ID="EmailRequired" runat="server" ControlToValidate="Email" 
 									ErrorMessage="E-mail is required." ToolTip="E-mail is required." ValidationGroup="CreateUserWizard1">*</asp:RequiredFieldValidator>
+                                <asp:RegularExpressionValidator ID="EmailValid" runat="server" ValidationGroup="CreateUserWizard1" ControlToValidate="Email"
+                                     ErrorMessage="E-mail adress is not valid." ValidationExpression="^([0-9a-z]+[-._+&])*[0-9a-z]+@([-0-9a-z]+[.])+[a-z]{2,6}$">*
+                                 </asp:RegularExpressionValidator>
 							</td>
 						</tr>
 						<asp:PlaceHolder runat="server" ID="QuestionAnswerPlaceHolder"><tr>

@@ -1,5 +1,5 @@
-/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bjørnar Henden
+ï»¿/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjï¿½rnar Henden
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -35,7 +35,6 @@ namespace YAF.Pages
   using YAF.Classes.Data;
   using YAF.Controls;
   using YAF.Core;
-  using YAF.Core.BBCode;
   using YAF.Core.Services;
   using YAF.Types;
   using YAF.Types.Constants;
@@ -56,7 +55,7 @@ namespace YAF.Pages
     /// <summary>
     ///   Gets User IP Info.
     /// </summary>
-    public IPLocator _userIpLocator;
+    public IPLocator _UserIpLocator;
 
     /// <summary>
     ///   The recPH.
@@ -102,7 +101,7 @@ namespace YAF.Pages
     }
 
     /// <summary>
-    ///   Gets a value indicating whether RecaptchaControl.
+    ///   Gets or sets a value indicating whether RecaptchaControl.
     /// </summary>
     private RecaptchaControl Recupt { get; set; }
 
@@ -204,7 +203,7 @@ namespace YAF.Pages
 
       string displayName = user.UserName;
 
-      if (this.PageContext.BoardSettings.EnableDisplayName)
+      if (this.Get<YafBoardSettings>().EnableDisplayName)
       {
         displayName = this.CreateUserStepContainer.FindControlAs<TextBox>("DisplayName").Text.Trim();
       }
@@ -225,13 +224,13 @@ namespace YAF.Pages
       }
 
       // handle e-mail verification if needed
-      if (this.PageContext.BoardSettings.EmailVerification)
+      if (this.Get<YafBoardSettings>().EmailVerification)
       {
         // get the user email
         this.SendVerificationEmail(user, userID);
       }
 
-      if (this.PageContext.BoardSettings.NotificationOnUserRegisterEmailList.IsSet())
+      if (this.Get<YafBoardSettings>().NotificationOnUserRegisterEmailList.IsSet())
       {
         // send user register notification to the following admin users...
         this.SendRegistrationNotificationEmail(user);
@@ -258,12 +257,10 @@ namespace YAF.Pages
       {
         throw new ArgumentNullException("CreateUserWizard.UserName", "UserName from CreateUserWizard is Null!");
       }
-      else
-      {
-        userName = userName.Trim();
-      }
 
-      // trim username on postback
+        userName = userName.Trim();
+
+        // trim username on postback
       this.CreateUserWizard1.UserName = userName;
 
       // username cannot contain semi-colon or to be a bad word
@@ -282,24 +279,24 @@ namespace YAF.Pages
         return;
       }
 
-      if (userName.Length > this.PageContext.BoardSettings.UserNameMaxLength)
+      if (userName.Length > this.Get<YafBoardSettings>().UserNameMaxLength)
       {
         this.PageContext.AddLoadMessage(
-          this.GetTextFormatted("USERNAME_TOOLONG", this.PageContext.BoardSettings.UserNameMaxLength));
+          this.GetTextFormatted("USERNAME_TOOLONG", this.Get<YafBoardSettings>().UserNameMaxLength));
         e.Cancel = true;
         return;
       }
 
-      if (this.PageContext.BoardSettings.EnableDisplayName)
+      if (this.Get<YafBoardSettings>().EnableDisplayName)
       {
         var displayName = this.CreateUserStepContainer.FindControlAs<TextBox>("DisplayName");
 
         if (displayName != null)
         {
-          if (displayName.Text.Length > this.PageContext.BoardSettings.UserNameMaxLength)
+          if (displayName.Text.Length > this.Get<YafBoardSettings>().UserNameMaxLength)
           {
             this.PageContext.AddLoadMessage(
-              this.GetTextFormatted("USERNAME_TOOLONG", this.PageContext.BoardSettings.UserNameMaxLength));
+              this.GetTextFormatted("USERNAME_TOOLONG", this.Get<YafBoardSettings>().UserNameMaxLength));
             e.Cancel = true;
             return;
           }
@@ -315,7 +312,7 @@ namespace YAF.Pages
       var yafCaptchaText = this.CreateUserStepContainer.FindControlAs<TextBox>("tbCaptcha");
 
       // vzrus: Here recaptcha should be always valid. This piece of code for testing only.
-      if (this.PageContext.BoardSettings.CaptchaTypeRegister == 2)
+      if (this.Get<YafBoardSettings>().CaptchaTypeRegister == 2)
       {
         var recaptcha = this.CreateUserWizard1.FindWizardControlRecursive("Recaptcha1").ToClass<RecaptchaControl>();
 
@@ -326,12 +323,14 @@ namespace YAF.Pages
         }
       }
 
-      // verify captcha if enabled
-      if (this.PageContext.BoardSettings.CaptchaTypeRegister == 1 && !CaptchaHelper.IsValid(yafCaptchaText.Text.Trim()))
-      {
+        // verify captcha if enabled
+        if (this.Get<YafBoardSettings>().CaptchaTypeRegister != 1 || CaptchaHelper.IsValid(yafCaptchaText.Text.Trim()))
+        {
+            return;
+        }
+
         this.PageContext.AddLoadMessage(this.GetText("BAD_CAPTCHA"));
         e.Cancel = true;
-      }
     }
 
     /// <summary>
@@ -345,8 +344,11 @@ namespace YAF.Pages
     /// </param>
     protected void CreateUserWizard1_NextButtonClick([NotNull] object sender, [NotNull] WizardNavigationEventArgs e)
     {
-      if (this.CreateUserWizard1.WizardSteps[e.CurrentStepIndex].ID == "profile")
-      {
+        if (this.CreateUserWizard1.WizardSteps[e.CurrentStepIndex].ID != "profile")
+        {
+            return;
+        }
+
         // this is the "Profile Information" step. Save the data to their profile (+ defaults).
         var timeZones = (DropDownList)this.CreateUserWizard1.FindWizardControlRecursive("TimeZones");
         var locationTextBox = (TextBox)this.CreateUserWizard1.FindWizardControlRecursive("Location");
@@ -388,40 +390,39 @@ namespace YAF.Pages
         int userId = UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey);
 
         LegacyDb.user_save(
-          userId, 
-          this.PageContext.PageBoardID, 
-          null, 
-          null, 
-          null, 
-          timeZones.SelectedValue.ToType<int>(), 
-          null, 
-          null, 
-          null,
-          null,
-          null, 
-          null, 
-          null, 
-          null, 
-          dstUser.Checked, 
-          null, 
-          null);
+            userId, 
+            this.PageContext.PageBoardID, 
+            null, 
+            null, 
+            null, 
+            timeZones.SelectedValue.ToType<int>(), 
+            null, 
+            null, 
+            null,
+            null,
+            null, 
+            null, 
+            null, 
+            null, 
+            dstUser.Checked, 
+            null, 
+            null);
 
-        bool autoWatchTopicsEnabled = this.PageContext.BoardSettings.DefaultNotificationSetting ==
+        bool autoWatchTopicsEnabled = this.Get<YafBoardSettings>().DefaultNotificationSetting ==
                                       UserNotificationSetting.TopicsIPostToOrSubscribeTo;
 
         // save the settings...
         LegacyDb.user_savenotification(
-          userId, 
-          true, 
-          autoWatchTopicsEnabled, 
-          this.PageContext.BoardSettings.DefaultNotificationSetting, 
-          this.PageContext.BoardSettings.DefaultSendDigestEmail);
+            userId, 
+            true, 
+            autoWatchTopicsEnabled, 
+            this.Get<YafBoardSettings>().DefaultNotificationSetting, 
+            this.Get<YafBoardSettings>().DefaultSendDigestEmail);
 
         // Clearing cache with old Active User Lazy Data ...
         this.Get<IDataCache>().Remove(Constants.Cache.ActiveUserLazyData.FormatWith(userId));
 
         this.Get<IRaiseEvent>().Raise(new NewUserRegisteredEvent(user, userId));
-      }
     }
 
     /// <summary>
@@ -452,7 +453,7 @@ namespace YAF.Pages
       {
         this.CreateUserWizard1.MembershipProvider = Config.MembershipProvider;
 
-        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
         this.PageLinks.AddLink(this.GetText("TITLE"));
 
         // handle the CreateUser Step localization
@@ -466,47 +467,47 @@ namespace YAF.Pages
         var timeZones = (DropDownList)this.CreateUserWizard1.FindWizardControlRecursive("TimeZones");
         timeZones.DataSource = StaticDataHelper.TimeZones();
 
-        if (this._userIpLocator == null)
+        if (this._UserIpLocator == null)
         {
           // vzrus: we should always get not null class here
-          this._userIpLocator = new IPDetails().GetData(HttpContext.Current.Request.UserHostAddress, true);
+          this._UserIpLocator = new IPDetails().GetData(HttpContext.Current.Request.UserHostAddress, true);
         }
 
         // fill dst field 
-        if (this._userIpLocator.Isdst.IsSet() && this._userIpLocator.Status.ToUpper() == "OK")
+        if (this._UserIpLocator.Isdst.IsSet() && this._UserIpLocator.Status.ToUpper() == "OK")
         {
-          this.CreateUserWizard1.FindControlRecursiveAs<CheckBox>("DSTUser").Checked = this._userIpLocator.Isdst == "1"
+          this.CreateUserWizard1.FindControlRecursiveAs<CheckBox>("DSTUser").Checked = this._UserIpLocator.Isdst == "1"
                                                                                          ? true
                                                                                          : false;
         }
 
         // fill location field 
-        if (this._userIpLocator.Isdst.IsSet() && this._userIpLocator.Status.ToUpper() == "OK")
+        if (this._UserIpLocator.Isdst.IsSet() && this._UserIpLocator.Status.ToUpper() == "OK")
         {
           // Trying to consume data about user IP whereabouts
-          if (this._userIpLocator.Status == "OK")
+          if (this._UserIpLocator.Status == "OK")
           {
             string txtLoc = String.Empty;
-            if (this._userIpLocator.CountryName.IsSet())
+            if (this._UserIpLocator.CountryName.IsSet())
             {
-              txtLoc += this._userIpLocator.CountryName;
+              txtLoc += this._UserIpLocator.CountryName;
             }
 
-            if (this._userIpLocator.RegionName.IsSet())
+            if (this._UserIpLocator.RegionName.IsSet())
             {
-              txtLoc += ", " + this._userIpLocator.RegionName;
+              txtLoc += ", " + this._UserIpLocator.RegionName;
             }
 
-            if (this._userIpLocator.City.IsSet())
+            if (this._UserIpLocator.City.IsSet())
             {
-              txtLoc += ", " + this._userIpLocator.City;
+              txtLoc += ", " + this._UserIpLocator.City;
             }
 
             this.CreateUserWizard1.FindControlRecursiveAs<TextBox>("Location").Text = txtLoc;
           }
         }
 
-        if (!this.PageContext.BoardSettings.EmailVerification)
+        if (!this.Get<YafBoardSettings>().EmailVerification)
         {
           // automatically log in created users
           this.CreateUserWizard1.LoginCreatedUser = true;
@@ -530,12 +531,11 @@ namespace YAF.Pages
 
         this.DataBind();
         int tz = 0;
-        if (this._userIpLocator.Status == "OK")
+        if (this._UserIpLocator.Status == "OK")
         {
-          if (this._userIpLocator.Gmtoffset.IsSet() && this._userIpLocator.Isdst.IsSet())
+          if (this._UserIpLocator.Gmtoffset.IsSet() && this._UserIpLocator.Isdst.IsSet())
           {
-            tz = (Convert.ToInt32(this._userIpLocator.Gmtoffset) - Convert.ToInt32(this._userIpLocator.Isdst) * 3600) /
-                 60;
+              tz = (this._UserIpLocator.Gmtoffset.ToType<int>() - this._UserIpLocator.Isdst.ToType<int>() * 3600) / 60;
           }
         }
 
@@ -551,9 +551,9 @@ namespace YAF.Pages
       // max user name length
       var usernamelehgthText =
         (LocalizedLabel)this.CreateUserStepContainer.FindControl("LocalizedLabelLohgUserNameWarnText");
-      usernamelehgthText.Param0 = this.PageContext.BoardSettings.UserNameMaxLength.ToString();
+      usernamelehgthText.Param0 = this.Get<YafBoardSettings>().UserNameMaxLength.ToString();
 
-      if (this.PageContext.BoardSettings.CaptchaTypeRegister == 2)
+      if (this.Get<YafBoardSettings>().CaptchaTypeRegister == 2)
       {
         this.SetupRecaptchaControl();
       }
@@ -567,27 +567,24 @@ namespace YAF.Pages
     /// </param>
     private void SendRegistrationNotificationEmail([NotNull] MembershipUser user)
     {
-      string[] emails = this.PageContext.BoardSettings.NotificationOnUserRegisterEmailList.Split(';');
+      string[] emails = this.Get<YafBoardSettings>().NotificationOnUserRegisterEmailList.Split(';');
 
       var notifyAdmin = new YafTemplateEmail();
 
       string subject =
         this.GetText("COMMON", "NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT").FormatWith(
-          this.PageContext.BoardSettings.Name);
+          this.Get<YafBoardSettings>().Name);
 
       notifyAdmin.TemplateParams["{adminlink}"] = YafBuildLink.GetLinkNotEscaped(ForumPages.admin_admin, true);
       notifyAdmin.TemplateParams["{user}"] = user.UserName;
       notifyAdmin.TemplateParams["{email}"] = user.Email;
-      notifyAdmin.TemplateParams["{forumname}"] = this.PageContext.BoardSettings.Name;
+      notifyAdmin.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
 
       string emailBody = notifyAdmin.ProcessTemplate("NOTIFICATION_ON_USER_REGISTER");
 
-      foreach (string email in emails)
+      foreach (string email in emails.Where(email => email.Trim().IsSet()))
       {
-        if (email.Trim().IsSet())
-        {
-          this.Get<ISendMail>().Queue(this.PageContext.BoardSettings.ForumEmail, email.Trim(), subject, emailBody);
-        }
+          this.Get<ISendMail>().Queue(this.Get<YafBoardSettings>().ForumEmail, email.Trim(), subject, emailBody);
       }
     }
 
@@ -613,11 +610,11 @@ namespace YAF.Pages
 
       var verifyEmail = new YafTemplateEmail("VERIFYEMAIL");
 
-      string subject = this.GetTextFormatted("VERIFICATION_EMAIL_SUBJECT", this.PageContext.BoardSettings.Name);
+      string subject = this.GetTextFormatted("VERIFICATION_EMAIL_SUBJECT", this.Get<YafBoardSettings>().Name);
 
       verifyEmail.TemplateParams["{link}"] = YafBuildLink.GetLinkNotEscaped(ForumPages.approve, true, "k={0}", hash);
       verifyEmail.TemplateParams["{key}"] = hash;
-      verifyEmail.TemplateParams["{forumname}"] = this.PageContext.BoardSettings.Name;
+      verifyEmail.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
       verifyEmail.TemplateParams["{forumlink}"] = "{0}".FormatWith(YafForumInfo.ForumURL);
 
       verifyEmail.SendEmail(new MailAddress(email, user.UserName), subject, true);
@@ -634,6 +631,8 @@ namespace YAF.Pages
       var confirmPasswordRequired =
         (RequiredFieldValidator)this.CreateUserStepContainer.FindControl("ConfirmPasswordRequired");
       var emailRequired = (RequiredFieldValidator)this.CreateUserStepContainer.FindControl("EmailRequired");
+      var emailValid = (RegularExpressionValidator)this.CreateUserStepContainer.FindControl("EmailValid");
+
       var questionRequired = (RequiredFieldValidator)this.CreateUserStepContainer.FindControl("QuestionRequired");
       var answerRequired = (RequiredFieldValidator)this.CreateUserStepContainer.FindControl("AnswerRequired");
       var createUser = (Button)this.CreateUserStepContainer.FindControl("StepNextButton");
@@ -643,6 +642,7 @@ namespace YAF.Pages
       confirmPasswordRequired.ToolTip = confirmPasswordRequired.ErrorMessage = this.GetText("RETYPE_PASSWORD");
       passwordNoMatch.ToolTip = passwordNoMatch.ErrorMessage = this.GetText("NEED_MATCH");
       emailRequired.ToolTip = emailRequired.ErrorMessage = this.GetText("NEED_EMAIL");
+      emailValid.ToolTip = emailValid.ErrorMessage = this.GetText("PROFILE", "BAD_EMAIL");
       questionRequired.ToolTip = questionRequired.ErrorMessage = this.GetText("NEED_QUESTION");
       answerRequired.ToolTip = answerRequired.ErrorMessage = this.GetText("NEED_ANSWER");
       createUser.ToolTip = createUser.Text = this.GetText("CREATE_USER");
@@ -650,7 +650,7 @@ namespace YAF.Pages
       var captchaPlaceHolder = (PlaceHolder)this.CreateUserStepContainer.FindControl("YafCaptchaHolder");
       var recaptchaPlaceHolder = (PlaceHolder)this.CreateUserStepContainer.FindControl("RecaptchaPlaceHolder");
 
-      if (this.PageContext.BoardSettings.CaptchaTypeRegister == 1)
+      if (this.Get<YafBoardSettings>().CaptchaTypeRegister == 1)
       {
         var imgCaptcha = this.CreateUserStepContainer.FindControlAs<Image>("imgCaptcha");
 
@@ -663,9 +663,9 @@ namespace YAF.Pages
         captchaPlaceHolder.Visible = false;
       }
 
-      recaptchaPlaceHolder.Visible = this.PageContext.BoardSettings.CaptchaTypeRegister == 2;
+      recaptchaPlaceHolder.Visible = this.Get<YafBoardSettings>().CaptchaTypeRegister == 2;
 
-      this.SetupDisplayNameUI(this.CreateUserStepContainer, this.PageContext.BoardSettings.EnableDisplayName);
+      this.SetupDisplayNameUI(this.CreateUserStepContainer, this.Get<YafBoardSettings>().EnableDisplayName);
 
       var questionAnswerPlaceHolder = (PlaceHolder)this.CreateUserStepContainer.FindControl("QuestionAnswerPlaceHolder");
       questionAnswerPlaceHolder.Visible = this.Get<MembershipProvider>().RequiresQuestionAndAnswer;
@@ -692,8 +692,8 @@ namespace YAF.Pages
     private void SetupRecaptchaControl()
     {
       this.CreateUserWizard1.FindWizardControlRecursive("RecaptchaPlaceHolder").Visible = true;
-      if (string.IsNullOrEmpty(this.PageContext.BoardSettings.RecaptchaPrivateKey) ||
-          string.IsNullOrEmpty(this.PageContext.BoardSettings.RecaptchaPrivateKey))
+      if (string.IsNullOrEmpty(this.Get<YafBoardSettings>().RecaptchaPrivateKey) ||
+          string.IsNullOrEmpty(this.Get<YafBoardSettings>().RecaptchaPrivateKey))
       {
         // this.PageContext.AddLoadMessage(this.GetText("RECAPTCHA_BADSETTING"));              
         LegacyDb.eventlog_create(this.PageContext.PageUserID, this, "Private or public key for Recapture required!");
@@ -703,9 +703,9 @@ namespace YAF.Pages
       this.Recupt = new RecaptchaControl
         {
           ID = "Recaptcha1", 
-          PrivateKey = this.PageContext.BoardSettings.RecaptchaPrivateKey, 
-          PublicKey = this.PageContext.BoardSettings.RecaptchaPublicKey, 
-          AllowMultipleInstances = this.PageContext.BoardSettings.RecaptureMultipleInstances, 
+          PrivateKey = this.Get<YafBoardSettings>().RecaptchaPrivateKey, 
+          PublicKey = this.Get<YafBoardSettings>().RecaptchaPublicKey, 
+          AllowMultipleInstances = this.Get<YafBoardSettings>().RecaptureMultipleInstances, 
           Enabled = true, 
           EnableTheming = true, 
           // 'red' , 'white', 'blackglass' , 'clean' , 'custom'	
