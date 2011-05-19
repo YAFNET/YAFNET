@@ -307,7 +307,7 @@ namespace YAF.DotNetNuke
       RoleMembershipHelper.SetupUserRoles(this.iBoardId, dnnUser.UserName);
 
       // create the user in the YAF DB so profile can ge created...
-      int? userId = RoleMembershipHelper.CreateForumUser(dnnUser, this.iBoardId);
+      int? userId = RoleMembershipHelper.CreateForumUser(dnnUser, dnnUserInfo.DisplayName,  this.iBoardId);
 
       if (userId == null)
       {
@@ -445,10 +445,13 @@ namespace YAF.DotNetNuke
     {
       this.NewUsers = 0;
       bool bRolesChanged = false;
-      
+
+      var users = UserController.GetUsers(this.PortalId);
+      users.Sort(new UserComparer());
+
       try
       {
-        foreach (UserInfo dnnUserInfo in UserController.GetUsers(this.PortalId))
+          foreach (UserInfo dnnUserInfo in users)
         {
           // Get current Dnn user
           // UserInfo dnnUserInfo = UserController.GetUserById(PortalId, UserId);

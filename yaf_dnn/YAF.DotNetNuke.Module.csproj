@@ -11,11 +11,13 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>YAF.DotNetNuke</RootNamespace>
     <AssemblyName>YAF.DotNetNuke.Module</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
+    <UseIISExpress>false</UseIISExpress>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -29,32 +31,24 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\yafsrc\YetAnotherForum.NET\Bin\</OutputPath>
+    <OutputPath>..\YetAnotherForum.NET\Bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>
-    </DocumentationFile>
+    <DocumentationFile>..\YetAnotherForum.NET\Bin\YAF.DotNetNuke.Module.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DotNetNuke">
       <HintPath>Libaries\DotNetNuke.dll</HintPath>
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Web.Extensions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Xml.Linq">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
@@ -62,6 +56,12 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Web.Mobile" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="YAF, Version=1.9.4.0, Culture=neutral, PublicKeyToken=8b49dc47f4701f66, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\YetAnotherForum.NET\Bin\YAF.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\DataController.cs" />
@@ -73,6 +73,7 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="DnnUtils\DnnFileSystem.cs" />
+    <Compile Include="UserComparer.cs" />
     <Compile Include="YafDnnWhatsNew.ascx.cs">
       <DependentUpon>YafDnnWhatsNew.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -123,49 +124,51 @@
     <None Include="DnnModule\YAF_DNNv5.dnn">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="web.config" />
+    <Content Include="web.Debug.config">
+      <DependentUpon>web.config</DependentUpon>
+    </Content>
+    <Content Include="web.Release.config">
+      <DependentUpon>web.config</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\yafsrc\YAF.Classes\YAF.Classes.Config\YAF.Classes.Config.csproj">
+    <ProjectReference Include="..\YAF.Classes\YAF.Classes.Config\YAF.Classes.Config.csproj">
       <Project>{05E50D2F-9527-4CE8-A0F8-168281C426CB}</Project>
       <Name>YAF.Classes.Config</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\yafsrc\YAF.Classes\YAF.Classes.Data\YAF.Classes.Data.csproj">
+    <ProjectReference Include="..\YAF.Classes\YAF.Classes.Data\YAF.Classes.Data.csproj">
       <Project>{9A454596-56DC-4834-A043-F3C1443F859B}</Project>
       <Name>YAF.Classes.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\yafsrc\YAF.Controls\YAF.Controls.csproj">
+    <ProjectReference Include="..\YAF.Controls\YAF.Controls.csproj">
       <Project>{C72A5FC8-4B1C-4A24-A306-FB550729DBF0}</Project>
       <Name>YAF.Controls</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\yafsrc\YAF.Core\YAF.Core.csproj">
+    <ProjectReference Include="..\YAF.Core\YAF.Core.csproj">
       <Project>{BCEFE9BE-7417-47FB-A0E8-75E0201E88E8}</Project>
       <Name>YAF.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\yafsrc\YAF.Providers\YAF.Providers.csproj">
+    <ProjectReference Include="..\YAF.Providers\YAF.Providers.csproj">
       <Project>{95A44CD9-4399-4DB9-823F-1A264083A390}</Project>
       <Name>YAF.Providers</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\yafsrc\YAF.Types\YAF.Types.csproj">
+    <ProjectReference Include="..\YAF.Types\YAF.Types.csproj">
       <Project>{B9CF38B0-39CF-43C7-9589-166DCC665652}</Project>
       <Name>YAF.Types</Name>
     </ProjectReference>
-    <ProjectReference Include="..\yafsrc\YAF.Utils\YAF.Utils.csproj">
+    <ProjectReference Include="..\YAF.Utils\YAF.Utils.csproj">
       <Project>{F80E0025-E57E-4BB5-89F2-CFBCAC1AFCF4}</Project>
       <Name>YAF.Utils</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\yafsrc\YetAnotherForum.NET\YAF.csproj">
-      <Project>{555357E5-A150-4C4D-BC81-97F4AE19086A}</Project>
-      <Name>YAF</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="DnnModule\License.html" />
     <Content Include="DnnModule\ReadMe.html" />
-    <Content Include="star.gif" />
     <Content Include="YafDnnWhatsNew.ascx" />
     <Content Include="module.css" />
     <Content Include="YafDnnWhatsNewSettings.ascx" />

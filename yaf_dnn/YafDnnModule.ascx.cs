@@ -442,7 +442,7 @@ namespace YAF.DotNetNuke
             RoleMembershipHelper.SetupUserRoles(this.forum1.BoardID, dnnUser.UserName);
 
             // create the user in the YAF DB so profile can ge created...
-            int? userId = RoleMembershipHelper.CreateForumUser(dnnUser, this.forum1.BoardID);
+            int? userId = RoleMembershipHelper.CreateForumUser(dnnUser, dnnUserInfo.DisplayName, this.forum1.BoardID);
 
             if (userId == null)
             {
