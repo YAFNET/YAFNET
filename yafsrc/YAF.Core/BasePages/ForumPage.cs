@@ -99,7 +99,7 @@ namespace YAF.Core
         /// <param name="transPage">
         /// The trans page.
         /// </param>
-        public ForumPage([NotNull] string transPage)
+        public ForumPage([CanBeNull] string transPage)
         {
             this.Get<IInjectServices>().Inject(this);
 
@@ -178,7 +178,7 @@ namespace YAF.Core
         /// <summary>
         /// Gets or sets a value indicating whether Is Admin Page.
         /// </summary>
-        public bool IsAdminPage { get; protected set; }
+        public virtual bool IsAdminPage { get; protected set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether Is Protected.
@@ -261,7 +261,7 @@ namespace YAF.Core
         ///   Gets PageName.
         /// </summary>
         [NotNull]
-        public string PageName
+        public virtual string PageName
         {
             get
             {

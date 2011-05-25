@@ -1,5 +1,4 @@
-/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bjørnar Henden
+ï»¿/* Yet Another Forum.NET
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -17,6 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
 namespace YAF.Core
 {
   #region Using
@@ -29,32 +29,27 @@ namespace YAF.Core
   #endregion
 
   /// <summary>
-  /// Admin page with extra security. All admin pages need to be derived from this base class.
+  /// The moderate forum page.
   /// </summary>
-  public class AdminPage : ForumPage
+  public class ModerateForumPage : ForumPage
   {
     #region Constructors and Destructors
 
-    /// <summary>
-    ///   Initializes a new instance of the <see cref = "AdminPage" /> class. 
-    ///   Creates the Administration page.
-    /// </summary>
-    public AdminPage()
+    public ModerateForumPage()
       : this(null)
     {
+
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="AdminPage"/> class.
+    /// Initializes a new instance of the <see cref="ModerateForumPage"/> class.
     /// </summary>
     /// <param name="transPage">
     /// The trans page.
     /// </param>
-    public AdminPage([CanBeNull] string transPage)
+    public ModerateForumPage([CanBeNull] string transPage)
       : base(transPage)
     {
-      this.IsAdminPage = true;
-      this.Load += this.AdminPage_Load;
     }
 
     #endregion
@@ -68,7 +63,7 @@ namespace YAF.Core
     {
       get
       {
-        return "admin_{0}".FormatWith(base.PageName);
+        return "moderate_{0}".FormatWith(base.PageName);
       }
     }
 
@@ -77,7 +72,7 @@ namespace YAF.Core
     #region Methods
 
     /// <summary>
-    /// The admin page_ load.
+    /// The page_ load.
     /// </summary>
     /// <param name="sender">
     /// The sender.
@@ -85,9 +80,10 @@ namespace YAF.Core
     /// <param name="e">
     /// The e.
     /// </param>
-    private void AdminPage_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!this.PageContext.IsAdmin)
+      // Only moderators are allowed here
+      if (!this.PageContext.ForumModeratorAccess || !this.PageContext.IsModerator)
       {
         YafBuildLink.AccessDenied();
       }
