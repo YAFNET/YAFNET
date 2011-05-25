@@ -63,6 +63,8 @@ namespace YAF.Types.Objects
       this.BlogPostID = row.Field<string>("BlogPostID");
       this.PollID = row.Field<int?>("PollID");
       this.IP = row.Field<string>("IP");
+      this.ExternalMessageId = row.Field<string>("ExternalMessageId");
+      this.ReferenceMessageId = row.Field<string>("ReferenceMessageId");
     }
 
     /// <summary>
@@ -128,19 +130,24 @@ namespace YAF.Types.Objects
     /// <param name="ip">
     /// The ip.
     /// </param>
+    /// <param name="replyTo"></param>
+    /// <param name="externalmessageid">
+    /// The externalmessageid.
+    /// </param>
+    /// <param name="referencemessageid">
+    /// The referencemessageid.
+    /// </param>
     public TypedMessageList(
-      int? messageid, 
-      int? userid,  string username, string message, 
-      int? topicid, 
-      int? forumid, string topic, 
-      short? priority, MessageFlags flags, 
-      int? topicownerid, 
-      DateTime? edited, 
-      TopicFlags topicflags, 
-      ForumFlags forumflags, string editreason, 
-      int? position, 
-      bool? ismoderatorchanged, string deletereason, string blogpostid, 
-      int? pollid, string ip)
+      int? messageid,
+      int? userid, [CanBeNull] string username, [CanBeNull] string message, 
+      int? topicid,
+      int? forumid, [CanBeNull] string topic,
+      short? priority, [CanBeNull] MessageFlags flags, 
+      int? topicownerid,
+      DateTime? edited, [CanBeNull] TopicFlags topicflags, [CanBeNull] ForumFlags forumflags, [CanBeNull] string editreason, 
+      int? position,
+      bool? ismoderatorchanged, [CanBeNull] string deletereason, [CanBeNull] string blogpostid,
+      int? pollid, [CanBeNull] string ip, int? replyTo, [CanBeNull] string externalmessageid, [CanBeNull] string referencemessageid)
     {
       this.MessageID = messageid;
       this.UserID = userid;
@@ -162,6 +169,9 @@ namespace YAF.Types.Objects
       this.BlogPostID = blogpostid;
       this.PollID = pollid;
       this.IP = ip;
+      this.ReplyTo = replyTo;
+      this.ExternalMessageId = externalmessageid;
+      this.ReferenceMessageId = referencemessageid;
     }
 
     #endregion
@@ -169,102 +179,114 @@ namespace YAF.Types.Objects
     #region Properties
 
     /// <summary>
-    /// Gets or sets BlogPostID.
+    ///   Gets or sets BlogPostID.
     /// </summary>
     public string BlogPostID { get; set; }
 
     /// <summary>
-    /// Gets or sets DeleteReason.
+    ///   Gets or sets DeleteReason.
     /// </summary>
     public string DeleteReason { get; set; }
 
     /// <summary>
-    /// Gets or sets EditReason.
+    ///   Gets or sets EditReason.
     /// </summary>
     public string EditReason { get; set; }
 
     /// <summary>
-    /// Gets or sets Edited.
+    ///   Gets or sets Edited.
     /// </summary>
     public DateTime? Edited { get; set; }
 
     /// <summary>
-    /// Gets or sets Flags.
+    /// Gets or sets ExternalMessageId.
+    /// </summary>
+    public string ExternalMessageId { get; set; }
+
+    /// <summary>
+    ///   Gets or sets Flags.
     /// </summary>
     public MessageFlags Flags { get; set; }
 
     /// <summary>
-    /// Gets or sets ForumFlags.
+    ///   Gets or sets ForumFlags.
     /// </summary>
     public ForumFlags ForumFlags { get; set; }
 
     /// <summary>
-    /// Gets or sets ForumID.
+    ///   Gets or sets ForumID.
     /// </summary>
     public int? ForumID { get; set; }
 
+    public int? ReplyTo { get; set; }
+
     /// <summary>
-    /// Gets or sets IP.
+    ///   Gets or sets IP.
     /// </summary>
     public string IP { get; set; }
 
     /// <summary>
-    /// Gets or sets IsModeratorChanged.
+    ///   Gets or sets IsModeratorChanged.
     /// </summary>
     public bool? IsModeratorChanged { get; set; }
 
     /// <summary>
-    /// Gets or sets Message.
+    ///   Gets or sets Message.
     /// </summary>
     public string Message { get; set; }
 
     /// <summary>
-    /// Gets or sets MessageID.
+    ///   Gets or sets MessageID.
     /// </summary>
     public int? MessageID { get; set; }
 
     /// <summary>
-    /// Gets or sets PollID.
+    ///   Gets or sets PollID.
     /// </summary>
     public int? PollID { get; set; }
 
     /// <summary>
-    /// Gets or sets Position.
+    ///   Gets or sets Position.
     /// </summary>
     public int? Position { get; set; }
 
     /// <summary>
-    /// Gets or sets Priority.
+    ///   Gets or sets Priority.
     /// </summary>
     public short? Priority { get; set; }
 
     /// <summary>
-    /// Gets or sets Topic.
+    /// Gets or sets ReferenceMessageId.
+    /// </summary>
+    public string ReferenceMessageId { get; set; }
+
+    /// <summary>
+    ///   Gets or sets Topic.
     /// </summary>
     public string Topic { get; set; }
 
     /// <summary>
-    /// Gets or sets TopicFlags.
+    ///   Gets or sets TopicFlags.
     /// </summary>
     public TopicFlags TopicFlags { get; set; }
 
     /// <summary>
-    /// Gets or sets TopicID.
+    ///   Gets or sets TopicID.
     /// </summary>
     public int? TopicID { get; set; }
 
     /// <summary>
-    /// Gets or sets TopicOwnerID.
+    ///   Gets or sets TopicOwnerID.
     /// </summary>
     public int? TopicOwnerID { get; set; }
 
     /// <summary>
-    /// Gets or sets UserID.
+    ///   Gets or sets UserID.
     /// </summary>
     public int? UserID { get; set; }
 
     /// <summary>
-    /// Gets or sets UserName.
+    ///   Gets or sets UserName.
     /// </summary>
     public string UserName { get; set; }
 

@@ -27,7 +27,7 @@
     /// <returns>
     /// The read articles.
     /// </returns>
-    int ReadArticles([NotNull] object boardID, int lastUpdate, int timeToRun, bool createUsers);
+    int ReadArticles([NotNull] int boardID, int lastUpdate, int timeToRun, bool createUsers);
 
     #endregion
   }

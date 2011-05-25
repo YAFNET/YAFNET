@@ -70,8 +70,11 @@ namespace YAF.Utils
 		/// <param name="args">
 		/// The args.
 		/// </param>
-		public static void AddParams(this DbCommand cmd, object[] args)
+		public static void AddParams(this DbCommand cmd, params object[] args)
 		{
+      CodeContracts.ArgumentNotNull(cmd, "cmd");
+      CodeContracts.ArgumentNotNull(args, "args");
+
 			foreach (var item in args)
 			{
 				AddParam(cmd, item);
@@ -87,10 +90,9 @@ namespace YAF.Utils
 		/// <param name="item">
 		/// The item.
 		/// </param>
-		public static void AddParam([NotNull] this DbCommand cmd, [NotNull] object item)
+		public static void AddParam([NotNull] this DbCommand cmd, [CanBeNull] object item)
 		{
 		  CodeContracts.ArgumentNotNull(cmd, "cmd");
-		  CodeContracts.ArgumentNotNull(item, "item");
 
 		  if (item is KeyValuePair<string, object>)
 			{
@@ -111,17 +113,16 @@ namespace YAF.Utils
 		/// <param name="item">
 		/// The item.
 		/// </param>
-		public static void AddParam([NotNull] this DbCommand cmd, [NotNull] string name, [NotNull] object item)
+		public static void AddParam([NotNull] this DbCommand cmd, [NotNull] string name, [CanBeNull] object item)
     {
       CodeContracts.ArgumentNotNull(cmd, "cmd");
       CodeContracts.ArgumentNotNull(name, "name");
-      CodeContracts.ArgumentNotNull(item, "item");
 
       AddParam(cmd, new KeyValuePair<string, object>(name, item));
     }
 
     /// <summary>
-		/// Extension for adding single parameter named or automatically named by number (1, 2, 3, 4, etc.)
+		/// Extension for adding single parameter named or automatically named by number (0, 1, 2, 3, 4, etc.)
 		/// </summary>
 		/// <param name="cmd">
 		/// The cmd.

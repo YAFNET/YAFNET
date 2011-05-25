@@ -99,6 +99,7 @@
     <Compile Include="Interfaces\Extensions\IReadValueExtensions.cs" />
     <Compile Include="Interfaces\Extensions\IServiceLocatorExtensions.cs" />
     <Compile Include="Interfaces\Extensions\KeyValuePairExtensions.cs" />
+    <Compile Include="Interfaces\Extensions\LocatablePageExtension.cs" />
     <Compile Include="Interfaces\IAvatars.cs" />
     <Compile Include="Interfaces\IBackgroundTask.cs" />
     <Compile Include="Interfaces\IBadWordReplace.cs" />
@@ -177,6 +178,7 @@
     <Compile Include="Objects\TypedForumListAll.cs" />
     <Compile Include="Objects\TypedMailList.cs" />
     <Compile Include="Objects\TypedMessageList.cs" />
+    <Compile Include="Objects\TypedNntpForum.cs" />
     <Compile Include="Objects\TypedParameter.cs" />
     <Compile Include="Objects\TypedPollGroup.cs" />
     <Compile Include="Objects\TypedSmileyList.cs" />
