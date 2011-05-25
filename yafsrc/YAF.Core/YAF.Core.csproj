@@ -62,6 +62,9 @@
     <Compile Include="BaseModules\ForumEditor.cs" />
     <Compile Include="BaseModules\MobileThemeForumModule.cs" />
     <Compile Include="BaseModules\YafModuleScanner.cs" />
+    <Compile Include="BasePages\ModerateForumPage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Extensions\MembershipUserExtensions.cs" />
     <Compile Include="Logger\UserAgentLogger.cs" />
     <Compile Include="Tasks\BaseTaskModuleManager.cs" />
