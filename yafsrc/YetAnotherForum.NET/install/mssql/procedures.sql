@@ -1866,7 +1866,7 @@ begin
 	declare	@ForumID				int
 	declare @UserFlags				int
 
-	SET @TimeZone = (SELECT CAST(CAST([Value] as nvarchar(50)) as int) FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE LOWER([Name]) = LOWER('TimeZone'))
+	SET @TimeZone = ISNULL((SELECT CAST(CAST([Value] as nvarchar(50)) as int) FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE LOWER([Name]) = LOWER('TimeZone')), 0)
 	SET @ForumEmail = (SELECT CAST([Value] as nvarchar(50)) FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE LOWER([Name]) = LOWER('ForumEmail'))
 
 	-- Board
@@ -3496,7 +3496,10 @@ BEGIN
 		a.DeleteReason,
 		a.BlogPostID,
 		c.PollID,
-		a.IP
+		a.IP,
+		a.ReplyTo,
+		a.ExternalMessageId,
+		a.ReferenceMessageId
 	FROM
 		[{databaseOwner}].[{objectQualifier}Message] a
 		inner join [{databaseOwner}].[{objectQualifier}User] b on b.UserID = a.UserID
@@ -3655,7 +3658,8 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_save](
 	@Posted			datetime=null,
 	@ReplyTo		int,
 	@BlogPostID		nvarchar(50) = null,
-	@ExternalMessageId nvarchar(64) = null,
+	@ExternalMessageId nvarchar(255) = null,
+	@ReferenceMessageId nvarchar(255) = null,
 	@Flags			int,	
 	@MessageID		int output
 )
@@ -3715,8 +3719,8 @@ BEGIN
 	-- Add points to Users total points
 	UPDATE [{databaseOwner}].[{objectQualifier}User] SET Points = Points + 3 WHERE UserID = @UserID
 
-	INSERT [{databaseOwner}].[{objectQualifier}Message] ( UserID, [Message], TopicID, Posted, UserName, IP, ReplyTo, Position, Indent, Flags, BlogPostID, ExternalMessageId)
-	VALUES ( @UserID, @Message, @TopicID, @Posted, @UserName, @IP, @ReplyTo, @Position, @Indent, @Flags & ~16, @BlogPostID, @ExternalMessageId)	
+	INSERT [{databaseOwner}].[{objectQualifier}Message] ( UserID, [Message], TopicID, Posted, UserName, IP, ReplyTo, Position, Indent, Flags, BlogPostID, ExternalMessageId, ReferenceMessageId)
+	VALUES ( @UserID, @Message, @TopicID, @Posted, @UserName, @IP, @ReplyTo, @Position, @Indent, @Flags & ~16, @BlogPostID, @ExternalMessageId, @ReferenceMessageId)	
 	
 	SET @MessageID = SCOPE_IDENTITY()
 
@@ -3962,8 +3966,8 @@ create procedure [{databaseOwner}].[{objectQualifier}nntptopic_savemessage](
 	@UserName		nvarchar(255),
 	@IP				varchar(39),
 	@Posted			datetime,
-	@ExternalMessageId	nvarchar(64),
-	@ReferenceMessageId nvarchar(64) = null
+	@ExternalMessageId	nvarchar(255),
+	@ReferenceMessageId nvarchar(255) = null
 ) as 
 begin
 	declare	@ForumID	int
@@ -3991,13 +3995,13 @@ begin
 			set @TopicID=SCOPE_IDENTITY()
 
 			insert into [{databaseOwner}].[{objectQualifier}NntpTopic](NntpForumID,Thread,TopicID)
-			values (@NntpForumID,@ExternalMessageId,@TopicID)
+			values (@NntpForumID,NULL,@TopicID)
 		end
 	end
 	
 	IF @TopicID IS NOT NULL
 	BEGIN
-		exec [{databaseOwner}].[{objectQualifier}message_save]  @TopicID, @UserID, @Body, @UserName, @IP, @Posted, @ReplyTo, NULL, @ExternalMessageId, 17, @MessageID OUTPUT
+		exec [{databaseOwner}].[{objectQualifier}message_save]  @TopicID, @UserID, @Body, @UserName, @IP, @Posted, @ReplyTo, NULL, @ExternalMessageId, @ReferenceMessageId, 17, @MessageID OUTPUT
 	END	
 end
 GO
@@ -5865,7 +5869,7 @@ begin
 	set @TopicID = SCOPE_IDENTITY()
 	
 	-- add message to the topic
-	exec [{databaseOwner}].[{objectQualifier}message_save] @TopicID,@UserID,@Message,@UserName,@IP,@Posted,null,@BlogPostID,null,@Flags,@MessageID output
+	exec [{databaseOwner}].[{objectQualifier}message_save] @TopicID,@UserID,@Message,@UserName,@IP,@Posted,null,@BlogPostID,null,null,@Flags,@MessageID output
 
 	select TopicID = @TopicID, MessageID = @MessageID
 end
@@ -6116,7 +6120,7 @@ BEGIN
 		END		
 
 		INSERT INTO [{databaseOwner}].[{objectQualifier}User](BoardID,RankID,[Name],DisplayName,Password,Email,Joined,LastVisit,NumPosts,TimeZone,Flags,ProviderUserKey) 
-		VALUES(@BoardID,@RankID,@UserName,@DisplayName,'-',@Email,GETUTCDATE() ,GETUTCDATE() ,0,(SELECT CAST(CAST(Value AS VARCHAR(5)) AS INT) from [{databaseOwner}].[{objectQualifier}Registry] where Name LIKE 'timezone' and BoardID = @BoardID),@approvedFlag,@ProviderUserKey)
+		VALUES(@BoardID,@RankID,@UserName,@DisplayName,'-',@Email,GETUTCDATE() ,GETUTCDATE() ,0, ISNULL((SELECT CAST(CAST(Value AS VARCHAR(5)) AS INT) from [{databaseOwner}].[{objectQualifier}Registry] where Name LIKE 'timezone' and BoardID = @BoardID), 0),@approvedFlag,@ProviderUserKey)
 	
 		SET @UserID = SCOPE_IDENTITY()	
 	END
