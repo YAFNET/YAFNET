@@ -42,7 +42,7 @@
                     <td class="post">
                         <asp:Label runat="server" ID="RecentUsersCount" />
                         <br />
-                        <YAF:ActiveUsers ID="RecentUsers" runat="server">
+                        <YAF:ActiveUsers ID="RecentUsers" runat="server" InstantId="RecentUsersOneDay">
 						</YAF:ActiveUsers>
                     </td>
                 </tr>
