@@ -83,7 +83,7 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    ///   Gets or sets whether treat displaying of guest users same way as that of hidden users.
+    ///   Gets or sets a value indicating whether treat displaying of guest users same way as that of hidden users.
     /// </summary>
     public bool TreatGuestAsHidden
     {
@@ -97,6 +97,28 @@ namespace YAF.Controls
         this.ViewState["TreatGuestAsHidden"] = value;
       }
     }
+
+    /// <summary> 
+    /// Gets or sets the Instant ID for this control. 
+    /// </summary> 
+    /// <remarks> 
+    /// Multiple instants of this control can exist in the same page but 
+    /// each must have a different instant ID. Not specifying an Instant ID 
+    /// default to the ID being string.Empty. 
+    /// </remarks> 
+    public string InstantId
+    {
+        get
+        {
+            // return string.empty for null. 
+            return (this.ViewState["InstantId"] as string) + string.Empty;
+        }
+
+        set
+        {
+            this.ViewState["InstantId"] = value;
+        }
+    } 
 
     #endregion
 
@@ -163,7 +185,7 @@ namespace YAF.Controls
 
             if (!isCrawler)
             {
-                userLink.ID = "UserLink{0}{1}".FormatWith(this.UniqueID, userLink.UserID);
+                userLink.ID = "UserLink{0}{1}".FormatWith(this.InstantId, userLink.UserID); 
             }
             else
             {

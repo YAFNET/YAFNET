@@ -107,7 +107,7 @@ namespace YAF.Core.Nntp
     /// The read articles.
     /// </returns>
     /// <exception cref="NntpException"><c>NntpException</c>.</exception>
-    public int ReadArticles(object boardID, int lastUpdate, int timeToRun, bool createUsers)
+    public int ReadArticles(int boardID, int lastUpdate, int timeToRun, bool createUsers)
     {
       if (this._applicationStateBase["WorkingInYafNNTP"] != null)
       {
@@ -167,7 +167,7 @@ namespace YAF.Core.Nntp
 
             for (; currentMessage <= group.High; currentMessage++)
             {
-              Article article = null;
+              Article article;
 
               try
               {
