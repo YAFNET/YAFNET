@@ -48,6 +48,14 @@ namespace YAF.Pages.help
 
     #endregion
 
+    public override string PageName
+    {
+      get
+      {
+        return "help_index";
+      }
+    }
+
     #region Constructors and Destructors
 
     /// <summary>

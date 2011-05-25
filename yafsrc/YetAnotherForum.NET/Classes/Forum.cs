@@ -22,7 +22,9 @@ namespace YAF
   #region Using
 
   using System;
+  using System.Collections.Generic;
   using System.IO;
+  using System.Linq;
   using System.Web;
   using System.Web.UI;
   using System.Web.UI.WebControls;
@@ -127,7 +129,7 @@ namespace YAF
     /// <summary>
     ///   The _page.
     /// </summary>
-    private ForumPages _page;
+    private ILocatablePage _page;
 
     /// <summary>
     ///   The _topControl.
@@ -389,6 +391,7 @@ namespace YAF
     /// <summary>
     /// Validates that the Task Module is running...
     /// </summary>
+    /// <exception cref="YafTaskModuleNotRegisteredException">YAF.NET is not setup properly. Please add the <add name="YafTaskModule" type="YAF.Core.YafTaskModule, YAF.Core" /> to the <modules> section of your web.config file.</exception>
     private void TaskModuleRunning()
     {
         bool debugging = false;
@@ -561,85 +564,77 @@ namespace YAF
     [NotNull]
     private string GetPageSource()
     {
+      var pages = this.Get<IEnumerable<ILocatablePage>>();
+
       if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("g") != null)
       {
-        try
-        {
-          this._page =
-            this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("g").ToEnum<ForumPages>(true);
-        }
-        catch (Exception)
-        {
-          this._page = ForumPages.forum;
-        }
+        var pageQuery = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("g");
+
+        _page = pages.GetPage(pageQuery);
       }
-      else
+
+      if (this._page == null)
       {
-        this._page = ForumPages.forum;
+        this._page = pages.GetPage("forum");
       }
 
-      if (!this.ValidPage(this._page))
-      {
-        YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.LockedForum);
-      }
+      //if (!this.IsValidForLockedForum(this._page))
+      //{
+      //  YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.LockedForum);
+      //}
 
-      string src = "{0}pages/{1}.ascx".FormatWith(YafForumInfo.ForumServerFileRoot, this._page);
+      string src = "{0}pages/{1}.ascx".FormatWith(YafForumInfo.ForumServerFileRoot, this._page.PageName);
 
-      string controlOverride = this.Get<ITheme>().GetItem("PAGE_OVERRIDE", this._page.ToString(), null);
+      string controlOverride = this.Get<ITheme>().GetItem("PAGE_OVERRIDE", this._page.PageName.ToLower(), null);
 
       if (controlOverride.IsSet())
       {
         src = controlOverride;
       }
 
-      if (src.IndexOf("/moderate_") >= 0)
-      {
-        src = src.Replace("/moderate_", "/moderate/");
-      }
+      var replacementPaths = new List<string>() { "moderate", "admin", "help" };
 
-      if (src.IndexOf("/admin_") >= 0)
+      foreach (var path in replacementPaths)
       {
-        src = src.Replace("/admin_", "/admin/");
-      }
-
-      if (src.IndexOf("/help_") >= 0)
-      {
-        src = src.Replace("/help_", "/help/");
+        if (src.IndexOf("/{0}_".FormatWith(path)) >= 0)
+        {
+          src = src.Replace("/{0}_".FormatWith(path), "/{0}/".FormatWith(path));
+        }        
       }
 
       return src;
     }
 
-    /// <summary>
-    /// The valid page.
-    /// </summary>
-    /// <param name="forumPage">
-    /// The forum page.
-    /// </param>
-    /// <returns>
-    /// The valid page.
-    /// </returns>
-    private bool ValidPage(ForumPages forumPage)
-    {
-      if (this.LockedForum == 0)
-      {
-        return true;
-      }
+    ///// <summary>
+    ///// The valid page.
+    ///// </summary>
+    ///// <param name="forumPage">
+    ///// The forum page.
+    ///// </param>
+    ///// <returns>
+    ///// The valid page.
+    ///// </returns>
+    //private bool IsValidForLockedForum(ForumPages forumPage)
+    //{
+    //  if (this.LockedForum == 0)
+    //  {
+    //    return true;
+    //  }
 
-      if (forumPage == ForumPages.forum || forumPage == ForumPages.mytopics || forumPage == ForumPages.activeusers)
-      {
-        return false;
-      }
+    //  if (forumPage == ForumPages.forum || forumPage == ForumPages.mytopics || forumPage == ForumPages.activeusers)
+    //  {
+    //    return false;
+    //  }
 
-      if (forumPage == ForumPages.cp_editprofile || forumPage == ForumPages.cp_pm || forumPage == ForumPages.cp_message ||
-          forumPage == ForumPages.cp_profile || forumPage == ForumPages.cp_signature ||
-          forumPage == ForumPages.cp_subscriptions)
-      {
-        return false;
-      }
+    //  if (forumPage == ForumPages.cp_editprofile || forumPage == ForumPages.cp_pm || forumPage == ForumPages.cp_message ||
+    //      forumPage == ForumPages.cp_profile || forumPage == ForumPages.cp_signature ||
+    //      forumPage == ForumPages.cp_subscriptions)
+    //  {
+    //    return false;
+    //  }
 
-      return forumPage != ForumPages.pmessage;
-    }
+    //  return forumPage != ForumPages.pmessage;
+    //}
 
     #endregion
   }

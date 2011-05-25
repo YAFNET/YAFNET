@@ -43,7 +43,7 @@ namespace YAF.Pages.moderate
     /// <summary>
     /// Summary description for _default.
     /// </summary>
-    public partial class reportedposts : ForumPage
+    public partial class reportedposts : ModerateForumPage
     {
         #region Constructors and Destructors
 
@@ -153,12 +153,6 @@ namespace YAF.Pages.moderate
         /// </param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // only forum moderators are allowed here
-            if (!this.PageContext.IsModerator || !this.PageContext.ForumModeratorAccess)
-            {
-                YafBuildLink.AccessDenied();
-            }
-
             // do this just on page load, not postbacks
             if (this.IsPostBack)
             {

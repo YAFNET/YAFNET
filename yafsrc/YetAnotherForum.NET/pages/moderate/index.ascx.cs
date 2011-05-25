@@ -38,7 +38,7 @@ namespace YAF.Pages.moderate
   /// <summary>
   /// Base root control for moderating, linking to other moderating controls/pages.
   /// </summary>
-  public partial class index : ForumPage
+  public partial class index : ModerateForumPage
   {
     #region Constructors and Destructors
 
@@ -105,16 +105,6 @@ namespace YAF.Pages.moderate
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        // Only moderators are allowed here
-        if (!this.PageContext.ForumModeratorAccess)
-        {
-            YafBuildLink.AccessDenied();
-        }
-        if (!this.PageContext.IsModerator)
-        {
-            YafBuildLink.AccessDenied();
-        }
-        
         // this needs to be done just once, not during postbacks
         if (!this.IsPostBack)
         {

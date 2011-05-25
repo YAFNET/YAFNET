@@ -40,7 +40,7 @@ namespace YAF.Pages.moderate
   /// <summary>
   /// Summary description for _default.
   /// </summary>
-  public partial class unapprovedposts : ForumPage
+  public partial class unapprovedposts : ModerateForumPage
   {
     #region Constructors and Destructors
 
@@ -133,9 +133,6 @@ namespace YAF.Pages.moderate
     protected override void OnInit([NotNull] EventArgs e)
     {
       List.ItemCommand += this.List_ItemCommand;
-
-      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-      InitializeComponent();
       base.OnInit(e);
     }
 
@@ -150,12 +147,6 @@ namespace YAF.Pages.moderate
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      // only forum moderators are allowed here
-      if (!this.PageContext.IsModerator || !this.PageContext.ForumModeratorAccess)
-      {
-        YafBuildLink.AccessDenied();
-      }
-
       // do this just on page load, not postbacks
       if (!this.IsPostBack)
       {
@@ -177,14 +168,6 @@ namespace YAF.Pages.moderate
 
       // bind data to controls
       this.DataBind();
-    }
-
-    /// <summary>
-    /// Required method for Designer support - do not modify
-    ///   the contents of this method with the code editor.
-    /// </summary>
-    private void InitializeComponent()
-    {
     }
 
     /// <summary>

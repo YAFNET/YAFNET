@@ -99,58 +99,71 @@ namespace YAF.Pages
     {
       /* var userName = this.Login1.FindControlAs<TextBox>("UserName").Text.Trim();
       var password = this.Login1.FindControlAs<TextBox>("Password").Text.Trim();*/
-
       e.Authenticated = false;
 
-      if (Login1.UserName.Contains("@"))
+      if (this.Login1.UserName.Contains("@"))
       {
-          // Email Login
-          var username = this.Get<MembershipProvider>().GetUserNameByEmail(Login1.UserName);
-          if (username != null)
+        // Email Login
+        var username = this.Get<MembershipProvider>().GetUserNameByEmail(this.Login1.UserName);
+        if (username != null)
+        {
+          if (Membership.ValidateUser(username, this.Login1.Password))
           {
-              if (Membership.ValidateUser(username, Login1.Password))
-              {
-                  Login1.UserName = username;
-                  e.Authenticated = true;
-              }
-              else
-              {
-                  e.Authenticated = false;
-              }
+            this.Login1.UserName = username;
+            e.Authenticated = true;
           }
+          else
+          {
+            e.Authenticated = false;
+          }
+        }
       }
       else
       {
-          // Standard user name login
-          if (this.Get<MembershipProvider>().ValidateUser(Login1.UserName, Login1.Password))
+        // Standard user name login
+        if (this.Get<MembershipProvider>().ValidateUser(this.Login1.UserName, this.Login1.Password))
+        {
+          e.Authenticated = true;
+        }
+        else if (this.Get<YafBoardSettings>().EnableDisplayName)
+        {
+          // Display name login
+          var id = this.Get<IUserDisplayName>().GetId(this.Login1.UserName);
+
+          if (id.HasValue)
           {
+            // get the username associated with this id...
+            var username = UserMembershipHelper.GetUserNameFromID(id.Value);
+
+            // validate again...
+            if (this.Get<MembershipProvider>().ValidateUser(username, this.Login1.Password))
+            {
               e.Authenticated = true;
+
+              // update the username
+              this.Login1.UserName = username;
+            }
+            else
+            {
+              e.Authenticated = false;
+            }
           }
-          else if (this.Get<YafBoardSettings>().EnableDisplayName)
-          {
-              // Display name login
-              var id = this.Get<IUserDisplayName>().GetId(Login1.UserName);
-
-              if (id.HasValue)
-              {
-                  // get the username associated with this id...
-                  var username = UserMembershipHelper.GetUserNameFromID(id.Value);
-
-                  // validate again...
-                  if (this.Get<MembershipProvider>().ValidateUser(username, Login1.Password))
-                  {
-                      e.Authenticated = true;
-
-                      // update the username
-                      this.Login1.UserName = username;
-                  }
-                  else
-                  {
-                      e.Authenticated = false;
-                  }
-              }
-          }
+        }
       }
+    }
+
+    /// <summary>
+    /// The Logged In Event
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Login1_LoggedIn([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      this.Get<IRaiseEvent>().Raise(new SuccessfulUserLoginEvent(this.PageContext.PageUserID));
     }
 
     /// <summary>
@@ -198,72 +211,71 @@ namespace YAF.Pages
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        if (this.IsPostBack)
-        {
-            return;
-        }
+      if (this.IsPostBack)
+      {
+        return;
+      }
 
-        this.Login1.MembershipProvider = Config.MembershipProvider;
+      this.Login1.MembershipProvider = Config.MembershipProvider;
 
-        this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink(this.GetText("title"));
+      this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+      this.PageLinks.AddLink(this.GetText("title"));
 
-        // Login1.CreateUserText = "Sign up for a new account.";
-        // Login1.CreateUserUrl = YafBuildLink.GetLink( ForumPages.register );
-        this.Login1.PasswordRecoveryText = this.GetText("lostpassword");
-        this.Login1.PasswordRecoveryUrl = YafBuildLink.GetLink(ForumPages.recoverpassword);
-        this.Login1.FailureText = this.GetText("password_error");
+      // Login1.CreateUserText = "Sign up for a new account.";
+      // Login1.CreateUserUrl = YafBuildLink.GetLink( ForumPages.register );
+      this.Login1.PasswordRecoveryText = this.GetText("lostpassword");
+      this.Login1.PasswordRecoveryUrl = YafBuildLink.GetLink(ForumPages.recoverpassword);
+      this.Login1.FailureText = this.GetText("password_error");
 
-        if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("ReturnUrl").IsSet())
-        {
-            this.Login1.DestinationPageUrl = this.Server.UrlDecode(
-                this.Request.QueryString.GetFirstOrDefault("ReturnUrl"));
-        }
-        else
-        {
-            this.Login1.DestinationPageUrl = YafBuildLink.GetLink(ForumPages.forum);
-        }
+      if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("ReturnUrl").IsSet())
+      {
+        this.Login1.DestinationPageUrl = this.Server.UrlDecode(this.Request.QueryString.GetFirstOrDefault("ReturnUrl"));
+      }
+      else
+      {
+        this.Login1.DestinationPageUrl = YafBuildLink.GetLink(ForumPages.forum);
+      }
 
-        // localize controls
-        var rememberMe = this.Login1.FindControlAs<CheckBox>("RememberMe");
-        var userName = this.Login1.FindControlAs<TextBox>("UserName");
-        var password = this.Login1.FindControlAs<TextBox>("Password");
-        var forumLogin = this.Login1.FindControlAs<Button>("LoginButton");
-        var passwordRecovery = this.Login1.FindControlAs<Button>("PasswordRecovery");
+      // localize controls
+      var rememberMe = this.Login1.FindControlAs<CheckBox>("RememberMe");
+      var userName = this.Login1.FindControlAs<TextBox>("UserName");
+      var password = this.Login1.FindControlAs<TextBox>("Password");
+      var forumLogin = this.Login1.FindControlAs<Button>("LoginButton");
+      var passwordRecovery = this.Login1.FindControlAs<Button>("PasswordRecovery");
 
-        userName.Focus();
+      userName.Focus();
 
-        /*
+      /*
         RequiredFieldValidator usernameRequired = ( RequiredFieldValidator ) Login1.FindControl( "UsernameRequired" );
         RequiredFieldValidator passwordRequired = ( RequiredFieldValidator ) Login1.FindControl( "PasswordRequired" );
 
         usernameRequired.ToolTip = usernameRequired.ErrorMessage = GetText( "REGISTER", "NEED_USERNAME" );
         passwordRequired.ToolTip = passwordRequired.ErrorMessage = GetText( "REGISTER", "NEED_PASSWORD" );
         */
-        if (rememberMe != null)
-        {
-            rememberMe.Text = this.GetText("auto");
-        }
+      if (rememberMe != null)
+      {
+        rememberMe.Text = this.GetText("auto");
+      }
 
-        if (forumLogin != null)
-        {
-            forumLogin.Text = this.GetText("FORUM_LOGIN");
-        }
+      if (forumLogin != null)
+      {
+        forumLogin.Text = this.GetText("FORUM_LOGIN");
+      }
 
-        if (passwordRecovery != null)
-        {
-            passwordRecovery.Text = this.GetText("LOSTPASSWORD");
-        }
+      if (passwordRecovery != null)
+      {
+        passwordRecovery.Text = this.GetText("LOSTPASSWORD");
+      }
 
-        if (password != null && forumLogin != null)
-        {
-            password.Attributes.Add(
-                "onkeydown", 
-                "if(event.which || event.keyCode){if ((event.which == 13) || (event.keyCode == 13)) {document.getElementById('" +
-                forumLogin.ClientID + "').click();return false;}} else {return true}; ");
-        }
+      if (password != null && forumLogin != null)
+      {
+        password.Attributes.Add(
+          "onkeydown", 
+          "if(event.which || event.keyCode){if ((event.which == 13) || (event.keyCode == 13)) {document.getElementById('" +
+          forumLogin.ClientID + "').click();return false;}} else {return true}; ");
+      }
 
-        this.DataBind();
+      this.DataBind();
     }
 
     /// <summary>
@@ -281,19 +293,5 @@ namespace YAF.Pages
     }
 
     #endregion
-
-      /// <summary>
-      /// The Logged In Event
-      /// </summary>
-      /// <param name="sender">
-      /// The sender.
-      /// </param>
-      /// <param name="e">
-      /// The e.
-      /// </param>
-      protected void Login1_LoggedIn(object sender, EventArgs e)
-    {
-      this.Get<IRaiseEvent>().Raise(new SuccessfulUserLoginEvent(this.PageContext.PageUserID));
-    }
   }
 }
