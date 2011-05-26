@@ -807,7 +807,7 @@
     <Resource tag="ALLOW_SENDMAIL">Allow Email Sending:</Resource>
     <Resource tag="ALLOW_SENDMAIL_HELP">Allow users to send emails to each other.</Resource>
     <Resource tag="ALLOW_SHARE_TOPIC">Enable Share Menu:</Resource>
-    <Resource tag="ALLOW_SHARE_TOPIC_HELP">Enables/disables the share Menu, where a user can Email, Tweet, Buzz, Like on Facebook, Digg or Reddit a Topic.</Resource>
+    <Resource tag="ALLOW_SHARE_TOPIC_HELP">Enables/disables the share Menu, where a user can Email, Tweet, Buzz, Like on Facebook, Digg, Reddit or Tumblr a Topic.</Resource>
     <Resource tag="ALLOW_SIGNATURE">Allow Signatures:</Resource>
     <Resource tag="ALLOW_SIGNATURE_HELP">Allow users to create signatures. You should set allowed number of characters and BBCodes for each group and/or rank to really enable the feature.</Resource>
     <Resource tag="ALLOW_THANKS">Allow Users to Thank Posts:</Resource>
@@ -2024,6 +2024,7 @@
     <Resource tag="SUBJECT">الموضوع:</Resource>
     <Resource tag="TITLE">الرسالة الصفحة الى صديق</Resource>
     <Resource tag="TO">ارسال الى البريد الإلكتروني:</Resource>
+    <Resource tag="VALID_EMAIL">The Email address you have entered is invalid.</Resource>
   </page>
   <page name="HELP_INDEX">
     <Resource tag="ANOUNCECONTENT">&lt;p&gt;الاعلانات هي رسائل خاصة مرفقة من قبل المدير والمشرفين . They are a simple one-way communication with the users and you can't reply. اذا اردت مناقشة الاعلانات, يتوجب عليك انشاء موضوع جديد في المنتدى .&lt;/p&gt;
@@ -2608,7 +2609,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="RETWEET_TOPIC">Retweet this Topic</Resource>
     <Resource tag="RSSTOPIC">ملخص المواضيع </Resource>
     <Resource tag="SHARE">Share</Resource>
-    <Resource tag="SHARE_TOOLTIP">Share this Topic via Email, Twitter, Buzz, Facebook, Digg or Reddit.</Resource>
+    <Resource tag="SHARE_TOOLTIP">Share this Topic via Email, Twitter, Buzz, Facebook, Digg, Reddit or Tumblr.</Resource>
     <Resource tag="SKYPE">(SKYPE)سكاي بي</Resource>
     <Resource tag="SKYPE_TITLE">Contact {0} via Skype</Resource>
     <Resource tag="STATISTICS">إحصاءات</Resource>
@@ -2631,6 +2632,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="TOP">الذهاب الى اعلى </Resource>
     <Resource tag="TOPICBROWSERS">المشتركة يتصفح حاليا </Resource>
     <Resource tag="TOTAL">المجموع</Resource>
+    <Resource tag="TUMBLR_TOPIC">Share on Tumblr</Resource>
     <Resource tag="Twitter">Twitter</Resource>
     <Resource tag="TWITTER_TITLE">Visit {0}'s Twitter Profile</Resource>
     <Resource tag="UNWATCHTOPIC">الموضيع التي لم تشاهد</Resource>

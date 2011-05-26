@@ -284,7 +284,7 @@ namespace YAF.Pages
                         BBCodeHelper.StripBBCodeQuotes(
                             HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(row["Message"].ToString())))));
 
-            brief = StringExtensions.Truncate(this.Get<IBadWordReplace>().Replace(brief), 100);
+            brief = this.Get<IBadWordReplace>().Replace(brief).Truncate(100);
             brief = this.Get<IBBCode>().AddSmiles(brief);
 
             if (brief.IsNotSet())
@@ -421,7 +421,6 @@ namespace YAF.Pages
             {
                 YafBuildLink.AccessDenied(/*"You are not a forum moderator."*/);
             }
-            
         }
 
         /// <summary>
@@ -615,8 +614,8 @@ namespace YAF.Pages
                       YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
                 }
 
-                this.NewTopic2.NavigateUrl=
-                    this.NewTopic1.NavigateUrl = 
+                this.NewTopic2.NavigateUrl =
+                    this.NewTopic1.NavigateUrl =
                     YafBuildLink.GetLinkNotEscaped(ForumPages.postmessage, "f={0}", this.PageContext.PageForumID);
 
                 this.MoveTopic1.NavigateUrl =
@@ -746,7 +745,6 @@ namespace YAF.Pages
                     return;
                 }
             }
-           
         }
 
         /// <summary>
@@ -918,7 +916,7 @@ namespace YAF.Pages
 
             var keywordStr = message.MessageKeywords.Where(x => x.IsSet()).ToList().ToDelimitedString(",");
 
-            //this.Tags.Text = "Tags: {0}".FormatWith(keywordStr);
+            // this.Tags.Text = "Tags: {0}".FormatWith(keywordStr);
 
             if (meta.Any(x => x.Name.Equals("keywords")))
             {
@@ -1272,6 +1270,36 @@ namespace YAF.Pages
                 case "email":
                     this.EmailTopic_Click(sender, e);
                     break;
+                case "tumblr":
+                    {
+                        // process message... clean html, strip html, remove bbcode, etc...
+                        var tumblrMsg =
+                          StringExtensions.RemoveMultipleWhitespace(
+                            BBCodeHelper.StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString((string)this._topic["Topic"]))));
+
+                         var meta = this.Page.Header.FindControlType<HtmlMeta>();
+
+                        string description = string.Empty;
+
+                         if (meta.Any(x => x.Name.Equals("description")))
+                         {
+                             var descriptionMeta = meta.Where(x => x.Name.Equals("description")).FirstOrDefault();
+                             if (descriptionMeta != null)
+                             {
+                                 description = "&description={0}".FormatWith(descriptionMeta.Content);
+                             }
+                         }
+
+                        var tumblrUrl =
+                            "http://www.tumblr.com/share/link?url={0}&name={1}{2}".FormatWith(
+                                this.Server.UrlEncode(this.Get<HttpRequestBase>().Url.ToString()),
+                                tumblrMsg,
+                                description);
+
+                        this.Get<HttpResponseBase>().Redirect(tumblrUrl);
+                    }
+
+                    break;
                 case "retweet":
                     {
                         var twitterName = this.Get<YafBoardSettings>().TwitterUserName.IsSet()
@@ -1287,7 +1315,7 @@ namespace YAF.Pages
                             "http://twitter.com/share?url={0}&text={1}".FormatWith(
                                 this.Server.UrlEncode(this.Get<HttpRequestBase>().Url.ToString()),
                                 this.Server.UrlEncode(
-                                    "RT {1}Thread: {0}".FormatWith(StringExtensions.Truncate(twitterMsg, 100), twitterName)));
+                                    "RT {1}Thread: {0}".FormatWith(twitterMsg.Truncate(100), twitterName)));
 
                         this.Get<HttpResponseBase>().Redirect(tweetUrl);
                     }
@@ -1745,6 +1773,9 @@ namespace YAF.Pages
                     "digg", this.GetText("DIGG_TOPIC"), this.Get<ITheme>().GetItem("ICONS", "DIGG"));
                 this.ShareMenu.AddPostBackItem(
                     "reddit", this.GetText("REDDIT_TOPIC"), this.Get<ITheme>().GetItem("ICONS", "REDDIT"));
+
+                this.ShareMenu.AddPostBackItem(
+                    "tumblr", this.GetText("TUMBLR_TOPIC"), this.Get<ITheme>().GetItem("ICONS", "TUMBLR"));
             }
             else
             {

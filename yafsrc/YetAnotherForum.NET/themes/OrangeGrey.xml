@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Resources theme="Orange-Grey" dir="OrangeGrey">
-  <page name="THEME">   
+    <page name="THEME">   
     <Resource tag="CREDIT"></Resource>
 	<Resource tag="HEADER">
 	&lt;script type="text/javascript" src="~/js/jquery.tipTip.minified.js"&gt;&lt;/script&gt;
@@ -61,6 +61,7 @@
 	  <Resource tag="PM_NEW">~/pm_new.png</Resource>
 	  <Resource tag="TWITTER2">~/icon_twitter2.png</Resource>
 	  <Resource tag="FACEBOOK2">~/icon_facebook2.png</Resource>
+	   <Resource tag="TUMBLR">~/icon_tumblr.png</Resource>
   </page>
     <page name="SORT">
 	  <Resource tag="ASCENDING">~/sort_up.gif</Resource>

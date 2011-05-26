@@ -2797,6 +2797,7 @@
     <Resource tag="TOP">Вверх</Resource>
     <Resource tag="TOPICBROWSERS">Пользователи, просматривающие эту тему</Resource>
     <Resource tag="TOTAL">Всего</Resource>
+    <Resource tag="TUMBLR_TOPIC">Share on Tumblr</Resource>
     <Resource tag="Twitter">Твиттер</Resource>
     <Resource tag="TWITTER_TITLE">Посетите профиль {0} в Твиттере</Resource>
     <Resource tag="UNWATCHTOPIC">Не отслеживать эту тему</Resource>

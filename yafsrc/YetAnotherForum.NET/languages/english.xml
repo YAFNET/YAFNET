@@ -1407,10 +1407,11 @@
       <Resource tag="WATCHTOPIC">Watch this topic</Resource>
       <Resource tag="YIM">YAHOO</Resource>
 	  <Resource tag="SHARE">Share</Resource>
-	  <Resource tag="SHARE_TOOLTIP">Share this Topic via Email, Twitter, Buzz, Facebook, Digg or Reddit.</Resource>
+	  <Resource tag="SHARE_TOOLTIP">Share this Topic via Email, Twitter, Buzz, Facebook, Digg, Reddit or Tumblr.</Resource>
 	  <Resource tag="RETWEET_TOPIC">Retweet this Topic</Resource>
 	  <Resource tag="BUZZ_TOPIC">Buzz this Topic</Resource>
 	  <Resource tag="FACEBOOK_TOPIC">Like this Topic</Resource>
+	  <Resource tag="TUMBLR_TOPIC">Share on Tumblr</Resource>
 	  <Resource tag="DIGG_TOPIC">Digg this Topic</Resource>
 	  <Resource tag="REDDIT_TOPIC">Reddit this Topic</Resource>
 	  <Resource tag="OPTIONS_TOOLTIP">Topic Options to Subscribe via Email, RSS, Atom, and to view Printer Friendly Page.</Resource>
@@ -3283,7 +3284,7 @@ Visit {forumname} at {forumlink}
        <Resource tag="SHOW_UNREAD_LINKS">Show Unread Links:</Resource>
        <Resource tag="SHOW_UNREAD_LINKS_HELP">Unread Links will be displayed.</Resource>
 	   <Resource tag="ALLOW_SHARE_TOPIC">Enable Share Menu:</Resource>
-       <Resource tag="ALLOW_SHARE_TOPIC_HELP">Enables/disables the share Menu, where a user can Email, Tweet, Buzz, Like on Facebook, Digg or Reddit a Topic.</Resource>
+       <Resource tag="ALLOW_SHARE_TOPIC_HELP">Enables/disables the share Menu, where a user can Email, Tweet, Buzz, Like on Facebook, Digg, Reddit or Tumblr a Topic.</Resource>
 	   <Resource tag="TWITTER_USERNAME">Twitter Username for Retweets:</Resource>
        <Resource tag="TWITTER_USERNAME_HELP">Twitter Username that is mentioned when Retweeting a Topic or Message.</Resource>
 	   <Resource tag="ENABLE_RETWEET_MSG">Enable Retweet Message Button:</Resource>

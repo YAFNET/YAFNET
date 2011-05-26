@@ -807,7 +807,7 @@
     <Resource tag="ALLOW_SENDMAIL">Allow Email Sending:</Resource>
     <Resource tag="ALLOW_SENDMAIL_HELP">Allow users to send emails to each other.</Resource>
     <Resource tag="ALLOW_SHARE_TOPIC">Enable Share Menu:</Resource>
-    <Resource tag="ALLOW_SHARE_TOPIC_HELP">Enables/disables the share Menu, where a user can Email, Tweet, Buzz, Like on Facebook, Digg or Reddit a Topic.</Resource>
+    <Resource tag="ALLOW_SHARE_TOPIC_HELP">Enables/disables the share Menu, where a user can Email, Tweet, Buzz, Like on Facebook, Digg, Reddit or Tumblr a Topic.</Resource>
     <Resource tag="ALLOW_SIGNATURE">Allow Signatures:</Resource>
     <Resource tag="ALLOW_SIGNATURE_HELP">Allow users to create signatures. You should set allowed number of characters and BBCodes for each group and/or rank to really enable the feature.</Resource>
     <Resource tag="ALLOW_THANKS">Allow Users to Thank Posts:</Resource>
@@ -2023,6 +2023,7 @@
     <Resource tag="SUBJECT">Ärende:</Resource>
     <Resource tag="TITLE">Skicka sida till en vän</Resource>
     <Resource tag="TO">Skicka til (e-postadress):</Resource>
+    <Resource tag="VALID_EMAIL">The Email address you have entered is invalid.</Resource>
   </page>
   <page name="HELP_INDEX">
     <Resource tag="ANOUNCECONTENT">&lt;p&gt;Announcements are special messages posted by the administrator or moderators. They are a simple one-way communication with the users and you can't reply. If you wish to discuss announcements, you will have to create a new thread in the forum.&lt;/p&gt;
@@ -2768,7 +2769,7 @@
     <Resource tag="RETWEET_TOPIC">Retweet this Topic</Resource>
     <Resource tag="RSSTOPIC">RSSkanal</Resource>
     <Resource tag="SHARE">Share</Resource>
-    <Resource tag="SHARE_TOOLTIP">Share this Topic via Email, Twitter, Buzz, Facebook, Digg or Reddit.</Resource>
+    <Resource tag="SHARE_TOOLTIP">Share this Topic via Email, Twitter, Buzz, Facebook, Digg, Reddit or Tumblr.</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
     <Resource tag="SKYPE_TITLE">Contact {0} via Skype</Resource>
     <Resource tag="STATISTICS">Statistik</Resource>
@@ -2791,6 +2792,7 @@
     <Resource tag="TOP">Tillbaka till toppen</Resource>
     <Resource tag="TOPICBROWSERS">Användare som läser denna konversation</Resource>
     <Resource tag="TOTAL">Total</Resource>
+    <Resource tag="TUMBLR_TOPIC">Share on Tumblr</Resource>
     <Resource tag="Twitter">Twitter</Resource>
     <Resource tag="TWITTER_TITLE">Visit {0}'s Twitter Profile</Resource>
     <Resource tag="UNWATCHTOPIC">Avbryt prenumeration på denna konversation</Resource>

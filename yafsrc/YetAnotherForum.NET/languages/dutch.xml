@@ -805,7 +805,7 @@
     <Resource tag="ALLOW_SENDMAIL">Sta e-mail versturen toe:</Resource>
     <Resource tag="ALLOW_SENDMAIL_HELP">Gebruikers mogen elkaar e-mails sturen.</Resource>
     <Resource tag="ALLOW_SHARE_TOPIC">Enable Share Menu:</Resource>
-    <Resource tag="ALLOW_SHARE_TOPIC_HELP">Enables/disables the share Menu, where a user can Email, Tweet, Buzz, Like on Facebook, Digg or Reddit a Topic.</Resource>
+    <Resource tag="ALLOW_SHARE_TOPIC_HELP">Enables/disables the share Menu, where a user can Email, Tweet, Buzz, Like on Facebook, Digg, Reddit or Tumblr a Topic.</Resource>
     <Resource tag="ALLOW_SIGNATURE">Handtekeningen toestaan:</Resource>
     <Resource tag="ALLOW_SIGNATURE_HELP">Gebruikers mogen handtekeningen maken. Je moet wel het aantal karakters/toestaan van BBCodes instellen voor elke groep en/of Rang om het te activeren.</Resource>
     <Resource tag="ALLOW_THANKS">Sta Bedankjes toe:</Resource>
@@ -2016,6 +2016,7 @@
     <Resource tag="SUBJECT">Onderwerp:</Resource>
     <Resource tag="TITLE">Stuur dit onderwerp naar een vriend</Resource>
     <Resource tag="TO">Verzenden naar (e-mail adres):</Resource>
+    <Resource tag="VALID_EMAIL">The Email address you have entered is invalid.</Resource>
   </page>
   <page name="HELP_INDEX">
     <Resource tag="ANOUNCECONTENT">&lt;p&gt;Aankondigingen zijn speciale berichten die geplaatst worden door de beheerder of moderatoren. Het zijn berichten waarop niet gereageerd kan worden. Als je er op wilt reageren, moet je een nieuw topic aanmaken.&lt;/p&gt;
@@ -2719,7 +2720,7 @@
     <Resource tag="RETWEET_TOPIC">Retweet this Topic</Resource>
     <Resource tag="RSSTOPIC">RSS Feed</Resource>
     <Resource tag="SHARE">Share</Resource>
-    <Resource tag="SHARE_TOOLTIP">Share this Topic via Email, Twitter, Buzz, Facebook, Digg or Reddit.</Resource>
+    <Resource tag="SHARE_TOOLTIP">Share this Topic via Email, Twitter, Buzz, Facebook, Digg, Reddit or Tumblr.</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
     <Resource tag="SKYPE_TITLE">Contact {0} via Skype</Resource>
     <Resource tag="STATISTICS">Statistieken</Resource>
@@ -2742,6 +2743,7 @@
     <Resource tag="TOP">Terug naar boven</Resource>
     <Resource tag="TOPICBROWSERS">Gebruikers die dit onderwerp bekijken</Resource>
     <Resource tag="TOTAL">Totaal</Resource>
+    <Resource tag="TUMBLR_TOPIC">Share on Tumblr</Resource>
     <Resource tag="Twitter">Twitter</Resource>
     <Resource tag="TWITTER_TITLE">Visit {0}'s Twitter Profile</Resource>
     <Resource tag="UNWATCHTOPIC">Topic niet meer volgen</Resource>
