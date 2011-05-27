@@ -212,20 +212,12 @@ namespace YAF.Core.Services
                 // user's email
                 string toEMail = string.Empty;
 
-                // NOTE: Not Working 
-                /*var userList = DB.UserList(YafContext.Current.PageBoardID, toUserId, true, null, null, null);
+                var userList = LegacyDb.UserList(YafContext.Current.PageBoardID, toUserId, true, null, null, null);
 
                 if (userList.Any())
                 {
                   privateMessageNotificationEnabled = userList.First().PMNotification ?? false;
                   toEMail = userList.First().Email;
-                }*/
-                var userList = LegacyDb.user_list(YafContext.Current.PageBoardID, toUserId, true, null, null, null);
-
-                if (userList.Rows.Count > 0)
-                {
-                    privateMessageNotificationEnabled = (bool)userList.Rows[0]["PMNotification"];
-                    toEMail = (string)userList.Rows[0]["Email"];
                 }
 
                 if (privateMessageNotificationEnabled)
@@ -315,7 +307,7 @@ namespace YAF.Core.Services
                 watchEmail.TemplateParams["{topic}"] = HttpUtility.HtmlDecode(message.Topic);
                 watchEmail.TemplateParams["{postedby}"] = UserMembershipHelper.GetDisplayNameFromID(userId);
                 watchEmail.TemplateParams["{body}"] = bodyText;
-                watchEmail.TemplateParams["{bodytruncated}"] = StringExtensions.Truncate(bodyText, 160);
+                watchEmail.TemplateParams["{bodytruncated}"] = bodyText.Truncate(160);
                 watchEmail.TemplateParams["{link}"] = YafBuildLink.GetLinkNotEscaped(
                   ForumPages.posts, true, "m={0}#post{0}", newMessageId);
 

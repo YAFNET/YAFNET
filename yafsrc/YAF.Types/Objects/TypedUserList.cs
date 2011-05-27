@@ -63,7 +63,7 @@ namespace YAF.Types.Objects
       this.Flags = row.Field<int?>("Flags");
       this.PMNotification = row.Field<bool?>("PMNotification");
       this.Points = row.Field<int?>("Points");
-      this.IsAdmin = row.Field<bool?>("IsAdmin");
+      this.IsAdmin = Convert.ToBoolean(row.Field<int?>("IsAdmin"));
       this.IsApproved = row.Field<bool?>("IsApproved");
       this.IsActiveExcluded = row.Field<bool?>("IsActiveExcluded");
       this.ProviderUserKey = row.Field<string>("ProviderUserKey");
@@ -77,10 +77,8 @@ namespace YAF.Types.Objects
       this.NumPosts1 = row.Field<int?>("NumPosts1");
       this.CultureUser = row.Field<string>("CultureUser");
       this.Style = row.Field<string>("Style");
-      this.IsAdmin1 = row.Field<int?>("IsAdmin1");
       this.IsGuest = row.Field<int?>("IsGuest");
       this.IsHostAdmin = row.Field<int?>("IsHostAdmin");
-      this.RankID1 = row.Field<int?>("RankID1");
       this.RankName = row.Field<string>("RankName");
     }
 
@@ -189,45 +187,54 @@ namespace YAF.Types.Objects
     /// <param name="style">
     /// The style.
     /// </param>
-    /// <param name="isadmin1">
-    /// The isadmin 1.
-    /// </param>
     /// <param name="isguest">
     /// The isguest.
     /// </param>
     /// <param name="ishostadmin">
     /// The ishostadmin.
     /// </param>
-    /// <param name="rankid1">
-    /// The rankid 1.
-    /// </param>
     /// <param name="rankname">
     /// The rankname.
     /// </param>
     public TypedUserList(
-      int? userid,
-      int? boardid, [CanBeNull] string name, [CanBeNull] string password, [CanBeNull] string email, 
-      DateTime? joined,
-      DateTime? lastvisit, [CanBeNull] string ip, 
-      int? numposts,
-      int? timezone, [CanBeNull] string avatar, [CanBeNull] string signature, [CanBeNull] byte[] avatarimage, 
-      int? rankid,
-      DateTime? suspended, [CanBeNull] string languagefile, [CanBeNull] string themefile, 
-      int? flags, 
-      bool? pmnotification, 
-      int? points, 
-      bool? isadmin, 
-      bool? isapproved,
-      bool? isactiveexcluded, [CanBeNull] string provideruserkey,
-      bool? overridedefaultthemes, [CanBeNull] string avatarimagetype,
-      bool? autowatchtopics, [CanBeNull] string displayname, [CanBeNull] string culture, 
-      int? notificationtype, 
-      bool? dailydigest,
-      int? numposts1, [CanBeNull] string cultureuser, [CanBeNull] string style, 
-      int? isadmin1, 
-      int? isguest, 
-      int? ishostadmin,
-      int? rankid1, [CanBeNull] string rankname)
+        int? userid,
+        int? boardid, 
+        [CanBeNull] 
+        string name, 
+        [CanBeNull] string password, 
+        [CanBeNull] string email, 
+        DateTime? joined,
+        DateTime? lastvisit, 
+        [CanBeNull] string ip,
+        int? numposts,
+        int? timezone, 
+        [CanBeNull] string avatar, 
+        [CanBeNull] string signature, 
+        [CanBeNull] byte[] avatarimage,
+        int? rankid,
+        DateTime? suspended, 
+        [CanBeNull] string languagefile, 
+        [CanBeNull] string themefile,
+        int? flags,
+        bool? pmnotification,
+        int? points,
+        bool? isadmin,
+        bool? isapproved,
+        bool? isactiveexcluded, 
+        [CanBeNull] string provideruserkey,
+        bool? overridedefaultthemes, 
+        [CanBeNull] string avatarimagetype,
+        bool? autowatchtopics, 
+        [CanBeNull] string displayname, 
+        [CanBeNull] string culture,
+        int? notificationtype,
+        bool? dailydigest,
+        int? numposts1, 
+        [CanBeNull] string cultureuser, 
+        [CanBeNull] string style,
+        int? isguest,
+        int? ishostadmin,
+        [CanBeNull] string rankname)
     {
       this.UserID = userid;
       this.BoardID = boardid;
@@ -263,10 +270,8 @@ namespace YAF.Types.Objects
       this.NumPosts1 = numposts1;
       this.CultureUser = cultureuser;
       this.Style = style;
-      this.IsAdmin1 = isadmin1;
       this.IsGuest = isguest;
       this.IsHostAdmin = ishostadmin;
-      this.RankID1 = rankid1;
       this.RankName = rankname;
     }
 
