@@ -730,7 +730,7 @@ namespace YAF.Pages
       this.PollRowExpire.Visible = true;
       this.IsClosedBound.Visible = this.IsBound.Visible = PageContext.BoardSettings.AllowUsersHidePollResults || PageContext.IsAdmin || PageContext.IsForumModerator;
       this.tr_AllowMultipleChoices.Visible = PageContext.BoardSettings.AllowMultipleChoices || PageContext.IsAdmin || PageContext.IsForumModerator;
-      this.tr_ShowVoters.Visible = false;
+      this.tr_ShowVoters.Visible = true;
       this.tr_AllowSkipVote.Visible = false;  
     }
 

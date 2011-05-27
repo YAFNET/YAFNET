@@ -710,6 +710,7 @@ namespace YAF.Controls
 
         bool isClosedBound = false;
         bool allowsMultipleChoices = false;
+        bool showVoters = false;
 
         // This is not a guest w/o poll option view permissions, we bind the control.
         if (pollChoiceList.Visible)
@@ -739,11 +740,22 @@ namespace YAF.Controls
           pollChoiceList.DataSource = thisPollTable;
           isClosedBound = Convert.ToBoolean(thisPollTable.Rows[0]["IsClosedBound"]);
           allowsMultipleChoices = Convert.ToBoolean(thisPollTable.Rows[0]["AllowMultipleChoices"]);
+          showVoters = Convert.ToBoolean(thisPollTable.Rows[0]["ShowVoters"]);
+        }
+
+        string voters = string.Empty;
+
+        if (showVoters)
+        {
+            DataTable dtAllPollGroupVotesShow = LegacyDb.pollgroup_votecheck(this.PollGroupId, null, null);
+            dtAllPollGroupVotesShow.Rows.Cast<DataRow>().Count(drch => (int)drch["PollID"] == pollId);
+            pollChoiceList.Voters = dtAllPollGroupVotesShow;
         }
 
         pollChoiceList.PollId = pollId.ToType<int>();
         pollChoiceList.MaxImageAspect = this.MaxImageAspect;
 
+       
         // returns number of day to run - null if poll has no expiration date 
         bool soon;
         int? daystorun = this.DaysToRun(pollId, out soon);
@@ -1167,7 +1179,7 @@ namespace YAF.Controls
         {
           userId = this.PageContext.PageUserID;
         }
-
+         
         this._dtAllPollGroupVotes = LegacyDb.pollgroup_votecheck(this.PollGroupId, userId, remoteIp);
 
         this._isBound = this._dtPollGroupAllChoices.Rows[0]["IsBound"].ToType<bool>();

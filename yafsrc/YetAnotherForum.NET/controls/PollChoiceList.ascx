@@ -36,8 +36,8 @@
                         <td class="post">
                             <asp:Panel ID="resultsSpan" Visible="false" runat="server">
                                 <nobr>               
-					<img alt="" src="<%# GetThemeContents("VOTE","LCAP") %>" /><img alt="" src='<%# GetThemeContents("VOTE","BAR") %>'
-						height="12" width='<%# VoteWidth(Container.DataItem) %>%' /><img alt="" src='<%# GetThemeContents("VOTE","RCAP") %>' /></nobr>
+					<img alt="" src="<%# GetThemeContents("VOTE","LCAP") %>" /><img id="ImgVoteBar" alt="" src='<%# GetThemeContents("VOTE","BAR") %>'
+						height="12" width='<%# VoteWidth(Container.DataItem) %>' runat="server" /><img alt="" src='<%# GetThemeContents("VOTE","RCAP") %>' /></nobr>
                                 <%# DataBinder.Eval(Container.DataItem,"Stats") %>
                                 %
                             </asp:Panel>

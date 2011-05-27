@@ -6113,8 +6113,8 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("IsBounded", isBounded);
         cmd.Parameters.AddWithValue("IsClosedBounded", isClosedBounded);
         cmd.Parameters.AddWithValue("AllowMultipleChoices", allowMultipleChoices);
-        cmd.Parameters.AddWithValue("ShowVoters", allowMultipleChoices);
-        cmd.Parameters.AddWithValue("AllowSkipVote", allowMultipleChoices);
+        cmd.Parameters.AddWithValue("ShowVoters", showVoters);
+        cmd.Parameters.AddWithValue("AllowSkipVote", allowSkipVote);
 
         MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
       }

@@ -95,6 +95,11 @@ namespace YAF.Controls
     public decimal MaxImageAspect { get; set; }
 
     /// <summary>
+    ///   Gets or sets Voters. Stores users which are voted for a choice.
+    /// </summary>
+    public DataTable Voters { get; set; }
+
+    /// <summary>
     ///   Gets or sets the PollId for the choices.
     /// </summary>
     public int PollId { get; set; }
@@ -291,16 +296,35 @@ namespace YAF.Controls
       var myChoiceMarker = item.FindControlRecursiveAs<HtmlImage>("YourChoice");
       if (this.ChoiceId != null)
       {
-        foreach (var mychoice in this.ChoiceId.Where(mychoice => (int)drowv.Row["ChoiceID"] == mychoice))
-        {
-          myChoiceMarker.Visible = true;
-        }
+          int choicex = 0;
+          foreach (var mychoice in this.ChoiceId.Where(mychoice => (int) drowv.Row["ChoiceID"] == mychoice))
+          {
+              myChoiceMarker.Visible = true;
+              choicex = mychoice.ToType<int>();
+          }
+
+          if (Voters != null)
+          {
+              var himage = item.FindControlRecursiveAs<HtmlImage>("ImgVoteBar");
+              foreach (DataRow row in this.Voters.Rows)
+              {
+                  if ((int) row["ChoiceID"] == choicex)
+                  {
+                      himage.Attributes["Title"] = himage.Alt += himage.Alt + row["UserName"] + ",";
+                  }
+              }
+              if (himage.Attributes["Title"].IsSet())
+              {
+                  himage.Attributes["Title"] = himage.Alt = himage.Attributes["Title"].TrimEnd(',');
+              }
+          }
       }
 
-      myLinkButton.Enabled = this.CanVote && !myChoiceMarker.Visible;
-      myLinkButton.ToolTip = this.GetText("POLLEDIT", "POLL_PLEASEVOTE");
-      myLinkButton.Visible = true;
 
+        myLinkButton.ToolTip = this.GetText("POLLEDIT", "POLL_PLEASEVOTE");
+      myLinkButton.Enabled = this.CanVote && !myChoiceMarker.Visible;
+      myLinkButton.Visible = true;
+    
       // Poll Choice image
       var choiceImage = item.FindControlRecursiveAs<HtmlImage>("ChoiceImage");
       var choiceAnchor = item.FindControlRecursiveAs<HtmlAnchor>("ChoiceAnchor");
@@ -339,7 +363,9 @@ namespace YAF.Controls
       }
       else
       {
-        choiceImage.Alt = this.GetText("POLLEDIT", "POLL_PLEASEVOTE");
+         
+
+        choiceImage.Alt =  this.GetText("POLLEDIT", "POLL_PLEASEVOTE");
         choiceImage.Src = this.GetThemeContents("VOTE", "POLL_CHOICE");
         choiceAnchor.HRef = string.Empty;
       }

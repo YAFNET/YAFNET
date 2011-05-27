@@ -83,10 +83,10 @@
                  <asp:CheckBox ID="AllowSkipVoteCheckBox" runat="server" CssClass="edit" MaxLength="10" Width="400" />					
 	    </td>		
 	</tr> 
-    <tr id="tr_ShowVoters" runat="server" visible="<%# PageContext.BoardSettings.AllowMultipleChoices %>">	
+    <tr id="tr_ShowVoters" runat="server" visible="true">	
        	<td class="postformheader" width="20%">
 			<em>
-				 <YAF:LocalizedLabel ID="ShowVotersLocalizedLabel" runat="server" LocalizedTag="POLL_MULTIPLECHOICES" />
+				 <YAF:LocalizedLabel ID="ShowVotersLocalizedLabel" runat="server" LocalizedTag="POLL_SHOWVOTERS" />
 			</em>
 		</td>
 		<td class="post" width="80%">

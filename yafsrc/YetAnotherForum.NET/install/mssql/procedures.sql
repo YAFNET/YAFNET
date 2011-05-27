@@ -4572,7 +4572,10 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}pollgroup_votecheck](@PollG
 		ELSE
 		BEGIN
 		-- to get structure
-		    SELECT PollID, ChoiceID FROM [{databaseOwner}].[{objectQualifier}PollVote] WHERE PollID IN ( SELECT PollID FROM [{databaseOwner}].[{objectQualifier}Poll] WHERE PollGroupID = @PollGroupID) AND RemoteIP = @RemoteIP
+		    SELECT pv.PollID, pv.ChoiceID, usr.Name as UserName 
+			FROM [{databaseOwner}].[{objectQualifier}PollVote] pv 
+			JOIN [{databaseOwner}].[{objectQualifier}User] usr ON usr.UserID = pv.UserID
+			WHERE pv.PollID IN ( SELECT PollID FROM [{databaseOwner}].[{objectQualifier}Poll] WHERE PollGroupID = @PollGroupID)
 		END
 	  END
 	ELSE
