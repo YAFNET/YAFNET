@@ -880,6 +880,8 @@
     <Resource tag="ENABLE_LOCATIONPATH_ERRORS_HELP">Журналирование ошибок списка нахождения активных пользователей. Используется при отладке.</Resource>
     <Resource tag="ENABLE_RETWEET_MSG">Включить кнопку ретвиттера:</Resource>
     <Resource tag="ENABLE_RETWEET_MSG_HELP">Делает доступной кнопку ретвита и пользователь может проретвитить сообщение.</Resource>
+    <Resource tag="ENABLE_SSO">Enable Single Sign On:</Resource>
+    <Resource tag="ENABLE_SSO_HELP">If checked, users will be able to Login to an existing account via Facebook. This only works YAF.FacebookAPIKey and YAF.FacebookSecretKey are setup in app.config.</Resource>
     <Resource tag="EXTERN_NEWWINDOW">Показывать результаты внешнего поиска в новом окне:</Resource>
     <Resource tag="EXTERN_NEWWINDOW_HELP">Показывать результаты внешнего поиска в новом окне.</Resource>
     <Resource tag="EXTERN_SEARCH_PERMISS">Разрешения для внешнего поиска:</Resource>
@@ -1140,6 +1142,8 @@
     <Resource tag="SSL_LOGIN_HELP">Требовать безопасного соединения при входе пользователей на форум.</Resource>
     <Resource tag="SSL_REGISTER">Использовать SSL при регистрации:</Resource>
     <Resource tag="SSL_REGISTER_HELP">Требовать безопасного соединения при регистрации пользователей.</Resource>
+    <Resource tag="SSO_AUTO_REGISTER">Register New Facebook User automatically:</Resource>
+    <Resource tag="SSO_AUTO_REGISTER_HELP">Register User automatically that are trying to login thru Facebook</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT">Таймаут кэша статистики форума:</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT_HELP">В минутах</Resource>
     <Resource tag="STYLED_NICKS">Использовать стилизированные ники:</Resource>
@@ -1656,6 +1660,7 @@
     <Resource tag="NONE">Ничего</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">Новое сообщение на форуме {0} должно быть Вами одобрено</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE">Пожаловались на сообщение в форуме {0}</Resource>
+    <Resource tag="NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT">Registration on {0} Forum successfully</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">На форуме {0} зарегистрирован новый пользователь.</Resource>
     <Resource tag="OK">ОК</Resource>
     <Resource tag="OR">или</Resource>
@@ -1811,6 +1816,7 @@
     <Resource tag="AIM">Ваш логин AIM:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Желаете ли Вы получать уведомление по электронной почте каждый раз, когда кто-либо оставляет сообщение во [b]всех[/b] обсуждениях с вашим участием?</Resource>
     <Resource tag="BAD_EMAIL">Вы ввели недопустимый адрес электронной почты.</Resource>
+    <Resource tag="BAD_FACEBOOK">You have entered an illegal value as Facebook Profile ID.</Resource>
     <Resource tag="BAD_HOME">Вы ввели неработающий адрес своей домашней страницы.</Resource>
     <Resource tag="BAD_ICQ">Вы ввели недопустимое значение для вашего номера ICQ.</Resource>
     <Resource tag="BAD_MSN">Вы ввели неверный адрес электронной почты для учётной записи MSN.</Resource>
@@ -1850,6 +1856,7 @@
     <Resource tag="TITLE">Изменить профиль</Resource>
     <Resource tag="TWITTER">Ваш ник в Twitter:</Resource>
     <Resource tag="USE_MOBILE_THEME">Использовать тему для мобильного устройства:</Resource>
+    <Resource tag="USE_SINGLESIGNON">Did you want to Use Single Sign On?&lt;br /&gt;You need to have Set Up the Facebook Profile ID above.</Resource>
     <Resource tag="WEBLOG2">URL вашего публичного блога:</Resource>
     <Resource tag="WHERE">Где Вы живете?</Resource>
     <Resource tag="XMPP">Ваш Jabber ID:</Resource>
@@ -2425,6 +2432,7 @@
     <Resource tag="BOTH_USERNAME_EMAIL">Должны быть введены как адрес почты пользователя, так и его имя.</Resource>
     <Resource tag="EMAIL">Адрес Email</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">Было послано сообщение по почте с вашим новым паролем.</Resource>
+    <Resource tag="FACEBOOK_LOGIN">Login with Facebook</Resource>
     <Resource tag="FORUM_LOGIN">Войти</Resource>
     <Resource tag="LOSTPASSWORD">Восстановить пароль</Resource>
     <Resource tag="PASSWORD">Пароль:</Resource>
@@ -2432,6 +2440,10 @@
     <Resource tag="RECOVER">Восстановление пароля</Resource>
     <Resource tag="RECOVER_ERROR">Произошла ошибка во время создания Вашего нового пароля.</Resource>
     <Resource tag="SENDPASSWORD">Отправить пароль</Resource>
+    <Resource tag="SSO_DEACTIVATED">Single Sign On is currently deactivated by the Administrator!</Resource>
+    <Resource tag="SSO_DEACTIVATED_BYUSER">Single Sign On is deactivated for that User, you need to activate it in your Profile Settings to use that feature.</Resource>
+    <Resource tag="SSO_FAILED">The Facebook Login failed, a User with that Email Address doesn't  exists.</Resource>
+    <Resource tag="SSO_ID_NOTMATCH">The Facebook User ID does not match!</Resource>
     <Resource tag="TITLE">Вход</Resource>
     <Resource tag="USERNAME">Имя пользователя:</Resource>
     <Resource tag="WRONG_USERNAME_EMAIL">Неверное имя пользователя или адрес электронной почты.</Resource>
@@ -2724,6 +2736,7 @@
     <Resource tag="EMAILTOPIC">Отправить тему по почте</Resource>
     <Resource tag="EMPTY_MESSAGE">Сообщение должно содержать текст.</Resource>
     <Resource tag="FACEBOOK">Facebook</Resource>
+    <Resource tag="FACEBOOK_SHARE_TOPIC">Share on Facebook</Resource>
     <Resource tag="FACEBOOK_TITLE">Посетите профиль пользователя {0} в Facebook</Resource>
     <Resource tag="FACEBOOK_TOPIC">Смотреть в этой теме</Resource>
     <Resource tag="FORUM_JUMP">Быстрый переход</Resource>
@@ -3083,6 +3096,17 @@
 
 		{link}
 	</Resource>
+    <Resource tag="NOTIFICATION_ON_FACEBOOK_REGISTER">
+      Hello {user}.
+
+      You have been successfully Registred on the {forumname} forum thru Facebook:
+
+      User Name: {user}
+	  Auto Generated Password: {pass}
+	  Auto Generated Security Answer: {answer}
+      User Email: {email} (Please dont change your email, or you are unable to login with facebook)
+	  
+    </Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL_TEXT">
       Новое сообщение ожидающее вашего одобрения появилось на форуме: {forumname}
 

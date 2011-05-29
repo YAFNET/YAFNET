@@ -475,10 +475,11 @@ namespace YAF.DotNetNuke
                 null,
                 null, 
                 null, 
-                true, 
                 null, 
                 null, 
                 null, 
+                null, 
+                null,
                 null, 
                 null, 
                 null);

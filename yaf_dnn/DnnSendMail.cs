@@ -65,7 +65,7 @@ namespace YAF.DotNetNuke
         if (mailMessage.AlternateViews.Count > 0)
         {
             var stream = mailMessage.AlternateViews[0].ContentStream;
-            using (StreamReader reader = new StreamReader(stream))
+            using (var reader = new StreamReader(stream))
             {
                 body = reader.ReadToEnd();
             }

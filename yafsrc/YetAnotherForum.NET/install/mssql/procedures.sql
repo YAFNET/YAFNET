@@ -6925,6 +6925,7 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}user_save](
 	@LanguageFile		nvarchar(50) = null,
 	@Culture		    char(5) = null,
 	@ThemeFile			nvarchar(50) = null,
+	@UseSingleSignOn    bit = null,
 	@TextEditor			nvarchar(50) = null,
 	@OverrideDefaultTheme	bit = null,
 	@Approved			bit = null,
@@ -6945,6 +6946,7 @@ begin
 	if @PMNotification is null SET @PMNotification = 1
 	if @AutoWatchTopics is null SET @AutoWatchTopics = 0
 	if @OverrideDefaultTheme is null SET @OverrideDefaultTheme=0
+	if @UseSingleSignOn is null SET @UseSingleSignOn=0
 
 	if @UserID is null or @UserID<1 begin
 		set @Flags = 0	
@@ -6978,6 +6980,7 @@ begin
 			LanguageFile = @LanguageFile,
 			ThemeFile = @ThemeFile,
 			Culture = @Culture,
+			UseSingleSignOn = @UseSingleSignOn,
 			TextEditor = @TextEditor,
 			OverrideDefaultThemes = @OverrideDefaultTheme,
 			PMNotification = (CASE WHEN (@PMNotification is not null) THEN  @PMNotification ELSE PMNotification END),
@@ -9199,6 +9202,7 @@ begin
 		Suspended			= a.Suspended,
 		ThemeFile			= a.ThemeFile,
 		LanguageFile		= a.LanguageFile,
+		UseSingleSignOn     = a.UseSingleSignOn,
 		TextEditor		    = a.TextEditor,
 		TimeZoneUser		= a.TimeZone,
 		CultureUser		    = a.Culture,		

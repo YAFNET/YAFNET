@@ -6096,11 +6096,17 @@ namespace YAF.Classes.Data
     /// <param name="questionMime">
     /// The question file mime type.
     /// </param>
-    public static void poll_update([NotNull] object pollID, [NotNull] object question, [NotNull] object closes, [NotNull] object isBounded, 
-      bool isClosedBounded, 
-      bool allowMultipleChoices, 
-      bool showVoters, 
-      bool allowSkipVote, [NotNull] object questionPath, [NotNull] object questionMime)
+    public static void poll_update(
+        [NotNull] object pollID,
+        [NotNull] object question,
+        [NotNull] object closes,
+        [NotNull] object isBounded,
+        bool isClosedBounded,
+        bool allowMultipleChoices, 
+        bool showVoters, 
+        bool allowSkipVote, 
+        [NotNull] object questionPath, 
+        [NotNull] object questionMime)
     {
       using (var cmd = MsSqlDbAccess.GetCommand("poll_update"))
       {
@@ -9145,6 +9151,9 @@ namespace YAF.Classes.Data
     /// <param name="themeFile">
     /// The theme file.
     /// </param>
+    /// <param name="useSingleSignOn">
+    /// The use Single Sign On.
+    /// </param>
     /// <param name="textEditor">
     /// The text Editor.
     /// </param>
@@ -9169,7 +9178,7 @@ namespace YAF.Classes.Data
     /// <param name="notificationType">
     /// The notification Type.
     /// </param>
-    public static void user_save([NotNull] object userID, [NotNull] object boardID, [NotNull] object userName, [NotNull] object displayName, [NotNull] object email, [NotNull] object timeZone, [NotNull] object languageFile, [NotNull] object culture, [NotNull] object themeFile, [NotNull] object textEditor, [NotNull] object useMobileTheme, [NotNull] object approved, [NotNull] object pmNotification, [NotNull] object autoWatchTopics, [NotNull] object dSTUser, [NotNull] object hideUser, [NotNull] object notificationType)
+    public static void user_save([NotNull] object userID, [NotNull] object boardID, [NotNull] object userName, [NotNull] object displayName, [NotNull] object email, [NotNull] object timeZone, [NotNull] object languageFile, [NotNull] object culture, [NotNull] object themeFile, [NotNull] object useSingleSignOn, [NotNull] object textEditor, [NotNull] object useMobileTheme, [NotNull] object approved, [NotNull] object pmNotification, [NotNull] object autoWatchTopics, [NotNull] object dSTUser, [NotNull] object hideUser, [NotNull] object notificationType)
     {
       using (var cmd = MsSqlDbAccess.GetCommand("user_save"))
       {
@@ -9183,6 +9192,7 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("LanguageFile", languageFile);
         cmd.Parameters.AddWithValue("Culture", culture);
         cmd.Parameters.AddWithValue("ThemeFile", themeFile);
+        cmd.Parameters.AddWithValue("UseSingleSignOn", useSingleSignOn);
         cmd.Parameters.AddWithValue("TextEditor", textEditor);
         cmd.Parameters.AddWithValue("OverrideDefaultTheme", useMobileTheme);
         cmd.Parameters.AddWithValue("Approved", approved);

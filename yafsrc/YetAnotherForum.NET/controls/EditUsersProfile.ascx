@@ -314,6 +314,15 @@
              <asp:DropDownList runat="server" ID="Culture" CssClass="edit" />
         </td>
     </tr>
+    <tr runat="server" id="UserLoginRow">
+        <td class="postheader">
+            <YAF:LocalizedLabel ID="LocalizedLabel36" runat="server" LocalizedPage="CP_EDITPROFILE"
+                LocalizedTag="USE_SINGLESIGNON" />
+        </td>
+        <td class="post">
+             <asp:CheckBox id="SingleSignOn" runat="server" />
+        </td>
+    </tr>
     <asp:PlaceHolder runat="server" ID="LoginInfo" Visible="false">
         <tr>
             <td colspan="2" class="header2">

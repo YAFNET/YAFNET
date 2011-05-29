@@ -20,14 +20,15 @@ namespace YAF.Core
 {
   #region Using
 
-  using System;
-  using System.Data;
-  using System.Web.Security;
-
-  using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Classes.Data;
-  using YAF.Utils;
-  using YAF.Types.Flags;
+    using System;
+    using System.Data;
+    using System.Web.Security;
+    using YAF.Classes;
+    using YAF.Classes.Data;
+    using YAF.Types.Constants;
+    using YAF.Types.Flags;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
 
   #endregion
 
@@ -109,13 +110,24 @@ namespace YAF.Core
     ///   Initializes a new instance of the <see cref = "CombinedUserDataHelper" /> class.
     /// </summary>
     public CombinedUserDataHelper()
-      : this((int)YafContext.Current.PageUserID)
+      : this(YafContext.Current.PageUserID)
     {
     }
 
     #endregion
 
     #region Properties
+
+    /// <summary>
+    ///   Gets a value indicating whether Use Single Sign On.
+    /// </summary>
+    public bool UseSingleSignOn
+    {
+        get
+        {
+            return this.RowConvert.AsBool("UseSingleSignOn") ?? false;
+        }
+    }
 
     /// <summary>
     ///   Gets a value indicating whether AutoWatchTopics.
@@ -173,7 +185,7 @@ namespace YAF.Core
         if (this._userDBRow == null && this._userID.HasValue)
         {
           this._userDBRow = UserMembershipHelper.GetUserRowForID(
-            this._userID.Value, YafContext.Current.BoardSettings.AllowUserInfoCaching);
+            this._userID.Value, YafContext.Current.Get<YafBoardSettings>().AllowUserInfoCaching);
         }
 
         return this._userDBRow;
@@ -206,7 +218,7 @@ namespace YAF.Core
     {
       get
       {
-        return this.RowConvert.AsBool("DailyDigest") ?? YafContext.Current.BoardSettings.DefaultSendDigestEmail;
+          return this.RowConvert.AsBool("DailyDigest") ?? YafContext.Current.Get<YafBoardSettings>().DefaultSendDigestEmail;
       }
     }
 
@@ -217,12 +229,7 @@ namespace YAF.Core
     {
       get
       {
-        if (this._userID.HasValue)
-        {
-          return this.RowConvert.AsString("DisplayName");
-        }
-
-        return this.UserName;
+          return this._userID.HasValue ? this.RowConvert.AsString("DisplayName") : this.UserName;
       }
     }
 
@@ -233,12 +240,7 @@ namespace YAF.Core
     {
       get
       {
-        if (this.IsGuest)
-        {
-          return this.RowConvert.AsString("Email");
-        }
-
-        return this.Membership.Email;
+          return this.IsGuest ? this.RowConvert.AsString("Email") : this.Membership.Email;
       }
     }
 
@@ -487,17 +489,13 @@ namespace YAF.Core
         {
           return this.MembershipUser.UserName;
         }
-        else if (this._userID.HasValue)
-        {
-          return this.RowConvert.AsString("Name");
-        }
 
-        return null;
+          return this._userID.HasValue ? this.RowConvert.AsString("Name") : null;
       }
     }
 
     /// <summary>
-    ///   The _membership user.
+    ///   Gets or sets the membership user.
     /// </summary>
     protected MembershipUser MembershipUser
     {

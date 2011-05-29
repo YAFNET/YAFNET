@@ -38,7 +38,10 @@ using YAF.Utils;
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
 public class YafWebService : WebService, IHaveServiceLocator
 {
-  public IServiceLocator ServiceLocator
+    /// <summary>
+    /// Gets ServiceLocator.
+    /// </summary>
+    public IServiceLocator ServiceLocator
   {
     get
     {
@@ -169,6 +172,7 @@ public class YafWebService : WebService, IHaveServiceLocator
         userFields["LanguageFile"], 
         userFields["Culture"], 
         userFields["ThemeFile"],
+        userFields["UseSingleSignOn"],
         userFields["TextEditor"],
         null, 
         null, 

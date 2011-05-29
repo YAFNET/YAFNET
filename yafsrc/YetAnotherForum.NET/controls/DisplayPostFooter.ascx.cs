@@ -318,9 +318,7 @@
 
             if (this.PostData.UserProfile.Facebook.IsSet())
             {
-                this.Facebook.NavigateUrl = this.PostData.UserProfile.Facebook.Contains(@"facebook.com/")
-                                                ? this.PostData.UserProfile.Facebook
-                                                : "http://www.facebook.com/{0}".FormatWith(this.PostData.UserProfile.Facebook);
+                this.Facebook.NavigateUrl = "https://www.facebook.com/profile.php?id={0}".FormatWith(this.PostData.UserProfile.Facebook);
             }
 
             this.Facebook.ParamTitle0 = userName;

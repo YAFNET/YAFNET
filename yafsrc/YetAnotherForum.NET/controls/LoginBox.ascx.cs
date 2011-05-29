@@ -165,6 +165,27 @@ namespace YAF.Controls
               "yafmodaldialogJs", JavaScriptBlocks.YafModalDialogLoadJs(".LoginLink", "#LoginBox"));
             YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.yafmodaldialog.css");
 
+            if (this.Get<YafBoardSettings>().AllowSingleSignOn && Config.FacebookAPIKey.IsSet())
+            {
+                // setup jQuery and Facebook Scripts.
+                YafContext.Current.PageElements.RegisterJQuery();
+
+                YafContext.Current.PageElements.RegisterJsResourceInclude("yafPageMethodjs", "js/jquery.pagemethod.js");
+
+                YafContext.Current.PageElements.RegisterJsBlockStartup("facebookInitJs", JavaScriptBlocks.FacebookInitJs);
+
+                YafContext.Current.PageElements.RegisterJsBlockStartup("facebookLoginJs", JavaScriptBlocks.FacebookLoginJs);
+
+                YafContext.Current.PageElements.RegisterJsBlockStartup(
+                    "LoginCallSuccessJS", JavaScriptBlocks.LoginCallSuccessJS);
+
+                var asynchCallFailedJs =
+                    this.Get<IScriptBuilder>().CreateStatement().AddFunc(
+                        f => f.Name("LoginCallFailed").WithParams("res").Func(s => s.Add("alert('Error Occurred');")));
+
+                YafContext.Current.PageElements.RegisterJsBlockStartup("LoginCallFailedJs", asynchCallFailedJs);
+            }
+
             base.OnPreRender(e);
         }
 
@@ -203,6 +224,7 @@ namespace YAF.Controls
             var password = this.Login1.FindControlAs<TextBox>("Password");
             var forumLogin = this.Login1.FindControlAs<Button>("LoginButton");
             var passwordRecovery = this.Login1.FindControlAs<LinkButton>("PasswordRecovery");
+            var faceBookHolder = this.Login1.FindControlAs<PlaceHolder>("FaceBookHolder");
 
             userName.Focus();
 
@@ -238,6 +260,11 @@ namespace YAF.Controls
               "if(event.which || event.keyCode){if ((event.which == 13) || (event.keyCode == 13)) {document.getElementById('" +
               forumLogin.ClientID + "').click();return false;}} else {return true}; ");
 
+            if (this.Get<YafBoardSettings>().AllowSingleSignOn && Config.FacebookAPIKey.IsSet())
+            {
+                faceBookHolder.Visible = true;
+            }
+
             this.DataBind();
         }
 
@@ -258,6 +285,7 @@ namespace YAF.Controls
         #endregion
 
         /// <summary>
+        /// The LoggedIn Event
         /// </summary>
         /// <param name="sender">
         /// The sender.

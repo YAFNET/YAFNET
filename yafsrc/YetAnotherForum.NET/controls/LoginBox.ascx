@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Controls.LoginBox" CodeBehind="LoginBox.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Controls.LoginBox" CodeBehind="LoginBox.ascx.cs" %>
 
 <div id="LoginBox">  
 <asp:UpdatePanel ID="UpdateLoginPanel" runat="server" UpdateMode="Conditional">
@@ -30,8 +30,16 @@
                                 <asp:CheckBox ID="RememberMe" CssClass="RembemberMe" runat="server"></asp:CheckBox>
                               </div>
                               <hr />
-                              <div style="margin:5px 0;"><asp:LinkButton ID="PasswordRecovery" CssClass="RecoveryButtton" runat="server" CausesValidation="false"
-                                                OnClick="PasswordRecovery_Click" /></div>
+                              <div style="margin:5px 0;">
+                                 <asp:LinkButton ID="PasswordRecovery" CssClass="RecoveryButtton" runat="server" CausesValidation="false"
+                                                OnClick="PasswordRecovery_Click" />
+                                 <asp:PlaceHolder ID="FaceBookHolder" runat="server" Visible="false">
+                                    <fb:login-button onlogin="LoginUser()" perms="email,user_birthday,status_update,publish_stream">
+                                      <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="FACEBOOK_LOGIN" LocalizedPage="LOGIN" />
+                                    </fb:login-button>
+                                    <div id="fb-root"></div>
+                                 </asp:PlaceHolder>
+                               </div>
                                 
                             </td>
                         </tr>

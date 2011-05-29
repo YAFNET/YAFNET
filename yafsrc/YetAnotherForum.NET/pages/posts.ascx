@@ -41,6 +41,7 @@
                 <asp:Label ID="TopicTitle" runat="server" />
             </div>
             <div class="rightItem">
+                <div id="fb-root"></div>
                 <asp:HyperLink ID="ShareLink" runat="server" CssClass="PopMenuLink">
                     <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="Share" />
                 </asp:HyperLink>

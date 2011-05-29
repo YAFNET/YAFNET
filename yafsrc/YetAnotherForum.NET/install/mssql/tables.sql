@@ -371,6 +371,7 @@ if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseO
 		Suspended		[datetime] NULL,
 		LanguageFile	nvarchar(50) NULL,
 		ThemeFile		nvarchar(50) NULL,
+		[UseSingleSignOn][bit] NOT NULL CONSTRAINT [DF_{objectQualifier}User_UseSingleSignOn] DEFAULT (0),
 		TextEditor		nvarchar(50) NULL,
 		OverrideDefaultThemes	bit NOT NULL CONSTRAINT [DF_{objectQualifier}User_OverrideDefaultThemes] DEFAULT (0),
 		[PMNotification] [bit] NOT NULL CONSTRAINT [DF_{objectQualifier}User_PMNotification] DEFAULT (1),
@@ -859,6 +860,11 @@ GO
 if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='TextEditor')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}User] add TextEditor nvarchar(50) NULL
+end
+GO
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='SingleSignOn')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}User] add [UseSingleSignOn][bit] NOT NULL CONSTRAINT [DF_{objectQualifier}User_UseSingleSignOn] DEFAULT (0)
 end
 GO
 

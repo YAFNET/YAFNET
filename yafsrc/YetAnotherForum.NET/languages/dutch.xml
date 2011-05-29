@@ -879,6 +879,8 @@
     <Resource tag="ENABLE_LOCATIONPATH_ERRORS_HELP">Als deze aangevinkt is, worden alle fouten van actieve locatiepaden gelogd.</Resource>
     <Resource tag="ENABLE_RETWEET_MSG">Enable Retweet Message Button:</Resource>
     <Resource tag="ENABLE_RETWEET_MSG_HELP">Enables/disables the Retweet Button, where the User can retweet a topic message.</Resource>
+    <Resource tag="ENABLE_SSO">Enable Single Sign On:</Resource>
+    <Resource tag="ENABLE_SSO_HELP">If checked, users will be able to Login to an existing account via Facebook. This only works YAF.FacebookAPIKey and YAF.FacebookSecretKey are setup in app.config.</Resource>
     <Resource tag="EXTERN_NEWWINDOW">Externe Zoekopdrachtresultaten in een nieuw Venster:</Resource>
     <Resource tag="EXTERN_NEWWINDOW_HELP">Geef de resultaten van een externe zoekopdracht weer in een nieuw venster.</Resource>
     <Resource tag="EXTERN_SEARCH_PERMISS">Machtingingen om Extern te mogen zoeken:</Resource>
@@ -1139,6 +1141,8 @@
     <Resource tag="SSL_LOGIN_HELP">Forceer een beveiligde verbinding bij het inloggen van de gebruikers.</Resource>
     <Resource tag="SSL_REGISTER">Gebruik SSL bij het registratieproces:</Resource>
     <Resource tag="SSL_REGISTER_HELP">Forceer een beveiligde verbinding bij het registreren van nieuwe gebruikers.</Resource>
+    <Resource tag="SSO_AUTO_REGISTER">Register New Facebook User automatically:</Resource>
+    <Resource tag="SSO_AUTO_REGISTER_HELP">Register User automatically that are trying to login thru Facebook</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT">Forum Statistieken Cache Timeout:</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT_HELP">In minuten</Resource>
     <Resource tag="STYLED_NICKS">Gebruik opgemaakte aliassen:</Resource>
@@ -1658,6 +1662,7 @@
     <Resource tag="NONE">Geen</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">Nieuw bericht op {0} Forum heeft goedkeuring nodig</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE">A Message on {0} Forum was reported</Resource>
+    <Resource tag="NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT">Registration on {0} Forum successfully</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">Nieuwe gebruiker geregistreerd op {0} Forum</Resource>
     <Resource tag="OK">OK</Resource>
     <Resource tag="OR">of</Resource>
@@ -1795,6 +1800,7 @@
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Abbonneer je op elk topic waar je een bericht hebt geplaatst en ontvang updates via e-mail?
 </Resource>
     <Resource tag="BAD_EMAIL">Je hebt een ongeldig e-mail adres ingevoerd.</Resource>
+    <Resource tag="BAD_FACEBOOK">You have entered an illegal value as Facebook Profile ID.</Resource>
     <Resource tag="BAD_HOME">Je hebt een ongeldig homepage adres ingevoerd.</Resource>
     <Resource tag="BAD_ICQ">Je hebt een ongeldig ICQ-nummer ingevoerd.</Resource>
     <Resource tag="BAD_MSN">Je hebt een ongeldig e-mail adres ingevoerd voor je MSN-account.</Resource>
@@ -1807,7 +1813,7 @@
     <Resource tag="DUPLICATED_EMAIL">Dit e-mail adres wordt al door iemand gebruikt.</Resource>
     <Resource tag="EDIT_ALBUMS">Bewerk Albums</Resource>
     <Resource tag="EMAIL">Je dient altijd over een geldig e-mail adres te beschikken:</Resource>
-    <Resource tag="FACEBOOK">Your Facebook Profile Name:</Resource>
+    <Resource tag="FACEBOOK">Your Facebook Profile ID:</Resource>
     <Resource tag="FORUM_SETTINGS">Forum-instellingen</Resource>
     <Resource tag="HIDEME">Laat me niet zien aan andere gebruikers</Resource>
     <Resource tag="HOMEPAGE">Homepage</Resource>
@@ -1834,6 +1840,7 @@
     <Resource tag="TITLE">Profiel bewerken</Resource>
     <Resource tag="TWITTER">Your Twitter Name:</Resource>
     <Resource tag="USE_MOBILE_THEME">Gebruik mobiel forum thema</Resource>
+    <Resource tag="USE_SINGLESIGNON">Did you want to Use Single Sign On?&lt;br /&gt;You need to have Set Up the Facebook Profile ID above.</Resource>
     <Resource tag="WEBLOG2">Jouw weblog:</Resource>
     <Resource tag="WHERE">Waar woon je?</Resource>
     <Resource tag="XMPP">Your Jabber ID:</Resource>
@@ -2376,6 +2383,7 @@
     <Resource tag="BOTH_USERNAME_EMAIL">Graag zowel je gebruikersnaam als je e-mail adres in te vullen.</Resource>
     <Resource tag="EMAIL">E-mail adres</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">Er is een e-mail verzonden met je nieuwe wachtwoord.</Resource>
+    <Resource tag="FACEBOOK_LOGIN">Login with Facebook</Resource>
     <Resource tag="FORUM_LOGIN">Inloggen op forum</Resource>
     <Resource tag="LOSTPASSWORD">Wachtwoord vergeten?</Resource>
     <Resource tag="PASSWORD">Wachtwoord:</Resource>
@@ -2383,6 +2391,10 @@
     <Resource tag="RECOVER">Wachtwoord opvragen</Resource>
     <Resource tag="RECOVER_ERROR">Er is een fout opgetreden bij het aanmaken van je nieuwe wachtwoord.</Resource>
     <Resource tag="SENDPASSWORD">Wachtwoord verzenden</Resource>
+    <Resource tag="SSO_DEACTIVATED">Single Sign On is currently deactivated by the Administrator!</Resource>
+    <Resource tag="SSO_DEACTIVATED_BYUSER">Single Sign On is deactivated for that User, you need to activate it in your Profile Settings to use that feature.</Resource>
+    <Resource tag="SSO_FAILED">The Facebook Login failed, a User with that Email Address doesn't  exists.</Resource>
+    <Resource tag="SSO_ID_NOTMATCH">The Facebook User ID does not match!</Resource>
     <Resource tag="TITLE">Inloggen</Resource>
     <Resource tag="USERNAME">Gebruikersnaam:</Resource>
     <Resource tag="WRONG_USERNAME_EMAIL">Ongeldige gebruikersnaam of e-mail adres.</Resource>
@@ -2670,6 +2682,7 @@
     <Resource tag="EMAILTOPIC">Topic mailen</Resource>
     <Resource tag="EMPTY_MESSAGE">Je moet wel een stukje tekst typen ;)</Resource>
     <Resource tag="FACEBOOK">Facebook</Resource>
+    <Resource tag="FACEBOOK_SHARE_TOPIC">Share on Facebook</Resource>
     <Resource tag="FACEBOOK_TITLE">Visit {0}'s Facebook Profile</Resource>
     <Resource tag="FACEBOOK_TOPIC">Like this Topic</Resource>
     <Resource tag="FORUM_JUMP">Spring naar forum</Resource>
@@ -3025,6 +3038,17 @@ Als je je e-mail niet wilde wijzigen, dan kun je deze mail negeren.
 
 {link}
 </Resource>
+    <Resource tag="NOTIFICATION_ON_FACEBOOK_REGISTER">
+      Hello {user}.
+
+      You have been successfully Registred on the {forumname} forum thru Facebook:
+
+      User Name: {user}
+	  Auto Generated Password: {pass}
+	  Auto Generated Security Answer: {answer}
+      User Email: {email} (Please dont change your email, or you are unable to login with facebook)
+	  
+    </Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL_TEXT">		Een nieuw bericht dat goedgekeurd moet worden is geplaatst op het {forumname} forum:
 		
 		Beheerlink: {adminlink}

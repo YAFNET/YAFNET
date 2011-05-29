@@ -880,6 +880,8 @@
     <Resource tag="ENABLE_LOCATIONPATH_ERRORS_HELP">Wenn aktiviert, Alle Aktive Fehler werden Protokolliert</Resource>
     <Resource tag="ENABLE_RETWEET_MSG">Beitrag Retweeten Button aktivieren:</Resource>
     <Resource tag="ENABLE_RETWEET_MSG_HELP">Aktiviert / deaktiviert den Retweet Button, wo der Benutzer ein Beitrag retweeten kann.</Resource>
+    <Resource tag="ENABLE_SSO">Single Sign On Aktivieren:</Resource>
+    <Resource tag="ENABLE_SSO_HELP">Wenn diese Option aktiviert ist, können Benutzer sich über Facebook anmelden. Dies funktioniert nur wenn YAF.FacebookAPIKey und YAF.FacebookSecretKey in der app.config vorhanden sind.</Resource>
     <Resource tag="EXTERN_NEWWINDOW">Externe Suchergebnisse in einem neuen Fenster:</Resource>
     <Resource tag="EXTERN_NEWWINDOW_HELP">Externe Suchergebnisse in einem neuen Fenster Öffnen.</Resource>
     <Resource tag="EXTERN_SEARCH_PERMISS">Externe Suchberechtigungen:</Resource>
@@ -1139,6 +1141,8 @@
     <Resource tag="SSL_LOGIN_HELP">Erzwingen einer sicheren Verbindung für die Benutzer Anmeldung</Resource>
     <Resource tag="SSL_REGISTER">SSL bei der Registrierung verwenden:</Resource>
     <Resource tag="SSL_REGISTER_HELP">Erzwingen einer sicheren Verbindung für die Benutzer Registrierung.</Resource>
+    <Resource tag="SSO_AUTO_REGISTER">Neue Facebook Benutzer autom. registrieren:</Resource>
+    <Resource tag="SSO_AUTO_REGISTER_HELP">Benutzer automatisch Registrieren wenn sie nicht exestieren wenn sich jemand über Facebook versucht anzumelden.</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT">Forum Statistiken Speicher Ablaufzeit:</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT_HELP">In Minuten</Resource>
     <Resource tag="STYLED_NICKS">Gestylte Nicks verwenden:</Resource>
@@ -1650,6 +1654,7 @@
     <Resource tag="NONE">Keine</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">Neue Nachricht im Forum {0} Forum muss genehmigt werden.</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE">Ein Beitrag im {0} Forum wurde gemeldet</Resource>
+    <Resource tag="NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT">Registrierung im {0} Forum erfolgreich</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">Neuer Benutzer in Forum {0} angemeldet</Resource>
     <Resource tag="OK">OK</Resource>
     <Resource tag="OR">oder</Resource>
@@ -1789,6 +1794,7 @@
     <Resource tag="AIM">AIM Name:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Beobachten Sie jedes Thema, in dem Sie einen Beitrag gemacht haben und empfangen E-Mail-Benachrichtigungen der Aktivitäten in diesen Themen?</Resource>
     <Resource tag="BAD_EMAIL">E-Mail-Adresse nicht zulässig.</Resource>
+    <Resource tag="BAD_FACEBOOK">Unzulässige Facbeook Profile ID.</Resource>
     <Resource tag="BAD_HOME">Keine zulässige Adresse für Deine Homepage.</Resource>
     <Resource tag="BAD_ICQ">Unzulässige ICQ-Daten.</Resource>
     <Resource tag="BAD_MSN">E-Mail-Adresse nicht zulässig für Dein MSN Konto.</Resource>
@@ -1801,7 +1807,7 @@
     <Resource tag="DUPLICATED_EMAIL">Die E-Mail-Adresse eingegeben haben, ist bereits im Einsatz.</Resource>
     <Resource tag="EDIT_ALBUMS">Alben bearbeiten</Resource>
     <Resource tag="EMAIL">Du musst immer eine gültige E-Mail-Adresse angeben.</Resource>
-    <Resource tag="FACEBOOK">Facebook Profilname:</Resource>
+    <Resource tag="FACEBOOK">Facebook Profil ID:</Resource>
     <Resource tag="FORUM_SETTINGS">Einstellungen des Forums</Resource>
     <Resource tag="HIDEME">Verstecken Sie mich aus der aktiven Nutzerliste</Resource>
     <Resource tag="HOMEPAGE">Webseite</Resource>
@@ -1828,6 +1834,7 @@
     <Resource tag="TITLE">Profil bearbeiten</Resource>
     <Resource tag="TWITTER">Twittername:</Resource>
     <Resource tag="USE_MOBILE_THEME">Mobile Forum Skin benutzen:</Resource>
+    <Resource tag="USE_SINGLESIGNON">Möchten Sie Single Sign On verwenden?&lt;br /&gt;Sie müssen oben ihre Facebook ID angeben.</Resource>
     <Resource tag="WEBLOG2">Dein Blog:</Resource>
     <Resource tag="WHERE">Wo lebst du?</Resource>
     <Resource tag="XMPP">Jabber ID:</Resource>
@@ -2397,6 +2404,7 @@
     <Resource tag="BOTH_USERNAME_EMAIL">Sowohl E-Mail-Adresse als auch Benutzername müssen eingegeben werden.</Resource>
     <Resource tag="EMAIL">E-Mail-Adresse</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">Eine E-Mail mit einem neuen Passwort wurde versandt.</Resource>
+    <Resource tag="FACEBOOK_LOGIN">Mit Facebook anmelden</Resource>
     <Resource tag="FORUM_LOGIN">Ins Forum einloggen</Resource>
     <Resource tag="LOSTPASSWORD">Passwort vergessen</Resource>
     <Resource tag="PASSWORD">Passwort:</Resource>
@@ -2404,6 +2412,10 @@
     <Resource tag="RECOVER">Passwort wiederherstellen</Resource>
     <Resource tag="RECOVER_ERROR">Fehler beim Erstellen eines neuen Passworts.</Resource>
     <Resource tag="SENDPASSWORD">Passwort zusenden</Resource>
+    <Resource tag="SSO_DEACTIVATED">Single Sign On ist derzeit vom Administrator deaktiviert!</Resource>
+    <Resource tag="SSO_DEACTIVATED_BYUSER">Single Sign On ist deaktiviert für diesen Benutzer, um diese Funktion zu aktivieren müssen Sie diese in den Profil Einstellungen aktivieren.</Resource>
+    <Resource tag="SSO_FAILED">Die Facebook Anmeldung ist fehlgeschlagen, ein Benutzer mit dieser Email Adresse exestiert nicht.</Resource>
+    <Resource tag="SSO_ID_NOTMATCH">Die Facebook Benutzer ID stimmt nicht überein!</Resource>
     <Resource tag="TITLE">Einloggen</Resource>
     <Resource tag="USERNAME">Benutzername oder Email Adresse:</Resource>
     <Resource tag="WRONG_USERNAME_EMAIL">Falscher Benutzername oder falsche E-Mail-Adresse.</Resource>
@@ -2691,6 +2703,7 @@
     <Resource tag="EMAILTOPIC">Thema per E-Mail verschicken</Resource>
     <Resource tag="EMPTY_MESSAGE">Du musst etwas in den Beitrag eintippen.</Resource>
     <Resource tag="FACEBOOK">Facebook</Resource>
+    <Resource tag="FACEBOOK_SHARE_TOPIC">Mitteilen auf Facebook</Resource>
     <Resource tag="FACEBOOK_TITLE">{0}'s Facebook Profil besuchen</Resource>
     <Resource tag="FACEBOOK_TOPIC">Thema mögen</Resource>
     <Resource tag="FORUM_JUMP">Das Forum wechseln</Resource>
@@ -2764,7 +2777,7 @@
     <Resource tag="TOP">Zurück zum Anfang</Resource>
     <Resource tag="TOPICBROWSERS">Benutzer, die gerade dieses Thema lesen</Resource>
     <Resource tag="TOTAL">Gesamt</Resource>
-    <Resource tag="TUMBLR_TOPIC">Share on Tumblr</Resource>
+    <Resource tag="TUMBLR_TOPIC">Mitteilen auf Tumblr</Resource>
     <Resource tag="TWITTER">Twitter</Resource>
     <Resource tag="TWITTER_TITLE">{0}'s Twitter Profil besuchen</Resource>
     <Resource tag="UNWATCHTOPIC">Dieses Thema nicht mehr abonnieren</Resource>
@@ -3050,6 +3063,17 @@ Hallo!
 {user}, dachte dies hier könnte Dich vielleicht interessieren:
 
 {link}
+    </Resource>
+    <Resource tag="NOTIFICATION_ON_FACEBOOK_REGISTER">
+      Hallo {user}.
+
+      Sie haben sich erfolgreich im forum {forumname} über Facebook registriert:
+
+      Benutzername: {user}
+	  Automatisch generiertes Passwort: {pass}
+	  Automatich generierte Sicherheits Antwort: {answer}
+      Email: {email} (Bitte ändern Sie nicht ihre Email Adresse, ansonsten können Sie sich nicht mehr über Facebook anmelden)
+	  
     </Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL_TEXT">
 		Eine neue Nachricht muß bestätigt werden die im forum {forumname} geschrieben wurde:

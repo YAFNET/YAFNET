@@ -234,6 +234,7 @@ namespace YAF.Controls
       this.UserThemeRow.Visible = this.Get<YafBoardSettings>().AllowUserTheme;
       this.TrTextEditors.Visible = this.Get<YafBoardSettings>().AllowUsersTextEditor;
       this.UserLanguageRow.Visible = this.Get<YafBoardSettings>().AllowUserLanguage;
+      this.UserLoginRow.Visible = this.Get<YafBoardSettings>().AllowSingleSignOn;
       this.MetaWeblogAPI.Visible = this.Get<YafBoardSettings>().AllowPostToBlog;
       this.LoginInfo.Visible = this.Get<YafBoardSettings>().AllowEmailChange;
       this.currentCulture = Thread.CurrentThread.CurrentCulture.IetfLanguageTag;
@@ -292,6 +293,12 @@ namespace YAF.Controls
       {
         this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_ICQ"));
         return;
+      }
+
+      if (this.Facebook.Text.IsSet() && !ValidationHelper.IsValidInt(this.Facebook.Text))
+      {
+          this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_FACEBOOK"));
+          return;
       }
 
       string displayName = null;
@@ -395,6 +402,7 @@ namespace YAF.Controls
         language, 
         culture, 
         theme,
+        this.SingleSignOn.Checked,
         editor,
         this.UseMobileTheme.Checked, 
         null, 
@@ -411,7 +419,6 @@ namespace YAF.Controls
         {
             LegacyDb.registry_save("timezone", this.TimeZones.SelectedValue, this.PageContext.PageBoardID);
         }
-
 
         // clear the cache for this user...)
       this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.CurrentUserID));
@@ -544,7 +551,12 @@ namespace YAF.Controls
           }
       }
 
-        if (!this.Get<YafBoardSettings>().AllowUserLanguage || this.Culture.Items.Count <= 0)
+      if (this.Get<YafBoardSettings>().AllowSingleSignOn)
+      {
+          this.SingleSignOn.Checked = this.UserData.UseSingleSignOn;
+      }
+
+      if (!this.Get<YafBoardSettings>().AllowUserLanguage || this.Culture.Items.Count <= 0)
       {
         return;
       }

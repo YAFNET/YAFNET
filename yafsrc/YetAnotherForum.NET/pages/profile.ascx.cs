@@ -484,9 +484,7 @@ namespace YAF.Pages
 
             if (userData.Profile.Facebook.IsSet())
             {
-                this.Facebook.NavigateUrl = userData.Profile.Facebook.Contains(@"facebook.com/")
-                                                ? userData.Profile.Facebook
-                                                : "http://www.facebook.com/{0}".FormatWith(userData.Profile.Facebook);
+                this.Facebook.NavigateUrl = "https://www.facebook.com/profile.php?id={0}".FormatWith(userData.Profile.Facebook);
             }
 
             this.Facebook.ParamTitle0 = userName;

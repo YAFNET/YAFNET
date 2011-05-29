@@ -25,6 +25,7 @@ namespace YAF.Pages
 
     using System;
     using System.Data;
+    using System.IO;
     using System.Linq;
     using System.Net;
     using System.Text;
@@ -434,11 +435,13 @@ namespace YAF.Pages
         /// </param>
         protected void NewTopic_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this._forumFlags.IsLocked)
+            if (!this._forumFlags.IsLocked)
             {
-                this.PageContext.AddLoadMessage(this.GetText("WARN_FORUM_LOCKED"));
                 return;
             }
+
+            this.PageContext.AddLoadMessage(this.GetText("WARN_FORUM_LOCKED"));
+            return;
         }
 
         /// <summary>
@@ -505,10 +508,10 @@ namespace YAF.Pages
         /// </param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
+            YafContext.Current.PageElements.RegisterJsResourceInclude("yafPageMethodjs", "js/jquery.pagemethod.js");
+
             if (!this.PageContext.IsGuest)
             {
-                YafContext.Current.PageElements.RegisterJsResourceInclude("yafPageMethodjs", "js/jquery.pagemethod.js");
-
                 // The html code for "Favorite Topic" theme buttons.
                 string tagButtonHTML =
                   "'<a class=\"yafcssbigbutton rightItem\" href=\"javascript:addFavoriteTopic(' + res.d + ');\" onclick=\"jQuery(this).blur();\" title=\"{0}\"><span>{1}</span></a>'"
@@ -706,6 +709,37 @@ namespace YAF.Pages
             YafContext.Current.Get<IYafSession>().SetTopicRead(this.PageContext.PageTopicID, DateTime.UtcNow);
 
             this.BindData();
+
+            if (this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ShowShareTopicTo) && Config.FacebookAPIKey.IsSet())
+            {
+                YafContext.Current.PageElements.RegisterJsBlockStartup("facebookInitJs", JavaScriptBlocks.FacebookInitJs);
+
+                var message =
+                          StringExtensions.RemoveMultipleWhitespace(
+                            BBCodeHelper.StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString((string)this._topic["Topic"]))));
+
+                var meta = this.Page.Header.FindControlType<HtmlMeta>();
+                string description = string.Empty;
+
+                if (meta.Any(x => x.Name.Equals("description")))
+                {
+                    var descriptionMeta = meta.Where(x => x.Name.Equals("description")).FirstOrDefault();
+                    if (descriptionMeta != null)
+                    {
+                        description = descriptionMeta.Content;
+                    }
+                }
+
+                YafContext.Current.PageElements.RegisterJsBlockStartup(
+                    "facebookPostJs",
+                    JavaScriptBlocks.FacebookPostJs(
+                        message,
+                        description,
+                        this.Get<HttpRequestBase>().Url.ToString(),
+                        "{0}/YAFLogo.jpg".FormatWith(
+                            Path.Combine(YafForumInfo.ForumBaseUrl, YafBoardFolders.Current.Images)),
+                        "Logo"));
+            }
         }
 
         /// <summary>
@@ -1768,6 +1802,14 @@ namespace YAF.Pages
                     this.GetText("FACEBOOK_TOPIC"),
                     @"window.open('{0}','Facebook','width=300,height=200,resizable=yes');".FormatWith(facebookUrl),
                     this.Get<ITheme>().GetItem("ICONS", "FACEBOOK"));
+
+                if (Config.FacebookAPIKey.IsSet())
+                {
+                    this.ShareMenu.AddClientScriptItem(
+                        this.GetText("FACEBOOK_SHARE_TOPIC"),
+                        "postToFacebook()",
+                        this.Get<ITheme>().GetItem("ICONS", "FACEBOOK"));
+                }
 
                 this.ShareMenu.AddPostBackItem(
                     "digg", this.GetText("DIGG_TOPIC"), this.Get<ITheme>().GetItem("ICONS", "DIGG"));

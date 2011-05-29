@@ -363,6 +363,7 @@ namespace YAF.DotNetNuke
                 userCuluture.LanguageFile,
                 userCuluture.Culture,
                 yafUserData.ThemeFile,
+                yafUserData.UseSingleSignOn,
                 yafUserData.TextEditor,
                 yafUserData.UseMobileTheme,
                 null,

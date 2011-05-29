@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.login" CodeBehind="login.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.login" CodeBehind="login.ascx.cs" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <asp:UpdatePanel ID="UpdateLoginPanel" runat="server" UpdateMode="Conditional">
     <ContentTemplate>
@@ -28,7 +28,7 @@
                                     <tr>
                                         <td align="right" class="postheader" style="height: 24px">
                                             <asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password">
-                                                <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="password" />
+                                                <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="PASSWORD" />
                                             </asp:Label>
                                         </td>
                                         <td class="post" style="height: 24px">
@@ -47,6 +47,14 @@
                                             <asp:Button ID="PasswordRecovery" runat="server" CausesValidation="false" class="pbutton"
                                                 OnClick="PasswordRecovery_Click" />
                                         </td>
+                                    </tr>
+                                    <tr id="FacebookLoginRow" runat="server" visible="false">
+                                       <td align="center" colspan="2" class="postfooter">
+                                         <fb:login-button onlogin="LoginUser()" perms="email,user_birthday,status_update,publish_stream">
+                                            <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="FACEBOOK_LOGIN" />
+                                         </fb:login-button>
+                                         <div id="fb-root"></div>
+                                       </td>
                                     </tr>
                                 </table>
                             </td>

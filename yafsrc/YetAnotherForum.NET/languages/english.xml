@@ -611,6 +611,7 @@
       <Resource tag="CAL_JQ_CULTURE"></Resource>
       <Resource tag="CAL_JQ_CULTURE_DFORMAT">MM/dd/YY</Resource>
       <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">New User Registered on {0} Forum</Resource>
+	  <Resource tag="NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT">Registration on {0} Forum successfully</Resource>
       <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">New Message on {0} Forum needs to be approved</Resource>
 	  <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE">A Message on {0} Forum was reported</Resource>
       <Resource tag="CUSTOM_BBCODE">More BBCode</Resource>
@@ -740,6 +741,7 @@
       <Resource tag="DUPLICATED_EMAIL">The e-mail adress you have entered is already in use.</Resource>
       <Resource tag="BAD_HOME">You have entered a invalid address for your home page.</Resource>
       <Resource tag="BAD_ICQ">You have entered an illegal value as your ICQ number.</Resource>
+	  <Resource tag="BAD_FACEBOOK">You have entered an illegal value as Facebook Profile ID.</Resource>
       <Resource tag="BAD_MSN">You have entered an invalid e-mail address for your MSN account.</Resource>
       <Resource tag="BAD_XMPP">You have entered an invalid name for your XMPP account.</Resource>
       <Resource tag="BAD_WEBLOG">You have entered a invalid address for your weblog.</Resource>
@@ -773,7 +775,7 @@
       <Resource tag="WEBLOG2">Your Blog URL (public):</Resource>
       <Resource tag="WHERE">Where do you live?</Resource>
       <Resource tag="EDIT_ALBUMS">Edit Albums</Resource>
-	  <Resource tag="FACEBOOK">Your Facebook Profile Name:</Resource>
+	  <Resource tag="FACEBOOK">Your Facebook Profile ID:</Resource>
 	  <Resource tag="TWITTER">Your Twitter Name:</Resource>
 	  <Resource tag="SKYPE">Your SKYPE ID:</Resource>
 	  <Resource tag="YIM">Your Yahoo ID:</Resource>
@@ -781,7 +783,7 @@
 	  <Resource tag="AIM">Your AIM Name:</Resource>
 	  <Resource tag="ICQ">Your ICQ Number:</Resource>
       <Resource tag="XMPP">Your Jabber ID:</Resource>
-	  
+	  <Resource tag="USE_SINGLESIGNON">Did you want to Use Single Sign On?&lt;br /&gt;You need to have Set Up the Facebook Profile ID above.</Resource>
    </page>
    <page name="CP_MESSAGE">
       <Resource tag="INBOX">Inbox</Resource>
@@ -1037,6 +1039,11 @@
       <Resource tag="TITLE">Login</Resource>
       <Resource tag="USERNAME">User Name or E-Mail Address:</Resource>
       <Resource tag="WRONG_USERNAME_EMAIL">Wrong user name or email address.</Resource>
+	  <Resource tag="FACEBOOK_LOGIN">Login with Facebook</Resource>
+	  <Resource tag="SSO_DEACTIVATED">Single Sign On is currently deactivated by the Administrator!</Resource>
+	  <Resource tag="SSO_DEACTIVATED_BYUSER">Single Sign On is deactivated for that User, you need to activate it in your Profile Settings to use that feature.</Resource>
+	  <Resource tag="SSO_ID_NOTMATCH">The Facebook User ID does not match!</Resource>
+	  <Resource tag="SSO_FAILED">The Facebook Login failed, a User with that Email Address doesn't  exists.</Resource>
    </page>
    <page name="MEMBERS">
       <Resource tag="JOINED">Joined</Resource>
@@ -1411,6 +1418,7 @@
 	  <Resource tag="RETWEET_TOPIC">Retweet this Topic</Resource>
 	  <Resource tag="BUZZ_TOPIC">Buzz this Topic</Resource>
 	  <Resource tag="FACEBOOK_TOPIC">Like this Topic</Resource>
+	  <Resource tag="FACEBOOK_SHARE_TOPIC">Share on Facebook</Resource>
 	  <Resource tag="TUMBLR_TOPIC">Share on Tumblr</Resource>
 	  <Resource tag="DIGG_TOPIC">Digg this Topic</Resource>
 	  <Resource tag="REDDIT_TOPIC">Reddit this Topic</Resource>
@@ -1735,6 +1743,17 @@ Hello!
       User Email: {email}
 
       Administration Link: {adminlink}
+    </Resource>
+	<Resource tag="NOTIFICATION_ON_FACEBOOK_REGISTER">
+      Hello {user}.
+
+      You have been successfully Registred on the {forumname} forum thru Facebook:
+
+      User Name: {user}
+	  Auto Generated Password: {pass}
+	  Auto Generated Security Answer: {answer}
+      User Email: {email} (Please dont change your email, or you are unable to login with facebook)
+	  
     </Resource>
       <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL_TEXT">
       A new message that needs your approved has been posted in the {forumname} forum:
@@ -2951,6 +2970,8 @@ Visit {forumname} at {forumlink}
        <Resource tag="LOGIN_REDIR_URL_HELP">If login is disabled in the AppSettings (AllowLoginAndLogoff needs to be set to &quot;false&quot;), this is the URL users will be redirected to when they need to access the forum. Optionally add &quot;{0}&quot; to the URL to pass the return URL to the custom Url. E.g. &quot;http://mydomain.com/login.aspx?PreviousUrl={{0}}&quot;</Resource>
 	   <Resource tag="REQUIRE_LOGIN">Require User Login:</Resource>
        <Resource tag="REQUIRE_LOGIN_HELP">If checked, users will be required to log in before they can see any content. They'll be redirected straight to login page.</Resource>
+	   <Resource tag="ENABLE_SSO">Enable Single Sign On:</Resource>
+       <Resource tag="ENABLE_SSO_HELP">If checked, users will be able to Login to an existing account via Facebook. This only works YAF.FacebookAPIKey and YAF.FacebookSecretKey are setup in app.config.</Resource>
 	   <Resource tag="MODAL_LOGIN">Use Login Box (Modal PopUp Dialog):</Resource>
        <Resource tag="MODAL_LOGIN_HELP">If checked, the Login Control is displayed as Login Box. Otherwise Login Control will be Displayed on a Single Page.</Resource>
 	   <Resource tag="IMAGE_ATTACH_RESIZE">Enable Image Attachment Resize:</Resource>
@@ -3215,8 +3236,6 @@ Visit {forumname} at {forumlink}
        <Resource tag="ALLOW_GUESTS_VIEWPOLL_HELP">If enabled Guests can see poll choices.</Resource>
 	   <Resource tag="ALLOW_USERS_POLLIMAGES">Allow Users Poll Images:</Resource>
        <Resource tag="ALLOW_USERS_POLLIMAGES_HELP">If enabled Users can add images as poll options.</Resource>
-	   
-       
 	   <Resource tag="ALLOW_PMS">Allow Private Messages:</Resource>
        <Resource tag="ALLOW_PMS_HELP">Allow users to access and send private messages. You should explicitly give permission for each group and/or rank too to enable them for users.</Resource>
 	   <Resource tag="ALLOW_PM_NOTIFICATION">Allow Private Message Notifications:</Resource>
@@ -3300,6 +3319,8 @@ Visit {forumname} at {forumlink}
 	 <Resource tag="SPAM_MESSAGE_2">Reject Message</Resource>
      <Resource tag="SHOW_RECENT_USERS">Show Recent Users in Forum Info:</Resource>
      <Resource tag="SHOW_RECENT_USERS_HELP">Enable to Show Recent Users within the last 24 hours in the forum info on board index page.</Resource>
+	 <Resource tag="SSO_AUTO_REGISTER">Register New Facebook User automatically:</Resource>
+     <Resource tag="SSO_AUTO_REGISTER_HELP">Register User automatically that are trying to login thru Facebook</Resource>
    </page>
 	  <page name="ADMIN_TEST_DATA">
 	   <Resource tag="TITLE">Create Test Data (DEBUG Only)</Resource>

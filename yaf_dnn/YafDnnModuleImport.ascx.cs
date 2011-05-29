@@ -338,6 +338,7 @@ namespace YAF.DotNetNuke
         null, 
         null,
         null,
+        null,
         null, 
         null, 
         null, 

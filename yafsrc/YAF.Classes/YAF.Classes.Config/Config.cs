@@ -23,6 +23,7 @@ namespace YAF.Classes
 
   using System;
   using System.Configuration;
+  using System.Linq;
   using System.Web;
   using System.Web.Configuration;
 
@@ -61,7 +62,7 @@ namespace YAF.Classes
     }
 
     /// <summary>
-    ///   Used for Url Rewriting -- default is "default.aspx"
+    ///   Gets the Used for Url Rewriting -- default is "default.aspx"
     /// </summary>
     [NotNull]
     public static string BaseScriptFile
@@ -85,7 +86,7 @@ namespace YAF.Classes
     }
 
     /// <summary>
-    ///   Current BoardID -- default is 1.
+    ///   Gets the Current BoardID -- default is 1.
     /// </summary>
     [NotNull]
     public static string BoardID
@@ -97,7 +98,7 @@ namespace YAF.Classes
     }
 
     /// <summary>
-    ///   Folder to use for board specific uploads, images, themes
+    ///   Gets the Folder to use for board specific uploads, images, themes
     ///   Example : /Boards/
     /// </summary>
     [NotNull]
@@ -110,7 +111,7 @@ namespace YAF.Classes
     }
 
     /// <summary>
-    ///   Current CategoryID -- default is null.
+    ///   Gets the Current CategoryID -- default is null.
     /// </summary>
     public static string CategoryID
     {
@@ -156,7 +157,8 @@ namespace YAF.Classes
     }
 
     /// <summary>
-    ///   Use it if distinct YAF role names are required. Used in integration environments only.
+    /// Gets a value indicating whether the Use it if distinct YAF role names are required. 
+    /// Used in integration environments only.
     /// </summary>
     public static bool CreateDistinctRoles
     {
@@ -213,7 +215,7 @@ namespace YAF.Classes
     }
 
     /// <summary>
-    ///   Is Jquery Registration disabled? -- default is false.
+    ///   Gets a value indicating whether Is Jquery Registration disabled? -- default is false.
     /// </summary>
     public static bool DisableJQuery
     {
@@ -224,7 +226,7 @@ namespace YAF.Classes
     }
 
     /// <summary>
-    ///   Is Url Rewriting enabled? -- default is false.
+    ///   Gets a value indicating whether Is Url Rewriting enabled? -- default is false.
     /// </summary>
     public static bool EnableURLRewriting
     {
@@ -235,7 +237,8 @@ namespace YAF.Classes
     }
 
     /// <summary>
-    ///   Used for Url Rewriting -- default is null -- used to define what the forum file name is for urls.
+    /// Gets a value indicating whether Used for Url Rewriting -- default is null -- 
+    /// used to define what the forum file name is for urls.
     /// </summary>
     public static string ForceScriptName
     {
@@ -429,6 +432,7 @@ namespace YAF.Classes
     }
 
     /// <summary>
+    ///   Gets a value indicating whether 
     ///   Boolean to force uploads, and images, themes etc.. from a specific BoardID folder within BoardRoot
     ///   Example : true /false
     /// </summary>
@@ -524,13 +528,13 @@ namespace YAF.Classes
     }
 
     /// <summary>
-    ///   Allowed browser JS version.
+    ///   Gets the Allowed browser JS version.
     /// </summary>
     public static string BrowserJSVersion
     {
         get
         {
-            return GetConfigValueAsString("YAF.BrowserJSVersion") ?? "1.0"; ;
+            return GetConfigValueAsString("YAF.BrowserJSVersion") ?? "1.0";
         }
     }
 
@@ -547,7 +551,7 @@ namespace YAF.Classes
     }
 
     /// <summary>
-    ///   Diisplay the footer at the bottom of the page -- default is "true"
+    ///   Gets a value indicating whether Display the footer at the bottom of the page -- default is "true"
     /// </summary>
     public static bool ShowFooter
     {
@@ -558,7 +562,7 @@ namespace YAF.Classes
     }
 
     /// <summary>
-    ///   Display the default toolbar at the top -- default is "true"
+    ///   Gets a value indicating whether Display the default toolbar at the top -- default is "true"
     /// </summary>
     public static bool ShowToolBar
     {
@@ -569,7 +573,7 @@ namespace YAF.Classes
     }
 
     /// <summary>
-    ///   Current BoardID -- default is 1.
+    ///   Gets the Current BoardID -- default is 1.
     /// </summary>
     [NotNull]
     public static string SqlCommandTimeout
@@ -581,7 +585,7 @@ namespace YAF.Classes
     }
 
     /// <summary>
-    ///   Url Rewriting URLRewritingMode? -- default is Unicode.
+    ///   Gets the Url Rewriting URLRewritingMode? -- default is Unicode.
     /// </summary>
     [NotNull]
     public static string UrlRewritingMode
@@ -593,7 +597,7 @@ namespace YAF.Classes
     }
 
     /// <summary>
-    ///   Prefix used for Url Rewriting -- default is "yaf_"
+    ///   Gets the Prefix used for Url Rewriting -- default is "yaf_"
     /// </summary>
     [NotNull]
     public static string UrlRewritingPrefix
@@ -633,7 +637,7 @@ namespace YAF.Classes
     }
 
     /// <summary>
-    ///   Use an SSL connection for the SMTP server -- default is "false"
+    ///   Gets a value indicating whether Use an SSL connection for the SMTP server -- default is "false"
     /// </summary>
     public static bool UseSMTPSSL
     {
@@ -652,6 +656,28 @@ namespace YAF.Classes
       {
         return GetConfigValueAsString("YAF.DatabaseWithOIDs");
       }
+    }
+
+    /// <summary>
+    ///   Gets Facebook API Key.
+    /// </summary>
+    public static string FacebookAPIKey
+    {
+        get
+        {
+            return GetConfigValueAsString("YAF.FacebookAPIKey");
+        }
+    }
+
+    /// <summary>
+    ///   Gets Facebook Secret Key.
+    /// </summary>
+    public static string FacebookSecretKey
+    {
+        get
+        {
+            return GetConfigValueAsString("YAF.FacebookSecretKey");
+        }
     }
 
     #endregion
@@ -674,12 +700,7 @@ namespace YAF.Classes
     {
       string value = GetConfigValueAsString(configKey);
 
-      if (!String.IsNullOrEmpty(value))
-      {
-        return Convert.ToBoolean(value.ToLower());
-      }
-
-      return defaultValue;
+        return !String.IsNullOrEmpty(value) ? Convert.ToBoolean(value.ToLower()) : defaultValue;
     }
 
     /// <summary>
@@ -693,18 +714,12 @@ namespace YAF.Classes
     /// </returns>
     public static string GetConfigValueAsString([NotNull] string configKey)
     {
-      foreach (string key in WebConfigurationManager.AppSettings.AllKeys)
-      {
-        if (key.Equals(configKey, StringComparison.CurrentCultureIgnoreCase))
-        {
-          return WebConfigurationManager.AppSettings[key];
-        }
-      }
-
-      return null;
+        return (from key in WebConfigurationManager.AppSettings.AllKeys
+                where key.Equals(configKey, StringComparison.CurrentCultureIgnoreCase)
+                select WebConfigurationManager.AppSettings[key]).FirstOrDefault();
     }
 
-    /// <summary>
+      /// <summary>
     /// Gets a Provider type string from the config.
     /// </summary>
     /// <param name="providerName">

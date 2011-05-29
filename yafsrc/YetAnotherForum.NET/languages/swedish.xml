@@ -881,6 +881,8 @@
     <Resource tag="ENABLE_LOCATIONPATH_ERRORS_HELP">If checked, all active location path errors are logged.</Resource>
     <Resource tag="ENABLE_RETWEET_MSG">Enable Retweet Message Button:</Resource>
     <Resource tag="ENABLE_RETWEET_MSG_HELP">Enables/disables the Retweet Button, where the User can retweet a topic message.</Resource>
+    <Resource tag="ENABLE_SSO">Enable Single Sign On:</Resource>
+    <Resource tag="ENABLE_SSO_HELP">If checked, users will be able to Login to an existing account via Facebook. This only works YAF.FacebookAPIKey and YAF.FacebookSecretKey are setup in app.config.</Resource>
     <Resource tag="EXTERN_NEWWINDOW">External Search Results In A New Window:</Resource>
     <Resource tag="EXTERN_NEWWINDOW_HELP">Show External Search Results In A New Window.</Resource>
     <Resource tag="EXTERN_SEARCH_PERMISS">External Search Permissions:</Resource>
@@ -1141,6 +1143,8 @@
     <Resource tag="SSL_LOGIN_HELP">Enforce a secure connection for users to log in.</Resource>
     <Resource tag="SSL_REGISTER">Use SSL while registering:</Resource>
     <Resource tag="SSL_REGISTER_HELP">Enforce a secure connection for users to register.</Resource>
+    <Resource tag="SSO_AUTO_REGISTER">Register New Facebook User automatically:</Resource>
+    <Resource tag="SSO_AUTO_REGISTER_HELP">Register User automatically that are trying to login thru Facebook</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT">Forum Statistics Cache Timeout:</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT_HELP">In minutes</Resource>
     <Resource tag="STYLED_NICKS">Use styled nicks:</Resource>
@@ -1663,6 +1667,7 @@
     <Resource tag="NONE">None</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">New Message on {0} Forum Needs to be Approved</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE">A Message on {0} Forum was reported</Resource>
+    <Resource tag="NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT">Registration on {0} Forum successfully</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">New User Registered on {0} Forum</Resource>
     <Resource tag="OK">OK</Resource>
     <Resource tag="OR">or</Resource>
@@ -1802,6 +1807,7 @@
     <Resource tag="AIM">Your AIM Name:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Watch every topic in which you have made a post and receive email notifications of activities in those topics?</Resource>
     <Resource tag="BAD_EMAIL">Du har angett en ogiltig e-postadress.</Resource>
+    <Resource tag="BAD_FACEBOOK">You have entered an illegal value as Facebook Profile ID.</Resource>
     <Resource tag="BAD_HOME">Du har angett en ogiltig länk till din hemsida.</Resource>
     <Resource tag="BAD_ICQ">Du har angett ett ogiltigt värde som ditt ICQ-nummer.</Resource>
     <Resource tag="BAD_MSN">Du har angett en ogiltig e-postadress för ditt MSN-konto.</Resource>
@@ -1814,7 +1820,7 @@
     <Resource tag="DUPLICATED_EMAIL">The e-mail adress you have entered is already in use.</Resource>
     <Resource tag="EDIT_ALBUMS">Edit Albums</Resource>
     <Resource tag="EMAIL">Du måste alltid ha en giltig e-postadress.</Resource>
-    <Resource tag="FACEBOOK">Your Facebook Profile Name:</Resource>
+    <Resource tag="FACEBOOK">Your Facebook Profile ID:</Resource>
     <Resource tag="FORUM_SETTINGS">Foruminställningar</Resource>
     <Resource tag="HIDEME">Hide me from active users</Resource>
     <Resource tag="HOMEPAGE">Hemsida</Resource>
@@ -1841,6 +1847,7 @@
     <Resource tag="TITLE">Ändra profil</Resource>
     <Resource tag="TWITTER">Your Twitter Name:</Resource>
     <Resource tag="USE_MOBILE_THEME">Use Mobile Forum Theme:</Resource>
+    <Resource tag="USE_SINGLESIGNON">Did you want to Use Single Sign On?&lt;br /&gt;You need to have Set Up the Facebook Profile ID above.</Resource>
     <Resource tag="WEBLOG2">Din webblogg:</Resource>
     <Resource tag="WHERE">Vart bor du?</Resource>
     <Resource tag="XMPP">Your Jabber ID:</Resource>
@@ -2419,6 +2426,7 @@
     <Resource tag="BOTH_USERNAME_EMAIL">Både användarnamn och e-postadress måste anges.</Resource>
     <Resource tag="EMAIL">E-postadress</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">Ett e-postmeddelande har skickats med ditt lösenord.</Resource>
+    <Resource tag="FACEBOOK_LOGIN">Login with Facebook</Resource>
     <Resource tag="FORUM_LOGIN">Foruminloggning</Resource>
     <Resource tag="LOSTPASSWORD">Bortglömt lösenord</Resource>
     <Resource tag="PASSWORD">Lösenord:</Resource>
@@ -2426,6 +2434,10 @@
     <Resource tag="RECOVER">Återskapa lösenord</Resource>
     <Resource tag="RECOVER_ERROR">Ett fel uppstod vid skpandet av ditt nya lösenord.</Resource>
     <Resource tag="SENDPASSWORD">Skicka lösenord</Resource>
+    <Resource tag="SSO_DEACTIVATED">Single Sign On is currently deactivated by the Administrator!</Resource>
+    <Resource tag="SSO_DEACTIVATED_BYUSER">Single Sign On is deactivated for that User, you need to activate it in your Profile Settings to use that feature.</Resource>
+    <Resource tag="SSO_FAILED">The Facebook Login failed, a User with that Email Address doesn't  exists.</Resource>
+    <Resource tag="SSO_ID_NOTMATCH">The Facebook User ID does not match!</Resource>
     <Resource tag="TITLE">Logga in</Resource>
     <Resource tag="USERNAME">Användarnamn:</Resource>
     <Resource tag="WRONG_USERNAME_EMAIL">Felaktigt användarnamn eller e-postadress.</Resource>
@@ -2719,6 +2731,7 @@
     <Resource tag="EMAILTOPIC">Skicka denna konversation som e-post</Resource>
     <Resource tag="EMPTY_MESSAGE">You must enter something into your post.</Resource>
     <Resource tag="FACEBOOK">Facebook</Resource>
+    <Resource tag="FACEBOOK_SHARE_TOPIC">Share on Facebook</Resource>
     <Resource tag="FACEBOOK_TITLE">Visit {0}'s Facebook Profile</Resource>
     <Resource tag="FACEBOOK_TOPIC">Like this Topic</Resource>
     <Resource tag="FORUM_JUMP">Gå till</Resource>
@@ -3078,6 +3091,17 @@ Hello!
 
 {link}
 </Resource>
+    <Resource tag="NOTIFICATION_ON_FACEBOOK_REGISTER">
+      Hello {user}.
+
+      You have been successfully Registred on the {forumname} forum thru Facebook:
+
+      User Name: {user}
+	  Auto Generated Password: {pass}
+	  Auto Generated Security Answer: {answer}
+      User Email: {email} (Please dont change your email, or you are unable to login with facebook)
+	  
+    </Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL_TEXT">
 		A new message that needs your approved has been posted in the {forumname} forum:
 		

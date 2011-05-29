@@ -22,22 +22,19 @@ namespace YAF.Classes
     #region Using
 
     using System;
-    using System.Collections.Generic;
     using System.Data;
-    using System.Globalization;
     using System.Linq;
-    using System.Text;
-    using System.Web;
     using System.Web.Script.Services;
     using System.Web.Security;
     using System.Web.Services;
+    using System.Web.UI.WebControls;
 
     using YAF.Classes.Data;
-    using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
+    using YAF.Types.EventProxies;
     using YAF.Types.Interfaces;
     using YAF.Utils;
 
@@ -67,6 +64,253 @@ namespace YAF.Classes
         #endregion
 
         #region Public Methods
+
+        /// <summary>
+        /// SSO Login From Facebook
+        /// </summary>
+        /// <param name="id">
+        /// The id.
+        /// </param>
+        /// <param name="name">
+        /// The name.
+        /// </param>
+        /// <param name="first_name">
+        /// The first_name.
+        /// </param>
+        /// <param name="last_name">
+        /// The last_name.
+        /// </param>
+        /// <param name="link">
+        /// The link.
+        /// </param>
+        /// <param name="username">
+        /// The username.
+        /// </param>
+        /// <param name="birthday">
+        /// The birthday.
+        /// </param>
+        /// <param name="hometown">
+        /// The hometown.
+        /// </param>
+        /// <param name="gender">
+        /// The gender.
+        /// </param>
+        /// <param name="email">
+        /// The email.
+        /// </param>
+        /// <param name="timezone">
+        /// The timezone.
+        /// </param>
+        /// <param name="lokale">
+        /// The lokale.
+        /// </param>
+        /// <returns>
+        /// Returns the Login Status
+        /// </returns>
+        [WebMethod(EnableSession = true)]
+        public string LoginFacebookUser(
+            string id,
+            string name,
+            string first_name,
+            string last_name,
+            string link,
+            string username,
+            string birthday,
+            string hometown,
+            string gender,
+            string email,
+            string timezone,
+            string lokale)
+        {
+            if (!YafContext.Current.Get<YafBoardSettings>().AllowSingleSignOn)
+            {
+                return this.Get<ILocalization>().GetText("LOGIN", "SSO_DEACTIVATED");
+            }
+
+            // Check if user exists
+            var userName = YafContext.Current.Get<MembershipProvider>().GetUserNameByEmail(email);
+
+            // Login user if exists
+            if (!string.IsNullOrEmpty(userName))
+            {
+                var yafUser = YafUserProfile.GetProfile(userName);
+
+                var yafUserData =
+                    new CombinedUserDataHelper(YafContext.Current.Get<MembershipProvider>().GetUser(userName, true));
+
+                if (!yafUserData.UseSingleSignOn)
+                {
+                    return this.Get<ILocalization>().GetText("LOGIN", "SSO_DEACTIVATED_BYUSER");
+                }
+
+                if (yafUser.Facebook.Equals(id))
+                {
+                    FormsAuthentication.SetAuthCookie(userName, true);
+
+                    YafContext.Current.Get<IRaiseEvent>().Raise(
+                        new SuccessfulUserLoginEvent(YafContext.Current.PageUserID));
+
+                    return "OK";
+                }
+
+                return this.Get<ILocalization>().GetText("LOGIN", "SSO_ID_NOTMATCH");
+            }
+
+            // Create User if not exists?!
+            if (YafContext.Current.Get<YafBoardSettings>().RegisterNewFacebookUser)
+            {
+                MembershipCreateStatus status;
+
+                var pass = Membership.GeneratePassword(32, 16);
+                var securityAnswer = Membership.GeneratePassword(64, 30);
+
+                MembershipUser user = this.Get<MembershipProvider>().CreateUser(
+                    username,
+                    pass,
+                    email,
+                    "Answer is a generated Pass",
+                    securityAnswer,
+                    true,
+                    null,
+                    out status);
+
+                // setup inital roles (if any) for this user
+                RoleMembershipHelper.SetupUserRoles(YafContext.Current.PageBoardID, username);
+
+                // create the user in the YAF DB as well as sync roles...
+                int? userID = RoleMembershipHelper.CreateForumUser(user, YafContext.Current.PageBoardID);
+
+                // create empty profile just so they have one
+                YafUserProfile userProfile = YafUserProfile.GetProfile(username);
+
+                userProfile.Facebook = id;
+                userProfile.Homepage = link;
+                userProfile.Birthday = DateTime.Parse(birthday);
+                userProfile.RealName = name;
+
+                userProfile.Save();
+
+                // setup their inital profile information
+                userProfile.Save();
+
+                if (userID == null)
+                {
+                    // something is seriously wrong here -- redirect to failure...
+                    return this.Get<ILocalization>().GetText("LOGIN", "SSO_FAILED");
+                }
+
+                if (this.Get<YafBoardSettings>().NotificationOnUserRegisterEmailList.IsSet())
+                {
+                    // send user register notification to the following admin users...
+                    this.SendRegistrationNotificationEmail(user);
+                }
+
+                // send user register notification to the following admin users...
+                this.SendRegistrationNotificationToUser(user, pass, securityAnswer);
+
+                // save the time zone...
+                int userId = UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey);
+
+                LegacyDb.user_save(
+                    userId,
+                    YafContext.Current.PageBoardID,
+                    username,
+                    null,
+                    email,
+                    timezone,
+                    null,
+                    null,
+                    null,
+                    true,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null);
+
+                bool autoWatchTopicsEnabled = this.Get<YafBoardSettings>().DefaultNotificationSetting ==
+                                              UserNotificationSetting.TopicsIPostToOrSubscribeTo;
+
+                // save the settings...
+                LegacyDb.user_savenotification(
+                    userId,
+                    true,
+                    autoWatchTopicsEnabled,
+                    this.Get<YafBoardSettings>().DefaultNotificationSetting,
+                    this.Get<YafBoardSettings>().DefaultSendDigestEmail);
+
+                // save avatar
+                LegacyDb.user_saveavatar(
+                    userId,
+                    "https://graph.facebook.com/1457847725/picture",
+                    null,
+                    null);
+
+                // Clearing cache with old Active User Lazy Data ...
+                this.Get<IDataCache>().Remove(Constants.Cache.ActiveUserLazyData.FormatWith(userId));
+
+                this.Get<IRaiseEvent>().Raise(new NewUserRegisteredEvent(user, userId));
+
+                FormsAuthentication.SetAuthCookie(user.UserName, true);
+
+                YafContext.Current.Get<IRaiseEvent>().Raise(new SuccessfulUserLoginEvent(YafContext.Current.PageUserID));
+
+                return "OK";
+            }
+
+            return this.Get<ILocalization>().GetText("LOGIN", "SSO_FAILED");
+        }
+
+        private void SendRegistrationNotificationToUser([NotNull] MembershipUser user, [NotNull] string pass, [NotNull] string securityAnswer)
+        {
+            var notifyUser = new YafTemplateEmail();
+
+            string subject =
+              this.Get<ILocalization>().GetText("COMMON", "NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT").FormatWith(
+                this.Get<YafBoardSettings>().Name);
+
+            notifyUser.TemplateParams["{user}"] = user.UserName;
+            notifyUser.TemplateParams["{email}"] = user.Email;
+            notifyUser.TemplateParams["{pass}"] = pass;
+            notifyUser.TemplateParams["{answer}"] = securityAnswer;
+            notifyUser.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
+
+            string emailBody = notifyUser.ProcessTemplate("NOTIFICATION_ON_FACEBOOK_REGISTER");
+
+            this.Get<ISendMail>().Queue(this.Get<YafBoardSettings>().ForumEmail, user.Email, subject, emailBody);
+        }
+
+        /// <summary>
+        /// The send registration notification email.
+        /// </summary>
+        /// <param name="user">
+        /// The user.
+        /// </param>
+        private void SendRegistrationNotificationEmail([NotNull] MembershipUser user)
+        {
+            string[] emails = this.Get<YafBoardSettings>().NotificationOnUserRegisterEmailList.Split(';');
+
+            var notifyAdmin = new YafTemplateEmail();
+
+            string subject =
+              this.Get<ILocalization>().GetText("COMMON", "NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT").FormatWith(
+                this.Get<YafBoardSettings>().Name);
+
+            notifyAdmin.TemplateParams["{adminlink}"] = YafBuildLink.GetLinkNotEscaped(ForumPages.admin_admin, true);
+            notifyAdmin.TemplateParams["{user}"] = user.UserName;
+            notifyAdmin.TemplateParams["{email}"] = user.Email;
+            notifyAdmin.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
+
+            string emailBody = notifyAdmin.ProcessTemplate("NOTIFICATION_ON_USER_REGISTER");
+
+            foreach (string email in emails.Where(email => email.Trim().IsSet()))
+            {
+                this.Get<ISendMail>().Queue(this.Get<YafBoardSettings>().ForumEmail, email.Trim(), subject, emailBody);
+            }
+        }
 
         /// <summary>
         /// The change album title.
@@ -117,7 +361,7 @@ namespace YAF.Classes
         public int RefreshShoutBox(int boardId)
         {
             var messages = this.Get<IDataCache>().GetOrSet(
-                Constants.Cache.Shoutbox + "_basic",
+                "{0}_basic".FormatWith(Constants.Cache.Shoutbox),
                 () => LegacyDb.shoutbox_getmessages(boardId, 1, false).AsEnumerable(),
                 TimeSpan.FromMilliseconds(1000));
 
@@ -206,7 +450,7 @@ namespace YAF.Classes
             return YafThankYou.CreateThankYou(username, "BUTTON_THANKS", "BUTTON_THANKS_TT", messageID);
         }
 
-#endregion
+        #endregion
 
         #endregion
     }
