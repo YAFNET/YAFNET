@@ -296,7 +296,7 @@ namespace YAF.Controls
       var myChoiceMarker = item.FindControlRecursiveAs<HtmlImage>("YourChoice");
       if (this.ChoiceId != null)
       {
-          int choicex = 0;
+          int choicex = -1;
           foreach (var mychoice in this.ChoiceId.Where(mychoice => (int) drowv.Row["ChoiceID"] == mychoice))
           {
               myChoiceMarker.Visible = true;
@@ -308,9 +308,10 @@ namespace YAF.Controls
               var himage = item.FindControlRecursiveAs<HtmlImage>("ImgVoteBar");
               foreach (DataRow row in this.Voters.Rows)
               {
-                  if ((int) row["ChoiceID"] == choicex)
+                  if ((int) row["ChoiceID"] == choicex && (int)row["PollID"] == PollId)
                   {
-                      himage.Attributes["Title"] = himage.Alt += himage.Alt + row["UserName"] + ",";
+                      himage.Attributes["Title"] = himage.Attributes["Title"] + row["UserName"] + ",";
+                      himage.Alt = himage.Attributes["Title"];
                   }
               }
               if (himage.Attributes["Title"].IsSet())
