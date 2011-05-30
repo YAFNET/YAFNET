@@ -307,3 +307,5 @@
 }
 
 #yafpage_shoutbox {height:100%;}
+
+.yafnet .UnreadBox {position:relative;display:inline;}

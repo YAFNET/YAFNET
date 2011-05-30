@@ -1219,6 +1219,7 @@ height:80em;
 	text-shadow: 0 1px 1px rgba(0,0,0,.3);
 	
 	background: url('ButtonHover.png') top repeat-x #f06015;
+	background: linear-gradient(top,  #f88e11,  #f06015);
 	background: -webkit-gradient(linear, left top, left bottom, from(#f88e11), to(#f06015));
 	background: -moz-linear-gradient(top,  #f88e11,  #f06015);
 }
@@ -1352,3 +1353,16 @@ height:80em;
 	background-color:#446bb8;
 	color: #efefef;
 }
+
+.yafnet .Unread {
+	margin-left: 2px;
+    padding:2px 4px 2px 4px;
+    background-color:red;
+	height:20px;
+	vertical-align:super;
+    -webkit-border-radius: 0.4em;
+	border-radius: 0.4em;
+    box-shadow:1px 1px 1px gray;
+}
+.yafnet .Unread a {color:white!important;font-weight:bold!important;font-size:0.9em!important;}
+.yafnet .loggedInUser {padding-top:6px;}

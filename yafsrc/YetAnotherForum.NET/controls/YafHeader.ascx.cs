@@ -176,11 +176,14 @@ namespace YAF.Controls
         /// <param name="showUnread">
         /// The show unread.
         /// </param>
+        /// <param name="unread">
+        /// The unread.
+        /// </param>
         /// <param name="unreadText">
         /// The unread text.
         /// </param>
         private static void RenderMenuItem(
-            Control holder, string liCssClass, string linkCssClass, string linkText, string linkToolTip, string linkUrl, bool noFollow, bool showUnread, string unreadText)
+            Control holder, string liCssClass, string linkCssClass, string linkText, string linkToolTip, string linkUrl, bool noFollow, bool showUnread, string unread, string unreadText)
         {
             var liElement = new HtmlGenericControl("li");
 
@@ -212,17 +215,37 @@ namespace YAF.Controls
                 link.CssClass = linkCssClass;
             }
 
-            liElement.Controls.Add(link);
+            var unreadDiv = new HtmlGenericControl("div");
+
+            if (showUnread)
+            {
+                unreadDiv.Attributes.Add("class", "UnreadBox");
+
+                liElement.Controls.Add(unreadDiv);
+                unreadDiv.Controls.Add(link);
+            }
+            else
+            {
+                liElement.Controls.Add(link);
+            } 
 
             if (showUnread)
             {
                 var unreadLabel = new HtmlGenericControl("span");
 
-                unreadLabel.Attributes.Add("class", "unread");
+                unreadLabel.Attributes.Add("class", "Unread");
 
-                unreadLabel.InnerText = unreadText;
+                var unreadlink = new HyperLink
+                {
+                    Target = "_top",
+                    ToolTip = unreadText,
+                    NavigateUrl = linkUrl,
+                    Text = unread
+                };
 
-                liElement.Controls.Add(unreadLabel);
+                unreadLabel.Controls.Add(unreadlink);
+
+                unreadDiv.Controls.Add(unreadLabel);
             }
 
             holder.Controls.Add(liElement);
@@ -288,6 +311,7 @@ namespace YAF.Controls
                     YafBuildLink.GetLink(ForumPages.admin_admin),
                     false,
                     false,
+                    null,
                     null);
             }
 
@@ -306,6 +330,7 @@ namespace YAF.Controls
                     YafBuildLink.GetLink(ForumPages.admin_hostsettings),
                     false,
                     false,
+                    null,
                     null);
             }
 
@@ -324,6 +349,7 @@ namespace YAF.Controls
                     YafBuildLink.GetLink(ForumPages.moderate_index),
                     false,
                     false,
+                    null,
                     null);
             }
         }
@@ -343,6 +369,7 @@ namespace YAF.Controls
                     YafBuildLink.GetLink(ForumPages.forum),
                     false,
                     false,
+                    null,
                     null);
 
             // Active Topics
@@ -357,6 +384,7 @@ namespace YAF.Controls
                     YafBuildLink.GetLink(ForumPages.mytopics),
                     false,
                     false,
+                    null,
                     null);
             }
 
@@ -372,6 +400,7 @@ namespace YAF.Controls
                     YafBuildLink.GetLink(ForumPages.search),
                     false,
                     false,
+                    null,
                     null);
             }
 
@@ -387,6 +416,7 @@ namespace YAF.Controls
                     YafBuildLink.GetLink(ForumPages.members),
                     false, 
                     false,
+                    null,
                     null);
             }
 
@@ -402,6 +432,7 @@ namespace YAF.Controls
                     YafBuildLink.GetLink(ForumPages.team),
                     false, 
                     false,
+                    null,
                     null);
             }
 
@@ -417,6 +448,7 @@ namespace YAF.Controls
                     YafBuildLink.GetLink(ForumPages.help_index),
                     false, 
                     false,
+                    null,
                     null);
             }
 
@@ -434,6 +466,7 @@ namespace YAF.Controls
                         "javascript:void(0);",
                         true,
                         false,
+                        null,
                         null);
                 }
                 else
@@ -454,6 +487,7 @@ namespace YAF.Controls
                         YafBuildLink.GetLink(ForumPages.login, returnUrl),
                         true,
                         false,
+                        null,
                         null);
                 }
             }
@@ -474,6 +508,7 @@ namespace YAF.Controls
                                : YafBuildLink.GetLink(ForumPages.register).Replace("http:", "https:")),
                     true,
                     false,
+                    null,
                     null);
             }
         }
@@ -506,7 +541,8 @@ namespace YAF.Controls
                     this.GetText("TOOLBAR", "INBOX_TITLE"),
                     YafBuildLink.GetLink(ForumPages.cp_pm),
                     false,
-                    this.PageContext.PendingBuddies > 0,
+                    this.PageContext.UnreadPrivate > 0,
+                    this.PageContext.UnreadPrivate.ToString(),
                     this.GetText("TOOLBAR", "NEWPM").FormatWith(this.PageContext.UnreadPrivate));
             }
 
@@ -522,6 +558,7 @@ namespace YAF.Controls
                     YafBuildLink.GetLink(ForumPages.cp_editbuddies),
                     false,
                     this.PageContext.PendingBuddies > 0,
+                    this.PageContext.PendingBuddies.ToString(),
                     this.GetText("TOOLBAR", "BUDDYREQUEST").FormatWith(this.PageContext.PendingBuddies));
             }
 
@@ -537,6 +574,7 @@ namespace YAF.Controls
                     YafBuildLink.GetLinkNotEscaped(ForumPages.albums, "u={0}", this.PageContext.PageUserID),
                     false,
                     false,
+                    null,
                     null);
             }
 
