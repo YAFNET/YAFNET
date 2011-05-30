@@ -89,6 +89,8 @@ if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseO
 		IsAdmin				bit NOT NULL ,
 		IsForumModerator	bit NOT NULL ,
 		IsModerator			bit NOT NULL ,
+		IsGuestX			    bit NOT NULL constraint [DF_{ActiveAccess_IsGuest] default(0),
+		LastActive			datetime NULL ,
 		ReadAccess			bit NOT NULL ,
 		PostAccess			bit NOT NULL ,
 		ReplyAccess			bit NOT NULL,
@@ -862,7 +864,7 @@ begin
 	alter table [{databaseOwner}].[{objectQualifier}User] add TextEditor nvarchar(50) NULL
 end
 GO
-if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='SingleSignOn')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='UseSingleSignOn')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}User] add [UseSingleSignOn][bit] NOT NULL CONSTRAINT [DF_{objectQualifier}User_UseSingleSignOn] DEFAULT (0)
 end
@@ -1789,6 +1791,20 @@ begin
 	revoke update on [{databaseOwner}].[{objectQualifier}PollGroupCluster] from public
 	-- alter table [{databaseOwner}].[{objectQualifier}PollGroupCluster] alter column Flags int not null
 	-- alter table [{databaseOwner}].[{objectQualifier}PollGroupCluster] add constraint [DF_{objectQualifier}PollGroupCluster_Flags] default(0) for Flags
+end
+GO
+-- ActiveAccess Table
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}ActiveAccess]') and name=N'LastActive')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}ActiveAccess] add [LastActive] datetime NULL
+end
+GO
+
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}ActiveAccess]') and name=N'IsGuestX')
+begin
+    delete from [{databaseOwner}].[{objectQualifier}ActiveAccess]
+	alter table [{databaseOwner}].[{objectQualifier}ActiveAccess] add [IsGuestX] bit NOT NULL
+	alter table [{databaseOwner}].[{objectQualifier}ActiveAccess] add constraint [DF_{ActiveAccess_IsGuestX] default(0) for IsGuestX
 end
 GO
 

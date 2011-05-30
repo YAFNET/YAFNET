@@ -1382,16 +1382,9 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}active_list](@BoardID int,@Guests bit=0,@ShowCrawlers bit=0,@ActiveTime int,@StyledNicks bit=0) as
 begin
-    declare @uidsdel table
-	(UserID int, IsGuest bit)
-	-- delete non-active, but guest access row is not deleted
-	insert into @uidsdel(UserID, IsGuest)
-	select UserID, convert(bit,sign(convert(int,Flags & 2)),(0)) from [{databaseOwner}].[{objectQualifier}Active] where DATEDIFF(minute,LastActive,GETUTCDATE() )>@ActiveTime
-	if exists(select 1 from @uidsdel)
-	begin
-	delete from [{databaseOwner}].[{objectQualifier}Active] where UserID in (select UserID from @uidsdel)
-	delete from [{databaseOwner}].[{objectQualifier}ActiveAccess] where UserID in (select UserID from @uidsdel where IsGuest <> 0)
-	end
+	delete from [{databaseOwner}].[{objectQualifier}Active] where DATEDIFF(minute,LastActive,GETUTCDATE() )>@ActiveTime AND convert(bit,sign(convert(int,Flags & 2)),(0)) <> 0
+	-- we don't delete guest access
+	delete from [{databaseOwner}].[{objectQualifier}ActiveAccess] where DATEDIFF(minute,LastActive,GETUTCDATE() )>@ActiveTime AND  IsGuestX <> 0
 	-- select active	
 	if @Guests<>0 
 		select
@@ -2873,7 +2866,7 @@ BEGIN
 			GROUP BY a.UserId, x.ForumID
 		) access ON usr.UserID = access.UserID
 		JOIN [{databaseOwner}].[{objectQualifier}Rank] r
-		ON r.RankID = usr.UserID
+		ON r.RankID = usr.RankID
 	where
 		access.ModeratorAccess<>0
 	order by
@@ -4121,7 +4114,9 @@ begin
 			ForumID,
 			IsAdmin, 
 			IsForumModerator,
-			IsModerator, 
+			IsModerator,
+			IsGuestX,
+			LastActive, 
 			ReadAccess,
 			PostAccess,
 			ReplyAccess,
@@ -4140,6 +4135,8 @@ begin
 			IsAdmin,
 			IsForumModerator,
 			IsModerator,
+			@IsGuest,
+			@CurrentTime,
 			ReadAccess,
 			(CONVERT([bit],sign([PostAccess]&(2)),(0))),
 			ReplyAccess,
@@ -4216,7 +4213,9 @@ begin
 			ForumID,
 			IsAdmin, 
 			IsForumModerator,
-			IsModerator, 
+			IsModerator,
+			IsGuestX,
+			LastActive, 
 			ReadAccess,
 			PostAccess,
 			ReplyAccess,
@@ -4235,6 +4234,8 @@ begin
 			IsAdmin,
 			IsForumModerator,
 			IsModerator,
+			@IsGuest,
+			@CurrentTime,
 			ReadAccess,
 			(CONVERT([bit],sign([PostAccess]&(2)),(0))),
 			ReplyAccess,
