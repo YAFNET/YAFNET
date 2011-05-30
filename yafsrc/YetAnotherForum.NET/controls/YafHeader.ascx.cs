@@ -530,6 +530,8 @@ namespace YAF.Controls
             this.MyProfile.NavigateUrl = YafBuildLink.GetLink(ForumPages.cp_profile);
             this.MyProfile.Text = this.GetText("TOOLBAR", "MYPROFILE");
 
+            bool unread = this.PageContext.UnreadPrivate > 0 || this.PageContext.PendingBuddies > 0;
+
             // My Inbox
             if (this.Get<YafBoardSettings>().AllowPrivateMessages)
             {
@@ -593,6 +595,11 @@ namespace YAF.Controls
 
             // Logged in as : username
             LoggedInUserPanel.Visible = true;
+
+            if (unread)
+            {
+                LoggedInUserPanel.CssClass = "loggedInUser unread";
+            }
 
             LoggedInUserPanel.Controls.Add(
                 new Label { Text = this.GetText("TOOLBAR", "LOGGED_IN_AS").FormatWith("&nbsp;") });
