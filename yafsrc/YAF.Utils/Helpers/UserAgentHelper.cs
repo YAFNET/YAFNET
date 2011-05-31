@@ -20,7 +20,8 @@ namespace YAF.Utils.Helpers
 {
   #region Using
 
-  using System.Linq;
+    using System;
+    using System.Linq;
   using System.Web;
 
   using YAF.Classes;
@@ -45,8 +46,8 @@ namespace YAF.Utils.Helpers
                                                         "ArchitextSpider", "AlkalineBOT", "Aranha", "asterias", 
                                                         "Buscaplus Robi", "CanSeek", "ChristCRAWLER", "Clushbot", 
                                                         "Crawler", "CrawlerBoy", "DeepIndex", "DefaultCrawler", 
-                                                        "DittoSpyder", "DIIbot", "EZResult", "EARTHCOM.info", "EuripBot"
-                                                        , "ESISmartSpider", "FAST-WebCrawler", "FyberSearch", 
+                                                        "DittoSpyder", "DIIbot", "EZResult", "EARTHCOM.info", "EuripBot", 
+                                                        "ESISmartSpider", "FAST-WebCrawler", "FyberSearch", 
                                                         "Findexa Crawler", "Fluffy", "Googlebot", "geckobot", 
                                                         "GenCrawler", "GeonaBot", "getRAX", "Gulliver", "Hubater", 
                                                         "ia_archiver", "Slurp", "Scooter", "Mercator", "RaBot", "Jack", 
@@ -61,8 +62,8 @@ namespace YAF.Utils.Helpers
                                                         "SeznamBot", "Search-10", "Scrubby", "speedfind ramBot xtreme", 
                                                         "Kototoi", "SearchByUsa", "Searchspider", "SightQuestBot", 
                                                         "Spider_Monkey", "Surfnomore", "teoma", "UK Searcher Spider", 
-                                                        "Nazilla", "MuscatFerret", "ZyBorg", "WIRE WebRefiner", "WSCbot"
-                                                        , "Yandex", "Yellopet-Spider", "YBSbot", "OceanSpiders", 
+                                                        "Nazilla", "MuscatFerret", "ZyBorg", "WIRE WebRefiner", "WSCbot", 
+                                                        "Yandex", "Yellopet-Spider", "YBSbot", "OceanSpiders", 
                                                         "MozSpider"
                                                       };
 
@@ -134,7 +135,8 @@ namespace YAF.Utils.Helpers
       var mobileContains =
         Config.MobileUserAgents.Split(',').Where(m => m.IsSet()).Select(m => m.Trim().ToLowerInvariant());
 
-      return userAgent.IsSet() && mobileContains.Any(s => userAgent.ToLowerInvariant().Contains(s));
+        return userAgent.IsSet() &&
+               mobileContains.Any(s => userAgent.IndexOf(s, StringComparison.OrdinalIgnoreCase) > 0);
     }
 
     /// <summary>
@@ -166,15 +168,10 @@ namespace YAF.Utils.Helpers
     /// </returns>
     public static bool IsSearchEngineSpider([CanBeNull] string userAgent)
     {
-      if (userAgent.IsSet())
-      {
-        return spiderContains.Any(x => userAgent.ToLowerInvariant().Contains(x.ToLowerInvariant()));
-      }
-
-      return false;
+        return userAgent.IsSet() && spiderContains.Any(x => userAgent.ToLowerInvariant().Contains(x.ToLowerInvariant()));
     }
 
-    /// <summary>
+      /// <summary>
     /// Returns a platform user friendly name.
     /// </summary>
     /// <param name="userAgent">
