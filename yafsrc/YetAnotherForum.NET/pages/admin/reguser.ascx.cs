@@ -1,5 +1,5 @@
-/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bjørnar Henden
+ï»¿/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjï¿½rnar Henden
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -26,6 +26,7 @@ namespace YAF.Pages.Admin
   using System.Net.Mail;
   using System.Web.Security;
 
+  using YAF.Classes;
   using YAF.Classes.Data;
   using YAF.Core;
   using YAF.Core.Services;
@@ -84,8 +85,8 @@ namespace YAF.Pages.Admin
             this.Password.Text.Trim(), 
             newEmail, 
             this.Question.Text.Trim(), 
-            this.Answer.Text.Trim(), 
-            !this.PageContext.BoardSettings.EmailVerification, 
+            this.Answer.Text.Trim(),
+            !this.Get<YafBoardSettings>().EmailVerification, 
             null, 
             out status);
 
@@ -123,6 +124,7 @@ namespace YAF.Pages.Admin
             null,
             null, 
             null, 
+            null,
             null, 
             null, 
             null, 
@@ -130,19 +132,19 @@ namespace YAF.Pages.Admin
             null, 
             null);
 
-        if (this.PageContext.BoardSettings.EmailVerification)
+        if (this.Get<YafBoardSettings>().EmailVerification)
         {
             // send template email
             var verifyEmail = new YafTemplateEmail("VERIFYEMAIL");
 
             verifyEmail.TemplateParams["{link}"] = YafBuildLink.GetLink(ForumPages.approve, true, "k={0}", hash);
             verifyEmail.TemplateParams["{key}"] = hash;
-            verifyEmail.TemplateParams["{forumname}"] = this.PageContext.BoardSettings.Name;
+            verifyEmail.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
             verifyEmail.TemplateParams["{forumlink}"] = "{0}".FormatWith(this.ForumURL);
 
             string subject =
                 this.GetText("COMMON", "EMAILVERIFICATION_SUBJECT").FormatWith(
-                    this.PageContext.BoardSettings.Name);
+                    this.Get<YafBoardSettings>().Name);
 
             verifyEmail.SendEmail(new MailAddress(newEmail, newUsername), subject, true);
         }
@@ -168,7 +170,7 @@ namespace YAF.Pages.Admin
             return;
         }
 
-        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
         this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
 
         this.PageLinks.AddLink(this.GetText("ADMIN_USERS", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_users));
