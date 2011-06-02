@@ -5,6 +5,8 @@
 	<div class="leftItem postInfoLeft">
 		<YAF:ThemeButton ID="btnTogglePost" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
 			TextLocalizedTag="TOGGLEPOST" Visible="false" />
+        <YAF:ThemeButton ID="Albums" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="ALBUM"
+			TextLocalizedTag="ALBUMS" ImageThemeTag="ALBUMS" TitleLocalizedTag="ALBUMS_HEADER_TEXT" Visible="false" />
 		<YAF:ThemeButton ID="Pm" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
 			TextLocalizedTag="PM" ImageThemeTag="PM" TitleLocalizedTag="PM_TITLE" />
 		<YAF:ThemeButton ID="Email" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"

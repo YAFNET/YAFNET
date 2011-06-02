@@ -157,15 +157,6 @@ namespace YAF.Controls {
         protected global::YAF.Controls.MessagePostData MessagePost1;
         
         /// <summary>
-        /// LocalizedLabel2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel2;
-        
-        /// <summary>
         /// PostFooter control.
         /// </summary>
         /// <remarks>

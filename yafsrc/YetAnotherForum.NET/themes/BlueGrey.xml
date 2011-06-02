@@ -8,6 +8,8 @@
 	</Resource>
   </page>
   <page name="ICONS">
+    <Resource tag="ALBUMS">~/albums.png</Resource>
+    <Resource tag="TOTOPPOST">~/arrow_up_button.png</Resource>
     <Resource tag="PM">~/icon_pm.png</Resource>
     <Resource tag="EMAIL">~/icon_email.png</Resource>
     <Resource tag="HOME">~/icon_home.png</Resource>

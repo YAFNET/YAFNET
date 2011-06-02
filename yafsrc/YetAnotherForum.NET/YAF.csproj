@@ -698,6 +698,9 @@
     </Compile>
     <Content Include="advanced.aspx" />
     <Content Include="App_Data\Database.mdf" />
+    <Content Include="App_Data\Database_log.ldf">
+      <DependentUpon>Database.mdf</DependentUpon>
+    </Content>
     <Content Include="controls\AlbumImageList.ascx" />
     <Content Include="controls\AlbumList.ascx" />
     <Content Include="controls\BuddyList.ascx" />
@@ -2202,6 +2205,8 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <Content Include="themes\BlackGrey.xml" />
+    <Content Include="themes\BlackGrey\albums.png" />
+    <Content Include="themes\BlackGrey\arrow_up_button.png" />
     <Content Include="themes\BlackGrey\atomfeed.png" />
     <Content Include="themes\BlackGrey\ButtonActive.png" />
     <Content Include="themes\BlackGrey\ButtonHover.png" />
@@ -2288,6 +2293,8 @@
     <Content Include="themes\BlackGrey\vote_refuse.gif" />
     <Content Include="themes\BlackGrey\voting_bar.gif" />
     <Content Include="themes\BlueGrey.xml" />
+    <Content Include="themes\BlueGrey\albums.png" />
+    <Content Include="themes\BlueGrey\arrow_up_button.png" />
     <Content Include="themes\BlueGrey\atomfeed.png" />
     <Content Include="themes\BlueGrey\ButtonActive.png" />
     <Content Include="themes\BlueGrey\ButtonHover.png" />
@@ -2376,6 +2383,8 @@
     <Content Include="themes\cleanSlate.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="themes\cleanSlate\albums.png" />
+    <Content Include="themes\cleanSlate\arrow_up_button.png" />
     <Content Include="themes\cleanSlate\atomfeed.png" />
     <Content Include="themes\cleanSlate\buttonBack.gif" />
     <Content Include="themes\cleanSlate\buttonBackB.gif" />
@@ -2455,6 +2464,8 @@
     <Content Include="themes\cleanSlate\voting_bar.gif" />
     <Content Include="themes\cleanSlate\cleanslate.js" />
     <Content Include="themes\GreenGrey.xml" />
+    <Content Include="themes\GreenGrey\albums.png" />
+    <Content Include="themes\GreenGrey\arrow_up_button.png" />
     <Content Include="themes\GreenGrey\atomfeed.png" />
     <Content Include="themes\GreenGrey\ButtonActive.png" />
     <Content Include="themes\GreenGrey\ButtonHover.png" />
@@ -2542,6 +2553,8 @@
     <Content Include="themes\GreenGrey\vote_refuse.gif" />
     <Content Include="themes\GreenGrey\voting_bar.gif" />
     <Content Include="themes\GreyGrey.xml" />
+    <Content Include="themes\GreyGrey\albums.png" />
+    <Content Include="themes\GreyGrey\arrow_up_button.png" />
     <Content Include="themes\GreyGrey\atomfeed.png" />
     <Content Include="themes\GreyGrey\ButtonActive.png" />
     <Content Include="themes\GreyGrey\ButtonHover.png" />
@@ -2625,6 +2638,8 @@
     <Content Include="themes\GreyGrey\vote_refuse.gif" />
     <Content Include="themes\GreyGrey\voting_bar.gif" />
     <Content Include="themes\OrangeGrey.xml" />
+    <Content Include="themes\OrangeGrey\albums.png" />
+    <Content Include="themes\OrangeGrey\arrow_up_button.png" />
     <Content Include="themes\OrangeGrey\atomfeed.png" />
     <Content Include="themes\OrangeGrey\ButtonActive.png" />
     <Content Include="themes\OrangeGrey\ButtonHover.png" />
@@ -2711,6 +2726,8 @@
     <Content Include="themes\OrangeGrey\vote_refuse.gif" />
     <Content Include="themes\OrangeGrey\voting_bar.gif" />
     <Content Include="themes\RedGrey.xml" />
+    <Content Include="themes\RedGrey\albums.png" />
+    <Content Include="themes\RedGrey\arrow_up_button.png" />
     <Content Include="themes\RedGrey\atomfeed.png" />
     <Content Include="themes\RedGrey\ButtonActive.png" />
     <Content Include="themes\RedGrey\ButtonHover.png" />
@@ -2796,6 +2813,8 @@
     <Content Include="themes\RedGrey\vote_rcap.gif" />
     <Content Include="themes\RedGrey\vote_refuse.gif" />
     <Content Include="themes\RedGrey\voting_bar.gif" />
+    <Content Include="themes\soclean\albums.png" />
+    <Content Include="themes\soclean\arrow_up_button.png" />
     <Content Include="themes\soclean\atomfeed.png" />
     <Content Include="themes\soclean\DownArrow.png" />
     <Content Include="themes\soclean\DownArrowWhite.png" />
@@ -2830,6 +2849,7 @@
     <Content Include="themes\soclean\users_poll.gif" />
     <Content Include="themes\soclean\vote_refuse.gif" />
     <Content Include="themes\YafMobile.xml" />
+    <Content Include="themes\Yafmobile\arrow_up_button.png" />
     <Content Include="themes\Yafmobile\chart.png" />
     <Content Include="themes\Yafmobile\collapse.png" />
     <Content Include="themes\Yafmobile\DownArrow.png" />
@@ -2882,6 +2902,8 @@
     <Content Include="themes\Yafmobile\vote_rcap.gif" />
     <Content Include="themes\Yafmobile\vote_refuse.gif" />
     <Content Include="themes\Yafmobile\voting_bar.gif" />
+    <Content Include="themes\yafpro\albums.png" />
+    <Content Include="themes\yafpro\arrow_up_button.png" />
     <Content Include="themes\yafpro\atomfeed.png" />
     <Content Include="themes\yafpro\DownArrow.png" />
     <Content Include="themes\yafpro\DownArrowWhite.png" />
@@ -2918,6 +2940,8 @@
     <Content Include="themes\yafpro\users_poll.gif" />
     <Content Include="themes\yafpro\vote_refuse.gif" />
     <Content Include="themes\yafpro\yafpro.js" />
+    <Content Include="themes\yafvision\albums.png" />
+    <Content Include="themes\yafvision\arrow_up_button.png" />
     <Content Include="themes\yafvision\atomfeed.png" />
     <Content Include="themes\yafvision\DownArrow.png" />
     <Content Include="themes\yafvision\DownArrowWhite.png" />

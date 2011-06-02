@@ -1,4 +1,7 @@
-﻿namespace YAF.Controls
+﻿using YAF.Classes.Data;
+using YAF.Utils.Helpers;
+
+namespace YAF.Controls
 {
     #region Using
 
@@ -255,6 +258,17 @@
 
             string userName = this.PostData.UserProfile.UserName;
 
+            // albums link
+            if (this.PostData.UserId != this.PageContext.PageUserID &&
+                                  !this.PostData.PostDeleted && this.PageContext.User != null &&
+                                  this.Get<YafBoardSettings>().EnableAlbum)
+            {
+                DataTable usrAlbumsData = LegacyDb.user_getalbumsdata(this.PostData.UserId,
+                                                                      YafContext.Current.PageBoardID);
+                var numAlbums = usrAlbumsData.GetFirstRowColumnAsValue<int?>("NumAlbums", null);
+                this.Albums.Visible = numAlbums.HasValue && numAlbums > 0;
+                this.Albums.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.albums, "u={0}", this.PostData.UserId);
+            }
             // private messages
             this.Pm.Visible = this.PostData.UserId != this.PageContext.PageUserID && !this.IsGuest &&
                               !this.PostData.PostDeleted && this.PageContext.User != null &&

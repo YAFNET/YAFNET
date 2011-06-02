@@ -64,8 +64,8 @@
 </tr>
 <tr class="postfooter">
     <td class="small postTop" colspan='<%#GetIndentSpan()%>'>
-        <a href="javascript:scroll(0,0)">
-            <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="TOP" />
+        <a href="javascript:scroll(0,0)">           
+            <YAF:ThemeImage LocalizedTitlePage="POSTS" LocalizedTitleTag="TOP"  runat="server" ThemeTag="TOTOPPOST" />
         </a>
     </td>
 		<td class="postfooter postInfoBottom">

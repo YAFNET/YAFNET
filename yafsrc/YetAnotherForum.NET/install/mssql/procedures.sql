@@ -1382,7 +1382,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}active_list](@BoardID int,@Guests bit=0,@ShowCrawlers bit=0,@ActiveTime int,@StyledNicks bit=0) as
 begin
-	delete from [{databaseOwner}].[{objectQualifier}Active] where DATEDIFF(minute,LastActive,GETUTCDATE() )>@ActiveTime AND convert(bit,sign(convert(int,Flags & 2)),(0)) <> 0
+	delete from [{databaseOwner}].[{objectQualifier}Active] where DATEDIFF(minute,LastActive,GETUTCDATE() )>@ActiveTime 
 	-- we don't delete guest access
 	delete from [{databaseOwner}].[{objectQualifier}ActiveAccess] where DATEDIFF(minute,LastActive,GETUTCDATE() )>@ActiveTime AND  IsGuestX <> 0
 	-- select active	

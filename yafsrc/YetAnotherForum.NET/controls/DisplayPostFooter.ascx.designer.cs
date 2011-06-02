@@ -22,6 +22,15 @@ namespace YAF.Controls {
         protected global::YAF.Controls.ThemeButton btnTogglePost;
         
         /// <summary>
+        /// Albums control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.ThemeButton Albums;
+        
+        /// <summary>
         /// Pm control.
         /// </summary>
         /// <remarks>
