@@ -1384,7 +1384,7 @@ create procedure [{databaseOwner}].[{objectQualifier}active_list](@BoardID int,@
 begin
 	delete from [{databaseOwner}].[{objectQualifier}Active] where DATEDIFF(minute,LastActive,GETUTCDATE() )>@ActiveTime 
 	-- we don't delete guest access
-	delete from [{databaseOwner}].[{objectQualifier}ActiveAccess] where DATEDIFF(minute,LastActive,GETUTCDATE() )>@ActiveTime AND  IsGuestX <> 0
+	delete from [{databaseOwner}].[{objectQualifier}ActiveAccess] where DATEDIFF(minute,LastActive,GETUTCDATE() )>@ActiveTime AND  IsGuestX = 0
 	-- select active	
 	if @Guests<>0 
 		select
