@@ -1,5 +1,4 @@
-﻿using YAF.Classes.Data;
-using YAF.Utils.Helpers;
+﻿
 
 namespace YAF.Controls
 {
@@ -9,13 +8,14 @@ namespace YAF.Controls
     using System.Data;
     using System.Text;
     using System.Web;
-
     using YAF.Classes;
+    using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -43,12 +43,7 @@ namespace YAF.Controls
         {
             get
             {
-                if (this._postDataHelperWrapper.DataRow != null)
-                {
-                    return this._postDataHelperWrapper.DataRow;
-                }
-
-                return null;
+                return this._postDataHelperWrapper.DataRow;
             }
 
             set
@@ -263,12 +258,14 @@ namespace YAF.Controls
                                   !this.PostData.PostDeleted && this.PageContext.User != null &&
                                   this.Get<YafBoardSettings>().EnableAlbum)
             {
-                DataTable usrAlbumsData = LegacyDb.user_getalbumsdata(this.PostData.UserId,
-                                                                      YafContext.Current.PageBoardID);
+                DataTable usrAlbumsData = LegacyDb.user_getalbumsdata(
+                    this.PostData.UserId, YafContext.Current.PageBoardID);
                 var numAlbums = usrAlbumsData.GetFirstRowColumnAsValue<int?>("NumAlbums", null);
                 this.Albums.Visible = numAlbums.HasValue && numAlbums > 0;
                 this.Albums.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.albums, "u={0}", this.PostData.UserId);
+                this.Albums.ParamTitle0 = userName;
             }
+
             // private messages
             this.Pm.Visible = this.PostData.UserId != this.PageContext.PageUserID && !this.IsGuest &&
                               !this.PostData.PostDeleted && this.PageContext.User != null &&
