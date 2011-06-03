@@ -296,11 +296,9 @@ namespace YAF.Controls
       var myChoiceMarker = item.FindControlRecursiveAs<HtmlImage>("YourChoice");
       if (this.ChoiceId != null)
       {
-          int choicex = -1;
           foreach (var mychoice in this.ChoiceId.Where(mychoice => (int) drowv.Row["ChoiceID"] == mychoice))
           {
               myChoiceMarker.Visible = true;
-              choicex = mychoice.ToType<int>();
           }
 
           if (Voters != null)
@@ -308,16 +306,16 @@ namespace YAF.Controls
               var himage = item.FindControlRecursiveAs<HtmlImage>("ImgVoteBar");
               foreach (DataRow row in this.Voters.Rows)
               {
-                  if ((int) row["ChoiceID"] == choicex && (int)row["PollID"] == PollId)
+                  if ((int) row["ChoiceID"] == (int) drowv["ChoiceID"] && (int)row["PollID"] == PollId)
                   {
-                      himage.Attributes["Title"] = himage.Attributes["Title"] + row["UserName"] + ",";
-                      himage.Alt = himage.Attributes["Title"];
+                      himage.Attributes["title"] = himage.Attributes["title"] + row["UserName"] + ",";
                   }
               }
-              if (himage.Attributes["Title"].IsSet())
+              if (himage.Attributes["title"].IsSet())
               {
-                  himage.Attributes["Title"] = himage.Alt = himage.Attributes["Title"].TrimEnd(',');
+                  himage.Attributes["title"] = himage.Attributes["alt"] = himage.Attributes["title"].TrimEnd(',');
               }
+             
           }
       }
 
