@@ -2,6 +2,7 @@
 <%@ Import Namespace="YAF.Core"%>
 <%@ Import Namespace="YAF.Core.Services" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
+<%@ Import Namespace="YAF.Utils.Helpers" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <div class="DivTopSeparator"></div>
 <YAF:Pager runat="server" ID="Pager" OnPageChange="Pager_PageChange" />
@@ -66,9 +67,9 @@
 					<%# Eval("Platform") %>
 				</td>
                 <td id="Iptd1" class="post" runat="server" visible='<%# this.PageContext.IsAdmin %>'>
-					 <a id="Iplink1" href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,Eval("IP")) %>'
+					 <a id="Iplink1" href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,IPHelper.GetIp4Address(Eval("IP").ToString())) %>'
                             title='<%# this.GetText("COMMON","TT_IPDETAILS") %>' target="_blank" runat="server">
-                            <%# Eval("IP") %></a>
+                            <%# IPHelper.GetIp4Address(Eval("IP").ToString())%></a>
 				</td>
 			</tr>	
 		</ItemTemplate>

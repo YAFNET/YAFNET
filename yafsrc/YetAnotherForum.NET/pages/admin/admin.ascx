@@ -3,6 +3,7 @@
 <%@ Import Namespace="YAF.Core.BBCode" %>
 <%@ Import Namespace="YAF.Utils" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
+<%@ Import Namespace="YAF.Utils.Helpers" %>
 <YAF:PageLinks ID="PageLinks" runat="server" />
 <YAF:AdminMenu ID="Adminmenu1" runat="server">
     <asp:PlaceHolder ID="UpdateHightlight" runat="server" Visible="false">
@@ -212,9 +213,9 @@
                             Style='<%# Eval("Style") %>' runat="server" />
                     </td>
                     <td class="post">
-                        <a id="A1" href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,Eval("IP")) %>'
+                        <a id="A1" href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,IPHelper.GetIp4Address(Eval("IP").ToString())) %>'
                             title='<%# this.GetText("COMMON","TT_IPDETAILS") %>' target="_blank" runat="server">
-                            <%# Eval("IP") %></a>
+                            <%# IPHelper.GetIp4Address(Eval("IP").ToString())%></a>
                     </td>
                     <td class="post">
                         <%# this.HtmlEncode(YafUserProfile.GetProfile(Eval("UserName").ToString()).Location)%>

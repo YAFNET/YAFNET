@@ -16,6 +16,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+using System.Linq;
+using System.Net;
+using System.Net.Sockets;
+using System.Web;
+
 namespace YAF.Utils.Helpers
 {
   #region Using
@@ -132,6 +137,40 @@ namespace YAF.Utils.Helpers
 
       return num;
     }
+
+  /// <summary>
+  /// Converts Ipv6 or hostname to IpV4.
+  /// </summary>
+  /// <param name="addressIpv6"></param>
+  /// <returns>IPv4 address string.</returns>
+  public static string GetIp4Address(string addressIpv6)
+  {
+    string ip4Address = String.Empty;
+
+     //Loop through all address InterNetwork - Address for IP version 4
+    foreach (var ipAddress in
+        Dns.GetHostAddresses(addressIpv6).Where(ipAddress => ipAddress.AddressFamily == AddressFamily.InterNetwork))
+    {
+        ip4Address = ipAddress.ToString();
+        break;
+    }
+
+    if (ip4Address.IsSet())
+    {
+      return ip4Address;
+    }
+
+    // to find by host name - is not in use so far. 
+    foreach (var ipAddress in
+        Dns.GetHostAddresses(Dns.GetHostName()).Where(ipAddress => ipAddress.AddressFamily == AddressFamily.InterNetwork))
+    {
+        ip4Address = ipAddress.ToString();
+        break;
+    }
+
+    return ip4Address;
+  }
+
 
     #endregion
   }
