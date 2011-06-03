@@ -171,6 +171,7 @@
     <Resource tag="CONFIRM_DELETE_ALL">Alle niet-goedgekeurde gebruikers verwijderen die ouder zijn dan het aantal gegeven dagen?</Resource>
     <Resource tag="DAYS_AGO">{0:d} ({1:N0} dag(en) geleden)</Resource>
     <Resource tag="DELETE_ALL">Verwijder ouder dan (dagen):</Resource>
+    <Resource tag="ERROR_DATABASESIZE">Unable to fetch DB Size</Resource>
     <Resource tag="HEADER1">Wie is online</Resource>
     <Resource tag="HEADER2">Niet-goedgekeurde gebruikers</Resource>
     <Resource tag="HEADER3">Statistieken voor</Resource>

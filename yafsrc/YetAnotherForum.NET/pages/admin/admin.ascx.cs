@@ -1,5 +1,5 @@
-/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bjørnar Henden
+ï»¿/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjï¿½rnar Henden
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -24,6 +24,7 @@ namespace YAF.Pages.Admin
 
   using System;
   using System.Data;
+  using System.Data.SqlClient;
   using System.Web;
   using System.Web.UI.WebControls;
 
@@ -252,7 +253,7 @@ namespace YAF.Pages.Admin
         return;
       }
 
-      this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+      this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
       this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), string.Empty);
 
       this.Page.Header.Title = this.GetText("ADMIN_ADMIN", "Administration");
@@ -392,7 +393,15 @@ namespace YAF.Pages.Admin
       this.DayTopics.Text = "{0:N2}".FormatWith(SqlDataLayerConverter.VerifyInt32(row["NumTopics"]) / days);
       this.DayUsers.Text = "{0:N2}".FormatWith(SqlDataLayerConverter.VerifyInt32(row["NumUsers"]) / days);
 
-      this.DBSize.Text = "{0} MB".FormatWith(LegacyDb.DBSize);
+      try
+      {
+          this.DBSize.Text = "{0} MB".FormatWith(LegacyDb.DBSize);
+      }
+      catch (SqlException)
+      {
+          this.DBSize.Text = this.GetText("ADMIN_ADMIN", "ERROR_DATABASESIZE");
+      }
+
       this.BindActiveUserData();
 
       this.DataBind();
@@ -417,12 +426,12 @@ namespace YAF.Pages.Admin
         this.PageContext.PageBoardID, 
         this.PageContext.PageUserID, 
         showGuests, 
-        showCrawlers, 
-        this.PageContext.BoardSettings.ActiveListTime, 
-        this.PageContext.BoardSettings.UseStyledNicks);
+        showCrawlers,
+        this.Get<YafBoardSettings>().ActiveListTime,
+        this.Get<YafBoardSettings>().UseStyledNicks);
 
       // Set colorOnly parameter to false, as we get active users style from database        
-      if (this.PageContext.BoardSettings.UseStyledNicks)
+      if (this.Get<YafBoardSettings>().UseStyledNicks)
       {
         this.Get<IStyleTransform>().DecodeStyleByTable(ref activeUsers, false);
       }

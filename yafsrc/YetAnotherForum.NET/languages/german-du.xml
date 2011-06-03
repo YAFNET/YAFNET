@@ -171,6 +171,7 @@
     <Resource tag="CONFIRM_DELETE_ALL">Alle nicht bestätigten Benutzer löschen die älter als die spezifierte Anzahl an Tagen sind?</Resource>
     <Resource tag="DAYS_AGO">"{0:d} ({1:N0} days ago)</Resource>
     <Resource tag="DELETE_ALL">Alle löschen älter als Tage:</Resource>
+    <Resource tag="ERROR_DATABASESIZE">DB Größe konnte nicht ermittelt werden</Resource>
     <Resource tag="HEADER1">Wer ist Online</Resource>
     <Resource tag="HEADER2">Nicht verifizierte Benutzer</Resource>
     <Resource tag="HEADER3">Statistik für</Resource>

@@ -171,6 +171,7 @@
     <Resource tag="CONFIRM_DELETE_ALL">Delete all unapproved Users more than the specified number of days old?</Resource>
     <Resource tag="DAYS_AGO">{0:d} ({1:N0} days ago)</Resource>
     <Resource tag="DELETE_ALL">Delete All More Than Days Old:</Resource>
+    <Resource tag="ERROR_DATABASESIZE">Unable to fetch DB Size</Resource>
     <Resource tag="HEADER1">Who is Online</Resource>
     <Resource tag="HEADER2">Unverified Users</Resource>
     <Resource tag="HEADER3">Statistics for</Resource>
