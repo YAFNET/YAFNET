@@ -2956,6 +2956,7 @@
     <Resource tag="DETAILS">פרטי רישום</Resource>
     <Resource tag="DISPLAYNAME">Display Name</Resource>
     <Resource tag="EMAIL">כתובת הדוא"ל</Resource>
+    <Resource tag="GENERATE_CAPTCHA">Generate New Image</Resource>
     <Resource tag="HOMEPAGE">דף הבית</Resource>
     <Resource tag="INVALID_ANSWER">נא לבחור תשובה אחרת.</Resource>
     <Resource tag="INVALID_DISPLAYNAME">Please pick a different display name.</Resource>

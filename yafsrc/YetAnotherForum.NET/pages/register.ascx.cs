@@ -561,6 +561,23 @@ namespace YAF.Pages
     }
 
     /// <summary>
+    /// Refresh the Captcha Image
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    /// <exception cref="NotImplementedException">
+    /// </exception>
+    protected void refreshCaptcha_Click(object sender, EventArgs e)
+    {
+        var imgCaptcha = this.CreateUserStepContainer.FindControlAs<Image>("imgCaptcha");
+        imgCaptcha.ImageUrl = "{0}resource.ashx?c=1&t=".FormatWith(YafForumInfo.ForumClientFileRoot, DateTime.UtcNow);
+    }
+
+    /// <summary>
     /// The send registration notification email.
     /// </summary>
     /// <param name="user">
@@ -655,7 +672,13 @@ namespace YAF.Pages
       {
         var imgCaptcha = this.CreateUserStepContainer.FindControlAs<Image>("imgCaptcha");
 
-        imgCaptcha.ImageUrl = "{0}resource.ashx?c=1".FormatWith(YafForumInfo.ForumClientFileRoot);
+          imgCaptcha.ImageUrl = "{0}resource.ashx?c=1&t=".FormatWith(YafForumInfo.ForumClientFileRoot, DateTime.UtcNow);
+
+          var refreshCaptcha = this.CreateUserStepContainer.FindControlAs<LinkButton>("RefreshCaptcha");
+
+          refreshCaptcha.Text = this.GetText("GENERATE_CAPTCHA");
+
+          refreshCaptcha.Click += this.refreshCaptcha_Click;
 
         captchaPlaceHolder.Visible = true;
       }
@@ -670,7 +693,7 @@ namespace YAF.Pages
 
       var questionAnswerPlaceHolder = (PlaceHolder)this.CreateUserStepContainer.FindControl("QuestionAnswerPlaceHolder");
       questionAnswerPlaceHolder.Visible = this.Get<MembershipProvider>().RequiresQuestionAndAnswer;
-    }
+    }      
 
     /// <summary>
     /// The setup display name ui.

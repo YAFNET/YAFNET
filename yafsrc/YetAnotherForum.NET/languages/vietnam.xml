@@ -2900,6 +2900,7 @@
     <Resource tag="DETAILS">Thông tin đăng ký</Resource>
     <Resource tag="DISPLAYNAME">Display Name</Resource>
     <Resource tag="EMAIL">Email</Resource>
+    <Resource tag="GENERATE_CAPTCHA">Generate New Image</Resource>
     <Resource tag="HOMEPAGE">Trang web</Resource>
     <Resource tag="INVALID_ANSWER">Vui lòng chọn một câu trả lời khác.</Resource>
     <Resource tag="INVALID_DISPLAYNAME">Please pick a different display name.</Resource>

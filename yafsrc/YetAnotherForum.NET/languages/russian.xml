@@ -2922,6 +2922,7 @@
     <Resource tag="DETAILS">Подробности при регистрации</Resource>
     <Resource tag="DISPLAYNAME">Отображаемое имя</Resource>
     <Resource tag="EMAIL">Адрес Email</Resource>
+    <Resource tag="GENERATE_CAPTCHA">Generate New Image</Resource>
     <Resource tag="HOMEPAGE">Домашняя страница</Resource>
     <Resource tag="INVALID_ANSWER">Пожалуйста, выберите другой ответ.</Resource>
     <Resource tag="INVALID_DISPLAYNAME">Пожалуйста, выберите другое отображаемое имя.</Resource>

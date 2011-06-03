@@ -2736,6 +2736,7 @@
     <Resource tag="DETAILS">Kayıt Ayrıntıları</Resource>
     <Resource tag="DISPLAYNAME">Görünecek İsminiz</Resource>
     <Resource tag="EMAIL">E-posta Adresi</Resource>
+    <Resource tag="GENERATE_CAPTCHA">Generate New Image</Resource>
     <Resource tag="HOMEPAGE">Ana Sayfa</Resource>
     <Resource tag="INVALID_ANSWER">Lütfen farklı bir cevap girin.</Resource>
     <Resource tag="INVALID_DISPLAYNAME">Lütfen forumda görünecek isminizi değiştirin.</Resource>

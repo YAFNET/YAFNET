@@ -2901,6 +2901,7 @@
     <Resource tag="DETAILS">Detalii de inregistrare</Resource>
     <Resource tag="DISPLAYNAME">Display Name</Resource>
     <Resource tag="EMAIL">Adresa Email</Resource>
+    <Resource tag="GENERATE_CAPTCHA">Generate New Image</Resource>
     <Resource tag="HOMEPAGE">Pagina personala</Resource>
     <Resource tag="INVALID_ANSWER">Please pick a different answer.</Resource>
     <Resource tag="INVALID_DISPLAYNAME">Please pick a different display name.</Resource>

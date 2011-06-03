@@ -2898,6 +2898,7 @@
     <Resource tag="DETAILS">جزئیات ثبت نام</Resource>
     <Resource tag="DISPLAYNAME">Display Name</Resource>
     <Resource tag="EMAIL">آدرس پست الکترونیک</Resource>
+    <Resource tag="GENERATE_CAPTCHA">Generate New Image</Resource>
     <Resource tag="HOMEPAGE">صفحه خانگی</Resource>
     <Resource tag="INVALID_ANSWER">لطفاً پاسخ امنیتی دیگری را انتخاب کنید.</Resource>
     <Resource tag="INVALID_DISPLAYNAME">Please pick a different display name.</Resource>

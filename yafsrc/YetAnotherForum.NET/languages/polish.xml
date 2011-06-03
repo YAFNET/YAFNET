@@ -2930,6 +2930,7 @@
     <Resource tag="DETAILS">Szczegóły Rejestracji</Resource>
     <Resource tag="DISPLAYNAME">Display Name</Resource>
     <Resource tag="EMAIL">Adres Email</Resource>
+    <Resource tag="GENERATE_CAPTCHA">Generate New Image</Resource>
     <Resource tag="HOMEPAGE">Strona Domowa</Resource>
     <Resource tag="INVALID_ANSWER">Please pick a different answer.</Resource>
     <Resource tag="INVALID_DISPLAYNAME">Please pick a different display name.</Resource>

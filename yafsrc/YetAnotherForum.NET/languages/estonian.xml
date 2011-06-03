@@ -2754,6 +2754,7 @@
     <Resource tag="DETAILS">Registreerimise andmed</Resource>
     <Resource tag="DISPLAYNAME">Hüüdnimi</Resource>
     <Resource tag="EMAIL">E-posti aadress</Resource>
+    <Resource tag="GENERATE_CAPTCHA">Generate New Image</Resource>
     <Resource tag="HOMEPAGE">Kodulehekülg</Resource>
     <Resource tag="INVALID_ANSWER">Palun vali teistsugune vastus.</Resource>
     <Resource tag="INVALID_DISPLAYNAME">Palun vali teistsugune hüüdnimi.</Resource>

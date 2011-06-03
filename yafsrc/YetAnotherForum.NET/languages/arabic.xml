@@ -2757,6 +2757,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="DETAILS">تفاصيل التسجيل</Resource>
     <Resource tag="DISPLAYNAME">إظهار الاسم </Resource>
     <Resource tag="EMAIL">عنوان البريد الإلكتروني</Resource>
+    <Resource tag="GENERATE_CAPTCHA">Generate New Image</Resource>
     <Resource tag="HOMEPAGE">الصفحة الرئيسية </Resource>
     <Resource tag="INVALID_ANSWER">يرجو  تغير اجابة سؤال التحقيق .</Resource>
     <Resource tag="INVALID_DISPLAYNAME">الرجاء إدخال اسم آخر </Resource>

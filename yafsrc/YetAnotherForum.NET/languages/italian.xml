@@ -2759,6 +2759,7 @@
     <Resource tag="DETAILS">Registration Details</Resource>
     <Resource tag="DISPLAYNAME">Display Name</Resource>
     <Resource tag="EMAIL">Email Address</Resource>
+    <Resource tag="GENERATE_CAPTCHA">Generate New Image</Resource>
     <Resource tag="HOMEPAGE">Home Page</Resource>
     <Resource tag="INVALID_ANSWER">Please pick a different answer.</Resource>
     <Resource tag="INVALID_DISPLAYNAME">Please pick a different display name.</Resource>

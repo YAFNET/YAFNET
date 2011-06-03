@@ -2868,6 +2868,7 @@
     <Resource tag="DETAILS">Registratiegegevens</Resource>
     <Resource tag="DISPLAYNAME">Naam</Resource>
     <Resource tag="EMAIL">E-mail Adres</Resource>
+    <Resource tag="GENERATE_CAPTCHA">Generate New Image</Resource>
     <Resource tag="HOMEPAGE">Homepage</Resource>
     <Resource tag="INVALID_ANSWER">Kies a.u.b. een ander antwoord.</Resource>
     <Resource tag="INVALID_DISPLAYNAME">Kies aub een andere gebruikersnaam.</Resource>

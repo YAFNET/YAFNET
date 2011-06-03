@@ -1592,6 +1592,7 @@
       <Resource tag="USERNAME">User Name</Resource>
       <Resource tag="DISPLAYNAME">Display Name</Resource>
       <Resource tag="VERIFICATION_EMAIL_SUBJECT">Registration Verification for {0} Forum</Resource>
+      <Resource tag="GENERATE_CAPTCHA">Generate New Image</Resource>
    </page>
    <page name="REPORTPOST">
       <Resource tag="SEND">Report</Resource>

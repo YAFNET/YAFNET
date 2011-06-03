@@ -2900,6 +2900,7 @@
     <Resource tag="DETAILS">Registrerings detaljer</Resource>
     <Resource tag="DISPLAYNAME">Display Name</Resource>
     <Resource tag="EMAIL">E-postadresse</Resource>
+    <Resource tag="GENERATE_CAPTCHA">Generate New Image</Resource>
     <Resource tag="HOMEPAGE">Hjemmeside</Resource>
     <Resource tag="INVALID_ANSWER">Please pick a different answer.</Resource>
     <Resource tag="INVALID_DISPLAYNAME">Please pick a different display name.</Resource>

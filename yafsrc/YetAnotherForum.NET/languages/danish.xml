@@ -2917,6 +2917,7 @@
     <Resource tag="DETAILS">Registrerings Detaljer</Resource>
     <Resource tag="DISPLAYNAME">Visnings navn</Resource>
     <Resource tag="EMAIL">Email</Resource>
+    <Resource tag="GENERATE_CAPTCHA">Generate New Image</Resource>
     <Resource tag="HOMEPAGE">Hjemmeside</Resource>
     <Resource tag="INVALID_ANSWER">Vælg et andet svar.</Resource>
     <Resource tag="INVALID_DISPLAYNAME">Vælg et andet visnings navn.</Resource>

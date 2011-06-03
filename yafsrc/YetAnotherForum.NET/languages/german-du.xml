@@ -2889,6 +2889,7 @@
     <Resource tag="DETAILS">Detaillierte Angaben</Resource>
     <Resource tag="DISPLAYNAME">Anzeigename</Resource>
     <Resource tag="EMAIL">E-Mail-Adresse</Resource>
+    <Resource tag="GENERATE_CAPTCHA">Neues Bild generieren</Resource>
     <Resource tag="HOMEPAGE">Webseite</Resource>
     <Resource tag="INVALID_ANSWER">Bitte gib eine andere Antwort ein.</Resource>
     <Resource tag="INVALID_DISPLAYNAME">Bitte wählen sie einen anderen Anzeigenamen.</Resource>

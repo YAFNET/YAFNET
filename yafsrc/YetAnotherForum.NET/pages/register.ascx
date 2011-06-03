@@ -117,7 +117,10 @@
 								<YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="Captcha_Image" />
 							</td>
 							<td class="post">
-								<asp:Image ID="imgCaptcha" runat="server" /></td>
+								<asp:Image ID="imgCaptcha" runat="server" />
+                                <br />
+                                <asp:LinkButton id="RefreshCaptcha" runat="server"></asp:LinkButton>
+                            </td>
 						</tr>
 						<tr>
 							<td align="right" class="postheader" valign="top">
