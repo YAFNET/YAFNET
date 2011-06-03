@@ -1,3 +1,11 @@
+function ScrollTop() {
+    jQuery('body,html').animate({
+        scrollTop: 0
+    }, 820);
+    return false;
+}
+
+
 function toggleContainer(id, senderId, showText, hideText){
 	var el = jQuery('#' + id);
 	var sender = jQuery('#' + senderId);
