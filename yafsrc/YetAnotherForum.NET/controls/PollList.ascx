@@ -40,7 +40,9 @@
         <YAF:PollChoiceList ID="PollChoiceList1"  runat="server" /> 
           <tr>
                 <td class="header2">
-                <img id="PollClosedImage" title="" src="" alt="" visible="false"  runat="server" />               
+                <img id="PollClosedImage" title="" src="" alt="" visible="false"  runat="server" />&nbsp; 
+                              <YAF:ThemeButton ID="RefuseVoteButton" runat="server" Visible="false"
+                        CommandName="refuse" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "PollID") %>' CssClass="yaflittlebutton rightItem" ImageThemePage="vote" ImageThemeTag="VOTE_REFUSE"  TitleLocalizedTag="POLL_ALLOWSKIPVOTE_INFO" />  
                 </td>
                 <td class="header2">
                     <%= this.GetText("total") %>
@@ -50,7 +52,8 @@
                 </td>
                 <td class="header2">
                     100%
-                </td>
+                </td>            
+               
             </tr>
             <tr id="PollInfoTr" runat="server" visible="false">
                <td class="post" colspan="4" align="center">

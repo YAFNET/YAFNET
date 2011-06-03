@@ -747,7 +747,7 @@ namespace YAF.Controls
 
         if (showVoters)
         {
-            DataTable dtAllPollGroupVotesShow = LegacyDb.pollgroup_votecheck(this.PollGroupId, null, null);
+            DataTable dtAllPollGroupVotesShow = LegacyDb.pollgroup_votecheck(drowv.Row["PollGroupID"].ToType<int>(), null, null);
             dtAllPollGroupVotesShow.Rows.Cast<DataRow>().Count(drch => (int)drch["PollID"] == pollId);
             pollChoiceList.Voters = dtAllPollGroupVotesShow;
         }
@@ -1180,7 +1180,7 @@ namespace YAF.Controls
           userId = this.PageContext.PageUserID;
         }
          
-        this._dtAllPollGroupVotes = LegacyDb.pollgroup_votecheck(this.PollGroupId, userId, remoteIp);
+        this._dtAllPollGroupVotes = LegacyDb.pollgroup_votecheck(_dtPollGroupAllChoices.Rows[0]["PollGroupID"].ToType<int>(), userId, remoteIp);
 
         this._isBound = this._dtPollGroupAllChoices.Rows[0]["IsBound"].ToType<bool>();
 
