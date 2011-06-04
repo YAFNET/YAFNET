@@ -1,0 +1,433 @@
+<dotnetnuke type="Package" version="5.0">
+  <packages>
+    <package name="YetAnotherForumDotNet" type="Module" version="01.95.54750">
+      <friendlyName>YetAnotherForumDotNet</friendlyName>
+      <description>
+        &lt;strong&gt;YetAnotherForum.NET&lt;/strong&gt; as DotNetNuke Module. Yet Another Forum.NET (YAF) is an open source ASP.NET forum system.&lt;br /&gt;
+        &lt;em&gt;Please visit: &lt;a href=&quot;http://www.yetanotherforum.net&quot;&gt;http://www.yetanotherforum.net&lt;/a&gt; for more information.&lt;/em&gt;
+      </description>
+      <owner>
+        <name>Jaben Cargman</name>
+        <organization>Yet Another Forum.NET</organization>
+        <url>http://www.yetanotherforum.net/</url>
+        <email>support@yetanotherforum.net</email>
+      </owner>
+      <license src="License.html" />
+      <releaseNotes src="ReadMe.html" />
+      <components>
+        <component type="Module">
+          <desktopModule>
+            <moduleName>YetAnotherForumDotNet</moduleName>
+            <foldername>YetAnotherForumDotNet</foldername>
+            <businessControllerClass>YAF.DotNetNuke.YafDnnController, YAF.DotNetNuke.Module</businessControllerClass>
+            <supportedFeatures />
+            <moduleDefinitions>
+              <moduleDefinition>
+                <friendlyName>YAF</friendlyName>
+                <defaultCacheTime>0</defaultCacheTime>
+                <moduleControls>
+                  <moduleControl>
+                    <controlKey />
+                    <controlSrc>DesktopModules/YetAnotherForumDotNet/YafDnnModule.ascx</controlSrc>
+                    <supportsPartialRendering>False</supportsPartialRendering>
+                    <controlTitle>Forum</controlTitle>
+                    <controlType>View</controlType>
+                    <iconFile />
+                     <helpUrl>http://wiki.yetanotherforum.net/</helpUrl>
+                    <viewOrder>0</viewOrder>
+                  </moduleControl>
+                  <moduleControl>
+                    <controlKey>Edit</controlKey>
+                    <controlSrc>DesktopModules/YetAnotherForumDotNet/YafDnnModuleEdit.ascx</controlSrc>
+                    <supportsPartialRendering>False</supportsPartialRendering>
+                    <controlTitle>Edit YAF Settings</controlTitle>
+                    <controlType>Edit</controlType>
+                    <iconFile />
+                    <helpUrl>http://wiki.yetanotherforum.net/</helpUrl>
+                  </moduleControl>
+                  <moduleControl>
+                    <controlKey>Import</controlKey>
+                    <controlSrc>DesktopModules/YetAnotherForumDotNet/YafDnnModuleImport.ascx</controlSrc>
+                    <supportsPartialRendering>False</supportsPartialRendering>
+                    <controlTitle>Import DNN Users</controlTitle>
+                    <controlType>Edit</controlType>
+                    <iconFile />
+                    <helpUrl>http://wiki.yetanotherforum.net/</helpUrl>
+                  </moduleControl>
+                </moduleControls>
+              </moduleDefinition>
+            </moduleDefinitions>
+          </desktopModule>
+        </component>
+        <component type="Assembly">
+          <assemblies>
+            <basePath>bin</basePath>
+            <assembly>
+              <name>AjaxControlToolkit.dll</name>
+            </assembly>
+            <assembly>
+              <name>Autofac.dll</name>
+            </assembly>
+            <assembly>
+              <name>CookComputing.XmlRpcV2.dll</name>                         
+            </assembly>
+            <assembly>
+              <name>Intelligencia.UrlRewriter.dll</name>
+            </assembly>
+            <assembly>
+              <name>Moq.dll</name>
+            </assembly>
+            <assembly>
+              <name>nStuff.UpdateControls.dll</name>
+            </assembly>
+            <assembly>
+              <name>YAF.Classes.Config.dll</name>
+            </assembly>
+            <assembly>
+              <name>YAF.Classes.Data.dll</name>
+            </assembly>
+            <assembly>
+              <name>YAF.Controls.dll</name>
+            </assembly>
+            <assembly>
+              <name>YAF.Core.dll</name>
+            </assembly>
+            <assembly>
+              <name>YAF.dll</name>
+            </assembly>
+            <assembly>
+              <name>YAF.DotNetNuke.Module.dll</name>
+            </assembly>
+            <assembly>
+              <name>YAF.Providers.dll</name>
+            </assembly>
+            <assembly>
+              <name>YAF.Types.dll</name>
+            </assembly>
+            <assembly>
+              <name>YAF.Utils.dll</name>
+            </assembly>
+          </assemblies>
+        </component>
+        <component type="Cleanup" version="1.94.02">
+          <files>
+            <file>
+              <path>bin</path>
+              <name>yaf_dnn.dll</name>
+            </file>
+          </files>
+        </component>
+        <component type="Cleanup" version="1.94.03">
+          <files>
+            <file>
+              <path>bin</path>
+              <name>jQuery.dll</name>
+            </file>
+          </files>
+        </component>
+        <component type="Cleanup" version="01.95.54461">
+          <files>
+            <file>
+              <path>bin</path>
+              <name>AjaxPro.2.dll</name>
+            </file>
+            <file>
+              <path>bin</path>
+              <name>YAF.Classes.UI.dll</name>
+            </file>
+            <file>
+              <path>bin</path>
+              <name>YAF.Classes.Core.dll</name>
+            </file>
+            <file>
+              <path>bin</path>
+              <name>YAF.Classes.Utils.dll</name>
+            </file>
+            <file>
+              <path>bin</path>
+              <name>DNA.dll</name>
+            </file>
+            <file>
+              <path>bin</path>
+              <name>DNA.UI.JQuery.dll</name>
+            </file>
+            <file>
+              <path>bin</path>
+              <name>jQueryNet.dll</name>
+            </file>
+            <file>
+              <name>mail.config</name>
+            </file>
+          </files>
+        </component>
+        <component type="File">
+          <files>
+            <file>
+              <name>UrlRewriter.config</name>
+            </file>
+          </files>
+        </component>
+        <component type="Config">
+          <config>
+            <configFile>web.config</configFile>
+            <install>
+              <configuration>
+                <nodes>
+                  <node path="/configuration" action="update" key="configSource" collision="overwrite">
+                    <rewriter configSource="URLRewriter.config" />
+                  </node>
+                  <node path="/configuration/system.net" action="remove" />
+                  <node path="/configuration/configSections" action="update" key="name" collision="overwrite">
+                     <section name="rewriter" type="Intelligencia.UrlRewriter.Configuration.RewriterConfigurationSectionHandler, Intelligencia.UrlRewriter" requirePermission="false" />
+                  </node>
+                  <node path="/configuration/appSettings" action="update" key="key" collision="overwrite">
+                    <add key="YAF.BoardID" value="1" />
+                    <add key="YAF.EnableURLRewriting" value="true" />
+                    <add key="YAF.UseSMTPSSL" value="false" />
+                    <add key="YAF.DatabaseObjectQualifier" value="yaf_" />
+                    <add key="YAF.DatabaseOwner" value="dbo" />
+                    <add key="YAF.ConnectionStringName" value="SiteSqlServer" />
+                    <add key="YAF.ProviderExceptionXML" value="ProviderExceptions.xml" />
+                    <add key="YAF.ProviderKeyType" value="System.Guid" />
+                    <add key="YAF.FileRoot" value="~/DesktopModules/YetAnotherForumDotNet" />
+                    <add key="YAF.AppRoot" value="~/DesktopModules/YetAnotherForumDotNet" />
+                    <add key="YAF.BaseUrlMask" value="" />
+                    <add key="YAF.ShowToolBar" value="true" />
+                    <add key="YAF.AllowLoginAndLogoff" value="false" />
+                    <add key="YAF.RadEditorSkin" value="Default" />
+                    <add key="YAF.UseRadEditorToolsFile" value="true" />
+                    <add key="YAF.RadEditorToolsFile" value="/DesktopModules/YetAnotherForumDotNet/editors/radEditor/toolsFile.xml" />
+                    <add key="YAF.ConfigPassword" value="pass" />
+                    <add key="YAF.URLRewritingMode" value="Unicode" />
+                  </node>
+                  <node path="/configuration/system.webServer/modules" action="update" key="name" collision="overwrite">
+                     <remove name="YafTaskModule" />
+                  </node>
+                  <node path="/configuration/system.webServer/modules" action="update" key="name" collision="overwrite">
+                     <remove name="UrlRewriter" />
+                  </node>
+                  <node path="/configuration/system.webServer/modules" action="update" key="name" collision="overwrite">
+                     <add name="YafTaskModule" type="YAF.Core.YafTaskModule, YAF.Core" preCondition="managedHandler" />
+                  </node>
+                  <node path="/configuration/system.webServer/modules" action="update" key="name" collision="overwrite">
+                     <add name="UrlRewriter" type="Intelligencia.UrlRewriter.RewriterHttpModule,Intelligencia.UrlRewriter" preCondition="managedHandler" />
+                  </node>
+                  <node path="/configuration/system.webServer/handlers" action="update" key="name" collision="overwrite">
+                    <add name="YafHandler" preCondition="integratedMode" verb="GET" path="Resource.ashx" type="YAF.YafResourceHandler, YAF" />
+                  </node>
+                  <node path="/configuration/system.web/httpModules" action="update" key="name" collision="overwrite">
+                     <add name="YafTaskModule" type="YAF.Core.YafTaskModule, YAF.Core" />
+                  </node>
+                  <node path="/configuration/system.web/httpModules" action="update" key="name" collision="overwrite">
+                    <add name="UrlRewriter" type="Intelligencia.UrlRewriter.RewriterHttpModule,Intelligencia.UrlRewriter" />
+                  </node>
+                  <node path="/configuration/system.web/compilation/assemblies" action="update" key="assembly" collision="overwrite">
+                     <add assembly="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=B77A5C561934E089" />
+                  </node>
+                  <node path="/configuration/system.web/pages/controls" action="update" key="namespace" collision="overwrite">
+                    <add tagPrefix="YAF" namespace="YAF.Controls" assembly="YAF.Controls" />
+                  </node>
+                  <node path="/configuration/system.web/pages/controls" action="update" key="namespace" collision="overwrite">
+                    <add tagPrefix="YAF" namespace="YAF.Controls.Statistics" assembly="YAF.Controls" />
+                  </node>
+                  <node path="/configuration/system.web/pages/controls" action="update" key="namespace" collision="overwrite">
+                    <add tagPrefix="YAF" namespace="YAF.Classes" />
+                  </node>
+                  <node path="/configuration/system.web/pages/controls" action="update" key="namespace" collision="overwrite">
+                    <add tagPrefix="YAF" namespace="YAF" />
+                  </node>
+                  <node path="/configuration/system.web/pages/controls" action="update" key="namespace" collision="overwrite">
+                    <add tagPrefix="editor" namespace="YAF.Editors" />
+                  </node>
+                 
+                  <node path="/configuration/system.web/httpHandlers" action="update" key="type" collision="overwrite">
+                    <add verb="GET" path="Resource.ashx" type="YAF.YafResourceHandler, YAF" />
+                  </node>
+                  <node path="/configuration/system.web" action="update" key="enabled" collision="overwrite">
+                    <roleManager enabled="true" defaultProvider="AspNetSqlRoleProvider">
+                      <providers>
+                        <clear />
+                        <add connectionStringName="SiteSqlServer" applicationName="DotNetNuke" name="AspNetSqlRoleProvider" type="System.Web.Security.SqlRoleProvider" />
+                      </providers>
+                    </roleManager>
+                  </node>
+                  <node path="/configuration/system.web" action="update" key="enabled" collision="overwrite">
+                    <trace enabled="false" />
+                  </node>
+                  <node path="/configuration/system.web" action="update" key="enabled" collision="overwrite">
+                    <profile enabled="true" defaultProvider="AspNetSqlProfileProvider" inherits="YAF.Utils.YafUserProfile">
+                      <providers>
+                        <clear />
+                        <add connectionStringName="SiteSqlServer" applicationName="DotNetNuke" name="AspNetSqlProfileProvider" type="System.Web.Profile.SqlProfileProvider" />
+                      </providers>
+                    </profile>
+                  </node>
+                  <node path="/configuration/system.web/pages/controls/add[starts-with(@namespace,'YAF.Classes.UI')]" action="remove" />
+                  <node path="/configuration/system.web/pages/namespaces/add[starts-with(@namespace,'YAF.Classes.UI')]" action="remove" />
+                  <node path="/configuration/system.web/pages/controls/add[@tagPrefix='DotNetAge']" action="remove" />
+                  <node path="/configuration/system.web/pages/controls/add[@tagPrefix='DotNetAge']" action="remove" />
+                  <node path="/configuration/system.web/httpHandlers/add[starts-with(@type,'AjaxPro.')]" action="remove"></node>
+                  <node path="/configuration/system.webServer/handlers/add[@name='AjaxPro']" action="remove" />
+                  <node path="/configuration/system.web/pages/controls/add[starts-with(@namespace,'YAF.Classes.Utils')]" action="remove" />
+                  <node path="/configuration/system.web/pages/controls/add[starts-with(@namespace,'YAF.Classes.Core')]" action="remove" />
+                  <node path="/configuration/system.web/pages/controls/add[starts-with(@namespace,'YAF.Classes.Data')]" action="remove" />
+                  <node path="/configuration/system.web/pages/namespaces/add[starts-with(@namespace,'YAF')]" action="remove" />
+                  <node path="/configuration/system.web/pages/namespaces/add[starts-with(@namespace,'YAF')]" action="remove" />
+                  <node path="/configuration/system.web/pages/namespaces/add[starts-with(@namespace,'YAF')]" action="remove" />
+                  <node path="/configuration/system.web/pages/namespaces/add[starts-with(@namespace,'YAF')]" action="remove" />
+                  <node path="/configuration/system.web/pages/namespaces/add[starts-with(@namespace,'YAF')]" action="remove" />
+                </nodes>
+              </configuration>
+            </install>
+            <uninstall>
+              <configuration>
+                <nodes>
+                  <node path="/configuration/rewriter[@configSource='URLRewriter.config']" action="remove" />
+                  <node path="/configuration/system.net" action="remove" />
+                  <node path="/configuration/configSections/section[@name='rewriter']" action="remove" />
+                  <node path="/configuration/connectionStrings/add[@name='yafnet']" action="remove" />
+                  <node path="/configuration/system.webServer/modules/remove[@name='YafTaskModule']" action="remove" />
+                  <node path="/configuration/system.webServer/modules/remove[@name='UrlRewriter']" action="remove" />
+                  <node path="/configuration/system.webServer/modules/add[@name='YafTaskModule']" action="remove" />
+                  <node path="/configuration/system.webServer/modules/add[@name='UrlRewriter']" action="remove" />
+                  <node path="/configuration/system.webServer/handlers/add[@name='AjaxPro']" action="remove" />
+                  <node path="/configuration/system.webServer/handlers/add[@name='YafHandler']" action="remove" />
+                  <node path="/configuration/system.web/httpModules/add[@name='YafTaskModule']" action="remove" />
+                  <node path="/configuration/system.web/httpModules/add[@name='UrlRewriter']" action="remove" />
+                  <node path="/configuration/system.web/roleManager[@enabled='true']" action="remove" />
+                  <node path="/configuration/system.web/trace[@enabled='false']" action="remove" />
+                  <node path="/configuration/system.web/compilation/assemblies/add[starts-with(@assembly,'System.Windows.Forms')]" action="remove" />
+                  <node path="/configuration/system.web/pages/controls/add[@tagPrefix='DotNetAge']" action="remove" />
+                  <node path="/configuration/system.web/pages/controls/add[@tagPrefix='DotNetAge']" action="remove" />
+                  <node path="/configuration/system.web/pages/controls/add[starts-with(@namespace,'YAF')]" action="remove" />
+                  <node path="/configuration/system.web/pages/controls/add[starts-with(@namespace,'YAF')]" action="remove" />
+                  <node path="/configuration/system.web/pages/controls/add[starts-with(@namespace,'YAF')]" action="remove" />
+                  <node path="/configuration/system.web/pages/controls/add[starts-with(@namespace,'YAF')]" action="remove" />
+                  <node path="/configuration/system.web/pages/controls/add[starts-with(@namespace,'YAF')]" action="remove" />
+                  <node path="/configuration/system.web/profile[starts-with(@inherits,'YAF')]" action="remove" />
+                  <node path="/configuration/appSettings/add[starts-with(@key,'YAF.')]" action="remove" />
+                  <node path="/configuration/appSettings/add[starts-with(@key,'YAF.')]" action="remove" />
+                  <node path="/configuration/appSettings/add[starts-with(@key,'YAF.')]" action="remove" />
+                  <node path="/configuration/appSettings/add[starts-with(@key,'YAF.')]" action="remove" />
+                  <node path="/configuration/appSettings/add[starts-with(@key,'YAF.')]" action="remove" />
+                  <node path="/configuration/appSettings/add[starts-with(@key,'YAF.')]" action="remove" />
+                  <node path="/configuration/appSettings/add[starts-with(@key,'YAF.')]" action="remove" />
+                  <node path="/configuration/appSettings/add[starts-with(@key,'YAF.')]" action="remove" />
+                  <node path="/configuration/appSettings/add[starts-with(@key,'YAF.')]" action="remove" />
+                  <node path="/configuration/appSettings/add[starts-with(@key,'YAF.')]" action="remove" />
+                  <node path="/configuration/appSettings/add[starts-with(@key,'YAF.')]" action="remove" />
+                  <node path="/configuration/appSettings/add[starts-with(@key,'YAF.')]" action="remove" />
+                  <node path="/configuration/appSettings/add[starts-with(@key,'YAF.')]" action="remove" />
+                  <node path="/configuration/appSettings/add[starts-with(@key,'YAF.')]" action="remove" />
+                  <node path="/configuration/appSettings/add[starts-with(@key,'YAF.')]" action="remove" />
+                  <node path="/configuration/appSettings/add[starts-with(@key,'YAF.')]" action="remove" />
+                  <node path="/configuration/system.web/httpHandlers/add[starts-with(@type,'AjaxPro.')]" action="remove" />
+                  <node path="/configuration/system.web/httpHandlers/add[starts-with(@type,'YAF.')]" action="remove"></node>
+                </nodes>
+              </configuration>
+            </uninstall>
+          </config>
+        </component>
+        <component type="ResourceFile">
+          <resourceFiles>
+            <basePath>DesktopModules/YetAnotherForumDotNet</basePath>
+            <resourceFile>
+              <path></path>
+              <name>yafdnn-res.zip</name>
+            </resourceFile>
+          </resourceFiles>
+        </component>
+        <component type="Script">
+          <scripts>
+            <basePath>DesktopModules/YetAnotherForumDotNet/</basePath>
+            <script type="Install">
+              <name>01.94.01.SqlDataProvider</name>
+              <version>01.94.01</version>
+            </script>
+            <script type="Install">
+              <name>01.95.50.SqlDataProvider</name>
+              <version>01.95.54750</version>
+            </script>
+            <script type="UnInstall">
+              <name>Uninstall.SqlDataProvider</name>
+            </script>
+          </scripts>
+        </component>
+      </components>
+    </package>
+    <package name="YAF.WhatsNew" type="Module" version="1.95.54750">
+      <friendlyName>YAF What's New</friendlyName>
+      <description>
+        &lt;p&gt;This Module displays the Latest Posts from a  &lt;strong&gt;YetAnotherForum.NET&lt;/strong&gt; Module. Based on the Current Users Authorization Level. You can define Which Forum should been used, and how many Posts should displayed.
+        &lt;/p&gt;
+        &lt;p&gt;The Posts are rendered as nested List for easy Skinning.&lt;/p&gt;
+      </description>
+      <owner>
+        <name>Ingo Herbote</name>
+        <organization>Yet Another Forum.NET</organization>
+        <url>http://www.yetanotherforum.net/</url>
+        <email>support@yetanotherforum.net</email>
+      </owner>
+      <license src="License.html" />
+      <releaseNotes>
+        First Release
+      </releaseNotes>
+      <components>
+        <component type="Module">
+          <desktopModule>
+            <moduleName>YAF.WhatsNew</moduleName>
+            <foldername>YAF.WhatsNew</foldername>
+            <moduleDefinitions>
+              <moduleDefinition>
+                <friendlyName>YAF What's New</friendlyName>
+                <defaultCacheTime>0</defaultCacheTime>
+                <moduleControls>
+                  <moduleControl>
+                    <controlKey />
+                    <controlSrc>DesktopModules/YAF.WhatsNew/YafDnnWhatsNew.ascx</controlSrc>
+                    <supportsPartialRendering>False</supportsPartialRendering>
+                    <controlTitle></controlTitle>
+                    <controlType>View</controlType>
+                    <iconFile />
+                    <helpUrl />
+                  </moduleControl>
+                  <moduleControl>
+                    <controlKey>Settings</controlKey>
+                    <controlSrc>DesktopModules/YAF.WhatsNew/YafDnnWhatsNewSettings.ascx</controlSrc>
+                    <supportsPartialRendering>False</supportsPartialRendering>
+                    <controlTitle>YAF What's New Settings</controlTitle>
+                    <controlType>Edit</controlType>
+                    <iconFile />
+                    <helpUrl />
+                  </moduleControl>
+                </moduleControls>
+              </moduleDefinition>
+            </moduleDefinitions>
+          </desktopModule>
+        </component>
+        <component type="File">
+          <files>
+            <basePath>DesktopModules\YAF.WhatsNew</basePath>
+            <file>
+              <name>YafDnnWhatsNewSettings.ascx</name>
+              <sourceFileName>YafDnnWhatsNewSettings.ascx</sourceFileName>
+            </file>
+            <file>
+              <name>YafDnnWhatsNew.ascx</name>
+              <sourceFileName>YafDnnWhatsNew.ascx</sourceFileName>
+            </file>
+          </files>
+        </component>
+        <component type="ResourceFile">
+          <resourceFiles>
+            <basePath>DesktopModules\YAF.WhatsNew</basePath>
+            <resourceFile>
+              <path></path>
+              <name>YafDnnWhatsNewResources.zip</name>
+            </resourceFile>
+          </resourceFiles>
+        </component>
+      </components>
+    </package>
+  </packages>
+</dotnetnuke>

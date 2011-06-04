@@ -1,0 +1,1699 @@
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'{databaseOwner}{objectQualifier}YafDnn_Messages') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+DROP PROCEDURE {databaseOwner}{objectQualifier}YafDnn_Messages
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'{databaseOwner}{objectQualifier}YafDnn_Topics') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+DROP PROCEDURE {databaseOwner}{objectQualifier}YafDnn_Topics
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'{databaseOwner}{objectQualifier}YafDnn_LastUpdatedProfile') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+DROP PROCEDURE {databaseOwner}{objectQualifier}YafDnn_LastUpdatedProfile
+GO
+
+/****YAF DNN SQL UNINSTALL SCRIPT BY INGO HERBOTE*/
+/**CONTRAINTS**/
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_Buddy_{objectQualifier}yaf_User') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_Buddy DROP CONSTRAINT FK_{objectQualifier}yaf_Buddy_{objectQualifier}yaf_User
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_UserGroup_{objectQualifier}yaf_Group') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_UserGroup DROP CONSTRAINT FK_{objectQualifier}yaf_UserGroup_{objectQualifier}yaf_Group
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_UserAlbumImage_{objectQualifier}yaf_UserAlbum') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_UserAlbumImage DROP CONSTRAINT FK_{objectQualifier}yaf_UserAlbumImage_{objectQualifier}yaf_UserAlbum
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_MessageHistory_{objectQualifier}yaf_MessageID') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_MessageHistory DROP CONSTRAINT FK_{objectQualifier}yaf_MessageHistory_{objectQualifier}yaf_MessageID
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_UserGroup_{objectQualifier}yaf_User') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_UserGroup DROP CONSTRAINT FK_{objectQualifier}yaf_UserGroup_{objectQualifier}yaf_User
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_UserPMessage_{objectQualifier}yaf_PMessage') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_UserPMessage DROP CONSTRAINT FK_{objectQualifier}yaf_UserPMessage_{objectQualifier}yaf_PMessage
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_UserPMessage_{objectQualifier}yaf_User') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_UserPMessage DROP CONSTRAINT FK_{objectQualifier}yaf_UserPMessage_{objectQualifier}yaf_User
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_WatchForum_{objectQualifier}yaf_Forum') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_WatchForum DROP CONSTRAINT FK_{objectQualifier}yaf_WatchForum_{objectQualifier}yaf_Forum
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_WatchForum_{objectQualifier}yaf_User') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_WatchForum DROP CONSTRAINT FK_{objectQualifier}yaf_WatchForum_{objectQualifier}yaf_User
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_WatchTopic_{objectQualifier}yaf_User') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_WatchTopic DROP CONSTRAINT FK_{objectQualifier}yaf_WatchTopic_{objectQualifier}yaf_User
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_FavoriteTopic_{objectQualifier}yaf_Topic') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_FavoriteTopic DROP CONSTRAINT FK_{objectQualifier}yaf_FavoriteTopic_{objectQualifier}yaf_Topic
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_FavoriteTopic_{objectQualifier}yaf_User') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_FavoriteTopic DROP CONSTRAINT FK_{objectQualifier}yaf_FavoriteTopic_{objectQualifier}yaf_User
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_FavoriteTopic_{objectQualifier}yaf_User') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_FavoriteTopic DROP CONSTRAINT FK_{objectQualifier}yaf_FavoriteTopic_{objectQualifier}yaf_User
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_UserForum_{objectQualifier}yaf_User') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_UserForum DROP CONSTRAINT FK_{objectQualifier}yaf_UserForum_{objectQualifier}yaf_User
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_UserForum_{objectQualifier}yaf_Forum') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_UserForum DROP CONSTRAINT FK_{objectQualifier}yaf_UserForum_{objectQualifier}yaf_Forum
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_UserForum_{objectQualifier}yaf_AccessMask') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_UserForum DROP CONSTRAINT FK_{objectQualifier}yaf_UserForum_{objectQualifier}yaf_AccessMask
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_WatchTopic_{objectQualifier}yaf_Topic') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_WatchTopic DROP CONSTRAINT FK_{objectQualifier}yaf_WatchTopic_{objectQualifier}yaf_Topic
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_Active_{objectQualifier}yaf_Board') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_Active DROP CONSTRAINT FK_{objectQualifier}yaf_Active_{objectQualifier}yaf_Board
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_Active_{objectQualifier}yaf_Forum') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_Active DROP CONSTRAINT FK_{objectQualifier}yaf_Active_{objectQualifier}yaf_Forum
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_Active_{objectQualifier}yaf_Topic') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_Active DROP CONSTRAINT FK_{objectQualifier}yaf_Active_{objectQualifier}yaf_Topic
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_Active_{objectQualifier}yaf_User') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_Active DROP CONSTRAINT FK_{objectQualifier}yaf_Active_{objectQualifier}yaf_User
+GO
+
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_User_{objectQualifier}yaf_Board') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_User DROP CONSTRAINT FK_{objectQualifier}yaf_User_{objectQualifier}yaf_Board
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_User_{objectQualifier}yaf_Rank') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_User DROP CONSTRAINT FK_{objectQualifier}yaf_User_{objectQualifier}yaf_Rank
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_User_{objectQualifier}yaf_User') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_User DROP CONSTRAINT FK_{objectQualifier}yaf_User_{objectQualifier}yaf_User
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_Topic_{objectQualifier}yaf_Forum') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_Topic DROP CONSTRAINT FK_{objectQualifier}yaf_Topic_{objectQualifier}yaf_Forum
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_Topic_{objectQualifier}yaf_Message') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_Topic DROP CONSTRAINT FK_{objectQualifier}yaf_Topic_{objectQualifier}yaf_Message
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_Topic_{objectQualifier}yaf_Poll') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_Topic DROP CONSTRAINT FK_{objectQualifier}yaf_Topic_{objectQualifier}yaf_Poll
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_Topic_{objectQualifier}yaf_Topic') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_Topic DROP CONSTRAINT FK_{objectQualifier}yaf_Topic_{objectQualifier}yaf_Topic
+GO
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_Topic_{objectQualifier}yaf_User') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_Topic DROP CONSTRAINT FK_{objectQualifier}yaf_Topic_{objectQualifier}yaf_User
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_Topic_{objectQualifier}yaf_User2') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_Topic DROP CONSTRAINT FK_{objectQualifier}yaf_Topic_{objectQualifier}yaf_User2
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_Smiley_{objectQualifier}yaf_Board') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_Smiley DROP CONSTRAINT FK_{objectQualifier}yaf_Smiley_{objectQualifier}yaf_Board
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_Registry_{objectQualifier}yaf_Board') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_Registry DROP CONSTRAINT FK_{objectQualifier}yaf_Registry_{objectQualifier}yaf_Board
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_Rank_{objectQualifier}yaf_Board') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_Rank DROP CONSTRAINT FK_{objectQualifier}yaf_Rank_{objectQualifier}yaf_Board
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_PollVote_{objectQualifier}yaf_Poll') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_PollVote DROP CONSTRAINT FK_{objectQualifier}yaf_PollVote_{objectQualifier}yaf_Poll
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_PMessage_{objectQualifier}yaf_User1') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_PMessage DROP CONSTRAINT FK_{objectQualifier}yaf_PMessage_{objectQualifier}yaf_User1
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_NntpTopic_{objectQualifier}yaf_NntpForum') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_NntpTopic DROP CONSTRAINT FK_{objectQualifier}yaf_NntpTopic_{objectQualifier}yaf_NntpForum
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_NntpTopic_{objectQualifier}yaf_Topic') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_NntpTopic DROP CONSTRAINT FK_{objectQualifier}yaf_NntpTopic_{objectQualifier}yaf_Topic
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_NntpServer_{objectQualifier}yaf_Board') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_NntpServer DROP CONSTRAINT FK_{objectQualifier}yaf_NntpServer_{objectQualifier}yaf_Board
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_NntpForum_{objectQualifier}yaf_Forum') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_NntpForum DROP CONSTRAINT FK_{objectQualifier}yaf_NntpForum_{objectQualifier}yaf_Forum
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_NntpForum_{objectQualifier}yaf_NntpServer') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_NntpForum DROP CONSTRAINT FK_{objectQualifier}yaf_NntpForum_{objectQualifier}yaf_NntpServer
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_Message_{objectQualifier}yaf_Message') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_Message DROP CONSTRAINT FK_{objectQualifier}yaf_Message_{objectQualifier}yaf_Message
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_Message_{objectQualifier}yaf_Topic') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_Message DROP CONSTRAINT FK_{objectQualifier}yaf_Message_{objectQualifier}yaf_Topic
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_Message_{objectQualifier}yaf_User') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_Message DROP CONSTRAINT FK_{objectQualifier}yaf_Message_{objectQualifier}yaf_User
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_Group_{objectQualifier}yaf_Board') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_Group DROP CONSTRAINT FK_{objectQualifier}yaf_Group_{objectQualifier}yaf_Board
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_ForumAccess_{objectQualifier}yaf_AccessMask') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_ForumAccess DROP CONSTRAINT FK_{objectQualifier}yaf_ForumAccess_{objectQualifier}yaf_AccessMask
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_ForumAccess_{objectQualifier}yaf_Forum') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_ForumAccess DROP CONSTRAINT FK_{objectQualifier}yaf_ForumAccess_{objectQualifier}yaf_Forum
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_ForumAccess_{objectQualifier}yaf_Group') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_ForumAccess DROP CONSTRAINT FK_{objectQualifier}yaf_ForumAccess_{objectQualifier}yaf_Group
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_Forum_{objectQualifier}yaf_Category') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_Forum DROP CONSTRAINT FK_{objectQualifier}yaf_Forum_{objectQualifier}yaf_Category
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_Forum_{objectQualifier}yaf_Forum') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_Forum DROP CONSTRAINT FK_{objectQualifier}yaf_Forum_{objectQualifier}yaf_Forum
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_Forum_{objectQualifier}yaf_Message') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_Forum DROP CONSTRAINT FK_{objectQualifier}yaf_Forum_{objectQualifier}yaf_Message
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_Forum_{objectQualifier}yaf_Topic') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_Forum DROP CONSTRAINT FK_{objectQualifier}yaf_Forum_{objectQualifier}yaf_Topic
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_Forum_{objectQualifier}yaf_User') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_Forum DROP CONSTRAINT FK_{objectQualifier}yaf_Forum_{objectQualifier}yaf_User
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_Extension_{objectQualifier}yaf_Board') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_Extension DROP CONSTRAINT FK_{objectQualifier}yaf_Extension_{objectQualifier}yaf_Board
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_EventLog_{objectQualifier}yaf_User') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_EventLog DROP CONSTRAINT FK_{objectQualifier}yaf_EventLog_{objectQualifier}yaf_User
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_Choice_{objectQualifier}yaf_Poll') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_Choice DROP CONSTRAINT FK_{objectQualifier}yaf_Choice_{objectQualifier}yaf_Poll
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_CheckEmail_{objectQualifier}yaf_User') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_CheckEmail DROP CONSTRAINT FK_{objectQualifier}yaf_CheckEmail_{objectQualifier}yaf_User
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_Category_{objectQualifier}yaf_Board') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_Category DROP CONSTRAINT FK_{objectQualifier}yaf_Category_{objectQualifier}yaf_Board
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_BBCode_{objectQualifier}Board') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_BBCode DROP CONSTRAINT FK_{objectQualifier}yaf_BBCode_{objectQualifier}Board
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_BannedIP_{objectQualifier}yaf_Board') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_BannedIP DROP CONSTRAINT FK_{objectQualifier}yaf_BannedIP_{objectQualifier}yaf_Board
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_Attachment_{objectQualifier}yaf_Message') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_Attachment DROP CONSTRAINT FK_{objectQualifier}yaf_Attachment_{objectQualifier}yaf_Message
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_AccessMask_{objectQualifier}yaf_Board') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}yaf_AccessMask DROP CONSTRAINT FK_{objectQualifier}yaf_AccessMask_{objectQualifier}yaf_Board
+GO
+
+/**** VIEWS****/
+
+IF  EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}yaf_vaccess]'))
+DROP VIEW {databaseOwner}{objectQualifier}yaf_vaccess
+GO
+
+IF  EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}yaf_vaccessfull]'))
+DROP VIEW {databaseOwner}{objectQualifier}yaf_vaccessfull
+GO
+
+IF  EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}yaf_vaccess_user]'))
+DROP VIEW {databaseOwner}{objectQualifier}yaf_vaccess_user
+GO
+
+IF  EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}yaf_vaccess_null]'))
+DROP VIEW {databaseOwner}{objectQualifier}yaf_vaccess_null
+GO
+
+IF  EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}yaf_vaccess_group]'))
+DROP VIEW {databaseOwner}{objectQualifier}yaf_vaccess_group
+GO
+
+IF  EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}yaf_PMessageView]'))
+DROP VIEW {databaseOwner}{objectQualifier}yaf_PMessageView
+GO
+
+/**** Tables*********/
+
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_Active]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_Active
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_PollVote]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_PollVote
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_Rank]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_Rank
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_prov_RoleMembership]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_prov_RoleMembership
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_prov_Role]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_prov_Role
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_Topic]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_Topic
+GO
+
+
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_Smiley]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_Smiley
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_Replace_Words]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_Replace_Words
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_Registry]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_Registry
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_prov_Profile]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_prov_Profile
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_prov_Membership]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_prov_Membership
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_prov_Application]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_prov_Application
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_Poll]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_Poll
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_PMessage]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_PMessage
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_NntpTopic]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_NntpTopic
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_NntpServer]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_NntpServer
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_NntpForum]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_NntpForum
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_MessageReportedAudit]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_MessageReportedAudit
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_MessageReported]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_MessageReported
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_Medal]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_Medal
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_Mail]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_Mail
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_IgnoreUser]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_IgnoreUser
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_GroupMedal]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_GroupMedal
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_EventLog]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_EventLog
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_Extension]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_Extension
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_ForumAccess]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_ForumAccess
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_Forum]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_Forum
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_Choice]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_Choice
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_CheckEmail]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_CheckEmail
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_Category]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_Category
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_Board]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_Board
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_BBCode]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_BBCode
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_BannedIP]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_BannedIP
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_Attachment]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_Attachment
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_AccessMask]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_AccessMask
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_Buddy]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_Buddy
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_FavoriteTopic]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_FavoriteTopic
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_UserForum]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_UserForum
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_UserGroup]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_UserGroup
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_UserPMessage]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_UserPMessage
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_WatchForum]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_WatchForum
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_WatchTopic]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_WatchTopic
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_Group]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_Group
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_UserMedal]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_UserMedal
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_UserAlbumImage]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_UserAlbumImage
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_UserAlbum]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_UserAlbum
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_ShoutboxMessage]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_ShoutboxMessage
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_MessageHistory]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_MessageHistory
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_Thanks]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_Thanks
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_Message]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_Message
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_User]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_User
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_PollGroupCluster]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_PollGroupCluster
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_ActiveAccess]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_ActiveAccess
+GO
+
+
+/****PROCEDURES**/
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_accessmask_delete') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_accessmask_delete
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_accessmask_list') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_accessmask_list
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_accessmask_save') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_accessmask_save
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_active_list') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_active_list
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_active_listforum') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_active_listforum
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_active_listtopic') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_active_listtopic
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_active_stats') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_active_stats
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_active_updatemaxstats') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_active_updatemaxstats
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_attachment_delete') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_attachment_delete
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_attachment_download') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_attachment_download
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_attachment_list') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_attachment_list
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_attachment_save') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_attachment_save
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_bannedip_delete') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_bannedip_delete
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_bannedip_list') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_bannedip_list
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_bannedip_save') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_bannedip_save
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_board_create') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_board_create
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_board_delete') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_board_delete
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_board_list') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_board_list
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_board_poststats') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_board_poststats
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_board_resync') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_board_resync
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_board_save') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_board_save
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_board_stats') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_board_stats
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_category_delete') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_category_delete
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_category_list') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_category_list
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_category_listread') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_category_listread
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_category_save') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_category_save
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_checkemail_list') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_checkemail_list
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_checkemail_save') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_checkemail_save
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_checkemail_update') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_checkemail_update
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_choice_add') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_choice_add
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_choice_delete') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_choice_delete
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_choice_update') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_choice_update
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_choice_vote') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_choice_vote
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_eventlog_create') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_eventlog_create
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_eventlog_delete') AND Objectproperty(id,N'IsProcedure') = 1)
+
+drop procedure {databaseOwner}{objectQualifier}yaf_eventlog_delete
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_eventlog_list') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_eventlog_list
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_extension_delete') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_extension_delete
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_extension_edit') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_extension_edit
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_extension_list') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_extension_list
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_extension_save') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_extension_save
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_forum_delete') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_forum_delete
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_forum_list') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_forum_list
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_forum_listall') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_forum_listall
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_forum_listall_fromcat') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_forum_listall_fromcat
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_forum_listallmymoderated') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_forum_listallmymoderated
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_forum_listpath') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_forum_listpath
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_forum_listread') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_forum_listread
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_forum_listSubForums') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_forum_listSubForums
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_forum_listtopics') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_forum_listtopics
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_forum_moderatelist') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_forum_moderatelist
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_forum_moderators') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_forum_moderators
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_forum_resync') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_forum_resync
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_forum_save') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_forum_save
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_forum_updatelastpost') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_forum_updatelastpost
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_forum_updatestats') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_forum_updatestats
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_forumaccess_group') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_forumaccess_group
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_forumaccess_list') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_forumaccess_list
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_forumaccess_save') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_forumaccess_save
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_group_delete') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_group_delete
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_group_list') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_group_list
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_group_medal_delete') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_group_medal_delete
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_group_medal_list') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_group_medal_list
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_group_medal_save') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_group_medal_save
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_group_member') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_group_member
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_group_save') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_group_save
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_group_rank_style') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_group_rank_style
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_mail_create') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_mail_create
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_mail_createwatch') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_mail_createwatch
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_mail_delete') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_mail_delete
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_mail_list') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_mail_list
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_medal_delete') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_medal_delete
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_medal_list') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_medal_list
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_medal_listusers') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_medal_listusers
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_medal_resort') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_medal_resort
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_medal_save') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_medal_save
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_message_approve') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_message_approve
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_message_delete') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_message_delete
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_message_findunread') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_message_findunread
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_message_getReplies') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_message_getReplies
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_message_list') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_message_list
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_message_listreported') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_message_listreported
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_message_listreporters') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_message_listreporters
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_message_report') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_message_report
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_message_reportcopyover') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_message_reportcopyover
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_message_reportresolve') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_message_reportresolve
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_message_save') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_message_save
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_message_secdata') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_message_secdata
+GO
+
+
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_message_unapproved') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_message_unapproved
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_message_update') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_message_update
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_nntpforum_delete') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_nntpforum_delete
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_nntpforum_list') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_nntpforum_list
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_nntpforum_save') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_nntpforum_save
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_nntpforum_update') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_nntpforum_update
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_nntpserver_delete') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_nntpserver_delete
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_nntpserver_list') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_nntpserver_list
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_nntpserver_save') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_nntpserver_save
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_nntptopic_list') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_nntptopic_list
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_nntptopic_savemessage') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_nntptopic_savemessage
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_pageload') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_pageload
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_pmessage_delete') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_pmessage_delete
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_pmessage_info') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_pmessage_info
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_pmessage_list') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_pmessage_list
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_pmessage_markread') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_pmessage_markread
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_pmessage_prune') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_pmessage_prune
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_pmessage_save') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_pmessage_save
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_pmessage_archive') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_pmessage_archive
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_poll_remove') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_poll_remove
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_poll_save') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_poll_save
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_poll_stats') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_poll_stats
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_poll_update') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_poll_update
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_pollvote_check') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_pollvote_check
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_post_last10user') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_post_last10user
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_post_alluser') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_post_alluser
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_post_list') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_post_list
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_post_list_reverse10') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_post_list_reverse10
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_rank_delete') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_rank_delete
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_rank_list') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_rank_list
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_rank_save') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_rank_save
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_registry_list') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_registry_list
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_registry_save') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_registry_save
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_replace_words_delete') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_replace_words_delete
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_replace_words_edit') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_replace_words_edit
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_replace_words_list') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_replace_words_list
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_replace_words_save') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_replace_words_save
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_smiley_delete') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_smiley_delete
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_smiley_list') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_smiley_list
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_smiley_listunique') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_smiley_listunique
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_smiley_save') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_smiley_save
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_smiley_resort') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_smiley_resort
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_system_initialize') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_system_initialize
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_system_updateversion') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_system_updateversion
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_topic_active') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_topic_active
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_topic_delete') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_topic_delete
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_topic_findnext') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_topic_findnext
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_topic_findprev') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_topic_findprev
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_topic_info') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_topic_info
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_topic_announcements') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_topic_announcements
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_topic_latest') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_topic_latest
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_topic_list') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_topic_list
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_topic_listmessages') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_topic_listmessages
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_topic_lock') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_topic_lock
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_topic_move') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_topic_move
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_topic_poll_update') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_topic_poll_update
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_topic_prune') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_topic_prune
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_topic_save') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_topic_save
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_topic_updatelastpost') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_topic_updatelastpost
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_accessmasks') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_accessmasks
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_activity_rank') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_activity_rank
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_addpoints') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_addpoints
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_adminsave') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_adminsave
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_approve') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_approve
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_approveall') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_approveall
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_aspnet') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_aspnet
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_migrate') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_migrate
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_avatarimage') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_avatarimage
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_changepassword') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_changepassword
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_pmcount') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_pmcount
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_delete') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_delete
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_deleteavatar') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_deleteavatar
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_deleteold') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_deleteold
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_emails') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_emails
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_find') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_find
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_getpoints') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_getpoints
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_getsignature') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_getsignature
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_guest') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_guest
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_list') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_list
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_listmedals') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_listmedals
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_login') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_login
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_medal_delete') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_medal_delete
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_medal_list') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_medal_list
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_medal_save') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_medal_save
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_nntp') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_nntp
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_recoverpassword') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_recoverpassword
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_removepoints') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_removepoints
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_removepointsbytopicid') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_removepointsbytopicid
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_resetpoints') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_resetpoints
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_save') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_save
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_saveavatar') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_saveavatar
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_savepassword') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_savepassword
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_savesignature') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_savesignature
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_setpoints') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_setpoints
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_setrole') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_setrole
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_suspend') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_suspend
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_upgrade') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_upgrade
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_userforum_delete') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_userforum_delete
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_userforum_list') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_userforum_list
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_userforum_save') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_userforum_save
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_usergroup_list') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_usergroup_list
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_usergroup_save') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_usergroup_save
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_userpmessage_delete') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_userpmessage_delete
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_userpmessage_list') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_userpmessage_list
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_watchforum_add') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_watchforum_add
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_watchforum_check') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_watchforum_check
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_watchforum_delete') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_watchforum_delete
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_watchforum_list') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_watchforum_list
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_watchtopic_add') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_watchtopic_add
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_watchtopic_check') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_watchtopic_check
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_watchtopic_delete') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_watchtopic_delete
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_watchtopic_list') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_watchtopic_list
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_message_reply_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_message_reply_list
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_message_deleteundelete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_message_deleteundelete
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_topic_create_by_message') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_topic_create_by_message
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_message_move') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_message_move
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_category_simplelist')
+           AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_category_simplelist
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_forum_simplelist')
+           AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_forum_simplelist
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_message_simplelist')
+           AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_message_simplelist
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_topic_simplelist')
+           AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_topic_simplelist
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_simplelist')
+           AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_simplelist
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_bbcode_delete') AND Objectproperty(id,N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}yaf_bbcode_delete
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_bbcode_list') AND Objectproperty(id,N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}yaf_bbcode_list
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_bbcode_save') AND Objectproperty(id,N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}yaf_bbcode_save
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_addignoreduser') AND Objectproperty(id,N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}yaf_user_addignoreduser
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_removeignoreduser') AND Objectproperty(id,N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}yaf_user_removeignoreduser
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_isuserignored') AND Objectproperty(id,N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}yaf_user_isuserignored
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_ignoredlist') AND Objectproperty(id,N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}yaf_user_ignoredlist
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_shoutbox_getmessages') AND Objectproperty(id,N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}yaf_shoutbox_getmessages
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_shoutbox_savemessage') AND Objectproperty(id,N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}yaf_shoutbox_savemessage
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_shoutbox_clearmessages') AND Objectproperty(id,N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}yaf_shoutbox_clearmessages
+GO
+
+/* These stored procedures are for the Thanks Table. For safety, first check to see if they exist. If so, drop them. */
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_message_addthanks') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_message_addthanks
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_message_getthanks') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_message_getthanks
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_message_getallthanks') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_message_getallthanks
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_message_removethanks') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_message_removethanks
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_message_thanksnumber') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_message_thanksnumber
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_getthanks_from') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_getthanks_from
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_getthanks_to') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_getthanks_to
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_active_list_user') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_active_list_user
+GO
+
+/* End of Thanks table stored procedures */
+ 
+/* Buddy feature stored procedures */
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_buddy_addrequest') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_buddy_addrequest
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_buddy_approverequest') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_buddy_approverequest
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_buddy_denyrequest') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_buddy_denyrequest
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_buddy_list') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_buddy_list
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_buddy_remove') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_buddy_remove
+GO
+/* End of Buddy feature stored procedures */
+
+/****** Object:  StoredProcedure [{databaseOwner}].[{objectQualifier}topic_favorite_add]    Script Date: 12/08/2009 18:13:19 ******/
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_topic_favorite_add') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_topic_favorite_add
+GO
+
+/****** Object:  StoredProcedure [{databaseOwner}].[{objectQualifier}topic_favorite_details]    Script Date: 12/08/2009 18:13:20 ******/
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_topic_favorite_details') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_topic_favorite_details
+GO
+
+/****** Object:  StoredProcedure [{databaseOwner}].[{objectQualifier}topic_favorite_list]    Script Date: 12/08/2009 18:13:20 ******/
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_topic_favorite_list') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_topic_favorite_list
+GO
+
+/****** Object:  StoredProcedure [{databaseOwner}].[{objectQualifier}topic_favorite_remove]    Script Date: 12/08/2009 18:13:20 ******/
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_topic_favorite_remove') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_topic_favorite_remove
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_album_save') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_album_save
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_album_list') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_album_list
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_album_delete') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_album_delete
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_album_gettitle') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_album_gettitle
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_album_getstats') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_album_getstats
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_album_image_save') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_album_image_save
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_album_image_list') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_album_image_list
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_album_image_delete') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_album_image_delete
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_album_image_download') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_album_image_download
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_getsignaturedata') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_getsignaturedata
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_getalbumsdata') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_getalbumsdata
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_messagehistory_list') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_messagehistory_list
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_prov_upgrade') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_prov_upgrade
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_prov_role_isuserinrole') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_prov_role_isuserinrole
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_prov_role_getroles') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_prov_role_getroles
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_prov_role_findusersinrole') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_prov_role_findusersinrole
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_prov_role_exists') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_prov_role_exists
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_prov_role_deleterole') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_prov_role_deleterole
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_prov_role_createrole') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_prov_role_createrole
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_prov_role_addusertorole') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_prov_role_addusertorole
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_prov_resetpassword') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_prov_resetpassword
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_prov_profile_getprofiles') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_prov_profile_getprofiles
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_prov_profile_getnumberinactiveprofiles') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_prov_profile_getnumberinactiveprofiles
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_prov_profile_deleteprofiles') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_prov_profile_deleteprofiles
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_prov_profile_deleteinactive') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_prov_profile_deleteinactive
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_prov_getusernamebyemail') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_prov_getusernamebyemail
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_prov_getuser') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_prov_getuser
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_prov_getnumberofusersonline') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_prov_getnumberofusersonline
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_prov_getallusers') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_prov_getallusers
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_prov_findusersbyname') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_prov_findusersbyname
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_prov_findusersbyemail') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_prov_findusersbyemail
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_prov_deleteuser') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_prov_deleteuser
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_prov_createuser') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_prov_createuser
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_prov_createapplication') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_prov_createapplication
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_prov_changepasswordquestionandanswer') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_prov_changepasswordquestionandanswer
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_prov_changepassword') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_prov_changepassword
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_prov_role_isuserinrole') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_prov_role_isuserinrole
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_prov_role_removeuserfromrole') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_prov_role_removeuserfromrole
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_prov_updateuser') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_prov_updateuser
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_prov_unlockuser') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_prov_unlockuser
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_board_userstats') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_board_userstats
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_message_gettextbyids') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_message_gettextbyids
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_pollgroup_attach') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_pollgroup_attach
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_pollgroup_list') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_pollgroup_list
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_pollgroup_migration') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_pollgroup_migration
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_pollgroup_remove') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_pollgroup_remove
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_pollgroup_stats') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_pollgroup_stats
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_pollgroup_votecheck') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_pollgroup_votecheck
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_lazydata') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_lazydata
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_savenotification') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_savenotification
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_viewallthanks') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_viewallthanks
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_topic_updatetopic') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_topic_updatetopic
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_rss_topic_latest') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_rss_topic_latest
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_topic_favorite_count') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_topic_favorite_count
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_topic_updatetopic') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_topic_updatetopic
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_activeaccess_reset') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_activeaccess_reset
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_topic_findduplicate') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_topic_findduplicate
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_board_setguid') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_board_setguid
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_listmembers') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_listmembers
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_admin_list') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_admin_list
+GO
