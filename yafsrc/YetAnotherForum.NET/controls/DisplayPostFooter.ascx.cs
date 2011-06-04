@@ -155,7 +155,7 @@ namespace YAF.Controls
                 this.IPSpan1.Visible = true;
                 this.IPLink1.HRef = this.Get<YafBoardSettings>().IPInfoPageURL.FormatWith(this.DataRow["IP"].ToString());
                 this.IPLink1.Title = this.GetText("COMMON", "TT_IPDETAILS");
-                this.IPLink1.InnerText = this.HtmlEncode(this.DataRow["IP"].ToString());
+                this.IPLink1.InnerText = this.HtmlEncode(IPHelper.GetIp4Address(this.DataRow["IP"].ToString()));
 
                 sb.Append(' ');
             }
