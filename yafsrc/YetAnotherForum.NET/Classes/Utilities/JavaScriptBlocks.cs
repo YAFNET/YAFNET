@@ -151,7 +151,7 @@ namespace YAF.Utilities
             }}
            
             {0}(document).ready(function(){{      
-                var num_entries = {1}('#SmiliesPagerHidden div.result').length;
+                var num_entries = {0}('#SmiliesPagerHidden div.result').length;
                 {0}('#SmiliesPager').pagination(num_entries, {{
                     callback: pageselectCallback,
                     items_per_page:1,
