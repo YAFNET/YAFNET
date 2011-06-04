@@ -125,6 +125,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="BuildScripts\MSBuild.Community.Tasks.Targets" />
+    <None Include="BuildScripts\MSBuild.Extended.Tasks.Targets" />
     <None Include="Installation\01.94.01.SqlDataProvider" />
     <None Include="Installation\01.95.50.SqlDataProvider" />
     <None Include="Installation\Uninstall.SqlDataProvider" />

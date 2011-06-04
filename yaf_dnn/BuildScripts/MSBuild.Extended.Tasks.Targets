@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildExtendedTasksPath Condition="'$(MSBuildExtendedTasksPath)' == ''">$(MSBuildExtensionsPath)\MSBuildCommunityTasks\</MSBuildExtendedTasksPath>
+    <MSBuildExtendedTasksLib>$(MSBuildExtendedTasksPath)MSBuild.Extended.Tasks.dll</MSBuildExtendedTasksLib>
+    <MSBuildExtendedTasksNameSpace>MSBuild.Extended.Tasks</MSBuildExtendedTasksNameSpace>
+  </PropertyGroup>
+
+  <UsingTask AssemblyFile="$(MSBuildExtendedTasksLib)" TaskName="$(MSBuildExtendedTasksNameSpace).String.StringReplace"/>
+  <UsingTask AssemblyFile="$(MSBuildExtendedTasksLib)" TaskName="$(MSBuildExtendedTasksNameSpace).String.StringFormat" />
+  <UsingTask AssemblyFile="$(MSBuildExtendedTasksLib)" TaskName="$(MSBuildExtendedTasksNameSpace).String.StringSplit" />
+  <UsingTask AssemblyFile="$(MSBuildExtendedTasksLib)" TaskName="$(MSBuildExtendedTasksNameSpace).String.StringJoin" />
+  <UsingTask AssemblyFile="$(MSBuildExtendedTasksLib)" TaskName="$(MSBuildExtendedTasksNameSpace).String.StringArrayGetAtIndex" />
+  <UsingTask AssemblyFile="$(MSBuildExtendedTasksLib)" TaskName="$(MSBuildExtendedTasksNameSpace).String.StringArrayIndexOf" />
+
+  <UsingTask AssemblyFile="$(MSBuildExtendedTasksLib)" TaskName="$(MSBuildExtendedTasksNameSpace).Xml.CreateXmlDocument" />
+  <UsingTask AssemblyFile="$(MSBuildExtendedTasksLib)" TaskName="$(MSBuildExtendedTasksNameSpace).Xml.AddXmlElement" />
+  <UsingTask AssemblyFile="$(MSBuildExtendedTasksLib)" TaskName="$(MSBuildExtendedTasksNameSpace).Xml.SetXmlElementAttribute" />
+  <UsingTask AssemblyFile="$(MSBuildExtendedTasksLib)" TaskName="$(MSBuildExtendedTasksNameSpace).Xml.RemoveXmlNode" />
+  <UsingTask AssemblyFile="$(MSBuildExtendedTasksLib)" TaskName="$(MSBuildExtendedTasksNameSpace).Xml.GetXmlElementAttributeValue" />
+  <UsingTask AssemblyFile="$(MSBuildExtendedTasksLib)" TaskName="$(MSBuildExtendedTasksNameSpace).Xml.SetXmlElementInnerText" />
+
+  <UsingTask AssemblyFile="$(MSBuildExtendedTasksLib)" TaskName="$(MSBuildExtendedTasksNameSpace).Xml.Wix.WixAddFilesToComponent" />
+
+  <UsingTask AssemblyFile="$(MSBuildExtendedTasksLib)" TaskName="$(MSBuildExtendedTasksNameSpace).Sandcastle.GenerateDocumentation" />
+
+  <UsingTask AssemblyFile="$(MSBuildExtendedTasksLib)" TaskName="$(MSBuildExtendedTasksNameSpace).Net.MakeHttpRequest" />
+</Project>

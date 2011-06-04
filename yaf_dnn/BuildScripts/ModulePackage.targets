@@ -1,6 +1,7 @@
-<?xml version="1.0" encoding="Windows-1252"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="MSBuild.Community.Tasks.Targets" />
+  <Import Project="MSBuild.Extended.Tasks.Targets" />
   <Target Name="PackageModule" Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <XmlRead Prefix="n"
                     Namespace="http://schemas.microsoft.com/developer/msbuild/2003"
@@ -8,6 +9,11 @@
                     XmlFileName="$(MSBuildProjectDirectory)\Installation\$(DNNFileName).dnn">
       <Output TaskParameter="Value" PropertyName="Version" />
     </XmlRead>
+
+    <StringReplace Pattern="0(\d.)(\d+.\d)(\d+)" InputString="$(Version)" Replace="$1$2-$3">
+      <Output PropertyName="YAFVersion" TaskParameter="Result" />
+    </StringReplace>
+
     <ItemGroup>
       <DefaultExclude Include="**\.svn\**" />
       <DefaultExclude Include="**\bin\**" />
@@ -122,9 +128,9 @@
       <Output TaskParameter="Include" ItemName="OutputContent" />
     </CreateItem>
     <!-- Create the Install package -->    
-    <Zip Files="@(OutputContent)" WorkingDirectory="$(MSBuildProjectDirectory)\Package" ZipFileName="$(PackageName)_$(Version).$(Extension)" />
+    <Zip Files="@(OutputContent)" WorkingDirectory="$(MSBuildProjectDirectory)\Package" ZipFileName="$(PackageName)_$(YAFVersion).$(Extension)" />
     <!-- Copy the Install package to the Packages folder -->
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)_$(Version).$(Extension)" DestinationFolder="packages/" />
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)_$(YAFVersion).$(Extension)" DestinationFolder="packages/" />
 
     <Delete Files="$(MSBuildProjectDirectory)\YafDnnWhatsNewResources.$(Extension)" />
     <Delete Files="$(MSBuildProjectDirectory)\yafdnn-res.$(Extension)" />
@@ -144,11 +150,11 @@
       <Output TaskParameter="Include" ItemName="OutputSource" />
     </CreateItem>
 
-    <Zip Files="@(OutputSource)" WorkingDirectory="$(MSBuildProjectDirectory)\Package" ZipFileName="$(PackageName)_$(Version)-SRC.$(Extension)" />
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)_$(Version)-SRC.$(Extension)" DestinationFolder="packages/" />
+    <Zip Files="@(OutputSource)" WorkingDirectory="$(MSBuildProjectDirectory)\Package" ZipFileName="$(PackageName)_$(YAFVersion)-SRC.$(Extension)" />
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)_$(YAFVersion)-SRC.$(Extension)" DestinationFolder="packages/" />
 
-    <Delete Files="$(MSBuildProjectDirectory)\$(PackageName)_$(Version).$(Extension)" />
-    <Delete Files="$(MSBuildProjectDirectory)\$(PackageName)_$(Version)-SRC.$(Extension)" />
+    <Delete Files="$(MSBuildProjectDirectory)\$(PackageName)_$(YAFVersion).$(Extension)" />
+    <Delete Files="$(MSBuildProjectDirectory)\$(PackageName)_$(YAFVersion)-SRC.$(Extension)" />
 
     <RemoveDir Directories ="$(MSBuildProjectDirectory)\Package" />
 
