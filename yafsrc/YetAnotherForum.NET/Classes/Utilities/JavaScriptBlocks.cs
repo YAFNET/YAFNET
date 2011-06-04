@@ -110,7 +110,7 @@ namespace YAF.Utilities
                       // Show MessageBox
                       {1}('span[id$=_YafPopupErrorMessageInner]').html(res.d);
                       {1}().YafModalDialog.Show({{Dialog : '#' + {1}('div[id$=_YafForumPageErrorPopup1]').attr('id'),ImagePath : '/yaf/resources/images/'}});
-                    }} }}".FormatWith(YafBuildLink.GetLink(ForumPages.forum, Config.JQueryAlias));
+                    }} }}".FormatWith(YafBuildLink.GetLink(ForumPages.forum), Config.JQueryAlias);
             }
         }
 
