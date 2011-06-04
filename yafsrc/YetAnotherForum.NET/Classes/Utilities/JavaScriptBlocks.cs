@@ -145,7 +145,7 @@ namespace YAF.Utilities
             get
             {
                 return @"function pageselectCallback(page_index, jq){{
-                var new_content = {1}('#SmiliesPagerHidden div.result:eq('+page_index+')').clone();
+                var new_content = {0}('#SmiliesPagerHidden div.result:eq('+page_index+')').clone();
                 {0}('#SmiliesPagerResult').empty().append(new_content);
                 return false;
             }}
