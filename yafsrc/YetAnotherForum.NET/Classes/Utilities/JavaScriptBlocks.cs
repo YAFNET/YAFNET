@@ -73,7 +73,7 @@ namespace YAF.Utilities
                   @"function LoginUser() {{
                     FB.api('/me', function (response) {{
                     
-                    jQuery.PageMethod('{0}YafAjax.asmx', 'LoginFacebookUser', loginCallSuccess, LoginCallFailed,
+                    {1}.PageMethod('{0}YafAjax.asmx', 'LoginFacebookUser', loginCallSuccess, LoginCallFailed,
                               'id', response.id,
                               'name', response.name,
                               'first_name', response.first_name,
@@ -86,7 +86,7 @@ namespace YAF.Utilities
                               'email', response.email,
                               'timezone', response.timezone,
                               'lokale', response.lokale);
-                     }});}}".FormatWith(YafForumInfo.ForumClientFileRoot);
+                     }});}}".FormatWith(YafForumInfo.ForumClientFileRoot, Config.JQueryAlias);
             }
         }
 
@@ -108,9 +108,9 @@ namespace YAF.Utilities
                     }}
                     else {{
                       // Show MessageBox
-                      jQuery('span[id$=_YafPopupErrorMessageInner]').html(res.d);
-                      jQuery().YafModalDialog.Show({{Dialog : '#' + jQuery('div[id$=_YafForumPageErrorPopup1]').attr('id'),ImagePath : '/yaf/resources/images/'}});
-                    }} }}".FormatWith(YafBuildLink.GetLink(ForumPages.forum));
+                      {1}('span[id$=_YafPopupErrorMessageInner]').html(res.d);
+                      {1}().YafModalDialog.Show({{Dialog : '#' + {1}('div[id$=_YafForumPageErrorPopup1]').attr('id'),ImagePath : '/yaf/resources/images/'}});
+                    }} }}".FormatWith(YafBuildLink.GetLink(ForumPages.forum, Config.JQueryAlias));
             }
         }
 
@@ -144,15 +144,15 @@ namespace YAF.Utilities
         {
             get
             {
-                return @"function pageselectCallback(page_index, jq){
-                var new_content = jQuery('#SmiliesPagerHidden div.result:eq('+page_index+')').clone();
-                jQuery('#SmiliesPagerResult').empty().append(new_content);
+                return @"function pageselectCallback(page_index, jq){{
+                var new_content = {1}('#SmiliesPagerHidden div.result:eq('+page_index+')').clone();
+                {0}('#SmiliesPagerResult').empty().append(new_content);
                 return false;
-            }
+            }}
            
-            jQuery(document).ready(function(){      
-                var num_entries = jQuery('#SmiliesPagerHidden div.result').length;
-                jQuery('#SmiliesPager').pagination(num_entries, {
+            {0}(document).ready(function(){{      
+                var num_entries = {1}('#SmiliesPagerHidden div.result').length;
+                {0}('#SmiliesPager').pagination(num_entries, {{
                     callback: pageselectCallback,
                     items_per_page:1,
 					num_display_entries: 3,
@@ -161,8 +161,8 @@ namespace YAF.Utilities
 					next_class: 'smiliesPagerNext',
 					prev_text: '&laquo;',
 					next_text: '&raquo;'
-                });
-            });";
+                }});
+            }});".FormatWith(Config.JQueryAlias);
             }
         }
 
@@ -174,9 +174,9 @@ namespace YAF.Utilities
         {
             get
             {
-                return @"jQuery(document).ready(function() { 
-					jQuery('.ceebox').ceebox({titles:true});
-			});";
+                return @"{0}(document).ready(function() {{ 
+					{0}('.ceebox').ceebox({{titles:true}});
+			}});".FormatWith(Config.JQueryAlias);
             }
         }
 
@@ -192,9 +192,10 @@ namespace YAF.Utilities
             get
             {
                 return
-                  @"function changeAlbumTitle(albumId, txtTitleId){{
-                     var albId = albumId;var newTitleTxt = jQuery('#' + txtTitleId).val();
-                     jQuery.PageMethod('{0}YafAjax.asmx', 'ChangeAlbumTitle', changeTitleSuccess, CallFailed, 'albumID', albId, 'newTitle', newTitleTxt);}}".FormatWith(YafForumInfo.ForumClientFileRoot);
+                    @"function changeAlbumTitle(albumId, txtTitleId){{
+                     var albId = albumId;var newTitleTxt = {1}('#' + txtTitleId).val();
+                     {1}.PageMethod('{0}YafAjax.asmx', 'ChangeAlbumTitle', changeTitleSuccess, CallFailed, 'albumID', albId, 'newTitle', newTitleTxt);}}"
+                        .FormatWith(YafForumInfo.ForumClientFileRoot, Config.JQueryAlias);
 
                 // YAF.Classes.Core.YafAlbum.ChangeAlbumTitle(albumId, document.getElementById(txtTitleId).value, changeTitleSuccess, CallFailed);}}";
             }
@@ -210,9 +211,10 @@ namespace YAF.Utilities
             get
             {
                 return
-                  @"function changeImageCaption(imageID, txtTitleId){{
-              var imgId = imageID;var newImgTitleTxt = jQuery('#' + txtTitleId).val();
-              jQuery.PageMethod('{0}YafAjax.asmx', 'ChangeImageCaption', changeTitleSuccess, CallFailed, 'imageID', imgId, 'newCaption', newImgTitleTxt);}}".FormatWith(YafForumInfo.ForumClientFileRoot);
+                    @"function changeImageCaption(imageID, txtTitleId){{
+              var imgId = imageID;var newImgTitleTxt = {1}('#' + txtTitleId).val();
+              {1}.PageMethod('{0}YafAjax.asmx', 'ChangeImageCaption', changeTitleSuccess, CallFailed, 'imageID', imgId, 'newCaption', newImgTitleTxt);}}"
+                        .FormatWith(YafForumInfo.ForumClientFileRoot, Config.JQueryAlias);
 
                 // YAF.Classes.Core.YafAlbum.ChangeImageCaption(imageID, document.getElementById(txtTitleId).value, changeTitleSuccess, CallFailed);}}";
             }
@@ -247,8 +249,8 @@ namespace YAF.Utilities
         {
             get
             {
-                return @"jQuery(document).ready(function() {
-					SyntaxHighlighter.all()});";
+                return @"{0}(document).ready(function() {{
+					SyntaxHighlighter.all()}});".FormatWith(Config.JQueryAlias);
             }
         }
 
@@ -260,12 +262,16 @@ namespace YAF.Utilities
             get
             {
                 return
-                  @"Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadTimeAgo);
+                    @"Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadTimeAgo);
             function loadTimeAgo() {{	
-            jQuery.timeago.settings.refreshMillis = {1};			      	
+            {2}.timeago.settings.refreshMillis = {1};			      	
             {0}
-              jQuery('abbr.timeago').timeago();	
-			      }}".FormatWith(YafContext.Current.Get<ILocalization>().GetText("TIMEAGO_JS"), YafContext.Current.Get<YafBoardSettings>().RelativeTimeRefreshTime);
+              {2}('abbr.timeago').timeago();	
+			      }}"
+                        .FormatWith(
+                            YafContext.Current.Get<ILocalization>().GetText("TIMEAGO_JS"),
+                            YafContext.Current.Get<YafBoardSettings>().RelativeTimeRefreshTime,
+                            Config.JQueryAlias);
             }
         }
 
@@ -278,12 +284,9 @@ namespace YAF.Utilities
             get
             {
                 return
-                  @"
-function toggleMessage(divId)
-{
-  jQuery('#' + divId).toggle();
-}
-";
+                    @"
+                      function toggleMessage(divId)
+                      {{ {0}('#' + divId).toggle(); }}".FormatWith(Config.JQueryAlias);
             }
         }
 
@@ -400,10 +403,10 @@ function toggleMessage(divId)
         public static string BlockUIExecuteJs([NotNull] string elementId)
         {
             return
-              @"jQuery(document).ready(function() {{ 
-            jQuery.blockUI({{ message: jQuery('#{0}') }}); 
+              @"{1}(document).ready(function() {{ 
+            {1}.blockUI({{ message: {1}('#{0}') }}); 
         }});"
-                .FormatWith(elementId);
+                .FormatWith(elementId, Config.JQueryAlias);
         }
 
         /// <summary>
@@ -434,13 +437,13 @@ function toggleMessage(divId)
 
             if (!string.IsNullOrEmpty(culture))
             {
-                cultureJs = @"jQuery('#{0}').datepicker('option', jQuery.datepicker.regional['{1}']);".FormatWith(
-                  fieldId, culture);
+                cultureJs = @"{2}('#{0}').datepicker('option', {2}.datepicker.regional['{1}']);".FormatWith(
+                  fieldId, culture, Config.JQueryAlias);
             }
 
             return
-              @"jQuery(document).ready(function() {{jQuery('#{0}').datepicker({{changeMonth:true,changeYear:true,maxDate:'+0d',dateFormat:'{1}',altFormat:'{2}'}}); {3} }}); "
-                .FormatWith(fieldId, dateFormat, altDateFormat, cultureJs);
+              @"{4}(document).ready(function() {{{4}('#{0}').datepicker({{changeMonth:true,changeYear:true,maxDate:'+0d',dateFormat:'{1}',altFormat:'{2}'}}); {3} }}); "
+                .FormatWith(fieldId, dateFormat, altDateFormat, cultureJs, Config.JQueryAlias);
         }
 
         /// <summary>
@@ -468,18 +471,18 @@ function toggleMessage(divId)
             }
 
             return
-              @"jQuery(document).ready(function() {{
-					jQuery('#{0}').tabs(
+              @"{3}(document).ready(function() {{
+					{3}('#{0}').tabs(
                     {{
             show: function() {{
-                var sel = jQuery('#{0}').tabs('option', 'selected');
-                jQuery('#{1}').val(sel);
+                var sel = {3}('#{0}').tabs('option', 'selected');
+                {3}('#{1}').val(sel);
             }},
-            selected: jQuery('#{1}').val()
+            selected: {3}('#{1}').val()
             {2}
         }});
                     }});"
-                .FormatWith(tabId, hiddenId, heightTransitionJs);
+                .FormatWith(tabId, hiddenId, heightTransitionJs, Config.JQueryAlias);
         }
 
         /// <summary>
@@ -515,8 +518,8 @@ function toggleMessage(divId)
         public static string YafModalDialogLoadJs([NotNull] string openLink, [NotNull] string dialogId)
         {
             return
-              @"jQuery(document).ready(function() {{jQuery('{0}').YafModalDialog({{Dialog : '{1}',ImagePath : '{2}'}}); }});".
-                FormatWith(openLink, dialogId, YafForumInfo.GetURLToResource("images/"));
+                @"{3}(document).ready(function() {{{3}('{0}').YafModalDialog({{Dialog : '{1}',ImagePath : '{2}'}}); }});"
+                .FormatWith(openLink, dialogId, YafForumInfo.GetURLToResource("images/"), Config.JQueryAlias);
         }
 
         /// <summary>
@@ -531,23 +534,18 @@ function toggleMessage(divId)
         public static string AddFavoriteTopicJs([NotNull] string untagButtonHTML)
         {
             return
-              @"function addFavoriteTopic(topicID){{ var topId = topicID; jQuery.PageMethod('{1}YafAjax.asmx', 'AddFavoriteTopic', addFavoriteTopicSuccess, CallFailed, 'topicId', topId);}}
+              @"function addFavoriteTopic(topicID){{ var topId = topicID; {2}.PageMethod('{1}YafAjax.asmx', 'AddFavoriteTopic', addFavoriteTopicSuccess, CallFailed, 'topicId', topId);}}
           function addFavoriteTopicSuccess(res){{if (res.d != null) {{
-                   jQuery('#dvFavorite1').html({0});
-                   jQuery('#dvFavorite2').html({0});}}}}"
-                .FormatWith(untagButtonHTML, YafForumInfo.ForumClientFileRoot);
-
-            /*("function addFavoriteTopic(topicID){{YAF.Classes.Core.IFavoriteTopic.AddFavoriteTopic(topicID, addFavoriteTopicSuccess, CallFailed);}};" +
-               "function addFavoriteTopicSuccess(res){{" +
-               "jQuery('#dvFavorite1').html({0});" +
-               "jQuery('#dvFavorite2').html({0});}}").FormatWith(UntagButtonHTML);*/
+                   {2}('#dvFavorite1').html({0});
+                   {2}('#dvFavorite2').html({0});}}}}"
+                .FormatWith(untagButtonHTML, YafForumInfo.ForumClientFileRoot, Config.JQueryAlias);
         }
 
         /// <summary>
         /// script for the addThanks button
         /// </summary>
         /// <param name="removeThankBoxHTML">
-        /// HTML code for the "Remove Thank Note" button
+        /// HTML code for the "Remove Thank" button
         /// </param>
         /// <returns>
         /// The add thanks js.
@@ -555,18 +553,12 @@ function toggleMessage(divId)
         public static string AddThanksJs([NotNull] string removeThankBoxHTML)
         {
             return
-              @"function addThanks(messageID){{ var messId = messageID;jQuery.PageMethod('{1}YafAjax.asmx', 'AddThanks', addThanksSuccess, CallFailed, 'msgID', messId);}}
+              @"function addThanks(messageID){{ var messId = messageID;{2}.PageMethod('{1}YafAjax.asmx', 'AddThanks', addThanksSuccess, CallFailed, 'msgID', messId);}}
           function addThanksSuccess(res){{if (res.d != null) {{
-                   jQuery('#dvThanks' + res.d.MessageID).html(res.d.Thanks);
-                   jQuery('#dvThanksInfo' + res.d.MessageID).html(res.d.ThanksInfo);
-                   jQuery('#dvThankBox' + res.d.MessageID).html({0});}}}}"
-                .FormatWith(removeThankBoxHTML, YafForumInfo.ForumClientFileRoot);
-
-            /*   @"function addThanks(messageID){{YAF.Controls.ThankYou.AddThanks(messageID, addThanksSuccess, CallFailed);}}
-                function addThanksSuccess(res){{if (res.value != null) {{
-                         jQuery('#dvThanks' + res.value.MessageID).html(res.value.Thanks);
-                         jQuery('#dvThanksInfo' + res.value.MessageID).html(res.value.ThanksInfo);
-                         jQuery('#dvThankBox' + res.value.MessageID).html({0});}}}}".FormatWith(RemoveThankBoxHTML);*/
+                   {2}('#dvThanks' + res.d.MessageID).html(res.d.Thanks);
+                   {2}('#dvThanksInfo' + res.d.MessageID).html(res.d.ThanksInfo);
+                   {2}('#dvThankBox' + res.d.MessageID).html({0});}}}}"
+                .FormatWith(removeThankBoxHTML, YafForumInfo.ForumClientFileRoot, Config.JQueryAlias);
         }
 
         /// <summary>
@@ -581,16 +573,11 @@ function toggleMessage(divId)
         public static string RemoveFavoriteTopicJs([NotNull] string tagButtonHTML)
         {
             return
-              @"function removeFavoriteTopic(topicID){{ var topId = topicID;jQuery.PageMethod('{1}YafAjax.asmx', 'RemoveFavoriteTopic', removeFavoriteTopicSuccess, CallFailed, 'topicId', topId);}}
+              @"function removeFavoriteTopic(topicID){{ var topId = topicID;{2}.PageMethod('{1}YafAjax.asmx', 'RemoveFavoriteTopic', removeFavoriteTopicSuccess, CallFailed, 'topicId', topId);}}
           function removeFavoriteTopicSuccess(res){{if (res.d != null) {{
-                   jQuery('#dvFavorite1').html({0});
-                   jQuery('#dvFavorite2').html({0});}}}}"
-                .FormatWith(tagButtonHTML, YafForumInfo.ForumClientFileRoot);
-
-            /*("function removeFavoriteTopic(topicID){{YAF.Classes.Core.IFavoriteTopic.RemoveFavoriteTopic(topicID, removeFavoriteTopicSuccess, CallFailed);}};" +
-                 "function removeFavoriteTopicSuccess(res){{" +
-                 "jQuery('#dvFavorite1').html({0});" +
-                 "jQuery('#dvFavorite2').html({0});}}").FormatWith(TagButtonHTML);*/
+                   {2}('#dvFavorite1').html({0});
+                   {2}('#dvFavorite2').html({0});}}}}"
+                .FormatWith(tagButtonHTML, YafForumInfo.ForumClientFileRoot, Config.JQueryAlias);
         }
 
         /// <summary>
@@ -605,18 +592,12 @@ function toggleMessage(divId)
         public static string RemoveThanksJs([NotNull] string addThankBoxHTML)
         {
             return
-              @"function removeThanks(messageID){{ var messId = messageID;jQuery.PageMethod('{1}YafAjax.asmx', 'RemoveThanks', removeThanksSuccess, CallFailed, 'msgID', messId);}}
+              @"function removeThanks(messageID){{ var messId = messageID;{2}.PageMethod('{1}YafAjax.asmx', 'RemoveThanks', removeThanksSuccess, CallFailed, 'msgID', messId);}}
           function removeThanksSuccess(res){{if (res.d != null) {{
-                   jQuery('#dvThanks' + res.d.MessageID).html(res.d.Thanks);
-                   jQuery('#dvThanksInfo' + res.d.MessageID).html(res.d.ThanksInfo);
-                   jQuery('#dvThankBox' + res.d.MessageID).html({0});}}}}"
-                .FormatWith(addThankBoxHTML, YafForumInfo.ForumClientFileRoot);
-
-            /*@"function removeThanks(messageID){{YAF.Controls.ThankYou.RemoveThanks(messageID, removeThanksSuccess, CallFailed);}}
-               function removeThanksSuccess(res){{if (res.value != null) {{
-               jQuery('#dvThanks' + res.value.MessageID).html(res.value.Thanks);
-               jQuery('#dvThanksInfo' + res.value.MessageID).html(res.value.ThanksInfo);
-               jQuery('#dvThankBox' + res.value.MessageID).html(0});}}}}".FormatWith(AddThankBoxHTML);*/
+                   {2}('#dvThanks' + res.d.MessageID).html(res.d.Thanks);
+                   {2}('#dvThanksInfo' + res.d.MessageID).html(res.d.ThanksInfo);
+                   {2}('#dvThankBox' + res.d.MessageID).html({0});}}}}"
+                .FormatWith(addThankBoxHTML, YafForumInfo.ForumClientFileRoot, Config.JQueryAlias);
         }
 
         #endregion

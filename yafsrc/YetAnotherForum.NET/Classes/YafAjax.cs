@@ -24,10 +24,10 @@ namespace YAF.Classes
     using System;
     using System.Data;
     using System.Linq;
+    using System.Web.Script.Serialization;
     using System.Web.Script.Services;
     using System.Web.Security;
     using System.Web.Services;
-    using System.Web.UI.WebControls;
 
     using YAF.Classes.Data;
     using YAF.Core;
@@ -75,16 +75,16 @@ namespace YAF.Classes
         /// The name.
         /// </param>
         /// <param name="first_name">
-        /// The first_name.
+        /// The first name.
         /// </param>
         /// <param name="last_name">
-        /// The last_name.
+        /// The last name.
         /// </param>
         /// <param name="link">
         /// The link.
         /// </param>
         /// <param name="username">
-        /// The username.
+        /// The user name.
         /// </param>
         /// <param name="birthday">
         /// The birthday.
@@ -165,14 +165,7 @@ namespace YAF.Classes
                 var securityAnswer = Membership.GeneratePassword(64, 30);
 
                 MembershipUser user = this.Get<MembershipProvider>().CreateUser(
-                    username,
-                    pass,
-                    email,
-                    "Answer is a generated Pass",
-                    securityAnswer,
-                    true,
-                    null,
-                    out status);
+                    username, pass, email, "Answer is a generated Pass", securityAnswer, true, null, out status);
 
                 // setup inital roles (if any) for this user
                 RoleMembershipHelper.SetupUserRoles(YafContext.Current.PageBoardID, username);
@@ -243,11 +236,7 @@ namespace YAF.Classes
                     this.Get<YafBoardSettings>().DefaultSendDigestEmail);
 
                 // save avatar
-                LegacyDb.user_saveavatar(
-                    userId,
-                    "https://graph.facebook.com/1457847725/picture",
-                    null,
-                    null);
+                LegacyDb.user_saveavatar(userId, "https://graph.facebook.com/1457847725/picture", null, null);
 
                 // Clearing cache with old Active User Lazy Data ...
                 this.Get<IDataCache>().Remove(Constants.Cache.ActiveUserLazyData.FormatWith(userId));
@@ -262,54 +251,6 @@ namespace YAF.Classes
             }
 
             return this.Get<ILocalization>().GetText("LOGIN", "SSO_FAILED");
-        }
-
-        private void SendRegistrationNotificationToUser([NotNull] MembershipUser user, [NotNull] string pass, [NotNull] string securityAnswer)
-        {
-            var notifyUser = new YafTemplateEmail();
-
-            string subject =
-              this.Get<ILocalization>().GetText("COMMON", "NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT").FormatWith(
-                this.Get<YafBoardSettings>().Name);
-
-            notifyUser.TemplateParams["{user}"] = user.UserName;
-            notifyUser.TemplateParams["{email}"] = user.Email;
-            notifyUser.TemplateParams["{pass}"] = pass;
-            notifyUser.TemplateParams["{answer}"] = securityAnswer;
-            notifyUser.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
-
-            string emailBody = notifyUser.ProcessTemplate("NOTIFICATION_ON_FACEBOOK_REGISTER");
-
-            this.Get<ISendMail>().Queue(this.Get<YafBoardSettings>().ForumEmail, user.Email, subject, emailBody);
-        }
-
-        /// <summary>
-        /// The send registration notification email.
-        /// </summary>
-        /// <param name="user">
-        /// The user.
-        /// </param>
-        private void SendRegistrationNotificationEmail([NotNull] MembershipUser user)
-        {
-            string[] emails = this.Get<YafBoardSettings>().NotificationOnUserRegisterEmailList.Split(';');
-
-            var notifyAdmin = new YafTemplateEmail();
-
-            string subject =
-              this.Get<ILocalization>().GetText("COMMON", "NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT").FormatWith(
-                this.Get<YafBoardSettings>().Name);
-
-            notifyAdmin.TemplateParams["{adminlink}"] = YafBuildLink.GetLinkNotEscaped(ForumPages.admin_admin, true);
-            notifyAdmin.TemplateParams["{user}"] = user.UserName;
-            notifyAdmin.TemplateParams["{email}"] = user.Email;
-            notifyAdmin.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
-
-            string emailBody = notifyAdmin.ProcessTemplate("NOTIFICATION_ON_USER_REGISTER");
-
-            foreach (string email in emails.Where(email => email.Trim().IsSet()))
-            {
-                this.Get<ISendMail>().Queue(this.Get<YafBoardSettings>().ForumEmail, email.Trim(), subject, emailBody);
-            }
         }
 
         /// <summary>
@@ -451,6 +392,67 @@ namespace YAF.Classes
         }
 
         #endregion
+
+        /// <summary>
+        /// Send an Email to the Newly Created User with
+        /// his Account Info (Pass, Security Question and Answer)
+        /// </summary>
+        /// <param name="user">
+        /// The user.
+        /// </param>
+        /// <param name="pass">
+        /// The pass.
+        /// </param>
+        /// <param name="securityAnswer">
+        /// The security answer.
+        /// </param>
+        private void SendRegistrationNotificationToUser([NotNull] MembershipUser user, [NotNull] string pass, [NotNull] string securityAnswer)
+        {
+            var notifyUser = new YafTemplateEmail();
+
+            string subject =
+              this.Get<ILocalization>().GetText("COMMON", "NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT").FormatWith(
+                this.Get<YafBoardSettings>().Name);
+
+            notifyUser.TemplateParams["{user}"] = user.UserName;
+            notifyUser.TemplateParams["{email}"] = user.Email;
+            notifyUser.TemplateParams["{pass}"] = pass;
+            notifyUser.TemplateParams["{answer}"] = securityAnswer;
+            notifyUser.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
+
+            string emailBody = notifyUser.ProcessTemplate("NOTIFICATION_ON_FACEBOOK_REGISTER");
+
+            this.Get<ISendMail>().Queue(this.Get<YafBoardSettings>().ForumEmail, user.Email, subject, emailBody);
+        }
+
+        /// <summary>
+        /// The send registration notification email.
+        /// </summary>
+        /// <param name="user">
+        /// The user.
+        /// </param>
+        private void SendRegistrationNotificationEmail([NotNull] MembershipUser user)
+        {
+            string[] emails = this.Get<YafBoardSettings>().NotificationOnUserRegisterEmailList.Split(';');
+
+            var notifyAdmin = new YafTemplateEmail();
+
+            string subject =
+              this.Get<ILocalization>().GetText("COMMON", "NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT").FormatWith(
+                this.Get<YafBoardSettings>().Name);
+
+            notifyAdmin.TemplateParams["{adminlink}"] = YafBuildLink.GetLinkNotEscaped(ForumPages.admin_admin, true);
+            notifyAdmin.TemplateParams["{user}"] = user.UserName;
+            notifyAdmin.TemplateParams["{email}"] = user.Email;
+            notifyAdmin.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
+
+            string emailBody = notifyAdmin.ProcessTemplate("NOTIFICATION_ON_USER_REGISTER");
+
+            foreach (string email in emails.Where(email => email.Trim().IsSet()))
+            {
+                this.Get<ISendMail>().Queue(this.Get<YafBoardSettings>().ForumEmail, email.Trim(), subject, emailBody);
+            }
+        }
 
         #endregion
     }
