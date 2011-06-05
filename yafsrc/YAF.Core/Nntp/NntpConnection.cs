@@ -29,11 +29,12 @@ namespace YAF.Core.Nntp
   using System.Text.RegularExpressions;
 
   using YAF.Types;
+  using YAF.Utils;
 
   /// <summary>
   /// The nntp connection.
   /// </summary>
-  public class NntpConnection
+  public class NntpConnection : IDisposable
   {
     #region Private variables
 
@@ -821,12 +822,26 @@ namespace YAF.Core.Nntp
         {
           article = new Article { Header = new ArticleHeader() };
           values = response.Split('\t');
+
+          // article id...
           article.ArticleId = int.Parse(values[0]);
+
+          // subject
           article.Header.Subject = NntpUtil.Base64HeaderDecode(values[1]);
+          
+          // from
           article.Header.From = NntpUtil.Base64HeaderDecode(values[2]);
+          
+          // date
           int i = values[3].IndexOf(',');
-          article.Header.Date = DateTime.Parse(values[3].Substring(i + 1, values[3].Length - 7 - i));
+          int offTz;
+          article.Header.Date = NntpUtil.DecodeUTC(values[3].Substring(i + 1, values[3].Length - 7 - i), out offTz);
+          article.Header.TimeZoneOffset = offTz;
+          
+          // messge id
           article.MessageId = values[4];
+
+          // reference ids
           article.Header.ReferenceIds = values[5].Trim().Length == 0 ? new string[0] : values[5].Split(' ');
 
           if (values.Length < 8 || values[7] == null || values[7].Trim() == string.Empty)
@@ -838,6 +853,7 @@ namespace YAF.Core.Nntp
             article.Header.LineCount = int.Parse(values[7]);
           }
 
+          // no body...
           article.Body = null;
         }
         catch (Exception e)
@@ -942,10 +958,12 @@ namespace YAF.Core.Nntp
       }
 
       var sb = new StringBuilder();
+
       sb.Append("From: ");
       sb.Append(article.Header.From);
-      sb.Append("\r\nNewsgroup: ");
-      sb.Append(this.connectedGroup);
+      sb.Append("\r\nNewsgroups: ");
+      sb.Append(this.connectedGroup.Group);
+
       if (article.Header.ReferenceIds != null && article.Header.ReferenceIds.Length != 0)
       {
         sb.Append("\r\nReference: ");
@@ -1087,5 +1105,14 @@ namespace YAF.Core.Nntp
     }
 
     #endregion
+
+    /// <summary>
+    /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+    /// </summary>
+    /// <filterpriority>2</filterpriority>
+    public void Dispose()
+    {
+      this.Disconnect();
+    }
   }
 }

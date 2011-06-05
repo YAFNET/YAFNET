@@ -29,6 +29,7 @@ namespace YAF.Core.Nntp
   using System.Web;
 
   using YAF.Core;
+  using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Classes.Data;
   using YAF.Utils;
@@ -111,68 +112,28 @@ namespace YAF.Core.Nntp
     /// <returns>
     /// The base 64 decode.
     /// </returns>
-    public static int Base64Decode(string line, Stream outputStream)
+    [NotNull]
+    public static string Base64Decode([NotNull] string encodedData, [CanBeNull] Encoding encoding = null)
     {
-      return Base64Decode(line.ToCharArray(), outputStream);
+      CodeContracts.ArgumentNotNull(encodedData, "encodedData");
+
+      byte[] decodedDataAsBytes = Convert.FromBase64String(encodedData);
+
+      return (encoding ?? Encoding.Unicode).GetString(decodedDataAsBytes);
     }
 
-    /// <summary>
-    /// The base 64 decode.
-    /// </summary>
-    /// <param name="line">
-    /// The line.
-    /// </param>
-    /// <param name="outputStream">
-    /// The output stream.
-    /// </param>
-    /// <returns>
-    /// The base 64 decode.
-    /// </returns>
-    /// <exception cref="InvalidOperationException">
-    /// </exception>
-    public static int Base64Decode(char[] line, Stream outputStream)
+    public static int Base64Decode([NotNull] string encodedData, Stream output)
     {
-      if (line.Length < 2)
+      CodeContracts.ArgumentNotNull(encodedData, "encodedData");
+
+      byte[] decodedDataAsBytes = Convert.FromBase64String(encodedData);
+
+      foreach (var decodedByte in decodedDataAsBytes)
       {
-        throw new InvalidOperationException("Invalid line: " + new string(line) + ".");
+        output.WriteByte(decodedByte);
       }
 
-      var line2 = new uint[line.Length];
-      for (int ii = 0; ii < line.Length && line[ii] != '='; ii++)
-      {
-        line2[ii] = base64PemConvertCode[line[ii] & 0xff];
-      }
-
-      int length;
-      for (length = line2.Length - 1; line[length] == '=' && length >= 0; length--)
-      {
-        ;
-      }
-
-      length++;
-      int i = 0;
-      int j = 0;
-      while (length - i >= 4)
-      {
-        outputStream.WriteByte((byte)(line2[i] << 2 & 0xfc | line2[i + 1] >> 4 & 0x3));
-        outputStream.WriteByte((byte)(line2[i + 1] << 4 & 0xf0 | line2[i + 2] >> 2 & 0xf));
-        outputStream.WriteByte((byte)(line2[i + 2] << 6 & 0xc0 | line2[i + 3] & 0x3f));
-        i += 4;
-        j += 3;
-      }
-
-      switch (length - i)
-      {
-        case 2:
-          outputStream.WriteByte((byte)(line2[i] << 2 & 0xfc | line2[i + 1] >> 4 & 0x3));
-          return j + 1;
-        case 3:
-          outputStream.WriteByte((byte)(line2[i] << 2 & 0xfc | line2[i + 1] >> 4 & 0x3));
-          outputStream.WriteByte((byte)(line2[i + 1] << 4 & 0xf0 | line2[i + 2] >> 2 & 0xf));
-          return j + 2;
-        default:
-          return j;
-      }
+      return decodedDataAsBytes.Length;
     }
 
     /// <summary>
@@ -186,24 +147,23 @@ namespace YAF.Core.Nntp
     /// </returns>
     public static string Base64HeaderDecode(string line)
     {
-      MemoryStream ms = null;
-      byte[] bytes = null;
-      string oStr = null;
-      string code = null;
-      string content = null;
       Match m = Regex.Match(line, @"=\?([^?]+)\?[^?]+\?([^?]+)\?=");
-      while (m.Success)
+
+      try
       {
-        ms = new MemoryStream();
-        oStr = m.Groups[0].ToString();
-        code = m.Groups[1].ToString();
-        content = m.Groups[2].ToString();
-        Base64Decode(content, ms);
-        ms.Seek(0, SeekOrigin.Begin);
-        bytes = new byte[ms.Length];
-        ms.Read(bytes, 0, bytes.Length);
-        line = line.Replace(oStr, Encoding.GetEncoding(code).GetString(bytes));
-        m = m.NextMatch();
+        while (m.Success)
+        {
+          string matched = m.Groups[0].ToString();
+          string encodingCode = m.Groups[1].ToString();
+
+          line = line.Replace(matched, Base64Decode(m.Groups[2].ToString(), Encoding.GetEncoding(encodingCode)));
+
+          m = m.NextMatch();
+        }
+      }
+      catch (Exception ex)
+      {
+        // format problem...
       }
 
       return line;
