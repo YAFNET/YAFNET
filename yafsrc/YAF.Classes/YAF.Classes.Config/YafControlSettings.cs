@@ -36,11 +36,6 @@ namespace YAF.Classes
     private int _boardId;
 
     /// <summary>
-    /// The _board uid.
-    /// </summary>
-    private Guid _boardUid;
-
-    /// <summary>
     /// The _category id.
     /// </summary>
     private int _categoryId;
@@ -95,22 +90,6 @@ namespace YAF.Classes
       {
         this._boardId = value;
       }
-    }
-
-    /// <summary>
-    /// Gets or sets BoardUid.
-    /// </summary>
-    public Guid BoardUid
-    {
-        get
-        {
-            return this._boardUid;
-        }
-
-        set
-        {
-            this._boardUid = value;
-        }
     }
 
     /// <summary>

@@ -670,7 +670,7 @@ namespace YAF
     /// <returns>
     /// The check access rights.
     /// </returns>
-    private bool CheckAccessRights([NotNull] object boardID, [NotNull] object boardUid, [NotNull] object messageID)
+    private bool CheckAccessRights([NotNull] object boardID, [NotNull] object messageID)
     {
       // Find user name
       MembershipUser user = Membership.GetUser();
@@ -699,7 +699,6 @@ namespace YAF
       DataRow pageRow = LegacyDb.pageload(
         HttpContext.Current.Session.SessionID,
         boardID,
-        (Guid)boardUid,
         userKey,
         HttpContext.Current.Request.UserHostAddress,
         HttpContext.Current.Request.FilePath,
@@ -1038,7 +1037,7 @@ namespace YAF
           foreach (DataRow row in dt.Rows)
           {
             // TODO : check download permissions here					
-            if (!this.CheckAccessRights(row["BoardID"], row["BoardUID"], row["MessageID"]))
+            if (!this.CheckAccessRights(row["BoardID"], row["MessageID"]))
             {
               // tear it down
               // no permission to download
@@ -1147,7 +1146,7 @@ namespace YAF
           foreach (DataRow row in dt.Rows)
           {
             // TODO : check download permissions here					
-            if (!this.CheckAccessRights(row["BoardID"], row["BoardUID"], row["MessageID"]))
+            if (!this.CheckAccessRights(row["BoardID"], row["MessageID"]))
             {
               // tear it down
               // no permission to download
@@ -1251,7 +1250,7 @@ namespace YAF
           foreach (DataRow row in dt.Rows)
           {
             // TODO : check download permissions here					
-            if (!this.CheckAccessRights(row["BoardID"], row["BoardUID"], row["MessageID"]))
+            if (!this.CheckAccessRights(row["BoardID"], row["MessageID"]))
             {
               // tear it down
               // no permission to download

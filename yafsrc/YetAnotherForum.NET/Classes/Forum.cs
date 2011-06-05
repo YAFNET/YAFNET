@@ -213,22 +213,6 @@ namespace YAF
     }
 
     /// <summary>
-    ///   Gets or sets the Board Uid for this instance of the forum control it can't be defined in app.config.
-    /// </summary>
-    public Guid BoardUid
-    {
-        get
-        {
-            return YafControlSettings.Current.BoardUid;
-        }
-
-        set
-        {
-            YafControlSettings.Current.BoardUid = value;
-        }
-    }
-
-    /// <summary>
     ///   Gets or sets the CategoryID for this instance of the forum control
     /// </summary>
     public int CategoryID

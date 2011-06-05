@@ -2367,26 +2367,6 @@ namespace YAF.Classes.Data
     }
 
     /// <summary>
-    /// Saves board unique id.
-    /// </summary>
-    /// <param name="boardId">
-    /// The Board Id.
-    /// </param>
-    /// <param name="boardUid">
-    /// The Board Uid.
-    /// </param>
-    public static void board_setguid([NotNull] object boardId, [NotNull] object boardUid)
-    {
-      using (var cmd = MsSqlDbAccess.GetCommand("board_setguid"))
-      {
-        cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue("BoardID", boardId);
-        cmd.Parameters.AddWithValue("BoardUID", boardUid);
-        MsSqlDbAccess.Current.ExecuteNonQuery(cmd, true);
-      }
-    }
-
-    /// <summary>
     /// Gets statistica about number of posts etc.
     /// </summary>
     /// <returns>
@@ -5589,7 +5569,7 @@ namespace YAF.Classes.Data
     /// <exception cref="ApplicationException">
     /// </exception>
     public static DataRow pageload([NotNull] object sessionID, [NotNull] object boardID, 
-                                   Guid boardUid, [NotNull] object userKey, [NotNull] object ip, [NotNull] object location, [NotNull] object forumPage, [NotNull] object browser, [NotNull] object platform, [NotNull] object categoryID, [NotNull] object forumID, [NotNull] object topicID, [NotNull] object messageID, [NotNull] object isCrawler, [NotNull] object isMobileDevice, [NotNull] object donttrack)
+                                   [NotNull] object userKey, [NotNull] object ip, [NotNull] object location, [NotNull] object forumPage, [NotNull] object browser, [NotNull] object platform, [NotNull] object categoryID, [NotNull] object forumID, [NotNull] object topicID, [NotNull] object messageID, [NotNull] object isCrawler, [NotNull] object isMobileDevice, [NotNull] object donttrack)
     {
       int nTries = 0;
       while (true)
@@ -5601,7 +5581,6 @@ namespace YAF.Classes.Data
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("SessionID", sessionID);
             cmd.Parameters.AddWithValue("BoardID", boardID);
-            cmd.Parameters.AddWithValue("BoardUID", boardUid);
             cmd.Parameters.AddWithValue("UserKey", userKey);
             cmd.Parameters.AddWithValue("IP", ip);
             cmd.Parameters.AddWithValue("Location", location);

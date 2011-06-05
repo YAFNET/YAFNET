@@ -1744,8 +1744,7 @@ create procedure [{databaseOwner}].[{objectQualifier}attachment_list](@MessageID
 		if @MessageID is not null
 		select 
 			a.*,
-			e.BoardID,
-			brd.BoardUID
+			e.BoardID
 		from
 			[{databaseOwner}].[{objectQualifier}Attachment] a
 			inner join [{databaseOwner}].[{objectQualifier}Message] b on b.MessageID = a.MessageID
@@ -1758,8 +1757,7 @@ create procedure [{databaseOwner}].[{objectQualifier}attachment_list](@MessageID
 	else if @AttachmentID is not null
 		select 
 			a.*,
-			e.BoardID,
-			brd.BoardUID
+			e.BoardID
 		from
 			[{databaseOwner}].[{objectQualifier}Attachment] a
 			inner join [{databaseOwner}].[{objectQualifier}Message] b on b.MessageID = a.MessageID
@@ -1772,8 +1770,7 @@ create procedure [{databaseOwner}].[{objectQualifier}attachment_list](@MessageID
 	else
 		select 
 			a.*,
-			BoardID		= @BoardID,			
-			BoardUID = (SELECT TOP 1 BoardUID FROM [{databaseOwner}].[{objectQualifier}Board] brd WHERE brd.BoardID = @BoardID),
+			BoardID		= @BoardID,
 			Posted		= b.Posted,
 			ForumID		= d.ForumID,
 			ForumName	= d.Name,
@@ -2087,15 +2084,6 @@ begin
 	select @BoardID 
 end
 GO
-
-create procedure [{databaseOwner}].[{objectQualifier}board_setguid](@BoardID int,@BoardUID  uniqueidentifier) as
-begin		
-	update [{databaseOwner}].[{objectQualifier}Board] set
-		BoardUID = @BoardUID
-	where BoardID=@BoardID	
-end
-GO
-
 
 create procedure [{databaseOwner}].[{objectQualifier}board_stats]
 	@BoardID	int = null
@@ -4010,7 +3998,6 @@ GO
 CREATE procedure [{databaseOwner}].[{objectQualifier}pageload](
 	@SessionID	nvarchar(24),
 	@BoardID	int,
-	@BoardUID	uniqueidentifier,
 	@UserKey	nvarchar(64),
 	@IP			varchar(39),
 	@Location	nvarchar(255),
@@ -4040,16 +4027,7 @@ begin
 	set @CurrentTime = GETUTCDATE()
 	-- set IsActiveNow ActiveFlag - it's a default
 	set @ActiveFlags = 1;
-	
-	-- here we override BoardId if non-empty Guid is present	
-	if  @BoardUID = cast(cast(0 as binary) as uniqueidentifier)
-	begin
-	select top 1 @BoardUID = BoardUID from [{databaseOwner}].[{objectQualifier}Board] where BoardID=@BoardID
-	end
-	else
-	begin
-	select top 1 @BoardID = BoardID from [{databaseOwner}].[{objectQualifier}Board] where BoardUID=@BoardUID	
-    end
+
 
 	-- find a guest id should do it every time to be sure that guest access rights are in ActiveAccess table
 	select top 1 @GuestID = UserID from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and (Flags & 4)<>0 ORDER BY Joined DESC
@@ -4338,8 +4316,7 @@ begin
 	select top 1
 		ActiveUpdate        = ISNULL(@ActiveUpdate,0),
 		PreviousVisit		= @PreviousVisit,	   
-		x.*,
-		BoardUid            = @BoardUID,
+		x.*,	
 		IsCrawler           = @IsCrawler,
 		IsMobileDevice      = @IsMobileDevice,
 		CategoryID			= @CategoryID,

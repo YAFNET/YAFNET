@@ -1,5 +1,25 @@
 /* Version 1.0.2 */
 
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}drop_defaultconstraint_oncolumn](@tablename varchar(255), @columnname varchar(255)) as
+BEGIN
+DECLARE @DefName sysname
+
+SELECT 
+  @DefName = o1.name
+FROM
+  sysobjects o1
+  INNER JOIN syscolumns c ON
+  o1.id = c.cdefault
+  INNER JOIN sysobjects o2 ON
+  c.id = o2.id
+WHERE
+  o2.name = @tablename AND
+  c.name = @columnname
+  
+IF @DefName IS NOT NULL
+  EXECUTE ('ALTER TABLE ' + @tablename + ' DROP CONSTRAINT ' + @DefName)
+END
+GO
 
 /*
 ** Create missing tables
@@ -464,8 +484,7 @@ begin
 		Name			nvarchar(50) NOT NULL,
 		AllowThreaded	bit NOT NULL,
 		MembershipAppName nvarchar(255) NULL,
-		RolesAppName nvarchar(255) NULL,
-		BoardUID        uniqueidentifier default newid() 
+		RolesAppName nvarchar(255) NULL
 	)
 end
 GO
@@ -672,11 +691,11 @@ GO
 ** Added columns
 */
 
-if not exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Board]') and name='BoardUID')
+/* if not exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Board]') and name='BoardUID')
 begin
 alter table [{databaseOwner}].[{objectQualifier}Board] add [BoardUID]  uniqueidentifier constraint DF_{objectQualifier}Board_BoardUID default newid() 
 end
-GO
+
 
 if exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Board]') and name='BoardUID')
 BEGIN		
@@ -687,6 +706,14 @@ BEGIN
 		-- alter table [{databaseOwner}].[{objectQualifier}Board] alter column [BoardUID]  uniqueidentifier constraint DF_{objectQualifier}Board_BoardUID default newid() 
 
 END
+ */
+exec('[{databaseOwner}].[{objectQualifier}drop_defaultconstraint_oncolumn] {objectQualifier}Board, BoardUID')
+GO
+
+if exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Board]') and name='BoardUID')
+begin
+alter table [{databaseOwner}].[{objectQualifier}Board] drop column  BoardUID
+end
 GO
 
 -- Mail Table
