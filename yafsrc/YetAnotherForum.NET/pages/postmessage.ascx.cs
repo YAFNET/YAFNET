@@ -355,6 +355,12 @@ namespace YAF.Pages
                this.Get<IModuleManager<ForumEditor>>().GetBy(editorId, false) ??
                this.Get<IModuleManager<ForumEditor>>().GetBy("1");
 
+            // Override Editor when mobile device with default Yaf BBCode Editor
+            if (PageContext.IsMobileDevice)
+            {
+                this._forumEditor = this.Get<IModuleManager<ForumEditor>>().GetBy("1");
+            }
+
             this.EditorLine.Controls.Add(this._forumEditor);
 
             base.OnInit(e);
@@ -457,6 +463,7 @@ namespace YAF.Pages
                 {
                     this.DescriptionRow.Visible = true;
                 }
+
                 // helper bool -- true if this is a completely new topic...
                 bool isNewTopic = (this.TopicID == null) && (this.QuotedMessageID == null) && (this.EditMessageID == null);
 
@@ -683,7 +690,6 @@ namespace YAF.Pages
                 this.spamApproved = true;
             }
             
-
             // make message flags
             var messageFlags = new MessageFlags
             {

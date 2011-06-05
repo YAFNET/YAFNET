@@ -243,6 +243,12 @@ namespace YAF.Pages
                this.Get<IModuleManager<ForumEditor>>().GetBy(editorId, false) ??
                this.Get<IModuleManager<ForumEditor>>().GetBy("1");
 
+            // Override Editor when mobile device with default Yaf BBCode Editor
+            if (PageContext.IsMobileDevice)
+            {
+                this._editor = this.Get<IModuleManager<ForumEditor>>().GetBy("1");
+            }
+
             // add editor to the page
             this.EditorLine.Controls.Add(this._editor);
         }
@@ -293,8 +299,7 @@ namespace YAF.Pages
 
                 // get quoted message
                 DataRow row =
-                    LegacyDb.pmessage_list(Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("p"))).
-                        GetFirstRow();
+                    LegacyDb.pmessage_list(Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("p"))).GetFirstRow();
 
                 // there is such a message
                 if (row != null)
@@ -357,8 +362,8 @@ namespace YAF.Pages
                     int toUser;
                     int reportMessage;
 
-                    if (Int32.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"), out toUser) &&
-                        Int32.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("r"), out reportMessage))
+                    if (int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"), out toUser) &&
+                        int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("r"), out reportMessage))
                     {
                         // get quoted message
                         DataRow messagesRow =
@@ -410,7 +415,7 @@ namespace YAF.Pages
                 // find user
                 int toUserId;
 
-                if (Int32.TryParse(this.Request.QueryString.GetFirstOrDefault("u"), out toUserId))
+                if (int.TryParse(this.Request.QueryString.GetFirstOrDefault("u"), out toUserId))
                 {
                     DataRow currentRow = LegacyDb.user_list(YafContext.Current.PageBoardID, toUserId, true).GetFirstRow();
 

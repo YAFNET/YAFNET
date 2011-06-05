@@ -147,6 +147,12 @@ namespace YAF.Pages
            this.Get<IModuleManager<ForumEditor>>().GetBy(editorId, false) ??
            this.Get<IModuleManager<ForumEditor>>().GetBy("1");
 
+        // Override Editor when mobile device with default Yaf BBCode Editor
+        if (PageContext.IsMobileDevice)
+        {
+            this.reportEditor = this.Get<IModuleManager<ForumEditor>>().GetBy("1");
+        }
+
       // add editor to the page
       this.EditorLine.Controls.Add(this.reportEditor);
     }
