@@ -3928,7 +3928,7 @@ create procedure [{databaseOwner}].[{objectQualifier}nntpserver_save](
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}nntptopic_list](@Thread char(32)) as
+create procedure [{databaseOwner}].[{objectQualifier}nntptopic_list](@Thread nvarchar(64)) as
 begin
 		select
 		a.*
@@ -3976,7 +3976,7 @@ begin
 			set @TopicID=SCOPE_IDENTITY()
 
 			insert into [{databaseOwner}].[{objectQualifier}NntpTopic](NntpForumID,Thread,TopicID)
-			values (@NntpForumID,NULL,@TopicID)
+			values (@NntpForumID,'',@TopicID)
 		end
 	end
 	
