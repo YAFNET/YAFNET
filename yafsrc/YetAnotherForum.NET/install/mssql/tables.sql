@@ -1,5 +1,9 @@
 /* Version 1.0.2 */
 
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}drop_defaultconstraint_oncolumn]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}drop_defaultconstraint_oncolumn]
+GO
+
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}drop_defaultconstraint_oncolumn](@tablename varchar(255), @columnname varchar(255)) as
 BEGIN
 DECLARE @DefName sysname
