@@ -255,11 +255,10 @@ namespace YAF.Controls
 
             // albums link
             if (this.PostData.UserId != this.PageContext.PageUserID &&
-                                  !this.PostData.PostDeleted && this.PageContext.User != null &&
+                                  !this.PostData.PostDeleted && this.PageContext.User != null && !UserMembershipHelper.IsGuestUser(this.PostData.UserId) &&
                                   this.Get<YafBoardSettings>().EnableAlbum)
             {
-                DataTable usrAlbumsData = LegacyDb.user_getalbumsdata(
-                    this.PostData.UserId, YafContext.Current.PageBoardID);
+                DataTable usrAlbumsData = LegacyDb.user_getalbumsdata(this.PostData.UserId, YafContext.Current.PageBoardID);
                 var numAlbums = usrAlbumsData.GetFirstRowColumnAsValue<int?>("NumAlbums", null);
                 this.Albums.Visible = numAlbums.HasValue && numAlbums > 0;
                 this.Albums.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.albums, "u={0}", this.PostData.UserId);
