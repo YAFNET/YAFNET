@@ -5304,6 +5304,20 @@ namespace YAF.Classes.Data
       }
     }
 
+    public static IEnumerable<TypedNntpForum> NntpForumList(int boardID, int? minutes, int? nntpForumID, bool? active)
+    {
+      using (var cmd = MsSqlDbAccess.GetCommand("nntpforum_list"))
+      {
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("BoardID", boardID);
+        cmd.Parameters.AddWithValue("Minutes", minutes);
+        cmd.Parameters.AddWithValue("NntpForumID", nntpForumID);
+        cmd.Parameters.AddWithValue("Active", active);
+
+        return MsSqlDbAccess.Current.GetData(cmd).AsEnumerable().Select(r => new TypedNntpForum(r));
+      }
+    }
+
     /// <summary>
     /// The nntpforum_save.
     /// </summary>
