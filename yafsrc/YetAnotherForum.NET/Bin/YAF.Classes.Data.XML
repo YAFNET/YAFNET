@@ -965,17 +965,6 @@
             The board_save.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.LegacyDb.board_setguid(System.Object,System.Object)">
-            <summary>
-            Saves board unique id.
-            </summary>
-            <param name="boardId">
-            The Board Id.
-            </param>
-            <param name="boardUid">
-            The Board Uid.
-            </param>
-        </member>
         <member name="M:YAF.Classes.Data.LegacyDb.board_stats">
             <summary>
             Gets statistica about number of posts etc.
@@ -2701,7 +2690,7 @@
             The reference Message Id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.LegacyDb.pageload(System.Object,System.Object,System.Guid,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.pageload(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The pageload.
             </summary>
@@ -4595,7 +4584,7 @@
             The points.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.LegacyDb.user_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The user_save.
             </summary>
@@ -4624,6 +4613,9 @@
             </param>
             <param name="themeFile">
             The theme file.
+            </param>
+            <param name="useSingleSignOn">
+            The use Single Sign On.
             </param>
             <param name="textEditor">
             The text Editor.
@@ -5601,6 +5593,16 @@
         <member name="P:YAF.Types.Objects.TypedUserFind.AutoWatchTopics">
             <summary>
             Gets or sets AutoWatchTopics.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.UseSingleSignOn">
+            <summary>
+            Gets or sets a value indicating whether UseSingleSignOn.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.TextEditor">
+            <summary>
+            Gets or sets TextEditor.
             </summary>
         </member>
         <member name="P:YAF.Types.Objects.TypedUserFind.Avatar">

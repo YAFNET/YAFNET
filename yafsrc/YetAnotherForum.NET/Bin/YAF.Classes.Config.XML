@@ -1042,7 +1042,7 @@
         </member>
         <member name="P:YAF.Classes.Config.BaseScriptFile">
             <summary>
-              Used for Url Rewriting -- default is "default.aspx"
+              Gets the Used for Url Rewriting -- default is "default.aspx"
             </summary>
         </member>
         <member name="P:YAF.Classes.Config.BaseUrlMask">
@@ -1052,18 +1052,18 @@
         </member>
         <member name="P:YAF.Classes.Config.BoardID">
             <summary>
-              Current BoardID -- default is 1.
+              Gets the Current BoardID -- default is 1.
             </summary>
         </member>
         <member name="P:YAF.Classes.Config.BoardRoot">
             <summary>
-              Folder to use for board specific uploads, images, themes
+              Gets the Folder to use for board specific uploads, images, themes
               Example : /Boards/
             </summary>
         </member>
         <member name="P:YAF.Classes.Config.CategoryID">
             <summary>
-              Current CategoryID -- default is null.
+              Gets the Current CategoryID -- default is null.
             </summary>
         </member>
         <member name="P:YAF.Classes.Config.ClientFileRoot">
@@ -1083,7 +1083,8 @@
         </member>
         <member name="P:YAF.Classes.Config.CreateDistinctRoles">
             <summary>
-              Use it if distinct YAF role names are required. Used in integration environments only.
+            Gets a value indicating whether the Use it if distinct YAF role names are required. 
+            Used in integration environments only.
             </summary>
         </member>
         <member name="P:YAF.Classes.Config.DatabaseCollation">
@@ -1108,17 +1109,18 @@
         </member>
         <member name="P:YAF.Classes.Config.DisableJQuery">
             <summary>
-              Is Jquery Registration disabled? -- default is false.
+              Gets a value indicating whether Is Jquery Registration disabled? -- default is false.
             </summary>
         </member>
         <member name="P:YAF.Classes.Config.EnableURLRewriting">
             <summary>
-              Is Url Rewriting enabled? -- default is false.
+              Gets a value indicating whether Is Url Rewriting enabled? -- default is false.
             </summary>
         </member>
         <member name="P:YAF.Classes.Config.ForceScriptName">
             <summary>
-              Used for Url Rewriting -- default is null -- used to define what the forum file name is for urls.
+            Gets a value indicating whether Used for Url Rewriting -- default is null -- 
+            used to define what the forum file name is for urls.
             </summary>
         </member>
         <member name="P:YAF.Classes.Config.IsAnyPortal">
@@ -1188,6 +1190,7 @@
         </member>
         <member name="P:YAF.Classes.Config.MultiBoardFolders">
             <summary>
+              Gets a value indicating whether 
               Boolean to force uploads, and images, themes etc.. from a specific BoardID folder within BoardRoot
               Example : true /false
             </summary>
@@ -1229,7 +1232,7 @@
         </member>
         <member name="P:YAF.Classes.Config.BrowserJSVersion">
             <summary>
-              Allowed browser JS version.
+              Gets the Allowed browser JS version.
             </summary>
         </member>
         <member name="P:YAF.Classes.Config.ServerFileRoot">
@@ -1239,27 +1242,27 @@
         </member>
         <member name="P:YAF.Classes.Config.ShowFooter">
             <summary>
-              Diisplay the footer at the bottom of the page -- default is "true"
+              Gets a value indicating whether Display the footer at the bottom of the page -- default is "true"
             </summary>
         </member>
         <member name="P:YAF.Classes.Config.ShowToolBar">
             <summary>
-              Display the default toolbar at the top -- default is "true"
+              Gets a value indicating whether Display the default toolbar at the top -- default is "true"
             </summary>
         </member>
         <member name="P:YAF.Classes.Config.SqlCommandTimeout">
             <summary>
-              Current BoardID -- default is 1.
+              Gets the Current BoardID -- default is 1.
             </summary>
         </member>
         <member name="P:YAF.Classes.Config.UrlRewritingMode">
             <summary>
-              Url Rewriting URLRewritingMode? -- default is Unicode.
+              Gets the Url Rewriting URLRewritingMode? -- default is Unicode.
             </summary>
         </member>
         <member name="P:YAF.Classes.Config.UrlRewritingPrefix">
             <summary>
-              Prefix used for Url Rewriting -- default is "yaf_"
+              Gets the Prefix used for Url Rewriting -- default is "yaf_"
             </summary>
         </member>
         <member name="P:YAF.Classes.Config.UseRadEditorToolsFile">
@@ -1269,12 +1272,22 @@
         </member>
         <member name="P:YAF.Classes.Config.UseSMTPSSL">
             <summary>
-              Use an SSL connection for the SMTP server -- default is "false"
+              Gets a value indicating whether Use an SSL connection for the SMTP server -- default is "false"
             </summary>
         </member>
         <member name="P:YAF.Classes.Config.WithOIDs">
             <summary>
               Gets WithOIDs.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.FacebookAPIKey">
+            <summary>
+              Gets Facebook API Key.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.FacebookSecretKey">
+            <summary>
+              Gets Facebook Secret Key.
             </summary>
         </member>
         <member name="T:YAF.Classes.Pattern.TypeFactoryInstanceApplicationBoardScope`1">
@@ -1912,6 +1925,16 @@
             Gets or sets a value indicating whether AllowUserLanguage.
             </summary>
         </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AllowSingleSignOn">
+            <summary>
+            Gets or sets a value indicating whether Allow Single Sign On.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.RegisterNewFacebookUser">
+            <summary>
+            Gets or sets a value indicating whether Register New Facebook User
+            </summary>
+        </member>
         <member name="P:YAF.Classes.YafBoardSettings.AllowModeratorsViewIPs">
             <summary>
             Gets or sets a value indicating whether AllowModeratorsViewIPs.
@@ -2529,11 +2552,6 @@
             The _board id.
             </summary>
         </member>
-        <member name="F:YAF.Classes.YafControlSettings._boardUid">
-            <summary>
-            The _board uid.
-            </summary>
-        </member>
         <member name="F:YAF.Classes.YafControlSettings._categoryId">
             <summary>
             The _category id.
@@ -2562,11 +2580,6 @@
         <member name="P:YAF.Classes.YafControlSettings.BoardID">
             <summary>
             Gets or sets BoardID.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.YafControlSettings.BoardUid">
-            <summary>
-            Gets or sets BoardUid.
             </summary>
         </member>
         <member name="P:YAF.Classes.YafControlSettings.CategoryID">

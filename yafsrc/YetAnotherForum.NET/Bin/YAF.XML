@@ -36,6 +36,17 @@
             The e.
             </param>
         </member>
+        <member name="M:YAF.Pages.login.Login1_LoggedIn(System.Object,System.EventArgs)">
+            <summary>
+            The Logged In Event
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
         <member name="M:YAF.Pages.login.Login1_LoginError(System.Object,System.EventArgs)">
             <summary>
             The login 1_ login error.
@@ -58,6 +69,14 @@
             The e.
             </param>
         </member>
+        <member name="M:YAF.Pages.login.OnPreRender(System.EventArgs)">
+            <summary>
+            The On PreRender event.
+            </summary>
+            <param name="e">
+            the Event Arguments
+            </param>
+        </member>
         <member name="M:YAF.Pages.login.PasswordRecovery_Click(System.Object,System.EventArgs)">
             <summary>
             Called when Password Recovery is Clicked
@@ -67,17 +86,6 @@
             </param>
             <param name="e">
             event args
-            </param>
-        </member>
-        <member name="M:YAF.Pages.login.Login1_LoggedIn(System.Object,System.EventArgs)">
-            <summary>
-            The Logged In Event
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
             </param>
         </member>
         <member name="F:YAF.Pages.login.PageLinks">
@@ -1096,6 +1104,15 @@
         <member name="F:YAF.Controls.DisplayPostFooter.btnTogglePost">
             <summary>
             btnTogglePost control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.DisplayPostFooter.Albums">
+            <summary>
+            Albums control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -2873,6 +2890,33 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Controls.EditUsersProfile.UserLoginRow">
+            <summary>
+            UserLoginRow control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.EditUsersProfile.LocalizedLabel36">
+            <summary>
+            LocalizedLabel36 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.EditUsersProfile.SingleSignOn">
+            <summary>
+            SingleSignOn control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Controls.EditUsersProfile.LoginInfo">
             <summary>
             LoginInfo control.
@@ -3125,11 +3169,7 @@
             The writer.
             </param>
         </member>
-        <member name="M:YAF.Forum.TaskModuleRunning">
-            <summary>
-            Validates that the Task Module is running...
-            </summary>
-        </member>
+        <!-- Badly formed XML comment ignored for member "M:YAF.Forum.TaskModuleRunning" -->
         <member name="M:YAF.Forum.Forum_Init(System.Object,System.EventArgs)">
             <summary>
             The forum_ init.
@@ -3173,17 +3213,6 @@
             The get page source.
             </returns>
         </member>
-        <member name="M:YAF.Forum.ValidPage(YAF.Types.Constants.ForumPages)">
-            <summary>
-            The valid page.
-            </summary>
-            <param name="forumPage">
-            The forum page.
-            </param>
-            <returns>
-            The valid page.
-            </returns>
-        </member>
         <member name="E:YAF.Forum.AfterForumPageLoad">
             <summary>
               The after forum page load.
@@ -3207,11 +3236,6 @@
         <member name="P:YAF.Forum.BoardID">
             <summary>
               Gets or sets the Board ID for this instance of the forum control, overriding the value defined in app.config.
-            </summary>
-        </member>
-        <member name="P:YAF.Forum.BoardUid">
-            <summary>
-              Gets or sets the Board Uid for this instance of the forum control it can't be defined in app.config.
             </summary>
         </member>
         <member name="P:YAF.Forum.CategoryID">
@@ -5897,6 +5921,7 @@
         </member>
         <member name="M:YAF.Controls.LoginBox.Login1_LoggedIn(System.Object,System.EventArgs)">
             <summary>
+            The LoggedIn Event
             </summary>
             <param name="sender">
             The sender.
@@ -7149,12 +7174,6 @@
             Bind data for this control.
             </summary>
         </member>
-        <member name="M:YAF.Pages.moderate.unapprovedposts.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-              the contents of this method with the code editor.
-            </summary>
-        </member>
         <member name="M:YAF.Pages.moderate.unapprovedposts.List_ItemCommand(System.Object,System.Web.UI.WebControls.RepeaterCommandEventArgs)">
             <summary>
             Handles post moderation events/buttons.
@@ -8073,6 +8092,11 @@
             <c>NonUniqueDisplayNameException</c>.
             </exception>
             <exception cref="T:SecurityFailureInvalidWebServiceTokenException">Invalid Secure Web Service Token: Operation Failed</exception>
+        </member>
+        <member name="P:YafWebService.ServiceLocator">
+            <summary>
+            Gets ServiceLocator.
+            </summary>
         </member>
         <member name="T:SecurityFailureInvalidWebServiceTokenException">
             <summary>
@@ -13242,6 +13266,11 @@
               Gets or sets MaxImageAspect. Stores max aspect to get rows of equal height.
             </summary>
         </member>
+        <member name="P:YAF.Controls.PollChoiceList.Voters">
+            <summary>
+              Gets or sets Voters. Stores users which are voted for a choice.
+            </summary>
+        </member>
         <member name="P:YAF.Controls.PollChoiceList.PollId">
             <summary>
               Gets or sets the PollId for the choices.
@@ -14823,15 +14852,6 @@
         <member name="F:YAF.Controls.DisplayPost.MessagePost1">
             <summary>
             MessagePost1 control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Controls.DisplayPost.LocalizedLabel2">
-            <summary>
-            LocalizedLabel2 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -26311,7 +26331,7 @@
             The e.
             </param>
         </member>
-        <member name="M:YAF.Controls.YafHeader.RenderMenuItem(System.Web.UI.Control,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Boolean,System.String)">
+        <member name="M:YAF.Controls.YafHeader.RenderMenuItem(System.Web.UI.Control,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Boolean,System.String,System.String)">
             <summary>
             Render Li and a Item
             </summary>
@@ -26338,6 +26358,9 @@
             </param>
             <param name="showUnread">
             The show unread.
+            </param>
+            <param name="unread">
+            The unread.
             </param>
             <param name="unreadText">
             The unread text.
@@ -27355,6 +27378,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.activeusers.Iptd_header1">
+            <summary>
+            Iptd_header1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.activeusers.UserList">
             <summary>
             UserList control.
@@ -28072,6 +28104,121 @@
         <member name="P:YAF.Controls.AlbumList.UserID">
             <summary>
               Gets or sets the User ID.
+            </summary>
+        </member>
+        <member name="T:YAF.Pages.Admin.nntpretrieve">
+            <summary>
+            Summary description for ranks.
+            </summary>
+        </member>
+        <member name="F:YAF.Pages.Admin.nntpretrieve.PageLinks">
+            <summary>
+            PageLinks control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.nntpretrieve.LocalizedLabel1">
+            <summary>
+            LocalizedLabel1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.nntpretrieve.List">
+            <summary>
+            List control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.nntpretrieve.LocalizedLabel3">
+            <summary>
+            LocalizedLabel3 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.nntpretrieve.Seconds">
+            <summary>
+            Seconds control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.nntpretrieve.LocalizedLabel6">
+            <summary>
+            LocalizedLabel6 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.nntpretrieve.Retrieve">
+            <summary>
+            Retrieve control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.nntpretrieve.SmartScroller1">
+            <summary>
+            SmartScroller1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="M:YAF.Pages.Admin.nntpretrieve.LastMessageNo(System.Object)">
+            <summary>
+            The last message no.
+            </summary>
+            <param name="_o">
+            The _o.
+            </param>
+            <returns>
+            The last message no.
+            </returns>
+        </member>
+        <member name="M:YAF.Pages.Admin.nntpretrieve.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            The page_ load.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.Admin.nntpretrieve.Retrieve_Click(System.Object,System.EventArgs)">
+            <summary>
+            The retrieve_ click.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.Admin.nntpretrieve.BindData">
+            <summary>
+            The bind data.
             </summary>
         </member>
         <member name="T:YAF.Pages.Admin.editnntpserver">
@@ -28962,7 +29109,7 @@
             Summary description for register.
             </summary>
         </member>
-        <member name="F:YAF.Pages.register._userIpLocator">
+        <member name="F:YAF.Pages.register._UserIpLocator">
             <summary>
               Gets User IP Info.
             </summary>
@@ -29057,6 +29204,19 @@
             The e.
             </param>
         </member>
+        <member name="M:YAF.Pages.register.refreshCaptcha_Click(System.Object,System.EventArgs)">
+            <summary>
+            Refresh the Captcha Image
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+            <exception cref="T:System.NotImplementedException">
+            </exception>
+        </member>
         <member name="M:YAF.Pages.register.SendRegistrationNotificationEmail(System.Web.Security.MembershipUser)">
             <summary>
             The send registration notification email.
@@ -29145,7 +29305,7 @@
         </member>
         <member name="P:YAF.Pages.register.Recupt">
             <summary>
-              Gets a value indicating whether RecaptchaControl.
+              Gets or sets a value indicating whether RecaptchaControl.
             </summary>
         </member>
         <member name="T:YAF.Pages.cp_profile">
@@ -31076,121 +31236,6 @@
               Gets SafeID.
             </summary>
         </member>
-        <member name="T:YAF.Pages.Admin.nntpretrieve">
-            <summary>
-            Summary description for ranks.
-            </summary>
-        </member>
-        <member name="M:YAF.Pages.Admin.nntpretrieve.LastMessageNo(System.Object)">
-            <summary>
-            The last message no.
-            </summary>
-            <param name="_o">
-            The _o.
-            </param>
-            <returns>
-            The last message no.
-            </returns>
-        </member>
-        <member name="M:YAF.Pages.Admin.nntpretrieve.Page_Load(System.Object,System.EventArgs)">
-            <summary>
-            The page_ load.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Pages.Admin.nntpretrieve.Retrieve_Click(System.Object,System.EventArgs)">
-            <summary>
-            The retrieve_ click.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Pages.Admin.nntpretrieve.BindData">
-            <summary>
-            The bind data.
-            </summary>
-        </member>
-        <member name="F:YAF.Pages.Admin.nntpretrieve.PageLinks">
-            <summary>
-            PageLinks control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Pages.Admin.nntpretrieve.LocalizedLabel1">
-            <summary>
-            LocalizedLabel1 control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Pages.Admin.nntpretrieve.List">
-            <summary>
-            List control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Pages.Admin.nntpretrieve.LocalizedLabel3">
-            <summary>
-            LocalizedLabel3 control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Pages.Admin.nntpretrieve.Seconds">
-            <summary>
-            Seconds control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Pages.Admin.nntpretrieve.LocalizedLabel6">
-            <summary>
-            LocalizedLabel6 control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Pages.Admin.nntpretrieve.Retrieve">
-            <summary>
-            Retrieve control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Pages.Admin.nntpretrieve.SmartScroller1">
-            <summary>
-            SmartScroller1 control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
         <member name="T:YAF.Controls.EditUsersResetPass">
             <summary>
             The edit users reset pass.
@@ -32506,7 +32551,7 @@
             The context.
             </param>
         </member>
-        <member name="M:YAF.YafResourceHandler.CheckAccessRights(System.Object,System.Object,System.Object)">
+        <member name="M:YAF.YafResourceHandler.CheckAccessRights(System.Object,System.Object)">
             <summary>
             The check access rights.
             </summary>
@@ -34434,6 +34479,42 @@
         <member name="F:YAF.Pages.Admin.hostsettings.RequireLogin">
             <summary>
             RequireLogin control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel191">
+            <summary>
+            HelpLabel191 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.AllowSingleSignOn">
+            <summary>
+            AllowSingleSignOn control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel192">
+            <summary>
+            HelpLabel192 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.RegisterNewFacebookUser">
+            <summary>
+            RegisterNewFacebookUser control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -37998,6 +38079,29 @@
             Summary description for JavaScriptBlocks
             </summary>
         </member>
+        <member name="M:YAF.Utilities.JavaScriptBlocks.FacebookPostJs(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            The Post to Facebook Js
+            </summary>
+            <param name="message">
+            The message.
+            </param>
+            <param name="description">
+            The description.
+            </param>
+            <param name="link">
+            The link.
+            </param>
+            <param name="picture">
+            The picture.
+            </param>
+            <param name="caption">
+            The caption.
+            </param>
+            <returns>
+            Returns the The Post to Facebook Js
+            </returns>
+        </member>
         <member name="M:YAF.Utilities.JavaScriptBlocks.AlbumEventsJs(System.String,System.String)">
             <summary>
             Javascript events for Album pages.
@@ -38100,7 +38204,7 @@
             script for the addThanks button
             </summary>
             <param name="removeThankBoxHTML">
-            HTML code for the "Remove Thank Note" button
+            HTML code for the "Remove Thank" button
             </param>
             <returns>
             The add thanks js.
@@ -38126,6 +38230,24 @@
             </param>
             <returns>
             The remove thanks js.
+            </returns>
+        </member>
+        <member name="P:YAF.Utilities.JavaScriptBlocks.FacebookInitJs">
+            <summary>
+            Gets Facebook Init Js.
+            </summary>
+        </member>
+        <member name="P:YAF.Utilities.JavaScriptBlocks.FacebookLoginJs">
+            <summary>
+              Gets the script for logging in thru facebook.
+            </summary>
+        </member>
+        <member name="P:YAF.Utilities.JavaScriptBlocks.LoginCallSuccessJS">
+            <summary>
+              Gets the script for login callback.
+            </summary>
+            <returns>
+              the callback success js.
             </returns>
         </member>
         <member name="P:YAF.Utilities.JavaScriptBlocks.AlbumCallbackSuccessJS">
@@ -38182,7 +38304,7 @@
         </member>
         <member name="P:YAF.Utilities.JavaScriptBlocks.asynchCallFailedJs">
             <summary>
-              If asynchronous callback encounters any problem, this javascript function will be called.
+             Gets the If asynchronous callback encounters any problem, this javascript function will be called.
             </summary>
             <returns></returns>
         </member>
@@ -38411,6 +38533,50 @@
             Class for JS jQuery  Ajax Methods
             </summary>
         </member>
+        <member name="M:YAF.Classes.YafAjax.LoginFacebookUser(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            SSO Login From Facebook
+            </summary>
+            <param name="id">
+            The id.
+            </param>
+            <param name="name">
+            The name.
+            </param>
+            <param name="first_name">
+            The first name.
+            </param>
+            <param name="last_name">
+            The last name.
+            </param>
+            <param name="link">
+            The link.
+            </param>
+            <param name="username">
+            The user name.
+            </param>
+            <param name="birthday">
+            The birthday.
+            </param>
+            <param name="hometown">
+            The hometown.
+            </param>
+            <param name="gender">
+            The gender.
+            </param>
+            <param name="email">
+            The email.
+            </param>
+            <param name="timezone">
+            The timezone.
+            </param>
+            <param name="lokale">
+            The lokale.
+            </param>
+            <returns>
+            Returns the Login Status
+            </returns>
+        </member>
         <member name="M:YAF.Classes.YafAjax.ChangeAlbumTitle(System.Int32,System.String)">
             <summary>
             The change album title.
@@ -38493,6 +38659,29 @@
             <returns>
             Returns ThankYou Info
             </returns>
+        </member>
+        <member name="M:YAF.Classes.YafAjax.SendRegistrationNotificationToUser(System.Web.Security.MembershipUser,System.String,System.String)">
+            <summary>
+            Send an Email to the Newly Created User with
+            his Account Info (Pass, Security Question and Answer)
+            </summary>
+            <param name="user">
+            The user.
+            </param>
+            <param name="pass">
+            The pass.
+            </param>
+            <param name="securityAnswer">
+            The security answer.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.YafAjax.SendRegistrationNotificationEmail(System.Web.Security.MembershipUser)">
+            <summary>
+            The send registration notification email.
+            </summary>
+            <param name="user">
+            The user.
+            </param>
         </member>
         <member name="P:YAF.Classes.YafAjax.ServiceLocator">
             <summary>

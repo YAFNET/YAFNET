@@ -366,8 +366,18 @@
         </member>
         <member name="P:YAF.Controls.ActiveUsers.TreatGuestAsHidden">
             <summary>
-              Gets or sets whether treat displaying of guest users same way as that of hidden users.
+              Gets or sets a value indicating whether treat displaying of guest users same way as that of hidden users.
             </summary>
+        </member>
+        <member name="P:YAF.Controls.ActiveUsers.InstantId">
+            <summary> 
+            Gets or sets the Instant ID for this control. 
+            </summary> 
+            <remarks> 
+            Multiple instants of this control can exist in the same page but 
+            each must have a different instant ID. Not specifying an Instant ID 
+            default to the ID being string.Empty. 
+            </remarks> 
         </member>
         <member name="T:YAF.Controls.MessagePostData">
             <summary>
