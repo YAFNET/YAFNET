@@ -608,6 +608,15 @@ namespace YAF.Classes
       }
     }
 
+    [NotNull]
+    public static string NntpPostDomain
+    {
+      get
+      {
+        return GetConfigValueAsString("YAF.NntpPostDomain") ?? "myforum.com";
+      }
+    }
+
     /// <summary>
     ///   Gets a value indicating whether UseRadEditorToolsFile.
     /// </summary>

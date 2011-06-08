@@ -151,11 +151,11 @@ namespace YAF.Controls
         footer.Append("Offical YAF.NET Release: Modules with Public Key of f3828393ba2d803c Loaded.");
       }
 
-      if (extensions.Any(x => !x.Contains("PublicKeyToken=f3828393ba2d803c") || x.Contains(".Module")))
+      if (extensions.Any(x => x.Contains(".Module")))
       {
         footer.AppendFormat(
           @"<br /><br />Extensions Loaded: <span style=""color: green"">{0}</span>",
-          extensions.Where(x => !x.Contains("PublicKeyToken=f3828393ba2d803c") || x.Contains(".Module")).ToDelimitedString("<br />"));
+          extensions.Where(x => x.Contains(".Module")).ToDelimitedString("<br />"));
       }
 
       footer.AppendFormat(
