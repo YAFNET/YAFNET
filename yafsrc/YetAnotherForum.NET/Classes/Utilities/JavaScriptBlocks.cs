@@ -323,9 +323,9 @@ namespace YAF.Utilities
         public static string FixPostDivHeight([NotNull] string userBoxId, [NotNull] string panMessageId)
         {
             return @"{0}(document).ready(function() {{
-					var userBoxHeight = jQuery('#{1}').height();
+					var userBoxHeight = {0}('#{1}').height();
 	
-                  	jQuery('#{2}').parent('.postdiv').height(userBoxHeight);
+                  	{0}('#{2}').parent('.postdiv').height(userBoxHeight);
                            }});".FormatWith(Config.JQueryAlias, userBoxId, panMessageId);
         }
 
