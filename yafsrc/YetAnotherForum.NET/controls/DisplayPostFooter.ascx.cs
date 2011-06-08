@@ -153,9 +153,10 @@ namespace YAF.Controls
             {
                 // We should show IP
                 this.IPSpan1.Visible = true;
-                this.IPLink1.HRef = this.Get<YafBoardSettings>().IPInfoPageURL.FormatWith(this.DataRow["IP"].ToString());
+                string ip = IPHelper.GetIp4Address(this.DataRow["IP"].ToString());
+                this.IPLink1.HRef = this.Get<YafBoardSettings>().IPInfoPageURL.FormatWith(ip);
                 this.IPLink1.Title = this.GetText("COMMON", "TT_IPDETAILS");
-                this.IPLink1.InnerText = this.HtmlEncode(IPHelper.GetIp4Address(this.DataRow["IP"].ToString()));
+                this.IPLink1.InnerText = this.HtmlEncode(ip);
 
                 sb.Append(' ');
             }
