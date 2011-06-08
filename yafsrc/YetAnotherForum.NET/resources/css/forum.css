@@ -309,3 +309,7 @@
 #yafpage_shoutbox {height:100%;}
 
 .yafnet .UnreadBox {position:relative;display:inline;}
+
+.yafnet .postdiv {position:relative}
+
+.yafnet .yafsignature {position:absolute;bottom:0;left:0;right:0;}

@@ -434,6 +434,10 @@ namespace YAF.Controls
         YafContext.Current.PageElements.RegisterJsBlockStartup(
             "asynchCallFailedJs", asynchCallFailedJs);
 
+        YafContext.Current.PageElements.RegisterJsBlock(
+            "fixPostDivHeightJs{0}".FormatWith(this.ClientID),
+            JavaScriptBlocks.FixPostDivHeight(UserBox1.ClientID, panMessage.ClientID));
+
         this.FormatThanksRow();
     }
 

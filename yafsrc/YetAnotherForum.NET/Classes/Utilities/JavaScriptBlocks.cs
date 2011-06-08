@@ -35,7 +35,7 @@ namespace YAF.Utilities
     public static class JavaScriptBlocks
     {
         #region Properties
-
+        
         /// <summary>
         /// Gets Facebook Init Js.
         /// </summary>
@@ -306,6 +306,28 @@ namespace YAF.Utilities
         #endregion
 
         #region Public Methods
+
+        /// <summary>
+        /// Gets the Fix Post Div Height to set Height of PostDiv based on the
+        /// UserBox Height
+        /// </summary>
+        /// <param name="userBoxId">
+        /// The user Box Id.
+        /// </param>
+        /// <param name="panMessageId">
+        /// The pan Message Id.
+        /// </param>
+        /// <returns>
+        /// Returns the created js
+        /// </returns>
+        public static string FixPostDivHeight([NotNull] string userBoxId, [NotNull] string panMessageId)
+        {
+            return @"{0}(document).ready(function() {{
+					var userBoxHeight = jQuery('#{1}').height();
+	
+                  	jQuery('#{2}').parent('.postdiv').height(userBoxHeight);
+                           }});".FormatWith(Config.JQueryAlias, userBoxId, panMessageId);
+        }
 
         /// <summary>
         /// The Post to Facebook Js
