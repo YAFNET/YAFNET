@@ -11,7 +11,7 @@
                     <asp:AsyncPostBackTrigger ControlID="LastPostUpdateTimer" />
                 </Triggers>
                 <ContentTemplate>
-                    <table class="content" width="100%" align="center">
+                    <table class="content LastPosts" width="100%" align="center">
                         <asp:Repeater ID="repLastPosts" runat="server">
                             <HeaderTemplate>
                                 <tr>
