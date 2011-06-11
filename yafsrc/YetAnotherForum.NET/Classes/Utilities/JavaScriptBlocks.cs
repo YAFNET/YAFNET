@@ -331,8 +331,9 @@ namespace YAF.Utilities
         {
             return @"{0}(document).ready(function() {{
 					var userBoxHeight = {0}('#{1}').height();
-	
-                  	{0}('#{2}').parent('.postdiv').height(userBoxHeight);
+                    var messageHeight = {0}('#{2}').height();
+
+                  	{0}('#{2}').parent('.postdiv').height(userBoxHeight + messageHeight);
                            }});".FormatWith(Config.JQueryAlias, userBoxId, panMessageId);
         }
 
