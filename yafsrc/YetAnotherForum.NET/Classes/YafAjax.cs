@@ -24,7 +24,6 @@ namespace YAF.Classes
     using System;
     using System.Data;
     using System.Linq;
-    using System.Web.Script.Serialization;
     using System.Web.Script.Services;
     using System.Web.Security;
     using System.Web.Services;
@@ -104,6 +103,9 @@ namespace YAF.Classes
         /// <param name="lokale">
         /// The lokale.
         /// </param>
+        /// <param name="remember">
+        /// The remember.
+        /// </param>
         /// <returns>
         /// Returns the Login Status
         /// </returns>
@@ -120,12 +122,19 @@ namespace YAF.Classes
             string gender,
             string email,
             string timezone,
-            string lokale)
+            string lokale,
+            bool remember)
         {
             if (!YafContext.Current.Get<YafBoardSettings>().AllowSingleSignOn)
             {
                 return this.Get<ILocalization>().GetText("LOGIN", "SSO_DEACTIVATED");
             }
+
+            // Deserialize Graph Json
+            /*var serializer = new JavaScriptSerializer();
+            serializer.RegisterConverters(new[] { new JsonConverter() });
+
+            dynamic data = serializer.Deserialize(id, typeof(object));*/
 
             // Check if user exists
             var userName = YafContext.Current.Get<MembershipProvider>().GetUserNameByEmail(email);
@@ -145,7 +154,7 @@ namespace YAF.Classes
 
                 if (yafUser.Facebook.Equals(id))
                 {
-                    FormsAuthentication.SetAuthCookie(userName, true);
+                    FormsAuthentication.SetAuthCookie(userName, remember);
 
                     YafContext.Current.Get<IRaiseEvent>().Raise(
                         new SuccessfulUserLoginEvent(YafContext.Current.PageUserID));
@@ -157,7 +166,8 @@ namespace YAF.Classes
             }
 
             // Create User if not exists?!
-            if (YafContext.Current.Get<YafBoardSettings>().RegisterNewFacebookUser)
+            if (YafContext.Current.Get<YafBoardSettings>().RegisterNewFacebookUser &&
+                !YafContext.Current.Get<YafBoardSettings>().DisableRegistrations)
             {
                 MembershipCreateStatus status;
 
@@ -236,14 +246,14 @@ namespace YAF.Classes
                     this.Get<YafBoardSettings>().DefaultSendDigestEmail);
 
                 // save avatar
-                LegacyDb.user_saveavatar(userId, "https://graph.facebook.com/1457847725/picture", null, null);
+                LegacyDb.user_saveavatar(userId, "https://graph.facebook.com/{0}/picture".FormatWith(id), null, null);
 
                 // Clearing cache with old Active User Lazy Data ...
                 this.Get<IDataCache>().Remove(Constants.Cache.ActiveUserLazyData.FormatWith(userId));
 
                 this.Get<IRaiseEvent>().Raise(new NewUserRegisteredEvent(user, userId));
 
-                FormsAuthentication.SetAuthCookie(user.UserName, true);
+                FormsAuthentication.SetAuthCookie(user.UserName, remember);
 
                 YafContext.Current.Get<IRaiseEvent>().Raise(new SuccessfulUserLoginEvent(YafContext.Current.PageUserID));
 
@@ -296,7 +306,7 @@ namespace YAF.Classes
         /// The board id.
         /// </param>
         /// <returns>
-        /// The refresh shout box.
+        /// The refresh shout box js.
         /// </returns>
         [WebMethod]
         public int RefreshShoutBox(int boardId)
@@ -320,7 +330,7 @@ namespace YAF.Classes
         /// The topic ID.
         /// </param>
         /// <returns>
-        /// The add favorite topic.
+        /// The add favorite topic js.
         /// </returns>
         [WebMethod(EnableSession = true)]
         public int AddFavoriteTopic(int topicId)
@@ -335,7 +345,7 @@ namespace YAF.Classes
         /// The favorite topic id.
         /// </param>
         /// <returns>
-        /// The remove favorite topic.
+        /// The remove favorite topic js.
         /// </returns>
         [WebMethod(EnableSession = true)]
         public int RemoveFavoriteTopic(int topicId)

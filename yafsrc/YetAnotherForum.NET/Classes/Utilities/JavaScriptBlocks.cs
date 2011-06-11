@@ -62,35 +62,6 @@ namespace YAF.Utilities
         }
 
         /// <summary>
-        ///   Gets the script for logging in thru facebook.
-        /// </summary>
-        [NotNull]
-        public static string FacebookLoginJs
-        {
-            get
-            {
-                return
-                  @"function LoginUser() {{
-                    FB.api('/me', function (response) {{
-                    
-                    {1}.PageMethod('{0}YafAjax.asmx', 'LoginFacebookUser', loginCallSuccess, LoginCallFailed,
-                              'id', response.id,
-                              'name', response.name,
-                              'first_name', response.first_name,
-                              'last_name', response.last_name,
-                              'link', response.link,
-                              'username', response.username,
-                              'birthday', response.birthday,
-                              'hometown', response.hometown,
-                              'gender', response.gender,
-                              'email', response.email,
-                              'timezone', response.timezone,
-                              'lokale', response.lokale);
-                     }});}}".FormatWith(YafForumInfo.ForumClientFileRoot, Config.JQueryAlias);
-            }
-        }
-
-        /// <summary>
         ///   Gets the script for login callback.
         /// </summary>
         /// <returns>
@@ -306,6 +277,42 @@ namespace YAF.Utilities
         #endregion
 
         #region Public Methods
+
+        /// <summary>
+        /// Gets the script for logging in thru facebook.
+        /// </summary>
+        /// <param name="remberMeId">
+        /// The rember Me Checkbox Client Id.
+        /// </param>
+        /// <returns>
+        /// The facebook login js.
+        /// </returns>
+        [NotNull]
+        public static string FacebookLoginJs(string remberMeId)
+        {
+            return
+                 @"function LoginUser() {{
+
+                    var Remember = {1}('#{2}').is(':checked');
+
+                    FB.api('/me', function (response) {{
+                    
+                    {1}.PageMethod('{0}YafAjax.asmx', 'LoginFacebookUser', loginCallSuccess, LoginCallFailed,
+                              'id', response.id,
+                              'name', response.name,
+                              'first_name', response.first_name,
+                              'last_name', response.last_name,
+                              'link', response.link,
+                              'username', response.username,
+                              'birthday', response.birthday,
+                              'hometown', response.hometown,
+                              'gender', response.gender,
+                              'email', response.email,
+                              'timezone', response.timezone,
+                              'lokale', response.lokale,
+                              'remember', Remember);
+                     }});}}".FormatWith(YafForumInfo.ForumClientFileRoot, Config.JQueryAlias, remberMeId);
+        }
 
         /// <summary>
         /// Gets the Fix Post Div Height to set Height of PostDiv based on the

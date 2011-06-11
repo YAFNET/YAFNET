@@ -1,5 +1,5 @@
 ﻿/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bj�rnar Henden
+ * Copyright (C) 2003-2005 Björnar Henden
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -165,6 +165,8 @@ namespace YAF.Controls
               "yafmodaldialogJs", JavaScriptBlocks.YafModalDialogLoadJs(".LoginLink", "#LoginBox"));
             YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.yafmodaldialog.css");
 
+            var rememberMe = this.Login1.FindControlAs<CheckBox>("RememberMe");
+
             if (this.Get<YafBoardSettings>().AllowSingleSignOn && Config.FacebookAPIKey.IsSet())
             {
                 // setup jQuery and Facebook Scripts.
@@ -174,7 +176,7 @@ namespace YAF.Controls
 
                 YafContext.Current.PageElements.RegisterJsBlockStartup("facebookInitJs", JavaScriptBlocks.FacebookInitJs);
 
-                YafContext.Current.PageElements.RegisterJsBlockStartup("facebookLoginJs", JavaScriptBlocks.FacebookLoginJs);
+                YafContext.Current.PageElements.RegisterJsBlockStartup("facebookLoginJs", JavaScriptBlocks.FacebookLoginJs(rememberMe.ClientID));
 
                 YafContext.Current.PageElements.RegisterJsBlockStartup(
                     "LoginCallSuccessJS", JavaScriptBlocks.LoginCallSuccessJS);
@@ -251,14 +253,14 @@ namespace YAF.Controls
             }
 
             userName.Attributes.Add(
-              "onkeydown",
-              "if(event.which || event.keyCode){if ((event.which == 13) || (event.keyCode == 13)) {document.getElementById('" +
-              forumLogin.ClientID + "').click();return false;}} else {return true}; ");
+                "onkeydown",
+                "if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{document.getElementById('{0}').click();return false;}}}} else {{return true}}; "
+                    .FormatWith(forumLogin.ClientID));
 
             password.Attributes.Add(
-              "onkeydown",
-              "if(event.which || event.keyCode){if ((event.which == 13) || (event.keyCode == 13)) {document.getElementById('" +
-              forumLogin.ClientID + "').click();return false;}} else {return true}; ");
+                "onkeydown",
+                "if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{document.getElementById('{0}').click();return false;}}}} else {{return true}}; "
+                    .FormatWith(forumLogin.ClientID));
 
             if (this.Get<YafBoardSettings>().AllowSingleSignOn && Config.FacebookAPIKey.IsSet())
             {

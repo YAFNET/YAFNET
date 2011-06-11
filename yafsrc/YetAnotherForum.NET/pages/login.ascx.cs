@@ -1,5 +1,5 @@
 ﻿/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bj�rnar Henden
+ * Copyright (C) 2003-2005 Björnar Henden
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -109,7 +109,7 @@ namespace YAF.Pages
                 var username = this.Get<MembershipProvider>().GetUserNameByEmail(this.Login1.UserName);
                 if (username != null)
                 {
-                    if (Membership.ValidateUser(username, this.Login1.Password))
+                    if (this.Get<MembershipProvider>().ValidateUser(username, this.Login1.Password))
                     {
                         this.Login1.UserName = username;
                         e.Authenticated = true;
@@ -269,9 +269,9 @@ namespace YAF.Pages
             if (password != null && forumLogin != null)
             {
                 password.Attributes.Add(
-                  "onkeydown",
-                  "if(event.which || event.keyCode){if ((event.which == 13) || (event.keyCode == 13)) {document.getElementById('" +
-                  forumLogin.ClientID + "').click();return false;}} else {return true}; ");
+                    "onkeydown",
+                    "if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{document.getElementById('{0}').click();return false;}}}} else {{return true}}; "
+                        .FormatWith(forumLogin.ClientID));
             }
 
             if (this.Get<YafBoardSettings>().AllowSingleSignOn && Config.FacebookAPIKey.IsSet())
@@ -299,7 +299,9 @@ namespace YAF.Pages
 
                 YafContext.Current.PageElements.RegisterJsBlockStartup("facebookInitJs", JavaScriptBlocks.FacebookInitJs);
 
-                YafContext.Current.PageElements.RegisterJsBlockStartup("facebookLoginJs", JavaScriptBlocks.FacebookLoginJs);
+                var rememberMe = this.Login1.FindControlAs<CheckBox>("RememberMe");
+
+                YafContext.Current.PageElements.RegisterJsBlockStartup("facebookLoginJs", JavaScriptBlocks.FacebookLoginJs(rememberMe.ClientID));
 
                 YafContext.Current.PageElements.RegisterJsBlockStartup(
                     "LoginCallSuccessJS", JavaScriptBlocks.LoginCallSuccessJS);
