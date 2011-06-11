@@ -59,9 +59,8 @@ namespace YAF.Modules.BBCode
                 "This board requires you to be registered and logged-in before you can view hidden messages.");
 
             string shownContentGuest =
-                "<div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all HiddenGuestBox\"><p><span class=\"HiddenGuestBoxImage\"><img src=\"{1}\" alt=\"{0}\" title=\"{0}\" /></span>{2}</p><br /></div></div>"
-                    .FormatWith(
-                        description, YafForumInfo.GetURLToResource("images/HiddenWarnDescription.png"), descriptionGuest);
+                "<div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all  HiddenGuestBox\"><p><span class=\"ui-icon ui-icon-alert HiddenGuestBoxImage\"></span>{0}</p></div></div>"
+                    .FormatWith(descriptionGuest);
 
             string shownContent =
                 "<div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all  HiddenGuestBox\"><p><span class=\"ui-icon ui-icon-alert HiddenGuestBoxImage\"></span>{0}</p></div></div>"
