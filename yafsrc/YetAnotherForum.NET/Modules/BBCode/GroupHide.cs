@@ -19,6 +19,7 @@
 
 namespace YAF.Modules.BBCode
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Web.UI;
 
@@ -83,11 +84,42 @@ namespace YAF.Modules.BBCode
 
                 string[] groups = groupString.Split(';');
 
-                foreach (string role in
-                    RoleMembershipHelper.GetRolesForUser(YafContext.Current.User.UserName).Where(role => !groups.Any(role.Equals)))
+                /*List<string> groups = new List<string>();
+                List<string> ranks = new List<string>();
+
+                foreach (string group in groupsAndRanks)
+                {
+                    if (group.StartsWith("group."))
+                    {
+                        groups.Add(group.Substring(group.IndexOf(".") + 1));
+                    }
+                    else if (group.StartsWith("rank."))
+                    {
+                        ranks.Add(group.Substring(group.IndexOf(".") + 1));
+                    }
+                    else
+                    {
+                        groups.Add(group);
+                    }
+                }*/
+
+                // Check For Role Hiding
+                if (RoleMembershipHelper.GetRolesForUser(YafContext.Current.User.UserName).Where(
+                            role => !groups.Any(role.Equals)).Any())
                 {
                     shownContentGuest = hiddenContent;
                 }
+
+                // TODO : Check for Rank Hiding 
+                /*if (ranks.Any())
+                {
+                    var yafUserData = new CombinedUserDataHelper(YafContext.Current.CurrentUserData.PageUserID);
+
+                    if (!ranks.Where(rank => yafUserData.RankName.Equals(rank)).Any())
+                    {
+                        shownContentGuest = hiddenContent;
+                    }
+                }*/
             }
 
             // Override Admin, or User is Post Author
@@ -95,6 +127,7 @@ namespace YAF.Modules.BBCode
             {
                 shownContentGuest = hiddenContent;
             }
+
 
             writer.Write(shownContentGuest);
         }

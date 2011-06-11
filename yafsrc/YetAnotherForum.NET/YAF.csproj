@@ -266,6 +266,8 @@
     <Compile Include="Modules\BBCode\ExampleBBCodeModule.cs" />
     <Compile Include="Modules\BBCode\GroupHide.cs" />
     <Compile Include="Modules\BBCode\HideBBCodeModule.cs" />
+    <Compile Include="Modules\BBCode\HideReplyModule.cs" />
+    <Compile Include="Modules\BBCode\HideReplyThanksModule.cs" />
     <Compile Include="Modules\BBCode\SpoilerBBCodeModule.cs" />
     <Compile Include="Modules\BBCode\UserLinkBBCodeModule.cs" />
     <Compile Include="Modules\Events\ClearCacheOnEvents.cs" />

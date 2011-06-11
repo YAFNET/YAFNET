@@ -43,6 +43,20 @@ namespace YAF.Modules.BBCode
         {
             var hiddenContent = Parameters["inner"];
 
+            int postsCount = -1;
+
+            if (Parameters.ContainsKey("posts"))
+            {
+                postsCount = int.Parse(Parameters["posts"]);
+            }
+
+            int thanksCount = -1;
+
+            if (Parameters.ContainsKey("thanks"))
+            {
+                thanksCount = int.Parse(Parameters["thanks"]);
+            }
+
             var messageId = this.MessageID;
 
             if (hiddenContent.IsNotSet())
@@ -64,33 +78,101 @@ namespace YAF.Modules.BBCode
                         description, YafForumInfo.GetURLToResource("images/HiddenWarnDescription.png"), descriptionGuest);
 
             string shownContent = "<img src=\"{1}\" alt=\"{0}\" title=\"{0}\" />".FormatWith(
-                description, YafForumInfo.GetURLToResource("images/HiddenWarnDescription.png"));
+               description, YafForumInfo.GetURLToResource("images/HiddenWarnDescription.png"));
 
-            if (!this.Get<YafBoardSettings>().EnableThanksMod)
+
+            if (YafContext.Current.IsAdmin)
             {
                 writer.Write(hiddenContent);
                 return;
             }
 
-            if (YafContext.Current.IsGuest)
-            {
-                writer.Write(shownContentGuest);
-                return;
-            }
+            var userId = YafContext.Current.CurrentUserData.UserID;
 
-            if (YafContext.Current.IsAdmin)
+            if (postsCount > -1)
             {
-                shownContent = hiddenContent;
+                // Handle Hide Posts Count X BBCOde
+                var descriptionPost = LocalizedString(
+                    "HIDDENMOD_POST",
+                    "Hidden Content (You must be registered and have {0} post(s) or more)").FormatWith(postsCount);
+
+                string shownContentPost =
+                    "<div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all  HiddenGuestBox\"><p><span class=\"ui-icon ui-icon-alert HiddenGuestBoxImage\"></span>{0}</p></div></div>"
+                        .FormatWith(descriptionPost);
+
+
+                if (YafContext.Current.IsGuest)
+                {
+                    writer.Write(shownContentPost);
+                    return;
+                }
+
+
+                if (DisplayUserID == userId ||
+                    YafContext.Current.CurrentUserData.NumPosts >= postsCount)
+                {
+                    shownContent = hiddenContent;
+                }
+                else
+                {
+                    shownContent = shownContentPost;
+                }
+            }
+            else if (thanksCount > -1)
+            {
+                // Handle Hide Thanks Count X BBCode
+                var descriptionPost = LocalizedString(
+                    "HIDDENMOD_THANKS",
+                    "Hidden Content (You must be registered and have at least {0} thank(s) received)").FormatWith(thanksCount);
+
+                string shownContentPost =
+                    "<div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all  HiddenGuestBox\"><p><span class=\"ui-icon ui-icon-alert HiddenGuestBoxImage\"></span>{0}</p></div></div>"
+                        .FormatWith(descriptionPost);
+
+
+                if (YafContext.Current.IsGuest)
+                {
+                    writer.Write(shownContentPost);
+                    return;
+                }
+
+
+                if (DisplayUserID == userId ||
+                    LegacyDb.user_ThankFromCount(userId) >= thanksCount)
+                {
+                    shownContent = hiddenContent;
+                }
+                else
+                {
+                    shownContent = shownContentPost;
+                }
             }
             else
             {
-                var userId = YafContext.Current.CurrentUserData.UserID;
+                // Handle Hide Thanks
+                if (!this.Get<YafBoardSettings>().EnableThanksMod)
+                {
+                    writer.Write(hiddenContent);
+                    return;
+                }
+
+                if (YafContext.Current.IsGuest)
+                {
+                    writer.Write(shownContentGuest);
+                    return;
+                }
+
 
                 if (DisplayUserID == userId ||
-                        LegacyDb.user_ThankedMessage(messageId.ToType<int>(), userId))
+                    LegacyDb.user_ThankedMessage(messageId.ToType<int>(), userId))
                 {
                     // Show hiddent content if user is the poster or have thanked the poster.
                     shownContent = hiddenContent;
+                }
+                else
+                {
+                    shownContent = "<img src=\"{1}\" alt=\"{0}\" title=\"{0}\" />".FormatWith(
+                        description, YafForumInfo.GetURLToResource("images/HiddenWarnDescription.png"));
                 }
             }
 

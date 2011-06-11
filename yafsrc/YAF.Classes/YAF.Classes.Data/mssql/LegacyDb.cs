@@ -7878,6 +7878,60 @@ namespace YAF.Classes.Data
       }
     }
 
+      /// <summary>
+      /// Get the Thanks From Count for the user.
+      /// </summary>
+      /// <param name="userId">
+      /// The user id.
+      /// </param>
+      /// <returns>
+      /// Returns the Thank Count.
+      /// </returns>
+      public static int user_ThankFromCount([NotNull] object userId)
+    {
+        using (var cmd = MsSqlDbAccess.GetCommand("user_thankfromcount"))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("UserID", userId);
+
+            cmd.CommandTimeout = int.Parse(Config.SqlCommandTimeout);
+
+            var thankCount = (int)MsSqlDbAccess.Current.ExecuteScalar(cmd);
+
+            return thankCount;
+        }
+    }
+
+      /// <summary>
+      /// Checks if the User has replied tho the specifc topic.
+      /// </summary>
+      /// <param name="messageId">
+      /// The message id.
+      /// </param>
+      /// <param name="userId">
+      /// The user id.
+      /// </param>
+      /// <returns>
+      /// Returns if true or not
+      /// </returns>
+      public static bool user_RepliedTopic([NotNull] object messageId, [NotNull] object userId)
+      {
+          using (var cmd = MsSqlDbAccess.GetCommand("user_repliedtopic"))
+          {
+              cmd.CommandType = CommandType.StoredProcedure;
+
+              cmd.Parameters.AddWithValue("MessageID", messageId);
+              cmd.Parameters.AddWithValue("UserID", userId);
+
+              cmd.CommandTimeout = int.Parse(Config.SqlCommandTimeout);
+
+              var messageCount = (int)MsSqlDbAccess.Current.ExecuteScalar(cmd);
+
+              return messageCount > 0;
+          }
+      }
+
     /// <summary>
     /// Is User Thanked the current Message
     /// </summary>

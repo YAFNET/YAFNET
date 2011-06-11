@@ -10,6 +10,14 @@ IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{database
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}recent_users]
 GO
 
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_thankfromcount]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_thankfromcount]
+GO
+
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_repliedtopic]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_repliedtopic]
+GO
+
 IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_thankedmessage]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_thankedmessage]
 GO
@@ -9284,6 +9292,26 @@ DECLARE @ParsedMessageIDs TABLE
 			FROM @ParsedMessageIDs a
 			INNER JOIN [{databaseOwner}].[{objectQualifier}Message] d ON (d.MessageID = a.MessageID)
 END
+GO
+
+CREATE procedure [{databaseOwner}].[{objectQualifier}user_thankfromcount]
+(@UserID int) as
+begin
+        SELECT COUNT(TH.ThanksID) 
+		FROM [{databaseOwner}].[{objectQualifier}Thanks] AS TH WHERE (TH.ThanksToUserID=@UserID)
+end
+GO
+
+CREATE procedure [{databaseOwner}].[{objectQualifier}user_repliedtopic]
+(@MessageID int, @UserID int) as
+begin
+        DECLARE @TopicID int
+		SET @TopicID = (SELECT TopicID FROM [{databaseOwner}].[{objectQualifier}Message] WHERE (MessageID = @MessageID))
+
+		SELECT COUNT(t.MessageID)
+        FROM [{databaseOwner}].[{objectQualifier}Message] AS t WHERE (t.TopicID=@TopicID) AND (t.UserID = @UserID)
+		
+end
 GO
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}user_thankedmessage]

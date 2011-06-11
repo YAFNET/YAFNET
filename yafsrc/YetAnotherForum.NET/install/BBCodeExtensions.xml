@@ -122,13 +122,13 @@
     <ExecOrder>1</ExecOrder>
   </YafBBCode>
   <YafBBCode>
-    <Name>HIDDEN</Name>
-    <Description>[HIDDEN][localization=HIDEMOD_DESCRIPTION]The tag hides content from people until they press the thank you button for the post.[/localization][/HIDDEN]</Description>
+    <Name>HIDE</Name>
+    <Description>[HIDE][localization=HIDEMOD_DESCRIPTION]The tag hides content from people until they press the thank you button for the post.[/localization][/HIDE]</Description>
     <OnClickJS />
     <DisplayJS />
     <EditJS />
     <DisplayCSS>.HiddenGuestBox {padding: 0 .7em;}.HiddenGuestBoxImage img {float: left; padding: 0 0 3px 3px;}.HiddenGuestBox br {clear:both}</DisplayCSS>
-    <SearchRegex>\[hidden\](?&lt;inner&gt;(.|\n)*?)\[\/hidden\]</SearchRegex>
+    <SearchRegex>\[hide\](?&lt;inner&gt;(.|\n)*?)\[\/hide\]</SearchRegex>
     <ReplaceRegex />
     <Variables />
     <UseModule>true</UseModule>
@@ -136,17 +136,74 @@
     <ExecOrder>60</ExecOrder>
   </YafBBCode>
    <YafBBCode>
-    <Name>HIDE</Name>
-    <Description>[HIDE][localization=HIDEGROUPMOD_DESCRIPTION]The tag hides from Guests[/localization][/HIDE]</Description>
+    <Name>GROUP-HIDE</Name>
+    <Description>[GROUP-HIDE][localization=HIDEGROUPMOD_DESCRIPTION]The tag hides from Guests[/localization][/GROUP-HIDE]</Description>
     <OnClickJS />
     <DisplayJS />
     <EditJS />
     <DisplayCSS>.HiddenGuestBox {padding: 0 .7em;}.HiddenGuestBoxImage {float: left; margin-right: .3em;}</DisplayCSS>
-    <SearchRegex>\[hide\](?&lt;inner&gt;(.|\n)*?)\[\/hide\]|\[hide=(?&lt;group&gt;([^""\r\n\]\[]*?))\](?&lt;inner&gt;(.|\n)*?)\[\/hide\]</SearchRegex>
+    <SearchRegex>\[group-hide\](?&lt;inner&gt;(.|\n)*?)\[\/group-hide\]|\[group-hide=(?&lt;group&gt;([^""\r\n\]\[]*?))\](?&lt;inner&gt;(.|\n)*?)\[\/group-hide\]</SearchRegex>
     <ReplaceRegex />
     <Variables>group</Variables>
     <UseModule>true</UseModule>
     <ModuleClass>YAF.Modules.BBCode.GroupHide</ModuleClass>
     <ExecOrder>1</ExecOrder>
+  </YafBBCode>
+  <YafBBCode>
+    <Name>HIDE-THANKS</Name>
+    <Description>[HIDE-THANKS=x][localization=HIDETHANKS_DESCRIPTION]The tag hides content from people who have below X thanks received.[/localization][/HIDE-THANKS]</Description>
+    <OnClickJS />
+    <DisplayJS />
+    <EditJS />
+    <DisplayCSS>.HiddenGuestBox {padding: 0 .7em;}.HiddenGuestBoxImage img {float: left; padding: 0 0 3px 3px;}.HiddenGuestBox br {clear:both}</DisplayCSS>
+    <SearchRegex>\[hide-thanks=(?&lt;thanks&gt;([0-9]*))\](?&lt;inner&gt;(.|\n)*?)\[\/hide-thanks\]</SearchRegex>
+    <ReplaceRegex />
+    <Variables>thanks</Variables>
+    <UseModule>true</UseModule>
+    <ModuleClass>YAF.Modules.BBCode.HideBBCodeModule</ModuleClass>
+    <ExecOrder>1</ExecOrder>
+  </YafBBCode>
+  <YafBBCode>
+    <Name>HIDE-REPLY-THANKS</Name>
+    <Description>[HIDE-REPLY-THANKS][localization=HIDEREPLYTHANKS_DESCRIPTION]The tag hides content from people until they either reply in the same thread or press the thank you button for the post.[/localization][/HIDE-REPLY-THANKS]</Description>
+    <OnClickJS />
+    <DisplayJS />
+    <EditJS />
+    <DisplayCSS>.HiddenGuestBox {padding: 0 .7em;}.HiddenGuestBoxImage img {float: left; padding: 0 0 3px 3px;}.HiddenGuestBox br {clear:both}</DisplayCSS>
+    <SearchRegex>\[hide-reply-thanks\](?&lt;inner&gt;(.|\n)*?)\[\/hide-reply-thanks\]</SearchRegex>
+    <ReplaceRegex />
+    <Variables />
+    <UseModule>true</UseModule>
+    <ModuleClass>YAF.Modules.BBCode.HideReplyThanksModule</ModuleClass>
+    <ExecOrder>1</ExecOrder>
+  </YafBBCode>
+  <YafBBCode>
+    <Name>HIDE-REPLY</Name>
+    <Description>[HIDE-REPLY][localization=HIDEREPLY_DESCRIPTION]The tag hides content from people until they reply in the same thread.[/localization][/HIDE-REPLY]</Description>
+    <OnClickJS />
+    <DisplayJS />
+    <EditJS />
+    <DisplayCSS>.HiddenGuestBox {padding: 0 .7em;}.HiddenGuestBoxImage img {float: left; padding: 0 0 3px 3px;}.HiddenGuestBox br {clear:both}</DisplayCSS>
+    <SearchRegex>\[hide-reply\](?&lt;inner&gt;(.|\n)*?)\[\/hide-reply\]</SearchRegex>
+    <ReplaceRegex />
+    <Variables />
+    <UseModule>true</UseModule>
+    <ModuleClass>YAF.Modules.BBCode.HideReplyModule</ModuleClass>
+    <ExecOrder>1</ExecOrder>
+  </YafBBCode>
+  
+  <YafBBCode>
+    <Name>HIDE-POSTS</Name>
+    <Description>[HIDE-POSTS=x][localization=HIDEPOSTS_DESCRIPTION]The tag hides content from people who have below X posts.[/localization][/HIDE-POSTS]</Description>
+    <OnClickJS />
+    <DisplayJS />
+    <EditJS />
+    <DisplayCSS>.HiddenGuestBox {padding: 0 .7em;}.HiddenGuestBoxImage img {float: left; padding: 0 0 3px 3px;}.HiddenGuestBox br {clear:both}</DisplayCSS>
+    <SearchRegex>\[hide-posts=(?&lt;posts&gt;([0-9]*))\](?&lt;inner&gt;(.|\n)*?)\[\/hide-posts\]</SearchRegex>
+    <ReplaceRegex />
+    <Variables>posts</Variables>
+    <UseModule>true</UseModule>
+    <ModuleClass>YAF.Modules.BBCode.HideBBCodeModule</ModuleClass>
+    <ExecOrder>2</ExecOrder>
   </YafBBCode>
 </YafBBCodeList>
