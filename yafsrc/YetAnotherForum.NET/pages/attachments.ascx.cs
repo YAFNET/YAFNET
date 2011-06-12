@@ -365,7 +365,8 @@ namespace YAF.Pages
 
       bool bInList = dt.Rows.Count > 0;
       bool bError = false;
-
+     
+        
       if (this.PageContext.BoardSettings.FileExtensionAreAllowed && !bInList)
       {
         // since it's not in the list -- it's invalid
@@ -375,6 +376,12 @@ namespace YAF.Pages
       {
         // since it's on the list -- it's invalid
         bError = true;
+      }
+
+      if (filePath.Contains(";."))
+      {
+          // IIS semicolon valnerabilty fix
+          bError = true;
       }
 
       if (bError)
