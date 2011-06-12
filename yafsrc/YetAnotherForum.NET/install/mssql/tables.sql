@@ -113,7 +113,7 @@ if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseO
 		IsAdmin				bit NOT NULL ,
 		IsForumModerator	bit NOT NULL ,
 		IsModerator			bit NOT NULL ,
-		IsGuestX			    bit NOT NULL constraint [DF_{ActiveAccess_IsGuest] default(0),
+		IsGuestX			bit NOT NULL constraint [DF_{ActiveAccess_IsGuest] default(0),
 		LastActive			datetime NULL ,
 		ReadAccess			bit NOT NULL ,
 		PostAccess			bit NOT NULL ,
@@ -179,6 +179,16 @@ if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseO
 		[UserID] [int] NULL ,
 		[RemoteIP] [varchar] (57) NULL,
 		[ChoiceID] [int] NULL
+	)
+GO
+
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}PollVoteRefuse]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	CREATE TABLE [{databaseOwner}].[{objectQualifier}PollVoteRefuse] (
+		[RefuseID] [int] IDENTITY (1, 1) NOT NULL ,
+		[BoardID] [int] NOT NULL ,
+		[PollID] [int] NOT NULL ,
+		[UserID] [int] NULL ,
+		[RemoteIP] [varchar] (57) NULL
 	)
 GO
 
@@ -407,7 +417,10 @@ if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseO
 		[Flags] [int]	NOT NULL CONSTRAINT [DF_{objectQualifier}User_Flags] DEFAULT (0),
 		[Points] [int]	NOT NULL CONSTRAINT [DF_{objectQualifier}User_Points] DEFAULT (0),		
 		[IsApproved]	AS (CONVERT([bit],sign([Flags]&(2)),(0))),
-		[IsActiveExcluded] AS (CONVERT([bit],sign([Flags]&(16)),(0)))		
+		[IsGuest]	AS (CONVERT([bit],sign([Flags]&(4)),(0))),
+		[IsCaptchaExcluded]	AS (CONVERT([bit],sign([Flags]&(8)),(0))),
+		[IsActiveExcluded] AS (CONVERT([bit],sign([Flags]&(16)),(0))),
+		[IsDST]	AS (CONVERT([bit],sign([Flags]&(32)),(0)))
 )
 GO
 
@@ -1086,6 +1099,26 @@ BEGIN
 	end
 END
 GO
+
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='IsGuest')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}User] add [IsGuest] AS (CONVERT([bit],sign([Flags]&(4)),(0)))
+end
+GO
+
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='IsCaptchaExcluded')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}User] add [IsCaptchaExcluded] AS (CONVERT([bit],sign([Flags]&(8)),(0)))
+end
+GO
+
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='IsDST')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}User] add [IsDST] AS (CONVERT([bit],sign([Flags]&(32)),(0)))
+end
+GO
+
+		
 
 -- Forum Table
 if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='RemoteURL')

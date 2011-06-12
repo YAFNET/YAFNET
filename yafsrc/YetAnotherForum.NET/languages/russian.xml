@@ -171,7 +171,7 @@
     <Resource tag="CONFIRM_DELETE_ALL">Удалить всех неодобренных пользователей, зарегистированных раньше указанного числа дней?</Resource>
     <Resource tag="DAYS_AGO">"{0:d} ({1:N0} дней назад)</Resource>
     <Resource tag="DELETE_ALL">Удалить всех зарегистрированных ранее, дней:</Resource>
-    <Resource tag="ERROR_DATABASESIZE">Unable to fetch DB Size</Resource>
+    <Resource tag="ERROR_DATABASESIZE">Невозможно определить размер БД</Resource>
     <Resource tag="HEADER1">Пользователи онлайн</Resource>
     <Resource tag="HEADER2">Неподтверждённые пользователи</Resource>
     <Resource tag="HEADER3">Статистика для</Resource>
@@ -607,8 +607,8 @@
     <Resource tag="PRIVATE_MESSAGES_HELP">Максимальное количество сообщений, разрешённых обладателям статуса.</Resource>
     <Resource tag="RANK_DESC">Описание:</Resource>
     <Resource tag="RANK_DESC_HELP">Введите здесь описание статуса.</Resource>
-    <Resource tag="RANK_IMAGE">Rank Image:</Resource>
-    <Resource tag="RANK_IMAGE_HELP">Это изоражение будет отображаться рядом с пользователям с этим статусом.</Resource>
+    <Resource tag="RANK_IMAGE">Изображение статуса:</Resource>
+    <Resource tag="RANK_IMAGE_HELP">Это изображение будет отображаться рядом с пользователям с этим статусом.</Resource>
     <Resource tag="RANK_NAME">Название:</Resource>
     <Resource tag="RANK_NAME_HELP">Название статуса.</Resource>
     <Resource tag="RANK_PRIO">Приоритет:</Resource>
@@ -881,8 +881,8 @@
     <Resource tag="ENABLE_LOCATIONPATH_ERRORS_HELP">Журналирование ошибок списка нахождения активных пользователей. Используется при отладке.</Resource>
     <Resource tag="ENABLE_RETWEET_MSG">Включить кнопку ретвиттера:</Resource>
     <Resource tag="ENABLE_RETWEET_MSG_HELP">Делает доступной кнопку ретвита и пользователь может проретвитить сообщение.</Resource>
-    <Resource tag="ENABLE_SSO">Enable Single Sign On:</Resource>
-    <Resource tag="ENABLE_SSO_HELP">If checked, users will be able to Login to an existing account via Facebook. This only works YAF.FacebookAPIKey and YAF.FacebookSecretKey are setup in app.config.</Resource>
+    <Resource tag="ENABLE_SSO">Включить единую регистрацию в Facebook:</Resource>
+    <Resource tag="ENABLE_SSO_HELP">Если включено, то пользователи смогут войти в существующим аккаунтом Facebook. YAF.FacebookAPIKey и YAF.FacebookSecretKey должны быть настроены в app.config.</Resource>
     <Resource tag="EXTERN_NEWWINDOW">Показывать результаты внешнего поиска в новом окне:</Resource>
     <Resource tag="EXTERN_NEWWINDOW_HELP">Показывать результаты внешнего поиска в новом окне.</Resource>
     <Resource tag="EXTERN_SEARCH_PERMISS">Разрешения для внешнего поиска:</Resource>
@@ -1071,7 +1071,7 @@
     <Resource tag="SERVERTIME_CORRECT">Коррекция временной зоны сервера:</Resource>
     <Resource tag="SERVERTIME_CORRECT_HELP">Введите целое число (минуты) между -720 и 720, только если это время UTC неверно: </Resource>
     <Resource tag="SHOW_ACTIVE_DISCUSSION">Показывать активные обсуждения:</Resource>
-    <Resource tag="SHOW_ACTIVE_DISCUSSION_HELP">Вклчюить или отключить отображение активных обсуждений.</Resource>
+    <Resource tag="SHOW_ACTIVE_DISCUSSION_HELP">Включить или отключить отображение активных обсуждений.</Resource>
     <Resource tag="SHOW_ATOM_LINKS">Отображать ссылки на ленты Atom:</Resource>
     <Resource tag="SHOW_ATOM_LINKS_HELP">Отображать ссылки на ленты Atom по всему форумы. Вы должны также включить индивидуальные ленты.</Resource>
     <Resource tag="SHOW_AVATARS_TOPICLISTS">Показывать аватары в списке тем:</Resource>
@@ -1218,16 +1218,9 @@
     <Resource tag="TITLE">Форумы NNTP</Resource>
   </page>
   <page name="ADMIN_NNTPRETRIEVE">
-    <Resource tag="BETA_WARNING">&lt;p style="color: red"&gt;
-		NNTP  для Yet Another Forum.net находится в бета-статусе, и &lt;strong&gt;имеет&lt;/strong&gt; баги.
-		Сообщайте о найденных проблемах разработчикам.
-	&lt;/p&gt;
-	&lt;p style="color: red"&gt;
-		Статьи только для чтения и вы не сможете посылать ответы на них.
-	&lt;/p&gt;
-	&lt;p style="color: red"&gt;
+    <Resource tag="BETA_WARNING">
 		Для защиты пользователей групп новостей статьи обновляются раз в 10 минут.
-	&lt;/p&gt;</Resource>
+	  </Resource>
     <Resource tag="GROUPS">Группы готовые для захвата</Resource>
     <Resource tag="HEADER">Получить статьи NNTP</Resource>
     <Resource tag="LAST_MESSAGE">Последнее сообщение</Resource>
@@ -1513,16 +1506,16 @@
     <Resource tag="HIDDENMOD_DESC">Контент этого поста скрыт. После того, как вы поблагодарите постящего за это сообщение он будет доступен, обновите страницу для просмотра скрытого контента. You need to thank the Current Post</Resource>
     <Resource tag="HIDDENMOD_GROUP">Не хватате прав для просмотра скрытого содержимого.</Resource>
     <Resource tag="HIDDENMOD_GUEST">Эта конференция требует регистрации перед тем как вы сможете увидеть скрытые сообщения.</Resource>
-    <Resource tag="HIDDENMOD_POST">Hidden Content (You must be registered and have {0} post(s) or more.)</Resource>
-    <Resource tag="HIDDENMOD_THANKS">Hidden Content (You must be registered, and have at least {0} thank(s) received.)</Resource>
+    <Resource tag="HIDDENMOD_POST">Скрытый текст (Вы должны быть зарегистрированы и иметь не менее {0} сообщений)</Resource>
+    <Resource tag="HIDDENMOD_THANKS">Скрытый текст (Вы должны быть зарегистрированы и иметь не менее {0} «Спасибо»)</Resource>
     <Resource tag="HIDEGROUPMOD_DESCRIPTION">Скрыть содержимое от гостей или других ролей, если определено.</Resource>
     <Resource tag="HIDEMOD_DESCRIPTION">Этот тэг скрывает содержимое поста до тех пор пока они не нажмут кнопку Спасибо.</Resource>
-    <Resource tag="HIDEMOD_REPLY">Hidden Content (You must be registered and reply to the message to see the hidden Content.)</Resource>
-    <Resource tag="HIDEMOD_REPLYTHANKS">Hidden Content (You must be registered and reply to the message, or give thank, to see the hidden Content.)</Resource>
-    <Resource tag="HIDEPOSTS_DESCRIPTION">The tag hides content from people who have below then X posts.</Resource>
-    <Resource tag="HIDEREPLY_DESCRIPTION">The tag hides content from people until they replied in the same thread.</Resource>
-    <Resource tag="HIDEREPLYTHANKS_DESCRIPTION">The tag hides content from people until they either reply in the same thread or press the thank you button for the post.</Resource>
-    <Resource tag="HIDETHANKS_DESCRIPTION">The tag hides content from people who have below then X thanks received.</Resource>
+    <Resource tag="HIDEMOD_REPLY">Скрытый текст (Вы должны зарегистрироваться и ответить на сообщение для просмотра скрытого содержимого)</Resource>
+    <Resource tag="HIDEMOD_REPLYTHANKS">Скрытый текст (Вы должны зарегистрироваться и ответить на сообщение или сказать «Спасибо» для просмотра скрытого содержимого)</Resource>
+    <Resource tag="HIDEPOSTS_DESCRIPTION">Этот тег скрывает текст от тех, кто имеет менее X сообщений.</Resource>
+    <Resource tag="HIDEREPLY_DESCRIPTION">Этот тег скрывает текст от пользователей, которые не ответили в данной теме.</Resource>
+    <Resource tag="HIDEREPLYTHANKS_DESCRIPTION">Этот тег скрывает текст от пользователей, которые не ответили в теме или не сказали «Спасибо».</Resource>
+    <Resource tag="HIDETHANKS_DESCRIPTION">Этот тег скрывает текст от тех, кто имеет меньше X «Спасибо».</Resource>
     <Resource tag="SPOILERMOD_DESCRIPTION">Поместите сюда текст спойлера</Resource>
     <Resource tag="SPOILERMOD_HIDE">Скрыть спойлер</Resource>
     <Resource tag="SPOILERMOD_SHOW">Открыть спойлер</Resource>
@@ -1669,7 +1662,7 @@
     <Resource tag="NONE">Ничего</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">Новое сообщение на форуме {0} должно быть Вами одобрено</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE">Пожаловались на сообщение в форуме {0}</Resource>
-    <Resource tag="NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT">Registration on {0} Forum successfully</Resource>
+    <Resource tag="NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT">Успешная регистрация на форуме {0}</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">На форуме {0} зарегистрирован новый пользователь.</Resource>
     <Resource tag="OK">ОК</Resource>
     <Resource tag="OR">или</Resource>
@@ -1825,7 +1818,7 @@
     <Resource tag="AIM">Ваш логин AIM:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Желаете ли Вы получать уведомление по электронной почте каждый раз, когда кто-либо оставляет сообщение во [b]всех[/b] обсуждениях с вашим участием?</Resource>
     <Resource tag="BAD_EMAIL">Вы ввели недопустимый адрес электронной почты.</Resource>
-    <Resource tag="BAD_FACEBOOK">You have entered an illegal value as Facebook Profile ID.</Resource>
+    <Resource tag="BAD_FACEBOOK">Вы вели недопустимый идентификатор профиля Facebook.</Resource>
     <Resource tag="BAD_HOME">Вы ввели неработающий адрес своей домашней страницы.</Resource>
     <Resource tag="BAD_ICQ">Вы ввели недопустимое значение для вашего номера ICQ.</Resource>
     <Resource tag="BAD_MSN">Вы ввели неверный адрес электронной почты для учётной записи MSN.</Resource>
@@ -1843,7 +1836,7 @@
     <Resource tag="HIDEME">Не отображать в активных</Resource>
     <Resource tag="HOMEPAGE">Домашняя страница</Resource>
     <Resource tag="HOMEPAGE2">Ваш веб-сайт (публичный):</Resource>
-    <Resource tag="ICQ">Your ICQ Number:</Resource>
+    <Resource tag="ICQ">ВАш номер ICQ:</Resource>
     <Resource tag="LOCATION">Место</Resource>
     <Resource tag="MAIL_SENT">Сообщение по электронной почте было отправлено {0}.\n\nВам необходимо подтвердить ваш адрес электронной почты перейдя по ссылке в сообщении перед тем, как адрес электронной почты будет изменён.</Resource>
     <Resource tag="MESSENGER">Службы мгновенных сообщений</Resource>
@@ -1859,13 +1852,13 @@
     <Resource tag="SELECT_LANGUAGE">Какой язык вы хотите использовать:</Resource>
     <Resource tag="SELECT_TEXTEDITOR">Текстовой редактор:</Resource>
     <Resource tag="SELECT_THEME">Выберите нужную тему:</Resource>
-    <Resource tag="SKYPE">Your SKYPE ID:</Resource>
+    <Resource tag="SKYPE">Ваш SKYPE ID:</Resource>
     <Resource tag="TIMEZONE">Часовой пояс</Resource>
     <Resource tag="TIMEZONE2">Чтобы показывать местную дату и время мы должны знать Ваш часовой пояс.</Resource>
     <Resource tag="TITLE">Изменить профиль</Resource>
     <Resource tag="TWITTER">Ваш ник в Twitter:</Resource>
     <Resource tag="USE_MOBILE_THEME">Использовать тему для мобильного устройства:</Resource>
-    <Resource tag="USE_SINGLESIGNON">Did you want to Use Single Sign On?&lt;br /&gt;You need to have Set Up the Facebook Profile ID above.</Resource>
+    <Resource tag="USE_SINGLESIGNON">Желаете включить единую регистрацию?&lt;br /&gt;Вы должны ввести ID профиля Facebook.</Resource>
     <Resource tag="WEBLOG2">URL вашего публичного блога:</Resource>
     <Resource tag="WHERE">Где Вы живете?</Resource>
     <Resource tag="XMPP">Ваш Jabber ID:</Resource>
@@ -2441,7 +2434,7 @@
     <Resource tag="BOTH_USERNAME_EMAIL">Должны быть введены как адрес почты пользователя, так и его имя.</Resource>
     <Resource tag="EMAIL">Адрес Email</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">Было послано сообщение по почте с вашим новым паролем.</Resource>
-    <Resource tag="FACEBOOK_LOGIN">Login with Facebook</Resource>
+    <Resource tag="FACEBOOK_LOGIN">Войти через Facebook</Resource>
     <Resource tag="FORUM_LOGIN">Войти</Resource>
     <Resource tag="LOSTPASSWORD">Восстановить пароль</Resource>
     <Resource tag="PASSWORD">Пароль:</Resource>
@@ -2449,10 +2442,10 @@
     <Resource tag="RECOVER">Восстановление пароля</Resource>
     <Resource tag="RECOVER_ERROR">Произошла ошибка во время создания Вашего нового пароля.</Resource>
     <Resource tag="SENDPASSWORD">Отправить пароль</Resource>
-    <Resource tag="SSO_DEACTIVATED">Single Sign On is currently deactivated by the Administrator!</Resource>
-    <Resource tag="SSO_DEACTIVATED_BYUSER">Single Sign On is deactivated for that User, you need to activate it in your Profile Settings to use that feature.</Resource>
-    <Resource tag="SSO_FAILED">The Facebook Login failed, a User with that Email Address doesn't  exists.</Resource>
-    <Resource tag="SSO_ID_NOTMATCH">The Facebook User ID does not match!</Resource>
+    <Resource tag="SSO_DEACTIVATED">Единая регистрация выключена администратором форума!</Resource>
+    <Resource tag="SSO_DEACTIVATED_BYUSER">Единая регистрация отключена, Вам необходимо включить её в своём профиле.</Resource>
+    <Resource tag="SSO_FAILED">Логин через Facebook не удался. Нет пользователя с таким адресом Email .</Resource>
+    <Resource tag="SSO_ID_NOTMATCH">Неверный ID пользователя Facebook !</Resource>
     <Resource tag="TITLE">Вход</Resource>
     <Resource tag="USERNAME">Имя пользователя:</Resource>
     <Resource tag="WRONG_USERNAME_EMAIL">Неверное имя пользователя или адрес электронной почты.</Resource>
@@ -2468,10 +2461,10 @@
     <Resource tag="NUMPOSTSMOREOREQUAL">больше или равно</Resource>
     <Resource tag="PAGES">{0} Страниц:</Resource>
     <Resource tag="POSTS">Сообщения</Resource>
-    <Resource tag="RANK">Ранг</Resource>
+    <Resource tag="RANK">Статус</Resource>
     <Resource tag="SEARCH_MEMBER">Имя пользователя/часть имени:</Resource>
     <Resource tag="SEARCH_MEMBERS">Поиск пользователей</Resource>
-    <Resource tag="SEARCH_RANK">Ранг:</Resource>
+    <Resource tag="SEARCH_RANK">Статус:</Resource>
     <Resource tag="SEARCH_ROLE">Роль:</Resource>
     <Resource tag="TITLE">Пользователи</Resource>
     <Resource tag="USERNAME">Имя пользователя</Resource>
@@ -2789,7 +2782,7 @@
     <Resource tag="QUICKREPLY">Быстрый ответ</Resource>
     <Resource tag="QUICKREPLY_HIDE">Скрыть форму быстрого ответа</Resource>
     <Resource tag="QUICKREPLY_SHOW">Показать форму быстрого ответа</Resource>
-    <Resource tag="RANK">Ранг</Resource>
+    <Resource tag="RANK">Статус</Resource>
     <Resource tag="REDDIT_TOPIC">Поделиться в Reddit</Resource>
     <Resource tag="REPORTEDFEEDBACK">Спасибо за информацию об этом сообщении.</Resource>
     <Resource tag="REPORTPOST">Жалоба!</Resource>
@@ -2819,7 +2812,7 @@
     <Resource tag="TOP">Вверх</Resource>
     <Resource tag="TOPICBROWSERS">Пользователи, просматривающие эту тему</Resource>
     <Resource tag="TOTAL">Всего</Resource>
-    <Resource tag="TUMBLR_TOPIC">Share on Tumblr</Resource>
+    <Resource tag="TUMBLR_TOPIC">Поделиться на Tumblr</Resource>
     <Resource tag="Twitter">Твиттер</Resource>
     <Resource tag="TWITTER_TITLE">Посетите профиль {0} в Твиттере</Resource>
     <Resource tag="UNWATCHTOPIC">Не отслеживать эту тему</Resource>
@@ -2885,7 +2878,7 @@
     <Resource tag="PM">Личное сообщение:</Resource>
     <Resource tag="POSTED">Оставлено:</Resource>
     <Resource tag="PROFILE">Профиль:</Resource>
-    <Resource tag="RANK">Ранг на форуме:</Resource>
+    <Resource tag="RANK">Статус на форуме:</Resource>
     <Resource tag="REALNAME">Настоящее имя:</Resource>
     <Resource tag="REMOVESUSPENSION">Отменить бан</Resource>
     <Resource tag="SEARCHUSER">Просмотр всех сообщений пользователя</Resource>
