@@ -147,7 +147,10 @@ namespace YAF.Utils.Helpers
   {
     string ip4Address = String.Empty;
 
-     //Loop through all address InterNetwork - Address for IP version 4
+    // don't resolve nntp
+    if (addressIpv6.IsSet() && addressIpv6.ToLower().Contains("nntp")) return addressIpv6;
+
+     //Loop through all address InterNetwork - Address for IP version 4))
     foreach (var ipAddress in
         Dns.GetHostAddresses(addressIpv6).Where(ipAddress => ipAddress.AddressFamily == AddressFamily.InterNetwork))
     {
