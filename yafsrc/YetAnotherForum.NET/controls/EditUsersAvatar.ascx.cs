@@ -291,6 +291,11 @@ namespace YAF.Controls
 
                     this.AvatarImg.ImageUrl = "{0}resource.ashx?u={1}&upd={2}".FormatWith(
                       YafForumInfo.ForumClientFileRoot, this._currentUserID, DateTime.Now.Ticks);
+
+                    if ( this.AvatarImg.ImageUrl.IsSet())
+                    {
+                        this.NoAvatar.Visible = false;
+                    }
                 }
             }
             catch (Exception)
