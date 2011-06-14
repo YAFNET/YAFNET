@@ -2145,7 +2145,29 @@
 &lt;p&gt;&lt;strong&gt;Are all members listed?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Some members may not be on the list. The administrator has options over who is shown on the list. They may, for example, omit members who have not made many posts or who belong to certain user groups.&lt;/p&gt;</Resource>
     <Resource tag="MEMBERSLISTTITLE">Members List</Resource>
-    <Resource tag="MESSENGERCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
+    <Resource tag="MESSENGERCONTENT">
+        &lt;p&gt;Registered members may be able to send messages to other members of this forum using the private messaging system (If enabled by the Administrator).
+        &lt;/p&gt;
+        &lt;p&gt;When you  receive a Private Message you will be notified in the Forum Header, about how  many unread message you have, also a Notification will Pop Up. You can also  enable an E-Mail Notification&lt;/p&gt;
+        &lt;p&gt;&lt;strong&gt;How do I send Private Messages?&lt;/strong&gt;&lt;/p&gt;
+        &lt;p&gt;Private  messages are similar to emails, but are limited to registered members of this  forum. You may be able to include BB code, smilies and images in private  messages that you send.&lt;br /&gt;
+        You can  send a Private message to a user by clicking on the &amp;ldquo;PM&amp;rdquo; Button on the User  Profile of the user, or you click on the &amp;ldquo;New Message&amp;rdquo; Link in your User  Control Panel. The message you send will be stored in the &amp;ldquo;Sent Items&amp;rdquo; folder after  you send it.&lt;/p&gt;
+        &lt;p&gt;&lt;strong&gt;Private  Message Folders&lt;/strong&gt;&lt;/p&gt;
+        &lt;p&gt;Just like  an Email Program you have 3 Folders the Inbox, the Sent Items and the Archive  Folder...&lt;/p&gt;
+        &lt;ul&gt;
+        &lt;li&gt;The &amp;ldquo;Inbox&amp;rdquo;  Folder contains any new messages you receive. It allows you to view all the  messages you have received, along with the name of the person who sent it, the  subject of the message, and the date and time it was sent.&lt;/li&gt;
+        &lt;li&gt;The &amp;ldquo;Sent  Items&amp;rdquo; copies of all the Private Messages you have sent.&lt;/li&gt;
+        &lt;li&gt;The &amp;ldquo;Archive&amp;rdquo;  folder contains only messages you moved to that folder.&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;p&gt;From Each  folder you have Options what you want to do with the messages that are in the  folder you can simply mark a message and …&lt;br /&gt;
+        &lt;/p&gt;
+        &lt;ul&gt;
+        &lt;li&gt;Archive  Selected / Archive All – Move the Message(s) to the archive folder&lt;/li&gt;
+        &lt;li&gt;Export  Selected / Export All – Export the Message(s) as file (You Can select the  export format bellow –XML-/CSV-/Text-File)&lt;/li&gt;
+        &lt;li&gt;Delete  Selected / Delete All – Delete the Message(s)&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;p&gt;Depending  on how many Messages you allowed to have you should delete some of them from  time (You can export Them before you delete them to keep them on your local computer). Otherwise when your Mailbox is full you are not able to receive new  messages. On the Bottom you will be informed how many Messages you have and how  many you can Maximal have.&lt;/p&gt;
+      </Resource>
     <Resource tag="MESSENGERTITLE">Private Messages (Messenger)</Resource>
     <Resource tag="MODSADMINSCONTENT">&lt;p&gt;Moderators oversee specific forums. They generally have the ability to edit and delete posts, move topics, and perform other actions. Becoming a moderator for a specific forum is usually rewarded to users who are particularly helpful and knowledgeable in the subject of the forum they are moderating.&lt;/p&gt;
 &lt;p&gt;Administrators are the people who have overall control of everything that happens on the board. They oversee how the board is styled, what forums to create and how to organize them, what information to require from members and who to appoint as moderators.&lt;/p&gt;</Resource>
