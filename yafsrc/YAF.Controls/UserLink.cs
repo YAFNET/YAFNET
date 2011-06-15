@@ -123,7 +123,7 @@ namespace YAF.Controls
         this.RenderMainTagAttributes(output);
 
         output.Write(HtmlTextWriter.TagRightChar);
-        output.WriteEncodedText(this.ReplaceName.IsNotSet() ? displayName : this.ReplaceName);
+        output.WriteEncodedText(displayName);
 
         output.WriteEndTag(!isGuest ? "a" : "span");
 

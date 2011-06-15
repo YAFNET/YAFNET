@@ -68,7 +68,7 @@
         {
           ID = "topicStarterLink",
           UserID = this.TopicRow["UserID"].ToType<int>(),
-          ReplaceName = this.TopicRow["Starter"].ToString(),
+          ReplaceName = this.Get<IUserDisplayName>().GetName(this.TopicRow["UserID"].ToType<int>()),
           Style = this.TopicRow["StarterStyle"].ToString()
         }.RenderToString() %>
         </span>
@@ -145,7 +145,7 @@
         }    
                 
         %>
-        <%=new UserLink { UserID = userID, ReplaceName = this.TopicRow["LastUserName"].ToString(), Style = this.TopicRow["LastUserStyle"].ToString() }.RenderToString() %>
+        <%=new UserLink { UserID = userID, ReplaceName = this.Get<IUserDisplayName>().GetName(this.TopicRow["LastUserID"].ToType<int>()) , Style = this.TopicRow["LastUserStyle"].ToString() }.RenderToString() %>
         <a href="<%=YafBuildLink.GetLink(ForumPages.posts, "m={0}&find=lastpost", this.TopicRow["LastMessageID"]) %>"
             title="<%=this.AltLastPost%>">
             <img src="<%=strMiniPost%>" alt="<%=this.AltLastPost%>" title="<%=this.AltLastPost%>" />            
