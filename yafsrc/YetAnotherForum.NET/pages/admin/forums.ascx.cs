@@ -1,5 +1,5 @@
-/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bjørnar Henden
+ï»¿/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjï¿½rnar Henden
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -26,9 +26,9 @@ namespace YAF.Pages.Admin
   using System.Data;
   using System.Web.UI.WebControls;
 
+  using YAF.Classes;
   using YAF.Classes.Data;
   using YAF.Core;
-  using YAF.Core.Services;
   using YAF.Core.Tasks;
   using YAF.Types;
   using YAF.Types.Constants;
@@ -172,7 +172,7 @@ namespace YAF.Pages.Admin
 
         this.LoadingImage.ImageUrl = YafForumInfo.GetURLToResource("images/loader.gif");
 
-        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
         this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
         this.PageLinks.AddLink(this.GetText("TEAM", "FORUMS"), string.Empty);
 
@@ -226,6 +226,9 @@ namespace YAF.Pages.Admin
       {
         this.CategoryList.DataSource = ds.Tables[MsSqlDbAccess.GetObjectName("Category")];
       }
+
+      // Hide the New Forum Button if there are no Categories.
+      this.NewForum.Visible = this.CategoryList.Items.Count < 1;
 
       this.DataBind();
     }
