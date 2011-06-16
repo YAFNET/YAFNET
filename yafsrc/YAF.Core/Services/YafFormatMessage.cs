@@ -232,17 +232,17 @@ namespace YAF.Core.Services
 
         private static readonly Regex _rgxUrl1 =
           new Regex(
-            @"(?<before>^|[ ]|\>|\[[A-Za-z0-9]\])(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?+%#&=;:,]*)?)",
+            @"(?<before>^|[ ]|\>|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?+%#&=;:,]*)?)",
             _options | RegexOptions.Compiled);
 
         private static readonly Regex _rgxUrl2 =
             new Regex(
-                @"(?<before>^|[ ]|\>|\[[A-Za-z0-9]\])(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,:#~$]*[^.<|^.\[])?)",
+                @"(?<before>^|[ ]|\>|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,:#~$]*[^.<|^.\[])?)",
                 _options | RegexOptions.Compiled);
 
         private static readonly Regex _rgxUrl3 =
           new Regex(
-            @"(?<before>^|[ ]|\>|\[[A-Za-z0-9]\])(?<!http://)(?<inner>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%+#&=;,]*)?)",
+            @"(?<before>^|[ ]|\>|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!http://)(?<inner>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%+#&=;,]*)?)",
             _options | RegexOptions.Compiled);
 
         /// <summary>
@@ -264,110 +264,96 @@ namespace YAF.Core.Services
         /// The formatted message.
         /// </returns>
         public string FormatMessage([NotNull] string message, [NotNull] MessageFlags messageFlags, bool targetBlankOverride, DateTime messageLastEdited)
-    {
-      var boardSettings = this.Get<YafBoardSettings>();
-
-      bool useNoFollow = boardSettings.UseNoFollowLinks;
-
-      // check to see if no follow should be disabled since the message is properly aged
-      if (useNoFollow && boardSettings.DisableNoFollowLinksAfterDay > 0)
-      {
-        TimeSpan messageAge = messageLastEdited - DateTime.UtcNow;
-        if (messageAge.Days > boardSettings.DisableNoFollowLinksAfterDay)
         {
-          // disable no follow
-          useNoFollow = false;
+            var boardSettings = this.Get<YafBoardSettings>();
+
+            bool useNoFollow = boardSettings.UseNoFollowLinks;
+
+            // check to see if no follow should be disabled since the message is properly aged
+            if (useNoFollow && boardSettings.DisableNoFollowLinksAfterDay > 0)
+            {
+                TimeSpan messageAge = messageLastEdited - DateTime.UtcNow;
+                if (messageAge.Days > boardSettings.DisableNoFollowLinksAfterDay)
+                {
+                    // disable no follow
+                    useNoFollow = false;
+                }
+            }
+
+            // do html damage control
+            message = this.RepairHtml(message, messageFlags.IsHtml);
+
+            // get the rules engine from the creator...
+            var ruleEngine = this.ProcessReplaceRuleFactory(new[] { true/*messageFlags.IsBBCode*/, targetBlankOverride, useNoFollow }); // tha_watcha : Since html message and bbcode message can be mixed now, always true
+
+            // see if the rules are already populated...
+            if (!ruleEngine.HasRules)
+            {
+                // populate
+
+                // get rules for YafBBCode and Smilies
+                this.Get<IBBCode>().CreateBBCodeRules(
+                    ruleEngine, true /*messageFlags.IsBBCode*/, targetBlankOverride, useNoFollow);
+                    // tha_watcha : Since html message and bbcode message can be mixed now, always true
+
+                // add email rule
+                // vzrus: it's freezing  when post body contains full email adress.
+                // the fix provided by community 
+                var email = new VariableRegexReplaceRule(
+                    _rgxEmail, "${before}<a href=\"mailto:${inner}\">${inner}</a>", new[] { "before" })
+                    { RuleRank = 10 };
+
+                ruleEngine.AddRule(email);
+
+                // URLs Rules
+                string target = (boardSettings.BlankLinks || targetBlankOverride) ? "target=\"_blank\"" : string.Empty;
+
+                string nofollow = useNoFollow ? "rel=\"nofollow\"" : string.Empty;
+
+                var url = new VariableRegexReplaceRule(
+                    _rgxUrl1,
+                    "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace("{0}", target).
+                        Replace("{1}", nofollow),
+                    new[] { "before" },
+                    new[] { string.Empty },
+                    50) { RuleRank = 10 };
+
+                ruleEngine.AddRule(url);
+
+                // ?<! - match if prefixes href="" and src="" are not present
+                // <inner> = named capture group
+                // (http://|https://|ftp://) - numbered capture group - select from 3 alternatives
+                // Match expression but don't capture it, one or more repetions, in the end is dot(\.)? here we match "www." - (?:[\w-]+\.)+
+                // Match expression but don't capture it, zero or one repetions (?:/[\w-./?%&=+;,:#~$]*[^.<])?
+                // (?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,:#~$]*[^.<])?)
+                url = new VariableRegexReplaceRule(
+                    _rgxUrl2,
+                    "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace("{0}", target).
+                        Replace("{1}", nofollow),
+                    new[] { "before" },
+                    new[] { string.Empty },
+                    50) { RuleRank = 10 };
+
+                ruleEngine.AddRule(url);
+
+                url = new VariableRegexReplaceRule(
+                    _rgxUrl3,
+                    "${before}<a {0} {1} href=\"http://${inner}\" title=\"http://${inner}\">${innertrunc}</a>".Replace(
+                        "{0}", target).Replace("{1}", nofollow),
+                    new[] { "before" },
+                    new[] { string.Empty },
+                    50) { RuleRank = 10 };
+
+                ruleEngine.AddRule(url);
+            }
+
+            // process...
+            ruleEngine.Process(ref message);
+
+            message = this.Get<IBadWordReplace>().Replace(message);
+
+            return message;
         }
-      }
-
-      // do html damage control
-      message = this.RepairHtml(message, messageFlags.IsHtml);
-
-      // get the rules engine from the creator...
-      var ruleEngine = this.ProcessReplaceRuleFactory(new[] { true/*messageFlags.IsBBCode*/, targetBlankOverride, useNoFollow }); // tha_watcha : Since html message and bbcode message can be mixed now, always true
-
-      // see if the rules are already populated...
-      if (!ruleEngine.HasRules)
-      {
-        // populate
-
-        // get rules for YafBBCode and Smilies
-          this.Get<IBBCode>().CreateBBCodeRules(ruleEngine, true/*messageFlags.IsBBCode*/, targetBlankOverride, useNoFollow); // tha_watcha : Since html message and bbcode message can be mixed now, always true
-
-        // add email rule
-        // vzrus: it's freezing  when post body contains full email adress.
-        // the fix provided by community 
-          var email = new VariableRegexReplaceRule(
-              _rgxEmail, 
-              "${before}<a href=\"mailto:${inner}\">${inner}</a>", 
-              new[]
-                  {
-                      "before"
-                  }) 
-              { RuleRank = 10 };
-
-        ruleEngine.AddRule(email);
-
-        // URLs Rules
-        string target = (boardSettings.BlankLinks || targetBlankOverride)
-                          ? "target=\"_blank\""
-                          : string.Empty;
-
-        string nofollow = useNoFollow ? "rel=\"nofollow\"" : string.Empty;
-
-          var url = new VariableRegexReplaceRule(
-              _rgxUrl1,
-              "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace("{0}", target).
-                  Replace("{1}", nofollow),
-              new[]
-                  {
-                      "before"
-                  },
-              new[] { string.Empty },
-              50) { RuleRank = 10 };
-
-        ruleEngine.AddRule(url);
-
-        // ?<! - match if prefixes href="" and src="" are not present
-        // <inner> = named capture group
-        // (http://|https://|ftp://) - numbered capture group - select from 3 alternatives
-        // Match expression but don't capture it, one or more repetions, in the end is dot(\.)? here we match "www." - (?:[\w-]+\.)+
-        // Match expression but don't capture it, zero or one repetions (?:/[\w-./?%&=+;,:#~$]*[^.<])?
-        // (?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,:#~$]*[^.<])?)
-        url = new VariableRegexReplaceRule(
-          _rgxUrl2,
-          "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace("{0}", target).Replace(
-            "{1}", nofollow),
-          new[]
-              {
-                  "before"
-              },
-          new[] { string.Empty },
-          50) { RuleRank = 10 };
-
-        ruleEngine.AddRule(url);
-
-        url = new VariableRegexReplaceRule(
-          _rgxUrl3,
-          "${before}<a {0} {1} href=\"http://${inner}\" title=\"http://${inner}\">${innertrunc}</a>".Replace(
-            "{0}", target).Replace("{1}", nofollow),
-          new[]
-              {
-                  "before"
-              },
-          new[] { string.Empty },
-          50) { RuleRank = 10 };
-
-        ruleEngine.AddRule(url);
-      }
-
-      // process...
-      ruleEngine.Process(ref message);
-
-      message = this.Get<IBadWordReplace>().Replace(message);
-
-      return message;
-    }
 
         /// <summary>
         /// The format syndication message.
