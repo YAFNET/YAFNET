@@ -151,7 +151,11 @@ namespace YAF.Types.Flags
       /// <summary>
       /// The Daylight Saving Time is Enabled.
       /// </summary>
-      IsDST = 32 
+      IsDST = 32 ,
+      /// <summary>
+      /// Is Dirty data flag.
+      /// </summary>
+      IsDirty = 64
 
 
       /* for future use			
@@ -268,6 +272,25 @@ namespace YAF.Types.Flags
       {
         this[5] = value;
       }
+    }
+
+    /// <summary>
+    /// Gets or sets whether a user profile/personal data was changed. 
+    /// The flag is set every time when a user profile changes.
+    /// Used for portal intgration.
+    /// </summary>
+    public bool IsDirty
+    {
+        // int value 64
+        get
+        {
+            return this[6];
+        }
+
+        set
+        {
+            this[6] = value;
+        }
     }
 
 

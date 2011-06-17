@@ -9433,6 +9433,25 @@ namespace YAF.Classes.Data
     }
 
     /// <summary>
+    /// The user_setnotdirty.
+    /// </summary>
+    /// <param name="boardId">
+    /// The board id.
+    /// </param>
+    /// <param name="userId">
+    /// The userId key.
+    /// </param>
+    public static void user_setnotdirty(int boardId, int userId)
+    {
+        using (var cmd = MsSqlDbAccess.GetCommand("user_setnotdirty"))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("UserID", userId);
+            MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
+        }
+    }
+
+    /// <summary>
     /// For URL Rewriting
     /// </summary>
     /// <param name="StartID">

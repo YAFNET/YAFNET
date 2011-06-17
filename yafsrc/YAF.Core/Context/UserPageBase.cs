@@ -320,6 +320,17 @@ namespace YAF.Core
         }
 
         /// <summary>
+        ///   Gets a value indicating whether the current user personal data was changed and not handled by a code;
+        /// </summary>
+        public bool IsDirty
+        {
+            get
+            {
+                return this.PageValueAsBool("IsDirty");
+            }
+        }
+
+        /// <summary>
         ///   Gets a value indicating whether the board is private (20050909 CHP) (True)
         /// </summary>
         public bool IsPrivate

@@ -420,7 +420,8 @@ if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseO
 		[IsGuest]	AS (CONVERT([bit],sign([Flags]&(4)),(0))),
 		[IsCaptchaExcluded]	AS (CONVERT([bit],sign([Flags]&(8)),(0))),
 		[IsActiveExcluded] AS (CONVERT([bit],sign([Flags]&(16)),(0))),
-		[IsDST]	AS (CONVERT([bit],sign([Flags]&(32)),(0)))
+		[IsDST]	AS (CONVERT([bit],sign([Flags]&(32)),(0))),
+		[IsDirty]	AS (CONVERT([bit],sign([Flags]&(64)),(0)))
 )
 GO
 
@@ -1115,6 +1116,11 @@ GO
 if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='IsDST')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}User] add [IsDST] AS (CONVERT([bit],sign([Flags]&(32)),(0)))
+end
+GO
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='IsDirty')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}User] add [IsDirty] AS (CONVERT([bit],sign([Flags]&(64)),(0)))
 end
 GO
 

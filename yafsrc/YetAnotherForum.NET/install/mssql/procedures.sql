@@ -800,6 +800,10 @@ IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{database
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_savesignature]
 GO
 
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_setnotdirty]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_setnotdirty]
+GO
+
 IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_setpoints]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_setpoints]
 GO
@@ -4348,7 +4352,7 @@ BEGIN
 		
 	IF ( @FromOutbox = 1 AND EXISTS(SELECT (1) FROM [{databaseOwner}].[{objectQualifier}UserPMessage] WHERE UserPMessageID = @UserPMessageID AND IsInOutbox = 1 ) )
 	BEGIN
-		-- set IsInOutbox bit which will remove it from the senders outbox
+		-- remove IsInOutbox bit which will remove it from the senders outbox
 		UPDATE [{databaseOwner}].[{objectQualifier}UserPMessage] SET [Flags] = ([Flags] ^ 2) WHERE UserPMessageID = @UserPMessageID
 	END
 	
@@ -6935,7 +6939,7 @@ begin
 	if @UseSingleSignOn is null SET @UseSingleSignOn=0
 
 	if @UserID is null or @UserID<1 begin
-		set @Flags = 0	
+	    
 		if @Approved<>0 set @Flags = @Flags | 2	
 		if @Email = '' set @Email = null
 		
@@ -6949,7 +6953,10 @@ begin
 		insert into [{databaseOwner}].[{objectQualifier}UserGroup](UserID,GroupID) select @UserID,GroupID from [{databaseOwner}].[{objectQualifier}Group] where BoardID=@BoardID and (Flags & 4)<>0
 	end
 	else begin
-		set @Flags = (SELECT Flags FROM [{databaseOwner}].[{objectQualifier}User] where UserID = @UserID)	
+		set @Flags = (SELECT Flags FROM [{databaseOwner}].[{objectQualifier}User] where UserID = @UserID)
+		
+		-- set user dirty 
+		set @Flags = @Flags	| 64
 		
 		IF ((@DSTUser<>0) AND (@Flags & 32) <> 32)		
 		SET @Flags = @Flags | 32
@@ -7028,6 +7035,12 @@ create procedure [{databaseOwner}].[{objectQualifier}user_savesignature](@UserID
 begin
 	
 	update [{databaseOwner}].[{objectQualifier}User] set Signature = @Signature where UserID = @UserID
+end
+GO
+
+create procedure [{databaseOwner}].[{objectQualifier}user_setnotdirty](@UserID int) as
+begin	
+	update [{databaseOwner}].[{objectQualifier}User] set Flags = Flags ^ 64 where UserID = @UserID
 end
 GO
 
@@ -9192,7 +9205,8 @@ begin
 		TextEditor		    = a.TextEditor,
 		TimeZoneUser		= a.TimeZone,
 		CultureUser		    = a.Culture,		
-		IsGuest				= a.Flags & 4,
+		IsGuest				= SIGN(a.IsGuest),
+		IsDirty				= SIGN(a.IsDirty),
 		MailsPending		= CASE WHEN @ShowPendingMails > 0 THEN (select count(1) from [{databaseOwner}].[{objectQualifier}Mail] WHERE [ToUserName] = a.Name) ELSE 0 END,
 		UnreadPrivate		= CASE WHEN @ShowUnreadPMs > 0 THEN (select count(1) from [{databaseOwner}].[{objectQualifier}UserPMessage] where UserID=@UserID and IsRead=0 and IsDeleted = 0 and IsArchived = 0) ELSE 0 END,
 		LastUnreadPm		= CASE WHEN @ShowUnreadPMs > 0 THEN (SELECT TOP 1 Created FROM [{databaseOwner}].[{objectQualifier}PMessage] pm INNER JOIN [{databaseOwner}].[{objectQualifier}UserPMessage] upm ON pm.PMessageID = upm.PMessageID WHERE upm.UserID=@UserID and upm.IsRead=0  and upm.IsDeleted = 0 and upm.IsArchived = 0 ORDER BY pm.Created DESC) ELSE NULL END,		
