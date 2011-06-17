@@ -3881,6 +3881,31 @@
             The decode topic func.
             </param>
         </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.user_ThankFromCount(System.Object)">
+            <summary>
+            Get the Thanks From Count for the user.
+            </summary>
+            <param name="userId">
+            The user id.
+            </param>
+            <returns>
+            Returns the Thank Count.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.user_RepliedTopic(System.Object,System.Object)">
+            <summary>
+            Checks if the User has replied tho the specifc topic.
+            </summary>
+            <param name="messageId">
+            The message id.
+            </param>
+            <param name="userId">
+            The user id.
+            </param>
+            <returns>
+            Returns if true or not
+            </returns>
+        </member>
         <member name="M:YAF.Classes.Data.LegacyDb.user_ThankedMessage(System.Object,System.Object)">
             <summary>
             Is User Thanked the current Message

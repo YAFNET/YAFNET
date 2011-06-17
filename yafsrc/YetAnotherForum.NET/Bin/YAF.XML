@@ -38079,6 +38079,32 @@
             Summary description for JavaScriptBlocks
             </summary>
         </member>
+        <member name="M:YAF.Utilities.JavaScriptBlocks.FacebookLoginJs(System.String)">
+            <summary>
+            Gets the script for logging in thru facebook.
+            </summary>
+            <param name="remberMeId">
+            The rember Me Checkbox Client Id.
+            </param>
+            <returns>
+            The facebook login js.
+            </returns>
+        </member>
+        <member name="M:YAF.Utilities.JavaScriptBlocks.FixPostDivHeight(System.String,System.String)">
+            <summary>
+            Gets the Fix Post Div Height to set Height of PostDiv based on the
+            UserBox Height
+            </summary>
+            <param name="userBoxId">
+            The user Box Id.
+            </param>
+            <param name="panMessageId">
+            The pan Message Id.
+            </param>
+            <returns>
+            Returns the created js
+            </returns>
+        </member>
         <member name="M:YAF.Utilities.JavaScriptBlocks.FacebookPostJs(System.String,System.String,System.String,System.String,System.String)">
             <summary>
             The Post to Facebook Js
@@ -38235,11 +38261,6 @@
         <member name="P:YAF.Utilities.JavaScriptBlocks.FacebookInitJs">
             <summary>
             Gets Facebook Init Js.
-            </summary>
-        </member>
-        <member name="P:YAF.Utilities.JavaScriptBlocks.FacebookLoginJs">
-            <summary>
-              Gets the script for logging in thru facebook.
             </summary>
         </member>
         <member name="P:YAF.Utilities.JavaScriptBlocks.LoginCallSuccessJS">
@@ -38533,7 +38554,7 @@
             Class for JS jQuery  Ajax Methods
             </summary>
         </member>
-        <member name="M:YAF.Classes.YafAjax.LoginFacebookUser(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:YAF.Classes.YafAjax.LoginFacebookUser(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean)">
             <summary>
             SSO Login From Facebook
             </summary>
@@ -38572,6 +38593,9 @@
             </param>
             <param name="lokale">
             The lokale.
+            </param>
+            <param name="remember">
+            The remember.
             </param>
             <returns>
             Returns the Login Status
@@ -38613,7 +38637,7 @@
             The board id.
             </param>
             <returns>
-            The refresh shout box.
+            The refresh shout box js.
             </returns>
         </member>
         <member name="M:YAF.Classes.YafAjax.AddFavoriteTopic(System.Int32)">
@@ -38624,7 +38648,7 @@
             The topic ID.
             </param>
             <returns>
-            The add favorite topic.
+            The add favorite topic js.
             </returns>
         </member>
         <member name="M:YAF.Classes.YafAjax.RemoveFavoriteTopic(System.Int32)">
@@ -38635,7 +38659,7 @@
             The favorite topic id.
             </param>
             <returns>
-            The remove favorite topic.
+            The remove favorite topic js.
             </returns>
         </member>
         <member name="M:YAF.Classes.YafAjax.AddThanks(System.Object)">
