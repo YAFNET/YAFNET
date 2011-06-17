@@ -156,7 +156,7 @@ namespace YAF.DotNetNuke
         /// <param name="name">
         /// Name of the Property
         /// </param>
-        /// <param name="strType">
+        /// <param name="type">
         /// The str Type.
         /// </param>
         /// <param name="length">
@@ -165,13 +165,17 @@ namespace YAF.DotNetNuke
         /// <param name="types">
         /// The types.
         /// </param>
-        public static void AddYafProfileDefinition(int portalId, string category, string name, string strType, int length, ListEntryInfoCollection types)
+        public static void AddYafProfileDefinition(int portalId, string category, string name, string type, int length, ListEntryInfoCollection types)
         {
             ProfilePropertyDefinitionCollection profileProperties = ProfileController.GetPropertyDefinitionsByPortal(portalId);
 
             int lastViewOrder = profileProperties[profileProperties.Count - 1].ViewOrder;
+            
+            // DNN 6
+            // ListEntryInfo typeInfo = types["DataType:{0}".FormatWith(type)];
 
-            ListEntryInfo typeInfo = types.Item("DataType:{0}".FormatWith(strType));
+            // DNN 5
+            ListEntryInfo typeInfo = types.Item("DataType:{0}".FormatWith(type));
 
             ProfilePropertyDefinition propertyDefinition = new ProfilePropertyDefinition
                 {

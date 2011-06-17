@@ -138,7 +138,7 @@ namespace YAF.DotNetNuke
     /// The type full name.
     /// </param>
     /// <returns>
-    /// The get id of schedule client.
+    /// Returns the id of schedule client.
     /// </returns>
     private static int GetIdOfScheduleClient(string typeFullName)
     {
@@ -165,7 +165,7 @@ namespace YAF.DotNetNuke
     /// The portal settings.
     /// </param>
     /// <returns>
-    /// The get user time zone offset.
+    /// Returns the user time zone offset.
     /// </returns>
     private static int GetUserTimeZoneOffset(UserInfo userInfo, PortalSettings portalSettings)
     {
@@ -297,7 +297,7 @@ namespace YAF.DotNetNuke
     /// The dnn user.
     /// </param>
     /// <returns>
-    /// The create yaf user.
+    /// Returns the User Id of the new user.
     /// </returns>
     private int CreateYafUser(UserInfo dnnUserInfo, MembershipUser dnnUser)
     {
@@ -468,16 +468,23 @@ namespace YAF.DotNetNuke
           bool roleChanged = false;
           foreach (string role in dnnUserInfo.Roles)
           {
-            if (!Roles.RoleExists(role))
-            {
-              Roles.CreateRole(role);
-              roleChanged = true;
-            }
+              if (!Roles.RoleExists(role))
+              {
+                  Roles.CreateRole(role);
+                  roleChanged = true;
+              }
 
-            if (!Roles.IsUserInRole(dnnUserInfo.Username, role))
-            {
-              Roles.AddUserToRole(dnnUserInfo.Username, role);
-            }
+              if (!Roles.IsUserInRole(dnnUserInfo.Username, role))
+              {
+                  try
+                  {
+                      Roles.AddUserToRole(dnnUserInfo.Username, role);
+                  }
+                  catch
+                  {
+                      // TODO :Dont do anything when user is already in role ?!
+                  }
+              }
           }
 
           // Sync Roles

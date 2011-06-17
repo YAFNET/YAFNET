@@ -144,7 +144,7 @@ namespace YAF.DotNetNuke
     /// The i board id.
     /// </param>
     /// <returns>
-    /// The create yaf user.
+    /// Returns the User Id of the new user.
     /// </returns>
     private static int CreateYafUser(UserInfo dnnUserInfo, MembershipUser dnnUser, int boardId)
     {
@@ -292,16 +292,23 @@ namespace YAF.DotNetNuke
           bool roleChanged = false;
           foreach (string role in dnnUserInfo.Roles)
           {
-            if (!Roles.RoleExists(role))
-            {
-              Roles.CreateRole(role);
-              roleChanged = true;
-            }
+              if (!Roles.RoleExists(role))
+              {
+                  Roles.CreateRole(role);
+                  roleChanged = true;
+              }
 
-            if (!Roles.IsUserInRole(dnnUserInfo.Username, role))
-            {
-              Roles.AddUserToRole(dnnUserInfo.Username, role);
-            }
+              if (!Roles.IsUserInRole(dnnUserInfo.Username, role))
+              {
+                  try
+                  {
+                      Roles.AddUserToRole(dnnUserInfo.Username, role);
+                  }
+                  catch
+                  {
+                      // TODO :Dont do anything when user is already in role ?!
+                  }
+              }
           }
 
           // Sync Roles
