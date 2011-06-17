@@ -1969,6 +1969,8 @@
     <Resource tag="ACTIVE_USERS_MEMBERS1">{0:N0} utenti registrati</Resource>
     <Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} utenti registrati</Resource>
     <Resource tag="ACTIVE_USERS_TIME">negli ultimi {0:N0} minuti</Resource>
+    <Resource tag="ALPHABET_FILTER">Alphabet filter</Resource>
+    <Resource tag="ALPHABET_FILTER_BY">Filter list by letter {0}.</Resource>
     <Resource tag="ATOMICONTOOLTIPACTIVE">Sottoscrivi le discussioni attive tramite Atom.</Resource>
     <Resource tag="ATOMICONTOOLTIPFAVORITE">Sottoscrivi le tue discussioni preferite tramite Atom.</Resource>
     <Resource tag="ATOMICONTOOLTIPFORUM">Sottoscrivi i feed Atom del forum.</Resource>

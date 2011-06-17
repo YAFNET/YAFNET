@@ -10,7 +10,6 @@
 	font-family: Verdana,Arial,Helvetica,sans-serif;
 	font-size: 8.5pt;
 }
-
 .yafnet input,
 .yafnet select 
 {
@@ -219,7 +218,7 @@
 }
 /* Header 1 - Main header */
 .yafnet .header1 {
-	background-image: url('bg_header1.png');
+	background: url('bg_header1.png') repeat-x;
 	color: #FFFFFF;
 	font-weight: bold;
 	line-height: 22px;
@@ -231,7 +230,7 @@
 .yafnet tr.header1 a:hover	{color:#C0C0FF;text-decoration:underline}
 /* Header 2 - Sub header */
 .yafnet .header2 {
-	background-image: url('bg_header2.png');
+	background: url('bg_header2.png') repeat-x;
 	color: #3A4F6C;
 	font-weight: bold;
 	line-height: 18px;
@@ -241,7 +240,7 @@
 .yafnet td.header2links	a:hover	{color: #3A4F6C;text-decoration:none;font-size:7.5pt;}
 /* Footer1 - Bottom of tables */
 .yafnet .footer1 {
-	background-image: url('bg_footer1.png');
+	background: url('bg_footer1.png') repeat-x;
 	font-size: 7pt;
 	height: 28px;
 }
@@ -857,3 +856,12 @@ This CSS already works on FireFox.
     box-shadow:1px 1px 1px gray;
 }
 .yafnet .Unread a {color:white!important;font-weight:bold!important;font-size:0.9em!important;}
+
+/* Alpha Sort Control */
+.yafnet dl.AlphaSort {border:1px solid #999;background-color: #DFE6EF;}
+.yafnet dl.AlphaSort dt {padding-left:5px;padding-top:8px}
+.yafnet dl.AlphaSort dd { background-color: #eef;color:#404040;border: 1px solid #3A4F6C}
+.yafnet dl.AlphaSort .SelectedLetter {background-color: #6b9fe5;color:#404040;font-weight:bold}
+
+.yafnet dl.AlphaSort dd:hover { background-color: #6b9fe5;color:#404040;cursor:pointer;}
+.yafnet dl.AlphaSort dd:hover a { font-weight:bold}

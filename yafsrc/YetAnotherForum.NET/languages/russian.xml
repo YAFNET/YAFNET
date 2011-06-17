@@ -1970,6 +1970,8 @@
     <Resource tag="ACTIVE_USERS_MEMBERS1">{0:N0} участник</Resource>
     <Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} участников</Resource>
     <Resource tag="ACTIVE_USERS_TIME">за последние {0:N0} минут</Resource>
+    <Resource tag="ALPHABET_FILTER">Alphabet filter</Resource>
+    <Resource tag="ALPHABET_FILTER_BY">Filter list by letter {0}.</Resource>
     <Resource tag="ATOMICONTOOLTIPACTIVE">Подписаться на активные темы используя ленту Atom.</Resource>
     <Resource tag="ATOMICONTOOLTIPFAVORITE">Подписаться на Ваши избранные темы используя ленту Atom.</Resource>
     <Resource tag="ATOMICONTOOLTIPFORUM">Подписаться на форумы используя ленту Atom.</Resource>

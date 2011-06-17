@@ -1969,6 +1969,8 @@
     <Resource tag="ACTIVE_USERS_MEMBERS1">{0:N0} liige</Resource>
     <Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} liiget</Resource>
     <Resource tag="ACTIVE_USERS_TIME">viimase {0:N0} minuti jooksul</Resource>
+    <Resource tag="ALPHABET_FILTER">Alphabet filter</Resource>
+    <Resource tag="ALPHABET_FILTER_BY">Filter list by letter {0}.</Resource>
     <Resource tag="ATOMICONTOOLTIPACTIVE">Liitu aktiivsete teemade Atom vooga.</Resource>
     <Resource tag="ATOMICONTOOLTIPFAVORITE">Liitu lemmikteemade Atom vooga.</Resource>
     <Resource tag="ATOMICONTOOLTIPFORUM">Liitu Atom vooga.</Resource>

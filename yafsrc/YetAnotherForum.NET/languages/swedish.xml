@@ -1968,6 +1968,8 @@
     <Resource tag="ACTIVE_USERS_MEMBERS1">{0:N0} medlem</Resource>
     <Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} medlemmar</Resource>
     <Resource tag="ACTIVE_USERS_TIME">for last {0:N0} minutes</Resource>
+    <Resource tag="ALPHABET_FILTER">Alphabet filter</Resource>
+    <Resource tag="ALPHABET_FILTER_BY">Filter list by letter {0}.</Resource>
     <Resource tag="ATOMICONTOOLTIPACTIVE">Subscribe to active topics via Atom.</Resource>
     <Resource tag="ATOMICONTOOLTIPFAVORITE">Subscribe to your favorite topics via Atom.</Resource>
     <Resource tag="ATOMICONTOOLTIPFORUM">Subscribe to forum Atom feed.</Resource>

@@ -957,6 +957,8 @@
       <Resource tag="STATS_BIRTHDAYS">Today's Birthdays: </Resource>
 	  <Resource tag="RECENT_USERS">Recent Users</Resource>
 	  <Resource tag="RECENT_ONLINE_USERS">{0} Users where online within the last 24 hours, and {1} within the last 30 days.</Resource>
+	  <Resource tag="ALPHABET_FILTER">Alphabet filter</Resource>
+	  <Resource tag="ALPHABET_FILTER_BY">Filter list by letter {0}.</Resource>
    </page>
    <page name="DELETEMESSAGE">
       <Resource tag="DELETE">Delete</Resource>

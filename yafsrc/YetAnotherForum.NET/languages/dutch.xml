@@ -1961,6 +1961,8 @@
     <Resource tag="ACTIVE_USERS_MEMBERS1">{0:N0} lid</Resource>
     <Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} leden</Resource>
     <Resource tag="ACTIVE_USERS_TIME">tijdens de laatste {0:N0} minuten</Resource>
+    <Resource tag="ALPHABET_FILTER">Alphabet filter</Resource>
+    <Resource tag="ALPHABET_FILTER_BY">Filter list by letter {0}.</Resource>
     <Resource tag="ATOMICONTOOLTIPACTIVE">Meld je aan via Atom voor de actieve berichten.</Resource>
     <Resource tag="ATOMICONTOOLTIPFAVORITE">Meld je aan via Atom voor je favoriete topics.</Resource>
     <Resource tag="ATOMICONTOOLTIPFORUM">Meld je aan bij de forum Atom feed.</Resource>

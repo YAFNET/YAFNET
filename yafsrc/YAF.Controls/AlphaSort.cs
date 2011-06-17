@@ -21,20 +21,19 @@ namespace YAF.Controls
 {
   #region Using
 
-  using System;
-  using System.Web;
-  using System.Web.UI.HtmlControls;
-  using System.Web.UI.WebControls;
-
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Utils;
-  using YAF.Types;
-  using YAF.Types.Constants;
-  using YAF.Types.Interfaces;
+    using System;
+    using System.Web;
+    using System.Web.UI.HtmlControls;
+    using System.Web.UI.WebControls;
+    using YAF.Core;
+    using YAF.Types;
+    using YAF.Types.Constants;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
 
   #endregion
 
-  /// <summary>
+    /// <summary>
   /// Control displaying list of letters and/or characters for filtering list of members.
   /// </summary>
   public class AlphaSort : BaseControl
@@ -81,68 +80,50 @@ namespace YAF.Controls
       // IMPORTANT: call base implementation - calls event handlers
       base.OnLoad(e);
 
-      // it's gonna be a table containing those letters in cells
-      var table = new HtmlTable();
+      var alphaSortDefList = new HtmlGenericControl("dl");
+      alphaSortDefList.Attributes.Add("class", "AlphaSort");
+      this.Controls.Add(alphaSortDefList);
 
-      // define table attributes
-      table.Attributes.Add("class", "content");
-      table.Width = "100%";
-
-      // add table to our control so it can be rendered
-      this.Controls.Add(table);
+      var headerTitle = new HtmlGenericControl("dt") { InnerText = this.GetText("ALPHABET_FILTER") };
+      headerTitle.Attributes.Add("class", "header1");
+      alphaSortDefList.Controls.Add(headerTitle);
 
       // get the localized character set
       string[] charSet = this.GetText("LANGUAGE", "CHARSET").Split('/');
 
-      for (int i = 0; i < charSet.Length; i++)
+      foreach (string t in charSet)
       {
-        // create row for letters and attach it to the table
-        var tr = new HtmlTableRow();
-        table.Controls.Add(tr);
+          // get the current selected character (if there is one)
+          char selectedLetter = this.CurrentLetter;
 
-        // get the current selected character (if there is one)
-        char selectedLetter = this.CurrentLetter;
-
-        // go through all letters in a set
-        foreach (char letter in charSet[i])
-        {
-          // create cell for the letter and define its properties
-          var cell = new HtmlTableCell();
-          cell.Align = "center";
-
-          // is letter selected?
-          if (selectedLetter != char.MinValue && selectedLetter == letter)
+          // go through all letters in a set
+          foreach (char letter in t)
           {
-            // current letter is selected, use specified style
-            cell.Attributes["class"] = "postheader";
+              var alphaListItem = new HtmlGenericControl("dd");
+
+              // is letter selected?
+              if (selectedLetter != char.MinValue && selectedLetter == letter)
+              {
+                  // current letter is selected, use specified style
+                  alphaListItem.Attributes.Add("class", "SelectedLetter");
+              }
+
+              // create a link to this letter
+              var link = new HyperLink
+                  {
+                      ToolTip = this.GetTextFormatted("ALPHABET_FILTER_BY", letter.ToString()),
+                      Text = letter.ToString(),
+                      NavigateUrl =
+                          YafBuildLink.GetLinkNotEscaped(ForumPages.members, "letter={0}", letter == '#' ? '_' : letter)
+                  };
+
+              alphaListItem.Controls.Add(link);
+
+              alphaSortDefList.Controls.Add(alphaListItem);
           }
-          else
-          {
-            // regular non-selected letter
-            cell.Attributes["class"] = "post";
-          }
-
-          // create a link to this letter
-          var link = new HyperLink();
-          link.Text = letter.ToString();
-          link.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-            ForumPages.members, "letter={0}", letter == '#' ? '_' : letter);
-
-          // add link to the cell
-          cell.Controls.Add(link);
-
-          // add this cell to the row
-          tr.Cells.Add(cell);
-        }
       }
     }
 
     #endregion
-
-    /* Construction & Destruction */
-
-    /* Properties */
-
-    /* Control Processing Methods */
   }
 }

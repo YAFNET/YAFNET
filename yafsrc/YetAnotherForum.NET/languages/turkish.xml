@@ -1949,6 +1949,8 @@
     <Resource tag="ACTIVE_USERS_MEMBERS1">{0:N0} üye</Resource>
     <Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} üyeler</Resource>
     <Resource tag="ACTIVE_USERS_TIME">Son {0:N0} dakika</Resource>
+    <Resource tag="ALPHABET_FILTER">Alphabet filter</Resource>
+    <Resource tag="ALPHABET_FILTER_BY">Filter list by letter {0}.</Resource>
     <Resource tag="ATOMICONTOOLTIPACTIVE">Aktif konuları Atom ile takip edin.</Resource>
     <Resource tag="ATOMICONTOOLTIPFAVORITE">Favori konularınızı Atom ile takip edin.</Resource>
     <Resource tag="ATOMICONTOOLTIPFORUM">Atom akışına kayıt olun.</Resource>
