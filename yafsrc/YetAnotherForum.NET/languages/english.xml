@@ -37,7 +37,7 @@
         <Resource tag="POLLSTITLE">Creating and Participating in Polls</Resource>
         <Resource tag="RSSTITLE">RSS &amp; Atom Feeds</Resource>
       <Resource tag="FORUMSCONTENT">&lt;p&gt;&lt;strong&gt;What is YAF?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;YetAnotherForum.NET (YAF) is The Open Source Discussion Forum for sites running ASP.NET. 100% written in C#, YAF (pronouced like &amp;quot;laugh&amp;quot;) is a unique combination of Open Source, Microsoft&#39;s .NET platform and an international collaboration of the .NET developer community. Growing and changing daily, the YAF project is lead by Jaben Cargman of Tiny Gecko. YAF runs on any web server that supports ASP.NET v2.0 (and above) and SQL Server. YAF is licensed under GPL.&lt;/p&gt;
+&lt;p&gt;YetAnotherForum.NET (YAF) is The Open Source Discussion Forum for sites running ASP.NET. 100% written in C#, YAF (pronounced like &amp;quot;laugh&amp;quot;) is a unique combination of Open Source, Microsoft&#39;s .NET platform and an international collaboration of the .NET developer community. Growing and changing daily, the YAF project is led by Jaben Cargman of Tiny Gecko. YAF runs on any web server that supports ASP.NET v2.0 (and above) and SQL Server. YAF is licensed under GPL.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How is all of this structured?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;A Forum contains various areas, which themselves contain forums (more specific subject areas) which contain topics  which are made up of individual messages (where a user writes something).&lt;/p&gt;
 &lt;p&gt;The Forums home page has a list of categories and forums, with basic statistics for each, including the number of topics and messages, and which member posted the most recent message.&lt;/p&gt;
@@ -113,9 +113,9 @@
         <Resource tag="BUDDIESTITLE">Buddies</Resource>
         <Resource tag="MYALBUMSTITLE">Albums</Resource>
       <Resource tag="THANKSTITLE">Thanks Feature</Resource>
-      <Resource tag="THANKSCONTENT">&lt;p&gt;The &#39;Thanks&#39; - System is a function that allows you to gave back an other user a positive feedback, for example he or she has posted a message you find useful or helps you to solve a problem.&lt;/p&gt;
-&lt;p&gt;How to gave a User a Thanks?&lt;/p&gt;
-&lt;p&gt;If you want to gave an User an &#39;Thank&#39; press the &#39;Thank&#39; Button inside the Post you want to add it, after that you find your Name in the List of User who gave a Thank at the end of the Message. You can also remove your Thank at any time.&lt;/p&gt;
+      <Resource tag="THANKSCONTENT">&lt;p&gt;The &#39;Thanks&#39; - System is a function that allows you to give back another user a positive feedback, for example he or she has posted a message you find useful or helps you to solve a problem.&lt;/p&gt;
+&lt;p&gt;How to give a User a Thanks?&lt;/p&gt;
+&lt;p&gt;If you want to give an User an &#39;Thank&#39; press the &#39;Thank&#39; Button inside the Post you want to add it, after that you find your Name in the List of User who gave a Thank at the end of the Message. You can also remove your Thank at any time.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;View all Thanks&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;If you want to view all Posts you gave Thank, or show the list of posts you received thanks got to the page  Personal Profile -&amp;gt; &#39;View Thanks&#39; from within the User Control Panel. There you see Two Tabs...&lt;/p&gt;
 &lt;ul&gt;
@@ -143,10 +143,10 @@
         &lt;li&gt;Export  Selected / Export All – Export the Message(s) as file (You Can select the  export format bellow –XML-/CSV-/Text-File)&lt;/li&gt;
         &lt;li&gt;Delete  Selected / Delete All – Delete the Message(s)&lt;/li&gt;
         &lt;/ul&gt;
-        &lt;p&gt;Depending  on how many Messages you allowed to have you should delete some of them from  time (You can export Them before you delete them to keep them on your local computer). Otherwise when your Mailbox is full you are not able to receive new  messages. On the Bottom you will be informed how many Messages you have and how  many you can Maximal have.&lt;/p&gt;
+        &lt;p&gt;Depending  on how many Messages you allowed to have you should delete some of them from  time (You can export them before you delete them to keep them on your local computer). Otherwise when your Mailbox is full you are not able to receive new  messages. On the Bottom you will be informed how many Messages you have and how  many you can Maximal have.&lt;/p&gt;
       </Resource>
-      <Resource tag="PUBLICPROFILECONTENT">&lt;p&gt;As member you have an publicly viewable profile page. This page includes information provided by the member, either during the registration process or later on via the User Control Panel.&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;There are a multiple ways to view an members profile...&lt;/em&gt;&lt;/p&gt;
+      <Resource tag="PUBLICPROFILECONTENT">&lt;p&gt;As member you have a publicly viewable profile page. This page includes information provided by the member, either during the registration process or later on via the User Control Panel.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;There are a multiple ways to view a members profile...&lt;/em&gt;&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;When you see an username click on the name and you will see a dropdown menu which contains an Link &#39;User Profile&#39; to view the Profile..&lt;/li&gt;
   &lt;li&gt;The members list allows you to browse all registered members, and quickly click through to public profiles.&lt;/li&gt;
@@ -163,8 +163,8 @@
 &lt;/ul&gt;
 &lt;p&gt;Personal information such as E-Mail Address or Passwords are &lt;strong&gt;NOT&lt;/strong&gt; shown.&lt;/p&gt;</Resource>
         <Resource tag="MYSETTINGSCONTENT">&lt;p&gt;The &lt;strong&gt;User Control Panel&lt;/strong&gt; is where you control your personal settings, options and preferences.&lt;/p&gt;
-&lt;p&gt;The &lt;strong&gt;Control Panel&lt;/strong&gt; main page will show your Account Summary including your User Name, Email Address, Number of posts, Member of Groups you are in and since when you are member.&lt;/p&gt;
-&lt;p&gt;On the Left Side you will find Links to all Sub Pages and Forms that allow you to control:..&lt;/p&gt;
+&lt;p&gt;The &lt;strong&gt;Control Panel&lt;/strong&gt; main page will show your Account Summary including your User Name, Email Address, and Number of posts, Member of Groups you are in and since when you are member.&lt;/p&gt;
+&lt;p&gt;On the Left Side you will find Links to all Sub Pages and Forms that allow you to control..&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Messenger&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;Inbox&lt;/li&gt;
@@ -185,7 +185,7 @@
 &lt;/ul&gt;</Resource>
         <Resource tag="MYPICSCONTENT">&lt;p&gt;&lt;strong&gt;What are Avatars?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Avatars are small images that people use to identify or distinguish themselves to other forum members. These Avatars will be displayed as part of the user info in posts, as well as in the public profile.&lt;/p&gt;
-&lt;p&gt;You can Modify your Avatar by clicking on &#39;Modify Avatar&#39; under the &#39;Personal Profile&#39; area of the navigation bar within the &lt;strong&gt;User Control Panel&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;You can modify your Avatar by clicking on &#39;Modify Avatar&#39; under the &#39;Personal Profile&#39; area of the navigation bar within the &lt;strong&gt;User Control Panel&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;There are three ways to add an Avatar...&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;If available in the forum you can choose from an existing collection of Avatars&lt;/li&gt;
@@ -220,9 +220,9 @@
 &lt;p&gt;Your Buddies are displayed on the &#39;My Buddies&#39; you can access this page from the Header Link &#39;My Buddies&#39;, or from the &lt;strong&gt;User Control Panel&lt;/strong&gt; Link &#39;Edit Buddies&#39;. &lt;/p&gt;
 &lt;p&gt;&lt;em&gt;Note: If you don&#39;t See this Link you don&#39;t have any Buddies, didn&#39;t send any Request or you didn&#39;t have any Pending Buddy Requests.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Your buddies are also displayed in your profile page.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;How can I request a User as Buddy or accept an Buddy Request?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;How can I request a User as Buddy or accept a Buddy Request?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;To request a user as Buddy, view the profile page of the person you want to become friends with and click the &#39;Add as Buddy&#39; link.&lt;/p&gt;
-&lt;p&gt;To accept an Buddy request friend, go to your &#39;My Buddies&#39; page. On the Tab &#39;Pending Requests&#39; you see The List of Users with pending requests. There you have three choices...&lt;/p&gt;
+&lt;p&gt;To accept a Buddy request friend, go to your &#39;My Buddies&#39; page. On the Tab &#39;Pending Requests&#39; you see The List of Users with pending requests. There you have three choices...&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;strong&gt;Approve&lt;/strong&gt; - You Become Buddy of the User who requests it &lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;Deny&lt;/strong&gt; - Reject the request&lt;/li&gt;
@@ -230,12 +230,12 @@
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;Remove Buddy&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;To remove a Buddy from Your List go to your &#39;My Buddies&#39; page. On the Tab &#39;Buddy List&#39; Click on the Button &#39;Remove Buddy&#39; of the User you want to remove&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Your Requests&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;You’re Requests&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;The Third Tab of the &#39;My Buddies&#39; Page shows your the Pending Request you have made.&lt;/p&gt;</Resource>
-        <Resource tag="MYALBUMSCONTENT">&lt;p&gt;If the Administrator has enable the Album Feature and you are a member which has access to add Albums, you can create Albums of images that are linked to your public profile. Albums can be created by visiting the &lt;strong&gt;User Control Panel&lt;/strong&gt;, and clicking on the &#39;Edit Albums&#39; link, and then clicking on &#39;Add New Album&#39;. The Number of how many Albums and how many Images depends on what the Admin has Setup for your User Group which you are in.&lt;/p&gt;
-&lt;p&gt;Each album can have a title and you can Set a Cover for it (Image from the Album) or use random, you can also add a caption for every Image.&lt;/p&gt;
+        <Resource tag="MYALBUMSCONTENT">&lt;p&gt;If the Administrator has enable the Album Feature and you are a member who has access to add Albums, you can create Albums of images that are linked to your public profile. Albums can be created by visiting the &lt;strong&gt;User Control Panel&lt;/strong&gt;, and clicking on the &#39;Edit Albums&#39; link, and then clicking on &#39;Add New Album&#39;. The Number of how many Albums and how many Images depends on what the Admin has Setup for your User Group which you are in.&lt;/p&gt;
+&lt;p&gt;Each album can have a title and you can set a Cover for it (Image from the Album) or use random, you can also add a caption for every Image.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How do I upload pictures?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;If you are on the Add/Edit Album Page you select an Image on your Computer and Click Upload to Add it to the Album.&lt;/p&gt;
+&lt;p&gt;If you are on the Add/Edit Album Page you select an Image on your Computer and Click Upload to add it to the Album.&lt;/p&gt;
 &lt;p&gt;You&#39;ll have the option to give each picture a caption, and to set one image as the Album cover, which will be displayed on the public profile. To delete an album or edit the title, add image(s) or delete(s) image, click on &#39;Edit&#39;. To edit or add a caption of an image click on the text bellow the image. If you want to Set a Cover or Remove the Cover Click on the Button bellow the Cover.&lt;/p&gt;</Resource>
         <Resource tag="POSTINGTITLE">Posting New Topics and Posts</Resource>
         <Resource tag="REPLYINGTITLE">Replying to a Message</Resource>
@@ -278,15 +278,15 @@
         <Resource tag="REPLYINGCONTENT">&lt;p&gt;On some boards you might be able to post and reply as a guest user. But most communities require registration.&lt;/p&gt;
 &lt;p&gt;A registered user can go to a forum on a board where he has permission to view Topics and leave replies. To reply you have a few options. You can click on the &#39;Post Reply&#39; button and add a new Message to the end of the Topic. Alternatively, you can leave a quick reply in a Quick Reply box listed below the posts in the Topic.&lt;/p&gt;
 &lt;p&gt;If you want to Reply to a Message hit the &#39;Quote&#39; button and you can Reply to a Message with the Quoted Text.&lt;/p&gt;</Resource>
-        <Resource tag="EDITDELETECONTENT">&lt;p&gt;If you are currently registered and logged in, you may be able to edit and delete your messages (if the administrator doesnt turned off this option). &lt;/p&gt;
+        <Resource tag="EDITDELETECONTENT">&lt;p&gt;If you are currently registered and logged in, you may be able to edit and delete your messages (if the administrator doesn’t turned off this option). &lt;/p&gt;
 &lt;p&gt;To edit or delete your posts, click the &#39;Edit&#39; button by the particular post. If your post was the first in the thread, then deleting it may remove the entire thread.&lt;/p&gt;
 &lt;p&gt;Once you&#39;ve made your modifications, a note may appear to inform other users that you have edited your post.&lt;/p&gt;
-&lt;p&gt;Please also Enter in The Field &#39;Reason for edit&#39; a reason why you edited this Message.&lt;/p&gt;
+&lt;p&gt;Please also enter in The Field &#39;Reason for edit&#39; a reason why you edited this Message.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Can others edit my posts?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Administrators and moderators may also edit your messages. If they do, there may not be a note telling other users that the post was modified.&lt;/p&gt;</Resource>
         <Resource tag="POLLSCONTENT">&lt;p&gt;Polls are an Option to vote on an issue or a question.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Create a new poll?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;When you post a new Topic, you have the Option &#39;Add Poll?&#39; to create a new poll. If you don&#39;t see that Option you don have access to that Option.&lt;/p&gt;
+&lt;p&gt;When you post a new Topic, you have the Option &#39;Add Poll?&#39; to create a new poll. If you don&#39;t see that Option you don’t have access to that Option.&lt;/p&gt;
 &lt;p&gt;This allows you to ask a question and specify a number of possible responses (Max 10 or the Administrator has set up a higher number) - &lt;em&gt;you can choose Images as Responses&lt;/em&gt;. Other members will then be able to vote for the response they wish, and the results of the voting will be displayed in the thread.&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;An example poll might be:&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;What is your favorite color?&lt;/em&gt;&lt;/p&gt;
@@ -322,16 +322,16 @@
       <Resource tag="PROFILETOPICS">Setting and Profile Features</Resource>
       <Resource tag="READPOSTTOPICS">Reading and Posting Messages</Resource>
       <Resource tag="MAILSETTINGSTITLE">Email Notification Preferences</Resource>
-      <Resource tag="MAILSETTINGSCONTENT">&lt;p&gt;On the &#39;Email Notification&#39; Preferences Page inside your User Control Panel you can set Up, what type of Email Notifications you want to receive.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Turn off notifications - &lt;/strong&gt;This Options turns off all Notifications and you wont receive any emails.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Notification for topics you&#39;ve posted to, watched or marked as favorite&lt;/strong&gt; - You will receive Instant Email Notifications when someone has posted a new Message in a topic, you have posted before, a topic you watch, marked as favorite, or an forum.&lt;/p&gt;
+      <Resource tag="MAILSETTINGSCONTENT">&lt;p&gt;On the &#39;Email Notification&#39; Preferences Page inside your User Control Panel you can set up, what type of Email Notifications you want to receive.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Turn off notifications - &lt;/strong&gt;This Options turns off all Notifications and you won’t receive any emails.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Notification for topics you&#39;ve posted to, watched or marked as favorite&lt;/strong&gt; - You will receive Instant Email Notifications when someone has posted a new Message in a topic, you have posted before, a topic you watch, marked as favorite, or a forum.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Notification for topics or forums you&#39;ve selectively watched (listed below)&lt;/strong&gt; - You will receive Instant Email Notifications when someone has posted a new Message in a topic or forum you have selected to watch (See List Below).&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Receive once daily digest/summary of activity?&lt;/strong&gt; - If this Function is enabled you can turn this option on to get an Email with all new Activities about new topics and messages from current day as daily digest (summary) in one mail&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Receive an email notification when you get a new private message? &lt;/strong&gt; - You can also turn on/off Email Notifications when you receive an private message.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Receive an email notification when you get a new private message? &lt;/strong&gt; - You can also turn on/off Email Notifications when you receive a private message.&lt;/p&gt;
 </Resource>
       <Resource tag="SUBSCRIPTIONSTITLE">Subscriptions &amp; Notifications</Resource>
       <Resource tag="SUBSCRIPTIONSCONTENT">&lt;p&gt;Subscriptions are a way to keep track of different topics and/or forums. You can choose how you are notified about updates - for example by having them listed in your User Control Panel and receiving e-mail updates for each one.&lt;/p&gt;
-&lt;p&gt;Or if you don&#39;t want to manually subscribe to an topic you want to follow you can turn on the Option &#39;Notification for topics &lt;strong&gt;you&#39;ve posted to&lt;/strong&gt;, watched or marked as favorite&#39; in the E-mail Notification Preferences Page inside the User CP.&lt;/p&gt;
+&lt;p&gt;Or if you don&#39;t want to manually subscribe to a topic you want to follow you can turn on the Option &#39;Notification for topics &lt;strong&gt;you&#39;ve posted to&lt;/strong&gt;, watched or marked as favorite&#39; in the E-mail Notification Preferences Page inside the User CP.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How to  watch a topic?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;To subscribe to a topic, click the &#39;Options&#39; link at the top of the list of posts then click &#39;Watch this topic&#39;.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How to  watch a forum?&lt;/strong&gt;&lt;/p&gt;
@@ -340,7 +340,7 @@
 &lt;p&gt;You can see the List of &#39;Watched Forums&#39; and &#39;Watched Topics&#39; from the &#39;Email Notification Preferences&#39; Page of your User Controp Panel. There you can select which subscriptions you wish to delete by Clicking on the Unwatch button.&lt;/p&gt;</Resource>
       <Resource tag="POPUPSTITLE">PopUp Notifications</Resource>
       <Resource tag="POPUPSCONTENT">&lt;p&gt;When you have logged in and load the Page you may receive an Pop Up Notification on the center of your Browser Window.&lt;/p&gt;
-&lt;p&gt;This will inform you about serval actions...&lt;/p&gt;
+&lt;p&gt;This will inform you about several actions...&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;New Private Message(s)&lt;/li&gt;
   &lt;li&gt;New Buddy Requests&lt;/li&gt;
@@ -665,7 +665,7 @@
     <Resource tag="VIEW_FULLINFO">View full info</Resource>
     <Resource tag="VIEW_USRPROFILE">View profile</Resource>
     <Resource tag="CONTINUE">Continue</Resource>
-     <Resource tag="GOTOPAGE_HEADER">Goto Page...</Resource>
+     <Resource tag="GOTOPAGE_HEADER">Go to Page...</Resource>
      <Resource tag="GOTOPOST_ТТ">Go to message</Resource>
      <Resource tag="GOTOFIRSTPAGE_TT">First page</Resource>
      <Resource tag="GOTOLASTPAGE_TT">Go to last page</Resource>
@@ -762,19 +762,19 @@
       <Resource tag="WARN_RESIZED">The image was resized to fit.</Resource>
       <Resource tag="WARN_SIZE">The size of your image was {0}x{1} pixels.</Resource>
       <Resource tag="WARN_TOOBIG">Image size can't be larger than {0}x{1} pixels.</Resource>
-      <Resource tag="NOTE_REMOTE">Note: If the Image is larger then {0}x{1} pixels, it will be automatically resized.</Resource>
-       <Resource tag="NOTE_LOCAL">Note If the Image is larger then {0}x{1} pixels, it will be automatically resized. And the size of your image can't be more than {2} KB.</Resource>
+      <Resource tag="NOTE_REMOTE">Note: If the Image is larger than {0}x{1} pixels, it will be automatically resized.</Resource>
+       <Resource tag="NOTE_LOCAL">Note If the Image is larger than {0}x{1} pixels, it will be automatically resized. And the size of your image can't be more than {2} KB.</Resource>
    </page>
    <page name="CP_EDITPROFILE">
       <Resource tag="ABOUTYOU">About You</Resource>
       <Resource tag="BAD_EMAIL">You have entered an illegal e-mail address.</Resource>
-      <Resource tag="DUPLICATED_EMAIL">The e-mail adress you have entered is already in use.</Resource>
-      <Resource tag="BAD_HOME">You have entered a invalid address for your home page.</Resource>
+      <Resource tag="DUPLICATED_EMAIL">The e-mail address you have entered is already in use.</Resource>
+      <Resource tag="BAD_HOME">You have entered an invalid address for your home page.</Resource>
       <Resource tag="BAD_ICQ">You have entered an illegal value as your ICQ number.</Resource>
 	  <Resource tag="BAD_FACEBOOK">You have entered an illegal value as Facebook Profile ID.</Resource>
       <Resource tag="BAD_MSN">You have entered an invalid e-mail address for your MSN account.</Resource>
       <Resource tag="BAD_XMPP">You have entered an invalid name for your XMPP account.</Resource>
-      <Resource tag="BAD_WEBLOG">You have entered a invalid address for your weblog.</Resource>
+      <Resource tag="BAD_WEBLOG">You have entered an invalid address for your weblog.</Resource>
       <Resource tag="BIRTHDAY">Birthday</Resource>
       <Resource tag="CHANGE_EMAIL">Change Email Address</Resource>
       <Resource tag="DST">Automatically adjust clock for Daylight Saving Time?</Resource>
@@ -1140,7 +1140,7 @@
       <Resource tag="DELETE">Delete Post</Resource>
       <Resource tag="DELETED">Post deleted.</Resource>
       <Resource tag="MODIFIED">Post has been changed!</Resource>
-      <Resource tag="NUMBERREPORTED">Number of times reported :</Resource>
+      <Resource tag="NUMBERREPORTED">Number of times reported:</Resource>
       <Resource tag="REPLYTO">Reply by private message to</Resource>
       <Resource tag="REPORTEDBY">Reported by:</Resource>
       <Resource tag="ORIGINALMESSAGE">Original message:</Resource>
@@ -1305,9 +1305,9 @@
       <Resource tag="TOPICATTACH">Attach files to this post?</Resource>
       <Resource tag="TOPICWATCH">Watch this topic and receive notifications of activity via e-mail?</Resource>
     <Resource tag="ISQUESTION">Is this topic in question and answer format?</Resource>
-     <Resource tag="TOPIC_NAME_TOOLONG">Topic name length cannot be be more than 255 characters.</Resource>
+     <Resource tag="TOPIC_NAME_TOOLONG">Topic name length cannot be more than 255 characters.</Resource>
      <Resource tag="TOPIC_NAME_WORDTOOLONG">Topic name single word length cannot be be more than {0} characters. Suggestion: use abbreviations to shorten.</Resource>
-     <Resource tag="TOPIC_DESCRIPTION_TOOLONG">Topic description length cannot be be more than 255 characters.</Resource>
+     <Resource tag="TOPIC_DESCRIPTION_TOOLONG">Topic description length cannot be more than 255 characters.</Resource>
      <Resource tag="TOPIC_DESCRIPTION_WORDTOOLONG">Topic description single word length cannot be be more than {0} characters. Suggestion: use abbreviations to shorten.</Resource>
       <Resource tag="WAIT">You can't post in the next {0:N0} seconds.</Resource>
 	  <Resource tag="SPAM_MESSAGE">Your Message was rejected because it was detected as SPAM!</Resource>
@@ -1320,7 +1320,7 @@
       <Resource tag="TITLE">Add/Edit Album</Resource>
       <Resource tag="ALBUM_TITLE">Title</Resource>
       <Resource tag="ALBUMS">Albums</Resource>
-      <Resource tag="ERROR_MAXALBUMS">You can not add any more albums to this account.</Resource>
+      <Resource tag="ERROR_MAXALBUMS">You cannot add any more albums to this account.</Resource>
       <Resource tag="ERROR_TOOBIG">You cannot upload images that big.</Resource>
       <Resource tag="ASK_DELETEALBUM">Delete this album?</Resource>
       <Resource tag="ASK_DELETEIMAGE">Delete this image?</Resource>
@@ -1365,7 +1365,7 @@
       <Resource tag="EDITUSER">Edit</Resource>
       <Resource tag="EDITED_BY_MOD">by moderator</Resource>
       <Resource tag="EDITED_BY_USER">by user</Resource>
-      <Resource tag="EMAIL">EMail</Resource>
+      <Resource tag="EMAIL">Email</Resource>
       <Resource tag="EMAILTOPIC">Email this topic</Resource>
       <Resource tag="EMPTY_MESSAGE">You must enter something into your post.</Resource>
       <Resource tag="FORUM_JUMP">Forum Jump</Resource>
@@ -1492,7 +1492,7 @@
       <Resource tag="BUDDYLIST">Buddy List</Resource>
       <Resource tag="PENDING_REQUESTS">Pending Requests</Resource>
       <Resource tag="POSTS">Posts</Resource>
-      <Resource tag="YOUR_REQUESTS">Your Requests</Resource>
+      <Resource tag="YOUR_REQUESTS">You’re Requests</Resource>
       <Resource tag="REQUEST_DATE">Request Date</Resource>
       <Resource tag="APPROVE">Approve</Resource>
       <Resource tag="DENY">Deny</Resource>
@@ -1943,7 +1943,7 @@ Visit {forumname} at {forumlink}
       <Resource tag="CREATED">Created</Resource>
       <Resource tag="FORUM">Forum</Resource>
       <Resource tag="FORUMUSERS">Users browsing this forum</Resource>
-      <Resource tag="GOTO_POST_PAGER">[ Goto Page: {0} ]</Resource>
+      <Resource tag="GOTO_POST_PAGER">[ Go to Page: {0} ]</Resource>
       <Resource tag="FAVORITE_COUNT_TT">How many times added to favorites</Resource>
       <Resource tag="INFO_UNWATCH_FORUM">You will no longer be notified when new posts are made in this forum.</Resource>
       <Resource tag="INFO_WATCH_FORUM">You will now be notified when new posts are made in this forum.</Resource>

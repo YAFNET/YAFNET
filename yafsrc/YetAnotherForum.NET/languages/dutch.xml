@@ -2146,7 +2146,7 @@
         &lt;li&gt;Export  Selected / Export All – Export the Message(s) as file (You Can select the  export format bellow –XML-/CSV-/Text-File)&lt;/li&gt;
         &lt;li&gt;Delete  Selected / Delete All – Delete the Message(s)&lt;/li&gt;
         &lt;/ul&gt;
-        &lt;p&gt;Depending  on how many Messages you allowed to have you should delete some of them from  time (You can export Them before you delete them to keep them on your local computer). Otherwise when your Mailbox is full you are not able to receive new  messages. On the Bottom you will be informed how many Messages you have and how  many you can Maximal have.&lt;/p&gt;
+        &lt;p&gt;Depending  on how many Messages you allowed to have you should delete some of them from  time (You can export them before you delete them to keep them on your local computer). Otherwise when your Mailbox is full you are not able to receive new  messages. On the Bottom you will be informed how many Messages you have and how  many you can Maximal have.&lt;/p&gt;
       </Resource>
     <Resource tag="MESSENGERTITLE">berichten (Messenger)</Resource>
     <Resource tag="MODSADMINSCONTENT">&lt;p&gt;Moderatoren beheren een aantal (sub)forums. Normaal gesproken kunnen ze berichten bewerken en verwijderen, topics verplaatsen en andere acties uitvoeren. Moderator worden voor een bepaald (sub)forum is normaal gesproken voor leden die erg behulpzaam zijn en ook veel weten van de materie van de onderdelen van het forum die ze modereren.&lt;/p&gt;
@@ -2674,9 +2674,9 @@
     <Resource tag="STICKY">Sticky</Resource>
     <Resource tag="SUBJECT">Onderwerp:</Resource>
     <Resource tag="SUBJECT_DUPLICATE">Een topic met deze titel bestaat al, of de titel is niet uniek genoeg.</Resource>
-    <Resource tag="TOPIC_DESCRIPTION_TOOLONG">Topic description length cannot be be more than 255 characters.</Resource>
+    <Resource tag="TOPIC_DESCRIPTION_TOOLONG">Topic description length cannot be more than 255 characters.</Resource>
     <Resource tag="TOPIC_DESCRIPTION_WORDTOOLONG">Topic description single word length cannot be be more than {0} characters. Suggestion: use abbreviations to shorten.</Resource>
-    <Resource tag="TOPIC_NAME_TOOLONG">Topic name length cannot be be more than 255 characters.</Resource>
+    <Resource tag="TOPIC_NAME_TOOLONG">Topic name length cannot be more than 255 characters.</Resource>
     <Resource tag="TOPIC_NAME_WORDTOOLONG">Topic name single word length cannot be be more than {0} characters. Suggestion: use abbreviations to shorten.</Resource>
     <Resource tag="TOPICATTACH">Bestanden bijvoegen bij dit bericht?</Resource>
     <Resource tag="TOPICNAME_TOOLONG">Maximal tolic name length should not be more than {0} characters. Use abbreviations.</Resource>

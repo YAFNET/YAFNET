@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xml="http://www.w3.org/XML/1998/namespace" language="German" code="de">
+<Resources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xml="http://www.w3.org/XML/1998/namespace" language="German" code="de">
 	<page name="HELP_INDEX">
 		<Resource tag="TITLE">YetAnotherForum.NET Hilfe</Resource>
 		<Resource tag="NAVIGATION">Inhalt</Resource>
@@ -10,7 +10,7 @@
 		<Resource tag="RECOVERCONTENT">&lt;p&gt;Wenn Sie ihr Passwort vergessen haben klicken Sie auf den &amp;quot;&lt;a href="{0}"&gt;Passwort vergessen&lt;/a&gt;&amp;quot; link. &lt;/p&gt;
 &lt;p&gt;Dieser Link öffnet eine Seite, wo Sie Ihren Benutzernamen eingeben müssen. Eine E-Mail wird an ihre Adresse geschickt, mit Anweisungen zum Zurücksetzen Ihres Passworts.&lt;/p&gt;
 &lt;p&gt;Da Passwörter verschlüsselt sind, gibt es keine Möglichkeit, ihnen Ihr ursprüngliches Passwort zu senden. Diese Option bietet Ihnen die Möglichkeit, Ihr Passwort zurückzusetzen.&lt;/p&gt;
-&lt;p&gt;Ihre hinterlegte Email Adresse muss korrekt sein und funktionieren damit die Email versendet werden kann. Möglicherweise müssen Sie Ihr Spam-Filter und Spam Ordner überprüfen, wenn Sie keine E-Mail erhalten haben.&lt;/p&gt;</Resource>
+&lt;p&gt;Ihre hinterlegte E-Mail Adresse muss korrekt sein und funktionieren damit die E-Mail versendet werden kann. Möglicherweise müssen Sie Ihr Spam-Filter und Spam Ordner überprüfen, wenn Sie keine E-Mail erhalten haben.&lt;/p&gt;</Resource>
 		<Resource tag="ANOUNCETITLE">Ankündigungen</Resource>
 		<Resource tag="ANOUNCECONTENT">&lt;p&gt;Ankündigungen sind spezielle Beiträge, die von einem Administrator oder  Moderator geschrieben werden. Sie sind eine einfache Ein-Wege-Kommunikation mit dem Benutzer und Sie können nicht antworten. Wenn Sie eine Ankündigung diskutieren möchten, müssen Sie ein neues Thema  im Forum erstellen.&lt;/p&gt;
 &lt;p&gt;Ankündigungen sind Themen die ganz am Anfang der Forenlisten angezeigt werden, oberhalb den normalen und gepinnten Themen.&lt;/p&gt;</Resource>
@@ -35,7 +35,7 @@
 &lt;p&gt;&lt;strong&gt;Wie ist alles Strukturiert?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Ein Forum enthält verschiedene Bereiche, die sich in Foren (bestimmte  Themen) aufteilen, die Themen enthalten, die aus einzelnen Beiträgen (wo ein  Benutzer etwas schreibt) bestehen.&lt;/p&gt;
 &lt;p&gt;Die Forum Hauptseite enthält eine Liste mit Kategorien  und Foren, Statistiken und die Aktiven Themen.&lt;/p&gt;
-&lt;p&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;&lt;strong&gt;Wie&lt;/strong&gt;&lt;/span&gt;&lt;strong&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;finde ich&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;mich zurecht?&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;&lt;strong&gt;Wie&lt;/strong&gt;&lt;/span&gt;&lt;strong&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;finde ich&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;mich zu Recht?&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Wenn Sie auf ein Forum Namen klicken, erscheint  die Seite mit allen Themen die das jeweilige Forum enthält. Ein Thema ist eine  Konversation zwischen verschiedenen Mitgliedern und Gästen. Jedes Thema startet  mit einem einzelnen Beitrag und wächst mit jedem neuen Beitrag von  verschiedenen Benutzern.&lt;/p&gt;
 &lt;p&gt;Um ein neues Thema zu starten klicken sie den &amp;bdquo;Neues Thema&amp;ldquo; Button.&lt;/p&gt;
 &lt;p&gt; &lt;strong&gt;Seitennummerierung &lt;/strong&gt;&lt;/p&gt;
@@ -48,24 +48,24 @@
 &lt;p&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;&lt;strong&gt;Wie&lt;/strong&gt;&lt;/span&gt;&lt;strong&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;finde ich&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;mehr&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;über&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;die Mitglieder heraus?&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Um mehr über einen Benutzer zu erfahren, klicken sie auf den  Benutzernamen. Das öffnet das Öffentliche Profil des Benutzers.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Was ist der Kopf?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Der Kopf auf jeder Seite enthält Links um Sich im Forum zurecht zu  finden. Auf der rechten Seite finden Sie einen Link um sich anzumelden oder zu  registrieren. Mit einem Klick können Sie direkt zu ihren Profil gelangen, diese  Hilfe aufrufen, die Suche aufrufen und andere Nützliche Funktionen. &lt;/p&gt;</Resource>
+&lt;p&gt;Der Kopf auf jeder Seite enthält Links um Sich im Forum zu Recht zu  finden. Auf der rechten Seite finden Sie einen Link um sich anzumelden oder zu  registrieren. Mit einem Klick können Sie direkt zu ihren Profil gelangen, diese  Hilfe aufrufen, die Suche aufrufen und andere Nützliche Funktionen. &lt;/p&gt;</Resource>
 		<Resource tag="REGISTRATIONCONTENT">&lt;p&gt;Um alle Funktionen des Forums benutzen zu können, ist es in der Regel Erforderlich das Sie sich registrieren. Durch die Registrierung erhalten Sie eine Identität im Forum, einen festen Benutzernamen und ein Öffentliches Profil. &lt;/p&gt;
-&lt;p&gt;Die Registrierung ist kostenlos ( wenn nicht anders angegeben) , und bietet ein breites Spektrum an Funktionen, einschließlich:&lt;/p&gt;
+&lt;p&gt;Die Registrierung ist kostenlos (wenn nicht anders angegeben) , und bietet ein breites Spektrum an Funktionen, einschließlich:&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;Neue Themen verfassen&lt;/li&gt;
   &lt;li&gt;Auf andere Themen Antworten&lt;/li&gt;
   &lt;li&gt;Bearbeiten von eigenen Beiträgen&lt;/li&gt;
-  &lt;li&gt;Email-Benachrichtigungen bei Antworten auf Beiträgen und Themen, die Sie definiert haben&lt;/li&gt;
+  &lt;li&gt;E-Mail-Benachrichtigungen bei Antworten auf Beiträgen und Themen, die Sie definiert haben&lt;/li&gt;
   &lt;li&gt;Private Nachrichten an andere Benutzer senden&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;Wie kann ich mich registrieren?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Sie registrieren sich, indem Sie auf den &amp;quot;Registrieren &amp;quot; Link im Kopf der Seite klicken. Zuerst müssen sie den Foren-Regeln zustimmen. Dann werden Sie aufgefordert, einen Benutzernamen, ein Passwort , eine Sicherheitsfrage- und Antwort wählen. Und eine gültige E-Mail -Adresse angeben. Und wenn aktiviert muss ein Captcha Code eingeben werden.&lt;/p&gt;</Resource>
+&lt;p&gt;Sie registrieren sich, indem Sie auf den &amp;quot;Registrieren &amp;quot; Link im Kopf der Seite klicken. Zuerst müssen sie den Foren-Regeln zustimmen. Dann werden Sie aufgefordert, einen Benutzernamen, ein Passwort, eine Sicherheitsfrage- und Antwort wählen. Und eine gültige E-Mail -Adresse angeben. Und wenn aktiviert muss ein Captcha Code eingeben werden.&lt;/p&gt;</Resource>
 		<Resource tag="SEARCHINGCONTENT">&lt;p&gt;Um schnell ein Thema oder Beitrag zu finden für das/den sie sich Interessieren, klicken Sie auf den Suche Link im Kopf der Seite, dann geben Sie ein Suchwort nachdem Sie suchen.&lt;/p&gt;
 &lt;p&gt;Für mehr Kontrolle über die Suche können Sie Ihre Suche weiter einzuschränken auf einzelne Foren, oder finden Sie Beiträge oder Themen von einem bestimmten Benutzer. Sie können auch wählen, wie viele Ergebnisse pro Seite gezeigt werden sollen.&lt;/p&gt;</Resource>
 		<Resource tag="DISPLAYCONTENT">&lt;p&gt;Sie haben zwei Möglichkeiten um Themen zu betrachten. Wenn Sie ein Thema Betrachten werfen Sie ein Blick auf die oberste Leiste, auf der rechten Seite Sehen Sie den Link &amp;quot;Ansicht&amp;quot; Wenn Sie darauf klicken Erscheint das Auswahl Menü wie das Thema angeordnet werden soll.&lt;/p&gt;
 &lt;p&gt;Sie haben zwei Möglichkeiten:&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Normal&lt;/strong&gt; - Beiträge werdenchronologisch angeordnet, normalerweise der älteste zuerst und der neuste zuletzt, dabei können mehrere Beiträge gleichzeitig Gelesen werden. &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Normal&lt;/strong&gt; - Beiträge werden chronologisch angeordnet, normalerweise der älteste zuerst und der neuste zuletzt, dabei können mehrere Beiträge gleichzeitig Gelesen werden. &lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;Threaded&lt;/strong&gt; - Eine Navigationsliste wird für jeden Beitrag gezeigt. Es wird dabei nur ein Beitrag angezeigt. Wenn Sie auf einen Beitrag in der Navigationsliste klicken wird der jeweilige Beitrag angezeigt.&lt;/li&gt;
 &lt;/ul&gt;</Resource>
 		<Resource tag="NEWPOSTSCONTENT">&lt;p&gt;Wenn Sie nicht eingeloggt sind wird der &amp;ldquo;Aktive Themen&amp;rdquo; Link  im Kopf der Seite angezeigt, der eine Liste mit allen aktiven Themen zeigt seit  ihren letzten Besuch.&lt;/p&gt;
@@ -93,13 +93,13 @@
 &lt;p&gt;Die meisten modernen Browser verfügen über Einrichtungen für das Lesen von RSS-Feeds und erkennen automatisch die Verfügbarkeit von RSS-Feeds in den YAF Forum Seiten.&lt;/p&gt;</Resource>
 		<Resource tag="MESSENGERTITLE">Private Nachrichten (Messenger)</Resource>
 		<Resource tag="PUBLICPROFILETITLE">Mein öffentliches Profil</Resource>
-		<Resource tag="EDITPROFILETITLE">Benutzer Profil bearbeiten &amp; Forumeinstellungen</Resource>
+		<Resource tag="EDITPROFILETITLE">Benutzer Profil bearbeiten &amp; Forum Einstellungen</Resource>
 		<Resource tag="MYSETTINGSTITLE">Meine Einstellungen (Benutzer Einstellungen)</Resource>
 		<Resource tag="MYPICSTITLE">Signaturen, Avatar Bilder</Resource>
 		<Resource tag="BUDDIESTITLE">Freunde</Resource>
 		<Resource tag="MYALBUMSTITLE">Alben</Resource>
 		<Resource tag="THANKSTITLE">Danksagungs-Funktion</Resource>
-		<Resource tag="THANKSCONTENT">&lt;p&gt;Das  Danksagungssytem ist eine Funktion um einen anderen Benutzer ein Positives  Feedback für ein Beitrag den Er oder Sie verfasst hat zu danken. Wenn z.B.:  Jemand etwas geschrieben hat das ihnen dabei geholfen hat ein Problem zu lösen.&lt;/p&gt;
+		<Resource tag="THANKSCONTENT">&lt;p&gt;Das  Danksagungssytem ist eine Funktion um einen anderen Benutzer ein Positives  Feedback für einen Beitrag den Er oder Sie verfasst hat zu danken. Wenn z.B.:  Jemand etwas geschrieben hat das ihnen dabei geholfen hat ein Problem zu lösen.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Wie sagt man Danke?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Wenn Sie sich bei einem Benutzer bedanken wollen klicken Sie  auf &amp;bdquo;Danke&amp;ldquo; in dem Beitrag für den Sie sich bedanken möchten. Danach erscheint  ihr Name in der Liste von Benutzern die Danke gesagt haben am Ende des  Beitrages. Sie können außerdem jeder Zeit die Danksagung wiederrufen.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Alle  Danksagungen ansehen&lt;/strong&gt;&lt;/p&gt;
@@ -111,7 +111,7 @@
 		<Resource tag="MESSENGERCONTENT">&lt;p&gt;Registrierte  Mitglieder können anderen Mitgliedern Private Nachrichten schicken über das  Private Nachrichten System (Wenn durch den Administrator aktiviert).&lt;/p&gt;
 &lt;p&gt;Wenn Sie eine ungelesene Nachricht haben wird im Kopf die  Anzahl an ungelesenen Nachrichten angezeigt. Sie Erhalten außerdem einen Pop Up  Benachrichtigung. Und wenn Sie das aktiviert haben erhalten Sie eine E-Mail Benachrichtigung.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How do I send Private Messages?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Private Nachrichten Funktionieren ähnlich wie E-Mails,  allerdings sind Sie beschränkt auf die Registrierten Mitglieder des Forums. Sie  haben die dabei die Möglichkeit BB Codes, Smilies, und Bilder in Private Nachrichten  einzubauen. &lt;/p&gt;
+&lt;p&gt;Private Nachrichten Funktionieren ähnlich wie E-Mails,  allerdings sind Sie beschränkt auf die Registrierten Mitglieder des Forums. Sie  haben die dabei die Möglichkeit BB Codes, Smileys, und Bilder in Private Nachrichten  einzubauen. &lt;/p&gt;
 &lt;p&gt;Sie können Private Nachrichten verschicken indem Sie auf den  &amp;bdquo;PM&amp;ldquo; Button im Benutzer Profil des Benutzers klicken, oder Sie klicken Auf den  Link &amp;bdquo;Neue Nachricht&amp;ldquo; in den Benutzereinstellungen, und geben dann den Benutzer  Namen manuell ein dem Sie eine Nachricht schicken möchten. Jede Nachricht die  Sie verschicken wird automatisch im Postausgangsordner Gespeichert.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Private Nachrichten Ordner&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Genau wie ein E-Mail Programm haben Sie 3 Ordner…&lt;/p&gt;
@@ -138,16 +138,16 @@
 &lt;p&gt;&lt;strong&gt;Welche Informationen sind enthalten auf dieser Seite?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Das Öffentliche Profil ist unterteilt in 5 Reiter.&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Allgemeine Informationen&lt;/strong&gt; - Zeigt alle Infos die der Benutzer angegeben hat wie z.b der echte Name, Geschlecht, usw.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Statistiken&lt;/strong&gt; - Zeigt Statistik Informationen wie z.b: das Beitrittsdatum, der Letzte Besuch, Anzahl an Danksagungen, usw.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Allgemeine Informationen&lt;/strong&gt; - Zeigt alle Infos die der Benutzer angegeben hat wie z.B.: der echte Name, Geschlecht, usw.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Statistiken&lt;/strong&gt; - Zeigt Statistik Informationen wie z.B.: das Beitrittsdatum, der Letzte Besuch, Anzahl an Danksagungen, usw.&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;Letzte 10 Beiträge&lt;/strong&gt; - Zeigt wenn vorhanden die letzten 10 Beiträge die der Benutzer verfasst hat&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;Freunde - &lt;/strong&gt;Zeigt die Freunde des Benutzers an&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;Alben - &lt;/strong&gt;Zeigt die Alben des Benutzers wenn vorhanden und/oder aktiviert&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Persönliche Informationen wie z.B.: die E-Mail Adresse oder das Passwort werden &lt;strong&gt;NICHT&lt;/strong&gt; gezeigt.&lt;/p&gt;</Resource>
-		<Resource tag="MYSETTINGSCONTENT">&lt;p&gt;Das &lt;strong&gt;Benutzer Control Panel&lt;/strong&gt; ist der Ort an den Sie ihre Persönlichen Einstellungen verwalten können.&lt;/p&gt;
+		<Resource tag="MYSETTINGSCONTENT">&lt;p&gt;Die &lt;strong&gt;Benutzer Einstellungen&lt;/strong&gt; ist der Ort an den Sie ihre Persönlichen Einstellungen verwalten können.&lt;/p&gt;
 &lt;p&gt;Die Hauptseite zeigt ihre Account Zusammenfassung mit ihrem  Benutzernamen, E-Mail Adresse, Anzahl an Beiträge, Gruppen in denen Sie  Mitglied sind, und seit wann Sie Mitglied sind.&lt;/p&gt;
-&lt;p&gt;Auf der Linken Seite finden Sie die Links zu allen Unter Seiten…&lt;/p&gt;
+&lt;p&gt;Auf der linken Seite finden Sie die Links zu allen Unter Seiten…&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Private Nachrichten&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;Posteingang&lt;/li&gt;
@@ -202,7 +202,7 @@
 &lt;p&gt;&lt;strong&gt;Wo wird die Freundschaftsliste angezeigt?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Ihre Freunde werden auf der &amp;ldquo;Meine Freunde&amp;rdquo; Seite angezeigt,  die Seite kann über den Seiten Kopf erreicht werden oder von ihren Benutzer  Einstellungen.&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;Notiz: Wenn Sie den Link im Seiten Kopf nicht sehen können  dann haben Sie noch keine Freunde, oder ausstehende Anfragen.&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;Ihre Freunde werden auch in ihrer Profilseite aufgelistest.&lt;/p&gt;
+&lt;p&gt;Ihre Freunde werden auch in ihrer Profilseite aufgelistet.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Wie  kann ich einen Benutzer als Freund annehmen, oder eine Freundesanfrage akzeptieren?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Eine Freundes Anfrage kann   vom Profil des gewünschten Benutzers gestartet werden, in dem Sie auf  den Button &amp;ldquo;Als Freund hinzufügen&amp;rdquo; klicken.&lt;/p&gt;
 &lt;p&gt;Um eine Freundesanfrage zu akzeptieren gehen Sie zu &amp;bdquo;Meine  Freunde&amp;ldquo; Seite. Im Reiter &amp;bdquo;Ausstehende Anfragen&amp;ldquo;  Sehen Sie die Liste mit Anfragen. Dazu haben  Sie drei Möglichkeiten…&lt;/p&gt;
@@ -224,7 +224,7 @@
 		<Resource tag="REPLYINGTITLE">Auf einen Beitrag antworten</Resource>
 		<Resource tag="EDITDELETETITLE">Bearbeiten und Löschen von Beiträgen</Resource>
 		<Resource tag="ATTACHMENTSTITLE">Anhänge und Bilder</Resource>
-		<Resource tag="SMILIESTITLE">Smilies</Resource>
+		<Resource tag="SMILIESTITLE">Smileys</Resource>
 		<Resource tag="MODSADMINSTITLE">Moderatoren und Administratoren</Resource>
 		<Resource tag="POLLSCONTENT">&lt;p&gt;&lt;em&gt;Umfragen sind eine Option um für ein Problem oder Frage abzustimmen.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Neue Umfrage erstellen&lt;/strong&gt;&lt;/p&gt;
@@ -251,11 +251,11 @@
 &lt;p&gt;Um den Text zu Formatieren haben Sie zwei Möglichkeiten...&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;Benutzern Sie die Anklickbaren Buttons ähnlich wie in den meisten Textprogrammen&lt;/li&gt;
-  &lt;li&gt;Fromatierungsbefehle in  BB code direkt eingeben&lt;/li&gt;
+  &lt;li&gt;Formatierungsbefehle in BB code direkt eingeben&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Anklickbare Buttons sind verfügbar in den Standard WYSIWYG (What You  See Is What You Get) Editoren. Die Buttons sind je nach Editor  unterschiedlich, der CKEditor zeigt die Textformatierungen direkt an.&lt;/p&gt;
 &lt;p&gt;Es hängt davon ab welcher Editor aktiviert ist, wenn ein BB  Code Editor aktiviert ist können Texte nur durch BB Codes formatiert werden.  Ist ein HTML Editor aktiviert kann können die Textformatierungen per HTML Code  Formatiert werden. Wenn aktiviert können Sie den Editor in ihren Profil  Einstellungen selbst wählen.&lt;/p&gt;
-&lt;p&gt;Um die Button im Editor zu verwenden klicken Sie einfach  darauf. Zum Beispiel B (bold) Button für Fetten Text und der Text wird Fett  bzw.  im BB Code editor wird der Text mit  [b]FETTER TEXT[/b] formatiert.&lt;/p&gt;</Resource>
+&lt;p&gt;Um die Button im Editor zu verwenden klicken Sie einfach  darauf. Zum Beispiel B (bold) Button für Fetten Text und der Text wird Fett  bzw. im BB Code Editor wird der Text mit  [b]FETTER TEXT[/b] formatiert.&lt;/p&gt;</Resource>
 		<Resource tag="REPLYINGCONTENT">&lt;p&gt;In einigen Foren können Sie evtl. als Gast Beiträge oder Themen  verfassen. Aber die Meisten Communities erfordern eine Registrierung.&lt;/p&gt;
 &lt;p&gt;Ein Registrierter Benutzer kann zu einem Forum gehen wenn er die Berechtigung  hat und auf ein Thema antworten. Zum Antworten haben Sie verschiedene  Möglichkeiten. Sie können auf den &amp;bdquo;Antwort erstellen&amp;ldquo; Button klicken, oder in  der &amp;bdquo;Schnelle Antwort&amp;ldquo; Box eine Antwort schreiben. &lt;/p&gt;
 &lt;p&gt;Wenn Sie eine andere Antwort Zitieren wollen klicken Sie auf  den &amp;bdquo;Zitieren&amp;ldquo; Button innerhalb des Beitrags den Sie zitieren möchten.&lt;/p&gt;</Resource>
@@ -309,12 +309,12 @@
 	</page>
 	<page name="DIGEST">
 		<Resource tag="NEWTOPICS">Neue Themen</Resource>
-		<Resource tag="ACTIVETOPICS">Themen Heute Aktiv</Resource>
+		<Resource tag="ACTIVETOPICS">Themen Heute aktiv</Resource>
 		<Resource tag="COMMENTS">{0} Kommentare</Resource>
 		<Resource tag="STARTEDBY">Gestartet von {0}</Resource>
 		<Resource tag="LINK">Mehr</Resource>
 		<Resource tag="LASTBY">Von {0}</Resource>
-		<Resource tag="REMOVALTEXT">Wollen Sie keine weiteren Emails erhalten?</Resource>
+		<Resource tag="REMOVALTEXT">Wollen Sie keine weiteren E-Mails erhalten?</Resource>
 		<Resource tag="REMOVALLINK">Passen Sie Ihre Benachrichtigungseinstellungen an.</Resource>
 		<Resource tag="SUBJECT">Aktive und Neue Themen - Tägliche Digest für {0}</Resource>
 	</page>
@@ -386,9 +386,9 @@
 		<Resource tag="RSSTOPIC">Betrachtet RSS Feed</Resource>
 		<Resource tag="HELP_INDEX">Betrachtet den Hilfeindex</Resource>
 		<Resource tag="HELP_RECOVER">Keine Daten</Resource>
-		<Resource tag="LASTPOSTS">Keine daten</Resource>
+		<Resource tag="LASTPOSTS">Keine Daten</Resource>
 		<Resource tag="RECOVERPASSWORD">Keine Daten</Resource>
-		<Resource tag="SHOWSMILIES">No data</Resource>
+		<Resource tag="SHOWSMILIES">Keine Daten</Resource>
 		<Resource tag="VIEWTHANKS">Sieht Dankesinfo an </Resource>
 		<Resource tag="ADMINTASK">Führt Admin Aufgaben durch</Resource>
 		<Resource tag="ADMIN_ADMIN">Betrachtet Admin Index</Resource>
@@ -397,7 +397,7 @@
 		<Resource tag="ADMIN_BOARDSETTINGS">Betrachtet Boardeinstellungen</Resource>
 		<Resource tag="ADMIN_FORUMS">Betrachtet Foren im Adminbereich</Resource>
 		<Resource tag="ADMIN_BANNEDIP">Betrachtet Gebannte IPs Liste</Resource>
-		<Resource tag="ADMIN_SMILIES">Views smilies</Resource>
+		<Resource tag="ADMIN_SMILIES">Betrachtet Smileys</Resource>
 		<Resource tag="ADMIN_ACCESSMASKS">Betrachtet Zugriffssmasken im Adminbereich</Resource>
 		<Resource tag="ADMIN_GROUPS">Betrachtet Gruppen im Adminbereich</Resource>
 		<Resource tag="ADMIN_USERS">Betrachtet Benutzer im Adminbereich</Resource>
@@ -405,12 +405,12 @@
 		<Resource tag="ADMIN_LANGUAGES">Betrachtet Sprachenliste</Resource>
 		<Resource tag="ADMIN_EDITLANGUAGE">Bearbeitet eine Sprachendatei</Resource>
 		<Resource tag="ADMIN_MAIL">Betrachtet/Bearbeitet Mails</Resource>
-		<Resource tag="ADMIN_MEDALS">Betrachtet/Bearbeitet Medalien</Resource>
+		<Resource tag="ADMIN_MEDALS">Betrachtet/Bearbeitet Medaillen</Resource>
 		<Resource tag="ADMIN_PRUNE">Betrachtet/Bearbeitet Beschneiden</Resource>
 		<Resource tag="ADMIN_PM">Betrachtet/Bearbeitet PMs</Resource>
 		<Resource tag="ADMIN_ATTACHMENTS">Betrachte Anhänge</Resource>
 		<Resource tag="ADMIN_EVENTLOG">Betrachtet/Bearbeitet Eventlog</Resource>
-		<Resource tag="ADMIN_NNTPSERVERS">Betrachtet/Bearbeitet NNTP servers</Resource>
+		<Resource tag="ADMIN_NNTPSERVERS">Betrachtet/Bearbeitet NNTP Server</Resource>
 		<Resource tag="ADMIN_NNTPFORUMS">Betrachtet/Bearbeitet NNTP Foren</Resource>
 		<Resource tag="ADMIN_NNTPRETRIEVE">Ruft NNTP</Resource>
 		<Resource tag="ADMIN_VERSION">Betrachtet Version</Resource>
@@ -424,8 +424,8 @@
 		<Resource tag="ADMIN_EDITRANK">Bearbeitet Ränge</Resource>
 		<Resource tag="ADMIN_EDITUSER">Bearbeitet Benutzeruser</Resource>
 		<Resource tag="ADMIN_REGUSER">Registriert einen Benutzer</Resource>
-		<Resource tag="ADMIN_SMILIES_EDIT">Edits smilies</Resource>
-		<Resource tag="ADMIN_SMILIES_IMPORT">Imports smilies</Resource>
+		<Resource tag="ADMIN_SMILIES_EDIT">Bearbeitet Smileys</Resource>
+		<Resource tag="ADMIN_SMILIES_IMPORT">Importiert Smileys</Resource>
 		<Resource tag="ADMIN_REPLACEWORDS">Betrachtet Ersatzwörterliste</Resource>
 		<Resource tag="ADMIN_REPLACEWORDS_EDIT">Bearbeitet Ersatzwörterliste</Resource>
 		<Resource tag="ADMIN_REPLACEWORDS_IMPORT">Importiert Ersatzwörter</Resource>
@@ -492,7 +492,7 @@
 		<Resource tag="HIDDENMOD_GUEST">Das Forum verlangt das Sie registriert sind und angemeldet bevor Sie die Versteckten Beiträge sehen können</Resource>
 		<Resource tag="HIDDENMOD_GROUP">Sie haben nicht die nötigen Rechte den Versteckten Inhalt sehen zu können.</Resource>
 		<Resource tag="HIDEGROUPMOD_DESCRIPTION">Den Inhalt verstecken vor Gästen, oder anderen Gruppen falls definiert.</Resource>
-		<Resource tag="HIDETHANKS_DESCRIPTION">The tag hides content from people who have below then X thanks received.</Resource>
+		<Resource tag="HIDETHANKS_DESCRIPTION">Dieser BB Code Versteckt den Inhalt bei Personen denen weniger als x mal danke gesagt wurde.</Resource>
 		<Resource tag="HIDEPOSTS_DESCRIPTION">Der Inhalt wird nur angezeigt für Benutzer denen mehr als x Mal danke gesagt wurde.</Resource>
 		<Resource tag="HIDEREPLY_DESCRIPTION">Der Inhalt wird nur angezeigt für Benutzer die in diesem Thema eine Antwort geschrieben haben.</Resource>
 		<Resource tag="HIDEREPLYTHANKS_DESCRIPTION">Der Inhalt wird nur angezeigt für Benutzer die in diesem Thema eine Antwort geschrieben haben oder sich für diesen Beitrag bedankt haben.</Resource>
@@ -568,8 +568,8 @@
 		<Resource tag="EDIT">Bearbeiten</Resource>
 		<Resource tag="COPY">Kopieren</Resource>
 		<Resource tag="BACK">Zurück</Resource>
-		<Resource tag="MOBILE_FULLSITE">Volle Seite ansehen</Resource>
-		<Resource tag="MOBILE_VIEWSITE">Mobile Seite ansehen</Resource>
+		<Resource tag="MOBILE_FULLSITE">Volle Seite Ansehen</Resource>
+		<Resource tag="MOBILE_VIEWSITE">Mobile Seite Ansehen</Resource>
 		<Resource tag="BAD_CAPTCHA">Der eingegebene Text passt nicht zum angezeigten Sicherheitscode (Groß und Kleinschreibung beachten)</Resource>
 		<Resource tag="BAD_USERNAME">Der Benutzername darf kein Semikolon (;) enthalten.</Resource>
 		<Resource tag="USERNAME_TOOLONG">Benutzername oder Anzeigename kann nicht länger als {0} Zeichen lang sein.</Resource>
@@ -663,7 +663,7 @@
 		<Resource tag="UNREAD_MSG_TITLE">Private Nachricht(en)</Resource>
 		<Resource tag="UNREAD_MSG2">Sie haben {0} ungelesene Nachricht(e) in ihrem Posteingang. Möchten Sie zu ihrem Posteingang gehen?</Resource>
 		<Resource tag="UPDATE">Aktualisieren</Resource>
-		<Resource tag="COMMON_WORDS">aus, bitte, ein, in der Lage, über, überall, nachdem alle, fast, auch bin, unter ein, und alle sind, wie, bei,, da werden, aber durch kann, kann nicht, könnte, lieber habe, zu tun, ist, entweder, sonst, je, jede, für, von, zu bekommen, bekam, hatte, hat, haben er, sie, ihr, ihn, seine, wie ich jedoch, wenn, in, in, ist, es, seine, gerade, zumindest lassen, wie, wahrscheinlich, kann mir vielleicht die meisten, muss, meiner, weder, nein, noch nicht, der, aus, oft auf, nur, oder andere, unsere, eigene, sondern sagte, sagen wir, sagt, sie sollten, da so einige, als, dass das, ihr, sie, dann gibt es diese, sie, diese, tis, zu, Auch twas, uns will, war, wir wurden, was, wann, wo, was, während wer, wen, warum, wird mit, wäre doch, Sie, Ihre</Resource>
+		<Resource tag="COMMON_WORDS">aus, bitte, ein, in der Lage, über, überall, nachdem alle, fast, auch bin, unter ein, und alle sind, wie, bei,, da werden, aber durch kann, kann nicht, könnte, lieber habe, zu tun, ist, entweder, sonst, je, jede, für, von, zu bekommen, bekam, hatte, hat, haben er, sie, ihr, ihn, seine, wie ich jedoch, wenn, in, in, ist, es, seine, gerade, zumindest lassen, wie, wahrscheinlich, kann mir vielleicht die meisten, muss, meiner, weder, nein, noch nicht, der, aus, oft auf, nur, oder andere, unsere, eigene, sondern sagte, sagen wir, sagt, sie sollten, da so einige, als, dass das, ihr, sie, dann gibt es diese, sie, diese, zu, Auch was, uns will, war, wir wurden, was, wann, wo, was, während, wer, wen, warum, wird mit, wäre doch, Sie, Ihre</Resource>
 		<Resource tag="TIMEAGO_JS">
       // German
       jQuery.timeago.settings.strings = {
@@ -727,7 +727,7 @@
 		<Resource tag="DUPLICATED_EMAIL">Die E-Mail-Adresse eingegeben haben, ist bereits im Einsatz.</Resource>
 		<Resource tag="BAD_HOME">Keine zulässige Adresse für Deine Homepage.</Resource>
 		<Resource tag="BAD_ICQ">Unzulässige ICQ-Daten.</Resource>
-		<Resource tag="BAD_FACEBOOK">Unzulässige Facbeook Profile ID.</Resource>
+		<Resource tag="BAD_FACEBOOK">Unzulässige Facebook Profile ID.</Resource>
 		<Resource tag="BAD_MSN">E-Mail-Adresse nicht zulässig für Dein MSN Konto.</Resource>
 		<Resource tag="BAD_XMPP">Sie haben einen Ungültigen Namen für ihr XMPP Konto eingeben.</Resource>
 		<Resource tag="BAD_WEBLOG">Keine zulässige Adresse für Deinen Blog.</Resource>
@@ -865,7 +865,7 @@
 		<Resource tag="ALLTOPICS">Benachrichtigung für [b]alle Beiträge in allen Themen[/b]</Resource>
 		<Resource tag="TOPICSIPOSTTOORSUBSCRIBETO">Benachrichtigung en für Themen [b]in denen Sie etwas geschrieben haben[/b] oder das Sie verfolgen.</Resource>
 		<Resource tag="TOPICSISUBSCRIBETO">Benachrichtigungen für Themen oder Foren die Sie zum Verfolgen Ausgewählt haben (Unterhalb aufgelistet)</Resource>
-		<Resource tag="SAVED_NOTIFICATION_SETTING">Email Benachrichtigunseinstellungen aktualisiert</Resource>
+		<Resource tag="SAVED_NOTIFICATION_SETTING">E-Mail Benachrichtigungseinstellungen aktualisiert</Resource>
 	</page>
 	<page name="DEFAULT">
 		<Resource tag="ONDATE">am {0}</Resource>
@@ -989,7 +989,7 @@
 		<Resource tag="CONTINUE">Fortfahren...</Resource>
 		<Resource tag="DISABLED">Der Administrator hat diese Funktion gesperrt.</Resource>
 		<Resource tag="EXCEPTION">Du bist angemeldet als</Resource>
-		<Resource tag="FAILURE">Während der Verarbeitung trat ein Fehler auf. Bitte informiere den Administrator und schildere genau, was du getan hat, als der Fehler auftrat. Danke.</Resource>
+		<Resource tag="FAILURE">Während der Verarbeitung trat ein Fehler auf. Bitte informiere den Administrator und schildere genau, was du getan hast, als der Fehler auftrat. Danke.</Resource>
 		<Resource tag="INVALID">Du hast einen ungültigen Wert eingestellt.</Resource>
 		<Resource tag="MODERATED">Da du in einem moderierten Forum einen Beitrag geschrieben hast, muss zuerst ein Moderator deinen Beitrag bestätigen, damit dieser sichtbar wird.</Resource>
 		<Resource tag="REGISTRATION">Eine E-Mail wurde an die angegebene Adresse geschickt. Bitte lies die darin enthaltenen Informationen, um Dich einzuloggen.</Resource>
@@ -1024,13 +1024,13 @@
 		<Resource tag="RECOVER_ERROR">Fehler beim Erstellen eines neuen Passworts.</Resource>
 		<Resource tag="SENDPASSWORD">Passwort zusenden</Resource>
 		<Resource tag="TITLE">Einloggen</Resource>
-		<Resource tag="USERNAME">Benutzername oder Email Adresse:</Resource>
+		<Resource tag="USERNAME">Benutzername oder E-Mail Adresse:</Resource>
 		<Resource tag="WRONG_USERNAME_EMAIL">Falscher Benutzername oder falsche E-Mail-Adresse.</Resource>
 		<Resource tag="FACEBOOK_LOGIN">Mit Facebook anmelden</Resource>
 		<Resource tag="SSO_DEACTIVATED">Single Sign On ist derzeit vom Administrator deaktiviert!</Resource>
 		<Resource tag="SSO_DEACTIVATED_BYUSER">Single Sign On ist deaktiviert für diesen Benutzer, um diese Funktion zu aktivieren müssen Sie diese in den Profil Einstellungen aktivieren.</Resource>
 		<Resource tag="SSO_ID_NOTMATCH">Die Facebook Benutzer ID stimmt nicht überein!</Resource>
-		<Resource tag="SSO_FAILED">Die Facebook Anmeldung ist fehlgeschlagen, ein Benutzer mit dieser Email Adresse exestiert nicht.</Resource>
+		<Resource tag="SSO_FAILED">Die Facebook Anmeldung ist fehlgeschlagen, ein Benutzer mit dieser E-Mail Adresse existiert nicht.</Resource>
 	</page>
 	<page name="MEMBERS">
 		<Resource tag="JOINED">Mitglied seit</Resource>
@@ -1254,8 +1254,8 @@
 		<Resource tag="PRIORITY">Priorität:</Resource>
 		<Resource tag="REPLY">Eine Antwort schreiben</Resource>
 		<Resource tag="SAVE">Senden</Resource>
-		<Resource tag="SMILIES_HEADER">[b]Add Smiley[/b]</Resource>
-		<Resource tag="SMILIES_MORE">More Smilies...</Resource>
+		<Resource tag="SMILIES_HEADER">[b]Smiley Hinzufügen[/b]</Resource>
+		<Resource tag="SMILIES_MORE">Mehr Smileys...</Resource>
 		<Resource tag="STICKY">Wichtig</Resource>
 		<Resource tag="SUBJECT">Betreff:</Resource>
 		<Resource tag="SUBJECT_DUPLICATE">Ein Beitrag mit diesem Namen existiert bereits oder ist nicht eindeutig genug um ihn verwenden zu können.</Resource>
@@ -1265,7 +1265,7 @@
 		<Resource tag="TOPIC_NAME_TOOLONG">Themen Titel darf nicht mehr als {0} Zeichen lang sein.</Resource>
 		<Resource tag="TOPIC_NAME_WORDTOOLONG">Ein Wort im Themen Titel darf nicht mehr als {0} Zeichen lang sein. Vorschlag: Abkürzungen benutzen.</Resource>
 		<Resource tag="TOPIC_DESCRIPTION_TOOLONG">Themen Beschreibung darf nicht mehr als {0} Zeichen lang sein.</Resource>
-		<Resource tag="TOPIC_DESCRIPTION_WORDTOOLONG">Topic description single word length cannot be be more than {0} characters. Suggestion: use abbreviations to shorten.</Resource>
+		<Resource tag="TOPIC_DESCRIPTION_WORDTOOLONG">Themen Beschreibung Wortlänge eines Wortes kann nicht länger als {0} Zeichen sein. Vorschlag: Verwenden Sie Abkürzungen.</Resource>
 		<Resource tag="WAIT">Du kannst in den nächsten {0:N0} Sekunden nicht posten.</Resource>
 		<Resource tag="SPAM_MESSAGE">Ihr Beitrag wurde abgelehnt dar er als SPAM erkannt wurde!</Resource>
 		<Resource tag="SAVE_TITLE">Beitrag veröffentlichen/aktualisieren</Resource>
@@ -1401,7 +1401,7 @@
 		<Resource tag="WATCHTOPIC">Dieses Thema abonnieren</Resource>
 		<Resource tag="YIM">YAHOO</Resource>
 		<Resource tag="SHARE">Share</Resource>
-		<Resource tag="SHARE_TOOLTIP">Dieses Thema via Email, Twitter, Buzz, Facebook, Digg, Reddit oder Tumblr verbreiten</Resource>
+		<Resource tag="SHARE_TOOLTIP">Dieses Thema via E-Mail, Twitter, Buzz, Facebook, Digg, Reddit oder Tumblr verbreiten</Resource>
 		<Resource tag="RETWEET_TOPIC">Thema retweeten</Resource>
 		<Resource tag="BUZZ_TOPIC">Thema Buzzen</Resource>
 		<Resource tag="FACEBOOK_TOPIC">Thema mögen</Resource>
@@ -1409,7 +1409,7 @@
 		<Resource tag="TUMBLR_TOPIC">Mitteilen auf Tumblr</Resource>
 		<Resource tag="DIGG_TOPIC">Thema Diggen</Resource>
 		<Resource tag="REDDIT_TOPIC">Thema an Reddit übermitteln</Resource>
-		<Resource tag="OPTIONS_TOOLTIP">Optionen um das Thema via Email, RSS, Atom, zu abonnieren. Und eine Option für eine Druckfreundliche Ansicht.</Resource>
+		<Resource tag="OPTIONS_TOOLTIP">Optionen um das Thema via E-Mail, RSS, Atom, zu abonnieren. Und eine Option für eine Druckfreundliche Ansicht.</Resource>
 		<Resource tag="VIEW_TOOLTIP">Themen Ansicht wechseln</Resource>
 		<Resource tag="FACEBOOK">Facebook</Resource>
 		<Resource tag="TWITTER">Twitter</Resource>
@@ -1521,7 +1521,7 @@
 		<Resource tag="XMPP">Jabber Name:</Resource>
 		<Resource tag="YIM">Yahoo!-Messenger:</Resource>
 		<Resource tag="FACEBOOK">Facebook Profil:</Resource>
-		<Resource tag="Twitter">Twitter Name:</Resource>
+		<Resource tag="Twitter">Twittername:</Resource>
 	</page>
 	<page name="RECOVER_PASSWORD">
 		<Resource tag="ACCOUNT_NOT_APPROVED">Dein Zugang für das Forum wurde bis jetzt noch nicht von einem Administrator freigeschaltet, daher kannst Du dein Passwort noch nicht ändern.</Resource>
@@ -1623,7 +1623,7 @@ Du räumst den Betreibern, Administratoren und Moderatoren dieses Forums das Rec
 
 Dieses System verwendet Cookies, um Informationen auf deinem Computer zu speichern. Diese Cookies enthalten keine der oben angegebenen Informationen, sondern dienen ausschließlich deinem Komfort. Deine Mail-Adresse wird nur zur Bestätigung der Registrierung und ggf. zum Versand eines neuen Passwortes verwandt.
 
-Du verpflichtest Dich keine automatischen Tools, Scripte, Browser Addons usw. zum Anmelden an diesem Forum bzw. zum Schreiben von Beiträgen in diesem Forum zu benutzen.
+Du verpflichtest Dich keine automatischen Tools, Skripte, Browser Addons usw. zum Anmelden an diesem Forum bzw. zum Schreiben von Beiträgen in diesem Forum zu benutzen.
 
 Durch das Abschließen der Registrierung stimmst Du diesen Nutzungsbedingungen zu.
 [/size]
@@ -1661,11 +1661,11 @@ Durch das Abschließen der Registrierung stimmst Du diesen Nutzungsbedingungen z
 		<Resource tag="TOPIC">Thema:</Resource>
 	</page>
 	<page name="SHOWSMILIES">
-		<Resource tag="CLOSE_WINDOW">Close Window</Resource>
+		<Resource tag="CLOSE_WINDOW">Fenster Schließen</Resource>
 		<Resource tag="HEADER_CODE">Code</Resource>
-		<Resource tag="HEADER_MEANING">Meaning</Resource>
-		<Resource tag="HEADER_SMILE">Smile</Resource>
-		<Resource tag="TITLE">Available Smilies</Resource>
+		<Resource tag="HEADER_MEANING">Meint</Resource>
+		<Resource tag="HEADER_SMILE">Smiley</Resource>
+		<Resource tag="TITLE">Verfügbare Smileys</Resource>
 	</page>
 	<page name="SHOUTBOX">
 		<Resource tag="TITLE">ShoutBox (Mini-Chat)</Resource>
@@ -1729,7 +1729,7 @@ Hallo,
 ein neuer Benutzer hat sich im Forum {forumname} angemeldet:
 		
 Benutzername: {user}
-Email: {email}
+E-Mail: {email}
 		
 Admin-Link: {adminlink}
 	</Resource>
@@ -1741,7 +1741,7 @@ Admin-Link: {adminlink}
       Benutzername: {user}
 	  Automatisch generiertes Passwort: {pass}
 	  Automatich generierte Sicherheits Antwort: {answer}
-      Email: {email} (Bitte ändern Sie nicht ihre Email Adresse, ansonsten können Sie sich nicht mehr über Facebook anmelden)
+      E-Mail: {email} (Bitte ändern Sie nicht ihre E-Mail Adresse, ansonsten können Sie sich nicht mehr über Facebook anmelden)
 	  
     </Resource>
 		<Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL_TEXT">
@@ -1878,13 +1878,13 @@ Der Bestätigungscode lautet
 		<Resource tag="INBOX_TITLE">Öffnet Ihren den Private Nachrichten Posteingang.</Resource>
 		<Resource tag="BUDDIES_TITLE">Öffnet Ihre Freundesliste.</Resource>
 		<Resource tag="MYTOPICS_TITLE">Öffnet die Seite mit den Aktiven Themen und ihren Favorisierten Themen.</Resource>
-		<Resource tag="ACTIVETOPICS_TITLE">Öffenet die Seite mit den Aktiven Themen.</Resource>
+		<Resource tag="ACTIVETOPICS_TITLE">Öffnet die Seite mit den Aktiven Themen.</Resource>
 		<Resource tag="ADMIN_TITLE">Öffnet den Admin Index.</Resource>
 		<Resource tag="HOST_TITLE">Öffnet die Host Einstellungen.</Resource>
 		<Resource tag="HELP_TITLE">Öffnet die Hilfe Seiten.</Resource>
 		<Resource tag="LOGIN_TITLE">Öffnet das Anmelden Fenster.</Resource>
 		<Resource tag="LOGOUT_TITLE">Meldet Sie vom Forum ab.</Resource>
-		<Resource tag="MEMBERS_TITLE">Öffnet die die Migliederliste.</Resource>
+		<Resource tag="MEMBERS_TITLE">Öffnet die die Mitgliederliste.</Resource>
 		<Resource tag="MODERATE_TITLE">Öffnet die Moderieren Seite wo sie alle Unbestätigten und gemeldeten Beiträge ansehen können.</Resource>
 		<Resource tag="MYPROFILE_TITLE">Öffnet das Benutzer Control Panel.</Resource>
 		<Resource tag="REGISTER_TITLE">Öffnet das Registrierungsformular.</Resource>
@@ -1898,7 +1898,7 @@ Der Bestätigungscode lautet
 		<Resource tag="CREATED">erstellt</Resource>
 		<Resource tag="FORUM">Forum</Resource>
 		<Resource tag="FORUMUSERS">Benutzer, die gerade in diesem Forum lesen</Resource>
-		<Resource tag="GOTO_POST_PAGER">[ Zu Seite {0} wechseln]</Resource>
+		<Resource tag="GOTO_POST_PAGER">[Zu Seite {0} wechseln]</Resource>
 		<Resource tag="FAVORITE_COUNT_TT">Wie viele Male zu den Favoriten hinzugefügt</Resource>
 		<Resource tag="INFO_UNWATCH_FORUM">Du wirst über neue Beiträge nun nicht mehr informiert.</Resource>
 		<Resource tag="INFO_WATCH_FORUM">Du wirst informiert, sobald in diesem Forum ein Beitrag geschrieben wird</Resource>
@@ -1973,7 +1973,7 @@ Der Bestätigungscode lautet
 		<Resource tag="admin_admin">Admin-Index</Resource>
 		<Resource tag="admin_boardsettings">Board Einstellungen</Resource>
 		<Resource tag="admin_forums">Foren</Resource>
-		<Resource tag="admin_smilies">Smilies</Resource>
+		<Resource tag="admin_smilies">Smileys</Resource>
 		<Resource tag="admin_replacewords">Ersetzen von Wörtern</Resource>
 		<Resource tag="admin_extensions">Dateierweiterungen</Resource>
 		<Resource tag="admin_bbcode">BBCode Erweiterungen</Resource>
@@ -2013,7 +2013,7 @@ Der Bestätigungscode lautet
 		<Resource tag="MSG_VALID_DAYS">Sie sollten einen gültigen Integer-Wert für Tage eingeben.</Resource>
 		<Resource tag="CONFIRM_APROVE_ALL">Alle Benutzer Genehmigen?</Resource>
 		<Resource tag="CONFIRM_APROVE">Diesen Benutzer genehmigen?</Resource>
-		<Resource tag="CONFIRM_DELETE_ALL">Alle nicht bestätigten Benutzer löschen die älter als die spezifierte Anzahl an Tagen sind?</Resource>
+		<Resource tag="CONFIRM_DELETE_ALL">Alle nicht bestätigten Benutzer löschen die älter als die spezifizierte Anzahl an Tagen sind?</Resource>
 		<Resource tag="CONFIRM_DELETE">Diesen Benutzer löschen?</Resource>
 		<Resource tag="ALL_BOARDS"> - Alle Boards - </Resource>
 		<Resource tag="DAYS_AGO">"{0:d} ({1:N0} days ago)</Resource>
@@ -2107,41 +2107,41 @@ Der Bestätigungscode lautet
 		<Resource tag="STOP_TASK">Task stoppen</Resource>
 	</page>
 	<page name="ADMIN_SMILIES_IMPORT">
-		<Resource tag="TITLE">Smilies Import</Resource>
-		<Resource tag="HEADER">Import Smiley Pack</Resource>
-		<Resource tag="IMPORT">Import</Resource>
-		<Resource tag="SELECT_FILE">Select File (*.pak)</Resource>
+		<Resource tag="TITLE">Smileys Importieren</Resource>
+		<Resource tag="HEADER">Smiley Packet importien</Resource>
+		<Resource tag="IMPORT">Importieren</Resource>
+		<Resource tag="SELECT_FILE">Datei (*.pak) wählen</Resource>
 		<Resource tag="ERROR_SELECT_FILE">You must select a .pak file to import.</Resource>
-		<Resource tag="CHOOSE_PAK">Choose .pak file:</Resource>
-		<Resource tag="DELETE_EXISTING">Delete existing smilies:</Resource>
-		<Resource tag="CHOOSE_PAK_HELP">You'll have to unpack the smiley package and upload all files to your smiley directory (Boards/BoardNo/Images/Emoticons).</Resource>
+		<Resource tag="CHOOSE_PAK">.pak Datei wählen:</Resource>
+		<Resource tag="DELETE_EXISTING">Exestierende Smileys löschen:</Resource>
+		<Resource tag="CHOOSE_PAK_HELP">Sie müssen das Smiley Packet entpacken und all Dateien in den Smiley Ordner hochladen (Boards/BoardNr/Images/Emoticons).</Resource>
 		<Resource tag="DELETE_EXISTING_HELP">Will DELETE ALL existing smilies if you check this.</Resource>
 	</page>
 	<page name="ADMIN_SMILIES_EDIT">
-		<Resource tag="TITLE">Add/Edit Smiley</Resource>
+		<Resource tag="TITLE">Smiley Bearbeiten/Hinzufügen</Resource>
 		<Resource tag="CODE">Code:</Resource>
 		<Resource tag="ICON">Icon:</Resource>
 		<Resource tag="EMOTION">Emotion:</Resource>
-		<Resource tag="SORT_ORDER">Sort Order:</Resource>
-		<Resource tag="SELECT_SMILEY">Select Smiley Image</Resource>
+		<Resource tag="SORT_ORDER">Sortierreihenfolge:</Resource>
+		<Resource tag="SELECT_SMILEY">Smiley Bild Wählen</Resource>
 		<Resource tag="MSG_TOO_LONG">An emotion description is too long.</Resource>
 		<Resource tag="MSG_CODE_MISSING">Please enter the code to use for this emotion.</Resource>
-		<Resource tag="MSG_CODE_LONG">The code to use for this emotion should not be more then 10 symbols.</Resource>
-		<Resource tag="MSG_CODE_BRACK">Please enter the code to use for this emotion in square brackets.</Resource>
+		<Resource tag="MSG_CODE_LONG">Der Code für diese Emotion darf nicht Länger als 10 Zeichen lang sein.</Resource>
+		<Resource tag="MSG_CODE_BRACK">Bitte geben Sie den Code für diese Emotion in "[...]" ein.</Resource>
 		<Resource tag="MSG_NO_EMOTICON">Please enter an emotion for this icon.</Resource>
 		<Resource tag="MSG_NO_ICON">Please select an icon to use for this emotion.</Resource>
 		<Resource tag="MSG_SORT_NMBR">Sort order must be number between 0 and 255.</Resource>
 	</page>
 	<page name="ADMIN_SMILIES">
-		<Resource tag="TITLE">Smilies</Resource>
-		<Resource tag="ADD">Add Smiley</Resource>
-		<Resource tag="IMPORT">Import Smiley Pack</Resource>
+		<Resource tag="TITLE">Smileys</Resource>
+		<Resource tag="ADD">Smiley hinzufügen</Resource>
+		<Resource tag="IMPORT">Smiley Packet Importieren</Resource>
 		<Resource tag="CODE">Code</Resource>
 		<Resource tag="SMILEY">Smiley</Resource>
-		<Resource tag="ORDER">Order</Resource>
+		<Resource tag="ORDER">Reihenfolge</Resource>
 		<Resource tag="EMOTION">Emotion</Resource>
 		<Resource tag="COMANDS">Emotion</Resource>
-		<Resource tag="MSG_DELETE">Delete this smiley?</Resource>
+		<Resource tag="MSG_DELETE">Dieses Smiley löschen?</Resource>
 	</page>
 	<page name="ADMIN_RESTARTAPP">
 		<Resource tag="TITLE">Anwendung (YAF) neustarten</Resource>
@@ -2274,9 +2274,9 @@ Der Bestätigungscode lautet
 		<Resource tag="DIGEST_GENERATE">Zusammenfassung:</Resource>
 		<Resource tag="DIGEST_ENABLED_HELP">Ändern in Ihrem Board-Einstellungen.</Resource>
 		<Resource tag="DIGEST_LAST_HELP">Das letzte Mal (basierend auf der Serverzeit) an dem der Zusammenfassungs-Task gelaufen ist.&gt;</Resource>
-		<Resource tag="DIGEST_EMAIL_HELP">Email Adresse an den die Test Zusammenfassung geschickt werden soll.</Resource>
+		<Resource tag="DIGEST_EMAIL_HELP">E-Mail Adresse an den die Test Zusammenfassung geschickt werden soll.</Resource>
 		<Resource tag="DIGEST_METHOD_HELP">System Typ zum Testsenden.</Resource>
-		<Resource tag="DIGEST_GENERATE_HELP">Zusammenfassung generieren für den aktuellen Admin Account und dem aktuellen Skin (Sieht evtl. nicht so aus wie in einem Email Programm).</Resource>
+		<Resource tag="DIGEST_GENERATE_HELP">Zusammenfassung generieren für den aktuellen Admin Account und dem aktuellen Skin (Sieht evtl. nicht so aus wie in einem E-Mail Programm).</Resource>
 	</page>
 	<page name="ADMIN_LANGUAGES">
 		<Resource tag="TITLE">Sprachen</Resource>
@@ -2323,7 +2323,7 @@ Der Bestätigungscode lautet
 		<Resource tag="BOARD_CULTURE">Sprache:</Resource>
 		<Resource tag="BOARD_TOPIC_DEFAULT">Zeige Themen Standard:</Resource>
 		<Resource tag="BOARD_FILE_EXTENSIONS">Dateierweiterungen Liste ist:</Resource>
-		<Resource tag="BOARD_EMAIL_ONREGISTER">E-Mail Benachrichtigungs Emails bei Neuregistrierung:</Resource>
+		<Resource tag="BOARD_EMAIL_ONREGISTER">E-Mail Benachrichtigungs E-Mails bei Neuregistrierung:</Resource>
 		<Resource tag="BOARD_ALLOW_DIGEST">Tägliche E-Mail Zusammenfassung(Digest) für Benutzer Erlauben</Resource>
 		<Resource tag="BOARD_DIGEST_HOURS">Stunden zwischen dem Zusammenfassungs Senden:</Resource>
 		<Resource tag="BOARD_DIGEST_HOURS_HELP">Anzahl in Stunden bevor eine neue Zusammenfassung (Digest) versucht wird zu versenden. Es wird nur zwischen 24-6 Uhr Versucht zu senden.</Resource>
@@ -2805,7 +2805,7 @@ Der Bestätigungscode lautet
 		<Resource tag="USER_KILL">User Kill Aktivität</Resource>
 		<Resource tag="VIEW_ALL">Alle anzeigen</Resource>
 		<Resource tag="LINK_USER_BAN">Benutzer &lt;a id="usr{0}" href="{1}"&gt;{2}&lt;/a&gt;  ist gesperrt durch die IP-Adresse</Resource>
-		<Resource tag="ERROR_NOTE_PASSRESET">Fehler: der Aktuelle Membership Provider erlaubt nicht das reseten eines Passwortes. Überprüfen Sie ob die "EnablePasswordReset" Einstellung auf "true" gesetzt ist in der web.config.</Resource>
+		<Resource tag="ERROR_NOTE_PASSRESET">Fehler: der Aktuelle Membership Provider erlaubt nicht das Wiederherstellen eines Passwortes. Überprüfen Sie ob die "EnablePasswordReset" Einstellung auf "true" gesetzt ist in der web.config.</Resource>
 		<Resource tag="RESET_PASS">Passwort zurücksetzen</Resource>
 		<Resource tag="CHANGE_PASS">Passwort ändern</Resource>
 		<Resource tag="PASS_OPTION">Option:</Resource>
@@ -2907,10 +2907,10 @@ Der Bestätigungscode lautet
 		<Resource tag="SERVER_VERSION_HELP">SQL Server Version die ausgeführt wird.</Resource>
 		<Resource tag="SERVERTIME_CORRECT">Server Zeitzonen Korrektur:</Resource>
 		<Resource tag="SERVERTIME_CORRECT_HELP">Geben Sie einen positiven oder einen negativen Wert in Minuten zwischen -720 und 720 ein. Wenn der Server UTC Zeit falsch ist:</Resource>
-		<Resource tag="FORUM_EMAIL">Forum Email Adresse:</Resource>
-		<Resource tag="FORUM_EMAIL_HELP">Die Absender Adresse die beim Verschicken von Forum Emails verwendet wird.</Resource>
+		<Resource tag="FORUM_EMAIL">Forum E-Mail Adresse:</Resource>
+		<Resource tag="FORUM_EMAIL_HELP">Die Absender Adresse die beim Verschicken von Forum E-Mails verwendet wird.</Resource>
 		<Resource tag="EMAIL_VERIFICATION">Erfordert E-Mail Verifizierung:</Resource>
-		<Resource tag="EMAIL_VERIFICATION_HELP">Wenn aktiviert werden müssen die Benutzer ihre Email Adresse verifizieren.</Resource>
+		<Resource tag="EMAIL_VERIFICATION_HELP">Wenn aktiviert werden müssen die Benutzer ihre E-Mail Adresse verifizieren.</Resource>
 		<Resource tag="FILE_TABLE">Datei Tabelle verwenden:</Resource>
 		<Resource tag="FILE_TABLE_HELP">Hochgeladene Dateien werden in der Datenbank, anstatt im Dateisystem gespeichert.</Resource>
 		<Resource tag="ABANDON_TRACKUSR">Sessions für  "Don't Track" Benutzer aufgeben:</Resource>
@@ -3006,8 +3006,8 @@ Der Bestätigungscode lautet
 		<Resource tag="REMOTE_AVATARS_HELP">Wenn aktiviert können Benutzer Avatare von anderen Webseiten benutzen.</Resource>
 		<Resource tag="AVATAR_UPLOAD">Benutzer erlauben Avatare hochzuladen:</Resource>
 		<Resource tag="AVATAR_UPLOAD_HELP">Wenn aktiviert können Benutzer Avatare Hochladen.</Resource>
-		<Resource tag="AVATAR_GALLERY">Avatar Gallerie erlauben:</Resource>
-		<Resource tag="AVATAR_GALLERY_HELP">Benutzer erlauben Avatare aus der Lokalen Avatar Gallerie auszuwählen.</Resource>
+		<Resource tag="AVATAR_GALLERY">Avatar Galerie erlauben:</Resource>
+		<Resource tag="AVATAR_GALLERY_HELP">Benutzer erlauben Avatare aus der Lokalen Avatar Galerie auszuwählen.</Resource>
 		<Resource tag="ALLOW_GRAVATARS">Gravatare erlauben:</Resource>
 		<Resource tag="ALLOW_GRAVATARS_HELP">Automatisch Benutzer Gravatare benutzen falls sie existieren.</Resource>
 		<Resource tag="GRAVATAR_RATING">Gravatar Bewertung:</Resource>
@@ -3089,7 +3089,7 @@ Der Bestätigungscode lautet
 		<Resource tag="SHOW_SHOUTBOX_SMILIES">Zeige Shoutbox Smileys:</Resource>
 		<Resource tag="SHOW_SHOUTBOX_SMILIES_HELP">Aktivieren oder deaktivieren der Anzeige der Shoutbox (Chat-Modul) Smileys.</Resource>
 		<Resource tag="NOFOLLOW_LINKTAGS">"nofollow" Tags in Links verwenden:</Resource>
-		<Resource tag="NOFOLLOW_LINKTAGS_HELP">Wenn aktiviert, werden alle Links ein"nofollow"-Tag haben.</Resource>
+		<Resource tag="NOFOLLOW_LINKTAGS_HELP">Wenn aktiviert, werden alle Links ein "nofollow"-Tag haben.</Resource>
 		<Resource tag="ACTIVE_USERTIME">Aktive Benutzer Zeit:</Resource>
 		<Resource tag="ACTIVE_USERTIME_HELP">Anzahl der Minuten, in denen die Benutzer in der Aktiven Benutzerliste stehen.</Resource>
 		<Resource tag="SHOW_AVATARS_TOPICLISTS">Zeige Avatare in Themenlisten:</Resource>
@@ -3135,9 +3135,9 @@ Der Bestätigungscode lautet
 		<Resource tag="SHOW_JOINDATE">Eintrittsdatum  Anzeigen:</Resource>
 		<Resource tag="SHOW_JOINDATE_HELP">Wenn aktiviert, Eintrittsdatum für jeden Benutzer wird angezeigt.</Resource>
 		<Resource tag="RULES_ONREGISTER">Zeige "Regeln" Vor der Registrierung:</Resource>
-		<Resource tag="RULES_ONREGISTER_HELP">Verlangen, dass die "Regeln" gezeigt und akzeptiert werden müssen, bevor eine neue Benutzer sich registrieren kann.</Resource>
+		<Resource tag="RULES_ONREGISTER_HELP">Verlangen, dass die "Regeln" gezeigt und akzeptiert werden müssen, bevor ein neuer Benutzer sich registrieren kann.</Resource>
 		<Resource tag="LASTPOST_COUNT">Aktive Diskussionen Anzahl:</Resource>
-		<Resource tag="LASTPOST_COUNT_HELP">Anzahl der Einträge, die in der AKtive Diskussionen Liste angezeigt werden soll.</Resource>
+		<Resource tag="LASTPOST_COUNT_HELP">Anzahl der Einträge, die in der Aktive Diskussionen Liste angezeigt werden soll.</Resource>
 		<Resource tag="POSTS_PER_PAGE">Beiträge pro Seite:</Resource>
 		<Resource tag="POSTS_PER_PAGE_HELP">Anzahl an Beiträge die pro Seite angezeigt werden.</Resource>
 		<Resource tag="TOPICS_PER_PAGE">Themen pro Seite:</Resource>
@@ -3147,7 +3147,7 @@ Der Bestätigungscode lautet
 		<Resource tag="TIMEAGO_INTERVAL">Relative Zeit Aktualisierungsintervall:</Resource>
 		<Resource tag="TIMEAGO_INTERVAL_HELP">Dies erlaubt es, festzulegen, wie oft die "Time Ago" Erweiterung die relative Zeit aktualisieren soll (in Millisekunden, 60000 ms = 60 Sekunden = 1 Minute).</Resource>
 		<Resource tag="DYNAMIC_METATAGS">Dynamic Seiten Meta-Tags hinzufügen:</Resource>
-		<Resource tag="DYNAMIC_METATAGS_HELP">Wenn diese Option aktiviert, Beschreibung und Keywords Meta-Tags werden dynamisch für die Beitragsseiten erstellt aus den Daten des aktuellen Themas.</Resource>
+		<Resource tag="DYNAMIC_METATAGS_HELP">Wenn diese Option aktiviert, Beschreibung und Schlüsselwörter Meta-Tags werden dynamisch für die Beitragsseiten erstellt aus den Daten des aktuellen Themas.</Resource>
 		<Resource tag="ALLOW_DISPLAY_GENDER">Geschlecht Anzeige erlauben:</Resource>
 		<Resource tag="ALLOW_DISPLAY_GENDER_HELP">Wenn aktiviert, wird das Benutzer Geschlecht in den Nutzdaten in den Beiträgen angezeigt.</Resource>
 		<Resource tag="ALLOW_USER_HIDE">Benutzer erlauben sich zu verstecken:</Resource>
@@ -3185,7 +3185,7 @@ Der Bestätigungscode lautet
 		<Resource tag="ALLOW_POSTBLOG_HELP">Wenn aktiviert können Beiträge direkt als Blogbeitrag veröffentlicht werden.</Resource>
 		<Resource tag="ALLOW_EMAIL_TOPIC">Themen mailen erlauben:</Resource>
 		<Resource tag="ALLOW_EMAIL_TOPIC_HELP">Wenn aktiviert, können Benutzer ein Thema mailen.</Resource>
-		<Resource tag="ALLOW_TOPIC_DESCRIPTION">Themen Beschreibung akivieren?</Resource>
+		<Resource tag="ALLOW_TOPIC_DESCRIPTION">Themen Beschreibung aktivieren?</Resource>
 		<Resource tag="ALLOW_TOPIC_DESCRIPTION_HELP">Wenn aktiviert kann eine Beschreibung zu ein Thema eingegeben werden.</Resource>
 		<Resource tag="ALLOW_QUICK_ANSWER">Schnellantwort erlauben:</Resource>
 		<Resource tag="ALLOW_QUICK_ANSWER_HELP">Aktivieren oder deaktivieren die Anzeige der Schnellantwort Box am unteren Rand der Beitragsseite.</Resource>
@@ -3284,14 +3284,14 @@ Der Bestätigungscode lautet
 		<Resource tag="AKISMET_KEY">Akismet API Schlüssel:</Resource>
 		<Resource tag="AKISMET_KEY_HELP">Um den Akismet SPAM Service benutzen zu können benötigen Sie einen API Schlüssel  &lt;a href="https://akismet.com/signup/"&gt;Hier anmelden&lt;a&gt;</Resource>
 		<Resource tag="SPAM_MESSAGE_HANDLING">Handhabung von als Spam erkannten Nachrichten</Resource>
-		<Resource tag="SPAM_MESSAGE_HANDLING_HELP">Wählen Sie, was mit einem Beitrag passiert der als SPAM erkannt wurde. Sie können wählen zwischen nichts tun, Beitrag als nicht genehmigt markieren, oder den Beitrag ablehnen.</Resource>
+		<Resource tag="SPAM_MESSAGE_HANDLING_HELP">Wählen Sie, was mit einem Beitrag passiert der als SPAM erkannt wurde. Sie können wählen zwischen nichts tun, Beiträge als nicht genehmigt markieren, oder den Beitrag ablehnen.</Resource>
 		<Resource tag="SPAM_MESSAGE_0">Nichts tun</Resource>
 		<Resource tag="SPAM_MESSAGE_1">Beitrag als nicht genehmigt markieren</Resource>
 		<Resource tag="SPAM_MESSAGE_2">Beitrag ablehnen</Resource>
 		<Resource tag="SHOW_RECENT_USERS">Letzte Aktive Benutzer anzeigen:</Resource>
-		<Resource tag="SHOW_RECENT_USERS_HELP">Letzte Benutzer Aktiv in den letzten 24 Stunden im Forum Info Bereich in der Forum Hauptseite anzeigen.</Resource>
+		<Resource tag="SHOW_RECENT_USERS_HELP">Letzte Benutzer aktiv in den letzten 24 Stunden im Forum Info Bereich in der Forum Hauptseite anzeigen.</Resource>
 		<Resource tag="SSO_AUTO_REGISTER">Neue Facebook Benutzer autom. registrieren:</Resource>
-		<Resource tag="SSO_AUTO_REGISTER_HELP">Benutzer automatisch Registrieren wenn sie nicht exestieren wenn sich jemand über Facebook versucht anzumelden.</Resource>
+		<Resource tag="SSO_AUTO_REGISTER_HELP">Benutzer automatisch Registrieren wenn sie nicht existieren wenn sich jemand über Facebook versucht anzumelden.</Resource>
 	</page>
 	<page name="ADMIN_TEST_DATA">
 		<Resource tag="TITLE">Testdaten generieren (Nur DEBUG)</Resource>

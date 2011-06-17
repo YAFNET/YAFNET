@@ -1807,7 +1807,7 @@
     <Resource tag="CHANGE_EMAIL">E-posta Adresini Değiştir</Resource>
     <Resource tag="DISPLAYNAME">Forumda görünecek isminiz:</Resource>
     <Resource tag="DST">Saat değişimi uygulaması etkinleştirilsin mi?</Resource>
-    <Resource tag="DUPLICATED_EMAIL">The e-mail adress you have entered is already in use.</Resource>
+    <Resource tag="DUPLICATED_EMAIL">The e-mail address you have entered is already in use.</Resource>
     <Resource tag="EDIT_ALBUMS">Albümleri Düzenle</Resource>
     <Resource tag="EMAIL">Geçerli e-posta adresiniz</Resource>
     <Resource tag="FACEBOOK">Your Facebook Profile ID:</Resource>
@@ -2035,9 +2035,9 @@
 &lt;p&gt;Your Buddies are displayed on the 'My Buddies' you can access this Page From The Header Link 'My Buddies', or from the User CP Link 'Edit Buddies'. &lt;/p&gt;
 &lt;p&gt;&lt;em&gt;Note: If you don't See this Links you didn't have any Buddies,  didn't send any Request or you didn't have any Pending Buddy Requests.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Your buddies are also displayed in your profile page.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;How can I request a User as Buddy or accept an Buddy Request?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;How can I request a User as Buddy or accept a Buddy Request?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;To request a user as Buddy, view the profile page of the person you want to become friends with and click the 'Add as Buddy' link.&lt;/p&gt;
-&lt;p&gt;To accept an Buddy request friend, go to your 'My Buddies' page. On the Tab 'Pending Requests' you see The List of Users(s) with pending requests. There you have three choices...&lt;/p&gt;
+&lt;p&gt;To accept a Buddy request friend, go to your 'My Buddies' page. On the Tab 'Pending Requests' you see The List of Users(s) with pending requests. There you have three choices...&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;strong&gt;Approve&lt;/strong&gt; - You Become Buddy of the User who requests it &lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;Deny&lt;/strong&gt; - Reject the Request&lt;/li&gt;
@@ -2045,7 +2045,7 @@
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;Remove Buddy&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;To remove a Buddy from Your List  go to your 'My Buddies' page. On the Tab 'Buddy List' Click on the Button 'Remove Buddy' of the User you want to remove&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Your Requests&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;You’re Requests&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;The Third Tab of the 'My Buddies' Page shows your the Pending Request you have made.&lt;/p&gt;</Resource>
     <Resource tag="BUDDIESTITLE">Arkadaşlar</Resource>
     <Resource tag="DISPLAYCONTENT">&lt;em&gt;Yardım içeriği yakında eklenecek...&lt;/em&gt;</Resource>
@@ -2075,12 +2075,12 @@
     <Resource tag="FORUMSTITLE">Forumlar, Konular ve Mesajlar</Resource>
     <Resource tag="GENERALTOPICS">Genel Forum Kullanımı</Resource>
     <Resource tag="INDEX">Index</Resource>
-    <Resource tag="MAILSETTINGSCONTENT">&lt;p&gt;On the 'Email Notification' Preferences Page inside your User Control Panel you can set Up, what type of Email Notifications you want to receive.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Turn off notifications - &lt;/strong&gt;This Options turns off all Notifications and you wont receive any emails.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Notification for topics you've posted to, watched or marked as favorite&lt;/strong&gt; - You will receive Instant Email Notifications when someone has posted a new Message in a topic, you have posted before, a topic you watch, marked as favorite, or an forum.&lt;/p&gt;
+    <Resource tag="MAILSETTINGSCONTENT">&lt;p&gt;On the 'Email Notification' Preferences Page inside your User Control Panel you can set up, what type of Email Notifications you want to receive.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Turn off notifications - &lt;/strong&gt;This Options turns off all Notifications and you won’t receive any emails.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Notification for topics you've posted to, watched or marked as favorite&lt;/strong&gt; - You will receive Instant Email Notifications when someone has posted a new Message in a topic, you have posted before, a topic you watch, marked as favorite, or a forum.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Notification for topics or forums you've selectively watched (listed below)&lt;/strong&gt; - You will receive Instant Email Notifications when someone has posted a new Message in a topic or forum you have selected to watch (See List Below).&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Receive once daily digest/summary of activity?&lt;/strong&gt; - If this Function is enabled you can turn this option on to get an Email with all new Activities about new topics and messages from current day as daily digest (summary) in one mail&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Receive an email notification when you get a new private message? &lt;/strong&gt; - You can also turn on/off Email Notifications when you receive an private message.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Receive an email notification when you get a new private message? &lt;/strong&gt; - You can also turn on/off Email Notifications when you receive a private message.&lt;/p&gt;
 </Resource>
     <Resource tag="MAILSETTINGSTITLE">E-Posta Uyarıları Ayarı</Resource>
     <Resource tag="MEMBERSLISTCONTENT">&lt;em&gt;Yardım içeriği yakında eklenecek...&lt;/em&gt;</Resource>
@@ -2106,7 +2106,7 @@
         &lt;li&gt;Export  Selected / Export All – Export the Message(s) as file (You Can select the  export format bellow –XML-/CSV-/Text-File)&lt;/li&gt;
         &lt;li&gt;Delete  Selected / Delete All – Delete the Message(s)&lt;/li&gt;
         &lt;/ul&gt;
-        &lt;p&gt;Depending  on how many Messages you allowed to have you should delete some of them from  time (You can export Them before you delete them to keep them on your local computer). Otherwise when your Mailbox is full you are not able to receive new  messages. On the Bottom you will be informed how many Messages you have and how  many you can Maximal have.&lt;/p&gt;
+        &lt;p&gt;Depending  on how many Messages you allowed to have you should delete some of them from  time (You can export them before you delete them to keep them on your local computer). Otherwise when your Mailbox is full you are not able to receive new  messages. On the Bottom you will be informed how many Messages you have and how  many you can Maximal have.&lt;/p&gt;
       </Resource>
     <Resource tag="MESSENGERTITLE">Özel Mesaj (Msn)</Resource>
     <Resource tag="MODSADMINSCONTENT">&lt;em&gt;Yardım içeriği yakında eklenecek...&lt;/em&gt;</Resource>
@@ -2126,7 +2126,7 @@
     <Resource tag="POLLSCONTENT">&lt;em&gt;Yardım içeriği yakında eklenecek...&lt;/em&gt;</Resource>
     <Resource tag="POLLSTITLE">Creating and Participating in Polls</Resource>
     <Resource tag="POPUPSCONTENT">&lt;p&gt;When you have logged in and load the Page you may Receive an Pop Up Notification on the Center of your Browser Window.&lt;/p&gt;
-&lt;p&gt;This will inform you about serval actions...&lt;/p&gt;
+&lt;p&gt;This will inform you about several actions...&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;New Private Message(s)&lt;/li&gt;
   &lt;li&gt;New Buddy Requests&lt;/li&gt;
@@ -2167,7 +2167,7 @@
     <Resource tag="SMILIESCONTENT">&lt;em&gt;Yardım içeriği yakında eklenecek...&lt;/em&gt;</Resource>
     <Resource tag="SMILIESTITLE">Gülümsemeler</Resource>
     <Resource tag="SUBSCRIPTIONSCONTENT">&lt;p&gt;Subscriptions are a way to keep track of different topics and/or forums. You can choose how you are notified about updates - for example by having them listed in your User CP and receiving e-mail updates for each one.&lt;/p&gt;
-&lt;p&gt;Or if you don't want to manually subscribe to an topic you want to follow you can turn on the Option 'Notification for topics &lt;strong&gt;you've posted to&lt;/strong&gt;, watched or marked as favorite' in the E-mail Notification Preferences Page inside the User CP.&lt;/p&gt;
+&lt;p&gt;Or if you don't want to manually subscribe to a topic you want to follow you can turn on the Option 'Notification for topics &lt;strong&gt;you've posted to&lt;/strong&gt;, watched or marked as favorite' in the E-mail Notification Preferences Page inside the User CP.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How to  watch a topic?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;To subscribe to a topic, click the 'Options' link at the top of the list of posts then click 'Watch this topic'.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How to  watch a forum?&lt;/strong&gt;&lt;/p&gt;
@@ -2176,9 +2176,9 @@
 &lt;p&gt;You can see the List of 'Watched Forums' and 'Watched Topics' from the 'Email Notification Preferences' Page of your User CP. There you can select which subscriptions you wish to delete by Clicking on the Unwatch Button.&lt;/p&gt;</Resource>
     <Resource tag="SUBSCRIPTIONSTITLE">Subscriptions &amp; Notifications</Resource>
     <Resource tag="SUBTITLE">Forum Yardımı</Resource>
-    <Resource tag="THANKSCONTENT">&lt;p&gt;The 'Thanks' - System is a function that allows you to gave back an other user a positive feedback, for example he or she has posted a message you find useful or helps you to solve a problem.&lt;/p&gt;
-&lt;p&gt;How to gave a User a Thanks?&lt;/p&gt;
-&lt;p&gt;If you want to gave an User an 'Thank' press the 'Thank' Button inside the Post you want to add it, after that you find your Name in the List of User who gave a Thank at the end of the Message. You can also remove your Thank at any time.&lt;/p&gt;
+    <Resource tag="THANKSCONTENT">&lt;p&gt;The 'Thanks' - System is a function that allows you to give back another user a positive feedback, for example he or she has posted a message you find useful or helps you to solve a problem.&lt;/p&gt;
+&lt;p&gt;How to give a User a Thanks?&lt;/p&gt;
+&lt;p&gt;If you want to give an User an 'Thank' press the 'Thank' Button inside the Post you want to add it, after that you find your Name in the List of User who gave a Thank at the end of the Message. You can also remove your Thank at any time.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;View all Thanks&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;If you want to view all Posts you gave Thank, or show the list of posts you received thanks got to the page  Personal Profile -&amp;gt; 'View Thanks' from within the User Control Panel. There you see Two Tabs...&lt;/p&gt;
 &lt;ul&gt;
@@ -2542,9 +2542,9 @@
     <Resource tag="STICKY">İşaretli</Resource>
     <Resource tag="SUBJECT">Konu:</Resource>
     <Resource tag="SUBJECT_DUPLICATE">A topic with the subject already exists or the subject is not unique enough to be added.</Resource>
-    <Resource tag="TOPIC_DESCRIPTION_TOOLONG">Topic description length cannot be be more than 255 characters.</Resource>
+    <Resource tag="TOPIC_DESCRIPTION_TOOLONG">Topic description length cannot be more than 255 characters.</Resource>
     <Resource tag="TOPIC_DESCRIPTION_WORDTOOLONG">Topic description single word length cannot be be more than {0} characters. Suggestion: use abbreviations to shorten.</Resource>
-    <Resource tag="TOPIC_NAME_TOOLONG">Topic name length cannot be be more than 255 characters.</Resource>
+    <Resource tag="TOPIC_NAME_TOOLONG">Topic name length cannot be more than 255 characters.</Resource>
     <Resource tag="TOPIC_NAME_WORDTOOLONG">Topic name single word length cannot be be more than {0} characters. Suggestion: use abbreviations to shorten.</Resource>
     <Resource tag="TOPICATTACH">Bu mesaja dosya ekle?</Resource>
     <Resource tag="TOPICNAME_TOOLONG">Maximal tolic name length should not be more than {0} characters. Use abbreviations.</Resource>
