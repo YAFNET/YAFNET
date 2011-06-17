@@ -1335,6 +1335,7 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="BAD_HELP">عبارات منظم.</Resource>
     <Resource tag="GOOD">خوب "عبارت" :</Resource>
     <Resource tag="GOOD_HELP">عبارات منظم.</Resource>
+    <Resource tag="MSG_REGEX_BAD">The Regular expression statement you have entered is invalid.</Resource>
     <Resource tag="TITLE">افزودن/ویرایش کلمه جایگزینی</Resource>
   </page>
   <page name="ADMIN_REPLACEWORDS_IMPORT">

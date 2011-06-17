@@ -1329,6 +1329,7 @@
     <Resource tag="BAD_HELP">Reguliere expressie. Escape puncutatie met een voorloop slash (bv. '\.').</Resource>
     <Resource tag="GOOD">"Goede" term:</Resource>
     <Resource tag="GOOD_HELP">Reguliere expressie. Escape puncutatie met een voorloop slash (bv. '\.').</Resource>
+    <Resource tag="MSG_REGEX_BAD">The Regular expression statement you have entered is invalid.</Resource>
     <Resource tag="TITLE">Voeg toe Bewerk Vervangwoord</Resource>
   </page>
   <page name="ADMIN_REPLACEWORDS_IMPORT">

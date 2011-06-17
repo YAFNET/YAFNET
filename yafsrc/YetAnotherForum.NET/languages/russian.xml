@@ -1319,6 +1319,7 @@
     <Resource tag="BAD_HELP">Слово, фраза или регулярное выражение. Пунктуация вводится слешем (например '\.').</Resource>
     <Resource tag="GOOD">«Хорошее» выражение:</Resource>
     <Resource tag="GOOD_HELP">Слово, фраза или регулярное выражение. Пунктуация вводится слешем  (например '\.').</Resource>
+    <Resource tag="MSG_REGEX_BAD">The Regular expression statement you have entered is invalid.</Resource>
     <Resource tag="TITLE">Добавить/Изменить замену</Resource>
   </page>
   <page name="ADMIN_REPLACEWORDS_IMPORT">

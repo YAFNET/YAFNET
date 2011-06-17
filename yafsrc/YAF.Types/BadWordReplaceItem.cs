@@ -75,7 +75,15 @@ namespace YAF.Types
       this.Options = options;
       this._goodWord = goodWord;
       this._badWord = badWord;
-      this._regEx = new Regex(badWord, options);
+
+      try
+      {
+          this._regEx = new Regex(badWord, options);
+      }
+      catch (Exception)
+      {
+          this._regEx = null;
+      }
     }
 
     #endregion

@@ -2233,6 +2233,7 @@ Visit {forumname} at {forumlink}
       <Resource tag="GOOD">"Good" Expression:</Resource>
       <Resource tag="BAD_HELP">Regular expression statement. Escape punctation with a preceding slash (e.g. &#39;\.&#39;).</Resource>
       <Resource tag="GOOD_HELP">Regular expression statement. Escape punctation with a preceding slash (e.g. &#39;\.&#39;).</Resource>
+      <Resource tag="MSG_REGEX_BAD">The Regular expression statement you have entered is invalid.</Resource>	  
     </page>
     <page name="ADMIN_REINDEX">
       <Resource tag="TITLE">Reindex DB</Resource>

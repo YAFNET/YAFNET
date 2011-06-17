@@ -96,8 +96,7 @@ namespace YAF.Core.Services
               // move to collection...
               return
                 replaceWords.Select(
-                  row => new BadWordReplaceItem(row.Field<string>("goodword"), row.Field<string>("badword"), _options)).
-                  ToList();
+                  row => new BadWordReplaceItem(row.Field<string>("goodword"), row.Field<string>("badword"), _options)).ToList();
             });
 
         return replaceItems;
@@ -112,7 +111,7 @@ namespace YAF.Core.Services
 
     /// <summary>
     /// Searches through SearchText and replaces "bad words" with "good words"
-    ///   as defined in the database.
+    /// as defined in the database.
     /// </summary>
     /// <param name="searchText">
     /// The string to search through.
@@ -137,7 +136,7 @@ namespace YAF.Core.Services
       {
         try
         {
-          if (item.Active)
+            if (item.BadWordRegEx != null && item.Active)
           {
             strReturn = item.BadWordRegEx.Replace(strReturn, item.GoodWord);
           }

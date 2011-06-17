@@ -1,5 +1,5 @@
-/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bjørnar Henden
+ï»¿/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjï¿½rnar Henden
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -25,9 +25,9 @@ namespace YAF.Pages.Admin
   using System;
   using System.Data;
 
+  using YAF.Classes;
   using YAF.Classes.Data;
   using YAF.Core;
-  using YAF.Core.Services;
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Types.Interfaces;
@@ -41,6 +41,26 @@ namespace YAF.Pages.Admin
   public partial class replacewords_edit : AdminPage
   {
     #region Methods
+
+      /// <summary>
+      /// Check if Valid Expression
+      /// </summary>
+      /// <param name="newExpression">
+      /// The new Expression to Check.
+      /// </param>
+      /// <returns>
+      /// Returns if Valid Expression
+      /// </returns>
+      protected bool IsValidWordExpression([NotNull] string newExpression)
+      {
+          if (newExpression.Equals("*"))
+          {
+              this.PageContext.AddLoadMessage(this.GetText("ADMIN_REPLACEWORDS_EDIT", "MSG_REGEX_BAD"));
+              return false;
+          }
+
+          return true;
+      }
 
     /// <summary>
     /// The on init.
@@ -73,7 +93,7 @@ namespace YAF.Pages.Admin
 
       if (!this.IsPostBack)
       {
-          this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+          this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
           this.PageLinks.AddLink(
               this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
           this.PageLinks.AddLink(this.GetText("ADMIN_REPLACEWORDS", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_replacewords));
@@ -101,13 +121,15 @@ namespace YAF.Pages.Admin
     {
       int id;
 
-      if (this.Request.QueryString.GetFirstOrDefault("i") != null &&
-          int.TryParse(this.Request.QueryString.GetFirstOrDefault("i"), out id))
-      {
+        if (this.Request.QueryString.GetFirstOrDefault("i") == null ||
+            !int.TryParse(this.Request.QueryString.GetFirstOrDefault("i"), out id))
+        {
+            return;
+        }
+
         DataRow row = LegacyDb.replace_words_list(this.PageContext.PageBoardID, id).Rows[0];
         this.badword.Text = (string)row["badword"];
         this.goodword.Text = (string)row["goodword"];
-      }
     }
 
     /// <summary>
@@ -129,14 +151,21 @@ namespace YAF.Pages.Admin
     /// </param>
     private void add_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      LegacyDb.replace_words_save(
-        this.PageContext.PageBoardID, 
-        this.Request.QueryString.GetFirstOrDefault("i"), 
-        this.badword.Text, 
-        this.goodword.Text);
+        if (!this.IsValidWordExpression(badword.Text.Trim()))
+        {
+            this.BindData();
+        }
+        else
+        {
+            LegacyDb.replace_words_save(
+                this.PageContext.PageBoardID,
+                this.Request.QueryString.GetFirstOrDefault("i"),
+                this.badword.Text,
+                this.goodword.Text);
 
-      this.Get<IDataCache>().Remove(Constants.Cache.ReplaceWords);
-      YafBuildLink.Redirect(ForumPages.admin_replacewords);
+            this.Get<IDataCache>().Remove(Constants.Cache.ReplaceWords);
+            YafBuildLink.Redirect(ForumPages.admin_replacewords);
+        }
     }
 
     /// <summary>

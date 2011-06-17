@@ -1321,6 +1321,7 @@
     <Resource tag="BAD_HELP">Regulärer Ausdrucks Anweisung. Escape Punkte mit einem vorangestellten Schrägstrich (e.g. '\.').</Resource>
     <Resource tag="GOOD">"Good" Ausdruck:</Resource>
     <Resource tag="GOOD_HELP">Regulärer Ausdrucks Anweisung. Escape Punkte mit einem vorangestellten Schrägstrich (e.g. '\.').</Resource>
+    <Resource tag="MSG_REGEX_BAD">Die Regulärer Ausdrucks Anweisung die Sie eingeben haben ist ungültig.</Resource>
     <Resource tag="TITLE">Hinzufügen / Bearbeiten von Word ersetzen</Resource>
   </page>
   <page name="ADMIN_REPLACEWORDS_IMPORT">
