@@ -1026,6 +1026,7 @@
     <Content Include="install\wizard.css" />
     <Content Include="languages\arabic.xml" />
     <Content Include="languages\estonian.xml" />
+    <Content Include="resources\HelpMenuList.xml" />
     <Content Include="resources\images\ceebox\cee-close-btn.png" />
     <Content Include="resources\images\ceebox\cee-next-btn.gif" />
     <Content Include="resources\images\ceebox\cee-next-btn.png" />

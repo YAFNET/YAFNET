@@ -18,228 +18,257 @@
  */
 namespace YAF.Controls
 {
-  #region Using
+    #region Using
 
-  using System.Text;
-  using System.Web.UI;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Text;
+    using System.Web;
+    using System.Web.UI;
+    using System.Xml.Serialization;
 
-  using YAF.Classes;
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Utils;
-  using YAF.Types;
-  using YAF.Types.Constants;
-
-  #endregion
-
-  /// <summary>
-  /// Summary description for HelpMenu.
-  /// </summary>
-  public class HelpMenu : BasePanel
-  {
-    #region Methods
-
-    /// <summary>
-    /// The render.
-    /// </summary>
-    /// <param name="writer">
-    /// The writer.
-    /// </param>
-    protected override void Render([NotNull] HtmlTextWriter writer)
-    {
-      var html = new StringBuilder(2000);
-
-      html.Append(@"<table cellspacing=""0"" cellpadding=""0"" class=""content"" id=""yafhelpmenu"">");
-
-      html.Append(
-        @"<tr><td class=""header1"">{0}</td></tr>".FormatWith(
-          this.GetText("HELP_INDEX", "NAVIGATION")));
-
-      html.Append(
-        @"<tr class=""header2""><td>{0}</td></tr>".FormatWith(this.GetText("HELP_INDEX", "INDEX")));
-
-      html.AppendFormat(@"<tr><td class=""post""><ul id=""yafhelpindex"">");
-
-      html.AppendFormat(
-        @"<li><a href=""{0}"">{1}</a></li>", 
-        YafBuildLink.GetLink(ForumPages.help_index, "faq=index"), 
-        this.GetText("HELP_INDEX", "SEARCHHELP"));
-
-      html.AppendFormat(@"</ul></td></tr>");
-
-      ///////////////
-      html.AppendFormat(
-        @"<tr class=""header2""><td>{0}</td></tr>", this.GetText("HELP_INDEX", "GENERALTOPICS"));
-
-      html.AppendFormat(@"<tr><td class=""post""><ul id=""yafhelpgeneral"">");
-
-      html.AppendFormat(
-        @"<li><a href=""{0}"">{1}</a></li>", 
-        YafBuildLink.GetLink(ForumPages.help_index, "faq=forums"), 
-        this.GetText("HELP_INDEX", "FORUMSTITLE"));
-
-      if (!this.PageContext.BoardSettings.DisableRegistrations && !Config.IsAnyPortal)
-      {
-        html.AppendFormat(
-          @"<li><a href=""{0}"">{1}</a></li>", 
-          YafBuildLink.GetLink(ForumPages.help_index, "faq=registration"), 
-          this.GetText("HELP_INDEX", "REGISTRATIONTITLE"));
-      }
-
-      html.AppendFormat(
-        @"<li><a href=""{0}"">{1}</a></li>", 
-        YafBuildLink.GetLink(ForumPages.help_index, "faq=searching"), 
-        this.GetText("HELP_INDEX", "SEARCHINGTITLE"));
-      html.AppendFormat(
-        @"<li><a href=""{0}"">{1}</a></li>", 
-        YafBuildLink.GetLink(ForumPages.help_index, "faq=anounce"), 
-        this.GetText("HELP_INDEX", "ANOUNCETITLE"));
-      html.AppendFormat(
-        @"<li><a href=""{0}"">{1}</a></li>", 
-        YafBuildLink.GetLink(ForumPages.help_index, "faq=display"), 
-        this.GetText("HELP_INDEX", "DISPLAYTITLE"));
-      html.AppendFormat(
-        @"<li><a href=""{0}"">{1}</a></li>", 
-        YafBuildLink.GetLink(ForumPages.help_index, "faq=newposts"), 
-        this.GetText("HELP_INDEX", "NEWPOSTSTITLE"));
-      html.AppendFormat(
-        @"<li><a href=""{0}"">{1}</a></li>", 
-        YafBuildLink.GetLink(ForumPages.help_index, "faq=threadopt"), 
-        this.GetText("HELP_INDEX", "THREADOPTTITLE"));
-      html.AppendFormat(
-        @"<li><a href=""{0}"">{1}</a></li>", 
-        YafBuildLink.GetLink(ForumPages.help_index, "faq=recover"), 
-        this.GetText("HELP_INDEX", "RECOVERTITLE"));
-      html.AppendFormat(
-        @"<li><a href=""{0}"">{1}</a></li>", 
-        YafBuildLink.GetLink(ForumPages.help_index, "faq=memberslist"), 
-        this.GetText("HELP_INDEX", "MEMBERSLISTTITLE"));
-      html.AppendFormat(
-        @"<li><a href=""{0}"">{1}</a></li>", 
-        YafBuildLink.GetLink(ForumPages.help_index, "faq=popups"), 
-        this.GetText("HELP_INDEX", "POPUPSTITLE"));
-      html.AppendFormat(
-        @"<li><a href=""{0}"">{1}</a></li>", 
-        YafBuildLink.GetLink(ForumPages.help_index, "faq=pm"), 
-        this.GetText("HELP_INDEX", "PMTITLE"));
-      html.AppendFormat(
-        @"<li><a href=""{0}"">{1}</a></li>", 
-        YafBuildLink.GetLink(ForumPages.help_index, "faq=rss"), 
-        this.GetText("HELP_INDEX", "RSSTITLE"));
-
-      html.AppendFormat(@"</ul></td></tr>");
-
-      ///////////////
-      html.AppendFormat(
-        @"<tr class=""header2""><td>{0}</td></tr>", this.GetText("HELP_INDEX", "PROFILETOPICS"));
-
-      html.AppendFormat(@"<tr><td class=""post""><ul id=""yafhelpsettings"">");
-
-      html.AppendFormat(
-        @"<li><a href=""{0}"">{1}</a></li>", 
-        YafBuildLink.GetLink(ForumPages.help_index, "faq=mysettings"), 
-        this.GetText("HELP_INDEX", "MYSETTINGSTITLE"));
-      html.AppendFormat(
-        @"<li><a href=""{0}"">{1}</a></li>", 
-        YafBuildLink.GetLink(ForumPages.help_index, "faq=messenger"), 
-        this.GetText("HELP_INDEX", "MESSENGERTITLE"));
-      html.AppendFormat(
-        @"<li><a href=""{0}"">{1}</a></li>", 
-        YafBuildLink.GetLink(ForumPages.help_index, "faq=publicprofile"), 
-        this.GetText("HELP_INDEX", "PUBLICPROFILETITLE"));
-      html.AppendFormat(
-        @"<li><a href=""{0}"">{1}</a></li>", 
-        YafBuildLink.GetLink(ForumPages.help_index, "faq=editprofile"), 
-        this.GetText("HELP_INDEX", "EDITPROFILETITLE"));
-      html.AppendFormat(
-        @"<li><a href=""{0}"">{1}</a></li>", 
-        YafBuildLink.GetLink(ForumPages.help_index, "faq=thanks"), 
-        this.GetText("HELP_INDEX", "THANKSTITLE"));
-      html.AppendFormat(
-        @"<li><a href=""{0}"">{1}</a></li>", 
-        YafBuildLink.GetLink(ForumPages.help_index, "faq=buddies"), 
-        this.GetText("HELP_INDEX", "BUDDIESTITLE"));
-      html.AppendFormat(
-        @"<li><a href=""{0}"">{1}</a></li>", 
-        YafBuildLink.GetLink(ForumPages.help_index, "faq=myalbums"), 
-        this.GetText("HELP_INDEX", "MYALBUMSTITLE"));
-      html.AppendFormat(
-        @"<li><a href=""{0}"">{1}</a></li>", 
-        YafBuildLink.GetLink(ForumPages.help_index, "faq=mypics"), 
-        this.GetText("HELP_INDEX", "MYPICSTITLE"));
-      html.AppendFormat(
-        @"<li><a href=""{0}"">{1}</a></li>", 
-        YafBuildLink.GetLink(ForumPages.help_index, "faq=mailsettings"), 
-        this.GetText("HELP_INDEX", "MAILSETTINGSTITLE"));
-      html.AppendFormat(
-        @"<li><a href=""{0}"">{1}</a></li>", 
-        YafBuildLink.GetLink(ForumPages.help_index, "faq=subscriptions"), 
-        this.GetText("HELP_INDEX", "SUBSCRIPTIONSTITLE"));
-
-      html.AppendFormat(@"</ul></td></tr>");
-
-      //////////////
-      html.AppendFormat(
-        @"<tr class=""header2""><td>{0}</td></tr>", this.GetText("HELP_INDEX", "READPOSTTOPICS"));
-
-      html.AppendFormat(@"<tr><td class=""post""><ul id=""yafhelpreading"">");
-
-      html.AppendFormat(
-        @"<li><a href=""{0}"">{1}</a></li>", 
-        YafBuildLink.GetLink(ForumPages.help_index, "faq=posting"), 
-        this.GetText("HELP_INDEX", "POSTINGTITLE"));
-      html.AppendFormat(
-        @"<li><a href=""{0}"">{1}</a></li>", 
-        YafBuildLink.GetLink(ForumPages.help_index, "faq=replying"), 
-        this.GetText("HELP_INDEX", "REPLYINGTITLE"));
-      html.AppendFormat(
-        @"<li><a href=""{0}"">{1}</a></li>", 
-        YafBuildLink.GetLink(ForumPages.help_index, "faq=editdelete"), 
-        this.GetText("HELP_INDEX", "EDITDELETETITLE"));
-      html.AppendFormat(
-        @"<li><a href=""{0}"">{1}</a></li>", 
-        YafBuildLink.GetLink(ForumPages.help_index, "faq=polls"), 
-        this.GetText("HELP_INDEX", "POLLSTITLE"));
-      html.AppendFormat(
-        @"<li><a href=""{0}"">{1}</a></li>", 
-        YafBuildLink.GetLink(ForumPages.help_index, "faq=attachments"), 
-        this.GetText("HELP_INDEX", "ATTACHMENTSTITLE"));
-      html.AppendFormat(
-        @"<li><a href=""{0}"">{1}</a></li>", 
-        YafBuildLink.GetLink(ForumPages.help_index, "faq=smilies"), 
-        this.GetText("HELP_INDEX", "SMILIESTITLE"));
-      html.AppendFormat(
-        @"<li><a href=""{0}"">{1}</a></li>", 
-        YafBuildLink.GetLink(ForumPages.help_index, "faq=modsadmins"), 
-        this.GetText("HELP_INDEX", "MODSADMINSTITLE"));
-
-      html.AppendFormat(@"</ul></td></tr>");
-
-      //////////////
-      html.AppendFormat(@"</ul></td></tr>");
-      html.Append(@"</table>");
-
-      writer.BeginRender();
-
-      // render the contents of the help menu....
-      writer.WriteLine(@"<div id=""{0}"">".FormatWith(this.ClientID));
-      writer.WriteLine(@"<table class=""adminContainer""><tr>");
-      writer.WriteLine(@"<td class=""adminMenu"" valign=""top"">");
-
-      writer.Write(html.ToString());
-
-      writer.WriteLine(@"</td>");
-
-      // contents of the help pages...
-      writer.WriteLine(@"<td class=""adminContent"" valign=""top"">");
-
-      this.RenderChildren(writer);
-
-      writer.WriteLine(@"</td></tr></table>");
-      writer.WriteLine("</div>");
-
-      writer.EndRender();
-    }
+    using YAF.Classes;
+    using YAF.Core;
+    using YAF.Types;
+    using YAF.Types.Constants;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
 
     #endregion
-  }
+
+    /// <summary>
+    /// Renders the Help Menu on the Help Pages.
+    /// </summary>
+    public class HelpMenu : BasePanel
+    {
+        #region Methods
+
+        /// <summary>
+        /// The List with the Help Navigation Items
+        /// </summary>
+        private List<YafHelpNavigation> helpNavList = new List<YafHelpNavigation>();
+
+        /// <summary>
+        /// The render.
+        /// </summary>
+        /// <param name="writer">
+        /// The writer.
+        /// </param>
+        protected override void Render([NotNull] HtmlTextWriter writer)
+        {
+            // LoadList 
+            /*var navItemGeneralTopics = new YafHelpNavigation
+                {
+                    HelpCategory = "GENERALTOPICS",
+                    HelpPages =
+                        new List<YafHelpNavigationPage>
+                        {
+                            new YafHelpNavigationPage { HelpPage = "FORUMS" },
+                            new YafHelpNavigationPage { HelpPage = "REGISTRATION" },
+                            new YafHelpNavigationPage { HelpPage = "SEARCHING" },
+                            new YafHelpNavigationPage { HelpPage = "ANOUNCE" },
+                            new YafHelpNavigationPage { HelpPage = "DISPLAY" },
+                            new YafHelpNavigationPage { HelpPage = "NEWPOSTS" },
+                            new YafHelpNavigationPage { HelpPage = "THREADOPT" },
+                            new YafHelpNavigationPage { HelpPage = "RECOVER" },
+                            new YafHelpNavigationPage { HelpPage = "MEMBERSLIST" },
+                            new YafHelpNavigationPage { HelpPage = "POPUPS" },
+                            new YafHelpNavigationPage { HelpPage = "PM" },
+                            new YafHelpNavigationPage { HelpPage = "RSS" }
+                        }
+                };
+
+            this.helpNavList.Add(navItemGeneralTopics);
+
+            var navItemProfileTopics = new YafHelpNavigation
+                {
+                    HelpCategory = "PROFILETOPICS",
+                    HelpPages =
+                        new List<YafHelpNavigationPage>
+                        {
+                            new YafHelpNavigationPage { HelpPage = "MYSETTINGS" },
+                            new YafHelpNavigationPage { HelpPage = "MESSENGER" },
+                            new YafHelpNavigationPage { HelpPage = "PUBLICPROFILE" },
+                            new YafHelpNavigationPage { HelpPage = "EDITPROFILE" },
+                            new YafHelpNavigationPage { HelpPage = "THANKS" },
+                            new YafHelpNavigationPage { HelpPage = "BUDDIES" },
+                            new YafHelpNavigationPage { HelpPage = "MYALBUMS" },
+                            new YafHelpNavigationPage { HelpPage = "MYPICS" },
+                            new YafHelpNavigationPage { HelpPage = "MAILSETTINGS" },
+                            new YafHelpNavigationPage { HelpPage = "SUBSCRIPTIONS" }
+                        }
+                };
+
+            this.helpNavList.Add(navItemProfileTopics);
+
+            var navItemReadPostTopics = new YafHelpNavigation
+                {
+                    HelpCategory = "READPOSTTOPICS",
+                    HelpPages =
+                        new List<YafHelpNavigationPage>
+                        {
+                            new YafHelpNavigationPage { HelpPage = "POSTING" },
+                            new YafHelpNavigationPage { HelpPage = "REPLYING" },
+                            new YafHelpNavigationPage { HelpPage = "EDITDELETE" },
+                            new YafHelpNavigationPage { HelpPage = "POLLS" },
+                            new YafHelpNavigationPage { HelpPage = "ATTACHMENTS" },
+                            new YafHelpNavigationPage { HelpPage = "SMILIES" },
+                            new YafHelpNavigationPage { HelpPage = "MODSADMINS" },
+                        }
+                };
+
+            this.helpNavList.Add(navItemReadPostTopics);
+
+            */
+
+            var serializer = new XmlSerializer(typeof(List<YafHelpNavigation>));
+
+            var xmlFilePath =
+                HttpContext.Current.Server.MapPath(
+                    "{0}resources/{1}".FormatWith(YafForumInfo.ForumServerFileRoot, "HelpMenuList.xml"));
+
+            if (File.Exists(xmlFilePath))
+            {
+                var reader = new StreamReader(xmlFilePath);
+
+                this.helpNavList = (List<YafHelpNavigation>)serializer.Deserialize(reader);
+
+                reader.Close();
+            }
+
+            var html = new StringBuilder(2000);
+
+            string faqPage = "index";
+
+            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("faq").IsSet())
+            {
+                faqPage = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("faq");
+            }
+
+            // Header
+            html.Append(@"<table cellspacing=""0"" cellpadding=""0"" class=""content"" id=""yafhelpmenu"">");
+
+            html.Append(@"<tr><td class=""header1"">{0}</td></tr>".FormatWith(this.GetText("HELP_INDEX", "NAVIGATION")));
+
+            html.Append(@"<tr class=""header2""><td>{0}</td></tr>".FormatWith(this.GetText("HELP_INDEX", "INDEX")));
+
+            html.AppendFormat(@"<tr><td class=""post""><ul id=""yafhelpindex"">");
+
+            string selectedStyle = string.Empty;
+
+            if (faqPage.Equals("index"))
+            {
+                selectedStyle = @"style=""color:red;""";
+            }
+
+            html.AppendFormat(
+                @"<li><a href=""{0}"" {2} title=""{1}"">{1}</a></li>",
+                YafBuildLink.GetLink(ForumPages.help_index, "faq=index"),
+                this.GetText("HELP_INDEX", "SEARCHHELP"),
+                selectedStyle);
+
+            html.AppendFormat(@"</ul></td></tr>");
+
+            foreach (var category in this.helpNavList)
+            {
+                html.AppendFormat(
+                        @"<tr class=""header2""><td>{0}</td></tr>", this.GetText("HELP_INDEX", category.HelpCategory));
+
+                html.AppendFormat(@"<tr><td class=""post""><ul id=""yafhelp{0}"">", category.HelpCategory.ToLower());
+
+                foreach (var helpPage in category.HelpPages)
+                {
+                    selectedStyle = string.Empty;
+
+                    if (helpPage.HelpPage.ToLower().Equals(faqPage))
+                    {
+                        selectedStyle = @"style=""color:red;""";
+                    }
+
+                    if (helpPage.HelpPage.Equals("REGISTRATION"))
+                    {
+                        if (!this.Get<YafBoardSettings>().DisableRegistrations && !Config.IsAnyPortal)
+                        {
+                            html.AppendFormat(
+                                @"<li><a href=""{0}"" {2} title=""{1}"">{1}</a></li>",
+                                YafBuildLink.GetLink(ForumPages.help_index, "faq={0}".FormatWith(helpPage.HelpPage.ToLower())),
+                                this.GetText("HELP_INDEX", "{0}TITLE".FormatWith(helpPage.HelpPage)),
+                                selectedStyle);
+                        }
+                    }
+                    else
+                    {
+                        html.AppendFormat(
+                       @"<li><a href=""{0}"" {2} title=""{1}"">{1}</a></li>",
+                       YafBuildLink.GetLink(ForumPages.help_index, "faq={0}".FormatWith(helpPage.HelpPage.ToLower())),
+                       this.GetText("HELP_INDEX", "{0}TITLE".FormatWith(helpPage.HelpPage)),
+                       selectedStyle);
+                    }
+                }
+
+                html.AppendFormat(@"</ul></td></tr>");
+            }
+
+            html.Append(@"</table>");
+
+            writer.BeginRender();
+
+            // render the contents of the help menu....
+            writer.WriteLine(@"<div id=""{0}"">".FormatWith(this.ClientID));
+            writer.WriteLine(@"<table class=""adminContainer""><tr>");
+            writer.WriteLine(@"<td class=""adminMenu"" valign=""top"">");
+
+            writer.Write(html.ToString());
+
+            writer.WriteLine(@"</td>");
+
+            // contents of the help pages...
+            writer.WriteLine(@"<td class=""helpContent"">");
+
+            this.RenderChildren(writer);
+
+            writer.WriteLine(@"</td></tr></table>");
+            writer.WriteLine("</div>");
+
+            writer.EndRender();
+        }
+
+        #endregion
+
+        /// <summary>
+        /// The Yaf Help Navigation Class
+        /// </summary>
+        public class YafHelpNavigation
+        {
+            #region Properties
+
+            /// <summary>
+            ///   Gets or sets The Category of the Help Category
+            /// </summary>
+            public string HelpCategory { get; set; }
+
+            /// <summary>
+            ///   Gets or sets The Help pages
+            /// </summary>
+            public List<YafHelpNavigationPage> HelpPages { get; set; }
+
+            #endregion
+        }
+
+        /// <summary>
+        /// Class for the Help Pages inside a Category
+        /// </summary>
+        public class YafHelpNavigationPage
+        {
+            #region Properties
+
+            /// <summary>
+            ///   Gets or sets The Help page Name
+            /// </summary>
+            public string HelpPage { get; set; }
+
+            #endregion
+        }
+    }
 }
