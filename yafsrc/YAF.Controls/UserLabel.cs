@@ -126,7 +126,7 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    ///   The replace name of this user for the link
+    ///   The replace name of this user for the link. Attention! Use it ONLY for crawlers. 
     /// </summary>
     [NotNull]
     public string ReplaceName

@@ -88,7 +88,7 @@ namespace YAF.Controls
     protected override void Render([NotNull] HtmlTextWriter output)
     {
 
-      string displayName = this.Get<IUserDisplayName>().GetName(this.UserID);
+       string displayName = this.Get<IUserDisplayName>().GetName(this.UserID);
 
       if (this.UserID != -1 && displayName.IsSet())
       {
@@ -122,10 +122,11 @@ namespace YAF.Controls
 
         this.RenderMainTagAttributes(output);
 
-        output.Write(HtmlTextWriter.TagRightChar);
-        output.WriteEncodedText(displayName);
-
-        output.WriteEndTag(!isGuest ? "a" : "span");
+          output.Write(HtmlTextWriter.TagRightChar);
+          output.WriteEncodedText(this.ReplaceName.IsNotSet()
+                                      ? displayName
+                                      : this.ReplaceName);
+          output.WriteEndTag(!isGuest ? "a" : "span");
 
         if (this.PostfixText.IsSet())
         {

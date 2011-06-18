@@ -124,7 +124,6 @@ namespace YAF.Controls
               this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.DataRow["LastTopicName"].ToString())), 50);
          
           this.ProfileUserLink.UserID = Convert.ToInt32(this.DataRow["LastUserID"]);
-          this.ProfileUserLink.ReplaceName = this.DataRow["LastUser"].ToString();
           this.ProfileUserLink.Style = this.Get<YafBoardSettings>().UseStyledNicks
                                          ? this.Get<IStyleTransform>().DecodeStyleByString(
                                            this.DataRow["Style"].ToString(), false)
