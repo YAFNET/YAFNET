@@ -1,5 +1,5 @@
-/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bjørnar Henden
+ï»¿/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjï¿½rnar Henden
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -177,7 +177,7 @@ namespace YAF.Pages.Admin
         return;
       }
 
-      this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+      this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
       this.PageLinks.AddLink(
         this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
 
@@ -205,7 +205,27 @@ namespace YAF.Pages.Admin
 
       if (!forumId.HasValue)
       {
-        return;
+          // Currently creating a New Forum, and auto fill the Forum Sort Order + 1
+          using (
+          DataTable dt = LegacyDb.forum_list(this.PageContext.PageBoardID, null))
+          {
+              int sortOrder = 1;
+
+              try
+              {
+                  DataRow highestRow = dt.Rows[dt.Rows.Count - 1];
+
+                  sortOrder = (short)highestRow["SortOrder"] + sortOrder;
+              }
+              catch
+              {
+                  sortOrder = 1;
+              }
+
+              this.SortOrder.Text = sortOrder.ToString();
+
+              return;
+          }
       }
 
       using (DataTable dt = LegacyDb.forum_list(this.PageContext.PageBoardID, forumId.Value))
@@ -453,7 +473,7 @@ namespace YAF.Pages.Admin
       {
         var forumList = LegacyDb.forum_list(this.PageContext.PageBoardID, null).AsEnumerable();
 
-        if (forumList.Any() && !this.PageContext.BoardSettings.AllowForumsWithSameName &&
+        if (forumList.Any() && !this.Get<YafBoardSettings>().AllowForumsWithSameName &&
             forumList.Any(dr => dr.Field<string>("Name") == this.Name.Text.Trim()))
         {
           this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_FORUMNAME_EXISTS"));

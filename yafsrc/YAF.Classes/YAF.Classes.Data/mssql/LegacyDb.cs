@@ -2590,7 +2590,7 @@ namespace YAF.Classes.Data
     /// <returns>
     /// DataTable with a list of forums in a category
     /// </returns>
-    public static DataTable category_list([NotNull] object boardID, [NotNull] object categoryID)
+    public static DataTable category_list([NotNull] object boardID, [CanBeNull] object categoryID)
     {
       using (var cmd = MsSqlDbAccess.GetCommand("category_list"))
       {
@@ -3367,7 +3367,7 @@ namespace YAF.Classes.Data
     /// <returns>
     /// DataTable with list of topics from a forum
     /// </returns>
-    public static DataTable forum_list([NotNull] object boardID, [NotNull] object forumID)
+    public static DataTable forum_list([NotNull] object boardID, [CanBeNull] object forumID)
     {
       using (var cmd = MsSqlDbAccess.GetCommand("forum_list"))
       {

@@ -1,5 +1,5 @@
-/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bjørnar Henden
+ï»¿/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjï¿½rnar Henden
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -31,7 +31,6 @@ namespace YAF.Pages.Admin
   using YAF.Classes;
   using YAF.Classes.Data;
   using YAF.Core;
-  using YAF.Core.Services;
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Types.Interfaces;
@@ -41,7 +40,7 @@ namespace YAF.Pages.Admin
   #endregion
 
   /// <summary>
-  /// Summary description for editcategory.
+  /// Class for the Edit Category Page
   /// </summary>
   public partial class editcategory : AdminPage
   {
@@ -122,7 +121,7 @@ namespace YAF.Pages.Admin
             return;
         }
 
-        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
         this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
 
         this.PageLinks.AddLink(this.GetText("TEAM", "FORUMS"), YafBuildLink.GetLink(ForumPages.admin_forums));
@@ -142,8 +141,6 @@ namespace YAF.Pages.Admin
         this.CategoryImages.Attributes["onchange"] =
             "getElementById('{1}').src='{0}{2}/' + this.value".FormatWith(
                 YafForumInfo.ForumClientFileRoot, this.Preview.ClientID, YafBoardFolders.Current.Categories);
-
-        //this.Name.Style.Add("width", "100%");
 
         this.BindData();
     }
@@ -214,7 +211,27 @@ namespace YAF.Pages.Admin
 
         if (this.Request.QueryString.GetFirstOrDefault("c") == null)
         {
-            return;
+            // Currently creating a New Category, and auto fill the Category Sort Order + 1
+            using (
+            DataTable dt = LegacyDb.category_list(this.PageContext.PageBoardID, null))
+            {
+                int sortOrder = 1;
+
+                try
+                {
+                    DataRow highestRow = dt.Rows[dt.Rows.Count - 1];
+
+                    sortOrder = (short)highestRow["SortOrder"] + sortOrder;
+                }
+                catch
+                {
+                    sortOrder = 1;
+                }
+
+                this.SortOrder.Text = sortOrder.ToString();
+
+                return;
+            }
         }
 
         using (
