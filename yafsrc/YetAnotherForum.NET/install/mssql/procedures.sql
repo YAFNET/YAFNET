@@ -6939,7 +6939,7 @@ begin
 	if @UseSingleSignOn is null SET @UseSingleSignOn=0
 
 	if @UserID is null or @UserID<1 begin
-	    
+	    set @Flags = 0
 		if @Approved<>0 set @Flags = @Flags | 2	
 		if @Email = '' set @Email = null
 		
@@ -6955,14 +6955,15 @@ begin
 	else begin
 		set @Flags = (SELECT Flags FROM [{databaseOwner}].[{objectQualifier}User] where UserID = @UserID)
 		
-		-- set user dirty 
-		set @Flags = @Flags	| 64
-		
+		-- set user dirty flag		
+		IF ((@Flags & 64) <> 64)		
+		SET @Flags = @Flags | 64
+		-- set/remove DST flag
 		IF ((@DSTUser<>0) AND (@Flags & 32) <> 32)		
 		SET @Flags = @Flags | 32
 		ELSE IF ((@DSTUser=0) AND (@Flags & 32) = 32)
 		SET @Flags = @Flags ^ 32
-			
+		-- set/remove hide user flag	
 		IF ((@HideUser<>0) AND ((@Flags & 16) <> 16)) 
 		SET @Flags = @Flags | 16 
 		ELSE IF ((@HideUser=0) AND ((@Flags & 16) = 16)) 
@@ -7040,7 +7041,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}user_setnotdirty](@UserID int) as
 begin	
-	update [{databaseOwner}].[{objectQualifier}User] set Flags = Flags ^ 64 where UserID = @UserID
+	update [{databaseOwner}].[{objectQualifier}User] set Flags = Flags ^ 64 where UserID = @UserID and (Flags & 64) = 64
 end
 GO
 
