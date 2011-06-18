@@ -2048,32 +2048,32 @@
 &lt;p&gt;Announcement topics are displayed at the top of forum listing pages, above regular and sticky topics.&lt;/p&gt;
         </Resource>
     <Resource tag="ANOUNCETITLE">Announcements</Resource>
-    <Resource tag="ATTACHMENTSCONTENT">&lt;p&gt;To attach a file to a post, you need to be using the main 'Post Reply' or 'New Topic' page and not 'Quick Reply', or Click the 'Attach' Button to on an existing Message.&lt;/p&gt;
-&lt;p&gt;On this page, below the message box, you will find a Check box 'Attach files to this post?'. When you Click on the 'Post' Button you are redirected to the Attachments Page where you can Upload an Attach Files.&lt;/p&gt;
+    <Resource tag="ATTACHMENTSCONTENT">&lt;p&gt;To attach a file to a post, you need to be using the main 'Post Reply' or 'New Topic' page and not 'Quick Reply', or Click the 'Attach' button to on an existing Message.&lt;/p&gt;
+&lt;p&gt;On this page, below the message box, you will find a Check box 'Attach files to this post?'. When you Click on the 'Post' button you are redirected to the Attachments Page where you can Upload and Attach Files.&lt;/p&gt;
 &lt;p&gt;To upload a file from your computer, click the 'Browse' button and locate the file. Once you have selected a file, click 'Upload'.&lt;/p&gt;
 &lt;p&gt;Once the upload is completed the file name will appear over the Upload Section. You can click 'Back' to return to the Topic.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;What files types can be used? How large can attachments be?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;In the attachment window you will find a list of the allowed file types you can use. There may also be an overall quota limit to the number of attachments you can post to the board.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How to add an image to a post?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;If you have uploaded an image as an attachment, there will be automatically generated an thumbnail that will displayed in your message, with an Link to the Full Size Image&lt;/p&gt;
+&lt;p&gt;If you have uploaded an image as an attachment, they will be automatically generated a thumbnail that will displayed in your message, with an Link to the Full Size Image&lt;/p&gt;
 &lt;p&gt;To include an image that is not uploaded as an attachment and is located on another website, you can do so by copying the full URL to the image, (not the page on which the image is located), and either pressing the 'Insert Image' icon or by typing [img] before the URL and [/img] after it, ensuring that you do not have any spaces before or after the URL of the image.&lt;/p&gt;</Resource>
     <Resource tag="ATTACHMENTSTITLE">Attachments and Images</Resource>
-    <Resource tag="BUDDIESCONTENT">&lt;p&gt;Buddies are a friendship function and are a  two-way relationship between two users. It is initiated by one user and accepted by the other.
+    <Resource tag="BUDDIESCONTENT">&lt;p&gt;Buddies are a friendship function and are a two-way relationship between two users. It is initiated by one user and accepted by the other.
 &lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Where is list of Buddies displayed?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Your Buddies are displayed on the 'My Buddies' you can access this Page From The Header Link 'My Buddies', or from the User CP Link 'Edit Buddies'. &lt;/p&gt;
-&lt;p&gt;&lt;em&gt;Note: If you don't See this Links you didn't have any Buddies,  didn't send any Request or you didn't have any Pending Buddy Requests.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Your Buddies are displayed on the 'My Buddies' you can access this page from the Header Link 'My Buddies', or from the &lt;strong&gt;User Control Panel&lt;/strong&gt; Link 'Edit Buddies'. &lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Note: If you don't See this Link you don't have any Buddies, didn't send any Request or you didn't have any Pending Buddy Requests.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Your buddies are also displayed in your profile page.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How can I request a User as Buddy or accept a Buddy Request?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;To request a user as Buddy, view the profile page of the person you want to become friends with and click the 'Add as Buddy' link.&lt;/p&gt;
-&lt;p&gt;To accept a Buddy request friend, go to your 'My Buddies' page. On the Tab 'Pending Requests' you see The List of Users(s) with pending requests. There you have three choices...&lt;/p&gt;
+&lt;p&gt;To accept a Buddy request friend, go to your 'My Buddies' page. On the Tab 'Pending Requests' you see The List of Users with pending requests. There you have three choices...&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;strong&gt;Approve&lt;/strong&gt; - You Become Buddy of the User who requests it &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Deny&lt;/strong&gt; - Reject the Request&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt; Approve and Add - &lt;/strong&gt;You Become Buddy of the User who requests it, and also the User Becomes a Body in your List.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Deny&lt;/strong&gt; - Reject the request&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt; Approve and Add - &lt;/strong&gt;You become Buddy of the User who requests it, and also the User becomes a Body in your List.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;Remove Buddy&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;To remove a Buddy from Your List  go to your 'My Buddies' page. On the Tab 'Buddy List' Click on the Button 'Remove Buddy' of the User you want to remove&lt;/p&gt;
+&lt;p&gt;To remove a Buddy from Your List go to your 'My Buddies' page. On the Tab 'Buddy List' Click on the Button 'Remove Buddy' of the User you want to remove&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;You’re Requests&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;The Third Tab of the 'My Buddies' Page shows your the Pending Request you have made.&lt;/p&gt;</Resource>
     <Resource tag="BUDDIESTITLE">Buddies</Resource>
@@ -2085,15 +2085,15 @@
 &lt;/ul&gt;
 </Resource>
     <Resource tag="DISPLAYTITLE">Thread Display Options</Resource>
-    <Resource tag="EDITDELETECONTENT">&lt;p&gt;If you currently registered and logged in, you may be able to edit and delete your messages (if the  administrator doesnt  turned off this option). &lt;/p&gt;
-&lt;p&gt;To edit or delete your posts, click the 'Edit'  button by the particular post. If your post was the first in the thread, then deleting it may remove the entire thread.&lt;/p&gt;
-&lt;p&gt;Once you've made your modifications, a note may appear to inform other users that you have edited your post.&lt;/p&gt;
-&lt;p&gt;Please also enter in The Field 'Reason for edit' an Reason why you edit this Message.&lt;/p&gt;
+    <Resource tag="EDITDELETECONTENT">&lt;p&gt;If you are currently registered and logged in, you may be able to edit and delete your messages (if the administrator doesn’t turned off this option). &lt;/p&gt;
+&lt;p&gt;To edit or delete your posts, click the 'Edit' button by the particular post. If your post was the first in the thread, then deleting it may remove the entire thread.&lt;/p&gt;
+&lt;p&gt;Once you've made your modifications, a note, on the bottom of the post, appear to inform other users that you have edited your post.&lt;/p&gt;
+&lt;p&gt;Please also enter in The Field 'Reason for edit' a reason why you edited this Message.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Can others edit my posts?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Administrators and moderators may also edit your messages. If they do, there may not be a note telling other users that the post was modified.&lt;/p&gt;</Resource>
+&lt;p&gt;Administrators and moderators may also edit your messages. If they do, a note at the bottom appear telling other users that the post was modified.&lt;/p&gt;</Resource>
     <Resource tag="EDITDELETETITLE">Editing and Deleting your Posts</Resource>
-    <Resource tag="EDITPROFILECONTENT">&lt;p&gt;You can change your account information using Personal Profile -&amp;gt; 'Edit Profile' option from within the User CP. If you want to change your Password there is an extra Page (Change Password) for that in the User CP, where you can set a new Password.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Edit Profile&lt;/strong&gt; Page&lt;/p&gt;
+    <Resource tag="EDITPROFILECONTENT">&lt;p&gt;You can change your account information using Personal Profile -&amp;gt; 'Edit Profile' option from within the &lt;strong&gt;User Control Panel&lt;/strong&gt;. If you want to change your Password there is an extra Page (Change Password) for that in the &lt;strong&gt;User Control Panel&lt;/strong&gt;, where you can set a new Password.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Edit Profile Page&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;This page allows you to set a number of required and optional details, some of which will be displayed on your public profile. With the exception of your e-mail address, do not enter information that you do not wish to be publicly viewable.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;About You&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;These are the Basic Information about you&lt;/p&gt;
@@ -2104,23 +2104,24 @@
 &lt;p&gt;&lt;strong&gt;Instant messaging services&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Here you can optionally enter your messenger Ids of services such as MSN, YAHOO, AIM, ICQ, XMPP, SKYPE, Facebook and Twitter.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Time Zone&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Here you can specify the Time Zone to adjust the board Time and Date to your local Time. And set if the Daylight Saving Time should be automatically adjusted.&lt;/p&gt;
+&lt;p&gt;Here you can specify the Time Zone to adjust the board Time and Date to your local time. And set the Daylight Saving Time should it be automatically adjusted.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Forum Settings&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Here you change your E-mail Address.&lt;/p&gt;
-&lt;p&gt;And if the Administrator has enabled it you can change the Forum &lt;strong&gt;Language&lt;/strong&gt; and the &lt;strong&gt;Theme&lt;/strong&gt; of the Site.&lt;/p&gt;
+&lt;p&gt;Here you change your Email Address.&lt;/p&gt;
+&lt;p&gt;And if the Administrator has enabled it you can change the Forum &lt;strong&gt;Language&lt;/strong&gt;, &lt;strong&gt;Theme&lt;/strong&gt; of the Site and the &lt;strong&gt;Text Editor&lt;/strong&gt; (That is used for posting messages).&lt;/p&gt;
+&lt;p&gt;There is also a Setting &amp;quot;Single Sign On&amp;quot; (If it&amp;rsquo;s activated). If you turn it on you can login thru Facebook, you also enter your Facebook ID above.&lt;/p&gt;
 
 </Resource>
     <Resource tag="EDITPROFILETITLE">Editing User Profile &amp; Forum Settings</Resource>
     <Resource tag="FORUMSCONTENT">&lt;p&gt;&lt;strong&gt;What is YAF?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;YetAnotherForum.NET (YAF) is The Open Source Discussion Forum for sites running ASP.NET. 100% written in C#, YAF (pronounced like &amp;quot;laugh&amp;quot;) is a unique combination of Open Source, Microsoft's .NET platform and an international collaboration of the .NET developer community. Growing and changing daily, the YAF project is led by Jaben Cargman of Tiny Gecko. YAF runs on any web server that supports ASP.NET v2.0 (and above) and SQL Server. YAF is licensed under GPL.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How is all of this structured?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;A Forums contains various areas, which themselves contain forums (more specific subject areas) which contain topics  which are made up of individual messages (where a user writes something).&lt;/p&gt;
-&lt;p&gt;The forum home page has a list of categories and forums, with basic statistics for each, including the number of topics and messages, and which member messageed the most recent message.&lt;/p&gt;
+&lt;p&gt;A Forum contains various areas, which themselves contain forums (more specific subject areas) which contain topics  which are made up of individual messages (where a user writes something).&lt;/p&gt;
+&lt;p&gt;The Forums home page has a list of categories and forums, with basic statistics for each, including the number of topics and messages, and which member posted the most recent message.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How do I find my way around?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;When you click on a forum's name, you are taken to the list of topics it contains. A topic is a conversation between members or guests. Each topic starts out as a single message and grows as more individual messages are added by different users. &lt;/p&gt;
 &lt;p&gt;To start a new Topic simply click on the 'New Topic' button  (If you have access to it).&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Paging&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;When there are more Topics to display than will fit on a single page, you may see the Pager, which contains page numbers. This indicates that the list of topics has been split over two or more pages.&lt;/p&gt;
+&lt;p&gt;When there are more topics to display than will fit on a single page, you may see the Pager, which contains page numbers. This indicates that the list of topics has been split over two or more pages.&lt;/p&gt;
 &lt;p&gt;This method of splitting lists of items over many pages is used throughout the board.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;What are sticky topics?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;'Sticky' Topics can be created by moderators or administrators, and remain 'stuck' to the top of the listing, even if they haven't had any messages recently. Their purpose is to keep important information visible and accessible at all times.&lt;/p&gt;
@@ -2131,22 +2132,23 @@
 &lt;p&gt;&lt;strong&gt;How do I find out more about members?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;To view information about a particular member, click on the user name. This will take you to their public profile page.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;What is the Header?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;The Header on top of every page has links to help you move around. A form on the right allows you to quickly login. With one click you can reach areas such as: My Profile, Help (which you are reading now), Search and other  useful features..&lt;/p&gt;</Resource>
+&lt;p&gt;The Header on top of every page has links to help you move around. With one click you can reach areas such as: My Profile, Help (which you are reading now), Search and other  useful features..&lt;/p&gt;</Resource>
     <Resource tag="FORUMSTITLE">Forums, Topics and Messages</Resource>
     <Resource tag="GENERALTOPICS">General Forum Usage</Resource>
     <Resource tag="INDEX">Index</Resource>
-    <Resource tag="MAILSETTINGSCONTENT">&lt;p&gt;On the 'Email Notification' Preferences Page inside your User Control Panel you can set up, what type of Email Notifications you want to receive.&lt;/p&gt;
+    <Resource tag="MAILSETTINGSCONTENT">&lt;p&gt;On the 'Email Notification Preferences' Page inside your User Control Panel you can set up, what type of Email Notifications you want to receive.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Turn off notifications - &lt;/strong&gt;This Options turns off all Notifications and you won’t receive any emails.&lt;/p&gt;
+&lt;p&gt; &lt;strong&gt;Notification for all posts on all topics&lt;/strong&gt; - You will receive Instant Email Notifications when someone has posted a new Message.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Notification for topics you've posted to, watched or marked as favorite&lt;/strong&gt; - You will receive Instant Email Notifications when someone has posted a new Message in a topic, you have posted before, a topic you watch, marked as favorite, or a forum.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Notification for topics or forums you've selectively watched (listed below)&lt;/strong&gt; - You will receive Instant Email Notifications when someone has posted a new Message in a topic or forum you have selected to watch (See List Below).&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Receive once daily digest/summary of activity?&lt;/strong&gt; - If this Function is enabled you can turn this option on to get an Email with all new Activities about new topics and messages from current day as daily digest (summary) in one mail&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Receive an email notification when you get a new private message? &lt;/strong&gt; - You can also turn on/off Email Notifications when you receive a private message.&lt;/p&gt;
 </Resource>
     <Resource tag="MAILSETTINGSTITLE">Email Notification Preferences</Resource>
-    <Resource tag="MEMBERSLISTCONTENT">&lt;p&gt;The members list shows the registered members of the board. You can view the member list ordered alphabetically by user name.&lt;/p&gt;
-&lt;p&gt;To view the members list, click on 'Members' on main Header at the top of the page.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Are all members listed?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Some members may not be on the list. The administrator has options over who is shown on the list. They may, for example, omit members who have not made many posts or who belong to certain user groups.&lt;/p&gt;</Resource>
+    <Resource tag="MEMBERSLISTCONTENT">&lt;p&gt;The members list shows the registered members of the board. You can view the member list ordered alphabetically by user name, &amp;quot;Joined“ Date , or „last visit“,&lt;/p&gt;
+&lt;p&gt;There is also a Search Box where you can search for an specific user.&lt;/p&gt;
+&lt;p&gt;To view the members list, click on 'Members' on main Header at the top of the page (If you don't see the link you didn't have access to that page).&lt;/p&gt;
+</Resource>
     <Resource tag="MEMBERSLISTTITLE">Members List</Resource>
     <Resource tag="MESSENGERCONTENT">
         &lt;p&gt;Registered members may be able to send messages to other members of this forum using the private messaging system (If enabled by the Administrator).
@@ -2175,28 +2177,28 @@
     <Resource tag="MODSADMINSCONTENT">&lt;p&gt;Moderators oversee specific forums. They generally have the ability to edit and delete posts, move topics, and perform other actions. Becoming a moderator for a specific forum is usually rewarded to users who are particularly helpful and knowledgeable in the subject of the forum they are moderating.&lt;/p&gt;
 &lt;p&gt;Administrators are the people who have overall control of everything that happens on the board. They oversee how the board is styled, what forums to create and how to organize them, what information to require from members and who to appoint as moderators.&lt;/p&gt;</Resource>
     <Resource tag="MODSADMINSTITLE">Moderators and Administrators</Resource>
-    <Resource tag="MYALBUMSCONTENT">&lt;p&gt;If the Administrator has enable the Album Feature and you are a member who has access to add Albums, you can create Albums of images that are linked to your public profile. Albums can be created by visiting the User Control Panel, and clicking on the 'Edit Albums' link, and then clicking on 'Add New Album'. The Number of how many Albums and how many Images depends on what the Admin has Setup for your User Group which you are in.&lt;/p&gt;
-&lt;p&gt;Each album can have a title and you can set a Cover for it (Image from the Album), or use random. And you can choose a Description for every Image.&lt;/p&gt;
+    <Resource tag="MYALBUMSCONTENT">&lt;p&gt;If the Administrator has enable the Album Feature and you are a member who has access to add Albums, you can create Albums of images that are linked to your public profile. Albums can be created by visiting the &lt;strong&gt;User Control Panel&lt;/strong&gt;, and clicking on the 'Edit Albums' link, and then clicking on 'Add New Album'. The Number of how many Albums and how many Images depends on what the Admin has Setup for your User Group which you are in.&lt;/p&gt;
+&lt;p&gt;Each album can have a title and you can set a Cover for it (Image from the Album) or use random, you can also add a caption for every Image.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How do I upload pictures?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;If you are on the Add/Edit Album Page you select an Image on your Computer and Click Upload to add it to the Album.&lt;/p&gt;
-&lt;p&gt;You'll have the option to give each picture a caption, and to set one image as the Album cover, which will be displayed on the public profile. To delete an album or edit the title, add image(s) or delete(s) image, click on 'Edit'. To edit or add a caption of an image click on the text bellow the image. If you want to Set an Cover or Remove the Cover Click on the Button Bellow the Cover.&lt;/p&gt;</Resource>
+&lt;p&gt;You'll have the option to give each picture a caption, and to set one image as the Album cover, which will be displayed on the public profile. To delete an album or edit the title, add image(s) or delete(s) image, click on 'Edit'. To edit or add a caption of an image click on the text bellow the image. If you want to Set a Cover or Remove the Cover Click on the Button bellow the Cover.&lt;/p&gt;</Resource>
     <Resource tag="MYALBUMSTITLE">Albums</Resource>
-    <Resource tag="MYPICSCONTENT">&lt;p&gt;&lt;strong&gt;What are avatars?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Avatars are small images that people use to identify or distinguish themselves to other forum members. These avatars will be displayed as part of the user info in posts, as well as in the public profile.&lt;/p&gt;
-&lt;p&gt;You can Modify your Avatar by  click on 'Modify Avatar' under the 'Personal Profile' area of the navigation bar within the User CP.&lt;/p&gt;
-&lt;p&gt;There are three ways to add ann Avatar...&lt;/p&gt;
+    <Resource tag="MYPICSCONTENT">&lt;p&gt;&lt;strong&gt;What are Avatars?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Avatars are small images that people use to identify or distinguish themselves to other forum members. These Avatars will be displayed as part of the user info in posts, as well as in the public profile.&lt;/p&gt;
+&lt;p&gt;You can modify your Avatar by clicking on 'Modify Avatar' under the 'Personal Profile' area of the navigation bar within the &lt;strong&gt;User Control Panel&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;There are three ways to add an Avatar (Maybe less if deactivated by the Administrator)...&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;If Available in the forum you can choose from an existing collection of avatars&lt;/li&gt;
+  &lt;li&gt;If available in the forum you can choose from an existing collection of Avatars&lt;/li&gt;
   &lt;li&gt;Enter an existing URL to an Image on a Remote Server&lt;/li&gt;
   &lt;li&gt;Select an Image from Your Computer and Upload it&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;em&gt;Be aware that the Administrator can set the Allowed Image File types, Image Size, and Image Dimensions (Max Width and Height of an Image).&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;What are signatures?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;'Signatures' contain information that you want to include at the bottom of all your posts. This might include pictures, links to your site(s), quotes, etc.&lt;/p&gt;
-&lt;p&gt;For Modify signatures, click on 'Signature' under the 'Personal Profile' area of the navigation bar within the User CP. You are only allowed to enter BB Code formatted Signatures.&lt;/p&gt;</Resource>
+&lt;p&gt;To modify signatures, click on 'Signature' under the 'Personal Profile' area of the navigation bar within the User CP. On this Page you will be Informed which BB Codes and which HTML Tags you can use, and how long the Signature can be.&lt;/p&gt;</Resource>
     <Resource tag="MYPICSTITLE">Signatures, Avatars Pictures</Resource>
     <Resource tag="MYSETTINGSCONTENT">&lt;p&gt;The &lt;strong&gt;User Control Panel&lt;/strong&gt; is where you control your personal settings, options and preferences.&lt;/p&gt;
-&lt;p&gt;The &lt;strong&gt;Control Panel&lt;/strong&gt; main will show your Account Summary including your User Name, Email Address, and Number of posts, Member of Groups you ar in and since when you are member.&lt;/p&gt;
+&lt;p&gt;The &lt;strong&gt;Control Panel&lt;/strong&gt; main page will show your Account Summary including your User Name, Email Address, and Number of posts, Member of Groups you are in and since when you are member.&lt;/p&gt;
 &lt;p&gt;On the Left Side you will find Links to all Sub Pages and Forms that allow you to control..&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Messenger&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
@@ -2220,7 +2222,6 @@
     <Resource tag="NAVIGATION">Navigation</Resource>
     <Resource tag="NEWPOSTSCONTENT">&lt;p&gt;If you are not logged in, the 'Active Topics' link in the Header, will show a list of all topics that have been created or updated since your last visit.&lt;/p&gt;
 &lt;p&gt;If you are logged in, the 'Active Topics' link will change to 'My Topics', which gives you a listing of all topics that have been created or updated since your last visit.&lt;/p&gt;
-&lt;p&gt;The administrator can also set up the forums so that each thread you read is marked in the database. If this option is set, then new topic (or topics with new posts) will not be marked as read until you have actually read them.&lt;/p&gt;
 &lt;p&gt;There will be also an Second Tab 'Favorite Topics' which shows all Topics which you have tagged as Favorite Topic.&lt;/p&gt;</Resource>
     <Resource tag="NEWPOSTSTITLE">Viewing New Posts</Resource>
     <Resource tag="NORESULTS">No Results found.</Resource>
@@ -2235,9 +2236,9 @@
     <Resource tag="PMTITLE">Contacting other Members</Resource>
     <Resource tag="POLLSCONTENT">&lt;p&gt;&lt;em&gt;Polls are an Option to vote on an issue or a question.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Create a new poll?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;When you post a new Topic, you have the Option 'Add Poll?' to create a new poll. If you don't see that Option you may don't have access to that Option.&lt;/p&gt;
-&lt;p&gt;You can also add new Polls to existing ones. a Topic can have as many Polls you want.&lt;/p&gt;
-&lt;p&gt;This allows you to ask a question and specify a number of possible responses (Max 10 or the Administrator has set Up a higher number) - &lt;em&gt;An Administrator can attach Images (Remote Urls) as Responses&lt;/em&gt;. Other members will then be able to vote for the response they wish, and the results of the voting will be displayed in the thread.&lt;/p&gt;
+&lt;p&gt;When you post a new Topic, you have the option 'Add Poll?' to create a new poll. If you don't see that option you may not have access to that option.&lt;/p&gt;
+&lt;p&gt;You can also add new Polls to existing ones. A Topic can have as many Polls you want.&lt;/p&gt;
+&lt;p&gt;This allows you to ask a question and specify a number of possible responses (Max 10 or the Administrator has set up a higher number) - &lt;em&gt;An Administrator can attach Images (Remote Urls) as Responses&lt;/em&gt;. Other members will then be able to vote for the response they wish, and the results of the voting will be displayed in the thread.&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;An example poll might be:&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;What is your favorite color?&lt;/em&gt;&lt;/p&gt;
 &lt;ul&gt;
@@ -2246,17 +2247,36 @@
   &lt;li&gt;&lt;em&gt;Yellow&lt;/em&gt;&lt;/li&gt;
   &lt;li&gt;&lt;em&gt;Green&lt;/em&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;You may also want to specify a time limit for the poll, so that (for example) run poll for 10 Days, you can also set it to never expire.&lt;/p&gt;
-&lt;p&gt;You can also decide if the user should be able to see the results without make a vote or if You enable the Check box 'You should vote in all polls to see results.&lt;em&gt;'&lt;/em&gt; you need to vote before seeing any results.&lt;/p&gt;
-&lt;p&gt;'Bound voting' Option doesn’t show results, if the poll didn't expire.&lt;/p&gt;
+&lt;p&gt;You may also want to specify a time limit for the poll. For example: run the poll for 10 Days or you can also set it to never expire.&lt;/p&gt;
+&lt;p&gt;You can also decide if the user should be able to see the results without making a vote or if you enable the Check box 'You should vote in all polls to see results.&lt;em&gt;'&lt;/em&gt; you need to vote before seeing any results.&lt;/p&gt;
+&lt;p&gt;'Bound voting' Option don't show results, if the poll didn't expire.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Grouping Polls&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;All Polls attached to an Topic are automatically combined as a Group. You can display this Group with Polls on any other Topic you want.&lt;/p&gt;
+&lt;p&gt;All Polls attached to a Topic are automatically combined as a Group. You can display this Group with Polls on any other Topic you want.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;How to vote?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;To vote in a poll, simply click on the option you want to vote for.&lt;/p&gt;
+&lt;p&gt;Generally, once you have voted in a poll, you will not be able to change your vote later, so place your vote carefully!&lt;/p&gt;</Resource>
+    <Resource tag="POLLSCONTENT">&lt;p&gt;Polls are an Option to vote on an issue or a question.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Create a new poll?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;When you post a new Topic, you have the Option 'Add Poll?' to create a new poll. If you don't see that Option you don’t have access to that Option.&lt;/p&gt;
+&lt;p&gt;This allows you to ask a question and specify a number of possible responses (Max 10 or the Administrator has set up a higher number) - &lt;em&gt;you can choose Images as Responses&lt;/em&gt;. Other members will then be able to vote for the response they wish, and the results of the voting will be displayed in the thread.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;An example poll might be:&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;What is your favorite color?&lt;/em&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;em&gt;Blue&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Red&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Yellow&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Green&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;You may also want to specify a time limit for the poll. For example: run the poll for 10 Days or you can also set it to never expire.&lt;/p&gt;
+&lt;p&gt;You can also decide if the user should be able to see the results without making a vote or if you enable the Check box 'You should vote in all polls to see results.&lt;em&gt;'&lt;/em&gt; you need to vote before seeing any results.&lt;/p&gt;
+&lt;p&gt;'Bound voting' Option doesn't show results if group is open for voting.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How to vote?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;To vote in a poll, simply click on the option you want to vote for.&lt;/p&gt;
 &lt;p&gt;Generally, once you have voted in a poll, you will not be able to change your vote later, so place your vote carefully!&lt;/p&gt;
 </Resource>
     <Resource tag="POLLSTITLE">Creating and Participating in Polls</Resource>
-    <Resource tag="POPUPSCONTENT">&lt;p&gt;When you have logged in and load the Page you may Receive an Pop Up Notification on the Center of your Browser Window.&lt;/p&gt;
+    <Resource tag="POLLSTITLE">Creating and Participating in Polls</Resource>
+    <Resource tag="POPUPSCONTENT">&lt;p&gt;When you have logged in and load the Page you may receive an Pop Up Notification on the center of your Browser Window.&lt;/p&gt;
 &lt;p&gt;This will inform you about several actions...&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;New Private Message(s)&lt;/li&gt;
@@ -2265,14 +2285,14 @@
   &lt;li&gt;Denied Buddy Requests&lt;br /&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;em&gt;You will also Receive Couple of Information and Error Messages in the same way.&lt;/em&gt;&lt;/p&gt;</Resource>
+&lt;p&gt;&lt;em&gt;You may also receive a couple of Information and Error Messages in the same way.&lt;/em&gt;&lt;/p&gt;</Resource>
     <Resource tag="POPUPSTITLE">PopUp Notifications</Resource>
     <Resource tag="POSTINGCONTENT">&lt;p&gt;When posting messages you may wish to include some formatting such as bold text, italic text and underlined text.&lt;/p&gt;
 &lt;p&gt;Adding formatting to your post can be done in two ways:&lt;/p&gt;
-&lt;ol&gt;
+&lt;ul&gt;
   &lt;li&gt;Using clickable controls similar to those found in most word processors&lt;/li&gt;
   &lt;li&gt;Typing formatting commands in BB code&lt;/li&gt;
-&lt;/ol&gt;
+&lt;/ul&gt;
 &lt;p&gt;Clickable controls are available in the Standard and Enhanced WYSIWYG (What You See Is What You Get) editors. The difference between these is that the standard editor will show the BB code in your message and be processed when it is displayed. The enhanced WYSIWYG editor will show your message as it will be displayed while you are typing.&lt;/p&gt;
 &lt;p&gt;Currently it depends on the Administrator which Editor is enabled ether WYSIWYG or the BB Code Editor.&lt;/p&gt;
 &lt;p&gt;To use these, simply click the button, for example the B (bold) button and then type to get bold text. Click the button again to stop using that formatting. You can also highlight text that you have already typed then click the formatting button to format existing text.&lt;/p&gt;
@@ -2290,7 +2310,7 @@
 &lt;p&gt;The Public Profile Page is grouped into 5 Tabs.&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;strong&gt;About&lt;/strong&gt; - Shows all Informations the user has provided on his Profile Page such as Real name, gender, Status if User is Online/Offline, Forum Rank, and other.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Statistics&lt;/strong&gt; - Shows statistical information such as Joined date, Last Visit, Number of thanks, Number of times this user was thanked  								and Number of posts for which this user was thanked.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Statistics&lt;/strong&gt; - Shows statistical information such as Joined date, Last Visit, Number of thanks, Number of times this user was thanked                          and Number of posts for which this user was thanked.&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;Last 10 Post&lt;/strong&gt; - Shows if available the Last 10 Messages the User has written&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;Buddies - &lt;/strong&gt;Shows the Buddies the User has in the Forum.&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;Albums - &lt;/strong&gt;Shows the Albums (if enabled) that the User has generated.&lt;/li&gt;
@@ -2318,12 +2338,12 @@
   &lt;li&gt;Sending private messages to other members&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;How do I register?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;You register by clicking on the 'Register' in the Header. First You have to agree to the Forum Rules and Policies. Then You will be asked to choose a user name, password, a Security Question/Answer, and enter a valid email address. And if the Administrator has enabled it enter the Shown Captcha Code.&lt;/p&gt;
+&lt;p&gt;You register by clicking on the 'Register' in the Header. First You have to agree to the Forum Rules and Policies. Then You will be asked to choose a user name, password, a Security Question/Answer, and enter a valid email address. And if the Administrator you need to enter the Shown Captcha code in order to proceed. On the next Page you can optional Provide some basic Profile Settings.&lt;/p&gt;
 </Resource>
     <Resource tag="REGISTRATIONTITLE">Registration</Resource>
     <Resource tag="REPLYINGCONTENT">&lt;p&gt;On some boards you might be able to post and reply as a guest user. But most communities require registration.&lt;/p&gt;
-&lt;p&gt;A registered user  can go to a forum on a board where he has permission to view Topics and leave replies. To reply you have a few options. You can click on the 'Post Reply' button  and add a new Message to the end of the Topic. Alternatively, you can leave a quick reply in a quick editor box listed below the posts in the Topic.&lt;/p&gt;
-&lt;p&gt;If you want to Reply a Message hit the 'Quote' Button And you can Reply to a Message with the Quoted Text.&lt;/p&gt;</Resource>
+&lt;p&gt;A registered user can go to a forum on a board where he has permission to view Topics and leave replies. To reply you have a few options. You can click on the 'Post Reply' button and add a new Message to the end of the Topic. Alternatively, you can leave a quick reply in a Quick Reply box listed below the posts in the Topic.&lt;/p&gt;
+&lt;p&gt;If you want to Reply to a Message hit the 'Quote' button and you can Reply to a Message with the Quoted Text.&lt;/p&gt;</Resource>
     <Resource tag="REPLYINGTITLE">Replying to a Message</Resource>
     <Resource tag="RSSCONTENT">&lt;p&gt;The feeds are currently provided in two formats, RSS and Atom.&lt;/p&gt;
 &lt;p&gt;If the administrator has enabled Feed syndication, you can get the Feeds for a forums, topics and active topics.&lt;/p&gt;
@@ -2333,7 +2353,7 @@
     <Resource tag="SEARCHHELP">Search Help</Resource>
     <Resource tag="SEARCHHELPTITLE">Search Help Topics</Resource>
     <Resource tag="SEARCHINGCONTENT">&lt;p&gt;To quickly find a thread or post of interest anywhere on the forums, click on the 'Search' link in the Header. Then, type in the keyword or phrase you wish to search for.&lt;/p&gt;
-&lt;p&gt;For more control over the search, you can restrict your search individual forums, or find posts or topics written by an specified user. You can also select how many Results should be shown per page.&lt;/p&gt;</Resource>
+&lt;p&gt;For more control over the search, you can restrict your search to individual forums, or find posts or topics written by a specified user. You can also select how many Results should be shown per page.&lt;/p&gt;</Resource>
     <Resource tag="SEARCHINGTITLE">Searching Forums and Topics</Resource>
     <Resource tag="SEARCHLONGER">Search Input is to short, must be at least 3 letters.</Resource>
     <Resource tag="SMILIESCONTENT">&lt;p&gt;Smilies are icons that can be used in your posts to express emotions or feelings. You might wish to use these to show that you are happy, sad, joking, or embarrassed. For example, if you are telling a joke or being sarcastic you may wish to add a wink instead of writing 'this is a joke'.
@@ -2341,31 +2361,31 @@
 &lt;p&gt;&lt;strong&gt;How to add smilies to a post message?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Some smilies can be accessed from the 'Post Reply' or 'New Topic' pages if your administrator has enabled this function. Clicking them will automatically insert them into your message. You can also type the character combinations for the smilies directly.&lt;/p&gt;</Resource>
     <Resource tag="SMILIESTITLE">Smilies</Resource>
-    <Resource tag="SUBSCRIPTIONSCONTENT">&lt;p&gt;Subscriptions are a way to keep track of different topics and/or forums. You can choose how you are notified about updates - for example by having them listed in your User CP and receiving e-mail updates for each one.&lt;/p&gt;
-&lt;p&gt;Or if you don't want to manually subscribe to a topic you want to follow you can turn on the Option 'Notification for topics &lt;strong&gt;you've posted to&lt;/strong&gt;, watched or marked as favorite' in the E-mail Notification Preferences Page inside the User CP.&lt;/p&gt;
+    <Resource tag="SUBSCRIPTIONSCONTENT">&lt;p&gt;Subscriptions are a way to keep track of different topics and/or forums. You can choose how you are notified about updates.&lt;/p&gt;
+&lt;p&gt;Or if you don't want to manually subscribe to a topic you want to follow you can turn on the Option 'Notification for topics you've posted to, watched or marked as favorite' in the E-mail Notification Preferences Page inside the User CP.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How to  watch a topic?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;To subscribe to a topic, click the 'Options' link at the top of the list of posts then click 'Watch this topic'.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How to  watch a forum?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;To subscribe to a forum, click on the 'Watch Forum' link bellow the  list of topics.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How do I manage my Subscriptions of Watched topics and forums?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;You can see the List of 'Watched Forums' and 'Watched Topics' from the 'Email Notification Preferences' Page of your User CP. There you can select which subscriptions you wish to delete by Clicking on the Unwatch Button.&lt;/p&gt;</Resource>
+&lt;p&gt;You can see the List of 'Watched Forums' and 'Watched Topics' from the 'Email Notification Preferences' Page of your User Controp Panel. There you can select which subscriptions you wish to delete by Clicking on the Unwatch button.&lt;/p&gt;</Resource>
     <Resource tag="SUBSCRIPTIONSTITLE">Subscriptions &amp; Notifications</Resource>
     <Resource tag="SUBTITLE">Forum Help</Resource>
     <Resource tag="THANKSCONTENT">&lt;p&gt;The 'Thanks' - System is a function that allows you to give back another user a positive feedback, for example he or she has posted a message you find useful or helps you to solve a problem.&lt;/p&gt;
-&lt;p&gt;How to give a User a Thanks?&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;How to give a User a Thanks?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;If you want to give an User an 'Thank' press the 'Thank' Button inside the Post you want to add it, after that you find your Name in the List of User who gave a Thank at the end of the Message. You can also remove your Thank at any time.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;View all Thanks&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;If you want to view all Posts you gave Thank, or show the list of posts you received thanks got to the page  Personal Profile -&amp;gt; 'View Thanks' from within the User Control Panel. There you see Two Tabs...&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt; &lt;strong&gt;Your Name thanked&lt;/strong&gt; - Shows the List of Messages where you gave a thank.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Your Name was thanked -&lt;/strong&gt; Shows the List your Messages where you received thanks.&lt;/li&gt;
+  &lt;li&gt; &lt;strong&gt;thanked&lt;/strong&gt; - Shows the List of Messages where you gave a thank.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;was thanked -&lt;/strong&gt; Shows the List your Messages where you received thanks.&lt;/li&gt;
 &lt;/ul&gt;</Resource>
     <Resource tag="THANKSTITLE">Thanks Feature</Resource>
     <Resource tag="THREADOPTCONTENT">&lt;p&gt;At the top of each Topic, there is a link  'Options'. By clicking on this link, a menu will appear with a number of options:&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;strong&gt;Watch this topic&lt;/strong&gt; - by subscribing to a thread, you will receive periodic email updates on recent activity within it.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Email this Topic&lt;/strong&gt; - If you think the thread may be interesting to someone else, you can forward a link to it to their email address.&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;Print this topic&lt;/strong&gt; - This will show you a page with the thread post content in a reduced graphics format that is more 'printer friendly'.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Atom Feed&lt;/strong&gt; - This will show the Feed of this Topic with all Post as Feed Items.&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;Rss Feed&lt;/strong&gt; - This will show the Feed of this Topic with all Post as Feed Items.&lt;/li&gt;
 &lt;/ul&gt;
 </Resource>
