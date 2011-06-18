@@ -52,6 +52,8 @@ body {
 	<span class="FeatureHeader">YetAnotherForum.NET 1.9.5.6</span>
   <p>New features:</p>
 	<ul>
+		<li>#4997 - Help Content is now much more flexible, Menu Items can be changed (from HelpMenuList.xml). Also all Menu Items have now tool tips, and current help topic is highlighted in the menu.</li>
+		<li>#4973 - Added New BBCodes HIDE-THANKS, HIDE-REPLY-THANKS, HIDE-REPLY and HIDE-POSTS more info <a href="http://forum.yetanotherforum.net/yaf_postsm50146_most-requested-feature-in-other-forum-software.aspx#post50146">here</a></li>
 		<li>#4944 - Added Simple &quot;Generate New Image&quot; Link Button to Refresh the Captcha on the Register Page</li>
 		<li>#4941 - Added Scrolling Animation to  'Back to Top' link</li>
 		<li>#4939 - Added link to user albums in posts. </li>
@@ -65,7 +67,7 @@ body {
 		<li>#4902 - User IP info for admins in activeusers list.</li>
 		<li>#4896 - Added List of Recent Users to Forum Info on the Board Index Page (Disabled by Default in Host Settings)</li>
 		<li>#4893 - Users can now login with User Name or Email Address or Display Name (If enabled) and Password</li>
-		<li>#4888 - Added a New BBCode [hide]Hidden Content[/hide] The Content is Hidden from Guests, or other roles if defined.</li>
+		<li>#4888 - Added a New BBCode [group-hide]Hidden Content[/group-hide] The Content is Hidden from Guests, or other roles if defined.</li>
 		<li>#4884 - New Host Setting to enable/disable Allow Avatar Gallery.</li>
 		<li>#4881 - New Feature: Topic Description, you can now enter a description to each topic if enabled in Host Settings</li>
 		<li>#4854 - New Board Setting: Email Moderators On a Reported Post</li>
@@ -75,7 +77,7 @@ body {
 		<li>#4825 - New Host Setting &quot;Handling of as SPAM Detected Messages&quot; - Choose what to do when a Message was detected a SPAM, You can choose between Do Nothing, Flag Message as Unapproved, or reject the Message. Default is &quot;Flag Message as Unapproved&quot;.</li>
 		<li>#4814 - Akismet Spam Service can be used for SPAM Checking (Needs an API Key)</li>
 		<li>#4814 - SPAM Service can be selected in Host Settings between Disabled, BlogSpam.Net  or Akismet</li>
-		<li>#4804 - Added a New BBCode [hidden]Hidden Content[/hidden] The Content is Hidden until a User uses The Thank Button.</li>
+		<li>#4804 - Added a New BBCode [hide]Hidden Content[/hide] The Content is Hidden until a User uses The Thank Button.</li>
 		<li>#4802 - Added optionally Icons for Private Message Read/Unread</li>
 		<li>#4787 - Added SPAM Protection to YAF via the Open Source SPAM Service BlogSpam.net every Post is checked for SPAM (Detection based on Post, IP, and Name)</li>
 		<li>#4787 - Added &quot;Report as SPAM&quot; Button to an Reported Message on the Report Messages Page</li>
@@ -84,6 +86,21 @@ body {
 	</ul>
 <p><em>changes</em></p>
 	<ul>
+		<li>#5001 - Now it auto generates SortOrder Value when you Create a New Category/Forum based on the currently highest Value used +1.</li>
+		<li>#5000 - Fixed an incorrect redirect when a new album was created. </li>
+		<li>#4999 - Updated CKEditor  to Version 3.6.1</li>
+		<li>#4996 - Fixed the problem with display names.</li>
+		<li>#4992 - A new IsDirty user flag. Used to check whether a user profile was changed. Used for portal integration and otherwise can be used by moderators to moderate user profile changes.</li>
+		<li>#4990 - Fixed Crash on bad formatted replace Word bad expressions. </li>
+		<li>#4990 - Added Check on the Add/Edit Word Replace Word Page if Expression is correct.</li>
+		<li>#4989 - Redesign of the AlphaSort Control Moved from Table to Definition List. Its now much more flexible and easier to style.</li>
+		<li>#4986 - &quot;New Forum&quot; Button is now hidden when there is now Category on the Admin Forums Page.</li>
+		<li>#4981 - IMG BBCode can now handle bmp files</li>
+		<li>#4980 - Updated Persian Language File (by User &quot;malekmakan&quot;)</li>
+		<li>#4979 - An IIS semicolon vulnerability fix.</li>
+		<li>#4978 - No avatar label was visible for some time at least, even if the avatar was already were.</li>
+		<li>#4970 - Facebook User auto registration checks no if new Registrations are disabled</li>
+		<li>#4970 - SSO will check no if the Rember Me Checkbox is checked or not</li>
 		<li>#4968 - The Signature is now displayed at the bottom of the message based on the UserBox height.</li>
 		<li>#4960 - Improved NNTP handling. Actually advances the lastMessage without downloading headers if the time &lt; cutOffDate.</li>
 		<li>#4957 - Added Fallback to Yaf BBCode Editor if User Browses with a Mobile Device</li>
@@ -101,7 +118,6 @@ body {
 		<li>#4891 - Fixed jQuery Settings Loading</li>
 		<li>#4890 - Fixed &quot;Failed to load viewstate&quot; Exception when Config Setting ShowToolbar is disabled.</li>
 		<li>#4887 - Fixed Email Sending in DNN</li>
-		<li>#4886 - Updated CKEditor  to Version 3.6.0</li>
 		<li>#4884 -  If all Settings Avatar Gallery/Remote Avatars/Gravatars/Avatar Uploads are deactivated the Edit Avatar Menu Item is Hidden in the User Control Panel Menu.</li>
 		<li>#4883 - Added a Cancel Button to the Avatar Gallery Page.</li>
 		<li>#4880 - All Links in Header are now containing Tool Tips with a Description</li>
