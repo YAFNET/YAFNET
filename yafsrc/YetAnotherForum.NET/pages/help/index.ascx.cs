@@ -16,6 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
 namespace YAF.Pages.help
 {
     #region Using
@@ -113,16 +114,39 @@ namespace YAF.Pages.help
 
             this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
             this.PageLinks.AddLink(
-                this.GetText("subtitle"), YafBuildLink.GetLink(ForumPages.help_index));
+                this.GetText("SUBTITLE"), YafBuildLink.GetLink(ForumPages.help_index));
 
             this.DoSearch.Text = this.GetText("SEARCH", "BTNSEARCH");
 
             if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("faq").IsSet())
             {
+                var faqPage = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("faq");
+
+                if (faqPage.Equals("index"))
+                {
+                    faqPage = "SEARCHHELP";
+                }
+
+                this.PageLinks.AddLink(
+                    this.GetText(
+                        "HELP_INDEX",
+                        "{0}TITLE".FormatWith(faqPage)),
+                    string.Empty);
+
+                this.Page.Header.Title = "{0} - {1}".FormatWith(
+                this.GetText("SUBTITLE"),
+                this.GetText("HELP_INDEX", "{0}TITLE".FormatWith(faqPage)));
+
                 this.BindData();
             }
             else
             {
+                this.PageLinks.AddLink(this.GetText("HELP_INDEX", "SEARCHHELPTITLE"), string.Empty);
+
+                this.Page.Header.Title = "{0} - {1}".FormatWith(
+                this.GetText("SUBTITLE"),
+                this.GetText("HELP_INDEX", "SEARCHHELPTITLE"));
+
                 // Load Index and Search
                 this.SearchHolder.Visible = true;
 
