@@ -70,13 +70,25 @@ namespace YAF.Pages
     /// </param>
     protected void Back_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
+
       if (this.List.Items.Count > 0)
       {
-        YafBuildLink.Redirect(
-          ForumPages.album, 
-          "u={0}&a={1}", 
-          this.PageContext.PageUserID.ToString(), 
-          this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"));
+          var albid = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a");
+          // This is an existing album
+          if (albid.IsSet() && !albid.Contains("new"))
+          {
+              YafBuildLink.Redirect(
+                  ForumPages.album,
+                  "u={0}&a={1}",
+                  this.PageContext.PageUserID.ToString(),
+                  albid
+                  );
+          }
+          else
+          {
+              // simply redirect to albums page
+              YafBuildLink.Redirect(ForumPages.albums, "u={0}", this.PageContext.PageUserID);
+          }
       }
       else
       {
