@@ -100,6 +100,7 @@ namespace YAF.Core.Services
         /// String with delimiter
         /// </param>
         /// <param name="delim">
+        /// The delim.
         /// </param>
         /// <returns>
         /// Returns a string containing a forbidden BBCode or a null string
@@ -609,7 +610,7 @@ namespace YAF.Core.Services
 
             var hiddenRegex =
                 new Regex(
-                    @"\[hidden\](?<inner>(.|\n)*?)\[\/hidden\]|\[hide\](?<inner>(.|\n)*?)\[\/hide\]|\[hide(\=[^\]]*)?\](?<inner>(.|\n)*?)\[\/hide\]",
+                    @"\[hide-reply\](?<inner>(.|\n)*?)\[\/hide-reply\]|\[hide-reply-thanks\](?<inner>(.|\n)*?)\[\/hide-reply-thanks\]|\[group-hide\](?<inner>(.|\n)*?)\[\/group-hide\]|\[hide\](?<inner>(.|\n)*?)\[\/hide\]|\[group-hide(\=[^\]]*)?\](?<inner>(.|\n)*?)\[\/group-hide\]|\[hide-thanks(\=[^\]]*)?\](?<inner>(.|\n)*?)\[\/hide-thanks\]|\[hide-posts(\=[^\]]*)?\](?<inner>(.|\n)*?)\[\/hide-posts\]",
                     Options);
 
             Match hiddenTagMatch = hiddenRegex.Match(body);
@@ -720,12 +721,16 @@ namespace YAF.Core.Services
         /// Surrounds a word list with prefix/postfix. Case insensitive.
         /// </summary>
         /// <param name="message">
+        /// The message.
         /// </param>
         /// <param name="wordList">
+        /// The word List.
         /// </param>
         /// <param name="prefix">
+        /// The prefix.
         /// </param>
         /// <param name="postfix">
+        /// The postfix.
         /// </param>
         /// <returns>
         /// The surround word list.
@@ -777,6 +782,7 @@ namespace YAF.Core.Services
         /// The text.
         /// </param>
         /// <returns>
+        /// The make match list.
         /// </returns>
         [NotNull]
         private static IList<string> MakeMatchList([NotNull] string matchRegEx, [NotNull] string text)
