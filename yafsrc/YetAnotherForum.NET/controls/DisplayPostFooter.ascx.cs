@@ -256,7 +256,7 @@ namespace YAF.Controls
 
             // albums link
             if (this.PostData.UserId != this.PageContext.PageUserID &&
-                                  !this.PostData.PostDeleted && this.PageContext.User != null && !UserMembershipHelper.IsGuestUser(this.PostData.UserId) &&
+                                  !this.PostData.PostDeleted && this.PageContext.User != null &&
                                   this.Get<YafBoardSettings>().EnableAlbum)
             {
                 DataTable usrAlbumsData = LegacyDb.user_getalbumsdata(this.PostData.UserId, YafContext.Current.PageBoardID);
