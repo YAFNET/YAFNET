@@ -121,6 +121,8 @@ CKEDITOR.lang['af'] =
 		alignBottom		: 'Onder',
 		invalidHeight	: 'Hoogte moet \'n getal wees',
 		invalidWidth	: 'Breedte moet \'n getal wees.',
+		invalidCssLength	: 'Value specified for the "%1" field must be a positive number with or without a valid CSS measurement unit (px, %, in, cm, mm, em, ex, pt, or pc).', // MISSING
+		invalidHtmlLength	: 'Value specified for the "%1" field must be a positive number with or without a valid HTML measurement unit (px or %).', // MISSING
 
 		// Put the voice-only part of the label in the span.
 		unavailable		: '%1<span class="cke_accessibility">, nie beskikbaar nie</span>'
@@ -201,7 +203,8 @@ CKEDITOR.lang['af'] =
 		menu		: 'Anker-eienskappe',
 		title		: 'Anker-eienskappe',
 		name		: 'Ankernaam',
-		errorName	: 'Voltooi die ankernaam asseblief'
+		errorName	: 'Voltooi die ankernaam asseblief',
+		remove		: 'Remove Anchor' // MISSING
 	},
 
 	// List style dialog
@@ -413,7 +416,6 @@ CKEDITOR.lang['af'] =
 		upload		: 'Oplaai',
 		alt			: 'Alternatiewe teks',
 		lockRatio	: 'Vaste proporsie',
-		unlockRatio	: 'Vrye proporsie',
 		resetSize	: 'Herstel grootte',
 		border		: 'Rand',
 		hSpace		: 'HSpasie',
@@ -770,41 +772,41 @@ CKEDITOR.lang['af'] =
 
 	docprops :
 	{
-		label : 'Document Properties', // MISSING
-		title : 'Document Properties', // MISSING
+		label : 'Dokument Eienskappe',
+		title : 'Dokument Eienskappe',
 		design : 'Design', // MISSING
-		meta : 'Meta Tags', // MISSING
-		chooseColor : 'Choose', // MISSING
-		other : 'Other...', // MISSING
-		docTitle :	'Page Title', // MISSING
-		charset : 	'Character Set Encoding', // MISSING
-		charsetOther : 'Other Character Set Encoding', // MISSING
+		meta : 'Meta Data',
+		chooseColor : 'Kies',
+		other : '<ander>',
+		docTitle :	'Bladsy Opskrif',
+		charset : 	'Karakterstel Kodeering',
+		charsetOther : 'Ander Karakterstel Kodeering',
 		charsetASCII : 'ASCII', // MISSING
-		charsetCE : 'Central European', // MISSING
-		charsetCT : 'Chinese Traditional (Big5)', // MISSING
+		charsetCE : 'Sentraal Europa',
+		charsetCT : 'Chinees Traditioneel (Big5)',
 		charsetCR : 'Cyrillic', // MISSING
-		charsetGR : 'Greek', // MISSING
-		charsetJP : 'Japanese', // MISSING
-		charsetKR : 'Korean', // MISSING
-		charsetTR : 'Turkish', // MISSING
+		charsetGR : 'Grieks',
+		charsetJP : 'Japanees',
+		charsetKR : 'Koreans',
+		charsetTR : 'Turks',
 		charsetUN : 'Unicode (UTF-8)', // MISSING
 		charsetWE : 'Western European', // MISSING
-		docType : 'Document Type Heading', // MISSING
-		docTypeOther : 'Other Document Type Heading', // MISSING
-		xhtmlDec : 'Include XHTML Declarations', // MISSING
-		bgColor : 'Background Color', // MISSING
-		bgImage : 'Background Image URL', // MISSING
-		bgFixed : 'Non-scrolling (Fixed) Background', // MISSING
-		txtColor : 'Text Color', // MISSING
-		margin : 'Page Margins', // MISSING
-		marginTop : 'Top', // MISSING
-		marginLeft : 'Left', // MISSING
-		marginRight : 'Right', // MISSING
-		marginBottom : 'Bottom', // MISSING
-		metaKeywords : 'Document Indexing Keywords (comma separated)', // MISSING
-		metaDescription : 'Document Description', // MISSING
-		metaAuthor : 'Author', // MISSING
-		metaCopyright : 'Copyright', // MISSING
+		docType : 'Dokument Opskrif Soort',
+		docTypeOther : 'Ander Dokument Opskrif Soort',
+		xhtmlDec : 'Voeg XHTML verklaring by',
+		bgColor : 'Agtergrond kleur',
+		bgImage : 'Agtergrond Beeld URL',
+		bgFixed : 'Vasgeklemde Agtergrond',
+		txtColor : 'Tekskleur',
+		margin : 'Bladsy Rante',
+		marginTop : 'Bo',
+		marginLeft : 'Links',
+		marginRight : 'Regs',
+		marginBottom : 'Onder',
+		metaKeywords : 'Dokument Index Sleutelwoorde(comma verdeelt)',
+		metaDescription : 'Dokument Beskrywing',
+		metaAuthor : 'Skrywer',
+		metaCopyright : 'Kopiereg',
 		previewHtml : '<p>This is some <strong>sample text</strong>. You are using <a href="javascript:void(0)">CKEditor</a>.</p>' // MISSING
 	}
 };

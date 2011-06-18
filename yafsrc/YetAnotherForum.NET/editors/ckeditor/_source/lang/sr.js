@@ -121,6 +121,8 @@ CKEDITOR.lang['sr'] =
 		alignBottom		: 'Доле',
 		invalidHeight	: 'Height must be a number.', // MISSING
 		invalidWidth	: 'Width must be a number.', // MISSING
+		invalidCssLength	: 'Value specified for the "%1" field must be a positive number with or without a valid CSS measurement unit (px, %, in, cm, mm, em, ex, pt, or pc).', // MISSING
+		invalidHtmlLength	: 'Value specified for the "%1" field must be a positive number with or without a valid HTML measurement unit (px or %).', // MISSING
 
 		// Put the voice-only part of the label in the span.
 		unavailable		: '%1<span class="cke_accessibility">, unavailable</span>' // MISSING
@@ -201,7 +203,8 @@ CKEDITOR.lang['sr'] =
 		menu		: 'Особине сидра',
 		title		: 'Особине сидра',
 		name		: 'Име сидра',
-		errorName	: 'Молимо Вас да унесете име сидра'
+		errorName	: 'Молимо Вас да унесете име сидра',
+		remove		: 'Remove Anchor' // MISSING
 	},
 
 	// List style dialog
@@ -271,8 +274,8 @@ CKEDITOR.lang['sr'] =
 		invalidBorder	: 'Border size must be a number.', // MISSING
 		invalidWidth	: 'Table width must be a number.', // MISSING
 		invalidHeight	: 'Table height must be a number.', // MISSING
-		invalidCellSpacing	: 'Cell spacing must be a number.', // MISSING
-		invalidCellPadding	: 'Cell padding must be a number.', // MISSING
+		invalidCellSpacing	: 'Cell spacing must be a positive number.', // MISSING
+		invalidCellPadding	: 'Cell padding must be a positive number.', // MISSING
 
 		cell :
 		{
@@ -413,7 +416,6 @@ CKEDITOR.lang['sr'] =
 		upload		: 'Пошаљи',
 		alt			: 'Алтернативни текст',
 		lockRatio	: 'Закључај однос',
-		unlockRatio	: 'Unlock Ratio', // MISSING
 		resetSize	: 'Ресетуј величину',
 		border		: 'Оквир',
 		hSpace		: 'HSpace',
@@ -770,15 +772,15 @@ CKEDITOR.lang['sr'] =
 
 	docprops :
 	{
-		label : 'Document Properties', // MISSING
-		title : 'Document Properties', // MISSING
+		label : 'Особине документа',
+		title : 'Особине документа',
 		design : 'Design', // MISSING
-		meta : 'Meta Tags', // MISSING
+		meta : 'Метаподаци',
 		chooseColor : 'Choose', // MISSING
-		other : 'Other...', // MISSING
-		docTitle :	'Page Title', // MISSING
-		charset : 	'Character Set Encoding', // MISSING
-		charsetOther : 'Other Character Set Encoding', // MISSING
+		other : '<other>',
+		docTitle :	'Наслов странице',
+		charset : 	'Кодирање скупа карактера',
+		charsetOther : 'Остала кодирања скупа карактера',
 		charsetASCII : 'ASCII', // MISSING
 		charsetCE : 'Central European', // MISSING
 		charsetCT : 'Chinese Traditional (Big5)', // MISSING
@@ -789,22 +791,22 @@ CKEDITOR.lang['sr'] =
 		charsetTR : 'Turkish', // MISSING
 		charsetUN : 'Unicode (UTF-8)', // MISSING
 		charsetWE : 'Western European', // MISSING
-		docType : 'Document Type Heading', // MISSING
-		docTypeOther : 'Other Document Type Heading', // MISSING
-		xhtmlDec : 'Include XHTML Declarations', // MISSING
-		bgColor : 'Background Color', // MISSING
-		bgImage : 'Background Image URL', // MISSING
-		bgFixed : 'Non-scrolling (Fixed) Background', // MISSING
-		txtColor : 'Text Color', // MISSING
-		margin : 'Page Margins', // MISSING
-		marginTop : 'Top', // MISSING
-		marginLeft : 'Left', // MISSING
-		marginRight : 'Right', // MISSING
-		marginBottom : 'Bottom', // MISSING
-		metaKeywords : 'Document Indexing Keywords (comma separated)', // MISSING
-		metaDescription : 'Document Description', // MISSING
-		metaAuthor : 'Author', // MISSING
-		metaCopyright : 'Copyright', // MISSING
+		docType : 'Заглавље типа документа',
+		docTypeOther : 'Остала заглавља типа документа',
+		xhtmlDec : 'Улључи XHTML декларације',
+		bgColor : 'Боја позадине',
+		bgImage : 'УРЛ позадинске слике',
+		bgFixed : 'Фиксирана позадина',
+		txtColor : 'Боја текста',
+		margin : 'Маргине странице',
+		marginTop : 'Горња',
+		marginLeft : 'Лева',
+		marginRight : 'Десна',
+		marginBottom : 'Доња',
+		metaKeywords : 'Кључне речи за индексирање документа (раздвојене зарезом)',
+		metaDescription : 'Опис документа',
+		metaAuthor : 'Аутор',
+		metaCopyright : 'Ауторска права',
 		previewHtml : '<p>This is some <strong>sample text</strong>. You are using <a href="javascript:void(0)">CKEditor</a>.</p>' // MISSING
 	}
 };

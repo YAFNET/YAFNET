@@ -121,6 +121,8 @@ CKEDITOR.lang['en'] =
 		alignBottom		: 'Bottom',
 		invalidHeight	: 'Height must be a number.',
 		invalidWidth	: 'Width must be a number.',
+		invalidCssLength	: 'Value specified for the "%1" field must be a positive number with or without a valid CSS measurement unit (px, %, in, cm, mm, em, ex, pt, or pc).',
+		invalidHtmlLength	: 'Value specified for the "%1" field must be a positive number with or without a valid HTML measurement unit (px or %).',
 
 		// Put the voice-only part of the label in the span.
 		unavailable		: '%1<span class="cke_accessibility">, unavailable</span>'
@@ -201,7 +203,8 @@ CKEDITOR.lang['en'] =
 		menu		: 'Edit Anchor',
 		title		: 'Anchor Properties',
 		name		: 'Anchor Name',
-		errorName	: 'Please type the anchor name'
+		errorName	: 'Please type the anchor name',
+		remove		: 'Remove Anchor'
 	},
 
 	// List style dialog
@@ -271,8 +274,8 @@ CKEDITOR.lang['en'] =
 		invalidBorder	: 'Border size must be a number.',
 		invalidWidth	: 'Table width must be a number.',
 		invalidHeight	: 'Table height must be a number.',
-		invalidCellSpacing	: 'Cell spacing must be a number.',
-		invalidCellPadding	: 'Cell padding must be a number.',
+		invalidCellSpacing	: 'Cell spacing must be a positive number.',
+		invalidCellPadding	: 'Cell padding must be a positive number.',
 
 		cell :
 		{
@@ -413,7 +416,6 @@ CKEDITOR.lang['en'] =
 		upload		: 'Upload',
 		alt			: 'Alternative Text',
 		lockRatio	: 'Lock Ratio',
-		unlockRatio	: 'Unlock Ratio',
 		resetSize	: 'Reset Size',
 		border		: 'Border',
 		hSpace		: 'HSpace',

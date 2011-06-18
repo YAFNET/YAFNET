@@ -121,6 +121,8 @@ CKEDITOR.lang['mn'] =
 		alignBottom		: 'Доод талд',
 		invalidHeight	: 'Height must be a number.', // MISSING
 		invalidWidth	: 'Width must be a number.', // MISSING
+		invalidCssLength	: 'Value specified for the "%1" field must be a positive number with or without a valid CSS measurement unit (px, %, in, cm, mm, em, ex, pt, or pc).', // MISSING
+		invalidHtmlLength	: 'Value specified for the "%1" field must be a positive number with or without a valid HTML measurement unit (px or %).', // MISSING
 
 		// Put the voice-only part of the label in the span.
 		unavailable		: '%1<span class="cke_accessibility">, unavailable</span>' // MISSING
@@ -201,7 +203,8 @@ CKEDITOR.lang['mn'] =
 		menu		: 'Холбоос шинж чанар',
 		title		: 'Холбоос шинж чанар',
 		name		: 'Холбоос нэр',
-		errorName	: 'Холбоос төрөл оруулна уу'
+		errorName	: 'Холбоос төрөл оруулна уу',
+		remove		: 'Remove Anchor' // MISSING
 	},
 
 	// List style dialog
@@ -271,8 +274,8 @@ CKEDITOR.lang['mn'] =
 		invalidBorder	: 'Border size must be a number.', // MISSING
 		invalidWidth	: 'Table width must be a number.', // MISSING
 		invalidHeight	: 'Table height must be a number.', // MISSING
-		invalidCellSpacing	: 'Cell spacing must be a number.', // MISSING
-		invalidCellPadding	: 'Cell padding must be a number.', // MISSING
+		invalidCellSpacing	: 'Cell spacing must be a positive number.', // MISSING
+		invalidCellPadding	: 'Cell padding must be a positive number.', // MISSING
 
 		cell :
 		{
@@ -413,7 +416,6 @@ CKEDITOR.lang['mn'] =
 		upload		: 'Хуулах',
 		alt			: 'Тайлбар текст',
 		lockRatio	: 'Радио түгжих',
-		unlockRatio	: 'Unlock Ratio', // MISSING
 		resetSize	: 'хэмжээ дахин оноох',
 		border		: 'Хүрээ',
 		hSpace		: 'Хөндлөн зай',
@@ -770,41 +772,41 @@ CKEDITOR.lang['mn'] =
 
 	docprops :
 	{
-		label : 'Document Properties', // MISSING
-		title : 'Document Properties', // MISSING
+		label : 'Баримт бичиг шинж чанар',
+		title : 'Баримт бичиг шинж чанар',
 		design : 'Design', // MISSING
-		meta : 'Meta Tags', // MISSING
+		meta : 'Meta өгөгдөл',
 		chooseColor : 'Choose', // MISSING
-		other : 'Other...', // MISSING
-		docTitle :	'Page Title', // MISSING
-		charset : 	'Character Set Encoding', // MISSING
-		charsetOther : 'Other Character Set Encoding', // MISSING
+		other : '<other>',
+		docTitle :	'Хуудасны гарчиг',
+		charset : 	'Encoding тэмдэгт',
+		charsetOther : 'Encoding-д өөр тэмдэгт оноох',
 		charsetASCII : 'ASCII', // MISSING
-		charsetCE : 'Central European', // MISSING
-		charsetCT : 'Chinese Traditional (Big5)', // MISSING
-		charsetCR : 'Cyrillic', // MISSING
-		charsetGR : 'Greek', // MISSING
-		charsetJP : 'Japanese', // MISSING
-		charsetKR : 'Korean', // MISSING
-		charsetTR : 'Turkish', // MISSING
-		charsetUN : 'Unicode (UTF-8)', // MISSING
-		charsetWE : 'Western European', // MISSING
-		docType : 'Document Type Heading', // MISSING
-		docTypeOther : 'Other Document Type Heading', // MISSING
-		xhtmlDec : 'Include XHTML Declarations', // MISSING
-		bgColor : 'Background Color', // MISSING
-		bgImage : 'Background Image URL', // MISSING
-		bgFixed : 'Non-scrolling (Fixed) Background', // MISSING
-		txtColor : 'Text Color', // MISSING
-		margin : 'Page Margins', // MISSING
-		marginTop : 'Top', // MISSING
-		marginLeft : 'Left', // MISSING
-		marginRight : 'Right', // MISSING
-		marginBottom : 'Bottom', // MISSING
-		metaKeywords : 'Document Indexing Keywords (comma separated)', // MISSING
-		metaDescription : 'Document Description', // MISSING
-		metaAuthor : 'Author', // MISSING
-		metaCopyright : 'Copyright', // MISSING
+		charsetCE : 'Төв европ',
+		charsetCT : 'Хятадын уламжлалт (Big5)',
+		charsetCR : 'Крил',
+		charsetGR : 'Гред',
+		charsetJP : 'Япон',
+		charsetKR : 'Солонгос',
+		charsetTR : 'Tурк',
+		charsetUN : 'Юникод (UTF-8)',
+		charsetWE : 'Баруун европ',
+		docType : 'Баримт бичгийн төрөл Heading',
+		docTypeOther : 'Бусад баримт бичгийн төрөл Heading',
+		xhtmlDec : 'XHTML агуулж зарлах',
+		bgColor : 'Фоно өнгө',
+		bgImage : 'Фоно зурагны URL',
+		bgFixed : 'Гүйдэггүй фоно',
+		txtColor : 'Фонтны өнгө',
+		margin : 'Хуудасны захын зай',
+		marginTop : 'Дээд тал',
+		marginLeft : 'Зүүн тал',
+		marginRight : 'Баруун тал',
+		marginBottom : 'Доод тал',
+		metaKeywords : 'Баримт бичгийн индекс түлхүүр үг (таслалаар тусгаарлагдана)',
+		metaDescription : 'Баримт бичгийн тайлбар',
+		metaAuthor : 'Зохиогч',
+		metaCopyright : 'Зохиогчийн эрх',
 		previewHtml : '<p>This is some <strong>sample text</strong>. You are using <a href="javascript:void(0)">CKEditor</a>.</p>' // MISSING
 	}
 };

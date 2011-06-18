@@ -3,7 +3,7 @@
 
        arguments.callee.done = true;
 	   
-	   CKEDITOR.replaceAll(function( textarea, config ){
+	     CKEDITOR.replaceAll(function( textarea, config ){
 		  
 		  config.extraPlugins = 'bbcode,syntaxhighlight,bbcodeselector';
 		  config.toolbar_Full = [
@@ -25,6 +25,31 @@
 			config.contentsCss = 'editors/ckeditor/contents.css';
 		  });
 };
+
+CKEDITOR.on( 'dialogDefinition', function( ev )
+	{
+		var tab, name = ev.data.name,
+			definition = ev.data.definition;
+
+		if ( name == 'link' )
+		{
+			definition.removeContents( 'target' );
+			definition.removeContents( 'upload' );
+			definition.removeContents( 'advanced' );
+			tab = definition.getContents( 'info' );
+			tab.remove( 'emailSubject' );
+			tab.remove( 'emailBody' );
+		}
+		else if ( name == 'image' )
+		{
+			definition.removeContents( 'advanced' );
+			tab = definition.getContents( 'Link' );
+			tab.remove( 'cmbTarget' );
+			tab = definition.getContents( 'info' );
+			tab.remove( 'txtAlt' );
+			tab.remove( 'basic' );
+		}
+	});
    
    if (document.addEventListener) {
        document.addEventListener("DOMContentLoaded", CKEditor_Load, false);

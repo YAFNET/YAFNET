@@ -475,7 +475,7 @@ CKEDITOR.dialog.add( 'docProps', function( editor )
 									{
 										type : 'hbox',
 										widths : [ '60%', '40%' ],
-										padding : 0,
+										padding : 1,
 										children : [
 											{
 												type : 'text',
@@ -511,7 +511,7 @@ CKEDITOR.dialog.add( 'docProps', function( editor )
 												label : langCommon.browseServer,
 												style : 'display:inline-block;margin-top:10px;',
 												hidden : true,
-												filebrowser : 'bg:bgImage'
+												filebrowser : 'design:bgImage'
 											}
 										]
 									},
@@ -546,7 +546,7 @@ CKEDITOR.dialog.add( 'docProps', function( editor )
 										id : 'marginTop',
 										label : lang.marginTop,
 										style : 'width: 80px; text-align: center; margin: 0px auto',
-										controlStyle : 'text-align: center',
+										inputStyle : 'text-align: center',
 										setup : function( doc, html, head, body )
 										{
 											this.setValue( body.getStyle( 'margin-top' ) || body.getAttribute( 'margintop' ) || '' );
@@ -565,7 +565,7 @@ CKEDITOR.dialog.add( 'docProps', function( editor )
 												id : 'marginLeft',
 												label : lang.marginLeft,
 												style : 'width: 80px; text-align: center; margin: 0px auto',
-												controlStyle : 'text-align: center',
+												inputStyle : 'text-align: center',
 												setup : function( doc, html, head, body )
 												{
 													this.setValue( body.getStyle( 'margin-left' ) || body.getAttribute( 'marginleft' ) || '' );
@@ -581,7 +581,7 @@ CKEDITOR.dialog.add( 'docProps', function( editor )
 												id : 'marginRight',
 												label : lang.marginRight,
 												style : 'width: 80px; text-align: center; margin: 0px auto',
-												controlStyle : 'text-align: center',
+												inputStyle : 'text-align: center',
 												setup : function( doc, html, head, body )
 												{
 													this.setValue( body.getStyle( 'margin-right' ) || body.getAttribute( 'marginright' ) || '' );
@@ -590,7 +590,7 @@ CKEDITOR.dialog.add( 'docProps', function( editor )
 												onLoad : function()
 												{
 													this.getElement().getParent().setStyle( 'text-align', 'center' );
-												}
+											}
 											}
 										]
 									},
@@ -599,7 +599,7 @@ CKEDITOR.dialog.add( 'docProps', function( editor )
 										id : 'marginBottom',
 										label : lang.marginBottom,
 										style : 'width: 80px; text-align: center; margin: 0px auto',
-										controlStyle : 'text-align: center',
+										inputStyle : 'text-align: center',
 										setup : function( doc, html, head, body )
 										{
 											this.setValue( body.getStyle( 'margin-bottom' ) || body.getAttribute( 'marginbottom' ) || '' );
@@ -608,7 +608,7 @@ CKEDITOR.dialog.add( 'docProps', function( editor )
 										onLoad : function()
 										{
 											this.getElement().getParent().setStyle( 'text-align', 'center' );
-										}
+									}
 									}
 								]
 							}

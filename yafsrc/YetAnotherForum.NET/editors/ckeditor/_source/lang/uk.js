@@ -121,6 +121,8 @@ CKEDITOR.lang['uk'] =
 		alignBottom		: 'По нижньому краю',
 		invalidHeight	: 'Висота повинна бути цілим числом.',
 		invalidWidth	: 'Ширина повинна бути цілим числом.',
+		invalidCssLength	: 'Value specified for the "%1" field must be a positive number with or without a valid CSS measurement unit (px, %, in, cm, mm, em, ex, pt, or pc).', // MISSING
+		invalidHtmlLength	: 'Value specified for the "%1" field must be a positive number with or without a valid HTML measurement unit (px or %).', // MISSING
 
 		// Put the voice-only part of the label in the span.
 		unavailable		: '%1<span class="cke_accessibility">, не доступне</span>'
@@ -201,7 +203,8 @@ CKEDITOR.lang['uk'] =
 		menu		: 'Властивості якоря',
 		title		: 'Властивості якоря',
 		name		: 'Ім\'я якоря',
-		errorName	: 'Будь ласка, вкажіть ім\'я якоря'
+		errorName	: 'Будь ласка, вкажіть ім\'я якоря',
+		remove		: 'Remove Anchor' // MISSING
 	},
 
 	// List style dialog
@@ -413,7 +416,6 @@ CKEDITOR.lang['uk'] =
 		upload		: 'Надіслати',
 		alt			: 'Альтернативний текст',
 		lockRatio	: 'Зберегти пропорції',
-		unlockRatio	: 'Не зберігати пропорції',
 		resetSize	: 'Очистити поля розмірів',
 		border		: 'Рамка',
 		hSpace		: 'Гориз. відступ',
@@ -770,41 +772,41 @@ CKEDITOR.lang['uk'] =
 
 	docprops :
 	{
-		label : 'Document Properties', // MISSING
-		title : 'Document Properties', // MISSING
+		label : 'Властивості документа',
+		title : 'Властивості документа',
 		design : 'Design', // MISSING
-		meta : 'Meta Tags', // MISSING
-		chooseColor : 'Choose', // MISSING
-		other : 'Other...', // MISSING
-		docTitle :	'Page Title', // MISSING
-		charset : 	'Character Set Encoding', // MISSING
-		charsetOther : 'Other Character Set Encoding', // MISSING
+		meta : 'Мета дані',
+		chooseColor : 'Обрати',
+		other : '<інший>',
+		docTitle :	'Заголовок сторінки',
+		charset : 	'Кодування набору символів',
+		charsetOther : 'Інше кодування набору символів',
 		charsetASCII : 'ASCII', // MISSING
-		charsetCE : 'Central European', // MISSING
-		charsetCT : 'Chinese Traditional (Big5)', // MISSING
-		charsetCR : 'Cyrillic', // MISSING
-		charsetGR : 'Greek', // MISSING
-		charsetJP : 'Japanese', // MISSING
-		charsetKR : 'Korean', // MISSING
-		charsetTR : 'Turkish', // MISSING
-		charsetUN : 'Unicode (UTF-8)', // MISSING
-		charsetWE : 'Western European', // MISSING
-		docType : 'Document Type Heading', // MISSING
-		docTypeOther : 'Other Document Type Heading', // MISSING
-		xhtmlDec : 'Include XHTML Declarations', // MISSING
-		bgColor : 'Background Color', // MISSING
-		bgImage : 'Background Image URL', // MISSING
-		bgFixed : 'Non-scrolling (Fixed) Background', // MISSING
-		txtColor : 'Text Color', // MISSING
-		margin : 'Page Margins', // MISSING
-		marginTop : 'Top', // MISSING
-		marginLeft : 'Left', // MISSING
-		marginRight : 'Right', // MISSING
-		marginBottom : 'Bottom', // MISSING
-		metaKeywords : 'Document Indexing Keywords (comma separated)', // MISSING
-		metaDescription : 'Document Description', // MISSING
-		metaAuthor : 'Author', // MISSING
-		metaCopyright : 'Copyright', // MISSING
+		charsetCE : 'Центрально-європейська',
+		charsetCT : 'Китайська традиційна (Big5)',
+		charsetCR : 'Кирилиця',
+		charsetGR : 'Грецька',
+		charsetJP : 'Японська',
+		charsetKR : 'Корейська',
+		charsetTR : 'Турецька',
+		charsetUN : 'Юнікод (UTF-8)',
+		charsetWE : 'Західно-европейская',
+		docType : 'Заголовок типу документу',
+		docTypeOther : 'Інший заголовок типу документу',
+		xhtmlDec : 'Ввімкнути XHTML оголошення',
+		bgColor : 'Колір тла',
+		bgImage : 'URL зображення тла',
+		bgFixed : 'Тло без прокрутки',
+		txtColor : 'Колір тексту',
+		margin : 'Відступи сторінки',
+		marginTop : 'Верхній',
+		marginLeft : 'Лівий',
+		marginRight : 'Правий',
+		marginBottom : 'Нижній',
+		metaKeywords : 'Ключові слова документа (розділені комами)',
+		metaDescription : 'Опис документа',
+		metaAuthor : 'Автор',
+		metaCopyright : 'Авторські права',
 		previewHtml : '<p>This is some <strong>sample text</strong>. You are using <a href="javascript:void(0)">CKEditor</a>.</p>' // MISSING
 	}
 };

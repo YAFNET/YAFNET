@@ -57,7 +57,7 @@ CKEDITOR.lang['pl'] =
 	horizontalrule	: 'Wstaw poziomą linię',
 	pagebreak		: 'Wstaw pdodział strony',
 	pagebreakAlt		: 'Wstaw podział strony',
-	unlink			: 'Usuń hiperłącze',
+	unlink			: 'Usuń odnośnik',
 	undo			: 'Cofnij',
 	redo			: 'Ponów',
 
@@ -121,6 +121,8 @@ CKEDITOR.lang['pl'] =
 		alignBottom		: 'Do dołu',
 		invalidHeight	: 'Wysokość musi być liczbą.',
 		invalidWidth	: 'Szerokość musi być liczbą.',
+		invalidCssLength	: 'Wartość podana dla pola "%1" musi być liczbą dodatnią bez jednostki lub z poprawną jednostką długości zgodną z CSS (px, %, in, cm, mm, em, ex, pt lub pc).',
+		invalidHtmlLength	: 'Wartość podana dla pola "%1" musi być liczbą dodatnią bez jednostki lub z poprawną jednostką długości zgodną z HTML (px lub %).',
 
 		// Put the voice-only part of the label in the span.
 		unavailable		: '%1<span class="cke_accessibility">, niedostępne</span>'
@@ -142,15 +144,15 @@ CKEDITOR.lang['pl'] =
 	// Link dialog.
 	link :
 	{
-		toolbar		: 'Wstaw/edytuj hiperłącze',
+		toolbar		: 'Wstaw/edytuj odnośnik',
 		other 		: '<inny>',
-		menu		: 'Edytuj hiperłącze',
-		title		: 'Hiperłącze',
+		menu		: 'Edytuj odnośnik',
+		title		: 'Odnośnik',
 		info		: 'Informacje ',
 		target		: 'Obiekt docelowy',
 		upload		: 'Wyślij',
 		advanced	: 'Zaawansowane',
-		type		: 'Typ hiperłącza',
+		type		: 'Typ odnośnika',
 		toUrl		: 'Adres URL',
 		toAnchor	: 'Odnośnik wewnątrz strony (kotwica)',
 		toEmail		: 'Adres e-mail',
@@ -201,7 +203,8 @@ CKEDITOR.lang['pl'] =
 		menu		: 'Właściwości kotwicy',
 		title		: 'Właściwości kotwicy',
 		name		: 'Nazwa kotwicy',
-		errorName	: 'Wpisz nazwę kotwicy'
+		errorName	: 'Wpisz nazwę kotwicy',
+		remove		: 'Usuń kotwicę'
 	},
 
 	// List style dialog
@@ -271,8 +274,8 @@ CKEDITOR.lang['pl'] =
 		invalidBorder	: 'Wartość obramowania musi być liczbą.',
 		invalidWidth	: 'Szerokość tabeli musi być liczbą.',
 		invalidHeight	: 'Wysokość tabeli musi być liczbą.',
-		invalidCellSpacing	: 'Odstęp komórek musi być liczbą.',
-		invalidCellPadding	: 'Dopełnienie komórek musi być liczbą.',
+		invalidCellSpacing	: 'Odstęp pomiędzy komórkami musi być liczbą dodatnią.',
+		invalidCellPadding	: 'Dopełnienie komórek musi być liczbą dodatnią.',
 
 		cell :
 		{
@@ -413,7 +416,6 @@ CKEDITOR.lang['pl'] =
 		upload		: 'Wyślij',
 		alt			: 'Tekst zastępczy',
 		lockRatio	: 'Zablokuj proporcje',
-		unlockRatio	: 'Odblokuj proporcje',
 		resetSize	: 'Przywróć rozmiar',
 		border		: 'Obramowanie',
 		hSpace		: 'Odstęp poziomy',

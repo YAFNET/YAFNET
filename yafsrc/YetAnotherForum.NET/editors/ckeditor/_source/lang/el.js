@@ -121,6 +121,8 @@ CKEDITOR.lang['el'] =
 		alignBottom		: 'Κάτω (Bottom)',
 		invalidHeight	: 'Height must be a number.', // MISSING
 		invalidWidth	: 'Width must be a number.', // MISSING
+		invalidCssLength	: 'Value specified for the "%1" field must be a positive number with or without a valid CSS measurement unit (px, %, in, cm, mm, em, ex, pt, or pc).', // MISSING
+		invalidHtmlLength	: 'Value specified for the "%1" field must be a positive number with or without a valid HTML measurement unit (px or %).', // MISSING
 
 		// Put the voice-only part of the label in the span.
 		unavailable		: '%1<span class="cke_accessibility">, unavailable</span>' // MISSING
@@ -201,7 +203,8 @@ CKEDITOR.lang['el'] =
 		menu		: 'Ιδιότητες άγκυρας',
 		title		: 'Ιδιότητες άγκυρας',
 		name		: 'Όνομα άγκυρας',
-		errorName	: 'Παρακαλούμε εισάγετε όνομα άγκυρας'
+		errorName	: 'Παρακαλούμε εισάγετε όνομα άγκυρας',
+		remove		: 'Remove Anchor' // MISSING
 	},
 
 	// List style dialog
@@ -271,8 +274,8 @@ CKEDITOR.lang['el'] =
 		invalidBorder	: 'Border size must be a number.', // MISSING
 		invalidWidth	: 'Table width must be a number.', // MISSING
 		invalidHeight	: 'Table height must be a number.', // MISSING
-		invalidCellSpacing	: 'Cell spacing must be a number.', // MISSING
-		invalidCellPadding	: 'Cell padding must be a number.', // MISSING
+		invalidCellSpacing	: 'Cell spacing must be a positive number.', // MISSING
+		invalidCellPadding	: 'Cell padding must be a positive number.', // MISSING
 
 		cell :
 		{
@@ -413,7 +416,6 @@ CKEDITOR.lang['el'] =
 		upload		: 'Αποστολή',
 		alt			: 'Εναλλακτικό Κείμενο (ALT)',
 		lockRatio	: 'Κλείδωμα Αναλογίας',
-		unlockRatio	: 'Unlock Ratio', // MISSING
 		resetSize	: 'Επαναφορά Αρχικού Μεγέθους',
 		border		: 'Περιθώριο',
 		hSpace		: 'Οριζόντιος Χώρος (HSpace)',
@@ -770,41 +772,41 @@ CKEDITOR.lang['el'] =
 
 	docprops :
 	{
-		label : 'Document Properties', // MISSING
-		title : 'Document Properties', // MISSING
+		label : 'Ιδιότητες εγγράφου',
+		title : 'Ιδιότητες εγγράφου',
 		design : 'Design', // MISSING
-		meta : 'Meta Tags', // MISSING
+		meta : 'Δεδομένα Meta',
 		chooseColor : 'Choose', // MISSING
-		other : 'Other...', // MISSING
-		docTitle :	'Page Title', // MISSING
-		charset : 	'Character Set Encoding', // MISSING
-		charsetOther : 'Other Character Set Encoding', // MISSING
+		other : '<άλλος>',
+		docTitle :	'Τίτλος σελίδας',
+		charset : 	'Κωδικοποίηση χαρακτήρων',
+		charsetOther : 'Άλλη κωδικοποίηση χαρακτήρων',
 		charsetASCII : 'ASCII', // MISSING
-		charsetCE : 'Central European', // MISSING
-		charsetCT : 'Chinese Traditional (Big5)', // MISSING
-		charsetCR : 'Cyrillic', // MISSING
-		charsetGR : 'Greek', // MISSING
-		charsetJP : 'Japanese', // MISSING
-		charsetKR : 'Korean', // MISSING
-		charsetTR : 'Turkish', // MISSING
-		charsetUN : 'Unicode (UTF-8)', // MISSING
-		charsetWE : 'Western European', // MISSING
-		docType : 'Document Type Heading', // MISSING
-		docTypeOther : 'Other Document Type Heading', // MISSING
-		xhtmlDec : 'Include XHTML Declarations', // MISSING
-		bgColor : 'Background Color', // MISSING
-		bgImage : 'Background Image URL', // MISSING
-		bgFixed : 'Non-scrolling (Fixed) Background', // MISSING
-		txtColor : 'Text Color', // MISSING
-		margin : 'Page Margins', // MISSING
-		marginTop : 'Top', // MISSING
-		marginLeft : 'Left', // MISSING
-		marginRight : 'Right', // MISSING
-		marginBottom : 'Bottom', // MISSING
-		metaKeywords : 'Document Indexing Keywords (comma separated)', // MISSING
-		metaDescription : 'Document Description', // MISSING
-		metaAuthor : 'Author', // MISSING
-		metaCopyright : 'Copyright', // MISSING
+		charsetCE : 'Κεντρικής Ευρώπης',
+		charsetCT : 'Παραδοσιακά κινέζικα (Big5)',
+		charsetCR : 'Κυριλλική',
+		charsetGR : 'Ελληνική',
+		charsetJP : 'Ιαπωνική',
+		charsetKR : 'Κορεάτικη',
+		charsetTR : 'Τουρκική',
+		charsetUN : 'Διεθνής (UTF-8)',
+		charsetWE : 'Δυτικής Ευρώπης',
+		docType : 'Επικεφαλίδα τύπου εγγράφου',
+		docTypeOther : 'Άλλη επικεφαλίδα τύπου εγγράφου',
+		xhtmlDec : 'Να συμπεριληφθούν οι δηλώσεις XHTML',
+		bgColor : 'Χρώμα φόντου',
+		bgImage : 'Διεύθυνση εικόνας φόντου',
+		bgFixed : 'Φόντο χωρίς κύλιση',
+		txtColor : 'Χρώμα Γραμμάτων',
+		margin : 'Περιθώρια σελίδας',
+		marginTop : 'Κορυφή',
+		marginLeft : 'Αριστερά',
+		marginRight : 'Δεξιά',
+		marginBottom : 'Κάτω',
+		metaKeywords : 'Λέξεις κλειδιά δείκτες εγγράφου (διαχωρισμός με κόμμα)',
+		metaDescription : 'Περιγραφή εγγράφου',
+		metaAuthor : 'Συγγραφέας',
+		metaCopyright : 'Πνευματικά δικαιώματα',
 		previewHtml : '<p>This is some <strong>sample text</strong>. You are using <a href="javascript:void(0)">CKEditor</a>.</p>' // MISSING
 	}
 };

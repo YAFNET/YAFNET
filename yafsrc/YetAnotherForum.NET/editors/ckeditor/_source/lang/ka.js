@@ -121,6 +121,8 @@ CKEDITOR.lang['ka'] =
 		alignBottom		: 'ქვემოთა',
 		invalidHeight	: 'სიმაღლე რიცხვით უნდა იყოს წარმოდგენილი.',
 		invalidWidth	: 'სიგანე რიცხვით უნდა იყოს წარმოდგენილი.',
+		invalidCssLength	: 'Value specified for the "%1" field must be a positive number with or without a valid CSS measurement unit (px, %, in, cm, mm, em, ex, pt, or pc).', // MISSING
+		invalidHtmlLength	: 'Value specified for the "%1" field must be a positive number with or without a valid HTML measurement unit (px or %).', // MISSING
 
 		// Put the voice-only part of the label in the span.
 		unavailable		: '%1<span class="cke_accessibility">, მიუწვდომელია</span>'
@@ -201,7 +203,8 @@ CKEDITOR.lang['ka'] =
 		menu		: 'ღუზის რედაქტირება',
 		title		: 'ღუზის პარამეტრები',
 		name		: 'ღუზუს სახელი',
-		errorName	: 'აკრიფეთ ღუზის სახელი'
+		errorName	: 'აკრიფეთ ღუზის სახელი',
+		remove		: 'Remove Anchor' // MISSING
 	},
 
 	// List style dialog
@@ -413,7 +416,6 @@ CKEDITOR.lang['ka'] =
 		upload		: 'ატვირთვა',
 		alt			: 'სანაცვლო ტექსტი',
 		lockRatio	: 'პროპორციის შენარჩუნება',
-		unlockRatio	: 'პროპორციების უგულებელყოფა',
 		resetSize	: 'ზომის დაბრუნება',
 		border		: 'ჩარჩო',
 		hSpace		: 'ჰორიზონტალური სივრცე',

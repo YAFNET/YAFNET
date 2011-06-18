@@ -158,10 +158,10 @@ CKEDITOR.plugins.add( 'dialogui' );
 						html.push( '<label class="cke_dialog_ui_labeled_label' + requiredClass + '" ',
 								' id="'+  _.labelId + '"',
 								' for="' + _.inputId + '"',
-								' style="' + elementDefinition.labelStyle + '">',
+								( elementDefinition.labelStyle ? ' style="' + elementDefinition.labelStyle + '"' : '' ) +'>',
 								elementDefinition.label,
 								'</label>',
-								'<div class="cke_dialog_ui_labeled_content" role="presentation">',
+								'<div class="cke_dialog_ui_labeled_content"' + ( elementDefinition.controlStyle ? ' style="' + elementDefinition.controlStyle + '"' : '' ) + ' role="presentation">',
 								contentHtml.call( this, dialog, elementDefinition ),
 								'</div>' );
 					else
@@ -177,13 +177,13 @@ CKEDITOR.plugins.add( 'dialogui' );
 									html : '<label class="cke_dialog_ui_labeled_label' + requiredClass + '"' +
 										' id="' + _.labelId + '"' +
 										' for="' + _.inputId + '"' +
-										' style="' + elementDefinition.labelStyle + '">' +
+										( elementDefinition.labelStyle ? ' style="' + elementDefinition.labelStyle + '"' : '' ) +'>' +
 										   CKEDITOR.tools.htmlEncode( elementDefinition.label ) +
 										'</span>'
 								},
 								{
 									type : 'html',
-									html : '<span class="cke_dialog_ui_labeled_content">' +
+									html : '<span class="cke_dialog_ui_labeled_content"' + ( elementDefinition.controlStyle ? ' style="' + elementDefinition.controlStyle + '"' : '' ) + '>' +
 										contentHtml.call( this, dialog, elementDefinition ) +
 										'</span>'
 								}
@@ -237,8 +237,8 @@ CKEDITOR.plugins.add( 'dialogui' );
 				if ( elementDefinition.size )
 					attributes.size = elementDefinition.size;
 
-				if ( elementDefinition.controlStyle )
-					attributes.style = elementDefinition.controlStyle;
+				if ( elementDefinition.inputStyle )
+					attributes.style = elementDefinition.inputStyle;
 
 				// If user presses Enter in a text box, it implies clicking OK for the dialog.
 				var me = this, keyPressedOnMe = false;
@@ -323,6 +323,10 @@ CKEDITOR.plugins.add( 'dialogui' );
 				attributes.rows = elementDefinition.rows || 5;
 				attributes.cols = elementDefinition.cols || 20;
 
+				if ( typeof elementDefinition.inputStyle != 'undefined' )
+					attributes.style = elementDefinition.inputStyle;
+
+
 				/** @ignore */
 				var innerHTML = function()
 				{
@@ -380,11 +384,11 @@ CKEDITOR.plugins.add( 'dialogui' );
 					if ( elementDefinition[ 'default' ] )
 						attributes.checked = 'checked';
 
-					if ( typeof myDefinition.controlStyle != 'undefined' )
-						myDefinition.style = myDefinition.controlStyle;
+					if ( typeof myDefinition.inputStyle != 'undefined' )
+						myDefinition.style = myDefinition.inputStyle;
 
 					_.checkbox = new CKEDITOR.ui.dialog.uiElement( dialog, myDefinition, html, 'input', null, attributes );
-					html.push( ' <label id="', labelId, '" for="', attributes.id, '">',
+					html.push( ' <label id="', labelId, '" for="', attributes.id, '"' + ( elementDefinition.labelStyle ? ' style="' + elementDefinition.labelStyle + '"' : '' ) + '>',
 							CKEDITOR.tools.htmlEncode( elementDefinition.label ),
 							'</label>' );
 					return html.join( '' );
@@ -462,8 +466,8 @@ CKEDITOR.plugins.add( 'dialogui' );
 						cleanInnerDefinition( inputDefinition );
 						cleanInnerDefinition( labelDefinition );
 
-						if ( typeof inputDefinition.controlStyle != 'undefined' )
-							inputDefinition.style = inputDefinition.controlStyle;
+						if ( typeof inputDefinition.inputStyle != 'undefined' )
+							inputDefinition.style = inputDefinition.inputStyle;
 
 						children.push( new CKEDITOR.ui.dialog.uiElement( dialog, inputDefinition, inputHtml, 'input', null, inputAttributes ) );
 						inputHtml.push( ' ' );
@@ -622,8 +626,8 @@ CKEDITOR.plugins.add( 'dialogui' );
 							CKEDITOR.tools.htmlEncode( item[0] ) );
 					}
 
-					if ( typeof myDefinition.controlStyle != 'undefined' )
-						myDefinition.style = myDefinition.controlStyle;
+					if ( typeof myDefinition.inputStyle != 'undefined' )
+						myDefinition.style = myDefinition.inputStyle;
 
 					_.select = new CKEDITOR.ui.dialog.uiElement( dialog, myDefinition, html, 'select', null, attributes, innerHTML.join( '' ) );
 					return html.join( '' );

@@ -121,6 +121,8 @@ CKEDITOR.lang['km'] =
 		alignBottom		: 'ខាងក្រោម',
 		invalidHeight	: 'Height must be a number.', // MISSING
 		invalidWidth	: 'Width must be a number.', // MISSING
+		invalidCssLength	: 'Value specified for the "%1" field must be a positive number with or without a valid CSS measurement unit (px, %, in, cm, mm, em, ex, pt, or pc).', // MISSING
+		invalidHtmlLength	: 'Value specified for the "%1" field must be a positive number with or without a valid HTML measurement unit (px or %).', // MISSING
 
 		// Put the voice-only part of the label in the span.
 		unavailable		: '%1<span class="cke_accessibility">, unavailable</span>' // MISSING
@@ -201,7 +203,8 @@ CKEDITOR.lang['km'] =
 		menu		: 'ការកំណត់យុថ្កា',
 		title		: 'ការកំណត់យុថ្កា',
 		name		: 'ឈ្មោះយុទ្ធថ្កា',
-		errorName	: 'សូមសរសេរ ឈ្មោះយុទ្ធថ្កា'
+		errorName	: 'សូមសរសេរ ឈ្មោះយុទ្ធថ្កា',
+		remove		: 'Remove Anchor' // MISSING
 	},
 
 	// List style dialog
@@ -271,8 +274,8 @@ CKEDITOR.lang['km'] =
 		invalidBorder	: 'Border size must be a number.', // MISSING
 		invalidWidth	: 'Table width must be a number.', // MISSING
 		invalidHeight	: 'Table height must be a number.', // MISSING
-		invalidCellSpacing	: 'Cell spacing must be a number.', // MISSING
-		invalidCellPadding	: 'Cell padding must be a number.', // MISSING
+		invalidCellSpacing	: 'Cell spacing must be a positive number.', // MISSING
+		invalidCellPadding	: 'Cell padding must be a positive number.', // MISSING
 
 		cell :
 		{
@@ -413,7 +416,6 @@ CKEDITOR.lang['km'] =
 		upload		: 'ទាញយក',
 		alt			: 'អត្ថបទជំនួស',
 		lockRatio	: 'អត្រាឡុក',
-		unlockRatio	: 'Unlock Ratio', // MISSING
 		resetSize	: 'កំណត់ទំហំឡើងវិញ',
 		border		: 'ស៊ុម',
 		hSpace		: 'គំលាតទទឹង',
@@ -770,15 +772,15 @@ CKEDITOR.lang['km'] =
 
 	docprops :
 	{
-		label : 'Document Properties', // MISSING
-		title : 'Document Properties', // MISSING
+		label : 'ការកំណត់ ឯកសារ',
+		title : 'ការកំណត់ ឯកសារ',
 		design : 'Design', // MISSING
-		meta : 'Meta Tags', // MISSING
+		meta : 'ទិន្នន័យមេ',
 		chooseColor : 'Choose', // MISSING
-		other : 'Other...', // MISSING
-		docTitle :	'Page Title', // MISSING
-		charset : 	'Character Set Encoding', // MISSING
-		charsetOther : 'Other Character Set Encoding', // MISSING
+		other : '<other>',
+		docTitle :	'ចំណងជើងទំព័រ',
+		charset : 	'កំណត់លេខកូតភាសា',
+		charsetOther : 'កំណត់លេខកូតភាសាផ្សេងទៀត',
 		charsetASCII : 'ASCII', // MISSING
 		charsetCE : 'Central European', // MISSING
 		charsetCT : 'Chinese Traditional (Big5)', // MISSING
@@ -789,22 +791,22 @@ CKEDITOR.lang['km'] =
 		charsetTR : 'Turkish', // MISSING
 		charsetUN : 'Unicode (UTF-8)', // MISSING
 		charsetWE : 'Western European', // MISSING
-		docType : 'Document Type Heading', // MISSING
-		docTypeOther : 'Other Document Type Heading', // MISSING
-		xhtmlDec : 'Include XHTML Declarations', // MISSING
-		bgColor : 'Background Color', // MISSING
-		bgImage : 'Background Image URL', // MISSING
-		bgFixed : 'Non-scrolling (Fixed) Background', // MISSING
-		txtColor : 'Text Color', // MISSING
-		margin : 'Page Margins', // MISSING
-		marginTop : 'Top', // MISSING
-		marginLeft : 'Left', // MISSING
-		marginRight : 'Right', // MISSING
-		marginBottom : 'Bottom', // MISSING
-		metaKeywords : 'Document Indexing Keywords (comma separated)', // MISSING
-		metaDescription : 'Document Description', // MISSING
-		metaAuthor : 'Author', // MISSING
-		metaCopyright : 'Copyright', // MISSING
+		docType : 'ប្រភេទក្បាលទំព័រ',
+		docTypeOther : 'ប្រភេទក្បាលទំព័រផ្សេងទៀត',
+		xhtmlDec : 'បញ្ជូល XHTML',
+		bgColor : 'ពណ៌ខាងក្រោម',
+		bgImage : 'URL របស់រូបភាពខាងក្រោម',
+		bgFixed : 'ទំព័រក្រោមមិនប្តូរ',
+		txtColor : 'ពណ៌អក្សរ',
+		margin : 'ស៊ុមទំព័រ',
+		marginTop : 'លើ',
+		marginLeft : 'ឆ្វេង',
+		marginRight : 'ស្ដាំ',
+		marginBottom : 'ក្រោម',
+		metaKeywords : 'ពាក្យនៅក្នុងឯកសារ (ផ្តាច់ពីគ្នាដោយក្បៀស)',
+		metaDescription : 'សេចក្តីអត្ថាធិប្បាយអំពីឯកសារ',
+		metaAuthor : 'អ្នកនិពន្ធ',
+		metaCopyright : 'រក្សាសិទ្ធិ៏',
 		previewHtml : '<p>This is some <strong>sample text</strong>. You are using <a href="javascript:void(0)">CKEditor</a>.</p>' // MISSING
 	}
 };

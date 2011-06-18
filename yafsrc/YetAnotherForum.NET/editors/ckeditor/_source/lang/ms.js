@@ -121,6 +121,8 @@ CKEDITOR.lang['ms'] =
 		alignBottom		: 'Bawah',
 		invalidHeight	: 'Height must be a number.', // MISSING
 		invalidWidth	: 'Width must be a number.', // MISSING
+		invalidCssLength	: 'Value specified for the "%1" field must be a positive number with or without a valid CSS measurement unit (px, %, in, cm, mm, em, ex, pt, or pc).', // MISSING
+		invalidHtmlLength	: 'Value specified for the "%1" field must be a positive number with or without a valid HTML measurement unit (px or %).', // MISSING
 
 		// Put the voice-only part of the label in the span.
 		unavailable		: '%1<span class="cke_accessibility">, unavailable</span>' // MISSING
@@ -201,7 +203,8 @@ CKEDITOR.lang['ms'] =
 		menu		: 'Ciri-ciri Pautan',
 		title		: 'Ciri-ciri Pautan',
 		name		: 'Nama Pautan',
-		errorName	: 'Sila taip nama pautan'
+		errorName	: 'Sila taip nama pautan',
+		remove		: 'Remove Anchor' // MISSING
 	},
 
 	// List style dialog
@@ -271,8 +274,8 @@ CKEDITOR.lang['ms'] =
 		invalidBorder	: 'Border size must be a number.', // MISSING
 		invalidWidth	: 'Table width must be a number.', // MISSING
 		invalidHeight	: 'Table height must be a number.', // MISSING
-		invalidCellSpacing	: 'Cell spacing must be a number.', // MISSING
-		invalidCellPadding	: 'Cell padding must be a number.', // MISSING
+		invalidCellSpacing	: 'Cell spacing must be a positive number.', // MISSING
+		invalidCellPadding	: 'Cell padding must be a positive number.', // MISSING
 
 		cell :
 		{
@@ -413,7 +416,6 @@ CKEDITOR.lang['ms'] =
 		upload		: 'Muat Naik',
 		alt			: 'Text Alternatif',
 		lockRatio	: 'Tetapkan Nisbah',
-		unlockRatio	: 'Unlock Ratio', // MISSING
 		resetSize	: 'Saiz Set Semula',
 		border		: 'Border',
 		hSpace		: 'Ruang Melintang',
@@ -770,15 +772,15 @@ CKEDITOR.lang['ms'] =
 
 	docprops :
 	{
-		label : 'Document Properties', // MISSING
-		title : 'Document Properties', // MISSING
+		label : 'Ciri-ciri dokumen',
+		title : 'Ciri-ciri dokumen',
 		design : 'Design', // MISSING
-		meta : 'Meta Tags', // MISSING
+		meta : 'Data Meta',
 		chooseColor : 'Choose', // MISSING
-		other : 'Other...', // MISSING
-		docTitle :	'Page Title', // MISSING
-		charset : 	'Character Set Encoding', // MISSING
-		charsetOther : 'Other Character Set Encoding', // MISSING
+		other : '<lain>',
+		docTitle :	'Tajuk Muka Surat',
+		charset : 	'Enkod Set Huruf',
+		charsetOther : 'Enkod Set Huruf yang Lain',
 		charsetASCII : 'ASCII', // MISSING
 		charsetCE : 'Central European', // MISSING
 		charsetCT : 'Chinese Traditional (Big5)', // MISSING
@@ -789,22 +791,22 @@ CKEDITOR.lang['ms'] =
 		charsetTR : 'Turkish', // MISSING
 		charsetUN : 'Unicode (UTF-8)', // MISSING
 		charsetWE : 'Western European', // MISSING
-		docType : 'Document Type Heading', // MISSING
-		docTypeOther : 'Other Document Type Heading', // MISSING
-		xhtmlDec : 'Include XHTML Declarations', // MISSING
-		bgColor : 'Background Color', // MISSING
-		bgImage : 'Background Image URL', // MISSING
-		bgFixed : 'Non-scrolling (Fixed) Background', // MISSING
-		txtColor : 'Text Color', // MISSING
-		margin : 'Page Margins', // MISSING
-		marginTop : 'Top', // MISSING
-		marginLeft : 'Left', // MISSING
-		marginRight : 'Right', // MISSING
-		marginBottom : 'Bottom', // MISSING
-		metaKeywords : 'Document Indexing Keywords (comma separated)', // MISSING
-		metaDescription : 'Document Description', // MISSING
-		metaAuthor : 'Author', // MISSING
-		metaCopyright : 'Copyright', // MISSING
+		docType : 'Jenis Kepala Dokumen',
+		docTypeOther : 'Jenis Kepala Dokumen yang Lain',
+		xhtmlDec : 'Masukkan pemula kod XHTML',
+		bgColor : 'Warna Latarbelakang',
+		bgImage : 'URL Gambar Latarbelakang',
+		bgFixed : 'Imej Latarbelakang tanpa Skrol',
+		txtColor : 'Warna Text',
+		margin : 'Margin Muka Surat',
+		marginTop : 'Atas',
+		marginLeft : 'Kiri',
+		marginRight : 'Kanan',
+		marginBottom : 'Bawah',
+		metaKeywords : 'Kata Kunci Indeks Dokumen (dipisahkan oleh koma)',
+		metaDescription : 'Keterangan Dokumen',
+		metaAuthor : 'Penulis',
+		metaCopyright : 'Hakcipta',
 		previewHtml : '<p>This is some <strong>sample text</strong>. You are using <a href="javascript:void(0)">CKEditor</a>.</p>' // MISSING
 	}
 };

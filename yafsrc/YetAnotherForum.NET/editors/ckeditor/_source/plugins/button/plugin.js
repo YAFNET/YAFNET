@@ -89,7 +89,11 @@ CKEDITOR.ui.button.prototype =
 			},
 			execute : function()
 			{
-				this.button.click( editor );
+				// IE 6 needs some time before execution (#7922)
+				if ( CKEDITOR.env.ie && CKEDITOR.env.version < 7 )
+					CKEDITOR.tools.setTimeout( function(){ this.button.click( editor ); }, 0, this );
+				else
+					this.button.click( editor );
 			}
 		};
 
@@ -206,8 +210,9 @@ CKEDITOR.ui.button.prototype =
 
 		output.push(
 					' onkeydown="return CKEDITOR.tools.callFunction(', keydownFn, ', event);"' +
-					' onfocus="return CKEDITOR.tools.callFunction(', focusFn,', event);"' +
-				' onclick="CKEDITOR.tools.callFunction(', clickFn, ', this); return false;">' +
+					' onfocus="return CKEDITOR.tools.callFunction(', focusFn,', event);" ' +
+					( CKEDITOR.env.ie ? 'onclick="return false;" onmouseup' : 'onclick' ) +		// #188
+						'="CKEDITOR.tools.callFunction(', clickFn, ', this); return false;">' +
 					'<span class="cke_icon"' );
 
 		if ( this.icon )

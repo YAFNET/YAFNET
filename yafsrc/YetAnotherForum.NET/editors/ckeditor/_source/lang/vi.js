@@ -121,6 +121,8 @@ CKEDITOR.lang['vi'] =
 		alignBottom		: 'Dưới',
 		invalidHeight	: 'Chiều cao phải là số nguyên.',
 		invalidWidth	: 'Chiều rộng phải là số nguyên.',
+		invalidCssLength	: 'Value specified for the "%1" field must be a positive number with or without a valid CSS measurement unit (px, %, in, cm, mm, em, ex, pt, or pc).', // MISSING
+		invalidHtmlLength	: 'Value specified for the "%1" field must be a positive number with or without a valid HTML measurement unit (px or %).', // MISSING
 
 		// Put the voice-only part of the label in the span.
 		unavailable		: '%1<span class="cke_accessibility">, không có</span>'
@@ -201,7 +203,8 @@ CKEDITOR.lang['vi'] =
 		menu		: 'Thuộc tính điểm neo',
 		title		: 'Thuộc tính điểm neo',
 		name		: 'Tên của điểm neo',
-		errorName	: 'Hãy nhập vào tên của điểm neo'
+		errorName	: 'Hãy nhập vào tên của điểm neo',
+		remove		: 'Remove Anchor' // MISSING
 	},
 
 	// List style dialog
@@ -413,7 +416,6 @@ CKEDITOR.lang['vi'] =
 		upload		: 'Tải lên',
 		alt			: 'Chú thích ảnh',
 		lockRatio	: 'Giữ nguyên tỷ lệ',
-		unlockRatio	: 'Phá bỏ tỷ lệ',
 		resetSize	: 'Kích thước gốc',
 		border		: 'Đường viền',
 		hSpace		: 'Khoảng đệm ngang',
@@ -770,41 +772,41 @@ CKEDITOR.lang['vi'] =
 
 	docprops :
 	{
-		label : 'Document Properties', // MISSING
-		title : 'Document Properties', // MISSING
+		label : 'Thuộc tính Tài liệu',
+		title : 'Thuộc tính Tài liệu',
 		design : 'Design', // MISSING
-		meta : 'Meta Tags', // MISSING
-		chooseColor : 'Choose', // MISSING
-		other : 'Other...', // MISSING
-		docTitle :	'Page Title', // MISSING
-		charset : 	'Character Set Encoding', // MISSING
-		charsetOther : 'Other Character Set Encoding', // MISSING
+		meta : 'Siêu dữ liệu',
+		chooseColor : 'Chọn màu',
+		other : '<khác>',
+		docTitle :	'Tiêu đề Trang',
+		charset : 	'Bảng mã ký tự',
+		charsetOther : 'Bảng mã ký tự khác',
 		charsetASCII : 'ASCII', // MISSING
-		charsetCE : 'Central European', // MISSING
-		charsetCT : 'Chinese Traditional (Big5)', // MISSING
-		charsetCR : 'Cyrillic', // MISSING
-		charsetGR : 'Greek', // MISSING
-		charsetJP : 'Japanese', // MISSING
-		charsetKR : 'Korean', // MISSING
-		charsetTR : 'Turkish', // MISSING
+		charsetCE : 'Trung Âu',
+		charsetCT : 'Tiếng Trung Quốc (Big5)',
+		charsetCR : 'Tiếng Kirin',
+		charsetGR : 'Tiếng Hy Lạp',
+		charsetJP : 'Tiếng Nhật',
+		charsetKR : 'Tiếng Hàn',
+		charsetTR : 'Tiếng Thổ Nhĩ Kỳ',
 		charsetUN : 'Unicode (UTF-8)', // MISSING
-		charsetWE : 'Western European', // MISSING
-		docType : 'Document Type Heading', // MISSING
-		docTypeOther : 'Other Document Type Heading', // MISSING
-		xhtmlDec : 'Include XHTML Declarations', // MISSING
-		bgColor : 'Background Color', // MISSING
-		bgImage : 'Background Image URL', // MISSING
-		bgFixed : 'Non-scrolling (Fixed) Background', // MISSING
-		txtColor : 'Text Color', // MISSING
-		margin : 'Page Margins', // MISSING
-		marginTop : 'Top', // MISSING
-		marginLeft : 'Left', // MISSING
-		marginRight : 'Right', // MISSING
-		marginBottom : 'Bottom', // MISSING
-		metaKeywords : 'Document Indexing Keywords (comma separated)', // MISSING
-		metaDescription : 'Document Description', // MISSING
-		metaAuthor : 'Author', // MISSING
-		metaCopyright : 'Copyright', // MISSING
+		charsetWE : 'Tây Âu',
+		docType : 'Kiểu Đề mục Tài liệu',
+		docTypeOther : 'Kiểu Đề mục Tài liệu khác',
+		xhtmlDec : 'Bao gồm cả định nghĩa XHTML',
+		bgColor : 'Màu nền',
+		bgImage : 'URL của Hình ảnh nền',
+		bgFixed : 'Không cuộn nền',
+		txtColor : 'Màu chữ',
+		margin : 'Đường biên của Trang',
+		marginTop : 'Trên',
+		marginLeft : 'Trái',
+		marginRight : 'Phải',
+		marginBottom : 'Dưới',
+		metaKeywords : 'Các từ khóa chỉ mục tài liệu (phân cách bởi dấu phẩy)',
+		metaDescription : 'Mô tả tài liệu',
+		metaAuthor : 'Tác giả',
+		metaCopyright : 'Bản quyền',
 		previewHtml : '<p>This is some <strong>sample text</strong>. You are using <a href="javascript:void(0)">CKEditor</a>.</p>' // MISSING
 	}
 };

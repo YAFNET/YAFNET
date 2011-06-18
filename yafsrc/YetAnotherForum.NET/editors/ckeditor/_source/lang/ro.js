@@ -121,6 +121,8 @@ CKEDITOR.lang['ro'] =
 		alignBottom		: 'Jos',
 		invalidHeight	: 'Height must be a number.', // MISSING
 		invalidWidth	: 'Width must be a number.', // MISSING
+		invalidCssLength	: 'Value specified for the "%1" field must be a positive number with or without a valid CSS measurement unit (px, %, in, cm, mm, em, ex, pt, or pc).', // MISSING
+		invalidHtmlLength	: 'Value specified for the "%1" field must be a positive number with or without a valid HTML measurement unit (px or %).', // MISSING
 
 		// Put the voice-only part of the label in the span.
 		unavailable		: '%1<span class="cke_accessibility">, unavailable</span>' // MISSING
@@ -201,7 +203,8 @@ CKEDITOR.lang['ro'] =
 		menu		: 'Proprietăţi ancoră',
 		title		: 'Proprietăţi ancoră',
 		name		: 'Numele ancorei',
-		errorName	: 'Vă rugăm scrieţi numele ancorei'
+		errorName	: 'Vă rugăm scrieţi numele ancorei',
+		remove		: 'Remove Anchor' // MISSING
 	},
 
 	// List style dialog
@@ -271,8 +274,8 @@ CKEDITOR.lang['ro'] =
 		invalidBorder	: 'Border size must be a number.', // MISSING
 		invalidWidth	: 'Table width must be a number.', // MISSING
 		invalidHeight	: 'Table height must be a number.', // MISSING
-		invalidCellSpacing	: 'Cell spacing must be a number.', // MISSING
-		invalidCellPadding	: 'Cell padding must be a number.', // MISSING
+		invalidCellSpacing	: 'Cell spacing must be a positive number.', // MISSING
+		invalidCellPadding	: 'Cell padding must be a positive number.', // MISSING
 
 		cell :
 		{
@@ -413,7 +416,6 @@ CKEDITOR.lang['ro'] =
 		upload		: 'Încarcă',
 		alt			: 'Text alternativ',
 		lockRatio	: 'Păstrează proporţiile',
-		unlockRatio	: 'Unlock Ratio', // MISSING
 		resetSize	: 'Resetează mărimea',
 		border		: 'Margine',
 		hSpace		: 'HSpace',
@@ -770,41 +772,41 @@ CKEDITOR.lang['ro'] =
 
 	docprops :
 	{
-		label : 'Document Properties', // MISSING
-		title : 'Document Properties', // MISSING
+		label : 'Proprietăţile documentului',
+		title : 'Proprietăţile documentului',
 		design : 'Design', // MISSING
 		meta : 'Meta Tags', // MISSING
 		chooseColor : 'Choose', // MISSING
-		other : 'Other...', // MISSING
-		docTitle :	'Page Title', // MISSING
-		charset : 	'Character Set Encoding', // MISSING
-		charsetOther : 'Other Character Set Encoding', // MISSING
+		other : '<alt>',
+		docTitle :	'Titlul paginii',
+		charset : 	'Encoding setului de caractere',
+		charsetOther : 'Alt encoding al setului de caractere',
 		charsetASCII : 'ASCII', // MISSING
 		charsetCE : 'Central European', // MISSING
-		charsetCT : 'Chinese Traditional (Big5)', // MISSING
-		charsetCR : 'Cyrillic', // MISSING
-		charsetGR : 'Greek', // MISSING
-		charsetJP : 'Japanese', // MISSING
-		charsetKR : 'Korean', // MISSING
-		charsetTR : 'Turkish', // MISSING
+		charsetCT : 'Chinezesc tradiţional (Big5)',
+		charsetCR : 'Chirilic',
+		charsetGR : 'Grecesc',
+		charsetJP : 'Japonez',
+		charsetKR : 'Corean',
+		charsetTR : 'Turcesc',
 		charsetUN : 'Unicode (UTF-8)', // MISSING
-		charsetWE : 'Western European', // MISSING
+		charsetWE : 'Vest european',
 		docType : 'Document Type Heading', // MISSING
-		docTypeOther : 'Other Document Type Heading', // MISSING
-		xhtmlDec : 'Include XHTML Declarations', // MISSING
-		bgColor : 'Background Color', // MISSING
-		bgImage : 'Background Image URL', // MISSING
-		bgFixed : 'Non-scrolling (Fixed) Background', // MISSING
-		txtColor : 'Text Color', // MISSING
-		margin : 'Page Margins', // MISSING
-		marginTop : 'Top', // MISSING
-		marginLeft : 'Left', // MISSING
-		marginRight : 'Right', // MISSING
-		marginBottom : 'Bottom', // MISSING
-		metaKeywords : 'Document Indexing Keywords (comma separated)', // MISSING
-		metaDescription : 'Document Description', // MISSING
-		metaAuthor : 'Author', // MISSING
-		metaCopyright : 'Copyright', // MISSING
+		docTypeOther : 'Alt Document Type Heading',
+		xhtmlDec : 'Include declaraţii XHTML',
+		bgColor : 'Culoarea fundalului (Background Color)',
+		bgImage : 'URL-ul imaginii din fundal (Background Image URL)',
+		bgFixed : 'Fundal neflotant, fix (Non-scrolling Background)',
+		txtColor : 'Culoarea textului',
+		margin : 'Marginile paginii',
+		marginTop : 'Sus',
+		marginLeft : 'Stânga',
+		marginRight : 'Dreapta',
+		marginBottom : 'Jos',
+		metaKeywords : 'Cuvinte cheie după care se va indexa documentul (separate prin virgulă)',
+		metaDescription : 'Descrierea documentului',
+		metaAuthor : 'Autor',
+		metaCopyright : 'Drepturi de autor',
 		previewHtml : '<p>This is some <strong>sample text</strong>. You are using <a href="javascript:void(0)">CKEditor</a>.</p>' // MISSING
 	}
 };

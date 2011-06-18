@@ -121,6 +121,8 @@ CKEDITOR.lang['en-au'] =
 		alignBottom		: 'Bottom', // MISSING
 		invalidHeight	: 'Height must be a number.', // MISSING
 		invalidWidth	: 'Width must be a number.', // MISSING
+		invalidCssLength	: 'Value specified for the "%1" field must be a positive number with or without a valid CSS measurement unit (px, %, in, cm, mm, em, ex, pt, or pc).', // MISSING
+		invalidHtmlLength	: 'Value specified for the "%1" field must be a positive number with or without a valid HTML measurement unit (px or %).', // MISSING
 
 		// Put the voice-only part of the label in the span.
 		unavailable		: '%1<span class="cke_accessibility">, unavailable</span>' // MISSING
@@ -201,7 +203,8 @@ CKEDITOR.lang['en-au'] =
 		menu		: 'Edit Anchor',
 		title		: 'Anchor Properties',
 		name		: 'Anchor Name',
-		errorName	: 'Please type the anchor name'
+		errorName	: 'Please type the anchor name',
+		remove		: 'Remove Anchor' // MISSING
 	},
 
 	// List style dialog
@@ -413,7 +416,6 @@ CKEDITOR.lang['en-au'] =
 		upload		: 'Upload',
 		alt			: 'Alternative Text',
 		lockRatio	: 'Lock Ratio',
-		unlockRatio	: 'Unlock Ratio', // MISSING
 		resetSize	: 'Reset Size',
 		border		: 'Border',
 		hSpace		: 'HSpace',

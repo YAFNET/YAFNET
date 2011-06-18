@@ -247,6 +247,8 @@ body .cke_dialog
 	background-color: white;
 	border: 1px solid #a0a0a0;
 	padding: 1px 0px;
+	/* IE6/Quirks - make sure the content does not overflow (#7321) */
+	_width: 99.9%;
 }
 
 /* Opera/IE doesn't leave enough padding in text input for cursor to blink in RTL. (#6087) */
@@ -317,6 +319,12 @@ body .cke_dialog
 {
 	background-color : #a0a0a0;
 	cursor : default;
+}
+
+/* RTL + IE6: Input overflows dialog element. (#7321) */
+.cke_skin_kama .cke_rtl .cke_dialog_ui_labeled_content
+{
+	_width: 95%;
 }
 
 .cke_skin_kama .cke_dialog_ui_hbox
@@ -710,6 +718,10 @@ body .cke_dialog
 	border: none 1px;
 	font-size: 1px;
 }
+.cke_skin_kama .cke_dialog a.cke_btn_locked .cke_icon
+{
+	display:none;
+}
 
 .cke_skin_kama .cke_rtl .cke_dialog a.cke_btn_locked,
 .cke_skin_kama .cke_rtl .cke_dialog a.cke_btn_unlocked
@@ -862,6 +874,7 @@ body .cke_dialog
 .cke_skin_kama .cke_hc .cke_dialog_body .cke_label
 {
 	display: inline;
+	cursor: inherit;
 }
 
 .cke_skin_kama .cke_hc a.cke_btn_locked,
@@ -872,6 +885,7 @@ body .cke_dialog
 	float: left;
 	width: auto;
 	height: auto;
+	padding: 0 2px;
 }
 
 .cke_skin_kama .cke_rtl.cke_hc a.cke_btn_locked,
@@ -879,6 +893,10 @@ body .cke_dialog
 .cke_skin_kama .cke_rtl.cke_hc a.cke_btn_reset
 {
 	float: right;
+}
+.cke_skin_kama .cke_hc a.cke_btn_locked .cke_icon
+{
+	display:inline;
 }
 
 .cke_skin_kama a.cke_smile img
@@ -900,6 +918,11 @@ body .cke_dialog
 	opacity: 1.0;
 	filter: alpha(opacity=100);
 	border: 1px solid white;
+}
+
+.cke_skin_kama .cke_hc .ImagePreviewBox
+{
+	width: 260px;
 }
 
 /**

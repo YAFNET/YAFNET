@@ -79,8 +79,8 @@ CKEDITOR.STYLE_OBJECT = 3;
 
 (function()
 {
-	var blockElements	= { address:1,div:1,h1:1,h2:1,h3:1,h4:1,h5:1,h6:1,p:1,pre:1 },
-		objectElements	= { a:1,embed:1,hr:1,img:1,li:1,object:1,ol:1,table:1,td:1,tr:1,th:1,ul:1,dl:1,dt:1,dd:1,form:1};
+	var blockElements	= { address:1,div:1,h1:1,h2:1,h3:1,h4:1,h5:1,h6:1,p:1,pre:1,section:1,header:1,footer:1,nav:1,article:1,aside:1,figure:1,dialog:1,hgroup:1,time:1,meter:1,menu:1,command:1,keygen:1,output:1,progress:1,details:1,datagrid:1,datalist:1 },
+		objectElements	= { a:1,embed:1,hr:1,img:1,li:1,object:1,ol:1,table:1,td:1,tr:1,th:1,ul:1,dl:1,dt:1,dd:1,form:1,audio:1,video:1 };
 
 	var semicolonFixRegex = /\s*(?:;\s*|$)/,
 		varRegex = /#\((.+?)\)/g;
@@ -98,7 +98,9 @@ CKEDITOR.STYLE_OBJECT = 3;
 			replaceVariables( styleDefinition.styles, variablesValues );
 		}
 
-		var element = this.element = ( styleDefinition.element || '*' ).toLowerCase();
+		var element = this.element = styleDefinition.element ?
+				( typeof styleDefinition.element == 'string' ? styleDefinition.element.toLowerCase() : styleDefinition.element )
+				: '*';
 
 		this.type =
 			blockElements[ element ] ?
@@ -107,6 +109,10 @@ CKEDITOR.STYLE_OBJECT = 3;
 				CKEDITOR.STYLE_OBJECT
 			:
 				CKEDITOR.STYLE_INLINE;
+
+		// If the 'element' property is an object with a set of possible element, it will be applied like an object style: only to existing elements
+		if ( typeof this.element == 'object' )
+			this.type = CKEDITOR.STYLE_OBJECT;
 
 		this._ =
 		{
@@ -179,9 +185,12 @@ CKEDITOR.STYLE_OBJECT = 3;
 							  && ( element == elementPath.block || element == elementPath.blockLimit ) )
 							continue;
 
-						if( this.type == CKEDITOR.STYLE_OBJECT
-							 && !( element.getName() in objectElements ) )
+						if( this.type == CKEDITOR.STYLE_OBJECT )
+						{
+							var name = element.getName();
+							if ( !( typeof this.element == 'string' ? name == this.element : name in this.element ) )
 								continue;
+						}
 
 						if ( this.checkElementRemovable( element, true ) )
 							return true;
@@ -217,10 +226,11 @@ CKEDITOR.STYLE_OBJECT = 3;
 				return false;
 
 			var def = this._.definition,
-				attribs;
+				attribs,
+				name = element.getName();
 
 			// If the element name is the same as the style name.
-			if ( element.getName() == this.element )
+			if ( typeof this.element == 'string' ? name == this.element : name in this.element )
 			{
 				// If no attributes are defined in the element.
 				if ( !fullMatch && !element.hasAttributes() )
@@ -1510,6 +1520,8 @@ CKEDITOR.STYLE_OBJECT = 3;
 	function applyStyle( document, remove )
 	{
 		var selection = document.getSelection(),
+			// Bookmark the range so we can re-select it after processing.
+			bookmarks = selection.createBookmarks( 1 ),
 			ranges = selection.getRanges(),
 			func = remove ? this.removeFromRange : this.applyToRange,
 			range;
@@ -1518,7 +1530,13 @@ CKEDITOR.STYLE_OBJECT = 3;
 		while ( ( range = iterator.getNextRange() ) )
 			func.call( this, range );
 
-		selection.selectRanges( ranges );
+		if ( bookmarks.length == 1 && bookmarks[ 0 ].collapsed )
+		{
+			selection.selectRanges( ranges );
+			document.getById( bookmarks[ 0 ].startNode ).remove();
+		}
+		else
+			selection.selectBookmarks( bookmarks );
 
 		document.removeCustomData( 'doc_processing_style' );
 	}

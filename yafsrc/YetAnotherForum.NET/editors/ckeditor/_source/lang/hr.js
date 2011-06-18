@@ -121,6 +121,8 @@ CKEDITOR.lang['hr'] =
 		alignBottom		: 'Dolje',
 		invalidHeight	: 'Visina mora biti broj.',
 		invalidWidth	: 'Širina mora biti broj.',
+		invalidCssLength	: 'Value specified for the "%1" field must be a positive number with or without a valid CSS measurement unit (px, %, in, cm, mm, em, ex, pt, or pc).', // MISSING
+		invalidHtmlLength	: 'Value specified for the "%1" field must be a positive number with or without a valid HTML measurement unit (px or %).', // MISSING
 
 		// Put the voice-only part of the label in the span.
 		unavailable		: '%1<span class="cke_accessibility">, nedostupno</span>'
@@ -201,7 +203,8 @@ CKEDITOR.lang['hr'] =
 		menu		: 'Svojstva sidra',
 		title		: 'Svojstva sidra',
 		name		: 'Ime sidra',
-		errorName	: 'Molimo unesite ime sidra'
+		errorName	: 'Molimo unesite ime sidra',
+		remove		: 'Remove Anchor' // MISSING
 	},
 
 	// List style dialog
@@ -413,7 +416,6 @@ CKEDITOR.lang['hr'] =
 		upload		: 'Pošalji',
 		alt			: 'Alternativni tekst',
 		lockRatio	: 'Zaključaj odnos',
-		unlockRatio	: 'Unlock Ratio', // MISSING
 		resetSize	: 'Obriši veličinu',
 		border		: 'Okvir',
 		hSpace		: 'HSpace',
@@ -770,41 +772,41 @@ CKEDITOR.lang['hr'] =
 
 	docprops :
 	{
-		label : 'Document Properties', // MISSING
-		title : 'Document Properties', // MISSING
+		label : 'Svojstva dokumenta',
+		title : 'Svojstva dokumenta',
 		design : 'Design', // MISSING
-		meta : 'Meta Tags', // MISSING
+		meta : 'Meta Data',
 		chooseColor : 'Choose', // MISSING
-		other : 'Other...', // MISSING
-		docTitle :	'Page Title', // MISSING
-		charset : 	'Character Set Encoding', // MISSING
-		charsetOther : 'Other Character Set Encoding', // MISSING
+		other : '<drugi>',
+		docTitle :	'Naslov stranice',
+		charset : 	'Enkodiranje znakova',
+		charsetOther : 'Ostalo enkodiranje znakova',
 		charsetASCII : 'ASCII', // MISSING
-		charsetCE : 'Central European', // MISSING
-		charsetCT : 'Chinese Traditional (Big5)', // MISSING
-		charsetCR : 'Cyrillic', // MISSING
-		charsetGR : 'Greek', // MISSING
-		charsetJP : 'Japanese', // MISSING
-		charsetKR : 'Korean', // MISSING
-		charsetTR : 'Turkish', // MISSING
+		charsetCE : 'Središnja Europa',
+		charsetCT : 'Tradicionalna kineska (Big5)',
+		charsetCR : 'Ćirilica',
+		charsetGR : 'Grčka',
+		charsetJP : 'Japanska',
+		charsetKR : 'Koreanska',
+		charsetTR : 'Turska',
 		charsetUN : 'Unicode (UTF-8)', // MISSING
-		charsetWE : 'Western European', // MISSING
-		docType : 'Document Type Heading', // MISSING
-		docTypeOther : 'Other Document Type Heading', // MISSING
-		xhtmlDec : 'Include XHTML Declarations', // MISSING
-		bgColor : 'Background Color', // MISSING
-		bgImage : 'Background Image URL', // MISSING
-		bgFixed : 'Non-scrolling (Fixed) Background', // MISSING
-		txtColor : 'Text Color', // MISSING
-		margin : 'Page Margins', // MISSING
-		marginTop : 'Top', // MISSING
-		marginLeft : 'Left', // MISSING
-		marginRight : 'Right', // MISSING
-		marginBottom : 'Bottom', // MISSING
-		metaKeywords : 'Document Indexing Keywords (comma separated)', // MISSING
-		metaDescription : 'Document Description', // MISSING
-		metaAuthor : 'Author', // MISSING
-		metaCopyright : 'Copyright', // MISSING
+		charsetWE : 'Zapadna Europa',
+		docType : 'Zaglavlje vrste dokumenta',
+		docTypeOther : 'Ostalo zaglavlje vrste dokumenta',
+		xhtmlDec : 'Ubaci XHTML deklaracije',
+		bgColor : 'Boja pozadine',
+		bgImage : 'URL slike pozadine',
+		bgFixed : 'Pozadine se ne pomiče',
+		txtColor : 'Boja teksta',
+		margin : 'Margine stranice',
+		marginTop : 'Vrh',
+		marginLeft : 'Lijevo',
+		marginRight : 'Desno',
+		marginBottom : 'Dolje',
+		metaKeywords : 'Ključne riječi dokumenta (odvojene zarezom)',
+		metaDescription : 'Opis dokumenta',
+		metaAuthor : 'Autor',
+		metaCopyright : 'Autorska prava',
 		previewHtml : '<p>This is some <strong>sample text</strong>. You are using <a href="javascript:void(0)">CKEditor</a>.</p>' // MISSING
 	}
 };

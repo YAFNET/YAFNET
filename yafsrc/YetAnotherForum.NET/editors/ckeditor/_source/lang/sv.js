@@ -120,6 +120,8 @@ CKEDITOR.lang['sv'] =
 		alignBottom		: 'Nederkant',
 		invalidHeight	: 'Höjd måste vara ett nummer.',
 		invalidWidth	: 'Bredd måste vara ett nummer.',
+		invalidCssLength	: 'Value specified for the "%1" field must be a positive number with or without a valid CSS measurement unit (px, %, in, cm, mm, em, ex, pt, or pc).', // MISSING
+		invalidHtmlLength	: 'Value specified for the "%1" field must be a positive number with or without a valid HTML measurement unit (px or %).', // MISSING
 
 		// Put the voice-only part of the label in the span.
 		unavailable		: '%1<span class="cke_accessibility">, Ej tillgänglig</span>'
@@ -200,7 +202,8 @@ CKEDITOR.lang['sv'] =
 		menu		: 'Egenskaper för ankarlänk',
 		title		: 'Egenskaper för ankarlänk',
 		name		: 'Ankarnamn',
-		errorName	: 'Var god ange ett ankarnamn'
+		errorName	: 'Var god ange ett ankarnamn',
+		remove		: 'Remove Anchor' // MISSING
 	},
 
 	// List style dialog
@@ -412,7 +415,6 @@ CKEDITOR.lang['sv'] =
 		upload		: 'Ladda upp',
 		alt			: 'Alternativ text',
 		lockRatio	: 'Lås höjd/bredd förhållanden',
-		unlockRatio	: 'Lås upp förhållanden',
 		resetSize	: 'Återställ storlek',
 		border		: 'Kant',
 		hSpace		: 'Horis. marginal',
@@ -769,41 +771,41 @@ CKEDITOR.lang['sv'] =
 
 	docprops :
 	{
-		label : 'Document Properties', // MISSING
-		title : 'Document Properties', // MISSING
+		label : 'Dokumentegenskaper',
+		title : 'Dokumentegenskaper',
 		design : 'Design', // MISSING
-		meta : 'Meta Tags', // MISSING
-		chooseColor : 'Choose', // MISSING
-		other : 'Other...', // MISSING
-		docTitle :	'Page Title', // MISSING
-		charset : 	'Character Set Encoding', // MISSING
-		charsetOther : 'Other Character Set Encoding', // MISSING
+		meta : 'Metadata',
+		chooseColor : 'Välj',
+		other : '<annan>',
+		docTitle :	'Sidtitel',
+		charset : 	'Teckenuppsättningar',
+		charsetOther : 'Övriga teckenuppsättningar',
 		charsetASCII : 'ASCII', // MISSING
-		charsetCE : 'Central European', // MISSING
-		charsetCT : 'Chinese Traditional (Big5)', // MISSING
-		charsetCR : 'Cyrillic', // MISSING
-		charsetGR : 'Greek', // MISSING
-		charsetJP : 'Japanese', // MISSING
-		charsetKR : 'Korean', // MISSING
-		charsetTR : 'Turkish', // MISSING
+		charsetCE : 'Central Europa',
+		charsetCT : 'Traditionell Kinesisk (Big5)',
+		charsetCR : 'Kyrillisk',
+		charsetGR : 'Grekiska',
+		charsetJP : 'Japanska',
+		charsetKR : 'Koreanska',
+		charsetTR : 'Turkiska',
 		charsetUN : 'Unicode (UTF-8)', // MISSING
-		charsetWE : 'Western European', // MISSING
-		docType : 'Document Type Heading', // MISSING
-		docTypeOther : 'Other Document Type Heading', // MISSING
-		xhtmlDec : 'Include XHTML Declarations', // MISSING
-		bgColor : 'Background Color', // MISSING
-		bgImage : 'Background Image URL', // MISSING
-		bgFixed : 'Non-scrolling (Fixed) Background', // MISSING
-		txtColor : 'Text Color', // MISSING
-		margin : 'Page Margins', // MISSING
-		marginTop : 'Top', // MISSING
-		marginLeft : 'Left', // MISSING
-		marginRight : 'Right', // MISSING
-		marginBottom : 'Bottom', // MISSING
-		metaKeywords : 'Document Indexing Keywords (comma separated)', // MISSING
-		metaDescription : 'Document Description', // MISSING
-		metaAuthor : 'Author', // MISSING
-		metaCopyright : 'Copyright', // MISSING
+		charsetWE : 'Väst Europa',
+		docType : 'Sidhuvud',
+		docTypeOther : 'Övriga sidhuvuden',
+		xhtmlDec : 'Inkludera XHTML deklaration',
+		bgColor : 'Bakgrundsfärg',
+		bgImage : 'Bakgrundsbildens URL',
+		bgFixed : 'Fast bakgrund',
+		txtColor : 'Textfärg',
+		margin : 'Sidmarginal',
+		marginTop : 'Topp',
+		marginLeft : 'Vänster',
+		marginRight : 'Höger',
+		marginBottom : 'Botten',
+		metaKeywords : 'Sidans nyckelord',
+		metaDescription : 'Sidans beskrivning',
+		metaAuthor : 'Författare',
+		metaCopyright : 'Upphovsrätt',
 		previewHtml : '<p>This is some <strong>sample text</strong>. You are using <a href="javascript:void(0)">CKEditor</a>.</p>' // MISSING
 	}
 };

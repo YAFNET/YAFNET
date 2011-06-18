@@ -121,6 +121,8 @@ CKEDITOR.lang['es'] =
 		alignBottom		: 'Pie',
 		invalidHeight	: 'Altura debe ser un número.',
 		invalidWidth	: 'Anchura debe ser un número.',
+		invalidCssLength	: 'Value specified for the "%1" field must be a positive number with or without a valid CSS measurement unit (px, %, in, cm, mm, em, ex, pt, or pc).', // MISSING
+		invalidHtmlLength	: 'Value specified for the "%1" field must be a positive number with or without a valid HTML measurement unit (px or %).', // MISSING
 
 		// Put the voice-only part of the label in the span.
 		unavailable		: '%1<span class="cke_accessibility">, no disponible</span>'
@@ -201,7 +203,8 @@ CKEDITOR.lang['es'] =
 		menu		: 'Propiedades de Referencia',
 		title		: 'Propiedades de Referencia',
 		name		: 'Nombre de la Referencia',
-		errorName	: 'Por favor, complete el nombre de la Referencia'
+		errorName	: 'Por favor, complete el nombre de la Referencia',
+		remove		: 'Remove Anchor' // MISSING
 	},
 
 	// List style dialog
@@ -413,7 +416,6 @@ CKEDITOR.lang['es'] =
 		upload		: 'Cargar',
 		alt			: 'Texto Alternativo',
 		lockRatio	: 'Proporcional',
-		unlockRatio	: 'Desbloquear el proporcional',
 		resetSize	: 'Tamaño Original',
 		border		: 'Borde',
 		hSpace		: 'Esp.Horiz',

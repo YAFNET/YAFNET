@@ -121,6 +121,8 @@ CKEDITOR.lang['he'] =
 		alignBottom		: 'לתחתית',
 		invalidHeight	: 'הגובה חייב להיות מספר.',
 		invalidWidth	: 'הרוחב חייב להיות מספר.',
+		invalidCssLength	: 'הערך שצוין לשדה "%1" חייב להיות מספר חיובי עם או ללא יחידת מידה חוקית של CSS (px, %, in, cm, mm, em, ex, pt, או pc).',
+		invalidHtmlLength	: 'הערך שצוין לשדה "%1" חייב להיות מספר חיובי עם או ללא יחידת מידה חוקית של HTML (px או %).',
 
 		// Put the voice-only part of the label in the span.
 		unavailable		: '%1<span class="cke_accessibility">, לא זמין</span>'
@@ -201,7 +203,8 @@ CKEDITOR.lang['he'] =
 		menu		: 'מאפייני נקודת עיגון',
 		title		: 'מאפייני נקודת עיגון',
 		name		: 'שם לנקודת עיגון',
-		errorName	: 'יש להקליד שם לנקודת עיגון'
+		errorName	: 'יש להקליד שם לנקודת עיגון',
+		remove		: 'מחיקת נקודת עיגון'
 	},
 
 	// List style dialog
@@ -271,8 +274,8 @@ CKEDITOR.lang['he'] =
 		invalidBorder	: 'שדה גודל המסגרת חייב להיות מספר.',
 		invalidWidth	: 'שדה רוחב הטבלה חייב להיות מספר.',
 		invalidHeight	: 'שדה גובה הטבלה חייב להיות מספר.',
-		invalidCellSpacing	: 'שדה ריווח התאים חייב להיות מספר.',
-		invalidCellPadding	: 'שדה ריפוד התאים חייב להיות מספר.',
+		invalidCellSpacing	: 'שדה ריווח התאים חייב להיות מספר חיובי.',
+		invalidCellPadding	: 'שדה ריפוד התאים חייב להיות מספר חיובי.',
 
 		cell :
 		{
@@ -413,7 +416,6 @@ CKEDITOR.lang['he'] =
 		upload		: 'העלאה',
 		alt			: 'טקסט חלופי',
 		lockRatio	: 'נעילת היחס',
-		unlockRatio	: 'ביטול נעילת היחס',
 		resetSize	: 'איפוס הגודל',
 		border		: 'מסגרת',
 		hSpace		: 'מרווח אופקי',

@@ -120,6 +120,8 @@ CKEDITOR.lang['pt-br'] =
 		alignBottom		: 'Inferior',
 		invalidHeight	: 'A altura tem que ser um número',
 		invalidWidth	: 'A largura tem que ser um número.',
+		invalidCssLength	: 'Value specified for the "%1" field must be a positive number with or without a valid CSS measurement unit (px, %, in, cm, mm, em, ex, pt, or pc).', // MISSING
+		invalidHtmlLength	: 'Value specified for the "%1" field must be a positive number with or without a valid HTML measurement unit (px or %).', // MISSING
 
 		// Put the voice-only part of the label in the span.
 		unavailable		: '%1<span class="cke_accessibility">, indisponível</span>'
@@ -200,7 +202,8 @@ CKEDITOR.lang['pt-br'] =
 		menu		: 'Formatar Âncora',
 		title		: 'Formatar Âncora',
 		name		: 'Nome da Âncora',
-		errorName	: 'Por favor, digite o nome da âncora'
+		errorName	: 'Por favor, digite o nome da âncora',
+		remove		: 'Remove Anchor' // MISSING
 	},
 
 	// List style dialog
@@ -412,7 +415,6 @@ CKEDITOR.lang['pt-br'] =
 		upload		: 'Enviar',
 		alt			: 'Texto Alternativo',
 		lockRatio	: 'Travar Proporções',
-		unlockRatio	: 'Destravar Proporções',
 		resetSize	: 'Redefinir para o Tamanho Original',
 		border		: 'Borda',
 		hSpace		: 'HSpace',
@@ -769,41 +771,41 @@ CKEDITOR.lang['pt-br'] =
 
 	docprops :
 	{
-		label : 'Document Properties', // MISSING
-		title : 'Document Properties', // MISSING
+		label : 'Propriedades Documento',
+		title : 'Propriedades Documento',
 		design : 'Design', // MISSING
-		meta : 'Meta Tags', // MISSING
-		chooseColor : 'Choose', // MISSING
-		other : 'Other...', // MISSING
-		docTitle :	'Page Title', // MISSING
-		charset : 	'Character Set Encoding', // MISSING
-		charsetOther : 'Other Character Set Encoding', // MISSING
+		meta : 'Meta Dados',
+		chooseColor : 'Escolher',
+		other : '<outro>',
+		docTitle :	'Título da Página',
+		charset : 	'Codificação de Caracteres',
+		charsetOther : 'Outra Codificação de Caracteres',
 		charsetASCII : 'ASCII', // MISSING
-		charsetCE : 'Central European', // MISSING
-		charsetCT : 'Chinese Traditional (Big5)', // MISSING
-		charsetCR : 'Cyrillic', // MISSING
-		charsetGR : 'Greek', // MISSING
-		charsetJP : 'Japanese', // MISSING
-		charsetKR : 'Korean', // MISSING
-		charsetTR : 'Turkish', // MISSING
+		charsetCE : 'Europa Central',
+		charsetCT : 'Chinês Tradicional (Big5)',
+		charsetCR : 'Cirílico',
+		charsetGR : 'Grego',
+		charsetJP : 'Japonês',
+		charsetKR : 'Coreano',
+		charsetTR : 'Turco',
 		charsetUN : 'Unicode (UTF-8)', // MISSING
-		charsetWE : 'Western European', // MISSING
-		docType : 'Document Type Heading', // MISSING
+		charsetWE : 'Europa Ocidental',
+		docType : 'Cabeçalho Tipo de Documento',
 		docTypeOther : 'Other Document Type Heading', // MISSING
-		xhtmlDec : 'Include XHTML Declarations', // MISSING
-		bgColor : 'Background Color', // MISSING
-		bgImage : 'Background Image URL', // MISSING
-		bgFixed : 'Non-scrolling (Fixed) Background', // MISSING
-		txtColor : 'Text Color', // MISSING
-		margin : 'Page Margins', // MISSING
-		marginTop : 'Top', // MISSING
-		marginLeft : 'Left', // MISSING
-		marginRight : 'Right', // MISSING
-		marginBottom : 'Bottom', // MISSING
-		metaKeywords : 'Document Indexing Keywords (comma separated)', // MISSING
-		metaDescription : 'Document Description', // MISSING
-		metaAuthor : 'Author', // MISSING
-		metaCopyright : 'Copyright', // MISSING
+		xhtmlDec : 'Incluir Declarações XHTML',
+		bgColor : 'Cor do Plano de Fundo',
+		bgImage : 'URL da Imagem de Plano de Fundo',
+		bgFixed : 'Plano de Fundo Fixo',
+		txtColor : 'Cor do Texto',
+		margin : 'Margens da Página',
+		marginTop : 'Superior',
+		marginLeft : 'Inferior',
+		marginRight : 'Direita',
+		marginBottom : 'Inferior',
+		metaKeywords : 'Palavras-chave de Indexação do Documento (separadas por vírgula)',
+		metaDescription : 'Descrição do Documento',
+		metaAuthor : 'Autor',
+		metaCopyright : 'Direitos Autorais',
 		previewHtml : '<p>This is some <strong>sample text</strong>. You are using <a href="javascript:void(0)">CKEditor</a>.</p>' // MISSING
 	}
 };

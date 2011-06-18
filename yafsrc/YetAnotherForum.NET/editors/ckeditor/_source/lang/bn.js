@@ -121,6 +121,8 @@ CKEDITOR.lang['bn'] =
 		alignBottom		: 'নীচে',
 		invalidHeight	: 'Height must be a number.', // MISSING
 		invalidWidth	: 'Width must be a number.', // MISSING
+		invalidCssLength	: 'Value specified for the "%1" field must be a positive number with or without a valid CSS measurement unit (px, %, in, cm, mm, em, ex, pt, or pc).', // MISSING
+		invalidHtmlLength	: 'Value specified for the "%1" field must be a positive number with or without a valid HTML measurement unit (px or %).', // MISSING
 
 		// Put the voice-only part of the label in the span.
 		unavailable		: '%1<span class="cke_accessibility">, unavailable</span>' // MISSING
@@ -201,7 +203,8 @@ CKEDITOR.lang['bn'] =
 		menu		: 'নোঙর প্রোপার্টি',
 		title		: 'নোঙর প্রোপার্টি',
 		name		: 'নোঙরের নাম',
-		errorName	: 'নোঙরের নাম টাইপ করুন'
+		errorName	: 'নোঙরের নাম টাইপ করুন',
+		remove		: 'Remove Anchor' // MISSING
 	},
 
 	// List style dialog
@@ -271,8 +274,8 @@ CKEDITOR.lang['bn'] =
 		invalidBorder	: 'Border size must be a number.', // MISSING
 		invalidWidth	: 'Table width must be a number.', // MISSING
 		invalidHeight	: 'Table height must be a number.', // MISSING
-		invalidCellSpacing	: 'Cell spacing must be a number.', // MISSING
-		invalidCellPadding	: 'Cell padding must be a number.', // MISSING
+		invalidCellSpacing	: 'Cell spacing must be a positive number.', // MISSING
+		invalidCellPadding	: 'Cell padding must be a positive number.', // MISSING
 
 		cell :
 		{
@@ -413,7 +416,6 @@ CKEDITOR.lang['bn'] =
 		upload		: 'আপলোড',
 		alt			: 'বিকল্প টেক্সট',
 		lockRatio	: 'অনুপাত লক কর',
-		unlockRatio	: 'Unlock Ratio', // MISSING
 		resetSize	: 'সাইজ পূর্বাবস্থায় ফিরিয়ে দাও',
 		border		: 'বর্ডার',
 		hSpace		: 'হরাইজন্টাল স্পেস',
@@ -770,15 +772,15 @@ CKEDITOR.lang['bn'] =
 
 	docprops :
 	{
-		label : 'Document Properties', // MISSING
-		title : 'Document Properties', // MISSING
+		label : 'ডক্যুমেন্ট প্রোপার্টি',
+		title : 'ডক্যুমেন্ট প্রোপার্টি',
 		design : 'Design', // MISSING
-		meta : 'Meta Tags', // MISSING
+		meta : 'মেটাডেটা',
 		chooseColor : 'Choose', // MISSING
-		other : 'Other...', // MISSING
-		docTitle :	'Page Title', // MISSING
-		charset : 	'Character Set Encoding', // MISSING
-		charsetOther : 'Other Character Set Encoding', // MISSING
+		other : '<other>',
+		docTitle :	'পেজ শীর্ষক',
+		charset : 	'ক্যারেক্টার সেট এনকোডিং',
+		charsetOther : 'অন্য ক্যারেক্টার সেট এনকোডিং',
 		charsetASCII : 'ASCII', // MISSING
 		charsetCE : 'Central European', // MISSING
 		charsetCT : 'Chinese Traditional (Big5)', // MISSING
@@ -789,22 +791,22 @@ CKEDITOR.lang['bn'] =
 		charsetTR : 'Turkish', // MISSING
 		charsetUN : 'Unicode (UTF-8)', // MISSING
 		charsetWE : 'Western European', // MISSING
-		docType : 'Document Type Heading', // MISSING
-		docTypeOther : 'Other Document Type Heading', // MISSING
-		xhtmlDec : 'Include XHTML Declarations', // MISSING
-		bgColor : 'Background Color', // MISSING
-		bgImage : 'Background Image URL', // MISSING
-		bgFixed : 'Non-scrolling (Fixed) Background', // MISSING
-		txtColor : 'Text Color', // MISSING
-		margin : 'Page Margins', // MISSING
-		marginTop : 'Top', // MISSING
-		marginLeft : 'Left', // MISSING
-		marginRight : 'Right', // MISSING
-		marginBottom : 'Bottom', // MISSING
-		metaKeywords : 'Document Indexing Keywords (comma separated)', // MISSING
-		metaDescription : 'Document Description', // MISSING
-		metaAuthor : 'Author', // MISSING
-		metaCopyright : 'Copyright', // MISSING
+		docType : 'ডক্যুমেন্ট টাইপ হেডিং',
+		docTypeOther : 'অন্য ডক্যুমেন্ট টাইপ হেডিং',
+		xhtmlDec : 'XHTML ডেক্লারেশন যুক্ত কর',
+		bgColor : 'ব্যাকগ্রাউন্ড রং',
+		bgImage : 'ব্যাকগ্রাউন্ড ছবির URL',
+		bgFixed : 'স্ক্রলহীন ব্যাকগ্রাউন্ড',
+		txtColor : 'টেক্স্ট রং',
+		margin : 'পেজ মার্জিন',
+		marginTop : 'উপর',
+		marginLeft : 'বামে',
+		marginRight : 'ডানে',
+		marginBottom : 'নীচে',
+		metaKeywords : 'ডক্যুমেন্ট ইন্ডেক্স কিওয়ার্ড (কমা দ্বারা বিচ্ছিন্ন)',
+		metaDescription : 'ডক্যূমেন্ট বর্ণনা',
+		metaAuthor : 'লেখক',
+		metaCopyright : 'কপীরাইট',
 		previewHtml : '<p>This is some <strong>sample text</strong>. You are using <a href="javascript:void(0)">CKEditor</a>.</p>' // MISSING
 	}
 };

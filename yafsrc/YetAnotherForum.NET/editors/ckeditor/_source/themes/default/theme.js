@@ -352,12 +352,13 @@ CKEDITOR.editor.prototype.resize = function( width, height, isContentHeight, res
  * Gets the element that can be freely used to check the editor size. This method
  * is mainly used by the resize plugin, which adds a UI handle that can be used
  * to resize the editor.
+ * @param {Boolean} forContents Whether to return the "contents" part of the theme instead of the container.
  * @returns {CKEDITOR.dom.element} The resizable element.
  * @example
  */
-CKEDITOR.editor.prototype.getResizable = function()
+CKEDITOR.editor.prototype.getResizable = function( forContents )
 {
-	return this.container;
+	return forContents ? CKEDITOR.document.getById( 'cke_contents_' + this.name ) : this.container;
 };
 
 /**

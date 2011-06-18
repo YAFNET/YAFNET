@@ -1062,6 +1062,18 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 					return this;
 				};
 			}
+			else if ( CKEDITOR.env.ie8Compat && CKEDITOR.env.secure )
+			{
+				return function( name, value )
+				{
+					// IE8 throws error when setting src attribute to non-ssl value. (#7847)
+					if ( name == 'src' && value.match( /^http:\/\// ) )
+						try { standard.apply( this, arguments ); } catch( e ){}
+					else
+						standard.apply( this, arguments );
+					return this;
+				};
+			}
 			else
 				return standard;
 		})(),
@@ -1583,7 +1595,13 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 		 */
 		getDirection : function( useComputed )
 		{
-			return useComputed ? this.getComputedStyle( 'direction' ) : this.getStyle( 'direction' ) || this.getAttribute( 'dir' );
+			return useComputed ?
+				this.getComputedStyle( 'direction' )
+					// Webkit: offline element returns empty direction (#8053).
+					|| this.getDirection()
+					|| this.getDocument().$.dir
+					|| this.getDocument().getBody().getDirection( 1 )
+				: this.getStyle( 'direction' ) || this.getAttribute( 'dir' );
 		},
 
 		/**

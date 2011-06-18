@@ -371,6 +371,8 @@ body .cke_dialog
 	background-color: white;
 	border: 1px solid #a0a0a0;
 	padding: 1px 0px;
+	/* IE6/Quirks - make sure the content does not overflow (#7321) */
+	_width: 99.9%;
 }
 
 .cke_skin_v2 .cke_browser_ie.cke_rtl div.cke_dialog_ui_input_text {
@@ -397,6 +399,12 @@ body .cke_dialog
 	background-color: white;
 	border: 1px solid #a0a0a0;
 	padding: 1px 0px;
+}
+
+/* RTL + IE6: Input overflows dialog element. (#7321) */
+.cke_skin_v2 .cke_rtl .cke_dialog_ui_labeled_content
+{
+	_width: 95%;
 }
 
 .cke_skin_v2 div.cke_disabled .cke_dialog_ui_labeled_content *
@@ -635,6 +643,11 @@ body .cke_dialog
 	border: none 1px;
 	font-size: 1px;
 }
+.cke_skin_v2 .cke_dialog a.cke_btn_locked .cke_icon
+{
+	display:none;
+}
+
 
 .cke_skin_v2 .cke_rtl .cke_dialog a.cke_btn_locked,
 .cke_skin_v2 .cke_rtl .cke_dialog a.cke_btn_unlocked
@@ -786,6 +799,7 @@ body .cke_dialog
 .cke_skin_v2 .cke_hc .cke_dialog_body .cke_label
 {
 	display: inline;
+	cursor: inherit;
 }
 
 .cke_skin_v2 .cke_hc a.cke_btn_locked,
@@ -796,6 +810,11 @@ body .cke_dialog
 	float:left;
 	width:auto;
 	height:auto;
+	padding: 0 2px;
+}
+.cke_skin_v2 .cke_hc a.cke_btn_locked .cke_icon
+{
+	display:inline;
 }
 
 .cke_skin_v2 .cke_rtl.cke_hc a.cke_btn_locked,

@@ -121,6 +121,8 @@ CKEDITOR.lang['gl'] =
 		alignBottom		: 'Pé',
 		invalidHeight	: 'Height must be a number.', // MISSING
 		invalidWidth	: 'Width must be a number.', // MISSING
+		invalidCssLength	: 'Value specified for the "%1" field must be a positive number with or without a valid CSS measurement unit (px, %, in, cm, mm, em, ex, pt, or pc).', // MISSING
+		invalidHtmlLength	: 'Value specified for the "%1" field must be a positive number with or without a valid HTML measurement unit (px or %).', // MISSING
 
 		// Put the voice-only part of the label in the span.
 		unavailable		: '%1<span class="cke_accessibility">, unavailable</span>' // MISSING
@@ -201,7 +203,8 @@ CKEDITOR.lang['gl'] =
 		menu		: 'Propriedades da Referencia',
 		title		: 'Propriedades da Referencia',
 		name		: 'Nome da Referencia',
-		errorName	: 'Por favor, escriba o nome da referencia'
+		errorName	: 'Por favor, escriba o nome da referencia',
+		remove		: 'Remove Anchor' // MISSING
 	},
 
 	// List style dialog
@@ -271,8 +274,8 @@ CKEDITOR.lang['gl'] =
 		invalidBorder	: 'Border size must be a number.', // MISSING
 		invalidWidth	: 'Table width must be a number.', // MISSING
 		invalidHeight	: 'Table height must be a number.', // MISSING
-		invalidCellSpacing	: 'Cell spacing must be a number.', // MISSING
-		invalidCellPadding	: 'Cell padding must be a number.', // MISSING
+		invalidCellSpacing	: 'Cell spacing must be a positive number.', // MISSING
+		invalidCellPadding	: 'Cell padding must be a positive number.', // MISSING
 
 		cell :
 		{
@@ -413,7 +416,6 @@ CKEDITOR.lang['gl'] =
 		upload		: 'Carregar',
 		alt			: 'Texto Alternativo',
 		lockRatio	: 'Proporcional',
-		unlockRatio	: 'Unlock Ratio', // MISSING
 		resetSize	: 'Tamaño Orixinal',
 		border		: 'Límite',
 		hSpace		: 'Esp. Horiz.',
@@ -770,15 +772,15 @@ CKEDITOR.lang['gl'] =
 
 	docprops :
 	{
-		label : 'Document Properties', // MISSING
-		title : 'Document Properties', // MISSING
+		label : 'Propriedades do Documento',
+		title : 'Propriedades do Documento',
 		design : 'Design', // MISSING
 		meta : 'Meta Tags', // MISSING
 		chooseColor : 'Choose', // MISSING
-		other : 'Other...', // MISSING
-		docTitle :	'Page Title', // MISSING
-		charset : 	'Character Set Encoding', // MISSING
-		charsetOther : 'Other Character Set Encoding', // MISSING
+		other : '<outro>',
+		docTitle :	'Título da Páxina',
+		charset : 	'Codificación do Xogo de Caracteres',
+		charsetOther : 'Outra Codificación do Xogo de Caracteres',
 		charsetASCII : 'ASCII', // MISSING
 		charsetCE : 'Central European', // MISSING
 		charsetCT : 'Chinese Traditional (Big5)', // MISSING
@@ -789,21 +791,21 @@ CKEDITOR.lang['gl'] =
 		charsetTR : 'Turkish', // MISSING
 		charsetUN : 'Unicode (UTF-8)', // MISSING
 		charsetWE : 'Western European', // MISSING
-		docType : 'Document Type Heading', // MISSING
-		docTypeOther : 'Other Document Type Heading', // MISSING
-		xhtmlDec : 'Include XHTML Declarations', // MISSING
-		bgColor : 'Background Color', // MISSING
-		bgImage : 'Background Image URL', // MISSING
-		bgFixed : 'Non-scrolling (Fixed) Background', // MISSING
-		txtColor : 'Text Color', // MISSING
-		margin : 'Page Margins', // MISSING
-		marginTop : 'Top', // MISSING
-		marginLeft : 'Left', // MISSING
-		marginRight : 'Right', // MISSING
-		marginBottom : 'Bottom', // MISSING
-		metaKeywords : 'Document Indexing Keywords (comma separated)', // MISSING
-		metaDescription : 'Document Description', // MISSING
-		metaAuthor : 'Author', // MISSING
+		docType : 'Encabezado do Tipo de Documento',
+		docTypeOther : 'Outro Encabezado do Tipo de Documento',
+		xhtmlDec : 'Incluir Declaracións XHTML',
+		bgColor : 'Cor de Fondo',
+		bgImage : 'URL da Imaxe de Fondo',
+		bgFixed : 'Fondo Fixo',
+		txtColor : 'Cor do Texto',
+		margin : 'Marxes da Páxina',
+		marginTop : 'Arriba',
+		marginLeft : 'Esquerda',
+		marginRight : 'Dereita',
+		marginBottom : 'Abaixo',
+		metaKeywords : 'Palabras Chave de Indexación do Documento (separadas por comas)',
+		metaDescription : 'Descripción do Documento',
+		metaAuthor : 'Autor',
 		metaCopyright : 'Copyright', // MISSING
 		previewHtml : '<p>This is some <strong>sample text</strong>. You are using <a href="javascript:void(0)">CKEditor</a>.</p>' // MISSING
 	}

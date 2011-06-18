@@ -18,7 +18,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		( CKEDITOR.env.ie6Compat ?
 		  [
 			'.%1 table.%2,',
-			 '.%1 table.%2 td, .%1 table.%2 th,',
+			 '.%1 table.%2 td, .%1 table.%2 th',
 			 '{',
 				'border : #d3d3d3 1px dotted',
 			 '}'
