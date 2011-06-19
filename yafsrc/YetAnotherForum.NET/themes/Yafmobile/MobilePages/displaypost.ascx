@@ -65,6 +65,3 @@
         <YAF:PopMenu runat="server" ID="PopMenu1" Control="UserName" />
     </td>
 </tr>
-
-
-

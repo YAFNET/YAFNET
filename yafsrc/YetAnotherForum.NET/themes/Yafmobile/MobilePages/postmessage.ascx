@@ -20,14 +20,21 @@
             <YAF:MessagePost ID="PreviewMessagePost" runat="server" />
         </td>
     </tr>
-    <tr id="SubjectRow" runat="server" colspan="2">
-        <td class="postformheader" width="20%">
+    <tr id="SubjectRow" runat="server">
+        <td class="postformheader"  width="20%" colspan="2">
             <YAF:LocalizedLabel ID="TopicSubjectLabel" runat="server" LocalizedTag="subject" />
             <br />
             <asp:TextBox ID="TopicSubjectTextBox" runat="server" CssClass="edit" MaxLength="100"
-                Width="250" />
+                Width="400" />
         </td>
     </tr>
+    <tr id="DescriptionRow" visible="false" runat="server">
+		<td class="postformheader"  width="20%" colspan="2">
+			<YAF:LocalizedLabel ID="TopicDescriptionLabel" runat="server" LocalizedTag="description" />
+            <br />
+            <asp:TextBox ID="TopicDescriptionTextBox" runat="server" CssClass="edit" MaxLength="100" Width="400" />
+		</td>
+	</tr>
     <tr id="BlogRow" runat="server" visible="false">
         <td class="postformheader" width="20%" colspan="2">
             Post to blog?

@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="c#" CodeBehind="../../../pages/posts.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.posts" %>
 <%@ Import Namespace="YAF.Core" %>
 <%@ Register TagPrefix="YAF" TagName="DisplayPost" Src="DisplayPost.ascx" %>
-<%@ Register TagPrefix="YAF" TagName="DisplayAd" Src="../../../controls/DisplayAd.ascx" %>
+<%@ Register TagPrefix="YAF" TagName="DisplayAd" Src="DisplayAd.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="PollList" Src="../../../controls/PollList.ascx" %>
 
 <YAF:PageLinks ID="PageLinks" runat="server" />
@@ -49,6 +49,14 @@
                         <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="View" />
                     </asp:HyperLink>
                 </asp:PlaceHolder>
+                <asp:HyperLink ID="ImageMessageLink" runat="server" CssClass="GoToLink">
+                     <YAF:LocalizedLabel ID="LastPostedText" runat="server" LocalizedTag="GO_LAST_POST" LocalizedPage="DEFAULT" />
+                     &nbsp;<YAF:ThemeImage ID="LastPostedImage" runat="server" Style="border: 0" />
+                </asp:HyperLink>
+                <asp:HyperLink ID="ImageLastUnreadMessageLink" runat="server" CssClass="GoToLink">
+                     <YAF:LocalizedLabel ID="LastUnreadText" runat="server" LocalizedTag="GO_LASTUNREAD_POST" LocalizedPage="DEFAULT" />
+                     &nbsp;<YAF:ThemeImage ID="LastUnreadImage" runat="server"  Style="border: 0" />
+                </asp:HyperLink>
             </div>
         </td>
     </tr>

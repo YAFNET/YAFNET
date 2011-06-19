@@ -14,8 +14,8 @@
             </th>
         </tr>
         <tr class="topicSubTitle">
-            <th width="1%" class="header2">
-                &nbsp;
+            <th width="1%" class="header2">&nbsp;
+                
             </th>
             <th align="left" class="header2 headerForum">
                 <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="FORUM" />
@@ -43,7 +43,7 @@
         </td>
         <td>
             <YAF:ThemeButton ID="moderate1" runat="server" CssClass="yafcssbigbutton rightItem"
-                TextLocalizedTag="BUTTON_MODERATE" TitleLocalizedTag="BUTTON_MODERATE_TT" OnClick="moderate_Click" />
+                TextLocalizedTag="BUTTON_MODERATE" TitleLocalizedTag="BUTTON_MODERATE_TT" />
             <YAF:ThemeButton ID="NewTopic1" runat="server" CssClass="yafcssbigbutton rightItem"
                 TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT" OnClick="NewTopic_Click" />
         </td>
@@ -56,8 +56,8 @@
         </th>
     </tr>
     <tr class="topicSubTitle">
-        <th class="header2" width="1%">
-            &nbsp;
+        <th class="header2" width="1%">&nbsp;
+            
         </th>
         <th class="header2 headerTopic" align="left">
             <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="topics" />
@@ -113,7 +113,7 @@
         </td>
         <td>
             <YAF:ThemeButton ID="moderate2" runat="server" CssClass="yafcssbigbutton rightItem"
-                TextLocalizedTag="BUTTON_MODERATE" TitleLocalizedTag="BUTTON_MODERATE_TT" OnClick="moderate_Click" />
+                TextLocalizedTag="BUTTON_MODERATE" TitleLocalizedTag="BUTTON_MODERATE_TT" />
             <YAF:ThemeButton ID="NewTopic2" runat="server" CssClass="yafcssbigbutton rightItem"
                 TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT" OnClick="NewTopic_Click" />
         </td>
