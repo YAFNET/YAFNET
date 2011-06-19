@@ -40,12 +40,12 @@ namespace YAF.Controls {
         protected global::YAF.Controls.MessagePost AdMessage;
         
         /// <summary>
-        /// LocalizedLabel2 control.
+        /// ThemeImage1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel2;
+        protected global::YAF.Controls.ThemeImage ThemeImage1;
     }
 }

@@ -1,5 +1,5 @@
-/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bjørnar Henden
+ï»¿/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjï¿½rnar Henden
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -23,6 +23,7 @@ namespace YAF.Controls
 
   using System;
 
+  using YAF.Classes;
   using YAF.Core;
   using YAF.Types;
   using YAF.Types.Interfaces;
@@ -30,7 +31,7 @@ namespace YAF.Controls
   #endregion
 
   /// <summary>
-  /// Summary description for DisplayAd.
+  /// DisplayAd Class
   /// </summary>
   public partial class DisplayAd : BaseUserControl
   {
@@ -49,7 +50,7 @@ namespace YAF.Controls
     /// The get post class.
     /// </summary>
     /// <returns>
-    /// The get post class.
+    /// Returns the post class.
     /// </returns>
     [NotNull]
     protected string GetPostClass()
@@ -68,7 +69,7 @@ namespace YAF.Controls
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      this.AdMessage.Message = this.PageContext.BoardSettings.AdPost;
+      this.AdMessage.Message = this.Get<YafBoardSettings>().AdPost;
       this.AdMessage.Signature = this.GetText("AD_SIGNATURE");
 
       this.AdMessage.MessageFlags.IsLocked = true;

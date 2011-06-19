@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Controls.DisplayAd"
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Controls.DisplayAd"
     EnableViewState="false" Codebehind="DisplayAd.ascx.cs" %>
 <tr class="postheader">
     <td width="140" id="NameCell" runat="server">
@@ -18,8 +18,8 @@
 </tr>
 <tr class="postfooter">
     <td class="small" colspan='2'>
-        <a href="javascript:scroll(0,0)">
-            <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="TOP" />
+        <a onclick="ScrollTop();" href="javascript: void(0)">            
+            <YAF:ThemeImage ID="ThemeImage1" LocalizedTitlePage="POSTS" LocalizedTitleTag="TOP"  runat="server" ThemeTag="TOTOPPOST" />
         </a>
     </td>
     <td class="postfooter">
