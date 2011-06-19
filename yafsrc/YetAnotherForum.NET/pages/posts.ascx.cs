@@ -1126,6 +1126,42 @@ namespace YAF.Pages
               _dtPoll = DB.poll_stats(_topic["PollID"]);
               Poll.DataSource = _dtPoll;
             } */
+
+
+
+
+
+
+
+            this.ImageLastUnreadMessageLink.Visible = this.Get<YafBoardSettings>().ShowLastUnreadPost;
+
+            this.ImageMessageLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+                ForumPages.posts, "t={0}&find=lastpost", this.PageContext.PageTopicID);
+
+            this.LastPostedImage.LocalizedTitle = this.GetText("DEFAULT", "GO_LAST_POST");
+
+            if (this.ImageLastUnreadMessageLink.Visible)
+            {
+                this.ImageLastUnreadMessageLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+                    ForumPages.posts, "t={0}&find=unread", this.PageContext.PageTopicID);
+
+                this.LastUnreadImage.LocalizedTitle = this.GetText("DEFAULT", "GO_LASTUNREAD_POST");
+            }
+
+            if (this._topic["LastPosted"] != DBNull.Value)
+            {
+                this.LastUnreadImage.ThemeTag = (DateTime.Parse(this._topic["LastPosted"].ToString()) >
+                                                 this.Get<IYafSession>().GetTopicRead(this.PageContext.PageTopicID))
+                                                    ? "ICON_NEWEST_UNREAD"
+                                                    : "ICON_LATEST_UNREAD";
+
+                this.LastPostedImage.ThemeTag = (DateTime.Parse(this._topic["LastPosted"].ToString()) >
+                                                 this.Get<IYafSession>().GetTopicRead(this.PageContext.PageTopicID))
+                                                    ? "ICON_NEWEST"
+                                                    : "ICON_LATEST";
+            }
+
+
             this.DataBind();
         }
 

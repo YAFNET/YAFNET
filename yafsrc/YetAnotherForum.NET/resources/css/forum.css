@@ -246,9 +246,10 @@
 	list-style-type: none;
 }
 .yafnet .PopMenuLink,
-.yafnet .UserPopMenuLink {
+.yafnet .UserPopMenuLink,
+.yafnet .GoToLink {
 	cursor: pointer;
-    margin-left: 5px;
+    margin: 0 0 0 5px;
 	padding: 2px 15px 2px 4px;
 }
 

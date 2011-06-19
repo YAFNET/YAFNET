@@ -711,3 +711,5 @@
 .yafnet dl.AlphaSort dd:hover { background-color: #f5f5f5;color:#3b3b3b;cursor:pointer;}
 .yafnet dl.AlphaSort dd:hover a { font-weight:bold}
 .yafnet dl.AlphaSort dd a {color:#3b3b3b;}
+
+.yafnet .yafsignature {position:relative;}

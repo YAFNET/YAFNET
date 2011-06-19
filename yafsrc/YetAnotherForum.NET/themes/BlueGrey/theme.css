@@ -1,4 +1,4 @@
-t.yafnet {
+.yafnet {
 	font-size:12px;
 	font-family:Arial;
 	color: #000;
@@ -1276,22 +1276,44 @@ height:80em;
 /* Override jquery ui font-size */
 .ui-widget { font-size: 9pt!important; }
 
+.yafnet .GoToLink,
 .yafnet .PopMenuLink {
-	border: 1px solid white;
-    -webkit-border-radius:4px;
-    -moz-border-radius:4px;
-    border-radius:4px;
-	background: url("DownArrowWhite.png") transparent no-repeat 100% 50%;
-}
+	display: inline-block;
+	zoom: 1; /* zoom and *display = ie7 hack for display:inline-block */
+	*display: inline;
+	vertical-align: baseline;
 
+	outline: none;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	font: 14px/100% Arial, Helvetica, sans-serif;
+
+	text-shadow: 0 1px 1px rgba(0,0,0,.3);
+	
+	-webkit-border-radius: .4em; 
+	-moz-border-radius: .4em;
+	border-radius: .4em;
+	
+	-webkit-box-shadow: 0 1px 2px rgba(255,255,255,.2);
+	-moz-box-shadow: 0 1px 2px rgba(255,255,255,.2);
+	box-shadow: 0 1px 2px rgba(255,255,255,.2);
+	
+	color: black;
+	border: solid 1px white;
+	background: #42a5ff;
+}
+.yafnet .PopMenuLink {
+	background: url("DownArrowWhite.png") #42a5ff no-repeat 100% 50%;
+}
+.yafnet .GoToLink:hover,
 .yafnet .PopMenuLink:hover {
-	border: 1px solid black;
-	-moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-	-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-	-o-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-	color:white;
-	text-decoration:none;
+	color: white!important;
+	text-decoration: none!important;
+	
+	-moz-box-shadow: 0 0 5px 2px white;
+    -webkit-box-shadow: 0 0 5px 2px white;
+    box-shadow: 0 0 5px 2px white;
 }
 
 .yafnet .UserPopMenuLink {

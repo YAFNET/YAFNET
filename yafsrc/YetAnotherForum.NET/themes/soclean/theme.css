@@ -826,10 +826,6 @@ This CSS already works on FireFox.
 .ui-widget { font-size: 9pt!important; }
 
 .yafnet .PopMenuLink {
-	border: 1px solid black;
-    -webkit-border-radius:4px;
-    -moz-border-radius:4px;
-    border-radius:4px;
 	background: url("DownArrow.png") transparent no-repeat 100% 50%;
 }
 
