@@ -329,7 +329,7 @@ namespace YAF.Utilities
         /// </returns>
         public static string FixPostDivHeight([NotNull] string userBoxId, [NotNull] string panMessageId)
         {
-            return @"{0}(document).ready(function() {{
+            return @"{0}(window).load(function() {{
 					var userBoxHeight = {0}('#{1}').height();
                     var messageHeight = {0}('#{2}').height();
 
