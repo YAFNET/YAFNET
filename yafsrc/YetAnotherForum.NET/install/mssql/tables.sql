@@ -155,7 +155,7 @@ if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseO
 	create table [{databaseOwner}].[{objectQualifier}CheckEmail](
 		CheckEmailID	int IDENTITY (1, 1) NOT NULL ,
 		UserID			int NOT NULL ,
-		Email			nvarchar (50) NOT NULL ,
+		Email			nvarchar (255) NOT NULL ,
 		Created			datetime NOT NULL ,
 		[Hash]			nvarchar (32) NOT NULL 
 	)
@@ -393,7 +393,7 @@ if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseO
 		[Name]			nvarchar (255) NOT NULL,
 		[DisplayName]	nvarchar (255) NOT NULL,
 		[Password]		nvarchar (32) NOT NULL,
-		[Email]			nvarchar (50) NULL,
+		[Email]			nvarchar (255) NULL,
 		Joined			datetime NOT NULL,
 		LastVisit		datetime NOT NULL,
 		IP				nvarchar (15) NULL,
@@ -1994,3 +1994,12 @@ GO
 if exists(select top 1 1 from dbo.syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}NntpServer]') and name=N'UserName' and prec<255)
 	alter table [{databaseOwner}].[{objectQualifier}NntpServer] alter column [UserName] nvarchar(255) null
 GO
+
+if exists(select top 1 1 from dbo.syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}User]') and name=N'Email' and prec<255)
+	alter table [{databaseOwner}].[{objectQualifier}User] alter column [Email] nvarchar(255) null
+GO
+
+if exists(select top 1 1 from dbo.syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}CheckEmail]') and name=N'Email' and prec<255)
+	alter table [{databaseOwner}].[{objectQualifier}CheckEmail] alter column [Email] nvarchar(255) null
+GO
+

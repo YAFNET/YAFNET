@@ -2218,7 +2218,7 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}checkemail_list]
 (
-	@Email nvarchar(50) = null
+	@Email nvarchar(255) = null
 )
 AS
 BEGIN
@@ -2233,7 +2233,7 @@ create procedure [{databaseOwner}].[{objectQualifier}checkemail_save]
 (
 	@UserID int,
 	@Hash nvarchar(32),
-	@Email nvarchar(50)
+	@Email nvarchar(255)
 )
 AS
 BEGIN
@@ -2248,7 +2248,7 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}checkemail_update](@Hash nv
 begin
 		declare @UserID int
 	declare @CheckEmailID int
-	declare @Email nvarchar(50)
+	declare @Email nvarchar(255)
 
 	set @UserID = null
 
@@ -6017,7 +6017,7 @@ END
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}user_adminsave]
-(@BoardID int,@UserID int,@Name nvarchar(255),@DisplayName nvarchar(255), @Email nvarchar(50),@Flags int,@RankID int) as
+(@BoardID int,@UserID int,@Name nvarchar(255),@DisplayName nvarchar(255), @Email nvarchar(255),@Flags int,@RankID int) as
 begin
 		
 	update [{databaseOwner}].[{objectQualifier}User] set
@@ -6035,7 +6035,7 @@ create procedure [{databaseOwner}].[{objectQualifier}user_approve](@UserID int) 
 begin
 		
 	declare @CheckEmailID int
-	declare @Email nvarchar(50)
+	declare @Email nvarchar(255)
 
 	select 
 		@CheckEmailID = CheckEmailID,
@@ -6818,7 +6818,7 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}user_nntp](@BoardID int,@UserName nvarchar(255),@Email nvarchar(50),@TimeZone int) as
+create procedure [{databaseOwner}].[{objectQualifier}user_nntp](@BoardID int,@UserName nvarchar(255),@Email nvarchar(255),@TimeZone int) as
 begin	
 	
 	declare @UserID int
@@ -6845,7 +6845,7 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}user_recoverpassword](@BoardID int,@UserName nvarchar(255),@Email nvarchar(50)) as
+create procedure [{databaseOwner}].[{objectQualifier}user_recoverpassword](@BoardID int,@UserName nvarchar(255),@Email nvarchar(250)) as
 begin
 	
 	declare @UserID int
@@ -6939,7 +6939,7 @@ begin
 	if @UseSingleSignOn is null SET @UseSingleSignOn=0
 
 	if @UserID is null or @UserID<1 begin
-	    set @Flags = 0
+	    
 		if @Approved<>0 set @Flags = @Flags | 2	
 		if @Email = '' set @Email = null
 		
@@ -6955,15 +6955,14 @@ begin
 	else begin
 		set @Flags = (SELECT Flags FROM [{databaseOwner}].[{objectQualifier}User] where UserID = @UserID)
 		
-		-- set user dirty flag		
-		IF ((@Flags & 64) <> 64)		
-		SET @Flags = @Flags | 64
-		-- set/remove DST flag
+		-- set user dirty 
+		set @Flags = @Flags	| 64
+		
 		IF ((@DSTUser<>0) AND (@Flags & 32) <> 32)		
 		SET @Flags = @Flags | 32
 		ELSE IF ((@DSTUser=0) AND (@Flags & 32) = 32)
 		SET @Flags = @Flags ^ 32
-		-- set/remove hide user flag	
+			
 		IF ((@HideUser<>0) AND ((@Flags & 16) <> 16)) 
 		SET @Flags = @Flags | 16 
 		ELSE IF ((@HideUser=0) AND ((@Flags & 16) = 16)) 
@@ -7041,7 +7040,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}user_setnotdirty](@UserID int) as
 begin	
-	update [{databaseOwner}].[{objectQualifier}User] set Flags = Flags ^ 64 where UserID = @UserID and (Flags & 64) = 64
+	update [{databaseOwner}].[{objectQualifier}User] set Flags = Flags ^ 64 where UserID = @UserID
 end
 GO
 
