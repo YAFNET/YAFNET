@@ -222,7 +222,7 @@ namespace YAF.Pages
         {
             MembershipUser user = null;
 
-            if (this.PasswordRecovery1.UserName.Contains("@"))
+            if (this.PasswordRecovery1.UserName.Contains("@") && this.Get<MembershipProvider>().RequiresUniqueEmail)
             {
                 // Email Login
                 var username = this.Get<MembershipProvider>().GetUserNameByEmail(this.PasswordRecovery1.UserName);

@@ -103,7 +103,7 @@ namespace YAF.Pages
             var password = this.Login1.FindControlAs<TextBox>("Password").Text.Trim();*/
             e.Authenticated = false;
 
-            if (this.Login1.UserName.Contains("@"))
+            if (this.Login1.UserName.Contains("@") && this.Get<MembershipProvider>().RequiresUniqueEmail)
             {
                 // Email Login
                 var username = this.Get<MembershipProvider>().GetUserNameByEmail(this.Login1.UserName);

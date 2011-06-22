@@ -65,7 +65,7 @@ namespace YAF.Controls
 
             e.Authenticated = false;
 
-            if (Login1.UserName.Contains("@"))
+            if (Login1.UserName.Contains("@") && this.Get<MembershipProvider>().RequiresUniqueEmail)
             {
                 // Email Login
                 var username = this.Get<MembershipProvider>().GetUserNameByEmail(Login1.UserName);
