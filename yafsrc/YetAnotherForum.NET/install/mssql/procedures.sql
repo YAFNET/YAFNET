@@ -3273,9 +3273,10 @@ begin
 	declare @MessageCount	int
 	declare @LastMessageID	int
 	declare @UserID			int
+	declare @Position       int
 
 	-- Find TopicID and ForumID
-	select @TopicID=b.TopicID,@ForumID=b.ForumID,@UserID = a.UserID 
+	select @TopicID=b.TopicID,@ForumID=b.ForumID,@UserID = a.UserID, @Position = a.Position 
 		from 
 			[{databaseOwner}].[{objectQualifier}Message] a
 			inner join [{databaseOwner}].[{objectQualifier}Topic] b on b.TopicID=a.TopicID
@@ -3327,6 +3328,9 @@ begin
 	-- update lastpost
 	exec [{databaseOwner}].[{objectQualifier}topic_updatelastpost] @ForumID,@TopicID
 	exec [{databaseOwner}].[{objectQualifier}forum_updatestats] @ForumID
+
+	--update message Positions for the other Messages inside the topic
+	UPDATE [{databaseOwner}].[{objectQualifier}Message] SET Position=Position-1 WHERE TopicID=@TopicID AND Position>=@Position
 
 	-- update topic numposts
 	update [{databaseOwner}].[{objectQualifier}Topic] set
@@ -3693,13 +3697,7 @@ BEGIN
 		
 		SELECT @temp=ReplyTo,@Position=Position FROM [{databaseOwner}].[{objectQualifier}Message] WHERE MessageID=@ReplyTo
 
-		IF @temp IS NULL
-			-- We are replying to first post
-			SELECT @Position=MAX(Position)+1 FROM [{databaseOwner}].[{objectQualifier}Message] WHERE TopicID=@TopicID
-
-		ELSE
-			-- Last position of replies to parent post
-			SELECT @Position=MIN(Position) FROM [{databaseOwner}].[{objectQualifier}Message] WHERE ReplyTo=@temp AND Position>@Position
+	    SELECT @Position=MAX(Position)+1 FROM [{databaseOwner}].[{objectQualifier}Message] WHERE TopicID=@TopicID
 
 		-- No replies, THEN USE parent post's position+1
 		IF @Position IS NULL
