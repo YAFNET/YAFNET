@@ -333,6 +333,13 @@ namespace YAF.Utilities
 					var userBoxHeight = {0}('#{1}').height();
                     var messageHeight = {0}('#{2}').height();
 
+                    var spoilerBoxHeight = {0}('#{2}').children().children('.spoilerbox');
+
+                    if (spoilerBoxHeight.length)
+                    {{
+                       messageHeight = messageHeight + spoilerBoxHeight.height();
+                    }}
+
                   	{0}('#{2}').parent('.postdiv').height(userBoxHeight + messageHeight);
                            }});".FormatWith(Config.JQueryAlias, userBoxId, panMessageId);
         }
