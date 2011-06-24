@@ -320,8 +320,6 @@ namespace YAF.Core
         }
 
         /// <summary>
-<<<<<<< .mine
-=======
         ///   Gets a value indicating whether the current user personal data was changed and not handled by a code;
         /// </summary>
         public bool IsDirty
@@ -333,30 +331,6 @@ namespace YAF.Core
         }
 
         /// <summary>
-        ///   Gets a value indicating whether the board is private (20050909 CHP) (True)
-        /// </summary>
-        public bool IsPrivate
-        {
-            get
-            {
-#if TODO
-				try
-				{
-					return
-						int.Parse(Utils.UtilsSection[string.Format("isprivate{0}", PageBoardID)])!=0;
-				}
-				catch
-				{
-					return false;
-				}
-#else
-                return false;
-#endif
-            }
-        }
-
-        /// <summary>
->>>>>>> .r5013
         ///   Gets a value indicating whether the current user is suspended (True).
         /// </summary>
         public bool IsSuspended
