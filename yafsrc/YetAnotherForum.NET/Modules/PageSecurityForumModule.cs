@@ -81,7 +81,7 @@ namespace YAF.Modules
       }
 
       // check if login is required
-      if (this.PageContext.BoardSettings.RequireLogin && this.PageContext.IsGuest)
+      if (this.PageContext.BoardSettings.RequireLogin && this.PageContext.IsGuest && this.CurrentForumPage.IsProtected)
       {
         // redirect to login page if login is required
         this.CurrentForumPage.RedirectNoAccess();
@@ -101,16 +101,10 @@ namespace YAF.Modules
       }
 
       // handle security features...
-      switch (this.ForumPageType)
-      {
-        case ForumPages.register:
-          if (this.PageContext.BoardSettings.DisableRegistrations)
-          {
-            YafBuildLink.AccessDenied();
-          }
-
-          break;
-      }
+    	if (this.ForumPageType == ForumPages.register && this.PageContext.BoardSettings.DisableRegistrations)
+    	{
+    		YafBuildLink.AccessDenied();
+    	}
     }
 
     #endregion
