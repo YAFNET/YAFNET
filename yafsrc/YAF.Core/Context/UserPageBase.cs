@@ -320,6 +320,8 @@ namespace YAF.Core
         }
 
         /// <summary>
+<<<<<<< .mine
+=======
         ///   Gets a value indicating whether the current user personal data was changed and not handled by a code;
         /// </summary>
         public bool IsDirty
@@ -354,6 +356,7 @@ namespace YAF.Core
         }
 
         /// <summary>
+>>>>>>> .r5013
         ///   Gets a value indicating whether the current user is suspended (True).
         /// </summary>
         public bool IsSuspended
