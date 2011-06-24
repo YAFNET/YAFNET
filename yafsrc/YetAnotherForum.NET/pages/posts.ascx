@@ -94,7 +94,7 @@
         <table class="content postContainer" width="100%">
             <%# GetThreadedRow(Container.DataItem) %>
             <YAF:DisplayPost ID="DisplayPost1" runat="server" DataRow="<%# Container.DataItem %>"
-                Visible="<%#IsCurrentMessage(Container.DataItem)%>" IsThreaded="<%#IsThreaded%>" />
+                Visible="<%#IsCurrentMessage(Container.DataItem)%>" PostCount="<%# Container.ItemIndex %>" CurrentPage="<%# Pager.CurrentPageIndex %>" IsThreaded="<%#IsThreaded%>" />
             <YAF:DisplayAd ID="DisplayAd" runat="server" Visible="False" />
         </table>
     </ItemTemplate>
@@ -102,7 +102,7 @@
         <table class="content postContainer_Alt" width="100%">
             <%# GetThreadedRow(Container.DataItem) %>
             <YAF:DisplayPost ID="DisplayPostAlt" runat="server" DataRow="<%# Container.DataItem %>"
-                IsAlt="True" Visible="<%#IsCurrentMessage(Container.DataItem)%>" IsThreaded="<%#IsThreaded%>" />
+                IsAlt="True" Visible="<%#IsCurrentMessage(Container.DataItem)%>" PostCount="<%# Container.ItemIndex %>" CurrentPage="<%# Pager.CurrentPageIndex %>" IsThreaded="<%#IsThreaded%>" />
             <YAF:DisplayAd ID="DisplayAd" runat="server" Visible="False" />
         </table>
     </AlternatingItemTemplate>

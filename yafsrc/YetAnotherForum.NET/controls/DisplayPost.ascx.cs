@@ -32,7 +32,6 @@ namespace YAF.Controls
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
-    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Utilities;
     using YAF.Utils;
@@ -61,6 +60,16 @@ namespace YAF.Controls
         /// </summary>
         [CanBeNull]
         public DataRow DataRow { get; set; }
+
+        /// <summary>
+        /// Gets or sets Post Count.
+        /// </summary>
+        public int PostCount { get; set; }
+
+        /// <summary>
+        /// Gets or sets Current Page Index.
+        /// </summary>
+        public int CurrentPage { get; set; }
 
         /// <summary>
         ///   Gets or sets a value indicating whether IsAlt.
