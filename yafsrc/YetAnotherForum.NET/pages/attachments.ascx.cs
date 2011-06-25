@@ -41,7 +41,7 @@ namespace YAF.Pages
   #endregion
 
   /// <summary>
-  /// Summary description for attachments.
+  /// The attachments Page Class.
   /// </summary>
   public partial class attachments : ForumPage
   {
@@ -226,7 +226,7 @@ namespace YAF.Pages
 
       if (this.PageContext.Settings.LockedForum == 0)
       {
-        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
         this.PageLinks.AddLink(
           this.PageContext.PageCategoryName, 
           YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
@@ -237,14 +237,9 @@ namespace YAF.Pages
         this.PageContext.PageTopicName, YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.PageContext.PageTopicID));
       this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
-      if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t").IsNotSet())
-      {
-        this.Back.Text = this.GetText("BACK");
-      }
-      else
-      {
-        this.Back.Text = this.GetText("COMMON", "CONTINUE");
-      }
+        this.Back.Text = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t").IsNotSet()
+                             ? this.GetText("BACK")
+                             : this.GetText("COMMON", "CONTINUE");
 
       this.Upload.Text = this.GetText("UPLOAD");
 
@@ -268,11 +263,11 @@ namespace YAF.Pages
         this.ExtensionsList.Text = types;
       }
 
-      if (this.PageContext.BoardSettings.MaxFileSize > 0)
+      if (this.Get<YafBoardSettings>().MaxFileSize > 0)
       {
         this.UploadNodePlaceHold.Visible = true;
         this.UploadNote.Text = this.GetTextFormatted(
-          "UPLOAD_NOTE", (this.PageContext.BoardSettings.MaxFileSize / 1024).ToString());
+          "UPLOAD_NOTE", (this.Get<YafBoardSettings>().MaxFileSize / 1024).ToString());
       }
       else
       {
@@ -321,13 +316,13 @@ namespace YAF.Pages
       this.List.Visible = (dt.Rows.Count > 0) ? true : false;
 
       // show disallowed or allowed localized text depending on the Board Setting
-      this.ExtensionTitle.LocalizedTag = this.PageContext.BoardSettings.FileExtensionAreAllowed
+      this.ExtensionTitle.LocalizedTag = this.Get<YafBoardSettings>().FileExtensionAreAllowed
                                            ? "ALLOWED_EXTENSIONS"
                                            : "DISALLOWED_EXTENSIONS";
 
-      if (this.PageContext.BoardSettings.MaxNumberOfAttachments > 0)
+      if (this.Get<YafBoardSettings>().MaxNumberOfAttachments > 0)
       {
-        if (dt.Rows.Count > (this.PageContext.BoardSettings.MaxNumberOfAttachments - 1))
+        if (dt.Rows.Count > (this.Get<YafBoardSettings>().MaxNumberOfAttachments - 1))
         {
           this.uploadtitletr.Visible = false;
           this.selectfiletr.Visible = false;
@@ -344,7 +339,7 @@ namespace YAF.Pages
     /// The uploaded file.
     /// </param>
     /// <returns>
-    /// The check valid file.
+    /// Returns if the File Is Valid
     /// </returns>
     private bool CheckValidFile([NotNull] HtmlInputFile uploadedFile)
     {
@@ -365,14 +360,13 @@ namespace YAF.Pages
 
       bool bInList = dt.Rows.Count > 0;
       bool bError = false;
-     
         
-      if (this.PageContext.BoardSettings.FileExtensionAreAllowed && !bInList)
+      if (this.Get<YafBoardSettings>().FileExtensionAreAllowed && !bInList)
       {
         // since it's not in the list -- it's invalid
         bError = true;
       }
-      else if (!this.PageContext.BoardSettings.FileExtensionAreAllowed && bInList)
+      else if (!this.Get<YafBoardSettings>().FileExtensionAreAllowed && bInList)
       {
         // since it's on the list -- it's invalid
         bError = true;
@@ -403,8 +397,6 @@ namespace YAF.Pages
     /// <param name="file">
     /// The file.
     /// </param>
-    /// <exception cref="Exception">
-    /// </exception>
     private void SaveAttachment([NotNull] object messageID, [NotNull] HtmlInputFile file)
     {
       if (file.PostedFile == null || file.PostedFile.FileName.Trim().Length == 0 || file.PostedFile.ContentLength == 0)
@@ -414,7 +406,14 @@ namespace YAF.Pages
 
       string previousDirectory =
         this.Get<HttpRequestBase>().MapPath(
-          String.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
+          string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
+
+      // check if Uploads folder exists
+      if (!Directory.Exists(previousDirectory))
+      {
+          Directory.CreateDirectory(previousDirectory);
+      }
+
       string filename = file.PostedFile.FileName;
 
       int pos = filename.LastIndexOfAny(new[] { '/', '\\' });
@@ -430,17 +429,17 @@ namespace YAF.Pages
       }
 
       // verify the size of the attachment
-      if (this.PageContext.BoardSettings.MaxFileSize > 0 &&
-          file.PostedFile.ContentLength > this.PageContext.BoardSettings.MaxFileSize)
+      if (this.Get<YafBoardSettings>().MaxFileSize > 0 &&
+          file.PostedFile.ContentLength > this.Get<YafBoardSettings>().MaxFileSize)
       {
         this.PageContext.AddLoadMessage(
           this.GetTextFormatted(
-            "UPLOAD_TOOBIG", file.PostedFile.ContentLength / 1024, this.PageContext.BoardSettings.MaxFileSize / 1024));
+            "UPLOAD_TOOBIG", file.PostedFile.ContentLength / 1024, this.Get<YafBoardSettings>().MaxFileSize / 1024));
 
         return;
       }
 
-      if (this.PageContext.BoardSettings.UseFileTable)
+      if (this.Get<YafBoardSettings>().UseFileTable)
       {
         LegacyDb.attachment_save(
           messageID, filename, file.PostedFile.ContentLength, file.PostedFile.ContentType, file.PostedFile.InputStream);
