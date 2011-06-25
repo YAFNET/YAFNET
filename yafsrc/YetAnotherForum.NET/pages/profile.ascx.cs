@@ -169,6 +169,12 @@ namespace YAF.Pages
             YafContext.Current.PageElements.RegisterJsBlock(
               "ProfileTabsJs", JavaScriptBlocks.JqueryUITabsLoadJs(this.ProfileTabs.ClientID, this.hidLastTab.ClientID, true));
 
+            // Setup Syntax Highlight JS
+            YafContext.Current.PageElements.RegisterJsResourceInclude("syntaxhighlighter", "js/jquery.syntaxhighligher.js");
+            YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.syntaxhighligher.css");
+            YafContext.Current.PageElements.RegisterJsBlockStartup(
+              "syntaxhighlighterjs", JavaScriptBlocks.SyntaxHighlightLoadJs);
+
             base.OnPreRender(e);
         }
 
