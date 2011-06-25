@@ -1754,7 +1754,7 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="ERROR_MAXALBUMS">شما مجاز به ایجاد آلبوم بیشتر به این حساب نمی باشید.</Resource>
     <Resource tag="ERROR_TOOBIG">شما مجاز به ارسال تصویری با این حجم نمی باشید.</Resource>
     <Resource tag="IMAGES_COUNT_LIMIT">تعداد عکسهای مجاز شما به اتمام رسید.شما می توانید حداکثر {0} عکس را ارسال کنید.n {0} images.</Resource>
-    <Resource tag="IMAGES_INFO">توجه: هم اکنون این آلبوم {0} تصویر دارد و شما مجاز به داشتن {1} تصویر در هر آلبوم هستید.</Resource>
+    <Resource tag="IMAGES_INFO">توجه: هم اکنون این آلبوم {0} تصویر دارد و شما مجاز به داشتن {1} تصویر در هر آلبوم هستید. The max. filesize for an Image is {2} kb</Resource>
     <Resource tag="TITLE">ایجاد/ویرایش آلبوم</Resource>
   </page>
   <page name="CP_EDITAVATAR">

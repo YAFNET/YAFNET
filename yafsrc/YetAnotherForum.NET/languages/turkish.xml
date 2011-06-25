@@ -1748,7 +1748,7 @@
     <Resource tag="ERROR_MAXALBUMS">Bu hesabınıza daha fazla albüm eklemeyezsiniz.</Resource>
     <Resource tag="ERROR_TOOBIG">Bu büyüklükteki resmi ekleyemezsiniz.</Resource>
     <Resource tag="IMAGES_COUNT_LIMIT">Resim limitine ulaşıldı. {0} 'den fazla resim ekleyemezsiniz.</Resource>
-    <Resource tag="IMAGES_INFO">Note: Currently this Album contains {0} Image(s) you allowed to have {1} images for each album.</Resource>
+    <Resource tag="IMAGES_INFO">Note: Currently this Album contains {0} Image(s) you allowed to have {1} images for each album. The max. filesize for an Image is {2} kb</Resource>
     <Resource tag="TITLE">Albüm Ekle/Düzenle</Resource>
   </page>
   <page name="CP_EDITAVATAR">

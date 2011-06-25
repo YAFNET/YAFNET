@@ -1754,7 +1754,7 @@
     <Resource tag="ERROR_MAXALBUMS">Sie können keine weiteren Bilder diesem Konto hinzufügen.</Resource>
     <Resource tag="ERROR_TOOBIG">Sie können Solche großen Bilder nicht Hochladen.</Resource>
     <Resource tag="IMAGES_COUNT_LIMIT">Sie haben ihr Limit erreicht. Sie können nicht mehr als {0} Bilder hinzufügen.</Resource>
-    <Resource tag="IMAGES_INFO">Notiz: Aktuell enthält das Album {0} Bilder sie sind berechtigt {1} Bilder pro Album hochzuladen.</Resource>
+    <Resource tag="IMAGES_INFO">Notiz: Aktuell enthält das Album {0} Bilder sie sind berechtigt {1} Bilder pro Album hochzuladen. Die max. Dateigröße für ein Bild ist  {2} kb</Resource>
     <Resource tag="TITLE">Hinzufügen/Bearbeiten Album</Resource>
   </page>
   <page name="CP_EDITAVATAR">
@@ -2249,7 +2249,8 @@
 &lt;/ul&gt;
 &lt;p&gt;Anklickbare Buttons sind verfügbar in den Standard WYSIWYG (What You  See Is What You Get) Editoren. Die Buttons sind je nach Editor  unterschiedlich, der CKEditor zeigt die Textformatierungen direkt an.&lt;/p&gt;
 &lt;p&gt;Es hängt davon ab welcher Editor aktiviert ist, wenn ein BB  Code Editor aktiviert ist können Texte nur durch BB Codes formatiert werden.  Ist ein HTML Editor aktiviert kann können die Textformatierungen per HTML Code  Formatiert werden. Wenn aktiviert können Sie den Editor in ihren Profil  Einstellungen selbst wählen.&lt;/p&gt;
-&lt;p&gt;Um die Button im Editor zu verwenden klicken Sie einfach  darauf. Zum Beispiel B (bold) Button für Fetten Text und der Text wird Fett  bzw. im BB Code Editor wird der Text mit  [b]FETTER TEXT[/b] formatiert.&lt;/p&gt;</Resource>
+&lt;p&gt;Um die Button im Editor zu verwenden klicken Sie einfach  darauf. Zum Beispiel B (bold) Button für Fetten Text und der Text wird Fett  bzw. im BB Code Editor wird der Text mit  [b]FETTER TEXT[/b] formatiert.&lt;/p&gt;
+&lt;p&gt;Um mehr &#252;ber BB Codes zu erfahren, und welche verf&#252;gbar sind lesen Sie das Thema  &lt;a href=&quot;{0}&quot;&gt;BB Code Liste&lt;/a&gt;&lt;/p&gt;</Resource>
     <Resource tag="POSTINGTITLE">Neue Themen und Beiträge erstellen</Resource>
     <Resource tag="PROFILETOPICS">Einstellungen und Profil Funktionen</Resource>
     <Resource tag="PUBLICPROFILECONTENT">&lt;p&gt;Als  Mitglied haben Sie eine Öffentlich einsehbare Profilseite. Diese Seite enthält  Informationen die der Benutzer bereitgestellt hat, entweder bei der Registrierung  oder im späteren Verlauf.&lt;/p&gt;
@@ -2336,6 +2337,8 @@
     <Resource tag="THREADOPTTITLE">Themen Optionen</Resource>
     <Resource tag="TITLE">YetAnotherForum.NET Hilfe</Resource>
     <Resource tag="WELCOME">Hier können Sie Antworten auf Fragen finden darüber wie das Forum Funktioniert. Benutzen Sie die links auf der linken Seite oder die Suchbox um zu finden wonach Sie suchen.</Resource>
+	<Resource tag="BBCODESTITLE">BB Code Liste</Resource>
+    <Resource tag="BBCODESCONTENT">&lt;p&gt;On this Page you find a list  of the BB code tags you can use to format your messages.&lt;/p&gt;</Resource>
   </page>
   <page name="ICONLEGEND">
     <Resource tag="ANNOUNCEMENT">Ankündigung</Resource>

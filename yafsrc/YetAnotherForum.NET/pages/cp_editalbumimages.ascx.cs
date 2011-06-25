@@ -187,7 +187,7 @@ namespace YAF.Pages
                         }
 
                         this.imagesInfo.Text = this.GetTextFormatted(
-                          "IMAGES_INFO", this.List.Items.Count, usrAlbumImagesAllowed);
+                          "IMAGES_INFO", this.List.Items.Count, usrAlbumImagesAllowed, this.Get<YafBoardSettings>().AlbumImagesSizeMax / 1024);
                     }
                     else
                     {
@@ -302,7 +302,7 @@ namespace YAF.Pages
                 }
 
                 this.imagesInfo.Text = this.GetTextFormatted(
-                    "IMAGES_INFO", this.List.Items.Count, usrAlbumImagesAllowed);
+                    "IMAGES_INFO", this.List.Items.Count, usrAlbumImagesAllowed, this.Get<YafBoardSettings>().AlbumImagesSizeMax / 1024);
             }
             else
             {
@@ -377,7 +377,7 @@ namespace YAF.Pages
                     }
 
                     this.imagesInfo.Text = this.GetTextFormatted(
-                      "IMAGES_INFO", this.List.Items.Count, usrAlbumImagesAllowed);
+                      "IMAGES_INFO", this.List.Items.Count, usrAlbumImagesAllowed, this.Get<YafBoardSettings>().AlbumImagesSizeMax / 1024);
                 }
                 else
                 {
@@ -528,7 +528,8 @@ namespace YAF.Pages
 
                 // clear the cache for this user to update albums|images stats...
                 this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
-                //  Response.Write("<script>document.forms[0].submit();</script>");
+
+                // Response.Write("<script>document.forms[0].submit();</script>");
                 // this.Get<IRaiseEvent>().Raise(new Page_Load());
                 this.txtTitle.Text = LegacyDb.album_gettitle(albumID);
                 DataTable dt = LegacyDb.album_image_list(albumID, null);

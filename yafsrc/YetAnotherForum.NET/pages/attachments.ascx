@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.attachments" Codebehind="attachments.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.attachments" Codebehind="attachments.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <div class="DivTopSeparator">
@@ -29,7 +29,7 @@
 					<%# Eval( "FileName") %>
 				</td>
 				<td class="post" align="right">
-					<%# Eval( "Bytes") %>
+					<%# (int)Eval("Bytes") / 1024%> Kb
 				</td>
 				<td class="post">
 					<asp:LinkButton runat="server" OnLoad="Delete_Load" CommandName="delete" CommandArgument='<%# Eval( "AttachmentID") %>'><%# this.GetText("DELETE") %></asp:LinkButton>

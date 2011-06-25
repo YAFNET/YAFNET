@@ -1768,7 +1768,7 @@
     <Resource tag="ERROR_MAXALBUMS">لا يمكن إضافة البوم لهذه الحساب .</Resource>
     <Resource tag="ERROR_TOOBIG">لايمكن تحميل هذه الصورة بسبب الحجمهايرجى اخيتيار صوره اقل  حجما</Resource>
     <Resource tag="IMAGES_COUNT_LIMIT">. صورة في نفس الالبوم{لايمكن إضافةاكثر من {0 </Resource>
-    <Resource tag="IMAGES_INFO">Note: Currently this Album contains {0} Image(s) you allowed to have {1} images for each album.</Resource>
+    <Resource tag="IMAGES_INFO">Note: Currently this Album contains {0} Image(s) you allowed to have {1} images for each album. The max. filesize for an Image is {2} kb</Resource>
     <Resource tag="TITLE">إضافة \تعديل البوم</Resource>
   </page>
   <page name="CP_EDITAVATAR">

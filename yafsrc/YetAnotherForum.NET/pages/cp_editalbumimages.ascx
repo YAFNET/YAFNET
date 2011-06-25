@@ -43,7 +43,7 @@
                     <%# Eval( "FileName") %>
                 </td>
                 <td class="post" align="right">
-                    <%# Eval( "Bytes") %>
+                    <%# (int)Eval("Bytes") / 1024%> Kb
                 </td>
                 <td class="post">
                     <asp:LinkButton ID="ImageDelete" runat="server" OnLoad="ImageDelete_Load" CommandName="delete"

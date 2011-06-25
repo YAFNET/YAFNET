@@ -1768,7 +1768,7 @@
     <Resource tag="ERROR_MAXALBUMS">Sellele kontole albumeid enam ei saa lisada.</Resource>
     <Resource tag="ERROR_TOOBIG">Pilt on liiga suur üles laadimiseks.</Resource>
     <Resource tag="IMAGES_COUNT_LIMIT">Teie piltide limiit on saavutatud. Te saate lisada kuni {0} pilti igasse albumisse.</Resource>
-    <Resource tag="IMAGES_INFO">Note: Currently this Album contains {0} Image(s) you allowed to have {1} images for each album.</Resource>
+    <Resource tag="IMAGES_INFO">Note: Currently this Album contains {0} Image(s) you allowed to have {1} images for each album. The max. filesize for an Image is {2} kb</Resource>
     <Resource tag="TITLE">Lisa/muuda albumit</Resource>
   </page>
   <page name="CP_EDITAVATAR">

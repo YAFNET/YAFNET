@@ -398,6 +398,13 @@ namespace YAF.Controls
             YafContext.Current.PageElements.RegisterJsBlockStartup(
               "syntaxhighlighterjs", JavaScriptBlocks.SyntaxHighlightLoadJs);
 
+            if (!(this.Get<IYafSession>().UseMobileTheme ?? false) && UserBox1 != null)
+            {
+                YafContext.Current.PageElements.RegisterJsBlock(
+                    "fixPostDivHeightJs{0}".FormatWith(this.ClientID),
+                    JavaScriptBlocks.FixPostDivHeight(UserBox1.ClientID, panMessage.ClientID));
+            }
+
             if (!this.Get<YafBoardSettings>().EnableThanksMod)
             {
                 return;
@@ -423,13 +430,6 @@ namespace YAF.Controls
 
             YafContext.Current.PageElements.RegisterJsBlockStartup(
                 "asynchCallFailedJs", asynchCallFailedJs);
-
-            if (!(this.Get<IYafSession>().UseMobileTheme ?? false) && UserBox1 != null)
-            {
-                YafContext.Current.PageElements.RegisterJsBlock(
-                    "fixPostDivHeightJs{0}".FormatWith(this.ClientID),
-                    JavaScriptBlocks.FixPostDivHeight(UserBox1.ClientID, panMessage.ClientID));
-            }
 
             this.FormatThanksRow();
         }

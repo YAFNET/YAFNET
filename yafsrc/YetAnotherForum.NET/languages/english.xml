@@ -274,7 +274,7 @@
 &lt;p&gt;Clickable controls are available in the Standard and Enhanced WYSIWYG (What You See Is What You Get) editors. The difference between these is that the standard editor will show the BB code in your message and be processed when it is displayed. The enhanced WYSIWYG editor will show your message as it will be displayed while you are typing.&lt;/p&gt;
 &lt;p&gt;Currently it depends on the Administrator which Editor is enabled ether WYSIWYG or the BB Code Editor.&lt;/p&gt;
 &lt;p&gt;To use these, simply click the button, for example the B (bold) button and then type to get bold text. Click the button again to stop using that formatting. You can also highlight text that you have already typed then click the formatting button to format existing text.&lt;/p&gt;
-&lt;p&gt;BB code is a special set of codes similar to HTML that can be used in posts to the board.&lt;/p&gt;</Resource>
+&lt;p&gt;BB code Tags are a special set of tags similar to HTML tags that can be used in posts to the board. To find out more about the BB codes and which are available go to the Help Topic &lt;a href=&quot;{0}&quot;&gt;BB Codes List&lt;/a&gt;&lt;/p&gt;</Resource>
         <Resource tag="REPLYINGCONTENT">&lt;p&gt;On some boards you might be able to post and reply as a guest user. But most communities require registration.&lt;/p&gt;
 &lt;p&gt;A registered user can go to a forum on a board where he has permission to view Topics and leave replies. To reply you have a few options. You can click on the &#39;Post Reply&#39; button and add a new Message to the end of the Topic. Alternatively, you can leave a quick reply in a Quick Reply box listed below the posts in the Topic.&lt;/p&gt;
 &lt;p&gt;If you want to Reply to a Message hit the &#39;Quote&#39; button and you can Reply to a Message with the Quoted Text.&lt;/p&gt;</Resource>
@@ -350,6 +350,65 @@
   &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;em&gt;You may also receive a couple of Information and Error Messages in the same way.&lt;/em&gt;&lt;/p&gt;</Resource>
+      <Resource tag="BBCODESTITLE">BB Codes List</Resource>
+      <Resource tag="BBCODESCONTENT">&lt;p&gt;On this Page you find a list  of the BB code tags you can use to format your messages.&lt;/p&gt;
+
+&lt;dl style=&quot;width: 300px;
+	padding: 10px;
+	float: left;
+	margin-right: 1em;&quot; class=&quot;content&quot;&gt;
+          &lt;dt&gt;&lt;h2&gt;Bold&lt;/h2&gt;&lt;/dt&gt;
+          &lt;dd&gt;The [b] tag allow you to create text that is bold.&lt;/dd&gt;
+          &lt;dt&gt;&lt;strong&gt;Usage&lt;/strong&gt;&lt;/dt&gt;
+          &lt;dd&gt;[b]this text is bold[/b]&lt;/dd&gt;
+          &lt;dt&gt;&lt;strong&gt;Output&lt;/strong&gt;&lt;/dt&gt;
+          &lt;dd&gt;&lt;strong&gt;this text is bold&lt;/strong&gt;&lt;/dd&gt;
+       &lt;/dl&gt;
+       &lt;dl style=&quot;width: 300px;
+	padding: 10px;
+	float: left;
+	margin-right: 1em;&quot; class=&quot;content&quot;&gt;
+          &lt;dt&gt;&lt;h2&gt;Italic&lt;/h2&gt;&lt;/dt&gt;
+          &lt;dd&gt;The [i] tag allow you to create text that italic.&lt;/dd&gt;
+          &lt;dt&gt;&lt;strong&gt;Usage&lt;/strong&gt;&lt;/dt&gt;
+          &lt;dd&gt;[i]this text is italic[/i]&lt;/dd&gt;
+          &lt;dt&gt;&lt;strong&gt;Output&lt;/strong&gt;&lt;/dt&gt;
+	      &lt;dd&gt;&lt;em&gt;this text is italic&lt;/em&gt;&lt;/dd&gt;
+       &lt;/dl&gt;
+       &lt;dl style=&quot;width: 300px;
+	padding: 10px;
+	float: left;
+	margin-right: 1em;&quot; class=&quot;content&quot;&gt;
+          &lt;dt&gt;&lt;h2&gt;Underline&lt;/h2&gt;&lt;/dt&gt;
+          &lt;dd&gt;The [u] tag allow you to create text underlined.&lt;/dd&gt;
+          &lt;dt&gt;&lt;strong&gt;Usage&lt;/strong&gt;&lt;/dt&gt;
+          &lt;dd&gt;[u]this text is underlined[/u]&lt;/dd&gt;
+          &lt;dt&gt;&lt;strong&gt;Output&lt;/strong&gt;&lt;/dt&gt;
+	      &lt;dd&gt;&lt;u&gt;this text is underlined&lt;/u&gt;&lt;/dd&gt;
+       &lt;/dl&gt;
+&lt;dl style=&quot;width: 300px;
+	padding: 10px;
+	float: left;
+	margin-right: 1em;&quot; class=&quot;content&quot;&gt;
+          &lt;dt&gt;&lt;h2&gt;Color&lt;/h2&gt;&lt;/dt&gt;
+          &lt;dd&gt;The [color] tag allows you to change the color of your text.&lt;/dd&gt;
+          &lt;dt&gt;&lt;strong&gt;Usage&lt;/strong&gt;&lt;/dt&gt;
+          &lt;dd&gt;[color=blue]this text is blue[/color]&lt;/dd&gt;
+          &lt;dt&gt;&lt;strong&gt;Output&lt;/strong&gt;&lt;/dt&gt;
+	      &lt;dd&gt;&lt;font color=&quot;blue&quot;&gt;this text is blue&lt;/font&gt;&lt;/dd&gt;
+       &lt;/dl&gt;
+       &lt;dl style=&quot;width: 300px;
+	padding: 10px;
+	float: left;
+	margin-right: 1em;&quot; class=&quot;content&quot;&gt;
+          &lt;dt&gt;&lt;h2&gt;Size&lt;/h2&gt;&lt;/dt&gt;
+          &lt;dd&gt;The [size] tag allows you to change the size of your text.&lt;/dd&gt;
+          &lt;dt&gt;&lt;strong&gt;Usage&lt;/strong&gt;&lt;/dt&gt;
+          &lt;dd&gt;[size=+2]this text is two sizes larger than normal[/size]&lt;/dd&gt;
+          &lt;dt&gt;&lt;strong&gt;Output&lt;/strong&gt;&lt;/dt&gt;
+	      &lt;dd&gt;&lt;font size=&quot;+2&quot;&gt;this text is two sizes larger than normal&lt;/font&gt;&lt;/dd&gt;
+       &lt;/dl&gt;
+</Resource>
    </page>
    <page name="DIGEST">
       <Resource tag="NEWTOPICS">New Topics</Resource>
@@ -1329,7 +1388,7 @@
       <Resource tag="ASK_DELETEIMAGE">Delete this image?</Resource>
       <Resource tag="ALBUMS_COUNT_LIMIT">You can't create more than {0} albums.</Resource>
       <Resource tag="IMAGES_COUNT_LIMIT">Your image limit is reached. You can add no more than {0} images for each album.</Resource>
-      <Resource tag="IMAGES_INFO">Note: Currently this Album contains {0} Image(s) you allowed to have {1} images for each album.</Resource>
+      <Resource tag="IMAGES_INFO">Note: Currently this Album contains {0} Image(s) you allowed to have {1} images for each album. The max. filesize for an Image is {2} kb</Resource>
    </page>
    <page name="ALBUM">
       <Resource tag="ALBUMS">Albums</Resource>
