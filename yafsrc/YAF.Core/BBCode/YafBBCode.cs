@@ -59,6 +59,12 @@ namespace YAF.Core.BBCode
             @"\[localization=(?<tag>[^\]]*)\](?<inner>(.+?))\[/localization\]";
 
         /// <summary>
+        ///   The _rgx noparse.
+        /// </summary>
+        private static readonly Regex _rgxNoParse = new Regex(
+            @"\[noparse\](?<inner>(.*?))\[/noparse\]", _options | RegexOptions.Compiled);
+
+        /// <summary>
         ///   The _rgx bold.
         /// </summary>
         private static readonly Regex _rgxBold = new Regex(
@@ -450,6 +456,11 @@ namespace YAF.Core.BBCode
 
             if (doFormatting)
             {
+                 ruleEngine.AddRule(
+                    new CodeRegexReplaceRule(
+                       _rgxNoParse,
+                        @"${inner}"));
+
                 ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxBold, "<b>${inner}</b>"));
                 ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxStrike, "<s>${inner}</s>", _options));
                 ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxItalic, "<em>${inner}</em>", _options));

@@ -25,8 +25,10 @@ namespace YAF.Core
   using System;
   using System.Collections.Generic;
   using System.Globalization;
+  using System.Text.RegularExpressions;
   using System.Web;
 
+  using YAF.Classes;
   using YAF.Classes.Data;
   using YAF.Types;
   using YAF.Types.Constants;
@@ -262,9 +264,9 @@ namespace YAF.Core
         if ( YafContext.Current.PageIsNull() ||
              YafContext.Current.LanguageFile == string.Empty ||
              YafContext.Current.LanguageFile == string.Empty ||
-             !YafContext.Current.BoardSettings.AllowUserLanguage )
+             !YafContext.Current.Get<YafBoardSettings>().AllowUserLanguage)
         {
-          filename = YafContext.Current.BoardSettings.Language;
+            filename = YafContext.Current.Get<YafBoardSettings>().Language;
         }
         else
         {
@@ -273,7 +275,7 @@ namespace YAF.Core
 
         if ( filename == string.Empty ) filename = "english.xml";
 
-        HttpContext.Current.Cache.Remove( "Localizer." + filename );
+        HttpContext.Current.Cache.Remove( "Localizer.{0}".FormatWith(filename) );
 #endif
         LegacyDb.eventlog_create(
           YafContext.Current.PageUserID, 
@@ -283,8 +285,18 @@ namespace YAF.Core
         return "[{1}.{0}]".FormatWith(tag.ToUpper(), page.ToUpper());
       }
 
-      localizedText = localizedText.Replace("[b]", "<b>");
-      localizedText = localizedText.Replace("[/b]", "</b>");
+      // localizedText = localizedText.Replace("[b]", "<strong>");
+      // localizedText = localizedText.Replace("[/b]", "</strong>");
+
+      Regex rgx = new Regex(@"(?<!\[noparse\])(?<inner>\[b\])");
+      localizedText = rgx.Replace(localizedText, "<strong>");
+
+      rgx = new Regex(@"(?<inner>\[/b\])(?>!\[/noparse\])");
+      localizedText = rgx.Replace(localizedText, "</strong>");
+
+      localizedText = localizedText.Replace("[noparse]", string.Empty);
+      localizedText = localizedText.Replace("[/noparse]", string.Empty);
+
       return localizedText;
     }
 
@@ -332,9 +344,9 @@ namespace YAF.Core
                 if (YafContext.Current.PageIsNull() ||
                  YafContext.Current.LanguageFile == string.Empty ||
                  YafContext.Current.LanguageFile == string.Empty ||
-                 !YafContext.Current.BoardSettings.AllowUserLanguage)
+                 !YafContext.Current.Get<YafBoardSettings>().AllowUserLanguage)
                 {
-                    filename = YafContext.Current.BoardSettings.Language;
+                    filename = YafContext.Current.Get<YafBoardSettings>().Language;
                 }
                 else
                 {
@@ -370,7 +382,7 @@ namespace YAF.Core
     /// The tag.
     /// </param>
     /// <returns>
-    /// The get text exists.
+    /// Returns value if text exists.
     /// </returns>
     public bool GetTextExists([NotNull] string page, [NotNull] string tag)
     {
@@ -381,11 +393,13 @@ namespace YAF.Core
     /// Formats a localized string -- but verifies the parameter count matches
     /// </summary>
     /// <param name="text">
+    /// The text.
     /// </param>
     /// <param name="args">
+    /// The args.
     /// </param>
     /// <returns>
-    /// The get text formatted.
+    /// Returns the Formatted Text
     /// </returns>
     public string GetTextFormatted([NotNull] string text, [NotNull] params object[] args)
     {
@@ -432,7 +446,7 @@ namespace YAF.Core
     /// The file name.
     /// </param>
     /// <returns>
-    /// The load translation.
+    /// Returns the translation Culture Info.
     /// </returns>
     public CultureInfo LoadTranslation([NotNull] string fileName)
     {
@@ -511,9 +525,9 @@ namespace YAF.Core
       string filename;
 
       if (YafContext.Current.PageIsNull() || YafContext.Current.Page["LanguageFile"] == DBNull.Value ||
-          !YafContext.Current.BoardSettings.AllowUserLanguage)
+          !YafContext.Current.Get<YafBoardSettings>().AllowUserLanguage)
       {
-        filename = YafContext.Current.BoardSettings.Language;
+          filename = YafContext.Current.Get<YafBoardSettings>().Language;
       }
       else
       {
