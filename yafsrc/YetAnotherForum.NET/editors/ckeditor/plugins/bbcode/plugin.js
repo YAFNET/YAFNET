@@ -77,10 +77,25 @@ CKEDITOR.htmlDataProcessor.prototype =
 		data = data.replace(/\[\/right\]/gi,'</div>');
 		
 		// [list]
-		data = data.replace(/\[list\](.*?)\[\/list\]/gi,'<ul>$1</ul>');
-		
+		data = data.replace(/\[list\](.*?)\[\/list\]/gi, '<ul>$1</ul>');
+
 		// [list=1]
-		data = data.replace(/\[list=1\](.*?)\[\/list\]/gi,'<ol>$1</ol>');
+		data = data.replace(/\[list=1\](.*?)\[\/list\]/gi, '<ol style="list-style-type:number">$1</ol>');
+		
+		// [list=a]
+		data = data.replace(/\[list=a\](.*?)\[\/list\]/gi, '<ol style="list-style-type:lower-alpha">$1</ol>');
+
+		// [list=A]
+		data = data.replace(/\[list=A\](.*?)\[\/list\]/gi, '<ol style="list-style-type:upper-alpha">$1</ol>');
+
+		// [list=i]
+		data = data.replace(/\[list=i\](.*?)\[\/list\]/gi, '<ol style="list-style-type:lower-roman">$1</ol>');
+
+		// [list=I]
+		data = data.replace(/\[list=I\](.*?)\[\/list\]/gi, '<ol style="list-style-type:upper-roman">$1</ol>');
+
+		// [list=1]
+		data = data.replace(/\[list=1\](.*?)\[\/list\]/gi, '<ol>$1</ol>');
 		
 		// [*]
 		data = data.replace(/\[\*]/gi,'<li>');
@@ -150,7 +165,25 @@ CKEDITOR.htmlDataProcessor.prototype =
 		//html = html.replace(/<div style=\"text-align:(.*?)\">/gi, '[$1]');
 		
 		// [list=1]
+		html = html.replace(/<ol style=\"list-style-type:number\">(.*?)<\/ol>/gi, '[list=1]$1[/list]');
+		html = html.replace(/<ol type=\"1\">(.*?)<\/ol>/gi, '[list=1]$1[/list]');
 		html = html.replace(/<ol>(.*?)<\/ol>/gi, '[list=1]$1[/list]');
+
+		// [list=a]
+		html = html.replace(/<ol style=\"list-style-type:lower-alpha\">(.*?)<\/ol>/gi, '[list=a]$1[/list]');
+		html = html.replace(/<ol type=\"a\">(.*?)<\/ol>/gi, '[list=a]$1[/list]');
+
+		// [list=A]
+		html = html.replace(/<ol style=\"list-style-type:upper-alpha\">(.*?)<\/ol>/gi, '[list=A]$1[/list]');
+		html = html.replace(/<ol type=\"A\">(.*?)<\/ol>/gi, '[list=A]$1[/list]');
+
+		// [list=i]
+		html = html.replace(/<ol style=\"list-style-type:lower-roman\">(.*?)<\/ol>/gi, '[list=i]$1[/list]');
+		html = html.replace(/<ol type=\"i\">(.*?)<\/ol>/gi, '[list=i]$1[/list]');
+
+		// [list=I]
+		html = html.replace(/<ol style=\"list-style-type:upper-roman\">(.*?)<\/ol>/gi, '[list=I]$1[/list]');
+		html = html.replace(/<ol type=\"I\">(.*?)<\/ol>/gi, '[list=I]$1[/list]');
 		
 		// [list]
 		html = html.replace(/<ul>(.*?)<\/ul>/gi, '[list]$1[/list]');
