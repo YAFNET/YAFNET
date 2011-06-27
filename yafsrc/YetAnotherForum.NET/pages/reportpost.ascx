@@ -46,10 +46,11 @@
         </td>
     </tr>
     <tr class="footer1">
-        <td colspan="2" align="center">
-             <YAF:ThemeButton ID="btnReport" runat="server" CssClass="yafcssbigbutton"
+        <td></td>
+        <td>
+             <YAF:ThemeButton ID="btnReport" runat="server" CssClass="yafcssbigbutton leftItem"
                 TextLocalizedTag="SEND" TitleLocalizedTag="SEND_TITLE" OnClick="BtnReport_Click" />
-             <YAF:ThemeButton ID="btnCancel" runat="server" CssClass="yafcssbigbutton"
+             <YAF:ThemeButton ID="btnCancel" runat="server" CssClass="yafcssbigbutton leftItem"
                 TextLocalizedTag="CANCEL" TitleLocalizedTag="CANCEL_TITLE" OnClick="BtnCancel_Click" />
         </td>
     </tr>
