@@ -14,6 +14,20 @@
     <ExecOrder>1</ExecOrder>
   </YafBBCode>
   <YafBBCode>
+    <Name>GOOGLEMAPS</Name>
+    <Description>[GOOGLEMAPS]Enter Google Maps Url[/GOOGLEMAPS]</Description>
+    <OnClickJS />
+    <DisplayJS />
+    <EditJS />
+    <DisplayCSS />
+    <SearchRegex>\[googlemaps\](?&lt;inner&gt;.+?)\[/googlemaps\]</SearchRegex>
+    <ReplaceRegex>&lt;iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="${inner}&amp;amp;output=embed"&gt;&lt;/iframe&gt;</ReplaceRegex>
+    <Variables />
+    <UseModule>false</UseModule>
+    <ModuleClass />
+    <ExecOrder>2</ExecOrder>
+  </YafBBCode>
+  <YafBBCode>
     <Name>GOOGLEWIDGET</Name>
     <Description>[GOOGLEWIDGET]&amp;lt;script src=&amp;quot;url&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;[/GOOGLEWIDGET]</Description>
     <OnClickJS />
