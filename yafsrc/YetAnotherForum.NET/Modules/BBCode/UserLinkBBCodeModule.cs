@@ -1,4 +1,4 @@
-/* YetAnotherForum.NET
+﻿/* YetAnotherForum.NET
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -18,28 +18,23 @@
  */
 namespace YAF.Modules
 {
-  using System.Linq;
-  using System.Text;
-  using System.Web.UI;
+    using System.Linq;
+    using System.Text;
+    using System.Web.UI;
 
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Utils.Helpers;
-  using YAF.Types;
-  using YAF.Types.Constants;
-  using YAF.Utils;
-  using YAF.Controls;
+    using YAF.Classes;
+    using YAF.Controls;
+    using YAF.Core;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
+    using YAF.Utils.Helpers;
 
-  public class UserLinkBBCodeModule : YafBBCodeControl
-  {
     /// <summary>
-    /// Initializes a new instance of the <see cref="UserLinkBBCodeModule"/> class.
+    /// The BB Code UserLink Module
     /// </summary>
-    public UserLinkBBCodeModule()
-      : base()
-    {
-    }
-
-    /// <summary>
+    public class UserLinkBBCodeModule : YafBBCodeControl
+  {
+        /// <summary>
     /// The render.
     /// </summary>
     /// <param name="writer">
@@ -54,30 +49,24 @@ namespace YAF.Modules
         return;
       }
 
-      var foundUsers = this.Get<IUserDisplayName>().Find(userName.Trim());
+      var userId = this.Get<IUserDisplayName>().GetId(userName.Trim());
 
-      if (foundUsers.Any())
+      if (userId.HasValue)
       {
         var stringBuilder = new StringBuilder();
-        int userId = foundUsers.First().Key;
 
-        var userLink = new UserLink()
-          {
-            UserID = userId,
-            CssClass = "UserLinkBBCode",
-            BlankTarget = true,
-            ID = "UserLinkBBCodeFor{0}".FormatWith(userId)
-          };
+          var userLink = new UserLink
+              {
+                  UserID = (int)userId,
+                  CssClass = "UserLinkBBCode",
+                  BlankTarget = true,
+                  ID = "UserLinkBBCodeFor{0}".FormatWith(userId)
+              };
 
-        var showOnlineStatusImage = YafContext.Current.BoardSettings.ShowUserOnlineStatus &&
+          var showOnlineStatusImage = this.Get<YafBoardSettings>().ShowUserOnlineStatus &&
                                     !UserMembershipHelper.IsGuestUser(userId);
 
-        var onlineStatusImage = new OnlineStatusImage()
-          {
-            ID = "OnlineStatusImage",
-            Style = "vertical-align: bottom",
-            UserID = userId
-          };
+          var onlineStatusImage = new OnlineStatusImage { ID = "OnlineStatusImage", Style = "vertical-align: bottom", UserID = (int)userId };
 
         stringBuilder.AppendLine("<!-- BEGIN userlink -->");
         stringBuilder.AppendLine(@"<span class=""userLinkContainer"">");
