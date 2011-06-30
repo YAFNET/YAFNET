@@ -38,9 +38,9 @@
                     <br />
                     <span id="IPSpan1" runat="server" visible='<%# PageContext.IsAdmin || (PageContext.BoardSettings.AllowModeratorsViewIPs && PageContext.IsModerator)%>'>
                         <strong>
-                            <%# this.GetText("IP") %>:</strong><a id="IPLink1" href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,Container.DataItemToField<string>("IP")) %>'
+                            <%# this.GetText("IP") %>:</strong><a id="IPLink1" href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL, YAF.Utils.Helpers.IPHelper.GetIp4Address(Container.DataItemToField<string>("IP"))) %>'
                                 title='<%# this.GetText("COMMON","TT_IPDETAILS") %>'
-                                target="_blank" runat="server"><%# Container.DataItemToField<string>("IP") %></a>
+                                target="_blank" runat="server"><%# YAF.Utils.Helpers.IPHelper.GetIp4Address(Container.DataItemToField<string>("IP")) %></a>
                     </span>
                 </td>
             </tr>
@@ -64,9 +64,9 @@
                     <%# this.Get<IDateTime>().FormatDateTimeTopic( Container.DataItemToField<DateTime>("Posted") )%>
                     &nbsp; <span id="IPSpan2" runat="server" visible='<%# PageContext.IsAdmin || (PageContext.BoardSettings.AllowModeratorsViewIPs && PageContext.IsModerator)%>'>
                         <strong>
-                            <%# this.GetText("IP") %>:</strong><a id="IPLink2" href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,Container.DataItemToField<string>("IP")) %>'
+                            <%# this.GetText("IP") %>: </strong><a id="IPLink2" href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,YAF.Utils.Helpers.IPHelper.GetIp4Address(Container.DataItemToField<string>("IP"))) %>'
                                 title='<%# this.GetText("COMMON","TT_IPDETAILS") %>'
-                                target="_blank" runat="server"><%# Container.DataItemToField<string>("IP") %></a>
+                                target="_blank" runat="server"><%# YAF.Utils.Helpers.IPHelper.GetIp4Address(Container.DataItemToField<string>("IP")) %></a>
                     </span>
                 </td>
             </tr>
@@ -98,27 +98,26 @@
                     runat="server">
                     <strong>
                         <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedPage="POSTMESSAGE"
-                            LocalizedTag="EDITED" />
-                    </strong>
+                            LocalizedTag="EDITED" /> </strong>
+                    
                     <%# this.Get<IDateTime>().FormatDateTimeTopic( Container.DataItemToField<DateTime>("Edited") ) %>
+                  
                     <br />
                     <strong>
                         <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedPage="POSTMESSAGE"
                             LocalizedTag="EDITEDBY" />
                     </strong>
                     <YAF:UserLink ID="UserLink2" runat="server" UserID='<%# Container.DataItemToField<int>("EditedBy") %>' />
-                    <br />
-                    <strong>
+                    <br />                  
                         <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedPage="POSTMESSAGE"
-                            LocalizedTag="EDITREASON" />
-                    </strong>
+                            LocalizedTag="EDITREASON" />                   
                     <%# Container.DataItemToField<string>("EditReason").IsNotSet() ? this.GetText("EDIT_REASON_NA") : Container.DataItemToField<string>("EditReason") %>
                     <br />
                     <span id="IPSpan3" runat="server" visible='<%# PageContext.IsAdmin || (PageContext.BoardSettings.AllowModeratorsViewIPs && PageContext.IsModerator)%>'>
                         <strong>
-                            <%# this.GetText("IP") %>:</strong><a id="IPLink3" href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,Container.DataItemToField<string>("IP")) %>'
+                            <%# this.GetText("IP") %>: </strong><a id="IPLink3" href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,YAF.Utils.Helpers.IPHelper.GetIp4Address(Container.DataItemToField<string>("IP"))) %>'
                                 title='<%# this.GetText("COMMON","TT_IPDETAILS") %>'
-                                target="_blank" runat="server"><%# Container.DataItemToField<string>("IP") %></a>
+                                target="_blank" runat="server"><%# YAF.Utils.Helpers.IPHelper.GetIp4Address(Container.DataItemToField<string>("IP")) %></a>
                     </span>
                     <br />
                 </td>
