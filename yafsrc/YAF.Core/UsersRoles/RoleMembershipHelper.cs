@@ -25,6 +25,7 @@ namespace YAF.Core
 	using System.Data;
 	using System.Linq;
 	using System.Threading;
+	using System.Threading.Tasks;
 	using System.Web.Security;
 
 	using YAF.Classes.Data;
@@ -310,11 +311,13 @@ namespace YAF.Core
 					u => u != null && u.Email.IsSet());
 
 			// create/update users...
-			users.AsParallel().ForEach(user =>
-				{
-					// allows for breakpoint.
-					UpdateForumUser(user, pageBoardId);
-				});
+			Parallel.ForEach(
+				users,
+				user =>
+					{
+						// allows for breakpoint.
+						UpdateForumUser(user, pageBoardId);
+					});
 		}
 
 		/// <summary>
@@ -513,15 +516,10 @@ namespace YAF.Core
 
 			var userRows = dataTable.AsEnumerable();
 
-			userRows.AsParallel().ForEach(
+			Parallel.ForEach(
+				userRows,
 				row =>
 					{
-						// make sure this thread isn't aborted...
-						if (!Thread.CurrentThread.IsAlive)
-						{
-							return;
-						}
-
 						// skip the guest user
 						if (row.Field<int>("IsGuest") > 0)
 						{
@@ -565,14 +563,14 @@ namespace YAF.Core
 
 									if (!isYafProvider)
 									{
-											/* Email generated password to user
-									System.Text.StringBuilder msg = new System.Text.StringBuilder();
-									msg.AppendFormat( "Hello {0}.\r\n\r\n", name );
-									msg.AppendFormat( "Here is your new password: {0}\r\n\r\n", password );
-									msg.AppendFormat( "Visit {0} at {1}", ForumName, ForumURL );
+										/* Email generated password to user
+								System.Text.StringBuilder msg = new System.Text.StringBuilder();
+								msg.AppendFormat( "Hello {0}.\r\n\r\n", name );
+								msg.AppendFormat( "Here is your new password: {0}\r\n\r\n", password );
+								msg.AppendFormat( "Visit {0} at {1}", ForumName, ForumURL );
 
-									YAF.Classes.Data.DB.mail_create( ForumEmail, user.Email, "Forum Upgrade", msg.ToString() );
-									*/
+								YAF.Classes.Data.DB.mail_create( ForumEmail, user.Email, "Forum Upgrade", msg.ToString() );
+								*/
 									}
 								}
 
