@@ -34,6 +34,7 @@ namespace YAF.Pages.help
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
+    using YAF.Utilities;
     using YAF.Utils;
 
     #endregion
@@ -48,7 +49,7 @@ namespace YAF.Pages.help
         /// <summary>
         ///  List with the Help Content
         /// </summary>
-        private List<YafHelpContent> helpContents = new List<YafHelpContent>();
+        private readonly List<YafHelpContent> helpContents = new List<YafHelpContent>();
 
         #endregion
 
@@ -85,6 +86,8 @@ namespace YAF.Pages.help
         /// </param>
         protected override void OnInit([NotNull] EventArgs e)
         {
+            this.PreRender += Index_PreRender;
+
             this.DoSearch.Click += this.DoSearch_Click;
             base.OnInit(e);
 
@@ -153,6 +156,33 @@ namespace YAF.Pages.help
                 this.SubTitle.Text = this.GetText("subtitle");
                 this.HelpContent.Text = this.GetText("welcome");
             }
+        }
+
+        /// <summary>
+        /// The Pre Render to load the Javascript file
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private static void Index_PreRender([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            // setup jQuery and YAF JS...
+            YafContext.Current.PageElements.RegisterJQuery();
+            YafContext.Current.PageElements.RegisterJQueryUI();
+
+            // Setup Ceebox js
+            YafContext.Current.PageElements.RegisterJsResourceInclude("ceeboxjs", "js/jquery.ceebox-min.js");
+            YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.ceebox.css");
+            YafContext.Current.PageElements.RegisterJsBlock("ceeboxloadjs", JavaScriptBlocks.CeeBoxLoadJs);
+
+            // Setup Syntax Highlight JS
+            YafContext.Current.PageElements.RegisterJsResourceInclude("syntaxhighlighter", "js/jquery.syntaxhighligher.js");
+            YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.syntaxhighligher.css");
+            YafContext.Current.PageElements.RegisterJsBlockStartup(
+              "syntaxhighlighterjs", JavaScriptBlocks.SyntaxHighlightLoadJs);
         }
 
         /// <summary>
@@ -289,12 +319,48 @@ namespace YAF.Pages.help
 
             foreach (var helpPage in helpNavigation.SelectMany(category => category.HelpPages))
             {
+                string helpContent;
+
+                switch (helpPage.HelpPage)
+                {
+                    case "RECOVER":
+                        {
+                            helpContent = this.GetTextFormatted(
+                                "{0}CONTENT".FormatWith(helpPage.HelpPage),
+                                YafBuildLink.GetLink(ForumPages.recoverpassword));
+                        }
+
+                        break;
+                    case "BBCODES":
+                        {
+                            helpContent = this.GetTextFormatted(
+                                "{0}CONTENT".FormatWith(helpPage.HelpPage),
+                                YafForumInfo.ForumBaseUrl);
+                        }
+
+                        break;
+                    case "POSTING":
+                        {
+                            helpContent = this.GetTextFormatted(
+                                "{0}CONTENT".FormatWith(helpPage.HelpPage),
+                                YafBuildLink.GetLink(ForumPages.help_index, "faq=bbcodes"));
+                        }
+
+                        break;
+                    default:
+                        {
+                            helpContent = this.GetText("{0}CONTENT".FormatWith(helpPage.HelpPage));
+                        }
+
+                        break;
+                }
+                
                 this.helpContents.Add(
                     new YafHelpContent
                         {
                             HelpPage = helpPage.HelpPage,
                             HelpTitle = this.GetText("{0}TITLE".FormatWith(helpPage.HelpPage)),
-                            HelpContent = this.GetText("{0}CONTENT".FormatWith(helpPage.HelpPage))
+                            HelpContent = helpContent
                         });
             }
         }

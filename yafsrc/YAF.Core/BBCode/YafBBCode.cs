@@ -40,7 +40,7 @@ namespace YAF.Core.BBCode
     #endregion
 
     /// <summary>
-    /// Summary description for YafBBCode.
+    /// Yaf BBCode Class to Format Message From BB Code to HTML and Reverse.
     /// </summary>
     public class YafBBCode : IBBCode, IHaveServiceLocator
     {
@@ -55,7 +55,7 @@ namespace YAF.Core.BBCode
         /// <summary>
         ///   The _rgx bb code localization tag.
         /// </summary>
-        private static readonly string _rgxBBCodeLocalizationTag =
+        private const string _RgxBBCodeLocalizationTag =
             @"\[localization=(?<tag>[^\]]*)\](?<inner>(.+?))\[/localization\]";
 
         /// <summary>
@@ -73,27 +73,27 @@ namespace YAF.Core.BBCode
         /// <summary>
         ///   The _rgx br.
         /// </summary>
-        private static readonly string _rgxBr = "[\r]?\n(?!.*<[^>]+>.*)"; // "[\r]?\n";
+        private const string _RgxBr = "[\r]?\n(?!.*<[^>]+>.*)"; // "[\r]?\n";
 
         /// <summary>
         ///   The _rgx color.
         /// </summary>
-        private static readonly string _rgxColor = @"\[color=(?<color>(\#?[-a-z0-9]*))\](?<inner>(.*?))\[/color\]";
+        private const string _RgxColor = @"\[color=(?<color>(\#?[-a-z0-9]*))\](?<inner>(.*?))\[/color\]";
 
         /// <summary>
         ///   The _rgx font.
         /// </summary>
-        private static readonly string _rgxFont = @"\[font=(?<font>([-a-z0-9, ]*))\](?<inner>(.*?))\[/font\]";
+        private const string _RgxFont = @"\[font=(?<font>([-a-z0-9, ]*))\](?<inner>(.*?))\[/font\]";
 
         /// <summary>
         ///   The _rgx Highlighted.
         /// </summary>
-        private static readonly string _rgxHighlighted = @"\[h\](?<inner>(.*?))\[/h\]";
+        private const string _RgxHighlighted = @"\[h\](?<inner>(.*?))\[/h\]";
 
         /// <summary>
         /// The _rgx easy quote.
         /// </summary>
-        private static readonly string _rgxEasyQuote = @"(\>)\s(?<inner>(.*?))$";
+        private const string _RgxEasyQuote = @"(\>)\s(?<inner>(.*?))$";
 
         /// <summary>
         ///   The _rgx email 1.
@@ -123,7 +123,7 @@ namespace YAF.Core.BBCode
         /// <summary>
         ///   The _rgx hr.
         /// </summary>
-        private static readonly string _rgxHr = "^[-][-][-][-][-]*[\r]?[\n]";
+        private const string _RgxHr = "^[-][-][-][-][-]*[\r]?[\n]";
 
         /// <summary>
         ///   The _rgx img.
@@ -144,37 +144,32 @@ namespace YAF.Core.BBCode
         /// <summary>
         ///   The _rgx italic.
         /// </summary>
-        private static readonly string _rgxItalic = @"\[I\](?<inner>(.*?))\[/I\]";
+        private const string _RgxItalic = @"\[I\](?<inner>(.*?))\[/I\]";
 
         /// <summary>
         ///   The _rgx center.
         /// </summary>
-        private static readonly string _rgxCenter = @"\[center\](?<inner>(.*?))\[/center\]";
+        private const string _RgxCenter = @"\[center\](?<inner>(.*?))\[/center\]";
 
         /// <summary>
         ///   The _rgx left.
         /// </summary>
-        private static readonly string _rgxLeft = @"\[left\](?<inner>(.*?))\[/left\]";
+        private const string _RgxLeft = @"\[left\](?<inner>(.*?))\[/left\]";
 
         /// <summary>
         ///   The _rgx right.
         /// </summary>
-        private static readonly string _rgxRight = @"\[right\](?<inner>(.*?))\[/right\]";
+        private const string _RgxRight = @"\[right\](?<inner>(.*?))\[/right\]";
 
         /// <summary>
         ///   The _rgx bullet.
         /// </summary>
-        private static readonly string _rgxBullet = @"\[\*\]";
+        private const string _RgxBullet = @"\[\*\]";
 
         /// <summary>
         ///   The _rgx list 1.
         /// </summary>
-        private static readonly string _rgxList1 = @"\[list\](?<inner>(.*?))\[/list\]";
-
-        /// <summary>
-        ///   The _rgx list 2.
-        /// </summary>
-        //private static readonly string _rgxList2 = @"\[list=(?<type>[^\]]*)\](?<inner>(.*?))\[/list\]";
+        private const string _RgxList1 = @"\[list\](?<inner>(.*?))\[/list\]";
 
         /// <summary>
         ///   The List Number Regex
@@ -223,27 +218,27 @@ namespace YAF.Core.BBCode
         /// <summary>
         ///   The _rgx size.
         /// </summary>
-        private static readonly string _rgxSize = @"\[size=(?<size>([1-9]))\](?<inner>(.*?))\[/size\]";
+        private const string _RgxSize = @"\[size=(?<size>([1-9]))\](?<inner>(.*?))\[/size\]";
 
         /// <summary>
         ///   The _rgx strike.
         /// </summary>
-        private static readonly string _rgxStrike = @"\[S\](?<inner>(.*?))\[/S\]";
+        private const string _RgxStrike = @"\[S\](?<inner>(.*?))\[/S\]";
 
         /// <summary>
         ///   The _rgx topic.
         /// </summary>
-        private static readonly string _rgxTopic = @"\[topic=(?<topic>[0-9]*)\](?<inner>(.*?))\[/topic\]";
+        private const string _RgxTopic = @"\[topic=(?<topic>[0-9]*)\](?<inner>(.*?))\[/topic\]";
 
         /// <summary>
         ///   The _rgx post.
         /// </summary>
-        private static readonly string _rgxPost = @"\[post=(?<post>[0-9]*)\](?<inner>(.*?))\[/post\]";
+        private const string _RgxPost = @"\[post=(?<post>[0-9]*)\](?<inner>(.*?))\[/post\]";
 
         /// <summary>
         ///   The _rgx underline.
         /// </summary>
-        private static readonly string _rgxUnderline = @"\[U\](?<inner>(.*?))\[/U\]";
+        private const string _RgxUnderline = @"\[U\](?<inner>(.*?))\[/U\]";
 
         /// <summary>
         ///   The _rgx url 1.
@@ -342,7 +337,7 @@ namespace YAF.Core.BBCode
                 var lowerRule = new SimpleReplaceRule(
                     code.ToLower(),
                     @"<img src=""{0}"" alt=""{1}"" />".FormatWith(
-                        YafBuildLink.Smiley(smile.Icon), HttpContext.Current.Server.HtmlEncode(smile.Emoticon)));
+                    YafBuildLink.Smiley(smile.Icon), HttpContext.Current.Server.HtmlEncode(smile.Emoticon)));
 
                 var upperRule = new SimpleReplaceRule(
                     code.ToUpper(), 
@@ -467,7 +462,7 @@ namespace YAF.Core.BBCode
 
             // handle font sizes -- this rule class internally handles the "size" variable
             ruleEngine.AddRule(
-                new FontSizeRegexReplaceRule(_rgxSize, @"<span style=""font-size:${size}"">${inner}</span>", _Options));
+                new FontSizeRegexReplaceRule(_RgxSize, @"<span style=""font-size:${size}"">${inner}</span>", _Options));
 
             if (doFormatting)
             {
@@ -477,11 +472,11 @@ namespace YAF.Core.BBCode
                         @"${inner}"));
 
                 ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxBold, "<b>${inner}</b>"));
-                ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxStrike, "<s>${inner}</s>", _Options));
-                ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxItalic, "<em>${inner}</em>", _Options));
-                ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxUnderline, "<u>${inner}</u>", _Options));
+                ruleEngine.AddRule(new SimpleRegexReplaceRule(_RgxStrike, "<s>${inner}</s>", _Options));
+                ruleEngine.AddRule(new SimpleRegexReplaceRule(_RgxItalic, "<em>${inner}</em>", _Options));
+                ruleEngine.AddRule(new SimpleRegexReplaceRule(_RgxUnderline, "<u>${inner}</u>", _Options));
                 ruleEngine.AddRule(
-                    new SimpleRegexReplaceRule(_rgxHighlighted, @"<span class=""highlight"">${inner}</span>", _Options));
+                    new SimpleRegexReplaceRule(_RgxHighlighted, @"<span class=""highlight"">${inner}</span>", _Options));
 
                 // e-mails
                 ruleEngine.AddRule(
@@ -496,7 +491,8 @@ namespace YAF.Core.BBCode
                         _rgxUrl2,
                         "<a {0} {1} href=\"${http}${url}\" title=\"${http}${url}\">${inner}</a>".Replace("{0}", target).Replace("{1}", nofollow),
                         new[] { "url", "http" },
-                        new[] {
+                        new[]
+                            {
                                 string.Empty, string.Empty // "http://"
                             }));
 
@@ -535,15 +531,15 @@ namespace YAF.Core.BBCode
                 // font
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
-                        _rgxFont, "<span style=\"font-family:${font}\">${inner}</span>", _Options, new[] { "font" }));
+                        _RgxFont, "<span style=\"font-family:${font}\">${inner}</span>", _Options, new[] { "font" }));
 
                 // color
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
-                        _rgxColor, "<span style=\"color:${color}\">${inner}</span>", _Options, new[] { "color" }));
+                        _RgxColor, "<span style=\"color:${color}\">${inner}</span>", _Options, new[] { "color" }));
 
                 // lists
-                ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxList1, "<ul>${inner}</ul>", _Options));
+                ruleEngine.AddRule(new SimpleRegexReplaceRule(_RgxList1, "<ul>${inner}</ul>", _Options));
                 /*ruleEngine.AddRule(
                     new VariableRegexReplaceRule(_rgxList2, "<ol type=\"${type}\">${inner}</ol>", _options, new[] { "type" }));*/
                 ruleEngine.AddRule(new SimpleRegexReplaceRule(_RgxListNumber, "<ol style=\"list-style-type:number\">${inner}</ol>", RegexOptions.Singleline));
@@ -552,17 +548,15 @@ namespace YAF.Core.BBCode
                 ruleEngine.AddRule(new SimpleRegexReplaceRule(_RgxListLowerAlpha, "<ol style=\"list-style-type:lower-alpha\">${inner}</ol>", RegexOptions.Singleline));
                 ruleEngine.AddRule(new SimpleRegexReplaceRule(_RgxListUpperAlpha, "<ol style=\"list-style-type:upper-alpha\">${inner}</ol>", RegexOptions.Singleline));
                 
-
                 // bullets
-                ruleEngine.AddRule(new SingleRegexReplaceRule(_rgxBullet, "<li>", _Options));
-
+                ruleEngine.AddRule(new SingleRegexReplaceRule(_RgxBullet, "<li>", _Options));
 
                 // alignment
                 ruleEngine.AddRule(
-                    new SimpleRegexReplaceRule(_rgxCenter, "<div align=\"center\">${inner}</div>", _Options));
-                ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxLeft, "<div align=\"left\">${inner}</div>", _Options));
+                    new SimpleRegexReplaceRule(_RgxCenter, "<div align=\"center\">${inner}</div>", _Options));
+                ruleEngine.AddRule(new SimpleRegexReplaceRule(_RgxLeft, "<div align=\"left\">${inner}</div>", _Options));
                 ruleEngine.AddRule(
-                    new SimpleRegexReplaceRule(_rgxRight, "<div align=\"right\">${inner}</div>", _Options));
+                    new SimpleRegexReplaceRule(_RgxRight, "<div align=\"right\">${inner}</div>", _Options));
 
                 // image
                 ruleEngine.AddRule(
@@ -578,17 +572,17 @@ namespace YAF.Core.BBCode
 
                 // add easy quoting...
                 var easyQuoteRule = new SimpleRegexReplaceRule(
-                    _rgxEasyQuote, 
+                    _RgxEasyQuote, 
                     @"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=""easyquote"">${inner}</span>", 
                     RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
                 // basic hr and br rules
                 var hrRule = new SingleRegexReplaceRule(
-                    _rgxHr, "<hr />", RegexOptions.IgnoreCase | RegexOptions.Multiline);
+                    _RgxHr, "<hr />", RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
                 // Multiline, since ^ must match beginning of line
                 var brRule = new SingleRegexReplaceRule(
-                    _rgxBr, "<br />", RegexOptions.IgnoreCase | RegexOptions.Multiline)
+                    _RgxBr, "<br />", RegexOptions.IgnoreCase | RegexOptions.Multiline)
                     {
                        RuleRank = hrRule.RuleRank + 1 
                     };
@@ -649,11 +643,11 @@ namespace YAF.Core.BBCode
             // post and topic rules...
             ruleEngine.AddRule(
                 new PostTopicRegexReplaceRule(
-                    _rgxPost, @"<a {0} href=""${post}"" title=""${inner}"">${inner}</a>".Replace("{0}", target), _Options));
+                    _RgxPost, @"<a {0} href=""${post}"" title=""${inner}"">${inner}</a>".Replace("{0}", target), _Options));
 
             ruleEngine.AddRule(
                 new PostTopicRegexReplaceRule(
-                    _rgxTopic, @"<a {0} href=""${topic}"" title=""${inner}"">${inner}</a>".Replace("{0}", target), _Options));
+                    _RgxTopic, @"<a {0} href=""${topic}"" title=""${inner}"">${inner}</a>".Replace("{0}", target), _Options));
         }
 
         /// <summary>
@@ -729,7 +723,6 @@ namespace YAF.Core.BBCode
             ruleEngine.AddRule(
                 new SimpleRegexReplaceRule("<ol style=\"list-style-type:number\">(?<inner>(.*?))</ol>", "[list=1]${inner}[/list]", RegexOptions.Singleline));
 
-
             ruleEngine.AddRule(
                 new SimpleRegexReplaceRule("<ol type=\"a\">(?<inner>(.*?))</ol>", "[list=a]${inner}[/list]", RegexOptions.Singleline));
             ruleEngine.AddRule(
@@ -749,7 +742,6 @@ namespace YAF.Core.BBCode
                new SimpleRegexReplaceRule("<ol style=\"list-style-type:lower-roman\">(?<inner>(.*?))</ol>", "[list=i]${inner}[/list]", RegexOptions.Singleline));
             ruleEngine.AddRule(
                 new SimpleRegexReplaceRule("<ol style=\"list-style-type:upper-roman\">(?<inner>(.*?))</ol>", "[list=I]${inner}[/list]", RegexOptions.Singleline));
-
 
             // bullets
             ruleEngine.AddRule(new SingleRegexReplaceRule("<li>", "[*]", _Options));
@@ -824,7 +816,7 @@ namespace YAF.Core.BBCode
         /// </returns>
         public string LocalizeCustomBBCodeElement(string strToLocalize)
         {
-            var regExSearch = new Regex(_rgxBBCodeLocalizationTag, _Options);
+            var regExSearch = new Regex(_RgxBBCodeLocalizationTag, _Options);
 
             var sb = new StringBuilder(strToLocalize);
 

@@ -97,6 +97,9 @@
       <YafHelpNavigationPage>
         <HelpPage>SMILIES</HelpPage>
       </YafHelpNavigationPage>
+	  <YafHelpNavigationPage>
+        <HelpPage>BBCODES</HelpPage>
+      </YafHelpNavigationPage>
       <YafHelpNavigationPage>
         <HelpPage>MODSADMINS</HelpPage>
       </YafHelpNavigationPage>
