@@ -60,21 +60,6 @@ DROP FUNCTION [{databaseOwner}].[{objectQualifier}forum_save_parentschecker]
 GO
 
 
-
-create function [{databaseOwner}].[{objectQualifier}bitset](@Flags int,@Mask int) returns bit as
-
-begin
-	declare @bool bit
-
-	if (@Flags & @Mask) = @Mask
-		set @bool = 1
-	else
-		set @bool = 0
-		
-	return @bool
-end
-GO
-
 create function [{databaseOwner}].[{objectQualifier}forum_posts](@ForumID int) returns int as
 
 begin

@@ -4042,7 +4042,7 @@ begin
 
 
 	-- find a guest id should do it every time to be sure that guest access rights are in ActiveAccess table
-	select top 1 @GuestID = UserID from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and (Flags & 4)<>0 ORDER BY Joined DESC
+	select top 1 @GuestID = UserID from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and (Flags & 4)=4 ORDER BY Joined DESC
 		set @rowcount=@@rowcount
 		if (@rowcount = 0)
 		begin
@@ -6336,10 +6336,10 @@ begin
 
 	set @Since = GETUTCDATE() 
 
-	delete from [{databaseOwner}].[{objectQualifier}EventLog]  where UserID in(select UserID from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and [{databaseOwner}].[{objectQualifier}bitset](Flags,2)=0 and datediff(day,Joined,@Since)>@Days)
-	delete from [{databaseOwner}].[{objectQualifier}CheckEmail] where UserID in(select UserID from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and [{databaseOwner}].[{objectQualifier}bitset](Flags,2)=0 and datediff(day,Joined,@Since)>@Days)
-	delete from [{databaseOwner}].[{objectQualifier}UserGroup] where UserID in(select UserID from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and [{databaseOwner}].[{objectQualifier}bitset](Flags,2)=0 and datediff(day,Joined,@Since)>@Days)
-	delete from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and [{databaseOwner}].[{objectQualifier}bitset](Flags,2)=0 and datediff(day,Joined,@Since)>@Days
+	delete from [{databaseOwner}].[{objectQualifier}EventLog]  where UserID in(select UserID from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and IsApproved=0 and datediff(day,Joined,@Since)>@Days)
+	delete from [{databaseOwner}].[{objectQualifier}CheckEmail] where UserID in(select UserID from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and IsApproved=0 and datediff(day,Joined,@Since)>@Days)
+	delete from [{databaseOwner}].[{objectQualifier}UserGroup] where UserID in(select UserID from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and IsApproved=0 and datediff(day,Joined,@Since)>@Days)
+	delete from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and IsApproved=0 and datediff(day,Joined,@Since)>@Days
 end
 GO
 
