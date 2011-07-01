@@ -285,13 +285,10 @@ namespace YAF.Core
         return "[{1}.{0}]".FormatWith(tag.ToUpper(), page.ToUpper());
       }
 
-      // localizedText = localizedText.Replace("[b]", "<strong>");
-      // localizedText = localizedText.Replace("[/b]", "</strong>");
-
       Regex rgx = new Regex(@"(?<!\[noparse\])(?<inner>\[b\])");
       localizedText = rgx.Replace(localizedText, "<strong>");
 
-      rgx = new Regex(@"(?<inner>\[/b\])(?>!\[/noparse\])");
+      rgx = new Regex(@"(?<inner>\[/b\])(?!\[/noparse\])");
       localizedText = rgx.Replace(localizedText, "</strong>");
 
       localizedText = localizedText.Replace("[noparse]", string.Empty);
@@ -369,6 +366,7 @@ namespace YAF.Core
 
       localizedText = localizedText.Replace("[b]", "<b>");
       localizedText = localizedText.Replace("[/b]", "</b>");
+
       return localizedText;
     }
 
@@ -409,9 +407,9 @@ namespace YAF.Core
       string localizedText = this.GetText(this.TransPage, text);
 
       /* get the localization string parameter count...
-			int iParamCount = 0;
-			for (; iParamCount<10; iParamCount++)
-			{
+         int iParamCount = 0;
+         for (; iParamCount<10; iParamCount++)
+		{
 				if (!localizedText.Contains("{" + iParamCount.ToString()))
 				{
 					break;
@@ -423,6 +421,7 @@ namespace YAF.Core
 					 inform that the value is wrong to the admin and don't format the string...
 					Data.DB.eventlog_create(YafContext.Current.PageUserID, TransPage.ToLower() + ".ascx", String.Format("Not enough parameters for localization entry {1}.{0} -- Needs {2} parameters, has {3}.", text.ToUpper(), TransPage.ToUpper(), args.Length, i), Data.EventLogTypes.Warning);
 			*/
+
       int arraySize = Math.Max(args.Length, 10);
       var copiedArgs = new object[arraySize];
       args.CopyTo(copiedArgs, 0);
@@ -558,7 +557,7 @@ namespace YAF.Core
     /// The tag.
     /// </param>
     /// <returns>
-    /// The get localized text internal.
+    /// Returns the localized text internal.
     /// </returns>
     protected string GetLocalizedTextInternal([NotNull] string page, [NotNull] string tag)
     {
