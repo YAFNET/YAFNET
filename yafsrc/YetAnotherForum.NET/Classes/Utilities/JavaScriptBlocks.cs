@@ -315,36 +315,6 @@ namespace YAF.Utilities
         }
 
         /// <summary>
-        /// Gets the Fix Post Div Height to set Height of PostDiv based on the
-        /// UserBox Height
-        /// </summary>
-        /// <param name="userBoxId">
-        /// The user Box Id.
-        /// </param>
-        /// <param name="panMessageId">
-        /// The pan Message Id.
-        /// </param>
-        /// <returns>
-        /// Returns the created js
-        /// </returns>
-        public static string FixPostDivHeight([NotNull] string userBoxId, [NotNull] string panMessageId)
-        {
-            return @"{0}(window).load(function() {{
-					var userBoxHeight = {0}('#{1}').height();
-                    var messageHeight = {0}('#{2}').height();
-
-                    var spoilerBoxHeight = {0}('#{2}').children().children('.spoilerbox');
-
-                    if (spoilerBoxHeight.length)
-                    {{
-                       messageHeight = messageHeight + spoilerBoxHeight.height();
-                    }}
-
-                  	{0}('#{2}').parent('.postdiv').height(userBoxHeight + messageHeight);
-                           }});".FormatWith(Config.JQueryAlias, userBoxId, panMessageId);
-        }
-
-        /// <summary>
         /// The Post to Facebook Js
         /// </summary>
         /// <param name="message">

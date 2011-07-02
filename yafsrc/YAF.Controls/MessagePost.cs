@@ -38,6 +38,38 @@ namespace YAF.Controls
   {
     #region Properties
 
+      /// <summary>
+      ///   Gets or sets a value indicating whether IsAlt.
+      /// </summary>
+      public virtual bool IsAlt
+      {
+          get
+          {
+              return this.ViewState["IsAlt"] != null && Convert.ToBoolean(this.ViewState["IsAlt"]);
+          }
+
+          set
+          {
+              this.ViewState["IsAlt"] = value;
+          }
+      }
+
+      /// <summary>
+      ///   Gets or sets a value indicating whether IsAlt.
+      /// </summary>
+      public virtual string RowColSpan
+      {
+          get
+          {
+              return this.ViewState["RowColSpan"] != null ? this.ViewState["RowColSpan"].ToString() : null;
+          }
+
+          set
+          {
+              this.ViewState["RowColSpan"] = value;
+          }
+      }
+
     /// <summary>
     ///   Gets or sets DisplayUserID.
     /// </summary>
@@ -208,7 +240,11 @@ namespace YAF.Controls
       {
           var sig = new MessageSignature
               {
-                  Signature = this.Signature, DisplayUserID = this.DisplayUserID, MessageID = this.MessageID
+                  Signature = this.Signature,
+                  DisplayUserID = this.DisplayUserID,
+                  MessageID = this.MessageID,
+                  IsAlt = this.IsAlt,
+                  ColSpan = this.RowColSpan
               };
 
         this.Controls.Add(sig);
@@ -227,6 +263,7 @@ namespace YAF.Controls
     {
       writer.BeginRender();
       writer.WriteBeginTag("div");
+
       writer.WriteAttribute("id", this.ClientID);
       writer.Write(HtmlTextWriter.TagRightChar);
 

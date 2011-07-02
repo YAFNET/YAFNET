@@ -10,7 +10,7 @@
 namespace YAF.Pages {
     
     
-    public partial class moderate0 {
+    public partial class moderating {
         
         /// <summary>
         /// PageLinks control.

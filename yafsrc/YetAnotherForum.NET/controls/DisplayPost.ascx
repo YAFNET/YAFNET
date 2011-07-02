@@ -57,7 +57,7 @@
     <td valign="top" class="message">
         <div class="postdiv" style="height:<%# GetUserBoxHeight() %>;">
             <asp:panel id="panMessage" runat="server">      
-                <YAF:MessagePostData ID="MessagePost1" runat="server" DataRow="<%# DataRow %>"></YAF:MessagePostData>
+                <YAF:MessagePostData ID="MessagePost1" runat="server" DataRow="<%# DataRow %>" IsAltMessage="<%# this.IsAlt %>" ColSpan="<%#GetIndentSpan()%>"></YAF:MessagePostData>
             </asp:panel>            
         </div>
     </td>

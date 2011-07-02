@@ -59,6 +59,16 @@ namespace YAF.Controls
         #region Properties
 
         /// <summary>
+        ///   Gets or sets a value indicating whether IsAlt.
+        /// </summary>
+        public bool IsAltMessage { get; set; }
+
+        /// <summary>
+        ///   Gets or sets a value indicating whether Col Span is.
+        /// </summary>
+        public string ColSpan { get; set; }
+
+        /// <summary>
         ///   Gets or sets DataRow.
         /// </summary>
         public DataRow DataRow
@@ -242,6 +252,10 @@ namespace YAF.Controls
                 {
                     this.DisplayUserID = this.DataRow["UserID"].ToType<int>();
                 }
+
+                this.IsAlt = this.IsAltMessage;
+
+                this.RowColSpan = this.ColSpan;
 
                 if (this.ShowAttachments && long.Parse(this.DataRow["HasAttachments"].ToString()) > 0)
                 {

@@ -18,7 +18,7 @@
  */
 namespace YAF.Controls
 {
-  #region Using
+    #region Using
 
     using System.Web.UI;
     using YAF.Core;
@@ -27,100 +27,132 @@ namespace YAF.Controls
     using YAF.Types.Interfaces;
     using YAF.Utils;
 
-  #endregion
-
-  /// <summary>
-  /// The message signature.
-  /// </summary>
-  public class MessageSignature : MessageBase
-  {
-    #region Properties
-
-    /// <summary>
-    ///   Gets or sets DisplayUserID.
-    /// </summary>
-    public int? DisplayUserID { get; set; }
-
-    /// <summary>
-    ///   Gets or sets MessageID.
-    /// </summary>
-    public int? MessageID { get; set; }
-
-    /// <summary>
-    ///   Gets or sets HtmlPrefix.
-    /// </summary>
-    public string HtmlPrefix { get; set; }
-
-    /// <summary>
-    ///   Gets or sets HtmlSuffix.
-    /// </summary>
-    public string HtmlSuffix { get; set; }
-
-    /// <summary>
-    ///   Gets or sets Signature.
-    /// </summary>
-    public string Signature { get; set; }
-
     #endregion
 
-    #region Methods
-
     /// <summary>
-    /// The render.
+    /// The message signature.
     /// </summary>
-    /// <param name="writer">
-    /// The writer.
-    /// </param>
-    protected override void Render([NotNull] HtmlTextWriter writer)
+    public class MessageSignature : MessageBase
     {
-      writer.BeginRender();
-      writer.WriteBeginTag("div");
-      writer.WriteAttribute("id", this.ClientID);
-      writer.WriteAttribute("class", "yafsignature");
-      writer.Write(HtmlTextWriter.TagRightChar);
+        #region Properties
 
-      if (this.HtmlPrefix.IsSet())
-      {
-        writer.Write(this.HtmlPrefix);
-      }
+        /// <summary>
+        ///   Gets or sets DisplayUserID.
+        /// </summary>
+        public int? DisplayUserID { get; set; }
 
-      if (this.Signature.IsSet())
-      {
-        this.RenderSignature(writer);
-      }
+        /// <summary>
+        ///   Gets or sets MessageID.
+        /// </summary>
+        public int? MessageID { get; set; }
 
-      if (this.HtmlSuffix.IsSet())
-      {
-        writer.Write(this.HtmlSuffix);
-      }
+        /// <summary>
+        ///   Gets or sets HtmlPrefix.
+        /// </summary>
+        public string HtmlPrefix { get; set; }
 
-      base.Render(writer);
+        /// <summary>
+        ///   Gets or sets HtmlSuffix.
+        /// </summary>
+        public string HtmlSuffix { get; set; }
 
-      writer.WriteEndTag("div");
-      writer.EndRender();
+        /// <summary>
+        ///   Gets or sets Signature.
+        /// </summary>
+        public string Signature { get; set; }
+
+        /// <summary>
+        ///   Gets or sets a value indicating whether IsAlt.
+        /// </summary>
+        public bool IsAlt { get; set; }
+
+        /// <summary>
+        ///   Gets or sets a value indicating whether Col Span is.
+        /// </summary>
+        public string ColSpan { get; set; }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// The get post class.
+        /// </summary>
+        /// <returns>
+        /// Returns the post class.
+        /// </returns>
+        [NotNull]
+        protected string GetPostClass()
+        {
+            return this.IsAlt ? "post_alt" : "post";
+        }
+
+        /// <summary>
+        /// The render.
+        /// </summary>
+        /// <param name="writer">
+        /// The writer.
+        /// </param>
+        protected override void Render([NotNull] HtmlTextWriter writer)
+        {
+            writer.BeginRender();
+
+            if (this.Get<ITheme>().ThemeFile.Contains("Mobile"))
+            {
+                writer.Write("</tr><tr class=\"{0}\">", this.GetPostClass());
+            }
+            else
+            {
+                writer.Write("</tr><tr class=\"{1}\"><td colspan=\"{0}\" class=\"UserBox\"></td>", this.ColSpan, this.GetPostClass());  
+            }
+
+            writer.WriteBeginTag("td");
+            writer.WriteAttribute("id", this.ClientID);
+            writer.WriteAttribute("class", "yafsignature");
+            writer.Write(HtmlTextWriter.TagRightChar);
+
+            if (this.HtmlPrefix.IsSet())
+            {
+                writer.Write(this.HtmlPrefix);
+            }
+
+            if (this.Signature.IsSet())
+            {
+                this.RenderSignature(writer);
+            }
+
+            if (this.HtmlSuffix.IsSet())
+            {
+                writer.Write(this.HtmlSuffix);
+            }
+
+            base.Render(writer);
+
+            writer.WriteEndTag("td");
+            writer.EndRender();
+        }
+
+        /// <summary>
+        /// The render signature.
+        /// </summary>
+        /// <param name="writer">
+        /// The writer.
+        /// </param>
+        protected void RenderSignature([NotNull] HtmlTextWriter writer)
+        {
+            if (!this.DisplayUserID.HasValue)
+            {
+                return;
+            }
+
+            // don't allow any HTML on signatures
+            var signatureFlags = new MessageFlags { IsHtml = false };
+
+            string signatureRendered = this.Get<IFormatMessage>().FormatMessage(this.Signature, signatureFlags);
+
+            this.RenderModulesInBBCode(writer, signatureRendered, signatureFlags, this.DisplayUserID, this.MessageID);
+        }
+
+        #endregion
     }
-
-    /// <summary>
-    /// The render signature.
-    /// </summary>
-    /// <param name="writer">
-    /// The writer.
-    /// </param>
-    protected void RenderSignature([NotNull] HtmlTextWriter writer)
-    {
-      if (!this.DisplayUserID.HasValue)
-      {
-        return;
-      }
-
-      // don't allow any HTML on signatures
-      var signatureFlags = new MessageFlags { IsHtml = false };
-
-      string signatureRendered = this.Get<IFormatMessage>().FormatMessage(this.Signature, signatureFlags);
-
-      this.RenderModulesInBBCode(writer, signatureRendered, signatureFlags, this.DisplayUserID, this.MessageID);
-    }
-
-    #endregion
-  }
 }

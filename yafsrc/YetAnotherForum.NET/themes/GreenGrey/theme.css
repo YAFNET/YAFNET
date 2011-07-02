@@ -298,6 +298,7 @@
 	height: 10px;
 }
 /* most tables are class 'content' */
+.yafnet dl.content,
 .yafnet table.content {
 	border-spacing: 0;
 	border: solid 1px #777777;
@@ -565,7 +566,7 @@ Use this to setup overflow feature for your site.
 On IE that would mean specifying a width so that the overflow will work properly.
 This CSS already works on FireFox.
 */
-.yafnet div.postdiv {
+.yafnet .postdiv {
 	width: 100%;
 	min-height: 100px;
 	overflow: auto;	
@@ -1424,3 +1425,5 @@ height:80em;
 .yafnet dl.AlphaSort dd:hover a { font-weight:bold}
 
 .yafnet dl.AlphaSort dd a {color:black;}
+
+.yafnet .post_res { background-color: #F4E941;}
