@@ -3561,7 +3561,9 @@ Spoiler Content
     <Resource tag="INVITE">Bjud in användare</Resource>
     <Resource tag="LASTPOST">Senaste meddelande</Resource>
     <Resource tag="MEMBERS">Medlemmar</Resource>
+    <Resource tag="MODERATEINDEX_TITLE">Moderate Reported Posts and Not Approved Posts</Resource>
     <Resource tag="NO_POSTS">Inga meddelanden</Resource>
+    <Resource tag="NOMODERATION">Currently there are no Posts that need approval. And there are also no Posts that were reported.</Resource>
     <Resource tag="REMOVE">Radera</Resource>
     <Resource tag="REPLIES">Svar</Resource>
     <Resource tag="TITLE">Moderera</Resource>

@@ -100,7 +100,7 @@ namespace YAF.Pages.moderate
         /// Message data row.
         /// </param>
         /// <returns>
-        /// Formatted string with escaped HTML markup and formatted this.Get<IBBCode>().
+        /// Formatted string with escaped HTML markup and formatted this.GetIBBCode>().
         /// </returns>
         protected string FormatMessage([NotNull] DataRowView row)
         {
@@ -292,7 +292,6 @@ namespace YAF.Pages.moderate
             {
                 this.PageContext.AddLoadMessage(this.GetText("MODERATE_DEFAULT", "SPAM_REPORTED_FAILED"));
             }
-            
         }
 
         #endregion

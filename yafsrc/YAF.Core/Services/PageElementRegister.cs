@@ -246,7 +246,7 @@ namespace YAF.Core.Services
             else
             {
                 this.RegisterCssIncludeResource(
-                     "css/jquery-ui-themes/{0}/jquery-ui-1.8.12.custom.css".FormatWith(
+                     "css/jquery-ui-themes/{0}/jquery-ui.css".FormatWith(
                          YafContext.Current.Get<YafBoardSettings>().JqueryUITheme));
             }
         }
@@ -314,10 +314,13 @@ namespace YAF.Core.Services
         /// Registers a Javascript block using the script manager. Adds script tags.
         /// </summary>
         /// <param name="thisControl">
+        /// The this Control.
         /// </param>
         /// <param name="name">
+        /// The name.
         /// </param>
         /// <param name="script">
+        /// The script.
         /// </param>
         public void RegisterJsBlock(Control thisControl, string name, string script)
         {
@@ -360,10 +363,13 @@ namespace YAF.Core.Services
         /// Registers a Javascript block using the script manager. Adds script tags.
         /// </summary>
         /// <param name="thisControl">
+        /// The this Control.
         /// </param>
         /// <param name="name">
+        /// The name.
         /// </param>
         /// <param name="script">
+        /// The script.
         /// </param>
         public void RegisterJsBlockStartup(Control thisControl, string name, string script)
         {
@@ -378,10 +384,13 @@ namespace YAF.Core.Services
         /// Registers a Javascript include using the script manager.
         /// </summary>
         /// <param name="thisControl">
+        /// The this Control.
         /// </param>
         /// <param name="name">
+        /// The name.
         /// </param>
         /// <param name="url">
+        /// The url.
         /// </param>
         public void RegisterJsInclude(Control thisControl, string name, string url)
         {
@@ -398,8 +407,10 @@ namespace YAF.Core.Services
         /// Registers a Javascript include using the script manager.
         /// </summary>
         /// <param name="name">
+        /// The name.
         /// </param>
         /// <param name="url">
+        /// The url.
         /// </param>
         public void RegisterJsInclude(string name, string url)
         {
@@ -410,10 +421,13 @@ namespace YAF.Core.Services
         /// Registers a Javascript resource include using the script manager.
         /// </summary>
         /// <param name="thisControl">
+        /// The this Control.
         /// </param>
         /// <param name="name">
+        /// The name.
         /// </param>
         /// <param name="relativeResourceUrl">
+        /// The relative Resource Url.
         /// </param>
         public void RegisterJsResourceInclude(Control thisControl, string name, string relativeResourceUrl)
         {

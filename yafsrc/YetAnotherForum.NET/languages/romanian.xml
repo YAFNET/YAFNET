@@ -3545,7 +3545,9 @@ Spoiler Content
     <Resource tag="INVITE">Invita utilizator</Resource>
     <Resource tag="LASTPOST">Ultima postare</Resource>
     <Resource tag="MEMBERS">Membrii</Resource>
+    <Resource tag="MODERATEINDEX_TITLE">Moderate Reported Posts and Not Approved Posts</Resource>
     <Resource tag="NO_POSTS">Nu sunt postari</Resource>
+    <Resource tag="NOMODERATION">Currently there are no Posts that need approval. And there are also no Posts that were reported.</Resource>
     <Resource tag="REMOVE">Stergere</Resource>
     <Resource tag="REPLIES">Raspunsuri</Resource>
     <Resource tag="TITLE">Moderat</Resource>

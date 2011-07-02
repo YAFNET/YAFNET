@@ -3584,7 +3584,9 @@ Spoiler Content
     <Resource tag="INVITE">הזמנת משתמש</Resource>
     <Resource tag="LASTPOST">הודעה אחרונה</Resource>
     <Resource tag="MEMBERS">חברים</Resource>
+    <Resource tag="MODERATEINDEX_TITLE">Moderate Reported Posts and Not Approved Posts</Resource>
     <Resource tag="NO_POSTS">אין הודעות</Resource>
+    <Resource tag="NOMODERATION">Currently there are no Posts that need approval. And there are also no Posts that were reported.</Resource>
     <Resource tag="REMOVE">הסר</Resource>
     <Resource tag="REPLIES">תגובות</Resource>
     <Resource tag="TITLE">ניהול</Resource>

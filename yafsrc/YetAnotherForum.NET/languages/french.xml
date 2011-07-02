@@ -3560,7 +3560,9 @@ Spoiler Content
     <Resource tag="INVITE">Inviter l'Utilisateur</Resource>
     <Resource tag="LASTPOST">Dernier Message</Resource>
     <Resource tag="MEMBERS">Membres</Resource>
+    <Resource tag="MODERATEINDEX_TITLE">Moderate Reported Posts and Not Approved Posts</Resource>
     <Resource tag="NO_POSTS">Pas de Message</Resource>
+    <Resource tag="NOMODERATION">Currently there are no Posts that need approval. And there are also no Posts that were reported.</Resource>
     <Resource tag="REMOVE">Retirer</Resource>
     <Resource tag="REPLIES">Réponses</Resource>
     <Resource tag="TITLE">Modérer</Resource>

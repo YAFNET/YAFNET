@@ -3562,7 +3562,9 @@ Spoiler Content
     <Resource tag="INVITE">Kutsu kasutajat</Resource>
     <Resource tag="LASTPOST">Viimane postitus</Resource>
     <Resource tag="MEMBERS">Kasutajad</Resource>
+    <Resource tag="MODERATEINDEX_TITLE">Moderate Reported Posts and Not Approved Posts</Resource>
     <Resource tag="NO_POSTS">Postitusi ei ole</Resource>
+    <Resource tag="NOMODERATION">Currently there are no Posts that need approval. And there are also no Posts that were reported.</Resource>
     <Resource tag="REMOVE">Eemalda</Resource>
     <Resource tag="REPLIES">Vastuseid</Resource>
     <Resource tag="TITLE">Modereerimine</Resource>

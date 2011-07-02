@@ -607,8 +607,8 @@
     <Compile Include="pages\messagehistory.ascx.designer.cs">
       <DependentUpon>messagehistory.ascx</DependentUpon>
     </Compile>
-    <Compile Include="pages\moderate.ascx.designer.cs">
-      <DependentUpon>moderate.ascx</DependentUpon>
+    <Compile Include="pages\moderating.ascx.designer.cs">
+      <DependentUpon>moderating.ascx</DependentUpon>
     </Compile>
     <Compile Include="pages\moderate\index.ascx.designer.cs">
       <DependentUpon>index.ascx</DependentUpon>
@@ -1182,7 +1182,7 @@
     <Content Include="pages\logout.ascx" />
     <Content Include="pages\members.ascx" />
     <Content Include="pages\messagehistory.ascx" />
-    <Content Include="pages\moderate.ascx" />
+    <Content Include="pages\moderating.ascx" />
     <Content Include="pages\moderate\index.ascx" />
     <Content Include="pages\moderate\reportedposts.ascx" />
     <Content Include="pages\moderate\unapprovedposts.ascx" />
@@ -2118,8 +2118,8 @@
       <DependentUpon>members.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pages\moderate.ascx.cs">
-      <DependentUpon>moderate.ascx</DependentUpon>
+    <Compile Include="pages\moderating.ascx.cs">
+      <DependentUpon>moderating.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\moderate\index.ascx.cs">

@@ -3562,7 +3562,9 @@ Spoiler Content
     <Resource tag="INVITE">Invite User</Resource>
     <Resource tag="LASTPOST">最后发表</Resource>
     <Resource tag="MEMBERS">会员</Resource>
+    <Resource tag="MODERATEINDEX_TITLE">Moderate Reported Posts and Not Approved Posts</Resource>
     <Resource tag="NO_POSTS">没有新贴</Resource>
+    <Resource tag="NOMODERATION">Currently there are no Posts that need approval. And there are also no Posts that were reported.</Resource>
     <Resource tag="REMOVE">Remove</Resource>
     <Resource tag="REPLIES">回复</Resource>
     <Resource tag="TITLE">版主审核</Resource>

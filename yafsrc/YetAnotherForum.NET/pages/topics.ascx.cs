@@ -225,7 +225,7 @@ namespace YAF.Pages
 
         this.moderate1.NavigateUrl =
             this.moderate2.NavigateUrl =
-               YafBuildLink.GetLinkNotEscaped(ForumPages.moderate, "f={0}", this.PageContext.PageForumID);
+               YafBuildLink.GetLinkNotEscaped(ForumPages.moderating, "f={0}", this.PageContext.PageForumID);
 
         this.NewTopic1.NavigateUrl =
             this.NewTopic2.NavigateUrl =
@@ -272,11 +272,13 @@ namespace YAF.Pages
         this.NewTopic2.Visible = false;
       }
 
-      if (!this.PageContext.ForumModeratorAccess)
-      {
+        if (this.PageContext.ForumModeratorAccess)
+        {
+            return;
+        }
+
         this.moderate1.Visible = false;
         this.moderate2.Visible = false;
-      }
     }
 
     /// <summary>
@@ -333,8 +335,6 @@ namespace YAF.Pages
 
       this.HandleWatchForum();
     }
-
-
 
     /// <summary>
     /// The bind data.

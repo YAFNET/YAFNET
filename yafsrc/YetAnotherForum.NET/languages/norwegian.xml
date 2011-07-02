@@ -3544,7 +3544,9 @@ Spoiler Content
     <Resource tag="INVITE">Inviter bruker</Resource>
     <Resource tag="LASTPOST">Siste innlegg</Resource>
     <Resource tag="MEMBERS">Medlemmer</Resource>
+    <Resource tag="MODERATEINDEX_TITLE">Moderate Reported Posts and Not Approved Posts</Resource>
     <Resource tag="NO_POSTS">Ingen innlegg</Resource>
+    <Resource tag="NOMODERATION">Currently there are no Posts that need approval. And there are also no Posts that were reported.</Resource>
     <Resource tag="REMOVE">Slett</Resource>
     <Resource tag="REPLIES">Svar</Resource>
     <Resource tag="TITLE">Moderer</Resource>

@@ -3501,7 +3501,9 @@ Spoiler Content
     <Resource tag="INVITE">Benutzer einladen</Resource>
     <Resource tag="LASTPOST">Letzter Beitrag</Resource>
     <Resource tag="MEMBERS">Mitglieder</Resource>
+    <Resource tag="MODERATEINDEX_TITLE">Beiträge Moderieren die Gemeldet wurden oder noch nicht freigeschaltet sind</Resource>
     <Resource tag="NO_POSTS">Keine Beiträge</Resource>
+    <Resource tag="NOMODERATION">Derzeit gibt es keine  Beiträge die freigeschaltet werden müssen. Und auch keine Beiträge die Gemeldet wurden.</Resource>
     <Resource tag="REMOVE">entfernen</Resource>
     <Resource tag="REPLIES">Antworten</Resource>
     <Resource tag="TITLE">Moderieren</Resource>

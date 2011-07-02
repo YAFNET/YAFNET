@@ -3561,7 +3561,9 @@ Spoiler Content
     <Resource tag="INVITE">Invitar usuario</Resource>
     <Resource tag="LASTPOST">Ultimo mensaje</Resource>
     <Resource tag="MEMBERS">Miembros</Resource>
+    <Resource tag="MODERATEINDEX_TITLE">Moderate Reported Posts and Not Approved Posts</Resource>
     <Resource tag="NO_POSTS">No hay mensajes</Resource>
+    <Resource tag="NOMODERATION">Currently there are no Posts that need approval. And there are also no Posts that were reported.</Resource>
     <Resource tag="REMOVE">Eliminar</Resource>
     <Resource tag="REPLIES">Respuestas</Resource>
     <Resource tag="TITLE">Moderar</Resource>

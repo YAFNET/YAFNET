@@ -3545,7 +3545,9 @@ Spoiler Content
     <Resource tag="INVITE">Přizvat dalšího uživatele</Resource>
     <Resource tag="LASTPOST">Poslední zpráva</Resource>
     <Resource tag="MEMBERS">Uživatelé</Resource>
+    <Resource tag="MODERATEINDEX_TITLE">Moderate Reported Posts and Not Approved Posts</Resource>
     <Resource tag="NO_POSTS">Žádné zprávy</Resource>
+    <Resource tag="NOMODERATION">Currently there are no Posts that need approval. And there are also no Posts that were reported.</Resource>
     <Resource tag="REMOVE">Odstranit</Resource>
     <Resource tag="REPLIES">Odpovědí</Resource>
     <Resource tag="TITLE">Moderovat</Resource>

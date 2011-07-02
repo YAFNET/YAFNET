@@ -30,19 +30,19 @@
                     <YAF:UserLink ID="UserLink1" runat="server" UserID='<%# Convert.ToInt32(Eval("UserID")) %>' />
                 </td>
                 <td>
-                    <b>
+                    <strong>
                         <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="POSTED" />
-                    </b>
-                    <%# this.Get<IDateTime>().FormatDateShort((System.DateTime) DataBinder.Eval(Container.DataItem, "[\"Posted\"]")) %>
+                    </strong>
+                    <%# this.Get<IDateTime>().FormatDateShort((DateTime) DataBinder.Eval(Container.DataItem, "[\"Posted\"]")) %>
                     <br />
-                    <b>
+                    <strong>
                         <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="NUMBERREPORTED" />
-                    </b>
+                    </strong>
                     <%# DataBinder.Eval(Container.DataItem, "[\"NumberOfReports\"]") %>
-                    <label id="Label1" runat="server" visible='<%# YAF.Utils.General.CompareMessage(DataBinder.Eval(Container.DataItem, "[\"OriginalMessage\"]"),DataBinder.Eval(Container.DataItem, "[\"Message\"]"))%>'>
-                        <b>
+                    <label id="Label1" runat="server" visible='<%# General.CompareMessage(DataBinder.Eval(Container.DataItem, "[\"OriginalMessage\"]"),DataBinder.Eval(Container.DataItem, "[\"Message\"]"))%>'>
+                        <strong>
                             <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="MODIFIED" />
-                        </b>
+                        </strong>
                     </label>
                 </td>
                 <td>
@@ -72,7 +72,7 @@
                     <%# FormatMessage((System.Data.DataRowView)Container.DataItem)%>
                 </td>
             </tr>
-            <tr class="postheader">
+            <tr class="postheader" style="vertical-align:top">
                 <td class="postformheader">
                     <YAF:LocalizedLabel ID="ReportedByLabel" runat="server" LocalizedTag="REPORTEDBY" />
                 </td>

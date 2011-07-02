@@ -3660,7 +3660,9 @@ Spoiler Content
     <Resource tag="INVITE">Kviesti Vartotojas </Resource>
     <Resource tag="LASTPOST">Last Post </Resource>
     <Resource tag="MEMBERS">Nariai </Resource>
+    <Resource tag="MODERATEINDEX_TITLE">Moderate Reported Posts and Not Approved Posts</Resource>
     <Resource tag="NO_POSTS">Komentarų nėra </Resource>
+    <Resource tag="NOMODERATION">Currently there are no Posts that need approval. And there are also no Posts that were reported.</Resource>
     <Resource tag="REMOVE">Pašalinti </Resource>
     <Resource tag="REPLIES">Atsakymai </Resource>
     <Resource tag="TITLE">Vidutiniškas </Resource>

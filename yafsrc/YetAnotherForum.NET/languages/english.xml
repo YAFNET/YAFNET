@@ -2140,6 +2140,8 @@ Spoiler Content
       <Resource tag="TOPICS">Topics</Resource>
       <Resource tag="USER">User</Resource>
       <Resource tag="VIEWS">Views</Resource>
+	  <Resource tag="NOMODERATION">Currently there are no Posts that need approval. And there are also no Posts that were reported.</Resource>
+	  <Resource tag="MODERATEINDEX_TITLE">Moderate Reported Posts and Not Approved Posts</Resource>
    </page>
    <page name="MODERATE_DEFAULT">
       <Resource tag="CATEGORY">Category</Resource>

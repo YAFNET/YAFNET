@@ -3562,7 +3562,9 @@ Spoiler Content
     <Resource tag="INVITE">Пригласить пользователя</Resource>
     <Resource tag="LASTPOST">Последнее сообщение</Resource>
     <Resource tag="MEMBERS">Пользователи</Resource>
+    <Resource tag="MODERATEINDEX_TITLE">Moderate Reported Posts and Not Approved Posts</Resource>
     <Resource tag="NO_POSTS">Нет сообщений</Resource>
+    <Resource tag="NOMODERATION">Currently there are no Posts that need approval. And there are also no Posts that were reported.</Resource>
     <Resource tag="REMOVE">Удалить</Resource>
     <Resource tag="REPLIES">Ответы</Resource>
     <Resource tag="TITLE">Модерировать</Resource>

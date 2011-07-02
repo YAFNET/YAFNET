@@ -1,9 +1,9 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.moderate.index" Codebehind="index.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.moderate.index" Codebehind="index.ascx.cs" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <table class="content" cellspacing="1" cellpadding="0" width="100%">
 	<tr>
 		<td class="header1" colspan="3">
-			<YAF:LocalizedLabel runat="server" LocalizedTag="FORUMS" />
+			<YAF:LocalizedLabel runat="server" LocalizedTag="MODERATEINDEX_TITLE" />
 		</td>
 	</tr>
 	<asp:Repeater ID="CategoryList" runat="server">
@@ -24,9 +24,9 @@
 				<ItemTemplate>
 					<tr class="post">
 						<td align="left">
-							<b>
+							<strong>
 							<%# DataBinder.Eval(Container.DataItem, "[\"Name\"]") %>
-							</b>
+							</strong>
 							<br />
 							<%# DataBinder.Eval(Container.DataItem, "[\"Description\"]") %>
 						</td>
@@ -45,10 +45,17 @@
 			</asp:Repeater>
 		</ItemTemplate>
 	</asp:Repeater>
-	<tr>
-		<td class="postfooter" colspan="4">
+    <asp:PlaceHolder id="InfoPlaceHolder" runat="server" Visible="false">
+      <tr class="post">
+        <td style="text-align:center">
+          <em><YAF:LocalizedLabel ID="NoCountInfo" LocalizedTag="NOMODERATION" LocalizedPage="MODERATE" runat="server"></YAF:LocalizedLabel></em>
+        </td>
+      </tr>
+    </asp:PlaceHolder>
+	  <tr>
+		<td class="footer1" colspan="3">
 			&nbsp;</td>
-	</tr>
+	  </tr>
 </table>
 <div id="DivSmartScroller">
 	<YAF:SmartScroller ID="SmartScroller1" runat="server" />

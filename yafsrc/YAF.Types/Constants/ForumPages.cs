@@ -50,9 +50,9 @@ namespace YAF.Types.Constants
     activeusers, 
 
     /// <summary>
-    /// The moderate.
+    /// The moderating.
     /// </summary>
-    moderate, 
+    moderating, 
 
     /// <summary>
     /// The postmessage.

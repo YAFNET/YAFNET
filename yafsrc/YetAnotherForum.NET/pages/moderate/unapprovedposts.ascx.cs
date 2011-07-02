@@ -19,214 +19,216 @@
  */
 namespace YAF.Pages.moderate
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.Data;
-  using System.Web.UI.WebControls;
+    using System;
+    using System.Data;
+    using System.Web.UI.WebControls;
 
-  using YAF.Classes.Data;
-  using YAF.Controls;
-  using YAF.Core;
-  using YAF.Core.Services;
-  using YAF.Types;
-  using YAF.Types.Constants;
-  using YAF.Types.Flags;
-  using YAF.Types.Interfaces;
-  using YAF.Utils;
-
-  #endregion
-
-  /// <summary>
-  /// Summary description for _default.
-  /// </summary>
-  public partial class unapprovedposts : ModerateForumPage
-  {
-    #region Constructors and Destructors
-
-    /// <summary>
-    ///   Initializes a new instance of the <see cref = "unapprovedposts" /> class. 
-    ///   Default constructor.
-    /// </summary>
-    public unapprovedposts()
-      : base("MODERATE_FORUM")
-    {
-    }
+    using YAF.Classes;
+    using YAF.Classes.Data;
+    using YAF.Controls;
+    using YAF.Core;
+    using YAF.Types;
+    using YAF.Types.Constants;
+    using YAF.Types.Flags;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
 
     #endregion
 
-    #region Methods
-
     /// <summary>
-    /// Creates page links for this page.
+    /// Summary description for _default.
     /// </summary>
-    protected override void CreatePageLinks()
+    public partial class unapprovedposts : ModerateForumPage
     {
-      // forum index
-      this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        #region Constructors and Destructors
 
-      // moderation index
-      this.PageLinks.AddLink(this.GetText("MODERATE_DEFAULT", "TITLE"), YafBuildLink.GetLink(ForumPages.moderate_index));
+        /// <summary>
+        ///   Initializes a new instance of the <see cref = "unapprovedposts" /> class. 
+        ///   Default constructor.
+        /// </summary>
+        public unapprovedposts()
+            : base("MODERATE_FORUM")
+        {
+        }
 
-      // current page
-      this.PageLinks.AddLink(this.PageContext.PageForumName);
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Creates page links for this page.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
+            // forum index
+            this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+
+            // moderation index
+            this.PageLinks.AddLink(this.GetText("MODERATE_DEFAULT", "TITLE"), YafBuildLink.GetLink(ForumPages.moderate_index));
+
+            // current page
+            this.PageLinks.AddLink(this.PageContext.PageForumName);
+        }
+
+        /// <summary>
+        /// Handles load event for delete button, adds confirmation dialog.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            var button = sender as ThemeButton;
+            if (button != null)
+            {
+                button.Attributes["onclick"] = "return confirm('{0}');".FormatWith(this.GetText("ASK_DELETE"));
+            }
+        }
+
+        /// <summary>
+        /// Format message.
+        /// </summary>
+        /// <param name="row">
+        /// Message data row.
+        /// </param>
+        /// <returns>
+        /// Formatted string with escaped HTML markup and formatted this.Get<IBBCode>().
+        /// </returns>
+        protected string FormatMessage([NotNull] DataRowView row)
+        {
+            // get message flags
+            var messageFlags = new MessageFlags(row["Flags"]);
+
+            // message
+            string msg;
+
+            // format message?
+            if (messageFlags.NotFormatted)
+            {
+                // just encode it for HTML output
+                msg = this.HtmlEncode(row["Message"].ToString());
+            }
+            else
+            {
+                // fully format message (YafBBCode, smilies)
+                msg = this.Get<IFormatMessage>().FormatMessage(
+                  row["Message"].ToString(), messageFlags, Convert.ToBoolean(row["IsModeratorChanged"]));
+            }
+
+            // return formatted message
+            return msg;
+        }
+
+        /// <summary>
+        /// The on init.
+        /// </summary>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected override void OnInit([NotNull] EventArgs e)
+        {
+            List.ItemCommand += this.List_ItemCommand;
+            base.OnInit(e);
+        }
+
+        /// <summary>
+        /// Handles page load event.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            // do this just on page load, not postbacks
+            if (this.IsPostBack)
+            {
+                return;
+            }
+
+            // create page links
+            this.CreatePageLinks();
+
+            // bind data
+            this.BindData();
+        }
+
+        /// <summary>
+        /// Bind data for this control.
+        /// </summary>
+        private void BindData()
+        {
+            // get unapproved posts for this forum
+            this.List.DataSource = LegacyDb.message_unapproved(this.PageContext.PageForumID);
+
+            // bind data to controls
+            this.DataBind();
+        }
+
+        /// <summary>
+        /// Handles post moderation events/buttons.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void List_ItemCommand([NotNull] object sender, [NotNull] RepeaterCommandEventArgs e)
+        {
+            // which command are we handling
+            switch (e.CommandName.ToLower())
+            {
+                case "approve":
+
+                    // approve post
+                    LegacyDb.message_approve(e.CommandArgument);
+
+                    // Update statistics
+                    this.Get<IDataCache>().Remove(Constants.Cache.BoardStats);
+
+                    // re-bind data
+                    this.BindData();
+
+                    // tell user message was approved
+                    this.PageContext.AddLoadMessage(this.GetText("APPROVED"));
+
+                    // send notification to watching users...
+                    this.Get<ISendNotification>().ToWatchingUsers(e.CommandArgument.ToType<int>());
+                    break;
+                case "delete":
+
+                    // delete message
+                    LegacyDb.message_delete(e.CommandArgument, true, string.Empty, 1, true);
+
+                    // Update statistics
+                    this.Get<IDataCache>().Remove(Constants.Cache.BoardStats);
+
+                    // re-bind data
+                    this.BindData();
+
+                    // tell user message was deleted
+                    this.PageContext.AddLoadMessage(this.GetText("DELETED"));
+                    break;
+            }
+
+            // see if there are any items left...
+            DataTable dt = LegacyDb.message_unapproved(this.PageContext.PageForumID);
+
+            if (dt.Rows.Count == 0)
+            {
+                // nope -- redirect back to the moderate main...
+                YafBuildLink.Redirect(ForumPages.moderate_index);
+            }
+        }
+
+        #endregion
     }
-
-    /// <summary>
-    /// Handles load event for delete button, adds confirmation dialog.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      var button = sender as ThemeButton;
-      if (button != null)
-      {
-        button.Attributes["onclick"] = "return confirm('{0}');".FormatWith(this.GetText("ASK_DELETE"));
-      }
-    }
-
-    /// <summary>
-    /// Format message.
-    /// </summary>
-    /// <param name="row">
-    /// Message data row.
-    /// </param>
-    /// <returns>
-    /// Formatted string with escaped HTML markup and formatted this.Get<IBBCode>().
-    /// </returns>
-    protected string FormatMessage([NotNull] DataRowView row)
-    {
-      // get message flags
-      var messageFlags = new MessageFlags(row["Flags"]);
-
-      // message
-      string msg;
-
-      // format message?
-      if (messageFlags.NotFormatted)
-      {
-        // just encode it for HTML output
-        msg = this.HtmlEncode(row["Message"].ToString());
-      }
-      else
-      {
-        // fully format message (YafBBCode, smilies)
-        msg = this.Get<IFormatMessage>().FormatMessage(
-          row["Message"].ToString(), messageFlags, Convert.ToBoolean(row["IsModeratorChanged"]));
-      }
-
-      // return formatted message
-      return msg;
-    }
-
-    /// <summary>
-    /// The on init.
-    /// </summary>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected override void OnInit([NotNull] EventArgs e)
-    {
-      List.ItemCommand += this.List_ItemCommand;
-      base.OnInit(e);
-    }
-
-    /// <summary>
-    /// Handles page load event.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      // do this just on page load, not postbacks
-      if (!this.IsPostBack)
-      {
-        // create page links
-        this.CreatePageLinks();
-
-        // bind data
-        this.BindData();
-      }
-    }
-
-    /// <summary>
-    /// Bind data for this control.
-    /// </summary>
-    private void BindData()
-    {
-      // get unapproved posts for this forum
-      this.List.DataSource = LegacyDb.message_unapproved(this.PageContext.PageForumID);
-
-      // bind data to controls
-      this.DataBind();
-    }
-
-    /// <summary>
-    /// Handles post moderation events/buttons.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    private void List_ItemCommand([NotNull] object sender, [NotNull] RepeaterCommandEventArgs e)
-    {
-      // which command are we handling
-      switch (e.CommandName.ToLower())
-      {
-        case "approve":
-
-          // approve post
-          LegacyDb.message_approve(e.CommandArgument);
-
-          // Update statistics
-          this.Get<IDataCache>().Remove(Constants.Cache.BoardStats);
-
-          // re-bind data
-          this.BindData();
-
-          // tell user message was approved
-          this.PageContext.AddLoadMessage(this.GetText("APPROVED"));
-
-          // send notification to watching users...
-          this.Get<ISendNotification>().ToWatchingUsers(e.CommandArgument.ToType<int>());
-          break;
-        case "delete":
-
-          // delete message
-          LegacyDb.message_delete(e.CommandArgument, true, string.Empty, 1, true);
-
-          // Update statistics
-          this.Get<IDataCache>().Remove(Constants.Cache.BoardStats);
-
-          // re-bind data
-          this.BindData();
-
-          // tell user message was deleted
-          this.PageContext.AddLoadMessage(this.GetText("DELETED"));
-          break;
-      }
-
-      // see if there are any items left...
-      DataTable dt = LegacyDb.message_unapproved(this.PageContext.PageForumID);
-
-      if (dt.Rows.Count == 0)
-      {
-        // nope -- redirect back to the moderate main...
-        YafBuildLink.Redirect(ForumPages.moderate_index);
-      }
-    }
-
-    #endregion
-  }
 }
