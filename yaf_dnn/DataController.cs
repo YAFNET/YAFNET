@@ -25,6 +25,8 @@ namespace YAF.DotNetNuke
     using System.Collections.Generic;
     using System.Data;
 
+    using global::DotNetNuke.Application;
+    using global::DotNetNuke.Common;
     using global::DotNetNuke.Common.Lists;
     using global::DotNetNuke.Common.Utilities;
     using global::DotNetNuke.Data;
@@ -167,15 +169,16 @@ namespace YAF.DotNetNuke
         /// </param>
         public static void AddYafProfileDefinition(int portalId, string category, string name, string type, int length, ListEntryInfoCollection types)
         {
-            ProfilePropertyDefinitionCollection profileProperties = ProfileController.GetPropertyDefinitionsByPortal(portalId);
+            var profileProperties = ProfileController.GetPropertyDefinitionsByPortal(portalId);
 
-            int lastViewOrder = profileProperties[profileProperties.Count - 1].ViewOrder;
-            
-            // DNN 6
-            // ListEntryInfo typeInfo = types["DataType:{0}".FormatWith(type)];
+            var lastViewOrder = profileProperties[profileProperties.Count - 1].ViewOrder;
 
-            // DNN 5
-            ListEntryInfo typeInfo = types.Item("DataType:{0}".FormatWith(type));
+            var typeInfo = types.ToGenericList<ListEntryInfo>().Find(item => item.Value.Equals(type));
+
+            if (typeInfo == null)
+            {
+                return;
+            }
 
             ProfilePropertyDefinition propertyDefinition = new ProfilePropertyDefinition
                 {
