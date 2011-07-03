@@ -1143,8 +1143,8 @@
     <Resource tag="SSL_LOGIN_HELP">Требовать безопасного соединения при входе пользователей на форум.</Resource>
     <Resource tag="SSL_REGISTER">Использовать SSL при регистрации:</Resource>
     <Resource tag="SSL_REGISTER_HELP">Требовать безопасного соединения при регистрации пользователей.</Resource>
-    <Resource tag="SSO_AUTO_REGISTER">Register New Facebook User automatically:</Resource>
-    <Resource tag="SSO_AUTO_REGISTER_HELP">Register User automatically that are trying to login thru Facebook</Resource>
+    <Resource tag="SSO_AUTO_REGISTER">Автоматически регистрировать нового пользователя Facebook:</Resource>
+    <Resource tag="SSO_AUTO_REGISTER_HELP">Автоматически регистрировать пользователя, который старается зайти через логин Facebook</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT">Таймаут кэша статистики форума:</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT_HELP">В минутах</Resource>
     <Resource tag="STYLED_NICKS">Использовать стилизированные ники:</Resource>
@@ -1971,8 +1971,8 @@
     <Resource tag="ACTIVE_USERS_MEMBERS1">{0:N0} участник</Resource>
     <Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} участников</Resource>
     <Resource tag="ACTIVE_USERS_TIME">за последние {0:N0} минут</Resource>
-    <Resource tag="ALPHABET_FILTER">Alphabet filter</Resource>
-    <Resource tag="ALPHABET_FILTER_BY">Filter list by letter {0}.</Resource>
+    <Resource tag="ALPHABET_FILTER">Алфавитный указатель</Resource>
+    <Resource tag="ALPHABET_FILTER_BY">Фильтровать по букве {0}.</Resource>
     <Resource tag="ATOMICONTOOLTIPACTIVE">Подписаться на активные темы используя ленту Atom.</Resource>
     <Resource tag="ATOMICONTOOLTIPFAVORITE">Подписаться на Ваши избранные темы используя ленту Atom.</Resource>
     <Resource tag="ATOMICONTOOLTIPFORUM">Подписаться на форумы используя ленту Atom.</Resource>
@@ -3406,7 +3406,7 @@ Spoiler Content
   &lt;li&gt;&lt;strong&gt;Rss Feed&lt;/strong&gt; - This will show the Feed of this Topic with all Post as Feed Items.&lt;/li&gt;
 &lt;/ul&gt;
 </Resource>
-    <Resource tag="THREADOPTTITLE">Topic Options</Resource>
+    <Resource tag="THREADOPTTITLE">Опции темы</Resource>
     <Resource tag="TITLE">YetAnotherForum.NET Help</Resource>
     <Resource tag="WELCOME">Here you can find answers to questions about how the board works. Use the links on the left or the search box below to find what you are looking for. </Resource>
   </page>

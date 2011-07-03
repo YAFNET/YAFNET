@@ -100,6 +100,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Bin\CookComputing.XmlRpcV2.dll</HintPath>
     </Reference>
+    <Reference Include="nStuff.UpdateControls, Version=1.2.0.0, Culture=neutral, PublicKeyToken=72f3f55dd4809977, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Bin\nStuff.UpdateControls.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -135,7 +139,6 @@
     <Compile Include="Classes\Editors\CKEditor.cs" />
     <Compile Include="Classes\Editors\CKEditorBBCodeEditor.cs" />
     <Compile Include="Classes\Editors\CKEditorHtmlEditor.cs" />
-    <Compile Include="Classes\Editors\CuteEditor.cs" />
     <Compile Include="Classes\Editors\FCKEditorV2.cs" />
     <Compile Include="Classes\Editors\FCKEditorV1.cs" />
     <Compile Include="Classes\Editors\FreeTextBoxEditor.cs" />
@@ -3125,10 +3128,6 @@
     <None Include="Web References\RegisterV2\RegisterV2.wsdl" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\nStuff.UpdateControls\nSuff.UpdateControls.csproj">
-      <Project>{D646044E-19AE-46B5-AA85-228662B2B6C8}</Project>
-      <Name>nSuff.UpdateControls</Name>
-    </ProjectReference>
     <ProjectReference Include="..\URLRewriter.NET\Intelligencia.UrlRewriter.csproj">
       <Project>{F8516C67-92BE-43FF-A8A9-B71A3EA4BE0D}</Project>
       <Name>Intelligencia.UrlRewriter</Name>
@@ -3164,9 +3163,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="uploads\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <WebReferenceUrl Include="http://yetanotherforum.net/RegisterV2.asmx">
