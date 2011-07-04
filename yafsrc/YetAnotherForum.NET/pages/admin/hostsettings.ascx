@@ -337,6 +337,14 @@
                     </tr>
                     <tr>
                         <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel85" runat="server" LocalizedTag="STYLED_NICKS" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox runat="server" ID="UseStyledNicks" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
                             <YAF:HelpLabel ID="HelpLabel97" runat="server" LocalizedTag="ALLOW_MODIFY_DISPLAYNAME" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
@@ -1185,14 +1193,6 @@
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:99%;height:80px;" ID="AcceptedHeadersHTML" runat="server" TextMode="MultiLine"></asp:TextBox>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="postheader">
-                            <YAF:HelpLabel ID="HelpLabel85" runat="server" LocalizedTag="STYLED_NICKS" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </td>
-                        <td class="post">
-                            <asp:CheckBox runat="server" ID="UseStyledNicks" />
                         </td>
                     </tr>
                 </table>
