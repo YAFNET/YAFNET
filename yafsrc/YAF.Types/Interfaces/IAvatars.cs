@@ -49,5 +49,25 @@ namespace YAF.Types.Interfaces
     /// The get avatar url for user.
     /// </returns>
     string GetAvatarUrlForUser([NotNull] IUserData userData);
+
+    /// <summary>
+    /// The get avatar url for user.
+    /// </summary>
+    /// <param name="userId">
+    /// The user Id.
+    /// </param>
+    /// <param name="avatarString">
+    /// The avatarString.
+    /// </param>
+    /// <param name="hasAvatarImage">
+    /// The hasAvatarImage.
+    /// </param>
+    /// <param name="email">
+    /// The email.
+    /// </param>
+    /// <returns>
+    /// The get avatar url for user.
+    /// </returns>
+    string GetAvatarUrlForUser(int userId, string avatarString, bool hasAvatarImage, string email);
   }
 }

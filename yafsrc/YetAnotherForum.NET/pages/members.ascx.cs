@@ -18,6 +18,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+using System.Web;
 using System.Web.UI.WebControls;
 using YAF.Types;
 using YAF.Types.Constants;
@@ -125,15 +126,15 @@ namespace YAF.Pages
         /// <returns>
         /// The get avatar url from id.
         /// </returns>
-        protected string GetAvatarUrlFromID(int userID)
+        protected string GetAvatarUrlFileName(int userId, string avatarString, bool hasAvatarImage, string email)
         {
-            string avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userID);
 
+            string avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userId, avatarString, hasAvatarImage, email);
+            
             if (avatarUrl.IsNotSet())
             {
-                avatarUrl = "{0}images/noavatar.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
+                return "{0}images/noavatar.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
             }
-
             return avatarUrl;
         }
 

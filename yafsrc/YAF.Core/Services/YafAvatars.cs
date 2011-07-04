@@ -75,41 +75,62 @@ namespace YAF.Core.Services
     public string GetAvatarUrlForUser([NotNull] IUserData userData)
     {
       CodeContracts.ArgumentNotNull(userData, "userData");
+        return GetAvatarUrlForUser(userData.UserID, userData.Avatar, userData.HasAvatarImage, userData.Email);
+    }
+    /// <summary>
+    /// The get avatar url for user.
+    /// </summary>
+    /// <param name="userId">
+    /// The user Id.
+    /// </param>
+    /// <param name="avatarString">
+    /// The avatarString.
+    /// </param>
+    /// <param name="hasAvatarImage">
+    /// The hasAvatarImage.
+    /// </param>
+    /// <param name="email">
+    /// The email.
+    /// </param>
+    /// <returns>
+    /// The get avatar url for user.
+    /// </returns>
+    public string GetAvatarUrlForUser(int userId, string avatarString, bool hasAvatarImage, string email)
+    {
+       string avatarUrl = string.Empty;
 
-      string avatarUrl = string.Empty;
+        if (YafContext.Current.BoardSettings.AvatarUpload && hasAvatarImage)
+        {
+            avatarUrl = "{0}resource.ashx?u={1}".FormatWith(YafForumInfo.ForumClientFileRoot, userId);
+        }
+        else if (avatarString.IsSet())
+        {
+            // Took out PageContext.BoardSettings.AvatarRemote
+            avatarUrl =
+              "{3}resource.ashx?url={0}&width={1}&height={2}".FormatWith(
+                HttpUtility.UrlEncode(avatarString),
+                YafContext.Current.BoardSettings.AvatarWidth,
+                YafContext.Current.BoardSettings.AvatarHeight,
+                YafForumInfo.ForumClientFileRoot);
+        }
+        else if (YafContext.Current.BoardSettings.AvatarGravatar && email.IsSet())
+        {
+            // JoeOuts added 8/17/09 for Gravatar use
 
-      if (YafContext.Current.BoardSettings.AvatarUpload && userData.HasAvatarImage)
-      {
-        avatarUrl = "{0}resource.ashx?u={1}".FormatWith(YafForumInfo.ForumClientFileRoot, userData.UserID);
-      }
-      else if (userData.Avatar.IsSet())
-      {
-        // Took out PageContext.BoardSettings.AvatarRemote
-        avatarUrl =
-          "{3}resource.ashx?url={0}&width={1}&height={2}".FormatWith(
-            HttpContext.Current.Server.UrlEncode(userData.Avatar), 
-            YafContext.Current.BoardSettings.AvatarWidth, 
-            YafContext.Current.BoardSettings.AvatarHeight, 
-            YafForumInfo.ForumClientFileRoot);
-      }
-      else if (YafContext.Current.BoardSettings.AvatarGravatar && userData.Email.IsSet())
-      {
-        // JoeOuts added 8/17/09 for Gravatar use
+            // string noAvatarGraphicUrl = HttpContext.Current.Server.UrlEncode( string.Format( "{0}/images/avatars/{1}", YafForumInfo.ForumBaseUrl, "NoAvatar.gif" ) );
+            string gravatarUrl =
+              @"http://www.gravatar.com/avatar/{0}.jpg?r={1}".FormatWith(
+                StringExtensions.StringToHexBytes(email), YafContext.Current.BoardSettings.GravatarRating);
 
-        // string noAvatarGraphicUrl = HttpContext.Current.Server.UrlEncode( string.Format( "{0}/images/avatars/{1}", YafForumInfo.ForumBaseUrl, "NoAvatar.gif" ) );
-        string gravatarUrl =
-          @"http://www.gravatar.com/avatar/{0}.jpg?r={1}".FormatWith(
-            StringExtensions.StringToHexBytes(userData.Email), YafContext.Current.BoardSettings.GravatarRating);
+            avatarUrl =
+              @"{3}resource.ashx?url={0}&width={1}&height={2}".FormatWith(
+                HttpUtility.UrlEncode(gravatarUrl),
+                YafContext.Current.BoardSettings.AvatarWidth,
+                YafContext.Current.BoardSettings.AvatarHeight,
+                YafForumInfo.ForumClientFileRoot);
+        }
 
-        avatarUrl =
-          @"{3}resource.ashx?url={0}&width={1}&height={2}".FormatWith(
-            HttpContext.Current.Server.UrlEncode(gravatarUrl), 
-            YafContext.Current.BoardSettings.AvatarWidth, 
-            YafContext.Current.BoardSettings.AvatarHeight, 
-            YafForumInfo.ForumClientFileRoot);
-      }
-
-      return avatarUrl;
+        return avatarUrl;
     }
 
     #endregion

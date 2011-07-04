@@ -1,4 +1,5 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.members" CodeBehind="members.ascx.cs" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Utils" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
@@ -90,11 +91,11 @@
         <ItemTemplate>
             <tr>
                 <td class="post">
-                    <img src="<%# this.GetAvatarUrlFromID(Convert.ToInt32(Eval("UserID")))%>" alt="<%# DataBinder.Eval(Container.DataItem,"Name").ToString() %>"
+                    <img src="<%# this.GetAvatarUrlFileName(Convert.ToInt32(Eval("UserID")), Eval("Avatar").ToString(),Eval("AvatarImage").ToString().IsSet(), Eval("Email").ToString()) %>" alt="<%# DataBinder.Eval(Container.DataItem,"Name").ToString() %>"
                         title="<%# DataBinder.Eval(Container.DataItem,"Name").ToString() %>" class="avatarimage" />
                 </td>
                 <td class="post">
-                    <YAF:UserLink ID="UserProfileLink" runat="server" UserID='<%# Convert.ToInt32(Eval("UserID")) %>'
+                    <YAF:UserLink ID="UserProfileLink" runat="server"  UserID='<%# Convert.ToInt32(Eval("UserID")) %>'
                         Style='<%# Eval("Style") %>' />
                 </td>
                 <td class="post">
