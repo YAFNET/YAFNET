@@ -92,7 +92,7 @@
             <tr>
                 <td class="post">
                     <img src="<%# this.GetAvatarUrlFileName(Convert.ToInt32(Eval("UserID")), Eval("Avatar").ToString(),Eval("AvatarImage").ToString().IsSet(), Eval("Email").ToString()) %>" alt="<%# DataBinder.Eval(Container.DataItem,"Name").ToString() %>"
-                        title="<%# DataBinder.Eval(Container.DataItem,"Name").ToString() %>" class="avatarimage" />
+                        title="<%# DataBinder.Eval(Container.DataItem,"DisplayName").ToString().IsSet() ? DataBinder.Eval(Container.DataItem,"DisplayName").ToString(): DataBinder.Eval(Container.DataItem,"Name").ToString() %>" class="avatarimage" />
                 </td>
                 <td class="post">
                     <YAF:UserLink ID="UserProfileLink" runat="server"  UserID='<%# Convert.ToInt32(Eval("UserID")) %>'

@@ -558,9 +558,17 @@ namespace YAF.Controls
       {
         if (userID.ToType<int>() != this.UserID)
         {
-          outstring += this.GetText("ACTIVELOCATION", "PROFILE_OFUSER").FormatWith();
-          outstring +=
-            @"<a href=""{0}""  id=""profileuserid_{1}"" title=""{2}"" alt=""{2}"" runat=""server""> {3} </a>".FormatWith(YafBuildLink.GetLink(ForumPages.profile, "u={0}", userID), userID + this.PageContext.PageUserID, this.GetText("COMMON", "VIEW_USRPROFILE"), HttpUtility.HtmlEncode(UserMembershipHelper.GetUserNameFromID(Convert.ToInt64(userID))));
+          string dname =   HttpUtility.HtmlEncode(UserMembershipHelper.GetDisplayNameFromID(Convert.ToInt64(userID)));
+          if (dname.IsNotSet())
+          {
+              dname = HttpUtility.HtmlEncode(UserMembershipHelper.GetUserNameFromID(Convert.ToInt64(userID)));
+          }
+            outstring += this.GetText("ACTIVELOCATION", "PROFILE_OFUSER").FormatWith();
+            outstring +=
+            @"<a href=""{0}""  id=""profileuserid_{1}"" title=""{2}"" alt=""{2}"" runat=""server""> {3} </a>".FormatWith(YafBuildLink.GetLink(ForumPages.profile, "u={0}", userID), 
+            userID + this.PageContext.PageUserID, 
+            this.GetText("COMMON", "VIEW_USRPROFILE"), 
+            HttpUtility.HtmlEncode(dname));
         }
         else
         {
