@@ -47,6 +47,11 @@ namespace YAF.Types.Constants
             public const string BannedIP = "BannedIP";
 
             /// <summary>
+            ///  The board moderators cache.
+            /// </summary>
+            public const string BoardModerators = "BoardModerators";
+
+            /// <summary>
             ///   The board admins cache.
             /// </summary>
             public const string BoardAdmins = "BoardAdmins";
@@ -195,6 +200,11 @@ namespace YAF.Types.Constants
             ///  The Visitors In The Last 24 Hours
             /// </summary>
             public const string VisitorsInTheLast24Hours = "VisitorsInTheLast24Hours";
+
+            /// <summary>
+            ///  The Todays Birthdays
+            /// </summary>
+            public const string TodaysBirthdays = "TodaysBirthdays";
 
             /// <summary>
             /// The Visitors In The Last 30 Days

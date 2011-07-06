@@ -127,7 +127,7 @@ namespace YAF.Pages
         /// The user id.
         /// </param>
         /// <returns>
-        /// The get avatar url from id.
+        /// Returns the Avatar Url
         /// </returns>
         protected string GetAvatarUrlFromID(int userID)
         {
@@ -159,7 +159,16 @@ namespace YAF.Pages
         {
             var moderators = this.Get<IDBBroker>().GetAllModerators();
 
-            var moderatorsFiltered = new List<SimpleModerator>();
+            var moderatorsAll = new List<SimpleModerator>();
+
+            var usersList = LegacyDb.user_list(this.PageContext.PageBoardID, null, true);
+
+            usersList.Columns.Add("Roles", typeof(string[]));
+
+            foreach (DataRow user in usersList.Rows)
+            {
+                user["Roles"] = this.Get<RoleProvider>().GetRolesForUser((string)user["Name"]);
+            }
 
             foreach (var moderator in moderators)
             {
@@ -168,16 +177,15 @@ namespace YAF.Pages
                     // Extract the Users from the Groups that are Moderators
                     SimpleModerator moderator1 = moderator;
 
-                    moderatorsFiltered.AddRange(
-                        from userName in this.Get<RoleProvider>().GetUsersInRole(moderator.Name)
-                        select UserMembershipHelper.GetUser(userName)
-                        into membershipUser
-                        let userId = UserMembershipHelper.GetUserIDFromProviderUserKey(membershipUser.ProviderUserKey)
+                    moderatorsAll.AddRange(
+                        from DataRow user in usersList.Rows
+                        from roleName in (string[])user["Roles"]
+                        where roleName.Equals(moderator1.Name)
                         select
                             new SimpleModerator(
                             moderator1.ForumID,
-                            userId,
-                            membershipUser.UserName,
+                            (int)user["UserID"],
+                            (string)user["Name"],
                             this.Get<YafBoardSettings>().UseStyledNicks
                                 ? this.Get<IStyleTransform>().DecodeStyleByString(moderator1.Style, false)
                                 : null,
@@ -185,13 +193,13 @@ namespace YAF.Pages
                 }
                 else
                 {
-                    moderatorsFiltered.Add(moderator);
+                    moderatorsAll.Add(moderator);
                 }
             }
 
             var modsSorted = new List<Moderator>();
 
-            foreach (SimpleModerator mod in moderatorsFiltered)
+            foreach (SimpleModerator mod in moderatorsAll)
             {
                 var sortedMod = new Moderator { Name = mod.Name, ModeratorID = mod.ModeratorID, Style = mod.Style };
 
@@ -202,7 +210,7 @@ namespace YAF.Pages
                 }
 
                 // Get All Items from that MOD
-                var modList = moderatorsFiltered.Where(m => m.Name.Equals(sortedMod.Name)).ToList();
+                var modList = moderatorsAll.Where(m => m.Name.Equals(sortedMod.Name)).ToList();
                 var forumsCount = modList.Count();
 
                 sortedMod.ForumIDs = new ModeratorsForums[forumsCount];
@@ -347,7 +355,10 @@ namespace YAF.Pages
             this.AdminsGrid.Columns[2].HeaderText = this.GetText("TEAM", "Forums");
             this.AdminsGrid.DataSource = this.GetAdmins();
 
-            this.completeModsList = this.GetModerators();
+            this.completeModsList = this.Get<IDataCache>().GetOrSet(
+               Constants.Cache.BoardModerators,
+                this.GetModerators,
+                TimeSpan.FromMinutes(this.Get<YafBoardSettings>().BoardModeratorsCacheTimeout));
 
             if (this.completeModsList.Count > 0)
             {
