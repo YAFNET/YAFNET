@@ -4256,7 +4256,7 @@ begin
 				Browser = @Browser,
 				[Platform] = @Platform,
 				ForumPage = @ForumPage		
-			where SessionID = @SessionID			
+			where SessionID = @SessionID AND BoardID=@BoardID			
 			end
 			else
 			begin
@@ -4271,7 +4271,7 @@ begin
 				Browser = @Browser,
 				[Platform] = @Platform,
 				ForumPage = @ForumPage	
-			where Browser = @Browser AND IP = @IP
+			where Browser = @Browser AND IP = @IP AND BoardID=@BoardID
 			-- trace crawler: the cache is reset every time crawler moves to next page ? Disabled as cache reset will overload server 
 			-- set @ActiveUpdate = 1			
 			end
