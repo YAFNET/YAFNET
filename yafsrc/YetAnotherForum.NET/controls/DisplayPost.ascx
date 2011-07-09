@@ -11,7 +11,7 @@
     <%#GetIndentCell()%>
     <td width="140" id="NameCell" class="postUser" runat="server">
         <a name="post<%# DataRow["MessageID"] %>" /><b>						
-            <YAF:UserLink ID="UserProfileLink" runat="server" UserID='<%#DataRow["UserID"]%>' ReplaceName='<%#DataRow["UserName"]%>' PostfixText='<%# DataRow["IP"].ToString() == "NNTP" ? this.GetText("EXTERNALUSER") : String.Empty %>' Style='<%#DataRow["Style"]%>' CssClass="UserPopMenuLink" />
+            <YAF:UserLink ID="UserProfileLink" runat="server" UserID='<%#DataRow["UserID"]%>' PostfixText='<%# DataRow["IP"].ToString() == "NNTP" ? this.GetText("EXTERNALUSER") : String.Empty %>' Style='<%#DataRow["Style"]%>' CssClass="UserPopMenuLink" />
             <%# this.Get<YafBoardSettings>().ShowIrkooRepOnlyInTopics ? YafIrkoo.IrkRating(DataRow["UserID"]) : string.Empty%>
             <YAF:OnlineStatusImage id="OnlineStatusImage" runat="server" Visible='<%# this.Get<YafBoardSettings>().ShowUserOnlineStatus && !UserMembershipHelper.IsGuestUser( DataRow["UserID"] )%>' Style="vertical-align: bottom" UserID='<%# DataRow["UserID"] %>'  />
         </b>
