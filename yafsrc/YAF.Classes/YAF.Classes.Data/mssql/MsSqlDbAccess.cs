@@ -502,6 +502,24 @@ namespace YAF.Classes.Data
       return Activator.CreateInstance(this._connectionManagerType).ToClass<IDbConnectionManager>();
     }
 
+    // vzrus: The methods should not be implemented and used for other data layers compatability.
+    public DataTable AddValuesToDataTableFromReader([NotNull] IDbCommand cmd, DataTable dt, bool transaction, bool acceptChanges,
+                                             int firstColumnIndex)
+    {
+        throw new Exception("Not in use for the data layer.");
+    }
+
+    public DataTable AddValuesToDataTableFromReader([NotNull] IDbCommand cmd, DataTable dt, bool transaction, bool acceptChanges,
+                                             int firstColumnIndex, int currentRow)
+    {
+        throw new Exception("Not in use for the data layer.");
+    }
+
+    public DataTable GetDataTableFromReader([NotNull] IDbCommand cmd, bool transaction, bool acceptChanges)
+    {
+        throw new Exception("Not in use for the data layer.");
+    }
+
     /// <summary>
     /// The get data.
     /// </summary>

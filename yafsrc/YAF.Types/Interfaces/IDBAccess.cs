@@ -104,7 +104,39 @@ namespace YAF.Types.Interfaces
     /// </param>
     /// <returns>
     /// The execute scalar.
-    /// </returns>
+    /// </returns> 
     object ExecuteScalar(IDbCommand cmd, bool transaction);
+    /// <summary>
+    /// Returns values from data reader. 
+    /// </summary>
+    /// <param name="cmd"></param>
+    /// <param name="dt"></param>
+    /// <param name="transaction"></param>
+    /// <param name="acceptChanges"></param>
+    /// <param name="firstColumnIndex"></param>
+    /// <returns></returns>
+    DataTable AddValuesToDataTableFromReader(IDbCommand cmd, DataTable dt, bool transaction, bool acceptChanges,
+                                            int firstColumnIndex);
+    /// <summary>
+    /// Returns values from data reader.
+    /// </summary>
+    /// <param name="cmd"></param>
+    /// <param name="dt"></param>
+    /// <param name="transaction"></param>
+    /// <param name="acceptChanges"></param>
+    /// <param name="firstColumnIndex"></param>
+    /// <param name="currentRow"></param>
+    /// <returns></returns>
+ 
+    DataTable AddValuesToDataTableFromReader(IDbCommand cmd, DataTable dt, bool transaction, bool acceptChanges,
+                                             int firstColumnIndex, int currentRow);
+    /// <summary>
+    /// Returns values from data reader.
+    /// </summary>
+    /// <param name="cmd"></param>
+    /// <param name="transaction"></param>
+    /// <param name="acceptChanges"></param>
+    /// <returns></returns>
+    DataTable GetDataTableFromReader(IDbCommand cmd, bool transaction, bool acceptChanges);
   }
 }
