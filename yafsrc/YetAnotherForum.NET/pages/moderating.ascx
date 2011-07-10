@@ -26,7 +26,7 @@
         <ItemTemplate>
             <tr class="post">
                 <td>
-                    <%# Eval("Name") %>
+                    <%# (Eval("DisplayName") != DBNull.Value) ? Eval("DisplayName") : Eval("DisplayName")%>
                 </td>
                 <td align="center">
                     <%# Eval("Accepted") %>

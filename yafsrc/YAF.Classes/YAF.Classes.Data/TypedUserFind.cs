@@ -74,7 +74,7 @@ namespace YAF.Types.Objects
             this.Culture = row.Field<string>("Culture");
             this.NotificationType = row.Field<int?>("NotificationType");
             this.DailyDigest = row.Field<bool?>("DailyDigest");
-            this.IsGuest = (row.Field<int?>("IsGuest") ?? 0) == 1;
+            this.IsGuest =row.Field<bool>("IsGuest");
             this.ProviderUserKey = this.IsGuest ? null : ObjectExtensions.ConvertObjectToType(
               row.Field<string>("ProviderUserKey"), Config.ProviderKeyType);
         }
