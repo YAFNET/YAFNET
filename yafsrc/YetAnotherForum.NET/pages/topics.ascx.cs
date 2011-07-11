@@ -372,7 +372,7 @@ namespace YAF.Pages
           LegacyDb.topic_list(
             this.PageContext.PageForumID, userId, 1, null, 0, 10, this.Get<YafBoardSettings>().UseStyledNicks, true));
 
-      int nPageSize = Math.Max(5, this.Pager.PageSize - dt.Rows.Count);
+        int nPageSize = this.Get<YafBoardSettings>().TopicsPerPage;
       this.Announcements.DataSource = dt;
 
       /*if ( !m_bIgnoreQueryString && Request.QueryString ["p"] != null )
@@ -453,8 +453,8 @@ namespace YAF.Pages
         nRowCount = (int)dtTopics.Rows[0]["RowCount"];
       }
 
-      int nPageCount = (int)Math.Ceiling((double)(nRowCount + nPageSize) / nPageSize);
-
+     // int nPageCount = (int)Math.Ceiling((double)(nRowCount + nPageSize) / nPageSize);
+     
       this.TopicList.DataSource = dtTopics;
 
       this.DataBind();
@@ -463,7 +463,7 @@ namespace YAF.Pages
       this.ShowList.SelectedIndex = this._showTopicListSelected;
       this.Get<IYafSession>().ShowList = this._showTopicListSelected;
 
-      this.Pager.Count = nPageCount;
+      this.Pager.Count = nRowCount;
     }
 
     /// <summary>
