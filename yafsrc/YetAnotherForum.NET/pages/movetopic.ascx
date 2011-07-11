@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.movetopic" Codebehind="movetopic.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.movetopic" Codebehind="movetopic.ascx.cs" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
 	<tr>
@@ -13,7 +13,8 @@
 		<td class="post" width="50%">
 			<asp:DropDownList ID="ForumList" runat="server" DataValueField="ForumID" DataTextField="Title" />
 		</td>
-		<tr id="trLeaveLink" runat="server" visible="<%# PageContext.BoardSettings.ShowMoved %>">
+    </tr>
+		<tr id="trLeaveLink" runat="server">
 			<td class="postheader" width="50%">
 				<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="LEAVE_POINTER" />
 			</td>
@@ -21,7 +22,6 @@
 				<asp:CheckBox ID="LeavePointer" runat="server" />
 			</td>
 		</tr>
-	</tr>
 	<tr>
 		<td class="footer1" colspan="2" align="center">
 			<asp:Button ID="Move" CssClass="pbutton" runat="server" OnClick="Move_Click" />

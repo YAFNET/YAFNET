@@ -1,5 +1,5 @@
-/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bjørnar Henden
+ï»¿/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjï¿½rnar Henden
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -26,6 +26,7 @@ namespace YAF.Pages
   using System;
   using System.Web.UI.WebControls;
 
+  using YAF.Classes;
   using YAF.Classes.Data;
   using YAF.Core;
   using YAF.Types;
@@ -65,14 +66,14 @@ namespace YAF.Pages
     /// </param>
     protected void Move_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (Convert.ToInt32(this.ForumList.SelectedValue) <= 0)
+      if (this.ForumList.SelectedValue.ToType<int>() <= 0)
       {
         this.PageContext.AddLoadMessage(this.GetText("CANNOT_MOVE_TO_CATEGORY"));
         return;
       }
 
       // only move if it's a destination is a different forum.
-      if (Convert.ToInt32(this.ForumList.SelectedValue) != this.PageContext.PageForumID)
+      if (this.ForumList.SelectedValue.ToType<int>() != this.PageContext.PageForumID)
       {
         // Ederon : 7/14/2007
         LegacyDb.topic_move(this.PageContext.PageTopicID, this.ForumList.SelectedValue, this.LeavePointer.Checked);
@@ -110,24 +111,30 @@ namespace YAF.Pages
         YafBuildLink.AccessDenied();
       }
 
-      if (!this.IsPostBack)
-      {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
         if (this.PageContext.Settings.LockedForum == 0)
         {
-          this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-          this.PageLinks.AddLink(
-            this.PageContext.PageCategoryName, 
-            YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
+            this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddLink(
+                this.PageContext.PageCategoryName, 
+                YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
         }
 
         this.PageLinks.AddForumLinks(this.PageContext.PageForumID);
         this.PageLinks.AddLink(
-          this.PageContext.PageTopicName, YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.PageContext.PageTopicID));
+            this.PageContext.PageTopicName, YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.PageContext.PageTopicID));
 
-        this.Move.Text = this.GetText("move");
+        this.Move.Text = this.GetText("MOVE");
+        this.Move.ToolTip = "{0}: {1}".FormatWith(this.GetText("MOVE"), this.PageContext.PageTopicName);
 
         // Ederon : 7/14/2007 - by default, leave pointer is set on value defined on host level
-        this.LeavePointer.Checked = this.PageContext.BoardSettings.ShowMoved;
+        this.LeavePointer.Checked = this.Get<YafBoardSettings>().ShowMoved;
+
+        trLeaveLink.Visible = this.Get<YafBoardSettings>().ShowMoved;
 
         this.ForumList.DataSource = LegacyDb.forum_listall_sorted(this.PageContext.PageBoardID, this.PageContext.PageUserID);
 
@@ -136,16 +143,15 @@ namespace YAF.Pages
         ListItem pageItem = this.ForumList.Items.FindByValue(this.PageContext.PageForumID.ToString());
         if (pageItem != null)
         {
-          pageItem.Selected = true;
+            pageItem.Selected = true;
         }
-      }
     }
 
     /// <summary>
     /// Required method for Designer support - do not modify
     ///   the contents of this method with the code editor.
     /// </summary>
-    private void InitializeComponent()
+    private static void InitializeComponent()
     {
     }
 

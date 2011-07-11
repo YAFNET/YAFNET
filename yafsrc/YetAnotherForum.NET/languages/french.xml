@@ -1412,8 +1412,11 @@
     <Resource tag="DISPLAY_NAME">Display Name</Resource>
     <Resource tag="EMAIL">Email</Resource>
     <Resource tag="EMAIL_CONTAINS">Email Contains:</Resource>
+    <Resource tag="EXPORT_CSV">Export All User(s) as CSV</Resource>
+    <Resource tag="EXPORT_XML">Export All User(s) as Xml</Resource>
     <Resource tag="FILTER">Filter by join date since:</Resource>
     <Resource tag="HEADER">Search Users</Resource>
+    <Resource tag="IMPORT">Import User(s)</Resource>
     <Resource tag="LAST_VISIT">Last Visit</Resource>
     <Resource tag="MSG_DELETE_ADMIN">You can't delete the Admin.</Resource>
     <Resource tag="MSG_DELETE_GUEST">You can't delete the Guest.</Resource>
@@ -1427,6 +1430,16 @@
     <Resource tag="SYNC_ALL">Sync All Membership Users</Resource>
     <Resource tag="TITLE">Users</Resource>
     <Resource tag="USER_NAME">User Name</Resource>
+  </page>
+  <page name="ADMIN_USERS_IMPORT">
+    <Resource tag="HEADER">Import Users to YAF</Resource>
+    <Resource tag="IMPORT_FAILED">Failed to import: {0}</Resource>
+    <Resource tag="IMPORT_FAILED_FORMAT">Input failed, wrong file format!</Resource>
+    <Resource tag="IMPORT_FILE">Select Import File:</Resource>
+    <Resource tag="IMPORT_FILE_HELP">Must be *.xml or *.csv file</Resource>
+    <Resource tag="IMPORT_NOTHING">Nothing imported: no new user where found in the upload.</Resource>
+    <Resource tag="IMPORT_SUCESS">{0} User(s) imported successfully.</Resource>
+    <Resource tag="TITLE">User Importer</Resource>
   </page>
   <page name="ADMIN_VERSION">
     <Resource tag="LATEST_VERSION">The latest final version available is &lt;strong&gt;{0}&lt;/strong&gt; released &lt;strong&gt;{1}&lt;/strong&gt;.</Resource>
@@ -1934,6 +1947,7 @@
     <Resource tag="SIGNATURE_MAX">Your signature is too long. It can have no more than {0} characters.</Resource>
     <Resource tag="SIGNATURE_NOEDIT">You can't edit your signature, but you can delete it completely.</Resource>
     <Resource tag="SIGNATURE_PERMISSIONS">Signature Permissions</Resource>
+    <Resource tag="SIGNATURE_PREVIEW">Signature Preview</Resource>
     <Resource tag="TITLE">Editer votre Signature</Resource>
   </page>
   <page name="CP_SUBSCRIPTIONS">
@@ -3609,9 +3623,12 @@ Spoiler Content
     <Resource tag="EMPTY_TOPIC">Nom du sujet vide</Resource>
     <Resource tag="MOVE" />
     <Resource tag="MOVE_MESSAGE">Déplacer le message</Resource>
+    <Resource tag="MOVE_TITLE">Move Message to a Different Topic</Resource>
     <Resource tag="NEW_TOPIC">Créer un sujet pour déplacer vers:</Resource>
     <Resource tag="SELECT_FORUM_MOVETO">Choisir le Forum à déplacer:</Resource>
     <Resource tag="SELECT_TOPIC_MOVETO">Choisir le Sujet à déplacer:</Resource>
+    <Resource tag="SPLIT_TITLE">Split Message in to a new Topic</Resource>
+    <Resource tag="TITLE">Move Message to a Different Topic or split in to a new Topic</Resource>
   </page>
   <page name="MOVETOPIC">
     <Resource tag="LEAVE_POINTER">Leave link to moved topic in original forum</Resource>
@@ -4185,6 +4202,17 @@ The Message was posted in the {forumname} forum.
       
       Administration Link: {adminlink}
    </Resource>
+    <Resource tag="NOTIFICATION_ON_REGISTER">
+      Hello {user}.
+
+      You have been successfully Registred on the {forumname} forum:
+
+      User Name: {user}
+	  Auto Generated Password: {pass}
+	  Auto Generated Security Answer: {answer}
+      User Email: {email} (Please dont change your email, or you are unable to login with facebook)
+	  
+    </Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER">
 Bonjour !
 
