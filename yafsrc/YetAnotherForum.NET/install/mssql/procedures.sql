@@ -238,6 +238,10 @@ IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{database
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}forum_moderators]
 GO
 
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}moderators_team_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}moderators_team_list]
+GO
+
 IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}forum_resync]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}forum_resync]
 GO
@@ -2872,6 +2876,28 @@ BEGIN
 	order by
 		IsGroup desc,
 		ModeratorName asc
+END
+GO
+
+create procedure [{databaseOwner}].[{objectQualifier}moderators_team_list] (@StyledNicks bit) as
+BEGIN
+		select
+		ForumID = a.ForumID, 
+		ModeratorID = e.UserID, 
+		ModeratorName = e.Name,	
+		Style = case(@StyledNicks)
+			when 1 then b.Style  
+			else ''	 end,						
+		IsGroup=0
+	from
+		[{databaseOwner}].[{objectQualifier}ForumAccess] a WITH(NOLOCK)
+		INNER JOIN [{databaseOwner}].[{objectQualifier}Group] b WITH(NOLOCK) ON b.GroupID = a.GroupID
+		INNER JOIN [{databaseOwner}].[{objectQualifier}AccessMask] c WITH(NOLOCK) ON c.AccessMaskID = a.AccessMaskID
+		INNER JOIN [{databaseOwner}].[{objectQualifier}UserGroup] d WITH(NOLOCK) on d.GroupID=a.GroupID
+		INNER JOIN [{databaseOwner}].[{objectQualifier}User] e WITH(NOLOCK) on e.UserID=d.UserID
+	where
+		(b.Flags & 1)=0 and
+		(c.Flags & 64)<>0
 END
 GO
 

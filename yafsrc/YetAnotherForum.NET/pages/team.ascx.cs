@@ -26,7 +26,6 @@ namespace YAF.Pages
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
-    using System.Web.Security;
     using System.Web.UI.WebControls;
     using YAF.Classes;
     using YAF.Classes.Data;
@@ -157,49 +156,11 @@ namespace YAF.Pages
         [NotNull]
         protected List<Moderator> GetModerators()
         {
-            var moderators = this.Get<IDBBroker>().GetAllModerators();
-
-            var moderatorsAll = new List<SimpleModerator>();
-
-            var usersList = LegacyDb.user_list(this.PageContext.PageBoardID, null, true);
-
-            usersList.Columns.Add("Roles", typeof(string[]));
-
-            foreach (DataRow user in usersList.Rows)
-            {
-                user["Roles"] = this.Get<RoleProvider>().GetRolesForUser((string)user["Name"]);
-            }
-
-            foreach (var moderator in moderators)
-            {
-                if (moderator.IsGroup)
-                {
-                    // Extract the Users from the Groups that are Moderators
-                    SimpleModerator moderator1 = moderator;
-
-                    moderatorsAll.AddRange(
-                        from DataRow user in usersList.Rows
-                        from roleName in (string[])user["Roles"]
-                        where roleName.Equals(moderator1.Name)
-                        select
-                            new SimpleModerator(
-                            moderator1.ForumID,
-                            (int)user["UserID"],
-                            (string)user["Name"],
-                            this.Get<YafBoardSettings>().UseStyledNicks
-                                ? this.Get<IStyleTransform>().DecodeStyleByString(moderator1.Style, false)
-                                : null,
-                            moderator1.IsGroup));
-                }
-                else
-                {
-                    moderatorsAll.Add(moderator);
-                }
-            }
+            var moderators = this.Get<IDBBroker>().GetAllModeratorsTeam();
 
             var modsSorted = new List<Moderator>();
 
-            foreach (SimpleModerator mod in moderatorsAll)
+            foreach (SimpleModerator mod in moderators)
             {
                 var sortedMod = new Moderator { Name = mod.Name, ModeratorID = mod.ModeratorID, Style = mod.Style };
 
@@ -210,7 +171,7 @@ namespace YAF.Pages
                 }
 
                 // Get All Items from that MOD
-                var modList = moderatorsAll.Where(m => m.Name.Equals(sortedMod.Name)).ToList();
+                var modList = moderators.Where(m => m.Name.Equals(sortedMod.Name)).ToList();
                 var forumsCount = modList.Count();
 
                 sortedMod.ForumIDs = new ModeratorsForums[forumsCount];

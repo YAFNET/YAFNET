@@ -3725,23 +3725,43 @@ namespace YAF.Classes.Data
       }
     }
 
-    /// <summary>
-    /// The forum_moderators.
-    /// </summary>
-    /// <param name="useStyledNicks">
-    /// The use Styled Nicks.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    public static DataTable forum_moderators(bool useStyledNicks)
-    {
-      using (var cmd = MsSqlDbAccess.GetCommand("forum_moderators"))
-      {
-        cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
-        return MsSqlDbAccess.Current.GetData(cmd);
-      }
-    }
+/// <summary>
+        /// The forum_moderators.
+        /// </summary>
+        /// <param name="useStyledNicks">
+        /// The use Styled Nicks.
+        /// </param>
+        /// <returns>
+        ///  Returns Data Table with all Mods
+        /// </returns>
+        public static DataTable forum_moderators(bool useStyledNicks)
+        {
+            using (var cmd = MsSqlDbAccess.GetCommand("forum_moderators"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
+                return MsSqlDbAccess.Current.GetData(cmd);
+            }
+        }
+
+        /// <summary>
+        /// The moderators_team_list
+        /// </summary>
+        /// <param name="useStyledNicks">
+        /// The use Styled Nicks.
+        /// </param>
+        /// <returns>
+        ///  Returns Data Table with all Mods
+        /// </returns>
+        public static DataTable moderators_team_list(bool useStyledNicks)
+        {
+            using (var cmd = MsSqlDbAccess.GetCommand("moderators_team_list"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
+                return MsSqlDbAccess.Current.GetData(cmd);
+            }
+        }
 
     /// <summary>
     /// Updates topic and post count and last topic for all forums in specified board

@@ -387,6 +387,36 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
+        /// The get all moderators.
+        /// </summary>
+        /// <returns>
+        /// Returns the Moderators Team as SimpleModerator List
+        /// </returns>
+        public List<SimpleModerator> GetAllModeratorsTeam()
+        {
+            // get the cached version of forum moderators if it's valid
+            var moderator = this.DataCache.GetOrSet(
+                Constants.Cache.ForumModerators,
+                this.GetModeratorsTeam,
+                TimeSpan.FromMinutes(this.Get<YafBoardSettings>().BoardModeratorsCacheTimeout));
+
+            if (this.Get<YafBoardSettings>().UseStyledNicks)
+            {
+                this.Get<IStyleTransform>().DecodeStyleByTable(ref moderator, false);
+            }
+
+            return
+                moderator.SelectTypedList(
+                    row =>
+                    new SimpleModerator(
+                        row.Field<int>("ForumID"),
+                        row.Field<int>("ModeratorID"),
+                        row.Field<string>("ModeratorName"),
+                        row.Field<string>("Style"),
+                        SqlDataLayerConverter.VerifyBool(row["IsGroup"]))).ToList();
+        }
+
+        /// <summary>
         /// The get custom bb code.
         /// </summary>
         /// <returns>
@@ -458,14 +488,28 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        /// The get moderators.
+        /// Get all moderators by Groups and User
         /// </summary>
         /// <returns>
-        /// The get moderators.
+        /// Returns the Moderator List
         /// </returns>
         public DataTable GetModerators()
         {
             DataTable moderator = LegacyDb.forum_moderators(this.Get<YafBoardSettings>().UseStyledNicks);
+            moderator.TableName = MsSqlDbAccess.GetObjectName("Moderator");
+
+            return moderator;
+        }
+
+        /// <summary>
+        ///  Get all moderators without Groups
+        /// </summary>
+        /// <returns>
+        /// Returns the Moderator List
+        /// </returns>
+        public DataTable GetModeratorsTeam()
+        {
+            DataTable moderator = LegacyDb.moderators_team_list(this.Get<YafBoardSettings>().UseStyledNicks);
             moderator.TableName = MsSqlDbAccess.GetObjectName("Moderator");
 
             return moderator;
