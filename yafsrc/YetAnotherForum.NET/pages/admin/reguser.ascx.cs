@@ -134,6 +134,9 @@ namespace YAF.Pages.Admin
 
         if (this.Get<YafBoardSettings>().EmailVerification)
         {
+            // save verification record...
+            LegacyDb.checkemail_save(userID, hash, user.Email);
+
             // send template email
             var verifyEmail = new YafTemplateEmail("VERIFYEMAIL");
 
@@ -148,6 +151,18 @@ namespace YAF.Pages.Admin
 
             verifyEmail.SendEmail(new MailAddress(newEmail, newUsername), subject, true);
         }
+
+        bool autoWatchTopicsEnabled =
+            this.Get<YafBoardSettings>().DefaultNotificationSetting.Equals(
+                UserNotificationSetting.TopicsIPostToOrSubscribeTo);
+
+        LegacyDb.user_savenotification(
+            UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey),
+            true,
+            autoWatchTopicsEnabled,
+            this.Get<YafBoardSettings>().DefaultNotificationSetting,
+            this.Get<YafBoardSettings>().DefaultSendDigestEmail);
+
 
         // success
         this.PageContext.AddLoadMessage(this.GetText("ADMIN_REGUSER", "MSG_CREATED").FormatWith(this.UserName.Text.Trim()));
