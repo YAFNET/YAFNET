@@ -16,9 +16,8 @@
                 </asp:PlaceHolder>
                 <asp:PlaceHolder ID="MyAlbumsItem" runat="server">
                 </asp:PlaceHolder>
-                <li class="menuMy">
-                  <asp:HyperLink id="MyTopics" runat="server" Target="_top"></asp:HyperLink>
-                </li>
+                <asp:PlaceHolder ID="MyTopicItem" runat="server">
+                </asp:PlaceHolder>
                 <asp:PlaceHolder ID="LogutItem" runat="server" Visible="false">
                  <li class="menuAccount">
                    <asp:LinkButton ID="LogOutButton" runat="server" OnClick="LogOutClick" OnClientClick="createCookie('ScrollPosition',document.all ? document.scrollTop : window.pageYOffset);"></asp:LinkButton>

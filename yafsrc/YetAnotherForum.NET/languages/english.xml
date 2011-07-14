@@ -1943,7 +1943,7 @@ Spoiler Content
       <Resource tag="CURRENT_TIME">Current time: {0}.</Resource>
       <Resource tag="FORUM">Forum</Resource>
       <Resource tag="GO_LAST_POST">Go to last post</Resource>
-      <Resource tag="GO_LASTUNREAD_POST">Go to last unread</Resource>
+      <Resource tag="GO_LASTUNREAD_POST">Go to first unread</Resource>
       <Resource tag="IN">in {0}</Resource>
       <Resource tag="INFORMATION">Information</Resource>
       <Resource tag="LAST_VISIT">Your last visit: {0}.</Resource>
@@ -4402,6 +4402,8 @@ Visit {forumname} at {forumlink}
      <Resource tag="SHOW_RECENT_USERS_HELP">Enable to Show Recent Users within the last 24 hours in the forum info on board index page.</Resource>
 	 <Resource tag="SSO_AUTO_REGISTER">Register New Facebook User automatically:</Resource>
      <Resource tag="SSO_AUTO_REGISTER_HELP">Register User automatically that are trying to login thru Facebook</Resource>
+	 <Resource tag="USE_READ_TRACKING">Use User Read Tracking via Database:</Resource>
+     <Resource tag="USE_READ_TRACKING_HELP">If enabled it stores the Last Time a User Visits a Forum and Topic, to find Unread Messages. &lt;br /&gt;WARNING: This Can Increase your DB if you have a big amount of users and/or topics</Resource>
    </page>
 	  <page name="ADMIN_TEST_DATA">
 	   <Resource tag="TITLE">Create Test Data (DEBUG Only)</Resource>

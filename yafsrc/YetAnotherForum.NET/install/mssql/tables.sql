@@ -2003,3 +2003,26 @@ if exists(select top 1 1 from dbo.syscolumns where id = object_id(N'[{databaseOw
 	alter table [{databaseOwner}].[{objectQualifier}CheckEmail] alter column [Email] nvarchar(255) null
 GO
 
+-- Create Topic Read Tracking Table
+
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}TopicReadTracking]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	create table [{databaseOwner}].[{objectQualifier}TopicReadTracking](
+		TrackingID	    int IDENTITY (1, 1) NOT NULL ,
+		UserID			int NOT NULL ,
+		TopicID			int NOT NULL ,
+		LastAccessDate	datetime NOT NULL
+		constraint [PK_{objectQualifier}TopicReadTracking] primary key(TrackingID)
+	)
+GO
+
+-- Create Forum Read Tracking Table
+
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}ForumReadTracking]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	create table [{databaseOwner}].[{objectQualifier}ForumReadTracking](
+		TrackingID	    int IDENTITY (1, 1) NOT NULL ,
+		UserID			int NOT NULL ,
+		ForumID			int NOT NULL ,
+		LastAccessDate	datetime NOT NULL
+		constraint [PK_{objectQualifier}ForumReadTracking] primary key(TrackingID)
+	)
+GO

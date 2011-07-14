@@ -286,7 +286,15 @@
                         <td class="header1" colspan="2">
                             <YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="HEADER_FEATURES" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
-                    </tr>          
+                    </tr>
+                    <tr>
+                        <td class="postheader" style="width:50%">
+                            <YAF:HelpLabel ID="HelpLabel193" runat="server" LocalizedTag="USE_READ_TRACKING" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="UseReadTrackingByDatabase" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>           
                     <tr>
                         <td class="postheader" style="width:50%">
                             <YAF:HelpLabel ID="HelpLabel91" runat="server" LocalizedTag="SHOW_RELATIVE_TIME" LocalizedPage="ADMIN_HOSTSETTINGS" />

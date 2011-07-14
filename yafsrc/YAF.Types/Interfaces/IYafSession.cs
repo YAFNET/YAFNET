@@ -94,7 +94,6 @@ namespace YAF.Types.Interfaces
     /// <summary>
     ///   Gets or sets UnreadTopics.
     /// </summary>
-    /// </summary>
     int UnreadTopics { get; set; }
 
     /// <summary>
@@ -118,6 +117,7 @@ namespace YAF.Types.Interfaces
     /// The DateTime object from the topicID.
     /// </returns>
     DateTime GetTopicRead(int topicID);
+
 
     /// <summary>
     /// Sets the time that the forum was read.

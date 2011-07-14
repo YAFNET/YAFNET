@@ -1163,6 +1163,8 @@
     <Resource tag="TWITTER_USERNAME_HELP">Twitter Benutzername, der erwähnt wird, wenn ein Thema oder Beitrag geretweetet wird.</Resource>
     <Resource tag="UNHANDLED_USERAGENT_LOG">Aktiviere Unbehandelter User Agent Protokoll:</Resource>
     <Resource tag="UNHANDLED_USERAGENT_LOG_HELP">Wenn aktiviert werden alle unbehandelten User Agent string Protokolliert.</Resource>
+    <Resource tag="USE_READ_TRACKING">Benutzer Lesen Verfolgen aktivieren via Datanbank:</Resource>
+    <Resource tag="USE_READ_TRACKING_HELP">Wenn aktiviert wird die Letzte Uhrzeit und Datum gespeichert, andem der Benutzer ein Forum oder Thema gelesen hat. Damit Ungelesene Beiträge gefunden werden können. &lt;br /&gt;WARNUNG: Das kann zu einer extremen vergrößerung der Datenbank führen, wenn Sie Viele Benutzer und/oder Themen haben.</Resource>
     <Resource tag="USER_CHANGE_LANGUAGE">Benutzer erlauben die Sprache zu ändern:</Resource>
     <Resource tag="USER_CHANGE_LANGUAGE_HELP">Sollen die Benutzer wählen können, welche Sprache sie verwenden möchten?</Resource>
     <Resource tag="USER_CHANGE_THEME">Benutzer erlauben das Skin zu ändern:</Resource>

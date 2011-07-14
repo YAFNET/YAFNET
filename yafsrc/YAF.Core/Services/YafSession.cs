@@ -25,6 +25,7 @@ namespace YAF.Core.Services
   using System.Data;
   using System.Web;
 
+  using YAF.Classes.Data;
   using YAF.Types;
   using YAF.Types.Interfaces;
 
@@ -380,6 +381,7 @@ namespace YAF.Core.Services
     public DateTime GetTopicRead(int topicID)
     {
       Hashtable t = this.TopicRead;
+
       if (t == null || !t.ContainsKey(topicID))
       {
         return this.LastVisit;

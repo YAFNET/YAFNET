@@ -23,6 +23,8 @@ namespace YAF.Controls
     #region Using
 
     using System;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Data;
     using System.Data.SqlTypes;
     using System.Web.UI.WebControls;
@@ -80,6 +82,11 @@ namespace YAF.Controls
         ///   default since option is "since last visit"
         /// </summary>
         private int sinceValue;
+
+        /// <summary>
+        /// The Topic List Data Table
+        /// </summary>
+        private DataTable topics;
 
         #endregion
 
@@ -139,7 +146,9 @@ namespace YAF.Controls
             // we want to filter topics since last visit
             if (this.sinceValue == 0)
             {
-                this.sinceDate = this.Get<IYafSession>().LastVisit;
+                this.sinceDate = this.Get<YafBoardSettings>().UseReadTrackingByDatabase
+                                    ? LegacyDb.User_LastRead(this.PageContext.PageUserID, this.Get<IYafSession>().LastVisit)
+                                    : this.Get<IYafSession>().LastVisit;
             }
 
             // we want to page results
@@ -177,6 +186,8 @@ namespace YAF.Controls
             {
                 return;
             }
+
+            this.topics = topicList;
 
             // styled nicks
             if (this.Get<YafBoardSettings>().UseStyledNicks)
@@ -219,7 +230,12 @@ namespace YAF.Controls
         /// </param>
         protected void MarkAll_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.Get<IYafSession>().LastVisit = DateTime.UtcNow;
+            //// this.Get<IYafSession>().LastVisit = DateTime.UtcNow;
+
+            foreach (DataRow row in this.topics.Rows)
+            {
+                LegacyDb.Readtopic_AddOrUpdate(this.PageContext.PageUserID, row["TopicID"].ToType<int>());
+            }
         }
 
         /// <summary>
@@ -229,10 +245,14 @@ namespace YAF.Controls
         {
             // value 0, for since last visted
             this.Since.Items.Add(
-              new ListItem(
-                this.GetTextFormatted(
-                  "last_visit", this.Get<IDateTime>().FormatDateTime(this.Get<IYafSession>().LastVisit)),
-                "0"));
+                new ListItem(
+                    this.GetTextFormatted(
+                        "last_visit",
+                        this.Get<IDateTime>().FormatDateTime(
+                            this.Get<YafBoardSettings>().UseReadTrackingByDatabase
+                                ? LegacyDb.User_LastRead(this.PageContext.PageUserID, this.Get<IYafSession>().LastVisit)
+                                : this.Get<IYafSession>().LastVisit)),
+                    "0"));
 
             // negative values for hours backward
             this.Since.Items.Add(new ListItem(this.GetText("last_hour"), "-1"));
@@ -318,7 +338,7 @@ namespace YAF.Controls
         /// The row.
         /// </param>
         /// <returns>
-        /// The print forum name.
+        /// Returns the forum name output.
         /// </returns>
         protected string PrintForumName([NotNull] DataRowView row)
         {

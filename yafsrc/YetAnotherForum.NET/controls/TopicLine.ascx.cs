@@ -30,9 +30,9 @@
     private string _altLastPost;
 
     /// <summary>
-    ///   The last unread post tooltip string.
+    ///   The first unread post tooltip string.
     /// </summary>
-    private string _altLastUnreadPost;
+    private string _altFirstUnreadPost;
       
     /// <summary>
     ///   The _selected checkbox.
@@ -94,12 +94,12 @@
     {
         get
         {
-            return string.IsNullOrEmpty(this._altLastUnreadPost) ? string.Empty : this._altLastUnreadPost;
+            return string.IsNullOrEmpty(this._altFirstUnreadPost) ? string.Empty : this._altFirstUnreadPost;
         }
 
         set
         {
-            this._altLastUnreadPost = value;
+            this._altFirstUnreadPost = value;
         }
     }
 
@@ -418,11 +418,26 @@
           return this.Get<ITheme>().GetItem("ICONS", "TOPIC_MOVED");
         }
 
-        DateTime lastRead = this.Get<IYafSession>().GetTopicRead((int)row["TopicID"]);
-        DateTime lastReadForum = this.Get<IYafSession>().GetForumRead((int)row["ForumID"]);
+        DateTime lastRead;
+        DateTime lastReadForum;
+
+        if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase)
+        {
+            lastRead = this.Get<IReadTracking>().GetTopicRead(
+             this.PageContext.PageUserID, row["TopicID"].ToType<int>());
+
+            lastReadForum = this.Get<IReadTracking>().GetForumRead(
+                 this.PageContext.PageUserID, row["ForumID"].ToType<int>());
+        }
+        else
+        {
+            lastRead = this.Get<IYafSession>().GetTopicRead(row["TopicID"].ToType<int>());
+            lastReadForum = this.Get<IYafSession>().GetForumRead(row["ForumID"].ToType<int>()); 
+        }
+
         if (lastReadForum > lastRead)
         {
-          lastRead = lastReadForum;
+            lastRead = lastReadForum;
         }
 
         if (lastPosted > lastRead)
@@ -499,7 +514,7 @@
       /// The pageid.
       /// </param>
       /// <returns>
-      /// The make link.
+      /// Returns the created link.
       /// </returns>
       protected string MakeLink([NotNull] string text, [NotNull] string link, [NotNull] int pageid)
     {

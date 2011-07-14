@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -25,6 +25,7 @@ namespace YAF.Controls
   using System.Data;
   using System.Web.UI.WebControls;
 
+  using YAF.Classes;
   using YAF.Core;
   using YAF.Types;
   using YAF.Types.Constants;
@@ -68,11 +69,10 @@ namespace YAF.Controls
     /// </returns>
     public string GetForumLink([NotNull] DataRow row)
     {
-      string output = string.Empty;
-      int forumID = Convert.ToInt32(row["ForumID"]);
+        int forumID = row["ForumID"].ToType<int>();
 
       // get the Forum Description
-      output = Convert.ToString(row["Forum"]);
+      string output = Convert.ToString(row["Forum"]);
 
       if (int.Parse(row["ReadAccess"].ToString()) > 0)
       {
@@ -106,34 +106,41 @@ namespace YAF.Controls
     /// </param>
     protected void SubforumList_ItemCreated([NotNull] object sender, [NotNull] RepeaterItemEventArgs e)
     {
-      if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-      {
+        if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem)
+        {
+            return;
+        }
+
         var row = (DataRow)e.Item.DataItem;
-        DateTime lastRead = this.Get<IYafSession>().GetForumRead((int)row["ForumID"]);
+
+        DateTime lastRead = this.Get<YafBoardSettings>().UseReadTrackingByDatabase
+                                ? this.Get<IReadTracking>().GetForumRead(
+                                    this.PageContext.PageUserID, row["ForumID"].ToType<int>())
+                                : this.Get<IYafSession>().GetForumRead((int)row["ForumID"]);
+
         DateTime lastPosted = row["LastPosted"] != DBNull.Value ? (DateTime)row["LastPosted"] : lastRead;
 
         var subForumIcon = e.Item.FindControl("ThemeSubforumIcon") as ThemeImage;
 
         if (subForumIcon != null)
         {
-          subForumIcon.ThemeTag = "SUBFORUM";
-          subForumIcon.LocalizedTitlePage = "ICONLEGEND";
-          subForumIcon.LocalizedTitleTag = "NO_NEW_POSTS";
+            subForumIcon.ThemeTag = "SUBFORUM";
+            subForumIcon.LocalizedTitlePage = "ICONLEGEND";
+            subForumIcon.LocalizedTitleTag = "NO_NEW_POSTS";
 
-          try
-          {
-            if (lastPosted > lastRead)
+            try
             {
-              subForumIcon.ThemeTag = "SUBFORUM_NEW";
-              subForumIcon.LocalizedTitlePage = "ICONLEGEND";
-              subForumIcon.LocalizedTitleTag = "NEW_POSTS";
+                if (lastPosted > lastRead)
+                {
+                    subForumIcon.ThemeTag = "SUBFORUM_NEW";
+                    subForumIcon.LocalizedTitlePage = "ICONLEGEND";
+                    subForumIcon.LocalizedTitleTag = "NEW_POSTS";
+                }
             }
-          }
-          catch
-          {
-          }
+            catch
+            {
+            }
         }
-      }
     }
 
     #endregion

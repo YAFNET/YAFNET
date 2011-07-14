@@ -28,6 +28,7 @@ namespace YAF.Controls
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
+    using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -530,8 +531,6 @@ namespace YAF.Controls
             this.MyProfile.NavigateUrl = YafBuildLink.GetLink(ForumPages.cp_profile);
             this.MyProfile.Text = this.GetText("TOOLBAR", "MYPROFILE");
 
-            bool unread = this.PageContext.UnreadPrivate > 0 || this.PageContext.PendingBuddies > 0;
-
             // My Inbox
             if (this.Get<YafBoardSettings>().AllowPrivateMessages)
             {
@@ -580,10 +579,42 @@ namespace YAF.Controls
                     null);
             }
 
+            var unreadTopics =
+                LegacyDb.topic_active(
+                    this.PageContext.PageBoardID,
+                    this.PageContext.PageUserID,
+                    this.Get<YafBoardSettings>().UseReadTrackingByDatabase
+                        ? LegacyDb.User_LastRead(this.PageContext.PageUserID, this.Get<IYafSession>().LastVisit)
+                        : this.Get<IYafSession>().LastVisit,
+                    null,
+                    false).Rows.Count;
+
+            bool unread = this.PageContext.UnreadPrivate > 0 || this.PageContext.PendingBuddies > 0 || unreadTopics > 0;
+
             // My Topics
+            RenderMenuItem(
+                    MyTopicItem,
+                    "menuMy",
+                    null,
+                    this.GetText("TOOLBAR", "MYTOPICS"),
+                    this.GetText("TOOLBAR", "MYTOPICS"),
+                    YafBuildLink.GetLink(ForumPages.mytopics),
+                    false,
+                    unreadTopics > 0,
+                    unreadTopics.ToString(),
+                    this.GetText("TOOLBAR", "BUDDYREQUEST").FormatWith(unreadTopics));
+
+            /*
             this.MyTopics.ToolTip = this.GetText("TOOLBAR", "MYTOPICS");
             this.MyTopics.NavigateUrl = YafBuildLink.GetLink(ForumPages.mytopics);
             this.MyTopics.Text = this.GetText("TOOLBAR", "MYTOPICS");
+
+            topicList = LegacyDb.topic_active(
+                        this.PageContext.PageBoardID,
+                        this.PageContext.PageUserID,
+                        this.sinceDate,
+                        categoryIDObject,
+                        this.Get<YafBoardSettings>().UseStyledNicks);*/
 
             // Logout
             if (!Config.IsAnyPortal && Config.AllowLoginAndLogoff)

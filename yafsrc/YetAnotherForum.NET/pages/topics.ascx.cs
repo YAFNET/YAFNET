@@ -372,7 +372,7 @@ namespace YAF.Pages
           LegacyDb.topic_list(
             this.PageContext.PageForumID, userId, 1, null, 0, 10, this.Get<YafBoardSettings>().UseStyledNicks, true));
 
-        int nPageSize = this.Get<YafBoardSettings>().TopicsPerPage;
+      int nPageSize = this.Get<YafBoardSettings>().TopicsPerPage;
       this.Announcements.DataSource = dt;
 
       /*if ( !m_bIgnoreQueryString && Request.QueryString ["p"] != null )
@@ -453,8 +453,8 @@ namespace YAF.Pages
         nRowCount = (int)dtTopics.Rows[0]["RowCount"];
       }
 
-     // int nPageCount = (int)Math.Ceiling((double)(nRowCount + nPageSize) / nPageSize);
-     
+      ////int nPageCount = (int)Math.Ceiling((double)(nRowCount + nPageSize) / nPageSize);
+
       this.TopicList.DataSource = dtTopics;
 
       this.DataBind();
@@ -509,7 +509,21 @@ namespace YAF.Pages
     /// </param>
     private void MarkRead_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      this.Get<IYafSession>().SetForumRead(this.PageContext.PageForumID, DateTime.UtcNow);
+        if (this.PageContext.IsGuest)
+        {
+            return;
+        }
+
+      if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase)
+      {
+          this.Get<IReadTracking>().SetForumRead(this.PageContext.PageUserID, this.PageContext.PageForumID);
+      }
+      else
+      {
+          this.Get<IYafSession>().SetForumRead(this.PageContext.PageForumID, DateTime.UtcNow);
+      }
+
+
       this.BindData();
     }
 
@@ -554,12 +568,21 @@ namespace YAF.Pages
     /// </param>
     private void topics_Unload([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (this.Get<IYafSession>().UnreadTopics == 0)
-      {
-        this.Get<IYafSession>().SetForumRead(this.PageContext.PageForumID, DateTime.UtcNow);
-      }
+        if (this.Get<IYafSession>().UnreadTopics != 0)
+        {
+            return;
+        }
+
+        if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase)
+        {
+            this.Get<IReadTracking>().SetForumRead(this.PageContext.PageUserID, this.PageContext.PageForumID);
+        }
+        else
+        {
+            this.Get<IYafSession>().SetForumRead(this.PageContext.PageForumID, DateTime.UtcNow);
+        }
     }
 
-    #endregion
+      #endregion
   }
 }

@@ -706,6 +706,10 @@ if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{o
 drop procedure {databaseOwner}{objectQualifier}yaf_forum_moderators
 GO
 
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_moderators_team_list') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_moderators_team_list
+GO
+
 if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_forum_resync') AND Objectproperty(id,N'IsProcedure') = 1)
 drop procedure {databaseOwner}{objectQualifier}yaf_forum_resync
 GO
@@ -849,8 +853,6 @@ GO
 if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_message_secdata') AND Objectproperty(id,N'IsProcedure') = 1)
 drop procedure {databaseOwner}{objectQualifier}yaf_message_secdata
 GO
-
-
 
 if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_message_unapproved') AND Objectproperty(id,N'IsProcedure') = 1)
 drop procedure {databaseOwner}{objectQualifier}yaf_message_unapproved
@@ -1712,4 +1714,32 @@ GO
 
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'{databaseOwner}{objectQualifier}yaf_user_thankfromcount') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 DROP PROCEDURE {databaseOwner}{objectQualifier}yaf_user_thankfromcount
+GO
+
+IF  exists (select * from dbo.sysobjects where id = OBJECT_ID(N'{databaseOwner}.{objectQualifier}yaf_readtopic_addorupdate') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE {databaseOwner}.{objectQualifier}yaf_readtopic_addorupdate
+GO
+
+IF  exists (select * from dbo.sysobjects where id = OBJECT_ID(N'{databaseOwner}.{objectQualifier}yaf_readtopic_delete') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE {databaseOwner}.{objectQualifier}yaf_readtopic_delete
+GO
+
+IF  exists (select * from dbo.sysobjects where id = OBJECT_ID(N'{databaseOwner}.{objectQualifier}yaf_readtopic_lastread') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE {databaseOwner}.{objectQualifier}yaf_readtopic_lastread
+GO
+
+IF  exists (select * from dbo.sysobjects where id = OBJECT_ID(N'{databaseOwner}.{objectQualifier}yaf_readforum_addorupdate') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE {databaseOwner}.{objectQualifier}yaf_readforum_addorupdate
+GO
+
+IF  exists (select * from dbo.sysobjects where id = OBJECT_ID(N'{databaseOwner}.{objectQualifier}yaf_readforum_delete') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE {databaseOwner}.{objectQualifier}yaf_readforum_delete
+GO
+
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'{databaseOwner}.{objectQualifier}yaf_readforum_lastread') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE{databaseOwner}.{objectQualifier}yaf_readforum_lastread
+GO
+
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'{databaseOwner}.{objectQualifier}yaf_user_lastread') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE {databaseOwner}.{objectQualifier}yaf_user_lastread
 GO

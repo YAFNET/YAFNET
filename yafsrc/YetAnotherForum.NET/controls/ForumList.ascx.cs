@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -16,28 +16,28 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System.Collections.Generic;
-using System.Linq;
-using YAF.Utils.Helpers;
+
 
 namespace YAF.Controls
 {
   #region Using
 
-  using System;
-  using System.Collections;
-  using System.Data;
-  using System.Web.UI.HtmlControls;
-  using System.Web.UI.WebControls;
-
-  using YAF.Classes;
-  using YAF.Classes.Data;
-  using YAF.Core;
-  using YAF.Types;
-  using YAF.Types.Constants;
-  using YAF.Types.Flags;
-  using YAF.Types.Interfaces;
-  using YAF.Utils;
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
+    using System.Web.UI.HtmlControls;
+    using System.Web.UI.WebControls;
+    using YAF.Classes;
+    using YAF.Classes.Data;
+    using YAF.Core;
+    using YAF.Types;
+    using YAF.Types.Constants;
+    using YAF.Types.Flags;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
+    using YAF.Utils.Helpers;
 
   #endregion
 
@@ -65,28 +65,29 @@ namespace YAF.Controls
     {
       get
       {
-        if (string.IsNullOrEmpty(this._altLastPost))
-        {
-          return string.Empty;
-        }
-
-        return this._altLastPost;
+          return string.IsNullOrEmpty(this._altLastPost) ? string.Empty : this._altLastPost;
       }
 
-      set
+        set
       {
         this._altLastPost = value;
       }
     }
 
-    private IEnumerable _dataSource;
+      /// <summary>
+      /// </summary>
+      private IEnumerable _dataSource;
 
     /// <summary>
     ///   Sets DataSource.
     /// </summary>
     public IEnumerable DataSource
     {
-        get { return _dataSource; }
+        get
+        {
+            return this._dataSource;
+        }
+
         set
         {
             _dataSource = value;
@@ -225,122 +226,157 @@ namespace YAF.Controls
     /// </param>
     protected void ForumList1_ItemCreated([NotNull] object sender, [NotNull] RepeaterItemEventArgs e)
     {
-      if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-      {
+        if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem)
+        {
+            return;
+        }
+
         var row = (DataRow)e.Item.DataItem;
         var flags = new ForumFlags(row["Flags"]);
-        DateTime lastRead = this.Get<IYafSession>().GetForumRead((int)row["ForumID"]);
+
+        DateTime lastRead = DateTime.MinValue.AddYears(1902);
+        DateTime lastReadForum;
+
+        if (row["LastTopicID"] != DBNull.Value)
+        {
+            if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase)
+            {
+                lastRead = this.Get<IReadTracking>().GetTopicRead(
+                   this.PageContext.PageUserID, row["LastTopicID"].ToType<int>()); 
+            }
+            else
+            {
+                lastRead = this.Get<IYafSession>().GetTopicRead(row["LastTopicID"].ToType<int>());
+            }
+        }
+
+        if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase)
+        {
+            lastReadForum = this.Get<IReadTracking>().GetForumRead(
+                this.PageContext.PageUserID, row["ForumID"].ToType<int>());
+        }
+        else
+        {
+            lastReadForum = this.Get<IYafSession>().GetForumRead(row["ForumID"].ToType<int>());
+        }
+
+        if (lastReadForum > lastRead)
+        {
+            lastRead = lastReadForum;
+        }
+
         DateTime lastPosted = row["LastPosted"] != DBNull.Value ? (DateTime)row["LastPosted"] : lastRead;
 
         if (string.IsNullOrEmpty(row["ImageUrl"].ToString()))
         {
-          var forumIcon = e.Item.FindControl("ThemeForumIcon") as ThemeImage;
-          if (forumIcon != null)
-          {
-            forumIcon.ThemeTag = "FORUM";
-            forumIcon.LocalizedTitlePage = "ICONLEGEND";
-            forumIcon.LocalizedTitleTag = "NO_NEW_POSTS";
-            forumIcon.Visible = true;
-
-            try
+            var forumIcon = e.Item.FindControl("ThemeForumIcon") as ThemeImage;
+            if (forumIcon != null)
             {
-              if (flags.IsLocked)
-              {
-                forumIcon.ThemeTag = "FORUM_LOCKED";
-                forumIcon.LocalizedTitlePage = "ICONLEGEND";
-                forumIcon.LocalizedTitleTag = "FORUM_LOCKED";
-              }
-              else if (lastPosted > lastRead)
-              {
-                forumIcon.ThemeTag = "FORUM_NEW";
-                forumIcon.LocalizedTitlePage = "ICONLEGEND";
-                forumIcon.LocalizedTitleTag = "NEW_POSTS";
-              }
-              else
-              {
                 forumIcon.ThemeTag = "FORUM";
                 forumIcon.LocalizedTitlePage = "ICONLEGEND";
                 forumIcon.LocalizedTitleTag = "NO_NEW_POSTS";
-              }
+                forumIcon.Visible = true;
+
+                try
+                {
+                    if (flags.IsLocked)
+                    {
+                        forumIcon.ThemeTag = "FORUM_LOCKED";
+                        forumIcon.LocalizedTitlePage = "ICONLEGEND";
+                        forumIcon.LocalizedTitleTag = "FORUM_LOCKED";
+                    }
+                    else if (lastPosted > lastRead)
+                    {
+                        forumIcon.ThemeTag = "FORUM_NEW";
+                        forumIcon.LocalizedTitlePage = "ICONLEGEND";
+                        forumIcon.LocalizedTitleTag = "NEW_POSTS";
+                    }
+                    else
+                    {
+                        forumIcon.ThemeTag = "FORUM";
+                        forumIcon.LocalizedTitlePage = "ICONLEGEND";
+                        forumIcon.LocalizedTitleTag = "NO_NEW_POSTS";
+                    }
+                }
+                catch
+                {
+                }
             }
-            catch
-            {
-            }
-          }
         }
         else
         {
-          var forumImage = e.Item.FindControl("ForumImage1") as HtmlImage;
-          if (forumImage != null)
-          {
-            forumImage.Src = "{0}{1}/{2}".FormatWith(
-              YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Forums, row["ImageUrl"].ToString());
-
-            // TODO: vzrus: needs to be moved to css and converted to a more light control in the future.
-            // Highlight custom icon images and add tool tips to them. 
-            try
+            var forumImage = e.Item.FindControl("ForumImage1") as HtmlImage;
+            if (forumImage != null)
             {
-              forumImage.Attributes.Clear();
+                forumImage.Src = "{0}{1}/{2}".FormatWith(
+                    YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Forums, row["ImageUrl"].ToString());
 
-              if (flags.IsLocked)
-              {
-                forumImage.Attributes.Add("class", "forum_customimage_locked");
-                forumImage.Attributes.Add("alt", this.GetText("ICONLEGEND", "FORUM_LOCKED"));
-                forumImage.Attributes.Add("title", this.GetText("ICONLEGEND", "FORUM_LOCKED"));
-                forumImage.Attributes.Add(
-                  "src", 
-                  "{0}{1}/{2}".FormatWith(
-                    YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Forums, row["ImageUrl"].ToString()));
-              }
-              else if (lastPosted > lastRead)
-              {
-                forumImage.Attributes.Add("class", "forum_customimage_newposts");
-                forumImage.Attributes.Add("alt", this.GetText("ICONLEGEND", "NEW_POSTS"));
-                forumImage.Attributes.Add("title", this.GetText("ICONLEGEND", "NEW_POSTS"));
-                forumImage.Attributes.Add(
-                  "src", 
-                  "{0}{1}/{2}".FormatWith(
-                    YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Forums, row["ImageUrl"].ToString()));
-              }
-              else
-              {
-                forumImage.Attributes.Add("class", "forum_customimage_nonewposts");
-                forumImage.Attributes.Add(
-                  "src", 
-                  "{0}{1}/{2}".FormatWith(
-                    YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Forums, row["ImageUrl"].ToString()));
-                forumImage.Attributes.Add("alt", this.GetText("ICONLEGEND", "NO_NEW_POSTS"));
-                forumImage.Attributes.Add("title", this.GetText("ICONLEGEND", "NO_NEW_POSTS"));
-              }
+                // TODO: vzrus: needs to be moved to css and converted to a more light control in the future.
+                // Highlight custom icon images and add tool tips to them. 
+                try
+                {
+                    forumImage.Attributes.Clear();
 
-              forumImage.Visible = true;
+                    if (flags.IsLocked)
+                    {
+                        forumImage.Attributes.Add("class", "forum_customimage_locked");
+                        forumImage.Attributes.Add("alt", this.GetText("ICONLEGEND", "FORUM_LOCKED"));
+                        forumImage.Attributes.Add("title", this.GetText("ICONLEGEND", "FORUM_LOCKED"));
+                        forumImage.Attributes.Add(
+                            "src", 
+                            "{0}{1}/{2}".FormatWith(
+                                YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Forums, row["ImageUrl"].ToString()));
+                    }
+                    else if (lastPosted > lastRead)
+                    {
+                        forumImage.Attributes.Add("class", "forum_customimage_newposts");
+                        forumImage.Attributes.Add("alt", this.GetText("ICONLEGEND", "NEW_POSTS"));
+                        forumImage.Attributes.Add("title", this.GetText("ICONLEGEND", "NEW_POSTS"));
+                        forumImage.Attributes.Add(
+                            "src", 
+                            "{0}{1}/{2}".FormatWith(
+                                YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Forums, row["ImageUrl"].ToString()));
+                    }
+                    else
+                    {
+                        forumImage.Attributes.Add("class", "forum_customimage_nonewposts");
+                        forumImage.Attributes.Add(
+                            "src", 
+                            "{0}{1}/{2}".FormatWith(
+                                YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Forums, row["ImageUrl"].ToString()));
+                        forumImage.Attributes.Add("alt", this.GetText("ICONLEGEND", "NO_NEW_POSTS"));
+                        forumImage.Attributes.Add("title", this.GetText("ICONLEGEND", "NO_NEW_POSTS"));
+                    }
+
+                    forumImage.Visible = true;
+                }
+                catch
+                {
+                }
+
+                forumImage.Visible = true;
             }
-            catch
-            {
-            }
-
-            forumImage.Visible = true;
-          }
         }
 
-        if (!this.PageContext.BoardSettings.ShowModeratorList)
+        if (this.Get<YafBoardSettings>().ShowModeratorList)
         {
-          // hide moderator list...
-          var moderatorColumn = e.Item.FindControl("ModeratorListTD") as HtmlTableCell;
-          var modList = e.Item.FindControl("ModeratorList") as ForumModeratorList;
-
-          // set them as invisible...
-          if (moderatorColumn != null)
-          {
-            moderatorColumn.Visible = false;
-          }
-
-          if (modList != null)
-          {
-            modList.Visible = false;
-          }
+            return;
         }
-      }
+
+        // hide moderator list...
+        var moderatorColumn = e.Item.FindControl("ModeratorListTD") as HtmlTableCell;
+        var modList = e.Item.FindControl("ModeratorList") as ForumModeratorList;
+
+        // set them as invisible...
+        if (moderatorColumn != null)
+        {
+            moderatorColumn.Visible = false;
+        }
+
+        if (modList != null)
+        {
+            modList.Visible = false;
+        }
     }
 
     /// <summary>
@@ -404,17 +440,15 @@ namespace YAF.Controls
     [NotNull]
     protected string GetModeratorsFooter([NotNull] Repeater sender)
     {
-      if (sender.DataSource != null && sender.DataSource is DataRow[] && ((DataRow[])sender.DataSource).Length < 1)
+        if (sender.DataSource != null && sender.DataSource is DataRow[] && ((DataRow[])sender.DataSource).Length < 1)
       {
         return "-";
       }
-      else
-      {
+
         return string.Empty;
-      }
     }
 
-    /// <summary>
+      /// <summary>
     /// The get subforums.
     /// </summary>
     /// <param name="row">
@@ -436,7 +470,7 @@ namespace YAF.Controls
               }
           }
 
-         SubDataSource.AcceptChanges();
+         this.SubDataSource.AcceptChanges();
          return arlist;
       }
 
@@ -456,14 +490,8 @@ namespace YAF.Controls
     {
       var row = (DataRow)o;
       int nViewing = SqlDataLayerConverter.VerifyInt32(row["Viewing"]);
-      if (nViewing > 0)
-      {
-        return "&nbsp;" + this.GetTextFormatted("VIEWING", nViewing);
-      }
-      else
-      {
-        return string.Empty;
-      }
+
+        return nViewing > 0 ? "&nbsp;{0}".FormatWith(this.GetTextFormatted("VIEWING", nViewing)) : string.Empty;
     }
 
     // Ederon : 08/27/2007
@@ -475,21 +503,12 @@ namespace YAF.Controls
     /// </returns>
     protected bool HasSubforums([NotNull] DataRow row)
     {
-        if (SubDataSource != null)
-        {
-         
-          foreach (DataRow subrow in SubDataSource.Rows)
-          {
-              if (row["ForumID"].ToType<int>() == subrow["ParentID"].ToType<int>())
-              {
-                  return true;
-              }
-          }
-        }
-        return false;
+        return this.SubDataSource != null &&
+               this.SubDataSource.Rows.Cast<DataRow>().Any(
+                   subrow => row["ForumID"].ToType<int>() == subrow["ParentID"].ToType<int>());
     }
 
-    /// <summary>
+      /// <summary>
     /// The page_ load.
     /// </summary>
     /// <param name="sender">
@@ -514,18 +533,12 @@ namespace YAF.Controls
     /// </returns>
     protected string Posts([NotNull] object _o)
     {
-      var row = (DataRow)_o;
-      if (row["RemoteURL"] == DBNull.Value)
-      {
-        return "{0:N0}".FormatWith(row["Posts"]);
-      }
-      else
-      {
-        return "-";
-      }
+        var row = (DataRow)_o;
+
+        return row["RemoteURL"] == DBNull.Value ? "{0:N0}".FormatWith(row["Posts"]) : "-";
     }
 
-    /// <summary>
+      /// <summary>
     /// The topics.
     /// </summary>
     /// <param name="_o">

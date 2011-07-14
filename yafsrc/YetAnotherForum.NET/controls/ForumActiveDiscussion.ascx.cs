@@ -47,9 +47,9 @@ namespace YAF.Controls
         private string lastPostToolTip;
 
         /// <summary>
-        ///  The last Unread post tooltip string
+        ///  The first Unread post tooltip string
         /// </summary>
-        private string lastUnreadPostToolTip;
+        private string firstUnreadPostToolTip;
 
         #endregion
 
@@ -101,24 +101,26 @@ namespace YAF.Controls
             if (!this.PageContext.IsMobileDevice)
             {
                 textMessageLink.ToolTip = this.GetText("COMMON", "VIEW_TOPIC");
-                textMessageLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}",
-                                                                             currentRow["TopicID"]);
+                textMessageLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+                    ForumPages.posts, "t={0}", currentRow["TopicID"]);
             }
             else
             {
                 textMessageLink.ToolTip = this.GetText("DEFAULT", "GO_LASTUNREAD_POST");
-                textMessageLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "m={0}&find=lastunread",
-                                                                             currentRow["LastMessageID"]);
+                textMessageLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+                    ForumPages.posts, "m={0}&find=unread", currentRow["TopicID"]);
             }
+
             imageMessageLink.NavigateUrl = messageUrl;
             lastPostedImage.LocalizedTitle = this.lastPostToolTip;
 
             if (imageLastUnreadMessageLink.Visible)
             {
                 imageLastUnreadMessageLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-                    ForumPages.posts, "m={0}&find=unread", currentRow["LastMessageID"]);
+                    //// ForumPages.posts, "m={0}&find=unread", currentRow["LastMessageID"]);
+                    ForumPages.posts, "t={0}&find=unread", currentRow["TopicID"]);
 
-                lastUnreadImage.LocalizedTitle = this.lastUnreadPostToolTip;
+                lastUnreadImage.LocalizedTitle = this.firstUnreadPostToolTip;
             }
 
             // Just in case...
@@ -131,14 +133,33 @@ namespace YAF.Controls
             if (currentRow["LastPosted"] != DBNull.Value)
             {
                 lastPostedDateLabel.DateTime = currentRow["LastPosted"];
-                lastUnreadImage.ThemeTag = (DateTime.Parse(currentRow["LastPosted"].ToString()) >
-                                            this.Get<IYafSession>().GetTopicRead(
-                                                currentRow["TopicID"].ToType<int>()))
+
+                DateTime lastRead;
+                DateTime lastReadForum;
+
+                if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase)
+                {
+                    lastRead = this.Get<IReadTracking>().GetTopicRead(
+                        this.PageContext.PageUserID, currentRow["TopicID"].ToType<int>());
+
+                    lastReadForum = this.Get<IReadTracking>().GetForumRead(
+                         this.PageContext.PageUserID, currentRow["ForumID"].ToType<int>());
+                }
+                else
+                {
+                   lastRead = this.Get<IYafSession>().GetTopicRead(currentRow["TopicID"].ToType<int>());
+                   lastReadForum = this.Get<IYafSession>().GetForumRead(currentRow["ForumID"].ToType<int>());
+                }
+
+                if (lastReadForum > lastRead)
+                {
+                    lastRead = lastReadForum;
+                }
+
+                lastUnreadImage.ThemeTag = (DateTime.Parse(currentRow["LastPosted"].ToString()) > lastRead)
                                                ? "ICON_NEWEST_UNREAD"
                                                : "ICON_LATEST_UNREAD";
-                lastPostedImage.ThemeTag = (DateTime.Parse(currentRow["LastPosted"].ToString()) >
-                                            this.Get<IYafSession>().GetTopicRead(
-                                                currentRow["TopicID"].ToType<int>()))
+                lastPostedImage.ThemeTag = (DateTime.Parse(currentRow["LastPosted"].ToString()) > lastRead)
                                                ? "ICON_NEWEST"
                                                : "ICON_LATEST";
             }
@@ -200,7 +221,7 @@ namespace YAF.Controls
             this.RssFeed.Visible = this.Get<YafBoardSettings>().ShowRSSLink && groupAccess;
 
             this.lastPostToolTip = this.GetText("DEFAULT", "GO_LAST_POST");
-            this.lastUnreadPostToolTip = this.GetText("DEFAULT", "GO_LASTUNREAD_POST");
+            this.firstUnreadPostToolTip = this.GetText("DEFAULT", "GO_LASTUNREAD_POST");
             this.LatestPosts.DataSource = activeTopics;
             this.LatestPosts.DataBind();
         }

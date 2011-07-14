@@ -706,6 +706,24 @@ namespace YAF.Pages.Admin {
         protected global::YAF.Controls.LocalizedLabel LocalizedLabel12;
         
         /// <summary>
+        /// HelpLabel193 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel193;
+        
+        /// <summary>
+        /// UseReadTrackingByDatabase control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox UseReadTrackingByDatabase;
+        
+        /// <summary>
         /// HelpLabel91 control.
         /// </summary>
         /// <remarks>
@@ -812,6 +830,24 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox EnableDisplayName;
+        
+        /// <summary>
+        /// HelpLabel85 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel85;
+        
+        /// <summary>
+        /// UseStyledNicks control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox UseStyledNicks;
         
         /// <summary>
         /// HelpLabel97 control.
@@ -2648,24 +2684,6 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox AcceptedHeadersHTML;
-        
-        /// <summary>
-        /// HelpLabel85 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel85;
-        
-        /// <summary>
-        /// UseStyledNicks control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox UseStyledNicks;
         
         /// <summary>
         /// LocalizedLabel16 control.

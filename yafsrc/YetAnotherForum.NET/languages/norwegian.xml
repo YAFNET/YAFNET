@@ -1165,6 +1165,8 @@
     <Resource tag="TWITTER_USERNAME_HELP">Twitter Username that is mentioned when Retweeting a Topic or Message.</Resource>
     <Resource tag="UNHANDLED_USERAGENT_LOG">Enable Unhandled UserAgent Log:</Resource>
     <Resource tag="UNHANDLED_USERAGENT_LOG_HELP">If checked, all unhandled UserAgent strings are logged.</Resource>
+    <Resource tag="USE_READ_TRACKING">Use User Read Tracking via Database:</Resource>
+    <Resource tag="USE_READ_TRACKING_HELP">If enabled it stores the Last Time a User Visits a Forum and Topic, to find Unread Messages. &lt;br /&gt;WARNING: This Can Increase your DB if you have a big amount of users and/or topics</Resource>
     <Resource tag="USER_CHANGE_LANGUAGE">Allow User Change Language:</Resource>
     <Resource tag="USER_CHANGE_LANGUAGE_HELP">Should users be able to choose what language they want to use?</Resource>
     <Resource tag="USER_CHANGE_THEME">Allow User Change Theme:</Resource>
@@ -1975,7 +1977,7 @@
     <Resource tag="CURRENT_TIME">Klokka er nå: {0}.</Resource>
     <Resource tag="FORUM">Forum</Resource>
     <Resource tag="GO_LAST_POST">Gå til siste innlegg</Resource>
-    <Resource tag="GO_LASTUNREAD_POST">Go to last unread</Resource>
+    <Resource tag="GO_LASTUNREAD_POST">Go to first unread</Resource>
     <Resource tag="IN">i {0}</Resource>
     <Resource tag="INFORMATION">Informasjon</Resource>
     <Resource tag="LAST_VISIT">Ditt siste besøk: {0}.</Resource>

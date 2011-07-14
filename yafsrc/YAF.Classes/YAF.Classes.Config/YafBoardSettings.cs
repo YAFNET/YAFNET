@@ -1700,6 +1700,22 @@ namespace YAF.Classes
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether Use Read Tracking By Database is enabled.
+        /// </summary>
+        public bool UseReadTrackingByDatabase
+        {
+            get
+            {
+                return this._reg.GetValue("UseReadTrackingByDatabase", false);
+            }
+
+            set
+            {
+                this._reg.SetValue("UseReadTrackingByDatabase", value);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether ShowLastUnreadPost is enabled.
         /// </summary>
         public bool ShowLastUnreadPost

@@ -6,6 +6,34 @@
   Remove Extra Stuff: SET ANSI_NULLS ON\nGO\nSET QUOTED_IDENTIFIER ON\nGO\n\n\n 
 */
 
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}readtopic_addorupdate]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}readtopic_addorupdate]
+GO
+
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}readtopic_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}readtopic_delete]
+GO
+
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}readtopic_lastread]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}readtopic_lastread]
+GO
+
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}readforum_addorupdate]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}readforum_addorupdate]
+GO
+
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}readforum_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}readforum_delete]
+GO
+
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}readforum_lastread]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}readforum_lastread]
+GO
+
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_lastread]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_lastread]
+GO
+
 IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}recent_users]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}recent_users]
 GO
@@ -2428,6 +2456,7 @@ begin
 	delete from [{databaseOwner}].[{objectQualifier}NntpTopic] from [{databaseOwner}].[{objectQualifier}NntpForum] where [{databaseOwner}].[{objectQualifier}NntpForum].ForumID = @ForumID and [{databaseOwner}].[{objectQualifier}NntpTopic].NntpForumID = [{databaseOwner}].[{objectQualifier}NntpForum].NntpForumID
 	delete from [{databaseOwner}].[{objectQualifier}NntpForum] where ForumID=@ForumID	
 	delete from [{databaseOwner}].[{objectQualifier}WatchForum] where ForumID = @ForumID
+	delete from [{databaseOwner}].[{objectQualifier}ForumReadTracking] where ForumID = @ForumID
 
 	-- BAI CHANGED 02.02.2004
 	-- Delete topics, messages and attachments
@@ -3388,7 +3417,7 @@ select top 1
 		m.TopicID = @TopicID ORDER BY m.Posted
 
 
-   -- we return last 100 messages ONLY if we look for last unread or lastpost(Messageid = 0)
+   -- we return last 100 messages ONLY if we look for first unread or lastpost(Messageid = 0)
    if (@MessageID > 0)
    begin
    -- fill in the table variable with all topic's messages(slow). It's used in cases when we forced to find a particular message. 		
@@ -3436,7 +3465,7 @@ select top 1
 	begin
 	   if EXISTS (SELECT TOP 1 1 FROM @tbl_msglunr WHERE TopicID = @TopicID and MessageID = @MessageID)
 	    begin
-	     -- return last unread		
+	     -- return first unread		
 	       select top 1 MessageID, MessagePosition = cntrt, FirstMessageID = @firstmessageid 
 		   from @tbl_msglunr
 	       where TopicID=@TopicID and  MessageID = @MessageID 		
@@ -3455,7 +3484,7 @@ select top 1
 	   -- simply return last message as no MessageID was supplied 
 	   if EXISTS (SELECT TOP 1 1 FROM @tbl_msglunr WHERE Posted> @LastRead)
 	    begin
-	     -- return last unread		
+	     -- return first unread		
 	       select top 1 MessageID, MessagePosition = cntrt, FirstMessageID = @firstmessageid 
 		   from @tbl_msglunr
 	       where TopicID=@TopicID and Posted>@LastRead  
@@ -5300,6 +5329,7 @@ BEGIN
 		DELETE  [{databaseOwner}].[{objectQualifier}MessageHistory] WHERE MessageID IN (SELECT MessageID FROM  [{databaseOwner}].[{objectQualifier}message] WHERE TopicID = @TopicID) 	
 		DELETE  [{databaseOwner}].[{objectQualifier}Message] WHERE TopicID = @TopicID
 		DELETE  [{databaseOwner}].[{objectQualifier}WatchTopic] WHERE TopicID = @TopicID
+		DELETE  [{databaseOwner}].[{objectQualifier}TopicReadTracking] WHERE TopicID = @TopicID
 		DELETE  [{databaseOwner}].[{objectQualifier}FavoriteTopic]  WHERE TopicID = @TopicID
 		DELETE  [{databaseOwner}].[{objectQualifier}Topic] WHERE TopicMovedID = @TopicID
 		DELETE  [{databaseOwner}].[{objectQualifier}Topic] WHERE TopicID = @TopicID
@@ -6332,6 +6362,8 @@ begin
 	delete from [{databaseOwner}].[{objectQualifier}CheckEmail] where UserID = @UserID
 	delete from [{databaseOwner}].[{objectQualifier}WatchTopic] where UserID = @UserID
 	delete from [{databaseOwner}].[{objectQualifier}WatchForum] where UserID = @UserID
+	delete from [{databaseOwner}].[{objectQualifier}TopicReadTracking] where UserID = @UserID
+	delete from [{databaseOwner}].[{objectQualifier}ForumReadTracking] where UserID = @UserID
 	delete from [{databaseOwner}].[{objectQualifier}UserGroup] where UserID = @UserID
 	-- ABOT CHANGED
 	-- Delete UserForums entries Too 
@@ -9390,3 +9422,87 @@ begin
                     )
     ORDER BY U.LastVisit
 end
+GO
+
+create procedure [{databaseOwner}].[{objectQualifier}readtopic_addorupdate](@UserID int,@TopicID int) as
+begin
+
+    declare	@TrackingID	int
+
+	IF exists(select 1 from [{databaseOwner}].[{objectQualifier}TopicReadTracking] where UserID=@UserID AND TopicID=@TopicID)
+	begin
+	      SET @TrackingID = (SELECT TrackingID FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] WHERE (UserID=@UserID AND TopicID=@TopicID))
+		  update [{databaseOwner}].[{objectQualifier}TopicReadTracking] set LastAccessDate=GETUTCDATE() where TrackingID = @TrackingID
+    end
+	ELSE
+	  begin
+		  insert into [{databaseOwner}].[{objectQualifier}TopicReadTracking](UserID,TopicID,LastAccessDate)
+	      values (@UserID, @TopicID, GETUTCDATE())
+	  end
+end
+GO
+
+create procedure [{databaseOwner}].[{objectQualifier}readtopic_delete](@TrackingID int) as
+begin
+		delete from [{databaseOwner}].[{objectQualifier}TopicReadTracking] where TrackingID = @TrackingID
+end
+GO
+
+create procedure [{databaseOwner}].[{objectQualifier}readtopic_lastread](@UserID int,@TopicID int) as
+begin
+		SELECT LastAccessDate FROM  [{databaseOwner}].[{objectQualifier}TopicReadTracking] WHERE UserID = @UserID AND TopicID = @TopicID
+end
+GO
+
+create procedure [{databaseOwner}].[{objectQualifier}readforum_addorupdate](@UserID int,@ForumID int) as
+begin
+
+    declare	@TrackingID	int
+
+	IF exists(select 1 from [{databaseOwner}].[{objectQualifier}ForumReadTracking] where UserID=@UserID AND ForumID=@ForumID)
+	begin
+	      SET @TrackingID = (SELECT TrackingID FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] WHERE (UserID=@UserID AND ForumID=@ForumID))
+		  update [{databaseOwner}].[{objectQualifier}ForumReadTracking] set LastAccessDate=GETUTCDATE() where TrackingID = @TrackingID
+    end
+	ELSE
+	  begin
+		  insert into [{databaseOwner}].[{objectQualifier}ForumReadTracking](UserID,ForumID,LastAccessDate)
+	      values (@UserID, @ForumID, GETUTCDATE())
+	  end
+end
+GO
+
+create procedure [{databaseOwner}].[{objectQualifier}readforum_delete](@TrackingID int) as
+begin
+		delete from [{databaseOwner}].[{objectQualifier}ForumReadTracking] where TrackingID = @TrackingID
+end
+GO
+
+create procedure [{databaseOwner}].[{objectQualifier}readforum_lastread](@UserID int,@ForumID int) as
+begin
+		SELECT LastAccessDate FROM  [{databaseOwner}].[{objectQualifier}ForumReadTracking] WHERE UserID = @UserID AND ForumID = @ForumID
+end
+GO
+
+create procedure [{databaseOwner}].[{objectQualifier}user_lastread](@UserID int) as
+begin
+		DECLARE @LastForumRead datetime
+		DECLARE @LastTopicRead datetime
+		
+		SET @LastForumRead = (SELECT MAX(LastAccessDate) FROM  [{databaseOwner}].[{objectQualifier}ForumReadTracking] WHERE UserID = @UserID)
+		SET @LastTopicRead = (SELECT MAX(LastAccessDate) FROM  [{databaseOwner}].[{objectQualifier}TopicReadTracking] WHERE UserID = @UserID)
+
+		IF @LastForumRead is not null AND @LastTopicRead is not null
+		
+		IF @LastForumRead > @LastTopicRead
+		   SELECT @LastForumRead
+		ELSE
+		   SELECT @LastTopicRead
+		   
+	    ELSE IF @LastForumRead is not null
+	        SELECT @LastForumRead
+	        
+	    ELSE IF @LastTopicRead is not null
+	        SELECT @LastTopicRead
+end
+GO
