@@ -7,7 +7,7 @@
     <EditJS />
     <DisplayCSS />
     <SearchRegex>\[youtube\](?&lt;inner&gt;http://(?&lt;prefix&gt;[A-Za-z][A-Za-z][A-Za-z]?\.)?youtube.com/watch\?v=(?&lt;id&gt;[0-9A-Za-z-_]{11}))[^[]*\[/youtube\]|\[youtube\](?&lt;inner&gt;http://(?&lt;prefix&gt;[A-Za-z][A-Za-z][A-Za-z]?\.)?youtu.be/(?&lt;id&gt;[0-9A-Za-z-_]{11}))\[/youtube\]</SearchRegex>
-    <ReplaceRegex>&lt;!-- BEGIN youtube --&gt;&lt;object width="425" height="350"&gt;&lt;param name="movie" value="http://${prefix}youtube.com/v/${id}"&gt;&lt;/param&gt;&lt;embed src="http://${prefix}youtube.com/v/${id}" type="application/x-shockwave-flash" width="425" height="350"&gt;&lt;/embed&gt;&lt;/object&gt;&lt;!-- END youtube --&gt;</ReplaceRegex>
+    <ReplaceRegex>&lt;!-- BEGIN youtube --&gt;&lt;iframe width="560" height="349" src="http://${prefix}youtube.com/embed/${id}?hd=1" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;&lt;!-- END youtube --&gt;</ReplaceRegex>
     <Variables>id;prefix</Variables>
     <UseModule>false</UseModule>
     <ModuleClass />
@@ -121,15 +121,7 @@
     <EditJS />
     <DisplayCSS />
     <SearchRegex>\[vimeo\](?&lt;inner&gt;http://(?&lt;prefix&gt;[A-Za-z][A-Za-z][A-Za-z]?\.)?vimeo.com/(?&lt;vimeoId&gt;[0-9]{8}))[^[]*\[/vimeo\]</SearchRegex>
-    <ReplaceRegex>
-      &lt;object width="425" height="350"&gt;
-      &lt;param name="allowfullscreen" value="true" /&gt;
-      &lt;param name="allowscriptaccess" value="always" /&gt;
-      &lt;param name="movie" value="http://www.vimeo.com/moogaloop.swf?clip_id=${vimeoId}&amp;amp;server=www.vimeo.com&amp;amp;show_title=1&amp;amp;show_byline=1&amp;amp;show_portrait=0&amp;amp;color=&amp;amp;fullscreen=1" /&gt;
-      &lt;embed src="http://www.vimeo.com/moogaloop.swf?clip_id=${vimeoId}&amp;server=www.vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" width="425" height="350"&gt;
-      &lt;/embed&gt;
-      &lt;/object&gt;
-    </ReplaceRegex>
+    <ReplaceRegex>&lt;iframe width="560" height="350" src="http://player.vimeo.com/video/${vimeoId}?show_title=1&amp;amp;show_byline=1&amp;amp;show_portrait=1&amp;amp;&amp;amp;fullscreen=1" frameborder="0"&gt;&lt;/iframe&gt;
     <Variables>prefix;vimeoId</Variables>
     <UseModule>false</UseModule>
     <ModuleClass />

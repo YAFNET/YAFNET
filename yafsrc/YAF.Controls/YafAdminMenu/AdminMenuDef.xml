@@ -84,6 +84,7 @@
       <ForumPage>admin_users</ForumPage>
       <SubForumPage_0>admin_edituser</SubForumPage_0>
       <SubForumPage_1>admin_reguser</SubForumPage_1>
+      <SubForumPage_2>admin_users_import</SubForumPage_2>
       <Image>user</Image>			
     </YafMenuItem>
 		<YafMenuItem>

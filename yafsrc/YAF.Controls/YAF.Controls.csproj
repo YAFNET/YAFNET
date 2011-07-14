@@ -90,6 +90,7 @@
     </Compile>
     <Compile Include="OnlineStatusImage.cs" />
     <Compile Include="RssFeedLink.cs" />
+    <Compile Include="SignaturePreview.cs" />
     <Compile Include="SmartScroller.cs" />
     <Compile Include="UserLabel.cs" />
     <Compile Include="YafAdminMenu\AdminMenu.cs" />

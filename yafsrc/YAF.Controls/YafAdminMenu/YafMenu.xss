@@ -7,7 +7,7 @@
 <DiagramLayout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ex:showrelationlabel="False" ViewPortX="0" ViewPortY="0" xmlns:ex="urn:schemas-microsoft-com:xml-msdatasource-layout-extended" xmlns="urn:schemas-microsoft-com:xml-msdatasource-layout">
   <Shapes>
     <Shape ID="DesignTable:YafMenuSection" ZOrder="3" X="70" Y="70" Height="105" Width="161" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="24" SplitterPosition="101" />
-    <Shape ID="DesignTable:YafMenuItem" ZOrder="2" X="332" Y="59" Height="162" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="24" SplitterPosition="158" />
+    <Shape ID="DesignTable:YafMenuItem" ZOrder="2" X="332" Y="59" Height="200" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="24" SplitterPosition="196" />
   </Shapes>
   <Connectors>
     <Connector ID="DesignRelation:YafMenuSection_YafMenuItem" ZOrder="1" LineWidth="11">

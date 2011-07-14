@@ -247,6 +247,33 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.Button SyncUsers;
         
         /// <summary>
+        /// ImportUsers control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ImportUsers;
+        
+        /// <summary>
+        /// ExportUsersXml control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ExportUsersXml;
+        
+        /// <summary>
+        /// ExportUsersCsv control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ExportUsersCsv;
+        
+        /// <summary>
         /// PagerBottom control.
         /// </summary>
         /// <remarks>

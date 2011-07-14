@@ -476,6 +476,13 @@
     <Compile Include="pages\admin\users.ascx.designer.cs">
       <DependentUpon>users.ascx</DependentUpon>
     </Compile>
+    <Compile Include="pages\admin\users_import.ascx.cs">
+      <DependentUpon>users_import.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\users_import.ascx.designer.cs">
+      <DependentUpon>users_import.ascx</DependentUpon>
+    </Compile>
     <Compile Include="pages\admin\version.ascx.designer.cs">
       <DependentUpon>version.ascx</DependentUpon>
     </Compile>
@@ -1036,6 +1043,7 @@
     <Content Include="install\wizard.css" />
     <Content Include="languages\arabic.xml" />
     <Content Include="languages\estonian.xml" />
+    <Content Include="pages\admin\users_import.ascx" />
     <Content Include="resources\HelpMenuList.xml" />
     <Content Include="resources\images\ceebox\cee-close-btn.png" />
     <Content Include="resources\images\ceebox\cee-next-btn.gif" />

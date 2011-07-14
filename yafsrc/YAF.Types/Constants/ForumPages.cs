@@ -362,7 +362,12 @@ namespace YAF.Types.Constants
     /// <summary>
     /// The admin_users.
     /// </summary>
-    admin_users, 
+    admin_users,
+
+    /// <summary>
+    /// The admin_users_import.
+    /// </summary>
+    admin_users_import, 
 
     /// <summary>
     /// The admin_ranks.

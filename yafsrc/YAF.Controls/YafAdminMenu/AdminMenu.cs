@@ -123,6 +123,14 @@ namespace YAF.Controls
                   highlightPage = true;
               }
           }
+
+          if (!string.IsNullOrEmpty(item.SubForumPage_2))
+          {
+              if (this.PageContext.ForumPageType.Equals(item.SubForumPage_2.ToEnum<ForumPages>()))
+              {
+                  highlightPage = true;
+              }
+          }
         }
 
         string highlightStyle = string.Empty;
@@ -175,7 +183,8 @@ namespace YAF.Controls
                 !value.YafMenuItem.Any(
                     x => x.ForumPage.Equals(currentPage) || 
                     x.SubForumPage_0 != null && x.SubForumPage_0.Equals(currentPage) ||
-                    x.SubForumPage_1 != null && x.SubForumPage_1.Equals(currentPage))).Count();
+                    x.SubForumPage_1 != null && x.SubForumPage_1.Equals(currentPage) ||
+                    x.SubForumPage_2 != null && x.SubForumPage_2.Equals(currentPage))).Count();
 
       // setup jQuery
       this.PageContext.PageElements.RegisterJQuery();

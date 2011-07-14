@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.users"
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.users"
     CodeBehind="users.ascx.cs" %>
 <%@ Import Namespace="YAF.Core" %>
 <%@ Import Namespace="YAF.Core.BBCode" %>
@@ -52,7 +52,7 @@
         </tr>
         <tr>
             <td class="footer1" colspan="4" align="center">
-                <asp:Button ID="search" runat="server" OnClick="search_Click" CssClass="pbutton"></asp:Button>
+                <asp:Button ID="search" runat="server" OnClick="Search_Click" CssClass="pbutton"></asp:Button>
             </td>
         </tr>
     </table>
@@ -133,9 +133,15 @@
         <tr>
             <td class="footer1" colspan="8" align="center">
                 <strong>
-                    <asp:Button ID="NewUser" OnClick="NewUser_Click" runat="server" CssClass="pbutton"></asp:Button></strong>
-                | <strong>
-                    <asp:Button ID="SyncUsers" OnClick="SyncUsers_Click" runat="server" CssClass="pbutton"></asp:Button></strong>
+                    <asp:Button id="NewUser" OnClick="NewUser_Click" runat="server" CssClass="pbutton"></asp:Button></strong>
+                | 
+                    <asp:Button id="SyncUsers" OnClick="SyncUsers_Click" runat="server" CssClass="pbutton"></asp:Button>
+                |
+                    <asp:Button id="ImportUsers" OnClick="ImportUsers_Click" runat="server" CssClass="pbutton"></asp:Button>
+                |
+                    <asp:Button id="ExportUsersXml" OnClick="ExportUsersXml_Click" runat="server" CssClass="pbutton"></asp:Button>
+                |
+                    <asp:Button id="ExportUsersCsv" OnClick="ExportUsersCsv_Click" runat="server" CssClass="pbutton"></asp:Button>
             </td>
         </tr>
     </table>
