@@ -12,14 +12,6 @@ GO
 
 /****YAF DNN SQL UNINSTALL SCRIPT BY INGO HERBOTE*/
 /**CONTRAINTS**/
-if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_Buddy_{objectQualifier}yaf_User') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
-ALTER TABLE {databaseOwner}{objectQualifier}yaf_Buddy DROP CONSTRAINT FK_{objectQualifier}yaf_Buddy_{objectQualifier}yaf_User
-GO
-
-if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_UserGroup_{objectQualifier}yaf_Group') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
-ALTER TABLE {databaseOwner}{objectQualifier}yaf_UserGroup DROP CONSTRAINT FK_{objectQualifier}yaf_UserGroup_{objectQualifier}yaf_Group
-GO
-
 if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_UserAlbumImage_{objectQualifier}yaf_UserAlbum') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
 ALTER TABLE {databaseOwner}{objectQualifier}yaf_UserAlbumImage DROP CONSTRAINT FK_{objectQualifier}yaf_UserAlbumImage_{objectQualifier}yaf_UserAlbum
 GO
@@ -283,6 +275,15 @@ DROP VIEW {databaseOwner}{objectQualifier}yaf_PMessageView
 GO
 
 /**** Tables*********/
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_TopicReadTracking]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_TopicReadTracking
+GO
+
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_ForumReadTracking]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_ForumReadTracking
+GO
 
 
 if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_Active]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
