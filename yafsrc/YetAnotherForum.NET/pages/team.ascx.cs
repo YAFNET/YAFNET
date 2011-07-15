@@ -130,18 +130,11 @@ namespace YAF.Pages
         /// </returns>
         protected string GetAvatarUrlFromID(int userID)
         {
-            string avatarUrl = "{0}images/noavatar.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
+            string avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userID);
 
-            try
+            if (avatarUrl.IsNotSet())
             {
-                avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userID);
-            }
-            finally
-            {
-                if (avatarUrl.IsNotSet())
-                {
-                    avatarUrl = "{0}images/noavatar.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
-                }
+                avatarUrl = "{0}images/noavatar.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
             }
 
             return avatarUrl;
