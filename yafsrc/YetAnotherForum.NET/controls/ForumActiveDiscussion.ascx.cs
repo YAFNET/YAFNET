@@ -133,17 +133,34 @@ namespace YAF.Controls
             if (currentRow["LastPosted"] != DBNull.Value)
             {
                 lastPostedDateLabel.DateTime = currentRow["LastPosted"];
-
                 DateTime lastRead;
                 DateTime lastReadForum;
 
                 if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase)
                 {
-                    lastRead = this.Get<IReadTracking>().GetTopicRead(
-                        this.PageContext.PageUserID, currentRow["TopicID"].ToType<int>());
+                    try
+                    {
+                        lastRead = currentRow["LastTopicAccess"] != DBNull.Value
+                                       ? currentRow["LastTopicAccess"].ToType<DateTime>()
+                                       : DateTime.MinValue.AddYears(1902);
+                    }
+                    catch (Exception)
+                    {
+                        lastRead = this.Get<IReadTracking>().GetTopicRead(
+                            this.PageContext.PageUserID, currentRow["LastTopicID"].ToType<int>());
+                    }
 
-                    lastReadForum = this.Get<IReadTracking>().GetForumRead(
-                         this.PageContext.PageUserID, currentRow["ForumID"].ToType<int>());
+                    try
+                    {
+                        lastReadForum = currentRow["LastForumAccess"] != DBNull.Value
+                                       ? currentRow["LastForumAccess"].ToType<DateTime>()
+                                       : DateTime.MinValue.AddYears(1902);
+                    }
+                    catch (Exception)
+                    {
+                        lastReadForum = this.Get<IReadTracking>().GetForumRead(
+                            this.PageContext.PageUserID, currentRow["ForumID"].ToType<int>());
+                    }
                 }
                 else
                 {
@@ -199,7 +216,8 @@ namespace YAF.Controls
                   this.Get<YafBoardSettings>().ActiveDiscussionsCount,
                   this.PageContext.PageUserID,
                   this.Get<YafBoardSettings>().UseStyledNicks,
-                  this.Get<YafBoardSettings>().NoCountForumsInActiveDiscussions);
+                  this.Get<YafBoardSettings>().NoCountForumsInActiveDiscussions,
+                  this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
 
                 // Set colorOnly parameter to true, as we get all but color from css in the place
                 if (this.Get<YafBoardSettings>().UseStyledNicks)

@@ -1,5 +1,5 @@
-/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bjørnar Henden
+ï»¿/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjï¿½rnar Henden
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -25,6 +25,7 @@ namespace YAF.Pages.Admin
   using System;
   using System.Web.UI.WebControls;
 
+  using YAF.Classes;
   using YAF.Classes.Data;
   using YAF.Core;
   using YAF.Core.Tasks;
@@ -71,7 +72,7 @@ namespace YAF.Pages.Admin
     {
       if (!this.IsPostBack)
       {
-        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+          this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
        this.PageLinks.AddLink(this.GetText("ADMIN_PRUNE", "TITLE"), string.Empty);
 
@@ -117,7 +118,7 @@ namespace YAF.Pages.Admin
     private void BindData()
     {
         this.forumlist.DataSource = LegacyDb.forum_listread(
-            this.PageContext.PageBoardID, this.PageContext.PageUserID, null, null, false);
+            this.PageContext.PageBoardID, this.PageContext.PageUserID, null, null, false, false);
 
         this.forumlist.DataValueField = "ForumID";
         this.forumlist.DataTextField = "Forum";

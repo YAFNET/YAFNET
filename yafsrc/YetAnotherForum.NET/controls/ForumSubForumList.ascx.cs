@@ -113,12 +113,28 @@ namespace YAF.Controls
 
         var row = (DataRow)e.Item.DataItem;
 
-        DateTime lastRead = this.Get<YafBoardSettings>().UseReadTrackingByDatabase
-                                ? this.Get<IReadTracking>().GetForumRead(
-                                    this.PageContext.PageUserID, row["ForumID"].ToType<int>())
-                                : this.Get<IYafSession>().GetForumRead((int)row["ForumID"]);
+        DateTime lastRead;
 
-        DateTime lastPosted = row["LastPosted"] != DBNull.Value ? (DateTime)row["LastPosted"] : lastRead;
+        if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase)
+        {
+            try
+            {
+                lastRead = row["LastForumAccess"] != DBNull.Value
+                                    ? row["LastForumAccess"].ToType<DateTime>()
+                                    : DateTime.MinValue.AddYears(1902);
+            }
+            catch (Exception)
+            {
+                lastRead = this.Get<IReadTracking>().GetForumRead(
+                    this.PageContext.PageUserID, row["ForumID"].ToType<int>());
+            }
+        }
+        else
+        {
+            lastRead = this.Get<IYafSession>().GetForumRead(row["ForumID"].ToType<int>());
+        }
+
+        DateTime lastPosted = row["LastPosted"] != DBNull.Value ? row["LastPosted"].ToType<DateTime>() : lastRead;
 
         var subForumIcon = e.Item.FindControl("ThemeSubforumIcon") as ThemeImage;
 

@@ -23,8 +23,6 @@ namespace YAF.Controls
     #region Using
 
     using System;
-    using System.Collections;
-    using System.Collections.Generic;
     using System.Data;
     using System.Data.SqlTypes;
     using System.Web.UI.WebControls;
@@ -56,7 +54,7 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Summary description for buddies.
+    /// My Topics List Control.
     /// </summary>
     public partial class MyTopicsList : BaseUserControl
     {
@@ -175,7 +173,8 @@ namespace YAF.Controls
                         this.PageContext.PageUserID,
                         this.sinceDate,
                         categoryIDObject,
-                        this.Get<YafBoardSettings>().UseStyledNicks);
+                        this.Get<YafBoardSettings>().UseStyledNicks,
+                        this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
                     break;
                 case TopicListMode.Favorite:
                     topicList = this.Get<IFavoriteTopic>().FavoriteTopicDetails(this.sinceDate);
@@ -230,11 +229,17 @@ namespace YAF.Controls
         /// </param>
         protected void MarkAll_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            //// this.Get<IYafSession>().LastVisit = DateTime.UtcNow;
-
             foreach (DataRow row in this.topics.Rows)
             {
-                LegacyDb.Readtopic_AddOrUpdate(this.PageContext.PageUserID, row["TopicID"].ToType<int>());
+                if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase)
+                {
+                    LegacyDb.Readtopic_AddOrUpdate(this.PageContext.PageUserID, row["TopicID"].ToType<int>());
+                }
+                else
+                {
+                    this.Get<IYafSession>().SetTopicRead(row["TopicID"].ToType<int>(), DateTime.UtcNow);
+                }
+                
             }
         }
 
@@ -243,16 +248,21 @@ namespace YAF.Controls
         /// </summary>
         protected void InitSinceDropdown()
         {
-            // value 0, for since last visted
-            this.Since.Items.Add(
-                new ListItem(
-                    this.GetTextFormatted(
-                        "last_visit",
-                        this.Get<IDateTime>().FormatDateTime(
-                            this.Get<YafBoardSettings>().UseReadTrackingByDatabase
-                                ? LegacyDb.User_LastRead(this.PageContext.PageUserID, this.Get<IYafSession>().LastVisit)
-                                : this.Get<IYafSession>().LastVisit)),
-                    "0"));
+            if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase)
+            {
+                // value 0, for show unread only
+                this.Since.Items.Add(new ListItem(this.GetText("SHOW_UNREAD_ONLY"), "0"));
+            }
+            else
+            {
+                // value 0, for since last visted
+                this.Since.Items.Add(
+                    new ListItem(
+                        this.GetTextFormatted(
+                            "last_visit", this.Get<IDateTime>().FormatDateTime(this.Get<IYafSession>().LastVisit)),
+                        "0"));
+            }
+            
 
             // negative values for hours backward
             this.Since.Items.Add(new ListItem(this.GetText("last_hour"), "-1"));

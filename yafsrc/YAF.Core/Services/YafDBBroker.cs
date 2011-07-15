@@ -244,7 +244,7 @@ namespace YAF.Core.Services
                 }
 
                 DataTable forum = LegacyDb.forum_listread(
-                    boardID, userID, categoryID, parentID, this.Get<YafBoardSettings>().UseStyledNicks);
+                    boardID, userID, categoryID, parentID, this.Get<YafBoardSettings>().UseStyledNicks, this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
                 forum.TableName = MsSqlDbAccess.GetObjectName("Forum");
                 ds.Tables.Add(forum.Copy());
 
@@ -483,7 +483,8 @@ namespace YAF.Core.Services
                         numberOfPosts, 
                         userId, 
                         this.Get<YafBoardSettings>().UseStyledNicks, 
-                        this.Get<YafBoardSettings>().NoCountForumsInActiveDiscussions), 
+                        this.Get<YafBoardSettings>().NoCountForumsInActiveDiscussions,
+                        this.Get<YafBoardSettings>().UseReadTrackingByDatabase), 
                     styleColumnNames);
         }
 

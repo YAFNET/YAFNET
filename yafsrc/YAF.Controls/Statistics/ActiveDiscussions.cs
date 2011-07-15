@@ -20,22 +20,21 @@ namespace YAF.Controls.Statistics
 {
   #region Using
 
-  using System;
-  using System.Data;
-  using System.Text;
-  using System.Web.UI;
-
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Core.Services;
-  using YAF.Classes.Data;
-  using YAF.Utils;
-  using YAF.Types;
-  using YAF.Types.Constants;
-  using YAF.Types.Interfaces;
+    using System;
+    using System.Data;
+    using System.Text;
+    using System.Web.UI;
+    using YAF.Classes;
+    using YAF.Classes.Data;
+    using YAF.Core;
+    using YAF.Types;
+    using YAF.Types.Constants;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
 
   #endregion
 
-  /// <summary>
+    /// <summary>
   /// Control to display last active topics.
   /// </summary>
   [ToolboxData("<{0}:ActiveDiscussions runat=\"server\"></{0}:ActiveDiscussions>")]
@@ -76,6 +75,7 @@ namespace YAF.Controls.Statistics
     /// Renders the ActiveDiscussions control.
     /// </summary>
     /// <param name="writer">
+    /// The writer.
     /// </param>
     protected override void Render([NotNull] HtmlTextWriter writer)
     {
@@ -92,11 +92,12 @@ namespace YAF.Controls.Statistics
               this.PageContext.PageBoardID,
               this._displayNumber,
               this.PageContext.PageUserID,
-              this.PageContext.BoardSettings.UseStyledNicks,
-              this.PageContext.BoardSettings.NoCountForumsInActiveDiscussions);
+              this.Get<YafBoardSettings>().UseStyledNicks,
+              this.Get<YafBoardSettings>().NoCountForumsInActiveDiscussions,
+              this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
 
             // Set colorOnly parameter to true, as we get all but color from css in the place
-            if (this.PageContext.BoardSettings.UseStyledNicks)
+            if (this.Get<YafBoardSettings>().UseStyledNicks)
             {
               var styleTransform = this.Get<IStyleTransform>();
               styleTransform.DecodeStyleByTable(ref dt, true, "LastUserStyle");
@@ -104,7 +105,7 @@ namespace YAF.Controls.Statistics
 
             return dt;
           },
-        TimeSpan.FromMinutes(this.PageContext.BoardSettings.ActiveDiscussionsCacheTimeout));
+        TimeSpan.FromMinutes(this.Get<YafBoardSettings>().ActiveDiscussionsCacheTimeout));
 
       // render head of control
       html.Append("<table width=\"100%\" class=\"content\" cellspacing=\"1\" border=\"0\" cellpadding=\"0\">");

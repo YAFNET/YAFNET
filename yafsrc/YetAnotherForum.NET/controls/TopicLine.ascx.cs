@@ -423,11 +423,29 @@
 
         if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase)
         {
-            lastRead = this.Get<IReadTracking>().GetTopicRead(
-             this.PageContext.PageUserID, row["TopicID"].ToType<int>());
+            try
+            {
+                lastRead = row["LastTopicAccess"] != DBNull.Value
+                               ? row["LastTopicAccess"].ToType<DateTime>()
+                               : DateTime.MinValue.AddYears(1902);
+            }
+            catch (Exception)
+            {
+                lastRead = this.Get<IReadTracking>().GetTopicRead(
+                    this.PageContext.PageUserID, row["LastTopicID"].ToType<int>());
+            }
 
-            lastReadForum = this.Get<IReadTracking>().GetForumRead(
-                 this.PageContext.PageUserID, row["ForumID"].ToType<int>());
+            try
+            {
+                lastReadForum = row["LastForumAccess"] != DBNull.Value
+                                    ? row["LastForumAccess"].ToType<DateTime>()
+                                    : DateTime.MinValue.AddYears(1902);
+            }
+            catch (Exception)
+            {
+                lastReadForum = this.Get<IReadTracking>().GetForumRead(
+                    this.PageContext.PageUserID, row["ForumID"].ToType<int>());
+            }
         }
         else
         {

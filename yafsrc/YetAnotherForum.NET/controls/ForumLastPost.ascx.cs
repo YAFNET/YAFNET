@@ -133,15 +133,33 @@ namespace YAF.Controls
 
                 if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase)
                 {
-                    lastRead = this.Get<IReadTracking>().GetTopicRead(
-                    this.PageContext.PageUserID, this.DataRow["LastTopicID"].ToType<int>());
+                    try
+                    {
+                        lastRead = this.DataRow["LastTopicAccess"] != DBNull.Value
+                                       ? this.DataRow["LastTopicAccess"].ToType<DateTime>()
+                                       : DateTime.MinValue.AddYears(1902);
+                    }
+                    catch (Exception)
+                    {
+                        lastRead = this.Get<IReadTracking>().GetTopicRead(
+                            this.PageContext.PageUserID, this.DataRow["LastTopicID"].ToType<int>());
+                    }
 
-                    lastReadForum = this.Get<IReadTracking>().GetForumRead(
+                    try
+                    {
+                        lastReadForum = this.DataRow["LastForumAccess"] != DBNull.Value
+                                            ? this.DataRow["LastForumAccess"].ToType<DateTime>()
+                                            : DateTime.MinValue.AddYears(1902);
+                    }
+                    catch (Exception)
+                    {
+                        lastReadForum = this.Get<IReadTracking>().GetForumRead(
                             this.PageContext.PageUserID, this.DataRow["ForumID"].ToType<int>());
+                    }
                 }
                 else
                 {
-                    lastRead = this.Get<IYafSession>().GetTopicRead((int)this.DataRow["LastTopicID"]);
+                    lastRead = this.Get<IYafSession>().GetTopicRead(this.DataRow["LastTopicID"].ToType<int>());
 
                     lastReadForum = this.Get<IYafSession>().GetForumRead(this.DataRow["ForumID"].ToType<int>());
                 }

@@ -2498,7 +2498,7 @@ end
 
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}forum_list](@BoardID int,@ForumID int=null) as
+create procedure [{databaseOwner}].[{objectQualifier}forum_list](@BoardID int,@ForumID int=null,@PageUserID int) as
 begin
 	if @ForumID = 0 set @ForumID = null
 	if @ForumID is null
@@ -2717,7 +2717,7 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}forum_listread](@BoardID int,@UserID int,@CategoryID int=null,@ParentID int=null, @StyledNicks bit=null) as
+create procedure [{databaseOwner}].[{objectQualifier}forum_listread](@BoardID int,@UserID int,@CategoryID int=null,@ParentID int=null, @StyledNicks bit=null,	@FindLastRead bit = 0) as
 begin
 declare @tbl1 table
 ( ForumID int, ParentID int)
@@ -2794,7 +2794,15 @@ select
 		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=t.LastUserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
 			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr 
 			join [{databaseOwner}].[{objectQualifier}Rank] r ON r.RankID = usr.RankID  where usr.UserID=t.LastUserID))  
-			else ''	 end 					
+			else ''	 end,
+	    LastForumAccess = case(@FindLastRead)
+		     when 1 then
+		       IsNull((SELECT LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x WHERE x.ForumID=b.ForumID AND x.UserID = @UserID), GETUTCDATE())
+		     else ''	 end,
+		LastTopicAccess = case(@FindLastRead)
+		     when 1 then
+		       IsNull((SELECT LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=t.TopicID AND y.UserID = @UserID), GETUTCDATE())
+		     else ''	 end 					
 	from 
 		[{databaseOwner}].[{objectQualifier}Category] a
 		join [{databaseOwner}].[{objectQualifier}Forum] b on b.CategoryID=a.CategoryID
@@ -5218,7 +5226,7 @@ BEGIN
 END
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}topic_active](@BoardID int,@PageUserID int,@Since datetime,@CategoryID int=null, @StyledNicks bit = 0) as
+create procedure [{databaseOwner}].[{objectQualifier}topic_active](@BoardID int,@PageUserID int,@Since datetime,@CategoryID int=null, @StyledNicks bit = 0,	@FindLastRead bit = 0) as
 begin
 		select
 		c.ForumID,
@@ -5258,7 +5266,15 @@ begin
 		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=c.LastUserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
 			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr 
 			join [{databaseOwner}].[{objectQualifier}Rank] r ON r.RankID = usr.RankID  where usr.UserID=c.LastUserID))  
-			else ''	 end
+			else ''	 end,
+	    LastForumAccess = case(@FindLastRead)
+		     when 1 then
+		       (SELECT LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x WHERE x.ForumID=d.ForumID AND x.UserID = @PageUserID)
+		     else ''	 end,
+		LastTopicAccess = case(@FindLastRead)
+		     when 1 then
+		       (SELECT LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=c.TopicID AND y.UserID = @PageUserID)
+		     else ''	 end
 	from
 		[{databaseOwner}].[{objectQualifier}Topic] c
 		join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
@@ -5603,7 +5619,8 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}topic_latest]
 	@NumPosts int,
 	@PageUserID int,
 	@StyledNicks bit = 0,
-	@ShowNoCountPosts  bit = 0
+	@ShowNoCountPosts  bit = 0,
+	@FindLastRead bit = 0
 )
 AS
 BEGIN	
@@ -5624,12 +5641,21 @@ BEGIN
 		t.NumPosts,
 		t.Posted,		
 		LastUserName = IsNull(t.LastUserName,(select [Name] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID = t.LastUserID)),
-		LastUserStyle =  case(@StyledNicks)
+		LastUserStyle = case(@StyledNicks)
 			when 1 then  ISNULL((SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
 		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=t.LastUserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
 			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr 
 			join [{databaseOwner}].[{objectQualifier}Rank] r ON r.RankID = usr.RankID  where usr.UserID=t.LastUserID))  
-			else ''	 end		
+			else ''	 end,	
+	    LastForumAccess = case(@FindLastRead)
+		     when 1 then
+		       (SELECT LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x WHERE x.ForumID=f.ForumID AND x.UserID = @PageUserID)
+		     else ''	 end,
+		LastTopicAccess = case(@FindLastRead)
+		     when 1 then
+		       (SELECT LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=t.TopicID AND y.UserID = @PageUserID)
+		     else ''	 end
+			
 	FROM	
 		[{databaseOwner}].[{objectQualifier}Topic] t 
 	INNER JOIN
@@ -5638,7 +5664,7 @@ BEGIN
 		[{databaseOwner}].[{objectQualifier}Category] c ON c.CategoryID = f.CategoryID
 	JOIN
 		[{databaseOwner}].[{objectQualifier}ActiveAccess] v ON v.ForumID=f.ForumID
-	WHERE	
+    WHERE	
 		c.BoardID = @BoardID
 		AND t.TopicMovedID is NULL
 		AND v.UserID=@PageUserID
@@ -9495,14 +9521,14 @@ begin
 		IF @LastForumRead is not null AND @LastTopicRead is not null
 		
 		IF @LastForumRead > @LastTopicRead
-		   SELECT @LastForumRead
+		   SELECT LastAccessDate = @LastForumRead
 		ELSE
-		   SELECT @LastTopicRead
+		   SELECT LastAccessDate = @LastTopicRead
 		   
 	    ELSE IF @LastForumRead is not null
-	        SELECT @LastForumRead
+	       SELECT LastAccessDate = @LastForumRead
 	        
 	    ELSE IF @LastTopicRead is not null
-	        SELECT @LastTopicRead
+	        SELECT LastAccessDate = @LastTopicRead
 end
 GO

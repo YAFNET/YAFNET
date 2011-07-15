@@ -587,7 +587,8 @@ namespace YAF.Controls
                         ? LegacyDb.User_LastRead(this.PageContext.PageUserID, this.Get<IYafSession>().LastVisit)
                         : this.Get<IYafSession>().LastVisit,
                     null,
-                    false).Rows.Count;
+                    false,
+                    this.Get<YafBoardSettings>().UseReadTrackingByDatabase).Rows.Count;
 
             bool unread = this.PageContext.UnreadPrivate > 0 || this.PageContext.PendingBuddies > 0 || unreadTopics > 0;
 

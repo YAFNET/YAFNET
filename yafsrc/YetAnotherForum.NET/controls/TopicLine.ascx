@@ -129,16 +129,34 @@
 
                 if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase)
                 {
-                    lastRead = this.Get<IReadTracking>().GetTopicRead(
-                    this.PageContext.PageUserID, this.TopicRow["TopicID"].ToType<int>());
+                     try
+                    {
+                        lastRead = this.TopicRow["LastTopicAccess"] != DBNull.Value
+                                       ? this.TopicRow["LastTopicAccess"].ToType<DateTime>()
+                                       : DateTime.MinValue.AddYears(1902);
+                    }
+                    catch (Exception)
+                    {
+                        lastRead = this.Get<IReadTracking>().GetTopicRead(
+                            this.PageContext.PageUserID, this.TopicRow["LastTopicID"].ToType<int>());
+                    }
 
-                    lastReadForum = this.Get<IReadTracking>().GetForumRead(
-                         this.PageContext.PageUserID, this.TopicRow["ForumID"].ToType<int>());
+                    try
+                    {
+                        lastReadForum = this.TopicRow["LastForumAccess"] != DBNull.Value
+                                            ? this.TopicRow["LastForumAccess"].ToType<DateTime>()
+                                            : DateTime.MinValue.AddYears(1902);
+                    }
+                    catch (Exception)
+                    {
+                        lastReadForum = this.Get<IReadTracking>().GetForumRead(
+                            this.PageContext.PageUserID, this.TopicRow["ForumID"].ToType<int>());
+                    }
                 }
                 else
                 {
                     lastRead = this.Get<IYafSession>().GetTopicRead(this.TopicRow["TopicID"].ToType<int>());
-                    lastReadForum = this.Get<IYafSession>().GetForumRead(this.TopicRow["ForumID"].ToType<int>()); 
+                    lastReadForum = this.Get<IYafSession>().GetForumRead(this.TopicRow["ForumID"].ToType<int>());
                 }
 
                 if (lastReadForum > lastRead)

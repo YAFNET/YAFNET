@@ -139,7 +139,6 @@ namespace YAF.Pages
       {
         YafBuildLink.AccessDenied( /*"You don't have access to post new topics in this forum."*/);
       }
-      
     }
 
       /// <summary>
@@ -375,18 +374,18 @@ namespace YAF.Pages
       int nPageSize = this.Get<YafBoardSettings>().TopicsPerPage;
       this.Announcements.DataSource = dt;
 
-      /*if ( !m_bIgnoreQueryString && Request.QueryString ["p"] != null )
-			{
-				// show specific page (p is 1 based)
-				int tPage = (int)Security.StringToLongOrRedirect( Request.QueryString ["p"] );
+      /*if (!m_bIgnoreQueryString && Request.QueryString["p"] != null)
+      {
+          // show specific page (p is 1 based)
+          int tPage = (int)Security.StringToLongOrRedirect(Request.QueryString["p"]);
 
-				if ( tPage > 0 )
-				{
-					Pager.CurrentPageIndex = tPage - 1;
-				}
-			}*/
+          if (tPage > 0)
+          {
+              Pager.CurrentPageIndex = tPage - 1;
+          }
+      }*/
 
-      int nCurrentPageIndex = this.Pager.CurrentPageIndex;
+        int nCurrentPageIndex = this.Pager.CurrentPageIndex;
 
       DataTable dtTopics;
       if (this._showTopicListSelected == 0)
@@ -522,7 +521,6 @@ namespace YAF.Pages
       {
           this.Get<IYafSession>().SetForumRead(this.PageContext.PageForumID, DateTime.UtcNow);
       }
-
 
       this.BindData();
     }

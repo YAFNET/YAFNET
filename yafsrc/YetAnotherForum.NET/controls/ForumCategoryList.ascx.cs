@@ -44,7 +44,7 @@
             }
 
             DataTable dt = LegacyDb.forum_listread(
-                this.PageContext.PageBoardID, this.PageContext.PageUserID, categoryId, null, false);
+                this.PageContext.PageBoardID, this.PageContext.PageUserID, categoryId, null, false, false);
 
             foreach (DataRow row in dt.Rows)
             {

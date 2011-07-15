@@ -3597,7 +3597,7 @@ namespace YAF.Classes.Data
         /// Lists read topics
         /// </summary>
         /// <param name="boardID">
-        /// BoardID
+        ///  The Board ID
         /// </param>
         /// <param name="userID">
         /// The user ID.
@@ -3606,15 +3606,18 @@ namespace YAF.Classes.Data
         /// The category ID.
         /// </param>
         /// <param name="parentID">
-        /// ParentID
+        /// The Parent ID.
         /// </param>
         /// <param name="useStyledNicks">
         /// The use Styled Nicks.
         /// </param>
+        /// <param name="findLastRead">
+        /// Indicates if the Table should Countain the last Access Date
+        /// </param>
         /// <returns>
         /// DataTable with list
         /// </returns>
-        public static DataTable forum_listread([NotNull] object boardID, [NotNull] object userID, [NotNull] object categoryID, [NotNull] object parentID, [NotNull] object useStyledNicks)
+        public static DataTable forum_listread([NotNull] object boardID, [NotNull] object userID, [NotNull] object categoryID, [NotNull] object parentID, [NotNull] object useStyledNicks, [CanBeNull]bool findLastRead)
         {
             using (var cmd = MsSqlDbAccess.GetCommand("forum_listread"))
             {
@@ -3624,6 +3627,7 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("CategoryID", categoryID);
                 cmd.Parameters.AddWithValue("ParentID", parentID);
                 cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
+                cmd.Parameters.AddWithValue("FindLastRead", findLastRead);
                 return MsSqlDbAccess.Current.GetData(cmd);
             }
         }
@@ -7320,9 +7324,13 @@ namespace YAF.Classes.Data
         /// <param name="useStyledNicks">
         /// Set to true to get color nicks for last user and topic starter.
         /// </param>
+        /// <param name="findLastRead">
+        /// Indicates if the Table should Countain the last Access Date
+        /// </param>
         /// <returns>
+        /// Returns the List with the Active Topics
         /// </returns>
-        public static DataTable topic_active([NotNull] object boardID, [NotNull] object pageUserId, [NotNull] object since, [NotNull] object categoryID, [NotNull] object useStyledNicks)
+        public static DataTable topic_active([NotNull] object boardID, [NotNull] object pageUserId, [NotNull] object since, [NotNull] object categoryID, [NotNull] object useStyledNicks, [CanBeNull]bool findLastRead)
         {
             using (var cmd = MsSqlDbAccess.GetCommand("topic_active"))
             {
@@ -7332,6 +7340,8 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("Since", since);
                 cmd.Parameters.AddWithValue("CategoryID", categoryID);
                 cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
+                cmd.Parameters.AddWithValue("FindLastRead", findLastRead);
+
                 return MsSqlDbAccess.Current.GetData(cmd);
             }
         }
@@ -7592,20 +7602,13 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("TopicID", topicID);
                 using (DataTable dt = MsSqlDbAccess.Current.GetData(cmd))
                 {
-                    if (dt.Rows.Count > 0)
-                    {
-                        return dt.Rows[0];
-                    }
-                    else
-                    {
-                        return null;
-                    }
+                    return dt.Rows.Count > 0 ? dt.Rows[0] : null;
                 }
             }
         }
 
         /// <summary>
-        /// The topic_latest.
+        /// Get the Latest Topics
         /// </summary>
         /// <param name="boardID">
         /// The board id.
@@ -7622,9 +7625,13 @@ namespace YAF.Classes.Data
         /// <param name="showNoCountPosts">
         /// The show No Count Posts.
         /// </param>
+        /// <param name="findLastRead">
+        /// Indicates if the Table should Countain the last Access Date
+        /// </param>
         /// <returns>
+        /// Returnst the DataTable with the Latest Topics
         /// </returns>
-        public static DataTable topic_latest([NotNull] object boardID, [NotNull] object numOfPostsToRetrieve, [NotNull] object pageUserId, bool useStyledNicks, bool showNoCountPosts)
+        public static DataTable topic_latest([NotNull] object boardID, [NotNull] object numOfPostsToRetrieve, [NotNull] object pageUserId, bool useStyledNicks, bool showNoCountPosts, [CanBeNull]bool findLastRead)
         {
             using (var cmd = MsSqlDbAccess.GetCommand("topic_latest"))
             {
@@ -7634,6 +7641,7 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("PageUserID", pageUserId);
                 cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
                 cmd.Parameters.AddWithValue("ShowNoCountPosts", showNoCountPosts);
+                cmd.Parameters.AddWithValue("FindLastRead", findLastRead);
                 return MsSqlDbAccess.Current.GetData(cmd);
             }
         }
