@@ -2014,6 +2014,7 @@
     <Resource tag="RSSICONTOOLTIPACTIVE">Liitu aktiivsete teemade RSS vooga.</Resource>
     <Resource tag="RSSICONTOOLTIPFAVORITE">Liitu lemmikteemade RSS vooga.</Resource>
     <Resource tag="RSSICONTOOLTIPFORUM">Liitu RSS vooga.</Resource>
+    <Resource tag="SHOW_UNREAD_ONLY">Show only Unread Topics.</Resource>
     <Resource tag="STATS">Statistika</Resource>
     <Resource tag="STATS_BIRTHDAYS">Today's Birthdays: </Resource>
     <Resource tag="STATS_LASTMEMBER">Uusim liige on</Resource>
@@ -4351,6 +4352,7 @@ Külastage {forumname} aadressil {forumlink}
     <Resource tag="SEARCHKEYWORD">Search Keyword...</Resource>
     <Resource tag="TEAM">Team</Resource>
     <Resource tag="TEAM_TITLE">Shows the Team Page which shows all Moderators and Admins..</Resource>
+    <Resource tag="UNREADTOPICS">There are {0} Topic(s) with unread Messages</Resource>
     <Resource tag="WELCOME_GUEST">Tere tulemast, külaline! Kõigi võimaluste kasutamiseks palume registreeruda või sisse logida.</Resource>
     <Resource tag="WELCOME_GUEST_FULL">Welcome Guest! To enable all features please </Resource>
     <Resource tag="WELCOME_GUEST_NO">Welcome Guest! You can &lt;strong&gt;not&lt;/strong&gt; login or register.</Resource>

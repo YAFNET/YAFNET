@@ -2498,7 +2498,7 @@ end
 
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}forum_list](@BoardID int,@ForumID int=null,@PageUserID int) as
+create procedure [{databaseOwner}].[{objectQualifier}forum_list](@BoardID int,@ForumID int=null) as
 begin
 	if @ForumID = 0 set @ForumID = null
 	if @ForumID is null
@@ -5687,7 +5687,8 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}topic_list]
 	@Offset int,
 	@Count int,
 	@StyledNicks bit = 0,
-	@ShowMoved  bit = 0
+	@ShowMoved  bit = 0,
+	@FindLastRead bit = 0
 )
 AS
 begin
@@ -5756,7 +5757,15 @@ begin
 		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=c.LastUserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
 			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr 
 			join [{databaseOwner}].[{objectQualifier}Rank] r ON r.RankID = usr.RankID  where usr.UserID=c.LastUserID))  
-			else ''	 end
+			else ''	 end,
+			LastForumAccess = case(@FindLastRead)
+		     when 1 then
+		       (SELECT LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x WHERE x.ForumID=c.ForumID AND x.UserID = c.UserID)
+		     else ''	 end,
+		    LastTopicAccess = case(@FindLastRead)
+		     when 1 then
+		       (SELECT LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=c.TopicID AND y.UserID = c.UserID)
+		     else ''	 end
 		FROM [{databaseOwner}].[{objectQualifier}Topic] c JOIN [{databaseOwner}].[{objectQualifier}User] b 
 			ON b.UserID=c.UserID
 		JOIN [{databaseOwner}].[{objectQualifier}Forum] d 
@@ -5802,7 +5811,15 @@ begin
 		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=c.LastUserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
 			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr 
 			join [{databaseOwner}].[{objectQualifier}Rank] r ON r.RankID = usr.RankID  where usr.UserID=c.LastUserID))  
-			else ''	 end
+			else ''	 end,
+			LastForumAccess = case(@FindLastRead)
+		     when 1 then
+		       (SELECT LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x WHERE x.ForumID=c.ForumID AND x.UserID = c.UserID)
+		     else ''	 end,
+		    LastTopicAccess = case(@FindLastRead)
+		     when 1 then
+		       (SELECT LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=c.TopicID AND y.UserID = c.UserID)
+		     else ''	 end
 		FROM [{databaseOwner}].[{objectQualifier}Topic] c JOIN [{databaseOwner}].[{objectQualifier}User] b 
 			ON b.UserID=c.UserID
 		JOIN [{databaseOwner}].[{objectQualifier}Forum] d 

@@ -2006,6 +2006,7 @@
     <Resource tag="RSSICONTOOLTIPACTIVE">Meld je aan bij de actieve topics via RSS.</Resource>
     <Resource tag="RSSICONTOOLTIPFAVORITE">Meld je via RSS aan bij je favoriete topics.</Resource>
     <Resource tag="RSSICONTOOLTIPFORUM">Aanmelden bij RSS feed.</Resource>
+    <Resource tag="SHOW_UNREAD_ONLY">Show only Unread Topics.</Resource>
     <Resource tag="STATS">Statistieken</Resource>
     <Resource tag="STATS_BIRTHDAYS">De verjaardagen van vandaag: </Resource>
     <Resource tag="STATS_LASTMEMBER">Het nieuwste lid is</Resource>
@@ -4278,6 +4279,7 @@ Bezoek {forumname} op {forumlink}
     <Resource tag="SEARCHKEYWORD">Zoek Trefwoord...</Resource>
     <Resource tag="TEAM">Team</Resource>
     <Resource tag="TEAM_TITLE">Shows the Team Page which shows all Moderators and Admins..</Resource>
+    <Resource tag="UNREADTOPICS">There are {0} Topic(s) with unread Messages</Resource>
     <Resource tag="WELCOME_GUEST">Welkom gast!</Resource>
     <Resource tag="WELCOME_GUEST_FULL">Welkom gast! Om van alle functies gebruik te kunnen maken kun je</Resource>
     <Resource tag="WELCOME_GUEST_NO">Welkom gast! Je kunt helaas &lt;strong&gt;niet&lt;/strong&gt; inloggen of registreren.</Resource>

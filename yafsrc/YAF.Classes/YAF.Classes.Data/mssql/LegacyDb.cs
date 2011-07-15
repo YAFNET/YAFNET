@@ -7673,9 +7673,12 @@ namespace YAF.Classes.Data
         /// <param name="showMoved">
         /// The show Moved.
         /// </param>
+        /// <param name="findLastRead">
+        /// Indicates if the Table should Countain the last Access Date
+        /// </param>
         /// <returns>
         /// </returns>
-        public static DataTable topic_list([NotNull] object forumID, [NotNull] object userId, [NotNull] object announcement, [NotNull] object date, [NotNull] object offset, [NotNull] object count, [NotNull] object useStyledNicks, [NotNull] object showMoved)
+        public static DataTable topic_list([NotNull] object forumID, [NotNull] object userId, [NotNull] object announcement, [NotNull] object date, [NotNull] object offset, [NotNull] object count, [NotNull] object useStyledNicks, [NotNull] object showMoved, [CanBeNull]bool findLastRead)
         {
             using (var cmd = MsSqlDbAccess.GetCommand("topic_list"))
             {
@@ -7688,6 +7691,7 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("Count", count);
                 cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
                 cmd.Parameters.AddWithValue("ShowMoved", showMoved);
+                cmd.Parameters.AddWithValue("FindLastRead", findLastRead);
                 return MsSqlDbAccess.Current.GetData(cmd, true);
             }
         }

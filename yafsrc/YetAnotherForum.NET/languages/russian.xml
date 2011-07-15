@@ -2015,6 +2015,7 @@
     <Resource tag="RSSICONTOOLTIPACTIVE">Подпишитесь на активные темы используя ленту RSS.</Resource>
     <Resource tag="RSSICONTOOLTIPFAVORITE">Подпишитесь на Ваши избранные темы используя ленту RSS.</Resource>
     <Resource tag="RSSICONTOOLTIPFORUM">Подпишитесь на ленту RSS этого форума.</Resource>
+    <Resource tag="SHOW_UNREAD_ONLY">Show only Unread Topics.</Resource>
     <Resource tag="STATS">Статистика</Resource>
     <Resource tag="STATS_BIRTHDAYS">Дни рождения сегодня: </Resource>
     <Resource tag="STATS_LASTMEMBER">Последний зарегистрированный пользователь</Resource>
@@ -4358,6 +4359,7 @@ The Message was posted in the {forumname} forum.
     <Resource tag="SEARCHKEYWORD">Введите слово...</Resource>
     <Resource tag="TEAM">Команда</Resource>
     <Resource tag="TEAM_TITLE">Список команды: администраторы и модераторы</Resource>
+    <Resource tag="UNREADTOPICS">There are {0} Topic(s) with unread Messages</Resource>
     <Resource tag="WELCOME_GUEST">Добро пожаловать, Гость. Чтобы воспользоваться всеми функциями форума - зарегистрируйтесь или аутентифицируйтесь.</Resource>
     <Resource tag="WELCOME_GUEST_FULL">Добро пожаловать, Гость! Чтобы использовать все возможности </Resource>
     <Resource tag="WELCOME_GUEST_NO">Добро пожаловать, Гость! Вы  &lt;strong&gt;не&lt;/strong&gt; зарегистрироваться или войти.</Resource>

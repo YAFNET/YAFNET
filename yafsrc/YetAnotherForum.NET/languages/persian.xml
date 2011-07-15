@@ -2003,6 +2003,7 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="RSSICONTOOLTIPACTIVE">اشتراک عناوین فعال از طریق آر اس اس</Resource>
     <Resource tag="RSSICONTOOLTIPFAVORITE">اشتراک عناوین مورد علاقه تان از طریق آر اس اس</Resource>
     <Resource tag="RSSICONTOOLTIPFORUM">اشتراک عناوین انجمن از طریق آر اس اس</Resource>
+    <Resource tag="SHOW_UNREAD_ONLY">Show only Unread Topics.</Resource>
     <Resource tag="STATS">آمار و ارقام</Resource>
     <Resource tag="STATS_BIRTHDAYS">تولدهای امروز :</Resource>
     <Resource tag="STATS_LASTMEMBER">جدیدترین کاربر</Resource>
@@ -4305,6 +4306,7 @@ The Message was posted in the {forumname} forum.
     <Resource tag="SEARCHKEYWORD">جستجوی کلمات کلیدی...</Resource>
     <Resource tag="TEAM">گروه</Resource>
     <Resource tag="TEAM_TITLE">Shows the Team Page which shows all Moderators and Admins..</Resource>
+    <Resource tag="UNREADTOPICS">There are {0} Topic(s) with unread Messages</Resource>
     <Resource tag="WELCOME_GUEST">ورود به عنوان میهمان</Resource>
     <Resource tag="WELCOME_GUEST_FULL">خوش آمدید! برای فعال سازی امکانات لطفا  </Resource>
     <Resource tag="WELCOME_GUEST_NO">خوش آمدید! &lt;strong&gt;not&lt;/strong&gt; ثبت نام کنید یا وارد شوید.</Resource>

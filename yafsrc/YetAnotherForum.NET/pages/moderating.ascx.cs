@@ -87,7 +87,8 @@ namespace YAF.Pages
         this.PagerTop.CurrentPageIndex * pds.PageSize, 
         pds.PageSize, 
         false, 
-        true);
+        true,
+        false);
       DataView dv = dt.DefaultView;
 
       pds.DataSource = dv;

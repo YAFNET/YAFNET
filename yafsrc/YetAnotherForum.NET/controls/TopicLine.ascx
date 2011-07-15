@@ -129,7 +129,7 @@
 
                 if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase)
                 {
-                     try
+                    try
                     {
                         lastRead = this.TopicRow["LastTopicAccess"] != DBNull.Value
                                        ? this.TopicRow["LastTopicAccess"].ToType<DateTime>()

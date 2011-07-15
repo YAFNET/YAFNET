@@ -366,10 +366,18 @@ namespace YAF.Pages
         }
       }
 
-      DataTable dt =
-        this.StyleTransformDataTable(
-          LegacyDb.topic_list(
-            this.PageContext.PageForumID, userId, 1, null, 0, 10, this.Get<YafBoardSettings>().UseStyledNicks, true));
+        DataTable dt =
+            this.StyleTransformDataTable(
+                LegacyDb.topic_list(
+                    this.PageContext.PageForumID,
+                    userId,
+                    1,
+                    null,
+                    0,
+                    10,
+                    this.Get<YafBoardSettings>().UseStyledNicks,
+                    true,
+                    this.Get<YafBoardSettings>().UseReadTrackingByDatabase));
 
       int nPageSize = this.Get<YafBoardSettings>().TopicsPerPage;
       this.Announcements.DataSource = dt;
@@ -400,7 +408,8 @@ namespace YAF.Pages
               nCurrentPageIndex * nPageSize, 
               nPageSize, 
               this.Get<YafBoardSettings>().UseStyledNicks, 
-              true));
+              true,
+              this.Get<YafBoardSettings>().UseReadTrackingByDatabase));
       }
       else
       {
@@ -443,7 +452,8 @@ namespace YAF.Pages
               nCurrentPageIndex * nPageSize, 
               nPageSize, 
               this.Get<YafBoardSettings>().UseStyledNicks, 
-              true));
+              true,
+              this.Get<YafBoardSettings>().UseReadTrackingByDatabase));
       }
 
       int nRowCount = 0;

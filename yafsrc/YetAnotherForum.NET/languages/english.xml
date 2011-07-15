@@ -1947,6 +1947,7 @@ Spoiler Content
       <Resource tag="IN">in {0}</Resource>
       <Resource tag="INFORMATION">Information</Resource>
       <Resource tag="LAST_VISIT">Your last visit: {0}.</Resource>
+	  <Resource tag="SHOW_UNREAD_ONLY">Show only Unread Topics.</Resource>
       <Resource tag="LASTPOST">Last Post</Resource>
       <Resource tag="LATEST_POSTS">Latest Posts</Resource>
       <Resource tag="MAIN_FORUM_RSS">Main Forum RSS</Resource>
@@ -2971,6 +2972,7 @@ Visit {forumname} at {forumlink}
       <Resource tag="SEARCH_TITLE">Use the Forum Search.</Resource>
       <Resource tag="TEAM_TITLE">Shows the Team Page which shows all Moderators and Admins..</Resource>
 	  <Resource tag="FORUM_TITLE">Shows the Forum Mainpage.</Resource>
+	  <Resource tag="UNREADTOPICS">There are {0} Topic(s) with unread Messages</Resource>
    </page>
    <page name="TOPICS">
       <Resource tag="ALL">All</Resource>

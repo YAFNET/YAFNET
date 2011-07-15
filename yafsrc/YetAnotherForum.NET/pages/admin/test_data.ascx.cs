@@ -330,7 +330,7 @@ namespace YAF.Pages.Admin
       }
 
       DataTable topics = LegacyDb.topic_list(
-        Convert.ToInt32(this.PostsForum.SelectedValue), this.PageContext.PageUserID, 0, null, 0, 100, false, false);
+        Convert.ToInt32(this.PostsForum.SelectedValue), this.PageContext.PageUserID, 0, null, 0, 100, false, false, false);
       this.PostsTopic.DataSource = topics;
       this.PostsTopic.DataBind();
     }

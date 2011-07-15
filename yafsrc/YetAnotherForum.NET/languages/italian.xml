@@ -2014,6 +2014,7 @@
     <Resource tag="RSSICONTOOLTIPACTIVE">Sottoscrivi le discussioni attive tramite RSS.</Resource>
     <Resource tag="RSSICONTOOLTIPFAVORITE">Sottoscrivi le tue discussioni preferite tramite RSS.</Resource>
     <Resource tag="RSSICONTOOLTIPFORUM">Sottoscrivi i feed RSS del forum.</Resource>
+    <Resource tag="SHOW_UNREAD_ONLY">Show only Unread Topics.</Resource>
     <Resource tag="STATS">Statistiche</Resource>
     <Resource tag="STATS_BIRTHDAYS">Today's Birthdays: </Resource>
     <Resource tag="STATS_LASTMEMBER">L'ultimo utente registrato e'</Resource>
@@ -4404,6 +4405,7 @@ Visita il forum {forumname} in {forumlink}
     <Resource tag="SEARCHKEYWORD">Search Keyword...</Resource>
     <Resource tag="TEAM">Team</Resource>
     <Resource tag="TEAM_TITLE">Shows the Team Page which shows all Moderators and Admins..</Resource>
+    <Resource tag="UNREADTOPICS">There are {0} Topic(s) with unread Messages</Resource>
     <Resource tag="WELCOME_GUEST">Benvenuto, ospite. Per favore accedi o registrati per attivare tutte le funzioni.</Resource>
     <Resource tag="WELCOME_GUEST_FULL">Welcome Guest! To enable all features please </Resource>
     <Resource tag="WELCOME_GUEST_NO">Welcome Guest! You can &lt;strong&gt;not&lt;/strong&gt; login or register.</Resource>

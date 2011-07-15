@@ -603,19 +603,12 @@ namespace YAF.Controls
                     false,
                     unreadTopics > 0,
                     unreadTopics.ToString(),
-                    this.GetText("TOOLBAR", "BUDDYREQUEST").FormatWith(unreadTopics));
+                    this.GetText("TOOLBAR", "UNREADTOPICS").FormatWith(unreadTopics));
 
             /*
             this.MyTopics.ToolTip = this.GetText("TOOLBAR", "MYTOPICS");
             this.MyTopics.NavigateUrl = YafBuildLink.GetLink(ForumPages.mytopics);
-            this.MyTopics.Text = this.GetText("TOOLBAR", "MYTOPICS");
-
-            topicList = LegacyDb.topic_active(
-                        this.PageContext.PageBoardID,
-                        this.PageContext.PageUserID,
-                        this.sinceDate,
-                        categoryIDObject,
-                        this.Get<YafBoardSettings>().UseStyledNicks);*/
+            this.MyTopics.Text = this.GetText("TOOLBAR", "MYTOPICS");*/
 
             // Logout
             if (!Config.IsAnyPortal && Config.AllowLoginAndLogoff)

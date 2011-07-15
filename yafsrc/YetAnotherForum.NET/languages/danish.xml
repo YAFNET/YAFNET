@@ -2013,6 +2013,7 @@
     <Resource tag="RSSICONTOOLTIPACTIVE">Tilmeld dig aktive emner via RSS.</Resource>
     <Resource tag="RSSICONTOOLTIPFAVORITE">Tilmeld dine favorit emner via RSS.</Resource>
     <Resource tag="RSSICONTOOLTIPFORUM">Tilmeld til forum RSS feed.</Resource>
+    <Resource tag="SHOW_UNREAD_ONLY">Show only Unread Topics.</Resource>
     <Resource tag="STATS">Statistik</Resource>
     <Resource tag="STATS_BIRTHDAYS">Today's Birthdays: </Resource>
     <Resource tag="STATS_LASTMEMBER">Nyeste medlem er</Resource>
@@ -4347,6 +4348,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="SEARCHKEYWORD">Search Keyword...</Resource>
     <Resource tag="TEAM">Team</Resource>
     <Resource tag="TEAM_TITLE">Shows the Team Page which shows all Moderators and Admins..</Resource>
+    <Resource tag="UNREADTOPICS">There are {0} Topic(s) with unread Messages</Resource>
     <Resource tag="WELCOME_GUEST">Velkommen gæst</Resource>
     <Resource tag="WELCOME_GUEST_FULL">Welcome Guest! To enable all features please </Resource>
     <Resource tag="WELCOME_GUEST_NO">Welcome Guest! You can &lt;strong&gt;not&lt;/strong&gt; login or register.</Resource>
