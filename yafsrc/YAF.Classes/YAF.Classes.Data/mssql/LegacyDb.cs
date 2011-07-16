@@ -53,13 +53,19 @@ namespace YAF.Classes.Data
         /// <summary>
         ///   The _script list.
         /// </summary>
-        private static readonly string[] _scriptList = {
-                                                     "mssql/tables.sql", "mssql/indexes.sql", "mssql/views.sql", 
-                                                     "mssql/constraints.sql", "mssql/triggers.sql", 
-                                                     "mssql/functions.sql", "mssql/procedures.sql", 
-                                                     "mssql/providers/procedures.sql", "mssql/providers/tables.sql", 
-                                                     "mssql/providers/indexes.sql"
-                                                   };
+        private static readonly string[] _scriptList = 
+        {
+            "mssql/tables.sql", 
+            "mssql/indexes.sql", 
+            "mssql/views.sql",
+            "mssql/constraints.sql", 
+            "mssql/triggers.sql",
+            "mssql/functions.sql", 
+            "mssql/procedures.sql",
+            "mssql/providers/procedures.sql", 
+            "mssql/providers/tables.sql",
+            "mssql/providers/indexes.sql"
+        };
 
         /// <summary>
         ///   The _full text script.
@@ -105,7 +111,7 @@ namespace YAF.Classes.Data
                         if (dt.Rows.Count > 0)
                         {
                             // get the version...
-                            return Convert.ToInt32(dt.Rows[0]["Value"]);
+                            return dt.Rows[0]["Value"].ToType<int>();
                         }
                     }
                 }
@@ -289,9 +295,9 @@ namespace YAF.Classes.Data
             }
         }
 
-        // Parameter 12 (reserved for 'User Instance' in MS SQL SERVER)
         /// <summary>
         ///   Gets Parameter12_Name.
+        ///   (reserved for 'User Instance' in MS SQL SERVER)
         /// </summary>
         [NotNull]
         public static string Parameter12_Name
@@ -324,7 +330,6 @@ namespace YAF.Classes.Data
             }
         }
 
-        // Parameter 13
         /// <summary>
         ///   Gets Parameter13_Name.
         /// </summary>
@@ -359,7 +364,6 @@ namespace YAF.Classes.Data
             }
         }
 
-        // Parameter 14
         /// <summary>
         ///   Gets Parameter14_Name.
         /// </summary>
@@ -394,7 +398,6 @@ namespace YAF.Classes.Data
             }
         }
 
-        // Parameter 15
         /// <summary>
         ///   Gets Parameter15_Name.
         /// </summary>
@@ -429,7 +432,6 @@ namespace YAF.Classes.Data
             }
         }
 
-        // Parameter 16
         /// <summary>
         ///   Gets Parameter16_Name.
         /// </summary>
@@ -464,7 +466,6 @@ namespace YAF.Classes.Data
             }
         }
 
-        // Parameter 17
         /// <summary>
         ///   Gets Parameter17_Name.
         /// </summary>
@@ -499,7 +500,6 @@ namespace YAF.Classes.Data
             }
         }
 
-        // Parameter 18
         /// <summary>
         ///   Gets Parameter18_Name.
         /// </summary>
@@ -534,7 +534,6 @@ namespace YAF.Classes.Data
             }
         }
 
-        // Parameter 19
         /// <summary>
         ///   Gets Parameter19_Name.
         /// </summary>
@@ -604,7 +603,6 @@ namespace YAF.Classes.Data
             }
         }
 
-        // Parameter 2
         /// <summary>
         ///   Gets Parameter2_Name.
         /// </summary>
@@ -640,7 +638,6 @@ namespace YAF.Classes.Data
             }
         }
 
-        // Parameter 3
         /// <summary>
         ///   Gets Parameter3_Name.
         /// </summary>
@@ -676,7 +673,6 @@ namespace YAF.Classes.Data
             }
         }
 
-        // Parameter 4
         /// <summary>
         ///   Gets Parameter4_Name.
         /// </summary>
@@ -712,7 +708,6 @@ namespace YAF.Classes.Data
             }
         }
 
-        // Parameter 5
         /// <summary>
         ///   Gets Parameter5_Name.
         /// </summary>
@@ -748,7 +743,6 @@ namespace YAF.Classes.Data
             }
         }
 
-        // Parameter 6
         /// <summary>
         ///   Gets Parameter6_Name.
         /// </summary>
@@ -784,7 +778,6 @@ namespace YAF.Classes.Data
             }
         }
 
-        // Parameter 7
         /// <summary>
         ///   Gets Parameter7_Name.
         /// </summary>
@@ -820,7 +813,6 @@ namespace YAF.Classes.Data
             }
         }
 
-        // Parameter 8
         /// <summary>
         ///   Gets Parameter8_Name.
         /// </summary>
@@ -856,7 +848,6 @@ namespace YAF.Classes.Data
             }
         }
 
-        // Parameter 9
         /// <summary>
         ///   Gets Parameter9_Name.
         /// </summary>
@@ -940,6 +931,7 @@ namespace YAF.Classes.Data
         /// The bbcode id.
         /// </param>
         /// <returns>
+        /// Returns the BB Code List
         /// </returns>
         [NotNull]
         public static IEnumerable<TypedBBCode> BBCodeList(int boardID, int? bbcodeID)
@@ -957,6 +949,7 @@ namespace YAF.Classes.Data
         /// The user id.
         /// </param>
         /// <returns>
+        /// Returns The forum list all.
         /// </returns>
         [NotNull]
         public static IEnumerable<TypedForumListAll> ForumListAll(int boardId, int userId)
@@ -977,6 +970,7 @@ namespace YAF.Classes.Data
         /// The start forum id.
         /// </param>
         /// <returns>
+        /// The forum list all.
         /// </returns>
         [NotNull]
         public static IEnumerable<TypedForumListAll> ForumListAll(int boardId, int userId, int startForumId)
@@ -1045,9 +1039,11 @@ namespace YAF.Classes.Data
         /// <returns>
         /// Results
         /// </returns>
-        public static DataTable GetSearchResult([NotNull] string toSearchWhat, [NotNull] string toSearchFromWho,
-          SearchWhatFlags searchFromWhoMethod,
-          SearchWhatFlags searchWhatMethod,
+        public static DataTable GetSearchResult(
+            [NotNull] string toSearchWhat,
+            [NotNull] string toSearchFromWho,
+            SearchWhatFlags searchFromWhoMethod,
+            SearchWhatFlags searchWhatMethod,
           int forumIDToStartAt,
           int userID,
           int boardId,
@@ -1112,8 +1108,6 @@ namespace YAF.Classes.Data
         /// <param name="messageIdsSeparatedWithColon">
         /// The message i ds.
         /// </param>
-        /// <returns>
-        /// </returns>
         [NotNull]
         public static IEnumerable<TypedAllThanks> MessageGetAllThanks([NotNull] string messageIdsSeparatedWithColon)
         {
@@ -1132,8 +1126,6 @@ namespace YAF.Classes.Data
         /// <param name="messageID">
         /// The message id.
         /// </param>
-        /// <returns>
-        /// </returns>
         [NotNull]
         public static IEnumerable<TypedMessageList> MessageList(int messageID)
         {
@@ -1158,8 +1150,6 @@ namespace YAF.Classes.Data
         /// <param name="boardId">
         /// The board id.
         /// </param>
-        /// <returns>
-        /// </returns>
         [NotNull]
         public static IEnumerable<TypedPollGroup> PollGroupList(int userID, int? forumId, int boardId)
         {
@@ -3262,14 +3252,14 @@ namespace YAF.Classes.Data
             }
         }
 
-        // Returns an extension list for a given Board
         /// <summary>
-        /// The extension_list.
+        /// The extension list for a given Board
         /// </summary>
         /// <param name="boardID">
         /// The board id.
         /// </param>
         /// <returns>
+        /// Returns an extension list for a given Board
         /// </returns>
         public static DataTable extension_list([NotNull] object boardID)
         {
@@ -3282,9 +3272,8 @@ namespace YAF.Classes.Data
             }
         }
 
-        // Saves / creates extension
         /// <summary>
-        /// The extension_save.
+        /// Saves / creates extension
         /// </summary>
         /// <param name="extensionId">
         /// The extension id.
@@ -8590,12 +8579,15 @@ namespace YAF.Classes.Data
         /// <param name="styledNicks">
         /// If styles should be returned.
         /// </param>
+        /// <exception cref="ApplicationException"></exception>
         /// <returns>
         /// A DataRow, it should never return a null value.
         /// </returns>
-        public static DataRow user_lazydata([NotNull] object userID, [NotNull] object boardID,
-          bool showPendingMails,
-          bool showPendingBuddies,
+        public static DataRow user_lazydata(
+            [NotNull] object userID,
+            [NotNull] object boardID,
+            bool showPendingMails,
+            bool showPendingBuddies,
           bool showUnreadPMs,
           bool showUserAlbums,
           bool styledNicks)
@@ -9862,12 +9854,9 @@ namespace YAF.Classes.Data
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("UserID", userID);
 
-                using (var tableLastRead = MsSqlDbAccess.Current.GetData(cmd))
-                {
-                    return tableLastRead.Rows.Count > 0
-                               ? tableLastRead.GetFirstRowColumnAsValue("LastAccessDate", lastVisitDate)
-                               : lastVisitDate;
-                }
+                var tableLastRead = MsSqlDbAccess.Current.ExecuteScalar(cmd);
+
+                return tableLastRead != null ? (DateTime)tableLastRead : lastVisitDate;
             }
         }
 
@@ -9891,13 +9880,11 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("UserID", userID);
                 cmd.Parameters.AddWithValue("TopicID", topicID);
 
-                using (var tableLastRead = MsSqlDbAccess.Current.GetData(cmd))
-                {
-                    return tableLastRead.Rows.Count > 0
-                               ? tableLastRead.GetFirstRowColumnAsValue(
-                                   "LastAccessDate", DateTime.MinValue.AddYears(1902))
-                               : DateTime.MinValue.AddYears(1902);
-                }
+                var tableLastRead = MsSqlDbAccess.Current.ExecuteScalar(cmd);
+
+                return tableLastRead != null && tableLastRead != DBNull.Value
+                           ? (DateTime)tableLastRead
+                           : DateTime.MinValue.AddYears(1902);
             }
         }
 
@@ -9957,13 +9944,11 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("UserID", userID);
                 cmd.Parameters.AddWithValue("ForumID", forumID);
 
-                using (var tableLastRead = MsSqlDbAccess.Current.GetData(cmd))
-                {
-                    return tableLastRead.Rows.Count > 0
-                               ? tableLastRead.GetFirstRowColumnAsValue(
-                                   "LastAccessDate", DateTime.MinValue.AddYears(1902))
-                               : DateTime.MinValue.AddYears(1902);
-                }
+                var tableLastRead = MsSqlDbAccess.Current.ExecuteScalar(cmd);
+
+                return tableLastRead != null && tableLastRead != DBNull.Value
+                           ? (DateTime)tableLastRead
+                           : DateTime.MinValue.AddYears(1902);
             }
         }
 
@@ -10364,6 +10349,9 @@ namespace YAF.Classes.Data
         /// <param name="category">
         /// Cateogry of medals to list. Must be complemented with not-null boardID parameter.
         /// </param>
+        /// <returns>
+        /// Returns the Lists medals.
+        /// </returns>
         private static DataTable medal_list([NotNull] object boardID, [NotNull] object medalID, [NotNull] object category)
         {
             using (var cmd = MsSqlDbAccess.GetCommand("medal_list"))
@@ -10673,8 +10661,6 @@ namespace YAF.Classes.Data
         /// </param>
         private static void userforumaccess_sort_list_recursive([NotNull] DataTable listSource, [NotNull] DataTable listDestination, int parentID, int categoryID, int currentIndent)
         {
-            DataRow newRow;
-
             foreach (DataRow row in listSource.Rows)
             {
                 // see if this is a root-forum
@@ -10693,7 +10679,7 @@ namespace YAF.Classes.Data
                     }
 
                     // import the row into the destination
-                    newRow = listDestination.NewRow();
+                    DataRow newRow = listDestination.NewRow();
 
                     newRow["ForumID"] = row["ForumID"];
                     newRow["ForumName"] = string.Format("{0} {1}", sIndent, row["ForumName"]);
