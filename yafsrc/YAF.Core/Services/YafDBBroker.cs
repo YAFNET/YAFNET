@@ -121,6 +121,7 @@ namespace YAF.Core.Services
         /// Adds the Thanks info to a dataTable
         /// </summary>
         /// <param name="dataRows">
+        /// The data Rows.
         /// </param>
         public void AddThanksInfo(IEnumerable<DataRow> dataRows)
         {
@@ -130,7 +131,7 @@ namespace YAF.Core.Services
             dataRows.ForEach(x => x["IsThankedByUser"] = false);
 
             // Initialize the "Thank Info" column.
-            dataRows.ForEach(x => x["ThanksInfo"] = String.Empty);
+            dataRows.ForEach(x => x["ThanksInfo"] = string.Empty);
 
             // Iterate through all the thanks relating to this topic and make appropriate
             // changes in columns.
@@ -342,7 +343,7 @@ namespace YAF.Core.Services
         /// The crawlers.
         /// </param>
         /// <returns>
-        /// The get active list.
+        /// Returns the active list.
         /// </returns>
         public DataTable GetActiveList(int activeTime, bool guests, bool crawlers)
         {
@@ -360,7 +361,7 @@ namespace YAF.Core.Services
         /// The get all moderators.
         /// </summary>
         /// <returns>
-        /// The get all moderators.
+        /// Returns List with all moderators
         /// </returns>
         public List<SimpleModerator> GetAllModerators()
         {
@@ -420,7 +421,7 @@ namespace YAF.Core.Services
         /// The get custom bb code.
         /// </summary>
         /// <returns>
-        /// The get custom bb code.
+        /// Returns List with Custom BBCodes
         /// </returns>
         public IEnumerable<TypedBBCode> GetCustomBBCode()
         {
@@ -435,7 +436,7 @@ namespace YAF.Core.Services
         /// The number of posts.
         /// </param>
         /// <returns>
-        /// The get latest topics.
+        /// Returns List with Latest Topics.
         /// </returns>
         public DataTable GetLatestTopics(int numberOfPosts)
         {
@@ -443,7 +444,7 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        /// The get latest topics.
+        /// The get latest topics by User.
         /// </summary>
         /// <param name="numberOfPosts">
         /// The number of posts.
@@ -452,7 +453,7 @@ namespace YAF.Core.Services
         /// The user id.
         /// </param>
         /// <returns>
-        /// The get latest topics.
+        ///  Returns List with Latest Topics.
         /// </returns>
         public DataTable GetLatestTopics(int numberOfPosts, int userId)
         {
@@ -472,7 +473,7 @@ namespace YAF.Core.Services
         /// The style Column Names.
         /// </param>
         /// <returns>
-        /// The get latest topics.
+        /// Returns List with Latest Topics.
         /// </returns>
         public DataTable GetLatestTopics(int numberOfPosts, int userId, params string[] styleColumnNames)
         {
@@ -540,7 +541,7 @@ namespace YAF.Core.Services
         /// The board id.
         /// </param>
         /// <returns>
-        /// The get shout box messages.
+        /// Retuns the shout box messages.
         /// </returns>
         public IEnumerable<DataRow> GetShoutBoxMessages(int boardId)
         {
@@ -603,10 +604,12 @@ namespace YAF.Core.Services
             // get topics for all forums...
             foreach (var forum in forumData)
             {
+                SimpleForum forum1 = forum;
+
                 // add topics
                 var topics =
-                    LegacyDb.topic_list(forum.ForumID, userId, -1, timeFrame, 0, maxCount, false, false).SelectTypedList
-                        (x => this.LoadSimpleTopic(x, forum)).Where(x => x.LastPostDate >= timeFrame).ToList();
+                    LegacyDb.topic_list(forum.ForumID, userId, -1, timeFrame, 0, maxCount, false, false, false).SelectTypedList(
+                    x => this.LoadSimpleTopic(x, forum1)).Where(x => x.LastPostDate >= timeFrame).ToList();
 
                 forum.Topics = topics;
             }
@@ -632,6 +635,7 @@ namespace YAF.Core.Services
         /// Loads the message text into the paged data if "Message" and "MessageID" exists.
         /// </summary>
         /// <param name="dataRows">
+        /// The data Rows.
         /// </param>
         public void LoadMessageText(IEnumerable<DataRow> dataRows)
         {
@@ -734,7 +738,7 @@ namespace YAF.Core.Services
         /// The user id.
         /// </param>
         /// <returns>
-        /// The user ignored list.
+        /// Returns the user ignored list.
         /// </returns>
         public List<int> UserIgnoredList(int userId)
         {
@@ -796,7 +800,7 @@ namespace YAF.Core.Services
         /// The forum.
         /// </param>
         /// <returns>
-        /// The load simple topic.
+        /// Returns the simple topic.
         /// </returns>
         [NotNull]
         private SimpleTopic LoadSimpleTopic([NotNull] DataRow row, [NotNull] SimpleForum forum)
