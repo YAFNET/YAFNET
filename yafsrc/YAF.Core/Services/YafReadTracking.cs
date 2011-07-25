@@ -20,8 +20,6 @@
 namespace YAF.Core.Services
 {
     using System;
-
-    using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Types.Interfaces;
 
@@ -78,6 +76,22 @@ namespace YAF.Core.Services
         public DateTime GetTopicRead(int userID, int topicID)
         {
             return YafContext.Current.IsGuest ? DateTime.UtcNow : LegacyDb.Readtopic_lastread(userID, topicID);
+        }
+
+        /// <summary>
+        /// Get the Global Last Read DateTime a user Reads a topic or marks a forum as read
+        /// </summary>
+        /// <param name="userID">
+        /// The user ID.
+        /// </param>
+        /// <returns>
+        /// Returns the DateTime object with the last read date.
+        /// </returns>
+        public DateTime GetUserLastRead(int userID)
+        {
+            return YafContext.Current.IsGuest
+                       ? YafContext.Current.Get<IYafSession>().LastVisit
+                       : LegacyDb.User_LastRead(userID, YafContext.Current.Get<IYafSession>().LastVisit);
         }
         
         #endregion

@@ -130,9 +130,18 @@ namespace YAF.Pages
         /// </returns>
         protected string GetAvatarUrlFromID(int userID)
         {
-            string avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userID);
+            string avatarUrl;
 
-            if (avatarUrl.IsNotSet())
+            try
+            {
+                avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userID);
+
+                if (avatarUrl.IsNotSet())
+                {
+                    avatarUrl = "{0}images/noavatar.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
+                }
+            }
+            catch (Exception)
             {
                 avatarUrl = "{0}images/noavatar.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
             }
@@ -396,25 +405,34 @@ namespace YAF.Pages
 
             adminUserButton.Visible = this.PageContext.IsAdmin;
 
-            var userData = new CombinedUserDataHelper(modLink.UserID);
+            CombinedUserDataHelper userData;
 
-            if (userData.UserID == this.PageContext.PageUserID)
+            try
+            {
+                userData = new CombinedUserDataHelper(modLink.UserID);
+
+                if (userData.UserID == this.PageContext.PageUserID)
+                {
+                    return;
+                }
+
+                pm.Visible = !userData.IsGuest && this.User != null && this.Get<YafBoardSettings>().AllowPrivateMessages;
+                pm.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", userData.UserID);
+                pm.ParamTitle0 = userData.UserName;
+
+                // email link
+                email.Visible = !userData.IsGuest && this.User != null && this.Get<YafBoardSettings>().AllowEmailSending;
+                email.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", userData.UserID);
+                email.ParamTitle0 = userData.UserName;
+
+                if (this.PageContext.IsAdmin)
+                {
+                    email.TitleNonLocalized = userData.Membership.Email;
+                }
+            }
+            catch (Exception)
             {
                 return;
-            }
-
-            pm.Visible = !userData.IsGuest && this.User != null && this.Get<YafBoardSettings>().AllowPrivateMessages;
-            pm.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", userData.UserID);
-            pm.ParamTitle0 = userData.UserName;
-
-            // email link
-            email.Visible = !userData.IsGuest && this.User != null && this.Get<YafBoardSettings>().AllowEmailSending;
-            email.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", userData.UserID);
-            email.ParamTitle0 = userData.UserName;
-
-            if (this.PageContext.IsAdmin)
-            {
-                email.TitleNonLocalized = userData.Membership.Email;
             }
         }
 

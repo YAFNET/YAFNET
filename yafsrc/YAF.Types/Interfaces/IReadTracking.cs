@@ -63,5 +63,16 @@ namespace YAF.Types.Interfaces
         /// Returns the DateTime object from the topicID.
         /// </returns>
         DateTime GetTopicRead(int userID, int topicID);
+
+        /// <summary>
+        /// Get the Global Last Read DateTime a user Reads a topic or marks a forum as read
+        /// </summary>
+        /// <param name="userID">
+        /// The user ID.
+        /// </param>
+        /// <returns>
+        /// Returns the DateTime object with the last read date.
+        /// </returns>
+        DateTime GetUserLastRead(int userID);
     }
 }

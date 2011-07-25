@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" ValidateRequest="false" Inherits="YAF.ForumPageBase" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" ValidateRequest="false" Inherits="YAF.ForumPageBase" %>
 <%@ Register TagPrefix="YAF" Assembly="YAF" Namespace="YAF" %>
 <script runat="server">
 	
@@ -12,6 +12,8 @@
         content="text/css" />
     <meta id="YafMetaDescription" runat="server" name="description" content="Yet Another Forum.NET -- A bulletin board system written in ASP.NET" />
     <meta id="YafMetaKeywords" runat="server" name="keywords" content="Yet Another Forum.net, Forum, ASP.NET, BB, Bulletin Board, opensource" />
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width,user-scalable=yes"/>
     <title></title>
 </head>
 <body style="margin: 0; padding: 5px">

@@ -145,7 +145,7 @@ namespace YAF.Controls
             if (this.sinceValue == 0)
             {
                 this.sinceDate = this.Get<YafBoardSettings>().UseReadTrackingByDatabase
-                                    ? LegacyDb.User_LastRead(this.PageContext.PageUserID, this.Get<IYafSession>().LastVisit)
+                                    ? this.Get<IReadTracking>().GetUserLastRead(this.PageContext.PageUserID)
                                     : this.Get<IYafSession>().LastVisit;
             }
 
@@ -239,7 +239,6 @@ namespace YAF.Controls
                 {
                     this.Get<IYafSession>().SetTopicRead(row["TopicID"].ToType<int>(), DateTime.UtcNow);
                 }
-                
             }
         }
 
@@ -248,7 +247,7 @@ namespace YAF.Controls
         /// </summary>
         protected void InitSinceDropdown()
         {
-            if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase)
+            if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase && !this.PageContext.IsGuest)
             {
                 // value 0, for show unread only
                 this.Since.Items.Add(new ListItem(this.GetText("SHOW_UNREAD_ONLY"), "0"));
@@ -263,7 +262,6 @@ namespace YAF.Controls
                         "0"));
             }
             
-
             // negative values for hours backward
             this.Since.Items.Add(new ListItem(this.GetText("last_hour"), "-1"));
             this.Since.Items.Add(new ListItem(this.GetText("last_two_hours"), "-2"));

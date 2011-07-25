@@ -584,8 +584,8 @@ namespace YAF.Controls
                     this.PageContext.PageBoardID,
                     this.PageContext.PageUserID,
                     this.Get<YafBoardSettings>().UseReadTrackingByDatabase
-                        ? LegacyDb.User_LastRead(this.PageContext.PageUserID, this.Get<IYafSession>().LastVisit)
-                        : this.Get<IYafSession>().LastVisit,
+                                    ? this.Get<IReadTracking>().GetUserLastRead(this.PageContext.PageUserID)
+                                    : this.Get<IYafSession>().LastVisit,
                     null,
                     false,
                     this.Get<YafBoardSettings>().UseReadTrackingByDatabase).Rows.Count;
