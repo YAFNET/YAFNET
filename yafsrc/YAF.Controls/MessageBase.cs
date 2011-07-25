@@ -59,14 +59,14 @@ namespace YAF.Controls
         {
             get
             {
-                return this.Get<IDataCache>().GetOrSet(
+                return this.Get<IObjectStore>().GetOrSet(
                   "CustomBBCodeRegExDictionary",
                   () =>
                   {
                       var bbcodeTable = this.Get<IDBBroker>().GetCustomBBCode();
-                      return
-                        bbcodeTable.Where(b => (b.UseModule ?? false) && b.ModuleClass.IsSet() && b.SearchRegex.IsSet()).
-                          ToDictionary(codeRow => codeRow, codeRow => new Regex(codeRow.SearchRegex, _Options));
+                  	return
+                  		bbcodeTable.Where(b => (b.UseModule ?? false) && b.ModuleClass.IsSet() && b.SearchRegex.IsSet()).
+                  			ToDictionary(codeRow => codeRow, codeRow => new Regex(codeRow.SearchRegex, _Options));
                   });
             }
         }

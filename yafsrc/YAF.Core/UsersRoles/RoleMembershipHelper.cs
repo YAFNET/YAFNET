@@ -402,10 +402,25 @@ namespace YAF.Core
 				return null;
 			}
 
-			// is this a new user?
-			var isNewUser = UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey) <= 0;
+			int userId = UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey);
 
-			int userId = LegacyDb.user_aspnet(
+			if (userId == UserMembershipHelper.GuestUserId)
+			{
+				return userId;
+			}
+
+			if (user.ProviderUserKey == null)
+			{
+				// problem -- log and move on...
+				LegacyDb.eventlog_create(userId, "UpdateForumUser", "Null User Provider Key for UserName {0}. Please check your provider key settings for your ASP.NET membership provider.", user.UserName);
+
+				return userId;
+			}
+
+			// is this a new user?
+			bool isNewUser = userId <= 0;
+
+			userId = LegacyDb.user_aspnet(
 				pageBoardID, user.UserName, null, user.Email, user.ProviderUserKey, user.IsApproved);
 
 			// get user groups...
