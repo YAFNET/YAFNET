@@ -55,7 +55,7 @@
         <YAF:UserBox id="UserBox1" runat="server" Visible="<%# !PostData.IsSponserMessage %>" PageCache="<%# PageContext.CurrentForumPage.PageCache %>" DataRow="<%# DataRow %>"></YAF:UserBox>
     </td>
     <td valign="top" class="message">
-        <div class="postdiv" style="height:<%# GetUserBoxHeight() %>;">
+        <div class="postdiv">
             <asp:panel id="panMessage" runat="server">      
                 <YAF:MessagePostData ID="MessagePost1" runat="server" DataRow="<%# DataRow %>" IsAltMessage="<%# this.IsAlt %>" ColSpan="<%#GetIndentSpan()%>"></YAF:MessagePostData>
             </asp:panel>            
