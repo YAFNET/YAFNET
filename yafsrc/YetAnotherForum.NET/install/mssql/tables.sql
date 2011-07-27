@@ -1719,9 +1719,9 @@ begin
 end
 GO
 
-if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name=N'Question' AND prec < 255 )
+if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name=N'Question' AND prec < 256 )
 begin
-	alter table [{databaseOwner}].[{objectQualifier}Poll] alter column Question varchar(255) NOT NULL
+	alter table [{databaseOwner}].[{objectQualifier}Poll] alter column Question nvarchar(256) NOT NULL
 end
 GO
 
