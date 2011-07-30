@@ -3659,6 +3659,7 @@ Spoiler Content
     <Resource tag="LAST_WEEK">eelmine nädal</Resource>
     <Resource tag="LASTPOST">Viimane postitus</Resource>
     <Resource tag="MEMBERTITLE">Minu teemad</Resource>
+    <Resource tag="MYTOPICS">Topics you've posted in</Resource>
     <Resource tag="NO_POSTS">Postitusi ei ole</Resource>
     <Resource tag="REPLIES">Vastused</Resource>
     <Resource tag="RSSFEED">Rss voog</Resource>
@@ -3666,6 +3667,7 @@ Spoiler Content
     <Resource tag="SINCE">Alates</Resource>
     <Resource tag="TOPIC_STARTER">Teemaalgataja</Resource>
     <Resource tag="TOPICS">Teemad</Resource>
+    <Resource tag="UNREADTOPICS">Unread Topics</Resource>
     <Resource tag="VIEWS">Vaatamisi</Resource>
   </page>
   <page name="PMESSAGE">

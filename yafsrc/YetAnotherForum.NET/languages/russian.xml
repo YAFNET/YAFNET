@@ -3659,6 +3659,7 @@ Spoiler Content
     <Resource tag="LAST_WEEK">последняя неделя</Resource>
     <Resource tag="LASTPOST">Последнее сообщение</Resource>
     <Resource tag="MEMBERTITLE">Мои темы</Resource>
+    <Resource tag="MYTOPICS">Topics you've posted in</Resource>
     <Resource tag="NO_POSTS">Нет сообщений</Resource>
     <Resource tag="REPLIES">Ответы</Resource>
     <Resource tag="RSSFEED">RSS Лента</Resource>
@@ -3666,6 +3667,7 @@ Spoiler Content
     <Resource tag="SINCE">Начиная с</Resource>
     <Resource tag="TOPIC_STARTER">Автор темы</Resource>
     <Resource tag="TOPICS">Темы</Resource>
+    <Resource tag="UNREADTOPICS">Unread Topics</Resource>
     <Resource tag="VIEWS">Просмотры</Resource>
   </page>
   <page name="PMESSAGE">

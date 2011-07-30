@@ -47,8 +47,8 @@
     <tr>
         <td class="footer1" align="right" width="100%" colspan="5">
             <asp:LinkButton runat="server" OnClick="MarkAll_Click" ID="MarkAll" />
-            <YAF:RssFeedLink ID="RssFeed" runat="server" ShowSpacerBefore="true" Visible="<%# this.Get<YafBoardSettings>().ShowRSSLink && this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ForumFeedAccess) %>" />
-            <YAF:RssFeedLink ID="AtomFeed" runat="server" ShowSpacerBefore="true" Visible="<%# this.Get<YafBoardSettings>().ShowAtomLink && this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ForumFeedAccess) %>"  />   
+            <YAF:RssFeedLink ID="RssFeed" runat="server" ShowSpacerBefore="true" />
+            <YAF:RssFeedLink ID="AtomFeed" runat="server" ShowSpacerBefore="true"  />   
         </td>
     </tr>
 </table>

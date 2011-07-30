@@ -3595,6 +3595,7 @@ Spoiler Content
     <Resource tag="LAST_WEEK">afgelopen week</Resource>
     <Resource tag="LASTPOST">Laatste bericht</Resource>
     <Resource tag="MEMBERTITLE">Mijn Topics</Resource>
+    <Resource tag="MYTOPICS">Topics you've posted in</Resource>
     <Resource tag="NO_POSTS">Geen berichten</Resource>
     <Resource tag="REPLIES">Antwoorden</Resource>
     <Resource tag="RSSFEED">Rss Feed</Resource>
@@ -3602,6 +3603,7 @@ Spoiler Content
     <Resource tag="SINCE">Sinds</Resource>
     <Resource tag="TOPIC_STARTER">Topic Starter</Resource>
     <Resource tag="TOPICS">Topics</Resource>
+    <Resource tag="UNREADTOPICS">Unread Topics</Resource>
     <Resource tag="VIEWS">Bekeken</Resource>
   </page>
   <page name="PMESSAGE">

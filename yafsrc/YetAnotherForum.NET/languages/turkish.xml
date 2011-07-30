@@ -3641,6 +3641,7 @@ Spoiler Content
     <Resource tag="LAST_WEEK">Son Hafta</Resource>
     <Resource tag="LASTPOST">Son Mesaj</Resource>
     <Resource tag="MEMBERTITLE">Konularım</Resource>
+    <Resource tag="MYTOPICS">Topics you've posted in</Resource>
     <Resource tag="NO_POSTS">Mesaj Yok</Resource>
     <Resource tag="REPLIES">Cevaplar</Resource>
     <Resource tag="RSSFEED">Rss Yayını</Resource>
@@ -3648,6 +3649,7 @@ Spoiler Content
     <Resource tag="SINCE">den Beri</Resource>
     <Resource tag="TOPIC_STARTER">Konuyu Başlatan</Resource>
     <Resource tag="TOPICS">Konular</Resource>
+    <Resource tag="UNREADTOPICS">Unread Topics</Resource>
     <Resource tag="VIEWS">Görüntüle</Resource>
   </page>
   <page name="PMESSAGE">

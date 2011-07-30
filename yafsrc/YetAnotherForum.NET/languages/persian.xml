@@ -3647,6 +3647,7 @@ Spoiler Content
     <Resource tag="LAST_WEEK">هفته قبل</Resource>
     <Resource tag="LASTPOST">آخرین ارسال</Resource>
     <Resource tag="MEMBERTITLE">عناوین من</Resource>
+    <Resource tag="MYTOPICS">Topics you've posted in</Resource>
     <Resource tag="NO_POSTS">بدون ارسال</Resource>
     <Resource tag="REPLIES">پاسخها</Resource>
     <Resource tag="RSSFEED">خوراک آر اس اس</Resource>
@@ -3654,6 +3655,7 @@ Spoiler Content
     <Resource tag="SINCE">از</Resource>
     <Resource tag="TOPIC_STARTER">شروع کننده مبحث</Resource>
     <Resource tag="TOPICS">عناوین</Resource>
+    <Resource tag="UNREADTOPICS">Unread Topics</Resource>
     <Resource tag="VIEWS">مشاهدات</Resource>
   </page>
   <page name="PMESSAGE">

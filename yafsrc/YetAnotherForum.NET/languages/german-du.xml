@@ -3623,6 +3623,7 @@ Spoiler Content
     <Resource tag="LAST_WEEK">Letzte Woche</Resource>
     <Resource tag="LASTPOST">Letzter Beitrag</Resource>
     <Resource tag="MEMBERTITLE">Keine Themen</Resource>
+    <Resource tag="MYTOPICS">Themen in denen Sie etwas geschrieben haben</Resource>
     <Resource tag="NO_POSTS">Keine Beiträge</Resource>
     <Resource tag="REPLIES">Antworten</Resource>
     <Resource tag="RSSFEED">Rss Feed</Resource>
@@ -3630,6 +3631,7 @@ Spoiler Content
     <Resource tag="SINCE">Seit</Resource>
     <Resource tag="TOPIC_STARTER">Themen Starter</Resource>
     <Resource tag="TOPICS">Themen</Resource>
+    <Resource tag="UNREADTOPICS">Ungelesene Themen</Resource>
     <Resource tag="VIEWS">Ansichten</Resource>
   </page>
   <page name="PMESSAGE">

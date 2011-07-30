@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -22,6 +22,7 @@ namespace YAF.Pages
 
   using System;
 
+  using YAF.Classes;
   using YAF.Core;
   using YAF.Types;
   using YAF.Types.Constants;
@@ -32,7 +33,7 @@ namespace YAF.Pages
   #endregion
 
   /// <summary>
-  /// The mytopics.
+  /// The mytopics page.
   /// </summary>
   public partial class mytopics : ForumPage
   {
@@ -79,24 +80,26 @@ namespace YAF.Pages
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!this.IsPostBack)
-      {
-        this.FavoriteTopicsTabTitle.Visible = !this.PageContext.IsGuest;
-        this.FavoriteTopicsTabContent.Visible = !this.PageContext.IsGuest;
-
-        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        if (this.PageContext.IsGuest)
+        if (this.IsPostBack)
         {
-          this.PageLinks.AddLink(this.GetText("GUESTTITLE"), string.Empty);
-        }
-        else
-        {
-          this.PageLinks.AddLink(this.GetText("MEMBERTITLE"), string.Empty);
+            return;
         }
 
-        this.ForumJumpHolder.Visible = this.PageContext.BoardSettings.ShowForumJump &&
+        this.UserTopicsTabTitle.Visible = !this.PageContext.IsGuest;
+        this.UserTopicsTabContent.Visible = !this.PageContext.IsGuest;
+
+        this.UnreadTopicsTabTitle.Visible = !this.PageContext.IsGuest &&
+                                            this.Get<YafBoardSettings>().UseReadTrackingByDatabase;
+        this.UnreadTopicsTabContent.Visible = !this.PageContext.IsGuest &&
+                                            this.Get<YafBoardSettings>().UseReadTrackingByDatabase;
+
+        this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+
+        this.PageLinks.AddLink(
+            this.PageContext.IsGuest ? this.GetText("GUESTTITLE") : this.GetText("MEMBERTITLE"), string.Empty);
+
+        this.ForumJumpHolder.Visible = this.Get<YafBoardSettings>().ShowForumJump &&
                                        this.PageContext.Settings.LockedForum == 0;
-      }
     }
 
     #endregion

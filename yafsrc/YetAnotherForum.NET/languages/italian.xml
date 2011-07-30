@@ -3659,6 +3659,7 @@ Spoiler Content
     <Resource tag="LAST_WEEK">Ultima settimana</Resource>
     <Resource tag="LASTPOST">Ultimo post</Resource>
     <Resource tag="MEMBERTITLE">Le mie discussioni</Resource>
+    <Resource tag="MYTOPICS">Topics you've posted in</Resource>
     <Resource tag="NO_POSTS">Nessun post</Resource>
     <Resource tag="REPLIES">Risposte</Resource>
     <Resource tag="RSSFEED">Feed RSS</Resource>
@@ -3666,6 +3667,7 @@ Spoiler Content
     <Resource tag="SINCE">Dal</Resource>
     <Resource tag="TOPIC_STARTER">Autore discussione</Resource>
     <Resource tag="TOPICS">Discussioni</Resource>
+    <Resource tag="UNREADTOPICS">Unread Topics</Resource>
     <Resource tag="VIEWS">Visite</Resource>
   </page>
   <page name="PMESSAGE">

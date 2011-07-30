@@ -43,14 +43,24 @@ namespace YAF.Controls
     public enum TopicListMode
     {
         /// <summary>
-        ///   The active.
+        ///   The active topics list.
         /// </summary>
         Active,
 
         /// <summary>
-        ///   The favorite.
+        ///   The favorite topics list.
         /// </summary>
-        Favorite
+        Favorite,
+
+        /// <summary>
+        ///   The Unread topics list.
+        /// </summary>
+        Unread,
+
+        /// <summary>
+        ///   The User topics list.
+        /// </summary>
+        User
     }
 
     /// <summary>
@@ -144,9 +154,14 @@ namespace YAF.Controls
             // we want to filter topics since last visit
             if (this.sinceValue == 0)
             {
-                this.sinceDate = this.Get<YafBoardSettings>().UseReadTrackingByDatabase
-                                    ? this.Get<IReadTracking>().GetUserLastRead(this.PageContext.PageUserID)
-                                    : this.Get<IYafSession>().LastVisit;
+                this.sinceDate = this.Get<IYafSession>().LastVisit;
+
+                if (this.CurrentMode.Equals(TopicListMode.Unread))
+                {
+                    this.sinceDate = this.Get<YafBoardSettings>().UseReadTrackingByDatabase
+                                         ? this.Get<IReadTracking>().GetUserLastRead(this.PageContext.PageUserID)
+                                         : this.Get<IYafSession>().LastVisit;
+                }
             }
 
             // we want to page results
@@ -169,6 +184,24 @@ namespace YAF.Controls
             {
                 case TopicListMode.Active:
                     topicList = LegacyDb.topic_active(
+                        this.PageContext.PageBoardID,
+                        this.PageContext.PageUserID,
+                        this.sinceDate,
+                        categoryIDObject,
+                        this.Get<YafBoardSettings>().UseStyledNicks,
+                        this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
+                    break;
+                case TopicListMode.Unread:
+                    topicList = LegacyDb.topic_active(
+                        this.PageContext.PageBoardID,
+                        this.PageContext.PageUserID,
+                        this.sinceDate,
+                        categoryIDObject,
+                        this.Get<YafBoardSettings>().UseStyledNicks,
+                        this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
+                    break;
+                case TopicListMode.User:
+                    topicList = LegacyDb.Topics_ByUser(
                         this.PageContext.PageBoardID,
                         this.PageContext.PageUserID,
                         this.sinceDate,
@@ -247,20 +280,12 @@ namespace YAF.Controls
         /// </summary>
         protected void InitSinceDropdown()
         {
-            if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase && !this.PageContext.IsGuest)
-            {
-                // value 0, for show unread only
-                this.Since.Items.Add(new ListItem(this.GetText("SHOW_UNREAD_ONLY"), "0"));
-            }
-            else
-            {
-                // value 0, for since last visted
-                this.Since.Items.Add(
-                    new ListItem(
-                        this.GetTextFormatted(
-                            "last_visit", this.Get<IDateTime>().FormatDateTime(this.Get<IYafSession>().LastVisit)),
-                        "0"));
-            }
+            // value 0, for since last visted
+            this.Since.Items.Add(
+                new ListItem(
+                    this.GetTextFormatted(
+                        "last_visit", this.Get<IDateTime>().FormatDateTime(this.Get<IYafSession>().LastVisit)),
+                    "0"));
             
             // negative values for hours backward
             this.Since.Items.Add(new ListItem(this.GetText("last_hour"), "-1"));
@@ -297,7 +322,18 @@ namespace YAF.Controls
 
                 switch (this.CurrentMode)
                 {
-                    case TopicListMode.Active:
+                    case TopicListMode.User:
+                        previousSince = this.Get<IYafSession>().UserTopicSince;
+                        this.Since.Items.Add(new ListItem(this.GetText("show_all"), "9999"));
+                        this.Since.SelectedIndex = this.Since.Items.Count - 1;
+                        break;
+                    case TopicListMode.Unread:
+                        previousSince = this.Get<IYafSession>().UnreadTopicSince;
+                        this.Since.Items.Clear();
+                        this.Since.Items.Add(new ListItem(this.GetText("SHOW_UNREAD_ONLY"), "0"));
+                        this.Since.SelectedIndex = 0;
+                        break;
+                   case TopicListMode.Active:
                         previousSince = this.Get<IYafSession>().ActiveTopicSince;
                         this.Since.SelectedIndex = 0;
                         break;
@@ -381,6 +417,12 @@ namespace YAF.Controls
             // save since option to rememver it next time
             switch (this.CurrentMode)
             {
+                case TopicListMode.User:
+                    this.Get<IYafSession>().UserTopicSince = this.Since.SelectedValue.ToType<int>();
+                    break;
+                case TopicListMode.Unread:
+                    this.Get<IYafSession>().UnreadTopicSince = this.Since.SelectedValue.ToType<int>();
+                    break;
                 case TopicListMode.Active:
                     this.Get<IYafSession>().ActiveTopicSince = this.Since.SelectedValue.ToType<int>();
                     break;
@@ -398,16 +440,25 @@ namespace YAF.Controls
         /// </summary>
         private void BindFeeds()
         {
-            bool groupAccess = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ActiveTopicFeedAccess);
+            bool accessActive = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ActiveTopicFeedAccess);
+            bool accessFavorite = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().FavoriteTopicFeedAccess);
 
-            this.AtomFeed.Visible = this.Get<YafBoardSettings>().ShowAtomLink && groupAccess;
-            this.RssFeed.Visible = this.Get<YafBoardSettings>().ShowRSSLink && groupAccess;
+            this.AtomFeed.Visible = this.Get<YafBoardSettings>().ShowAtomLink;
+            this.RssFeed.Visible = this.Get<YafBoardSettings>().ShowRSSLink;
 
             // RSS link setup 
-            if (this.Get<YafBoardSettings>().ShowRSSLink && groupAccess)
+            if (this.RssFeed.Visible)
             {
                 switch (this.CurrentMode)
                 {
+                    case TopicListMode.User:
+                        this.AtomFeed.Visible = false;
+                        this.RssFeed.Visible = false;
+                        break;
+                    case TopicListMode.Unread:
+                        this.AtomFeed.Visible = false;
+                        this.RssFeed.Visible = false;
+                        break;
                     case TopicListMode.Active:
                         this.RssFeed.TitleLocalizedTag = "RSSICONTOOLTIPACTIVE";
                         this.RssFeed.FeedType = YafRssFeeds.Active;
@@ -415,6 +466,8 @@ namespace YAF.Controls
                             "txt={0}&d={1}".FormatWith(
                                 this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text)),
                                 this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString())));
+
+                        this.RssFeed.Visible = accessActive;
                         break;
                     case TopicListMode.Favorite:
                         this.RssFeed.TitleLocalizedTag = "RSSICONTOOLTIPFAVORITE";
@@ -423,14 +476,13 @@ namespace YAF.Controls
                             "txt={0}&d={1}".FormatWith(
                                 this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text)),
                                 this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString())));
+                        this.RssFeed.Visible = accessFavorite;
                         break;
                 }
-
-                this.RssFeed.Visible = true;
             }
 
             // Atom link setup 
-            if (!this.Get<YafBoardSettings>().ShowAtomLink || !groupAccess)
+            if (!this.AtomFeed.Visible)
             {
                 return;
             }
@@ -446,6 +498,8 @@ namespace YAF.Controls
                         "txt={0}&d={1}".FormatWith(
                             this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text)),
                             this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString())));
+
+                    this.RssFeed.Visible = accessActive;
                     break;
                 case TopicListMode.Favorite:
                     this.AtomFeed.TitleLocalizedTag = "ATOMICONTOOLTIPFAVORITE";
@@ -456,11 +510,12 @@ namespace YAF.Controls
                         "txt={0}&d={1}".FormatWith(
                             this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text)),
                             this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString())));
+
+                    this.RssFeed.Visible = accessFavorite;
                     break;
             }
 
             this.AtomFeed.IsAtomFeed = true;
-            this.AtomFeed.Visible = true;
         }
 
         #endregion

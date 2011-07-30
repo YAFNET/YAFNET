@@ -25,7 +25,6 @@ namespace YAF.Core.Services
   using System.Data;
   using System.Web;
 
-  using YAF.Classes.Data;
   using YAF.Types;
   using YAF.Types.Interfaces;
 
@@ -54,6 +53,48 @@ namespace YAF.Core.Services
     #endregion
 
     #region Properties
+
+    /// <summary>
+    ///   Gets or sets UserTopicSince.
+    /// </summary>
+    public int? UserTopicSince
+    {
+        get
+        {
+            if (this.SessionState["UserTopicSince"] != null)
+            {
+                return (int)this.SessionState["UserTopicSince"];
+            }
+
+            return null;
+        }
+
+        set
+        {
+            this.SessionState["UserTopicSince"] = value;
+        }
+    }
+
+    /// <summary>
+    ///   Gets or sets UnreadTopicSince.
+    /// </summary>
+    public int? UnreadTopicSince
+    {
+        get
+        {
+            if (this.SessionState["UnreadTopicSince"] != null)
+            {
+                return (int)this.SessionState["UnreadTopicSince"];
+            }
+
+            return null;
+        }
+
+        set
+        {
+            this.SessionState["UnreadTopicSince"] = value;
+        }
+    }
 
     /// <summary>
     ///   Gets or sets ActiveTopicSince.

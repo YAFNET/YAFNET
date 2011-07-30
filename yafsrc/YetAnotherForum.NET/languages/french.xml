@@ -3657,6 +3657,7 @@ Spoiler Content
     <Resource tag="LAST_WEEK">cette dernière semaine</Resource>
     <Resource tag="LASTPOST">Dernier message</Resource>
     <Resource tag="MEMBERTITLE">Mes sujets</Resource>
+    <Resource tag="MYTOPICS">Topics you've posted in</Resource>
     <Resource tag="NO_POSTS">Pas de message</Resource>
     <Resource tag="REPLIES">Réponses</Resource>
     <Resource tag="RSSFEED">Flux RSS</Resource>
@@ -3664,6 +3665,7 @@ Spoiler Content
     <Resource tag="SINCE">Depuis</Resource>
     <Resource tag="TOPIC_STARTER">Initiateur du sujet</Resource>
     <Resource tag="TOPICS">Sujets</Resource>
+    <Resource tag="UNREADTOPICS">Unread Topics</Resource>
     <Resource tag="VIEWS">Vus</Resource>
   </page>
   <page name="PMESSAGE">

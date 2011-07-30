@@ -3481,6 +3481,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="LAST_WEEK">آخر اسبوع </Resource>
     <Resource tag="LASTPOST">آخر مشاركة</Resource>
     <Resource tag="MEMBERTITLE">مواضيعي</Resource>
+    <Resource tag="MYTOPICS">Topics you've posted in</Resource>
     <Resource tag="NO_POSTS">لا يوجد مشاركات </Resource>
     <Resource tag="REPLIES">الردود</Resource>
     <Resource tag="RSSFEED">خدمة RSS</Resource>
@@ -3488,6 +3489,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="SINCE">منذ</Resource>
     <Resource tag="TOPIC_STARTER">كتابة موضوع</Resource>
     <Resource tag="TOPICS">مواضيع</Resource>
+    <Resource tag="UNREADTOPICS">Unread Topics</Resource>
     <Resource tag="VIEWS">المشاهدة</Resource>
   </page>
   <page name="PMESSAGE">

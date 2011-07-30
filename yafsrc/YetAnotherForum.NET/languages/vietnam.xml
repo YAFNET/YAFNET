@@ -3641,6 +3641,7 @@ Spoiler Content
     <Resource tag="LAST_WEEK">1 tuần trước đây</Resource>
     <Resource tag="LASTPOST">Bài cuối</Resource>
     <Resource tag="MEMBERTITLE">Chủ đề của tôi</Resource>
+    <Resource tag="MYTOPICS">Topics you've posted in</Resource>
     <Resource tag="NO_POSTS">Không có bài viết</Resource>
     <Resource tag="REPLIES">Trả lời</Resource>
     <Resource tag="RSSFEED">Rss Feed</Resource>
@@ -3648,6 +3649,7 @@ Spoiler Content
     <Resource tag="SINCE">Kể từ</Resource>
     <Resource tag="TOPIC_STARTER">Tác giá</Resource>
     <Resource tag="TOPICS">Chủ đề</Resource>
+    <Resource tag="UNREADTOPICS">Unread Topics</Resource>
     <Resource tag="VIEWS">Xem</Resource>
   </page>
   <page name="PMESSAGE">

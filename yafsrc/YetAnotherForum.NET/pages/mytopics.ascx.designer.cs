@@ -40,13 +40,40 @@ namespace YAF.Pages {
         protected global::YAF.Controls.LocalizedLabel LocalizedLabel2;
         
         /// <summary>
-        /// FavoriteTopicsTabTitle control.
+        /// UnreadTopicsTabTitle control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder FavoriteTopicsTabTitle;
+        protected global::System.Web.UI.WebControls.PlaceHolder UnreadTopicsTabTitle;
+        
+        /// <summary>
+        /// LocalizedLabel3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel3;
+        
+        /// <summary>
+        /// UserTopicsTabTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder UserTopicsTabTitle;
+        
+        /// <summary>
+        /// LocalizedLabel4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel4;
         
         /// <summary>
         /// LocalizedLabel1 control.
@@ -67,13 +94,40 @@ namespace YAF.Pages {
         protected global::YAF.Controls.MyTopicsList ActiveTopics;
         
         /// <summary>
-        /// FavoriteTopicsTabContent control.
+        /// UnreadTopicsTabContent control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder FavoriteTopicsTabContent;
+        protected global::System.Web.UI.WebControls.PlaceHolder UnreadTopicsTabContent;
+        
+        /// <summary>
+        /// UnreadTopics control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.MyTopicsList UnreadTopics;
+        
+        /// <summary>
+        /// UserTopicsTabContent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder UserTopicsTabContent;
+        
+        /// <summary>
+        /// MyTopics control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.MyTopicsList MyTopics;
         
         /// <summary>
         /// FavoriteTopics control.

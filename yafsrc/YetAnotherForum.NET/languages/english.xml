@@ -2198,6 +2198,8 @@ Spoiler Content
    <page name="MYTOPICS">
       <Resource tag="ACTIVETOPICS">Active Topics</Resource>
       <Resource tag="FAVORITETOPICS">Favorite Topics</Resource>
+	  <Resource tag="MYTOPICS">Topics you've posted in</Resource>
+      <Resource tag="UNREADTOPICS">Unread Topics</Resource>
       <Resource tag="BY">by {0}</Resource>
       <Resource tag="LAST_24">( Last 24 Hours )</Resource>
       <Resource tag="LAST_DAY">last day</Resource>

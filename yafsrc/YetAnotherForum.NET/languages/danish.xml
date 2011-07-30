@@ -3658,6 +3658,7 @@ Spoiler Content
     <Resource tag="LAST_WEEK">sidste uge</Resource>
     <Resource tag="LASTPOST">Sidste indlæg</Resource>
     <Resource tag="MEMBERTITLE">Mine emner</Resource>
+    <Resource tag="MYTOPICS">Topics you've posted in</Resource>
     <Resource tag="NO_POSTS">Ingen indlæg</Resource>
     <Resource tag="REPLIES">Svar</Resource>
     <Resource tag="RSSFEED">Rss Feed</Resource>
@@ -3665,6 +3666,7 @@ Spoiler Content
     <Resource tag="SINCE">Siden</Resource>
     <Resource tag="TOPIC_STARTER">Emner starter</Resource>
     <Resource tag="TOPICS">Emner</Resource>
+    <Resource tag="UNREADTOPICS">Unread Topics</Resource>
     <Resource tag="VIEWS">Visninger</Resource>
   </page>
   <page name="PMESSAGE">

@@ -18,127 +18,137 @@
  */
 namespace YAF.Types.Interfaces
 {
-  using System;
-  using System.Collections;
-  using System.Data;
+    using System;
+    using System.Collections;
+    using System.Data;
 
-  public interface IYafSession
-  {
-    /// <summary>
-    ///   Gets or sets ActiveTopicSince.
-    /// </summary>
-    int? ActiveTopicSince { get; set; }
+    public interface IYafSession
+    {
+        /// <summary>
+        ///   Gets or sets Unread Topic Since.
+        /// </summary>
+        int? UnreadTopicSince { get; set; }
 
-    /// <summary>
-    /// Gets or sets if the user wants to use the mobile theme.
-    /// </summary>
-    bool? UseMobileTheme { get; set; }
+        /// <summary>
+        ///   Gets or sets User Topic Since.
+        /// </summary>
+        int? UserTopicSince { get; set; }
 
-    /// <summary>
-    ///   Gets or sets FavoriteTopicSince.
-    /// </summary>
-    int? FavoriteTopicSince { get; set; }
+        /// <summary>
+        ///   Gets or sets ActiveTopicSince.
+        /// </summary>
+        int? ActiveTopicSince { get; set; }
 
-    /// <summary>
-    ///   Gets or sets ForumRead.
-    /// </summary>
-    Hashtable ForumRead { get; set; }
+        /// <summary>
+        /// Gets or sets if the user wants to use the mobile theme.
+        /// </summary>
+        bool? UseMobileTheme { get; set; }
 
-    /// <summary>
-    ///   Gets or sets a value indicating whether HasLastVisit.
-    /// </summary>
-    bool HasLastVisit { get; set; }
+        /// <summary>
+        ///   Gets or sets FavoriteTopicSince.
+        /// </summary>
+        int? FavoriteTopicSince { get; set; }
 
-    /// <summary>
-    ///   Gets or sets LastPm.
-    /// </summary>
-    DateTime LastPendingBuddies { get; set; }
+        /// <summary>
+        ///   Gets or sets ForumRead.
+        /// </summary>
+        Hashtable ForumRead { get; set; }
 
-    /// <summary>
-    ///   Gets or sets LastPm.
-    /// </summary>
-    DateTime LastPm { get; set; }
+        /// <summary>
+        ///   Gets or sets a value indicating whether HasLastVisit.
+        /// </summary>
+        bool HasLastVisit { get; set; }
 
-    /// <summary>
-    ///   Gets or sets LastPost.
-    /// </summary>
-    DateTime LastPost { get; set; }
+        /// <summary>
+        ///   Gets or sets LastPm.
+        /// </summary>
+        DateTime LastPendingBuddies { get; set; }
 
-    /// <summary>
-    ///   Gets or sets LastVisit.
-    /// </summary>
-    DateTime LastVisit { get; set; }
+        /// <summary>
+        ///   Gets or sets LastPm.
+        /// </summary>
+        DateTime LastPm { get; set; }
 
-    /// <summary>
-    ///   Gets PanelState.
-    /// </summary>
-    [NotNull]
-    IPanelSessionState PanelState { get; }
+        /// <summary>
+        ///   Gets or sets LastPost.
+        /// </summary>
+        DateTime LastPost { get; set; }
 
-    /// <summary>
-    ///   Gets or sets SearchData.
-    /// </summary>
-    [CanBeNull]
-    DataTable SearchData { get; set; }
+        /// <summary>
+        ///   Gets or sets LastVisit.
+        /// </summary>
+        DateTime LastVisit { get; set; }
 
-    /// <summary>
-    ///   Gets or sets ShowList.
-    /// </summary>
-    int ShowList { get; set; }
+        /// <summary>
+        ///   Gets PanelState.
+        /// </summary>
+        [NotNull]
+        IPanelSessionState PanelState { get; }
 
-    /// <summary>
-    ///   Gets or sets TopicRead.
-    /// </summary>
-    Hashtable TopicRead { get; set; }
+        /// <summary>
+        ///   Gets or sets SearchData.
+        /// </summary>
+        [CanBeNull]
+        DataTable SearchData { get; set; }
 
-    /// <summary>
-    ///   Gets or sets UnreadTopics.
-    /// </summary>
-    int UnreadTopics { get; set; }
+        /// <summary>
+        ///   Gets or sets ShowList.
+        /// </summary>
+        int ShowList { get; set; }
 
-    /// <summary>
-    /// Gets the last time the forum was read.
-    /// </summary>
-    /// <param name="forumID">
-    /// This is the ID of the forum you wish to get the last read date from.
-    /// </param>
-    /// <returns>
-    /// A DateTime object of when the forum was last read.
-    /// </returns>
-    DateTime GetForumRead(int forumID);
+        /// <summary>
+        ///   Gets or sets TopicRead.
+        /// </summary>
+        Hashtable TopicRead { get; set; }
 
-    /// <summary>
-    /// Returns the last time that the topicID was read.
-    /// </summary>
-    /// <param name="topicID">
-    /// The topicID you wish to find the DateTime object for.
-    /// </param>
-    /// <returns>
-    /// The DateTime object from the topicID.
-    /// </returns>
-    DateTime GetTopicRead(int topicID);
+        /// <summary>
+        ///   Gets or sets UnreadTopics.
+        /// </summary>
+        int UnreadTopics { get; set; }
+
+        /// <summary>
+        /// Gets the last time the forum was read.
+        /// </summary>
+        /// <param name="forumID">
+        /// This is the ID of the forum you wish to get the last read date from.
+        /// </param>
+        /// <returns>
+        /// A DateTime object of when the forum was last read.
+        /// </returns>
+        DateTime GetForumRead(int forumID);
+
+        /// <summary>
+        /// Returns the last time that the topicID was read.
+        /// </summary>
+        /// <param name="topicID">
+        /// The topicID you wish to find the DateTime object for.
+        /// </param>
+        /// <returns>
+        /// The DateTime object from the topicID.
+        /// </returns>
+        DateTime GetTopicRead(int topicID);
 
 
-    /// <summary>
-    /// Sets the time that the forum was read.
-    /// </summary>
-    /// <param name="forumID">
-    /// The forum ID that was read.
-    /// </param>
-    /// <param name="date">
-    /// The DateTime you wish to set the read to.
-    /// </param>
-    void SetForumRead(int forumID, DateTime date);
+        /// <summary>
+        /// Sets the time that the forum was read.
+        /// </summary>
+        /// <param name="forumID">
+        /// The forum ID that was read.
+        /// </param>
+        /// <param name="date">
+        /// The DateTime you wish to set the read to.
+        /// </param>
+        void SetForumRead(int forumID, DateTime date);
 
-    /// <summary>
-    /// Sets the time that the <paramref name="topicID"/> was read.
-    /// </summary>
-    /// <param name="topicID">
-    /// The topic ID that was read.
-    /// </param>
-    /// <param name="date">
-    /// The DateTime you wish to set the read to.
-    /// </param>
-    void SetTopicRead(int topicID, DateTime date);
-  }
+        /// <summary>
+        /// Sets the time that the <paramref name="topicID"/> was read.
+        /// </summary>
+        /// <param name="topicID">
+        /// The topic ID that was read.
+        /// </param>
+        /// <param name="date">
+        /// The DateTime you wish to set the read to.
+        /// </param>
+        void SetTopicRead(int topicID, DateTime date);
+    }
 }

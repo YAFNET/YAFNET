@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.mytopics" Codebehind="mytopics.ascx.cs" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.mytopics" Codebehind="mytopics.ascx.cs" %>
 <%@ Register TagPrefix="YAF" TagName="MyTopicsList" Src="../controls/MyTopicsList.ascx" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <div class="DivTopSeparator">
@@ -15,14 +15,26 @@
        <asp:Panel id="TopicsTabs" runat="server">
                <ul>
                  <li><a href="#ActiveTopicsTab"><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="ActiveTopics" LocalizedPage="MyTopics" /></a></li>
-                 <asp:PlaceHolder ID="FavoriteTopicsTabTitle" runat="server">
-		         <li><a href="#FavoriteTopicsTab"><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="FavoriteTopics" LocalizedPage="MyTopics" /></a></li>
+                 <asp:PlaceHolder ID="UnreadTopicsTabTitle" runat="server">
+                   <li><a href="#UnreadTopicsTab"><YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="UnreadTopics" LocalizedPage="MyTopics" /></a></li>
+                 </asp:PlaceHolder>
+                 <asp:PlaceHolder ID="UserTopicsTabTitle" runat="server">
+                   <li><a href="#MyTopicsTab"><YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="MyTopics" LocalizedPage="MyTopics" /></a></li>
+		           <li><a href="#FavoriteTopicsTab"><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="FavoriteTopics" LocalizedPage="MyTopics" /></a></li>
                  </asp:PlaceHolder>		        
                </ul>
                 <div id="ActiveTopicsTab">
                    <YAF:MyTopicsList runat="server" ID="ActiveTopics" CurrentMode="Active"/>
                 </div>
-                <asp:PlaceHolder ID="FavoriteTopicsTabContent" runat="server">
+                <asp:PlaceHolder ID="UnreadTopicsTabContent" runat="server">
+                <div id="UnreadTopicsTab">
+                  <YAF:MyTopicsList runat="server" ID="UnreadTopics" CurrentMode="Unread" />
+                </div>
+                </asp:PlaceHolder>
+                 <asp:PlaceHolder ID="UserTopicsTabContent" runat="server">
+                <div id="MyTopicsTab">
+                  <YAF:MyTopicsList runat="server" ID="MyTopics" CurrentMode="User" />
+                </div>
                 <div id="FavoriteTopicsTab">
                   <YAF:MyTopicsList runat="server" ID="FavoriteTopics" CurrentMode="Favorite" />
                 </div>
