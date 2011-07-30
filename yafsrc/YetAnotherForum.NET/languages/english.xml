@@ -4319,6 +4319,8 @@ Visit {forumname} at {forumlink}
        <Resource tag="ALLOW_GUESTS_VIEWPOLL_HELP">If enabled Guests can see poll choices.</Resource>
 	   <Resource tag="ALLOW_USERS_POLLIMAGES">Allow Users Poll Images:</Resource>
        <Resource tag="ALLOW_USERS_POLLIMAGES_HELP">If enabled Users can add images as poll options.</Resource>
+	   <Resource tag="POLL_IMAGE_FILESIZE">Max. File Size for User Poll Images:</Resource>
+       <Resource tag="POLL_IMAGE_FILESIZE_HELP">Define the Max. File Size in Kilo Bytes for an User Poll Image.</Resource>
 	   <Resource tag="ALLOW_PMS">Allow Private Messages:</Resource>
        <Resource tag="ALLOW_PMS_HELP">Allow users to access and send private messages. You should explicitly give permission for each group and/or rank too to enable them for users.</Resource>
 	   <Resource tag="ALLOW_PM_NOTIFICATION">Allow Private Message Notifications:</Resource>

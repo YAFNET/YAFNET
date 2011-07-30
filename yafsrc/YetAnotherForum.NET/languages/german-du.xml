@@ -1006,6 +1006,8 @@
     <Resource tag="ONLINE_STATUS_TIMEOUT_HELP">Sie können eine Feinabstimmung je nach der Webseiten Aktivität (in Millisekunden)</Resource>
     <Resource tag="POINTS_TEMPLATE">Punkte Vorlage:</Resource>
     <Resource tag="POINTS_TEMPLATE_HELP">Vorlage für die Darstellung von Benutzer-Punkten.</Resource>
+    <Resource tag="POLL_IMAGE_FILESIZE">Max. Dateigröße für Benutzer definierte Umfrage Bilder:</Resource>
+    <Resource tag="POLL_IMAGE_FILESIZE_HELP">Definieren Sie die Maximale Dateigröße in Kilo Bytes.</Resource>
     <Resource tag="POLLVOTING_PERIP">Umfragestimmen Abhängig von IP:</Resource>
     <Resource tag="POLLVOTING_PERIP_HELP">Standardmäßig werden die Umfrage Abstimmungen verfolgt mit dem Benutzernamen und einem Cookie (Eine Stimme pro Benutzername. Cookies werden verwendet falls Gäste abstimmen dürfen &lt;br /&gt;Wenn diese Option aktiviert ist werden auch die IP Adressen als Referenz verwendet, und ist die Sicherste Methode gegen Wahlbetrug.</Resource>
     <Resource tag="POST_AD">Werbe Code:</Resource>
