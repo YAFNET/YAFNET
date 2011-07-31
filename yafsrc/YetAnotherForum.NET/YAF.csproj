@@ -2262,8 +2262,8 @@
     <Content Include="themes\BlackGrey\icon_reddit.png" />
     <Content Include="themes\BlackGrey\icon_search.png" />
     <Content Include="themes\BlackGrey\icon_skype.png" />
-    <Content Include="themes\BlackGrey\icon_subforum.gif" />
-    <Content Include="themes\BlackGrey\icon_subforum_new.gif" />
+    <Content Include="themes\BlackGrey\icon_subforum.png" />
+    <Content Include="themes\BlackGrey\icon_subforum_new.png" />
     <Content Include="themes\BlackGrey\icon_topiclatestunread_newest.gif" />
     <Content Include="themes\BlackGrey\icon_topic_latestunread.gif" />
     <Content Include="themes\BlackGrey\icon_twitter.png" />
@@ -2348,8 +2348,8 @@
     <Content Include="themes\BlueGrey\icon_reddit.png" />
     <Content Include="themes\BlueGrey\icon_search.png" />
     <Content Include="themes\BlueGrey\icon_skype.png" />
-    <Content Include="themes\BlueGrey\icon_subforum.gif" />
-    <Content Include="themes\BlueGrey\icon_subforum_new.gif" />
+    <Content Include="themes\BlueGrey\icon_subforum.png" />
+    <Content Include="themes\BlueGrey\icon_subforum_new.png" />
     <Content Include="themes\BlueGrey\icon_topiclatestunread_newest.gif" />
     <Content Include="themes\BlueGrey\icon_topic_latestunread.gif" />
     <Content Include="themes\BlueGrey\icon_twitter.png" />
@@ -2515,8 +2515,8 @@
     <Content Include="themes\GreenGrey\icon_reddit.png" />
     <Content Include="themes\GreenGrey\icon_search.png" />
     <Content Include="themes\GreenGrey\icon_skype.png" />
-    <Content Include="themes\GreenGrey\icon_subforum.gif" />
-    <Content Include="themes\GreenGrey\icon_subforum_new.gif" />
+    <Content Include="themes\GreenGrey\icon_subforum.png" />
+    <Content Include="themes\GreenGrey\icon_subforum_new.png" />
     <Content Include="themes\GreenGrey\icon_topiclatestunread_newest.gif" />
     <Content Include="themes\GreenGrey\icon_topic_latestunread.gif" />
     <Content Include="themes\GreenGrey\icon_twitter.png" />
@@ -2601,8 +2601,8 @@
     <Content Include="themes\GreyGrey\icon_reddit.png" />
     <Content Include="themes\GreyGrey\icon_search.png" />
     <Content Include="themes\GreyGrey\icon_skype.png" />
-    <Content Include="themes\GreyGrey\icon_subforum.gif" />
-    <Content Include="themes\GreyGrey\icon_subforum_new.gif" />
+    <Content Include="themes\GreyGrey\icon_subforum.png" />
+    <Content Include="themes\GreyGrey\icon_subforum_new.png" />
     <Content Include="themes\GreyGrey\icon_topiclatestunread_newest.gif" />
     <Content Include="themes\GreyGrey\icon_topic_latestunread.gif" />
     <Content Include="themes\GreyGrey\icon_twitter.png" />
@@ -2685,8 +2685,8 @@
     <Content Include="themes\OrangeGrey\icon_reddit.png" />
     <Content Include="themes\OrangeGrey\icon_search.png" />
     <Content Include="themes\OrangeGrey\icon_skype.png" />
-    <Content Include="themes\OrangeGrey\icon_subforum.gif" />
-    <Content Include="themes\OrangeGrey\icon_subforum_new.gif" />
+    <Content Include="themes\OrangeGrey\icon_subforum.png" />
+    <Content Include="themes\OrangeGrey\icon_subforum_new.png" />
     <Content Include="themes\OrangeGrey\icon_topiclatestunread_newest.gif" />
     <Content Include="themes\OrangeGrey\icon_topic_latestunread.gif" />
     <Content Include="themes\OrangeGrey\icon_twitter.png" />
@@ -2771,8 +2771,8 @@
     <Content Include="themes\RedGrey\icon_reddit.png" />
     <Content Include="themes\RedGrey\icon_search.png" />
     <Content Include="themes\RedGrey\icon_skype.png" />
-    <Content Include="themes\RedGrey\icon_subforum.gif" />
-    <Content Include="themes\RedGrey\icon_subforum_new.gif" />
+    <Content Include="themes\RedGrey\icon_subforum.png" />
+    <Content Include="themes\RedGrey\icon_subforum_new.png" />
     <Content Include="themes\RedGrey\icon_topiclatestunread_newest.gif" />
     <Content Include="themes\RedGrey\icon_topic_latestunread.gif" />
     <Content Include="themes\RedGrey\icon_twitter.png" />
