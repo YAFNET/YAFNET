@@ -637,7 +637,17 @@ namespace YAF.Pages
                 this.PageLinks.AddLink(
                     this.Get<IBadWordReplace>().Replace(this.Server.HtmlDecode(this.PageContext.PageTopicName)), string.Empty);
 
-                this.TopicTitle.Text = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this._topic["Topic"]));
+                if (!this._topic["Description"].IsNullOrEmptyDBField() && this.Get<YafBoardSettings>().EnableTopicDescription)
+                {
+                    this.TopicTitle.Text =
+                        "{0} - <em>{1}</em>".FormatWith(
+                            this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this._topic["Topic"])),
+                            this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this._topic["Description"])));
+                }
+                else
+                {
+                    this.TopicTitle.Text = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this._topic["Topic"]));
+                }
 
                 this.ViewOptions.Visible = this.Get<YafBoardSettings>().AllowThreaded;
                 this.ForumJumpHolder.Visible = this.Get<YafBoardSettings>().ShowForumJump &&
@@ -775,11 +785,13 @@ namespace YAF.Pages
                 return;
             }
 
-            if (this._forumFlags.IsLocked)
+            if (!this._forumFlags.IsLocked)
             {
-                this.PageContext.AddLoadMessage(this.GetText("WARN_FORUM_LOCKED"));
                 return;
             }
+
+            this.PageContext.AddLoadMessage(this.GetText("WARN_FORUM_LOCKED"));
+            return;
         }
 
         /// <summary>
@@ -1380,9 +1392,10 @@ namespace YAF.Pages
         /// The sender.
         /// </param>
         /// <param name="e">
-        /// The e.
+        /// The Pop Event Arguments.
         /// </param>
-        /// <exception cref="ApplicationException"><c>ApplicationException</c></exception>
+        /// <exception cref="ApplicationException">
+        /// </exception>
         private void ShareMenu_ItemClick([NotNull] object sender, [NotNull] PopEventArgs e)
         {
             switch (e.Item.ToLower())
@@ -1488,8 +1501,7 @@ namespace YAF.Pages
         /// <param name="e">
         /// The e.
         /// </param>
-        /// <exception cref="ApplicationException">
-        /// </exception>
+        /// <exception cref="ApplicationException"></exception>
         private void OptionsMenu_ItemClick([NotNull] object sender, [NotNull] PopEventArgs e)
         {
             switch (e.Item.ToLower())
