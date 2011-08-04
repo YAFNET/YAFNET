@@ -2801,11 +2801,11 @@ select
 			else ''	 end,
 	    LastForumAccess = case(@FindLastRead)
 		     when 1 then
-		       IsNull((SELECT LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x WHERE x.ForumID=b.ForumID AND x.UserID = @UserID), GETUTCDATE())
+		       IsNull((SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x WHERE x.ForumID=b.ForumID AND x.UserID = @UserID), GETUTCDATE())
 		     else ''	 end,
 		LastTopicAccess = case(@FindLastRead)
 		     when 1 then
-		       IsNull((SELECT LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=t.TopicID AND y.UserID = @UserID), GETUTCDATE())
+		       IsNull((SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=t.TopicID AND y.UserID = @UserID), GETUTCDATE())
 		     else ''	 end 					
 	from 
 		[{databaseOwner}].[{objectQualifier}Category] a
@@ -5273,11 +5273,11 @@ begin
 			else ''	 end,
 	    LastForumAccess = case(@FindLastRead)
 		     when 1 then
-		       (SELECT LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x WHERE x.ForumID=d.ForumID AND x.UserID = @PageUserID)
+		       (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x WHERE x.ForumID=d.ForumID AND x.UserID = @PageUserID)
 		     else ''	 end,
 		LastTopicAccess = case(@FindLastRead)
 		     when 1 then
-		       (SELECT LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=c.TopicID AND y.UserID = @PageUserID)
+		       (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=c.TopicID AND y.UserID = @PageUserID)
 		     else ''	 end
 	from
 		[{databaseOwner}].[{objectQualifier}Topic] c
@@ -5653,11 +5653,11 @@ BEGIN
 			else ''	 end,	
 	    LastForumAccess = case(@FindLastRead)
 		     when 1 then
-		       (SELECT LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x WHERE x.ForumID=f.ForumID AND x.UserID = @PageUserID)
+		       (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x WHERE x.ForumID=f.ForumID AND x.UserID = @PageUserID)
 		     else ''	 end,
 		LastTopicAccess = case(@FindLastRead)
 		     when 1 then
-		       (SELECT LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=t.TopicID AND y.UserID = @PageUserID)
+		       (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=t.TopicID AND y.UserID = @PageUserID)
 		     else ''	 end
 			
 	FROM	
@@ -5764,11 +5764,11 @@ begin
 			else ''	 end,
 			LastForumAccess = case(@FindLastRead)
 		     when 1 then
-		       (SELECT LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x WHERE x.ForumID=c.ForumID AND x.UserID = c.UserID)
+		       (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x WHERE x.ForumID=c.ForumID AND x.UserID = c.UserID)
 		     else ''	 end,
 		    LastTopicAccess = case(@FindLastRead)
 		     when 1 then
-		       (SELECT LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=c.TopicID AND y.UserID = c.UserID)
+		       (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=c.TopicID AND y.UserID = c.UserID)
 		     else ''	 end
 		FROM [{databaseOwner}].[{objectQualifier}Topic] c JOIN [{databaseOwner}].[{objectQualifier}User] b 
 			ON b.UserID=c.UserID
@@ -5818,11 +5818,11 @@ begin
 			else ''	 end,
 			LastForumAccess = case(@FindLastRead)
 		     when 1 then
-		       (SELECT LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x WHERE x.ForumID=c.ForumID AND x.UserID = c.UserID)
+		       (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x WHERE x.ForumID=c.ForumID AND x.UserID = c.UserID)
 		     else ''	 end,
 		    LastTopicAccess = case(@FindLastRead)
 		     when 1 then
-		       (SELECT LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=c.TopicID AND y.UserID = c.UserID)
+		       (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=c.TopicID AND y.UserID = c.UserID)
 		     else ''	 end
 		FROM [{databaseOwner}].[{objectQualifier}Topic] c JOIN [{databaseOwner}].[{objectQualifier}User] b 
 			ON b.UserID=c.UserID
@@ -9600,11 +9600,11 @@ begin
 			else ''	 end,
 	    LastForumAccess = case(@FindLastRead)
 		     when 1 then
-		       (SELECT LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x WHERE x.ForumID=d.ForumID AND x.UserID = @PageUserID)
+		       (SELECT top 1  LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x WHERE x.ForumID=d.ForumID AND x.UserID = @PageUserID)
 		     else ''	 end,
 		LastTopicAccess = case(@FindLastRead)
 		     when 1 then
-		       (SELECT LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=c.TopicID AND y.UserID = @PageUserID)
+		       (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=c.TopicID AND y.UserID = @PageUserID)
 		     else ''	 end
 	from
 		[{databaseOwner}].[{objectQualifier}Topic] c
