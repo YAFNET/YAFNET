@@ -89,6 +89,10 @@
 			    $(settings.Dialog).after("<div id=\"" + MainDialogId +  "_overlay\" class=\"ModalDialog_hide ModalDialog_overlayBG\" style=\"display: none; opacity: 0.2; \"></div>");
 				
 				$(settings.Dialog).fadeIn('normal');
+				 
+				// IE FIX
+				$('#' + MainDialogId + '_overlay').css('filter', 'alpha(opacity=20)');
+				
                 $('#' + MainDialogId + '_overlay').fadeIn('normal');
 				
 				$(document).bind('keydown.' + DialogId, function(e) {
