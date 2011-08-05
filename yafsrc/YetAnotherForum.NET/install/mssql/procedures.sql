@@ -9619,7 +9619,7 @@ begin
 		(@CategoryID is null or cat.CategoryID=@CategoryID) and
 		c.IsDeleted = 0
 		and	c.TopicMovedID is null
-		and c.TopicID = (SELECT TOP 1 mess.TopicID FROM [dbo].[yaf_Message] mess WHERE mess.UserID=@PageUserID AND mess.TopicID=c.TopicID)
+		and c.TopicID = (SELECT TOP 1 mess.TopicID FROM [{databaseOwner}].[{objectQualifier}Message] mess WHERE mess.UserID=@PageUserID AND mess.TopicID=c.TopicID)
 	order by
 		cat.SortOrder asc,
 		d.SortOrder asc,
