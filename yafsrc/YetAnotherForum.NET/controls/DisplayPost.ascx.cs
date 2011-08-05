@@ -148,7 +148,7 @@ namespace YAF.Controls
                   @"<a id=""{0}"" href=""{1}""><u>{2}</u></a>",
                   userId,
                   YafBuildLink.GetLink(ForumPages.profile, "u={0}", userId),
-                  this.HtmlEncode(displayName));
+                  this.Get<HttpServerUtilityBase>().HtmlEncode(displayName));
 
                 // If showing thanks date is enabled, add it to the formatted string.
                 if (showDate)
@@ -398,13 +398,6 @@ namespace YAF.Controls
             YafContext.Current.PageElements.RegisterJsBlockStartup(
               "syntaxhighlighterjs", JavaScriptBlocks.SyntaxHighlightLoadJs);
 
-            /*if (!(this.Get<IYafSession>().UseMobileTheme ?? false) && UserBox1 != null)
-            {
-                YafContext.Current.PageElements.RegisterJsBlock(
-                    "fixPostDivHeightJs{0}".FormatWith(this.ClientID),
-                    JavaScriptBlocks.FixPostDivHeight(UserBox1.ClientID, panMessage.ClientID));
-            }*/
-
             if (!this.Get<YafBoardSettings>().EnableThanksMod)
             {
                 return;
@@ -444,13 +437,13 @@ namespace YAF.Controls
 
             if (Convert.ToBoolean(this.DataRow["IsThankedByUser"]))
             {
-                this.Thank.NavigateUrl = "javascript:removeThanks(" + this.DataRow["MessageID"] + ");";
+                this.Thank.NavigateUrl = "javascript:removeThanks({0});".FormatWith(this.DataRow["MessageID"]);
                 this.Thank.TextLocalizedTag = "BUTTON_THANKSDELETE";
                 this.Thank.TitleLocalizedTag = "BUTTON_THANKSDELETE_TT";
             }
             else
             {
-                this.Thank.NavigateUrl = "javascript:addThanks(" + this.DataRow["MessageID"] + ");";
+                this.Thank.NavigateUrl = "javascript:addThanks({0});".FormatWith(this.DataRow["MessageID"]);
                 this.Thank.TextLocalizedTag = "BUTTON_THANKS";
                 this.Thank.TitleLocalizedTag = "BUTTON_THANKS_TT";
             }
