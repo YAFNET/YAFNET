@@ -9566,7 +9566,6 @@ begin
 		LinkTopicID = IsNull(c.TopicMovedID,c.TopicID),
 		[Subject] = c.Topic,
 		[Description] = c.Description,
-		[Status] = c.Status,
 		c.UserID,
 		Starter = IsNull(c.UserName,b.Name),
 		NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@PageUserID IS NOT NULL AND mes.UserID = @PageUserID) OR (@PageUserID IS NULL)) ),
