@@ -18,6 +18,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+using YAF.Types.Handlers;
+
 namespace YAF.Classes.Data
 {
     #region Using
@@ -2856,6 +2858,72 @@ namespace YAF.Classes.Data
             }
         }
 
+        private static string getStatsMessage;
+        /// <summary>
+        /// The db_getstats_new.
+        /// </summary>
+        public static string db_getstats_new()
+        {
+            try
+            {
+                using (var connMan = new MsSqlDbConnectionManager())
+                {
+                    connMan.InfoMessage += new YafDBConnInfoMessageEventHandler(getStats_InfoMessage);
+
+                    connMan.DBConnection.FireInfoMessageEventOnUserErrors = true;
+
+                    // create statistic getting SQL...
+                    var sb = new StringBuilder();
+
+                    sb.AppendLine("DECLARE @TableName sysname");
+                    sb.AppendLine("DECLARE cur_showfragmentation CURSOR FOR");
+                    sb.AppendFormat(
+                        "SELECT table_name FROM information_schema.tables WHERE table_type = 'base table' AND table_name LIKE '{0}%'",
+                        Config.DatabaseObjectQualifier);
+                    sb.AppendLine("OPEN cur_showfragmentation");
+                    sb.AppendLine("FETCH NEXT FROM cur_showfragmentation INTO @TableName");
+                    sb.AppendLine("WHILE @@FETCH_STATUS = 0");
+                    sb.AppendLine("BEGIN");
+                    sb.AppendLine("DBCC SHOWCONTIG (@TableName)");
+                    sb.AppendLine("FETCH NEXT FROM cur_showfragmentation INTO @TableName");
+                    sb.AppendLine("END");
+                    sb.AppendLine("CLOSE cur_showfragmentation");
+                    sb.AppendLine("DEALLOCATE cur_showfragmentation");
+
+                    using (var cmd = new SqlCommand(sb.ToString(), connMan.OpenDBConnection))
+                    {
+                        cmd.Connection = connMan.DBConnection;
+
+                        // up the command timeout...
+                        cmd.CommandTimeout = int.Parse(Config.SqlCommandTimeout);
+
+                        // run it...
+                        cmd.ExecuteNonQuery();
+                        return getStatsMessage;
+                    }
+
+                }
+            }
+            finally
+            {
+                getStatsMessage = string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// The reindexDb_InfoMessage.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private static void getStats_InfoMessage([NotNull] object sender, [NotNull] YafDBConnInfoMessageEventArgs e)
+        {
+            getStatsMessage += "\r\n{0}".FormatWith(e.Message);
+        }
+
         /// <summary>
         /// The db_getstats_warning.
         /// </summary>
@@ -2866,7 +2934,7 @@ namespace YAF.Classes.Data
         /// The db_getstats_warning.
         /// </returns>
         [NotNull]
-        public static string db_getstats_warning([NotNull] MsSqlDbConnectionManager connectionManager)
+        public static string db_getstats_warning()
         {
             return string.Empty;
         }
@@ -2896,6 +2964,75 @@ namespace YAF.Classes.Data
             }
         }
 
+        private static string recoveryDbModeMessage;
+
+        /// <summary>
+        /// The db_recovery_mode.
+        /// </summary>
+        /// <param name="DBName">
+        /// The db name.
+        /// </param>
+        /// <param name="dbRecoveryMode">
+        /// The db recovery mode.
+        /// </param>
+        public static string db_recovery_mode_new([NotNull] string dbRecoveryMode)
+        {
+            try
+            {
+                using (var connMan = new MsSqlDbConnectionManager())
+                {
+                    connMan.InfoMessage += new YafDBConnInfoMessageEventHandler(recoveryDbMode_InfoMessage);
+                    var RecoveryModeConn = new SqlConnection(Config.ConnectionString);
+                    RecoveryModeConn.Open();
+                   
+                    string RecoveryMode = "ALTER DATABASE " + connMan.DBConnection.Database + " SET RECOVERY " + dbRecoveryMode;
+                    var RecoveryModeCmd = new SqlCommand(RecoveryMode, RecoveryModeConn);
+                   
+                    RecoveryModeCmd.ExecuteNonQuery();
+                    RecoveryModeConn.Close();
+                    using (var cmd = new SqlCommand(RecoveryMode, connMan.OpenDBConnection))
+                    {
+                        cmd.Connection = connMan.DBConnection;
+                        cmd.CommandTimeout = int.Parse(Config.SqlCommandTimeout);
+                        cmd.ExecuteNonQuery();
+                        return recoveryDbModeMessage;
+                    }
+
+                }
+            }
+            catch (Exception error)
+            {
+                string expressDb = string.Empty;
+                if (error.Message.ToUpperInvariant().Contains("'SET'"))
+                {
+                    expressDb = "MS SQL Server Express Editions are not supported by the application.";
+                }
+                recoveryDbModeMessage += "\r\n{0}\r\n{1}".FormatWith(error.Message, expressDb);
+                return recoveryDbModeMessage;
+            }
+           
+            finally
+            {
+                recoveryDbModeMessage = string.Empty;
+            }
+
+            
+            
+        }
+        /// <summary>
+        /// The recoveryDbMode_InfoMessage.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private static void recoveryDbMode_InfoMessage([NotNull] object sender, [NotNull] YafDBConnInfoMessageEventArgs e)
+        {
+            recoveryDbModeMessage += "\r\n{0}".FormatWith(e.Message);
+        }
+
         /// <summary>
         /// The db_recovery_mode_warning.
         /// </summary>
@@ -2919,6 +3056,7 @@ namespace YAF.Classes.Data
         /// </param>
         public static void db_reindex([NotNull] MsSqlDbConnectionManager connectionManager)
         {
+           
             // create statistic getting SQL...
             var sb = new StringBuilder();
 
@@ -2952,6 +3090,89 @@ namespace YAF.Classes.Data
                 cmd.ExecuteNonQuery();
             }
         }
+        
+        /// <summary>
+        /// The db_recovery_mode_warning.
+        /// </summary>
+        /// <param name="DBName">
+        /// The db name.
+        /// </param>
+        /// <returns>
+        /// The db_recovery_mode_warning.
+        /// </returns>
+        [NotNull]
+        public static string db_recovery_mode_warning()
+        {
+            return string.Empty;
+        }
+
+        private static string reindexDbMessage;
+
+        /// <summary>
+        /// The db_reindex_new.
+        /// </summary>
+        public static string db_reindex_new()
+        {
+            try
+            {
+                using (var connMan = new MsSqlDbConnectionManager())
+                {
+                    connMan.InfoMessage += new YafDBConnInfoMessageEventHandler(reindexDb_InfoMessage);
+                    connMan.DBConnection.FireInfoMessageEventOnUserErrors = true;
+                    // create statistic getting SQL...
+                    var sb = new StringBuilder();
+
+                    sb.AppendLine("DECLARE @MyTable VARCHAR(255)");
+                    sb.AppendLine("DECLARE myCursor");
+                    sb.AppendLine("CURSOR FOR");
+                    sb.AppendFormat(
+                      "SELECT table_name FROM information_schema.tables WHERE table_type = 'base table' AND table_name LIKE '{0}%'",
+                      Config.DatabaseObjectQualifier);
+                    sb.AppendLine("OPEN myCursor");
+                    sb.AppendLine("FETCH NEXT");
+                    sb.AppendLine("FROM myCursor INTO @MyTable");
+                    sb.AppendLine("WHILE @@FETCH_STATUS = 0");
+                    sb.AppendLine("BEGIN");
+                    sb.AppendLine("PRINT 'Reindexing Table:  ' + @MyTable");
+                    sb.AppendLine("DBCC DBREINDEX(@MyTable, '', 80)");
+                    sb.AppendLine("FETCH NEXT");
+                    sb.AppendLine("FROM myCursor INTO @MyTable");
+                    sb.AppendLine("END");
+                    sb.AppendLine("CLOSE myCursor");
+                    sb.AppendLine("DEALLOCATE myCursor");
+
+                    using (var cmd = new SqlCommand(sb.ToString(), connMan.OpenDBConnection))
+                    {
+                        cmd.Connection = connMan.DBConnection;
+
+                        // up the command timeout...
+                        cmd.CommandTimeout = int.Parse(Config.SqlCommandTimeout);
+
+                        // run it...
+                        cmd.ExecuteNonQuery();
+                    }
+                    return reindexDbMessage;
+                }
+            }
+            finally
+            {
+                reindexDbMessage = string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// The reindexDb_InfoMessage.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private static void reindexDb_InfoMessage([NotNull] object sender, [NotNull] YafDBConnInfoMessageEventArgs e)
+        {
+            reindexDbMessage += "\r\n{0}".FormatWith(e.Message);
+        }
 
         /// <summary>
         /// The db_reindex_warning.
@@ -2963,7 +3184,7 @@ namespace YAF.Classes.Data
         /// The db_reindex_warning.
         /// </returns>
         [NotNull]
-        public static string db_reindex_warning([NotNull] MsSqlDbConnectionManager connectionManager)
+        public static string db_reindex_warning()
         {
             return string.Empty;
         }
@@ -2994,6 +3215,63 @@ namespace YAF.Classes.Data
             }
         }
 
+        private static string messageRunSql;
+        /// <summary>
+        /// The db_runsql.
+        /// </summary>
+        /// <param name="sql">
+        /// The sql.
+        /// </param>
+        /// <param name="connectionManager">
+        /// The conn man.
+        /// </param>
+        /// <param name="useTransaction">
+        /// The use Transaction.
+        /// </param>
+        /// <returns>
+        /// The db_runsql.
+        /// </returns>
+        public static string db_runsql_new([NotNull] string sql, bool useTransaction)
+        {
+
+            try
+            {
+                using (var connMan = new MsSqlDbConnectionManager())
+                {
+                    connMan.InfoMessage += new YafDBConnInfoMessageEventHandler(runSql_InfoMessage);
+                    connMan.DBConnection.FireInfoMessageEventOnUserErrors = true;
+                    sql = MsSqlDbAccess.GetCommandTextReplaced(sql.Trim());
+
+                    using (var command = new SqlCommand(sql, connMan.OpenDBConnection))
+                    {
+                        command.CommandTimeout = 9999;
+                        command.Connection = connMan.OpenDBConnection;
+
+                        return InnerRunSqlExecuteReader(command, useTransaction);
+                    }
+                }
+            }
+            finally
+            {
+                messageRunSql = string.Empty;
+            }
+  
+           
+        }
+
+        /// <summary>
+        /// The runSql_InfoMessage.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private static void runSql_InfoMessage([NotNull] object sender, [NotNull] YafDBConnInfoMessageEventArgs e)
+        {
+            messageRunSql = "\r\n" + e.Message;
+        }
         /// <summary>
         /// The db_shrink.
         /// </summary>
@@ -3016,6 +3294,57 @@ namespace YAF.Classes.Data
             }
         }
 
+        private static string dbShinkMessage;
+        /// <summary>
+        /// The db_shrink.
+        /// </summary>
+        /// <param name="DBName">
+        /// The db name.
+        /// </param>
+        public static string db_shrink_new()
+        {
+            try
+            {
+                using (var conn = new MsSqlDbConnectionManager())
+                {
+                    conn.InfoMessage += new YafDBConnInfoMessageEventHandler(dbShink_InfoMessage);
+                    conn.DBConnection.FireInfoMessageEventOnUserErrors = true;
+                    string ShrinkSql = "DBCC SHRINKDATABASE(N'" + conn.DBConnection.Database + "')";
+                    var ShrinkConn = new SqlConnection(Config.ConnectionString);
+                    var ShrinkCmd = new SqlCommand(ShrinkSql, ShrinkConn);
+                    ShrinkConn.Open();
+                    ShrinkCmd.ExecuteNonQuery();
+                    ShrinkConn.Close();
+                    using (var cmd = new SqlCommand(ShrinkSql, conn.OpenDBConnection))
+                    {
+                        cmd.Connection = conn.DBConnection;
+                        cmd.CommandTimeout = int.Parse(Config.SqlCommandTimeout);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                return dbShinkMessage;
+            }
+            finally
+            {
+                dbShinkMessage = string.Empty;
+            }
+
+        }
+
+        /// <summary>
+        /// The runSql_InfoMessage.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private static void dbShink_InfoMessage([NotNull] object sender, [NotNull] YafDBConnInfoMessageEventArgs e)
+        {
+            dbShinkMessage = "\r\n" + e.Message;
+        }
+
         /// <summary>
         /// The db_shrink_warning.
         /// </summary>
@@ -3026,7 +3355,7 @@ namespace YAF.Classes.Data
         /// The db_shrink_warning.
         /// </returns>
         [NotNull]
-        public static string db_shrink_warning([NotNull] MsSqlDbConnectionManager DBName)
+        public static string db_shrink_warning()
         {
             return string.Empty;
         }
@@ -10077,6 +10406,11 @@ namespace YAF.Classes.Data
                         }
                         else
                         {
+                            if (messageRunSql.IsSet())
+                            {
+                                results.AppendLine(messageRunSql);
+                                results.AppendLine();
+                            }
                             results.AppendLine("No Results Returned.");
                         }
 
@@ -10102,7 +10436,7 @@ namespace YAF.Classes.Data
                 {
                     reader.Close();
                 }
-
+                
                 results.AppendLine();
                 results.AppendFormat("SQL ERROR: {0}", x);
             }

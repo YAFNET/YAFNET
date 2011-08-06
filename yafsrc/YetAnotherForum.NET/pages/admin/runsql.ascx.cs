@@ -86,7 +86,7 @@ namespace YAF.Pages.Admin
       this.txtResult.Text = string.Empty;
       this.ResultHolder.Visible = true;
 
-      using (var connMan = new MsSqlDbConnectionManager())
+    /*  using (var connMan = new MsSqlDbConnectionManager())
       {
         connMan.InfoMessage += this.connMan_InfoMessage;
         string sql = this.txtQuery.Text.Trim();
@@ -96,7 +96,8 @@ namespace YAF.Pages.Admin
         sql = sql.Replace("{objectQualifier}", Config.DatabaseObjectQualifier);
 
         this.txtResult.Text = LegacyDb.db_runsql(sql, connMan, this.chkRunInTransaction.Checked);
-      }
+      } */
+      this.txtResult.Text = LegacyDb.db_runsql_new(this.txtQuery.Text.Trim(), this.chkRunInTransaction.Checked);
     }
 
     /// <summary>

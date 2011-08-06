@@ -111,14 +111,15 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void btnGetStats_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      using (var connMan = new MsSqlDbConnectionManager())
+     /* using (var connMan = new MsSqlDbConnectionManager())
       {
         connMan.InfoMessage += this.connMan_InfoMessage;
 
         // connMan.DBConnection.FireInfoMessageEventOnUserErrors = true;
-        this.txtIndexStatistics.Text = LegacyDb.db_getstats_warning(connMan);
+        this.txtIndexStatistics.Text = LegacyDb.db_getstats_warning();
         LegacyDb.db_getstats(connMan);
-      }
+      } */
+        this.txtIndexStatistics.Text = LegacyDb.db_getstats_warning() + "\r\n{0}".FormatWith(LegacyDb.db_getstats_new());
     }
 
     /// <summary>
@@ -132,7 +133,7 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void btnRecoveryMode_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      using (var dbName = new MsSqlDbConnectionManager())
+     /* using (var dbName = new MsSqlDbConnectionManager())
       {
         try
         {
@@ -161,7 +162,26 @@ namespace YAF.Pages.Admin
         {
           this.txtIndexStatistics.Text = this.GetText("ADMIN_REINDEX", "INDEX_STATS_FAIL").FormatWith(error.Message);
         }
-      }
+      } */
+
+        string dbRecoveryMode = string.Empty;
+        switch (this.RadioButtonList1.SelectedIndex)
+        {
+            case 0: dbRecoveryMode = "FULL"; break;
+            case 1: dbRecoveryMode = "SIMPLE"; break;
+            case 2: dbRecoveryMode = "BULK_LOGGED"; break;
+        }
+        string error = LegacyDb.db_recovery_mode_new(dbRecoveryMode);
+        if (error.IsSet())
+        {
+            this.txtIndexStatistics.Text = LegacyDb.db_recovery_mode_warning() + this.GetText("ADMIN_REINDEX", "INDEX_STATS_FAIL").FormatWith(error);
+        }
+        else
+        {
+            this.txtIndexStatistics.Text = this.GetText("ADMIN_REINDEX", "INDEX_STATS").FormatWith(dbRecoveryMode);
+            this.txtIndexStatistics.Text = LegacyDb.db_recovery_mode_warning() + "\r\n{0}".FormatWith(LegacyDb.db_recovery_mode_new(dbRecoveryMode));
+        }
+        
     }
 
     /// <summary>
@@ -175,12 +195,14 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void btnReindex_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      using (var connMan = new MsSqlDbConnectionManager())
+     /* using (var connMan = new MsSqlDbConnectionManager())
       {
         connMan.InfoMessage += this.connMan_InfoMessage;
-        this.txtIndexStatistics.Text = LegacyDb.db_reindex_warning(connMan);
+        this.txtIndexStatistics.Text = LegacyDb.db_reindex_warning();
         LegacyDb.db_reindex(connMan);
-      }
+      } */
+
+      this.txtIndexStatistics.Text = LegacyDb.db_reindex_warning() + LegacyDb.db_reindex_new();
     }
 
     /// <summary>
@@ -195,12 +217,12 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void btnShrink_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      using (var dbName = new MsSqlDbConnectionManager())
+    /*  using (var dbName = new MsSqlDbConnectionManager())
       {
         try
         {
           dbName.InfoMessage += this.connMan_InfoMessage;
-          this.txtIndexStatistics.Text = LegacyDb.db_shrink_warning(dbName);
+          this.txtIndexStatistics.Text = LegacyDb.db_shrink_warning();
           LegacyDb.db_shrink(dbName);
           this.txtIndexStatistics.Text = this.GetText("ADMIN_REINDEX", "INDEX_SHRINK").FormatWith(LegacyDb.GetDBSize());
         }
@@ -209,6 +231,16 @@ namespace YAF.Pages.Admin
           this.txtIndexStatistics.Text = this.GetText("ADMIN_REINDEX", "INDEX_STATS_FAIL").FormatWith(error.Message);
         }
       }
+     */
+        try
+        {
+            this.txtIndexStatistics.Text = LegacyDb.db_shrink_warning() + @"\r\n\{0}\r\n\".FormatWith(LegacyDb.db_shrink_new());
+            this.txtIndexStatistics.Text = this.GetText("ADMIN_REINDEX", "INDEX_SHRINK").FormatWith(LegacyDb.GetDBSize()) ;
+        }
+        catch (Exception error)
+        {
+            this.txtIndexStatistics.Text += this.GetText("ADMIN_REINDEX", "INDEX_STATS_FAIL").FormatWith(error.Message);
+        }
     }
 
     /// <summary>
