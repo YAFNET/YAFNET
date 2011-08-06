@@ -82,46 +82,59 @@ namespace YAF.Classes.Data
         #region Properties
 
         /// <summary>
+        ///   Gets a value indicating whether IsForumInstalled.
+        /// </summary>
+        public static bool GetIsForumInstalled()
+        {
+            try
+            {
+                using (DataTable dt = board_list(DBNull.Value))
+                {
+                    return dt.Rows.Count > 0;
+                }
+            }
+            catch
+            {
+            }
+
+            return false;
+        }
+
+        /// <summary>
         ///   Gets the database size
         /// </summary>
         /// <returns>intager value for database size</returns>
-        public static int DBSize
+        public static int GetDBSize()
         {
-            get
+            using (var cmd = new SqlCommand("select sum(cast(size as integer))/128 from sysfiles"))
             {
-                using (var cmd = new SqlCommand("select sum(cast(size as integer))/128 from sysfiles"))
-                {
-                    cmd.CommandType = CommandType.Text;
-                    return (int)MsSqlDbAccess.Current.ExecuteScalar(cmd);
-                }
+                cmd.CommandType = CommandType.Text;
+                return (int) MsSqlDbAccess.Current.ExecuteScalar(cmd);
             }
         }
 
         /// <summary>
         ///   Gets DBVersion.
         /// </summary>
-        public static int DBVersion
+        public static int GetDBVersion()
         {
-            get
+            try
             {
-                try
+                using (DataTable dt = registry_list("version"))
                 {
-                    using (DataTable dt = registry_list("version"))
+                    if (dt.Rows.Count > 0)
                     {
-                        if (dt.Rows.Count > 0)
-                        {
-                            // get the version...
-                            return dt.Rows[0]["Value"].ToType<int>();
-                        }
+                        // get the version...
+                        return dt.Rows[0]["Value"].ToType<int>();
                     }
                 }
-                catch
-                {
-                    // not installed...
-                }
-
-                return -1;
             }
+            catch
+            {
+                // not installed...
+            }
+
+            return -1;
         }
 
         /// <summary>
@@ -156,27 +169,6 @@ namespace YAF.Classes.Data
             }
         }
 
-        /// <summary>
-        ///   Gets a value indicating whether IsForumInstalled.
-        /// </summary>
-        public static bool IsForumInstalled
-        {
-            get
-            {
-                try
-                {
-                    using (DataTable dt = board_list(DBNull.Value))
-                    {
-                        return dt.Rows.Count > 0;
-                    }
-                }
-                catch
-                {
-                }
-
-                return false;
-            }
-        }
 
         /// <summary>
         ///   Gets a value indicating whether PanelGetStats.

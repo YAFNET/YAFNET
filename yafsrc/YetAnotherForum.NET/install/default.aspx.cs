@@ -403,7 +403,7 @@ namespace YAF.Install
 
           break;
         case "WizCreateForum":
-          if (LegacyDb.IsForumInstalled)
+          if (LegacyDb.GetIsForumInstalled())
           {
             this.InstallWizard.ActiveStepIndex++;
           }
@@ -417,7 +417,7 @@ namespace YAF.Install
           }
           else
           {
-            object version = this.Cache["DBVersion"] ?? LegacyDb.DBVersion;
+            object version = this.Cache["DBVersion"] ?? LegacyDb.GetDBVersion();
 
             if (((int)version) >= 30 || ((int)version) == -1)
             {
@@ -958,7 +958,7 @@ else
     /// </returns>
     private bool CreateForum()
     {
-      if (LegacyDb.IsForumInstalled)
+      if (LegacyDb.GetIsForumInstalled())
       {
         this.AddLoadMessage("Forum is already installed.");
         return false;
@@ -1237,7 +1237,7 @@ else
         }
         else
         {
-          this.Cache["DBVersion"] = LegacyDb.DBVersion;
+          this.Cache["DBVersion"] = LegacyDb.GetDBVersion();
 
           this.CurrentWizardStepID = this.IsInstalled ? "WizEnterPassword" : "WizValidatePermission";
 
@@ -1419,7 +1419,7 @@ else
 
         this.FixAccess(true);
 
-        int prevVersion = LegacyDb.DBVersion;
+        int prevVersion = LegacyDb.GetDBVersion();
 
         LegacyDb.system_updateversion(YafForumInfo.AppVersion, YafForumInfo.AppVersionName);
 
@@ -1430,7 +1430,7 @@ else
         // upgrade providers...
         Providers.Membership.DB.Current.UpgradeMembership(prevVersion, YafForumInfo.AppVersion);
 
-        if (LegacyDb.IsForumInstalled && prevVersion < 30)
+        if (LegacyDb.GetIsForumInstalled() && prevVersion < 30)
         {
           // load default bbcode if available...
           if (File.Exists(this.Request.MapPath(_bbcodeImport)))
@@ -1455,7 +1455,7 @@ else
           }
         }
 
-        if (LegacyDb.IsForumInstalled && prevVersion < 42)
+        if (LegacyDb.GetIsForumInstalled() && prevVersion < 42)
         {
           // un-html encode all topic subject names...
           LegacyDb.unencode_all_topics_subjects(t => Server.HtmlDecode(t));

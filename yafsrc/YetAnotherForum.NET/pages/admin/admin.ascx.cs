@@ -395,7 +395,7 @@ namespace YAF.Pages.Admin
 
       try
       {
-          this.DBSize.Text = "{0} MB".FormatWith(LegacyDb.DBSize);
+          this.DBSize.Text = "{0} MB".FormatWith(LegacyDb.GetDBSize());
       }
       catch (SqlException)
       {

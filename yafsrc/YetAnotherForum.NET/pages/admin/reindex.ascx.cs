@@ -202,7 +202,7 @@ namespace YAF.Pages.Admin
           dbName.InfoMessage += this.connMan_InfoMessage;
           this.txtIndexStatistics.Text = LegacyDb.db_shrink_warning(dbName);
           LegacyDb.db_shrink(dbName);
-          this.txtIndexStatistics.Text = this.GetText("ADMIN_REINDEX", "INDEX_SHRINK").FormatWith(LegacyDb.DBSize);
+          this.txtIndexStatistics.Text = this.GetText("ADMIN_REINDEX", "INDEX_SHRINK").FormatWith(LegacyDb.GetDBSize());
         }
         catch (Exception error)
         {
