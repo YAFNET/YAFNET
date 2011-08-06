@@ -141,7 +141,7 @@ namespace YAF.Core
       this._legacyBoardSettings = new YafLegacyBoardSettings(
         board["Name"].ToString(), 
         Convert.ToString(board["SQLVersion"]), 
-        SqlDataLayerConverter.VerifyBool(board["AllowThreaded"].ToString()), 
+        board["AllowThreaded"].ToType<bool>(), 
         this._membershipAppName, 
         this._rolesAppName);
     }

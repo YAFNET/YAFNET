@@ -610,13 +610,13 @@ namespace YAF.Controls
           f = new MedalFlags(r["Flags"]);
 
           // do only ribbon bar items first
-          if (!SqlDataLayerConverter.VerifyBool(r["OnlyRibbon"]))
+          if (!r["OnlyRibbon"].ToType<bool>())
           {
             break;
           }
 
           // skip hidden medals
-          if (!f.AllowHiding || !SqlDataLayerConverter.VerifyBool(r["Hide"]))
+          if (!f.AllowHiding || !r["Hide"].ToType<bool>())
           {
             if (inRow == 3)
             {
@@ -650,7 +650,7 @@ namespace YAF.Controls
           f = new MedalFlags(r["Flags"]);
 
           // skip hidden medals
-          if (!f.AllowHiding || !SqlDataLayerConverter.VerifyBool(r["Hide"]))
+          if (!f.AllowHiding || !r["Hide"].ToType<bool>())
           {
             medals.AppendFormat(
               "<img src=\"{0}{6}/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}{5}\" title=\"{4}{5}\" />", 

@@ -706,10 +706,10 @@ namespace YAF.Pages
         {
             double allPosts = 0.0;
 
-            if (SqlDataLayerConverter.VerifyInt32(userData.DBRow["NumPostsForum"]) > 0)
+            if (Convert.ToInt32(userData.DBRow["NumPostsForum"]) > 0)
             {
-                allPosts = 100.0 * SqlDataLayerConverter.VerifyInt32(userData.DBRow["NumPosts"]) /
-                           SqlDataLayerConverter.VerifyInt32(userData.DBRow["NumPostsForum"]);
+                allPosts = 100.0 * Convert.ToInt32(userData.DBRow["NumPosts"]) /
+                           Convert.ToInt32(userData.DBRow["NumPostsForum"]);
             }
 
             this.Stats.InnerHtml = "{0:N0}<br />[{1} / {2}]".FormatWith(
@@ -717,8 +717,8 @@ namespace YAF.Pages
               this.GetTextFormatted("NUMALL", allPosts),
               this.GetTextFormatted(
                 "NUMDAY",
-                (double)SqlDataLayerConverter.VerifyInt32(userData.DBRow["NumPosts"]) /
-                SqlDataLayerConverter.VerifyInt32(userData.DBRow["NumDays"])));
+                (double)Convert.ToInt32(userData.DBRow["NumPosts"]) /
+                Convert.ToInt32(userData.DBRow["NumDays"])));
         }
 
         #endregion

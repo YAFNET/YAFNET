@@ -362,7 +362,7 @@ namespace YAF.Pages.Admin
             {
                 DataRow row = dt.Rows[0];
                 this.Name.Text = (string)row["Name"];
-                this.AllowThreaded.Checked = SqlDataLayerConverter.VerifyBool(row["AllowThreaded"]);
+                this.AllowThreaded.Checked = Convert.ToBoolean(row["AllowThreaded"]);
                 this.BoardMembershipAppName.Text = row["MembershipAppName"].ToString();
             }
         }

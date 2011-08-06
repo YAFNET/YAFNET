@@ -507,7 +507,7 @@ namespace YAF.Controls
     protected string GetViewing([NotNull] object o)
     {
       var row = (DataRow)o;
-      int nViewing = SqlDataLayerConverter.VerifyInt32(row["Viewing"]);
+      int nViewing = row["Viewing"].ToType<int>();
 
         return nViewing > 0 ? "&nbsp;{0}".FormatWith(this.GetTextFormatted("VIEWING", nViewing)) : string.Empty;
     }

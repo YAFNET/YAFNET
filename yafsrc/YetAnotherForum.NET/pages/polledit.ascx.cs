@@ -638,7 +638,7 @@ namespace YAF.Pages
         {
           TimeSpan closing = (DateTime)this._choices.Rows[0]["Closes"] - DateTime.UtcNow;
 
-          this.PollExpire.Text = SqlDataLayerConverter.VerifyInt32(closing.TotalDays + 1).ToString();
+          this.PollExpire.Text = Convert.ToInt32(closing.TotalDays + 1).ToString();
         }
         else
         {

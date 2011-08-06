@@ -315,7 +315,7 @@ namespace YAF.Pages.Admin
 
       this.DataBind();
       this.Name.Text = row["Name"].ToString();
-      this.AllowThreaded.Checked = SqlDataLayerConverter.VerifyBool(row["AllowThreaded"]);
+      this.AllowThreaded.Checked = Convert.ToBoolean(row["AllowThreaded"]);
     }
 
     #endregion

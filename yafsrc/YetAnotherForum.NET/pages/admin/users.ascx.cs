@@ -115,14 +115,14 @@ namespace YAF.Pages.Admin
                         // examine each if he's possible to delete
                         foreach (DataRow row in dt.Rows)
                         {
-                            if (SqlDataLayerConverter.VerifyInt32(row["IsGuest"]) > 0)
+                            if (Convert.ToInt32(row["IsGuest"]) > 0)
                             {
                                 // we cannot detele guest
                                 this.PageContext.AddLoadMessage(this.GetText("ADMIN_USERS", "MSG_DELETE_GUEST"));
                                 return;
                             }
 
-                            if ((row["IsAdmin"] == DBNull.Value || SqlDataLayerConverter.VerifyInt32(row["IsAdmin"]) <= 0) &&
+                            if ((row["IsAdmin"] == DBNull.Value || Convert.ToInt32(row["IsAdmin"]) <= 0) &&
                                 (row["IsHostAdmin"] == DBNull.Value || row["IsHostAdmin"].ToType<int>() <= 0))
                             {
                                 continue;

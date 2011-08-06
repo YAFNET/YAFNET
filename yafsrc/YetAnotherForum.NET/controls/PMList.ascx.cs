@@ -437,7 +437,7 @@ namespace YAF.Controls
     protected string GetImage([NotNull] object o)
     {
       return this.Get<ITheme>().GetItem(
-        "ICONS", SqlDataLayerConverter.VerifyBool(((DataRowView)o)["IsRead"]) ? "PM_READ" : "PM_NEW");
+        "ICONS", Convert.ToBoolean(((DataRowView)o)["IsRead"]) ? "PM_READ" : "PM_NEW");
     }
 
     /// <summary>

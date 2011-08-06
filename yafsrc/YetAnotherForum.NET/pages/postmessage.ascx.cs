@@ -1162,7 +1162,7 @@ namespace YAF.Pages
             // Ederon : 9/9/2007 - moderator can edit in locked topics
             return ((!postLocked && !forumInfo["Flags"].BinaryAnd(ForumFlags.Flags.IsLocked) &&
                      !topicInfo["Flags"].BinaryAnd(TopicFlags.Flags.IsLocked) &&
-                     (SqlDataLayerConverter.VerifyInt32(message["UserID"]) == this.PageContext.PageUserID)) ||
+                     (Convert.ToInt32(message["UserID"]) == this.PageContext.PageUserID)) ||
                     this.PageContext.ForumModeratorAccess) && this.PageContext.ForumEditAccess;
         }
 
@@ -1178,7 +1178,7 @@ namespace YAF.Pages
         private bool CanHavePoll([NotNull] DataRow message)
         {
             return (this.TopicID == null && this.QuotedMessageID == null && this.EditMessageID == null) ||
-                   (message != null && SqlDataLayerConverter.VerifyInt32(message["Position"]) == 0);
+                   (message != null && Convert.ToInt32(message["Position"]) == 0);
         }
 
         /// <summary>
@@ -1367,7 +1367,7 @@ namespace YAF.Pages
         private void InitReplyToTopic()
         {
             DataRow topic = LegacyDb.topic_info(this.TopicID);
-            var topicFlags = new TopicFlags(SqlDataLayerConverter.VerifyInt32(topic["Flags"]));
+            var topicFlags = new TopicFlags(Convert.ToInt32(topic["Flags"]));
 
             // Ederon : 9/9/2007 - moderators can reply in locked topics
             if (topicFlags.IsLocked && !this.PageContext.ForumModeratorAccess)

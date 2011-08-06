@@ -10013,8 +10013,8 @@ namespace YAF.Classes.Data
                 {
                     int i;
                     return int.TryParse(dr["Value"].ToString(), out i)
-                             ? SqlDataLayerConverter.VerifyBool(i)
-                             : SqlDataLayerConverter.VerifyBool(dr["Value"]);
+                             ? Convert.ToBoolean(i)
+                             : Convert.ToBoolean(dr["Value"]);
                 }
             }
 

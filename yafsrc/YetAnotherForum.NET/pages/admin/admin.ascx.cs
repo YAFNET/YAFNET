@@ -389,9 +389,9 @@ namespace YAF.Pages.Admin
         days = 1;
       }
 
-      this.DayPosts.Text = "{0:N2}".FormatWith(SqlDataLayerConverter.VerifyInt32(row["NumPosts"]) / days);
-      this.DayTopics.Text = "{0:N2}".FormatWith(SqlDataLayerConverter.VerifyInt32(row["NumTopics"]) / days);
-      this.DayUsers.Text = "{0:N2}".FormatWith(SqlDataLayerConverter.VerifyInt32(row["NumUsers"]) / days);
+      this.DayPosts.Text = "{0:N2}".FormatWith(Convert.ToInt32(row["NumPosts"]) / days);
+      this.DayTopics.Text = "{0:N2}".FormatWith(Convert.ToInt32(row["NumTopics"]) / days);
+      this.DayUsers.Text = "{0:N2}".FormatWith(Convert.ToInt32(row["NumUsers"]) / days);
 
       try
       {

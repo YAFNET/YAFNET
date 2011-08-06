@@ -16,6 +16,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
+using System;
+
 namespace YAF.Core
 {
   using YAF.Classes.Data;
@@ -53,7 +56,7 @@ namespace YAF.Core
     /// </returns>
     public static bool BinaryAnd(this object value, object checkAgainst)
     {
-      return BinaryAnd(SqlDataLayerConverter.VerifyInt32(value), SqlDataLayerConverter.VerifyInt32(checkAgainst));
+        return BinaryAnd(Convert.ToInt32(value), Convert.ToInt32(checkAgainst));
     }    
   }
 }
