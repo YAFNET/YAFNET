@@ -1176,7 +1176,22 @@ height:80em;
 {
     display: inline;
     padding:0px;
+	
+	background: url("myMenuIcons.png") no-repeat top left;
 }
+
+/* User Menu Icons */
+.yafnet .menuMyList .myProfile {background-position: 0 -128px;}
+
+.yafnet .menuMyList .myPm {background-position: 0 -96px;}
+.yafnet .menuMyList .myBuddies {background-position: 0 -64px;}
+.yafnet .menuMyList .myAlbums {background-position: 0 -32px;}
+.yafnet .menuMyList .myTopics {background-position: 0 -160px;}
+.yafnet .menuMyList .menuAccount {background-position: 0 0;}
+
+.yafnet .menuMy a,
+.yafnet .menuAccount a {padding-left: 16px;}
+/**/
 
 .yafnet .currentUser{font-weight:bold;color:blue;}
 

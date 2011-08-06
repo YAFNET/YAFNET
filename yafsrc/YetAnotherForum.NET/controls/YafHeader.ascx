@@ -7,7 +7,7 @@
     <div class="outerMenuContainer">
         <asp:Panel id="UserContainer" CssClass="menuMyContainer" runat="server" Visible="false">
             <ul class="menuMyList">
-                <li class="menuMy">
+                <li class="menuMy myProfile">
                   <asp:HyperLink id="MyProfile" runat="server" Target="_top"></asp:HyperLink>
                 </li>
                 <asp:PlaceHolder ID="MyInboxItem" runat="server">

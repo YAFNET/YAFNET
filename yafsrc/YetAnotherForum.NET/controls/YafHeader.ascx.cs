@@ -536,7 +536,7 @@ namespace YAF.Controls
             {
                 RenderMenuItem(
                     MyInboxItem,
-                    "menuMy",
+                    "menuMy myPm",
                     null,
                     this.GetText("TOOLBAR", "INBOX"),
                     this.GetText("TOOLBAR", "INBOX_TITLE"),
@@ -552,7 +552,7 @@ namespace YAF.Controls
             {
                 RenderMenuItem(
                     MyBuddiesItem,
-                    "menuMy",
+                    "menuMy myBuddies",
                     null,
                     this.GetText("TOOLBAR", "BUDDIES"),
                     this.GetText("TOOLBAR", "BUDDIES_TITLE"),
@@ -568,7 +568,7 @@ namespace YAF.Controls
             {
                 RenderMenuItem(
                     MyAlbumsItem,
-                    "menuMy",
+                    "menuMy myAlbums",
                     null,
                     this.GetText("TOOLBAR", "MYALBUMS"),
                     this.GetText("TOOLBAR", "MYALBUMS_TITLE"),
@@ -595,7 +595,7 @@ namespace YAF.Controls
             // My Topics
             RenderMenuItem(
                     MyTopicItem,
-                    "menuMy",
+                    "menuMy myTopics",
                     null,
                     this.GetText("TOOLBAR", "MYTOPICS"),
                     this.GetText("TOOLBAR", "MYTOPICS"),
