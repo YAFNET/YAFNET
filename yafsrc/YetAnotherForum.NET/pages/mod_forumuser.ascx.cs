@@ -271,12 +271,13 @@ namespace YAF.Pages
 
             // save permission
             LegacyDb.userforum_save(userId.Value, this.PageContext.PageForumID, this.AccessMaskID.SelectedValue);
+            
+            // clear moderators cache
+            this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
 
             // redirect to forum moderation page
             YafBuildLink.Redirect(ForumPages.moderating, "f={0}", this.PageContext.PageForumID);
-
-            // clear moderatorss cache
-            this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
+          
         }
 
         #endregion
