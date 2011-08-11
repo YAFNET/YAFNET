@@ -9232,7 +9232,8 @@ as
 	 LEFT JOIN [{databaseOwner}].[{objectQualifier}Message] m ON m.MessageID = mh.MessageID
 	 LEFT JOIN [{databaseOwner}].[{objectQualifier}Topic] t ON t.TopicID = m.TopicID
 	 LEFT JOIN [{databaseOwner}].[{objectQualifier}User] u ON u.UserID = t.UserID
-	 WHERE mh.MessageID = @MessageID  
+	 WHERE mh.MessageID = @MessageID 
+	 order by mh.Edited, mh.MessageID 
 	END
 GO
 

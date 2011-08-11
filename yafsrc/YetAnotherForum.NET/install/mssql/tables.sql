@@ -279,7 +279,6 @@ GO
 
 if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}MessageHistory]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}MessageHistory](
-		MessageHistoryID uniqueidentifier NOT NULL CONSTRAINT [DF_{objectQualifier}MessageHistory_MessageHistoryID] DEFAULT (newid()),
 		MessageID		    int NOT NULL ,
 		[Message]		    ntext NOT NULL ,
 		IP				    nvarchar (15) NOT NULL ,
@@ -289,6 +288,9 @@ if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseO
 		IsModeratorChanged  bit NOT NULL CONSTRAINT [DF_{objectQualifier}MessageHistory_IsModeratorChanged] DEFAULT (0),
 		Flags               int NOT NULL constraint [DF_{objectQualifier}MessageHistory_Flags] default (23)	  
 	)
+GO
+
+exec('[{databaseOwner}].[{objectQualifier}drop_defaultconstraint_oncolumn] {objectQualifier}MessageHistory, MessageHistoryID')
 GO
 
 IF NOT EXISTS (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}MessageReported]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
@@ -705,26 +707,6 @@ begin
 end
 GO	
 
-/*
-** Added columns
-*/
-
-/* if not exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Board]') and name='BoardUID')
-begin
-alter table [{databaseOwner}].[{objectQualifier}Board] add [BoardUID]  uniqueidentifier constraint DF_{objectQualifier}Board_BoardUID default newid() 
-end
-
-
-if exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Board]') and name='BoardUID')
-BEGIN		
-		-- Verify that all boards have uuid
-		grant update on [{databaseOwner}].[{objectQualifier}Board] to public
-		exec('update [{databaseOwner}].[{objectQualifier}Board] set BoardUID = newid() WHERE BoardUID IS NULL')
-		revoke update on [{databaseOwner}].[{objectQualifier}Board] from public
-		-- alter table [{databaseOwner}].[{objectQualifier}Board] alter column [BoardUID]  uniqueidentifier constraint DF_{objectQualifier}Board_BoardUID default newid() 
-
-END
- */
 exec('[{databaseOwner}].[{objectQualifier}drop_defaultconstraint_oncolumn] {objectQualifier}Board, BoardUID')
 GO
 
@@ -1563,7 +1545,14 @@ begin
 	alter table [{databaseOwner}].[{objectQualifier}Message] alter column [UserName] nvarchar (255) NULL
 end
 GO
-		
+
+-- MessageHistory Table
+
+if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}MessageHistory]') and name='MessageHistoryID')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}MessageHistory] drop column [MessageHistoryID]
+end
+GO
 -- Topic Table
 if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='IsLocked')
 begin
