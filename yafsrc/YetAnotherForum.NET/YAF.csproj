@@ -273,6 +273,7 @@
     <Compile Include="install\default.aspx.designer.cs">
       <DependentUpon>default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Modules\BBCode\AlbumImage.cs" />
     <Compile Include="Modules\BBCode\ExampleBBCodeModule.cs" />
     <Compile Include="Modules\BBCode\GroupHide.cs" />
     <Compile Include="Modules\BBCode\HideBBCodeModule.cs" />

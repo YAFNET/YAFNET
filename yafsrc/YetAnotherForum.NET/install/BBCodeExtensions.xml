@@ -121,7 +121,7 @@
     <EditJS />
     <DisplayCSS />
     <SearchRegex>\[vimeo\](?&lt;inner&gt;http://(?&lt;prefix&gt;[A-Za-z][A-Za-z][A-Za-z]?\.)?vimeo.com/(?&lt;vimeoId&gt;[0-9]{8}))[^[]*\[/vimeo\]</SearchRegex>
-    <ReplaceRegex>&lt;iframe width="560" height="350" src="http://player.vimeo.com/video/${vimeoId}?show_title=1&amp;amp;show_byline=1&amp;amp;show_portrait=1&amp;amp;&amp;amp;fullscreen=1" frameborder="0"&gt;&lt;/iframe&gt;
+    <ReplaceRegex>&lt;iframe width="560" height="350" src="http://player.vimeo.com/video/${vimeoId}?show_title=1&amp;amp;show_byline=1&amp;amp;show_portrait=1&amp;amp;&amp;amp;fullscreen=1" frameborder="0"&gt;&lt;/iframe&gt;</ReplaceRegex>
     <Variables>prefix;vimeoId</Variables>
     <UseModule>false</UseModule>
     <ModuleClass />
@@ -197,7 +197,6 @@
     <ModuleClass>YAF.Modules.BBCode.HideReplyModule</ModuleClass>
     <ExecOrder>1</ExecOrder>
   </YafBBCode>
-  
   <YafBBCode>
     <Name>HIDE-POSTS</Name>
     <Description>[HIDE-POSTS=x][localization=HIDEPOSTS_DESCRIPTION]The tag hides content from people who have below X posts.[/localization][/HIDE-POSTS]</Description>
@@ -211,5 +210,19 @@
     <UseModule>true</UseModule>
     <ModuleClass>YAF.Modules.BBCode.HideBBCodeModule</ModuleClass>
     <ExecOrder>2</ExecOrder>
+  </YafBBCode>
+  <YafBBCode>
+    <Name>ALBUMIMG</Name>
+    <Description>[ALBUMIMG]Enter Album Image Number[/ALBUMIMG]</Description>
+    <OnClickJS />
+    <DisplayJS />
+    <EditJS />
+    <DisplayCSS />
+    <SearchRegex>\[albumimg\](?&lt;inner&gt;.+?)\[\/albumimg\]</SearchRegex>
+    <ReplaceRegex />
+    <Variables />
+    <UseModule>true</UseModule>
+    <ModuleClass>YAF.Modules.BBCode.AlbumImage</ModuleClass>
+    <ExecOrder>30</ExecOrder>
   </YafBBCode>
 </YafBBCodeList>
