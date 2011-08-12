@@ -166,3 +166,10 @@ CREATE  INDEX [IX_{objectQualifier}FavoriteTopic_UserID] ON [{databaseOwner}].[{
 	[UserID] ASC
 )
 GO
+
+IF  NOT EXISTS (SELECT 1 FROM sys.indexes WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Topic]') AND name = N'IX_{objectQualifier}Topic_LastPosted_Desc')
+CREATE NONCLUSTERED INDEX [IX_{objectQualifier}Topic_LastPosted_Desc] ON [{databaseOwner}].[{objectQualifier}Topic] 
+(
+	[LastPosted] DESC
+) ON [PRIMARY]
+GO
