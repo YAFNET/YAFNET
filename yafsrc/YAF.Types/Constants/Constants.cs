@@ -31,6 +31,8 @@ namespace YAF.Types.Constants
         {
             #region Constants and Fields
 
+        	public const string AlbumCountUser = "AlbumCountUser{0}";
+
             /// <summary>
             ///   The active discussions.
             /// </summary>
