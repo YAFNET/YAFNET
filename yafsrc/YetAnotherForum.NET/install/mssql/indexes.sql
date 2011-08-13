@@ -173,3 +173,17 @@ CREATE NONCLUSTERED INDEX [IX_{objectQualifier}Topic_LastPosted_Desc] ON [{datab
 	[LastPosted] DESC
 ) ON [PRIMARY]
 GO
+
+IF  NOT EXISTS (SELECT 1 FROM sys.indexes WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Group]') AND name = N'IX_{objectQualifier}Group_SortOrder')
+CREATE NONCLUSTERED INDEX [IX_{objectQualifier}Group_SortOrder] ON [{databaseOwner}].[{objectQualifier}Group] 
+(
+	[SortOrder] ASC
+) ON [PRIMARY]
+GO
+
+IF  NOT EXISTS (SELECT 1 FROM sys.indexes WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}User]') AND name = N'IX_{objectQualifier}User_DisplayName')
+CREATE NONCLUSTERED INDEX [IX_{objectQualifier}User_DisplayName] ON [{databaseOwner}].[{objectQualifier}User] 
+(
+	[DisplayName] ASC
+) ON [PRIMARY]
+GO

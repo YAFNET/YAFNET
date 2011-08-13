@@ -259,8 +259,17 @@ namespace YAF.Controls
                                   !this.PostData.PostDeleted && this.PageContext.User != null &&
                                   this.Get<YafBoardSettings>().EnableAlbum)
             {
-                DataTable usrAlbumsData = LegacyDb.user_getalbumsdata(this.PostData.UserId, YafContext.Current.PageBoardID);
-                var numAlbums = usrAlbumsData.GetFirstRowColumnAsValue<int?>("NumAlbums", null);
+            	var numAlbums =
+            		this.Get<IDataCache>().GetOrSet<int?>(
+            			Constants.Cache.AlbumCountUser.FormatWith(this.PostData.UserId),
+            			() =>
+            				{
+            					DataTable usrAlbumsData = LegacyDb.user_getalbumsdata(
+            						this.PostData.UserId, YafContext.Current.PageBoardID);
+            					return usrAlbumsData.GetFirstRowColumnAsValue<int?>("NumAlbums", null);
+            				},
+            			TimeSpan.FromMinutes(5));
+
                 this.Albums.Visible = numAlbums.HasValue && numAlbums > 0;
                 this.Albums.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.albums, "u={0}", this.PostData.UserId);
                 this.Albums.ParamTitle0 = userName;
