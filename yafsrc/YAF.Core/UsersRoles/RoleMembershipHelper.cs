@@ -526,7 +526,7 @@ namespace YAF.Core
 		private static void MigrateUsersFromDataTable(int pageBoardID, bool approved, [NotNull] DataTable dataTable)
 		{
 			// is this the Yaf membership provider?
-			bool isYafProvider = YafContext.Current.Get<MembershipProvider>().GetType().Name == "YafMembershipProvider";
+            bool isYafProvider = YafContext.Current.Get<MembershipProvider>().Description == "YAF Native Membership Provider";
 			bool isLegacyYafDB = dataTable.Columns.Contains("Location");
 
 			var userRows = dataTable.AsEnumerable();

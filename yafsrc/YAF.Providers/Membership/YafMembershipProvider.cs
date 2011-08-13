@@ -160,6 +160,15 @@ namespace YAF.Providers.Membership
     }
 
     /// <summary>
+    /// Gets or sets provider Description. The standard string used to identify provider as a build-in one.
+    /// </summary>
+    public override string Description
+    {
+        get { return "YAF Native Membership Provider"; }
+
+    }
+
+    /// <summary>
     /// Gets a value indicating whether EnablePasswordReset.
     /// </summary>
     public override bool EnablePasswordReset
@@ -1340,6 +1349,17 @@ namespace YAF.Providers.Membership
       }
 
       return false;
+    }
+
+    /// <summary>
+    /// The custom method is implemented in YAF provider only to fix various issues related to it.
+    /// </summary>
+    /// <param name="user">
+    /// <see cref="MembershipUser"/> object
+    /// </param>
+    public void UpgradeMembership(int previousVersion, int newVersion)
+    {
+        DB.Current.UpgradeMembership(previousVersion, newVersion);
     }
 
     #endregion
