@@ -240,6 +240,9 @@ namespace YAF.Core
       return this.GetText(this.TransPage, text);
     }
 
+		private static readonly Regex _rgxBegin = new Regex(@"(?<!\[noparse\])(?<inner>\[b\])", RegexOptions.Compiled);
+		private static readonly Regex _rgxEnd = new Regex(@"(?<inner>\[/b\])(?!\[/noparse\])", RegexOptions.Compiled);
+
     /// <summary>
     /// The get text.
     /// </summary>
@@ -284,12 +287,9 @@ namespace YAF.Core
           EventLogTypes.Error);
         return "[{1}.{0}]".FormatWith(tag.ToUpper(), page.ToUpper());
       }
-
-      Regex rgx = new Regex(@"(?<!\[noparse\])(?<inner>\[b\])");
-      localizedText = rgx.Replace(localizedText, "<strong>");
-
-      rgx = new Regex(@"(?<inner>\[/b\])(?!\[/noparse\])");
-      localizedText = rgx.Replace(localizedText, "</strong>");
+      
+      localizedText = _rgxBegin.Replace(localizedText, "<strong>");
+      localizedText = _rgxEnd.Replace(localizedText, "</strong>");
 
       localizedText = localizedText.Replace("[noparse]", string.Empty);
       localizedText = localizedText.Replace("[/noparse]", string.Empty);
