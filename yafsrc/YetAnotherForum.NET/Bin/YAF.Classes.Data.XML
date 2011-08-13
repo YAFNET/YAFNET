@@ -4,150 +4,315 @@
         <name>YAF.Classes.Data</name>
     </assembly>
     <members>
-        <member name="T:YAF.Classes.Data.BaseDataTableResultFilter">
+        <member name="T:YAF.Classes.Data.SearchBuilderExtensions">
             <summary>
-            The abstract base data table result filter.
+            The search builder extensions.
             </summary>
         </member>
-        <member name="F:YAF.Classes.Data.BaseDataTableResultFilter._sqlCommandStartsWith">
+        <member name="M:YAF.Classes.Data.SearchBuilderExtensions.BuildSql(System.Collections.Generic.IEnumerable{YAF.Classes.Data.SearchCondition},System.Boolean)">
             <summary>
-            The filter that sql commands starts with -- if none added all commands are processed.
+            The build sql.
+            </summary>
+            <param name="conditions">
+            The conditions.
+            </param>
+            <param name="surroundWithParathesis">
+            The surround with parathesis.
+            </param>
+            <returns>
+            The build sql.
+            </returns>
+        </member>
+        <member name="T:YAF.Classes.Data.MsSqlDbAccess">
+            <summary>
+            The yaf db access for SQL Server.
             </summary>
         </member>
-        <member name="M:YAF.Classes.Data.BaseDataTableResultFilter.Process(System.Data.DataTable@,System.String)">
+        <member name="F:YAF.Classes.Data.MsSqlDbAccess._resultFilterList">
             <summary>
-            The process.
+              Result filter list
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.MsSqlDbAccess._isolationLevel">
+            <summary>
+              The _isolation level.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.MsSqlDbAccess._connectionManagerType">
+            <summary>
+              The _connection manager type.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbAccess.CleanForSQLServerVersion(System.String,System.UInt16)">
+            <summary>
+            A method to handle custom scripts execution tags
+            </summary>
+            <param name="scriptChunk">
+            Input string
+            </param>
+            <param name="versionSQL">
+            SQL server version as ushort
+            </param>
+            <returns>
+            Returns an empty string if condition was not and cleanedfrom tags string if was.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbAccess.GetCommand(System.String,System.Boolean)">
+            <summary>
+            Creates new SqlCommand based on command text applying all qualifiers to the name.
+            </summary>
+            <param name="commandText">
+            Command text to qualify.
+            </param>
+            <param name="isText">
+            Determines whether command text is text or stored procedure.
+            </param>
+            <returns>
+            New SqlCommand
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbAccess.GetCommand(System.String,System.Boolean,System.Data.SqlClient.SqlConnection)">
+            <summary>
+            Creates new SqlCommand based on command text applying all qualifiers to the name.
+            </summary>
+            <param name="commandText">
+            Command text to qualify.
+            </param>
+            <param name="isText">
+            Determines whether command text is text or stored procedure.
+            </param>
+            <param name="connection">
+            Connection to use with command.
+            </param>
+            <returns>
+            New SqlCommand
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbAccess.GetCommand(System.String)">
+            <summary>
+            Creates new SqlCommand calling stored procedure applying all qualifiers to the name.
+            </summary>
+            <param name="storedProcedure">
+            Base of stored procedure name.
+            </param>
+            <returns>
+            New SqlCommand
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbAccess.GetCommand(System.String,System.Data.SqlClient.SqlConnection)">
+            <summary>
+            Creates new SqlCommand calling stored procedure applying all qualifiers to the name.
+            </summary>
+            <param name="storedProcedure">
+            Base of stored procedure name.
+            </param>
+            <param name="connection">
+            Connection to use with command.
+            </param>
+            <returns>
+            New SqlCommand
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbAccess.GetCommandTextReplaced(System.String)">
+            <summary>
+            Gets command text replaced with {databaseOwner} and {objectQualifier}.
+            </summary>
+            <param name="commandText">
+            Test to transform.
+            </param>
+            <returns>
+            The get command text replaced.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbAccess.GetConnectionString(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.String,System.String)">
+            <summary>
+            Creates a Connection String from the parameters.
+            </summary>
+            <param name="parm1">
+            </param>
+            <param name="parm2">
+            </param>
+            <param name="parm3">
+            </param>
+            <param name="parm4">
+            </param>
+            <param name="parm5">
+            </param>
+            <param name="parm6">
+            </param>
+            <param name="parm7">
+            </param>
+            <param name="parm8">
+            </param>
+            <param name="parm9">
+            </param>
+            <param name="parm10">
+            </param>
+            <param name="parm11">
+            </param>
+            <param name="parm12">
+            </param>
+            <param name="parm13">
+            </param>
+            <param name="parm14">
+            </param>
+            <param name="parm15">
+            </param>
+            <param name="parm16">
+            </param>
+            <param name="parm17">
+            </param>
+            <param name="parm18">
+            </param>
+            <param name="parm19">
+            </param>
+            <param name="userID">
+            </param>
+            <param name="userPassword">
+            </param>
+            <returns>
+            The get connection string.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbAccess.GetObjectName(System.String)">
+            <summary>
+            Gets qualified object name
+            </summary>
+            <param name="name">
+            Base name of an object
+            </param>
+            <returns>
+            Returns qualified object name of format {databaseOwner}.{objectQualifier}name
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbAccess.TestConnection(System.String@)">
+            <summary>
+            Test the DB Connection.
+            </summary>
+            <param name="exceptionMessage">
+            outbound ExceptionMessage
+            </param>
+            <returns>
+            true if successfully connected
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbAccess.SetConnectionManagerAdapter``1">
+            <summary>
+            Change the Connection Manager used in all DB operations.
+            </summary>
+            <typeparam name="TManager">
+            </typeparam>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbAccess.ExecuteNonQuery(System.Data.IDbCommand,System.Boolean)">
+            <summary>
+            The execute non query.
+            </summary>
+            <param name="cmd">
+            The cmd.
+            </param>
+            <param name="transaction">
+            The transaction.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbAccess.ExecuteScalar(System.Data.IDbCommand,System.Boolean)">
+            <summary>
+            The execute scalar.
+            </summary>
+            <param name="cmd">
+            The cmd.
+            </param>
+            <param name="transaction">
+            The transaction.
+            </param>
+            <returns>
+            The execute scalar.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbAccess.GetConnectionManager">
+            <summary>
+            The get connection manager.
+            </summary>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbAccess.GetData(System.Data.IDbCommand,System.Boolean)">
+            <summary>
+            The get data.
+            </summary>
+            <param name="cmd">
+            The cmd.
+            </param>
+            <param name="transaction">
+            The transaction.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbAccess.GetData(System.String,System.Boolean)">
+            <summary>
+            The get data.
+            </summary>
+            <param name="commandText">
+            The command text.
+            </param>
+            <param name="transaction">
+            The transaction.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbAccess.GetDataset(System.Data.IDbCommand,System.Boolean)">
+            <summary>
+            The get dataset.
+            </summary>
+            <param name="cmd">
+            The cmd.
+            </param>
+            <param name="transaction">
+            The transaction.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbAccess.GetDatasetBasic(System.Data.IDbCommand,System.Boolean)">
+            <summary>
+            Used internally to get data for all the other functions
+            </summary>
+            <param name="cmd">
+            </param>
+            <param name="transaction">
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbAccess.ProcessUsingResultFilters(System.Data.DataTable,System.String)">
+            <summary>
+            Process a <see cref="T:System.Data.DataTable"/> using Result Filters.
             </summary>
             <param name="dataTable">
-            The data table.
+            data table to process
             </param>
             <param name="sqlCommand">
-            The sql command.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.BaseDataTableResultFilter.FilteredProcess(System.Data.DataTable@,System.String)">
-            <summary>
-            The filtered process.
-            </summary>
-            <param name="dataTable">
-            The data table.
-            </param>
-            <param name="sqlCommand">
-            The sql command.
-            </param>
-        </member>
-        <member name="P:YAF.Classes.Data.BaseDataTableResultFilter.Rank">
-            <summary>
-            Gets Rank.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.BaseDataTableResultFilter.SqlCommandStartsWith">
-            <summary>
-            Gets or sets SqlCommandStartsWith.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Data.DataRowConvert">
-            <summary>
-            Helper class to do basic data conversion for a DataRow.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.DataRowConvert._dbRow">
-            <summary>
-              The _db row.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.DataRowConvert.#ctor(System.Data.DataRow)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.DataRowConvert"/> class.
-            </summary>
-            <param name="dbRow">
-            The db row.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.DataRowConvert.AsBool(System.String)">
-            <summary>
-            The as bool.
-            </summary>
-            <param name="columnName">
-            The column name.
-            </param>
-            <returns>
-            The as bool.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.DataRowConvert.AsDateTime(System.String)">
-            <summary>
-            The as date time.
-            </summary>
-            <param name="columnName">
-            The column name.
             </param>
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DataRowConvert.AsInt32(System.String)">
+        <member name="P:YAF.Classes.Data.MsSqlDbAccess.Current">
             <summary>
-            The as int 32.
-            </summary>
-            <param name="columnName">
-            The column name.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.DataRowConvert.AsInt64(System.String)">
-            <summary>
-            The as int 64.
-            </summary>
-            <param name="columnName">
-            The column name.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.DataRowConvert.AsString(System.String)">
-            <summary>
-            The as string.
-            </summary>
-            <param name="columnName">
-            The column name.
-            </param>
-            <returns>
-            The as string.
-            </returns>
-        </member>
-        <member name="T:YAF.Classes.Data.SearchConditionType">
-            <summary>
-            The search condition type.
+              Gets Current IDbAccess -- needs to be switched to direct injection into all DB classes.
             </summary>
         </member>
-        <member name="F:YAF.Classes.Data.SearchConditionType.AND">
+        <member name="P:YAF.Classes.Data.MsSqlDbAccess.IsolationLevel">
             <summary>
-              The and.
+              Gets IsolationLevel.
             </summary>
         </member>
-        <member name="F:YAF.Classes.Data.SearchConditionType.OR">
+        <member name="P:YAF.Classes.Data.MsSqlDbAccess.ResultFilterList">
             <summary>
-              The or.
+              Gets the Result Filter List.
             </summary>
-        </member>
-        <member name="T:YAF.Classes.Data.QueryCounter">
-            <summary>
-            The query counter.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.QueryCounter.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.QueryCounter"/> class.
-            </summary>
-            <param name="sql">
-            The sql.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.QueryCounter.Dispose">
-            <summary>
-            The dispose.
-            </summary>
+            <exception cref="T:System.NotImplementedException">
+            </exception>
         </member>
         <member name="T:YAF.Classes.Data.LegacyDb">
             <summary>
@@ -169,6 +334,22 @@
               The _full text supported.
             </summary>
         </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.GetIsForumInstalled">
+            <summary>
+              Gets a value indicating whether IsForumInstalled.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.GetDBSize">
+            <summary>
+              Gets the database size
+            </summary>
+            <returns>intager value for database size</returns>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.GetDBVersion">
+            <summary>
+              Gets DBVersion.
+            </summary>
+        </member>
         <member name="M:YAF.Classes.Data.LegacyDb.BBCodeList(System.Int32,System.Nullable{System.Int32})">
             <summary>
             The bbcode_list.
@@ -180,6 +361,7 @@
             The bbcode id.
             </param>
             <returns>
+            Returns the BB Code List
             </returns>
         </member>
         <member name="M:YAF.Classes.Data.LegacyDb.ForumListAll(System.Int32,System.Int32)">
@@ -193,6 +375,7 @@
             The user id.
             </param>
             <returns>
+            Returns The forum list all.
             </returns>
         </member>
         <member name="M:YAF.Classes.Data.LegacyDb.ForumListAll(System.Int32,System.Int32,System.Int32)">
@@ -209,6 +392,7 @@
             The start forum id.
             </param>
             <returns>
+            The forum list all.
             </returns>
         </member>
         <member name="M:YAF.Classes.Data.LegacyDb.GetSearchResult(System.String,System.String,YAF.Types.Constants.SearchWhatFlags,YAF.Types.Constants.SearchWhatFlags,System.Int32,System.Int32,System.Int32,System.Int32,System.Boolean,System.Boolean)">
@@ -267,8 +451,6 @@
             <param name="messageIdsSeparatedWithColon">
             The message i ds.
             </param>
-            <returns>
-            </returns>
         </member>
         <member name="M:YAF.Classes.Data.LegacyDb.MessageList(System.Int32)">
             <summary>
@@ -277,8 +459,6 @@
             <param name="messageID">
             The message id.
             </param>
-            <returns>
-            </returns>
         </member>
         <member name="M:YAF.Classes.Data.LegacyDb.PollGroupList(System.Int32,System.Nullable{System.Int32},System.Int32)">
             <summary>
@@ -293,8 +473,6 @@
             <param name="boardId">
             The board id.
             </param>
-            <returns>
-            </returns>
         </member>
         <member name="M:YAF.Classes.Data.LegacyDb.SmileyList(System.Int32,System.Nullable{System.Int32})">
             <summary>
@@ -1235,7 +1413,23 @@
             The conn man.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.LegacyDb.db_getstats_warning(YAF.Classes.Data.MsSqlDbConnectionManager)">
+        <member name="M:YAF.Classes.Data.LegacyDb.db_getstats_new">
+            <summary>
+            The db_getstats_new.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.getStats_InfoMessage(System.Object,YAF.Types.Handlers.YafDBConnInfoMessageEventArgs)">
+            <summary>
+            The reindexDb_InfoMessage.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.db_getstats_warning">
             <summary>
             The db_getstats_warning.
             </summary>
@@ -1257,6 +1451,28 @@
             The db recovery mode.
             </param>
         </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.db_recovery_mode_new(System.String)">
+            <summary>
+            The db_recovery_mode.
+            </summary>
+            <param name="DBName">
+            The db name.
+            </param>
+            <param name="dbRecoveryMode">
+            The db recovery mode.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.recoveryDbMode_InfoMessage(System.Object,YAF.Types.Handlers.YafDBConnInfoMessageEventArgs)">
+            <summary>
+            The recoveryDbMode_InfoMessage.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
         <member name="M:YAF.Classes.Data.LegacyDb.db_recovery_mode_warning(YAF.Classes.Data.MsSqlDbConnectionManager)">
             <summary>
             The db_recovery_mode_warning.
@@ -1276,7 +1492,34 @@
             The conn man.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.LegacyDb.db_reindex_warning(YAF.Classes.Data.MsSqlDbConnectionManager)">
+        <member name="M:YAF.Classes.Data.LegacyDb.db_recovery_mode_warning">
+            <summary>
+            The db_recovery_mode_warning.
+            </summary>
+            <param name="DBName">
+            The db name.
+            </param>
+            <returns>
+            The db_recovery_mode_warning.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.db_reindex_new">
+            <summary>
+            The db_reindex_new.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.reindexDb_InfoMessage(System.Object,YAF.Types.Handlers.YafDBConnInfoMessageEventArgs)">
+            <summary>
+            The reindexDb_InfoMessage.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.db_reindex_warning">
             <summary>
             The db_reindex_warning.
             </summary>
@@ -1304,6 +1547,34 @@
             The db_runsql.
             </returns>
         </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.db_runsql_new(System.String,System.Boolean)">
+            <summary>
+            The db_runsql.
+            </summary>
+            <param name="sql">
+            The sql.
+            </param>
+            <param name="connectionManager">
+            The conn man.
+            </param>
+            <param name="useTransaction">
+            The use Transaction.
+            </param>
+            <returns>
+            The db_runsql.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.runSql_InfoMessage(System.Object,YAF.Types.Handlers.YafDBConnInfoMessageEventArgs)">
+            <summary>
+            The runSql_InfoMessage.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
         <member name="M:YAF.Classes.Data.LegacyDb.db_shrink(YAF.Classes.Data.MsSqlDbConnectionManager)">
             <summary>
             The db_shrink.
@@ -1312,7 +1583,26 @@
             The db name.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.LegacyDb.db_shrink_warning(YAF.Classes.Data.MsSqlDbConnectionManager)">
+        <member name="M:YAF.Classes.Data.LegacyDb.db_shrink_new">
+            <summary>
+            The db_shrink.
+            </summary>
+            <param name="DBName">
+            The db name.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.dbShink_InfoMessage(System.Object,YAF.Types.Handlers.YafDBConnInfoMessageEventArgs)">
+            <summary>
+            The runSql_InfoMessage.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.db_shrink_warning">
             <summary>
             The db_shrink_warning.
             </summary>
@@ -1424,17 +1714,18 @@
         </member>
         <member name="M:YAF.Classes.Data.LegacyDb.extension_list(System.Object)">
             <summary>
-            The extension_list.
+            The extension list for a given Board
             </summary>
             <param name="boardID">
             The board id.
             </param>
             <returns>
+            Returns an extension list for a given Board
             </returns>
         </member>
         <member name="M:YAF.Classes.Data.LegacyDb.extension_save(System.Object,System.Object,System.Object)">
             <summary>
-            The extension_save.
+            Saves / creates extension
             </summary>
             <param name="extensionId">
             The extension id.
@@ -1607,12 +1898,12 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.LegacyDb.forum_listread(System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.forum_listread(System.Object,System.Object,System.Object,System.Object,System.Object,System.Boolean)">
             <summary>
             Lists read topics
             </summary>
             <param name="boardID">
-            BoardID
+             The Board ID
             </param>
             <param name="userID">
             The user ID.
@@ -1621,10 +1912,13 @@
             The category ID.
             </param>
             <param name="parentID">
-            ParentID
+            The Parent ID.
             </param>
             <param name="useStyledNicks">
             The use Styled Nicks.
+            </param>
+            <param name="findLastRead">
+            Indicates if the Table should Countain the last Access Date
             </param>
             <returns>
             DataTable with list
@@ -1652,6 +1946,18 @@
             The use Styled Nicks.
             </param>
             <returns>
+             Returns Data Table with all Mods
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.moderators_team_list(System.Boolean)">
+            <summary>
+            The moderators_team_list
+            </summary>
+            <param name="useStyledNicks">
+            The use Styled Nicks.
+            </param>
+            <returns>
+             Returns Data Table with all Mods
             </returns>
         </member>
         <member name="M:YAF.Classes.Data.LegacyDb.forum_resync(System.Object)">
@@ -3539,7 +3845,7 @@
             The versionname.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.LegacyDb.topic_active(System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.topic_active(System.Object,System.Object,System.Object,System.Object,System.Object,System.Boolean)">
             <summary>
             The topic_active.
             </summary>
@@ -3558,7 +3864,37 @@
             <param name="useStyledNicks">
             Set to true to get color nicks for last user and topic starter.
             </param>
+            <param name="findLastRead">
+            Indicates if the Table should Countain the last Access Date
+            </param>
             <returns>
+            Returns the List with the Active Topics
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.Topics_ByUser(System.Object,System.Object,System.Object,System.Object,System.Object,System.Boolean)">
+            <summary>
+            Gets all topics where the pageUserid has posted
+            </summary>
+            <param name="boardID">
+            The board id.
+            </param>
+            <param name="pageUserId">
+            The page user id.
+            </param>
+            <param name="since">
+            The since.
+            </param>
+            <param name="categoryID">
+            The category id.
+            </param>
+            <param name="useStyledNicks">
+            Set to true to get color nicks for last user and topic starter.
+            </param>
+            <param name="findLastRead">
+            Indicates if the Table should Countain the last Access Date
+            </param>
+            <returns>
+            Returns the List with the User Topics
             </returns>
         </member>
         <member name="M:YAF.Classes.Data.LegacyDb.topic_announcements(System.Object,System.Object,System.Object)">
@@ -3709,9 +4045,9 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.LegacyDb.topic_latest(System.Object,System.Object,System.Object,System.Boolean,System.Boolean)">
+        <member name="M:YAF.Classes.Data.LegacyDb.topic_latest(System.Object,System.Object,System.Object,System.Boolean,System.Boolean,System.Boolean)">
             <summary>
-            The topic_latest.
+            Get the Latest Topics
             </summary>
             <param name="boardID">
             The board id.
@@ -3728,10 +4064,14 @@
             <param name="showNoCountPosts">
             The show No Count Posts.
             </param>
+            <param name="findLastRead">
+            Indicates if the Table should Countain the last Access Date
+            </param>
             <returns>
+            Returnst the DataTable with the Latest Topics
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.LegacyDb.topic_list(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.topic_list(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Boolean)">
             <summary>
             The topic_list.
             </summary>
@@ -3758,6 +4098,9 @@
             </param>
             <param name="showMoved">
             The show Moved.
+            </param>
+            <param name="findLastRead">
+            Indicates if the Table should Countain the last Access Date
             </param>
             <returns>
             </returns>
@@ -4254,6 +4597,7 @@
             <param name="styledNicks">
             If styles should be returned.
             </param>
+            <exception cref="T:System.ApplicationException"></exception>
             <returns>
             A DataRow, it should never return a null value.
             </returns>
@@ -4762,6 +5106,17 @@
             The role.
             </param>
         </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.user_setnotdirty(System.Int32,System.Int32)">
+            <summary>
+            The user_setnotdirty.
+            </summary>
+            <param name="boardId">
+            The board id.
+            </param>
+            <param name="userId">
+            The userId key.
+            </param>
+        </member>
         <member name="M:YAF.Classes.Data.LegacyDb.user_simplelist(System.Int32,System.Int32)">
             <summary>
             For URL Rewriting
@@ -4936,12 +5291,93 @@
         </member>
         <member name="M:YAF.Classes.Data.LegacyDb.watchtopic_list(System.Object)">
             <summary>
-            The watchtopic_list.
+            List the Watch Topics per User
             </summary>
             <param name="userID">
             The user id.
             </param>
             <returns>
+            Returns the List of Topics
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.Readtopic_AddOrUpdate(System.Object,System.Object)">
+            <summary>
+            Add Or Update Read Tracking for the Current User and Topic
+            </summary>
+            <param name="userID">
+            The user id.
+            </param>
+            <param name="topicID">
+            The topic id.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.Readtopic_delete(System.Object)">
+            <summary>
+            Delete the Read Tracking
+            </summary>
+            <param name="trackingID">
+            The tracking id.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.User_LastRead(System.Object,System.DateTime)">
+            <summary>
+            Get the Global Last Read DateTime User
+            </summary>
+            <param name="userID">
+            The user ID.
+            </param>
+            <param name="lastVisitDate">
+            The last Visit Date of the User
+            </param>
+            <returns>
+            Returns the Global Last Read DateTime
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.Readtopic_lastread(System.Object,System.Object)">
+            <summary>
+            Get the Last Read DateTime for the Current Topic and User
+            </summary>
+            <param name="userID">
+            The user ID.
+            </param>
+            <param name="topicID">
+            The topic ID.
+            </param>
+            <returns>
+            Returns the Last Read DateTime
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.ReadForum_AddOrUpdate(System.Object,System.Object)">
+            <summary>
+            Add Or Update Read Tracking for the forum and Topic
+            </summary>
+            <param name="userID">
+            The user id.
+            </param>
+            <param name="forumID">
+            The forum id.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.ReadForum_delete(System.Object)">
+            <summary>
+            Delete the Read Tracking
+            </summary>
+            <param name="trackingID">
+            The tracking id.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.ReadForum_lastread(System.Object,System.Object)">
+            <summary>
+            Get the Last Read DateTime for the Forum and User
+            </summary>
+            <param name="userID">
+            The user ID.
+            </param>
+            <param name="forumID">
+            The forum ID.
+            </param>
+            <returns>
+            Returns the Last Read DateTime
             </returns>
         </member>
         <member name="M:YAF.Classes.Data.LegacyDb.GetBooleanRegistryValue(System.String)">
@@ -5097,6 +5533,9 @@
             <param name="category">
             Cateogry of medals to list. Must be complemented with not-null boardID parameter.
             </param>
+            <returns>
+            Returns the Lists medals.
+            </returns>
         </member>
         <member name="M:YAF.Classes.Data.LegacyDb.message_deleteRecursively(System.Object,System.Boolean,System.String,System.Int32,System.Boolean,System.Boolean)">
             <summary>
@@ -5219,17 +5658,6 @@
             The current indent.
             </param>
         </member>
-        <member name="P:YAF.Classes.Data.LegacyDb.DBSize">
-            <summary>
-              Gets the database size
-            </summary>
-            <returns>intager value for database size</returns>
-        </member>
-        <member name="P:YAF.Classes.Data.LegacyDb.DBVersion">
-            <summary>
-              Gets DBVersion.
-            </summary>
-        </member>
         <member name="P:YAF.Classes.Data.LegacyDb.FullTextScript">
             <summary>
               Gets or sets FullTextScript.
@@ -5238,11 +5666,6 @@
         <member name="P:YAF.Classes.Data.LegacyDb.FullTextSupported">
             <summary>
               Gets or sets a value indicating whether FullTextSupported.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.LegacyDb.IsForumInstalled">
-            <summary>
-              Gets a value indicating whether IsForumInstalled.
             </summary>
         </member>
         <member name="P:YAF.Classes.Data.LegacyDb.PanelGetStats">
@@ -5298,6 +5721,7 @@
         <member name="P:YAF.Classes.Data.LegacyDb.Parameter12_Name">
             <summary>
               Gets Parameter12_Name.
+              (reserved for 'User Instance' in MS SQL SERVER)
             </summary>
         </member>
         <member name="P:YAF.Classes.Data.LegacyDb.Parameter12_Value">
@@ -5565,42 +5989,56 @@
               Gets ScriptList.
             </summary>
         </member>
-        <member name="T:YAF.Classes.Data.Import.DataImport">
+        <member name="T:YAF.Classes.Data.QueryCounter">
             <summary>
-            The data import.
+            The query counter.
             </summary>
         </member>
-        <member name="M:YAF.Classes.Data.Import.DataImport.BBCodeExtensionImport(System.Int32,System.IO.Stream)">
+        <member name="M:YAF.Classes.Data.QueryCounter.#ctor(System.String)">
             <summary>
-            The bb code extension import.
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.QueryCounter"/> class.
             </summary>
-            <param name="boardId">
-            The board id.
+            <param name="sql">
+            The sql.
             </param>
-            <param name="imputStream">
-            The imput stream.
-            </param>
-            <returns>
-            The bb code extension import.
-            </returns>
-            <exception cref="T:System.Exception">
-            </exception>
         </member>
-        <member name="M:YAF.Classes.Data.Import.DataImport.FileExtensionImport(System.Int32,System.IO.Stream)">
+        <member name="M:YAF.Classes.Data.QueryCounter.Dispose">
             <summary>
-            The file extension import.
+            The dispose.
             </summary>
-            <param name="boardId">
-            The board id.
+        </member>
+        <member name="T:YAF.Classes.Data.SearchCondition">
+            <summary>
+            The search condition.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.SearchCondition.#ctor">
+            <summary>
+              Initializes a new instance of the <see cref="T:YAF.Classes.Data.SearchCondition"/> class.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.SearchCondition.Condition">
+            <summary>
+              Gets or sets Condition.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.SearchCondition.ConditionType">
+            <summary>
+              Gets or sets ConditionType.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.DataModule">
+            <summary>
+            The data module.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.DataModule.Load(Autofac.ContainerBuilder)">
+            <summary>
+            The load.
+            </summary>
+            <param name="builder">
+            The builder.
             </param>
-            <param name="imputStream">
-            The imput stream.
-            </param>
-            <returns>
-            The file extension import.
-            </returns>
-            <exception cref="T:System.Exception">
-            </exception>
         </member>
         <member name="T:YAF.Types.Objects.TypedUserFind">
             <summary>
@@ -5780,317 +6218,6 @@
             Gets or sets UserID.
             </summary>
         </member>
-        <member name="T:YAF.Classes.Data.MsSqlDbAccess">
-            <summary>
-            The yaf db access for SQL Server.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.MsSqlDbAccess._resultFilterList">
-            <summary>
-              Result filter list
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.MsSqlDbAccess._isolationLevel">
-            <summary>
-              The _isolation level.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.MsSqlDbAccess._connectionManagerType">
-            <summary>
-              The _connection manager type.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.MsSqlDbAccess.CleanForSQLServerVersion(System.String,System.UInt16)">
-            <summary>
-            A method to handle custom scripts execution tags
-            </summary>
-            <param name="scriptChunk">
-            Input string
-            </param>
-            <param name="versionSQL">
-            SQL server version as ushort
-            </param>
-            <returns>
-            Returns an empty string if condition was not and cleanedfrom tags string if was.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.MsSqlDbAccess.GetCommand(System.String,System.Boolean)">
-            <summary>
-            Creates new SqlCommand based on command text applying all qualifiers to the name.
-            </summary>
-            <param name="commandText">
-            Command text to qualify.
-            </param>
-            <param name="isText">
-            Determines whether command text is text or stored procedure.
-            </param>
-            <returns>
-            New SqlCommand
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.MsSqlDbAccess.GetCommand(System.String,System.Boolean,System.Data.SqlClient.SqlConnection)">
-            <summary>
-            Creates new SqlCommand based on command text applying all qualifiers to the name.
-            </summary>
-            <param name="commandText">
-            Command text to qualify.
-            </param>
-            <param name="isText">
-            Determines whether command text is text or stored procedure.
-            </param>
-            <param name="connection">
-            Connection to use with command.
-            </param>
-            <returns>
-            New SqlCommand
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.MsSqlDbAccess.GetCommand(System.String)">
-            <summary>
-            Creates new SqlCommand calling stored procedure applying all qualifiers to the name.
-            </summary>
-            <param name="storedProcedure">
-            Base of stored procedure name.
-            </param>
-            <returns>
-            New SqlCommand
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.MsSqlDbAccess.GetCommand(System.String,System.Data.SqlClient.SqlConnection)">
-            <summary>
-            Creates new SqlCommand calling stored procedure applying all qualifiers to the name.
-            </summary>
-            <param name="storedProcedure">
-            Base of stored procedure name.
-            </param>
-            <param name="connection">
-            Connection to use with command.
-            </param>
-            <returns>
-            New SqlCommand
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.MsSqlDbAccess.GetCommandTextReplaced(System.String)">
-            <summary>
-            Gets command text replaced with {databaseOwner} and {objectQualifier}.
-            </summary>
-            <param name="commandText">
-            Test to transform.
-            </param>
-            <returns>
-            The get command text replaced.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.MsSqlDbAccess.GetConnectionString(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.String,System.String)">
-            <summary>
-            Creates a Connection String from the parameters.
-            </summary>
-            <param name="parm1">
-            </param>
-            <param name="parm2">
-            </param>
-            <param name="parm3">
-            </param>
-            <param name="parm4">
-            </param>
-            <param name="parm5">
-            </param>
-            <param name="parm6">
-            </param>
-            <param name="parm7">
-            </param>
-            <param name="parm8">
-            </param>
-            <param name="parm9">
-            </param>
-            <param name="parm10">
-            </param>
-            <param name="parm11">
-            </param>
-            <param name="parm12">
-            </param>
-            <param name="parm13">
-            </param>
-            <param name="parm14">
-            </param>
-            <param name="parm15">
-            </param>
-            <param name="parm16">
-            </param>
-            <param name="parm17">
-            </param>
-            <param name="parm18">
-            </param>
-            <param name="parm19">
-            </param>
-            <param name="userID">
-            </param>
-            <param name="userPassword">
-            </param>
-            <returns>
-            The get connection string.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.MsSqlDbAccess.GetObjectName(System.String)">
-            <summary>
-            Gets qualified object name
-            </summary>
-            <param name="name">
-            Base name of an object
-            </param>
-            <returns>
-            Returns qualified object name of format {databaseOwner}.{objectQualifier}name
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.MsSqlDbAccess.TestConnection(System.String@)">
-            <summary>
-            Test the DB Connection.
-            </summary>
-            <param name="exceptionMessage">
-            outbound ExceptionMessage
-            </param>
-            <returns>
-            true if successfully connected
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.MsSqlDbAccess.SetConnectionManagerAdapter``1">
-            <summary>
-            Change the Connection Manager used in all DB operations.
-            </summary>
-            <typeparam name="TManager">
-            </typeparam>
-        </member>
-        <member name="M:YAF.Classes.Data.MsSqlDbAccess.ExecuteNonQuery(System.Data.IDbCommand,System.Boolean)">
-            <summary>
-            The execute non query.
-            </summary>
-            <param name="cmd">
-            The cmd.
-            </param>
-            <param name="transaction">
-            The transaction.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.MsSqlDbAccess.ExecuteScalar(System.Data.IDbCommand,System.Boolean)">
-            <summary>
-            The execute scalar.
-            </summary>
-            <param name="cmd">
-            The cmd.
-            </param>
-            <param name="transaction">
-            The transaction.
-            </param>
-            <returns>
-            The execute scalar.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.MsSqlDbAccess.GetConnectionManager">
-            <summary>
-            The get connection manager.
-            </summary>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.MsSqlDbAccess.GetData(System.Data.IDbCommand,System.Boolean)">
-            <summary>
-            The get data.
-            </summary>
-            <param name="cmd">
-            The cmd.
-            </param>
-            <param name="transaction">
-            The transaction.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.MsSqlDbAccess.GetData(System.String,System.Boolean)">
-            <summary>
-            The get data.
-            </summary>
-            <param name="commandText">
-            The command text.
-            </param>
-            <param name="transaction">
-            The transaction.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.MsSqlDbAccess.GetDataset(System.Data.IDbCommand,System.Boolean)">
-            <summary>
-            The get dataset.
-            </summary>
-            <param name="cmd">
-            The cmd.
-            </param>
-            <param name="transaction">
-            The transaction.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.MsSqlDbAccess.GetDatasetBasic(System.Data.IDbCommand,System.Boolean)">
-            <summary>
-            Used internally to get data for all the other functions
-            </summary>
-            <param name="cmd">
-            </param>
-            <param name="transaction">
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.MsSqlDbAccess.ProcessUsingResultFilters(System.Data.DataTable,System.String)">
-            <summary>
-            Process a <see cref="T:System.Data.DataTable"/> using Result Filters.
-            </summary>
-            <param name="dataTable">
-            data table to process
-            </param>
-            <param name="sqlCommand">
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="P:YAF.Classes.Data.MsSqlDbAccess.Current">
-            <summary>
-              Gets Current IDbAccess -- needs to be switched to direct injection into all DB classes.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.MsSqlDbAccess.IsolationLevel">
-            <summary>
-              Gets IsolationLevel.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.MsSqlDbAccess.ResultFilterList">
-            <summary>
-              Gets the Result Filter List.
-            </summary>
-            <exception cref="T:System.NotImplementedException">
-            </exception>
-        </member>
-        <member name="T:YAF.Classes.Data.SearchCondition">
-            <summary>
-            The search condition.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.SearchCondition.#ctor">
-            <summary>
-              Initializes a new instance of the <see cref="T:YAF.Classes.Data.SearchCondition"/> class.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.SearchCondition.Condition">
-            <summary>
-              Gets or sets Condition.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.SearchCondition.ConditionType">
-            <summary>
-              Gets or sets ConditionType.
-            </summary>
-        </member>
         <member name="T:YAF.Classes.Data.MsSqlDbConnectionManager">
             <summary>
             Provides open/close management for DB Connections
@@ -6162,24 +6289,132 @@
             Gets OpenDBConnection.
             </summary>
         </member>
-        <member name="T:YAF.Classes.Data.SearchBuilderExtensions">
+        <member name="T:YAF.Classes.Data.DataRowConvert">
             <summary>
-            The search builder extensions.
+            Helper class to do basic data conversion for a DataRow.
             </summary>
         </member>
-        <member name="M:YAF.Classes.Data.SearchBuilderExtensions.BuildSql(System.Collections.Generic.IEnumerable{YAF.Classes.Data.SearchCondition},System.Boolean)">
+        <member name="F:YAF.Classes.Data.DataRowConvert._dbRow">
             <summary>
-            The build sql.
+              The _db row.
             </summary>
-            <param name="conditions">
-            The conditions.
+        </member>
+        <member name="M:YAF.Classes.Data.DataRowConvert.#ctor(System.Data.DataRow)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.DataRowConvert"/> class.
+            </summary>
+            <param name="dbRow">
+            The db row.
             </param>
-            <param name="surroundWithParathesis">
-            The surround with parathesis.
+        </member>
+        <member name="M:YAF.Classes.Data.DataRowConvert.AsBool(System.String)">
+            <summary>
+            The as bool.
+            </summary>
+            <param name="columnName">
+            The column name.
             </param>
             <returns>
-            The build sql.
+            The as bool.
             </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DataRowConvert.AsDateTime(System.String)">
+            <summary>
+            The as date time.
+            </summary>
+            <param name="columnName">
+            The column name.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DataRowConvert.AsInt32(System.String)">
+            <summary>
+            The as int 32.
+            </summary>
+            <param name="columnName">
+            The column name.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DataRowConvert.AsInt64(System.String)">
+            <summary>
+            The as int 64.
+            </summary>
+            <param name="columnName">
+            The column name.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DataRowConvert.AsString(System.String)">
+            <summary>
+            The as string.
+            </summary>
+            <param name="columnName">
+            The column name.
+            </param>
+            <returns>
+            The as string.
+            </returns>
+        </member>
+        <member name="T:YAF.Classes.Data.BaseDataTableResultFilter">
+            <summary>
+            The abstract base data table result filter.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.BaseDataTableResultFilter._sqlCommandStartsWith">
+            <summary>
+            The filter that sql commands starts with -- if none added all commands are processed.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.BaseDataTableResultFilter.Process(System.Data.DataTable@,System.String)">
+            <summary>
+            The process.
+            </summary>
+            <param name="dataTable">
+            The data table.
+            </param>
+            <param name="sqlCommand">
+            The sql command.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.BaseDataTableResultFilter.FilteredProcess(System.Data.DataTable@,System.String)">
+            <summary>
+            The filtered process.
+            </summary>
+            <param name="dataTable">
+            The data table.
+            </param>
+            <param name="sqlCommand">
+            The sql command.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Data.BaseDataTableResultFilter.Rank">
+            <summary>
+            Gets Rank.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.BaseDataTableResultFilter.SqlCommandStartsWith">
+            <summary>
+            Gets or sets SqlCommandStartsWith.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.SearchConditionType">
+            <summary>
+            The search condition type.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.SearchConditionType.AND">
+            <summary>
+              The and.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.SearchConditionType.OR">
+            <summary>
+              The or.
+            </summary>
         </member>
         <member name="T:YAF.Classes.Data.SearchBuilder">
             <summary>
@@ -6259,45 +6494,42 @@
             <returns>
             </returns>
         </member>
-        <member name="T:YAF.Classes.Data.SqlDataLayerConverter">
+        <member name="T:YAF.Classes.Data.Import.DataImport">
             <summary>
-            The sql data layer converter.
+            The data import.
             </summary>
         </member>
-        <member name="M:YAF.Classes.Data.SqlDataLayerConverter.VerifyInt32(System.Object)">
+        <member name="M:YAF.Classes.Data.Import.DataImport.BBCodeExtensionImport(System.Int32,System.IO.Stream)">
             <summary>
-            The verify int 32.
+            The bb code extension import.
             </summary>
-            <param name="o">
-            The o.
+            <param name="boardId">
+            The board id.
+            </param>
+            <param name="imputStream">
+            The imput stream.
             </param>
             <returns>
-            The verify int 32.
+            The bb code extension import.
             </returns>
+            <exception cref="T:System.Exception">
+            </exception>
         </member>
-        <member name="M:YAF.Classes.Data.SqlDataLayerConverter.VerifyBool(System.Object)">
+        <member name="M:YAF.Classes.Data.Import.DataImport.FileExtensionImport(System.Int32,System.IO.Stream)">
             <summary>
-            The verify bool.
+            The file extension import.
             </summary>
-            <param name="o">
-            The o.
+            <param name="boardId">
+            The board id.
+            </param>
+            <param name="imputStream">
+            The imput stream.
             </param>
             <returns>
-            The verify bool.
+            The file extension import.
             </returns>
-        </member>
-        <member name="T:YAF.Classes.Data.DataModule">
-            <summary>
-            The data module.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.DataModule.Load(Autofac.ContainerBuilder)">
-            <summary>
-            The load.
-            </summary>
-            <param name="builder">
-            The builder.
-            </param>
+            <exception cref="T:System.Exception">
+            </exception>
         </member>
     </members>
 </doc>

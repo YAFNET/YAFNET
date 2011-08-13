@@ -4,30 +4,6 @@
         <name>YAF.Classes.Config</name>
     </assembly>
     <members>
-        <member name="T:YAF.Classes.Pattern.IInstanceFactory">
-            <summary>
-            The instance factory interface
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Pattern.IInstanceFactory.GetInstance``1">
-            <summary>
-            The get instance.
-            </summary>
-            <typeparam name="T">
-            </typeparam>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Pattern.IInstanceFactory.SetInstance``1(``0)">
-            <summary>
-            The set instance.
-            </summary>
-            <param name="instance">
-            The instance.
-            </param>
-            <typeparam name="T">
-            </typeparam>
-        </member>
         <member name="T:YAF.Classes.YafFactoryProvider">
             <summary>
             The yaf provider.
@@ -62,6 +38,138 @@
             <summary>
             Gets UserDisplayNameType.
             </summary>
+        </member>
+        <member name="T:YAF.Classes.Pattern.RegistryDictionaryOverride">
+            <summary>
+            Provides a method for automatic overriding of a base hash...
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Pattern.RegistryDictionary">
+            <summary>
+            The registry dictionary.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Pattern.RegistryDictionary.GetValue``1(System.String,``0)">
+            <summary>
+            The get value.
+            </summary>
+            <param name="name">
+            The name.
+            </param>
+            <param name="defaultValue">
+            The default value.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Pattern.RegistryDictionary.SetValue``1(System.String,``0)">
+            <summary>
+            The set value.
+            </summary>
+            <param name="name">
+            The name.
+            </param>
+            <param name="value">
+            The value.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+        </member>
+        <member name="F:YAF.Classes.Pattern.RegistryDictionaryOverride._defaultGetOverride">
+            <summary>
+            The _default get override.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Pattern.RegistryDictionaryOverride._defaultSetOverride">
+            <summary>
+            The _default set override.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Pattern.RegistryDictionaryOverride.GetValue``1(System.String,``0)">
+            <summary>
+            The get value.
+            </summary>
+            <param name="name">
+            The name.
+            </param>
+            <param name="defaultValue">
+            The default value.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Pattern.RegistryDictionaryOverride.GetValue``1(System.String,``0,System.Boolean)">
+            <summary>
+            The get value.
+            </summary>
+            <param name="name">
+            The name.
+            </param>
+            <param name="defaultValue">
+            The default value.
+            </param>
+            <param name="allowOverride">
+            The allow override.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Pattern.RegistryDictionaryOverride.SetValue``1(System.String,``0)">
+            <summary>
+            The set value.
+            </summary>
+            <param name="name">
+            The name.
+            </param>
+            <param name="value">
+            The value.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+        </member>
+        <member name="M:YAF.Classes.Pattern.RegistryDictionaryOverride.SetValue``1(System.String,``0,System.Boolean)">
+            <summary>
+            The set value.
+            </summary>
+            <param name="name">
+            The name.
+            </param>
+            <param name="value">
+            The value.
+            </param>
+            <param name="setOverrideOnly">
+            The set override only.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+        </member>
+        <member name="P:YAF.Classes.Pattern.RegistryDictionaryOverride.DefaultGetOverride">
+            <summary>
+            Gets or sets a value indicating whether DefaultGetOverride.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Pattern.RegistryDictionaryOverride.DefaultSetOverride">
+            <summary>
+            Gets or sets a value indicating whether DefaultSetOverride.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Pattern.RegistryDictionaryOverride.OverrideDictionary">
+            <summary>
+            Gets or sets OverrideDictionary.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Pattern.TypeFactoryInstanceApplicationBoardScope`1">
+            <summary>
+            The type board application factory instance.
+            </summary>
+            <typeparam name="T">
+            </typeparam>
         </member>
         <member name="T:YAF.Classes.Pattern.TypeFactoryInstanceApplicationScope`1">
             <summary>
@@ -143,127 +251,107 @@
             Gets or sets ApplicationInstance.
             </summary>
         </member>
-        <member name="T:YAF.Classes.YafBoardFolders">
+        <member name="M:YAF.Classes.Pattern.TypeFactoryInstanceApplicationBoardScope`1.#ctor(System.String)">
             <summary>
-            The yaf board folders.
+            Initializes a new instance of the <see cref="T:YAF.Classes.Pattern.TypeFactoryInstanceApplicationBoardScope`1"/> class.
             </summary>
-        </member>
-        <member name="P:YAF.Classes.YafBoardFolders.Current">
-            <summary>
-            Gets Current.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.YafBoardFolders.BoardFolder">
-            <summary>
-            Gets BoardFolder.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.YafBoardFolders.Uploads">
-            <summary>
-            Gets Uploads.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.YafBoardFolders.Themes">
-            <summary>
-            Gets Themes.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.YafBoardFolders.Images">
-            <summary>
-            Gets Images.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.YafBoardFolders.Avatars">
-            <summary>
-            Gets Avatars.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.YafBoardFolders.Categories">
-            <summary>
-            Gets Categories.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.YafBoardFolders.Forums">
-            <summary>
-            Gets Categories.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.YafBoardFolders.Emoticons">
-            <summary>
-            Gets Emoticons.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.YafBoardFolders.Medals">
-            <summary>
-            Gets Medals.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.YafBoardFolders.Ranks">
-            <summary>
-            Gets Ranks.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Pattern.TypeDictionary">
-            <summary>
-            Allows basic type conversion of Dictionary objects.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Pattern.TypeDictionary.AsType``1(System.String,``0)">
-            <summary>
-            The as type.
-            </summary>
-            <param name="key">
-            The key.
+            <param name="typeName">
+            The type name.
             </param>
-            <param name="defaultValue">
-            The default value.
-            </param>
+        </member>
+        <member name="T:YAF.Classes.Pattern.PageSingleton`1">
+            <summary>
+            Singleton factory implementation
+            </summary>
+            <typeparam name="T">
+            </typeparam>
+        </member>
+        <member name="F:YAF.Classes.Pattern.PageSingleton`1._instance">
+            <summary>
+              The _instance.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Pattern.PageSingleton`1.GetInstance">
+            <summary>
+            The get instance.
+            </summary>
+            <returns>
+            </returns>
+        </member>
+        <member name="P:YAF.Classes.Pattern.PageSingleton`1.Instance">
+            <summary>
+              Gets Instance.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Pattern.IInstanceFactory">
+            <summary>
+            The instance factory interface
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Pattern.IInstanceFactory.GetInstance``1">
+            <summary>
+            The get instance.
+            </summary>
             <typeparam name="T">
             </typeparam>
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Pattern.TypeDictionary.AsType``1(System.String)">
+        <member name="M:YAF.Classes.Pattern.IInstanceFactory.SetInstance``1(``0)">
             <summary>
-            The as type.
+            The set instance.
             </summary>
-            <param name="key">
-            The key.
+            <param name="instance">
+            The instance.
             </param>
             <typeparam name="T">
             </typeparam>
-            <returns>
-            </returns>
         </member>
-        <member name="M:YAF.Classes.Pattern.TypeDictionary.AsBoolean(System.String)">
+        <member name="T:YAF.Utils.AreEqualFunc`1">
             <summary>
-            The as boolean.
+            The are equal func.
             </summary>
-            <param name="key">
-            The key.
+            <typeparam name="T">
+            </typeparam>
+        </member>
+        <member name="F:YAF.Utils.AreEqualFunc`1._comparer">
+            <summary>
+            The _comparer.
+            </summary>
+        </member>
+        <member name="M:YAF.Utils.AreEqualFunc`1.#ctor(System.Func{`0,`0,System.Boolean})">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Utils.AreEqualFunc`1"/> class.
+            </summary>
+            <param name="comparer">
+            The comparer.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            </exception>
+        </member>
+        <member name="M:YAF.Utils.AreEqualFunc`1.Equals(`0,`0)">
+            <summary>
+            The equals.
+            </summary>
+            <param name="x">
+            The x.
+            </param>
+            <param name="y">
+            The y.
             </param>
             <returns>
+            The equals.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Pattern.TypeDictionary.AsInt(System.String)">
+        <member name="M:YAF.Utils.AreEqualFunc`1.GetHashCode(`0)">
             <summary>
-            The as int.
+            The get hash code.
             </summary>
-            <param name="key">
-            The key.
+            <param name="obj">
+            The obj.
             </param>
             <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Pattern.TypeDictionary.AsString(System.String)">
-            <summary>
-            The as string.
-            </summary>
-            <param name="key">
-            The key.
-            </param>
-            <returns>
-            The as string.
+            The get hash code.
             </returns>
         </member>
         <member name="T:YAF.Classes.Pattern.IThreadSafeDictionary`2">
@@ -625,685 +713,6 @@
             <summary>
             The dispose.
             </summary>
-        </member>
-        <member name="T:YAF.Classes.Pattern.RegistryDictionaryOverride">
-            <summary>
-            Provides a method for automatic overriding of a base hash...
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Pattern.RegistryDictionary">
-            <summary>
-            The registry dictionary.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Pattern.RegistryDictionary.GetValue``1(System.String,``0)">
-            <summary>
-            The get value.
-            </summary>
-            <param name="name">
-            The name.
-            </param>
-            <param name="defaultValue">
-            The default value.
-            </param>
-            <typeparam name="T">
-            </typeparam>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Pattern.RegistryDictionary.SetValue``1(System.String,``0)">
-            <summary>
-            The set value.
-            </summary>
-            <param name="name">
-            The name.
-            </param>
-            <param name="value">
-            The value.
-            </param>
-            <typeparam name="T">
-            </typeparam>
-        </member>
-        <member name="F:YAF.Classes.Pattern.RegistryDictionaryOverride._defaultGetOverride">
-            <summary>
-            The _default get override.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Pattern.RegistryDictionaryOverride._defaultSetOverride">
-            <summary>
-            The _default set override.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Pattern.RegistryDictionaryOverride.GetValue``1(System.String,``0)">
-            <summary>
-            The get value.
-            </summary>
-            <param name="name">
-            The name.
-            </param>
-            <param name="defaultValue">
-            The default value.
-            </param>
-            <typeparam name="T">
-            </typeparam>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Pattern.RegistryDictionaryOverride.GetValue``1(System.String,``0,System.Boolean)">
-            <summary>
-            The get value.
-            </summary>
-            <param name="name">
-            The name.
-            </param>
-            <param name="defaultValue">
-            The default value.
-            </param>
-            <param name="allowOverride">
-            The allow override.
-            </param>
-            <typeparam name="T">
-            </typeparam>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Pattern.RegistryDictionaryOverride.SetValue``1(System.String,``0)">
-            <summary>
-            The set value.
-            </summary>
-            <param name="name">
-            The name.
-            </param>
-            <param name="value">
-            The value.
-            </param>
-            <typeparam name="T">
-            </typeparam>
-        </member>
-        <member name="M:YAF.Classes.Pattern.RegistryDictionaryOverride.SetValue``1(System.String,``0,System.Boolean)">
-            <summary>
-            The set value.
-            </summary>
-            <param name="name">
-            The name.
-            </param>
-            <param name="value">
-            The value.
-            </param>
-            <param name="setOverrideOnly">
-            The set override only.
-            </param>
-            <typeparam name="T">
-            </typeparam>
-        </member>
-        <member name="P:YAF.Classes.Pattern.RegistryDictionaryOverride.DefaultGetOverride">
-            <summary>
-            Gets or sets a value indicating whether DefaultGetOverride.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Pattern.RegistryDictionaryOverride.DefaultSetOverride">
-            <summary>
-            Gets or sets a value indicating whether DefaultSetOverride.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Pattern.RegistryDictionaryOverride.OverrideDictionary">
-            <summary>
-            Gets or sets OverrideDictionary.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.BaseUrlBuilder">
-            <summary>
-            The base url builder.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.BaseUrlBuilder._baseUrls">
-            <summary>
-            The _base urls.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.BaseUrlBuilder.GetBaseUrlFromVariables">
-            <summary>
-            The get base url from variables.
-            </summary>
-            <returns>
-            The get base url from variables.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.BaseUrlBuilder.BuildUrl(System.String)">
-            <summary>
-            The build url.
-            </summary>
-            <param name="url">
-            The url.
-            </param>
-            <returns>
-            The build url.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.BaseUrlBuilder.BuildUrlFull(System.String)">
-            <summary>
-            The build url full.
-            </summary>
-            <param name="url">
-            The url.
-            </param>
-            <returns>
-            The build url full.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.BaseUrlBuilder.TreatBaseUrl(System.String)">
-            <summary>
-            The treat base url.
-            </summary>
-            <param name="baseUrl">
-            The base url.
-            </param>
-            <returns>
-            The treat base url.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.BaseUrlBuilder.TreatPathStr(System.String)">
-            <summary>
-            The treat path str.
-            </summary>
-            <param name="altRoot">
-            The alt root.
-            </param>
-            <returns>
-            The treat path str.
-            </returns>
-        </member>
-        <member name="P:YAF.Classes.BaseUrlBuilder.BaseUrl">
-            <summary>
-            Gets BaseUrl.
-            </summary>
-            <exception cref="T:YAF.Classes.BaseUrlMaskRequiredException">Since there is no active context, a base url mask is required. Please specify in the AppSettings in your web.config.</exception>
-        </member>
-        <member name="P:YAF.Classes.BaseUrlBuilder.ClientFileRoot">
-            <summary>
-            Gets ClientFileRoot.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.BaseUrlBuilder.ServerFileRoot">
-            <summary>
-            Gets ServerFileRoot.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.BaseUrlBuilder.AppPath">
-            <summary>
-            Gets App Path.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.BaseUrlBuilder.ScriptName">
-            <summary>
-            Gets ScriptName.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.BaseUrlBuilder.ScriptNamePath">
-            <summary>
-            Gets ScriptNamePath.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Pattern.SingleClassInstanceFactory">
-            <summary>
-            The single class instance factory.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Pattern.SingleClassInstanceFactory._contextClasses">
-            <summary>
-              The _context classes.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Pattern.SingleClassInstanceFactory.GetInstance``1">
-            <summary>
-            The get instance.
-            </summary>
-            <typeparam name="T">
-            </typeparam>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Pattern.SingleClassInstanceFactory.SetInstance``1(``0)">
-            <summary>
-            The set instance.
-            </summary>
-            <param name="instance">
-            The instance.
-            </param>
-            <typeparam name="T">
-            </typeparam>
-        </member>
-        <member name="T:YAF.Classes.YafBoardSettingCollection">
-            <summary>
-            Gets the Board Settings as dictionary item for easy iteration.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.YafBoardSettingCollection._settings">
-            <summary>
-            The _settings.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.YafBoardSettingCollection.#ctor(YAF.Classes.YafBoardSettings)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.YafBoardSettingCollection"/> class.
-            </summary>
-            <param name="boardSettings">
-            The board settings.
-            </param>
-        </member>
-        <member name="P:YAF.Classes.YafBoardSettingCollection.SettingsString">
-            <summary>
-            Gets SettingsString.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.YafBoardSettingCollection.SettingsBool">
-            <summary>
-            Gets SettingsBool.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.YafBoardSettingCollection.SettingsInt">
-            <summary>
-            Gets SettingsInt.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.YafBoardSettingCollection.SettingsDouble">
-            <summary>
-            Gets SettingsDouble.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.YafBoardSettingCollection.SettingsOther">
-            <summary>
-            Gets SettingsOther.
-            </summary>
-        </member>
-        <member name="T:YAF.Utils.AreEqualFunc`1">
-            <summary>
-            The are equal func.
-            </summary>
-            <typeparam name="T">
-            </typeparam>
-        </member>
-        <member name="F:YAF.Utils.AreEqualFunc`1._comparer">
-            <summary>
-            The _comparer.
-            </summary>
-        </member>
-        <member name="M:YAF.Utils.AreEqualFunc`1.#ctor(System.Func{`0,`0,System.Boolean})">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Utils.AreEqualFunc`1"/> class.
-            </summary>
-            <param name="comparer">
-            The comparer.
-            </param>
-            <exception cref="T:System.ArgumentNullException">
-            </exception>
-        </member>
-        <member name="M:YAF.Utils.AreEqualFunc`1.Equals(`0,`0)">
-            <summary>
-            The equals.
-            </summary>
-            <param name="x">
-            The x.
-            </param>
-            <param name="y">
-            The y.
-            </param>
-            <returns>
-            The equals.
-            </returns>
-        </member>
-        <member name="M:YAF.Utils.AreEqualFunc`1.GetHashCode(`0)">
-            <summary>
-            The get hash code.
-            </summary>
-            <param name="obj">
-            The obj.
-            </param>
-            <returns>
-            The get hash code.
-            </returns>
-        </member>
-        <member name="T:YAF.Classes.DefaultUrlBuilder">
-            <summary>
-            Implements URL Builder.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.DefaultUrlBuilder.BuildUrl(System.String)">
-            <summary>
-            Builds path for calling page with parameter URL as page's escaped parameter.
-            </summary>
-            <param name="url">
-            URL to put into parameter.
-            </param>
-            <returns>
-            URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.DefaultUrlBuilder.BuildUrlFull(System.String)">
-            <summary>
-            Builds Full URL for calling page with parameter URL as page's escaped parameter.
-            </summary>
-            <param name="url">
-            URL to put into parameter.
-            </param>
-            <returns>
-            URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.
-            </returns>
-        </member>
-        <member name="T:YAF.Classes.Config">
-            <summary>
-            Static class that access the app settings in the web.config file
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Config.GetConfigValueAsBool(System.String,System.Boolean)">
-            <summary>
-            The get config value as bool.
-            </summary>
-            <param name="configKey">
-            The config key.
-            </param>
-            <param name="defaultValue">
-            The default value.
-            </param>
-            <returns>
-            The get config value as bool.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Config.GetConfigValueAsString(System.String)">
-            <summary>
-            The get config value as string.
-            </summary>
-            <param name="configKey">
-            The config key.
-            </param>
-            <returns>
-            The get config value as string.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Config.GetProvider(System.String)">
-            <summary>
-            Gets a Provider type string from the config.
-            </summary>
-            <param name="providerName">
-            </param>
-            <returns>
-            Provider type string or <see langword="null"/> if none exist.
-            </returns>
-        </member>
-        <member name="P:YAF.Classes.Config.AllowLoginAndLogoff">
-            <summary>
-              Gets a value indicating whether AllowLoginAndLogoff.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.AppRoot">
-            <summary>
-              Gets AppRoot.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.BaseScriptFile">
-            <summary>
-              Gets the Used for Url Rewriting -- default is "default.aspx"
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.BaseUrlMask">
-            <summary>
-              Gets BaseUrlMask.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.BoardID">
-            <summary>
-              Gets the Current BoardID -- default is 1.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.BoardRoot">
-            <summary>
-              Gets the Folder to use for board specific uploads, images, themes
-              Example : /Boards/
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.CategoryID">
-            <summary>
-              Gets the Current CategoryID -- default is null.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.ClientFileRoot">
-            <summary>
-              Gets ClientFileRoot.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.ConnectionString">
-            <summary>
-              Gets ConnectionString.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.ConnectionStringName">
-            <summary>
-              Gets ConnectionStringName.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.CreateDistinctRoles">
-            <summary>
-            Gets a value indicating whether the Use it if distinct YAF role names are required. 
-            Used in integration environments only.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.DatabaseCollation">
-            <summary>
-              Gets DatabaseCollation.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.DatabaseEncoding">
-            <summary>
-              Gets DatabaseEncoding.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.DatabaseObjectQualifier">
-            <summary>
-              Gets DatabaseObjectQualifier.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.DatabaseOwner">
-            <summary>
-              Gets DatabaseOwner.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.DisableJQuery">
-            <summary>
-              Gets a value indicating whether Is Jquery Registration disabled? -- default is false.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.EnableURLRewriting">
-            <summary>
-              Gets a value indicating whether Is Url Rewriting enabled? -- default is false.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.ForceScriptName">
-            <summary>
-            Gets a value indicating whether Used for Url Rewriting -- default is null -- 
-            used to define what the forum file name is for urls.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.IsAnyPortal">
-            <summary>
-              Gets a value indicating whether IsAnyPortal.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.IsDotNetNuke">
-            <summary>
-              Gets a value indicating whether IsDotNetNuke.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.IsMojoPortal">
-            <summary>
-              Gets a value indicating whether IsMojoPortal.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.IsPortal">
-            <summary>
-              Gets a value indicating whether IsPortal.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.IsPortalomatic">
-            <summary>
-              Gets a value indicating whether IsPortalomatic.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.IsRainbow">
-            <summary>
-              Gets a value indicating whether IsRainbow.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.JQueryAlias">
-            <summary>
-              Gets jQuery Alias
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.JQueryFile">
-            <summary>
-              Gets JQuery File Name.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.JQueryUIFile">
-            <summary>
-              Gets JQuery UI File Name.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.JQueryUILangFile">
-            <summary>
-              Gets jQuery UI date picker lang File Name.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.LogToMail">
-            <summary>
-              Gets LogToMail.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.MembershipProvider">
-            <summary>
-              Gets MembershipProvider.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.MobileUserAgents">
-            <summary>
-            Gets MobileUserAgents.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.MultiBoardFolders">
-            <summary>
-              Gets a value indicating whether 
-              Boolean to force uploads, and images, themes etc.. from a specific BoardID folder within BoardRoot
-              Example : true /false
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.OverrideTrustLevel">
-            <summary>
-            Gets OverrideTrustLevel.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.ProviderKeyType">
-            <summary>
-              Gets ProviderKeyType.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.ProviderProvider">
-            <summary>
-              Gets ProfileProvider.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.RadEditorSkin">
-            <summary>
-              Gets RadEditorSkin.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.RadEditorToolsFile">
-            <summary>
-              Gets RadEditorToolsFile.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.RoleProvider">
-            <summary>
-              Gets RoleProvider.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.SchemaName">
-            <summary>
-              Gets SchemaName.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.BrowserJSVersion">
-            <summary>
-              Gets the Allowed browser JS version.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.ServerFileRoot">
-            <summary>
-              Gets ServerFileRoot.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.ShowFooter">
-            <summary>
-              Gets a value indicating whether Display the footer at the bottom of the page -- default is "true"
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.ShowToolBar">
-            <summary>
-              Gets a value indicating whether Display the default toolbar at the top -- default is "true"
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.SqlCommandTimeout">
-            <summary>
-              Gets the Current BoardID -- default is 1.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.UrlRewritingMode">
-            <summary>
-              Gets the Url Rewriting URLRewritingMode? -- default is Unicode.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.UrlRewritingPrefix">
-            <summary>
-              Gets the Prefix used for Url Rewriting -- default is "yaf_"
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.UseRadEditorToolsFile">
-            <summary>
-              Gets a value indicating whether UseRadEditorToolsFile.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.UseSMTPSSL">
-            <summary>
-              Gets a value indicating whether Use an SSL connection for the SMTP server -- default is "false"
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.WithOIDs">
-            <summary>
-              Gets WithOIDs.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.FacebookAPIKey">
-            <summary>
-              Gets Facebook API Key.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.FacebookSecretKey">
-            <summary>
-              Gets Facebook Secret Key.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Pattern.TypeFactoryInstanceApplicationBoardScope`1">
-            <summary>
-            The type board application factory instance.
-            </summary>
-            <typeparam name="T">
-            </typeparam>
-        </member>
-        <member name="M:YAF.Classes.Pattern.TypeFactoryInstanceApplicationBoardScope`1.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Pattern.TypeFactoryInstanceApplicationBoardScope`1"/> class.
-            </summary>
-            <param name="typeName">
-            The type name.
-            </param>
         </member>
         <member name="T:YAF.Classes.YafBoardSettings">
             <summary>
@@ -1853,6 +1262,11 @@
         <member name="P:YAF.Classes.YafBoardSettings.UseFullTextSearch">
             <summary>
             Gets or sets a value indicating whether UseFullTextSearch.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.UseReadTrackingByDatabase">
+            <summary>
+            Gets or sets a value indicating whether Use Read Tracking By Database is enabled.
             </summary>
         </member>
         <member name="P:YAF.Classes.YafBoardSettings.ShowLastUnreadPost">
@@ -2542,6 +1956,551 @@
             Gets or sets RolesAppName.
             </summary>
         </member>
+        <member name="T:YAF.Classes.Pattern.TypeDictionary">
+            <summary>
+            Allows basic type conversion of Dictionary objects.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Pattern.TypeDictionary.AsType``1(System.String,``0)">
+            <summary>
+            The as type.
+            </summary>
+            <param name="key">
+            The key.
+            </param>
+            <param name="defaultValue">
+            The default value.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Pattern.TypeDictionary.AsType``1(System.String)">
+            <summary>
+            The as type.
+            </summary>
+            <param name="key">
+            The key.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Pattern.TypeDictionary.AsBoolean(System.String)">
+            <summary>
+            The as boolean.
+            </summary>
+            <param name="key">
+            The key.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Pattern.TypeDictionary.AsInt(System.String)">
+            <summary>
+            The as int.
+            </summary>
+            <param name="key">
+            The key.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Pattern.TypeDictionary.AsString(System.String)">
+            <summary>
+            The as string.
+            </summary>
+            <param name="key">
+            The key.
+            </param>
+            <returns>
+            The as string.
+            </returns>
+        </member>
+        <member name="T:YAF.Classes.BaseUrlBuilder">
+            <summary>
+            The base url builder.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.BaseUrlBuilder._baseUrls">
+            <summary>
+            The _base urls.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.BaseUrlBuilder.GetBaseUrlFromVariables">
+            <summary>
+            The get base url from variables.
+            </summary>
+            <returns>
+            The get base url from variables.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.BaseUrlBuilder.BuildUrl(System.String)">
+            <summary>
+            The build url.
+            </summary>
+            <param name="url">
+            The url.
+            </param>
+            <returns>
+            The build url.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.BaseUrlBuilder.BuildUrlFull(System.String)">
+            <summary>
+            The build url full.
+            </summary>
+            <param name="url">
+            The url.
+            </param>
+            <returns>
+            The build url full.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.BaseUrlBuilder.TreatBaseUrl(System.String)">
+            <summary>
+            The treat base url.
+            </summary>
+            <param name="baseUrl">
+            The base url.
+            </param>
+            <returns>
+            The treat base url.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.BaseUrlBuilder.TreatPathStr(System.String)">
+            <summary>
+            The treat path str.
+            </summary>
+            <param name="altRoot">
+            The alt root.
+            </param>
+            <returns>
+            The treat path str.
+            </returns>
+        </member>
+        <member name="P:YAF.Classes.BaseUrlBuilder.BaseUrl">
+            <summary>
+            Gets BaseUrl.
+            </summary>
+            <exception cref="T:YAF.Classes.BaseUrlMaskRequiredException">Since there is no active context, a base url mask is required. Please specify in the AppSettings in your web.config.</exception>
+        </member>
+        <member name="P:YAF.Classes.BaseUrlBuilder.ClientFileRoot">
+            <summary>
+            Gets ClientFileRoot.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.BaseUrlBuilder.ServerFileRoot">
+            <summary>
+            Gets ServerFileRoot.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.BaseUrlBuilder.AppPath">
+            <summary>
+            Gets App Path.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.BaseUrlBuilder.ScriptName">
+            <summary>
+            Gets ScriptName.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.BaseUrlBuilder.ScriptNamePath">
+            <summary>
+            Gets ScriptNamePath.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.YafBoardFolders">
+            <summary>
+            The yaf board folders.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardFolders.Current">
+            <summary>
+            Gets Current.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardFolders.BoardFolder">
+            <summary>
+            Gets BoardFolder.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardFolders.Uploads">
+            <summary>
+            Gets Uploads.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardFolders.Themes">
+            <summary>
+            Gets Themes.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardFolders.Images">
+            <summary>
+            Gets Images.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardFolders.Avatars">
+            <summary>
+            Gets Avatars.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardFolders.Categories">
+            <summary>
+            Gets Categories.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardFolders.Forums">
+            <summary>
+            Gets Categories.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardFolders.Emoticons">
+            <summary>
+            Gets Emoticons.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardFolders.Medals">
+            <summary>
+            Gets Medals.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardFolders.Ranks">
+            <summary>
+            Gets Ranks.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Pattern.SingleClassInstanceFactory">
+            <summary>
+            The single class instance factory.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Pattern.SingleClassInstanceFactory._contextClasses">
+            <summary>
+              The _context classes.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Pattern.SingleClassInstanceFactory.GetInstance``1">
+            <summary>
+            The get instance.
+            </summary>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Pattern.SingleClassInstanceFactory.SetInstance``1(``0)">
+            <summary>
+            The set instance.
+            </summary>
+            <param name="instance">
+            The instance.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+        </member>
+        <member name="T:YAF.Classes.Config">
+            <summary>
+            Static class that access the app settings in the web.config file
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Config.GetConfigValueAsBool(System.String,System.Boolean)">
+            <summary>
+            The get config value as bool.
+            </summary>
+            <param name="configKey">
+            The config key.
+            </param>
+            <param name="defaultValue">
+            The default value.
+            </param>
+            <returns>
+            The get config value as bool.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Config.GetConfigValueAsString(System.String)">
+            <summary>
+            The get config value as string.
+            </summary>
+            <param name="configKey">
+            The config key.
+            </param>
+            <returns>
+            The get config value as string.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Config.GetProvider(System.String)">
+            <summary>
+            Gets a Provider type string from the config.
+            </summary>
+            <param name="providerName">
+            </param>
+            <returns>
+            Provider type string or <see langword="null"/> if none exist.
+            </returns>
+        </member>
+        <member name="P:YAF.Classes.Config.AllowLoginAndLogoff">
+            <summary>
+              Gets a value indicating whether AllowLoginAndLogoff.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.AppRoot">
+            <summary>
+              Gets AppRoot.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.BaseScriptFile">
+            <summary>
+              Gets the Used for Url Rewriting -- default is "default.aspx"
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.BaseUrlMask">
+            <summary>
+              Gets BaseUrlMask.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.BoardID">
+            <summary>
+              Gets the Current BoardID -- default is 1.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.BoardRoot">
+            <summary>
+              Gets the Folder to use for board specific uploads, images, themes
+              Example : /Boards/
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.CategoryID">
+            <summary>
+              Gets the Current CategoryID -- default is null.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.ClientFileRoot">
+            <summary>
+              Gets ClientFileRoot.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.ConnectionString">
+            <summary>
+              Gets ConnectionString.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.ConnectionStringName">
+            <summary>
+              Gets ConnectionStringName.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.CreateDistinctRoles">
+            <summary>
+            Gets a value indicating whether the Use it if distinct YAF role names are required. 
+            Used in integration environments only.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.DatabaseCollation">
+            <summary>
+              Gets DatabaseCollation.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.DatabaseEncoding">
+            <summary>
+              Gets DatabaseEncoding.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.DatabaseObjectQualifier">
+            <summary>
+              Gets DatabaseObjectQualifier.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.DatabaseOwner">
+            <summary>
+              Gets DatabaseOwner.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.DisableJQuery">
+            <summary>
+              Gets a value indicating whether Is Jquery Registration disabled? -- default is false.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.EnableURLRewriting">
+            <summary>
+              Gets a value indicating whether Is Url Rewriting enabled? -- default is false.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.ForceScriptName">
+            <summary>
+            Gets a value indicating whether Used for Url Rewriting -- default is null -- 
+            used to define what the forum file name is for urls.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.IsAnyPortal">
+            <summary>
+              Gets a value indicating whether IsAnyPortal.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.IsDotNetNuke">
+            <summary>
+              Gets a value indicating whether IsDotNetNuke.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.IsMojoPortal">
+            <summary>
+              Gets a value indicating whether IsMojoPortal.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.IsPortal">
+            <summary>
+              Gets a value indicating whether IsPortal.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.IsPortalomatic">
+            <summary>
+              Gets a value indicating whether IsPortalomatic.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.IsRainbow">
+            <summary>
+              Gets a value indicating whether IsRainbow.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.JQueryAlias">
+            <summary>
+              Gets jQuery Alias
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.JQueryFile">
+            <summary>
+              Gets JQuery File Name.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.JQueryUIFile">
+            <summary>
+              Gets JQuery UI File Name.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.JQueryUILangFile">
+            <summary>
+              Gets jQuery UI date picker lang File Name.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.LogToMail">
+            <summary>
+              Gets LogToMail.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.MembershipProvider">
+            <summary>
+              Gets MembershipProvider.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.MobileUserAgents">
+            <summary>
+            Gets MobileUserAgents.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.MultiBoardFolders">
+            <summary>
+              Gets a value indicating whether 
+              Boolean to force uploads, and images, themes etc.. from a specific BoardID folder within BoardRoot
+              Example : true /false
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.OverrideTrustLevel">
+            <summary>
+            Gets OverrideTrustLevel.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.ProviderKeyType">
+            <summary>
+              Gets ProviderKeyType.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.ProviderProvider">
+            <summary>
+              Gets ProfileProvider.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.RadEditorSkin">
+            <summary>
+              Gets RadEditorSkin.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.RadEditorToolsFile">
+            <summary>
+              Gets RadEditorToolsFile.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.RoleProvider">
+            <summary>
+              Gets RoleProvider.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.SchemaName">
+            <summary>
+              Gets SchemaName.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.BrowserJSVersion">
+            <summary>
+              Gets the Allowed browser JS version.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.ServerFileRoot">
+            <summary>
+              Gets ServerFileRoot.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.ShowFooter">
+            <summary>
+              Gets a value indicating whether Display the footer at the bottom of the page -- default is "true"
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.ShowToolBar">
+            <summary>
+              Gets a value indicating whether Display the default toolbar at the top -- default is "true"
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.SqlCommandTimeout">
+            <summary>
+              Gets the Current BoardID -- default is 1.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.UrlRewritingMode">
+            <summary>
+              Gets the Url Rewriting URLRewritingMode? -- default is Unicode.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.UrlRewritingPrefix">
+            <summary>
+              Gets the Prefix used for Url Rewriting -- default is "yaf_"
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.UseRadEditorToolsFile">
+            <summary>
+              Gets a value indicating whether UseRadEditorToolsFile.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.UseSMTPSSL">
+            <summary>
+              Gets a value indicating whether Use an SSL connection for the SMTP server -- default is "false"
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.WithOIDs">
+            <summary>
+              Gets WithOIDs.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.FacebookAPIKey">
+            <summary>
+              Gets Facebook API Key.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.FacebookSecretKey">
+            <summary>
+              Gets Facebook Secret Key.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.YafControlSettings">
             <summary>
             Class provides glue/settings transfer between YAF forum control and base classes
@@ -2597,29 +2556,75 @@
             Gets or sets LockedForum.
             </summary>
         </member>
-        <member name="T:YAF.Classes.Pattern.PageSingleton`1">
+        <member name="T:YAF.Classes.YafBoardSettingCollection">
             <summary>
-            Singleton factory implementation
-            </summary>
-            <typeparam name="T">
-            </typeparam>
-        </member>
-        <member name="F:YAF.Classes.Pattern.PageSingleton`1._instance">
-            <summary>
-              The _instance.
+            Gets the Board Settings as dictionary item for easy iteration.
             </summary>
         </member>
-        <member name="M:YAF.Classes.Pattern.PageSingleton`1.GetInstance">
+        <member name="F:YAF.Classes.YafBoardSettingCollection._settings">
             <summary>
-            The get instance.
+            The _settings.
             </summary>
+        </member>
+        <member name="M:YAF.Classes.YafBoardSettingCollection.#ctor(YAF.Classes.YafBoardSettings)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.YafBoardSettingCollection"/> class.
+            </summary>
+            <param name="boardSettings">
+            The board settings.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettingCollection.SettingsString">
+            <summary>
+            Gets SettingsString.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettingCollection.SettingsBool">
+            <summary>
+            Gets SettingsBool.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettingCollection.SettingsInt">
+            <summary>
+            Gets SettingsInt.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettingCollection.SettingsDouble">
+            <summary>
+            Gets SettingsDouble.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettingCollection.SettingsOther">
+            <summary>
+            Gets SettingsOther.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.DefaultUrlBuilder">
+            <summary>
+            Implements URL Builder.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.DefaultUrlBuilder.BuildUrl(System.String)">
+            <summary>
+            Builds path for calling page with parameter URL as page's escaped parameter.
+            </summary>
+            <param name="url">
+            URL to put into parameter.
+            </param>
             <returns>
+            URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.
             </returns>
         </member>
-        <member name="P:YAF.Classes.Pattern.PageSingleton`1.Instance">
+        <member name="M:YAF.Classes.DefaultUrlBuilder.BuildUrlFull(System.String)">
             <summary>
-              Gets Instance.
+            Builds Full URL for calling page with parameter URL as page's escaped parameter.
             </summary>
+            <param name="url">
+            URL to put into parameter.
+            </param>
+            <returns>
+            URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.
+            </returns>
         </member>
     </members>
 </doc>
