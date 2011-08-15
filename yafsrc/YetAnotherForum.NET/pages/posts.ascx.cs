@@ -1228,32 +1228,38 @@ namespace YAF.Pages
                         if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m") != null)
                         {
                             // we find message position always by time.
-                            using (DataTable unread = LegacyDb.message_findunread(
+                            using (DataTable lastPost = LegacyDb.message_findunread(
                                 this.PageContext.PageTopicID, this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"), DateTime.MinValue.AddYears(1902), showDeleted, userId))
                             {
-                                var unreadFirst = unread.AsEnumerable().FirstOrDefault();
+                                var unreadFirst = lastPost.AsEnumerable().FirstOrDefault();
                                 if (unreadFirst != null)
                                 {
                                     findMessageId = unreadFirst.Field<int>("MessageID");
-                                    messagePosition = unread.AsEnumerable().FirstOrDefault().Field<int>("MessagePosition");
+                                    messagePosition = lastPost.AsEnumerable().FirstOrDefault().Field<int>("MessagePosition");
                                 }
                             }
                         }
                     }
                     else
                     {
+                        
                         // find first unread message
                         if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find").ToLower() == "unread")
                         {
-                            var lastRead = this.Get<IReadTracking>().GetTopicRead(
-                                this.PageContext.PageUserID, this.PageContext.PageTopicID);
+                            DateTime lastRead = YafContext.Current.Get<IYafSession>().LastVisit;
 
-                            var lastReadForum = this.Get<IReadTracking>().GetForumRead(
-                                this.PageContext.PageUserID, this.PageContext.PageForumID);
-
-                            if (lastReadForum > lastRead)
+                            if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase)
                             {
-                                lastRead = lastReadForum;
+                                 lastRead = this.Get<IReadTracking>().GetTopicRead(
+                                    this.PageContext.PageUserID, this.PageContext.PageTopicID);
+
+                                var lastReadForum = this.Get<IReadTracking>().GetForumRead(
+                                    this.PageContext.PageUserID, this.PageContext.PageForumID);
+
+                                if (lastReadForum > lastRead)
+                                {
+                                    lastRead = lastReadForum;
+                                }
                             }
 
                             // Find next unread
@@ -1261,7 +1267,6 @@ namespace YAF.Pages
                                 DataTable unread = LegacyDb.message_findunread(
                                     this.PageContext.PageTopicID,
                                     0,
-                                    ////YafContext.Current.Get<IYafSession>().LastVisit,
                                     lastRead,
                                     showDeleted,
                                     userId))
