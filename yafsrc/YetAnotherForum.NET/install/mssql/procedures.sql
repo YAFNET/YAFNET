@@ -8016,8 +8016,9 @@ declare @groupcount int
 	delete from [{databaseOwner}].[{objectQualifier}Choice] where PollID = @PollID
 	-- delete poll
 	Update [{databaseOwner}].[{objectQualifier}Poll] set PollGroupID = NULL where PollID = @PollID
+	delete from [{databaseOwner}].[{objectQualifier}Poll] where PollID = @PollID 
 	delete from [{databaseOwner}].[{objectQualifier}Poll] where PollID = @PollID 	
-	if  NOT EXISTS (SELECT 1 FROM [{databaseOwner}].[{objectQualifier}Poll] where PollGroupID = @PollGroupID) 
+	if  NOT EXISTS (SELECT TOP 1 1 FROM [{databaseOwner}].[{objectQualifier}Poll] where PollGroupID = @PollGroupID) 
         begin	
 			  
                    Update [{databaseOwner}].[{objectQualifier}Topic] set PollID = NULL where PollID = @PollGroupID                 
@@ -8038,14 +8039,10 @@ declare @groupcount int
 	else
 	begin    
 	Update [{databaseOwner}].[{objectQualifier}Poll] set PollGroupID = NULL where PollID = @PollID	                         
-	end 
-
-	
-		
+	end
 
 end
 GO
-
 
 -- medals
 

@@ -659,8 +659,7 @@ namespace YAF.Controls
       {
         return;
       }
-
-      LegacyDb.pollgroup_remove(this.PollGroupId, this.TopicId, this.ForumId, this.CategoryId, this.BoardId, false, true);
+      
       this.ReturnToPage();
 
       // BindData();
@@ -1118,7 +1117,8 @@ namespace YAF.Controls
       // Here should be a poll group, remove the value to avoid exception if a deletion was not safe. 
       if (!(this._dtPollAllChoices.Rows.Count > 0))
       {
-        LegacyDb.pollgroup_remove(this.PollGroupId, this.TopicId, this.ForumId, this.CategoryId, this.BoardId, false, false);
+        LegacyDb.pollgroup_remove(this.PollGroupId, this.TopicId, this.ForumId, this.CategoryId, this.BoardId, true, true);          
+        return;
       }
 
       // if the page user can cheange the poll. Only a group owner, forum moderator  or an admin can do it.   );
