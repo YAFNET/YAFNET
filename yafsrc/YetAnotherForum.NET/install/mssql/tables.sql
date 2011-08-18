@@ -1996,11 +1996,9 @@ GO
 
 if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}TopicReadTracking]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}TopicReadTracking](
-		TrackingID	    int IDENTITY (1, 1) NOT NULL ,
 		UserID			int NOT NULL ,
 		TopicID			int NOT NULL ,
 		LastAccessDate	datetime NOT NULL
-		constraint [PK_{objectQualifier}TopicReadTracking] primary key(TrackingID)
 	)
 GO
 
@@ -2008,10 +2006,28 @@ GO
 
 if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}ForumReadTracking]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}ForumReadTracking](
-		TrackingID	    int IDENTITY (1, 1) NOT NULL ,
 		UserID			int NOT NULL ,
 		ForumID			int NOT NULL ,
 		LastAccessDate	datetime NOT NULL
-		constraint [PK_{objectQualifier}ForumReadTracking] primary key(TrackingID)
 	)
+GO
+
+if exists(select top 1 1 from dbo.sysobjects where name='PK_{objectQualifier}ForumReadTracking')
+	alter table [{databaseOwner}].[{objectQualifier}ForumReadTracking] drop constraint [PK_{objectQualifier}ForumReadTracking] 
+go 
+
+if exists(select top 1 1 from dbo.sysobjects where name='PK_{objectQualifier}TopicReadTracking')
+	alter table [{databaseOwner}].[{objectQualifier}TopicReadTracking] drop constraint [PK_{objectQualifier}TopicReadTracking] 
+go 
+
+if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}ForumReadTracking]') and name='TrackingID')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}ForumReadTracking] drop column TrackingID
+end
+GO
+
+if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}TopicReadTracking]') and name='TrackingID')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}TopicReadTracking] drop column TrackingID
+end
 GO

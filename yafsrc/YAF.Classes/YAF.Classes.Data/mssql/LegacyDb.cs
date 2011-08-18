@@ -10183,18 +10183,18 @@ namespace YAF.Classes.Data
         /// <summary>
         /// Delete the Read Tracking
         /// </summary>
-        /// <param name="trackingID">
-        /// The tracking id.
+        /// <param name="userID">
+        /// The user id
         /// </param>
-        public static void Readtopic_delete([NotNull] object trackingID)
+        /*public static void Readtopic_delete([NotNull] object userID)
         {
             using (var cmd = MsSqlDbAccess.GetCommand("readtopic_delete"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("TrackingID", trackingID);
+                cmd.Parameters.AddWithValue("UserID", userID);
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
             }
-        }
+        }*/
 
         /// <summary>
         /// Get the Global Last Read DateTime User
@@ -10272,18 +10272,18 @@ namespace YAF.Classes.Data
         /// <summary>
         /// Delete the Read Tracking
         /// </summary>
-        /// <param name="trackingID">
-        /// The tracking id.
+        /// <param name="userID">
+        /// The user id.
         /// </param>
-        public static void ReadForum_delete([NotNull] object trackingID)
+        /*public static void ReadForum_delete([NotNull] object userID)
         {
             using (var cmd = MsSqlDbAccess.GetCommand("readforum_delete"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("TrackingID", trackingID);
+                cmd.Parameters.AddWithValue("UserID", userID);
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
             }
-        }
+        }*/
 
         /// <summary>
         /// Get the Last Read DateTime for the Forum and User

@@ -682,6 +682,14 @@ if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databas
 	alter table [{databaseOwner}].[{objectQualifier}MessageHistory] add constraint IX_{objectQualifier}MessageHistory unique nonclustered (Edited,MessageID)   
 go
 
+if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}ForumReadTracking]') and name='IX_{objectQualifier}ForumReadTracking')
+	alter table [{databaseOwner}].[{objectQualifier}ForumReadTracking] add constraint IX_{objectQualifier}ForumReadTracking unique nonclustered (UserID,ForumID)   
+go
+
+if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}TopicReadTracking]') and name='IX_{objectQualifier}TopicReadTracking')
+	alter table [{databaseOwner}].[{objectQualifier}TopicReadTracking] add constraint IX_{objectQualifier}TopicReadTracking unique nonclustered (UserID,TopicID)   
+go
+
 if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}WatchTopic]') and name='IX_{objectQualifier}WatchTopic')
 	alter table [{databaseOwner}].[{objectQualifier}WatchTopic] add constraint IX_{objectQualifier}WatchTopic unique nonclustered (TopicID,UserID)   
 go

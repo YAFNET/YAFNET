@@ -9474,12 +9474,12 @@ GO
 create procedure [{databaseOwner}].[{objectQualifier}readtopic_addorupdate](@UserID int,@TopicID int) as
 begin
 
-    declare	@TrackingID	int
+    declare	@LastAccessDate	datetime
 
 	IF exists(select 1 from [{databaseOwner}].[{objectQualifier}TopicReadTracking] where UserID=@UserID AND TopicID=@TopicID)
 	begin
-	      SET @TrackingID = (SELECT TrackingID FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] WHERE (UserID=@UserID AND TopicID=@TopicID))
-		  update [{databaseOwner}].[{objectQualifier}TopicReadTracking] set LastAccessDate=GETUTCDATE() where TrackingID = @TrackingID
+	      SET @LastAccessDate = (SELECT TOP 1 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] WHERE (UserID=@UserID AND TopicID=@TopicID))
+		  update [{databaseOwner}].[{objectQualifier}TopicReadTracking] set LastAccessDate=GETUTCDATE() where LastAccessDate = LastAccessDate AND UserID=@UserID AND TopicID=@TopicID
     end
 	ELSE
 	  begin
@@ -9489,9 +9489,9 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}readtopic_delete](@TrackingID int) as
+create procedure [{databaseOwner}].[{objectQualifier}readtopic_delete](@UserID int) as
 begin
-		delete from [{databaseOwner}].[{objectQualifier}TopicReadTracking] where TrackingID = @TrackingID
+		delete from [{databaseOwner}].[{objectQualifier}TopicReadTracking] where UserID = @UserID
 end
 GO
 
@@ -9504,12 +9504,12 @@ GO
 create procedure [{databaseOwner}].[{objectQualifier}readforum_addorupdate](@UserID int,@ForumID int) as
 begin
 
-    declare	@TrackingID	int
+    declare	@LastAccessDate	datetime
 
 	IF exists(select 1 from [{databaseOwner}].[{objectQualifier}ForumReadTracking] where UserID=@UserID AND ForumID=@ForumID)
 	begin
-	      SET @TrackingID = (SELECT TrackingID FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] WHERE (UserID=@UserID AND ForumID=@ForumID))
-		  update [{databaseOwner}].[{objectQualifier}ForumReadTracking] set LastAccessDate=GETUTCDATE() where TrackingID = @TrackingID
+	      SET @LastAccessDate = (SELECT LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] WHERE (UserID=@UserID AND ForumID=@ForumID))
+		  update [{databaseOwner}].[{objectQualifier}ForumReadTracking] set LastAccessDate=GETUTCDATE() where LastAccessDate = @LastAccessDate AND UserID=@UserID AND ForumID=@ForumID
     end
 	ELSE
 	  begin
@@ -9519,9 +9519,9 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}readforum_delete](@TrackingID int) as
+create procedure [{databaseOwner}].[{objectQualifier}readforum_delete](@UserID int) as
 begin
-		delete from [{databaseOwner}].[{objectQualifier}ForumReadTracking] where TrackingID = @TrackingID
+		delete from [{databaseOwner}].[{objectQualifier}ForumReadTracking] where UserID = @UserID
 end
 GO
 
