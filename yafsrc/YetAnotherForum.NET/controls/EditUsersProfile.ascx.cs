@@ -455,7 +455,37 @@ namespace YAF.Controls
         this.Culture.DataTextField = "CultureNativeName";
       }
 
-      if (this.Get<YafBoardSettings>().AllowUsersTextEditor)
+      this.Country.DataSource = StaticDataHelper.Country();
+      this.Country.DataValueField = "Value";
+      this.Country.DataTextField = "Name";
+
+      // Language and culture
+      string languageFile = this.Get<YafBoardSettings>().Language;
+      string culture4tag = this.Get<YafBoardSettings>().Culture;
+
+      if (!string.IsNullOrEmpty(this.UserData.LanguageFile))
+      {
+          languageFile = this.UserData.LanguageFile;
+      }
+
+      if (!string.IsNullOrEmpty(this.UserData.CultureUser))
+      {
+          culture4tag = this.UserData.CultureUser;
+      }
+
+      // Get first default full culture from a language file tag.
+      string langFileCulture = StaticDataHelper.CultureDefaultFromFile(languageFile);
+      string currentCulture = langFileCulture.Substring(0, 2) == culture4tag.Substring(0, 2)
+                                    ? culture4tag
+                                    : langFileCulture;
+
+      if (this.UserData.Profile.Country.IsSet())
+      {
+          LookForNewRegionsBind(this.UserData.Profile.Country);
+          
+       }
+
+        if (this.Get<YafBoardSettings>().AllowUsersTextEditor)
       {
           this.ForumEditor.DataSource = this.Get<IModuleManager<ForumEditor>>().ActiveAsDataTable("Editors");
           this.ForumEditor.DataValueField = "Value";
@@ -481,6 +511,8 @@ namespace YAF.Controls
       }
 
       this.DisplayName.Text = this.UserData.DisplayName;
+      this.Region.Text = this.UserData.Profile.Region;
+      this.City.Text = this.UserData.Profile.City;
       this.Location.Text = this.UserData.Profile.Location;
       this.HomePage.Text = this.UserData.Profile.Homepage;
       this.Email.Text = this.UserData.Email;
@@ -500,6 +532,19 @@ namespace YAF.Controls
       this.Xmpp.Text = this.UserData.Profile.XMPP;
       this.Skype.Text = this.UserData.Profile.Skype;
       this.Gender.SelectedIndex = this.UserData.Profile.Gender;
+   
+
+      ListItem countryItem = this.Country.Items.FindByValue(this.UserData.Profile.Country.Trim());
+      if (countryItem != null)
+      {
+          countryItem.Selected = true;
+      }
+
+      ListItem regionItem = this.Region.Items.FindByValue(this.UserData.Profile.Region.Trim());
+      if (regionItem != null)
+      {
+          regionItem.Selected = true;
+      }
 
       ListItem timeZoneItem = this.TimeZones.Items.FindByValue(this.UserData.TimeZone.ToString());
       if (timeZoneItem != null)
@@ -561,27 +606,10 @@ namespace YAF.Controls
         return;
       }
 
-      // Language and culture
-      string languageFile = this.Get<YafBoardSettings>().Language;
-      string culture4tag = this.Get<YafBoardSettings>().Culture;
-
-      if (!string.IsNullOrEmpty(this.UserData.LanguageFile))
-      {
-        languageFile = this.UserData.LanguageFile;
-      }
-
-      if (!string.IsNullOrEmpty(this.UserData.CultureUser))
-      {
-        culture4tag = this.UserData.CultureUser;
-      }
-
-      // Get first default full culture from a language file tag.
-      string langFileCulture = StaticDataHelper.CultureDefaultFromFile(languageFile);
-
       // If 2-letter language code is the same we return Culture, else we return a default full culture from language file
       ListItem foundCultItem =
         this.Culture.Items.FindByValue(
-          langFileCulture.Substring(0, 2) == culture4tag.Substring(0, 2) ? culture4tag : langFileCulture);
+          currentCulture);
       if (foundCultItem != null)
       {
         foundCultItem.Selected = true;
@@ -632,6 +660,9 @@ namespace YAF.Controls
     {
       YafUserProfile userProfile = YafUserProfile.GetProfile(userName);
 
+      userProfile.Country = this.Country.SelectedItem != null ? this.Country.SelectedItem.Value.Trim() : string.Empty;
+      userProfile.Region = this.Region.SelectedItem != null && this.Country.SelectedItem != null && this.Country.SelectedItem.Value.Trim().IsSet() ? this.Region.SelectedItem.Value.Trim() : string.Empty;
+      userProfile.City = this.City.Text.Trim();
       userProfile.Location = this.Location.Text.Trim();
       userProfile.Homepage = this.HomePage.Text.Trim();
       userProfile.MSN = this.MSN.Text.Trim();
@@ -667,6 +698,51 @@ namespace YAF.Controls
       userProfile.Save();
     }
 
+    private void LookForNewRegionsBind(string country)
+    {
+        DataTable dt = StaticDataHelper.Region(country);
+
+        // The first row is empty
+        if (dt.Rows.Count > 1)
+        {
+            this.Region.DataSource = dt;
+            this.Region.DataValueField = "Value";
+            this.Region.DataTextField = "Name";
+            this.RegionTr.Visible = true;
+        }
+        else
+        {
+            this.Region.DataSource = null;
+            this.Region.DataBind();
+            this.RegionTr.Visible = false;
+            this.RegionTr.DataBind();
+            
+        }
+    }
+
     #endregion
+    protected void LookForNewRegions(object sender, EventArgs e)
+    {
+        if (this.Country.SelectedValue != null)
+        {
+               if ( this.Country.SelectedValue.IsSet())
+               {
+                   LookForNewRegionsBind(this.Country.SelectedValue);
+                   this.Region.DataBind();
+               }
+               else
+               {
+                   this.Region.DataSource = null;
+                   this.RegionTr.Visible = false;
+               }
+            
+        }
+        else
+        {
+            this.Region.DataSource = null;
+            this.Region.DataBind();
+        }
+    }
   }
+    
 }

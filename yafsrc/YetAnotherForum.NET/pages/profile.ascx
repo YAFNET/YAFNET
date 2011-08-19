@@ -19,7 +19,7 @@
 	</tr>
 	<tr class="post">
 		<td colspan="2">
-			<YAF:ThemeButton ID="PM" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS"
+			<YAF:ThemeButton  ID="PM" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS"
 				TextLocalizedTag="PM" ImageThemeTag="PM" TitleLocalizedTag="PM_TITLE" TitleLocalizedPage="POSTS" />
 			<YAF:ThemeButton ID="Email" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS"
 				TextLocalizedTag="EMAIL" ImageThemeTag="EMAIL" TitleLocalizedTag="EMAIL_TITLE" TitleLocalizedPage="POSTS" />
@@ -106,6 +106,32 @@
 								</td>
 								<td class="post" runat="server" id="RealName" />
 							</tr>
+                            <tr runat="server" id="CountryTR" visible="false">
+								<td class="postheader">
+								<YAF:LocalizedLabel ID="LocalizedLabel27" runat="server" LocalizedTag="country" />
+								</td>
+								<td class="post">
+									<img id="CountryFlagImage" runat="server" alt=""
+                                    title=""
+                                    src="" />&nbsp;<asp:Label ID="CountryLabel" runat="server" />
+								</td>
+							</tr>
+                            <tr runat="server" id="RegionTR" visible="false">
+								<td class="postheader">
+									<YAF:LocalizedLabel ID="LocalizedLabel28" runat="server" LocalizedTag="region" />
+								</td>
+								<td class="post">
+									<asp:Label ID="RegionLabel" runat="server" />
+								</td>
+							</tr>
+                            <tr runat="server" id="CityTR" visible="false">
+								<td class="postheader">
+									<YAF:LocalizedLabel ID="LocalizedLabel26" runat="server" LocalizedTag="city" />
+								</td>
+								<td class="post">
+									<asp:Label ID="CityLabel" runat="server" />
+								</td>
+							</tr>
 							<tr runat="server" id="LocationTR" visible="false">
 								<td class="postheader">
 									<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="location" />
@@ -113,7 +139,7 @@
 								<td class="post">
 									<asp:Label ID="Location" runat="server" />
 								</td>
-							</tr>
+							</tr>                            
 							<tr runat="server" id="BirthdayTR" visible="false">
 								<td class="postheader">
 									<YAF:LocalizedLabel ID="LocalizedLabel23" runat="server" LocalizedTag="BIRTHDAY" />

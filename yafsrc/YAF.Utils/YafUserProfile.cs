@@ -287,6 +287,60 @@ namespace YAF.Utils
     }
 
     /// <summary>
+    /// Gets or sets Country.
+    /// </summary>
+    [SettingsAllowAnonymous(false)]
+    [CustomProviderData("Country;nvarchar;2")]
+    public string Country
+    {
+        get
+        {
+            return base["Country"] as string;
+        }
+
+        set
+        {
+            base["Country"] = value;
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets Region or State(US).
+    /// </summary>
+    [SettingsAllowAnonymous(false)]
+    [CustomProviderData("Region;nvarchar;255")]
+    public string Region
+    {
+        get
+        {
+            return base["Region"] as string;
+        }
+
+        set
+        {
+            base["Region"] = value;
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets a City.
+    /// </summary>
+    [SettingsAllowAnonymous(false)]
+    [CustomProviderData("City;nvarchar;255")]
+    public string City
+    {
+        get
+        {
+            return base["City"] as string;
+        }
+
+        set
+        {
+            base["City"] = value;
+        }
+    }
+
+    /// <summary>
     /// Gets or sets MSN.
     /// </summary>
     [SettingsAllowAnonymous(false)]

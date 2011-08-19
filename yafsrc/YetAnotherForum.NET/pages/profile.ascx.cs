@@ -601,6 +601,28 @@ namespace YAF.Pages
                 this.Location.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.Location));
             }
 
+            if (this.User != null && !string.IsNullOrEmpty(userData.Profile.Country.Trim()))
+            {
+                this.CountryTR.Visible = true;
+                this.CountryLabel.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(this.GetText("COUNTRY", userData.Profile.Country.Trim())));
+                this.CountryFlagImage.Src = this.Get<ITheme>().GetItem("FLAGS", "{0}_MEDIUM".FormatWith(userData.Profile.Country.Trim()));
+                this.CountryFlagImage.Alt =userData.Profile.Country.Trim();
+                this.CountryFlagImage.Attributes.Add("title", this.CountryLabel.Text);
+            }
+
+            if (this.User != null && !string.IsNullOrEmpty(userData.Profile.Region))
+            {
+                this.RegionTR.Visible = true;
+                string tag = "RGN_{0}_{1}".FormatWith(this.Get<ILocalization>().Culture.Name.Remove(0, 3).ToUpperInvariant(), userData.Profile.Region);
+                this.RegionLabel.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(this.GetText("REGION", tag)));
+            }
+
+            if (this.User != null && !string.IsNullOrEmpty(userData.Profile.City))
+            {
+                this.CityTR.Visible = true;
+                this.CityLabel.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.City));
+            }
+
             if (this.User != null && !string.IsNullOrEmpty(userData.Profile.Location))
             {
                 this.LocationTR.Visible = true;

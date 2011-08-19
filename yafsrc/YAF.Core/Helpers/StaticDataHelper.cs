@@ -17,6 +17,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+using System.Globalization;
+
 namespace YAF.Core
 {
     using System;
@@ -66,6 +68,122 @@ namespace YAF.Core
           return dt;
       }
     }
+
+
+    /// <summary>
+    /// The country names list(localized).
+    /// </summary>
+    /// <param name="localization">
+    /// The localization.
+    /// </param>
+    /// <param name="addEmptyRow">
+    /// Add empty row to data table for dropdown lists with empty selection option.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static DataTable Country(ILocalization localization)
+    {
+        using (var dt = new DataTable("Country"))
+        {
+            dt.Columns.Add("Value", Type.GetType("System.String"));
+            dt.Columns.Add("Name", Type.GetType("System.String"));
+            // Add empty row to data table for dropdown lists with empty selection option.
+            bool addEmptyRow = true;  
+            if (addEmptyRow)
+            {
+                var drow = dt.NewRow();
+                drow["Value"] = null;
+                drow["Name"] = null;
+                dt.Rows.Add(drow);
+            }
+            var countries =
+                localization.GetRegionNodesUsingQuery("COUNTRY", x => x.tag.StartsWith(string.Empty)).ToList();
+            // vzrus: a temporary hack - it returns all tags if the page is not found
+            if (countries.Count > 2000)
+                return dt;
+            foreach (var node in countries)
+            {
+                dt.Rows.Add(new object[] { node.tag, node.Value });
+            }
+
+            return dt;
+        }
+    }
+
+    /// <summary>
+    /// The country names list(localized).
+    /// </summary>
+    /// <returns>
+    /// </returns>
+    public static DataTable Country()
+    {
+        return Country(YafContext.Current.Get<ILocalization>());
+    }
+
+    /// <summary>
+    /// The country names list(localized).
+    /// </summary>
+    /// <param name="forceLanguage">
+    /// The force a specific language.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static DataTable Country(string forceLanguage)
+    {
+        var localization = new YafLocalization();
+        localization.LoadTranslation(forceLanguage);
+
+        return Country(localization);
+    }
+
+    /// <summary>
+    /// The country names list(localized).
+    /// </summary>
+    /// <param name="localization">
+    /// The localization.
+    /// </param>
+    /// <param name="addEmptyRow">
+    /// Add empty row to data table for dropdown lists with empty selection option.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static DataTable Region(ILocalization localization, string culture)
+    {
+        using (var dt = new DataTable("Region"))
+        {
+            dt.Columns.Add("Value", Type.GetType("System.String"));
+            dt.Columns.Add("Name", Type.GetType("System.String"));
+            // Add empty row to data table for dropdown lists with empty selection option.
+            bool addEmptyRow = true;
+            if (addEmptyRow)
+            {
+                var drow = dt.NewRow();
+                drow["Value"] = null;
+                drow["Name"] = null;
+                dt.Rows.Add(drow);
+            }
+
+            var countries =
+             localization.GetCountryNodesUsingQuery("REGION", x => x.tag.StartsWith("RGN_{0}_".FormatWith(culture))).ToList();
+
+            foreach (var node in countries)
+            {
+                dt.Rows.Add(new object[] { node.tag.Replace("RGN_{0}_".FormatWith(culture), string.Empty), node.Value });
+            }
+            return dt;
+        }
+    }
+
+    /// <summary>
+    /// The country names list(localized).
+    /// </summary>
+    /// <returns>
+    /// </returns>
+    public static DataTable Region(string culture)
+    {
+        return Region(YafContext.Current.Get<ILocalization>(), culture);
+    }
+
 
     /// <summary>
     /// The cultures IetfLangTags (4-letter).
@@ -118,8 +236,8 @@ namespace YAF.Core
                 }
             }
 
-                System.Globalization.CultureInfo[] cultures = System.Globalization.CultureInfo.GetCultures(System.Globalization.CultureTypes.SpecificCultures);
-                foreach (System.Globalization.CultureInfo ci in cultures)
+                CultureInfo[] cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
+                foreach (CultureInfo ci in cultures)
                 {
                     for (int j = 0; j < files.Length; j++)
                     {

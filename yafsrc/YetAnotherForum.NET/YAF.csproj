@@ -2402,6 +2402,8 @@
     <Content Include="themes\cleanSlate.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="themes\cleanSlate\albums.png" />
+    <Content Include="themes\cleanSlate\arrow_up_button.png" />
     <Content Include="themes\cleanSlate\atomfeed.png" />
     <Content Include="themes\cleanSlate\buttonBack.gif" />
     <Content Include="themes\cleanSlate\buttonBackB.gif" />
@@ -2413,6 +2415,8 @@
     <Content Include="themes\cleanSlate\error.png" />
     <Content Include="themes\cleanSlate\expand.gif" />
     <Content Include="themes\cleanSlate\female.gif" />
+    <Content Include="themes\cleanSlate\flags\ru_medium.ico" />
+    <Content Include="themes\cleanSlate\flags\us_medium.ico" />
     <Content Include="themes\cleanSlate\folder_stats.gif" />
     <Content Include="themes\cleanSlate\folder_stats.png" />
     <Content Include="themes\cleanSlate\folder_who.gif" />
@@ -2439,7 +2443,9 @@
     <Content Include="themes\cleanSlate\icon_subforum_new.gif" />
     <Content Include="themes\cleanSlate\icon_topiclatestunread_newest.gif" />
     <Content Include="themes\cleanSlate\icon_topic_latestunread.gif" />
+    <Content Include="themes\cleanSlate\icon_tumblr.png" />
     <Content Include="themes\cleanSlate\icon_twitter.png" />
+    <Content Include="themes\cleanSlate\icon_twitter2.png" />
     <Content Include="themes\cleanSlate\icon_useroffline.png" />
     <Content Include="themes\cleanSlate\icon_useronline.png" />
     <Content Include="themes\cleanSlate\icon_xmpp.png" />
@@ -2449,6 +2455,7 @@
     <Content Include="themes\cleanSlate\male.gif" />
     <Content Include="themes\cleanSlate\mask.gif" />
     <Content Include="themes\cleanSlate\multipages_small.gif" />
+    <Content Include="themes\cleanSlate\paper_clip_small.gif" />
     <Content Include="themes\cleanSlate\poll_choice.png" />
     <Content Include="themes\cleanSlate\poll_question.png" />
     <Content Include="themes\cleanSlate\RightArrow.png" />
@@ -2465,6 +2472,7 @@
     <Content Include="themes\cleanSlate\topic_announce.gif" />
     <Content Include="themes\cleanSlate\topic_announce_new.gif" />
     <Content Include="themes\cleanSlate\topic_lock.gif" />
+    <Content Include="themes\cleanSlate\topic_locked_topic.gif" />
     <Content Include="themes\cleanSlate\topic_lock_new.gif" />
     <Content Include="themes\cleanSlate\topic_moved.gif" />
     <Content Include="themes\cleanSlate\topic_new.gif" />
@@ -3132,9 +3140,6 @@
     <Content Include="webconfigs\recommended-NET-web.config" />
     <Content Include="webconfigs\v191-upgrade-web.config" />
     <Content Include="UrlRewriter.config" />
-    <Content Include="web.config">
-      <SubType>Designer</SubType>
-    </Content>
     <None Include="Web References\RegisterV2\RegisterV2.wsdl" />
   </ItemGroup>
   <ItemGroup>

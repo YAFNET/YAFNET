@@ -225,6 +225,45 @@ namespace YAF.Core
     }
 
     /// <summary>
+    /// The get nodes using query.
+    /// </summary>
+    /// <param name="page">
+    /// The page.
+    /// </param>
+    /// <param name="predicate">
+    /// The predicate.
+    /// </param>
+    /// <returns>
+    /// The Nodes
+    /// </returns>
+    public IEnumerable<LanuageResourcesPageResource> GetCountryNodesUsingQuery([NotNull] string page, [NotNull] Func<LanuageResourcesPageResource, bool> predicate)
+    {
+        this.LoadTranslation();
+
+        this._localizer.SetPage(page);
+        return this._localizer.GetCountryNodesUsingQuery(predicate);
+    }
+    /// <summary>
+    /// The get nodes using query.
+    /// </summary>
+    /// <param name="page">
+    /// The page.
+    /// </param>
+    /// <param name="predicate">
+    /// The predicate.
+    /// </param>
+    /// <returns>
+    /// The Nodes
+    /// </returns>
+    public IEnumerable<LanuageResourcesPageResource> GetRegionNodesUsingQuery([NotNull] string page, [NotNull] Func<LanuageResourcesPageResource, bool> predicate)
+    {
+        this.LoadTranslation();
+
+        this._localizer.SetPage(page);
+        return this._localizer.GetCountryNodesUsingQuery(predicate);
+    }
+
+    /// <summary>
     /// The get text.
     /// </summary>
     /// <param name="text">

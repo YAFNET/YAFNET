@@ -98,6 +98,21 @@ namespace YAF.Types.Interfaces
     string Location { get; set; }
 
     /// <summary>
+    /// Gets or sets Country.
+    /// </summary>
+    string Country { get; set; }
+
+    /// <summary>
+    /// Gets or sets Region or State(US).
+    /// </summary>
+    string Region { get; set; }
+
+    /// <summary>
+    /// Gets or sets a City.
+    /// </summary>
+    string City { get; set; }
+
+    /// <summary>
     /// Gets or sets MSN.
     /// </summary>
     string MSN { get; set; }

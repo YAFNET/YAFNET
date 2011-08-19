@@ -224,6 +224,11 @@
     <Resource tag="VOTE_USERS">~/users_poll.gif</Resource>
     <Resource tag="VOTE_REFUSE">~/vote_refuse.gif</Resource>
   </page>
+  <page name="FLAGS">
+    <Resource tag="US_MEDIUM">~/flags/us_medium.ico</Resource>
+    <Resource tag="RU_MEDIUM">~/flags/ru_medium.ico</Resource>
+  </page>
+  us_medium.ico
   <page name="PAGE_OVERRIDE">
     <!--Resource tag="FORUM">~/forum.ascx</Resource-->
   </page>

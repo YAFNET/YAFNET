@@ -123,6 +123,44 @@ namespace YAF.Core
       return pagePointer != null ? pagePointer.Resource.Where(predicate) : this._localizationLanguageResources.page.SelectMany(p => p.Resource).Where(predicate);
     }
 
+      /// <summary>
+      /// The get nodes using query.
+      /// </summary>
+      /// <param name="predicate">
+      /// The predicate.
+      /// </param>
+      /// <returns>
+      /// The Nodes.
+      /// </returns>
+      /// <exception cref="Exception">
+      /// </exception>
+      public IEnumerable<LanuageResourcesPageResource> GetCountryNodesUsingQuery(Func<LanuageResourcesPageResource, bool> predicate)
+      {
+          var pagePointer =
+            this._localizationLanguageResources.page.Where(p => p.name.ToUpper().Equals(this._currentPage)).FirstOrDefault();
+
+          return pagePointer != null ? pagePointer.Resource.Where(predicate) : this._localizationLanguageResources.page.SelectMany(p => p.Resource).Where(predicate);
+      }
+
+      /// <summary>
+      /// The get nodes using query.
+      /// </summary>
+      /// <param name="predicate">
+      /// The predicate.
+      /// </param>
+      /// <returns>
+      /// The Nodes.
+      /// </returns>
+      /// <exception cref="Exception">
+      /// </exception>
+      public IEnumerable<LanuageResourcesPageResource> GetRegionNodesUsingQuery(Func<LanuageResourcesPageResource, bool> predicate)
+      {
+          var pagePointer =
+            this._localizationLanguageResources.page.Where(p => p.name.ToUpper().Equals(this._currentPage)).FirstOrDefault();
+
+          return pagePointer != null ? pagePointer.Resource.Where(predicate) : this._localizationLanguageResources.page.SelectMany(p => p.Resource).Where(predicate);
+      }
+
     /// <summary>
     /// The get text.
     /// </summary>

@@ -99,6 +99,36 @@ namespace YAF.Types.Interfaces
       string page, Func<LanuageResourcesPageResource, bool> predicate);
 
     /// <summary>
+    /// The get country nodes using query.
+    /// </summary>
+    /// <param name="page">
+    /// The page.
+    /// </param>
+    /// <param name="predicate">
+    /// The predicate.
+    /// </param>
+    /// <returns>
+    /// The Nodes
+    /// </returns>
+    IEnumerable<LanuageResourcesPageResource> GetCountryNodesUsingQuery(
+      string page, Func<LanuageResourcesPageResource, bool> predicate);
+
+    /// <summary>
+    /// The get region nodes using query.
+    /// </summary>
+    /// <param name="page">
+    /// The page.
+    /// </param>
+    /// <param name="predicate">
+    /// The predicate.
+    /// </param>
+    /// <returns>
+    /// The Nodes
+    /// </returns>
+    IEnumerable<LanuageResourcesPageResource> GetRegionNodesUsingQuery(
+      string page, Func<LanuageResourcesPageResource, bool> predicate);
+
+    /// <summary>
     /// The get text.
     /// </summary>
     /// <param name="text">

@@ -4,7 +4,7 @@
 <table width="100%" class="content EditUserProfileTable" cellspacing="1" cellpadding="4">
     <tr>
         <td class="header1" colspan="2">
-            <YAF:LocalizedLabel runat="server" LocalizedPage="CP_EDITPROFILE" LocalizedTag="TITLE" />
+            <YAF:LocalizedLabel runat="server"  LocalizedPage="CP_EDITPROFILE" LocalizedTag="TITLE" />
         </td>
     </tr>
     <tr>
@@ -86,6 +86,33 @@
                 <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedPage="CP_EDITPROFILE"
                     LocalizedTag="LOCATION" />
             </b>
+        </td>
+    </tr>
+    <tr>
+        <td class="postheader">
+            <YAF:LocalizedLabel ID="LocalizedLabel40" runat="server" LocalizedPage="CP_EDITPROFILE"
+                LocalizedTag="COUNTRY" />
+        </td>
+        <td class="post">
+            <asp:DropDownList ID="Country" AutoPostBack="true"  OnTextChanged="LookForNewRegions" runat="server" CssClass="edit" />
+        </td>
+    </tr>
+     <tr id="RegionTr" visible="false" runat="server">
+        <td class="postheader">
+            <YAF:LocalizedLabel ID="LocalizedLabel41" runat="server" LocalizedPage="CP_EDITPROFILE"
+                LocalizedTag="REGION" />
+        </td>
+        <td class="post">
+            <asp:DropDownList ID="Region" runat="server" CssClass="edit" />            
+        </td>
+    </tr>
+    <tr>
+        <td class="postheader">
+            <YAF:LocalizedLabel ID="LocalizedLabel42" runat="server" LocalizedPage="CP_EDITPROFILE"
+                LocalizedTag="CITY" />
+        </td>
+        <td class="post">
+            <asp:TextBox ID="City" runat="server" CssClass="edit" />
         </td>
     </tr>
     <tr>
