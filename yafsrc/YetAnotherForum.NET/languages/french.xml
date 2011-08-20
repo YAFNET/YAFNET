@@ -4244,6 +4244,24 @@ Spoiler Content
     <Resource tag="TITLE">Mot de passe perdu</Resource>
     <Resource tag="USERNAME_FAILURE">Impossible de trouver cette utilisateur.</Resource>
   </page>
+  <page name="REGION_DE">
+    <Resource tag="RGN_DE_BA">Bavaria</Resource>
+    <Resource tag="RGN_DE_BB">Brandenburg</Resource>
+    <Resource tag="RGN_DE_BER">Berlin</Resource>
+    <Resource tag="RGN_DE_BRE">Bremen</Resource>
+    <Resource tag="RGN_DE_BW">Baden-Württemberg</Resource>
+    <Resource tag="RGN_DE_HE">Hessen</Resource>
+    <Resource tag="RGN_DE_HH">Hamburg</Resource>
+    <Resource tag="RGN_DE_MV">Mecklenburg-Vorpommern</Resource>
+    <Resource tag="RGN_DE_NI">Lower Saxony</Resource>
+    <Resource tag="RGN_DE_NRW">North Rhine-Westphalia</Resource>
+    <Resource tag="RGN_DE_RP">Rhineland-Palatinate</Resource>
+    <Resource tag="RGN_DE_SA">Saxony-Anhalt</Resource>
+    <Resource tag="RGN_DE_SAA">Saarland</Resource>
+    <Resource tag="RGN_DE_SACH">Saxony</Resource>
+    <Resource tag="RGN_DE_SW">Schleswig-Holstein</Resource>
+    <Resource tag="RGN_DE_TH">Thuringia</Resource>
+  </page>
   <page name="REGION_US">
     <Resource tag="RGN_US_AK">Alaska</Resource>
     <Resource tag="RGN_US_AL">Alabama</Resource>

@@ -811,10 +811,10 @@
     <Resource tag="ALLOW_SIGNATURE_HELP">Benutzern erlauben, Signaturen zu erstellen. Sie sollten die zulässige Anzahl von Zeichen und BBCodes für jede Gruppe und / oder Rang gesetzt haben, um wirklich die Funktion zu aktivieren.</Resource>
     <Resource tag="ALLOW_THANKS">Benutzer Ermöglichen Beiträge zu danken:</Resource>
     <Resource tag="ALLOW_THANKS_HELP">Wenn diese Option aktiviert ist, können sich für Beiträge bedanken die sie für nützlich halten.</Resource>
-    <Resource tag="ALLOW_TOPIC_DESCRIPTION">Themen Beschreibung aktivieren?</Resource>
+    <Resource tag="ALLOW_TOPIC_DESCRIPTION">Themen Beschreibung aktivieren:</Resource>
     <Resource tag="ALLOW_TOPIC_DESCRIPTION_HELP">Wenn aktiviert kann eine Beschreibung zu ein Thema eingegeben werden.</Resource>
-    <Resource tag="ALLOW_TOPIC_STATUS">Allow Topic Status Option:</Resource>
-    <Resource tag="ALLOW_TOPIC_STATUS_HELP">If checked, users select a Topic Status Option.</Resource>
+    <Resource tag="ALLOW_TOPIC_STATUS">Themen Status Option aktivieren::</Resource>
+    <Resource tag="ALLOW_TOPIC_STATUS_HELP">Wenn aktiviert können Benutzer einen Topic Status auswählen.</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME">Themen mit gleichem Namen zulassen:</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME_HELP">Gleiche Themen Namen sind erlaubt für:</Resource>
     <Resource tag="ALLOW_USER_HIDE">Benutzer erlauben sich zu verstecken:</Resource>
@@ -4203,6 +4203,24 @@ Spoiler Content
     <Resource tag="QUESTION_FAILURE">Die Antwort ist leider falsch. Bitte nochmal versuchen.</Resource>
     <Resource tag="TITLE">Passwort vergessen</Resource>
     <Resource tag="USERNAME_FAILURE">Der eingegebene Benutzername ist unbekannt</Resource>
+  </page>
+  <page name="REGION_DE">
+    <Resource tag="RGN_DE_BA">Bayern</Resource>
+    <Resource tag="RGN_DE_BB">Brandenburg</Resource>
+    <Resource tag="RGN_DE_BER">Berlin</Resource>
+    <Resource tag="RGN_DE_BRE">Bremen</Resource>
+    <Resource tag="RGN_DE_BW">Baden-Württemberg</Resource>
+    <Resource tag="RGN_DE_HE">Hessen</Resource>
+    <Resource tag="RGN_DE_HH">Hamburg</Resource>
+    <Resource tag="RGN_DE_MV">Mecklenburg-Vorpommern</Resource>
+    <Resource tag="RGN_DE_NI">Niedersachsen</Resource>
+    <Resource tag="RGN_DE_NRW">Nordrhein-Westfalen</Resource>
+    <Resource tag="RGN_DE_RP">Rheinland-Pfalz</Resource>
+    <Resource tag="RGN_DE_SA">Sachsen-Anhalt</Resource>
+    <Resource tag="RGN_DE_SAA">Saarland</Resource>
+    <Resource tag="RGN_DE_SACH">Sachsen</Resource>
+    <Resource tag="RGN_DE_SW">Schleswig-Holstein</Resource>
+    <Resource tag="RGN_DE_TH">Thüringen</Resource>
   </page>
   <page name="REGION_US">
     <Resource tag="RGN_US_AK">Alaska</Resource>
