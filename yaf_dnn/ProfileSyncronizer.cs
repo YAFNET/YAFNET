@@ -119,7 +119,7 @@ namespace YAF.DotNetNuke
         /// Current Portal Settings
         /// </param>
         /// <returns>
-        /// The get user time zone offset.
+        /// Returns the User Time Zone Offset Value
         /// </returns>
         public static int GetUserTimeZoneOffset(UserInfo userInfo, PortalSettings portalSettings)
         {
@@ -205,7 +205,10 @@ namespace YAF.DotNetNuke
                 dnnUserInfo.Profile.FirstName = yafUserProfile.RealName;
             }
 
-            dnnUserInfo.Profile.Country = yafUserProfile.Location;
+            dnnUserInfo.Profile.Country = yafUserProfile.Country;
+            dnnUserInfo.Profile.City = yafUserProfile.City;
+            dnnUserInfo.Profile.Region = yafUserProfile.Region;
+
             dnnUserInfo.Profile.Website = yafUserProfile.Homepage;
             dnnUserInfo.Email = membershipUser.Email;
             dnnUserInfo.Profile.TimeZone = int.Parse(yafUserData.TimeZone.ToString());
@@ -295,7 +298,9 @@ namespace YAF.DotNetNuke
 
             var yafUserData = new CombinedUserDataHelper(yafUserId);
 
-            yafUserProfile.Location = dnnUserInfo.Profile.Country;
+            yafUserProfile.Country = dnnUserInfo.Profile.Country;
+            yafUserProfile.Region = dnnUserInfo.Profile.Region;
+            yafUserProfile.City = dnnUserInfo.Profile.City;
             yafUserProfile.Homepage = dnnUserInfo.Profile.Website;
 
             if (!string.IsNullOrEmpty(dnnUserInfo.Profile.Photo))
@@ -377,6 +382,7 @@ namespace YAF.DotNetNuke
 
             DataCache.SetCache(cacheKeyYafName, currentTime);
         }
+
         /*
         /// <summary>
         /// Extract YAF Avatar to DNN Photo

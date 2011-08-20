@@ -320,7 +320,9 @@ namespace YAF.DotNetNuke
       // setup their inital profile information
       userProfile.Initialize(dnnUser.UserName, true);
       userProfile.RealName = dnnUserInfo.Profile.FullName;
-      userProfile.Location = dnnUserInfo.Profile.Country;
+      userProfile.Country = dnnUserInfo.Profile.Country;
+      userProfile.Region = dnnUserInfo.Profile.Region;
+      userProfile.City = dnnUserInfo.Profile.City;
       userProfile.Homepage = dnnUserInfo.Profile.Website;
       userProfile.Save();
 
