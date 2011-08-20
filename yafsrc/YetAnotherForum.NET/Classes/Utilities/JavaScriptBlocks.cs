@@ -454,6 +454,22 @@ namespace YAF.Utilities
         }
 
         /// <summary>
+        /// Generates jQuery dropdown load js
+        /// </summary>
+        /// <param name="dropDownId">
+        /// The drop Down client Id.
+        /// </param>
+        /// <returns>
+        /// The load js.
+        /// </returns>
+        public static string DropDownLoadJs([NotNull] string dropDownId)
+        {
+            return
+              @"function pageLoad() {{ {0}('#{1}').msDropDown(); }} "
+                .FormatWith(Config.JQueryAlias, dropDownId);
+        }
+
+        /// <summary>
         /// Gets JqueryUITabsLoadJs.
         /// </summary>
         /// <param name="tabId">

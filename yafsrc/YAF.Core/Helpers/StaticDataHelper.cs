@@ -87,20 +87,27 @@ namespace YAF.Core
         {
             dt.Columns.Add("Value", Type.GetType("System.String"));
             dt.Columns.Add("Name", Type.GetType("System.String"));
+
             // Add empty row to data table for dropdown lists with empty selection option.
             bool addEmptyRow = true;  
+
             if (addEmptyRow)
             {
                 var drow = dt.NewRow();
                 drow["Value"] = null;
-                drow["Name"] = null;
+                drow["Name"] = "None";
                 dt.Rows.Add(drow);
             }
+
             var countries =
                 localization.GetRegionNodesUsingQuery("COUNTRY", x => x.tag.StartsWith(string.Empty)).ToList();
+
             // vzrus: a temporary hack - it returns all tags if the page is not found
             if (countries.Count > 2000)
+            {
                 return dt;
+            }
+
             foreach (var node in countries)
             {
                 dt.Rows.Add(new object[] { node.tag, node.Value });
@@ -153,6 +160,7 @@ namespace YAF.Core
         {
             dt.Columns.Add("Value", Type.GetType("System.String"));
             dt.Columns.Add("Name", Type.GetType("System.String"));
+
             // Add empty row to data table for dropdown lists with empty selection option.
             bool addEmptyRow = true;
             if (addEmptyRow)

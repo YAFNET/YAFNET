@@ -94,7 +94,7 @@
                 LocalizedTag="COUNTRY" />
         </td>
         <td class="post">
-            <asp:DropDownList ID="Country" AutoPostBack="true"  OnTextChanged="LookForNewRegions" runat="server" CssClass="edit" />
+            <YAF:CountryListBox ID="Country" AutoPostBack="true" OnTextChanged="LookForNewRegions" runat="server" CssClass="edit" />
         </td>
     </tr>
      <tr id="RegionTr" visible="false" runat="server">

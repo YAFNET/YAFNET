@@ -190,7 +190,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList Country;
+        protected global::YAF.Controls.CountryListBox Country;
         
         /// <summary>
         /// RegionTr control.
