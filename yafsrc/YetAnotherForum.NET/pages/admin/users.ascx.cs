@@ -584,6 +584,9 @@ namespace YAF.Pages.Admin
             usersList.Columns.Add("AIM");
             usersList.Columns.Add("GoogleTalk");
             usersList.Columns.Add("Location");
+            usersList.Columns.Add("Country");
+            usersList.Columns.Add("Region");
+            usersList.Columns.Add("City");
             usersList.Columns.Add("Interests");
             usersList.Columns.Add("Homepage");
             usersList.Columns.Add("Skype");
@@ -613,6 +616,9 @@ namespace YAF.Pages.Admin
                 user["AIM"] = userProfile.AIM;
                 user["GoogleTalk"] = userProfile.GoogleTalk;
                 user["Location"] = userProfile.Location;
+                user["Country"] = userProfile.Country;
+                user["Region"] = userProfile.Region;
+                user["City"] = userProfile.City;
                 user["Interests"] = userProfile.Interests;
                 user["Homepage"] = userProfile.Homepage;
                 user["Skype"] = userProfile.Skype;

@@ -312,7 +312,7 @@ namespace YAF.Pages.Admin
 
           if (row.Table.Columns.Contains("Blog") && !string.IsNullOrEmpty((string)row["Blog"]))
           {
-              userProfile.RealName = (string)row["Blog"];
+              userProfile.Blog = (string)row["Blog"];
           }
 
           if (row.Table.Columns.Contains("Gender") && !string.IsNullOrEmpty((string)row["Gender"]))
@@ -338,77 +338,92 @@ namespace YAF.Pages.Admin
 
           if (row.Table.Columns.Contains("MSN") && !string.IsNullOrEmpty((string)row["MSN"]))
           {
-              userProfile.RealName = (string)row["MSN"];
+              userProfile.MSN = (string)row["MSN"];
           }
           
           if (row.Table.Columns.Contains("BlogServiceUsername") && !string.IsNullOrEmpty((string)row["BlogServiceUsername"]))
           {
-              userProfile.RealName = (string)row["BlogServiceUsername"];
+              userProfile.BlogServiceUsername = (string)row["BlogServiceUsername"];
           }
 
           if (row.Table.Columns.Contains("BlogServicePassword") && !string.IsNullOrEmpty((string)row["BlogServicePassword"]))
           {
-              userProfile.RealName = (string)row["BlogServicePassword"];
+              userProfile.BlogServicePassword = (string)row["BlogServicePassword"];
           }
 
           if (row.Table.Columns.Contains("AIM") && !string.IsNullOrEmpty((string)row["AIM"]))
           {
-              userProfile.RealName = (string)row["AIM"];
+              userProfile.AIM = (string)row["AIM"];
           }
 
           if (row.Table.Columns.Contains("GoogleTalk") && !string.IsNullOrEmpty((string)row["GoogleTalk"]))
           {
-              userProfile.RealName = (string)row["GoogleTalk"];
+              userProfile.GoogleTalk = (string)row["GoogleTalk"];
           }
 
           if (row.Table.Columns.Contains("Location") && !string.IsNullOrEmpty((string)row["Location"]))
           {
-              userProfile.RealName = (string)row["Location"];
+              userProfile.Location = (string)row["Location"];
+          }
+
+          if (row.Table.Columns.Contains("Country") && !string.IsNullOrEmpty((string)row["Country"]))
+          {
+              userProfile.Country = (string)row["Country"];
+          }
+
+          if (row.Table.Columns.Contains("Region") && !string.IsNullOrEmpty((string)row["Region"]))
+          {
+              userProfile.Region = (string)row["Region"];
+          }
+
+          if (row.Table.Columns.Contains("City") && !string.IsNullOrEmpty((string)row["City"]))
+          {
+              userProfile.City = (string)row["City"];
           }
 
           if (row.Table.Columns.Contains("Interests") && !string.IsNullOrEmpty((string)row["Interests"]))
           {
-              userProfile.RealName = (string)row["Interests"];
+              userProfile.Interests = (string)row["Interests"];
           }
 
           if (row.Table.Columns.Contains("Homepage") && !string.IsNullOrEmpty((string)row["Homepage"]))
           {
-              userProfile.RealName = (string)row["Homepage"];
+              userProfile.Homepage = (string)row["Homepage"];
           }
 
           if (row.Table.Columns.Contains("Skype") && !string.IsNullOrEmpty((string)row["Skype"]))
           {
-              userProfile.RealName = (string)row["Skype"];
+              userProfile.Skype = (string)row["Skype"];
           }
 
           if (row.Table.Columns.Contains("ICQe") && !string.IsNullOrEmpty((string)row["ICQ"]))
           {
-              userProfile.RealName = (string)row["ICQ"];
+              userProfile.ICQ = (string)row["ICQ"];
           }
 
           if (row.Table.Columns.Contains("XMPP") && !string.IsNullOrEmpty((string)row["XMPP"]))
           {
-              userProfile.RealName = (string)row["XMPP"];
+              userProfile.XMPP = (string)row["XMPP"];
           }
 
           if (row.Table.Columns.Contains("YIM") && !string.IsNullOrEmpty((string)row["YIM"]))
           {
-              userProfile.RealName = (string)row["YIM"];
+              userProfile.YIM = (string)row["YIM"];
           }
 
           if (row.Table.Columns.Contains("Occupation") && !string.IsNullOrEmpty((string)row["Occupation"]))
           {
-              userProfile.RealName = (string)row["Occupation"];
+              userProfile.Occupation = (string)row["Occupation"];
           }
 
           if (row.Table.Columns.Contains("Twitter") && !string.IsNullOrEmpty((string)row["Twitter"]))
           {
-              userProfile.RealName = (string)row["Twitter"];
+              userProfile.Twitter = (string)row["Twitter"];
           }
 
           if (row.Table.Columns.Contains("Facebook") && !string.IsNullOrEmpty((string)row["Facebook"]))
           {
-              userProfile.RealName = (string)row["Facebook"];
+              userProfile.Facebook = (string)row["Facebook"];
           }
 
           userProfile.Save();
