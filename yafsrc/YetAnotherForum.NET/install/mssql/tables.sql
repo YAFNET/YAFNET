@@ -369,6 +369,7 @@ if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseO
 		Posted			    datetime NOT NULL ,
 		Topic			    nvarchar (100) NOT NULL ,
 		[Description]		nvarchar (255) NULL ,
+		[Status]	     	nvarchar (255) NULL ,
 		[Views]			    int NOT NULL ,
 		[Priority]		    smallint NOT NULL ,
 		PollID			    int NULL ,
@@ -2011,6 +2012,13 @@ if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseO
 		LastAccessDate	datetime NOT NULL
 	)
 GO
+
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='Status')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Topic] add [Status] nvarchar(255) null	
+end
+GO
+
 
 if exists(select top 1 1 from dbo.sysobjects where name='PK_{objectQualifier}ForumReadTracking')
 	alter table [{databaseOwner}].[{objectQualifier}ForumReadTracking] drop constraint [PK_{objectQualifier}ForumReadTracking] 

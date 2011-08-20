@@ -814,6 +814,8 @@
     <Resource tag="ALLOW_THANKS_HELP">با تیک خوردن گزینه به کاربران اجازه می دهید بتوانند از ارسال ها قدردانی کنند.</Resource>
     <Resource tag="ALLOW_TOPIC_DESCRIPTION">Allow Topic Description:</Resource>
     <Resource tag="ALLOW_TOPIC_DESCRIPTION_HELP">If checked, users can add a topic description.</Resource>
+    <Resource tag="ALLOW_TOPIC_STATUS">Allow Topic Status Option:</Resource>
+    <Resource tag="ALLOW_TOPIC_STATUS_HELP">If checked, users select a Topic Status Option.</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME">مجوز وجود عناوین با نام های مشابه:</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME_HELP">نام های تکراری عناوین مجاز است برای :</Resource>
     <Resource tag="ALLOW_USER_HIDE">مجوز مخفی کردن به کاربر:</Resource>
@@ -4006,6 +4008,7 @@ Spoiler Content
     <Resource tag="SMILIES_HEADER">[b]اضافه کردن خندانک[/b]</Resource>
     <Resource tag="SMILIES_MORE">خندانکهای بیشتر...</Resource>
     <Resource tag="SPAM_MESSAGE">Your Message was rejected because it was detected as SPAM!</Resource>
+    <Resource tag="STATUS">Status:</Resource>
     <Resource tag="STICKY">مهم</Resource>
     <Resource tag="SUBJECT">موضوع:</Resource>
     <Resource tag="SUBJECT_DUPLICATE">موضوغی با این عنوان هم اکنون موجود است یا عنوان به قدر کافی یکتائی ندارد.</Resource>
@@ -4616,6 +4619,13 @@ The Message was posted in the {forumname} forum.
     <Resource tag="WELCOME_GUEST">ورود به عنوان میهمان</Resource>
     <Resource tag="WELCOME_GUEST_FULL">خوش آمدید! برای فعال سازی امکانات لطفا  </Resource>
     <Resource tag="WELCOME_GUEST_NO">خوش آمدید! &lt;strong&gt;not&lt;/strong&gt; ثبت نام کنید یا وارد شوید.</Resource>
+  </page>
+  <page name="TOPIC_STATUS">
+    <Resource tag="FIXED">Fixed</Resource>
+    <Resource tag="INFORMATIC">Informative</Resource>
+    <Resource tag="ISSUE">Issue</Resource>
+    <Resource tag="QUESTION">Question</Resource>
+    <Resource tag="SOLVED">Solved</Resource>
   </page>
   <page name="TOPICS">
     <Resource tag="ALL">همه</Resource>

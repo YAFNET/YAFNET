@@ -44,7 +44,7 @@ namespace YAF.Pages
     #endregion
 
     /// <summary>
-    /// Summary description for postmessage.
+    /// The post message Page.
     /// </summary>
     public partial class postmessage : ForumPage
     {
@@ -176,6 +176,7 @@ namespace YAF.Pages
         /// The get poll group id.
         /// </summary>
         /// <returns>
+        /// Returns the PollGroup Id
         /// </returns>
         protected int? GetPollGroupID()
         {
@@ -192,7 +193,7 @@ namespace YAF.Pages
         /// The subject.
         /// </param>
         /// <returns>
-        /// The handle post to blog.
+        /// Retuns the Blog Post ID
         /// </returns>
         protected string HandlePostToBlog([NotNull] string message, [NotNull] string subject)
         {
@@ -301,7 +302,6 @@ namespace YAF.Pages
                 return false;
             }
           
-
             if (this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().AllowCreateTopicsSameName) && LegacyDb.topic_findduplicate(this.TopicSubjectTextBox.Text.Trim()) == 1 && this.TopicID == null &&
                 this.EditMessageID == null)
             {
@@ -481,6 +481,20 @@ namespace YAF.Pages
                 this.Priority.Items.Add(new ListItem(this.GetText("announcement"), "2"));
                 this.Priority.SelectedIndex = 0;
 
+                if (this.Get<YafBoardSettings>().EnableTopicStatus)
+                {
+                    this.StatusRow.Visible = true;
+
+                    foreach (ListItem item in this.TopicStatus.Items)
+                    {
+                        item.Text = this.GetText("TOPIC_STATUS", item.Value);
+                    }
+
+                    this.TopicStatus.Items.Insert(0, new ListItem("   ", "-1"));
+
+                    this.TopicStatus.SelectedIndex = 0;
+                }
+
                 this.EditReasonRow.Visible = false;
 
                 this.PriorityRow.Visible = this.PageContext.ForumPriorityAccess;
@@ -495,7 +509,7 @@ namespace YAF.Pages
                 this.PostOptions1.WatchOptionVisible = !this.PageContext.IsGuest;
                 this.PostOptions1.PollOptionVisible = this.PageContext.ForumPollAccess && isNewTopic;
 
-                //this.Attachments1.Visible = !this.PageContext.IsGuest;
+                ////this.Attachments1.Visible = !this.PageContext.IsGuest;
 
                 DataRow forumInfo;
 
@@ -514,11 +528,9 @@ namespace YAF.Pages
                     // todo message id*/
 
                     this.PostOptions1.WatchChecked = this.PageContext.PageTopicID > 0
-                                                         ? this.TopicWatchedId(
-                                                             this.PageContext.PageUserID, this.PageContext.PageTopicID).
-                                                               HasValue
-                                                         : new CombinedUserDataHelper(this.PageContext.PageUserID).
-                                                               AutoWatchTopics;
+                                                         ? this.TopicWatchedId(this.PageContext.PageUserID, this.PageContext.PageTopicID).
+                                                               HasValue : new CombinedUserDataHelper(this.PageContext.PageUserID)
+                                                               .AutoWatchTopics;
                 }
 
                 if ((this.PageContext.IsGuest && this.Get<YafBoardSettings>().EnableCaptchaForGuests) ||
@@ -636,6 +648,7 @@ namespace YAF.Pages
               this.Priority.SelectedValue,
               this._forumEditor.Text.Trim(),
               descriptionSave.Trim(),
+              TopicStatus.SelectedValue,
               subjectSave.Trim(),
               messageFlags.BitValue,
               this.HtmlEncode(this.ReasonEditor.Text),
@@ -714,6 +727,7 @@ namespace YAF.Pages
             topicId = LegacyDb.topic_save(
               this.PageContext.PageForumID,
               this.TopicSubjectTextBox.Text.Trim(),
+              this.TopicStatus.SelectedValue,
               this.TopicDescriptionTextBox.Text.Trim(),
               this._forumEditor.Text,
               this.PageContext.PageUserID,
@@ -1298,16 +1312,30 @@ namespace YAF.Pages
                 {
                     this.DescriptionRow.Visible = true;
                 }
+
+                if (this.Get<YafBoardSettings>().EnableTopicStatus)
+                {
+                    this.StatusRow.Visible = true;
+                }
+
+                this.TopicStatus.Enabled = true;
             }
             else
             {
-                // disable the subject
                 this.TopicSubjectTextBox.Enabled = false;
                 this.TopicDescriptionTextBox.Enabled = false;
+                this.TopicStatus.Enabled = false;
             }
 
             this.Priority.SelectedItem.Selected = false;
             this.Priority.Items.FindByValue(currentRow["Priority"].ToString()).Selected = true;
+
+            this.TopicStatus.SelectedItem.Selected = false;
+            if (this.TopicStatus.Items.FindByValue(currentRow["Status"].ToString()) != null)
+            {
+                this.TopicStatus.Items.FindByValue(currentRow["Status"].ToString()).Selected = true;
+            }
+
             this.EditReasonRow.Visible = true;
             this.ReasonEditor.Text = this.Server.HtmlDecode(Convert.ToString(currentRow["EditReason"]));
             this.PostOptions1.PersistantChecked = messageFlags.IsPersistent;
@@ -1377,6 +1405,7 @@ namespace YAF.Pages
 
             this.SubjectRow.Visible = false;
             this.DescriptionRow.Visible = false;
+            this.StatusRow.Visible = false;
             this.Title.Text = this.GetText("reply");
 
             // add topic link...

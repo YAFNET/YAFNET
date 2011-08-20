@@ -207,7 +207,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to enable topic dwscription.
+        /// Gets or sets a value indicating whether to enable topic description.
         /// </summary>
         public bool EnableTopicDescription
         {
@@ -219,6 +219,22 @@ namespace YAF.Classes
             set
             {
                 this._reg.SetValue("EnableTopicDescription", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to enable topic status.
+        /// </summary>
+        public bool EnableTopicStatus
+        {
+            get
+            {
+                return this._reg.GetValue("EnableTopicStatus", false);
+            }
+
+            set
+            {
+                this._reg.SetValue("EnableTopicStatus", value);
             }
         }
 

@@ -1002,6 +1002,7 @@ namespace YAF.Pages.Admin
           this.TopicPrefixTB.Text.Trim() + this.randomGuid, 
           this.MessageContentPrefixTB.Text.Trim() + this.randomGuid,
           null,
+          null,
           this.PageContext.PageUserID, 
           _priority, 
           this.PageContext.User.UserName, 

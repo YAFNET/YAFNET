@@ -49,10 +49,11 @@ body {
 <h1>
 <a href="http://www.yetanotherforum.net"><img src="forumlogo.jpg" alt="YAF logo" style="border: 0"></a></h1>
 <h1>YetAnotherForum.NET Changelog </h1>
-	<span class="FeatureHeader">YetAnotherForum.NET 1.9.5.6</span>
-  <p>New features:</p>
+	<span class="FeatureHeader">YetAnotherForum.NET 1.9.6</span>
+    <p>New features:</p>
 	<ul>
-		<li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/6348ef6e1b56">6348ef6e1b56</a> - Added new BB Code [ALBUMIMG]1234[/ALBUMIMG] - To post user uploaded Album Images</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/dbf9572dd9ee">dbf9572dd9ee</a> - New Feature: User can select his country and region in his Profile</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/da6b2ed42ff7">da6b2ed42ff7</a> - Added new BB Code [ALBUMIMG]1234[/ALBUMIMG] - To post user uploaded Album Images</li>
 		<li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/6348ef6e1b56">6348ef6e1b56</a> - Added the Topic Description (If available &amp; enabled) to the Topic Title.</li>
 		<li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/997fd993b374">997fd993b374</a> - Extending the My Topics Page, now contains two more Tabs &quot;Unread Topics&quot; and &quot;My Topics&quot; - Which only shows topics the user has posted in.</li>
 		<li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/867ac9d232f6">867ac9d232f6</a> - Finally added a Real Read tracking for topics and forum for a User. By Default it uses the Old System. New System Can be turned on in Host Settings -&gt;Features -&gt; &quot;Use User Read Tracking via Database&quot;</li>
@@ -98,6 +99,9 @@ body {
 	</ul>
 <p><em>changes</em></p>
 	<ul>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/161b356a8364">161b356a8364</a> - Important! A required change in the YAF Membership Provider. An overridden 'Description' property shows that this is a YAF provider insted of class name reference. If you use a custom built-in YAF memebership provider you should implement it.</li>
+		<li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/23d9675ab35e">23d9675ab35e</a> - Made the GetText regex static and compiled for speed. GetText is a *very* common function. Even a slight increase in processing in it creates a ripple effect in performance.</li>
+		<li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/0fc59d167001">0fc59d167001</a> - Added Num. of Album Caching, Added a few more indexes to speed up user_list.</li>
 		<li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/a6c6b0b69244">a6c6b0b69244</a> - Fixed Modal PopUp Background Issue in IE8.</li>
 		<li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/0e5f29eb8b24">0e5f29eb8b24</a> - Two Missing Icons added to the YafMobile Theme.</li>
 		<li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/c080d75dfff0">c080d75dfff0</a> - A UTF-8 encoding fix for a poll question.</li>

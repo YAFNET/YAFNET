@@ -96,7 +96,18 @@ namespace YAF.Controls
             newPostIcon.ToolTip = this.GetText("NEW_POSTS");
             newPostIcon.ImageUrl = this.Get<ITheme>().GetItem("ICONS", "TOPIC_NEW");
 
-            textMessageLink.Text = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(currentRow["Topic"].ToString()));
+            if (currentRow["Status"].ToString().IsSet() && this.Get<YafBoardSettings>().EnableTopicStatus)
+            {
+                textMessageLink.Text =
+                    "[{0}] {1}".FormatWith(
+                        this.GetText("TOPIC_STATUS", currentRow["Status"].ToString()),
+                        this.Get<IBadWordReplace>().Replace(this.HtmlEncode(currentRow["TOPIC"])));
+            }
+            else
+            {
+                textMessageLink.Text =
+                    this.Get<IBadWordReplace>().Replace(this.HtmlEncode(currentRow["Topic"].ToString()));
+            }
 
             if (!this.PageContext.IsMobileDevice)
             {

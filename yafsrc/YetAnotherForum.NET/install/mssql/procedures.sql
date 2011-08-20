@@ -3545,6 +3545,7 @@ BEGIN
 		c.Topic,
 		c.Priority,
 		c.Description,
+		c.Status,
 		a.Flags,
 		c.UserID AS TopicOwnerID,
 		Edited = IsNull(a.Edited,a.Posted),
@@ -3821,6 +3822,7 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}message_update](
 @Priority int,
 @Subject nvarchar(100),
 @Description nvarchar(255),
+@Status nvarchar(255),
 @Flags int, 
 @Message ntext, 
 @Reason nvarchar(100), 
@@ -3881,7 +3883,9 @@ begin
 
 	if not @Subject = '' and @Subject is not null begin
 		update [{databaseOwner}].[{objectQualifier}Topic] set
-			Topic = @Subject, [Description] = @Description
+			Topic = @Subject, 
+			[Description] = @Description,
+			[Status] = @Status
 		where
 			TopicID = @TopicID
 	end 
@@ -5240,6 +5244,7 @@ begin
 		LinkTopicID = IsNull(c.TopicMovedID,c.TopicID),
 		[Subject] = c.Topic,
 		[Description] = c.Description,
+		[Status] = c.Status,
 		c.UserID,
 		Starter = IsNull(c.UserName,b.Name),
 		NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@PageUserID IS NOT NULL AND mes.UserID = @PageUserID) OR (@PageUserID IS NULL)) ),
@@ -5635,6 +5640,7 @@ BEGIN
 		t.ForumID,
 		f.Name as Forum,
 		t.Topic,
+		t.Status,
 		t.TopicID,
 		t.TopicMovedID,
 		t.UserID,
@@ -5735,6 +5741,7 @@ begin
 			FavoriteCount = (SELECT COUNT(1) as [FavoriteCount] FROM [{databaseOwner}].[{objectQualifier}FavoriteTopic] WHERE TopicId = IsNull(c.TopicMovedID,c.TopicID)),
 			[Subject] = c.Topic,
 			[Description] = c.Description,
+			[Status] = c.Status,
 			c.UserID,
 			Starter = IsNull(c.UserName,b.Name),
 			Replies = c.NumPosts - 1,
@@ -5789,6 +5796,7 @@ begin
 			FavoriteCount = (SELECT COUNT(1) as [FavoriteCount] FROM [{databaseOwner}].[{objectQualifier}FavoriteTopic] WHERE TopicId = IsNull(c.TopicMovedID,c.TopicID)),
 			[Subject] = c.Topic,
 			c.[Description],
+			c.[Status],
 			c.UserID,
 			Starter = IsNull(c.UserName,b.Name),
 			Replies = c.NumPosts - 1,
@@ -5944,6 +5952,7 @@ create procedure [{databaseOwner}].[{objectQualifier}topic_save](
 	@UserID		int,
 	@Message	ntext,
 	@Description	nvarchar(255)=null,
+	@Status 	nvarchar(255)=null,
 	@Priority	smallint,
 	@UserName	nvarchar(255)=null,
 	@IP			varchar(39),
@@ -5958,8 +5967,8 @@ begin
 	if @Posted is null set @Posted = GETUTCDATE() 
 
 	-- create the topic
-	insert into [{databaseOwner}].[{objectQualifier}Topic](ForumID,Topic,UserID,Posted,[Views],[Priority],UserName,NumPosts, [Description])
-	values(@ForumID,@Subject,@UserID,@Posted,0,@Priority,@UserName,0,@Description)
+	insert into [{databaseOwner}].[{objectQualifier}Topic](ForumID,Topic,UserID,Posted,[Views],[Priority],UserName,NumPosts, [Description], [Status])
+	values(@ForumID,@Subject,@UserID,@Posted,0,@Priority,@UserName,0,@Description, @Status)
 
 	-- get its id
 	set @TopicID = SCOPE_IDENTITY()
@@ -8016,7 +8025,6 @@ declare @groupcount int
 	delete from [{databaseOwner}].[{objectQualifier}Choice] where PollID = @PollID
 	-- delete poll
 	Update [{databaseOwner}].[{objectQualifier}Poll] set PollGroupID = NULL where PollID = @PollID
-	delete from [{databaseOwner}].[{objectQualifier}Poll] where PollID = @PollID 
 	delete from [{databaseOwner}].[{objectQualifier}Poll] where PollID = @PollID 	
 	if  NOT EXISTS (SELECT TOP 1 1 FROM [{databaseOwner}].[{objectQualifier}Poll] where PollGroupID = @PollGroupID) 
         begin	
@@ -8828,6 +8836,7 @@ begin
 		LinkTopicID = IsNull(c.TopicMovedID,c.TopicID),
 		[Subject] = c.Topic,
 		[Description] = c.Description,
+		[Status] = c.Status,
 		c.UserID,
 		Starter = IsNull(c.UserName,b.Name),
 		NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@PageUserID IS NOT NULL AND mes.UserID = @PageUserID) OR (@PageUserID IS NULL)) ),
@@ -9229,8 +9238,8 @@ as
 	 LEFT JOIN [{databaseOwner}].[{objectQualifier}Message] m ON m.MessageID = mh.MessageID
 	 LEFT JOIN [{databaseOwner}].[{objectQualifier}Topic] t ON t.TopicID = m.TopicID
 	 LEFT JOIN [{databaseOwner}].[{objectQualifier}User] u ON u.UserID = t.UserID
-	 WHERE mh.MessageID = @MessageID 
-	 order by mh.Edited, mh.MessageID 
+	 WHERE mh.MessageID = @MessageID
+	 order by mh.Edited, mh.MessageID
 	END
 GO
 
@@ -9564,6 +9573,7 @@ begin
 		LinkTopicID = IsNull(c.TopicMovedID,c.TopicID),
 		[Subject] = c.Topic,
 		[Description] = c.Description,
+		[Status] = c.Status,
 		c.UserID,
 		Starter = IsNull(c.UserName,b.Name),
 		NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@PageUserID IS NOT NULL AND mes.UserID = @PageUserID) OR (@PageUserID IS NULL)) ),
@@ -9597,7 +9607,7 @@ begin
 			else ''	 end,
 	    LastForumAccess = case(@FindLastRead)
 		     when 1 then
-		       (SELECT top 1  LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x WHERE x.ForumID=d.ForumID AND x.UserID = @PageUserID)
+		       (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x WHERE x.ForumID=d.ForumID AND x.UserID = @PageUserID)
 		     else ''	 end,
 		LastTopicAccess = case(@FindLastRead)
 		     when 1 then

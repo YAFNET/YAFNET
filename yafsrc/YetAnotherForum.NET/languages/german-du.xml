@@ -813,6 +813,8 @@
     <Resource tag="ALLOW_THANKS_HELP">Wenn diese Option aktiviert ist, können sich für Beiträge bedanken die sie für nützlich halten.</Resource>
     <Resource tag="ALLOW_TOPIC_DESCRIPTION">Themen Beschreibung aktivieren?</Resource>
     <Resource tag="ALLOW_TOPIC_DESCRIPTION_HELP">Wenn aktiviert kann eine Beschreibung zu ein Thema eingegeben werden.</Resource>
+    <Resource tag="ALLOW_TOPIC_STATUS">Allow Topic Status Option:</Resource>
+    <Resource tag="ALLOW_TOPIC_STATUS_HELP">If checked, users select a Topic Status Option.</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME">Themen mit gleichem Namen zulassen:</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME_HELP">Gleiche Themen Namen sind erlaubt für:</Resource>
     <Resource tag="ALLOW_USER_HIDE">Benutzer erlauben sich zu verstecken:</Resource>
@@ -3984,6 +3986,7 @@ Spoiler Content
     <Resource tag="SMILIES_HEADER">[b]Smiley Hinzufügen[/b]</Resource>
     <Resource tag="SMILIES_MORE">Mehr Smileys...</Resource>
     <Resource tag="SPAM_MESSAGE">Ihr Beitrag wurde abgelehnt dar er als SPAM erkannt wurde!</Resource>
+    <Resource tag="STATUS">Status:</Resource>
     <Resource tag="STICKY">Wichtig</Resource>
     <Resource tag="SUBJECT">Betreff:</Resource>
     <Resource tag="SUBJECT_DUPLICATE">Ein Beitrag mit diesem Namen existiert bereits oder ist nicht eindeutig genug um ihn verwenden zu können.</Resource>
@@ -4629,6 +4632,13 @@ Der Bestätigungscode lautet
     <Resource tag="WELCOME_GUEST">Willkommen, Gast!</Resource>
     <Resource tag="WELCOME_GUEST_FULL">Willkommen Gast! Um alle Funktionen zu aktivieren müssen Sie sich </Resource>
     <Resource tag="WELCOME_GUEST_NO">Willkommen Gast! Sie können sich &lt;strong&gt;nicht&lt;/strong&gt; anmelden oder registrieren.</Resource>
+  </page>
+  <page name="TOPIC_STATUS">
+    <Resource tag="FIXED">Fixed</Resource>
+    <Resource tag="INFORMATIC">Informative</Resource>
+    <Resource tag="ISSUE">Issue</Resource>
+    <Resource tag="QUESTION">Question</Resource>
+    <Resource tag="SOLVED">Solved</Resource>
   </page>
   <page name="TOPICS">
     <Resource tag="ALL">Alle</Resource>

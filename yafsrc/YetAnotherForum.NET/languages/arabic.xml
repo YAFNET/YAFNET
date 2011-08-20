@@ -815,6 +815,8 @@
     <Resource tag="ALLOW_THANKS_HELP">If checked users can thank posts they consider useful.</Resource>
     <Resource tag="ALLOW_TOPIC_DESCRIPTION">Allow Topic Description:</Resource>
     <Resource tag="ALLOW_TOPIC_DESCRIPTION_HELP">If checked, users can add a topic description.</Resource>
+    <Resource tag="ALLOW_TOPIC_STATUS">Allow Topic Status Option:</Resource>
+    <Resource tag="ALLOW_TOPIC_STATUS_HELP">If checked, users select a Topic Status Option.</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME">Allow Topics With Same Name:</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME_HELP">Duplicate topic names are allowed to:</Resource>
     <Resource tag="ALLOW_USER_HIDE">Allow User To Hide Himself:</Resource>
@@ -3844,6 +3846,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="SMILIES_HEADER">[b]إضافة ابتسامة[/b]</Resource>
     <Resource tag="SMILIES_MORE">المزيد من  الابتسامات ...</Resource>
     <Resource tag="SPAM_MESSAGE">Your Message was rejected because it was detected as SPAM!</Resource>
+    <Resource tag="STATUS">Status:</Resource>
     <Resource tag="STICKY">مثبت</Resource>
     <Resource tag="SUBJECT"> عنوان الموضوع:</Resource>
     <Resource tag="SUBJECT_DUPLICATE">A topic with the subject already exists or the subject is not unique enough to be added.</Resource>
@@ -4495,6 +4498,13 @@ Visit {forumname} at {forumlink}
     <Resource tag="WELCOME_GUEST">مرحبا بك ضيفاً.</Resource>
     <Resource tag="WELCOME_GUEST_FULL">Welcome Guest! To enable all features please </Resource>
     <Resource tag="WELCOME_GUEST_NO">Welcome Guest! You can &lt;strong&gt;not&lt;/strong&gt; login or register.</Resource>
+  </page>
+  <page name="TOPIC_STATUS">
+    <Resource tag="FIXED">Fixed</Resource>
+    <Resource tag="INFORMATIC">Informative</Resource>
+    <Resource tag="ISSUE">Issue</Resource>
+    <Resource tag="QUESTION">Question</Resource>
+    <Resource tag="SOLVED">Solved</Resource>
   </page>
   <page name="TOPICS">
     <Resource tag="ALL">الكل</Resource>

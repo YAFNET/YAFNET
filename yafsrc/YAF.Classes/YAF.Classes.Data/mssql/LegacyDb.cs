@@ -5459,7 +5459,6 @@ namespace YAF.Classes.Data
             }
         }
 
-        // <summary> Update message to DB. </summary>
         /// <summary>
         /// The message_update.
         /// </summary>
@@ -5475,6 +5474,9 @@ namespace YAF.Classes.Data
         /// <param name="description">
         /// The description.
         /// </param>
+        /// <param name="status">
+        /// The status.
+        /// </param>
         /// <param name="subject">
         /// The subject.
         /// </param>
@@ -5487,26 +5489,34 @@ namespace YAF.Classes.Data
         /// <param name="isModeratorChanged">
         /// The is moderator changed.
         /// </param>
-        /// <param name="origMessage">
-        /// The orig Message.
+        /// <param name="overrideApproval">
+        /// The override approval.
+        /// </param>
+        /// <param name="originalMessage">
+        /// The original Message.
         /// </param>
         /// <param name="editedBy">
         /// UserId of who edited the message.
         /// </param>
-        public static void message_update([NotNull] object messageID, [NotNull] object priority, [NotNull] object message, [NotNull] object description, [NotNull] object subject, [NotNull] object flags, [NotNull] object reasonOfEdit, [NotNull] object isModeratorChanged, [NotNull] object origMessage, [NotNull] object editedBy)
+        public static void message_update([NotNull] object messageID, [NotNull] object priority, [NotNull] object message, [NotNull] object description, [CanBeNull] object status, [NotNull] object subject, [NotNull] object flags, [NotNull] object reasonOfEdit, [NotNull] object isModeratorChanged, [NotNull] object overrideApproval, [NotNull] object originalMessage, [NotNull] object editedBy)
         {
-            message_update(
-              messageID,
-              priority,
-              message,
-              subject,
-              description,
-              flags,
-              reasonOfEdit,
-              isModeratorChanged,
-              null,
-              origMessage,
-              editedBy);
+            using (var cmd = MsSqlDbAccess.GetCommand("message_update"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("MessageID", messageID);
+                cmd.Parameters.AddWithValue("Priority", priority);
+                cmd.Parameters.AddWithValue("Message", message);
+                cmd.Parameters.AddWithValue("Description", description);
+                cmd.Parameters.AddWithValue("Status", status);
+                cmd.Parameters.AddWithValue("Subject", subject);
+                cmd.Parameters.AddWithValue("Flags", flags);
+                cmd.Parameters.AddWithValue("Reason", reasonOfEdit);
+                cmd.Parameters.AddWithValue("EditedBy", editedBy);
+                cmd.Parameters.AddWithValue("IsModeratorChanged", isModeratorChanged);
+                cmd.Parameters.AddWithValue("OverrideApproval", overrideApproval);
+                cmd.Parameters.AddWithValue("OriginalMessage", originalMessage);
+                MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
+            }
         }
 
         /// <summary>
@@ -8132,6 +8142,9 @@ namespace YAF.Classes.Data
         /// <param name="subject">
         /// The subject.
         /// </param>
+        /// <param name="status">
+        /// The status.
+        /// </param>
         /// <param name="description">
         /// The description.
         /// </param>
@@ -8163,10 +8176,22 @@ namespace YAF.Classes.Data
         /// The message id.
         /// </param>
         /// <returns>
-        /// The topic_save.
+        /// Returns the Topic ID
         /// </returns>
-        public static long topic_save([NotNull] object forumID, [NotNull] object subject, [NotNull] object description, [NotNull] object message, [NotNull] object userID, [NotNull] object priority, [NotNull] object userName, [NotNull] object ip, [NotNull] object posted, [NotNull] object blogPostID, [NotNull] object flags,
-                                      ref long messageID)
+        public static long topic_save(
+            [NotNull] object forumID,
+            [NotNull] object subject,
+            [CanBeNull] object status,
+            [CanBeNull] object description,
+            [NotNull] object message,
+            [NotNull] object userID,
+            [NotNull] object priority,
+            [NotNull] object userName,
+            [NotNull] object ip,
+            [NotNull] object posted,
+            [NotNull] object blogPostID,
+            [NotNull] object flags,
+            ref long messageID)
         {
             using (var cmd = MsSqlDbAccess.GetCommand("topic_save"))
             {
@@ -8174,6 +8199,7 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("ForumID", forumID);
                 cmd.Parameters.AddWithValue("Subject", subject);
                 cmd.Parameters.AddWithValue("Description", description);
+                cmd.Parameters.AddWithValue("Status", status);
                 cmd.Parameters.AddWithValue("UserID", userID);
                 cmd.Parameters.AddWithValue("Message", message);
                 cmd.Parameters.AddWithValue("Priority", priority);

@@ -813,6 +813,8 @@
     <Resource tag="ALLOW_THANKS_HELP">Als deze is aangevinkt, kunnen Gebruikers elkaar bedanken voor nuttige posts.</Resource>
     <Resource tag="ALLOW_TOPIC_DESCRIPTION">Allow Topic Description:</Resource>
     <Resource tag="ALLOW_TOPIC_DESCRIPTION_HELP">If checked, users can add a topic description.</Resource>
+    <Resource tag="ALLOW_TOPIC_STATUS">Allow Topic Status Option:</Resource>
+    <Resource tag="ALLOW_TOPIC_STATUS_HELP">If checked, users select a Topic Status Option.</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME">Sta meerdere Topics met dezelfde naam toe:</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME_HELP">Dubbele Topicnamen toegestaan voor:</Resource>
     <Resource tag="ALLOW_USER_HIDE">Gebruikers mogen zich onzichtbaar maken:</Resource>
@@ -3955,6 +3957,7 @@ Spoiler Content
     <Resource tag="SMILIES_HEADER">[b]Smiley invoegen[/b]</Resource>
     <Resource tag="SMILIES_MORE">Meer smiley's...</Resource>
     <Resource tag="SPAM_MESSAGE">Your Message was rejected because it was detected as SPAM!</Resource>
+    <Resource tag="STATUS">Status:</Resource>
     <Resource tag="STICKY">Sticky</Resource>
     <Resource tag="SUBJECT">Onderwerp:</Resource>
     <Resource tag="SUBJECT_DUPLICATE">Een topic met deze titel bestaat al, of de titel is niet uniek genoeg.</Resource>
@@ -4589,6 +4592,13 @@ Bezoek {forumname} op {forumlink}
     <Resource tag="WELCOME_GUEST">Welkom gast!</Resource>
     <Resource tag="WELCOME_GUEST_FULL">Welkom gast! Om van alle functies gebruik te kunnen maken kun je</Resource>
     <Resource tag="WELCOME_GUEST_NO">Welkom gast! Je kunt helaas &lt;strong&gt;niet&lt;/strong&gt; inloggen of registreren.</Resource>
+  </page>
+  <page name="TOPIC_STATUS">
+    <Resource tag="FIXED">Fixed</Resource>
+    <Resource tag="INFORMATIC">Informative</Resource>
+    <Resource tag="ISSUE">Issue</Resource>
+    <Resource tag="QUESTION">Question</Resource>
+    <Resource tag="SOLVED">Solved</Resource>
   </page>
   <page name="TOPICS">
     <Resource tag="ALL">Alle</Resource>

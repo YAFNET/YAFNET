@@ -2584,6 +2584,7 @@ Spoiler Content
       <Resource tag="PREVIEW_TITLE">Get a Preview of the Message</Resource>
 	  <Resource tag="CANCEL_TITLE">Cancel Message editing/creating</Resource>
 	  <Resource tag="DESCRIPTION">Description:</Resource>
+          <Resource tag="STATUS">Status:</Resource>
    </page>
    <page name="CP_EDITALBUMIMAGES">
       <Resource tag="TITLE">Add/Edit Album</Resource>
@@ -4605,6 +4606,8 @@ Visit {forumname} at {forumlink}
        <Resource tag="ALLOW_EMAIL_TOPIC_HELP">If checked, users will be allowed to email topics.</Resource>
      <Resource tag="ALLOW_TOPIC_DESCRIPTION">Allow Topic Description:</Resource>
        <Resource tag="ALLOW_TOPIC_DESCRIPTION_HELP">If checked, users can add a topic description.</Resource>
+     <Resource tag="ALLOW_TOPIC_STATUS">Allow Topic Status Option:</Resource>
+     <Resource tag="ALLOW_TOPIC_STATUS_HELP">If checked, users select a Topic Status Option.</Resource>
 	   <Resource tag="ALLOW_QUICK_ANSWER">Allow Quick Answer:</Resource>
        <Resource tag="ALLOW_QUICK_ANSWER_HELP">Enable or disable display of the Quick Reply Box at the bottom of the Posts page</Resource>
 	   <Resource tag="ENABLE_CALENDER">Enable calendar:</Resource>
@@ -4717,5 +4720,12 @@ Visit {forumname} at {forumlink}
    </page>
 	  <page name="ADMIN_TEST_DATA">
 	   <Resource tag="TITLE">Create Test Data (DEBUG Only)</Resource>
+	 </page>
+         	  <page name="TOPIC_STATUS">
+	   <Resource tag="INFORMATIC">Informative</Resource>
+       <Resource tag="SOLVED">Solved</Resource>
+       <Resource tag="QUESTION">Question</Resource>
+	   <Resource tag="ISSUE">Issue</Resource>
+	   <Resource tag="FIXED">Fixed</Resource>
 	 </page>
 </Resources>
