@@ -18,6 +18,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+using YAF.Classes.Pattern;
+
 namespace YAF.Pages
 {
   // YAF.Pages
@@ -55,12 +57,13 @@ namespace YAF.Pages
     /// <summary>
     ///   Gets User IP Info.
     /// </summary>
-    public IPLocator _UserIpLocator;
+    public ThreadSafeDictionary<string,string> _UserIpLocator;
 
     /// <summary>
     ///   The recPH.
     /// </summary>
     private PlaceHolder recPH;
+   
 
     #endregion
 
@@ -471,42 +474,33 @@ namespace YAF.Pages
         if (this._UserIpLocator == null)
         {
           // vzrus: we should always get not null class here
-          this._UserIpLocator = new IPDetails().GetData(HttpContext.Current.Request.UserHostAddress, true);
+          this._UserIpLocator = new IPDetails().GetData(HttpContext.Current.Request.UserHostAddress, "text", false,this.PageContext().CurrentForumPage.Localization.Culture.Name,"","");
         }
 
-        // fill dst field 
-        if (this._UserIpLocator.Isdst.IsSet() && this._UserIpLocator.Status.ToUpper() == "OK")
-        {
-          this.CreateUserWizard1.FindControlRecursiveAs<CheckBox>("DSTUser").Checked = this._UserIpLocator.Isdst == "1"
-                                                                                         ? true
-                                                                                         : false;
-        }
 
-        // fill location field 
-        if (this._UserIpLocator.Isdst.IsSet() && this._UserIpLocator.Status.ToUpper() == "OK")
-        {
+          // fill location field 
           // Trying to consume data about user IP whereabouts
-          if (this._UserIpLocator.Status == "OK")
+        if (this._UserIpLocator.Count > 0 && this._UserIpLocator["StatusCode"] == "OK")
           {
             string txtLoc = String.Empty;
-            if (this._UserIpLocator.CountryName.IsSet())
+            if (this._UserIpLocator["CountryName"].IsSet())
             {
-              txtLoc += this._UserIpLocator.CountryName;
+              txtLoc += this._UserIpLocator["CountryName"];
             }
 
-            if (this._UserIpLocator.RegionName.IsSet())
+            if (this._UserIpLocator["RegionName"].IsSet())
             {
-              txtLoc += ", " + this._UserIpLocator.RegionName;
+              txtLoc += ", " + this._UserIpLocator["RegionName"];
             }
 
-            if (this._UserIpLocator.City.IsSet())
+            if (this._UserIpLocator["CityName"].IsSet())
             {
-              txtLoc += ", " + this._UserIpLocator.City;
+                txtLoc += ", " + this._UserIpLocator["CityName"];
             }
 
             this.CreateUserWizard1.FindControlRecursiveAs<TextBox>("Location").Text = txtLoc;
           }
-        }
+       
 
         if (!this.Get<YafBoardSettings>().EmailVerification)
         {
@@ -531,16 +525,24 @@ namespace YAF.Pages
         this.CreateUserWizard1.FinishDestinationPageUrl = YafForumInfo.ForumURL;
 
         this.DataBind();
-        int tz = 0;
-        if (this._UserIpLocator.Status == "OK")
+       
+        decimal hours = 0;
+        if (this._UserIpLocator.Count > 0 && this._UserIpLocator["StatusCode"] == "OK")
         {
-          if (this._UserIpLocator.Gmtoffset.IsSet() && this._UserIpLocator.Isdst.IsSet())
-          {
-              tz = (this._UserIpLocator.Gmtoffset.ToType<int>() - this._UserIpLocator.Isdst.ToType<int>() * 3600) / 60;
-          }
+            if (this._UserIpLocator["TimeZone"].IsSet())
+            {
+                try
+                {
+                    hours = Convert.ToDecimal(this._UserIpLocator["TimeZone"])*60;
+                }
+                catch (FormatException)
+                {
+
+                }
+            }
         }
 
-        timeZones.Items.FindByValue(tz.ToString()).Selected = true;
+          timeZones.Items.FindByValue(hours.ToString()).Selected = true;
         this.CreateUserWizard1.FindWizardControlRecursive("UserName").Focus();
       }
 

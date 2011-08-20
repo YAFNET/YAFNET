@@ -918,6 +918,7 @@
     <Resource tag="HEADER_DISPLAY">Darstellungs-Einstellungen</Resource>
     <Resource tag="HEADER_EDITORS">Editoren- / Formatierungseinstellungen</Resource>
     <Resource tag="HEADER_FEATURES">Funktionseinstellungen</Resource>
+    <Resource tag="HEADER_GEOLOCATION">Geolocation Settings</Resource>
     <Resource tag="HEADER_IMAGE_ATTACH">Bildanhang Einstellungen</Resource>
     <Resource tag="HEADER_IRKOO">Irkoo-Reputation Service</Resource>
     <Resource tag="HEADER_LOG">Log-Einstellungen</Resource>
@@ -947,6 +948,8 @@
     <Resource tag="IMAGES_PER_PAGE">Bilder pro Seite:</Resource>
     <Resource tag="IMAGES_PER_PAGE_HELP">Anzahl an Bildern die pro Seite gezeigt werden.</Resource>
     <Resource tag="IP_INFOSERVICE">IP Info-Service aktivieren:</Resource>
+    <Resource tag="IP_INFOSERVICE_DATAMAPPING">IP Info Geolocation Web Service arguments mapping string:</Resource>
+    <Resource tag="IP_INFOSERVICE_DATAMAPPING_HELP">Maps string array or deserialized return data to properties.</Resource>
     <Resource tag="IP_INFOSERVICE_HELP">Wenn diese Option aktiviert, erhalten wir Informationen über den Benutzer von einem Webservice.</Resource>
     <Resource tag="IP_INFOSERVICE_XMLURL">IP Info XML Web-Service-URL:</Resource>
     <Resource tag="IP_INFOSERVICE_XMLURL_HELP">Aktivieren um Informationen über die Benutzer IPs als XML-Daten zu erhalten.</Resource>

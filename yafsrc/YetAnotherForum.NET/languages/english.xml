@@ -4320,6 +4320,7 @@ Visit {forumname} at {forumlink}
 	   <Resource tag="HOST_AVATARS">Avatars</Resource>
 	   <Resource tag="HOST_CACHE">Cache</Resource>
 	   <Resource tag="HOST_SEARCH">Search</Resource>
+     <Resource tag="HEADER_GEOLOCATION">Geolocation Settings</Resource>
 	   <Resource tag="HEADER_SETUP">Host Setup</Resource>
 	   <Resource tag="HEADER_FEATURES">Feature Settings</Resource>
 	   <Resource tag="HEADER_DISPLAY">Display Settings</Resource>
@@ -4613,9 +4614,11 @@ Visit {forumname} at {forumlink}
 	   <Resource tag="DAYS_BEFORE_POSTLOCK">Days before posts are locked:</Resource>
        <Resource tag="DAYS_BEFORE_POSTLOCK_HELP">Number of days until posts are locked and not possible to edit or delete. Set to 0 for no limit.</Resource>
 	   <Resource tag="IP_INFOSERVICE">Enable IP Info Service:</Resource>
-       <Resource tag="IP_INFOSERVICE_HELP">If checked, we will get info about a registering user from a web service, like his DST and Location field is filled in.</Resource>
+       <Resource tag="IP_INFOSERVICE_HELP">If checked, we will get info about a registering user from a web service like country and city.</Resource>
 	   <Resource tag="IP_INFOSERVICE_XMLURL">IP Info XML Web Service URL:</Resource>
        <Resource tag="IP_INFOSERVICE_XMLURL_HELP">Set it to get details about user IPs as XML data.</Resource>
+     <Resource tag="IP_INFOSERVICE_DATAMAPPING">IP Info Geolocation Web Service arguments mapping string:</Resource>
+       <Resource tag="IP_INFOSERVICE_DATAMAPPING_HELP">Maps string array or deserialized return data to properties.</Resource>
 	   <Resource tag="IPINFO_ULRL">IP Info Page URL:</Resource>
        <Resource tag="IPINFO_ULRL_HELP">Set it to get details about IPs whereabouts as web page.</Resource>
 	   <Resource tag="ALLOW_POSTBLOG">Allow Post to Blog:</Resource>

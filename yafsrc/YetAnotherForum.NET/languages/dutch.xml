@@ -917,6 +917,7 @@
     <Resource tag="HEADER_DISPLAY">Weergave instellingen</Resource>
     <Resource tag="HEADER_EDITORS">Bewerk/Opmaak instellingen</Resource>
     <Resource tag="HEADER_FEATURES">Functie instellingen</Resource>
+    <Resource tag="HEADER_GEOLOCATION">Geolocation Settings</Resource>
     <Resource tag="HEADER_IMAGE_ATTACH">Fotobijlage instellingen</Resource>
     <Resource tag="HEADER_IRKOO">Irkoo Reputatie Service</Resource>
     <Resource tag="HEADER_LOG">Log instellingen</Resource>
@@ -946,6 +947,8 @@
     <Resource tag="IMAGES_PER_PAGE">Plaatjes Per Pagina:</Resource>
     <Resource tag="IMAGES_PER_PAGE_HELP">Het aantal plaatjes dat per pagina zichtbaar is.</Resource>
     <Resource tag="IP_INFOSERVICE">Zet de IP Info Service aan:</Resource>
+    <Resource tag="IP_INFOSERVICE_DATAMAPPING">IP Info Geolocation Web Service arguments mapping string:</Resource>
+    <Resource tag="IP_INFOSERVICE_DATAMAPPING_HELP">Maps string array or deserialized return data to properties.</Resource>
     <Resource tag="IP_INFOSERVICE_HELP">Als deze is aangevinkt, kunnen informatie krijgen over de gebruiker, zoals de DST en het lokatieveld wordt gevuld.</Resource>
     <Resource tag="IP_INFOSERVICE_XMLURL">IP Info XML Web Service URL:</Resource>
     <Resource tag="IP_INFOSERVICE_XMLURL_HELP">Zet deze om informatie te krijgen over de gebruiker als XML data.</Resource>

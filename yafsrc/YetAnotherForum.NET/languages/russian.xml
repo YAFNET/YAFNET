@@ -918,6 +918,7 @@
     <Resource tag="HEADER_DISPLAY">Настройки отображения</Resource>
     <Resource tag="HEADER_EDITORS">Настройки редактирования/форматирования</Resource>
     <Resource tag="HEADER_FEATURES">Настройки возможностей</Resource>
+    <Resource tag="HEADER_GEOLOCATION">Geolocation Settings</Resource>
     <Resource tag="HEADER_IMAGE_ATTACH">Настройки вложенных изображений</Resource>
     <Resource tag="HEADER_IRKOO">Службы Irkoo</Resource>
     <Resource tag="HEADER_LOG">Настройки журнала</Resource>
@@ -947,6 +948,8 @@
     <Resource tag="IMAGES_PER_PAGE">Изображение на странице:</Resource>
     <Resource tag="IMAGES_PER_PAGE_HELP">Количество изображений на одной странице.</Resource>
     <Resource tag="IP_INFOSERVICE">Включить информационную службу IP:</Resource>
+    <Resource tag="IP_INFOSERVICE_DATAMAPPING">IP Info Geolocation Web Service arguments mapping string:</Resource>
+    <Resource tag="IP_INFOSERVICE_DATAMAPPING_HELP">Maps string array or deserialized return data to properties.</Resource>
     <Resource tag="IP_INFOSERVICE_HELP">Эта служба собирает информацию о нахождении пользователя и заполняет поле Местонахождения при регистрации.</Resource>
     <Resource tag="IP_INFOSERVICE_XMLURL">URL информационной XML-вебслужбы :</Resource>
     <Resource tag="IP_INFOSERVICE_XMLURL_HELP">Не изменяйте это поле на другую службу.</Resource>

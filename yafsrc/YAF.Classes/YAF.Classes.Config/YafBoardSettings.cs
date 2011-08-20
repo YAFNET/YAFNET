@@ -3020,16 +3020,32 @@ namespace YAF.Classes
         /// <summary>
         /// Gets or sets IP Locator Path.
         /// </summary>
-        public string IPLocatorPath
+        public string IPLocatorUrlPath
         {
             get
             {
-                return this._reg.GetValue("IPLocatorPath", "http://ipinfodb.com/ip_query.php?ip={0}&timezone={1}");
+                return this._reg.GetValue("IPLocatorUrlPath", "http://api.ipinfodb.com/v3/ip-city/?key=<your_api_key>&ip={0}");
             }
 
             set
             {
-                this._reg.SetValue("IPLocatorPath", value);
+                this._reg.SetValue("IPLocatorUrlPath", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets IP Locator Results Mapping.
+        /// </summary>
+        public string IPLocatorResultsMapping 
+        {
+            get
+            {
+                return this._reg.GetValue("IPLocatorResultsMapping", "StatusCode,StatusMessage, IpAddress,CountryCode,CountryName,RegionName,CityName,ZipCode,Latitude,Longitude,TimeZone");
+            }
+
+            set
+            {
+                this._reg.SetValue("IPLocatorResultsMapping", value);
             }
         }
 

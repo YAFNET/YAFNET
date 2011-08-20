@@ -9484,11 +9484,10 @@ create procedure [{databaseOwner}].[{objectQualifier}readtopic_addorupdate](@Use
 begin
 
     declare	@LastAccessDate	datetime
-
-	IF exists(select 1 from [{databaseOwner}].[{objectQualifier}TopicReadTracking] where UserID=@UserID AND TopicID=@TopicID)
-	begin
-	      SET @LastAccessDate = (SELECT TOP 1 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] WHERE (UserID=@UserID AND TopicID=@TopicID))
-		  update [{databaseOwner}].[{objectQualifier}TopicReadTracking] set LastAccessDate=GETUTCDATE() where LastAccessDate = LastAccessDate AND UserID=@UserID AND TopicID=@TopicID
+	set @LastAccessDate = (select top 1 LastAccessDate from [{databaseOwner}].[{objectQualifier}TopicReadTracking] where UserID=@UserID AND TopicID=@TopicID)
+	IF @LastAccessDate is not null
+	begin	     
+		  update [{databaseOwner}].[{objectQualifier}TopicReadTracking] set LastAccessDate=GETUTCDATE() where LastAccessDate = @LastAccessDate AND UserID=@UserID AND TopicID=@TopicID
     end
 	ELSE
 	  begin

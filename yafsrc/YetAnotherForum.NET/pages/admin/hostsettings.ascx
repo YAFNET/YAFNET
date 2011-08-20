@@ -430,32 +430,7 @@
                         <td class="post">
                             <asp:TextBox Style="width:350px" ID="LockPosts" runat="server"></asp:TextBox>
                         </td>
-                    </tr>
-                     <tr>
-                        <td class="postheader">
-                            <YAF:HelpLabel ID="HelpLabel108" runat="server" LocalizedTag="IP_INFOSERVICE" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </td>
-                        <td class="post">
-                            <asp:CheckBox ID="EnableIPInfoService" runat="server"></asp:CheckBox>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="postheader">
-                            <YAF:HelpLabel ID="HelpLabel109" runat="server" LocalizedTag="IP_INFOSERVICE_XMLURL" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </td>
-                        <td class="post">
-                            <asp:TextBox Style="width:350px" ID="IPLocatorPath" runat="server"></asp:TextBox>
-                        </td>
-                    </tr>           
-                    <tr>
-                        <td class="postheader">
-                            <YAF:HelpLabel ID="HelpLabel110" runat="server" LocalizedTag="IPINFO_ULRL" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </td>
-                        <td class="post">
-                            <asp:TextBox Style="width:350px" ID="IPInfoPageURL" runat="server"></asp:TextBox>
-                        </td>
-                    </tr>
-               
+                    </tr>                            
                     <tr>
                         <td class="postheader">
                             <YAF:HelpLabel ID="HelpLabel111" runat="server" LocalizedTag="ALLOW_POSTBLOG" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -746,6 +721,43 @@
                         <td class="post">
                               <asp:DropDownList Style="width:350px" ID="FavoriteTopicFeedAccess" runat="server">
                             </asp:DropDownList>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel108" runat="server" LocalizedTag="IP_INFOSERVICE" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="EnableIPInfoService" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>        
+                    <tr>
+                        <td class="header1" colspan="2">
+                            <YAF:LocalizedLabel ID="LocalizedLabel30" runat="server" LocalizedTag="HEADER_GEOLOCATION" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel109" runat="server" LocalizedTag="IP_INFOSERVICE_XMLURL" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:TextBox Style="width:350px" ID="IPLocatorUrlPath" runat="server"></asp:TextBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel195" runat="server" LocalizedTag="IP_INFOSERVICE_DATAMAPPING" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:TextBox Style="width:350px" ID="IPLocatorResultsMapping" runat="server"></asp:TextBox>
+                        </td>
+                    </tr>       
+                    <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel110" runat="server" LocalizedTag="IPINFO_ULRL" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:TextBox Style="width:350px" ID="IPInfoPageURL" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>

@@ -66,6 +66,7 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Extensions\MembershipUserExtensions.cs" />
+    <Compile Include="Helpers\IPLocator.cs" />
     <Compile Include="Logger\UserAgentLogger.cs" />
     <Compile Include="Tasks\BaseTaskModuleManager.cs" />
     <Compile Include="Cache\HttpRuntimeCache.cs" />
@@ -137,7 +138,6 @@
     <Compile Include="Handlers\ThemeProvider.cs" />
     <Compile Include="Helpers\CaptchaHelper.cs" />
     <Compile Include="Helpers\DynamicConnectionManager.cs" />
-    <Compile Include="Helpers\IPLocator.cs" />
     <Compile Include="Helpers\PostDataHelper.cs" />
     <Compile Include="Helpers\StaticDataHelper.cs" />
     <Compile Include="Localization\Localizer.cs" />

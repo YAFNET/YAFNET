@@ -919,6 +919,7 @@
     <Resource tag="HEADER_DISPLAY">Display Settings</Resource>
     <Resource tag="HEADER_EDITORS">Editing/Formatting Settings</Resource>
     <Resource tag="HEADER_FEATURES">Feature Settings</Resource>
+    <Resource tag="HEADER_GEOLOCATION">Geolocation Settings</Resource>
     <Resource tag="HEADER_IMAGE_ATTACH">Image Attachment Settings</Resource>
     <Resource tag="HEADER_IRKOO">Irkoo Reputation Service</Resource>
     <Resource tag="HEADER_LOG">Log settings</Resource>
@@ -948,6 +949,8 @@
     <Resource tag="IMAGES_PER_PAGE">Images Per Page:</Resource>
     <Resource tag="IMAGES_PER_PAGE_HELP">Number of images to show per page.</Resource>
     <Resource tag="IP_INFOSERVICE">Enable IP Info Service:</Resource>
+    <Resource tag="IP_INFOSERVICE_DATAMAPPING">IP Info Geolocation Web Service arguments mapping string:</Resource>
+    <Resource tag="IP_INFOSERVICE_DATAMAPPING_HELP">Maps string array or deserialized return data to properties.</Resource>
     <Resource tag="IP_INFOSERVICE_HELP">If checked, we will get info about a registering user from a web service.</Resource>
     <Resource tag="IP_INFOSERVICE_XMLURL">IP Info XML Web Service URL:</Resource>
     <Resource tag="IP_INFOSERVICE_XMLURL_HELP">Set it to get details about user IPs as XML data.</Resource>

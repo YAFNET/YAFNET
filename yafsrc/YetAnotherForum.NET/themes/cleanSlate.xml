@@ -225,8 +225,14 @@
     <Resource tag="VOTE_REFUSE">~/vote_refuse.gif</Resource>
   </page>
   <page name="FLAGS">
-    <Resource tag="US_MEDIUM">~/flags/us_medium.ico</Resource>
-    <Resource tag="RU_MEDIUM">~/flags/ru_medium.ico</Resource>
+    <Resource tag="AF_MEDIUM">~/flags/af.png</Resource>
+    <Resource tag="AL_MEDIUM">~/flags/al.png</Resource>
+    <Resource tag="DZ_MEDIUM">~/flags/dz.png</Resource>
+    <Resource tag="US_MEDIUM">~/flags/us.png</Resource>
+    <Resource tag="RU_MEDIUM">~/flags/ru.png</Resource>
+    <Resource tag="ES_MEDIUM">~/flags/es.png</Resource>
+    <Resource tag="DE_MEDIUM">~/flags/de.png</Resource>
+    <Resource tag="GB_MEDIUM">~/flags/gb.png</Resource>
   </page>
   us_medium.ico
   <page name="PAGE_OVERRIDE">

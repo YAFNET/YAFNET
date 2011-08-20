@@ -919,6 +919,7 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="HEADER_DISPLAY">نمایش تنظیمات</Resource>
     <Resource tag="HEADER_EDITORS">در حال ویرایش/قالب بندی تنظیمات</Resource>
     <Resource tag="HEADER_FEATURES">تنظیم ویژگی ها</Resource>
+    <Resource tag="HEADER_GEOLOCATION">Geolocation Settings</Resource>
     <Resource tag="HEADER_IMAGE_ATTACH">تنظیمات تصاویر ضمیمه</Resource>
     <Resource tag="HEADER_IRKOO">خدمات Irkoo</Resource>
     <Resource tag="HEADER_LOG">تنظیمات سیاهه</Resource>
@@ -948,6 +949,8 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="IMAGES_PER_PAGE">تصاویر بر صفحه:</Resource>
     <Resource tag="IMAGES_PER_PAGE_HELP">تعداد تصاویر برای نمایش در هر صفحه.</Resource>
     <Resource tag="IP_INFOSERVICE">فعال کردن آی پی برای سرویس اطلاعات:</Resource>
+    <Resource tag="IP_INFOSERVICE_DATAMAPPING">IP Info Geolocation Web Service arguments mapping string:</Resource>
+    <Resource tag="IP_INFOSERVICE_DATAMAPPING_HELP">Maps string array or deserialized return data to properties.</Resource>
     <Resource tag="IP_INFOSERVICE_HELP">با تیک زدن گزینه فهمیدن ثبت کاربران از طریق وب سرویس غیر ممکن می شود.</Resource>
     <Resource tag="IP_INFOSERVICE_XMLURL">آدرس سرویس وب XML برای اطلاعات آی پی :</Resource>
     <Resource tag="IP_INFOSERVICE_XMLURL_HELP">برای دریافت جزئیات آی پی کاربران به عنوان فایل XML استفاده می شود.</Resource>

@@ -16,6 +16,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
+using YAF.Classes.Pattern;
+
 namespace YAF.Core
 {
   #region Using
@@ -52,23 +55,29 @@ namespace YAF.Core
     /// <returns>
     /// IPLocator Class
     /// </returns>
-    public IPLocator GetData([NotNull] string ipAddress, bool tzInfo)
+      public ThreadSafeDictionary<string, string> GetData([CanBeNull] string ip, [CanBeNull] string format, bool callback, string culture, string browser, string os)
     {
-      CodeContracts.ArgumentNotNull(ipAddress, "ipAddress");
-
-      var ipLoc = new IPLocator();
+      CodeContracts.ArgumentNotNull(ip, "ip");
+         
+      ThreadSafeDictionary<string, string> res = new ThreadSafeDictionary<string, string>();
+      if (YafContext.Current.BoardSettings.IPLocatorResultsMapping.IsNotSet() || YafContext.Current.BoardSettings.IPLocatorUrlPath.IsNotSet()) return res;
+      
       if (YafContext.Current.BoardSettings.EnableIPInfoService)
       {
         try
         {
-          string path = YafContext.Current.BoardSettings.IPLocatorPath.FormatWith(ipAddress, tzInfo ? "true" : "false");
+          string path = YafContext.Current.BoardSettings.IPLocatorUrlPath.FormatWith(Utils.Helpers.IPHelper.GetIp4Address(ip));
           var client = new WebClient();
-          string[] eResult = client.DownloadString(path).Split(',');
-          if (eResult.Length > 0)
+          string[] eResult = client.DownloadString(path).Split(';');
+          string[] sray = YafContext.Current.BoardSettings.IPLocatorResultsMapping.Trim().Split(',');
+          if (eResult.Length > 0 && eResult.Length == sray.Length)
           {
-            // replace here 
-            object o = this.Deserialize(eResult[0]);
-            ipLoc = (IPLocator)this.Deserialize(eResult[0]);
+              int i = 0;
+              foreach (string str in eResult)
+              {
+                  res.Add(sray[i].Trim(), str);
+                  i++;
+              }
           }
         }
         catch
@@ -76,337 +85,270 @@ namespace YAF.Core
         }
       }
 
-      return ipLoc;
+      return res;
     }
 
     #endregion
-
-    #region Methods
-
-    /// <summary>
-    /// Deserialize XML String
-    /// </summary>
-    /// <param name="pXmlizedString">
-    /// </param>
-    /// <returns>
-    /// The deserialize.
-    /// </returns>
-    private object Deserialize([NotNull] string pXmlizedString)
-    {
-      CodeContracts.ArgumentNotNull(pXmlizedString, "pXmlizedString");
-
-      var xs = new XmlSerializer(typeof(IPLocator));
-      var memoryStream = new MemoryStream(this.StringToUTF8ByteArray(pXmlizedString));
-      var xmlTextWriter = new XmlTextWriter(memoryStream, Encoding.UTF8);
-      return xs.Deserialize(memoryStream);
-    }
-
-    /// <summary>
-    /// The string to ut f 8 byte array.
-    /// </summary>
-    /// <param name="pXmlString">
-    /// The p xml string.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    [NotNull]
-    private byte[] StringToUTF8ByteArray([NotNull] string pXmlString)
-    {
-      CodeContracts.ArgumentNotNull(pXmlString, "pXmlString");
-
-      var encoding = new UTF8Encoding();
-      byte[] byteArray = encoding.GetBytes(pXmlString);
-      return byteArray;
-    }
-
-    #endregion
+ 
   }
 
   /// <summary>
   /// The ip locator.
   /// </summary>
   [XmlRootAttribute(ElementName = "Response", IsNullable = false)]
-  public class IPLocator
+  public class IpLocator
   {
-    #region Constants and Fields
+      #region Constants and Fields
 
-    /// <summary>
-    /// The city.
-    /// </summary>
-    private string city;
+      /// <summary>
+      /// The city.
+      /// </summary>
+      private string cityName;
 
-    /// <summary>
-    /// The countrycode.
-    /// </summary>
-    private string countrycode;
+      /// <summary>
+      /// The countrycode.
+      /// </summary>
+      private string countrycode;
 
-    /// <summary>
-    /// The countryname.
-    /// </summary>
-    private string countryname;
+      /// <summary>
+      /// The countryname.
+      /// </summary>
+      private string countryname;
 
-    /// <summary>
-    /// The gmtoffset.
-    /// </summary>
-    private string gmtoffset;
+      /// <summary>
+      /// The gmtoffset.
+      /// </summary>
+      private string gmtoffset;
 
-    /// <summary>
-    /// The ip.
-    /// </summary>
-    private string ip;
+      /// <summary>
+      /// The ip.
+      /// </summary>
+      private string ipAddress;
 
-    /// <summary>
-    /// The isdst.
-    /// </summary>
-    private string isdst;
+      /// <summary>
+      /// The isdst.
+      /// </summary>
+      private string isdst;
 
-    /// <summary>
-    /// The latitude.
-    /// </summary>
-    private string latitude;
+      /// <summary>
+      /// The latitude.
+      /// </summary>
+      private string latitude;
 
-    /// <summary>
-    /// The longitude.
-    /// </summary>
-    private string longitude;
+      /// <summary>
+      /// The longitude.
+      /// </summary>
+      private string longitude;
 
-    /// <summary>
-    /// The regioncode.
-    /// </summary>
-    private string regioncode;
+      /// <summary>
+      /// The regioncode.
+      /// </summary>
+      private string regioncode;
 
-    /// <summary>
-    /// The regionname.
-    /// </summary>
-    private string regionname;
+      /// <summary>
+      /// The regionname.
+      /// </summary>
+      private string regionName;
 
-    /// <summary>
-    /// The status.
-    /// </summary>
-    private string status;
+      /// <summary>
+      /// The status.
+      /// </summary>
+      private string statusCode;
 
-    /// <summary>
-    /// The timezone.
-    /// </summary>
-    private string timezone;
+      /// <summary>
+      /// The status message.
+      /// </summary>
+      private string statusMessage;
 
-    /// <summary>
-    /// The zip.
-    /// </summary>
-    private string zip;
+      /// <summary>
+      /// The timezone.
+      /// </summary>
+      private string timeZone;
 
-    #endregion
+      /// <summary>
+      /// The zipCode.
+      /// </summary>
+      private string zipCode;
 
-    #region Properties
+      #endregion
 
-    /// <summary>
-    /// Gets or sets City.
-    /// </summary>
-    public string City
-    {
-      get
+      #region Properties
+
+      /// <summary>
+      /// Gets or sets Status.
+      /// </summary>
+      public string Status
       {
-        return this.city;
+          get
+          {
+              return this.statusCode;
+          }
+
+          set
+          {
+              this.statusCode = value;
+          }
       }
 
-      set
+      /// <summary>
+      /// Gets or sets Status.
+      /// </summary>
+      public string StatusMessage
       {
-        this.city = value;
-      }
-    }
+          get
+          {
+              return this.statusMessage;
+          }
 
-    /// <summary>
-    /// Gets or sets CountryCode.
-    /// </summary>
-    public string CountryCode
-    {
-      get
-      {
-        return this.countrycode;
-      }
-
-      set
-      {
-        this.countrycode = value;
-      }
-    }
-
-    /// <summary>
-    /// Gets or sets CountryName.
-    /// </summary>
-    public string CountryName
-    {
-      get
-      {
-        return this.countryname;
+          set
+          {
+              this.statusMessage = value;
+          }
       }
 
-      set
+      /// <summary>
+      /// Gets or sets IP.
+      /// </summary>
+      public string IP
       {
-        this.countryname = value;
-      }
-    }
+          get
+          {
+              return this.ipAddress;
+          }
 
-    /// <summary>
-    /// Gets or sets Gmtoffset.
-    /// </summary>
-    public string Gmtoffset
-    {
-      get
-      {
-        return this.gmtoffset;
-      }
-
-      set
-      {
-        this.gmtoffset = value;
-      }
-    }
-
-    /// <summary>
-    /// Gets or sets IP.
-    /// </summary>
-    public string IP
-    {
-      get
-      {
-        return this.ip;
+          set
+          {
+              this.ipAddress = value;
+          }
       }
 
-      set
+      /// <summary>
+      /// Gets or sets CountryCode.
+      /// </summary>
+      public string CountryCode
       {
-        this.ip = value;
-      }
-    }
+          get
+          {
+              return this.countrycode;
+          }
 
-    /// <summary>
-    /// Gets or sets Isdst.
-    /// </summary>
-    public string Isdst
-    {
-      get
-      {
-        return this.isdst;
-      }
-
-      set
-      {
-        this.isdst = value;
-      }
-    }
-
-    /// <summary>
-    /// Gets or sets Latitude.
-    /// </summary>
-    public string Latitude
-    {
-      get
-      {
-        return this.latitude;
+          set
+          {
+              this.countrycode = value;
+          }
       }
 
-      set
+      /// <summary>
+      /// Gets or sets CountryName.
+      /// </summary>
+      public string CountryName
       {
-        this.latitude = value;
-      }
-    }
+          get
+          {
+              return this.countryname;
+          }
 
-    /// <summary>
-    /// Gets or sets Longitude.
-    /// </summary>
-    public string Longitude
-    {
-      get
-      {
-        return this.longitude;
-      }
-
-      set
-      {
-        this.longitude = value;
-      }
-    }
-
-    /// <summary>
-    /// Gets or sets RegionCode.
-    /// </summary>
-    public string RegionCode
-    {
-      get
-      {
-        return this.regioncode;
+          set
+          {
+              this.countryname = value;
+          }
       }
 
-      set
+      /// <summary>
+      /// Gets or sets RegionName.
+      /// </summary>
+      public string RegionName
       {
-        this.regioncode = value;
-      }
-    }
+          get
+          {
+              return this.regionName;
+          }
 
-    /// <summary>
-    /// Gets or sets RegionName.
-    /// </summary>
-    public string RegionName
-    {
-      get
-      {
-        return this.regionname;
-      }
-
-      set
-      {
-        this.regionname = value;
-      }
-    }
-
-    /// <summary>
-    /// Gets or sets Status.
-    /// </summary>
-    public string Status
-    {
-      get
-      {
-        return this.status;
+          set
+          {
+              this.regionName = value;
+          }
       }
 
-      set
+      /// <summary>
+      /// Gets or sets City.
+      /// </summary>
+      public string City
       {
-        this.status = value;
-      }
-    }
+          get
+          {
+              return this.cityName;
+          }
 
-    /// <summary>
-    /// Gets or sets TimezoneName.
-    /// </summary>
-    public string TimezoneName
-    {
-      get
-      {
-        return this.timezone;
-      }
-
-      set
-      {
-        this.timezone = value;
-      }
-    }
-
-    /// <summary>
-    /// Gets or sets Zip.
-    /// </summary>
-    public string Zip
-    {
-      get
-      {
-        return this.zip;
+          set
+          {
+              this.cityName = value;
+          }
       }
 
-      set
+      /// <summary>
+      /// Gets or sets Zip.
+      /// </summary>
+      public string Zip
       {
-        this.zip = value;
-      }
-    }
+          get
+          {
+              return this.zipCode;
+          }
 
-    #endregion
+          set
+          {
+              this.zipCode = value;
+          }
+      }
+      /// <summary>
+      /// Gets or sets Latitude.
+      /// </summary>
+      public string Latitude
+      {
+          get
+          {
+              return this.latitude;
+          }
+
+          set
+          {
+              this.latitude = value;
+          }
+      }
+
+      /// <summary>
+      /// Gets or sets Longitude.
+      /// </summary>
+      public string Longitude
+      {
+          get
+          {
+              return this.longitude;
+          }
+
+          set
+          {
+              this.longitude = value;
+          }
+      }
+
+      /// <summary>
+      /// Gets or sets TimezoneName.
+      /// </summary>
+      public string TimezoneName
+      {
+          get
+          {
+              return this.timeZone;
+          }
+
+          set
+          {
+              this.timeZone = value;
+          }
+      }
+
+      #endregion
   }
 }
