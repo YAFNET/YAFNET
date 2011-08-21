@@ -846,6 +846,8 @@
     <Resource tag="CHECK_FOR_SPAM">SPAM Dienst für das automatische Checken von Beitragspam:</Resource>
     <Resource tag="CHECK_FOR_SPAM_HELP">Aktiviert / deaktiviert die automatisch SPAM Kontrolle über das &lt;a href="http://blogspam.net/"&gt; BlogSpam.net API &lt;/a&gt; oder Akismet.com Service. Wenn diese Option aktiviert ist, können SPAM Beiträge abgelehnt werden oder als nicht bestätigt markiert werden.</Resource>
     <Resource tag="CLEAR_CACHE">Cache löschen</Resource>
+    <Resource tag="COUNTRYIMAGE_TEMPLATE">Country image template:</Resource>
+    <Resource tag="COUNTRYIMAGE_TEMPLATE_HELP">Template for rendering country image.</Resource>
     <Resource tag="CREATE_NNTPNAMES">NNTP Benutzernamen erstellen:</Resource>
     <Resource tag="CREATE_NNTPNAMES_HELP">Aktivieren damit Benutzer automatisch erstellt werden Usenet-Nachrichten heruntergeladen werden.  Aktivieren Sie das nur in einer Testumgebung, und &lt;em&gt;NIE&lt;/ em&gt; in einer Produktionsumgebung. Der Hauptzweck dieser Option ist für Performance-Tests.</Resource>
     <Resource tag="CROP_IMAGE_ATTACH">Anhangs Bild Vorschau Beschneiden</Resource>

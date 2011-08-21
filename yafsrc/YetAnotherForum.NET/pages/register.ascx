@@ -164,6 +164,13 @@
 								<YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="TITLE" />
 							</td>
 						</tr>
+                        <tr>
+							<td align="right" class="postheader">
+								<YAF:LocalizedLabel ID="LocalizedLabel18" runat="server" LocalizedTag="COUNTRY" />
+								:</td>
+							<td class="post">
+								<asp:DropDownList ID="Country" runat="server" DataTextField="Name" DataValueField="Value" /></td>
+						</tr>
 						<tr>
 							<td align="right" class="postheader">
 								<asp:Label ID="LocationLabel" runat="server" AssociatedControlID="Location">

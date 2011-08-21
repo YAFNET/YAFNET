@@ -3607,6 +3607,22 @@ namespace YAF.Classes
         }
 
         /// <summary>
+        /// Gets or sets UserBoxCountryImage.
+        /// </summary>
+        public string UserBoxCountryImage
+        {
+            get
+            {
+                return this._reg.GetValue("UserBoxCountryImage", "{0}<br />");
+            }
+
+            set
+            {
+                this._reg.SetValue("UserBoxCountryImage", value);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets UserBoxRank.
         /// </summary>
         public string UserBoxRank

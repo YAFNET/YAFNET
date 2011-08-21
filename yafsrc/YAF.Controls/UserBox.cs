@@ -269,6 +269,9 @@ namespace YAF.Controls
         // Gender
         userBox = this.MatchUserBoxGender(userBox);
 
+        // CountryImage
+        userBox = this.MatchUserBoxCountryImages(userBox);
+
         // Location
         userBox = this.MatchUserBoxLocation(userBox);
       }
@@ -383,6 +386,8 @@ namespace YAF.Controls
       userBox = rx.Replace(userBox, filler);
       rx = this.GetRegex(Constants.UserBox.Points);
       userBox = rx.Replace(userBox, filler);
+     /* rx = this.GetRegex(Constants.UserBox.CountryImage);
+      userBox = rx.Replace(userBox, filler); */
       rx = this.GetRegex(Constants.UserBox.Location);
       userBox = rx.Replace(userBox, filler);
       rx = this.GetRegex(Constants.UserBox.ThanksFrom);
@@ -421,7 +426,7 @@ namespace YAF.Controls
                 case 1:
                     imagePath = this.PageContext.Get<ITheme>().GetItem("ICONS", "GENDER_MALE", null);
                     imageAlt = this.GetText("USERGENDER_MAS");
-                    break;
+                        break;
                 case 2:
                     imagePath = this.PageContext.Get<ITheme>().GetItem("ICONS", "GENDER_FEMALE", null);
                     imageAlt = this.GetText("USERGENDER_FEM");
@@ -792,6 +797,37 @@ namespace YAF.Controls
     }
 
     /// <summary>
+    /// The match user box country images.
+    /// </summary>
+    /// <param name="userBox">
+    /// The user box.
+    /// </param>
+    /// <returns>
+    /// The match user box country images.
+    /// </returns>
+    [NotNull]
+    private string MatchUserBoxCountryImages([NotNull] string userBox)
+    {
+        string filler = string.Empty;
+        var rx = this.GetRegex(Constants.UserBox.CountryImage);
+        
+       if (this.UserProfile.Country.IsSet())
+        {
+            string imagePath = this.PageContext.Get<ITheme>().GetItem("FLAGS", "{0}_MEDIUM".FormatWith(this.UserProfile.Country.ToUpperInvariant()), null);
+            string imageAlt = this.GetText("COUNTRY",this.UserProfile.Country.ToUpperInvariant());
+                  
+                filler =
+                  this.Get<YafBoardSettings>().UserBoxCountryImage.FormatWith(
+                      @"<a><img src=""{0}"" alt=""{1}"" title=""{1}"" /></a>".FormatWith(imagePath, imageAlt));
+           
+        }
+
+        // replaces template placeholder with actual rank image
+        userBox = rx.Replace(userBox, filler);
+        return userBox;
+    }
+
+    /// <summary>
     /// The match user box thanks from.
     /// </summary>
     /// <param name="userBox">
@@ -883,7 +919,7 @@ namespace YAF.Controls
                   String.Empty);
       }
 
-        return userBox;
+      return userBox.Replace("\"\"", "\"");
     }
 
     #endregion

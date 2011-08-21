@@ -4476,7 +4476,9 @@ Visit {forumname} at {forumlink}
 	   <Resource tag="POINTS_TEMPLATE">Points template:</Resource>
        <Resource tag="POINTS_TEMPLATE_HELP">Template for rendering user's points.</Resource>	   
 	   <Resource tag="LOCATION_TEMPLATE">Location template:</Resource>
-       <Resource tag="LOCATION_TEMPLATE_HELP">Template for rendering user's location.</Resource>	   
+       <Resource tag="LOCATION_TEMPLATE_HELP">Template for rendering user's location.</Resource>
+     <Resource tag="COUNTRYIMAGE_TEMPLATE">Country image template:</Resource>
+       <Resource tag="COUNTRYIMAGE_TEMPLATE_HELP">Template for rendering country image.</Resource>        
 	   <Resource tag="GENDER_TEMPLATE">Gender:</Resource>
        <Resource tag="GENDER_TEMPLATE_HELP">Template for rendering user's gender.</Resource>	   
 	   <Resource tag="THANKS_FROM_TEMPLATE">Thanks From template:</Resource>

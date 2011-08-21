@@ -847,6 +847,8 @@
     <Resource tag="CHECK_FOR_SPAM">Choose a SPAM Service for Automatically SPAM Checking:</Resource>
     <Resource tag="CHECK_FOR_SPAM_HELP">Enables/disables automatically SPAM Checking via the &lt;a href="http://blogspam.net/"&gt;BlogSpam.net API&lt;/a&gt; or Akismet.com. If enabled SPAM Post gets rejected if detected.</Resource>
     <Resource tag="CLEAR_CACHE">پاکسازی حافظه موقت</Resource>
+    <Resource tag="COUNTRYIMAGE_TEMPLATE">Country image template:</Resource>
+    <Resource tag="COUNTRYIMAGE_TEMPLATE_HELP">Template for rendering country image.</Resource>
     <Resource tag="CREATE_NNTPNAMES">ساخت نام های کاربری NNTP:</Resource>
     <Resource tag="CREATE_NNTPNAMES_HELP">برای صدور مجوز ساخت خودکار نام کاربری برای کاربران در هنگام دریافت های NNTP این گزینه را علامت بگذارید. هدف این گزینه کنترل سطح راندمان است و در محیط عملیاتی استفاده نکنید.</Resource>
     <Resource tag="CROP_IMAGE_ATTACH">پیش نمایش تصویر بریده شده ضمیمه:</Resource>

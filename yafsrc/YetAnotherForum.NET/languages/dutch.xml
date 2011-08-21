@@ -846,6 +846,8 @@
     <Resource tag="CHECK_FOR_SPAM">Choose a SPAM Service for Automatically SPAM Checking:</Resource>
     <Resource tag="CHECK_FOR_SPAM_HELP">Enables/disables automatically SPAM Checking via the &lt;a href="http://blogspam.net/"&gt;BlogSpam.net API&lt;/a&gt; or Akismet.com. If enabled SPAM Post gets rejected if detected.</Resource>
     <Resource tag="CLEAR_CACHE">Leeg de Cache</Resource>
+    <Resource tag="COUNTRYIMAGE_TEMPLATE">Country image template:</Resource>
+    <Resource tag="COUNTRYIMAGE_TEMPLATE_HELP">Template for rendering country image.</Resource>
     <Resource tag="CREATE_NNTPNAMES">Maak NNTP Gebruikersnamen:</Resource>
     <Resource tag="CREATE_NNTPNAMES_HELP">Aanvinken om automatisch gebruikers aan te maken bij het downloaden van usenet berichten. Alleen aanzetten in een testomgeving, en &lt;em&gt;NOOIT&lt;/em&gt; in een productieomgeving. De belangrijkste functie hiervan is het testen van de performance.</Resource>
     <Resource tag="CROP_IMAGE_ATTACH">Crop Foto-bijlage Voorbeeld:</Resource>

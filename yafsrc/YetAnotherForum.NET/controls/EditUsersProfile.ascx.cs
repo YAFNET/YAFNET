@@ -161,9 +161,9 @@ namespace YAF.Controls
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // setup jQuery and DatePicker JS...
-            YafContext.Current.PageElements.RegisterJQuery();
-            YafContext.Current.PageElements.RegisterJQueryUI();
-
+                YafContext.Current.PageElements.RegisterJQuery();
+                YafContext.Current.PageElements.RegisterJQueryUI();
+           
             if (!string.IsNullOrEmpty(this.GetText("COMMON", "CAL_JQ_CULTURE")))
             {
                 var jqueryuiUrl = Config.JQueryUILangFile;
@@ -186,10 +186,10 @@ namespace YAF.Controls
 
             YafContext.Current.PageElements.RegisterJsResourceInclude("msdropdown", "js/jquery.msDropDown.js");
 
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
+             YafContext.Current.PageElements.RegisterJsBlockStartup(
                 "dropDownJs", JavaScriptBlocks.DropDownLoadJs(this.Country.ClientID));
 
-            YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.msDropDown.css");
+            YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.msDropDown.css"); 
 
             base.OnPreRender(e);
         }
@@ -517,7 +517,6 @@ namespace YAF.Controls
             }
 
             this.DisplayName.Text = this.UserData.DisplayName;
-            this.Region.Text = this.UserData.Profile.Region;
             this.City.Text = this.UserData.Profile.City;
             this.Location.Text = this.UserData.Profile.Location;
             this.HomePage.Text = this.UserData.Profile.Homepage;

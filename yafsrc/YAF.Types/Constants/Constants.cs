@@ -232,7 +232,7 @@ namespace YAF.Types.Constants
             ///   The display template default.
             /// </summary>
             public const string DisplayTemplateDefault =
-              @"<yaf:avatar /><div class=""section""><yaf:rankimage /><yaf:rank /></div><br /><yaf:medals /><div class=""section""><yaf:groups /><yaf:joindate /><yaf:posts /><yaf:points /><yaf:gender /><yaf:location /></div><br/ ><div class=""section""><yaf:thanksfrom /><yaf:thanksto /></div>";
+              @"<yaf:avatar /><div class=""section""><yaf:rankimage /><yaf:rank /></div><br /><yaf:medals /><div class=""section""><yaf:groups /><yaf:joindate /><yaf:posts /><yaf:points /><yaf:gender /><yaf:countryimage /><yaf:location /></div><br/ ><div class=""section""><yaf:thanksfrom /><yaf:thanksto /></div>";
 
             /// <summary>
             ///   The gender.
@@ -253,6 +253,11 @@ namespace YAF.Types.Constants
             ///   The location.
             /// </summary>
             public const string Location = @"<yaf:location\s*/>";
+
+            /// <summary>
+            ///   The rank image.
+            /// </summary>
+            public const string CountryImage = @"<yaf:countryimage\s*/>";
 
             /// <summary>
             ///   The medals.

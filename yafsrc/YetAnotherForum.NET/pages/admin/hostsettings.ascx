@@ -1453,6 +1453,14 @@
                             <asp:TextBox Style="width:350px" ID="UserBoxPoints" runat="server"></asp:TextBox>
                         </td>
                     </tr>
+                     <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel196" runat="server" LocalizedTag="COUNTRYIMAGE_TEMPLATE" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:TextBox Style="width:350px" ID="UserBoxCountryImage" runat="server"></asp:TextBox>
+                        </td>
+                    </tr>
                     <tr>
                         <td class="postheader">
                             <YAF:HelpLabel ID="HelpLabel66" runat="server" LocalizedTag="LOCATION_TEMPLATE" LocalizedPage="ADMIN_HOSTSETTINGS" />
