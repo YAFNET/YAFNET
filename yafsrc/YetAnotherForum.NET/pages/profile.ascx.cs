@@ -605,8 +605,13 @@ namespace YAF.Pages
             {
                 this.CountryTR.Visible = true;
                 this.CountryLabel.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(this.GetText("COUNTRY", userData.Profile.Country.Trim())));
-                this.CountryFlagImage.Src = this.Get<ITheme>().GetItem("FLAGS", "{0}_MEDIUM".FormatWith(userData.Profile.Country.Trim()));
-                this.CountryFlagImage.Alt =userData.Profile.Country.Trim();
+
+                this.CountryFlagImage.Src = this.Get<ITheme>().GetItem(
+                    "FLAGS",
+                    "{0}_MEDIUM".FormatWith(userData.Profile.Country.Trim()),
+                    YafForumInfo.GetURLToResource("images/flags/{0}.png".FormatWith(userData.Profile.Country.Trim())));
+
+                this.CountryFlagImage.Alt = userData.Profile.Country.Trim();
                 this.CountryFlagImage.Attributes.Add("title", this.CountryLabel.Text);
             }
 

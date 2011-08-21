@@ -291,6 +291,7 @@ namespace YAF.Controls
     /// The search.
     /// </param>
     /// <returns>
+    /// Returns the regex.
     /// </returns>
     protected Regex GetRegex([NotNull] string search)
     {
@@ -812,14 +813,17 @@ namespace YAF.Controls
         var rx = this.GetRegex(Constants.UserBox.CountryImage);
         
        if (this.UserProfile.Country.IsSet())
-        {
-            string imagePath = this.PageContext.Get<ITheme>().GetItem("FLAGS", "{0}_MEDIUM".FormatWith(this.UserProfile.Country.ToUpperInvariant()), null);
-            string imageAlt = this.GetText("COUNTRY",this.UserProfile.Country.ToUpperInvariant());
-                  
-                filler =
-                  this.Get<YafBoardSettings>().UserBoxCountryImage.FormatWith(
-                      @"<a><img src=""{0}"" alt=""{1}"" title=""{1}"" /></a>".FormatWith(imagePath, imageAlt));
-           
+       {
+           string imagePath = this.PageContext.Get<ITheme>().GetItem(
+               "FLAGS",
+               "{0}_MEDIUM".FormatWith(this.UserProfile.Country.ToUpperInvariant()),
+               YafForumInfo.GetURLToResource("images/flags/{0}.png".FormatWith(this.UserProfile.Country.Trim())));
+
+            string imageAlt = this.GetText("COUNTRY", this.UserProfile.Country.ToUpperInvariant());
+
+            filler =
+                this.Get<YafBoardSettings>().UserBoxCountryImage.FormatWith(
+                    @"<a><img src=""{0}"" alt=""{1}"" title=""{1}"" /></a>".FormatWith(imagePath, imageAlt));
         }
 
         // replaces template placeholder with actual rank image
@@ -904,7 +908,7 @@ namespace YAF.Controls
     /// The user box.
     /// </param>
     /// <returns>
-    /// The remove empty dividers.
+    /// Returns the emptyd string
     /// </returns>
     [NotNull]
     private string RemoveEmptyDividers([NotNull] string userBox)
@@ -916,7 +920,7 @@ namespace YAF.Controls
                   userBox.IndexOf(@"<div class=""section""></div><br />") > 0
                       ? @"<div class=""section""></div><br />"
                       : @"<div class=""section""></div>",
-                  String.Empty);
+                  string.Empty);
       }
 
       return userBox.Replace("\"\"", "\"");
