@@ -458,7 +458,7 @@ namespace YAF.Pages
         var country = (DropDownList)this.CreateUserWizard1.FindWizardControlRecursive("Country");
         country.DataSource = StaticDataHelper.Country();
 
-        if (this._UserIpLocator == null)
+        if (this.Get<YafBoardSettings>().EnableIPInfoService &&  _UserIpLocator == null)
         {
           // vzrus: we should always get not null class here
           this._UserIpLocator = new IPDetails().GetData(HttpContext.Current.Request.UserHostAddress, "text", false,this.PageContext().CurrentForumPage.Localization.Culture.Name,"","");
@@ -493,11 +493,11 @@ namespace YAF.Pages
         decimal hours = 0;
         // fill location field 
         // Trying to consume data about user IP whereabouts
-        if (this._UserIpLocator["StatusCode"] != "OK")
+        if (this.Get<YafBoardSettings>().EnableIPInfoService && this._UserIpLocator["StatusCode"] != "OK")
         {
             LegacyDb.eventlog_create(null, this.GetType().ToString(), "Geolocation Service reports: " + this._UserIpLocator["StatusMessage"], EventLogTypes.Information);
         }
-        if (this._UserIpLocator.Count > 0 && this._UserIpLocator["StatusCode"] == "OK")
+        if (this.Get<YafBoardSettings>().EnableIPInfoService && this._UserIpLocator.Count > 0 && this._UserIpLocator["StatusCode"] == "OK")
         {
             
             string txtLoc = String.Empty;
