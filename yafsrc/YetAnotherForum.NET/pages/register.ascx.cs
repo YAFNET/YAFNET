@@ -28,6 +28,7 @@ namespace YAF.Pages
   using System;
   using System.Linq;
   using System.Net.Mail;
+  using System.Text;
   using System.Web;
   using System.Web.Security;
   using System.Web.UI;
@@ -48,7 +49,7 @@ namespace YAF.Pages
   #endregion
 
   /// <summary>
-  /// Summary description for register.
+  /// The User Register Page.
   /// </summary>
   public partial class register : ForumPage
   {
@@ -64,7 +65,6 @@ namespace YAF.Pages
     /// </summary>
     private PlaceHolder recPH;
    
-
     #endregion
 
     #region Constructors and Destructors
@@ -273,7 +273,7 @@ namespace YAF.Pages
 
       string guestUserName = UserMembershipHelper.GuestUserName;
 
-      guestUserName = guestUserName.IsSet() ? guestUserName.ToLower() : String.Empty;
+      guestUserName = guestUserName.IsSet() ? guestUserName.ToLower() : string.Empty;
 
       if (userName.Contains(";") || badWord || userName.ToLower().Equals(guestUserName))
       {
@@ -363,10 +363,12 @@ namespace YAF.Pages
 
         // setup/save the profile
         YafUserProfile userProfile = YafUserProfile.GetProfile(this.CreateUserWizard1.UserName);
+
         if (country.SelectedValue != null)
         {
             userProfile.Country = country.SelectedValue;
         }
+
         userProfile.Location = locationTextBox.Text.Trim();
         userProfile.Homepage = homepageTextBox.Text.Trim();
 
@@ -458,13 +460,17 @@ namespace YAF.Pages
         var country = (DropDownList)this.CreateUserWizard1.FindWizardControlRecursive("Country");
         country.DataSource = StaticDataHelper.Country();
 
-        if (this.Get<YafBoardSettings>().EnableIPInfoService &&  _UserIpLocator == null)
+        if (this.Get<YafBoardSettings>().EnableIPInfoService && this._UserIpLocator == null)
         {
           // vzrus: we should always get not null class here
-          this._UserIpLocator = new IPDetails().GetData(HttpContext.Current.Request.UserHostAddress, "text", false,this.PageContext().CurrentForumPage.Localization.Culture.Name,"","");
+            this._UserIpLocator = new IPDetails().GetData(
+                this.Get<HttpRequestBase>().UserHostAddress,
+                "text",
+                false,
+                this.PageContext().CurrentForumPage.Localization.Culture.Name,
+                string.Empty,
+                string.Empty);
         }
-
-       
 
         if (!this.Get<YafBoardSettings>().EmailVerification)
         {
@@ -491,16 +497,18 @@ namespace YAF.Pages
         this.DataBind();
 
         decimal hours = 0;
+
         // fill location field 
         // Trying to consume data about user IP whereabouts
         if (this.Get<YafBoardSettings>().EnableIPInfoService && this._UserIpLocator["StatusCode"] != "OK")
         {
             LegacyDb.eventlog_create(null, this.GetType().ToString(), "Geolocation Service reports: " + this._UserIpLocator["StatusMessage"], EventLogTypes.Information);
         }
+
         if (this.Get<YafBoardSettings>().EnableIPInfoService && this._UserIpLocator.Count > 0 && this._UserIpLocator["StatusCode"] == "OK")
         {
-            
-            string txtLoc = String.Empty;
+            var location = new StringBuilder();
+
             if (this._UserIpLocator["CountryName"].IsSet())
             {
                 country.Items.FindByValue(this.Get<ILocalization>().Culture.Name.Substring(2, 2)).Selected = true;
@@ -508,30 +516,30 @@ namespace YAF.Pages
 
             if (this._UserIpLocator["RegionName"].IsSet())
             {
-                txtLoc += ", " + this._UserIpLocator["RegionName"];
+                location.AppendFormat(", {0}", this._UserIpLocator["RegionName"]);
             }
 
             if (this._UserIpLocator["CityName"].IsSet())
             {
-                txtLoc += ", " + this._UserIpLocator["CityName"];
+                location.AppendFormat(", {0}", this._UserIpLocator["CityName"]);
             }
 
-            this.CreateUserWizard1.FindControlRecursiveAs<TextBox>("Location").Text = txtLoc;
+            this.CreateUserWizard1.FindControlRecursiveAs<TextBox>("Location").Text = location.ToString();
        
             if (this._UserIpLocator["TimeZone"].IsSet())
             {
                 try
                 {
-                    hours = Convert.ToDecimal(this._UserIpLocator["TimeZone"])*60;
+                    hours = this._UserIpLocator["TimeZone"].ToType<decimal>() * 60;
                 }
                 catch (FormatException)
                 {
-
+                    hours = 0;
                 }
             }
         }
 
-         timeZones.Items.FindByValue(hours.ToString()).Selected = true;
+        timeZones.Items.FindByValue(hours.ToString()).Selected = true;
         this.CreateUserWizard1.FindWizardControlRecursive("UserName").Focus();
       }
 
