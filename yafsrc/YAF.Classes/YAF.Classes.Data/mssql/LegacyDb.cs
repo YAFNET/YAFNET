@@ -8716,7 +8716,7 @@ namespace YAF.Classes.Data
             using (
               var cmd =
                 MsSqlDbAccess.GetCommand(
-                  "select UserID from {databaseOwner}.{objectQualifier}User where BoardID=@BoardID and ProviderUserKey=@ProviderUserKey",
+                  GetCommandTextReplaced("select UserID from {databaseOwner}.{objectQualifier}User where BoardID=@BoardID and ProviderUserKey=@ProviderUserKey"),
                   true))
             {
                 cmd.CommandType = CommandType.Text;
