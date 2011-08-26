@@ -42,18 +42,7 @@
         %>
         <a href="<%=YafBuildLink.GetLink(ForumPages.posts, linkParams, this.TopicRow["LinkTopicID"])%>"
             class="post_link" title="<%=this.Get<IFormatMessage>().GetCleanedTopicMessage(this.TopicRow["FirstMessage"], this.TopicRow["LinkTopicID"]).MessageTruncated%>">
-
-            <% if (this.TopicRow["Status"].ToString().IsSet() && this.Get<YafBoardSettings>().EnableTopicStatus)
-               {%>
-                   <%=string.Format("[{0}] {1}", this.GetText("TOPIC_STATUS", this.TopicRow["Status"].ToString()), this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.TopicRow["Subject"])))%>
-               <%}
-            else
-                {%>
-                   <%=this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.TopicRow["Subject"]))%>
-               <%}
-            %>     
-
-
+            <%=this.FormatTopicName() %> 
         </a>
        <%  if (this.TopicRow["Description"].ToString().IsSet())
             {

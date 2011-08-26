@@ -1,11 +1,12 @@
 <%@ Control Language="c#" CodeBehind="../../../controls/TopicLine.ascx.cs" AutoEventWireup="True" Inherits="YAF.Controls.TopicLine" %>
 <%@ Import Namespace="YAF.Core.Services" %>
 <%@ Import Namespace="YAF.Utils.Helpers" %>
-<%@ Import Namespace="YAF.Controls" %>
 <%@ Import Namespace="YAF.Core" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Utils" %>
+<%@ Import Namespace="YAF.Controls" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
+<%@ Import Namespace="YAF.Classes" %>
 <tr class="<%=this.IsAlt ? "topicRow_Alt post_alt" : "topicRow post" %>">
      <asp:PlaceHolder ID="SelectionHolder" runat="server" Visible="false">
         <td>
@@ -33,7 +34,15 @@
 
         <a href="<%=YafBuildLink.GetLink(ForumPages.posts, "m={0}&find=unread", this.TopicRow["LastMessageID"])%>"
             class="post_link" title="<%=this.Get<IFormatMessage>().GetCleanedTopicMessage(this.TopicRow["FirstMessage"], this.TopicRow["LinkTopicID"]).MessageTruncated%>">
-            <%=this.Get<IBadWordReplace>().Replace(Convert.ToString(this.HtmlEncode(this.TopicRow["Subject"]).ToString()))%></a>
+            <% if (this.TopicRow["Status"].ToString().IsSet() && this.Get<YafBoardSettings>().EnableTopicStatus)
+               {%>
+                   <%=string.Format("[{0}] {1}", this.GetText("TOPIC_STATUS", this.TopicRow["Status"].ToString()), this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.TopicRow["Subject"])))%>
+               <%}
+            else
+                {%>
+                   <%=this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.TopicRow["Subject"]))%>
+               <%}
+            %></a>
         <%
             var favoriteCount = this.Get<IFavoriteTopic>().FavoriteTopicCount((int)this.TopicRow["LinkTopicID"]);
             

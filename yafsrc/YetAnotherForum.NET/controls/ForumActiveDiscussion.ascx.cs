@@ -98,10 +98,24 @@ namespace YAF.Controls
 
             if (currentRow["Status"].ToString().IsSet() && this.Get<YafBoardSettings>().EnableTopicStatus)
             {
-                textMessageLink.Text =
-                    "[{0}] {1}".FormatWith(
+                var topicStatusIcon = this.Get<ITheme>().GetItem("TOPIC_STATUS", currentRow["Status"].ToString());
+
+                if (topicStatusIcon.IsSet() &&
+                    !topicStatusIcon.Contains("[TOPIC_STATUS."))
+                {
+                    textMessageLink.Text =
+                    "<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" style=\"border: 0;width:16px;height:16px\" />&nbsp;{1}".FormatWith(
+                    this.Get<ITheme>().GetItem("TOPIC_STATUS", currentRow["Status"].ToString()),
                         this.GetText("TOPIC_STATUS", currentRow["Status"].ToString()),
                         this.Get<IBadWordReplace>().Replace(this.HtmlEncode(currentRow["TOPIC"])));
+                }
+                else
+                {
+                    textMessageLink.Text =
+                    "[{0}]&nbsp;{1}".FormatWith(
+                        this.GetText("TOPIC_STATUS", currentRow["Status"].ToString()),
+                        this.Get<IBadWordReplace>().Replace(this.HtmlEncode(currentRow["TOPIC"])));
+                }
             }
             else
             {
