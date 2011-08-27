@@ -113,8 +113,32 @@ namespace YAF.Controls
                 this.LastPostDate.DateTime = this.DataRow["LastPosted"];
                 this.topicLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
                     ForumPages.posts, "t={0}", this.DataRow["LastTopicID"]);
-                this.topicLink.Text =
+
+                if (this.DataRow["LastTopicStatus"].ToString().IsSet() && this.Get<YafBoardSettings>().EnableTopicStatus)
+                {
+                    var topicStatusIcon = this.Get<ITheme>().GetItem("TOPIC_STATUS", this.DataRow["LastTopicStatus"].ToString());
+
+                    if (topicStatusIcon.IsSet() && !topicStatusIcon.Contains("[TOPIC_STATUS."))
+                    {
+                        this.topicLink.Text =
+                            "<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" style=\"border: 0;width:16px;height:16px\" />&nbsp;{1}"
+                                .FormatWith(
+                                    this.Get<ITheme>().GetItem("TOPIC_STATUS", this.DataRow["LastTopicStatus"].ToString()),
+                                    this.GetText("TOPIC_STATUS", this.DataRow["LastTopicStatus"].ToString()),
+                                    this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.DataRow["LastTopicName"])).Truncate(50));
+                    }
+                    else
+                    {
+                        this.topicLink.Text = "[{0}]&nbsp;{1}".FormatWith(
+                        this.GetText("TOPIC_STATUS", this.DataRow["LastTopicStatus"].ToString()),
+                        this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.DataRow["LastTopicName"])).Truncate(50));
+                    }
+                }
+                else
+                {
+                    this.topicLink.Text =
                     this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.DataRow["LastTopicName"].ToString())).Truncate(50);
+                }
 
                 this.ProfileUserLink.UserID = this.DataRow["LastUserID"].ToType<int>();
                 this.ProfileUserLink.Style = this.Get<YafBoardSettings>().UseStyledNicks

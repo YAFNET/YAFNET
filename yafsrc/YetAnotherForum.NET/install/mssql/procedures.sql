@@ -2789,6 +2789,7 @@ select
 		LastTopicID		= t.TopicID,
 		TopicMovedID    = t.TopicMovedID,
 		LastTopicName	= t.Topic,
+		LastTopicStatus = t.Status,
 		b.Flags,
 		Viewing			= (select count(1) from [{databaseOwner}].[{objectQualifier}Active] x JOIN [{databaseOwner}].[{objectQualifier}User] usr ON x.UserID = usr.UserID where x.ForumID=b.ForumID AND usr.IsActiveExcluded = 0),
 		b.RemoteURL,		
