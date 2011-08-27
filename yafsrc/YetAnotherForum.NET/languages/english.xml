@@ -2251,6 +2251,8 @@ Spoiler Content
       <Resource tag="MOVED">Moved</Resource>
       <Resource tag="NEW_POSTS">New Posts</Resource>
       <Resource tag="NEW_POSTS_LOCKED">New Posts (Locked)</Resource>
+	  <Resource tag="HOT_NO_NEW_POSTS">Hot Topic</Resource>
+      <Resource tag="HOT_NEW_POSTS">Hot Topic (New Posts)</Resource>
       <Resource tag="NO_NEW_POSTS">No New Posts</Resource>
       <Resource tag="NO_NEW_POSTS_LOCKED">No New Posts (Locked)</Resource>
       <Resource tag="POLL">Poll</Resource>
@@ -4333,7 +4335,7 @@ Visit {forumname} at {forumlink}
 	   <Resource tag="HEADER_SEARCH">Search Settings</Resource>
 	   <Resource tag="HEADER_LOGIN">Login/Registration Settings</Resource>
 	   <Resource tag="HEADER_IMAGE_ATTACH">Image Attachment Settings</Resource>
-	   <Resource tag="HEADER_POLL">Poll Options</Resource>
+	   <Resource tag="HEADER_POLL">Poll Settings</Resource>
 	   <Resource tag="HEADER_PMS">Private Messages</Resource>
 	   <Resource tag="HEADER_ALBUM">Album Settings</Resource>
 	   <Resource tag="HEADER_SYNDICATION">Syndication Feed Settings</Resource>
@@ -4740,6 +4742,13 @@ Visit {forumname} at {forumlink}
      <Resource tag="SSO_AUTO_REGISTER_HELP">Register User automatically that are trying to login thru Facebook</Resource>
 	 <Resource tag="USE_READ_TRACKING">Use User Read Tracking via Database:</Resource>
      <Resource tag="USE_READ_TRACKING_HELP">If enabled it stores the Last Time a User Visits a Forum and Topic, to find Unread Messages. &lt;br /&gt;WARNING: This Can Increase your DB if you have a big amount of users and/or topics</Resource>
+	 <Resource tag="HEADER_HOTTOPICS">Hot (Popular) Topic Settings</Resource>
+	 <Resource tag="POPULAR_DAYS">Active Days to stay Hot:</Resource>
+     <Resource tag="POPULAR_DAYS_HELP">Define the Number of days the topics last post must have been posted. By Default it is set to 7 (One Week), that means a topic stays popular for one week.</Resource>
+	 <Resource tag="POPULAR_REPLYS">Min. Replies to became Hot:</Resource>
+     <Resource tag="POPULAR_REPLYS_HELP">The number of Replies per topic becomes popular.</Resource>
+	 <Resource tag="POPULAR_VIEWS">Min. Views to became Hot:</Resource>
+     <Resource tag="POPULAR_VIEWS_HELP">The number of topic views before a topic becomes popular.</Resource>
    </page>
 	  <page name="ADMIN_TEST_DATA">
 	   <Resource tag="TITLE">Create Test Data (DEBUG Only)</Resource>

@@ -920,6 +920,7 @@
     <Resource tag="HEADER_EDITORS">Bewerk/Opmaak instellingen</Resource>
     <Resource tag="HEADER_FEATURES">Functie instellingen</Resource>
     <Resource tag="HEADER_GEOLOCATION">Geolocation Settings</Resource>
+    <Resource tag="HEADER_HOTTOPICS">Hot (Popular) Topic Settings</Resource>
     <Resource tag="HEADER_IMAGE_ATTACH">Fotobijlage instellingen</Resource>
     <Resource tag="HEADER_IRKOO">Irkoo Reputatie Service</Resource>
     <Resource tag="HEADER_LOG">Log instellingen</Resource>
@@ -1016,6 +1017,12 @@
     <Resource tag="POLL_IMAGE_FILESIZE_HELP">Max. bestandsgrootte voor plaatjes die bij Polls worden gebruikt in KB.</Resource>
     <Resource tag="POLLVOTING_PERIP">Poll Stemmen op basis van IP:</Resource>
     <Resource tag="POLLVOTING_PERIP_HELP">Standaard wordt bij het stemmen gekeken naar de Gebruikersnaam en een Cookie. (Een stem per Gebruiker. Cookies worden gebruiker als Gast-stemmen is toegestaan.) &lt;br /&gt;Als deze is aangevinkt, wordt bij het stemmen ook het IP als referentie gebruikt, als een bescherming tegen kiesfraude.</Resource>
+    <Resource tag="POPULAR_DAYS">Active Days to stay Hot:</Resource>
+    <Resource tag="POPULAR_DAYS_HELP">Define the Number of days the topics last post must have been posted. By Default it is set to 7 (One Week), that means a topic stays popular for one week.</Resource>
+    <Resource tag="POPULAR_REPLYS">Min. Replies to became Hot:</Resource>
+    <Resource tag="POPULAR_REPLYS_HELP">The number of Replies per topic becomes popular.</Resource>
+    <Resource tag="POPULAR_VIEWS">Min. Views to became Hot:</Resource>
+    <Resource tag="POPULAR_VIEWS_HELP">The number of topic views before a topic becomes popular.</Resource>
     <Resource tag="POST_AD">2e post advertentie:</Resource>
     <Resource tag="POST_AD_HELP">Zet hier de code om een advertentie weer te geven in elk topic na het eerste bericht. Als je hier geen advertentie wilt weergeven, niets invullen.</Resource>
     <Resource tag="POSTEDIT_TIMEOUT">Timeout voor het bewerken van een bericht:</Resource>
@@ -3616,6 +3623,8 @@ Spoiler Content
     <Resource tag="ANNOUNCEMENT">Mededeling</Resource>
     <Resource tag="ANNOUNCEMENT_NEW">Mededeling (nieuwe berichten)</Resource>
     <Resource tag="FORUM_LOCKED">Forum gesloten</Resource>
+    <Resource tag="HOT_NEW_POSTS">Hot Topic (New Posts)</Resource>
+    <Resource tag="HOT_NO_NEW_POSTS">Hot Topic</Resource>
     <Resource tag="MOVED">Verplaatst</Resource>
     <Resource tag="NEW_POSTS">Nieuwe berichten</Resource>
     <Resource tag="NEW_POSTS_LOCKED">Nieuwe berichten (gesloten)</Resource>

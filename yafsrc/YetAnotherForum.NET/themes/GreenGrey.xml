@@ -25,6 +25,8 @@
     <Resource tag="SEARCH">~/icon_search.png</Resource>
     <Resource tag="TOPIC_NEW">~/topic_new.png</Resource>
     <Resource tag="TOPIC">~/topic.png</Resource>
+	<Resource tag="TOPIC_HOT_NEW">~/topic_hot_new.png</Resource>
+    <Resource tag="TOPIC_HOT">~/topic_hot.png</Resource>
     <Resource tag="TOPIC_ANNOUNCEMENT">~/topic_announce.png</Resource>
     <Resource tag="TOPIC_ANNOUNCEMENT_NEW">~/topic_announce_new.png</Resource>
     <Resource tag="TOPIC_NEW_LOCKED">~/topic_lock_new.png</Resource>

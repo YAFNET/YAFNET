@@ -18,106 +18,103 @@
  */
 namespace YAF.Controls
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.Web.UI;
-  using System.Web.UI.HtmlControls;
-  using System.Web.UI.WebControls;
+    using System;
+    using System.Web.UI;
+    using System.Web.UI.HtmlControls;
+    using System.Web.UI.WebControls;
 
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Types;
-
-  #endregion
-
-  /// <summary>
-  /// Summary description for ForumUsers.
-  /// </summary>
-  public class IconLegend : BaseControl
-  {
-    #region Constructors and Destructors
-
-    /// <summary>
-    ///   Initializes a new instance of the <see cref = "IconLegend" /> class.
-    /// </summary>
-    public IconLegend()
-    {
-      Load += new EventHandler(this.IconLegend_Load);
-    }
+    using YAF.Core;
+    using YAF.Types;
 
     #endregion
 
-    #region Methods
-
     /// <summary>
-    /// The render.
+    /// Icon Legend Control to Render Topic Icons
     /// </summary>
-    /// <param name="writer">
-    /// The writer.
-    /// </param>
-    protected override void Render([NotNull] HtmlTextWriter writer)
+    public class IconLegend : BaseControl
     {
-      base.Render(writer);
-    }
+        #region Constructors and Destructors
 
-    /// <summary>
-    /// The icon legend_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    private void IconLegend_Load([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      string[] themeImageTags = {
-                                  "TOPIC_NEW", "TOPIC", "TOPIC_NEW_LOCKED", "TOPIC_LOCKED", "TOPIC_ANNOUNCEMENT", 
-                                  "TOPIC_STICKY", "TOPIC_MOVED", "TOPIC_POLL"
-                                };
-      string[] localizedTags = {
-                                 "NEW_POSTS", "NO_NEW_POSTS", "NEW_POSTS_LOCKED", "NO_NEW_POSTS_LOCKED", "ANNOUNCEMENT", 
-                                 "STICKY", "MOVED", "POLL"
-                               };
-
-      HtmlTableRow tr = null;
-      HtmlTableCell td = null;
-
-      // add a table control
-      var table = new HtmlTable();
-      table.Attributes.Add("class", "iconlegend");
-      Controls.Add(table);
-
-      for (int i = 0; i < themeImageTags.Length; i++)
-      {
-        if ((i % 2) == 0 || tr == null)
+        /// <summary>
+        ///   Initializes a new instance of the <see cref = "IconLegend" /> class.
+        /// </summary>
+        public IconLegend()
         {
-          // add <tr>
-          tr = new HtmlTableRow();
-          table.Controls.Add(tr);
+            Load += this.IconLegend_Load;
         }
 
-        // add this to the tr...
-        td = new HtmlTableCell();
-        tr.Controls.Add(td);
+        #endregion
 
-        // add the themed icons
-        var themeImage = new ThemeImage();
-        themeImage.ThemeTag = themeImageTags[i];
-        td.Controls.Add(themeImage);
+        #region Methods
 
-        // space
-        var space = new Literal();
-        space.Text = " ";
-        td.Controls.Add(space);
+        /// <summary>
+        /// The render.
+        /// </summary>
+        /// <param name="writer">
+        /// The writer.
+        /// </param>
+        protected override void Render([NotNull] HtmlTextWriter writer)
+        {
+            base.Render(writer);
+        }
 
-        // localized text describing the image
-        var localLabel = new LocalizedLabel();
-        localLabel.LocalizedTag = localizedTags[i];
-        td.Controls.Add(localLabel);
-      }
+        /// <summary>
+        /// The icon legend_ load.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void IconLegend_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            string[] themeImageTags = {
+                                          "TOPIC_NEW", "TOPIC", "TOPIC_HOT_NEW", "TOPIC_HOT", "TOPIC_NEW_LOCKED", "TOPIC_LOCKED", "TOPIC_ANNOUNCEMENT",
+                                          "TOPIC_STICKY", "TOPIC_MOVED", "TOPIC_POLL"
+                                      };
+
+            string[] localizedTags = {
+                                         "NEW_POSTS", "NO_NEW_POSTS", "HOT_NEW_POSTS", "HOT_NO_NEW_POSTS", "NEW_POSTS_LOCKED", "NO_NEW_POSTS_LOCKED",
+                                         "ANNOUNCEMENT", "STICKY", "MOVED", "POLL"
+                                     };
+
+            HtmlTableRow tr = null;
+
+            // add a table control
+            var table = new HtmlTable();
+            table.Attributes.Add("class", "iconlegend");
+            Controls.Add(table);
+
+            for (int i = 0; i < themeImageTags.Length; i++)
+            {
+                if ((i % 2) == 0 || tr == null)
+                {
+                    // add <tr>
+                    tr = new HtmlTableRow();
+                    table.Controls.Add(tr);
+                }
+
+                // add this to the tr...
+                HtmlTableCell td = new HtmlTableCell();
+                tr.Controls.Add(td);
+
+                // add the themed icons
+                var themeImage = new ThemeImage { ThemeTag = themeImageTags[i] };
+                td.Controls.Add(themeImage);
+
+                // space
+                var space = new Literal { Text = " " };
+                td.Controls.Add(space);
+
+                // localized text describing the image
+                var localLabel = new LocalizedLabel { LocalizedTag = localizedTags[i] };
+                td.Controls.Add(localLabel);
+            }
+        }
+
+        #endregion
     }
-
-    #endregion
-  }
 }

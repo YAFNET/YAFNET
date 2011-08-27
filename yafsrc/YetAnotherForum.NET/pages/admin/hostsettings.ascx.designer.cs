@@ -1507,6 +1507,69 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.TextBox AlbumImagesPerPage;
         
         /// <summary>
+        /// LocalizedLabel31 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel31;
+        
+        /// <summary>
+        /// HelpLabel197 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel197;
+        
+        /// <summary>
+        /// PopularTopicViews control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox PopularTopicViews;
+        
+        /// <summary>
+        /// HelpLabel198 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel198;
+        
+        /// <summary>
+        /// PopularTopicReplys control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox PopularTopicReplys;
+        
+        /// <summary>
+        /// HelpLabel199 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel199;
+        
+        /// <summary>
+        /// PopularTopicDays control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox PopularTopicDays;
+        
+        /// <summary>
         /// LocalizedLabel26 control.
         /// </summary>
         /// <remarks>

@@ -5,7 +5,6 @@
     using System;
     using System.Data;
     using System.Text;
-    using System.Web.UI.WebControls;
 
     using YAF.Classes;
     using YAF.Core;
@@ -37,7 +36,7 @@
         /// <summary>
         ///   The _selected checkbox.
         /// </summary>
-        private CheckBox _selectedCheckbox;
+       // private CheckBox _selectedCheckbox;
 
         /// <summary>
         ///   The _the topic row.
@@ -203,6 +202,29 @@
         #endregion
 
         #region Methods
+
+        /// <summary>
+        ///   Checks if the Topic is Hot or not
+        /// </summary>
+        /// <param name="lastPosted">
+        ///   The last Posted DateTime.
+        /// </param>
+        /// <param name="row">
+        ///   The Topic Data Row
+        /// </param>
+        /// <returns>
+        ///   Returns if the Topic is Hot or not
+        /// </returns>
+        public bool IsPopularTopic(DateTime lastPosted, DataRowView row)
+        {
+            if (lastPosted > DateTime.Now.AddDays(-this.Get<YafBoardSettings>().PopularTopicDays))
+            {
+                return (row["Replies"].ToType<int>() >= this.Get<YafBoardSettings>().PopularTopicReplys) ||
+                       (row["Views"].ToType<int>() >= this.Get<YafBoardSettings>().PopularTopicViews);
+            }
+
+            return false;
+        }
 
         /// <summary>
         /// Create pager for post.
@@ -441,8 +463,11 @@
             DateTime lastPosted = row["LastPosted"] != DBNull.Value
                                       ? (DateTime)row["LastPosted"]
                                       : new DateTime(2000, 1, 1);
+
             var topicFlags = new TopicFlags(row["TopicFlags"]);
             var forumFlags = new ForumFlags(row["ForumFlags"]);
+
+            var isHot = this.IsPopularTopic(lastPosted, row);
 
             // Obsolette : Ederon
             // bool isLocked = General.BinaryAnd(row["TopicFlags"], TopicFlags.Locked);
@@ -523,7 +548,13 @@
                                 return this.Get<ITheme>().GetItem("ICONS", "TOPIC_NEW_LOCKED");
                             }
 
-                            imgTitle = this.GetText("NEW_POSTS");
+                            if (isHot)
+                            {
+                                imgTitle = this.GetText("ICONLEGEND", "HOT_NEW_POSTS");
+                                return this.Get<ITheme>().GetItem("ICONS", "TOPIC_HOT_NEW", this.Get<ITheme>().GetItem("ICONS", "TOPIC_NEW"));
+                            }
+
+                            imgTitle = this.GetText("ICONLEGEND", "NEW_POSTS");
                             return this.Get<ITheme>().GetItem("ICONS", "TOPIC_NEW");
                     }
                 }
@@ -549,12 +580,25 @@
                             return this.Get<ITheme>().GetItem("ICONS", "TOPIC_LOCKED");
                         }
 
+                        if (isHot)
+                        {
+                            imgTitle = this.GetText("HOT_NO_NEW_POSTS");
+                            return this.Get<ITheme>().GetItem("ICONS", "TOPIC_HOT", this.Get<ITheme>().GetItem("ICONS", "TOPIC"));
+                        }
+
                         imgTitle = this.GetText("NO_NEW_POSTS");
                         return this.Get<ITheme>().GetItem("ICONS", "TOPIC");
                 }
             }
             catch (Exception)
             {
+                if (isHot)
+                {
+                    imgTitle = this.GetText("HOT_NO_NEW_POSTS");
+                    return this.Get<ITheme>().GetItem("ICONS", "TOPIC_HOT", this.Get<ITheme>().GetItem("ICONS", "TOPIC"));
+                }
+
+                imgTitle = this.GetText("NO_NEW_POSTS");
                 return this.Get<ITheme>().GetItem("ICONS", "TOPIC");
             }
         }

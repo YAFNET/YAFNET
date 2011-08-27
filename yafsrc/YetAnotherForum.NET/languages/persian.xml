@@ -922,6 +922,7 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="HEADER_EDITORS">در حال ویرایش/قالب بندی تنظیمات</Resource>
     <Resource tag="HEADER_FEATURES">تنظیم ویژگی ها</Resource>
     <Resource tag="HEADER_GEOLOCATION">Geolocation Settings</Resource>
+    <Resource tag="HEADER_HOTTOPICS">Hot (Popular) Topic Settings</Resource>
     <Resource tag="HEADER_IMAGE_ATTACH">تنظیمات تصاویر ضمیمه</Resource>
     <Resource tag="HEADER_IRKOO">خدمات Irkoo</Resource>
     <Resource tag="HEADER_LOG">تنظیمات سیاهه</Resource>
@@ -1019,6 +1020,12 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="POLLVOTING_PERIP">نظر سنجی های مبتی بر آی پی :</Resource>
     <Resource tag="POLLVOTING_PERIP_HELP">به صورت پیش فرض نظر سنجی ها بر اساس نام کاربری و کوکی اداره می شود.&lt;br /&gt;
 با انتخاب این گزینه آی پی نیز برای امنیت بیشتر استفاده می شود.</Resource>
+    <Resource tag="POPULAR_DAYS">Active Days to stay Hot:</Resource>
+    <Resource tag="POPULAR_DAYS_HELP">Define the Number of days the topics last post must have been posted. By Default it is set to 7 (One Week), that means a topic stays popular for one week.</Resource>
+    <Resource tag="POPULAR_REPLYS">Min. Replies to became Hot:</Resource>
+    <Resource tag="POPULAR_REPLYS_HELP">The number of Replies per topic becomes popular.</Resource>
+    <Resource tag="POPULAR_VIEWS">Min. Views to became Hot:</Resource>
+    <Resource tag="POPULAR_VIEWS_HELP">The number of topic views before a topic becomes popular.</Resource>
     <Resource tag="POST_AD">آگهی جداکننده ارسال:</Resource>
     <Resource tag="POST_AD_HELP">کدی را که می خواهدی پس از اولین ارسال مرتبا نمایش داده شود قرار دهید. می توانید این گزینه را خالی رها کنید.</Resource>
     <Resource tag="POSTEDIT_TIMEOUT">انقضای زمان برای ارسال:</Resource>
@@ -3668,6 +3675,8 @@ Spoiler Content
     <Resource tag="ANNOUNCEMENT">اطلاعیه ها</Resource>
     <Resource tag="ANNOUNCEMENT_NEW">اطلاعیه ها( عناوین جدید )</Resource>
     <Resource tag="FORUM_LOCKED">انجمن قفل شده است</Resource>
+    <Resource tag="HOT_NEW_POSTS">Hot Topic (New Posts)</Resource>
+    <Resource tag="HOT_NO_NEW_POSTS">Hot Topic</Resource>
     <Resource tag="MOVED">انتقال داده شد</Resource>
     <Resource tag="NEW_POSTS">ارسالهای جدید</Resource>
     <Resource tag="NEW_POSTS_LOCKED">عناوین جدید ( قفل شده )</Resource>

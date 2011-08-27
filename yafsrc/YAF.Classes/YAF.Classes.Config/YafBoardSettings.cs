@@ -2936,6 +2936,60 @@ namespace YAF.Classes
             }
         }
 
+
+        /// <summary>
+        /// Gets or sets sets the Number of Views a Topic must have to became 
+        /// Hot.
+        /// </summary>
+        public int PopularTopicViews
+        {
+            get
+            {
+                return this._regBoard.GetValue("PopularTopicViews", 100);
+            }
+
+            set
+            {
+                this._regBoard.SetValue("PopularTopicViews", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the Number of Replys a Topic must have to became 
+        /// Hot.
+        /// </summary>
+        public int PopularTopicReplys
+        {
+            get
+            {
+                return this._regBoard.GetValue("PopularTopicReplys", 10);
+            }
+
+            set
+            {
+                this._regBoard.SetValue("PopularTopicReplys", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the Number of Days a topic must have a Reply in t
+        /// remain Hot (Popular)
+        /// </summary>
+        public int PopularTopicDays
+        {
+            get
+            {
+                return this._regBoard.GetValue("PopularTopicDays", 7);
+            }
+
+            set
+            {
+                this._regBoard.SetValue("PopularTopicDays", value);
+            }
+        }
+
+
+
         /// <summary>
         /// Gets or sets a value indicating whether to AddDynamicPageMetaTags.
         /// </summary>

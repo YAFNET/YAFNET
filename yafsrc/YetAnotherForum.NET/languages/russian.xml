@@ -921,6 +921,7 @@
     <Resource tag="HEADER_EDITORS">Настройки редактирования/форматирования</Resource>
     <Resource tag="HEADER_FEATURES">Настройки возможностей</Resource>
     <Resource tag="HEADER_GEOLOCATION">Geolocation Settings</Resource>
+    <Resource tag="HEADER_HOTTOPICS">Hot (Popular) Topic Settings</Resource>
     <Resource tag="HEADER_IMAGE_ATTACH">Настройки вложенных изображений</Resource>
     <Resource tag="HEADER_IRKOO">Службы Irkoo</Resource>
     <Resource tag="HEADER_LOG">Настройки журнала</Resource>
@@ -1017,6 +1018,12 @@
     <Resource tag="POLL_IMAGE_FILESIZE_HELP">Максимальный размер файла в опросах в КБ.</Resource>
     <Resource tag="POLLVOTING_PERIP">Голосование зависит от IP:</Resource>
     <Resource tag="POLLVOTING_PERIP_HELP">По умолчанию, голосование отслеживается по имени пользователя и куки. (Один голос на ник. куки используются если включено гостевое голосование.) &lt;br /&gt;Если эта опция включена, то YAF также использует IP как ссылку обеспечивающую максимальную защиту от фальсификаций.</Resource>
+    <Resource tag="POPULAR_DAYS">Active Days to stay Hot:</Resource>
+    <Resource tag="POPULAR_DAYS_HELP">Define the Number of days the topics last post must have been posted. By Default it is set to 7 (One Week), that means a topic stays popular for one week.</Resource>
+    <Resource tag="POPULAR_REPLYS">Min. Replies to became Hot:</Resource>
+    <Resource tag="POPULAR_REPLYS_HELP">The number of Replies per topic becomes popular.</Resource>
+    <Resource tag="POPULAR_VIEWS">Min. Views to became Hot:</Resource>
+    <Resource tag="POPULAR_VIEWS_HELP">The number of topic views before a topic becomes popular.</Resource>
     <Resource tag="POST_AD">Реклама во 2ом сообщении:</Resource>
     <Resource tag="POST_AD_HELP">Поместите код, который вы желаете отображать во 2ом сообщении каждой темы. Оставьте пустым, если вы не желаете отображать что-либо.</Resource>
     <Resource tag="POSTEDIT_TIMEOUT">Таймаут редактирования поста:</Resource>
@@ -3680,6 +3687,8 @@ Spoiler Content
     <Resource tag="ANNOUNCEMENT">Объявление</Resource>
     <Resource tag="ANNOUNCEMENT_NEW">Объявление (новые сообщения)</Resource>
     <Resource tag="FORUM_LOCKED">Форум закрыт</Resource>
+    <Resource tag="HOT_NEW_POSTS">Hot Topic (New Posts)</Resource>
+    <Resource tag="HOT_NO_NEW_POSTS">Hot Topic</Resource>
     <Resource tag="MOVED">Перемещено</Resource>
     <Resource tag="NEW_POSTS">Новые сообщения</Resource>
     <Resource tag="NEW_POSTS_LOCKED">Новые сообщения (закрытые)</Resource>

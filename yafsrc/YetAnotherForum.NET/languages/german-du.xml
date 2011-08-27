@@ -921,6 +921,7 @@
     <Resource tag="HEADER_EDITORS">Editoren- / Formatierungseinstellungen</Resource>
     <Resource tag="HEADER_FEATURES">Funktionseinstellungen</Resource>
     <Resource tag="HEADER_GEOLOCATION">Geolocation Settings</Resource>
+    <Resource tag="HEADER_HOTTOPICS">Beliebte Themen Einstellungen</Resource>
     <Resource tag="HEADER_IMAGE_ATTACH">Bildanhang Einstellungen</Resource>
     <Resource tag="HEADER_IRKOO">Irkoo-Reputation Service</Resource>
     <Resource tag="HEADER_LOG">Log-Einstellungen</Resource>
@@ -1017,6 +1018,12 @@
     <Resource tag="POLL_IMAGE_FILESIZE_HELP">Definieren Sie die Maximale Dateigröße in Kilo Bytes.</Resource>
     <Resource tag="POLLVOTING_PERIP">Umfragestimmen Abhängig von IP:</Resource>
     <Resource tag="POLLVOTING_PERIP_HELP">Standardmäßig werden die Umfrage Abstimmungen verfolgt mit dem Benutzernamen und einem Cookie (Eine Stimme pro Benutzername. Cookies werden verwendet falls Gäste abstimmen dürfen &lt;br /&gt;Wenn diese Option aktiviert ist werden auch die IP Adressen als Referenz verwendet, und ist die Sicherste Methode gegen Wahlbetrug.</Resource>
+    <Resource tag="POPULAR_DAYS">Tage Aktiv um beliebt zu bleiben:</Resource>
+    <Resource tag="POPULAR_DAYS_HELP">Definieren Sie die Anzahl an Tagen, innerhalb vom Tag des Letzten Beitrags bis Heute. Standardmäßig ist der Wert auf 7 (Eine Woche) gesetzt, das bedeuted das ein Thema eine Woche Beliebt bleibt.</Resource>
+    <Resource tag="POPULAR_REPLYS">Min. Antworten um Beliebt zu werden:</Resource>
+    <Resource tag="POPULAR_REPLYS_HELP">Die Anzahl an Antworten die Benötigt sind bevor ein Thema Beliebt wird.</Resource>
+    <Resource tag="POPULAR_VIEWS">Min. Aufrufe um Beliebt zu werden:</Resource>
+    <Resource tag="POPULAR_VIEWS_HELP">Die Anzahl an Aufrufen die Benötigt sind bevor ein Thema Beliebt wird.</Resource>
     <Resource tag="POST_AD">Werbe Code:</Resource>
     <Resource tag="POST_AD_HELP">Platzieren Sie den Code den Sie anzeigen möchten in jedem Thema nach dem ersten Beitrag. Wenn Sie keine Werbung anzeigen möchten lassen Sie die Box leer.</Resource>
     <Resource tag="POSTEDIT_TIMEOUT">Beitrag bearbeiten Timeout:</Resource>
@@ -3644,6 +3651,8 @@ Spoiler Content
     <Resource tag="ANNOUNCEMENT">Ankündigung</Resource>
     <Resource tag="ANNOUNCEMENT_NEW">Ankündigung (Neue Beiträge)</Resource>
     <Resource tag="FORUM_LOCKED">Forum gesperrt</Resource>
+    <Resource tag="HOT_NEW_POSTS">Beliebtes Thema (Neue Beiträge)</Resource>
+    <Resource tag="HOT_NO_NEW_POSTS">Beliebtes Thema</Resource>
     <Resource tag="MOVED">Verschoben</Resource>
     <Resource tag="NEW_POSTS">Neue Beiträge</Resource>
     <Resource tag="NEW_POSTS_LOCKED">Neue Beiträge (gesperrt)</Resource>
