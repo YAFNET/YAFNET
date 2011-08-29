@@ -923,7 +923,7 @@ namespace YAF.Controls
                   string.Empty);
       }
 
-      return userBox.Replace("\"\"", "\"");
+      return userBox;
     }
 
     #endregion
