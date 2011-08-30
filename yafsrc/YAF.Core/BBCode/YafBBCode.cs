@@ -206,7 +206,7 @@ namespace YAF.Core.BBCode
         ///   The _rgx quote 2.
         /// </summary>
         private static readonly Regex _rgxQuote2 = new Regex(
-            @"\[quote=(?<quote>[^\]]*)\](?<inner>(.*?))\[/quote\]", _Options | RegexOptions.Compiled);
+            @"\[quote=(?<quote>[^\]]*)(?!;)\](?<inner>(.*?))\[/quote\]", _Options | RegexOptions.Compiled);
 
         /// <summary>
         ///   The _rgx quote 3.
@@ -337,7 +337,7 @@ namespace YAF.Core.BBCode
                 var lowerRule = new SimpleReplaceRule(
                     code.ToLower(),
                     @"<img src=""{0}"" alt=""{1}"" />".FormatWith(
-                    YafBuildLink.Smiley(smile.Icon), HttpContext.Current.Server.HtmlEncode(smile.Emoticon)));
+                        YafBuildLink.Smiley(smile.Icon), HttpContext.Current.Server.HtmlEncode(smile.Emoticon)));
 
                 var upperRule = new SimpleReplaceRule(
                     code.ToUpper(), 
@@ -558,14 +558,24 @@ namespace YAF.Core.BBCode
                 ruleEngine.AddRule(
                     new SimpleRegexReplaceRule(_RgxRight, "<div align=\"right\">${inner}</div>", _Options));
 
+                // TODO add max-width and max-height
+                /*
+                var maxWidth = this.Get<YafBoardSettings>().ImageAttachmentResizeWidth;
+                var maxHeight = this.Get<YafBoardSettings>().ImageAttachmentResizeHeight;
+
+                string styleAttribute = "style=\"max-width:{0}px;max-height:{1}px\"".FormatWith(maxWidth, maxHeight);*/
+
                 // image
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
-                        _rgxImg, "<img src=\"${http}${inner}\" alt=\"\"/>", new[] { "http" }, new[] { "http://" }));
+                        _rgxImg,
+                        "<img src=\"${http}${inner}\" alt=\"\"/>",
+                        new[] { "http" },
+                        new[] { "http://" }));
 
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
-                        _rgxImgTitle, 
+                        _rgxImgTitle,
                         "<img src=\"${http}${inner}\" alt=\"${description}\" title=\"${description}\" />", 
                         new[] { "http", "description" }, 
                         new[] { "http://" }));
@@ -614,30 +624,30 @@ namespace YAF.Core.BBCode
                         @"<div class=""code""><strong>{0}</strong><div class=""innercode"">${inner}</div></div>".Replace("{0}", localCodeStr)));
 
                 // "quote" handling...
-                string tmpReplaceStr2 =
-                    @"<div class=""quote""><span class=""quotetitle"">{0}</span><div class=""innerquote"">{1}</div></div>"
-                        .FormatWith(localQuoteWroteStr.Replace("{0}", "${quote}"), "${inner}");
-
-                ruleEngine.AddRule(new VariableRegexReplaceRule(_rgxQuote2, tmpReplaceStr2, new[] { "quote" }));
-
-                string tmpReplaceStr1 =
-                    @"<div class=""quote""><span class=""quotetitle"">{0}</span><div class=""innerquote"">{1}</div></div>"
-                        .FormatWith(localQuoteStr, "${inner}");
-
-                ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxQuote1, tmpReplaceStr1));
-
                 var sl = YafContext.Current.ServiceLocator;
 
                 string tmpReplaceStr3 =
                     @"<div class=""quote""><span class=""quotetitle"">{0} <a href=""{1}""><img src=""{2}"" title=""{3}"" alt=""{3}"" /></a></span><div class=""innerquote"">{4}</div></div>"
                         .FormatWith(
-                            localQuotePostedStr.Replace("{0}", "${quote}"), 
-                            YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", "${id}"), 
-                            sl.Get<ITheme>().GetItem("ICONS", "ICON_LATEST"), 
-                            sl.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTEPOSTED_TT"), 
+                            localQuotePostedStr.Replace("{0}", "${quote}"),
+                            YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", "${id}"),
+                            sl.Get<ITheme>().GetItem("ICONS", "ICON_LATEST"),
+                            sl.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTEPOSTED_TT"),
                             "${inner}");
 
-                ruleEngine.AddRule(new VariableRegexReplaceRule(_rgxQuote3, tmpReplaceStr3, new[] { "quote", "id" }));
+                ruleEngine.AddRule(new VariableRegexReplaceRule(_rgxQuote3, tmpReplaceStr3, new[] { "quote", "id" }) { RuleRank = 60 });
+
+                string tmpReplaceStr2 =
+                    @"<div class=""quote""><span class=""quotetitle"">{0}</span><div class=""innerquote"">{1}</div></div>"
+                        .FormatWith(localQuoteWroteStr.Replace("{0}", "${quote}"), "${inner}");
+
+                ruleEngine.AddRule(new VariableRegexReplaceRule(_rgxQuote2, tmpReplaceStr2, new[] { "quote" }) { RuleRank = 61 });
+
+                string tmpReplaceStr1 =
+                    @"<div class=""quote""><span class=""quotetitle"">{0}</span><div class=""innerquote"">{1}</div></div>"
+                        .FormatWith(localQuoteStr, "${inner}");
+
+                ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxQuote1, tmpReplaceStr1) { RuleRank = 62 });
             }
 
             // post and topic rules...
@@ -935,7 +945,7 @@ namespace YAF.Core.BBCode
 
                 if (displayScript.IsSet() || editScript.IsSet())
                 {
-                    jsScriptBuilder.AppendLine(displayScript + "\r\n" + editScript);
+                    jsScriptBuilder.AppendLine("{0}\r\n{1}".FormatWith(displayScript, editScript));
                 }
 
                 // see if there is any CSS associated with this YafBBCode
