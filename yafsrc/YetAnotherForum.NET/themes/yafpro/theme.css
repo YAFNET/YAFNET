@@ -403,6 +403,7 @@
     
 }
 
+.yafnet .postContainer_Alt .yafsignature,
 .yafnet .postContainer_Alt .postPosted,
 .yafnet .postContainer_Alt .message,
 .yafnet .postContainer_Alt .postTop,
@@ -663,7 +664,7 @@ This CSS already works on FireFox.
 .yafnet div.AdMessage {
 	min-height: 10px;
 }
-.yafnet div.yafsignature
+.yafnet .yafsignature
 {
     border-top: solid 1px #666666;
     margin-top: 15px;
