@@ -104,7 +104,7 @@ namespace YAF.Controls
                     !topicStatusIcon.Contains("[TOPIC_STATUS."))
                 {
                     textMessageLink.Text =
-                    "<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" style=\"border: 0;width:16px;height:16px\" />&nbsp;{1}".FormatWith(
+                    "<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" style=\"border: 0;width:16px;height:16px\" />&nbsp;{2}".FormatWith(
                     this.Get<ITheme>().GetItem("TOPIC_STATUS", currentRow["Status"].ToString()),
                         this.GetText("TOPIC_STATUS", currentRow["Status"].ToString()),
                         this.Get<IBadWordReplace>().Replace(this.HtmlEncode(currentRow["TOPIC"])));
