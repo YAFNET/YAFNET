@@ -75,6 +75,7 @@
   <ItemGroup>
     <Compile Include="ActiveLocation.cs" />
     <Compile Include="ActiveUsers.cs" />
+    <Compile Include="PopupPanel.cs" />
     <Compile Include="CountryListBox.cs" />
     <Compile Include="UserStyles.cs" />
     <Compile Include="Localized\ILocalizationSupport.cs" />
