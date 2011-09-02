@@ -24,7 +24,7 @@ namespace YAF.Types.Interfaces
     /// The get avatar url for current user.
     /// </summary>
     /// <returns>
-    /// The get avatar url for current user.
+      /// Returns the Avatar Url
     /// </returns>
     string GetAvatarUrlForCurrentUser();
 
@@ -35,7 +35,7 @@ namespace YAF.Types.Interfaces
     /// The user id.
     /// </param>
     /// <returns>
-    /// The get avatar url for user.
+    /// Returns the Avatar Url
     /// </returns>
     string GetAvatarUrlForUser(int userId);
 
@@ -46,7 +46,7 @@ namespace YAF.Types.Interfaces
     /// The user data.
     /// </param>
     /// <returns>
-    /// The get avatar url for user.
+    /// Returns the Avatar Url
     /// </returns>
     string GetAvatarUrlForUser([NotNull] IUserData userData);
 
@@ -66,7 +66,7 @@ namespace YAF.Types.Interfaces
     /// The email.
     /// </param>
     /// <returns>
-    /// The get avatar url for user.
+    /// Returns the Avatar Url
     /// </returns>
     string GetAvatarUrlForUser(int userId, string avatarString, bool hasAvatarImage, string email);
   }
