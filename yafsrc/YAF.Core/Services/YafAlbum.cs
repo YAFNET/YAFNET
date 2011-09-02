@@ -21,23 +21,22 @@ namespace YAF.Core.Services
 {
   #region Using
 
-  using System.Data;
-  using System.IO;
-  using System.Linq;
-
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Classes.Data;
-  using YAF.Utils;
-  using YAF.Utils.Helpers.StringUtils;
-  using YAF.Types;
-  using YAF.Types.Interfaces;
+    using System;
+    using System.Data;
+    using System.IO;
+    using System.Linq;
+    using YAF.Classes.Data;
+    using YAF.Core;
+    using YAF.Types;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
 
   #endregion
 
-  /// <summary>
+    /// <summary>
   /// Album Service for the current user.
   /// </summary>
-  public static class YafAlbum
+  public class YafAlbum
   {
     #region Public Methods
 
@@ -158,6 +157,7 @@ namespace YAF.Core.Services
     /// <summary>
     /// the HTML elements class.
     /// </summary>
+    [Serializable]
     public class ReturnClass
     {
       #region Properties
