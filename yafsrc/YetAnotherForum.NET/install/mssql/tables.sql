@@ -1199,6 +1199,7 @@ begin
 end
 GO
 
+
 if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='IsGuest')
 begin
 	exec('update [{databaseOwner}].[{objectQualifier}Group] set Flags = Flags | 2 where IsGuest<>0')
@@ -1220,17 +1221,18 @@ begin
 end
 GO
 
-if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='PMLimit')
-begin
-	alter table [{databaseOwner}].[{objectQualifier}Group] add PMLimit int null
-end
-GO
-
-if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='PMLimit')
+if exists (select top 1 1 from syscolumns where id=object_id(N'[{databaseOwner}].[{objectQualifier}Group]') and name=N'PMLimit')
 begin
 grant update on [{databaseOwner}].[{objectQualifier}Group] to public
 		exec('update [{databaseOwner}].[{objectQualifier}Group] set PMLimit = 30 WHERE PMLimit IS NULL')
+		alter table [{databaseOwner}].[{objectQualifier}Group] alter column [PMLimit] integer NOT NULL
 		revoke update on [{databaseOwner}].[{objectQualifier}Group] from public	    
+end
+GO
+
+if not exists (select top 1 1 from syscolumns where id=object_id(N'[{databaseOwner}].[{objectQualifier}Group]') and name=N'PMLimit')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Group] add PMLimit int not null 
 end
 GO
 
@@ -1605,17 +1607,19 @@ begin
 end
 GO
 
-if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='PMLimit')
-begin
-	alter table [{databaseOwner}].[{objectQualifier}Rank] add PMLimit int null
-end
-GO
 
-if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='PMLimit')
+if exists (select top 1 1 from syscolumns where id=object_id(N'[{databaseOwner}].[{objectQualifier}Rank]') and name=N'PMLimit')
 begin
 grant update on [{databaseOwner}].[{objectQualifier}Rank] to public
 		exec('update [{databaseOwner}].[{objectQualifier}Rank] set PMLimit = 0 WHERE PMLimit IS NULL')
+		alter table [{databaseOwner}].[{objectQualifier}Rank] alter column [PMLimit] integer NOT NULL	
 		revoke update on [{databaseOwner}].[{objectQualifier}Rank] from public	
+end
+GO
+
+if not exists (select top 1 1 from syscolumns where id=object_id(N'[{databaseOwner}].[{objectQualifier}Rank]') and name=N'PMLimit')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Rank] add PMLimit int not null 
 end
 GO
 
@@ -1698,6 +1702,9 @@ begin
 	alter table [{databaseOwner}].[{objectQualifier}Rank] add PMLimit int null
 end
 GO
+
+
+
 
 --vzrus: eof migrate to independent multiple polls
 

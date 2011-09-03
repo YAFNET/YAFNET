@@ -1075,9 +1075,16 @@ if exists (select top 1 1 from  dbo.sysobjects where name=N'DF_{objectQualifier}
 	alter table [{databaseOwner}].[{objectQualifier}Message] drop constraint [DF_{objectQualifier}Message_Flags]
 go
 
-
 if not exists (select top 1 1 from  dbo.sysobjects where name=N'DF_{objectQualifier}Message_Flags' and parent_obj=object_id(N'[{databaseOwner}].[{objectQualifier}Message]'))
-	alter table [{databaseOwner}].[{objectQualifier}Message] add constraint [DF_{objectQualifier}Message_Flags] default (23) for Flags
+   alter table [{databaseOwner}].[{objectQualifier}Message] add constraint [DF_{objectQualifier}Message_Flags] default (23) for Flags
+go
+
+if not exists (select top 1 1 from  dbo.sysobjects where name=N'DF_{objectQualifier}Rank_PMLimit' and parent_obj=object_id(N'[{databaseOwner}].[{objectQualifier}Rank]'))
+	alter table [{databaseOwner}].[{objectQualifier}Rank] add constraint [DF_{objectQualifier}Rank_PMLimit] default (0) for PMLimit
+go
+
+if not exists (select top 1 1 from  dbo.sysobjects where name=N'DF_{objectQualifier}Group_PMLimit' and parent_obj=object_id(N'[{databaseOwner}].[{objectQualifier}Group]'))
+	alter table [{databaseOwner}].[{objectQualifier}Group] add constraint [DF_{objectQualifier}Group_PMLimit] default (30) for PMLimit
 go
 
 if not exists (select top 1 1 from  dbo.sysobjects where name=N'DF_{objectQualifier}User_PMNotification' and parent_obj=object_id(N'[{databaseOwner}].[{objectQualifier}User]'))
