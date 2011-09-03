@@ -722,6 +722,14 @@
     <Content Include="App_Data\Database_log.LDF">
       <DependentUpon>Database.mdf</DependentUpon>
     </Content>
+    <Content Include="App_Data\MyDatabase.mdf" />
+    <Content Include="App_Data\MyDatabase3.mdf" />
+    <Content Include="App_Data\MyDatabase3_log.LDF">
+      <DependentUpon>MyDatabase3.mdf</DependentUpon>
+    </Content>
+    <Content Include="App_Data\MyDatabase_log.LDF">
+      <DependentUpon>MyDatabase.mdf</DependentUpon>
+    </Content>
     <Content Include="controls\AlbumImageList.ascx" />
     <Content Include="controls\AlbumList.ascx" />
     <Content Include="controls\BuddyList.ascx" />

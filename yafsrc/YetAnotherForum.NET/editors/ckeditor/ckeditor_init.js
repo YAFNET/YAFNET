@@ -6,6 +6,9 @@ function CKEditor_Load() {
 	   
 	   CKEDITOR.replaceAll(function( textarea, config ){
 
+		  config.disableNativeSpellChecker = false;
+		  config.scayt_autoStartup = true; 
+		  
 	      config.extraPlugins = 'syntaxhighlight,bbcodeselector';
 	      config.toolbar_Full = [
                                  ['Source'],
@@ -17,11 +20,13 @@ function CKEditor_Load() {
 								 ['About'],
 								 '/',
 								 ['Bold', 'Italic', 'Underline', '-', 'TextColor', 'Font', 'FontSize'],
-								 ['JustifyLeft', 'JustifyCenter', 'JustifyRight']
+								 ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'PasteText','PasteFromWord'],
+								 ['Scayt']
 								] ;
 								
 			config.entities_greek = false;
 			config.entities_latin = false;
+			config.language = window.navigator.userLanguage || window.navigator.language;
 			
 			config.contentsCss = 'editors/ckeditor/contents.css';
 		  });

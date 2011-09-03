@@ -4,8 +4,11 @@
        arguments.callee.done = true;
 	   
 	     CKEDITOR.replaceAll(function( textarea, config ){
-		  
+	      
 		  config.extraPlugins = 'bbcode,syntaxhighlight,bbcodeselector';
+		  config.disableNativeSpellChecker = false;
+		  config.scayt_autoStartup = true;  
+		  
 		  config.toolbar_Full = [
 		                         ['Source'],
 		                         ['Undo','Redo'],
@@ -17,10 +20,12 @@
 								 '/',
 								 ['Bold','Italic','Underline','-', 'TextColor', 'Font', 'FontSize'],
 								 ['JustifyLeft','JustifyCenter','JustifyRight'],
+								 ['Scayt']
 		                        ] ;
 								
 			config.entities_greek = false;
 			config.entities_latin = false;
+			config.language = window.navigator.userLanguage || window.navigator.language;
 			
 			config.contentsCss = 'editors/ckeditor/contents.css';
 		  });
