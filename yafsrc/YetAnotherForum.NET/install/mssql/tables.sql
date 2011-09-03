@@ -1619,9 +1619,9 @@ GO
 
 if not exists (select top 1 1 from syscolumns where id=object_id(N'[{databaseOwner}].[{objectQualifier}Rank]') and name=N'PMLimit')
 begin
-	alter table [{databaseOwner}].[{objectQualifier}Rank] add PMLimit int not null 
-end
-GO
+	 alter table [{databaseOwner}].[{objectQualifier}Rank] add PMLimit int not null 
+end 
+GO 
 
 if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='Style')
 begin
