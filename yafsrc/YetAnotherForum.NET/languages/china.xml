@@ -4020,6 +4020,7 @@ Spoiler Content
     <Resource tag="EDIT">Edit post</Resource>
     <Resource tag="EDITREASON">Reason for edit:</Resource>
     <Resource tag="FROM">发信人:</Resource>
+    <Resource tag="GUEST_NAME_TOOLONG">Guest Username cannot be more than 100 characters.</Resource>
     <Resource tag="ISQUESTION">Is this topic in question and answer format?</Resource>
     <Resource tag="LAST10">最后 10 个新贴（倒序）</Resource>
     <Resource tag="MESSAGE">信息:</Resource>

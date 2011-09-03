@@ -4018,6 +4018,7 @@ Spoiler Content
     <Resource tag="EDIT">Muuda postitust</Resource>
     <Resource tag="EDITREASON">Muutmise põhjus:</Resource>
     <Resource tag="FROM">Kellelt:</Resource>
+    <Resource tag="GUEST_NAME_TOOLONG">Guest Username cannot be more than 100 characters.</Resource>
     <Resource tag="ISQUESTION">Kas see teema on küsimuste-vastuste kujul?</Resource>
     <Resource tag="LAST10">Viimased 10 postitust (vastupidises järjekorras)</Resource>
     <Resource tag="MESSAGE">Sõnum:</Resource>

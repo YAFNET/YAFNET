@@ -3979,6 +3979,7 @@ Spoiler Content
     <Resource tag="EDIT">Beitrag bearbeiten</Resource>
     <Resource tag="EDITREASON">Grund der Änderung</Resource>
     <Resource tag="FROM">Von:</Resource>
+    <Resource tag="GUEST_NAME_TOOLONG">Gast Benutzername darf nicht mehr als 10 Zeichen lang sein.</Resource>
     <Resource tag="ISQUESTION">Ist das Thema in Frage- und Antwortformat?</Resource>
     <Resource tag="LAST10">Letzte 10 Beiträge (in umgekehrter Reihenfolge)</Resource>
     <Resource tag="MESSAGE">Nachricht:</Resource>

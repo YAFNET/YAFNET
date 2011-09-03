@@ -4002,6 +4002,7 @@ Spoiler Content
     <Resource tag="EDIT">Upraviť správu</Resource>
     <Resource tag="EDITREASON">Reason for edit:</Resource>
     <Resource tag="FROM">Od:</Resource>
+    <Resource tag="GUEST_NAME_TOOLONG">Guest Username cannot be more than 100 characters.</Resource>
     <Resource tag="ISQUESTION">Is this topic in question and answer format?</Resource>
     <Resource tag="LAST10">Posledných 10 správ (v obrátenom poradí)</Resource>
     <Resource tag="MESSAGE">Správa:</Resource>

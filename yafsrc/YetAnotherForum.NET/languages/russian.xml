@@ -4019,6 +4019,7 @@ Spoiler Content
     <Resource tag="EDIT">Редактировать сообщение</Resource>
     <Resource tag="EDITREASON">Причина редактирования:</Resource>
     <Resource tag="FROM">Автор:</Resource>
+    <Resource tag="GUEST_NAME_TOOLONG">Guest Username cannot be more than 100 characters.</Resource>
     <Resource tag="ISQUESTION">Эта тема в формате вопрос/ответ?</Resource>
     <Resource tag="LAST10">Последние 10 сообщений (В обратном порядке)</Resource>
     <Resource tag="MESSAGE">Текст сообщения:</Resource>

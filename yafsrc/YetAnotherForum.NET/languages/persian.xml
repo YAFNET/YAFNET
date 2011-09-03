@@ -4001,6 +4001,7 @@ Spoiler Content
     <Resource tag="EDIT">ویرایش ارسال</Resource>
     <Resource tag="EDITREASON">دلیل ویرایش:</Resource>
     <Resource tag="FROM">از طرف:</Resource>
+    <Resource tag="GUEST_NAME_TOOLONG">Guest Username cannot be more than 100 characters.</Resource>
     <Resource tag="ISQUESTION">آیا این موضوع به حالت پرسش و پاسخ است؟</Resource>
     <Resource tag="LAST10">10 ارسال آخر با ترتیب برعکس</Resource>
     <Resource tag="MESSAGE">پیغام:</Resource>

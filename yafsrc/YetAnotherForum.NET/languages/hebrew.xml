@@ -4052,6 +4052,7 @@ Spoiler Content
     <Resource tag="EDIT">ערוך הודעה</Resource>
     <Resource tag="EDITREASON">סיבת עריכה:</Resource>
     <Resource tag="FROM">מאת:</Resource>
+    <Resource tag="GUEST_NAME_TOOLONG">Guest Username cannot be more than 100 characters.</Resource>
     <Resource tag="ISQUESTION">Is this topic in question and answer format?</Resource>
     <Resource tag="LAST10">10 הודעות אחרונות (בסדר הפוך)</Resource>
     <Resource tag="MESSAGE">הודעה:</Resource>

@@ -4001,6 +4001,7 @@ Spoiler Content
     <Resource tag="EDIT">Mesajı Düzenle</Resource>
     <Resource tag="EDITREASON">Düzenleme Sebebi:</Resource>
     <Resource tag="FROM">Kimden:</Resource>
+    <Resource tag="GUEST_NAME_TOOLONG">Guest Username cannot be more than 100 characters.</Resource>
     <Resource tag="ISQUESTION">Is this topic in question and answer format?</Resource>
     <Resource tag="LAST10">Son 10 E-posta (Ters sıralamayla)</Resource>
     <Resource tag="MESSAGE">Mesaj:</Resource>

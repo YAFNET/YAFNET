@@ -4019,6 +4019,7 @@ Spoiler Content
     <Resource tag="EDIT">Rediger indlæg</Resource>
     <Resource tag="EDITREASON">Grund for redigering:</Resource>
     <Resource tag="FROM">Fra:</Resource>
+    <Resource tag="GUEST_NAME_TOOLONG">Guest Username cannot be more than 100 characters.</Resource>
     <Resource tag="ISQUESTION">Is this topic in question and answer format?</Resource>
     <Resource tag="LAST10">Sidste 10 Indlæg (Med det nyeste først)</Resource>
     <Resource tag="MESSAGE">Indlæg:</Resource>

@@ -4118,6 +4118,7 @@ Spoiler Content
     <Resource tag="EDIT">Redaguoti pranešimą </Resource>
     <Resource tag="EDITREASON">Reason for edit:</Resource>
     <Resource tag="FROM">Nuo: </Resource>
+    <Resource tag="GUEST_NAME_TOOLONG">Guest Username cannot be more than 100 characters.</Resource>
     <Resource tag="ISQUESTION">Is this topic in question and answer format?</Resource>
     <Resource tag="LAST10">Paskutiniai 10 komentarų (atvirkštine tvarka) </Resource>
     <Resource tag="MESSAGE">Žinutė: </Resource>

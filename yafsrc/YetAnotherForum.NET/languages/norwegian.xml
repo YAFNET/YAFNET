@@ -4002,6 +4002,7 @@ Spoiler Content
     <Resource tag="EDIT">Rediger innlegg</Resource>
     <Resource tag="EDITREASON">Reason for edit:</Resource>
     <Resource tag="FROM">Fra:</Resource>
+    <Resource tag="GUEST_NAME_TOOLONG">Guest Username cannot be more than 100 characters.</Resource>
     <Resource tag="ISQUESTION">Is this topic in question and answer format?</Resource>
     <Resource tag="LAST10">Siste 10 innlegg</Resource>
     <Resource tag="MESSAGE">Melding:</Resource>

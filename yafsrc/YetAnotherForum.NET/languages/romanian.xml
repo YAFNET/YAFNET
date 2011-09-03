@@ -4003,6 +4003,7 @@ Spoiler Content
     <Resource tag="EDIT">Edit post</Resource>
     <Resource tag="EDITREASON">Motivul pentru editare:</Resource>
     <Resource tag="FROM">De la :</Resource>
+    <Resource tag="GUEST_NAME_TOOLONG">Guest Username cannot be more than 100 characters.</Resource>
     <Resource tag="ISQUESTION">Is this topic in question and answer format?</Resource>
     <Resource tag="LAST10">Ultimile 10 postari (In ordinea inversa)</Resource>
     <Resource tag="MESSAGE">Mesaj:</Resource>

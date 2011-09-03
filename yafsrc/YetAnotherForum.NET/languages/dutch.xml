@@ -3950,6 +3950,7 @@ Spoiler Content
     <Resource tag="EDIT">Bericht wijzigen</Resource>
     <Resource tag="EDITREASON">Reden voor wijzigen:</Resource>
     <Resource tag="FROM">Van:</Resource>
+    <Resource tag="GUEST_NAME_TOOLONG">Guest Username cannot be more than 100 characters.</Resource>
     <Resource tag="ISQUESTION">Is dit topic in vraag-antwoord formaat?</Resource>
     <Resource tag="LAST10">Laatste 10 berichten (van nieuw naar oud)</Resource>
     <Resource tag="MESSAGE">Bericht:</Resource>

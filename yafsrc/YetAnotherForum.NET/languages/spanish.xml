@@ -4019,6 +4019,7 @@ Spoiler Content
     <Resource tag="EDIT">Editar mensaje</Resource>
     <Resource tag="EDITREASON">Razon para editar:</Resource>
     <Resource tag="FROM">De:</Resource>
+    <Resource tag="GUEST_NAME_TOOLONG">Guest Username cannot be more than 100 characters.</Resource>
     <Resource tag="ISQUESTION">Is this topic in question and answer format?</Resource>
     <Resource tag="LAST10">Ultimos 10 mensajes (en orden inverso)</Resource>
     <Resource tag="MESSAGE">Mensaje:</Resource>

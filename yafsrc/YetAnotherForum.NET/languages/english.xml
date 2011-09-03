@@ -2586,7 +2586,8 @@ Spoiler Content
       <Resource tag="PREVIEW_TITLE">Get a Preview of the Message</Resource>
 	  <Resource tag="CANCEL_TITLE">Cancel Message editing/creating</Resource>
 	  <Resource tag="DESCRIPTION">Description:</Resource>
-          <Resource tag="STATUS">Status:</Resource>
+     <Resource tag="STATUS">Status:</Resource>
+     <Resource tag="GUEST_NAME_TOOLONG">Guest Username cannot be more than 100 characters.</Resource>
    </page>
    <page name="CP_EDITALBUMIMAGES">
       <Resource tag="TITLE">Add/Edit Album</Resource>

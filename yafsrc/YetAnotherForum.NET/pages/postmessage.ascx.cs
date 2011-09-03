@@ -274,6 +274,17 @@ namespace YAF.Pages
                 return false;
             }
 
+            // Check if the Entered Guest Username is not too long
+            if (this.FromRow.Visible &&
+                this.From.Text.Trim().Length > 100)
+            {
+                this.PageContext.AddLoadMessage(this.GetText("GUEST_NAME_TOOLONG"));
+
+                this.From.Text =
+                    this.From.Text.Substring(100);
+                return false;
+            }
+
             // Check if the topic name is not too long
             if (this.Get<YafBoardSettings>().MaxWordLength > 0 &&
                 this.TopicSubjectTextBox.Text.Trim().AreAnyWordsOverMaxLength(this.Get<YafBoardSettings>().MaxWordLength))

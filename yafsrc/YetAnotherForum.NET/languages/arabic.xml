@@ -3839,6 +3839,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="EDIT">تعديل  تعليق  </Resource>
     <Resource tag="EDITREASON">سبب تعديل  التعليق :</Resource>
     <Resource tag="FROM">من:</Resource>
+    <Resource tag="GUEST_NAME_TOOLONG">Guest Username cannot be more than 100 characters.</Resource>
     <Resource tag="ISQUESTION">الموضوع  عبارة  عن   سؤال  وجواب؟</Resource>
     <Resource tag="LAST10">(آخر 10 تعليقات   (اقدم تعليقات )</Resource>
     <Resource tag="MESSAGE">الرسائل :</Resource>
