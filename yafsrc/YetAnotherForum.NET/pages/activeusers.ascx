@@ -42,7 +42,7 @@
 		<ItemTemplate>
 			<tr>
 				<td class="post">		
-					<YAF:UserLink ID="NameLink"  runat="server" ReplaceName='<%# Convert.ToInt32(Eval("IsCrawler")) > 0 ? Eval("Browser").ToString() : String.Empty %>' UserID='<%# Convert.ToInt32(Eval("UserID")) %>' 				
+					<YAF:UserLink ID="NameLink"  runat="server" CrawlerName='<%# Convert.ToInt32(Eval("IsCrawler")) > 0 ? Eval("Browser").ToString() : String.Empty %>' UserID='<%# Convert.ToInt32(Eval("UserID")) %>' 				
 					 Style='<%# Eval("Style").ToString() %>' />
 				    <asp:PlaceHolder ID="HiddenPlaceHolder" runat="server" Visible='<%# Convert.ToBoolean(Eval("IsHidden"))%>' >
 				    (<YAF:LocalizedLabel ID="Hidden" LocalizedTag="HIDDEN" runat="server" />)

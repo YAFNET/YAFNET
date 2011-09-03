@@ -129,13 +129,13 @@ namespace YAF.Controls
     ///   The replace name of this user for the link. Attention! Use it ONLY for crawlers. 
     /// </summary>
     [NotNull]
-    public string ReplaceName
+    public string CrawlerName
     {
       get
       {
-        if (this.ViewState["ReplaceName"] != null)
+        if (this.ViewState["CrawlerName"] != null)
         {
-          return this.ViewState["ReplaceName"].ToString();
+          return this.ViewState["CrawlerName"].ToString();
         }
 
         return string.Empty;
@@ -143,7 +143,7 @@ namespace YAF.Controls
 
       set
       {
-        this.ViewState["ReplaceName"] = value;
+        this.ViewState["CrawlerName"] = value;
       }
     }
 
@@ -214,7 +214,7 @@ namespace YAF.Controls
 
         output.Write(HtmlTextWriter.TagRightChar);
 
-        output.WriteEncodedText(this.ReplaceName.IsNotSet() ? displayName : this.ReplaceName);
+        output.WriteEncodedText(this.CrawlerName.IsNotSet() ? displayName : this.CrawlerName);
 
         output.WriteEndTag("span");
 

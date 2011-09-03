@@ -209,7 +209,7 @@
             <ItemTemplate>
                 <tr>
                     <td class="post">
-                        <YAF:UserLink ID="ActiveUserLink" UserID='<%# Eval("UserID") %>' ReplaceName='<%# Convert.ToInt32(Eval("IsCrawler")) > 0 ? Eval("Browser").ToString() : String.Empty %>'
+                        <YAF:UserLink ID="ActiveUserLink" UserID='<%# Eval("UserID") %>' CrawlerName='<%# Convert.ToInt32(Eval("IsCrawler")) > 0 ? Eval("Browser").ToString() : String.Empty %>'
                             Style='<%# Eval("Style") %>' runat="server" />
                     </td>
                     <td class="post">

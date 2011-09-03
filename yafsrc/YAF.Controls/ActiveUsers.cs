@@ -163,7 +163,7 @@ namespace YAF.Controls
             {
                 userLink = new UserLink
                     {
-                        ReplaceName = row["Browser"].ToString(), 
+                        CrawlerName = row["Browser"].ToString(), 
                         UserID = row["UserID"].ToType<int>(), 
                         Style =
                             this.Get<YafBoardSettings>().UseStyledNicks
@@ -189,7 +189,7 @@ namespace YAF.Controls
             }
             else
             {
-                userLink.ID += userLink.ReplaceName;
+                userLink.ID += userLink.CrawlerName;
             }
 
             // how many users of this type is present (valid for guests, others have it 1)

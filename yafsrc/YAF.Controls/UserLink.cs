@@ -123,9 +123,9 @@ namespace YAF.Controls
         this.RenderMainTagAttributes(output);
 
           output.Write(HtmlTextWriter.TagRightChar);
-          output.WriteEncodedText(this.ReplaceName.IsNotSet()
+          output.WriteEncodedText(this.CrawlerName.IsNotSet()
                                       ? displayName
-                                      : this.ReplaceName);
+                                      : this.CrawlerName);
           output.WriteEndTag(!isGuest ? "a" : "span");
 
         if (this.PostfixText.IsSet())
