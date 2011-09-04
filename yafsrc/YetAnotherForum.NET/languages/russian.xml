@@ -269,7 +269,7 @@
     <Resource tag="TITLE">Конференция</Resource>
   </page>
   <page name="ADMIN_BOARDSETTINGS">
-    <Resource tag="BOARD_ALLOW_DIGEST">Разрешить отправку дайджеста по пользователям ежедневно :</Resource>
+    <Resource tag="BOARD_ALLOW_DIGEST">Отправлять дайджест по пользователям ежедневно:</Resource>
     <Resource tag="BOARD_ALLOW_DIGEST_HELP">Обязательное поле: доска должна иметь "YAF.BaseUrlMask" и "YAF.ForceScriptName" в вашем web.config чтобы дайджест работал.</Resource>
     <Resource tag="BOARD_CDN_HOSTED">Использовать внешний Google CDN файл jQuery UI CSS</Resource>
     <Resource tag="BOARD_CDN_HOSTED_HELP">Вы можете использовать размешённый на Google CDN файл jQuery UI CSS вместо встроенного</Resource>
@@ -847,8 +847,8 @@
     <Resource tag="CHECK_FOR_SPAM">Служба анти-СПАМА.</Resource>
     <Resource tag="CHECK_FOR_SPAM_HELP">Включает/отключает автоматичсекую проверку спама при помощи &lt;a href="http://blogspam.net/"&gt;BlogSpam.net API&lt;/a&gt; или Akismet.com. Если включено, то спам автоматически отвергается.</Resource>
     <Resource tag="CLEAR_CACHE">Очистить кэш</Resource>
-    <Resource tag="COUNTRYIMAGE_TEMPLATE">Country image template:</Resource>
-    <Resource tag="COUNTRYIMAGE_TEMPLATE_HELP">Template for rendering country image.</Resource>
+    <Resource tag="COUNTRYIMAGE_TEMPLATE">Шаблон иконки страны:</Resource>
+    <Resource tag="COUNTRYIMAGE_TEMPLATE_HELP">Шаблон для отображения иконки страны.</Resource>
     <Resource tag="CREATE_NNTPNAMES">Создавать имена пользователей NNTP:</Resource>
     <Resource tag="CREATE_NNTPNAMES_HELP">Включите, чтобы пользователи добавлялись из сообщений usenet. Включайте это только в тестовых случаях и &lt;em&gt;НИКОГДА&lt;/em&gt; на работающем сервере. Главная цель этой опции - тестирование производительности.</Resource>
     <Resource tag="CROP_IMAGE_ATTACH">Обрезать изображение при предпросмотре:</Resource>
@@ -920,8 +920,8 @@
     <Resource tag="HEADER_DISPLAY">Настройки отображения</Resource>
     <Resource tag="HEADER_EDITORS">Настройки редактирования/форматирования</Resource>
     <Resource tag="HEADER_FEATURES">Настройки возможностей</Resource>
-    <Resource tag="HEADER_GEOLOCATION">Geolocation Settings</Resource>
-    <Resource tag="HEADER_HOTTOPICS">Hot (Popular) Topic Settings</Resource>
+    <Resource tag="HEADER_GEOLOCATION">Настройки геолокации</Resource>
+    <Resource tag="HEADER_HOTTOPICS">Популярные темы</Resource>
     <Resource tag="HEADER_IMAGE_ATTACH">Настройки вложенных изображений</Resource>
     <Resource tag="HEADER_IRKOO">Службы Irkoo</Resource>
     <Resource tag="HEADER_LOG">Настройки журнала</Resource>
@@ -951,8 +951,8 @@
     <Resource tag="IMAGES_PER_PAGE">Изображение на странице:</Resource>
     <Resource tag="IMAGES_PER_PAGE_HELP">Количество изображений на одной странице.</Resource>
     <Resource tag="IP_INFOSERVICE">Включить информационную службу IP:</Resource>
-    <Resource tag="IP_INFOSERVICE_DATAMAPPING">IP Info Geolocation Web Service arguments mapping string:</Resource>
-    <Resource tag="IP_INFOSERVICE_DATAMAPPING_HELP">Maps string array or deserialized return data to properties.</Resource>
+    <Resource tag="IP_INFOSERVICE_DATAMAPPING">Мэппинг аргументов веб-службы геолокации по IP:</Resource>
+    <Resource tag="IP_INFOSERVICE_DATAMAPPING_HELP">Соппоставляет строковый массив возвращаемых данных аргументам службы.</Resource>
     <Resource tag="IP_INFOSERVICE_HELP">Эта служба собирает информацию о нахождении пользователя и заполняет поле Местонахождения при регистрации.</Resource>
     <Resource tag="IP_INFOSERVICE_XMLURL">URL информационной XML-вебслужбы :</Resource>
     <Resource tag="IP_INFOSERVICE_XMLURL_HELP">Не изменяйте это поле на другую службу.</Resource>
@@ -1018,12 +1018,12 @@
     <Resource tag="POLL_IMAGE_FILESIZE_HELP">Максимальный размер файла в опросах в КБ.</Resource>
     <Resource tag="POLLVOTING_PERIP">Голосование зависит от IP:</Resource>
     <Resource tag="POLLVOTING_PERIP_HELP">По умолчанию, голосование отслеживается по имени пользователя и куки. (Один голос на ник. куки используются если включено гостевое голосование.) &lt;br /&gt;Если эта опция включена, то YAF также использует IP как ссылку обеспечивающую максимальную защиту от фальсификаций.</Resource>
-    <Resource tag="POPULAR_DAYS">Active Days to stay Hot:</Resource>
-    <Resource tag="POPULAR_DAYS_HELP">Define the Number of days the topics last post must have been posted. By Default it is set to 7 (One Week), that means a topic stays popular for one week.</Resource>
-    <Resource tag="POPULAR_REPLYS">Min. Replies to became Hot:</Resource>
-    <Resource tag="POPULAR_REPLYS_HELP">The number of Replies per topic becomes popular.</Resource>
-    <Resource tag="POPULAR_VIEWS">Min. Views to became Hot:</Resource>
-    <Resource tag="POPULAR_VIEWS_HELP">The number of topic views before a topic becomes popular.</Resource>
+    <Resource tag="POPULAR_DAYS">Количество дней пока тема «горячая»:</Resource>
+    <Resource tag="POPULAR_DAYS_HELP">Количество дней когда последнее сообщение было размещено. По-умолчанию - 7 дней.</Resource>
+    <Resource tag="POPULAR_REPLYS">Минимальное число ответов чтобы тем оставалась популярной:</Resource>
+    <Resource tag="POPULAR_REPLYS_HELP">Минимальное число ответов за указанный период.</Resource>
+    <Resource tag="POPULAR_VIEWS">Минимальное число просмотров за указанный период:</Resource>
+    <Resource tag="POPULAR_VIEWS_HELP">Число просмотров перед тем как тема становится популярной.</Resource>
     <Resource tag="POST_AD">Реклама во 2ом сообщении:</Resource>
     <Resource tag="POST_AD_HELP">Поместите код, который вы желаете отображать во 2ом сообщении каждой темы. Оставьте пустым, если вы не желаете отображать что-либо.</Resource>
     <Resource tag="POSTEDIT_TIMEOUT">Таймаут редактирования поста:</Resource>
@@ -1178,8 +1178,8 @@
     <Resource tag="TWITTER_USERNAME_HELP">Упомянутое имя пользователя при ретвите темы или сообщения.</Resource>
     <Resource tag="UNHANDLED_USERAGENT_LOG">Включить журналирование для UserAgent:</Resource>
     <Resource tag="UNHANDLED_USERAGENT_LOG_HELP">Все неидентифицируемые UserAgent будут в журнале. Не включайте это постоянно.</Resource>
-    <Resource tag="USE_READ_TRACKING">Use User Read Tracking via Database:</Resource>
-    <Resource tag="USE_READ_TRACKING_HELP">If enabled it stores the Last Time a User Visits a Forum and Topic, to find Unread Messages. &lt;br /&gt;WARNING: This Can Increase your DB if you have a big amount of users and/or topics</Resource>
+    <Resource tag="USE_READ_TRACKING">Отслеживать прочитанные сообщение в базе данных:</Resource>
+    <Resource tag="USE_READ_TRACKING_HELP">Если включено, то непрочитанные темы или форумы будут храниться в базе данных. &lt;br /&gt;WARNING: This Can Increase your DB if you have a big amount of users and/or topics</Resource>
     <Resource tag="USER_CHANGE_LANGUAGE">Разрешить пользователям менять язык:</Resource>
     <Resource tag="USER_CHANGE_LANGUAGE_HELP">Пользователя могут выбирать язык конференции(интерфейс).</Resource>
     <Resource tag="USER_CHANGE_THEME">Разрешить пользователям менять тему:</Resource>
@@ -1335,7 +1335,7 @@
     <Resource tag="BAD_HELP">Слово, фраза или регулярное выражение. Пунктуация вводится слешем (например '\.').</Resource>
     <Resource tag="GOOD">«Хорошее» выражение:</Resource>
     <Resource tag="GOOD_HELP">Слово, фраза или регулярное выражение. Пунктуация вводится слешем  (например '\.').</Resource>
-    <Resource tag="MSG_REGEX_BAD">The Regular expression statement you have entered is invalid.</Resource>
+    <Resource tag="MSG_REGEX_BAD">Введённое регулярное выражение недействительно.</Resource>
     <Resource tag="TITLE">Добавить/Изменить замену</Resource>
   </page>
   <page name="ADMIN_REPLACEWORDS_IMPORT">
@@ -1414,11 +1414,11 @@
     <Resource tag="DISPLAY_NAME">Отображаемый ник</Resource>
     <Resource tag="EMAIL">Email</Resource>
     <Resource tag="EMAIL_CONTAINS">Email содержит:</Resource>
-    <Resource tag="EXPORT_CSV">Export All User(s) as CSV</Resource>
-    <Resource tag="EXPORT_XML">Export All User(s) as Xml</Resource>
+    <Resource tag="EXPORT_CSV">Экспортировать пользователя(лей) в формате CSV</Resource>
+    <Resource tag="EXPORT_XML">Экспортировать пользователя(лей) в формате CSV Xml</Resource>
     <Resource tag="FILTER">Фильтровать по дате регистрации с:</Resource>
     <Resource tag="HEADER">Поиск пользователей</Resource>
-    <Resource tag="IMPORT">Import User(s)</Resource>
+    <Resource tag="IMPORT">Импортировать пользователя(лей)</Resource>
     <Resource tag="LAST_VISIT">Последнее посещение</Resource>
     <Resource tag="MSG_DELETE_ADMIN">Вы не можете удалить администратора.</Resource>
     <Resource tag="MSG_DELETE_GUEST">Вы не можете удалить Гостя.</Resource>
@@ -1434,14 +1434,14 @@
     <Resource tag="USER_NAME">Ник пользователя</Resource>
   </page>
   <page name="ADMIN_USERS_IMPORT">
-    <Resource tag="HEADER">Import Users to YAF</Resource>
-    <Resource tag="IMPORT_FAILED">Failed to import: {0}</Resource>
-    <Resource tag="IMPORT_FAILED_FORMAT">Input failed, wrong file format!</Resource>
-    <Resource tag="IMPORT_FILE">Select Import File:</Resource>
-    <Resource tag="IMPORT_FILE_HELP">Must be *.xml or *.csv file</Resource>
-    <Resource tag="IMPORT_NOTHING">Nothing imported: no new user where found in the upload.</Resource>
-    <Resource tag="IMPORT_SUCESS">{0} User(s) imported successfully.</Resource>
-    <Resource tag="TITLE">User Importer</Resource>
+    <Resource tag="HEADER">Импортировать пользователй в YAF</Resource>
+    <Resource tag="IMPORT_FAILED">Невозможно импортировать: {0}</Resource>
+    <Resource tag="IMPORT_FAILED_FORMAT">Импорт не удался - неверный формат файла!</Resource>
+    <Resource tag="IMPORT_FILE">Выбрать файл File:</Resource>
+    <Resource tag="IMPORT_FILE_HELP">Должен быть файл формата *.xml или *.csv</Resource>
+    <Resource tag="IMPORT_NOTHING">Импорт не состоялся: в аплоаде не найдено новго пользователя.</Resource>
+    <Resource tag="IMPORT_SUCESS">{0} пользователь(лей) успешно импортированы.</Resource>
+    <Resource tag="TITLE">Импорт пользователей</Resource>
   </page>
   <page name="ADMIN_VERSION">
     <Resource tag="LATEST_VERSION">Последняя доступная версия &lt;strong&gt;{0}&lt;/strong&gt; с датой релиза &lt;strong&gt;{1}&lt;/strong&gt;.</Resource>
@@ -1779,45 +1779,45 @@
     <Resource tag="AE">ОАЭ</Resource>
     <Resource tag="AF">Афганистан</Resource>
     <Resource tag="AG">Антигуа и Барбуда</Resource>
-    <Resource tag="AI">ANGUILLA</Resource>
+    <Resource tag="AI">Ангилла</Resource>
     <Resource tag="AL">Албания</Resource>
     <Resource tag="AM">Армения</Resource>
-    <Resource tag="AN">NETHERLANDS ANTILLES</Resource>
+    <Resource tag="AN">Голландские Антиллы</Resource>
     <Resource tag="AO">Ангола</Resource>
-    <Resource tag="AQ">ANTARCTICA</Resource>
+    <Resource tag="AQ">Антарктика</Resource>
     <Resource tag="AR">Аргентина</Resource>
     <Resource tag="AS">Американское Самоа</Resource>
     <Resource tag="AT">Австрия</Resource>
     <Resource tag="AU">Австралия</Resource>
     <Resource tag="AW">Аруба</Resource>
     <Resource tag="AZ">Азербайджан</Resource>
-    <Resource tag="BA">BOSNIA AND HERZEGOWINA</Resource>
-    <Resource tag="BB">BARBADOS</Resource>
+    <Resource tag="BA">Босния и Герцеговина</Resource>
+    <Resource tag="BB">Барбадос</Resource>
     <Resource tag="BD">Бангладеш</Resource>
     <Resource tag="BE">Бельгия</Resource>
-    <Resource tag="BF">BURKINA FASO</Resource>
+    <Resource tag="BF">Буркина Фасо</Resource>
     <Resource tag="BG">Болгария</Resource>
-    <Resource tag="BH">BAHRAIN</Resource>
-    <Resource tag="BI">BURUNDI</Resource>
-    <Resource tag="BJ">BENIN</Resource>
-    <Resource tag="BM">BERMUDA</Resource>
+    <Resource tag="BH">Бахрейн</Resource>
+    <Resource tag="BI">Бурунди</Resource>
+    <Resource tag="BJ">Бенин</Resource>
+    <Resource tag="BM">Бермуда</Resource>
     <Resource tag="BN">Бруней</Resource>
     <Resource tag="BO">Боливия</Resource>
     <Resource tag="BR">Бразилия</Resource>
     <Resource tag="BS">Багамы</Resource>
     <Resource tag="BT">Бутан</Resource>
-    <Resource tag="BV">BOUVET ISLAND</Resource>
+    <Resource tag="BV">Бувэ Остров</Resource>
     <Resource tag="BW">Ботсвана</Resource>
     <Resource tag="BY">Беларусь</Resource>
     <Resource tag="BZ">Белиз</Resource>
     <Resource tag="CA">Канада</Resource>
-    <Resource tag="CC">COCOS (KEELING) ISLANDS</Resource>
-    <Resource tag="CD">CONGO, THE DRC</Resource>
-    <Resource tag="CF">CENTRAL AFRICAN REPUBLIC</Resource>
+    <Resource tag="CC">Кокос Острова</Resource>
+    <Resource tag="CD">Конго, ДР</Resource>
+    <Resource tag="CF">ЦАР</Resource>
     <Resource tag="CG">Конго</Resource>
     <Resource tag="CH">Швейцария</Resource>
     <Resource tag="CI">Кот Дивуар</Resource>
-    <Resource tag="CK">COOK ISLANDS</Resource>
+    <Resource tag="CK">Кука Острова</Resource>
     <Resource tag="CL">Чили</Resource>
     <Resource tag="CM">Камерун</Resource>
     <Resource tag="CN">Китай</Resource>
@@ -1825,7 +1825,7 @@
     <Resource tag="CR">Коста Рика</Resource>
     <Resource tag="CU">Куба</Resource>
     <Resource tag="CV">КАпе Верде</Resource>
-    <Resource tag="CX">CHRISTMAS ISLAND</Resource>
+    <Resource tag="CX">Рождества Остров</Resource>
     <Resource tag="CY">Кипр</Resource>
     <Resource tag="CZ">Чехия</Resource>
     <Resource tag="DE">Германия</Resource>
@@ -1843,16 +1843,16 @@
     <Resource tag="ET">Эфиопия</Resource>
     <Resource tag="FI">Финляндия</Resource>
     <Resource tag="FJ">Фиджи</Resource>
-    <Resource tag="FK">FALKLAND ISLANDS (MALVINAS)</Resource>
-    <Resource tag="FM">MICRONESIA, FEDERATED STATES OF</Resource>
+    <Resource tag="FK">Фолкленды(Мальдивы)</Resource>
+    <Resource tag="FM">Микронезии Соед. Штаты</Resource>
     <Resource tag="FO">Фареры</Resource>
     <Resource tag="FR">Франция</Resource>
-    <Resource tag="FX">FRANCE, METROPOLITAN</Resource>
+    <Resource tag="FX">Франция, Метрополитэн</Resource>
     <Resource tag="GA">Габон</Resource>
     <Resource tag="GB">Великобритания</Resource>
     <Resource tag="GD">Гренада</Resource>
     <Resource tag="GE">Грузия</Resource>
-    <Resource tag="GF">FRENCH GUIANA</Resource>
+    <Resource tag="GF">Гвиана Французская</Resource>
     <Resource tag="GH">Гана</Resource>
     <Resource tag="GI">Гибралтар</Resource>
     <Resource tag="GL">Гренландия</Resource>
@@ -1861,13 +1861,13 @@
     <Resource tag="GP">Гваделупа</Resource>
     <Resource tag="GQ">Экваторияльная Гвинея</Resource>
     <Resource tag="GR">Греция</Resource>
-    <Resource tag="GS">SOUTH GEORGIA AND SOUTH S.S.</Resource>
+    <Resource tag="GS">Южная Джорджия</Resource>
     <Resource tag="GT">Гватемала</Resource>
     <Resource tag="GU">Гуам</Resource>
     <Resource tag="GW">Гвинея-Биссау</Resource>
     <Resource tag="GY">Гайана</Resource>
     <Resource tag="HK">Гонконг</Resource>
-    <Resource tag="HM">HEARD AND MC DONALD ISLANDS</Resource>
+    <Resource tag="HM">Харта и Макдональда Острова</Resource>
     <Resource tag="HN">Гондурас</Resource>
     <Resource tag="HR">Хорватия</Resource>
     <Resource tag="HT">Гаити</Resource>
@@ -1876,7 +1876,7 @@
     <Resource tag="IE">Ирландия</Resource>
     <Resource tag="IL">Израиль</Resource>
     <Resource tag="IN">Индия</Resource>
-    <Resource tag="IO">BRITISH INDIAN OCEAN TERRITORY</Resource>
+    <Resource tag="IO">Британскиая Индия</Resource>
     <Resource tag="IQ">Ирак</Resource>
     <Resource tag="IR">Иран</Resource>
     <Resource tag="IS">Исландия</Resource>
@@ -1889,14 +1889,14 @@
     <Resource tag="KH">Камбоджа</Resource>
     <Resource tag="KI">Карибати</Resource>
     <Resource tag="KM">Коморы</Resource>
-    <Resource tag="KN">SAINT KITTS AND NEVIS</Resource>
+    <Resource tag="KN">Св.Киттс и Невис </Resource>
     <Resource tag="KP">С.Корея</Resource>
     <Resource tag="KR">Ю.Корея</Resource>
     <Resource tag="KY">Каймановы острова</Resource>
     <Resource tag="KZ">Казахстан</Resource>
     <Resource tag="LA">Лаос</Resource>
     <Resource tag="LB">Ливан</Resource>
-    <Resource tag="LC">SAINT LUCIA</Resource>
+    <Resource tag="LC">Санта Лусия</Resource>
     <Resource tag="LI">Лихтенштейн</Resource>
     <Resource tag="LK">Шри Ланка</Resource>
     <Resource tag="LR">Либерия</Resource>
@@ -1909,51 +1909,51 @@
     <Resource tag="MC">Монако</Resource>
     <Resource tag="MD">Молдова</Resource>
     <Resource tag="MG">Мадагаскар</Resource>
-    <Resource tag="MH">MARSHALL ISLANDS</Resource>
+    <Resource tag="MH">Маршалловы Острова</Resource>
     <Resource tag="MK">Македония</Resource>
     <Resource tag="ML">Мали</Resource>
     <Resource tag="MM">Мьянма</Resource>
     <Resource tag="MN">Монголия</Resource>
-    <Resource tag="MO">MACAU</Resource>
-    <Resource tag="MP">NORTHERN MARIANA ISLANDS</Resource>
-    <Resource tag="MQ">MARTINIQUE</Resource>
+    <Resource tag="MO">Макао</Resource>
+    <Resource tag="MP">Севю Марианские  О-ва</Resource>
+    <Resource tag="MQ">Мартиника</Resource>
     <Resource tag="MR">Мавритания</Resource>
-    <Resource tag="MS">MONTSERRAT</Resource>
+    <Resource tag="MS">Монтсеррат</Resource>
     <Resource tag="MT">Мальта</Resource>
-    <Resource tag="MU">MAURITIUS</Resource>
+    <Resource tag="MU">Мауритус</Resource>
     <Resource tag="MV">Мальдивы</Resource>
     <Resource tag="MW">Малави</Resource>
     <Resource tag="MX">Мексика</Resource>
     <Resource tag="MY">Малайзия</Resource>
     <Resource tag="MZ">Мозамбик</Resource>
     <Resource tag="NA">Намибия</Resource>
-    <Resource tag="NC">NEW CALEDONIA</Resource>
+    <Resource tag="NC">Нов. Каледония</Resource>
     <Resource tag="NE">Нигер</Resource>
-    <Resource tag="NF">NORFOLK ISLAND</Resource>
+    <Resource tag="NF">Норфолк О-в</Resource>
     <Resource tag="NG">Нигерия</Resource>
     <Resource tag="NI">Никарагуа</Resource>
     <Resource tag="NL">Голландия</Resource>
     <Resource tag="NO">Норвегия</Resource>
     <Resource tag="NP">Непал</Resource>
-    <Resource tag="NR">NAURU</Resource>
-    <Resource tag="NU">NIUE</Resource>
+    <Resource tag="NR">Науру</Resource>
+    <Resource tag="NU">Ниу</Resource>
     <Resource tag="NZ">Н.Зеландия</Resource>
     <Resource tag="OM">Оман</Resource>
     <Resource tag="PA">Панама</Resource>
     <Resource tag="PE">Перу</Resource>
-    <Resource tag="PF">FRENCH POLYNESIA</Resource>
+    <Resource tag="PF">Французская Полинезия</Resource>
     <Resource tag="PG">Папуа Новая Гвмнея</Resource>
     <Resource tag="PH">Филлипины</Resource>
     <Resource tag="PK">Пакистан</Resource>
     <Resource tag="PL">Польша</Resource>
-    <Resource tag="PM">ST. PIERRE AND MIQUELON</Resource>
-    <Resource tag="PN">PITCAIRN</Resource>
+    <Resource tag="PM">Св.Пьер и Микелон</Resource>
+    <Resource tag="PN">Питкаирн</Resource>
     <Resource tag="PR">Пуэрто Рико</Resource>
     <Resource tag="PT">Португалия</Resource>
-    <Resource tag="PW">PALAU</Resource>
+    <Resource tag="PW">Палау</Resource>
     <Resource tag="PY">Парагвай</Resource>
     <Resource tag="QA">Катар</Resource>
-    <Resource tag="RE">REUNION</Resource>
+    <Resource tag="RE">Реюньон</Resource>
     <Resource tag="RO">Румыния</Resource>
     <Resource tag="RU">Российская Федерация</Resource>
     <Resource tag="RW">Руанда</Resource>
@@ -1963,26 +1963,26 @@
     <Resource tag="SD">Судан</Resource>
     <Resource tag="SE">Швеция</Resource>
     <Resource tag="SG">Сингапур</Resource>
-    <Resource tag="SH">ST. HELENA</Resource>
+    <Resource tag="SH">Св. Елена</Resource>
     <Resource tag="SI">Словения</Resource>
-    <Resource tag="SJ">SVALBARD AND JAN MAYEN ISLANDS</Resource>
+    <Resource tag="SJ">Свабальд и Ян Майен (О-ва)</Resource>
     <Resource tag="SK">Словакия </Resource>
-    <Resource tag="SL">SIERRA LEONE</Resource>
+    <Resource tag="SL">Сиерра Леоне</Resource>
     <Resource tag="SM">Сан Марино</Resource>
     <Resource tag="SN">Сенегал</Resource>
     <Resource tag="SO">Сомали</Resource>
     <Resource tag="SR">Суринам</Resource>
-    <Resource tag="ST">SAO TOME AND PRINCIPE</Resource>
+    <Resource tag="ST">Сао Том и принсипе</Resource>
     <Resource tag="SV">Сальвадор</Resource>
     <Resource tag="SY">Сирия</Resource>
     <Resource tag="SZ">Свазиленд</Resource>
-    <Resource tag="TC">TURKS AND CAICOS ISLANDS</Resource>
+    <Resource tag="TC">Тёрк и Кайкос О-ва</Resource>
     <Resource tag="TD">Чад</Resource>
-    <Resource tag="TF">FRENCH SOUTHERN TERRITORIES</Resource>
+    <Resource tag="TF">Французские Южные территории</Resource>
     <Resource tag="TG">Того</Resource>
     <Resource tag="TH">Таиланд</Resource>
     <Resource tag="TJ">Таджикистан</Resource>
-    <Resource tag="TK">TOKELAU</Resource>
+    <Resource tag="TK">Токелау</Resource>
     <Resource tag="TM">Туркменистан</Resource>
     <Resource tag="TN">Тунис</Resource>
     <Resource tag="TO">Тонга</Resource>
@@ -1994,18 +1994,18 @@
     <Resource tag="TZ">Танзания</Resource>
     <Resource tag="UA">Украина</Resource>
     <Resource tag="UG">Уганда</Resource>
-    <Resource tag="UM">U.S. MINOR ISLANDS</Resource>
+    <Resource tag="UM">Мелкие острова(США)</Resource>
     <Resource tag="US">США</Resource>
     <Resource tag="UY">Уругвай</Resource>
     <Resource tag="UZ">Узбекистан</Resource>
-    <Resource tag="VA">HOLY SEE (VATICAN CITY STATE)</Resource>
-    <Resource tag="VC">SAINT UEVINCENT AND THE GRENADINES</Resource>
+    <Resource tag="VA">Ватикан</Resource>
+    <Resource tag="VC">Сант -Венсет и Гренадины</Resource>
     <Resource tag="VE">Венесуэла</Resource>
-    <Resource tag="VG">VIRGIN ISLANDS (BRITISH)</Resource>
-    <Resource tag="VI">VIRGIN ISLANDS (U.S.)</Resource>
+    <Resource tag="VG">Виргинские О-ва(Британия)</Resource>
+    <Resource tag="VI">Виргинские О-ва(США)</Resource>
     <Resource tag="VN">Вьетнам</Resource>
     <Resource tag="VU">Вануату</Resource>
-    <Resource tag="WF">WALLIS AND FUTUNA ISLANDS</Resource>
+    <Resource tag="WF">Воллис и Футунв(О-ва)</Resource>
     <Resource tag="WS">Самоа</Resource>
     <Resource tag="YE">Йемен</Resource>
     <Resource tag="YT">Майотт</Resource>
@@ -2271,7 +2271,7 @@
     <Resource tag="RSSICONTOOLTIPACTIVE">Подпишитесь на активные темы используя ленту RSS.</Resource>
     <Resource tag="RSSICONTOOLTIPFAVORITE">Подпишитесь на Ваши избранные темы используя ленту RSS.</Resource>
     <Resource tag="RSSICONTOOLTIPFORUM">Подпишитесь на ленту RSS этого форума.</Resource>
-    <Resource tag="SHOW_UNREAD_ONLY">Show only Unread Topics.</Resource>
+    <Resource tag="SHOW_UNREAD_ONLY">Показывать только непрочитанные темы.</Resource>
     <Resource tag="STATS">Статистика</Resource>
     <Resource tag="STATS_BIRTHDAYS">Дни рождения сегодня: </Resource>
     <Resource tag="STATS_LASTMEMBER">Последний зарегистрированный пользователь</Resource>
@@ -3687,8 +3687,8 @@ Spoiler Content
     <Resource tag="ANNOUNCEMENT">Объявление</Resource>
     <Resource tag="ANNOUNCEMENT_NEW">Объявление (новые сообщения)</Resource>
     <Resource tag="FORUM_LOCKED">Форум закрыт</Resource>
-    <Resource tag="HOT_NEW_POSTS">Hot Topic (New Posts)</Resource>
-    <Resource tag="HOT_NO_NEW_POSTS">Hot Topic</Resource>
+    <Resource tag="HOT_NEW_POSTS">«Горячие темы» (новые посты)</Resource>
+    <Resource tag="HOT_NO_NEW_POSTS">«Горячие тема»</Resource>
     <Resource tag="MOVED">Перемещено</Resource>
     <Resource tag="NEW_POSTS">Новые сообщения</Resource>
     <Resource tag="NEW_POSTS_LOCKED">Новые сообщения (закрытые)</Resource>
@@ -3837,9 +3837,9 @@ Spoiler Content
     <Resource tag="INVITE">Пригласить пользователя</Resource>
     <Resource tag="LASTPOST">Последнее сообщение</Resource>
     <Resource tag="MEMBERS">Пользователи</Resource>
-    <Resource tag="MODERATEINDEX_TITLE">Moderate Reported Posts and Not Approved Posts</Resource>
+    <Resource tag="MODERATEINDEX_TITLE">Модерировать посты с жалобами и неодобренные посты</Resource>
     <Resource tag="NO_POSTS">Нет сообщений</Resource>
-    <Resource tag="NOMODERATION">Currently there are no Posts that need approval. And there are also no Posts that were reported.</Resource>
+    <Resource tag="NOMODERATION">В данный момент нет постов, нуждающихся в одобрении или модерации.</Resource>
     <Resource tag="REMOVE">Удалить</Resource>
     <Resource tag="REPLIES">Ответы</Resource>
     <Resource tag="TITLE">Модерировать</Resource>
@@ -3886,12 +3886,12 @@ Spoiler Content
     <Resource tag="EMPTY_TOPIC">Отсутствует название темы</Resource>
     <Resource tag="MOVE" />
     <Resource tag="MOVE_MESSAGE">Переместить сообщение</Resource>
-    <Resource tag="MOVE_TITLE">Move Message to a Different Topic</Resource>
+    <Resource tag="MOVE_TITLE">Переместить сообщение в другую тему</Resource>
     <Resource tag="NEW_TOPIC">Создать новую тему для перемещения сообщения:</Resource>
     <Resource tag="SELECT_FORUM_MOVETO">Выберите форум, в который нужно переместить сообщение:</Resource>
     <Resource tag="SELECT_TOPIC_MOVETO">Выберите тему, в которую нужно переместить сообщение:</Resource>
-    <Resource tag="SPLIT_TITLE">Split Message in to a new Topic</Resource>
-    <Resource tag="TITLE">Move Message to a Different Topic or split in to a new Topic</Resource>
+    <Resource tag="SPLIT_TITLE">Переместить сообщение в другую тему/разбить</Resource>
+    <Resource tag="TITLE">Переместить сообщение в другую тему или разбить тему</Resource>
   </page>
   <page name="MOVETOPIC">
     <Resource tag="LEAVE_POINTER">Оставить ссылку на тему на первоначальном форуме</Resource>
@@ -3907,7 +3907,7 @@ Spoiler Content
     <Resource tag="GUESTTITLE">Активные темы</Resource>
     <Resource tag="LAST_24">( Последние 24 часа )</Resource>
     <Resource tag="LAST_DAY">последний день</Resource>
-    <Resource tag="LAST_EIGHT_HOURS">last 8 hours</Resource>
+    <Resource tag="LAST_EIGHT_HOURS">последние 8 часов</Resource>
     <Resource tag="LAST_HOUR">последний час</Resource>
     <Resource tag="LAST_MONTH">последний месяц</Resource>
     <Resource tag="LAST_TWO_DAYS">последние 2 дня</Resource>
@@ -3917,7 +3917,7 @@ Spoiler Content
     <Resource tag="LAST_WEEK">последняя неделя</Resource>
     <Resource tag="LASTPOST">Последнее сообщение</Resource>
     <Resource tag="MEMBERTITLE">Мои темы</Resource>
-    <Resource tag="MYTOPICS">Topics you've posted in</Resource>
+    <Resource tag="MYTOPICS">Темы с Вашими постами</Resource>
     <Resource tag="NO_POSTS">Нет сообщений</Resource>
     <Resource tag="REPLIES">Ответы</Resource>
     <Resource tag="RSSFEED">RSS Лента</Resource>
@@ -3925,7 +3925,7 @@ Spoiler Content
     <Resource tag="SINCE">Начиная с</Resource>
     <Resource tag="TOPIC_STARTER">Автор темы</Resource>
     <Resource tag="TOPICS">Темы</Resource>
-    <Resource tag="UNREADTOPICS">Unread Topics</Resource>
+    <Resource tag="UNREADTOPICS">Непрочитанные темы</Resource>
     <Resource tag="VIEWS">Просмотры</Resource>
   </page>
   <page name="PMESSAGE">
@@ -4019,7 +4019,7 @@ Spoiler Content
     <Resource tag="EDIT">Редактировать сообщение</Resource>
     <Resource tag="EDITREASON">Причина редактирования:</Resource>
     <Resource tag="FROM">Автор:</Resource>
-    <Resource tag="GUEST_NAME_TOOLONG">Guest Username cannot be more than 100 characters.</Resource>
+    <Resource tag="GUEST_NAME_TOOLONG">Имя гостя не должно быть более 100 символов.</Resource>
     <Resource tag="ISQUESTION">Эта тема в формате вопрос/ответ?</Resource>
     <Resource tag="LAST10">Последние 10 сообщений (В обратном порядке)</Resource>
     <Resource tag="MESSAGE">Текст сообщения:</Resource>
@@ -4041,7 +4041,7 @@ Spoiler Content
     <Resource tag="SMILIES_HEADER">[b]Добавить смайлик[/b]</Resource>
     <Resource tag="SMILIES_MORE">Ещё смайлики...</Resource>
     <Resource tag="SPAM_MESSAGE">Ваше ссобщение было определено как СПАМ!</Resource>
-    <Resource tag="STATUS">Status:</Resource>
+    <Resource tag="STATUS">Статус:</Resource>
     <Resource tag="STICKY">Прикреплённое</Resource>
     <Resource tag="SUBJECT">Тема:</Resource>
     <Resource tag="SUBJECT_DUPLICATE">Тема с таким названием или похожим названием уже существует.</Resource>
@@ -4084,7 +4084,7 @@ Spoiler Content
     <Resource tag="EMAILTOPIC">Отправить тему по почте</Resource>
     <Resource tag="EMPTY_MESSAGE">Сообщение должно содержать текст.</Resource>
     <Resource tag="FACEBOOK">Facebook</Resource>
-    <Resource tag="FACEBOOK_SHARE_TOPIC">Share on Facebook</Resource>
+    <Resource tag="FACEBOOK_SHARE_TOPIC">Расшарить в Facebook</Resource>
     <Resource tag="FACEBOOK_TITLE">Посетите профиль пользователя {0} в Facebook</Resource>
     <Resource tag="FACEBOOK_TOPIC">Смотреть в этой теме</Resource>
     <Resource tag="FORUM_JUMP">Быстрый переход</Resource>
@@ -4261,22 +4261,22 @@ Spoiler Content
     <Resource tag="USERNAME_FAILURE">Невозможно найти введённое имя пользователя.</Resource>
   </page>
   <page name="REGION_DE">
-    <Resource tag="RGN_DE_BA">Bavaria</Resource>
-    <Resource tag="RGN_DE_BB">Brandenburg</Resource>
-    <Resource tag="RGN_DE_BER">Berlin</Resource>
-    <Resource tag="RGN_DE_BRE">Bremen</Resource>
-    <Resource tag="RGN_DE_BW">Baden-Württemberg</Resource>
-    <Resource tag="RGN_DE_HE">Hessen</Resource>
-    <Resource tag="RGN_DE_HH">Hamburg</Resource>
-    <Resource tag="RGN_DE_MV">Mecklenburg-Vorpommern</Resource>
-    <Resource tag="RGN_DE_NI">Lower Saxony</Resource>
-    <Resource tag="RGN_DE_NRW">North Rhine-Westphalia</Resource>
-    <Resource tag="RGN_DE_RP">Rhineland-Palatinate</Resource>
-    <Resource tag="RGN_DE_SA">Saxony-Anhalt</Resource>
-    <Resource tag="RGN_DE_SAA">Saarland</Resource>
-    <Resource tag="RGN_DE_SACH">Saxony</Resource>
-    <Resource tag="RGN_DE_SW">Schleswig-Holstein</Resource>
-    <Resource tag="RGN_DE_TH">Thuringia</Resource>
+    <Resource tag="RGN_DE_BA">Бавария</Resource>
+    <Resource tag="RGN_DE_BB">Бранденбург</Resource>
+    <Resource tag="RGN_DE_BER">Берлин</Resource>
+    <Resource tag="RGN_DE_BRE">Бремен</Resource>
+    <Resource tag="RGN_DE_BW">Баден-Вюртембург</Resource>
+    <Resource tag="RGN_DE_HE">Гессен</Resource>
+    <Resource tag="RGN_DE_HH">Гамбург</Resource>
+    <Resource tag="RGN_DE_MV">Мекленбург-Верхняя Померания</Resource>
+    <Resource tag="RGN_DE_NI">Нижняя Саксония</Resource>
+    <Resource tag="RGN_DE_NRW">Северный Рейн -Вестфалия</Resource>
+    <Resource tag="RGN_DE_RP">Райнленд-Палатинат</Resource>
+    <Resource tag="RGN_DE_SA">Саксония-Анхальт</Resource>
+    <Resource tag="RGN_DE_SAA">Саарлен</Resource>
+    <Resource tag="RGN_DE_SACH">Саксония</Resource>
+    <Resource tag="RGN_DE_SW">Шлезвиг-Гольштейн</Resource>
+    <Resource tag="RGN_DE_TH">Тюрингия</Resource>
   </page>
   <page name="REGION_RU">
     <Resource tag="RGN_RU_01">Адыгея</Resource>
@@ -4517,7 +4517,7 @@ Spoiler Content
 
 		Вы соглашаетесь не использовать никаких программ для автоматической регистрации и/или размещения информации на этом форуме. Нарушение этого правила может повлечь аналогичные по степени возмещения причинённого ущерба действия в отношении вашего сервера.[/size]
 
-		[center][size=6][b]Нажав кнопку «Согласен» внизу этой страницы вы соглашаетесь соблюдать условия и правила использования форума.[/b][/size][/center]
+		[center][size=6][b]Нажав кнопку «Согласен» внизу этой страницы Вы соглашаетесь соблюдать условия и правила использования форума.[/b][/size][/center]
 	</Resource>
     <Resource tag="TITLE">Правила форума</Resource>
   </page>
@@ -4618,14 +4618,14 @@ Spoiler Content
 		{link}
 	</Resource>
     <Resource tag="NOTIFICATION_ON_FACEBOOK_REGISTER">
-      Hello {user}.
+      Здравствуйте, {user}.
 
-      You have been successfully Registred on the {forumname} forum thru Facebook:
+      Вы успешно зарегистрировались на форуме {forumname} через Facebook:
 
-      User Name: {user}
-	  Auto Generated Password: {pass}
-	  Auto Generated Security Answer: {answer}
-      User Email: {email} (Please dont change your email, or you are unable to login with facebook)
+      Ник: {user}
+	  Авто пароль: {pass}
+	  Авто ответ на секретный вопрос: {answer}
+      Ваша эл. почта: {email} (Пожалуйста не меняйте, иначе Вы не сможете войти через Facebook)
 	  
     </Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL_TEXT">
@@ -4636,20 +4636,20 @@ Spoiler Content
     <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE_TEXT">
       A message was reported by {reporter} for the following reason: {reason}
 	  
-The Message was posted in the {forumname} forum.
+Это сообщение было размещено на форуме {forumname} .
       
-      Administration Link: {adminlink}
+      Ссылка администратора: {adminlink}
    </Resource>
     <Resource tag="NOTIFICATION_ON_REGISTER">
-      Hello {user}.
+      Здравствуйте {user}.
 
-      You have been successfully Registred on the {forumname} forum:
+      Вы успешно зарегистрировались на форуме {forumname}:
 
-      User Name: {user}
-	  Auto Generated Password: {pass}
-	  Auto Generated Security Answer: {answer}
-      User Email: {email} (Please dont change your email, or you are unable to login with facebook)
-	  
+      Ник: {user}
+      Авто пароль: {pass}
+      Авто ответ на секретный вопрос: {answer}
+      Ваш Email: {email} (Пожалуйста не меняйте, иначе Вы не сможете войти через  Facebook)
+
     </Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER">
 		Привет!
@@ -4793,17 +4793,17 @@ The Message was posted in the {forumname} forum.
     <Resource tag="SEARCHKEYWORD">Введите слово...</Resource>
     <Resource tag="TEAM">Команда</Resource>
     <Resource tag="TEAM_TITLE">Список команды: администраторы и модераторы</Resource>
-    <Resource tag="UNREADTOPICS">There are {0} Topic(s) with unread Messages</Resource>
+    <Resource tag="UNREADTOPICS">Есть {0} Тем(а) с непрочитанными сообщениями</Resource>
     <Resource tag="WELCOME_GUEST">Добро пожаловать, Гость. Чтобы воспользоваться всеми функциями форума - зарегистрируйтесь или аутентифицируйтесь.</Resource>
     <Resource tag="WELCOME_GUEST_FULL">Добро пожаловать, Гость! Чтобы использовать все возможности </Resource>
     <Resource tag="WELCOME_GUEST_NO">Добро пожаловать, Гость! Вы  &lt;strong&gt;не&lt;/strong&gt; зарегистрироваться или войти.</Resource>
   </page>
   <page name="TOPIC_STATUS">
-    <Resource tag="FIXED">Fixed</Resource>
-    <Resource tag="INFORMATIC">Informative</Resource>
-    <Resource tag="ISSUE">Issue</Resource>
-    <Resource tag="QUESTION">Question</Resource>
-    <Resource tag="SOLVED">Solved</Resource>
+    <Resource tag="FIXED">Решено</Resource>
+    <Resource tag="INFORMATIC">Информация</Resource>
+    <Resource tag="ISSUE">Проблема</Resource>
+    <Resource tag="QUESTION">Вопрос</Resource>
+    <Resource tag="SOLVED">Решено</Resource>
   </page>
   <page name="TOPICS">
     <Resource tag="ALL">Всё</Resource>

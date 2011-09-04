@@ -271,6 +271,23 @@
     <Resource tag="ES_MEDIUM">~/flags/es.png</Resource>
     <Resource tag="DE_MEDIUM">~/flags/de.png</Resource>
     <Resource tag="GB_MEDIUM">~/flags/gb.png</Resource>
+    <Resource tag="GD_MEDIUM">~/flags/gd.png</Resource>
+    <Resource tag="GE_MEDIUM">~/flags/ge.png</Resource>
+    <Resource tag="GF_MEDIUM">~/flags/gf.png</Resource>
+    <Resource tag="GH_MEDIUM">~/flags/gh.png</Resource>
+    <Resource tag="GI_MEDIUM">~/flags/gi.png</Resource>
+    <Resource tag="GL_MEDIUM">~/flags/gl.png</Resource>
+    <Resource tag="GM_MEDIUM">~/flags/gm.png</Resource>
+    <Resource tag="GN_MEDIUM">~/flags/gn.png</Resource>
+    <Resource tag="GP_MEDIUM">~/flags/gp.png</Resource>
+    <Resource tag="GQ_MEDIUM">~/flags/gq.png</Resource>
+    <Resource tag="GR_MEDIUM">~/flags/gr.png</Resource>
+    <Resource tag="GS_MEDIUM">~/flags/gs.png</Resource>
+    <Resource tag="GT_MEDIUM">~/flags/gt.png</Resource>
+    <Resource tag="GU_MEDIUM">~/flags/gu.png</Resource>
+    <Resource tag="GW_MEDIUM">~/flags/gw.png</Resource>
+    <Resource tag="GY_MEDIUM">~/flags/gy.png</Resource>
+    <Resource tag="HK_MEDIUM">~/flags/hk.png</Resource>
   </page>
   us_medium.ico
   <page name="PAGE_OVERRIDE">
