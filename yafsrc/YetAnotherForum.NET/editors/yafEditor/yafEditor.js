@@ -1,7 +1,6 @@
 var yafEditor = function(name) {
     this.Name = name;
-}
-
+};
 yafEditor.prototype.FormatText = function (command, option) {
     var textObj = document.getElementById(this.Name);
     switch (command) {
@@ -87,8 +86,7 @@ yafEditor.prototype.FormatText = function (command, option) {
             wrapSelection(textObj, "[" + command + "]", "[/" + command + "]");
             break;
     }
-}
-
+};
 yafEditor.prototype.AddImage = function () {
 
     var textObj = document.getElementById(this.Name);
@@ -108,17 +106,16 @@ yafEditor.prototype.AddImage = function () {
     }
 
 
-}
-
+};
 yafEditor.prototype.InsertSmiley = function(code) {
     var textObj = document.getElementById(this.Name);
     replaceSelection(textObj, code);
-}
+};
 
 function Button_Load(img) {
     img.className = "ButtonOut";
-    img.onmouseover = function() { Button_Over(this); }
-    img.onmouseout = function() { Button_Out(this); }
+    img.onmouseover = function() { Button_Over(this); };
+    img.onmouseout = function() { Button_Out(this); };
 }
 
 function Button_Over(img) {

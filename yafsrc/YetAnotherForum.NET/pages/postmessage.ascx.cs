@@ -241,8 +241,7 @@ namespace YAF.Pages
                     this.PageContext.AddLoadMessage(
                       this.GetTextFormatted(
                         "wait",
-                        (this.Get<IYafSession>().LastPost -
-                         DateTime.UtcNow.AddSeconds(-this.Get<YafBoardSettings>().PostFloodDelay)).Seconds));
+                        (this.Get<IYafSession>().LastPost - DateTime.UtcNow.AddSeconds(-this.Get<YafBoardSettings>().PostFloodDelay)).Seconds));
                     return true;
                 }
             }
@@ -382,6 +381,41 @@ namespace YAF.Pages
             YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.syntaxhighligher.css");
             YafContext.Current.PageElements.RegisterJsBlockStartup(
               "syntaxhighlighterjs", JavaScriptBlocks.SyntaxHighlightLoadJs);
+
+            // Setup SpellChecker JS
+            YafContext.Current.PageElements.RegisterJsResourceInclude("jqueryspellchecker", "js/jquery.spellchecker.min.js");
+            YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.spellchecker.css");
+
+            var editorClientId = this._forumEditor.ClientID;
+
+            editorClientId = editorClientId.Replace(editorClientId.Substring(editorClientId.LastIndexOf("_")), "_YafTextEditor");
+
+            var editorSpellBtnId = "{0}_spell".FormatWith(editorClientId);
+
+            /*if (this._forumEditor.ModuleId.Equals("5") ||
+                this._forumEditor.ModuleId.Equals("0"))
+            {
+                var spellCheckBtn = new Button
+                    {
+                        CssClass = "pbutton", 
+                        ID = "SpellCheckBtn", 
+                        Text = this.GetText("COMMON", "SPELL")
+                    };
+
+                this.EditorLine.Controls.Add(spellCheckBtn);
+
+                editorSpellBtnId = spellCheckBtn.ClientID;
+            }*/
+
+            YafContext.Current.PageElements.RegisterJsBlockStartup(
+                "spellcheckerjs",
+                JavaScriptBlocks.SpellCheckerLoadJs(
+                    editorClientId,
+                    editorSpellBtnId,
+                    this.PageContext.CultureUser.IsSet()
+                        ? this.PageContext.CultureUser.Substring(0, 2)
+                        : this.Get<YafBoardSettings>().Culture,
+                    this.GetText("SPELL_CORRECT")));
 
             base.OnInit(e);
         }
@@ -539,9 +573,9 @@ namespace YAF.Pages
                     // todo message id*/
 
                     this.PostOptions1.WatchChecked = this.PageContext.PageTopicID > 0
-                                                         ? this.TopicWatchedId(this.PageContext.PageUserID, this.PageContext.PageTopicID).
-                                                               HasValue : new CombinedUserDataHelper(this.PageContext.PageUserID)
-                                                               .AutoWatchTopics;
+                                                         ? this.TopicWatchedId(
+                                                             this.PageContext.PageUserID, this.PageContext.PageTopicID).HasValue
+                                                         : new CombinedUserDataHelper(this.PageContext.PageUserID).AutoWatchTopics;
                 }
 
                 if ((this.PageContext.IsGuest && this.Get<YafBoardSettings>().EnableCaptchaForGuests) ||
@@ -619,12 +653,10 @@ namespace YAF.Pages
         /// The post reply handle edit post.
         /// </summary>
         /// <returns>
-        /// The post reply handle edit post.
+        /// Returns the Message Id
         /// </returns>
         protected long PostReplyHandleEditPost()
         {
-            long messageId;
-
             if (!this.PageContext.ForumEditAccess)
             {
                 YafBuildLink.AccessDenied();
@@ -668,7 +700,7 @@ namespace YAF.Pages
               this.OriginalMessage,
               this.PageContext.PageUserID);
 
-            messageId = this.EditMessageID.Value;
+            long messageId = this.EditMessageID.Value;
 
             this.HandlePostToBlog(this._forumEditor.Text, this.TopicSubjectTextBox.Text);
 
@@ -686,7 +718,7 @@ namespace YAF.Pages
         /// The topic Id.
         /// </param>
         /// <returns>
-        /// The post reply handle new post.
+        /// Returns the Message Id.
         /// </returns>
         protected long PostReplyHandleNewPost(out long topicId)
         {
@@ -769,7 +801,7 @@ namespace YAF.Pages
         /// The is Spam Approved.
         /// </param>
         /// <returns>
-        /// The post reply handle reply to topic.
+        /// Returns the Message Id.
         /// </returns>
         protected long PostReplyHandleReplyToTopic(bool isSpamApproved)
         {
@@ -843,8 +875,10 @@ namespace YAF.Pages
         /// Handles the PostReply click including: Replying, Editing and New post.
         /// </summary>
         /// <param name="sender">
+        /// The Sender Object.
         /// </param>
         /// <param name="e">
+        /// The Event Arguments.
         /// </param>
         protected void PostReply_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
@@ -1021,6 +1055,9 @@ namespace YAF.Pages
             }
         }
 
+        /// <summary>
+        /// The Spam Approved Indicator
+        /// </summary>
         private bool spamApproved = true;
 
         /// <summary>
@@ -1043,7 +1080,7 @@ namespace YAF.Pages
                 ipAdress = "127.0.0.1";
             }
 
-            string whiteList = String.Empty;
+            string whiteList = string.Empty;
 
             if (ipAdress.Equals("127.0.0.1"))
             {
@@ -1077,7 +1114,7 @@ namespace YAF.Pages
                                 agent = this.Get<HttpRequestBase>().UserAgent,
                                 email = email,
                                 name = username,
-                                version = String.Empty,
+                                version = string.Empty,
                                 options = whiteList,
                                 subject = this.TopicSubjectTextBox.Text
                             },
@@ -1118,10 +1155,10 @@ namespace YAF.Pages
         /// The preview_ click.
         /// </summary>
         /// <param name="sender">
-        /// The sender.
+        /// The Sender Object.
         /// </param>
         /// <param name="e">
-        /// The e.
+        /// The Event Arguments.
         /// </param>
         protected void Preview_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
@@ -1187,7 +1224,7 @@ namespace YAF.Pages
             // Ederon : 9/9/2007 - moderator can edit in locked topics
             return ((!postLocked && !forumInfo["Flags"].BinaryAnd(ForumFlags.Flags.IsLocked) &&
                      !topicInfo["Flags"].BinaryAnd(TopicFlags.Flags.IsLocked) &&
-                     (Convert.ToInt32(message["UserID"]) == this.PageContext.PageUserID)) ||
+                     (message["UserID"].ToType<int>() == this.PageContext.PageUserID)) ||
                     this.PageContext.ForumModeratorAccess) && this.PageContext.ForumEditAccess;
         }
 
@@ -1203,7 +1240,7 @@ namespace YAF.Pages
         private bool CanHavePoll([NotNull] DataRow message)
         {
             return (this.TopicID == null && this.QuotedMessageID == null && this.EditMessageID == null) ||
-                   (message != null && Convert.ToInt32(message["Position"]) == 0);
+                   (message != null && message["Position"].ToType<int>() == 0);
         }
 
         /// <summary>
@@ -1406,7 +1443,7 @@ namespace YAF.Pages
         private void InitReplyToTopic()
         {
             DataRow topic = LegacyDb.topic_info(this.TopicID);
-            var topicFlags = new TopicFlags(Convert.ToInt32(topic["Flags"]));
+            var topicFlags = new TopicFlags(topic["Flags"].ToType<int>());
 
             // Ederon : 9/9/2007 - moderators can reply in locked topics
             if (topicFlags.IsLocked && !this.PageContext.ForumModeratorAccess)
@@ -1443,11 +1480,13 @@ namespace YAF.Pages
         /// Returns true if the topic is set to watch for userId
         /// </summary>
         /// <param name="userId">
+        /// The user Id.
         /// </param>
         /// <param name="topicId">
         /// The topic Id.
         /// </param>
         /// <returns>
+        /// The topic watched id.
         /// </returns>
         private int? TopicWatchedId(int userId, int topicId)
         {
@@ -1458,8 +1497,10 @@ namespace YAF.Pages
         /// Updates Watch Topic based on controls/settings for user...
         /// </summary>
         /// <param name="userId">
+        /// The user Id.
         /// </param>
         /// <param name="topicId">
+        /// The topic Id.
         /// </param>
         private void UpdateWatchTopic(int userId, int topicId)
         {
@@ -1481,6 +1522,7 @@ namespace YAF.Pages
         /// Checks if this topic is watched, if not, adds it.
         /// </summary>
         /// <param name="userId">
+        /// The user Id.
         /// </param>
         /// <param name="topicId">
         /// The topic Id.

@@ -143,217 +143,212 @@ namespace YAF.Editors
     /// </param>
     protected override void Render([NotNull] HtmlTextWriter writer)
     {
-      writer.WriteLine(@"<table border=""0"" id=""bbcodeFeatures"">");
-      writer.WriteLine("<tr><td>");
+        writer.WriteLine(@"<table border=""0"" id=""bbcodeFeatures"">");
+        writer.WriteLine("<tr><td>");
 
-      this.RenderButton(
-        writer, 
-        "bold", 
-        "FormatText('bold','')", 
-        this.GetText("COMMON", "TT_BOLD"), 
-        "yafEditor/bold.gif");
-      this.RenderButton(
-        writer, 
-        "italic", 
-        "FormatText('italic','')", 
-        this.GetText("COMMON", "TT_ITALIC"), 
-        "yafEditor/italic.gif");
+        this.RenderButton(
+            writer, "bold", "FormatText('bold','')", this.GetText("COMMON", "TT_BOLD"), "yafEditor/bold.gif");
+        this.RenderButton(
+            writer, "italic", "FormatText('italic','')", this.GetText("COMMON", "TT_ITALIC"), "yafEditor/italic.gif");
 
-      this.RenderButton(
-        writer, 
-        "underline", 
-        "FormatText('underline','')", 
-        this.GetText("COMMON", "TT_UNDERLINE"), 
-        "yafEditor/underline.gif");
+        this.RenderButton(
+            writer,
+            "underline",
+            "FormatText('underline','')",
+            this.GetText("COMMON", "TT_UNDERLINE"),
+            "yafEditor/underline.gif");
 
-      writer.WriteLine("&nbsp;");
-
-      this.RenderButton(
-        writer, 
-        "highlight", 
-        "FormatText('highlight','')", 
-        this.GetText("COMMON", "TT_HIGHLIGHT"), 
-        "yafEditor/highlight.gif");
-
-      this.RenderButton(
-        writer, 
-        "quote", 
-        "FormatText('quote','')", 
-        this.GetText("COMMON", "TT_QUOTE"), 
-        "yafEditor/quote.gif");
-
-      // add drop down for optional "extra" codes...
-      writer.WriteLine(
-        @"<img src=""{5}"" id=""{3}"" alt=""{4}"" title=""{4}"" onclick=""{0}"" onload=""Button_Load(this)"" onmouseover=""{1}"" />"
-          .FormatWith(
-            this._popMenuBBCode.ControlOnClick, 
-            this._popMenuBBCode.ControlOnMouseOver, 
-            this.GetText("COMMON", "TT_CODE"), 
-            this.ClientID + "_bbcode_popMenu", 
-            this.GetText("COMMON", "TT_CODELANG"), 
-            this.ResolveUrl("yafEditor/code.gif")));
-
-      var highLightList = new List<HighLightList> {
-          new HighLightList { BrushAlias = "plain", BrushName = "Plain Text" }, 
-          new HighLightList { BrushAlias = "as3", BrushName = "ActionScript3" }, 
-          new HighLightList { BrushAlias = "bash", BrushName = "Bash(shell)" }, 
-          new HighLightList { BrushAlias = "coldfusion", BrushName = "ColdFusion" }, 
-          new HighLightList { BrushAlias = "csharp", BrushName = "C#" }, 
-          new HighLightList { BrushAlias = "cpp", BrushName = "C++" }, 
-          new HighLightList { BrushAlias = "css", BrushName = "CSS" }, 
-          new HighLightList { BrushAlias = "delphi", BrushName = "Delphi" }, 
-          new HighLightList { BrushAlias = "diff", BrushName = "Diff" }, 
-          new HighLightList { BrushAlias = "erlang", BrushName = "Erlang" }, 
-          new HighLightList { BrushAlias = "groovy", BrushName = "Groovy" }, 
-          new HighLightList { BrushAlias = "jscript", BrushName = "JavaScript" }, 
-          new HighLightList { BrushAlias = "java", BrushName = "Java" }, 
-          new HighLightList { BrushAlias = "javafx", BrushName = "JavaFX" }, 
-          new HighLightList { BrushAlias = "perl", BrushName = "Perl" }, 
-          new HighLightList { BrushAlias = "php", BrushName = "PHP" }, 
-          new HighLightList { BrushAlias = "powershell", BrushName = "PowerShell" }, 
-          new HighLightList { BrushAlias = "python", BrushName = "Pyton" }, 
-          new HighLightList { BrushAlias = "ruby", BrushName = "Ruby" }, 
-          new HighLightList { BrushAlias = "scala", BrushName = "Scala" }, 
-          new HighLightList { BrushAlias = "sql", BrushName = "SQL" }, 
-          new HighLightList { BrushAlias = "vb", BrushName = "Visual Basic" }, 
-          new HighLightList { BrushAlias = "xml", BrushName = "XML" }
-        };
-
-      foreach (HighLightList item in highLightList)
-      {
-        this._popMenuBBCode.AddClientScriptItem(
-          item.BrushName, "setStyle('codelang','{0}')".FormatWith(item.BrushAlias));
-      }
-
-      this.RenderButton(
-        writer, 
-        "img", 
-        "FormatText('img','')", 
-        this.GetText("COMMON", "TT_IMAGE"), 
-        "yafEditor/image.gif");
-      this.RenderButton(
-        writer, 
-        "createlink", 
-        "FormatText('createlink','')", 
-        this.GetText("COMMON", "TT_CREATELINK"), 
-        "yafEditor/link.gif");
-
-      writer.WriteLine("&nbsp;");
-
-      this.RenderButton(
-        writer, 
-        "unorderedlist", 
-        "FormatText('unorderedlist','')", 
-        this.GetText("COMMON", "TT_LISTUNORDERED"), 
-        "yafEditor/unorderedlist.gif");
-      this.RenderButton(
-        writer, 
-        "orderedlist", 
-        "FormatText('orderedlist','')", 
-        this.GetText("COMMON", "TT_LISTORDERED"), 
-        "yafEditor/orderedlist.gif");
-
-      writer.WriteLine("&nbsp;");
-
-      this.RenderButton(
-        writer, 
-        "justifyleft", 
-        "FormatText('justifyleft','')", 
-        this.GetText("COMMON", "TT_ALIGNLEFT"), 
-        "yafEditor/justifyleft.gif");
-      this.RenderButton(
-        writer, 
-        "justifycenter", 
-        "FormatText('justifycenter','')", 
-        this.GetText("COMMON", "TT_ALIGNCENTER"), 
-        "yafEditor/justifycenter.gif");
-      this.RenderButton(
-        writer, 
-        "justifyright", 
-        "FormatText('justifyright','')", 
-        this.GetText("COMMON", "TT_ALIGNRIGHT"), 
-        "yafEditor/justifyright.gif");
-
-      var customBbCode = this.Get<IDBBroker>().GetCustomBBCode();
-
-      if (customBbCode.Any())
-      {
         writer.WriteLine("&nbsp;");
+
+        this.RenderButton(
+            writer,
+            "highlight",
+            "FormatText('highlight','')",
+            this.GetText("COMMON", "TT_HIGHLIGHT"),
+            "yafEditor/highlight.gif");
+
+        this.RenderButton(
+            writer, "quote", "FormatText('quote','')", this.GetText("COMMON", "TT_QUOTE"), "yafEditor/quote.gif");
 
         // add drop down for optional "extra" codes...
         writer.WriteLine(
-          @"<img src=""{5}"" id=""{3}"" alt=""{4}"" title=""{4}"" onclick=""{0}"" onload=""Button_Load(this)"" onmouseover=""{1}"" />"
-            .FormatWith(
-              this._popMenuBBCustom.ControlOnClick, 
-              this._popMenuBBCustom.ControlOnMouseOver, 
-              this.GetText("COMMON", "CUSTOM_BBCODE"), 
-              this.ClientID + "_bbcustom_popMenu", 
-              this.GetText("COMMON", "TT_CUSTOMBBCODE"), 
-              this.ResolveUrl("yafEditor/bbcode.gif")));
+            @"<img src=""{5}"" id=""{3}"" alt=""{4}"" title=""{4}"" onclick=""{0}"" onload=""Button_Load(this)"" onmouseover=""{1}"" />"
+                .FormatWith(
+                    this._popMenuBBCode.ControlOnClick,
+                    this._popMenuBBCode.ControlOnMouseOver,
+                    this.GetText("COMMON", "TT_CODE"),
+                    this.ClientID + "_bbcode_popMenu",
+                    this.GetText("COMMON", "TT_CODELANG"),
+                    this.ResolveUrl("yafEditor/code.gif")));
 
-        foreach (var row in customBbCode)
+        var highLightList = new List<HighLightList>
+            {
+                new HighLightList { BrushAlias = "plain", BrushName = "Plain Text" },
+                new HighLightList { BrushAlias = "as3", BrushName = "ActionScript3" },
+                new HighLightList { BrushAlias = "bash", BrushName = "Bash(shell)" },
+                new HighLightList { BrushAlias = "coldfusion", BrushName = "ColdFusion" },
+                new HighLightList { BrushAlias = "csharp", BrushName = "C#" },
+                new HighLightList { BrushAlias = "cpp", BrushName = "C++" },
+                new HighLightList { BrushAlias = "css", BrushName = "CSS" },
+                new HighLightList { BrushAlias = "delphi", BrushName = "Delphi" },
+                new HighLightList { BrushAlias = "diff", BrushName = "Diff" },
+                new HighLightList { BrushAlias = "erlang", BrushName = "Erlang" },
+                new HighLightList { BrushAlias = "groovy", BrushName = "Groovy" },
+                new HighLightList { BrushAlias = "jscript", BrushName = "JavaScript" },
+                new HighLightList { BrushAlias = "java", BrushName = "Java" },
+                new HighLightList { BrushAlias = "javafx", BrushName = "JavaFX" },
+                new HighLightList { BrushAlias = "perl", BrushName = "Perl" },
+                new HighLightList { BrushAlias = "php", BrushName = "PHP" },
+                new HighLightList { BrushAlias = "powershell", BrushName = "PowerShell" },
+                new HighLightList { BrushAlias = "python", BrushName = "Pyton" },
+                new HighLightList { BrushAlias = "ruby", BrushName = "Ruby" },
+                new HighLightList { BrushAlias = "scala", BrushName = "Scala" },
+                new HighLightList { BrushAlias = "sql", BrushName = "SQL" },
+                new HighLightList { BrushAlias = "vb", BrushName = "Visual Basic" },
+                new HighLightList { BrushAlias = "xml", BrushName = "XML" }
+            };
+
+        foreach (HighLightList item in highLightList)
         {
-          string name = row.Name;
-
-          if (row.Description.IsSet())
-          {
-            // use the description as the option "name"
-            name = this.Get<IBBCode>().LocalizeCustomBBCodeElement(row.Description.Trim());
-          }
-
-          string onclickJs = row.OnClickJS.IsSet() ? row.OnClickJS : "setStyle('{0}','')".FormatWith(row.Name.Trim());
-
-          this._popMenuBBCustom.AddClientScriptItem(name, onclickJs);
+            this._popMenuBBCode.AddClientScriptItem(
+                item.BrushName, "setStyle('codelang','{0}')".FormatWith(item.BrushAlias));
         }
-      }
 
-      writer.WriteLine("	</td></tr>");
-      writer.WriteLine("	<tr><td>");
+        this.RenderButton(
+            writer, "img", "FormatText('img','')", this.GetText("COMMON", "TT_IMAGE"), "yafEditor/image.gif");
+        this.RenderButton(
+            writer,
+            "createlink",
+            "FormatText('createlink','')",
+            this.GetText("COMMON", "TT_CREATELINK"),
+            "yafEditor/link.gif");
 
-      // TODO: Convert to a control...
-      writer.WriteLine(this.GetText("COMMON", "FONT_COLOR"));
-      writer.WriteLine(
-        "<select onchange=\"if(this.value!='') setStyle('color',this.value); this.value=''\">", this.SafeID);
-      writer.WriteLine("<option value=\"\">Default</option>");
+        writer.WriteLine("&nbsp;");
 
-      string[] colors = {
-                          "Dark Red", "Red", "Orange", "Brown", "Yellow", "Green", "Olive", "Cyan", "Blue", "Dark Blue", 
-                          "Indigo", "Violet", "White", "Black"
-                        };
+        this.RenderButton(
+            writer,
+            "unorderedlist",
+            "FormatText('unorderedlist','')",
+            this.GetText("COMMON", "TT_LISTUNORDERED"),
+            "yafEditor/unorderedlist.gif");
+        this.RenderButton(
+            writer,
+            "orderedlist",
+            "FormatText('orderedlist','')",
+            this.GetText("COMMON", "TT_LISTORDERED"),
+            "yafEditor/orderedlist.gif");
 
-      foreach (string color in colors)
-      {
-        string tValue = color.Replace(" ", string.Empty).ToLower();
-        writer.WriteLine("<option style=\"color:{0}\" value=\"{0}\">{1}</option>".FormatWith(tValue, color));
-      }
+        writer.WriteLine("&nbsp;");
 
-      writer.WriteLine("</select>");
+        this.RenderButton(
+            writer,
+            "justifyleft",
+            "FormatText('justifyleft','')",
+            this.GetText("COMMON", "TT_ALIGNLEFT"),
+            "yafEditor/justifyleft.gif");
+        this.RenderButton(
+            writer,
+            "justifycenter",
+            "FormatText('justifycenter','')",
+            this.GetText("COMMON", "TT_ALIGNCENTER"),
+            "yafEditor/justifycenter.gif");
+        this.RenderButton(
+            writer,
+            "justifyright",
+            "FormatText('justifyright','')",
+            this.GetText("COMMON", "TT_ALIGNRIGHT"),
+            "yafEditor/justifyright.gif");
 
-      // TODO: Just convert to a drop down control...
-      writer.WriteLine(this.GetText("COMMON", "FONT_SIZE"));
-      writer.WriteLine(
-        "<select onchange=\"if(this.value!='') setStyle('fontsize',this.value); this.value=''\">", this.SafeID);
-      writer.WriteLine("<option value=\"1\">1</option>");
-      writer.WriteLine("<option value=\"2\">2</option>");
-      writer.WriteLine("<option value=\"3\">3</option>");
-      writer.WriteLine("<option value=\"4\">4</option>");
-      writer.WriteLine("<option selected=\"selected\" value=\"5\">Default</option>");
-      writer.WriteLine("<option value=\"6\">6</option>");
-      writer.WriteLine("<option value=\"7\">7</option>");
-      writer.WriteLine("<option value=\"8\">8</option>");
-      writer.WriteLine("<option value=\"9\">9</option>");
-      writer.WriteLine("</select>");
+        var customBbCode = this.Get<IDBBroker>().GetCustomBBCode();
 
-      writer.WriteLine("</td></tr>");
-      writer.WriteLine("</table>");
+        if (customBbCode.Any())
+        {
+            writer.WriteLine("&nbsp;");
 
-      this._textCtl.RenderControl(writer);
+            // add drop down for optional "extra" codes...
+            writer.WriteLine(
+                @"<img src=""{5}"" id=""{3}"" alt=""{4}"" title=""{4}"" onclick=""{0}"" onload=""Button_Load(this)"" onmouseover=""{1}"" />"
+                    .FormatWith(
+                        this._popMenuBBCustom.ControlOnClick,
+                        this._popMenuBBCustom.ControlOnMouseOver,
+                        this.GetText("COMMON", "CUSTOM_BBCODE"),
+                        this.ClientID + "_bbcustom_popMenu",
+                        this.GetText("COMMON", "TT_CUSTOMBBCODE"),
+                        this.ResolveUrl("yafEditor/bbcode.gif")));
 
-      this._popMenuBBCustom.RenderControl(writer);
-      this._popMenuBBCode.RenderControl(writer);
+            foreach (var row in customBbCode)
+            {
+                string name = row.Name;
+
+                if (row.Description.IsSet())
+                {
+                    // use the description as the option "name"
+                    name = this.Get<IBBCode>().LocalizeCustomBBCodeElement(row.Description.Trim());
+                }
+
+                string onclickJs = row.OnClickJS.IsSet()
+                                       ? row.OnClickJS
+                                       : "setStyle('{0}','')".FormatWith(row.Name.Trim());
+
+                this._popMenuBBCustom.AddClientScriptItem(name, onclickJs);
+            }
+        }
+
+        // add drop down for optional "extra" codes...
+        writer.WriteLine(
+            @"<img src=""{2}"" id=""{0}_spell"" alt=""{1}"" title=""{1}"" onload=""Button_Load(this)"" />"
+                .FormatWith(
+                    this.SafeID,
+                    this.GetText("COMMON", "SPELL"),
+                    this.ResolveUrl("yafEditor/spellcheck.gif")));
+
+        writer.WriteLine("	</td></tr>");
+        writer.WriteLine("	<tr><td>");
+
+        // TODO: Convert to a control...
+        writer.WriteLine(this.GetText("COMMON", "FONT_COLOR"));
+        writer.WriteLine(
+            "<select onchange=\"if(this.value!='') setStyle('color',this.value); this.value=''\">", this.SafeID);
+        writer.WriteLine("<option value=\"\">Default</option>");
+
+        string[] colors = {
+                              "Dark Red", "Red", "Orange", "Brown", "Yellow", "Green", "Olive", "Cyan", "Blue",
+                              "Dark Blue", "Indigo", "Violet", "White", "Black"
+                          };
+
+        foreach (string color in colors)
+        {
+            string tValue = color.Replace(" ", string.Empty).ToLower();
+            writer.WriteLine("<option style=\"color:{0}\" value=\"{0}\">{1}</option>".FormatWith(tValue, color));
+        }
+
+        writer.WriteLine("</select>");
+
+        // TODO: Just convert to a drop down control...
+        writer.WriteLine(this.GetText("COMMON", "FONT_SIZE"));
+        writer.WriteLine(
+            "<select onchange=\"if(this.value!='') setStyle('fontsize',this.value); this.value=''\">", this.SafeID);
+        writer.WriteLine("<option value=\"1\">1</option>");
+        writer.WriteLine("<option value=\"2\">2</option>");
+        writer.WriteLine("<option value=\"3\">3</option>");
+        writer.WriteLine("<option value=\"4\">4</option>");
+        writer.WriteLine("<option selected=\"selected\" value=\"5\">Default</option>");
+        writer.WriteLine("<option value=\"6\">6</option>");
+        writer.WriteLine("<option value=\"7\">7</option>");
+        writer.WriteLine("<option value=\"8\">8</option>");
+        writer.WriteLine("<option value=\"9\">9</option>");
+        writer.WriteLine("</select>");
+
+        writer.WriteLine("</td></tr>");
+        writer.WriteLine("</table>");
+
+        this._textCtl.RenderControl(writer);
+
+        this._popMenuBBCustom.RenderControl(writer);
+        this._popMenuBBCode.RenderControl(writer);
     }
 
-    /// <summary>
+      /// <summary>
     /// The render button.
     /// </summary>
     /// <param name="writer">

@@ -22,11 +22,16 @@ namespace YAF.Classes
     #region Using
 
     using System;
+    using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Net;
+    using System.Text;
+    using System.Web.Script.Serialization;
     using System.Web.Script.Services;
     using System.Web.Security;
     using System.Web.Services;
+    using System.Xml;
 
     using YAF.Classes.Data;
     using YAF.Core;
@@ -62,7 +67,49 @@ namespace YAF.Classes
 
         #endregion
 
-        #region Public Methods
+        /// <summary>
+        /// Spell check via google api.
+        /// </summary>
+        /// <param name="text">
+        /// The text to check.
+        /// </param>
+        /// <param name="lang">
+        /// The langauage of the text.
+        /// </param>
+        /// <param name="engine">
+        /// The engine.
+        /// </param>
+        /// <param name="suggest">
+        /// The suggest words.
+        /// </param>
+        /// <returns>
+        /// Returns List of Suggest Words.
+        /// </returns>
+        [WebMethod(EnableSession = true)]
+        public string SpellCheck(string text, string lang, string engine, string suggest)
+        {
+            if (suggest.Equals("undefined", StringComparison.OrdinalIgnoreCase))
+            {
+                suggest = string.Empty;
+            }
+
+            string xml;
+
+            List<string> result;
+
+            if (string.IsNullOrEmpty(suggest))
+            {
+                xml = GetSpellCheckRequest(text, lang);
+                result = GetListOfMisspelledWords(xml, text);
+            }
+            else
+            {
+                xml = GetSpellCheckRequest(suggest, lang);
+                result = GetListOfSuggestWords(xml, suggest);
+            }
+
+            return new JavaScriptSerializer().Serialize(result);
+        }
 
         /// <summary>
         /// SSO Login From Facebook
@@ -130,7 +177,7 @@ namespace YAF.Classes
                 return this.Get<ILocalization>().GetText("LOGIN", "SSO_DEACTIVATED");
             }
 
-            // Deserialize Graph Json
+            // TODO : Deserialize Graph Json
             /*var serializer = new JavaScriptSerializer();
             serializer.RegisterConverters(new[] { new JsonConverter() });
 
@@ -321,7 +368,7 @@ namespace YAF.Classes
             return message != null ? message.Field<int>("ShoutBoxMessageID") : 0;
         }
 
-       #region Favorite Topic Function
+        #region Favorite Topic Function
 
         /// <summary>
         /// The add favorite topic.
@@ -352,9 +399,8 @@ namespace YAF.Classes
         {
             return this.Get<IFavoriteTopic>().RemoveFavoriteTopic(topicId);
         }
-       #endregion
 
-       #region Thanks Functions
+        #region Thanks Functions
 
         /// <summary>
         /// Add Thanks to post
@@ -365,19 +411,21 @@ namespace YAF.Classes
         /// <returns>
         /// Returns ThankYou Info
         /// </returns>
-        [CanBeNull, WebMethod(EnableSession = true)]
+        [CanBeNull]
+        [WebMethod(EnableSession = true)]
         public ThankYouInfo AddThanks([NotNull] object msgID)
         {
             var messageID = msgID.ToType<int>();
 
             string username =
-              LegacyDb.message_AddThanks(
-                UserMembershipHelper.GetUserIDFromProviderUserKey(Membership.GetUser().ProviderUserKey), messageID);
+                LegacyDb.message_AddThanks(
+                    UserMembershipHelper.GetUserIDFromProviderUserKey(Membership.GetUser().ProviderUserKey), messageID);
 
             // if the user is empty, return a null object...
             return username.IsNotSet()
-                     ? null
-                     : YafThankYou.CreateThankYou(username, "BUTTON_THANKSDELETE", "BUTTON_THANKSDELETE_TT", messageID);
+                       ? null
+                       : YafThankYou.CreateThankYou(
+                           username, "BUTTON_THANKSDELETE", "BUTTON_THANKSDELETE_TT", messageID);
         }
 
         /// <summary>
@@ -389,19 +437,191 @@ namespace YAF.Classes
         /// <returns>
         /// Returns ThankYou Info
         /// </returns>
-        [NotNull, WebMethod(EnableSession = true)]
+        [NotNull]
+        [WebMethod(EnableSession = true)]
         public ThankYouInfo RemoveThanks([NotNull] object msgID)
         {
             var messageID = msgID.ToType<int>();
 
             string username =
-              LegacyDb.message_RemoveThanks(
-                UserMembershipHelper.GetUserIDFromProviderUserKey(Membership.GetUser().ProviderUserKey), messageID);
+                LegacyDb.message_RemoveThanks(
+                    UserMembershipHelper.GetUserIDFromProviderUserKey(Membership.GetUser().ProviderUserKey), messageID);
 
             return YafThankYou.CreateThankYou(username, "BUTTON_THANKS", "BUTTON_THANKS_TT", messageID);
         }
 
         #endregion
+
+        #endregion
+
+        #region private methods
+
+        /// <summary>
+        /// Gets the list of suggest words.
+        /// </summary>
+        /// <param name="xml">
+        /// The XML.
+        /// </param>
+        /// <param name="suggest">
+        /// The suggest.
+        /// </param>
+        /// <returns>
+        /// The get list of suggest words.
+        /// </returns>
+        private static List<string> GetListOfSuggestWords(string xml, string suggest)
+        {
+            if (string.IsNullOrEmpty(xml) || string.IsNullOrEmpty(suggest))
+            {
+                return null;
+            }
+
+            var xmlDoc = new XmlDocument();
+            xmlDoc.LoadXml(xml);
+
+            if (!xmlDoc.HasChildNodes)
+            {
+                return null;
+            }
+
+            XmlNodeList nodeList = xmlDoc.SelectNodes("//c");
+
+            if (null == nodeList || 0 >= nodeList.Count)
+            {
+                return null;
+            }
+
+            List<string> list = new List<string>();
+
+            foreach (XmlNode node in nodeList)
+            {
+                list.AddRange(node.InnerText.Split('\t'));
+                return list;
+            }
+
+            return list;
+        }
+
+        /// <summary>
+        /// Gets the list of misspelled words.
+        /// </summary>
+        /// <param name="xml">
+        /// The XML.
+        /// </param>
+        /// <param name="text">
+        /// The text.
+        /// </param>
+        /// <returns>
+        /// The get list of misspelled words.
+        /// </returns>
+        private static List<string> GetListOfMisspelledWords(string xml, string text)
+        {
+            if (string.IsNullOrEmpty(xml) || string.IsNullOrEmpty(text))
+            {
+                return null;
+            }
+
+            var xmlDoc = new XmlDocument();
+            xmlDoc.LoadXml(xml);
+
+            if (!xmlDoc.HasChildNodes)
+            {
+                return null;
+            }
+
+            var nodeList = xmlDoc.SelectNodes("//c");
+
+            if (null == nodeList || 0 >= nodeList.Count)
+            {
+                return null;
+            }
+
+            return (from XmlNode node in nodeList
+                    let offset = node.Attributes["o"].Value.ToType<int>()
+                    let length = node.Attributes["l"].Value.ToType<int>()
+                    select text.Substring(offset, length)).ToList();
+        }
+
+        /// <summary>
+        /// Requests the spell check and get the result back.
+        /// </summary>
+        /// <param name="text">
+        /// The text.
+        /// </param>
+        /// <param name="lang">
+        /// The lang.
+        /// </param>
+        /// <returns>
+        /// The get spell check request.
+        /// </returns>
+        private static string GetSpellCheckRequest(string text, string lang)
+        {
+            var requestUrl = ConstructRequestUrl(text, lang);
+            var requestContentXml = ConstructSpellRequestContentXml(text);
+
+            byte[] buffer = Encoding.UTF8.GetBytes(requestContentXml);
+
+            WebClient webClient = new WebClient();
+            webClient.Headers.Add("Content-Type", "text/xml");
+            byte[] response = webClient.UploadData(requestUrl, "POST", buffer);
+            return Encoding.UTF8.GetString(response);
+        }
+
+        /// <summary>
+        /// Constructs the request URL.
+        /// </summary>
+        /// <param name="text">
+        /// The text.
+        /// </param>
+        /// <param name="lang">
+        /// The lang.
+        /// </param>
+        /// <returns>
+        /// The construct request url.
+        /// </returns>
+        private static string ConstructRequestUrl(string text, string lang)
+        {
+            if (string.IsNullOrEmpty(text))
+            {
+                return string.Empty;
+            }
+
+            lang = string.IsNullOrEmpty(lang) ? "en" : lang;
+
+            return "https://www.google.com/tbproxy/spell?lang={0}&text={1}".FormatWith(lang, text);
+        }
+
+        /// <summary>
+        /// Constructs the spell request content XML.
+        /// </summary>
+        /// <param name="text">
+        /// The text.
+        /// </param>
+        /// <returns>
+        /// The construct spell request content xml.
+        /// </returns>
+        private static string ConstructSpellRequestContentXml(string text)
+        {
+            var doc = new XmlDocument();
+            var declaration = doc.CreateXmlDeclaration("1.0", null, null);
+
+            doc.AppendChild(declaration);
+
+            var root = doc.CreateElement("spellrequest");
+
+            root.SetAttribute("textalreadyclipped", "0");
+            root.SetAttribute("ignoredups", "0");
+            root.SetAttribute("ignoredigits", "1");
+            root.SetAttribute("ignoreallcaps", "1");
+
+            doc.AppendChild(root);
+
+            var textElement = doc.CreateElement("text");
+
+            textElement.InnerText = text;
+            root.AppendChild(textElement);
+
+            return doc.InnerXml;
+        }
 
         /// <summary>
         /// Send an Email to the Newly Created User with
@@ -416,13 +636,14 @@ namespace YAF.Classes
         /// <param name="securityAnswer">
         /// The security answer.
         /// </param>
-        private void SendRegistrationNotificationToUser([NotNull] MembershipUser user, [NotNull] string pass, [NotNull] string securityAnswer)
+        private void SendRegistrationNotificationToUser(
+            [NotNull] MembershipUser user, [NotNull] string pass, [NotNull] string securityAnswer)
         {
             var notifyUser = new YafTemplateEmail();
 
             string subject =
-              this.Get<ILocalization>().GetText("COMMON", "NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT").FormatWith(
-                this.Get<YafBoardSettings>().Name);
+                this.Get<ILocalization>().GetText("COMMON", "NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT").FormatWith(
+                    this.Get<YafBoardSettings>().Name);
 
             notifyUser.TemplateParams["{user}"] = user.UserName;
             notifyUser.TemplateParams["{email}"] = user.Email;
@@ -448,8 +669,8 @@ namespace YAF.Classes
             var notifyAdmin = new YafTemplateEmail();
 
             string subject =
-              this.Get<ILocalization>().GetText("COMMON", "NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT").FormatWith(
-                this.Get<YafBoardSettings>().Name);
+                this.Get<ILocalization>().GetText("COMMON", "NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT").FormatWith(
+                    this.Get<YafBoardSettings>().Name);
 
             notifyAdmin.TemplateParams["{adminlink}"] = YafBuildLink.GetLinkNotEscaped(ForumPages.admin_admin, true);
             notifyAdmin.TemplateParams["{user}"] = user.UserName;
