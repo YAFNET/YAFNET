@@ -2756,7 +2756,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.LegacyDb.message_update(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.message_update(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The message_update.
             </summary>
@@ -2772,6 +2772,9 @@
             <param name="description">
             The description.
             </param>
+            <param name="status">
+            The status.
+            </param>
             <param name="subject">
             The subject.
             </param>
@@ -2784,8 +2787,11 @@
             <param name="isModeratorChanged">
             The is moderator changed.
             </param>
-            <param name="origMessage">
-            The orig Message.
+            <param name="overrideApproval">
+            The override approval.
+            </param>
+            <param name="originalMessage">
+            The original Message.
             </param>
             <param name="editedBy">
             UserId of who edited the message.
@@ -4150,7 +4156,7 @@
             The topic_prune.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.LegacyDb.topic_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Int64@)">
+        <member name="M:YAF.Classes.Data.LegacyDb.topic_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Int64@)">
             <summary>
             The topic_save.
             </summary>
@@ -4159,6 +4165,9 @@
             </param>
             <param name="subject">
             The subject.
+            </param>
+            <param name="status">
+            The status.
             </param>
             <param name="description">
             The description.
@@ -4191,7 +4200,7 @@
             The message id.
             </param>
             <returns>
-            The topic_save.
+            Returns the Topic ID
             </returns>
         </member>
         <member name="M:YAF.Classes.Data.LegacyDb.topic_simplelist(System.Int32,System.Int32)">
@@ -5311,14 +5320,6 @@
             The topic id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.LegacyDb.Readtopic_delete(System.Object)">
-            <summary>
-            Delete the Read Tracking
-            </summary>
-            <param name="trackingID">
-            The tracking id.
-            </param>
-        </member>
         <member name="M:YAF.Classes.Data.LegacyDb.User_LastRead(System.Object,System.DateTime)">
             <summary>
             Get the Global Last Read DateTime User
@@ -5356,14 +5357,6 @@
             </param>
             <param name="forumID">
             The forum id.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.LegacyDb.ReadForum_delete(System.Object)">
-            <summary>
-            Delete the Read Tracking
-            </summary>
-            <param name="trackingID">
-            The tracking id.
             </param>
         </member>
         <member name="M:YAF.Classes.Data.LegacyDb.ReadForum_lastread(System.Object,System.Object)">

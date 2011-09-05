@@ -802,7 +802,12 @@
         </member>
         <member name="P:YAF.Classes.YafBoardSettings.EnableTopicDescription">
             <summary>
-            Gets or sets a value indicating whether to enable topic dwscription.
+            Gets or sets a value indicating whether to enable topic description.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.EnableTopicStatus">
+            <summary>
+            Gets or sets a value indicating whether to enable topic status.
             </summary>
         </member>
         <member name="P:YAF.Classes.YafBoardSettings.JqueryUIThemeCDNHosted">
@@ -1646,6 +1651,24 @@
             Gets or sets AlbumImagesPerPage.
             </summary>
         </member>
+        <member name="P:YAF.Classes.YafBoardSettings.PopularTopicViews">
+            <summary>
+            Gets or sets sets the Number of Views a Topic must have to became 
+            Hot.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.PopularTopicReplys">
+            <summary>
+            Gets or sets the Number of Replys a Topic must have to became 
+            Hot.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.PopularTopicDays">
+            <summary>
+            Gets or sets the Number of Days a topic must have a Reply in t
+            remain Hot (Popular)
+            </summary>
+        </member>
         <member name="P:YAF.Classes.YafBoardSettings.AddDynamicPageMetaTags">
             <summary>
             Gets or sets a value indicating whether to AddDynamicPageMetaTags.
@@ -1666,9 +1689,14 @@
             Gets or sets IPInfo page Url.
             </summary>
         </member>
-        <member name="P:YAF.Classes.YafBoardSettings.IPLocatorPath">
+        <member name="P:YAF.Classes.YafBoardSettings.IPLocatorUrlPath">
             <summary>
             Gets or sets IP Locator Path.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.IPLocatorResultsMapping">
+            <summary>
+            Gets or sets IP Locator Results Mapping.
             </summary>
         </member>
         <member name="P:YAF.Classes.YafBoardSettings.ForumEmail">
@@ -1839,6 +1867,11 @@
         <member name="P:YAF.Classes.YafBoardSettings.UserBoxRankImage">
             <summary>
             Gets or sets UserBoxRankImage.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.UserBoxCountryImage">
+            <summary>
+            Gets or sets UserBoxCountryImage.
             </summary>
         </member>
         <member name="P:YAF.Classes.YafBoardSettings.UserBoxRank">
