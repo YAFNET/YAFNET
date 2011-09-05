@@ -45,12 +45,12 @@ namespace YAF.Controls
         /// <summary>
         ///   The _items.
         /// </summary>
-        private readonly List<InternalPopMenuItem> _items = new List<InternalPopMenuItem>();
+        protected readonly List<InternalPopMenuItem> _items = new List<InternalPopMenuItem>();
 
         /// <summary>
         ///   The _control.
         /// </summary>
-        private string _control = string.Empty;
+        private string _attachToControl = string.Empty;
 
         #endregion
 
@@ -75,21 +75,39 @@ namespace YAF.Controls
 
         #endregion
 
+				public bool AutoAttach
+				{
+					get
+					{
+						if (ViewState["AutoAttach"] == null)
+						{
+							return true;
+						}
+
+						return (bool)ViewState["AutoAttach"];
+					}
+
+					set
+					{
+						ViewState["AutoAttach"] = value;
+					}
+				}
+
         #region Properties
 
         /// <summary>
         ///   Gets or sets Control.
         /// </summary>
-        public string Control
+        public string AttachToControl
         {
             get
             {
-                return this._control;
+                return this._attachToControl;
             }
 
             set
             {
-                this._control = value;
+                this._attachToControl = value;
             }
         }
 
@@ -319,7 +337,26 @@ namespace YAF.Controls
             base.Render(writer);
         }
 
-        /// <summary>
+				protected override void OnPreRender(EventArgs e)
+				{
+					base.OnPreRender(e);
+
+					if (this.AutoAttach && this.AttachToControl.IsSet())
+					{
+						var attachedControl = this.Parent.FindControl(this.AttachToControl) as Control;
+
+						if (attachedControl != null && attachedControl is WebControl)
+						{
+							this.Attach(attachedControl as WebControl);
+						}
+						else if (attachedControl != null && attachedControl is UserLink)
+						{
+							this.Attach(attachedControl as UserLink);
+						}
+					}
+				}
+
+    	/// <summary>
         /// The pop menu_ init.
         /// </summary>
         /// <param name="sender">

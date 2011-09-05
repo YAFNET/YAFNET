@@ -195,11 +195,11 @@
 <div id="DivSmartScroller">
     <YAF:SmartScroller ID="SmartScroller1" runat="server" />
 </div>
-<YAF:PopMenu ID="ShareMenu" runat="server" Control="ShareLink" />
+<YAF:PopMenu ID="ShareMenu" runat="server" AttachToControl="ShareLink" />
 <asp:UpdatePanel ID="PopupMenuUpdatePanel" runat="server">
     <ContentTemplate>
-        <YAF:PopMenu runat="server" ID="OptionsMenu" Control="OptionsLink" />
+        <YAF:PopMenu runat="server" ID="OptionsMenu" AttachToControl="OptionsLink" />
         <span id="WatchTopicID" runat="server" visible="false"></span>
     </ContentTemplate>
 </asp:UpdatePanel>
-<YAF:PopMenu ID="ViewMenu" runat="server" Control="ViewLink" />
+<YAF:PopMenu ID="ViewMenu" runat="server" AttachToControl="ViewLink" />

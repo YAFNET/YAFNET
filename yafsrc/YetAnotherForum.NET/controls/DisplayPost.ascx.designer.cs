@@ -58,6 +58,24 @@ namespace YAF.Controls {
         protected global::YAF.Controls.DisplayDateTime DisplayDateTime;
         
         /// <summary>
+        /// ActionLink control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink ActionLink;
+        
+        /// <summary>
+        /// Panel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.PopupPanel Panel;
+        
+        /// <summary>
         /// Retweet control.
         /// </summary>
         /// <remarks>

@@ -298,8 +298,6 @@ namespace YAF.Controls
                           "if (confirm('{0}')) {1}".FormatWith(this.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE"), "{postbackcode}"));
                     }
                 }
-
-                this.PopMenu1.Attach(this.UserProfileLink);
             }
 
             this.NameCell.ColSpan = int.Parse(this.GetIndentSpan());
