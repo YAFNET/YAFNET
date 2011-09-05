@@ -52,6 +52,19 @@
             <asp:TextBox ID="From" runat="server" CssClass="edit" Width="400" />
         </td>
     </tr>
+    <tr id="StatusRow" visible="false" runat="server">
+		<td class="postformheader" width="20%"  colspan="2">
+			<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="Status" />
+            <br />
+            <asp:DropDownList ID="TopicStatus" runat="server" CssClass="edit" Width="400">
+              <asp:ListItem Text="INFORMATIC" Value="informatic"></asp:ListItem>
+              <asp:ListItem Text="QUESTION" Value="question"></asp:ListItem>
+              <asp:ListItem Text="SOLVED" Value="solved"></asp:ListItem>
+              <asp:ListItem Text="ISSUE" Value="issue"></asp:ListItem>
+              <asp:ListItem Text="FIXED" Value="fixed"></asp:ListItem>
+            </asp:DropDownList>
+		</td>
+	</tr>	
     <tr id="PriorityRow" runat="server">
         <td class="postformheader" width="20%" colspan="2">
             <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="priority" />
