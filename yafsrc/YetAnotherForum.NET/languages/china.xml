@@ -4409,6 +4409,7 @@ Spoiler Content
     <Resource tag="OUTDENT">突出</Resource>
     <Resource tag="RIGHT">右对齐</Resource>
     <Resource tag="SPELL">拼写检查</Resource>
+    <Resource tag="SPELL_CORRECT">There are no incorrectly spelt words.</Resource>
     <Resource tag="UNDERLINE">下划线</Resource>
     <Resource tag="UNORDERED">无序列表</Resource>
   </page>

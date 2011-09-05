@@ -4500,6 +4500,7 @@ Spoiler Content
     <Resource tag="OUTDENT">Отступ</Resource>
     <Resource tag="RIGHT">Выровнять справа</Resource>
     <Resource tag="SPELL">Проверить правописание</Resource>
+    <Resource tag="SPELL_CORRECT">There are no incorrectly spelt words.</Resource>
     <Resource tag="UNDERLINE">Подчеркнуть</Resource>
     <Resource tag="UNORDERED">Несортированный список</Resource>
   </page>

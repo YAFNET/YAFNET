@@ -4408,6 +4408,7 @@ Spoiler Content
     <Resource tag="OUTDENT">Utdrag</Resource>
     <Resource tag="RIGHT">Högerjustera</Resource>
     <Resource tag="SPELL">Stavningskontrollera</Resource>
+    <Resource tag="SPELL_CORRECT">There are no incorrectly spelt words.</Resource>
     <Resource tag="UNDERLINE">Understruken</Resource>
     <Resource tag="UNORDERED">Osorterad lista</Resource>
   </page>

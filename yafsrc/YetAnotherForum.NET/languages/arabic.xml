@@ -4228,6 +4228,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="OUTDENT">محاذاة للخارج</Resource>
     <Resource tag="RIGHT">محاذاة لليمين </Resource>
     <Resource tag="SPELL">تدقيق إملائي</Resource>
+    <Resource tag="SPELL_CORRECT">There are no incorrectly spelt words.</Resource>
     <Resource tag="UNDERLINE">تحته خط</Resource>
     <Resource tag="UNORDERED">قائمة غير مرتبة</Resource>
   </page>

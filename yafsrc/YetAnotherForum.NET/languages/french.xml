@@ -4407,6 +4407,7 @@ Spoiler Content
     <Resource tag="OUTDENT">Désindenter</Resource>
     <Resource tag="RIGHT">Aligner à droite</Resource>
     <Resource tag="SPELL">Vérifier l'orthographe</Resource>
+    <Resource tag="SPELL_CORRECT">There are no incorrectly spelt words.</Resource>
     <Resource tag="UNDERLINE">Souligner</Resource>
     <Resource tag="UNORDERED">Liste non ordonnée</Resource>
   </page>

@@ -4406,6 +4406,7 @@ Spoiler Content
     <Resource tag="OUTDENT">Desdentar</Resource>
     <Resource tag="RIGHT">Direita</Resource>
     <Resource tag="SPELL">Verificar Ortografia</Resource>
+    <Resource tag="SPELL_CORRECT">There are no incorrectly spelt words.</Resource>
     <Resource tag="UNDERLINE">Sublinhado</Resource>
     <Resource tag="UNORDERED">Lista Sem Ordem</Resource>
   </page>

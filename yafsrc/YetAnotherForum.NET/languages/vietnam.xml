@@ -4391,6 +4391,7 @@ Spoiler Content
     <Resource tag="OUTDENT">Outdent</Resource>
     <Resource tag="RIGHT">Canh lề phảit</Resource>
     <Resource tag="SPELL">Kiểm tra ngữ pháp</Resource>
+    <Resource tag="SPELL_CORRECT">There are no incorrectly spelt words.</Resource>
     <Resource tag="UNDERLINE">Gạch chân</Resource>
     <Resource tag="UNORDERED">Unordered List</Resource>
   </page>

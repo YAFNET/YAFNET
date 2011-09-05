@@ -4390,6 +4390,7 @@ Spoiler Content
     <Resource tag="OUTDENT">Dışarıya Doğru</Resource>
     <Resource tag="RIGHT">Sağa Doğru Ayarla</Resource>
     <Resource tag="SPELL">İmla Kontrol Et</Resource>
+    <Resource tag="SPELL_CORRECT">There are no incorrectly spelt words.</Resource>
     <Resource tag="UNDERLINE">Altını Çiz</Resource>
     <Resource tag="UNORDERED">Düzensiz Liste</Resource>
   </page>

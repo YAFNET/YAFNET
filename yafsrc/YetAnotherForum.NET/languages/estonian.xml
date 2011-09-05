@@ -4407,6 +4407,7 @@ Spoiler Content
     <Resource tag="OUTDENT">Väline taandrida</Resource>
     <Resource tag="RIGHT">Joonda paremale</Resource>
     <Resource tag="SPELL">Kontrolli õigekirja</Resource>
+    <Resource tag="SPELL_CORRECT">There are no incorrectly spelt words.</Resource>
     <Resource tag="UNDERLINE">Allajoonitud</Resource>
     <Resource tag="UNORDERED">Järjestamata loend</Resource>
   </page>

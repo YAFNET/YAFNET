@@ -289,7 +289,6 @@
     <Resource tag="GY_MEDIUM">~/flags/gy.png</Resource>
     <Resource tag="HK_MEDIUM">~/flags/hk.png</Resource>
   </page>
-  us_medium.ico
   <page name="PAGE_OVERRIDE">
     <!--Resource tag="FORUM">~/forum.ascx</Resource-->
   </page>
