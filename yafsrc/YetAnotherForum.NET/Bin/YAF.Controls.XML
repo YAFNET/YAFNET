@@ -285,6 +285,19 @@
               The userid of this user for the link
             </summary>
         </member>
+        <member name="T:YAF.Controls.CountryListBox">
+            <summary>
+            Custom DropDown List Controls with Images
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.CountryListBox.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            Add Flag Images to Items
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+        </member>
         <member name="T:YAF.Controls.ForumJump">
             <summary>
             Summary description for ForumJump.
@@ -754,6 +767,7 @@
             The search.
             </param>
             <returns>
+            Returns the regex.
             </returns>
         </member>
         <member name="M:YAF.Controls.UserBox.Render(System.Web.UI.HtmlTextWriter)">
@@ -891,6 +905,17 @@
             The match user box rank images.
             </returns>
         </member>
+        <member name="M:YAF.Controls.UserBox.MatchUserBoxCountryImages(System.String)">
+            <summary>
+            The match user box country images.
+            </summary>
+            <param name="userBox">
+            The user box.
+            </param>
+            <returns>
+            The match user box country images.
+            </returns>
+        </member>
         <member name="M:YAF.Controls.UserBox.MatchUserBoxThanksFrom(System.String)">
             <summary>
             The match user box thanks from.
@@ -921,7 +946,7 @@
             The user box.
             </param>
             <returns>
-            The remove empty dividers.
+            Returns the emptyd string
             </returns>
         </member>
         <member name="P:YAF.Controls.UserBox.DataRow">
@@ -974,7 +999,7 @@
               The _items.
             </summary>
         </member>
-        <member name="F:YAF.Controls.PopMenu._control">
+        <member name="F:YAF.Controls.PopMenu._attachToControl">
             <summary>
               The _control.
             </summary>
@@ -1104,7 +1129,7 @@
               The item click.
             </summary>
         </member>
-        <member name="P:YAF.Controls.PopMenu.Control">
+        <member name="P:YAF.Controls.PopMenu.AttachToControl">
             <summary>
               Gets or sets Control.
             </summary>
@@ -3768,6 +3793,71 @@
             Gets or sets Param2.
             </summary>
         </member>
+        <member name="T:YAF.Controls.PopupPanel">
+            <summary>
+            The popup panel.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.PopupPanel.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Controls.PopupPanel"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.PopupPanel.Attach(System.Web.UI.WebControls.WebControl)">
+            <summary>
+            The attach.
+            </summary>
+            <param name="ctl">
+            The ctl.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.PopupPanel.Attach(YAF.Controls.UserLink)">
+            <summary>
+            The attach.
+            </summary>
+            <param name="userLinkControl">
+            The user link control.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.PopupPanel.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The render.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.PopupPanel.PopupPanel_Init(System.Object,System.EventArgs)">
+            <summary>
+            The pop menu_ init.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="P:YAF.Controls.PopupPanel.AttachToControl">
+            <summary>
+              Gets or sets Control.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.PopupPanel.ControlOnClick">
+            <summary>
+              Gets ControlOnClick.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.PopupPanel.ControlOnMouseOver">
+            <summary>
+              Gets ControlOnMouseOver.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.PopupPanel.InternalCssClass">
+            <summary>
+            Gets InternalCssClass.
+            </summary>
+        </member>
         <member name="T:YAF.Controls.Statistics.ActiveDiscussions">
             <summary>
             Control to display last active topics.
@@ -4077,7 +4167,7 @@
         </member>
         <member name="T:YAF.Controls.IconLegend">
             <summary>
-            Summary description for ForumUsers.
+            Icon Legend Control to Render Topic Icons
             </summary>
         </member>
         <member name="M:YAF.Controls.IconLegend.#ctor">

@@ -2114,6 +2114,14 @@
             True/False whether username/password match what is on database.
             </returns>
         </member>
+        <member name="M:YAF.Providers.Membership.YafMembershipProvider.UpgradeMembership(System.Int32,System.Int32)">
+            <summary>
+            The custom method is implemented in YAF provider only to fix various issues related to it.
+            </summary>
+            <param name="user">
+            <see cref="T:System.Web.Security.MembershipUser"/> object
+            </param>
+        </member>
         <member name="M:YAF.Providers.Membership.YafMembershipProvider.EncodeString(System.String,System.Int32,System.String,System.Boolean,System.Boolean,System.String,System.String,System.Boolean)">
             <summary>
             Encrypt string to hash method.
@@ -2255,6 +2263,11 @@
         <member name="P:YAF.Providers.Membership.YafMembershipProvider.ApplicationName">
             <summary>
             Gets or sets ApplicationName.
+            </summary>
+        </member>
+        <member name="P:YAF.Providers.Membership.YafMembershipProvider.Description">
+            <summary>
+            Gets or sets provider Description. The standard string used to identify provider as a build-in one.
             </summary>
         </member>
         <member name="P:YAF.Providers.Membership.YafMembershipProvider.EnablePasswordReset">
