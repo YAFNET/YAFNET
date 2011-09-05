@@ -7,7 +7,7 @@
     <EditJS />
     <DisplayCSS />
     <SearchRegex>\[youtube\](?&lt;inner&gt;http://(?&lt;prefix&gt;[A-Za-z][A-Za-z][A-Za-z]?\.)?youtube.com/watch\?v=(?&lt;id&gt;[0-9A-Za-z-_]{11}))[^[]*\[/youtube\]|\[youtube\](?&lt;inner&gt;http://(?&lt;prefix&gt;[A-Za-z][A-Za-z][A-Za-z]?\.)?youtu.be/(?&lt;id&gt;[0-9A-Za-z-_]{11}))\[/youtube\]</SearchRegex>
-    <ReplaceRegex>&lt;!-- BEGIN youtube --&gt;&lt;iframe width="560" height="349" src="http://${prefix}youtube.com/embed/${id}?hd=1" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;&lt;!-- END youtube --&gt;</ReplaceRegex>
+    <ReplaceRegex>&lt;iframe width="560" height="350" src="http://${prefix}youtube.com/embed/${id}?hd=1" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;</ReplaceRegex>
     <Variables>id;prefix</Variables>
     <UseModule>false</UseModule>
     <ModuleClass />
