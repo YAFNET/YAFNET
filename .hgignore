@@ -21,8 +21,10 @@ Desktop.ini
 *.Log
  
 # c-sharp
-#ProjectName/bin
-#ProjectName/obj
+**\obj
+yafsrc\YAF.Classes\YAF.Classes.UnitTests\bin
+yafsrc\YetAnotherForum.NET\web.config
+yafsrc\YetAnotherForum.NET\remoteweb.config
 *.user
 *.suo
 _ReSharper.*
