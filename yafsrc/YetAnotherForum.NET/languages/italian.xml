@@ -4407,6 +4407,7 @@ Spoiler Content
     <Resource tag="OUTDENT">Rientro a destra</Resource>
     <Resource tag="RIGHT">Allinea a destra</Resource>
     <Resource tag="SPELL">Correttore ortografico</Resource>
+    <Resource tag="SPELL_CORRECT">There are no incorrectly spelt words.</Resource>
     <Resource tag="UNDERLINE">Sottolineato</Resource>
     <Resource tag="UNORDERED">Elenco puntato</Resource>
   </page>

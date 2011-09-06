@@ -4447,6 +4447,7 @@ Spoiler Content
     <Resource tag="OUTDENT">הזחה החוצה</Resource>
     <Resource tag="RIGHT">צמוד לימין</Resource>
     <Resource tag="SPELL">בדיקת איות</Resource>
+    <Resource tag="SPELL_CORRECT">There are no incorrectly spelt words.</Resource>
     <Resource tag="UNDERLINE">קו תחתון</Resource>
     <Resource tag="UNORDERED">רשימה לא ממוספרת</Resource>
   </page>

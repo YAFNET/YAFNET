@@ -4543,6 +4543,7 @@ Spoiler Content
     <Resource tag="OUTDENT">Outdent </Resource>
     <Resource tag="RIGHT">Lygiuoti dešinėje </Resource>
     <Resource tag="SPELL">Rašybos tikrinimas </Resource>
+    <Resource tag="SPELL_CORRECT">There are no incorrectly spelt words.</Resource>
     <Resource tag="UNDERLINE">Pabrauktas </Resource>
     <Resource tag="UNORDERED">Suženklintą sąrašą </Resource>
   </page>

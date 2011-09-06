@@ -4339,6 +4339,7 @@ Spoiler Content
     <Resource tag="OUTDENT">Inspringing verkleinen</Resource>
     <Resource tag="RIGHT">Rechts uitlijnen</Resource>
     <Resource tag="SPELL">Spellingscontrole</Resource>
+    <Resource tag="SPELL_CORRECT">There are no incorrectly spelt words.</Resource>
     <Resource tag="UNDERLINE">Onderstrepen</Resource>
     <Resource tag="UNORDERED">Opsommingstekens</Resource>
   </page>

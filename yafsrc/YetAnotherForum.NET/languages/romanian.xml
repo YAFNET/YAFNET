@@ -4392,6 +4392,7 @@ Spoiler Content
     <Resource tag="OUTDENT">Marire</Resource>
     <Resource tag="RIGHT">Aliniaza la dreapta</Resource>
     <Resource tag="SPELL">Verifica gramatical</Resource>
+    <Resource tag="SPELL_CORRECT">There are no incorrectly spelt words.</Resource>
     <Resource tag="UNDERLINE">Subliniat</Resource>
     <Resource tag="UNORDERED">Lista neordonata</Resource>
   </page>

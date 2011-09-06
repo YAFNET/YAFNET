@@ -4421,6 +4421,7 @@ Spoiler Content
     <Resource tag="OUTDENT">Zwiększ wcięcie</Resource>
     <Resource tag="RIGHT">Wyrównaj do Prawej</Resource>
     <Resource tag="SPELL">Sprawdź pisownię</Resource>
+    <Resource tag="SPELL_CORRECT">There are no incorrectly spelt words.</Resource>
     <Resource tag="UNDERLINE">Podkreślenie</Resource>
     <Resource tag="UNORDERED">Lista nie numerowana</Resource>
   </page>

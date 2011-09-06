@@ -133,7 +133,7 @@ namespace YAF.Controls
             {
                 textMessageLink.ToolTip = this.GetText("DEFAULT", "GO_LASTUNREAD_POST");
                 textMessageLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-                    ForumPages.posts, "m={0}&find=unread", currentRow["TopicID"]);
+                    ForumPages.posts, "t={0}&find=unread", currentRow["TopicID"]);
             }
 
             imageMessageLink.NavigateUrl = messageUrl;

@@ -4408,6 +4408,7 @@ Spoiler Content
     <Resource tag="OUTDENT">Outdent</Resource>
     <Resource tag="RIGHT">Højre stillet</Resource>
     <Resource tag="SPELL">Udfør Stavekontrol</Resource>
+    <Resource tag="SPELL_CORRECT">There are no incorrectly spelt words.</Resource>
     <Resource tag="UNDERLINE">Understreget</Resource>
     <Resource tag="UNORDERED">Usorteret Liste</Resource>
   </page>

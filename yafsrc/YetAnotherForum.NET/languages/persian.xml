@@ -4391,6 +4391,7 @@ Spoiler Content
     <Resource tag="OUTDENT">بیرون رفتگی</Resource>
     <Resource tag="RIGHT">سمت راست</Resource>
     <Resource tag="SPELL">بررسی املاء کلمات</Resource>
+    <Resource tag="SPELL_CORRECT">There are no incorrectly spelt words.</Resource>
     <Resource tag="UNDERLINE">زیر خط دار</Resource>
     <Resource tag="UNORDERED">لیست نا مرتب</Resource>
   </page>

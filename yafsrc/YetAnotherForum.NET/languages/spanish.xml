@@ -4408,6 +4408,7 @@ Spoiler Content
     <Resource tag="OUTDENT">No indentar</Resource>
     <Resource tag="RIGHT">Alinear a la derecha</Resource>
     <Resource tag="SPELL">Revisar ortografía</Resource>
+    <Resource tag="SPELL_CORRECT">There are no incorrectly spelt words.</Resource>
     <Resource tag="UNDERLINE">Subrayar</Resource>
     <Resource tag="UNORDERED">Lista no ordenada</Resource>
   </page>
