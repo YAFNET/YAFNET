@@ -270,7 +270,7 @@
               The name of the user for this profile link
             </summary>
         </member>
-        <member name="P:YAF.Controls.UserLabel.ReplaceName">
+        <member name="P:YAF.Controls.UserLabel.CrawlerName">
             <summary>
               The replace name of this user for the link. Attention! Use it ONLY for crawlers. 
             </summary>
@@ -999,7 +999,7 @@
               The _items.
             </summary>
         </member>
-        <member name="F:YAF.Controls.PopMenu._attachToControl">
+        <member name="F:YAF.Controls.PopMenu._control">
             <summary>
               The _control.
             </summary>
@@ -1129,7 +1129,7 @@
               The item click.
             </summary>
         </member>
-        <member name="P:YAF.Controls.PopMenu.AttachToControl">
+        <member name="P:YAF.Controls.PopMenu.Control">
             <summary>
               Gets or sets Control.
             </summary>

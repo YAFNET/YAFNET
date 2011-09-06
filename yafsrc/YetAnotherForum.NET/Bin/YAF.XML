@@ -9543,7 +9543,7 @@
         </member>
         <member name="T:YAF.Pages.search">
             <summary>
-            Summary description for topics.
+            The Search Page.
             </summary>
         </member>
         <member name="F:YAF.Pages.search.PageLinks">
@@ -9767,13 +9767,13 @@
         </member>
         <member name="M:YAF.Pages.search.IsSearchTextTooSmall(System.String)">
             <summary>
-            The is search text too small.
+            Check if the  search text too small.
             </summary>
             <param name="text">
             The text.
             </param>
             <returns>
-            The is search text too small.
+            Returns if the Text is to small or not
             </returns>
         </member>
         <member name="M:YAF.Pages.search.IsValidSearchRequest">
@@ -9781,7 +9781,7 @@
             The is valid search request.
             </summary>
             <returns>
-            The is valid search request.
+            Returns if its a valid search request.
             </returns>
         </member>
         <member name="M:YAF.Pages.search.IsValidSearchText(System.String)">
@@ -9792,7 +9792,7 @@
             The search text.
             </param>
             <returns>
-            The is valid search text.
+            Returns if the search text is valid.
             </returns>
         </member>
         <member name="M:YAF.Pages.search.OnUpdateHistoryNavigate(System.Object,nStuff.UpdateControls.HistoryEventArgs)">
@@ -18433,24 +18433,6 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Controls.DisplayPost.ActionLink">
-            <summary>
-            ActionLink control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Controls.DisplayPost.Panel">
-            <summary>
-            Panel control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
         <member name="F:YAF.Controls.DisplayPost.Retweet">
             <summary>
             Retweet control.
@@ -20104,7 +20086,7 @@
             The post reply handle edit post.
             </summary>
             <returns>
-            The post reply handle edit post.
+            Returns the Message Id
             </returns>
         </member>
         <member name="M:YAF.Pages.postmessage.PostReplyHandleNewPost(System.Int64@)">
@@ -20115,7 +20097,7 @@
             The topic Id.
             </param>
             <returns>
-            The post reply handle new post.
+            Returns the Message Id.
             </returns>
         </member>
         <member name="M:YAF.Pages.postmessage.PostReplyHandleReplyToTopic(System.Boolean)">
@@ -20126,7 +20108,7 @@
             The is Spam Approved.
             </param>
             <returns>
-            The post reply handle reply to topic.
+            Returns the Message Id.
             </returns>
         </member>
         <member name="M:YAF.Pages.postmessage.PostReply_Click(System.Object,System.EventArgs)">
@@ -20134,9 +20116,16 @@
             Handles the PostReply click including: Replying, Editing and New post.
             </summary>
             <param name="sender">
+            The Sender Object.
             </param>
             <param name="e">
+            The Event Arguments.
             </param>
+        </member>
+        <member name="F:YAF.Pages.postmessage.spamApproved">
+            <summary>
+            The Spam Approved Indicator
+            </summary>
         </member>
         <member name="M:YAF.Pages.postmessage.IsPostSpam">
             <summary>
@@ -20151,10 +20140,10 @@
             The preview_ click.
             </summary>
             <param name="sender">
-            The sender.
+            The Sender Object.
             </param>
             <param name="e">
-            The e.
+            The Event Arguments.
             </param>
         </member>
         <member name="M:YAF.Pages.postmessage.CanEditPostCheck(System.Data.DataRow)">
@@ -20247,11 +20236,13 @@
             Returns true if the topic is set to watch for userId
             </summary>
             <param name="userId">
+            The user Id.
             </param>
             <param name="topicId">
             The topic Id.
             </param>
             <returns>
+            The topic watched id.
             </returns>
         </member>
         <member name="M:YAF.Pages.postmessage.UpdateWatchTopic(System.Int32,System.Int32)">
@@ -20259,8 +20250,10 @@
             Updates Watch Topic based on controls/settings for user...
             </summary>
             <param name="userId">
+            The user Id.
             </param>
             <param name="topicId">
+            The topic Id.
             </param>
         </member>
         <member name="M:YAF.Pages.postmessage.WatchTopic(System.Int32,System.Int32)">
@@ -20268,6 +20261,7 @@
             Checks if this topic is watched, if not, adds it.
             </summary>
             <param name="userId">
+            The user Id.
             </param>
             <param name="topicId">
             The topic Id.
@@ -29897,10 +29891,10 @@
             <summary>
             Javascript events for Album pages.
             </summary>
-            <param name="AlbumEmptyTitle">
+            <param name="albumEmptyTitle">
             The Album Empty Title.
             </param>
-            <param name="ImageEmptyCaption">
+            <param name="imageEmptyCaption">
             The Image Empty Caption.
             </param>
             <returns>
@@ -29933,6 +29927,26 @@
             </param>
             <param name="culture">
             Current Culture
+            </param>
+            <returns>
+            The load js.
+            </returns>
+        </member>
+        <member name="M:YAF.Utilities.JavaScriptBlocks.SpellCheckerLoadJs(System.String,System.String,System.String,System.String)">
+            <summary>
+            The spell checker load js.
+            </summary>
+            <param name="editorClientId">
+            The Editor client Id.
+            </param>
+            <param name="spellCheckButtonId">
+            The spell Check Button Id.
+            </param>
+            <param name="cultureCode">
+            The culture Code.
+            </param>
+            <param name="spellCorrectTxt">
+            The spell Correct Info Warning Text.
             </param>
             <returns>
             The load js.
@@ -29971,6 +29985,7 @@
             Load Go to Anchor
             </summary>
             <param name="anchor">
+            The anchor.
             </param>
             <returns>
             The load goto anchor.
@@ -30103,7 +30118,6 @@
             <summary>
              Gets the If asynchronous callback encounters any problem, this javascript function will be called.
             </summary>
-            <returns></returns>
         </member>
         <member name="T:YAF.Pages.Admin.users">
             <summary>
@@ -39682,6 +39696,26 @@
             Class for JS jQuery  Ajax Methods
             </summary>
         </member>
+        <member name="M:YAF.Classes.YafAjax.SpellCheck(System.String,System.String,System.String,System.String)">
+            <summary>
+            Spell check via google api.
+            </summary>
+            <param name="text">
+            The text to check.
+            </param>
+            <param name="lang">
+            The langauage of the text.
+            </param>
+            <param name="engine">
+            The engine.
+            </param>
+            <param name="suggest">
+            The suggest words.
+            </param>
+            <returns>
+            Returns List of Suggest Words.
+            </returns>
+        </member>
         <member name="M:YAF.Classes.YafAjax.LoginFacebookUser(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean)">
             <summary>
             SSO Login From Facebook
@@ -39810,6 +39844,73 @@
             </param>
             <returns>
             Returns ThankYou Info
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.YafAjax.GetListOfSuggestWords(System.String,System.String)">
+            <summary>
+            Gets the list of suggest words.
+            </summary>
+            <param name="xml">
+            The XML.
+            </param>
+            <param name="suggest">
+            The suggest.
+            </param>
+            <returns>
+            The get list of suggest words.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.YafAjax.GetListOfMisspelledWords(System.String,System.String)">
+            <summary>
+            Gets the list of misspelled words.
+            </summary>
+            <param name="xml">
+            The XML.
+            </param>
+            <param name="text">
+            The text.
+            </param>
+            <returns>
+            The get list of misspelled words.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.YafAjax.GetSpellCheckRequest(System.String,System.String)">
+            <summary>
+            Requests the spell check and get the result back.
+            </summary>
+            <param name="text">
+            The text.
+            </param>
+            <param name="lang">
+            The lang.
+            </param>
+            <returns>
+            The get spell check request.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.YafAjax.ConstructRequestUrl(System.String,System.String)">
+            <summary>
+            Constructs the request URL.
+            </summary>
+            <param name="text">
+            The text.
+            </param>
+            <param name="lang">
+            The lang.
+            </param>
+            <returns>
+            The construct request url.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.YafAjax.ConstructSpellRequestContentXml(System.String)">
+            <summary>
+            Constructs the spell request content XML.
+            </summary>
+            <param name="text">
+            The text.
+            </param>
+            <returns>
+            The construct spell request content xml.
             </returns>
         </member>
         <member name="M:YAF.Classes.YafAjax.SendRegistrationNotificationToUser(System.Web.Security.MembershipUser,System.String,System.String)">
