@@ -1504,7 +1504,7 @@
     <Resource tag="TITLE">Изображения из альбома</Resource>
   </page>
   <page name="APPROVE">
-    <Resource tag="EMAIL_VERIFIED">Ваш адрес электронной почты не был проверен.</Resource>
+    <Resource tag="EMAIL_VERIFIED">Ваш адрес электронной почты был успешно подтверждён.</Resource>
     <Resource tag="EMAIL_VERIFY_FAILED">Невозможно проверить адрес электронной почты.</Resource>
     <Resource tag="ENTER_KEY">Введите код подтверждения</Resource>
     <Resource tag="TITLE">Проверить адрес Email</Resource>
@@ -4500,7 +4500,7 @@ Spoiler Content
     <Resource tag="OUTDENT">Отступ</Resource>
     <Resource tag="RIGHT">Выровнять справа</Resource>
     <Resource tag="SPELL">Проверить правописание</Resource>
-    <Resource tag="SPELL_CORRECT">There are no incorrectly spelt words.</Resource>
+    <Resource tag="SPELL_CORRECT">Все слова проверены на орфографию.</Resource>
     <Resource tag="UNDERLINE">Подчеркнуть</Resource>
     <Resource tag="UNORDERED">Несортированный список</Resource>
   </page>
