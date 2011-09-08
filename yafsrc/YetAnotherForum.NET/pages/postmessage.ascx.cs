@@ -312,7 +312,7 @@ namespace YAF.Pages
                 return false;
             }
           
-            if (this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().AllowCreateTopicsSameName) && LegacyDb.topic_findduplicate(this.TopicSubjectTextBox.Text.Trim()) == 1 && this.TopicID == null &&
+            if (!this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().AllowCreateTopicsSameName) && LegacyDb.topic_findduplicate(this.TopicSubjectTextBox.Text.Trim()) == 1 && this.TopicID == null &&
                 this.EditMessageID == null)
             {
                 this.PageContext.AddLoadMessage(this.GetText("SUBJECT_DUPLICATE"));
