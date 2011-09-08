@@ -743,8 +743,8 @@ namespace YAF.Pages
             YafContext.Current.PageElements.RegisterJsBlockStartup(
                 "facebookPostJs",
                 JavaScriptBlocks.FacebookPostJs(
-                    message,
-                    description,
+                    Microsoft.JScript.GlobalObject.escape(message),
+                    Microsoft.JScript.GlobalObject.escape(description),
                     this.Get<HttpRequestBase>().Url.ToString(),
                     "{0}/YAFLogo.jpg".FormatWith(
                         Path.Combine(YafForumInfo.ForumBaseUrl, YafBoardFolders.Current.Images)),
