@@ -21,15 +21,15 @@ namespace YAF.Controls
 {
   #region Using
 
-  using System;
-  using System.Web.UI;
-
-  using YAF.Core; 
-  using YAF.Core.Services;
-  using YAF.Utils;
-  using YAF.Types;
-  using YAF.Types.Constants;
-  using YAF.Types.Interfaces;
+    using System;
+    using System.Web.UI;
+    using YAF.Classes;
+    using YAF.Core;
+    using YAF.Core.Services;
+    using YAF.Types;
+    using YAF.Types.Constants;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
 
   #endregion
 
@@ -40,26 +40,39 @@ namespace YAF.Controls
   {
     #region Properties
 
-    /// <summary>
-    ///   Make the link target "blank" to open in a new window.
-    /// </summary>
-    public bool BlankTarget
+      /// <summary>
+      /// Gets or sets a value indicating whether 
+      /// Make the link target "blank" to open in a new window.
+      /// </summary>
+      public bool BlankTarget
     {
       get
       {
-        if (this.ViewState["BlankTarget"] != null)
-        {
-          return Convert.ToBoolean(this.ViewState["BlankTarget"]);
-        }
-
-        return false;
+          return this.ViewState["BlankTarget"] != null && Convert.ToBoolean(this.ViewState["BlankTarget"]);
       }
 
-      set
+        set
       {
         this.ViewState["BlankTarget"] = value;
       }
     }
+
+      /// <summary>
+      ///   Gets or sets a Replace Name
+      /// </summary>
+      [CanBeNull]
+      public string ReplaceName
+      {
+          get
+          {
+              return this.ViewState["ReplaceName"] != null ? this.ViewState["ReplaceName"].ToString() : string.Empty;
+          }
+
+          set
+          {
+              this.ViewState["ReplaceName"] = value;
+          }
+      }
 
     #endregion
 
@@ -73,7 +86,7 @@ namespace YAF.Controls
     /// </param>
     protected override void OnPreRender([NotNull] EventArgs e)
     {
-      if (this.PageContext.BoardSettings.EnableIrkoo && !this.PageContext.BoardSettings.ShowIrkooRepOnlyInTopics)
+        if (this.Get<YafBoardSettings>().EnableIrkoo && !this.Get<YafBoardSettings>().ShowIrkooRepOnlyInTopics)
       {
         YafContext.Current.PageElements.RegisterJsBlockStartup("IrkooMethods", YafIrkoo.IrkJsCode());
       }
@@ -87,11 +100,13 @@ namespace YAF.Controls
     /// </param>
     protected override void Render([NotNull] HtmlTextWriter output)
     {
-
        string displayName = this.Get<IUserDisplayName>().GetName(this.UserID);
 
-      if (this.UserID != -1 && displayName.IsSet())
-      {
+        if (this.UserID == -1 || !displayName.IsSet())
+        {
+            return;
+        }
+
         // is this the guest user? If so, guest's don't have a profile.
         bool isGuest = UserMembershipHelper.IsGuestUser(this.UserID);
 
@@ -99,48 +114,57 @@ namespace YAF.Controls
 
         if (!isGuest)
         {
-          output.WriteBeginTag("a");
+            output.WriteBeginTag("a");
 
-          output.WriteAttribute("href", YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.UserID));
+            output.WriteAttribute("href", YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.UserID));
 
-          if (this.PageContext.BoardSettings.UseNoFollowLinks)
-          {
-              output.WriteAttribute("rel", "nofollow");
-          }
+            if (this.Get<YafBoardSettings>().UseNoFollowLinks)
+            {
+                output.WriteAttribute("rel", "nofollow");
+            }
 
-          output.WriteAttribute("title", this.GetText("COMMON", "VIEW_USRPROFILE"));
+            output.WriteAttribute("title", this.GetText("COMMON", "VIEW_USRPROFILE"));
 
-          if (this.BlankTarget)
-          {
-            output.WriteAttribute("target", "_blank");
-          }
+            if (this.BlankTarget)
+            {
+                output.WriteAttribute("target", "_blank");
+            }
         }
         else
         {
-          output.WriteBeginTag("span");
+            output.WriteBeginTag("span");
         }
 
         this.RenderMainTagAttributes(output);
 
-          output.Write(HtmlTextWriter.TagRightChar);
-          output.WriteEncodedText(this.CrawlerName.IsNotSet()
+        output.Write(HtmlTextWriter.TagRightChar);
+
+        // Replace Name with Crawler Name if Set, otherwise use regular display name or Replace Name if set
+        if (this.CrawlerName.IsSet())
+        {
+            output.WriteEncodedText(this.CrawlerName);
+        }
+        else
+        {
+            output.WriteEncodedText(this.ReplaceName.IsNotSet()
                                       ? displayName
-                                      : this.CrawlerName);
-          output.WriteEndTag(!isGuest ? "a" : "span");
+                                      : this.ReplaceName);
+        }
+
+        output.WriteEndTag(!isGuest ? "a" : "span");
 
         if (this.PostfixText.IsSet())
         {
-          output.Write(this.PostfixText);
+            output.Write(this.PostfixText);
         }
 
         // Show Irkoo reputation in userlinks?
-        if (this.PageContext.BoardSettings.EnableIrkoo && !this.PageContext.BoardSettings.ShowIrkooRepOnlyInTopics)
+        if (this.Get<YafBoardSettings>().EnableIrkoo && !this.Get<YafBoardSettings>().ShowIrkooRepOnlyInTopics)
         {
-          output.Write(YafIrkoo.IrkRating(this.UserID));
+            output.Write(YafIrkoo.IrkRating(this.UserID));
         }
 
         output.EndRender();
-      }
     }
 
     #endregion

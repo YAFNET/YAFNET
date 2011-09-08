@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -16,8 +16,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System.Linq;
-using YAF.Types.Interfaces;
 
 namespace YAF.Controls
 {
@@ -26,12 +24,15 @@ namespace YAF.Controls
   using System;
   using System.Data;
 
+  using YAF.Classes;
   using YAF.Classes.Data;
   using YAF.Core;
   using YAF.Types;
+  using YAF.Types.Interfaces;
   using YAF.Utilities;
+  using YAF.Utils;
 
-  #endregion
+    #endregion
 
   /// <summary>
   /// The last posts.
@@ -49,7 +50,7 @@ namespace YAF.Controls
       {
         if (this.ViewState["TopicID"] != null)
         {
-          return Convert.ToInt32(this.ViewState["TopicID"]);
+          return this.ViewState["TopicID"].ToType<int>();
         }
 
         return null;
@@ -112,44 +113,43 @@ namespace YAF.Controls
     /// </summary>
     private void BindData()
     {
-        DataTable dt; 
         if (this.TopicID.HasValue)
         {
             bool showDeleted = false;
             int userId = 0;
-            if (this.PageContext.BoardSettings.ShowDeletedMessagesToAll)
+
+            if (this.Get<YafBoardSettings>().ShowDeletedMessagesToAll)
             {
                 showDeleted = true;
             }
-            if (!showDeleted && (this.PageContext.BoardSettings.ShowDeletedMessages &&
-                                 !this.PageContext.BoardSettings.ShowDeletedMessagesToAll)
+
+            if (!showDeleted && (this.Get<YafBoardSettings>().ShowDeletedMessages &&
+                                 !this.Get<YafBoardSettings>().ShowDeletedMessagesToAll)
                 || this.PageContext.IsAdmin ||
                 this.PageContext.IsForumModerator)
             {
                 userId = this.PageContext.PageUserID;
             }
 
-             dt = LegacyDb.post_list(
-                this.TopicID,
-                userId,
-                0,
-                showDeleted,
-                false,
-                DateTime.MinValue.AddYears(1901),
-                DateTime.UtcNow,
-                DateTime.MinValue.AddYears(1901),
-                DateTime.UtcNow,
-                0,
-                10,
-                2,
-                0,
-                0,
-                false,
-                -1);
+             DataTable dt = LegacyDb.post_list(
+                 this.TopicID,
+                 userId,
+                 0,
+                 showDeleted,
+                 false,
+                 DateTime.MinValue.AddYears(1901),
+                 DateTime.UtcNow,
+                 DateTime.MinValue.AddYears(1901),
+                 DateTime.UtcNow,
+                 0,
+                 10,
+                 2,
+                 0,
+                 0,
+                 false,
+                 -1);
 
              this.repLastPosts.DataSource = dt.AsEnumerable();
-                
-             
         }
         else
         {

@@ -18,71 +18,69 @@
  */
 namespace YAF.Controls
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.Linq;
-  using System.Web.UI;
+    using System.Linq;
+    using System.Web.UI;
 
-  using YAF.Core;
-  using YAF.Types;
-  using YAF.Utils;
-
-  #endregion
-
-  /// <summary>
-  /// Control displaying list of user currently active on a forum.
-  /// </summary>
-  public class RoleRankStyles : BaseControl
-  {
-    // data about active users
-    #region Properties
-
-    /// <summary>
-    ///   Gets or sets styles data string to display in control.
-    /// </summary>
-    [CanBeNull]
-    public string RawStyles { get; set; }
+    using YAF.Core;
+    using YAF.Types;
+    using YAF.Utils;
 
     #endregion
 
-    #region Methods
-
     /// <summary>
-    /// Implements rendering of control to the client through use of <see cref="HtmlTextWriter"/>.
+    /// Control displaying list of user currently active on a forum.
     /// </summary>
-    /// <param name="writer">
-    /// The writer.
-    /// </param>
-    protected override void Render([NotNull] HtmlTextWriter writer)
+    public class RoleRankStyles : BaseControl
     {
-      // we shall continue only if there is a style string available
-      if (this.RawStyles.IsNotSet())
-      {
-        return;
-      }
+        #region Properties
 
-      // writes starting tag
-      writer.WriteLine(@"<span class=""grouprankstyles"" id=""{0}"">".FormatWith(this.ClientID));
+        /// <summary>
+        ///   Gets or sets styles data string to display in control.
+        /// </summary>
+        [CanBeNull]
+        public string RawStyles { get; set; }
 
-      int index = 1;
+        #endregion
 
-      var styles = this.RawStyles.Split('/').Where(s => s.IsSet()).Select(s => s.Trim().Split('!')).ToList();
+        #region Methods
 
-      foreach (var styleElements in styles)
-      {
-        if (styleElements.Length >= 2)
+        /// <summary>
+        /// Implements rendering of control to the client through use of <see cref="HtmlTextWriter"/>.
+        /// </summary>
+        /// <param name="writer">
+        /// The writer.
+        /// </param>
+        protected override void Render([NotNull] HtmlTextWriter writer)
         {
-          writer.WriteLine(
-            "<span style=\"{0}\">{1}{2}</span>".FormatWith(
-              styleElements[1], styleElements[0], (index++ == styles.Count) ? string.Empty : ", "));
+            // we shall continue only if there is a style string available
+            if (this.RawStyles.IsNotSet())
+            {
+                return;
+            }
+
+            // writes starting tag
+            writer.WriteLine(@"<span class=""grouprankstyles"" id=""{0}"">".FormatWith(this.ClientID));
+
+            int index = 1;
+
+            var styles = this.RawStyles.Split('/').Where(s => s.IsSet()).Select(s => s.Trim().Split('!')).ToList();
+
+            foreach (var styleElements in styles)
+            {
+                if (styleElements.Length >= 2)
+                {
+                    writer.WriteLine(
+                        "<span style=\"{0}\">{1}{2}</span>".FormatWith(
+                            styleElements[1], styleElements[0], (index++ == styles.Count) ? string.Empty : ", "));
+                }
+
+                // write ending tag
+                writer.WriteLine("</span>");
+            }
         }
 
-        // write ending tag
-        writer.WriteLine("</span>");
-      }
+        #endregion
     }
-
-    #endregion
-  }
 }

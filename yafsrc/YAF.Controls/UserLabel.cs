@@ -18,248 +18,222 @@
  */
 namespace YAF.Controls
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.Web.UI;
+    using System.Web.UI;
 
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Utils;
-  using YAF.Types;
-  using YAF.Types.Interfaces;
-
-  #endregion
-
-  /// <summary>
-  /// The UserLabel
-  /// </summary>
-  public class UserLabel : BaseControl
-  {
-    #region Properties
-
-    /// <summary>
-    ///   Gets or sets CssClass.
-    /// </summary>
-    [NotNull]
-    public string CssClass
-    {
-      get
-      {
-        if (this.ViewState["CssClass"] != null)
-        {
-          return this.ViewState["CssClass"].ToString();
-        }
-
-        return string.Empty;
-      }
-
-      set
-      {
-        this.ViewState["CssClass"] = value;
-      }
-    }
-
-    /// <summary>
-    ///   The onclick value for the profile link
-    /// </summary>
-    [NotNull]
-    public string OnClick
-    {
-      get
-      {
-        if (this.ViewState["OnClick"] != null)
-        {
-          return this.ViewState["OnClick"].ToString();
-        }
-
-        return string.Empty;
-      }
-
-      set
-      {
-        this.ViewState["OnClick"] = value;
-      }
-    }
-
-    /// <summary>
-    ///   The onmouseover value for the profile link
-    /// </summary>
-    [NotNull]
-    public string OnMouseOver
-    {
-      get
-      {
-        if (this.ViewState["OnMouseOver"] != null)
-        {
-          return this.ViewState["OnMouseOver"].ToString();
-        }
-
-        return string.Empty;
-      }
-
-      set
-      {
-        this.ViewState["OnMouseOver"] = value;
-      }
-    }
-
-    /// <summary>
-    ///   The name of the user for this profile link
-    /// </summary>
-    [NotNull]
-    public string PostfixText
-    {
-      get
-      {
-        if (this.ViewState["PostfixText"] != null)
-        {
-          return this.ViewState["PostfixText"].ToString();
-        }
-
-        return string.Empty;
-      }
-
-      set
-      {
-        this.ViewState["PostfixText"] = value;
-      }
-    }
-
-    /// <summary>
-    ///   The replace name of this user for the link. Attention! Use it ONLY for crawlers. 
-    /// </summary>
-    [NotNull]
-    public string CrawlerName
-    {
-      get
-      {
-        if (this.ViewState["CrawlerName"] != null)
-        {
-          return this.ViewState["CrawlerName"].ToString();
-        }
-
-        return string.Empty;
-      }
-
-      set
-      {
-        this.ViewState["CrawlerName"] = value;
-      }
-    }
-
-    /// <summary>
-    ///   Gets or sets Style.
-    /// </summary>
-    [NotNull]
-    public string Style
-    {
-      get
-      {
-        if (this.ViewState["Style"] != null)
-        {
-          return this.ViewState["Style"].ToString();
-        }
-
-        return string.Empty;
-      }
-
-      set
-      {
-        this.ViewState["Style"] = value;
-      }
-    }
-
-    /// <summary>
-    ///   The userid of this user for the link
-    /// </summary>
-    public int UserID
-    {
-      get
-      {
-        if (this.ViewState["UserID"] != null)
-        {
-          return Convert.ToInt32(this.ViewState["UserID"]);
-        }
-
-        return -1;
-      }
-
-      set
-      {
-        this.ViewState["UserID"] = value;
-      }
-    }
+    using YAF.Core;
+    using YAF.Types;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
 
     #endregion
 
-    #region Methods
-
     /// <summary>
-    /// The render.
+    /// The UserLabel
     /// </summary>
-    /// <param name="output">
-    /// The output.
-    /// </param>
-    protected override void Render([NotNull] HtmlTextWriter output)
+    public class UserLabel : BaseControl
     {
-      string displayName = this.Get<IUserDisplayName>().GetName(this.UserID);
+        #region Properties
 
-      if (this.UserID != -1 && !displayName.IsNotSet())
-      {
-        output.BeginRender();
-
-        output.WriteBeginTag("span");
-
-        this.RenderMainTagAttributes(output);
-
-        output.Write(HtmlTextWriter.TagRightChar);
-
-        output.WriteEncodedText(this.CrawlerName.IsNotSet() ? displayName : this.CrawlerName);
-
-        output.WriteEndTag("span");
-
-        if (this.PostfixText.IsSet())
+        /// <summary>
+        ///   Gets or sets CssClass.
+        /// </summary>
+        [NotNull]
+        public string CssClass
         {
-          output.Write(this.PostfixText);
+            get
+            {
+                return this.ViewState["CssClass"] != null ? this.ViewState["CssClass"].ToString() : string.Empty;
+            }
+
+            set
+            {
+                this.ViewState["CssClass"] = value;
+            }
         }
 
-        output.EndRender();
-      }
+        /// <summary>
+        ///   Gets or sets the onclick value for the profile link
+        /// </summary>
+        [NotNull]
+        public string OnClick
+        {
+            get
+            {
+                return this.ViewState["OnClick"] != null ? this.ViewState["OnClick"].ToString() : string.Empty;
+            }
+
+            set
+            {
+                this.ViewState["OnClick"] = value;
+            }
+        }
+
+        /// <summary>
+        ///   Gets or sets The onmouseover value for the profile link
+        /// </summary>
+        [NotNull]
+        public string OnMouseOver
+        {
+            get
+            {
+                return this.ViewState["OnMouseOver"] != null ? this.ViewState["OnMouseOver"].ToString() : string.Empty;
+            }
+
+            set
+            {
+                this.ViewState["OnMouseOver"] = value;
+            }
+        }
+
+        /// <summary>
+        ///   Gets or sets The name of the user for this profile link
+        /// </summary>
+        [NotNull]
+        public string PostfixText
+        {
+            get
+            {
+                return this.ViewState["PostfixText"] != null ? this.ViewState["PostfixText"].ToString() : string.Empty;
+            }
+
+            set
+            {
+                this.ViewState["PostfixText"] = value;
+            }
+        }
+
+        /// <summary>
+        ///   Gets or sets The replace Crawler name of this user for the link. Attention! Use it ONLY for crawlers. 
+        /// </summary>
+        [NotNull]
+        public string CrawlerName
+        {
+            get
+            {
+                return this.ViewState["CrawlerName"] != null ? this.ViewState["CrawlerName"].ToString() : string.Empty;
+            }
+
+            set
+            {
+                this.ViewState["CrawlerName"] = value;
+            }
+        }
+
+        /// <summary>
+        ///   Gets or sets Style.
+        /// </summary>
+        [NotNull]
+        public string Style
+        {
+            get
+            {
+                return this.ViewState["Style"] != null ? this.ViewState["Style"].ToString() : string.Empty;
+            }
+
+            set
+            {
+                this.ViewState["Style"] = value;
+            }
+        }
+
+        /// <summary>
+        ///   Gets or sets The userid of this user for the link
+        /// </summary>
+        public int UserID
+        {
+            get
+            {
+                if (this.ViewState["UserID"] != null)
+                {
+                    return this.ViewState["UserID"].ToType<int>();
+                }
+
+                return -1;
+            }
+
+            set
+            {
+                this.ViewState["UserID"] = value;
+            }
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// The render.
+        /// </summary>
+        /// <param name="output">
+        /// The output.
+        /// </param>
+        protected override void Render([NotNull] HtmlTextWriter output)
+        {
+            string displayName = this.Get<IUserDisplayName>().GetName(this.UserID);
+
+            if (this.UserID == -1 || displayName.IsNotSet())
+            {
+                return;
+            }
+
+            output.BeginRender();
+
+            output.WriteBeginTag("span");
+
+            this.RenderMainTagAttributes(output);
+
+            output.Write(HtmlTextWriter.TagRightChar);
+
+            displayName = this.CrawlerName.IsNotSet() ? displayName : this.CrawlerName;
+
+            output.WriteEncodedText(this.CrawlerName.IsNotSet() ? displayName : this.CrawlerName);
+
+            output.WriteEndTag("span");
+
+            if (this.PostfixText.IsSet())
+            {
+                output.Write(this.PostfixText);
+            }
+
+            output.EndRender();
+        }
+
+        /// <summary>
+        /// Renders "id", "style", "onclick", "onmouseover" and "class"
+        /// </summary>
+        /// <param name="output">
+        /// The output.
+        /// </param>
+        protected void RenderMainTagAttributes([NotNull] HtmlTextWriter output)
+        {
+            if (this.ClientID.IsSet())
+            {
+                output.WriteAttribute("id", this.ClientID);
+            }
+
+            if (this.Style.IsSet())
+            {
+                output.WriteAttribute("style", this.HtmlEncode(this.Style));
+            }
+
+            if (this.OnClick.IsSet())
+            {
+                output.WriteAttribute("onclick", this.OnClick);
+            }
+
+            if (this.OnMouseOver.IsSet())
+            {
+                output.WriteAttribute("onmouseover", this.OnMouseOver);
+            }
+
+            if (this.CssClass.IsSet())
+            {
+                output.WriteAttribute("class", this.CssClass);
+            }
+        }
+
+        #endregion
     }
-
-    /// <summary>
-    /// Renders "id", "style", "onclick", "onmouseover" and "class"
-    /// </summary>
-    /// <param name="output">
-    /// </param>
-    protected void RenderMainTagAttributes([NotNull] HtmlTextWriter output)
-    {
-      if (this.ClientID.IsSet())
-      {
-        output.WriteAttribute("id", this.ClientID);
-      }
-
-      if (this.Style.IsSet())
-      {
-        output.WriteAttribute("style", this.HtmlEncode(this.Style));
-      }
-
-      if (this.OnClick.IsSet())
-      {
-        output.WriteAttribute("onclick", this.OnClick);
-      }
-
-      if (this.OnMouseOver.IsSet())
-      {
-        output.WriteAttribute("onmouseover", this.OnMouseOver);
-      }
-
-      if (this.CssClass.IsSet())
-      {
-        output.WriteAttribute("class", this.CssClass);
-      }
-    }
-
-    #endregion
-  }
 }
