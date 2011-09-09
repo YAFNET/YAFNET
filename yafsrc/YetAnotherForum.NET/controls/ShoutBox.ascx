@@ -9,7 +9,7 @@
         InsertSmileyForShoutBox(code, path);
     }
     function InsertSmileyForShoutBox(code, path) {
-        InsertStringAtCurrentCursorPositionOrOverwriteSelectedText(document.getElementById('<%=messageTextBox.ClientID %>'), code)
+        InsertStringAtCurrentCursorPositionOrOverwriteSelectedText(document.getElementById('<%=messageTextBox.ClientID %>'), code);
     }
     function InsertStringAtCurrentCursorPositionOrOverwriteSelectedText(control, insertionText) {
         control.focus();
@@ -19,8 +19,8 @@
         else
             control.value += ' ' + insertionText;
     }
-    function openShoutBoxWin() {  
-        var hostname = window.location.hostname
+    function openShoutBoxWin() {
+        //var hostname = window.location.hostname;
         window.open("<%=YafForumInfo.ForumClientFileRoot %>popup.aspx?g=shoutbox", "mywindow", "location=0,status=0,scrollbars=0,resizable=1,width=555,height=400");
         return false;
     }
@@ -31,7 +31,7 @@
     }
 
     function checkForNewMessages() {
-        jQuery.PageMethod('<%= YafForumInfo.ForumClientFileRoot %>YafAjax.asmx', 'RefreshShoutBox', refreshShoutBoxPanel, refreshShoutBoxFailed, 'boardId', <%=this.PageContext.PageBoardID %>);
+        <%=Config.JQueryAlias %>.PageMethod('<%= YafForumInfo.ForumClientFileRoot %>YafAjax.asmx', 'RefreshShoutBox', refreshShoutBoxPanel, refreshShoutBoxFailed, 'boardId', <%=this.PageContext.PageBoardID %>);
 
         setTimeout('checkForNewMessages()', 2000);
     }
@@ -44,17 +44,17 @@
             lastMessageId = messageId;
 
             // refresh update panel
-            jQuery('#<%=this.btnRefresh.ClientID %>').click();
+            <%=Config.JQueryAlias %>('#<%=this.btnRefresh.ClientID %>').click();
         }
     }   
 
-    jQuery(document).ready(function () {
-		jQuery(".PopupBody #shoutBoxChatArea").height($(window).height()- 250);
+    <%=Config.JQueryAlias %>(document).ready(function () {
+		<%=Config.JQueryAlias %>(".PopupBody #shoutBoxChatArea").height(<%=Config.JQueryAlias %>(window).height()- 250);
 		
-        Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function() {
+        window.Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function() {
             if (clearOnEndRequest)
             {
-                jQuery('#<%=this.messageTextBox.ClientID %>').val('');
+                <%=Config.JQueryAlias %>('#<%=this.messageTextBox.ClientID %>').val('');
                 clearOnEndRequest = false;
             }
         });
@@ -64,8 +64,8 @@
         }
     });
 	
-	jQuery(window).resize(function() {
-       jQuery(".PopupBody #shoutBoxChatArea").height($(window).height()- 250);
+	<%=Config.JQueryAlias %>(window).resize(function() {
+       <%=Config.JQueryAlias %>(".PopupBody #shoutBoxChatArea").height(jQuery(window).height()- 250);
       });
 </script>
 <div id="testing1"></div>

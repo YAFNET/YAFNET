@@ -1,4 +1,4 @@
-//*****************************************************************************************************
+﻿//*****************************************************************************************************
 //  Original code by: DLESKTECH at http://www.dlesktech.com/support.aspx
 //  Modifications by: KASL Technologies at www.kasltechnologies.com
 //  Mod date:7/21/2009
@@ -38,19 +38,14 @@ namespace YAF.Controls
   {
     #region Constructors and Destructors
 
-    /// <summary>
-    ///   Initializes a new instance of the <see cref = "ShoutBox" /> class.
-    /// </summary>
-    public ShoutBox()
-    {
-      
-    }
-
-    #endregion
+      #endregion
 
     #region Properties
 
-    public IEnumerable<DataRow> ShoutBoxMessages
+      /// <summary>
+      /// Gets ShoutBoxMessages.
+      /// </summary>
+      public IEnumerable<DataRow> ShoutBoxMessages
     {
       get
       {
@@ -116,9 +111,6 @@ namespace YAF.Controls
     /// </param>
     protected override void OnPreRender([NotNull] EventArgs e)
     {
-      //YafContext.Current.PageElements.RegisterJsBlockStartup(
-      //  this.shoutBoxUpdatePanel, "DisablePageManagerScrollJs", JavaScriptBlocks.DisablePageManagerScrollJs);
-
       base.OnPreRender(e);
     }
 
@@ -133,21 +125,24 @@ namespace YAF.Controls
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (this.PageContext.User != null)
-      {
-        // phShoutText.Visible = true;
-        this.shoutBoxPanel.Visible = true;
-
-        if (this.PageContext.IsAdmin)
+        if (this.PageContext.User != null)
         {
-          this.btnClear.Visible = true;
+            // phShoutText.Visible = true;
+            this.shoutBoxPanel.Visible = true;
+
+            if (this.PageContext.IsAdmin)
+            {
+                this.btnClear.Visible = true;
+            }
         }
-      }
 
-      YafContext.Current.PageElements.RegisterJsResourceInclude("yafPageMethodjs", "js/jquery.pagemethod.js");
+        YafContext.Current.PageElements.RegisterJsResourceInclude("yafPageMethodjs", "js/jquery.pagemethod.js");
 
-      if (!this.IsPostBack)
-      {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
         this.btnFlyOut.Text = this.GetText("SHOUTBOX", "FLYOUT");
         this.btnClear.Text = this.GetText("SHOUTBOX", "CLEAR");
         this.btnButton.Text = this.GetText("SHOUTBOX", "SUBMIT");
@@ -156,10 +151,9 @@ namespace YAF.Controls
         this.CollapsibleImageShoutBox.Visible = !YafControlSettings.Current.Popup;
 
         this.DataBind();
-      }  
     }
 
-    /// <summary>
+      /// <summary>
     /// The btn button_ click.
     /// </summary>
     /// <param name="sender">
@@ -172,7 +166,7 @@ namespace YAF.Controls
     {
       string username = this.PageContext.PageUserName;
 
-      if (username != null && this.messageTextBox.Text != String.Empty)
+      if (username != null && this.messageTextBox.Text != string.Empty)
       {
         LegacyDb.shoutbox_savemessage(
           this.PageContext.PageBoardID, 
@@ -185,7 +179,7 @@ namespace YAF.Controls
       }
 
       this.DataBind();
-      this.messageTextBox.Text = String.Empty;
+      this.messageTextBox.Text = string.Empty;
 
       ScriptManager scriptManager = ScriptManager.GetCurrent(this.Page);
 
@@ -225,7 +219,7 @@ namespace YAF.Controls
 
       this.shoutBoxRepeater.DataSource = this.ShoutBoxMessages;
 
-      if (this.PageContext.BoardSettings.ShowShoutboxSmiles)
+      if (this.Get<YafBoardSettings>().ShowShoutboxSmiles)
       {
         this.smiliesRepeater.DataSource = LegacyDb.smiley_listunique(this.PageContext.PageBoardID);
       }
@@ -233,7 +227,16 @@ namespace YAF.Controls
 
     #endregion
 
-    protected void btnRefresh_Click(object sender, EventArgs e)
+      /// <summary>
+      /// The Refresh Button Event
+      /// </summary>
+      /// <param name="sender">
+      /// The sender.
+      /// </param>
+      /// <param name="e">
+      /// The e.
+      /// </param>
+      protected void btnRefresh_Click(object sender, EventArgs e)
     {
       this.DataBind();
     }
