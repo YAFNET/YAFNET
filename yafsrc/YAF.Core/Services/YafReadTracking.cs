@@ -41,7 +41,10 @@ namespace YAF.Core.Services
         /// </param>
         public void SetForumRead(int userID, int forumID)
         {
-            LegacyDb.ReadForum_AddOrUpdate(userID, forumID);
+            if (!YafContext.Current.IsGuest)
+            {
+                LegacyDb.ReadForum_AddOrUpdate(userID, forumID);
+            }
         }
 
         /// <summary>
