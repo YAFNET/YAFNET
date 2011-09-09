@@ -2802,11 +2802,11 @@ select
 			else ''	 end,
 	    LastForumAccess = case(@FindLastRead)
 		     when 1 then
-		       IsNull((SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x WHERE x.ForumID=b.ForumID AND x.UserID = @UserID), GETUTCDATE())
+		       (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x WHERE x.ForumID=b.ForumID AND x.UserID = @UserID)
 		     else ''	 end,
 		LastTopicAccess = case(@FindLastRead)
 		     when 1 then
-		       IsNull((SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=t.TopicID AND y.UserID = @UserID), GETUTCDATE())
+		       (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=t.TopicID AND y.UserID = @UserID)
 		     else ''	 end 					
 	from 
 		[{databaseOwner}].[{objectQualifier}Category] a
