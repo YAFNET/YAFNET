@@ -5116,6 +5116,7 @@ namespace YAF.Classes.Data
         public static DataTable message_getRepliesList([NotNull] object messageID)
         {
             var list = new DataTable();
+            list.Columns.Add("MessageID", typeof(int));
             list.Columns.Add("Posted", typeof(DateTime));
             list.Columns.Add("Subject", typeof(string));
             list.Columns.Add("Message", typeof(string));
@@ -5132,9 +5133,9 @@ namespace YAF.Classes.Data
 
                 for (int i = 0; i < dtr.Rows.Count; i++)
                 {
-                    DataRow newRow = list.NewRow();
                     DataRow row = dtr.Rows[i];
-                    newRow = list.NewRow();
+                    DataRow newRow = list.NewRow();
+                    newRow["MessageID"] = row["MessageID"];
                     newRow["Posted"] = row["Posted"];
                     newRow["Subject"] = row["Subject"];
                     newRow["Message"] = row["Message"];
@@ -10918,9 +10919,9 @@ namespace YAF.Classes.Data
 
                 for (int i = 0; i < dtr.Rows.Count; i++)
                 {
-                    DataRow newRow = list.NewRow();
                     DataRow row = dtr.Rows[i];
-                    newRow = list.NewRow();
+                    DataRow newRow = list.NewRow();
+                    newRow["MessageID"] = row["MessageID"];
                     newRow["Posted"] = row["Posted"];
                     newRow["Subject"] = row["Subject"];
                     newRow["Message"] = row["Message"];

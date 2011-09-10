@@ -1,5 +1,5 @@
-/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bjørnar Henden
+ï»¿/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjï¿½rnar Henden
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -26,6 +26,7 @@ namespace YAF.Pages
   using System.Web;
   using System.Web.UI.WebControls;
 
+  using YAF.Classes;
   using YAF.Classes.Data;
   using YAF.Core;
   using YAF.Types;
@@ -38,7 +39,7 @@ namespace YAF.Pages
   #endregion
 
   /// <summary>
-  /// Summary description for postmessage.
+  /// The Delete Message Page.
   /// </summary>
   public partial class deletemessage : ForumPage
   {
@@ -118,12 +119,8 @@ namespace YAF.Pages
       get
       {
         int deleted = (int)this._messageRow["Flags"] & 8;
-        if (deleted == 8)
-        {
-          return true;
-        }
 
-        return false;
+        return deleted == 8;
       }
     }
 
@@ -134,10 +131,10 @@ namespace YAF.Pages
     {
       get
       {
-        if (!this.PageContext.IsAdmin && this.PageContext.BoardSettings.LockPosts > 0)
+          if (!this.PageContext.IsAdmin && this.Get<YafBoardSettings>().LockPosts > 0)
         {
           var edited = (DateTime)this._messageRow["Edited"];
-          if (edited.AddDays(this.PageContext.BoardSettings.LockPosts) < DateTime.UtcNow)
+          if (edited.AddDays(this.Get<YafBoardSettings>().LockPosts) < DateTime.UtcNow)
           {
             return true;
           }
@@ -197,39 +194,27 @@ namespace YAF.Pages
     /// The get action text.
     /// </summary>
     /// <returns>
-    /// The get action text.
+    /// Returns the Action Text
     /// </returns>
     protected string GetActionText()
     {
-      if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("action").ToLower() == "delete")
-      {
-        return this.GetText("DELETE");
-      }
-      else
-      {
-        return this.GetText("UNDELETE");
-      }
+        return this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("action").ToLower() == "delete"
+                   ? this.GetText("DELETE")
+                   : this.GetText("UNDELETE");
     }
 
-    /// <summary>
+      /// <summary>
     /// The get reason text.
     /// </summary>
     /// <returns>
-    /// The get reason text.
+    /// Returns the reason text.
     /// </returns>
     protected string GetReasonText()
-    {
-      if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("action").ToLower() == "delete")
       {
-        return this.GetText("DELETE_REASON");
+          return this.GetText(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("action").ToLower() == "delete" ? "DELETE_REASON" : "UNDELETE_REASON");
       }
-      else
-      {
-        return this.GetText("UNDELETE_REASON");
-      }
-    }
 
-    /// <summary>
+      /// <summary>
     /// The on init.
     /// </summary>
     /// <param name="e">
@@ -237,9 +222,10 @@ namespace YAF.Pages
     /// </param>
     protected override void OnInit([NotNull] EventArgs e)
     {
-      // get the forum editor based on the settings
-      // Message = yaf.editor.EditorHelper.CreateEditorFromType(PageContext.BoardSettings.ForumEditor);
-      // 	EditorLine.Controls.Add(Message);
+      /* get the forum editor based on the settings
+      Message = yaf.editor.EditorHelper.CreateEditorFromType(PageContext.BoardSettings.ForumEditor);
+      EditorLine.Controls.Add(Message); 
+       */ 
       this.LinkedPosts.ItemDataBound += this.LinkedPosts_ItemDataBound;
 
       // CODEGEN: This call is required by the ASP.NET Web Form Designer.
@@ -262,12 +248,12 @@ namespace YAF.Pages
 
       if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m") != null)
       {
-        this._messageRow =
-          LegacyDb.message_list(
-            Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"))).
-            GetFirstRowOrInvalid();
+          this._messageRow =
+              LegacyDb.message_list(
+                  Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"))).
+                  GetFirstRowOrInvalid();
 
-        if (!this.PageContext.ForumModeratorAccess && this.PageContext.PageUserID != (int)this._messageRow["UserID"])
+          if (!this.PageContext.ForumModeratorAccess && this.PageContext.PageUserID != (int)this._messageRow["UserID"])
         {
           YafBuildLink.AccessDenied();
         }
@@ -293,13 +279,16 @@ namespace YAF.Pages
         YafBuildLink.AccessDenied();
       }
 
-      if (!this.IsPostBack)
-      {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
         // setup page links
-        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
         this.PageLinks.AddLink(
-          this.PageContext.PageCategoryName, 
-          YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
+            this.PageContext.PageCategoryName, 
+            YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
         this.PageLinks.AddForumLinks(this.PageContext.PageForumID);
 
         this.EraseMessage.Checked = false;
@@ -310,45 +299,46 @@ namespace YAF.Pages
         this.ReasonEditor.Attributes.Add("style", "width:100%");
         this.Cancel.Text = this.GetText("Cancel");
 
-        if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m") != null)
+        if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m") == null)
         {
-          // delete message...
-          this.PreviewRow.Visible = true;
+            return;
+        }
 
-          DataTable tempdb = LegacyDb.message_getRepliesList(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));
+        // delete message...
+        this.PreviewRow.Visible = true;
 
-          if (tempdb.Rows.Count != 0 && (this.PageContext.ForumModeratorAccess || this.PageContext.IsAdmin))
-          {
+        DataTable tempdb = LegacyDb.message_getRepliesList(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));
+
+        if (tempdb.Rows.Count > 0 && (this.PageContext.ForumModeratorAccess || this.PageContext.IsAdmin))
+        {
             this.LinkedPosts.Visible = true;
             this.LinkedPosts.DataSource = tempdb;
             this.LinkedPosts.DataBind();
-          }
+        }
 
-          if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("action").ToLower() == "delete")
-          {
+        if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("action").ToLower() == "delete")
+        {
             this.Title.Text = this.GetText("EDIT"); // GetText("EDIT");
             this.Delete.Text = this.GetText("DELETE"); // "GetText("Save");
 
             if (this.PageContext.IsAdmin)
             {
-              this.EraseRow.Visible = true;
+                this.EraseRow.Visible = true;
             }
-          }
-          else
-          {
+        }
+        else
+        {
             this.Title.Text = this.GetText("EDIT");
             this.Delete.Text = this.GetText("UNDELETE"); // "GetText("Save");
-          }
-
-          this.Subject.Text = Convert.ToString(this._messageRow["Topic"]);
-          this.DeleteReasonRow.Visible = true;
-          this.ReasonEditor.Text = Convert.ToString(this._messageRow["DeleteReason"]);
-
-          // populate the message preview with the message datarow...
-          this.MessagePreview.Message = this._messageRow["message"].ToString();
-          this.MessagePreview.MessageFlags = new MessageFlags(this._messageRow["Flags"]);
         }
-      }
+
+        this.Subject.Text = Convert.ToString(this._messageRow["Topic"]);
+        this.DeleteReasonRow.Visible = true;
+        this.ReasonEditor.Text = Convert.ToString(this._messageRow["DeleteReason"]);
+
+        // populate the message preview with the message datarow...
+        this.MessagePreview.Message = this._messageRow["message"].ToString();
+        this.MessagePreview.MessageFlags = new MessageFlags(this._messageRow["Flags"]);
     }
 
     /// <summary>
@@ -416,13 +406,15 @@ namespace YAF.Pages
     /// </param>
     private void LinkedPosts_ItemDataBound([NotNull] object sender, [NotNull] RepeaterItemEventArgs e)
     {
-      if (e.Item.ItemType == ListItemType.Header)
-      {
+        if (e.Item.ItemType != ListItemType.Header)
+        {
+            return;
+        }
+
         var deleteAllPosts = (CheckBox)e.Item.FindControl("DeleteAllPosts");
         deleteAllPosts.Checked =
-          deleteAllPosts.Enabled = this.PageContext.ForumModeratorAccess || this.PageContext.IsAdmin;
+            deleteAllPosts.Enabled = this.PageContext.ForumModeratorAccess || this.PageContext.IsAdmin;
         this.ViewState["delAll"] = deleteAllPosts.Checked;
-      }
     }
 
     #endregion

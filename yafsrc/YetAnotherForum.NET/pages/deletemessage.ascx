@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True"
+﻿<%@ Control Language="c#" AutoEventWireup="True"
     Inherits="YAF.Pages.deletemessage" Codebehind="deletemessage.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
@@ -52,7 +52,7 @@
         </td>
     </tr>
 </table>
-<br>
+<br />
 <asp:Repeater ID="LinkedPosts" runat="server" Visible="false">
     <HeaderTemplate>
         <table class="content" cellspacing="1" cellpadding="0" width="100%" align="center">
@@ -80,7 +80,7 @@
                 <strong>
                     <YAF:LocalizedLabel runat="server" LocalizedTag="posted" />
                 </strong>
-                <%# this.Get<IDateTime>().FormatDateTime( ( System.DateTime ) ( ( System.Data.DataRowView ) Container.DataItem ) ["Posted"] )%>
+                <%# this.Get<IDateTime>().FormatDateTime( ( DateTime ) ( ( System.Data.DataRowView ) Container.DataItem ) ["Posted"] )%>
             </td>
         </tr>
         <tr class="post">
@@ -88,8 +88,8 @@
                 &nbsp;
             </td>
             <td valign="top" class="message">
-                <YAF:MessagePostData ID="MessagePost1" runat="server" DataRow="<%# ( (System.Data.DataRowView) Container.DataItem ).Row %>"
-                    ShowAttachments="false">
+                <YAF:MessagePostData ID="MessagePost1" runat="server" DataRow="<%# ((System.Data.DataRowView )Container.DataItem).Row %>"
+                    ShowAttachments="false" ShowSignature="false">
                 </YAF:MessagePostData>
             </td>
         </tr>
@@ -104,7 +104,7 @@
                 <strong>
                     <YAF:LocalizedLabel runat="server" LocalizedTag="posted" />
                 </strong>
-                <%# this.Get<IDateTime>().FormatDateTime( ( System.DateTime ) ( ( System.Data.DataRowView ) Container.DataItem ) ["Posted"] )%>
+                <%# this.Get<IDateTime>().FormatDateTime((DateTime) ((System.Data.DataRowView ) Container.DataItem ) ["Posted"] )%>
             </td>
         </tr>
         <tr class="post_alt">
@@ -112,8 +112,8 @@
                 &nbsp;
             </td>
             <td valign="top" class="message">
-                <YAF:MessagePostData ID="MessagePostAlt" runat="server" DataRow="<%# ( ( System.Data.DataRowView) Container.DataItem ).Row %>"
-                    ShowAttachments="false">
+                <YAF:MessagePostData ID="MessagePostAlt" runat="server" DataRow="<%#((System.Data.DataRowView )Container.DataItem).Row %>"
+                    ShowAttachments="false" ShowSignature="false">
                 </YAF:MessagePostData>
             </td>
         </tr>
