@@ -97,17 +97,18 @@ namespace YAF.Controls
         {
             writer.BeginRender();
 
-            if (this.Get<ITheme>().ThemeFile.Contains("Mobile"))
+            if (!this.Get<ITheme>().ThemeFile.Contains("Mobile"))
             {
                 writer.Write("</tr><tr class=\"{0}\">", this.GetPostClass());
-            }
-            else
-            {
-                writer.Write("</tr><tr class=\"{1}\"><td colspan=\"{0}\" class=\"UserBox\"></td>", this.ColSpan, this.GetPostClass());  
+
+                writer.WriteBeginTag("td");
+                writer.WriteAttribute("id", this.ClientID);
+                writer.WriteAttribute("class", "SignatureColumn");
+                writer.WriteAttribute("colspan", "1");
+                writer.Write(HtmlTextWriter.TagRightChar);
             }
 
-            writer.WriteBeginTag("td");
-            writer.WriteAttribute("id", this.ClientID);
+            writer.WriteBeginTag("div");
             writer.WriteAttribute("class", "yafsignature");
             writer.Write(HtmlTextWriter.TagRightChar);
 
@@ -128,7 +129,15 @@ namespace YAF.Controls
 
             base.Render(writer);
 
-            writer.WriteEndTag("td");
+
+            writer.WriteEndTag("div");
+
+            if (!this.Get<ITheme>().ThemeFile.Contains("Mobile"))
+            {
+                writer.WriteEndTag("td");
+            } 
+
+
             writer.EndRender();
         }
 

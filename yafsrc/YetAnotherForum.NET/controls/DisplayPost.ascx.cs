@@ -188,6 +188,26 @@ namespace YAF.Controls
         }
 
         /// <summary>
+        /// Get Row Span
+        /// </summary>
+        /// <returns>
+        /// Returns the row Span value
+        /// </returns>
+        [NotNull]
+        protected string GetRowSpan()
+        {
+            if (this.DataRow != null && this.Get<YafBoardSettings>().AllowSignatures &&
+                    this.DataRow["Signature"] != DBNull.Value &&
+                    this.DataRow["Signature"].ToString().ToLower() != "<p>&nbsp;</p>" &&
+                    this.DataRow["Signature"].ToString().Trim().Length > 0)
+            {
+                return "2";
+            }
+
+            return "0";
+        }
+
+        /// <summary>
         /// The get indent span.
         /// </summary>
         /// <returns>

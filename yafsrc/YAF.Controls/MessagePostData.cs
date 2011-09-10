@@ -225,12 +225,8 @@ namespace YAF.Controls
             // truncate... 
             message = message.Substring(0, YafContext.Current.Get<YafBoardSettings>().MaxPostSize);
             int lastSpaceIndex = message.LastIndexOf(" ");
-            if (lastSpaceIndex > 0)
-            {
-                return message.Substring(0, lastSpaceIndex) + "...";
-            }
 
-            return message.Substring(0, message.Length - 3) + "...";
+            return "{0}...".FormatWith(lastSpaceIndex > 0 ? message.Substring(0, lastSpaceIndex) : message.Substring(0, message.Length - 3));
         }
 
         #endregion

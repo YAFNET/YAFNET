@@ -325,3 +325,5 @@
 .yafnet dl.AlphaSort dd {float:left;width:20px;height:15px;text-align:center;margin:10px 4px 10px 4px}
 
 .yafnet dl.AlphaSort dd a {text-decoration:none}
+
+.yafnet .SignatureColumn {vertical-align:bottom;}
