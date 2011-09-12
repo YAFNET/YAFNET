@@ -144,11 +144,13 @@ namespace YAF.Controls
         {
             output.WriteEncodedText(this.CrawlerName);
         }
+        else if (!this.CrawlerName.IsSet() && this.ReplaceName.IsSet() && isGuest)
+        {
+            output.WriteEncodedText(this.ReplaceName);
+        }
         else
         {
-            output.WriteEncodedText(this.ReplaceName.IsNotSet()
-                                      ? displayName
-                                      : this.ReplaceName);
+            output.WriteEncodedText(displayName);
         }
 
         output.WriteEndTag(!isGuest ? "a" : "span");
