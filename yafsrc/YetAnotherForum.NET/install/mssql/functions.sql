@@ -8,58 +8,58 @@
 
 -- scalar functions
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}bitset]') AND xtype in (N'FN', N'IF', N'TF'))
+IF  exists(select top 1 1 from dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}bitset]') AND xtype in (N'FN', N'IF', N'TF'))
 DROP FUNCTION [{databaseOwner}].[{objectQualifier}bitset]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}forum_posts]') AND xtype in (N'FN', N'IF', N'TF'))
+IF  exists(select top 1 1 from dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}forum_posts]') AND xtype in (N'FN', N'IF', N'TF'))
 DROP FUNCTION [{databaseOwner}].[{objectQualifier}forum_posts]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}forum_topics]') AND xtype in (N'FN', N'IF', N'TF'))
+IF  exists(select top 1 1 from dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}forum_topics]') AND xtype in (N'FN', N'IF', N'TF'))
 DROP FUNCTION [{databaseOwner}].[{objectQualifier}forum_topics]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}forum_subforums]') AND xtype in (N'FN', N'IF', N'TF'))
+IF  exists(select top 1 1 from dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}forum_subforums]') AND xtype in (N'FN', N'IF', N'TF'))
 DROP FUNCTION [{databaseOwner}].[{objectQualifier}forum_subforums]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}forum_lasttopic]') AND xtype in (N'FN', N'IF', N'TF'))
+IF  exists(select top 1 1 from dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}forum_lasttopic]') AND xtype in (N'FN', N'IF', N'TF'))
 DROP FUNCTION [{databaseOwner}].[{objectQualifier}forum_lasttopic]
 
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}medal_getribbonsetting]') AND xtype in (N'FN', N'IF', N'TF'))
+IF  exists(select top 1 1 from dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}medal_getribbonsetting]') AND xtype in (N'FN', N'IF', N'TF'))
 DROP FUNCTION [{databaseOwner}].[{objectQualifier}medal_getribbonsetting]
 
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}medal_getsortorder]') AND xtype in (N'FN', N'IF', N'TF'))
+IF  exists(select top 1 1 from dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}medal_getsortorder]') AND xtype in (N'FN', N'IF', N'TF'))
 DROP FUNCTION [{databaseOwner}].[{objectQualifier}medal_getsortorder]
 
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}medal_gethide]') AND xtype in (N'FN', N'IF', N'TF'))
+IF  exists(select top 1 1 from dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}medal_gethide]') AND xtype in (N'FN', N'IF', N'TF'))
 DROP FUNCTION [{databaseOwner}].[{objectQualifier}medal_gethide]
 
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}get_userstyle]') AND xtype in (N'FN', N'IF', N'TF'))
+IF  exists(select top 1 1 from dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}get_userstyle]') AND xtype in (N'FN', N'IF', N'TF'))
 DROP FUNCTION [{databaseOwner}].[{objectQualifier}get_userstyle]
 
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}message_getthanksinfo]') AND xtype in (N'FN', N'IF', N'TF'))
+IF  exists(select top 1 1 from dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}message_getthanksinfo]') AND xtype in (N'FN', N'IF', N'TF'))
 DROP FUNCTION [{databaseOwner}].[{objectQualifier}message_getthanksinfo]
 
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}forum_save_parentschecker]') AND xtype in (N'FN', N'IF', N'TF'))
+IF  exists(select top 1 1 from dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}forum_save_parentschecker]') AND xtype in (N'FN', N'IF', N'TF'))
 DROP FUNCTION [{databaseOwner}].[{objectQualifier}forum_save_parentschecker]
 
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Split]') AND xtype in (N'FN', N'IF', N'TF'))
+IF  exists(select top 1 1 from dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Split]') AND xtype in (N'FN', N'IF', N'TF'))
 DROP FUNCTION [{databaseOwner}].[{objectQualifier}Split]
 GO
 
@@ -240,7 +240,7 @@ GO
 
 -- table-valued functions
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}forum_lastposted]') AND xtype in (N'FN', N'IF', N'TF', N'FS', N'FT'))
+IF  exists(select top 1 1 from dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}forum_lastposted]') AND xtype in (N'FN', N'IF', N'TF', N'FS', N'FT'))
 DROP FUNCTION [{databaseOwner}].[{objectQualifier}forum_lastposted]
 
 GO
