@@ -46,7 +46,8 @@ namespace YAF.Controls
         {
             foreach (ListItem item in this.Items.Cast<ListItem>().Where(item => item.Value.IsSet()))
             {
-                item.Attributes.Add("title", YafForumInfo.GetURLToResource("flags/{0}.png".FormatWith(item.Value)));
+                item.Attributes.Add(
+                    "title", "{1}resources/images/flags/{0}.png".FormatWith(item.Value, YafForumInfo.ForumClientFileRoot));
             }
 
             base.Render(writer);
