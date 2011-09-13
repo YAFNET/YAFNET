@@ -427,6 +427,12 @@ namespace YAF.Core
 			DataTable groupTable = LegacyDb.group_member(pageBoardID, userId);
 			string[] roles = GetRolesForUser(user.UserName);
 
+            if (YAF.Classes.Config.IsMojoPortal)
+            {
+                string roles1 = roles.Where(t => !string.IsNullOrEmpty(t)).Aggregate(string.Empty, (current, t) => current.Trim() + "," + t.Trim());
+                roles = roles1.Trim(',').Split(',');
+            }
+
 			// add groups...
 			foreach (string role in roles.Where(role => !GroupInGroupTable(role, groupTable)))
 			{
