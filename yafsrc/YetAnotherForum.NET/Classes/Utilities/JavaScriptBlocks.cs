@@ -448,8 +448,9 @@ namespace YAF.Utilities
             }
 
             return
-              @"{4}(document).ready(function() {{{4}('#{0}').datepicker({{changeMonth:true,changeYear:true,maxDate:'+0d',dateFormat:'{1}',altFormat:'{2}'}}); {3} }}); "
-                .FormatWith(fieldId, dateFormat, altDateFormat, cultureJs, Config.JQueryAlias);
+                @"Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadDatePicker);
+                  function loadDatePicker() {{	{4}(document).ready(function() {{ {4}('#{0}').datepicker({{changeMonth:true,changeYear:true,maxDate:'+0d',dateFormat:'{1}',altFormat:'{2}'}}); {3} }});}} "
+                    .FormatWith(fieldId, dateFormat, altDateFormat, cultureJs, Config.JQueryAlias);
         }
 
         /// <summary>
