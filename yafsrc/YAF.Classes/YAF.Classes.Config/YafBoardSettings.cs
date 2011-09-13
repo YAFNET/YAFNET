@@ -527,7 +527,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue("SpamServiceType", 1);
+                return this._reg.GetValue("SpamServiceType", 0);
             }
 
             set
@@ -838,7 +838,7 @@ namespace YAF.Classes
 
             set
             {
-                this._reg.SetValue<int>("AllowCreateTopicsSameName", value);
+                this._reg.SetValue("AllowCreateTopicsSameName", value);
             }
         }
 
@@ -1459,18 +1459,18 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets MaxPostSize.
+        /// Gets or sets Max. Post Size.
         /// </summary>
         public int MaxPostSize
         {
             get
             {
-                return this._reg.GetValue("MaxPostSize", Int16.MaxValue);
+                return this._reg.GetValue("MaxPostSize", short.MaxValue);
             }
 
             set
             {
-                this._reg.SetValue<int>("MaxPostSize", value);
+                this._reg.SetValue("MaxPostSize", value);
             }
         }
 
@@ -3336,7 +3336,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue("AcceptedHeadersHTML", String.Empty);
+                return this._reg.GetValue("AcceptedHeadersHTML", string.Empty);
             }
 
             set
@@ -3757,7 +3757,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets UserBoxPoints.
+        /// Gets or sets UserBoxReputation.
         /// </summary>
         public string UserBoxPoints
         {

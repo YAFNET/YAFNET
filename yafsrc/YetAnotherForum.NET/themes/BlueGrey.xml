@@ -87,7 +87,7 @@
     <Resource tag="VOTE_REFUSE">~/vote_refuse.gif</Resource>
   </page>
   <page name="TOPIC_STATUS">
-     <Resource tag="INFORMATIC">~/status_informaticn.png</Resource>
+     <Resource tag="INFORMATIC">~/status_informatic.png</Resource>
      <Resource tag="SOLVED">~/status_solved.png</Resource>
      <Resource tag="QUESTION">~/status_question.png</Resource>
 	 <Resource tag="ISSUE">~/status_issue.png</Resource>
