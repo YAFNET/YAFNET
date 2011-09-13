@@ -686,19 +686,20 @@ namespace YAF.Pages
               };
 
             bool isModeratorChanged = this.PageContext.PageUserID != this._ownerUserId;
+
             LegacyDb.message_update(
-              this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"),
-              this.Priority.SelectedValue,
-              this._forumEditor.Text.Trim(),
-              descriptionSave.Trim(),
-              TopicStatus.SelectedValue,
-              subjectSave.Trim(),
-              messageFlags.BitValue,
-              this.HtmlEncode(this.ReasonEditor.Text),
-              isModeratorChanged,
-              this.PageContext.IsAdmin || this.PageContext.IsModerator,
-              this.OriginalMessage,
-              this.PageContext.PageUserID);
+                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"),
+                this.Priority.SelectedValue,
+                this._forumEditor.Text.Trim(),
+                descriptionSave.Trim(),
+                this.TopicStatus.SelectedValue.Equals("-1") || this.TopicStatus.SelectedIndex.Equals(0) ? string.Empty : this.TopicStatus.SelectedValue,
+                subjectSave.Trim(),
+                messageFlags.BitValue,
+                this.HtmlEncode(this.ReasonEditor.Text),
+                isModeratorChanged,
+                this.PageContext.IsAdmin || this.PageContext.IsModerator,
+                this.OriginalMessage,
+                this.PageContext.PageUserID);
 
             long messageId = this.EditMessageID.Value;
 
@@ -770,7 +771,7 @@ namespace YAF.Pages
             topicId = LegacyDb.topic_save(
               this.PageContext.PageForumID,
               this.TopicSubjectTextBox.Text.Trim(),
-              this.TopicStatus.SelectedValue,
+              this.TopicStatus.SelectedValue.Equals("-1") || this.TopicStatus.SelectedIndex.Equals(0) ? string.Empty : this.TopicStatus.SelectedValue,
               this.TopicDescriptionTextBox.Text.Trim(),
               this._forumEditor.Text,
               this.PageContext.PageUserID,
