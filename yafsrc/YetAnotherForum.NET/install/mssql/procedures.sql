@@ -3095,7 +3095,7 @@ begin
 		select 
 		a.GroupID,
 		a.Name,
-		Member = (select top 1 1 from [{databaseOwner}].[{objectQualifier}UserGroup] x where x.UserID=@UserID and x.GroupID=a.GroupID)
+		Member = (select count(1) from [{databaseOwner}].[{objectQualifier}UserGroup] x where x.UserID=@UserID and x.GroupID=a.GroupID)
 	from
 		[{databaseOwner}].[{objectQualifier}Group] a
 	where
