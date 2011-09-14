@@ -2584,6 +2584,22 @@ namespace YAF.Classes
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether ShowModeratorList as a separate column.
+        /// </summary>
+        public bool ShowModeratorListAsColumn
+        {
+            get
+            {
+                return this._reg.GetValue("ShowModeratorListAsColumn", true);
+            }
+
+            set
+            {
+                this._reg.SetValue("ShowModeratorListAsColumn", value);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether EnableCaptchaForPost.
         /// </summary>
         public bool EnableCaptchaForPost

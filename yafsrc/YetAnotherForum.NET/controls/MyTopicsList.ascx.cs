@@ -284,7 +284,7 @@ namespace YAF.Controls
             this.Since.Items.Add(
                 new ListItem(
                     this.GetTextFormatted(
-                        "last_visit", this.Get<IDateTime>().FormatDateTime(this.Get<IYafSession>().LastVisit)),
+                        "last_visit", !PageContext.IsMobileDevice ? this.Get<IDateTime>().FormatDateTime(this.Get<IYafSession>().LastVisit) : string.Empty),
                     "0"));
             
             // negative values for hours backward

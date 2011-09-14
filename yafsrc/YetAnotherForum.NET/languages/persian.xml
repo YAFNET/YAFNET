@@ -1115,6 +1115,8 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="SHOW_MEDALS">نمایش نشان ها:</Resource>
     <Resource tag="SHOW_MEDALS_HELP">نشان های کاربر در صفحه ارسال ها نمایش داده شود.</Resource>
     <Resource tag="SHOW_MODLIST">نمایش فهرست محدود کننده ها:</Resource>
+    <Resource tag="SHOW_MODLIST_ASCOLUMN">Show Moderator List in column:</Resource>
+    <Resource tag="SHOW_MODLIST_ASCOLUMN_HELP">Shows moderator list as a separate column in a category list.</Resource>
     <Resource tag="SHOW_MODLIST_HELP">در صورت انتخاب، ستون فهرست محدود کننده ها در لیست انجمن ها نمایش داده می شود.</Resource>
     <Resource tag="SHOW_MOVED_TOPICS">نمایش موضوعات منتقل شده:</Resource>
     <Resource tag="SHOW_MOVED_TOPICS_HELP">موضوعات منتقل شده با اشاره گری مخفی به مکان جدید رهنمون خواهند شد.</Resource>

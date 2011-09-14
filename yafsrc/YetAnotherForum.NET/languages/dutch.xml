@@ -1112,6 +1112,8 @@
     <Resource tag="SHOW_MEDALS">Laat Medailles zien:</Resource>
     <Resource tag="SHOW_MEDALS_HELP">Laat Medailles zien op de berichtenpagina.</Resource>
     <Resource tag="SHOW_MODLIST">Laat Moderator lijst zien:</Resource>
+    <Resource tag="SHOW_MODLIST_ASCOLUMN">Show Moderator List in column:</Resource>
+    <Resource tag="SHOW_MODLIST_ASCOLUMN_HELP">Shows moderator list as a separate column in a category list.</Resource>
     <Resource tag="SHOW_MODLIST_HELP">Als deze is aangevinkt, wordt een kolom in de forumlijst zichtbaar met de moderators.</Resource>
     <Resource tag="SHOW_MOVED_TOPICS">Laat verplaatste Topics zien:</Resource>
     <Resource tag="SHOW_MOVED_TOPICS_HELP">Als deze is aangevinkt, zullen topics die verplaatst zijn een link achterlaten naar de nieuwe lokatie.</Resource>

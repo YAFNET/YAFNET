@@ -1113,6 +1113,8 @@
     <Resource tag="SHOW_MEDALS">Medaillen Anzeigen:</Resource>
     <Resource tag="SHOW_MEDALS_HELP">Sollen Medaillen eines Benutzers sichtbar in den Beitrags Seiten sein.</Resource>
     <Resource tag="SHOW_MODLIST">Zeige Moderator Liste:</Resource>
+    <Resource tag="SHOW_MODLIST_ASCOLUMN">Show Moderator List in column:</Resource>
+    <Resource tag="SHOW_MODLIST_ASCOLUMN_HELP">Shows moderator list as a separate column in a category list.</Resource>
     <Resource tag="SHOW_MODLIST_HELP">Wenn aktiviert wird die Moderator Listenspalte in der Themenliste angezeigt.</Resource>
     <Resource tag="SHOW_MOVED_TOPICS">Zeige Verschoben Themen:</Resource>
     <Resource tag="SHOW_MOVED_TOPICS_HELP">Wenn aktiviert, Themen die Verschoben wurden lassen ein Link zurück der zum neuen Thema führt</Resource>

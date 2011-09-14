@@ -14,7 +14,7 @@
                         <th colspan="2" align="left" class="header1 headerForum">
                             <YAF:LocalizedLabel ID="ForumHeaderLabel" runat="server" LocalizedTag="FORUM" />
                         </th>
-                        <th id="Td1" class="header1 headerModerators" width="15%" runat="server" visible="<%# PageContext.BoardSettings.ShowModeratorList %>">
+                        <th id="Td1" class="header1 headerModerators" width="15%" runat="server" visible="<%# PageContext.BoardSettings.ShowModeratorList && PageContext.BoardSettings.ShowModeratorListAsColumn %>">
                             <YAF:LocalizedLabel ID="ModeratorsHeaderLabel" runat="server" LocalizedTag="MODERATORS" />
                         </th>
                         <th class="header1 headerTopics" width="4%">
@@ -30,7 +30,7 @@
                 </HeaderTemplate>
                 <ItemTemplate>
                     <tr class="forumRowCat header2">
-                        <td colspan="<%# (PageContext.BoardSettings.ShowModeratorList ? "6" : "5" ) %>">
+                        <td colspan="<%# ColumnCount() %>">
                             <YAF:CollapsibleImage ID="CollapsibleImage" runat="server" BorderWidth="0" ImageAlign="Bottom"
                                 PanelID='<%# "categoryPanel" + DataBinder.Eval(Container.DataItem, "CategoryID").ToString() %>'
                                 AttachedControlID="forumList" ToolTip='<%# this.GetText("COMMON", "SHOWHIDE") %>' />
@@ -47,7 +47,7 @@
                 </ItemTemplate>
                 <FooterTemplate>
                     <tr class="forumRowFoot footer1">
-                        <td colspan="<%# (PageContext.BoardSettings.ShowModeratorList ? "6" : "5" ) %>" align="right">
+                        <td colspan="<%# ColumnCount() %>" align="right">
                             <asp:LinkButton runat="server" OnClick="MarkAll_Click" ID="MarkAll" Text='<%# this.GetText("MARKALL") %>' />
                             <YAF:RssFeedLink ID="RssFeed1" runat="server" FeedType="Forum" AdditionalParameters='<%# this.PageContext.PageCategoryID != 0 ? string.Format("c={0}", this.PageContext.PageCategoryID) : null %>'
                                 ShowSpacerBefore="true" Visible="<%# PageContext.BoardSettings.ShowRSSLink && this.Get<IPermissions>().Check(PageContext.BoardSettings.ForumFeedAccess) %>"

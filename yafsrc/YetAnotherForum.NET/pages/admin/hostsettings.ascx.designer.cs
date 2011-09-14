@@ -2182,6 +2182,24 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox ShowModeratorList;
         
         /// <summary>
+        /// HelpLabel200 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel200;
+        
+        /// <summary>
+        /// ShowModeratorListAsColumn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ShowModeratorListAsColumn;
+        
+        /// <summary>
         /// HelpLabel156 control.
         /// </summary>
         /// <remarks>

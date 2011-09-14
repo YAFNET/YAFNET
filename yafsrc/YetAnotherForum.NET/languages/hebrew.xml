@@ -1136,6 +1136,8 @@
     <Resource tag="SHOW_MEDALS">Show Medals:</Resource>
     <Resource tag="SHOW_MEDALS_HELP">Should medals of a user be visible on the posts page.</Resource>
     <Resource tag="SHOW_MODLIST">Show Moderator List:</Resource>
+    <Resource tag="SHOW_MODLIST_ASCOLUMN">Show Moderator List in column:</Resource>
+    <Resource tag="SHOW_MODLIST_ASCOLUMN_HELP">Shows moderator list as a separate column in a category list.</Resource>
     <Resource tag="SHOW_MODLIST_HELP">If this is checked, the moderator list column is displayed in the forum list.</Resource>
     <Resource tag="SHOW_MOVED_TOPICS">Show Moved Topics:</Resource>
     <Resource tag="SHOW_MOVED_TOPICS_HELP">If this is checked, topics that are moved will leave behind a pointer to the new topic.</Resource>

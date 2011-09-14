@@ -86,6 +86,17 @@
             this.CategoryList.DataSource = ds.Tables[MsSqlDbAccess.GetObjectName("Category")];
             this.CategoryList.DataBind();
         }
+
+        /// <summary>
+        /// Column count
+        /// </summary>
+        protected int ColumnCount()
+        {
+            int cnt = 5;
+            if (PageContext.BoardSettings.ShowModeratorList && this.Get<YafBoardSettings>().ShowModeratorListAsColumn) cnt++;
+            return cnt;
+        }
+       
         #endregion
     }
 }

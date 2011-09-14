@@ -1113,6 +1113,8 @@
     <Resource tag="SHOW_MEDALS">Показывать медали:</Resource>
     <Resource tag="SHOW_MEDALS_HELP">Отображение медалей пользователя в постах.</Resource>
     <Resource tag="SHOW_MODLIST">Показывать список модераторов:</Resource>
+    <Resource tag="SHOW_MODLIST_ASCOLUMN">Show Moderator List in column:</Resource>
+    <Resource tag="SHOW_MODLIST_ASCOLUMN_HELP">Shows moderator list as a separate column in a category list.</Resource>
     <Resource tag="SHOW_MODLIST_HELP">Колонка со списком модераторов будет отображаться в списках форумов.</Resource>
     <Resource tag="SHOW_MOVED_TOPICS">Показывать перемещённые темы:</Resource>
     <Resource tag="SHOW_MOVED_TOPICS_HELP">Если это включено, то вместо перемещённых тем будут в старом месте будут видны ссылки на них в новом месте месте.</Resource>
