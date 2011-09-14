@@ -104,7 +104,7 @@ namespace YAF.Controls
                 writer.WriteBeginTag("td");
                 writer.WriteAttribute("id", this.ClientID);
                 writer.WriteAttribute("class", "SignatureColumn");
-                writer.WriteAttribute("colspan", "1");
+                writer.WriteAttribute("colspan", this.ColSpan);
                 writer.Write(HtmlTextWriter.TagRightChar);
             }
 

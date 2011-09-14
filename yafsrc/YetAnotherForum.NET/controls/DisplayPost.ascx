@@ -51,7 +51,7 @@
     </td>
 </tr>
 <tr class="<%#GetPostClass()%>">
-    <td rowspan="<%# GetRowSpan() %>" valign="top" height="<%# GetUserBoxHeight() %>" class="UserBox" colspan='<%#GetIndentSpan()%>'>
+    <td <%# GetRowSpan() %> valign="top" height="<%# GetUserBoxHeight() %>" class="UserBox" colspan='<%#GetIndentSpan()%>'>
         <YAF:UserBox id="UserBox1" runat="server" Visible="<%# !PostData.IsSponserMessage %>" PageCache="<%# PageContext.CurrentForumPage.PageCache %>" DataRow="<%# DataRow %>"></YAF:UserBox>
     </td>
     <td valign="top" class="message">

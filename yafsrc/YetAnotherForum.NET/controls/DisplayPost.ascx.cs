@@ -180,7 +180,7 @@ namespace YAF.Controls
             if (indent > 0)
             {
                 return
-                  @"<td rowspan=""3"" width=""1%""><img src=""{1}images/spacer.gif"" width=""{0}"" height=""2"" alt=""""/></td>"
+                  @"<td rowspan=""4"" width=""1%""><img src=""{1}images/spacer.gif"" width=""{0}"" height=""2"" alt=""""/></td>"
                     .FormatWith(indent * 32, YafForumInfo.ForumClientFileRoot);
             }
 
@@ -201,10 +201,10 @@ namespace YAF.Controls
                     this.DataRow["Signature"].ToString().ToLower() != "<p>&nbsp;</p>" &&
                     this.DataRow["Signature"].ToString().Trim().Length > 0)
             {
-                return "2";
+                return "rowspan=\"2\"";
             }
 
-            return "0";
+            return string.Empty;
         }
 
         /// <summary>
