@@ -229,6 +229,9 @@ namespace YAF.Pages
                 if (username != null)
                 {
                     user = this.Get<MembershipProvider>().GetUser(username, false);
+
+                    // update the username
+                    this.PasswordRecovery1.UserName = username;
                 }
             }
             else
