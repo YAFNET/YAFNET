@@ -3,9 +3,6 @@
   <page name="THEME">
     <Resource tag="CREDIT"></Resource>
   </page>
-  <page name="FORUM">
-    <Resource tag="BANNER">~/forum_banner.jpg</Resource>
-  </page>
 	<page name="ICONS">
     <Resource tag="ALBUMS">~/albums.png</Resource>
     <Resource tag="TOTOPPOST">~/arrow_up_button.png</Resource>
