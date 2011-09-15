@@ -101,10 +101,17 @@ namespace YAF.Controls
             {
                 writer.Write("</tr><tr class=\"{0}\">", this.GetPostClass());
 
+
+                // Bad Hack
+                if (this.ClientID.Contains("LastPosts"))
+                {
+                    writer.Write("<td></td>");
+                }
+
                 writer.WriteBeginTag("td");
                 writer.WriteAttribute("id", this.ClientID);
                 writer.WriteAttribute("class", "SignatureColumn");
-                writer.WriteAttribute("colspan", this.ColSpan);
+                writer.WriteAttribute("colspan", "2");
                 writer.Write(HtmlTextWriter.TagRightChar);
             }
 
