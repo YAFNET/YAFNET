@@ -43,6 +43,7 @@
     <Resource tag="ICON_NEWEST_UNREAD">~/icon_topiclatestunread_newest.gif</Resource>
     <Resource tag="ICON_LATEST_UNREAD">~/icon_topic_latestunread.gif</Resource>
     <Resource tag="ATTACHED_FILE">~/icon_file.gif</Resource>
+    <Resource tag="MODS_SMALL">~/mods_small.gif</Resource>    
     <Resource tag="PANEL_EXPAND">~/expand.gif</Resource>
     <Resource tag="PANEL_COLLAPSE">~/collapse.gif</Resource>
     <Resource tag="USER_ONLINE">~/icon_useronline.png</Resource>

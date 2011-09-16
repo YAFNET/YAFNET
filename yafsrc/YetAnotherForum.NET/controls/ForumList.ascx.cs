@@ -385,13 +385,12 @@ namespace YAF.Controls
                 // hide moderator list...
                 var moderatorColumn = e.Item.FindControl("ModeratorListTD") as HtmlTableCell;
                 var modList = e.Item.FindControl("ModeratorList") as ForumModeratorList;
-
-                // set them as invisible...
+                // set them as visible...
                 if (moderatorColumn != null)
                 {
                     moderatorColumn.Visible = true;
                 }
-
+              
                 if (modList != null)
                 {
                     modList.Visible = true;
@@ -399,17 +398,23 @@ namespace YAF.Controls
             }
             else
             {
-                var moderatorColumn1 = e.Item.FindControl("ModListMob_Span") as HtmlGenericControl;
+                var moderatorSpan = e.Item.FindControl("ModListMob_Span") as HtmlGenericControl;
                 var modList1 = e.Item.FindControl("ForumModeratorListMob") as ForumModeratorList;
-                // set them as invisible...
-                if (moderatorColumn1 != null)
-                {
-                    moderatorColumn1.Visible = true;
-                }
-
+               
                 if (modList1 != null)
                 {
-                    modList1.Visible = true;
+                    var dra = row.GetChildRows("FK_Moderator_Forum");
+                    if (dra.GetLength(0) > 0)
+                    {
+                        modList1.DataSource = dra;
+                        modList1.Visible = true;
+                        modList1.DataBind();
+                        // set them as visible...
+                        if (moderatorSpan != null)
+                        {
+                            moderatorSpan.Visible = true;
+                        }
+                    }
                 }
             }
         } 

@@ -23,7 +23,7 @@
 				</div>
 				<YAF:ForumSubForumList ID="SubForumList" runat="server" DataSource='<%# GetSubforums( (System.Data.DataRow)Container.DataItem ) %>'
 					Visible='<%# HasSubforums((System.Data.DataRow)Container.DataItem) %>' />
-               <span id="ModListMob_Span" class="description" Visible="false" runat="server"><%# this.GetText("DEFAULT", "MODERATORS")%>:<YAF:ForumModeratorList ID="ForumModeratorListMob" Visible="false" runat="server" DataSource='<%# ((System.Data.DataRow)Container.DataItem).GetChildRows("FK_Moderator_Forum") %>' /></span>
+               <span id="ModListMob_Span" class="description" Visible="false" runat="server"><YAF:ForumModeratorList ID="ForumModeratorListMob" Visible="false" runat="server"  /></span>
 			</td>
 			<td class="moderatorListCol" id="ModeratorListTD" Visible="false" runat="server">
 				<YAF:ForumModeratorList ID="ModeratorList" Visible="false" runat="server"  DataSource='<%# ((System.Data.DataRow)Container.DataItem).GetChildRows("FK_Moderator_Forum") %>' />
@@ -58,7 +58,7 @@
 				</div> 
 				<YAF:ForumSubForumList ID="ForumSubForumListAlt" runat="server" DataSource='<%# GetSubforums( (System.Data.DataRow)Container.DataItem ) %>'
 					Visible='<%# HasSubforums((System.Data.DataRow)Container.DataItem) %>' />
-                <span id="ModListMob_Span" Visible="false" class="description"  runat="server"><%# this.GetText("DEFAULT", "MODERATORS")%>:<YAF:ForumModeratorList ID="ForumModeratorListMob" runat="server" Visible="false" DataSource='<%# ((System.Data.DataRow)Container.DataItem).GetChildRows("FK_Moderator_Forum") %>' /></span>
+                <span id="ModListMob_Span" Visible="false" class="description"  runat="server"><YAF:ForumModeratorList ID="ForumModeratorListMob" runat="server" Visible="false" /></span>
 			</td>
 			<td class="moderatorListCol" id="ModeratorListTD" Visible="false" runat="server">
 				<YAF:ForumModeratorList ID="ModeratorList" Visible="false" runat="server" DataSource='<%# ((System.Data.DataRow)Container.DataItem).GetChildRows("FK_Moderator_Forum") %>' />
