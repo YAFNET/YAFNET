@@ -275,23 +275,9 @@
 .topicRow_Alt td{
 	background-color: #fff;
 }
-.yafnet tr.post:hover,
-.yafnet tr.post_alt:hover,
-.yafnet tr.topicRow_Alt:hover td,
-.yafnet tr.post_alt:hover td {
+.yafnet tr.topicRow:hover td,
+.yafnet tr.topicRow_Alt:hover td{
 	background-color: #f7b269;
-	-moz-transition: color .15s linear,background-color .15s linear;
-	-webkit-transition: color .15s linear,background-color .15s linear;
-	transition: color .15s linear,background-color .15s linear;
-}
-.yafnet tr.post:hover .message {
-	background-color: #ffffff;
-	-moz-transition: color .15s linear,background-color .15s linear;
-	-webkit-transition: color .15s linear,background-color .15s linear;
-	transition: color .15s linear,background-color .15s linear;
-}
-.yafnet tr.post_alt:hover .message {
-	background-color: #e3e3e3;
 	-moz-transition: color .15s linear,background-color .15s linear;
 	-webkit-transition: color .15s linear,background-color .15s linear;
 	transition: color .15s linear,background-color .15s linear;
