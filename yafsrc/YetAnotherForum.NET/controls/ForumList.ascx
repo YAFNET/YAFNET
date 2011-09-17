@@ -21,12 +21,12 @@
 				<div class="subforumheading">
 					<%# Page.HtmlEncode(DataBinder.Eval(Container.DataItem, "[\"Description\"]")) %>
 				</div>
+                <span id="ModListMob_Span" class="description" Visible="false" runat="server"><YAF:ForumModeratorList ID="ForumModeratorListMob" Visible="false" runat="server"  /></span>
 				<YAF:ForumSubForumList ID="SubForumList" runat="server" DataSource='<%# GetSubforums( (System.Data.DataRow)Container.DataItem ) %>'
 					Visible='<%# HasSubforums((System.Data.DataRow)Container.DataItem) %>' />
-               <span id="ModListMob_Span" class="description" Visible="false" runat="server"><YAF:ForumModeratorList ID="ForumModeratorListMob" Visible="false" runat="server"  /></span>
 			</td>
 			<td class="moderatorListCol" id="ModeratorListTD" Visible="false" runat="server">
-				<YAF:ForumModeratorList ID="ModeratorList" Visible="false" runat="server"  DataSource='<%# ((System.Data.DataRow)Container.DataItem).GetChildRows("FK_Moderator_Forum") %>' />
+				<YAF:ForumModeratorList ID="ModeratorList" Visible="false" runat="server" />
 			</td>
 			<td class="topicCountCol">
 				<%# Topics(Container.DataItem) %>

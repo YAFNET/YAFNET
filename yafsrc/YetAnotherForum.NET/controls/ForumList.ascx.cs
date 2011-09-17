@@ -17,7 +17,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-
 namespace YAF.Controls
 {
   #region Using
@@ -30,7 +29,6 @@ namespace YAF.Controls
     using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -79,7 +77,7 @@ namespace YAF.Controls
       private IEnumerable _dataSource;
 
     /// <summary>
-    ///   Sets DataSource.
+    ///   Gets or sets DataSource.
     /// </summary>
     public IEnumerable DataSource
     {
@@ -90,35 +88,35 @@ namespace YAF.Controls
 
         set
         {
-            _dataSource = value;
+            this._dataSource = value;
             DataRow[] arr;
-            Type t = _dataSource.GetType();
+            Type t = this._dataSource.GetType();
             List<DataRow> arlist = new List<DataRow>();
             List<DataRow> subLIst = new List<DataRow>();
             List<int> parents = new List<int>();
             if (t.Name == "DataRowCollection")
             {
-                arr = new DataRow[((DataRowCollection) _dataSource).Count];
-                ((DataRowCollection) _dataSource).CopyTo(arr, 0);
+                arr = new DataRow[((DataRowCollection)this._dataSource).Count];
+                ((DataRowCollection)this._dataSource).CopyTo(arr, 0);
 
                 for (int i = 0; i < arr.Count(); i++)
                 {
                     // these are all subforums related to start page forums
                     if (!arr[i]["ParentID"].IsNullOrEmptyDBField())
                     {
-                        if (SubDataSource == null)
+                        if (this.SubDataSource == null)
                         {
-                            SubDataSource = arr[i].Table.Clone();
+                            this.SubDataSource = arr[i].Table.Clone();
                         }
 
-                        DataRow drow = SubDataSource.NewRow();
+                        DataRow drow = this.SubDataSource.NewRow();
                         drow.ItemArray = arr[i].ItemArray;
 
                         parents.Add(drow["ForumID"].ToType<int>());
 
                         if (parents.Contains(drow["ParentID"].ToType<int>()))
                         {
-                            SubDataSource.Rows.Add(drow);
+                            this.SubDataSource.Rows.Add(drow);
                             subLIst.Add(drow);
                         }
                         else
@@ -132,41 +130,40 @@ namespace YAF.Controls
                     }
                 }
             }
-            else // (t.Name == "DataRow[]")
+            else 
             {
-                
-                arr = (DataRow[])_dataSource;
+                // (t.Name == "DataRow[]")
+                arr = (DataRow[])this._dataSource;
                 for (int i = 0; i < arr.Count(); i++)
                 {
                     if (!arr[i]["ParentID"].IsNullOrEmptyDBField())
                     {
-                        if (SubDataSource == null)
+                        if (this.SubDataSource == null)
                         {
-                            SubDataSource = arr[i].Table.Clone();
+                            this.SubDataSource = arr[i].Table.Clone();
                         }
-                        DataRow drow = SubDataSource.NewRow();
+
+                        DataRow drow = this.SubDataSource.NewRow();
                         drow.ItemArray = arr[i].ItemArray;
 
-                        SubDataSource.Rows.Add(drow);
+                        this.SubDataSource.Rows.Add(drow);
                     }
                     else
                     {
                         arlist.Add(arr[i]);
                     }
                 }
-
             }
 
-            if (SubDataSource != null)
+            if (this.SubDataSource != null)
             {
-                SubDataSource.AcceptChanges();
+                this.SubDataSource.AcceptChanges();
             }
 
-            _dataSource = arlist;
+            this._dataSource = arlist;
 
-            this.ForumList1.DataSource = _dataSource;
+            this.ForumList1.DataSource = this._dataSource;
         }
-
     }
 
     private DataTable SubDataSource{get; set;}
@@ -188,11 +185,10 @@ namespace YAF.Controls
     /// </returns>
     public string GetForumLink([NotNull] DataRow row)
     {
-      string output = string.Empty;
-      int forumID = Convert.ToInt32(row["ForumID"]);
+        int forumID = row["ForumID"].ToType<int>();
 
       // get the Forum Description
-      output = Convert.ToString(row["Forum"]);
+      string output = Convert.ToString(row["Forum"]);
 
       if (row["ReadAccess"].ToType<int>() > 0)
       {
@@ -376,48 +372,56 @@ namespace YAF.Controls
             }
         }
 
-        if (this.Get<YafBoardSettings>().ShowModeratorList)
+        if (!this.Get<YafBoardSettings>().ShowModeratorList)
         {
+            return;
+        }
 
-            if (PageContext.BoardSettings.ShowModeratorListAsColumn)
+        if (this.Get<YafBoardSettings>().ShowModeratorListAsColumn)
+        {
+            // hide moderator list...
+            var moderatorColumn = e.Item.FindControl("ModeratorListTD") as HtmlTableCell;
+            var modList = e.Item.FindControl("ModeratorList") as ForumModeratorList;
+
+            if (modList != null)
             {
+                var dra = row.GetChildRows("FK_Moderator_Forum");
+                if (dra.GetLength(0) > 0)
+                {
+                    modList.DataSource = dra;
+                    modList.Visible = true;
+                    modList.DataBind();
+                }
 
-                // hide moderator list...
-                var moderatorColumn = e.Item.FindControl("ModeratorListTD") as HtmlTableCell;
-                var modList = e.Item.FindControl("ModeratorList") as ForumModeratorList;
                 // set them as visible...
                 if (moderatorColumn != null)
                 {
                     moderatorColumn.Visible = true;
                 }
-              
-                if (modList != null)
-                {
-                    modList.Visible = true;
-                }
             }
-            else
-            {
-                var moderatorSpan = e.Item.FindControl("ModListMob_Span") as HtmlGenericControl;
-                var modList1 = e.Item.FindControl("ForumModeratorListMob") as ForumModeratorList;
+        }
+        else
+        {
+            var moderatorSpan = e.Item.FindControl("ModListMob_Span") as HtmlGenericControl;
+            var modList1 = e.Item.FindControl("ForumModeratorListMob") as ForumModeratorList;
                
-                if (modList1 != null)
+            if (modList1 != null)
+            {
+                var dra = row.GetChildRows("FK_Moderator_Forum");
+                if (dra.GetLength(0) > 0)
                 {
-                    var dra = row.GetChildRows("FK_Moderator_Forum");
-                    if (dra.GetLength(0) > 0)
+                    modList1.DataSource = dra;
+                    modList1.Visible = true;
+                    modList1.DataBind();
+
+                    // set them as visible...
+                    if (moderatorSpan != null)
                     {
-                        modList1.DataSource = dra;
-                        modList1.Visible = true;
-                        modList1.DataBind();
-                        // set them as visible...
-                        if (moderatorSpan != null)
-                        {
-                            moderatorSpan.Visible = true;
-                        }
+                        moderatorSpan.Visible = true;
                     }
                 }
             }
-        } 
+        }
     }
 
     /// <summary>
@@ -499,16 +503,13 @@ namespace YAF.Controls
     /// </returns>
     protected IEnumerable GetSubforums([NotNull] DataRow row)
     {
-
         if (this.HasSubforums(row))
       {
-          ArrayList arlist=  new ArrayList();
-          foreach (DataRow subrow in SubDataSource.Rows)
+          ArrayList arlist = new ArrayList();
+
+          foreach (DataRow subrow in this.SubDataSource.Rows.Cast<DataRow>().Where(subrow => row["ForumID"].ToType<int>() == subrow["ParentID"].ToType<int>()))
           {
-              if (row["ForumID"].ToType<int>() == subrow["ParentID"].ToType<int>())
-              {
-                  arlist.Add(subrow);
-              }
+              arlist.Add(subrow);
           }
 
          this.SubDataSource.AcceptChanges();
