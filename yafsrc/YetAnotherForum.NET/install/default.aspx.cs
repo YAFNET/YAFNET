@@ -357,19 +357,20 @@ namespace YAF.Install
     /// </param>
     protected void UserChoice_SelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (this.UserChoice.SelectedValue == "create")
-      {
-        this.ExistingUserHolder.Visible = false;
-        this.CreateAdminUserHolder.Visible = true;
-      }
-      else if (this.UserChoice.SelectedValue == "existing")
-      {
-        this.ExistingUserHolder.Visible = true;
-        this.CreateAdminUserHolder.Visible = false;
-      }
+        switch (this.UserChoice.SelectedValue)
+        {
+            case "create":
+                this.ExistingUserHolder.Visible = false;
+                this.CreateAdminUserHolder.Visible = true;
+                break;
+            case "existing":
+                this.ExistingUserHolder.Visible = true;
+                this.CreateAdminUserHolder.Visible = false;
+                break;
+        }
     }
 
-    /// <summary>
+      /// <summary>
     /// The wizard_ active step changed.
     /// </summary>
     /// <param name="sender">
@@ -830,19 +831,20 @@ else
     /// </param>
     protected void rblYAFDatabase_SelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (this.rblYAFDatabase.SelectedValue == "create")
-      {
-        this.ExistingConnectionHolder.Visible = false;
-        this.NewConnectionHolder.Visible = true;
-      }
-      else if (this.rblYAFDatabase.SelectedValue == "existing")
-      {
-        this.ExistingConnectionHolder.Visible = true;
-        this.NewConnectionHolder.Visible = false;
-      }
+        switch (this.rblYAFDatabase.SelectedValue)
+        {
+            case "create":
+                this.ExistingConnectionHolder.Visible = false;
+                this.NewConnectionHolder.Visible = true;
+                break;
+            case "existing":
+                this.ExistingConnectionHolder.Visible = true;
+                this.NewConnectionHolder.Visible = false;
+                break;
+        }
     }
 
-    /// <summary>
+      /// <summary>
     /// Validates write permission in a specific directory. Should be moved to YAF.Classes.Utils.
     /// </summary>
     /// <param name="directory">
@@ -1158,19 +1160,22 @@ else
     /// </summary>
     private void FillWithConnectionStrings()
     {
-      if (this.lbConnections.Items.Count == 0)
-      {
+        if (this.lbConnections.Items.Count != 0)
+        {
+            return;
+        }
+
         foreach (ConnectionStringSettings connectionString in ConfigurationManager.ConnectionStrings)
         {
-          this.lbConnections.Items.Add(connectionString.Name);
+            this.lbConnections.Items.Add(connectionString.Name);
         }
 
         ListItem item = this.lbConnections.Items.FindByText("yafnet");
+
         if (item != null)
         {
-          item.Selected = true;
+            item.Selected = true;
         }
-      }
     }
 
     /// <summary>
@@ -1228,126 +1233,138 @@ else
     /// </param>
     private void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!this.IsPostBack)
-      {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
         if (this.Session["InstallWizardFinal"] != null)
         {
-          this.CurrentWizardStepID = "WizFinished";
-          this.Session.Remove("InstallWizardFinal");
+            this.CurrentWizardStepID = "WizFinished";
+            this.Session.Remove("InstallWizardFinal");
         }
         else
         {
-          this.Cache["DBVersion"] = LegacyDb.GetDBVersion();
+            this.Cache["DBVersion"] = LegacyDb.GetDBVersion();
 
-          this.CurrentWizardStepID = this.IsInstalled ? "WizEnterPassword" : "WizValidatePermission";
+            this.CurrentWizardStepID = this.IsInstalled ? "WizEnterPassword" : "WizValidatePermission";
 
-          // "WizCreatePassword"
-          if (!this.IsInstalled)
-          {
-            // fake the board settings
-            YafContext.Current.BoardSettings = new YafBoardSettings();
-          }
+            // "WizCreatePassword"
+            if (!this.IsInstalled)
+            {
+                // fake the board settings
+                YafContext.Current.BoardSettings = new YafBoardSettings();
+            }
 
-          this.FullTextSupport.Visible = LegacyDb.FullTextSupported;
+            this.FullTextSupport.Visible = LegacyDb.FullTextSupported;
 
-          this.TimeZones.DataSource = StaticDataHelper.TimeZones("english.xml");
+            this.TimeZones.DataSource = StaticDataHelper.TimeZones("english.xml");
 
-          this.Culture.DataSource = StaticDataHelper.Cultures();
-          this.Culture.DataValueField = "CultureTag";
-          this.Culture.DataTextField = "CultureNativeName";
+            this.Culture.DataSource = StaticDataHelper.Cultures();
+            this.Culture.DataValueField = "CultureTag";
+            this.Culture.DataTextField = "CultureNativeName";
 
-          this.DataBind();
+            this.DataBind();
 
-          this.TimeZones.Items.FindByValue("0").Selected = true;
-          if (this.Culture.Items.Count > 0)
-          {
-            this.Culture.Items.FindByValue("en-US").Selected = true;
-          }
+            this.TimeZones.Items.FindByValue("0").Selected = true;
+            if (this.Culture.Items.Count > 0)
+            {
+                this.Culture.Items.FindByValue("en-US").Selected = true;
+            }
 
-          this.DBUsernamePasswordHolder.Visible = LegacyDb.PasswordPlaceholderVisible;
+            this.DBUsernamePasswordHolder.Visible = LegacyDb.PasswordPlaceholderVisible;
 
-          // Connection string parameters text boxes
-          this.Parameter1_Name.Text = LegacyDb.Parameter1_Name;
-          this.Parameter1_Value.Text = LegacyDb.Parameter1_Value;
-          this.Parameter1_Value.Visible = LegacyDb.Parameter1_Visible;
+            // Connection string parameters text boxes
+            this.Parameter1_Name.Text = LegacyDb.Parameter1_Name;
+            this.Parameter1_Value.Text = LegacyDb.Parameter1_Value;
+            this.Parameter1_Value.Visible = LegacyDb.Parameter1_Visible;
 
-          this.Parameter2_Name.Text = LegacyDb.Parameter2_Name;
-          this.Parameter2_Value.Text = LegacyDb.Parameter2_Value;
-          this.Parameter2_Value.Visible = LegacyDb.Parameter2_Visible;
+            this.Parameter2_Name.Text = LegacyDb.Parameter2_Name;
+            this.Parameter2_Value.Text = LegacyDb.Parameter2_Value;
+            this.Parameter2_Value.Visible = LegacyDb.Parameter2_Visible;
 
-          this.Parameter3_Name.Text = LegacyDb.Parameter3_Name;
-          this.Parameter3_Value.Text = LegacyDb.Parameter3_Value;
-          this.Parameter3_Value.Visible = LegacyDb.Parameter3_Visible;
+            this.Parameter3_Name.Text = LegacyDb.Parameter3_Name;
+            this.Parameter3_Value.Text = LegacyDb.Parameter3_Value;
+            this.Parameter3_Value.Visible = LegacyDb.Parameter3_Visible;
 
-          this.Parameter4_Name.Text = LegacyDb.Parameter4_Name;
-          this.Parameter4_Value.Text = LegacyDb.Parameter4_Value;
-          this.Parameter4_Value.Visible = LegacyDb.Parameter4_Visible;
+            this.Parameter4_Name.Text = LegacyDb.Parameter4_Name;
+            this.Parameter4_Value.Text = LegacyDb.Parameter4_Value;
+            this.Parameter4_Value.Visible = LegacyDb.Parameter4_Visible;
 
-          this.Parameter5_Name.Text = LegacyDb.Parameter5_Name;
-          this.Parameter5_Value.Text = LegacyDb.Parameter5_Value;
-          this.Parameter5_Value.Visible = LegacyDb.Parameter5_Visible;
+            this.Parameter5_Name.Text = LegacyDb.Parameter5_Name;
+            this.Parameter5_Value.Text = LegacyDb.Parameter5_Value;
+            this.Parameter5_Value.Visible = LegacyDb.Parameter5_Visible;
 
-          this.Parameter6_Name.Text = LegacyDb.Parameter6_Name;
-          this.Parameter6_Value.Text = LegacyDb.Parameter6_Value;
-          this.Parameter6_Value.Visible = LegacyDb.Parameter6_Visible;
+            this.Parameter6_Name.Text = LegacyDb.Parameter6_Name;
+            this.Parameter6_Value.Text = LegacyDb.Parameter6_Value;
+            this.Parameter6_Value.Visible = LegacyDb.Parameter6_Visible;
 
-          this.Parameter7_Name.Text = LegacyDb.Parameter7_Name;
-          this.Parameter7_Value.Text = LegacyDb.Parameter7_Value;
-          this.Parameter7_Value.Visible = LegacyDb.Parameter7_Visible;
+            this.Parameter7_Name.Text = LegacyDb.Parameter7_Name;
+            this.Parameter7_Value.Text = LegacyDb.Parameter7_Value;
+            this.Parameter7_Value.Visible = LegacyDb.Parameter7_Visible;
 
-          this.Parameter8_Name.Text = LegacyDb.Parameter8_Name;
-          this.Parameter8_Value.Text = LegacyDb.Parameter8_Value;
-          this.Parameter8_Value.Visible = LegacyDb.Parameter8_Visible;
+            this.Parameter8_Name.Text = LegacyDb.Parameter8_Name;
+            this.Parameter8_Value.Text = LegacyDb.Parameter8_Value;
+            this.Parameter8_Value.Visible = LegacyDb.Parameter8_Visible;
 
-          this.Parameter9_Name.Text = LegacyDb.Parameter9_Name;
-          this.Parameter9_Value.Text = LegacyDb.Parameter9_Value;
-          this.Parameter9_Value.Visible = LegacyDb.Parameter9_Visible;
+            this.Parameter9_Name.Text = LegacyDb.Parameter9_Name;
+            this.Parameter9_Value.Text = LegacyDb.Parameter9_Value;
+            this.Parameter9_Value.Visible = LegacyDb.Parameter9_Visible;
 
-          this.Parameter10_Name.Text = LegacyDb.Parameter10_Name;
-          this.Parameter10_Value.Text = LegacyDb.Parameter10_Value;
-          this.Parameter10_Value.Visible = LegacyDb.Parameter10_Visible;
+            this.Parameter10_Name.Text = LegacyDb.Parameter10_Name;
+            this.Parameter10_Value.Text = LegacyDb.Parameter10_Value;
+            this.Parameter10_Value.Visible = LegacyDb.Parameter10_Visible;
 
-          // Connection string parameters  check boxes
-          this.Parameter11_Value.Text = LegacyDb.Parameter11_Name;
-          this.Parameter11_Value.Checked = LegacyDb.Parameter11_Value;
-          this.Parameter11_Value.Visible = LegacyDb.Parameter11_Visible;
+            // Connection string parameters  check boxes
+            this.Parameter11_Value.Text = LegacyDb.Parameter11_Name;
+            this.Parameter11_Value.Checked = LegacyDb.Parameter11_Value;
+            this.Parameter11_Value.Visible = LegacyDb.Parameter11_Visible;
 
-          this.Parameter12_Value.Text = LegacyDb.Parameter12_Name;
-          this.Parameter12_Value.Checked = LegacyDb.Parameter12_Value;
-          this.Parameter12_Value.Visible = LegacyDb.Parameter12_Visible;
+            this.Parameter12_Value.Text = LegacyDb.Parameter12_Name;
+            this.Parameter12_Value.Checked = LegacyDb.Parameter12_Value;
+            this.Parameter12_Value.Visible = LegacyDb.Parameter12_Visible;
 
-          this.Parameter13_Value.Text = LegacyDb.Parameter13_Name;
-          this.Parameter13_Value.Checked = LegacyDb.Parameter13_Value;
-          this.Parameter13_Value.Visible = LegacyDb.Parameter13_Visible;
+            this.Parameter13_Value.Text = LegacyDb.Parameter13_Name;
+            this.Parameter13_Value.Checked = LegacyDb.Parameter13_Value;
+            this.Parameter13_Value.Visible = LegacyDb.Parameter13_Visible;
 
-          this.Parameter14_Value.Text = LegacyDb.Parameter14_Name;
-          this.Parameter14_Value.Checked = LegacyDb.Parameter14_Value;
-          this.Parameter14_Value.Visible = LegacyDb.Parameter14_Visible;
+            this.Parameter14_Value.Text = LegacyDb.Parameter14_Name;
+            this.Parameter14_Value.Checked = LegacyDb.Parameter14_Value;
+            this.Parameter14_Value.Visible = LegacyDb.Parameter14_Visible;
 
-          this.Parameter15_Value.Text = LegacyDb.Parameter15_Name;
-          this.Parameter15_Value.Checked = LegacyDb.Parameter15_Value;
-          this.Parameter15_Value.Visible = LegacyDb.Parameter15_Visible;
+            this.Parameter15_Value.Text = LegacyDb.Parameter15_Name;
+            this.Parameter15_Value.Checked = LegacyDb.Parameter15_Value;
+            this.Parameter15_Value.Visible = LegacyDb.Parameter15_Visible;
 
-          this.Parameter16_Value.Text = LegacyDb.Parameter16_Name;
-          this.Parameter16_Value.Checked = LegacyDb.Parameter16_Value;
-          this.Parameter16_Value.Visible = LegacyDb.Parameter16_Visible;
+            this.Parameter16_Value.Text = LegacyDb.Parameter16_Name;
+            this.Parameter16_Value.Checked = LegacyDb.Parameter16_Value;
+            this.Parameter16_Value.Visible = LegacyDb.Parameter16_Visible;
 
-          this.Parameter17_Value.Text = LegacyDb.Parameter17_Name;
-          this.Parameter17_Value.Checked = LegacyDb.Parameter17_Value;
-          this.Parameter17_Value.Visible = LegacyDb.Parameter17_Visible;
+            this.Parameter17_Value.Text = LegacyDb.Parameter17_Name;
+            this.Parameter17_Value.Checked = LegacyDb.Parameter17_Value;
+            this.Parameter17_Value.Visible = LegacyDb.Parameter17_Visible;
 
-          this.Parameter18_Value.Text = LegacyDb.Parameter18_Name;
-          this.Parameter18_Value.Checked = LegacyDb.Parameter18_Value;
-          this.Parameter18_Value.Visible = LegacyDb.Parameter18_Visible;
+            this.Parameter18_Value.Text = LegacyDb.Parameter18_Name;
+            this.Parameter18_Value.Checked = LegacyDb.Parameter18_Value;
+            this.Parameter18_Value.Visible = LegacyDb.Parameter18_Visible;
 
-          this.Parameter19_Value.Text = LegacyDb.Parameter19_Name;
-          this.Parameter19_Value.Checked = LegacyDb.Parameter19_Value;
-          this.Parameter19_Value.Visible = LegacyDb.Parameter19_Visible;
+            this.Parameter19_Value.Text = LegacyDb.Parameter19_Name;
+            this.Parameter19_Value.Checked = LegacyDb.Parameter19_Value;
+            this.Parameter19_Value.Visible = LegacyDb.Parameter19_Visible;
+
+            // Hide New User on DNN
+            if (Config.IsDotNetNuke)
+            {
+                UserChoice.SelectedIndex = 1;
+                UserChoice.Items[0].Enabled = false;
+
+                this.ExistingUserHolder.Visible = true;
+                this.CreateAdminUserHolder.Visible = false;
+            }
         }
-      }
     }
 
-    /// <summary>
+      /// <summary>
     /// The update database connection.
     /// </summary>
     /// <returns>
