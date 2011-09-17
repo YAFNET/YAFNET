@@ -36,6 +36,8 @@ namespace YAF.DotNetNuke
   using YAF.Types.Attributes;
   using YAF.Types.Interfaces;
 
+  using global::DotNetNuke.Services.Messaging;
+
   using MailPriority = global::DotNetNuke.Services.Mail.MailPriority;
 
   #endregion
@@ -71,8 +73,8 @@ namespace YAF.DotNetNuke
             }
         }
 
-      Mail.SendMail(
-        mailMessage.From.ToString(), 
+        Mail.SendMail(
+        mailMessage.From.Address, 
         mailMessage.To.ToString(), 
         string.Empty, 
         string.Empty, 
