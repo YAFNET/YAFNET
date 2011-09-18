@@ -4116,14 +4116,20 @@ begin
 	-- find a guest id should do it every time to be sure that guest access rights are in ActiveAccess table
 	select top 1 @GuestID = UserID from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and (Flags & 4)=4 ORDER BY Joined DESC
 		set @rowcount=@@rowcount
-		if (@rowcount = 0)
+		if (@rowcount > 1)
 		begin
 			raiserror('Found %d possible guest users. There should be one and only one user marked as guest.',16,1,@rowcount)
 			end	
-         
+		if (@rowcount = 0)
+		begin
+			raiserror('No candidates for a guest were found for the board %d.',16,1,@BoardID)
+			end
+     -- verify that there's not the sane session for other board and drop it if required. Test code for portals with many boards
+	 delete from [{databaseOwner}].[{objectQualifier}Active] where (SessionID=@SessionID  and BoardID <> @BoardID)
+	         
 	if @UserKey is null
 	begin
-	
+	-- this is a guest
         SET @UserID = @GuestID
 		set @IsGuest = 1
 		-- set IsGuest ActiveFlag  1 | 2
@@ -4215,7 +4221,7 @@ begin
 	end 
 	
 	-- get previous visit
-	if @IsGuest=0 begin
+	if  @IsGuest = 0	 begin
 		select @PreviousVisit = LastVisit from [{databaseOwner}].[{objectQualifier}User] where UserID = @UserID
 	end
 	
