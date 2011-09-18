@@ -656,7 +656,7 @@ namespace YAF.Pages
                 this.RssTopic.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
                     ForumPages.rsstopic,
                     "pg={0}&t={1}",
-                    this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("g"),
+                    YafRssFeeds.Posts.ToInt(),
                     this.PageContext.PageTopicID);
                 this.RssTopic.Visible = this.Get<YafBoardSettings>().ShowRSSLink;
 
@@ -1511,7 +1511,7 @@ namespace YAF.Pages
         {
             switch (e.Item.ToLower())
             {
-                case "print":
+                case "print": 
                     YafBuildLink.Redirect(ForumPages.printtopic, "t={0}", this.PageContext.PageTopicID);
                     break;
                 case "watch":
@@ -1524,14 +1524,14 @@ namespace YAF.Pages
                     YafBuildLink.Redirect(
                         ForumPages.rsstopic,
                         "pg={0}&t={1}&ft=0",
-                        this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("g"),
+                        YafRssFeeds.Posts.ToInt(),
                         this.PageContext.PageTopicID);
                     break;
                 case "atomfeed":
                     YafBuildLink.Redirect(
                         ForumPages.rsstopic,
                         "pg={0}&t={1}&ft=1",
-                        this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("g"),
+                        YafRssFeeds.Posts.ToInt(),
                         this.PageContext.PageTopicID);
                     break;
                 default:

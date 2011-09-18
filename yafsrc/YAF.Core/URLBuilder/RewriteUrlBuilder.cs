@@ -16,6 +16,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
+using YAF.Core.Syndication;
+using YAF.Types.Constants;
+
 namespace YAF.Core
 {
   #region Using
@@ -102,9 +106,10 @@ namespace YAF.Core
         newUrl = before + Config.UrlRewritingPrefix;
 
         string useKey = string.Empty;
+        string useKey2 = string.Empty;
         string description = string.Empty;
         string pageName = parser["g"];
-
+        bool isFeed = false;
         // const bool showKey = false;
         bool handlePage = false;
 
@@ -150,9 +155,67 @@ namespace YAF.Core
               useKey = "c";
               description = this.GetCategoryName(parser[useKey].ToType<int>());
             }
-
             break;
-        }
+          case "rsstopic":
+            if (parser["pg"].IsSet())
+            {
+                useKey = "pg";
+               // pageName += "pg";
+                if (parser[useKey].ToType<int>() == YafRssFeeds.Active.ToInt())
+                {
+                    description = "active";
+                }
+                if (parser[useKey].ToType<int>() == YafRssFeeds.Favorite.ToInt())
+                {
+                    description = "favorite";
+                }
+                if (parser[useKey].ToType<int>() == YafRssFeeds.Forum.ToInt())
+                {
+                    description = "forum";
+                }
+                if (parser[useKey].ToType<int>() == YafRssFeeds.LatestAnnouncements.ToInt())
+                {
+                    description = "latestannouncements";
+                }
+                if (parser[useKey].ToType<int>() == YafRssFeeds.LatestPosts.ToInt())
+                {
+                    description = "latestposts";
+                }
+                if (parser[useKey].ToType<int>() == YafRssFeeds.Posts.ToInt())
+                {
+                    description = "posts";
+                }
+                if (parser[useKey].ToType<int>() == YafRssFeeds.Topics.ToInt())
+                {
+                    description = "topics";
+                } 
+            }
+            if (parser["f"].IsSet())
+            {
+                useKey2 = "f";
+                description += this.GetForumName(parser[useKey2].ToType<int>());
+            }
+            if (parser["t"].IsSet())
+            {
+                useKey2 = "t";
+                description += this.GetTopicName(parser[useKey2].ToType<int>());
+            }
+            if (parser["ft"].IsSet())
+            {
+                useKey2 = "ft";
+                if ((parser[useKey2].ToType<int>()) == YafSyndicationFormats.Atom.ToInt())
+                {
+                    description += "-atom";
+                }
+                else
+                {
+                    description += "-rss";
+                }
+            }
+            handlePage = true;
+                isFeed = true;
+            break; 
+        } 
 
         newUrl += pageName;
 
@@ -161,7 +224,7 @@ namespace YAF.Core
             newUrl += parser[useKey];
         }
 
-        if (handlePage && parser["p"] != null)
+        if (handlePage && parser["p"] != null && !isFeed)
         {
           int page = parser["p"].ToType<int>();
           if (page != 1)
@@ -171,8 +234,29 @@ namespace YAF.Core
 
           parser.Parameters.Remove("p");
         }
+        if (isFeed)
+        {
+            if (parser["ft"] != null)
+            {
+                int page = parser["ft"].ToType<int>();
+                newUrl += "ft{0}".FormatWith(page);
+                parser.Parameters.Remove("ft");
+            }
+            if (parser["f"] != null)
+            {
+                int page = parser["f"].ToType<int>();
+                newUrl += "f{0}".FormatWith(page);
+                parser.Parameters.Remove("f");
+            }
+            if (parser["t"] != null)
+            {
+                int page = parser["t"].ToType<int>();
+                newUrl += "t{0}".FormatWith(page);
+                parser.Parameters.Remove("t");
+            }
+        }
 
-        if (description.Length > 0)
+          if (description.Length > 0)
         {
             if (description.EndsWith("-"))
             {
@@ -182,9 +266,16 @@ namespace YAF.Core
           newUrl += "_{0}".FormatWith(description);
         }
 
-        newUrl += ".aspx";
+        if (!isFeed)
+        {
+            newUrl += ".aspx";
+        }
+        else
+        {
+            newUrl += ".xml"; 
+        }
 
-        string restURL = parser.CreateQueryString(new[] { "g", useKey });
+          string restURL = parser.CreateQueryString(new[] { "g", useKey });
 
         // append to the url if there are additional (unsupported) parameters
         if (restURL.Length > 0)
