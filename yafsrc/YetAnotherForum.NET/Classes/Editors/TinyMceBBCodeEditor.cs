@@ -20,9 +20,13 @@ namespace YAF.Editors
 {
   using System.Web.UI;
 
+  using YAF.Classes;
+  using YAF.Core;
   using YAF.Types;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
 
-  /// <summary>
+    /// <summary>
   /// The tiny mce bb code editor.
   /// </summary>
   public class TinyMceBBCodeEditor : TinyMceEditor
@@ -96,7 +100,11 @@ namespace YAF.Editors
     /// </summary>
     protected override void RegisterTinyMceCustomJS()
     {
-      ScriptManager.RegisterClientScriptInclude(
+        YafContext.Current.PageElements.RegisterJsBlock(
+         "editorlang",
+         @"var editorLanguage = ""{0}"";".FormatWith(YafContext.Current.CultureUser.IsSet() ? YafContext.Current.CultureUser.Substring(0, 2) : this.Get<YafBoardSettings>().Culture.Substring(0, 2)));
+
+       ScriptManager.RegisterClientScriptInclude(
         this.Page, this.Page.GetType(), "tinymceinit", this.ResolveUrl("tiny_mce/tiny_mce_initbbcode.js"));
     }
 

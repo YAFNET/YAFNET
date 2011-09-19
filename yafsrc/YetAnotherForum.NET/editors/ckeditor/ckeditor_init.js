@@ -26,7 +26,7 @@ function CKEditor_Load() {
 								
 			config.entities_greek = false;
 			config.entities_latin = false;
-			config.language = window.navigator.userLanguage || window.navigator.language;
+			config.language = editorLanguage;
 			
 			config.contentsCss = 'editors/ckeditor/contents.css';
 		  });

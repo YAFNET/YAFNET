@@ -1,0 +1,153 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>SpellCheckAsYouType</title>
+        <style>
+            .page-wrapper{
+                height:200px;
+                overflow:hidden;
+                width:385px;
+            }
+            .lcol {
+                float:left;
+                width:47%;
+                margin-left:5px;
+            }
+            .rcol {
+                float:right;
+                width:47%;
+                margin-right:5px;
+            }
+            .PopupTab, .PopupTabSelected {
+                cursor: pointer;
+            }
+            .tabs li.PopupTab{
+                display:none;
+            }
+            .DarkBackground  {
+                background-color: #fff;	
+            }
+            .buttons-layer{
+                position:absolute;
+                bottom: 2px;
+                left: 50px;
+                width: 200px;
+                
+            }
+            .tab_container{
+                display:none;
+                padding-left:15px;
+            }
+            .dic_buttons input.button{
+                display:none;
+                background-repeat:no-repeat;
+                font-size:15px;
+                text-align:center;
+                padding-bottom:5px;
+            }
+            #dic_message .success{
+                color: blue;
+                padding-left: 10px;
+            }
+            #dic_message .error{
+                color: red;
+                padding-left: 10px;
+            }
+            #dic_name
+            {
+                font-size:12px;
+                height:15px;
+                padding-bottom:2px;
+                padding-left:2px;
+                padding-right:2px;
+                padding-top:2px;
+                width:182px;
+            }
+            .dic_buttons
+            {
+                padding-left:112px;
+            }
+            #dic_info
+            {
+                 padding:10px;
+            }
+        </style>
+        
+        </head>
+    <body>
+        <div class="page-wrapper" >
+        <ul class="tabs">
+                <li id="options" class="PopupTab TabfixedClass"></li>
+                <li id="langs" class="PopupTab TabfixedClass"></li>
+                <li id="dictionary" class="PopupTab TabfixedClass"></li>
+                <li id="about" class="PopupTab TabfixedClass"></li>
+            </ul>
+            <div class="tabs-container">
+                <div class="tab_container" id="inner_options">
+                        <ul id="scayt_options">
+                           <li class="_scayt_options">
+                               <input class="_scayt_option" type="checkbox" value="0" name="allCaps" />
+                               <label for="allCaps" id="label_allCaps"></label>
+                           </li>
+                           <li>
+                               <input class="_scayt_option" type="checkbox" value="0" name="ignoreDomainNames" />
+                               <label for="ignoreDomainNames" id="label_ignoreDomainNames"></label>
+                           </li>
+                           <li>
+                               <input class="_scayt_option" type="checkbox" value="0" name="mixedCase" />
+                               <label for="mixedCase" id="label_mixedCase"></label>
+                           </li>
+                           <li>
+                               <input class="_scayt_option" type="checkbox" value="0" name="mixedWithDigits" />
+                               <label for="mixedWithDigits" id="label_mixedWithDigits"></label>
+                           </li>
+                       </ul> 
+                   </div>
+                
+                <div class="tab_container" id="inner_dictionary">
+                    
+                    <div id="dic_message"></div>
+                    <div id="dic_tab" class="dictionary" > 
+                        <div style="padding-left:10px;">
+                            <label id="dname" for="dname"></label>
+                            <input type="text" size="14" maxlength="15" value="" id="dic_name" name="dic_name"/>
+                        </div>
+                        <div class="dic_buttons">
+                            <input id="dic_create" class="button" type="submit"/>
+                            <input id="dic_delete" class="button" type="submit"/>
+                            <input id="dic_rename" class="button" type="submit"/>
+                            <input id="dic_restore" class="button" type="submit"/> 
+                        </div>
+                        
+                        <div id="dic_info"></div>
+                    </div>
+                    
+                   
+                </div>
+                <div class="tab_container" id="inner_langs" style="display:none;">
+                   <div class="lcol" id="lcolid">
+                       
+                   </div>
+                   <div class="rcol" id="rcolid">
+                       
+                   </div>
+                   
+                </div>
+                <div class="tab_container" id="inner_about" style="display:none;">
+                    <div id="scayt_about"></div>
+                </div>
+            </div>
+            
+            <div class="buttons-layer">
+                
+                <button id="insert" onclick="Ok();">Ok</button>
+                <button id="cancel" onclick="Cancel();">Cancel</button>
+            </div>
+            </div>
+            
+        <script type="text/javascript" src="../../../tiny_mce_popup.js"></script>
+        <script type="text/javascript" src="ui.js"></script>
+        
+    </body>
+</html>

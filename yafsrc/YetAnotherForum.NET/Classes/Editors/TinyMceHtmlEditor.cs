@@ -18,10 +18,15 @@
  */
 namespace YAF.Editors
 {
-  using YAF.Core;
-  using YAF.Types;
+    using System.Web.UI;
 
-  /// <summary>
+    using YAF.Classes;
+    using YAF.Core;
+  using YAF.Types;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
+
+    /// <summary>
   /// The tiny mce html editor.
   /// </summary>
   public class TinyMceHtmlEditor : TinyMceEditor
@@ -84,9 +89,9 @@ namespace YAF.Editors
     protected override void RegisterSmilieyScript()
     {
       YafContext.Current.PageElements.RegisterJsBlock(
-        "InsertSmileyJs", 
-        "function insertsmiley(code,img) {\n" +
-        "	tinyMCE.execCommand('mceInsertContent',false,'<img src=\"' + img + '\" alt=\"\" />');\n" + "}\n");
+          "InsertSmileyJs",
+          "function insertsmiley(code,img) {\n" +
+          "	tinyMCE.execCommand('mceInsertContent',false,'<img src=\"' + img + '\" alt=\"\" />');\n" + "}\n");
     }
 
     /// <summary>
@@ -94,6 +99,10 @@ namespace YAF.Editors
     /// </summary>
     protected override void RegisterTinyMceCustomJS()
     {
+        YafContext.Current.PageElements.RegisterJsBlock(
+        "editorlang",
+        @"var editorLanguage = ""{0}"";".FormatWith(YafContext.Current.CultureUser.IsSet() ? YafContext.Current.CultureUser.Substring(0, 2) : this.Get<YafBoardSettings>().Culture.Substring(0, 2)));
+
       YafContext.Current.PageElements.RegisterJsInclude("tinymceinit", this.ResolveUrl("tiny_mce/tiny_mce_init.js"));
     }
 

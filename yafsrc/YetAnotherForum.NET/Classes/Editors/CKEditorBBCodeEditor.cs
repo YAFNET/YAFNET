@@ -21,9 +21,12 @@ namespace YAF.Editors
   using System.Web.UI;
 
   using YAF.Classes;
+  using YAF.Core;
   using YAF.Types;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
 
-  /// <summary>
+    /// <summary>
     /// The CKEditor bb code editor.
   /// </summary>
     public class CKEditorBBCodeEditor : CKEditor
@@ -49,7 +52,7 @@ namespace YAF.Editors
     {
       get
       {
-        return this.Description.GetHashCode().ToString();
+          return this.Description.GetHashCode().ToString();
       }
     }
 
@@ -84,15 +87,11 @@ namespace YAF.Editors
     /// </summary>
     protected override void RegisterSmilieyScript()
     {
-        ScriptManager.RegisterClientScriptBlock(
-            this.Page,
-            this.Page.GetType(),
+        YafContext.Current.PageElements.RegisterJsBlock(
             "InsertSmileyJs",
-            string.Format(
-                "function insertsmiley(code,img) {{\n var ckEditor = CKEDITOR.instances.{0};\nif ( ckEditor.mode == 'wysiwyg' ) {{\nckEditor.insertHtml( '[img]' + '{1}' + img + '[/img]' ); }}\nelse alert( 'You must be on WYSIWYG mode!' );\n}}\n",
-                _textCtl.ClientID,
-                BaseUrlBuilder.BaseUrl),
-            true);
+            "function insertsmiley(code,img) {{\n var ckEditor = CKEDITOR.instances.{0};\nif ( ckEditor.mode == 'wysiwyg' ) {{\nckEditor.insertHtml( '[img]' + '{1}' + img + '[/img]' ); }}\nelse alert( 'You must be on WYSIWYG mode!' );\n}}\n".FormatWith(
+            this._textCtl.ClientID, 
+            BaseUrlBuilder.BaseUrl));
     }
 
     /// <summary>
@@ -100,6 +99,10 @@ namespace YAF.Editors
     /// </summary>
     protected override void RegisterCKEditorCustomJS()
     {
+        YafContext.Current.PageElements.RegisterJsBlock(
+        "editorlang",
+        @"var editorLanguage = ""{0}"";".FormatWith(YafContext.Current.CultureUser.IsSet() ? YafContext.Current.CultureUser.Substring(0, 2) : this.Get<YafBoardSettings>().Culture.Substring(0, 2)));
+
         ScriptManager.RegisterClientScriptInclude(
         this.Page, this.Page.GetType(), "ckeditorinitbbcode", this.ResolveUrl("ckeditor/ckeditor_initbbcode.js"));
     }
