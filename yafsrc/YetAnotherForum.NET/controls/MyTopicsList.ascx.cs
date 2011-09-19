@@ -443,11 +443,8 @@ namespace YAF.Controls
             bool accessActive = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ActiveTopicFeedAccess);
             bool accessFavorite = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().FavoriteTopicFeedAccess);
 
-            this.AtomFeed.Visible = this.Get<YafBoardSettings>().ShowAtomLink;
-            this.RssFeed.Visible = this.Get<YafBoardSettings>().ShowRSSLink;
-
             // RSS link setup 
-            if (this.RssFeed.Visible)
+            if (this.Get<YafBoardSettings>().ShowRSSLink)
             {
                 switch (this.CurrentMode)
                 {
@@ -482,40 +479,37 @@ namespace YAF.Controls
             }
 
             // Atom link setup 
-            if (!this.AtomFeed.Visible)
+            if (this.Get<YafBoardSettings>().ShowAtomLink)
             {
-                return;
+                switch (this.CurrentMode)
+                {
+                    case TopicListMode.Active:
+                        this.AtomFeed.TitleLocalizedTag = "ATOMICONTOOLTIPACTIVE";
+                        this.AtomFeed.FeedType = YafRssFeeds.Active;
+                        this.AtomFeed.ImageThemeTag = "ATOMFEED";
+                        this.AtomFeed.TextLocalizedTag = "ATOMFEED";
+                        this.AtomFeed.AdditionalParameters =
+                            "txt={0}&d={1}".FormatWith(
+                                this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text)),
+                                this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString())));
+                        this.AtomFeed.Visible = accessActive;
+                        break;
+                    case TopicListMode.Favorite:
+                        this.AtomFeed.TitleLocalizedTag = "ATOMICONTOOLTIPFAVORITE";
+                        this.AtomFeed.FeedType = YafRssFeeds.Favorite;
+                        this.AtomFeed.ImageThemeTag = "ATOMFEED";
+                        this.AtomFeed.TextLocalizedTag = "ATOMFEED";
+                        this.AtomFeed.AdditionalParameters =
+                            "txt={0}&d={1}".FormatWith(
+                                this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text)),
+                                this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString())));
+
+                        this.AtomFeed.Visible = accessFavorite;
+                        break;
+                }
+                // We should set token to show a common control to handlw it as an Atom feed.
+                this.AtomFeed.IsAtomFeed = true;
             }
-
-            switch (this.CurrentMode)
-            {
-                case TopicListMode.Active:
-                    this.AtomFeed.TitleLocalizedTag = "ATOMICONTOOLTIPACTIVE";
-                    this.AtomFeed.FeedType = YafRssFeeds.Active;
-                    this.AtomFeed.ImageThemeTag = "ATOMFEED";
-                    this.AtomFeed.TextLocalizedTag = "ATOMFEED";
-                    this.AtomFeed.AdditionalParameters =
-                        "txt={0}&d={1}".FormatWith(
-                            this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text)),
-                            this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString())));
-
-                    this.RssFeed.Visible = accessActive;
-                    break;
-                case TopicListMode.Favorite:
-                    this.AtomFeed.TitleLocalizedTag = "ATOMICONTOOLTIPFAVORITE";
-                    this.AtomFeed.FeedType = YafRssFeeds.Favorite;
-                    this.AtomFeed.ImageThemeTag = "ATOMFEED";
-                    this.AtomFeed.TextLocalizedTag = "ATOMFEED";
-                    this.AtomFeed.AdditionalParameters =
-                        "txt={0}&d={1}".FormatWith(
-                            this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text)),
-                            this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString())));
-
-                    this.RssFeed.Visible = accessFavorite;
-                    break;
-            }
-
-            this.AtomFeed.IsAtomFeed = true;
         }
 
         #endregion

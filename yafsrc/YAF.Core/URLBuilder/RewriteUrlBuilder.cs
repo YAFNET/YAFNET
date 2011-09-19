@@ -110,7 +110,7 @@ namespace YAF.Core
         string description = string.Empty;
         string pageName = parser["g"];
         bool isFeed = false;
-        // const bool showKey = false;
+       // const bool showKey = false;
         bool handlePage = false;
 
         switch (parser["g"])
@@ -141,7 +141,6 @@ namespace YAF.Core
                   description = "posts";
               }
             }
-
                 handlePage = true;
             break;
           case "profile":
@@ -255,6 +254,12 @@ namespace YAF.Core
                 parser.Parameters.Remove("t");
             }
         }
+
+       if (parser["find"] != null)
+        {
+            newUrl += "find{0}".FormatWith(parser["find"].Trim());
+            parser.Parameters.Remove("find");
+        } 
 
           if (description.Length > 0)
         {
