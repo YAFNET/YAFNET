@@ -439,6 +439,7 @@ namespace YAF
     /// </param>
     /// <exception cref="ApplicationException">
     /// </exception>
+    /// <exception cref="ApplicationException"></exception>
     private void Forum_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       // context is ready to be loaded, call the before page load event...
@@ -474,10 +475,7 @@ namespace YAF
       this._currentForumPage.ForumTopControl = this._topControl;
       this._currentForumPage.ForumFooter = this._footer;
 
-      if (Config.ShowToolBar)
-      {
-          this._currentForumPage.ForumHeader = this._header;
-      }
+      this._currentForumPage.ForumHeader = this._header;
 
         // don't allow as a popup if it's not allowed by the page...
       if (!this._currentForumPage.AllowAsPopup && this.Popup)
@@ -554,7 +552,7 @@ namespace YAF
       {
         var pageQuery = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("g");
 
-        _page = pages.GetPage(pageQuery);
+        this._page = pages.GetPage(pageQuery);
       }
 
       if (this._page == null)
@@ -576,7 +574,7 @@ namespace YAF
         src = controlOverride;
       }
 
-      var replacementPaths = new List<string>() { "moderate", "admin", "help" };
+      var replacementPaths = new List<string> { "moderate", "admin", "help" };
 
       foreach (var path in replacementPaths)
       {
