@@ -2501,6 +2501,7 @@
     <Content Include="themes\BlackGrey\ButtonActive.png" />
     <Content Include="themes\BlackGrey\ButtonHover.png" />
     <Content Include="themes\BlackGrey\collapse.gif" />
+    <Content Include="themes\BlackGrey\copy_small_icon.png" />
     <Content Include="themes\BlackGrey\delete_small_icon.gif" />
     <Content Include="themes\BlackGrey\DownArrow.png" />
     <Content Include="themes\BlackGrey\DownArrowWhite.png" />
@@ -2606,6 +2607,7 @@
     <Content Include="themes\BlueGrey\ButtonActive.png" />
     <Content Include="themes\BlueGrey\ButtonHover.png" />
     <Content Include="themes\BlueGrey\collapse.gif" />
+    <Content Include="themes\BlueGrey\copy_small_icon.png" />
     <Content Include="themes\BlueGrey\delete_small_icon.gif" />
     <Content Include="themes\BlueGrey\DownArrow.png" />
     <Content Include="themes\BlueGrey\DownArrowWhite.png" />
@@ -2714,6 +2716,7 @@
     <Content Include="themes\cleanSlate\buttonEnd.gif" />
     <Content Include="themes\cleanSlate\buttonEndB.gif" />
     <Content Include="themes\cleanSlate\collapse.gif" />
+    <Content Include="themes\cleanSlate\copy_small_icon.png" />
     <Content Include="themes\cleanSlate\delete_small_icon.gif" />
     <Content Include="themes\cleanSlate\DownArrow.png" />
     <Content Include="themes\cleanSlate\dustbun.gif" />
@@ -3056,6 +3059,7 @@
     <Content Include="themes\GreenGrey\ButtonActive.png" />
     <Content Include="themes\GreenGrey\ButtonHover.png" />
     <Content Include="themes\GreenGrey\collapse.gif" />
+    <Content Include="themes\GreenGrey\copy_small_icon.png" />
     <Content Include="themes\GreenGrey\delete_small_icon.gif" />
     <Content Include="themes\GreenGrey\DownArrow.png" />
     <Content Include="themes\GreenGrey\DownArrowWhite.png" />
@@ -3161,6 +3165,7 @@
     <Content Include="themes\GreyGrey\ButtonActive.png" />
     <Content Include="themes\GreyGrey\ButtonHover.png" />
     <Content Include="themes\GreyGrey\collapse.gif" />
+    <Content Include="themes\GreyGrey\copy_small_icon.png" />
     <Content Include="themes\GreyGrey\delete_small_icon.gif" />
     <Content Include="themes\GreyGrey\DownArrow.png" />
     <Content Include="themes\GreyGrey\DownArrowWhite.png" />
@@ -3264,6 +3269,7 @@
     <Content Include="themes\OrangeGrey\ButtonActive.png" />
     <Content Include="themes\OrangeGrey\ButtonHover.png" />
     <Content Include="themes\OrangeGrey\collapse.gif" />
+    <Content Include="themes\OrangeGrey\copy_small_icon.png" />
     <Content Include="themes\OrangeGrey\delete_small_icon.gif" />
     <Content Include="themes\OrangeGrey\DownArrow.png" />
     <Content Include="themes\OrangeGrey\DownArrowWhite.png" />
@@ -3369,6 +3375,7 @@
     <Content Include="themes\RedGrey\ButtonActive.png" />
     <Content Include="themes\RedGrey\ButtonHover.png" />
     <Content Include="themes\RedGrey\collapse.gif" />
+    <Content Include="themes\RedGrey\copy_small_icon.png" />
     <Content Include="themes\RedGrey\delete_small_icon.gif" />
     <Content Include="themes\RedGrey\DownArrow.png" />
     <Content Include="themes\RedGrey\DownArrowWhite.png" />
@@ -3470,6 +3477,7 @@
     <Content Include="themes\soclean\albums.png" />
     <Content Include="themes\soclean\arrow_up_button.png" />
     <Content Include="themes\soclean\atomfeed.png" />
+    <Content Include="themes\soclean\copy_small_icon.png" />
     <Content Include="themes\soclean\delete_small_icon.gif" />
     <Content Include="themes\soclean\DownArrow.png" />
     <Content Include="themes\soclean\DownArrowWhite.png" />
@@ -3516,6 +3524,7 @@
     <Content Include="themes\Yafmobile\arrow_up_button.png" />
     <Content Include="themes\Yafmobile\chart.png" />
     <Content Include="themes\Yafmobile\collapse.png" />
+    <Content Include="themes\Yafmobile\copy_small_icon.png" />
     <Content Include="themes\Yafmobile\delete_small_icon.gif" />
     <Content Include="themes\Yafmobile\DownArrow.png" />
     <Content Include="themes\Yafmobile\dustbun.gif" />
@@ -3579,6 +3588,7 @@
     <Content Include="themes\yafpro\albums.png" />
     <Content Include="themes\yafpro\arrow_up_button.png" />
     <Content Include="themes\yafpro\atomfeed.png" />
+    <Content Include="themes\yafpro\copy_small_icon.png" />
     <Content Include="themes\yafpro\delete_small_icon.gif" />
     <Content Include="themes\yafpro\DownArrow.png" />
     <Content Include="themes\yafpro\DownArrowWhite.png" />
@@ -3627,6 +3637,7 @@
     <Content Include="themes\yafvision\albums.png" />
     <Content Include="themes\yafvision\arrow_up_button.png" />
     <Content Include="themes\yafvision\atomfeed.png" />
+    <Content Include="themes\yafvision\copy_small_icon.png" />
     <Content Include="themes\yafvision\delete_small_icon.gif" />
     <Content Include="themes\yafvision\DownArrow.png" />
     <Content Include="themes\yafvision\DownArrowWhite.png" />

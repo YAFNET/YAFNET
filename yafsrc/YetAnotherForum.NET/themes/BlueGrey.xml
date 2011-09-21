@@ -15,6 +15,9 @@
     <Resource tag="HOME">~/icon_home.png</Resource>
     <Resource tag="BLOG">~/icon_blog.png</Resource>
     <Resource tag="DUSTBIN_SMALL">~/dustbin.gif</Resource>
+    <Resource tag="COPY_SMALL_ICON">~/copy_small_icon.png</Resource>
+    <Resource tag="EDIT_SMALL_ICON">~/edit_small_icon.gif</Resource>
+    <Resource tag="DELETE_SMALL_ICON">~/delete_small_icon.gif</Resource>
     <Resource tag="MULTIPAGES_SMALL">~/multipages_small.gif</Resource>
     <Resource tag="MSN">~/icon_msn.png</Resource>
     <Resource tag="AIM">~/icon_aim.png</Resource>

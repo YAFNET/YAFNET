@@ -14,15 +14,13 @@
 					<td class="header2">
 						<%# HtmlEncode(Eval( "Name"))%>
 					</td>
-					<td class="header2" width="10%" align="center">
+					<td class="header2" width="8%" align="center">
 						<%# Eval( "SortOrder") %>
 					</td>
-					<td class="header2" width="15%" style="font-weight: normal">
-						<asp:LinkButton runat='server' CommandName='edit' CommandArgument='<%# Eval( "CategoryID") %>'><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="EDIT" /></asp:LinkButton>
-						|
-						<asp:LinkButton runat='server' OnLoad="DeleteCategory_Load" CommandName='delete'
-							CommandArgument='<%# Eval( "CategoryID") %>'><YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="DELETE" /></asp:LinkButton>
-					</td>
+					<td class="header2" width="17%" style="font-weight: normal">
+                    <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="yaflittlebutton" CommandName='edit' CommandArgument='<%# Eval( "CategoryID") %>' TitleLocalizedTag="EDIT" ImageThemePage="ICONS" ImageThemeTag="EDIT_SMALL_ICON" runat="server"></YAF:ThemeButton>
+                    <YAF:ThemeButton ID="ThemeButtonDelete" CssClass="yaflittlebutton" OnLoad="DeleteCategory_Load"  CommandName='delete' CommandArgument='<%# Eval( "CategoryID") %>' TitleLocalizedTag="DELETE" ImageThemePage="ICONS" ImageThemeTag="DELETE_SMALL_ICON" runat="server"></YAF:ThemeButton>
+                    </td>
 				</tr>
 				<asp:Repeater ID="ForumList" OnItemCommand="ForumList_ItemCommand" runat="server"
 					DataSource='<%# ((System.Data.DataRowView)Container.DataItem).Row.GetChildRows("FK_Forum_Category") %>'>
@@ -37,12 +35,10 @@
 								<%# DataBinder.Eval(Container.DataItem, "[\"SortOrder\"]") %>
 							</td>
 							<td>
-								<asp:LinkButton ID="btnEdit" runat='server' CommandName='edit' CommandArgument='<%# Eval( "[\"ForumID\"]") %>'><YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="EDIT" /></asp:LinkButton>
-								|
-								<asp:LinkButton ID="btnDuplicate" runat='server' CommandName='copy' CommandArgument='<%# Eval( "[\"ForumID\"]") %>'><YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="COPY" /></asp:LinkButton>
-								|
-								<asp:LinkButton ID="btnDelete" runat='server' OnLoad="DeleteForum_Load" CommandName='delete' CommandArgument='<%# Eval( "[\"ForumID\"]") %>'><YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="DELETE" /></asp:LinkButton>
-							</td>
+                             <YAF:ThemeButton ID="btnEdit" CssClass="yaflittlebutton" CommandName='edit' CommandArgument='<%# Eval( "[\"ForumID\"]") %>' TitleLocalizedTag="EDIT" ImageThemePage="ICONS" ImageThemeTag="EDIT_SMALL_ICON" runat="server"></YAF:ThemeButton>								
+							 <YAF:ThemeButton ID="btnDuplicate" CssClass="yaflittlebutton" CommandName='copy' CommandArgument='<%# Eval( "[\"ForumID\"]") %>' TitleLocalizedTag="COPY" ImageThemePage="ICONS" ImageThemeTag="COPY_SMALL_ICON" runat="server"></YAF:ThemeButton>
+                             <YAF:ThemeButton ID="btnDelete" CssClass="yaflittlebutton" OnLoad="DeleteForum_Load"  CommandName='delete' CommandArgument='<%# Eval( "[\"ForumID\"]") %>' TitleLocalizedTag="DELETE" ImageThemePage="ICONS" ImageThemeTag="DELETE_SMALL_ICON" runat="server"></YAF:ThemeButton>
+                            </td>
 						</tr>
 					</ItemTemplate>
 				</asp:Repeater>
