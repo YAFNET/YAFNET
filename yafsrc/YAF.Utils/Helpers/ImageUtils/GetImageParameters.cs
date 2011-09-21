@@ -37,8 +37,8 @@ namespace YAF.Utils.Helpers
         /// </returns>
         public  static  string GetImageParameters(Uri uriPath, out long length)
         {
-            string pseudoMime = string.Empty;
-            string contentType = string.Empty;
+            string pseudoMime = String.Empty;
+            string contentType = String.Empty;
             using (Stream stream = GetRemoteData(uriPath, out length, out contentType))
             {
                 Bitmap img = null;
@@ -115,6 +115,38 @@ namespace YAF.Utils.Helpers
                 return new MemoryStream();
             }
             // Don't make the program crash just because we have a picture which failed downloading
+        }
+
+        /// <summary>
+        /// Returns resized image stream.
+        /// </summary>
+        /// <param name="img">The Image.</param>
+        /// <param name="x">The image width.</param>
+        /// <param name="y">The image height.</param>
+        /// <returns>A resized image stream Stream.</returns>
+        public static Stream GetResizedImageStreamFromImage(System.Drawing.Image img, long x, long y)
+        {
+            Stream resized = null;
+            double newWidth = img.Width;
+            double newHeight = img.Height;
+            if (newWidth > x)
+            {
+                newHeight = newHeight * x / newWidth;
+                newWidth = x;
+            }
+
+            if (newHeight > y)
+            {
+                newWidth = newWidth * y / newHeight;
+                newHeight = y;
+            }
+
+            // TODO : Save an Animated Gif
+            var bitmap = img.GetThumbnailImage((int)newWidth, (int)newHeight, null, IntPtr.Zero);
+
+            resized = new MemoryStream();
+            bitmap.Save(resized, img.RawFormat);
+            return resized;
         }
     }
 }

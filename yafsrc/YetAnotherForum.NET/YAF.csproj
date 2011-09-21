@@ -723,14 +723,6 @@
     <Content Include="App_Data\Database_log.LDF">
       <DependentUpon>Database.mdf</DependentUpon>
     </Content>
-    <Content Include="App_Data\MyDatabase.mdf" />
-    <Content Include="App_Data\MyDatabase3.mdf" />
-    <Content Include="App_Data\MyDatabase3_log.LDF">
-      <DependentUpon>MyDatabase3.mdf</DependentUpon>
-    </Content>
-    <Content Include="App_Data\MyDatabase_log.LDF">
-      <DependentUpon>MyDatabase.mdf</DependentUpon>
-    </Content>
     <Content Include="controls\AlbumImageList.ascx" />
     <Content Include="controls\AlbumList.ascx" />
     <Content Include="controls\BuddyList.ascx" />
@@ -1052,8 +1044,17 @@
     <Content Include="images\medals\medal_small.png" />
     <Content Include="images\YafLogo.png" />
     <Content Include="install\wizard.css" />
+    <Content Include="languages\admin\english.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="languages\arabic.xml" />
     <Content Include="languages\estonian.xml" />
+    <Content Include="languages\help\english.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="languages\install\english.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="pages\admin\users_import.ascx" />
     <Content Include="resources\css\jquery.msDropDown.css" />
     <Content Include="resources\css\jquery.spellchecker.css" />
@@ -2500,9 +2501,11 @@
     <Content Include="themes\BlackGrey\ButtonActive.png" />
     <Content Include="themes\BlackGrey\ButtonHover.png" />
     <Content Include="themes\BlackGrey\collapse.gif" />
+    <Content Include="themes\BlackGrey\delete_small_icon.gif" />
     <Content Include="themes\BlackGrey\DownArrow.png" />
     <Content Include="themes\BlackGrey\DownArrowWhite.png" />
     <Content Include="themes\BlackGrey\dustbun.gif" />
+    <Content Include="themes\BlackGrey\edit_small_icon.gif" />
     <Content Include="themes\BlackGrey\error.png" />
     <Content Include="themes\BlackGrey\expand.gif" />
     <Content Include="themes\BlackGrey\female.gif" />
@@ -2515,6 +2518,7 @@
     <Content Include="themes\BlackGrey\handpointer1.png" />
     <Content Include="themes\BlackGrey\Header2Back.png" />
     <Content Include="themes\BlackGrey\HeaderBack.png" />
+    <Content Include="themes\BlackGrey\heart_small.png" />
     <Content Include="themes\BlackGrey\icon_aim.png" />
     <Content Include="themes\BlackGrey\icon_blog.png" />
     <Content Include="themes\BlackGrey\icon_buzz.png" />
@@ -2552,8 +2556,10 @@
     <Content Include="themes\BlackGrey\lock_small.png" />
     <Content Include="themes\BlackGrey\male.gif" />
     <Content Include="themes\BlackGrey\mask.gif" />
+    <Content Include="themes\BlackGrey\mods_small.gif" />
     <Content Include="themes\BlackGrey\multipages_small.gif" />
     <Content Include="themes\BlackGrey\myMenuIcons.png" />
+    <Content Include="themes\BlackGrey\plus_small_icon.png" />
     <Content Include="themes\BlackGrey\pm_new.png" />
     <Content Include="themes\BlackGrey\pm_read.png" />
     <Content Include="themes\BlackGrey\poll_choice.png" />
@@ -2600,9 +2606,11 @@
     <Content Include="themes\BlueGrey\ButtonActive.png" />
     <Content Include="themes\BlueGrey\ButtonHover.png" />
     <Content Include="themes\BlueGrey\collapse.gif" />
+    <Content Include="themes\BlueGrey\delete_small_icon.gif" />
     <Content Include="themes\BlueGrey\DownArrow.png" />
     <Content Include="themes\BlueGrey\DownArrowWhite.png" />
     <Content Include="themes\BlueGrey\dustbun.gif" />
+    <Content Include="themes\BlueGrey\edit_small_icon.gif" />
     <Content Include="themes\BlueGrey\error.png" />
     <Content Include="themes\BlueGrey\expand.gif" />
     <Content Include="themes\BlueGrey\female.gif" />
@@ -2615,6 +2623,7 @@
     <Content Include="themes\BlueGrey\handpointer1.png" />
     <Content Include="themes\BlueGrey\Header2Back.png" />
     <Content Include="themes\BlueGrey\HeaderBack.png" />
+    <Content Include="themes\BlueGrey\heart_small.png" />
     <Content Include="themes\BlueGrey\icon_aim.png" />
     <Content Include="themes\BlueGrey\icon_blog.png" />
     <Content Include="themes\BlueGrey\icon_buzz.png" />
@@ -2651,8 +2660,10 @@
     <Content Include="themes\BlueGrey\lock_small.png" />
     <Content Include="themes\BlueGrey\male.gif" />
     <Content Include="themes\BlueGrey\mask.gif" />
+    <Content Include="themes\BlueGrey\mods_small.gif" />
     <Content Include="themes\BlueGrey\multipages_small.gif" />
     <Content Include="themes\BlueGrey\myMenuIcons.png" />
+    <Content Include="themes\BlueGrey\plus_small_icon.png" />
     <Content Include="themes\BlueGrey\pm_new.png" />
     <Content Include="themes\BlueGrey\pm_read.png" />
     <Content Include="themes\BlueGrey\poll_choice.png" />
@@ -2703,8 +2714,10 @@
     <Content Include="themes\cleanSlate\buttonEnd.gif" />
     <Content Include="themes\cleanSlate\buttonEndB.gif" />
     <Content Include="themes\cleanSlate\collapse.gif" />
+    <Content Include="themes\cleanSlate\delete_small_icon.gif" />
     <Content Include="themes\cleanSlate\DownArrow.png" />
     <Content Include="themes\cleanSlate\dustbun.gif" />
+    <Content Include="themes\cleanSlate\edit_small_icon.gif" />
     <Content Include="themes\cleanSlate\error.png" />
     <Content Include="themes\cleanSlate\expand.gif" />
     <Content Include="themes\cleanSlate\female.gif" />
@@ -2964,6 +2977,7 @@
     <Content Include="themes\cleanSlate\folder_who.gif" />
     <Content Include="themes\cleanSlate\folder_who.png" />
     <Content Include="themes\cleanSlate\handpointer1.png" />
+    <Content Include="themes\cleanSlate\heart_small.png" />
     <Content Include="themes\cleanSlate\icon_aim.png" />
     <Content Include="themes\cleanSlate\icon_blog.png" />
     <Content Include="themes\cleanSlate\icon_buzz.png" />
@@ -2997,8 +3011,10 @@
     <Content Include="themes\cleanSlate\lock_small.png" />
     <Content Include="themes\cleanSlate\male.gif" />
     <Content Include="themes\cleanSlate\mask.gif" />
+    <Content Include="themes\cleanSlate\mods_small.gif" />
     <Content Include="themes\cleanSlate\multipages_small.gif" />
     <Content Include="themes\cleanSlate\paper_clip_small.gif" />
+    <Content Include="themes\cleanSlate\plus_small_icon.png" />
     <Content Include="themes\cleanSlate\poll_choice.png" />
     <Content Include="themes\cleanSlate\poll_question.png" />
     <Content Include="themes\cleanSlate\RightArrow.png" />
@@ -3040,9 +3056,11 @@
     <Content Include="themes\GreenGrey\ButtonActive.png" />
     <Content Include="themes\GreenGrey\ButtonHover.png" />
     <Content Include="themes\GreenGrey\collapse.gif" />
+    <Content Include="themes\GreenGrey\delete_small_icon.gif" />
     <Content Include="themes\GreenGrey\DownArrow.png" />
     <Content Include="themes\GreenGrey\DownArrowWhite.png" />
     <Content Include="themes\GreenGrey\dustbun.gif" />
+    <Content Include="themes\GreenGrey\edit_small_icon.gif" />
     <Content Include="themes\GreenGrey\error.png" />
     <Content Include="themes\GreenGrey\expand.gif" />
     <Content Include="themes\GreenGrey\female.gif" />
@@ -3055,6 +3073,7 @@
     <Content Include="themes\GreenGrey\handpointer1.png" />
     <Content Include="themes\GreenGrey\Header2Back.png" />
     <Content Include="themes\GreenGrey\HeaderBack.png" />
+    <Content Include="themes\GreenGrey\heart_small.png" />
     <Content Include="themes\GreenGrey\icon_aim.png" />
     <Content Include="themes\GreenGrey\icon_blog.png" />
     <Content Include="themes\GreenGrey\icon_buzz.png" />
@@ -3091,8 +3110,10 @@
     <Content Include="themes\GreenGrey\lock_small.png" />
     <Content Include="themes\GreenGrey\male.gif" />
     <Content Include="themes\GreenGrey\mask.gif" />
+    <Content Include="themes\GreenGrey\mods_small.gif" />
     <Content Include="themes\GreenGrey\multipages_small.gif" />
     <Content Include="themes\GreenGrey\myMenuIcons.png" />
+    <Content Include="themes\GreenGrey\plus_small_icon.png" />
     <Content Include="themes\GreenGrey\pm_new.png" />
     <Content Include="themes\GreenGrey\pm_read.png" />
     <Content Include="themes\GreenGrey\poll_choice.png" />
@@ -3140,9 +3161,11 @@
     <Content Include="themes\GreyGrey\ButtonActive.png" />
     <Content Include="themes\GreyGrey\ButtonHover.png" />
     <Content Include="themes\GreyGrey\collapse.gif" />
+    <Content Include="themes\GreyGrey\delete_small_icon.gif" />
     <Content Include="themes\GreyGrey\DownArrow.png" />
     <Content Include="themes\GreyGrey\DownArrowWhite.png" />
     <Content Include="themes\GreyGrey\dustbun.gif" />
+    <Content Include="themes\GreyGrey\edit_small_icon.gif" />
     <Content Include="themes\GreyGrey\error.png" />
     <Content Include="themes\GreyGrey\expand.gif" />
     <Content Include="themes\GreyGrey\female.gif" />
@@ -3155,6 +3178,7 @@
     <Content Include="themes\GreyGrey\handpointer1.png" />
     <Content Include="themes\GreyGrey\Header2Back.png" />
     <Content Include="themes\GreyGrey\HeaderBack.png" />
+    <Content Include="themes\GreyGrey\heart_small.png" />
     <Content Include="themes\GreyGrey\icon_aim.png" />
     <Content Include="themes\GreyGrey\icon_blog.png" />
     <Content Include="themes\GreyGrey\icon_buzz.png" />
@@ -3191,8 +3215,10 @@
     <Content Include="themes\GreyGrey\lock_small.png" />
     <Content Include="themes\GreyGrey\male.gif" />
     <Content Include="themes\GreyGrey\mask.gif" />
+    <Content Include="themes\GreyGrey\mods_small.gif" />
     <Content Include="themes\GreyGrey\multipages_small.gif" />
     <Content Include="themes\GreyGrey\myMenuIcons.png" />
+    <Content Include="themes\GreyGrey\plus_small_icon.png" />
     <Content Include="themes\GreyGrey\pm_new.png" />
     <Content Include="themes\GreyGrey\pm_read.png" />
     <Content Include="themes\GreyGrey\poll_choice.png" />
@@ -3238,9 +3264,11 @@
     <Content Include="themes\OrangeGrey\ButtonActive.png" />
     <Content Include="themes\OrangeGrey\ButtonHover.png" />
     <Content Include="themes\OrangeGrey\collapse.gif" />
+    <Content Include="themes\OrangeGrey\delete_small_icon.gif" />
     <Content Include="themes\OrangeGrey\DownArrow.png" />
     <Content Include="themes\OrangeGrey\DownArrowWhite.png" />
     <Content Include="themes\OrangeGrey\dustbun.gif" />
+    <Content Include="themes\OrangeGrey\edit_small_icon.gif" />
     <Content Include="themes\OrangeGrey\error.png" />
     <Content Include="themes\OrangeGrey\expand.gif" />
     <Content Include="themes\OrangeGrey\female.gif" />
@@ -3253,6 +3281,7 @@
     <Content Include="themes\OrangeGrey\handpointer1.png" />
     <Content Include="themes\OrangeGrey\Header2Back.png" />
     <Content Include="themes\OrangeGrey\HeaderBack.png" />
+    <Content Include="themes\OrangeGrey\heart_small.png" />
     <Content Include="themes\OrangeGrey\icon_aim.png" />
     <Content Include="themes\OrangeGrey\icon_blog.png" />
     <Content Include="themes\OrangeGrey\icon_buzz.png" />
@@ -3290,8 +3319,10 @@
     <Content Include="themes\OrangeGrey\lock_small.png" />
     <Content Include="themes\OrangeGrey\male.gif" />
     <Content Include="themes\OrangeGrey\mask.gif" />
+    <Content Include="themes\OrangeGrey\mods_small.gif" />
     <Content Include="themes\OrangeGrey\multipages_small.gif" />
     <Content Include="themes\OrangeGrey\myMenuIcons.png" />
+    <Content Include="themes\OrangeGrey\plus_small_icon.png" />
     <Content Include="themes\OrangeGrey\pm_new.png" />
     <Content Include="themes\OrangeGrey\pm_read.png" />
     <Content Include="themes\OrangeGrey\poll_choice.png" />
@@ -3338,9 +3369,11 @@
     <Content Include="themes\RedGrey\ButtonActive.png" />
     <Content Include="themes\RedGrey\ButtonHover.png" />
     <Content Include="themes\RedGrey\collapse.gif" />
+    <Content Include="themes\RedGrey\delete_small_icon.gif" />
     <Content Include="themes\RedGrey\DownArrow.png" />
     <Content Include="themes\RedGrey\DownArrowWhite.png" />
     <Content Include="themes\RedGrey\dustbun.gif" />
+    <Content Include="themes\RedGrey\edit_small_icon.gif" />
     <Content Include="themes\RedGrey\error.png" />
     <Content Include="themes\RedGrey\expand.gif" />
     <Content Include="themes\RedGrey\female.gif" />
@@ -3353,6 +3386,7 @@
     <Content Include="themes\RedGrey\handpointer1.png" />
     <Content Include="themes\RedGrey\Header2Back.png" />
     <Content Include="themes\RedGrey\HeaderBack.png" />
+    <Content Include="themes\RedGrey\heart_small.png" />
     <Content Include="themes\RedGrey\icon_aim.png" />
     <Content Include="themes\RedGrey\icon_blog.png" />
     <Content Include="themes\RedGrey\icon_buzz.png" />
@@ -3390,8 +3424,10 @@
     <Content Include="themes\RedGrey\lock_small.png" />
     <Content Include="themes\RedGrey\male.gif" />
     <Content Include="themes\RedGrey\mask.gif" />
+    <Content Include="themes\RedGrey\mods_small.gif" />
     <Content Include="themes\RedGrey\multipages_small.gif" />
     <Content Include="themes\RedGrey\myMenuIcons.png" />
+    <Content Include="themes\RedGrey\plus_small_icon.png" />
     <Content Include="themes\RedGrey\pm_new.png" />
     <Content Include="themes\RedGrey\pm_read.png" />
     <Content Include="themes\RedGrey\poll_choice.png" />
@@ -3434,12 +3470,15 @@
     <Content Include="themes\soclean\albums.png" />
     <Content Include="themes\soclean\arrow_up_button.png" />
     <Content Include="themes\soclean\atomfeed.png" />
+    <Content Include="themes\soclean\delete_small_icon.gif" />
     <Content Include="themes\soclean\DownArrow.png" />
     <Content Include="themes\soclean\DownArrowWhite.png" />
     <Content Include="themes\soclean\dustbun.gif" />
+    <Content Include="themes\soclean\edit_small_icon.gif" />
     <Content Include="themes\soclean\error.png" />
     <Content Include="themes\soclean\female.gif" />
     <Content Include="themes\soclean\handpointer1.png" />
+    <Content Include="themes\soclean\heart_small.png" />
     <Content Include="themes\soclean\icon_buzz.png" />
     <Content Include="themes\soclean\icon_digg.png" />
     <Content Include="themes\soclean\icon_facebook.png" />
@@ -3460,7 +3499,9 @@
     <Content Include="themes\soclean\lock_small.png" />
     <Content Include="themes\soclean\male.gif" />
     <Content Include="themes\soclean\mask.gif" />
+    <Content Include="themes\soclean\mods_small.gif" />
     <Content Include="themes\soclean\multipages_small.gif" />
+    <Content Include="themes\soclean\plus_small_icon.png" />
     <Content Include="themes\soclean\poll_choice.png" />
     <Content Include="themes\soclean\poll_question.png" />
     <Content Include="themes\soclean\RightArrow.png" />
@@ -3475,12 +3516,15 @@
     <Content Include="themes\Yafmobile\arrow_up_button.png" />
     <Content Include="themes\Yafmobile\chart.png" />
     <Content Include="themes\Yafmobile\collapse.png" />
+    <Content Include="themes\Yafmobile\delete_small_icon.gif" />
     <Content Include="themes\Yafmobile\DownArrow.png" />
     <Content Include="themes\Yafmobile\dustbun.gif" />
+    <Content Include="themes\Yafmobile\edit_small_icon.gif" />
     <Content Include="themes\Yafmobile\expand.png" />
     <Content Include="themes\Yafmobile\folder_who.gif" />
     <Content Include="themes\Yafmobile\folder_who.png" />
     <Content Include="themes\Yafmobile\handpointer1.png" />
+    <Content Include="themes\Yafmobile\heart_small.png" />
     <Content Include="themes\Yafmobile\icon_buzz.png" />
     <Content Include="themes\Yafmobile\icon_digg.png" />
     <Content Include="themes\Yafmobile\icon_email.png" />
@@ -3505,7 +3549,9 @@
     <Content Include="themes\Yafmobile\LeftArrow.png" />
     <Content Include="themes\Yafmobile\lock_small.png" />
     <Content Include="themes\Yafmobile\mask.gif" />
+    <Content Include="themes\Yafmobile\mods_small.gif" />
     <Content Include="themes\Yafmobile\multipages_small.gif" />
+    <Content Include="themes\Yafmobile\plus_small_icon.png" />
     <Content Include="themes\Yafmobile\poll_choice.png" />
     <Content Include="themes\Yafmobile\poll_question.png" />
     <Content Include="themes\Yafmobile\RightArrow.png" />
@@ -3533,12 +3579,15 @@
     <Content Include="themes\yafpro\albums.png" />
     <Content Include="themes\yafpro\arrow_up_button.png" />
     <Content Include="themes\yafpro\atomfeed.png" />
+    <Content Include="themes\yafpro\delete_small_icon.gif" />
     <Content Include="themes\yafpro\DownArrow.png" />
     <Content Include="themes\yafpro\DownArrowWhite.png" />
     <Content Include="themes\yafpro\dustbun.gif" />
+    <Content Include="themes\yafpro\edit_small_icon.gif" />
     <Content Include="themes\yafpro\error.png" />
     <Content Include="themes\yafpro\female.gif" />
     <Content Include="themes\yafpro\handpointer1.png" />
+    <Content Include="themes\yafpro\heart_small.png" />
     <Content Include="themes\yafpro\icon_buzz.png" />
     <Content Include="themes\yafpro\icon_digg.png" />
     <Content Include="themes\yafpro\icon_facebook.png" />
@@ -3559,7 +3608,9 @@
     <Content Include="themes\yafpro\lock_small.png" />
     <Content Include="themes\yafpro\male.gif" />
     <Content Include="themes\yafpro\mask.gif" />
+    <Content Include="themes\yafpro\mods_small.gif" />
     <Content Include="themes\yafpro\multipages_small.gif" />
+    <Content Include="themes\yafpro\plus_small_icon.png" />
     <Content Include="themes\yafpro\poll_choice.png" />
     <Content Include="themes\yafpro\poll_question.png" />
     <Content Include="themes\yafpro\RightArrow.png" />
@@ -3576,12 +3627,15 @@
     <Content Include="themes\yafvision\albums.png" />
     <Content Include="themes\yafvision\arrow_up_button.png" />
     <Content Include="themes\yafvision\atomfeed.png" />
+    <Content Include="themes\yafvision\delete_small_icon.gif" />
     <Content Include="themes\yafvision\DownArrow.png" />
     <Content Include="themes\yafvision\DownArrowWhite.png" />
     <Content Include="themes\yafvision\dustbun.gif" />
+    <Content Include="themes\yafvision\edit_small_icon.gif" />
     <Content Include="themes\yafvision\error.png" />
     <Content Include="themes\yafvision\female.gif" />
     <Content Include="themes\yafvision\handpointer1.png" />
+    <Content Include="themes\yafvision\heart_small.png" />
     <Content Include="themes\yafvision\icon_buzz.png" />
     <Content Include="themes\yafvision\icon_digg.png" />
     <Content Include="themes\yafvision\icon_facebook.png" />
@@ -3602,7 +3656,9 @@
     <Content Include="themes\yafvision\lock_small.png" />
     <Content Include="themes\yafvision\male.gif" />
     <Content Include="themes\yafvision\mask.gif" />
+    <Content Include="themes\yafvision\mods_small.gif" />
     <Content Include="themes\yafvision\multipages_small.gif" />
+    <Content Include="themes\yafvision\plus_small_icon.png" />
     <Content Include="themes\yafvision\poll_choice.png" />
     <Content Include="themes\yafvision\poll_question.png" />
     <Content Include="themes\yafvision\RightArrow.png" />

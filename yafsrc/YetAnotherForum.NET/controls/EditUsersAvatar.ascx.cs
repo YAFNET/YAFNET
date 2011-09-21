@@ -245,33 +245,16 @@ namespace YAF.Controls
                     if (img.Width > x || img.Height > y)
                     {
                         this.PageContext.AddLoadMessage(
-                          this.GetText("CP_EDITAVATAR", "WARN_TOOBIG").FormatWith(x, y));
+                            this.GetText("CP_EDITAVATAR", "WARN_TOOBIG").FormatWith(x, y));
                         this.PageContext.AddLoadMessage(
-                          this.GetText("CP_EDITAVATAR", "WARN_SIZE").FormatWith(img.Width, img.Height));
+                            this.GetText("CP_EDITAVATAR", "WARN_SIZE").FormatWith(img.Width, img.Height));
                         this.PageContext.AddLoadMessage(this.GetText("CP_EDITAVATAR", "WARN_RESIZED"));
 
-                        double newWidth = img.Width;
-                        double newHeight = img.Height;
-                        if (newWidth > x)
-                        {
-                            newHeight = newHeight * x / newWidth;
-                            newWidth = x;
-                        }
-
-                        if (newHeight > y)
-                        {
-                            newWidth = newWidth * y / newHeight;
-                            newHeight = y;
-                        }
-
-                        // TODO : Save an Animated Gif
-                        var bitmap = img.GetThumbnailImage((int)newWidth, (int)newHeight, null, IntPtr.Zero);
-
-                        resized = new MemoryStream();
-                        bitmap.Save(resized, img.RawFormat);
+                        resized = ImageHelper.GetResizedImageStreamFromImage(img, x, y);
                     }
+                }
 
-                    // Delete old first...
+                // Delete old first...
                     LegacyDb.user_deleteavatar(this._currentUserID);
 
                     LegacyDb.user_saveavatar(
@@ -296,7 +279,6 @@ namespace YAF.Controls
                     {
                         this.NoAvatar.Visible = false;
                     }
-                }
             }
             catch (Exception)
             {

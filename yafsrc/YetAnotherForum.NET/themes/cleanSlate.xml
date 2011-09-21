@@ -142,8 +142,7 @@
   </page>
   <page name="ICONS">
     <Resource tag="ALBUMS">~/albums.png</Resource>
-    <Resource tag="TOTOPPOST">~/arrow_up_button.png</Resource>
-    <Resource tag="TOTOPPOST">~/arrow_up_button.png</Resource>
+    <Resource tag="TOTOPPOST">~/arrow_up_button.png</Resource>  
     <Resource tag="PM">~/icon_pm.png</Resource>
     <Resource tag="EMAIL">~/icon_email.png</Resource>
     <Resource tag="HOME">~/icon_home.png</Resource>
@@ -157,7 +156,7 @@
     <Resource tag="XMPP">~/icon_xmpp.png</Resource>
     <Resource tag="SKYPE">~/icon_skype.png</Resource>
     <Resource tag="SEARCH">~/icon_search.png</Resource>
-	<Resource tag="TOPIC_HOT_NEW">~/topic_hot_new.gif</Resource>
+    <Resource tag="TOPIC_HOT_NEW">~/topic_hot_new.gif</Resource>
     <Resource tag="TOPIC_HOT">~/topic_hot.gif</Resource>
     <Resource tag="TOPIC_NEW">~/topic_new.gif</Resource>
     <Resource tag="TOPIC">~/topic.gif</Resource>
@@ -208,7 +207,7 @@
     <Resource tag="PM_NEW">~/topic_new.gif</Resource>
     <Resource tag="TWITTER2">~/icon_twitter2.png</Resource>
     <Resource tag="FACEBOOK2">~/icon_facebook2.png</Resource>
-	<Resource tag="TUMBLR">~/icon_tumblr.png</Resource>
+    <Resource tag="TUMBLR">~/icon_tumblr.png</Resource>
   </page>
   <page name="SORT">
     <Resource tag="ASCENDING">~/sort_up.gif</Resource>
@@ -289,6 +288,12 @@
     <Resource tag="GW_MEDIUM">~/flags/gw.png</Resource>
     <Resource tag="GY_MEDIUM">~/flags/gy.png</Resource>
     <Resource tag="HK_MEDIUM">~/flags/hk.png</Resource>
+    <Resource tag="HN_MEDIUM">~/flags/hn.png</Resource>
+    <Resource tag="HR_MEDIUM">~/flags/hr.png</Resource>
+    <Resource tag="HU_MEDIUM">~/flags/hu.png</Resource>
+    <Resource tag="ID_MEDIUM">~/flags/id.png</Resource>
+    <Resource tag="IE_MEDIUM">~/flags/ie.png</Resource>
+    <Resource tag="IL_MEDIUM">~/flags/il.png</Resource>
   </page>
   <page name="PAGE_OVERRIDE">
     <!--Resource tag="FORUM">~/forum.ascx</Resource-->
