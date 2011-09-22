@@ -175,7 +175,6 @@
   <ItemGroup>
     <Content Include="Installation\License.html" />
     <Content Include="Installation\ReadMe.html" />
-    <Content Include="topic.png" />
     <Content Include="YafDnnWhatsNew.ascx" />
     <Content Include="module.css" />
     <Content Include="YafDnnWhatsNewSettings.ascx" />
