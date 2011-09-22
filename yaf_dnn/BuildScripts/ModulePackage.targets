@@ -33,7 +33,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <YafDnnWhatsNewResourcesInclude Include="$(MSBuildProjectDirectory)\topic.png" />
       <YafDnnWhatsNewResourcesInclude Include="$(MSBuildProjectDirectory)\module.css" />
       <YafDnnWhatsNewResourcesInclude Include="**\App_LocalResources\YafDnnWhatsNew.ascx.de-DE.resx" />
       <YafDnnWhatsNewResourcesInclude Include="**\App_LocalResources\YafDnnWhatsNew.ascx.resx" />

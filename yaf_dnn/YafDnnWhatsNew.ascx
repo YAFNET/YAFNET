@@ -11,7 +11,7 @@
         <YAF:ThemeImage ID="LastPostedImage" runat="server" LocalizedTitlePage="DEFAULT" LocalizedTitleTag="GO_LAST_POST" Style="border: 0" />
       </asp:HyperLink>
       <strong><asp:HyperLink ID="TextMessageLink" runat="server" /></strong> (<asp:HyperLink ID="ForumLink" runat="server" />)<br />
-      <YAF:LocalizedLabel ID="ByLabel" runat="server" LocalizedTag="BY" />
+      <YAF:LocalizedLabel ID="ByLabel" runat="server" LocalizedTag="BY" LocalizedPage="DEFAULT" />
       <asp:HyperLink id="LastUserLink" runat="server" /> <YAF:DisplayDateTime id="DisplayDateTime" runat="server" DateTime='<%# Container.DataItemToField<DateTime>("LastPosted") %>'></YAF:DisplayDateTime>
     </li>
   </ItemTemplate>

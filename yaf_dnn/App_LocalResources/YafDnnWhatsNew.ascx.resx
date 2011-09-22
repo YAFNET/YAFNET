@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ModuleHelp.Text" xml:space="preserve">
     <value>This Module Shows the Latest Posts of a YetanotherForum.Net Module</value>
@@ -124,7 +124,7 @@
     <value>Go to last post</value>
   </data>
   <data name="NotConfigured.Text" xml:space="preserve">
-    <value>Module needs to be configured first in the Module Settings.</value>
+    <value>Module needs to be configured in the Module Settings.</value>
   </data>
   <data name="TIMEAGO_JS.Text" xml:space="preserve">
     <value>// english
@@ -146,5 +146,8 @@
       years: "%d years",
       numbers: []
       };</value>
+  </data>
+  <data name="NoMessages.Text" xml:space="preserve">
+    <value>Currently the Forum doesnt contain any Messages.</value>
   </data>
 </root>

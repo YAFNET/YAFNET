@@ -39,8 +39,6 @@ namespace YAF.DotNetNuke
   /// <summary>
   /// The Settings class manages Module Settings
   /// </summary>
-  /// <remarks>
-  /// </remarks>
   /// <history> 
   /// </history>
   /// -----------------------------------------------------------------------------
@@ -52,8 +50,6 @@ namespace YAF.DotNetNuke
     /// <summary>
     /// LoadSettings loads the settings from the Database and displays them
     /// </summary>
-    /// <remarks>
-    /// </remarks>
     /// <history> 
     /// </history>
     /// -----------------------------------------------------------------------------
@@ -103,8 +99,6 @@ namespace YAF.DotNetNuke
     /// <summary>
     /// UpdateSettings saves the modified settings to the Database
     /// </summary>
-    /// <remarks>
-    /// </remarks>
     /// <history> 
     /// </history>
     /// -----------------------------------------------------------------------------
@@ -116,11 +110,6 @@ namespace YAF.DotNetNuke
 
         if (this.YafInstances.Items.Count > 0)
         {
-          /*if (ddLTabs.SelectedValue != null && ddLModules.SelectedValue != null)
-                    {
-                        objModules.UpdateTabModuleSetting(TabModuleId, "YafPage", ddLTabs.SelectedValue);
-                        objModules.UpdateTabModuleSetting(TabModuleId, "YafModuleId", ddLModules.SelectedValue);
-                    }*/
           string[] values = this.YafInstances.SelectedValue.Split(Convert.ToChar("-"));
 
           if (values.Length == 2)

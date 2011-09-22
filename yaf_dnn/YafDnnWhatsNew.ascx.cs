@@ -31,22 +31,18 @@ namespace YAF.DotNetNuke
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.UI.WebControls;
-
     using global::DotNetNuke.Common;
     using global::DotNetNuke.Entities.Modules;
     using global::DotNetNuke.Entities.Users;
     using global::DotNetNuke.Framework;
     using global::DotNetNuke.Services.Exceptions;
     using global::DotNetNuke.Services.Localization;
-
     using YAF.Classes;
-    using YAF.Core;
     using YAF.Classes.Data;
-    using YAF.Core.Services;
+    using YAF.Controls;
+    using YAF.Core;
     using YAF.Types.Interfaces;
     using YAF.Utils;
-    using YAF.Controls;
-
 
     #endregion
 
@@ -99,7 +95,7 @@ namespace YAF.DotNetNuke
         /// The str.
         /// </param>
         /// <returns>
-        /// The clean string for url.
+        /// Returns the Cleaned String
         /// </returns>
         protected static string CleanStringForURL(string str)
         {
@@ -140,7 +136,7 @@ namespace YAF.DotNetNuke
         /// The id.
         /// </param>
         /// <returns>
-        /// The get cache name.
+        /// Returns the Cache Name.
         /// </returns>
         protected string GetCacheName(string type, int id)
         {
@@ -188,7 +184,7 @@ namespace YAF.DotNetNuke
         /// The id.
         /// </param>
         /// <returns>
-        /// The get forum name.
+        /// Returns the Forum Name.
         /// </returns>
         protected string GetForumName(int id)
         {
@@ -222,7 +218,7 @@ namespace YAF.DotNetNuke
         /// The id.
         /// </param>
         /// <returns>
-        /// The get topic name.
+        /// Returns the Topic Name.
         /// </returns>
         protected string GetTopicName(int id)
         {
@@ -256,7 +252,7 @@ namespace YAF.DotNetNuke
         /// The id.
         /// </param>
         /// <returns>
-        /// The get topic name from message.
+        /// Returns the Topic Name.
         /// </returns>
         protected string GetTopicNameFromMessage(int id)
         {
@@ -369,14 +365,9 @@ namespace YAF.DotNetNuke
                 }
             }
 
-            if (currentRow["LastPosted"] != DBNull.Value)
-            {
-                lastPostedImage.ThemeTag = (DateTime.Parse(currentRow["LastPosted"].ToString()) >
-                                            YafContext.Current.Get<IYafSession>().GetTopicRead(
-                                                currentRow["TopicID"].ToType<int>()))
-                                               ? "ICON_NEWEST"
-                                               : "ICON_LATEST";
-            }
+            lastPostedImage.ThemeTag = "TOPIC_NEW";
+
+            lastPostedImage.Style = "width:16px;height:16px";
 
             forumLink.Text = currentRow["Forum"].ToString();
 
@@ -544,6 +535,16 @@ namespace YAF.DotNetNuke
 
                 this.LatestPosts.DataSource = activeTopics;
                 this.LatestPosts.DataBind();
+
+                if (activeTopics.Rows.Count <= 0)
+                {
+                    this.lInfo.Text = Localization.GetString("NoMessages.Text", this.LocalResourceFile);
+                    this.lInfo.Style.Add("font-style", "italic");
+                }
+                else
+                {
+                    this.lInfo.Text = string.Empty;
+                }
             }
             catch (Exception exc)
             {
