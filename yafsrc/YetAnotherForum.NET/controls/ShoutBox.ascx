@@ -31,7 +31,7 @@
     }
 
     function checkForNewMessages() {
-        <%=Config.JQueryAlias %>.PageMethod('<%= YafForumInfo.ForumClientFileRoot %>YafAjax.asmx', 'RefreshShoutBox', refreshShoutBoxPanel, refreshShoutBoxFailed, 'boardId', <%=this.PageContext.PageBoardID %>);
+        <%=YAF.Classes.Config.JQueryAlias %>.PageMethod('<%= YafForumInfo.ForumClientFileRoot %>YafAjax.asmx', 'RefreshShoutBox', refreshShoutBoxPanel, refreshShoutBoxFailed, 'boardId', <%=this.PageContext.PageBoardID %>);
 
         setTimeout('checkForNewMessages()', 2000);
     }
@@ -44,17 +44,17 @@
             lastMessageId = messageId;
 
             // refresh update panel
-            <%=Config.JQueryAlias %>('#<%=this.btnRefresh.ClientID %>').click();
+            <%=YAF.Classes.Config.JQueryAlias %>('#<%=this.btnRefresh.ClientID %>').click();
         }
     }   
 
-    <%=Config.JQueryAlias %>(document).ready(function () {
-		<%=Config.JQueryAlias %>(".PopupBody #shoutBoxChatArea").height(<%=Config.JQueryAlias %>(window).height()- 250);
+    <%=YAF.Classes.Config.JQueryAlias %>(document).ready(function () {
+		<%=YAF.Classes.Config.JQueryAlias %>(".PopupBody #shoutBoxChatArea").height(<%=YAF.Classes.Config.JQueryAlias %>(window).height()- 250);
 		
         window.Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function() {
             if (clearOnEndRequest)
             {
-                <%=Config.JQueryAlias %>('#<%=this.messageTextBox.ClientID %>').val('');
+                <%=YAF.Classes.Config.JQueryAlias %>('#<%=this.messageTextBox.ClientID %>').val('');
                 clearOnEndRequest = false;
             }
         });
@@ -64,8 +64,8 @@
         }
     });
 	
-	<%=Config.JQueryAlias %>(window).resize(function() {
-       <%=Config.JQueryAlias %>(".PopupBody #shoutBoxChatArea").height(jQuery(window).height()- 250);
+	<%=YAF.Classes.Config.JQueryAlias %>(window).resize(function() {
+       <%=YAF.Classes.Config.JQueryAlias %>(".PopupBody #shoutBoxChatArea").height(jQuery(window).height()- 250);
       });
 </script>
 <div id="testing1"></div>
