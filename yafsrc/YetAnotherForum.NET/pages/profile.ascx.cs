@@ -43,7 +43,7 @@ namespace YAF.Pages
     #endregion
 
     /// <summary>
-    /// Summary description for profile.
+    /// The User Profile Page.
     /// </summary>
     public partial class profile : ForumPage
     {
@@ -314,9 +314,7 @@ namespace YAF.Pages
             this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
             this.PageLinks.AddLink(
               this.GetText("MEMBERS"),
-              this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().MembersListViewPermissions)
-                ? YafBuildLink.GetLink(ForumPages.members)
-                : null);
+              this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().MembersListViewPermissions) ? YafBuildLink.GetLink(ForumPages.members) : null);
             this.PageLinks.AddLink(userDisplayName, string.Empty);
         }
 
@@ -652,9 +650,6 @@ namespace YAF.Pages
                 this.Occupation.InnerHtml = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.Occupation));
             }
 
-            // Handled in localization. 
-            this.Gender.InnerText = this.GetText("GENDER" + userData.Profile.Gender);
-
             this.ThanksFrom.Text = LegacyDb.user_getthanks_from(userData.DBRow["userID"], this.PageContext.PageUserID).ToString();
             int[] thanksToArray = LegacyDb.user_getthanks_to(userData.DBRow["userID"], this.PageContext.PageUserID);
             this.ThanksToTimes.Text = thanksToArray[0].ToString();
@@ -733,19 +728,16 @@ namespace YAF.Pages
         {
             double allPosts = 0.0;
 
-            if (Convert.ToInt32(userData.DBRow["NumPostsForum"]) > 0)
+            if (userData.DBRow["NumPostsForum"].ToType<int>() > 0)
             {
-                allPosts = 100.0 * Convert.ToInt32(userData.DBRow["NumPosts"]) /
-                           Convert.ToInt32(userData.DBRow["NumPostsForum"]);
+                allPosts = 100.0 * userData.DBRow["NumPosts"].ToType<int>() /
+                           userData.DBRow["NumPostsForum"].ToType<int>();
             }
 
             this.Stats.InnerHtml = "{0:N0}<br />[{1} / {2}]".FormatWith(
-              userData.DBRow["NumPosts"],
-              this.GetTextFormatted("NUMALL", allPosts),
-              this.GetTextFormatted(
-                "NUMDAY",
-                (double)Convert.ToInt32(userData.DBRow["NumPosts"]) /
-                Convert.ToInt32(userData.DBRow["NumDays"])));
+                userData.DBRow["NumPosts"],
+                this.GetTextFormatted("NUMALL", allPosts),
+                this.GetTextFormatted("NUMDAY", (double)userData.DBRow["NumPosts"].ToType<int>() / userData.DBRow["NumDays"].ToType<int>()));
         }
 
         #endregion

@@ -88,7 +88,8 @@ namespace YAF.Pages
         pds.PageSize, 
         false, 
         true,
-        false);
+        true);
+
       DataView dv = dt.DefaultView;
 
       pds.DataSource = dv;
