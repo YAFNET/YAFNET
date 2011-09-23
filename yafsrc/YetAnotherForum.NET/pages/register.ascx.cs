@@ -410,8 +410,9 @@ namespace YAF.Pages
 
         // Clearing cache with old Active User Lazy Data ...
         this.Get<IDataCache>().Remove(Constants.Cache.ActiveUserLazyData.FormatWith(userId));
-
+        this.Get<IDataCache>().Remove(Constants.Cache.ForumActiveDiscussions);
         this.Get<IRaiseEvent>().Raise(new NewUserRegisteredEvent(user, userId));
+
     }
 
     /// <summary>

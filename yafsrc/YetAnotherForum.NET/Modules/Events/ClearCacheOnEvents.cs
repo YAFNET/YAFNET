@@ -102,6 +102,7 @@ namespace YAF.Modules
     {
       // vzrus: to clear the cache to show user in the list at once));
       this.DataCache.Remove(Constants.Cache.UsersOnlineStatus);
+      this.DataCache.Remove(Constants.Cache.ForumActiveDiscussions);
     }
 
     #endregion
