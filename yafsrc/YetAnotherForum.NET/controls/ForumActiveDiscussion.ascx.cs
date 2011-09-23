@@ -94,7 +94,6 @@ namespace YAF.Controls
             // populate them...
             newPostIcon.AlternateText = this.GetText("NEW_POSTS");
             newPostIcon.ToolTip = this.GetText("NEW_POSTS");
-            newPostIcon.ImageUrl = this.Get<ITheme>().GetItem("ICONS", "TOPIC_NEW");
 
             if (currentRow["Status"].ToString().IsSet() && this.Get<YafBoardSettings>().EnableTopicStatus)
             {
@@ -204,6 +203,9 @@ namespace YAF.Controls
                 lastPostedImage.ThemeTag = (DateTime.Parse(currentRow["LastPosted"].ToString()) > lastRead)
                                                ? "ICON_NEWEST"
                                                : "ICON_LATEST";
+
+                newPostIcon.ImageUrl = this.Get<ITheme>().GetItem(
+                    "ICONS", (DateTime.Parse(currentRow["LastPosted"].ToString()) > lastRead) ? "TOPIC_NEW" : "TOPIC");
             }
 
             forumLink.Text = this.Page.HtmlEncode(currentRow["Forum"].ToString());
