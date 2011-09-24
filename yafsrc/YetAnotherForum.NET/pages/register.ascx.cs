@@ -18,35 +18,35 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using YAF.Classes.Pattern;
-
 namespace YAF.Pages
 {
   // YAF.Pages
   #region Using
 
-  using System;
-  using System.Linq;
-  using System.Net.Mail;
-  using System.Text;
-  using System.Web;
-  using System.Web.Security;
-  using System.Web.UI;
-  using System.Web.UI.WebControls;
+    using System;
+    using System.Linq;
+    using System.Net.Mail;
+    using System.Text;
+    using System.Threading;
+    using System.Web;
+    using System.Web.Security;
+    using System.Web.UI;
+    using System.Web.UI.WebControls;
+    using YAF.Classes;
+    using YAF.Classes.Data;
+    using YAF.Classes.Pattern;
+    using YAF.Controls;
+    using YAF.Core;
+    using YAF.Core.Services;
+    using YAF.Types;
+    using YAF.Types.Constants;
+    using YAF.Types.EventProxies;
+    using YAF.Types.Interfaces;
+    using YAF.Utilities;
+    using YAF.Utils;
+    using YAF.Utils.Helpers;
 
-  using YAF.Classes;
-  using YAF.Classes.Data;
-  using YAF.Controls;
-  using YAF.Core;
-  using YAF.Core.Services;
-  using YAF.Types;
-  using YAF.Types.Constants;
-  using YAF.Types.EventProxies;
-  using YAF.Types.Interfaces;
-  using YAF.Utils;
-  using YAF.Utils.Helpers;
-
-  #endregion
+    #endregion
 
   /// <summary>
   /// The User Register Page.
@@ -412,7 +412,6 @@ namespace YAF.Pages
         this.Get<IDataCache>().Remove(Constants.Cache.ActiveUserLazyData.FormatWith(userId));
         this.Get<IDataCache>().Remove(Constants.Cache.ForumActiveDiscussions);
         this.Get<IRaiseEvent>().Raise(new NewUserRegisteredEvent(user, userId));
-
     }
 
     /// <summary>
@@ -426,6 +425,29 @@ namespace YAF.Pages
     /// </param>
     protected void CreateUserWizard1_PreviousButtonClick([NotNull] object sender, [NotNull] WizardNavigationEventArgs e)
     {
+    }
+
+    /// <summary>
+    /// The On PreRender event.
+    /// </summary>
+    /// <param name="e">
+    /// the Event Arguments
+    /// </param>
+    protected override void OnPreRender([NotNull] EventArgs e)
+    {
+        // setup jQuery and DatePicker JS...
+        YafContext.Current.PageElements.RegisterJQuery();
+
+        YafContext.Current.PageElements.RegisterJsResourceInclude("msdropdown", "js/jquery.msDropDown.js");
+
+        var country = (DropDownList)this.CreateUserWizard1.FindWizardControlRecursive("Country");
+
+        YafContext.Current.PageElements.RegisterJsBlockStartup(
+            "dropDownJs", JavaScriptBlocks.DropDownLoadJs(country.ClientID));
+
+        YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.msDropDown.css");
+
+        base.OnPreRender(e);
     }
 
     /// <summary>

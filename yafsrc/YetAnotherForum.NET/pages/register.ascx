@@ -169,7 +169,7 @@
 								<YAF:LocalizedLabel ID="LocalizedLabel18" runat="server" LocalizedTag="COUNTRY" />
 								:</td>
 							<td class="post">
-								<asp:DropDownList ID="Country" runat="server" DataTextField="Name" DataValueField="Value" /></td>
+								<YAF:CountryListBox ID="Country" runat="server" DataTextField="Name" DataValueField="Value" /></td>
 						</tr>
 						<tr>
 							<td align="right" class="postheader">
