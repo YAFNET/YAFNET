@@ -34,6 +34,7 @@
   <ItemGroup>
     <Reference Include="Autofac">
       <HintPath>..\YetAnotherForum.NET\Bin\Autofac.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />

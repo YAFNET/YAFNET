@@ -8,8 +8,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Providers", "YAF.Provid
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Intelligencia.UrlRewriter", "URLRewriter.NET\Intelligencia.UrlRewriter.csproj", "{F8516C67-92BE-43FF-A8A9-B71A3EA4BE0D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Classes.UnitTests", "YAF.Classes\YAF.Classes.UnitTests\YAF.Classes.UnitTests.csproj", "{DE644CB8-5686-4482-BDD3-DA24E464C44A}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Controls", "YAF.Controls\YAF.Controls.csproj", "{C72A5FC8-4B1C-4A24-A306-FB550729DBF0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF", "YetAnotherForum.NET\YAF.csproj", "{555357E5-A150-4C4D-BC81-97F4AE19086A}"
@@ -42,10 +40,6 @@ Global
 		{F8516C67-92BE-43FF-A8A9-B71A3EA4BE0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8516C67-92BE-43FF-A8A9-B71A3EA4BE0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8516C67-92BE-43FF-A8A9-B71A3EA4BE0D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DE644CB8-5686-4482-BDD3-DA24E464C44A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DE644CB8-5686-4482-BDD3-DA24E464C44A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DE644CB8-5686-4482-BDD3-DA24E464C44A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DE644CB8-5686-4482-BDD3-DA24E464C44A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C72A5FC8-4B1C-4A24-A306-FB550729DBF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C72A5FC8-4B1C-4A24-A306-FB550729DBF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C72A5FC8-4B1C-4A24-A306-FB550729DBF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
