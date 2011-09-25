@@ -930,6 +930,7 @@
     <Resource tag="HEADER_POLL">Poll Opties</Resource>
     <Resource tag="HEADER_SEARCH">Zoek instellingen</Resource>
     <Resource tag="HEADER_SETUP">Host Installatie</Resource>
+    <Resource tag="HEADER_SPAM">Spam Settings</Resource>
     <Resource tag="HEADER_SYNDICATION">Syndicatie Feed instellingen</Resource>
     <Resource tag="HEADER_TEMPLATES">Template instellingen</Resource>
     <Resource tag="HOST_ADVERTS">Advertenties</Resource>

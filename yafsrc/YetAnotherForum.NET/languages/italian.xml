@@ -932,6 +932,7 @@
     <Resource tag="HEADER_POLL">Poll Settings</Resource>
     <Resource tag="HEADER_SEARCH">Search Settings</Resource>
     <Resource tag="HEADER_SETUP">Host Setup</Resource>
+    <Resource tag="HEADER_SPAM">Spam Settings</Resource>
     <Resource tag="HEADER_SYNDICATION">Syndication Feed Settings</Resource>
     <Resource tag="HEADER_TEMPLATES">Template Settings</Resource>
     <Resource tag="HOST_ADVERTS">Adverts</Resource>

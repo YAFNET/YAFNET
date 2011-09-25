@@ -932,6 +932,7 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="HEADER_POLL">گزینه های آمار</Resource>
     <Resource tag="HEADER_SEARCH">تنظیمات جستجو</Resource>
     <Resource tag="HEADER_SETUP">نصب میزبان</Resource>
+    <Resource tag="HEADER_SPAM">Spam Settings</Resource>
     <Resource tag="HEADER_SYNDICATION">تنظیمات خوراک اجتماعی</Resource>
     <Resource tag="HEADER_TEMPLATES">تنظیمات شما</Resource>
     <Resource tag="HOST_ADVERTS">توجهات</Resource>

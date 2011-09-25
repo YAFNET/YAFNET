@@ -931,6 +931,7 @@
     <Resource tag="HEADER_POLL">Опции опроса</Resource>
     <Resource tag="HEADER_SEARCH">Настройки поиска</Resource>
     <Resource tag="HEADER_SETUP">Настройки хоста</Resource>
+    <Resource tag="HEADER_SPAM">Spam Settings</Resource>
     <Resource tag="HEADER_SYNDICATION">Настройки синдикации</Resource>
     <Resource tag="HEADER_TEMPLATES">Настройки шаблонов</Resource>
     <Resource tag="HOST_ADVERTS">Реклама</Resource>

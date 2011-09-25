@@ -155,6 +155,11 @@
                         </td>
                     </tr>
                     <tr>
+                        <td class="header1" colspan="2">
+                            <YAF:LocalizedLabel ID="LocalizedLabel32" runat="server" LocalizedTag="HEADER_SPAM" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                    </tr>
+                    <tr>
                         <td class="postheader">
                             <YAF:HelpLabel ID="HelpLabel185" runat="server" LocalizedTag="CHECK_FOR_SPAM" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
@@ -751,6 +756,11 @@
                               <asp:DropDownList Style="width:350px" ID="FavoriteTopicFeedAccess" runat="server">
                             </asp:DropDownList>
                         </td>
+                    </tr>        
+                    <tr>
+                        <td class="header1" colspan="2">
+                            <YAF:LocalizedLabel ID="LocalizedLabel30" runat="server" LocalizedTag="HEADER_GEOLOCATION" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
                     </tr>
                     <tr>
                         <td class="postheader">
@@ -758,11 +768,6 @@
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="EnableIPInfoService" runat="server"></asp:CheckBox>
-                        </td>
-                    </tr>        
-                    <tr>
-                        <td class="header1" colspan="2">
-                            <YAF:LocalizedLabel ID="LocalizedLabel30" runat="server" LocalizedTag="HEADER_GEOLOCATION" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                     </tr>
                     <tr>
