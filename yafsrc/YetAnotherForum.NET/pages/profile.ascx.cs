@@ -644,6 +644,26 @@ namespace YAF.Pages
                 this.Interests.InnerHtml = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.Interests));
             }
 
+            if (this.User != null && (userData.Profile.Gender > 0))
+            {
+                string imagePath = string.Empty;
+                string imageAlt = string.Empty;
+
+                this.GenderTR.Visible = true;
+                 switch (userData.Profile.Gender)
+                 {
+                    case 1:
+                        imagePath = this.PageContext.Get<ITheme>().GetItem("ICONS", "GENDER_MALE", null);
+                        imageAlt = this.GetText("USERGENDER_MAS");
+                        break;
+                     case 2:
+                         imagePath = this.PageContext.Get<ITheme>().GetItem("ICONS", "GENDER_FEMALE", null);
+                         imageAlt = this.GetText("USERGENDER_FEM");
+                         break;
+                 }
+
+                 this.Gender.InnerHtml = @"<a><img src=""{0}"" alt=""{1}"" title=""{1}"" /></a>&nbsp;{1}".FormatWith(imagePath, imageAlt);
+            }
             if (this.User != null && !string.IsNullOrEmpty(userData.Profile.Occupation))
             {
                 this.OccupationTR.Visible = true;
