@@ -160,7 +160,7 @@
 								</td>
 								<td class="post" runat="server" id="Interests" />
 							</tr>
-							<tr runat="server" id="GenderTR">
+							<tr runat="server" id="GenderTR" visible="false">
 								<td class="postheader">
 									<YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="gender" />
 								</td>
