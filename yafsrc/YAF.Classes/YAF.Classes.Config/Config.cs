@@ -300,7 +300,7 @@ namespace YAF.Classes
     {
       get
       {
-        return HttpContext.Current != null ? HttpContext.Current.Session["YetAnotherPortal.net"] != null : false;
+        return HttpContext.Current != null && HttpContext.Current.Session["YetAnotherPortal.net"] != null;
       }
     }
 
@@ -311,7 +311,7 @@ namespace YAF.Classes
     {
       get
       {
-        return HttpContext.Current != null ? HttpContext.Current.Session["Portalomatic.NET"] != null : false;
+        return HttpContext.Current != null && HttpContext.Current.Session["Portalomatic.NET"] != null;
       }
     }
 
@@ -330,6 +330,28 @@ namespace YAF.Classes
 
         return false;
       }
+    }
+
+    /// <summary>
+    ///   Gets a value indicating whether Javascript Blocks should be compressed (minified) -- default is true.
+    /// </summary>
+    public static bool CompressJSBlocks
+    {
+        get
+        {
+            return GetConfigValueAsBool("YAF.CompressJSBlocks", true);
+        }
+    }
+
+    /// <summary>
+    ///   Gets a value indicating whether Css Blocks should be compressed (minified)? -- default is true.
+    /// </summary>
+    public static bool CompressCSSBlocks
+    {
+        get
+        {
+            return GetConfigValueAsBool("YAF.CompressCSSBlocks", true);
+        }
     }
 
     /// <summary>
@@ -608,6 +630,9 @@ namespace YAF.Classes
       }
     }
 
+    /// <summary>
+    /// Gets the NNTP post domain.
+    /// </summary>
     [NotNull]
     public static string NntpPostDomain
     {
@@ -626,7 +651,7 @@ namespace YAF.Classes
       {
         string value = GetConfigValueAsString("YAF.UseRadEditorToolsFile");
 
-        if (!String.IsNullOrEmpty(value))
+        if (!string.IsNullOrEmpty(value))
         {
           switch (value.ToLower().Substring(0, 1))
           {
@@ -709,7 +734,7 @@ namespace YAF.Classes
     {
       string value = GetConfigValueAsString(configKey);
 
-        return !String.IsNullOrEmpty(value) ? Convert.ToBoolean(value.ToLower()) : defaultValue;
+        return !string.IsNullOrEmpty(value) ? Convert.ToBoolean(value.ToLower()) : defaultValue;
     }
 
     /// <summary>

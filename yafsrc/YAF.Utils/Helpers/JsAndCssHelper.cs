@@ -18,35 +18,55 @@
  */
 namespace YAF.Utils.Helpers
 {
-  /// <summary>
+    using System;
+
+    using YAF.Utils.Helpers.MinifyUtils;
+
+    /// <summary>
   /// The js and css helper.
   /// </summary>
   public static class JsAndCssHelper
   {
     /// <summary>
-    /// Currently doesn't do anything. Need to find a GPL Javascript Compressor
+    /// Compresses JavaScript
     /// </summary>
     /// <param name="javaScript">
+    /// The Uncompressed Input JS
     /// </param>
     /// <returns>
-    /// The compress java script.
+    /// The compressed java script.
     /// </returns>
     public static string CompressJavaScript(string javaScript)
     {
-      return javaScript;
+        try
+        {
+           return JSMinify.Minify(javaScript);
+        }
+        catch (Exception)
+        {
+            return javaScript;
+        }
     }
 
     /// <summary>
-    /// Currently doesn't do anything. Need to find a GPL CSS Compressor
+    /// Compresses CSS
     /// </summary>
     /// <param name="css">
+    /// The Uncompressd Input CSS
     /// </param>
     /// <returns>
-    /// The compress css.
+    /// The compressed css output.
     /// </returns>
     public static string CompressCss(string css)
     {
-      return css;
+        try
+        {
+            return JSMinify.Minify(css);
+        }
+        catch (Exception)
+        {
+            return css;
+        }
     }
   }
 }

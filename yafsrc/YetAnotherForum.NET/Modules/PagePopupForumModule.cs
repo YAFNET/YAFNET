@@ -92,9 +92,8 @@ namespace YAF.Modules
         displayMessage = LoadMessage.CleanJsString(displayMessage);
         this.PageContext.PageElements.RegisterJsBlockStartup(
             this.ForumControl.Page, 
-            "modalNotification", 
-            "var fpModal = function() {1} {3}('{0}'); Sys.Application.remove_load(fpModal); {2}\nSys.Application.add_load(fpModal);\n\n"
-                .FormatWith(displayMessage, '{', '}', this._errorPopup.ShowModalFunction));
+            "modalNotification",
+            "var fpModal = function() {{ {1}('{0}'); Sys.Application.remove_load(fpModal); }}; Sys.Application.add_load(fpModal);".FormatWith(displayMessage, this._errorPopup.ShowModalFunction));
     }
 
     /// <summary>
