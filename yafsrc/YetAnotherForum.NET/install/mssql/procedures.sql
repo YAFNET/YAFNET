@@ -6532,8 +6532,7 @@ begin
 	end else
 	begin
 		select 
-			a.*,
-			IsGuest = (select count(1) from [{databaseOwner}].[{objectQualifier}UserGroup] x join [{databaseOwner}].[{objectQualifier}Group] y on x.GroupID=y.GroupID where x.UserID=a.UserID and (y.Flags & 2)<>0),
+			a.*,			
 			IsAdmin = (select count(1) from [{databaseOwner}].[{objectQualifier}UserGroup] x join [{databaseOwner}].[{objectQualifier}Group] y on y.GroupID=x.GroupID where x.UserID=a.UserID and (y.Flags & 1)<>0)
 		from 
 			[{databaseOwner}].[{objectQualifier}User] a
