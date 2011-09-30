@@ -203,12 +203,10 @@ namespace YAF.Controls
 
             this.StatsTodaysBirthdays.Text = this.GetText("stats_birthdays");
 
-            /*var users = this.Get<IDataCache>().GetOrSet(
+            var users = this.Get<IDataCache>().GetOrSet(
                 Constants.Cache.TodaysBirthdays,
                 () => LegacyDb.User_ListTodaysBirthdays(this.PageContext.PageBoardID, this.Get<YafBoardSettings>().UseStyledNicks),
-                TimeSpan.FromDays(1));*/
-
-            var users = LegacyDb.User_ListTodaysBirthdays(this.PageContext.PageBoardID, this.Get<YafBoardSettings>().UseStyledNicks);
+                TimeSpan.FromDays(1));
 
             if (users.Rows.Count <= 0)
             {
