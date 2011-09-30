@@ -22,7 +22,6 @@ namespace YAF.Classes
     using System.Web.Security;
 
     using YAF.Classes.Pattern;
-    using YAF.Types;
     using YAF.Types.Constants;
 
     /// <summary>
@@ -3590,6 +3589,22 @@ namespace YAF.Classes
             set
             {
                 this._reg.SetValue("ShowRecentUsers", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether Show Todays Birthdays.
+        /// </summary>
+        public bool ShowTodaysBirthdays
+        {
+            get
+            {
+                return this._reg.GetValue("ShowTodaysBirthdays", false);
+            }
+
+            set
+            {
+                this._reg.SetValue("ShowTodaysBirthdays", value);
             }
         }
 

@@ -4743,6 +4743,8 @@ Visit {forumname} at {forumlink}
 	 <Resource tag="SPAM_MESSAGE_2">Reject Message</Resource>
      <Resource tag="SHOW_RECENT_USERS">Show Recent Users in Forum Info:</Resource>
      <Resource tag="SHOW_RECENT_USERS_HELP">Enable to Show Recent Users within the last 24 hours in the forum info on board index page.</Resource>
+	 <Resource tag="SHOW_TODAYS_BIRTHDAYS">Show Todays Birthdays in Forum Info:</Resource>
+     <Resource tag="SHOW_TODAYS_BIRTHDAYS_HELP">Enable to Show What members have a Birthday today.</Resource>
 	 <Resource tag="SSO_AUTO_REGISTER">Register New Facebook User automatically:</Resource>
      <Resource tag="SSO_AUTO_REGISTER_HELP">Register User automatically that are trying to login thru Facebook</Resource>
 	 <Resource tag="USE_READ_TRACKING">Use User Read Tracking via Database:</Resource>

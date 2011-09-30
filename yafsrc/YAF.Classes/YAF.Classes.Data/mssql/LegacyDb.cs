@@ -8869,8 +8869,8 @@ namespace YAF.Classes.Data
                 }
                 else
                 {
-                    ThanksToPostsNumber = Convert.ToInt32(paramThanksToPostsNumber.Value);
-                    ThanksToNumber = Convert.ToInt32(paramThanksToNumber.Value);
+                    ThanksToPostsNumber = paramThanksToPostsNumber.Value.ToType<int>();
+                    ThanksToNumber = paramThanksToNumber.Value.ToType<int>();
                 }
 
                 return new[] { ThanksToNumber, ThanksToPostsNumber };
@@ -9104,7 +9104,7 @@ namespace YAF.Classes.Data
         /// </param>
         /// <returns>
         /// </returns>
-        public static DataTable user_list([NotNull] object boardID, [NotNull] object userID, [NotNull] object approved, [NotNull] object groupID, [NotNull] object rankID, [NotNull] object useStyledNicks)
+        public static DataTable user_list([NotNull] object boardID, [NotNull] object userID, [NotNull] object approved, [NotNull] object groupID, [NotNull] object rankID, [CanBeNull] object useStyledNicks)
         {
             using (var cmd = MsSqlDbAccess.GetCommand("user_list"))
             {
@@ -9114,6 +9114,31 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("Approved", approved);
                 cmd.Parameters.AddWithValue("GroupID", groupID);
                 cmd.Parameters.AddWithValue("RankID", rankID);
+                cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
+
+                return MsSqlDbAccess.Current.GetData(cmd);
+            }
+        }
+
+        /// <summary>
+        /// The user_ list with todays birthdays.
+        /// </summary>
+        /// <param name="boardID">
+        /// The board id.
+        /// </param>
+        /// <param name="useStyledNicks">
+        /// Return style info.
+        /// </param>
+        /// <returns>
+        /// The user_ list with todays birthdays.
+        /// </returns>
+        public static DataTable User_ListTodaysBirthdays([NotNull] object boardID, [CanBeNull] object useStyledNicks)
+        {
+            using (var cmd = MsSqlDbAccess.GetCommand("User_ListTodaysBirthdays"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("BoardID", boardID);
                 cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
 
                 return MsSqlDbAccess.Current.GetData(cmd);

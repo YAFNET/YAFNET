@@ -1137,6 +1137,8 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="SHOW_SHOUTBOX_SMILIES_HELP">نمایش یا عدم نمایش خندانک های اتاق گفتگو (چت روم).</Resource>
     <Resource tag="SHOW_THANK_DATE">نمایش تاریخ تشکر کاربر:</Resource>
     <Resource tag="SHOW_THANK_DATE_HELP">قبلا حالت تشکر باید فعال باشد.</Resource>
+    <Resource tag="SHOW_TODAYS_BIRTHDAYS">Show Todays Birthdays in Forum Info:</Resource>
+    <Resource tag="SHOW_TODAYS_BIRTHDAYS_HELP">Enable to Show What members have a Birthday today.</Resource>
     <Resource tag="SHOW_UNREAD_LINKS">نمایش پیوندهای ناخوانئه:</Resource>
     <Resource tag="SHOW_UNREAD_LINKS_HELP">پیوند های نا خوانده را نمایش می دهد.</Resource>
     <Resource tag="SHOW_USER_STATUS">نمایش وضعیت برخط/کنارخط بودن کاربر:</Resource>
