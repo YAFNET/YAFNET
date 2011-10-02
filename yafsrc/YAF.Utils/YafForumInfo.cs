@@ -16,16 +16,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Web;
 
 namespace YAF.Utils
 {
-  using YAF.Classes;
-  using YAF.Types;
-  using YAF.Types.Constants;
+    using System;
+    using System.Web;
+    using YAF.Classes;
+    using YAF.Types;
+    using YAF.Types.Constants;
 
-  /// <summary>
+    /// <summary>
   /// Class provides helper functions related to the forum path and urls as well as forum version information.
   /// </summary>
   public static class YafForumInfo
@@ -77,8 +77,11 @@ namespace YAF.Utils
     }
 
     /// <summary>
-    /// Gets <see langword="true"/> if the current site is localhost.
+    /// Gets a value indicating whether this instance is local.
     /// </summary>
+    /// <value>
+    ///   <c>true</c> if this instance is local; otherwise, <c>false</c>.
+    /// </value>
     public static bool IsLocal
     {
       get
@@ -91,8 +94,7 @@ namespace YAF.Utils
     /// <summary>
     /// Helper function that creates the the url of a resource.
     /// </summary>
-    /// <param name="resourceName">
-    /// </param>
+    /// <param name="resourceName">Name of the resource.</param>
     /// <returns>
     /// The get url to resource.
     /// </returns>
@@ -106,7 +108,7 @@ namespace YAF.Utils
     #region Version Information
 
     /// <summary>
-    /// Get the Current YAF Application Version string
+    /// Gets the Current YAF Application Version string
     /// </summary>
     public static string AppVersionName
     {
@@ -117,7 +119,7 @@ namespace YAF.Utils
     }
 
     /// <summary>
-    /// Get the Current YAF Database Version
+    /// Gets the Current YAF Database Version
     /// </summary>
     public static int AppVersion
     {

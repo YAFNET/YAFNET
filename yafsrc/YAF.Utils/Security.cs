@@ -19,7 +19,6 @@
 
 namespace YAF.Utils
 {
-
   using System;
   using System.Web;
 
@@ -40,7 +39,7 @@ namespace YAF.Utils
     /// </returns>
     public static long StringToLongOrRedirect(string longValue)
     {
-      long value = 0;
+      long value;
 
       if (!long.TryParse(longValue, out value))
       {

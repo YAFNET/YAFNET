@@ -86,31 +86,24 @@ namespace YAF.Utils
       }
     }
 
-    /// <summary>
-    /// Gets RuntimeName.
-    /// </summary>
-    [NotNull]
-    public static string RuntimeName
-    {
-      get
+      /// <summary>
+      /// Gets RuntimeName.
+      /// </summary>
+      [NotNull]
+      public static string RuntimeName
       {
-        if (!inited)
-        {
-          Init();
-        }
+          get
+          {
+              if (!inited)
+              {
+                  Init();
+              }
 
-        if (isMono)
-        {
-          return "Mono";
-        }
-        else
-        {
-          return ".NET";
-        }
+              return isMono ? "Mono" : ".NET";
+          }
       }
-    }
 
-    /// <summary>
+      /// <summary>
     /// Gets RuntimeString.
     /// </summary>
     [NotNull]

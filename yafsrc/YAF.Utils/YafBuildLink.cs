@@ -23,8 +23,6 @@ namespace YAF.Utils
   using System.Web;
 
   using YAF.Classes;
-  using YAF.Utils;
-  using YAF.Utils.Helpers.StringUtils;
   using YAF.Types.Constants;
 
   #endregion
@@ -103,11 +101,8 @@ namespace YAF.Utils
     /// <summary>
     /// Gets link to the page.
     /// </summary>
-    /// <param name="page">
-    /// Page to which to create a link.
-    /// </param>
-    /// <param name="fullUrl">
-    /// </param>
+    /// <param name="page">Page to which to create a link.</param>
+    /// <param name="fullUrl">if set to <c>true</c> [full URL].</param>
     /// <returns>
     /// URL to the given page.
     /// </returns>
@@ -125,6 +120,7 @@ namespace YAF.Utils
     /// Page to which to create a link.
     /// </param>
     /// <param name="fullUrl">
+    /// The full Url.
     /// </param>
     /// <param name="format">
     /// Format of parameters.
@@ -165,11 +161,8 @@ namespace YAF.Utils
     /// <summary>
     /// Unescapes ampersands in the link to the given page.
     /// </summary>
-    /// <param name="page">
-    /// Page to which to create a link.
-    /// </param>
-    /// <param name="fullUrl">
-    /// </param>
+    /// <param name="page">Page to which to create a link.</param>
+    /// <param name="fullUrl">if set to <c>true</c> [full URL].</param>
     /// <returns>
     /// URL to the given page with unescaped ampersands.
     /// </returns>
@@ -181,17 +174,10 @@ namespace YAF.Utils
     /// <summary>
     /// Unescapes ampersands in the link to the given page with parameters.
     /// </summary>
-    /// <param name="page">
-    /// Page to which to create a link.
-    /// </param>
-    /// <param name="fullUrl">
-    /// </param>
-    /// <param name="format">
-    /// Format of parameters.
-    /// </param>
-    /// <param name="args">
-    /// Array of page parameters.
-    /// </param>
+    /// <param name="page">Page to which to create a link.</param>
+    /// <param name="fullUrl">if set to <c>true</c> [full URL].</param>
+    /// <param name="format">Format of parameters.</param>
+    /// <param name="args">Array of page parameters.</param>
     /// <returns>
     /// URL to the given page with parameters and unescaped ampersands.
     /// </returns>

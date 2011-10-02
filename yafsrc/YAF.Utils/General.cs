@@ -21,13 +21,12 @@ namespace YAF.Utils
     #region Using
 
     using System;
+    using System.Linq;
     using System.Reflection;
     using System.Security;
     using System.Web;
 
     using YAF.Classes;
-    using YAF.Utils;
-    using YAF.Utils.Helpers.StringUtils;
     using YAF.Types;
 
   #endregion
@@ -74,22 +73,19 @@ namespace YAF.Utils
         {
             CodeContracts.ArgumentNotNull(message, "message");
 
-            if (message.IndexOf('<') >= 0)
-            {
-                return HttpUtility.HtmlEncode(message);
-            }
-
-            return message;
+            return message.IndexOf('<') >= 0 ? HttpUtility.HtmlEncode(message) : message;
         }
 
         /// <summary>
         /// Gets the current ASP.NET Hosting Security Level.
         /// </summary>
         /// <returns>
+        /// The get current trust level.
         /// </returns>
         public static AspNetHostingPermissionLevel GetCurrentTrustLevel()
         {
-            if (!string.IsNullOrEmpty(Config.OverrideTrustLevel)) // Gets an override value, useful for Custom Trust Levels
+            // Gets an override value, useful for Custom Trust Levels
+            if (!string.IsNullOrEmpty(Config.OverrideTrustLevel)) 
             {
                 return
                     (AspNetHostingPermissionLevel)
@@ -170,10 +166,8 @@ namespace YAF.Utils
 
             txtInfo += "Found {0} resources\r\n".FormatWith(resNames.Length);
             txtInfo += "----------\r\n";
-            foreach (string s in resNames)
-            {
-                txtInfo += s + "\r\n";
-            }
+
+            txtInfo = resNames.Aggregate(txtInfo, (current, s) => current + (s + "\r\n"));
 
             txtInfo += "----------\r\n";
 

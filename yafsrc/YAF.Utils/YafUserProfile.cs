@@ -456,8 +456,10 @@ namespace YAF.Utils
     /// Helper function to get a profile from the system
     /// </summary>
     /// <param name="userName">
+    /// Name of the user.
     /// </param>
     /// <returns>
+    /// The get profile.
     /// </returns>
     public static YafUserProfile GetProfile(string userName)
     {

@@ -68,12 +68,7 @@ namespace YAF.Utils
     {
       get
       {
-        if (this._theme != null)
-        {
-          return this._theme.ThemeFile.ToLower().Trim();
-        }
-
-        return string.Empty;
+          return this._theme != null ? this._theme.ThemeFile.ToLower().Trim() : string.Empty;
       }
     }
 
@@ -132,12 +127,8 @@ namespace YAF.Utils
     /// <summary>
     /// The decode style by string.
     /// </summary>
-    /// <param name="styleStr">
-    /// The style str.
-    /// </param>
-    /// <param name="colorOnly">
-    /// The color only.
-    /// </param>
+    /// <param name="styleStr">The style str.</param>
+    /// <param name="colorOnly">The color only.</param>
     /// <returns>
     /// The decode style by string.
     /// </returns>
@@ -234,8 +225,7 @@ namespace YAF.Utils
     {
       string styleStrResult = styleStr;
 
-      foreach (string filename in
-        pair.Select(t => pair[0] + ".xml").Where(filename => filename.Trim().Equals(this.CurrentThemeFile, StringComparison.CurrentCultureIgnoreCase)))
+      if (pair.Select(t => string.Format("{0}.xml", pair[0])).Where(filename => filename.Trim().Equals(this.CurrentThemeFile, StringComparison.CurrentCultureIgnoreCase)).Any())
       {
         styleStrResult = colorOnly ? this.GetColorOnly(pair[1]) : pair[1];
       }

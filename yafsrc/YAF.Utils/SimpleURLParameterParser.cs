@@ -24,9 +24,7 @@ namespace YAF.Utils
   using System.Linq;
   using System.Text;
 
-  using YAF.Utils;
-  using YAF.Utils.Helpers.StringUtils;
-  using YAF.Types;
+    using YAF.Types;
 
   #endregion
 
