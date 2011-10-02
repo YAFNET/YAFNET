@@ -3685,6 +3685,7 @@ Spoiler Content
     <Resource tag="POLL">Průzkum mínění</Resource>
     <Resource tag="POLL_NEW">Průzkum mínění (nové zprávy)</Resource>
     <Resource tag="STICKY">Ukotvit</Resource>
+    <Resource tag="STICKY_NEW">Sticky (New Posts)</Resource>
   </page>
   <page name="IM_AIM">
     <Resource tag="TITLE">AOL Instant Messenger</Resource>

@@ -32,6 +32,7 @@
     <Resource tag="TOPIC_NEW_LOCKED">~/topic_lock_new.png</Resource>
     <Resource tag="TOPIC_LOCKED">~/topic_lock.png</Resource>
     <Resource tag="TOPIC_STICKY">~/topic_sticky.png</Resource>
+	<Resource tag="TOPIC_STICKY_NEW">~/topic_sticky.png</Resource>
     <Resource tag="TOPIC_MOVED">~/topic_moved.png</Resource>
     <Resource tag="TOPIC_POLL">~/topic_poll.png</Resource>
     <Resource tag="TOPIC_POLL_NEW">~/topic_poll_new.png</Resource>

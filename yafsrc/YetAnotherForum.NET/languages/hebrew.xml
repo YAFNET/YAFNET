@@ -3724,6 +3724,7 @@ Spoiler Content
     <Resource tag="POLL">סקר</Resource>
     <Resource tag="POLL_NEW">סקר (יש הודעות חדשות)</Resource>
     <Resource tag="STICKY">דביק</Resource>
+    <Resource tag="STICKY_NEW">Sticky (New Posts)</Resource>
   </page>
   <page name="IM_AIM">
     <Resource tag="TITLE">AOL מסרים מידיים</Resource>

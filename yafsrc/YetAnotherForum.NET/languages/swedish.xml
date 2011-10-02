@@ -3701,6 +3701,7 @@ Spoiler Content
     <Resource tag="POLL">Undersökning</Resource>
     <Resource tag="POLL_NEW">Undersökning (Nya meddelanden)</Resource>
     <Resource tag="STICKY">Klistrad</Resource>
+    <Resource tag="STICKY_NEW">Sticky (New Posts)</Resource>
   </page>
   <page name="IM_AIM">
     <Resource tag="TITLE">AOL Instant Messenger</Resource>

@@ -3701,6 +3701,7 @@ Spoiler Content
     <Resource tag="POLL">Afstemning</Resource>
     <Resource tag="POLL_NEW">Afstemning (Nye Indlæg)</Resource>
     <Resource tag="STICKY">Fastgjort</Resource>
+    <Resource tag="STICKY_NEW">Sticky (New Posts)</Resource>
   </page>
   <page name="IM_AIM">
     <Resource tag="TITLE">AOL direkte besked</Resource>

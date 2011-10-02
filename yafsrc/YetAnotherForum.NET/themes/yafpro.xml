@@ -168,6 +168,7 @@
     <Resource tag="TOPIC_NEW_LOCKED">~/topic_lock_new.gif</Resource>
     <Resource tag="TOPIC_LOCKED">~/topic_lock.gif</Resource>
     <Resource tag="TOPIC_STICKY">~/topic_sticky.gif</Resource>
+	<Resource tag="TOPIC_STICKY_NEW">~/topic_sticky.gif</Resource>
     <Resource tag="TOPIC_MOVED">~/topic_moved.gif</Resource>
     <Resource tag="TOPIC_POLL">~/topic_poll.gif</Resource>
     <Resource tag="TOPIC_POLL_NEW">~/topic_poll_new.gif</Resource>

@@ -3524,6 +3524,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="POLL">إستفتاء</Resource>
     <Resource tag="POLL_NEW">إستفتاء (مشاركةجديدة)</Resource>
     <Resource tag="STICKY">مثبت</Resource>
+    <Resource tag="STICKY_NEW">Sticky (New Posts)</Resource>
   </page>
   <page name="IM_AIM">
     <Resource tag="TITLE">AOL الدردشة داخل </Resource>

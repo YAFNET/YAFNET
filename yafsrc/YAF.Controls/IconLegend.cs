@@ -72,13 +72,13 @@ namespace YAF.Controls
         private void IconLegend_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             string[] themeImageTags = {
-                                          "TOPIC_NEW", "TOPIC", "TOPIC_HOT_NEW", "TOPIC_HOT", "TOPIC_NEW_LOCKED", "TOPIC_LOCKED", "TOPIC_ANNOUNCEMENT",
-                                          "TOPIC_STICKY", "TOPIC_MOVED", "TOPIC_POLL"
+                                          "TOPIC_NEW", "TOPIC", "TOPIC_HOT_NEW", "TOPIC_HOT", "TOPIC_NEW_LOCKED", "TOPIC_LOCKED", "TOPIC_ANNOUNCEMENT_NEW", "TOPIC_ANNOUNCEMENT",
+                                          "TOPIC_STICKY_NEW", "TOPIC_STICKY", "TOPIC_POLL_NEW", "TOPIC_POLL", "TOPIC_MOVED"
                                       };
 
             string[] localizedTags = {
                                          "NEW_POSTS", "NO_NEW_POSTS", "HOT_NEW_POSTS", "HOT_NO_NEW_POSTS", "NEW_POSTS_LOCKED", "NO_NEW_POSTS_LOCKED",
-                                         "ANNOUNCEMENT", "STICKY", "MOVED", "POLL"
+                                         "ANNOUNCEMENT_NEW", "ANNOUNCEMENT", "STICKY_NEW", "STICKY", "POLL_NEW",  "POLL", "MOVED"
                                      };
 
             HtmlTableRow tr = null;

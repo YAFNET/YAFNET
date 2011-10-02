@@ -3643,6 +3643,7 @@ Spoiler Content
     <Resource tag="POLL">Umfrage</Resource>
     <Resource tag="POLL_NEW">Umfrage (Neue Beiträge)</Resource>
     <Resource tag="STICKY">Wichtig</Resource>
+    <Resource tag="STICKY_NEW">Wichtig (Neue Beiträge)</Resource>
   </page>
   <page name="IM_AIM">
     <Resource tag="TITLE">AOL-Instantmessenger</Resource>

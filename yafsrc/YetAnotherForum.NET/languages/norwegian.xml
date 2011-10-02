@@ -3684,6 +3684,7 @@ Spoiler Content
     <Resource tag="POLL">Spørring</Resource>
     <Resource tag="POLL_NEW">Spørring (nye innlegg)</Resource>
     <Resource tag="STICKY">Fest</Resource>
+    <Resource tag="STICKY_NEW">Sticky (New Posts)</Resource>
   </page>
   <page name="IM_AIM">
     <Resource tag="TITLE">AOL Instant Messenger</Resource>

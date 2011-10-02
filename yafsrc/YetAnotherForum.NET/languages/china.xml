@@ -3702,6 +3702,7 @@ Spoiler Content
     <Resource tag="POLL">投票</Resource>
     <Resource tag="POLL_NEW">投票 (有新贴)</Resource>
     <Resource tag="STICKY">置顶</Resource>
+    <Resource tag="STICKY_NEW">Sticky (New Posts)</Resource>
   </page>
   <page name="IM_AIM">
     <Resource tag="TITLE">AOL Instant Messenger</Resource>

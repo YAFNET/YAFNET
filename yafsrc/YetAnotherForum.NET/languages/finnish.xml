@@ -3684,6 +3684,7 @@ Spoiler Content
     <Resource tag="POLL">Äänestys</Resource>
     <Resource tag="POLL_NEW">Äänestys (uusia viestejä)</Resource>
     <Resource tag="STICKY">Tiedote</Resource>
+    <Resource tag="STICKY_NEW">Sticky (New Posts)</Resource>
   </page>
   <page name="IM_AIM">
     <Resource tag="TITLE">AOL Instant Messenger</Resource>

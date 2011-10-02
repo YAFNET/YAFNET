@@ -3702,6 +3702,7 @@ Spoiler Content
     <Resource tag="POLL">Küsitlus</Resource>
     <Resource tag="POLL_NEW">Küsitlus (Uued postitused)</Resource>
     <Resource tag="STICKY">Päevakohane</Resource>
+    <Resource tag="STICKY_NEW">Sticky (New Posts)</Resource>
   </page>
   <page name="IM_AIM">
     <Resource tag="TITLE">AOL Instant Messenger</Resource>

@@ -3690,6 +3690,7 @@ Spoiler Content
     <Resource tag="POLL">نظرسنجی</Resource>
     <Resource tag="POLL_NEW">نظرسنجی ( عناوین جدید )</Resource>
     <Resource tag="STICKY">مهم</Resource>
+    <Resource tag="STICKY_NEW">Sticky (New Posts)</Resource>
   </page>
   <page name="IM_AIM">
     <Resource tag="TITLE">پیام رسان AOL</Resource>

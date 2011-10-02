@@ -3701,6 +3701,7 @@ Spoiler Content
     <Resource tag="POLL">Encuesta</Resource>
     <Resource tag="POLL_NEW">Encuesta (Nuevos mensajes)</Resource>
     <Resource tag="STICKY">Pegajoso</Resource>
+    <Resource tag="STICKY_NEW">Sticky (New Posts)</Resource>
   </page>
   <page name="IM_AIM">
     <Resource tag="TITLE">AOL Instant Messenger</Resource>

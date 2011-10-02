@@ -536,8 +536,8 @@
                     switch (row["Priority"].ToString())
                     {
                         case "1":
-                            imgTitle = this.GetText("STICKY");
-                            return this.Get<ITheme>().GetItem("ICONS", "TOPIC_STICKY");
+                            imgTitle = this.GetText("STICKY_NEW");
+                            return this.Get<ITheme>().GetItem("ICONS", "TOPIC_STICKY_NEW");
                         case "2":
                             imgTitle = this.GetText("ANNOUNCEMENT");
                             return this.Get<ITheme>().GetItem("ICONS", "TOPIC_ANNOUNCEMENT_NEW");

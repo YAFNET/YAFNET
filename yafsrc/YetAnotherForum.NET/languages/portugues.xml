@@ -3699,6 +3699,7 @@ Spoiler Content
     <Resource tag="POLL">Enquete</Resource>
     <Resource tag="POLL_NEW">Enquete (Novas Participações)</Resource>
     <Resource tag="STICKY">Destacado</Resource>
+    <Resource tag="STICKY_NEW">Sticky (New Posts)</Resource>
   </page>
   <page name="IM_AIM">
     <Resource tag="TITLE">AOL Messenger</Resource>

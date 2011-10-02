@@ -3684,6 +3684,7 @@ Spoiler Content
     <Resource tag="POLL">Prieskum mienky</Resource>
     <Resource tag="POLL_NEW">Prieskum mienky (nové správy)</Resource>
     <Resource tag="STICKY">Prišpendliť</Resource>
+    <Resource tag="STICKY_NEW">Sticky (New Posts)</Resource>
   </page>
   <page name="IM_AIM">
     <Resource tag="TITLE">AOL Instant Messenger</Resource>

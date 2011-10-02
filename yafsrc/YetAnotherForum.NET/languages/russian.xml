@@ -3702,6 +3702,7 @@ Spoiler Content
     <Resource tag="POLL">Опрос</Resource>
     <Resource tag="POLL_NEW">Опрос (новые сообщения)</Resource>
     <Resource tag="STICKY">Закреплено</Resource>
+    <Resource tag="STICKY_NEW">Sticky (New Posts)</Resource>
   </page>
   <page name="IM_AIM">
     <Resource tag="TITLE">Мгновенные сообщения AOL</Resource>

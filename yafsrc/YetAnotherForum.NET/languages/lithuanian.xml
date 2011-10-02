@@ -3772,6 +3772,7 @@ Spoiler Content
     <Resource tag="POLL">Apklausa </Resource>
     <Resource tag="POLL_NEW">Apklausa (yra naujų žinučių) </Resource>
     <Resource tag="STICKY">Sticky </Resource>
+    <Resource tag="STICKY_NEW">Sticky (New Posts)</Resource>
   </page>
   <page name="IM_AIM">
     <Resource tag="TITLE">AOL Instant Messenger </Resource>
