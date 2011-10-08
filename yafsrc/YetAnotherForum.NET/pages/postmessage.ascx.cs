@@ -24,6 +24,7 @@ namespace YAF.Pages
 
     using System;
     using System.Data;
+    using System.Linq;
     using System.Net;
     using System.Web;
     using System.Web.UI.WebControls;
@@ -37,6 +38,7 @@ namespace YAF.Pages
     using YAF.Types.Constants;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Objects;
     using YAF.Utilities;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -124,7 +126,7 @@ namespace YAF.Pages
         protected int? PollGroupId { get; set; }
 
         /// <summary>
-        ///   Gets QuotedMessageID.
+        ///   Gets Quoted Message ID.
         /// </summary>
         protected long? QuotedMessageID
         {
@@ -334,7 +336,7 @@ namespace YAF.Pages
         /// The new topic.
         /// </summary>
         /// <returns>
-        /// The new topic.
+        /// Returns if New Topic
         /// </returns>
         protected bool NewTopic()
         {
@@ -433,58 +435,62 @@ namespace YAF.Pages
         {
             this.PageContext.QueryIDs = new QueryStringIDHelper(new[] { "m", "t", "q" }, false);
 
-            DataRow currentRow = null;
+            TypedMessageList currentMessage = null;
 
             // we reply to a post with a quote
             if (this.QuotedMessageID != null)
             {
-                currentRow = LegacyDb.message_list(this.QuotedMessageID).GetFirstRowOrInvalid();
-                this.OriginalMessage = currentRow["Message"].ToString();
+                currentMessage =
+                    LegacyDb.MessageList(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("q").ToType<int>()).FirstOrDefault();
 
-                if (currentRow["TopicID"].ToType<int>() != this.PageContext.PageTopicID)
+                this.OriginalMessage = currentMessage.Message;
+
+                if (currentMessage.TopicID.ToType<int>() != this.PageContext.PageTopicID)
                 {
                     YafBuildLink.AccessDenied();
                 }
 
-                if (!this.CanQuotePostCheck(currentRow))
+                if (!this.CanQuotePostCheck())
                 {
                     YafBuildLink.AccessDenied();
                 }
 
-                this.PollGroupId = currentRow["PollID"].IsNullOrEmptyDBField() ? 0 : currentRow["PollID"].ToType<int>();
+                this.PollGroupId = currentMessage.PollID.ToType<int>().IsNullOrEmptyDBField() ? 0 : currentMessage.PollID;
 
                 // if this is a quoted message (a new reply with a quote)  we should transfer the TopicId value only to return
-                this.PollList.TopicId = (int)this.TopicID;
+                this.PollList.TopicId = this.TopicID.ToType<int>();
 
                 if (this.TopicID == null)
                 {
-                    this.PollList.TopicId = currentRow["TopicID"].IsNullOrEmptyDBField()
+                    this.PollList.TopicId = currentMessage.TopicID.ToType<int>().IsNullOrEmptyDBField()
                                               ? 0
-                                              : currentRow["TopicID"].ToType<int>();
+                                              : currentMessage.TopicID.ToType<int>();
                 }
             }
             else if (this.EditMessageID != null)
             {
-                currentRow = LegacyDb.message_list(this.EditMessageID).GetFirstRowOrInvalid();
-                this.OriginalMessage = currentRow["Message"].ToString();
+                currentMessage =
+                   LegacyDb.MessageList(this.EditMessageID.ToType<int>()).FirstOrDefault();
 
-                this._ownerUserId = currentRow["UserId"].ToType<int>();
+                this.OriginalMessage = currentMessage.Message;
 
-                if (!this.CanEditPostCheck(currentRow))
+                this._ownerUserId = currentMessage.UserID.ToType<int>();
+
+                if (!this.CanEditPostCheck(currentMessage))
                 {
                     YafBuildLink.AccessDenied();
                 }
 
-                this.PollGroupId = currentRow["PollID"].IsNullOrEmptyDBField() ? 0 : currentRow["PollID"].ToType<int>();
+                this.PollGroupId = currentMessage.PollID.ToType<int>().IsNullOrEmptyDBField() ? 0 : currentMessage.PollID;
 
                 // we edit message and should transfer both the message ID and TopicID for PageLinks. 
-                this.PollList.EditMessageId = (int)this.EditMessageID;
+                this.PollList.EditMessageId = this.EditMessageID.ToType<int>();
 
                 if (this.TopicID == null)
                 {
-                    this.PollList.TopicId = currentRow["TopicID"].IsNullOrEmptyDBField()
+                    this.PollList.TopicId = currentMessage.TopicID.ToType<int>().IsNullOrEmptyDBField()
                                               ? 0
-                                              : currentRow["TopicID"].ToType<int>();
+                                              : currentMessage.TopicID.ToType<int>();
                 }
             }
 
@@ -556,14 +562,12 @@ namespace YAF.Pages
 
                 ////this.Attachments1.Visible = !this.PageContext.IsGuest;
 
-                DataRow forumInfo;
-
                 // get topic and forum information
-                DataRow topicInfo = LegacyDb.topic_info(this.PageContext.PageTopicID);
+                /*DataRow topicInfo = LegacyDb.topic_info(this.PageContext.PageTopicID);
                 using (DataTable dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
                 {
-                    forumInfo = dt.Rows[0];
-                }
+                    DataRow forumInfo = dt.Rows[0];
+                }*/
 
                 if (!this.PageContext.IsGuest)
                 {
@@ -601,30 +605,57 @@ namespace YAF.Pages
                 {
                     this.InitReplyToTopic();
 
-                    this.PollList.TopicId = (int)this.TopicID;
+                    this.PollList.TopicId = this.TopicID.ToType<int>();
                 }
 
                 // If currentRow != null, we are quoting a post in a new reply, or editing an existing post
-                if (currentRow != null)
+                if (currentMessage != null)
                 {
-                    var messageFlags = new MessageFlags(currentRow["Flags"]);
-                    string message = currentRow["Message"].ToString();
-                    this.OriginalMessage = currentRow["Message"].ToString();
+                    this.OriginalMessage = currentMessage.Message;
 
                     if (this.QuotedMessageID != null)
                     {
-                        // quoting a reply to a topic...
-                        this.InitQuotedReply(currentRow, message, messageFlags);
-                        this.PollList.TopicId = (int)this.TopicID;
+                        if (this.Get<IYafSession>().MultiQuoteIds != null)
+                        {
+
+                            if (!this.Get<IYafSession>().MultiQuoteIds.Contains(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("q").ToType<int>()))
+                            {
+                                this.Get<IYafSession>().MultiQuoteIds.Add(
+                                    this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("q").ToType<int>());
+                            }
+
+                            var messages = LegacyDb.topic_listmessages(this.TopicID.ToType<int>());
+
+                            // quoting a reply to a topic...
+                            foreach (
+                                var msg in
+                                    this.Get<IYafSession>().MultiQuoteIds.ToArray().Select(
+                                        id =>
+                                        messages.AsEnumerable().Select(t => new TypedMessageList(t)).Where(
+                                            m => m.MessageID == id.ToType<int>())).SelectMany(
+                                                quotedMessage => quotedMessage))
+                            {
+                                this.InitQuotedReply(msg);
+                            }
+
+                            // Clear Multiquotes
+                            this.Get<IYafSession>().MultiQuoteIds = null;
+                        }
+                        else
+                        {
+                            this.InitQuotedReply(currentMessage);
+                        }
+
+                        this.PollList.TopicId = this.TopicID.ToType<int>();
                     }
                     else if (this.EditMessageID != null)
                     {
                         // editing a message...
-                        this.InitEditedPost(currentRow, message, messageFlags);
-                        this.PollList.EditMessageId = (int)this.EditMessageID;
+                        this.InitEditedPost(currentMessage);
+                        this.PollList.EditMessageId = this.EditMessageID.ToType<int>();
                     }
 
-                    this.PollGroupId = currentRow["PollID"].IsNullOrEmptyDBField() ? 0 : currentRow["PollID"].ToType<int>();
+                    this.PollGroupId = currentMessage.PollID.ToType<int>().IsNullOrEmptyDBField() ? 0 : currentMessage.PollID.ToType<int>();
                 }
 
                 // add the "New Topic" page link last...
@@ -942,7 +973,7 @@ namespace YAF.Pages
             {
                 // Reply to topic
                 messageId = this.PostReplyHandleReplyToTopic(this.spamApproved);
-                newTopic = (long)this.TopicID;
+                newTopic = this.TopicID.ToType<long>();
             }
             else if (this.EditMessageID != null)
             {
@@ -1197,15 +1228,15 @@ namespace YAF.Pages
         /// The message.
         /// </param>
         /// <returns>
-        /// The can edit post check.
+        /// Returns if user can edit post check.
         /// </returns>
-        private bool CanEditPostCheck([NotNull] DataRow message)
+        private bool CanEditPostCheck([NotNull] TypedMessageList message)
         {
             bool postLocked = false;
 
             if (!this.PageContext.IsAdmin && this.Get<YafBoardSettings>().LockPosts > 0)
             {
-                var edited = (DateTime)message["Edited"];
+                var edited = message.Edited.ToType<DateTime>();
 
                 if (edited.AddDays(this.Get<YafBoardSettings>().LockPosts) < DateTime.UtcNow)
                 {
@@ -1225,7 +1256,7 @@ namespace YAF.Pages
             // Ederon : 9/9/2007 - moderator can edit in locked topics
             return ((!postLocked && !forumInfo["Flags"].BinaryAnd(ForumFlags.Flags.IsLocked) &&
                      !topicInfo["Flags"].BinaryAnd(TopicFlags.Flags.IsLocked) &&
-                     (message["UserID"].ToType<int>() == this.PageContext.PageUserID)) ||
+                     (message.UserID.ToType<int>() == this.PageContext.PageUserID)) ||
                     this.PageContext.ForumModeratorAccess) && this.PageContext.ForumEditAccess;
         }
 
@@ -1247,13 +1278,10 @@ namespace YAF.Pages
         /// <summary>
         /// The can quote post check.
         /// </summary>
-        /// <param name="message">
-        /// The message.
-        /// </param>
         /// <returns>
         /// The can quote post check.
         /// </returns>
-        private bool CanQuotePostCheck([NotNull] DataRow message)
+        private bool CanQuotePostCheck()
         {
             DataRow forumInfo;
 
@@ -1304,43 +1332,35 @@ namespace YAF.Pages
         /// <summary>
         /// The init edited post.
         /// </summary>
-        /// <param name="currentRow">
-        /// The current row.
-        /// </param>
-        /// <param name="message">
-        /// The message.
-        /// </param>
-        /// <param name="messageFlags">
-        /// The message flags.
-        /// </param>
+        /// <param name="currentMessage">The current message.</param>
         private void InitEditedPost(
-          [NotNull] DataRow currentRow, [NotNull] string message, [NotNull] MessageFlags messageFlags)
+          [NotNull] TypedMessageList currentMessage)
         {
-            if (this._forumEditor.UsesHTML && messageFlags.IsBBCode)
+            if (this._forumEditor.UsesHTML && currentMessage.Flags.IsBBCode)
             {
                 // If the message is in YafBBCode but the editor uses HTML, convert the message text to HTML
-                message = this.Get<IBBCode>().ConvertBBCodeToHtmlForEdit(message);
-            }
-            
-            if (this._forumEditor.UsesBBCode && messageFlags.IsHtml)
-            {
-                // If the message is in HTML but the editor uses YafBBCode, convert the message text to BBCode
-                message = this.Get<IBBCode>().ConvertHtmltoBBCodeForEdit(message);
+                currentMessage.Message = this.Get<IBBCode>().ConvertBBCodeToHtmlForEdit(currentMessage.Message);
             }
 
-            this._forumEditor.Text = message;
+            if (this._forumEditor.UsesBBCode && currentMessage.Flags.IsHtml)
+            {
+                // If the message is in HTML but the editor uses YafBBCode, convert the message text to BBCode
+                currentMessage.Message = this.Get<IBBCode>().ConvertHtmltoBBCodeForEdit(currentMessage.Message);
+            }
+
+            this._forumEditor.Text = currentMessage.Message;
 
             this.Title.Text = this.GetText("EDIT");
 
             // add topic link...
             this.PageLinks.AddLink(
-              this.Server.HtmlDecode(currentRow["Topic"].ToString()),
+              this.Server.HtmlDecode(currentMessage.Topic),
               YafBuildLink.GetLink(ForumPages.posts, "m={0}", this.EditMessageID));
 
             // editing..
             this.PageLinks.AddLink(this.GetText("EDIT"));
 
-            string blogPostID = currentRow["BlogPostID"].ToString();
+            string blogPostID = currentMessage.BlogPostID;
             if (blogPostID != string.Empty)
             {
                 // The user used this post to blog
@@ -1349,10 +1369,10 @@ namespace YAF.Pages
                 this.BlogRow.Visible = true;
             }
 
-            this.TopicSubjectTextBox.Text = this.Server.HtmlDecode(Convert.ToString(currentRow["Topic"]));
-            this.TopicDescriptionTextBox.Text = this.Server.HtmlDecode(Convert.ToString(currentRow["Description"]));
+            this.TopicSubjectTextBox.Text = this.Server.HtmlDecode(currentMessage.Topic);
+            this.TopicDescriptionTextBox.Text = this.Server.HtmlDecode(currentMessage.Description);
 
-            if ((currentRow["TopicOwnerID"].ToType<int>() == currentRow["UserID"].ToType<int>()) ||
+            if ((currentMessage.TopicOwnerID.ToType<int>() == currentMessage.UserID.ToType<int>()) ||
                 this.PageContext.ForumModeratorAccess)
             {
                 // allow editing of the topic subject
@@ -1377,17 +1397,17 @@ namespace YAF.Pages
             }
 
             this.Priority.SelectedItem.Selected = false;
-            this.Priority.Items.FindByValue(currentRow["Priority"].ToString()).Selected = true;
+            this.Priority.Items.FindByValue(currentMessage.Priority.ToString()).Selected = true;
 
             this.TopicStatus.SelectedItem.Selected = false;
-            if (this.TopicStatus.Items.FindByValue(currentRow["Status"].ToString()) != null)
+            if (this.TopicStatus.Items.FindByValue(currentMessage.Status) != null)
             {
-                this.TopicStatus.Items.FindByValue(currentRow["Status"].ToString()).Selected = true;
+                this.TopicStatus.Items.FindByValue(currentMessage.Status).Selected = true;
             }
 
             this.EditReasonRow.Visible = true;
-            this.ReasonEditor.Text = this.Server.HtmlDecode(Convert.ToString(currentRow["EditReason"]));
-            this.PostOptions1.PersistantChecked = messageFlags.IsPersistent;
+            this.ReasonEditor.Text = this.Server.HtmlDecode(currentMessage.EditReason);
+            this.PostOptions1.PersistantChecked = currentMessage.Flags.IsPersistent;
 
             //this.Attachments1.MessageID = (int)this.EditMessageID;
         }
@@ -1395,47 +1415,42 @@ namespace YAF.Pages
         /// <summary>
         /// The init quoted reply.
         /// </summary>
-        /// <param name="currentRow">
-        /// The current row.
-        /// </param>
         /// <param name="message">
-        /// The message.
+        /// The current TypedMessage.
         /// </param>
-        /// <param name="messageFlags">
-        /// The message flags.
-        /// </param>
-        private void InitQuotedReply(
-          [NotNull] DataRow currentRow, [NotNull] string message, [NotNull] MessageFlags messageFlags)
+        private void InitQuotedReply(TypedMessageList message)
         {
+            var messageContent = message.Message;
+
             if (this.Get<YafBoardSettings>().RemoveNestedQuotes)
             {
-                message = this.Get<IFormatMessage>().RemoveNestedQuotes(message);
+                messageContent = this.Get<IFormatMessage>().RemoveNestedQuotes(messageContent);
             }
 
-            if (this._forumEditor.UsesHTML && messageFlags.IsBBCode)
+            if (this._forumEditor.UsesHTML && message.Flags.IsBBCode)
             {
                 // If the message is in YafBBCode but the editor uses HTML, convert the message text to HTML
-                message = this.Get<IBBCode>().ConvertBBCodeToHtmlForEdit(message);
+                messageContent = this.Get<IBBCode>().ConvertBBCodeToHtmlForEdit(messageContent);
             }
-            
-            if (this._forumEditor.UsesBBCode && messageFlags.IsHtml)
+
+            if (this._forumEditor.UsesBBCode && message.Flags.IsHtml)
             {
                 // If the message is in HTML but the editor uses YafBBCode, convert the message text to BBCode
-                message = this.Get<IBBCode>().ConvertHtmltoBBCodeForEdit(message);
+                messageContent = this.Get<IBBCode>().ConvertHtmltoBBCodeForEdit(messageContent);
             }
 
             // Ensure quoted replies have bad words removed from them
-            message = this.Get<IBadWordReplace>().Replace(message);
+            messageContent = this.Get<IBadWordReplace>().Replace(messageContent);
 
             // Remove HIDDEN Text
-            message = this.Get<IFormatMessage>().RemoveHiddenBBCodeContent(message);
+            messageContent = this.Get<IFormatMessage>().RemoveHiddenBBCodeContent(messageContent);
 
             // Quote the original message
-            this._forumEditor.Text =
-              "[quote={0};{1}]{2}[/quote]\n".FormatWith(
-                this.Get<IUserDisplayName>().GetName(currentRow.Field<int>("UserID")),
-                currentRow.Field<int>("MessageID"),
-                message).TrimStart();
+            this._forumEditor.Text +=
+              "[quote={0};{1}]{2}[/quote]\n\n".FormatWith(
+                this.Get<IUserDisplayName>().GetName(message.UserID.ToType<int>()),
+                message.MessageID,
+                messageContent).TrimStart();
         }
 
         /// <summary>

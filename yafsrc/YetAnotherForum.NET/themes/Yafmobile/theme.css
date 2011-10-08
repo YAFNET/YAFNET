@@ -410,6 +410,7 @@
 	color: #000090;
 }
 /* CCS Buttons */
+.yafnet .MultiQuoteButton,
 .yafnet a.yaflittlebutton 
 {
 	background-color: #eeeeee;
@@ -423,6 +424,7 @@
 	font-family: Tahoma;
 	border: solid 1px #a0a0a0;
 }
+.yafnet .MultiQuoteButton label,
 .yafnet a.yaflittlebutton span {
 	display: block;
 	padding: 2px 3px 2px 4px;
@@ -431,12 +433,19 @@
 	vertical-align: middle;
 	padding: 0px 4px 2px 0px;
 }
+.yafnet .MultiQuoteButton:hover,
 .yafnet a.yaflittlebutton:hover {
 	color: #000000;
 	text-decoration: none;
 		background-color: #FFF3C6;
 
 }
+.yafnet .Checked {
+    color:red;
+	border: 1px solid black;
+}
+
+.yafnet .Checked,
 .yafnet a.yaflittlebutton:active {
     background-position: bottom right;
     outline: none;
@@ -444,6 +453,7 @@
 .yafnet a.yaflittlebutton:active img {
     padding: 0px 6px 4px 0px;
 }
+.yafnet .Checked label,
 .yafnet a.yaflittlebutton:active span{
 	background-position: bottom left;
 	padding: 3px 3px 1px 4px;

@@ -23,6 +23,7 @@ namespace YAF.Controls
     #region Using
 
     using System;
+    using System.Collections;
     using System.Data;
     using System.Text;
     using System.Web;
@@ -326,6 +327,43 @@ namespace YAF.Controls
         }
 
         /// <summary>
+        /// Handles the multi quote.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected void HandleMultiQuote(object sender, EventArgs e)
+        {
+            if (this.MultiQuote.Checked)
+            {
+                if (this.Get<IYafSession>().MultiQuoteIds != null)
+                {
+                    if (!this.Get<IYafSession>().MultiQuoteIds.Contains(this.PostData.MessageId))
+                    {
+                        this.Get<IYafSession>().MultiQuoteIds.Add(this.PostData.MessageId);
+                    }
+                }
+                else
+                {
+                    this.Get<IYafSession>().MultiQuoteIds = new ArrayList { this.PostData.MessageId };
+                }
+
+                this.MultiQuote.CssClass += " Checked";
+            }
+            else
+            {
+                if (this.Get<IYafSession>().MultiQuoteIds != null)
+                {
+                    if (this.Get<IYafSession>().MultiQuoteIds.Contains(this.PostData.MessageId))
+                    {
+                        this.Get<IYafSession>().MultiQuoteIds.Remove(this.PostData.MessageId);
+                    }
+                }
+
+                this.MultiQuote.CssClass = "MultiQuoteButton";
+            }
+        }
+
+        /// <summary>
         /// The display post_ pre render.
         /// </summary>
         /// <param name="sender">
@@ -384,7 +422,13 @@ namespace YAF.Controls
             this.UnDelete.Visible = this.PostData.CanUnDeletePost && !this.PostData.IsLocked;
             this.UnDelete.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
               ForumPages.deletemessage, "m={0}&action=undelete", this.PostData.MessageId);
+
             this.Quote.Visible = !this.PostData.PostDeleted && this.PostData.CanReply && !this.PostData.IsLocked;
+            this.MultiQuote.Visible = !this.PostData.PostDeleted && this.PostData.CanReply && !this.PostData.IsLocked;
+
+            this.MultiQuote.Text = this.GetText("BUTTON_MULTI_QUOTE");
+            this.MultiQuote.ToolTip = this.GetText("BUTTON_MULTI_QUOTE_TT");
+
             this.Quote.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
               ForumPages.postmessage,
               "t={0}&f={1}&q={2}",

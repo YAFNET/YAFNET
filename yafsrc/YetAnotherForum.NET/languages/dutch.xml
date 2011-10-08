@@ -1603,6 +1603,8 @@
     <Resource tag="BUTTON_MOVE_TT">Verplaats dit bericht</Resource>
     <Resource tag="BUTTON_MOVETOPIC">Verplaats Topic</Resource>
     <Resource tag="BUTTON_MOVETOPIC_TT">Verplaats dit topic</Resource>
+    <Resource tag="BUTTON_MULTI_QUOTE">Multi-Quote</Resource>
+    <Resource tag="BUTTON_MULTI_QUOTE_TT">Multi-Quote this Message</Resource>
     <Resource tag="BUTTON_NEWPM">Nieuwe PM</Resource>
     <Resource tag="BUTTON_NEWPM_TT">Maak een nieuwe PM</Resource>
     <Resource tag="BUTTON_NEWTOPIC">Nieuw Topic</Resource>

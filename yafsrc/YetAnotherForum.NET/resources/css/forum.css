@@ -327,3 +327,8 @@
 .yafnet dl.AlphaSort dd a {text-decoration:none}
 
 .yafnet .SignatureColumn {vertical-align:bottom;}
+
+.yafnet .MultiQuoteButton input{
+	position:absolute;
+	top:-9999px;
+}

@@ -1608,6 +1608,8 @@
     <Resource tag="BUTTON_MOVE_TT">Di chuyển bài viết này</Resource>
     <Resource tag="BUTTON_MOVETOPIC">Di chuyển</Resource>
     <Resource tag="BUTTON_MOVETOPIC_TT">Di chuyển chủ đề này</Resource>
+    <Resource tag="BUTTON_MULTI_QUOTE">Multi-Quote</Resource>
+    <Resource tag="BUTTON_MULTI_QUOTE_TT">Multi-Quote this Message</Resource>
     <Resource tag="BUTTON_NEWPM">Gửi tin nhắn</Resource>
     <Resource tag="BUTTON_NEWPM_TT">Tạo mới tin nhắn riêng</Resource>
     <Resource tag="BUTTON_NEWTOPIC">Gửi chủ đề</Resource>
@@ -3684,6 +3686,7 @@ Spoiler Content
     <Resource tag="POLL">Bình chọn</Resource>
     <Resource tag="POLL_NEW">Bình chọn (Có bài viết mới)</Resource>
     <Resource tag="STICKY">Chú ý</Resource>
+    <Resource tag="STICKY_NEW">Sticky (New Posts)</Resource>
   </page>
   <page name="IM_AIM">
     <Resource tag="TITLE">AOL Instant Messenger</Resource>

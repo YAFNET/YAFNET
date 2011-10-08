@@ -666,6 +666,7 @@
 	color: #000090;
 }
 /* CCS Buttons */
+.yafnet .MultiQuoteButton,
 .yafnet a.yaflittlebutton 
 {
 	background-color: #f5f5f5;
@@ -702,6 +703,7 @@
 	top:1px;
 }
 
+.yafnet .MultiQuoteButton,
 .yafnet a.yaflittlebutton span {
 	display: block;
 	padding: 5px 4px 5px 7px;
@@ -710,12 +712,17 @@
 	vertical-align: middle;
 	padding: 0px 4px 2px 0px;
 }
+.yafnet .MultiQuoteButton:hover,
 .yafnet a.yaflittlebutton:hover {
 	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
 	background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
 	background-color:#dfdfdf;    
 }
+.yafnet .Checked{
+	border:1px solid #84bbf3;
+}
+.yafnet .Checked,
 .yafnet a.yaflittlebutton:active {
 	background-position: bottom right;
 	outline: none;

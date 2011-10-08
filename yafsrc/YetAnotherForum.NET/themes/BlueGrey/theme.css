@@ -611,6 +611,7 @@ This CSS already works on FireFox.
 	color: #000090;
 }
 /* CCS Buttons */
+.yafnet .MultiQuoteButton,
 .yafnet a.yaflittlebutton,
 .yafnet a.yafcssimagebutton {
 	border: none;
@@ -641,6 +642,7 @@ This CSS already works on FireFox.
 	background: -moz-linear-gradient(top,  #0c75d5,  #42a5ff);
 	
 }
+.yafnet .MultiQuoteButton:hover,
 .yafnet a.yaflittlebutton:hover,
 .yafnet a.yafcssimagebutton:hover {
 	background: url('ButtonHover.png') #007ead;
@@ -652,6 +654,7 @@ This CSS already works on FireFox.
 	text-decoration: none;
 	color: #ffffff;
 }
+.yafnet .Checked,
 .yafnet a.yaflittlebutton:active,
 .yafnet a.yafcssimagebutton:active {
     color: #ffffff;

@@ -708,6 +708,7 @@ This CSS already works on FireFox.
     color: #000090;
 }
 /* CCS Buttons */
+.yafnet .MultiQuoteButton,
 .yafnet a.yaflittlebutton {
     background: transparent url('ButtonEnd.gif') no-repeat scroll top right;
     color: #ffffff;
@@ -722,6 +723,7 @@ This CSS already works on FireFox.
     font-family: Arial;
     font-weight: bold;
 }
+.yafnet .MultiQuoteButton label,
 .yafnet a.yaflittlebutton span {
     background: transparent url('ButtonBack.gif') no-repeat;
     display: block;
@@ -732,10 +734,15 @@ This CSS already works on FireFox.
     vertical-align: middle;
     padding: 0px 4px 2px 0px;
 }
+.yafnet .MultiQuoteButton:hover,
 .yafnet a.yaflittlebutton:hover {
     color: #ffffff;
     text-decoration: none;
 }
+.yafnet .Checked label {
+	color:red;
+}
+.yafnet .Checked,
 .yafnet a.yaflittlebutton:active {
     background-position: bottom right;
     outline: none;
@@ -743,6 +750,7 @@ This CSS already works on FireFox.
 .yafnet a.yaflittlebutton:active img {
     padding: 0px 4px 2px 0px;
 }
+.yafnet .Checked label,
 .yafnet a.yaflittlebutton:active span{
     background-position: bottom left;
     padding: 5px 3px 3px 5px;

@@ -1608,6 +1608,8 @@
     <Resource tag="BUTTON_MOVE_TT">نقل المشاركة </Resource>
     <Resource tag="BUTTON_MOVETOPIC">نقل الموضوع</Resource>
     <Resource tag="BUTTON_MOVETOPIC_TT">نقل هذا الموضوع</Resource>
+    <Resource tag="BUTTON_MULTI_QUOTE">Multi-Quote</Resource>
+    <Resource tag="BUTTON_MULTI_QUOTE_TT">Multi-Quote this Message</Resource>
     <Resource tag="BUTTON_NEWPM">رسالة خاصة جديدة</Resource>
     <Resource tag="BUTTON_NEWPM_TT">انشاء رسالة شخصية جديدة</Resource>
     <Resource tag="BUTTON_NEWTOPIC">موضوع جديد</Resource>

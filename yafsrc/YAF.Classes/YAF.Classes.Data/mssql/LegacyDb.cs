@@ -8058,6 +8058,22 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
+        /// List Topic Messages
+        /// </summary>
+        /// <param name="topicID">The topic ID.</param>
+        /// <returns>
+        /// Returns List of Messages</returns>
+        public static DataTable topic_listmessages([NotNull] object topicID)
+        {
+            using (var cmd = MsSqlDbAccess.GetCommand("topic_listmessages"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("TopicID", topicID);
+                return MsSqlDbAccess.Current.GetData(cmd, true);
+            }
+        }
+
+        /// <summary>
         /// The topic_lock.
         /// </summary>
         /// <param name="topicID">

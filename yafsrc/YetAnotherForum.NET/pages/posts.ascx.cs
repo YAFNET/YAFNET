@@ -24,6 +24,7 @@ namespace YAF.Pages
     #region Using
 
     using System;
+    using System.Collections.Generic;
     using System.Data;
     using System.IO;
     using System.Linq;
@@ -51,7 +52,7 @@ namespace YAF.Pages
     #endregion
 
     /// <summary>
-    /// Summary description for posts.
+    /// The Posts Page.
     /// </summary>
     public partial class posts : ForumPage
     {
@@ -162,10 +163,10 @@ namespace YAF.Pages
         /// The delete message_ load.
         /// </summary>
         /// <param name="sender">
-        /// The sender.
+        /// <param name="sender">The source of the event.</param>
         /// </param>
         /// <param name="e">
-        /// The e.
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         /// </param>
         protected void DeleteMessage_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
@@ -177,16 +178,16 @@ namespace YAF.Pages
         /// The delete topic_ click.
         /// </summary>
         /// <param name="sender">
-        /// The sender.
+        /// <param name="sender">The source of the event.</param>
         /// </param>
         /// <param name="e">
-        /// The e.
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         /// </param>
         protected void DeleteTopic_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (!this.PageContext.ForumModeratorAccess)
             {
-                YafBuildLink.AccessDenied( /*"You don't have access to delete topics."*/);
+                YafBuildLink.AccessDenied(/*"You don't have access to delete topics."*/);
             }
 
             // Take away 10 points once!
@@ -198,12 +199,8 @@ namespace YAF.Pages
         /// <summary>
         /// The delete topic_ load.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void DeleteTopic_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             ((ThemeButton)sender).Attributes["onclick"] =
@@ -213,12 +210,8 @@ namespace YAF.Pages
         /// <summary>
         /// The email topic_ click.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void EmailTopic_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.User == null)
@@ -352,12 +345,8 @@ namespace YAF.Pages
         /// <summary>
         /// The lock topic_ click.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void LockTopic_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (!this.PageContext.ForumModeratorAccess)
@@ -380,12 +369,8 @@ namespace YAF.Pages
         /// <summary>
         /// The message list_ on item created.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void MessageList_OnItemCreated([NotNull] object sender, [NotNull] RepeaterItemEventArgs e)
         {
             if (this.Pager.CurrentPageIndex != 0 || e.Item.ItemIndex != 0)
@@ -417,12 +402,8 @@ namespace YAF.Pages
         /// <summary>
         /// The move topic_ click.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void MoveTopic_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (!this.PageContext.ForumModeratorAccess)
@@ -434,12 +415,8 @@ namespace YAF.Pages
         /// <summary>
         /// The new topic_ click.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void NewTopic_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (!this._forumFlags.IsLocked)
@@ -454,12 +431,8 @@ namespace YAF.Pages
         /// <summary>
         /// The next topic_ click.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void NextTopic_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             using (DataTable dt = LegacyDb.topic_findnext(this.PageContext.PageTopicID))
@@ -477,9 +450,7 @@ namespace YAF.Pages
         /// <summary>
         /// The on init.
         /// </summary>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
             // Quick Reply Modification Begin
@@ -497,7 +468,7 @@ namespace YAF.Pages
         /// The on pre render.
         /// </summary>
         /// <param name="e">
-        /// The e.
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         /// </param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
@@ -507,12 +478,8 @@ namespace YAF.Pages
         /// <summary>
         /// The page_ load.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             YafContext.Current.PageElements.RegisterJsResourceInclude("yafPageMethodjs", "js/jquery.pagemethod.js");
@@ -608,6 +575,9 @@ namespace YAF.Pages
 
             if (!this.IsPostBack)
             {
+                // Clear Multiquotes
+                this.Get<IYafSession>().MultiQuoteIds = null;
+
                 if (this.PageContext.Settings.LockedForum == 0)
                 {
                     this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
@@ -765,12 +735,8 @@ namespace YAF.Pages
         /// <summary>
         /// The post reply link_ click.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void PostReplyLink_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // Ederon : 9/9/2007 - moderator can reply in locked posts
@@ -797,12 +763,8 @@ namespace YAF.Pages
         /// <summary>
         /// The prev topic_ click.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void PrevTopic_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             using (DataTable dt = LegacyDb.topic_findprev(this.PageContext.PageTopicID))
@@ -820,12 +782,8 @@ namespace YAF.Pages
         /// <summary>
         /// The print topic_ click.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void PrintTopic_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             YafBuildLink.Redirect(ForumPages.printtopic, "t={0}", this.PageContext.PageTopicID);
@@ -847,12 +805,8 @@ namespace YAF.Pages
         /// <summary>
         /// The track topic_ click.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void TrackTopic_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.PageContext.IsGuest)
@@ -881,12 +835,8 @@ namespace YAF.Pages
         /// <summary>
         /// The unlock topic_ click.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void UnlockTopic_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (!this.PageContext.ForumModeratorAccess)
@@ -1242,7 +1192,6 @@ namespace YAF.Pages
                     }
                     else
                     {
-                        
                         // find first unread message
                         if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find").ToLower() == "unread")
                         {
@@ -1393,14 +1342,11 @@ namespace YAF.Pages
         /// <summary>
         /// The options menu_ item click.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
+        /// <param name="sender">The source of the event.</param>
         /// </param>
         /// <param name="e">
         /// The Pop Event Arguments.
         /// </param>
-        /// <exception cref="ApplicationException">
-        /// </exception>
         private void ShareMenu_ItemClick([NotNull] object sender, [NotNull] PopEventArgs e)
         {
             switch (e.Item.ToLower())
@@ -1500,12 +1446,8 @@ namespace YAF.Pages
         /// <summary>
         /// The options menu_ item click.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         /// <exception cref="ApplicationException"></exception>
         private void OptionsMenu_ItemClick([NotNull] object sender, [NotNull] PopEventArgs e)
         {
@@ -1542,12 +1484,8 @@ namespace YAF.Pages
         /// <summary>
         /// The pager_ page change.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void Pager_PageChange([NotNull] object sender, [NotNull] EventArgs e)
         {
             this._ignoreQueryString = true;
@@ -1558,12 +1496,8 @@ namespace YAF.Pages
         /// <summary>
         /// The quick reply_ click.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void QuickReply_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (!this.PageContext.ForumReplyAccess || (this._topicFlags.IsLocked && !this.PageContext.ForumModeratorAccess))
@@ -1594,8 +1528,7 @@ namespace YAF.Pages
                     this.PageContext.AddLoadMessage(
                         this.GetTextFormatted(
                             "wait",
-                            (YafContext.Current.Get<IYafSession>().LastPost -
-                             DateTime.UtcNow.AddSeconds(-this.Get<YafBoardSettings>().PostFloodDelay)).Seconds));
+                            (YafContext.Current.Get<IYafSession>().LastPost - DateTime.UtcNow.AddSeconds(-this.Get<YafBoardSettings>().PostFloodDelay)).Seconds));
                     return;
                 }
             }
@@ -1824,14 +1757,9 @@ namespace YAF.Pages
         /// <summary>
         /// The view menu_ item click.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        /// <exception cref="ApplicationException">
-        /// </exception>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        /// <exception cref="ApplicationException"></exception>
         private void ViewMenu_ItemClick([NotNull] object sender, [NotNull] PopEventArgs e)
         {
             switch (e.Item.ToLower())
@@ -1854,12 +1782,8 @@ namespace YAF.Pages
         /// <summary>
         /// The posts_ pre render.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void posts_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
             bool isWatched = this.HandleWatchTopic();

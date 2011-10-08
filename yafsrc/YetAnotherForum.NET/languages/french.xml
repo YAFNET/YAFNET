@@ -1608,6 +1608,8 @@
     <Resource tag="BUTTON_MOVE_TT">Déplacer cet article</Resource>
     <Resource tag="BUTTON_MOVETOPIC">Déplacer sujet</Resource>
     <Resource tag="BUTTON_MOVETOPIC_TT">Déplacer ce sujet</Resource>
+    <Resource tag="BUTTON_MULTI_QUOTE">Multi-Quote</Resource>
+    <Resource tag="BUTTON_MULTI_QUOTE_TT">Multi-Quote this Message</Resource>
     <Resource tag="BUTTON_NEWPM">Nouveau PM</Resource>
     <Resource tag="BUTTON_NEWPM_TT">Créer un nouveau message privé</Resource>
     <Resource tag="BUTTON_NEWTOPIC">Nouveau sujet</Resource>

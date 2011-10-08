@@ -1608,6 +1608,8 @@
     <Resource tag="BUTTON_MOVE_TT">Liiguta see postitus</Resource>
     <Resource tag="BUTTON_MOVETOPIC">Liiguta teema</Resource>
     <Resource tag="BUTTON_MOVETOPIC_TT">Liiguta see teema</Resource>
+    <Resource tag="BUTTON_MULTI_QUOTE">Multi-Quote</Resource>
+    <Resource tag="BUTTON_MULTI_QUOTE_TT">Multi-Quote this Message</Resource>
     <Resource tag="BUTTON_NEWPM">Uus PS</Resource>
     <Resource tag="BUTTON_NEWPM_TT">Loo uus privaatsõnum</Resource>
     <Resource tag="BUTTON_NEWTOPIC">Uus teema</Resource>

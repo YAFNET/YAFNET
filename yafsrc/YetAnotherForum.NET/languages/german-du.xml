@@ -1597,6 +1597,8 @@
     <Resource tag="BUTTON_MOVE_TT">Diesen Beitrag verschieben</Resource>
     <Resource tag="BUTTON_MOVETOPIC">Thema verschieben</Resource>
     <Resource tag="BUTTON_MOVETOPIC_TT">Dieses Thema in ein anderes Forum verschieben</Resource>
+    <Resource tag="BUTTON_MULTI_QUOTE">Mehrfach Zitat</Resource>
+    <Resource tag="BUTTON_MULTI_QUOTE_TT">Dieses Beitrag als Zitat markieren</Resource>
     <Resource tag="BUTTON_NEWPM">Neue Private Nachricht</Resource>
     <Resource tag="BUTTON_NEWPM_TT">Eine neue private Nachricht verschicken</Resource>
     <Resource tag="BUTTON_NEWTOPIC">Neues Thema</Resource>
@@ -1604,7 +1606,7 @@
     <Resource tag="BUTTON_POSTREPLY">Antwort erstellen</Resource>
     <Resource tag="BUTTON_POSTREPLY_TT">Erstelle eine neue Antwort zu diesem Thema</Resource>
     <Resource tag="BUTTON_QUOTE">Zitieren</Resource>
-    <Resource tag="BUTTON_QUOTE_TT">Auf diese Nachricht mit Zitat antworten</Resource>
+    <Resource tag="BUTTON_QUOTE_TT">Auf diesen Beitrag mit Zitat Antworten</Resource>
     <Resource tag="BUTTON_REPLY">Antworten</Resource>
     <Resource tag="BUTTON_REPLY_TT">Auf diese Nachricht antworten</Resource>
     <Resource tag="BUTTON_RESETCOVER">Cover entfernen</Resource>

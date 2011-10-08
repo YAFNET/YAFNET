@@ -1598,6 +1598,8 @@ Spoiler Content
       <Resource tag="BUTTON_UNTAGFAVORITE_TT">Remove this topic from your Favorites list.</Resource>
       <Resource tag="BUTTON_QUOTE">Quote</Resource>
       <Resource tag="BUTTON_QUOTE_TT">Reply with Quote</Resource>
+	  <Resource tag="BUTTON_MULTI_QUOTE">Multi-Quote</Resource>
+      <Resource tag="BUTTON_MULTI_QUOTE_TT">Multi-Quote this Message</Resource>
       <Resource tag="BUTTON_REPLY">Reply</Resource>
       <Resource tag="BUTTON_REPLY_TT">Reply to message</Resource>
       <Resource tag="BUTTON_UNDELETE">Undelete</Resource>
@@ -2258,7 +2260,7 @@ Spoiler Content
       <Resource tag="POLL">Poll</Resource>
       <Resource tag="POLL_NEW">Poll (New Posts)</Resource>
       <Resource tag="STICKY">Sticky</Resource>
-      <Resource tag="STICKY_NEW">Sticky (New Posts)</Resource>
+	  <Resource tag="STICKY_NEW">Sticky (New Posts)</Resource>
    </page>
    <page name="IM_AIM">
       <Resource tag="TITLE">AOL Instant Messenger</Resource>

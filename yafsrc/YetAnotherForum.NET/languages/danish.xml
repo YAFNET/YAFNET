@@ -1608,6 +1608,8 @@
     <Resource tag="BUTTON_MOVE_TT">Flyt dette indlæg</Resource>
     <Resource tag="BUTTON_MOVETOPIC">Flyt emne</Resource>
     <Resource tag="BUTTON_MOVETOPIC_TT">Flyt dette emne</Resource>
+    <Resource tag="BUTTON_MULTI_QUOTE">Multi-Quote</Resource>
+    <Resource tag="BUTTON_MULTI_QUOTE_TT">Multi-Quote this Message</Resource>
     <Resource tag="BUTTON_NEWPM">Ny privat besked</Resource>
     <Resource tag="BUTTON_NEWPM_TT">Opretter ny privat besked</Resource>
     <Resource tag="BUTTON_NEWTOPIC">Nyt emne</Resource>

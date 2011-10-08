@@ -22,8 +22,18 @@ namespace YAF.Types.Interfaces
     using System.Collections;
     using System.Data;
 
+    /// <summary>
+    /// </summary>
     public interface IYafSession
     {
+        /// <summary>
+        /// Gets or sets the multi quote ids.
+        /// </summary>
+        /// <value>
+        /// The multi quote ids.
+        /// </value>
+        ArrayList MultiQuoteIds { get; set; }
+
         /// <summary>
         ///   Gets or sets Unread Topic Since.
         /// </summary>
@@ -127,7 +137,6 @@ namespace YAF.Types.Interfaces
         /// The DateTime object from the topicID.
         /// </returns>
         DateTime GetTopicRead(int topicID);
-
 
         /// <summary>
         /// Sets the time that the forum was read.

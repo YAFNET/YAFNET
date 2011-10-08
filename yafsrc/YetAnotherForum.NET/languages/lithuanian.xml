@@ -1612,6 +1612,8 @@
     <Resource tag="BUTTON_MOVE_TT">Move this Post</Resource>
     <Resource tag="BUTTON_MOVETOPIC">Move Topic</Resource>
     <Resource tag="BUTTON_MOVETOPIC_TT">Move this topic</Resource>
+    <Resource tag="BUTTON_MULTI_QUOTE">Multi-Quote</Resource>
+    <Resource tag="BUTTON_MULTI_QUOTE_TT">Multi-Quote this Message</Resource>
     <Resource tag="BUTTON_NEWPM">New PM</Resource>
     <Resource tag="BUTTON_NEWPM_TT">Create a new private message</Resource>
     <Resource tag="BUTTON_NEWTOPIC">New Topic</Resource>
