@@ -9675,24 +9675,3 @@ begin
 		LastPosted desc
 end
 GO
-
-create procedure [{databaseOwner}].[{objectQualifier}User_ListTodaysBirthdays](@BoardId int, @StyledNicks bit = null) as
-begin
-		
-		SELECT 
-		      usr.UserID,
-              [Birthday],
-              usr.DisplayName,
-              m.Username,
-			  Style = case(@StyledNicks)
-			          when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-			          join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=usr.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), rnk.Style)  
-			          else ''	 end
-        FROM [{databaseOwner}].[{objectQualifier}prov_Profile] as u
-              JOIN [{databaseOwner}].[{objectQualifier}prov_Membership] m on m.UserID=u.UserID
-              JOIN [{databaseOwner}].[{objectQualifier}User] usr on usr.Name=m.UserName and usr.BoardID = @BoardId
-			  join [{databaseOwner}].[{objectQualifier}Rank] rnk on rnk.RankID=usr.RankID
-        where 
-		      datepart(MONTH,Birthday) = datepart(MONTH,GETUTCDATE()) and datepart(DAY,Birthday) = datepart(DAY,GETUTCDATE())
-end
-GO

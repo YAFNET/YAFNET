@@ -196,7 +196,7 @@ namespace YAF.Controls
         /// </summary>
         private void GetTodaysBirthdays()
         {
-            if (!this.Get<YafBoardSettings>().ShowTodaysBirthdays)
+            if (!this.Get<YafBoardSettings>().ShowTodaysBirthdays && !Config.IsAnyPortal)
             {
                 return;
             }
@@ -356,7 +356,7 @@ namespace YAF.Controls
             this.NewestMemberUserLink.UserID = userStatisticsDataRow["LastMemberID"].ToType<int>();
             this.CollapsibleImage.ToolTip = this.GetText("COMMON", "SHOWHIDE");
 
-            this.GetTodaysBirthdays();
+            //this.GetTodaysBirthdays();
         }
 
         #endregion
