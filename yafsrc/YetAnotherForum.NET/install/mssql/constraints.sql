@@ -682,6 +682,10 @@ if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databas
 	alter table [{databaseOwner}].[{objectQualifier}MessageHistory] add constraint IX_{objectQualifier}MessageHistory unique nonclustered (Edited,MessageID)   
 go
 
+if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}UserProfile]') and name='IX_{objectQualifier}UserProfile')
+	alter table [{databaseOwner}].[{objectQualifier}UserProfile] add constraint IX_{objectQualifier}UserProfile unique nonclustered (UserID,ApplicationName)   
+go
+
 if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}ForumReadTracking]') and name='IX_{objectQualifier}ForumReadTracking')
 	alter table [{databaseOwner}].[{objectQualifier}ForumReadTracking] add constraint IX_{objectQualifier}ForumReadTracking unique nonclustered (UserID,ForumID)   
 go
@@ -804,6 +808,10 @@ go
 
 if not exists (select top 1 1 from  dbo.sysobjects where name='FK_{objectQualifier}FavoriteTopic_{objectQualifier}User' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}FavoriteTopic]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table [{databaseOwner}].[{objectQualifier}FavoriteTopic] add constraint [FK_{objectQualifier}FavoriteTopic_{objectQualifier}User] foreign key (UserID) references [{databaseOwner}].[{objectQualifier}User] (UserID)
+go
+
+if not exists (select top 1 1 from  dbo.sysobjects where name='FK_{objectQualifier}UserProfile_{objectQualifier}User' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}UserProfile]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+	alter table [{databaseOwner}].[{objectQualifier}UserProfile] add constraint [FK_{objectQualifier}UserProfile_{objectQualifier}User] foreign key (UserID) references [{databaseOwner}].[{objectQualifier}User] (UserID) on delete cascade
 go
 
 if not exists (select top 1 1 from  dbo.sysobjects where name='FK_{objectQualifier}Forum_{objectQualifier}Category' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)

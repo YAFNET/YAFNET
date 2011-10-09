@@ -59,7 +59,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <YAF:HelpLabel ID="HelpLabel5" runat="server" LocalizedTag="FILE_TABLE" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                           <YAF:HelpLabel ID="HelpLabel5" runat="server" LocalizedTag="FILE_TABLE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="UseFileTable" runat="server"></asp:CheckBox>
@@ -1051,6 +1051,14 @@
                             <asp:CheckBox ID="ShowRecentUsers" runat="server"></asp:CheckBox>
                         </td>
                     </tr>
+                    <tr>
+                    <td class="postheader">
+                    <YAF:HelpLabel ID="HelpLabel201" runat="server" LocalizedTag="SHOW_TODAYS_BIRTHDAYS" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                     </td>
+                      <td class="post">
+                      <asp:CheckBox ID="ShowTodaysBirthdays" runat="server"></asp:CheckBox>
+                      </td>
+                      </tr>
                     <tr>
                         <td class="postheader">
                             <YAF:HelpLabel ID="HelpLabel163" runat="server" LocalizedTag="SHOW_ACTIVE_DISCUSSION" LocalizedPage="ADMIN_HOSTSETTINGS" />

@@ -196,7 +196,7 @@ namespace YAF.Controls
         /// </summary>
         private void GetTodaysBirthdays()
         {
-            if (!this.Get<YafBoardSettings>().ShowTodaysBirthdays && !Config.IsAnyPortal)
+            if (!this.Get<YafBoardSettings>().ShowTodaysBirthdays)
             {
                 return;
             }
@@ -208,7 +208,7 @@ namespace YAF.Controls
                 () => LegacyDb.User_ListTodaysBirthdays(this.PageContext.PageBoardID, this.Get<YafBoardSettings>().UseStyledNicks),
                 TimeSpan.FromDays(1));
 
-            if (users.Rows.Count <= 0)
+            if (users == null || users.Rows.Count <= 0)
             {
                 return;
             }
@@ -356,7 +356,7 @@ namespace YAF.Controls
             this.NewestMemberUserLink.UserID = userStatisticsDataRow["LastMemberID"].ToType<int>();
             this.CollapsibleImage.ToolTip = this.GetText("COMMON", "SHOWHIDE");
 
-            //this.GetTodaysBirthdays();
+            this.GetTodaysBirthdays();
         }
 
         #endregion

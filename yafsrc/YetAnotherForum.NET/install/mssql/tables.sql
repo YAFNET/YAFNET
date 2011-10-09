@@ -428,6 +428,19 @@ if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseO
 )
 GO
 
+IF not exists (select top 1 1 from sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}UserProfile]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	CREATE TABLE [{databaseOwner}].[{objectQualifier}UserProfile]
+	(
+		[UserID] [int] NOT NULL,
+		[LastUpdatedDate] [datetime] NOT NULL,
+		-- added columns
+		[LastActivity] [datetime],
+		[ApplicationName] [nvarchar](255) NOT NULL,	
+		[IsAnonymous] [bit] NOT NULL,
+		[UserName] [nvarchar](255) NOT NULL
+	)
+GO
+
 if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}WatchForum]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}WatchForum](
 		WatchForumID	int IDENTITY (1, 1) NOT NULL ,

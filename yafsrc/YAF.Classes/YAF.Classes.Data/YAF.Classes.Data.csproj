@@ -95,6 +95,7 @@
     <Compile Include="mssql\Search\SearchCondition.cs" />
     <Compile Include="mssql\Search\SearchConditionType.cs" />
     <Compile Include="mssql\MsSqlDbAccess.cs" />
+    <Compile Include="mssql\SettingsProfilePropertyColumn.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryCounter.cs" />
     <Compile Include="mssql\MsSqlDbConnectionManager.cs" />

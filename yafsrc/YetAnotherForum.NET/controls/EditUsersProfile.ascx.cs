@@ -17,6 +17,11 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+using System.Collections.Generic;
+using System.Configuration;
+using System.Web.Profile;
+using YAF.Providers.Profile;
+
 namespace YAF.Controls
 {
     #region Using
@@ -698,8 +703,15 @@ namespace YAF.Controls
             userProfile.BlogServiceUrl = this.WeblogUrl.Text.Trim();
             userProfile.BlogServiceUsername = this.WeblogUsername.Text.Trim();
             userProfile.BlogServicePassword = this.WeblogID.Text.Trim();
-
+            
+            //  Sync to User Profile Mirror table while it's dirty
+            SettingsPropertyValueCollection settingsPropertyValueCollection = userProfile.PropertyValues;
+            LegacyDb.SetPropertyValues(PageContext.PageBoardID, Membership.ApplicationName, this.CurrentUserID, settingsPropertyValueCollection);
+           
             userProfile.Save();
+          
+           
+
         }
 
         /// <summary>

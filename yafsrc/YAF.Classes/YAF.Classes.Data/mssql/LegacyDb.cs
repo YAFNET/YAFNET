@@ -18,14 +18,13 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using YAF.Types.Handlers;
-
 namespace YAF.Classes.Data
 {
     #region Using
 
     using System;
     using System.Collections.Generic;
+    using System.Configuration;
     using System.Data;
     using System.Data.SqlClient;
     using System.IO;
@@ -37,6 +36,7 @@ namespace YAF.Classes.Data
 
     using YAF.Types;
     using YAF.Types.Constants;
+    using YAF.Types.Handlers;
     using YAF.Types.Interfaces;
     using YAF.Types.Objects;
     using YAF.Utils;
@@ -9150,15 +9150,34 @@ namespace YAF.Classes.Data
         /// </returns>
         public static DataTable User_ListTodaysBirthdays([NotNull] object boardID, [CanBeNull] object useStyledNicks)
         {
-            using (var cmd = MsSqlDbAccess.GetCommand("User_ListTodaysBirthdays"))
+            // Profile columns cannot yet exist when we first are gettinng data.
+            try
             {
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                cmd.Parameters.AddWithValue("BoardID", boardID);
-                cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
-
-                return MsSqlDbAccess.Current.GetData(cmd);
+                var sqlBuilder = new StringBuilder("SELECT up.*, u.Name as UserName,u.DisplayName,Style = case(@StyledNicks) when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM ");
+                sqlBuilder.Append(MsSqlDbAccess.GetObjectName("UserGroup"));
+                sqlBuilder.Append(" e join ");
+                sqlBuilder.Append(MsSqlDbAccess.GetObjectName("Group"));
+                sqlBuilder.Append(" f on f.GroupID=e.GroupID WHERE e.UserID=u.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), r.Style) else '' end ");
+                sqlBuilder.Append(" FROM ");
+                sqlBuilder.Append(MsSqlDbAccess.GetObjectName("UserProfile"));
+                sqlBuilder.Append(" up JOIN ");
+                sqlBuilder.Append(MsSqlDbAccess.GetObjectName("User"));
+                sqlBuilder.Append(" u ON u.UserID = up.UserID JOIN ");
+                sqlBuilder.Append(MsSqlDbAccess.GetObjectName("Rank"));
+                sqlBuilder.Append(" r ON r.RankID = u.UserID where datepart(MONTH,up.Birthday) = datepart(MONTH,GETUTCDATE()) and datepart(DAY,up.Birthday) = datepart(DAY,GETUTCDATE()) ");
+                using (var cmd = MsSqlDbAccess.GetCommand(sqlBuilder.ToString(), true))
+                {
+                    cmd.Parameters.AddWithValue("BoardID", boardID);
+                    cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
+                    return MsSqlDbAccess.Current.GetData(cmd);
+                }
             }
+            catch (Exception)
+            {
+                
+            } 
+
+            return null;
         }
 
         /// <summary>
@@ -10380,6 +10399,296 @@ namespace YAF.Classes.Data
                            : DateTime.MinValue.AddYears(1902);
             }
         }
+
+        #region ProfileMirror
+
+        /// <summary>
+        /// The set property values.
+        /// </summary>
+        /// <param name="context">
+        /// The context.
+        /// </param>
+        /// <param name="collection">
+        /// The collection.
+        /// </param>
+        public static void SetPropertyValues(int boardId, string appname, int userId, SettingsPropertyValueCollection collection)
+        {
+            if (userId == 0 || collection.Count < 1)
+            {
+                return;
+            }
+
+            bool itemsToSave = collection.Cast<SettingsPropertyValue>().Any(pp => pp.IsDirty);
+
+            // First make sure we have at least one item to save
+
+            if (!itemsToSave)
+            {
+                return;
+            }
+            
+            // load the data for the configuration
+            List<SettingsPropertyColumn> spc = LoadFromPropertyValueCollection(collection);
+            
+            if (spc != null && spc.Count > 0)
+            {
+                // start saving...
+                LegacyDb.SetProfileProperties(boardId, appname, userId, collection, spc);
+            }
+        }
+        /// <summary>
+        /// The set profile properties.
+        /// </summary>
+        /// <param name="appName">
+        /// The app name.
+        /// </param>
+        /// <param name="userID">
+        /// The user id.
+        /// </param>
+        /// <param name="values">
+        /// The values.
+        /// </param>
+        /// <param name="settingsColumnsList">
+        /// The settings columns list.
+        /// </param>
+        public static void SetProfileProperties([NotNull] int boardId, [NotNull] object appName, [NotNull] int userID, [NotNull] SettingsPropertyValueCollection values, [NotNull] List<SettingsPropertyColumn> settingsColumnsList)
+        {
+            string userName = string.Empty;
+            var dtu =  LegacyDb.UserList(boardId, userID, true, null, null, true);
+            foreach (var typedUserList in dtu)
+            {
+                userName = typedUserList.Name;
+                break;
+
+            }
+            if (userName.IsNotSet())
+            {
+                return;
+            }
+            using ( var conn = new MsSqlDbConnectionManager().OpenDBConnection)
+            {
+                var cmd = new SqlCommand();
+
+                cmd.Connection = conn;
+                
+                string table = MsSqlDbAccess.GetObjectName("UserProfile");
+                StringBuilder sqlCommand = new StringBuilder("IF EXISTS (SELECT 1 FROM ").Append(table);
+                sqlCommand.Append(" WHERE UserId = @UserID AND ApplicationName = @ApplicationName) ");
+                cmd.Parameters.AddWithValue("@UserID", userID);
+                cmd.Parameters.AddWithValue("@ApplicationName", appName);
+
+                // Build up strings used in the query
+                var columnStr = new StringBuilder();
+                var valueStr = new StringBuilder();
+                var setStr = new StringBuilder();
+                int count = 0;
+
+                foreach (SettingsPropertyColumn column in settingsColumnsList)
+                {
+                    // only write if it's dirty
+                    if (values[column.Settings.Name].IsDirty)
+                    {
+                        columnStr.Append(", ");
+                        valueStr.Append(", ");
+                        columnStr.Append(column.Settings.Name);
+                        string valueParam = "@Value" + count;
+                        valueStr.Append(valueParam);
+                        cmd.Parameters.AddWithValue(valueParam, values[column.Settings.Name].PropertyValue);
+
+                        if (column.DataType != SqlDbType.Timestamp)
+                        {
+                            if (count > 0)
+                            {
+                                setStr.Append(",");
+                            }
+
+                            setStr.Append(column.Settings.Name);
+                            setStr.Append("=");
+                            setStr.Append(valueParam);
+                        }
+
+                        count++;
+                    }
+                }
+
+                columnStr.Append(",LastUpdatedDate ");
+                valueStr.Append(",@LastUpdatedDate");
+                setStr.Append(",LastUpdatedDate=@LastUpdatedDate");
+                cmd.Parameters.AddWithValue("@LastUpdatedDate", DateTime.UtcNow);
+
+                // MembershipUser mu = System.Web.Security.Membership.GetUser(userID);
+
+                columnStr.Append(",LastActivity ");
+                valueStr.Append(",@LastActivity");
+                setStr.Append(",LastActivity=@LastActivity");
+                cmd.Parameters.AddWithValue("@LastActivity", DateTime.UtcNow);
+
+                columnStr.Append(",ApplicationName ");
+                valueStr.Append(",@ApplicationName");
+                setStr.Append(",ApplicationName=@ApplicationName");
+                // cmd.Parameters.AddWithValue("@ApplicationID", appId);
+
+                columnStr.Append(",IsAnonymous ");
+                valueStr.Append(",@IsAnonymous");
+                setStr.Append(",IsAnonymous=@IsAnonymous");
+                cmd.Parameters.AddWithValue("@IsAnonymous", 0);
+
+                columnStr.Append(",UserName ");
+                valueStr.Append(",@UserName");
+                setStr.Append(",UserName=@UserName");
+                cmd.Parameters.AddWithValue("@UserName", userName);
+
+                sqlCommand.Append("BEGIN UPDATE ").Append(table).Append(" SET ").Append(setStr.ToString());
+                sqlCommand.Append(" WHERE UserId = ").Append(userID.ToString()).Append("");
+
+                sqlCommand.Append(" END ELSE BEGIN INSERT ").Append(table).Append(" (UserId").Append(columnStr.ToString());
+                sqlCommand.Append(") VALUES (").Append(userID.ToString()).Append("").Append(valueStr.ToString()).Append(
+                  ") END");
+
+                cmd.CommandText = sqlCommand.ToString();
+                cmd.CommandType = CommandType.Text;
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        /// <summary>
+        /// The get profile structure.
+        /// </summary>
+        /// <returns>
+        /// </returns>
+        public static DataTable GetProfileStructure()
+        {
+            string sql = @"SELECT TOP 1 * FROM {0}".FormatWith(MsSqlDbAccess.GetObjectName("UserProfile"));
+
+            using (var cmd = MsSqlDbAccess.GetCommand(sql,true))
+            {
+                cmd.CommandType = CommandType.Text;
+                return MsSqlDbAccess.Current.GetData(cmd);
+            }
+        }
+
+        /// <summary>
+        /// The add profile column.
+        /// </summary>
+        /// <param name="name">
+        /// The name.
+        /// </param>
+        /// <param name="columnType">
+        /// The column type.
+        /// </param>
+        /// <param name="size">
+        /// The size.
+        /// </param>
+        public static void AddProfileColumn([NotNull] string name, SqlDbType columnType, int size)
+        {
+            // get column type...
+            string type = columnType.ToString();
+
+            if (size > 0)
+            {
+                type += "(" + size + ")";
+            }
+
+            string sql = "ALTER TABLE {0} ADD [{1}] {2} NULL".FormatWith(
+              MsSqlDbAccess.GetObjectName("UserProfile"), name, type);
+
+            using (var cmd = MsSqlDbAccess.GetCommand(sql, true))
+            {
+                cmd.CommandType = CommandType.Text;
+                MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
+            }
+        }
+            /// <summary>
+    /// The get db type and size from string.
+    /// </summary>
+    /// <param name="providerData">
+    /// The provider data.
+    /// </param>
+    /// <param name="dbType">
+    /// The db type.
+    /// </param>
+    /// <param name="size">
+    /// The size.
+    /// </param>
+    /// <returns>
+    /// The get db type and size from string.
+    /// </returns>
+    /// <exception cref="ArgumentException">
+    /// </exception>
+    private static bool GetDbTypeAndSizeFromString(string providerData, out SqlDbType dbType, out int size)
+    {
+      size = -1;
+      dbType = SqlDbType.NVarChar;
+
+      if (providerData.IsNotSet())
+      {
+        return false;
+      }
+
+      // split the data
+      string[] chunk = providerData.Split(new[] { ';' });
+
+      // first item is the column name...
+      string columnName = chunk[0];
+
+      // get the datatype and ignore case...
+      dbType = (SqlDbType)Enum.Parse(typeof(SqlDbType), chunk[1], true);
+
+      if (chunk.Length > 2)
+      {
+        // handle size...
+        if (!Int32.TryParse(chunk[2], out size))
+        {
+          throw new ArgumentException("Unable to parse as integer: " + chunk[2]);
+        }
+      }
+
+      return true;
+    }
+
+        static List<SettingsPropertyColumn> LoadFromPropertyValueCollection(SettingsPropertyValueCollection collection)
+        {
+            List<SettingsPropertyColumn> settingsColumnsList = new List<SettingsPropertyColumn>();
+                // clear it out just in case something is still in there...
+              
+
+                // validiate all the properties and populate the internal settings collection
+                foreach (SettingsPropertyValue value in collection)
+                {
+                    SqlDbType dbType;
+                    int size;
+
+                    // parse custom provider data...
+                   GetDbTypeAndSizeFromString(
+                      value.Property.Attributes["CustomProviderData"].ToString(), out dbType, out size);
+
+                    // default the size to 256 if no size is specified
+                    if (dbType == SqlDbType.NVarChar && size == -1)
+                    {
+                        size = 256;
+                    }
+
+                    settingsColumnsList.Add(new SettingsPropertyColumn(value.Property, dbType, size));
+                }
+
+                // sync profile table structure with the db...
+                DataTable structure = LegacyDb.GetProfileStructure();
+
+                // verify all the columns are there...
+                foreach (SettingsPropertyColumn column in settingsColumnsList)
+                {
+                    // see if this column exists
+                    if (!structure.Columns.Contains(column.Settings.Name))
+                    {
+                        // if not, create it...
+                        LegacyDb.AddProfileColumn(column.Settings.Name, column.DataType, column.Size);
+                    }
+                }
+            return settingsColumnsList;
+        }
+  
+        #endregion
 
         #endregion
 
