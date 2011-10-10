@@ -9172,9 +9172,9 @@ namespace YAF.Classes.Data
                     return MsSqlDbAccess.Current.GetData(cmd);
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                
+                LegacyDb.eventlog_create(null, e.Source, e.Message,EventLogTypes.Error);
             } 
 
             return null;

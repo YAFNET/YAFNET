@@ -16,6 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
 namespace YAF.Providers.Profile
 {
   using System;
@@ -27,8 +28,10 @@ namespace YAF.Providers.Profile
   using System.Text;
   using System.Web.Profile;
 
+  using YAF.Classes.Data;
   using YAF.Classes.Pattern;
-  using YAF.Core; using YAF.Types.Interfaces;
+  using YAF.Core; 
+  using YAF.Types.Interfaces;
   using YAF.Utils;
   using YAF.Providers.Utils;
 
