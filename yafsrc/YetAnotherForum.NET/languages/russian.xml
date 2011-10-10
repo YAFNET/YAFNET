@@ -824,8 +824,8 @@
     <Resource tag="ALLOW_USERS_POLLIMAGES_HELP">Пользователи могут добавлять изображения как опции опроса или как вопрос.</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR">Разрешить выбор текстового редактора</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR_HELP">Пользователи смогут выбирать текстовой редактор в своих профилях.</Resource>
-    <Resource tag="AVATAR_GALLERY">Allow Avatar Gallery:</Resource>
-    <Resource tag="AVATAR_GALLERY_HELP">Can users select an Avatar from the local Avatar Gallery.</Resource>
+    <Resource tag="AVATAR_GALLERY">Разрешить галерею аваторов:</Resource>
+    <Resource tag="AVATAR_GALLERY_HELP">Пользователи могут выбирать аватар из локальной галереи на сервере.</Resource>
     <Resource tag="AVATAR_HEIGHT">Высота аватара:</Resource>
     <Resource tag="AVATAR_HEIGHT_HELP">Максимальная высота аватара(пикс.).</Resource>
     <Resource tag="AVATAR_SIZE">Размер аватара:</Resource>
@@ -1114,9 +1114,9 @@
     <Resource tag="SHOW_MEDALS">Показывать медали:</Resource>
     <Resource tag="SHOW_MEDALS_HELP">Отображение медалей пользователя в постах.</Resource>
     <Resource tag="SHOW_MODLIST">Показывать список модераторов:</Resource>
-    <Resource tag="SHOW_MODLIST_ASCOLUMN">Show Moderator List in column:</Resource>
-    <Resource tag="SHOW_MODLIST_ASCOLUMN_HELP">Shows moderator list as a separate column in a category list.</Resource>
     <Resource tag="SHOW_MODLIST_HELP">Колонка со списком модераторов будет отображаться в списках форумов.</Resource>
+    <Resource tag="SHOW_MODLIST_ASCOLUMN">Показывать список модераторов в столбце:</Resource>
+    <Resource tag="SHOW_MODLIST_ASCOLUMN_HELP">Показывает список модераторов виду столбца в списке категорий.</Resource>
     <Resource tag="SHOW_MOVED_TOPICS">Показывать перемещённые темы:</Resource>
     <Resource tag="SHOW_MOVED_TOPICS_HELP">Если это включено, то вместо перемещённых тем будут в старом месте будут видны ссылки на них в новом месте месте.</Resource>
     <Resource tag="SHOW_NOCOUNT_POSTS">Отображать "не считаемые" сообщения в активных обсуждениях:</Resource>
@@ -1135,8 +1135,8 @@
     <Resource tag="SHOW_SHOUTBOX_SMILIES_HELP">Включить отображение смайлов в чате.</Resource>
     <Resource tag="SHOW_THANK_DATE">Показывать дату, когда пользователя сказали «Спасибо»:</Resource>
     <Resource tag="SHOW_THANK_DATE_HELP">Показывать дату, когда пользователя сказали «Спасибо» за пост. (Функция Спасибо должна быть включена.)</Resource>
-    <Resource tag="SHOW_TODAYS_BIRTHDAYS">Show Todays Birthdays in Forum Info:</Resource>
-    <Resource tag="SHOW_TODAYS_BIRTHDAYS_HELP">Enable to Show What members have a Birthday today.</Resource>
+    <Resource tag="SHOW_TODAYS_BIRTHDAYS">Показывать дни рождения:</Resource>
+    <Resource tag="SHOW_TODAYS_BIRTHDAYS_HELP">Показывать сегодняшние дни рождения пользователей.</Resource>
     <Resource tag="SHOW_UNREAD_LINKS">Показывать ссылки на последнее непрочитанное:</Resource>
     <Resource tag="SHOW_UNREAD_LINKS_HELP">Ссылки будут вести к последнему непрочитанному сообщению.</Resource>
     <Resource tag="SHOW_USER_STATUS">Показывать иконку пользователя онлайн/оффлайн:</Resource>
@@ -1312,7 +1312,7 @@
     <Resource tag="CONFIRM_SHRINK">Вы уверены, что хотите сжать БД?\nЭто действие может прервать доступ к БД и займёт много времени.</Resource>
     <Resource tag="HEADER">Сообщение об операции с БД YAF</Resource>
     <Resource tag="INDEX_SHRINK">Операция сжатия успешно завершена. Текущий размер вашей БД: {0}МБ</Resource>
-    <Resource tag="INDEX_STATS">Режим восстановления бащзы данных успешно установлен на {0}</Resource>
+    <Resource tag="INDEX_STATS">Режим восстановления базы данных успешно установлен на {0}</Resource>
     <Resource tag="INDEX_STATS_FAIL">Произошла ошибка. Сообщение системы: {0}</Resource>
     <Resource tag="RECOVERY1">Полное (Полное восстановление позволяет откатить базу к точке сбоя.)</Resource>
     <Resource tag="RECOVERY2">Простое (Простоое восстановление позволяет восстановить копию последнего резервного бэкапа. Вы должны делать регулярные бэкапы.)</Resource>
@@ -1594,8 +1594,8 @@
     <Resource tag="BUTTON_MOVE_TT">Переместить это сообщение</Resource>
     <Resource tag="BUTTON_MOVETOPIC">Переместить Тему</Resource>
     <Resource tag="BUTTON_MOVETOPIC_TT">Переместить эту тему</Resource>
-    <Resource tag="BUTTON_MULTI_QUOTE">Multi-Quote</Resource>
-    <Resource tag="BUTTON_MULTI_QUOTE_TT">Multi-Quote this Message</Resource>
+    <Resource tag="BUTTON_MULTI_QUOTE">+ Цитата</Resource>
+    <Resource tag="BUTTON_MULTI_QUOTE_TT">Добавить цитату этого сообщения к ответу</Resource>
     <Resource tag="BUTTON_NEWPM">Новое ЛС</Resource>
     <Resource tag="BUTTON_NEWPM_TT">Создать новое личное сообщение</Resource>
     <Resource tag="BUTTON_NEWTOPIC">Новая тема</Resource>
@@ -1610,7 +1610,7 @@
     <Resource tag="BUTTON_RETWEET">Ретвит</Resource>
     <Resource tag="BUTTON_RETWEET_TT">Выполнить ретвит сообщения</Resource>
     <Resource tag="BUTTON_SETCOVER">Использовать как обложку</Resource>
-    <Resource tag="BUTTON_TAGFAVORITE">Добавить в избранные</Resource>
+    <Resource tag="BUTTON_TAGFAVORITE">+ Избранные</Resource>
     <Resource tag="BUTTON_TAGFAVORITE_TT">Добавить эту тему в избранные темы.</Resource>
     <Resource tag="BUTTON_THANKS">Спасибо</Resource>
     <Resource tag="BUTTON_THANKS_TT">Поблагодарить автора сообщения</Resource>
@@ -2114,7 +2114,7 @@
     <Resource tag="HIDEME">Не отображать в активных</Resource>
     <Resource tag="HOMEPAGE">Домашняя страница</Resource>
     <Resource tag="HOMEPAGE2">Ваш веб-сайт (публичный):</Resource>
-    <Resource tag="ICQ">ВАш номер ICQ:</Resource>
+    <Resource tag="ICQ">Ваш логин ICQ:</Resource>
     <Resource tag="LOCATION">Место</Resource>
     <Resource tag="MAIL_SENT">Сообщение по электронной почте было отправлено {0}.\n\nВам необходимо подтвердить ваш адрес электронной почты перейдя по ссылке в сообщении перед тем, как адрес электронной почты будет изменён.</Resource>
     <Resource tag="MESSENGER">Службы мгновенных сообщений</Resource>
@@ -2215,7 +2215,7 @@
     <Resource tag="SIGNATURE_MAX">Ваша подпись слишком длинная. Она не должна быть длинее {0} символов.</Resource>
     <Resource tag="SIGNATURE_NOEDIT">Вы не можете редактировать подпись, но можете полностью удалить её.</Resource>
     <Resource tag="SIGNATURE_PERMISSIONS">Параметры подписи</Resource>
-    <Resource tag="SIGNATURE_PREVIEW">Signature Preview</Resource>
+    <Resource tag="SIGNATURE_PREVIEW">Предпросмотр подписи</Resource>
     <Resource tag="TITLE">Редактировать подпись</Resource>
   </page>
   <page name="CP_SUBSCRIPTIONS">
@@ -2231,7 +2231,7 @@
     <Resource tag="SAVED_NOTIFICATION_SETTING">Настройки уведомлений по Email обновлены</Resource>
     <Resource tag="TITLE">Уведомления по Email</Resource>
     <Resource tag="TOPIC">Tема</Resource>
-    <Resource tag="TOPICS">Наблюдаемые темы</Resource>
+    <Resource tag="TOPICS">Отслеживаемые темы</Resource>
     <Resource tag="TOPICSIPOSTTOORSUBSCRIBETO">Уведомления о темах  [b]в которых вы оставляли сообщения[/b] или отслеживали</Resource>
     <Resource tag="TOPICSISUBSCRIBETO">Уведомления о темах или форумах которые Вы выбрали для отслеживания (список ниже)</Resource>
     <Resource tag="UNSUBSCRIBE">Отменить подписку</Resource>
@@ -2259,7 +2259,7 @@
     <Resource tag="CURRENT_TIME">Текущее время: {0}.</Resource>
     <Resource tag="FORUM">Форум</Resource>
     <Resource tag="GO_LAST_POST">К последнему сообщению</Resource>
-    <Resource tag="GO_LASTUNREAD_POST">К последнему непрочитанному</Resource>
+    <Resource tag="GO_LASTUNREAD_POST">К первому непрочитанному</Resource>
     <Resource tag="IN">в {0}</Resource>
     <Resource tag="INFORMATION">Информация</Resource>
     <Resource tag="LAST_VISIT">Последний раз Вы были: {0}.</Resource>
@@ -3704,7 +3704,7 @@ Spoiler Content
     <Resource tag="POLL">Опрос</Resource>
     <Resource tag="POLL_NEW">Опрос (новые сообщения)</Resource>
     <Resource tag="STICKY">Закреплено</Resource>
-    <Resource tag="STICKY_NEW">Sticky (New Posts)</Resource>
+    <Resource tag="STICKY_NEW">Закреплено (новые сообщения)</Resource>
   </page>
   <page name="IM_AIM">
     <Resource tag="TITLE">Мгновенные сообщения AOL</Resource>
@@ -4643,7 +4643,7 @@ Spoiler Content
       Ссылка для одобрения: {adminlink}
     </Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE_TEXT">
-      A message was reported by {reporter} for the following reason: {reason}
+      Поступила жалоба на сообщение от пользователя {reporter}. Причина: {reason}
 	  
 Это сообщение было размещено на форуме {forumname} .
       
