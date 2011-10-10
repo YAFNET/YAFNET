@@ -520,22 +520,26 @@ namespace YAF.Controls
                 return;
             }
 
-            this.thanksDataExtendedLiteral.Text = this.FormatThanksInfo(this.DataRow["ThanksInfo"].ToString());
-            this.thanksDataExtendedLiteral.Visible = true;
-
+            string thanksLabelText;
             if (thanksNumber == 1)
             {
-                this.ThanksDataLiteral.Text =
-                 this.Get<ILocalization>().GetText("THANKSINFOSINGLE").FormatWith(
+                thanksLabelText = this.Get<ILocalization>().GetText("THANKSINFOSINGLE").FormatWith(
                     this.Get<HttpServerUtilityBase>().HtmlEncode(this.Get<IUserDisplayName>().GetName(this.PostData.UserId)));
             }
             else
             {
-                this.ThanksDataLiteral.Text = this.Get<ILocalization>().GetText("THANKSINFO").FormatWith(
+                thanksLabelText = this.Get<ILocalization>().GetText("THANKSINFO").FormatWith(
                 thanksNumber, this.Get<HttpServerUtilityBase>().HtmlEncode(this.Get<IUserDisplayName>().GetName(this.PostData.UserId)));
             }
+           
+            this.ThanksDataLiteral.Text =
+                "<img id=\"ThanksInfoImage{0}\" src=\"{1}\"  runat=\"server\" title=\"{2}\"></a>".FormatWith(
+                    this.DataRow["MessageID"], this.Get<ITheme>().GetItem("ICONS","THANKSINFOLIST_IMAGE"),thanksLabelText) + thanksLabelText; 
 
             this.ThanksDataLiteral.Visible = true;
+
+            this.thanksDataExtendedLiteral.Text =  this.FormatThanksInfo(this.DataRow["ThanksInfo"].ToString());
+            this.thanksDataExtendedLiteral.Visible = true;
         }
 
         /// <summary>
