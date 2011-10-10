@@ -431,10 +431,11 @@ namespace YAF.Controls
 
             this.Quote.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
               ForumPages.postmessage,
-              "t={0}&f={1}&q={2}",
+              "t={0}&f={1}&q={2}&page={3}",
               this.PageContext.PageTopicID,
               this.PageContext.PageForumID,
-              this.PostData.MessageId);
+              this.PostData.MessageId,
+              this.CurrentPage);
 
             // Irkoo Service Enabled?
             if (this.Get<YafBoardSettings>().EnableIrkoo)

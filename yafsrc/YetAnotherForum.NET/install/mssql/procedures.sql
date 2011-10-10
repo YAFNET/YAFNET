@@ -4826,7 +4826,13 @@ begin
 	set rowcount @PageSize	
 		
 	select
-		d.TopicID,		
+		d.TopicID,
+		d.Topic,
+		d.Priority,
+		d.Description,
+		d.Status,
+		d.PollID,
+		d.UserID AS TopicOwnerID,
 		TopicFlags	= d.Flags,
 		ForumFlags	= g.Flags,
 		m.MessageID,
@@ -4842,6 +4848,9 @@ begin
 		m.IsModeratorChanged,
 		m.IsDeleted,
 		m.DeleteReason,
+		m.BlogPostID,
+		m.ExternalMessageId,
+		m.ReferenceMessageId,
 		UserName	= IsNull(m.UserName,b.Name),
 		b.Joined,
 		b.Avatar,

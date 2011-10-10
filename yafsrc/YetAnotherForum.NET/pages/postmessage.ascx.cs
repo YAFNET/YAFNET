@@ -31,6 +31,7 @@ namespace YAF.Pages
 
     using YAF.Classes;
     using YAF.Classes.Data;
+    using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Services;
     using YAF.Core.Services.CheckForSpam;
@@ -144,6 +145,17 @@ namespace YAF.Pages
             get
             {
                 return this.PageContext.QueryIDs["t"];
+            }
+        }
+
+        /// <summary>
+        ///   Gets Page.
+        /// </summary>
+        protected long? PageIndex
+        {
+            get
+            {
+                return this.PageContext.QueryIDs["page"];
             }
         }
 
@@ -433,7 +445,7 @@ namespace YAF.Pages
         /// </param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.PageContext.QueryIDs = new QueryStringIDHelper(new[] { "m", "t", "q" }, false);
+            this.PageContext.QueryIDs = new QueryStringIDHelper(new[] { "m", "t", "q", "page" }, false);
 
             TypedMessageList currentMessage = null;
 
@@ -512,7 +524,7 @@ namespace YAF.Pages
 
             // Message.EnableRTE = PageContext.BoardSettings.AllowRichEdit;
             this._forumEditor.StyleSheet = this.Get<ITheme>().BuildThemePath("theme.css");
-            this._forumEditor.BaseDir = YafForumInfo.ForumClientFileRoot + "editors";
+            this._forumEditor.BaseDir = "{0}editors".FormatWith(YafForumInfo.ForumClientFileRoot);
 
             this.Title.Text = this.GetText("NEWTOPIC");
             this.LocalizedLblMaxNumberOfPost.Param0 = this.Get<YafBoardSettings>().MaxPostSize.ToString();
@@ -617,14 +629,31 @@ namespace YAF.Pages
                     {
                         if (this.Get<IYafSession>().MultiQuoteIds != null)
                         {
-
                             if (!this.Get<IYafSession>().MultiQuoteIds.Contains(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("q").ToType<int>()))
                             {
                                 this.Get<IYafSession>().MultiQuoteIds.Add(
                                     this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("q").ToType<int>());
                             }
 
-                            var messages = LegacyDb.topic_listmessages(this.TopicID.ToType<int>());
+                            var messages = LegacyDb.post_list(
+                                this.TopicID,
+                                this.PageContext.PageUserID,
+                                0,
+                                false,
+                                false,
+                                DateTime.MinValue.AddYears(1901),
+                                DateTime.UtcNow,
+                                DateTime.MinValue.AddYears(1901),
+                                DateTime.UtcNow,
+                                this.PageIndex.ToType<int>(),
+                                this.Get<YafBoardSettings>().PostsPerPage,
+                                1,
+                                0,
+                                0,
+                                false,
+                                0);
+
+                            //var messages = LegacyDb.topic_listmessages(this.TopicID.ToType<int>());
 
                             // quoting a reply to a topic...
                             foreach (
