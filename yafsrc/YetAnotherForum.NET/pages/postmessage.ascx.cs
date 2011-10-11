@@ -548,12 +548,14 @@ namespace YAF.Pages
                 {
                     this.StatusRow.Visible = true;
 
-                    foreach (ListItem item in this.TopicStatus.Items)
-                    {
-                        item.Text = this.GetText("TOPIC_STATUS", item.Value);
-                    }
+                    this.TopicStatus.Items.Add(new ListItem("   ", "-1"));
 
-                    this.TopicStatus.Items.Insert(0, new ListItem("   ", "-1"));
+                    foreach (DataRow row in LegacyDb.TopicStatus_List(this.PageContext.PageBoardID).Rows)
+                    {
+                        var text = this.GetText("TOPIC_STATUS", row["TopicStatusName"].ToString());
+
+                        this.TopicStatus.Items.Add(new ListItem(text.IsSet() ? text : row["DefaultDescription"].ToString(), row["TopicStatusName"].ToString()));
+                    }
 
                     this.TopicStatus.SelectedIndex = 0;
                 }

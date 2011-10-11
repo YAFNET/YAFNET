@@ -1748,3 +1748,19 @@ GO
 IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'{databaseOwner}.{objectQualifier}yaf_topics_byuser') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE {databaseOwner}.{objectQualifier}yaf_topics_byuser
 GO
+
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'{databaseOwner}.{objectQualifier}yaf_TopicStatus_Delete') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE {databaseOwner}.{objectQualifier}yaf_TopicStatus_Delete
+GO
+
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'{databaseOwner}.{objectQualifier}yaf_TopicStatus_List') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE {databaseOwner}.{objectQualifier}yaf_TopicStatus_List
+GO
+
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'{databaseOwner}.{objectQualifier}yaf_TopicStatus_Edit') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE {databaseOwner}.{objectQualifier}yaf_TopicStatus_Edit
+GO
+
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'{databaseOwner}.{objectQualifier}yaf_TopicStatus_Save') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE {databaseOwner}.{objectQualifier}yaf_TopicStatus_Save
+GO

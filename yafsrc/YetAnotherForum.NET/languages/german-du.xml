@@ -49,6 +49,9 @@
     <Resource tag="ADMIN_SMILIES_IMPORT">Importiert Smileys</Resource>
     <Resource tag="ADMIN_TASKMANAGER">Betrachtet Aufgabenmanager</Resource>
     <Resource tag="ADMIN_TEST_DATA">Betrachtet Test Datengenerator</Resource>
+    <Resource tag="ADMIN_TOPICSTATUS">Betrachtet Themen Status</Resource>
+    <Resource tag="ADMIN_TOPICSTATUS_EDIT">Bearbeitet einen Themen Status</Resource>
+    <Resource tag="ADMIN_TOPICSTATUS_IMPORT">Importiert Themen Status</Resource>
     <Resource tag="ADMIN_USERS">Betrachtet Benutzer im Adminbereich</Resource>
     <Resource tag="ADMIN_VERSION">Betrachtet Version</Resource>
     <Resource tag="ADMINTASK">Führt Admin Aufgaben durch</Resource>
@@ -709,7 +712,7 @@
     <Resource tag="FILE_EXTENSION_HELP">Beispiel: Geben Sie "jpg" für eine JPEG-Grafik-Datei ein.</Resource>
     <Resource tag="HEADER">Hinzufügen / Bearbeiten von Erlaubten Dateierweiterungen</Resource>
     <Resource tag="MSG_ENTER">Sie müssen etwas eingeben.</Resource>
-    <Resource tag="MSG_REMOVE">Entfernen Sie die Zeit in der Erweiterung.</Resource>
+    <Resource tag="MSG_REMOVE">Entfernen Sie den Punkt in der Erweiterung.</Resource>
     <Resource tag="TITLE">Hinzufügen / Bearbeiten von Dateierweiterungen</Resource>
   </page>
   <page name="ADMIN_EXTENSIONS_IMPORT">
@@ -1416,6 +1419,38 @@
   <page name="ADMIN_TEST_DATA">
     <Resource tag="TITLE">Testdaten generieren (Nur DEBUG)</Resource>
   </page>
+  <page name="ADMIN_TOPICSTATUS">
+    <Resource tag="ADD">Hinzufügen</Resource>
+    <Resource tag="CONFIRM_DELETE">Diesen Status löschen?</Resource>
+    <Resource tag="DEFAULT_DESCRIPTION">Status</Resource>
+    <Resource tag="EXPORT">Export in XML</Resource>
+    <Resource tag="HEADER">Erlaubte Dateiendungen</Resource>
+    <Resource tag="IMPORT">Import von XML</Resource>
+    <Resource tag="TITLE">Themen Status</Resource>
+    <Resource tag="TOPICSTATUS_NAME">Status Name</Resource>
+  </page>
+  <page name="ADMIN_TOPICSTATUS_EDIT">
+    <Resource tag="DEFAULT_DESCRIPTION">Default Status Name:</Resource>
+    <Resource tag="DEFAULT_DESCRIPTION_HELP">Default Status Name, this Name is used when its not found in the current Language File.</Resource>
+    <Resource tag="FILE_EXTENSION">Dateierweiterung:</Resource>
+    <Resource tag="FILE_EXTENSION_HELP">Beispiel: Geben Sie "jpg" für eine JPEG-Grafik-Datei ein.</Resource>
+    <Resource tag="HEADER">Hinzufügen / Bearbeiten von Themen Status</Resource>
+    <Resource tag="MSG_ENTER">Sie müssen etwas eingeben.</Resource>
+    <Resource tag="MSG_REMOVE">Entfernen Sie die Zeit in der Erweiterung.</Resource>
+    <Resource tag="TITLE">Hinzufügen / Bearbeiten von Themen Status</Resource>
+    <Resource tag="TOPICSTATUS_NAME">Topic Status Value:</Resource>
+    <Resource tag="TOPICSTATUS_NAME_HELP">This is the Value that is used to retrieve the Topic Status Icon and/or Text. That needs to be defined in the Theme Files and languages.</Resource>
+  </page>
+  <page name="ADMIN_TOPICSTATUS_IMPORT">
+    <Resource tag="HEADER">Themen Status Liste Importieren</Resource>
+    <Resource tag="IMPORT">Importliste</Resource>
+    <Resource tag="IMPORT_FAILED">Import fehlgeschlagen: {0}</Resource>
+    <Resource tag="IMPORT_FILE">Importdatei wählen:</Resource>
+    <Resource tag="IMPORT_FILE_HELP">Muss eine *.xml Datei sein</Resource>
+    <Resource tag="IMPORT_NOTHING">Nichts importiert: kein neuer Status wurde im Upload gefunden.</Resource>
+    <Resource tag="IMPORT_SUCESS">{0} Neue Statuse erfolgreich importiert.</Resource>
+    <Resource tag="TITLE">Status importieren</Resource>
+  </page>
   <page name="ADMIN_USERS">
     <Resource tag="APPROVED">Genehmigt</Resource>
     <Resource tag="CONFIRM_DELETE">Diesen Benutzer löschen?</Resource>
@@ -1490,6 +1525,7 @@
     <Resource tag="admin_smilies">Smileys</Resource>
     <Resource tag="admin_taskmanager">Task-Manager</Resource>
     <Resource tag="admin_test_data">Testdaten generieren</Resource>
+    <Resource tag="admin_topicstatus">Topic Status</Resource>
     <Resource tag="admin_users">Benutzer</Resource>
     <Resource tag="admin_version">Versionen überprüfen</Resource>
     <Resource tag="Database">Datenbank</Resource>

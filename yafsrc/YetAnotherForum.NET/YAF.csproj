@@ -476,6 +476,28 @@
     <Compile Include="pages\admin\test_data.ascx.designer.cs">
       <DependentUpon>test_data.ascx</DependentUpon>
     </Compile>
+    <Compile Include="pages\admin\topicstatus.ascx.cs">
+      <DependentUpon>topicstatus.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\topicstatus.ascx.designer.cs">
+      <DependentUpon>topicstatus.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\topicstatus_edit.ascx.cs">
+      <DependentUpon>topicstatus_edit.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\topicstatus_edit.ascx.designer.cs">
+      <DependentUpon>topicstatus_edit.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\topicstatus_import.ascx.cs">
+      <DependentUpon>topicstatus_import.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\topicstatus_import.ascx.designer.cs">
+      <DependentUpon>topicstatus_import.ascx</DependentUpon>
+    </Compile>
+    
     <Compile Include="pages\admin\users.ascx.designer.cs">
       <DependentUpon>users.ascx</DependentUpon>
     </Compile>
@@ -1043,6 +1065,7 @@
     <Content Include="images\medals\medal_silver_2_small.png" />
     <Content Include="images\medals\medal_small.png" />
     <Content Include="images\YafLogo.png" />
+    <Content Include="install\TopicStatusList.xml" />
     <Content Include="install\wizard.css" />
     <Content Include="languages\admin\english.xml">
       <SubType>Designer</SubType>
@@ -1055,6 +1078,9 @@
     <Content Include="languages\install\english.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="pages\admin\topicstatus.ascx" />
+    <Content Include="pages\admin\topicstatus_edit.ascx" />
+    <Content Include="pages\admin\topicstatus_import.ascx" />
     <Content Include="pages\admin\users_import.ascx" />
     <Content Include="resources\css\jquery.msDropDown.css" />
     <Content Include="resources\css\jquery.spellchecker.css" />

@@ -16,127 +16,174 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Data;
-using System.IO;
 
 namespace YAF.Classes.Data.Import
 {
-  using System.Linq;
-
-  using YAF.Utils;
-
-  /// <summary>
-  /// The data import.
-  /// </summary>
-  public static class DataImport
-  {
-    /// <summary>
-    /// The bb code extension import.
-    /// </summary>
-    /// <param name="boardId">
-    /// The board id.
-    /// </param>
-    /// <param name="imputStream">
-    /// The imput stream.
-    /// </param>
-    /// <returns>
-    /// The bb code extension import.
-    /// </returns>
-    /// <exception cref="Exception">
-    /// </exception>
-    public static int BBCodeExtensionImport(int boardId, Stream imputStream)
-    {
-      int importedCount = 0;
-
-      // import extensions...
-      var dsBBCode = new DataSet();
-      dsBBCode.ReadXml(imputStream);
-
-      if (dsBBCode.Tables["YafBBCode"] != null && dsBBCode.Tables["YafBBCode"].Columns["Name"] != null &&
-          dsBBCode.Tables["YafBBCode"].Columns["SearchRegex"] != null && dsBBCode.Tables["YafBBCode"].Columns["ExecOrder"] != null)
-      {
-        var bbcodeList = LegacyDb.BBCodeList(boardId, null);
-
-        // import any extensions that don't exist...
-        foreach (DataRow row in dsBBCode.Tables["YafBBCode"].Rows)
-        {
-          string name = row["Name"].ToString();
-
-          if (!bbcodeList.Any(b => b.Name == name))
-          {
-            // add this bbcode...
-            LegacyDb.bbcode_save(
-              null, 
-              boardId, 
-              row["Name"], 
-              row["Description"], 
-              row["OnClickJS"], 
-              row["DisplayJS"], 
-              row["EditJS"], 
-              row["DisplayCSS"], 
-              row["SearchRegex"], 
-              row["ReplaceRegex"], 
-              row["Variables"], 
-              Convert.ToBoolean(row["UseModule"]), 
-              row["ModuleClass"], 
-              row["ExecOrder"]);
-            importedCount++;
-          }
-        }
-      }
-      else
-      {
-        throw new Exception("Import stream is not expected format.");
-      }
-
-      return importedCount;
-    }
+    using System;
+    using System.Data;
+    using System.IO;
+    using System.Linq;
+    using YAF.Utils;
 
     /// <summary>
-    /// The file extension import.
+    /// The data import.
     /// </summary>
-    /// <param name="boardId">
-    /// The board id.
-    /// </param>
-    /// <param name="imputStream">
-    /// The imput stream.
-    /// </param>
-    /// <returns>
-    /// The file extension import.
-    /// </returns>
-    /// <exception cref="Exception">
-    /// </exception>
-    public static int FileExtensionImport(int boardId, Stream imputStream)
+    public static class DataImport
     {
-      int importedCount = 0;
-
-      var dsExtensions = new DataSet();
-      dsExtensions.ReadXml(imputStream);
-
-      if (dsExtensions.Tables["YafExtension"] != null && dsExtensions.Tables["YafExtension"].Columns["Extension"] != null)
-      {
-        DataTable extensionList = LegacyDb.extension_list(boardId);
-
-        // import any extensions that don't exist...
-        foreach (DataRow row in dsExtensions.Tables["YafExtension"].Rows)
+        /// <summary>
+        /// The bb code extension import.
+        /// </summary>
+        /// <param name="boardId">
+        /// The board id.
+        /// </param>
+        /// <param name="imputStream">
+        /// The imput stream.
+        /// </param>
+        /// <returns>
+        /// Returns How Many Extensions where imported.
+        /// </returns>
+        /// <exception cref="Exception">Import stream is not expected format.
+        /// </exception>
+        public static int BBCodeExtensionImport(int boardId, Stream imputStream)
         {
-          string ext = row["Extension"].ToString();
+            int importedCount = 0;
 
-          if (extensionList.Select(String.Format("Extension = '{0}'", ext)).Length == 0)
-          {
-            // add this...
-            LegacyDb.extension_save(null, boardId, ext);
-            importedCount++;
-          }
+            // import extensions...
+            var dsBBCode = new DataSet();
+            dsBBCode.ReadXml(imputStream);
+
+            if (dsBBCode.Tables["YafBBCode"] != null && dsBBCode.Tables["YafBBCode"].Columns["Name"] != null &&
+                dsBBCode.Tables["YafBBCode"].Columns["SearchRegex"] != null &&
+                dsBBCode.Tables["YafBBCode"].Columns["ExecOrder"] != null)
+            {
+                var bbcodeList = LegacyDb.BBCodeList(boardId, null);
+
+                // import any extensions that don't exist...
+                foreach (DataRow row in from DataRow row in dsBBCode.Tables["YafBBCode"].Rows
+                                        let name = row["Name"].ToString()
+                                        where !bbcodeList.Any(b => b.Name == name)
+                                        select row)
+                {
+                    // add this bbcode...
+                    LegacyDb.bbcode_save(
+                        null,
+                        boardId,
+                        row["Name"],
+                        row["Description"],
+                        row["OnClickJS"],
+                        row["DisplayJS"],
+                        row["EditJS"],
+                        row["DisplayCSS"],
+                        row["SearchRegex"],
+                        row["ReplaceRegex"],
+                        row["Variables"],
+                        Convert.ToBoolean(row["UseModule"]),
+                        row["ModuleClass"],
+                        row["ExecOrder"]);
+                    importedCount++;
+                }
+            }
+            else
+            {
+                throw new Exception("Import stream is not expected format.");
+            }
+
+            return importedCount;
         }
-      }
-      else
-      {
-        throw new Exception("Import stream is not expected format.");
-      }
 
-      return importedCount;
+        /// <summary>
+        /// The file extension import.
+        /// </summary>
+        /// <param name="boardId">
+        /// The board id.
+        /// </param>
+        /// <param name="imputStream">
+        /// The imput stream.
+        /// </param>
+        /// <returns>
+        /// Returns How Many Extensions where imported.
+        /// </returns>
+        /// <exception cref="Exception">Import stream is not expected format.
+        /// </exception>
+        public static int FileExtensionImport(int boardId, Stream imputStream)
+        {
+            int importedCount = 0;
+
+            var dsExtensions = new DataSet();
+            dsExtensions.ReadXml(imputStream);
+
+            if (dsExtensions.Tables["YafExtension"] != null &&
+                dsExtensions.Tables["YafExtension"].Columns["Extension"] != null)
+            {
+                DataTable extensionList = LegacyDb.extension_list(boardId);
+
+                // import any extensions that don't exist...
+                foreach (string ext in
+                    dsExtensions.Tables["YafExtension"].Rows.Cast<DataRow>().Select(row => row["Extension"].ToString()).
+                        Where(ext => extensionList.Select("Extension = '{0}'".FormatWith(ext)).Length == 0))
+                {
+                    // add this...
+                    LegacyDb.extension_save(null, boardId, ext);
+                    importedCount++;
+                }
+            }
+            else
+            {
+                throw new Exception("Import stream is not expected format.");
+            }
+
+            return importedCount;
+        }
+
+        /// <summary>
+        /// Topics the status import.
+        /// </summary>
+        /// <param name="boardId">
+        /// The board id.
+        /// </param>
+        /// <param name="imputStream">
+        /// The imput stream.
+        /// </param>
+        /// <exception cref="Exception">
+        /// Import stream is not expected format.
+        /// </exception>
+        /// <returns>
+        /// Returns the Number of Imported Items.
+        /// </returns>
+        public static int TopicStatusImport(int boardId, Stream imputStream)
+        {
+            int importedCount = 0;
+
+            // import extensions...
+            var dsStates = new DataSet();
+            dsStates.ReadXml(imputStream);
+
+            if (dsStates.Tables["YafTopicStatus"] != null &&
+                dsStates.Tables["YafTopicStatus"].Columns["TopicStatusName"] != null &&
+                dsStates.Tables["YafTopicStatus"].Columns["DefaultDescription"] != null)
+            {
+                var topicStatusList = LegacyDb.TopicStatus_List(boardId);
+
+                // import any topic status that don't exist...
+                foreach (
+                    DataRow row in
+                        dsStates.Tables["YafTopicStatus"].Rows.Cast<DataRow>().Where(
+                            row =>
+                            topicStatusList.Select("TopicStatusName = '{0}'".FormatWith(row["TopicStatusName"])).Length ==
+                            0))
+                {
+                    // add this...
+                    LegacyDb.TopicStatus_Save(
+                        null, boardId, row["TopicStatusName"].ToString(), row["DefaultDescription"].ToString());
+                    importedCount++;
+                }
+            }
+            else
+            {
+                throw new Exception("Import stream is not expected format.");
+            }
+
+            return importedCount;
+        }
     }
-  }
 }

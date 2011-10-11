@@ -60,6 +60,13 @@
       <Image>script-text</Image>
     </YafMenuItem>
     <YafMenuItem>
+      <Title>Topic Statuses</Title>
+      <ForumPage>admin_topicstatus</ForumPage>
+      <SubForumPage_0>admin_topicstatus_edit</SubForumPage_0>
+      <SubForumPage_1>admin_topicstatus_import</SubForumPage_1>
+      <Image>warning</Image>
+    </YafMenuItem>
+    <YafMenuItem>
       <Title>Languages</Title>
       <ForumPage>admin_languages</ForumPage>
       <SubForumPage_0>admin_editlanguage</SubForumPage_0>

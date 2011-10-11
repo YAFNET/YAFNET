@@ -540,6 +540,21 @@ namespace YAF.Types.Constants
     admin_bbcode_import,
 
     /// <summary>
+    /// The admin_topicstatus.
+    /// </summary>
+    admin_topicstatus,
+
+    /// <summary>
+    /// The admin_topicstatus_edit.
+    /// </summary>
+    admin_topicstatus_edit,
+
+    /// <summary>
+    /// The admin_topicstatus_import.
+    /// </summary>
+    admin_topicstatus_import, 
+
+    /// <summary>
     /// The admin_languages.
     /// </summary>
     admin_languages,

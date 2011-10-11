@@ -22,32 +22,31 @@ namespace YAF.Install
 {
   #region Using
 
-  using System;
-  using System.Configuration;
-  using System.Data;
-  using System.Drawing;
-  using System.IO;
-  using System.Linq;
-  using System.Security.Permissions;
-  using System.Web;
-  using System.Web.Security;
-  using System.Web.UI;
-  using System.Web.UI.WebControls;
-
-  using YAF.Classes;
-  using YAF.Core;
-  using YAF.Types.Interfaces;
-  using YAF.Utils.Helpers;
-  using YAF.Types;
-  using YAF.Core.Tasks;
-  using YAF.Classes.Data;
-  using YAF.Classes.Data.Import;
-  using YAF.Utils;
+    using System;
+    using System.Configuration;
+    using System.Data;
+    using System.Drawing;
+    using System.IO;
+    using System.Linq;
+    using System.Security.Permissions;
+    using System.Web;
+    using System.Web.Security;
+    using System.Web.UI;
+    using System.Web.UI.WebControls;
+    using YAF.Classes;
+    using YAF.Classes.Data;
+    using YAF.Classes.Data.Import;
+    using YAF.Core;
+    using YAF.Core.Tasks;
+    using YAF.Types;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
+    using YAF.Utils.Helpers;
 
   #endregion
 
   /// <summary>
-  /// Summary description for install.
+  /// The Install Page.
   /// </summary>
   public partial class _default : Page, IHaveServiceLocator
   {
@@ -61,17 +60,22 @@ namespace YAF.Install
     /// <summary>
     ///   The _app password key.
     /// </summary>
-    private const string _appPasswordKey = "YAF.ConfigPassword";
+    private const string _AppPasswordKey = "YAF.ConfigPassword";
 
     /// <summary>
     ///   The _bbcode import.
     /// </summary>
-    private const string _bbcodeImport = "bbCodeExtensions.xml";
+    private const string _BbcodeImport = "bbCodeExtensions.xml";
 
     /// <summary>
     ///   The _file import.
     /// </summary>
-    private const string _fileImport = "fileExtensions.xml";
+    private const string _FileImport = "fileExtensions.xml";
+
+    /// <summary>
+    ///   The Topic Status Import File.
+    /// </summary>
+    private const string _TopicStatusImport = "TopicStatusList.xml";
 
     /// <summary>
     ///   The _config.
@@ -112,6 +116,9 @@ namespace YAF.Install
 
     #region Properties
 
+    /// <summary>
+    /// Gets ServiceLocator.
+    /// </summary>
     public IServiceLocator ServiceLocator
     {
       get
@@ -131,13 +138,7 @@ namespace YAF.Install
         {
           string connName = this.lbConnections.SelectedValue;
 
-          if (connName.IsSet())
-          {
-            // pull from existing connection string...
-            return ConfigurationManager.ConnectionStrings[connName].ConnectionString;
-          }
-
-          return string.Empty;
+          return connName.IsSet() ? ConfigurationManager.ConnectionStrings[connName].ConnectionString : string.Empty;
         }
 
         return MsSqlDbAccess.GetConnectionString(
@@ -192,7 +193,7 @@ namespace YAF.Install
     {
       get
       {
-        return this._config.GetConfigValueAsString(_appPasswordKey).IsSet();
+        return this._config.GetConfigValueAsString(_AppPasswordKey).IsSet();
       }
     }
 
@@ -309,6 +310,7 @@ namespace YAF.Install
     protected override void Render([NotNull] HtmlTextWriter writer)
     {
       base.Render(writer);
+
       if (this._loadMessage != string.Empty)
       {
         writer.WriteLine("<script language='javascript'>");
@@ -550,24 +552,19 @@ else
           UpdateDBFailureType type = this.UpdateDatabaseConnection();
           e.Cancel = false;
 
-          if (type == UpdateDBFailureType.None)
+          switch (type)
           {
-            // jump to test settings...
-            this.CurrentWizardStepID = "WizTestSettings";
-          }
-          else
-          {
-            // failure -- show the next section but specify which errors...
-            if (type == UpdateDBFailureType.AppSettingsWrite)
-            {
-              this.NoWriteAppSettingsHolder.Visible = true;
-            }
-            else if (type == UpdateDBFailureType.ConnectionStringWrite)
-            {
-              this.NoWriteDBSettingsHolder.Visible = true;
-              this.lblDBConnStringName.Text = Config.ConnectionStringName;
-              this.lblDBConnStringValue.Text = this.CurrentConnString;
-            }
+              case UpdateDBFailureType.None:
+                  this.CurrentWizardStepID = "WizTestSettings";
+                  break;
+              case UpdateDBFailureType.AppSettingsWrite:
+                  this.NoWriteAppSettingsHolder.Visible = true;
+                  break;
+              case UpdateDBFailureType.ConnectionStringWrite:
+                  this.NoWriteDBSettingsHolder.Visible = true;
+                  this.lblDBConnStringName.Text = Config.ConnectionStringName;
+                  this.lblDBConnStringValue.Text = this.CurrentConnString;
+                  break;
           }
 
           break;
@@ -590,7 +587,7 @@ else
           e.Cancel = false;
 
           if (this._config.TrustLevel == AspNetHostingPermissionLevel.High &&
-              this._config.WriteAppSetting(_appPasswordKey, this.txtCreatePassword1.Text))
+              this._config.WriteAppSetting(_AppPasswordKey, this.txtCreatePassword1.Text))
           {
             // advance to the testing section since the password is now set...
             this.CurrentWizardStepID = "WizDatabaseConnection";
@@ -617,9 +614,9 @@ else
           e.Cancel = false;
           break;
         case "WizEnterPassword":
-          if (this._config.GetConfigValueAsString(_appPasswordKey) ==
+          if (this._config.GetConfigValueAsString(_AppPasswordKey) ==
               FormsAuthentication.HashPasswordForStoringInConfigFile(this.txtEnteredPassword.Text, "md5") ||
-              this._config.GetConfigValueAsString(_appPasswordKey) == this.txtEnteredPassword.Text.Trim())
+              this._config.GetConfigValueAsString(_AppPasswordKey) == this.txtEnteredPassword.Text.Trim())
           {
             e.Cancel = false;
 
@@ -854,7 +851,7 @@ else
     /// </returns>
     private static bool DirectoryHasWritePermission([NotNull] string directory)
     {
-      bool hasWriteAccess = false;
+      bool hasWriteAccess;
 
       try
       {
@@ -978,7 +975,7 @@ else
         return false;
       }
 
-      MembershipUser user = null;
+      MembershipUser user;
 
       if (this.UserChoice.SelectedValue == "create")
       {
@@ -1039,8 +1036,8 @@ else
 
       try
       {
-
         string prefix = Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : String.Empty;
+        
         // add administrators and registered if they don't already exist...
         if (!RoleMembershipHelper.RoleExists("{0}Administrators".FormatWith(prefix)))
         {
@@ -1086,10 +1083,10 @@ else
         // vzrus: uncomment it to not keep install/upgrade objects in db for a place and better security
         // YAF.Classes.Data.DB.system_deleteinstallobjects();
         // load default bbcode if available...
-        if (File.Exists(this.Request.MapPath(_bbcodeImport)))
+        if (File.Exists(this.Request.MapPath(_BbcodeImport)))
         {
           // import into board...
-          using (var bbcodeStream = new StreamReader(this.Request.MapPath(_bbcodeImport)))
+          using (var bbcodeStream = new StreamReader(this.Request.MapPath(_BbcodeImport)))
           {
             DataImport.BBCodeExtensionImport(this.PageBoardID, bbcodeStream.BaseStream);
             bbcodeStream.Close();
@@ -1097,14 +1094,25 @@ else
         }
 
         // load default extensions if available...
-        if (File.Exists(this.Request.MapPath(_fileImport)))
+        if (File.Exists(this.Request.MapPath(_FileImport)))
         {
           // import into board...
-          using (var fileExtStream = new StreamReader(this.Request.MapPath(_fileImport)))
+          using (var fileExtStream = new StreamReader(this.Request.MapPath(_FileImport)))
           {
             DataImport.FileExtensionImport(this.PageBoardID, fileExtStream.BaseStream);
             fileExtStream.Close();
           }
+        }
+
+        // load default topic status if available...
+        if (File.Exists(this.Request.MapPath(_TopicStatusImport)))
+        {
+            // import into board...
+            using (var topicStatusStream = new StreamReader(this.Request.MapPath(_TopicStatusImport)))
+            {
+                DataImport.TopicStatusImport(this.PageBoardID, topicStatusStream.BaseStream);
+                topicStatusStream.Close();
+            }
         }
       }
       catch (Exception x)
@@ -1130,7 +1138,7 @@ else
     /// <exception cref="IOException"><c>IOException</c>.</exception>
     private void ExecuteScript([NotNull] string scriptFile, bool useTransactions)
     {
-      string script = null;
+      string script;
 
       string fileName = this.Request.MapPath(scriptFile);
 
@@ -1149,7 +1157,7 @@ else
       }
       catch (Exception x)
       {
-        throw new IOException(string.Format("Failed to read {0}", fileName), x);
+        throw new IOException("Failed to read {0}".FormatWith(fileName), x);
       }
 
       LegacyDb.system_initialize_executescripts(script, scriptFile, useTransactions);
@@ -1450,10 +1458,10 @@ else
         if (LegacyDb.GetIsForumInstalled() && prevVersion < 30)
         {
           // load default bbcode if available...
-          if (File.Exists(this.Request.MapPath(_bbcodeImport)))
+          if (File.Exists(this.Request.MapPath(_BbcodeImport)))
           {
             // import into board...
-            using (var bbcodeStream = new StreamReader(this.Request.MapPath(_bbcodeImport)))
+            using (var bbcodeStream = new StreamReader(this.Request.MapPath(_BbcodeImport)))
             {
               DataImport.BBCodeExtensionImport(this.PageBoardID, bbcodeStream.BaseStream);
               bbcodeStream.Close();
@@ -1461,14 +1469,25 @@ else
           }
 
           // load default extensions if available...
-          if (File.Exists(this.Request.MapPath(_fileImport)))
+          if (File.Exists(this.Request.MapPath(_FileImport)))
           {
             // import into board...
-            using (var fileExtStream = new StreamReader(this.Request.MapPath(_fileImport)))
+            using (var fileExtStream = new StreamReader(this.Request.MapPath(_FileImport)))
             {
               DataImport.FileExtensionImport(this.PageBoardID, fileExtStream.BaseStream);
               fileExtStream.Close();
             }
+          }
+
+          // load default topic status if available...
+          if (File.Exists(this.Request.MapPath(_TopicStatusImport)))
+          {
+              // import into board...
+              using (var topicStatusStream = new StreamReader(this.Request.MapPath(_TopicStatusImport)))
+              {
+                  DataImport.TopicStatusImport(this.PageBoardID, topicStatusStream.BaseStream);
+                  topicStatusStream.Close();
+              }
           }
         }
 

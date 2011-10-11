@@ -49,6 +49,9 @@
     <Resource tag="ADMIN_SMILIES_IMPORT">Imports smilies</Resource>
     <Resource tag="ADMIN_TASKMANAGER">Views/manages task manager</Resource>
     <Resource tag="ADMIN_TEST_DATA">Views/edits test data generator</Resource>
+    <Resource tag="ADMIN_TOPICSTATUS">Views admin topic status</Resource>
+    <Resource tag="ADMIN_TOPICSTATUS_EDIT">Edits Topic Status</Resource>
+    <Resource tag="ADMIN_TOPICSTATUS_IMPORT">Imports topic status</Resource>
     <Resource tag="ADMIN_USERS">Views users in admin section</Resource>
     <Resource tag="ADMIN_VERSION">Views version</Resource>
     <Resource tag="ADMINTASK">Performs admin tasks</Resource>
@@ -1426,6 +1429,35 @@
   <page name="ADMIN_TEST_DATA">
     <Resource tag="TITLE">Create Test Data (DEBUG Only)</Resource>
   </page>
+  <page name="ADMIN_TOPICSTATUS">
+    <Resource tag="ADD">Add</Resource>
+    <Resource tag="CONFIRM_DELETE">Delete this Status?</Resource>
+    <Resource tag="DEFAULT_DESCRIPTION">Status</Resource>
+    <Resource tag="EXPORT">Export to XML</Resource>
+    <Resource tag="HEADER">Allowed File Extensions</Resource>
+    <Resource tag="IMPORT">Import from XML</Resource>
+    <Resource tag="TITLE">Topic Status</Resource>
+    <Resource tag="TOPICSTATUS_NAME">Status Name</Resource>
+  </page>
+  <page name="ADMIN_TOPICSTATUS_EDIT">
+    <Resource tag="DEFAULT_DESCRIPTION">Default Status Name:</Resource>
+    <Resource tag="DEFAULT_DESCRIPTION_HELP">Default Status Name, this Name is used when its not found in the current Language File.</Resource>
+    <Resource tag="HEADER">Add/Edit Topic Status</Resource>
+    <Resource tag="MSG_ENTER">You must enter something.</Resource>
+    <Resource tag="TITLE">Add/Edit Topic Status</Resource>
+    <Resource tag="TOPICSTATUS_NAME">Topic Status Value:</Resource>
+    <Resource tag="TOPICSTATUS_NAME_HELP">This is the Value that is used to retrieve the Topic Status Icon and/or Text. That needs to be defined in the Theme Files and languages.</Resource>
+  </page>
+  <page name="ADMIN_TOPICSTATUS_IMPORT">
+    <Resource tag="HEADER">Import Topic Status List</Resource>
+    <Resource tag="IMPORT">Import List</Resource>
+    <Resource tag="IMPORT_FAILED">Failed to import: {0}</Resource>
+    <Resource tag="IMPORT_FILE">Select Import File:</Resource>
+    <Resource tag="IMPORT_FILE_HELP">Must be *.xml file</Resource>
+    <Resource tag="IMPORT_NOTHING">Nothing imported: no new status was found in the upload.</Resource>
+    <Resource tag="IMPORT_SUCESS">{0} new status(es) imported successfully.</Resource>
+    <Resource tag="TITLE">Import Topic Status</Resource>
+  </page>
   <page name="ADMIN_USERS">
     <Resource tag="APPROVED">Approved</Resource>
     <Resource tag="CONFIRM_DELETE">Delete this user?</Resource>
@@ -1500,6 +1532,7 @@
     <Resource tag="admin_smilies">Smiles</Resource>
     <Resource tag="admin_taskmanager">Task Manager</Resource>
     <Resource tag="admin_test_data">Create Test Data</Resource>
+    <Resource tag="admin_topicstatus">Topic Status</Resource>
     <Resource tag="admin_users">Users</Resource>
     <Resource tag="admin_version">Version Check</Resource>
     <Resource tag="Database">Database</Resource>

@@ -2059,3 +2059,15 @@ begin
 	alter table [{databaseOwner}].[{objectQualifier}TopicReadTracking] drop column TrackingID
 end
 GO
+
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}TopicStatus]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+BEGIN
+	CREATE TABLE [{databaseOwner}].[{objectQualifier}TopicStatus](
+	    TopicStatusID int IDENTITY(1,1) NOT NULL,
+		TopicStatusName nvarchar(100) NOT NULL,
+		BoardID int NOT NULL,
+		DefaultDescription nvarchar(100) NOT NULL,
+		CONSTRAINT [PK_{objectQualifier}TopicStatus] PRIMARY KEY(TopicStatusID)
+	)
+END
+GO

@@ -533,7 +533,7 @@ namespace YAF.Controls
             }
            
             this.ThanksDataLiteral.Text =
-                "<img id=\"ThanksInfoImage{0}\" src=\"{1}\"  runat=\"server\" title=\"{2}\"></a>".FormatWith(
+                "<img id=\"ThanksInfoImage{0}\" src=\"{1}\"  runat=\"server\" title=\"{2}\" />&nbsp;".FormatWith(
                     this.DataRow["MessageID"], this.Get<ITheme>().GetItem("ICONS","THANKSINFOLIST_IMAGE"),thanksLabelText) + thanksLabelText; 
 
             this.ThanksDataLiteral.Visible = true;

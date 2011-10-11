@@ -6,8 +6,19 @@
   Remove Extra Stuff: SET ANSI_NULLS ON\nGO\nSET QUOTED_IDENTIFIER ON\nGO\n\n\n 
 */
 
-IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}User_ListTodaysBirthdays]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}TopicStatus_Delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}User_ListTodaysBirthdays]
+GO
+
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}TopicStatus_Edit]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}TopicStatus_Edit]
+GO
+
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}TopicStatus_List]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}TopicStatus_List]
+GO
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}TopicStatus_Save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}TopicStatus_Save]
 GO
 
 IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}topics_byuser]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
@@ -9682,5 +9693,49 @@ begin
 		d.Name asc,
 		Priority desc,
 		LastPosted desc
+end
+GO
+
+create procedure [{databaseOwner}].[{objectQualifier}TopicStatus_Delete] (@TopicStatusID int) as
+begin
+   delete from [{databaseOwner}].[{objectQualifier}TopicStatus] 
+	where TopicStatusID = @TopicStatusID
+end
+GO
+
+CREATE procedure [{databaseOwner}].[{objectQualifier}TopicStatus_Edit] (@TopicStatusID int) as
+BEGIN
+	SELECT * 
+	FROM [{databaseOwner}].[{objectQualifier}TopicStatus] 
+	WHERE 
+	    TopicStatusID = @TopicStatusID
+END
+GO
+
+CREATE procedure [{databaseOwner}].[{objectQualifier}TopicStatus_List] (@BoardID int) as
+	BEGIN
+			SELECT
+				*
+			FROM
+				[{databaseOwner}].[{objectQualifier}TopicStatus]
+			WHERE
+				BoardID = @BoardID	
+			ORDER BY
+				TopicStatusID
+		END
+GO
+
+CREATE procedure [{databaseOwner}].[{objectQualifier}TopicStatus_Save] (@TopicStatusID int=null, @BoardID int, @TopicStatusName nvarchar(100),@DefaultDescription nvarchar(100)) as
+begin
+		if @TopicStatusID is null or @TopicStatusID = 0 begin
+		insert into [{databaseOwner}].[{objectQualifier}TopicStatus] (BoardID,TopicStatusName,DefaultDescription) 
+		values(@BoardID,@TopicStatusName,@DefaultDescription)
+	end
+	else begin
+		update [{databaseOwner}].[{objectQualifier}TopicStatus] 
+		set TopicStatusName = @TopicStatusName, 
+		    DefaultDescription = @DefaultDescription
+		where TopicStatusID = @TopicStatusID
+	end
 end
 GO

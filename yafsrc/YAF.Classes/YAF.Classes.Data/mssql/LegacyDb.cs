@@ -3624,6 +3624,84 @@ namespace YAF.Classes.Data
             }
         }
 
+        /// <summary>
+        /// Delete a topic status.
+        /// </summary>
+        /// <param name="topicStatusID">The topic status ID.</param>
+        public static void TopicStatus_Delete([NotNull] object topicStatusID)
+        {
+            try
+            {
+                using (var cmd = MsSqlDbAccess.GetCommand("TopicStatus_Delete"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("TopicStatusID", topicStatusID);
+                    MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
+                }
+            }
+            catch
+            {
+                // Ignore any errors in this method
+            }
+        }
+
+        /// <summary>
+        /// Get a Topic Status by topicStatusID
+        /// </summary>
+        /// <param name="topicStatusID">The topic status ID.</param>
+        /// <returns></returns>
+        public static DataTable TopicStatus_Edit([NotNull] object topicStatusID)
+        {
+            using (var cmd = MsSqlDbAccess.GetCommand("TopicStatus_Edit"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("TopicStatusID", topicStatusID);
+                return MsSqlDbAccess.Current.GetData(cmd);
+            }
+        }
+
+        /// <summary>
+        /// List all Topics of the Current Board
+        /// </summary>
+        /// <param name="boardID">The board ID.</param>
+        /// <returns></returns>
+        public static DataTable TopicStatus_List([NotNull] object boardID)
+        {
+            using (var cmd = MsSqlDbAccess.GetCommand("TopicStatus_List"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("BoardID", boardID);
+                return MsSqlDbAccess.Current.GetData(cmd);
+            }
+        }
+
+        /// <summary>
+        /// Saves a topic status
+        /// </summary>
+        /// <param name="topicStatusID">The topic status ID.</param>
+        /// <param name="boardID">The board ID.</param>
+        /// <param name="topicStatusName">Name of the topic status.</param>
+        /// <param name="defaultDescription">The default description.</param>
+        public static void TopicStatus_Save([NotNull] object topicStatusID, [NotNull] object boardID, [NotNull] object topicStatusName, [NotNull] object defaultDescription)
+        {
+            try
+            {
+                using (var cmd = MsSqlDbAccess.GetCommand("TopicStatus_Save"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("TopicStatusID", topicStatusID);
+                    cmd.Parameters.AddWithValue("BoardId", boardID);
+                    cmd.Parameters.AddWithValue("TopicStatusName", topicStatusName);
+                    cmd.Parameters.AddWithValue("DefaultDescription", defaultDescription);
+                    MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
+                }
+            }
+            catch
+            {
+                // Ignore any errors in this method
+            }
+        }
+
         // END ABOT NEW 16.04.04
         // ABOT CHANGE 16.04.04
         /// <summary>
@@ -3641,6 +3719,7 @@ namespace YAF.Classes.Data
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("ForumID", forumID);
+
                 if (MsSqlDbAccess.Current.ExecuteScalar(cmd) is DBNull)
                 {
                     forum_deleteAttachments(forumID);

@@ -49,6 +49,9 @@
     <Resource tag="ADMIN_SMILIES_IMPORT">Импортирует смайлы</Resource>
     <Resource tag="ADMIN_TASKMANAGER">Просматривает список задач</Resource>
     <Resource tag="ADMIN_TEST_DATA">Находится в генераторе тестовых данных</Resource>
+    <Resource tag="ADMIN_TOPICSTATUS">Views admin topic status</Resource>
+    <Resource tag="ADMIN_TOPICSTATUS_EDIT">Edits Topic Status</Resource>
+    <Resource tag="ADMIN_TOPICSTATUS_IMPORT">Imports topic status</Resource>
     <Resource tag="ADMIN_USERS">Просматривает пользователей в разделе администрирования</Resource>
     <Resource tag="ADMIN_VERSION">Просматривает версии</Resource>
     <Resource tag="ADMINTASK">Администрирует форум</Resource>
@@ -1114,9 +1117,9 @@
     <Resource tag="SHOW_MEDALS">Показывать медали:</Resource>
     <Resource tag="SHOW_MEDALS_HELP">Отображение медалей пользователя в постах.</Resource>
     <Resource tag="SHOW_MODLIST">Показывать список модераторов:</Resource>
-    <Resource tag="SHOW_MODLIST_HELP">Колонка со списком модераторов будет отображаться в списках форумов.</Resource>
     <Resource tag="SHOW_MODLIST_ASCOLUMN">Показывать список модераторов в столбце:</Resource>
     <Resource tag="SHOW_MODLIST_ASCOLUMN_HELP">Показывает список модераторов виду столбца в списке категорий.</Resource>
+    <Resource tag="SHOW_MODLIST_HELP">Колонка со списком модераторов будет отображаться в списках форумов.</Resource>
     <Resource tag="SHOW_MOVED_TOPICS">Показывать перемещённые темы:</Resource>
     <Resource tag="SHOW_MOVED_TOPICS_HELP">Если это включено, то вместо перемещённых тем будут в старом месте будут видны ссылки на них в новом месте месте.</Resource>
     <Resource tag="SHOW_NOCOUNT_POSTS">Отображать "не считаемые" сообщения в активных обсуждениях:</Resource>
@@ -1412,6 +1415,35 @@
   <page name="ADMIN_TEST_DATA">
     <Resource tag="TITLE">Создать тестовые данные (только в режиме отладки)</Resource>
   </page>
+  <page name="ADMIN_TOPICSTATUS">
+    <Resource tag="ADD">Add</Resource>
+    <Resource tag="CONFIRM_DELETE">Delete this Status?</Resource>
+    <Resource tag="DEFAULT_DESCRIPTION">Status</Resource>
+    <Resource tag="EXPORT">Export to XML</Resource>
+    <Resource tag="HEADER">Allowed File Extensions</Resource>
+    <Resource tag="IMPORT">Import from XML</Resource>
+    <Resource tag="TITLE">Topic Status</Resource>
+    <Resource tag="TOPICSTATUS_NAME">Status Name</Resource>
+  </page>
+  <page name="ADMIN_TOPICSTATUS_EDIT">
+    <Resource tag="DEFAULT_DESCRIPTION">Default Status Name:</Resource>
+    <Resource tag="DEFAULT_DESCRIPTION_HELP">Default Status Name, this Name is used when its not found in the current Language File.</Resource>
+    <Resource tag="HEADER">Add/Edit Topic Status</Resource>
+    <Resource tag="MSG_ENTER">You must enter something.</Resource>
+    <Resource tag="TITLE">Add/Edit Topic Status</Resource>
+    <Resource tag="TOPICSTATUS_NAME">Topic Status Value:</Resource>
+    <Resource tag="TOPICSTATUS_NAME_HELP">This is the Value that is used to retrieve the Topic Status Icon and/or Text. That needs to be defined in the Theme Files and languages.</Resource>
+  </page>
+  <page name="ADMIN_TOPICSTATUS_IMPORT">
+    <Resource tag="HEADER">Import Topic Status List</Resource>
+    <Resource tag="IMPORT">Import List</Resource>
+    <Resource tag="IMPORT_FAILED">Failed to import: {0}</Resource>
+    <Resource tag="IMPORT_FILE">Select Import File:</Resource>
+    <Resource tag="IMPORT_FILE_HELP">Must be *.xml file</Resource>
+    <Resource tag="IMPORT_NOTHING">Nothing imported: no new status was found in the upload.</Resource>
+    <Resource tag="IMPORT_SUCESS">{0} new status(es) imported successfully.</Resource>
+    <Resource tag="TITLE">Import Topic Status</Resource>
+  </page>
   <page name="ADMIN_USERS">
     <Resource tag="APPROVED">Одобрен</Resource>
     <Resource tag="CONFIRM_DELETE">Удалить этого пользователя?</Resource>
@@ -1486,6 +1518,7 @@
     <Resource tag="admin_smilies">Смайлы</Resource>
     <Resource tag="admin_taskmanager">Менеджер задач</Resource>
     <Resource tag="admin_test_data">Тестовые данные</Resource>
+    <Resource tag="admin_topicstatus">Topic Status</Resource>
     <Resource tag="admin_users">Пользователи</Resource>
     <Resource tag="admin_version">Контроль версии</Resource>
     <Resource tag="Database">База данных</Resource>

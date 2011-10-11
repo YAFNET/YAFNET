@@ -62,11 +62,6 @@
 		</td>
 		<td class="post" width="80%">
 			<asp:DropDownList ID="TopicStatus" runat="server" CssClass="edit" Width="400">
-              <asp:ListItem Text="INFORMATIC" Value="informatic"></asp:ListItem>
-              <asp:ListItem Text="QUESTION" Value="question"></asp:ListItem>
-              <asp:ListItem Text="SOLVED" Value="solved"></asp:ListItem>
-              <asp:ListItem Text="ISSUE" Value="issue"></asp:ListItem>
-              <asp:ListItem Text="FIXED" Value="fixed"></asp:ListItem>
             </asp:DropDownList>
 		</td>
 	</tr>	
