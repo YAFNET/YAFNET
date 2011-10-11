@@ -1430,7 +1430,10 @@ namespace YAF.Pages
             this.Priority.SelectedItem.Selected = false;
             this.Priority.Items.FindByValue(currentMessage.Priority.ToString()).Selected = true;
 
-            this.TopicStatus.SelectedItem.Selected = false;
+            if (TopicStatus.SelectedItem != null)
+            {
+                this.TopicStatus.SelectedItem.Selected = false;
+            }
             if (this.TopicStatus.Items.FindByValue(currentMessage.Status) != null)
             {
                 this.TopicStatus.Items.FindByValue(currentMessage.Status).Selected = true;
