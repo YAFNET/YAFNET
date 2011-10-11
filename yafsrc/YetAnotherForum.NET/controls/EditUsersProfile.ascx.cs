@@ -17,6 +17,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+using System.Globalization;
+
 namespace YAF.Controls
 {
     #region Using
@@ -176,12 +178,12 @@ namespace YAF.Controls
 
                 YafContext.Current.PageElements.RegisterJsInclude("datepickerlang", jqueryuiUrl);
             }
-
+            var ci = CultureInfo.CreateSpecificCulture(GetCulture());
             YafContext.Current.PageElements.RegisterJsBlockStartup(
               "DatePickerJs",
               JavaScriptBlocks.DatePickerLoadJs(
                 this.Birthday.ClientID,
-                Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern,
+                ci.DateTimeFormat.ShortDatePattern,
                 this.GetText("COMMON", "CAL_JQ_CULTURE_DFORMAT"),
                 this.GetText("COMMON", "CAL_JQ_CULTURE")));
 
@@ -245,7 +247,6 @@ namespace YAF.Controls
             this.UserLoginRow.Visible = this.Get<YafBoardSettings>().AllowSingleSignOn;
             this.MetaWeblogAPI.Visible = this.Get<YafBoardSettings>().AllowPostToBlog;
             this.LoginInfo.Visible = this.Get<YafBoardSettings>().AllowEmailChange;
-            this.currentCulture = Thread.CurrentThread.CurrentCulture.IetfLanguageTag;
             this.DisplayNamePlaceholder.Visible = this.Get<YafBoardSettings>().EnableDisplayName &&
                                                   this.Get<YafBoardSettings>().AllowDisplayNameModification;
 
@@ -467,26 +468,9 @@ namespace YAF.Controls
             this.Country.DataValueField = "Value";
             this.Country.DataTextField = "Name";
 
-            // Language and culture
-            string languageFile = this.Get<YafBoardSettings>().Language;
-            string culture4tag = this.Get<YafBoardSettings>().Culture;
 
-            if (!string.IsNullOrEmpty(this.UserData.LanguageFile))
-            {
-                languageFile = this.UserData.LanguageFile;
-            }
-
-            if (!string.IsNullOrEmpty(this.UserData.CultureUser))
-            {
-                culture4tag = this.UserData.CultureUser;
-            }
-
-            // Get first default full culture from a language file tag.
-            string langFileCulture = StaticDataHelper.CultureDefaultFromFile(languageFile);
-            string currentCulture = langFileCulture.Substring(0, 2) == culture4tag.Substring(0, 2)
-                                          ? culture4tag
-                                          : langFileCulture;
-
+            string currentCultureLocal = GetCulture();
+            this.currentCulture = currentCultureLocal;
             if (this.UserData.Profile.Country.IsSet())
             {
                 this.LookForNewRegionsBind(this.UserData.Profile.Country);
@@ -501,13 +485,14 @@ namespace YAF.Controls
 
             this.DataBind();
 
+            var ci = CultureInfo.CreateSpecificCulture(currentCultureLocal);
             if (this.Get<YafBoardSettings>().EnableDNACalendar)
             {
                 this.Birthday.Text = this.UserData.Profile.Birthday > DateTime.MinValue
                                        ? this.UserData.Profile.Birthday.Date.ToString(
-                                         Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern)
+                                         ci.DateTimeFormat.ShortDatePattern)
                                        : DateTime.MinValue.Date.ToString(
-                                         Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern);
+                                         ci.DateTimeFormat.ShortDatePattern);
 
                 this.Birthday.ToolTip = this.GetText("COMMON", "CAL_JQ_TT");
             }
@@ -614,11 +599,13 @@ namespace YAF.Controls
             // If 2-letter language code is the same we return Culture, else we return a default full culture from language file
             ListItem foundCultItem =
               this.Culture.Items.FindByValue(
-                currentCulture);
+                currentCultureLocal);
             if (foundCultItem != null)
             {
                 foundCultItem.Selected = true;
             }
+
+            this.Realname.Focus();
         }
 
         /// <summary>
@@ -687,9 +674,9 @@ namespace YAF.Controls
             if (this.Get<YafBoardSettings>().EnableDNACalendar && this.Birthday.Text.IsSet())
             {
                 DateTime userBirthdate;
-
-                DateTime.TryParse(this.Birthday.Text, out userBirthdate);
-
+                var ci = CultureInfo.CreateSpecificCulture(GetCulture());
+                DateTime.TryParse(this.Birthday.Text,ci, DateTimeStyles.None,out userBirthdate);
+               
                 if (userBirthdate > DateTime.MinValue.Date)
                 {
                     userProfile.Birthday = userBirthdate;
@@ -768,6 +755,29 @@ namespace YAF.Controls
                 this.Region.DataSource = null;
                 this.Region.DataBind();
             }
+        }
+
+        private string GetCulture()
+        {
+            // Language and culture
+            string languageFile = this.Get<YafBoardSettings>().Language;
+            string culture4tag = this.Get<YafBoardSettings>().Culture;
+
+            if (!string.IsNullOrEmpty(this.UserData.LanguageFile))
+            {
+                languageFile = this.UserData.LanguageFile;
+            }
+
+            if (!string.IsNullOrEmpty(this.UserData.CultureUser))
+            {
+                culture4tag = this.UserData.CultureUser;
+            }
+
+            // Get first default full culture from a language file tag.
+            string langFileCulture = StaticDataHelper.CultureDefaultFromFile(languageFile);
+            return langFileCulture.Substring(0, 2) == culture4tag.Substring(0, 2)
+                                          ? culture4tag
+                                          : langFileCulture;
         }
     }
 }
