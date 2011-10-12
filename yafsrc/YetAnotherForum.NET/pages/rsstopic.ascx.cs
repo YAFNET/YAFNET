@@ -437,7 +437,7 @@ namespace YAF.Pages
                     string messageLink = YafBuildLink.GetLinkNotEscaped(
                         ForumPages.posts, true, "m={0}&find=lastpost", row["LastMessageID"]);
                     syndicationItems.AddSyndicationItem(
-                        row["Subject"].ToString(),
+                        row["Topic"].ToString(),
                         GetPostLatestContent(
                             messageLink,
                             lastPostIcon,
@@ -560,7 +560,7 @@ namespace YAF.Pages
                         SyndicationItemExtensions.NewSyndicationPerson(string.Empty, row["LastUserID"].ToType<long>()));
 
                     syndicationItems.AddSyndicationItem(
-                        row["Subject"].ToString(),
+                        row["Topic"].ToString(),
                         GetPostLatestContent(
                             YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "m={0}&find=lastpost", row["LastMessageID"]),
                             lastPostIcon,
@@ -716,7 +716,7 @@ namespace YAF.Pages
                         SyndicationItemExtensions.NewSyndicationPerson(string.Empty, row["LastUserID"].ToType<long>()));
 
                     syndicationItems.AddSyndicationItem(
-                        row["Subject"].ToString(),
+                        row["Topic"].ToString(),
                         row["Message"].ToString(),
                         null,
                         YafBuildLink.GetLinkNotEscaped(
@@ -964,7 +964,7 @@ namespace YAF.Pages
                       SyndicationItemExtensions.NewSyndicationPerson(string.Empty, row["UserID"].ToType<long>()));
 
                     syndicationItems.AddSyndicationItem(
-                        row["Subject"].ToString(),
+                        row["Topic"].ToString(),
                         this.Get<IFormatMessage>().FormatSyndicationMessage(
                             row["Message"].ToString(), new MessageFlags(row["Flags"]), altItem, 4000),
                         null,
