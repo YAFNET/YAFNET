@@ -3118,7 +3118,7 @@ begin
 	from
 		[{databaseOwner}].[{objectQualifier}Group] a
 	where
-		a.BoardID=@BoardID
+		a.BoardID=@BoardID  
 	order by
 		a.Name
 end
@@ -4851,13 +4851,12 @@ begin
 		TopicFlags	= d.Flags,
 		ForumFlags	= g.Flags,
 		m.MessageID,
-		m.Posted,
-		[Subject] = d.Topic,
+		m.Posted,		
 		[Message] = m.Message, 
 		m.UserID,
 		m.Position,
 		m.Indent,
-		m.IP,
+		m.IP,		
 		m.Flags,
 		m.EditReason,
 		m.IsModeratorChanged,
@@ -4866,12 +4865,13 @@ begin
 		m.BlogPostID,
 		m.ExternalMessageId,
 		m.ReferenceMessageId,
-		UserName	= IsNull(m.UserName,b.Name),
+		UserName = IsNull(m.UserName,b.Name),
 		b.Joined,
 		b.Avatar,
 		b.[Signature],
 		Posts		= b.NumPosts,
 		b.Points,
+		IsGuest	= IsNull(SIGN(b.Flags & 4),0),
 		d.[Views],
 		d.ForumID,
 		RankName = c.Name,		

@@ -471,9 +471,12 @@ namespace YAF.Controls
         var groupsText = new StringBuilder(500);
 
         bool bFirst = true;
+        bool hasRole = false;
         string roleStyle = null;
+       
+        string userName = this.DataRow["IsGuest"].ToType<bool>() ? UserMembershipHelper.GuestUserName : this.DataRow["UserName"].ToString();
 
-        foreach (string role in RoleMembershipHelper.GetRolesForUser(this.DataRow["UserName"].ToString()))
+        foreach (string role in RoleMembershipHelper.GetRolesForUser(userName))
         {
             string role1 = role;
 
@@ -504,6 +507,37 @@ namespace YAF.Controls
           }
 
           roleStyle = null;
+          hasRole = true;
+        }
+
+        // Only guest has no role
+        if(!hasRole)
+        {
+            string guestRole = string.Empty;
+            var dt = LegacyDb.group_member(PageContext.PageBoardID, this.DataRow["UserID"]);
+            foreach (DataRow role in dt.Rows)
+            {
+                if (role["Member"].ToType<int>() > 0)
+                {
+                    guestRole = role["Name"].ToString();
+
+                    foreach (DataRow drow in
+                        roleStyleTable.Rows.Cast<DataRow>().Where(
+                            drow =>
+                            drow["LegendID"].ToType<int>() == 1 && drow["Style"] != null &&
+                            drow["Name"].ToString() == guestRole))
+                    {
+                        roleStyle = this.TransformStyle.DecodeStyleByString(drow["Style"].ToString(), true);
+                        break;
+                    }
+                   groupsText.AppendLine(
+                   this.Get<YafBoardSettings>().UseStyledNicks
+                       ? StyledNick.FormatWith(guestRole, roleStyle)
+                       : guestRole);
+                    break;
+                }
+               
+            }
         }
 
         filler = this.Get<YafBoardSettings>().UserBoxGroups.FormatWith(

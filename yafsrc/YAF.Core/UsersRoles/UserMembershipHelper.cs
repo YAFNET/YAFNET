@@ -100,7 +100,7 @@ namespace YAF.Core
     {
       get
       {
-        return LegacyDb.user_list(YafContext.Current.PageBoardID, GuestUserId, false).GetFirstRowColumnAsValue<string>(
+        return LegacyDb.user_list(YafContext.Current.PageBoardID, GuestUserId, true).GetFirstRowColumnAsValue<string>(
           "Name", null);
       }
     }

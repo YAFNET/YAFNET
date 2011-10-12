@@ -17,6 +17,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
+using System.Web;
+
 namespace YAF.Core
 {
   using System;
@@ -205,8 +208,9 @@ namespace YAF.Core
       {
         // Ederon : 9/9/2007 - moderaotrs can edit locked posts
         // Ederon : 12/5/2007 - new flags implementation
-        return ((!PostLocked && !this._forumFlags.IsLocked && !this._topicFlags.IsLocked && UserId == YafContext.Current.PageUserID) ||
+          return ((!PostLocked && !this._forumFlags.IsLocked && !this._topicFlags.IsLocked && (((UserId == YafContext.Current.PageUserID) && !DataRow["IsGuest"].ToType<bool>()) || (DataRow["IsGuest"].ToType<bool>() && (DataRow["IP"].ToString() == YafContext.Current.CurrentForumPage.Request.UserHostAddress)))) ||
                 YafContext.Current.ForumModeratorAccess) && YafContext.Current.ForumEditAccess;
+         
       }
     }
 
@@ -270,9 +274,10 @@ namespace YAF.Core
     {
       get
       {
-        // Ederon : 9/9/2007 - moderaotrs can delete in locked posts
-        return ((!PostLocked && !this._forumFlags.IsLocked && !this._topicFlags.IsLocked && UserId == YafContext.Current.PageUserID) ||
-                YafContext.Current.ForumModeratorAccess) && YafContext.Current.ForumDeleteAccess;
+        // Ederon : 9/9/2007 - moderators can delete in locked posts
+        // vzrus : only guests with the same IP can delete guest posts 
+        return ((!PostLocked && !this._forumFlags.IsLocked && !this._topicFlags.IsLocked && (((UserId == YafContext.Current.PageUserID) && !DataRow["IsGuest"].ToType<bool>()) || (DataRow["IsGuest"].ToType<bool>() && (DataRow["IP"].ToString() == YafContext.Current.CurrentForumPage.Request.UserHostAddress)))) ||
+              YafContext.Current.ForumModeratorAccess) && YafContext.Current.ForumDeleteAccess;
       }
     }
 
