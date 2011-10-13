@@ -18,91 +18,101 @@
  */
 namespace YAF.Modules
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.Web.UI.HtmlControls;
-  using System.Web.UI.WebControls;
+    using System;
+    using System.Web.UI.HtmlControls;
+    using System.Web.UI.WebControls;
 
-  using YAF.Classes;
-  using YAF.Types;
-  using YAF.Types.Attributes;
-  using YAF.Utils;
-  using YAF.Utils.Helpers;
-
-  #endregion
-
-  /// <summary>
-  /// Summary description for PageTitleModule
-  /// </summary>
-  [YafModule("Page Logo Handler Module", "Tiny Gecko", 1)]
-  public class PageLogoHandlerForumModule : SimpleBaseForumModule
-  {
-    #region Public Methods
-
-    /// <summary>
-    /// The init after page.
-    /// </summary>
-    public override void InitAfterPage()
-    {
-      this.CurrentForumPage.PreRender += this.ForumPage_PreRender;
-    }
-
-    /// <summary>
-    /// The init before page.
-    /// </summary>
-    public override void InitBeforePage()
-    {
-    }
+    using YAF.Classes;
+    using YAF.Types;
+    using YAF.Types.Attributes;
+    using YAF.Types.Constants;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     #endregion
 
-    #region Methods
-
     /// <summary>
-    /// The forum page_ pre render.
+    /// Page Logo Handler Module
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    private void ForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
+    [YafModule("Page Logo Handler Module", "Tiny Gecko", 1)]
+    public class PageLogoHandlerForumModule : SimpleBaseForumModule
     {
-      var htmlImgBanner = this.CurrentForumPage.FindControlRecursiveBothAs<HtmlImage>("imgBanner");
-      var imgBanner = this.CurrentForumPage.FindControlRecursiveBothAs<Image>("imgBanner");
+        #region Public Methods
 
-      if (!this.CurrentForumPage.ShowToolBar)
-      {
-        if (htmlImgBanner != null)
+        /// <summary>
+        /// The init after page.
+        /// </summary>
+        public override void InitAfterPage()
         {
-          htmlImgBanner.Visible = false;
+            this.CurrentForumPage.PreRender += this.ForumPage_PreRender;
         }
-        else if (imgBanner != null)
-        {
-          imgBanner.Visible = false;
-        }
-      }
 
-      if (this.PageContext.BoardSettings.AllowThemedLogo && !Config.IsAnyPortal)
-      {
-        string graphicSrc = this.PageContext.Theme.GetItem("FORUM", "BANNER", null);
-
-        if (graphicSrc.IsSet())
+        /// <summary>
+        /// The init before page.
+        /// </summary>
+        public override void InitBeforePage()
         {
-          if (htmlImgBanner != null)
-          {
-            htmlImgBanner.Src = graphicSrc;
-          }
-          else if (imgBanner != null)
-          {
-            imgBanner.ImageUrl = graphicSrc;
-          }
         }
-      }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// The forum page_ pre render.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void ForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            var htmlImgBanner = this.CurrentForumPage.FindControlRecursiveBothAs<HtmlImage>("imgBanner");
+            var imgBanner = this.CurrentForumPage.FindControlRecursiveBothAs<Image>("imgBanner");
+            var bannerLink = this.CurrentForumPage.FindControlRecursiveBothAs<HyperLink>("BannerLink");
+
+            bannerLink.NavigateUrl = YafBuildLink.GetLink(ForumPages.forum);
+            bannerLink.ToolTip = this.GetText("TOOLBAR", "FORUM_TITLE");
+
+            if (!this.CurrentForumPage.ShowToolBar)
+            {
+                if (htmlImgBanner != null)
+                {
+                    htmlImgBanner.Visible = false;
+                }
+                else if (imgBanner != null)
+                {
+                    imgBanner.Visible = false;
+                }
+            }
+
+            if (!this.Get<YafBoardSettings>().AllowThemedLogo || Config.IsAnyPortal)
+            {
+                return;
+            }
+
+            string graphicSrc = this.Get<ITheme>().GetItem("FORUM", "BANNER", null);
+
+            if (!graphicSrc.IsSet())
+            {
+                return;
+            }
+
+            if (htmlImgBanner != null)
+            {
+                htmlImgBanner.Src = graphicSrc;
+            }
+            else if (imgBanner != null)
+            {
+                imgBanner.ImageUrl = graphicSrc;
+            }
+        }
+
+        #endregion
     }
-
-    #endregion
-  }
 }
