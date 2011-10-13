@@ -278,7 +278,7 @@ namespace YAF.Utils
     /// </returns>
     public static bool IsNotSet(this string str)
     {
-      return str == null || String.IsNullOrEmpty(str.Trim());
+    	return string.IsNullOrWhiteSpace(str);
     }
 
     /// <summary>
@@ -291,7 +291,7 @@ namespace YAF.Utils
     /// </returns>
     public static bool IsSet(this string str)
     {
-      return !str.IsNotSet();
+    	return !string.IsNullOrWhiteSpace(str);
     }
 
     /// <summary>
