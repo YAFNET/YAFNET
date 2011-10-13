@@ -76,8 +76,11 @@ namespace YAF.Modules
             var imgBanner = this.CurrentForumPage.FindControlRecursiveBothAs<Image>("imgBanner");
             var bannerLink = this.CurrentForumPage.FindControlRecursiveBothAs<HyperLink>("BannerLink");
 
-            bannerLink.NavigateUrl = YafBuildLink.GetLink(ForumPages.forum);
-            bannerLink.ToolTip = this.GetText("TOOLBAR", "FORUM_TITLE");
+            if (bannerLink != null)
+            {
+                bannerLink.NavigateUrl = YafBuildLink.GetLink(ForumPages.forum);
+                bannerLink.ToolTip = this.GetText("TOOLBAR", "FORUM_TITLE");
+            }
 
             if (!this.CurrentForumPage.ShowToolBar)
             {
