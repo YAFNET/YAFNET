@@ -5879,43 +5879,6 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}topic_listmessages](@TopicID int) as
-begin
-    select 
-		a.MessageID,
-		a.UserID,
-		UserName = b.Name,
-		a.[Message],
-		c.TopicID,
-		c.ForumID,
-		c.Topic,
-		c.Priority,
-		c.Description,
-		c.Status,
-		a.Flags,
-		c.UserID AS TopicOwnerID,
-		Edited = IsNull(a.Edited,a.Posted),
-		TopicFlags = c.Flags,
-		ForumFlags = d.Flags,
-		a.EditReason,
-		a.Position,
-		a.IsModeratorChanged,
-		a.DeleteReason,
-		a.BlogPostID,
-		c.PollID,
-		a.IP,
-		a.ReplyTo,
-		a.ExternalMessageId,
-		a.ReferenceMessageId  
-    from 
-	    [{databaseOwner}].[{objectQualifier}Message] a
-		inner join [{databaseOwner}].[{objectQualifier}User] b on b.UserID = a.UserID
-		inner join [{databaseOwner}].[{objectQualifier}Topic] c on a.TopicID = c.TopicID
-		inner join [{databaseOwner}].[{objectQualifier}Forum] d on c.ForumID = d.ForumID
-	where a.TopicID = @TopicID
-end
-GO
-
 create procedure [{databaseOwner}].[{objectQualifier}topic_lock](@TopicID int,@Locked bit) as
 begin
 		if @Locked<>0

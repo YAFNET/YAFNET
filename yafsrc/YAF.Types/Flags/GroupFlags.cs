@@ -141,11 +141,19 @@ namespace YAF.Types.Flags
       /// <summary>
       /// The is moderator.
       /// </summary>
-      IsModerator = 8
+      IsModerator = 8,
 
-      /* for future use
-			xxxxx = 16,
-			xxxxx = 32,
+      /// <summary>
+      /// The is hidden.
+      /// </summary>
+      IsHidden = 16,
+
+      /// <summary>
+      /// The is user group.
+      /// </summary>
+      IsUserGroup = 32
+
+      /* for future use		
 			xxxxx = 64,
 			xxxxx = 128,
 			xxxxx = 256,
@@ -226,6 +234,40 @@ namespace YAF.Types.Flags
       {
         this[3] = value;
       }
+    }
+
+    /// <summary>
+    /// Gets or sets whether group/role has moderator privilegies.
+    /// </summary>
+    public bool IsHidden
+    {
+        // int value 16
+        get
+        {
+            return this[4];
+        }
+
+        set
+        {
+            this[4] = value;
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets whether this is a user group.
+    /// </summary>
+    public bool IsUserGroup
+    {
+        // int value 32
+        get
+        {
+            return this[5];
+        }
+
+        set
+        {
+            this[5] = value;
+        }
     }
 
     #endregion

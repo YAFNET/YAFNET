@@ -604,8 +604,10 @@ namespace YAF.Controls
             {
                 foundCultItem.Selected = true;
             }
-
-            this.Realname.Focus();
+            if (!Page.IsPostBack)
+            {
+                this.Realname.Focus();
+            }
         }
 
         /// <summary>

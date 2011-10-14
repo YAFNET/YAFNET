@@ -8137,22 +8137,6 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
-        /// List Topic Messages
-        /// </summary>
-        /// <param name="topicID">The topic ID.</param>
-        /// <returns>
-        /// Returns List of Messages</returns>
-        public static DataTable topic_listmessages([NotNull] object topicID)
-        {
-            using (var cmd = MsSqlDbAccess.GetCommand("topic_listmessages"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("TopicID", topicID);
-                return MsSqlDbAccess.Current.GetData(cmd, true);
-            }
-        }
-
-        /// <summary>
         /// The topic_lock.
         /// </summary>
         /// <param name="topicID">
@@ -9218,6 +9202,50 @@ namespace YAF.Classes.Data
         /// <summary>
         /// The user_ list with todays birthdays.
         /// </summary>
+        /// <param name="userIdsList">
+        /// The Int array of userIds.
+        /// </param>
+        /// <param name="useStyledNicks">
+        /// Return or not style info.
+        /// </param>
+        /// <returns>
+        /// The user_ list profiles.
+        /// </returns>
+        public static DataTable User_ListProfilesByIdsList([NotNull] int[] userIdsList, [CanBeNull] object useStyledNicks)
+        {
+            string stIds = userIdsList.Aggregate(string.Empty, (current, userId) => current + (',' + userId)).Trim(',');
+            // Profile columns cannot yet exist when we first are gettinng data.
+            try
+            {
+                var sqlBuilder = new StringBuilder("SELECT up.*, u.Name as UserName,u.DisplayName,Style = case(@StyledNicks) when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM ");
+                sqlBuilder.Append(MsSqlDbAccess.GetObjectName("UserGroup"));
+                sqlBuilder.Append(" e join ");
+                sqlBuilder.Append(MsSqlDbAccess.GetObjectName("Group"));
+                sqlBuilder.Append(" f on f.GroupID=e.GroupID WHERE e.UserID=u.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), r.Style) else '' end ");
+                sqlBuilder.Append(" FROM ");
+                sqlBuilder.Append(MsSqlDbAccess.GetObjectName("UserProfile"));
+                sqlBuilder.Append(" up JOIN ");
+                sqlBuilder.Append(MsSqlDbAccess.GetObjectName("User"));
+                sqlBuilder.Append(" u ON u.UserID = up.UserID JOIN ");
+                sqlBuilder.Append(MsSqlDbAccess.GetObjectName("Rank"));
+                sqlBuilder.AppendFormat(" r ON r.RankID = u.RankID where UserID IN ({0})  ", stIds);
+                using (var cmd = MsSqlDbAccess.GetCommand(sqlBuilder.ToString(), true))
+                {
+                    cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
+                    return MsSqlDbAccess.Current.GetData(cmd);
+                }
+            }
+            catch (Exception e)
+            {
+                LegacyDb.eventlog_create(null, e.Source, e.Message, EventLogTypes.Error);
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// The user_ list with todays birthdays.
+        /// </summary>
         /// <param name="boardID">
         /// The board id.
         /// </param>
@@ -9243,11 +9271,12 @@ namespace YAF.Classes.Data
                 sqlBuilder.Append(MsSqlDbAccess.GetObjectName("User"));
                 sqlBuilder.Append(" u ON u.UserID = up.UserID JOIN ");
                 sqlBuilder.Append(MsSqlDbAccess.GetObjectName("Rank"));
-                sqlBuilder.Append(" r ON r.RankID = u.UserID where datepart(MONTH,up.Birthday) = datepart(MONTH,GETUTCDATE()) and datepart(DAY,up.Birthday) = datepart(DAY,GETUTCDATE()) ");
+                sqlBuilder.Append(" r ON r.RankID = u.RankID where up.Birthday = @CurrentDate ");
                 using (var cmd = MsSqlDbAccess.GetCommand(sqlBuilder.ToString(), true))
                 {
                     cmd.Parameters.AddWithValue("BoardID", boardID);
                     cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
+                    cmd.Parameters.AddWithValue("CurrentDate", DateTime.UtcNow.Date);
                     return MsSqlDbAccess.Current.GetData(cmd);
                 }
             }
@@ -10490,14 +10519,17 @@ namespace YAF.Classes.Data
         /// <param name="collection">
         /// The collection.
         /// </param>
-        public static void SetPropertyValues(int boardId, string appname, int userId, SettingsPropertyValueCollection collection)
+        public static void SetPropertyValues(int boardId, string appname, int userId, SettingsPropertyValueCollection collection, bool dirtyOnly = true)
         {
             if (userId == 0 || collection.Count < 1)
             {
                 return;
             }
-
-            bool itemsToSave = collection.Cast<SettingsPropertyValue>().Any(pp => pp.IsDirty);
+            bool itemsToSave = true;
+            if (dirtyOnly)
+            {
+                itemsToSave = collection.Cast<SettingsPropertyValue>().Any(pp => pp.IsDirty);
+            }
 
             // First make sure we have at least one item to save
 
@@ -10512,7 +10544,7 @@ namespace YAF.Classes.Data
             if (spc != null && spc.Count > 0)
             {
                 // start saving...
-                LegacyDb.SetProfileProperties(boardId, appname, userId, collection, spc);
+                LegacyDb.SetProfileProperties(boardId, appname, userId, collection, spc, dirtyOnly);
             }
         }
         /// <summary>
@@ -10530,7 +10562,7 @@ namespace YAF.Classes.Data
         /// <param name="settingsColumnsList">
         /// The settings columns list.
         /// </param>
-        public static void SetProfileProperties([NotNull] int boardId, [NotNull] object appName, [NotNull] int userID, [NotNull] SettingsPropertyValueCollection values, [NotNull] List<SettingsPropertyColumn> settingsColumnsList)
+        public static void SetProfileProperties([NotNull] int boardId, [NotNull] object appName, [NotNull] int userID, [NotNull] SettingsPropertyValueCollection values, [NotNull] List<SettingsPropertyColumn> settingsColumnsList, bool dirtyOnly)
         {
             string userName = string.Empty;
             var dtu =  LegacyDb.UserList(boardId, userID, true, null, null, true);
@@ -10565,7 +10597,7 @@ namespace YAF.Classes.Data
                 foreach (SettingsPropertyColumn column in settingsColumnsList)
                 {
                     // only write if it's dirty
-                    if (values[column.Settings.Name].IsDirty)
+                    if (!dirtyOnly || values[column.Settings.Name].IsDirty)
                     {
                         columnStr.Append(", ");
                         valueStr.Append(", ");

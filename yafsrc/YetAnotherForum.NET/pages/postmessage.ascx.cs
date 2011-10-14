@@ -655,8 +655,6 @@ namespace YAF.Pages
                                 false,
                                 0);
 
-                            //var messages = LegacyDb.topic_listmessages(this.TopicID.ToType<int>());
-
                             // quoting a reply to a topic...
                             foreach (
                                 var msg in

@@ -510,11 +510,14 @@ namespace YAF.Controls
           hasRole = true;
         }
 
-        // Only guest has no role
+        // vzrus: Only a guest normally has no role
         if(!hasRole)
         {
             string guestRole = string.Empty;
-            var dt = LegacyDb.group_member(PageContext.PageBoardID, this.DataRow["UserID"]);
+            DataTable dt = this.Get<IDataCache>().GetOrSet(
+                Constants.Cache.GuestGroupsCache,
+                () => LegacyDb.group_member(PageContext.PageBoardID, this.DataRow["UserID"]),
+                TimeSpan.FromMinutes(60));
             foreach (DataRow role in dt.Rows)
             {
                 if (role["Member"].ToType<int>() > 0)
@@ -530,22 +533,21 @@ namespace YAF.Controls
                         roleStyle = this.TransformStyle.DecodeStyleByString(drow["Style"].ToString(), true);
                         break;
                     }
-                   groupsText.AppendLine(
-                   this.Get<YafBoardSettings>().UseStyledNicks
+                    groupsText.AppendLine(
+                        this.Get<YafBoardSettings>().UseStyledNicks
                        ? StyledNick.FormatWith(guestRole, roleStyle)
                        : guestRole);
                     break;
                 }
-               
             }
         }
-
-        filler = this.Get<YafBoardSettings>().UserBoxGroups.FormatWith(
+          
+          filler = this.Get<YafBoardSettings>().UserBoxGroups.FormatWith(
           this.GetText("groups"), groupsText);
-
-        // mddubs : 02/21/2009
-        // Remove the space before the first comma when multiple groups exist.
-        filler = filler.Replace("\r\n,", ",");
+          
+          // mddubs : 02/21/2009
+          // Remove the space before the first comma when multiple groups exist.
+          filler = filler.Replace("\r\n,", ",");
       }
 
       // replaces template placeholder with actual groups
