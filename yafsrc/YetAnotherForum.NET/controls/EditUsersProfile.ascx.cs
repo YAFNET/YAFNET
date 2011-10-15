@@ -691,7 +691,7 @@ namespace YAF.Controls
             
             //  Sync to User Profile Mirror table while it's dirty
             SettingsPropertyValueCollection settingsPropertyValueCollection = userProfile.PropertyValues;
-            LegacyDb.SetPropertyValues(PageContext.PageBoardID, Membership.ApplicationName, this.CurrentUserID, settingsPropertyValueCollection);
+            LegacyDb.SetPropertyValues(PageContext.PageBoardID, UserMembershipHelper.ApplicationName(), this.CurrentUserID, settingsPropertyValueCollection);
            
             userProfile.Save();
           

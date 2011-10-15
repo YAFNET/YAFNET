@@ -448,6 +448,17 @@ namespace YAF.Core
     }
 
     /// <summary>
+    /// Method returns Application Name 
+    /// </summary>
+    /// <returns>
+    /// Returns Application Name 
+    /// </returns>
+    public static string ApplicationName()
+    {
+        return YafContext.Current.Get<MembershipProvider>().ApplicationName;
+    }
+
+    /// <summary>
     /// Method returns MembershipUser 
     /// </summary>
     /// <param name="providerKey">
