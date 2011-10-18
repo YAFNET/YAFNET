@@ -52,7 +52,7 @@ namespace YAF.Utils
       CodeContracts.ArgumentNotNull(collection, "collection");
       CodeContracts.ArgumentNotNull(paramName, "paramName");
 
-      return collection[paramName] == null ? new List<string>() : collection[paramName].Split(',').AsEnumerable();
+    	return collection[paramName] == null ? Enumerable.Empty<string>() : collection[paramName].Split(',').AsEnumerable();
     }
 
     /// <summary>
