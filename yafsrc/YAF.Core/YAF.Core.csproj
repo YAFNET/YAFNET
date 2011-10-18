@@ -40,6 +40,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\YetAnotherForum.NET\Bin\CookComputing.XmlRpcV2.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -66,9 +67,13 @@
     <Compile Include="BasePages\ModerateForumPage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Context\LoadPageFromDatabase.cs" />
+    <Compile Include="Context\LoadPageLazyUserData.cs" />
+    <Compile Include="Context\LoadPageLogBadAgent.cs" />
+    <Compile Include="Context\LoadPageRequestInformation.cs" />
+    <Compile Include="Context\LoadPageVariablesFromQuery.cs" />
     <Compile Include="Extensions\MembershipUserExtensions.cs" />
     <Compile Include="Helpers\IPLocator.cs" />
-    <Compile Include="Logger\UserAgentLogger.cs" />
     <Compile Include="Tasks\BaseTaskModuleManager.cs" />
     <Compile Include="Cache\HttpRuntimeCache.cs" />
     <Compile Include="Cache\StaticLockObject.cs" />
