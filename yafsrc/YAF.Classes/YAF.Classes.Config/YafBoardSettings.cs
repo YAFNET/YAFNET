@@ -1875,6 +1875,21 @@ namespace YAF.Classes
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether Show Country Info In User Box.
+        /// </summary>
+        public bool ShowCountryInfoInUserBox
+        {
+            get
+            {
+                return this._reg.GetValue("ShowCountryInfoInUserBox", true);
+            }
+
+            set
+            {
+                this._reg.SetValue("ShowCountryInfoInUserBox", value);
+            }
+        }
 
         /// <summary>
         /// Gets or sets a value indicating whether ShowGroups.

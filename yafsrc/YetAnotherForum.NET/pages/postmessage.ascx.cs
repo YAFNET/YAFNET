@@ -1233,21 +1233,14 @@ namespace YAF.Pages
             {
                 return;
             }
-
-            using (DataTable userDt = LegacyDb.user_list(this.PageContext.PageBoardID, this.PageContext.PageUserID, true))
+            
+            string userSig = LegacyDb.user_getsignature(this.PageContext.PageUserID);
+            
+            if (userSig.IsSet())
             {
-                if (userDt.Rows.Count <= 0)
-                {
-                    return;
-                }
-
-                DataRow userRow = userDt.Rows[0];
-
-                if (!userRow.IsNull("Signature"))
-                {
-                    this.PreviewMessagePost.Signature = userRow["Signature"].ToString();
-                }
+                this.PreviewMessagePost.Signature = userSig;
             }
+            
         }
 
         /// <summary>

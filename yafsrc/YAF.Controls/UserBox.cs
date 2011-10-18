@@ -513,35 +513,29 @@ namespace YAF.Controls
         // vzrus: Only a guest normally has no role
         if(!hasRole)
         {
-            string guestRole = string.Empty;
             DataTable dt = this.Get<IDataCache>().GetOrSet(
                 Constants.Cache.GuestGroupsCache,
                 () => LegacyDb.group_member(PageContext.PageBoardID, this.DataRow["UserID"]),
                 TimeSpan.FromMinutes(60));
-            foreach (DataRow role in dt.Rows)
+            foreach (string guestRole in from DataRow role in dt.Rows where role["Member"].ToType<int>() > 0 select role["Name"].ToString())
             {
-                if (role["Member"].ToType<int>() > 0)
+                foreach (DataRow drow in
+                    roleStyleTable.Rows.Cast<DataRow>().Where(
+                        drow =>
+                        drow["LegendID"].ToType<int>() == 1 && drow["Style"] != null &&
+                        drow["Name"].ToString() == guestRole))
                 {
-                    guestRole = role["Name"].ToString();
-
-                    foreach (DataRow drow in
-                        roleStyleTable.Rows.Cast<DataRow>().Where(
-                            drow =>
-                            drow["LegendID"].ToType<int>() == 1 && drow["Style"] != null &&
-                            drow["Name"].ToString() == guestRole))
-                    {
-                        roleStyle = this.TransformStyle.DecodeStyleByString(drow["Style"].ToString(), true);
-                        break;
-                    }
-                    groupsText.AppendLine(
-                        this.Get<YafBoardSettings>().UseStyledNicks
-                       ? StyledNick.FormatWith(guestRole, roleStyle)
-                       : guestRole);
+                    roleStyle = this.TransformStyle.DecodeStyleByString(drow["Style"].ToString(), true);
                     break;
                 }
+                groupsText.AppendLine(
+                    this.Get<YafBoardSettings>().UseStyledNicks
+                        ? StyledNick.FormatWith(guestRole, roleStyle)
+                        : guestRole);
+                break;
             }
         }
-          
+
           filler = this.Get<YafBoardSettings>().UserBoxGroups.FormatWith(
           this.GetText("groups"), groupsText);
           
@@ -847,8 +841,8 @@ namespace YAF.Controls
     {
         string filler = string.Empty;
         var rx = this.GetRegex(Constants.UserBox.CountryImage);
-        
-       if (this.UserProfile.Country.IsSet())
+
+        if (this.Get<YafBoardSettings>().ShowCountryInfoInUserBox && this.UserProfile.Country.IsSet())
        {
            string imagePath = this.PageContext.Get<ITheme>().GetItem(
                "FLAGS",
@@ -883,9 +877,7 @@ namespace YAF.Controls
       var rx = this.GetRegex(Constants.UserBox.ThanksFrom);
 
       // vzrus: should not display if no thanks?
-      if (this.Get<YafBoardSettings>().EnableThanksMod)
-      {
-        if ((int)this.DataRow["ThanksFromUserNumber"] > 0)
+        if (this.Get<YafBoardSettings>().EnableThanksMod && (int)this.DataRow["ThanksFromUserNumber"] > 0)
         {
           filler =
             this.Get<YafBoardSettings>().UserBoxThanksFrom.FormatWith(
@@ -896,8 +888,7 @@ namespace YAF.Controls
                       : this.GetText("thanksfrom"))).FormatWith(
                         this.DataRow["ThanksFromUserNumber"]));
         }
-      }
-
+      
       // replaces template placeholder with actual thanks from
       userBox = rx.Replace(userBox, filler);
 

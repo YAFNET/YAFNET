@@ -74,7 +74,6 @@ namespace YAF.Types.Objects
             this.Culture = row.Field<string>("Culture");
             this.NotificationType = row.Field<int?>("NotificationType");
             this.DailyDigest = row.Field<bool?>("DailyDigest");
-            this.NumPosts1 = row.Field<int?>("NumPosts1");
             this.CultureUser = row.Field<string>("CultureUser");
             this.Style = row.Field<string>("Style");
             this.IsGuest = row.Field<bool?>("IsGuest");
@@ -229,7 +228,6 @@ namespace YAF.Types.Objects
             [CanBeNull] string culture,
             int? notificationtype,
             bool? dailydigest,
-            int? numposts1,
             [CanBeNull] string cultureuser,
             [CanBeNull] string style,
             bool? isguest,
@@ -267,7 +265,6 @@ namespace YAF.Types.Objects
             this.Culture = culture;
             this.NotificationType = notificationtype;
             this.DailyDigest = dailydigest;
-            this.NumPosts1 = numposts1;
             this.CultureUser = cultureuser;
             this.Style = style;
             this.IsGuest = isguest;
@@ -398,12 +395,7 @@ namespace YAF.Types.Objects
         /// Gets or sets NumPosts.
         /// </summary>
         public int? NumPosts { get; set; }
-
-        /// <summary>
-        /// Gets or sets NumPosts1.
-        /// </summary>
-        public int? NumPosts1 { get; set; }
-
+      
         /// <summary>
         /// Gets or sets OverrideDefaultThemes.
         /// </summary>
@@ -433,11 +425,6 @@ namespace YAF.Types.Objects
         /// Gets or sets RankID.
         /// </summary>
         public int? RankID { get; set; }
-
-        /// <summary>
-        /// Gets or sets RankID1.
-        /// </summary>
-        public int? RankID1 { get; set; }
 
         /// <summary>
         /// Gets or sets RankName.

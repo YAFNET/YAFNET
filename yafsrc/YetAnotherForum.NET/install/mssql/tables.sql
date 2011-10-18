@@ -424,7 +424,8 @@ if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseO
 		[IsCaptchaExcluded]	AS (CONVERT([bit],sign([Flags]&(8)),(0))),
 		[IsActiveExcluded] AS (CONVERT([bit],sign([Flags]&(16)),(0))),
 		[IsDST]	AS (CONVERT([bit],sign([Flags]&(32)),(0))),
-		[IsDirty]	AS (CONVERT([bit],sign([Flags]&(64)),(0)))
+		[IsDirty]	AS (CONVERT([bit],sign([Flags]&(64)),(0))),
+		[Culture] char (5) DEFAULT (10)
 )
 GO
 
