@@ -103,13 +103,13 @@ namespace YAF.Core
 
         string themeFile = null;
 
-        if (YafContext.Current.Page != null && YafContext.Current.Page["ThemeFile"] != DBNull.Value &&
+        if (YafContext.Current.Page != null && YafContext.Current.Page["ThemeFile"] != null &&
             YafContext.Current.BoardSettings.AllowUserTheme)
         {
           // use user-selected theme
           themeFile = YafContext.Current.Page["ThemeFile"].ToString();
         }
-        else if (YafContext.Current.Page != null && YafContext.Current.Page["ForumTheme"] != DBNull.Value)
+        else if (YafContext.Current.Page != null && YafContext.Current.Page["ForumTheme"] != null)
         {
           themeFile = YafContext.Current.Page["ForumTheme"].ToString();
         }

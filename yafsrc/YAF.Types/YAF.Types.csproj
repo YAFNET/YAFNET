@@ -65,6 +65,7 @@
     <Compile Include="Constants\YafRssFeeds.cs" />
     <Compile Include="Constants\YafSyndicationFormats.cs" />
     <Compile Include="EventProxies\CacheItemRemovedEvent.cs" />
+    <Compile Include="EventProxies\EventPageLoad.cs" />
     <Compile Include="EventProxies\EventPreRequestPageExecute.cs" />
     <Compile Include="EventProxies\ForumPageEvents.cs" />
     <Compile Include="EventProxies\HttpApplicationInitEvent.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="Interfaces\Events\IAmEvent.cs" />
     <Compile Include="Interfaces\Events\IRaiseEvent.cs" />
     <Compile Include="Interfaces\Events\IFireEvent.cs" />
+    <Compile Include="Interfaces\Extensions\CollectionExtensions.cs" />
     <Compile Include="Interfaces\Extensions\IDbAccessExtensions.cs" />
     <Compile Include="Interfaces\Extensions\IHaveLocalizationExtensions.cs" />
     <Compile Include="Interfaces\Extensions\InjectServicesExtensions.cs" />

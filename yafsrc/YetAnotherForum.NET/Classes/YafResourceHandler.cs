@@ -715,34 +715,6 @@ namespace YAF
           dontTrack);
 
         DataRow auldRow;
-      if (pageRow != null)
-      {
-         
-        // We should be sure that all columns are added
-        do
-        {
-          auldRow = this.Get<IDBBroker>().ActiveUserLazyData((int)pageRow["UserID"]);
-
-          foreach (DataColumn col in auldRow.Table.Columns)
-          {
-            var dc = new DataColumn(col.ColumnName, col.DataType);
-            pageRow.Table.Columns.Add(dc);
-            pageRow.Table.Rows[0][dc] = auldRow[col];
-          }
-
-          pageRow.Table.AcceptChanges();
-
-          // vzrus: Current column count is 43 - change it if the total count changes
-        }
-        while (pageRow.Table.Columns.Count < 43);
-
-        // vzrus: to log unhandled UserAgent strings
-        if (YafContext.Current.BoardSettings.UserAgentBadLog)
-        {
-            new UserAgentLogger().WriteLog(userAgent, YafContext.Current.Get<HttpRequestBase>(), platform, browser,
-                user != null ? user.UserName : string.Empty);
-        }
-      }
 
       return pageRow["DownloadAccess"].ToType<bool>() ||
              pageRow["ModeratorAccess"].ToType<bool>();
