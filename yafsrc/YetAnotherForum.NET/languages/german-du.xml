@@ -774,6 +774,7 @@
     <Resource tag="ALL_USERS">Alle Benutzer</Resource>
     <Resource tag="ALLOW_CHANGE_AFTERVOTE">Umfrage Änderungen nach erster Stimme erlauben</Resource>
     <Resource tag="ALLOW_CHANGE_AFTERVOTE_HELP">Wenn aktiviert kann der Ersteller der Umfrage nachdem die erste Stimme abgegeben wurde noch die Frage oder die Optionen ändern.</Resource>
+    <Resource tag="ALLOW_DISPLAY_COUNTRY">Allow Display Country:</Resource>
     <Resource tag="ALLOW_DISPLAY_GENDER">Geschlecht Anzeige erlauben:</Resource>
     <Resource tag="ALLOW_DISPLAY_GENDER_HELP">Wenn aktiviert, wird das Benutzer Geschlecht in den Nutzdaten in den Beiträgen angezeigt.</Resource>
     <Resource tag="ALLOW_EMAIL_CHANGE">E-Mail Adresse ändern erlauben:</Resource>

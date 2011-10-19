@@ -6032,6 +6032,7 @@ namespace YAF.Classes.Data
                         cmd.Parameters.AddWithValue("IsCrawler", isCrawler);
                         cmd.Parameters.AddWithValue("IsMobileDevice", isMobileDevice);
                         cmd.Parameters.AddWithValue("DontTrack", donttrack);
+                        cmd.Parameters.AddWithValue("CurrentTime", DateTime.UtcNow);
 
                         using (DataTable dt = MsSqlDbAccess.Current.GetData(cmd))
                         {

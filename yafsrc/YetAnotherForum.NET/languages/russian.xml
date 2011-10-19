@@ -775,6 +775,7 @@
     <Resource tag="ALL_USERS">Все пользователи</Resource>
     <Resource tag="ALLOW_CHANGE_AFTERVOTE">Разрешить изменение опроса после первого голосования:</Resource>
     <Resource tag="ALLOW_CHANGE_AFTERVOTE_HELP">Создатель может изменять варианты опросов даже после того как был отдан первый голос.</Resource>
+    <Resource tag="ALLOW_DISPLAY_COUNTRY">Allow Display Country:</Resource>
     <Resource tag="ALLOW_DISPLAY_GENDER">Показывать пол:</Resource>
     <Resource tag="ALLOW_DISPLAY_GENDER_HELP">Если включено, то иконка пола будет отображаться в пользовательских данных в сообщениях.</Resource>
     <Resource tag="ALLOW_EMAIL_CHANGE">Разрешить изменение Email:</Resource>

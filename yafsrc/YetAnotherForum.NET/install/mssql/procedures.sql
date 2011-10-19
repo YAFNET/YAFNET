@@ -4113,7 +4113,8 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}pageload](
 	@MessageID	int = null,
 	@IsCrawler	bit = 0,
 	@IsMobileDevice	bit = 0,
-	@DontTrack	bit = 0
+	@DontTrack	bit = 0,
+	@CurrentTime datetime
 ) as
 begin
 	declare @UserID			int
@@ -4121,13 +4122,11 @@ begin
 	declare @IsGuest		tinyint	
 	declare @rowcount		int
 	declare @PreviousVisit	datetime
-	declare @ActiveUpdate   tinyint
-	declare @CurrentTime	datetime
+	declare @ActiveUpdate   tinyint	
 	declare @ActiveFlags	int
 	declare @GuestID        int
 	
-	set implicit_transactions off
-	set @CurrentTime = GETUTCDATE()
+	set implicit_transactions off	
 	-- set IsActiveNow ActiveFlag - it's a default
 	set @ActiveFlags = 1;
 
