@@ -777,6 +777,7 @@
     <Resource tag="ALLOW_CHANGE_AFTERVOTE">Allow Poll Changes After First Vote:</Resource>
     <Resource tag="ALLOW_CHANGE_AFTERVOTE_HELP">If enabled a poll creator can change choices and question after the first vote was given.</Resource>
     <Resource tag="ALLOW_DISPLAY_COUNTRY">Allow Display Country:</Resource>
+    <Resource tag="ALLOW_DISPLAY_COUNTRY_HELP">If checked, the user country flag/name is displayed in the user data in messages list.</Resource>
     <Resource tag="ALLOW_DISPLAY_GENDER">Allow Display Gender:</Resource>
     <Resource tag="ALLOW_DISPLAY_GENDER_HELP">If checked, the user gender is displayed in the user data in messages list.</Resource>
     <Resource tag="ALLOW_EMAIL_CHANGE">Allow Email Change:</Resource>
