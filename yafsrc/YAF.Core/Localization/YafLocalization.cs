@@ -201,7 +201,7 @@ namespace YAF.Core
     /// </remarks>
     public string FormatString([NotNull] string format, [NotNull] params object[] args)
     {
-      return this.Culture.IsNeutralCulture ? format.FormatWith(args) : String.Format(this.Culture, format, args);
+      return this.Culture.IsNeutralCulture ? format.FormatWith(args) : string.Format(this.Culture, format, args);
     }
 
     /// <summary>
@@ -243,6 +243,7 @@ namespace YAF.Core
         this._localizer.SetPage(page);
         return this._localizer.GetCountryNodesUsingQuery(predicate);
     }
+
     /// <summary>
     /// The get nodes using query.
     /// </summary>
@@ -562,7 +563,7 @@ namespace YAF.Core
 
       string filename;
 
-      if (YafContext.Current.PageIsNull() || YafContext.Current.Page["LanguageFile"] == DBNull.Value ||
+      if (YafContext.Current.PageIsNull() || YafContext.Current.Page["LanguageFile"] == null ||
           !YafContext.Current.Get<YafBoardSettings>().AllowUserLanguage)
       {
           filename = YafContext.Current.Get<YafBoardSettings>().Language;
