@@ -363,7 +363,6 @@ namespace YAF.Pages
 
             this.SetupUserStatistics(userData);
 
-            // private messages
             this.SetupUserLinks(userData);
 
             this.SetupAvatar(this.UserId, userData);
@@ -477,7 +476,7 @@ namespace YAF.Pages
             // homepage link
             this.Home.Visible = userData.Profile.Homepage.IsSet();
             this.SetupThemeButtonWithLink(this.Home, userData.Profile.Homepage);
-            this.Skype.ParamTitle0 = userName;
+            this.Home.ParamTitle0 = userName;
 
             // blog link
             this.Blog.Visible = userData.Profile.Blog.IsSet();
@@ -664,6 +663,7 @@ namespace YAF.Pages
 
                  this.Gender.InnerHtml = @"<a><img src=""{0}"" alt=""{1}"" title=""{1}"" /></a>&nbsp;{1}".FormatWith(imagePath, imageAlt);
             }
+
             if (this.User != null && !string.IsNullOrEmpty(userData.Profile.Occupation))
             {
                 this.OccupationTR.Visible = true;
