@@ -2804,34 +2804,34 @@ select
 		LastMessageID	= t.LastMessageID,
 		LastMessageFlags = t.LastMessageFlags,
 		LastUserID		= t.LastUserID,
-		LastUser		= IsNull(t.LastUserName,(select [Name] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=t.LastUserID)),
+		LastUser		= IsNull(t.LastUserName,(select [Name] from [{databaseOwner}].[{objectQualifier}User] x with(nolock) where x.UserID=t.LastUserID)),
 		LastTopicID		= t.TopicID,
 		TopicMovedID    = t.TopicMovedID,
 		LastTopicName	= t.Topic,
 		LastTopicStatus = t.Status,
 		b.Flags,
-		Viewing			= (select count(1) from [{databaseOwner}].[{objectQualifier}Active] x JOIN [{databaseOwner}].[{objectQualifier}User] usr ON x.UserID = usr.UserID where x.ForumID=b.ForumID AND usr.IsActiveExcluded = 0),
+		Viewing			= (select count(1) from [{databaseOwner}].[{objectQualifier}Active] x with(nolock) JOIN [{databaseOwner}].[{objectQualifier}User] usr with(nolock) ON x.UserID = usr.UserID where x.ForumID=b.ForumID AND usr.IsActiveExcluded = 0),
 		b.RemoteURL,		
 		ReadAccess = CONVERT(int,x.ReadAccess),
 		Style = case(@StyledNicks)
-			when 1 then  ISNULL((SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=t.LastUserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
-			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr 
-			join [{databaseOwner}].[{objectQualifier}Rank] r ON r.RankID = usr.RankID  where usr.UserID=t.LastUserID))  
+			when 1 then  ISNULL((SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e with(nolock)
+		    join [{databaseOwner}].[{objectQualifier}Group] f with(nolock) on f.GroupID=e.GroupID WHERE e.UserID=t.LastUserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
+			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr with(nolock)
+			join [{databaseOwner}].[{objectQualifier}Rank] r with(nolock) ON r.RankID = usr.RankID  where usr.UserID=t.LastUserID))  
 			else ''	 end,
 	    LastForumAccess = case(@FindLastRead)
 		     when 1 then
-		       (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x WHERE x.ForumID=b.ForumID AND x.UserID = @UserID)
+		       (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x with(nolock) WHERE x.ForumID=b.ForumID AND x.UserID = @UserID)
 		     else ''	 end,
 		LastTopicAccess = case(@FindLastRead)
 		     when 1 then
-		       (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=t.TopicID AND y.UserID = @UserID)
+		       (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y with(nolock) WHERE y.TopicID=t.TopicID AND y.UserID = @UserID)
 		     else ''	 end 					
 	from 
-		[{databaseOwner}].[{objectQualifier}Category] a
-		join [{databaseOwner}].[{objectQualifier}Forum] b on b.CategoryID=a.CategoryID
-		join [{databaseOwner}].[{objectQualifier}ActiveAccess] x on x.ForumID=b.ForumID
-		left outer join [{databaseOwner}].[{objectQualifier}Topic] t ON t.TopicID = [{databaseOwner}].[{objectQualifier}forum_lasttopic](b.ForumID,@UserID,b.LastTopicID,b.LastPosted)
+		[{databaseOwner}].[{objectQualifier}Category] a with(nolock)
+		join [{databaseOwner}].[{objectQualifier}Forum] b with(nolock) on b.CategoryID=a.CategoryID
+		join [{databaseOwner}].[{objectQualifier}ActiveAccess] x with(nolock) on x.ForumID=b.ForumID
+		left outer join [{databaseOwner}].[{objectQualifier}Topic] t with(nolock) ON t.TopicID = [{databaseOwner}].[{objectQualifier}forum_lasttopic](b.ForumID,@UserID,b.LastTopicID,b.LastPosted)
 	where 		
 		(@CategoryID is null or a.CategoryID=@CategoryID) and		
 		 x.UserID = @UserID and		

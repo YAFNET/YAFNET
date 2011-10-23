@@ -155,7 +155,7 @@ BEGIN
 					@LastPosted=a.LastPosted
 				FROM
 					[{databaseOwner}].[{objectQualifier}Forum] a WITH(NOLOCK)
-					INNER JOIN [{databaseOwner}].[{objectQualifier}vaccess] x WITH(NOLOCK) ON a.ForumID=x.ForumID
+					INNER JOIN [{databaseOwner}].[{objectQualifier}ActiveAccess] x WITH(NOLOCK) ON a.ForumID=x.ForumID
 				WHERE
 					a.ForumID = @ForumID AND a.IsHidden = 0
 		END			
@@ -166,7 +166,7 @@ BEGIN
 					@LastPosted=a.LastPosted
 				FROM
 					[{databaseOwner}].[{objectQualifier}Forum] a WITH(NOLOCK)
-					INNER JOIN [{databaseOwner}].[{objectQualifier}vaccess] x WITH(NOLOCK) ON a.ForumID=x.ForumID
+					INNER JOIN [{databaseOwner}].[{objectQualifier}ActiveAccess] x WITH(NOLOCK) ON a.ForumID=x.ForumID
 				WHERE
 					(a.IsHidden = 0 or x.ReadAccess <> 0) AND a.ForumID=@ForumID and x.UserID=@UserID
 		END	
@@ -182,7 +182,7 @@ BEGIN
 				a.LastPosted
 			FROM
 				[{databaseOwner}].[{objectQualifier}Forum] a WITH(NOLOCK)
-				JOIN [{databaseOwner}].[{objectQualifier}vaccess] x WITH(NOLOCK) ON a.ForumID=x.ForumID
+				JOIN [{databaseOwner}].[{objectQualifier}ActiveAccess] x WITH(NOLOCK) ON a.ForumID=x.ForumID
 			WHERE
 				a.ParentID=@ForumID and
 				(					
@@ -195,7 +195,7 @@ BEGIN
 				a.LastPosted
 			FROM
 				[{databaseOwner}].[{objectQualifier}Forum] a WITH(NOLOCK)
-				JOIN [{databaseOwner}].[{objectQualifier}vaccess]x WITH(NOLOCK) ON a.ForumID=x.ForumID
+				JOIN [{databaseOwner}].[{objectQualifier}ActiveAccess]x WITH(NOLOCK) ON a.ForumID=x.ForumID
 			WHERE
 				a.ParentID=@ForumID and
 				(					
@@ -274,7 +274,7 @@ BEGIN
 					@LastPosted=a.LastPosted
 				FROM
 					[{databaseOwner}].[{objectQualifier}Forum] a WITH(NOLOCK)
-					INNER JOIN [{databaseOwner}].[{objectQualifier}vaccess] x WITH(NOLOCK) ON a.ForumID=x.ForumID
+					INNER JOIN [{databaseOwner}].[{objectQualifier}ActiveAccess] x WITH(NOLOCK) ON a.ForumID=x.ForumID
 				WHERE
 					a.ForumID = @ForumID AND a.IsHidden = 0
 		END			
@@ -285,7 +285,7 @@ BEGIN
 					@LastPosted=a.LastPosted
 				FROM
 					[{databaseOwner}].[{objectQualifier}Forum] a WITH(NOLOCK)
-					INNER JOIN [{databaseOwner}].[{objectQualifier}vaccess] x WITH(NOLOCK) ON a.ForumID=x.ForumID
+					INNER JOIN [{databaseOwner}].[{objectQualifier}ActiveAccess] x WITH(NOLOCK) ON a.ForumID=x.ForumID
 				WHERE
 					(a.IsHidden = 0 or x.ReadAccess <> 0) AND a.ForumID=@ForumID and x.UserID=@UserID
 		END	
@@ -302,7 +302,7 @@ BEGIN
 				a.LastPosted
 			FROM
 				[{databaseOwner}].[{objectQualifier}Forum] a WITH(NOLOCK)
-				JOIN [{databaseOwner}].[{objectQualifier}vaccess] x WITH(NOLOCK) ON a.ForumID=x.ForumID
+				JOIN [{databaseOwner}].[{objectQualifier}ActiveAccess] x WITH(NOLOCK) ON a.ForumID=x.ForumID
 			WHERE
 				a.ParentID=@ForumID and
 				(					
@@ -315,7 +315,7 @@ BEGIN
 				a.LastPosted
 			FROM
 				[{databaseOwner}].[{objectQualifier}Forum] a WITH(NOLOCK)
-				JOIN [{databaseOwner}].[{objectQualifier}vaccess]x WITH(NOLOCK) ON a.ForumID=x.ForumID
+				JOIN [{databaseOwner}].[{objectQualifier}ActiveAccess]x WITH(NOLOCK) ON a.ForumID=x.ForumID
 			WHERE
 				a.ParentID=@ForumID and
 				(					
