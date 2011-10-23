@@ -204,12 +204,12 @@ namespace YAF.Pages
       // Ederon : 9/9/2007 - moderaotrs can attach in locked posts
       if (this._topic["Flags"].BinaryAnd(TopicFlags.Flags.IsLocked) && !this.PageContext.ForumModeratorAccess)
       {
-        YafBuildLink.AccessDenied( /*"The topic is closed."*/);
+        YafBuildLink.AccessDenied(/*"The topic is closed."*/);
       }
 
       if (this._forum["Flags"].BinaryAnd(ForumFlags.Flags.IsLocked))
       {
-        YafBuildLink.AccessDenied( /*"The forum is closed."*/);
+        YafBuildLink.AccessDenied(/*"The forum is closed."*/);
       }
 
       // Check that non-moderators only edit messages they have written
@@ -219,7 +219,7 @@ namespace YAF.Pages
         {
           if ((int)dt.Rows[0]["UserID"] != this.PageContext.PageUserID)
           {
-            YafBuildLink.AccessDenied( /*"You didn't post this message."*/);
+            YafBuildLink.AccessDenied(/*"You didn't post this message."*/);
           }
         }
       }
@@ -313,7 +313,7 @@ namespace YAF.Pages
       DataTable dt = LegacyDb.attachment_list(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"), null, null);
       this.List.DataSource = dt;
 
-      this.List.Visible = (dt.Rows.Count > 0) ? true : false;
+      this.List.Visible = dt.Rows.Count > 0;
 
       // show disallowed or allowed localized text depending on the Board Setting
       this.ExtensionTitle.LocalizedTag = this.Get<YafBoardSettings>().FileExtensionAreAllowed
@@ -404,16 +404,6 @@ namespace YAF.Pages
         return;
       }
 
-      string previousDirectory =
-        this.Get<HttpRequestBase>().MapPath(
-          string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
-
-      // check if Uploads folder exists
-      if (!Directory.Exists(previousDirectory))
-      {
-          Directory.CreateDirectory(previousDirectory);
-      }
-
       string filename = file.PostedFile.FileName;
 
       int pos = filename.LastIndexOfAny(new[] { '/', '\\' });
@@ -446,7 +436,18 @@ namespace YAF.Pages
       }
       else
       {
+          string previousDirectory =
+              this.Get<HttpRequestBase>().MapPath(
+                  string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
+
+          // check if Uploads folder exists
+          if (!Directory.Exists(previousDirectory))
+          {
+              Directory.CreateDirectory(previousDirectory);
+          }
+
         file.PostedFile.SaveAs("{0}/{1}.{2}.yafupload".FormatWith(previousDirectory, messageID, filename));
+
         LegacyDb.attachment_save(messageID, filename, file.PostedFile.ContentLength, file.PostedFile.ContentType, null);
       }
     }
