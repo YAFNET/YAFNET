@@ -332,6 +332,14 @@
                             <asp:CheckBox ID="AllowGenderInUserBox" runat="server"></asp:CheckBox>
                         </td>
                     </tr>
+                     <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel202" runat="server" LocalizedTag="ALLOW_DISPLAY_COUNTRY" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="ShowCountryInfoInUserBox" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>
                     <tr>
                         <td class="postheader">
                             <YAF:HelpLabel ID="HelpLabel95" runat="server" LocalizedTag="ALLOW_USER_HIDE" LocalizedPage="ADMIN_HOSTSETTINGS" />

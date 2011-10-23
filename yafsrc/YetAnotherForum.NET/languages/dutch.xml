@@ -774,6 +774,8 @@
     <Resource tag="ALL_USERS">Alle Gebruikers</Resource>
     <Resource tag="ALLOW_CHANGE_AFTERVOTE">Allow Poll Changes After First Vote:</Resource>
     <Resource tag="ALLOW_CHANGE_AFTERVOTE_HELP">Als deze is aangevinkt, kan de auteur de keuzes en vraag wijzigen nadat er gestemd is.</Resource>
+    <Resource tag="ALLOW_DISPLAY_COUNTRY">Allow Display Country:</Resource>
+    <Resource tag="ALLOW_DISPLAY_COUNTRY_HELP">If checked, the user country flag/name is displayed in the user data in messages list.</Resource>
     <Resource tag="ALLOW_DISPLAY_GENDER">Laat geslacht zien:</Resource>
     <Resource tag="ALLOW_DISPLAY_GENDER_HELP">Als deze is aangevinkt, wordt het geslacht zichtbaar in de berichtenlijst.</Resource>
     <Resource tag="ALLOW_EMAIL_CHANGE">Sta e-mail wijzigen toe:</Resource>

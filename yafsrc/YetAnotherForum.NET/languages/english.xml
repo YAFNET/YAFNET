@@ -4632,6 +4632,8 @@ Visit {forumname} at {forumlink}
        <Resource tag="TIMEAGO_INTERVAL_HELP">This allows to set how often the "Time Ago" library should refresh the relative time (In Milliseconds, 60000 ms = 60 seconds = 1 minute).</Resource>
 	   <Resource tag="DYNAMIC_METATAGS">Add Dynamic Page Meta Tags:</Resource>
        <Resource tag="DYNAMIC_METATAGS_HELP">If checked, description and keywords meta tags will be created dynamically on the post pages.</Resource>
+       <Resource tag="ALLOW_DISPLAY_COUNTRY">Allow Display Country:</Resource>
+       <Resource tag="ALLOW_DISPLAY_COUNTRY_HELP">If checked, the user country flag/name is displayed in the user data in messages list.</Resource>
 	   <Resource tag="ALLOW_DISPLAY_GENDER">Allow Display Gender:</Resource>
        <Resource tag="ALLOW_DISPLAY_GENDER_HELP">If checked, the user gender is displayed in the user data in messages list.</Resource>
 	   <Resource tag="ALLOW_USER_HIDE">Allow User To Hide Himself:</Resource>

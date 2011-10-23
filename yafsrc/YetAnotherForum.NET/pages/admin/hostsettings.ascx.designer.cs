@@ -427,6 +427,15 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox CreateNntpUsers;
         
         /// <summary>
+        /// LocalizedLabel32 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel32;
+        
+        /// <summary>
         /// HelpLabel185 control.
         /// </summary>
         /// <remarks>
@@ -794,6 +803,24 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox AllowGenderInUserBox;
+        
+        /// <summary>
+        /// HelpLabel202 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel202;
+        
+        /// <summary>
+        /// ShowCountryInfoInUserBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ShowCountryInfoInUserBox;
         
         /// <summary>
         /// HelpLabel95 control.
@@ -1723,6 +1750,15 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.DropDownList FavoriteTopicFeedAccess;
         
         /// <summary>
+        /// LocalizedLabel30 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel30;
+        
+        /// <summary>
         /// HelpLabel108 control.
         /// </summary>
         /// <remarks>
@@ -1739,15 +1775,6 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox EnableIPInfoService;
-        
-        /// <summary>
-        /// LocalizedLabel30 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel30;
         
         /// <summary>
         /// HelpLabel109 control.
@@ -2360,6 +2387,24 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox ShowRecentUsers;
+        
+        /// <summary>
+        /// HelpLabel201 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel201;
+        
+        /// <summary>
+        /// ShowTodaysBirthdays control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ShowTodaysBirthdays;
         
         /// <summary>
         /// HelpLabel163 control.
