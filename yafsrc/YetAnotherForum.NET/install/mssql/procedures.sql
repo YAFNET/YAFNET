@@ -4237,6 +4237,53 @@ begin
 			from [{databaseOwner}].[{objectQualifier}vaccess] 
 			where UserID = @GuestID			
 	end 
+
+	IF @IsGuest = 0 AND NOT EXISTS(select top 1 1 from [{databaseOwner}].[{objectQualifier}ActiveAccess] WITH(NOLOCK) WHERE UserID = @UserID)
+	BEGIN
+		-- no permissions... use guest access instead
+		insert into [{databaseOwner}].[{objectQualifier}ActiveAccess](
+			UserID,
+			BoardID,
+			ForumID,
+			IsAdmin, 
+			IsForumModerator,
+			IsModerator,
+			IsGuestX,
+			LastActive, 
+			ReadAccess,
+			PostAccess,
+			ReplyAccess,
+			PriorityAccess,
+			PollAccess,
+			VoteAccess,	
+			ModeratorAccess,
+			EditAccess,
+			DeleteAccess,
+			UploadAccess,
+			DownloadAccess)
+			select 
+			@UserID, 
+			@BoardID, 
+			ForumID, 
+			IsAdmin,
+			IsForumModerator,
+			IsModerator,
+			0,
+			@CurrentTime,
+			ReadAccess,
+			(CONVERT([bit],sign([PostAccess]&(2)),(0))),
+			ReplyAccess,
+			PriorityAccess,
+			PollAccess,
+			VoteAccess,
+			ModeratorAccess,
+			EditAccess,
+			DeleteAccess,
+			UploadAccess,
+			DownloadAccess			
+		from [{databaseOwner}].[{objectQualifier}vaccess] 
+		where UserID = @GuestID				
+	END	
 	
 	-- get previous visit
 	if  @IsGuest = 0	 begin
