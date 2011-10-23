@@ -86,7 +86,7 @@ namespace YAF.Core
 		{
 			try
 			{
-				object userKey = DBNull.Value;
+				object userKey = null;
 
 				if (YafContext.Current.User != null)
 				{
@@ -117,27 +117,33 @@ namespace YAF.Core
 						@event.Data.DontTrack);
 
 					// if the user doesn't exist...
-					if (YafContext.Current.User != null && pageRow == null)
+					if (userKey != null && pageRow == null)
 					{
 						// create the user...
 						if (!RoleMembershipHelper.DidCreateForumUser(YafContext.Current.User, YafContext.Current.PageBoardID))
 						{
-							throw new ApplicationException("Failed to use new user.");
+							throw new ApplicationException("Failed to create new user.");
 						}
 					}
 
-					if (tries++ > 5)
+					if (tries++ >= 2)
 					{
+						if (userKey != null && pageRow == null)
+						{
+							// probably no permissions, use guest user instead...
+							userKey = null;
+							continue;
+						}
+
 						// fail...
 						break;
 					}
 				}
-				while (pageRow == null && YafContext.Current.User != null);
+				while (pageRow == null && userKey != null);
 
-				// page still hasn't been loaded...
 				if (pageRow == null)
 				{
-					throw new ApplicationException("Failed to find guest user.");
+					throw new ApplicationException("Unable to find the Guest User!");
 				}
 
 				// add all loaded page data into our data dictionary...

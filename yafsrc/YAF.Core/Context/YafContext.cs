@@ -412,10 +412,10 @@ namespace YAF.Core
 					this.BeforeInit(this, new EventArgs());
 				}
 
-				if (this.User != null && this.Get<HttpSessionStateBase>()["UserUpdated"] == null)
+				if (this.User != null && (this.Get<HttpSessionStateBase>()["UserUpdated"] == null || this.Get<HttpSessionStateBase>()["UserUpdated"].ToString() != this.User.UserName))
 				{
 					RoleMembershipHelper.UpdateForumUser(this.User, this.PageBoardID);
-					this.Get<HttpSessionStateBase>()["UserUpdated"] = true;
+					this.Get<HttpSessionStateBase>()["UserUpdated"] = this.User.UserName;
 				}
 
 				var pageLoadEvent = new InitPageLoadEvent();

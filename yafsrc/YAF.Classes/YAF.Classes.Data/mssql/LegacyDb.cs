@@ -6019,7 +6019,7 @@ namespace YAF.Classes.Data
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("SessionID", sessionID);
                         cmd.Parameters.AddWithValue("BoardID", boardID);
-                        cmd.Parameters.AddWithValue("UserKey", userKey);
+                        cmd.Parameters.AddWithValue("UserKey", userKey ?? DBNull.Value);
                         cmd.Parameters.AddWithValue("IP", ip);
                         cmd.Parameters.AddWithValue("Location", location);
                         cmd.Parameters.AddWithValue("ForumPage", forumPage);
