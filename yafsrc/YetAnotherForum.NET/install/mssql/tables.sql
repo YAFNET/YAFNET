@@ -1616,14 +1616,13 @@ begin
 end
 GO
 
-
-if exists (select top 1 1 from syscolumns where id=object_id(N'[{databaseOwner}].[{objectQualifier}Rank]') and name=N'PMLimit')
+if not exists (select top 1 1 from syscolumns where id=object_id(N'[{databaseOwner}].[{objectQualifier}Rank]') and name=N'PMLimit')
 begin	
-		alter table [{databaseOwner}].[{objectQualifier}Rank] add PMLimit int null 
-		grant update on [{databaseOwner}].[{objectQualifier}Rank] to public
-		exec('update [{databaseOwner}].[{objectQualifier}Rank] set PMLimit = 0 WHERE PMLimit IS NULL')
-		alter table [{databaseOwner}].[{objectQualifier}Rank] alter column [PMLimit] integer NOT NULL	
-		revoke update on [{databaseOwner}].[{objectQualifier}Rank] from public	
+	alter table [{databaseOwner}].[{objectQualifier}Rank] add PMLimit int null 
+	grant update on [{databaseOwner}].[{objectQualifier}Rank] to public
+	exec('update [{databaseOwner}].[{objectQualifier}Rank] set PMLimit = 0 WHERE PMLimit IS NULL')
+	alter table [{databaseOwner}].[{objectQualifier}Rank] alter column [PMLimit] integer NOT NULL
+	revoke update on [{databaseOwner}].[{objectQualifier}Rank] from public
 end
 GO
 
@@ -1700,15 +1699,6 @@ begin
 	alter table [{databaseOwner}].[{objectQualifier}Rank] drop column IsLadder
 end
 GO
-
-if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='PMLimit')
-begin
-	alter table [{databaseOwner}].[{objectQualifier}Rank] add PMLimit int null
-end
-GO
-
-
-
 
 --vzrus: eof migrate to independent multiple polls
 
