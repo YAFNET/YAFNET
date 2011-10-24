@@ -1237,7 +1237,12 @@ GO
 
 if not exists (select top 1 1 from syscolumns where id=object_id(N'[{databaseOwner}].[{objectQualifier}Group]') and name=N'PMLimit')
 begin
-		alter table [{databaseOwner}].[{objectQualifier}Group] add PMLimit int null
+		alter table [{databaseOwner}].[{objectQualifier}Group] add PMLimit int not null		
+end
+GO
+
+if exists (select top 1 1 from syscolumns where id=object_id(N'[{databaseOwner}].[{objectQualifier}Group]') and name=N'PMLimit' and isnullable=1)
+begin		
 		grant update on [{databaseOwner}].[{objectQualifier}Group] to public
 		exec('update [{databaseOwner}].[{objectQualifier}Group] set PMLimit = 30 WHERE PMLimit IS NULL')
 		alter table [{databaseOwner}].[{objectQualifier}Group] alter column [PMLimit] integer NOT NULL
