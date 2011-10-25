@@ -4186,104 +4186,7 @@ begin
 	-- Check valid TopicID
 	if @TopicID is not null and not exists(select 1 from [{databaseOwner}].[{objectQualifier}Topic] where TopicID=@TopicID) begin
 		set @TopicID = null
-	end
-
-	-- ensure that no duplicates and that the guest access rights always present in the access table 
-	 if not exists (select top 1
-			UserID	
-			from [{databaseOwner}].[{objectQualifier}ActiveAccess] 
-			where UserID = @GuestID)
-			begin				
-			insert into [{databaseOwner}].[{objectQualifier}ActiveAccess](
-			UserID,
-			BoardID,
-			ForumID,
-			IsAdmin, 
-			IsForumModerator,
-			IsModerator,
-			IsGuestX,
-			LastActive, 
-			ReadAccess,
-			PostAccess,
-			ReplyAccess,
-			PriorityAccess,
-			PollAccess,
-			VoteAccess,	
-			ModeratorAccess,
-			EditAccess,
-			DeleteAccess,
-			UploadAccess,
-			DownloadAccess)
-			select 
-			UserID, 
-			@BoardID, 
-			ForumID, 
-			IsAdmin,
-			IsForumModerator,
-			IsModerator,
-			@IsGuest,
-			@CurrentTime,
-			ReadAccess,
-			(CONVERT([bit],sign([PostAccess]&(2)),(0))),
-			ReplyAccess,
-			PriorityAccess,
-			PollAccess,
-			VoteAccess,
-			ModeratorAccess,
-			EditAccess,
-			DeleteAccess,
-			UploadAccess,
-			DownloadAccess			
-			from [{databaseOwner}].[{objectQualifier}vaccess] 
-			where UserID = @GuestID			
-	end 
-
-	IF @IsGuest = 0 AND NOT EXISTS(select top 1 1 from [{databaseOwner}].[{objectQualifier}ActiveAccess] WITH(NOLOCK) WHERE UserID = @UserID)
-	BEGIN
-		-- no permissions... use guest access instead
-		insert into [{databaseOwner}].[{objectQualifier}ActiveAccess](
-			UserID,
-			BoardID,
-			ForumID,
-			IsAdmin, 
-			IsForumModerator,
-			IsModerator,
-			IsGuestX,
-			LastActive, 
-			ReadAccess,
-			PostAccess,
-			ReplyAccess,
-			PriorityAccess,
-			PollAccess,
-			VoteAccess,	
-			ModeratorAccess,
-			EditAccess,
-			DeleteAccess,
-			UploadAccess,
-			DownloadAccess)
-			select 
-			@UserID, 
-			@BoardID, 
-			ForumID, 
-			IsAdmin,
-			IsForumModerator,
-			IsModerator,
-			0,
-			@CurrentTime,
-			ReadAccess,
-			(CONVERT([bit],sign([PostAccess]&(2)),(0))),
-			ReplyAccess,
-			PriorityAccess,
-			PollAccess,
-			VoteAccess,
-			ModeratorAccess,
-			EditAccess,
-			DeleteAccess,
-			UploadAccess,
-			DownloadAccess			
-		from [{databaseOwner}].[{objectQualifier}vaccess] 
-		where UserID = @GuestID				
-	END	
+	end	
 	
 	-- get previous visit
 	if  @IsGuest = 0	 begin
@@ -4333,56 +4236,7 @@ begin
 			a.ForumID = @ForumID and
 			b.BoardID = @BoardID
 	end
-	-- update active
-	-- ensure that access right are in place		
-		if not exists (select top 1
-			UserID	
-			from [{databaseOwner}].[{objectQualifier}ActiveAccess] WITH(NOLOCK) 
-			where UserID = @UserID )		
-			begin
-			insert into [{databaseOwner}].[{objectQualifier}ActiveAccess](
-			UserID,
-			BoardID,
-			ForumID,
-			IsAdmin, 
-			IsForumModerator,
-			IsModerator,
-			IsGuestX,
-			LastActive, 
-			ReadAccess,
-			PostAccess,
-			ReplyAccess,
-			PriorityAccess,
-			PollAccess,
-			VoteAccess,	
-			ModeratorAccess,
-			EditAccess,
-			DeleteAccess,
-			UploadAccess,
-			DownloadAccess)
-			select 
-			UserID, 
-			@BoardID, 
-			ForumID, 
-			IsAdmin,
-			IsForumModerator,
-			IsModerator,
-			@IsGuest,
-			@CurrentTime,
-			ReadAccess,
-			(CONVERT([bit],sign([PostAccess]&(2)),(0))),
-			ReplyAccess,
-			PriorityAccess,
-			PollAccess,
-			VoteAccess,
-			ModeratorAccess,
-			EditAccess,
-			DeleteAccess,
-			UploadAccess,
-			DownloadAccess			
-			from [{databaseOwner}].[{objectQualifier}vaccess] 
-			where UserID = @UserID
-			end
+	
 	if @DontTrack != 1 and @UserID is not null and @UserBoardID=@BoardID begin
 	  if exists(select 1 from [{databaseOwner}].[{objectQualifier}Active] where (SessionID=@SessionID OR ( Browser = @Browser AND (Flags & 8) = 8 )) and BoardID=@BoardID)
 		begin
@@ -4467,6 +4321,56 @@ begin
 		end
 		
 	end
+	-- update active access
+	-- ensure that access right are in place		
+		if not exists (select top 1
+			UserID	
+			from [{databaseOwner}].[{objectQualifier}ActiveAccess] WITH(NOLOCK) 
+			where UserID = @UserID )		
+			begin
+			insert into [{databaseOwner}].[{objectQualifier}ActiveAccess](
+			UserID,
+			BoardID,
+			ForumID,
+			IsAdmin, 
+			IsForumModerator,
+			IsModerator,
+			IsGuestX,
+			LastActive, 
+			ReadAccess,
+			PostAccess,
+			ReplyAccess,
+			PriorityAccess,
+			PollAccess,
+			VoteAccess,	
+			ModeratorAccess,
+			EditAccess,
+			DeleteAccess,
+			UploadAccess,
+			DownloadAccess)
+			select 
+			UserID, 
+			@BoardID, 
+			ForumID, 
+			IsAdmin,
+			IsForumModerator,
+			IsModerator,
+			@IsGuest,
+			@CurrentTime,
+			ReadAccess,
+			(CONVERT([bit],sign([PostAccess]&(2)),(0))),
+			ReplyAccess,
+			PriorityAccess,
+			PollAccess,
+			VoteAccess,
+			ModeratorAccess,
+			EditAccess,
+			DeleteAccess,
+			UploadAccess,
+			DownloadAccess			
+			from [{databaseOwner}].[{objectQualifier}vaccess] 
+			where UserID = @UserID 
+			end
 	-- return information
 	select top 1
 		ActiveUpdate        = ISNULL(@ActiveUpdate,0),
