@@ -3856,6 +3856,7 @@ Spoiler Content
     <Resource tag="ACCESSMASK">Tilgang</Resource>
     <Resource tag="BY">av {0}</Resource>
     <Resource tag="CONFIRM_DELETE">Slett emne?</Resource>
+    <Resource tag="CONFIRM_DELETE_USER">Delete this user?</Resource>
     <Resource tag="CONFIRM_DELETETOPICLINK">Delete the topic link? The topic itself will not be deleted.</Resource>
     <Resource tag="DELETED">Innlegg slettet.</Resource>
     <Resource tag="EDIT">Rediger</Resource>

@@ -3857,6 +3857,7 @@ Spoiler Content
     <Resource tag="ACCESSMASK">Přístupová maska</Resource>
     <Resource tag="BY">od {0}</Resource>
     <Resource tag="CONFIRM_DELETE">Odstranit toto téma?</Resource>
+    <Resource tag="CONFIRM_DELETE_USER">Delete this user?</Resource>
     <Resource tag="CONFIRM_DELETETOPICLINK">Delete the topic link? The topic itself will not be deleted.</Resource>
     <Resource tag="DELETED">Téma bylo odstraněno.</Resource>
     <Resource tag="EDIT">Upravit</Resource>

@@ -206,7 +206,7 @@ namespace YAF.Controls
             var users = this.Get<IDataCache>().GetOrSet(
                 Constants.Cache.TodaysBirthdays,
                 () => LegacyDb.User_ListTodaysBirthdays(this.PageContext.PageBoardID, this.Get<YafBoardSettings>().UseStyledNicks),
-                TimeSpan.FromDays(1));
+                TimeSpan.FromHours(1));
 
             if (users == null || users.Rows.Count <= 0)
             {

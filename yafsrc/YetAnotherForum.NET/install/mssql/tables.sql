@@ -184,8 +184,7 @@ GO
 
 if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}PollVoteRefuse]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	CREATE TABLE [{databaseOwner}].[{objectQualifier}PollVoteRefuse] (
-		[RefuseID] [int] IDENTITY (1, 1) NOT NULL ,
-		[BoardID] [int] NOT NULL ,
+		[RefuseID] [int] IDENTITY (1, 1) NOT NULL ,		
 		[PollID] [int] NOT NULL ,
 		[UserID] [int] NULL ,
 		[RemoteIP] [varchar] (57) NULL
@@ -930,6 +929,12 @@ begin
 	exec('update [{databaseOwner}].[{objectQualifier}User] set Flags = Flags | 1 where IsHostAdmin<>0')
 	revoke update on [{databaseOwner}].[{objectQualifier}User] from public
 	alter table [{databaseOwner}].[{objectQualifier}User] drop column IsHostAdmin
+end
+GO
+
+if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}PollVoteRefuse]') and name='BoardID')
+begin
+alter table [{databaseOwner}].[{objectQualifier}PollVoteRefuse] drop column [BoardID] 
 end
 GO
 

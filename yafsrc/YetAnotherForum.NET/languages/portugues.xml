@@ -3871,6 +3871,7 @@ Spoiler Content
     <Resource tag="ACCESSMASK">Máscara de Acesso</Resource>
     <Resource tag="BY">por {0}</Resource>
     <Resource tag="CONFIRM_DELETE">Excluir este Tópico?</Resource>
+    <Resource tag="CONFIRM_DELETE_USER">Delete this user?</Resource>
     <Resource tag="CONFIRM_DELETETOPICLINK">Delete the topic link? The topic itself will not be deleted.</Resource>
     <Resource tag="DELETED">Tópico excluído.</Resource>
     <Resource tag="EDIT">Editar</Resource>

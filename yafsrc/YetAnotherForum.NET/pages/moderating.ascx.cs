@@ -130,7 +130,7 @@ namespace YAF.Pages
 
       list.ForEach(x => LegacyDb.topic_delete(x.TopicRowID));
 
-      this.PageContext.AddLoadMessage(this.GetText("deleted"));
+      this.PageContext.AddLoadMessage(this.GetText("moderate", "deleted"));
       this.BindData();
     }
 
@@ -146,7 +146,7 @@ namespace YAF.Pages
     protected void DeleteUser_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       ((LinkButton)sender).Attributes["onclick"] =
-        "return confirm('{0}')".FormatWith("Remove this user from this forum?");
+        "return confirm('{0}')".FormatWith(this.GetText("moderate", "confirm_delete_user"));
     }
 
     /// <summary>
@@ -160,7 +160,7 @@ namespace YAF.Pages
     /// </param>
     protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      ((ThemeButton)sender).Attributes["onclick"] = "return confirm('{0}')".FormatWith(this.GetText("confirm_delete"));
+      ((ThemeButton)sender).Attributes["onclick"] = "return confirm('{0}')".FormatWith(this.GetText("moderate","confirm_delete"));
     }
 
     /// <summary>

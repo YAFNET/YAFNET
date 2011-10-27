@@ -3818,6 +3818,7 @@ Spoiler Content
     <Resource tag="ACCESSMASK">Zugangsmaske</Resource>
     <Resource tag="BY">von {0}</Resource>
     <Resource tag="CONFIRM_DELETE">Thema wirklich löschen?</Resource>
+    <Resource tag="CONFIRM_DELETE_USER">Delete this user?</Resource>
     <Resource tag="CONFIRM_DELETETOPICLINK">Themenlink löschen? Das Thema selber wird nicht gelöscht.</Resource>
     <Resource tag="DELETED">Thema gelöscht.</Resource>
     <Resource tag="EDIT">editieren</Resource>

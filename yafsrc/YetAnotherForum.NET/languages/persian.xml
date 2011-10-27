@@ -3862,6 +3862,7 @@ Spoiler Content
     <Resource tag="ACCESSMASK">سطح دسترسی</Resource>
     <Resource tag="BY">بوسیله {0}</Resource>
     <Resource tag="CONFIRM_DELETE">آیا این عنوان حذف شود?</Resource>
+    <Resource tag="CONFIRM_DELETE_USER">Delete this user?</Resource>
     <Resource tag="CONFIRM_DELETETOPICLINK">حذف پیوند موضوع؟ خود موضوع حذف نخواهد شد.</Resource>
     <Resource tag="DELETED">عنوان حذف شد.</Resource>
     <Resource tag="EDIT">ویرایش</Resource>

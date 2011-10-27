@@ -3874,6 +3874,7 @@ Spoiler Content
     <Resource tag="ACCESSMASK">权限模块</Resource>
     <Resource tag="BY">由 {0}</Resource>
     <Resource tag="CONFIRM_DELETE">删除此话题？</Resource>
+    <Resource tag="CONFIRM_DELETE_USER">Delete this user?</Resource>
     <Resource tag="CONFIRM_DELETETOPICLINK">Delete the topic link? The topic itself will not be deleted.</Resource>
     <Resource tag="DELETED">话题已删除.</Resource>
     <Resource tag="EDIT">编辑</Resource>

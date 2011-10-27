@@ -3810,6 +3810,7 @@ Spoiler Content
     <Resource tag="ACCESSMASK">Toegangsmasker</Resource>
     <Resource tag="BY">door {0}</Resource>
     <Resource tag="CONFIRM_DELETE">Dit topic verwijderen?</Resource>
+    <Resource tag="CONFIRM_DELETE_USER">Delete this user?</Resource>
     <Resource tag="CONFIRM_DELETETOPICLINK">Verwijder link naar het topic? Het topic zelf wordt niet verwijderd.</Resource>
     <Resource tag="DELETED">Topic verwijderd.</Resource>
     <Resource tag="EDIT">Bewerken</Resource>

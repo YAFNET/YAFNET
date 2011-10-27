@@ -3856,6 +3856,7 @@ Spoiler Content
     <Resource tag="ACCESSMASK">Erişim İzni</Resource>
     <Resource tag="BY">{0} Tarafından </Resource>
     <Resource tag="CONFIRM_DELETE">Bu Konuyu Sil?</Resource>
+    <Resource tag="CONFIRM_DELETE_USER">Delete this user?</Resource>
     <Resource tag="CONFIRM_DELETETOPICLINK">Konunun linkini silmek istiyor musunuz? Bu konu tek başına silinemez.</Resource>
     <Resource tag="DELETED">Konu Silindi.</Resource>
     <Resource tag="EDIT">Düzenle</Resource>

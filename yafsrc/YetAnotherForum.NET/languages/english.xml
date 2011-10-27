@@ -2378,6 +2378,7 @@ Spoiler Content
       <Resource tag="BY">by {0}</Resource>
       <Resource tag="CONFIRM_DELETE">Delete this topic?</Resource>
     <Resource tag="CONFIRM_DELETETOPICLINK">Delete the topic link? The topic itself will not be deleted.</Resource>
+     <Resource tag="CONFIRM_DELETE_USER">Delete this user?</Resource>
       <Resource tag="DELETED">Topic deleted.</Resource>
     <Resource tag="TOPICLINK_DELETED">The topic link is deleted.</Resource>
       <Resource tag="EDIT">Edit</Resource>

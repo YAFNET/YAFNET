@@ -3874,6 +3874,7 @@ Spoiler Content
     <Resource tag="ACCESSMASK">Маска доступа</Resource>
     <Resource tag="BY">автор {0}</Resource>
     <Resource tag="CONFIRM_DELETE">Удалить эту тему?</Resource>
+    <Resource tag="CONFIRM_DELETE_USER">Удалить этого пользователя из особого доступа к форуму?</Resource>
     <Resource tag="CONFIRM_DELETETOPICLINK">Удалить эту ссылку на тему? Сама тема удалена не будет.</Resource>
     <Resource tag="DELETED">Тема удалена.</Resource>
     <Resource tag="EDIT">Изменить</Resource>

@@ -3873,6 +3873,7 @@ Spoiler Content
     <Resource tag="ACCESSMASK">Adgangsmaske</Resource>
     <Resource tag="BY">af {0}</Resource>
     <Resource tag="CONFIRM_DELETE">Slet dette emne?</Resource>
+    <Resource tag="CONFIRM_DELETE_USER">Delete this user?</Resource>
     <Resource tag="CONFIRM_DELETETOPICLINK">Delete the topic link? The topic itself will not be deleted.</Resource>
     <Resource tag="DELETED">Emne slettet.</Resource>
     <Resource tag="EDIT">Ret</Resource>

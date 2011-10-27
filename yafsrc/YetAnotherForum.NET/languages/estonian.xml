@@ -3874,6 +3874,7 @@ Spoiler Content
     <Resource tag="ACCESSMASK">Ligipääsumask</Resource>
     <Resource tag="BY"> {0}</Resource>
     <Resource tag="CONFIRM_DELETE">Kas kustutan selle teema?</Resource>
+    <Resource tag="CONFIRM_DELETE_USER">Delete this user?</Resource>
     <Resource tag="CONFIRM_DELETETOPICLINK">Kas kustutan teema lingi? Teema ise jääb alles.</Resource>
     <Resource tag="DELETED">Teema kustutatud.</Resource>
     <Resource tag="EDIT">Muuda</Resource>

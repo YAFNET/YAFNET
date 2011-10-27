@@ -3972,6 +3972,7 @@ Spoiler Content
     <Resource tag="ACCESSMASK">Prieiga kaukė </Resource>
     <Resource tag="BY">iš {0} </Resource>
     <Resource tag="CONFIRM_DELETE">Ištrinti šią temą? </Resource>
+    <Resource tag="CONFIRM_DELETE_USER">Delete this user?</Resource>
     <Resource tag="CONFIRM_DELETETOPICLINK">Delete the topic link? The topic itself will not be deleted.</Resource>
     <Resource tag="DELETED">Tema ištrinta. </Resource>
     <Resource tag="EDIT">Redaguoti </Resource>
