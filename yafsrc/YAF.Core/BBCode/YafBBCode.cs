@@ -93,7 +93,7 @@ namespace YAF.Core.BBCode
         /// <summary>
         /// The _rgx easy quote.
         /// </summary>
-        private const string _RgxEasyQuote = @"(\>)\s(?<inner>(.*?))$";
+        //private const string _RgxEasyQuote = @"(\>)\s(?<inner>(.*?))$";
 
         /// <summary>
         ///   The _rgx email 1.
@@ -520,8 +520,8 @@ namespace YAF.Core.BBCode
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
                         _rgxModalUrl1, 
-                        "<a {0} {1} {2} href=\"${http}${inner}\" title=\"${http}${inner}\">${http}${innertrunc}</a>".Replace("{0}", target).Replace("{1}", nofollow).Replace("{2}", ClassModal), 
-                        new[] { "http" }, 
+                        "<a {0} {1} {2} href=\"${http}${inner}\" title=\"${http}${inner}\">${http}${innertrunc}</a>".Replace("{0}", target).Replace("{1}", nofollow).Replace("{2}", ClassModal),
+                        new[] { "http" },
                         new[]
                             {
                                 string.Empty, string.Empty // "http://"
@@ -580,11 +580,14 @@ namespace YAF.Core.BBCode
                         new[] { "http", "description" }, 
                         new[] { "http://" }));
 
+                // tha_watcha : Easy Quote Disabled http://forum.yetanotherforum.net/yaf_postst13495_Addition-of-Easy-Quote-RegEx-in-Revision-4906.aspx
+                // Looks like it doesnt work as expected should be correctly implemented or else removed.
+                //
                 // add easy quoting...
-                var easyQuoteRule = new SimpleRegexReplaceRule(
+                /*var easyQuoteRule = new SimpleRegexReplaceRule(
                     _RgxEasyQuote, 
                     @"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=""easyquote"">${inner}</span>", 
-                    RegexOptions.IgnoreCase | RegexOptions.Multiline);
+                    RegexOptions.IgnoreCase | RegexOptions.Multiline);*/
 
                 // basic hr and br rules
                 var hrRule = new SingleRegexReplaceRule(
@@ -598,7 +601,7 @@ namespace YAF.Core.BBCode
                     };
 
                 // Ensure the newline rule is processed after the HR rule, otherwise the newline characters in the HR regex will never match
-                ruleEngine.AddRule(easyQuoteRule);
+                //ruleEngine.AddRule(easyQuoteRule);
                 ruleEngine.AddRule(hrRule);
                 ruleEngine.AddRule(brRule);
             }
