@@ -998,19 +998,19 @@ namespace YAF.Pages.Admin
         object pollID = null;
 
         long topicID = LegacyDb.topic_save(
-          forumID, 
-          this.TopicPrefixTB.Text.Trim() + this.randomGuid, 
-          this.MessageContentPrefixTB.Text.Trim() + this.randomGuid,
-          null,
-          null,
-          this.PageContext.PageUserID, 
-          _priority, 
-          this.PageContext.User.UserName, 
-          this.Request.UserHostAddress,
-          DateTime.UtcNow, 
-          string.Empty, 
-          this.GetMessageFlags(), 
-          ref messageid);
+         forumID,
+         this.TopicPrefixTB.Text.Trim() + this.randomGuid,
+         string.Empty,
+         this.TopicPrefixTB.Text.Trim() + this.randomGuid + "descr",
+         this.MessageContentPrefixTB.Text.Trim() + this.randomGuid,
+         this.PageContext.PageUserID,
+         _priority,
+         this.PageContext.User.UserName,
+         this.Request.UserHostAddress,
+         DateTime.UtcNow,
+         string.Empty,
+         this.GetMessageFlags(),
+         ref messageid);
 
         if (this.PollCreate.Checked)
         {
