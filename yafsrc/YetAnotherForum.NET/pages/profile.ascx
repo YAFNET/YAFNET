@@ -10,7 +10,7 @@
 <%@ Register TagPrefix="YAF" TagName="BuddyList" Src="../controls/BuddyList.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="AlbumList" Src="../controls/AlbumList.ascx" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
-<table class="content" width="100%" cellspacing="1" cellpadding="0">
+<table class="content profileContent" width="100%" cellspacing="1" cellpadding="0">
 	<tr>
 		<td class="header1" colspan="2">
 			<YAF:LocalizedLabel runat="server" LocalizedTag="profile" />
