@@ -10606,7 +10606,7 @@ namespace YAF.Classes.Data
                         valueStr.Append(valueParam);
                         cmd.Parameters.AddWithValue(valueParam, values[column.Settings.Name].PropertyValue);
 
-                        if (column.DataType != SqlDbType.Timestamp)
+                        if ((column.DataType != SqlDbType.Timestamp) || column.Settings.Name != "LastUpdatedDate" || column.Settings.Name != "LastActivity")
                         {
                             if (count > 0)
                             {
