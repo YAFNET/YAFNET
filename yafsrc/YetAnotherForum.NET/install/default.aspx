@@ -14,26 +14,7 @@
 <body>
     <form id="Form1" runat="server">
     <script type="text/javascript">
-        jQuery('#Form1').submit(function () {
-            jQuery('.wizStep').animate({ opacity: '0.4' }, 'fast');
-            jQuery('#YafLoader').css({top:'40%',left:'50%',margin: '-' + (jQuery('#YafLoader').height() / 2)+ 'px 0 0 -'+(jQuery('#YafLoader').width() / 2)+'px'});
-			jQuery('#YafLoader').show();
-        });	
-		
-		// PreLoad Loading Image
-		(function($) {
-                      var cache = [];
-                      $.preLoadImages = function() {
-                      var args_len = arguments.length;
-                      for (var i = args_len; i--;) {
-                      var cacheImage = document.createElement('img');
-                      cacheImage.src = arguments[i];
-                      cache.push(cacheImage);
-                      }
-                      }
-         })(jQuery)
-
-         jQuery.preLoadImages("loader.gif", "../resources/images/loader.gif");
+        jQuery('#Form1').submit(function () { jQuery('.wizStep').animate({ opacity: '0.4' }, 'fast'); jQuery('#YafLoader').css({ top: '40%', left: '50%', margin: '-' + (jQuery('#YafLoader').height() / 2) + 'px 0 0 -' + (jQuery('#YafLoader').width() / 2) + 'px' }); jQuery('#YafLoader').show() }); (function ($) { var cache = []; $.preLoadImages = function () { var args_len = arguments.length; for (var i = args_len; i--; ) { var cacheImage = document.createElement('img'); cacheImage.src = arguments[i]; cache.push(cacheImage) } } })(jQuery); jQuery.preLoadImages("loader.gif", "../resources/images/loader.gif");
     </script>
     <asp:ScriptManager ID="ScriptManager1" runat="server">
     </asp:ScriptManager>

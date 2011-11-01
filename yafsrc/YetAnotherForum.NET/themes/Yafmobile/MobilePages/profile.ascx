@@ -105,6 +105,32 @@
 								</td>
 								<td class="post" runat="server" id="RealName" />
 							</tr>
+                            <tr runat="server" id="CountryTR" visible="false">
+								<td class="postheader">
+								<YAF:LocalizedLabel ID="LocalizedLabel27" runat="server" LocalizedTag="country" />
+								</td>
+								<td class="post">
+									<img id="CountryFlagImage" runat="server" alt=""
+                                    title=""
+                                    src="" />&nbsp;<asp:Label ID="CountryLabel" runat="server" />
+								</td>
+							</tr>
+                            <tr runat="server" id="RegionTR" visible="false">
+								<td class="postheader">
+									<YAF:LocalizedLabel ID="LocalizedLabel28" runat="server" LocalizedTag="region" />
+								</td>
+								<td class="post">
+									<asp:Label ID="RegionLabel" runat="server" />
+								</td>
+							</tr>
+                            <tr runat="server" id="CityTR" visible="false">
+								<td class="postheader">
+									<YAF:LocalizedLabel ID="LocalizedLabel26" runat="server" LocalizedTag="city" />
+								</td>
+								<td class="post">
+									<asp:Label ID="CityLabel" runat="server" />
+								</td>
+							</tr>
 							<tr runat="server" id="LocationTR" visible="false">
 								<td class="postheader">
 									<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="location" />
@@ -187,6 +213,22 @@
 									<asp:Label ID="lblskype" runat="server" />
 								</td>
 							</tr>
+                            <tr  runat="server" id="FacebookTR" visible="false">
+								<td class="postheader">
+									<YAF:LocalizedLabel ID="LocalizedLabel24" runat="server" LocalizedTag="Facebook" />
+								</td>
+								<td class="post">
+									<asp:Label ID="lblfacebook" runat="server" />
+								</td>
+							</tr>
+                            <tr  runat="server" id="TwitterTR" visible="false">
+								<td class="postheader">
+									<YAF:LocalizedLabel ID="LocalizedLabel25" runat="server" LocalizedTag="Twitter" />
+								</td>
+								<td class="post">
+									<asp:Label ID="lbltwitter" runat="server" />
+								</td>
+							</tr>
 						</table>
                 </div>
                 <div id="StatisticsTab">
@@ -237,6 +279,14 @@
 								</td>
 								<td class="post">
 									<asp:Label ID="ThanksToPosts" runat="server" />
+								</td>
+							</tr>
+                            <tr id="divRR" runat="server" visible="<%# this.Get<YafBoardSettings>().EnableUserReputation %>">
+								<td class="postheader">
+									<YAF:LocalizedLabel ID="LocalizedLabel29" runat="server" LocalizedTag="REPUTATION_RECEIVED" />
+								</td>
+								<td class="post">
+									<asp:Label ID="ReputationReceived" runat="server" />
 								</td>
 							</tr>
 						</table>

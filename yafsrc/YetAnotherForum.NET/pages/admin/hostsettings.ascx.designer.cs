@@ -1831,6 +1831,123 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.TextBox IPInfoPageURL;
         
         /// <summary>
+        /// LocalizedLabel33 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel33;
+        
+        /// <summary>
+        /// HelpLabel203 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel203;
+        
+        /// <summary>
+        /// EnableUserReputation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox EnableUserReputation;
+        
+        /// <summary>
+        /// HelpLabel204 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel204;
+        
+        /// <summary>
+        /// ReputationAllowNegative control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ReputationAllowNegative;
+        
+        /// <summary>
+        /// HelpLabel207 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel207;
+        
+        /// <summary>
+        /// ReputationMaxNegative control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ReputationMaxNegative;
+        
+        /// <summary>
+        /// HelpLabel208 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel208;
+        
+        /// <summary>
+        /// ReputationMaxPositive control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ReputationMaxPositive;
+        
+        /// <summary>
+        /// HelpLabel205 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel205;
+        
+        /// <summary>
+        /// ReputationMinUpVoting control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ReputationMinUpVoting;
+        
+        /// <summary>
+        /// HelpLabel206 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel206;
+        
+        /// <summary>
+        /// ReputationMinDownVoting control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ReputationMinDownVoting;
+        
+        /// <summary>
         /// LocalizedLabel27 control.
         /// </summary>
         /// <remarks>
@@ -3334,13 +3451,13 @@ namespace YAF.Pages.Admin {
         protected global::YAF.Controls.HelpLabel HelpLabel65;
         
         /// <summary>
-        /// UserBoxPoints control.
+        /// UserBoxReputation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox UserBoxPoints;
+        protected global::System.Web.UI.WebControls.TextBox UserBoxReputation;
         
         /// <summary>
         /// HelpLabel196 control.

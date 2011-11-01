@@ -804,6 +804,59 @@
                     </tr>
                     <tr>
                         <td class="header1" colspan="2">
+                            <YAF:LocalizedLabel ID="LocalizedLabel33" runat="server" LocalizedTag="HEADER_REPUTATION" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel203" runat="server" LocalizedTag="ENABLE_USERREPUTATION" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="EnableUserReputation" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel204" runat="server" LocalizedTag="REPUTATION_ALLOWNEGATIVE" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="ReputationAllowNegative" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel207" runat="server" LocalizedTag="REPUTATION_MIN" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:TextBox Style="width:350px" ID="ReputationMaxNegative" runat="server"></asp:TextBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel208" runat="server" LocalizedTag="REPUTATION_MAX" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:TextBox Style="width:350px" ID="ReputationMaxPositive" runat="server"></asp:TextBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel205" runat="server" LocalizedTag="REPUTATION_MINUP" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:TextBox Style="width:350px" ID="ReputationMinUpVoting" runat="server"></asp:TextBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel206" runat="server" LocalizedTag="REPUTATION_MINDOWN" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:TextBox Style="width:350px" ID="ReputationMinDownVoting" runat="server"></asp:TextBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="header1" colspan="2">
                             <YAF:LocalizedLabel ID="LocalizedLabel27" runat="server" LocalizedTag="HEADER_IRKOO" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                     </tr>
@@ -1505,10 +1558,10 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <YAF:HelpLabel ID="HelpLabel65" runat="server" LocalizedTag="POINTS_TEMPLATE" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                            <YAF:HelpLabel ID="HelpLabel65" runat="server" LocalizedTag="REPUTATION_TEMPLATE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
-                            <asp:TextBox Style="width:350px" ID="UserBoxPoints" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="UserBoxReputation" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                      <tr>

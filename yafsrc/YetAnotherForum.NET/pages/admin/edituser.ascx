@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.edituser" Codebehind="edituser.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.edituser" Codebehind="edituser.ascx.cs" %>
 <%@ Register TagPrefix="uc1" TagName="QuickEdit" Src="../../controls/EditUsersInfo.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="GroupsEdit" Src="../../controls/EditUsersGroups.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="ProfileEdit" Src="../../controls/EditUsersProfile.ascx" %>
@@ -18,7 +18,7 @@
                  <li><a href="#View4"><YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="USER_AVATAR" LocalizedPage="ADMIN_EDITUSER" /></a></li>
                  <li><a href="#View5"><YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="USER_SIG" LocalizedPage="ADMIN_EDITUSER" /></a></li>		        
                  <li runat="server" id="View6Li" Visible="<%#!IsGuestUser%>"><a href='#<%# this.View6.ClientID %>'><YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="USER_PASS" LocalizedPage="ADMIN_EDITUSER" /></a></li>	
-                 <li><a href="#View7"><YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="USER_POINTS" LocalizedPage="ADMIN_EDITUSER" /></a></li>
+                 <li><a href="#View7"><YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="USER_REPUTATION" LocalizedPage="ADMIN_EDITUSER" /></a></li>
                  <li runat="server" id="View8Li" Visible="<%#!IsGuestUser%>"><a href='#<%# this.View8.ClientID %>'><YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="USER_SUSPEND" LocalizedPage="ADMIN_EDITUSER" /></a></li>
                  <li runat="server" id="View9Li" Visible="<%#!IsGuestUser%>"><a href='#<%# this.View9.ClientID %>'><YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="USER_KILL" LocalizedPage="ADMIN_EDITUSER" /></a></li>
                </ul>

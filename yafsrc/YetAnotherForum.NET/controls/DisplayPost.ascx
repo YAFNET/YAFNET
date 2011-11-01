@@ -10,12 +10,15 @@
 <tr class="postheader">		
     <%#GetIndentCell()%>
     <td width="140" id="NameCell" class="postUser" runat="server">
-        <a name="post<%# DataRow["MessageID"] %>" /><b>						
+        <a name="post<%# DataRow["MessageID"] %>" /><strong>						
             <YAF:UserLink ID="UserProfileLink" runat="server" UserID='<%#DataRow["UserID"]%>' ReplaceName='<%#DataRow["UserName"]%>' PostfixText='<%# DataRow["IP"].ToString() == "NNTP" ? this.GetText("EXTERNALUSER") : String.Empty %>' Style='<%#DataRow["Style"]%>' CssClass="UserPopMenuLink" />
             <%# this.Get<YafBoardSettings>().ShowIrkooRepOnlyInTopics ? YafIrkoo.IrkRating(DataRow["UserID"]) : string.Empty%>
             <YAF:OnlineStatusImage id="OnlineStatusImage" runat="server" Visible='<%# this.Get<YafBoardSettings>().ShowUserOnlineStatus && !UserMembershipHelper.IsGuestUser( DataRow["UserID"] )%>' Style="vertical-align: bottom" UserID='<%# DataRow["UserID"] %>'  />
-        </b>
+        </strong>
+        <YAF:ThemeButton ID="AddReputation" runat="server" ImageThemeTag="VOTE_UP" Visible="false" TitleLocalizedTag="VOTE_UP_TITLE" OnClick="AddUserReputation"></YAF:ThemeButton>
+        <YAF:ThemeButton ID="RemoveReputation" runat="server" ImageThemeTag="VOTE_DOWN" Visible="false" TitleLocalizedTag="VOTE_DOWN_TITLE" OnClick="RemoveUserReputation"></YAF:ThemeButton>
         <div class="Irkoo" style="float:right">
+            
             <%#YafIrkoo.IrkVote(DataRow["MessageID"], DataRow["UserID"])%>
         </div>
     </td>

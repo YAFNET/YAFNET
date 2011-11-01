@@ -674,6 +674,7 @@ namespace YAF.Pages
             int[] thanksToArray = LegacyDb.user_getthanks_to(userData.DBRow["userID"], this.PageContext.PageUserID);
             this.ThanksToTimes.Text = thanksToArray[0].ToString();
             this.ThanksToPosts.Text = thanksToArray[1].ToString();
+            this.ReputationReceived.Text = userData.Points.ToString();
             this.OnlineStatusImage1.UserID = userID;
             this.OnlineStatusImage1.Visible = this.Get<YafBoardSettings>().ShowUserOnlineStatus;
 

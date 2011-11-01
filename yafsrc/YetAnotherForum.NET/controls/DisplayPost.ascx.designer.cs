@@ -130,6 +130,24 @@ namespace YAF.Controls {
         protected global::YAF.Controls.OnlineStatusImage OnlineStatusImage;
         
         /// <summary>
+        /// AddReputation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.ThemeButton AddReputation;
+        
+        /// <summary>
+        /// RemoveReputation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.ThemeButton RemoveReputation;
+        
+        /// <summary>
         /// LocalizedLabel1 control.
         /// </summary>
         /// <remarks>

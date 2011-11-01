@@ -257,7 +257,7 @@
 								</td>
 								<td class="post" runat="server" id="Stats" />
 							</tr>
-							<tr id="divTF" runat="server" visible="<%# PageContext.BoardSettings.EnableThanksMod %>">
+							<tr id="divTF" runat="server" visible="<%# this.Get<YafBoardSettings>().EnableThanksMod %>">
 								<td class="postheader">
 									<YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="THANKSFROM" />
 								</td>
@@ -266,7 +266,7 @@
                                     <asp:LinkButton ID="lnkThanks" runat="server" OnCommand="lnk_ViewThanks"/>
 								</td>
 							</tr>
-							<tr id="divTTT" runat="server" visible="<%# PageContext.BoardSettings.EnableThanksMod %>">
+							<tr id="divTTT" runat="server" visible="<%# this.Get<YafBoardSettings>().EnableThanksMod %>">
 								<td class="postheader">
 									<YAF:LocalizedLabel ID="LocalizedLabel20" runat="server" LocalizedTag="THANKSTOTIMES" />
 								</td>
@@ -274,12 +274,20 @@
 									<asp:Label ID="ThanksToTimes" runat="server" />
 								</td>
 							</tr>
-							<tr id="divTTP" runat="server" visible="<%# PageContext.BoardSettings.EnableThanksMod %>">
+							<tr id="divTTP" runat="server" visible="<%# this.Get<YafBoardSettings>().EnableThanksMod %>">
 								<td class="postheader">
 									<YAF:LocalizedLabel ID="LocalizedLabel21" runat="server" LocalizedTag="THANKSTOPOSTS" />
 								</td>
 								<td class="post">
 									<asp:Label ID="ThanksToPosts" runat="server" />
+								</td>
+							</tr>
+                            <tr id="divRR" runat="server" visible="<%# this.Get<YafBoardSettings>().EnableUserReputation %>">
+								<td class="postheader">
+									<YAF:LocalizedLabel ID="LocalizedLabel29" runat="server" LocalizedTag="REPUTATION_RECEIVED" />
+								</td>
+								<td class="post">
+									<asp:Label ID="ReputationReceived" runat="server" />
 								</td>
 							</tr>
 						</table>

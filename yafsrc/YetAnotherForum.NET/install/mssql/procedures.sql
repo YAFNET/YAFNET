@@ -3797,9 +3797,6 @@ BEGIN
 		UPDATE [{databaseOwner}].[{objectQualifier}Message] SET Position=Position+1 WHERE TopicID=@TopicID AND Position>=@Position
 	END
 
-	-- Add points to Users total points
-	UPDATE [{databaseOwner}].[{objectQualifier}User] SET Points = Points + 3 WHERE UserID = @UserID
-
 	INSERT [{databaseOwner}].[{objectQualifier}Message] ( UserID, [Message], TopicID, Posted, UserName, IP, ReplyTo, Position, Indent, Flags, BlogPostID, ExternalMessageId, ReferenceMessageId)
 	VALUES ( @UserID, @Message, @TopicID, @Posted, @UserName, @IP, @ReplyTo, @Position, @Indent, @Flags & ~16, @BlogPostID, @ExternalMessageId, @ReferenceMessageId)	
 	
@@ -7093,15 +7090,6 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_removepointsbytopicid] (@TopicID int,@Points int) AS
-BEGIN
-	
-	declare @UserID int
-	select @UserID = UserID from [{databaseOwner}].[{objectQualifier}Topic] where TopicID = @TopicID
-	update [{databaseOwner}].[{objectQualifier}User] SET points = points - @Points WHERE userID = @UserID
-END
-GO
-
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_resetpoints] AS
 BEGIN
 	
@@ -9443,7 +9431,8 @@ begin
 		UsrAlbums  = (CASE WHEN @G_UsrAlbums > @R_UsrAlbums THEN @G_UsrAlbums ELSE @R_UsrAlbums END),
 		UserHasBuddies  = SIGN(ISNULL((SELECT TOP 1 1 FROM [{databaseOwner}].[{objectQualifier}Buddy] WHERE [FromUserID] = @UserID OR [ToUserID] = @UserID),0)),
 		-- Guest can't vote in polls attached to boards, we need some temporary access check by a criteria 
-		BoardVoteAccess	= (CASE WHEN a.Flags & 4 > 0 THEN 0 ELSE 1 END)
+		BoardVoteAccess	= (CASE WHEN a.Flags & 4 > 0 THEN 0 ELSE 1 END),
+		Reputation         = a.Points
 		from
 		   [{databaseOwner}].[{objectQualifier}User] a		
 		where

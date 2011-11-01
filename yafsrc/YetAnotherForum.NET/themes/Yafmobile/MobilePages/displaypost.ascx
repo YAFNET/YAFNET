@@ -26,10 +26,12 @@
             <YAF:ThemeButton ID="Quote" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_QUOTE"
                 TitleLocalizedTag="BUTTON_QUOTE_TT" />
             <asp:CheckBox runat="server" ID="MultiQuote" CssClass="MultiQuoteButton" AutoPostBack="true" OnCheckedChanged="HandleMultiQuote"  />
-        <a name="post<%# DataRow["MessageID"] %>" /><b>						
+        <a name="post<%# DataRow["MessageID"] %>" /><strong>						
             <YAF:UserLink ID="UserProfileLink" runat="server" UserID='<%#DataRow["UserID"]%>' Style='<%#DataRow["Style"]%>' />
             <YAF:OnlineStatusImage id="OnlineStatusImage" runat="server" Visible='<%# PageContext.BoardSettings.ShowUserOnlineStatus && !UserMembershipHelper.IsGuestUser( DataRow["UserID"] )%>' Style="vertical-align: bottom" UserID='<%# DataRow["UserID"] %>'  />
-        </b>
+        </strong>
+        <YAF:ThemeButton ID="AddReputation" runat="server" ImageThemeTag="VOTE_UP" Visible="false" TitleLocalizedTag="VOTE_UP_TITLE" OnClick="AddUserReputation"></YAF:ThemeButton>
+        <YAF:ThemeButton ID="RemoveReputation" runat="server" ImageThemeTag="VOTE_DOWN" Visible="false" TitleLocalizedTag="VOTE_DOWN_TITLE" OnClick="RemoveUserReputation"></YAF:ThemeButton>
         <br />
         <div class="leftItem postedLeft">        
             <strong><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="POSTED" />

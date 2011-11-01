@@ -201,6 +201,8 @@ namespace YAF.Classes
 
                 if (yafUser.Facebook.Equals(id))
                 {
+                    //// TODO: Add Flag to User that indicates that the user is logged in via facebook
+
                     FormsAuthentication.SetAuthCookie(userName, remember);
 
                     YafContext.Current.Get<IRaiseEvent>().Raise(
@@ -299,6 +301,8 @@ namespace YAF.Classes
                 this.Get<IDataCache>().Remove(Constants.Cache.ActiveUserLazyData.FormatWith(userId));
 
                 this.Get<IRaiseEvent>().Raise(new NewUserRegisteredEvent(user, userId));
+
+                //// TODO: Add Flag to User that indicates that the user is logged in via facebook
 
                 FormsAuthentication.SetAuthCookie(user.UserName, remember);
 

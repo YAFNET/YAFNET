@@ -669,8 +669,8 @@
     <Resource tag="USER_DETAILS">Benutzer-Details</Resource>
     <Resource tag="USER_KILL">User Kill Aktivität</Resource>
     <Resource tag="USER_PASS">Benutzer Passwort</Resource>
-    <Resource tag="USER_POINTS">Benutzer Punkte</Resource>
     <Resource tag="USER_PROFILE">Benutzerprofil</Resource>
+    <Resource tag="USER_REPUTATION">Benutzer Reputation</Resource>
     <Resource tag="USER_ROLES">Benutzergruppen</Resource>
     <Resource tag="USER_SIG">Benutzer Signatur</Resource>
     <Resource tag="USER_SUSPEND">Benutzer Suspendieren</Resource>
@@ -892,6 +892,9 @@
     <Resource tag="ENABLE_RETWEET_MSG_HELP">Aktiviert / deaktiviert den Retweet Button, wo der Benutzer ein Beitrag retweeten kann.</Resource>
     <Resource tag="ENABLE_SSO">Single Sign On Aktivieren:</Resource>
     <Resource tag="ENABLE_SSO_HELP">Wenn diese Option aktiviert ist, können Benutzer sich über Facebook anmelden. Dies funktioniert nur wenn YAF.FacebookAPIKey und YAF.FacebookSecretKey in der app.config vorhanden sind.</Resource>
+    <Resource tag="ENABLE_USERREPUTATION">Use Reputation System:</Resource>
+    <Resource tag="ENABLE_USERREPUTATION_HELP">Setting to Enable/Disable the Build-In Reputation System to allow Users Give or Remove Reputation.</Resource>
+    <Resource tag="REPUTATION_ALLOWNEGATIVE_HELP">If allowed Users can get Negative Reputation Numbers.</Resource>
     <Resource tag="EXTERN_NEWWINDOW">Externe Suchergebnisse in einem neuen Fenster:</Resource>
     <Resource tag="EXTERN_NEWWINDOW_HELP">Externe Suchergebnisse in einem neuen Fenster Öffnen.</Resource>
     <Resource tag="EXTERN_SEARCH_PERMISS">Externe Suchberechtigungen:</Resource>
@@ -934,6 +937,7 @@
     <Resource tag="HEADER_PERMISSION">Berechtigungseinstellungen</Resource>
     <Resource tag="HEADER_PMS">Private Nachrichten</Resource>
     <Resource tag="HEADER_POLL">Abstimmungseinstellungen</Resource>
+    <Resource tag="HEADER_REPUTATION">Reputation Settings</Resource>
     <Resource tag="HEADER_SEARCH">Sucheinstellungen</Resource>
     <Resource tag="HEADER_SETUP">Host Konfiguration</Resource>
     <Resource tag="HEADER_SPAM">Spam Einstellungen</Resource>
@@ -1018,8 +1022,6 @@
     <Resource tag="NOFOLLOW_LINKTAGS_HELP">Wenn aktiviert, werden alle Links ein "nofollow"-Tag haben.</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT">Online Benutzer Status Speicher Ablaufzeit:</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT_HELP">Sie können eine Feinabstimmung je nach der Webseiten Aktivität (in Millisekunden)</Resource>
-    <Resource tag="POINTS_TEMPLATE">Punkte Vorlage:</Resource>
-    <Resource tag="POINTS_TEMPLATE_HELP">Vorlage für die Darstellung von Benutzer-Punkten.</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE">Max. Dateigröße für Benutzer definierte Umfrage Bilder:</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE_HELP">Definieren Sie die Maximale Dateigröße in Kilo Bytes.</Resource>
     <Resource tag="POLLVOTING_PERIP">Umfragestimmen Abhängig von IP:</Resource>
@@ -1063,6 +1065,17 @@
     <Resource tag="REPLACE_CACHE_TIMEOUT_HELP"> Smileys, BB code, bad words, etc. (in Minuten)</Resource>
     <Resource tag="REPORT_POST_PERMISSION">Beitrag Melden Berechtigungen</Resource>
     <Resource tag="REPORT_POST_PERMISSION_HELP">Beitrags melden erlauben für:</Resource>
+    <Resource tag="REPUTATION_ALLOWNEGATIVE">Allow Negative Reputation:</Resource>
+    <Resource tag="REPUTATION_MAX">Maximum Positive Reputation Value:</Resource>
+    <Resource tag="REPUTATION_MAX_HELP">This Value is used to generate the Reputation Bar.</Resource>
+    <Resource tag="REPUTATION_MIN">Maximum Negative Reputation Value:</Resource>
+    <Resource tag="REPUTATION_MIN_HELP">This Value is used to generate the Reputation Bar.</Resource>
+    <Resource tag="REPUTATION_MINDOWN">Min. Value to allow Remove Reputation:</Resource>
+    <Resource tag="REPUTATION_MINDOWN_HELP">Check if the User matches minimal requirements for voting down.</Resource>
+    <Resource tag="REPUTATION_MINUP">Min. Value to allow Add Reputation:</Resource>
+    <Resource tag="REPUTATION_MINUP_HELP">Check if the User matches minimal requirements for voting up.</Resource>
+    <Resource tag="REPUTATION_TEMPLATE">Reputations Vorlage:</Resource>
+    <Resource tag="REPUTATION_TEMPLATE_HELP">Vorlage für die Darstellung der Benutzer Reputation.</Resource>
     <Resource tag="REQUIRE_LOGIN">Benutzer anmelden erfordern:</Resource>
     <Resource tag="REQUIRE_LOGIN_HELP">Wenn aktiviert, werden die Benutzer aufgefordert sich anzumelden, bevor sie den Inahalt sehen können. Sie werden direkt weitergeleitet zur Anmeldeseite.</Resource>
     <Resource tag="RULES_ONREGISTER">Zeige "Regeln" Vor der Registrierung:</Resource>
@@ -2314,6 +2327,8 @@
     <Resource tag="UNREAD0">Du hast {0} ungelesene Nachrichten in deinem Posteingang.</Resource>
     <Resource tag="UNREAD1">Du hast {0} ungelesene Nachricht in deinem Posteingang.</Resource>
     <Resource tag="VIEWING">({0} Benutzer aktiv)</Resource>
+    <Resource tag="VOTE_DOWN_TITLE">Remove -1 of the Users Reputation</Resource>
+    <Resource tag="VOTE_UP_TITLE">Add +1 to the Users Reputation.</Resource>
   </page>
   <page name="DELETEMESSAGE">
     <Resource tag="DELETE">Löschen</Resource>
@@ -4115,6 +4130,7 @@ Spoiler Content
     <Resource tag="REDDIT_TOPIC">Thema an Reddit übermitteln</Resource>
     <Resource tag="REPORTEDFEEDBACK">Danke, dass du den Beitrag gemeldet hast</Resource>
     <Resource tag="REPORTPOST">Diesen Beitrag melden</Resource>
+    <Resource tag="REPUTATION">Reputation</Resource>
     <Resource tag="RETWEET_TOPIC">Thema retweeten</Resource>
     <Resource tag="RSSTOPIC">RSS-Feed</Resource>
     <Resource tag="SHARE">Teilen</Resource>
@@ -4214,6 +4230,7 @@ Spoiler Content
     <Resource tag="REALNAME">Echter Name:</Resource>
     <Resource tag="REGION">Region:</Resource>
     <Resource tag="REMOVESUSPENSION">Sperre aufheben</Resource>
+    <Resource tag="REPUTATION_RECEIVED">Numer of Reputation received from other users</Resource>
     <Resource tag="SEARCHUSER">Alle Beiträge des Mitglieds anschauen</Resource>
     <Resource tag="SKYPE">Skype ID:</Resource>
     <Resource tag="STATISTICS">Statistik</Resource>
@@ -4375,6 +4392,15 @@ Spoiler Content
     <Resource tag="REPORTTEXT_TOOLONG">Ihr Bericht ist zu lang, er darf nicht länger als {0} Zeichen lang sein.</Resource>
     <Resource tag="SEND">Melden</Resource>
     <Resource tag="SEND_TITLE">Beitrag, mit dem oben eingegebenen Text melden</Resource>
+  </page>
+  <page name="REPUTATION_VALUES">
+    <Resource tag="EXALTED">Exalted</Resource>
+    <Resource tag="FRIENDLY">Friendly</Resource>
+    <Resource tag="HONORED">Honored</Resource>
+    <Resource tag="NEUTRAL">Neutral</Resource>
+    <Resource tag="UNFRIENDLY">Unfriendly</Resource>
+    <Resource tag="VALUE_0">Hated</Resource>
+    <Resource tag="VALUE_20">Hostile</Resource>
   </page>
   <page name="RTE">
     <Resource tag="BOLD">Fett</Resource>

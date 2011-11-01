@@ -669,8 +669,8 @@
     <Resource tag="USER_DETAILS">جزئیات کاربر</Resource>
     <Resource tag="USER_KILL">فعالیت های مرده کاربر</Resource>
     <Resource tag="USER_PASS">کلمه عبور کاربر</Resource>
-    <Resource tag="USER_POINTS">نمرات کاربر</Resource>
     <Resource tag="USER_PROFILE">پروفایل کاربر</Resource>
+    <Resource tag="USER_REPUTATION">User Reputation</Resource>
     <Resource tag="USER_ROLES">نقش های کاربر</Resource>
     <Resource tag="USER_SIG">امضا کاربر</Resource>
     <Resource tag="USER_SUSPEND">تعلیق کاربر</Resource>
@@ -893,6 +893,9 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="ENABLE_RETWEET_MSG_HELP">Enables/disables the Retweet Button, where the User can retweet a topic message.</Resource>
     <Resource tag="ENABLE_SSO">Enable Single Sign On:</Resource>
     <Resource tag="ENABLE_SSO_HELP">If checked, users will be able to Login to an existing account via Facebook. This only works YAF.FacebookAPIKey and YAF.FacebookSecretKey are setup in app.config.</Resource>
+    <Resource tag="ENABLE_USERREPUTATION">Use Reputation System:</Resource>
+    <Resource tag="ENABLE_USERREPUTATION_HELP">Setting to Enable/Disable the Build-In Reputation System to allow Users Give or Remove Reputation.</Resource>
+    <Resource tag="REPUTATION_ALLOWNEGATIVE_HELP">If allowed Users can get Negative Reputation Numbers.</Resource>
     <Resource tag="EXTERN_NEWWINDOW">نتایج جستجوی خارجی در پنجره ای جدید:</Resource>
     <Resource tag="EXTERN_NEWWINDOW_HELP">نتایج جستجوی خارجی در را پنجره ای جدید نمایش می دهد.</Resource>
     <Resource tag="EXTERN_SEARCH_PERMISS">مجوز های جستجوی خارجی :</Resource>
@@ -935,6 +938,7 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="HEADER_PERMISSION">تنظمیات مجوز</Resource>
     <Resource tag="HEADER_PMS">پیام شخصی</Resource>
     <Resource tag="HEADER_POLL">گزینه های آمار</Resource>
+    <Resource tag="HEADER_REPUTATION">Reputation Settings</Resource>
     <Resource tag="HEADER_SEARCH">تنظیمات جستجو</Resource>
     <Resource tag="HEADER_SETUP">نصب میزبان</Resource>
     <Resource tag="HEADER_SPAM">Spam Settings</Resource>
@@ -1019,8 +1023,6 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="NOFOLLOW_LINKTAGS_HELP">در صورت علامت خوردن همه پیوند ها برچسب " دنبال نکنید" خواهند خورد.</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT">انقضای حافظه موقت وضعیت کاربران بر خط:</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT_HELP">می توانید بر اساس فعالیت سایت خود بر حسب میلی ثانیه تنظمی کنید.</Resource>
-    <Resource tag="POINTS_TEMPLATE">قالب نمرات :</Resource>
-    <Resource tag="POINTS_TEMPLATE_HELP">قالبی که نمرات کاربر بر اساس آن تولید می شود.</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE">اندازه تصویر نظر سنجی :</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE_HELP">حداکثر اندازه فایل تصویر نظر سنجی به کیلو بایت.</Resource>
     <Resource tag="POLLVOTING_PERIP">نظر سنجی های مبتی بر آی پی :</Resource>
@@ -1065,6 +1067,17 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="REPLACE_CACHE_TIMEOUT_HELP">خندانک، بی بی کد، کلمات بد و غیره. به دقیقه</Resource>
     <Resource tag="REPORT_POST_PERMISSION">مجوز گزارش ارسال :</Resource>
     <Resource tag="REPORT_POST_PERMISSION_HELP">مجوز ارسال گزارش به :</Resource>
+    <Resource tag="REPUTATION_ALLOWNEGATIVE">Allow Negative Reputation:</Resource>
+    <Resource tag="REPUTATION_MAX">Maximum Positive Reputation Value:</Resource>
+    <Resource tag="REPUTATION_MAX_HELP">This Value is used to generate the Reputation Bar.</Resource>
+    <Resource tag="REPUTATION_MIN">Maximum Negative Reputation Value:</Resource>
+    <Resource tag="REPUTATION_MIN_HELP">This Value is used to generate the Reputation Bar.</Resource>
+    <Resource tag="REPUTATION_MINDOWN">Min. Value to allow Remove Reputation:</Resource>
+    <Resource tag="REPUTATION_MINDOWN_HELP">Check if the User matches minimal requirements for voting down.</Resource>
+    <Resource tag="REPUTATION_MINUP">Min. Value to allow Add Reputation:</Resource>
+    <Resource tag="REPUTATION_MINUP_HELP">Check if the User matches minimal requirements for voting up.</Resource>
+    <Resource tag="REPUTATION_TEMPLATE">Reputation template:</Resource>
+    <Resource tag="REPUTATION_TEMPLATE_HELP">Template for rendering user's reputation.</Resource>
     <Resource tag="REQUIRE_LOGIN">ورود کاربر الزامی است:</Resource>
     <Resource tag="REQUIRE_LOGIN_HELP">اگر علامت زده شود، کاربران قبل از دیدن هرگونه محتوائی مجبور به ورود هستند. و مستقیما به صفحه ورود رهنمون می شوند.</Resource>
     <Resource tag="RULES_ONREGISTER">نمایش "قوانین" قبل از ثبت نام :</Resource>
@@ -2312,6 +2325,8 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="UNREAD0">شما تعداد {0} پیغام خوانده نشده دارید.</Resource>
     <Resource tag="UNREAD1">شما تعداد {0} پیغام خوانده نشده دارید.</Resource>
     <Resource tag="VIEWING">({0} نفر در حال مشاهده)</Resource>
+    <Resource tag="VOTE_DOWN_TITLE">Remove -1 of the Users Reputation</Resource>
+    <Resource tag="VOTE_UP_TITLE">Add +1 to the Users Reputation.</Resource>
   </page>
   <page name="DELETEMESSAGE">
     <Resource tag="DELETE">حذف</Resource>
@@ -4159,6 +4174,7 @@ Spoiler Content
     <Resource tag="REDDIT_TOPIC">Reddit this Topic</Resource>
     <Resource tag="REPORTEDFEEDBACK">از گزارش شما متشکریم!</Resource>
     <Resource tag="REPORTPOST">گزارش توهین و سوء استفاده</Resource>
+    <Resource tag="REPUTATION">Reputation</Resource>
     <Resource tag="RETWEET_TOPIC">Retweet this Topic</Resource>
     <Resource tag="RSSTOPIC">اشتراک عنوان</Resource>
     <Resource tag="SHARE">Share</Resource>
@@ -4258,6 +4274,7 @@ Spoiler Content
     <Resource tag="REALNAME">نام حقیقی:</Resource>
     <Resource tag="REGION">State:</Resource>
     <Resource tag="REMOVESUSPENSION">حذف تعلیق</Resource>
+    <Resource tag="REPUTATION_RECEIVED">Numer of Reputation received from other users</Resource>
     <Resource tag="SEARCHUSER">نمايش تمام ارسالهاي كاربر</Resource>
     <Resource tag="SKYPE">مشخصه اسکایپ:</Resource>
     <Resource tag="STATISTICS">آمار</Resource>
@@ -4419,6 +4436,15 @@ Spoiler Content
     <Resource tag="REPORTTEXT_TOOLONG">طول متن گزارش نباید بیش از {0} حرف شود.</Resource>
     <Resource tag="SEND">گزارش</Resource>
     <Resource tag="SEND_TITLE">Report the Message, with the above Reason</Resource>
+  </page>
+  <page name="REPUTATION_VALUES">
+    <Resource tag="EXALTED">Exalted</Resource>
+    <Resource tag="FRIENDLY">Friendly</Resource>
+    <Resource tag="HONORED">Honored</Resource>
+    <Resource tag="NEUTRAL">Neutral</Resource>
+    <Resource tag="UNFRIENDLY">Unfriendly</Resource>
+    <Resource tag="VALUE_0">Hated</Resource>
+    <Resource tag="VALUE_20">Hostile</Resource>
   </page>
   <page name="RTE">
     <Resource tag="BOLD">ضخیم</Resource>

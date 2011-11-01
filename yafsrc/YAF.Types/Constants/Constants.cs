@@ -31,7 +31,10 @@ namespace YAF.Types.Constants
         {
             #region Constants and Fields
 
-        	public const string AlbumCountUser = "AlbumCountUser{0}";
+            /// <summary>
+            /// The Album count for the User.
+            /// </summary>
+            public const string AlbumCountUser = "AlbumCountUser{0}";
 
             /// <summary>
             ///   The active discussions.
@@ -237,7 +240,7 @@ namespace YAF.Types.Constants
             ///   The display template default.
             /// </summary>
             public const string DisplayTemplateDefault =
-              @"<yaf:avatar /><div class=""section""><yaf:rankimage /><yaf:rank /></div><br /><yaf:medals /><div class=""section""><yaf:groups /><yaf:joindate /><yaf:posts /><yaf:points /><yaf:gender /><yaf:countryimage /><yaf:location /></div><br/ ><div class=""section""><yaf:thanksfrom /><yaf:thanksto /></div>";
+              @"<yaf:avatar /><div class=""section""><yaf:rankimage /><yaf:rank /></div><br /><yaf:reputation /><yaf:medals /><div class=""section""><yaf:groups /><yaf:joindate /><yaf:posts /><yaf:gender /><yaf:countryimage /><yaf:location /></div><br/ ><div class=""section""><yaf:thanksfrom /><yaf:thanksto /></div>";
 
             /// <summary>
             ///   The gender.
@@ -270,9 +273,9 @@ namespace YAF.Types.Constants
             public const string Medals = @"<yaf:medals\s*/>";
 
             /// <summary>
-            ///   The points.
+            ///   The Reputation (points).
             /// </summary>
-            public const string Points = @"<yaf:points\s*/>";
+            public const string Reputation = @"<yaf:reputation\s*/>";
 
             /// <summary>
             ///   The posts.

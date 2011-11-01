@@ -205,6 +205,8 @@
 	  <Resource tag="TWITTER2">~/icon_twitter2.png</Resource>
 	  <Resource tag="FACEBOOK2">~/icon_facebook2.png</Resource>
 	  <Resource tag="TUMBLR">~/icon_tumblr.png</Resource>
+	  <Resource tag="VOTE_UP">~/VoteUp.png</Resource>
+	<Resource tag="VOTE_DOWN">~/VoteDown.png</Resource>
   </page>
 	<page name="SORT">
 		<Resource tag="ASCENDING">~/sort_up.gif</Resource>

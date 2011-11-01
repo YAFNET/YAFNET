@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.search" CodeBehind="search.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.search" CodeBehind="search.ascx.cs" %>
 <%@ Import Namespace="YAF.Core" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
@@ -16,7 +16,7 @@
     Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
 </script>
 <nStuff:UpdateHistory ID="UpdateHistory" runat="server" OnNavigate="OnUpdateHistoryNavigate" />
-<table cellpadding="0" cellspacing="1" class="content" width="100%">
+<table cellpadding="0" cellspacing="1" class="content searchContent" width="100%">
     <tr>
         <td class="header1" colspan="2">
             <YAF:LocalizedLabel runat="server" LocalizedTag="title" />
@@ -47,7 +47,7 @@
         </td>
     </tr>
     <tr>
-        <td align="center" class="postheader" colspan="2">
+        <td align="center" class="postfooter" colspan="2">
             <asp:Button ID="btnSearch" runat="server" CssClass="pbutton" OnClick="btnSearch_Click"
                 OnClientClick="ShowLoadingDialog(); return true;" Visible="false" />
             <asp:Button ID="btnSearchExt1" runat="server" CssClass="pbutton" Visible="false"
@@ -76,9 +76,9 @@
             <ItemTemplate>
                 <tr class="header2">           
                     <td colspan="2">
-                        <b>
+                        <strong>
                             <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="topic" />
-                        </b><a title='<%# this.GetText("COMMON", "VIEW_TOPIC") %>' href="<%# YafBuildLink.GetLink(ForumPages.posts,"t={0}", Container.DataItemToField<int>("TopicID")) %>">
+                        </strong><a title='<%# this.GetText("COMMON", "VIEW_TOPIC") %>' href="<%# YafBuildLink.GetLink(ForumPages.posts,"t={0}", Container.DataItemToField<int>("TopicID")) %>">
                             <%# HtmlEncode(Container.DataItemToField<string>("Topic")) %>
                         </a>
                         <a id="AncPost"  href="<%# YafBuildLink.GetLink(ForumPages.posts,"m={0}#post{0}", Container.DataItemToField<int>("MessageID")) %>" runat="server">&nbsp;
@@ -88,16 +88,16 @@
                 </tr>
                 <tr class="postheader">
                     <td width="140px" id="NameCell" valign="top">
-                        <a name="<%# Container.DataItemToField<int>("MessageID") %>" /><b>
+                        <a name="<%# Container.DataItemToField<int>("MessageID") %>" /><strong>
                             <YAF:UserLink ID="UserLink1" runat="server" UserID='<%# Container.DataItemToField<int>("UserID") %>' />
-                        </b>
-                        <YAF:OnlineStatusImage ID="OnlineStatusImage" runat="server" Visible='<%# PageContext.BoardSettings.ShowUserOnlineStatus && !UserMembershipHelper.IsGuestUser( Container.DataItemToField<int>("UserID") )%>'
+                        </strong>
+                        <YAF:OnlineStatusImage ID="OnlineStatusImage" runat="server" Visible='<%# this.Get<YafBoardSettings>().ShowUserOnlineStatus && !UserMembershipHelper.IsGuestUser( Container.DataItemToField<int>("UserID") )%>'
                             Style="vertical-align: bottom" UserID='<%# Container.DataItemToField<int>("UserID") %>' />
                     </td>
                     <td width="80%" class="postheader">
-                        <b>
+                        <strong>
                             <YAF:LocalizedLabel runat="server" LocalizedTag="POSTED" />
-                        </b>
+                        </strong>
                         <YAF:DisplayDateTime id="LastVisitDateTime" runat="server" DateTime='<%# Container.DataItemToField<DateTime>("Posted") %>'></YAF:DisplayDateTime>
                     </td>
                 </tr>
@@ -112,9 +112,9 @@
             <AlternatingItemTemplate>
                 <tr class="header2">
                     <td colspan="2">
-                        <b>
+                        <strong>
                             <YAF:LocalizedLabel runat="server" LocalizedTag="topic" />
-                        </b><a title='<%# this.GetText("COMMON", "VIEW_TOPIC") %>' alt='<%# this.GetText("COMMON", "VIEW_TOPIC") %>' href="<%# YafBuildLink.GetLink(ForumPages.posts,"t={0}", Container.DataItemToField<int>("TopicID")) %>">
+                        </strong><a title='<%# this.GetText("COMMON", "VIEW_TOPIC") %>' alt='<%# this.GetText("COMMON", "VIEW_TOPIC") %>' href="<%# YafBuildLink.GetLink(ForumPages.posts,"t={0}", Container.DataItemToField<int>("TopicID")) %>">
                             <%# Container.DataItemToField<string>("Topic") %>
                         </a>
                          <a id="AncAltPost"    href="<%# YafBuildLink.GetLink(ForumPages.posts,"m={0}#post{0}", Container.DataItemToField<int>("MessageID")) %>" >&nbsp;
@@ -124,16 +124,16 @@
                 </tr>
                 <tr class="postheader">
                     <td width="140px" id="NameCell" valign="top">
-                        <a name="<%# Container.DataItemToField<int>("MessageID") %>" /><b>
+                        <a name="<%# Container.DataItemToField<int>("MessageID") %>" /><strong>
                             <YAF:UserLink ID="UserLink1" runat="server" UserID='<%# Container.DataItemToField<int>("UserID") %>' />
-                        </b>
-                        <YAF:OnlineStatusImage ID="OnlineStatusImage" runat="server" Visible='<%# PageContext.BoardSettings.ShowUserOnlineStatus && !UserMembershipHelper.IsGuestUser( Container.DataItemToField<int>("UserID") )%>'
+                        </strong>
+                        <YAF:OnlineStatusImage ID="OnlineStatusImage" runat="server" Visible='<%# this.Get<YafBoardSettings>().ShowUserOnlineStatus && !UserMembershipHelper.IsGuestUser( Container.DataItemToField<int>("UserID") )%>'
                             Style="vertical-align: bottom" UserID='<%# Container.DataItemToField<int>("UserID") %>' />
                     </td>
                     <td width="80%" class="postheader">
-                        <b>
+                        <strong>
                             <YAF:LocalizedLabel runat="server" LocalizedTag="POSTED" />
-                        </b>
+                        </strong>
                         <YAF:DisplayDateTime id="LastVisitDateTime" runat="server" DateTime='<%# Container.DataItemToField<DateTime>("Posted") %>'></YAF:DisplayDateTime>
                     </td>
                 </tr>

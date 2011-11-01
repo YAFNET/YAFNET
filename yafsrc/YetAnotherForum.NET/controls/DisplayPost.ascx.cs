@@ -25,10 +25,12 @@ namespace YAF.Controls
     using System;
     using System.Collections;
     using System.Data;
+    using System.Linq;
     using System.Text;
     using System.Web;
 
     using YAF.Classes;
+    using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Core.Services;
     using YAF.Types;
@@ -112,6 +114,21 @@ namespace YAF.Controls
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Gets Voting Cookie Name.
+        /// </summary>
+        /// <param name="userId">
+        /// The user Id.
+        /// </param>
+        /// <returns>
+        /// The voting cookie name.
+        /// </returns>
+        [NotNull]
+        protected string VotingCookieName(int userId)
+        {
+            return "YAF.NET_Reputation#{0}".FormatWith(userId);
+        }
 
         /// <summary>
         /// Formats the dvThanksInfo section.
@@ -323,7 +340,78 @@ namespace YAF.Controls
                 this.PopMenu1.Attach(this.UserProfileLink);
             }
 
+            // Add Reputation Controls to the User PopMenu
+            if (this.PageContext.PageUserID != (int)this.DataRow["UserID"] && this.Get<YafBoardSettings>().EnableUserReputation && !this.IsGuest)
+            {
+                bool allowReputationVoting = true;
+
+                if (this.Get<HttpRequestBase>().Cookies[this.VotingCookieName(this.PageContext.PageUserID)] != null)
+                {
+                    var reputatationCookie = this.Get<HttpRequestBase>().Cookies[this.VotingCookieName(this.PageContext.PageUserID)];
+
+                    string[] userArray = reputatationCookie.Value.Split(',');
+
+                    if (userArray.Where(userId => userId.ToType<int>().Equals(this.DataRow["UserID"].ToType<int>())).Any())
+                    {
+                        allowReputationVoting = false;
+                    }
+                }
+
+                if (allowReputationVoting)
+                {
+                    // Check if the User matches minimal requirements for voting up
+                    if (this.PageContext.Reputation >= this.Get<YafBoardSettings>().ReputationMinUpVoting)
+                    {
+                        this.AddReputation.Visible = true;
+                    }
+
+                    // Check if the User matches minimal requirements for voting down
+                    if (this.PageContext.Reputation >= this.Get<YafBoardSettings>().ReputationMinDownVoting)
+                    {
+                        // Check if the Value is 0 or Bellow
+                        if (!this.Get<YafBoardSettings>().ReputationAllowNegative && this.DataRow["Points"].ToType<int>() > 0 ||
+                            this.Get<YafBoardSettings>().ReputationAllowNegative)
+                        {
+                           this.RemoveReputation.Visible = true;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                this.AddReputation.Visible = false;
+                this.RemoveReputation.Visible = false;
+            }
+
             this.NameCell.ColSpan = int.Parse(this.GetIndentSpan());
+        }
+
+        /// <summary>
+        /// Adds the user reputation.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected void AddUserReputation(object sender, EventArgs e)
+        {
+            LegacyDb.user_addpoints(this.PostData.UserId, 1);
+            this.AddUserVotingCookie();
+
+            this.AddReputation.Visible = false;
+            this.RemoveReputation.Visible = false;
+        }
+
+        /// <summary>
+        /// Removes the user reputation.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected void RemoveUserReputation(object sender, EventArgs e)
+        {
+            LegacyDb.user_removepoints(this.PostData.UserId, 1);
+            this.AddUserVotingCookie();
+
+            this.AddReputation.Visible = false;
+            this.RemoveReputation.Visible = false;
         }
 
         /// <summary>
@@ -463,9 +551,16 @@ namespace YAF.Controls
             YafContext.Current.PageElements.RegisterJsBlockStartup(
               "syntaxhighlighterjs", JavaScriptBlocks.SyntaxHighlightLoadJs);
 
-            if (!this.Get<YafBoardSettings>().EnableThanksMod)
+            if (this.Get<YafBoardSettings>().EnableUserReputation)
             {
-                return;
+                // Setup UserBox Reputation Script Block
+                YafContext.Current.PageElements.RegisterJsBlockStartup(
+                    "reputationprogressjs", JavaScriptBlocks.RepuatationProgressLoadJs);
+
+                if (!this.Get<YafBoardSettings>().EnableThanksMod)
+                {
+                    return;
+                }
             }
 
             // Register Javascript
@@ -531,14 +626,14 @@ namespace YAF.Controls
                 thanksLabelText = this.Get<ILocalization>().GetText("THANKSINFO").FormatWith(
                 thanksNumber, this.Get<HttpServerUtilityBase>().HtmlEncode(this.Get<IUserDisplayName>().GetName(this.PostData.UserId)));
             }
-           
+
             this.ThanksDataLiteral.Text =
                 "<img id=\"ThanksInfoImage{0}\" src=\"{1}\"  runat=\"server\" title=\"{2}\" />&nbsp;".FormatWith(
-                    this.DataRow["MessageID"], this.Get<ITheme>().GetItem("ICONS","THANKSINFOLIST_IMAGE"),thanksLabelText) + thanksLabelText; 
+                    this.DataRow["MessageID"], this.Get<ITheme>().GetItem("ICONS", "THANKSINFOLIST_IMAGE"), thanksLabelText) + thanksLabelText;
 
             this.ThanksDataLiteral.Visible = true;
 
-            this.thanksDataExtendedLiteral.Text =  this.FormatThanksInfo(this.DataRow["ThanksInfo"].ToString());
+            this.thanksDataExtendedLiteral.Text = this.FormatThanksInfo(this.DataRow["ThanksInfo"].ToString());
             this.thanksDataExtendedLiteral.Visible = true;
         }
 
@@ -605,6 +700,30 @@ namespace YAF.Controls
                     YafBuildLink.Redirect(ForumPages.viewthanks, "u={0}", this.PostData.UserId);
                     break;
             }
+        }
+
+        /// <summary>
+        /// Saves the Users Reputation Values to allow a 
+        /// User only once a day to Vote per user.
+        /// </summary>
+        private void AddUserVotingCookie()
+        {
+            string cookieCurrent = string.Empty;
+
+            if (this.Get<HttpRequestBase>().Cookies[this.VotingCookieName(this.PageContext.PageUserID)] != null)
+            {
+                cookieCurrent =
+                    "{0},".FormatWith(this.Get<HttpRequestBase>().Cookies[this.VotingCookieName(this.PageContext.PageUserID)].Value);
+
+                this.Get<HttpRequestBase>().Cookies.Remove(this.VotingCookieName(this.PageContext.PageUserID));
+            }
+
+            var c = new HttpCookie(
+                this.VotingCookieName(this.PageContext.PageUserID),
+                "{0}{1}".FormatWith(cookieCurrent, this.PostData.UserId))
+                { Expires = DateTime.UtcNow.AddDays(1) };
+
+            this.Get<HttpResponseBase>().Cookies.Add(c);
         }
 
         #endregion

@@ -521,6 +521,17 @@ namespace YAF.Core
 			}
 		}
 
+        /// <summary>
+        ///   Gets the number of Reputation Points
+        /// </summary>
+        public int Reputation
+        {
+            get
+            {
+                return this.Page["Reputation"].ToType<int>();
+            }
+        }
+
 		/// <summary>
 		///   Gets the DateTime the user is suspended until
 		/// </summary>

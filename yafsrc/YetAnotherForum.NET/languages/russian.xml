@@ -670,8 +670,8 @@
     <Resource tag="USER_DETAILS">Данные пользователя</Resource>
     <Resource tag="USER_KILL">Подавление активности</Resource>
     <Resource tag="USER_PASS">Пароль пользователя</Resource>
-    <Resource tag="USER_POINTS">Очки пользователя</Resource>
     <Resource tag="USER_PROFILE">Профиль пользователя</Resource>
+    <Resource tag="USER_REPUTATION">User Reputation</Resource>
     <Resource tag="USER_ROLES">Роли пользователя</Resource>
     <Resource tag="USER_SIG">Подпись пользователя</Resource>
     <Resource tag="USER_SUSPEND">Временно запретить</Resource>
@@ -892,6 +892,9 @@
     <Resource tag="ENABLE_RETWEET_MSG_HELP">Делает доступной кнопку ретвита и пользователь может проретвитить сообщение.</Resource>
     <Resource tag="ENABLE_SSO">Включить единую регистрацию в Facebook:</Resource>
     <Resource tag="ENABLE_SSO_HELP">Если включено, то пользователи смогут войти в существующим аккаунтом Facebook. YAF.FacebookAPIKey и YAF.FacebookSecretKey должны быть настроены в app.config.</Resource>
+    <Resource tag="ENABLE_USERREPUTATION">Use Reputation System:</Resource>
+    <Resource tag="ENABLE_USERREPUTATION_HELP">Setting to Enable/Disable the Build-In Reputation System to allow Users Give or Remove Reputation.</Resource>
+    <Resource tag="REPUTATION_ALLOWNEGATIVE_HELP">If allowed Users can get Negative Reputation Numbers.</Resource>
     <Resource tag="EXTERN_NEWWINDOW">Показывать результаты внешнего поиска в новом окне:</Resource>
     <Resource tag="EXTERN_NEWWINDOW_HELP">Показывать результаты внешнего поиска в новом окне.</Resource>
     <Resource tag="EXTERN_SEARCH_PERMISS">Разрешения для внешнего поиска:</Resource>
@@ -934,6 +937,7 @@
     <Resource tag="HEADER_PERMISSION">Настройки разрешений</Resource>
     <Resource tag="HEADER_PMS">Личные сообщения</Resource>
     <Resource tag="HEADER_POLL">Опции опроса</Resource>
+    <Resource tag="HEADER_REPUTATION">Reputation Settings</Resource>
     <Resource tag="HEADER_SEARCH">Настройки поиска</Resource>
     <Resource tag="HEADER_SETUP">Настройки хоста</Resource>
     <Resource tag="HEADER_SPAM">Spam Settings</Resource>
@@ -1018,8 +1022,6 @@
     <Resource tag="NOFOLLOW_LINKTAGS_HELP">Все ссылки будут иметь тег nofollow и большинство ботов не будут уходить по ним.</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT">Таймаут кэша пользователя онлайн:</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT_HELP">Вы можете уставливать это значение в зависимости от активности на сайте(в миллисекундах)</Resource>
-    <Resource tag="POINTS_TEMPLATE">Шаблон очков:</Resource>
-    <Resource tag="POINTS_TEMPLATE_HELP">Шаблон для отображения очков пользователя.</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE">Размер файла изображения в опросах:</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE_HELP">Максимальный размер файла в опросах в КБ.</Resource>
     <Resource tag="POLLVOTING_PERIP">Голосование зависит от IP:</Resource>
@@ -1063,6 +1065,17 @@
     <Resource tag="REPLACE_CACHE_TIMEOUT_HELP"> Смайлы, BB-коды , плохие слова и т.д.  (в минутах)</Resource>
     <Resource tag="REPORT_POST_PERMISSION">Разрешать жаловаться на сообщение:</Resource>
     <Resource tag="REPORT_POST_PERMISSION_HELP">Разрешать жаловаться на сообщение данным группам:</Resource>
+    <Resource tag="REPUTATION_ALLOWNEGATIVE">Allow Negative Reputation:</Resource>
+    <Resource tag="REPUTATION_MAX">Maximum Positive Reputation Value:</Resource>
+    <Resource tag="REPUTATION_MAX_HELP">This Value is used to generate the Reputation Bar.</Resource>
+    <Resource tag="REPUTATION_MIN">Maximum Negative Reputation Value:</Resource>
+    <Resource tag="REPUTATION_MIN_HELP">This Value is used to generate the Reputation Bar.</Resource>
+    <Resource tag="REPUTATION_MINDOWN">Min. Value to allow Remove Reputation:</Resource>
+    <Resource tag="REPUTATION_MINDOWN_HELP">Check if the User matches minimal requirements for voting down.</Resource>
+    <Resource tag="REPUTATION_MINUP">Min. Value to allow Add Reputation:</Resource>
+    <Resource tag="REPUTATION_MINUP_HELP">Check if the User matches minimal requirements for voting up.</Resource>
+    <Resource tag="REPUTATION_TEMPLATE">Reputation template:</Resource>
+    <Resource tag="REPUTATION_TEMPLATE_HELP">Template for rendering user's reputation.</Resource>
     <Resource tag="REQUIRE_LOGIN">Требовать входа на сайт:</Resource>
     <Resource tag="REQUIRE_LOGIN_HELP">Требовать входа на сайт, чтобы увидеть контент. Пользователи будут перенаправляться прямо к странице логина.</Resource>
     <Resource tag="RULES_ONREGISTER">Показывать правила форума перед регистрацией:</Resource>
@@ -2324,6 +2337,8 @@
     <Resource tag="UNREAD0">У Вас {0} непрочитанных входящих сообщений.</Resource>
     <Resource tag="UNREAD1">У Вас {0} непрочитанное входящее сообщение.</Resource>
     <Resource tag="VIEWING">({0} просматривают)</Resource>
+    <Resource tag="VOTE_DOWN_TITLE">Remove -1 of the Users Reputation</Resource>
+    <Resource tag="VOTE_UP_TITLE">Add +1 to the Users Reputation.</Resource>
   </page>
   <page name="DELETEMESSAGE">
     <Resource tag="DELETE">Удалить</Resource>
@@ -4176,6 +4191,7 @@ Spoiler Content
     <Resource tag="REDDIT_TOPIC">Поделиться в Reddit</Resource>
     <Resource tag="REPORTEDFEEDBACK">Спасибо за информацию об этом сообщении.</Resource>
     <Resource tag="REPORTPOST">Жалоба!</Resource>
+    <Resource tag="REPUTATION">Reputation</Resource>
     <Resource tag="RETWEET_TOPIC">Ретвит темы</Resource>
     <Resource tag="RSSTOPIC">RSS-лента темы</Resource>
     <Resource tag="SHARE">Поделиться</Resource>
@@ -4275,6 +4291,7 @@ Spoiler Content
     <Resource tag="REALNAME">Настоящее имя:</Resource>
     <Resource tag="REGION">Регион:</Resource>
     <Resource tag="REMOVESUSPENSION">Отменить бан</Resource>
+    <Resource tag="REPUTATION_RECEIVED">Numer of Reputation received from other users</Resource>
     <Resource tag="SEARCHUSER">Просмотр всех сообщений пользователя</Resource>
     <Resource tag="SKYPE">Skype(tm) ID:</Resource>
     <Resource tag="STATISTICS">Статистика</Resource>
@@ -4528,6 +4545,15 @@ Spoiler Content
     <Resource tag="REPORTTEXT_TOOLONG">Длина жалобы не должна превышать {0} символов.</Resource>
     <Resource tag="SEND">Сообщить</Resource>
     <Resource tag="SEND_TITLE">Пожаловаться на сообщение с указанием причины</Resource>
+  </page>
+  <page name="REPUTATION_VALUES">
+    <Resource tag="EXALTED">Exalted</Resource>
+    <Resource tag="FRIENDLY">Friendly</Resource>
+    <Resource tag="HONORED">Honored</Resource>
+    <Resource tag="NEUTRAL">Neutral</Resource>
+    <Resource tag="UNFRIENDLY">Unfriendly</Resource>
+    <Resource tag="VALUE_0">Hated</Resource>
+    <Resource tag="VALUE_20">Hostile</Resource>
   </page>
   <page name="RTE">
     <Resource tag="BOLD">Жирный</Resource>

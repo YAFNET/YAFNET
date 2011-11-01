@@ -2223,7 +2223,8 @@ Spoiler Content
 	  <Resource tag="RECENT_USERS">Recent Users</Resource>
 	  <Resource tag="RECENT_ONLINE_USERS">{0} Users where online within the last 24 hours, and {1} within the last 30 days.</Resource>
 	  <Resource tag="ALPHABET_FILTER">Alphabet filter</Resource>
-	  <Resource tag="ALPHABET_FILTER_BY">Filter list by letter {0}.</Resource>
+	  <Resource tag="VOTE_UP_TITLE">Add +1 to the Users Reputation.</Resource>
+     <Resource tag="VOTE_DOWN_TITLE">Remove -1 of the Users Reputation</Resource>
    </page>
    <page name="DELETEMESSAGE">
       <Resource tag="DELETE">Delete</Resource>
@@ -2670,6 +2671,7 @@ Spoiler Content
       <Resource tag="OPTIONS">Options</Resource>
       <Resource tag="PM">PM</Resource>
       <Resource tag="POINTS">Points</Resource>
+      <Resource tag="REPUTATION">Reputation</Resource>
       <Resource tag="POLL_CLOSED">(Poll is closed)</Resource>
       <Resource tag="POST_REPLY">Post Reply</Resource>
       <Resource tag="POSTED">Posted</Resource>
@@ -2790,6 +2792,7 @@ Spoiler Content
       <Resource tag="POSTEDBY">Posted by</Resource>
    </page>
    <page name="PROFILE">
+      <Resource tag="REPUTATION_RECEIVED">Numer of Reputation received from other users</Resource>
       <Resource tag="THANKSFROM">Number of thanks</Resource>
       <Resource tag="THANKSTOTIMES">Number of times this user was thanked</Resource>
       <Resource tag="THANKSTOPOSTS">Number of posts for which this user was thanked</Resource>
@@ -4280,7 +4283,7 @@ Visit {forumname} at {forumlink}
 	   <Resource tag="USER_AVATAR">User Avatar</Resource>
 	   <Resource tag="USER_SIG">User Signature</Resource>
 	   <Resource tag="USER_PASS">User Password</Resource>
-	   <Resource tag="USER_POINTS">User Points</Resource>
+	   <Resource tag="USER_REPUTATION">User Reputation</Resource>
 	   <Resource tag="USER_SUSPEND">User Suspend</Resource>
 	   <Resource tag="USER_KILL">User Kill Activity</Resource>
        <Resource tag="VIEW_ALL">View All</Resource>
@@ -4380,6 +4383,7 @@ Visit {forumname} at {forumlink}
 	   <Resource tag="HEADER_ALBUM">Album Settings</Resource>
 	   <Resource tag="HEADER_SYNDICATION">Syndication Feed Settings</Resource>
 	   <Resource tag="HEADER_IRKOO">Irkoo Reputation Service</Resource>
+     <Resource tag="HEADER_REPUTATION">Reputation Settings</Resource>
 	   <Resource tag="HEADER_CAPTCHA">CAPTCHA Settings</Resource>
 	   <Resource tag="HEADER_LOG">Log settings</Resource>
 	   <Resource tag="FORBIDDEN">Forbidden</Resource>
@@ -4507,7 +4511,7 @@ Visit {forumname} at {forumlink}
        <Resource tag="MEDALS_TEMPLATE_HELP">Template for rendering user's medals.</Resource>	   
 	   <Resource tag="RANKIMAGE_TEMPLATE">Rank image template:</Resource>
        <Resource tag="RANKIMAGE_TEMPLATE_HELP">Template for rendering rank image.</Resource>	   
-	   <Resource tag="RANK_TEMPLATE">Rank template::</Resource>
+	   <Resource tag="RANK_TEMPLATE">Rank template:</Resource>
        <Resource tag="RANK_TEMPLATE_HELP">Template for rendering user's rank.</Resource>	   
 	   <Resource tag="GROUPS_TEMPLATE">Groups template:</Resource>
        <Resource tag="GROUPS_TEMPLATE_HELP">Template for rendering user's groups.</Resource>	   
@@ -4515,8 +4519,8 @@ Visit {forumname} at {forumlink}
        <Resource tag="JOINDATE_TEMPLATE_HELP">Template for rendering user's join date.</Resource>	   
 	   <Resource tag="POSTS_TEMPLATE">Posts template:</Resource>
        <Resource tag="POSTS_TEMPLATE_HELP">Template for rendering user's posts.</Resource>	   
-	   <Resource tag="POINTS_TEMPLATE">Points template:</Resource>
-       <Resource tag="POINTS_TEMPLATE_HELP">Template for rendering user's points.</Resource>	   
+	   <Resource tag="REPUTATION_TEMPLATE">Reputation template:</Resource>
+       <Resource tag="REPUTATION_TEMPLATE_HELP">Template for rendering user's reputation.</Resource>	   
 	   <Resource tag="LOCATION_TEMPLATE">Location template:</Resource>
        <Resource tag="LOCATION_TEMPLATE_HELP">Template for rendering user's location.</Resource>
      <Resource tag="COUNTRYIMAGE_TEMPLATE">Country image template:</Resource>
@@ -4795,15 +4799,36 @@ Visit {forumname} at {forumlink}
      <Resource tag="POPULAR_REPLYS_HELP">The number of Replies per topic becomes popular.</Resource>
 	 <Resource tag="POPULAR_VIEWS">Min. Views to became Hot:</Resource>
      <Resource tag="POPULAR_VIEWS_HELP">The number of topic views before a topic becomes popular.</Resource>
+     <Resource tag="ENABLE_USERREPUTATION">Use Reputation System:</Resource>
+     <Resource tag="ENABLE_USERREPUTATION_HELP">Setting to Enable/Disable the Build-In Reputation System to allow Users Give or Remove Reputation.</Resource>
+     <Resource tag="REPUTATION_ALLOWNEGATIVE">Allow Negative Reputation:</Resource>
+     <Resource tag="REPUTATION_ALLOWNEGATIVE_HELP">If allowed Users can get Negative Reputation Numbers.</Resource>
+     <Resource tag="REPUTATION_MINUP">Min. Value to allow Add Reputation:</Resource>
+     <Resource tag="REPUTATION_MINUP_HELP">Check if the User matches minimal requirements for voting up.</Resource>
+     <Resource tag="REPUTATION_MINDOWN">Min. Value to allow Remove Reputation:</Resource>
+     <Resource tag="REPUTATION_MINDOWN_HELP">Check if the User matches minimal requirements for voting down.</Resource>
+     <Resource tag="REPUTATION_MIN">Maximum Negative Reputation Value:</Resource>
+     <Resource tag="REPUTATION_MIN_HELP">This Value is used to generate the Reputation Bar.</Resource>
+     <Resource tag="REPUTATION_MAX">Maximum Positive Reputation Value:</Resource>
+     <Resource tag="REPUTATION_MAX_HELP">This Value is used to generate the Reputation Bar.</Resource>
    </page>
 	  <page name="ADMIN_TEST_DATA">
 	   <Resource tag="TITLE">Create Test Data (DEBUG Only)</Resource>
 	 </page>
-         	  <page name="TOPIC_STATUS">
+   <page name="TOPIC_STATUS">
 	   <Resource tag="INFORMATIC">Informative</Resource>
-       <Resource tag="SOLVED">Solved</Resource>
-       <Resource tag="QUESTION">Question</Resource>
+     <Resource tag="SOLVED">Solved</Resource>
+     <Resource tag="QUESTION">Question</Resource>
 	   <Resource tag="ISSUE">Issue</Resource>
 	   <Resource tag="FIXED">Fixed</Resource>
 	 </page>
+   <page name="REPUTATION_VALUES">
+     <Resource tag="VALUE_0">Hated</Resource>
+     <Resource tag="VALUE_20">Hostile</Resource>
+     <Resource tag="UNFRIENDLY">Unfriendly</Resource>
+     <Resource tag="NEUTRAL">Neutral</Resource>
+     <Resource tag="FRIENDLY">Friendly</Resource>
+     <Resource tag="HONORED">Honored</Resource>
+     <Resource tag="EXALTED">Exalted</Resource>
+   </page>
 </Resources>

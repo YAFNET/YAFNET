@@ -669,8 +669,8 @@
     <Resource tag="USER_DETAILS">Details van gebruiker</Resource>
     <Resource tag="USER_KILL">Kill Activiteit</Resource>
     <Resource tag="USER_PASS">Wachtwoord</Resource>
-    <Resource tag="USER_POINTS">Punten</Resource>
     <Resource tag="USER_PROFILE">Profiel</Resource>
+    <Resource tag="USER_REPUTATION">User Reputation</Resource>
     <Resource tag="USER_ROLES">Gebruiker Rollen</Resource>
     <Resource tag="USER_SIG">Handtekening</Resource>
     <Resource tag="USER_SUSPEND">Ban</Resource>
@@ -891,6 +891,9 @@
     <Resource tag="ENABLE_RETWEET_MSG_HELP">Enables/disables the Retweet Button, where the User can retweet a topic message.</Resource>
     <Resource tag="ENABLE_SSO">Enable Single Sign On:</Resource>
     <Resource tag="ENABLE_SSO_HELP">If checked, users will be able to Login to an existing account via Facebook. This only works YAF.FacebookAPIKey and YAF.FacebookSecretKey are setup in app.config.</Resource>
+    <Resource tag="ENABLE_USERREPUTATION">Use Reputation System:</Resource>
+    <Resource tag="ENABLE_USERREPUTATION_HELP">Setting to Enable/Disable the Build-In Reputation System to allow Users Give or Remove Reputation.</Resource>
+    <Resource tag="REPUTATION_ALLOWNEGATIVE_HELP">If allowed Users can get Negative Reputation Numbers.</Resource>
     <Resource tag="EXTERN_NEWWINDOW">Externe Zoekopdrachtresultaten in een nieuw Venster:</Resource>
     <Resource tag="EXTERN_NEWWINDOW_HELP">Geef de resultaten van een externe zoekopdracht weer in een nieuw venster.</Resource>
     <Resource tag="EXTERN_SEARCH_PERMISS">Machtingingen om Extern te mogen zoeken:</Resource>
@@ -933,6 +936,7 @@
     <Resource tag="HEADER_PERMISSION">Machtiging instellingen</Resource>
     <Resource tag="HEADER_PMS"> Berichten</Resource>
     <Resource tag="HEADER_POLL">Poll Opties</Resource>
+    <Resource tag="HEADER_REPUTATION">Reputation Settings</Resource>
     <Resource tag="HEADER_SEARCH">Zoek instellingen</Resource>
     <Resource tag="HEADER_SETUP">Host Installatie</Resource>
     <Resource tag="HEADER_SPAM">Spam Settings</Resource>
@@ -1017,8 +1021,6 @@
     <Resource tag="NOFOLLOW_LINKTAGS_HELP">Als deze is aangevinkt, zullen alle links de "nofollow tag" gebruiken.</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT">Online Gebruiker Status Cache Timeout:</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT_HELP">Dit kun je Fine-tunen afhankelijk van de activiteit op je forum in milliseconden)</Resource>
-    <Resource tag="POINTS_TEMPLATE">Punten template:</Resource>
-    <Resource tag="POINTS_TEMPLATE_HELP">Template om de Punten van de gebruiker op te bouwen.</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE">Poll Afbeelding Bestandsgrootte:</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE_HELP">Max. bestandsgrootte voor plaatjes die bij Polls worden gebruikt in KB.</Resource>
     <Resource tag="POLLVOTING_PERIP">Poll Stemmen op basis van IP:</Resource>
@@ -1062,6 +1064,17 @@
     <Resource tag="REPLACE_CACHE_TIMEOUT_HELP"> Smilies, BB code, vervangwoorden, etc. (in minuten)</Resource>
     <Resource tag="REPORT_POST_PERMISSION">machtigingen van Berichten Rapporteren:</Resource>
     <Resource tag="REPORT_POST_PERMISSION_HELP">Sta het rapporteren van berichten toe aan:</Resource>
+    <Resource tag="REPUTATION_ALLOWNEGATIVE">Allow Negative Reputation:</Resource>
+    <Resource tag="REPUTATION_MAX">Maximum Positive Reputation Value:</Resource>
+    <Resource tag="REPUTATION_MAX_HELP">This Value is used to generate the Reputation Bar.</Resource>
+    <Resource tag="REPUTATION_MIN">Maximum Negative Reputation Value:</Resource>
+    <Resource tag="REPUTATION_MIN_HELP">This Value is used to generate the Reputation Bar.</Resource>
+    <Resource tag="REPUTATION_MINDOWN">Min. Value to allow Remove Reputation:</Resource>
+    <Resource tag="REPUTATION_MINDOWN_HELP">Check if the User matches minimal requirements for voting down.</Resource>
+    <Resource tag="REPUTATION_MINUP">Min. Value to allow Add Reputation:</Resource>
+    <Resource tag="REPUTATION_MINUP_HELP">Check if the User matches minimal requirements for voting up.</Resource>
+    <Resource tag="REPUTATION_TEMPLATE">Reputation template:</Resource>
+    <Resource tag="REPUTATION_TEMPLATE_HELP">Template for rendering user's reputation.</Resource>
     <Resource tag="REQUIRE_LOGIN">Verplicht inloggen:</Resource>
     <Resource tag="REQUIRE_LOGIN_HELP">Wanneer aangevinkt, moeten gebruikers verplicht inloggen voordat ze het forum kunnen bekijken. Ze zullen direct worden doorgestuurd naar de login pagina.</Resource>
     <Resource tag="RULES_ONREGISTER">Laat "Reglementen" zien voor de Registratie:</Resource>
@@ -2315,6 +2328,8 @@
     <Resource tag="UNREAD0">Je hebt {0} ongelezen berichten in je Postvak IN.</Resource>
     <Resource tag="UNREAD1">Je hebt {0} ongelezen bericht in je Postvak IN.</Resource>
     <Resource tag="VIEWING">({0} aanwezig)</Resource>
+    <Resource tag="VOTE_DOWN_TITLE">Remove -1 of the Users Reputation</Resource>
+    <Resource tag="VOTE_UP_TITLE">Add +1 to the Users Reputation.</Resource>
   </page>
   <page name="DELETEMESSAGE">
     <Resource tag="DELETE">Verwijderen</Resource>
@@ -4107,6 +4122,7 @@ Spoiler Content
     <Resource tag="REDDIT_TOPIC">Reddit this Topic</Resource>
     <Resource tag="REPORTEDFEEDBACK">Dank je wel voor het rapport</Resource>
     <Resource tag="REPORTPOST">Rapporteer ongepast gedrag</Resource>
+    <Resource tag="REPUTATION">Reputation</Resource>
     <Resource tag="RETWEET_TOPIC">Retweet this Topic</Resource>
     <Resource tag="RSSTOPIC">RSS Feed</Resource>
     <Resource tag="SHARE">Share</Resource>
@@ -4206,6 +4222,7 @@ Spoiler Content
     <Resource tag="REALNAME">Echte naam:</Resource>
     <Resource tag="REGION">State:</Resource>
     <Resource tag="REMOVESUSPENSION">Vergrendeling opheffen</Resource>
+    <Resource tag="REPUTATION_RECEIVED">Numer of Reputation received from other users</Resource>
     <Resource tag="SEARCHUSER">Bekijk alle berichte van deze gebruiker</Resource>
     <Resource tag="SKYPE">Skype(tm) ID:</Resource>
     <Resource tag="STATISTICS">Statistieken</Resource>
@@ -4367,6 +4384,15 @@ Spoiler Content
     <Resource tag="REPORTTEXT_TOOLONG">Je rapport tekst kan niet meer dan {0} karakters bevatten.</Resource>
     <Resource tag="SEND">Rapport</Resource>
     <Resource tag="SEND_TITLE">Report the Message, with the above Reason</Resource>
+  </page>
+  <page name="REPUTATION_VALUES">
+    <Resource tag="EXALTED">Exalted</Resource>
+    <Resource tag="FRIENDLY">Friendly</Resource>
+    <Resource tag="HONORED">Honored</Resource>
+    <Resource tag="NEUTRAL">Neutral</Resource>
+    <Resource tag="UNFRIENDLY">Unfriendly</Resource>
+    <Resource tag="VALUE_0">Hated</Resource>
+    <Resource tag="VALUE_20">Hostile</Resource>
   </page>
   <page name="RTE">
     <Resource tag="BOLD">Vet</Resource>

@@ -1,8 +1,8 @@
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.EditUsersPoints" Codebehind="EditUsersPoints.ascx.cs" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.EditUsersPoints" Codebehind="EditUsersPoints.ascx.cs" %>
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
     <tr>
         <td class="header1" colspan="2">
-            <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEAD_USER_POINTS" LocalizedPage="ADMIN_EDITUSER" />
+            <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="USER_REPUTATION" LocalizedPage="ADMIN_EDITUSER" />
         </td>
     </tr>
     <tr>
