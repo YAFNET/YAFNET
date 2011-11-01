@@ -497,7 +497,6 @@
     <Compile Include="pages\admin\topicstatus_import.ascx.designer.cs">
       <DependentUpon>topicstatus_import.ascx</DependentUpon>
     </Compile>
-    
     <Compile Include="pages\admin\users.ascx.designer.cs">
       <DependentUpon>users.ascx</DependentUpon>
     </Compile>
@@ -2623,6 +2622,8 @@
     <Content Include="themes\BlackGrey\user_rank1.gif" />
     <Content Include="themes\BlackGrey\user_rank2.gif" />
     <Content Include="themes\BlackGrey\user_rank3.gif" />
+    <Content Include="themes\BlackGrey\VoteDown.png" />
+    <Content Include="themes\BlackGrey\VoteUp.png" />
     <Content Include="themes\BlackGrey\vote_lcap.gif" />
     <Content Include="themes\BlackGrey\vote_rcap.gif" />
     <Content Include="themes\BlackGrey\vote_refuse.gif" />
@@ -2729,6 +2730,8 @@
     <Content Include="themes\BlueGrey\user_rank1.gif" />
     <Content Include="themes\BlueGrey\user_rank2.gif" />
     <Content Include="themes\BlueGrey\user_rank3.gif" />
+    <Content Include="themes\BlueGrey\VoteDown.png" />
+    <Content Include="themes\BlueGrey\VoteUp.png" />
     <Content Include="themes\BlueGrey\vote_lcap.gif" />
     <Content Include="themes\BlueGrey\vote_rcap.gif" />
     <Content Include="themes\BlueGrey\vote_refuse.gif" />
@@ -3053,6 +3056,11 @@
     <Content Include="themes\cleanSlate\sandclock.gif" />
     <Content Include="themes\cleanSlate\sort_down.gif" />
     <Content Include="themes\cleanSlate\sort_up.gif" />
+    <Content Include="themes\cleanSlate\status_fixed.png" />
+    <Content Include="themes\cleanSlate\status_informatic.png" />
+    <Content Include="themes\cleanSlate\status_issue.png" />
+    <Content Include="themes\cleanSlate\status_question.png" />
+    <Content Include="themes\cleanSlate\status_solved.png" />
     <Content Include="themes\cleanSlate\tab-line.png" />
     <Content Include="themes\cleanSlate\tab.png" />
     <Content Include="themes\cleanSlate\theme.css" />
@@ -3075,6 +3083,8 @@
     <Content Include="themes\cleanSlate\user_rank1.gif" />
     <Content Include="themes\cleanSlate\user_rank2.gif" />
     <Content Include="themes\cleanSlate\user_rank3.gif" />
+    <Content Include="themes\cleanSlate\VoteDown.png" />
+    <Content Include="themes\cleanSlate\VoteUp.png" />
     <Content Include="themes\cleanSlate\vote_lcap.gif" />
     <Content Include="themes\cleanSlate\vote_rcap.gif" />
     <Content Include="themes\cleanSlate\vote_refuse.gif" />
@@ -3183,6 +3193,8 @@
     <Content Include="themes\GreenGrey\user_rank1.gif" />
     <Content Include="themes\GreenGrey\user_rank2.gif" />
     <Content Include="themes\GreenGrey\user_rank3.gif" />
+    <Content Include="themes\GreenGrey\VoteDown.png" />
+    <Content Include="themes\GreenGrey\VoteUp.png" />
     <Content Include="themes\GreenGrey\vote_lcap.gif" />
     <Content Include="themes\GreenGrey\vote_rcap.gif" />
     <Content Include="themes\GreenGrey\vote_refuse.gif" />
@@ -3283,11 +3295,13 @@
     <Content Include="themes\GreyGrey\topic_poll.png" />
     <Content Include="themes\GreyGrey\topic_poll_new.png" />
     <Content Include="themes\GreyGrey\topic_sticky.png" />
-    <Content Include="themes\GreyGrey\topic_sticky_new.png" />    
+    <Content Include="themes\GreyGrey\topic_sticky_new.png" />
     <Content Include="themes\GreyGrey\users_poll.gif" />
     <Content Include="themes\GreyGrey\user_rank1.gif" />
     <Content Include="themes\GreyGrey\user_rank2.gif" />
     <Content Include="themes\GreyGrey\user_rank3.gif" />
+    <Content Include="themes\GreyGrey\VoteDown.png" />
+    <Content Include="themes\GreyGrey\VoteUp.png" />
     <Content Include="themes\GreyGrey\vote_lcap.gif" />
     <Content Include="themes\GreyGrey\vote_rcap.gif" />
     <Content Include="themes\GreyGrey\vote_refuse.gif" />
@@ -3395,6 +3409,8 @@
     <Content Include="themes\OrangeGrey\user_rank1.gif" />
     <Content Include="themes\OrangeGrey\user_rank2.gif" />
     <Content Include="themes\OrangeGrey\user_rank3.gif" />
+    <Content Include="themes\OrangeGrey\VoteDown.png" />
+    <Content Include="themes\OrangeGrey\VoteUp.png" />
     <Content Include="themes\OrangeGrey\vote_lcap.gif" />
     <Content Include="themes\OrangeGrey\vote_rcap.gif" />
     <Content Include="themes\OrangeGrey\vote_refuse.gif" />
@@ -3502,6 +3518,8 @@
     <Content Include="themes\RedGrey\user_rank1.gif" />
     <Content Include="themes\RedGrey\user_rank2.gif" />
     <Content Include="themes\RedGrey\user_rank3.gif" />
+    <Content Include="themes\RedGrey\VoteDown.png" />
+    <Content Include="themes\RedGrey\VoteUp.png" />
     <Content Include="themes\RedGrey\vote_lcap.gif" />
     <Content Include="themes\RedGrey\vote_rcap.gif" />
     <Content Include="themes\RedGrey\vote_refuse.gif" />
@@ -3548,9 +3566,16 @@
     <Content Include="themes\soclean\RightArrowWhite.png" />
     <Content Include="themes\soclean\rssfeed.gif" />
     <Content Include="themes\soclean\sandclock.gif" />
+    <Content Include="themes\soclean\status_fixed.png" />
+    <Content Include="themes\soclean\status_informatic.png" />
+    <Content Include="themes\soclean\status_issue.png" />
+    <Content Include="themes\soclean\status_question.png" />
+    <Content Include="themes\soclean\status_solved.png" />
     <Content Include="themes\soclean\tab-line.png" />
     <Content Include="themes\soclean\tab.png" />
     <Content Include="themes\soclean\users_poll.gif" />
+    <Content Include="themes\soclean\VoteDown.png" />
+    <Content Include="themes\soclean\VoteUp.png" />
     <Content Include="themes\soclean\vote_refuse.gif" />
     <Content Include="themes\YafMobile.xml" />
     <Content Include="themes\Yafmobile\arrow_up_button.png" />
@@ -3674,11 +3699,18 @@
     <Content Include="themes\yafpro\RightArrowWhite.png" />
     <Content Include="themes\yafpro\rssfeed.gif" />
     <Content Include="themes\yafpro\sandclock.gif" />
+    <Content Include="themes\yafpro\status_fixed.png" />
+    <Content Include="themes\yafpro\status_informatic.png" />
+    <Content Include="themes\yafpro\status_issue.png" />
+    <Content Include="themes\yafpro\status_question.png" />
+    <Content Include="themes\yafpro\status_solved.png" />
     <Content Include="themes\yafpro\tab-line.png" />
     <Content Include="themes\yafpro\tab.png" />
     <Content Include="themes\yafpro\topic_hot.gif" />
     <Content Include="themes\yafpro\topic_hot_new.gif" />
     <Content Include="themes\yafpro\users_poll.gif" />
+    <Content Include="themes\yafpro\VoteDown.png" />
+    <Content Include="themes\yafpro\VoteUp.png" />
     <Content Include="themes\yafpro\vote_refuse.gif" />
     <Content Include="themes\yafpro\yafpro.js" />
     <Content Include="themes\yafvision\albums.png" />
@@ -3723,11 +3755,18 @@
     <Content Include="themes\yafvision\RightArrowWhite.png" />
     <Content Include="themes\yafvision\rssfeed.gif" />
     <Content Include="themes\yafvision\sandclock.gif" />
+    <Content Include="themes\yafvision\status_fixed.png" />
+    <Content Include="themes\yafvision\status_informatic.png" />
+    <Content Include="themes\yafvision\status_issue.png" />
+    <Content Include="themes\yafvision\status_question.png" />
+    <Content Include="themes\yafvision\status_solved.png" />
     <Content Include="themes\yafvision\tab-line.png" />
     <Content Include="themes\yafvision\tab.png" />
     <Content Include="themes\yafvision\topic_hot.png" />
     <Content Include="themes\yafvision\topic_hot_new.png" />
     <Content Include="themes\yafvision\users_poll.gif" />
+    <Content Include="themes\yafvision\VoteDown.png" />
+    <Content Include="themes\yafvision\VoteUp.png" />
     <Content Include="themes\yafvision\vote_refuse.gif" />
     <Content Include="themes\yafvision\yafvision.js" />
     <None Include="Web References\RegisterV2\LatestVersionInformation.datasource">
