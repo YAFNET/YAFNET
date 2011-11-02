@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.im_email" Codebehind="im_email.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.im_email" Codebehind="im_email.ascx.cs" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <div align="center">
 <table class="content" width="600px" border="0" cellpadding="0" cellspacing="1">
@@ -12,14 +12,14 @@
 			<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="SUBJECT" />
 		</td>
 		<td class="post">
-			<asp:TextBox runat="server" ID="Subject" style="width: 100%" /></td>
+			<asp:TextBox runat="server" ID="Subject" CssClass="edit" /></td>
 	</tr>
 	<tr>
 		<td class="postheader" valign='top' width="150px">
 			<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="BODY" />
 		</td>
 		<td class="post">
-			<asp:TextBox runat="server" ID="Body" TextMode="multiline" Rows='10' Style='width: 100%' />
+			<asp:TextBox runat="server" ID="Body" TextMode="multiline" Rows='10' CssClass="edit" />
 		</td>
 	</tr>
 	<tr class="postfooter">

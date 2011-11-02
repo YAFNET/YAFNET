@@ -2,7 +2,7 @@
     Inherits="YAF.Controls.ForumStatistics" Codebehind="ForumStatistics.ascx.cs" %>
 <asp:UpdatePanel ID="UpdateStatsPanel" runat="server" UpdateMode="Conditional">
     <ContentTemplate>
-        <table class="content" cellspacing="1" cellpadding="0" width="100%">
+        <table class="content forumStatisticsContent" cellspacing="1" cellpadding="0" width="100%">
             <tr>
                 <td class="header1" colspan="2">
                     <YAF:CollapsibleImage ID="CollapsibleImage" runat="server" BorderWidth="0" Style="vertical-align: middle"

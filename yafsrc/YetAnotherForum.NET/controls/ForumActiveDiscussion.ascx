@@ -1,8 +1,9 @@
-<%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false" Inherits="YAF.Controls.ForumActiveDiscussion"
+﻿<%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false" Inherits="YAF.Controls.ForumActiveDiscussion"
     CodeBehind="ForumActiveDiscussion.ascx.cs" %>
+<%@ Import Namespace="YAF.Types.Interfaces" %>
 <asp:UpdatePanel ID="UpdateStatsPanel" runat="server" UpdateMode="Conditional">
     <ContentTemplate>
-        <table border="0" class="content" cellspacing="1" cellpadding="0" width="100%">
+        <table border="0" class="content activeDiscussionContent" cellspacing="1" cellpadding="0" width="100%">
             <tr>
                 <td class="header1" colspan="2">
                     <YAF:CollapsibleImage ID="CollapsibleImage" runat="server" BorderWidth="0" Style="vertical-align: middle"

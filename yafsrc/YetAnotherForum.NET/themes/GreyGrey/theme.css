@@ -245,27 +245,41 @@ t.yafnet {
 	font-weight: bold;
 	text-decoration: none;
 }
-/* Header of posts */
-.yafnet .postheader {
+
+.yafnet .post,
+.yafnet .postheader {border-top:1px solid #e9e9e9;}
+
+.activeDiscussionContent .post, 
+.forumStatisticsContent .post,
+.activeDiscussionContent .postheader, 
+.forumStatisticsContent .postheader,
+.smiliesContent .post,
+#yafprofilecontent .post,
+#yafprofilecontent .postheader {border-top:none;}
+
+.yafnet .linkedPostsContent .postheader,
+.yafnet .LastPosts .postheader {
 	background: url('Header2Back.png') repeat-x -3px #ffffff;
 	
 	background: -webkit-gradient(linear, left top, left bottom, from(#e3e3e3), to(#ffffff));
 	background: -moz-linear-gradient(top,  #e3e3e3,  #ffffff);
     background: -o-linear-gradient(top, #e3e3e3, #ffffff);
 }
-.EditUserProfileTable .post,
-.adminContent .post, 
-.EditUserProfileTable .postheader,
-.searchContent .postheader,
-.adminContent .postheader {border-top:1px solid #e9e9e9;}
-
-.searchContent .postheader,
-.profileContent .postheader,
-.adminContent .postheader,
-.EditUserProfileTable .postheader,
-#yafprofilecontent .postheader {
-	background: #fefefe;
+.yafnet .postheader a {
+	font-size: 11pt;
+	color: Black;	
 }
+
+/* Header of posts */
+.yafnet .postContainer_Alt .postheader,
+.yafnet .postContainer .postheader {
+	background: url('Header2Back.png') repeat-x -3px #ffffff;
+	
+	background: -webkit-gradient(linear, left top, left bottom, from(#dfeec3), to(#ffffff));
+	background: -moz-linear-gradient(top,  #dfeec3,  #ffffff);
+    background: -o-linear-gradient(top, #dfeec3, #ffffff);
+}
+
 /* User info and post/article */
 .yafnet .post,
 .yafnet .post_alt,

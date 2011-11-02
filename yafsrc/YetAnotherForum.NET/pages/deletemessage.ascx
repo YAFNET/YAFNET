@@ -55,7 +55,7 @@
 <br />
 <asp:Repeater ID="LinkedPosts" runat="server" Visible="false">
     <HeaderTemplate>
-        <table class="content" cellspacing="1" cellpadding="0" width="100%" align="center">
+        <table class="content linkedPostsContent" cellspacing="1" cellpadding="0" width="100%" align="center">
             <tr>
                 <td class="header2" align="center" colspan="1">
                     <asp:CheckBox ID="DeleteAllPosts" OnCheckedChanged="DeleteAllPosts_CheckedChanged1"
