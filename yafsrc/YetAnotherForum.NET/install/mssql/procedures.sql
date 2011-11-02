@@ -6,6 +6,10 @@
   Remove Extra Stuff: SET ANSI_NULLS ON\nGO\nSET QUOTED_IDENTIFIER ON\nGO\n\n\n 
 */
 
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}forum_move]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}forum_move]
+GO
+
 IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}User_ListTodaysBirthdays]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}User_ListTodaysBirthdays]
 GO
@@ -9778,4 +9782,53 @@ begin
 		where TopicStatusID = @TopicStatusID
 	end
 end
+GO
+
+CREATE procedure [{databaseOwner}].[{objectQualifier}forum_move](@ForumOldID int,@ForumNewID int) as
+begin
+		-- Maybe an idea to use cascading foreign keys instead? Too bad they don't work on MS SQL 7.0...
+	update [{databaseOwner}].[{objectQualifier}Forum] set LastMessageID=null,LastTopicID=null where ForumID=@ForumOldID
+	update [{databaseOwner}].[{objectQualifier}Active] set ForumID=@ForumNewID where ForumID=@ForumOldID
+	update [{databaseOwner}].[{objectQualifier}NntpForum] set ForumID=@ForumNewID where ForumID=@ForumOldID
+	update [{databaseOwner}].[{objectQualifier}WatchForum] set ForumID=@ForumNewID where ForumID=@ForumOldID
+	delete from [{databaseOwner}].[{objectQualifier}ForumReadTracking] where ForumID = @ForumOldID
+
+	-- BAI CHANGED 02.02.2004
+	-- Delete topics, messages and attachments
+
+	declare @tmpTopicID int;
+	declare topic_cursor cursor for
+		select TopicID from [{databaseOwner}].[{objectQualifier}topic]
+		where ForumID = @ForumOldID
+		order by TopicID desc
+	
+	open topic_cursor
+	
+	fetch next from topic_cursor
+	into @tmpTopicID
+	
+	-- Check @@FETCH_STATUS to see if there are any more rows to fetch.
+	while @@FETCH_STATUS = 0
+	begin
+		exec [{databaseOwner}].[{objectQualifier}topic_move] @tmpTopicID,@ForumNewID,0;
+	
+	   -- This is executed as long as the previous fetch succeeds.
+		fetch next from topic_cursor
+		into @tmpTopicID
+	end
+	
+	close topic_cursor
+	deallocate topic_cursor
+
+	-- TopicDelete finished
+	-- END BAI CHANGED 02.02.2004
+
+	delete from [{databaseOwner}].[{objectQualifier}ForumAccess] where ForumID = @ForumOldID
+
+	--Update UserForums Too 
+	update [{databaseOwner}].[{objectQualifier}UserForum] set ForumID=@ForumNewID where ForumID=@ForumOldID
+	--END ABOT CHANGED 09.04.2004
+	delete from [{databaseOwner}].[{objectQualifier}Forum] where ForumID = @ForumOldID
+end
+
 GO

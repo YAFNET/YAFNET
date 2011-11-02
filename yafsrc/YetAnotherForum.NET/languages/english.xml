@@ -1478,6 +1478,7 @@ Spoiler Content
       <Resource tag="ADMIN_EDITBOARD">Edits boards</Resource>
       <Resource tag="ADMIN_EDITCATEGORY">Edits categories</Resource>
       <Resource tag="ADMIN_EDITFORUM">Edits forums</Resource>
+      <Resource tag="ADMIN_DELETEFORUM">Delete forums</Resource> 
       <Resource tag="ADMIN_EDITGROUP">Edits groups</Resource>
       <Resource tag="ADMIN_EDITMEDAL">Edits medals</Resource>
       <Resource tag="ADMIN_EDITRANK">Edits ranks</Resource>
@@ -3790,11 +3791,9 @@ Visit {forumname} at {forumlink}
       <Resource tag="CONFIRM_DELETE_CAT">Delete this category?</Resource>
       <Resource tag="CONFIRM_DELETE">Permanently delete this Forum including ALL topics, polls, attachments and messages associated with it?</Resource>
       <Resource tag="CONFIRM_DELETE_POSITIVE">Are you POSITIVE?</Resource>
-      <Resource tag="MSG_NOT_DELETE">You cannot delete this Category as it has at least one forum assigned to it.\nTo move forums click on \"Edit\" and change the category the forum is assigned to.</Resource>
+      <Resource tag="MSG_NOT_DELETE">You cannot delete this Category as it has at least one forum assigned to it.\nTo move forums click on "Edit" and change the category the forum is assigned to.</Resource>
       <Resource tag="NEW_CATEGORY">New Category</Resource>
       <Resource tag="NEW_FORUM">New Forum</Resource>
-      <Resource tag="DELETE_TITLE">Deleting Forum</Resource>
-      <Resource tag="DELETE_MSG">Please do not navigate away from this page while the deletion is in progress...</Resource>
     </page>
     <page name="ADMIN_EDITCATEGORY">
       <Resource tag="TITLE">Add/Edit Category</Resource>
@@ -3855,6 +3854,18 @@ Visit {forumname} at {forumlink}
       <Resource tag="STYLES_HELP">Styles string to customize Forum Name. Leave it empty.</Resource>
       <Resource tag="INITAL_MASK">Initial Access Mask:</Resource>
       <Resource tag="INITAL_MASK_HELP">The initial access mask for all forums.</Resource>
+    </page>
+    <page name="ADMIN_DELETEFORUM">
+      <Resource tag="TITLE">Delete Forum</Resource>
+      <Resource tag="HEADER1">Delete the forum:</Resource>
+      <Resource tag="DELETE_FORUM">Delete Forum</Resource>
+      <Resource tag="MOVE_TOPICS">Move all Topics, before Deleting?</Resource>
+      <Resource tag="MOVE_TOPICS_HELP">Move all Topics inside the Forum to a Forum selected Bellow.</Resource>
+      <Resource tag="NEW_FORUM">New Forum:</Resource>
+      <Resource tag="NEW_FORUM_HELP">Select the new Forum for the Topics.</Resource>
+      <Resource tag="DELETE_TITLE">Deleting Forum</Resource>
+      <Resource tag="DELETE_MOVE_TITLE">Deleting Forum and Moving Topics</Resource>
+      <Resource tag="DELETE_MSG">Please do not navigate away from this page while the deletion is in progress...</Resource>
     </page>
     <page name="ADMIN_BOARDS">
       <Resource tag="TITLE">Boards</Resource>

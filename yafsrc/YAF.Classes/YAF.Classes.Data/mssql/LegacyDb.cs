@@ -3702,8 +3702,6 @@ namespace YAF.Classes.Data
             }
         }
 
-        // END ABOT NEW 16.04.04
-        // ABOT CHANGE 16.04.04
         /// <summary>
         /// Deletes a forum
         /// </summary>
@@ -3720,23 +3718,59 @@ namespace YAF.Classes.Data
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("ForumID", forumID);
 
-                if (MsSqlDbAccess.Current.ExecuteScalar(cmd) is DBNull)
-                {
-                    forum_deleteAttachments(forumID);
-                    using (SqlCommand cmd_new = MsSqlDbAccess.GetCommand("forum_delete"))
-                    {
-                        cmd_new.CommandType = CommandType.StoredProcedure;
-                        cmd_new.CommandTimeout = 99999;
-                        cmd_new.Parameters.AddWithValue("ForumID", forumID);
-                        MsSqlDbAccess.Current.ExecuteNonQuery(cmd_new);
-                    }
-
-                    return true;
-                }
-                else
+                if (!(MsSqlDbAccess.Current.ExecuteScalar(cmd) is DBNull))
                 {
                     return false;
                 }
+
+                forum_deleteAttachments(forumID);
+                
+                using (SqlCommand cmd_new = MsSqlDbAccess.GetCommand("forum_delete"))
+                {
+                    cmd_new.CommandType = CommandType.StoredProcedure;
+                    cmd_new.CommandTimeout = 99999;
+                    cmd_new.Parameters.AddWithValue("ForumID", forumID);
+                    MsSqlDbAccess.Current.ExecuteNonQuery(cmd_new);
+                }
+
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// Deletes a forum
+        /// </summary>
+        /// <param name="forumOldID">
+        /// The forum Old ID.
+        /// </param>
+        /// <param name="forumNewID">
+        /// The forum New ID.
+        /// </param>
+        /// <returns>
+        /// bool to indicate that forum has been deleted
+        /// </returns>
+        public static bool forum_move([NotNull] object forumOldID, [NotNull] object forumNewID)
+        {
+            using (var cmd = MsSqlDbAccess.GetCommand("forum_listSubForums"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("ForumID", forumOldID);
+
+                if (!(MsSqlDbAccess.Current.ExecuteScalar(cmd) is DBNull))
+                {
+                    return false;
+                }
+
+                using (SqlCommand cmd_new = MsSqlDbAccess.GetCommand("forum_move"))
+                {
+                    cmd_new.CommandType = CommandType.StoredProcedure;
+                    cmd_new.CommandTimeout = 99999;
+                    cmd_new.Parameters.AddWithValue("ForumOldID", forumOldID);
+                    cmd_new.Parameters.AddWithValue("ForumNewID", forumNewID);
+                    MsSqlDbAccess.Current.ExecuteNonQuery(cmd_new);
+                }
+
+                return true;
             }
         }
 

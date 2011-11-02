@@ -29,6 +29,7 @@
       <ForumPage>admin_forums</ForumPage>
       <SubForumPage_0>admin_editcategory</SubForumPage_0>
       <SubForumPage_1>admin_editforum</SubForumPage_1>
+      <SubForumPage_2>admin_deleteforum</SubForumPage_2>
       <Image>sticky-notes-pin</Image>
     </YafMenuItem>
     <YafMenuItem>

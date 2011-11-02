@@ -447,7 +447,12 @@ namespace YAF.Types.Constants
     /// <summary>
     /// The admin_editforum.
     /// </summary>
-    admin_editforum, 
+    admin_editforum,
+
+    /// <summary>
+    /// The admin_deleteforum.
+    /// </summary>
+    admin_deleteforum, 
 
     /// <summary>
     /// The admin_editgroup.

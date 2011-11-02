@@ -332,6 +332,13 @@
     <Compile Include="pages\admin\boardsettings.ascx.designer.cs">
       <DependentUpon>boardsettings.ascx</DependentUpon>
     </Compile>
+    <Compile Include="pages\admin\deleteforum.ascx.cs">
+      <DependentUpon>deleteforum.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\deleteforum.ascx.designer.cs">
+      <DependentUpon>deleteforum.ascx</DependentUpon>
+    </Compile>
     <Compile Include="pages\admin\digest.ascx.cs">
       <DependentUpon>digest.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1077,6 +1084,7 @@
     <Content Include="languages\install\english.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="pages\admin\deleteforum.ascx" />
     <Content Include="pages\admin\topicstatus.ascx" />
     <Content Include="pages\admin\topicstatus_edit.ascx" />
     <Content Include="pages\admin\topicstatus_import.ascx" />
@@ -2591,6 +2599,7 @@
     <Content Include="themes\BlackGrey\poll_choice.png" />
     <Content Include="themes\BlackGrey\poll_question.png" />
     <Content Include="themes\BlackGrey\PostHeader.png" />
+    <Content Include="themes\BlackGrey\Report.png" />
     <Content Include="themes\BlackGrey\RightArrow.png" />
     <Content Include="themes\BlackGrey\RightArrowWhite.png" />
     <Content Include="themes\BlackGrey\rssfeed.gif" />
@@ -2699,6 +2708,7 @@
     <Content Include="themes\BlueGrey\poll_choice.png" />
     <Content Include="themes\BlueGrey\poll_question.png" />
     <Content Include="themes\BlueGrey\PostHeader.png" />
+    <Content Include="themes\BlueGrey\Report.png" />
     <Content Include="themes\BlueGrey\RightArrow.png" />
     <Content Include="themes\BlueGrey\RightArrowWhite.png" />
     <Content Include="themes\BlueGrey\rssfeed.gif" />
@@ -3051,6 +3061,7 @@
     <Content Include="themes\cleanSlate\plus_small_icon.png" />
     <Content Include="themes\cleanSlate\poll_choice.png" />
     <Content Include="themes\cleanSlate\poll_question.png" />
+    <Content Include="themes\cleanSlate\Report.png" />
     <Content Include="themes\cleanSlate\RightArrow.png" />
     <Content Include="themes\cleanSlate\rssfeed.gif" />
     <Content Include="themes\cleanSlate\sandclock.gif" />
@@ -3162,6 +3173,7 @@
     <Content Include="themes\GreenGrey\poll_question.png" />
     <Content Include="themes\GreenGrey\PostHeader.png" />
     <Content Include="themes\GreenGrey\reflection.js" />
+    <Content Include="themes\GreenGrey\Report.png" />
     <Content Include="themes\GreenGrey\RightArrow.png" />
     <Content Include="themes\GreenGrey\RightArrowWhite.png" />
     <Content Include="themes\GreenGrey\rssfeed.gif" />
@@ -3270,6 +3282,7 @@
     <Content Include="themes\GreyGrey\poll_choice.png" />
     <Content Include="themes\GreyGrey\poll_question.png" />
     <Content Include="themes\GreyGrey\PostHeader.png" />
+    <Content Include="themes\GreyGrey\Report.png" />
     <Content Include="themes\GreyGrey\RightArrow.png" />
     <Content Include="themes\GreyGrey\rssfeed.gif" />
     <Content Include="themes\GreyGrey\sandclock.gif" />
@@ -3378,6 +3391,7 @@
     <Content Include="themes\OrangeGrey\poll_choice.png" />
     <Content Include="themes\OrangeGrey\poll_question.png" />
     <Content Include="themes\OrangeGrey\PostHeader.png" />
+    <Content Include="themes\OrangeGrey\Report.png" />
     <Content Include="themes\OrangeGrey\RightArrow.png" />
     <Content Include="themes\OrangeGrey\RightArrowWhite.png" />
     <Content Include="themes\OrangeGrey\rssfeed.gif" />
@@ -3487,6 +3501,7 @@
     <Content Include="themes\RedGrey\poll_choice.png" />
     <Content Include="themes\RedGrey\poll_question.png" />
     <Content Include="themes\RedGrey\PostHeader.png" />
+    <Content Include="themes\RedGrey\Report.png" />
     <Content Include="themes\RedGrey\RightArrow.png" />
     <Content Include="themes\RedGrey\RightArrowWhite.png" />
     <Content Include="themes\RedGrey\rssfeed.gif" />
@@ -3562,6 +3577,7 @@
     <Content Include="themes\soclean\plus_small_icon.png" />
     <Content Include="themes\soclean\poll_choice.png" />
     <Content Include="themes\soclean\poll_question.png" />
+    <Content Include="themes\soclean\Report.png" />
     <Content Include="themes\soclean\RightArrow.png" />
     <Content Include="themes\soclean\RightArrowWhite.png" />
     <Content Include="themes\soclean\rssfeed.gif" />
@@ -3695,6 +3711,7 @@
     <Content Include="themes\yafpro\plus_small_icon.png" />
     <Content Include="themes\yafpro\poll_choice.png" />
     <Content Include="themes\yafpro\poll_question.png" />
+    <Content Include="themes\yafpro\Report.png" />
     <Content Include="themes\yafpro\RightArrow.png" />
     <Content Include="themes\yafpro\RightArrowWhite.png" />
     <Content Include="themes\yafpro\rssfeed.gif" />
@@ -3751,6 +3768,7 @@
     <Content Include="themes\yafvision\plus_small_icon.png" />
     <Content Include="themes\yafvision\poll_choice.png" />
     <Content Include="themes\yafvision\poll_question.png" />
+    <Content Include="themes\yafvision\Report.png" />
     <Content Include="themes\yafvision\RightArrow.png" />
     <Content Include="themes\yafvision\RightArrowWhite.png" />
     <Content Include="themes\yafvision\rssfeed.gif" />

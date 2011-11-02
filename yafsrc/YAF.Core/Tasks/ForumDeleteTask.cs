@@ -18,120 +18,142 @@
  */
 namespace YAF.Core.Tasks
 {
-  using System;
+    using System;
 
-  using YAF.Classes.Data;
-  using YAF.Types.Interfaces;
-  using YAF.Utils;
-  using YAF.Utils.Helpers.StringUtils;
-
-  /// <summary>
-  /// The forum delete task.
-  /// </summary>
-  public class ForumDeleteTask : LongBackgroundTask
-  {
-    #region Constants and Fields
+    using YAF.Classes.Data;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
 
     /// <summary>
-    /// The _task name.
+    /// The forum delete task.
     /// </summary>
-    private const string _taskName = "ForumDeleteTask";
-
-    /// <summary>
-    /// The _forum id.
-    /// </summary>
-    private int _forumId;
-
-    #endregion
-
-    #region Constructors and Destructors
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ForumDeleteTask"/> class.
-    /// </summary>
-    public ForumDeleteTask()
+    public class ForumDeleteTask : LongBackgroundTask
     {
+        #region Constants and Fields
+
+        /// <summary>
+        /// The _task name.
+        /// </summary>
+        private const string _TaskName = "ForumDeleteTask";
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets TaskName.
+        /// </summary>
+        public static string TaskName
+        {
+            get
+            {
+                return _TaskName;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets ForumId.
+        /// </summary>
+        public int ForumId { get; set; }
+
+        /// <summary>
+        /// Gets or sets Forum New Id.
+        /// </summary>
+        public int ForumNewId { get; set; }
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Creates the Forum Delete Task
+        /// </summary>
+        /// <param name="boardId">
+        /// The board id.
+        /// </param>
+        /// <param name="forumId">
+        /// The forum id.
+        /// </param>
+        /// <returns>
+        /// Returns if Task was Successfull
+        /// </returns>
+        public static bool Start(int boardId, int forumId)
+        {
+            if (YafContext.Current.Get<ITaskModuleManager>() == null)
+            {
+                return false;
+            }
+
+            if (!YafContext.Current.Get<ITaskModuleManager>().TaskExists(TaskName))
+            {
+                var task = new ForumDeleteTask { Data = boardId, ForumId = forumId, ForumNewId = -1 };
+                YafContext.Current.Get<ITaskModuleManager>().StartTask(TaskName, task);
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Creates the Forum Delete Task and moves the Messages to a new Forum
+        /// </summary>
+        /// <param name="boardId">
+        /// The board id.
+        /// </param>
+        /// <param name="forumOldId">
+        /// The forum Old Id.
+        /// </param>
+        /// <param name="forumNewId">
+        /// The Forum New Id.
+        /// </param>
+        /// <returns>
+        /// Returns if Task was Successfull
+        /// </returns>
+        public static bool Start(int boardId, int forumOldId, int forumNewId)
+        {
+            if (YafContext.Current.Get<ITaskModuleManager>() == null)
+            {
+                return false;
+            }
+
+            if (!YafContext.Current.Get<ITaskModuleManager>().TaskExists(TaskName))
+            {
+                var task = new ForumDeleteTask { Data = boardId, ForumId = forumOldId, ForumNewId = forumNewId };
+
+                YafContext.Current.Get<ITaskModuleManager>().StartTask(TaskName, task);
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// The run once.
+        /// </summary>
+        public override void RunOnce()
+        {
+            try
+            {
+                if (this.ForumNewId.Equals(-1))
+                {
+                    LegacyDb.forum_delete(this.ForumId);
+
+                    LegacyDb.eventlog_create(
+                    null, TaskName, "Forum (ID: {0}) Delete Task Complete.".FormatWith(this.ForumId), 2);
+                }
+                else
+                {
+                    LegacyDb.forum_move(this.ForumId, this.ForumNewId);
+
+                    LegacyDb.eventlog_create(
+                    null, TaskName, "Forum (ID: {0}) Delete Task Complete, and Topics has been moved to Forum (ID: {1})".FormatWith(this.ForumId, this.ForumNewId), 2);
+                }
+            }
+            catch (Exception x)
+            {
+                LegacyDb.eventlog_create(
+                    null, TaskName, "Error In Forum (ID: {0}) Delete Task: {1}".FormatWith(this.ForumId, x));
+            }
+        }
+
+        #endregion
     }
-
-    #endregion
-
-    #region Properties
-
-    /// <summary>
-    /// Gets TaskName.
-    /// </summary>
-    public static string TaskName
-    {
-      get
-      {
-        return _taskName;
-      }
-    }
-
-    /// <summary>
-    /// Gets or sets ForumId.
-    /// </summary>
-    public int ForumId
-    {
-      get
-      {
-        return this._forumId;
-      }
-
-      set
-      {
-        this._forumId = value;
-      }
-    }
-
-    #endregion
-
-    #region Public Methods
-
-    /// <summary>
-    /// The start.
-    /// </summary>
-    /// <param name="boardId">
-    /// The board id.
-    /// </param>
-    /// <param name="forumId">
-    /// The forum id.
-    /// </param>
-    /// <returns>
-    /// The start.
-    /// </returns>
-    public static bool Start(int boardId, int forumId)
-    {
-      if (YafContext.Current.Get<ITaskModuleManager>() == null)
-      {
-        return false;
-      }
-
-      if (!YafContext.Current.Get<ITaskModuleManager>().TaskExists(TaskName))
-      {
-        var task = new ForumDeleteTask { Data = boardId, ForumId = forumId };
-        YafContext.Current.Get<ITaskModuleManager>().StartTask(TaskName, task);
-      }
-
-      return true;
-    }
-
-    /// <summary>
-    /// The run once.
-    /// </summary>
-    public override void RunOnce()
-    {
-      try
-      {
-        LegacyDb.forum_delete(this.ForumId);
-        LegacyDb.eventlog_create(null, TaskName, "Forum (ID: {0}) Delete Task Complete.".FormatWith(this.ForumId), 2);
-      }
-      catch (Exception x)
-      {
-        LegacyDb.eventlog_create(null, TaskName, "Error In Forum (ID: {0}) Delete Task: {1}".FormatWith(this.ForumId, x));
-      }
-    }
-
-    #endregion
-  }
 }

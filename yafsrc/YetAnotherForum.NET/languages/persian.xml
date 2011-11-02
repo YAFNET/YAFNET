@@ -12,6 +12,7 @@
     <Resource tag="ADMIN_BBCODE_IMPORT">در حال وارد کردن BBCodes</Resource>
     <Resource tag="ADMIN_BOARDS">در حال مشاهده لیست بوردها </Resource>
     <Resource tag="ADMIN_BOARDSETTINGS">در حال مشاهده تنظیمات بورد</Resource>
+    <Resource tag="ADMIN_DELETEFORUM">Delete forums</Resource>
     <Resource tag="ADMIN_EDITACCESSMASK">در حال ویرایش سطوح دسترسی</Resource>
     <Resource tag="ADMIN_EDITBOARD">در حال ویرایش بردها</Resource>
     <Resource tag="ADMIN_EDITCATEGORY">در حال ویرایش بخشها</Resource>
@@ -319,6 +320,18 @@
     <Resource tag="NO">خیر</Resource>
     <Resource tag="SAVE">ذخیره</Resource>
     <Resource tag="YES">بلی</Resource>
+  </page>
+  <page name="ADMIN_DELETEFORUM">
+    <Resource tag="DELETE_FORUM">Delete Forum</Resource>
+    <Resource tag="DELETE_MOVE_TITLE">Deleting Forum and Moving Topics</Resource>
+    <Resource tag="DELETE_MSG">Please do not navigate away from this page while the deletion is in progress...</Resource>
+    <Resource tag="DELETE_TITLE">Deleting Forum</Resource>
+    <Resource tag="HEADER1">Delete the forum:</Resource>
+    <Resource tag="MOVE_TOPICS">Move all Topics, before Deleting?</Resource>
+    <Resource tag="MOVE_TOPICS_HELP">Move all Topics inside the Forum to a Forum selected Bellow.</Resource>
+    <Resource tag="NEW_FORUM">New Forum:</Resource>
+    <Resource tag="NEW_FORUM_HELP">Select the new Forum for the Topics.</Resource>
+    <Resource tag="TITLE">Delete Forum</Resource>
   </page>
   <page name="ADMIN_DIGEST">
     <Resource tag="CONFIRM_FORCE">آیا می خواهید ارسال خلاصه را الان زمان بندی کنید؟</Resource>

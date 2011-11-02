@@ -12,6 +12,7 @@
     <Resource tag="ADMIN_BBCODE_IMPORT">Импортирует  BB-коды</Resource>
     <Resource tag="ADMIN_BOARDS">Просматривает все конференции</Resource>
     <Resource tag="ADMIN_BOARDSETTINGS">Просматривает/редактирует настройки досок</Resource>
+    <Resource tag="ADMIN_DELETEFORUM">Delete forums</Resource>
     <Resource tag="ADMIN_EDITACCESSMASK">Редактирует маски доступа</Resource>
     <Resource tag="ADMIN_EDITBOARD">Редактирует конференции</Resource>
     <Resource tag="ADMIN_EDITCATEGORY">Редактирует категории</Resource>
@@ -319,6 +320,18 @@
     <Resource tag="NO">Нет</Resource>
     <Resource tag="SAVE">Сохранить</Resource>
     <Resource tag="YES">Да</Resource>
+  </page>
+  <page name="ADMIN_DELETEFORUM">
+    <Resource tag="DELETE_FORUM">Delete Forum</Resource>
+    <Resource tag="DELETE_MOVE_TITLE">Deleting Forum and Moving Topics</Resource>
+    <Resource tag="DELETE_MSG">Please do not navigate away from this page while the deletion is in progress...</Resource>
+    <Resource tag="DELETE_TITLE">Deleting Forum</Resource>
+    <Resource tag="HEADER1">Delete the forum:</Resource>
+    <Resource tag="MOVE_TOPICS">Move all Topics, before Deleting?</Resource>
+    <Resource tag="MOVE_TOPICS_HELP">Move all Topics inside the Forum to a Forum selected Bellow.</Resource>
+    <Resource tag="NEW_FORUM">New Forum:</Resource>
+    <Resource tag="NEW_FORUM_HELP">Select the new Forum for the Topics.</Resource>
+    <Resource tag="TITLE">Delete Forum</Resource>
   </page>
   <page name="ADMIN_DIGEST">
     <Resource tag="CONFIRM_FORCE">Вы уверены, что хотите инициировать отправку дайджеста прямо сейчас?</Resource>

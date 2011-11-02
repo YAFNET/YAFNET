@@ -37,7 +37,7 @@
 							<td>
                              <YAF:ThemeButton ID="btnEdit" CssClass="yaflittlebutton" CommandName='edit' CommandArgument='<%# Eval( "[\"ForumID\"]") %>' TitleLocalizedTag="EDIT" ImageThemePage="ICONS" ImageThemeTag="EDIT_SMALL_ICON" runat="server"></YAF:ThemeButton>								
 							 <YAF:ThemeButton ID="btnDuplicate" CssClass="yaflittlebutton" CommandName='copy' CommandArgument='<%# Eval( "[\"ForumID\"]") %>' TitleLocalizedTag="COPY" ImageThemePage="ICONS" ImageThemeTag="COPY_SMALL_ICON" runat="server"></YAF:ThemeButton>
-                             <YAF:ThemeButton ID="btnDelete" CssClass="yaflittlebutton" OnLoad="DeleteForum_Load"  CommandName='delete' CommandArgument='<%# Eval( "[\"ForumID\"]") %>' TitleLocalizedTag="DELETE" ImageThemePage="ICONS" ImageThemeTag="DELETE_SMALL_ICON" runat="server"></YAF:ThemeButton>
+                             <YAF:ThemeButton ID="btnDelete" CssClass="yaflittlebutton" CommandName='delete' CommandArgument='<%# Eval( "[\"ForumID\"]") %>' TitleLocalizedTag="DELETE" ImageThemePage="ICONS" ImageThemeTag="DELETE_SMALL_ICON" runat="server"></YAF:ThemeButton>
                             </td>
 						</tr>
 					</ItemTemplate>
@@ -53,25 +53,5 @@
 		</tr>
 	</table>
 </YAF:AdminMenu>
-
-<asp:UpdatePanel ID="UpdatePanel1" runat="server">
-	<ContentTemplate>
-		<asp:Timer ID="UpdateStatusTimer" runat="server" Enabled="false" Interval="4000" OnTick="UpdateStatusTimer_Tick" />
-	
-	</ContentTemplate>
-</asp:UpdatePanel>
-
-<div>
-	<div id="DeleteForumMessage" style="display:none" class="ui-overlay">
-		<div class="ui-widget ui-widget-content ui-corner-all">
-		<h2><YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="DELETE_TITLE" LocalizedPage="ADMIN_FORUMS" /></h2>
-		<p><YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="DELETE_MSG" LocalizedPage="ADMIN_FORUMS" /></p>
-		<div align="center">
-			<asp:Image ID="LoadingImage" runat="server" alt="Processing..." />
-		</div>
-		<br />
-		</div>
-	</div>
-</div>
 
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

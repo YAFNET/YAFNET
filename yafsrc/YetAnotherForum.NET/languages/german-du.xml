@@ -12,6 +12,7 @@
     <Resource tag="ADMIN_BBCODE_IMPORT">Importiert BBCodes</Resource>
     <Resource tag="ADMIN_BOARDS">Betrachtet Boardliste</Resource>
     <Resource tag="ADMIN_BOARDSETTINGS">Betrachtet Boardeinstellungen</Resource>
+    <Resource tag="ADMIN_DELETEFORUM">Löscht Foren</Resource>
     <Resource tag="ADMIN_EDITACCESSMASK">Bearbeitet Zugriffsmasken</Resource>
     <Resource tag="ADMIN_EDITBOARD">Bearbeitet Boards</Resource>
     <Resource tag="ADMIN_EDITCATEGORY">Bearbeitet Kategorien</Resource>
@@ -320,6 +321,18 @@
     <Resource tag="NO">Nein </Resource>
     <Resource tag="SAVE">Speichern</Resource>
     <Resource tag="YES">Ja</Resource>
+  </page>
+  <page name="ADMIN_DELETEFORUM">
+    <Resource tag="DELETE_FORUM">Forum löschen</Resource>
+    <Resource tag="DELETE_MOVE_TITLE">Forum Löschung und Themen Versciebung</Resource>
+    <Resource tag="DELETE_MSG">Bitte entfernen Sie sich nicht von dieser Seite während der Löschvorgang läuft...</Resource>
+    <Resource tag="DELETE_TITLE">Forum Löschung</Resource>
+    <Resource tag="HEADER1">Dieses Forum löschen:</Resource>
+    <Resource tag="MOVE_TOPICS">Themen verschieben vor dem Löschen?</Resource>
+    <Resource tag="MOVE_TOPICS_HELP">Alle Themen die sich in diesem Forum befinden werden in ein anderes Forum verschoben.</Resource>
+    <Resource tag="NEW_FORUM">Neues Forum:</Resource>
+    <Resource tag="NEW_FORUM_HELP">Wählen Sie ein neues Forum für die Themen.</Resource>
+    <Resource tag="TITLE">Forum Löschen</Resource>
   </page>
   <page name="ADMIN_DIGEST">
     <Resource tag="CONFIRM_FORCE">Sie sind sicher, dass Sie diesen Digest jetzt planen wollen?</Resource>
@@ -730,8 +743,6 @@
     <Resource tag="CONFIRM_DELETE">Dieses Forum permanent löschen inkl. ALLER Themen, Umfragen, Anhänge und Beiträge die darin enthalten sind?</Resource>
     <Resource tag="CONFIRM_DELETE_CAT">Dieser Kategorie löschen?</Resource>
     <Resource tag="CONFIRM_DELETE_POSITIVE">Sie sind SICHER?</Resource>
-    <Resource tag="DELETE_MSG">Bitte entfernen Sie sich nicht von dieser Seite während der Löschvorgang läuft...</Resource>
-    <Resource tag="DELETE_TITLE">Forum löschen</Resource>
     <Resource tag="MSG_NOT_DELETE">Sie können diese Kategorie nicht löschen da Sie mindestens ein Forum enthält.\nUm das Forum zu verschieben klicken Sie auf  \"Bearbeiten\" und ändern Sie die Kategorie.</Resource>
     <Resource tag="NEW_CATEGORY">Neue Kategorie</Resource>
     <Resource tag="NEW_FORUM">Neues Forum</Resource>
