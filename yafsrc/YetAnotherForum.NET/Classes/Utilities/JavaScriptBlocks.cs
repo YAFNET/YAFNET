@@ -226,6 +226,23 @@ namespace YAF.Utilities
         }
 
         /// <summary>
+        ///   Gets Repuatation Progress Load Js.
+        /// </summary>
+        [NotNull]
+        public static string RepuatationProgressLoadJs
+        {
+            get
+            {
+                return @"{0}(document).ready(function() {{
+					{0}('.ReputationBar').progressbar({{
+			            create: function(event, ui) {{
+			                    ChangeReputationBarColor({0}(this).attr('data-percent'),{0}(this).attr('data-text'), this);
+			                    }}
+		             }});}});".FormatWith(Config.JQueryAlias);
+            }
+        }
+        
+        /// <summary>
         ///   Gets TimeagoLoadJs.
         /// </summary>
         public static string TimeagoLoadJs
@@ -409,9 +426,7 @@ namespace YAF.Utilities
         public static string BlockUIExecuteJs([NotNull] string elementId)
         {
             return
-              @"{1}(document).ready(function() {{ 
-            {1}.blockUI({{ message: {1}('#{0}') }}); 
-        }});"
+              @"{1}(document).ready(function() {{ {1}.blockUI({{ message: {1}('#{0}') }}); }});"
                 .FormatWith(elementId, Config.JQueryAlias);
         }
 

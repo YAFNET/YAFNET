@@ -967,6 +967,33 @@ namespace YAF.Pages {
         protected global::System.Web.UI.WebControls.Label ThanksToPosts;
         
         /// <summary>
+        /// divRR control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow divRR;
+        
+        /// <summary>
+        /// LocalizedLabel29 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel29;
+        
+        /// <summary>
+        /// ReputationReceived control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label ReputationReceived;
+        
+        /// <summary>
         /// AvatarTab control.
         /// </summary>
         /// <remarks>
