@@ -337,10 +337,8 @@ namespace YAF
     /// <summary>
     /// Called when the forum control sets it's Page Title
     /// </summary>
-    /// <param name="sender">
-    /// </param>
-    /// <param name="e">
-    /// </param>
+    /// <param name="sender">The sender.</param>
+    /// <param name="e">The e.</param>
     public void FirePageTitleSet([NotNull] object sender, [NotNull] ForumPageTitleArgs e)
     {
         if (this.PageTitleSet != null)
@@ -364,7 +362,9 @@ namespace YAF
       // wrap the forum in one main div and then a page div for better CSS selection
       writer.WriteLine();
       writer.Write(@"<div class=""yafnet"" id=""{0}"">".FormatWith(this.ClientID));
-      writer.Write(@"<div id=""yafpage_{0}"">".FormatWith(this._page.ToString()));
+        writer.Write(
+            @"<div id=""yafpage_{0}"" class=""{1}"">".FormatWith(
+                this._page.ToString(), this._page.ToString().Replace(".", "_")));
 
       // render the forum
       base.Render(writer);
@@ -560,34 +560,31 @@ namespace YAF
         this._page = pages.GetPage("forum");
       }
 
-      //if (!this.IsValidForLockedForum(this._page))
-      //{
-      //  YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.LockedForum);
-      //}
+      /*if (!this.IsValidForLockedForum(this._page))
+      {
+      /  YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.LockedForum);
+      }*/
 
-      string src = "{0}pages/{1}.ascx".FormatWith(YafForumInfo.ForumServerFileRoot, this._page.PageName);
+      string[] src = { "{0}pages/{1}.ascx".FormatWith(YafForumInfo.ForumServerFileRoot, this._page.PageName) };
 
       string controlOverride = this.Get<ITheme>().GetItem("PAGE_OVERRIDE", this._page.PageName.ToLower(), null);
 
       if (controlOverride.IsSet())
       {
-        src = controlOverride;
+        src[0] = controlOverride;
       }
 
       var replacementPaths = new List<string> { "moderate", "admin", "help" };
 
-      foreach (var path in replacementPaths)
+      foreach (var path in replacementPaths.Where(path => src[0].IndexOf("/{0}_".FormatWith(path)) >= 0))
       {
-        if (src.IndexOf("/{0}_".FormatWith(path)) >= 0)
-        {
-          src = src.Replace("/{0}_".FormatWith(path), "/{0}/".FormatWith(path));
-        }        
+          src[0] = src[0].Replace("/{0}_".FormatWith(path), "/{0}/".FormatWith(path));
       }
 
-      return src;
+      return src[0];
     }
 
-    ///// <summary>
+    /*///// <summary>
     ///// The valid page.
     ///// </summary>
     ///// <param name="forumPage">
@@ -616,7 +613,7 @@ namespace YAF
     //  }
 
     //  return forumPage != ForumPages.pmessage;
-    //}
+    //}*/
 
     #endregion
   }
