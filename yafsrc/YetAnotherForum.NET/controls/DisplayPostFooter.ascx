@@ -32,8 +32,9 @@
         <YAF:ThemeButton ID="Twitter" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS"
 				TextLocalizedTag="TWITTER" ImageThemeTag="Twitter2" TitleLocalizedTag="TWITTER_TITLE" />
 	</div>
-	<div class="rightItem postInfoRight">			
-		<a id="reportPostLink" rel="nofollow" runat="server" visible="false" />				
+	<div class="rightItem postInfoRight">
+        <YAF:ThemeButton ID="ReportPost" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS"
+				TextLocalizedTag="REPORTPOST" ImageThemeTag="REPORT_POST" TitleLocalizedTag="REPORTPOST_TITLE"></YAF:ThemeButton>					
 		<asp:PlaceHolder ID="MessageHistoryHolder" runat="server" Visible="false">
 		&nbsp;|&nbsp;
 		<a id="messageHistoryLink" rel="nofollow" runat="server" /> 

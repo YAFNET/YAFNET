@@ -894,7 +894,6 @@
     <Resource tag="ENABLE_SSO_HELP">Если включено, то пользователи смогут войти в существующим аккаунтом Facebook. YAF.FacebookAPIKey и YAF.FacebookSecretKey должны быть настроены в app.config.</Resource>
     <Resource tag="ENABLE_USERREPUTATION">Use Reputation System:</Resource>
     <Resource tag="ENABLE_USERREPUTATION_HELP">Setting to Enable/Disable the Build-In Reputation System to allow Users Give or Remove Reputation.</Resource>
-    <Resource tag="REPUTATION_ALLOWNEGATIVE_HELP">If allowed Users can get Negative Reputation Numbers.</Resource>
     <Resource tag="EXTERN_NEWWINDOW">Показывать результаты внешнего поиска в новом окне:</Resource>
     <Resource tag="EXTERN_NEWWINDOW_HELP">Показывать результаты внешнего поиска в новом окне.</Resource>
     <Resource tag="EXTERN_SEARCH_PERMISS">Разрешения для внешнего поиска:</Resource>
@@ -1066,6 +1065,7 @@
     <Resource tag="REPORT_POST_PERMISSION">Разрешать жаловаться на сообщение:</Resource>
     <Resource tag="REPORT_POST_PERMISSION_HELP">Разрешать жаловаться на сообщение данным группам:</Resource>
     <Resource tag="REPUTATION_ALLOWNEGATIVE">Allow Negative Reputation:</Resource>
+    <Resource tag="REPUTATION_ALLOWNEGATIVE_HELP">If allowed Users can get Negative Reputation Numbers.</Resource>
     <Resource tag="REPUTATION_MAX">Maximum Positive Reputation Value:</Resource>
     <Resource tag="REPUTATION_MAX_HELP">This Value is used to generate the Reputation Bar.</Resource>
     <Resource tag="REPUTATION_MIN">Maximum Negative Reputation Value:</Resource>
@@ -4191,6 +4191,7 @@ Spoiler Content
     <Resource tag="REDDIT_TOPIC">Поделиться в Reddit</Resource>
     <Resource tag="REPORTEDFEEDBACK">Спасибо за информацию об этом сообщении.</Resource>
     <Resource tag="REPORTPOST">Жалоба!</Resource>
+    <Resource tag="REPORTPOST_TITLE">Report Post</Resource>
     <Resource tag="REPUTATION">Reputation</Resource>
     <Resource tag="RETWEET_TOPIC">Ретвит темы</Resource>
     <Resource tag="RSSTOPIC">RSS-лента темы</Resource>

@@ -893,7 +893,6 @@
     <Resource tag="ENABLE_SSO_HELP">If checked, users will be able to Login to an existing account via Facebook. This only works YAF.FacebookAPIKey and YAF.FacebookSecretKey are setup in app.config.</Resource>
     <Resource tag="ENABLE_USERREPUTATION">Use Reputation System:</Resource>
     <Resource tag="ENABLE_USERREPUTATION_HELP">Setting to Enable/Disable the Build-In Reputation System to allow Users Give or Remove Reputation.</Resource>
-    <Resource tag="REPUTATION_ALLOWNEGATIVE_HELP">If allowed Users can get Negative Reputation Numbers.</Resource>
     <Resource tag="EXTERN_NEWWINDOW">Externe Zoekopdrachtresultaten in een nieuw Venster:</Resource>
     <Resource tag="EXTERN_NEWWINDOW_HELP">Geef de resultaten van een externe zoekopdracht weer in een nieuw venster.</Resource>
     <Resource tag="EXTERN_SEARCH_PERMISS">Machtingingen om Extern te mogen zoeken:</Resource>
@@ -1065,6 +1064,7 @@
     <Resource tag="REPORT_POST_PERMISSION">machtigingen van Berichten Rapporteren:</Resource>
     <Resource tag="REPORT_POST_PERMISSION_HELP">Sta het rapporteren van berichten toe aan:</Resource>
     <Resource tag="REPUTATION_ALLOWNEGATIVE">Allow Negative Reputation:</Resource>
+    <Resource tag="REPUTATION_ALLOWNEGATIVE_HELP">If allowed Users can get Negative Reputation Numbers.</Resource>
     <Resource tag="REPUTATION_MAX">Maximum Positive Reputation Value:</Resource>
     <Resource tag="REPUTATION_MAX_HELP">This Value is used to generate the Reputation Bar.</Resource>
     <Resource tag="REPUTATION_MIN">Maximum Negative Reputation Value:</Resource>
@@ -4122,6 +4122,7 @@ Spoiler Content
     <Resource tag="REDDIT_TOPIC">Reddit this Topic</Resource>
     <Resource tag="REPORTEDFEEDBACK">Dank je wel voor het rapport</Resource>
     <Resource tag="REPORTPOST">Rapporteer ongepast gedrag</Resource>
+    <Resource tag="REPORTPOST_TITLE">Report Post</Resource>
     <Resource tag="REPUTATION">Reputation</Resource>
     <Resource tag="RETWEET_TOPIC">Retweet this Topic</Resource>
     <Resource tag="RSSTOPIC">RSS Feed</Resource>

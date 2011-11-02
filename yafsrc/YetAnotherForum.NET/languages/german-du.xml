@@ -115,7 +115,8 @@
     <Resource tag="PROFILE_OWN">Betrachtet sein Profil</Resource>
     <Resource tag="RECOVERPASSWORD">Keine Daten</Resource>
     <Resource tag="REGISTER">Registriert sich</Resource>
-    <Resource tag="REPORTPOST">Meldet einen Beitrag</Resource>
+    <Resource tag="REPORTPOST">Melden</Resource>
+    <Resource tag="REPORTPOST_TITLE">Beitrag Melden</Resource>
     <Resource tag="RSSTOPIC">Betrachtet RSS Feed</Resource>
     <Resource tag="RULES">Betrachtet Forum Regeln</Resource>
     <Resource tag="SEARCH">Benutzt Suche</Resource>
@@ -894,7 +895,6 @@
     <Resource tag="ENABLE_SSO_HELP">Wenn diese Option aktiviert ist, können Benutzer sich über Facebook anmelden. Dies funktioniert nur wenn YAF.FacebookAPIKey und YAF.FacebookSecretKey in der app.config vorhanden sind.</Resource>
     <Resource tag="ENABLE_USERREPUTATION">Use Reputation System:</Resource>
     <Resource tag="ENABLE_USERREPUTATION_HELP">Setting to Enable/Disable the Build-In Reputation System to allow Users Give or Remove Reputation.</Resource>
-    <Resource tag="REPUTATION_ALLOWNEGATIVE_HELP">If allowed Users can get Negative Reputation Numbers.</Resource>
     <Resource tag="EXTERN_NEWWINDOW">Externe Suchergebnisse in einem neuen Fenster:</Resource>
     <Resource tag="EXTERN_NEWWINDOW_HELP">Externe Suchergebnisse in einem neuen Fenster Öffnen.</Resource>
     <Resource tag="EXTERN_SEARCH_PERMISS">Externe Suchberechtigungen:</Resource>
@@ -1066,6 +1066,7 @@
     <Resource tag="REPORT_POST_PERMISSION">Beitrag Melden Berechtigungen</Resource>
     <Resource tag="REPORT_POST_PERMISSION_HELP">Beitrags melden erlauben für:</Resource>
     <Resource tag="REPUTATION_ALLOWNEGATIVE">Allow Negative Reputation:</Resource>
+    <Resource tag="REPUTATION_ALLOWNEGATIVE_HELP">If allowed Users can get Negative Reputation Numbers.</Resource>
     <Resource tag="REPUTATION_MAX">Maximum Positive Reputation Value:</Resource>
     <Resource tag="REPUTATION_MAX_HELP">This Value is used to generate the Reputation Bar.</Resource>
     <Resource tag="REPUTATION_MIN">Maximum Negative Reputation Value:</Resource>
@@ -4130,6 +4131,7 @@ Spoiler Content
     <Resource tag="REDDIT_TOPIC">Thema an Reddit übermitteln</Resource>
     <Resource tag="REPORTEDFEEDBACK">Danke, dass du den Beitrag gemeldet hast</Resource>
     <Resource tag="REPORTPOST">Diesen Beitrag melden</Resource>
+    <Resource tag="REPORTPOST_TITLE">Report Post</Resource>
     <Resource tag="REPUTATION">Reputation</Resource>
     <Resource tag="RETWEET_TOPIC">Thema retweeten</Resource>
     <Resource tag="RSSTOPIC">RSS-Feed</Resource>

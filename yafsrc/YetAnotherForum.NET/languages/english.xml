@@ -2684,7 +2684,8 @@ Spoiler Content
       <Resource tag="QUICKREPLY_SHOW">Show Quick Reply</Resource>
       <Resource tag="RANK">Rank</Resource>
       <Resource tag="REPORTEDFEEDBACK">Thank you for reporting this post.</Resource>
-      <Resource tag="REPORTPOST">Report?</Resource>
+      <Resource tag="REPORTPOST">Report</Resource>
+      <Resource tag="REPORTPOST_TITLE">Report Post</Resource>
       <Resource tag="IMAGE_TEXT">Image</Resource>
       <Resource tag="CLOSE_TEXT">Close</Resource>
       <Resource tag="IMAGE_DOWNLOAD">Download Image</Resource>

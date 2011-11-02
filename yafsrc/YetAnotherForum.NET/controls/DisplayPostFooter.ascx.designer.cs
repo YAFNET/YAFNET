@@ -139,13 +139,13 @@ namespace YAF.Controls {
         protected global::YAF.Controls.ThemeButton Twitter;
         
         /// <summary>
-        /// reportPostLink control.
+        /// ReportPost control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor reportPostLink;
+        protected global::YAF.Controls.ThemeButton ReportPost;
         
         /// <summary>
         /// MessageHistoryHolder control.

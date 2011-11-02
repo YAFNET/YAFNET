@@ -74,6 +74,7 @@
 	   <Resource tag="TUMBLR">~/icon_tumblr.png</Resource>
 	   <Resource tag="VOTE_UP">~/VoteUp.png</Resource>
 	<Resource tag="VOTE_DOWN">~/VoteDown.png</Resource>
+	<Resource tag="REPORT_POST">~/Report.png</Resource>
   </page>
     <page name="SORT">
 	  <Resource tag="ASCENDING">~/sort_up.gif</Resource>

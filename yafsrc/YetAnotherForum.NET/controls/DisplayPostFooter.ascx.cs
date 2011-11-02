@@ -1,4 +1,22 @@
-﻿
+﻿/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjørnar Henden
+ * Copyright (C) 2006-2011 Jaben Cargman
+ * http://www.yetanotherforum.net/
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
 
 namespace YAF.Controls
 {
@@ -137,7 +155,7 @@ namespace YAF.Controls
             else
             {
                 string deleteText = HttpContext.Current.Server.HtmlDecode(Convert.ToString(this.DataRow["DeleteReason"])) !=
-                                    String.Empty
+                                    string.Empty
                                         ? this.Get<IFormatMessage>().RepairHtml((string)this.DataRow["DeleteReason"], true)
                                         : this.GetText("EDIT_REASON_NA");
 
@@ -161,11 +179,13 @@ namespace YAF.Controls
                 sb.Append(' ');
             }
 
-            if (sb.Length > 0)
+            if (sb.Length <= 0)
             {
-                this.MessageDetails.Visible = true;
-                this.MessageDetails.Text = @"<span class=""MessageDetails"">{0}</span>".FormatWith(sb);
+                return;
             }
+
+            this.MessageDetails.Visible = true;
+            this.MessageDetails.Text = @"<span class=""MessageDetails"">{0}</span>".FormatWith(sb);
         }
 
         /// <summary>
@@ -242,13 +262,9 @@ namespace YAF.Controls
             {
                 if (this.PageContext.IsGuest || (!this.PageContext.IsGuest && this.PageContext.User != null))
                 {
-                    this.reportPostLink.Visible = true;
+                    this.ReportPost.Visible = true;
 
-                    // vzrus Addition 
-                    this.reportPostLink.InnerText =
-                      this.reportPostLink.Title = this.GetText("REPORTPOST");
-
-                    this.reportPostLink.HRef = YafBuildLink.GetLink(ForumPages.reportpost, "m={0}", this.PostData.MessageId);
+                    this.ReportPost.NavigateUrl = YafBuildLink.GetLink(ForumPages.reportpost, "m={0}", this.PostData.MessageId);
                 }
             }
 
@@ -259,16 +275,16 @@ namespace YAF.Controls
                                   !this.PostData.PostDeleted && this.PageContext.User != null &&
                                   this.Get<YafBoardSettings>().EnableAlbum)
             {
-            	var numAlbums =
-            		this.Get<IDataCache>().GetOrSet<int?>(
-            			Constants.Cache.AlbumCountUser.FormatWith(this.PostData.UserId),
-            			() =>
-            				{
-            					DataTable usrAlbumsData = LegacyDb.user_getalbumsdata(
-            						this.PostData.UserId, YafContext.Current.PageBoardID);
-            					return usrAlbumsData.GetFirstRowColumnAsValue<int?>("NumAlbums", null);
-            				},
-            			TimeSpan.FromMinutes(5));
+                var numAlbums =
+                    this.Get<IDataCache>().GetOrSet<int?>(
+                        Constants.Cache.AlbumCountUser.FormatWith(this.PostData.UserId),
+                        () =>
+                            {
+                                DataTable usrAlbumsData = LegacyDb.user_getalbumsdata(
+                                    this.PostData.UserId, YafContext.Current.PageBoardID);
+                                return usrAlbumsData.GetFirstRowColumnAsValue<int?>("NumAlbums", null);
+                            },
+                        TimeSpan.FromMinutes(5));
 
                 this.Albums.Visible = numAlbums.HasValue && numAlbums > 0;
                 this.Albums.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.albums, "u={0}", this.PostData.UserId);
