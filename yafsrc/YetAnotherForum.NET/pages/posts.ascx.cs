@@ -803,8 +803,12 @@ namespace YAF.Pages
         /// <summary>
         /// The track topic_ click.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        /// <param name="sender">
+        /// The source of the event.
+        /// </param>
+        /// <param name="e">
+        /// The <see cref="System.EventArgs"/> instance containing the event data.
+        /// </param>
         protected void TrackTopic_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.PageContext.IsGuest)
@@ -821,13 +825,15 @@ namespace YAF.Pages
             else
             {
                 int tmpID = this.WatchTopicID.InnerText.ToType<int>();
+
                 LegacyDb.watchtopic_delete(tmpID);
+
                 this.PageContext.AddLoadMessage(this.GetText("INFO_UNWATCH_TOPIC"));
             }
 
             this.HandleWatchTopic();
 
-            this.BindData();
+            //this.BindData();
         }
 
         /// <summary>
@@ -1307,9 +1313,10 @@ namespace YAF.Pages
                 {
                     // subscribed to this forum
                     this.TrackTopic.Text = this.GetText("UNWATCHTOPIC");
+
                     foreach (DataRow row in dt.Rows)
                     {
-                        this.WatchTopicID.InnerText = row["WatchTopicID"].IsNullOrEmptyDBField().ToString();
+                        this.WatchTopicID.InnerText = row["WatchTopicID"].ToString();
                         return true;
                     }
                 }
@@ -1341,10 +1348,10 @@ namespace YAF.Pages
         /// The options menu_ item click.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// </param>
         /// <param name="e">
         /// The Pop Event Arguments.
         /// </param>
+        /// <exception cref="ApplicationException"></exception>
         private void ShareMenu_ItemClick([NotNull] object sender, [NotNull] PopEventArgs e)
         {
             switch (e.Item.ToLower())
