@@ -877,8 +877,8 @@
     <Resource tag="DISABLE_REGISTER_HELP">Neue Benutzer können sich nicht registrieren</Resource>
     <Resource tag="DISCUSSIONS_CACHE_TIMEOUT">Aktive Diskussionen Speicher Ablaufzeit:</Resource>
     <Resource tag="DISCUSSIONS_CACHE_TIMEOUT_HELP">In Minuten</Resource>
-    <Resource tag="DISPLAY_POINTS">Punktesystem Anzeigen:</Resource>
-    <Resource tag="DISPLAY_POINTS_HELP">Wenn aktiviert, werden Punkte pro Beitrag für jeden Benutzer angezeigt.</Resource>
+    <Resource tag="DISPLAY_POINTS">Reputationbar Anzeigen:</Resource>
+    <Resource tag="DISPLAY_POINTS_HELP">Wenn aktiviert, wird die Reputation von jedem Benutzer angezeigt.</Resource>
     <Resource tag="DISPLAY_TRESHOLD_IMGATTACH">Bildanhangs Maximale Anzeige Größe</Resource>
     <Resource tag="DISPLAY_TRESHOLD_IMGATTACH_HELP">Maximale Größe des Angehangen Bildes das Angezeigt wird. Bilder über dieser Größe werden als Links angezeigt.
 </Resource>

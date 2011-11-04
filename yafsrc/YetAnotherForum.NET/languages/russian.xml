@@ -879,8 +879,8 @@
     <Resource tag="DISABLE_REGISTER_HELP">Новые пользователи не смогут регистрироваться.</Resource>
     <Resource tag="DISCUSSIONS_CACHE_TIMEOUT">Таймаут кэша активных обсуждений:</Resource>
     <Resource tag="DISCUSSIONS_CACHE_TIMEOUT_HELP">В минутах</Resource>
-    <Resource tag="DISPLAY_POINTS">Отображать систему баллов(очков):</Resource>
-    <Resource tag="DISPLAY_POINTS_HELP">Баллы(очки) будут отображаться в данных пользователя.</Resource>
+    <Resource tag="DISPLAY_POINTS">Display Reputation Bar:</Resource>
+    <Resource tag="DISPLAY_POINTS_HELP">If checked, the Reputation of the User will be displayed for each user.</Resource>
     <Resource tag="DISPLAY_TRESHOLD_IMGATTACH">Вложения изображений - максимальный порог отображения:</Resource>
     <Resource tag="DISPLAY_TRESHOLD_IMGATTACH_HELP">Максимальный размер изображения, до тех пор пока она будет отображаться как изображение в боксе вложений, в противном случае это будет ссылка.</Resource>
     <Resource tag="DYNAMIC_METATAGS">Добавить динамические метатеги к странице:</Resource>

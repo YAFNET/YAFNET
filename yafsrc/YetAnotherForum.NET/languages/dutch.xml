@@ -878,8 +878,8 @@
     <Resource tag="DISABLE_REGISTER_HELP">Nieuwe gebruikers mogen zich niet aanmelden.</Resource>
     <Resource tag="DISCUSSIONS_CACHE_TIMEOUT">Actieve Discussies Cache Timeout:</Resource>
     <Resource tag="DISCUSSIONS_CACHE_TIMEOUT_HELP">In minuten</Resource>
-    <Resource tag="DISPLAY_POINTS">Laat het Puntensysteem zien:</Resource>
-    <Resource tag="DISPLAY_POINTS_HELP">Als deze is aangevinkt, worden de verzamelde punten weergegeven voor elke gebruiker.</Resource>
+    <Resource tag="DISPLAY_POINTS">Display Reputation Bar:</Resource>
+    <Resource tag="DISPLAY_POINTS_HELP">If checked, the Reputation of the User will be displayed for each user.</Resource>
     <Resource tag="DISPLAY_TRESHOLD_IMGATTACH">Maximale grootte van de Foto-bijlage voor verkleinen:</Resource>
     <Resource tag="DISPLAY_TRESHOLD_IMGATTACH_HELP">De maximale grootte die een foto-bijlage mag hebben. Wanneer deze groter zijn, worden ze weergegeven als een link.</Resource>
     <Resource tag="DYNAMIC_METATAGS">Voeg dynamische Meta Tags toe:</Resource>

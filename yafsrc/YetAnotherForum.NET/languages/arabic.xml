@@ -880,8 +880,8 @@
     <Resource tag="DISABLE_REGISTER_HELP">New users won't be able to register.</Resource>
     <Resource tag="DISCUSSIONS_CACHE_TIMEOUT">Active Discussions Cache Timeout:</Resource>
     <Resource tag="DISCUSSIONS_CACHE_TIMEOUT_HELP">In minutes</Resource>
-    <Resource tag="DISPLAY_POINTS">Display Points System:</Resource>
-    <Resource tag="DISPLAY_POINTS_HELP">If checked, points for posting will be displayed for each user.</Resource>
+    <Resource tag="DISPLAY_POINTS">Display Reputation Bar:</Resource>
+    <Resource tag="DISPLAY_POINTS_HELP">If checked, the Reputation of the User will be displayed for each user.</Resource>
     <Resource tag="DISPLAY_TRESHOLD_IMGATTACH">Image Attachment Display Threshold:</Resource>
     <Resource tag="DISPLAY_TRESHOLD_IMGATTACH_HELP">Maximum size of picture attachment to display as picture. Pictures over this size will be displayed as links.</Resource>
     <Resource tag="DYNAMIC_METATAGS">Add Dynamic Page Meta Tags:</Resource>

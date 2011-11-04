@@ -879,8 +879,8 @@
     <Resource tag="DISABLE_REGISTER_HELP">کاربران جدید قادر به ثبت نام نخواهند بود.</Resource>
     <Resource tag="DISCUSSIONS_CACHE_TIMEOUT">انقضای حافظه موقت بحث های فعال :</Resource>
     <Resource tag="DISCUSSIONS_CACHE_TIMEOUT_HELP">به دقیقه</Resource>
-    <Resource tag="DISPLAY_POINTS">نمایش سیستم نمرات:</Resource>
-    <Resource tag="DISPLAY_POINTS_HELP">در صورت علامت خوردن ، برای هر کاربر نمرات نمایش داده خواهد شد.</Resource>
+    <Resource tag="DISPLAY_POINTS">Display Reputation Bar:</Resource>
+    <Resource tag="DISPLAY_POINTS_HELP">If checked, the Reputation of the User will be displayed for each user.</Resource>
     <Resource tag="DISPLAY_TRESHOLD_IMGATTACH">آستانه نمایش تصویر ضمیمه:</Resource>
     <Resource tag="DISPLAY_TRESHOLD_IMGATTACH_HELP">حداکثر اندازه تصویر ضمیمه برای نمایش به عنوان عکس. تصاویر بزرگتر از این به عنوان لینک نمایش داده می شوند.</Resource>
     <Resource tag="DYNAMIC_METATAGS">افزودن ابر تگ ها به صورت پویا:</Resource>
