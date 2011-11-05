@@ -27,8 +27,9 @@ namespace YAF.Controls
 
   using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Types;
+  using YAF.Utils;
 
-  #endregion
+    #endregion
 
   /// <summary>
   /// Summary description for SmartScroller.
@@ -98,13 +99,13 @@ namespace YAF.Controls
     /// </param>
     protected override void OnPreRender([NotNull] EventArgs e)
     {
-      string scriptString =
-        @"
+        string scriptString =
+            @"
   function yaf_SmartScroller_GetCoords()
-  {
+  {{
     var scrollX, scrollY;
     if (document.all)
-    {
+    {{
       if (!document.documentElement.scrollLeft)
         scrollX = document.body.scrollLeft;
       else
@@ -114,42 +115,38 @@ namespace YAF.Controls
         scrollY = document.body.scrollTop;
       else
         scrollY = document.documentElement.scrollTop;
-    }
+    }}
     else
-    {
+    {{
       scrollX = window.pageXOffset;
       scrollY = window.pageYOffset;
-    }
-	  jQuery('#" +
-        this._hidScrollLeft.ClientID + @"').val( scrollX );
-		jQuery('#" + this._hidScrollTop.ClientID +
-        @"').val( scrollY );
-  }
+    }}
+      jQuery('#{0}').val( scrollX );
+      jQuery('#{1}').val( scrollY );
+    
+  }}
 
   function yaf_SmartScroller_Scroll()
-  {
-		var x = jQuery('#" +
-        this._hidScrollLeft.ClientID + @"').val();
-		var y = jQuery('#" + this._hidScrollTop.ClientID +
-        @"').val();
-		if (x || y) window.scrollTo(x,y);
-  }
+  {{
+        var x = jQuery('#{0}').val();
+		var y = jQuery('#{1}').val();
+		if (x ||y) window.scrollTo(x,y);
+  }}
 
 	function yaf_SmartScroller_Reset()
-	{
-	  jQuery('#" +
-        this._hidScrollLeft.ClientID + @"').val( 0 );
-		jQuery('#" + this._hidScrollTop.ClientID +
-        @"').val( 0 );	
+	{{
+	    jQuery('#{0}').val( 0 );
+		jQuery('#{1}').val( 0 );	
 		// force change...
 		window.scrollTo(0,0);
-	}
+	}}
 
 	jQuery(window).bind('scroll', yaf_SmartScroller_GetCoords);
 	jQuery(window).bind('click', yaf_SmartScroller_GetCoords);
 	jQuery(window).bind('keypress', yaf_SmartScroller_GetCoords);
 	jQuery(document).ready(yaf_SmartScroller_Scroll);
-";
+"
+                .FormatWith(this._hidScrollLeft.ClientID, this._hidScrollTop.ClientID);
 
       YafContext.Current.PageElements.RegisterJsBlock("SmartScrollerJs", scriptString);
 

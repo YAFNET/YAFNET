@@ -4241,6 +4241,9 @@ Spoiler Content
     <Resource tag="QUICKREPLY_SHOW">הצג תגובה מהירה</Resource>
     <Resource tag="RANK">דירוג</Resource>
     <Resource tag="REDDIT_TOPIC">Reddit this Topic</Resource>
+    <Resource tag="REP_VOTE_DOWN_MSG">You have successfully removed -1 Reputation to {0}.</Resource>
+    <Resource tag="REP_VOTE_TITLE">Thanks for your Voting!</Resource>
+    <Resource tag="REP_VOTE_UP_MSG">You have successfully given +1 Reputation to {0}.</Resource>
     <Resource tag="REPORTEDFEEDBACK">תודה על הדיווח.</Resource>
     <Resource tag="REPORTPOST">דווח/י על תוכן פוגעני</Resource>
     <Resource tag="REPORTPOST_TITLE">Report Post</Resource>

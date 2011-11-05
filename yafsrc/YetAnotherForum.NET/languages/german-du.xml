@@ -4140,6 +4140,9 @@ Spoiler Content
     <Resource tag="QUICKREPLY_SHOW">Schnelles Antworten: Formular anzeigen</Resource>
     <Resource tag="RANK">Rang</Resource>
     <Resource tag="REDDIT_TOPIC">Thema an Reddit übermitteln</Resource>
+    <Resource tag="REP_VOTE_DOWN_MSG">Sie haben erfolgreich {0} -1 Reputation abgezogen.</Resource>
+    <Resource tag="REP_VOTE_TITLE">Danke für ihre Stimme!</Resource>
+    <Resource tag="REP_VOTE_UP_MSG">Sie haben erfolgreich {0} +1 Reputation gegeben.</Resource>
     <Resource tag="REPORTEDFEEDBACK">Danke, dass du den Beitrag gemeldet hast</Resource>
     <Resource tag="REPORTPOST">Diesen Beitrag melden</Resource>
     <Resource tag="REPORTPOST_TITLE">Report Post</Resource>

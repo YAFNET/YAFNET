@@ -56,8 +56,7 @@
 					 $(settings.Dialog + '#ModalDialog_overlay').remove();
 					
 					 return false;
-		 };
-					 
+		 };	 
 		// allow jQuery chaining
 		return this;
 	};
@@ -77,6 +76,8 @@
 		  top = 0;
 		  top = parseInt(cookieScroll) + 100;
 		}
+		top = 0;
+		top = parseInt(jQuery("input[id$='scrollTop']").val()) + 50;
 		
 		var DialogId = settings.Dialog;
 		DialogId = DialogId.replace("#", "");

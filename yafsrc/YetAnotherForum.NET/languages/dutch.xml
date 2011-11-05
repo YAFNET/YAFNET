@@ -4133,6 +4133,9 @@ Spoiler Content
     <Resource tag="QUICKREPLY_SHOW">Toon Snel antwoorden</Resource>
     <Resource tag="RANK">Rang</Resource>
     <Resource tag="REDDIT_TOPIC">Reddit this Topic</Resource>
+    <Resource tag="REP_VOTE_DOWN_MSG">You have successfully removed -1 Reputation to {0}.</Resource>
+    <Resource tag="REP_VOTE_TITLE">Thanks for your Voting!</Resource>
+    <Resource tag="REP_VOTE_UP_MSG">You have successfully given +1 Reputation to {0}.</Resource>
     <Resource tag="REPORTEDFEEDBACK">Dank je wel voor het rapport</Resource>
     <Resource tag="REPORTPOST">Rapporteer ongepast gedrag</Resource>
     <Resource tag="REPORTPOST_TITLE">Report Post</Resource>

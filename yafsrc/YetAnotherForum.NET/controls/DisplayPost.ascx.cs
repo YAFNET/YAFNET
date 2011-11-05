@@ -28,6 +28,7 @@ namespace YAF.Controls
     using System.Linq;
     using System.Text;
     using System.Web;
+    using System.Web.UI;
 
     using YAF.Classes;
     using YAF.Classes.Data;
@@ -341,7 +342,7 @@ namespace YAF.Controls
             }
 
             // Add Reputation Controls to the User PopMenu
-            if (this.PageContext.PageUserID != (int)this.DataRow["UserID"] && this.Get<YafBoardSettings>().EnableUserReputation && !this.IsGuest)
+            if (this.PageContext.PageUserID != (int)this.DataRow["UserID"] && this.Get<YafBoardSettings>().EnableUserReputation && !this.IsGuest && !this.PageContext.IsGuest)
             {
                 bool allowReputationVoting = true;
 
@@ -398,6 +399,26 @@ namespace YAF.Controls
 
             this.AddReputation.Visible = false;
             this.RemoveReputation.Visible = false;
+
+            // Reload UserBox
+            this.PageContext.CurrentForumPage.PageCache[Constants.Cache.UserBoxes] = null;
+
+            this.DataRow["Points"] = this.DataRow["Points"].ToType<int>() + 1;
+            this.UserBox1.PageCache = null;
+
+            var notification = (DialogBox)this.PageContext.CurrentForumPage.Notification;
+
+            notification.Show(
+                  this.GetText("POSTS", "REP_VOTE_UP_MSG").FormatWith(this.PageContext.Get<IUserDisplayName>().GetName(this.PostData.UserId)),
+                  this.GetText("POSTS", "REP_VOTE_TITLE"),
+                  DialogBox.DialogIcon.Info,
+                  new DialogBox.DialogButton
+                  {
+                      Text = "OK",
+                      CssClass = "StandardButton",
+                      ForumPageLink = new DialogBox.ForumLink { ForumPage = ForumPages.forum, URL = YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", this.PostData.MessageId) }
+                  },
+                  null);
         }
 
         /// <summary>
@@ -412,6 +433,26 @@ namespace YAF.Controls
 
             this.AddReputation.Visible = false;
             this.RemoveReputation.Visible = false;
+
+            // Reload UserBox
+            this.PageContext.CurrentForumPage.PageCache[Constants.Cache.UserBoxes] = null;
+
+            this.DataRow["Points"] = this.DataRow["Points"].ToType<int>() - 1;
+            this.UserBox1.PageCache = null;
+
+            var notification = (DialogBox)this.PageContext.CurrentForumPage.Notification;
+
+            notification.Show(
+                  this.GetText("POSTS", "REP_VOTE_DOWN_MSG").FormatWith(this.PageContext.Get<IUserDisplayName>().GetName(this.PostData.UserId)),
+                  this.GetText("POSTS", "REP_VOTE_TITLE"),
+                  DialogBox.DialogIcon.Info,
+                  new DialogBox.DialogButton
+                  {
+                      Text = "OK",
+                      CssClass = "StandardButton",
+                      ForumPageLink = new DialogBox.ForumLink { ForumPage = ForumPages.forum, URL = YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", this.PostData.MessageId) }
+                  },
+                  null);
         }
 
         /// <summary>
@@ -556,11 +597,11 @@ namespace YAF.Controls
                 // Setup UserBox Reputation Script Block
                 YafContext.Current.PageElements.RegisterJsBlockStartup(
                     "reputationprogressjs", JavaScriptBlocks.RepuatationProgressLoadJs);
+            }
 
-                if (!this.Get<YafBoardSettings>().EnableThanksMod)
-                {
-                    return;
-                }
+            if (!this.Get<YafBoardSettings>().EnableThanksMod)
+            {
+                return;
             }
 
             // Register Javascript

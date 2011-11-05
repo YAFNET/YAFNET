@@ -4185,6 +4185,9 @@ Spoiler Content
     <Resource tag="QUICKREPLY_SHOW">Hiển thị Trả Lời Nhanh</Resource>
     <Resource tag="RANK">Danh hiệu</Resource>
     <Resource tag="REDDIT_TOPIC">Reddit this Topic</Resource>
+    <Resource tag="REP_VOTE_DOWN_MSG">You have successfully removed -1 Reputation to {0}.</Resource>
+    <Resource tag="REP_VOTE_TITLE">Thanks for your Voting!</Resource>
+    <Resource tag="REP_VOTE_UP_MSG">You have successfully given +1 Reputation to {0}.</Resource>
     <Resource tag="REPORTEDFEEDBACK">Cảm ơn bạn đã gửi báo cáo về bài viết này.</Resource>
     <Resource tag="REPORTPOST">Báo cáo vi phạm</Resource>
     <Resource tag="REPORTPOST_TITLE">Report Post</Resource>

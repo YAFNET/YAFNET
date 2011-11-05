@@ -735,15 +735,28 @@ namespace YAF.Controls
             string filler = string.Empty;
             var rx = this.GetRegex(Constants.UserBox.Reputation);
 
-            if (this.Get<YafBoardSettings>().DisplayPoints)
+            if (this.Get<YafBoardSettings>().DisplayPoints && !this.DataRow["IsGuest"].ToType<bool>())
             {
                 var formatInfo = new NumberFormatInfo { NumberDecimalSeparator = "." };
 
-                float percentage = this.ConvertPointsToPercentage(this.DataRow["Points"].ToString());
+                var points = this.DataRow["Points"].ToType<int>();
+
+                var pointsSign = string.Empty;
+
+                if (points > 0)
+                {
+                    pointsSign = "+";
+                }
+                else if (points < 0)
+                {
+                    pointsSign = "-";
+                }
+
+                float percentage = this.ConvertPointsToPercentage(points);
 
                 filler = this.Get<YafBoardSettings>().UserBoxReputation.FormatWith(
                     this.GetText("REPUTATION"),
-                    @"<div class=""ReputationBar"" data-percent=""{0}"" data-text=""{1}""></div>".FormatWith(percentage.ToString(formatInfo), this.GetReputationBarText(percentage)));
+                    @"<div class=""ReputationBar"" data-percent=""{0}"" data-text=""{1} ({2}{3})""></div>".FormatWith(percentage.ToString(formatInfo), this.GetReputationBarText(percentage), pointsSign, points));
             }
 
             // replaces template placeholder with actual points
@@ -805,7 +818,7 @@ namespace YAF.Controls
         /// </summary>
         /// <param name="points">The points.</param>
         /// <returns>Returns the Percentage Value</returns>
-        private float ConvertPointsToPercentage(string points)
+        private float ConvertPointsToPercentage(int points)
         {
             int percantage = points.ToType<int>();
 

@@ -2752,6 +2752,9 @@ Spoiler Content
 	  <Resource tag="SKYPE_TITLE">Contact {0} via Skype</Resource>
 	  <Resource tag="TWITTER_TITLE">Visit {0}'s Twitter Profile</Resource>
 	  <Resource tag="FACEBOOK_TITLE">Visit {0}'s Facebook Profile</Resource>
+    <Resource tag="REP_VOTE_UP_MSG">You have successfully given +1 Reputation to {0}.</Resource>
+    <Resource tag="REP_VOTE_DOWN_MSG">You have successfully removed -1 Reputation to {0}.</Resource>
+    <Resource tag="REP_VOTE_TITLE">Thanks for your Voting!</Resource>
    </page>
    <page name="BUDDY">
       <Resource tag="ADDBUDDY">Add as buddy</Resource>
