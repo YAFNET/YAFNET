@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.EditUsersInfo"
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.EditUsersInfo"
     CodeBehind="EditUsersInfo.ascx.cs" %>
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
     <tr>
@@ -96,6 +96,14 @@
         </td>
         <td class="post">
             <asp:TextBox Style="width: 300px" ID="LastVisit" runat="server" Enabled="False" />
+        </td>
+    </tr>
+    <tr>
+        <td class="postheader">
+            <YAF:HelpLabel ID="HelpLabel12" runat="server" LocalizedTag="FACEBOOK_USER" LocalizedPage="ADMIN_EDITUSER" />
+        </td>
+        <td class="post">
+            <asp:CheckBox runat="server" ID="IsFacebookUser" Enabled="false" />
         </td>
     </tr>
     <tr>

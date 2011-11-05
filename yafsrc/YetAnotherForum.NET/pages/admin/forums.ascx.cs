@@ -56,7 +56,7 @@ namespace YAF.Pages.Admin
         protected void DeleteCategory_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             ((ThemeButton)sender).Attributes["onclick"] =
-                "return (confirm('{0}');".FormatWith(this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE_CAT"));
+                "return confirm('{0}')".FormatWith(this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE_CAT"));
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace YAF.Pages.Admin
         protected void DeleteForum_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             ((ThemeButton)sender).Attributes["onclick"] =
-                "return (confirm('{0}') && confirm('{1}'));".FormatWith(
+                "return (confirm('{0}') && confirm('{1}'))".FormatWith(
                     this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE"),
                     this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE_POSITIVE"));
         }

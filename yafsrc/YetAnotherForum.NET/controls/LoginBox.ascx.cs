@@ -29,6 +29,7 @@ namespace YAF.Controls
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
+    using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -41,7 +42,7 @@ namespace YAF.Controls
     #endregion
 
     /// <summary>
-    /// Summary description for login.
+    /// The Login Box
     /// </summary>
     public partial class LoginBox : BaseUserControl
     {
@@ -298,6 +299,8 @@ namespace YAF.Controls
         protected void Login1_LoggedIn(object sender, EventArgs e)
         {
             this.Get<IRaiseEvent>().Raise(new SuccessfulUserLoginEvent(this.PageContext.PageUserID));
+
+            LegacyDb.user_updatefacebookstatus(this.Get<IUserDisplayName>().GetId(Login1.UserName), false);
         }
     }
 }

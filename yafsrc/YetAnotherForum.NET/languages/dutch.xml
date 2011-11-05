@@ -655,6 +655,8 @@
     <Resource tag="ERROR_NEW_PASS">Je moet een nieuw wachtwoord ingeven</Resource>
     <Resource tag="ERROR_NOTE_PASSRESET">Fout: De huidige Membership Provider ondersteunt niet de "Wachtwoord Reset" optie. Controleer of "EnablePasswordReset" "aan" staat in je provider configuratie in web.config.</Resource>
     <Resource tag="ERROR_PASS_NOTMATCH">De wachtwoorden komen niet overeen</Resource>
+    <Resource tag="FACEBOOK_USER">Facebook User:</Resource>
+    <Resource tag="FACEBOOK_USER_HELP">Indicates if the User is logged in via Facebook.</Resource>
     <Resource tag="HEAD_KILL_USER">Stop alle activiteiten van de gebruiker</Resource>
     <Resource tag="HEAD_USER_CHANGEPASS">Wijzig wachtwoord</Resource>
     <Resource tag="HEAD_USER_DETAILS">Gebruiker Details</Resource>
@@ -1491,6 +1493,7 @@
     <Resource tag="EMAIL_CONTAINS">E-mail bevat:</Resource>
     <Resource tag="EXPORT_CSV">Export All User(s) as CSV</Resource>
     <Resource tag="EXPORT_XML">Export All User(s) as Xml</Resource>
+    <Resource tag="FACEBOOK_USER">Facebook User</Resource>
     <Resource tag="FILTER">Filter op datum aanmelding:</Resource>
     <Resource tag="HEADER">Zoek gebruikers</Resource>
     <Resource tag="IMPORT">Import User(s)</Resource>

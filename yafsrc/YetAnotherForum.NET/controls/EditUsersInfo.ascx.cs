@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -31,6 +31,7 @@ namespace YAF.Controls
   using YAF.Types.EventProxies;
   using YAF.Types.Flags;
   using YAF.Types.Interfaces;
+  using YAF.Utils;
   using YAF.Utils.Helpers;
 
   #endregion
@@ -49,7 +50,7 @@ namespace YAF.Controls
     {
       get
       {
-        return (int)this.PageContext.QueryIDs["u"];
+        return this.PageContext.QueryIDs["u"].ToType<int>();
       }
     }
 
@@ -164,6 +165,7 @@ namespace YAF.Controls
         this.IsCaptchaExcluded.Checked = userFlags.IsCaptchaExcluded;
         this.IsExcludedFromActiveUsers.Checked = userFlags.IsActiveExcluded;
         this.Joined.Text = row["Joined"].ToString();
+        this.IsFacebookUser.Checked = row["IsFacebookUser"].ToType<bool>();
         this.LastVisit.Text = row["LastVisit"].ToString();
         ListItem item = this.RankID.Items.FindByValue(row["RankID"].ToString());
 

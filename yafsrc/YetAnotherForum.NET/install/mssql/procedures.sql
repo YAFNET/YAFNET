@@ -6,6 +6,10 @@
   Remove Extra Stuff: SET ANSI_NULLS ON\nGO\nSET QUOTED_IDENTIFIER ON\nGO\n\n\n 
 */
 
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_updatefacebookstatus]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_updatefacebookstatus]
+GO
+
 IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}forum_move]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}forum_move]
 GO
@@ -6591,6 +6595,7 @@ begin
 		a.[IsActiveExcluded],
 		a.[IsDST],
 		a.[IsDirty],
+		a.[IsFacebookUser],
 		a.[Culture],		
 			CultureUser = a.Culture,						
 			RankName = b.Name,
@@ -6655,6 +6660,7 @@ begin
 		a.[IsActiveExcluded],
 		a.[IsDST],
 		a.[IsDirty],
+		a.[IsFacebookUser],
 		a.[Culture],			
 			CultureUser = a.Culture,	
 			Style = case(@StyledNicks)
@@ -6710,6 +6716,7 @@ begin
 		a.[IsActiveExcluded],
 		a.[IsDST],
 		a.[IsDirty],
+		a.[IsFacebookUser],
 		a.[Culture],		
 			CultureUser = a.Culture,
 			IsAdmin = (select count(1) from [{databaseOwner}].[{objectQualifier}UserGroup] x join [{databaseOwner}].[{objectQualifier}Group] y on y.GroupID=x.GroupID where x.UserID=a.UserID and (y.Flags & 1)<>0),
@@ -6771,6 +6778,7 @@ begin
 		a.[IsActiveExcluded],
 		a.[IsDST],
 		a.[IsDirty],
+		a.[IsFacebookUser],
 		a.[Culture],
 			a.NumPosts,
 			CultureUser = a.Culture,			
@@ -9423,6 +9431,7 @@ begin
 		CultureUser		    = a.Culture,		
 		IsGuest				= SIGN(a.IsGuest),
 		IsDirty				= SIGN(a.IsDirty),
+		IsFacebookUser      = a.IsFacebookUser,
 		MailsPending		= CASE WHEN @ShowPendingMails > 0 THEN (select count(1) from [{databaseOwner}].[{objectQualifier}Mail] WHERE [ToUserName] = a.Name) ELSE 0 END,
 		UnreadPrivate		= CASE WHEN @ShowUnreadPMs > 0 THEN (select count(1) from [{databaseOwner}].[{objectQualifier}UserPMessage] where UserID=@UserID and IsRead=0 and IsDeleted = 0 and IsArchived = 0) ELSE 0 END,
 		LastUnreadPm		= CASE WHEN @ShowUnreadPMs > 0 THEN (SELECT TOP 1 Created FROM [{databaseOwner}].[{objectQualifier}PMessage] pm INNER JOIN [{databaseOwner}].[{objectQualifier}UserPMessage] upm ON pm.PMessageID = upm.PMessageID WHERE upm.UserID=@UserID and upm.IsRead=0  and upm.IsDeleted = 0 and upm.IsArchived = 0 ORDER BY pm.Created DESC) ELSE NULL END,		
@@ -9794,7 +9803,7 @@ begin
 	delete from [{databaseOwner}].[{objectQualifier}ForumReadTracking] where ForumID = @ForumOldID
 
 	-- BAI CHANGED 02.02.2004
-	-- Delete topics, messages and attachments
+	-- Move topics, messages and attachments
 
 	declare @tmpTopicID int;
 	declare topic_cursor cursor for
@@ -9820,7 +9829,7 @@ begin
 	close topic_cursor
 	deallocate topic_cursor
 
-	-- TopicDelete finished
+	-- TopicMove finished
 	-- END BAI CHANGED 02.02.2004
 
 	delete from [{databaseOwner}].[{objectQualifier}ForumAccess] where ForumID = @ForumOldID
@@ -9831,4 +9840,11 @@ begin
 	delete from [{databaseOwner}].[{objectQualifier}Forum] where ForumID = @ForumOldID
 end
 
+GO
+
+create procedure [{databaseOwner}].[{objectQualifier}user_updatefacebookstatus](@UserID int,@IsFacebookUser bit) as
+begin
+	
+	update [{databaseOwner}].[{objectQualifier}User] set IsFacebookUser = @IsFacebookUser where UserID = @UserID
+end
 GO

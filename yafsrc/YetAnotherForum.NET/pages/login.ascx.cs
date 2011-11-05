@@ -30,6 +30,7 @@ namespace YAF.Pages
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
+    using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -166,6 +167,8 @@ namespace YAF.Pages
         protected void Login1_LoggedIn([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.Get<IRaiseEvent>().Raise(new SuccessfulUserLoginEvent(this.PageContext.PageUserID));
+
+            LegacyDb.user_updatefacebookstatus(this.Get<IUserDisplayName>().GetId(Login1.UserName), false);
         }
 
         /// <summary>

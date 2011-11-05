@@ -60,7 +60,7 @@
     <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" UsePostBack="True" />
     <table class="content" cellspacing="1" cellpadding="0" width="100%">
         <tr>
-            <td class="header1" colspan="8">
+            <td class="header1" colspan="9">
                 <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_USERS" />
             </td>
         </tr>
@@ -85,6 +85,9 @@
             </td>
             <td class="header2">
                 <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="LAST_VISIT" LocalizedPage="ADMIN_USERS" />
+            </td>
+             <td class="header2">
+                <YAF:LocalizedLabel ID="LocalizedLabel17" runat="server" LocalizedTag="FACEBOOK_USER" LocalizedPage="ADMIN_USERS" />
             </td>
             <td class="header2">
                 &nbsp;
@@ -116,16 +119,12 @@
                     <td class="post">
                         <%# this.Get<IDateTime>().FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["LastVisit"]) %>
                     </td>
+                    <td class="post">
+                        <%# Eval("IsFacebookUser")%>
+                    </td>
                     <td class="post" align="center">
-                        <asp:LinkButton runat="server" CommandName="edit" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>'
-                            ID="Linkbutton3" name="Linkbutton1">
-                            <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="EDIT" />
-                        </asp:LinkButton>
-                        |
-                        <asp:LinkButton OnLoad="Delete_Load" runat="server" CommandName="delete" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>'
-                            ID="Linkbutton4" name="Linkbutton2">
-                            <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="DELETE" />
-                        </asp:LinkButton>
+                       <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="yaflittlebutton" CommandName='edit' CommandArgument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>' TitleLocalizedTag="EDIT" ImageThemePage="ICONS" ImageThemeTag="EDIT_SMALL_ICON" runat="server"></YAF:ThemeButton>
+                       <YAF:ThemeButton ID="ThemeButtonDelete" OnLoad="Delete_Load" CssClass="yaflittlebutton" CommandName='delete' CommandArgument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>' TitleLocalizedTag="DELETE" ImageThemePage="ICONS" ImageThemeTag="DELETE_SMALL_ICON" runat="server"></YAF:ThemeButton>
                     </td>
                 </tr>
             </ItemTemplate>

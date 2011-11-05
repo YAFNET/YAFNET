@@ -32,6 +32,7 @@ namespace YAF.Pages.Admin
 
     using YAF.Classes;
     using YAF.Classes.Data;
+    using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Tasks;
     using YAF.Types;
@@ -63,7 +64,8 @@ namespace YAF.Pages.Admin
         public void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             // add confirmation method on click
-            ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_USERS", "CONFIRM_DELETE"));
+            ((ThemeButton)sender).Attributes["onclick"] =
+                "return confirm('{0}')".FormatWith(this.GetText("ADMIN_USERS", "CONFIRM_DELETE"));
         }
 
         /// <summary>
@@ -115,14 +117,14 @@ namespace YAF.Pages.Admin
                         // examine each if he's possible to delete
                         foreach (DataRow row in dt.Rows)
                         {
-                            if (Convert.ToInt32(row["IsGuest"]) > 0)
+                            if (row["IsGuest"].ToType<int>() > 0)
                             {
                                 // we cannot detele guest
                                 this.PageContext.AddLoadMessage(this.GetText("ADMIN_USERS", "MSG_DELETE_GUEST"));
                                 return;
                             }
 
-                            if ((row["IsAdmin"] == DBNull.Value || Convert.ToInt32(row["IsAdmin"]) <= 0) &&
+                            if ((row["IsAdmin"] == DBNull.Value || row["IsAdmin"].ToType<int>() <= 0) &&
                                 (row["IsHostAdmin"] == DBNull.Value || row["IsHostAdmin"].ToType<int>() <= 0))
                             {
                                 continue;

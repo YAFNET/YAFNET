@@ -657,6 +657,8 @@
     <Resource tag="ERROR_NEW_PASS">Must Enter New Password</Resource>
     <Resource tag="ERROR_NOTE_PASSRESET">Error: Current Membership Provider does not support the "Password Reset" function. Verify that "EnablePasswordReset" is "true" in your provider configuration settings in the web.config.</Resource>
     <Resource tag="ERROR_PASS_NOTMATCH">Confirmation password does not match</Resource>
+    <Resource tag="FACEBOOK_USER">Facebook User:</Resource>
+    <Resource tag="FACEBOOK_USER_HELP">Indicates if the User is logged in via Facebook.</Resource>
     <Resource tag="HEAD_KILL_USER">Kill User's Activity</Resource>
     <Resource tag="HEAD_USER_CHANGEPASS">Change Password</Resource>
     <Resource tag="HEAD_USER_DETAILS">User Details</Resource>
@@ -1495,6 +1497,7 @@
     <Resource tag="EMAIL_CONTAINS">Email Contains:</Resource>
     <Resource tag="EXPORT_CSV">Export All User(s) as CSV</Resource>
     <Resource tag="EXPORT_XML">Export All User(s) as Xml</Resource>
+    <Resource tag="FACEBOOK_USER">Facebook User</Resource>
     <Resource tag="FILTER">Filter by join date since:</Resource>
     <Resource tag="HEADER">Search Users</Resource>
     <Resource tag="IMPORT">Import User(s)</Resource>

@@ -656,6 +656,8 @@
     <Resource tag="ERROR_NEW_PASS">Muss Neues Passwort eingeben</Resource>
     <Resource tag="ERROR_NOTE_PASSRESET">Fehler: der Aktuelle Membership Provider erlaubt nicht das Wiederherstellen eines Passwortes. Überprüfen Sie ob die "EnablePasswordReset" Einstellung auf "true" gesetzt ist in der web.config.</Resource>
     <Resource tag="ERROR_PASS_NOTMATCH">Bestätigungs Passwort stimmt nicht überein</Resource>
+    <Resource tag="FACEBOOK_USER">Facebook Benutzer:</Resource>
+    <Resource tag="FACEBOOK_USER_HELP">Gibt an ob der Benutzer über Facebook angemeldet ist.</Resource>
     <Resource tag="HEAD_KILL_USER">Benutzeraktivität löschen</Resource>
     <Resource tag="HEAD_USER_CHANGEPASS">Passwort ändern</Resource>
     <Resource tag="HEAD_USER_DETAILS">Benutzer-Details</Resource>
@@ -1487,6 +1489,7 @@
     <Resource tag="EMAIL_CONTAINS">E-Mail enthält:</Resource>
     <Resource tag="EXPORT_CSV">Export All User(s) as CSV</Resource>
     <Resource tag="EXPORT_XML">Export All User(s) as Xml</Resource>
+    <Resource tag="FACEBOOK_USER">Facebook Benutzer</Resource>
     <Resource tag="FILTER">Filtern nach Eintrittsdatum seit:</Resource>
     <Resource tag="HEADER">Benutzer suchen</Resource>
     <Resource tag="IMPORT">Benuter Importieren</Resource>

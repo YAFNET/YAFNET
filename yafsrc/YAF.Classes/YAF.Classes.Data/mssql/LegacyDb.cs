@@ -9768,6 +9768,7 @@ namespace YAF.Classes.Data
         /// The user name.
         /// </param>
         /// <param name="displayName">
+        /// the display name.
         /// </param>
         /// <param name="email">
         /// The email.
@@ -9811,7 +9812,25 @@ namespace YAF.Classes.Data
         /// <param name="notificationType">
         /// The notification Type.
         /// </param>
-        public static void user_save([NotNull] object userID, [NotNull] object boardID, [NotNull] object userName, [NotNull] object displayName, [NotNull] object email, [NotNull] object timeZone, [NotNull] object languageFile, [NotNull] object culture, [NotNull] object themeFile, [NotNull] object useSingleSignOn, [NotNull] object textEditor, [NotNull] object useMobileTheme, [NotNull] object approved, [NotNull] object pmNotification, [NotNull] object autoWatchTopics, [NotNull] object dSTUser, [NotNull] object hideUser, [NotNull] object notificationType)
+        public static void user_save(
+            [NotNull] object userID, 
+            [NotNull] object boardID, 
+            [NotNull] object userName, 
+            [NotNull] object displayName, 
+            [NotNull] object email, 
+            [NotNull] object timeZone, 
+            [NotNull] object languageFile, 
+            [NotNull] object culture, 
+            [NotNull] object themeFile, 
+            [NotNull] object useSingleSignOn, 
+            [NotNull] object textEditor, 
+            [NotNull] object useMobileTheme, 
+            [NotNull] object approved, 
+            [NotNull] object pmNotification, 
+            [NotNull] object autoWatchTopics, 
+            [NotNull] object dSTUser, 
+            [NotNull] object hideUser, 
+            [NotNull] object notificationType)
         {
             using (var cmd = MsSqlDbAccess.GetCommand("user_save"))
             {
@@ -9924,6 +9943,26 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("UserID", userID);
                 cmd.Parameters.AddWithValue(
                   "Password", FormsAuthentication.HashPasswordForStoringInConfigFile(password.ToString(), "md5"));
+                MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
+            }
+        }
+
+        /// <summary>
+        /// Save the IsFacebook Status
+        /// </summary>
+        /// <param name="userID">
+        /// The user id.
+        /// </param>
+        /// <param name="isFacebookUser">
+        /// The is Facebook User.
+        /// </param>
+        public static void user_updatefacebookstatus([NotNull] object userID, [NotNull] object isFacebookUser)
+        {
+            using (var cmd = MsSqlDbAccess.GetCommand("user_updatefacebookstatus"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("UserID", userID);
+                cmd.Parameters.AddWithValue("IsFacebookUser", isFacebookUser);
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
             }
         }

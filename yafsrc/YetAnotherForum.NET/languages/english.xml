@@ -4271,6 +4271,7 @@ Visit {forumname} at {forumlink}
 	   <Resource tag="POSTS">Posts</Resource>
 	   <Resource tag="APPROVED">Approved</Resource>
 	   <Resource tag="LAST_VISIT">Last Visit</Resource>
+     <Resource tag="FACEBOOK_USER">Facebook User</Resource>
 	   <Resource tag="ROLE">Role:</Resource>
 	   <Resource tag="RANK">Rank:</Resource>
 	   <Resource tag="NAME_CONTAINS">User Name Contains:</Resource>
@@ -4351,6 +4352,8 @@ Visit {forumname} at {forumlink}
 	   <Resource tag="MSG_PASS_CHANGED_NOTI">User Password Changed and Notification Email Sent.</Resource>
 	   <Resource tag="MSG_PASS_CHANGED">User Password Changed</Resource>
 	   <Resource tag="MSG_GUEST_APPROVED">The Guest user must be marked as Approved or your forum will be unstable.</Resource>
+     <Resource tag="FACEBOOK_USER">Facebook User:</Resource>
+     <Resource tag="FACEBOOK_USER_HELP">Indicates if the User is logged in via Facebook.</Resource>
 	 </page>
 	 <page name="ADMIN_REGUSER">
 	   <Resource tag="TITLE">New User</Resource>

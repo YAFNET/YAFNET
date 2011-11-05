@@ -655,6 +655,8 @@
     <Resource tag="ERROR_NEW_PASS">می بایست کلمه عبور جدید وارد گردد</Resource>
     <Resource tag="ERROR_NOTE_PASSRESET">خطا : فرآهم کننده عضویت "بازیابی کلمه عبور" را پشتیبانی نمی کند. گزینه "فعال سازی بازنشانی کلمه عبور" را در web.config کنترل کنید.</Resource>
     <Resource tag="ERROR_PASS_NOTMATCH">تائی کلمه عوبر همخواهنی ندارد</Resource>
+    <Resource tag="FACEBOOK_USER">Facebook User:</Resource>
+    <Resource tag="FACEBOOK_USER_HELP">Indicates if the User is logged in via Facebook.</Resource>
     <Resource tag="HEAD_KILL_USER">قطع فعالیت کاربر</Resource>
     <Resource tag="HEAD_USER_CHANGEPASS">تغییر کلمه عبور</Resource>
     <Resource tag="HEAD_USER_DETAILS">جزئیات کاربر</Resource>
@@ -1499,6 +1501,7 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="EMAIL_CONTAINS">پست الکترونیک شامل:</Resource>
     <Resource tag="EXPORT_CSV">Export All User(s) as CSV</Resource>
     <Resource tag="EXPORT_XML">Export All User(s) as Xml</Resource>
+    <Resource tag="FACEBOOK_USER">Facebook User</Resource>
     <Resource tag="FILTER">فیلتر بر اساس تاریخ پیوستن:</Resource>
     <Resource tag="HEADER">جستجوی کاربر</Resource>
     <Resource tag="IMPORT">Import User(s)</Resource>

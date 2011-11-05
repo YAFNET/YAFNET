@@ -656,6 +656,8 @@
     <Resource tag="ERROR_NEW_PASS">Нужно ввести новый пароль</Resource>
     <Resource tag="ERROR_NOTE_PASSRESET">Ошибка: Текущий провайдер Membership не поддерживает функцию сброса пароля. ПроверьтеЮ что опция "EnablePasswordReset" имеет значение "true" в секции конфигурации провайдера в web.config.</Resource>
     <Resource tag="ERROR_PASS_NOTMATCH">Подтвержение и пароль не совпадают</Resource>
+    <Resource tag="FACEBOOK_USER">Facebook User:</Resource>
+    <Resource tag="FACEBOOK_USER_HELP">Indicates if the User is logged in via Facebook.</Resource>
     <Resource tag="HEAD_KILL_USER">Уничтожить следы активности пользователя</Resource>
     <Resource tag="HEAD_USER_CHANGEPASS">Изменить пароль</Resource>
     <Resource tag="HEAD_USER_DETAILS">Данные пользователя</Resource>
@@ -1481,6 +1483,7 @@
     <Resource tag="EMAIL_CONTAINS">Email содержит:</Resource>
     <Resource tag="EXPORT_CSV">Экспортировать пользователя(лей) в формате CSV</Resource>
     <Resource tag="EXPORT_XML">Экспортировать пользователя(лей) в формате CSV Xml</Resource>
+    <Resource tag="FACEBOOK_USER">Facebook User</Resource>
     <Resource tag="FILTER">Фильтровать по дате регистрации с:</Resource>
     <Resource tag="HEADER">Поиск пользователей</Resource>
     <Resource tag="IMPORT">Импортировать пользователя(лей)</Resource>
