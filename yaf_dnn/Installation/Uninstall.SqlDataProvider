@@ -1764,3 +1764,11 @@ GO
 IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'{databaseOwner}.{objectQualifier}yaf_TopicStatus_Save') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE {databaseOwner}.{objectQualifier}yaf_TopicStatus_Save
 GO
+
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'{databaseOwner}.{objectQualifier}yaf_user_updatefacebookstatus') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE {databaseOwner}.{objectQualifier}yaf_user_updatefacebookstatus
+GO
+
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'{databaseOwner}.{objectQualifier}yaf_forum_move') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE {databaseOwner}.{objectQualifier}yaf_forum_move
+GO
