@@ -15,8 +15,8 @@
             <%# this.Get<YafBoardSettings>().ShowIrkooRepOnlyInTopics ? YafIrkoo.IrkRating(DataRow["UserID"]) : string.Empty%>
             <YAF:OnlineStatusImage id="OnlineStatusImage" runat="server" Visible='<%# this.Get<YafBoardSettings>().ShowUserOnlineStatus && !UserMembershipHelper.IsGuestUser( DataRow["UserID"] )%>' Style="vertical-align: bottom" UserID='<%# DataRow["UserID"] %>'  />
         </strong>
-        <YAF:ThemeButton ID="AddReputation" runat="server" ImageThemeTag="VOTE_UP" Visible="false" TitleLocalizedTag="VOTE_UP_TITLE" OnClick="AddUserReputation"></YAF:ThemeButton>
-        <YAF:ThemeButton ID="RemoveReputation" runat="server" ImageThemeTag="VOTE_DOWN" Visible="false" TitleLocalizedTag="VOTE_DOWN_TITLE" OnClick="RemoveUserReputation"></YAF:ThemeButton>
+        <YAF:ThemeButton ID="AddReputation" CssClass='<%# "AddReputation_" + DataRow["UserID"]%>' runat="server" ImageThemeTag="VOTE_UP" Visible="false" TitleLocalizedTag="VOTE_UP_TITLE" OnClick="AddUserReputation"></YAF:ThemeButton>
+        <YAF:ThemeButton ID="RemoveReputation" CssClass='<%# "RemoveReputation_" + DataRow["UserID"]%>' runat="server" ImageThemeTag="VOTE_DOWN" Visible="false" TitleLocalizedTag="VOTE_DOWN_TITLE" OnClick="RemoveUserReputation"></YAF:ThemeButton>
         <div class="Irkoo" style="float:right">
             
             <%#YafIrkoo.IrkVote(DataRow["MessageID"], DataRow["UserID"])%>

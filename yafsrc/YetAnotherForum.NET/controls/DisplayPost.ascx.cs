@@ -395,6 +395,8 @@ namespace YAF.Controls
         protected void AddUserReputation(object sender, EventArgs e)
         {
             LegacyDb.user_addpoints(this.PostData.UserId, 1);
+
+            // TODO: Add Database Voting
             this.AddUserVotingCookie();
 
             this.AddReputation.Visible = false;
@@ -414,11 +416,17 @@ namespace YAF.Controls
                   DialogBox.DialogIcon.Info,
                   new DialogBox.DialogButton
                   {
-                      Text = "OK",
+                      Text = this.GetText("COMMON", "OK"),
                       CssClass = "StandardButton",
-                      ForumPageLink = new DialogBox.ForumLink { ForumPage = ForumPages.forum, URL = YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", this.PostData.MessageId) }
+                      ForumPageLink = new DialogBox.ForumLink { ForumPage = this.PageContext.ForumPageType }
                   },
                   null);
+
+            YafContext.Current.PageElements.RegisterJsBlockStartup(
+                "reputationprogressjs",
+                JavaScriptBlocks.ReputationProgressChangeJs(
+                    YafReputation.GenerateReputationBar(this.DataRow["Points"].ToType<int>(), this.PostData.UserId),
+                    this.PostData.UserId.ToString()));
         }
 
         /// <summary>
@@ -429,6 +437,8 @@ namespace YAF.Controls
         protected void RemoveUserReputation(object sender, EventArgs e)
         {
             LegacyDb.user_removepoints(this.PostData.UserId, 1);
+
+            // TODO: Add Database Voting
             this.AddUserVotingCookie();
 
             this.AddReputation.Visible = false;
@@ -448,11 +458,17 @@ namespace YAF.Controls
                   DialogBox.DialogIcon.Info,
                   new DialogBox.DialogButton
                   {
-                      Text = "OK",
+                      Text = this.GetText("COMMON", "OK"),
                       CssClass = "StandardButton",
-                      ForumPageLink = new DialogBox.ForumLink { ForumPage = ForumPages.forum, URL = YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", this.PostData.MessageId) }
+                      ForumPageLink = new DialogBox.ForumLink { ForumPage = this.PageContext.ForumPageType }
                   },
                   null);
+
+            YafContext.Current.PageElements.RegisterJsBlockStartup(
+                "reputationprogressjs",
+                JavaScriptBlocks.ReputationProgressChangeJs(
+                    YafReputation.GenerateReputationBar(this.DataRow["Points"].ToType<int>(), this.PostData.UserId),
+                    this.PostData.UserId.ToString()));
         }
 
         /// <summary>
@@ -657,6 +673,7 @@ namespace YAF.Controls
             }
 
             string thanksLabelText;
+
             if (thanksNumber == 1)
             {
                 thanksLabelText = this.Get<ILocalization>().GetText("THANKSINFOSINGLE").FormatWith(
@@ -669,8 +686,8 @@ namespace YAF.Controls
             }
 
             this.ThanksDataLiteral.Text =
-                "<img id=\"ThanksInfoImage{0}\" src=\"{1}\"  runat=\"server\" title=\"{2}\" />&nbsp;".FormatWith(
-                    this.DataRow["MessageID"], this.Get<ITheme>().GetItem("ICONS", "THANKSINFOLIST_IMAGE"), thanksLabelText) + thanksLabelText;
+                "<img id=\"ThanksInfoImage{0}\" src=\"{1}\"  runat=\"server\" title=\"{2}\" />&nbsp;{2}".FormatWith(
+                    this.DataRow["MessageID"], this.Get<ITheme>().GetItem("ICONS", "THANKSINFOLIST_IMAGE"), thanksLabelText);
 
             this.ThanksDataLiteral.Visible = true;
 

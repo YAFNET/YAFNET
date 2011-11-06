@@ -33,6 +33,7 @@ namespace YAF.Controls
     using YAF.Classes.Data;
     using YAF.Classes.Pattern;
     using YAF.Core;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Flags;
@@ -737,122 +738,14 @@ namespace YAF.Controls
 
             if (this.Get<YafBoardSettings>().DisplayPoints && !this.DataRow["IsGuest"].ToType<bool>())
             {
-                var formatInfo = new NumberFormatInfo { NumberDecimalSeparator = "." };
-
-                var points = this.DataRow["Points"].ToType<int>();
-
-                var pointsSign = string.Empty;
-
-                if (points > 0)
-                {
-                    pointsSign = "+";
-                }
-                else if (points < 0)
-                {
-                    pointsSign = "-";
-                }
-
-                float percentage = this.ConvertPointsToPercentage(points);
-
                 filler = this.Get<YafBoardSettings>().UserBoxReputation.FormatWith(
                     this.GetText("REPUTATION"),
-                    @"<div class=""ReputationBar"" data-percent=""{0}"" data-text=""{1} ({2}{3})""></div>".FormatWith(percentage.ToString(formatInfo), this.GetReputationBarText(percentage), pointsSign, points));
+                    YafReputation.GenerateReputationBar(this.DataRow["Points"].ToType<int>(), this.UserId));
             }
 
             // replaces template placeholder with actual points
             userBox = rx.Replace(userBox, filler);
             return userBox;
-        }
-
-        /// <summary>
-        /// Gets the reputation bar text.
-        /// </summary>
-        /// <param name="percentage">The percentage.</param>
-        /// <returns>Returns the Text for the Current Value</returns>
-        private string GetReputationBarText(float percentage)
-        {
-            string text;
-
-            if (percentage.Equals(0))
-            {
-                text = this.GetText("REPUTATION_VALUES", "HATED");
-            }
-            else if (percentage < 20)
-            {
-                text = this.GetText("REPUTATION_VALUES", "HOSTILE");
-            }
-            else if (percentage < 30)
-            {
-                text = this.GetText("REPUTATION_VALUES", "HOSTILE");
-            }
-            else if (percentage < 40)
-            {
-                text = this.GetText("REPUTATION_VALUES", "HOSTILE");
-            }
-            else if (percentage < 50)
-            {
-                text = this.GetText("REPUTATION_VALUES", "UNFRIENDLY");
-            }
-            else if (percentage < 60)
-            {
-                text = this.GetText("REPUTATION_VALUES", "NEUTRAL");
-            }
-            else if (percentage < 80)
-            {
-                text = this.GetText("REPUTATION_VALUES", "FRIENDLY");
-            }
-            else if (percentage < 90)
-            {
-                text = this.GetText("REPUTATION_VALUES", "HONORED");
-            }
-            else
-            {
-                text = this.GetText("REPUTATION_VALUES", "EXALTED");
-            }
-
-            return text;
-        }
-
-        /// <summary>
-        /// Converts the points to percentage.
-        /// </summary>
-        /// <param name="points">The points.</param>
-        /// <returns>Returns the Percentage Value</returns>
-        private float ConvertPointsToPercentage(int points)
-        {
-            int percantage = points.ToType<int>();
-
-            int minValue = this.Get<YafBoardSettings>().ReputationMaxNegative;
-
-            int maxValue = this.Get<YafBoardSettings>().ReputationMaxPositive;
-
-            if (!this.Get<YafBoardSettings>().ReputationAllowNegative)
-            {
-                minValue = 0;
-            }
-
-            int testValue = minValue + maxValue;
-
-            if (percantage.Equals(0) && this.Get<YafBoardSettings>().ReputationAllowNegative)
-            {
-                return 50;
-            }
-
-            if (percantage >= maxValue)
-            {
-                return 100;
-            }
-
-            if (percantage <= minValue)
-            {
-                return 0;
-            }
-
-            //// ((100 / (float)(maxValue * 2)) * percantage) + 50;
-
-            var returnValue = ((100 / (float)testValue) * percantage) + 50;
-
-            return returnValue > 100 ? 100 : returnValue;
         }
 
         /// <summary>

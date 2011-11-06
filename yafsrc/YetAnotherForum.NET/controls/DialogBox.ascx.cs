@@ -213,7 +213,7 @@ namespace YAF.Controls
 
                 this.CancelButton.CssClass = cancelButton.CssClass.IsSet() ? cancelButton.CssClass : "StandardButton";
 
-                if (this.CancelButtonLink.ForumPage.Equals(YafContext.Current.ForumPageType) && !string.IsNullOrEmpty(this.CancelButtonLink.URL))
+                if (this.CancelButtonLink.ForumPage.Equals(YafContext.Current.ForumPageType))
                 {
                     this.CancelButton.OnClientClick =
                         "jQuery().YafModalDialog.Close({{ Dialog: '#{0}' }});return false;".FormatWith(
@@ -245,7 +245,7 @@ namespace YAF.Controls
 
             YafContext.Current.PageElements.RegisterJsBlock("PopUp{0}".FormatWith(Guid.NewGuid()), sbScript.ToString());
 
-            if (this.OkButtonLink.ForumPage.Equals(YafContext.Current.ForumPageType) && !string.IsNullOrEmpty(this.OkButtonLink.URL))
+            if (this.OkButtonLink.ForumPage.Equals(YafContext.Current.ForumPageType))
             {
                 this.OkButton.OnClientClick =
                     "jQuery().YafModalDialog.Close({{ Dialog: '#{0}' }});return false;".FormatWith(
@@ -274,11 +274,6 @@ namespace YAF.Controls
         /// </param>
         protected void CancelButton_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!string.IsNullOrEmpty(this.CancelButtonLink.URL))
-            {
-                this.Get<HttpResponseBase>().Redirect(this.CancelButtonLink.URL);
-            }
-            
             if (this.CancelButtonLink.ForumPage.Equals(YafContext.Current.ForumPageType))
             {
                 // Make Sure the Current Page is correctly Returned with all querystrings
@@ -312,11 +307,6 @@ namespace YAF.Controls
         /// </param>
         protected void OkButton_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!string.IsNullOrEmpty(this.OkButtonLink.URL))
-            {
-                this.Get<HttpResponseBase>().Redirect(this.OkButtonLink.URL);
-            }
-            
             if (this.OkButtonLink.ForumPage.Equals(YafContext.Current.ForumPageType))
             {
                 // Make Sure the Current Page is correctly Returned with all querystrings
@@ -399,11 +389,6 @@ namespace YAF.Controls
             ///   Gets ors sets the Yaf Forum Page Link
             /// </summary>
             public ForumPages ForumPage = YafContext.Current.ForumPageType;
-
-            /// <summary>
-            /// Gets or sets a regular URL
-            /// </summary>
-            public string URL = string.Empty;
 
             #endregion
         }

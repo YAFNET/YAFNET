@@ -204,6 +204,7 @@
     <Compile Include="Services\YAFIrkoo.cs" />
     <Compile Include="Services\YafPermissions.cs" />
     <Compile Include="Services\YafReadTracking.cs" />
+    <Compile Include="Services\YafReputation.cs" />
     <Compile Include="Services\YafSendMail.cs" />
     <Compile Include="Services\YafSendMailThreaded.cs" />
     <Compile Include="Services\YafSendNotification.cs" />
