@@ -24,6 +24,7 @@ namespace YAF.Core.Services
     using System.Text;
     using System.Web;
 
+    using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -64,19 +65,18 @@ namespace YAF.Core.Services
 
                     // vzrus: quick fix for the incorrect link. URL rewriting don't work :(
                     filler.AppendFormat(
-                      @"<a id=""{0}"" href=""{1}""><u>{2}</u></a>",
-                      dr["UserID"],
-                      YafBuildLink.GetLink(ForumPages.profile, "u={0}", dr["UserID"]),
-                      dr["DisplayName"] != DBNull.Value
-                        ? YafContext.Current.Get<HttpServerUtilityBase>().HtmlEncode(dr["DisplayName"].ToString())
-                        : YafContext.Current.Get<HttpServerUtilityBase>().HtmlEncode(dr["Name"].ToString()));
+                        @"<a id=""{0}"" href=""{1}""><u>{2}</u></a>",
+                        dr["UserID"],
+                        YafBuildLink.GetLink(ForumPages.profile, "u={0}", dr["UserID"]),
+                        dr["DisplayName"] != DBNull.Value
+                            ? YafContext.Current.Get<HttpServerUtilityBase>().HtmlEncode(dr["DisplayName"].ToString())
+                            : YafContext.Current.Get<HttpServerUtilityBase>().HtmlEncode(dr["Name"].ToString()));
 
-                    if (YafContext.Current.BoardSettings.ShowThanksDate)
+                    if (YafContext.Current.Get<YafBoardSettings>().ShowThanksDate)
                     {
                         filler.AppendFormat(
-                          @" {0}",
-                          YafContext.Current.Get<ILocalization>().GetText("DEFAULT", "ONDATE").FormatWith(
-                            YafContext.Current.Get<IDateTime>().FormatDateShort(dr["ThanksDate"])));
+                            @" {0}",
+                            YafContext.Current.Get<ILocalization>().GetText("DEFAULT", "ONDATE").FormatWith(YafContext.Current.Get<IDateTime>().FormatDateShort(dr["ThanksDate"])));
                     }
                 }
             }
@@ -144,19 +144,32 @@ namespace YAF.Core.Services
                   UserMembershipHelper.GetMembershipUserByName(username).ProviderUserKey));
 
             // if displayname is enabled in admin section, and the user has a display name, use it instead of username.
-            displayName = (displayName != string.Empty && YafContext.Current.BoardSettings.EnableDisplayName)
+            displayName = (displayName != string.Empty && YafContext.Current.Get<YafBoardSettings>().EnableDisplayName)
                             ? displayName
                             : username;
+
+            string thanksText;
 
             switch (thanksNumber)
             {
                 case 0:
-                    return String.Empty;
+                    return string.Empty;
                 case 1:
-                    return YafContext.Current.Get<ILocalization>().GetText("POSTS", "THANKSINFOSINGLE").FormatWith(displayName);
+                    thanksText =
+                        YafContext.Current.Get<ILocalization>().GetText("POSTS", "THANKSINFOSINGLE").FormatWith(
+                            displayName);
+
+                    return
+                        "<img id=\"ThanksInfoImage{0}\" src=\"{1}\"  runat=\"server\" title=\"{2}\" />&nbsp;{2}".FormatWith(
+                                messageID,
+                                YafContext.Current.Get<ITheme>().GetItem("ICONS", "THANKSINFOLIST_IMAGE"),
+                                thanksText);
             }
 
-            return YafContext.Current.Get<ILocalization>().GetText("POSTS", "THANKSINFO").FormatWith(thanksNumber, displayName);
+            thanksText = YafContext.Current.Get<ILocalization>().GetText("POSTS", "THANKSINFO").FormatWith(thanksNumber, displayName);
+            return
+                "<img id=\"ThanksInfoImage{0}\" src=\"{1}\"  runat=\"server\" title=\"{2}\" />&nbsp;{2}".FormatWith(
+                    messageID, YafContext.Current.Get<ITheme>().GetItem("ICONS", "THANKSINFOLIST_IMAGE"), thanksText);
         }
 
         #endregion
