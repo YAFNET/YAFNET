@@ -55,7 +55,6 @@ if exists (select top 1 1 from  dbo.sysobjects where name='FK_Message_User' and 
 	alter table [{databaseOwner}].[{objectQualifier}Message] drop constraint [FK_Message_User]
 go
 
-
 if exists (select top 1 1 from  dbo.sysobjects where name='FK_PMessage_User1' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}PMessage]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table [{databaseOwner}].[{objectQualifier}PMessage] drop constraint [FK_PMessage_User1]
 go
@@ -1116,6 +1115,12 @@ if exists (select top 1 1 from  dbo.sysobjects where name=N'DF_EventLog_Type' an
 	alter table [{databaseOwner}].[{objectQualifier}EventLog] drop constraint [DF_EventLog_Type]
 go
 
+exec('[{databaseOwner}].[{objectQualifier}drop_defaultconstraint_oncolumn] {objectQualifier}ActiveAccess, IsGuestX')
+GO
+
+if not exists (select top 1 1 from  dbo.sysobjects where name=N'DF_{objectQualifier}ActiveAccess_IsGuestX' and parent_obj=object_id(N'[{databaseOwner}].[{objectQualifier}ActiveAccess]'))
+	alter table [{databaseOwner}].[{objectQualifier}ActiveAccess] add constraint [DF_{objectQualifier}ActiveAccess_IsGuestX] default(0) for IsGuestX
+go
 
 if not exists (select top 1 1 from  dbo.sysobjects where name=N'DF_{objectQualifier}EventLog_Type' and parent_obj=object_id(N'[{databaseOwner}].[{objectQualifier}EventLog]'))
 	alter table [{databaseOwner}].[{objectQualifier}EventLog] add constraint [DF_{objectQualifier}EventLog_Type] default(0) for Type

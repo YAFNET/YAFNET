@@ -77,40 +77,25 @@ namespace YAF.Pages
     /// </summary>
     protected void BindData()
     {
-      var pds = new PagedDataSource { AllowPaging = true, PageSize = this.PagerTop.PageSize };
-
-      DataTable dt = LegacyDb.topic_list(
-        this.PageContext.PageForumID, 
-        null, 
-        -1, 
-        null, 
-        this.PagerTop.CurrentPageIndex * pds.PageSize, 
-        pds.PageSize, 
+        this.PagerTop.PageSize = this.Get<YafBoardSettings>().TopicsPerPage;
+        int baseSize = this.Get<YafBoardSettings>().TopicsPerPage;
+        int nCurrentPageIndex = this.PagerTop.CurrentPageIndex;
+        DataTable dt = LegacyDb.topic_list(
+        this.PageContext.PageForumID,
+        null,
+        DateTime.MinValue.AddYears(1754),
+        DateTime.UtcNow,
+        nCurrentPageIndex,
+        baseSize, 
         false, 
         true,
-        true);
+        false);
 
-      DataView dv = dt.DefaultView;
-
-      pds.DataSource = dv;
-
-      pds.CurrentPageIndex = this.PagerTop.CurrentPageIndex;
-      if (pds.CurrentPageIndex >= pds.PageCount)
-      {
-        pds.CurrentPageIndex = pds.PageCount - 1;
-      }
-
-      int rowCount = 0;
-      if (dt.Rows.Count > 0)
-      {
-        rowCount = (int)dt.Rows[0]["RowCount"];
-      }
-
-      this.topiclist.DataSource = pds;
+      this.topiclist.DataSource = dt;
       this.UserList.DataSource = LegacyDb.userforum_list(null, this.PageContext.PageForumID);
       this.DataBind();
-
-      this.PagerTop.Count = rowCount;
+      if (dt.Rows.Count > 0)
+      this.PagerTop.Count = dt.AsEnumerable().First().Field<int>("TotalRows"); // + nPageSize; 
     }
 
     /// <summary>

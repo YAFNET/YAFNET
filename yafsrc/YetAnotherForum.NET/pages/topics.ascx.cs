@@ -18,6 +18,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+using System.Linq;
+
 namespace YAF.Pages
 {
   // YAF.Pages
@@ -368,20 +370,26 @@ namespace YAF.Pages
 
         DataTable dt =
             this.StyleTransformDataTable(
-                LegacyDb.topic_list(
+                LegacyDb.announcements_list(
                     this.PageContext.PageForumID,
                     userId,
-                    1,
                     null,
+                    DateTime.UtcNow,
                     0,
                     10,
                     this.Get<YafBoardSettings>().UseStyledNicks,
                     true,
                     this.Get<YafBoardSettings>().UseReadTrackingByDatabase));
 
-      int nPageSize = this.Get<YafBoardSettings>().TopicsPerPage;
-      this.Announcements.DataSource = dt;
+      
+      int baseSize = this.Get<YafBoardSettings>().TopicsPerPage;
+      int nPageSize = 0;
 
+      if (dt != null && dt.Rows.Count > 0)
+      {
+          nPageSize = dt.Rows.Count;
+      }
+      this.Announcements.DataSource = dt;
       /*if (!m_bIgnoreQueryString && Request.QueryString["p"] != null)
       {
           // show specific page (p is 1 based)
@@ -403,10 +411,10 @@ namespace YAF.Pages
             LegacyDb.topic_list(
               this.PageContext.PageForumID, 
               userId, 
-              0, 
-              null, 
-              nCurrentPageIndex * nPageSize, 
-              nPageSize, 
+              DateTime.MinValue.AddYears(1754), 
+              DateTime.UtcNow, 
+              nCurrentPageIndex,
+              baseSize, 
               this.Get<YafBoardSettings>().UseStyledNicks, 
               true,
               this.Get<YafBoardSettings>().UseReadTrackingByDatabase));
@@ -446,21 +454,16 @@ namespace YAF.Pages
           this.StyleTransformDataTable(
             LegacyDb.topic_list(
               this.PageContext.PageForumID, 
-              userId, 
-              0, 
+              userId,
               date, 
-              nCurrentPageIndex * nPageSize, 
-              nPageSize, 
+              DateTime.UtcNow, 
+              nCurrentPageIndex,
+              baseSize, 
               this.Get<YafBoardSettings>().UseStyledNicks, 
               true,
               this.Get<YafBoardSettings>().UseReadTrackingByDatabase));
       }
-
-      int nRowCount = 0;
-      if (dtTopics.Rows.Count > 0)
-      {
-        nRowCount = (int)dtTopics.Rows[0]["RowCount"];
-      }
+     
 
       ////int nPageCount = (int)Math.Ceiling((double)(nRowCount + nPageSize) / nPageSize);
 
@@ -471,8 +474,8 @@ namespace YAF.Pages
       // setup the show topic list selection after data binding
       this.ShowList.SelectedIndex = this._showTopicListSelected;
       this.Get<IYafSession>().ShowList = this._showTopicListSelected;
-
-      this.Pager.Count = nRowCount;
+      if (dtTopics.Rows.Count > 0)
+      this.Pager.Count = dtTopics.AsEnumerable().First().Field<int>("TotalRows"); // + nPageSize; 
     }
 
     /// <summary>

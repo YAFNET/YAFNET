@@ -8153,17 +8153,67 @@ namespace YAF.Classes.Data
         /// </param>
         /// <returns>
         /// </returns>
-        public static DataTable topic_list([NotNull] object forumID, [NotNull] object userId, [NotNull] object announcement, [NotNull] object date, [NotNull] object offset, [NotNull] object count, [NotNull] object useStyledNicks, [NotNull] object showMoved, [CanBeNull]bool findLastRead)
+        public static DataTable topic_list([NotNull] object forumID, [NotNull] object userId, [NotNull] object sinceDate, [NotNull] object toDate, [NotNull] object pageIndex, [NotNull] object pageSize, [NotNull] object useStyledNicks, [NotNull] object showMoved, [CanBeNull]bool findLastRead)
         {
             using (var cmd = MsSqlDbAccess.GetCommand("topic_list"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("ForumID", forumID);
                 cmd.Parameters.AddWithValue("UserID", userId);
-                cmd.Parameters.AddWithValue("Announcement", announcement);
-                cmd.Parameters.AddWithValue("Date", date);
-                cmd.Parameters.AddWithValue("Offset", offset);
-                cmd.Parameters.AddWithValue("Count", count);
+                cmd.Parameters.AddWithValue("Date", sinceDate);
+                cmd.Parameters.AddWithValue("ToDate", toDate);
+                cmd.Parameters.AddWithValue("PageIndex", pageIndex);
+                cmd.Parameters.AddWithValue("PageSize", pageSize);
+                cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
+                cmd.Parameters.AddWithValue("ShowMoved", showMoved);
+                cmd.Parameters.AddWithValue("FindLastRead", findLastRead);
+                return MsSqlDbAccess.Current.GetData(cmd, true);
+            }
+        }
+
+        /// <summary>
+        /// The topic_list.
+        /// </summary>
+        /// <param name="forumID">
+        /// The forum id.
+        /// </param>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="announcement">
+        /// The announcement.
+        /// </param>
+        /// <param name="date">
+        /// The date.
+        /// </param>
+        /// <param name="offset">
+        /// The offset.
+        /// </param>
+        /// <param name="count">
+        /// The count.
+        /// </param>
+        /// <param name="useStyledNicks">
+        /// To return style for user nicks in topic_list.
+        /// </param>
+        /// <param name="showMoved">
+        /// The show Moved.
+        /// </param>
+        /// <param name="findLastRead">
+        /// Indicates if the Table should Countain the last Access Date
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static DataTable announcements_list([NotNull] object forumID, [NotNull] object userId, [NotNull] object sinceDate, [NotNull] object toDate, [NotNull] object pageIndex, [NotNull] object pageSize, [NotNull] object useStyledNicks, [NotNull] object showMoved, [CanBeNull]bool findLastRead)
+        {
+            using (var cmd = MsSqlDbAccess.GetCommand("announcements_list"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("ForumID", forumID);
+                cmd.Parameters.AddWithValue("UserID", userId);
+                cmd.Parameters.AddWithValue("Date", sinceDate);
+                cmd.Parameters.AddWithValue("ToDate", toDate);
+                cmd.Parameters.AddWithValue("PageIndex", pageIndex);
+                cmd.Parameters.AddWithValue("PageSize", pageSize);
                 cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
                 cmd.Parameters.AddWithValue("ShowMoved", showMoved);
                 cmd.Parameters.AddWithValue("FindLastRead", findLastRead);

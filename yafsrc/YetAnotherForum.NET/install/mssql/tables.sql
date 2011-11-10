@@ -21,7 +21,7 @@ WHERE
   c.name = @columnname
   
 IF @DefName IS NOT NULL
-  EXECUTE ('ALTER TABLE ' + @tablename + ' DROP CONSTRAINT ' + @DefName)
+  EXECUTE ('ALTER TABLE ' + @tablename + ' DROP CONSTRAINT [' + @DefName + ']')
 END
 GO
 
@@ -113,7 +113,7 @@ if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseO
 		IsAdmin				bit NOT NULL ,
 		IsForumModerator	bit NOT NULL ,
 		IsModerator			bit NOT NULL ,
-		IsGuestX			bit NOT NULL constraint [DF_{ActiveAccess_IsGuest] default(0),
+		IsGuestX			bit NOT NULL constraint [DF_{objectQualifier}ActiveAccess_IsGuestX] default(0),
 		LastActive			datetime NULL ,
 		ReadAccess			bit NOT NULL ,
 		PostAccess			bit NOT NULL ,
@@ -1882,7 +1882,6 @@ if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwne
 begin
     delete from [{databaseOwner}].[{objectQualifier}ActiveAccess]
 	alter table [{databaseOwner}].[{objectQualifier}ActiveAccess] add [IsGuestX] bit NOT NULL
-	alter table [{databaseOwner}].[{objectQualifier}ActiveAccess] add constraint [DF_{ActiveAccess_IsGuestX] default(0) for IsGuestX
 end
 GO
 
