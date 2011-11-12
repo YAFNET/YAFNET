@@ -533,7 +533,15 @@ namespace YAF.Core.Services
                 stringToClear,
                 (tag, index, len) =>
                     {
-                        if (!HtmlHelper.IsValidTag(tag, codes))
+                        var code = tag.Replace("/", string.Empty).Replace(">", string.Empty);
+
+                        // If tag contains attributes kill them for cecking
+                        if (code.Contains("=\""))
+                        {
+                            code = code.Remove(code.IndexOf(" "));
+                        }
+
+                        if (!codes.Any(allowedTag => code.ToLower() == allowedTag.ToLower()))
                         {
                             forbiddenTagList.AppendFormat("<{0} ", tag);
                         }
@@ -766,7 +774,7 @@ namespace YAF.Core.Services
 
             html = !allowHtml
                        ? this.HttpServer.HtmlEncode(html)
-                       : RemoveHtmlByList(html, this.Get<YafBoardSettings>().AcceptedHTML.Split(','));
+                       : RemoveHtmlByList(html, matchList);
 
             return html;
         }
