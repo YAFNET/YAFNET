@@ -5084,11 +5084,6 @@ begin
 		@firstselectedited = m.Edited
 	from
 		[{databaseOwner}].[{objectQualifier}Message] m
-		join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=m.UserID
-		join [{databaseOwner}].[{objectQualifier}Topic] d on d.TopicID=m.TopicID
-		join [{databaseOwner}].[{objectQualifier}Forum] g on g.ForumID=d.ForumID
-		join [{databaseOwner}].[{objectQualifier}Category] h on h.CategoryID=g.CategoryID
-		join [{databaseOwner}].[{objectQualifier}Rank] c on c.RankID=b.RankID
 	where
 		m.TopicID = @TopicID
 		AND m.IsApproved = 1
@@ -6153,6 +6148,7 @@ declare @shiftsticky int
    declare @post_priorityrowsnumber int
    declare @post_priorityrowsnumber_shift int
    declare @firstselectrownum int 
+   declare @sortsincelatest int
   
    declare @firstselectposted datetime 
    declare @ceiling decimal
@@ -6161,10 +6157,7 @@ declare @shiftsticky int
 	-- find priority returned count
 		select
 		@post_priorityrowsnumber = COUNT(c.TopicID)
-	FROM [{databaseOwner}].[{objectQualifier}Topic] c JOIN [{databaseOwner}].[{objectQualifier}User] b 
-		ON b.UserID=c.UserID 
-	JOIN [{databaseOwner}].[{objectQualifier}Forum] d 
-		ON d.ForumID=c.ForumID
+	FROM [{databaseOwner}].[{objectQualifier}Topic] c
 	WHERE c.ForumID = @ForumID		
 		AND (c.Priority=1) 
 		AND	(c.Flags & 8) <> 8
@@ -6179,10 +6172,7 @@ declare @shiftsticky int
 	-- find total returned count
 		select
 		@post_totalrowsnumber = COUNT(c.TopicID)
-	FROM [{databaseOwner}].[{objectQualifier}Topic] c JOIN [{databaseOwner}].[{objectQualifier}User] b 
-		ON b.UserID=c.UserID 
-	JOIN [{databaseOwner}].[{objectQualifier}Forum] d 
-		ON d.ForumID=c.ForumID
+	FROM [{databaseOwner}].[{objectQualifier}Topic] c 
 	WHERE c.ForumID = @ForumID
 		AND	((Priority>0 AND c.Priority<>2) OR (c.Priority <=0 AND c.LastPosted>=@Date )) 
 		AND	(c.Flags & 8) <> 8
@@ -6226,11 +6216,7 @@ declare @shiftsticky int
    select		
 		@firstselectposted = c.LastPosted
 	from
-    [{databaseOwner}].[{objectQualifier}Topic] c 
-	JOIN [{databaseOwner}].[{objectQualifier}User] b 
-		ON b.UserID=c.UserID 
-	JOIN [{databaseOwner}].[{objectQualifier}Forum] d 
-		ON d.ForumID=c.ForumID
+    [{databaseOwner}].[{objectQualifier}Topic] c
 	WHERE c.ForumID = @ForumID	    
 	AND	(( (@shiftsticky = 1) and (Priority>0 AND c.Priority<>2)) OR (c.Priority <=0 AND c.LastPosted>=@Date )) 
 		AND	(c.Flags & 8) <> 8
