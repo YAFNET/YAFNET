@@ -970,8 +970,7 @@ namespace YAF.Pages
                 }
             }
 
-            // vzrus: Common users should not use HTML tags in a topic header if not allowed
-            if (!(this.PageContext.IsModerator || this.PageContext.IsForumModerator || this.PageContext.IsAdmin))
+            if (this.PageContext.IsModerator || this.PageContext.IsForumModerator || this.PageContext.IsAdmin)
             {
                 string tag = this.Get<IFormatMessage>().CheckHtmlTags(
                   this.TopicSubjectTextBox.Text, this.Get<YafBoardSettings>().AcceptedHeadersHTML, ',');
@@ -979,17 +978,34 @@ namespace YAF.Pages
                 if (tag.IsSet())
                 {
                     this.PageContext.AddLoadMessage(tag);
+
+                    this.TopicSubjectTextBox.Text = this.Get<IFormatMessage>().RepairHtml(
+                        this.TopicSubjectTextBox.Text, true, this.Get<YafBoardSettings>().AcceptedHeadersHTML.Split(','));
+
                     return;
                 }
 
                 tag = this.Get<IFormatMessage>().CheckHtmlTags(
-                 this.TopicDescriptionTextBox.Text, this.Get<YafBoardSettings>().AcceptedHeadersHTML, ',');
+                    this.TopicDescriptionTextBox.Text, this.Get<YafBoardSettings>().AcceptedHeadersHTML, ',');
 
                 if (tag.IsSet())
                 {
                     this.PageContext.AddLoadMessage(tag);
+
+                    this.TopicDescriptionTextBox.Text =
+                        this.Get<IFormatMessage>().RepairHtml(
+                            this.TopicDescriptionTextBox.Text,
+                            true,
+                            this.Get<YafBoardSettings>().AcceptedHeadersHTML.Split(','));
+
                     return;
                 }
+            }
+            else
+            {
+                // vzrus: Common users should not use HTML tags in a topic header if not allowed
+                this.TopicSubjectTextBox.Text = HtmlHelper.StripHtml(this.TopicSubjectTextBox.Text);
+                this.TopicDescriptionTextBox.Text = HtmlHelper.StripHtml(this.TopicDescriptionTextBox.Text);
             }
 
             // update the last post time...
@@ -1240,7 +1256,6 @@ namespace YAF.Pages
             {
                 this.PreviewMessagePost.Signature = userSig;
             }
-            
         }
 
         /// <summary>

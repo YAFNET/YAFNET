@@ -41,6 +41,7 @@ namespace YAF.Types.Interfaces
         /// String with delimiter
         /// </param>
         /// <param name="delim">
+        /// The delim.
         /// </param>
         /// <returns>
         /// Returns a string containing a forbidden BBCode or a null string
@@ -124,10 +125,13 @@ namespace YAF.Types.Interfaces
         /// The method to detect a forbidden HTML code from delimited by 'delim' list
         /// </summary>
         /// <param name="stringToClear">
+        /// The string To Clear.
         /// </param>
         /// <param name="stringToMatch">
+        /// The string To Match.
         /// </param>
         /// <param name="delim">
+        /// The delim.
         /// </param>
         /// <returns>
         /// Returns a forbidden HTML tag or a null string
@@ -180,6 +184,23 @@ namespace YAF.Types.Interfaces
         /// <param name="allowHtml">
         /// The allow html.
         /// </param>
+        /// <param name="matchList">
+        /// The match List.
+        /// </param>
+        /// <returns>
+        /// The repaired html.
+        /// </returns>
+        string RepairHtml([NotNull] string html, bool allowHtml, [NotNull] IEnumerable<string> matchList);
+
+        /// <summary>
+        /// The repair html.
+        /// </summary>
+        /// <param name="html">
+        /// The html.
+        /// </param>
+        /// <param name="allowHtml">
+        /// The allow html.
+        /// </param>
         /// <returns>
         /// The repaired html.
         /// </returns>
@@ -203,12 +224,16 @@ namespace YAF.Types.Interfaces
         /// Surrounds a word list with prefix/postfix. Case insensitive.
         /// </summary>
         /// <param name="message">
+        /// The message.
         /// </param>
         /// <param name="wordList">
+        /// The word List.
         /// </param>
         /// <param name="prefix">
+        /// The prefix.
         /// </param>
         /// <param name="postfix">
+        /// The postfix.
         /// </param>
         /// <returns>
         /// The surround word list.

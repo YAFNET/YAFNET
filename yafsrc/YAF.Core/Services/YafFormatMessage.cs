@@ -24,8 +24,10 @@ namespace YAF.Core.Services
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text;
     using System.Text.RegularExpressions;
     using System.Web;
+
     using YAF.Classes;
     using YAF.Core;
     using YAF.Core.BBCode.ReplaceRules;
@@ -70,7 +72,10 @@ namespace YAF.Core.Services
         /// <param name="processReplaceRuleFactory">
         /// The process replace rule factory.
         /// </param>
-        public YafFormatMessage(IServiceLocator serviceLocator, HttpServerUtilityBase httpServer, Func<IEnumerable<bool>, IProcessReplaceRules> processReplaceRuleFactory)
+        public YafFormatMessage(
+            IServiceLocator serviceLocator,
+            HttpServerUtilityBase httpServer,
+            Func<IEnumerable<bool>, IProcessReplaceRules> processReplaceRuleFactory)
         {
             this.ServiceLocator = serviceLocator;
             this.HttpServer = httpServer;
@@ -78,6 +83,7 @@ namespace YAF.Core.Services
         }
 
         /* Ederon : 6/16/2007 - conventions */
+
         #region Constants and Fields
 
         /// <summary>
@@ -106,94 +112,114 @@ namespace YAF.Core.Services
         /// Returns a string containing a forbidden BBCode or a null string
         /// </returns>
         [CanBeNull]
-        public string BBCodeForbiddenDetector([NotNull] string stringToClear, [NotNull] string stringToMatch, char delim)
+        public string BBCodeForbiddenDetector(
+            [NotNull] string stringToClear, [NotNull] string stringToMatch, char delim)
         {
-            // TODO: Convert to Regular Expression -- use the match function below -- BREAK DOWN INTO REUSABLE FUNCTIONS.
-            bool checker = string.IsNullOrEmpty(stringToMatch);
-
-            string tagForbidden;
-            bool detectedTag;
             string[] codes = stringToMatch.Split(delim);
-            char[] charray = stringToClear.ToCharArray();
-            int openPosition = 0;
+
+            var forbiddenTagList = new StringBuilder();
+
+            MatchAndPerformAction(
+                @"\[.*?\]",
+                stringToClear,
+                (tag, index, len) =>
+                    {
+                        var bbCode = tag.Replace("/", string.Empty).Replace("]", string.Empty);
+
+                        if (!codes.Any(allowedTag => bbCode.ToLower() == allowedTag.ToLower()))
+                        {
+                            forbiddenTagList.AppendFormat("[{0} ", tag);
+                        }
+                    });
+
+            return forbiddenTagList.ToString();
+
+            /*bool checker = string.IsNullOrEmpty(stringToMatch);
+
+            string[] codes = stringToMatch.Split(delim);
+            charf] charray = stringToClear.ToCharArray();
             int currentPosition = 0;
 
             // Loop through char array i will be current poision
             for (int i = 0; i < charray.Length; i++)
             {
-                if (i >= currentPosition)
+                if (i < currentPosition)
                 {
-                    // bbcode token is detected
-                    if (charray[i] == '[')
+                    continue;
+                }
+
+                // bbcode token is detected
+                if (charray[i] != '[')
+                {
+                    continue;
+                }
+
+                int openPosition = i;
+
+                // we loop to find closing bracket, beginnin with i position
+                for (int j = i; j < charray.Length - 1; j++)
+                {
+                    // closing bracket found
+                    if (charray[j] != ']')
                     {
-                        openPosition = i;
-
-                        // we loop to find closing bracket, beginnin with i position
-                        for (int j = i; j < charray.Length - 1; j++)
-                        {
-                            // closing bracket found
-                            if (charray[j] != ']')
-                            {
-                                continue;
-                            }
-
-                            // we should reset the value in each cycle 
-                            // if an opening bracket was found
-                            detectedTag = false;
-                            string res = null;
-
-                            // now we loop through out allowed bbcode list
-                            foreach (string t in codes)
-                            {
-                                // closing bracket is in position 'j' opening is in pos 'i'
-                                // we should not take into account closing bracket
-                                // as we have tags like '[URL='
-                                for (int l = openPosition; l < j; l++)
-                                {
-                                    res = res + charray[l].ToString().ToUpper();
-                                }
-
-                                if (checker)
-                                {
-                                    return "ALL";
-                                }
-
-                                // detect if the tag from list was found
-                                detectedTag = res.Contains("[" + t.ToUpper().Trim()) || res.Contains("[/" + t.ToUpper().Trim());
-                                res = string.Empty;
-
-                                // if so we go out from k-loop after we should go out from j-loop too
-                                if (!detectedTag)
-                                {
-                                    continue;
-                                }
-
-                                currentPosition = j + 1;
-                                break;
-                            }
-
-                            currentPosition = j + 1;
-
-                            // we didn't found the allowed tag in k-loop through allowed list,
-                            // so the tag is forbidden one and we should exit
-                            if (!detectedTag)
-                            {
-                                tagForbidden = stringToClear.Substring(i, j - i + 1).ToUpper();
-                                return tagForbidden;
-                            }
-
-                            if (detectedTag)
-                            {
-                                break;
-                            }
-
-                            // continue to loop
-                        }
+                        continue;
                     }
+
+                    // we should reset the value in each cycle 
+                    // if an opening bracket was found
+                    bool detectedTag = false;
+                    string res = null;
+
+                    // now we loop through out allowed bbcode list
+                    foreach (string t in codes)
+                    {
+                        // closing bracket is in position 'j' opening is in pos 'i'
+                        // we should not take into account closing bracket
+                        // as we have tags like '[URL='
+                        for (int l = openPosition; l < j; l++)
+                        {
+                            res = res + charray[l].ToString().ToUpper();
+                        }
+
+                        if (checker)
+                        {
+                            return "ALL";
+                        }
+
+                        // detect if the tag from list was found
+                        detectedTag = res.Contains("[" + t.ToUpper().Trim()) || res.Contains("[/" + t.ToUpper().Trim());
+                        res = string.Empty;
+
+                        // if so we go out from k-loop after we should go out from j-loop too
+                        if (!detectedTag)
+                        {
+                            continue;
+                        }
+
+                        currentPosition = j + 1;
+                        break;
+                    }
+
+                    currentPosition = j + 1;
+
+                    // we didn't found the allowed tag in k-loop through allowed list,
+                    // so the tag is forbidden one and we should exit
+                    if (!detectedTag)
+                    {
+                        string tagForbidden = stringToClear.Substring(i, j - i + 1).ToUpper();
+                        return tagForbidden;
+                    }
+
+                    if (detectedTag)
+                    {
+                        break;
+                    }
+
+                    // continue to loop
                 }
             }
 
-            return null;
+            return null;*/
         }
 
         /// <summary>
@@ -213,7 +239,7 @@ namespace YAF.Core.Services
         /// </returns>
         public string CheckHtmlTags([NotNull] string checkString, [NotNull] string acceptedTags, char delim)
         {
-            string detectedHtmlTag = HtmlTagForbiddenDetector(checkString, acceptedTags, delim);
+            string detectedHtmlTag = this.HtmlTagForbiddenDetector(checkString, acceptedTags, delim);
 
             if (!string.IsNullOrEmpty(detectedHtmlTag) && detectedHtmlTag != "ALL")
             {
@@ -227,14 +253,14 @@ namespace YAF.Core.Services
         }
 
         private static readonly Regex _rgxEmail =
-      new Regex(
-        @"(?<before>^|[ ]|\>|\[[A-Za-z0-9]\])(?<inner>(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})",
-        _options | RegexOptions.Compiled);
+            new Regex(
+                @"(?<before>^|[ ]|\>|\[[A-Za-z0-9]\])(?<inner>(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})",
+                _options | RegexOptions.Compiled);
 
         private static readonly Regex _rgxUrl1 =
-          new Regex(
-            @"(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?+%#&=;:,]*)?)",
-            _options | RegexOptions.Compiled);
+            new Regex(
+                @"(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?+%#&=;:,]*)?)",
+                _options | RegexOptions.Compiled);
 
         private static readonly Regex _rgxUrl2 =
             new Regex(
@@ -242,9 +268,9 @@ namespace YAF.Core.Services
                 _options | RegexOptions.Compiled);
 
         private static readonly Regex _rgxUrl3 =
-          new Regex(
-            @"(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!http://)(?<inner>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%+#&=;,]*)?)",
-            _options | RegexOptions.Compiled);
+            new Regex(
+                @"(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!http://)(?<inner>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%+#&=;,]*)?)",
+                _options | RegexOptions.Compiled);
 
         /// <summary>
         /// The format message.
@@ -264,7 +290,11 @@ namespace YAF.Core.Services
         /// <returns>
         /// The formatted message.
         /// </returns>
-        public string FormatMessage([NotNull] string message, [NotNull] MessageFlags messageFlags, bool targetBlankOverride, DateTime messageLastEdited)
+        public string FormatMessage(
+            [NotNull] string message,
+            [NotNull] MessageFlags messageFlags,
+            bool targetBlankOverride,
+            DateTime messageLastEdited)
         {
             var boardSettings = this.Get<YafBoardSettings>();
 
@@ -285,7 +315,10 @@ namespace YAF.Core.Services
             message = this.RepairHtml(message, messageFlags.IsHtml);
 
             // get the rules engine from the creator...
-            var ruleEngine = this.ProcessReplaceRuleFactory(new[] { true/*messageFlags.IsBBCode*/, targetBlankOverride, useNoFollow }); // tha_watcha : Since html message and bbcode message can be mixed now, always true
+            var ruleEngine =
+                this.ProcessReplaceRuleFactory(
+                    new[] { true /*messageFlags.IsBBCode*/, targetBlankOverride, useNoFollow });
+                // tha_watcha : Since html message and bbcode message can be mixed now, always true
 
             // see if the rules are already populated...
             if (!ruleEngine.HasRules)
@@ -295,7 +328,7 @@ namespace YAF.Core.Services
                 // get rules for YafBBCode and Smilies
                 this.Get<IBBCode>().CreateBBCodeRules(
                     ruleEngine, true /*messageFlags.IsBBCode*/, targetBlankOverride, useNoFollow);
-                    // tha_watcha : Since html message and bbcode message can be mixed now, always true
+                // tha_watcha : Since html message and bbcode message can be mixed now, always true
 
                 // add email rule
                 // vzrus: it's freezing  when post body contains full email adress.
@@ -313,8 +346,7 @@ namespace YAF.Core.Services
 
                 var url = new VariableRegexReplaceRule(
                     _rgxUrl1,
-                    "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace("{0}", target).
-                        Replace("{1}", nofollow),
+                    "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace("{0}", target).Replace("{1}", nofollow),
                     new[] { "before" },
                     new[] { string.Empty },
                     50) { RuleRank = 10 };
@@ -329,8 +361,7 @@ namespace YAF.Core.Services
                 // (?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,:#~$]*[^.<])?)
                 url = new VariableRegexReplaceRule(
                     _rgxUrl2,
-                    "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace("{0}", target).
-                        Replace("{1}", nofollow),
+                    "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace("{0}", target).Replace("{1}", nofollow),
                     new[] { "before" },
                     new[] { string.Empty },
                     50) { RuleRank = 10 };
@@ -339,8 +370,7 @@ namespace YAF.Core.Services
 
                 url = new VariableRegexReplaceRule(
                     _rgxUrl3,
-                    "${before}<a {0} {1} href=\"http://${inner}\" title=\"http://${inner}\">${innertrunc}</a>".Replace(
-                        "{0}", target).Replace("{1}", nofollow),
+                    "${before}<a {0} {1} href=\"http://${inner}\" title=\"http://${inner}\">${innertrunc}</a>".Replace("{0}", target).Replace("{1}", nofollow),
                     new[] { "before" },
                     new[] { string.Empty },
                     50) { RuleRank = 10 };
@@ -375,11 +405,13 @@ namespace YAF.Core.Services
         /// The formatted message.
         /// </returns>
         [NotNull]
-        public string FormatSyndicationMessage([NotNull] string message, [NotNull] MessageFlags messageFlags, bool altItem, int charsToFetch)
+        public string FormatSyndicationMessage(
+            [NotNull] string message, [NotNull] MessageFlags messageFlags, bool altItem, int charsToFetch)
         {
             message =
-              @"<table class=""{0}"" width=""100%""><tr><td>{1}</td></tr></table>".FormatWith(
-                altItem ? "content postContainer" : "content postContainer_Alt", this.FormatMessage(message, messageFlags, false));
+                @"<table class=""{0}"" width=""100%""><tr><td>{1}</td></tr></table>".FormatWith(
+                    altItem ? "content postContainer" : "content postContainer_Alt",
+                    this.FormatMessage(message, messageFlags, false));
 
             message = message.Replace("<div class=\"innerquote\">", "<blockquote>").Replace("[quote]", "</blockquote>");
 
@@ -419,55 +451,55 @@ namespace YAF.Core.Services
             if (!topicMessage.IsNullOrEmptyDBField())
             {
                 message = this.Get<IDataCache>().GetOrSet(
-                  cacheKey,
-                  () =>
-                  {
-                      string returnMsg = topicMessage.ToString();
-                      var keywordList = new List<string>();
+                    cacheKey,
+                    () =>
+                        {
+                            string returnMsg = topicMessage.ToString();
+                            var keywordList = new List<string>();
 
-                      if (returnMsg.IsSet())
-                      {
-                          // process message... clean html, strip html, remove bbcode, etc...
-                          returnMsg =
-                            StringExtensions.RemoveMultipleWhitespace(
-                              BBCodeHelper.StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(returnMsg))));
+                            if (returnMsg.IsSet())
+                            {
+                                // process message... clean html, strip html, remove bbcode, etc...
+                                returnMsg =
+                                    StringExtensions.RemoveMultipleWhitespace(
+                                        BBCodeHelper.StripBBCode(
+                                            HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(returnMsg))));
 
-                          if (returnMsg.IsNotSet())
-                          {
-                              returnMsg = string.Empty;
-                          }
-                          else
-                          {
-                              // get string without punctuation
-                              string keywordCleaned =
-                                new string(returnMsg.Where(c => !char.IsPunctuation(c) || char.IsWhiteSpace(c)).ToArray()).Trim().
-                                  ToLower();
+                                if (returnMsg.IsNotSet())
+                                {
+                                    returnMsg = string.Empty;
+                                }
+                                else
+                                {
+                                    // get string without punctuation
+                                    string keywordCleaned =
+                                        new string(
+                                            returnMsg.Where(c => !char.IsPunctuation(c) || char.IsWhiteSpace(c)).ToArray()).Trim().ToLower();
 
-                              if (keywordCleaned.Length > 5)
-                              {
-                                  // create keywords...
-                                  keywordList = keywordCleaned.StringToList(' ', commonWords);
+                                    if (keywordCleaned.Length > 5)
+                                    {
+                                        // create keywords...
+                                        keywordList = keywordCleaned.StringToList(' ', commonWords);
 
-                                  // clean up the list a bit...
-                                  keywordList =
-                                    keywordList.GetNewNoEmptyStrings().GetNewNoSmallStrings(5).Where(x => !Char.IsNumber(x[0])).
-                                      Distinct().ToList();
+                                        // clean up the list a bit...
+                                        keywordList =
+                                            keywordList.GetNewNoEmptyStrings().GetNewNoSmallStrings(5).Where(x => !Char.IsNumber(x[0])).Distinct().ToList();
 
-                                  // sort...
-                                  keywordList.Sort();
+                                        // sort...
+                                        keywordList.Sort();
 
-                                  // get maximum of 50 keywords...
-                                  if (keywordList.Count > 50)
-                                  {
-                                      keywordList = keywordList.GetRange(0, 50);
-                                  }
-                              }
-                          }
-                      }
+                                        // get maximum of 50 keywords...
+                                        if (keywordList.Count > 50)
+                                        {
+                                            keywordList = keywordList.GetRange(0, 50);
+                                        }
+                                    }
+                                }
+                            }
 
-                      return new MessageCleaned(returnMsg.Truncate(255), keywordList);
-                  },
-                  TimeSpan.FromMinutes(this.Get<YafBoardSettings>().FirstPostCacheTimeout));
+                            return new MessageCleaned(returnMsg.Truncate(255), keywordList);
+                        },
+                    TimeSpan.FromMinutes(this.Get<YafBoardSettings>().FirstPostCacheTimeout));
             }
 
             return message;
@@ -477,23 +509,41 @@ namespace YAF.Core.Services
         /// The method to detect a forbidden HTML code from delimited by 'delim' list
         /// </summary>
         /// <param name="stringToClear">
+        /// The string To Clear.
         /// </param>
         /// <param name="stringToMatch">
+        /// The string To Match.
         /// </param>
         /// <param name="delim">
+        /// The delim.
         /// </param>
         /// <returns>
         /// Returns a forbidden HTML tag or a null string
         /// </returns>
         [CanBeNull]
-        public string HtmlTagForbiddenDetector([NotNull] string stringToClear, [NotNull] string stringToMatch, char delim)
+        public string HtmlTagForbiddenDetector(
+            [NotNull] string stringToClear, [NotNull] string stringToMatch, char delim)
         {
-            // TODO: Convert to Regular Expression -- THIS IS WHAT REGEX IF FOR!
-            bool checker = string.IsNullOrEmpty(stringToMatch);
-
-            string tagForbidden;
-            bool detectedTag;
             string[] codes = stringToMatch.Split(delim);
+
+            var forbiddenTagList = new StringBuilder();
+
+            MatchAndPerformAction(
+                "<.*?>",
+                stringToClear,
+                (tag, index, len) =>
+                    {
+                        if (!HtmlHelper.IsValidTag(tag, codes))
+                        {
+                            forbiddenTagList.AppendFormat("<{0} ", tag);
+                        }
+                    });
+
+            return forbiddenTagList.ToString();
+
+            /*bool checker = string.IsNullOrEmpty(stringToMatch);
+
+            //string[] codes = stringToMatch.Split(delim);
             char[] charray = stringToClear.ToCharArray();
             int currentPosition = 0;
 
@@ -518,7 +568,7 @@ namespace YAF.Core.Services
 
                             // we should reset the value in each cycle 
                             // if an opening bracket was found
-                            detectedTag = false;
+                            bool detectedTag = false;
                             string res = null;
 
                             // now we loop through out allowed bbcode list
@@ -557,7 +607,7 @@ namespace YAF.Core.Services
                             // so the tag is forbidden one and we should exit
                             if (!detectedTag)
                             {
-                                tagForbidden = stringToClear.Substring(i, j - i + 1).ToUpper();
+                                string tagForbidden = stringToClear.Substring(i, j - i + 1).ToUpper();
                                 return tagForbidden;
                             }
 
@@ -571,8 +621,7 @@ namespace YAF.Core.Services
                     }
                 }
             }
-
-            return null;
+            */
         }
 
         /// <summary>
@@ -693,6 +742,44 @@ namespace YAF.Core.Services
         /// <param name="allowHtml">
         /// The allow html.
         /// </param>
+        /// <param name="matchList">
+        /// The match List.
+        /// </param>
+        /// <returns>
+        /// The repaired html.
+        /// </returns>
+        public string RepairHtml([NotNull] string html, [NotNull] bool allowHtml, [NotNull] IEnumerable<string> matchList)
+        {
+            // vzrus: NNTP temporary tweaks to wipe out server hangs. Put it here as it can be in every place.
+            // These are '\n\r' things related to multiline regexps.
+            MatchCollection mc1 = Regex.Matches(html, "[^\r]\n[^\r]", RegexOptions.IgnoreCase);
+            for (int i = mc1.Count - 1; i >= 0; i--)
+            {
+                html = html.Insert(mc1[i].Index + 1, " \r");
+            }
+
+            MatchCollection mc2 = Regex.Matches(html, "[^\r]\n\r\n[^\r]", RegexOptions.IgnoreCase);
+            for (int i = mc2.Count - 1; i >= 0; i--)
+            {
+                html = html.Insert(mc2[i].Index + 1, " \r");
+            }
+
+            html = !allowHtml
+                       ? this.HttpServer.HtmlEncode(html)
+                       : RemoveHtmlByList(html, this.Get<YafBoardSettings>().AcceptedHTML.Split(','));
+
+            return html;
+        }
+
+        /// <summary>
+        /// The repair html.
+        /// </summary>
+        /// <param name="html">
+        /// The html.
+        /// </param>
+        /// <param name="allowHtml">
+        /// The allow html.
+        /// </param>
         /// <returns>
         /// The repaired html.
         /// </returns>
@@ -736,7 +823,10 @@ namespace YAF.Core.Services
         /// The surround word list.
         /// </returns>
         public string SurroundWordList(
-          [NotNull] string message, [NotNull] IList<string> wordList, [NotNull] string prefix, [NotNull] string postfix)
+            [NotNull] string message,
+            [NotNull] IList<string> wordList,
+            [NotNull] string prefix,
+            [NotNull] string postfix)
         {
             CodeContracts.ArgumentNotNull(message, "message");
             CodeContracts.ArgumentNotNull(wordList, "wordList");
@@ -748,13 +838,13 @@ namespace YAF.Core.Services
             foreach (string word in wordList.Where(w => w.Length > 3))
             {
                 MatchAndPerformAction(
-                  "({0})".FormatWith(word.ToLower().ToRegExString()),
-                  message,
-                  (inner, index, length) =>
-                  {
-                      message = message.Insert(index + length, postfix);
-                      message = message.Insert(index, prefix);
-                  });
+                    "({0})".FormatWith(word.ToLower().ToRegExString()),
+                    message,
+                    (inner, index, length) =>
+                        {
+                            message = message.Insert(index + length, postfix);
+                            message = message.Insert(index, prefix);
+                        });
 
                 // var matches = regEx.Matches(message).Cast<Match>().ToList().OrderByDescending(x => x.Index);
 
@@ -806,15 +896,15 @@ namespace YAF.Core.Services
         /// <param name="text">
         /// The text.
         /// </param>
-        /// <param name="MatchAction">
+        /// <param name="matchAction">
         /// The match action.
         /// </param>
         private static void MatchAndPerformAction(
-          [NotNull] string matchRegEx, [NotNull] string text, [NotNull] Action<string, int, int> MatchAction)
+            [NotNull] string matchRegEx, [NotNull] string text, [NotNull] Action<string, int, int> matchAction)
         {
             CodeContracts.ArgumentNotNull(matchRegEx, "matchRegEx");
             CodeContracts.ArgumentNotNull(text, "text");
-            CodeContracts.ArgumentNotNull(MatchAction, "MatchAction");
+            CodeContracts.ArgumentNotNull(matchAction, "MatchAction");
 
             const RegexOptions options = RegexOptions.IgnoreCase;
 
@@ -823,12 +913,12 @@ namespace YAF.Core.Services
             foreach (var match in matches)
             {
                 string inner = text.Substring(match.Index + 1, match.Length - 1).Trim().ToLower();
-                MatchAction(inner, match.Index, match.Length);
+                matchAction(inner, match.Index, match.Length);
             }
         }
 
         /// <summary>
-        /// The remove html by list.
+        /// remove html by list.
         /// </summary>
         /// <param name="text">
         /// The text.
@@ -845,15 +935,15 @@ namespace YAF.Core.Services
             CodeContracts.ArgumentNotNull(matchList, "matchList");
 
             MatchAndPerformAction(
-              "<.*?>",
-              text,
-              (tag, index, len) =>
-              {
-                  if (!HtmlHelper.IsValidTag(tag, matchList))
-                  {
-                      text = text.Remove(index, len);
-                  }
-              });
+                "<.*?>",
+                text,
+                (tag, index, len) =>
+                    {
+                        if (!HtmlHelper.IsValidTag(tag, matchList))
+                        {
+                            text = text.Remove(index, len);
+                        }
+                    });
 
             return text;
         }

@@ -95,6 +95,14 @@ namespace YAF.Controls
             newPostIcon.AlternateText = this.GetText("NEW_POSTS");
             newPostIcon.ToolTip = this.GetText("NEW_POSTS");
 
+            var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(currentRow["TOPIC"]));
+
+            // tha watcha: Would it make sense to allow html tags in topic titles ?!
+            /*var topicSubject = this.Get<IBadWordReplace>().Replace(currentRow["TOPIC"].ToString());
+
+            topicSubject = this.Get<IFormatMessage>().RepairHtml(
+                topicSubject, true, this.Get<YafBoardSettings>().AcceptedHeadersHTML.Split(','));*/
+
             if (currentRow["Status"].ToString().IsSet() && this.Get<YafBoardSettings>().EnableTopicStatus)
             {
                 var topicStatusIcon = this.Get<ITheme>().GetItem("TOPIC_STATUS", currentRow["Status"].ToString());
@@ -106,20 +114,19 @@ namespace YAF.Controls
                     "<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" style=\"border: 0;width:16px;height:16px\" />&nbsp;{2}".FormatWith(
                     this.Get<ITheme>().GetItem("TOPIC_STATUS", currentRow["Status"].ToString()),
                         this.GetText("TOPIC_STATUS", currentRow["Status"].ToString()),
-                        this.Get<IBadWordReplace>().Replace(this.HtmlEncode(currentRow["TOPIC"])));
+                        topicSubject);
                 }
                 else
                 {
                     textMessageLink.Text =
                     "[{0}]&nbsp;{1}".FormatWith(
                         this.GetText("TOPIC_STATUS", currentRow["Status"].ToString()),
-                        this.Get<IBadWordReplace>().Replace(this.HtmlEncode(currentRow["TOPIC"])));
+                        topicSubject);
                 }
             }
             else
             {
-                textMessageLink.Text =
-                    this.Get<IBadWordReplace>().Replace(this.HtmlEncode(currentRow["Topic"].ToString()));
+                textMessageLink.Text = topicSubject;
             }
 
             if (!this.PageContext.IsMobileDevice)
