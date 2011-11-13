@@ -300,7 +300,7 @@ namespace YAF.Controls
         {
             this.Get<IRaiseEvent>().Raise(new SuccessfulUserLoginEvent(this.PageContext.PageUserID));
 
-            LegacyDb.user_updatefacebookstatus(this.Get<IUserDisplayName>().GetId(Login1.UserName), false);
+            LegacyDb.user_updatefacebookstatus(this.PageContext.PageUserID, false);
         }
     }
 }
