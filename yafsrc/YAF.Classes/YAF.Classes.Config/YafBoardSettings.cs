@@ -3451,6 +3451,7 @@ namespace YAF.Classes
             }
         }
 
+        /*
         /// <summary>
         /// Gets or sets AcceptedHeadersHTML.
         /// </summary>
@@ -3465,7 +3466,7 @@ namespace YAF.Classes
             {
                 this._reg.SetValue("AcceptedHeadersHTML", value.ToLower());
             }
-        }
+        }*/
 
         /// <summary>
         /// Gets or sets AdPost.

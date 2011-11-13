@@ -1325,14 +1325,6 @@
                             <asp:TextBox Style="width:99%;height:80px;" ID="AcceptedHTML" runat="server" TextMode="MultiLine"></asp:TextBox>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="postheader">
-                            <YAF:HelpLabel ID="HelpLabel86" runat="server" LocalizedTag="ACCEPT_HEADER_HTML" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </td>
-                        <td class="post">
-                            <asp:TextBox Style="width:99%;height:80px;" ID="AcceptedHeadersHTML" runat="server" TextMode="MultiLine"></asp:TextBox>
-                        </td>
-                    </tr>
                 </table>
 	</div>
     <div id="View6">

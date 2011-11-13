@@ -357,12 +357,6 @@
         {
             var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.TopicRow["Subject"]));
 
-            // tha watcha: Would it make sense to allow html tags in topic titles ?!
-            /*var topicSubject = this.Get<IBadWordReplace>().Replace(this.TopicRow["Subject"].ToString());
-
-            topicSubject = this.Get<IFormatMessage>().RepairHtml(
-                topicSubject, true, this.Get<YafBoardSettings>().AcceptedHeadersHTML.Split(','));*/
-
             if (this.TopicRow["Status"].ToString().IsSet() && this.Get<YafBoardSettings>().EnableTopicStatus)
             {
                 var topicStatusIcon = this.Get<ITheme>().GetItem("TOPIC_STATUS", this.TopicRow["Status"].ToString());

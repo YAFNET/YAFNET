@@ -970,7 +970,9 @@ namespace YAF.Pages
                 }
             }
 
-            if (this.PageContext.IsModerator || this.PageContext.IsForumModerator || this.PageContext.IsAdmin)
+
+            // tha_watcha : Temp Remove of the html tags in topic titles
+            /*if (this.PageContext.IsModerator || this.PageContext.IsForumModerator || this.PageContext.IsAdmin)
             {
                 string tag = this.Get<IFormatMessage>().CheckHtmlTags(
                   this.TopicSubjectTextBox.Text, this.Get<YafBoardSettings>().AcceptedHeadersHTML, ',');
@@ -1006,7 +1008,11 @@ namespace YAF.Pages
                 // vzrus: Common users should not use HTML tags in a topic header if not allowed
                 this.TopicSubjectTextBox.Text = HtmlHelper.StripHtml(this.TopicSubjectTextBox.Text);
                 this.TopicDescriptionTextBox.Text = HtmlHelper.StripHtml(this.TopicDescriptionTextBox.Text);
-            }
+            }*/
+
+            // vzrus: automatically strip html tags from Topic Titles and Description
+            this.TopicSubjectTextBox.Text = HtmlHelper.StripHtml(this.TopicSubjectTextBox.Text);
+            this.TopicDescriptionTextBox.Text = HtmlHelper.StripHtml(this.TopicDescriptionTextBox.Text);
 
             // update the last post time...
             this.Get<IYafSession>().LastPost = DateTime.UtcNow.AddSeconds(30);
