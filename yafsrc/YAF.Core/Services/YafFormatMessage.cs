@@ -24,7 +24,6 @@ namespace YAF.Core.Services
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
     using System.Text.RegularExpressions;
     using System.Web;
 
@@ -45,20 +44,35 @@ namespace YAF.Core.Services
     /// </summary>
     public class YafFormatMessage : IFormatMessage, IHaveServiceLocator
     {
-        /// <summary>
-        /// Gets or sets ServiceLocator.
-        /// </summary>
-        public IServiceLocator ServiceLocator { get; set; }
+        
+        #region Constants and Fields
 
         /// <summary>
-        /// Gets or sets HttpServer.
+        ///   format message regex
         /// </summary>
-        public HttpServerUtilityBase HttpServer { get; set; }
+        private const RegexOptions _Options = RegexOptions.IgnoreCase | RegexOptions.Multiline;
 
-        /// <summary>
-        /// Gets or sets ProcessReplaceRuleFactory.
-        /// </summary>
-        public Func<IEnumerable<bool>, IProcessReplaceRules> ProcessReplaceRuleFactory { get; set; }
+        private static readonly Regex _rgxEmail =
+            new Regex(
+                @"(?<before>^|[ ]|\>|\[[A-Za-z0-9]\])(?<inner>(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})",
+                _Options | RegexOptions.Compiled);
+
+        private static readonly Regex _rgxUrl1 =
+            new Regex(
+                @"(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?+%#&=;:,]*)?)",
+                _Options | RegexOptions.Compiled);
+
+        private static readonly Regex _rgxUrl2 =
+            new Regex(
+                @"(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,:#~$]*[^.<|^.\[])?)",
+                _Options | RegexOptions.Compiled);
+
+        private static readonly Regex _rgxUrl3 =
+            new Regex(
+                @"(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!http://)(?<inner>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%+#&=;,]*)?)",
+                _Options | RegexOptions.Compiled);
+
+        #endregion
 
         /// <summary>
         /// Initializes a new instance of the <see cref="YafFormatMessage"/> class.
@@ -82,16 +96,20 @@ namespace YAF.Core.Services
             this.ProcessReplaceRuleFactory = processReplaceRuleFactory;
         }
 
-        /* Ederon : 6/16/2007 - conventions */
-
-        #region Constants and Fields
+        /// <summary>
+        /// Gets or sets ServiceLocator.
+        /// </summary>
+        public IServiceLocator ServiceLocator { get; set; }
 
         /// <summary>
-        ///   format message regex
+        /// Gets or sets HttpServer.
         /// </summary>
-        private static RegexOptions _options = RegexOptions.IgnoreCase | RegexOptions.Multiline;
+        public HttpServerUtilityBase HttpServer { get; set; }
 
-        #endregion
+        /// <summary>
+        /// Gets or sets ProcessReplaceRuleFactory.
+        /// </summary>
+        public Func<IEnumerable<bool>, IProcessReplaceRules> ProcessReplaceRuleFactory { get; set; }       
 
         #region Public Methods
 
@@ -117,7 +135,7 @@ namespace YAF.Core.Services
         {
             string[] codes = stringToMatch.Split(delim);
 
-            var forbiddenTagList = new StringBuilder();
+            var forbiddenTagList = new List<string>();
 
             MatchAndPerformAction(
                 @"\[.*?\]",
@@ -126,13 +144,22 @@ namespace YAF.Core.Services
                     {
                         var bbCode = tag.Replace("/", string.Empty).Replace("]", string.Empty);
 
+                        // If tag contains attributes kill them for cecking
+                        if (bbCode.Contains("="))
+                        {
+                            bbCode = bbCode.Remove(bbCode.IndexOf("="));
+                        }
+
                         if (!codes.Any(allowedTag => bbCode.ToLower() == allowedTag.ToLower()))
                         {
-                            forbiddenTagList.AppendFormat("[{0} ", tag);
+                            if (!forbiddenTagList.Contains(bbCode))
+                            {
+                                forbiddenTagList.Add(bbCode);
+                            }
                         }
                     });
 
-            return forbiddenTagList.ToString();
+            return forbiddenTagList.ToDelimitedString(",");
 
             /*bool checker = string.IsNullOrEmpty(stringToMatch);
 
@@ -250,27 +277,7 @@ namespace YAF.Core.Services
             return detectedHtmlTag == "ALL"
                        ? YafContext.Current.Get<ILocalization>().GetText("HTMLTAG_FORBIDDEN")
                        : string.Empty;
-        }
-
-        private static readonly Regex _rgxEmail =
-            new Regex(
-                @"(?<before>^|[ ]|\>|\[[A-Za-z0-9]\])(?<inner>(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})",
-                _options | RegexOptions.Compiled);
-
-        private static readonly Regex _rgxUrl1 =
-            new Regex(
-                @"(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?+%#&=;:,]*)?)",
-                _options | RegexOptions.Compiled);
-
-        private static readonly Regex _rgxUrl2 =
-            new Regex(
-                @"(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,:#~$]*[^.<|^.\[])?)",
-                _options | RegexOptions.Compiled);
-
-        private static readonly Regex _rgxUrl3 =
-            new Regex(
-                @"(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!http://)(?<inner>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%+#&=;,]*)?)",
-                _options | RegexOptions.Compiled);
+        }        
 
         /// <summary>
         /// The format message.
@@ -335,7 +342,9 @@ namespace YAF.Core.Services
                 // the fix provided by community 
                 var email = new VariableRegexReplaceRule(
                     _rgxEmail, "${before}<a href=\"mailto:${inner}\">${inner}</a>", new[] { "before" })
-                    { RuleRank = 10 };
+                    {
+                        RuleRank = 10 
+                    };
 
                 ruleEngine.AddRule(email);
 
@@ -346,10 +355,13 @@ namespace YAF.Core.Services
 
                 var url = new VariableRegexReplaceRule(
                     _rgxUrl1,
-                    "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace("{0}", target).Replace("{1}", nofollow),
+                    "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace("{0}", target).
+                        Replace("{1}", nofollow),
                     new[] { "before" },
                     new[] { string.Empty },
-                    50) { RuleRank = 10 };
+                    50) {
+                            RuleRank = 10 
+                        };
 
                 ruleEngine.AddRule(url);
 
@@ -361,19 +373,25 @@ namespace YAF.Core.Services
                 // (?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,:#~$]*[^.<])?)
                 url = new VariableRegexReplaceRule(
                     _rgxUrl2,
-                    "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace("{0}", target).Replace("{1}", nofollow),
+                    "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace("{0}", target).
+                        Replace("{1}", nofollow),
                     new[] { "before" },
                     new[] { string.Empty },
-                    50) { RuleRank = 10 };
+                    50) {
+                            RuleRank = 10 
+                        };
 
                 ruleEngine.AddRule(url);
 
                 url = new VariableRegexReplaceRule(
                     _rgxUrl3,
-                    "${before}<a {0} {1} href=\"http://${inner}\" title=\"http://${inner}\">${innertrunc}</a>".Replace("{0}", target).Replace("{1}", nofollow),
+                    "${before}<a {0} {1} href=\"http://${inner}\" title=\"http://${inner}\">${innertrunc}</a>".Replace(
+                        "{0}", target).Replace("{1}", nofollow),
                     new[] { "before" },
                     new[] { string.Empty },
-                    50) { RuleRank = 10 };
+                    50) {
+                            RuleRank = 10 
+                        };
 
                 ruleEngine.AddRule(url);
             }
@@ -483,7 +501,7 @@ namespace YAF.Core.Services
 
                                         // clean up the list a bit...
                                         keywordList =
-                                            keywordList.GetNewNoEmptyStrings().GetNewNoSmallStrings(5).Where(x => !Char.IsNumber(x[0])).Distinct().ToList();
+                                            keywordList.GetNewNoEmptyStrings().GetNewNoSmallStrings(5).Where(x => !char.IsNumber(x[0])).Distinct().ToList();
 
                                         // sort...
                                         keywordList.Sort();
@@ -526,7 +544,7 @@ namespace YAF.Core.Services
         {
             string[] codes = stringToMatch.Split(delim);
 
-            var forbiddenTagList = new StringBuilder();
+            var forbiddenTagList = new List<string>();
 
             MatchAndPerformAction(
                 "<.*?>",
@@ -543,11 +561,14 @@ namespace YAF.Core.Services
 
                         if (!codes.Any(allowedTag => code.ToLower() == allowedTag.ToLower()))
                         {
-                            forbiddenTagList.AppendFormat("<{0} ", tag);
+                            if (!forbiddenTagList.Contains(code))
+                            {
+                                forbiddenTagList.Add(code);
+                            }
                         }
                     });
 
-            return forbiddenTagList.ToString();
+            return forbiddenTagList.ToDelimitedString(",");
 
             /*bool checker = string.IsNullOrEmpty(stringToMatch);
 
@@ -841,7 +862,7 @@ namespace YAF.Core.Services
             CodeContracts.ArgumentNotNull(prefix, "prefix");
             CodeContracts.ArgumentNotNull(postfix, "postfix");
 
-            const RegexOptions regexOptions = RegexOptions.IgnoreCase;
+            //// const RegexOptions regexOptions = RegexOptions.IgnoreCase;
 
             foreach (string word in wordList.Where(w => w.Length > 3))
             {
@@ -914,9 +935,9 @@ namespace YAF.Core.Services
             CodeContracts.ArgumentNotNull(text, "text");
             CodeContracts.ArgumentNotNull(matchAction, "MatchAction");
 
-            const RegexOptions options = RegexOptions.IgnoreCase;
+            const RegexOptions Options = RegexOptions.IgnoreCase;
 
-            var matches = Regex.Matches(text, matchRegEx, options).Cast<Match>().OrderByDescending(x => x.Index);
+            var matches = Regex.Matches(text, matchRegEx, Options).Cast<Match>().OrderByDescending(x => x.Index);
 
             foreach (var match in matches)
             {
