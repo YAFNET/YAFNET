@@ -18,6 +18,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+using System.Linq;
+
 namespace YAF.Pages
 {
     // YAF.Pages
@@ -167,8 +169,7 @@ namespace YAF.Pages
         protected void Login1_LoggedIn([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.Get<IRaiseEvent>().Raise(new SuccessfulUserLoginEvent(this.PageContext.PageUserID));
-
-            LegacyDb.user_updatefacebookstatus(this.Get<IUserDisplayName>().GetId(Login1.UserName), false);
+            LegacyDb.user_updatefacebookstatus(this.PageContext.PageUserID, false);
         }
 
         /// <summary>
