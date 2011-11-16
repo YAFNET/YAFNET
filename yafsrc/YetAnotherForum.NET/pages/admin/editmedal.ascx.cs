@@ -611,7 +611,7 @@ namespace YAF.Pages.Admin
             imageSize = this.GetImageSize(smallImageURL.ToString());
 
             // save medal
-            LegacyDb.medal_save(
+            this.Get<IDbFunction>().Scalar.medal_save(
               this.PageContext.PageBoardID,
               medalID,
               this.Name.Text,

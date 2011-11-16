@@ -23,7 +23,7 @@ namespace YAF.Classes
 {
   using YAF.Classes.Pattern;
 
-  /// <summary>
+	/// <summary>
   /// The yaf board folders.
   /// </summary>
   public class YafBoardFolders

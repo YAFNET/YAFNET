@@ -238,13 +238,13 @@ namespace YAF.Controls
 
             if (activeTopics == null)
             {
-                activeTopics = LegacyDb.topic_latest(
-                  this.PageContext.PageBoardID,
-                  this.Get<YafBoardSettings>().ActiveDiscussionsCount,
-                  this.PageContext.PageUserID,
-                  this.Get<YafBoardSettings>().UseStyledNicks,
-                  this.Get<YafBoardSettings>().NoCountForumsInActiveDiscussions,
-                  this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
+            	activeTopics = this.Get<IDbFunction>().GetData.topic_latest(
+            		this.PageContext.PageBoardID,
+            		this.Get<YafBoardSettings>().ActiveDiscussionsCount,
+            		this.PageContext.PageUserID,
+            		this.Get<YafBoardSettings>().UseStyledNicks,
+            		this.Get<YafBoardSettings>().NoCountForumsInActiveDiscussions,
+            		this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
 
                 // Set colorOnly parameter to true, as we get all but color from css in the place
                 if (this.Get<YafBoardSettings>().UseStyledNicks)

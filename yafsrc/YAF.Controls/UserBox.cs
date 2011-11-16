@@ -729,8 +729,7 @@ namespace YAF.Controls
       var rx = this.GetRegex(Constants.UserBox.Points);
       if (this.Get<YafBoardSettings>().DisplayPoints)
       {
-        filler = this.Get<YafBoardSettings>().UserBoxPoints.FormatWith(
-          this.GetText("points"), this.DataRow["Points"]);
+        //filler = this.Get<YafBoardSettings>().UserBoxPoints.FormatWith(this.GetText("points"), this.DataRow["Points"]);
       }
 
       // replaces template placeholder with actual points

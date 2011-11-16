@@ -190,8 +190,6 @@ namespace YAF.Pages
                 YafBuildLink.AccessDenied(/*"You don't have access to delete topics."*/);
             }
 
-            // Take away 10 points once!
-            LegacyDb.user_removepointsByTopicID(this.PageContext.PageTopicID, 10);
             LegacyDb.topic_delete(this.PageContext.PageTopicID);
             YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
         }
