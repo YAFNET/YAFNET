@@ -79,7 +79,8 @@ namespace YAF
       }
 
       var error = this.Get<HttpServerUtilityBase>().GetLastError();
-      LegacyDb.eventlog_create((int?)YafContext.Current.PageUserID, this, error);
+
+    	this.Get<ILoggerProvider>().Create(this.GetType()).Fatal(error.InnerException, "PageError: {0}", error.Message);
     }
 
     #endregion

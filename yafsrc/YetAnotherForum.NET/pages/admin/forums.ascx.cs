@@ -22,59 +22,65 @@ namespace YAF.Pages.Admin
 {
     #region Using
 
-    using System;
-    using System.Data;
-    using System.Web.UI.WebControls;
+	using System;
+	using System.Data;
+	using System.Web.UI.WebControls;
 
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Controls;
-    using YAF.Core;
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Interfaces;
-    using YAF.Utils;
+	using YAF.Core;
+	using YAF.Core.Tasks;
+	using YAF.Types;
+	using YAF.Types.Constants;
+	using YAF.Types.Interfaces;
+	using YAF.Utilities;
+	using YAF.Utils;
+	using YAF.Utils.Extensions;
+	using YAF.Utils.Helpers;
 
-    #endregion
+	#endregion
 
-    /// <summary>
-    /// Summary description for forums.
-    /// </summary>
-    public partial class forums : AdminPage
-    {
-        #region Methods
+	/// <summary>
+	/// Summary description for forums.
+	/// </summary>
+	public partial class forums : AdminPage
+	{
+		#region Methods
 
-        /// <summary>
-        /// The delete category_ load.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void DeleteCategory_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            ((ThemeButton)sender).Attributes["onclick"] =
-                "return confirm('{0}')".FormatWith(this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE_CAT"));
-        }
+		/// <summary>
+		/// The delete category_ load.
+		/// </summary>
+		/// <param name="sender">
+		/// The sender.
+		/// </param>
+		/// <param name="e">
+		/// The e.
+		/// </param>
+		protected void DeleteCategory_Load([NotNull] object sender, [NotNull] EventArgs e)
+		{
+			((ThemeButton)sender).Attributes["onclick"] =
+				 "return (confirm('{0}');"
+						 .FormatWith(this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE_CAT"));
 
-        /// <summary>
-        /// The delete forum_ load.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void DeleteForum_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            ((ThemeButton)sender).Attributes["onclick"] =
-                "return (confirm('{0}') && confirm('{1}'))".FormatWith(
-                    this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE"),
+		}
+
+		/// <summary>
+		/// The delete forum_ load.
+		/// </summary>
+		/// <param name="sender">
+		/// The sender.
+		/// </param>
+		/// <param name="e">
+		/// The e.
+		/// </param>
+		protected void DeleteForum_Load([NotNull] object sender, [NotNull] EventArgs e)
+		{
+			((ThemeButton)sender).Attributes["onclick"] =
+					"return (confirm('{0}') && confirm('{1}'));"
+							.FormatWith(this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE"), this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE_POSITIVE"));
                     this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE_POSITIVE"));
-        }
+		}
 
         /// <summary>
         /// The forum list_ item command.
@@ -179,8 +185,8 @@ namespace YAF.Pages.Admin
         {
             using (DataSet ds = LegacyDb.ds_forumadmin(this.PageContext.PageBoardID))
             {
-                this.CategoryList.DataSource = ds.Tables[MsSqlDbAccess.GetObjectName("Category")];
-            }
+				this.CategoryList.DataSource = ds.GetTable("Category");
+			}
 
             // Hide the New Forum Button if there are no Categories.
             this.NewForum.Visible = this.CategoryList.Items.Count < 1;

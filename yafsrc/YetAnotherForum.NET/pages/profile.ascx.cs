@@ -377,8 +377,9 @@ namespace YAF.Pages
 
             if (this.LastPosts.Visible)
             {
-                this.LastPosts.DataSource =
-                  LegacyDb.post_alluser(this.PageContext.PageBoardID, this.UserId, this.PageContext.PageUserID, 10).AsEnumerable();
+            	DataTable dt = LegacyDb.post_alluser(this.PageContext.PageBoardID, this.UserId, this.PageContext.PageUserID, 10);
+
+                this.LastPosts.DataSource = dt.AsEnumerable();
                 this.SearchUser.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.search, "postedby={0}", userDisplayName);
             }
 

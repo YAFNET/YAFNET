@@ -237,13 +237,11 @@ namespace YAF.Core
       if (userName != string.Empty)
       {
         // Delete the images/albums both from database and physically.
-        string sUpDir =
-          HttpContext.Current.Server.MapPath(String.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
         using (DataTable dt = LegacyDb.album_list(userID, null))
         {
           foreach (DataRow dr in dt.Rows)
           {
-            YafAlbum.Album_Image_Delete(sUpDir, dr["AlbumID"], userID, null);
+            YafAlbum.Album_Image_Delete(dr["AlbumID"], userID, null);
           }
         }
 

@@ -1,102 +1,103 @@
 ﻿namespace YAF.Controls
 {
-    #region Using
+	#region Using
 
-    using System;
-    using System.Data;
-    using System.Web.UI.WebControls;
+	using System;
+	using System.Data;
+	using System.Web.UI.WebControls;
 
-    using YAF.Classes;
-    using YAF.Classes.Data;
-    using YAF.Core;
-    using YAF.Types;
-    using YAF.Types.Interfaces;
-    using YAF.Utils;
+	using YAF.Classes;
+	using YAF.Classes.Data;
+	using YAF.Core;
+	using YAF.Types;
+	using YAF.Types.Interfaces;
+	using YAF.Utils;
+	using YAF.Utils.Extensions;
 
-    #endregion
+	#endregion
 
-    /// <summary>
-    /// The forum category list.
-    /// </summary>
-    public partial class ForumCategoryList : BaseUserControl
-    {
-        #region Methods
+	/// <summary>
+	/// The forum category list.
+	/// </summary>
+	public partial class ForumCategoryList : BaseUserControl
+	{
+		#region Methods
 
-        /// <summary>
-        /// The mark all_ click.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void MarkAll_Click([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            var markAll = (LinkButton)sender;
+		/// <summary>
+		/// The mark all_ click.
+		/// </summary>
+		/// <param name="sender">
+		/// The sender.
+		/// </param>
+		/// <param name="e">
+		/// The e.
+		/// </param>
+		protected void MarkAll_Click([NotNull] object sender, [NotNull] EventArgs e)
+		{
+			var markAll = (LinkButton)sender;
 
-            object categoryId = null;
+			object categoryId = null;
 
-            int icategoryId;
-            if (int.TryParse(markAll.CommandArgument, out icategoryId))
-            {
-                categoryId = icategoryId;
-            }
+			int icategoryId;
+			if (int.TryParse(markAll.CommandArgument, out icategoryId))
+			{
+				categoryId = icategoryId;
+			}
 
-            DataTable dt = LegacyDb.forum_listread(
-                this.PageContext.PageBoardID, this.PageContext.PageUserID, categoryId, null, false, false);
+			DataTable dt = LegacyDb.forum_listread(
+					this.PageContext.PageBoardID, this.PageContext.PageUserID, categoryId, null, false, false);
 
-            foreach (DataRow row in dt.Rows)
-            {
-                if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase)
-                {
-                    this.Get<IReadTracking>().SetForumRead(this.PageContext.PageUserID, row["ForumID"].ToType<int>());
-                }
-                else
-                {
-                    this.Get<IYafSession>().SetForumRead(row["ForumID"].ToType<int>(), DateTime.UtcNow);
-                }
-            }
+			foreach (DataRow row in dt.Rows)
+			{
+				if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase)
+				{
+					this.Get<IReadTracking>().SetForumRead(this.PageContext.PageUserID, row["ForumID"].ToType<int>());
+				}
+				else
+				{
+					this.Get<IYafSession>().SetForumRead(row["ForumID"].ToType<int>(), DateTime.UtcNow);
+				}
+			}
 
-            this.BindData();
-        }
+			this.BindData();
+		}
 
-        /// <summary>
-        /// The page_ load.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.BindData();
-        }
+		/// <summary>
+		/// The page_ load.
+		/// </summary>
+		/// <param name="sender">
+		/// The sender.
+		/// </param>
+		/// <param name="e">
+		/// The e.
+		/// </param>
+		protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+		{
+			this.BindData();
+		}
 
-        /// <summary>
-        /// Bind Data
-        /// </summary>
-        private void BindData()
-        {
-            DataSet ds = this.Get<IDBBroker>().BoardLayout(
-                this.PageContext.PageBoardID, this.PageContext.PageUserID, this.PageContext.PageCategoryID, null);
+		/// <summary>
+		/// Bind Data
+		/// </summary>
+		private void BindData()
+		{
+			DataSet ds = this.Get<IDBBroker>().BoardLayout(
+					this.PageContext.PageBoardID, this.PageContext.PageUserID, this.PageContext.PageCategoryID, null);
 
-            this.CategoryList.DataSource = ds.Tables[MsSqlDbAccess.GetObjectName("Category")];
-            this.CategoryList.DataBind();
-        }
+			this.CategoryList.DataSource = ds.GetTable("Category");
+			this.CategoryList.DataBind();
+		}
 
-        /// <summary>
-        /// Column count
-        /// </summary>
-        protected int ColumnCount()
-        {
-            int cnt = 5;
-            if (PageContext.BoardSettings.ShowModeratorList && this.Get<YafBoardSettings>().ShowModeratorListAsColumn) cnt++;
-            return cnt;
-        }
-       
-        #endregion
-    }
+		/// <summary>
+		/// Column count
+		/// </summary>
+		protected int ColumnCount()
+		{
+			int cnt = 5;
+			if (PageContext.BoardSettings.ShowModeratorList && this.Get<YafBoardSettings>().ShowModeratorListAsColumn) cnt++;
+			return cnt;
+		}
+
+		#endregion
+	}
 }
