@@ -20,15 +20,15 @@
 
 namespace YAF.Pages.Admin
 {
-    #region Using
+		#region Using
 
 	using System;
 	using System.Data;
 	using System.Web.UI.WebControls;
 
-    using YAF.Classes;
-    using YAF.Classes.Data;
-    using YAF.Controls;
+		using YAF.Classes;
+		using YAF.Classes.Data;
+		using YAF.Controls;
 	using YAF.Core;
 	using YAF.Core.Tasks;
 	using YAF.Types;
@@ -79,176 +79,175 @@ namespace YAF.Pages.Admin
 			((ThemeButton)sender).Attributes["onclick"] =
 					"return (confirm('{0}') && confirm('{1}'));"
 							.FormatWith(this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE"), this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE_POSITIVE"));
-                    this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE_POSITIVE"));
 		}
 
-        /// <summary>
-        /// The forum list_ item command.
-        /// </summary>
-        /// <param name="source">
-        /// The source.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void ForumList_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
-        {
-            switch (e.CommandName)
-            {
-                case "edit":
-                    YafBuildLink.Redirect(ForumPages.admin_editforum, "f={0}", e.CommandArgument);
-                    break;
-                case "copy":
-                    YafBuildLink.Redirect(ForumPages.admin_editforum, "copy={0}", e.CommandArgument);
-                    break;
-                case "delete":
-                    YafBuildLink.Redirect(ForumPages.admin_deleteforum, "f={0}", e.CommandArgument);
-                    break;
-            }
-        }
+				/// <summary>
+				/// The forum list_ item command.
+				/// </summary>
+				/// <param name="source">
+				/// The source.
+				/// </param>
+				/// <param name="e">
+				/// The e.
+				/// </param>
+				protected void ForumList_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+				{
+						switch (e.CommandName)
+						{
+								case "edit":
+										YafBuildLink.Redirect(ForumPages.admin_editforum, "f={0}", e.CommandArgument);
+										break;
+								case "copy":
+										YafBuildLink.Redirect(ForumPages.admin_editforum, "copy={0}", e.CommandArgument);
+										break;
+								case "delete":
+										YafBuildLink.Redirect(ForumPages.admin_deleteforum, "f={0}", e.CommandArgument);
+										break;
+						}
+				}
 
-        /// <summary>
-        /// The new category_ click.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void NewCategory_Click([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            YafBuildLink.Redirect(ForumPages.admin_editcategory);
-        }
+				/// <summary>
+				/// The new category_ click.
+				/// </summary>
+				/// <param name="sender">
+				/// The sender.
+				/// </param>
+				/// <param name="e">
+				/// The e.
+				/// </param>
+				protected void NewCategory_Click([NotNull] object sender, [NotNull] EventArgs e)
+				{
+						YafBuildLink.Redirect(ForumPages.admin_editcategory);
+				}
 
-        /// <summary>
-        /// The new forum_ click.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void NewForum_Click([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            YafBuildLink.Redirect(ForumPages.admin_editforum);
-        }
+				/// <summary>
+				/// The new forum_ click.
+				/// </summary>
+				/// <param name="sender">
+				/// The sender.
+				/// </param>
+				/// <param name="e">
+				/// The e.
+				/// </param>
+				protected void NewForum_Click([NotNull] object sender, [NotNull] EventArgs e)
+				{
+						YafBuildLink.Redirect(ForumPages.admin_editforum);
+				}
 
-        /// <summary>
-        /// The on init.
-        /// </summary>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected override void OnInit([NotNull] EventArgs e)
-        {
-            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-            this.InitializeComponent();
-            base.OnInit(e);
-        }
+				/// <summary>
+				/// The on init.
+				/// </summary>
+				/// <param name="e">
+				/// The e.
+				/// </param>
+				protected override void OnInit([NotNull] EventArgs e)
+				{
+						// CODEGEN: This call is required by the ASP.NET Web Form Designer.
+						this.InitializeComponent();
+						base.OnInit(e);
+				}
 
-        /// <summary>
-        /// The page_ load.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            if (this.IsPostBack)
-            {
-                return;
-            }
+				/// <summary>
+				/// The page_ load.
+				/// </summary>
+				/// <param name="sender">
+				/// The sender.
+				/// </param>
+				/// <param name="e">
+				/// The e.
+				/// </param>
+				protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+				{
+						if (this.IsPostBack)
+						{
+								return;
+						}
 
-            this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-            this.PageLinks.AddLink(this.GetText("TEAM", "FORUMS"), string.Empty);
+						this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+						this.PageLinks.AddLink(
+								this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+						this.PageLinks.AddLink(this.GetText("TEAM", "FORUMS"), string.Empty);
 
-            this.Page.Header.Title = "{0} - {1}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"), this.GetText("TEAM", "FORUMS"));
+						this.Page.Header.Title = "{0} - {1}".FormatWith(
+								this.GetText("ADMIN_ADMIN", "Administration"), this.GetText("TEAM", "FORUMS"));
 
-            this.NewCategory.Text = this.GetText("ADMIN_FORUMS", "NEW_CATEGORY");
-            this.NewForum.Text = this.GetText("ADMIN_FORUMS", "NEW_FORUM");
+						this.NewCategory.Text = this.GetText("ADMIN_FORUMS", "NEW_CATEGORY");
+						this.NewForum.Text = this.GetText("ADMIN_FORUMS", "NEW_FORUM");
 
-            this.BindData();
-        }
+						this.BindData();
+				}
 
-        /// <summary>
-        /// The bind data.
-        /// </summary>
-        private void BindData()
-        {
-            using (DataSet ds = LegacyDb.ds_forumadmin(this.PageContext.PageBoardID))
-            {
+				/// <summary>
+				/// The bind data.
+				/// </summary>
+				private void BindData()
+				{
+						using (DataSet ds = LegacyDb.ds_forumadmin(this.PageContext.PageBoardID))
+						{
 				this.CategoryList.DataSource = ds.GetTable("Category");
 			}
 
-            // Hide the New Forum Button if there are no Categories.
-            this.NewForum.Visible = this.CategoryList.Items.Count < 1;
+						// Hide the New Forum Button if there are no Categories.
+						this.NewForum.Visible = this.CategoryList.Items.Count < 1;
 
-            this.DataBind();
-        }
+						this.DataBind();
+				}
 
-        /// <summary>
-        /// The category list_ item command.
-        /// </summary>
-        /// <param name="source">
-        /// The source.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        private void CategoryList_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
-        {
-            switch (e.CommandName)
-            {
-                case "edit":
-                    YafBuildLink.Redirect(ForumPages.admin_editcategory, "c={0}", e.CommandArgument);
-                    break;
-                case "delete":
-                    if (LegacyDb.category_delete(e.CommandArgument))
-                    {
-                        this.BindData();
-                        this.ClearCaches();
-                    }
-                    else
-                    {
-                        this.PageContext.AddLoadMessage(this.GetText("ADMIN_FORUMS", "MSG_NOT_DELETE"));
-                    }
+				/// <summary>
+				/// The category list_ item command.
+				/// </summary>
+				/// <param name="source">
+				/// The source.
+				/// </param>
+				/// <param name="e">
+				/// The e.
+				/// </param>
+				private void CategoryList_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+				{
+						switch (e.CommandName)
+						{
+								case "edit":
+										YafBuildLink.Redirect(ForumPages.admin_editcategory, "c={0}", e.CommandArgument);
+										break;
+								case "delete":
+										if (LegacyDb.category_delete(e.CommandArgument))
+										{
+												this.BindData();
+												this.ClearCaches();
+										}
+										else
+										{
+												this.PageContext.AddLoadMessage(this.GetText("ADMIN_FORUMS", "MSG_NOT_DELETE"));
+										}
 
-                    break;
-            }
-        }
+										break;
+						}
+				}
 
-        /// <summary>
-        /// The clear caches.
-        /// </summary>
-        private void ClearCaches()
-        {
-            // clear moderatorss cache
-            this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
+				/// <summary>
+				/// The clear caches.
+				/// </summary>
+				private void ClearCaches()
+				{
+						// clear moderatorss cache
+						this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
 
-            // clear category cache...
-            this.Get<IDataCache>().Remove(Constants.Cache.ForumCategory);
+						// clear category cache...
+						this.Get<IDataCache>().Remove(Constants.Cache.ForumCategory);
 
-            // clear active discussions cache..
-            this.Get<IDataCache>().Remove(Constants.Cache.ForumActiveDiscussions);
-        }
+						// clear active discussions cache..
+						this.Get<IDataCache>().Remove(Constants.Cache.ForumActiveDiscussions);
+				}
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        ///   the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
-            this.CategoryList.ItemCommand += this.CategoryList_ItemCommand;
-        }
+				/// <summary>
+				/// Required method for Designer support - do not modify
+				///   the contents of this method with the code editor.
+				/// </summary>
+				private void InitializeComponent()
+				{
+						this.CategoryList.ItemCommand += this.CategoryList_ItemCommand;
+				}
 
-        #endregion
-    }
+				#endregion
+		}
 }
