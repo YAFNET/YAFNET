@@ -2051,7 +2051,7 @@ begin
 	delete from [{databaseOwner}].[{objectQualifier}Forum] where exists(select 1 from [{databaseOwner}].[{objectQualifier}Category] x where x.CategoryID=[{databaseOwner}].[{objectQualifier}Forum].CategoryID and x.BoardID=@BoardID)
 	delete from [{databaseOwner}].[{objectQualifier}UserGroup] where exists(select 1 from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=[{databaseOwner}].[{objectQualifier}UserGroup].UserID and x.BoardID=@BoardID)
 	delete from [{databaseOwner}].[{objectQualifier}Category] where BoardID=@BoardID
-	delete from [{databaseOwner}].[{objectQualifier}ActiveAcces]
+	delete from [{databaseOwner}].[{objectQualifier}ActiveAccess] where BoardID=@BoardID
 	delete from [{databaseOwner}].[{objectQualifier}Active] where BoardID=@BoardID
 	delete from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID
 	delete from [{databaseOwner}].[{objectQualifier}Rank] where BoardID=@BoardID
