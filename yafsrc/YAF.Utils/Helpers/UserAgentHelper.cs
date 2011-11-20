@@ -44,8 +44,8 @@ namespace YAF.Utils.Helpers
                                                         "appie", "AltaVista-Intranet", "Acoon Robot", "Atomz", 
                                                         "Arachnoidea", "AESOP_com_SpiderMan", "AxmoRobot", 
                                                         "ArchitextSpider", "AlkalineBOT", "Aranha", "asterias",
-                                                        "Bingbot","Buscaplus Robi", "CanSeek", "ChristCRAWLER", "Clushbot", 
-                                                        "Crawler", "CrawlerBoy", "DeepIndex", "DefaultCrawler", 
+                                                        "Baidu","Bingbot","Buscaplus Robi", "CanSeek", "ChristCRAWLER", 
+                                                        "Clushbot", "Crawler", "CrawlerBoy", "DeepIndex", "DefaultCrawler", 
                                                         "DittoSpyder", "DIIbot", "EZResult", "EARTHCOM.info", "EuripBot", 
                                                         "ESISmartSpider", "FAST-WebCrawler", "FyberSearch", 
                                                         "Findexa Crawler", "Fluffy", "Googlebot", "geckobot", 
@@ -95,10 +95,8 @@ namespace YAF.Utils.Helpers
     {
       string[] agentContains = { "Windows-RSS-Platform", "FeedDemon", "Feedreader", "Apple-PubSub" };
 
-      return userAgent.IsSet()
-               ? agentContains.Any(
-                 agentContain => userAgent.ToLowerInvariant().Contains(agentContain.ToLowerInvariant()))
-               : false;
+      return userAgent.IsSet() && agentContains.Any(
+          agentContain => userAgent.ToLowerInvariant().Contains(agentContain.ToLowerInvariant()));
     }
 
     /// <summary>
