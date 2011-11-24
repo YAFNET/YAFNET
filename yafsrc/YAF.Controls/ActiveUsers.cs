@@ -16,14 +16,20 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
+
+using System.Collections.Generic;
+
 namespace YAF.Controls
 {
   #region Using
 
     using System;
+    using System.Collections;
     using System.Data;
     using System.Linq;
     using System.Web.UI;
+
     using YAF.Classes;
     using YAF.Core;
     using YAF.Types;
@@ -149,18 +155,23 @@ namespace YAF.Controls
             this.ActiveUserTable.AcceptChanges();
         }
 
+        var crawlers = new List<string>();
+
         // go through the table and process each row
         foreach (DataRow row in this.ActiveUserTable.Rows)
         {
             UserLink userLink;
-
-            // indicates whether user link should be added or not
-            bool addControl = true;
+           
             bool isCrawler = row["IsCrawler"].ToType<int>() > 0;
-
+            
             // create new link and set its parameters
             if (isCrawler)
             {
+               if  (crawlers.Contains(row["Browser"].ToString()))
+               {
+                  continue;
+               }
+                crawlers.Add(row["Browser"].ToString());
                 userLink = new UserLink
                     {
                         CrawlerName = row["Browser"].ToString(), 
@@ -170,6 +181,7 @@ namespace YAF.Controls
                                 ? this.Get<IStyleTransform>().DecodeStyleByString(row["Style"].ToString(), false)
                                 : string.Empty
                     };
+                userLink.ID += userLink.CrawlerName;
             }
             else
             {
@@ -181,26 +193,20 @@ namespace YAF.Controls
                                 ? this.Get<IStyleTransform>().DecodeStyleByString(row["Style"].ToString(), false)
                                 : string.Empty
                     };
+                userLink.ID = "UserLink{0}{1}".FormatWith(this.InstantId, userLink.UserID);
+                // how many users of this type is present (valid for guests, others have it 1)
+                int userCount = row["UserCount"].ToType<int>();
+
+                if (userCount > 1)
+                {
+                    // add postfix if there is more the one user of this name
+                    userLink.PostfixText = " ({0})".FormatWith(userCount);
+                }
             }
 
-            if (!isCrawler)
-            {
-                userLink.ID = "UserLink{0}{1}".FormatWith(this.InstantId, userLink.UserID); 
-            }
-            else
-            {
-                userLink.ID += userLink.CrawlerName;
-            }
 
-            // how many users of this type is present (valid for guests, others have it 1)
-            int userCount = row["UserCount"].ToType<int>();
-
-            if (userCount > 1)
-            {
-                // add postfix if there is more the one user of this name
-                userLink.PostfixText = " ({0})".FormatWith(userCount);
-            }
-
+            // indicates whether user link should be added or not
+            bool addControl = true;
             // we might not want to add this user link if user is marked as hidden
             if (Convert.ToBoolean(row["IsHidden"]) || // or if user is guest and guest should be hidden
                 (this.TreatGuestAsHidden && Convert.ToBoolean(row["IsGuest"])))
@@ -208,9 +214,6 @@ namespace YAF.Controls
                 // hidden user are always visible to admin and himself)
                 if (this.PageContext.IsAdmin || userLink.UserID == this.PageContext.PageUserID)
                 {
-                    // show regardless...
-                    addControl = true;
-
                     // but use css style to distinguish such users
                     userLink.CssClass = "active_hidden";
 
