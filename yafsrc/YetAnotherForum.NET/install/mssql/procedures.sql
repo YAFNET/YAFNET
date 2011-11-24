@@ -2051,7 +2051,7 @@ begin
 	delete from [{databaseOwner}].[{objectQualifier}Forum] where exists(select 1 from [{databaseOwner}].[{objectQualifier}Category] x where x.CategoryID=[{databaseOwner}].[{objectQualifier}Forum].CategoryID and x.BoardID=@BoardID)
 	delete from [{databaseOwner}].[{objectQualifier}UserGroup] where exists(select 1 from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=[{databaseOwner}].[{objectQualifier}UserGroup].UserID and x.BoardID=@BoardID)
 	delete from [{databaseOwner}].[{objectQualifier}Category] where BoardID=@BoardID
-	delete from [{databaseOwner}].[{objectQualifier}ActiveAcces]
+	delete from [{databaseOwner}].[{objectQualifier}ActiveAccess] where BoardID=@BoardID
 	delete from [{databaseOwner}].[{objectQualifier}Active] where BoardID=@BoardID
 	delete from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID
 	delete from [{databaseOwner}].[{objectQualifier}Rank] where BoardID=@BoardID
@@ -5794,8 +5794,8 @@ create procedure [{databaseOwner}].[{objectQualifier}topic_findnext](@TopicID in
 begin
 		declare @LastPosted datetime
 	declare @ForumID int
-	select @LastPosted = LastPosted, @ForumID = ForumID from [{databaseOwner}].[{objectQualifier}Topic] where TopicID = @TopicID
-	select top 1 TopicID from [{databaseOwner}].[{objectQualifier}Topic] where LastPosted>@LastPosted and ForumID = @ForumID AND (Flags & 8) = 0 order by LastPosted asc
+	select @LastPosted = LastPosted, @ForumID = ForumID from [{databaseOwner}].[{objectQualifier}Topic] where TopicID = @TopicID AND TopicMovedID IS NULL
+	select top 1 TopicID from [{databaseOwner}].[{objectQualifier}Topic] where LastPosted>@LastPosted and ForumID = @ForumID AND (Flags & 8) = 0 AND TopicMovedID IS NULL order by LastPosted asc
 end
 GO
 
@@ -5803,8 +5803,8 @@ create procedure [{databaseOwner}].[{objectQualifier}topic_findprev](@TopicID in
 BEGIN
 		DECLARE @LastPosted datetime
 	DECLARE @ForumID int
-	SELECT @LastPosted = LastPosted, @ForumID = ForumID FROM [{databaseOwner}].[{objectQualifier}Topic] WHERE TopicID = @TopicID
-	SELECT TOP 1 TopicID from [{databaseOwner}].[{objectQualifier}Topic] where LastPosted<@LastPosted AND ForumID = @ForumID AND (Flags & 8) = 0 ORDER BY LastPosted DESC
+	SELECT @LastPosted = LastPosted, @ForumID = ForumID FROM [{databaseOwner}].[{objectQualifier}Topic] WHERE TopicID = @TopicID AND TopicMovedID IS NULL
+	SELECT TOP 1 TopicID from [{databaseOwner}].[{objectQualifier}Topic] where LastPosted<@LastPosted AND ForumID = @ForumID AND (Flags & 8) = 0 AND TopicMovedID IS NULL ORDER BY LastPosted DESC
 END
 GO
 
