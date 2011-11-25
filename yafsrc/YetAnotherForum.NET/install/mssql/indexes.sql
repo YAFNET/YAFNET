@@ -50,6 +50,13 @@ if not exists(select top 1 1 from dbo.sysindexes where name=N'IX_{objectQualifie
  CREATE  INDEX [IX_{objectQualifier}Message_Flags] ON [{databaseOwner}].[{objectQualifier}Message]([Flags])
 go
 
+IF  NOT EXISTS (SELECT 1 FROM sys.indexes WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Message]') AND name = N'IX_{objectQualifier}Message_Posted_Desc')
+CREATE NONCLUSTERED INDEX [IX_{objectQualifier}Message_Posted_Desc] ON [{databaseOwner}].[{objectQualifier}Message] 
+(
+	[Posted] DESC
+) ON [PRIMARY]
+GO
+
 -- {objectQualifier}Topic
 
 if not exists(select top 1 1 from dbo.sysindexes where name=N'IX_{objectQualifier}Topic_ForumID' and id=object_id(N'[{databaseOwner}].[{objectQualifier}Topic]'))
