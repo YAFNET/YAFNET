@@ -3871,6 +3871,8 @@ Visit {forumname} at {forumlink}
       <Resource tag="DELETE_MSG">Please do not navigate away from this page while the deletion is in progress...</Resource>
     </page>
     <page name="ADMIN_BOARDS">
+      <Resource tag="DELETE">Delete</Resource>
+      <Resource tag="EDIT">Edit</Resource>
       <Resource tag="TITLE">Boards</Resource>
       <Resource tag="NEW_BOARD">New Board</Resource>
       <Resource tag="ID">ID</Resource>

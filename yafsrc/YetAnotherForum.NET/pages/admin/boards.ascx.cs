@@ -18,6 +18,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+using YAF.Controls;
+
 namespace YAF.Pages.Admin
 {
   #region Using
@@ -53,8 +55,10 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_BOARDS", "CONFIRM_DELETE"));
-    }
+        ((ThemeButton)sender).Attributes["onclick"] =
+               "return (confirm('{0}') && confirm('{1}'))".FormatWith(
+                   this.GetText("ADMIN_BOARDS", "CONFIRM_DELETE"),
+                   this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE_POSITIVE"));}
 
     /// <summary>
     /// The on init.

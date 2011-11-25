@@ -25,9 +25,8 @@
 						<%# HtmlEncode(Eval( "Name")) %>
 					</td>
 					<td align="center">
-						<asp:LinkButton runat="server" CommandName="edit" CommandArgument='<%# Eval( "BoardID") %>'><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="EDIT" /></asp:LinkButton>
-						|
-						<asp:LinkButton OnLoad="Delete_Load" runat="server" CommandName="delete" CommandArgument='<%# Eval( "BoardID") %>'><YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="DELETE" /></asp:LinkButton>
+                     <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="yaflittlebutton" CommandName='edit' CommandArgument='<%# Eval( "BoardID") %>' TitleLocalizedTag="EDIT" ImageThemePage="ICONS" ImageThemeTag="EDIT_SMALL_ICON" runat="server"></YAF:ThemeButton>
+                     <YAF:ThemeButton ID="ThemeButtonDelete" CssClass="yaflittlebutton" OnLoad="Delete_Load"  CommandName='delete' CommandArgument='<%# Eval( "BoardID") %>' TitleLocalizedTag="DELETE" ImageThemePage="ICONS" ImageThemeTag="DELETE_SMALL_ICON" runat="server"></YAF:ThemeButton>						
 					</td>
 				</tr>
 			</ItemTemplate>
