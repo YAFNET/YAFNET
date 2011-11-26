@@ -211,7 +211,7 @@ namespace YAF.Controls
                                              ? cancelButton.Text
                                              : this.GetText("COMMON", "CANCEL");
 
-                this.CancelButton.CssClass = cancelButton.CssClass.IsSet() ? cancelButton.CssClass : "StandardButton";
+                this.CancelButton.CssClass = cancelButton.CssClass.IsSet() ? cancelButton.CssClass : "StandardButton CancelButton";
 
                 if (this.CancelButtonLink.ForumPage.Equals(YafContext.Current.ForumPageType))
                 {

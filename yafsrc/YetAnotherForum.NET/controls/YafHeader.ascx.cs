@@ -92,10 +92,10 @@ namespace YAF.Controls
               new DialogBox.DialogButton
                 {
                     Text = "Yes",
-                    CssClass = "StandardButton",
+                    CssClass = "StandardButton OkButton",
                     ForumPageLink = new DialogBox.ForumLink { ForumPage = ForumPages.logout }
                 },
-              new DialogBox.DialogButton { Text = "No", CssClass = "StandardButton" });
+              new DialogBox.DialogButton { Text = "No", CssClass = "StandardButton CancelButton" });
         }
 
         /// <summary>

@@ -127,11 +127,11 @@ namespace YAF.Modules
           DialogBox.DialogIcon.Mail, 
           new DialogBox.DialogButton
             {
-              Text = "Yes", 
-              CssClass = "StandardButton", 
+              Text = "Yes",
+              CssClass = "StandardButton OkButton", 
               ForumPageLink = new DialogBox.ForumLink { ForumPage = ForumPages.cp_pm }
             }, 
-          new DialogBox.DialogButton { Text = "No", CssClass = "StandardButton" });
+          new DialogBox.DialogButton { Text = "No", CssClass = "StandardButton CancelButton" });
 
         this.Get<IYafSession>().LastPm = this.PageContext.LastUnreadPm;
       }
@@ -148,13 +148,13 @@ namespace YAF.Modules
         new DialogBox.DialogButton
           {
             Text = "Yes", 
-            CssClass = "StandardButton", 
+            CssClass = "StandardButton OkButton", 
             ForumPageLink = new DialogBox.ForumLink { ForumPage = ForumPages.cp_editbuddies }
           }, 
         new DialogBox.DialogButton
           {
-            Text = "No", 
-            CssClass = "StandardButton", 
+            Text = "No",
+            CssClass = "StandardButton CancelButton", 
             ForumPageLink = new DialogBox.ForumLink { ForumPage = YafContext.Current.ForumPageType }
           });
 
