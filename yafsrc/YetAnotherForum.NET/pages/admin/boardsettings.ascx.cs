@@ -40,7 +40,7 @@ namespace YAF.Pages.Admin
   #endregion
 
   /// <summary>
-  /// Summary description for settings.
+  /// The Board Settings Admin Page.
   /// </summary>
   public partial class boardsettings : AdminPage
   {
@@ -86,7 +86,18 @@ namespace YAF.Pages.Admin
 
         if (mobileThemeData.Any())
         {
-            this.MobileTheme.DataSource = mobileThemeData.CopyToDataTable();
+            var mobileThemes = mobileThemeData.CopyToDataTable();
+
+            // Add Dummy Disabled Mobile Theme Item to allow disabling the Mobile Theme
+            DataRow dr = mobileThemes.NewRow();
+            dr["Theme"] = "[ {0} ]".FormatWith(this.GetText("ADMIN_COMMON", "DISABLED"));
+
+            dr["FileName"] = string.Empty;
+            dr["IsMobile"] = false;
+
+            mobileThemes.Rows.InsertAt(dr, 0);
+
+            this.MobileTheme.DataSource = mobileThemes;
             this.MobileTheme.DataTextField = "Theme";
             this.MobileTheme.DataValueField = "FileName";
         }
@@ -116,7 +127,7 @@ namespace YAF.Pages.Admin
             LegacyDb.PollGroupList(this.PageContext.PageUserID, null, this.PageContext.PageBoardID).Distinct(
                 new AreEqualFunc<TypedPollGroup>((v1, v2) => v1.PollGroupID == v2.PollGroupID)).ToList();
 
-        pollGroup.Insert(0, new TypedPollGroup(String.Empty, -1));
+        pollGroup.Insert(0, new TypedPollGroup(string.Empty, -1));
 
         // TODO: vzrus needs some work, will be in polls only until feature is debugged there.
         this.PollGroupListDropDown.Items.AddRange(
@@ -237,7 +248,7 @@ namespace YAF.Pages.Admin
       this.Get<YafBoardSettings>().Theme = this.Theme.SelectedValue;
 
       // allow null/empty as a mobile theme many not be desired.
-      this.Get<YafBoardSettings>().MobileTheme = this.MobileTheme.SelectedValue ?? String.Empty;
+      this.Get<YafBoardSettings>().MobileTheme = this.MobileTheme.SelectedValue ?? string.Empty;
 
       this.Get<YafBoardSettings>().ShowTopicsDefault = this.ShowTopic.SelectedValue.ToType<int>();
       this.Get<YafBoardSettings>().AllowThemedLogo = this.AllowThemedLogo.Checked;
