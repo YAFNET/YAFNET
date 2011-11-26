@@ -47,12 +47,22 @@ namespace YAF.Core.Services
         {
             var formatInfo = new NumberFormatInfo { NumberDecimalSeparator = "." };
 
+            float percentage = ConvertPointsToPercentage(points);
 
-                float percentage = ConvertPointsToPercentage(points);
+                var pointsSign = string.Empty;
+
+                if (points > 0)
+                {
+                    pointsSign = "+";
+                }
+                else if (points < 0)
+                {
+                    pointsSign = "-";
+                }
 
             return
-                @"<div class=""ReputationBar ReputationUser_{2}"" data-percent=""{0}"" data-text=""{1}""></div>".FormatWith(
-                        percentage.ToString(formatInfo), GetReputationBarText(percentage), userId);
+                @"<div class=""ReputationBar ReputationUser_{2}"" data-percent=""{0}"" data-text=""{1}"" title=""{3}{4}""></div>".FormatWith(
+                        percentage.ToString(formatInfo), GetReputationBarText(percentage), userId, pointsSign, points);
         }
 
         /// <summary>
