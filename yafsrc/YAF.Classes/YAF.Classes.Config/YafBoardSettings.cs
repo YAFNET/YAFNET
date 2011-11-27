@@ -2066,6 +2066,22 @@ namespace YAF.Classes
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether if Use Farsi Calender
+        /// </summary>
+        public bool UseFarsiCalender
+        {
+            get
+            {
+                return this._reg.GetValue("UseFarsiCalender", false);
+            }
+
+            set
+            {
+                this._reg.SetValue("UseFarsiCalender", value);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether if relative times are used on the forum.
         /// </summary>
         public bool ShowRelativeTime
