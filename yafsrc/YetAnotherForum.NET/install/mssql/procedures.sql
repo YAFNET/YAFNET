@@ -4626,7 +4626,7 @@ begin
 			@Browser,
 			@Platform,
 			@ActiveFlags)			
-
+			
 			-- update max user stats
 			exec [{databaseOwner}].[{objectQualifier}active_updatemaxstats] @BoardID
 			-- parameter to update active users cache if this is a new user
@@ -4695,6 +4695,58 @@ begin
 			from [{databaseOwner}].[{objectQualifier}vaccess] 
 			where UserID = @UserID 
 			end
+
+				-- ensure that guest access right are in place		
+		if not exists (select top 1
+			UserID	
+			from [{databaseOwner}].[{objectQualifier}ActiveAccess] WITH(NOLOCK) 
+			where UserID = @GuestID )		
+			begin
+			insert into [{databaseOwner}].[{objectQualifier}ActiveAccess](
+			UserID,
+			BoardID,
+			ForumID,
+			IsAdmin, 
+			IsForumModerator,
+			IsModerator,
+			IsGuestX,
+			LastActive, 
+			ReadAccess,
+			PostAccess,
+			ReplyAccess,
+			PriorityAccess,
+			PollAccess,
+			VoteAccess,	
+			ModeratorAccess,
+			EditAccess,
+			DeleteAccess,
+			UploadAccess,
+			DownloadAccess)
+			select 
+			UserID, 
+			@BoardID, 
+			ForumID, 
+			IsAdmin,
+			IsForumModerator,
+			IsModerator,
+			@IsGuest,
+			@CurrentTime,
+			ReadAccess,
+			(CONVERT([bit],sign([PostAccess]&(2)),(0))),
+			ReplyAccess,
+			PriorityAccess,
+			PollAccess,
+			VoteAccess,
+			ModeratorAccess,
+			EditAccess,
+			DeleteAccess,
+			UploadAccess,
+			DownloadAccess			
+			from [{databaseOwner}].[{objectQualifier}vaccess] 
+			where UserID = @GuestID 
+			end
+
+			
 	-- return information
 	select top 1
 		ActiveUpdate        = ISNULL(@ActiveUpdate,0),

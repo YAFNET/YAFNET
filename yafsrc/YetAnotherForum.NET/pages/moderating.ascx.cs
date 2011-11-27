@@ -94,7 +94,7 @@ namespace YAF.Pages
       this.topiclist.DataSource = dt;
       this.UserList.DataSource = LegacyDb.userforum_list(null, this.PageContext.PageForumID);
       this.DataBind();
-      if (dt.Rows.Count > 0)
+      if (dt != null && dt.Rows.Count > 0)
       this.PagerTop.Count = dt.AsEnumerable().First().Field<int>("TotalRows"); // + nPageSize; 
     }
 

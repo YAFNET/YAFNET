@@ -474,7 +474,7 @@ namespace YAF.Pages
       // setup the show topic list selection after data binding
       this.ShowList.SelectedIndex = this._showTopicListSelected;
       this.Get<IYafSession>().ShowList = this._showTopicListSelected;
-      if (dtTopics.Rows.Count > 0)
+      if (dtTopics != null && dtTopics.Rows.Count > 0)
       this.Pager.Count = dtTopics.AsEnumerable().First().Field<int>("TotalRows"); // + nPageSize; 
     }
 
