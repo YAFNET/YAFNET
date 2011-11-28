@@ -250,7 +250,8 @@ namespace YAF.Core
                     for (int j = 0; j < files.Length; j++)
                     {
                         if (ci.IsNeutralCulture ||
-                            !tags[1, j].ToLower().Substring(0, 2).Contains(ci.TwoLetterISOLanguageName.ToLower())/* && ci.IetfLanguageTag.Length == 5*/)
+                            !tags[1, j].ToLower().Substring(0, 2).Contains(ci.TwoLetterISOLanguageName.ToLower()) &&
+                            ci.IetfLanguageTag.Length == 5)
                         {
                             continue;
                         }
