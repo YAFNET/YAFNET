@@ -268,6 +268,8 @@
   </page>
   <page name="ADMIN_BOARDS">
     <Resource tag="CONFIRM_DELETE">Dieses Board löschen?</Resource>
+    <Resource tag="DELETE">Delete</Resource>
+    <Resource tag="EDIT">Edit</Resource>
     <Resource tag="ID">ID</Resource>
     <Resource tag="NAME">Name</Resource>
     <Resource tag="NEW_BOARD">Neues Board</Resource>
@@ -1216,6 +1218,8 @@
     <Resource tag="TWITTER_USERNAME_HELP">Twitter Benutzername, der erwähnt wird, wenn ein Thema oder Beitrag geretweetet wird.</Resource>
     <Resource tag="UNHANDLED_USERAGENT_LOG">Aktiviere Unbehandelter User Agent Protokoll:</Resource>
     <Resource tag="UNHANDLED_USERAGENT_LOG_HELP">Wenn aktiviert werden alle unbehandelten User Agent string Protokolliert.</Resource>
+    <Resource tag="USE_FARSI_CALENDER">Farsi (Shamsi) Persischer Kalender Verwenden:</Resource>
+    <Resource tag="USE_FARSI_CALENDER_HELP">Wenn aktiviert werden alle Datumsangaben mit dem Persischen Kalender dargestellt.</Resource>
     <Resource tag="USE_READ_TRACKING">Benutzer Lesen Verfolgen aktivieren via Datanbank:</Resource>
     <Resource tag="USE_READ_TRACKING_HELP">Wenn aktiviert wird die Letzte Uhrzeit und Datum gespeichert, andem der Benutzer ein Forum oder Thema gelesen hat. Damit Ungelesene Beiträge gefunden werden können. &lt;br /&gt;WARNUNG: Das kann zu einer extremen vergrößerung der Datenbank führen, wenn Sie Viele Benutzer und/oder Themen haben.</Resource>
     <Resource tag="USER_CHANGE_LANGUAGE">Benutzer erlauben die Sprache zu ändern:</Resource>
@@ -3943,6 +3947,7 @@ Spoiler Content
     <Resource tag="SINCE">Seit</Resource>
     <Resource tag="TOPIC_STARTER">Themen Starter</Resource>
     <Resource tag="TOPICS">Themen</Resource>
+    <Resource tag="UNANSWEREDTOPICS">Unbeantwortete Themen</Resource>
     <Resource tag="UNREADTOPICS">Ungelesene Themen</Resource>
     <Resource tag="VIEWS">Ansichten</Resource>
   </page>

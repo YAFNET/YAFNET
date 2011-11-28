@@ -142,6 +142,27 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
+        ///   Gets or sets UnansweredTopicSince.
+        /// </summary>
+        public int? UnansweredTopicSince
+        {
+            get
+            {
+                if (this.SessionState["UnansweredTopicSince"] != null)
+                {
+                    return (int)this.SessionState["UnansweredTopicSince"];
+                }
+
+                return null;
+            }
+
+            set
+            {
+                this.SessionState["UnansweredTopicSince"] = value;
+            }
+        }
+
+        /// <summary>
         ///   Gets or sets FavoriteTopicSince.
         /// </summary>
         public int? FavoriteTopicSince

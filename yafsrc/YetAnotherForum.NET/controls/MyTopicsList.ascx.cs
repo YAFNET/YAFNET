@@ -25,6 +25,7 @@ namespace YAF.Controls
     using System;
     using System.Data;
     using System.Data.SqlTypes;
+    using System.Linq;
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
@@ -46,6 +47,11 @@ namespace YAF.Controls
         ///   The active topics list.
         /// </summary>
         Active,
+
+        /// <summary>
+        ///   The unanswered topics list.
+        /// </summary>
+        Unanswered,
 
         /// <summary>
         ///   The favorite topics list.
@@ -190,6 +196,16 @@ namespace YAF.Controls
                         categoryIDObject,
                         this.Get<YafBoardSettings>().UseStyledNicks,
                         this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
+                    break;
+                case TopicListMode.Unanswered:
+                    topicList =
+                        LegacyDb.topic_unanswered(
+                            this.PageContext.PageBoardID,
+                            this.PageContext.PageUserID,
+                            this.sinceDate,
+                            categoryIDObject,
+                            this.Get<YafBoardSettings>().UseStyledNicks,
+                            this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
                     break;
                 case TopicListMode.Unread:
                     topicList = LegacyDb.topic_active(
@@ -337,6 +353,11 @@ namespace YAF.Controls
                         previousSince = this.Get<IYafSession>().ActiveTopicSince;
                         this.Since.SelectedIndex = 0;
                         break;
+                   case TopicListMode.Unanswered:
+                        previousSince = this.Get<IYafSession>().UnansweredTopicSince;
+                        this.Since.Items.Add(new ListItem(this.GetText("show_all"), "9999"));
+                        this.Since.SelectedIndex = this.Since.Items.Count - 1;
+                        break;
                     case TopicListMode.Favorite:
                         previousSince = this.Get<IYafSession>().FavoriteTopicSince;
                         this.Since.Items.Add(new ListItem(this.GetText("show_all"), "9999"));
@@ -426,6 +447,9 @@ namespace YAF.Controls
                 case TopicListMode.Active:
                     this.Get<IYafSession>().ActiveTopicSince = this.Since.SelectedValue.ToType<int>();
                     break;
+                case TopicListMode.Unanswered:
+                    this.Get<IYafSession>().UnansweredTopicSince = this.Since.SelectedValue.ToType<int>();
+                    break;
                 case TopicListMode.Favorite:
                     this.Get<IYafSession>().FavoriteTopicSince = this.Since.SelectedValue.ToType<int>();
                     break;
@@ -453,6 +477,10 @@ namespace YAF.Controls
                         this.RssFeed.Visible = false;
                         break;
                     case TopicListMode.Unread:
+                        this.AtomFeed.Visible = false;
+                        this.RssFeed.Visible = false;
+                        break;
+                    case TopicListMode.Unanswered:
                         this.AtomFeed.Visible = false;
                         this.RssFeed.Visible = false;
                         break;
@@ -507,6 +535,7 @@ namespace YAF.Controls
                         this.AtomFeed.Visible = accessFavorite;
                         break;
                 }
+
                 // We should set token to show a common control to handlw it as an Atom feed.
                 this.AtomFeed.IsAtomFeed = true;
             }

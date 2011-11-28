@@ -3,18 +3,13 @@
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <div class="DivTopSeparator">
 </div>
-<%--<table class="command" cellspacing="0" cellpadding="0" width="100%" style="padding-bottom: 10px;">
-    <tr>
-        <td align="right">
-            <YAF:LocalizedLabel ID="SinceLabel" runat="server" LocalizedTag="SINCE" />
-            <asp:DropDownList ID="Since" runat="server" AutoPostBack="True" OnSelectedIndexChanged="Since_SelectedIndexChanged" />
-        </td>
-    </tr>
-</table>--%>
 <br style="clear: both" />
        <asp:Panel id="TopicsTabs" runat="server">
                <ul>
                  <li><a href="#ActiveTopicsTab"><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="ActiveTopics" LocalizedPage="MyTopics" /></a></li>
+                 <asp:PlaceHolder ID="UnansweredTopicsTabTitle" runat="server">
+                   <li><a href="#UnansweredTopicsTab"><YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="UnansweredTopics" LocalizedPage="MyTopics" /></a></li>
+                 </asp:PlaceHolder>
                  <asp:PlaceHolder ID="UnreadTopicsTabTitle" runat="server">
                    <li><a href="#UnreadTopicsTab"><YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="UnreadTopics" LocalizedPage="MyTopics" /></a></li>
                  </asp:PlaceHolder>
@@ -26,6 +21,11 @@
                 <div id="ActiveTopicsTab">
                    <YAF:MyTopicsList runat="server" ID="ActiveTopics" CurrentMode="Active"/>
                 </div>
+                <asp:PlaceHolder ID="UnansweredTopicsTabContent" runat="server">
+                <div id="UnansweredTopicsTab">
+                  <YAF:MyTopicsList runat="server" ID="UnansweredTopics" CurrentMode="Unanswered" />
+                </div>
+                </asp:PlaceHolder>
                 <asp:PlaceHolder ID="UnreadTopicsTabContent" runat="server">
                 <div id="UnreadTopicsTab">
                   <YAF:MyTopicsList runat="server" ID="UnreadTopics" CurrentMode="Unread" />

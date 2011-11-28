@@ -733,6 +733,24 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox UseReadTrackingByDatabase;
         
         /// <summary>
+        /// HelpLabel86 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel86;
+        
+        /// <summary>
+        /// UseFarsiCalender control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox UseFarsiCalender;
+        
+        /// <summary>
         /// HelpLabel91 control.
         /// </summary>
         /// <remarks>
@@ -2954,24 +2972,6 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox AcceptedHTML;
-        
-        /// <summary>
-        /// HelpLabel86 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel86;
-        
-        /// <summary>
-        /// AcceptedHeadersHTML control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox AcceptedHeadersHTML;
         
         /// <summary>
         /// LocalizedLabel16 control.

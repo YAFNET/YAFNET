@@ -1,7 +1,6 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.hostsettings"
     CodeBehind="hostsettings.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
-<%@ Register TagPrefix="YAF" TagName="PMList" Src="../../controls/PMList.ascx" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server" ID="Adminmenu1">
   <asp:Panel id="HostSettingsTabs" runat="server">
@@ -299,7 +298,15 @@
                         <td class="post">
                             <asp:CheckBox ID="UseReadTrackingByDatabase" runat="server"></asp:CheckBox>
                         </td>
-                    </tr>           
+                    </tr>       
+                    <tr>
+                        <td class="postheader" style="width:50%">
+                            <YAF:HelpLabel ID="HelpLabel86" runat="server" LocalizedTag="USE_FARSI_CALENDER" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="UseFarsiCalender" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>    
                     <tr>
                         <td class="postheader" style="width:50%">
                             <YAF:HelpLabel ID="HelpLabel91" runat="server" LocalizedTag="SHOW_RELATIVE_TIME" LocalizedPage="ADMIN_HOSTSETTINGS" />

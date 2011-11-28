@@ -7782,6 +7782,46 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
+        /// The topic_unanswered
+        /// </summary>
+        /// <param name="boardID">
+        /// The board id.
+        /// </param>
+        /// <param name="pageUserId">
+        /// The page user id.
+        /// </param>
+        /// <param name="since">
+        /// The since.
+        /// </param>
+        /// <param name="categoryID">
+        /// The category id.
+        /// </param>
+        /// <param name="useStyledNicks">
+        /// Set to true to get color nicks for last user and topic starter.
+        /// </param>
+        /// <param name="findLastRead">
+        /// Indicates if the Table should Countain the last Access Date
+        /// </param>
+        /// <returns>
+        /// Returns the List with the Active Topics
+        /// </returns>
+        public static DataTable topic_unanswered([NotNull] object boardID, [NotNull] object pageUserId, [NotNull] object since, [NotNull] object categoryID, [NotNull] object useStyledNicks, [CanBeNull]bool findLastRead)
+        {
+            using (var cmd = MsSqlDbAccess.GetCommand("topic_unanswered"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("BoardID", boardID);
+                cmd.Parameters.AddWithValue("PageUserID", pageUserId);
+                cmd.Parameters.AddWithValue("Since", since);
+                cmd.Parameters.AddWithValue("CategoryID", categoryID);
+                cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
+                cmd.Parameters.AddWithValue("FindLastRead", findLastRead);
+
+                return MsSqlDbAccess.Current.GetData(cmd);
+            }
+        }
+
+        /// <summary>
         /// Gets all topics where the pageUserid has posted
         /// </summary>
         /// <param name="boardID">

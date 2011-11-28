@@ -267,6 +267,8 @@
   </page>
   <page name="ADMIN_BOARDS">
     <Resource tag="CONFIRM_DELETE">Удалить эту доску?</Resource>
+    <Resource tag="DELETE">Delete</Resource>
+    <Resource tag="EDIT">Edit</Resource>
     <Resource tag="ID">ID</Resource>
     <Resource tag="NAME">Название</Resource>
     <Resource tag="NEW_BOARD">Новая доска</Resource>
@@ -1216,6 +1218,8 @@
     <Resource tag="TWITTER_USERNAME_HELP">Упомянутое имя пользователя при ретвите темы или сообщения.</Resource>
     <Resource tag="UNHANDLED_USERAGENT_LOG">Включить журналирование для UserAgent:</Resource>
     <Resource tag="UNHANDLED_USERAGENT_LOG_HELP">Все неидентифицируемые UserAgent будут в журнале. Не включайте это постоянно.</Resource>
+    <Resource tag="USE_FARSI_CALENDER">Use Farsi (Shamsi) Persian Calender:</Resource>
+    <Resource tag="USE_FARSI_CALENDER_HELP">If enabled the Persian Calender all Date Times are Converted to the Persian Calender.</Resource>
     <Resource tag="USE_READ_TRACKING">Отслеживать прочитанные сообщение в базе данных:</Resource>
     <Resource tag="USE_READ_TRACKING_HELP">Если включено, то непрочитанные темы или форумы будут храниться в базе данных. &lt;br /&gt;WARNING: This Can Increase your DB if you have a big amount of users and/or topics</Resource>
     <Resource tag="USER_CHANGE_LANGUAGE">Разрешить пользователям менять язык:</Resource>
@@ -4000,6 +4004,7 @@ Spoiler Content
     <Resource tag="SINCE">Начиная с</Resource>
     <Resource tag="TOPIC_STARTER">Автор темы</Resource>
     <Resource tag="TOPICS">Темы</Resource>
+    <Resource tag="UNANSWEREDTOPICS">Unanswered Topics</Resource>
     <Resource tag="UNREADTOPICS">Непрочитанные темы</Resource>
     <Resource tag="VIEWS">Просмотры</Resource>
   </page>

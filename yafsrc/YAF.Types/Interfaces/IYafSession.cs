@@ -49,6 +49,11 @@ namespace YAF.Types.Interfaces
         /// </summary>
         int? ActiveTopicSince { get; set; }
 
+         /// <summary>
+        ///   Gets or sets UnansweredTopicSince.
+        /// </summary>
+        int? UnansweredTopicSince { get; set; }
+
         /// <summary>
         /// Gets or sets if the user wants to use the mobile theme.
         /// </summary>

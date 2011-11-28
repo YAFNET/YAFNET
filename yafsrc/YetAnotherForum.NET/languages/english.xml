@@ -2195,7 +2195,7 @@ Spoiler Content
       <Resource tag="IN">in {0}</Resource>
       <Resource tag="INFORMATION">Information</Resource>
       <Resource tag="LAST_VISIT">Your last visit: {0}.</Resource>
-	  <Resource tag="SHOW_UNREAD_ONLY">Show only Unread Topics.</Resource>
+	    <Resource tag="SHOW_UNREAD_ONLY">Show only Unread Topics.</Resource>
       <Resource tag="LASTPOST">Last Post</Resource>
       <Resource tag="LATEST_POSTS">Latest Posts</Resource>
       <Resource tag="MAIN_FORUM_RSS">Main Forum RSS</Resource>
@@ -2451,8 +2451,9 @@ Spoiler Content
    <page name="MYTOPICS">
       <Resource tag="ACTIVETOPICS">Active Topics</Resource>
       <Resource tag="FAVORITETOPICS">Favorite Topics</Resource>
-	  <Resource tag="MYTOPICS">Topics you've posted in</Resource>
+	    <Resource tag="MYTOPICS">Topics you've posted in</Resource>
       <Resource tag="UNREADTOPICS">Unread Topics</Resource>
+      <Resource tag="UNANSWEREDTOPICS">Unanswered Topics</Resource>
       <Resource tag="BY">by {0}</Resource>
       <Resource tag="LAST_24">( Last 24 Hours )</Resource>
       <Resource tag="LAST_DAY">last day</Resource>
@@ -4831,6 +4832,8 @@ Visit {forumname} at {forumlink}
      <Resource tag="REPUTATION_MIN_HELP">This Value is used to generate the Reputation Bar.</Resource>
      <Resource tag="REPUTATION_MAX">Maximum Positive Reputation Value:</Resource>
      <Resource tag="REPUTATION_MAX_HELP">This Value is used to generate the Reputation Bar.</Resource>
+     <Resource tag="USE_FARSI_CALENDER">Use Farsi (Shamsi) Persian Calender:</Resource>
+     <Resource tag="USE_FARSI_CALENDER_HELP">If enabled the Persian Calender all Date Times are Converted to the Persian Calender.</Resource>
    </page>
 	  <page name="ADMIN_TEST_DATA">
 	   <Resource tag="TITLE">Create Test Data (DEBUG Only)</Resource>
