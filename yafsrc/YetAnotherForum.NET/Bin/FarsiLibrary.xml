@@ -452,37 +452,37 @@
             <property_value>The last year of a 100-year range that can be represented by a 2-digit year.</property_value>
             <remarks>This property allows a 2-digit year to be properly translated to a 4-digit year. For example, if this property is set to 1429, the 100-year range is from 1330 to 1429; therefore, a 2-digit value of 30 is interpreted as 1330, while a 2-digit value of 29 is interpreted as 1429.</remarks>
         </member>
-        <member name="T:FarsiLibrary.Utils.Exceptions.InvalidPersianDateFormatException">
+        <member name="T:FarsiLibrary.Exceptions.InvalidPersianDateFormatException">
             <summary>
             The invalid persian date format exception.
             </summary>
         </member>
-        <member name="M:FarsiLibrary.Utils.Exceptions.InvalidPersianDateFormatException.#ctor(System.String)">
+        <member name="M:FarsiLibrary.Exceptions.InvalidPersianDateFormatException.#ctor(System.String)">
             <summary>
-            Initializes a new instance of the <see cref="T:FarsiLibrary.Utils.Exceptions.InvalidPersianDateFormatException"/> class.
+            Initializes a new instance of the <see cref="T:FarsiLibrary.Exceptions.InvalidPersianDateFormatException"/> class.
             </summary>
             <param name="message">
             The message.
             </param>
         </member>
-        <member name="M:FarsiLibrary.Utils.Exceptions.InvalidPersianDateFormatException.#ctor">
+        <member name="M:FarsiLibrary.Exceptions.InvalidPersianDateFormatException.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:FarsiLibrary.Utils.Exceptions.InvalidPersianDateFormatException"/> class.
+            Initializes a new instance of the <see cref="T:FarsiLibrary.Exceptions.InvalidPersianDateFormatException"/> class.
             </summary>
         </member>
-        <member name="T:FarsiLibrary.Utils.Exceptions.InvalidPersianDateException">
+        <member name="T:FarsiLibrary.Exceptions.InvalidPersianDateException">
             <summary>
             The invalid persian date exception.
             </summary>
         </member>
-        <member name="M:FarsiLibrary.Utils.Exceptions.InvalidPersianDateException.#ctor">
+        <member name="M:FarsiLibrary.Exceptions.InvalidPersianDateException.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:FarsiLibrary.Utils.Exceptions.InvalidPersianDateException"/> class.
+            Initializes a new instance of the <see cref="T:FarsiLibrary.Exceptions.InvalidPersianDateException"/> class.
             </summary>
         </member>
-        <member name="M:FarsiLibrary.Utils.Exceptions.InvalidPersianDateException.#ctor(System.String)">
+        <member name="M:FarsiLibrary.Exceptions.InvalidPersianDateException.#ctor(System.String)">
             <summary>
-            Initializes a new instance of the <see cref="T:FarsiLibrary.Utils.Exceptions.InvalidPersianDateException"/> class.
+            Initializes a new instance of the <see cref="T:FarsiLibrary.Exceptions.InvalidPersianDateException"/> class.
             </summary>
             <param name="message">
             The message.
@@ -649,6 +649,18 @@
             Various Strings that could be translater in Localizers.
             </summary>
         </member>
+        <member name="T:FarsiLibrary.Resources.ENLocalizer">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:FarsiLibrary.Resources.ENLocalizer.GetLocalizedString(FarsiLibrary.Resources.StringID)">
+            <summary>
+            Gets the localized string.
+            </summary>
+            <param name="id">The id.</param>
+            <returns></returns>
+        </member>
         <member name="T:FarsiLibrary.PersianDate">
             <summary>
             PersianDate class to work with dates in Jalali calendar transparently.
@@ -686,7 +698,7 @@
             Constructs a PersianDate instance with values provided in datetime string. You should
             include Date part only in <c>Date</c> and set the Time of the instance as a <c>TimeSpan</c>.
             </summary>
-            <exception cref="T:FarsiLibrary.Utils.Exceptions.InvalidPersianDateException"></exception>
+            <exception cref="T:FarsiLibrary.Exceptions.InvalidPersianDateException"></exception>
             <param name="Date"></param>
             <param name="time"></param>
         </member>
@@ -694,7 +706,7 @@
             <summary>
             Constructs a PersianDate instance with values provided as a string. The provided string should be in format 'yyyy/mm/dd'.
             </summary>
-            <exception cref="T:FarsiLibrary.Utils.Exceptions.InvalidPersianDateException"></exception>
+            <exception cref="T:FarsiLibrary.Exceptions.InvalidPersianDateException"></exception>
             <param name="Date"></param>
         </member>
         <member name="M:FarsiLibrary.PersianDate.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
@@ -722,7 +734,7 @@
             <summary>
             Constructs a PersianDate instance with values specified as <c>Integer</c>.
             </summary>
-            <exception cref="T:FarsiLibrary.Utils.Exceptions.InvalidPersianDateException"></exception>
+            <exception cref="T:FarsiLibrary.Exceptions.InvalidPersianDateException"></exception>
             <param name="year"></param>
             <param name="month"></param>
             <param name="day"></param>
@@ -755,7 +767,7 @@
             Parse a string value into a PersianDate instance. Value could be either in 'yyyy/mm/dd hh:mm:ss' or 'yyyy/mm/dd' formats. If you want to parse <c>Time</c> value too,
             you should set <c>includesTime</c> to <c>true</c>.
             </summary>
-            <exception cref="T:FarsiLibrary.Utils.Exceptions.InvalidPersianDateException"></exception>
+            <exception cref="T:FarsiLibrary.Exceptions.InvalidPersianDateException"></exception>
             <param name="value"></param>
             <param name="includesTime"></param>
             <returns></returns>
@@ -764,7 +776,7 @@
             <summary>
             Parse a string value into a PersianDate instance. Value should be in 'yyyy/mm/dd hh:mm:ss tt' formats.
             </summary>
-            <exception cref="T:FarsiLibrary.Utils.Exceptions.InvalidPersianDateException"></exception>
+            <exception cref="T:FarsiLibrary.Exceptions.InvalidPersianDateException"></exception>
             <param name="value"></param>
             <returns></returns>
         </member>
@@ -772,7 +784,7 @@
             <summary>
             Parse a string value into a PersianDate instance. Value should be in 'yyyy/mm/dd hh:mm tt' formats.
             </summary>
-            <exception cref="T:FarsiLibrary.Utils.Exceptions.InvalidPersianDateException"></exception>
+            <exception cref="T:FarsiLibrary.Exceptions.InvalidPersianDateException"></exception>
             <param name="value"></param>
             <returns></returns>
         </member>
