@@ -6,6 +6,10 @@
   Remove Extra Stuff: SET ANSI_NULLS ON\nGO\nSET QUOTED_IDENTIFIER ON\nGO\n\n\n 
 */
 
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}topic_unanswered]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}topic_unanswered]
+GO
+
 IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_updatefacebookstatus]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_updatefacebookstatus]
 GO
@@ -1915,7 +1919,7 @@ GO
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}board_create](
 	@BoardName 		nvarchar(50),
-	@Culture char(5),
+	@Culture nvarchar(10),
 	@LanguageFile 	nvarchar(50),
 	@MembershipAppName nvarchar(50),
 	@RolesAppName nvarchar(50),
@@ -2163,7 +2167,7 @@ BEGIN
 END
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}board_save](@BoardID int,@Name nvarchar(50), @LanguageFile nvarchar(50), @Culture char(5), @AllowThreaded bit) as
+create procedure [{databaseOwner}].[{objectQualifier}board_save](@BoardID int,@Name nvarchar(50), @LanguageFile nvarchar(50), @Culture nvarchar(10), @AllowThreaded bit) as
 begin
 
 		EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'culture', @Culture, @BoardID
@@ -5547,7 +5551,7 @@ GO
 create procedure [{databaseOwner}].[{objectQualifier}system_initialize](
 	@Name		nvarchar(50),
 	@TimeZone	int,
-	@Culture	char(5),
+	@Culture	nvarchar(10),
 	@LanguageFile nvarchar(50),
 	@ForumEmail	nvarchar(50),
 	@SmtpServer	nvarchar(50),
@@ -5653,7 +5657,7 @@ begin
 		cat.BoardID = @BoardID and
 		(@CategoryID is null or cat.CategoryID=@CategoryID) and
 		c.IsDeleted = 0
-		and	c.TopicMovedID is null 
+		and	c.TopicMovedID is null
 	order by
 		cat.SortOrder asc,
 		d.SortOrder asc,
@@ -7691,7 +7695,7 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}user_save](
 	@Email				nvarchar(255) = null,
 	@TimeZone			int,
 	@LanguageFile		nvarchar(50) = null,
-	@Culture		    char(5) = null,
+	@Culture		    nvarchar(10) = null,
 	@ThemeFile			nvarchar(50) = null,
 	@UseSingleSignOn    bit = null,
 	@TextEditor			nvarchar(50) = null,
@@ -10398,5 +10402,79 @@ create procedure [{databaseOwner}].[{objectQualifier}user_updatefacebookstatus](
 begin
 	
 	update [{databaseOwner}].[{objectQualifier}User] set IsFacebookUser = @IsFacebookUser where UserID = @UserID
+end
+GO
+
+create procedure [{databaseOwner}].[{objectQualifier}topic_unanswered](@BoardID int,@PageUserID int,@Since datetime,@CategoryID int=null, @StyledNicks bit = 0,	@FindLastRead bit = 0) as
+begin
+		select
+		c.ForumID,
+		c.TopicID,
+		c.TopicMovedID,
+		c.Posted,
+		LinkTopicID = IsNull(c.TopicMovedID,c.TopicID),
+		[Subject] = c.Topic,
+		[Description] = c.Description,
+		[Status] = c.Status,
+		c.UserID,
+		Starter = IsNull(c.UserName,b.Name),
+		NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@PageUserID IS NOT NULL AND mes.UserID = @PageUserID) OR (@PageUserID IS NULL)) ),
+		Replies = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=c.TopicID and (x.Flags & 8)=0) - 1,
+		[Views] = c.[Views],
+		LastPosted = c.LastPosted,
+		LastUserID = c.LastUserID,
+		LastUserName = IsNull(c.LastUserName,(select Name from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
+		LastMessageID = c.LastMessageID,
+		LastMessageFlags = c.LastMessageFlags,
+		LastTopicID = c.TopicID,
+		TopicFlags = c.Flags,
+		FavoriteCount = (SELECT COUNT(ID) as [FavoriteCount] FROM [{databaseOwner}].[{objectQualifier}FavoriteTopic] WHERE TopicId = IsNull(c.TopicMovedID,c.TopicID)),
+		c.Priority,
+		c.PollID,
+		ForumName = d.Name,
+		c.TopicMovedID,
+		ForumFlags = d.Flags,
+		FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(c.TopicMovedID,c.TopicID) AND mes2.Position = 0),
+	    StarterStyle = case(@StyledNicks)
+			when 1 then  ISNULL((SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
+		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=c.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
+			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr 
+			join [{databaseOwner}].[{objectQualifier}Rank] r ON r.RankID = usr.RankID  where usr.UserID=c.UserID))  
+			else ''	 end ,
+		LastUserStyle= case(@StyledNicks)
+			when 1 then  ISNULL((SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
+		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=c.LastUserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
+			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr 
+			join [{databaseOwner}].[{objectQualifier}Rank] r ON r.RankID = usr.RankID  where usr.UserID=c.LastUserID))  
+			else ''	 end,
+	    LastForumAccess = case(@FindLastRead)
+		     when 1 then
+		       (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x WHERE x.ForumID=d.ForumID AND x.UserID = @PageUserID)
+		     else ''	 end,
+		LastTopicAccess = case(@FindLastRead)
+		     when 1 then
+		       (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=c.TopicID AND y.UserID = @PageUserID)
+		     else ''	 end
+	from
+		[{databaseOwner}].[{objectQualifier}Topic] c
+		join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
+		join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
+		join [{databaseOwner}].[{objectQualifier}ActiveAccess] x on x.ForumID=d.ForumID
+		join [{databaseOwner}].[{objectQualifier}Category] cat on cat.CategoryID=d.CategoryID
+	where
+		@Since < c.LastPosted and
+		x.UserID = @PageUserID and
+		CONVERT(int,x.ReadAccess) <> 0 and
+		cat.BoardID = @BoardID and
+		(@CategoryID is null or cat.CategoryID=@CategoryID) and
+		c.IsDeleted = 0 and	
+		c.TopicMovedID is null and
+		c.NumPosts = 1
+	order by
+		cat.SortOrder asc,
+		d.SortOrder asc,
+		d.Name asc,
+		Priority desc,
+		LastPosted desc
 end
 GO

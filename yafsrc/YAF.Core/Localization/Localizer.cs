@@ -290,34 +290,44 @@ namespace YAF.Core
 
         string cultureUser = YafContext.Current.CultureUser;
 
-        if (!YafContext.Current.CultureUser.IsSet())
+        if (!cultureUser.IsSet())
         {
             return;
         }
 
-        if (cultureUser.Substring(0, 2).Equals(langCode))
+
+
+        if (cultureUser.Trim().Substring(0, 2).Equals(langCode))
         {
-            this._currentCulture = new CultureInfo(cultureUser);
+            this._currentCulture = new CultureInfo(cultureUser.Trim().Length > 5 ? cultureUser.Trim().Substring(0, 2) : cultureUser.Trim());
         }
     }
 
       /// <summary>
-    /// The load file.
-    /// </summary>
-    /// <exception cref="ApplicationException">
-    /// </exception>
+      /// The load file.
+      /// </summary>
+      /// <exception cref="ApplicationException"></exception>
     private void LoadFile()
     {
       if (this._fileName == string.Empty || !File.Exists(this._fileName))
       {
-        throw new ApplicationException("Invalid language file " + this._fileName);
+        throw new ApplicationException("Invalid language file {0}".FormatWith(this._fileName));
       }
 
       this._localizationLanguageResources = new LocalizerLoader().LoadLanguageFile(
         this._fileName, "LOCALIZATIONFILE{0}".FormatWith(this._fileName));
 
+        var userLanguageCode = this._localizationLanguageResources.code.IsSet()
+                                     ? this._localizationLanguageResources.code.Trim()
+                                     : "en-US";
+
+        if (userLanguageCode.Length > 5)
+        {
+            userLanguageCode = this._localizationLanguageResources.code.Trim().Substring(0, 2);
+        }
+
       this._currentCulture =
-        new CultureInfo(this._localizationLanguageResources.code.IsSet() ? this._localizationLanguageResources.code : "en-US");
+        new CultureInfo(userLanguageCode);
     }
 
     #endregion
