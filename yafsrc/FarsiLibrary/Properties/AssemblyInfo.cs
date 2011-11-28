@@ -10,3 +10,4 @@ using System.Reflection;
 [assembly: CLSCompliant(true)]
 
 [assembly: AssemblyDelaySign(false)]
+[assembly: AssemblyKeyFile("..\\YetAnotherForum.NET.snk")]
