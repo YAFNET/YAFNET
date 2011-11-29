@@ -401,6 +401,7 @@
     <Resource tag="SM_MEDIUM">~/flags/sm.png</Resource>
     <Resource tag="SN_MEDIUM">~/flags/sn.png</Resource>
     <Resource tag="SO_MEDIUM">~/flags/so.png</Resource>
+    <Resource tag="SP_MEDIUM">~/flags/sp.png</Resource>
     <Resource tag="SR_MEDIUM">~/flags/sr.png</Resource>
     <Resource tag="ST_MEDIUM">~/flags/st.png</Resource>
     <Resource tag="SV_MEDIUM">~/flags/sv.png</Resource>

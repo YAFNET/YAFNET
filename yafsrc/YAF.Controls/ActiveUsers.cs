@@ -194,16 +194,17 @@ namespace YAF.Controls
                                 : string.Empty
                     };
                 userLink.ID = "UserLink{0}{1}".FormatWith(this.InstantId, userLink.UserID);
-                // how many users of this type is present (valid for guests, others have it 1)
-                int userCount = row["UserCount"].ToType<int>();
-
-                if (userCount > 1)
-                {
-                    // add postfix if there is more the one user of this name
-                    userLink.PostfixText = " ({0})".FormatWith(userCount);
-                }
+                
+               
             }
 
+            // how many users of this type is present (valid for guests, others have it 1)
+            int userCount = row["UserCount"].ToType<int>();
+            if (userCount > 1 && (!isCrawler || !this.Get<YafBoardSettings>().ShowCrawlersInActiveList))
+            {
+                // add postfix if there is more the one user of this name
+                userLink.PostfixText = " ({0})".FormatWith(userCount);
+            }
 
             // indicates whether user link should be added or not
             bool addControl = true;
