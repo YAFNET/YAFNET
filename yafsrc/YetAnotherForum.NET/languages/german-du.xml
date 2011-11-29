@@ -3561,8 +3561,13 @@ Spoiler Content
 &lt;/ul&gt;</Resource>
     <Resource tag="MYSETTINGSTITLE">Meine Einstellungen (Benutzer Einstellungen)</Resource>
     <Resource tag="NAVIGATION">Inhalt</Resource>
-    <Resource tag="NEWPOSTSCONTENT">&lt;p&gt;Wenn Sie nicht eingeloggt sind wird der &amp;ldquo;Aktive Themen&amp;rdquo; Link  im Kopf der Seite angezeigt, der eine Liste mit allen aktiven Themen zeigt seit  ihren letzten Besuch.&lt;/p&gt;
-&lt;p&gt;Wenn Sie angemeldet sind heißt der Link &amp;bdquo;Meine Themen&amp;ldquo; und  zeigt die Themen die Sie als Favorit gespeichert haben. &lt;/p&gt;</Resource>
+    <Resource tag="NEWPOSTSCONTENT">&lt;p&gt;Wenn Sie nicht eingeloggt sind wird der &amp;ldquo;Aktive Themen&amp;rdquo; Link  im Kopf der Seite angezeigt, der eine Liste zeigt mit allen aktiven Themen seit  ihren letzten Besuch, und Zweiter Reiter (Tab) mit allen unbeantworteten Themen.&lt;/p&gt;
+&lt;p&gt;Wenn Sie angemeldet sind heißt der Link &amp;bdquo;Meine Themen&amp;ldquo; und  enthält 5 Reiter (Tabs)…&lt;/p&gt;
+&lt;li&gt;&lt;strong&gt;Aktive Themen&lt;/strong&gt; - Zeigt eine Liste mit allen aktiven Themen seit  ihren letzten Besuch.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Unbeantwortete Themen&lt;/strong&gt; -  Zeigt eine Liste mit Themen die unbeantwortet sind.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Ungelesene Themen&lt;/strong&gt; -  Zeigt eine Liste mit allen unbeantworteten Themen.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Themen in denen Sie etwas geschrieben haben&lt;/strong&gt; - Zeigt eine Liste mit Themen die Sie erstellt haben, oder in denen Sie eine Beitrag verfasst haben.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Bevorzugte Themen&lt;/strong&gt; - Zeigt eine Liste mit Themen die Sie als Favorit markiert haben.&lt;/li&gt;</Resource>
     <Resource tag="NEWPOSTSTITLE">Neue Beiträge anzeigen</Resource>
     <Resource tag="NORESULTS">Keine Ergebnisse gefunden.</Resource>
     <Resource tag="PMCONTENT">&lt;p&gt;Sie können andere Mitglieder kontaktieren indem Sie eine E-Mail  senden, die finden Sie im Benutzerprofil des Benutzers.&lt;/p&gt;

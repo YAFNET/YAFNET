@@ -3559,10 +3559,15 @@ Spoiler Content
 &lt;/ul&gt;</Resource>
     <Resource tag="MYSETTINGSTITLE">Mijn Instellingen (Gebruiker Configuratiescherm)</Resource>
     <Resource tag="NAVIGATION">Navigatie</Resource>
-    <Resource tag="NEWPOSTSCONTENT">&lt;p&gt;Als je niet bent ingelogd, laat de 'Aktieve Topics' link in de bovenbalk een lijst zien van alle topics die zijn aangemaakt of waarop gereageerd is, sinds het begin van je huidige bezoek.&lt;/p&gt;
-&lt;p&gt;Als je wel bent ingelogd, zal de 'Aktieve Topics' link veranderen in 'Mijn Topics', en geeft je vervolgens een lijst met Topics die zijn aangemaakt, of waarop is gereageerd is sinds je laatste bezoek.&lt;/p&gt;
-&lt;p&gt;De Beheerder kan ook het forum zo instellen, dat elk Topic dat je leest wordt gemarkeerd als gelezen in de database. Als deze optie aanstaan, zullen nieuwe topics (of topics met nieuwe berichten) niet als gelezen worden gezet, todat je ze daadwerkelijk hebt gelezen.&lt;/p&gt;
-&lt;p&gt;Er zal ook een link zijn genaamd 'Favoriete Topics'. Dit zijn Topics die je hebt gemarkeerd als Favoriet.&lt;/p&gt;</Resource>
+    <Resource tag="NEWPOSTSCONTENT">
+      &lt;p&gt;If you are  not logged in, the 'Active Topics' link in the Header will show a list of all  topics that have been created or updated since your last visit, and on the  Second Tab there is a List with showing all Unanswered Topics.&lt;/p&gt;
+      &lt;p&gt;If you are  logged in, the 'Active Topics' link will change to 'My Topics'. On the My  Topics Page there are 5 Tabs that shows the…&lt;/p&gt;
+      &lt;li&gt;&lt;strong&gt;Active Topics&lt;/strong&gt; - Show a list of all  topics that have been created or updated since your last visit.&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Unanswered Topics&lt;/strong&gt; - Shows all Topics which have no Replies.&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Unread Topics&lt;/strong&gt; - Shows all Topics containing unread messages.&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Topics you've posted in&lt;/strong&gt; - Shows all Topics you have created or posted in.&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Favorite Topics&lt;/strong&gt; - Shows all Topics which you have  tagged as Favorite Topic.&lt;/li&gt;
+    </Resource>
     <Resource tag="NEWPOSTSTITLE">Bekijken van nieuwe berichten</Resource>
     <Resource tag="NORESULTS">Geen resultaten gevonden.</Resource>
     <Resource tag="PMCONTENT">berichten (PB's)?&lt;/strong&gt;&lt;/p&gt;

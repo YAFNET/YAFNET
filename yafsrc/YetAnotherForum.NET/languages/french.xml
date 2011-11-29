@@ -3585,9 +3585,15 @@ Spoiler Content
 &lt;/ul&gt;</Resource>
     <Resource tag="MYSETTINGSTITLE">My Settings (User Control Panel)</Resource>
     <Resource tag="NAVIGATION">Navigation</Resource>
-    <Resource tag="NEWPOSTSCONTENT">&lt;p&gt;If you are not logged in, the 'Active Topics' link in the Header, will show a list of all topics that have been created or updated since your last visit.&lt;/p&gt;
-&lt;p&gt;If you are logged in, the 'Active Topics' link will change to 'My Topics', which gives you a listing of all topics that have been created or updated since your last visit.&lt;/p&gt;
-&lt;p&gt;There will be also an Second Tab 'Favorite Topics' which shows all Topics which you have tagged as Favorite Topic.&lt;/p&gt;</Resource>
+    <Resource tag="NEWPOSTSCONTENT">
+      &lt;p&gt;If you are  not logged in, the 'Active Topics' link in the Header will show a list of all  topics that have been created or updated since your last visit, and on the  Second Tab there is a List with showing all Unanswered Topics.&lt;/p&gt;
+      &lt;p&gt;If you are  logged in, the 'Active Topics' link will change to 'My Topics'. On the My  Topics Page there are 5 Tabs that shows the…&lt;/p&gt;
+      &lt;li&gt;&lt;strong&gt;Active Topics&lt;/strong&gt; - Show a list of all  topics that have been created or updated since your last visit.&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Unanswered Topics&lt;/strong&gt; - Shows all Topics which have no Replies.&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Unread Topics&lt;/strong&gt; - Shows all Topics containing unread messages.&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Topics you've posted in&lt;/strong&gt; - Shows all Topics you have created or posted in.&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Favorite Topics&lt;/strong&gt; - Shows all Topics which you have  tagged as Favorite Topic.&lt;/li&gt;
+    </Resource>
     <Resource tag="NEWPOSTSTITLE">Viewing New Posts</Resource>
     <Resource tag="NORESULTS">No Results found.</Resource>
     <Resource tag="PMCONTENT">&lt;p&gt;You can contact another by sending an E-Mail, you find them on the member list.&lt;/p&gt;

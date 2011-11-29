@@ -78,9 +78,16 @@
   &lt;li&gt;&lt;strong&gt;Threaded&lt;/strong&gt; - A tree is shown along with every post. This shows you the relationship each post has to the others. It&#39;s easy to see who responded to whom. Only one post is shown at a time. By clicking on a single post in the post tree, the page will show that post and all posts made in response to it.&lt;/li&gt;
 &lt;/ul&gt;
 </Resource>
-        <Resource tag="NEWPOSTSCONTENT">&lt;p&gt;If you are not logged in, the &#39;Active Topics&#39; link in the Header, will show a list of all topics that have been created or updated since your last visit.&lt;/p&gt;
-&lt;p&gt;If you are logged in, the &#39;Active Topics&#39; link will change to &#39;My Topics&#39;, which gives you a listing of all topics that have been created or updated since your last visit.&lt;/p&gt;
-&lt;p&gt;There will be also an Second Tab &#39;Favorite Topics&#39; which shows all Topics which you have tagged as Favorite Topic.&lt;/p&gt;</Resource>
+      <Resource tag="NEWPOSTSCONTENT">
+        &lt;p&gt;If you are  not logged in, the &#39;Active Topics&#39; link in the Header will show a list of all  topics that have been created or updated since your last visit, and on the  Second Tab there is a List with showing all Unanswered Topics.&lt;/p&gt;
+        &lt;p&gt;If you are  logged in, the &#39;Active Topics&#39; link will change to &#39;My Topics&#39;. On the My  Topics Page there are 5 Tabs that shows the…&lt;/p&gt;
+        &lt;li&gt;&lt;strong&gt;Active Topics&lt;/strong&gt; - Show a list of all  topics that have been created or updated since your last visit.&lt;/li&gt;
+        &lt;li&gt;&lt;strong&gt;Unanswered Topics&lt;/strong&gt; - Shows all Topics which have no Replies.&lt;/li&gt;
+        &lt;li&gt;&lt;strong&gt;Unread Topics&lt;/strong&gt; - Shows all Topics containing unread messages.&lt;/li&gt;
+        &lt;li&gt;&lt;strong&gt;Topics you&#39;ve posted in&lt;/strong&gt; - Shows all Topics you have created or posted in.&lt;/li&gt;
+        &lt;li&gt;&lt;strong&gt;Favorite Topics&lt;/strong&gt; - Shows all Topics which you have  tagged as Favorite Topic.&lt;/li&gt;
+      </Resource>
+	  <Resource tag="NEWPOSTSTITLE">Viewing New Posts</Resource>
         <Resource tag="THREADOPTCONTENT">&lt;p&gt;At the top of each Topic, there is a link  &#39;Options&#39;. By clicking on this link, a menu will appear with a number of options:&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;strong&gt;Watch this topic&lt;/strong&gt; - by subscribing to a thread, you will receive periodic email updates on recent activity within it.&lt;/li&gt;
@@ -2451,7 +2458,7 @@ Spoiler Content
    <page name="MYTOPICS">
       <Resource tag="ACTIVETOPICS">Active Topics</Resource>
       <Resource tag="FAVORITETOPICS">Favorite Topics</Resource>
-	    <Resource tag="MYTOPICS">Topics you've posted in</Resource>
+	  <Resource tag="MYTOPICS">Topics you've posted in</Resource>
       <Resource tag="UNREADTOPICS">Unread Topics</Resource>
       <Resource tag="UNANSWEREDTOPICS">Unanswered Topics</Resource>
       <Resource tag="BY">by {0}</Resource>
