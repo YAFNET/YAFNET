@@ -2068,10 +2068,12 @@ BEGIN
 	)
 END
 GO
+exec('[{databaseOwner}].[{objectQualifier}drop_defaultconstraint_oncolumn] {objectQualifier}User, Culture')
+GO
 
 -- Add 8-letter Language Code column
 if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Culture' and prec=5)
 begin
-	alter table [{databaseOwner}].[{objectQualifier}User] alter column [Culture] nvarchar(10) NULL
+	alter table [{databaseOwner}].[{objectQualifier}User] alter column [Culture] varchar(10) NULL
 end
 GO

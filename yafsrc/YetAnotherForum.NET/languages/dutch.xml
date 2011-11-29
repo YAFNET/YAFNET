@@ -1973,6 +1973,7 @@
     <Resource tag="MA">MOROCCO</Resource>
     <Resource tag="MC">MONACO</Resource>
     <Resource tag="MD">MOLDOVA, REPUBLIC OF</Resource>
+    <Resource tag="ME">MONTENEGRO</Resource>
     <Resource tag="MG">MADAGASCAR</Resource>
     <Resource tag="MH">MARSHALL ISLANDS</Resource>
     <Resource tag="MK">MACEDONIA</Resource>
@@ -2036,6 +2037,7 @@
     <Resource tag="SM">SAN MARINO</Resource>
     <Resource tag="SN">SENEGAL</Resource>
     <Resource tag="SO">SOMALIA</Resource>
+    <Resource tag="SP">SERBIA</Resource>
     <Resource tag="SR">SURINAME</Resource>
     <Resource tag="ST">SAO TOME AND PRINCIPE</Resource>
     <Resource tag="SV">EL SALVADOR</Resource>

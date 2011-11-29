@@ -1901,6 +1901,7 @@ Spoiler Content
     <Resource tag="FM">MICRONESIA, FEDERATED STATES OF</Resource>
     <Resource tag="MD">MOLDOVA, REPUBLIC OF</Resource>
     <Resource tag="MC">MONACO</Resource>
+    <Resource tag="ME">MONTENEGRO</Resource>
     <Resource tag="MN">MONGOLIA</Resource>
     <Resource tag="MS">MONTSERRAT</Resource>
     <Resource tag="MA">MOROCCO</Resource>
@@ -1950,8 +1951,9 @@ Spoiler Content
     <Resource tag="SG">SINGAPORE</Resource>
     <Resource tag="SK">SLOVAKIA </Resource>
     <Resource tag="SI">SLOVENIA</Resource>
-    <Resource tag="SB">SOLOMON ISLANDS</Resource>
+    <Resource tag="SB">SOLOMON ISLANDS</Resource>    
     <Resource tag="SO">SOMALIA</Resource>
+    <Resource tag="SP">SERBIA</Resource>
     <Resource tag="ZA">SOUTH AFRICA</Resource>
     <Resource tag="GS">SOUTH GEORGIA AND SOUTH S.S.</Resource>
     <Resource tag="ES">SPAIN</Resource>

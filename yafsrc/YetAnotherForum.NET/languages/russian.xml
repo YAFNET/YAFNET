@@ -1983,6 +1983,7 @@
     <Resource tag="MA">Марокко</Resource>
     <Resource tag="MC">Монако</Resource>
     <Resource tag="MD">Молдова</Resource>
+    <Resource tag="ME">Черногория</Resource>
     <Resource tag="MG">Мадагаскар</Resource>
     <Resource tag="MH">Маршалловы Острова</Resource>
     <Resource tag="MK">Македония</Resource>
@@ -2046,6 +2047,7 @@
     <Resource tag="SM">Сан Марино</Resource>
     <Resource tag="SN">Сенегал</Resource>
     <Resource tag="SO">Сомали</Resource>
+    <Resource tag="SP">Сербия</Resource>
     <Resource tag="SR">Суринам</Resource>
     <Resource tag="ST">Сао Том и принсипе</Resource>
     <Resource tag="SV">Сальвадор</Resource>
