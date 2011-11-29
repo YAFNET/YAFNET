@@ -1919,7 +1919,7 @@ GO
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}board_create](
 	@BoardName 		nvarchar(50),
-	@Culture nvarchar(10),
+	@Culture varchar(10),
 	@LanguageFile 	nvarchar(50),
 	@MembershipAppName nvarchar(50),
 	@RolesAppName nvarchar(50),
@@ -2167,7 +2167,7 @@ BEGIN
 END
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}board_save](@BoardID int,@Name nvarchar(50), @LanguageFile nvarchar(50), @Culture nvarchar(10), @AllowThreaded bit) as
+create procedure [{databaseOwner}].[{objectQualifier}board_save](@BoardID int,@Name nvarchar(50), @LanguageFile nvarchar(50), @Culture varchar(10), @AllowThreaded bit) as
 begin
 
 		EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'culture', @Culture, @BoardID
@@ -5551,7 +5551,7 @@ GO
 create procedure [{databaseOwner}].[{objectQualifier}system_initialize](
 	@Name		nvarchar(50),
 	@TimeZone	int,
-	@Culture	nvarchar(10),
+	@Culture	varchar(10),
 	@LanguageFile nvarchar(50),
 	@ForumEmail	nvarchar(50),
 	@SmtpServer	nvarchar(50),
@@ -7695,7 +7695,7 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}user_save](
 	@Email				nvarchar(255) = null,
 	@TimeZone			int,
 	@LanguageFile		nvarchar(50) = null,
-	@Culture		    nvarchar(10) = null,
+	@Culture		    varchar(10) = null,
 	@ThemeFile			nvarchar(50) = null,
 	@UseSingleSignOn    bit = null,
 	@TextEditor			nvarchar(50) = null,

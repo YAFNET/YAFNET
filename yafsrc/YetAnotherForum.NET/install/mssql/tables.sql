@@ -424,7 +424,7 @@ if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseO
 		[IsActiveExcluded] AS (CONVERT([bit],sign([Flags]&(16)),(0))),
 		[IsDST]	AS (CONVERT([bit],sign([Flags]&(32)),(0))),
 		[IsDirty]	AS (CONVERT([bit],sign([Flags]&(64)),(0))),
-		[Culture] nvarchar (10) DEFAULT (10),
+		[Culture] varchar (10) DEFAULT (10),
 		[IsFacebookUser][bit] NOT NULL CONSTRAINT [DF_{objectQualifier}User_IsFacebookUser] DEFAULT (0),
 )
 GO
@@ -1023,7 +1023,7 @@ GO
 -- Add 8-letter Language Code column
 if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Culture')
 begin
-	alter table [{databaseOwner}].[{objectQualifier}User] add Culture nvarchar(10) NULL
+	alter table [{databaseOwner}].[{objectQualifier}User] add Culture varchar(10) NULL
 end
 GO
 
