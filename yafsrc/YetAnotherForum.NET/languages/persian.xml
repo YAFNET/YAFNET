@@ -776,8 +776,6 @@
   <page name="ADMIN_HOSTSETTINGS">
     <Resource tag="ABANDON_TRACKUSR">برای کاربران "بدون پیگرد" جلسه حذف شود:</Resource>
     <Resource tag="ABANDON_TRACKUSR_HELP">جلسات را به صورت خودکار برای کاربرانی که علامت "بدون پیگرد" دارند نظیر موتورهای جستجو و بوت ها، حذف می کند.</Resource>
-    <Resource tag="ACCEPT_HEADER_HTML">تگ های سرانداز HTML مجاز :</Resource>
-    <Resource tag="ACCEPT_HEADER_HTML_HELP">تگ های مجاز HTML که با کاما و نه فاصله جدا شده اند برای صدور مجوز استفاده در ویرایشگر ها.</Resource>
     <Resource tag="ACCEPT_HTML">تگ های HTML مجاز :</Resource>
     <Resource tag="ACCEPT_HTML_HELP">تگ های مجاز HTML که با کاما و نه فاصله جدا شده اند برای صدور مجوز استفاده در ویرایشگر ها.</Resource>
     <Resource tag="ACTIVE_USERTIME">زمان کاربران فعال :</Resource>
@@ -1205,6 +1203,8 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT_HELP">به دقیقه</Resource>
     <Resource tag="STYLED_NICKS">از نیک های حالت دار استفاده کن:</Resource>
     <Resource tag="STYLED_NICKS_HELP">در صورت علامت زدن می توانید رنگ، قلم و اندازه برای نیک کاربران فعال استفاده نمائید.</Resource>
+    <Resource tag="STYLED_TOPIC_TITLES">Use styled Topic Titles:</Resource>
+    <Resource tag="STYLED_TOPIC_TITLES_HELP">If checked, Mods and Admins can use colors, font size change etc. for topic titles.</Resource>
     <Resource tag="THANKS_FROM_TEMPLATE">قالب قدردانی ها از :</Resource>
     <Resource tag="THANKS_FROM_TEMPLATE_HELP">قالبی که قدردانی های شده از کاربر بر اساس آن تولید می شود.</Resource>
     <Resource tag="THANKS_TO_TEMPLATE">قالب قدردانی ها:</Resource>

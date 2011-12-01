@@ -1202,6 +1202,8 @@
     <Resource tag="STATS_CACHE_TIMEOUT_HELP">In minuten</Resource>
     <Resource tag="STYLED_NICKS">Gebruik opgemaakte aliassen:</Resource>
     <Resource tag="STYLED_NICKS_HELP">Als aangevinkt, kun je kleuren, lettergroottes, etc. gebruiken voor actieve gebruikers.</Resource>
+    <Resource tag="STYLED_TOPIC_TITLES">Use styled Topic Titles:</Resource>
+    <Resource tag="STYLED_TOPIC_TITLES_HELP">If checked, Mods and Admins can use colors, font size change etc. for topic titles.</Resource>
     <Resource tag="THANKS_FROM_TEMPLATE">Bedankt door template:</Resource>
     <Resource tag="THANKS_FROM_TEMPLATE_HELP">Template om 'Bedankt van' op te bouwen.</Resource>
     <Resource tag="THANKS_TO_TEMPLATE">Bedankt aan template:</Resource>

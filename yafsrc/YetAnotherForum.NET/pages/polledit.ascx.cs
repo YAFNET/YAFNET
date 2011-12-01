@@ -177,55 +177,12 @@ namespace YAF.Pages
                     return false;
                 }
 
-                // If it's admin or moderator we don't check tags
-                /* if (!PageContext.IsAdmin || PageContext.IsForumModerator)
-                {
-                    string tagPoll = this.Get<IFormatMessage>().CheckHtmlTags(this.Question.Text.Trim(),
-                                                                    this.Get<YafBoardSettings>().AcceptedHeadersHTML, ',');
-
-                    if (tagPoll.IsSet())
-                    {
-                        this.PageContext.AddLoadMessage(tagPoll);
-                        return false;
-                    }
-                }
-                 */
-
                 this.Question.Text = HtmlHelper.StripHtml(this.Question.Text);
 
                 int notNullcount =
                     (from RepeaterItem ri in this.ChoiceRepeater.Items
                      select ((TextBox)ri.FindControl("PollChoice")).Text.Trim()).Count(
                          value => !string.IsNullOrEmpty(value));
-
-                /*foreach (RepeaterItem ri in this.ChoiceRepeater.Items)
-                {
-                    string value = ((TextBox)ri.FindControl("PollChoice")).Text.Trim();
-
-                    if (string.IsNullOrEmpty(value))
-                    {
-                        continue;
-                    }
-
-                    notNullcount++;
-
-                    // If it's admin or moderator we don't check tags
-                    if (this.PageContext.IsAdmin && !this.PageContext.IsForumModerator)
-                    {
-                        continue;
-                    }
-
-                    string tagChoice = this.Get<IFormatMessage>().CheckHtmlTags(
-                        value, this.Get<YafBoardSettings>().AcceptedHeadersHTML, ',');
-
-                    if (!tagChoice.IsSet())
-                    {
-                        continue;
-                    }
-
-                    this.PageContext.AddLoadMessage(tagChoice);
-                    return false;
-                }*/
 
                 if (notNullcount < 2)
                 {

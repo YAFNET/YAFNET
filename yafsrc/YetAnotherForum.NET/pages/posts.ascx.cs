@@ -24,7 +24,6 @@ namespace YAF.Pages
     #region Using
 
     using System;
-    using System.Collections.Generic;
     using System.Data;
     using System.IO;
     using System.Linq;
@@ -311,11 +310,7 @@ namespace YAF.Pages
 
             html.AppendFormat(
                 " - {0})</span>",
-                new DisplayDateTime
-                    {
-                        DateTime = row["Posted"],
-                        Format = DateTimeFormat.BothTopic
-                    }.RenderToString());
+                new DisplayDateTime { DateTime = row["Posted"], Format = DateTimeFormat.BothTopic }.RenderToString());
 
             html.AppendFormat("</td></tr>");
 
@@ -605,16 +600,39 @@ namespace YAF.Pages
                 this.PageLinks.AddLink(
                     this.Get<IBadWordReplace>().Replace(this.Server.HtmlDecode(this.PageContext.PageTopicName)), string.Empty);
 
+                var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this._topic["Topic"]));
+
+                if (this._topic["Status"].ToString().IsSet() && this.Get<YafBoardSettings>().EnableTopicStatus)
+                {
+                    var topicStatusIcon = this.Get<ITheme>().GetItem("TOPIC_STATUS", this._topic["Status"].ToString());
+
+                    if (topicStatusIcon.IsSet() && !topicStatusIcon.Contains("[TOPIC_STATUS."))
+                    {
+                        topicSubject =
+                            "<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" style=\"border: 0;width:16px;height:16px\" />&nbsp;{2}"
+                                .FormatWith(
+                                    this.Get<ITheme>().GetItem("TOPIC_STATUS", this._topic["Status"].ToString()),
+                                    this.GetText("TOPIC_STATUS", this._topic["Status"].ToString()),
+                                    topicSubject);
+                    }
+                    else
+                    {
+                        topicSubject = "[{0}]&nbsp;{1}".FormatWith(
+                        this.GetText("TOPIC_STATUS", this._topic["Status"].ToString()),
+                        topicSubject);
+                    }
+                }
+
                 if (!this._topic["Description"].IsNullOrEmptyDBField() && this.Get<YafBoardSettings>().EnableTopicDescription)
                 {
                     this.TopicTitle.Text =
                         "{0} - <em>{1}</em>".FormatWith(
-                            this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this._topic["Topic"])),
+                            topicSubject,
                             this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this._topic["Description"])));
                 }
                 else
                 {
-                    this.TopicTitle.Text = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this._topic["Topic"]));
+                    this.TopicTitle.Text = this.Get<IBadWordReplace>().Replace(topicSubject);
                 }
 
                 this.ViewOptions.Visible = this.Get<YafBoardSettings>().AllowThreaded;
@@ -714,8 +732,7 @@ namespace YAF.Pages
                     Microsoft.JScript.GlobalObject.escape(message),
                     Microsoft.JScript.GlobalObject.escape(description),
                     this.Get<HttpRequestBase>().Url.ToString(),
-                    "{0}/YAFLogo.jpg".FormatWith(
-                        Path.Combine(YafForumInfo.ForumBaseUrl, YafBoardFolders.Current.Images)),
+                    "{0}/YAFLogo.jpg".FormatWith(Path.Combine(YafForumInfo.ForumBaseUrl, YafBoardFolders.Current.Images)),
                     "Logo"));
         }
 
@@ -832,8 +849,6 @@ namespace YAF.Pages
             }
 
             this.HandleWatchTopic();
-
-            //this.BindData();
         }
 
         /// <summary>
@@ -1403,8 +1418,7 @@ namespace YAF.Pages
                         var tweetUrl =
                             "http://twitter.com/share?url={0}&text={1}".FormatWith(
                                 this.Server.UrlEncode(this.Get<HttpRequestBase>().Url.ToString()),
-                                this.Server.UrlEncode(
-                                    "RT {1}Thread: {0}".FormatWith(twitterMsg.Truncate(100), twitterName)));
+                                this.Server.UrlEncode("RT {1}Thread: {0}".FormatWith(twitterMsg.Truncate(100), twitterName)));
 
                         this.Get<HttpResponseBase>().Redirect(tweetUrl);
                     }

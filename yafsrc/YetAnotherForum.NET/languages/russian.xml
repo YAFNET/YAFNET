@@ -777,8 +777,6 @@
   <page name="ADMIN_HOSTSETTINGS">
     <Resource tag="ABANDON_TRACKUSR">Сбрасывать сессии для пользователей, которые не отслеживаются:</Resource>
     <Resource tag="ABANDON_TRACKUSR_HELP">Автоматически сбрасывать сессии для пользователей, которые не отслеживаются, например ботов и  т.д. Используется только если возникают пробеомы с сессиями.</Resource>
-    <Resource tag="ACCEPT_HEADER_HTML">Допустимые теги HTML заголовков:</Resource>
-    <Resource tag="ACCEPT_HEADER_HTML_HELP">Разделённый запятыми список тегов HTML, которые разрешены в заголовках постов для обычных пользователй.</Resource>
     <Resource tag="ACCEPT_HTML">Допустимые теги HTML:</Resource>
     <Resource tag="ACCEPT_HTML_HELP">Разделённый запятыми список тегов HTML, которые разрешены в тексте сообщений при использовании редакторов HTML.</Resource>
     <Resource tag="ACTIVE_USERTIME">Время списка активных пользователей:</Resource>
@@ -1203,6 +1201,8 @@
     <Resource tag="STATS_CACHE_TIMEOUT_HELP">В минутах</Resource>
     <Resource tag="STYLED_NICKS">Использовать стилизированные ники:</Resource>
     <Resource tag="STYLED_NICKS_HELP">Если включено, вы можете использовать цыета или иное форматирование для ников пользователей. Может быть индивидуальным для каждого скина.</Resource>
+    <Resource tag="STYLED_TOPIC_TITLES">Use styled Topic Titles:</Resource>
+    <Resource tag="STYLED_TOPIC_TITLES_HELP">If checked, Mods and Admins can use colors, font size change etc. for topic titles.</Resource>
     <Resource tag="THANKS_FROM_TEMPLATE">Шаблон для отображения «Спасибо» пользователю:</Resource>
     <Resource tag="THANKS_FROM_TEMPLATE_HELP">Шаблон для отображения Спасибо пользователю.</Resource>
     <Resource tag="THANKS_TO_TEMPLATE">Шаблон для отображения «Спасибо»:</Resource>

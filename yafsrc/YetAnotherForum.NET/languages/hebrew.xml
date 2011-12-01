@@ -800,8 +800,6 @@
   <page name="ADMIN_HOSTSETTINGS">
     <Resource tag="ABANDON_TRACKUSR">Abandon Sessions for "Don't Track" Users:</Resource>
     <Resource tag="ABANDON_TRACKUSR_HELP">Automatically abandon sessions for users who are marked as "Don't Track" such as Search Engines and Bots. Enable if you're having any session issues.</Resource>
-    <Resource tag="ACCEPT_HEADER_HTML">Accepted Header HTML Tags:</Resource>
-    <Resource tag="ACCEPT_HEADER_HTML_HELP">Comma separated list (no spaces) of HTML tags that are allowed in posts headers for common users editors.</Resource>
     <Resource tag="ACCEPT_HTML">Accepted HTML Tags:</Resource>
     <Resource tag="ACCEPT_HTML_HELP">Comma separated list (no spaces) of HTML tags that are allowed in posts using HTML editors.</Resource>
     <Resource tag="ACTIVE_USERTIME">Active Users Time:</Resource>
@@ -1226,6 +1224,8 @@
     <Resource tag="STATS_CACHE_TIMEOUT_HELP">In minutes</Resource>
     <Resource tag="STYLED_NICKS">Use styled nicks:</Resource>
     <Resource tag="STYLED_NICKS_HELP">If checked, you can use colors, font size change etc. for active users nicks.</Resource>
+    <Resource tag="STYLED_TOPIC_TITLES">Use styled Topic Titles:</Resource>
+    <Resource tag="STYLED_TOPIC_TITLES_HELP">If checked, Mods and Admins can use colors, font size change etc. for topic titles.</Resource>
     <Resource tag="THANKS_FROM_TEMPLATE">Thanks From template:</Resource>
     <Resource tag="THANKS_FROM_TEMPLATE_HELP">Template for rendering user's thanks from.</Resource>
     <Resource tag="THANKS_TO_TEMPLATE">Thanks To template:</Resource>

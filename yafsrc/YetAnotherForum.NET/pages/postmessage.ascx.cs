@@ -560,6 +560,16 @@ namespace YAF.Pages
                     this.TopicStatus.SelectedIndex = 0;
                 }
 
+                // Allow the Styling of Topic Titles only for Mods or Admins
+                if (this.Get<YafBoardSettings>().UseStyledTopicTitles && (this.PageContext.ForumModeratorAccess || this.PageContext.IsAdmin))
+                {
+                   this.StyleRow.Visible = true;
+                }
+                else
+                {
+                    this.StyleRow.Visible = false;
+                }
+
                 this.EditReasonRow.Visible = false;
 
                 this.PriorityRow.Visible = this.PageContext.ForumPriorityAccess;
@@ -724,6 +734,7 @@ namespace YAF.Pages
 
             string subjectSave = string.Empty;
             string descriptionSave = string.Empty;
+            string stylesSave = string.Empty;
 
             if (this.TopicSubjectTextBox.Enabled)
             {
@@ -733,6 +744,11 @@ namespace YAF.Pages
             if (this.TopicDescriptionTextBox.Enabled)
             {
                 descriptionSave = this.TopicDescriptionTextBox.Text;
+            }
+
+            if (this.TopicStylesTextBox.Enabled)
+            {
+                stylesSave = this.TopicStylesTextBox.Text;
             }
 
             // Mek Suggestion: This should be removed, resetting flags on edit is a bit lame.
@@ -753,6 +769,7 @@ namespace YAF.Pages
                 this._forumEditor.Text.Trim(),
                 descriptionSave.Trim(),
                 this.TopicStatus.SelectedValue.Equals("-1") || this.TopicStatus.SelectedIndex.Equals(0) ? string.Empty : this.TopicStatus.SelectedValue,
+                stylesSave.Trim(),
                 subjectSave.Trim(),
                 messageFlags.BitValue,
                 this.HtmlEncode(this.ReasonEditor.Text),
@@ -832,6 +849,7 @@ namespace YAF.Pages
               this.PageContext.PageForumID,
               this.TopicSubjectTextBox.Text.Trim(),
               this.TopicStatus.SelectedValue.Equals("-1") || this.TopicStatus.SelectedIndex.Equals(0) ? string.Empty : this.TopicStatus.SelectedValue,
+              this.TopicStylesTextBox.Text.Trim(),
               this.TopicDescriptionTextBox.Text.Trim(),
               this._forumEditor.Text,
               this.PageContext.PageUserID,
@@ -969,46 +987,6 @@ namespace YAF.Pages
                     }
                 }
             }
-
-
-            // tha_watcha : Temp Remove of the html tags in topic titles
-            /*if (this.PageContext.IsModerator || this.PageContext.IsForumModerator || this.PageContext.IsAdmin)
-            {
-                string tag = this.Get<IFormatMessage>().CheckHtmlTags(
-                  this.TopicSubjectTextBox.Text, this.Get<YafBoardSettings>().AcceptedHeadersHTML, ',');
-
-                if (tag.IsSet())
-                {
-                    this.PageContext.AddLoadMessage(tag);
-
-                    this.TopicSubjectTextBox.Text = this.Get<IFormatMessage>().RepairHtml(
-                        this.TopicSubjectTextBox.Text, true, this.Get<YafBoardSettings>().AcceptedHeadersHTML.Split(','));
-
-                    return;
-                }
-
-                tag = this.Get<IFormatMessage>().CheckHtmlTags(
-                    this.TopicDescriptionTextBox.Text, this.Get<YafBoardSettings>().AcceptedHeadersHTML, ',');
-
-                if (tag.IsSet())
-                {
-                    this.PageContext.AddLoadMessage(tag);
-
-                    this.TopicDescriptionTextBox.Text =
-                        this.Get<IFormatMessage>().RepairHtml(
-                            this.TopicDescriptionTextBox.Text,
-                            true,
-                            this.Get<YafBoardSettings>().AcceptedHeadersHTML.Split(','));
-
-                    return;
-                }
-            }
-            else
-            {
-                // vzrus: Common users should not use HTML tags in a topic header if not allowed
-                this.TopicSubjectTextBox.Text = HtmlHelper.StripHtml(this.TopicSubjectTextBox.Text);
-                this.TopicDescriptionTextBox.Text = HtmlHelper.StripHtml(this.TopicDescriptionTextBox.Text);
-            }*/
 
             // vzrus: automatically strip html tags from Topic Titles and Description
             this.TopicSubjectTextBox.Text = HtmlHelper.StripHtml(this.TopicSubjectTextBox.Text);
@@ -1439,6 +1417,19 @@ namespace YAF.Pages
                 this.TopicStatus.Enabled = false;
             }
 
+            // Allow the Styling of Topic Titles only for Mods or Admins
+            if (this.Get<YafBoardSettings>().UseStyledTopicTitles && (this.PageContext.ForumModeratorAccess || this.PageContext.IsAdmin))
+            {
+                this.StyleRow.Visible = true;
+            }
+            else
+            {
+                this.StyleRow.Visible = false;
+                this.TopicStylesTextBox.Enabled = false;
+            }
+
+            this.TopicStylesTextBox.Text = currentMessage.Styles;
+
             this.Priority.SelectedItem.Selected = false;
             this.Priority.Items.FindByValue(currentMessage.Priority.ToString()).Selected = true;
 
@@ -1446,6 +1437,7 @@ namespace YAF.Pages
             {
                 this.TopicStatus.SelectedItem.Selected = false;
             }
+
             if (this.TopicStatus.Items.FindByValue(currentMessage.Status) != null)
             {
                 this.TopicStatus.Items.FindByValue(currentMessage.Status).Selected = true;
@@ -1516,6 +1508,7 @@ namespace YAF.Pages
             this.SubjectRow.Visible = false;
             this.DescriptionRow.Visible = false;
             this.StatusRow.Visible = false;
+            this.StyleRow.Visible = false;
             this.Title.Text = this.GetText("reply");
 
             // add topic link...

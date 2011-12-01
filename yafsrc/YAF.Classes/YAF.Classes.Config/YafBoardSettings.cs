@@ -2802,6 +2802,22 @@ namespace YAF.Classes
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether Use Styled Topic Titles.
+        /// </summary>
+        public bool UseStyledTopicTitles
+        {
+            get
+            {
+                return this._reg.GetValue("UseStyledTopicTitles", false);
+            }
+
+            set
+            {
+                this._reg.SetValue("UseStyledTopicTitles", value);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether ShowUserOnlineStatus.
         /// </summary>
         public bool ShowUserOnlineStatus
@@ -2848,7 +2864,6 @@ namespace YAF.Classes
                 this._reg.SetValue("EnableThanksMod", value);
             }
         }
-
 
         /// <summary>
         /// Gets or sets a value indicating whether EnableBuddyList.
@@ -3466,23 +3481,6 @@ namespace YAF.Classes
                 this._reg.SetValue("AcceptedHTML", value.ToLower());
             }
         }
-
-        /*
-        /// <summary>
-        /// Gets or sets AcceptedHeadersHTML.
-        /// </summary>
-        public string AcceptedHeadersHTML
-        {
-            get
-            {
-                return this._reg.GetValue("AcceptedHeadersHTML", string.Empty);
-            }
-
-            set
-            {
-                this._reg.SetValue("AcceptedHeadersHTML", value.ToLower());
-            }
-        }*/
 
         /// <summary>
         /// Gets or sets AdPost.

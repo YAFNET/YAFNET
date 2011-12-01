@@ -4599,8 +4599,8 @@ Visit {forumname} at {forumlink}
        <Resource tag="FORUM_EDITOR_HELP">Select global editor type for your forum. To use the HTML editors (FCK and FreeTextBox) the .bin file must be in the \bin directory and the proper support files must be put in \editors.</Resource>
 	   <Resource tag="ACCEPT_HTML">Accepted HTML Tags:</Resource>
        <Resource tag="ACCEPT_HTML_HELP">Comma separated list (no spaces) of HTML tags that are allowed in posts using HTML editors.</Resource>
-	   <Resource tag="ACCEPT_HEADER_HTML">Accepted Header HTML Tags:</Resource>
-       <Resource tag="ACCEPT_HEADER_HTML_HELP">Comma separated list (no spaces) of HTML tags that are allowed in posts headers for common users editors.</Resource>
+	   <Resource tag="STYLED_TOPIC_TITLES">Use styled Topic Titles:</Resource>
+       <Resource tag="STYLED_TOPIC_TITLES_HELP">If checked, Mods and Admins can use colors, font size change etc. for topic titles.</Resource>
 	   <Resource tag="STYLED_NICKS">Use styled nicks:</Resource>
        <Resource tag="STYLED_NICKS_HELP">If checked, you can use colors, font size change etc. for active users nicks.</Resource>
 	   <Resource tag="SHOW_SHOUTBOX_SMILIES">Show Shoutbox Smiles:</Resource>

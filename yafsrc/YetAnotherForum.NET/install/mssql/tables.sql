@@ -369,6 +369,7 @@ if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseO
 		Topic			    nvarchar (100) NOT NULL ,
 		[Description]		nvarchar (255) NULL ,
 		[Status]	     	nvarchar (255) NULL ,
+		[Styles]	     	nvarchar (255) NULL ,
 		[Views]			    int NOT NULL ,
 		[Priority]		    smallint NOT NULL ,
 		PollID			    int NULL ,
@@ -2076,4 +2077,8 @@ if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].
 begin
 	alter table [{databaseOwner}].[{objectQualifier}User] alter column [Culture] varchar(10) NULL
 end
+GO
+
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='Styles')
+	alter table [{databaseOwner}].[{objectQualifier}Topic] add Styles nvarchar(255) NULL
 GO

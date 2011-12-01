@@ -5612,7 +5612,7 @@ namespace YAF.Classes.Data
         /// <param name="editedBy">
         /// UserId of who edited the message.
         /// </param>
-        public static void message_update([NotNull] object messageID, [NotNull] object priority, [NotNull] object message, [NotNull] object description, [CanBeNull] object status, [NotNull] object subject, [NotNull] object flags, [NotNull] object reasonOfEdit, [NotNull] object isModeratorChanged, [NotNull] object overrideApproval, [NotNull] object originalMessage, [NotNull] object editedBy)
+        public static void message_update([NotNull] object messageID, [NotNull] object priority, [NotNull] object message, [NotNull] object description, [CanBeNull] object status, [CanBeNull] object styles, [NotNull] object subject, [NotNull] object flags, [NotNull] object reasonOfEdit, [NotNull] object isModeratorChanged, [NotNull] object overrideApproval, [NotNull] object originalMessage, [NotNull] object editedBy)
         {
             using (var cmd = MsSqlDbAccess.GetCommand("message_update"))
             {
@@ -5622,6 +5622,7 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("Message", message);
                 cmd.Parameters.AddWithValue("Description", description);
                 cmd.Parameters.AddWithValue("Status", status);
+                cmd.Parameters.AddWithValue("Styles", styles);
                 cmd.Parameters.AddWithValue("Subject", subject);
                 cmd.Parameters.AddWithValue("Flags", flags);
                 cmd.Parameters.AddWithValue("Reason", reasonOfEdit);
@@ -8387,6 +8388,7 @@ namespace YAF.Classes.Data
             [NotNull] object forumID,
             [NotNull] object subject,
             [CanBeNull] object status,
+            [CanBeNull] object styles,
             [CanBeNull] object description,
             [NotNull] object message,
             [NotNull] object userID,
@@ -8405,6 +8407,7 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("Subject", subject);
                 cmd.Parameters.AddWithValue("Description", description);
                 cmd.Parameters.AddWithValue("Status", status);
+                cmd.Parameters.AddWithValue("Styles", styles);
                 cmd.Parameters.AddWithValue("UserID", userID);
                 cmd.Parameters.AddWithValue("Message", message);
                 cmd.Parameters.AddWithValue("Priority", priority);

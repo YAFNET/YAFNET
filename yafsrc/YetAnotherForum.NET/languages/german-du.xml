@@ -775,8 +775,6 @@
   <page name="ADMIN_HOSTSETTINGS">
     <Resource tag="ABANDON_TRACKUSR">Sessions für  "Don't Track" Benutzer aufgeben:</Resource>
     <Resource tag="ABANDON_TRACKUSR_HELP">Automatisch Sessions aufgeben für Benutzer, die als "Nicht verfolgen" markiert sind wie z.B.: Suchmaschinen und Bots. Aktivieren Sie, diese Option wenn Sie Probleme mit Sessions haben.</Resource>
-    <Resource tag="ACCEPT_HEADER_HTML">Akzeptiert Header HTML-Tags:</Resource>
-    <Resource tag="ACCEPT_HEADER_HTML_HELP">Durch Komma getrennte Liste (keine Leerzeichen) von HTML-Tags, in den Beiträgen Header für gemeinsame Benutzer-Editoren sind erlaubt.</Resource>
     <Resource tag="ACCEPT_HTML">Akzeptiert HTML-Tags:</Resource>
     <Resource tag="ACCEPT_HTML_HELP">Durch Komma getrennte Liste (keine Leerzeichen) von HTML-Tags, die in Beiträgen mit HTML-Editoren erlaubt sind.</Resource>
     <Resource tag="ACTIVE_USERTIME">Aktive Benutzer Zeit:</Resource>
@@ -884,8 +882,7 @@
     <Resource tag="DISPLAY_POINTS">Reputationbar Anzeigen:</Resource>
     <Resource tag="DISPLAY_POINTS_HELP">Wenn aktiviert, wird die Reputation von jedem Benutzer angezeigt.</Resource>
     <Resource tag="DISPLAY_TRESHOLD_IMGATTACH">Bildanhangs Maximale Anzeige Größe</Resource>
-    <Resource tag="DISPLAY_TRESHOLD_IMGATTACH_HELP">Maximale Größe des Angehangen Bildes das Angezeigt wird. Bilder über dieser Größe werden als Links angezeigt.
-</Resource>
+    <Resource tag="DISPLAY_TRESHOLD_IMGATTACH_HELP">Maximale Größe des Angehangen Bildes das Angezeigt wird. Bilder über dieser Größe werden als Links angezeigt.</Resource>
     <Resource tag="DYNAMIC_METATAGS">Dynamic Seiten Meta-Tags hinzufügen:</Resource>
     <Resource tag="DYNAMIC_METATAGS_HELP">Wenn diese Option aktiviert, Beschreibung und Schlüsselwörter Meta-Tags werden dynamisch für die Beitragsseiten erstellt aus den Daten des aktuellen Themas.</Resource>
     <Resource tag="EMAIL_VERIFICATION">Erfordert E-Mail Verifizierung:</Resource>
@@ -1203,6 +1200,8 @@
     <Resource tag="STATS_CACHE_TIMEOUT_HELP">In Minuten</Resource>
     <Resource tag="STYLED_NICKS">Gestylte Nicks verwenden:</Resource>
     <Resource tag="STYLED_NICKS_HELP">Wenn diese Option aktiviert, können Sie Farben, die Schriftgröße, usw. ändern für aktive Benutzer Nicknamen.</Resource>
+    <Resource tag="STYLED_TOPIC_TITLES">Themen Titel Stil verwenden:</Resource>
+    <Resource tag="STYLED_TOPIC_TITLES_HELP">Wenn aktiviert, können Mods. und Admins Schriftfarbe, Schriftgröße und andere Stile von Themen Titeln verändernt.</Resource>
     <Resource tag="THANKS_FROM_TEMPLATE">Danke von Vorlage:</Resource>
     <Resource tag="THANKS_FROM_TEMPLATE_HELP">Vorlage für die Darstellung des Benutzers Danke von.</Resource>
     <Resource tag="THANKS_TO_TEMPLATE">Danke an Vorlage:</Resource>

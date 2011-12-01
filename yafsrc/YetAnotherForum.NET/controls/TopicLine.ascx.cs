@@ -36,7 +36,7 @@
         /// <summary>
         ///   The _selected checkbox.
         /// </summary>
-       // private CheckBox _selectedCheckbox;
+        // private CheckBox _selectedCheckbox;
 
         /// <summary>
         ///   The _the topic row.
@@ -357,6 +357,18 @@
         {
             var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.TopicRow["Subject"]));
 
+            var styles = this.Get<YafBoardSettings>().UseStyledTopicTitles
+                             ? this.Get<IStyleTransform>().DecodeStyleByString(
+                                 this.TopicRow["Styles"].ToString(), false)
+                             : string.Empty;
+
+            var topicSubjectStyled = string.Empty;
+
+            if (styles.IsSet())
+            {
+                topicSubjectStyled = "<span style=\"{0}\">{1}</span>".FormatWith(this.HtmlEncode(styles), topicSubject);
+            }
+
             if (this.TopicRow["Status"].ToString().IsSet() && this.Get<YafBoardSettings>().EnableTopicStatus)
             {
                 var topicStatusIcon = this.Get<ITheme>().GetItem("TOPIC_STATUS", this.TopicRow["Status"].ToString());
@@ -368,15 +380,15 @@
                             .FormatWith(
                                 this.Get<ITheme>().GetItem("TOPIC_STATUS", this.TopicRow["Status"].ToString()),
                                 this.GetText("TOPIC_STATUS", this.TopicRow["Status"].ToString()),
-                                topicSubject);
+                                topicSubjectStyled.IsSet() ? topicSubjectStyled : topicSubject);
                 }
 
                 return "[{0}]&nbsp;{1}".FormatWith(
                     this.GetText("TOPIC_STATUS", this.TopicRow["Status"].ToString()),
-                    topicSubject);
+                    topicSubjectStyled.IsSet() ? topicSubjectStyled : topicSubject);
             }
 
-            return topicSubject;
+            return topicSubjectStyled.IsSet() ? topicSubjectStyled : topicSubject;
         }
 
         /// <summary>

@@ -168,12 +168,12 @@
 
         string strMiniPost = this.Get<ITheme>().GetItem(
           "ICONS",
-          (DateTime.Parse(this.TopicRow["LastPosted"].ToString()) > lastRead)
+          (this.TopicRow["LastPosted"].ToType<DateTime>() > lastRead)
             ? "ICON_NEWEST"
             : "ICON_LATEST");
         string strMiniUnreadPost = this.Get<ITheme>().GetItem(
           "ICONS",
-          (DateTime.Parse(this.TopicRow["LastPosted"].ToString()) > lastRead)
+          (this.TopicRow["LastPosted"].ToType<DateTime>() > lastRead)
           ? "ICON_NEWEST_UNREAD"
           : "ICON_LATEST_UNREAD");   
                   

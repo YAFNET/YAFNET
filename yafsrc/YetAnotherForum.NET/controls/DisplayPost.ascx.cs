@@ -28,7 +28,6 @@ namespace YAF.Controls
     using System.Linq;
     using System.Text;
     using System.Web;
-    using System.Web.UI;
 
     using YAF.Classes;
     using YAF.Classes.Data;

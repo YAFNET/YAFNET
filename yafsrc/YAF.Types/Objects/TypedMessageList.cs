@@ -66,6 +66,7 @@ namespace YAF.Types.Objects
             this.ExternalMessageId = row.Field<string>("ExternalMessageId");
             this.ReferenceMessageId = row.Field<string>("ReferenceMessageId");
             this.Status = row.Field<string>("Status");
+            this.Styles = row.Field<string>("Styles");
             this.Description = row.Field<string>("Description");
         }
 
@@ -97,6 +98,7 @@ namespace YAF.Types.Objects
         /// <param name="referencemessageid">The referencemessageid.</param>
         /// <param name="description">The description.</param>
         /// <param name="status">The status.</param>
+        /// <param name="styles">The styles.</param>
         public TypedMessageList(
             int? messageid,
             int? userid,
@@ -122,7 +124,8 @@ namespace YAF.Types.Objects
             [CanBeNull] string externalmessageid,
             [CanBeNull] string referencemessageid,
             [CanBeNull] string description,
-            [CanBeNull] string status)
+            [CanBeNull] string status,
+            [CanBeNull] string styles)
         {
             this.MessageID = messageid;
             this.UserID = userid;
@@ -148,6 +151,7 @@ namespace YAF.Types.Objects
             this.ExternalMessageId = externalmessageid;
             this.ReferenceMessageId = referencemessageid;
             this.Status = status;
+            this.Styles = styles;
             this.Description = description;
         }
 
@@ -282,12 +286,20 @@ namespace YAF.Types.Objects
         public string Description { get; set; }
 
         /// <summary>
-        /// Gets or sets the status.
+        /// Gets or sets the Topic status.
         /// </summary>
         /// <value>
         /// The status.
         /// </value>
         public string Status { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Topic Styles.
+        /// </summary>
+        /// <value>
+        /// The status.
+        /// </value>
+        public string Styles { get; set; }
 
         #endregion
     }

@@ -2837,6 +2837,7 @@ select
 		TopicMovedID    = t.TopicMovedID,
 		LastTopicName	= t.Topic,
 		LastTopicStatus = t.Status,
+		LastTopicStyles = t.Styles,
 		b.Flags,
 		Viewing			= (select count(1) from [{databaseOwner}].[{objectQualifier}Active] x with(nolock) JOIN [{databaseOwner}].[{objectQualifier}User] usr with(nolock) ON x.UserID = usr.UserID where x.ForumID=b.ForumID AND usr.IsActiveExcluded = 0),
 		b.RemoteURL,		
@@ -3594,6 +3595,7 @@ BEGIN
 		c.Priority,
 		c.Description,
 		c.Status,
+		c.Styles,
 		a.Flags,
 		c.UserID AS TopicOwnerID,
 		Edited = IsNull(a.Edited,a.Posted),
@@ -3868,6 +3870,7 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}message_update](
 @Subject nvarchar(100),
 @Description nvarchar(255),
 @Status nvarchar(255),
+@Styles nvarchar(255),
 @Flags int, 
 @Message ntext, 
 @Reason nvarchar(100), 
@@ -3930,7 +3933,8 @@ begin
 		update [{databaseOwner}].[{objectQualifier}Topic] set
 			Topic = @Subject, 
 			[Description] = @Description,
-			[Status] = @Status
+			[Status] = @Status,
+			[Styles] = @Styles
 		where
 			TopicID = @TopicID
 	end 
@@ -5171,6 +5175,7 @@ begin
 		d.Priority,
 		d.Description,
 		d.Status,
+		d.Styles,
 		d.PollID,
 		d.UserID AS TopicOwnerID,
 		TopicFlags	= d.Flags,
@@ -5605,6 +5610,7 @@ begin
 		[Subject] = c.Topic,
 		[Description] = c.Description,
 		[Status] = c.Status,
+		[Styles] = c.Styles,
 		c.UserID,
 		Starter = IsNull(c.UserName,b.Name),
 		NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@PageUserID IS NOT NULL AND mes.UserID = @PageUserID) OR (@PageUserID IS NULL)) ),
@@ -6001,6 +6007,7 @@ BEGIN
 		f.Name as Forum,
 		t.Topic,
 		t.Status,
+		t.Styles,
 		t.TopicID,
 		t.TopicMovedID,
 		t.UserID,
@@ -6127,6 +6134,7 @@ begin
 			[Subject] = c.Topic,
 			c.[Description],
 			c.[Status],
+			c.[Styles],
 			c.UserID,
 			Starter = IsNull(c.UserName,b.Name),
 			Replies = c.NumPosts - 1,
@@ -6296,6 +6304,7 @@ declare @shiftsticky int
 			[Subject] = c.Topic,
 			c.[Description],
 			c.[Status],
+			c.[Styles],
 			c.UserID,
 			Starter = IsNull(c.UserName,b.Name),
 			Replies = c.NumPosts - 1,
@@ -6367,6 +6376,7 @@ begin
 		c.Priority,
 		c.Description,
 		c.Status,
+		c.Styles,
 		a.Flags,
 		c.UserID AS TopicOwnerID,
 		Edited = IsNull(a.Edited,a.Posted),
@@ -6492,6 +6502,7 @@ create procedure [{databaseOwner}].[{objectQualifier}topic_save](
 	@Message	ntext,
 	@Description	nvarchar(255)=null,
 	@Status 	nvarchar(255)=null,
+	@Styles 	nvarchar(255)=null,
 	@Priority	smallint,
 	@UserName	nvarchar(255)=null,
 	@IP			varchar(39),
@@ -6506,8 +6517,8 @@ begin
 	if @Posted is null set @Posted = GETUTCDATE() 
 
 	-- create the topic
-	insert into [{databaseOwner}].[{objectQualifier}Topic](ForumID,Topic,UserID,Posted,[Views],[Priority],UserName,NumPosts, [Description], [Status])
-	values(@ForumID,@Subject,@UserID,@Posted,0,@Priority,@UserName,0,@Description, @Status)
+	insert into [{databaseOwner}].[{objectQualifier}Topic](ForumID,Topic,UserID,Posted,[Views],[Priority],UserName,NumPosts, [Description], [Status], [Styles])
+	values(@ForumID,@Subject,@UserID,@Posted,0,@Priority,@UserName,0,@Description, @Status, @Styles)
 
 	-- get its id
 	set @TopicID = SCOPE_IDENTITY()
@@ -9504,6 +9515,7 @@ begin
 		[Subject] = c.Topic,
 		[Description] = c.Description,
 		[Status] = c.Status,
+		[Styles] = c.Styles,
 		c.UserID,
 		Starter = IsNull(c.UserName,b.Name),
 		NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@PageUserID IS NOT NULL AND mes.UserID = @PageUserID) OR (@PageUserID IS NULL)) ),
@@ -10242,6 +10254,7 @@ begin
 		[Subject] = c.Topic,
 		[Description] = c.Description,
 		[Status] = c.Status,
+		[Styles] = c.Styles,
 		c.UserID,
 		Starter = IsNull(c.UserName,b.Name),
 		NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@PageUserID IS NOT NULL AND mes.UserID = @PageUserID) OR (@PageUserID IS NULL)) ),
@@ -10416,6 +10429,7 @@ begin
 		[Subject] = c.Topic,
 		[Description] = c.Description,
 		[Status] = c.Status,
+		[Styles] = c.Styles,
 		c.UserID,
 		Starter = IsNull(c.UserName,b.Name),
 		NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@PageUserID IS NOT NULL AND mes.UserID = @PageUserID) OR (@PageUserID IS NULL)) ),

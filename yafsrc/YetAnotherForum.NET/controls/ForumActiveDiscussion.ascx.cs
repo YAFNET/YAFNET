@@ -97,6 +97,16 @@ namespace YAF.Controls
 
             var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(currentRow["TOPIC"]));
 
+            var styles = this.Get<YafBoardSettings>().UseStyledTopicTitles
+                             ? this.Get<IStyleTransform>().DecodeStyleByString(
+                                 currentRow["Styles"].ToString(), false)
+                             : string.Empty;
+
+            if (styles.IsSet())
+            {
+                textMessageLink.Attributes.Add("style", styles);
+            }
+
             if (currentRow["Status"].ToString().IsSet() && this.Get<YafBoardSettings>().EnableTopicStatus)
             {
                 var topicStatusIcon = this.Get<ITheme>().GetItem("TOPIC_STATUS", currentRow["Status"].ToString());

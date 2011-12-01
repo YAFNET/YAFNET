@@ -114,6 +114,16 @@ namespace YAF.Controls
                 this.topicLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
                     ForumPages.posts, "t={0}", this.DataRow["LastTopicID"]);
 
+                var styles = this.Get<YafBoardSettings>().UseStyledTopicTitles
+                             ? this.Get<IStyleTransform>().DecodeStyleByString(
+                                 this.DataRow["LastTopicStyles"].ToString(), false)
+                             : string.Empty;
+
+                if (styles.IsSet())
+                {
+                    this.topicLink.Attributes.Add("style", styles);
+                }
+
                 if (this.DataRow["LastTopicStatus"].ToString().IsSet() && this.Get<YafBoardSettings>().EnableTopicStatus)
                 {
                     var topicStatusIcon = this.Get<ITheme>().GetItem("TOPIC_STATUS", this.DataRow["LastTopicStatus"].ToString());
