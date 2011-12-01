@@ -72,6 +72,13 @@
             <asp:DropDownList ID="Priority" runat="server" />
         </td>
     </tr>
+    <tr id="StyleRow" runat="server">
+		<td class="postformheader" width="20%" colspan="2">
+			<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="STYLES" />
+            <br />
+			<asp:TextBox id="TopicStylesTextBox" runat="server" CssClass="edit" Width="400" />
+		</td>
+	</tr>
     <tr>
         <td id="EditorLine" runat="server" class="post" width="80%" colspan="2">
             <b>
