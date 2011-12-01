@@ -110,6 +110,9 @@
             <assembly>
               <name>YAF.Utils.dll</name>
             </assembly>
+            <assembly>
+              <name>FarsiLibrary.dll</name>
+            </assembly>
           </assemblies>
         </component>
         <component type="Cleanup" version="1.94.02">
