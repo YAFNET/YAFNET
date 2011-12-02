@@ -18,12 +18,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System.Web;
-using System.Web.UI.WebControls;
-using YAF.Types;
-using YAF.Types.Constants;
-using YAF.Types.Interfaces;
-
 namespace YAF.Pages
 {
     // YAF.Pages
@@ -31,35 +25,29 @@ namespace YAF.Pages
 
     using System;
     using System.Data;
-    using YAF.Core;
+    using System.Web.UI.WebControls;
+
+    using YAF.Classes;
     using YAF.Classes.Data;
+    using YAF.Core;
+    using YAF.Types;
+    using YAF.Types.Constants;
+    using YAF.Types.Interfaces;
     using YAF.Utils;
 
     #endregion
 
     /// <summary>
-    /// Summary description for members.
+    /// The Members List Page
     /// </summary>
     public partial class members : ForumPage
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///   Initializes a new instance of the <see cref = "members" /> class.
-        /// </summary>
-        public members()
-            : base("MEMBERS")
-        {
-        }
-
-        #endregion
-
         #region Fields
         /// <summary>
         /// The _userListDataTable.
         /// </summary>
         private DataTable _userListDataTable;
-
+        /*
         /// <summary>
         /// The _sortName.
         /// </summary>
@@ -79,6 +67,19 @@ namespace YAF.Pages
         /// The _sortJoined.
         /// </summary>
         private bool _sortJoined; 
+        */
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        ///   Initializes a new instance of the <see cref = "members" /> class.
+        /// </summary>
+        public members()
+            : base("MEMBERS")
+        {
+        }
+
         #endregion
 
         #region Public Methods
@@ -118,92 +119,100 @@ namespace YAF.Pages
         #region Methods
 
         /// <summary>
-        /// The get avatar url from id.
+        /// Gets the avatar Url for the user
         /// </summary>
-        /// <param name="userID">
-        /// The user id.
-        /// </param>
-        /// <returns>
-        /// The get avatar url from id.
-        /// </returns>
+        /// <param name="userId">The user id.</param>
+        /// <param name="avatarString">The avatar string.</param>
+        /// <param name="hasAvatarImage">if set to <c>true</c> [has avatar image].</param>
+        /// <param name="email">The email.</param>
+        /// <returns>Returns the File Url</returns>
         protected string GetAvatarUrlFileName(int userId, string avatarString, bool hasAvatarImage, string email)
         {
-
             string avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userId, avatarString, hasAvatarImage, email);
-            
-            if (avatarUrl.IsNotSet())
-            {
-                return "{0}images/noavatar.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
-            }
-            return avatarUrl;
+
+            return avatarUrl.IsNotSet()
+                       ? "{0}images/noavatar.gif".FormatWith(YafForumInfo.ForumClientFileRoot)
+                       : avatarUrl;
         }
 
         /// <summary>
         /// protects from script in "location" field
         /// </summary>
-        /// <param name="svalue">
+        /// <param name="value">
+        /// The value.
         /// </param>
         /// <returns>
         /// The get string safely.
         /// </returns>
-        protected string GetStringSafely(object svalue)
+        protected string GetStringSafely(object value)
         {
-            return svalue == null ? string.Empty : this.HtmlEncode(svalue.ToString());
+            return value == null ? string.Empty : this.HtmlEncode(value.ToString());
         }
 
         /// <summary>
         /// Get all users from user_list for this board.
         /// </summary>
+        /// <param name="literals">
+        /// The literals.
+        /// </param>
+        /// <param name="lastUserId">
+        /// The last User Id.
+        /// </param>
+        /// <param name="specialSymbol">
+        /// The special Symbol.
+        /// </param>
+        /// <param name="totalCount">
+        /// The total Count.
+        /// </param>
         /// <returns>
         /// The Members List
         /// </returns>
         protected DataTable GetUserList(string literals, int lastUserId, bool specialSymbol, out int totalCount)
         {
-            _userListDataTable = LegacyDb.user_listmembers(
+            this._userListDataTable = LegacyDb.user_listmembers(
                 PageContext.PageBoardID,
                 null,
                 true,
                 this.Group.SelectedIndex <= 0 ? null : this.Group.SelectedValue,
                 this.Ranks.SelectedIndex <= 0 ? null : this.Ranks.SelectedValue,
-                YafContext.Current.BoardSettings.UseStyledNicks,
+                this.Get<YafBoardSettings>().UseStyledNicks,
                 lastUserId,
                 literals,
                 specialSymbol,
-                !specialSymbol ? false : true,
+                specialSymbol,
                 this.Pager.CurrentPageIndex,
                 Pager.PageSize,
-                (int?) ViewState["SortNameField"],
-                (int?) ViewState["SortRankNameField"],
-                (int?) ViewState["SortJoinedField"],
-                (int?) ViewState["SortNumPostsField"],
-                (int?) ViewState["SortLastVisitField"],
+                (int?)ViewState["SortNameField"],
+                (int?)ViewState["SortRankNameField"],
+                (int?)ViewState["SortJoinedField"],
+                (int?)ViewState["SortNumPostsField"],
+                (int?)ViewState["SortLastVisitField"],
                 NumPostsTB.Text.Trim().IsSet() ? NumPostsTB.Text.Trim().ToType<int>() : 0,
                 this.NumPostDDL.SelectedIndex < 0 ? 3 : (NumPostsTB.Text.Trim().IsSet() ? this.NumPostDDL.SelectedValue.ToType<int>() : 0));
-            if (YafContext.Current.BoardSettings.UseStyledNicks)
+
+            if (this.Get<YafBoardSettings>().UseStyledNicks)
             {
-                new StyleTransform(this.Get<ITheme>()).DecodeStyleByTable(ref _userListDataTable, false);
+                new StyleTransform(this.Get<ITheme>()).DecodeStyleByTable(ref this._userListDataTable, false);
             }
 
-            if (_userListDataTable.Rows.Count > 0)
+            if (this._userListDataTable.Rows.Count > 0)
             {
                 // commits the deletes to the table
-                totalCount = (int)_userListDataTable.Rows[0]["TotalCount"];
+                totalCount = (int)this._userListDataTable.Rows[0]["TotalCount"];
             }
             else
             {
                 totalCount = 0;
             }
-            return _userListDataTable;
+
+            return this._userListDataTable;
         }
 
-
         /// <summary>
-        /// Called when the page loads
+        /// Handles the Load event of the Page control.
         /// </summary>
-        /// <param name="sender">
-        /// </param>
-        /// <param name="e">
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load(object sender, EventArgs e)
         {
             this.Page.Form.DefaultButton = this.SearchByUserName.UniqueID;
@@ -214,25 +223,23 @@ namespace YAF.Pages
             {
                 return;
             }
-            else
-            {
-                ViewState["SortNameField"] = 1;
-                ViewState["SortRankNameField"] = 0;
-                ViewState["SortJoinedField"] = 0;
-                ViewState["SortNumPostsField"] = 0;
-                ViewState["SortLastVisitField"] = 0;
-            }
 
-            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+            this.ViewState["SortNameField"] = 1;
+            this.ViewState["SortRankNameField"] = 0;
+            this.ViewState["SortJoinedField"] = 0;
+            this.ViewState["SortNumPostsField"] = 0;
+            this.ViewState["SortLastVisitField"] = 0;
+
+            this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
-            // this.SetSort("Name", true);
+            //// this.SetSort("Name", true);
 
             this.UserName.Text = this.GetText("username");
             this.Rank.Text = this.GetText("rank");
             this.Joined.Text = this.GetText("joined");
             this.Posts.Text = this.GetText("posts");
-            this.LastVisitLB.Text = this.GetText("members","lastvisit");
+            this.LastVisitLB.Text = this.GetText("members", "lastvisit");
        
             using (DataTable dt = LegacyDb.group_list(this.PageContext.PageBoardID, null))
             {
@@ -425,27 +432,23 @@ namespace YAF.Pages
         /// </param>
         private void BindData(bool isSearch)
         {
-            this.Pager.PageSize = PageContext.BoardSettings.MemberListPageSize;
+            this.Pager.PageSize = this.Get<YafBoardSettings>().MemberListPageSize;
             char selectedCharLetter = this.AlphaSort1.CurrentLetter;
-            string selectedLetter;
 
             // get the user list...
-            int totalCount = 0;
-            if (this.UserSearchName.Text.IsSet())
-            {
-                selectedLetter = this.UserSearchName.Text.Trim();
-            }
-            else
-            {
-                selectedLetter = selectedCharLetter.ToString();
-            }
+            int totalCount;
+
+            string selectedLetter = this.UserSearchName.Text.IsSet() ? this.UserSearchName.Text.Trim() : selectedCharLetter.ToString();
             
-            int numpostsTb = 0;
-            if (NumPostsTB.Text.Trim().IsSet() && (!int.TryParse(NumPostsTB.Text.Trim(), out numpostsTb ) || numpostsTb < 0 || numpostsTb > int.MaxValue))
+            int numpostsTb;
+
+            if (NumPostsTB.Text.Trim().IsSet() &&
+                (!int.TryParse(NumPostsTB.Text.Trim(), out numpostsTb) || numpostsTb < 0 || numpostsTb > int.MaxValue))
             {
-                PageContext.AddLoadMessage(this.GetText("MEMBERS","INVALIDPOSTSVALUE"));
+                PageContext.AddLoadMessage(this.GetText("MEMBERS", "INVALIDPOSTSVALUE"));
                 return;
             }
+
             if (NumPostsTB.Text.Trim().IsNotSet())
             {
                 NumPostsTB.Text = "0";
@@ -453,14 +456,18 @@ namespace YAF.Pages
             }
 
             // get the user list...
-            _userListDataTable = this.GetUserList(selectedLetter, 0, (this.UserSearchName.Text.IsNotSet()) || (selectedCharLetter == char.MinValue && selectedCharLetter == '#'), out  totalCount);
+            this._userListDataTable = this.GetUserList(
+                selectedLetter,
+                0,
+                this.UserSearchName.Text.IsNotSet() || (selectedCharLetter == char.MinValue && selectedCharLetter == '#'),
+                out totalCount);
             
             // get the view from the datatable
             DataView userListDataView = _userListDataTable.DefaultView;
-            string nameField = this.PageContext.BoardSettings.EnableDisplayName ? "DisplayName" : "Name";
+            string nameField = this.Get<YafBoardSettings>().EnableDisplayName ? "DisplayName" : "Name";
             
             this.Pager.Count = totalCount;
-            this.MemberList.DataSource = _userListDataTable;
+            this.MemberList.DataSource = this._userListDataTable;
             this.DataBind();
 
             // handle the sort fields at the top
@@ -556,7 +563,6 @@ namespace YAF.Pages
                     this.SortLastVisit.Visible = false;
                     break;
             } 
-
         }
 
         /// <summary>
@@ -580,8 +586,7 @@ namespace YAF.Pages
         /// Helper function for setting up the current sort on the memberlist view
         /// </summary>
         /// <param name="field">
-        /// </param>
-        /// <param name="desc">
+        /// The field.
         /// </param>
         private void SetSort(string field)
         {

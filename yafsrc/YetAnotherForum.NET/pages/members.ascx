@@ -44,11 +44,11 @@
         </td>
     </tr>
     <tr>
-        <td class="footer1" colspan="4" align="right">
-            <asp:Button ID="SearchByUserName" runat="server" OnClick="Search_Click" Text='<%# this.GetText("BTNSEARCH") %>'>
+        <td class="footer1" colspan="4" style="text-align: center">
+            <asp:Button ID="SearchByUserName" runat="server" OnClick="Search_Click" Text='<%# this.GetText("BTNSEARCH") %>'  CssClass="pbutton">
             </asp:Button>
             &nbsp;
-            <asp:Button ID="ResetUserSearch" runat="server" OnClick="Reset_Click" Text='<%# this.GetText("Clear") %>'>
+            <asp:Button ID="ResetUserSearch" runat="server" OnClick="Reset_Click" Text='<%# this.GetText("Clear") %>'  CssClass="pbutton">
             </asp:Button>
         </td>
     </tr>
@@ -78,9 +78,9 @@
             <img runat="server" id="SortJoined" alt="Sort Joined" style="vertical-align: middle" />
             <asp:LinkButton runat="server" ID="Joined" OnClick="Joined_Click" />
         </td>
-        <td class="header2" align="center">
+        <td class="header2" style="text-align:center">
             <img runat="server" id="SortPosts" alt="Sort Posts" style="vertical-align: middle" />
-            <asp:LinkButton runat="server" ID="Posts" Enabled="false" OnClick="Posts_Click" />
+            <asp:LinkButton runat="server" ID="Posts" OnClick="Posts_Click" />
         </td>
         <td class="header2">
             <img runat="server" id="SortLastVisit" alt="Sort Last Visit" style="vertical-align: middle" />
@@ -91,24 +91,24 @@
         <ItemTemplate>
             <tr>
                 <td class="post">
-                    <img src="<%# this.GetAvatarUrlFileName(Convert.ToInt32(Eval("UserID")), Eval("Avatar").ToString(),Eval("AvatarImage").ToString().IsSet(), Eval("Email").ToString()) %>" alt="<%# DataBinder.Eval(Container.DataItem,"Name").ToString() %>"
+                    <img src="<%# this.GetAvatarUrlFileName(this.Eval("UserID").ToType<int>(), Eval("Avatar").ToString(),Eval("AvatarImage").ToString().IsSet(), Eval("Email").ToString()) %>" alt="<%# DataBinder.Eval(Container.DataItem,"Name").ToString() %>"
                         title="<%# DataBinder.Eval(Container.DataItem,"DisplayName").ToString().IsSet() ? DataBinder.Eval(Container.DataItem,"DisplayName").ToString(): DataBinder.Eval(Container.DataItem,"Name").ToString() %>" class="avatarimage" />
                 </td>
                 <td class="post">
-                    <YAF:UserLink ID="UserProfileLink" runat="server"  UserID='<%# Convert.ToInt32(Eval("UserID")) %>'
+                    <YAF:UserLink ID="UserProfileLink" runat="server"  UserID='<%# this.Eval("UserID").ToType<int>() %>'
                         Style='<%# Eval("Style") %>' />
                 </td>
                 <td class="post">
                     <%# Eval("RankName") %>
                 </td>
                 <td class="post">
-                    <%# this.Get<IDateTime>().FormatDateLong((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Joined"]) %>
+                    <%# this.Get<IDateTime>().FormatDateLong((DateTime)((System.Data.DataRowView)Container.DataItem)["Joined"]) %>
                 </td>
-                <td class="post" align="center">
-                    <%# String.Format("{0:N0}",((System.Data.DataRowView)Container.DataItem)["NumPosts"]) %>
+                <td class="post" style="text-align:center">
+                    <%# "{0:N0}".FormatWith(((System.Data.DataRowView)Container.DataItem)["NumPosts"]) %>
                 </td>
                 <td class="post">
-                    <%# this.Get<IDateTime>().FormatDateLong((System.DateTime)((System.Data.DataRowView)Container.DataItem)["LastVisit"]) %>
+                    <%# this.Get<IDateTime>().FormatDateLong((DateTime)((System.Data.DataRowView)Container.DataItem)["LastVisit"]) %>
                 </td>
             </tr>
         </ItemTemplate>
