@@ -24,6 +24,7 @@ namespace YAF.Classes
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Globalization;
     using System.Linq;
     using System.Net;
     using System.Text;
@@ -147,8 +148,8 @@ namespace YAF.Classes
         /// <param name="timezone">
         /// The timezone.
         /// </param>
-        /// <param name="lokale">
-        /// The lokale.
+        /// <param name="locale">
+        /// The locale.
         /// </param>
         /// <param name="remember">
         /// The remember.
@@ -169,7 +170,7 @@ namespace YAF.Classes
             string gender,
             string email,
             string timezone,
-            string lokale,
+            string locale,
             bool remember)
         {
             if (!YafContext.Current.Get<YafBoardSettings>().AllowSingleSignOn)
@@ -177,11 +178,26 @@ namespace YAF.Classes
                 return this.Get<ILocalization>().GetText("LOGIN", "SSO_DEACTIVATED");
             }
 
-            // TODO : Deserialize Graph Json
-            /*var serializer = new JavaScriptSerializer();
-            serializer.RegisterConverters(new[] { new JsonConverter() });
+            // Check if username is null
+            if (string.IsNullOrEmpty(username))
+            {
+                username = name;
+            }
 
-            dynamic data = serializer.Deserialize(id, typeof(object));*/
+            var userGender = 0;
+
+            if (!string.IsNullOrEmpty(gender))
+            {
+                switch (gender)
+                {
+                    case "male":
+                        userGender = 1;
+                        break;
+                    case "female":
+                        userGender = 2;
+                        break;
+                }
+            }
 
             // Check if user exists
             var userName = YafContext.Current.Get<MembershipProvider>().GetUserNameByEmail(email);
@@ -238,8 +254,26 @@ namespace YAF.Classes
 
                 userProfile.Facebook = id;
                 userProfile.Homepage = link;
-                userProfile.Birthday = DateTime.Parse(birthday);
-                userProfile.RealName = name;
+
+                if (!string.IsNullOrEmpty(birthday))
+                {
+                    DateTime userBirthdate;
+                    var ci = CultureInfo.CreateSpecificCulture("en-US");
+                    DateTime.TryParse(birthday, ci, DateTimeStyles.None, out userBirthdate);
+
+                    if (userBirthdate > DateTime.MinValue.Date)
+                    {
+                        userProfile.Birthday = userBirthdate;
+                    }
+                }
+
+                userProfile.RealName = username;
+                userProfile.Gender = userGender;
+                
+                if (!string.IsNullOrEmpty(hometown))
+                {
+                    userProfile.Location = hometown;
+                }
 
                 userProfile.Save();
 

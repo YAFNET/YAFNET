@@ -17,8 +17,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System.Globalization;
-
 namespace YAF.Controls
 {
     #region Using
@@ -26,14 +24,13 @@ namespace YAF.Controls
     using System;
     using System.Configuration;
     using System.Data;
+    using System.Globalization;
     using System.Linq;
     using System.Net.Mail;
     using System.Text.RegularExpressions;
-    using System.Threading;
     using System.Web;
     using System.Web.Security;
     using System.Web.UI.WebControls;
-
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
@@ -58,12 +55,12 @@ namespace YAF.Controls
         /// <summary>
         ///   The admin edit mode.
         /// </summary>
-        private bool AdminEditMode;
+        private bool adminEditMode;
 
         /// <summary>
         ///   The current user id.
         /// </summary>
-        private int CurrentUserID;
+        private int currentUserID;
 
         /// <summary>
         ///   The _user data.
@@ -86,12 +83,12 @@ namespace YAF.Controls
         {
             get
             {
-                return this.AdminEditMode;
+                return this.adminEditMode;
             }
 
             set
             {
-                this.AdminEditMode = value;
+                this.adminEditMode = value;
             }
         }
 
@@ -102,7 +99,7 @@ namespace YAF.Controls
         {
             get
             {
-                return this.ViewState["bUpdateEmail"] != null ? Convert.ToBoolean(this.ViewState["bUpdateEmail"]) : false;
+                return this.ViewState["bUpdateEmail"] != null && Convert.ToBoolean(this.ViewState["bUpdateEmail"]);
             }
 
             set
@@ -119,7 +116,7 @@ namespace YAF.Controls
         {
             get
             {
-                return this._userData ?? (this._userData = new CombinedUserDataHelper(this.CurrentUserID));
+                return this._userData ?? (this._userData = new CombinedUserDataHelper(this.currentUserID));
             }
         }
 
@@ -138,7 +135,7 @@ namespace YAF.Controls
         /// </param>
         protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            YafBuildLink.Redirect(this.AdminEditMode ? ForumPages.admin_users : ForumPages.cp_profile);
+            YafBuildLink.Redirect(this.adminEditMode ? ForumPages.admin_users : ForumPages.cp_profile);
         }
 
         /// <summary>
@@ -178,14 +175,15 @@ namespace YAF.Controls
 
                 YafContext.Current.PageElements.RegisterJsInclude("datepickerlang", jqueryuiUrl);
             }
-            var ci = CultureInfo.CreateSpecificCulture(GetCulture());
+
+            var ci = CultureInfo.CreateSpecificCulture(this.GetCulture());
             YafContext.Current.PageElements.RegisterJsBlockStartup(
-              "DatePickerJs",
-              JavaScriptBlocks.DatePickerLoadJs(
-                this.Birthday.ClientID,
-                ci.DateTimeFormat.ShortDatePattern,
-                this.GetText("COMMON", "CAL_JQ_CULTURE_DFORMAT"),
-                this.GetText("COMMON", "CAL_JQ_CULTURE")));
+                "DatePickerJs",
+                JavaScriptBlocks.DatePickerLoadJs(
+                    this.Birthday.ClientID,
+                    ci.DateTimeFormat.ShortDatePattern,
+                    this.GetText("COMMON", "CAL_JQ_CULTURE_DFORMAT"),
+                    this.GetText("COMMON", "CAL_JQ_CULTURE")));
 
             YafContext.Current.PageElements.RegisterJsResourceInclude("msdropdown", "js/jquery.msDropDown.js");
 
@@ -212,13 +210,13 @@ namespace YAF.Controls
 
             this.PageContext.QueryIDs = new QueryStringIDHelper("u");
 
-            if (this.AdminEditMode && this.PageContext.IsAdmin && this.PageContext.QueryIDs.ContainsKey("u"))
+            if (this.adminEditMode && this.PageContext.IsAdmin && this.PageContext.QueryIDs.ContainsKey("u"))
             {
-                this.CurrentUserID = (int)this.PageContext.QueryIDs["u"];
+                this.currentUserID = this.PageContext.QueryIDs["u"].ToType<int>();
             }
             else
             {
-                this.CurrentUserID = this.PageContext.PageUserID;
+                this.currentUserID = this.PageContext.PageUserID;
             }
 
             if (this.IsPostBack)
@@ -354,7 +352,7 @@ namespace YAF.Controls
                     // just update the e-mail...
                     try
                     {
-                        UserMembershipHelper.UpdateEmail(this.CurrentUserID, this.Email.Text.Trim());
+                        UserMembershipHelper.UpdateEmail(this.currentUserID, this.Email.Text.Trim());
                     }
                     catch (ApplicationException)
                     {
@@ -365,7 +363,7 @@ namespace YAF.Controls
                 }
             }
 
-            string userName = UserMembershipHelper.GetUserNameFromID(this.CurrentUserID);
+            string userName = UserMembershipHelper.GetUserNameFromID(this.currentUserID);
 
             this.UpdateUserProfile(userName);
 
@@ -402,7 +400,7 @@ namespace YAF.Controls
 
             // save remaining settings to the DB
             LegacyDb.user_save(
-              this.CurrentUserID,
+              this.currentUserID,
               this.PageContext.PageBoardID,
               null,
               displayName,
@@ -422,7 +420,7 @@ namespace YAF.Controls
               null);
 
             // vzrus: If it's a guest edited by an admin registry value should be changed
-            DataTable dt = LegacyDb.user_list(this.PageContext.PageBoardID, this.CurrentUserID, true, null, null, false);
+            DataTable dt = LegacyDb.user_list(this.PageContext.PageBoardID, this.currentUserID, true, null, null, false);
 
             if (dt.Rows.Count > 0 && dt.Rows[0]["IsGuest"].ToType<bool>())
             {
@@ -430,17 +428,45 @@ namespace YAF.Controls
             }
 
             // clear the cache for this user...)
-            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.CurrentUserID));
+            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.currentUserID));
 
             YafContext.Current.Get<IDataCache>().Clear();
 
-            if (!this.AdminEditMode)
+            if (!this.adminEditMode)
             {
                 YafBuildLink.Redirect(ForumPages.cp_profile);
             }
             else
             {
                 this.BindData();
+            }
+        }
+
+        /// <summary>
+        /// Check if the Selected Country has any Regions
+        /// and if yes load them.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected void LookForNewRegions(object sender, EventArgs e)
+        {
+            if (this.Country.SelectedValue != null)
+            {
+                if (this.Country.SelectedValue.IsSet())
+                {
+                    this.LookForNewRegionsBind(this.Country.SelectedValue);
+                    this.Region.DataBind();
+                }
+                else
+                {
+                    this.Region.DataSource = null;
+                    this.RegionTr.Visible = false;
+                }
+            }
+            else
+            {
+                this.Region.DataSource = null;
+                this.Region.DataBind();
             }
         }
 
@@ -468,8 +494,7 @@ namespace YAF.Controls
             this.Country.DataValueField = "Value";
             this.Country.DataTextField = "Name";
 
-
-            string currentCultureLocal = GetCulture();
+            string currentCultureLocal = this.GetCulture();
             this.currentCulture = currentCultureLocal;
             if (this.UserData.Profile.Country.IsSet())
             {
@@ -600,10 +625,12 @@ namespace YAF.Controls
             ListItem foundCultItem =
               this.Culture.Items.FindByValue(
                 currentCultureLocal);
+
             if (foundCultItem != null)
             {
                 foundCultItem.Selected = true;
             }
+
             if (!Page.IsPostBack)
             {
                 this.Realname.Focus();
@@ -633,7 +660,7 @@ namespace YAF.Controls
             changeEmail.TemplateParams["{forumlink}"] = YafForumInfo.ForumURL;
 
             // save a change email reference to the db
-            LegacyDb.checkemail_save(this.CurrentUserID, hash, newEmail);
+            LegacyDb.checkemail_save(this.currentUserID, hash, newEmail);
 
             // send a change email message...
             changeEmail.SendEmail(
@@ -676,8 +703,8 @@ namespace YAF.Controls
             if (this.Get<YafBoardSettings>().EnableDNACalendar && this.Birthday.Text.IsSet())
             {
                 DateTime userBirthdate;
-                var ci = CultureInfo.CreateSpecificCulture(GetCulture());
-                DateTime.TryParse(this.Birthday.Text,ci, DateTimeStyles.None,out userBirthdate);
+                var ci = CultureInfo.CreateSpecificCulture(this.GetCulture());
+                DateTime.TryParse(this.Birthday.Text, ci, DateTimeStyles.None, out userBirthdate);
                
                 if (userBirthdate > DateTime.MinValue.Date)
                 {
@@ -689,21 +716,17 @@ namespace YAF.Controls
             userProfile.BlogServiceUsername = this.WeblogUsername.Text.Trim();
             userProfile.BlogServicePassword = this.WeblogID.Text.Trim();
             
-            //  Sync to User Profile Mirror table while it's dirty
+            // Sync to User Profile Mirror table while it's dirty
             SettingsPropertyValueCollection settingsPropertyValueCollection = userProfile.PropertyValues;
-            LegacyDb.SetPropertyValues(PageContext.PageBoardID, UserMembershipHelper.ApplicationName(), this.CurrentUserID, settingsPropertyValueCollection);
+            LegacyDb.SetPropertyValues(PageContext.PageBoardID, UserMembershipHelper.ApplicationName(), this.currentUserID, settingsPropertyValueCollection);
            
             userProfile.Save();
-          
-           
-
         }
 
         /// <summary>
+        /// Looks for new regions bind.
         /// </summary>
-        /// <param name="country">
-        /// The country.
-        /// </param>
+        /// <param name="country">The country.</param>
         private void LookForNewRegionsBind(string country)
         {
             DataTable dt = StaticDataHelper.Region(country);
@@ -725,40 +748,14 @@ namespace YAF.Controls
             }
         }
 
-        #endregion
+        #endregion        
 
         /// <summary>
-        /// Check if the Selected Country has any Regions
-        /// and if yes load them.
+        /// Gets the culture.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void LookForNewRegions(object sender, EventArgs e)
-        {
-            if (this.Country.SelectedValue != null)
-            {
-                if (this.Country.SelectedValue.IsSet())
-                {
-                    this.LookForNewRegionsBind(this.Country.SelectedValue);
-                    this.Region.DataBind();
-                }
-                else
-                {
-                    this.Region.DataSource = null;
-                    this.RegionTr.Visible = false;
-                }
-            }
-            else
-            {
-                this.Region.DataSource = null;
-                this.Region.DataBind();
-            }
-        }
-
+        /// <returns>
+        /// The get culture.
+        /// </returns>
         private string GetCulture()
         {
             // Language and culture

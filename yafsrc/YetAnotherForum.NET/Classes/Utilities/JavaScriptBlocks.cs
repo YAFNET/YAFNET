@@ -321,11 +321,11 @@ namespace YAF.Utilities
                               'link', response.link,
                               'username', response.username,
                               'birthday', response.birthday,
-                              'hometown', response.hometown,
+                              'hometown', response.hometown.name,
                               'gender', response.gender,
                               'email', response.email,
                               'timezone', response.timezone,
-                              'lokale', response.lokale,
+                              'locale', response.locale,
                               'remember', Remember);
                      }});}}".FormatWith(YafForumInfo.ForumClientFileRoot, Config.JQueryAlias, remberMeId);
         }
