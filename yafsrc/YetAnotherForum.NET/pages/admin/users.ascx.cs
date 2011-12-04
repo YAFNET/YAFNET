@@ -550,7 +550,9 @@ namespace YAF.Pages.Admin
             var usersList = LegacyDb.user_list(this.PageContext.PageBoardID, null, true);
 
             usersList.DataSet.DataSetName = "YafUserList";
+            
             usersList.TableName = "YafUser";
+            
             usersList.Columns.Remove("AvatarImage");
             usersList.Columns.Remove("AvatarImageType");
 
@@ -567,12 +569,10 @@ namespace YAF.Pages.Admin
             usersList.Columns.Remove("IsActiveExcluded");
             usersList.Columns.Remove("IsCaptchaExcluded");
             usersList.Columns.Remove("IsDirty");
-            usersList.Columns.Remove("NumPosts1");
             usersList.Columns.Remove("Style");
             usersList.Columns.Remove("IsAdmin");
             usersList.Columns.Remove("IsGuest1");
             usersList.Columns.Remove("IsHostAdmin");
-            usersList.Columns.Remove("RankID1");
 
             // Add Profile Columns
             usersList.Columns.Add("RealName");
