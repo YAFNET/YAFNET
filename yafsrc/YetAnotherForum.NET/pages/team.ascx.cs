@@ -164,10 +164,17 @@ namespace YAF.Pages
 
             foreach (SimpleModerator mod in moderators)
             {
+                if (mod.IsGroup)
+                {
+                    continue;
+                }
+
                 var sortedMod = new Moderator { Name = mod.Name, ModeratorID = mod.ModeratorID, Style = mod.Style };
 
                 // Check if Mod is already in modsSorted
-                if (modsSorted.Find(s => s.Name.Equals(sortedMod.Name) && s.ModeratorID.Equals(sortedMod.ModeratorID)) != null)
+                if (
+                    modsSorted.Find(
+                        s => s.Name.Equals(sortedMod.Name) && s.ModeratorID.Equals(sortedMod.ModeratorID)) != null)
                 {
                     continue;
                 }
@@ -379,11 +386,11 @@ namespace YAF.Pages
             modAvatar.AlternateText = mod.Name;
             modAvatar.ToolTip = mod.Name;
 
-            foreach (var forumsItem in from id in mod.ForumIDs
-                                       where allForums.Find(f => f.ForumID.Equals((int)id.ForumID)) != null
-                                       select allForums.Find(f => f.ForumID.Equals((int)id.ForumID))
-                                           into yafForum
-                                           select new ListItem { Value = yafForum.ForumID.ToString(), Text = yafForum.Forum })
+            foreach (var forumsItem in (from id in mod.ForumIDs
+                                        where allForums.Find(f => f.ForumID.Equals((int)id.ForumID)) != null
+                                        select allForums.Find(f => f.ForumID.Equals((int)id.ForumID))
+                                        into yafForum
+                                        select new ListItem { Value = yafForum.ForumID.ToString(), Text = yafForum.Forum }).Where(forumsItem => !modForums.Items.Contains((ListItem)forumsItem)))
             {
                 modForums.Items.Add(forumsItem);
             }
@@ -405,11 +412,9 @@ namespace YAF.Pages
 
             adminUserButton.Visible = this.PageContext.IsAdmin;
 
-            CombinedUserDataHelper userData;
-
             try
             {
-                userData = new CombinedUserDataHelper(modLink.UserID);
+                CombinedUserDataHelper userData = new CombinedUserDataHelper(modLink.UserID);
 
                 if (userData.UserID == this.PageContext.PageUserID)
                 {
