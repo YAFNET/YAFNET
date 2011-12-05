@@ -245,7 +245,7 @@ namespace YAF.Pages
         protected bool IsPostReplyDelay()
         {
             // see if there is a post delay
-            if (!(this.PageContext.IsAdmin || this.PageContext.IsModerator) &&
+            if (!(this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess) &&
                 this.Get<YafBoardSettings>().PostFloodDelay > 0)
             {
                 // see if they've past that delay point
@@ -774,7 +774,7 @@ namespace YAF.Pages
                 messageFlags.BitValue,
                 this.HtmlEncode(this.ReasonEditor.Text),
                 isModeratorChanged,
-                this.PageContext.IsAdmin || this.PageContext.IsModerator,
+                this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess,
                 this.OriginalMessage,
                 this.PageContext.PageUserID);
 
@@ -828,7 +828,7 @@ namespace YAF.Pages
             }
 
             // Bypass Approval if Admin or Moderator
-            if (this.PageContext.IsAdmin || this.PageContext.IsModerator)
+            if (this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess)
             {
                 this.spamApproved = true;
             }
@@ -912,7 +912,7 @@ namespace YAF.Pages
             }
 
             // Bypass Approval if Admin or Moderator
-            if (this.PageContext.IsAdmin || this.PageContext.IsModerator)
+            if (this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess)
             {
                 isSpamApproved = true;
             }
@@ -972,7 +972,7 @@ namespace YAF.Pages
             }
 
             // Check for SPAM
-            if (!this.PageContext.IsAdmin || !this.PageContext.IsModerator)
+            if (!this.PageContext.IsAdmin || !this.PageContext.ForumModeratorAccess)
             {
                 if (this.IsPostSpam())
                 {
