@@ -50,7 +50,7 @@ namespace YAF.Types.Objects
             this.TopicID = row.Field<int?>("TopicID");
             this.ForumID = row.Field<int?>("ForumID");
             this.Topic = row.Field<string>("Topic");
-            this.Priority = row.Field<short?>("Priority");
+            this.Priority = Convert.ToInt32(row["Priority"]);
             this.Flags = new MessageFlags(row.Field<int?>("Flags") ?? 0);
             this.TopicOwnerID = row.Field<int?>("TopicOwnerID");
             this.Edited = row.Field<DateTime?>("Edited");
@@ -107,7 +107,7 @@ namespace YAF.Types.Objects
             int? topicid,
             int? forumid,
             [CanBeNull] string topic,
-            short? priority,
+            int? priority,
             [CanBeNull] MessageFlags flags,
             int? topicownerid,
             DateTime? edited,
@@ -240,7 +240,7 @@ namespace YAF.Types.Objects
         /// <summary>
         ///   Gets or sets Priority.
         /// </summary>
-        public short? Priority { get; set; }
+        public int? Priority { get; set; }
 
         /// <summary>
         /// Gets or sets ReferenceMessageId.
