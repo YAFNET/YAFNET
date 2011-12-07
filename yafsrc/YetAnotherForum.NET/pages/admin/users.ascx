@@ -60,7 +60,7 @@
     <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" UsePostBack="True" />
     <table class="content" cellspacing="1" cellpadding="0" width="100%">
         <tr>
-            <td class="header1" colspan="9">
+            <td class="header1" colspan="10">
                 <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_USERS" />
             </td>
         </tr>
@@ -86,8 +86,11 @@
             <td class="header2">
                 <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="LAST_VISIT" LocalizedPage="ADMIN_USERS" />
             </td>
-             <td class="header2">
+            <td class="header2">
                 <YAF:LocalizedLabel ID="LocalizedLabel17" runat="server" LocalizedTag="FACEBOOK_USER" LocalizedPage="ADMIN_USERS" />
+            </td>
+            <td class="header2">
+                <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="TWITTER_USER" LocalizedPage="ADMIN_USERS" />
             </td>
             <td class="header2">
                 &nbsp;
@@ -122,6 +125,9 @@
                     <td class="post">
                         <%# Eval("IsFacebookUser")%>
                     </td>
+                    <td class="post">
+                        <%# Eval("IsTwitterUser")%>
+                    </td>
                     <td class="post" align="center">
                        <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="yaflittlebutton" CommandName='edit' CommandArgument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>' TitleLocalizedTag="EDIT" ImageThemePage="ICONS" ImageThemeTag="EDIT_SMALL_ICON" runat="server"></YAF:ThemeButton>
                        <YAF:ThemeButton ID="ThemeButtonDelete" OnLoad="Delete_Load" CssClass="yaflittlebutton" CommandName='delete' CommandArgument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>' TitleLocalizedTag="DELETE" ImageThemePage="ICONS" ImageThemeTag="DELETE_SMALL_ICON" runat="server"></YAF:ThemeButton>
@@ -130,7 +136,7 @@
             </ItemTemplate>
         </asp:Repeater>
         <tr>
-            <td class="footer1" colspan="8" align="center">
+            <td class="footer1" colspan="9" align="center">
                 <strong>
                     <asp:Button id="NewUser" OnClick="NewUser_Click" runat="server" CssClass="pbutton"></asp:Button></strong>
                 | 

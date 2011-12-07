@@ -176,6 +176,7 @@
     <Compile Include="Objects\SimpleForum.cs" />
     <Compile Include="Objects\SimpleModerator.cs" />
     <Compile Include="Objects\SimpleTopic.cs" />
+    <Compile Include="Objects\TwitterUser.cs" />
     <Compile Include="Objects\TypedAllThanks.cs" />
     <Compile Include="Objects\TypedBBCode.cs" />
     <Compile Include="Objects\TypedForumListAll.cs" />

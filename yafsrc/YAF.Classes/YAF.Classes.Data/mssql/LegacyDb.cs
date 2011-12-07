@@ -10041,21 +10041,25 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
-        /// Save the IsFacebook Status
+        /// Update the single Sign on Status
         /// </summary>
         /// <param name="userID">
         /// The user id.
         /// </param>
         /// <param name="isFacebookUser">
-        /// The is Facebook User.
+        /// The is Facebook User
         /// </param>
-        public static void user_updatefacebookstatus([NotNull] object userID, [NotNull] object isFacebookUser)
+        /// <param name="isTwitterUser">
+        /// The is Twitter User.
+        /// </param>
+        public static void user_update_single_sign_on_status([NotNull] object userID, [NotNull] object isFacebookUser, [NotNull] object isTwitterUser)
         {
-            using (var cmd = MsSqlDbAccess.GetCommand("user_updatefacebookstatus"))
+            using (var cmd = MsSqlDbAccess.GetCommand("user_update_single_sign_on_status"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("UserID", userID);
                 cmd.Parameters.AddWithValue("IsFacebookUser", isFacebookUser);
+                cmd.Parameters.AddWithValue("IsTwitterUser", isTwitterUser);
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
             }
         }

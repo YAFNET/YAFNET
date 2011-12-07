@@ -138,6 +138,13 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="auth.aspx.cs">
+      <DependentUpon>auth.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="auth.aspx.designer.cs">
+      <DependentUpon>auth.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Classes\Editors\CKEditor.cs" />
     <Compile Include="Classes\Editors\CKEditorBBCodeEditor.cs" />
     <Compile Include="Classes\Editors\CKEditorHtmlEditor.cs" />
@@ -751,6 +758,7 @@
     <Content Include="App_Data\Database_log.LDF">
       <DependentUpon>Database.mdf</DependentUpon>
     </Content>
+    <Content Include="auth.aspx" />
     <Content Include="controls\AlbumImageList.ascx" />
     <Content Include="controls\AlbumList.ascx" />
     <Content Include="controls\BuddyList.ascx" />
@@ -1070,6 +1078,7 @@
     <Content Include="images\medals\medal_silver_2.png" />
     <Content Include="images\medals\medal_silver_2_small.png" />
     <Content Include="images\medals\medal_small.png" />
+    <Content Include="images\twitter_signin.png" />
     <Content Include="images\YafLogo.png" />
     <Content Include="install\TopicStatusList.xml" />
     <Content Include="install\wizard.css" />

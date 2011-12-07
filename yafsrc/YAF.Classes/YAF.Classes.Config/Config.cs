@@ -57,7 +57,7 @@ namespace YAF.Classes
     {
       get
       {
-        return GetConfigValueAsString("YAF.AppRoot") ?? String.Empty;
+        return GetConfigValueAsString("YAF.AppRoot") ?? string.Empty;
       }
     }
 
@@ -81,7 +81,7 @@ namespace YAF.Classes
     {
       get
       {
-        return GetConfigValueAsString("YAF.BaseUrlMask") ?? String.Empty;
+        return GetConfigValueAsString("YAF.BaseUrlMask") ?? string.Empty;
       }
     }
 
@@ -106,7 +106,7 @@ namespace YAF.Classes
     {
       get
       {
-        return GetConfigValueAsString("YAF.BoardRoot") ?? String.Empty; // Use / to signify root
+        return GetConfigValueAsString("YAF.BoardRoot") ?? string.Empty; // Use / to signify root
       }
     }
 
@@ -129,7 +129,7 @@ namespace YAF.Classes
     {
       get
       {
-        return GetConfigValueAsString("YAF.ClientFileRoot") ?? String.Empty;
+        return GetConfigValueAsString("YAF.ClientFileRoot") ?? string.Empty;
       }
     }
 
@@ -521,8 +521,8 @@ namespace YAF.Classes
     {
       get
       {
-        return GetConfigValueAsString("YAF.RadEditorToolsFile") ??
-               String.Format("{0}/editors/RadEditor/ToolsFile.xml", ServerFileRoot);
+          return GetConfigValueAsString("YAF.RadEditorToolsFile") ??
+                 string.Format("{0}/editors/RadEditor/ToolsFile.xml", ServerFileRoot);
       }
     }
 
@@ -568,7 +568,7 @@ namespace YAF.Classes
     {
       get
       {
-        return GetConfigValueAsString("YAF.FileRoot") ?? GetConfigValueAsString("YAF.ServerFileRoot") ?? String.Empty;
+          return GetConfigValueAsString("YAF.FileRoot") ?? GetConfigValueAsString("YAF.ServerFileRoot") ?? string.Empty;
       }
     }
 
@@ -693,6 +693,28 @@ namespace YAF.Classes
     }
 
     /// <summary>
+    ///   Gets TwitterConsumerKey
+    /// </summary>
+    public static string TwitterConsumerKey
+    {
+        get
+        {
+            return GetConfigValueAsString("YAF.TwitterConsumerKey");
+        }
+    }
+
+    /// <summary>
+    ///   Gets TwitterConsumerSecret
+    /// </summary>
+    public static string TwitterConsumerSecret
+    {
+        get
+        {
+            return GetConfigValueAsString("YAF.TwitterConsumerSecret");
+        }
+    }
+
+    /// <summary>
     ///   Gets Facebook API Key.
     /// </summary>
     public static string FacebookAPIKey
@@ -719,17 +741,11 @@ namespace YAF.Classes
     #region Public Methods
 
     /// <summary>
-    /// The get config value as bool.
+    /// Gets the config value as bool.
     /// </summary>
-    /// <param name="configKey">
-    /// The config key.
-    /// </param>
-    /// <param name="defaultValue">
-    /// The default value.
-    /// </param>
-    /// <returns>
-    /// The get config value as bool.
-    /// </returns>
+    /// <param name="configKey">The config key.</param>
+    /// <param name="defaultValue">if set to <c>true</c> [default value].</param>
+    /// <returns>Returns Bool Value</returns>
     public static bool GetConfigValueAsBool([NotNull] string configKey, bool defaultValue)
     {
       string value = GetConfigValueAsString(configKey);
@@ -738,14 +754,10 @@ namespace YAF.Classes
     }
 
     /// <summary>
-    /// The get config value as string.
+    /// Gets the config value as string.
     /// </summary>
-    /// <param name="configKey">
-    /// The config key.
-    /// </param>
-    /// <returns>
-    /// The get config value as string.
-    /// </returns>
+    /// <param name="configKey">The config key.</param>
+    /// <returns>Returns String Value</returns>
     public static string GetConfigValueAsString([NotNull] string configKey)
     {
         return (from key in WebConfigurationManager.AppSettings.AllKeys
@@ -753,10 +765,11 @@ namespace YAF.Classes
                 select WebConfigurationManager.AppSettings[key]).FirstOrDefault();
     }
 
-      /// <summary>
+    /// <summary>
     /// Gets a Provider type string from the config.
     /// </summary>
     /// <param name="providerName">
+    /// The provider Name.
     /// </param>
     /// <returns>
     /// Provider type string or <see langword="null"/> if none exist.

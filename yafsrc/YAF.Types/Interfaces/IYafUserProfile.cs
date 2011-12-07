@@ -88,6 +88,11 @@ namespace YAF.Types.Interfaces
     string Twitter { get; set; }
 
     /// <summary>
+    /// Gets or sets Twitter Id.
+    /// </summary>
+    string TwitterId { get; set; }
+
+    /// <summary>
     /// Gets or sets Interests.
     /// </summary>
     string Interests { get; set; }

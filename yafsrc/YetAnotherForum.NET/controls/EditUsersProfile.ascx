@@ -254,6 +254,15 @@
     </tr>
     <tr>
         <td class="postheader">
+            <YAF:LocalizedLabel ID="LocalizedLabel37" runat="server" LocalizedPage="CP_EDITPROFILE"
+                LocalizedTag="TWITTER_ID" />
+        </td>
+        <td class="post">
+            <asp:TextBox runat="server" ID="TwitterId" CssClass="edit" />
+        </td>
+    </tr>
+    <tr>
+        <td class="postheader">
             <YAF:LocalizedLabel ID="LocalizedLabel32" runat="server" LocalizedPage="CP_EDITPROFILE"
                 LocalizedTag="xmpp" />
         </td>

@@ -33,6 +33,7 @@ namespace YAF.Controls
     using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Core.Services;
+    using YAF.Core.Services.Twitter;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
@@ -452,21 +453,21 @@ namespace YAF.Controls
             var notification = (DialogBox)this.PageContext.CurrentForumPage.Notification;
 
             notification.Show(
-                  this.GetText("POSTS", "REP_VOTE_DOWN_MSG").FormatWith(this.PageContext.Get<IUserDisplayName>().GetName(this.PostData.UserId)),
-                  this.GetText("POSTS", "REP_VOTE_TITLE"),
-                  DialogBox.DialogIcon.Info,
+                  this.GetText("POSTS", "REP_VOTE_DOWN_MSG").FormatWith(this.PageContext.Get<IUserDisplayName>().GetName(this.PostData.UserId)), 
+                  this.GetText("POSTS", "REP_VOTE_TITLE"), 
+                  DialogBox.DialogIcon.Info, 
                   new DialogBox.DialogButton
                   {
-                      Text = this.GetText("COMMON", "OK"),
-                      CssClass = "StandardButton",
+                      Text = this.GetText("COMMON", "OK"), 
+                      CssClass = "StandardButton", 
                       ForumPageLink = new DialogBox.ForumLink { ForumPage = this.PageContext.ForumPageType }
-                  },
+                  }, 
                   null);
 
             YafContext.Current.PageElements.RegisterJsBlockStartup(
-                "reputationprogressjs",
+                "reputationprogressjs", 
                 JavaScriptBlocks.ReputationProgressChangeJs(
-                    YafReputation.GenerateReputationBar(this.DataRow["Points"].ToType<int>(), this.PostData.UserId),
+                    YafReputation.GenerateReputationBar(this.DataRow["Points"].ToType<int>(), this.PostData.UserId), 
                     this.PostData.UserId.ToString()));
         }
 
@@ -508,6 +509,55 @@ namespace YAF.Controls
         }
 
         /// <summary>
+        /// Retweets Message thru the Twitter API
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected void Retweet_Click(object sender, EventArgs e)
+        {
+            var twitterName = this.Get<YafBoardSettings>().TwitterUserName.IsSet()
+                                  ? "@{0} ".FormatWith(this.Get<YafBoardSettings>().TwitterUserName)
+                                  : string.Empty;
+
+            // process message... clean html, strip html, remove bbcode, etc...
+            var twitterMsg =
+                StringExtensions.RemoveMultipleWhitespace(
+                    BBCodeHelper.StripBBCode(
+                        HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString((string)this.DataRow["Message"]))));
+
+            var topicUrl = YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", this.DataRow["MessageID"]);
+
+            // Send Retweet Directlly thru the Twitter API if User is Twitter User
+            if (Config.TwitterConsumerKey.IsSet() && Config.TwitterConsumerSecret.IsSet() &&
+                this.Get<IYafSession>().TwitterToken.IsSet() && this.Get<IYafSession>().TwitterTokenSecret.IsSet() &&
+                this.Get<IYafSession>().TwitterTokenSecret.IsSet() && this.PageContext.IsTwitterUser)
+            {
+                var oAuth = new OAuthTwitter
+                    {
+                        ConsumerKey = Config.TwitterConsumerKey,
+                        ConsumerSecret = Config.TwitterConsumerSecret,
+                        Token = this.Get<IYafSession>().TwitterToken,
+                        TokenSecret = this.Get<IYafSession>().TwitterTokenSecret
+                    };
+
+                var tweets = new TweetAPI(oAuth);
+
+                tweets.UpdateStatus(
+                    TweetAPI.ResponseFormat.json,
+                    this.Server.UrlEncode("RT {1}: {0} {2}".FormatWith(twitterMsg.Truncate(100), twitterName, topicUrl)),
+                    string.Empty);
+            }
+            else
+            {
+                this.Get<HttpResponseBase>().Redirect(
+                    "http://twitter.com/share?url={0}&text={1}".FormatWith(
+                        this.Server.UrlEncode(this.Get<HttpRequestBase>().Url.ToString()),
+                        this.Server.UrlEncode(
+                            "RT {1}: {0} {2}".FormatWith(twitterMsg.Truncate(100), twitterName, topicUrl))));
+            }
+        }
+
+        /// <summary>
         /// The display post_ pre render.
         /// </summary>
         /// <param name="sender">
@@ -536,22 +586,6 @@ namespace YAF.Controls
             }
 
             this.Retweet.Visible = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ShowRetweetMessageTo);
-
-            var twitterName = this.Get<YafBoardSettings>().TwitterUserName.IsSet()
-                                                  ? "@{0} ".FormatWith(this.Get<YafBoardSettings>().TwitterUserName)
-                                                  : string.Empty;
-
-            // process message... clean html, strip html, remove bbcode, etc...
-            var twitterMsg =
-              StringExtensions.RemoveMultipleWhitespace(
-                BBCodeHelper.StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString((string)this.DataRow["Message"]))));
-
-            var tweetUrl =
-                "http://twitter.com/share?url={0}&text={1}".FormatWith(
-                    this.Server.UrlEncode(this.Get<HttpRequestBase>().Url.ToString()),
-                    this.Server.UrlEncode("RT {1}: {0}".FormatWith(twitterMsg.Truncate(100), twitterName)));
-
-            this.Retweet.NavigateUrl = tweetUrl;
 
             this.Attach.Visible = !this.PostData.PostDeleted && this.PostData.CanAttach && !this.PostData.IsLocked;
             this.Attach.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.attachments, "m={0}", this.PostData.MessageId);

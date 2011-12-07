@@ -322,6 +322,17 @@ namespace YAF.Core
         }
 
         /// <summary>
+        ///   Gets a value indicating whether the current user is logged in via Twitter
+        /// </summary>
+        public bool IsTwitterUser
+        {
+            get
+            {
+                return this.PageValueAsBool("IsTwitterUser");
+            }
+        }
+
+        /// <summary>
         ///   Gets a value indicating whether the current user is suspended (True).
         /// </summary>
         public bool IsSuspended

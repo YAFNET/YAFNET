@@ -545,6 +545,7 @@ namespace YAF.Controls
             this.ICQ.Text = this.UserData.Profile.ICQ;
             this.Facebook.Text = this.UserData.Profile.Facebook;
             this.Twitter.Text = this.UserData.Profile.Twitter;
+            this.TwitterId.Text = this.UserData.Profile.TwitterId;
             this.Xmpp.Text = this.UserData.Profile.XMPP;
             this.Skype.Text = this.UserData.Profile.Skype;
             this.Gender.SelectedIndex = this.UserData.Profile.Gender;
@@ -692,6 +693,7 @@ namespace YAF.Controls
             userProfile.ICQ = this.ICQ.Text.Trim();
             userProfile.Facebook = this.Facebook.Text.Trim();
             userProfile.Twitter = this.Twitter.Text.Trim();
+            userProfile.TwitterId = this.TwitterId.Text.Trim();
             userProfile.XMPP = this.Xmpp.Text.Trim();
             userProfile.Skype = this.Skype.Text.Trim();
             userProfile.RealName = this.Realname.Text.Trim();

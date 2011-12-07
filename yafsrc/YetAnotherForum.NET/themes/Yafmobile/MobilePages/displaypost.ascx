@@ -10,8 +10,6 @@
                     TitleLocalizedTag="BUTTON_THANKS_TT" />
             </span>    
             <asp:PlaceHolder ID="buttonsMobile" runat="server" Visible="false">
-            <YAF:ThemeButton ID="Retweet" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_RETWEET"
-                TitleLocalizedTag="BUTTON_RETWEET_TT" />
             <YAF:ThemeButton ID="Attach" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_ATTACH"
                 TitleLocalizedTag="BUTTON_ATTACH_TT" />
             <YAF:ThemeButton ID="MovePost" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_MOVE"
@@ -21,6 +19,8 @@
             <YAF:ThemeButton ID="UnDelete" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_UNDELETE"
                 TitleLocalizedTag="BUTTON_UNDELETE_TT" />
             </asp:PlaceHolder>
+            <YAF:ThemeButton ID="Retweet" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_RETWEET"
+                TitleLocalizedTag="BUTTON_RETWEET_TT" OnClick="Retweet_Click" />
             <YAF:ThemeButton ID="Edit" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_EDIT"
                 TitleLocalizedTag="BUTTON_EDIT_TT" />
             <YAF:ThemeButton ID="Quote" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_QUOTE"

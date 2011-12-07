@@ -684,6 +684,7 @@
     <Resource tag="RESET_PASS">Reset Password</Resource>
     <Resource tag="SET_POINTS">Set Points:</Resource>
     <Resource tag="TITLE">Edit User "{0}"</Resource>
+    <Resource tag="TWITTER_USER">Twitter User:</Resource>
     <Resource tag="USER_AVATAR">User Avatar</Resource>
     <Resource tag="USER_DETAILS">User Details</Resource>
     <Resource tag="USER_KILL">User Kill Activity</Resource>
@@ -907,7 +908,7 @@
     <Resource tag="ENABLE_RETWEET_MSG">Enable Retweet Message Button:</Resource>
     <Resource tag="ENABLE_RETWEET_MSG_HELP">Enables/disables the Retweet Button, where the User can retweet a topic message.</Resource>
     <Resource tag="ENABLE_SSO">Enable Single Sign On:</Resource>
-    <Resource tag="ENABLE_SSO_HELP">If checked, users will be able to Login to an existing account via Facebook. This only works YAF.FacebookAPIKey and YAF.FacebookSecretKey are setup in app.config.</Resource>
+    <Resource tag="ENABLE_SSO_HELP">If checked, users will be able to Login to an existing account via Facebook and/or Twitter. To Enable it for Facebook you need to setup YAF.FacebookAPIKey and YAF.FacebookSecretKey Values, and for Twitter YAF.TwitterConsumerKey and YAF.TwitterConsumerSecret Values in the app.config (AppSettings).</Resource>
     <Resource tag="ENABLE_USERREPUTATION">Use Reputation System:</Resource>
     <Resource tag="ENABLE_USERREPUTATION_HELP">Setting to Enable/Disable the Build-In Reputation System to allow Users Give or Remove Reputation.</Resource>
     <Resource tag="EXTERN_NEWWINDOW">External Search Results In A New Window:</Resource>
@@ -1196,8 +1197,8 @@
     <Resource tag="SSL_LOGIN_HELP">Enforce a secure connection for users to log in.</Resource>
     <Resource tag="SSL_REGISTER">Use SSL while registering:</Resource>
     <Resource tag="SSL_REGISTER_HELP">Enforce a secure connection for users to register.</Resource>
-    <Resource tag="SSO_AUTO_REGISTER">Register New Facebook User automatically:</Resource>
-    <Resource tag="SSO_AUTO_REGISTER_HELP">Register User automatically that are trying to login thru Facebook</Resource>
+    <Resource tag="SSO_AUTO_REGISTER">Register New Facebook/Twitter User automatically:</Resource>
+    <Resource tag="SSO_AUTO_REGISTER_HELP">Register User automatically that are trying to login thru Facebook or Twitter</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT">Forum Statistics Cache Timeout:</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT_HELP">In minutes</Resource>
     <Resource tag="STYLED_NICKS">Use styled nicks:</Resource>
@@ -1517,6 +1518,7 @@
     <Resource tag="SEARCH">Search</Resource>
     <Resource tag="SYNC_ALL">Sync All Membership Users</Resource>
     <Resource tag="TITLE">Users</Resource>
+    <Resource tag="TWITTER_USER">Twitter User</Resource>
     <Resource tag="USER_NAME">User Name</Resource>
   </page>
   <page name="ADMIN_USERS_IMPORT">
@@ -2188,8 +2190,9 @@
     <Resource tag="TIMEZONE2">Ca sa ai timpul si data ta locala, avem nevoie de timpul zonei tale.</Resource>
     <Resource tag="TITLE">Editeaza Profil</Resource>
     <Resource tag="TWITTER">Your Twitter Name:</Resource>
+    <Resource tag="TWITTER_ID">Your Twitter Id:</Resource>
     <Resource tag="USE_MOBILE_THEME">Use Mobile Forum Theme:</Resource>
-    <Resource tag="USE_SINGLESIGNON">Did you want to Use Single Sign On?&lt;br /&gt;You need to have Set Up the Facebook Profile ID above.</Resource>
+    <Resource tag="USE_SINGLESIGNON">Did you want to Use Single Sign On?&lt;br /&gt;You need to have Set Up the Facebook Profile ID above for Facebook Login and Twitter Id + Twitter Name for Twitter Login.</Resource>
     <Resource tag="WEBLOG2">Weblogul tau:</Resource>
     <Resource tag="WHERE">Unde traiesti?</Resource>
     <Resource tag="XMPP">Your Jabber ID:</Resource>
@@ -3852,7 +3855,12 @@ Spoiler Content
     <Resource tag="SSO_DEACTIVATED_BYUSER">Single Sign On is deactivated for that User, you need to activate it in your Profile Settings to use that feature.</Resource>
     <Resource tag="SSO_FAILED">The Facebook Login failed, a User with that Email Address doesn't  exists.</Resource>
     <Resource tag="SSO_ID_NOTMATCH">The Facebook User ID does not match!</Resource>
+    <Resource tag="SSO_TWITTER_FAILED">The Twitter Login failed, User does not exists.</Resource>
+    <Resource tag="SSO_TWITTERID_NOTMATCH">The Twitter ID and Twitter Name does not match!</Resource>
     <Resource tag="TITLE">Intrare</Resource>
+    <Resource tag="TWITTER_DM">You have received further Information to your new Account as Private Message on the Forum.</Resource>
+    <Resource tag="TWITTER_LOGIN">Login with Twitter</Resource>
+    <Resource tag="UPDATE_EMAIL">Please Update Your E-Mail Adress now!</Resource>
     <Resource tag="USERNAME">Utilizator:</Resource>
     <Resource tag="WRONG_USERNAME_EMAIL">Utilizator sau adresa de email gresite.</Resource>
   </page>
@@ -4645,6 +4653,17 @@ The Message was posted in the {forumname} forum.
 	  Auto Generated Password: {pass}
 	  Auto Generated Security Answer: {answer}
       User Email: {email} (Please dont change your email, or you are unable to login with facebook)
+	  
+    </Resource>
+    <Resource tag="NOTIFICATION_ON_TWITTER_REGISTER">
+      Hello {user}.
+
+      You have been successfully Registred on the {forumname} forum thru Twitter:
+
+      User Name: {user}
+	  Auto Generated Password: {pass}
+	  Auto Generated Security Answer: {answer}
+      User Email: {email} (Please change your Email adress to your real one in order to Receive E-Mails)
 	  
     </Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER">

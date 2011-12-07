@@ -39,6 +39,7 @@ namespace YAF.Pages
     using YAF.Core;
     using YAF.Core.Services;
     using YAF.Core.Services.CheckForSpam;
+    using YAF.Core.Services.Twitter;
     using YAF.Editors;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -1413,14 +1414,42 @@ namespace YAF.Pages
                         // process message... clean html, strip html, remove bbcode, etc...
                         var twitterMsg =
                             StringExtensions.RemoveMultipleWhitespace(
-                                BBCodeHelper.StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString((string)this._topic["Topic"]))));
+                                BBCodeHelper.StripBBCode(
+                                    HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString((string)this._topic["Topic"]))));
+
+                        var topicUrl = YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.PageContext.PageTopicID);
 
                         var tweetUrl =
                             "http://twitter.com/share?url={0}&text={1}".FormatWith(
                                 this.Server.UrlEncode(this.Get<HttpRequestBase>().Url.ToString()),
-                                this.Server.UrlEncode("RT {1}Thread: {0}".FormatWith(twitterMsg.Truncate(100), twitterName)));
+                                this.Server.UrlEncode(
+                                    "RT {1}Thread: {0}".FormatWith(twitterMsg.Truncate(100), twitterName)));
 
-                        this.Get<HttpResponseBase>().Redirect(tweetUrl);
+                        // Send Retweet Directlly thru the Twitter API if User is Twitter User
+                        if (Config.TwitterConsumerKey.IsSet() && Config.TwitterConsumerSecret.IsSet() &&
+                            this.Get<IYafSession>().TwitterToken.IsSet() &&
+                            this.Get<IYafSession>().TwitterTokenSecret.IsSet() && this.PageContext.IsTwitterUser)
+                        {
+                            var oAuth = new OAuthTwitter
+                                {
+                                    ConsumerKey = Config.TwitterConsumerKey,
+                                    ConsumerSecret = Config.TwitterConsumerSecret,
+                                    Token = this.Get<IYafSession>().TwitterToken,
+                                    TokenSecret = this.Get<IYafSession>().TwitterTokenSecret
+                                };
+
+                            var tweets = new TweetAPI(oAuth);
+
+                            tweets.UpdateStatus(
+                                TweetAPI.ResponseFormat.json,
+                                this.Server.UrlEncode(
+                                    "RT {1}: {0} {2}".FormatWith(twitterMsg.Truncate(100), twitterName, topicUrl)),
+                                string.Empty);
+                        }
+                        else
+                        {
+                            this.Get<HttpResponseBase>().Redirect(tweetUrl);
+                        }
                     }
 
                     break;

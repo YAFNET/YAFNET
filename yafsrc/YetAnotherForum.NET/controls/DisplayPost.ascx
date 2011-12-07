@@ -32,7 +32,7 @@
             </div>
         <div class="rightItem postedRight">
             <YAF:ThemeButton ID="Retweet" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_RETWEET"
-                TitleLocalizedTag="BUTTON_RETWEET_TT" />
+                TitleLocalizedTag="BUTTON_RETWEET_TT" OnClick="Retweet_Click" />
             <span id="<%# "dvThankBox" + DataRow["MessageID"] %>">
                 <YAF:ThemeButton ID="Thank" runat="server" CssClass="yaflittlebutton" Visible="false" TextLocalizedTag="BUTTON_THANKS"
                     TitleLocalizedTag="BUTTON_THANKS_TT" />

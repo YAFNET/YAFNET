@@ -76,6 +76,48 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
+        /// Gets or sets Twitter Token.
+        /// </summary>
+        public string TwitterToken
+        {
+            get
+            {
+                if (this.SessionState["TwitterToken"] != null)
+                {
+                    return (string)this.SessionState["TwitterToken"];
+                }
+
+                return null;
+            }
+
+            set
+            {
+                this.SessionState["TwitterToken"] = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets Twitter Token Secret.
+        /// </summary>
+        public string TwitterTokenSecret
+        {
+            get
+            {
+                if (this.SessionState["TwitterTokenSecret"] != null)
+                {
+                    return (string)this.SessionState["TwitterTokenSecret"];
+                }
+
+                return null;
+            }
+
+            set
+            {
+                this.SessionState["TwitterTokenSecret"] = value;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the multi quote ids.
         /// </summary>
         /// <value>
