@@ -6,10 +6,6 @@
   Remove Extra Stuff: SET ANSI_NULLS ON\nGO\nSET QUOTED_IDENTIFIER ON\nGO\n\n\n 
 */
 
-IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}topic_unanswered]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [{databaseOwner}].[{objectQualifier}topic_unanswered]
-GO
-
 IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_updatefacebookstatus]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_updatefacebookstatus]
 GO
@@ -1371,13 +1367,13 @@ AS
 				c.Posted,
 				c.[Message],
 				c.Flags
-		        from   [{databaseOwner}].[{objectQualifier}Thanks] t
-		        join [{databaseOwner}].[{objectQualifier}Message] c  on c.MessageID = t.MessageID		 
+				from   [{databaseOwner}].[{objectQualifier}Thanks] t
+				join [{databaseOwner}].[{objectQualifier}Message] c  on c.MessageID = t.MessageID		 
 				join [{databaseOwner}].[{objectQualifier}Topic] a on a.TopicID = c.TopicID
-			    join [{databaseOwner}].[{objectQualifier}User] b on c.UserID = b.UserID
+				join [{databaseOwner}].[{objectQualifier}User] b on c.UserID = b.UserID
 				join [{databaseOwner}].[{objectQualifier}ActiveAccess] x on x.ForumID = a.ForumID
 		where   CONVERT(int,x.ReadAccess) <> 0
-			    AND x.UserID = @PageUserID			
+				AND x.UserID = @PageUserID			
 				AND c.IsApproved = 1
 				AND a.TopicMovedID IS NULL
 				AND a.IsDeleted = 0
@@ -1496,7 +1492,7 @@ begin
 			IsHidden = ( a.IsActiveExcluded ),				
 			Style = case(@StyledNicks)
 			when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=a.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), r.Style)  
+			join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=a.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), r.Style)  
 			else ''	 end, 			
 			UserCount = 1,
 			c.[Login],
@@ -1530,7 +1526,7 @@ begin
 			IsHidden = ( a.IsActiveExcluded ),		
 			Style = case(@StyledNicks)
 			when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=a.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), r.Style)  
+			join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=a.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), r.Style)  
 			else ''	 end, 	 						
 			UserCount = 1,
 			c.[Login],
@@ -1565,7 +1561,7 @@ begin
 			IsHidden = ( a.IsActiveExcluded ),
 			Style = case(@StyledNicks)
 			when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=a.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), r.Style)  
+			join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=a.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), r.Style)  
 			else ''	 end, 				
 			UserCount = 1,
 			c.[Login],
@@ -1612,7 +1608,7 @@ begin
 			IsHidden = ( a.IsActiveExcluded ),
 			Style = case(@StyledNicks)
 			when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=a.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), r.Style)  
+			join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=a.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), r.Style)  
 			else ''	 end, 				
 			UserCount = 1,
 			c.[Login],
@@ -1649,7 +1645,7 @@ begin
 			IsHidden = ( a.IsActiveExcluded ),
 			Style = case(@StyledNicks)
 			when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=a.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), r.Style)  
+			join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=a.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), r.Style)  
 			else ''	 end, 					
 			UserCount = 1,
 			c.[Login],
@@ -1688,7 +1684,7 @@ begin
 			IsHidden = ( a.IsActiveExcluded ),
 			Style = case(@StyledNicks)
 			when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=a.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), r.Style)  
+			join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=a.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), r.Style)  
 			else ''	 end, 					
 			UserCount = 1,
 			c.[Login],
@@ -1762,7 +1758,7 @@ begin
 		IsCrawler	= Convert(int,a.Flags & 8),
 		Style = case(@StyledNicks)
 			when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=b.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), c.Style)  
+			join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=b.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), c.Style)  
 			else ''	 end, 	
 		UserCount   = (SELECT COUNT(ac.UserID) from
 		[{databaseOwner}].[{objectQualifier}Active] ac with(nolock) where ac.UserID = a.UserID and ac.TopicID = @TopicID),
@@ -1919,7 +1915,7 @@ GO
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}board_create](
 	@BoardName 		nvarchar(50),
-	@Culture varchar(10),
+	@Culture char(5),
 	@LanguageFile 	nvarchar(50),
 	@MembershipAppName nvarchar(50),
 	@RolesAppName nvarchar(50),
@@ -2103,7 +2099,7 @@ BEGIN
 		LastUserStyle =  case(@StyledNicks)
 			when 1 then  ISNULL(
 			( SELECT TOP 1 g.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] ug 
-		    join [{databaseOwner}].[{objectQualifier}Group] g 
+			join [{databaseOwner}].[{objectQualifier}Group] g 
 			on g.GroupID=ug.GroupID WHERE ug.UserID=a.UserID 
 			AND LEN(g.Style) > 2 ORDER BY g.SortOrder), 
 			r.Style)  
@@ -2145,7 +2141,7 @@ BEGIN
 		Members = (select count(1) from [{databaseOwner}].[{objectQualifier}User] a where a.BoardID=@BoardID AND (Flags & 2) = 2 AND (a.Flags & 4) = 0),
 		MaxUsers = (SELECT CAST([Value] as nvarchar(255)) FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE LOWER(Name) = LOWER('maxusers') and BoardID=@BoardID),
 		MaxUsersWhen = (SELECT CAST([Value] as nvarchar(255)) FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE LOWER(Name) = LOWER('maxuserswhen') and BoardID=@BoardID),		
-	    LastMemberInfo.*
+		LastMemberInfo.*
 	FROM
 		(
 			SELECT TOP 1 
@@ -2167,7 +2163,7 @@ BEGIN
 END
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}board_save](@BoardID int,@Name nvarchar(50), @LanguageFile nvarchar(50), @Culture varchar(10), @AllowThreaded bit) as
+create procedure [{databaseOwner}].[{objectQualifier}board_save](@BoardID int,@Name nvarchar(50), @LanguageFile nvarchar(50), @Culture char(5), @AllowThreaded bit) as
 begin
 
 		EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'culture', @Culture, @BoardID
@@ -2837,25 +2833,24 @@ select
 		TopicMovedID    = t.TopicMovedID,
 		LastTopicName	= t.Topic,
 		LastTopicStatus = t.Status,
-		LastTopicStyles = t.Styles,
 		b.Flags,
 		Viewing			= (select count(1) from [{databaseOwner}].[{objectQualifier}Active] x with(nolock) JOIN [{databaseOwner}].[{objectQualifier}User] usr with(nolock) ON x.UserID = usr.UserID where x.ForumID=b.ForumID AND usr.IsActiveExcluded = 0),
 		b.RemoteURL,		
 		ReadAccess = CONVERT(int,x.ReadAccess),
 		Style = case(@StyledNicks)
 			when 1 then  ISNULL((SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e with(nolock)
-		    join [{databaseOwner}].[{objectQualifier}Group] f with(nolock) on f.GroupID=e.GroupID WHERE e.UserID=t.LastUserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
+			join [{databaseOwner}].[{objectQualifier}Group] f with(nolock) on f.GroupID=e.GroupID WHERE e.UserID=t.LastUserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
 			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr with(nolock)
 			join [{databaseOwner}].[{objectQualifier}Rank] r with(nolock) ON r.RankID = usr.RankID  where usr.UserID=t.LastUserID))  
 			else ''	 end,
-	    LastForumAccess = case(@FindLastRead)
-		     when 1 then
-		       (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x with(nolock) WHERE x.ForumID=b.ForumID AND x.UserID = @UserID)
-		     else ''	 end,
+		LastForumAccess = case(@FindLastRead)
+			 when 1 then
+			   (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x with(nolock) WHERE x.ForumID=b.ForumID AND x.UserID = @UserID)
+			 else ''	 end,
 		LastTopicAccess = case(@FindLastRead)
-		     when 1 then
-		       (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y with(nolock) WHERE y.TopicID=t.TopicID AND y.UserID = @UserID)
-		     else ''	 end 					
+			 when 1 then
+			   (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y with(nolock) WHERE y.TopicID=t.TopicID AND y.UserID = @UserID)
+			 else ''	 end 					
 	from 
 		[{databaseOwner}].[{objectQualifier}Category] a with(nolock)
 		join [{databaseOwner}].[{objectQualifier}Forum] b with(nolock) on b.CategoryID=a.CategoryID
@@ -2940,7 +2935,7 @@ BEGIN
 		ModeratorName = usr.Name,	
 		Style = case(@StyledNicks)
 			when 1 then  ISNULL((SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=usr.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
+			join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=usr.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
 			r.Style)  
 			else ''	 end,						
 		IsGroup=0
@@ -3498,8 +3493,8 @@ select top 1
 	order by		
 		m.Posted DESC
 		end
-    else
-	    begin
+	else
+		begin
 	-- fill in the table variable with last 100 values from topic's messages		
 	insert into @tbl_msglunr (MessageID,TopicID,Posted,Edited) 
 	select  top 100	  
@@ -3518,46 +3513,46 @@ select top 1
 		m.Posted DESC
 		end
 
-	     -- simply return last post if no unread message is found
+		 -- simply return last post if no unread message is found
   if EXISTS (SELECT TOP 1 1 FROM @tbl_msglunr) 
   begin
-    -- the messageid was already supplied, find a particular message
-    if (@MessageID > 0)
+	-- the messageid was already supplied, find a particular message
+	if (@MessageID > 0)
 	begin
 	   if EXISTS (SELECT TOP 1 1 FROM @tbl_msglunr WHERE TopicID = @TopicID and MessageID = @MessageID)
-	    begin
-	     -- return first unread		
-	       select top 1 MessageID, MessagePosition = cntrt, FirstMessageID = @firstmessageid 
+		begin
+		 -- return first unread		
+		   select top 1 MessageID, MessagePosition = cntrt, FirstMessageID = @firstmessageid 
 		   from @tbl_msglunr
-	       where TopicID=@TopicID and  MessageID = @MessageID 		
+		   where TopicID=@TopicID and  MessageID = @MessageID 		
 		end
-	    else
-	    begin
-	     -- simply return last post if no unread message is found
-	       select top 1 MessageID, MessagePosition = 1, FirstMessageID = @firstmessageid 
+		else
+		begin
+		 -- simply return last post if no unread message is found
+		   select top 1 MessageID, MessagePosition = 1, FirstMessageID = @firstmessageid 
 		   from @tbl_msglunr
-	       where TopicID=@TopicID and Posted> @LastRead
-	       order by Posted DESC
-	    end
+		   where TopicID=@TopicID and Posted> @LastRead
+		   order by Posted DESC
+		end
 	end
 	else
 	begin
 	   -- simply return last message as no MessageID was supplied 
 	   if EXISTS (SELECT TOP 1 1 FROM @tbl_msglunr WHERE Posted> @LastRead)
-	    begin
-	     -- return first unread		
-	       select top 1 MessageID, MessagePosition = cntrt, FirstMessageID = @firstmessageid 
+		begin
+		 -- return first unread		
+		   select top 1 MessageID, MessagePosition = cntrt, FirstMessageID = @firstmessageid 
 		   from @tbl_msglunr
-	       where TopicID=@TopicID and Posted>@LastRead  
-	       order by Posted  ASC
+		   where TopicID=@TopicID and Posted>@LastRead  
+		   order by Posted  ASC
 		end
-	    else
-	    begin
-	       select top 1 MessageID, MessagePosition = 1, FirstMessageID = @firstmessageid 
+		else
+		begin
+		   select top 1 MessageID, MessagePosition = 1, FirstMessageID = @firstmessageid 
 		   from @tbl_msglunr
-	       where TopicID=@TopicID
-	       order by Posted DESC  
-	    end	
+		   where TopicID=@TopicID
+		   order by Posted DESC  
+		end	
 	end
 end
 	else
@@ -3595,7 +3590,6 @@ BEGIN
 		c.Priority,
 		c.Description,
 		c.Status,
-		c.Styles,
 		a.Flags,
 		c.UserID AS TopicOwnerID,
 		Edited = IsNull(a.Edited,a.Posted),
@@ -3870,7 +3864,6 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}message_update](
 @Subject nvarchar(100),
 @Description nvarchar(255),
 @Status nvarchar(255),
-@Styles nvarchar(255),
 @Flags int, 
 @Message ntext, 
 @Reason nvarchar(100), 
@@ -3933,8 +3926,7 @@ begin
 		update [{databaseOwner}].[{objectQualifier}Topic] set
 			Topic = @Subject, 
 			[Description] = @Description,
-			[Status] = @Status,
-			[Styles] = @Styles
+			[Status] = @Status
 		where
 			TopicID = @TopicID
 	end 
@@ -4474,13 +4466,13 @@ begin
 		begin
 			raiserror('No candidates for a guest were found for the board %d.',16,1,@BoardID)
 			end
-     -- verify that there's not the sane session for other board and drop it if required. Test code for portals with many boards
+	 -- verify that there's not the sane session for other board and drop it if required. Test code for portals with many boards
 	 delete from [{databaseOwner}].[{objectQualifier}Active] where (SessionID=@SessionID  and BoardID <> @BoardID)
-	         
+			 
 	if @UserKey is null
 	begin
 	-- this is a guest
-        SET @UserID = @GuestID
+		SET @UserID = @GuestID
 		set @IsGuest = 1
 		-- set IsGuest ActiveFlag  1 | 2
 		set @ActiveFlags = 3
@@ -4634,7 +4626,7 @@ begin
 			@Browser,
 			@Platform,
 			@ActiveFlags)			
-			
+
 			-- update max user stats
 			exec [{databaseOwner}].[{objectQualifier}active_updatemaxstats] @BoardID
 			-- parameter to update active users cache if this is a new user
@@ -4703,58 +4695,6 @@ begin
 			from [{databaseOwner}].[{objectQualifier}vaccess] 
 			where UserID = @UserID 
 			end
-
-				-- ensure that guest access right are in place		
-		if not exists (select top 1
-			UserID	
-			from [{databaseOwner}].[{objectQualifier}ActiveAccess] WITH(NOLOCK) 
-			where UserID = @GuestID )		
-			begin
-			insert into [{databaseOwner}].[{objectQualifier}ActiveAccess](
-			UserID,
-			BoardID,
-			ForumID,
-			IsAdmin, 
-			IsForumModerator,
-			IsModerator,
-			IsGuestX,
-			LastActive, 
-			ReadAccess,
-			PostAccess,
-			ReplyAccess,
-			PriorityAccess,
-			PollAccess,
-			VoteAccess,	
-			ModeratorAccess,
-			EditAccess,
-			DeleteAccess,
-			UploadAccess,
-			DownloadAccess)
-			select 
-			UserID, 
-			@BoardID, 
-			ForumID, 
-			IsAdmin,
-			IsForumModerator,
-			IsModerator,
-			@IsGuest,
-			@CurrentTime,
-			ReadAccess,
-			(CONVERT([bit],sign([PostAccess]&(2)),(0))),
-			ReplyAccess,
-			PriorityAccess,
-			PollAccess,
-			VoteAccess,
-			ModeratorAccess,
-			EditAccess,
-			DeleteAccess,
-			UploadAccess,
-			DownloadAccess			
-			from [{databaseOwner}].[{objectQualifier}vaccess] 
-			where UserID = @GuestID 
-			end
-
-			
 	-- return information
 	select top 1
 		ActiveUpdate        = ISNULL(@ActiveUpdate,0),
@@ -4899,7 +4839,7 @@ GO
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}poll_stats](@PollID int = null) AS
 BEGIN
 
-  	SELECT
+	SELECT
 			
 		a.PollID,
 		b.Question,
@@ -4993,7 +4933,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}pollgroup_votecheck](@PollG
 		ELSE
 		BEGIN
 		-- to get structure
-		    SELECT pv.PollID, pv.ChoiceID, usr.Name as UserName 
+			SELECT pv.PollID, pv.ChoiceID, usr.Name as UserName 
 			FROM [{databaseOwner}].[{objectQualifier}PollVote] pv 
 			JOIN [{databaseOwner}].[{objectQualifier}User] usr ON usr.UserID = pv.UserID
 			WHERE pv.PollID IN ( SELECT PollID FROM [{databaseOwner}].[{objectQualifier}Poll] WHERE PollGroupID = @PollGroupID)
@@ -5045,7 +4985,7 @@ end
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}post_list](
-                 @TopicID int,
+				 @TopicID int,
 				 @AuthorUserID int,
 				 @UpdateViewCount smallint=1, 
 				 @ShowDeleted bit = 1, 
@@ -5099,16 +5039,16 @@ begin
    if (@MessagePosition > 0)
  begin
 
-       -- round to ceiling - total number of pages  
-       SELECT @ceiling = CEILING(CONVERT(decimal,@post_totalrowsnumber)/@PageSize) 
-       -- round to floor - a number of full pages
-       SELECT @floor = FLOOR(CONVERT(decimal,@post_totalrowsnumber)/@PageSize)
+	   -- round to ceiling - total number of pages  
+	   SELECT @ceiling = CEILING(CONVERT(decimal,@post_totalrowsnumber)/@PageSize) 
+	   -- round to floor - a number of full pages
+	   SELECT @floor = FLOOR(CONVERT(decimal,@post_totalrowsnumber)/@PageSize)
 
-       SET @pageshift = @MessagePosition - (@post_totalrowsnumber - @floor*@PageSize)
-            if  @pageshift < 0
+	   SET @pageshift = @MessagePosition - (@post_totalrowsnumber - @floor*@PageSize)
+			if  @pageshift < 0
 			   begin
-			      SET @pageshift = 0
-				     end   
+				  SET @pageshift = 0
+					 end   
    -- here pageshift converts to full pages 
    if (@pageshift <= 0)
    begin    
@@ -5138,7 +5078,7 @@ begin
    else
    -- should not be 0
    set rowcount 1
-   	
+	
    select		
 		@firstselectposted = m.Posted,
 		@firstselectedited = m.Edited
@@ -5156,17 +5096,17 @@ begin
 		
 	order by
 		(case 
-        when @SortPosition = 1 then m.Position end) ASC,	
+		when @SortPosition = 1 then m.Position end) ASC,	
 		(case 
-        when @SortPosted = 2 then m.Posted end) DESC,
+		when @SortPosted = 2 then m.Posted end) DESC,
 		(case 
-        when @SortPosted = 1 then m.Posted end) ASC, 
+		when @SortPosted = 1 then m.Posted end) ASC, 
 		(case 
-        when @SortEdited = 2 then m.Edited end) DESC,
+		when @SortEdited = 2 then m.Edited end) DESC,
 		(case 
-        when @SortEdited = 1 then m.Edited end) ASC  	 		
+		when @SortEdited = 1 then m.Edited end) ASC  	 		
 			
-    
+	
 	set rowcount @PageSize	
 		
 	select
@@ -5175,7 +5115,6 @@ begin
 		d.Priority,
 		d.Description,
 		d.Status,
-		d.Styles,
 		d.PollID,
 		d.UserID AS TopicOwnerID,
 		TopicFlags	= d.Flags,
@@ -5228,33 +5167,33 @@ begin
 		AND (m.IsDeleted = 0 OR ((@ShowDeleted = 1 AND m.IsDeleted = 1) OR (@AuthorUserID > 0 AND m.UserID = @AuthorUserID)))
 		AND (m.Posted is null OR (m.Posted is not null AND
 		(m.Posted >= (case 
-        when @SortPosted = 1 then
+		when @SortPosted = 1 then
 		 @firstselectposted end) OR m.Posted <= (case 
-        when @SortPosted = 2 then @firstselectposted end) OR
+		when @SortPosted = 2 then @firstselectposted end) OR
 		m.Posted >= (case 
-        when @SortPosted = 0 then 0 end))))	AND
+		when @SortPosted = 0 then 0 end))))	AND
 		(m.Posted <= @ToPostedDate)	
 		/*
 		AND (m.Edited is null OR (m.Edited is not null AND
 		(m.Edited >= (case 
-        when @SortEdited = 1 then @firstselectedited end) 
+		when @SortEdited = 1 then @firstselectedited end) 
 		OR m.Edited <= (case 
-        when @SortEdited = 2 then @firstselectedited end) OR
+		when @SortEdited = 2 then @firstselectedited end) OR
 		m.Edited >= (case 
-        when @SortEdited = 0 then 0
+		when @SortEdited = 0 then 0
 		end)))) 
 		*/
 	order by		
 		(case 
-        when @SortPosition = 1 then m.Position end) ASC,	
+		when @SortPosition = 1 then m.Position end) ASC,	
 		(case 
-        when @SortPosted = 2 then m.Posted end) DESC,
+		when @SortPosted = 2 then m.Posted end) DESC,
 		(case 
-        when @SortPosted = 1 then m.Posted end) ASC, 
+		when @SortPosted = 1 then m.Posted end) ASC, 
 		(case 
-        when @SortEdited = 2 then m.Edited end) DESC,
+		when @SortEdited = 2 then m.Edited end) DESC,
 		(case 
-        when @SortEdited = 1 then m.Edited end) ASC  
+		when @SortEdited = 1 then m.Edited end) ASC  
 
 		SET ROWCOUNT 0
 end
@@ -5556,7 +5495,7 @@ GO
 create procedure [{databaseOwner}].[{objectQualifier}system_initialize](
 	@Name		nvarchar(50),
 	@TimeZone	int,
-	@Culture	varchar(10),
+	@Culture	char(5),
 	@LanguageFile nvarchar(50),
 	@ForumEmail	nvarchar(50),
 	@SmtpServer	nvarchar(50),
@@ -5610,7 +5549,6 @@ begin
 		[Subject] = c.Topic,
 		[Description] = c.Description,
 		[Status] = c.Status,
-		[Styles] = c.Styles,
 		c.UserID,
 		Starter = IsNull(c.UserName,b.Name),
 		NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@PageUserID IS NOT NULL AND mes.UserID = @PageUserID) OR (@PageUserID IS NULL)) ),
@@ -5630,26 +5568,26 @@ begin
 		c.TopicMovedID,
 		ForumFlags = d.Flags,
 		FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(c.TopicMovedID,c.TopicID) AND mes2.Position = 0),
-	    StarterStyle = case(@StyledNicks)
+		StarterStyle = case(@StyledNicks)
 			when 1 then  ISNULL((SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=c.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
+			join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=c.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
 			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr 
 			join [{databaseOwner}].[{objectQualifier}Rank] r ON r.RankID = usr.RankID  where usr.UserID=c.UserID))  
 			else ''	 end ,
 		LastUserStyle= case(@StyledNicks)
 			when 1 then  ISNULL((SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=c.LastUserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
+			join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=c.LastUserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
 			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr 
 			join [{databaseOwner}].[{objectQualifier}Rank] r ON r.RankID = usr.RankID  where usr.UserID=c.LastUserID))  
 			else ''	 end,
-	    LastForumAccess = case(@FindLastRead)
-		     when 1 then
-		       (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x WHERE x.ForumID=d.ForumID AND x.UserID = @PageUserID)
-		     else ''	 end,
+		LastForumAccess = case(@FindLastRead)
+			 when 1 then
+			   (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x WHERE x.ForumID=d.ForumID AND x.UserID = @PageUserID)
+			 else ''	 end,
 		LastTopicAccess = case(@FindLastRead)
-		     when 1 then
-		       (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=c.TopicID AND y.UserID = @PageUserID)
-		     else ''	 end
+			 when 1 then
+			   (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=c.TopicID AND y.UserID = @PageUserID)
+			 else ''	 end
 	from
 		[{databaseOwner}].[{objectQualifier}Topic] c
 		join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
@@ -5663,7 +5601,7 @@ begin
 		cat.BoardID = @BoardID and
 		(@CategoryID is null or cat.CategoryID=@CategoryID) and
 		c.IsDeleted = 0
-		and	c.TopicMovedID is null
+		and	c.TopicMovedID is null 
 	order by
 		cat.SortOrder asc,
 		d.SortOrder asc,
@@ -5751,22 +5689,22 @@ create procedure [{databaseOwner}].[{objectQualifier}pollgroup_remove](@PollGrou
 			 begin
 				   if @TopicID > 0
 				   Update [{databaseOwner}].[{objectQualifier}Topic] set PollID = NULL where TopicID = @TopicID                 
-                  
+				  
 				   if @ForumID > 0
-                   Update [{databaseOwner}].[{objectQualifier}Forum] set PollGroupID = NULL where ForumID = @ForumID
-              
-	               if @CategoryID > 0
-                   Update [{databaseOwner}].[{objectQualifier}Category] set PollGroupID = NULL where CategoryID = @CategoryID
-                
-		     end        
-		    
-	      -- we remove poll group links from all places where they are
-	     if ( @RemoveEverywhere = 1 OR @RemoveCompletely = 1)
+				   Update [{databaseOwner}].[{objectQualifier}Forum] set PollGroupID = NULL where ForumID = @ForumID
+			  
+				   if @CategoryID > 0
+				   Update [{databaseOwner}].[{objectQualifier}Category] set PollGroupID = NULL where CategoryID = @CategoryID
+				
+			 end        
+			
+		  -- we remove poll group links from all places where they are
+		 if ( @RemoveEverywhere = 1 OR @RemoveCompletely = 1)
 		 begin
 				   Update [{databaseOwner}].[{objectQualifier}Topic] set PollID = NULL where PollID = @PollGroupID 
-                   Update [{databaseOwner}].[{objectQualifier}Forum] set PollGroupID = NULL where PollGroupID = @PollGroupID
+				   Update [{databaseOwner}].[{objectQualifier}Forum] set PollGroupID = NULL where PollGroupID = @PollGroupID
 				   Update [{databaseOwner}].[{objectQualifier}Category] set PollGroupID = NULL where PollGroupID = @PollGroupID				 
-         end
+		 end
 
 		 -- simply remove all polls
 	if @RemoveCompletely = 1 
@@ -5777,7 +5715,7 @@ create procedure [{databaseOwner}].[{objectQualifier}pollgroup_remove](@PollGrou
 			DELETE FROM  [{databaseOwner}].[{objectQualifier}choice] WHERE PollID IN (SELECT PollID FROM @polllist)	
 			DELETE FROM  [{databaseOwner}].[{objectQualifier}poll] WHERE PollGroupID = @PollGroupID 
 			DELETE FROM  [{databaseOwner}].[{objectQualifier}PollGroupCluster] WHERE PollGroupID = @PollGroupID		
-    end
+	end
 
 	-- don't remove cluster if the polls are not removed from db 
 	end
@@ -5785,18 +5723,18 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}pollgroup_attach](@PollGroupID int, @TopicID int = null, @ForumID int = null, @CategoryID int = null, @BoardID int = null) as
 begin
-                   -- this deletes possible polls without choices it should not normally happen
+				   -- this deletes possible polls without choices it should not normally happen
 				   DECLARE @tablett table (PollID int) 
 				   INSERT INTO @tablett(PollID)
 				   SELECT PollID FROM [{databaseOwner}].[{objectQualifier}Poll] WHERE PollGroupID = NULL
-                  
+				  
 				   DELETE FROM [{databaseOwner}].[{objectQualifier}PollVote] WHERE PollID IN (select PollID FROM @tablett)
 				   DELETE FROM [{databaseOwner}].[{objectQualifier}Choice] WHERE PollID IN (select PollID FROM @tablett)
 				   DELETE FROM [{databaseOwner}].[{objectQualifier}Poll] WHERE PollID IN (select PollID FROM @tablett)
-				   				   
-                   if NOT EXISTS (SELECT top 1 1 FROM @tablett)
+								   
+				   if NOT EXISTS (SELECT top 1 1 FROM @tablett)
 				   begin
-	               if @TopicID > 0
+				   if @TopicID > 0
 				   begin
 				   if exists (select top 1 1 from [{databaseOwner}].[{objectQualifier}Topic] where TopicID = @TopicID  and PollID is not null)
 				   begin
@@ -5808,35 +5746,35 @@ begin
 				   SELECT 0
 				   end
 				   end              
-                  
+				  
 				   if @ForumID > 0
 				   begin
 				   if exists (select top 1 1 from [{databaseOwner}].[{objectQualifier}Forum] where ForumID = @ForumID and PollGroupID is not null)
-                   begin
+				   begin
 				   SELECT 1
 				   end
 				   else
 				   begin
 				   Update [{databaseOwner}].[{objectQualifier}Forum] set PollGroupID = @PollGroupID where ForumID = @ForumID
-                   SELECT 0
+				   SELECT 0
 				   end
 				   end
 
-	               if @CategoryID > 0
+				   if @CategoryID > 0
 				   begin
 				   if exists (select top 1 1 from [{databaseOwner}].[{objectQualifier}Category] where CategoryID = @CategoryID and PollGroupID is null)
-                   begin
+				   begin
 				   SELECT 1
 				   end
 				   else
 				   begin
 				   Update [{databaseOwner}].[{objectQualifier}Category] set PollGroupID = @PollGroupID where CategoryID = @CategoryID
-                   SELECT 0
+				   SELECT 0
 				   end
 				   end
 				   end
 				   SELECT 1
-		               
+					   
 
 end
 GO
@@ -5908,7 +5846,7 @@ BEGIN
 		SELECT 1
 		ELSE
 		SELECT 0
-    END
+	END
 	ELSE
 	BEGIN
 		SELECT 0
@@ -5950,7 +5888,7 @@ BEGIN
 	
 	SET ROWCOUNT @NumPosts
 	SELECT
-	    LastMessage = m.[Message],
+		LastMessage = m.[Message],
 		t.LastPosted,
 		t.ForumID,
 		f.Name as Forum,
@@ -5965,7 +5903,7 @@ BEGIN
 		t.Posted,		
 		LastUserName = IsNull(t.LastUserName,(select [Name] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID = t.LastUserID))		
 	FROM
-	    [{databaseOwner}].[{objectQualifier}Message] m 
+		[{databaseOwner}].[{objectQualifier}Message] m 
 	INNER JOIN	
 		[{databaseOwner}].[{objectQualifier}Topic] t  ON t.LastMessageID = m.MessageID
 	INNER JOIN
@@ -6007,7 +5945,6 @@ BEGIN
 		f.Name as Forum,
 		t.Topic,
 		t.Status,
-		t.Styles,
 		t.TopicID,
 		t.TopicMovedID,
 		t.UserID,
@@ -6020,18 +5957,18 @@ BEGIN
 		LastUserName = IsNull(t.LastUserName,(select [Name] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID = t.LastUserID)),
 		LastUserStyle = case(@StyledNicks)
 			when 1 then  ISNULL((SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=t.LastUserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
+			join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=t.LastUserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
 			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr 
 			join [{databaseOwner}].[{objectQualifier}Rank] r ON r.RankID = usr.RankID  where usr.UserID=t.LastUserID))  
 			else ''	 end,	
-	    LastForumAccess = case(@FindLastRead)
-		     when 1 then
-		       (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x WHERE x.ForumID=f.ForumID AND x.UserID = @PageUserID)
-		     else ''	 end,
+		LastForumAccess = case(@FindLastRead)
+			 when 1 then
+			   (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x WHERE x.ForumID=f.ForumID AND x.UserID = @PageUserID)
+			 else ''	 end,
 		LastTopicAccess = case(@FindLastRead)
-		     when 1 then
-		       (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=t.TopicID AND y.UserID = @PageUserID)
-		     else ''	 end
+			 when 1 then
+			   (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=t.TopicID AND y.UserID = @PageUserID)
+			 else ''	 end
 			
 	FROM	
 		[{databaseOwner}].[{objectQualifier}Topic] t 
@@ -6041,7 +5978,7 @@ BEGIN
 		[{databaseOwner}].[{objectQualifier}Category] c ON c.CategoryID = f.CategoryID
 	JOIN
 		[{databaseOwner}].[{objectQualifier}ActiveAccess] v ON v.ForumID=f.ForumID
-    WHERE	
+	WHERE	
 		c.BoardID = @BoardID
 		AND t.TopicMovedID is NULL
 		AND v.UserID=@PageUserID
@@ -6134,7 +6071,6 @@ begin
 			[Subject] = c.Topic,
 			c.[Description],
 			c.[Status],
-			c.[Styles],
 			c.UserID,
 			Starter = IsNull(c.UserName,b.Name),
 			Replies = c.NumPosts - 1,
@@ -6152,23 +6088,23 @@ begin
 			FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(c.TopicMovedID,c.TopicID) AND mes2.Position = 0),
 		    StarterStyle = case(@StyledNicks)
 			when 1 then  ISNULL((SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=c.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
+			join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=c.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
 			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr 
 			join [{databaseOwner}].[{objectQualifier}Rank] r ON r.RankID = usr.RankID  where usr.UserID=c.UserID))  
 			else ''	 end ,
 		 		    LastUserStyle= case(@StyledNicks)
 			when 1 then  ISNULL((SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=c.LastUserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
+			join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=c.LastUserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
 			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr 
 			join [{databaseOwner}].[{objectQualifier}Rank] r ON r.RankID = usr.RankID  where usr.UserID=c.LastUserID))  
 			else ''	 end,
 			LastForumAccess = case(@FindLastRead)
-		     when 1 then
-		       (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x WHERE x.ForumID=c.ForumID AND x.UserID = c.UserID)
-		     else ''	 end,
-		    LastTopicAccess = case(@FindLastRead)
-		     when 1 then
-		       (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=c.TopicID AND y.UserID = c.UserID)
+			 when 1 then
+			   (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x WHERE x.ForumID=c.ForumID AND x.UserID = c.UserID)
+			 else ''	 end,
+			LastTopicAccess = case(@FindLastRead)
+			 when 1 then
+			   (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=c.TopicID AND y.UserID = c.UserID)
 		     else ''	 end,	
 	    	TotalRows = @post_totalrowsnumber,
 	    	PageIndex = @PageIndex
@@ -6304,7 +6240,6 @@ declare @shiftsticky int
 			[Subject] = c.Topic,
 			c.[Description],
 			c.[Status],
-			c.[Styles],
 			c.UserID,
 			Starter = IsNull(c.UserName,b.Name),
 			Replies = c.NumPosts - 1,
@@ -6320,25 +6255,25 @@ declare @shiftsticky int
 			c.PollID,
 			ForumFlags = d.Flags,
 			FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(c.TopicMovedID,c.TopicID) AND mes2.Position = 0),
-		    StarterStyle = case(@StyledNicks)
+			StarterStyle = case(@StyledNicks)
 			when 1 then  ISNULL((SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=c.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
+			join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=c.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
 			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr 
 			join [{databaseOwner}].[{objectQualifier}Rank] r ON r.RankID = usr.RankID  where usr.UserID=c.UserID))  
 			else ''	 end ,
 		 		    LastUserStyle= case(@StyledNicks)
 			when 1 then  ISNULL((SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=c.LastUserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
+			join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=c.LastUserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
 			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr 
 			join [{databaseOwner}].[{objectQualifier}Rank] r ON r.RankID = usr.RankID  where usr.UserID=c.LastUserID))  
 			else ''	 end,
 			LastForumAccess = case(@FindLastRead)
-		     when 1 then
-		       (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x WHERE x.ForumID=c.ForumID AND x.UserID = c.UserID)
-		     else ''	 end,
-		    LastTopicAccess = case(@FindLastRead)
-		     when 1 then
-		       (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=c.TopicID AND y.UserID = c.UserID)
+			 when 1 then
+			   (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x WHERE x.ForumID=c.ForumID AND x.UserID = c.UserID)
+			 else ''	 end,
+			LastTopicAccess = case(@FindLastRead)
+			 when 1 then
+			   (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=c.TopicID AND y.UserID = c.UserID)
 		     else ''	 end,	
 	    	TotalRows = @post_totalrowsnumber,
 	    	PageIndex = @PageIndex
@@ -6376,7 +6311,6 @@ begin
 		c.Priority,
 		c.Description,
 		c.Status,
-		c.Styles,
 		a.Flags,
 		c.UserID AS TopicOwnerID,
 		Edited = IsNull(a.Edited,a.Posted),
@@ -6416,8 +6350,8 @@ begin
 	select @OldForumID = ForumID from [{databaseOwner}].[{objectQualifier}Topic] where TopicID = @TopicID
 
 	if @ShowMoved <> 0 begin
-        -- delete an old link if exists
-	    delete from [{databaseOwner}].[{objectQualifier}Topic] where TopicMovedID = @TopicID
+		-- delete an old link if exists
+		delete from [{databaseOwner}].[{objectQualifier}Topic] where TopicMovedID = @TopicID
 		-- create a moved message
 		insert into [{databaseOwner}].[{objectQualifier}Topic](ForumID,UserID,UserName,Posted,Topic,[Views],Flags,Priority,PollID,TopicMovedID,LastPosted,NumPosts)
 		select ForumID,UserID,UserName,Posted,Topic,0,Flags,Priority,PollID,@TopicID,LastPosted,0
@@ -6502,7 +6436,6 @@ create procedure [{databaseOwner}].[{objectQualifier}topic_save](
 	@Message	ntext,
 	@Description	nvarchar(255)=null,
 	@Status 	nvarchar(255)=null,
-	@Styles 	nvarchar(255)=null,
 	@Priority	smallint,
 	@UserName	nvarchar(255)=null,
 	@IP			varchar(39),
@@ -6517,8 +6450,8 @@ begin
 	if @Posted is null set @Posted = GETUTCDATE() 
 
 	-- create the topic
-	insert into [{databaseOwner}].[{objectQualifier}Topic](ForumID,Topic,UserID,Posted,[Views],[Priority],UserName,NumPosts, [Description], [Status], [Styles])
-	values(@ForumID,@Subject,@UserID,@Posted,0,@Priority,@UserName,0,@Description, @Status, @Styles)
+	insert into [{databaseOwner}].[{objectQualifier}Topic](ForumID,Topic,UserID,Posted,[Views],[Priority],UserName,NumPosts, [Description], [Status])
+	values(@ForumID,@Subject,@UserID,@Posted,0,@Priority,@UserName,0,@Description, @Status)
 
 	-- get its id
 	set @TopicID = SCOPE_IDENTITY()
@@ -7379,7 +7312,7 @@ end
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}user_listmembers](
-                @BoardID int,
+				@BoardID int,
 				@UserID int=null,
 				@Approved bit=null,
 				@GroupID int=null,
@@ -7410,7 +7343,7 @@ begin
    set nocount on
    -- get total number of users in the db
    select @user_totalrowsnumber = count(a.UserID) 
-    from [{databaseOwner}].[{objectQualifier}User] a  with(nolock) 
+	from [{databaseOwner}].[{objectQualifier}User] a  with(nolock) 
 	  join [{databaseOwner}].[{objectQualifier}Rank] b with(nolock)
 	  on b.RankID=a.RankID 
 	  where
@@ -7426,32 +7359,32 @@ begin
 			WHEN (@BeginsWith = 0 AND @Literals IS NOT NULL AND LEN(@Literals) > 0) THEN '%' + LOWER(@Literals) + '%' 
 			WHEN (@BeginsWith = 1 AND @Literals IS NOT NULL AND LEN(@Literals) > 0) THEN LOWER(@Literals) + '%'
 			ELSE '%' END  
-        and
+		and
 		(a.NumPosts >= (case 
-        when @NumPostsCompare = 3 then  @NumPosts end) 
+		when @NumPostsCompare = 3 then  @NumPosts end) 
 		OR a.NumPosts <= (case 
-        when @NumPostsCompare = 2 then @NumPosts end) OR
+		when @NumPostsCompare = 2 then @NumPosts end) OR
 		a.NumPosts = (case 
-        when @NumPostsCompare = 1 then @NumPosts end)) 
+		when @NumPostsCompare = 1 then @NumPosts end)) 
 				
 
 	--	SET @user_totalrowsnumber = @@ROWCOUNT    
 
    select @PageIndex = @PageIndex+1;   
    select @firstselectrownum = (@PageIndex - 1) * @PageSize + 1 
-      
+	  
 	  -- fined first selectedrowid  
 	  if (@firstselectrownum > 0)
 	  set rowcount @firstselectrownum
 	  else
 	  set rowcount	1 
 
-      select @firstselectuserid = a.[Name] ,  
-	         @firstselectlastvisit = a.LastVisit, 
+	  select @firstselectuserid = a.[Name] ,  
+			 @firstselectlastvisit = a.LastVisit, 
 			 @firstselectjoined = a.Joined, 
 			 @firstselectrankid = a.RankID, 
 			 @firstselectposts = a.NumPosts
-      from [{databaseOwner}].[{objectQualifier}User] a with(nolock)
+	  from [{databaseOwner}].[{objectQualifier}User] a with(nolock)
 	  join [{databaseOwner}].[{objectQualifier}Rank] b with(nolock)
 	  on b.RankID=a.RankID 
 	  where
@@ -7466,45 +7399,45 @@ begin
 			WHEN (@BeginsWith = 0 AND @Literals IS NOT NULL AND LEN(@Literals) > 0) THEN '%' + LOWER(@Literals) + '%' 
 			WHEN (@BeginsWith = 1 AND @Literals IS NOT NULL AND LEN(@Literals) > 0) THEN LOWER(@Literals) + '%'
 			ELSE '%' END 
-        and
+		and
 		(a.NumPosts >= (case 
-        when @NumPostsCompare = 3 then  @NumPosts end) 
+		when @NumPostsCompare = 3 then  @NumPosts end) 
 		OR a.NumPosts <= (case 
-        when @NumPostsCompare = 2 then @NumPosts end) OR
+		when @NumPostsCompare = 2 then @NumPosts end) OR
 		a.NumPosts = (case 
-        when @NumPostsCompare = 1 then @NumPosts end)) 
-     order by  	 
-	    (case 
-        when @SortName = 2 then a.[Name] end) DESC,
+		when @NumPostsCompare = 1 then @NumPosts end)) 
+	 order by  	 
 		(case 
-        when @SortName = 1 then a.[Name] end) ASC, 
+		when @SortName = 2 then a.[Name] end) DESC,
 		(case 
-        when @SortRank = 2 then a.RankID end) DESC,
+		when @SortName = 1 then a.[Name] end) ASC, 
 		(case 
-        when @SortRank = 1 then a.RankID end) ASC,		
+		when @SortRank = 2 then a.RankID end) DESC,
 		(case 
-        when @SortJoined = 2 then a.Joined end) DESC,
+		when @SortRank = 1 then a.RankID end) ASC,		
 		(case 
-        when @SortJoined = 1 then a.Joined end) ASC,
+		when @SortJoined = 2 then a.Joined end) DESC,
 		(case 
-        when @SortLastVisit = 2 then a.LastVisit end) DESC,
+		when @SortJoined = 1 then a.Joined end) ASC,
 		(case 
-        when @SortLastVisit = 1 then a.LastVisit end) ASC,
+		when @SortLastVisit = 2 then a.LastVisit end) DESC,
+		(case 
+		when @SortLastVisit = 1 then a.LastVisit end) ASC,
 		(case
 		 when @SortPosts = 2 then a.NumPosts end) DESC, 
-   		(case
+		(case
 		 when @SortPosts = 1 then a.NumPosts end) ASC 
  /* select  @firstselectlastvisit = a.LastVisit
-      from [{databaseOwner}].[{objectQualifier}User] a	
+	  from [{databaseOwner}].[{objectQualifier}User] a	
 	  where
-	    a.UserID = @firstselectuserid   */
+		a.UserID = @firstselectuserid   */
 	-- if (@firstselectrownum is not null)
 	 set rowcount @PageSize
 	-- else
 	-- set rowcount 10
 
-      select
-	  		a.*,			
+	  select
+			a.*,			
 			CultureUser = a.Culture,
 			IsAdmin = (select COUNT(1) from [{databaseOwner}].[{objectQualifier}UserGroup] x join [{databaseOwner}].[{objectQualifier}Group] y on y.GroupID=x.GroupID where x.UserID=a.UserID and (y.Flags & 1)<>0),
 			IsHostAdmin	= ISNULL(a.Flags & 1,0),
@@ -7517,44 +7450,44 @@ begin
 			TotalCount =  @user_totalrowsnumber 
 			from [{databaseOwner}].[{objectQualifier}User] a with(nolock)
 			join [{databaseOwner}].[{objectQualifier}Rank] b with(nolock) on b.RankID=a.RankID	
-      where (a.[Name] >= (case 
-        when @SortName = 1 then @firstselectuserid end) OR a.[Name] <= (case 
-        when @SortName = 2 then @firstselectuserid end) OR
+	  where (a.[Name] >= (case 
+		when @SortName = 1 then @firstselectuserid end) OR a.[Name] <= (case 
+		when @SortName = 2 then @firstselectuserid end) OR
 		a.[Name] >= (case 
-        when @SortName = 0 then '' end)) and
+		when @SortName = 0 then '' end)) and
 		(a.Joined >= (case 
-        when @SortJoined = 1 then @firstselectjoined end) 
+		when @SortJoined = 1 then @firstselectjoined end) 
 		OR a.Joined <= (case 
-        when @SortJoined = 2 then @firstselectjoined end) OR
+		when @SortJoined = 2 then @firstselectjoined end) OR
 		a.Joined >= (case 
-        when @SortJoined = 0 then 0 end)) and
+		when @SortJoined = 0 then 0 end)) and
 		(a.LastVisit >= (case 
-        when @SortLastVisit = 1 then  @firstselectlastvisit end) 
+		when @SortLastVisit = 1 then  @firstselectlastvisit end) 
 		OR a.LastVisit <= (case 
-        when @SortLastVisit = 2 then @firstselectlastvisit end) OR
+		when @SortLastVisit = 2 then @firstselectlastvisit end) OR
 		a.LastVisit >= (case 
-        when @SortLastVisit = 0 then 0 end))  and
+		when @SortLastVisit = 0 then 0 end))  and
 		(a.NumPosts >= (case 
-        when @NumPostsCompare = 3 then  @NumPosts end) 
+		when @NumPostsCompare = 3 then  @NumPosts end) 
 		OR a.NumPosts <= (case 
-        when @NumPostsCompare = 2 then @NumPosts end) OR
+		when @NumPostsCompare = 2 then @NumPosts end) OR
 		a.NumPosts = (case 
-        when @NumPostsCompare = 1 then @NumPosts end))  and
+		when @NumPostsCompare = 1 then @NumPosts end))  and
 		/*
 		(a.NumPosts >= (case 
-        when @SortPosts = 1 then @firstselectposts end) 
+		when @SortPosts = 1 then @firstselectposts end) 
 		OR a.NumPosts <= (case 
-        when @SortPosts = 2 then @firstselectposts end) OR
+		when @SortPosts = 2 then @firstselectposts end) OR
 		a.NumPosts >= (case 
-        when @SortPosts = 0 then 0 end))   and
+		when @SortPosts = 0 then 0 end))   and
 		(a.RankID >= (case 
-        when @SortRank = 1 then @firstselectrankid end) 
+		when @SortRank = 1 then @firstselectrankid end) 
 		OR a.RankID <= (case 
-        when @SortRank = 2 then @firstselectrankid end) OR
+		when @SortRank = 2 then @firstselectrankid end) OR
 		a.RankID >= (case 
-        when @SortRank = 0 then 0 end)) and */
+		when @SortRank = 0 then 0 end)) and */
 	
-	         a.BoardID = @BoardID and
+			 a.BoardID = @BoardID and
 			(@Approved is null or (@Approved=0 and (a.Flags & 2)=0) or (@Approved=1 and (a.Flags & 2)=2)) and
 			(@GroupID is null or exists(SELECT 1 FROM [{databaseOwner}].[{objectQualifier}UserGroup] x where x.UserID=a.UserID and x.GroupID=@GroupID)) and
 			(@RankID is null or a.RankID=@RankID) AND
@@ -7564,26 +7497,26 @@ begin
 			WHEN (@BeginsWith = 0 AND @Literals IS NOT NULL AND LEN(@Literals) > 0) THEN '%' + LOWER(@Literals) + '%' 
 			WHEN (@BeginsWith = 1 AND @Literals IS NOT NULL AND LEN(@Literals) > 0) THEN LOWER(@Literals) + '%'
 			ELSE '%' END 
-    ORDER BY 	
+	ORDER BY 	
 	 (case 
-        when @SortName = 2 then a.[Name] end) DESC,
+		when @SortName = 2 then a.[Name] end) DESC,
 		(case 
-        when @SortName = 1 then a.[Name] end) ASC, 
+		when @SortName = 1 then a.[Name] end) ASC, 
 		(case 
-        when @SortRank = 2 then a.RankID end) DESC,
+		when @SortRank = 2 then a.RankID end) DESC,
 		(case 
-        when @SortRank = 1 then a.RankID end) ASC,		
+		when @SortRank = 1 then a.RankID end) ASC,		
 		(case 
-        when @SortJoined = 2 then a.Joined end) DESC,
+		when @SortJoined = 2 then a.Joined end) DESC,
 		(case 
-        when @SortJoined = 1 then a.Joined end) ASC,
+		when @SortJoined = 1 then a.Joined end) ASC,
 		(case 
-        when @SortLastVisit = 2 then a.LastVisit end) DESC,
+		when @SortLastVisit = 2 then a.LastVisit end) DESC,
 		(case 
-        when @SortLastVisit = 1 then a.LastVisit end) ASC,
+		when @SortLastVisit = 1 then a.LastVisit end) ASC,
 		(case
 		 when @SortPosts = 2 then a.NumPosts end) DESC, 
-   		(case
+		(case
 		 when @SortPosts = 1 then a.NumPosts end) ASC 
    
    set nocount off
@@ -7706,7 +7639,7 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}user_save](
 	@Email				nvarchar(255) = null,
 	@TimeZone			int,
 	@LanguageFile		nvarchar(50) = null,
-	@Culture		    varchar(10) = null,
+	@Culture		    char(5) = null,
 	@ThemeFile			nvarchar(50) = null,
 	@UseSingleSignOn    bit = null,
 	@TextEditor			nvarchar(50) = null,
@@ -7732,7 +7665,7 @@ begin
 	if @UseSingleSignOn is null SET @UseSingleSignOn=0
 
 	if @UserID is null or @UserID<1 begin
-	    
+		
 		if @Approved<>0 set @Flags = @Flags | 2	
 		if @Email = '' set @Email = null
 		
@@ -8627,7 +8560,7 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}poll_update](
 	@Question	nvarchar(50),
 	@Closes 	datetime = null,
 	@QuestionObjectPath nvarchar(255), 
-    @QuestionMimeType varchar(50),
+	@QuestionMimeType varchar(50),
 	@IsBounded  bit,
 	@IsClosedBounded  bit,
 	@AllowMultipleChoices bit,
@@ -8673,11 +8606,11 @@ begin
 		set Question	=	@Question,
 			Closes		=	@Closes,
 			ObjectPath = @QuestionObjectPath,
-		    MimeType = @QuestionMimeType,
+			MimeType = @QuestionMimeType,
 			Flags	= @flags
 		where PollID = @PollID
 
-      SELECT  @pgid = PollGroupID FROM [{databaseOwner}].[{objectQualifier}Poll]
+	  SELECT  @pgid = PollGroupID FROM [{databaseOwner}].[{objectQualifier}Poll]
 	  where PollID = @PollID
    
 	update [{databaseOwner}].[{objectQualifier}PollGroupCluster]
@@ -8705,21 +8638,21 @@ declare @groupcount int
 	Update [{databaseOwner}].[{objectQualifier}Poll] set PollGroupID = NULL where PollID = @PollID
 	delete from [{databaseOwner}].[{objectQualifier}Poll] where PollID = @PollID 	
 	if  NOT EXISTS (SELECT TOP 1 1 FROM [{databaseOwner}].[{objectQualifier}Poll] where PollGroupID = @PollGroupID) 
-        begin	
+		begin	
 			  
-                   Update [{databaseOwner}].[{objectQualifier}Topic] set PollID = NULL where PollID = @PollGroupID                 
-                  
+				   Update [{databaseOwner}].[{objectQualifier}Topic] set PollID = NULL where PollID = @PollGroupID                 
+				  
 				   
-                   Update [{databaseOwner}].[{objectQualifier}Forum] set PollGroupID = NULL where PollGroupID = @PollGroupID
-              
+				   Update [{databaseOwner}].[{objectQualifier}Forum] set PollGroupID = NULL where PollGroupID = @PollGroupID
+			  
 	
-                   Update [{databaseOwner}].[{objectQualifier}Category] set PollGroupID = NULL where PollGroupID = @PollGroupID                
+				   Update [{databaseOwner}].[{objectQualifier}Category] set PollGroupID = NULL where PollGroupID = @PollGroupID                
 		
-              
-       	
-       
+			  
+		
+	   
 		 
-        DELETE FROM  [{databaseOwner}].[{objectQualifier}PollGroupCluster] WHERE PollGroupID = @PollGroupID	
+		DELETE FROM  [{databaseOwner}].[{objectQualifier}PollGroupCluster] WHERE PollGroupID = @PollGroupID	
 		end  	
 	end
 	else
@@ -9231,7 +9164,7 @@ BEGIN
 		sh.[Date], 
 		Style= case(@StyledNicks)
 			when 1 then  ISNULL((SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=sh.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
+			join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=sh.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
 			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr 
 			join [{databaseOwner}].[{objectQualifier}Rank] r ON r.RankID = usr.RankID  where usr.UserID= sh.UserID))  
 			else ''	 end
@@ -9515,7 +9448,6 @@ begin
 		[Subject] = c.Topic,
 		[Description] = c.Description,
 		[Status] = c.Status,
-		[Styles] = c.Styles,
 		c.UserID,
 		Starter = IsNull(c.UserName,b.Name),
 		NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@PageUserID IS NOT NULL AND mes.UserID = @PageUserID) OR (@PageUserID IS NULL)) ),
@@ -9537,13 +9469,13 @@ begin
 		FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(c.TopicMovedID,c.TopicID) AND mes2.Position = 0),
 		StarterStyle = case(@StyledNicks)
 			when 1 then  ISNULL((SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=c.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
+			join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=c.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
 			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr 
 			join [{databaseOwner}].[{objectQualifier}Rank] r ON r.RankID = usr.RankID  where usr.UserID=c.UserID))  
 			else ''	 end ,
 		LastUserStyle= case(@StyledNicks)
 			when 1 then  ISNULL((SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=c.LastUserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
+			join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=c.LastUserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
 			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr 
 			join [{databaseOwner}].[{objectQualifier}Rank] r ON r.RankID = usr.RankID  where usr.UserID=c.LastUserID))  
 			else ''	 end		
@@ -9775,7 +9707,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_getsignaturedata] (@Bo
 as 
 	BEGIN
 
-    
+	
 
 DECLARE   @GroupData TABLE
 (
@@ -9787,9 +9719,9 @@ DECLARE   @GroupData TABLE
    declare @ust int, @usbbc nvarchar(4000), 
 	@ushtmlt nvarchar(4000), @rust int, @rusbbc nvarchar(4000),  
 	@rushtmlt nvarchar(4000) 
-	      
-      declare c cursor for
-      SELECT ISNULL(c.UsrSigChars,0), ISNULL(c.UsrSigBBCodes,''), ISNULL(c.UsrSigHTMLTags,'')
+		  
+	  declare c cursor for
+	  SELECT ISNULL(c.UsrSigChars,0), ISNULL(c.UsrSigBBCodes,''), ISNULL(c.UsrSigHTMLTags,'')
 	  FROM [{databaseOwner}].[{objectQualifier}User] a 
 						JOIN [{databaseOwner}].[{objectQualifier}UserGroup] b
 						  ON a.UserID = b.UserID
@@ -9805,15 +9737,15 @@ DECLARE   @GroupData TABLE
 								  ON c.RankID = d.RankID
 								   WHERE d.UserID = @UserID AND c.BoardID = @BoardID 
 								   ORDER BY c.RankID DESC        
-        open c
-       
-        fetch next from c into  @ust, @usbbc , @ushtmlt
-        while @@FETCH_STATUS = 0
-        begin
+		open c
+	   
+		fetch next from c into  @ust, @usbbc , @ushtmlt
+		while @@FETCH_STATUS = 0
+		begin
 		if not exists (select top 1 1 from @GroupData)
 		begin	
 
-        -- insert first row and compare with ranks data
+		-- insert first row and compare with ranks data
 	INSERT INTO @GroupData(G_UsrSigChars,G_UsrSigBBCodes,G_UsrSigHTMLTags) 
 		select (CASE WHEN @rust > ISNULL(@ust,0) THEN @rust ELSE ISNULL(@ust,0) END), 
 		(COALESCE(@rusbbc + ',','') + COALESCE(@usbbc,'')) ,(COALESCE(@rushtmlt + ',','') + COALESCE(@ushtmlt, '') ) 	  
@@ -9824,15 +9756,15 @@ DECLARE   @GroupData TABLE
 		G_UsrSigChars = (CASE WHEN G_UsrSigChars > COALESCE(@ust, 0) THEN G_UsrSigChars ELSE COALESCE(@ust, 0) END), 
 		G_UsrSigBBCodes = COALESCE(@usbbc + ',','') + G_UsrSigBBCodes, 
 		G_UsrSigHTMLTags = COALESCE(@ushtmlt + ',', '') + G_UsrSigHTMLTags
-        end 
+		end 
 
 		fetch next from c into   @ust, @usbbc , @ushtmlt
-        
+		
 		end
 
-       close c
-       deallocate c 	
-	             
+	   close c
+	   deallocate c 	
+				 
 	   
 		SELECT 
 		UsrSigChars = G_UsrSigChars, 
@@ -9911,7 +9843,7 @@ as
 	-- delete all message variants older then DaysToClean days Flags reserved for possible pms   
 	 delete from [{databaseOwner}].[{objectQualifier}MessageHistory]
 	 where DATEDIFF(day,Edited,GETUTCDATE() ) > @DaysToClean	
-              
+			  
 	 SELECT mh.*, m.UserID, m.UserName, t.ForumID, t.TopicID, t.Topic, IsNull(t.UserName, u.Name) as Name, m.Posted
 	 FROM [{databaseOwner}].[{objectQualifier}MessageHistory] mh
 	 LEFT JOIN [{databaseOwner}].[{objectQualifier}Message] m ON m.MessageID = mh.MessageID
@@ -9982,7 +9914,7 @@ begin
 	SET @R_UsrAlbums = 0
 	END
 	
-	                                                             
+																 
 
 	-- return information
 	select TOP 1		
@@ -10088,7 +10020,7 @@ DECLARE @ParsedMessageIDs TABLE
 						SET @MessageIDsChunk = RIGHT(@MessageIDsChunk, LEN(@MessageIDsChunk) - @Pos)
 						SET @Pos = CHARINDEX(',', @MessageIDsChunk, 1)
 				  END
-				    -- to be sure that last value is inserted
+					-- to be sure that last value is inserted
 					IF (LEN(@MessageIDsChunk) > 0)
 						   INSERT INTO @ParsedMessageIDs (MessageID) VALUES (CAST(@MessageIDsChunk AS int))  
 			END      
@@ -10105,7 +10037,7 @@ GO
 CREATE procedure [{databaseOwner}].[{objectQualifier}user_thankfromcount]
 (@UserID int) as
 begin
-        SELECT COUNT(TH.ThanksID) 
+		SELECT COUNT(TH.ThanksID) 
 		FROM [{databaseOwner}].[{objectQualifier}Thanks] AS TH WHERE (TH.ThanksToUserID=@UserID)
 end
 GO
@@ -10113,11 +10045,11 @@ GO
 CREATE procedure [{databaseOwner}].[{objectQualifier}user_repliedtopic]
 (@MessageID int, @UserID int) as
 begin
-        DECLARE @TopicID int
+		DECLARE @TopicID int
 		SET @TopicID = (SELECT TopicID FROM [{databaseOwner}].[{objectQualifier}Message] WHERE (MessageID = @MessageID))
 
 		SELECT COUNT(t.MessageID)
-        FROM [{databaseOwner}].[{objectQualifier}Message] AS t WHERE (t.TopicID=@TopicID) AND (t.UserID = @UserID)
+		FROM [{databaseOwner}].[{objectQualifier}Message] AS t WHERE (t.TopicID=@TopicID) AND (t.UserID = @UserID)
 		
 end
 GO
@@ -10126,54 +10058,54 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}user_thankedmessage]
 (@MessageID int, @UserID int) as
 begin
 		SELECT COUNT(TH.ThanksID)
-        FROM [{databaseOwner}].[{objectQualifier}Thanks] AS TH WHERE (TH.MessageID=@MessageID) AND (TH.ThanksFromUserID = @UserID)
+		FROM [{databaseOwner}].[{objectQualifier}Thanks] AS TH WHERE (TH.MessageID=@MessageID) AND (TH.ThanksFromUserID = @UserID)
 end
 GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}recent_users](@BoardID int,@TimeSinceLastLogin int,@StyledNicks bit=0) as
 begin  
-    SELECT U.UserId,
-    IsCrawler = 0,
-    UserCount = 1,
-    IsHidden = (IsActiveExcluded),
-    Style = CASE(@StyledNicks)
-                WHEN 1 THEN
-                        ISNULL ((SELECT TOP 1 G.Style
-                         FROM [{databaseOwner}].[{objectQualifier}UserGroup] AS UG
-                              JOIN [{databaseOwner}].[{objectQualifier}Group] G on G.GroupID=UG.GroupID
-                              WHERE UG.UserID=U.UserID AND LEN(G.Style) > 2 
-                              ORDER BY G.SortOrder), '')
-                ELSE ''
-            END
-    FROM [{databaseOwner}].[{objectQualifier}User] AS U
-                JOIN [{databaseOwner}].[{objectQualifier}Rank] R on R.RankID=U.RankID
-    WHERE (U.IsApproved = '1') AND
-     U.BoardID = @BoardID AND
-     (DATEADD(mi, 0 - @TimeSinceLastLogin, GETDATE()) < U.LastVisit) AND
-                --Excluding guests
-                NOT EXISTS(             
-                    SELECT 1 
-                        FROM [{databaseOwner}].[{objectQualifier}UserGroup] x
-                            inner join [{databaseOwner}].[{objectQualifier}Group] y ON y.GroupID=x.GroupID 
-                        WHERE x.UserID=U.UserID and (y.Flags & 2)<>0
-                    )
-    ORDER BY U.LastVisit
+	SELECT U.UserId,
+	IsCrawler = 0,
+	UserCount = 1,
+	IsHidden = (IsActiveExcluded),
+	Style = CASE(@StyledNicks)
+				WHEN 1 THEN
+						ISNULL ((SELECT TOP 1 G.Style
+						 FROM [{databaseOwner}].[{objectQualifier}UserGroup] AS UG
+							  JOIN [{databaseOwner}].[{objectQualifier}Group] G on G.GroupID=UG.GroupID
+							  WHERE UG.UserID=U.UserID AND LEN(G.Style) > 2 
+							  ORDER BY G.SortOrder), '')
+				ELSE ''
+			END
+	FROM [{databaseOwner}].[{objectQualifier}User] AS U
+				JOIN [{databaseOwner}].[{objectQualifier}Rank] R on R.RankID=U.RankID
+	WHERE (U.IsApproved = '1') AND
+	 U.BoardID = @BoardID AND
+	 (DATEADD(mi, 0 - @TimeSinceLastLogin, GETDATE()) < U.LastVisit) AND
+				--Excluding guests
+				NOT EXISTS(             
+					SELECT 1 
+						FROM [{databaseOwner}].[{objectQualifier}UserGroup] x
+							inner join [{databaseOwner}].[{objectQualifier}Group] y ON y.GroupID=x.GroupID 
+						WHERE x.UserID=U.UserID and (y.Flags & 2)<>0
+					)
+	ORDER BY U.LastVisit
 end
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}readtopic_addorupdate](@UserID int,@TopicID int) as
 begin
 
-    declare	@LastAccessDate	datetime
+	declare	@LastAccessDate	datetime
 	set @LastAccessDate = (select top 1 LastAccessDate from [{databaseOwner}].[{objectQualifier}TopicReadTracking] where UserID=@UserID AND TopicID=@TopicID)
 	IF @LastAccessDate is not null
 	begin	     
 		  update [{databaseOwner}].[{objectQualifier}TopicReadTracking] set LastAccessDate=GETUTCDATE() where LastAccessDate = @LastAccessDate AND UserID=@UserID AND TopicID=@TopicID
-    end
+	end
 	ELSE
 	  begin
 		  insert into [{databaseOwner}].[{objectQualifier}TopicReadTracking](UserID,TopicID,LastAccessDate)
-	      values (@UserID, @TopicID, GETUTCDATE())
+		  values (@UserID, @TopicID, GETUTCDATE())
 	  end
 end
 GO
@@ -10193,17 +10125,17 @@ GO
 create procedure [{databaseOwner}].[{objectQualifier}readforum_addorupdate](@UserID int,@ForumID int) as
 begin
 
-    declare	@LastAccessDate	datetime
+	declare	@LastAccessDate	datetime
 
 	IF exists(select 1 from [{databaseOwner}].[{objectQualifier}ForumReadTracking] where UserID=@UserID AND ForumID=@ForumID)
 	begin
-	      SET @LastAccessDate = (SELECT LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] WHERE (UserID=@UserID AND ForumID=@ForumID))
+		  SET @LastAccessDate = (SELECT LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] WHERE (UserID=@UserID AND ForumID=@ForumID))
 		  update [{databaseOwner}].[{objectQualifier}ForumReadTracking] set LastAccessDate=GETUTCDATE() where LastAccessDate = @LastAccessDate AND UserID=@UserID AND ForumID=@ForumID
-    end
+	end
 	ELSE
 	  begin
 		  insert into [{databaseOwner}].[{objectQualifier}ForumReadTracking](UserID,ForumID,LastAccessDate)
-	      values (@UserID, @ForumID, GETUTCDATE())
+		  values (@UserID, @ForumID, GETUTCDATE())
 	  end
 end
 GO
@@ -10235,11 +10167,11 @@ begin
 		ELSE
 		   SELECT LastAccessDate = @LastTopicRead
 		   
-	    ELSE IF @LastForumRead is not null
-	       SELECT LastAccessDate = @LastForumRead
-	        
-	    ELSE IF @LastTopicRead is not null
-	        SELECT LastAccessDate = @LastTopicRead
+		ELSE IF @LastForumRead is not null
+		   SELECT LastAccessDate = @LastForumRead
+			
+		ELSE IF @LastTopicRead is not null
+			SELECT LastAccessDate = @LastTopicRead
 end
 GO
 
@@ -10254,7 +10186,6 @@ begin
 		[Subject] = c.Topic,
 		[Description] = c.Description,
 		[Status] = c.Status,
-		[Styles] = c.Styles,
 		c.UserID,
 		Starter = IsNull(c.UserName,b.Name),
 		NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@PageUserID IS NOT NULL AND mes.UserID = @PageUserID) OR (@PageUserID IS NULL)) ),
@@ -10274,26 +10205,26 @@ begin
 		c.TopicMovedID,
 		ForumFlags = d.Flags,
 		FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(c.TopicMovedID,c.TopicID) AND mes2.Position = 0),
-	    StarterStyle = case(@StyledNicks)
+		StarterStyle = case(@StyledNicks)
 			when 1 then  ISNULL((SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=c.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
+			join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=c.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
 			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr 
 			join [{databaseOwner}].[{objectQualifier}Rank] r ON r.RankID = usr.RankID  where usr.UserID=c.UserID))  
 			else ''	 end ,
 		LastUserStyle= case(@StyledNicks)
 			when 1 then  ISNULL((SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=c.LastUserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
+			join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=c.LastUserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
 			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr 
 			join [{databaseOwner}].[{objectQualifier}Rank] r ON r.RankID = usr.RankID  where usr.UserID=c.LastUserID))  
 			else ''	 end,
-	    LastForumAccess = case(@FindLastRead)
-		     when 1 then
-		       (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x WHERE x.ForumID=d.ForumID AND x.UserID = @PageUserID)
-		     else ''	 end,
+		LastForumAccess = case(@FindLastRead)
+			 when 1 then
+			   (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x WHERE x.ForumID=d.ForumID AND x.UserID = @PageUserID)
+			 else ''	 end,
 		LastTopicAccess = case(@FindLastRead)
-		     when 1 then
-		       (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=c.TopicID AND y.UserID = @PageUserID)
-		     else ''	 end
+			 when 1 then
+			   (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=c.TopicID AND y.UserID = @PageUserID)
+			 else ''	 end
 	from
 		[{databaseOwner}].[{objectQualifier}Topic] c
 		join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
@@ -10330,7 +10261,7 @@ BEGIN
 	SELECT * 
 	FROM [{databaseOwner}].[{objectQualifier}TopicStatus] 
 	WHERE 
-	    TopicStatusID = @TopicStatusID
+		TopicStatusID = @TopicStatusID
 END
 GO
 
@@ -10356,7 +10287,7 @@ begin
 	else begin
 		update [{databaseOwner}].[{objectQualifier}TopicStatus] 
 		set TopicStatusName = @TopicStatusName, 
-		    DefaultDescription = @DefaultDescription
+			DefaultDescription = @DefaultDescription
 		where TopicStatusID = @TopicStatusID
 	end
 end
@@ -10415,80 +10346,5 @@ create procedure [{databaseOwner}].[{objectQualifier}user_updatefacebookstatus](
 begin
 	
 	update [{databaseOwner}].[{objectQualifier}User] set IsFacebookUser = @IsFacebookUser where UserID = @UserID
-end
-GO
-
-create procedure [{databaseOwner}].[{objectQualifier}topic_unanswered](@BoardID int,@PageUserID int,@Since datetime,@CategoryID int=null, @StyledNicks bit = 0,	@FindLastRead bit = 0) as
-begin
-		select
-		c.ForumID,
-		c.TopicID,
-		c.TopicMovedID,
-		c.Posted,
-		LinkTopicID = IsNull(c.TopicMovedID,c.TopicID),
-		[Subject] = c.Topic,
-		[Description] = c.Description,
-		[Status] = c.Status,
-		[Styles] = c.Styles,
-		c.UserID,
-		Starter = IsNull(c.UserName,b.Name),
-		NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@PageUserID IS NOT NULL AND mes.UserID = @PageUserID) OR (@PageUserID IS NULL)) ),
-		Replies = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=c.TopicID and (x.Flags & 8)=0) - 1,
-		[Views] = c.[Views],
-		LastPosted = c.LastPosted,
-		LastUserID = c.LastUserID,
-		LastUserName = IsNull(c.LastUserName,(select Name from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
-		LastMessageID = c.LastMessageID,
-		LastMessageFlags = c.LastMessageFlags,
-		LastTopicID = c.TopicID,
-		TopicFlags = c.Flags,
-		FavoriteCount = (SELECT COUNT(ID) as [FavoriteCount] FROM [{databaseOwner}].[{objectQualifier}FavoriteTopic] WHERE TopicId = IsNull(c.TopicMovedID,c.TopicID)),
-		c.Priority,
-		c.PollID,
-		ForumName = d.Name,
-		c.TopicMovedID,
-		ForumFlags = d.Flags,
-		FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(c.TopicMovedID,c.TopicID) AND mes2.Position = 0),
-	    StarterStyle = case(@StyledNicks)
-			when 1 then  ISNULL((SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=c.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
-			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr 
-			join [{databaseOwner}].[{objectQualifier}Rank] r ON r.RankID = usr.RankID  where usr.UserID=c.UserID))  
-			else ''	 end ,
-		LastUserStyle= case(@StyledNicks)
-			when 1 then  ISNULL((SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=c.LastUserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
-			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr 
-			join [{databaseOwner}].[{objectQualifier}Rank] r ON r.RankID = usr.RankID  where usr.UserID=c.LastUserID))  
-			else ''	 end,
-	    LastForumAccess = case(@FindLastRead)
-		     when 1 then
-		       (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x WHERE x.ForumID=d.ForumID AND x.UserID = @PageUserID)
-		     else ''	 end,
-		LastTopicAccess = case(@FindLastRead)
-		     when 1 then
-		       (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=c.TopicID AND y.UserID = @PageUserID)
-		     else ''	 end
-	from
-		[{databaseOwner}].[{objectQualifier}Topic] c
-		join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
-		join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
-		join [{databaseOwner}].[{objectQualifier}ActiveAccess] x on x.ForumID=d.ForumID
-		join [{databaseOwner}].[{objectQualifier}Category] cat on cat.CategoryID=d.CategoryID
-	where
-		@Since < c.LastPosted and
-		x.UserID = @PageUserID and
-		CONVERT(int,x.ReadAccess) <> 0 and
-		cat.BoardID = @BoardID and
-		(@CategoryID is null or cat.CategoryID=@CategoryID) and
-		c.IsDeleted = 0 and	
-		c.TopicMovedID is null and
-		c.NumPosts = 1
-	order by
-		cat.SortOrder asc,
-		d.SortOrder asc,
-		d.Name asc,
-		Priority desc,
-		LastPosted desc
 end
 GO

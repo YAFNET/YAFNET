@@ -25,9 +25,11 @@ namespace YAF.Core.Services
     using System.Data;
     using System.IO;
     using System.Linq;
+
     using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Interfaces;
     using YAF.Utils;
 
@@ -55,19 +57,19 @@ namespace YAF.Core.Services
     /// <param name="imageID">
     /// The image id.
     /// </param>
-    public static void Album_Image_Delete([NotNull] object upDir, [CanBeNull] object albumID, int userID, [NotNull] object imageID)
+    public static void Album_Image_Delete([CanBeNull] object albumID, int userID, [NotNull] object imageID)
     {
+    	var fileSystem = YafContext.Current.Get<IFileSystem>();
+
       if (albumID != null)
       {
         var dt = LegacyDb.album_image_list(albumID, null);
 
-        foreach (var fullName in from DataRow dr in dt.Rows
-                                 select "{0}/{1}.{2}.{3}.yafalbum".FormatWith(upDir, userID, albumID, dr["FileName"]) into fullName 
-                                 let file = new FileInfo(fullName) 
-                                 where file.Exists 
-                                 select fullName)
+        foreach (var fullName in
+        	dt.Rows.Cast<DataRow>().Select(dr => "{0}.{1}.{2}.yafalbum".FormatWith(userID, albumID, dr["FileName"])).Where(
+						fullName => fileSystem.Exists(YafFolder.Uploads, fullName)))
         {
-            File.Delete(fullName);
+					fileSystem.Delete(YafFolder.Uploads, fullName);
         }
 
         LegacyDb.album_delete(albumID);
@@ -79,11 +81,10 @@ namespace YAF.Core.Services
           var dr = dt.Rows[0];
           var fileName = dr["FileName"].ToString();
           var imgAlbumID = dr["albumID"].ToString();
-          var fullName = "{0}/{1}.{2}.{3}.yafalbum".FormatWith(upDir, userID, imgAlbumID, fileName);
-          var file = new FileInfo(fullName);
-          if (file.Exists)
+          var fullName = "{0}.{1}.{2}.yafalbum".FormatWith(userID, imgAlbumID, fileName);
+					if (fileSystem.Exists(YafFolder.Uploads, fullName))
           {
-            File.Delete(fullName);
+						fileSystem.Delete(YafFolder.Uploads, fullName);
           }
         }
 

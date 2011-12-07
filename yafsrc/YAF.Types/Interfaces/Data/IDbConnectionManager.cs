@@ -18,41 +18,26 @@
  */
 namespace YAF.Types.Interfaces
 {
-  using System;
-  using System.Data;
+	using System;
+	using System.Data;
 
-  using YAF.Types.Handlers;
+	using YAF.Types.Handlers;
 
-  public interface IDbConnectionManager : IDisposable
-  {
-    /// <summary>
-    /// Gets ConnectionString.
-    /// </summary>
-    string ConnectionString { get; }
+	public interface IDbConnectionManager
+	{
+		/// <summary>
+		/// Gets ConnectionString.
+		/// </summary>
+		string ConnectionString { get; set; }
 
-    /// <summary>
-    /// Gets the current DB Connection in any state.
-    /// </summary>
-    IDbConnection DBConnection { get; }
+		/// <summary>
+		/// Gets the current DB Connection in any state.
+		/// </summary>
+		IDbConnection DBConnection { get; }
 
-    /// <summary>
-    /// Gets an open connection to the DB. Can be called any number of times.
-    /// </summary>
-    IDbConnection OpenDBConnection { get; }
-
-    /// <summary>
-    /// The info message.
-    /// </summary>
-    event YafDBConnInfoMessageEventHandler InfoMessage;
-
-    /// <summary>
-    /// The init connection.
-    /// </summary>
-    void InitConnection();
-
-    /// <summary>
-    /// The close connection.
-    /// </summary>
-    void CloseConnection();
-  }
+		/// <summary>
+		/// The info message.
+		/// </summary>
+		event YafDBConnInfoMessageEventHandler InfoMessage;
+	}
 }

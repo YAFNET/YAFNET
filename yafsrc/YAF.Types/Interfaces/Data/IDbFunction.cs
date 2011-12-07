@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.net
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -16,31 +16,36 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Core
+namespace YAF.Types.Interfaces
 {
-  using YAF.Classes;
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Classes.Data;
+	using System;
 
-  /// <summary>
-  /// The yaf dynamic db conn manager.
-  /// </summary>
-  public class MsSqlDynamicDbConnectionManager : MsSqlDbConnectionManager
-  {
-    /// <summary>
-    /// Gets ConnectionString.
-    /// </summary>
-    public override string ConnectionString
-    {
-      get
-      {
-        if (YafContext.Current.Vars.ContainsKey("ConnectionString"))
-        {
-          return YafContext.Current.Vars["ConnectionString"] as string;
-        }
+	public enum DbFunctionType
+	{
+		Query,
+		DataTable,
+		DataSet,
+		Scalar,
+		Reader
+	}
 
-        return Config.ConnectionString;
-      }
-    }
-  }
+	public class DbFunctionCancelledException : Exception
+	{
+		public DbFunctionCancelledException(string message)
+			: base(message)
+		{
+			
+		}
+	}
+
+	public interface IDbFunction
+	{
+		dynamic Query { get; }
+
+		dynamic GetData { get; }
+
+		dynamic GetDataSet { get; }
+
+		dynamic Scalar { get; }
+	}
 }

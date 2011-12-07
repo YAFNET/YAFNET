@@ -19,84 +19,99 @@
 
 namespace YAF.Core.Services
 {
-    using System;
-    using YAF.Classes.Data;
-    using YAF.Types.Interfaces;
+		using System;
 
-    /// <summary>
-    /// YAF Read Tracking Methods
-    /// </summary>
-    public class YafReadTracking : IReadTracking
-    {
-        #region Public Methods
+		using YAF.Types.Interfaces;
+		using YAF.Utils;
 
-        /// <summary>
-        /// Add Or Update The Forum Read DateTime
-        /// </summary>
-        /// <param name="userID">
-        /// The user ID.
-        /// </param>
-        /// <param name="forumID">
-        /// The forum ID of the Forum
-        /// </param>
-        public void SetForumRead(int userID, int forumID)
-        {
-            if (!YafContext.Current.IsGuest)
-            {
-                LegacyDb.ReadForum_AddOrUpdate(userID, forumID);
-            }
-        }
+	/// <summary>
+		/// YAF Read Tracking Methods
+		/// </summary>
+		public class YafReadTracking : IReadTracking
+		{
+			private readonly IDbFunction _dbFunction;
 
-        /// <summary>
-        /// Returns the last time that the forum was read or marked as Read.
-        /// </summary>
-        /// <param name="userID">
-        /// The user ID.
-        /// </param>
-        /// <param name="forumID">
-        /// The forum ID of the Forum
-        /// </param>
-        /// <returns>
-        /// Returns the DateTime object from the Forum ID.
-        /// </returns>
-        public DateTime GetForumRead(int userID, int forumID)
-        {
-            return YafContext.Current.IsGuest ? DateTime.UtcNow : LegacyDb.ReadForum_lastread(userID, forumID);
-        }
+			public YafReadTracking(IDbFunction dbFunction)
+			{
+				_dbFunction = dbFunction;
+			}
 
-        /// <summary>
-        /// Returns the last time that the Topic was read.
-        /// </summary>
-        /// <param name="userID">
-        /// The user ID.
-        /// </param>
-        /// <param name="topicID">
-        /// The topicID you wish to find the DateTime object for.
-        /// </param>
-        /// <returns>
-        /// Returns the  DateTime object from the topicID.
-        /// </returns>
-        public DateTime GetTopicRead(int userID, int topicID)
-        {
-            return YafContext.Current.IsGuest ? DateTime.UtcNow : LegacyDb.Readtopic_lastread(userID, topicID);
-        }
+			#region Public Methods
 
-        /// <summary>
-        /// Get the Global Last Read DateTime a user Reads a topic or marks a forum as read
-        /// </summary>
-        /// <param name="userID">
-        /// The user ID.
-        /// </param>
-        /// <returns>
-        /// Returns the DateTime object with the last read date.
-        /// </returns>
-        public DateTime GetUserLastRead(int userID)
-        {
-            return YafContext.Current.IsGuest
-                       ? YafContext.Current.Get<IYafSession>().LastVisit
-                       : LegacyDb.User_LastRead(userID, YafContext.Current.Get<IYafSession>().LastVisit);
-        }
-        
-        #endregion
-    }
+				/// <summary>
+				/// Add Or Update The Forum Read DateTime
+				/// </summary>
+				/// <param name="userID">
+				/// The user ID.
+				/// </param>
+				/// <param name="forumID">
+				/// The forum ID of the Forum
+				/// </param>
+				public void SetForumRead(int userID, int forumID)
+				{
+						if (!YafContext.Current.IsGuest)
+						{
+							this._dbFunction.Query.readforum_addorupdate(userID, forumID);
+						}
+				}
+
+				/// <summary>
+				/// Returns the last time that the forum was read or marked as Read.
+				/// </summary>
+				/// <param name="userID">
+				/// The user ID.
+				/// </param>
+				/// <param name="forumID">
+				/// The forum ID of the Forum
+				/// </param>
+				/// <returns>
+				/// Returns the DateTime object from the Forum ID.
+				/// </returns>
+				public DateTime GetForumRead(int userID, int forumID)
+				{
+					return YafContext.Current.IsGuest
+					       	? DateTime.UtcNow
+					       	: ((object)this._dbFunction.Scalar.ReadForum_lastread(userID, forumID)).ToType<DateTime?>()
+					       	  ?? DateTime.MinValue.AddYears(1902);
+				}
+
+				/// <summary>
+				/// Returns the last time that the Topic was read.
+				/// </summary>
+				/// <param name="userID">
+				/// The user ID.
+				/// </param>
+				/// <param name="topicID">
+				/// The topicID you wish to find the DateTime object for.
+				/// </param>
+				/// <returns>
+				/// Returns the  DateTime object from the topicID.
+				/// </returns>
+				public DateTime GetTopicRead(int userID, int topicID)
+				{
+					return YafContext.Current.IsGuest
+					       	? DateTime.UtcNow
+					       	: ((object)this._dbFunction.Scalar.Readtopic_lastread(userID, topicID)).ToType<DateTime?>()
+					       	  ?? DateTime.MinValue.AddYears(1902);
+				}
+
+				/// <summary>
+				/// Get the Global Last Read DateTime a user Reads a topic or marks a forum as read
+				/// </summary>
+				/// <param name="userID">
+				/// The user ID.
+				/// </param>
+				/// <returns>
+				/// Returns the DateTime object with the last read date.
+				/// </returns>
+				public DateTime GetUserLastRead(int userID)
+				{
+					return YafContext.Current.IsGuest
+					       	? YafContext.Current.Get<IYafSession>().LastVisit
+					       	: ((object)this._dbFunction.Scalar.User_LastRead(userID)).ToType<DateTime?>()
+					       	  ?? YafContext.Current.Get<IYafSession>().LastVisit;
+				}
+				
+				#endregion
+		}
 }

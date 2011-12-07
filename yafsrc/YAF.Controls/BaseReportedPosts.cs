@@ -23,7 +23,6 @@ namespace YAF.Controls
     using System;
     using System.Data;
     using System.Web.UI;
-    using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -121,7 +120,7 @@ namespace YAF.Controls
       // TODO: Needs better commentting.
       writer.WriteLine(@"<div id=""{0}"" class=""yafReportedPosts"">".FormatWith(this.ClientID));
 
-      DataTable reportersList = LegacyDb.message_listreporters(this.MessageID);
+			DataTable reportersList = this.Get<IDbFunction>().GetData.message_listreporters(this.MessageID);
 
         if (reportersList.Rows.Count <= 0)
         {
@@ -147,7 +146,7 @@ namespace YAF.Controls
             if (!string.IsNullOrEmpty(this.ResolvedDate))
             {
                 string resolvedByName =
-                    LegacyDb.user_list(this.PageContext.PageBoardID, this.ResolvedBy.ToType<int>(), true).Rows[0]["Name"].ToString();
+										this.Get<IDbFunction>().GetData.user_list(this.PageContext.PageBoardID, this.ResolvedBy.ToType<int>(), true).Rows[0]["Name"].ToString();
 
                 writer.Write(@"<tr class=""header2""><td>");
                 writer.Write(

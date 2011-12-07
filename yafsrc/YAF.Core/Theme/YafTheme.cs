@@ -27,9 +27,9 @@ namespace YAF.Core
   using System.Xml;
 
   using YAF.Classes;
+  using YAF.Classes.Data;
   using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Core.Services;
-  using YAF.Classes.Data;
   using YAF.Utils;
   using YAF.Utils.Helpers.StringUtils;
   using YAF.Types;

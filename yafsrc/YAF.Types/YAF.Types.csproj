@@ -62,6 +62,7 @@
     <Compile Include="Constants\SearchWhatFlags.cs" />
     <Compile Include="Constants\UserNotificationSetting.cs" />
     <Compile Include="Constants\ViewPermissions.cs" />
+    <Compile Include="Constants\YafFolder.cs" />
     <Compile Include="Constants\YafRssFeeds.cs" />
     <Compile Include="Constants\YafSyndicationFormats.cs" />
     <Compile Include="EventProxies\CacheItemRemovedEvent.cs" />
@@ -74,6 +75,8 @@
     <Compile Include="EventProxies\UpdateUserEvent.cs" />
     <Compile Include="EventProxies\UpdateUserPrivateMessageEvent.cs" />
     <Compile Include="EventProxies\UserLogoutEvent.cs" />
+    <Compile Include="Interfaces\Data\IDataLoadable.cs" />
+    <Compile Include="Interfaces\Data\IDbFunction.cs" />
     <Compile Include="Interfaces\Events\EventConverterArgs.cs" />
     <Compile Include="Flags\AccessFlags.cs" />
     <Compile Include="Flags\ActiveFlags.cs" />
@@ -94,6 +97,7 @@
     <Compile Include="Interfaces\Events\IRaiseEvent.cs" />
     <Compile Include="Interfaces\Events\IFireEvent.cs" />
     <Compile Include="Interfaces\Extensions\CollectionExtensions.cs" />
+    <Compile Include="Interfaces\Extensions\DbConnectionManagerExtensions.cs" />
     <Compile Include="Interfaces\Extensions\IDbAccessExtensions.cs" />
     <Compile Include="Interfaces\Extensions\IHaveLocalizationExtensions.cs" />
     <Compile Include="Interfaces\Extensions\InjectServicesExtensions.cs" />
@@ -111,12 +115,13 @@
     <Compile Include="Interfaces\IEditorModule.cs" />
     <Compile Include="Interfaces\IBaseForumModule.cs" />
     <Compile Include="Interfaces\IBaseModule.cs" />
-    <Compile Include="Interfaces\IDataTableResultFilter.cs" />
+    <Compile Include="Interfaces\Data\IDataTableResultFilter.cs" />
     <Compile Include="Interfaces\IDateTime.cs" />
-    <Compile Include="Interfaces\IDBBroker.cs" />
+    <Compile Include="Interfaces\Data\IDBBroker.cs" />
     <Compile Include="Interfaces\IDigest.cs" />
     <Compile Include="Interfaces\IFavoriteTopic.cs" />
     <Compile Include="Interfaces\Events\IHandleEvent.cs" />
+    <Compile Include="Interfaces\IFileSystem.cs" />
     <Compile Include="Interfaces\IFormatMessage.cs" />
     <Compile Include="Interfaces\IHaveBoardId.cs" />
     <Compile Include="Interfaces\IHaveLocalization.cs" />
@@ -162,8 +167,8 @@
     <Compile Include="Interfaces\IUserData.cs" />
     <Compile Include="Interfaces\IUserDisplayName.cs" />
     <Compile Include="Interfaces\IUserIgnored.cs" />
-    <Compile Include="Interfaces\IDBAccess.cs" />
-    <Compile Include="Interfaces\IDbConnectionManager.cs" />
+    <Compile Include="Interfaces\Data\IDBAccess.cs" />
+    <Compile Include="Interfaces\Data\IDbConnectionManager.cs" />
     <Compile Include="Interfaces\IWriteValue.cs" />
     <Compile Include="Interfaces\IYafSession.cs" />
     <Compile Include="Interfaces\ITheme.cs" />
@@ -171,6 +176,7 @@
     <Compile Include="MessageCleaned.cs" />
     <Compile Include="LanguageResources.cs" />
     <Compile Include="Interfaces\IServiceLocationParameter.cs" />
+    <Compile Include="Objects\ITypedUserFind.cs" />
     <Compile Include="Objects\NamedParameter.cs" />
     <Compile Include="Objects\PollSaveList.cs" />
     <Compile Include="Objects\SimpleForum.cs" />

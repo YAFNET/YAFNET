@@ -25,7 +25,6 @@ namespace YAF.Core
   using System.Web.Security;
 
   using YAF.Classes;
-  using YAF.Classes.Data;
   using YAF.Types.Interfaces;
   using YAF.Utils;
   using YAF.Types;
@@ -37,7 +36,9 @@ namespace YAF.Core
   /// </summary>
   public class YafLoadBoardSettings : YafBoardSettings
   {
-    #region Constructors and Destructors
+  	private readonly IDbFunction _dbFunction;
+
+  	#region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="YafLoadBoardSettings"/> class.
@@ -48,12 +49,13 @@ namespace YAF.Core
     /// <exception cref="Exception">
     /// </exception>
     /// <exception cref="EmptyBoardSettingException"><c>EmptyBoardSettingException</c>.</exception>
-    public YafLoadBoardSettings([NotNull] object boardID)
+    public YafLoadBoardSettings([NotNull] int boardID, IDbFunction dbFunction)
     {
-      this._boardID = boardID;
+    	_dbFunction = dbFunction;
+    	this._boardID = boardID;
 
       // get the board table
-      DataTable dataTable = LegacyDb.board_list(this._boardID);
+      DataTable dataTable = this._dbFunction.GetData.board_list(this._boardID);
 
       if (dataTable.Rows.Count == 0)
       {
@@ -79,12 +81,12 @@ namespace YAF.Core
       // loop through all values and commit them to the DB
       foreach (string key in this._reg.Keys)
       {
-        LegacyDb.registry_save(key, this._reg[key]);
+				this._dbFunction.Query.registry_save(key, this._reg[key]);
       }
 
       foreach (string key in this._regBoard.Keys)
       {
-        LegacyDb.registry_save(key, this._regBoard[key], this._boardID);
+				this._dbFunction.Query.registry_save(key, this._regBoard[key], this._boardID);
       }
     }
 
@@ -101,7 +103,7 @@ namespace YAF.Core
     {
       DataTable dataTable;
 
-      using (dataTable = LegacyDb.registry_list())
+      using (dataTable = this._dbFunction.GetData.registry_list())
       {
         // get all the registry settings into our hash table
         foreach (DataRow dr in dataTable.Rows)
@@ -110,7 +112,7 @@ namespace YAF.Core
         }
       }
 
-      using (dataTable = LegacyDb.registry_list(null, this._boardID))
+      using (dataTable = this._dbFunction.GetData.registry_list(null, this._boardID))
       {
         // get all the registry settings into our hash table
         foreach (DataRow dr in dataTable.Rows)

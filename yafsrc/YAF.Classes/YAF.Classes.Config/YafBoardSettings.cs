@@ -42,7 +42,7 @@ namespace YAF.Classes
         /// <summary>
         /// The _board id.
         /// </summary>
-        protected object _boardID;
+        protected int _boardID;
 
         /// <summary>
         /// The _legacy board settings.

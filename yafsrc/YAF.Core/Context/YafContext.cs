@@ -30,7 +30,6 @@ namespace YAF.Core
 	using Autofac;
 
 	using YAF.Classes;
-	using YAF.Classes.Data;
 	using YAF.Classes.Pattern;
 	using YAF.Core.Services;
 	using YAF.Types;
@@ -38,6 +37,7 @@ namespace YAF.Core
 	using YAF.Types.EventProxies;
 	using YAF.Types.Interfaces;
 	using YAF.Utils;
+	using YAF.Utils.Extensions;
 	using YAF.Utils.Helpers;
 
 	#endregion
@@ -95,10 +95,7 @@ namespace YAF.Core
 			this._repository = new ContextVariableRepository(this._variables);
 
 			// init context...
-			if (this.Init != null)
-			{
-				this.Init(this, new EventArgs());
-			}
+			this.Init.SafeInvoke(this, new EventArgs());
 		}
 
 		#endregion
@@ -407,10 +404,7 @@ namespace YAF.Core
 		{
 			if (!this._initUserPage)
 			{
-				if (this.BeforeInit != null)
-				{
-					this.BeforeInit(this, new EventArgs());
-				}
+				this.BeforeInit.SafeInvoke(this, new EventArgs());
 
 				if (this.User != null && (this.Get<HttpSessionStateBase>()["UserUpdated"] == null || this.Get<HttpSessionStateBase>()["UserUpdated"].ToString() != this.User.UserName))
 				{
@@ -424,11 +418,7 @@ namespace YAF.Core
 
 				this.Page = pageLoadEvent.DataDictionary;
 
-				if (this.AfterInit != null)
-				{
-					this.AfterInit(this, new EventArgs());
-				}
-			}
+				this.AfterInit.SafeInvoke(this, new EventArgs());			}
 		}
 
 		#endregion
@@ -456,10 +446,7 @@ namespace YAF.Core
 		/// </summary>
 		public void Dispose()
 		{
-			if (this.Unload != null)
-			{
-				this.Unload(this, new EventArgs());
-			}
+			this.Unload.SafeInvoke(this, new EventArgs());
 
 			this._contextLifetimeContainer.Dispose();
 		}
