@@ -75,6 +75,7 @@
     <Compile Include="EventProxies\UpdateUserEvent.cs" />
     <Compile Include="EventProxies\UpdateUserPrivateMessageEvent.cs" />
     <Compile Include="EventProxies\UserLogoutEvent.cs" />
+    <Compile Include="Interfaces\Data\IDataLoadable.cs" />
     <Compile Include="Interfaces\Data\IDbFunction.cs" />
     <Compile Include="Interfaces\Events\EventConverterArgs.cs" />
     <Compile Include="Flags\AccessFlags.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Interfaces\Events\IRaiseEvent.cs" />
     <Compile Include="Interfaces\Events\IFireEvent.cs" />
     <Compile Include="Interfaces\Extensions\CollectionExtensions.cs" />
+    <Compile Include="Interfaces\Extensions\DbConnectionManagerExtensions.cs" />
     <Compile Include="Interfaces\Extensions\IDbAccessExtensions.cs" />
     <Compile Include="Interfaces\Extensions\IHaveLocalizationExtensions.cs" />
     <Compile Include="Interfaces\Extensions\InjectServicesExtensions.cs" />
@@ -174,6 +176,7 @@
     <Compile Include="MessageCleaned.cs" />
     <Compile Include="LanguageResources.cs" />
     <Compile Include="Interfaces\IServiceLocationParameter.cs" />
+    <Compile Include="Objects\ITypedUserFind.cs" />
     <Compile Include="Objects\NamedParameter.cs" />
     <Compile Include="Objects\PollSaveList.cs" />
     <Compile Include="Objects\SimpleForum.cs" />

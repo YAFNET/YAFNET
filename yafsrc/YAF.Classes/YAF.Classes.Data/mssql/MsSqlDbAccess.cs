@@ -21,6 +21,7 @@ namespace YAF.Classes.Data
 
 	using YAF.Types;
 	using YAF.Types.Interfaces;
+	using YAF.Types.Interfaces.Extensions;
 	using YAF.Utils;
 	using YAF.Utils.Helpers;
 
@@ -31,6 +32,11 @@ namespace YAF.Classes.Data
 	/// </summary>
 	public class MsSqlDbAccess : IDbAccess
 	{
+		public MsSqlDbAccess(IDbConnectionManager connectionManager)
+		{
+			_connectionManager = connectionManager;
+		}
+
 		#region Constants and Fields
 
 		/// <summary>
@@ -44,9 +50,9 @@ namespace YAF.Classes.Data
 		private static IsolationLevel _isolationLevel = IsolationLevel.ReadUncommitted;
 
 		/// <summary>
-		///   The _connection manager type.
+		/// The _connection manager.
 		/// </summary>
-		private Type _connectionManagerType = typeof(MsSqlDbConnectionManager);
+		private IDbConnectionManager _connectionManager = new MsSqlDbConnectionManager();
 
 		#endregion
 
@@ -60,6 +66,28 @@ namespace YAF.Classes.Data
 			get
 			{
 				return _isolationLevel;
+			}
+		}
+
+		/// <summary>
+		///   The get connection manager.
+		/// </summary>
+		/// <returns>
+		/// </returns>
+		[NotNull]
+		public IDbConnectionManager ConnectionManager
+		{
+			get
+			{
+				return this._connectionManager;
+			}
+
+			set
+			{
+				if (value != null)
+				{
+					this._connectionManager = value;
+				}
 			}
 		}
 
@@ -200,17 +228,17 @@ namespace YAF.Classes.Data
 		{
 			using (var qc = QueryCounter.Start(cmd.CommandText))
 			{
-				using (var connectionManager = this.GetConnectionManager())
+				using (var connection = this.ConnectionManager.GetOpenDbConnection())
 				{
 					// get an open connection
-					cmd.Connection = connectionManager.OpenDBConnection;
+					cmd.Connection = connection;
 
 					Trace.WriteLine(cmd.ToDebugString(), "DbAccess");
 
 					if (transaction)
 					{
 						// execute using a transaction
-						using (var trans = connectionManager.OpenDBConnection.BeginTransaction(_isolationLevel))
+						using (var trans = connection.BeginTransaction(_isolationLevel))
 						{
 							cmd.Transaction = trans;
 							cmd.ExecuteNonQuery();
@@ -242,29 +270,32 @@ namespace YAF.Classes.Data
 		{
 			using (var qc = QueryCounter.Start(cmd.CommandText))
 			{
-				using (var connectionManager = this.GetConnectionManager())
+				using (var connection = this.ConnectionManager.GetOpenDbConnection())
 				{
 					// get an open connection
-					cmd.Connection = connectionManager.OpenDBConnection;
+					cmd.Connection = connection;
 
 					Trace.WriteLine(cmd.ToDebugString(), "DbAccess");
+
+					object results;
 
 					if (transaction)
 					{
 						// get scalar using a transaction
-						using (var trans = connectionManager.OpenDBConnection.BeginTransaction(_isolationLevel))
+						using (var trans = connection.BeginTransaction(_isolationLevel))
 						{
 							cmd.Transaction = trans;
-							object results = cmd.ExecuteScalar();
+							results = cmd.ExecuteScalar();
 							trans.Commit();
-							return results;
 						}
 					}
 					else
 					{
 						// get scalar regular
-						return cmd.ExecuteScalar();
+						results = cmd.ExecuteScalar();
 					}
+
+					return results == DBNull.Value ? null : results;
 				}
 			}
 		}
@@ -278,9 +309,15 @@ namespace YAF.Classes.Data
 		/// <param name="isStoredProcedure">
 		/// The is stored procedure.
 		/// </param>
+		/// <param name="parameters">
+		/// The parameters.
+		/// </param>
 		/// <returns>
 		/// </returns>
-		public DbCommand GetCommand([NotNull] string sql, bool isStoredProcedure = true, [CanBeNull] IEnumerable<KeyValuePair<string, object>> parameters = null)
+		public DbCommand GetCommand(
+			[NotNull] string sql, 
+			bool isStoredProcedure = true, 
+			[CanBeNull] IEnumerable<KeyValuePair<string, object>> parameters = null)
 		{
 			SqlCommand cmd = null;
 			parameters = parameters ?? Enumerable.Empty<KeyValuePair<string, object>>();
@@ -288,42 +325,33 @@ namespace YAF.Classes.Data
 			if (isStoredProcedure)
 			{
 				cmd = new SqlCommand
-				{
-					CommandType = CommandType.StoredProcedure,
-					CommandText = "[{{databaseOwner}}].[{{objectQualifier}}{0}]".FormatWith(sql),
-					CommandTimeout = int.Parse(Config.SqlCommandTimeout)
-				};
+					{
+						CommandType = CommandType.StoredProcedure, 
+						CommandText = "[{{databaseOwner}}].[{{objectQualifier}}{0}]".FormatWith(sql), 
+						CommandTimeout = int.Parse(Config.SqlCommandTimeout)
+					};
 
 				if (parameters.Any() && !parameters.All(x => x.Key.IsSet()))
 				{
 					cmd.CommandType = CommandType.Text;
 					cmd.CommandText = string.Format(
-						"EXEC {0} {1}",
-						cmd.CommandText,
+						"EXEC {0} {1}", 
+						cmd.CommandText, 
 						Enumerable.Range(0, parameters.Count()).Select(x => string.Format("@{0}", x)).ToDelimitedString(","));
 				}
 			}
 			else
 			{
 				cmd = new SqlCommand
-					{ CommandType = CommandType.Text, CommandText = sql, CommandTimeout = int.Parse(Config.SqlCommandTimeout) };
+					{
+				CommandType = CommandType.Text, CommandText = sql, CommandTimeout = int.Parse(Config.SqlCommandTimeout) 
+		 };
 			}
 
 			// add all/any parameters...
 			parameters.ToList().ForEach(x => cmd.AddParam(x));
 
 			return cmd.ReplaceCommandText();
-		}
-
-		/// <summary>
-		/// The get connection manager.
-		/// </summary>
-		/// <returns>
-		/// </returns>
-		[CanBeNull]
-		public IDbConnectionManager GetConnectionManager()
-		{
-			return Activator.CreateInstance(this._connectionManagerType).ToClass<IDbConnectionManager>();
 		}
 
 		/// <summary>
@@ -389,50 +417,6 @@ namespace YAF.Classes.Data
 			}
 		}
 
-		/// <summary>
-		/// The get reader.
-		/// </summary>
-		/// <param name="cmd">
-		/// The cmd.
-		/// </param>
-		/// <returns>
-		/// </returns>
-		public IDataReader GetReader([NotNull] IDbCommand cmd)
-		{
-			using (var qc = QueryCounter.Start(cmd.CommandText))
-			{
-				using (var connectionManager = this.GetConnectionManager())
-				{
-					// see if an existing connection is present
-					if (cmd.Connection == null)
-					{
-						cmd.Connection = connectionManager.OpenDBConnection;
-					}
-					else if (cmd.Connection.State != ConnectionState.Open)
-					{
-						cmd.Connection.Open();
-					}
-
-					return cmd.ExecuteReader();
-				}
-			}
-		}
-
-		/// <summary>
-		/// Change the Connection Manager used in all DB operations.
-		/// </summary>
-		/// <typeparam name="TManager">
-		/// </typeparam>
-		public void SetConnectionManagerAdapter<TManager>() where TManager : IDbConnectionManager
-		{
-			Type newConnectionManager = typeof(TManager);
-
-			if (typeof(IDbConnectionManager).IsAssignableFrom(newConnectionManager))
-			{
-				this._connectionManagerType = newConnectionManager;
-			}
-		}
-
 		#endregion
 
 		#endregion
@@ -451,17 +435,10 @@ namespace YAF.Classes.Data
 		[NotNull]
 		private DataSet GetDatasetBasic([NotNull] IDbCommand cmd, bool transaction)
 		{
-			using (var connectionManager = this.GetConnectionManager())
+			using (var connection = this.ConnectionManager.GetOpenDbConnection())
 			{
 				// see if an existing connection is present
-				if (cmd.Connection == null)
-				{
-					cmd.Connection = connectionManager.OpenDBConnection;
-				}
-				else if (cmd.Connection != null && cmd.Connection.State != ConnectionState.Open)
-				{
-					cmd.Connection.Open();
-				}
+				cmd.Connection = connection;
 
 				// create the adapters
 				using (var ds = new DataSet())
@@ -475,7 +452,7 @@ namespace YAF.Classes.Data
 						// use a transaction
 						if (transaction)
 						{
-							using (var trans = connectionManager.OpenDBConnection.BeginTransaction(_isolationLevel))
+							using (var trans = connection.BeginTransaction(_isolationLevel))
 							{
 								try
 								{

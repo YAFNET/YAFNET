@@ -70,6 +70,7 @@
     <Compile Include="Context\LoadPageRequestInformation.cs" />
     <Compile Include="Context\LoadPageVariablesFromQuery.cs" />
     <Compile Include="Data\DynamicDbFunction.cs" />
+    <Compile Include="Data\TypedUserFind.cs" />
     <Compile Include="Extensions\MembershipUserExtensions.cs" />
     <Compile Include="Extensions\YafBoardFolderExtensions.cs" />
     <Compile Include="Helpers\IPLocator.cs" />
@@ -143,7 +144,6 @@
     <Compile Include="Handlers\LocalizationProvider.cs" />
     <Compile Include="Handlers\ThemeProvider.cs" />
     <Compile Include="Helpers\CaptchaHelper.cs" />
-    <Compile Include="Helpers\DynamicConnectionManager.cs" />
     <Compile Include="Helpers\PostDataHelper.cs" />
     <Compile Include="Helpers\StaticDataHelper.cs" />
     <Compile Include="Localization\Localizer.cs" />

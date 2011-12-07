@@ -69,7 +69,7 @@ namespace YAF.Providers.Roles
     /// <summary>
     ///   The _db access.
     /// </summary>
-		private readonly IDbAccess _dbAccess = new MsSqlDbAccess();
+		private readonly IDbAccess _dbAccess = new MsSqlDbAccess(new MsSqlRolesDbConnectionManager());
 
     #endregion
 
@@ -80,7 +80,6 @@ namespace YAF.Providers.Roles
     /// </summary>
     public DB()
     {
-      this._dbAccess.SetConnectionManagerAdapter<MsSqlRolesDbConnectionManager>();
     }
 
     #endregion

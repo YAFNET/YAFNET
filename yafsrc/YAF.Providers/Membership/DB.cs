@@ -71,7 +71,7 @@ namespace YAF.Providers.Membership
 		/// <summary>
 		///   The _db access.
 		/// </summary>
-		private readonly IDbAccess _dbAccess = new MsSqlDbAccess();
+		private readonly IDbAccess _dbAccess = new MsSqlDbAccess(new MsSqlMembershipDbConnectionManager());
 
 		#endregion
 
@@ -82,7 +82,6 @@ namespace YAF.Providers.Membership
 		/// </summary>
 		public DB()
 		{
-			this._dbAccess.SetConnectionManagerAdapter<MsSqlMembershipDbConnectionManager>();
 		}
 
 		#endregion

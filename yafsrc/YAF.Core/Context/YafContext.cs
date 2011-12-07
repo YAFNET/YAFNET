@@ -30,7 +30,6 @@ namespace YAF.Core
 	using Autofac;
 
 	using YAF.Classes;
-	using YAF.Classes.Data;
 	using YAF.Classes.Pattern;
 	using YAF.Core.Services;
 	using YAF.Types;

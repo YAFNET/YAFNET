@@ -15,6 +15,7 @@ namespace YAF.Classes.Data
 
 	using YAF.Types;
 	using YAF.Types.Interfaces;
+	using YAF.Types.Interfaces.Extensions;
 
 	/// <summary>
 	/// The db access extensions.
@@ -60,10 +61,10 @@ namespace YAF.Classes.Data
 
 			try
 			{
-				using (var connection = dbAccess.GetConnectionManager())
+				using (var connection = dbAccess.ConnectionManager.GetOpenDbConnection())
 				{
-					// attempt to connect to the db...
-					var conn = connection.OpenDBConnection;
+					// we're connected!
+					var conn = connection;
 				}
 
 				// success

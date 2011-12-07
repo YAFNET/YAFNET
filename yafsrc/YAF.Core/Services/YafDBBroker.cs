@@ -612,7 +612,7 @@ namespace YAF.Core.Services
 
 				// add topics
 				List<SimpleTopic> topics =
-						((DataTable)this.DbFunction.GetData.topic_list(forum.ForumID, userId, -1, timeFrame, 0, maxCount, false, false, false)).SelectTypedList(
+					LegacyDb.topic_list(forum.ForumID, userId, -1, timeFrame, 0, maxCount, false, false, false).SelectTypedList(
 						x => this.LoadSimpleTopic(x, forum1)).Where(x => x.LastPostDate >= timeFrame).ToList();
 
 				forum.Topics = topics;

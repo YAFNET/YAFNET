@@ -283,8 +283,15 @@ namespace YAF.Install
 		/// </param>
 		protected void Page_Init([NotNull] object sender, [NotNull] EventArgs e)
 		{
+			string connectionString = Config.ConnectionString;
+
+			if (YafContext.Current.Vars.ContainsKey("ConnectionString"))
+			{
+				connectionString = YafContext.Current.Vars["ConnectionString"] as string;
+			}
+
 			// set the connection manager to the dynamic...
-			this.Get<Types.Interfaces.IDbAccess>().SetConnectionManagerAdapter<MsSqlDynamicDbConnectionManager>();
+			this.Get<IDbAccess>().ConnectionManager.ConnectionString = connectionString;
 		}
 
 		/// <summary>

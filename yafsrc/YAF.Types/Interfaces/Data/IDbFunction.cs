@@ -18,6 +18,26 @@
  */
 namespace YAF.Types.Interfaces
 {
+	using System;
+
+	public enum DbFunctionType
+	{
+		Query,
+		DataTable,
+		DataSet,
+		Scalar,
+		Reader
+	}
+
+	public class DbFunctionCancelledException : Exception
+	{
+		public DbFunctionCancelledException(string message)
+			: base(message)
+		{
+			
+		}
+	}
+
 	public interface IDbFunction
 	{
 		dynamic Query { get; }

@@ -1,38 +1,24 @@
-/* Yet Another Forum.NET
- * Copyright (C) 2006-2011 Jaben Cargman
- * http://www.yetanotherforum.net/
- * 
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- */
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="DynamicDbFunction.cs" company="">
+//   
+// </copyright>
+// <summary>
+//   The dynamic db function.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace YAF.Core.Data
 {
 	using System;
 	using System.Collections.Generic;
-	using System.Data;
 	using System.Data.Common;
-	using System.Data.SqlClient;
 	using System.Dynamic;
 	using System.Linq;
 
-	using YAF.Classes.Data;
 	using YAF.Types;
+	using YAF.Types.EventProxies;
 	using YAF.Types.Interfaces;
 	using YAF.Utils;
-
-	using IDbAccess = YAF.Types.Interfaces.IDbAccess;
 
 	/// <summary>
 	/// The dynamic db function.
@@ -42,22 +28,22 @@ namespace YAF.Core.Data
 		#region Constants and Fields
 
 		/// <summary>
-		/// The _get data proxy.
+		///   The _get data proxy.
 		/// </summary>
 		private readonly TryInvokeMemberProxy _getDataProxy;
 
 		/// <summary>
-		/// The _get data set proxy.
+		///   The _get data set proxy.
 		/// </summary>
 		private readonly TryInvokeMemberProxy _getDataSetProxy;
 
 		/// <summary>
-		/// The _query proxy.
+		///   The _query proxy.
 		/// </summary>
 		private readonly TryInvokeMemberProxy _queryProxy;
 
 		/// <summary>
-		/// The _scalar proxy.
+		///   The _scalar proxy.
 		/// </summary>
 		private readonly TryInvokeMemberProxy _scalarProxy;
 
@@ -85,12 +71,12 @@ namespace YAF.Core.Data
 		#region Properties
 
 		/// <summary>
-		/// Gets or sets DbAccess.
+		///   Gets or sets DbAccess.
 		/// </summary>
 		public IDbAccess DbAccess { get; set; }
 
 		/// <summary>
-		/// Gets GetData.
+		///   Gets GetData.
 		/// </summary>
 		public dynamic GetData
 		{
@@ -101,7 +87,7 @@ namespace YAF.Core.Data
 		}
 
 		/// <summary>
-		/// Gets GetDataSet.
+		///   Gets GetDataSet.
 		/// </summary>
 		public dynamic GetDataSet
 		{
@@ -112,7 +98,7 @@ namespace YAF.Core.Data
 		}
 
 		/// <summary>
-		/// Gets Query.
+		///   Gets Query.
 		/// </summary>
 		public dynamic Query
 		{
@@ -123,7 +109,7 @@ namespace YAF.Core.Data
 		}
 
 		/// <summary>
-		/// Gets Scalar.
+		///   Gets Scalar.
 		/// </summary>
 		public dynamic Scalar
 		{
@@ -140,6 +126,9 @@ namespace YAF.Core.Data
 		/// <summary>
 		/// The db function execute.
 		/// </summary>
+		/// <param name="functionType">
+		/// The function Type.
+		/// </param>
 		/// <param name="binder">
 		/// The binder.
 		/// </param>
@@ -156,14 +145,19 @@ namespace YAF.Core.Data
 		/// The db function execute.
 		/// </returns>
 		protected bool DbFunctionExecute(
+			DbFunctionType functionType, 
 			[NotNull] InvokeMemberBinder binder, 
 			[NotNull] IList<KeyValuePair<string, object>> parameters, 
 			[NotNull] Func<DbCommand, object> executeDb, 
 			[CanBeNull] out object result)
 		{
+			CodeContracts.ArgumentNotNull(binder, "binder");
+			CodeContracts.ArgumentNotNull(parameters, "parameters");
+			CodeContracts.ArgumentNotNull(executeDb, "executeDb");
+
 			var operationName = binder.Name;
 
-			using (var cmd = DbAccess.GetCommand(operationName.ToLower(), true, parameters))
+			using (var cmd = this.DbAccess.GetCommand(operationName.ToLower(), true, parameters))
 			{
 				result = executeDb(cmd);
 			}
@@ -190,7 +184,11 @@ namespace YAF.Core.Data
 			[NotNull] InvokeMemberBinder binder, [NotNull] object[] args, [NotNull] out object result)
 		{
 			return this.DbFunctionExecute(
-				binder, this.MapParameters(binder.CallInfo, args), (cmd) => this.DbAccess.GetData(cmd), out result);
+				DbFunctionType.DataTable, 
+				binder, 
+				this.MapParameters(binder.CallInfo, args), 
+				(cmd) => this.DbAccess.GetData(cmd), 
+				out result);
 		}
 
 		/// <summary>
@@ -212,7 +210,11 @@ namespace YAF.Core.Data
 			[NotNull] InvokeMemberBinder binder, [NotNull] object[] args, [NotNull] out object result)
 		{
 			return this.DbFunctionExecute(
-				binder, this.MapParameters(binder.CallInfo, args), (cmd) => this.DbAccess.GetDataset(cmd), out result);
+				DbFunctionType.DataSet, 
+				binder, 
+				this.MapParameters(binder.CallInfo, args), 
+				(cmd) => this.DbAccess.GetDataset(cmd), 
+				out result);
 		}
 
 		/// <summary>
@@ -233,6 +235,7 @@ namespace YAF.Core.Data
 		protected bool InvokeQuery([NotNull] InvokeMemberBinder binder, [NotNull] object[] args, [NotNull] out object result)
 		{
 			return this.DbFunctionExecute(
+				DbFunctionType.Query, 
 				binder, 
 				this.MapParameters(binder.CallInfo, args), 
 				(cmd) =>
@@ -261,7 +264,11 @@ namespace YAF.Core.Data
 		protected bool InvokeScalar([NotNull] InvokeMemberBinder binder, [NotNull] object[] args, [NotNull] out object result)
 		{
 			return this.DbFunctionExecute(
-				binder, this.MapParameters(binder.CallInfo, args), (cmd) => this.DbAccess.ExecuteScalar(cmd), out result);
+				DbFunctionType.Scalar, 
+				binder, 
+				this.MapParameters(binder.CallInfo, args), 
+				(cmd) => this.DbAccess.ExecuteScalar(cmd), 
+				out result);
 		}
 
 		/// <summary>
@@ -298,7 +305,7 @@ namespace YAF.Core.Data
 		#region Constants and Fields
 
 		/// <summary>
-		/// The _try invoke func.
+		///   The _try invoke func.
 		/// </summary>
 		private readonly TryInvokeFunc _tryInvokeFunc;
 

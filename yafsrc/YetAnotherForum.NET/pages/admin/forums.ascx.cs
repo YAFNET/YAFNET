@@ -182,12 +182,12 @@ namespace YAF.Pages.Admin
 				/// </summary>
 				private void BindData()
 				{
-						using (DataSet ds = LegacyDb.ds_forumadmin(this.PageContext.PageBoardID))
-						{
-				this.CategoryList.DataSource = ds.GetTable("Category");
-			}
+					using (DataSet ds = LegacyDb.ds_forumadmin(this.PageContext.PageBoardID))
+					{
+						this.CategoryList.DataSource = ds.GetTable("Category");
+					}
 
-						// Hide the New Forum Button if there are no Categories.
+					// Hide the New Forum Button if there are no Categories.
 						this.NewForum.Visible = this.CategoryList.Items.Count < 1;
 
 						this.DataBind();

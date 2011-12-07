@@ -18,15 +18,6 @@ namespace YAF.Types.Interfaces
 	/// </summary>
 	public interface IDbAccess
 	{
-		#region Properties
-
-		/// <summary>
-		///   Filter list of result filters.
-		/// </summary>
-		IList<IDataTableResultFilter> ResultFilterList { get; }
-
-		#endregion
-
 		#region Public Methods
 
 		/// <summary>
@@ -76,7 +67,7 @@ namespace YAF.Types.Interfaces
 		/// </summary>
 		/// <returns>
 		/// </returns>
-		IDbConnectionManager GetConnectionManager();
+		IDbConnectionManager ConnectionManager { get; set; }
 
 		/// <summary>
 		/// The get data.
@@ -92,19 +83,6 @@ namespace YAF.Types.Interfaces
 		DataTable GetData([NotNull] IDbCommand cmd, bool transaction);
 
 		/// <summary>
-		/// The get data.
-		/// </summary>
-		/// <param name="commandText">
-		/// The command text.
-		/// </param>
-		/// <param name="transaction">
-		/// The transaction.
-		/// </param>
-		/// <returns>
-		/// </returns>
-		DataTable GetData([NotNull] string commandText, bool transaction);
-
-		/// <summary>
 		/// The get dataset.
 		/// </summary>
 		/// <param name="cmd">
@@ -116,23 +94,6 @@ namespace YAF.Types.Interfaces
 		/// <returns>
 		/// </returns>
 		DataSet GetDataset([NotNull] IDbCommand cmd, bool transaction);
-
-		/// <summary>
-		/// The get reader.
-		/// </summary>
-		/// <param name="cmd">
-		/// The cmd.
-		/// </param>
-		/// <returns>
-		/// </returns>
-		IDataReader GetReader([NotNull] IDbCommand cmd);
-
-		/// <summary>
-		/// Sets the connection manager adapter.
-		/// </summary>
-		/// <typeparam name="TManager">
-		/// </typeparam>
-		void SetConnectionManagerAdapter<TManager>() where TManager : IDbConnectionManager;
 
 		#endregion
 	}

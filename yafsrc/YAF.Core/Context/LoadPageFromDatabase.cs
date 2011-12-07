@@ -11,17 +11,14 @@ namespace YAF.Core
 {
 	using System;
 	using System.Data;
+	using System.Linq;
 	using System.Web;
-	using System.Web.Security;
 
-	using YAF.Classes.Data;
 	using YAF.Types;
 	using YAF.Types.Attributes;
-	using YAF.Types.Constants;
 	using YAF.Types.EventProxies;
 	using YAF.Types.Interfaces;
 	using YAF.Types.Interfaces.Extensions;
-	using YAF.Utils;
 	using YAF.Utils.Extensions;
 
 	/// <summary>
@@ -30,6 +27,8 @@ namespace YAF.Core
 	[ExportService(ServiceLifetimeScope.InstancePerContext, null, typeof(IHandleEvent<InitPageLoadEvent>))]
 	public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServiceLocator
 	{
+		private readonly IDbFunction _dbFunction;
+
 		#region Constructors and Destructors
 
 		/// <summary>
@@ -41,8 +40,9 @@ namespace YAF.Core
 		/// <param name="legacyDb">
 		/// The legacy db.
 		/// </param>
-		public LoadPageFromDatabase([NotNull] IServiceLocator serviceLocator, ILogger logger)
+		public LoadPageFromDatabase([NotNull] IServiceLocator serviceLocator, ILogger logger, IDbFunction dbFunction)
 		{
+			_dbFunction = dbFunction;
 			this.ServiceLocator = serviceLocator;
 			Logger = logger;
 		}
@@ -98,23 +98,26 @@ namespace YAF.Core
 
 				do
 				{
-					pageRow = LegacyDb.pageload(
-						this.Get<HttpSessionStateBase>().SessionID,
-						YafContext.Current.PageBoardID,
-						userKey,
-						this.Get<HttpRequestBase>().UserHostAddress,
-						this.Get<HttpRequestBase>().FilePath,
-						this.Get<HttpRequestBase>().QueryString.ToString(),
-						@event.Data.Browser,
-						@event.Data.Platform,
-						@event.Data.CategoryID,
-						@event.Data.ForumID,
-						@event.Data.TopicID,
-						@event.Data.MessageID,
-						// don't track if this is a search engine
-						@event.Data.IsSearchEngine,
-						@event.Data.IsMobileDevice,
-						@event.Data.DontTrack);
+					pageRow =
+						((DataTable)
+						 this._dbFunction.GetData.pageload(
+						 	this.Get<HttpSessionStateBase>().SessionID,
+						 	YafContext.Current.PageBoardID,
+						 	userKey,
+						 	this.Get<HttpRequestBase>().UserHostAddress,
+						 	this.Get<HttpRequestBase>().FilePath,
+						 	this.Get<HttpRequestBase>().QueryString.ToString(),
+						 	@event.Data.Browser,
+						 	@event.Data.Platform,
+						 	@event.Data.CategoryID,
+						 	@event.Data.ForumID,
+						 	@event.Data.TopicID,
+						 	@event.Data.MessageID,
+						 	// don't track if this is a search engine
+						 	@event.Data.IsSearchEngine,
+						 	@event.Data.IsMobileDevice,
+						 	@event.Data.DontTrack,
+							DateTime.UtcNow)).AsEnumerable().FirstOrDefault();
 
 					// if the user doesn't exist...
 					if (userKey != null && pageRow == null)

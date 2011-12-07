@@ -26,6 +26,7 @@ namespace YAF.Classes.Data
 	using System.Collections.Generic;
 	using System.Configuration;
 	using System.Data;
+	using System.Data.Common;
 	using System.Data.SqlClient;
 	using System.IO;
 	using System.Linq;
@@ -38,6 +39,7 @@ namespace YAF.Classes.Data
 	using YAF.Types.Constants;
 	using YAF.Types.Handlers;
 	using YAF.Types.Interfaces;
+	using YAF.Types.Interfaces.Extensions;
 	using YAF.Types.Objects;
 	using YAF.Utils;
 	using YAF.Utils.Extensions;
@@ -581,50 +583,6 @@ namespace YAF.Classes.Data
 				cmd.AddParam("TopicID", topicId);
 
 				return Current.GetData(cmd).GetFirstRowColumnAsValue("FavoriteCount", 0);
-			}
-		}
-
-		/// <summary>
-		/// The UserFind.
-		/// </summary>
-		/// <param name="boardID">
-		/// The board id.
-		/// </param>
-		/// <param name="filter">
-		/// The filter.
-		/// </param>
-		/// <param name="userName">
-		/// The user name.
-		/// </param>
-		/// <param name="email">
-		/// The email.
-		/// </param>
-		/// <param name="displayName">
-		/// </param>
-		/// <param name="notificationType">
-		/// </param>
-		/// <param name="dailyDigest">
-		/// </param>
-		/// <returns>
-		/// </returns>
-		[NotNull]
-		public static IEnumerable<TypedUserFind> UserFind(
-			int boardID,
-			bool filter, [NotNull] string userName, [NotNull] string email, [NotNull] string displayName, [NotNull] object notificationType, [NotNull] object dailyDigest)
-		{
-			using (var cmd = Current.GetCommand("user_find"))
-			{
-				cmd.CommandType = CommandType.StoredProcedure;
-
-				cmd.AddParam("BoardID", boardID);
-				cmd.AddParam("Filter", filter);
-				cmd.AddParam("UserName", userName);
-				cmd.AddParam("DisplayName", displayName);
-				cmd.AddParam("Email", email);
-				cmd.AddParam("NotificationType", notificationType);
-				cmd.AddParam("DailyDigest", dailyDigest);
-
-				return Current.GetData(cmd).AsEnumerable().Select(u => new TypedUserFind(u));
 			}
 		}
 
@@ -2209,7 +2167,7 @@ namespace YAF.Classes.Data
 			sb.AppendLine("CLOSE cur_showfragmentation");
 			sb.AppendLine("DEALLOCATE cur_showfragmentation");
 
-			using (var cmd = new SqlCommand(sb.ToString(), connectionManager.OpenDBConnection))
+			using (var cmd = new SqlCommand(sb.ToString(), connectionManager.GetOpenDbConnection()))
 			{
 				cmd.Connection = connectionManager.DBConnection;
 
@@ -2253,7 +2211,7 @@ namespace YAF.Classes.Data
 					sb.AppendLine("CLOSE cur_showfragmentation");
 					sb.AppendLine("DEALLOCATE cur_showfragmentation");
 
-					using (var cmd = new SqlCommand(sb.ToString(), connMan.OpenDBConnection))
+					using (var cmd = new SqlCommand(sb.ToString(), connMan.GetOpenDbConnection()))
 					{
 						cmd.Connection = connMan.DBConnection;
 
@@ -2319,7 +2277,7 @@ namespace YAF.Classes.Data
 			RecoveryModeConn.Open();
 			RecoveryModeCmd.ExecuteNonQuery();
 			RecoveryModeConn.Close();
-			using (var cmd = new SqlCommand(RecoveryMode, DBName.OpenDBConnection))
+			using (var cmd = new SqlCommand(RecoveryMode, DBName.GetOpenDbConnection()))
 			{
 				cmd.Connection = DBName.DBConnection;
 				cmd.CommandTimeout = int.Parse(Config.SqlCommandTimeout);
@@ -2353,7 +2311,7 @@ namespace YAF.Classes.Data
 
 					RecoveryModeCmd.ExecuteNonQuery();
 					RecoveryModeConn.Close();
-					using (var cmd = new SqlCommand(RecoveryMode, connMan.OpenDBConnection))
+					using (var cmd = new SqlCommand(RecoveryMode, connMan.GetOpenDbConnection()))
 					{
 						cmd.Connection = connMan.DBConnection;
 						cmd.CommandTimeout = int.Parse(Config.SqlCommandTimeout);
@@ -2442,7 +2400,7 @@ namespace YAF.Classes.Data
 			sb.AppendLine("CLOSE myCursor");
 			sb.AppendLine("DEALLOCATE myCursor");
 
-			using (var cmd = new SqlCommand(sb.ToString(), connectionManager.OpenDBConnection))
+			using (var cmd = new SqlCommand(sb.ToString(), connectionManager.GetOpenDbConnection()))
 			{
 				cmd.Connection = connectionManager.DBConnection;
 
@@ -2504,7 +2462,7 @@ namespace YAF.Classes.Data
 					sb.AppendLine("CLOSE myCursor");
 					sb.AppendLine("DEALLOCATE myCursor");
 
-					using (var cmd = new SqlCommand(sb.ToString(), connMan.OpenDBConnection))
+					using (var cmd = new SqlCommand(sb.ToString(), connMan.GetOpenDbConnection()))
 					{
 						cmd.Connection = connMan.DBConnection;
 
@@ -2569,10 +2527,10 @@ namespace YAF.Classes.Data
 		/// </returns>
 		public static string db_runsql([NotNull] string sql, [NotNull] MsSqlDbConnectionManager connectionManager, bool useTransaction)
 		{
-			using (var command = new SqlCommand(sql, connectionManager.OpenDBConnection))
+			using (var command = new SqlCommand(sql, connectionManager.GetOpenDbConnection()))
 			{
 				command.CommandTimeout = 9999;
-				command.Connection = connectionManager.OpenDBConnection;
+				command.Connection = connectionManager.GetOpenDbConnection();
 
 				return InnerRunSqlExecuteReader(command, useTransaction);
 			}
@@ -2604,10 +2562,10 @@ namespace YAF.Classes.Data
 					connMan.InfoMessage += new YafDBConnInfoMessageEventHandler(runSql_InfoMessage);
 					connMan.DBConnection.FireInfoMessageEventOnUserErrors = true;
 
-					using (var command = new SqlCommand(sql.GetCommandTextReplaced(), connMan.OpenDBConnection))
+					using (var command = new SqlCommand(sql.GetCommandTextReplaced(), connMan.GetOpenDbConnection()))
 					{
 						command.CommandTimeout = 9999;
-						command.Connection = connMan.OpenDBConnection;
+						command.Connection = connMan.GetOpenDbConnection();
 
 						return InnerRunSqlExecuteReader(command, useTransaction);
 					}
@@ -2648,7 +2606,7 @@ namespace YAF.Classes.Data
 			ShrinkConn.Open();
 			ShrinkCmd.ExecuteNonQuery();
 			ShrinkConn.Close();
-			using (var cmd = new SqlCommand(ShrinkSql, DBName.OpenDBConnection))
+			using (var cmd = new SqlCommand(ShrinkSql, DBName.GetOpenDbConnection()))
 			{
 				cmd.Connection = DBName.DBConnection;
 				cmd.CommandTimeout = int.Parse(Config.SqlCommandTimeout);
@@ -2677,7 +2635,7 @@ namespace YAF.Classes.Data
 					ShrinkConn.Open();
 					ShrinkCmd.ExecuteNonQuery();
 					ShrinkConn.Close();
-					using (var cmd = new SqlCommand(ShrinkSql, conn.OpenDBConnection))
+					using (var cmd = new SqlCommand(ShrinkSql, conn.GetOpenDbConnection()))
 					{
 						cmd.Connection = conn.DBConnection;
 						cmd.CommandTimeout = int.Parse(Config.SqlCommandTimeout);
@@ -2735,13 +2693,13 @@ namespace YAF.Classes.Data
 		public static DataSet ds_forumadmin([NotNull] object boardID)
 		{
 			// TODO: this function is TERRIBLE. Recode or remove completely.
-			using (var connMan = new MsSqlDbConnectionManager())
+			using (var connection = new MsSqlDbConnectionManager().GetOpenDbConnection())
 			{
 				using (var ds = new DataSet())
 				{
-					using (var trans = connMan.OpenDBConnection.BeginTransaction(MsSqlDbAccess.IsolationLevel))
+					using (var trans = connection.BeginTransaction(MsSqlDbAccess.IsolationLevel))
 					{
-						using (var da = new SqlDataAdapter(DataExtensions.GetObjectName("category_list"), connMan.DBConnection))
+						using (var da = new SqlDataAdapter(DataExtensions.GetObjectName("category_list"), connection))
 						{
 							da.SelectCommand.Transaction = trans;
 							da.SelectCommand.AddParam("BoardID", boardID);
@@ -2754,11 +2712,7 @@ namespace YAF.Classes.Data
 							dtForumListSorted.TableName = DataExtensions.GetObjectName("Forum");
 							ds.Tables.Add(dtForumListSorted);
 							dtForumListSorted.Dispose();
-							forum_list_sort_basic(
-								ds.GetTable("ForumUnsorted"),
-								ds.GetTable("Forum"),
-								0,
-								0);
+							forum_list_sort_basic(ds.GetTable("ForumUnsorted"), ds.GetTable("Forum"), 0, 0);
 							ds.Tables.Remove(DataExtensions.GetObjectName("ForumUnsorted"));
 							ds.Relations.Add(
 								"FK_Forum_Category",
@@ -3080,22 +3034,22 @@ namespace YAF.Classes.Data
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.AddParam("ForumID", forumID);
 
-				if (!(Current.ExecuteScalar(cmd) is DBNull))
+				if (Current.ExecuteScalar(cmd) is DBNull)
 				{
-					return false;
+					forum_deleteAttachments(forumID);
+
+					using (var cmd_new = Current.GetCommand("forum_delete"))
+					{
+						cmd_new.CommandType = CommandType.StoredProcedure;
+						cmd_new.CommandTimeout = 99999;
+						cmd_new.AddParam("ForumID", forumID);
+						Current.ExecuteNonQuery(cmd_new);
+					}
+
+					return true;
 				}
 
-				forum_deleteAttachments(forumID);
-
-				using (var cmd_new = Current.GetCommand("forum_delete"))
-				{
-					cmd_new.CommandType = CommandType.StoredProcedure;
-					cmd_new.CommandTimeout = 99999;
-					cmd_new.AddParam("ForumID", forumID);
-					Current.ExecuteNonQuery(cmd_new);
-				}
-
-				return true;
+				return false;
 			}
 		}
 
@@ -3436,7 +3390,7 @@ namespace YAF.Classes.Data
 			{
 				using (var ds = new DataSet())
 				{
-					using (var da = new SqlDataAdapter(DataExtensions.GetObjectName("category_list"), connMan.OpenDBConnection))
+					using (var da = new SqlDataAdapter(DataExtensions.GetObjectName("category_list"), connMan.GetOpenDbConnection()))
 					{
 						using (SqlTransaction trans = da.SelectCommand.Connection.BeginTransaction(MsSqlDbAccess.IsolationLevel))
 						{
@@ -3789,7 +3743,7 @@ namespace YAF.Classes.Data
 				using (var connMan = new MsSqlDbConnectionManager())
 				{
 					// just attempt to open the connection to test if a DB is available.
-					SqlConnection getConn = connMan.OpenDBConnection;
+					SqlConnection getConn = connMan.GetOpenDbConnection();
 				}
 			}
 			catch (SqlException ex)
@@ -6824,7 +6778,7 @@ namespace YAF.Classes.Data
 				// use transactions...
 				if (useTransactions)
 				{
-					using (SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction(MsSqlDbAccess.IsolationLevel))
+					using (SqlTransaction trans = connMan.GetOpenDbConnection().BeginTransaction(MsSqlDbAccess.IsolationLevel))
 					{
 						foreach (string sql0 in statements)
 						{
@@ -6885,7 +6839,7 @@ namespace YAF.Classes.Data
 							{
 								using (var cmd = new SqlCommand())
 								{
-									cmd.Connection = connMan.OpenDBConnection;
+									cmd.Connection = connMan.GetOpenDbConnection();
 									cmd.CommandType = CommandType.Text;
 									cmd.CommandText = sql.Trim();
 									cmd.ExecuteNonQuery();
@@ -6910,22 +6864,22 @@ namespace YAF.Classes.Data
 		/// </param>
 		public static void system_initialize_fixaccess(bool grant)
 		{
-			using (var connMan = new MsSqlDbConnectionManager())
+			using (var connection = new MsSqlDbConnectionManager().GetOpenDbConnection())
 			{
-				using (SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction(MsSqlDbAccess.IsolationLevel))
+				using (var trans = connection.BeginTransaction(MsSqlDbAccess.IsolationLevel))
 				{
 					// REVIEW : Ederon - would "{databaseOwner}.{objectQualifier}" work, might need only "{objectQualifier}"
 					using (
 						var da =
 							new SqlDataAdapter(
 								"select Name,IsUserTable = OBJECTPROPERTY(id, N'IsUserTable'),IsScalarFunction = OBJECTPROPERTY(id, N'IsScalarFunction'),IsProcedure = OBJECTPROPERTY(id, N'IsProcedure'),IsView = OBJECTPROPERTY(id, N'IsView') from dbo.sysobjects where Name like '{databaseOwner}.{objectQualifier}%'",
-								connMan.OpenDBConnection))
+								connection))
 					{
 						da.SelectCommand.Transaction = trans;
 						using (var dt = new DataTable("sysobjects"))
 						{
 							da.Fill(dt);
-							using (var cmd = connMan.DBConnection.CreateCommand())
+							using (var cmd = connection.CreateCommand())
 							{
 								cmd.Transaction = trans;
 								cmd.CommandType = CommandType.Text;
@@ -7441,7 +7395,7 @@ namespace YAF.Classes.Data
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.AddParam("ForumID", forumID);
 				cmd.AddParam("UserID", userId);
-				cmd.AddParam("Announcement", announcement);
+				//cmd.AddParam("Announcement", announcement);
 				cmd.AddParam("Date", date);
 				cmd.AddParam("Offset", offset);
 				cmd.AddParam("Count", count);
@@ -9820,7 +9774,7 @@ namespace YAF.Classes.Data
 			{
 				return;
 			}
-			using (var conn = new MsSqlDbConnectionManager().OpenDBConnection)
+			using (var conn = new MsSqlDbConnectionManager().GetOpenDbConnection())
 			{
 				var cmd = new SqlCommand();
 
