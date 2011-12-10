@@ -256,8 +256,11 @@
 #yafprofilecontent .post,
 #yafprofilecontent .postheader {border-top:none;}
 
+/* Header of posts */
 .yafnet .linkedPostsContent .postheader,
-.yafnet .LastPosts .postheader {
+.yafnet .LastPosts .postheader,
+.yafnet .postContainer_Alt .postheader,
+.yafnet .postContainer .postheader {
 	background: url('Header2Back.png') repeat-x -3px #ffffff;
 	
 	background: -webkit-gradient(linear, left top, left bottom, from(#e3e3e3), to(#ffffff));
@@ -269,15 +272,6 @@
 	color: Black;	
 }
 
-/* Header of posts */
-.yafnet .postContainer_Alt .postheader,
-.yafnet .postContainer .postheader {
-	background: url('Header2Back.png') repeat-x -3px #ffffff;
-	
-	background: -webkit-gradient(linear, left top, left bottom, from(#dfeec3), to(#ffffff));
-	background: -moz-linear-gradient(top,  #dfeec3,  #ffffff);
-    background: -o-linear-gradient(top, #dfeec3, #ffffff);
-}
 
 /* User info and post/article */
 .yafnet .post,
