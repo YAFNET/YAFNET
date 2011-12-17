@@ -1674,6 +1674,7 @@ Spoiler Content
       <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">New Message on {0} Forum needs to be approved</Resource>
 	  <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE">A Message on {0} Forum was reported</Resource>
       <Resource tag="CUSTOM_BBCODE">More BBCode</Resource>
+      <Resource tag="ALBUMIMG_BBCODE">Insert Album Image...</Resource>
       <Resource tag="EMAILVERIFICATION_SUBJECT">{0} Email Verification</Resource>
       <Resource tag="FONT_COLOR">Font Color:</Resource>
       <Resource tag="FONT_SIZE">Font Size:</Resource>

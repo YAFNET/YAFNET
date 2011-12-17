@@ -31,6 +31,9 @@ namespace YAF.Controls
     using System.Web;
     using System.Web.Security;
     using System.Web.UI.WebControls;
+
+    using FarsiLibrary;
+
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
@@ -163,6 +166,8 @@ namespace YAF.Controls
             // setup jQuery and DatePicker JS...
                 YafContext.Current.PageElements.RegisterJQuery();
                 YafContext.Current.PageElements.RegisterJQueryUI();
+
+            var ci = CultureInfo.CreateSpecificCulture(this.GetCulture());
            
             if (!string.IsNullOrEmpty(this.GetText("COMMON", "CAL_JQ_CULTURE")))
             {
@@ -174,14 +179,17 @@ namespace YAF.Controls
                 }
 
                 YafContext.Current.PageElements.RegisterJsInclude("datepickerlang", jqueryuiUrl);
+
+                if (ci.IsFarsiCulture())
+                {
+                    YafContext.Current.PageElements.RegisterJsResourceInclude("datepicker-farsi", "js/jquery.ui.datepicker-farsi.js");
+                }
             }
 
-            var ci = CultureInfo.CreateSpecificCulture(this.GetCulture());
             YafContext.Current.PageElements.RegisterJsBlockStartup(
                 "DatePickerJs",
                 JavaScriptBlocks.DatePickerLoadJs(
                     this.Birthday.ClientID,
-                    ci.DateTimeFormat.ShortDatePattern,
                     this.GetText("COMMON", "CAL_JQ_CULTURE_DFORMAT"),
                     this.GetText("COMMON", "CAL_JQ_CULTURE")));
 
@@ -515,9 +523,14 @@ namespace YAF.Controls
             {
                 this.Birthday.Text = this.UserData.Profile.Birthday > DateTime.MinValue
                                        ? this.UserData.Profile.Birthday.Date.ToString(
-                                         ci.DateTimeFormat.ShortDatePattern)
+                                         ci.DateTimeFormat.ShortDatePattern, CultureInfo.InvariantCulture)
                                        : DateTime.MinValue.Date.ToString(
-                                         ci.DateTimeFormat.ShortDatePattern);
+                                         ci.DateTimeFormat.ShortDatePattern, CultureInfo.InvariantCulture);
+
+                if (this.Get<YafBoardSettings>().UseFarsiCalender && ci.IsFarsiCulture())
+                {
+                    this.Birthday.Text = PersianDateConverter.ToPersianDate(this.UserData.Profile.Birthday).ToString("d");
+                }
 
                 this.Birthday.ToolTip = this.GetText("COMMON", "CAL_JQ_TT");
             }
@@ -706,11 +719,25 @@ namespace YAF.Controls
             {
                 DateTime userBirthdate;
                 var ci = CultureInfo.CreateSpecificCulture(this.GetCulture());
-                DateTime.TryParse(this.Birthday.Text, ci, DateTimeStyles.None, out userBirthdate);
-               
-                if (userBirthdate > DateTime.MinValue.Date)
+
+                if (this.Get<YafBoardSettings>().UseFarsiCalender && ci.IsFarsiCulture())
                 {
-                    userProfile.Birthday = userBirthdate;
+                    PersianDate persianDate = new PersianDate(this.Birthday.Text);
+                    userBirthdate = PersianDateConverter.ToGregorianDateTime(persianDate);
+
+                    if (userBirthdate > DateTime.MinValue.Date)
+                    {
+                        userProfile.Birthday = userBirthdate;
+                    }
+                }
+                else
+                {
+                    DateTime.TryParse(this.Birthday.Text, ci, DateTimeStyles.None, out userBirthdate);
+
+                    if (userBirthdate > DateTime.MinValue.Date)
+                    {
+                        userProfile.Birthday = userBirthdate;
+                    }
                 }
             }
 

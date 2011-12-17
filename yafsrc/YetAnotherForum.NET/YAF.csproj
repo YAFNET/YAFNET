@@ -1961,6 +1961,7 @@
     <Content Include="resources\js\jquery.syntaxhighligher.js" />
     <Content Include="resources\js\jquery.pagemethod.readme.txt" />
     <Content Include="resources\js\jquery.timeago.js" />
+    <Content Include="resources\js\jquery.ui.datepicker-farsi.js" />
     <Content Include="resources\js\jquery.yafmodaldialog.js" />
     <Content Include="resources\js\yaf.js" />
     <Content Include="resources\js\_src\jquery.spellchecker.js" />

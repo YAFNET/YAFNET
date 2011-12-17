@@ -1728,7 +1728,7 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="BBCODE_QUOTEPOSTED_TT">برو به اراسل نقل قول شده</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} نوشته است:</Resource>
     <Resource tag="CAL_JQ_CULTURE">fa</Resource>
-    <Resource tag="CAL_JQ_CULTURE_DFORMAT">سال/روز/ماه</Resource>
+    <Resource tag="CAL_JQ_CULTURE_DFORMAT">YYYY/mm/dd</Resource>
     <Resource tag="CAL_JQ_TT">برای انتخاب تاریخ کلیک کنید.</Resource>
     <Resource tag="CAN_DELETE">شما مجاز به حذف مطلب ارسالی خود در این انجمن می باشید.</Resource>
     <Resource tag="CAN_EDIT">شما مجاز به ویرایش مطلب ارسالی خود در این انجمن می باشید.</Resource>
