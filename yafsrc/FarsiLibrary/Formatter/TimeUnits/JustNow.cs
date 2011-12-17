@@ -1,4 +1,4 @@
-﻿/* Farsi Library - Working with Dates, Calendars, and DatePickers
+/* Farsi Library - Working with Dates, Calendars, and DatePickers
  * http://www.codeproject.com/KB/selection/FarsiLibrary.aspx
  * 
  * Copyright (C) Hadi Eskandari
@@ -19,46 +19,20 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace FarsiLibrary
+namespace FarsiLibrary.Formatter.TimeUnits
 {
-    /// <summary>
-    /// Determines each day of week
-    /// </summary>
-    public enum PersianDayOfWeek
+    using FarsiLibrary.Formatter;
+
+    public class JustNow : AbstractTimeUnit
     {
-        /// <summary>
-        /// The saturday.
-        /// </summary>
-        Saturday = 0, 
+        public JustNow()
+        {
+            MaxQuantity = 1000L * 60L * 5L;
+        }
 
-        /// <summary>
-        /// The sunday.
-        /// </summary>
-        Sunday = 1, 
-
-        /// <summary>
-        /// The monday.
-        /// </summary>
-        Monday = 2, 
-
-        /// <summary>
-        /// The tuesday.
-        /// </summary>
-        Tuesday = 3, 
-
-        /// <summary>
-        /// The wednesday.
-        /// </summary>
-        Wednesday = 4, 
-
-        /// <summary>
-        /// The thursday.
-        /// </summary>
-        Thursday = 5, 
-
-        /// <summary>
-        /// The friday.
-        /// </summary>
-        Friday = 6
+        protected override string GetResourcePrefix()
+        {
+            return "JustNow";
+        }
     }
 }

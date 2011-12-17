@@ -19,15 +19,22 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-using System;
-using System.Reflection;
+namespace FarsiLibrary.Internals
+{
+    using System;
+    using System.Collections.Generic;
 
+    public static class CollectionHelper
+    {
+        public static void ForEach<T,U>(this IDictionary<T,U> dictionary, Action<KeyValuePair<T, U>> action)
+        {
+            if(dictionary == null || dictionary.Count == 0)
+                return;
 
-[assembly: AssemblyVersion("2.5.1.5")]
-[assembly: AssemblyDescription("Library containing farsi controls, which has correct Right-To-Left drawing. Also contains classes to work with Jalali Dates")]
-[assembly: AssemblyCopyright("Copyright (c) Hadi Eskandari")]
-[assembly: AssemblyTitle("Farsi Library")]
-[assembly: CLSCompliant(true)]
-
-[assembly: AssemblyDelaySign(false)]
-[assembly: AssemblyKeyFile("..\\YetAnotherForum.NET.snk")]
+            foreach (var item in dictionary)
+            {
+                action(item);
+            }
+        }
+    }
+}

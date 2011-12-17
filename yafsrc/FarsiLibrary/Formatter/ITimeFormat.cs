@@ -18,16 +18,27 @@
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+namespace FarsiLibrary.Formatter
+{
+    public interface ITimeFormat
+    {
+        /// <summary>
+        /// Formats a duration
+        /// </summary>
+        /// <param name="duration"></param>
+        /// <returns></returns>
+        string Format(Duration duration);
 
-using System;
-using System.Reflection;
+        double RoundingTolerance { get; set; }
 
+        string Pattern { get; set; }
 
-[assembly: AssemblyVersion("2.5.1.5")]
-[assembly: AssemblyDescription("Library containing farsi controls, which has correct Right-To-Left drawing. Also contains classes to work with Jalali Dates")]
-[assembly: AssemblyCopyright("Copyright (c) Hadi Eskandari")]
-[assembly: AssemblyTitle("Farsi Library")]
-[assembly: CLSCompliant(true)]
+        string FuturePrefix { get; set; }
 
-[assembly: AssemblyDelaySign(false)]
-[assembly: AssemblyKeyFile("..\\YetAnotherForum.NET.snk")]
+        string FutureSuffix { get; set; }
+
+        string PastPrefix { get; set; }
+
+        string PastSuffix { get; set; }
+    }
+}

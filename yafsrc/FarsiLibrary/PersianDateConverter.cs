@@ -21,249 +21,162 @@
 
 namespace FarsiLibrary
 {
-    #region
-
     using System;
 
-    #endregion
+    using FarsiLibrary.Internals;
 
-    /// <summary>
-    /// Class to convert PersianDate into normal DateTime value and vice versa.
-    ///   <seealso cref="PersianDate"/>
+    /// <summary>Class to convert PersianDate into normal DateTime value and vice versa.
+    /// <seealso cref="PersianDate"/>
     /// </summary>
     /// <remarks>
     /// You can use <c>FarsiLibrary.Utils.FarsiDate.Now</c> property to access current Date.
     /// </remarks>
     public class PersianDateConverter
     {
-        #region Constants and Fields
+        #region Fields
 
-        /// <summary>
-        /// The gdaytable.
-        /// </summary>
-        private static readonly int[,] gdaytable = new[,]
-            {
-               {
-                    31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 
-                }, {
-                       31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 
-                   } 
-            };
-
-        /// <summary>
-        /// The jdaytable.
-        /// </summary>
-        private static readonly int[,] jdaytable = new[,]
-            {
-               {
-                    31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29 
-                }, {
-                       31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 30 
-                   } 
-            };
-
-        /// <summary>
-        /// The weekdays.
-        /// </summary>
-        private static readonly string[] weekdays = new[]
-            {
-               "شنبه", "یکشنبه", "دوشنبه", "سه شنبه", "چهارشنبه", "پنجشنبه", "جمعه" 
-            };
-
-        /// <summary>
-        /// The weekdaysabbr.
-        /// </summary>
+        private const double Solar = 365.25;
+        private const int GYearOff = 226894;
+        private static readonly int[,] GDayTable = new[,] { { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 }, { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 } };
+        private static readonly int[,] JDayTable = new[,] { { 31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29 }, { 31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 30 } };
+        private static readonly string[] weekdays = new[] { "شنبه", "یکشنبه", "دوشنبه", "سه شنبه", "چهارشنبه", "پنجشنبه", "جمعه" };
         private static readonly string[] weekdaysabbr = new[] { "ش", "ی", "د", "س", "چ", "پ", "ج" };
 
-        /// <summary>
-        /// The g year off.
-        /// </summary>
-        private static int GYearOff = 226894;
-
-        /// <summary>
-        /// The solar.
-        /// </summary>
-        private static double Solar = 365.25;
-
         #endregion
 
-        #region Properties
+        #region Methods
 
         /// <summary>
-        ///   Array of Day Table for Gregorian Days.
+        /// Checks if a specified Persian year is a leap one.
         /// </summary>
-        internal static int[,] GDayTable
+        /// <param name="jyear"></param>
+        /// <returns>returns 1 if the year is leap, otherwise returns 0.</returns>
+        private static int JLeap(int jyear)
         {
-            get
+            //Is jalali year a leap year?
+            int tmp;
+
+            Math.DivRem(jyear, 33, out tmp);
+            if ((tmp == 1) || (tmp == 5) || (tmp == 9) || (tmp == 13) || (tmp == 17) || (tmp == 22) || (tmp == 26) || (tmp == 30))
             {
-                return gdaytable;
+                return 1;
             }
+
+            return 0;
         }
 
         /// <summary>
-        ///   Array of Day Table for Jalali Days.
+        /// Checks if a year is a leap one.
         /// </summary>
-        internal static int[,] JDayTable
+        /// <param name="jyear">Year to check</param>
+        /// <returns>true if the year is leap</returns>
+        public static bool IsJLeapYear(int jyear)
         {
-            get
-            {
-                return jdaytable;
-            }
+            return JLeap(jyear) == 1;
         }
 
         /// <summary>
-        /// Gets WeekDays.
+        /// Checks if a specified Gregorian year is a leap one.
         /// </summary>
-        internal static string[] WeekDays
+        /// <param name="gyear"></param>
+        /// <returns>returns 1 if the year is leap, otherwise returns 0.</returns>
+        private static int GLeap(int gyear)
         {
-            get
+            //Is gregorian year a leap year?
+            int Mod4, Mod100, Mod400;
+
+            Math.DivRem(gyear, 4, out Mod4);
+            Math.DivRem(gyear, 100, out Mod100);
+            Math.DivRem(gyear, 400, out Mod400);
+
+            if (((Mod4 == 0) && (Mod100 != 0)) || (Mod400 == 0))
             {
-                return weekdays;
+                return 1;
             }
+
+            return 0;
         }
 
-        /// <summary>
-        ///   Array of WeekDay names for Persian Weekdays. This array is a collection of abbreviated weekday names. The abbreviation name is just the first character of normal weekday names.
-        /// </summary>
-        internal static string[] WeekDaysAbbr
+        private static int GregDays(int gYear, int gMonth, int gDay)
         {
-            get
+            //Calculate total days of gregorian from calendar base
+            var Div4 = (gYear - 1) / 4;
+            var Div100 = (gYear - 1) / 100;
+            var Div400 = (gYear - 1) / 400;
+            var leap = GLeap(gYear);
+
+            for (var i = 0; i < gMonth - 1; i++)
             {
-                return weekdaysabbr;
+                gDay = gDay + GDayTable[leap, i];
             }
+
+            return ((gYear - 1) * 365 + gDay + Div4 - Div100 + Div400);
         }
 
-        #endregion
-
-        #region Public Methods
-
-        /// <summary>
-        /// Converts a Persian Date of type <c>String</c> to Gregorian Date of type <c>String</c>.
-        /// </summary>
-        /// <param name="date">
-        /// </param>
-        /// <returns>
-        /// Gregorian DateTime representation in string format of evaluated Jalali Date.
-        /// </returns>
-        public static string ToGregorianDate(PersianDate date)
+        private static int JLeapYears(int jYear)
         {
-            int iJYear = date.Year;
-            int iJMonth = date.Month;
-            int iJDay = date.Day;
+            int i;
+            var Div33 = jYear / 33;
+            var cycle = jYear - (Div33 * 33);
+            var leap = (Div33 * 8);
 
-            // Continue
-            int iTotalDays, iGYear, iGMonth, iGDay;
-            int Div4, Div100, Div400;
-            int iGDays;
-            int i, leap;
-
-            iTotalDays = JalaliDays(iJYear, iJMonth, iJDay);
-            iTotalDays = iTotalDays + GYearOff;
-            iGYear = (int)(iTotalDays / (Solar - 0.25 / 33));
-
-            Div4 = iGYear / 4;
-            Div100 = iGYear / 100;
-            Div400 = iGYear / 400;
-
-            iGDays = iTotalDays - (365 * iGYear) - (Div4 - Div100 + Div400);
-            iGYear = iGYear + 1;
-
-            if (iGDays == 0)
+            if (cycle > 0)
             {
-                iGYear--;
-                if (GLeap(iGYear) == 1)
+                for (i = 1; i <= 18; i = i + 4)
                 {
-                    iGDays = 366;
-                }
-                else
-                {
-                    iGDays = 365;
-                }
-            }
-            else
-            {
-                if (iGDays == 366 && GLeap(iGYear) != 1)
-                {
-                    iGDays = 1;
-                    iGYear++;
+                    if (i > cycle)
+                        break;
+
+                    leap++;
                 }
             }
 
-            leap = GLeap(iGYear);
-            for (i = 0; i <= 12; i++)
+            if (cycle > 21)
             {
-                if (iGDays <= GDayTable[leap, i])
+                for (i = 22; i <= 31; i = i + 4)
                 {
-                    break;
+                    if (i > cycle)
+                        break;
+
+                    leap++;
                 }
 
-                iGDays = iGDays - GDayTable[leap, i];
+            }
+            return leap;
+        }
+
+        internal static int JalaliDays(int jYear, int jMonth, int jDay)
+        {
+            //Calculate total days of jalali years from the base calendar
+            var leap = JLeap(jYear);
+            for (var i = 0; i < jMonth - 1; i++)
+            {
+                jDay = jDay + JDayTable[leap, i];
             }
 
-            iGMonth = i + 1;
-            iGDay = iGDays;
+            leap = JLeapYears(jYear - 1);
+            var iTotalDays = ((jYear - 1) * 365 + leap + jDay);
 
-            return toDouble(iGMonth) + "/" + toDouble(iGDay) + "/" + iGYear + " " + toDouble(date.Hour) + ":" +
-                    toDouble(date.Minute) + ":" + toDouble(date.Second);
+            return iTotalDays;
         }
 
-        /// <summary>
-        /// Converts a Persian Date of type <c>String</c> to Gregorian Date of type <c>DateTime</c> class.
-        /// </summary>
-        /// <param name="date">
-        /// Date to evaluate
-        /// </param>
-        /// <returns>
-        /// Gregorian DateTime representation of evaluated Jalali Date.
-        /// </returns>
-        public static DateTime ToGregorianDateTime(string date)
-        {
-            PersianDate pd = new PersianDate(date);
-            return Convert.ToDateTime(ToGregorianDate(pd));
-        }
-
-        /// <summary>
-        /// The to gregorian date time.
-        /// </summary>
-        /// <param name="date">
-        /// The date.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        public static DateTime ToGregorianDateTime(PersianDate date)
-        {
-            return Convert.ToDateTime(ToGregorianDate(date));
-        }
-
-        /// <overloads>
-        /// Has two overloads.
-        /// </overloads>
-        /// <summary>
-        /// Converts a Gregorian Date of type <c>System.DateTime</c> class to Persian Date.
-        /// </summary>
-        /// <param name="date">
-        /// DateTime to evaluate
-        /// </param>
-        /// <returns>
-        /// string representation of Jalali Date
-        /// </returns>
+        /// <summary>Converts a Gregorian Date of type <c>System.DateTime</c> class to Persian Date.</summary>
+        /// <param name="date">DateTime to evaluate</param>
+        /// <returns>string representation of Jalali Date</returns>
         public static PersianDate ToPersianDate(string date)
         {
-            return ToPersianDate(Convert.ToDateTime(date));
+            return ToPersianDate(DateTime.Parse(date, CultureHelper.NeutralCulture));
         }
 
         /// <summary>
         /// Converts a Gregorian Date of type <c>String</c> and a <c>TimeSpan</c> into a Persian Date.
         /// </summary>
-        /// <param name="date">
-        /// </param>
-        /// <param name="time">
-        /// </param>
-        /// <returns>
-        /// </returns>
+        /// <param name="date"></param>
+        /// <param name="time"></param>
+        /// <returns></returns>
         public static PersianDate ToPersianDate(string date, TimeSpan time)
         {
-            PersianDate pd = ToPersianDate(date);
+            var pd = ToPersianDate(date);
             pd.Hour = time.Hours;
             pd.Minute = time.Minutes;
             pd.Second = time.Seconds;
@@ -274,141 +187,174 @@ namespace FarsiLibrary
         /// <summary>
         /// Converts a Gregorian Date of type <c>String</c> class to Persian Date.
         /// </summary>
-        /// <param name="dt">
-        /// Date to evaluate
-        /// </param>
-        /// <returns>
-        /// string representation of Jalali Date.
-        /// </returns>
+        /// <param name="dt">Date to evaluate</param>
+        /// <returns>string representation of Jalali Date.</returns>
         public static PersianDate ToPersianDate(DateTime dt)
         {
-            int iGYear, iGMonth, iGDay;
-            int iTotalDays, iCounter;
-            int iJYear, iJMonth, iJDay, iLeap;
+            var gyear = dt.Year;
+            var gmonth = dt.Month;
+            var gday = dt.Day;
+            int i;
 
-            // DateTime dteDate = Convert.ToDateTime(date);
-            iGYear = dt.Year;
-            iGMonth = dt.Month;
-            iGDay = dt.Day;
-
-            // Calculate total days from the base of gregorian calendar
-            iTotalDays = GregDays(iGYear, iGMonth, iGDay);
+            //Calculate total days from the base of gregorian calendar
+            var iTotalDays = GregDays(gyear, gmonth, gday);
             iTotalDays = iTotalDays - GYearOff;
 
-            // Calculate total jalali years passed
-            iJYear = (int)(iTotalDays / (Solar - 0.25 / 33));
+            //Calculate total jalali years passed
+            var jyear = (int)(iTotalDays / (Solar - 0.25 / 33));
+            //Calculate passed leap years
+            var leap = JLeapYears(jyear);
 
-            // Calculate passed leap years
-            iLeap = JLeapYears(iJYear);
+            //Calculate total days from the base of jalali calendar
+            var jday = iTotalDays - (365 * jyear + leap);
 
-            // Calculate total days from the base of jalali calendar
-            iJDay = iTotalDays - (365 * iJYear + iLeap);
+            //Calculate the correct year of jalali calendar
+            jyear++;
 
-            // Calculate the correct year of jalali calendar
-            iJYear++;
-
-            if (iJDay == 0)
+            if (jday == 0)
             {
-                iJYear--;
-                if (JLeap(iJYear) == 1)
-                {
-                    iJDay = 366;
-                }
-                else
-                {
-                    iJDay = 365;
-                }
+                jyear--;
+                jday = JLeap(jyear) == 1 ? 366 : 365;
             }
             else
             {
-                if ((iJDay == 366) && (JLeap(iJYear) != 1))
+                if ((jday == 366) && (JLeap(jyear) != 1))
                 {
-                    iJDay = 1;
-                    iJYear++;
+                    jday = 1;
+                    jyear++;
                 }
             }
 
-            // Calculate correct month of jalali calendar
-            iLeap = JLeap(iJYear);
-            for (iCounter = 0; iCounter <= 12; iCounter++)
+            //Calculate correct month of jalali calendar
+            leap = JLeap(jyear);
+            for (i = 0; i <= 12; i++)
             {
-                if (iJDay <= JDayTable[iLeap, iCounter])
+                if (jday <= JDayTable[leap, i])
+                {
+                    break;
+                }
+                jday = jday - JDayTable[leap, i];
+            }
+
+            var iJMonth = i + 1;
+
+            return new PersianDate(jyear, iJMonth, jday, dt.Hour, dt.Minute, dt.Second);
+        }
+
+        /// <summary>
+        /// Converts a Persian Date of type <c>String</c> to Gregorian Date of type <c>DateTime</c> class.
+        /// </summary>
+        /// <param name="date">Date to evaluate</param>
+        /// <returns>Gregorian DateTime representation of evaluated Jalali Date.</returns>
+        public static DateTime ToGregorianDateTime(string date)
+        {
+            var pd = new PersianDate(date);
+            return DateTime.Parse(ToGregorianDate(pd), CultureHelper.NeutralCulture);
+        }
+
+        public static DateTime ToGregorianDateTime(PersianDate date)
+        {
+            return DateTime.Parse(ToGregorianDate(date), CultureHelper.NeutralCulture);
+        }
+
+        /// <summary>
+        /// Converts a Persian Date of type <c>String</c> to Gregorian Date of type <c>String</c>.
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns>Gregorian DateTime representation in string format of evaluated Jalali Date.</returns>
+        public static string ToGregorianDate(PersianDate date)
+        {
+            var jyear = date.Year;
+            var jmonth = date.Month;
+            var jday = date.Day;
+
+            //Continue
+            int i;
+
+            var totalDays = JalaliDays(jyear, jmonth, jday);
+            totalDays = totalDays + GYearOff;
+
+            var gyear = (int)(totalDays / (Solar - 0.25 / 33));
+            var Div4 = gyear / 4;
+            var Div100 = gyear / 100;
+            var Div400 = gyear / 400;
+            var gdays = totalDays - (365 * gyear) - (Div4 - Div100 + Div400);
+            gyear = gyear + 1;
+
+            if (gdays == 0)
+            {
+                gyear--;
+                gdays = GLeap(gyear) == 1 ? 366 : 365;
+            }
+            else
+            {
+                if (gdays == 366 && GLeap(gyear) != 1)
+                {
+                    gdays = 1;
+                    gyear++;
+                }
+            }
+
+            var leap = GLeap(gyear);
+            for (i = 0; i <= 12; i++)
+            {
+                if (gdays <= GDayTable[leap, i])
                 {
                     break;
                 }
 
-                iJDay = iJDay - JDayTable[iLeap, iCounter];
+                gdays = gdays - GDayTable[leap, i];
             }
 
-            iJMonth = iCounter + 1;
+            var iGMonth = i + 1;
+            var iGDay = gdays;
 
-            return new PersianDate(iJYear, iJMonth, iJDay, dt.Hour, dt.Minute, dt.Second);
+            return (Util.toDouble(iGMonth) + "/" + Util.toDouble(iGDay) + "/" + gyear + " " + Util.toDouble(date.Hour) + ":" + Util.toDouble(date.Minute) + ":" + Util.toDouble(date.Second));
         }
 
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The day of week.
-        /// </summary>
-        /// <param name="date">
-        /// The date.
-        /// </param>
-        /// <returns>
-        /// The day of week.
-        /// </returns>
         internal static string DayOfWeek(PersianDate date)
         {
             if (!date.IsNull)
             {
-                DateTime dt = ToGregorianDateTime(date);
+                var dt = ToGregorianDateTime(date);
                 return DayOfWeek(dt);
             }
-            else
-            {
-                return string.Empty;
-            }
+
+            return string.Empty;
         }
 
         /// <summary>
         /// Gets Persian Weekday name from specified Gregorian Date.
         /// </summary>
-        /// <param name="date">
-        /// </param>
-        /// <returns>
-        /// The day of week.
-        /// </returns>
+        /// <param name="date"></param>
+        /// <returns></returns>
         internal static string DayOfWeek(DateTime date)
         {
-            string DayOfWeek = date.DayOfWeek.ToString().ToLower();
-            string day;
+            var DayOfWeek = date.DayOfWeek;
+            string day = string.Empty;
 
             switch (DayOfWeek)
             {
-                case "saturday":
-                    day = PersianDate.PersianWeekDayNames.Default.Shanbeh;
+                case DayOfWeek.Saturday:
+                    day = PersianWeekDayNames.Default.Shanbeh;
                     break;
-                case "sunday":
-                    day = PersianDate.PersianWeekDayNames.Default.Yekshanbeh;
+                case DayOfWeek.Sunday:
+                    day = PersianWeekDayNames.Default.Yekshanbeh;
                     break;
-                case "monday":
-                    day = PersianDate.PersianWeekDayNames.Default.Doshanbeh;
+                case DayOfWeek.Monday:
+                    day = PersianWeekDayNames.Default.Doshanbeh;
                     break;
-                case "tuesday":
-                    day = PersianDate.PersianWeekDayNames.Default.Seshanbeh;
+                case DayOfWeek.Tuesday:
+                    day = PersianWeekDayNames.Default.Seshanbeh;
                     break;
-                case "wednesday":
-                    day = PersianDate.PersianWeekDayNames.Default.Chaharshanbeh;
+                case DayOfWeek.Wednesday:
+                    day = PersianWeekDayNames.Default.Chaharshanbeh;
                     break;
-                case "thursday":
-                    day = PersianDate.PersianWeekDayNames.Default.Panjshanbeh;
+                case DayOfWeek.Thursday:
+                    day = PersianWeekDayNames.Default.Panjshanbeh;
                     break;
-                case "friday":
-                    day = PersianDate.PersianWeekDayNames.Default.Jomeh;
-                    break;
-                default:
-                    day = string.Empty;
+                case DayOfWeek.Friday:
+                    day = PersianWeekDayNames.Default.Jomeh;
                     break;
             }
 
@@ -416,199 +362,13 @@ namespace FarsiLibrary
         }
 
         /// <summary>
-        /// The jalali days.
-        /// </summary>
-        /// <param name="iJYear">
-        /// The i j year.
-        /// </param>
-        /// <param name="iJMonth">
-        /// The i j month.
-        /// </param>
-        /// <param name="iJDay">
-        /// The i j day.
-        /// </param>
-        /// <returns>
-        /// The jalali days.
-        /// </returns>
-        internal static int JalaliDays(int iJYear, int iJMonth, int iJDay)
-        {
-            // Calculate total days of jalali years from the base calendar
-            int iTotalDays, iLeap;
-
-            iLeap = JLeap(iJYear);
-            for (int i = 0; i < iJMonth - 1; i++)
-            {
-                iJDay = iJDay + JDayTable[iLeap, i];
-            }
-
-            iLeap = JLeapYears(iJYear - 1);
-            iTotalDays = (iJYear - 1) * 365 + iLeap + iJDay;
-
-            return iTotalDays;
-        }
-
-        /// <summary>
         /// Returns number of days in specified month number.
         /// </summary>
-        /// <param name="MonthNo">
-        /// Month no to evaluate in integer
-        /// </param>
-        /// <returns>
-        /// number of days in the evaluated month
-        /// </returns>
+        /// <param name="MonthNo">Month no to evaluate in integer</param>
+        /// <returns>number of days in the evaluated month</returns>
         internal static int MonthDays(int MonthNo)
         {
-            return JDayTable[1, MonthNo - 1];
-        }
-
-        /// <summary>
-        /// Checks if a specified Gregorian year is a leap one.
-        /// </summary>
-        /// <param name="GregYear">
-        /// </param>
-        /// <returns>
-        /// returns 1 if the year is leap, otherwise returns 0.
-        /// </returns>
-        private static int GLeap(int GregYear)
-        {
-            // Is gregorian year a leap year?
-            int Mod4, Mod100, Mod400;
-
-            Math.DivRem(GregYear, 4, out Mod4);
-            Math.DivRem(GregYear, 100, out Mod100);
-            Math.DivRem(GregYear, 400, out Mod400);
-
-            if (((Mod4 == 0) && (Mod100 != 0)) || (Mod400 == 0))
-            {
-                return 1;
-            }
-            else
-            {
-                return 0;
-            }
-        }
-
-        /// <summary>
-        /// The greg days.
-        /// </summary>
-        /// <param name="iGYear">
-        /// The i g year.
-        /// </param>
-        /// <param name="iGMonth">
-        /// The i g month.
-        /// </param>
-        /// <param name="iGDay">
-        /// The i g day.
-        /// </param>
-        /// <returns>
-        /// The greg days.
-        /// </returns>
-        private static int GregDays(int iGYear, int iGMonth, int iGDay)
-        {
-            // Calculate total days of gregorian from calendar base
-            int Div4, Div100, Div400;
-            int iLeap;
-            Div4 = (iGYear - 1) / 4;
-            Div100 = (iGYear - 1) / 100;
-            Div400 = (iGYear - 1) / 400;
-            iLeap = GLeap(iGYear);
-            for (int iCounter = 0; iCounter < iGMonth - 1; iCounter++)
-            {
-                iGDay = iGDay + GDayTable[iLeap, iCounter];
-            }
-
-            return (iGYear - 1) * 365 + iGDay + Div4 - Div100 + Div400;
-        }
-
-        /// <summary>
-        /// Checks if a specified Persian year is a leap one.
-        /// </summary>
-        /// <param name="iJYear">
-        /// </param>
-        /// <returns>
-        /// returns 1 if the year is leap, otherwise returns 0.
-        /// </returns>
-        private static int JLeap(int iJYear)
-        {
-            // Is jalali year a leap year?
-            int tmp;
-
-            Math.DivRem(iJYear, 33, out tmp);
-            if ((tmp == 1) || (tmp == 5) || (tmp == 9) || (tmp == 13) || (tmp == 17) || (tmp == 22) || (tmp == 26) ||
-                (tmp == 30))
-            {
-                return 1;
-            }
-            else
-            {
-                return 0;
-            }
-        }
-
-        /// <summary>
-        /// The j leap years.
-        /// </summary>
-        /// <param name="iJYear">
-        /// The i j year.
-        /// </param>
-        /// <returns>
-        /// The j leap years.
-        /// </returns>
-        private static int JLeapYears(int iJYear)
-        {
-            int iLeap, iCurrentCycle, Div33;
-            int iCounter;
-
-            Div33 = iJYear / 33;
-            iCurrentCycle = iJYear - (Div33 * 33);
-            iLeap = Div33 * 8;
-            if (iCurrentCycle > 0)
-            {
-                for (iCounter = 1; iCounter <= 18; iCounter = iCounter + 4)
-                {
-                    if (iCounter > iCurrentCycle)
-                    {
-                        break;
-                    }
-
-                    iLeap++;
-                }
-            }
-
-            if (iCurrentCycle > 21)
-            {
-                for (iCounter = 22; iCounter <= 31; iCounter = iCounter + 4)
-                {
-                    if (iCounter > iCurrentCycle)
-                    {
-                        break;
-                    }
-
-                    iLeap++;
-                }
-            }
-
-            return iLeap;
-        }
-
-        /// <summary>
-        /// Adds to single day or months a preceding zero
-        /// </summary>
-        /// <param name="i">
-        /// </param>
-        /// <returns>
-        /// The to double.
-        /// </returns>
-        private static string toDouble(int i)
-        {
-            if (i > 9)
-            {
-                return i.ToString();
-            }
-            else
-            {
-                return "0" + i.ToString();
-            }
+            return (JDayTable[1, MonthNo - 1]);
         }
 
         #endregion

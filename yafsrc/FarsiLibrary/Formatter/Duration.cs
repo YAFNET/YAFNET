@@ -19,15 +19,12 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-using System;
-using System.Reflection;
-
-
-[assembly: AssemblyVersion("2.5.1.5")]
-[assembly: AssemblyDescription("Library containing farsi controls, which has correct Right-To-Left drawing. Also contains classes to work with Jalali Dates")]
-[assembly: AssemblyCopyright("Copyright (c) Hadi Eskandari")]
-[assembly: AssemblyTitle("Farsi Library")]
-[assembly: CLSCompliant(true)]
-
-[assembly: AssemblyDelaySign(false)]
-[assembly: AssemblyKeyFile("..\\YetAnotherForum.NET.snk")]
+namespace FarsiLibrary.Formatter
+{
+    public class Duration
+    {
+        public double Quantity { get; set; }
+        public double Delta { get; set; }
+        public ITimeUnit Unit { get; set; }
+    }
+}

@@ -1,4 +1,4 @@
-/* Farsi Library - Working with Dates, Calendars, and DatePickers
+﻿/* Farsi Library - Working with Dates, Calendars, and DatePickers
  * http://www.codeproject.com/KB/selection/FarsiLibrary.aspx
  * 
  * Copyright (C) Hadi Eskandari
@@ -20,14 +20,23 @@
  */
 
 using System;
-using System.Reflection;
 
+namespace FarsiLibrary.Resources
+{
+    public abstract class BaseLocalizer
+    {
+        #region Abstract Methods
 
-[assembly: AssemblyVersion("2.5.1.5")]
-[assembly: AssemblyDescription("Library containing farsi controls, which has correct Right-To-Left drawing. Also contains classes to work with Jalali Dates")]
-[assembly: AssemblyCopyright("Copyright (c) Hadi Eskandari")]
-[assembly: AssemblyTitle("Farsi Library")]
-[assembly: CLSCompliant(true)]
+        public abstract string GetLocalizedString(StringID id);
 
-[assembly: AssemblyDelaySign(false)]
-[assembly: AssemblyKeyFile("..\\YetAnotherForum.NET.snk")]
+        public string GetFormatterString(string enumKey)
+        {
+            var key = (FormatterStringID)Enum.Parse(typeof(FormatterStringID), enumKey);
+            return GetFormatterString(key);
+        }
+
+        public abstract string GetFormatterString(FormatterStringID stringID);
+
+        #endregion
+    }
+}

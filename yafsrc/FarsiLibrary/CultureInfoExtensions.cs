@@ -19,18 +19,28 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace FarsiLibrary.Resources
+namespace FarsiLibrary
 {
-    #region Localizer Base Class
+    using System;
+    using System.Globalization;
 
-    public abstract class BaseLocalizer
+    using FarsiLibrary.Internals;
+
+    public static class CultureInfoExtensions
     {
-        #region Abstract Methods
+        public static bool IsFarsiCulture(this CultureInfo culture)
+        {
+            return culture.Equals(CultureHelper.FarsiCulture) || culture.Name.Equals("fa", StringComparison.InvariantCultureIgnoreCase);
+        }
 
-        public abstract string GetLocalizedString(StringID id);
+        public static bool IsArabicCulture(this CultureInfo culture)
+        {
+            return culture.Equals(CultureHelper.ArabicCulture) || culture.Name.Equals("ar", StringComparison.InvariantCultureIgnoreCase);
+        }
 
-		#endregion
+        public static bool IsNeutralCulture(this CultureInfo culture)
+        {
+            return culture.Equals(CultureHelper.NeutralCulture);
+        }
     }
-
-    #endregion
 }

@@ -21,37 +21,17 @@
 
 namespace FarsiLibrary.Exceptions
 {
-    #region
-
     using System;
 
-    #endregion
-
-    /// <summary>
-    /// The invalid persian date format exception.
-    /// </summary>
     public class InvalidPersianDateFormatException : Exception
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="InvalidPersianDateFormatException"/> class.
-        /// </summary>
-        /// <param name="message">
-        /// The message.
-        /// </param>
         public InvalidPersianDateFormatException(string message)
             : base(message)
         {
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="InvalidPersianDateFormatException"/> class.
-        /// </summary>
-        public InvalidPersianDateFormatException()
-        {
+        public InvalidPersianDateFormatException() : base(string.Empty)
+        { 
         }
-
-        #endregion
     }
 }
