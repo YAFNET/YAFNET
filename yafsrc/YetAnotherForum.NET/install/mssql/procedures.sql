@@ -1167,6 +1167,10 @@ IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{database
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}album_image_list]
 GO
 
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}album_images_by_user]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}album_images_by_user]
+GO
+
 IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}album_image_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}album_image_delete]
 GO
@@ -9753,6 +9757,16 @@ as
 			FROM    [{databaseOwner}].[{objectQualifier}UserAlbumImage] a
 					INNER JOIN [{databaseOwner}].[{objectQualifier}UserAlbum] b ON b.AlbumID = a.AlbumID
 			WHERE   ImageID = @ImageID
+	END
+	GO
+
+CREATE procedure [{databaseOwner}].[{objectQualifier}album_images_by_user](@UserID INT = null)
+as 
+	BEGIN
+		SELECT      a.*
+		FROM    [{databaseOwner}].[{objectQualifier}UserAlbumImage] a
+					INNER JOIN [{databaseOwner}].[{objectQualifier}UserAlbum] b ON b.AlbumID = a.AlbumID
+		WHERE  b.UserID = @UserID
 	END
 	GO
 

@@ -1723,6 +1723,21 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
+        /// Album images by users the specified user ID.
+        /// </summary>
+        /// <param name="userID">The user ID.</param>
+        /// <returns>All Albbum Images of the User</returns>
+        public static DataTable album_images_by_user([NotNull] object userID)
+        {
+            using (var cmd = MsSqlDbAccess.GetCommand("album_images_by_user"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("UserID", userID);
+                return MsSqlDbAccess.Current.GetData(cmd);
+            }
+        }
+
+        /// <summary>
         /// Lists all the images associated with the AlbumID or
         ///   the image with the ImageID.
         /// </summary>

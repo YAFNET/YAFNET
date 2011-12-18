@@ -75,6 +75,7 @@
   <ItemGroup>
     <Compile Include="ActiveLocation.cs" />
     <Compile Include="ActiveUsers.cs" />
+    <Compile Include="AlbumListPopMenu.cs" />
     <Compile Include="PopupPanel.cs" />
     <Compile Include="CountryListBox.cs" />
     <Compile Include="UserStyles.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="Localized\LocalizedRequiredFieldValidator.cs" />
     <Compile Include="HelpLabel.cs" />
     <Compile Include="MessageBox.cs" />
+    <Compile Include="PopEventArgs.cs" />
     <Compile Include="Recaptcha.cs" />
     <Compile Include="RecaptchaResponse.cs" />
     <Compile Include="RecaptchaValidator.cs" />

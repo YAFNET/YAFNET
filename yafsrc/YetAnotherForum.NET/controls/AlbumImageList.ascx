@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.AlbumImageList"
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.AlbumImageList"
     CodeBehind="AlbumImageList.ascx.cs" %>
 <%@ Import Namespace="YAF.Core" %>
 <%@ Import Namespace="YAF.Utils" %>
@@ -26,13 +26,14 @@
     </HeaderTemplate>
     <ItemTemplate>
         <div class="attachedimg" style="display: inline;">
-            <table class="albumtable" style="display: inline" width='<%# YafContext.Current.BoardSettings.ImageAttachmentResizeWidth %>'>
+            <table class="albumtable" style="display: inline" width='<%# this.Get<YafBoardSettings>().ImageAttachmentResizeWidth %>'>
                 <tr>
                     <td class="albumimagebox">
-                        <a href='<%# String.Format("{0}resource.ashx?image={1}",YafForumInfo.ForumClientFileRoot,Eval("ImageID")) %>'
-                            title='<%# Eval("Caption").ToString() == string.Empty ? this.HtmlEncode(Eval("FileName")) : this.HtmlEncode(Eval("Caption"))%>'>
-                            <img src='<%# String.Format("{0}resource.ashx?imgprv={1}",YafForumInfo.ForumClientFileRoot,Eval("ImageID")) %>'
-                                alt='<%# this.HtmlEncode(Eval("FileName")) %>' />
+                        <a href='<%# "{0}resource.ashx?image={1}".FormatWith(YafForumInfo.ForumClientFileRoot, this.Eval("ImageID")) %>'
+                            title='<%# Eval("Caption").ToString() == string.Empty ? this.HtmlEncode(Eval("FileName")) : this.HtmlEncode(Eval("Caption")) + "&lt;br /&gt; Album IMG Code: [ALBUMIMG]" + AlbumID + "[/ALBUMIMG]"%>' 
+                            title='<%# Eval("Caption").ToString() == string.Empty ? this.HtmlEncode(Eval("FileName")) : this.HtmlEncode(Eval("Caption")) + "&lt;br /&gt; Album IMG Code: [ALBUMIMG]" + AlbumID + "[/ALBUMIMG]"%>'>
+                            <img src='<%# "{0}resource.ashx?imgprv={1}".FormatWith(YafForumInfo.ForumClientFileRoot, this.Eval("ImageID")) %>'
+                                alt='<%# Eval("Caption").ToString() == string.Empty ? this.HtmlEncode(Eval("FileName")) : this.HtmlEncode(Eval("Caption"))%>' title='<%# Eval("Caption").ToString() == string.Empty ? this.HtmlEncode(Eval("FileName")) : this.HtmlEncode(Eval("Caption"))%>' />
                         </a>
                     </td>
                 </tr>

@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -22,27 +22,31 @@ namespace YAF.Controls
 
     using System;
     using System.Collections.Generic;
+    using System.Data;
     using System.Linq;
     using System.Text;
     using System.Web.UI;
     using System.Web.UI.WebControls;
+
+    using YAF.Classes;
     using YAF.Core;
     using YAF.Types;
+    using YAF.Types.Interfaces;
     using YAF.Utils;
 
     #endregion
 
     /// <summary>
-    /// PopMenu Control
+    /// Summary description for ForumJump.
     /// </summary>
-    public class PopMenu : BaseControl, IPostBackEventHandler
+    public class AlbumListPopMenu : BaseControl, IPostBackEventHandler
     {
         #region Constants and Fields
 
         /// <summary>
         ///   The _items.
         /// </summary>
-        private readonly List<InternalPopMenuItem> _items = new List<InternalPopMenuItem>();
+        private readonly List<InternalAlbumListItem> _items = new List<InternalAlbumListItem>();
 
         /// <summary>
         ///   The _control.
@@ -54,9 +58,9 @@ namespace YAF.Controls
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "PopMenu" /> class.
+        ///   Initializes a new instance of the <see cref = "AlbumListPopMenu" /> class.
         /// </summary>
-        public PopMenu()
+        public AlbumListPopMenu()
         {
             Init += this.PopMenu_Init;
         }
@@ -117,20 +121,6 @@ namespace YAF.Controls
         #region Public Methods
 
         /// <summary>
-        /// The add client script item.
-        /// </summary>
-        /// <param name="description">
-        /// The description.
-        /// </param>
-        /// <param name="clientScript">
-        /// The client script.
-        /// </param>
-        public void AddClientScriptItem([NotNull] string description, [NotNull] string clientScript)
-        {
-            this._items.Add(new InternalPopMenuItem(description, null, clientScript, null));
-        }
-
-        /// <summary>
         /// The add client script item with Icon.
         /// </summary>
         /// <param name="description">
@@ -139,60 +129,12 @@ namespace YAF.Controls
         /// <param name="clientScript">
         /// The client script.
         /// </param>
-        /// <param name="icon">
+        /// <param name="albumImage">
         /// The icon.
         /// </param>
-        public void AddClientScriptItem([NotNull] string description, [NotNull] string clientScript, [NotNull] string icon)
+        public void AddClientScriptItem([NotNull] string description, [NotNull] string clientScript, [NotNull] string albumImage)
         {
-            this._items.Add(new InternalPopMenuItem(description, null, clientScript, icon));
-        }
-
-        /// <summary>
-        /// Add a item with a client script and post back option. (Use {postbackcode} in the <paramref name="clientScript"/> code for the postback code.)
-        /// </summary>
-        /// <param name="description">
-        /// The description.
-        /// </param>
-        /// <param name="argument">
-        /// post back argument
-        /// </param>
-        /// <param name="clientScript">
-        /// The client script.
-        /// </param>
-        public void AddClientScriptItemWithPostback([NotNull] string description, [NotNull] string argument, [NotNull] string clientScript)
-        {
-            this._items.Add(new InternalPopMenuItem(description, argument, clientScript, null));
-        }
-
-        /// <summary>
-        /// The add post back item.
-        /// </summary>
-        /// <param name="argument">
-        /// The argument.
-        /// </param>
-        /// <param name="description">
-        /// The description.
-        /// </param>
-        public void AddPostBackItem([NotNull] string argument, [NotNull] string description)
-        {
-            this._items.Add(new InternalPopMenuItem(description, argument, null, null));
-        }
-
-        /// <summary>
-        /// The add post back item with an Icon
-        /// </summary>
-        /// <param name="argument">
-        /// The argument.
-        /// </param>
-        /// <param name="description">
-        /// The description.
-        /// </param>
-        /// <param name="icon">
-        /// The icon.
-        /// </param>
-        public void AddPostBackItem([NotNull] string argument, [NotNull] string description, [NotNull] string icon)
-        {
-            this._items.Add(new InternalPopMenuItem(description, argument, null, icon));
+            this._items.Add(new InternalAlbumListItem(description, null, clientScript, albumImage));
         }
 
         /// <summary>
@@ -227,7 +169,7 @@ namespace YAF.Controls
         /// </param>
         public void RemovePostBackItem([NotNull] string argument)
         {
-            foreach (InternalPopMenuItem item in this._items.Where(item => item.PostBackArgument == argument))
+            foreach (InternalAlbumListItem item in this._items.Where(item => item.PostBackArgument == argument))
             {
                 this._items.Remove(item);
                 break;
@@ -275,13 +217,44 @@ namespace YAF.Controls
 
             var sb = new StringBuilder();
             sb.AppendFormat(
-              @"<div class=""yafpopupmenu"" id=""{0}"" style=""position:absolute;z-index:100;left:0;top:0;display:none;"">",
-              ClientID);
-            sb.Append("<ul>");
+                @"<div class=""yafpopupmenu yafalbumlistmenu"" id=""{0}"" style=""position:absolute;z-index:100;left:0;top:0;display:none;"">",
+                ClientID);
 
-            // add the items
-            foreach (InternalPopMenuItem thisItem in this._items)
+            sb.Append("<div id=\"AlbumsListBox\" class=\"content\">");
+            sb.Append("<div id=\"AlbumsListPager\"></div>");
+            sb.Append("<br style=\"clear:both;\" />");
+            sb.Append("<div id=\"AlbumsPagerResult\">");
+            sb.AppendFormat(
+                "<p style=\"text-align:center\"><span>{1}</span><br /><img title=\"{1}\" src=\"{0}\" alt=\"{1}\" /></p>",
+                YafForumInfo.GetURLToResource("images/loader.gif"),
+                this.Get<ILocalization>().GetText("COMMON", "LOADING"));
+            sb.Append("</div>");
+
+            sb.Append("<div id=\"AlbumsPagerHidden\" style=\"display:none;\">");
+
+
+            sb.Append("<div class=\"result\">");
+            sb.AppendFormat("<ul class=\"AlbumImageList\">");
+
+            int rowPanel = 0;
+
+            for (int i = 0; i < this._items.Count; i++)
             {
+                var thisItem = this._items[i];
+                if (i % 3 == 0 && i > 0 && i < this._items.Count)
+                {
+                    rowPanel++;
+
+                    if (rowPanel == 3)
+                    {
+                        sb.Append("</ul></div>");
+                        sb.Append("<div class=\"result\">");
+                        sb.Append("<ul class=\"AlbumImageList\">");
+
+                        rowPanel = 0;
+                    }
+                }
+
                 string onClick;
                 string iconImage = string.Empty;
 
@@ -289,27 +262,31 @@ namespace YAF.Controls
                 {
                     // js style
                     onClick = thisItem.ClientScript.Replace(
-                      "{postbackcode}", Page.ClientScript.GetPostBackClientHyperlink(this, thisItem.PostBackArgument));
+                        "{postbackcode}", Page.ClientScript.GetPostBackClientHyperlink(this, thisItem.PostBackArgument));
                 }
                 else
                 {
                     onClick = Page.ClientScript.GetPostBackClientHyperlink(this, thisItem.PostBackArgument);
                 }
 
-                if (thisItem.Icon.IsSet())
+                if (thisItem.AlbumImage.IsSet())
                 {
-                    iconImage = @"<img class=""popupitemIcon"" src=""{0}"" alt=""{1}"" title=""{1}"" />&nbsp;".FormatWith(
-                        thisItem.Icon, thisItem.Description);
+                    iconImage =
+                        @"<img class=""popupitemIcon"" src=""{0}"" alt=""{1}"" title=""{1}"" />&nbsp;".FormatWith(
+                            thisItem.AlbumImage, thisItem.Description);
                 }
 
                 sb.AppendFormat(
-                  @"<li class=""popupitem"" onmouseover=""mouseHover(this,true)"" onmouseout=""mouseHover(this,false)"" onclick=""{2}"" style=""white-space:nowrap"" title=""{1}"">{0}{1}</li>",
-                  iconImage,
-                  thisItem.Description,
-                  onClick);
+                    @"<li class=""popupitem"" onmouseover=""mouseHover(this,true)"" onmouseout=""mouseHover(this,false)"" onclick=""{2}"" style=""white-space:nowrap"" title=""{1}"">{0}</li>",
+                    iconImage,
+                    thisItem.Description,
+                    onClick);
             }
 
-            sb.AppendFormat("</ul></div>");
+            sb.Append("</ul>");
+            sb.Append("</div>");
+
+            sb.AppendFormat("</ul></div></div></div>");
 
             writer.WriteLine(sb.ToString());
 
@@ -335,25 +312,14 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// The pop event handler.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    public delegate void PopEventHandler(object sender, PopEventArgs e);
-
-    /// <summary>
     /// The internal pop menu item.
     /// </summary>
-    public class InternalPopMenuItem
+    public class InternalAlbumListItem
     {
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="InternalPopMenuItem"/> class.
+        /// Initializes a new instance of the <see cref="InternalAlbumListItem"/> class.
         /// </summary>
         /// <param name="description">
         /// The description.
@@ -364,15 +330,15 @@ namespace YAF.Controls
         /// <param name="clientScript">
         /// The client script.
         /// </param>
-        /// <param name="icon">
+        /// <param name="albumImage">
         /// The icon.
         /// </param>
-        public InternalPopMenuItem([NotNull] string description, [NotNull] string postbackArgument, [NotNull] string clientScript, [NotNull] string icon)
+        public InternalAlbumListItem([NotNull] string description, [NotNull] string postbackArgument, [NotNull] string clientScript, [NotNull] string albumImage)
         {
             this.Description = description;
             this.PostBackArgument = postbackArgument;
             this.ClientScript = clientScript;
-            this.Icon = icon;
+            this.AlbumImage = albumImage;
         }
 
         #endregion
@@ -382,7 +348,7 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets or sets Icon.
         /// </summary>
-        public string Icon { get; set; }
+        public string AlbumImage { get; set; }
 
         /// <summary>
         ///   Gets or sets ClientScript.

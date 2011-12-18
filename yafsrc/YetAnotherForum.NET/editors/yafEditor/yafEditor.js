@@ -81,6 +81,9 @@ yafEditor.prototype.FormatText = function (command, option) {
         case "fontsize":
             wrapSelection(textObj, "[size=" + option + "]", "[/size]");
             break;
+        case "AlbumImgId":
+            replaceSelection(textObj, '[albumimg]' + option + '[/albumimg]');
+            break;
         default:
             // make custom option
             wrapSelection(textObj, "[" + command + "]", "[/" + command + "]");
@@ -236,3 +239,6 @@ function getCurrentSelection(input) {
         return false;
     }
 }
+
+function AlbumsPageSelectCallback(page_index) { var Albums_content = jQuery('#AlbumsPagerHidden div.result:eq(' + page_index + ')').clone(); jQuery('#AlbumsPagerResult').empty().append(Albums_content); return false; }
+jQuery(document).ready(function () { var Albums_entries = jQuery('#AlbumsPagerHidden div.result').length; jQuery('#AlbumsListPager').pagination(Albums_entries, { callback: AlbumsPageSelectCallback, items_per_page: 1, num_display_entries: 3, num_edge_entries: 1, prev_class: 'smiliesPagerPrev', next_class: 'smiliesPagerNext', prev_text: '&laquo;', next_text: '&raquo;' }); })
