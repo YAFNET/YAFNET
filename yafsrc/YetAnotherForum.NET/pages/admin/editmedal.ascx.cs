@@ -189,8 +189,8 @@ namespace YAF.Pages.Admin
 			{
 				// only username is specified, we must find id for it
 				var users =
-					((IDataReader)
-					 this.Get<IDbFunction>().GetReader.user_find(
+					((DataTable)
+					 this.Get<IDbFunction>().GetData.user_find(
 					 	this.PageContext.PageBoardID, true, this.UserName.Text, null, null, null, null)).Typed<TypedUserFind>().ToList();
 
 				if (users.Count() > 1)
@@ -357,8 +357,8 @@ namespace YAF.Pages.Admin
 		protected void FindUsers_Click([NotNull] object sender, [NotNull] EventArgs e)
 		{
 			// try to find users by user name
-			var users = ((IDataReader)
-			 this.Get<IDbFunction>().GetReader.user_find(
+			var users = ((DataTable)
+			 this.Get<IDbFunction>().GetData.user_find(
 				this.PageContext.PageBoardID, true, this.UserName.Text, null, null, null, null)).Typed<TypedUserFind>().ToList();
 
 			if (!users.Any())

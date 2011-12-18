@@ -768,15 +768,15 @@ namespace YAF.Pages
                 this.Priority.SelectedValue,
                 this._forumEditor.Text.Trim(),
                 descriptionSave.Trim(),
-                this.TopicStatus.SelectedValue.Equals("-1") || this.TopicStatus.SelectedIndex.Equals(0) ? string.Empty : this.TopicStatus.SelectedValue,
-                stylesSave.Trim(),
                 subjectSave.Trim(),
                 messageFlags.BitValue,
                 this.HtmlEncode(this.ReasonEditor.Text),
                 isModeratorChanged,
                 this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess,
                 this.OriginalMessage,
-                this.PageContext.PageUserID);
+                this.PageContext.PageUserID,
+                this.TopicStatus.SelectedValue.Equals("-1") || this.TopicStatus.SelectedIndex.Equals(0) ? string.Empty : this.TopicStatus.SelectedValue,
+                stylesSave.Trim());
 
             long messageId = this.EditMessageID.Value;
 
