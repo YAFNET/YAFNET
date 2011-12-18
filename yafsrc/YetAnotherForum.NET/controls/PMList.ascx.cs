@@ -358,11 +358,14 @@ namespace YAF.Controls
         /// </param>
         protected void ExportSelected_Click([NotNull] object source, [NotNull] EventArgs e)
         {
-            var alNotSelMessages = new ArrayList();
+            var messageList = (DataView)this.MessagesView.DataSource;
+            var messageListSelected = messageList;
 
             long nItemCount = 0;
 
-            foreach (GridViewRow item in this.MessagesView.Rows)
+            foreach (
+                GridViewRow item in
+                    this.MessagesView.Rows.Cast<GridViewRow>().Where(item => item.RowType == DataControlRowType.DataRow))
             {
                 if (((CheckBox)item.FindControl("ItemCheck")).Checked)
                 {
@@ -370,7 +373,9 @@ namespace YAF.Controls
                 }
                 else
                 {
-                    alNotSelMessages.Add(item.DataItemIndex);
+                    DataRow row = messageList.Table.Rows[item.RowIndex];
+
+                    messageListSelected.Table.Rows.Remove(row);
                 }
             }
 
@@ -384,25 +389,20 @@ namespace YAF.Controls
                 return;
             }
 
-            var messageList = (DataView)this.MessagesView.DataSource;
-
-            foreach (int iItemIndex in alNotSelMessages)
-            {
-                messageList.Table.Rows.RemoveAt(iItemIndex);
-            }
-
             if (this.ExportType.SelectedItem.Value.Equals("xml"))
             {
-                this.ExportXmlFile(messageList);
+                this.ExportXmlFile(messageListSelected);
             }
             else if (this.ExportType.SelectedItem.Value.Equals("csv"))
             {
-                this.ExportCsvFile(messageList);
+                this.ExportCsvFile(messageListSelected);
             }
             else if (this.ExportType.SelectedItem.Value.Equals("txt"))
             {
-                this.ExportTextFile(messageList);
+                this.ExportTextFile(messageListSelected);
             }
+
+            this.BindData();
         }
 
         /// <summary>

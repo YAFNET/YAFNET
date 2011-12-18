@@ -200,7 +200,7 @@ namespace YAF.Editors
                     new HighLightList { BrushAlias = "coldfusion", BrushName = "ColdFusion" },
                     new HighLightList { BrushAlias = "csharp", BrushName = "C#" },
                     new HighLightList { BrushAlias = "cpp", BrushName = "C++" },
-                    new HighLightList { BrushAlias = "css/html", BrushName = "CSS" },
+                    new HighLightList { BrushAlias = "css", BrushName = "CSS/Html" },
                     new HighLightList { BrushAlias = "delphi", BrushName = "Delphi" },
                     new HighLightList { BrushAlias = "diff", BrushName = "Diff" },
                     new HighLightList { BrushAlias = "erlang", BrushName = "Erlang" },
