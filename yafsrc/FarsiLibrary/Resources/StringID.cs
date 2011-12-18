@@ -74,7 +74,7 @@ namespace FarsiLibrary.Resources
         MessageBox_No,
         MessageBox_Abort,
         MessageBox_Retry,
-        MessageBox_Ignore
+        MessageBox_Ignore,
     }
 
 	#endregion

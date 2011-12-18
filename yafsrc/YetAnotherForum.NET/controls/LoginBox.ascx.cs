@@ -26,6 +26,7 @@ namespace YAF.Controls
     using System;
     using System.Web;
     using System.Web.Security;
+    using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
@@ -228,6 +229,8 @@ namespace YAF.Controls
             var forumLogin = this.Login1.FindControlAs<Button>("LoginButton");
             var passwordRecovery = this.Login1.FindControlAs<LinkButton>("PasswordRecovery");
             var faceBookHolder = this.Login1.FindControlAs<PlaceHolder>("FaceBookHolder");
+            var twitterHolder = this.Login1.FindControlAs<PlaceHolder>("TwitterHolder");
+            var twitterLogin = this.Login1.FindControlAs<HtmlButton>("TwitterLogin");
 
             userName.Focus();
 
@@ -263,9 +266,24 @@ namespace YAF.Controls
                 "if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{document.getElementById('{0}').click();return false;}}}} else {{return true}}; "
                     .FormatWith(forumLogin.ClientID));
 
-            if (this.Get<YafBoardSettings>().AllowSingleSignOn && Config.FacebookAPIKey.IsSet())
+            if (this.Get<YafBoardSettings>().AllowSingleSignOn)
             {
-                faceBookHolder.Visible = true;
+                faceBookHolder.Visible = Config.FacebookAPIKey.IsSet() && Config.FacebookSecretKey.IsSet();
+
+                twitterHolder.Visible = Config.TwitterConsumerKey.IsSet() && Config.TwitterConsumerSecret.IsSet();
+
+                if (twitterHolder.Visible)
+                {
+                    twitterLogin.Attributes.Add(
+                        "onclick",
+                        "javascript:window.open('{0}auth.aspx?twitterauth=true', 'TwitterLoginWindow', 'width=800,height=700,left=150,top=100,scrollbar=no,resize=no'); return false;"
+                            .FormatWith(YafForumInfo.ForumClientFileRoot));
+
+                    twitterLogin.InnerHtml =
+                        "<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" style=\"margin:0;\">".FormatWith(
+                            "{0}images/twitter_signin.png".FormatWith(YafForumInfo.ForumClientFileRoot),
+                            this.GetText("LOGIN", "TWITTER_LOGIN"));
+                }
             }
 
             this.DataBind();
@@ -300,7 +318,7 @@ namespace YAF.Controls
         {
             this.Get<IRaiseEvent>().Raise(new SuccessfulUserLoginEvent(this.PageContext.PageUserID));
 
-            LegacyDb.user_updatefacebookstatus(this.PageContext.PageUserID, false);
+            LegacyDb.user_update_single_sign_on_status(this.PageContext.PageUserID, false, false);
         }
     }
 }

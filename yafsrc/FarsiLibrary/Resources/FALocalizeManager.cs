@@ -19,62 +19,77 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-using System;
-using System.Globalization;
-
 namespace FarsiLibrary.Resources
 {
+    using System;
+    using System.Globalization;
+    using System.Threading;
+
     /// <summary>
     /// Localizer class to work with internal localized strings.
     /// </summary>
     public class FALocalizeManager
     {
+        #region Fields
+
+        private readonly FALocalizer fa = new FALocalizer();
+        private readonly ARLocalizer ar = new ARLocalizer();
+        private readonly ENLocalizer en = new ENLocalizer();
+        private BaseLocalizer customLocalizer;
+        private static FALocalizeManager instance;
+
+        #endregion
+
         #region Ctor
 
         private FALocalizeManager()
         {
+            FarsiCulture = new CultureInfo("fa-IR");
+            ArabicCulture = new CultureInfo("ar-SA");
+            InvariantCulture = CultureInfo.InvariantCulture;
         }
 
         #endregion
 
-        #region Fields
+        #region Events
 
-        private static CultureInfo farsiCulture = new CultureInfo("fa-IR");
-        private static CultureInfo arabicCulture = new CultureInfo("ar-SA");
-        private static CultureInfo englishCulture = CultureInfo.InvariantCulture;
-        private static CultureInfo customCulture = null;
-        
-        private static FALocalizer fa = new FALocalizer();
-        private static ARLocalizer ar = new ARLocalizer();
-        private static ENLocalizer en = new ENLocalizer();
-        private static BaseLocalizer customLocalizer = null;
-
-        public static event EventHandler LocalizerChanged;
+        /// <summary>
+        /// Fired when Localizer has changed.
+        /// </summary>
+        public event EventHandler LocalizerChanged;
 
         #endregion
 
         #region Methods
 
         /// <summary>
+        /// Returns an instance of the localized based on CurrentUICulture of the thread.
+        /// </summary>
+        /// <returns></returns>
+        public BaseLocalizer GetLocalizer()
+        {
+            return GetLocalizerByCulture(Thread.CurrentThread.CurrentUICulture);
+        }
+
+        /// <summary>
         /// Returns a localizer instance based on the culture.
         /// </summary>
-        public static BaseLocalizer GetLocalizerByCulture(CultureInfo ci)
+        internal BaseLocalizer GetLocalizerByCulture(CultureInfo ci)
         {
             if (customLocalizer != null)
                 return customLocalizer;
             
-            if (ci.Equals(farsiCulture))
+            if (ci.Equals(FarsiCulture))
             {
                 return fa;
             }
-            else if (ci.Equals(arabicCulture))
+            
+            if (ci.Equals(ArabicCulture))
             {
                 return ar;
             }
-            else
-            {
-                return en;
-            }
+            
+            return en;
         }
 
         #endregion
@@ -82,42 +97,59 @@ namespace FarsiLibrary.Resources
         #region Props
 
         /// <summary>
+        /// Singleton Instance of FALocalizeManager.
+        /// </summary>
+        public static FALocalizeManager Instance
+        {
+            get
+            {
+                if(instance == null)
+                    instance = new FALocalizeManager();
+
+                return instance;
+            }
+        }
+
+        /// <summary>
         /// Custom culture, when set , is used across all controls.
         /// </summary>
-        public static CultureInfo CustomCulture
+        public CultureInfo CustomCulture
         {
-            get { return customCulture; }
-            set { customCulture = value; }
+            get;
+            set;
         }
-        
+
         /// <summary>
         /// Farsi Culture
         /// </summary>
-        public static CultureInfo FarsiCulture
+        public CultureInfo FarsiCulture
         {
-            get { return farsiCulture; }
+            get;
+            private set;
         }
 
         /// <summary>
         /// Arabic Culture
         /// </summary>
-        public static CultureInfo ArabicCulture
+        public CultureInfo ArabicCulture
         {
-            get { return arabicCulture; }
+            get;
+            private set;
         }
 
         /// <summary>
         /// Invariant Culture
         /// </summary>
-        public static CultureInfo InvariantCulture
+        public CultureInfo InvariantCulture
         {
-            get { return englishCulture; }
+            get;
+            private set;
         }
 
         /// <summary>
         /// Gets or Sets a new instance of Localizer. If this value is initialized (default is null), Localize Manager class will use the custom class provided, to interpret localized strings.
         /// </summary>
-        public static BaseLocalizer CustomLocalizer
+        public BaseLocalizer CustomLocalizer
         {
             get { return customLocalizer; }
             set
@@ -129,15 +161,35 @@ namespace FarsiLibrary.Resources
                 OnLocalizerChanged(EventArgs.Empty);
             }
         }
-        
-        #endregion
 
-        #region Methods
-        
-        protected static void OnLocalizerChanged(EventArgs e)
+        /// <summary>
+        /// Fires the LocalizerChanged event.
+        /// </summary>
+        /// <param name="e"></param>
+        protected void OnLocalizerChanged(EventArgs e)
         {
             if (LocalizerChanged != null)
                 LocalizerChanged(null, e);
+        }
+
+        internal bool IsCustomArabicCulture
+        {
+            get { return CustomCulture != null && CustomCulture.Equals(ArabicCulture); }
+        }
+
+        internal bool IsCustomFarsiCulture
+        {
+            get { return CustomCulture != null && CustomCulture.Equals(FarsiCulture); }
+        }
+
+        internal bool IsThreadCultureFarsi
+        {
+            get { return Thread.CurrentThread.CurrentUICulture.Equals(FarsiCulture); }
+        }
+
+        internal bool IsThreadCultureArabic
+        {
+            get { return Thread.CurrentThread.CurrentUICulture.Equals(ArabicCulture); }
         }
 
         #endregion

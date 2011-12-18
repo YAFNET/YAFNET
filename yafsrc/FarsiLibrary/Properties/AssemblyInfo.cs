@@ -23,7 +23,7 @@ using System;
 using System.Reflection;
 
 
-[assembly: AssemblyVersion("1.9.0.0")]
+[assembly: AssemblyVersion("2.5.1.5")]
 [assembly: AssemblyDescription("Library containing farsi controls, which has correct Right-To-Left drawing. Also contains classes to work with Jalali Dates")]
 [assembly: AssemblyCopyright("Copyright (c) Hadi Eskandari")]
 [assembly: AssemblyTitle("Farsi Library")]

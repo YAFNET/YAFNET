@@ -107,6 +107,14 @@
         </td>
     </tr>
     <tr>
+        <td class="postheader">
+            <YAF:HelpLabel ID="HelpLabel13" runat="server" LocalizedTag="TWITTER_USER" LocalizedPage="ADMIN_EDITUSER" />
+        </td>
+        <td class="post">
+            <asp:CheckBox runat="server" ID="IsTwitterUser" Enabled="false" />
+        </td>
+    </tr>
+    <tr>
         <td class="postfooter" colspan="2" align="center">
             <asp:Button ID="Save" runat="server" CssClass="pbutton" OnClick="Save_Click" />
         </td>

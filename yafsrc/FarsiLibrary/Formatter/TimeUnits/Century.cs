@@ -19,20 +19,20 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace FarsiLibrary
+namespace FarsiLibrary.Formatter.TimeUnits
 {
-    /// <summary>
-    /// </summary>
-    internal static class Util
+    using FarsiLibrary.Formatter;
+
+    public class Century : AbstractTimeUnit
     {
-        /// <summary>
-        /// Adds a preceding zero to single day or months
-        /// </summary>
-        /// <param name="i"></param>
-        /// <returns></returns>
-        internal static string toDouble(int i)
+        public Century()
         {
-            return i > 9 ? i.ToString() : "0" + i.ToString();
+            MillisPerUnit = 2629743830L * 12L * 100;
+        }
+
+        protected override string GetResourcePrefix()
+        {
+            return "Century";
         }
     }
 }

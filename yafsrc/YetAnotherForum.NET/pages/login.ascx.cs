@@ -18,8 +18,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System.Linq;
-
 namespace YAF.Pages
 {
     // YAF.Pages
@@ -45,7 +43,7 @@ namespace YAF.Pages
     #endregion
 
     /// <summary>
-    /// Summary description for login.
+    /// The Forum Login Page.
     /// </summary>
     public partial class login : ForumPage
     {
@@ -77,19 +75,6 @@ namespace YAF.Pages
         #endregion
 
         #region Methods
-
-        /// <summary>
-        /// Inits the page.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// Event Args.
-        /// </param>
-        protected void Init([NotNull] object sender, [NotNull] EventArgs e)
-        {
-        }
 
         /// <summary>
         /// The login 1_ authenticate.
@@ -169,7 +154,7 @@ namespace YAF.Pages
         protected void Login1_LoggedIn([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.Get<IRaiseEvent>().Raise(new SuccessfulUserLoginEvent(this.PageContext.PageUserID));
-            LegacyDb.user_updatefacebookstatus(this.PageContext.PageUserID, false);
+            LegacyDb.user_update_single_sign_on_status(this.PageContext.PageUserID, false, false);
         }
 
         /// <summary>
@@ -244,7 +229,11 @@ namespace YAF.Pages
             var password = this.Login1.FindControlAs<TextBox>("Password");
             var forumLogin = this.Login1.FindControlAs<Button>("LoginButton");
             var passwordRecovery = this.Login1.FindControlAs<Button>("PasswordRecovery");
-            var facebookLoginRow = this.Login1.FindControlAs<HtmlTableRow>("facebookLoginRow");
+
+            var singleSignOnRow = this.Login1.FindControlAs<HtmlTableRow>("SingleSignOnRow");
+            var facebookHolder = this.Login1.FindControlAs<PlaceHolder>("FacebookHolder");
+            var twitterHolder = this.Login1.FindControlAs<PlaceHolder>("TwitterHolder");
+            var twitterLogin = this.Login1.FindControlAs<HtmlButton>("TwitterLogin");
 
             userName.Focus();
 
@@ -278,9 +267,26 @@ namespace YAF.Pages
                         .FormatWith(forumLogin.ClientID));
             }
 
-            if (this.Get<YafBoardSettings>().AllowSingleSignOn && Config.FacebookAPIKey.IsSet())
+            if (this.Get<YafBoardSettings>().AllowSingleSignOn && (Config.FacebookAPIKey.IsSet() || Config.TwitterConsumerKey.IsSet()))
             {
-                facebookLoginRow.Visible = true;
+                singleSignOnRow.Visible = true;
+
+                facebookHolder.Visible = Config.FacebookAPIKey.IsSet() && Config.FacebookSecretKey.IsSet();
+
+                twitterHolder.Visible = Config.TwitterConsumerKey.IsSet() && Config.TwitterConsumerSecret.IsSet();
+
+                if (twitterHolder.Visible)
+                {
+                    twitterLogin.Attributes.Add(
+                        "onclick",
+                        "javascript:window.open('{0}auth.aspx?twitterauth=true', 'TwitterLoginWindow', 'width=800,height=700,left=150,top=100,scrollbar=no,resize=no'); return false;"
+                            .FormatWith(YafForumInfo.ForumClientFileRoot));
+
+                    twitterLogin.InnerHtml =
+                        "<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" style=\"margin:0;\">".FormatWith(
+                            "{0}images/twitter_signin.png".FormatWith(YafForumInfo.ForumClientFileRoot),
+                            this.GetText("LOGIN", "TWITTER_LOGIN"));
+                }
             }
 
             this.DataBind();

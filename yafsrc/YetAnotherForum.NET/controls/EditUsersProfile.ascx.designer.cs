@@ -499,6 +499,24 @@ namespace YAF.Controls {
         protected global::System.Web.UI.WebControls.TextBox Twitter;
         
         /// <summary>
+        /// LocalizedLabel37 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel37;
+        
+        /// <summary>
+        /// TwitterId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TwitterId;
+        
+        /// <summary>
         /// LocalizedLabel32 control.
         /// </summary>
         /// <remarks>

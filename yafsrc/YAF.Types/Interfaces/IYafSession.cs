@@ -23,9 +23,20 @@ namespace YAF.Types.Interfaces
     using System.Data;
 
     /// <summary>
+    /// The Yaf Session Interface
     /// </summary>
     public interface IYafSession
     {
+        /// <summary>
+        /// Gets or sets Twitter Token.
+        /// </summary>
+        string TwitterToken { get; set; }
+
+        /// <summary>
+        /// Gets or sets Twitter Token Secret.
+        /// </summary>
+        string TwitterTokenSecret { get; set; }
+
         /// <summary>
         /// Gets or sets the multi quote ids.
         /// </summary>

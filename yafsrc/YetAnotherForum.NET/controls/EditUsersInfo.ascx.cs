@@ -166,6 +166,7 @@ namespace YAF.Controls
         this.IsExcludedFromActiveUsers.Checked = userFlags.IsActiveExcluded;
         this.Joined.Text = row["Joined"].ToString();
         this.IsFacebookUser.Checked = row["IsFacebookUser"].ToType<bool>();
+        this.IsTwitterUser.Checked = row["IsTwitterUser"].ToType<bool>();
         this.LastVisit.Text = row["LastVisit"].ToString();
         ListItem item = this.RankID.Items.FindByValue(row["RankID"].ToString());
 

@@ -115,22 +115,52 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enums.cs" />
+    <Compile Include="CultureInfoExtensions.cs" />
+    <Compile Include="DateTimeExtensions.cs" />
     <Compile Include="Exceptions\InvalidPersianDateException.cs" />
     <Compile Include="Exceptions\InvalidPersianDateFormatException.cs" />
+    <Compile Include="Formatter\AbstractTimeUnit.cs" />
+    <Compile Include="Formatter\BasicTimeFormat.cs" />
+    <Compile Include="Formatter\Duration.cs" />
+    <Compile Include="Formatter\ITimeFormat.cs" />
+    <Compile Include="Formatter\ITimeUnit.cs" />
+    <Compile Include="Formatter\PrettyTime.cs" />
+    <Compile Include="Formatter\TimeUnits\Century.cs" />
+    <Compile Include="Formatter\TimeUnits\Day.cs" />
+    <Compile Include="Formatter\TimeUnits\Decade.cs" />
+    <Compile Include="Formatter\TimeUnits\Hour.cs" />
+    <Compile Include="Formatter\TimeUnits\JustNow.cs" />
+    <Compile Include="Formatter\TimeUnits\Millennium.cs" />
+    <Compile Include="Formatter\TimeUnits\Millisecond.cs" />
+    <Compile Include="Formatter\TimeUnits\Minute.cs" />
+    <Compile Include="Formatter\TimeUnits\Month.cs" />
+    <Compile Include="Formatter\TimeUnits\Second.cs" />
+    <Compile Include="Formatter\TimeUnits\Week.cs" />
+    <Compile Include="Formatter\TimeUnits\Year.cs" />
+    <Compile Include="Internals\CollectionHelper.cs" />
+    <Compile Include="Internals\CultureHelper.cs" />
+    <Compile Include="Internals\Guard.cs" />
+    <Compile Include="Internals\ReflectionHelper.cs" />
+    <Compile Include="Internals\ThemeWrapper.cs" />
+    <Compile Include="Internals\Utils.cs" />
     <Compile Include="PersianCalendar.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="PersianCultureInfo.cs" />
     <Compile Include="PersianDate.cs" />
     <Compile Include="PersianDateConverter.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="PersianDateTimeFormatInfo.cs" />
+    <Compile Include="PersianMonthNames.cs" />
+    <Compile Include="PersianWeekDayNames.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\ARLocalizer.cs" />
+    <Compile Include="Resources\BaseLocalizer.cs" />
     <Compile Include="Resources\ENLocalizer.cs" />
     <Compile Include="Resources\FALocalizeManager.cs" />
     <Compile Include="Resources\FALocalizer.cs" />
-    <Compile Include="Resources\Localizer.cs" />
+    <Compile Include="Resources\FormatterStringID.cs" />
     <Compile Include="Resources\StringID.cs" />
     <Compile Include="toEnglish.cs">
       <SubType>Code</SubType>
@@ -141,7 +171,6 @@
     <Compile Include="ToWords.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

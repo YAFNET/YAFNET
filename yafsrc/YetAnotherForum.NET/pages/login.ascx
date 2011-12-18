@@ -48,12 +48,18 @@
                                                 OnClick="PasswordRecovery_Click" />
                                         </td>
                                     </tr>
-                                    <tr id="FacebookLoginRow" runat="server" visible="false">
-                                       <td align="center" colspan="2" class="postfooter">
-                                         <fb:login-button onlogin="LoginUser()" perms="email,user_birthday,status_update,publish_stream">
-                                            <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="FACEBOOK_LOGIN" />
-                                         </fb:login-button>
-                                         <div id="fb-root"></div>
+                                    <tr id="SingleSignOnRow" runat="server" Visible="false">
+                                       <td style="text-align:center" colspan="2" class="postfooter">
+                                         <asp:PlaceHolder id="FacebookHolder" runat="server" Visible="false">
+                                           <fb:login-button onlogin="LoginUser()" perms="email,user_birthday,status_update,publish_stream">
+                                             <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="FACEBOOK_LOGIN" />
+                                           </fb:login-button>
+                                           <div id="fb-root"></div>
+                                         </asp:PlaceHolder>
+                                         <asp:PlaceHolder id="TwitterHolder" runat="server" Visible="false">
+                                           <button id="TwitterLogin" runat="server" style="background:none;border:none;cursor:pointer;padding:3px;">
+                                           </button>
+                                         </asp:PlaceHolder>
                                        </td>
                                     </tr>
                                 </table>

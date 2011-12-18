@@ -223,6 +223,7 @@ namespace YAF.Pages.Admin
             var streamReader = new StreamReader(imputStream);
 
             string[] headers = streamReader.ReadLine().Split(',');
+
             foreach (string header in headers)
             {
                 usersTable.Columns.Add(header);
@@ -419,6 +420,11 @@ namespace YAF.Pages.Admin
           if (row.Table.Columns.Contains("Twitter") && !string.IsNullOrEmpty((string)row["Twitter"]))
           {
               userProfile.Twitter = (string)row["Twitter"];
+          }
+
+          if (row.Table.Columns.Contains("TwitterId") && !string.IsNullOrEmpty((string)row["TwitterId"]))
+          {
+              userProfile.TwitterId = (string)row["TwitterId"];
           }
 
           if (row.Table.Columns.Contains("Facebook") && !string.IsNullOrEmpty((string)row["Facebook"]))

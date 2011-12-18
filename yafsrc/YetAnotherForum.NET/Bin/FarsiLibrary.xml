@@ -5,241 +5,90 @@
     </assembly>
     <members>
         <member name="T:FarsiLibrary.PersianDateConverter">
-            <summary>
-            Class to convert PersianDate into normal DateTime value and vice versa.
-              <seealso cref="T:FarsiLibrary.PersianDate"/>
+            <summary>Class to convert PersianDate into normal DateTime value and vice versa.
+            <seealso cref="T:FarsiLibrary.PersianDate"/>
             </summary>
             <remarks>
             You can use <c>FarsiLibrary.Utils.FarsiDate.Now</c> property to access current Date.
             </remarks>
         </member>
-        <member name="F:FarsiLibrary.PersianDateConverter.gdaytable">
+        <member name="M:FarsiLibrary.PersianDateConverter.JLeap(System.Int32)">
             <summary>
-            The gdaytable.
+            Checks if a specified Persian year is a leap one.
             </summary>
+            <param name="jyear"></param>
+            <returns>returns 1 if the year is leap, otherwise returns 0.</returns>
         </member>
-        <member name="F:FarsiLibrary.PersianDateConverter.jdaytable">
+        <member name="M:FarsiLibrary.PersianDateConverter.IsJLeapYear(System.Int32)">
             <summary>
-            The jdaytable.
+            Checks if a year is a leap one.
             </summary>
-        </member>
-        <member name="F:FarsiLibrary.PersianDateConverter.weekdays">
-            <summary>
-            The weekdays.
-            </summary>
-        </member>
-        <member name="F:FarsiLibrary.PersianDateConverter.weekdaysabbr">
-            <summary>
-            The weekdaysabbr.
-            </summary>
-        </member>
-        <member name="F:FarsiLibrary.PersianDateConverter.GYearOff">
-            <summary>
-            The g year off.
-            </summary>
-        </member>
-        <member name="F:FarsiLibrary.PersianDateConverter.Solar">
-            <summary>
-            The solar.
-            </summary>
-        </member>
-        <member name="M:FarsiLibrary.PersianDateConverter.ToGregorianDate(FarsiLibrary.PersianDate)">
-            <summary>
-            Converts a Persian Date of type <c>String</c> to Gregorian Date of type <c>String</c>.
-            </summary>
-            <param name="date">
-            </param>
-            <returns>
-            Gregorian DateTime representation in string format of evaluated Jalali Date.
-            </returns>
-        </member>
-        <member name="M:FarsiLibrary.PersianDateConverter.ToGregorianDateTime(System.String)">
-            <summary>
-            Converts a Persian Date of type <c>String</c> to Gregorian Date of type <c>DateTime</c> class.
-            </summary>
-            <param name="date">
-            Date to evaluate
-            </param>
-            <returns>
-            Gregorian DateTime representation of evaluated Jalali Date.
-            </returns>
-        </member>
-        <member name="M:FarsiLibrary.PersianDateConverter.ToGregorianDateTime(FarsiLibrary.PersianDate)">
-            <summary>
-            The to gregorian date time.
-            </summary>
-            <param name="date">
-            The date.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:FarsiLibrary.PersianDateConverter.ToPersianDate(System.String)">
-            <overloads>
-            Has two overloads.
-            </overloads>
-            <summary>
-            Converts a Gregorian Date of type <c>System.DateTime</c> class to Persian Date.
-            </summary>
-            <param name="date">
-            DateTime to evaluate
-            </param>
-            <returns>
-            string representation of Jalali Date
-            </returns>
-        </member>
-        <member name="M:FarsiLibrary.PersianDateConverter.ToPersianDate(System.String,System.TimeSpan)">
-            <summary>
-            Converts a Gregorian Date of type <c>String</c> and a <c>TimeSpan</c> into a Persian Date.
-            </summary>
-            <param name="date">
-            </param>
-            <param name="time">
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:FarsiLibrary.PersianDateConverter.ToPersianDate(System.DateTime)">
-            <summary>
-            Converts a Gregorian Date of type <c>String</c> class to Persian Date.
-            </summary>
-            <param name="dt">
-            Date to evaluate
-            </param>
-            <returns>
-            string representation of Jalali Date.
-            </returns>
-        </member>
-        <member name="M:FarsiLibrary.PersianDateConverter.DayOfWeek(FarsiLibrary.PersianDate)">
-            <summary>
-            The day of week.
-            </summary>
-            <param name="date">
-            The date.
-            </param>
-            <returns>
-            The day of week.
-            </returns>
-        </member>
-        <member name="M:FarsiLibrary.PersianDateConverter.DayOfWeek(System.DateTime)">
-            <summary>
-            Gets Persian Weekday name from specified Gregorian Date.
-            </summary>
-            <param name="date">
-            </param>
-            <returns>
-            The day of week.
-            </returns>
-        </member>
-        <member name="M:FarsiLibrary.PersianDateConverter.JalaliDays(System.Int32,System.Int32,System.Int32)">
-            <summary>
-            The jalali days.
-            </summary>
-            <param name="iJYear">
-            The i j year.
-            </param>
-            <param name="iJMonth">
-            The i j month.
-            </param>
-            <param name="iJDay">
-            The i j day.
-            </param>
-            <returns>
-            The jalali days.
-            </returns>
-        </member>
-        <member name="M:FarsiLibrary.PersianDateConverter.MonthDays(System.Int32)">
-            <summary>
-            Returns number of days in specified month number.
-            </summary>
-            <param name="MonthNo">
-            Month no to evaluate in integer
-            </param>
-            <returns>
-            number of days in the evaluated month
-            </returns>
+            <param name="jyear">Year to check</param>
+            <returns>true if the year is leap</returns>
         </member>
         <member name="M:FarsiLibrary.PersianDateConverter.GLeap(System.Int32)">
             <summary>
             Checks if a specified Gregorian year is a leap one.
             </summary>
-            <param name="GregYear">
-            </param>
-            <returns>
-            returns 1 if the year is leap, otherwise returns 0.
-            </returns>
+            <param name="gyear"></param>
+            <returns>returns 1 if the year is leap, otherwise returns 0.</returns>
         </member>
-        <member name="M:FarsiLibrary.PersianDateConverter.GregDays(System.Int32,System.Int32,System.Int32)">
-            <summary>
-            The greg days.
-            </summary>
-            <param name="iGYear">
-            The i g year.
-            </param>
-            <param name="iGMonth">
-            The i g month.
-            </param>
-            <param name="iGDay">
-            The i g day.
-            </param>
-            <returns>
-            The greg days.
-            </returns>
+        <member name="M:FarsiLibrary.PersianDateConverter.ToPersianDate(System.String)">
+            <summary>Converts a Gregorian Date of type <c>System.DateTime</c> class to Persian Date.</summary>
+            <param name="date">DateTime to evaluate</param>
+            <returns>string representation of Jalali Date</returns>
         </member>
-        <member name="M:FarsiLibrary.PersianDateConverter.JLeap(System.Int32)">
+        <member name="M:FarsiLibrary.PersianDateConverter.ToPersianDate(System.String,System.TimeSpan)">
             <summary>
-            Checks if a specified Persian year is a leap one.
+            Converts a Gregorian Date of type <c>String</c> and a <c>TimeSpan</c> into a Persian Date.
             </summary>
-            <param name="iJYear">
-            </param>
-            <returns>
-            returns 1 if the year is leap, otherwise returns 0.
-            </returns>
+            <param name="date"></param>
+            <param name="time"></param>
+            <returns></returns>
         </member>
-        <member name="M:FarsiLibrary.PersianDateConverter.JLeapYears(System.Int32)">
+        <member name="M:FarsiLibrary.PersianDateConverter.ToPersianDate(System.DateTime)">
             <summary>
-            The j leap years.
+            Converts a Gregorian Date of type <c>String</c> class to Persian Date.
             </summary>
-            <param name="iJYear">
-            The i j year.
-            </param>
-            <returns>
-            The j leap years.
-            </returns>
+            <param name="dt">Date to evaluate</param>
+            <returns>string representation of Jalali Date.</returns>
         </member>
-        <member name="M:FarsiLibrary.PersianDateConverter.toDouble(System.Int32)">
+        <member name="M:FarsiLibrary.PersianDateConverter.ToGregorianDateTime(System.String)">
             <summary>
-            Adds to single day or months a preceding zero
+            Converts a Persian Date of type <c>String</c> to Gregorian Date of type <c>DateTime</c> class.
             </summary>
-            <param name="i">
-            </param>
-            <returns>
-            The to double.
-            </returns>
+            <param name="date">Date to evaluate</param>
+            <returns>Gregorian DateTime representation of evaluated Jalali Date.</returns>
         </member>
-        <member name="P:FarsiLibrary.PersianDateConverter.GDayTable">
+        <member name="M:FarsiLibrary.PersianDateConverter.ToGregorianDate(FarsiLibrary.PersianDate)">
             <summary>
-              Array of Day Table for Gregorian Days.
+            Converts a Persian Date of type <c>String</c> to Gregorian Date of type <c>String</c>.
             </summary>
+            <param name="date"></param>
+            <returns>Gregorian DateTime representation in string format of evaluated Jalali Date.</returns>
         </member>
-        <member name="P:FarsiLibrary.PersianDateConverter.JDayTable">
+        <member name="M:FarsiLibrary.PersianDateConverter.DayOfWeek(System.DateTime)">
             <summary>
-              Array of Day Table for Jalali Days.
+            Gets Persian Weekday name from specified Gregorian Date.
             </summary>
+            <param name="date"></param>
+            <returns></returns>
         </member>
-        <member name="P:FarsiLibrary.PersianDateConverter.WeekDays">
+        <member name="M:FarsiLibrary.PersianDateConverter.MonthDays(System.Int32)">
             <summary>
-            Gets WeekDays.
+            Returns number of days in specified month number.
             </summary>
-        </member>
-        <member name="P:FarsiLibrary.PersianDateConverter.WeekDaysAbbr">
-            <summary>
-              Array of WeekDay names for Persian Weekdays. This array is a collection of abbreviated weekday names. The abbreviation name is just the first character of normal weekday names.
-            </summary>
+            <param name="MonthNo">Month no to evaluate in integer</param>
+            <returns>number of days in the evaluated month</returns>
         </member>
         <member name="T:FarsiLibrary.Resources.ARLocalizer">
             <summary>
             Localizer class used to get string values of Arabic language.
+            </summary>
+        </member>
+        <member name="T:FarsiLibrary.Resources.FALocalizer">
+            <summary>
+            Farsi Localizer
             </summary>
         </member>
         <member name="M:FarsiLibrary.Resources.ARLocalizer.GetLocalizedString(FarsiLibrary.Resources.StringID)">
@@ -253,6 +102,12 @@
             <summary>
             PersianCalendar calendar. Persian calendar, also named Jalaali calendar, was first based on Solar year by Omar Khayyam, the great Iranian poet, astrologer and scientist.
             Jalaali calendar is approximately 365 days. Each of the first six months in the Jalaali calendar has 31 days, each of the next five months has 30 days, and the last month has 29 days in a common year and 30 days in a leap year. A leap year is a year that, when divided by 33, has a remainder of 1, 5, 9, 13, 17, 22, 26, or 30. For example, the year 1370 is a leap year because dividing it by 33 yields a remainder of 17. There are approximately 8 leap years in every 33 year cycle.
+            </summary>
+        </member>
+        <member name="F:FarsiLibrary.PersianCalendar.MaxMonthDifference">
+            <summary>
+            Maximum amount of month that can be added or 
+            removed to / from a DateTime instance.
             </summary>
         </member>
         <member name="F:FarsiLibrary.PersianCalendar.PersianEra">
@@ -392,6 +247,19 @@
             A leap month is an entire month that occurs only in a leap year. The Persian calendar does not have any leap months.
             </remarks>
         </member>
+        <member name="M:FarsiLibrary.PersianCalendar.IsLeapMonth(System.Int32,System.Int32)">
+            <summary>
+            Determines whether the month specified by the year, month, and era parameters is a leap month.
+            </summary>
+            <param name="year">An integer that represents the year.</param>
+            <param name="month">An integer that represents the month.</param>
+            <returns>This method always returns false, unless overridden by a derived class.</returns>
+            <remarks>
+            In the Persian calendar leap years are applied every 4 or 5 years according to a certain pattern that iterates in a 2820-year cycle. A common year has 365 days and a leap year has 366 days.
+            
+            A leap month is an entire month that occurs only in a leap year. The Persian calendar does not have any leap months.
+            </remarks>
+        </member>
         <member name="M:FarsiLibrary.PersianCalendar.IsLeapYear(System.Int32,System.Int32)">
             <summary>
             Determines whether the year specified by the year and era parameters is a leap year.
@@ -421,7 +289,8 @@
             </summary>
             <param name="year">A two-digit integer that represents the year to convert.</param>
             <returns>An integer that contains the four-digit representation of year.</returns>
-            <remarks>TwoDigitYearMax is the last year in the 100-year range that can be represented by a two-digit year. The century is determined by finding the sole occurrence of the two-digit year within that 100-year range. For example, if TwoDigitYearMax is set to 1429, the 100-year range is from 1330 to 1429; therefore, a 2-digit value of 30 is interpreted as 1330, while a 2-digit value of 29 is interpreted as 1429.</remarks>
+            <remarks>TwoDigitYearMax is the last year in the 100-year 
+            range that can be represented by a two-digit year. The century is determined by finding the sole occurrence of the two-digit year within that 100-year range. For example, if TwoDigitYearMax is set to 1429, the 100-year range is from 1330 to 1429; therefore, a 2-digit value of 30 is interpreted as 1330, while a 2-digit value of 29 is interpreted as 1429.</remarks>
         </member>
         <member name="M:FarsiLibrary.PersianCalendar.GetCentury(System.DateTime)">
             <summary>
@@ -439,6 +308,21 @@
             <returns>An integer representing the number of leap years that have occured by the year specified.</returns>
             <remarks>In the Persian calendar leap years are applied every 4 or 5 years according to a certain pattern that iterates in a 2820-year cycle. A common year has 365 days and a leap year has 366 days.</remarks>
         </member>
+        <member name="P:FarsiLibrary.PersianCalendar.AlgorithmType">
+            <summary>
+            Algorithm Type
+            </summary>
+        </member>
+        <member name="P:FarsiLibrary.PersianCalendar.MaxSupportedDateTime">
+            <summary>
+            Maximum supported date time by this calendar.
+            </summary>
+        </member>
+        <member name="P:FarsiLibrary.PersianCalendar.MinSupportedDateTime">
+            <summary>
+            Minimum supported date time by this calendar.
+            </summary>
+        </member>
         <member name="P:FarsiLibrary.PersianCalendar.Eras">
             <summary>
             Gets the list of eras in the PersianCalendar.
@@ -452,53 +336,6 @@
             <property_value>The last year of a 100-year range that can be represented by a 2-digit year.</property_value>
             <remarks>This property allows a 2-digit year to be properly translated to a 4-digit year. For example, if this property is set to 1429, the 100-year range is from 1330 to 1429; therefore, a 2-digit value of 30 is interpreted as 1330, while a 2-digit value of 29 is interpreted as 1429.</remarks>
         </member>
-        <member name="T:FarsiLibrary.Exceptions.InvalidPersianDateFormatException">
-            <summary>
-            The invalid persian date format exception.
-            </summary>
-        </member>
-        <member name="M:FarsiLibrary.Exceptions.InvalidPersianDateFormatException.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:FarsiLibrary.Exceptions.InvalidPersianDateFormatException"/> class.
-            </summary>
-            <param name="message">
-            The message.
-            </param>
-        </member>
-        <member name="M:FarsiLibrary.Exceptions.InvalidPersianDateFormatException.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:FarsiLibrary.Exceptions.InvalidPersianDateFormatException"/> class.
-            </summary>
-        </member>
-        <member name="T:FarsiLibrary.Exceptions.InvalidPersianDateException">
-            <summary>
-            The invalid persian date exception.
-            </summary>
-        </member>
-        <member name="M:FarsiLibrary.Exceptions.InvalidPersianDateException.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:FarsiLibrary.Exceptions.InvalidPersianDateException"/> class.
-            </summary>
-        </member>
-        <member name="M:FarsiLibrary.Exceptions.InvalidPersianDateException.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:FarsiLibrary.Exceptions.InvalidPersianDateException"/> class.
-            </summary>
-            <param name="message">
-            The message.
-            </param>
-        </member>
-        <member name="T:FarsiLibrary.Util">
-            <summary>
-            </summary>
-        </member>
-        <member name="M:FarsiLibrary.Util.toDouble(System.Int32)">
-            <summary>
-            Adds a preceding zero to single day or months
-            </summary>
-            <param name="i"></param>
-            <returns></returns>
-        </member>
         <member name="T:FarsiLibrary.toFarsi">
             <summary>
             Helper class to convert numbers to it's farsi equivalent. Use this class' methods to overcome a problem in displaying farsi numeric values.
@@ -508,7 +345,7 @@
             <summary>
             Converts a number in string format e.g. 14500 to its localized version, if <c>Localized</c> value is set to <c>true</c>.
             </summary>
-            <param name="EnglishNumber"></param>
+            <param name="num"></param>
             <param name="culture"></param>
             <returns></returns>
         </member>
@@ -517,7 +354,7 @@
             Converts an English number to it's Farsi value.
             </summary>
             <remarks>This method only converts the numbers in a string, and does not convert any non-numeric characters.</remarks>
-            <param name="EnglishNumber"></param>
+            <param name="num"></param>
             <returns></returns>
         </member>
         <member name="T:FarsiLibrary.Resources.FALocalizeManager">
@@ -525,9 +362,31 @@
             Localizer class to work with internal localized strings.
             </summary>
         </member>
+        <member name="M:FarsiLibrary.Resources.FALocalizeManager.GetLocalizer">
+            <summary>
+            Returns an instance of the localized based on CurrentUICulture of the thread.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:FarsiLibrary.Resources.FALocalizeManager.GetLocalizerByCulture(System.Globalization.CultureInfo)">
             <summary>
             Returns a localizer instance based on the culture.
+            </summary>
+        </member>
+        <member name="M:FarsiLibrary.Resources.FALocalizeManager.OnLocalizerChanged(System.EventArgs)">
+            <summary>
+            Fires the LocalizerChanged event.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="E:FarsiLibrary.Resources.FALocalizeManager.LocalizerChanged">
+            <summary>
+            Fired when Localizer has changed.
+            </summary>
+        </member>
+        <member name="P:FarsiLibrary.Resources.FALocalizeManager.Instance">
+            <summary>
+            Singleton Instance of FALocalizeManager.
             </summary>
         </member>
         <member name="P:FarsiLibrary.Resources.FALocalizeManager.CustomCulture">
@@ -596,70 +455,13 @@
             Converts a Farsi number to it's English numeric values.
             </summary>
             <remarks>This method only converts the numbers in a string, and does not convert any non-numeric characters.</remarks>
-            <param name="FarsiNumber"></param>
+            <param name="num"></param>
             <returns></returns>
-        </member>
-        <member name="T:FarsiLibrary.PersianDayOfWeek">
-            <summary>
-            Determines each day of week
-            </summary>
-        </member>
-        <member name="F:FarsiLibrary.PersianDayOfWeek.Saturday">
-            <summary>
-            The saturday.
-            </summary>
-        </member>
-        <member name="F:FarsiLibrary.PersianDayOfWeek.Sunday">
-            <summary>
-            The sunday.
-            </summary>
-        </member>
-        <member name="F:FarsiLibrary.PersianDayOfWeek.Monday">
-            <summary>
-            The monday.
-            </summary>
-        </member>
-        <member name="F:FarsiLibrary.PersianDayOfWeek.Tuesday">
-            <summary>
-            The tuesday.
-            </summary>
-        </member>
-        <member name="F:FarsiLibrary.PersianDayOfWeek.Wednesday">
-            <summary>
-            The wednesday.
-            </summary>
-        </member>
-        <member name="F:FarsiLibrary.PersianDayOfWeek.Thursday">
-            <summary>
-            The thursday.
-            </summary>
-        </member>
-        <member name="F:FarsiLibrary.PersianDayOfWeek.Friday">
-            <summary>
-            The friday.
-            </summary>
-        </member>
-        <member name="T:FarsiLibrary.Resources.FALocalizer">
-            <summary>
-            Farsi Localizer
-            </summary>
         </member>
         <member name="T:FarsiLibrary.Resources.StringID">
             <summary>
             Various Strings that could be translater in Localizers.
             </summary>
-        </member>
-        <member name="T:FarsiLibrary.Resources.ENLocalizer">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:FarsiLibrary.Resources.ENLocalizer.GetLocalizedString(FarsiLibrary.Resources.StringID)">
-            <summary>
-            Gets the localized string.
-            </summary>
-            <param name="id">The id.</param>
-            <returns></returns>
         </member>
         <member name="T:FarsiLibrary.PersianDate">
             <summary>
@@ -684,14 +486,6 @@
             <summary>
             Static constructor initializes Now property of PersianDate and Min/Max values.
             </summary>
-        </member>
-        <member name="M:FarsiLibrary.PersianDate.#ctor(System.String,System.String)">
-            <summary>
-            Constructs a PersianDate instance with values provided in datetime string. 
-            use the format you want to parse the string with. Currently it can be either g, G, or d value.
-            </summary>
-            <param name="datetime"></param>
-            <param name="format"></param>
         </member>
         <member name="M:FarsiLibrary.PersianDate.#ctor(System.String,System.TimeSpan)">
             <summary>
@@ -762,35 +556,24 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:FarsiLibrary.PersianDate.Parse(System.String,System.Boolean)">
+        <member name="M:FarsiLibrary.PersianDate.ToPrettyDate">
             <summary>
-            Parse a string value into a PersianDate instance. Value could be either in 'yyyy/mm/dd hh:mm:ss' or 'yyyy/mm/dd' formats. If you want to parse <c>Time</c> value too,
-            you should set <c>includesTime</c> to <c>true</c>.
+            Returns a pretty representation of this date instance
             </summary>
-            <exception cref="T:FarsiLibrary.Exceptions.InvalidPersianDateException"></exception>
-            <param name="value"></param>
-            <param name="includesTime"></param>
             <returns></returns>
         </member>
-        <member name="M:FarsiLibrary.PersianDate.ParseFullDateTime(System.String)">
+        <member name="M:FarsiLibrary.PersianDate.TryParse(System.String,FarsiLibrary.PersianDate@)">
             <summary>
-            Parse a string value into a PersianDate instance. Value should be in 'yyyy/mm/dd hh:mm:ss tt' formats.
+            Tries to parse a string value into a PersianDate instance. 
+            Value can only be in 'yyyy/mm/dd' format.
             </summary>
-            <exception cref="T:FarsiLibrary.Exceptions.InvalidPersianDateException"></exception>
             <param name="value"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FarsiLibrary.PersianDate.ParseDateShortTime(System.String)">
-            <summary>
-            Parse a string value into a PersianDate instance. Value should be in 'yyyy/mm/dd hh:mm tt' formats.
-            </summary>
-            <exception cref="T:FarsiLibrary.Exceptions.InvalidPersianDateException"></exception>
-            <param name="value"></param>
+            <param name="persianDate"></param>
             <returns></returns>
         </member>
         <member name="M:FarsiLibrary.PersianDate.Parse(System.String)">
             <summary>
-            Parse a string value into a PersianDate instance. Value can only be in 'yyyy/mm/dd' format.
+            Parse a string value into a PersianDate instance.
             </summary>
             <param name="value"></param>
             <returns></returns>
@@ -873,7 +656,14 @@
             <param name="obj"></param>
             <returns></returns>
         </member>
-        <member name="M:FarsiLibrary.PersianDate.CompareTo(System.Object)">
+        <member name="M:FarsiLibrary.PersianDate.op_Implicit(System.Nullable{System.DateTime})~FarsiLibrary.PersianDate">
+            <summary>
+            Converts a nullable DateTime to PersianDate.
+            </summary>
+            <param name="dt"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FarsiLibrary.PersianDate.System#IComparable#CompareTo(System.Object)">
             <summary>
             Compares the current instance with another object of the same type.
             </summary>
@@ -885,7 +675,7 @@
             <param name="obj">An object to compare with this instance. </param>
             <exception cref="T:System.ArgumentException">obj is not the same type as this instance. </exception><filterpriority>2</filterpriority>
         </member>
-        <member name="M:FarsiLibrary.PersianDate.Compare(System.Object,System.Object)">
+        <member name="M:FarsiLibrary.PersianDate.System#Collections#IComparer#Compare(System.Object,System.Object)">
             <summary>
             Compares two objects and returns a value indicating whether one is less than, equal to, or greater than the other.
             </summary>
@@ -955,16 +745,6 @@
             <param name="formatProvider"></param>
             <returns></returns>
         </member>
-        <member name="P:FarsiLibrary.PersianDate.AMDesignator">
-            <summary>
-            AMDesignator.
-            </summary>
-        </member>
-        <member name="P:FarsiLibrary.PersianDate.PMDesignator">
-            <summary>
-            PMDesignator.
-            </summary>
-        </member>
         <member name="P:FarsiLibrary.PersianDate.Now">
             <summary>
             Current date/time in PersianDate format.
@@ -1029,6 +809,263 @@
             <summary>
             Number of days in this month.
             </summary>
+        </member>
+        <member name="P:FarsiLibrary.Formatter.ITimeUnit.MillisPerUnit">
+            <summary>
+            The number of milliseconds represented by each 
+            instance of this TimeUnit.
+            </summary>
+        </member>
+        <member name="P:FarsiLibrary.Formatter.ITimeUnit.MaxQuantity">
+            <summary>
+            The maximum quantity of this Unit to be used as a threshold for the next
+            largest Unit (e.g. if one <code>Second</code> represents 1000ms, and
+            <code>Second</code> has a maxQuantity of 5, then if the difference
+            between compared timestamps is larger than 5000ms, PrettyTime will move
+            on to the next smallest TimeUnit for calculation; <code>Minute</code>, by
+            default)
+            </summary>
+        </member>
+        <member name="P:FarsiLibrary.Formatter.ITimeUnit.Name">
+            <summary>
+            The grammatically singular name for this unit of time. (e.g. one "second")
+            </summary>
+        </member>
+        <member name="P:FarsiLibrary.Formatter.ITimeUnit.PluralName">
+            <summary>
+            The grammatically plural name for this unit of time. (e.g. many "seconds")
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FarsiLibrary.Formatter.ITimeFormat.Format(FarsiLibrary.Formatter.Duration)">
+            <summary>
+            Formats a duration
+            </summary>
+            <param name="duration"></param>
+            <returns></returns>
+        </member>
+        <member name="T:FarsiLibrary.Internals.CultureHelper">
+            <summary>
+            Base culture information
+            </summary>
+        </member>
+        <member name="M:FarsiLibrary.Internals.CultureHelper.GetDayOfWeek(System.DateTime,System.Globalization.Calendar)">
+            <summary>
+            Returns the day of week based on calendar.
+            </summary>
+            <param name="dt"></param>
+            <param name="calendar"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FarsiLibrary.Internals.CultureHelper.GetCultureDayOfWeek(System.Int32,System.Globalization.CultureInfo)">
+            <summary>
+            Finds the corresponding DayOfWeek in specified culture
+            </summary>
+            <param name="day"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="P:FarsiLibrary.Internals.CultureHelper.CurrentCulture">
+            <summary>
+            Currently selected UICulture
+            </summary>
+        </member>
+        <member name="P:FarsiLibrary.Internals.CultureHelper.ArabicCulture">
+            <summary>
+            Instance of Arabic culture
+            </summary>
+        </member>
+        <member name="P:FarsiLibrary.Internals.CultureHelper.FarsiCulture">
+            <summary>
+            Instance of Farsi culture
+            </summary>
+        </member>
+        <member name="P:FarsiLibrary.Internals.CultureHelper.PersianCulture">
+            <summary>
+            Instance of Persian Culture with correct date formatting.
+            </summary>
+        </member>
+        <member name="P:FarsiLibrary.Internals.CultureHelper.NeutralCulture">
+            <summary>
+            Instance of Neutral culture
+            </summary>
+        </member>
+        <member name="P:FarsiLibrary.Internals.CultureHelper.CurrentCalendar">
+            <summary>
+            Returns the default calendar for the current culture.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:FarsiLibrary.Internals.Guard">
+            <summary>
+            Helper class for guard statements, which allow prettier
+            code for guard clauses
+            </summary>
+        </member>
+        <member name="M:FarsiLibrary.Internals.Guard.Against(System.Boolean,System.String)">
+            <summary>
+            Will throw a <see cref="T:System.InvalidOperationException"/> if the assertion
+            is true, with the specificied message.
+            </summary>
+            <param name="assertion">if set to <c>true</c> [assertion].</param>
+            <param name="message">The message.</param>
+            <example>
+            Sample usage:
+            <code>
+            Guard.Against(string.IsNullOrEmpty(name), "Name must have a value");
+            </code>
+            </example>
+        </member>
+        <member name="M:FarsiLibrary.Internals.Guard.Against``1(System.Boolean,System.String)">
+            <summary>
+            Will throw exception of type <typeparamref name="TException"/>
+            with the specified message if the assertion is true
+            </summary>
+            <typeparam name="TException"></typeparam>
+            <param name="assertion">if set to <c>true</c> [assertion].</param>
+            <param name="message">The message.</param>
+            <example>
+            Sample usage:
+            <code>
+            <![CDATA[
+            Guard.Against<ArgumentException>(string.IsNullOrEmpty(name), "Name must have a value");
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="M:FarsiLibrary.Internals.ReflectionHelper.GetField(System.Type,System.String)">
+            <summary>
+            Find and returns a FieldInfo by its name, on 
+            the specified type.
+            </summary>
+            <param name="type"></param>
+            <param name="fieldName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FarsiLibrary.Internals.ReflectionHelper.SetField(System.Object,System.String,System.Object)">
+            <summary>
+            Sets a value to a field of the owner object
+            </summary>
+            <param name="owner"></param>
+            <param name="fieldName"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:FarsiLibrary.Internals.ReflectionHelper.GetField``1(System.Object,System.String)">
+            <summary>
+            Find and returns a FieldInfo by its name, on 
+            the specified type.
+            </summary>
+            <param name="fieldName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FarsiLibrary.Internals.ReflectionHelper.GetField(System.Object,System.String)">
+            <summary>
+            returns value of a field in the owner object.
+            </summary>
+            <param name="owner"></param>
+            <param name="fieldName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FarsiLibrary.Internals.ReflectionHelper.GetProperty(System.Type,System.Object,System.String)">
+            <summary>
+            Returns ProprtyInfo of a 
+            </summary>
+            <param name="type"></param>
+            <param name="owner"></param>
+            <param name="propName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FarsiLibrary.Internals.ReflectionHelper.GetProperty(System.Object,System.String)">
+            <summary>
+            Returns value of a property in the owner object.
+            </summary>
+            <param name="owner"></param>
+            <param name="propName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FarsiLibrary.Internals.ReflectionHelper.GetProperty``1(System.Object,System.String)">
+            <summary>
+            Returns value of a property in the owner object.
+            </summary>
+            <typeparam name="TResult"></typeparam>
+            <param name="owner"></param>
+            <param name="propName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:FarsiLibrary.Internals.ThemeWrapper">
+            <summary>
+            A wrapper around Win32 Theming. Return which theme is
+            currently active.
+            </summary>
+        </member>
+        <member name="M:FarsiLibrary.Internals.Util.toDouble(System.Int32)">
+            <summary>
+            Adds a preceding zero to single day or months
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FarsiLibrary.DateTimeExtensions.ToPersianDate(System.DateTime)">
+            <summary>
+            Converts the DateTime to a PersianDate equivalant.
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FarsiLibrary.DateTimeExtensions.ToDateTime(FarsiLibrary.PersianDate)">
+            <summary>
+            Converts the PersianDate to a DateTime equivalant.
+            </summary>
+            <param name="persianDate"></param>
+            <returns></returns>
+        </member>
+        <member name="T:FarsiLibrary.PersianCultureInfo">
+            <summary>
+            CultureInfo for "FA-IR" culture, which has correct calendar information.
+            </summary>
+        </member>
+        <member name="M:FarsiLibrary.PersianCultureInfo.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:FarsiLibrary.PersianCultureInfo"/> class.
+            </summary>
+        </member>
+        <member name="M:FarsiLibrary.PersianCultureInfo.Clone">
+            <summary>
+            Creates a copy of the current <see cref="T:System.Globalization.CultureInfo"/>.
+            </summary>
+            <returns>
+            A copy of the current <see cref="T:System.Globalization.CultureInfo"/>.
+            </returns>
+        </member>
+        <member name="P:FarsiLibrary.PersianCultureInfo.Calendar">
+            <summary>
+            Gets the default calendar used by the culture.
+            </summary>
+            <value></value>
+            <returns>
+            A <see cref="T:System.Globalization.Calendar"/> that represents the default calendar used by the culture.
+            </returns>
+        </member>
+        <member name="P:FarsiLibrary.PersianCultureInfo.OptionalCalendars">
+            <summary>
+            Gets the list of calendars that can be used by the culture.
+            </summary>
+            <value></value>
+            <returns>
+            An array of type <see cref="T:System.Globalization.Calendar"/> that represents the calendars that can be used by the culture represented by the current <see cref="T:System.Globalization.CultureInfo"/>.
+            </returns>
+        </member>
+        <member name="P:FarsiLibrary.PersianCultureInfo.DateTimeFormat">
+            <summary>
+            Gets or sets a <see cref="T:System.Globalization.DateTimeFormatInfo"/> that defines the culturally appropriate format of displaying dates and times.
+            </summary>
+            <value></value>
+            <returns>
+            A <see cref="T:System.Globalization.DateTimeFormatInfo"/> that defines the culturally appropriate format of displaying dates and times.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+            The property is set to null.
+            </exception>
         </member>
     </members>
 </doc>

@@ -683,6 +683,7 @@
     <Resource tag="RESET_PASS">Passwort zurücksetzen</Resource>
     <Resource tag="SET_POINTS">Punkte setzen:</Resource>
     <Resource tag="TITLE">Benutzer "{0}" bearbeiten</Resource>
+    <Resource tag="TWITTER_USER">Twitter Benutzer:</Resource>
     <Resource tag="USER_AVATAR">Benutzer Avatar</Resource>
     <Resource tag="USER_DETAILS">Benutzer-Details</Resource>
     <Resource tag="USER_KILL">User Kill Aktivität</Resource>
@@ -904,7 +905,7 @@
     <Resource tag="ENABLE_RETWEET_MSG">Beitrag Retweeten Button aktivieren:</Resource>
     <Resource tag="ENABLE_RETWEET_MSG_HELP">Aktiviert / deaktiviert den Retweet Button, wo der Benutzer ein Beitrag retweeten kann.</Resource>
     <Resource tag="ENABLE_SSO">Single Sign On Aktivieren:</Resource>
-    <Resource tag="ENABLE_SSO_HELP">Wenn diese Option aktiviert ist, können Benutzer sich über Facebook anmelden. Dies funktioniert nur wenn YAF.FacebookAPIKey und YAF.FacebookSecretKey in der app.config vorhanden sind.</Resource>
+    <Resource tag="ENABLE_SSO_HELP">Wenn diese Option aktiviert ist, können Benutzer sich über Facebook und/oder Twitter anmelden. Um diese Funktion zu aktivieren müssen die Parameter YAF.FacebookAPIKey und YAF.FacebookSecretKey angegeben werden, und für Twitter YAF.TwitterConsumerKey und YAF.TwitterConsumerSecret Werte in der app.config (AppSettings) Datei.</Resource>
     <Resource tag="ENABLE_USERREPUTATION">Use Reputation System:</Resource>
     <Resource tag="ENABLE_USERREPUTATION_HELP">Setting to Enable/Disable the Build-In Reputation System to allow Users Give or Remove Reputation.</Resource>
     <Resource tag="EXTERN_NEWWINDOW">Externe Suchergebnisse in einem neuen Fenster:</Resource>
@@ -1194,8 +1195,8 @@
     <Resource tag="SSL_LOGIN_HELP">Erzwingen einer sicheren Verbindung für die Benutzer Anmeldung</Resource>
     <Resource tag="SSL_REGISTER">SSL bei der Registrierung verwenden:</Resource>
     <Resource tag="SSL_REGISTER_HELP">Erzwingen einer sicheren Verbindung für die Benutzer Registrierung.</Resource>
-    <Resource tag="SSO_AUTO_REGISTER">Neue Facebook Benutzer autom. registrieren:</Resource>
-    <Resource tag="SSO_AUTO_REGISTER_HELP">Benutzer automatisch Registrieren wenn sie nicht existieren wenn sich jemand über Facebook versucht anzumelden.</Resource>
+    <Resource tag="SSO_AUTO_REGISTER">Neue Facebook/Twitter Benutzer autom. registrieren:</Resource>
+    <Resource tag="SSO_AUTO_REGISTER_HELP">Benutzer automatisch Registrieren wenn sie nicht existieren wenn sich jemand über Facebook oder Twitter versucht anzumelden.</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT">Forum Statistiken Speicher Ablaufzeit:</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT_HELP">In Minuten</Resource>
     <Resource tag="STYLED_NICKS">Gestylte Nicks verwenden:</Resource>
@@ -1508,6 +1509,7 @@
     <Resource tag="SEARCH">Suche</Resource>
     <Resource tag="SYNC_ALL">Alle Membership Benutzer synchronisieren</Resource>
     <Resource tag="TITLE">Benutzer</Resource>
+    <Resource tag="TWITTER_USER">Twitter Benutzer</Resource>
     <Resource tag="USER_NAME">Benutzername</Resource>
   </page>
   <page name="ADMIN_USERS_IMPORT">
@@ -1711,7 +1713,7 @@
     <Resource tag="BBCODE_QUOTEPOSTED_TT">Gehe zum zitierten Beitrag</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} schrieb:</Resource>
     <Resource tag="CAL_JQ_CULTURE">de</Resource>
-    <Resource tag="CAL_JQ_CULTURE_DFORMAT">MM/dd/YY</Resource>
+    <Resource tag="CAL_JQ_CULTURE_DFORMAT">dd.MM.YYYY</Resource>
     <Resource tag="CAL_JQ_TT">Klicken Sie Um Datum zu wählen</Resource>
     <Resource tag="CAN_DELETE">Du [b]kannst[/b] deine Beiträge in diesem Forum löschen.</Resource>
     <Resource tag="CAN_EDIT">Du [b]kannst[/b] deine Beiträge in diesem Forum editieren.</Resource>
@@ -1733,6 +1735,7 @@
     <Resource tag="CONTINUE">Weiter</Resource>
     <Resource tag="COPY">Kopieren</Resource>
     <Resource tag="CUSTOM_BBCODE">Zusätzliche BB-Codes:</Resource>
+    <Resource tag="ALBUMIMG_BBCODE">Album Bild einfügen...</Resource>
     <Resource tag="DELETE">Löschen</Resource>
     <Resource tag="DISALLOWED">Nicht erlaubt</Resource>
     <Resource tag="DOWNLOAD">Herunterladen</Resource>
@@ -2194,8 +2197,9 @@
     <Resource tag="TIMEZONE2">Damit Daten und Uhrzeiten im Forum richtig angezeigt werden, musst du Deine Zeitzone angeben.</Resource>
     <Resource tag="TITLE">Profil bearbeiten</Resource>
     <Resource tag="TWITTER">Twittername:</Resource>
+    <Resource tag="TWITTER_ID">Twitter ID:</Resource>
     <Resource tag="USE_MOBILE_THEME">Mobile Forum Skin benutzen:</Resource>
-    <Resource tag="USE_SINGLESIGNON">Möchten Sie Single Sign On verwenden?&lt;br /&gt;Sie müssen oben ihre Facebook ID angeben.</Resource>
+    <Resource tag="USE_SINGLESIGNON">Möchten Sie Single Sign On verwenden?&lt;br /&gt;Sie müssen oben ihre Facebook ID angeben um Sie via Facebook anzumelden, und ihren Titter Namen + Id für Twitter.</Resource>
     <Resource tag="WEBLOG2">Dein Blog:</Resource>
     <Resource tag="WHERE">Wo lebst du?</Resource>
     <Resource tag="XMPP">Jabber ID:</Resource>
@@ -3810,7 +3814,12 @@ Spoiler Content
     <Resource tag="SSO_DEACTIVATED_BYUSER">Single Sign On ist deaktiviert für diesen Benutzer, um diese Funktion zu aktivieren müssen Sie diese in den Profil Einstellungen aktivieren.</Resource>
     <Resource tag="SSO_FAILED">Die Facebook Anmeldung ist fehlgeschlagen, ein Benutzer mit dieser E-Mail Adresse existiert nicht.</Resource>
     <Resource tag="SSO_ID_NOTMATCH">Die Facebook Benutzer ID stimmt nicht überein!</Resource>
+    <Resource tag="SSO_TWITTER_FAILED">Die Twitter Anmeldung ist fehlgeschlagen, ein Benutzer mit diesem Namen existiert nicht.</Resource>
+    <Resource tag="SSO_TWITTERID_NOTMATCH">Der Twitter Name und Twitter ID stimmt nicht überein!</Resource>
     <Resource tag="TITLE">Einloggen</Resource>
+    <Resource tag="TWITTER_DM">Sie haben weitere Informationen für Ihr Benutzerkonto als Private Nachricht im Forum erhalten.</Resource>
+    <Resource tag="TWITTER_LOGIN">Mit Twitter anmelden</Resource>
+    <Resource tag="UPDATE_EMAIL">Bitte aktualisieren Sie jetzt ihre E-Mail Adresse!</Resource>
     <Resource tag="USERNAME">Benutzername oder E-Mail Adresse:</Resource>
     <Resource tag="WRONG_USERNAME_EMAIL">Falscher Benutzername oder falsche E-Mail-Adresse.</Resource>
   </page>
@@ -4598,6 +4607,17 @@ Der Beitrag wurde im {forumname} forum veröffentlicht.
 	  Automatisch generiertes Passwort: {pass}
 	  Automatich generierte Sicherheits Antwort: {answer}
       E-Mail: {email} (Bitte ändern Sie nicht ihre E-Mail Adresse, ansonsten können Sie sich nicht mehr über Facebook anmelden)
+	  
+    </Resource>
+    <Resource tag="NOTIFICATION_ON_TWITTER_REGISTER">
+      Hallo {user}.
+
+      Sie haben sich erfolgreich im forum {forumname} über Twitter registriert:
+
+      Benutzername: {user}
+	  Automatisch generiertes Passwort: {pass}
+	  Automatich generierte Sicherheits Antwort: {answer}
+      E-Mail: {email} (Bitte ändern umgehend ihre E-Mail Adresse.)
 	  
     </Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER">

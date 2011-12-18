@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.PMList" EnableTheming="true" Codebehind="PMList.ascx.cs" EnableViewState="true" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.PMList" EnableTheming="true" Codebehind="PMList.ascx.cs" EnableViewState="true" %>
 <%@ Import Namespace="YAF.Utils" %>
 <%@ Import Namespace="YAF.Core" %>
 
@@ -26,13 +26,13 @@
 				  <YAF:ThemeButton runat="server" ID="ArchiveSelected" CssClass="yafcssbigbutton leftItem"
 					TextLocalizedTag="ARCHIVESELECTED" OnClick="ArchiveSelected_Click" Visible="<%#this.View == PMView.Inbox %>" />
                      <YAF:ThemeButton runat="server" ID="ExportSelected" CssClass="yafcssbigbutton leftItem"
-					TextLocalizedTag="EXPORTSELECTED" OnClick="ExportSelected_Click" />
+					TextLocalizedTag="EXPORTSELECTED" OnClick="ExportSelected_Click" OnLoad="ExportAll_Load" />
 				  <YAF:ThemeButton runat="server" ID="DeleteSelected" CssClass="yafcssbigbutton leftItem"
 					TextLocalizedTag="DELETESELECTED" OnLoad="DeleteSelected_Load" OnClick="DeleteSelected_Click" />
 				  <YAF:ThemeButton runat="server" ID="ArchiveAll" CssClass="yafcssbigbutton leftItem"
 					TextLocalizedTag="ARCHIVEALL" OnLoad="ArchiveAll_Load" OnClick="ArchiveAll_Click" Visible="<%#this.View == PMView.Inbox %>" />
                   <YAF:ThemeButton runat="server" ID="ExportAll" CssClass="yafcssbigbutton leftItem"
-					TextLocalizedTag="EXPORTALL" OnClick="ExportAll_Click" />
+					TextLocalizedTag="EXPORTALL" OnClick="ExportAll_Click" OnLoad="ExportAll_Load" />
 				  <YAF:ThemeButton runat="server" ID="DeleteAll" CssClass="yafcssbigbutton leftItem"
 					TextLocalizedTag="DELETEALL" OnLoad="DeleteAll_Load" OnClick="DeleteAll_Click" />
                 </ContentTemplate> 

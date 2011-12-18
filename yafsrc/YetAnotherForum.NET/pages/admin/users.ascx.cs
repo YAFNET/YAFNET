@@ -597,6 +597,7 @@ namespace YAF.Pages.Admin
             usersList.Columns.Add("YIM");
             usersList.Columns.Add("Occupation");
             usersList.Columns.Add("Twitter");
+            usersList.Columns.Add("TwitterId");
             usersList.Columns.Add("Facebook");
 
             usersList.Columns.Add("Roles");
@@ -629,6 +630,7 @@ namespace YAF.Pages.Admin
                 user["YIM"] = userProfile.YIM;
                 user["Occupation"] = userProfile.Occupation;
                 user["Twitter"] = userProfile.Twitter;
+                user["TwitterId"] = userProfile.TwitterId;
                 user["Facebook"] = userProfile.Facebook;
 
                 user["Roles"] = this.Get<RoleProvider>().GetRolesForUser((string)user["Name"]).ToDelimitedString(",");
@@ -658,9 +660,8 @@ namespace YAF.Pages.Admin
             this.Response.ContentType = "application/vnd.csv";
 
             this.Response.AppendHeader(
-                "content-disposition",
-                "attachment; filename={0}".FormatWith(HttpUtility.UrlEncode(
-                    "YafUsersExport-{0}.csv".FormatWith(DateTime.Now.ToString("yyyy'-'MM'-'dd'-'HHmm")))));
+                "Content-Disposition",
+                "attachment; filename=YafUsersExport-{0}.csv".FormatWith(HttpUtility.UrlEncode(DateTime.Now.ToString("yyyy'-'MM'-'dd'-'HHmm"))));
 
             var sw = new StreamWriter(this.Response.OutputStream);
 
@@ -715,9 +716,7 @@ namespace YAF.Pages.Admin
 
             this.Response.AppendHeader(
                 "Content-Disposition",
-                "attachment; filename={0}".FormatWith(
-                    HttpUtility.UrlEncode(
-                        "YafUsersExport-{0}.xml".FormatWith(DateTime.Now.ToString("yyyy'-'MM'-'dd'-'HHmm")))));
+                "attachment; filename=YafUsersExport-{0}.xml".FormatWith(HttpUtility.UrlEncode(DateTime.Now.ToString("yyyy'-'MM'-'dd'-'HHmm"))));
 
             usersList.DataSet.WriteXml(this.Response.OutputStream);
 

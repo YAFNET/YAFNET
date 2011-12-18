@@ -39,6 +39,9 @@
                                     </fb:login-button>
                                     <div id="fb-root"></div>
                                  </asp:PlaceHolder>
+                                 <asp:PlaceHolder id="TwitterHolder" runat="server" Visible="false">
+                                   <button id="TwitterLogin" runat="server" style="background:none;border:none;cursor:pointer;padding:3px;"></button>
+                                 </asp:PlaceHolder>
                                </div>
                                 
                             </td>

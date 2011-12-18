@@ -21,16 +21,8 @@
 
 namespace FarsiLibrary.Resources
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public class ENLocalizer : BaseLocalizer
     {
-        /// <summary>
-        /// Gets the localized string.
-        /// </summary>
-        /// <param name="id">The id.</param>
-        /// <returns></returns>
         public override string GetLocalizedString(StringID id)
         {
             switch (id)
@@ -80,7 +72,100 @@ namespace FarsiLibrary.Resources
                 case StringID.MessageBox_Yes: return "Yes";
             }
 
-            return "";
+            return string.Empty;
+        }
+
+        public override string GetFormatterString(FormatterStringID stringID)
+        {
+            switch (stringID)
+            {
+                case FormatterStringID.CenturyPattern: return "%n %u";
+                case FormatterStringID.CenturyFuturePrefix: return "";
+                case FormatterStringID.CenturyFutureSuffix: return " from now";
+                case FormatterStringID.CenturyPastPrefix: return "";
+                case FormatterStringID.CenturyPastSuffix: return " ago";
+                case FormatterStringID.CenturyName: return "century";
+                case FormatterStringID.CenturyPluralName: return "centuries";
+                case FormatterStringID.DayPattern: return "%n %u";
+                case FormatterStringID.DayFuturePrefix: return "";
+                case FormatterStringID.DayFutureSuffix: return " from now";
+                case FormatterStringID.DayPastPrefix: return "";
+                case FormatterStringID.DayPastSuffix: return " ago";
+                case FormatterStringID.DayName: return "day";
+                case FormatterStringID.DayPluralName: return "days";
+                case FormatterStringID.DecadePattern: return "%n %u";
+                case FormatterStringID.DecadeFuturePrefix: return "";
+                case FormatterStringID.DecadeFutureSuffix: return " from now";
+                case FormatterStringID.DecadePastPrefix: return "";
+                case FormatterStringID.DecadePastSuffix: return " ago";
+                case FormatterStringID.DecadeName: return "decade";
+                case FormatterStringID.DecadePluralName: return "decades";
+                case FormatterStringID.HourPattern: return "%n %u";
+                case FormatterStringID.HourFuturePrefix: return "";
+                case FormatterStringID.HourFutureSuffix: return " from now";
+                case FormatterStringID.HourPastPrefix: return "";
+                case FormatterStringID.HourPastSuffix: return " ago";
+                case FormatterStringID.HourName: return "hour";
+                case FormatterStringID.HourPluralName: return "hours";
+                case FormatterStringID.JustNowPattern: return "%u";
+                case FormatterStringID.JustNowFuturePrefix: return "";
+                case FormatterStringID.JustNowFutureSuffix: return "moments from now";
+                case FormatterStringID.JustNowPastPrefix: return "moments ago";
+                case FormatterStringID.JustNowPastSuffix: return "";
+                case FormatterStringID.JustNowName: return "";
+                case FormatterStringID.JustNowPluralName: return "";
+                case FormatterStringID.MillenniumPattern: return "%n %u";
+                case FormatterStringID.MillenniumFuturePrefix: return "";
+                case FormatterStringID.MillenniumFutureSuffix: return " from now";
+                case FormatterStringID.MillenniumPastPrefix: return "";
+                case FormatterStringID.MillenniumPastSuffix: return " ago";
+                case FormatterStringID.MillenniumName: return "millennium";
+                case FormatterStringID.MillenniumPluralName: return "millennia";
+                case FormatterStringID.MillisecondPattern: return "%n %u";
+                case FormatterStringID.MillisecondFuturePrefix: return "";
+                case FormatterStringID.MillisecondFutureSuffix: return " from now";
+                case FormatterStringID.MillisecondPastPrefix: return "";
+                case FormatterStringID.MillisecondPastSuffix: return " ago";
+                case FormatterStringID.MillisecondName: return "millisecond";
+                case FormatterStringID.MillisecondPluralName: return "milliseconds";
+                case FormatterStringID.MinutePattern: return "%n %u";
+                case FormatterStringID.MinuteFuturePrefix: return "";
+                case FormatterStringID.MinuteFutureSuffix: return " from now";
+                case FormatterStringID.MinutePastPrefix: return "";
+                case FormatterStringID.MinutePastSuffix: return " ago";
+                case FormatterStringID.MinuteName: return "minute";
+                case FormatterStringID.MinutePluralName: return "minutes";
+                case FormatterStringID.MonthPattern: return "%n %u";
+                case FormatterStringID.MonthFuturePrefix: return "";
+                case FormatterStringID.MonthFutureSuffix: return " from now";
+                case FormatterStringID.MonthPastPrefix: return "";
+                case FormatterStringID.MonthPastSuffix: return " ago";
+                case FormatterStringID.MonthName: return "month";
+                case FormatterStringID.MonthPluralName: return "months";
+                case FormatterStringID.SecondPattern: return "%n %u";
+                case FormatterStringID.SecondFuturePrefix: return "";
+                case FormatterStringID.SecondFutureSuffix: return " from now";
+                case FormatterStringID.SecondPastPrefix: return "";
+                case FormatterStringID.SecondPastSuffix: return " ago";
+                case FormatterStringID.SecondName: return "second";
+                case FormatterStringID.SecondPluralName: return "seconds";
+                case FormatterStringID.WeekPattern: return "%n %u";
+                case FormatterStringID.WeekFuturePrefix: return "";
+                case FormatterStringID.WeekFutureSuffix: return " from now";
+                case FormatterStringID.WeekPastPrefix: return "";
+                case FormatterStringID.WeekPastSuffix: return " ago";
+                case FormatterStringID.WeekName: return "week";
+                case FormatterStringID.WeekPluralName: return "weeks";
+                case FormatterStringID.YearPattern: return "%n %u";
+                case FormatterStringID.YearFuturePrefix: return "";
+                case FormatterStringID.YearFutureSuffix: return " from now";
+                case FormatterStringID.YearPastPrefix: return "";
+                case FormatterStringID.YearPastSuffix: return " ago";
+                case FormatterStringID.YearName: return "year";
+                case FormatterStringID.YearPluralName: return "years";
+            }
+
+            return string.Empty;
         }
     }
 }

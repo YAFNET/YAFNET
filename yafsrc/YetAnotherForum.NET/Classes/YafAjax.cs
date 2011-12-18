@@ -218,7 +218,7 @@ namespace YAF.Classes
                 if (yafUser.Facebook.Equals(id))
                 {
                     // Add Flag to User that indicates that the user is logged in via facebook
-                    LegacyDb.user_updatefacebookstatus(yafUserData.UserID, true);
+                    LegacyDb.user_update_single_sign_on_status(yafUserData.UserID, true, false);
 
                     FormsAuthentication.SetAuthCookie(userName, remember);
 
@@ -338,7 +338,7 @@ namespace YAF.Classes
                 this.Get<IRaiseEvent>().Raise(new NewUserRegisteredEvent(user, userId));
 
                 // Add Flag to User that indicates that the user is logged in via facebook
-                LegacyDb.user_updatefacebookstatus(userId, true);
+                LegacyDb.user_update_single_sign_on_status(userId, true, false);
 
                 FormsAuthentication.SetAuthCookie(user.UserName, remember);
 

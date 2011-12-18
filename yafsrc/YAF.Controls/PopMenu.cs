@@ -26,17 +26,14 @@ namespace YAF.Controls
     using System.Text;
     using System.Web.UI;
     using System.Web.UI.WebControls;
-
     using YAF.Core;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Constants;
-    using YAF.Utils;
     using YAF.Types;
+    using YAF.Utils;
 
     #endregion
 
     /// <summary>
-    /// Summary description for ForumJump.
+    /// PopMenu Control
     /// </summary>
     public class PopMenu : BaseControl, IPostBackEventHandler
     {
@@ -332,51 +329,6 @@ namespace YAF.Controls
         {
             // init the necessary js...
             PageContext.PageElements.RegisterJsResourceInclude("yafjs", "js/yaf.js");
-        }
-
-        #endregion
-    }
-
-    /// <summary>
-    /// The pop event args.
-    /// </summary>
-    public class PopEventArgs : EventArgs
-    {
-        #region Constants and Fields
-
-        /// <summary>
-        ///   The _item.
-        /// </summary>
-        private readonly string _item;
-
-        #endregion
-
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PopEventArgs"/> class.
-        /// </summary>
-        /// <param name="eventArgument">
-        /// The event argument.
-        /// </param>
-        public PopEventArgs([NotNull] string eventArgument)
-        {
-            this._item = eventArgument;
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        ///   Gets Item.
-        /// </summary>
-        public string Item
-        {
-            get
-            {
-                return this._item;
-            }
         }
 
         #endregion

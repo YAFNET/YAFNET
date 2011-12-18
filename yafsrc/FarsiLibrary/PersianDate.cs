@@ -23,13 +23,12 @@ namespace FarsiLibrary
 {
     using System;
     using System.Collections;
-    using System.ComponentModel;
-    using System.Threading;
-
-    using FarsiLibrary.Exceptions;
-    using FarsiLibrary.Resources;
-
     using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Globalization;
+    using FarsiLibrary.Exceptions;
+    using FarsiLibrary.Internals;
+    using FarsiLibrary.Resources;
 
     /// <summary>
     /// PersianDate class to work with dates in Jalali calendar transparently.
@@ -50,7 +49,7 @@ namespace FarsiLibrary
     /// </summary>
     [TypeConverter("FarsiLibrary.Win.Design.PersianDateTypeConverter")]
     [Serializable]
-    public sealed class PersianDate : 
+    public class PersianDate : 
         IFormattable,
         ICloneable, 
         IComparable, 
@@ -59,260 +58,6 @@ namespace FarsiLibrary
         IComparer<PersianDate>,
         IEquatable<PersianDate>
     {
-        #region Month Names
-
-        public class PersianMonthNames
-        {
-            #region Fields
-
-            public string Farvardin = "فروردین";
-            public string Ordibehesht = "ارديبهشت";
-            public string Khordad = "خرداد";
-            public string Tir = "تير";
-            public string Mordad = "مرداد";
-            public string Shahrivar = "شهریور";
-            public string Mehr = "مهر";
-            public string Aban = "آبان";
-            public string Azar = "آذر";
-            public string Day = "دی";
-            public string Bahman = "بهمن";
-            public string Esfand = "اسفند";
-
-            private static PersianMonthNames def;
-
-            #endregion
-
-            #region Ctor
-
-            static PersianMonthNames()
-            {
-                def = new PersianMonthNames();
-            }
-
-            #endregion
-
-            #region Indexer
-
-            public static PersianMonthNames Default
-            {
-                get { return def; }
-            }
-
-            public string this[int month]
-            {
-                get
-                {
-                    return GetName(month);
-                }
-            }
-
-            #endregion
-
-            #region Methods
-
-            private string GetName(int monthNo)
-            {
-                switch (monthNo)
-                {
-                    case 1:
-                        return Farvardin;
-
-                    case 2:
-                        return Ordibehesht;
-
-                    case 3:
-                        return Khordad;
-
-                    case 4:
-                        return Tir;
-
-                    case 5:
-                        return Mordad;
-
-                    case 6:
-                        return Shahrivar;
-
-                    case 7:
-                        return Mehr;
-
-                    case 8:
-                        return Aban;
-
-                    case 9:
-                        return Azar;
-
-                    case 10:
-                        return Day;
-
-                    case 11:
-                        return Bahman;
-
-                    case 12:
-                        return Esfand;
-
-                    default:
-                        throw new ArgumentOutOfRangeException("Month value " + monthNo + " is out of range");
-                }
-            }
-
-            #endregion
-        }
-
-        #endregion
-
-        #region WeekDay Names
-
-        public class PersianWeekDayNames
-        {
-            #region fields
-
-            public string Shanbeh = "شنبه";
-            public string Yekshanbeh = "یکشنبه";
-            public string Doshanbeh = "دوشنبه";
-            public string Seshanbeh = "ﺳﻪشنبه";
-            public string Chaharshanbeh = "چهارشنبه";
-            public string Panjshanbeh = "پنجشنبه";
-            public string Jomeh = "جمعه";
-            private static PersianWeekDayNames def;
-
-            #endregion
-
-            #region Ctor
-
-            static PersianWeekDayNames()
-            {
-                def = new PersianWeekDayNames();
-            }
-
-            #endregion
-
-            #region Indexer
-
-            public static PersianWeekDayNames Default
-            {
-                get { return def; }
-            }
-
-            public string this[int day]
-            {
-                get { return GetName(day); }
-            }
-
-            #endregion
-
-            #region Methods
-
-            private string GetName(int WeekDayNo)
-            {
-                switch (WeekDayNo)
-                {
-                    case 0:
-                        return Shanbeh;
-
-                    case 1:
-                        return Yekshanbeh;
-
-                    case 2:
-                        return Doshanbeh;
-
-                    case 3:
-                        return Seshanbeh;
-
-                    case 4:
-                        return Chaharshanbeh;
-
-                    case 5:
-                        return Panjshanbeh;
-
-                    case 6:
-                        return Jomeh;
-
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
-
-            #endregion
-        }
-
-        #endregion
-
-        #region WeekDay Abbreviation
-
-        public class PersianWeekDayAbbr
-        {
-            #region Fields
-
-            public string Shanbeh = "ش";
-            public string Yekshanbeh = "ی";
-            public string Doshanbeh = "د";
-            public string Seshanbeh = "س";
-            public string Chaharshanbeh = "چ";
-            public string Panjshanbeh = "پ";
-            public string Jomeh = "ج";
-            private static PersianWeekDayAbbr def;
-
-            #endregion
-
-            #region Ctor
-
-            static PersianWeekDayAbbr()
-            {
-                def = new PersianWeekDayAbbr();
-            }
-
-            #endregion
-
-            #region Indexer
-
-            public static PersianWeekDayAbbr Default
-            {
-                get { return def; }
-            }
-
-            public string this[int day]
-            {
-                get { return GetName(day); }
-            }
-
-            #endregion
-
-            #region Methods
-
-            private string GetName(int WeekDayNo)
-            {
-                switch (WeekDayNo)
-                {
-                    case 0:
-                        return Shanbeh;
-
-                    case 1:
-                        return Yekshanbeh;
-
-                    case 2:
-                        return Doshanbeh;
-
-                    case 3:
-                        return Seshanbeh;
-
-                    case 4:
-                        return Chaharshanbeh;
-
-                    case 5:
-                        return Panjshanbeh;
-
-                    case 6:
-                        return Jomeh;
-
-                    default:
-                        throw new ArgumentOutOfRangeException("WeekDay number is out of range");
-                }
-            }
-
-            #endregion
-        }
-
-        #endregion
 
         #region Fields
 
@@ -323,17 +68,15 @@ namespace FarsiLibrary
         private int minute;
         private int second;
         private int millisecond;
-        private TimeSpan time;
-        private static PersianDate now;
-        private string amDesignator = "ق.ظ";
-        private string pmDesignator = "ب.ظ";
-        private PersianCalendar pc = new PersianCalendar();
+        private readonly TimeSpan time;
+        private readonly PersianDateTimeFormatInfo formatting;
+        private static readonly FarsiLibrary.PersianCalendar pc;
 
         [NonSerialized]
-        public static PersianDate MinValue;
+        public static DateTime MinValue;
 
         [NonSerialized]
-        public static PersianDate MaxValue;
+        public static DateTime MaxValue;
 
         #endregion
 
@@ -344,30 +87,14 @@ namespace FarsiLibrary
         /// </summary>
         static PersianDate()
         {
-            now = PersianDateConverter.ToPersianDate(DateTime.Now);
-            MinValue = new PersianDate(1, 1, 1, 12, 0, 0, 0); // 12:00:00.000 AM, 22/03/0622
-            MaxValue = new PersianDate(DateTime.MaxValue);
+            MinValue = new DateTime(196037280000000000L); // 12:00:00.000 AM, 22/03/0622
+            MaxValue = DateTime.MaxValue;
+            pc = new FarsiLibrary.PersianCalendar();
         }
 
         #endregion
 
         #region Props
-
-        /// <summary>
-        /// AMDesignator.
-        /// </summary>
-        public string AMDesignator
-        {
-            get { return amDesignator; }
-        }
-
-        /// <summary>
-        /// PMDesignator.
-        /// </summary>
-        public string PMDesignator
-        {
-            get { return pmDesignator; }
-        }
 
         /// <summary>
         /// Current date/time in PersianDate format.
@@ -376,7 +103,7 @@ namespace FarsiLibrary
         [Description("Current date/time in PersianDate format")]
         public static PersianDate Now
         {
-            get { return now; }
+            get { return PersianDateConverter.ToPersianDate(DateTime.Now); }
         }
 
         /// <summary>
@@ -497,35 +224,12 @@ namespace FarsiLibrary
         /// <summary>
         /// Returns the DayOfWeek of the date instance
         /// </summary>
-        public PersianDayOfWeek DayOfWeek
+        public DayOfWeek DayOfWeek
         {
             get
             {
                 DateTime dt = this;
-                switch (dt.DayOfWeek)
-                {
-                    case System.DayOfWeek.Saturday:
-                        return PersianDayOfWeek.Saturday;
-
-                    case System.DayOfWeek.Sunday:
-                        return PersianDayOfWeek.Sunday;
-
-                    case System.DayOfWeek.Monday:
-                        return PersianDayOfWeek.Monday;
-
-                    case System.DayOfWeek.Tuesday:
-                        return PersianDayOfWeek.Tuesday;
-
-                    case System.DayOfWeek.Wednesday:
-                        return PersianDayOfWeek.Wednesday;
-
-                    case System.DayOfWeek.Thursday:
-                        return PersianDayOfWeek.Tuesday;
-
-                    default:
-                    case System.DayOfWeek.Friday:
-                        return PersianDayOfWeek.Friday;
-                }
+                return dt.DayOfWeek;
             }
         }
 
@@ -536,7 +240,7 @@ namespace FarsiLibrary
         [Description("Localized name of PersianDate months")]
         public string LocalizedMonthName
         {
-            get { return PersianMonthNames.Default[month]; }
+            get { return PersianMonthNames.Default[month - 1]; }
         }
 
         /// <summary>
@@ -546,10 +250,7 @@ namespace FarsiLibrary
         [Description("Weekday names of this instance in localized format.")]
         public string LocalizedWeekDayName
         {
-            get
-            {
-                return PersianDateConverter.DayOfWeek(this);
-            }
+            get { return PersianDateConverter.DayOfWeek(this); }
         }
 
         /// <summary>
@@ -559,19 +260,13 @@ namespace FarsiLibrary
         [Description("Number of days in this month")]
         public int MonthDays
         {
-            get
-            {
-                return PersianDateConverter.MonthDays(month);
-            }
+            get { return PersianDateConverter.MonthDays(month); }
         }
 
         [Browsable(false)]
         public bool IsNull
         {
-            get
-            {
-                return Year == MinValue.Year && Month == MinValue.Month && Day == MinValue.Day;
-            }
+            get { return Year <= MinValue.Year && Month <= MinValue.Month && Day <= MinValue.Day; }
         }
 
         #endregion
@@ -585,25 +280,15 @@ namespace FarsiLibrary
 
         public PersianDate()
         {
-            year = Now.year;
-            month = Now.Month;
-            day = Now.Day;
-            hour = Now.Hour;
-            minute = Now.Minute;
-            second = Now.Second;
-            millisecond = Now.Millisecond;
-            time = Now.Time;
-        }
-
-        /// <summary>
-        /// Constructs a PersianDate instance with values provided in datetime string. 
-        /// use the format you want to parse the string with. Currently it can be either g, G, or d value.
-        /// </summary>
-        /// <param name="datetime"></param>
-        /// <param name="format"></param>
-        public PersianDate(string datetime, string format)
-        {
-            Assign(Parse(datetime, format));
+            PersianDate now = Now;
+            year = now.year;
+            month = now.Month;
+            day = now.Day;
+            hour = now.Hour;
+            minute = now.Minute;
+            second = now.Second;
+            millisecond = now.Millisecond;
+            time = now.Time;
         }
 
         /// <summary>
@@ -706,78 +391,77 @@ namespace FarsiLibrary
             this.year = year;
             this.month = month;
             this.day = day;
-            hour = DateTime.Now.Hour;
-            minute = DateTime.Now.Minute;
-            second = DateTime.Now.Second;
-            millisecond = DateTime.Now.Millisecond;
-            
-            time = new TimeSpan(0, hour, minute, second, millisecond);
+            this.hour = 0;
+            this.minute = 0;
+            this.second = 0;
+            this.millisecond = 0;
+            this.time = new TimeSpan(0, hour, minute, second, millisecond);
         }
 
         #endregion
 
         #region Private Check Methods
 
-        private void CheckYear(int YearNo)
+        private static void CheckYear(int YearNo)
         {
             if (YearNo < 1 || YearNo > 9999)
             {
-                throw new InvalidPersianDateException(FALocalizeManager.GetLocalizerByCulture(Thread.CurrentThread.CurrentUICulture).GetLocalizedString(StringID.PersianDate_InvalidYear));
+                throw new InvalidPersianDateException(FALocalizeManager.Instance.GetLocalizer().GetLocalizedString(StringID.PersianDate_InvalidYear), YearNo);
             }
         }
 
-        private void CheckMonth(int MonthNo)
+        private static void CheckMonth(int MonthNo)
         {
             if (MonthNo > 12 || MonthNo < 1)
             {
-                throw new InvalidPersianDateException(FALocalizeManager.GetLocalizerByCulture(Thread.CurrentThread.CurrentUICulture).GetLocalizedString(StringID.PersianDate_InvalidMonth));
+                throw new InvalidPersianDateException(FALocalizeManager.Instance.GetLocalizer().GetLocalizedString(StringID.PersianDate_InvalidMonth), MonthNo);
             }
         }
 
         private void CheckDay(int YearNo, int MonthNo, int DayNo)
         {
             if (MonthNo < 6 && DayNo > 31)
-                throw new InvalidPersianDateException(FALocalizeManager.GetLocalizerByCulture(Thread.CurrentThread.CurrentUICulture).GetLocalizedString(StringID.PersianDate_InvalidDay));
+                throw new InvalidPersianDateException(FALocalizeManager.Instance.GetLocalizer().GetLocalizedString(StringID.PersianDate_InvalidDay), DayNo);
 
             if (MonthNo > 6 && DayNo > 30)
-                throw new InvalidPersianDateException(FALocalizeManager.GetLocalizerByCulture(Thread.CurrentThread.CurrentUICulture).GetLocalizedString(StringID.PersianDate_InvalidDay));
+                throw new InvalidPersianDateException(FALocalizeManager.Instance.GetLocalizer().GetLocalizedString(StringID.PersianDate_InvalidDay), DayNo);
 
             if (MonthNo == 12 && DayNo > 29)
             {
                 if (!pc.IsLeapDay(YearNo, MonthNo, DayNo) || DayNo > 30)
-                    throw new InvalidPersianDateException(FALocalizeManager.GetLocalizerByCulture(Thread.CurrentThread.CurrentUICulture).GetLocalizedString(StringID.PersianDate_InvalidDay));
+                    throw new InvalidPersianDateException(FALocalizeManager.Instance.GetLocalizer().GetLocalizedString(StringID.PersianDate_InvalidDay), DayNo);
             }
         }
 
-        private void CheckHour(int HourNo)
+        private static void CheckHour(int HourNo)
         {
             if (HourNo > 24 || HourNo < 0)
             {
-                throw new InvalidPersianDateException(FALocalizeManager.GetLocalizerByCulture(Thread.CurrentThread.CurrentUICulture).GetLocalizedString(StringID.PersianDate_InvalidHour));
+                throw new InvalidPersianDateException(FALocalizeManager.Instance.GetLocalizer().GetLocalizedString(StringID.PersianDate_InvalidHour), HourNo);
             }
         }
 
-        private void CheckMinute(int MinuteNo)
+        private static void CheckMinute(int MinuteNo)
         {
             if (MinuteNo > 60 || MinuteNo < 0)
             {
-                throw new InvalidPersianDateException(FALocalizeManager.GetLocalizerByCulture(Thread.CurrentThread.CurrentUICulture).GetLocalizedString(StringID.PersianDate_InvalidMinute));
+                throw new InvalidPersianDateException(FALocalizeManager.Instance.GetLocalizer().GetLocalizedString(StringID.PersianDate_InvalidMinute), MinuteNo);
             }
         }
 
-        private void CheckSecond(int SecondNo)
+        private static void CheckSecond(int SecondNo)
         {
             if (SecondNo > 60 || SecondNo < 0)
             {
-                throw new InvalidPersianDateException(FALocalizeManager.GetLocalizerByCulture(Thread.CurrentThread.CurrentUICulture).GetLocalizedString(StringID.PersianDate_InvalidSecond));
+                throw new InvalidPersianDateException(FALocalizeManager.Instance.GetLocalizer().GetLocalizedString(StringID.PersianDate_InvalidSecond));
             }
         }
 
-        private void CheckMillisecond(int MillisecondNo)
+        private static void CheckMillisecond(int MillisecondNo)
         {
             if (MillisecondNo < 0 || MillisecondNo > 1000)
             {
-                throw new InvalidPersianDateException(FALocalizeManager.GetLocalizerByCulture(Thread.CurrentThread.CurrentUICulture).GetLocalizedString(StringID.PersianDate_InvalidMillisecond));
+                throw new InvalidPersianDateException(FALocalizeManager.Instance.GetLocalizer().GetLocalizedString(StringID.PersianDate_InvalidMillisecond));
             }
         }
 
@@ -789,7 +473,7 @@ namespace FarsiLibrary
         /// Assigns an instance of PersianDate's values to this instance.
         /// </summary>
         /// <param name="pd"></param>
-        public void Assign(PersianDate pd)
+        internal void Assign(PersianDate pd)
         {
             Year = pd.Year;
             Month = pd.Month;
@@ -805,7 +489,16 @@ namespace FarsiLibrary
         /// <returns></returns>
         public string ToWritten()
         {
-            return (LocalizedWeekDayName + " " + day.ToString() + " " + LocalizedMonthName + " " + year.ToString());
+            return string.Format("{0} {1} {2} {3}", LocalizedWeekDayName, day, LocalizedMonthName, year);
+        }
+
+        /// <summary>
+        /// Returns a pretty representation of this date instance
+        /// </summary>
+        /// <returns></returns>
+        public string ToPrettyDate()
+        {
+            return null;
         }
 
         #endregion
@@ -813,203 +506,59 @@ namespace FarsiLibrary
         #region Parse Methods
 
         /// <summary>
-        /// Parse a string value into a PersianDate instance. Value could be either in 'yyyy/mm/dd hh:mm:ss' or 'yyyy/mm/dd' formats. If you want to parse <c>Time</c> value too,
-        /// you should set <c>includesTime</c> to <c>true</c>.
+        /// Tries to parse a string value into a PersianDate instance. 
+        /// Value can only be in 'yyyy/mm/dd' format.
         /// </summary>
-        /// <exception cref="InvalidPersianDateException"></exception>
         /// <param name="value"></param>
-        /// <param name="includesTime"></param>
+        /// <param name="persianDate"></param>
         /// <returns></returns>
-        public static PersianDate Parse(string value, bool includesTime)
+        public static bool TryParse(string value, out PersianDate persianDate)
         {
-            if (value == string.Empty)
-                return MinValue;
+            persianDate = null;
 
-            if (includesTime)
+            try
             {
-                if (value.Length > 19)
-                {
-                    throw new InvalidPersianDateFormatException(FALocalizeManager.GetLocalizerByCulture(Thread.CurrentThread.CurrentUICulture).GetLocalizedString(StringID.PersianDate_InvalidDateTimeLength));
-                }
-
-                string[] dt = value.Split(" ".ToCharArray());
-
-                if (dt.Length != 2)
-                {
-                    throw new InvalidPersianDateFormatException(FALocalizeManager.GetLocalizerByCulture(Thread.CurrentThread.CurrentUICulture).GetLocalizedString(StringID.PersianDate_InvalidDateFormat));
-                }
-
-                string _date = dt[0];
-                string _time = dt[1];
-
-                string[] dateParts = _date.Split("/".ToCharArray());
-                string[] timeParts = _time.Split(":".ToCharArray());
-
-                if (dateParts.Length != 3)
-                {
-                    throw new InvalidPersianDateFormatException(FALocalizeManager.GetLocalizerByCulture(Thread.CurrentThread.CurrentUICulture).GetLocalizedString(StringID.PersianDate_InvalidDateFormat));
-                }
-
-                if (timeParts.Length != 3)
-                {
-                    throw new InvalidPersianDateFormatException(FALocalizeManager.GetLocalizerByCulture(Thread.CurrentThread.CurrentUICulture).GetLocalizedString(StringID.PersianDate_InvalidTimeFormat));
-                }
-
-                int day = int.Parse(dateParts[2]);
-                int month = int.Parse(dateParts[1]);
-                int year = int.Parse(dateParts[0]);
-                int hour = int.Parse(timeParts[0]);
-                int minute = int.Parse(timeParts[1]);
-                int second = int.Parse(timeParts[2]);
-
-                return new PersianDate(year, month, day, hour, minute, second);
+                persianDate = Parse(value);
+                return true;
             }
-            else
+            catch
             {
-                return Parse(value);
-            }
-        }
-
-        public static PersianDate Parse(string value, string format)
-        {
-            switch(format)
-            {
-                case "G": //yyyy/mm/dd hh:mm:ss tt
-                    return ParseFullDateTime(value);
-
-                case "g": //yyyy/mm/dd hh:mm tt
-                    return ParseDateShortTime(value);
-                    
-                case "d": //yyyy/mm/dd
-                    return Parse(value);
-                    
-                default:
-                    throw new ArgumentException("Currently G,g,d formats are supported.");
+                return false;
             }
         }
 
         /// <summary>
-        /// Parse a string value into a PersianDate instance. Value should be in 'yyyy/mm/dd hh:mm:ss tt' formats.
-        /// </summary>
-        /// <exception cref="InvalidPersianDateException"></exception>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        private static PersianDate ParseFullDateTime(string value)
-        {
-            if (value == string.Empty)
-                return MinValue;
-
-            if (value.Length > 23)
-                throw new InvalidPersianDateFormatException(FALocalizeManager.GetLocalizerByCulture(Thread.CurrentThread.CurrentUICulture).GetLocalizedString(StringID.PersianDate_InvalidDateTimeLength));
-
-            string[] dt = value.Split(" ".ToCharArray());
-
-            if (dt.Length != 3)
-                throw new InvalidPersianDateFormatException(FALocalizeManager.GetLocalizerByCulture(Thread.CurrentThread.CurrentUICulture).GetLocalizedString(StringID.PersianDate_InvalidDateFormat));
-
-            string _date = dt[0];
-            string _time = dt[1];
-
-            string[] dateParts = _date.Split("/".ToCharArray());
-            string[] timeParts = _time.Split(":".ToCharArray());
-
-            if (dateParts.Length != 3)
-                throw new InvalidPersianDateFormatException(FALocalizeManager.GetLocalizerByCulture(Thread.CurrentThread.CurrentUICulture).GetLocalizedString(StringID.PersianDate_InvalidDateFormat));
-
-            if (timeParts.Length != 3)
-                throw new InvalidPersianDateFormatException(FALocalizeManager.GetLocalizerByCulture(Thread.CurrentThread.CurrentUICulture).GetLocalizedString(StringID.PersianDate_InvalidTimeFormat));
-
-            int day = int.Parse(dateParts[2]);
-            int month = int.Parse(dateParts[1]);
-            int year = int.Parse(dateParts[0]);
-            int hour = int.Parse(timeParts[0]);
-            int minute = int.Parse(timeParts[1]);
-            int second = int.Parse(timeParts[2]);
-            
-            return new PersianDate(year, month, day, hour, minute, second, 0);
-        }
-
-        /// <summary>
-        /// Parse a string value into a PersianDate instance. Value should be in 'yyyy/mm/dd hh:mm tt' formats.
-        /// </summary>
-        /// <exception cref="InvalidPersianDateException"></exception>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        private static PersianDate ParseDateShortTime(string value)
-        {
-            if (value == string.Empty)
-                return MinValue;
-
-            if (value.Length > 20)
-                throw new InvalidPersianDateFormatException(FALocalizeManager.GetLocalizerByCulture(Thread.CurrentThread.CurrentUICulture).GetLocalizedString(StringID.PersianDate_InvalidDateTimeLength));
-
-            string[] dt = value.Split(" ".ToCharArray());
-
-            if (dt.Length != 3)
-                throw new InvalidPersianDateFormatException(FALocalizeManager.GetLocalizerByCulture(Thread.CurrentThread.CurrentUICulture).GetLocalizedString(StringID.PersianDate_InvalidDateFormat));
-
-            string _date = dt[0];
-            string _time = dt[1];
-
-            string[] dateParts = _date.Split("/".ToCharArray());
-            string[] timeParts = _time.Split(":".ToCharArray());
-
-            if (dateParts.Length != 3)
-                throw new InvalidPersianDateFormatException(FALocalizeManager.GetLocalizerByCulture(Thread.CurrentThread.CurrentUICulture).GetLocalizedString(StringID.PersianDate_InvalidDateFormat));
-
-            if (timeParts.Length != 2)
-                throw new InvalidPersianDateFormatException(FALocalizeManager.GetLocalizerByCulture(Thread.CurrentThread.CurrentUICulture).GetLocalizedString(StringID.PersianDate_InvalidTimeFormat));
-
-            int day = int.Parse(dateParts[2]);
-            int month = int.Parse(dateParts[1]);
-            int year = int.Parse(dateParts[0]);
-            int hour = int.Parse(timeParts[0]);
-            int minute = int.Parse(timeParts[1]);
-
-            return new PersianDate(year, month, day, hour, minute, 0, 0);
-        }
-
-        /// <summary>
-        /// Parse a string value into a PersianDate instance. Value can only be in 'yyyy/mm/dd' format.
+        /// Parse a string value into a PersianDate instance.
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
         public static PersianDate Parse(string value)
         {
-            if (value.Length == 10)
-                return ParseShortDate(value);
-            else if (value.Length == 20)
-                return ParseDateShortTime(value);
-            else if (value.Length == 23)
-                return ParseFullDateTime(value);
+            if (!string.IsNullOrEmpty(value))
+            {
+                try
+                {
+                    DateTime dt = DateTime.Parse(value, CultureHelper.PersianCulture, DateTimeStyles.None);
+
+                    var year = pc.GetYear(dt);
+                    var month = pc.GetMonth(dt);
+                    var day = pc.GetDayOfMonth(dt);
+
+                    //Fixed: If year is 2 digit, it is probably 13xx.
+                    if (year < 100)
+                        year = 1300 + year;
+
+                    return new PersianDate(year, month, day, dt.Hour, dt.Minute, dt.Second, dt.Millisecond);
+                }
+                catch (Exception ex)
+                {
+                    throw new InvalidPersianDateFormatException("Can not parse the value. Format is incorrect.");
+                }
+            }
 
             throw new InvalidPersianDateFormatException("Can not parse the value. Format is incorrect.");
         }
 
-        private static PersianDate ParseShortDate(string value)
-        {
-            if (value == string.Empty)
-                return MinValue;
-
-            if (value.Length > 10)
-            {
-                throw new InvalidPersianDateFormatException(FALocalizeManager.GetLocalizerByCulture(Thread.CurrentThread.CurrentUICulture).GetLocalizedString(StringID.PersianDate_InvalidDateTimeLength));
-            }
-
-            string[] dateParts = value.Split("/".ToCharArray());
-
-            if (dateParts.Length != 3)
-            {
-                throw new InvalidPersianDateFormatException(FALocalizeManager.GetLocalizerByCulture(Thread.CurrentThread.CurrentUICulture).GetLocalizedString(StringID.PersianDate_InvalidDateFormat));
-            }
-
-            int day = int.Parse(dateParts[2]);
-            int month = int.Parse(dateParts[1]);
-            int year = int.Parse(dateParts[0]);
-
-            return new PersianDate(year, month, day);
-        }
-        
         #endregion
 
         #region Overrides
@@ -1031,7 +580,7 @@ namespace FarsiLibrary
         /// <seealso cref="ToWritten"/>
         public override string ToString()
         {
-            return ToString("g", null);
+            return ToString("G", null);
         }
 
         #endregion
@@ -1049,10 +598,10 @@ namespace FarsiLibrary
             if((date1 as object) == null && (date2 as object) == null)
                 return true;
             
-            if((date1 as object) == null && (date2 as object) != null)
+            if((date1 as object) == null)
                 return false;
             
-            if((date2 as object) == null && (date1 as object) != null)
+            if((date2 as object) == null)
                 return false;
                 
             return date1.Year == date2.Year &&
@@ -1075,10 +624,10 @@ namespace FarsiLibrary
             if ((date1 as object) == null && (date2 as object) == null)
                 return false;
 
-            if ((date1 as object) == null && (date2 as object) != null)
+            if ((date1 as object) == null)
                 return true;
 
-            if ((date2 as object) == null && (date1 as object) != null)
+            if ((date2 as object) == null)
                 return true;
 
             return date1.Year != date2.Year ||
@@ -1102,10 +651,10 @@ namespace FarsiLibrary
                 return false;
 
             if ((date1 as object) == null && (date2 as object) != null)
-                throw new NullReferenceException();
+                throw new InvalidOperationException("date can not be null.");
 
             if ((date2 as object) == null && (date1 as object) != null)
-                throw new NullReferenceException();
+                throw new InvalidOperationException("date can not be null.");
 
             if (date1.Year > date2.Year)
                 return true;
@@ -1115,29 +664,29 @@ namespace FarsiLibrary
                 return true;
 
             if (date1.Year == date2.Year &&
-               date1.Month == date2.Month &&
-               date1.Day > date2.Day)
+                date1.Month == date2.Month &&
+                date1.Day > date2.Day)
                 return true;
 
             if (date1.Year == date2.Year &&
-               date1.Month == date2.Month &&
-               date1.Day == date2.Day &&
-               date1.Hour > date2.Hour)
+                date1.Month == date2.Month &&
+                date1.Day == date2.Day &&
+                date1.Hour > date2.Hour)
                 return true;
 
             if (date1.Year == date2.Year &&
-               date1.Month == date2.Month &&
-               date1.Day == date2.Day &&
-               date1.Hour == date2.Hour &&
-               date1.Minute > date2.Minute)
+                date1.Month == date2.Month &&
+                date1.Day == date2.Day &&
+                date1.Hour == date2.Hour &&
+                date1.Minute > date2.Minute)
                 return true;
 
             if (date1.Year == date2.Year &&
-               date1.Month == date2.Month &&
-               date1.Day == date2.Day &&
-               date1.Hour == date2.Hour &&
-               date1.Minute == date2.Minute &&
-               date1.Second > date2.Second)
+                date1.Month == date2.Month &&
+                date1.Day == date2.Day &&
+                date1.Hour == date2.Hour &&
+                date1.Minute == date2.Minute &&
+                date1.Second > date2.Second)
                 return true;
 
             if (date1.Year == date2.Year &&
@@ -1147,7 +696,7 @@ namespace FarsiLibrary
                 date1.Minute == date2.Minute &&
                 date1.Second == date2.Second && 
                 date1.Millisecond > date2.Millisecond)
-                 return true;
+                return true;
 
             return false;
         }
@@ -1164,10 +713,10 @@ namespace FarsiLibrary
                 return false;
 
             if ((date1 as object) == null && (date2 as object) != null)
-                throw new NullReferenceException();
+                throw new InvalidOperationException("date can not be null.");
 
             if ((date2 as object) == null && (date1 as object) != null)
-                throw new NullReferenceException();
+                throw new InvalidOperationException("date can not be null.");
 
             if (date1.Year < date2.Year)
                 return true;
@@ -1177,38 +726,38 @@ namespace FarsiLibrary
                 return true;
 
             if (date1.Year == date2.Year &&
-               date1.Month == date2.Month &&
-               date1.Day < date2.Day)
+                date1.Month == date2.Month &&
+                date1.Day < date2.Day)
                 return true;
 
             if (date1.Year == date2.Year &&
-               date1.Month == date2.Month &&
-               date1.Day == date2.Day &&
-               date1.Hour < date2.Hour)
+                date1.Month == date2.Month &&
+                date1.Day == date2.Day &&
+                date1.Hour < date2.Hour)
                 return true;
 
             if (date1.Year == date2.Year &&
-               date1.Month == date2.Month &&
-               date1.Day == date2.Day &&
-               date1.Hour == date2.Hour &&
-               date1.Minute < date2.Minute)
+                date1.Month == date2.Month &&
+                date1.Day == date2.Day &&
+                date1.Hour == date2.Hour &&
+                date1.Minute < date2.Minute)
                 return true;
 
             if (date1.Year == date2.Year &&
-               date1.Month == date2.Month &&
-               date1.Day == date2.Day &&
-               date1.Hour == date2.Hour &&
-               date1.Minute == date2.Minute &&
-               date1.Second < date2.Second)
+                date1.Month == date2.Month &&
+                date1.Day == date2.Day &&
+                date1.Hour == date2.Hour &&
+                date1.Minute == date2.Minute &&
+                date1.Second < date2.Second)
                 return true;
 
             if (date1.Year == date2.Year &&
-               date1.Month == date2.Month &&
-               date1.Day == date2.Day &&
-               date1.Hour == date2.Hour &&
-               date1.Minute == date2.Minute &&
-               date1.Second == date2.Second &&
-               date1.Millisecond < date2.Millisecond)
+                date1.Month == date2.Month &&
+                date1.Day == date2.Day &&
+                date1.Hour == date2.Hour &&
+                date1.Minute == date2.Minute &&
+                date1.Second == date2.Second &&
+                date1.Millisecond < date2.Millisecond)
                 return true;
 
             return false;
@@ -1254,15 +803,15 @@ namespace FarsiLibrary
         {
             if (obj is PersianDate)
                 return this == (PersianDate)obj;
-            else
-                return false;
+            
+            return false;
         }
 
         #endregion
 
         #region ICloneable Members
 
-        public object Clone()
+        object ICloneable.Clone()
         {
             return new PersianDate(Year, Month, Day, Hour, Minute, Second, Millisecond);
         }
@@ -1278,10 +827,25 @@ namespace FarsiLibrary
 
         public static implicit operator PersianDate(DateTime dt)
         {
-            if (dt.Equals(DateTime.MinValue))
-                return MinValue;
+            if (dt > pc.MaxSupportedDateTime || dt < pc.MinSupportedDateTime)
+                return null;
             
             return PersianDateConverter.ToPersianDate(dt);
+        }
+
+        /// <summary>
+        /// Converts a nullable DateTime to PersianDate.
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public static implicit operator PersianDate(DateTime? dt)
+        {
+            if(dt.HasValue)
+            {
+                return PersianDateConverter.ToPersianDate(dt.Value);
+            }
+
+            return null;
         }
 
         #endregion
@@ -1298,16 +862,17 @@ namespace FarsiLibrary
         ///
         ///<param name="obj">An object to compare with this instance. </param>
         ///<exception cref="T:System.ArgumentException">obj is not the same type as this instance. </exception><filterpriority>2</filterpriority>
-        public int CompareTo(object obj)
+        int IComparable.CompareTo(object obj)
         {
             if (!(obj is PersianDate))
-                throw new ArgumentException("Comparing value is not of type PersianDate.");
+                throw new InvalidOperationException("Comparing value is not of type PersianDate.");
             
-            PersianDate pd = (PersianDate)obj;
+            var pd = (PersianDate)obj;
 
             if (pd < this)
                 return 1;
-            else if(pd > this)
+            
+            if(pd > this)
                 return -1;
 
             return 0;
@@ -1329,23 +894,24 @@ namespace FarsiLibrary
         ///<param name="x">The first object to compare. </param>
         ///<exception cref="T:System.ArgumentException">Neither x nor y implements the <see cref="T:System.IComparable"></see> interface.-or- x and y are of different types and neither one can handle comparisons with the other. </exception><filterpriority>2</filterpriority>
         ///<exception cref="T:System.ApplicationException">Either x or y is a null reference</exception>
-        public int Compare(object x, object y)
+        int IComparer.Compare(object x, object y)
         {
             if (x == null || y == null)
-                throw new ApplicationException("Invalid PersianDate comparer.");
+                throw new InvalidOperationException("Invalid PersianDate comparer.");
 
             if (!(x is PersianDate))
-                throw new ArgumentException("x value is not of type PersianDate.");
+                throw new InvalidOperationException("x value is not of type PersianDate.");
 
             if (!(y is PersianDate))
-                throw new ArgumentException("y value is not of type PersianDate.");
+                throw new InvalidOperationException("y value is not of type PersianDate.");
             
-            PersianDate pd1 = (PersianDate) x;
-            PersianDate pd2 = (PersianDate) y;
+            var pd1 = (PersianDate) x;
+            var pd2 = (PersianDate) y;
 
             if (pd1 > pd2)
                 return 1;
-            else if (pd1 < pd2)
+            
+            if (pd1 < pd2)
                 return -1;
 
             return 0;
@@ -1368,7 +934,8 @@ namespace FarsiLibrary
         {
             if (other < this)
                 return 1;
-            else if (other > this)
+            
+            if (other > this)
                 return -1;
 
             return 0;
@@ -1388,7 +955,8 @@ namespace FarsiLibrary
         {
             if (x > y)
                 return 1;
-            else if (x < y)
+            
+            if (x < y)
                 return -1;
 
             return 0;
@@ -1446,36 +1014,48 @@ namespace FarsiLibrary
         {
             if (format == null) format = "G";
             int smallhour = (Hour > 12) ? Hour - 12 : Hour;
-            string designator = Hour > 12 ? PMDesignator : AMDesignator;
+            string designator = Hour > 12 ? PersianDateTimeFormatInfo.PMDesignator : PersianDateTimeFormatInfo.AMDesignator;
             
             if (formatProvider != null)
             {
-                ICustomFormatter formatter = formatProvider.GetFormat(typeof(ICustomFormatter)) as ICustomFormatter;
+                var formatter = formatProvider.GetFormat(typeof(ICustomFormatter)) as ICustomFormatter;
                 if (formatter != null)
                     return formatter.Format(format, this, formatProvider);
             }
+
             switch(format)
             {
                 case "D":
+                case "dddd, MMMM dd, yyyy":
+                case "yyyy mm dd dddd":
                     //'yyyy mm dd dddd' e.g. 'دوشنبه 20 شهریور 1384'
-                    return string.Format("{0} {1} {2} {3}", new object[4] { LocalizedWeekDayName, Util.toDouble(Day), LocalizedMonthName, Year });
-                    
+                    return string.Format("{0} {1} {2} {3}", LocalizedWeekDayName, Util.toDouble(Day), LocalizedMonthName, Year);
+                
+
                 case "f":
                     //'hh:mm yyyy mmmm dd dddd' e.g. 'دوشنبه 20 شهریور 1384 21:30'
-                    return string.Format("{0} {1} {2} {3} {4}:{5}", new object[6] { LocalizedWeekDayName, Util.toDouble(Day), LocalizedMonthName, Year, Util.toDouble(Hour), Util.toDouble(Minute) });
+                    return string.Format("{0} {1} {2} {3} {4}:{5}", LocalizedWeekDayName, Util.toDouble(Day), LocalizedMonthName, Year, Util.toDouble(Hour), Util.toDouble(Minute));
 
                 case "F":
+                case "tt hh:mm:ss yyyy mmmm dd dddd":
+                case "dddd, MMMM dd, yyyy hh:mm:ss tt":
                     //'tt hh:mm:ss yyyy mmmm dd dddd' e.g. 'دوشنبه 20 شهریور 1384 02:30:22 ب.ض'
-                    return string.Format("{0} {1} {2} {3} {4}:{5}:{6} {7}", new object[8] { LocalizedWeekDayName, Util.toDouble(Day), LocalizedMonthName, Year, Util.toDouble(smallhour), Util.toDouble(Minute), Util.toDouble(Second), designator });
+                    return string.Format("{0} {1} {2} {3} {4}:{5}:{6} {7}", LocalizedWeekDayName, Util.toDouble(Day), LocalizedMonthName, Year, Util.toDouble(smallhour), Util.toDouble(Minute), Util.toDouble(Second), designator);
                     
                 case "g":
                     //'yyyy/mm/dd hh:mm tt'
-                    return string.Format("{0}/{1}/{2} {3}:{4} {5}", new object[6] { Year, Util.toDouble(Month), Util.toDouble(Day), Util.toDouble(smallhour), Util.toDouble(Minute), designator });
+                    return string.Format("{0}/{1}/{2} {3}:{4} {5}", Year, Util.toDouble(Month), Util.toDouble(Day), Util.toDouble(smallhour), Util.toDouble(Minute), designator);
                     
                 case "G":
                     //'yyyy/mm/dd hh:mm:ss tt'
-                    return string.Format("{0}/{1}/{2} {3}:{4}:{5} {6}", new object[7] { Year, Util.toDouble(Month), Util.toDouble(Day), Util.toDouble(smallhour), Util.toDouble(Minute), Util.toDouble(Second), designator });
+                    return string.Format("{0}/{1}/{2} {3}:{4}:{5} {6}", Year, Util.toDouble(Month), Util.toDouble(Day), Util.toDouble(smallhour), Util.toDouble(Minute), Util.toDouble(Second), designator);
                 
+                case "MMMM dd":
+                case "dd MMMM":
+                    //MMMM dd e.g. 'تیر 10'
+                    return string.Format("{0} {1}", LocalizedMonthName, Util.toDouble(Day));
+
+                case "MMMM, yyyy":
                 case "M":
                 case "m":
                     //'yyyy mmmm'
@@ -1484,24 +1064,27 @@ namespace FarsiLibrary
                 case "s":
                     //'yyyy-mm-ddThh:mm:ss'
                     return string.Format("{0}-{1}-{2}T{3}:{4}:{5}", Year, Util.toDouble(Month), Util.toDouble(Day), Util.toDouble(Hour), Util.toDouble(Minute), Util.toDouble(Second));
-                    
+                
+                case "hh:mm tt":
                 case "t":
-                    //'hh:mm tt'
+                    //'hh:mm tt' e.g. 12:22 ب.ض
                     return string.Format("{0}:{1} {2}", Util.toDouble(smallhour), Util.toDouble(Minute), designator);
                     
                 case "T":
-                    //'hh:mm:ss tt'
-                    return string.Format("{0}:{1}:{2} {3}", new object[4] { Util.toDouble(smallhour), Util.toDouble(Minute), Util.toDouble(Second), designator });
+                case "hh:mm:ss tt":
+                    //'hh:mm:ss tt' e.g. 12:22:30 ب.ض
+                    return string.Format("{0}:{1}:{2} {3}", Util.toDouble(smallhour), Util.toDouble(Minute), Util.toDouble(Second), designator);
 
-                    
-                case "d":
+                case "w":
+                case "W":
+                    return ToWritten();
+                case "MM/dd/yyyy":
                 default:
-                    //ShortDatePattern yyyy/mm/dd e.g. '1384/9/1'
+                    //ShortDatePattern yyyy/mm/dd e.g. '1384/09/01'
                     return string.Format("{0}/{1}/{2}", Year, Util.toDouble(Month), Util.toDouble(Day));
-
             }
         }
         
-	    #endregion
+        #endregion
     }
 }

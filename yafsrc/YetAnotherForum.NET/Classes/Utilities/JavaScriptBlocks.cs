@@ -439,16 +439,13 @@ namespace YAF.Utilities
         /// <param name="dateFormat">
         /// Localized Date Format
         /// </param>
-        /// <param name="altDateFormat">
-        /// The Alt Date Format
-        /// </param>
         /// <param name="culture">
         /// Current Culture
         /// </param>
         /// <returns>
         /// The load js.
         /// </returns>
-        public static string DatePickerLoadJs([NotNull] string fieldId, [NotNull] string dateFormat, [NotNull] string altDateFormat, [NotNull] string culture)
+        public static string DatePickerLoadJs([NotNull] string fieldId, [NotNull] string dateFormat, [NotNull] string culture)
         {
             string cultureJs = string.Empty;
 
@@ -464,8 +461,8 @@ namespace YAF.Utilities
 
             return
                 @"Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadDatePicker);
-                  function loadDatePicker() {{	{4}(document).ready(function() {{ {4}('#{0}').datepicker({{changeMonth:true,changeYear:true,maxDate:'+0d',dateFormat:'{1}',altFormat:'{2}'}}); {3} }});}} "
-                    .FormatWith(fieldId, dateFormat, altDateFormat, cultureJs, Config.JQueryAlias);
+                  function loadDatePicker() {{	{3}(document).ready(function() {{ {3}('#{0}').datepicker({{changeMonth:true,changeYear:true,maxDate:'+0d',dateFormat:'{1}',}}); {2} }});}} "
+                    .FormatWith(fieldId, dateFormat, cultureJs, Config.JQueryAlias);
         }
 
         /// <summary>

@@ -251,6 +251,24 @@ namespace YAF.Utils
     }
 
     /// <summary>
+    /// Gets or sets Twitter.
+    /// </summary>
+    [SettingsAllowAnonymous(false)]
+    [CustomProviderData("TwitterId;nvarchar;400")]
+    public string TwitterId
+    {
+        get
+        {
+            return base["TwitterId"] as string;
+        }
+
+        set
+        {
+            base["TwitterId"] = value;
+        }
+    }
+
+    /// <summary>
     /// Gets or sets Interests.
     /// </summary>
     [SettingsAllowAnonymous(false)]

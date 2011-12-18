@@ -271,9 +271,9 @@
 .yafnet .postContainer .postheader {
 	background: url('Header2Back.png') repeat-x -3px #ffffff;
 	
-	background: -webkit-gradient(linear, left top, left bottom, from(#dfeec3), to(#ffffff));
-	background: -moz-linear-gradient(top,  #dfeec3,  #ffffff);
-    background: -o-linear-gradient(top, #dfeec3, #ffffff);
+	background: -webkit-gradient(linear, left top, left bottom, from(#ed1c24), to(#ffffff));
+	background: -moz-linear-gradient(top,  #ed1c24,  #ffffff);
+    background: -o-linear-gradient(top, #ed1c24, #ffffff);
 }
 
 .yafnet .postheader a {

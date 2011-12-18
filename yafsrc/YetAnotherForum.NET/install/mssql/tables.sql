@@ -427,6 +427,7 @@ if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseO
 		[IsDirty]	AS (CONVERT([bit],sign([Flags]&(64)),(0))),
 		[Culture] varchar (10) DEFAULT (10),
 		[IsFacebookUser][bit] NOT NULL CONSTRAINT [DF_{objectQualifier}User_IsFacebookUser] DEFAULT (0),
+		[IsTwitterUser][bit] NOT NULL CONSTRAINT [DF_{objectQualifier}User_IsTwitterUser] DEFAULT (0)
 )
 GO
 
@@ -1134,6 +1135,11 @@ begin
 end
 GO
 
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='IsTwitterUser')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}User] add [IsTwitterUser][bit] NOT NULL CONSTRAINT [DF_{objectQualifier}IsTwitterUser] DEFAULT (0)
+end
+GO
 		
 
 -- Forum Table

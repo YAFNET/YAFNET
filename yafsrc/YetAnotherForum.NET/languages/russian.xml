@@ -683,6 +683,7 @@
     <Resource tag="RESET_PASS">Сброс пароля</Resource>
     <Resource tag="SET_POINTS">Ввести очки:</Resource>
     <Resource tag="TITLE">Редактирование пользователя "{0}"</Resource>
+    <Resource tag="TWITTER_USER">Twitter User:</Resource>
     <Resource tag="USER_AVATAR">Аватар пользователя</Resource>
     <Resource tag="USER_DETAILS">Данные пользователя</Resource>
     <Resource tag="USER_KILL">Подавление активности</Resource>
@@ -906,7 +907,7 @@
     <Resource tag="ENABLE_RETWEET_MSG">Включить кнопку ретвиттера:</Resource>
     <Resource tag="ENABLE_RETWEET_MSG_HELP">Делает доступной кнопку ретвита и пользователь может проретвитить сообщение.</Resource>
     <Resource tag="ENABLE_SSO">Включить единую регистрацию в Facebook:</Resource>
-    <Resource tag="ENABLE_SSO_HELP">Если включено, то пользователи смогут войти в существующим аккаунтом Facebook. YAF.FacebookAPIKey и YAF.FacebookSecretKey должны быть настроены в app.config.</Resource>
+    <Resource tag="ENABLE_SSO_HELP">If checked, users will be able to Login to an existing account via Facebook and/or Twitter. To Enable it for Facebook you need to setup YAF.FacebookAPIKey and YAF.FacebookSecretKey Values, and for Twitter YAF.TwitterConsumerKey and YAF.TwitterConsumerSecret Values in the app.config (AppSettings).</Resource>
     <Resource tag="ENABLE_USERREPUTATION">Use Reputation System:</Resource>
     <Resource tag="ENABLE_USERREPUTATION_HELP">Setting to Enable/Disable the Build-In Reputation System to allow Users Give or Remove Reputation.</Resource>
     <Resource tag="EXTERN_NEWWINDOW">Показывать результаты внешнего поиска в новом окне:</Resource>
@@ -1195,8 +1196,8 @@
     <Resource tag="SSL_LOGIN_HELP">Требовать безопасного соединения при входе пользователей на форум.</Resource>
     <Resource tag="SSL_REGISTER">Использовать SSL при регистрации:</Resource>
     <Resource tag="SSL_REGISTER_HELP">Требовать безопасного соединения при регистрации пользователей.</Resource>
-    <Resource tag="SSO_AUTO_REGISTER">Автоматически регистрировать нового пользователя Facebook:</Resource>
-    <Resource tag="SSO_AUTO_REGISTER_HELP">Автоматически регистрировать пользователя, который старается зайти через логин Facebook</Resource>
+    <Resource tag="SSO_AUTO_REGISTER">Автоматически регистрировать нового пользователя Facebook/Twitter:</Resource>
+    <Resource tag="SSO_AUTO_REGISTER_HELP">Автоматически регистрировать пользователя, который старается зайти через логин Facebook / Twitter</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT">Таймаут кэша статистики форума:</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT_HELP">В минутах</Resource>
     <Resource tag="STYLED_NICKS">Использовать стилизированные ники:</Resource>
@@ -1503,6 +1504,7 @@
     <Resource tag="SEARCH">Поиск</Resource>
     <Resource tag="SYNC_ALL">Синхронизировать всех пользователей в Membership</Resource>
     <Resource tag="TITLE">Пользователи</Resource>
+    <Resource tag="TWITTER_USER">Twitter User</Resource>
     <Resource tag="USER_NAME">Ник пользователя</Resource>
   </page>
   <page name="ADMIN_USERS_IMPORT">
@@ -2206,8 +2208,9 @@
     <Resource tag="TIMEZONE2">Чтобы показывать местную дату и время мы должны знать Ваш часовой пояс.</Resource>
     <Resource tag="TITLE">Изменить профиль</Resource>
     <Resource tag="TWITTER">Ваш ник в Twitter:</Resource>
+    <Resource tag="TWITTER_ID">Your Twitter Id:</Resource>
     <Resource tag="USE_MOBILE_THEME">Использовать тему для мобильного устройства:</Resource>
-    <Resource tag="USE_SINGLESIGNON">Желаете включить единую регистрацию?&lt;br /&gt;Вы должны ввести ID профиля Facebook.</Resource>
+    <Resource tag="USE_SINGLESIGNON">Did you want to Use Single Sign On?&lt;br /&gt;You need to have Set Up the Facebook Profile ID above for Facebook Login and Twitter Id + Twitter Name for Twitter Login.</Resource>
     <Resource tag="WEBLOG2">URL вашего публичного блога:</Resource>
     <Resource tag="WHERE">Где Вы живете?</Resource>
     <Resource tag="XMPP">Ваш Jabber ID:</Resource>
@@ -3869,7 +3872,12 @@ Spoiler Content
     <Resource tag="SSO_DEACTIVATED_BYUSER">Единая регистрация отключена, Вам необходимо включить её в своём профиле.</Resource>
     <Resource tag="SSO_FAILED">Логин через Facebook не удался. Нет пользователя с таким адресом Email .</Resource>
     <Resource tag="SSO_ID_NOTMATCH">Неверный ID пользователя Facebook !</Resource>
+    <Resource tag="SSO_TWITTER_FAILED">The Twitter Login failed, User does not exists.</Resource>
+    <Resource tag="SSO_TWITTERID_NOTMATCH">The Twitter ID and Twitter Name does not match!</Resource>
     <Resource tag="TITLE">Вход</Resource>
+    <Resource tag="TWITTER_DM">You have received further Information to your new Account as Private Message on the Forum.</Resource>
+    <Resource tag="TWITTER_LOGIN">Login with Twitter</Resource>
+    <Resource tag="UPDATE_EMAIL">Please Update Your E-Mail Adress now!</Resource>
     <Resource tag="USERNAME">Имя пользователя:</Resource>
     <Resource tag="WRONG_USERNAME_EMAIL">Неверное имя пользователя или адрес электронной почты.</Resource>
   </page>
@@ -4754,6 +4762,17 @@ Spoiler Content
       Авто ответ на секретный вопрос: {answer}
       Ваш Email: {email} (Пожалуйста не меняйте, иначе Вы не сможете войти через  Facebook)
 
+    </Resource>
+    <Resource tag="NOTIFICATION_ON_TWITTER_REGISTER">
+      Hello {user}.
+
+      You have been successfully Registred on the {forumname} forum thru Twitter:
+
+      User Name: {user}
+	  Auto Generated Password: {pass}
+	  Auto Generated Security Answer: {answer}
+      User Email: {email} (Please change your Email adress to your real one in order to Receive E-Mails)
+	  
     </Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER">
 		Привет!
