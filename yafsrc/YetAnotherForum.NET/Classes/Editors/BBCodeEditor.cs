@@ -228,7 +228,7 @@ namespace YAF.Editors
             this.RenderButton(
                 writer, "img", "FormatText('img','')", this.GetText("COMMON", "TT_IMAGE"), "yafEditor/image.gif");
 
-            if (this.Get<YafBoardSettings>().EnableAlbum && (this.PageContext.UsrAlbums > 0 || this.PageContext.NumAlbums > 0))
+            if (this.Get<YafBoardSettings>().EnableAlbum && (this.PageContext.UsrAlbums > 0 && this.PageContext.NumAlbums > 0))
             {
                 var albumImageList = LegacyDb.album_images_by_user(this.PageContext.PageUserID);
 

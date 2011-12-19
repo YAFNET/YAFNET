@@ -521,15 +521,19 @@ namespace YAF.Controls
             var ci = CultureInfo.CreateSpecificCulture(currentCultureLocal);
             if (this.Get<YafBoardSettings>().EnableDNACalendar)
             {
-                this.Birthday.Text = this.UserData.Profile.Birthday > DateTime.MinValue
+                if (this.Get<YafBoardSettings>().UseFarsiCalender && ci.IsFarsiCulture())
+                {
+                    this.Birthday.Text = this.UserData.Profile.Birthday > DateTime.MinValue || this.UserData.Profile.Birthday.IsNullOrEmptyDBField()
+                                             ? PersianDateConverter.ToPersianDate(this.UserData.Profile.Birthday).ToString("d")
+                                             : PersianDateConverter.ToPersianDate(PersianDate.MinValue).ToString("d");
+                }
+                else
+                {
+                    this.Birthday.Text = this.UserData.Profile.Birthday > DateTime.MinValue || this.UserData.Profile.Birthday.IsNullOrEmptyDBField()
                                        ? this.UserData.Profile.Birthday.Date.ToString(
                                          ci.DateTimeFormat.ShortDatePattern, CultureInfo.InvariantCulture)
                                        : DateTime.MinValue.Date.ToString(
                                          ci.DateTimeFormat.ShortDatePattern, CultureInfo.InvariantCulture);
-
-                if (this.Get<YafBoardSettings>().UseFarsiCalender && ci.IsFarsiCulture())
-                {
-                    this.Birthday.Text = PersianDateConverter.ToPersianDate(this.UserData.Profile.Birthday).ToString("d");
                 }
 
                 this.Birthday.ToolTip = this.GetText("COMMON", "CAL_JQ_TT");

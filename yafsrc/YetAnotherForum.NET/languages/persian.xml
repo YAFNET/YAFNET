@@ -173,7 +173,7 @@
     <Resource tag="CONFIRM_APROVE_ALL">همه کاربران را تائید می کنید؟</Resource>
     <Resource tag="CONFIRM_DELETE">همه کاربران حذف شوند؟</Resource>
     <Resource tag="CONFIRM_DELETE_ALL">کاربرانی که تائید نشده اند و مدتی از آن می گذرد حذف شوند؟</Resource>
-    <Resource tag="DAYS_AGO">"{0:d} ({1:N0} روز قبل)</Resource>
+    <Resource tag="DAYS_AGO">{0:d} ({1:N0} روز قبل)</Resource>
     <Resource tag="DELETE_ALL">حذف همه بیشتر از :</Resource>
     <Resource tag="ERROR_DATABASESIZE">Unable to fetch DB Size</Resource>
     <Resource tag="HEADER1">چه کسی برخط است</Resource>

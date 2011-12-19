@@ -173,7 +173,7 @@
     <Resource tag="CONFIRM_APROVE_ALL">Одобрить всех пользователей?</Resource>
     <Resource tag="CONFIRM_DELETE">Удалить этого пользователя?</Resource>
     <Resource tag="CONFIRM_DELETE_ALL">Удалить всех неодобренных пользователей, зарегистированных раньше указанного числа дней?</Resource>
-    <Resource tag="DAYS_AGO">"{0:d} ({1:N0} дней назад)</Resource>
+    <Resource tag="DAYS_AGO">{0:d} ({1:N0} дней назад)</Resource>
     <Resource tag="DELETE_ALL">Удалить всех зарегистрированных ранее, дней:</Resource>
     <Resource tag="ERROR_DATABASESIZE">Невозможно определить размер БД</Resource>
     <Resource tag="HEADER1">Пользователи онлайн</Resource>
