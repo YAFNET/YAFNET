@@ -9410,7 +9410,7 @@ namespace YAF.Classes.Data
                 sqlBuilder.Append(MsSqlDbAccess.GetObjectName("User"));
                 sqlBuilder.Append(" u ON u.UserID = up.UserID JOIN ");
                 sqlBuilder.Append(MsSqlDbAccess.GetObjectName("Rank"));
-                sqlBuilder.Append(" r ON r.RankID = u.RankID where up.Birthday = @CurrentDate ");
+                sqlBuilder.Append(" r ON r.RankID = u.RankID where DAY(up.Birthday) = DAY(@CurrentDate) AND MONTH(up.Birthday) = MONTH(@CurrentDate) ");
                 using (var cmd = MsSqlDbAccess.GetCommand(sqlBuilder.ToString(), true))
                 {
                     cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
