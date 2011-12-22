@@ -1280,12 +1280,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue("BoardPollID", 0);
+                return this._regBoard.GetValue("BoardPollID", 0);
             }
 
             set
             {
-                this._reg.SetValue("BoardPollID", value);
+                this._regBoard.SetValue("BoardPollID", value);
             }
         }
 
