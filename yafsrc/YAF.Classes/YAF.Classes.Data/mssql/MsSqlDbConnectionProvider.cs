@@ -18,6 +18,7 @@ namespace YAF.Classes.Data
 	using YAF.Types;
 	using YAF.Types.Handlers;
 	using YAF.Types.Interfaces;
+	using YAF.Utils;
 
 	#endregion
 
@@ -42,7 +43,7 @@ namespace YAF.Classes.Data
 	/// <summary>
 	/// Provides open/close management for DB Connections
 	/// </summary>
-	public class MsSqlDbConnectionManager : IDbConnectionManager, IDisposable
+	public class MsSqlDbConnectionManager : IDbConnectionManager
 	{
 		#region Constants and Fields
 
@@ -67,6 +68,8 @@ namespace YAF.Classes.Data
 		{
 			this._connectionString = Config.ConnectionString;
 		}
+
+	
 
 		#endregion
 
@@ -128,9 +131,15 @@ namespace YAF.Classes.Data
 		/// </summary>
 		public void Dispose()
 		{
-			// close and delete connection
-			this.CloseConnection();
-			this._connection = null;
+			lock (this._connection)
+			{
+				if (this._connection != null && this._connection.State != ConnectionState.Closed)
+				{
+					this._connection.Close();
+				}
+
+				this._connection = null;
+			}
 		}
 
 		#endregion
@@ -138,17 +147,6 @@ namespace YAF.Classes.Data
 		#endregion
 
 		#region Methods
-
-		/// <summary>
-		/// The close connection.
-		/// </summary>
-		protected void CloseConnection()
-		{
-			if (this._connection != null && this._connection.State != ConnectionState.Closed)
-			{
-				this._connection.Close();
-			}
-		}
 
 		/// <summary>
 		/// The connection_ info message.
@@ -172,17 +170,20 @@ namespace YAF.Classes.Data
 		/// </summary>
 		protected void InitConnection()
 		{
-			if (this._connection == null)
+			lock (this._connection)
 			{
-				// create the connection
-				this._connection = new SqlConnection();
-				this._connection.InfoMessage += this.Connection_InfoMessage;
-				this._connection.ConnectionString = this.ConnectionString;
-			}
-			else if (this._connection.State != ConnectionState.Open)
-			{
-				// verify the connection string is in there...
-				this._connection.ConnectionString = this.ConnectionString;
+				if (this._connection == null)
+				{
+					// create the connection
+					this._connection = new SqlConnection();
+					this._connection.InfoMessage += this.Connection_InfoMessage;
+					this._connection.ConnectionString = this.ConnectionString;
+				}
+				else if (this._connection.State == ConnectionState.Closed)
+				{
+					// verify the connection string is in there...
+					this._connection.ConnectionString = this.ConnectionString;
+				}
 			}
 		}
 

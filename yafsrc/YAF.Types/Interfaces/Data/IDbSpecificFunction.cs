@@ -1,4 +1,4 @@
-/* Yet Another Forum.net
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -16,28 +16,58 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces.Data
 {
+	#region Using
+
 	using System.Collections.Generic;
 
+	#endregion
+
 	/// <summary>
-	/// The i data loadable.
+	/// The i db specific function.
 	/// </summary>
-	public interface IDataLoadable
+	public interface IDbSpecificFunction
 	{
+		#region Properties
+
+		/// <summary>
+		/// Gets OperationNames.
+		/// </summary>
+		IList<string> OperationNames { get; }
+
+		/// <summary>
+		/// Gets SortOrder.
+		/// </summary>
+		int SortOrder { get; }
+
+		#endregion
+
 		#region Public Methods
 
 		/// <summary>
-		/// The load from dictionary.
+		/// The execute.
 		/// </summary>
-		/// <param name="dictionary">
-		/// The dictionary.
+		/// <param name="dbfunctionType">
+		/// The dbfunction type.
 		/// </param>
-		/// <param name="clear">
-		/// The clear.
+		/// <param name="operationName">
+		/// The operation name.
 		/// </param>
-		void LoadFromDictionary([NotNull] IDictionary<string, object> dictionary, bool clear = true);
+		/// <param name="parameters">
+		/// The parameters.
+		/// </param>
+		/// <param name="result">
+		/// The result.
+		/// </param>
+		/// <returns>
+		/// The execute.
+		/// </returns>
+		bool Execute(
+			DbFunctionType dbfunctionType, 
+			string operationName, 
+			IEnumerable<KeyValuePair<string, object>> parameters, 
+			out object result);
 
 		#endregion
 	}

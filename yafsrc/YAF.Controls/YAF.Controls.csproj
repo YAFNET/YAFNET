@@ -76,6 +76,8 @@
   <ItemGroup>
     <Compile Include="ActiveLocation.cs" />
     <Compile Include="ActiveUsers.cs" />
+    <Compile Include="AlbumListPopMenu.cs" />
+    <Compile Include="PopEventArgs.cs" />
     <Compile Include="PopupPanel.cs" />
     <Compile Include="CountryListBox.cs" />
     <Compile Include="UserStyles.cs" />

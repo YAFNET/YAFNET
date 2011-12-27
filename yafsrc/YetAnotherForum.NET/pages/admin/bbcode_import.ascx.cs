@@ -72,7 +72,7 @@ namespace YAF.Pages.Admin
 
         try
         {
-            int importedCount = DataImport.BBCodeExtensionImport(
+					int importedCount = this.Get<DataImport>().BBCodeExtensionImport(
                 this.PageContext.PageBoardID, this.importFile.PostedFile.InputStream);
 
             this.PageContext.LoadMessage.AddSession(

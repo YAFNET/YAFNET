@@ -69,7 +69,7 @@ namespace YAF.Pages.Admin
       {
         try
         {
-          int importedCount = DataImport.FileExtensionImport(
+          int importedCount = this.Get<DataImport>().FileExtensionImport(
             this.PageContext.PageBoardID, this.importFile.PostedFile.InputStream);
 
             this.PageContext.LoadMessage.AddSession(

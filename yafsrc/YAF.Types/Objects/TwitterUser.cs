@@ -1,5 +1,4 @@
 ﻿/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 

@@ -40,7 +40,7 @@ namespace YAF.Providers.Profile
 	/// <summary>
 	/// The yaf profile db conn manager.
 	/// </summary>
-	public class MsSqlProfileDbConnectionManager : MsSqlDbConnectionManager
+	public class MsSqlProfileDbConnectionProvider : MsSqlDbConnectionProvider
 	{
 		#region Properties
 
@@ -73,7 +73,7 @@ namespace YAF.Providers.Profile
 		/// <summary>
 		///   The _db access.
 		/// </summary>
-		private readonly IDbAccess _dbAccess = new MsSqlDbAccess(new MsSqlProfileDbConnectionManager());
+		private readonly IDbAccess _dbAccess = new MsSqlDbAccess(new MsSqlProfileDbConnectionProvider());
 
 		#endregion
 

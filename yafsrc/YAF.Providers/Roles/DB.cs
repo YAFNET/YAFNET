@@ -36,7 +36,7 @@ namespace YAF.Providers.Roles
   /// <summary>
   /// The yaf roles db conn manager.
   /// </summary>
-  public class MsSqlRolesDbConnectionManager : MsSqlDbConnectionManager
+  public class MsSqlRolesDbConnectionProvider : MsSqlDbConnectionProvider
   {
     #region Properties
 
@@ -69,7 +69,7 @@ namespace YAF.Providers.Roles
     /// <summary>
     ///   The _db access.
     /// </summary>
-		private readonly IDbAccess _dbAccess = new MsSqlDbAccess(new MsSqlRolesDbConnectionManager());
+		private readonly IDbAccess _dbAccess = new MsSqlDbAccess(new MsSqlRolesDbConnectionProvider());
 
     #endregion
 

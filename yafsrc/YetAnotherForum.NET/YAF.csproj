@@ -97,15 +97,13 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CookComputing.XmlRpcV2, Version=2.5.0.0, Culture=neutral, PublicKeyToken=a7d6e17aa302004d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Bin\CookComputing.XmlRpcV2.dll</HintPath>
+    <Reference Include="CookComputing.XmlRpcV2">
+      <HintPath>..\lib\CookComputing.XmlRpcV2.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.JScript" />
-    <Reference Include="nStuff.UpdateControls, Version=1.2.0.0, Culture=neutral, PublicKeyToken=72f3f55dd4809977, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Bin\nStuff.UpdateControls.dll</HintPath>
+    <Reference Include="nStuff.UpdateControls">
+      <HintPath>..\lib\nStuff.UpdateControls.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
@@ -3943,6 +3941,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FarsiLibrary\FarsiLibrary.csproj">
+      <Project>{ED29E567-C801-49E9-8C33-CFB66042B07B}</Project>
+      <Name>FarsiLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\URLRewriter.NET\Intelligencia.UrlRewriter.csproj">
       <Project>{F8516C67-92BE-43FF-A8A9-B71A3EA4BE0D}</Project>
       <Name>Intelligencia.UrlRewriter</Name>

@@ -604,7 +604,7 @@ namespace YAF.Core
 		/// </param>
 		private void ForumPage_Init([NotNull] object sender, [NotNull] EventArgs e)
 		{
-			this.Get<IRaiseEvent>().Raise(new ForumPageInitEvent());
+			this.Get<IRaiseEvent>().Raise(new ForumPageInitEvent(this));
 
 			if (this._noDataBase)
 			{
@@ -619,7 +619,7 @@ namespace YAF.Core
 			this.Get<LocalizationProvider>().TranslationPage = this._transPage;
 
 			// fire preload event...
-			this.Get<IRaiseEvent>().Raise(new ForumPagePreLoadEvent());
+			this.Get<IRaiseEvent>().Raise(new ForumPagePreLoadEvent(this));
 		}
 
 		/// <summary>
@@ -637,7 +637,7 @@ namespace YAF.Core
 			}
 
 			// fire preload event...
-			this.Get<IRaiseEvent>().Raise(new ForumPagePostLoadEvent());
+			this.Get<IRaiseEvent>().Raise(new ForumPagePostLoadEvent(this));
 		}
 
 		/// <summary>
@@ -651,7 +651,7 @@ namespace YAF.Core
 		/// </param>
 		private void ForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
 		{
-			this.Get<IRaiseEvent>().Raise(new ForumPagePreRenderEvent());
+			this.Get<IRaiseEvent>().Raise(new ForumPagePreRenderEvent(this));
 
 			// sets up the head elements in addition to the Css and image elements));
 			this.SetupHeaderElements();
@@ -674,7 +674,7 @@ namespace YAF.Core
 		/// </param>
 		private void ForumPage_Unload([NotNull] object sender, [NotNull] EventArgs e)
 		{
-			this.Get<IRaiseEvent>().Raise(new ForumPageUnloadEvent());
+			this.Get<IRaiseEvent>().Raise(new ForumPageUnloadEvent(this));
 
 			// release cache
 			if (this._pageCache != null)

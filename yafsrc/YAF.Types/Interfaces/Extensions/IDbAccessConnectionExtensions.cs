@@ -16,41 +16,64 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Types.Interfaces
+
+namespace YAF.Types.Interfaces.Extensions
 {
 	#region Using
 
 	using System.Data;
+	using System.Data.Common;
 
 	#endregion
 
 	/// <summary>
-	/// The db access extensions
+	/// The db connection extensions.
 	/// </summary>
-	public static class IDbAccessExtensions
+	public static class IDbAccessConnectionExtensions
 	{
 		#region Public Methods
 
 		/// <summary>
-		/// The get data.
+		/// The create connection.
 		/// </summary>
 		/// <param name="dbAccess">
 		/// The db access.
 		/// </param>
-		/// <param name="sql">
-		/// The sql.
-		/// </param>
-		/// <param name="unitOfWork"></param>
 		/// <returns>
 		/// </returns>
-		public static DataTable GetData([NotNull] this IDbAccess dbAccess, [NotNull] string sql, [CanBeNull] IDbUnitOfWork unitOfWork = null)
+		[NotNull]
+		public static DbConnection CreateConnection([NotNull] this IDbAccess dbAccess)
 		{
 			CodeContracts.ArgumentNotNull(dbAccess, "dbAccess");
-			CodeContracts.ArgumentNotNull(sql, "sql");
 
-			var cmd = dbAccess.GetCommand(sql, false);
+			var connection = dbAccess.DbProviderFactory.CreateConnection();
+			connection.ConnectionString = dbAccess.ConnectionString;
 
-			return dbAccess.GetData(cmd, unitOfWork);
+			return connection;
+		}
+
+		/// <summary>
+		/// Get an open db connection.
+		/// </summary>
+		/// <param name="dbAccess">
+		/// The db Access.
+		/// </param>
+		/// <returns>
+		/// </returns>
+		[NotNull]
+		public static DbConnection CreateConnectionOpen([NotNull] this IDbAccess dbAccess)
+		{
+			CodeContracts.ArgumentNotNull(dbAccess, "dbAccess");
+
+			var connection = dbAccess.CreateConnection();
+
+			if (connection.State != ConnectionState.Open)
+			{
+				// open it up...
+				connection.Open();
+			}
+
+			return connection;
 		}
 
 		#endregion

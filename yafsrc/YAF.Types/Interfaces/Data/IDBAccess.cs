@@ -1,24 +1,69 @@
-// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IDBAccess.cs" company="">
-//   
-// </copyright>
-// <summary>
-//   DBAccess Interface
-// </summary>
-// --------------------------------------------------------------------------------------------------------------------
+/* Yet Another Forum.net
+ * Copyright (C) 2006-2011 Jaben Cargman
+ * http://www.yetanotherforum.net/
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
 
 namespace YAF.Types.Interfaces
 {
+	#region Using
+
 	using System.Collections.Generic;
 	using System.Data;
 	using System.Data.Common;
+
+	#endregion
 
 	/// <summary>
 	/// DBAccess Interface
 	/// </summary>
 	public interface IDbAccess
 	{
+		#region Properties
+
+		/// <summary>
+		///   Gets or sets ConnectionString.
+		/// </summary>
+		string ConnectionString { get; set; }
+
+		/// <summary>
+		///   Gets the current db provider factory
+		/// </summary>
+		/// <returns>
+		/// </returns>
+		DbProviderFactory DbProviderFactory { get; }
+
+		/// <summary>
+		/// Gets ProviderName.
+		/// </summary>
+		string ProviderName { get; }
+
+		#endregion
+
 		#region Public Methods
+
+		/// <summary>
+		/// The begin transaction.
+		/// </summary>
+		/// <param name="isolationLevel">
+		/// The isolation level.
+		/// </param>
+		/// <returns>
+		/// </returns>
+		IDbUnitOfWork BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.ReadUncommitted);
 
 		/// <summary>
 		/// The execute non query.
@@ -26,10 +71,10 @@ namespace YAF.Types.Interfaces
 		/// <param name="cmd">
 		/// The cmd.
 		/// </param>
-		/// <param name="transaction">
-		/// The transaction.
+		/// <param name="unitOfWork">
+		/// The unit Of Work.
 		/// </param>
-		void ExecuteNonQuery([NotNull] IDbCommand cmd, bool transaction);
+		void ExecuteNonQuery([NotNull] DbCommand cmd, [CanBeNull] IDbUnitOfWork unitOfWork = null);
 
 		/// <summary>
 		/// The execute scalar.
@@ -37,13 +82,13 @@ namespace YAF.Types.Interfaces
 		/// <param name="cmd">
 		/// The cmd.
 		/// </param>
-		/// <param name="transaction">
-		/// The transaction.
+		/// <param name="unitOfWork">
+		/// The unit Of Work.
 		/// </param>
 		/// <returns>
 		/// The execute scalar.
 		/// </returns>
-		object ExecuteScalar([NotNull] IDbCommand cmd, bool transaction);
+		object ExecuteScalar([NotNull] DbCommand cmd, [CanBeNull] IDbUnitOfWork unitOfWork = null);
 
 		/// <summary>
 		/// The get command.
@@ -54,20 +99,15 @@ namespace YAF.Types.Interfaces
 		/// <param name="isStoredProcedure">
 		/// The is stored procedure.
 		/// </param>
-		/// <param name="parameters">Command Parameters</param>
+		/// <param name="parameters">
+		/// Command Parameters
+		/// </param>
 		/// <returns>
 		/// </returns>
 		DbCommand GetCommand(
-			[NotNull] string sql,
-			bool isStoredProcedure = true,
+			[NotNull] string sql, 
+			bool isStoredProcedure = true, 
 			[CanBeNull] IEnumerable<KeyValuePair<string, object>> parameters = null);
-
-		/// <summary>
-		/// Gets the current connection manager.
-		/// </summary>
-		/// <returns>
-		/// </returns>
-		IDbConnectionManager ConnectionManager { get; set; }
 
 		/// <summary>
 		/// The get data.
@@ -75,12 +115,12 @@ namespace YAF.Types.Interfaces
 		/// <param name="cmd">
 		/// The cmd.
 		/// </param>
-		/// <param name="transaction">
-		/// The transaction.
+		/// <param name="unitOfWork">
+		/// The unit Of Work.
 		/// </param>
 		/// <returns>
 		/// </returns>
-		DataTable GetData([NotNull] IDbCommand cmd, bool transaction);
+		DataTable GetData([NotNull] DbCommand cmd, [CanBeNull] IDbUnitOfWork unitOfWork = null);
 
 		/// <summary>
 		/// The get dataset.
@@ -88,12 +128,12 @@ namespace YAF.Types.Interfaces
 		/// <param name="cmd">
 		/// The cmd.
 		/// </param>
-		/// <param name="transaction">
-		/// The transaction.
+		/// <param name="unitOfWork">
+		/// The unit Of Work.
 		/// </param>
 		/// <returns>
 		/// </returns>
-		DataSet GetDataset([NotNull] IDbCommand cmd, bool transaction);
+		DataSet GetDataset([NotNull] DbCommand cmd, [CanBeNull] IDbUnitOfWork unitOfWork = null);
 
 		#endregion
 	}

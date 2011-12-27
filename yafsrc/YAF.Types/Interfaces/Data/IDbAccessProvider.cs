@@ -18,26 +18,24 @@
  */
 namespace YAF.Types.Interfaces
 {
-	using System;
-	using System.Data;
+	#region Using
 
-	using YAF.Types.Handlers;
+	using System.Data.Common;
 
-	public interface IDbConnectionManager
+	#endregion
+
+	/// <summary>
+	/// The db access provider.
+	/// </summary>
+	public interface IDbAccessProvider : IReadWriteProvider<IDbAccess>
 	{
-		/// <summary>
-		/// Gets ConnectionString.
-		/// </summary>
-		string ConnectionString { get; set; }
+		#region Properties
 
 		/// <summary>
-		/// Gets the current DB Connection in any state.
+		/// Gets or sets ProviderName.
 		/// </summary>
-		IDbConnection DBConnection { get; }
+		string ProviderName { get; set; }
 
-		/// <summary>
-		/// The info message.
-		/// </summary>
-		event YafDBConnInfoMessageEventHandler InfoMessage;
+		#endregion
 	}
 }

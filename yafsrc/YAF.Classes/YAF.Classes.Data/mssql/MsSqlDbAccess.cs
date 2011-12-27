@@ -30,11 +30,11 @@ namespace YAF.Classes.Data
 	/// <summary>
 	/// The yaf db access for SQL Server.
 	/// </summary>
-	public class MsSqlDbAccess : IDbAccess
+	public class MsSqlDbAccess : DbAccessBase
 	{
-		public MsSqlDbAccess(IDbConnectionManager connectionManager)
+		public MsSqlDbAccess(IDbFactoryProvider factoryProvider)
 		{
-			_connectionManager = connectionManager;
+			this._factoryProvider = factoryProvider;
 		}
 
 		#region Constants and Fields
@@ -52,7 +52,7 @@ namespace YAF.Classes.Data
 		/// <summary>
 		/// The _connection manager.
 		/// </summary>
-		private IDbConnectionManager _connectionManager = new MsSqlDbConnectionManager();
+		private IDbFactoryProvider _factoryProvider = new MsSqlDbConnectionProvider();
 
 		#endregion
 
@@ -75,18 +75,18 @@ namespace YAF.Classes.Data
 		/// <returns>
 		/// </returns>
 		[NotNull]
-		public IDbConnectionManager ConnectionManager
+		public IDbFactoryProvider FactoryProvider
 		{
 			get
 			{
-				return this._connectionManager;
+				return this._factoryProvider;
 			}
 
 			set
 			{
 				if (value != null)
 				{
-					this._connectionManager = value;
+					this._factoryProvider = value;
 				}
 			}
 		}
@@ -228,7 +228,7 @@ namespace YAF.Classes.Data
 		{
 			using (var qc = QueryCounter.Start(cmd.CommandText))
 			{
-				using (var connection = this.ConnectionManager.GetOpenDbConnection())
+				using (var connection = this.FactoryProvider.GetOpenDbConnection())
 				{
 					// get an open connection
 					cmd.Connection = connection;
@@ -270,7 +270,7 @@ namespace YAF.Classes.Data
 		{
 			using (var qc = QueryCounter.Start(cmd.CommandText))
 			{
-				using (var connection = this.ConnectionManager.GetOpenDbConnection())
+				using (var connection = this.FactoryProvider.GetOpenDbConnection())
 				{
 					// get an open connection
 					cmd.Connection = connection;
@@ -435,7 +435,7 @@ namespace YAF.Classes.Data
 		[NotNull]
 		private DataSet GetDatasetBasic([NotNull] IDbCommand cmd, bool transaction)
 		{
-			using (var connection = this.ConnectionManager.GetOpenDbConnection())
+			using (var connection = this.FactoryProvider.GetOpenDbConnection())
 			{
 				// see if an existing connection is present
 				cmd.Connection = connection;

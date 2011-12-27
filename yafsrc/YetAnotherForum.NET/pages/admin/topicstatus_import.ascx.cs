@@ -73,7 +73,7 @@ namespace YAF.Pages.Admin
 
         try
         {
-            int importedCount = DataImport.TopicStatusImport(
+					int importedCount = this.Get<DataImport>().TopicStatusImport(
                 this.PageContext.PageBoardID, this.importFile.PostedFile.InputStream);
 
             this.PageContext.LoadMessage.AddSession(

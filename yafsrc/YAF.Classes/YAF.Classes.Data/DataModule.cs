@@ -43,7 +43,7 @@ namespace YAF.Classes.Data
     protected override void Load([NotNull] ContainerBuilder builder)
     {
       builder.RegisterType<MsSqlDbAccess>().As<IDbAccess>().InstancePerLifetimeScope();
-      builder.RegisterType<MsSqlDbConnectionManager>().As<IDbConnectionManager>().InstancePerLifetimeScope();
+      builder.RegisterType<MsSqlDbConnectionProvider>().As<IDbFactoryProvider>().InstancePerDependency();
     }
 
     #endregion

@@ -22,6 +22,8 @@ namespace YAF.Core
 
 	using System;
 	using System.Collections.Generic;
+	using System.Configuration;
+	using System.Data.Common;
 	using System.Linq;
 	using System.Reflection;
 
@@ -113,8 +115,20 @@ namespace YAF.Core
 			builder.RegisterType<AutoFacServiceLocatorProvider>().AsSelf().As<IServiceLocator>().As<IInjectServices>().InstancePerLifetimeScope();
 
 			// data
+			builder.RegisterType<DbAccessProvider>().As<IDbAccessProvider>().SingleInstance();
+
+			builder.RegisterType<DbAccessBase>().AsSelf().Named<IDbAccess>("System.Data.SqlClient").InstancePerDependency().
+				PreserveExistingDefaults();
+
+			builder.Register(c => c.Resolve<IDbAccessProvider>().Instance).As<IDbAccess>().InstancePerDependency().
+				PreserveExistingDefaults();
+
+			builder.Register((c, p) => DbProviderFactories.GetFactory(p.TypedAs<string>())).ExternallyOwned().
+				PreserveExistingDefaults();
+
 			builder.RegisterType<DynamicDbFunction>().As<IDbFunction>().InstancePerLifetimeScope().
 				PreserveExistingDefaults();
+
 
 			// system
 			builder.RegisterType<LocalHostedFileSystem>().As<IFileSystem>().InstancePerLifetimeScope().PreserveExistingDefaults();

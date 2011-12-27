@@ -38,7 +38,7 @@ namespace YAF.Providers.Membership
 	/// <summary>
 	/// The yaf membership db conn manager.
 	/// </summary>
-	public class MsSqlMembershipDbConnectionManager : MsSqlDbConnectionManager
+	public class MsSqlMembershipDbConnectionProvider : MsSqlDbConnectionProvider
 	{
 		#region Properties
 
@@ -71,7 +71,7 @@ namespace YAF.Providers.Membership
 		/// <summary>
 		///   The _db access.
 		/// </summary>
-		private readonly IDbAccess _dbAccess = new MsSqlDbAccess(new MsSqlMembershipDbConnectionManager());
+		private readonly IDbAccess _dbAccess = new MsSqlDbAccess(new MsSqlMembershipDbConnectionProvider());
 
 		#endregion
 

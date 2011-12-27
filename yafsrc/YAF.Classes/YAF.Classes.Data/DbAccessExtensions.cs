@@ -61,7 +61,7 @@ namespace YAF.Classes.Data
 
 			try
 			{
-				using (var connection = dbAccess.ConnectionManager.GetOpenDbConnection())
+				using (var connection = dbAccess.CreateConnectionOpen())
 				{
 					// we're connected!
 					var conn = connection;
@@ -70,7 +70,7 @@ namespace YAF.Classes.Data
 				// success
 				success = true;
 			}
-			catch (Exception x)
+			catch (DbException x)
 			{
 				// unable to connect...
 				exceptionMessage = x.Message;

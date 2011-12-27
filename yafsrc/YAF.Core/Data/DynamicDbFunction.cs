@@ -1,14 +1,25 @@
-// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="DynamicDbFunction.cs" company="">
-//   
-// </copyright>
-// <summary>
-//   The dynamic db function.
-// </summary>
-// --------------------------------------------------------------------------------------------------------------------
-
+/* Yet Another Forum.NET
+ * Copyright (C) 2006-2011 Jaben Cargman
+ * http://www.yetanotherforum.net/
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
 namespace YAF.Core.Data
 {
+	#region Using
+
 	using System;
 	using System.Collections.Generic;
 	using System.Data.Common;
@@ -16,9 +27,11 @@ namespace YAF.Core.Data
 	using System.Linq;
 
 	using YAF.Types;
-	using YAF.Types.EventProxies;
 	using YAF.Types.Interfaces;
+	using YAF.Types.Interfaces.Data;
 	using YAF.Utils;
+
+	#endregion
 
 	/// <summary>
 	/// The dynamic db function.
@@ -26,6 +39,11 @@ namespace YAF.Core.Data
 	public class DynamicDbFunction : IDbFunction
 	{
 		#region Constants and Fields
+
+		/// <summary>
+		/// The _db specific functions.
+		/// </summary>
+		private readonly IEnumerable<IDbSpecificFunction> _dbSpecificFunctions;
 
 		/// <summary>
 		///   The _get data proxy.
@@ -57,8 +75,12 @@ namespace YAF.Core.Data
 		/// <param name="dbAccess">
 		/// The db access.
 		/// </param>
-		public DynamicDbFunction([NotNull] IDbAccess dbAccess)
+		/// <param name="dbSpecificFunctions">
+		/// The db Specific Functions.
+		/// </param>
+		public DynamicDbFunction([NotNull] IDbAccess dbAccess, IEnumerable<IDbSpecificFunction> dbSpecificFunctions)
 		{
+			this._dbSpecificFunctions = dbSpecificFunctions;
 			this.DbAccess = dbAccess;
 			this._getDataProxy = new TryInvokeMemberProxy(this.InvokeGetData);
 			this._getDataSetProxy = new TryInvokeMemberProxy(this.InvokeGetDataSet);
@@ -156,6 +178,17 @@ namespace YAF.Core.Data
 			CodeContracts.ArgumentNotNull(executeDb, "executeDb");
 
 			var operationName = binder.Name;
+
+			// see if there's a specific function override...
+			var specificFunction =
+				this._dbSpecificFunctions.OrderBy(f => f.SortOrder).Where(
+					f => f.OperationNames.Any(s => string.Equals(s, operationName, StringComparison.OrdinalIgnoreCase))).FirstOrDefault
+					();
+
+			if (specificFunction != null && specificFunction.Execute(functionType, operationName, parameters, out result))
+			{
+				return true;
+			}
 
 			using (var cmd = this.DbAccess.GetCommand(operationName.ToLower(), true, parameters))
 			{
@@ -292,82 +325,6 @@ namespace YAF.Core.Data
 				args.Reverse().Zip(
 					callInfo.ArgumentNames.Reverse().Infinite(), (a, name) => new KeyValuePair<string, object>(name, a)).Reverse().
 					ToList();
-		}
-
-		#endregion
-	}
-
-	/// <summary>
-	/// The dynamic db.
-	/// </summary>
-	public class TryInvokeMemberProxy : DynamicObject
-	{
-		#region Constants and Fields
-
-		/// <summary>
-		///   The _try invoke func.
-		/// </summary>
-		private readonly TryInvokeFunc _tryInvokeFunc;
-
-		#endregion
-
-		#region Constructors and Destructors
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="TryInvokeMemberProxy"/> class.
-		/// </summary>
-		/// <param name="tryInvokeFunc">
-		/// The try invoke func.
-		/// </param>
-		public TryInvokeMemberProxy([NotNull] TryInvokeFunc tryInvokeFunc)
-		{
-			CodeContracts.ArgumentNotNull(tryInvokeFunc, "tryInvokeFunc");
-
-			this._tryInvokeFunc = tryInvokeFunc;
-		}
-
-		#endregion
-
-		#region Delegates
-
-		/// <summary>
-		/// The try invoke func.
-		/// </summary>
-		/// <param name="binder">
-		/// The binder.
-		/// </param>
-		/// <param name="args">
-		/// The args.
-		/// </param>
-		/// <param name="result">
-		/// The result.
-		/// </param>
-		public delegate bool TryInvokeFunc(
-			[NotNull] InvokeMemberBinder binder, [NotNull] object[] args, [NotNull] out object result);
-
-		#endregion
-
-		#region Public Methods
-
-		/// <summary>
-		/// The try invoke member.
-		/// </summary>
-		/// <param name="binder">
-		/// The binder.
-		/// </param>
-		/// <param name="args">
-		/// The args.
-		/// </param>
-		/// <param name="result">
-		/// The result.
-		/// </param>
-		/// <returns>
-		/// The try invoke member.
-		/// </returns>
-		public override bool TryInvokeMember(
-			[NotNull] InvokeMemberBinder binder, [NotNull] object[] args, [NotNull] out object result)
-		{
-			return this._tryInvokeFunc(binder, args, out result);
 		}
 
 		#endregion

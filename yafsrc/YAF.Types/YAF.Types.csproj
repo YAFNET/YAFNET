@@ -77,6 +77,8 @@
     <Compile Include="EventProxies\UserLogoutEvent.cs" />
     <Compile Include="Interfaces\Data\IDataLoadable.cs" />
     <Compile Include="Interfaces\Data\IDbFunction.cs" />
+    <Compile Include="Interfaces\Data\IDbSpecificFunction.cs" />
+    <Compile Include="Interfaces\Data\IDbUnitOfWork.cs" />
     <Compile Include="Interfaces\Events\EventConverterArgs.cs" />
     <Compile Include="Flags\AccessFlags.cs" />
     <Compile Include="Flags\ActiveFlags.cs" />
@@ -97,8 +99,9 @@
     <Compile Include="Interfaces\Events\IRaiseEvent.cs" />
     <Compile Include="Interfaces\Events\IFireEvent.cs" />
     <Compile Include="Interfaces\Extensions\CollectionExtensions.cs" />
-    <Compile Include="Interfaces\Extensions\DbConnectionManagerExtensions.cs" />
+    <Compile Include="Interfaces\Extensions\IDbAccessConnectionExtensions.cs" />
     <Compile Include="Interfaces\Extensions\IDbAccessExtensions.cs" />
+    <Compile Include="Interfaces\Extensions\IDbUnitOfWorkExtensions.cs" />
     <Compile Include="Interfaces\Extensions\IHaveLocalizationExtensions.cs" />
     <Compile Include="Interfaces\Extensions\InjectServicesExtensions.cs" />
     <Compile Include="Interfaces\Extensions\IObjectStoreExtensions.cs" />
@@ -168,7 +171,7 @@
     <Compile Include="Interfaces\IUserDisplayName.cs" />
     <Compile Include="Interfaces\IUserIgnored.cs" />
     <Compile Include="Interfaces\Data\IDBAccess.cs" />
-    <Compile Include="Interfaces\Data\IDbConnectionManager.cs" />
+    <Compile Include="Interfaces\Data\IDbAccessProvider.cs" />
     <Compile Include="Interfaces\IWriteValue.cs" />
     <Compile Include="Interfaces\IYafSession.cs" />
     <Compile Include="Interfaces\ITheme.cs" />
@@ -182,6 +185,7 @@
     <Compile Include="Objects\SimpleForum.cs" />
     <Compile Include="Objects\SimpleModerator.cs" />
     <Compile Include="Objects\SimpleTopic.cs" />
+    <Compile Include="Objects\TwitterUser.cs" />
     <Compile Include="Objects\TypedAllThanks.cs" />
     <Compile Include="Objects\TypedBBCode.cs" />
     <Compile Include="Objects\TypedForumListAll.cs" />

@@ -25,6 +25,7 @@ namespace YAF.Install
 	using System;
 	using System.Configuration;
 	using System.Data;
+	using System.Data.Common;
 	using System.Drawing;
 	using System.IO;
 	using System.Linq;
@@ -140,6 +141,12 @@ namespace YAF.Install
 
 					return connName.IsSet() ? ConfigurationManager.ConnectionStrings[connName].ConnectionString : string.Empty;
 				}
+
+				var connectionStringBuilder = this.Get<DbProviderFactory>().CreateConnectionStringBuilder();
+
+				connectionStringBuilder["Data Source"] = this.Parameter1_Value.Text.Trim();
+				connectionStringBuilder["Initial Catalog"] = this.Parameter1_Value.Text.Trim();
+				connectionStringBuilder["integrated Security"] = this.Parameter1_Value.Text.Trim();
 
 				return MsSqlDbAccess.GetConnectionString(
 						this.Parameter1_Value.Text.Trim(),
@@ -291,7 +298,7 @@ namespace YAF.Install
 			}
 
 			// set the connection manager to the dynamic...
-			this.Get<IDbAccess>().ConnectionManager.ConnectionString = connectionString;
+			this.Get<IDbAccess>().ConnectionString = connectionString;
 		}
 
 		/// <summary>
@@ -1089,38 +1096,8 @@ else
 
 				// vzrus: uncomment it to not keep install/upgrade objects in db for a place and better security
 				// YAF.Classes.Data.DB.system_deleteinstallobjects();
-				// load default bbcode if available...
-				if (File.Exists(this.Request.MapPath(_BbcodeImport)))
-				{
-					// import into board...
-					using (var bbcodeStream = new StreamReader(this.Request.MapPath(_BbcodeImport)))
-					{
-						DataImport.BBCodeExtensionImport(this.PageBoardID, bbcodeStream.BaseStream);
-						bbcodeStream.Close();
-					}
-				}
 
-				// load default extensions if available...
-				if (File.Exists(this.Request.MapPath(_FileImport)))
-				{
-					// import into board...
-					using (var fileExtStream = new StreamReader(this.Request.MapPath(_FileImport)))
-					{
-						DataImport.FileExtensionImport(this.PageBoardID, fileExtStream.BaseStream);
-						fileExtStream.Close();
-					}
-				}
-
-				// load default topic status if available...
-				if (File.Exists(this.Request.MapPath(_TopicStatusImport)))
-				{
-					// import into board...
-					using (var topicStatusStream = new StreamReader(this.Request.MapPath(_TopicStatusImport)))
-					{
-						DataImport.TopicStatusImport(this.PageBoardID, topicStatusStream.BaseStream);
-						topicStatusStream.Close();
-					}
-				}
+				this.ImportData();
 			}
 			catch (Exception x)
 			{
@@ -1419,38 +1396,7 @@ else
 
 				if (LegacyDb.GetIsForumInstalled() && prevVersion < 30)
 				{
-					// load default bbcode if available...
-					if (File.Exists(this.Request.MapPath(_BbcodeImport)))
-					{
-						// import into board...
-						using (var bbcodeStream = new StreamReader(this.Request.MapPath(_BbcodeImport)))
-						{
-							DataImport.BBCodeExtensionImport(this.PageBoardID, bbcodeStream.BaseStream);
-							bbcodeStream.Close();
-						}
-					}
-
-					// load default extensions if available...
-					if (File.Exists(this.Request.MapPath(_FileImport)))
-					{
-						// import into board...
-						using (var fileExtStream = new StreamReader(this.Request.MapPath(_FileImport)))
-						{
-							DataImport.FileExtensionImport(this.PageBoardID, fileExtStream.BaseStream);
-							fileExtStream.Close();
-						}
-					}
-
-					// load default topic status if available...
-					if (File.Exists(this.Request.MapPath(_TopicStatusImport)))
-					{
-						// import into board...
-						using (var topicStatusStream = new StreamReader(this.Request.MapPath(_TopicStatusImport)))
-						{
-							DataImport.TopicStatusImport(this.PageBoardID, topicStatusStream.BaseStream);
-							topicStatusStream.Close();
-						}
-					}
+					ImportData();
 				}
 
 				if (LegacyDb.GetIsForumInstalled() && prevVersion < 42)
@@ -1487,6 +1433,41 @@ else
 			this.ExecuteScript("custom.sql", true);
 
 			return true;
+		}
+
+		private void ImportData()
+		{
+			if (File.Exists(this.Request.MapPath(_BbcodeImport)))
+			{
+				// import into board...
+				using (var bbcodeStream = new StreamReader(this.Request.MapPath(_BbcodeImport)))
+				{
+					this.Get<DataImport>().BBCodeExtensionImport(this.PageBoardID, bbcodeStream.BaseStream);
+					bbcodeStream.Close();
+				}
+			}
+
+			// load default extensions if available...
+			if (File.Exists(this.Request.MapPath(_FileImport)))
+			{
+				// import into board...
+				using (var fileExtStream = new StreamReader(this.Request.MapPath(_FileImport)))
+				{
+					this.Get<DataImport>().FileExtensionImport(this.PageBoardID, fileExtStream.BaseStream);
+					fileExtStream.Close();
+				}
+			}
+
+			// load default topic status if available...
+			if (File.Exists(this.Request.MapPath(_TopicStatusImport)))
+			{
+				// import into board...
+				using (var topicStatusStream = new StreamReader(this.Request.MapPath(_TopicStatusImport)))
+				{
+					this.Get<DataImport>().TopicStatusImport(this.PageBoardID, topicStatusStream.BaseStream);
+					topicStatusStream.Close();
+				}
+			}
 		}
 
 		#endregion
