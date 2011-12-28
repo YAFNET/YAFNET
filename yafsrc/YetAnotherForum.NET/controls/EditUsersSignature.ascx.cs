@@ -250,6 +250,9 @@ namespace YAF.Controls
         protected void Page_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.trHeader.Visible = this.ShowHeader;
+
+            // Setup Pagination js
+            YafContext.Current.PageElements.RegisterJsResourceInclude("paginationjs", "js/jquery.pagination.js");
         }
 
         /// <summary>
