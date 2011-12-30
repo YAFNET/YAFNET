@@ -28,7 +28,6 @@ namespace YAF.Controls
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -579,18 +578,7 @@ namespace YAF.Controls
                     null);
             }
 
-            var unreadTopics =
-                LegacyDb.topic_active(
-                    this.PageContext.PageBoardID,
-                    this.PageContext.PageUserID,
-                    this.Get<YafBoardSettings>().UseReadTrackingByDatabase
-                                    ? this.Get<IReadTracking>().GetUserLastRead(this.PageContext.PageUserID)
-                                    : this.Get<IYafSession>().LastVisit,
-                    null,
-                    false,
-                    this.Get<YafBoardSettings>().UseReadTrackingByDatabase).Rows.Count;
-
-            bool unread = this.PageContext.UnreadPrivate > 0 || this.PageContext.PendingBuddies > 0 || unreadTopics > 0;
+            bool unread = this.PageContext.UnreadPrivate > 0 || this.PageContext.PendingBuddies > 0 || this.Get<IYafSession>().UnreadTopics > 0;
 
             // My Topics
             RenderMenuItem(
@@ -601,9 +589,9 @@ namespace YAF.Controls
                     this.GetText("TOOLBAR", "MYTOPICS"),
                     YafBuildLink.GetLink(ForumPages.mytopics),
                     false,
-                    unreadTopics > 0,
-                    unreadTopics.ToString(),
-                    this.GetText("TOOLBAR", "UNREADTOPICS").FormatWith(unreadTopics));
+                    this.Get<IYafSession>().UnreadTopics > 0,
+                    this.Get<IYafSession>().UnreadTopics.ToString(),
+                    this.GetText("TOOLBAR", "UNREADTOPICS").FormatWith(this.Get<IYafSession>().UnreadTopics));
 
             /*
             this.MyTopics.ToolTip = this.GetText("TOOLBAR", "MYTOPICS");

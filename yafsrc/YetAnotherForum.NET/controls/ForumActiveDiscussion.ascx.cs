@@ -208,6 +208,11 @@ namespace YAF.Controls
                     lastRead = lastReadForum;
                 }
 
+                if (DateTime.Parse(currentRow["LastPosted"].ToString()) > lastRead)
+                {
+                    this.Get<IYafSession>().UnreadTopics++;
+                }
+
                 lastUnreadImage.ThemeTag = (DateTime.Parse(currentRow["LastPosted"].ToString()) > lastRead)
                                                ? "ICON_NEWEST_UNREAD"
                                                : "ICON_LATEST_UNREAD";
@@ -249,6 +254,8 @@ namespace YAF.Controls
 
             if (activeTopics == null)
             {
+                this.Get<IYafSession>().UnreadTopics = 0;
+
                 activeTopics = LegacyDb.topic_latest(
                   this.PageContext.PageBoardID,
                   this.Get<YafBoardSettings>().ActiveDiscussionsCount,

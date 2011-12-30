@@ -215,6 +215,9 @@ namespace YAF.Controls
                         categoryIDObject,
                         this.Get<YafBoardSettings>().UseStyledNicks,
                         this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
+
+                    // Update Unread Topics Count
+                    this.Get<IYafSession>().UnreadTopics = topicList.Rows.Count;
                     break;
                 case TopicListMode.User:
                     topicList = LegacyDb.Topics_ByUser(
