@@ -21,8 +21,10 @@ namespace YAF.Pages
   #region Using
 
   using System;
+  using System.Web.UI;
 
   using YAF.Classes;
+  using YAF.Controls;
   using YAF.Core;
   using YAF.Types;
   using YAF.Types.Constants;
@@ -63,8 +65,15 @@ namespace YAF.Pages
       YafContext.Current.PageElements.RegisterJQuery();
       YafContext.Current.PageElements.RegisterJQueryUI();
 
-      YafContext.Current.PageElements.RegisterJsBlock(
-        "TopicsTabsJs", JavaScriptBlocks.JqueryUITabsLoadJs(this.TopicsTabs.ClientID, this.hidLastTab.ClientID, false));
+        YafContext.Current.PageElements.RegisterJsBlock(
+            "TopicsTabsJs",
+            JavaScriptBlocks.JqueryUITabsLoadJs(
+                this.TopicsTabs.ClientID,
+                this.hidLastTab.ClientID,
+                this.hidLastTabId.ClientID,
+                this.Page.ClientScript.GetPostBackEventReference(ChangeTab, string.Empty),
+                false,
+                true));
 
       base.OnPreRender(e);
     }
@@ -103,5 +112,129 @@ namespace YAF.Pages
     }
 
     #endregion
+    
+    private bool activeloaded;
+    private bool unansweredloaded;
+    private bool unreadloaded;
+    private bool mytopicsloaded;
+    private bool favoriteloaded;
+
+    /// <summary>
+    /// Load the Selected Tab Content
+    /// </summary>
+    /// <param name="sender">The sender.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    protected void ChangeTabClick(object sender, EventArgs e)
+    {
+        switch (hidLastTabId.Value)
+        {
+            case "ActiveTopicsTab":
+
+                if (!this.activeloaded)
+                {
+                    this.ActiveTopics.DataBind();
+                    this.UnansweredTopics.DataBind();
+                    if (this.UnreadTopicsTabTitle.Visible)
+                    {
+                        this.UnreadTopics.DataBind();
+                    }
+
+                    if (this.UserTopicsTabTitle.Visible)
+                    {
+                        this.MyTopics.DataBind();
+                        this.FavoriteTopics.DataBind();
+                    }
+
+                    this.activeloaded = true;
+                }
+
+                break;
+            case "UnansweredTopicsTab":
+
+                if (!this.unansweredloaded)
+                {
+                    this.UnansweredTopics.BindData();
+
+                    this.ActiveTopics.DataBind();
+                    if (this.UnreadTopicsTabTitle.Visible)
+                    {
+                        this.UnreadTopics.DataBind();
+                    }
+
+                    if (this.UserTopicsTabTitle.Visible)
+                    {
+                        this.MyTopics.DataBind();
+                        this.FavoriteTopics.DataBind();
+                    }
+
+                    this.unansweredloaded = true;
+                }
+
+                break;
+            case "UnreadTopicsTab":
+
+                if (!this.unreadloaded)
+                {
+                    this.UnreadTopics.BindData();
+
+                    this.ActiveTopics.DataBind();
+                    this.UnansweredTopics.DataBind();
+
+                    if (this.UserTopicsTabTitle.Visible)
+                    {
+                        this.MyTopics.DataBind();
+                        this.FavoriteTopics.DataBind();
+                    }
+
+                    this.unreadloaded = true;
+                }
+
+                break;
+            case "MyTopicsTab":
+
+                if (!this.mytopicsloaded)
+                {
+                    this.MyTopics.BindData();
+
+                    this.ActiveTopics.DataBind();
+                    this.UnansweredTopics.DataBind();
+                    if (this.UnreadTopicsTabTitle.Visible)
+                    {
+                        this.UnreadTopics.DataBind();
+                    }
+
+                    if (this.UserTopicsTabTitle.Visible)
+                    {
+                        this.FavoriteTopics.DataBind();
+                    }
+
+                    this.mytopicsloaded = true;
+                }
+
+                break;
+            case "FavoriteTopicsTab":
+
+                if (!this.favoriteloaded)
+                {
+                    this.FavoriteTopics.BindData();
+
+                    this.ActiveTopics.DataBind();
+                    this.UnansweredTopics.DataBind();
+                    if (this.UnreadTopicsTabTitle.Visible)
+                    {
+                        this.UnreadTopics.DataBind();
+                    }
+
+                    if (this.UserTopicsTabTitle.Visible)
+                    {
+                        this.MyTopics.DataBind();
+                    }
+
+                    this.favoriteloaded = true;
+                }
+
+                break;
+        }
+    }
   }
 }

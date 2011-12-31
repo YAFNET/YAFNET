@@ -20,6 +20,8 @@ namespace YAF.Utilities
 {
     #region Using
 
+    using System.Web.UI;
+
     using YAF.Classes;
     using YAF.Core;
     using YAF.Types;
@@ -541,12 +543,41 @@ namespace YAF.Utilities
         /// </returns>
         public static string JqueryUITabsLoadJs([NotNull] string tabId, [NotNull] string hiddenId, bool hightTransition)
         {
-            string heightTransitionJs = string.Empty;
+            return JqueryUITabsLoadJs(tabId, hiddenId, null, null, hightTransition, false);
+        }
 
-            if (hightTransition)
-            {
-                heightTransitionJs = ", fx:{height:'toggle'}";
-            }
+        /// <summary>
+        /// Gets JqueryUITabsLoadJs.
+        /// </summary>
+        /// <param name="tabId">
+        /// The tab Id.
+        /// </param>
+        /// <param name="hiddenId">
+        /// The hidden Id.
+        /// </param>
+        /// <param name="hiddenTabId">
+        /// The hidden tab id.
+        /// </param>
+        /// <param name="postbackJs">
+        /// The postback Js.
+        /// </param>
+        /// <param name="hightTransition">
+        /// Height Transition
+        /// </param>
+        /// <param name="addSelectedFunction">
+        /// The add Selected Function.
+        /// </param>
+        /// <returns>
+        /// The jquery ui tabs load js.
+        /// </returns>
+        public static string JqueryUITabsLoadJs([NotNull] string tabId, [NotNull] string hiddenId, [CanBeNull] string hiddenTabId, [CanBeNull] string postbackJs, bool hightTransition, bool addSelectedFunction)
+        {
+            string heightTransitionJs = hightTransition ? ", fx:{height:'toggle'}" : string.Empty;
+
+            string selectFunctionJs = addSelectedFunction
+                                          ? ", select: function(event, ui) {{ {0}('#{1}').val(ui.index);{0}('#{2}').val(ui.panel.id);{3} }}".FormatWith(
+                                              Config.JQueryAlias, hiddenId, hiddenTabId, postbackJs)
+                                          : string.Empty;
 
             return
               @"{3}(document).ready(function() {{
@@ -558,9 +589,10 @@ namespace YAF.Utilities
             }},
             selected: {3}('#{1}').val()
             {2}
+            {4}
         }});
                     }});"
-                .FormatWith(tabId, hiddenId, heightTransitionJs, Config.JQueryAlias);
+                .FormatWith(tabId, hiddenId, heightTransitionJs, Config.JQueryAlias, selectFunctionJs);
         }
 
         /// <summary>

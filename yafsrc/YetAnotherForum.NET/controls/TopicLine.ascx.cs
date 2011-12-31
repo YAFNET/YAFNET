@@ -539,8 +539,6 @@
 
                 if (lastPosted > lastRead)
                 {
-                    this.Get<IYafSession>().UnreadTopics++;
-
                     if (row["PollID"] != DBNull.Value)
                     {
                         imgTitle = this.GetText("POLL_NEW");

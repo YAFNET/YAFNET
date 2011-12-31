@@ -25,7 +25,6 @@ namespace YAF.Controls
     using System;
     using System.Data;
     using System.Data.SqlTypes;
-    using System.Linq;
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
@@ -111,6 +110,11 @@ namespace YAF.Controls
         ///   Gets or sets Determines what is th current mode of the control.
         /// </summary>
         public TopicListMode CurrentMode { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether Auto Databind.
+        /// </summary>
+        public bool AutoDatabind { get; set; }
 
         #endregion
 
@@ -382,7 +386,10 @@ namespace YAF.Controls
                 }
             }
 
-            this.BindData();
+            if (this.AutoDatabind)
+            {
+                this.BindData();
+            }
         }
 
         /// <summary>
