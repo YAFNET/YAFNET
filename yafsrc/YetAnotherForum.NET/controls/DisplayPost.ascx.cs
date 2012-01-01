@@ -341,49 +341,6 @@ namespace YAF.Controls
                 this.PopMenu1.Attach(this.UserProfileLink);
             }
 
-            // Add Reputation Controls to the User PopMenu
-            if (this.PageContext.PageUserID != (int)this.DataRow["UserID"] && this.Get<YafBoardSettings>().EnableUserReputation && !this.IsGuest && !this.PageContext.IsGuest)
-            {
-                bool allowReputationVoting = true;
-
-                if (this.Get<HttpRequestBase>().Cookies[this.VotingCookieName(this.PageContext.PageUserID)] != null)
-                {
-                    var reputatationCookie = this.Get<HttpRequestBase>().Cookies[this.VotingCookieName(this.PageContext.PageUserID)];
-
-                    string[] userArray = reputatationCookie.Value.Split(',');
-
-                    if (userArray.Where(userId => userId.ToType<int>().Equals(this.DataRow["UserID"].ToType<int>())).Any())
-                    {
-                        allowReputationVoting = false;
-                    }
-                }
-
-                if (allowReputationVoting)
-                {
-                    // Check if the User matches minimal requirements for voting up
-                    if (this.PageContext.Reputation >= this.Get<YafBoardSettings>().ReputationMinUpVoting)
-                    {
-                        this.AddReputation.Visible = true;
-                    }
-
-                    // Check if the User matches minimal requirements for voting down
-                    if (this.PageContext.Reputation >= this.Get<YafBoardSettings>().ReputationMinDownVoting)
-                    {
-                        // Check if the Value is 0 or Bellow
-                        if (!this.Get<YafBoardSettings>().ReputationAllowNegative && this.DataRow["Points"].ToType<int>() > 0 ||
-                            this.Get<YafBoardSettings>().ReputationAllowNegative)
-                        {
-                           this.RemoveReputation.Visible = true;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                this.AddReputation.Visible = false;
-                this.RemoveReputation.Visible = false;
-            }
-
             this.NameCell.ColSpan = int.Parse(this.GetIndentSpan());
         }
 
@@ -675,6 +632,56 @@ namespace YAF.Controls
                 "asynchCallFailedJs", asynchCallFailedJs);
 
             this.FormatThanksRow();
+
+            this.AddReputationControls();
+        }
+
+        /// <summary>
+        /// Add Reputation Controls to the User PopMenu
+        /// </summary>
+        private void AddReputationControls()
+        {
+            if (this.PageContext.PageUserID != this.DataRow["UserID"].ToType<int>() && this.Get<YafBoardSettings>().EnableUserReputation && !this.IsGuest && !this.PageContext.IsGuest)
+            {
+                bool allowReputationVoting = true;
+
+                if (this.Get<HttpRequestBase>().Cookies[this.VotingCookieName(this.PageContext.PageUserID)] != null)
+                {
+                    var reputatationCookie = this.Get<HttpRequestBase>().Cookies[this.VotingCookieName(this.PageContext.PageUserID)];
+
+                    string[] userArray = reputatationCookie.Value.Split(',');
+
+                    if (userArray.Any(userId => userId.ToType<int>().Equals(this.DataRow["UserID"].ToType<int>())))
+                    {
+                        allowReputationVoting = false;
+                    }
+                }
+
+                if (allowReputationVoting)
+                {
+                    // Check if the User matches minimal requirements for voting up
+                    if (this.PageContext.Reputation >= this.Get<YafBoardSettings>().ReputationMinUpVoting)
+                    {
+                        this.AddReputation.Visible = true;
+                    }
+
+                    // Check if the User matches minimal requirements for voting down
+                    if (this.PageContext.Reputation >= this.Get<YafBoardSettings>().ReputationMinDownVoting)
+                    {
+                        // Check if the Value is 0 or Bellow
+                        if (!this.Get<YafBoardSettings>().ReputationAllowNegative && this.DataRow["Points"].ToType<int>() > 0 ||
+                            this.Get<YafBoardSettings>().ReputationAllowNegative)
+                        {
+                            this.RemoveReputation.Visible = true;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                this.AddReputation.Visible = false;
+                this.RemoveReputation.Visible = false;
+            }
         }
 
         /// <summary>
