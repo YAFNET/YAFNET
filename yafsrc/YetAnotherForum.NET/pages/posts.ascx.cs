@@ -419,7 +419,6 @@ namespace YAF.Pages
             }
 
             this.PageContext.AddLoadMessage(this.GetText("WARN_FORUM_LOCKED"));
-            return;
         }
 
         /// <summary>
@@ -720,7 +719,7 @@ namespace YAF.Pages
 
             if (meta.Any(x => x.Name.Equals("description")))
             {
-                var descriptionMeta = meta.Where(x => x.Name.Equals("description")).FirstOrDefault();
+                var descriptionMeta = meta.FirstOrDefault(x => x.Name.Equals("description"));
                 if (descriptionMeta != null)
                 {
                     description = descriptionMeta.Content;
@@ -773,7 +772,6 @@ namespace YAF.Pages
             }
 
             this.PageContext.AddLoadMessage(this.GetText("WARN_FORUM_LOCKED"));
-            return;
         }
 
         /// <summary>
@@ -906,7 +904,7 @@ namespace YAF.Pages
                 if (meta.Any(x => x.Name.Equals("description")))
                 {
                     // use existing...
-                    descriptionMeta = meta.Where(x => x.Name.Equals("description")).FirstOrDefault();
+                    descriptionMeta = meta.FirstOrDefault(x => x.Name.Equals("description"));
                     if (descriptionMeta != null)
                     {
                         descriptionMeta.Content = content;
@@ -942,7 +940,7 @@ namespace YAF.Pages
             if (meta.Any(x => x.Name.Equals("keywords")))
             {
                 // use existing...
-                keywordMeta = meta.Where(x => x.Name.Equals("keywords")).FirstOrDefault();
+                keywordMeta = meta.FirstOrDefault(x => x.Name.Equals("keywords"));
                 keywordMeta.Content = keywordStr;
 
                 this.Page.Header.Controls.Remove(keywordMeta);
@@ -1367,7 +1365,6 @@ namespace YAF.Pages
         /// <param name="e">
         /// The Pop Event Arguments.
         /// </param>
-        /// <exception cref="ApplicationException"></exception>
         private void ShareMenu_ItemClick([NotNull] object sender, [NotNull] PopEventArgs e)
         {
             switch (e.Item.ToLower())
@@ -1388,7 +1385,7 @@ namespace YAF.Pages
 
                         if (meta.Any(x => x.Name.Equals("description")))
                         {
-                            var descriptionMeta = meta.Where(x => x.Name.Equals("description")).FirstOrDefault();
+                            var descriptionMeta = meta.FirstOrDefault(x => x.Name.Equals("description"));
                             if (descriptionMeta != null)
                             {
                                 description = "&description={0}".FormatWith(descriptionMeta.Content);
@@ -1496,7 +1493,6 @@ namespace YAF.Pages
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        /// <exception cref="ApplicationException"></exception>
         private void OptionsMenu_ItemClick([NotNull] object sender, [NotNull] PopEventArgs e)
         {
             switch (e.Item.ToLower())
@@ -1807,20 +1803,17 @@ namespace YAF.Pages
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        /// <exception cref="ApplicationException"></exception>
         private void ViewMenu_ItemClick([NotNull] object sender, [NotNull] PopEventArgs e)
         {
             switch (e.Item.ToLower())
             {
                 case "normal":
-                    /* this.IsThreaded = false;
-                    this.BindData();*/
-                    YafBuildLink.Redirect(ForumPages.posts, "t={0}&threaded=false", this.PageContext.PageTopicID);
+                    this.IsThreaded = false;
+                    this.BindData();
                     break;
                 case "threaded":
-                    /*this.IsThreaded = true;
-                    this.BindData();*/
-                    YafBuildLink.Redirect(ForumPages.posts, "t={0}&threaded=true", this.PageContext.PageTopicID);
+                    this.IsThreaded = true;
+                    this.BindData();
                     break;
                 default:
                     throw new ApplicationException(e.Item);
