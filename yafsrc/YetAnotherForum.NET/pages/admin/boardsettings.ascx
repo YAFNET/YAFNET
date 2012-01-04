@@ -29,7 +29,7 @@
             <td class="post" style="width: 50%">
                 <asp:TextBox ID="CopyrightRemovalKey" runat="server" Width="400"></asp:TextBox>
             </td>
-        </tr>
+        </tr>   
         </asp:PlaceHolder>
         <tr>
             <td class="postheader">
