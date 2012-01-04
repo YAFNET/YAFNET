@@ -203,7 +203,7 @@ namespace YAF.Controls
       CodeContracts.ArgumentNotNull(footer, "footer");
 
 			// Copyright Linkback Algorithm
-			// Please keep if you haven't purchased a removal license.
+			// Please keep if you haven't purchased a removal or commercial license.
 
       var domainKey = this.Get<YafBoardSettings>().CopyrightRemovalDomainKey;
 

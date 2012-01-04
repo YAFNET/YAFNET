@@ -21,6 +21,7 @@
                 <asp:TextBox ID="Name" runat="server" Width="400"></asp:TextBox>
             </td>
         </tr>
+        <asp:PlaceHolder ID="CopyrightHolder" runat="server">
         <tr>
             <td class="postheader" style="width: 50%">
                 <YAF:HelpLabel ID="HelpLabel2" runat="server" LocalizedTag="COPYRIGHT_REMOVAL_KEY" LocalizedPage="ADMIN_BOARDSETTINGS" />
@@ -29,6 +30,7 @@
                 <asp:TextBox ID="CopyrightRemovalKey" runat="server" Width="400"></asp:TextBox>
             </td>
         </tr>
+        </asp:PlaceHolder>
         <tr>
             <td class="postheader">
                 <YAF:HelpLabel ID="LocalizedLabel4" runat="server" LocalizedTag="BOARD_THREADED"
