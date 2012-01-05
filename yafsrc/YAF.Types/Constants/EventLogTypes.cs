@@ -36,6 +36,11 @@ namespace YAF.Types.Constants
     /// <summary>
     ///   The information.
     /// </summary>
-    Information = 2
+    Information = 2,
+
+    /// <summary>
+    ///   The sql error.
+    /// </summary>
+    SqlError = 3
   }
 }
