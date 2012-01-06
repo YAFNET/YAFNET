@@ -352,7 +352,10 @@ namespace YAF
 
             var messageFlags = new MessageFlags { IsHtml = false, IsBBCode = true };
 
-            LegacyDb.pmessage_save(2, userId, subject, emailBody, messageFlags.BitValue);
+            if (YafContext.Current.Get<YafBoardSettings>().AllowPrivateMessages)
+            {
+                LegacyDb.pmessage_save(2, userId, subject, emailBody, messageFlags.BitValue);
+            }
 
             // Send Message also as DM to Twitter.
             var tweetApi = new TweetAPI(oAuth);
