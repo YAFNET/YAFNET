@@ -207,6 +207,11 @@ namespace YAF.Pages.Admin
         }
 
         this.PollGroupList.Visible = true;
+
+			// Copyright Linkback Algorithm
+			// Please keep if you haven't purchased a removal or commercial license.
+
+    	CopyrightHolder.Visible = true;
     }
 
     /// <summary>

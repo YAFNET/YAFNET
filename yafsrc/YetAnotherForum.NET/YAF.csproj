@@ -2591,6 +2591,7 @@
     <Content Include="editors\yafEditor\unorderedlist.gif" />
     <Content Include="editors\yafEditor\yafEditor.js" />
     <Content Include="error.aspx" />
+    <Content Include="forumlogo.jpg" />
     <Content Include="images\avatars\Common\SampleAvatar.gif" />
     <Content Include="images\blank.gif" />
     <Content Include="images\medals\award_star_bronze_3.png" />
@@ -2635,6 +2636,7 @@
     <Content Include="pages\admin\topicstatus_edit.ascx" />
     <Content Include="pages\admin\topicstatus_import.ascx" />
     <Content Include="pages\admin\users_import.ascx" />
+    <Content Include="ReadMe.htm" />
     <Content Include="resources\css\jquery.msDropDown.css" />
     <Content Include="resources\css\jquery.spellchecker.css" />
     <Content Include="resources\HelpMenuList.xml" />
@@ -5488,11 +5490,11 @@
     <Content Include="themes\yafvision\vote_lcap.gif" />
     <Content Include="themes\yafvision\vote_rcap.gif" />
     <Content Include="themes\yafvision\voting_bar.gif" />
-    <Content Include="webconfigs\recommended-NET-web.config" />
-    <Content Include="webconfigs\v191-upgrade-web.config" />
     <Content Include="UrlRewriter.config" />
     <None Include="Web References\RegisterV2\RegisterV2.wsdl" />
     <Content Include="web.config" />
+    <Content Include="webconfigs\recommended-NET-web.config" />
+    <Content Include="webconfigs\v191-upgrade-web.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\URLRewriter.NET\Intelligencia.UrlRewriter.csproj">
