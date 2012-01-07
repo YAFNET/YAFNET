@@ -101,10 +101,41 @@ namespace YAF.Pages
                     {
                         this.Login1.UserName = username;
                         e.Authenticated = true;
+                        return;
                     }
-                    else
+
+                    e.Authenticated = false;
+                }
+                else
+                {
+                    // Standard user name login
+                    if (this.Get<MembershipProvider>().ValidateUser(this.Login1.UserName, this.Login1.Password))
                     {
-                        e.Authenticated = false;
+                        e.Authenticated = true;
+                    }
+                    else if (this.Get<YafBoardSettings>().EnableDisplayName)
+                    {
+                        // Display name login
+                        var id = this.Get<IUserDisplayName>().GetId(this.Login1.UserName);
+
+                        if (id.HasValue)
+                        {
+                            // get the username associated with this id...
+                            username = UserMembershipHelper.GetUserNameFromID(id.Value);
+
+                            // validate again...
+                            if (this.Get<MembershipProvider>().ValidateUser(username, this.Login1.Password))
+                            {
+                                e.Authenticated = true;
+
+                                // update the username
+                                this.Login1.UserName = username;
+                            }
+                            else
+                            {
+                                e.Authenticated = false;
+                            }
+                        }
                     }
                 }
             }
