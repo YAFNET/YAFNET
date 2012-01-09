@@ -18,56 +18,58 @@
  */
 namespace YAF.Types.Interfaces
 {
-  public interface IAvatars
-  {
-    /// <summary>
-    /// The get avatar url for current user.
-    /// </summary>
-    /// <returns>
-      /// Returns the Avatar Url
-    /// </returns>
-    string GetAvatarUrlForCurrentUser();
+	using System;
 
-    /// <summary>
-    /// The get avatar url for user.
-    /// </summary>
-    /// <param name="userId">
-    /// The user id.
-    /// </param>
-    /// <returns>
-    /// Returns the Avatar Url
-    /// </returns>
-    string GetAvatarUrlForUser(int userId);
+	public interface IAvatars
+	{
+		/// <summary>
+		/// The get avatar url for current user.
+		/// </summary>
+		/// <returns>
+			/// Returns the Avatar Url
+		/// </returns>
+		string GetAvatarUrlForCurrentUser();
 
-    /// <summary>
-    /// The get avatar url for user.
-    /// </summary>
-    /// <param name="userData">
-    /// The user data.
-    /// </param>
-    /// <returns>
-    /// Returns the Avatar Url
-    /// </returns>
-    string GetAvatarUrlForUser([NotNull] IUserData userData);
+		/// <summary>
+		/// The get avatar url for user.
+		/// </summary>
+		/// <param name="userId">
+		/// The user id.
+		/// </param>
+		/// <returns>
+		/// Returns the Avatar Url
+		/// </returns>
+		string GetAvatarUrlForUser(int userId);
 
-    /// <summary>
-    /// The get avatar url for user.
-    /// </summary>
-    /// <param name="userId">
-    /// The user Id.
-    /// </param>
-    /// <param name="avatarString">
-    /// The avatarString.
-    /// </param>
-    /// <param name="hasAvatarImage">
-    /// The hasAvatarImage.
-    /// </param>
-    /// <param name="email">
-    /// The email.
-    /// </param>
-    /// <returns>
-    /// Returns the Avatar Url
-    /// </returns>
-    string GetAvatarUrlForUser(int userId, string avatarString, bool hasAvatarImage, string email);
-  }
+		/// <summary>
+		/// The get avatar url for user.
+		/// </summary>
+		/// <param name="userData">
+		/// The user data.
+		/// </param>
+		/// <returns>
+		/// Returns the Avatar Url
+		/// </returns>
+		string GetAvatarUrlForUser([NotNull] IUserData userData);
+
+		/// <summary>
+		/// The get avatar url for user.
+		/// </summary>
+		/// <param name="userId">
+		/// The user Id.
+		/// </param>
+		/// <param name="avatarString">
+		/// The avatarString.
+		/// </param>
+		/// <param name="hasAvatarImage">
+		/// The hasAvatarImage.
+		/// </param>
+		/// <param name="email">
+		/// The email.
+		/// </param>
+		/// <returns>
+		/// Returns the Avatar Url
+		/// </returns>
+		string GetAvatarUrlForUser(int userId, string avatarString, bool hasAvatarImage, Lazy<string> email);
+	}
 }
