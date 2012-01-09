@@ -2814,10 +2814,10 @@ Spoiler Content
       <Resource tag="POSTEDBY">Posted by</Resource>
    </page>
    <page name="PROFILE">
-      <Resource tag="REPUTATION_RECEIVED">Numer of Reputation received from other users</Resource>
-      <Resource tag="THANKSFROM">Number of thanks</Resource>
-      <Resource tag="THANKSTOTIMES">Number of times this user was thanked</Resource>
-      <Resource tag="THANKSTOPOSTS">Number of posts for which this user was thanked</Resource>
+      <Resource tag="REPUTATION_RECEIVED">Community Reputation Received:</Resource>
+      <Resource tag="THANKSFROM">Thanks Given:</Resource>
+      <Resource tag="THANKSTOTIMES">Thanks Received:</Resource>
+      <Resource tag="THANKSTOPOSTS">Thanked Posts:</Resource>
       <Resource tag="ABOUT">About</Resource>
       <Resource tag="ADMIN_USER">Admin User</Resource>
       <Resource tag="AIM">AIM-Name:</Resource>
