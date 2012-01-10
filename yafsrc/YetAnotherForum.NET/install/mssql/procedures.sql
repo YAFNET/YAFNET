@@ -6342,11 +6342,11 @@ declare @shiftsticky int
 			else ''	 end,
 			LastForumAccess = case(@FindLastRead)
 		     when 1 then
-		       (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x WHERE x.ForumID=c.ForumID AND x.UserID = c.UserID)
+		       (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x WHERE x.ForumID=c.ForumID AND x.UserID = @UserID)
 		     else ''	 end,
 		    LastTopicAccess = case(@FindLastRead)
 		     when 1 then
-		       (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=c.TopicID AND y.UserID = c.UserID)
+		       (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=c.TopicID AND y.UserID = @UserID)
 		     else ''	 end,	
 	    	TotalRows = @post_totalrowsnumber,
 	    	PageIndex = @PageIndex
