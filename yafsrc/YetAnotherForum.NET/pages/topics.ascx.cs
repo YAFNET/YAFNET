@@ -369,8 +369,7 @@ namespace YAF.Pages
       }
 
         DataTable dt =
-            this.StyleTransformDataTable(
-                LegacyDb.announcements_list(
+            LegacyDb.announcements_list(
                     this.PageContext.PageForumID,
                     userId,
                     null,
@@ -379,16 +378,15 @@ namespace YAF.Pages
                     10,
                     this.Get<YafBoardSettings>().UseStyledNicks,
                     true,
-                    this.Get<YafBoardSettings>().UseReadTrackingByDatabase));
-
+                    this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
+       if (dt != null)
+       {
+           dt =
+               this.StyleTransformDataTable(dt);
+       }
       
       int baseSize = this.Get<YafBoardSettings>().TopicsPerPage;
-      int nPageSize = 0;
-
-      if (dt != null && dt.Rows.Count > 0)
-      {
-          nPageSize = dt.Rows.Count;
-      }
+     
       this.Announcements.DataSource = dt;
       /*if (!m_bIgnoreQueryString && Request.QueryString["p"] != null)
       {
@@ -401,13 +399,12 @@ namespace YAF.Pages
           }
       }*/
 
-        int nCurrentPageIndex = this.Pager.CurrentPageIndex;
+      int nCurrentPageIndex = this.Pager.CurrentPageIndex;
 
       DataTable dtTopics;
       if (this._showTopicListSelected == 0)
       {
         dtTopics =
-          this.StyleTransformDataTable(
             LegacyDb.topic_list(
               this.PageContext.PageForumID, 
               userId, 
@@ -417,7 +414,12 @@ namespace YAF.Pages
               baseSize, 
               this.Get<YafBoardSettings>().UseStyledNicks, 
               true,
-              this.Get<YafBoardSettings>().UseReadTrackingByDatabase));
+              this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
+        if (dtTopics != null)
+        {
+            dtTopics =
+                this.StyleTransformDataTable(dtTopics);
+        }
       }
       else
       {
@@ -451,7 +453,6 @@ namespace YAF.Pages
         }
 
         dtTopics =
-          this.StyleTransformDataTable(
             LegacyDb.topic_list(
               this.PageContext.PageForumID, 
               userId,
@@ -461,11 +462,13 @@ namespace YAF.Pages
               baseSize, 
               this.Get<YafBoardSettings>().UseStyledNicks, 
               true,
-              this.Get<YafBoardSettings>().UseReadTrackingByDatabase));
+              this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
+        if (dtTopics != null)
+        {
+            dtTopics =
+                this.StyleTransformDataTable(dtTopics);
+        }
       }
-     
-
-      ////int nPageCount = (int)Math.Ceiling((double)(nRowCount + nPageSize) / nPageSize);
 
       this.TopicList.DataSource = dtTopics;
 
@@ -475,7 +478,7 @@ namespace YAF.Pages
       this.ShowList.SelectedIndex = this._showTopicListSelected;
       this.Get<IYafSession>().ShowList = this._showTopicListSelected;
       if (dtTopics != null && dtTopics.Rows.Count > 0)
-      this.Pager.Count = dtTopics.AsEnumerable().First().Field<int>("TotalRows"); // + nPageSize; 
+      this.Pager.Count = dtTopics.AsEnumerable().First().Field<int>("TotalRows"); 
     }
 
     /// <summary>
