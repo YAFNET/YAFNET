@@ -235,7 +235,7 @@ namespace YAF.Controls
 
         if (row["LastTopicID"] != DBNull.Value)
         {
-            if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase)
+            if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase && !this.PageContext.IsGuest)
             {
                 try
                 {
@@ -255,7 +255,7 @@ namespace YAF.Controls
             }
         }
 
-        if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase)
+        if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase && !this.PageContext.IsGuest)
         {
             try
             {
@@ -386,6 +386,7 @@ namespace YAF.Controls
             if (modList != null)
             {
                 var dra = row.GetChildRows("FK_Moderator_Forum");
+
                 if (dra.GetLength(0) > 0)
                 {
                     modList.DataSource = dra;

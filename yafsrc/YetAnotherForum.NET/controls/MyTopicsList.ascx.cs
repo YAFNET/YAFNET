@@ -168,7 +168,7 @@ namespace YAF.Controls
 
                 if (this.CurrentMode.Equals(TopicListMode.Unread))
                 {
-                    this.sinceDate = this.Get<YafBoardSettings>().UseReadTrackingByDatabase
+                    this.sinceDate = this.Get<YafBoardSettings>().UseReadTrackingByDatabase && !this.PageContext.IsGuest
                                          ? this.Get<IReadTracking>().GetUserLastRead(this.PageContext.PageUserID)
                                          : this.Get<IYafSession>().LastVisit;
                 }
@@ -287,7 +287,7 @@ namespace YAF.Controls
         {
             foreach (DataRow row in this.topics.Rows)
             {
-                if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase)
+                if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase && !this.PageContext.IsGuest)
                 {
                     LegacyDb.Readtopic_AddOrUpdate(this.PageContext.PageUserID, row["TopicID"].ToType<int>());
                 }

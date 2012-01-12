@@ -18,223 +18,242 @@
  */
 namespace YAF.Pages
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.Web.UI;
+    using System;
+    using System.Web.UI;
 
-  using YAF.Classes;
-  using YAF.Controls;
-  using YAF.Core;
-  using YAF.Types;
-  using YAF.Types.Constants;
-  using YAF.Types.Interfaces;
-  using YAF.Utilities;
-  using YAF.Utils;
-
-  #endregion
-
-  /// <summary>
-  /// The mytopics page.
-  /// </summary>
-  public partial class mytopics : ForumPage
-  {
-    #region Constructors and Destructors
-
-    /// <summary>
-    ///   Initializes a new instance of the mytopics class.
-    /// </summary>
-    public mytopics()
-      : base("MYTOPICS")
-    {
-    }
+    using YAF.Classes;
+    using YAF.Controls;
+    using YAF.Core;
+    using YAF.Types;
+    using YAF.Types.Constants;
+    using YAF.Types.Interfaces;
+    using YAF.Utilities;
+    using YAF.Utils;
 
     #endregion
 
-    #region Methods
-
     /// <summary>
-    /// The On PreRender event.
+    /// The mytopics page.
     /// </summary>
-    /// <param name="e">
-    /// the Event Arguments
-    /// </param>
-    protected override void OnPreRender([NotNull] EventArgs e)
+    public partial class mytopics : ForumPage
     {
-      // setup jQuery and Jquery Ui Tabs.
-      YafContext.Current.PageElements.RegisterJQuery();
-      YafContext.Current.PageElements.RegisterJQueryUI();
+        /// <summary>
+        /// Indicates if the Active Tab was loaded
+        /// </summary>
+        private bool activeloaded;
 
-        YafContext.Current.PageElements.RegisterJsBlock(
-            "TopicsTabsJs",
-            JavaScriptBlocks.JqueryUITabsLoadJs(
-                this.TopicsTabs.ClientID,
-                this.hidLastTab.ClientID,
-                this.hidLastTabId.ClientID,
-                this.Page.ClientScript.GetPostBackEventReference(ChangeTab, string.Empty),
-                false,
-                true));
+        /// <summary>
+        /// Indicates if the Unanswered Tab was loaded
+        /// </summary>
+        private bool unansweredloaded;
 
-      base.OnPreRender(e);
-    }
+        /// <summary>
+        /// Indicates if the Unread Tab was loaded
+        /// </summary>
+        private bool unreadloaded;
 
-    /// <summary>
-    /// The Page_ Load Event.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-    {
-        if (this.IsPostBack)
+        /// <summary>
+        /// Indicates if the My Topics Tab was loaded
+        /// </summary>
+        private bool mytopicsloaded;
+
+        /// <summary>
+        /// Indicates if the Favorite Tab was loaded
+        /// </summary>
+        private bool favoriteloaded;
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        ///   Initializes a new instance of the mytopics class.
+        /// </summary>
+        public mytopics()
+            : base("MYTOPICS")
         {
-            return;
         }
 
-        this.UserTopicsTabTitle.Visible = !this.PageContext.IsGuest;
-        this.UserTopicsTabContent.Visible = !this.PageContext.IsGuest;
+        #endregion
 
-        this.UnreadTopicsTabTitle.Visible = !this.PageContext.IsGuest &&
-                                            this.Get<YafBoardSettings>().UseReadTrackingByDatabase;
-        this.UnreadTopicsTabContent.Visible = !this.PageContext.IsGuest &&
-                                            this.Get<YafBoardSettings>().UseReadTrackingByDatabase;
+        #region Methods
 
-        this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
-
-        this.PageLinks.AddLink(
-            this.PageContext.IsGuest ? this.GetText("GUESTTITLE") : this.GetText("MEMBERTITLE"), string.Empty);
-
-        this.ForumJumpHolder.Visible = this.Get<YafBoardSettings>().ShowForumJump &&
-                                       this.PageContext.Settings.LockedForum == 0;
-    }
-
-    #endregion
-    
-    private bool activeloaded;
-    private bool unansweredloaded;
-    private bool unreadloaded;
-    private bool mytopicsloaded;
-    private bool favoriteloaded;
-
-    /// <summary>
-    /// Load the Selected Tab Content
-    /// </summary>
-    /// <param name="sender">The sender.</param>
-    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void ChangeTabClick(object sender, EventArgs e)
-    {
-        switch (hidLastTabId.Value)
+        /// <summary>
+        /// The On PreRender event.
+        /// </summary>
+        /// <param name="e">
+        /// the Event Arguments
+        /// </param>
+        protected override void OnPreRender([NotNull] EventArgs e)
         {
-            case "ActiveTopicsTab":
+            // setup jQuery and Jquery Ui Tabs.
+            YafContext.Current.PageElements.RegisterJQuery();
+            YafContext.Current.PageElements.RegisterJQueryUI();
 
-                if (!this.activeloaded)
-                {
-                    this.ActiveTopics.DataBind();
-                    this.UnansweredTopics.DataBind();
-                    if (this.UnreadTopicsTabTitle.Visible)
+            YafContext.Current.PageElements.RegisterJsBlock(
+                "TopicsTabsJs",
+                JavaScriptBlocks.JqueryUITabsLoadJs(
+                    this.TopicsTabs.ClientID,
+                    this.hidLastTab.ClientID,
+                    this.hidLastTabId.ClientID,
+                    this.Page.ClientScript.GetPostBackEventReference(ChangeTab, string.Empty),
+                    false,
+                    true));
+
+            base.OnPreRender(e);
+        }
+
+        /// <summary>
+        /// The Page_ Load Event.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            if (this.IsPostBack)
+            {
+                return;
+            }
+
+            this.UserTopicsTabTitle.Visible = !this.PageContext.IsGuest;
+            this.UserTopicsTabContent.Visible = !this.PageContext.IsGuest;
+
+            this.UnreadTopicsTabTitle.Visible = !this.PageContext.IsGuest &&
+                                                this.Get<YafBoardSettings>().UseReadTrackingByDatabase;
+            this.UnreadTopicsTabContent.Visible = !this.PageContext.IsGuest &&
+                                                  this.Get<YafBoardSettings>().UseReadTrackingByDatabase;
+
+            this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+
+            this.PageLinks.AddLink(
+                this.PageContext.IsGuest ? this.GetText("GUESTTITLE") : this.GetText("MEMBERTITLE"), string.Empty);
+
+            this.ForumJumpHolder.Visible = this.Get<YafBoardSettings>().ShowForumJump &&
+                                           this.PageContext.Settings.LockedForum == 0;
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Load the Selected Tab Content
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected void ChangeTabClick(object sender, EventArgs e)
+        {
+            switch (hidLastTabId.Value)
+            {
+                case "ActiveTopicsTab":
+
+                    if (!this.activeloaded)
                     {
-                        this.UnreadTopics.DataBind();
+                        this.ActiveTopics.DataBind();
+                        this.UnansweredTopics.DataBind();
+                        if (this.UnreadTopicsTabTitle.Visible)
+                        {
+                            this.UnreadTopics.DataBind();
+                        }
+
+                        if (this.UserTopicsTabTitle.Visible)
+                        {
+                            this.MyTopics.DataBind();
+                            this.FavoriteTopics.DataBind();
+                        }
+
+                        this.activeloaded = true;
                     }
 
-                    if (this.UserTopicsTabTitle.Visible)
+                    break;
+                case "UnansweredTopicsTab":
+
+                    if (!this.unansweredloaded)
                     {
-                        this.MyTopics.DataBind();
-                        this.FavoriteTopics.DataBind();
+                        this.UnansweredTopics.BindData();
+
+                        this.ActiveTopics.DataBind();
+                        if (this.UnreadTopicsTabTitle.Visible)
+                        {
+                            this.UnreadTopics.DataBind();
+                        }
+
+                        if (this.UserTopicsTabTitle.Visible)
+                        {
+                            this.MyTopics.DataBind();
+                            this.FavoriteTopics.DataBind();
+                        }
+
+                        this.unansweredloaded = true;
                     }
 
-                    this.activeloaded = true;
-                }
+                    break;
+                case "UnreadTopicsTab":
 
-                break;
-            case "UnansweredTopicsTab":
-
-                if (!this.unansweredloaded)
-                {
-                    this.UnansweredTopics.BindData();
-
-                    this.ActiveTopics.DataBind();
-                    if (this.UnreadTopicsTabTitle.Visible)
+                    if (!this.unreadloaded)
                     {
-                        this.UnreadTopics.DataBind();
+                        this.UnreadTopics.BindData();
+
+                        this.ActiveTopics.DataBind();
+                        this.UnansweredTopics.DataBind();
+
+                        if (this.UserTopicsTabTitle.Visible)
+                        {
+                            this.MyTopics.DataBind();
+                            this.FavoriteTopics.DataBind();
+                        }
+
+                        this.unreadloaded = true;
                     }
 
-                    if (this.UserTopicsTabTitle.Visible)
+                    break;
+                case "MyTopicsTab":
+
+                    if (!this.mytopicsloaded)
                     {
-                        this.MyTopics.DataBind();
-                        this.FavoriteTopics.DataBind();
+                        this.MyTopics.BindData();
+
+                        this.ActiveTopics.DataBind();
+                        this.UnansweredTopics.DataBind();
+                        if (this.UnreadTopicsTabTitle.Visible)
+                        {
+                            this.UnreadTopics.DataBind();
+                        }
+
+                        if (this.UserTopicsTabTitle.Visible)
+                        {
+                            this.FavoriteTopics.DataBind();
+                        }
+
+                        this.mytopicsloaded = true;
                     }
 
-                    this.unansweredloaded = true;
-                }
+                    break;
+                case "FavoriteTopicsTab":
 
-                break;
-            case "UnreadTopicsTab":
-
-                if (!this.unreadloaded)
-                {
-                    this.UnreadTopics.BindData();
-
-                    this.ActiveTopics.DataBind();
-                    this.UnansweredTopics.DataBind();
-
-                    if (this.UserTopicsTabTitle.Visible)
+                    if (!this.favoriteloaded)
                     {
-                        this.MyTopics.DataBind();
-                        this.FavoriteTopics.DataBind();
+                        this.FavoriteTopics.BindData();
+
+                        this.ActiveTopics.DataBind();
+                        this.UnansweredTopics.DataBind();
+                        if (this.UnreadTopicsTabTitle.Visible)
+                        {
+                            this.UnreadTopics.DataBind();
+                        }
+
+                        if (this.UserTopicsTabTitle.Visible)
+                        {
+                            this.MyTopics.DataBind();
+                        }
+
+                        this.favoriteloaded = true;
                     }
 
-                    this.unreadloaded = true;
-                }
-
-                break;
-            case "MyTopicsTab":
-
-                if (!this.mytopicsloaded)
-                {
-                    this.MyTopics.BindData();
-
-                    this.ActiveTopics.DataBind();
-                    this.UnansweredTopics.DataBind();
-                    if (this.UnreadTopicsTabTitle.Visible)
-                    {
-                        this.UnreadTopics.DataBind();
-                    }
-
-                    if (this.UserTopicsTabTitle.Visible)
-                    {
-                        this.FavoriteTopics.DataBind();
-                    }
-
-                    this.mytopicsloaded = true;
-                }
-
-                break;
-            case "FavoriteTopicsTab":
-
-                if (!this.favoriteloaded)
-                {
-                    this.FavoriteTopics.BindData();
-
-                    this.ActiveTopics.DataBind();
-                    this.UnansweredTopics.DataBind();
-                    if (this.UnreadTopicsTabTitle.Visible)
-                    {
-                        this.UnreadTopics.DataBind();
-                    }
-
-                    if (this.UserTopicsTabTitle.Visible)
-                    {
-                        this.MyTopics.DataBind();
-                    }
-
-                    this.favoriteloaded = true;
-                }
-
-                break;
+                    break;
+            }
         }
     }
-  }
 }

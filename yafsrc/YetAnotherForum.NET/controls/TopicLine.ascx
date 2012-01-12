@@ -23,7 +23,7 @@
         <%
             if (this.Get<YafBoardSettings>().ShowAvatarsInTopic)
             {
-                var avatarUrl = this.GetAvatarUrlFromID(Convert.ToInt32(this.TopicRow["UserID"]));
+                var avatarUrl = this.GetAvatarUrlFromID(this.TopicRow["UserID"].ToType<int>());
         %>
         <img src="<%=avatarUrl%>" alt="<%=this.AltLastPost%>" title="<%=this.AltLastPost%>"
             class="avatarimage" />
@@ -38,7 +38,7 @@
         <%
             }
 
-            string linkParams = "t={0}";
+            const string linkParams = "t={0}";
         %>
         <a href="<%=YafBuildLink.GetLink(ForumPages.posts, linkParams, this.TopicRow["LinkTopicID"])%>"
             class="post_link" title="<%=this.Get<IFormatMessage>().GetCleanedTopicMessage(this.TopicRow["FirstMessage"], this.TopicRow["LinkTopicID"]).MessageTruncated%>">
@@ -128,7 +128,7 @@
                 DateTime lastRead;
                 DateTime lastReadForum;
 
-                if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase)
+                if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase && !this.PageContext.IsGuest)
                 {
                     try
                     {

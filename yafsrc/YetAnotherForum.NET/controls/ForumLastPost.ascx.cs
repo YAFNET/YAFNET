@@ -165,7 +165,7 @@ namespace YAF.Controls
                 DateTime lastRead;
                 DateTime lastReadForum;
 
-                if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase)
+                if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase && !this.PageContext.IsGuest)
                 {
                     try
                     {
