@@ -1736,6 +1736,7 @@
     <Resource tag="MAXNUMBEROF">Maximum number of characters in each post is: {0}</Resource>
   </page>
   <page name="COMMON">
+    <Resource tag="ALBUMIMG_BBCODE">Insert Album Image...</Resource>
     <Resource tag="ALLOWED">Allowed</Resource>
     <Resource tag="BACK">חזור</Resource>
     <Resource tag="BAD_CAPTCHA">הכיתוב שהוזן אינו תואם לכיתוב בתמונת האבטחה.</Resource>
@@ -2126,6 +2127,7 @@
     <Resource tag="PASSWORD_BAD_LENGTH">האורך המינימלי לסיסמא החדשה הוא {0}</Resource>
     <Resource tag="PASSWORD_INCORRECT">סיסמא לא נכונה או לא קבילה.</Resource>
     <Resource tag="PASSWORD_NOT_COMPLEX">דרושים התווים הבאים שאינן אותיות או מספרים: {0}.</Resource>
+    <Resource tag="PASSWORD_NOT_NEW">New Password must be different from the old one.</Resource>
     <Resource tag="TITLE">החלפת סיסמא</Resource>
   </page>
   <page name="CP_EDITALBUMIMAGES">

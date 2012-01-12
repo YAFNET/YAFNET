@@ -1713,6 +1713,7 @@
     <Resource tag="MAXNUMBEROF">Postituse maksimaalne tähemärkide arv on: {0}</Resource>
   </page>
   <page name="COMMON">
+    <Resource tag="ALBUMIMG_BBCODE">Insert Album Image...</Resource>
     <Resource tag="ALLOWED">Allowed</Resource>
     <Resource tag="BACK">Tagasi</Resource>
     <Resource tag="BAD_CAPTCHA">Sisestatud tekst ei vasta turvapildile.</Resource>
@@ -2104,6 +2105,7 @@
     <Resource tag="PASSWORD_BAD_LENGTH">Uue parooli minimaalne pikkus: {0}.</Resource>
     <Resource tag="PASSWORD_INCORRECT">Vale parool või kehtetu uus parool.</Resource>
     <Resource tag="PASSWORD_NOT_COMPLEX">Nõutud sümbolid: {1}.</Resource>
+    <Resource tag="PASSWORD_NOT_NEW">New Password must be different from the old one.</Resource>
     <Resource tag="TITLE">Parooli muutmine</Resource>
   </page>
   <page name="CP_EDITALBUMIMAGES">

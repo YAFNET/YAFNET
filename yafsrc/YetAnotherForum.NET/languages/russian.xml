@@ -907,7 +907,7 @@
     <Resource tag="ENABLE_RETWEET_MSG">Включить кнопку ретвиттера:</Resource>
     <Resource tag="ENABLE_RETWEET_MSG_HELP">Делает доступной кнопку ретвита и пользователь может проретвитить сообщение.</Resource>
     <Resource tag="ENABLE_SSO">Включить единую регистрацию в Facebook:</Resource>
-    <Resource tag="ENABLE_SSO_HELP">Если включено, то пользователи смогут входить в свой аккаунт через аккаунт Facebook и/или Twitter.Чтобы включить это для Facebook необходимо установить значения YAF.FacebookAPIKey и YAF.FacebookSecretKey, а для Twitter YAF.TwitterConsumerKey и YAF.TwitterConsumerSecret Values в app.config (AppSettings).</Resource>    
+    <Resource tag="ENABLE_SSO_HELP">Если включено, то пользователи смогут входить в свой аккаунт через аккаунт Facebook и/или Twitter.Чтобы включить это для Facebook необходимо установить значения YAF.FacebookAPIKey и YAF.FacebookSecretKey, а для Twitter YAF.TwitterConsumerKey и YAF.TwitterConsumerSecret Values в app.config (AppSettings).</Resource>
     <Resource tag="ENABLE_USERREPUTATION">Использовать систему репутации:</Resource>
     <Resource tag="ENABLE_USERREPUTATION_HELP">Позволяет добавлять или снижать общую репутацию пользователя.</Resource>
     <Resource tag="EXTERN_NEWWINDOW">Показывать результаты внешнего поиска в новом окне:</Resource>
@@ -1699,6 +1699,7 @@
     <Resource tag="MAXNUMBEROF">Максимальное число символов в каждом сообщении не более {0}</Resource>
   </page>
   <page name="COMMON">
+    <Resource tag="ALBUMIMG_BBCODE">Insert Album Image...</Resource>
     <Resource tag="ALLOWED">Разрешено</Resource>
     <Resource tag="BACK">Назад</Resource>
     <Resource tag="BAD_CAPTCHA">Введённый текст отличается от текста на изображении.</Resource>
@@ -2105,6 +2106,7 @@
     <Resource tag="PASSWORD_BAD_LENGTH">Минимальная длина нового пароля: {0}.</Resource>
     <Resource tag="PASSWORD_INCORRECT">Пароль неверен или новый пароль недействителен.</Resource>
     <Resource tag="PASSWORD_NOT_COMPLEX">Необходимое количество спецсимволов в пароле: {1}.</Resource>
+    <Resource tag="PASSWORD_NOT_NEW">New Password must be different from the old one.</Resource>
     <Resource tag="TITLE">Изменить пароль</Resource>
   </page>
   <page name="CP_EDITALBUMIMAGES">

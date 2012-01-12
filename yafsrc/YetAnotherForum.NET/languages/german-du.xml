@@ -1703,6 +1703,7 @@
     <Resource tag="MAXNUMBEROF">Maximale Anzahl an Zeichen in jedem Beitrag ist: {0}</Resource>
   </page>
   <page name="COMMON">
+    <Resource tag="ALBUMIMG_BBCODE">Album Bild einfügen...</Resource>
     <Resource tag="ALLOWED">Erlaubt</Resource>
     <Resource tag="BACK">Zurück</Resource>
     <Resource tag="BAD_CAPTCHA">Der eingegebene Text passt nicht zum angezeigten Sicherheitscode (Groß und Kleinschreibung beachten)</Resource>
@@ -1735,7 +1736,6 @@
     <Resource tag="CONTINUE">Weiter</Resource>
     <Resource tag="COPY">Kopieren</Resource>
     <Resource tag="CUSTOM_BBCODE">Zusätzliche BB-Codes:</Resource>
-    <Resource tag="ALBUMIMG_BBCODE">Album Bild einfügen...</Resource>
     <Resource tag="DELETE">Löschen</Resource>
     <Resource tag="DISALLOWED">Nicht erlaubt</Resource>
     <Resource tag="DOWNLOAD">Herunterladen</Resource>
@@ -2094,6 +2094,7 @@
     <Resource tag="PASSWORD_BAD_LENGTH">Das neue Passwort muss mindestens {0} Stellen haben.</Resource>
     <Resource tag="PASSWORD_INCORRECT">Das Passwort ist falsch oder das neue Passwort ist unzulässig.</Resource>
     <Resource tag="PASSWORD_NOT_COMPLEX">Es muss mindestens {1} Sonderzeichen enthalten sein.</Resource>
+    <Resource tag="PASSWORD_NOT_NEW">Das Neue Password muss anders als das alte sein.</Resource>
     <Resource tag="TITLE">Passwort ändern</Resource>
   </page>
   <page name="CP_EDITALBUMIMAGES">

@@ -2013,6 +2013,7 @@ Spoiler Content
       <Resource tag="PASSWORD_BAD_LENGTH">New Password length minimum: {0}.</Resource>
       <Resource tag="PASSWORD_INCORRECT">Password incorrect or New Password invalid.</Resource>
       <Resource tag="PASSWORD_NOT_COMPLEX">Non-alphanumeric characters required: {1}.</Resource>
+      <Resource tag="PASSWORD_NOT_NEW">New Password must be different from the old one.</Resource>
       <Resource tag="TITLE">Change Password</Resource>
    </page>
    <page name="CP_EDITAVATAR">

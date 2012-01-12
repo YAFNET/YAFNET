@@ -1713,6 +1713,7 @@
     <Resource tag="MAXNUMBEROF">Nombre maximum de caractère dans chaque message : {0}</Resource>
   </page>
   <page name="COMMON">
+    <Resource tag="ALBUMIMG_BBCODE">Insert Album Image...</Resource>
     <Resource tag="ALLOWED">Allowed</Resource>
     <Resource tag="BACK">Retour</Resource>
     <Resource tag="BAD_CAPTCHA">Code de sécurité invalide.</Resource>
@@ -2102,6 +2103,7 @@
     <Resource tag="PASSWORD_BAD_LENGTH">Longueur minimum du nouveau mot de passe: {0}.</Resource>
     <Resource tag="PASSWORD_INCORRECT">Mot de passe ou nouveau mot de passe invalide.</Resource>
     <Resource tag="PASSWORD_NOT_COMPLEX">Caractères non alphanumérique requis: {1}.</Resource>
+    <Resource tag="PASSWORD_NOT_NEW">New Password must be different from the old one.</Resource>
     <Resource tag="TITLE">Changer le mot de passe</Resource>
   </page>
   <page name="CP_EDITALBUMIMAGES">

@@ -1713,6 +1713,7 @@
     <Resource tag="MAXNUMBEROF">Maximum antal tegn i hvert indlæg er: {0}</Resource>
   </page>
   <page name="COMMON">
+    <Resource tag="ALBUMIMG_BBCODE">Insert Album Image...</Resource>
     <Resource tag="ALLOWED">Allowed</Resource>
     <Resource tag="BACK">Tilbage</Resource>
     <Resource tag="BAD_CAPTCHA">Teksten du skrev stemmer ikke overend med sikkerhedsbilledet.</Resource>
@@ -2103,6 +2104,7 @@
     <Resource tag="PASSWORD_BAD_LENGTH">Ny adgangskode skal minimum være: {0} tegn.</Resource>
     <Resource tag="PASSWORD_INCORRECT">Adgangskode er forkert eller den nye adgangskode er ugyldig.</Resource>
     <Resource tag="PASSWORD_NOT_COMPLEX">Ikke-alfanumeriske tegn er krævet: {1}.</Resource>
+    <Resource tag="PASSWORD_NOT_NEW">New Password must be different from the old one.</Resource>
     <Resource tag="TITLE">Skift adgangskode</Resource>
   </page>
   <page name="CP_EDITALBUMIMAGES">

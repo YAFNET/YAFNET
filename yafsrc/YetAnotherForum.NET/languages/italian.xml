@@ -1713,6 +1713,7 @@
     <Resource tag="MAXNUMBEROF">Maximum number of characters in each post is: {0}</Resource>
   </page>
   <page name="COMMON">
+    <Resource tag="ALBUMIMG_BBCODE">Insert Album Image...</Resource>
     <Resource tag="ALLOWED">Allowed</Resource>
     <Resource tag="BACK">Indietro</Resource>
     <Resource tag="BAD_CAPTCHA">Il testo inserito non corrisponde a quello presente nell'immagine di sicurezza.</Resource>
@@ -2104,6 +2105,7 @@
     <Resource tag="PASSWORD_BAD_LENGTH">Lunghezza minima della nuova password: {0}.</Resource>
     <Resource tag="PASSWORD_INCORRECT">Password errata o nuova password non valida.</Resource>
     <Resource tag="PASSWORD_NOT_COMPLEX">Caratteri speciali necessari: {1}.</Resource>
+    <Resource tag="PASSWORD_NOT_NEW">New Password must be different from the old one.</Resource>
     <Resource tag="TITLE">Cambia password</Resource>
   </page>
   <page name="CP_EDITALBUMIMAGES">

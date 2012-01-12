@@ -1710,6 +1710,7 @@
     <Resource tag="MAXNUMBEROF">Het maximaal aantal tekens in een bericht is: {0}</Resource>
   </page>
   <page name="COMMON">
+    <Resource tag="ALBUMIMG_BBCODE">Insert Album Image...</Resource>
     <Resource tag="ALLOWED">Toegestaan</Resource>
     <Resource tag="BACK">Terug</Resource>
     <Resource tag="BAD_CAPTCHA">Tekst komt niet overeen met de tekst in het plaatje</Resource>
@@ -2097,6 +2098,7 @@
     <Resource tag="PASSWORD_BAD_LENGTH">Wachtwoord moet tenminste {0} tekens bevatten.</Resource>
     <Resource tag="PASSWORD_INCORRECT">Wachtwoord onjuist of ongeldig.</Resource>
     <Resource tag="PASSWORD_NOT_COMPLEX">Wachtwoord moet minimaal {1} niet-alfanumerieke tekens bevatten.</Resource>
+    <Resource tag="PASSWORD_NOT_NEW">New Password must be different from the old one.</Resource>
     <Resource tag="TITLE">Wijzig wachtwoord</Resource>
   </page>
   <page name="CP_EDITALBUMIMAGES">

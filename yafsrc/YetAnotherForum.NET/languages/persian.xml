@@ -1718,6 +1718,7 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="MAXNUMBEROF">حداكثر تعداد كاراكتر مجاز در هر ارسال‌:{0}</Resource>
   </page>
   <page name="COMMON">
+    <Resource tag="ALBUMIMG_BBCODE">Insert Album Image...</Resource>
     <Resource tag="ALLOWED">مجاز</Resource>
     <Resource tag="BACK">برگشت</Resource>
     <Resource tag="BAD_CAPTCHA">متن وارد شده با متن نمایش داده شده در عکس متفاوت می باشد</Resource>
@@ -2090,6 +2091,7 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="PASSWORD_BAD_LENGTH">حداقل طول رمز جدید: {0}.</Resource>
     <Resource tag="PASSWORD_INCORRECT">رمز اشتباه می باشد و یا رمز جدید نا معتبر است.</Resource>
     <Resource tag="PASSWORD_NOT_COMPLEX">کاراکترهایی غیر از حرف/عدد نیاز است: {1}.</Resource>
+    <Resource tag="PASSWORD_NOT_NEW">New Password must be different from the old one.</Resource>
     <Resource tag="TITLE">تغییر رمز</Resource>
   </page>
   <page name="CP_EDITALBUMIMAGES">
