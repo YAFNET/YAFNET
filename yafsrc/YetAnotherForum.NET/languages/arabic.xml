@@ -4092,6 +4092,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="USEROFFLINESTATUS">غير متواجد حاليا</Resource>
     <Resource tag="USERONLINESTATUS">متواجد حاليا </Resource>
     <Resource tag="USERPROFILE">الملف الشخصي  لعضو</Resource>
+    <Resource tag="USERSUSPENDED">User is suspended until {0}</Resource>
     <Resource tag="VIEW">عرض</Resource>
     <Resource tag="VIEW_TOOLTIP">Change Topic View between Normal or Thread View.</Resource>
     <Resource tag="VOTES">تصويت</Resource>

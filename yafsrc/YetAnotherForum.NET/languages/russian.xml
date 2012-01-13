@@ -4270,6 +4270,7 @@ Spoiler Content
     <Resource tag="USEROFFLINESTATUS">Пользователя нет на форуме</Resource>
     <Resource tag="USERONLINESTATUS">Пользователь находится на форуме</Resource>
     <Resource tag="USERPROFILE">Профиль пользователя</Resource>
+    <Resource tag="USERSUSPENDED">Пользователь забанен до {0}</Resource>
     <Resource tag="VIEW">Просмотр</Resource>
     <Resource tag="VIEW_TOOLTIP">Изменить режим просмотра с номального на дерево.</Resource>
     <Resource tag="VOTES">Голоса</Resource>

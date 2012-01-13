@@ -4270,6 +4270,7 @@ Spoiler Content
     <Resource tag="USEROFFLINESTATUS">Brugeren er offline</Resource>
     <Resource tag="USERONLINESTATUS">Brugeren er online</Resource>
     <Resource tag="USERPROFILE">Bruger profil</Resource>
+    <Resource tag="USERSUSPENDED">User is suspended until {0}</Resource>
     <Resource tag="VIEW">Vis</Resource>
     <Resource tag="VIEW_TOOLTIP">Change Topic View between Normal or Thread View.</Resource>
     <Resource tag="VOTES">Stemmer</Resource>

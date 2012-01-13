@@ -4269,6 +4269,7 @@ Spoiler Content
     <Resource tag="USEROFFLINESTATUS">Kasutaja on eemal</Resource>
     <Resource tag="USERONLINESTATUS">Kasutaja on sisse loginud</Resource>
     <Resource tag="USERPROFILE">Kasutaja profiil</Resource>
+    <Resource tag="USERSUSPENDED">User is suspended until {0}</Resource>
     <Resource tag="VIEW">Vaade</Resource>
     <Resource tag="VIEW_TOOLTIP">Change Topic View between Normal or Thread View.</Resource>
     <Resource tag="VOTES">Hääled</Resource>

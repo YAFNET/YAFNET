@@ -4253,6 +4253,7 @@ Spoiler Content
     <Resource tag="USEROFFLINESTATUS">User Is Offline</Resource>
     <Resource tag="USERONLINESTATUS">User Is Online</Resource>
     <Resource tag="USERPROFILE">User Profile</Resource>
+    <Resource tag="USERSUSPENDED">User is suspended until {0}</Resource>
     <Resource tag="VIEW">View</Resource>
     <Resource tag="VIEW_TOOLTIP">Change Topic View between Normal or Thread View.</Resource>
     <Resource tag="VOTES">Stemmer</Resource>

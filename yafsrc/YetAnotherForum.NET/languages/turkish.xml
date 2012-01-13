@@ -4252,6 +4252,7 @@ Spoiler Content
     <Resource tag="USEROFFLINESTATUS">Kullanıcı Çevrimdışı</Resource>
     <Resource tag="USERONLINESTATUS">Kullanıcı Çevrimiçi</Resource>
     <Resource tag="USERPROFILE">Kullanıcı Profili</Resource>
+    <Resource tag="USERSUSPENDED">User is suspended until {0}</Resource>
     <Resource tag="VIEW">Göster</Resource>
     <Resource tag="VIEW_TOOLTIP">Change Topic View between Normal or Thread View.</Resource>
     <Resource tag="VOTES">Oylar</Resource>

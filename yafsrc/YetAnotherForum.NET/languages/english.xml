@@ -2733,6 +2733,7 @@ Spoiler Content
       <Resource tag="USERPROFILE">User Profile</Resource>
       <Resource tag="USERONLINESTATUS">User is Online</Resource>
       <Resource tag="USEROFFLINESTATUS">User is Offline</Resource>
+      <Resource tag="USERSUSPENDED">User is suspended until {0}</Resource>
       <Resource tag="VIEW">View</Resource>
       <Resource tag="VOTES">Votes</Resource>
       <Resource tag="XMPP">XMPP</Resource>

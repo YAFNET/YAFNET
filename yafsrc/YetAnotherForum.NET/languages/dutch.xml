@@ -4202,6 +4202,7 @@ Spoiler Content
     <Resource tag="USEROFFLINESTATUS">Gerbruiker is offline</Resource>
     <Resource tag="USERONLINESTATUS">Gebruiker is online</Resource>
     <Resource tag="USERPROFILE">Gebruikersprofiel</Resource>
+    <Resource tag="USERSUSPENDED">User is suspended until {0}</Resource>
     <Resource tag="VIEW">Bekijk</Resource>
     <Resource tag="VIEW_TOOLTIP">Change Topic View between Normal or Thread View.</Resource>
     <Resource tag="VOTES">Stemmen</Resource>

@@ -4269,6 +4269,7 @@ Spoiler Content
     <Resource tag="USEROFFLINESTATUS">Utilisateur déconnecté</Resource>
     <Resource tag="USERONLINESTATUS">Utilisateur en ligne</Resource>
     <Resource tag="USERPROFILE">Profil utilisateur</Resource>
+    <Resource tag="USERSUSPENDED">User is suspended until {0}</Resource>
     <Resource tag="VIEW">Voir</Resource>
     <Resource tag="VIEW_TOOLTIP">Change Topic View between Normal or Thread View.</Resource>
     <Resource tag="VOTES">Votes</Resource>

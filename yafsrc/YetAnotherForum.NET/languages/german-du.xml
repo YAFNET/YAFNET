@@ -4206,6 +4206,7 @@ Spoiler Content
     <Resource tag="USEROFFLINESTATUS">Benutzer ist Offline</Resource>
     <Resource tag="USERONLINESTATUS">Benutzer ist Online</Resource>
     <Resource tag="USERPROFILE">Benutzerprofil</Resource>
+    <Resource tag="USERSUSPENDED">User is suspended until {0}</Resource>
     <Resource tag="VIEW">Ansicht</Resource>
     <Resource tag="VIEW_TOOLTIP">Themen Ansicht wechseln</Resource>
     <Resource tag="VOTES">Stimmen</Resource>

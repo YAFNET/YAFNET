@@ -4253,6 +4253,7 @@ Spoiler Content
     <Resource tag="USEROFFLINESTATUS">Thành viên ngoại tuyến</Resource>
     <Resource tag="USERONLINESTATUS">Thành viên trực tuyến</Resource>
     <Resource tag="USERPROFILE">Hồ sơ người dùng</Resource>
+    <Resource tag="USERSUSPENDED">User is suspended until {0}</Resource>
     <Resource tag="VIEW">Xem</Resource>
     <Resource tag="VIEW_TOOLTIP">Change Topic View between Normal or Thread View.</Resource>
     <Resource tag="VOTES">Bỏ phiếu</Resource>
