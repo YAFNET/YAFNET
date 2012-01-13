@@ -53,6 +53,7 @@
     <Resource tag="PANEL_COLLAPSE">~/collapse.gif</Resource>
     <Resource tag="USER_ONLINE">~/icon_useronline.png</Resource>
     <Resource tag="USER_OFFLINE">~/icon_useroffline.png</Resource>
+    <Resource tag="USER_SUSPENDED">~/smiles-jail.gif</Resource>
     <Resource tag="GENDER_MALE">~/male.gif</Resource>
     <Resource tag="GENDER_FEMALE">~/female.gif</Resource>
     <Resource tag="RSSFEED">~/rssfeed.gif</Resource>
