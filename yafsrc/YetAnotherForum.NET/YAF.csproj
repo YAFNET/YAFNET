@@ -2615,6 +2615,7 @@
     <Content Include="images\medals\medal_silver_2.png" />
     <Content Include="images\medals\medal_silver_2_small.png" />
     <Content Include="images\medals\medal_small.png" />
+    <Content Include="images\twitter_signin.png" />
     <Content Include="images\YafLogo.png" />
     <Content Include="install\TopicStatusList.xml" />
     <Content Include="install\wizard.css" />
@@ -4158,7 +4159,7 @@
     <Content Include="themes\BlackGrey\RightArrowWhite.png" />
     <Content Include="themes\BlackGrey\rssfeed.gif" />
     <Content Include="themes\BlackGrey\sandclock.gif" />
-    <Content Include="themes\BlackGrey\smiles-jail.gif" />
+    <Content Include="themes\BlackGrey\UserSuspended.png" />
     <Content Include="themes\BlackGrey\sort_down.gif" />
     <Content Include="themes\BlackGrey\sort_up.gif" />
     <Content Include="themes\BlackGrey\status_fixed.png" />
@@ -4268,7 +4269,7 @@
     <Content Include="themes\BlueGrey\RightArrowWhite.png" />
     <Content Include="themes\BlueGrey\rssfeed.gif" />
     <Content Include="themes\BlueGrey\sandclock.gif" />
-    <Content Include="themes\BlueGrey\smiles-jail.gif" />
+    <Content Include="themes\BlueGrey\UserSuspended.png" />
     <Content Include="themes\BlueGrey\sort_down.gif" />
     <Content Include="themes\BlueGrey\sort_up.gif" />
     <Content Include="themes\BlueGrey\status_fixed.png" />
@@ -4313,7 +4314,6 @@
     <Content Include="themes\cleanSlate\buttonEnd.gif" />
     <Content Include="themes\cleanSlate\buttonEndB.gif" />
     <Content Include="themes\cleanSlate\collapse.gif" />
-    <Content Include="themes\cleanSlate\Copy of smiles-jail.gif" />
     <Content Include="themes\cleanSlate\copy_small_icon.png" />
     <Content Include="themes\cleanSlate\delete_small_icon.gif" />
     <Content Include="themes\cleanSlate\DownArrow.png" />
@@ -4736,7 +4736,7 @@
     <Content Include="themes\GreenGrey\RightArrowWhite.png" />
     <Content Include="themes\GreenGrey\rssfeed.gif" />
     <Content Include="themes\GreenGrey\sandclock.gif" />
-    <Content Include="themes\GreenGrey\smiles-jail.gif" />
+    <Content Include="themes\GreenGrey\UserSuspended.png" />
     <Content Include="themes\GreenGrey\sort_down.gif" />
     <Content Include="themes\GreenGrey\sort_up.gif" />
     <Content Include="themes\GreenGrey\status_fixed.png" />
@@ -4844,7 +4844,7 @@
     <Content Include="themes\GreyGrey\RightArrow.png" />
     <Content Include="themes\GreyGrey\rssfeed.gif" />
     <Content Include="themes\GreyGrey\sandclock.gif" />
-    <Content Include="themes\GreyGrey\smiles-jail.gif" />
+    <Content Include="themes\GreyGrey\UserSuspended.png" />
     <Content Include="themes\GreyGrey\sort_down.gif" />
     <Content Include="themes\GreyGrey\sort_up.gif" />
     <Content Include="themes\GreyGrey\status_fixed.png" />
@@ -4954,7 +4954,7 @@
     <Content Include="themes\OrangeGrey\RightArrowWhite.png" />
     <Content Include="themes\OrangeGrey\rssfeed.gif" />
     <Content Include="themes\OrangeGrey\sandclock.gif" />
-    <Content Include="themes\OrangeGrey\smiles-jail.gif" />
+    <Content Include="themes\OrangeGrey\UserSuspended.png" />
     <Content Include="themes\OrangeGrey\sort_down.gif" />
     <Content Include="themes\OrangeGrey\sort_up.gif" />
     <Content Include="themes\OrangeGrey\status_fixed.png" />
@@ -5064,7 +5064,7 @@
     <Content Include="themes\RedGrey\RightArrowWhite.png" />
     <Content Include="themes\RedGrey\rssfeed.gif" />
     <Content Include="themes\RedGrey\sandclock.gif" />
-    <Content Include="themes\RedGrey\smiles-jail.gif" />
+    <Content Include="themes\RedGrey\UserSuspended.png" />
     <Content Include="themes\RedGrey\sort_down.gif" />
     <Content Include="themes\RedGrey\sort_up.gif" />
     <Content Include="themes\RedGrey\status_fixed.png" />
