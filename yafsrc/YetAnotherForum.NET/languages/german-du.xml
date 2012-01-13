@@ -3819,6 +3819,7 @@ Spoiler Content
     <Resource tag="SSO_TWITTERID_NOTMATCH">Der Twitter Name und Twitter ID stimmt nicht überein!</Resource>
     <Resource tag="TITLE">Einloggen</Resource>
     <Resource tag="TWITTER_DM">Sie haben weitere Informationen für Ihr Benutzerkonto als Private Nachricht im Forum erhalten.</Resource>
+    <Resource tag="TWITTER_DM_ACCOUNT">Ihr Konto im Forum {0}: Username "{1}" Password "{2}"</Resource>
     <Resource tag="TWITTER_LOGIN">Mit Twitter anmelden</Resource>
     <Resource tag="UPDATE_EMAIL">Bitte aktualisieren Sie jetzt ihre E-Mail Adresse!</Resource>
     <Resource tag="USERNAME">Benutzername oder E-Mail Adresse:</Resource>

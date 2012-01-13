@@ -3702,6 +3702,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="SSO_TWITTERID_NOTMATCH">The Twitter ID and Twitter Name does not match!</Resource>
     <Resource tag="TITLE">تسجيل الدخول</Resource>
     <Resource tag="TWITTER_DM">You have received further Information to your new Account as Private Message on the Forum.</Resource>
+    <Resource tag="TWITTER_DM_ACCOUNT">Your {0} Forum Account Information: Username "{1}" Password "{2}"</Resource>
     <Resource tag="TWITTER_LOGIN">Login with Twitter</Resource>
     <Resource tag="UPDATE_EMAIL">Please Update Your E-Mail Adress now!</Resource>
     <Resource tag="USERNAME">اسم المستخدم :</Resource>

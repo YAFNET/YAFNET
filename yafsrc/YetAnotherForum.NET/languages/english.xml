@@ -2363,6 +2363,7 @@ Spoiler Content
       <Resource tag="SSO_TWITTER_FAILED">The Twitter Login failed, User does not exists.</Resource>
       <Resource tag="UPDATE_EMAIL">Please Update Your E-Mail Adress now!</Resource>
       <Resource tag="TWITTER_DM">You have received further Information to your new Account as Private Message on the Forum.</Resource>
+      <Resource tag="TWITTER_DM_ACCOUNT">Your {0} Forum Account Information: Username "{1}" Password "{2}"</Resource>
    </page>
    <page name="MEMBERS">
       <Resource tag="JOINED">Joined</Resource>

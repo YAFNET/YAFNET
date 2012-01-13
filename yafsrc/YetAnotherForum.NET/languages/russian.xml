@@ -3878,6 +3878,7 @@ Spoiler Content
     <Resource tag="SSO_TWITTERID_NOTMATCH"> Twitter ID и/или имя в Twitter неверны!</Resource>
     <Resource tag="TITLE">Вход</Resource>
     <Resource tag="TWITTER_DM">Вы получили дальнейшие инструкции в личные сообщения на форуме.</Resource>
+    <Resource tag="TWITTER_DM_ACCOUNT">Your {0} Forum Account Information: Username "{1}" Password "{2}"</Resource>
     <Resource tag="TWITTER_LOGIN">Войти через Twitter</Resource>
     <Resource tag="UPDATE_EMAIL">Пожалуйста, обновите ваш адрес E-Mail!</Resource>
     <Resource tag="USERNAME">Имя пользователя:</Resource>

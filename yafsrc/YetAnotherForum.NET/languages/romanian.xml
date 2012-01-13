@@ -3861,6 +3861,7 @@ Spoiler Content
     <Resource tag="SSO_TWITTERID_NOTMATCH">The Twitter ID and Twitter Name does not match!</Resource>
     <Resource tag="TITLE">Intrare</Resource>
     <Resource tag="TWITTER_DM">You have received further Information to your new Account as Private Message on the Forum.</Resource>
+    <Resource tag="TWITTER_DM_ACCOUNT">Your {0} Forum Account Information: Username "{1}" Password "{2}"</Resource>
     <Resource tag="TWITTER_LOGIN">Login with Twitter</Resource>
     <Resource tag="UPDATE_EMAIL">Please Update Your E-Mail Adress now!</Resource>
     <Resource tag="USERNAME">Utilizator:</Resource>
