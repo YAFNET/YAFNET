@@ -2615,7 +2615,6 @@
     <Content Include="images\medals\medal_silver_2.png" />
     <Content Include="images\medals\medal_silver_2_small.png" />
     <Content Include="images\medals\medal_small.png" />
-    <Content Include="images\twitter_signin.png" />
     <Content Include="images\YafLogo.png" />
     <Content Include="install\TopicStatusList.xml" />
     <Content Include="install\wizard.css" />
@@ -4159,6 +4158,7 @@
     <Content Include="themes\BlackGrey\RightArrowWhite.png" />
     <Content Include="themes\BlackGrey\rssfeed.gif" />
     <Content Include="themes\BlackGrey\sandclock.gif" />
+    <Content Include="themes\BlackGrey\smiles-jail.gif" />
     <Content Include="themes\BlackGrey\sort_down.gif" />
     <Content Include="themes\BlackGrey\sort_up.gif" />
     <Content Include="themes\BlackGrey\status_fixed.png" />
@@ -4268,6 +4268,7 @@
     <Content Include="themes\BlueGrey\RightArrowWhite.png" />
     <Content Include="themes\BlueGrey\rssfeed.gif" />
     <Content Include="themes\BlueGrey\sandclock.gif" />
+    <Content Include="themes\BlueGrey\smiles-jail.gif" />
     <Content Include="themes\BlueGrey\sort_down.gif" />
     <Content Include="themes\BlueGrey\sort_up.gif" />
     <Content Include="themes\BlueGrey\status_fixed.png" />
@@ -4312,6 +4313,7 @@
     <Content Include="themes\cleanSlate\buttonEnd.gif" />
     <Content Include="themes\cleanSlate\buttonEndB.gif" />
     <Content Include="themes\cleanSlate\collapse.gif" />
+    <Content Include="themes\cleanSlate\Copy of smiles-jail.gif" />
     <Content Include="themes\cleanSlate\copy_small_icon.png" />
     <Content Include="themes\cleanSlate\delete_small_icon.gif" />
     <Content Include="themes\cleanSlate\DownArrow.png" />
@@ -4620,6 +4622,7 @@
     <Content Include="themes\cleanSlate\RightArrow.png" />
     <Content Include="themes\cleanSlate\rssfeed.gif" />
     <Content Include="themes\cleanSlate\sandclock.gif" />
+    <Content Include="themes\cleanSlate\smiles-jail.gif" />
     <Content Include="themes\cleanSlate\sort_down.gif" />
     <Content Include="themes\cleanSlate\sort_up.gif" />
     <Content Include="themes\cleanSlate\status_fixed.png" />
@@ -4733,6 +4736,7 @@
     <Content Include="themes\GreenGrey\RightArrowWhite.png" />
     <Content Include="themes\GreenGrey\rssfeed.gif" />
     <Content Include="themes\GreenGrey\sandclock.gif" />
+    <Content Include="themes\GreenGrey\smiles-jail.gif" />
     <Content Include="themes\GreenGrey\sort_down.gif" />
     <Content Include="themes\GreenGrey\sort_up.gif" />
     <Content Include="themes\GreenGrey\status_fixed.png" />
@@ -4840,6 +4844,7 @@
     <Content Include="themes\GreyGrey\RightArrow.png" />
     <Content Include="themes\GreyGrey\rssfeed.gif" />
     <Content Include="themes\GreyGrey\sandclock.gif" />
+    <Content Include="themes\GreyGrey\smiles-jail.gif" />
     <Content Include="themes\GreyGrey\sort_down.gif" />
     <Content Include="themes\GreyGrey\sort_up.gif" />
     <Content Include="themes\GreyGrey\status_fixed.png" />
@@ -4949,6 +4954,7 @@
     <Content Include="themes\OrangeGrey\RightArrowWhite.png" />
     <Content Include="themes\OrangeGrey\rssfeed.gif" />
     <Content Include="themes\OrangeGrey\sandclock.gif" />
+    <Content Include="themes\OrangeGrey\smiles-jail.gif" />
     <Content Include="themes\OrangeGrey\sort_down.gif" />
     <Content Include="themes\OrangeGrey\sort_up.gif" />
     <Content Include="themes\OrangeGrey\status_fixed.png" />
@@ -5058,6 +5064,7 @@
     <Content Include="themes\RedGrey\RightArrowWhite.png" />
     <Content Include="themes\RedGrey\rssfeed.gif" />
     <Content Include="themes\RedGrey\sandclock.gif" />
+    <Content Include="themes\RedGrey\smiles-jail.gif" />
     <Content Include="themes\RedGrey\sort_down.gif" />
     <Content Include="themes\RedGrey\sort_up.gif" />
     <Content Include="themes\RedGrey\status_fixed.png" />
@@ -5134,6 +5141,7 @@
     <Content Include="themes\soclean\RightArrowWhite.png" />
     <Content Include="themes\soclean\rssfeed.gif" />
     <Content Include="themes\soclean\sandclock.gif" />
+    <Content Include="themes\soclean\smiles-jail.gif" />
     <Content Include="themes\soclean\status_fixed.png" />
     <Content Include="themes\soclean\status_informatic.png" />
     <Content Include="themes\soclean\status_issue.png" />
@@ -5146,6 +5154,7 @@
     <Content Include="themes\soclean\VoteUp.png" />
     <Content Include="themes\soclean\vote_refuse.gif" />
     <Content Include="themes\YafMobile.xml" />
+    <Content Include="themes\Yafmobile\albums.png" />
     <Content Include="themes\Yafmobile\arrow_up_button.png" />
     <Content Include="themes\Yafmobile\chart.png" />
     <Content Include="themes\Yafmobile\collapse.png" />
@@ -5205,6 +5214,7 @@
     <Content Include="themes\Yafmobile\poll_question.png" />
     <Content Include="themes\Yafmobile\RightArrow.png" />
     <Content Include="themes\Yafmobile\sandclock.gif" />
+    <Content Include="themes\Yafmobile\smiles-jail.gif" />
     <Content Include="themes\Yafmobile\sort_down.png" />
     <Content Include="themes\Yafmobile\sort_up.png" />
     <Content Include="themes\Yafmobile\tab-line.png" />
@@ -5268,6 +5278,7 @@
     <Content Include="themes\yafpro\RightArrowWhite.png" />
     <Content Include="themes\yafpro\rssfeed.gif" />
     <Content Include="themes\yafpro\sandclock.gif" />
+    <Content Include="themes\yafpro\smiles-jail.gif" />
     <Content Include="themes\yafpro\status_fixed.png" />
     <Content Include="themes\yafpro\status_informatic.png" />
     <Content Include="themes\yafpro\status_issue.png" />
@@ -5325,6 +5336,7 @@
     <Content Include="themes\yafvision\RightArrowWhite.png" />
     <Content Include="themes\yafvision\rssfeed.gif" />
     <Content Include="themes\yafvision\sandclock.gif" />
+    <Content Include="themes\yafvision\smiles-jail.gif" />
     <Content Include="themes\yafvision\status_fixed.png" />
     <Content Include="themes\yafvision\status_informatic.png" />
     <Content Include="themes\yafvision\status_issue.png" />
