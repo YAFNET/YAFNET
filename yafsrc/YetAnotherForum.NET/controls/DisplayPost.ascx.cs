@@ -319,6 +319,7 @@ namespace YAF.Controls
                           "toggleuserposts_hide", this.GetText("POSTS", "TOGGLEUSERPOSTS_HIDE"));
                     }
                 }
+               
 
                 if (this.Get<YafBoardSettings>().EnableBuddyList &&
                     this.PageContext.PageUserID != (int)this.DataRow["UserID"])
@@ -342,7 +343,15 @@ namespace YAF.Controls
             }
 
             this.NameCell.ColSpan = int.Parse(this.GetIndentSpan());
+            if (DataRow["Suspended"] == DBNull.Value || DataRow["Suspended"].ToType<DateTime>() <= DateTime.UtcNow)
+                return;
+            this.ThemeImgSuspended.LocalizedTitle =
+                this.GetText("POSTS", "USERSUSPENDED").FormatWith(
+                    this.Get<IDateTime>().FormatDateTimeShort(DataRow["Suspended"].ToType<DateTime>()));
+
+            this.ThemeImgSuspended.Visible = true;
         }
+
 
         /// <summary>
         /// Adds the user reputation.

@@ -5204,6 +5204,7 @@ begin
 		m.ExternalMessageId,
 		m.ReferenceMessageId,
 		UserName = IsNull(m.UserName,b.Name),
+		b.Suspended,
 		b.Joined,
 		b.Avatar,
 		b.[Signature],

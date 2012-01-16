@@ -40,6 +40,15 @@ namespace YAF.Controls {
         protected global::YAF.Controls.OnlineStatusImage OnlineStatusImage;
         
         /// <summary>
+        /// ThemeImgSuspended control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.ThemeImage ThemeImgSuspended;
+        
+        /// <summary>
         /// AddReputation control.
         /// </summary>
         /// <remarks>
