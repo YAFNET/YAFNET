@@ -1713,6 +1713,7 @@
     <Resource tag="MAXNUMBEROF">Maximum number of characters in each post is: {0}</Resource>
   </page>
   <page name="COMMON">
+    <Resource tag="ALBUMIMG_BBCODE">Insert Album Image...</Resource>
     <Resource tag="ALLOWED">Allowed</Resource>
     <Resource tag="BACK">Atras</Resource>
     <Resource tag="BAD_CAPTCHA">Texto no coincide con el texto de la imagen.</Resource>
@@ -2103,6 +2104,7 @@
     <Resource tag="PASSWORD_BAD_LENGTH">Longitud minima para la clave nueva: {0}.</Resource>
     <Resource tag="PASSWORD_INCORRECT">Clave incorrecta o clave nueva inválida.</Resource>
     <Resource tag="PASSWORD_NOT_COMPLEX">Caracteres no alfanumericos requeridos: {1}.</Resource>
+    <Resource tag="PASSWORD_NOT_NEW">New Password must be different from the old one.</Resource>
     <Resource tag="TITLE">Cambiar clave</Resource>
   </page>
   <page name="CP_EDITALBUMIMAGES">
@@ -3875,6 +3877,7 @@ Spoiler Content
     <Resource tag="SSO_TWITTERID_NOTMATCH">The Twitter ID and Twitter Name does not match!</Resource>
     <Resource tag="TITLE">Iniciar sesión</Resource>
     <Resource tag="TWITTER_DM">You have received further Information to your new Account as Private Message on the Forum.</Resource>
+    <Resource tag="TWITTER_DM_ACCOUNT">Your {0} Forum Account Information: Username "{1}" Password "{2}"</Resource>
     <Resource tag="TWITTER_LOGIN">Login with Twitter</Resource>
     <Resource tag="UPDATE_EMAIL">Please Update Your E-Mail Adress now!</Resource>
     <Resource tag="USERNAME">Usuario:</Resource>
@@ -4268,6 +4271,7 @@ Spoiler Content
     <Resource tag="USEROFFLINESTATUS">User Is Offline</Resource>
     <Resource tag="USERONLINESTATUS">User Is Online</Resource>
     <Resource tag="USERPROFILE">Perfil de usuario</Resource>
+    <Resource tag="USERSUSPENDED">User is suspended until {0}</Resource>
     <Resource tag="VIEW">Ver</Resource>
     <Resource tag="VIEW_TOOLTIP">Change Topic View between Normal or Thread View.</Resource>
     <Resource tag="VOTES">Votos</Resource>

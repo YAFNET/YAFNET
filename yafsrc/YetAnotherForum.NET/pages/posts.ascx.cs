@@ -1132,7 +1132,7 @@ namespace YAF.Pages
                 DateTime lastRead;
                 DateTime lastReadForum;
 
-                if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase)
+                if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase && !this.PageContext.IsGuest)
                 {
                     lastRead = this.Get<IReadTracking>().GetTopicRead(
                         this.PageContext.PageUserID, this.PageContext.PageTopicID);
@@ -1215,7 +1215,7 @@ namespace YAF.Pages
                         {
                             DateTime lastRead = YafContext.Current.Get<IYafSession>().LastVisit;
 
-                            if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase)
+                            if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase && !this.PageContext.IsGuest)
                             {
                                  lastRead = this.Get<IReadTracking>().GetTopicRead(
                                     this.PageContext.PageUserID, this.PageContext.PageTopicID);
@@ -1291,13 +1291,8 @@ namespace YAF.Pages
         /// </summary>
         private void HandleTopicReadTracking()
         {
-            if (this.PageContext.IsGuest)
-            {
-                return;
-            }
-
             // Add or Update Read Tracking for the current topic and user
-            if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase)
+            if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase && !this.PageContext.IsGuest)
             {
                 LegacyDb.Readtopic_AddOrUpdate(this.PageContext.PageUserID, this.PageContext.PageTopicID);
             }

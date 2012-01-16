@@ -21,15 +21,12 @@ namespace YAF.Controls
 {
   #region Using
 
-  using System.Collections.Generic;
-  using System.Linq;
-  using System.Reflection;
+    using System;
   using System.Text;
   using System.Web;
   using System.Web.UI;
 
   using YAF.Classes;
-  using YAF.Classes.Data;
   using YAF.Core;
   using YAF.Types;
   using YAF.Types.Constants;
@@ -97,7 +94,6 @@ namespace YAF.Controls
 
       footer.Append(@"<br /><div class=""content"" style=""text-align:right;font-size:7pt"">");
 
-      bool br = false;
 
       if (this.PageContext.CurrentForumPage.IsAdminPage)
       {
@@ -125,7 +121,7 @@ namespace YAF.Controls
     /// </param>
     private void RenderGeneratedAndDebug([NotNull] StringBuilder footer)
     {
-      if (this.PageContext.BoardSettings.ShowPageGenerationTime)
+      if (this.Get<YafBoardSettings>().ShowPageGenerationTime)
       {
         footer.Append("<br />");
         footer.AppendFormat(this.GetText("COMMON", "GENERATED"), this.Get<IStopWatch>().Duration);
@@ -223,7 +219,7 @@ namespace YAF.Controls
 
       // get the theme credit info from the theme file
       // it's not really an error if it doesn't exist
-      string themeCredit = this.PageContext.Theme.GetItem("THEME", "CREDIT", null);
+      string themeCredit = this.Get<ITheme>().GetItem("THEME", "CREDIT", null);
 
       // append theme Credit if it exists...
       if (themeCredit.IsSet())
@@ -236,7 +232,7 @@ namespace YAF.Controls
       footer.Append(this.GetText("COMMON", "POWERED_BY"));
       footer.Append(@" YAF");
 
-      if (this.PageContext.BoardSettings.ShowYAFVersion)
+      if (this.Get<YafBoardSettings>().ShowYAFVersion)
       {
         footer.AppendFormat(" {0} ", YafForumInfo.AppVersionName);
         if (Config.IsDotNetNuke)
@@ -258,9 +254,10 @@ namespace YAF.Controls
       }
 
       footer.AppendFormat(
-        @"</a> | <a target=""_top"" title=""{0}"" href=""{1}"">YAF &copy; 2003-2011, Yet Another Forum.NET</a>", 
+        @"</a> | <a target=""_top"" title=""{0}"" href=""{1}"">YAF &copy; 2003-{2}, Yet Another Forum.NET</a>", 
         "YetAnotherForum.NET", 
-        "http://www.yetanotherforum.net");
+        "http://www.yetanotherforum.net",
+        DateTime.UtcNow.Year);
     }
 
     #endregion

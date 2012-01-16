@@ -23,6 +23,24 @@
         #region Methods
 
         /// <summary>
+        /// Column count
+        /// </summary>
+        /// <returns>
+        /// The column count.
+        /// </returns>
+        protected int ColumnCount()
+        {
+            int cnt = 5;
+
+            if (this.Get<YafBoardSettings>().ShowModeratorList && this.Get<YafBoardSettings>().ShowModeratorListAsColumn)
+            {
+                cnt++;
+            }
+
+            return cnt;
+        }
+
+        /// <summary>
         /// The mark all_ click.
         /// </summary>
         /// <param name="sender">
@@ -48,7 +66,7 @@
 
             foreach (DataRow row in dt.Rows)
             {
-                if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase)
+                if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase && !this.PageContext.IsGuest)
                 {
                     this.Get<IReadTracking>().SetForumRead(this.PageContext.PageUserID, row["ForumID"].ToType<int>());
                 }
@@ -87,16 +105,6 @@
             this.CategoryList.DataBind();
         }
 
-        /// <summary>
-        /// Column count
-        /// </summary>
-        protected int ColumnCount()
-        {
-            int cnt = 5;
-            if (PageContext.BoardSettings.ShowModeratorList && this.Get<YafBoardSettings>().ShowModeratorListAsColumn) cnt++;
-            return cnt;
-        }
-       
         #endregion
     }
 }

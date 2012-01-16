@@ -1713,6 +1713,7 @@
     <Resource tag="MAXNUMBEROF">Bir mesajdaki maksimum harf sayısı: {0}</Resource>
   </page>
   <page name="COMMON">
+    <Resource tag="ALBUMIMG_BBCODE">Insert Album Image...</Resource>
     <Resource tag="ALLOWED">Allowed</Resource>
     <Resource tag="BACK">Geri</Resource>
     <Resource tag="BAD_CAPTCHA">Girdiklerinizde güvenlik kodundaki karakterler uyuşmuyor.</Resource>
@@ -2086,6 +2087,7 @@
     <Resource tag="PASSWORD_BAD_LENGTH">Yeni şifreniz en az {0} karakter olmalı.</Resource>
     <Resource tag="PASSWORD_INCORRECT">Şifre yanlış ya da yeni şifre hatalı.</Resource>
     <Resource tag="PASSWORD_NOT_COMPLEX">Harf veya Sayı olmayan (0-9 a-z harici) {1} karakter gerekmektedir.</Resource>
+    <Resource tag="PASSWORD_NOT_NEW">New Password must be different from the old one.</Resource>
     <Resource tag="TITLE">Şifre Değiştir</Resource>
   </page>
   <page name="CP_EDITALBUMIMAGES">
@@ -3858,6 +3860,7 @@ Spoiler Content
     <Resource tag="SSO_TWITTERID_NOTMATCH">The Twitter ID and Twitter Name does not match!</Resource>
     <Resource tag="TITLE">Giriş</Resource>
     <Resource tag="TWITTER_DM">You have received further Information to your new Account as Private Message on the Forum.</Resource>
+    <Resource tag="TWITTER_DM_ACCOUNT">Your {0} Forum Account Information: Username "{1}" Password "{2}"</Resource>
     <Resource tag="TWITTER_LOGIN">Login with Twitter</Resource>
     <Resource tag="UPDATE_EMAIL">Please Update Your E-Mail Adress now!</Resource>
     <Resource tag="USERNAME">Kullanıcı Adı:</Resource>
@@ -4250,6 +4253,7 @@ Spoiler Content
     <Resource tag="USEROFFLINESTATUS">Kullanıcı Çevrimdışı</Resource>
     <Resource tag="USERONLINESTATUS">Kullanıcı Çevrimiçi</Resource>
     <Resource tag="USERPROFILE">Kullanıcı Profili</Resource>
+    <Resource tag="USERSUSPENDED">User is suspended until {0}</Resource>
     <Resource tag="VIEW">Göster</Resource>
     <Resource tag="VIEW_TOOLTIP">Change Topic View between Normal or Thread View.</Resource>
     <Resource tag="VOTES">Oylar</Resource>

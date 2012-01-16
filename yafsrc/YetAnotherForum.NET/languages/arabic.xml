@@ -1713,6 +1713,7 @@
     <Resource tag="MAXNUMBEROF">الحد القصى  المسموح به من الحروف  : {0}</Resource>
   </page>
   <page name="COMMON">
+    <Resource tag="ALBUMIMG_BBCODE">Insert Album Image...</Resource>
     <Resource tag="ALLOWED">Allowed</Resource>
     <Resource tag="BACK">عودة</Resource>
     <Resource tag="BAD_CAPTCHA">النص الذي تم ادخاله لا يتوافق مع الصورة</Resource>
@@ -2104,6 +2105,7 @@
     <Resource tag="PASSWORD_BAD_LENGTH">كلمة المرور يجي انت تكون كحد ادنى : {0}.</Resource>
     <Resource tag="PASSWORD_INCORRECT">.كلمة المرور غير صحيحة أو كلمة المرور الجديدة خاطئة</Resource>
     <Resource tag="PASSWORD_NOT_COMPLEX">ليست بحاجة الى  رموز  رقمية: {1}.</Resource>
+    <Resource tag="PASSWORD_NOT_NEW">New Password must be different from the old one.</Resource>
     <Resource tag="TITLE">تغيير كلمة المرور</Resource>
   </page>
   <page name="CP_EDITALBUMIMAGES">
@@ -3700,6 +3702,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="SSO_TWITTERID_NOTMATCH">The Twitter ID and Twitter Name does not match!</Resource>
     <Resource tag="TITLE">تسجيل الدخول</Resource>
     <Resource tag="TWITTER_DM">You have received further Information to your new Account as Private Message on the Forum.</Resource>
+    <Resource tag="TWITTER_DM_ACCOUNT">Your {0} Forum Account Information: Username "{1}" Password "{2}"</Resource>
     <Resource tag="TWITTER_LOGIN">Login with Twitter</Resource>
     <Resource tag="UPDATE_EMAIL">Please Update Your E-Mail Adress now!</Resource>
     <Resource tag="USERNAME">اسم المستخدم :</Resource>
@@ -4090,6 +4093,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="USEROFFLINESTATUS">غير متواجد حاليا</Resource>
     <Resource tag="USERONLINESTATUS">متواجد حاليا </Resource>
     <Resource tag="USERPROFILE">الملف الشخصي  لعضو</Resource>
+    <Resource tag="USERSUSPENDED">User is suspended until {0}</Resource>
     <Resource tag="VIEW">عرض</Resource>
     <Resource tag="VIEW_TOOLTIP">Change Topic View between Normal or Thread View.</Resource>
     <Resource tag="VOTES">تصويت</Resource>

@@ -1713,6 +1713,7 @@
     <Resource tag="MAXNUMBEROF">Số ký tự tối đa cho một bài viết là: {0}</Resource>
   </page>
   <page name="COMMON">
+    <Resource tag="ALBUMIMG_BBCODE">Insert Album Image...</Resource>
     <Resource tag="ALLOWED">Allowed</Resource>
     <Resource tag="BACK">Quay lại</Resource>
     <Resource tag="BAD_CAPTCHA">Text Entered Did Not Match Text In Security Image.</Resource>
@@ -2086,6 +2087,7 @@
     <Resource tag="PASSWORD_BAD_LENGTH">Mật khẩu mới phải từ: {0} kí tự trở lên.</Resource>
     <Resource tag="PASSWORD_INCORRECT">Mật khẩu cũ không đúng hoặc Mật khẩu mới không hợp lệ.</Resource>
     <Resource tag="PASSWORD_NOT_COMPLEX">Mật khẩu phải chứa ký tự đặc biệt: {1}.</Resource>
+    <Resource tag="PASSWORD_NOT_NEW">New Password must be different from the old one.</Resource>
     <Resource tag="TITLE">Đổi mật khẩu</Resource>
   </page>
   <page name="CP_EDITALBUMIMAGES">
@@ -3858,6 +3860,7 @@ Spoiler Content
     <Resource tag="SSO_TWITTERID_NOTMATCH">The Twitter ID and Twitter Name does not match!</Resource>
     <Resource tag="TITLE">Đăng nhập</Resource>
     <Resource tag="TWITTER_DM">You have received further Information to your new Account as Private Message on the Forum.</Resource>
+    <Resource tag="TWITTER_DM_ACCOUNT">Your {0} Forum Account Information: Username "{1}" Password "{2}"</Resource>
     <Resource tag="TWITTER_LOGIN">Login with Twitter</Resource>
     <Resource tag="UPDATE_EMAIL">Please Update Your E-Mail Adress now!</Resource>
     <Resource tag="USERNAME">Tên đăng nhập:</Resource>
@@ -4251,6 +4254,7 @@ Spoiler Content
     <Resource tag="USEROFFLINESTATUS">Thành viên ngoại tuyến</Resource>
     <Resource tag="USERONLINESTATUS">Thành viên trực tuyến</Resource>
     <Resource tag="USERPROFILE">Hồ sơ người dùng</Resource>
+    <Resource tag="USERSUSPENDED">User is suspended until {0}</Resource>
     <Resource tag="VIEW">Xem</Resource>
     <Resource tag="VIEW_TOOLTIP">Change Topic View between Normal or Thread View.</Resource>
     <Resource tag="VOTES">Bỏ phiếu</Resource>

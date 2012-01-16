@@ -1713,6 +1713,7 @@
     <Resource tag="MAXNUMBEROF">Maximum number of characters in each post is: {0}</Resource>
   </page>
   <page name="COMMON">
+    <Resource tag="ALBUMIMG_BBCODE">Insert Album Image...</Resource>
     <Resource tag="ALLOWED">Allowed</Resource>
     <Resource tag="BACK">Indietro</Resource>
     <Resource tag="BAD_CAPTCHA">Il testo inserito non corrisponde a quello presente nell'immagine di sicurezza.</Resource>
@@ -2104,6 +2105,7 @@
     <Resource tag="PASSWORD_BAD_LENGTH">Lunghezza minima della nuova password: {0}.</Resource>
     <Resource tag="PASSWORD_INCORRECT">Password errata o nuova password non valida.</Resource>
     <Resource tag="PASSWORD_NOT_COMPLEX">Caratteri speciali necessari: {1}.</Resource>
+    <Resource tag="PASSWORD_NOT_NEW">New Password must be different from the old one.</Resource>
     <Resource tag="TITLE">Cambia password</Resource>
   </page>
   <page name="CP_EDITALBUMIMAGES">
@@ -3876,6 +3878,7 @@ Spoiler Content
     <Resource tag="SSO_TWITTERID_NOTMATCH">The Twitter ID and Twitter Name does not match!</Resource>
     <Resource tag="TITLE">Login</Resource>
     <Resource tag="TWITTER_DM">You have received further Information to your new Account as Private Message on the Forum.</Resource>
+    <Resource tag="TWITTER_DM_ACCOUNT">Your {0} Forum Account Information: Username "{1}" Password "{2}"</Resource>
     <Resource tag="TWITTER_LOGIN">Login with Twitter</Resource>
     <Resource tag="UPDATE_EMAIL">Please Update Your E-Mail Adress now!</Resource>
     <Resource tag="USERNAME">Nome Utente:</Resource>
@@ -4267,6 +4270,7 @@ Spoiler Content
     <Resource tag="USEROFFLINESTATUS">L'utente non è in linea</Resource>
     <Resource tag="USERONLINESTATUS">L'utente è in linea</Resource>
     <Resource tag="USERPROFILE">Profilo utente</Resource>
+    <Resource tag="USERSUSPENDED">User is suspended until {0}</Resource>
     <Resource tag="VIEW">Visualizza</Resource>
     <Resource tag="VIEW_TOOLTIP">Change Topic View between Normal or Thread View.</Resource>
     <Resource tag="VOTES">Voti</Resource>

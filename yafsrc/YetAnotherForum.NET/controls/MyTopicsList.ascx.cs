@@ -168,7 +168,7 @@ namespace YAF.Controls
 
                 if (this.CurrentMode.Equals(TopicListMode.Unread))
                 {
-                    this.sinceDate = this.Get<YafBoardSettings>().UseReadTrackingByDatabase
+                    this.sinceDate = this.Get<YafBoardSettings>().UseReadTrackingByDatabase && !this.PageContext.IsGuest
                                          ? this.Get<IReadTracking>().GetUserLastRead(this.PageContext.PageUserID)
                                          : this.Get<IYafSession>().LastVisit;
                 }
@@ -219,9 +219,6 @@ namespace YAF.Controls
                         categoryIDObject,
                         this.Get<YafBoardSettings>().UseStyledNicks,
                         this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
-
-                    // Update Unread Topics Count
-                    this.Get<IYafSession>().UnreadTopics = topicList.Rows.Count;
                     break;
                 case TopicListMode.User:
                     topicList = LegacyDb.Topics_ByUser(
@@ -285,9 +282,16 @@ namespace YAF.Controls
         /// </param>
         protected void MarkAll_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
+            this.BindData();
+
+            if (this.topics.Rows.Count.Equals(0))
+            {
+                return;
+            }
+
             foreach (DataRow row in this.topics.Rows)
             {
-                if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase)
+                if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase && !this.PageContext.IsGuest)
                 {
                     LegacyDb.Readtopic_AddOrUpdate(this.PageContext.PageUserID, row["TopicID"].ToType<int>());
                 }
@@ -296,6 +300,9 @@ namespace YAF.Controls
                     this.Get<IYafSession>().SetTopicRead(row["TopicID"].ToType<int>(), DateTime.UtcNow);
                 }
             }
+
+            // Rebind
+            this.BindData();
         }
 
         /// <summary>
