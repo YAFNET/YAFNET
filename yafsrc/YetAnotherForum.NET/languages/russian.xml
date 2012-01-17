@@ -3,7 +3,7 @@
   <page name="ACTIVELOCATION">
     <Resource tag="ACTIVEUSERS">Просматривает список активных пользователей</Resource>
     <Resource tag="ADMIN_ACCESSMASKS">Просматривает маски доступа</Resource>
-    <Resource tag="ADMIN_ADMIN">Просматривает  главную страницу администратора</Resource>
+    <Resource tag="ADMIN_ADMIN">Просматривает главную страницу администратора</Resource>
     <Resource tag="ADMIN_ATTACHMENTS">Администрирует прикреплённые файлы</Resource>
     <Resource tag="ADMIN_BANNEDIP">Просматривает запрещённые IP</Resource>
     <Resource tag="ADMIN_BANNEDIP_EDIT">Редактирует запрещённые IP</Resource>
@@ -266,7 +266,7 @@
     <Resource tag="TITLE">Импортировать новые YafBBCode</Resource>
   </page>
   <page name="ADMIN_BOARDS">
-    <Resource tag="CONFIRM_DELETE">Удалить эту доску?</Resource>
+    <Resource tag="CONFIRM_DELETE">Удалить эту конференцию?</Resource>
     <Resource tag="DELETE">Удалить</Resource>
     <Resource tag="EDIT">Изменить</Resource>
     <Resource tag="ID">ID</Resource>
@@ -276,7 +276,7 @@
   </page>
   <page name="ADMIN_BOARDSETTINGS">
     <Resource tag="BOARD_ALLOW_DIGEST">Отправлять дайджест по пользователям ежедневно:</Resource>
-    <Resource tag="BOARD_ALLOW_DIGEST_HELP">Обязательное поле: доска должна иметь "YAF.BaseUrlMask" и "YAF.ForceScriptName" в вашем web.config чтобы дайджест работал.</Resource>
+    <Resource tag="BOARD_ALLOW_DIGEST_HELP">Обязательное поле: конференция должна иметь "YAF.BaseUrlMask" и "YAF.ForceScriptName" в вашем web.config чтобы дайджест работал.</Resource>
     <Resource tag="BOARD_CDN_HOSTED">Использовать внешний Google CDN файл jQuery UI CSS</Resource>
     <Resource tag="BOARD_CDN_HOSTED_HELP">Вы можете использовать размешённый на Google CDN файл jQuery UI CSS вместо встроенного</Resource>
     <Resource tag="BOARD_CULTURE">Язык/культура:</Resource>
@@ -298,7 +298,7 @@
     <Resource tag="BOARD_JQ_THEME">Тема jQuery UI:</Resource>
     <Resource tag="BOARD_JQ_THEME_HELP">Тема jQuery UI Theme для испольлзования на это даске для вкладок и аккордиона.</Resource>
     <Resource tag="BOARD_MOBILE_THEME">Мобильная тема:</Resource>
-    <Resource tag="BOARD_MOBILE_THEME_HELP">Мобильная тема для использования на этой доске.</Resource>
+    <Resource tag="BOARD_MOBILE_THEME_HELP">Мобильная тема для использования на этой конференции.</Resource>
     <Resource tag="BOARD_NAME">Название:</Resource>
     <Resource tag="BOARD_NAME_HELP">Название конференции</Resource>
     <Resource tag="BOARD_SETUP">Настройки текущей конференции</Resource>
@@ -458,8 +458,8 @@
     <Resource tag="NO_POSTSCOUNT_HELP">Если это включено, то посты на этом форуме не будут считаться в статистике.</Resource>
     <Resource tag="PARENT_FORUM">Родительский форум:</Resource>
     <Resource tag="PARENT_FORUM_HELP">Если значение выбрано, то тот форум будет подфорумом одного из форумов.</Resource>
-    <Resource tag="PRE_MODERATED">Премодериируемый:</Resource>
-    <Resource tag="PRE_MODERATED_HELP">Если этот форум премодерируемый, то сообщение должны быть одобрены модератором перед публикацией.</Resource>
+    <Resource tag="PRE_MODERATED">Пре-модерируемый:</Resource>
+    <Resource tag="PRE_MODERATED_HELP">Если этот форум пре-модерируемый, то сообщение должны быть одобрены модератором перед публикацией.</Resource>
     <Resource tag="REMOTE_URL">Удалённый URL:</Resource>
     <Resource tag="REMOTE_URL_HELP">Если вы введёте ссылку, то вместо форума будет отображаться контент по этой ссылке.</Resource>
     <Resource tag="SORT_ORDER">Сортировка:</Resource>
@@ -1488,7 +1488,7 @@
     <Resource tag="EMAIL_CONTAINS">Email содержит:</Resource>
     <Resource tag="EXPORT_CSV">Экспортировать пользователя(лей) в формате CSV</Resource>
     <Resource tag="EXPORT_XML">Экспортировать пользователя(лей) в формате CSV Xml</Resource>
-    <Resource tag="FACEBOOK_USER">Facebook User</Resource>
+    <Resource tag="FACEBOOK_USER">Пользователь Facebook</Resource>
     <Resource tag="FILTER">Фильтровать по дате регистрации с:</Resource>
     <Resource tag="HEADER">Поиск пользователей</Resource>
     <Resource tag="IMPORT">Импортировать пользователя(лей)</Resource>
@@ -1685,7 +1685,7 @@
     <Resource tag="BUTTON_THANKS">Спасибо</Resource>
     <Resource tag="BUTTON_THANKS_TT">Поблагодарить автора сообщения</Resource>
     <Resource tag="BUTTON_THANKSDELETE">Удалить «Спасибо»</Resource>
-    <Resource tag="BUTTON_THANKSDELETE_TT">Удалить ваше «Спасибо» автору сообщения</Resource>
+    <Resource tag="BUTTON_THANKSDELETE_TT">Удалить Ваше «Спасибо» автору сообщения</Resource>
     <Resource tag="BUTTON_UNDELETE">Восстановить</Resource>
     <Resource tag="BUTTON_UNDELETE_TT">Восстановить это сообщение</Resource>
     <Resource tag="BUTTON_UNLOCKTOPIC">Открыть</Resource>
@@ -1699,7 +1699,7 @@
     <Resource tag="MAXNUMBEROF">Максимальное число символов в каждом сообщении не более {0}</Resource>
   </page>
   <page name="COMMON">
-    <Resource tag="ALBUMIMG_BBCODE">Insert Album Image...</Resource>
+    <Resource tag="ALBUMIMG_BBCODE">Вставить изображение из альбома...</Resource>
     <Resource tag="ALLOWED">Разрешено</Resource>
     <Resource tag="BACK">Назад</Resource>
     <Resource tag="BAD_CAPTCHA">Введённый текст отличается от текста на изображении.</Resource>
@@ -2106,7 +2106,7 @@
     <Resource tag="PASSWORD_BAD_LENGTH">Минимальная длина нового пароля: {0}.</Resource>
     <Resource tag="PASSWORD_INCORRECT">Пароль неверен или новый пароль недействителен.</Resource>
     <Resource tag="PASSWORD_NOT_COMPLEX">Необходимое количество спецсимволов в пароле: {1}.</Resource>
-    <Resource tag="PASSWORD_NOT_NEW">New Password must be different from the old one.</Resource>
+    <Resource tag="PASSWORD_NOT_NEW">Новый пароль не должен совпадать со старым.</Resource>
     <Resource tag="TITLE">Изменить пароль</Resource>
   </page>
   <page name="CP_EDITALBUMIMAGES">
@@ -2210,9 +2210,9 @@
     <Resource tag="TIMEZONE2">Чтобы показывать местную дату и время мы должны знать Ваш часовой пояс.</Resource>
     <Resource tag="TITLE">Изменить профиль</Resource>
     <Resource tag="TWITTER">Ваш ник в Twitter:</Resource>
-    <Resource tag="TWITTER_ID">Your Twitter Id:</Resource>
+    <Resource tag="TWITTER_ID">Ваш Twitter Id:</Resource>
     <Resource tag="USE_MOBILE_THEME">Использовать тему для мобильного устройства:</Resource>
-    <Resource tag="USE_SINGLESIGNON">Did you want to Use Single Sign On?&lt;br /&gt;You need to have Set Up the Facebook Profile ID above for Facebook Login and Twitter Id + Twitter Name for Twitter Login.</Resource>
+    <Resource tag="USE_SINGLESIGNON">Желаете ли Вы включить единый логин?&lt;br /&gt;Вам необходимо установить ID профиля Facebook выше для входа на сайт с его помощью и Twitter Id + имя в Twitter для входа через аккаунт Twitter.</Resource>
     <Resource tag="WEBLOG2">URL вашего публичного блога:</Resource>
     <Resource tag="WHERE">Где Вы живете?</Resource>
     <Resource tag="XMPP">Ваш Jabber ID:</Resource>
@@ -3778,7 +3778,7 @@ Spoiler Content
     <Resource tag="ANNOUNCEMENT_NEW">Объявление (новые сообщения)</Resource>
     <Resource tag="FORUM_LOCKED">Форум закрыт</Resource>
     <Resource tag="HOT_NEW_POSTS">«Горячие темы» (новые посты)</Resource>
-    <Resource tag="HOT_NO_NEW_POSTS">«Горячие тема»</Resource>
+    <Resource tag="HOT_NO_NEW_POSTS">«Горячие темы»</Resource>
     <Resource tag="MOVED">Перемещено</Resource>
     <Resource tag="NEW_POSTS">Новые сообщения</Resource>
     <Resource tag="NEW_POSTS_LOCKED">Новые сообщения (закрытые)</Resource>
@@ -3878,7 +3878,7 @@ Spoiler Content
     <Resource tag="SSO_TWITTERID_NOTMATCH"> Twitter ID и/или имя в Twitter неверны!</Resource>
     <Resource tag="TITLE">Вход</Resource>
     <Resource tag="TWITTER_DM">Вы получили дальнейшие инструкции в личные сообщения на форуме.</Resource>
-    <Resource tag="TWITTER_DM_ACCOUNT">Your {0} Forum Account Information: Username "{1}" Password "{2}"</Resource>
+    <Resource tag="TWITTER_DM_ACCOUNT">Ваша информация об аккаунте форума {0} : Имя пользователя "{1}" Пароль "{2}"</Resource>
     <Resource tag="TWITTER_LOGIN">Войти через Twitter</Resource>
     <Resource tag="UPDATE_EMAIL">Пожалуйста, обновите ваш адрес E-Mail!</Resource>
     <Resource tag="USERNAME">Имя пользователя:</Resource>
