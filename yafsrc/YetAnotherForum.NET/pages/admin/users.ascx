@@ -1,8 +1,6 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.users"
     CodeBehind="users.ascx.cs" %>
-<%@ Import Namespace="YAF.Core" %>
-<%@ Import Namespace="YAF.Core.BBCode" %>
-<%@ Import Namespace="YAF.Core.Services" %>
+<%@ Import Namespace="YAF.Utils" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server" ID="Adminmenu1">
@@ -92,10 +90,10 @@
                      <span style="font-weight:bold"><YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="EMAIL" LocalizedPage="ADMIN_USERS" /> :</span> <%# DataBinder.Eval(Container.DataItem,"Email") %>&nbsp;|&nbsp;
                      <span style="font-weight:bold"><YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="RANK" /> :</span> <%# Eval("RankName") %>
                      <span style="font-weight:bold"><YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="POSTS" LocalizedPage="ADMIN_USERS" /> :</span> <%# Eval( "NumPosts") %>&nbsp;|&nbsp;
-                     <span style="font-weight:bold"><YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="APPROVED" LocalizedPage="ADMIN_USERS" /> :</span> <%# BitSet(Eval("Flags"), 2) ? this.GetText("COMMON", "YES") : this.GetText("COMMON", "NO") %>&nbsp;|&nbsp;
-                     <span style="font-weight:bold"><YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="LAST_VISIT" LocalizedPage="ADMIN_USERS" /> :</span> <%# this.Get<IDateTime>().FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["LastVisit"]) %>&nbsp;|&nbsp;
-                     <span style="font-weight:bold"><YAF:LocalizedLabel ID="LocalizedLabel17" runat="server" LocalizedTag="FACEBOOK_USER" LocalizedPage="ADMIN_USERS" /> :</span> <%# Eval("IsFacebookUser").ToType<bool>() ? this.GetText("COMMON", "YES") : this.GetText("COMMON", "NO")%>&nbsp;|&nbsp;
-                     <span style="font-weight:bold"><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="TWITTER_USER" LocalizedPage="ADMIN_USERS" /> :</span> <%# Eval("IsTwitterUser").ToType<bool>() ? this.GetText("COMMON", "YES") : this.GetText("COMMON", "NO") %>&nbsp;|&nbsp;
+                     <span style="font-weight:bold"><YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="APPROVED" LocalizedPage="ADMIN_USERS" /> :</span> <%# this.GetText("COMMON", BitSet(Eval("Flags"), 2) ? "YES" : "NO")%>&nbsp;|&nbsp;
+                     <span style="font-weight:bold"><YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="LAST_VISIT" LocalizedPage="ADMIN_USERS" /> :</span> <%# this.Get<IDateTime>().FormatDateTime((DateTime)((System.Data.DataRowView)Container.DataItem)["LastVisit"]) %>&nbsp;|&nbsp;
+                     <span style="font-weight:bold"><YAF:LocalizedLabel ID="LocalizedLabel17" runat="server" LocalizedTag="FACEBOOK_USER" LocalizedPage="ADMIN_USERS" /> :</span> <%# this.GetText("COMMON", Eval("IsFacebookUser").ToType<bool>() ?  "YES" : "NO") %>&nbsp;|&nbsp;
+                     <span style="font-weight:bold"><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="TWITTER_USER" LocalizedPage="ADMIN_USERS" /> :</span> <%# this.GetText("COMMON", Eval("IsTwitterUser").ToType<bool>() ? "YES" : "NO")%>
                     </td>
                     <td class="post" align="center">
                        <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="yaflittlebutton" CommandName='edit' CommandArgument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>' TitleLocalizedTag="EDIT" ImageThemePage="ICONS" ImageThemeTag="EDIT_SMALL_ICON" runat="server"></YAF:ThemeButton>
@@ -105,7 +103,7 @@
             </ItemTemplate>
         </asp:Repeater>
         <tr>
-            <td class="footer1" colspan="9" align="center">
+            <td class="footer1" colspan="9" style="text-align:center">
                 <strong>
                     <asp:Button id="NewUser" OnClick="NewUser_Click" runat="server" CssClass="pbutton"></asp:Button></strong>
                 | 
