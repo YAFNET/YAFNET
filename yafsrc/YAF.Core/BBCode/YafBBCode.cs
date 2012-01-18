@@ -136,9 +136,17 @@ namespace YAF.Core.BBCode
         /// <summary>
         ///   The _rgx img Title.
         /// </summary>
+        private static readonly Regex _rgxImgEmptyTitle =
+            new Regex(
+                @"\[img=(?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>([^""\r\n\]\[]+?\.((jpg[^\]\[/img\]]*)|(jpeg[^\[\[/img\]]*)|(bmp[^\[\[/img\]]*)|(png[^\]\[/img\]]*)|(gif[^\]\[/img\]]*)|(tif[^\]\[/img\]]*)|(ashx[^\]\[/img\]]*)|(php[^\]\[/img\]]*)|(aspx[^\]\[/img\]]*))))\]\[/img\]",
+                _Options | RegexOptions.Compiled);
+
+        /// <summary>
+        ///   The _rgx img Title.
+        /// </summary>
         private static readonly Regex _rgxImgTitle =
             new Regex(
-                @"\[img=(?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>([^""\r\n\]\[]+?\.((jpg[^\]]*)|(jpeg[^\[]*)|(bmp[^\[]*)|(png[^\]]*)|(gif[^\]]*)|(tif[^\]]*)|(ashx[^\]]*)|(php[^\]]*)|(aspx[^\]]*))))\](?<description>(.+?))\[/img\]", 
+                @"\[img=(?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>([^""\r\n\]\[]+?\.((jpg[^\]]*)|(jpeg[^\]]*)|(bmp[^\]]*)|(png[^\]]*)|(gif[^\]]*)|(tif[^\]]*)|(ashx[^\]]*)|(php[^\]]*)|(aspx[^\]]*))))\](?<description>[^\[]*)\[/img\]", 
                 _Options | RegexOptions.Compiled);
 
         /// <summary>
@@ -571,14 +579,22 @@ namespace YAF.Core.BBCode
                         _rgxImg,
                         "<img src=\"${http}${inner}\" alt=\"\"/>",
                         new[] { "http" },
-                        new[] { "http://" }));
+                        new[] { "http://" }) { RuleRank = 70 });
+
+                ruleEngine.AddRule(
+                    new VariableRegexReplaceRule(
+                        _rgxImgEmptyTitle,
+                        "<img src=\"${http}${inner}\" alt=\"\"/>",
+                        new[] { "http" },
+                        new[] { "http://" }) { RuleRank = 71 });
+
 
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
                         _rgxImgTitle,
-                        "<img src=\"${http}${inner}\" alt=\"${description}\" title=\"${description}\" />", 
-                        new[] { "http", "description" }, 
-                        new[] { "http://" }));
+                        "<img src=\"${http}${inner}\" alt=\"${description}\" title=\"${description}\" />",
+                        new[] { "http", "description" },
+                        new[] { "http://", string.Empty }) { RuleRank = 72 });
 
                 // tha_watcha : Easy Quote Disabled http://forum.yetanotherforum.net/yaf_postst13495_Addition-of-Easy-Quote-RegEx-in-Revision-4906.aspx
                 // Looks like it doesnt work as expected should be correctly implemented or else removed.
