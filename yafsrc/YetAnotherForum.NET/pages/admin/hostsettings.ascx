@@ -445,14 +445,6 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <YAF:HelpLabel ID="HelpLabel106" runat="server" LocalizedTag="DISPLAY_POINTS" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </td>
-                        <td class="post">
-                            <asp:CheckBox ID="DisplayPoints" runat="server"></asp:CheckBox>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="postheader">
                             <YAF:HelpLabel ID="HelpLabel107" runat="server" LocalizedTag="DAYS_BEFORE_POSTLOCK" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
@@ -820,6 +812,14 @@
                     <tr>
                         <td class="header1" colspan="2">
                             <YAF:LocalizedLabel ID="LocalizedLabel33" runat="server" LocalizedTag="HEADER_REPUTATION" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel106" runat="server" LocalizedTag="DISPLAY_POINTS" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="DisplayPoints" runat="server"></asp:CheckBox>
                         </td>
                     </tr>
                     <tr>
