@@ -208,11 +208,6 @@ namespace YAF.Controls
                     lastRead = lastReadForum;
                 }
 
-                if (DateTime.Parse(currentRow["LastPosted"].ToString()) > lastRead)
-                {
-                    this.Get<IYafSession>().UnreadTopics++;
-                }
-
                 lastUnreadImage.ThemeTag = (DateTime.Parse(currentRow["LastPosted"].ToString()) > lastRead)
                                                ? "ICON_NEWEST_UNREAD"
                                                : "ICON_LATEST_UNREAD";
