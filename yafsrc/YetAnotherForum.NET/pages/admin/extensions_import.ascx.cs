@@ -68,7 +68,7 @@ namespace YAF.Pages.Admin
 			if (!this.importFile.PostedFile.ContentType.StartsWith("text"))
 			{
 				this.PageContext.AddLoadMessage(
-					this.GetText("ADMIN_EXTENSIONS_IMPORT", "IMPORT_FAILED").FormatWith("Invalid upload format specified: " + this.importFile.PostedFile.ContentType)));
+					this.GetText("ADMIN_EXTENSIONS_IMPORT", "IMPORT_FAILED").FormatWith("Invalid upload format specified: " + this.importFile.PostedFile.ContentType));
 			}
 
 			try
