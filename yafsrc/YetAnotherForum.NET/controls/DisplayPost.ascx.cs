@@ -343,7 +343,7 @@ namespace YAF.Controls
 
             this.NameCell.ColSpan = int.Parse(this.GetIndentSpan());
 
-            if (DataRow["Suspended"] == DBNull.Value || DataRow["Suspended"].ToType<DateTime>() <= DateTime.UtcNow)
+            if (DataRow == null || DataRow["Suspended"] == DBNull.Value || DataRow["Suspended"].ToType<DateTime>() <= DateTime.UtcNow)
             {
                 return;
             }
