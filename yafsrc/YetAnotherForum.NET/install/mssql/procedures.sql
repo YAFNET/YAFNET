@@ -4828,11 +4828,21 @@ end
 GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}pmessage_list](@FromUserID int=null,@ToUserID int=null,@UserPMessageID int=null) AS
-BEGIN				
-		SELECT PMessageID, UserPMessageID, FromUserID, FromUser, ToUserID, ToUser, Created, Subject, Body,  Flags, IsRead, IsInOutbox, IsArchived, IsDeleted
-		FROM [{databaseOwner}].[{objectQualifier}PMessageView]
-		WHERE	((@UserPMessageID IS NOT NULL AND UserPMessageID=@UserPMessageID) OR 
-				 (@ToUserID   IS NOT NULL AND ToUserID = @ToUserID) OR (@FromUserID IS NOT NULL AND FromUserID = @FromUserID))		
+BEGIN
+        SELECT
+	a.PMessageID, b.UserPMessageID, a.FromUserID, d.[Name] AS FromUser, 
+	b.[UserID] AS ToUserId, c.[Name] AS ToUser, a.Created, a.[Subject], 
+	a.Body, a.Flags, b.IsRead, b.IsInOutbox, b.IsArchived, b.IsDeleted
+FROM
+	[{databaseOwner}].[{objectQualifier}PMessage] a
+INNER JOIN
+	[{databaseOwner}].[{objectQualifier}UserPMessage] b ON a.PMessageID = b.PMessageID
+INNER JOIN
+	[{databaseOwner}].[{objectQualifier}User] c ON b.UserID = c.UserID
+INNER JOIN
+	[{databaseOwner}].[{objectQualifier}User] d ON a.FromUserID = d.UserID	
+		WHERE	((@UserPMessageID IS NOT NULL AND b.UserPMessageID=@UserPMessageID) OR 
+				 (@ToUserID   IS NOT NULL AND b.[UserID]  = @ToUserID) OR (@FromUserID IS NOT NULL AND a.FromUserID = @FromUserID))		
 		ORDER BY Created DESC
 END
 GO
@@ -6902,19 +6912,25 @@ BEGIN
 	-- get count of pm's in user's  received items
 	SELECT 
 		@CountIn=COUNT(1) 
-	FROM 
-		[{databaseOwner}].[{objectQualifier}PMessageView] a
-		WHERE
-		a.IsDeleted = 0  AND a.IsArchived=0  AND
-		a.ToUserID = @UserID
+	FROM
+	[{databaseOwner}].[{objectQualifier}PMessage] a
+    INNER JOIN
+	[{databaseOwner}].[{objectQualifier}UserPMessage] b ON a.PMessageID = b.PMessageID
+	WHERE b.IsDeleted = 0  
+	     AND b.IsArchived=0  
+		 -- ToUserID
+		 AND b.[UserID] = @UserID
 	
 	SELECT 
 		@CountArchivedIn=COUNT(1) 
-	FROM 
-		[{databaseOwner}].[{objectQualifier}PMessageView] a
+	FROM 		
+	[{databaseOwner}].[{objectQualifier}PMessage] a
+    INNER JOIN
+	[{databaseOwner}].[{objectQualifier}UserPMessage] b ON a.PMessageID = b.PMessageID
 		WHERE
-		a.IsArchived <>0 AND
-		a.ToUserID = @UserID
+		b.IsArchived <>0 AND
+		-- ToUserID
+		b.[UserID] = @UserID
 
 	-- return all pm data
 	SELECT 
