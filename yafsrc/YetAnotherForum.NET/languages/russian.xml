@@ -4023,7 +4023,7 @@ Spoiler Content
     <Resource tag="SINCE">Начиная с</Resource>
     <Resource tag="TOPIC_STARTER">Автор темы</Resource>
     <Resource tag="TOPICS">Темы</Resource>
-    <Resource tag="UNANSWEREDTOPICS">Unanswered Topics</Resource>
+    <Resource tag="UNANSWEREDTOPICS">Неотвеченные темы</Resource>
     <Resource tag="UNREADTOPICS">Непрочитанные темы</Resource>
     <Resource tag="VIEWS">Просмотры</Resource>
   </page>
@@ -4591,8 +4591,8 @@ Spoiler Content
   </page>
   <page name="REPUTATION_VALUES">
     <Resource tag="EXALTED">Лучший</Resource>
-    <Resource tag="FRIENDLY">Отличный</Resource>
-    <Resource tag="HONORED">Хороший</Resource>
+    <Resource tag="FRIENDLY">Хороший</Resource>
+    <Resource tag="HONORED">Отличный</Resource>
     <Resource tag="NEUTRAL">Нейтральный</Resource>
     <Resource tag="UNFRIENDLY">Нелюбимый</Resource>
     <Resource tag="VALUE_0">Редиска</Resource>
@@ -4892,8 +4892,8 @@ Spoiler Content
     <Resource tag="HELP_TITLE">Страница помощи.</Resource>
     <Resource tag="HOST">Хост</Resource>
     <Resource tag="HOST_TITLE">Настройки хоста.</Resource>
-    <Resource tag="INBOX">Входящие</Resource>
-    <Resource tag="INBOX_TITLE">Входящие личные сообщения.</Resource>
+    <Resource tag="INBOX">ЛС</Resource>
+    <Resource tag="INBOX_TITLE">Личные сообщения</Resource>
     <Resource tag="LOGGED_IN_AS">Вы вошли как: {0}</Resource>
     <Resource tag="LOGIN">Вход</Resource>
     <Resource tag="LOGIN_TITLE">Форма входа на форум.</Resource>

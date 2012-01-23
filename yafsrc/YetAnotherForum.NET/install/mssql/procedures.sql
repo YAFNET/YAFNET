@@ -5,6 +5,9 @@
   Remove Comments RegEx: \/\*(.*)\*\/
   Remove Extra Stuff: SET ANSI_NULLS ON\nGO\nSET QUOTED_IDENTIFIER ON\nGO\n\n\n 
 */
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}db_handle_computedcolumns]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}db_handle_computedcolumns]
+GO
 
 IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}topic_unanswered]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}topic_unanswered]
@@ -5215,6 +5218,7 @@ begin
 		m.ExternalMessageId,
 		m.ReferenceMessageId,
 		UserName = IsNull(m.UserName,b.Name),
+		b.DisplayName,
 		b.Suspended,
 		b.Joined,
 		b.Avatar,
@@ -5234,10 +5238,12 @@ begin
 		HasAttachments	= ISNULL((select top 1 1 from [{databaseOwner}].[{objectQualifier}Attachment] x where x.MessageID=m.MessageID),0),
 		HasAvatarImage = ISNULL((select top 1 1 from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=b.UserID and AvatarImage is not null),0),
 		TotalRows = @post_totalrowsnumber,
-		PageIndex = @PageIndex
+		PageIndex = @PageIndex,
+		up.*
 	from
 		[{databaseOwner}].[{objectQualifier}Message] m
 		join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=m.UserID
+		left join [{databaseOwner}].[{objectQualifier}UserProfile] up on up.UserID=b.UserID
 		join [{databaseOwner}].[{objectQualifier}Topic] d on d.TopicID=m.TopicID
 		join [{databaseOwner}].[{objectQualifier}Forum] g on g.ForumID=d.ForumID
 		join [{databaseOwner}].[{objectQualifier}Category] h on h.CategoryID=g.CategoryID
@@ -10531,5 +10537,61 @@ begin
 		d.Name asc,
 		Priority desc,
 		LastPosted desc
+end
+GO
+
+#IFSRVVER>8#create procedure [{databaseOwner}].[{objectQualifier}db_handle_computedcolumns](@SetOnDisk bit)  as
+
+begin
+	declare @tmpC nvarchar(255)
+	declare @tmpT nvarchar(255)
+	declare @tmpD nvarchar(255)	
+
+	CREATE TABLE #MyTempTable (tname nvarchar(255),cname nvarchar(255), ctext nvarchar(255))
+	INSERT INTO #MyTempTable(tname,cname, ctext)     
+		SELECT        o.name,s.name,sc.text
+FROM            sys.syscolumns AS s INNER JOIN
+                         sys.sysobjects AS o ON o.id = s.id INNER JOIN
+                         sys.syscomments AS sc ON sc.id = o.id
+WHERE        (s.iscomputed = 1) AND (o.type = 'U') AND (s.xtype = 104)
+
+	if @SetOnDisk = 1
+	begin
+	    declare c cursor for
+		SELECT    tname, cname, ctext
+        FROM           #MyTempTable       
+		
+		open c
+		
+		fetch next from c into @tmpT, @tmpC, @tmpD
+		while @@FETCH_STATUS = 0
+		begin
+		    
+		exec('ALTER TABLE [{databaseOwner}].[{objectQualifier}'+ @tmpT +'] drop column ' + @tmpC)
+		exec('ALTER TABLE [{databaseOwner}].[{objectQualifier}'+ @tmpT +'] add ' + @tmpC + ' AS ' + @tmpD + ' PERSISTED ' )
+
+			fetch next from c into  @tmpT, @tmpC, @tmpD
+		end
+		close c
+		deallocate c
+	end
+	else
+	begin
+		declare c cursor for
+			SELECT    tname, cname, ctext
+        FROM           #MyTempTable 
+		
+		open c
+		
+		fetch next from c into @tmpT, @tmpC, @tmpD
+		while @@FETCH_STATUS = 0
+		begin		    	
+			exec('ALTER TABLE [{databaseOwner}].[{objectQualifier}'+ @tmpT +'] drop column ' + @tmpC)
+			exec('ALTER TABLE [{databaseOwner}].[{objectQualifier}'+ @tmpT +'] add ' + @tmpC + ' AS ' + @tmpD)
+			fetch next from c into @tmpT, @tmpC, @tmpD
+		end
+		close c
+		deallocate c
+	end	
 end
 GO
