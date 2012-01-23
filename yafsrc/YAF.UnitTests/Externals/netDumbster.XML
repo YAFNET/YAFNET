@@ -1,0 +1,488 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>netDumbster</name>
+    </assembly>
+    <members>
+        <member name="T:netDumbster.smtp.SmtpProcessor">
+            <summary>
+            SMTPProcessor handles a single SMTP client connection.  This
+            class provides an implementation of the RFC821 specification.
+            </summary>
+            <remarks>
+            	Created by: Eric Daugherty
+            	Modified by: Carlos Mendible
+            </remarks>
+        </member>
+        <member name="F:netDumbster.smtp.SmtpProcessor.COMMAND_HELO">
+            <summary>HELO Command</summary>
+        </member>
+        <member name="F:netDumbster.smtp.SmtpProcessor.COMMAND_RSET">
+            <summary>RSET Command</summary>
+        </member>
+        <member name="F:netDumbster.smtp.SmtpProcessor.COMMAND_NOOP">
+            <summary>NOOP Command</summary>
+        </member>
+        <member name="F:netDumbster.smtp.SmtpProcessor.COMMAND_QUIT">
+            <summary>QUIT Command</summary>
+        </member>
+        <member name="F:netDumbster.smtp.SmtpProcessor.COMMAND_MAIL">
+            <summary>MAIL FROM Command</summary>
+        </member>
+        <member name="F:netDumbster.smtp.SmtpProcessor.COMMAND_RCPT">
+            <summary>RCPT TO Command</summary>
+        </member>
+        <member name="F:netDumbster.smtp.SmtpProcessor.COMMAND_DATA">
+            <summary>DATA Comand</summary>
+        </member>
+        <member name="F:netDumbster.smtp.SmtpProcessor.domain">
+            <summary>Domain name for this server.</summary>
+        </member>
+        <member name="F:netDumbster.smtp.SmtpProcessor.welcomeMessage">
+            <summary>The message to display to the client when they first connect.</summary>
+        </member>
+        <member name="F:netDumbster.smtp.SmtpProcessor.heloResponse">
+            <summary>The response to the HELO command.</summary>
+        </member>
+        <member name="F:netDumbster.smtp.SmtpProcessor.messageSpool">
+            <summary>
+            List of received messages (emails).
+            </summary>
+        </member>
+        <member name="F:netDumbster.smtp.SmtpProcessor._Context">
+            <summary>
+            Context holding refenrece to Socket 
+            </summary>
+        </member>
+        <member name="M:netDumbster.smtp.SmtpProcessor.#ctor(System.String,System.Collections.Generic.IList{netDumbster.smtp.SmtpMessage})">
+            <summary>
+            Initializes the SMTPProcessor with the appropriate 
+            interface implementations.  This allows the relay and
+            delivery behaviour of the SMTPProcessor to be defined
+            by the specific server.
+            </summary>
+            <param name="domain">
+            The domain name this server handles mail for.  This does not have to
+            be a valid domain name, but it will be included in the Welcome Message
+            and HELO response.
+            </param>
+        </member>
+        <member name="M:netDumbster.smtp.SmtpProcessor.Initialize(System.String)">
+            <summary>
+            Provides common initialization logic for the constructors.
+            </summary>
+        </member>
+        <member name="M:netDumbster.smtp.SmtpProcessor.ProcessConnection(System.Net.Sockets.Socket)">
+            <summary>
+            ProcessConnection handles a connected TCP Client
+            and performs all necessary interaction with this
+            client to comply with RFC821.  This method is thread 
+            safe.
+            </summary>
+        </member>
+        <member name="M:netDumbster.smtp.SmtpProcessor.Stop">
+            <summary>
+            Stops the processor.
+            </summary>
+        </member>
+        <member name="M:netDumbster.smtp.SmtpProcessor.SendWelcomeMessage(netDumbster.smtp.SmtpContext)">
+            <summary>
+            Sends the welcome greeting to the client.
+            </summary>
+        </member>
+        <member name="M:netDumbster.smtp.SmtpProcessor.ProcessCommands(netDumbster.smtp.SmtpContext)">
+            <summary>
+            Handles the command input from the client.  This
+            message returns when the client issues the quit command.
+            </summary>
+        </member>
+        <member name="M:netDumbster.smtp.SmtpProcessor.Helo(netDumbster.smtp.SmtpContext,System.String[])">
+            <summary>
+            Handles the HELO command.
+            </summary>
+        </member>
+        <member name="M:netDumbster.smtp.SmtpProcessor.Rset(netDumbster.smtp.SmtpContext)">
+            <summary>
+            Reset the connection state.
+            </summary>
+        </member>
+        <member name="M:netDumbster.smtp.SmtpProcessor.Mail(netDumbster.smtp.SmtpContext,System.String)">
+            <summary>
+            Handle the MAIL FROM:&lt;address&gt; command.
+            </summary>
+        </member>
+        <member name="M:netDumbster.smtp.SmtpProcessor.Rcpt(netDumbster.smtp.SmtpContext,System.String)">
+            <summary>
+            Handle the RCPT TO:&lt;address&gt; command.
+            </summary>
+        </member>
+        <member name="M:netDumbster.smtp.SmtpProcessor.ParseAddress(System.String)">
+            <summary>
+            Parses a valid email address out of the input string and return it.
+            Null is returned if no address is found.
+            </summary>
+        </member>
+        <member name="P:netDumbster.smtp.SmtpProcessor.WelcomeMessage">
+            <summary>
+            Returns the welcome message to display to new client connections.
+            This method can be overridden to allow for user defined welcome messages.
+            Please refer to RFC 821 for the rules on acceptable welcome messages.
+            </summary>
+        </member>
+        <member name="P:netDumbster.smtp.SmtpProcessor.HeloResponse">
+            <summary>
+            The response to the HELO command.  This response should
+            include the local server's domain name.  Please refer to RFC 821
+            for more details.
+            </summary>
+        </member>
+        <member name="T:netDumbster.smtp.InvalidEmailAddressException">
+            <summary>
+            Indicates that an email address is not valid.
+            </summary>
+            <remarks>
+            Thrown by the EmailAddress class when part of all of the email
+            address being set is invalid.
+            </remarks>
+        </member>
+        <member name="M:netDumbster.smtp.InvalidEmailAddressException.#ctor(System.String)">
+            <summary>
+            Creates a new Exception with a user-displayable message.
+            </summary>
+        </member>
+        <member name="T:netDumbster.smtp.SmtpMessagePart">
+            <summary>
+            Stores a single part of a multipart message.
+            </summary>
+        </member>
+        <member name="M:netDumbster.smtp.SmtpMessagePart.#ctor(System.String)">
+            <summary>
+            Creates a new message part.  The input string should be the body of 
+            the attachment, without the "------=_NextPart" separator strings.
+            The last 4 characters of the data will be "\r\n\r\n".
+            </summary>
+        </member>
+        <member name="M:netDumbster.smtp.SmtpMessagePart.DecodeBytes(System.Byte[])">
+            <summary>
+            Decodes the bytes.
+            </summary>
+            <param name="buffer">The buffer.</param>
+        </member>
+        <member name="P:netDumbster.smtp.SmtpMessagePart.Headers">
+            <summary>
+            A hash table of all the Headers in the email message.  They keys
+            are the header names, and the values are the assoicated values, including
+            any sub key/value pairs is the header.
+            </summary>
+        </member>
+        <member name="P:netDumbster.smtp.SmtpMessagePart.HeaderData">
+            <summary>
+            The raw text that represents the header of the mime part.
+            </summary>
+        </member>
+        <member name="P:netDumbster.smtp.SmtpMessagePart.BodyData">
+            <summary>
+            The raw text that represents the actual mime part.
+            </summary>
+        </member>
+        <member name="P:netDumbster.smtp.SmtpMessagePart.BodyView">
+            <summary>
+            Gets the body view.
+            </summary>
+        </member>
+        <member name="T:netDumbster.smtp.EmailAddress">
+            <summary>
+            Stores a single EmailAddress.  The class will only
+            represent valid email addresses, and will never contain
+            an invalid address.
+            </summary>
+            <remarks>
+            This class provides a way to store and pass a valid email address
+            within the system.  This class can not be created with an invalid address,
+            so if parameter of this type is not null, the address can be assumed to
+            be valid.
+            </remarks>
+        </member>
+        <member name="M:netDumbster.smtp.EmailAddress.#ctor(System.String)">
+            <summary>
+            Creates a new EmailAddress using a valid address.
+            </summary>
+            <exception cref="T:netDumbster.smtp.InvalidEmailAddressException">
+            Thrown if the username or domain is invalid.
+            </exception>
+        </member>
+        <member name="M:netDumbster.smtp.EmailAddress.#ctor(System.String,System.String)">
+            <summary>
+            Creates a new EmailAddress using valid name and domain.
+            </summary>
+            <exception cref="T:netDumbster.smtp.InvalidEmailAddressException">
+            Thrown if the username or domain is invalid.
+            </exception>
+        </member>
+        <member name="M:netDumbster.smtp.EmailAddress.ToString">
+            <summary>
+            Returns the email address as: "user@domain.com".;
+            </summary>
+            <returns>Value of Address Property.</returns>
+        </member>
+        <member name="M:netDumbster.smtp.EmailAddress.VerifySpecialCharacters(System.String)">
+            <summary>
+            Checks the specified string to verify it does not
+            contain any of the following characters: ( ) &lt; &gt; @ , ; : \ " . [ ]  
+            </summary>
+            <param name="data">The string to test</param>
+            <exception cref="T:netDumbster.smtp.InvalidEmailAddressException">
+            Thrown if the data contains any illegal special characters.
+            </exception>
+        </member>
+        <member name="P:netDumbster.smtp.EmailAddress.Username">
+            <summary>
+            The username component of the EmailAddress.  This
+            consists of everything before the @.
+            </summary>
+            <exception cref="T:netDumbster.smtp.InvalidEmailAddressException">
+            Thrown if the username is invalid.
+            </exception>
+        </member>
+        <member name="P:netDumbster.smtp.EmailAddress.Domain">
+            <summary>
+            The domain component of the EmailAddress.  This
+            consists of everything after the @.
+            </summary>
+            <exception cref="T:netDumbster.smtp.InvalidEmailAddressException">
+            Thrown if the domain is invalid.
+            </exception>
+        </member>
+        <member name="P:netDumbster.smtp.EmailAddress.Address">
+            <summary>
+            The entire EmailAddress (username@domian)
+            </summary>
+            <exception cref="T:netDumbster.smtp.InvalidEmailAddressException">
+            Thrown if the address is invalid.
+            </exception>
+        </member>
+        <member name="T:netDumbster.smtp.SmtpMessage">
+            <summary>
+            Stores an incoming SMTP Message.
+            </summary>
+        </member>
+        <member name="M:netDumbster.smtp.SmtpMessage.#ctor">
+            <summary>
+            Creates a new message.
+            </summary>
+        </member>
+        <member name="M:netDumbster.smtp.SmtpMessage.AddToAddress(netDumbster.smtp.EmailAddress)">
+            <summary>Addes an address to the recipient list.</summary>
+        </member>
+        <member name="M:netDumbster.smtp.SmtpMessage.AddData(System.String)">
+            <summary>Append data to message data.</summary>
+        </member>
+        <member name="M:netDumbster.smtp.SmtpMessage.ParseHeaders(System.String)">
+            <summary>
+            Parses an entire message or message part and returns the header entries
+            as a hashtable.
+            </summary>
+            <param name="partData">The raw message or message part data.</param>
+            <returns>A hashtable of the header keys and values.</returns>
+        </member>
+        <member name="P:netDumbster.smtp.SmtpMessage.Headers">
+            <summary>
+            A hash table of all the Headers in the email message.  They keys
+            are the header names, and the values are the assoicated values, including
+            any sub key/value pairs is the header.
+            </summary>
+        </member>
+        <member name="P:netDumbster.smtp.SmtpMessage.FromAddress">
+            <summary>
+            The email address of the person
+            that sent this email.
+            </summary>
+        </member>
+        <member name="P:netDumbster.smtp.SmtpMessage.ToAddresses">
+            <summary>
+            The addresses that this message will be
+            delivered to.
+            </summary>
+        </member>
+        <member name="P:netDumbster.smtp.SmtpMessage.Data">
+            <summary>Message data.</summary>
+        </member>
+        <member name="P:netDumbster.smtp.SmtpMessage.MessageParts">
+            <summary>
+            Parses the message body and creates an Attachment object
+            for each attachment in the message.
+            </summary>
+        </member>
+        <member name="T:netDumbster.smtp.SimpleSmtpServer">
+            <summary>
+            Simple Smtp Server
+            </summary>
+        </member>
+        <member name="F:netDumbster.smtp.SimpleSmtpServer._tcpListener">
+            <summary>
+            TCP Listener
+            </summary>
+        </member>
+        <member name="F:netDumbster.smtp.SimpleSmtpServer._receivedMail">
+            <summary>
+            Stores all of the email received since this instance started up.
+            </summary>
+        </member>
+        <member name="F:netDumbster.smtp.SimpleSmtpServer._processor">
+            <summary>
+            Smtp Processor
+            </summary>
+        </member>
+        <member name="F:netDumbster.smtp.SimpleSmtpServer._clientConnected">
+            <summary>
+            Thread signal.
+            </summary>
+        </member>
+        <member name="F:netDumbster.smtp.SimpleSmtpServer._serverReady">
+            <summary>
+            Thread signal.
+            </summary>
+        </member>
+        <member name="M:netDumbster.smtp.SimpleSmtpServer.ClearReceivedEmail">
+            <summary>
+            Clears the received email.
+            </summary>
+        </member>
+        <member name="M:netDumbster.smtp.SimpleSmtpServer.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:netDumbster.smtp.SimpleSmtpServer"/> class.
+            </summary>
+            <param name="port">The port.</param>
+        </member>
+        <member name="M:netDumbster.smtp.SimpleSmtpServer._Start">
+            <summary>
+            Starts the Server
+            </summary>
+        </member>
+        <member name="M:netDumbster.smtp.SimpleSmtpServer._SocketHandler(System.IAsyncResult)">
+            <summary>
+            Async Socket handler.
+            </summary>
+            <param name="result">The result.</param>
+        </member>
+        <member name="M:netDumbster.smtp.SimpleSmtpServer.Start(System.Int32)">
+            <summary>
+            Starts server at the specified port.
+            </summary>
+            <param name="port">The port.</param>
+            <returns></returns>
+        </member>
+        <member name="M:netDumbster.smtp.SimpleSmtpServer.Stop">
+            <summary>
+            Stop the server.  This notifies the listener to stop accepting new connections
+            and that the loop should exit.
+            </summary>
+        </member>
+        <member name="P:netDumbster.smtp.SimpleSmtpServer.Port">
+            <summary>
+            Gets or sets the port.
+            </summary>
+            <value>The port.</value>
+        </member>
+        <member name="P:netDumbster.smtp.SimpleSmtpServer.ReceivedEmail">
+            <summary>
+            List of email received by this instance since start up.
+            </summary>
+            <value><see cref="T:System.Array">Array</see> holding received <see cref="T:netDumbster.smtp.SmtpMessage">SmtpMessage</see></value>
+        </member>
+        <member name="P:netDumbster.smtp.SimpleSmtpServer.ReceivedEmailCount">
+            <summary>
+            Number of messages received by this instance since start up.
+            </summary>
+            <value>Number of messages</value>
+        </member>
+        <member name="T:netDumbster.smtp.SmtpContext">
+            <summary>
+            Maintains the current state for a SMTP client connection.
+            </summary>
+            <remarks>
+            This class is similar to a HTTP Session.  It is used to maintain all
+            the state information about the current connection.
+            </remarks>
+        </member>
+        <member name="F:netDumbster.smtp.SmtpContext.socket">
+            <summary>The socket to the client.</summary>
+        </member>
+        <member name="F:netDumbster.smtp.SmtpContext.lastCommand">
+            <summary>Last successful command received.</summary>
+        </member>
+        <member name="F:netDumbster.smtp.SmtpContext.clientDomain">
+            <summary>The client domain, as specified by the helo command.</summary>
+        </member>
+        <member name="F:netDumbster.smtp.SmtpContext.message">
+            <summary>The incoming message.</summary>
+        </member>
+        <member name="F:netDumbster.smtp.SmtpContext.encoding">
+            <summary>Encoding to use to send/receive data from the socket.</summary>
+        </member>
+        <member name="F:netDumbster.smtp.SmtpContext.inputBuffer">
+            <summary>
+            It is possible that more than one line will be in
+            the queue at any one time, so we need to store any input
+            that has been read from the socket but not requested by the
+            ReadLine command yet.
+            </summary>
+        </member>
+        <member name="M:netDumbster.smtp.SmtpContext.#ctor(System.Net.Sockets.Socket)">
+            <summary>
+            Initialize this context for a given socket connection.
+            </summary>
+        </member>
+        <member name="M:netDumbster.smtp.SmtpContext.WriteLine(System.String)">
+            <summary>
+            Writes the string to the socket as an entire line.  This
+            method will append the end of line characters, so the data
+            parameter should not contain them.
+            </summary>
+            <param name="data">The data to write the the client.</param>
+        </member>
+        <member name="M:netDumbster.smtp.SmtpContext.ReadLine">
+            <summary>
+            Reads an entire line from the socket.  This method
+            will block until an entire line has been read.
+            </summary>
+        </member>
+        <member name="M:netDumbster.smtp.SmtpContext.Reset">
+            <summary>
+            Resets this context for a new message
+            </summary>
+        </member>
+        <member name="M:netDumbster.smtp.SmtpContext.Close">
+            <summary>
+            Closes the socket connection to the client and performs any cleanup.
+            </summary>
+        </member>
+        <member name="M:netDumbster.smtp.SmtpContext.ReadBuffer">
+            <summary>
+            Helper method that returns the first full line in
+            the input buffer, or null if there is no line in the buffer.
+            If a line is found, it will also be removed from the buffer.
+            </summary>
+        </member>
+        <member name="P:netDumbster.smtp.SmtpContext.LastCommand">
+            <summary>
+            Last successful command received.
+            </summary>
+        </member>
+        <member name="P:netDumbster.smtp.SmtpContext.ClientDomain">
+            <summary>
+            The client domain, as specified by the helo command.
+            </summary>
+        </member>
+        <member name="P:netDumbster.smtp.SmtpContext.Socket">
+            <summary>
+            The Socket that is connected to the client.
+            </summary>
+        </member>
+        <member name="P:netDumbster.smtp.SmtpContext.Message">
+            <summary>
+            The SMTPMessage that is currently being received.
+            </summary>
+        </member>
+    </members>
+</doc>
