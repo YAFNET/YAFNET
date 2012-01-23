@@ -5645,6 +5645,8 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("IsModeratorChanged", isModeratorChanged);
                 cmd.Parameters.AddWithValue("OverrideApproval", overrideApproval);
                 cmd.Parameters.AddWithValue("OriginalMessage", originalMessage);
+                cmd.Parameters.AddWithValue("CurrentUtcTimestamp", DateTime.UtcNow);
+                
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
             }
         }

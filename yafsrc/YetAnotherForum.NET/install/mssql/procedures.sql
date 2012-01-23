@@ -3885,7 +3885,8 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}message_update](
 @EditedBy int,
 @IsModeratorChanged bit, 
 @OverrideApproval bit = null,
-@OriginalMessage ntext) as
+@OriginalMessage ntext,
+@CurrentUtcTimestamp datetime) as
 begin
 		declare @TopicID	int
 	declare	@ForumFlags	int
@@ -3922,7 +3923,7 @@ begin
 	
 	update [{databaseOwner}].[{objectQualifier}Message] set
 		[Message] = @Message,
-		Edited = GETUTCDATE() ,
+		Edited = @CurrentUtcTimestamp,
 		EditedBy = @EditedBy,
 		Flags = @Flags,
 		IsModeratorChanged  = @IsModeratorChanged,
