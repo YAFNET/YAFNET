@@ -13,6 +13,10 @@ IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{database
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}topic_unanswered]
 GO
 
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}topic_unread]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}topic_unread]
+GO
+
 IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_update_single_sign_on_status]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_update_single_sign_on_status]
 GO
@@ -5625,6 +5629,154 @@ BEGIN
 END
 GO
 
+CREATE procedure [{databaseOwner}].[{objectQualifier}topic_unread]
+(   @BoardID int,
+    @CategoryID int=null,
+    @PageUserID int,		
+	@SinceDate datetime=null,
+	@ToDate datetime,
+	@PageIndex int = 1, 
+	@PageSize int = 0, 
+	@StyledNicks bit = 0,	
+	@FindLastRead bit = 0
+)
+AS
+begin
+   declare @post_totalrowsnumber int 
+   declare @firstselectrownum int   
+   declare @firstselectposted datetime
+  -- declare @ceiling decimal  
+  -- declare @offset int 
+
+	set nocount on	
+
+	-- find total returned count
+		select
+		@post_totalrowsnumber = count(1)		
+	   	from
+		[{databaseOwner}].[{objectQualifier}Topic] c
+		join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
+		join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
+		join [{databaseOwner}].[{objectQualifier}ActiveAccess] x on x.ForumID=d.ForumID
+		join [{databaseOwner}].[{objectQualifier}Category] cat on cat.CategoryID=d.CategoryID
+	where
+		(c.LastPosted between @SinceDate and @ToDate) and
+		x.UserID = @PageUserID and
+		CONVERT(int,x.ReadAccess) <> 0 and
+		cat.BoardID = @BoardID and
+		(@CategoryID is null or cat.CategoryID=@CategoryID) and
+		c.IsDeleted = 0
+		and	c.TopicMovedID is null	
+
+	  select @PageIndex = @PageIndex+1;
+      select @firstselectrownum = (@PageIndex - 1) * @PageSize + 1 
+	    -- find first selectedrowid 
+   if (@firstselectrownum > 0)   
+   set rowcount @firstselectrownum
+   else
+   -- should not be 0
+   set rowcount 1
+   	
+   select		
+		@firstselectposted = c.LastPosted		
+	from
+			[{databaseOwner}].[{objectQualifier}Topic] c
+		join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
+		join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
+		join [{databaseOwner}].[{objectQualifier}ActiveAccess] x on x.ForumID=d.ForumID
+		join [{databaseOwner}].[{objectQualifier}Category] cat on cat.CategoryID=d.CategoryID
+	where
+		(c.LastPosted between @SinceDate and @ToDate) and
+		x.UserID = @PageUserID and
+		CONVERT(int,x.ReadAccess) <> 0 and
+		cat.BoardID = @BoardID and
+		(@CategoryID is null or cat.CategoryID=@CategoryID) and
+		c.IsDeleted = 0
+		and	c.TopicMovedID is null	
+	order by
+		c.LastPosted desc,
+		cat.SortOrder asc,
+		d.SortOrder asc,
+		d.Name asc,
+		c.Priority desc		
+    
+	set rowcount @PageSize	
+			select
+		c.ForumID,
+		c.TopicID,
+		c.TopicMovedID,
+		c.Posted,
+		LinkTopicID = IsNull(c.TopicMovedID,c.TopicID),
+		[Subject] = c.Topic,
+		[Description] = c.Description,
+		[Status] = c.Status,
+		[Styles] = c.Styles,
+		c.UserID,
+		Starter = IsNull(c.UserName,b.Name),
+		NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@PageUserID IS NOT NULL AND mes.UserID = @PageUserID) OR (@PageUserID IS NULL)) ),
+		Replies = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=c.TopicID and (x.Flags & 8)=0) - 1,
+		[Views] = c.[Views],
+		LastPosted = c.LastPosted,
+		LastUserID = c.LastUserID,
+		LastUserName = IsNull(c.LastUserName,(select Name from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
+		LastMessageID = c.LastMessageID,
+		LastMessageFlags = c.LastMessageFlags,
+		LastTopicID = c.TopicID,
+		TopicFlags = c.Flags,
+		FavoriteCount = (SELECT COUNT(ID) as [FavoriteCount] FROM [{databaseOwner}].[{objectQualifier}FavoriteTopic] WHERE TopicId = IsNull(c.TopicMovedID,c.TopicID)),
+		c.Priority,
+		c.PollID,
+		ForumName = d.Name,
+		c.TopicMovedID,
+		ForumFlags = d.Flags,
+		FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(c.TopicMovedID,c.TopicID) AND mes2.Position = 0),
+	    StarterStyle = case(@StyledNicks)
+			when 1 then  ISNULL((SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
+		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=c.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
+			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr 
+			join [{databaseOwner}].[{objectQualifier}Rank] r ON r.RankID = usr.RankID  where usr.UserID=c.UserID))  
+			else ''	 end ,
+		LastUserStyle= case(@StyledNicks)
+			when 1 then  ISNULL((SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
+		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=c.LastUserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
+			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr 
+			join [{databaseOwner}].[{objectQualifier}Rank] r ON r.RankID = usr.RankID  where usr.UserID=c.LastUserID))  
+			else ''	 end,
+	    LastForumAccess = case(@FindLastRead)
+		     when 1 then
+		       (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x WHERE x.ForumID=d.ForumID AND x.UserID = @PageUserID)
+		     else ''	 end,
+		LastTopicAccess = case(@FindLastRead)
+		     when 1 then
+		       (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=c.TopicID AND y.UserID = @PageUserID)
+		     else ''	 end,
+        TotalRows = @post_totalrowsnumber,
+	    PageIndex = @PageIndex
+	from
+		[{databaseOwner}].[{objectQualifier}Topic] c
+		join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
+		join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
+		join [{databaseOwner}].[{objectQualifier}ActiveAccess] x on x.ForumID=d.ForumID
+		join [{databaseOwner}].[{objectQualifier}Category] cat on cat.CategoryID=d.CategoryID
+	where
+		c.LastPosted <= @firstselectposted and
+		x.UserID = @PageUserID and
+		CONVERT(int,x.ReadAccess) <> 0 and
+		cat.BoardID = @BoardID and
+		(@CategoryID is null or cat.CategoryID=@CategoryID) and
+		c.IsDeleted = 0
+		and	c.TopicMovedID is null
+	order by
+		c.LastPosted desc,
+		cat.SortOrder asc,
+		d.SortOrder asc,
+		d.Name asc,
+		c.Priority desc	
+
+		SET ROWCOUNT 0		
+	
+end
+GO
 create procedure [{databaseOwner}].[{objectQualifier}topic_active](@BoardID int,@PageUserID int,@Since datetime,@CategoryID int=null, @StyledNicks bit = 0,	@FindLastRead bit = 0) as
 begin
 		select
@@ -10290,7 +10442,160 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}topics_byuser](@BoardID int,@PageUserID int,@Since datetime,@CategoryID int=null, @StyledNicks bit = 0,	@FindLastRead bit = 0) as
+CREATE procedure [{databaseOwner}].[{objectQualifier}topics_byuser]
+(   @BoardID int,
+    @CategoryID int=null,
+    @PageUserID int,		
+	@SinceDate datetime=null,
+	@ToDate datetime,
+	@PageIndex int = 1, 
+	@PageSize int = 0, 
+	@StyledNicks bit = 0,	
+	@FindLastRead bit = 0
+)
+AS
+begin
+   declare @post_totalrowsnumber int 
+   declare @firstselectrownum int   
+   declare @firstselectposted datetime
+  -- declare @ceiling decimal  
+  -- declare @offset int 
+
+	set nocount on	
+
+	-- find total returned count
+		select
+		@post_totalrowsnumber = count(1)		
+	    from
+		[{databaseOwner}].[{objectQualifier}Topic] c
+		join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
+		join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
+		join [{databaseOwner}].[{objectQualifier}ActiveAccess] x on x.ForumID=d.ForumID
+		join [{databaseOwner}].[{objectQualifier}Category] cat on cat.CategoryID=d.CategoryID
+	where
+		(c.LastPosted between @SinceDate and @ToDate) and
+		x.UserID = @PageUserID and
+		CONVERT(int,x.ReadAccess) <> 0 and
+		cat.BoardID = @BoardID and
+		(@CategoryID is null or cat.CategoryID=@CategoryID) and
+		c.IsDeleted = 0
+		and	c.TopicMovedID is null
+		and c.TopicID = (SELECT TOP 1 mess.TopicID FROM [{databaseOwner}].[{objectQualifier}Message] mess WHERE mess.UserID=@PageUserID AND mess.TopicID=c.TopicID)	
+
+	  select @PageIndex = @PageIndex+1;
+      select @firstselectrownum = (@PageIndex - 1) * @PageSize + 1 
+	    -- find first selectedrowid 
+   if (@firstselectrownum > 0)   
+   set rowcount @firstselectrownum
+   else
+   -- should not be 0
+   set rowcount 1
+   	
+   select		
+		@firstselectposted = c.LastPosted		
+	from
+		[{databaseOwner}].[{objectQualifier}Topic] c
+		join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
+		join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
+		join [{databaseOwner}].[{objectQualifier}ActiveAccess] x on x.ForumID=d.ForumID
+		join [{databaseOwner}].[{objectQualifier}Category] cat on cat.CategoryID=d.CategoryID
+	where
+		(c.LastPosted between @SinceDate and @ToDate) and
+		x.UserID = @PageUserID and
+		CONVERT(int,x.ReadAccess) <> 0 and
+		cat.BoardID = @BoardID and
+		(@CategoryID is null or cat.CategoryID=@CategoryID) and
+		c.IsDeleted = 0
+		and	c.TopicMovedID is null
+		and c.TopicID = (SELECT TOP 1 mess.TopicID FROM [{databaseOwner}].[{objectQualifier}Message] mess WHERE mess.UserID=@PageUserID AND mess.TopicID=c.TopicID)
+	order by
+		c.LastPosted desc,
+		cat.SortOrder asc,
+		d.SortOrder asc,
+		d.Name asc,
+		c.Priority desc		
+    
+	set rowcount @PageSize	
+
+select
+		c.ForumID,
+		c.TopicID,
+		c.TopicMovedID,
+		c.Posted,
+		LinkTopicID = IsNull(c.TopicMovedID,c.TopicID),
+		[Subject] = c.Topic,
+		[Description] = c.Description,
+		[Status] = c.Status,
+		[Styles] = c.Styles,
+		c.UserID,
+		Starter = IsNull(c.UserName,b.Name),
+		NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@PageUserID IS NOT NULL AND mes.UserID = @PageUserID) OR (@PageUserID IS NULL)) ),
+		Replies = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=c.TopicID and (x.Flags & 8)=0) - 1,
+		[Views] = c.[Views],
+		LastPosted = c.LastPosted,
+		LastUserID = c.LastUserID,
+		LastUserName = IsNull(c.LastUserName,(select Name from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
+		LastMessageID = c.LastMessageID,
+		LastMessageFlags = c.LastMessageFlags,
+		LastTopicID = c.TopicID,
+		TopicFlags = c.Flags,
+		FavoriteCount = (SELECT COUNT(ID) as [FavoriteCount] FROM [{databaseOwner}].[{objectQualifier}FavoriteTopic] WHERE TopicId = IsNull(c.TopicMovedID,c.TopicID)),
+		c.Priority,
+		c.PollID,
+		ForumName = d.Name,
+		c.TopicMovedID,
+		ForumFlags = d.Flags,
+		FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(c.TopicMovedID,c.TopicID) AND mes2.Position = 0),
+	    StarterStyle = case(@StyledNicks)
+			when 1 then  ISNULL((SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
+		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=c.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
+			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr 
+			join [{databaseOwner}].[{objectQualifier}Rank] r ON r.RankID = usr.RankID  where usr.UserID=c.UserID))  
+			else ''	 end ,
+		LastUserStyle= case(@StyledNicks)
+			when 1 then  ISNULL((SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
+		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=c.LastUserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
+			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr 
+			join [{databaseOwner}].[{objectQualifier}Rank] r ON r.RankID = usr.RankID  where usr.UserID=c.LastUserID))  
+			else ''	 end,
+	    LastForumAccess = case(@FindLastRead)
+		     when 1 then
+		       (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x WHERE x.ForumID=d.ForumID AND x.UserID = @PageUserID)
+		     else ''	 end,
+		LastTopicAccess = case(@FindLastRead)
+		     when 1 then
+		       (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=c.TopicID AND y.UserID = @PageUserID)
+		     else ''	 end,
+        TotalRows = @post_totalrowsnumber,
+	    PageIndex = @PageIndex
+	from
+		[{databaseOwner}].[{objectQualifier}Topic] c
+		join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
+		join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
+		join [{databaseOwner}].[{objectQualifier}ActiveAccess] x on x.ForumID=d.ForumID
+		join [{databaseOwner}].[{objectQualifier}Category] cat on cat.CategoryID=d.CategoryID
+	where
+		c.LastPosted <= @firstselectposted and
+		x.UserID = @PageUserID and
+		CONVERT(int,x.ReadAccess) <> 0 and
+		cat.BoardID = @BoardID and
+		(@CategoryID is null or cat.CategoryID=@CategoryID) and
+		c.IsDeleted = 0
+		and	c.TopicMovedID is null
+		and c.TopicID = (SELECT TOP 1 mess.TopicID FROM [{databaseOwner}].[{objectQualifier}Message] mess WHERE mess.UserID=@PageUserID AND mess.TopicID=c.TopicID)
+	order by	
+		c.LastPosted desc,
+		cat.SortOrder asc,
+		d.SortOrder asc,
+		d.Name asc,
+		c.Priority desc	
+
+		SET ROWCOUNT 0		
+	
+end
+GO
+
+/* create procedure [{databaseOwner}].[{objectQualifier}topics_byuser_old](@BoardID int,@PageUserID int,@Since datetime,@CategoryID int=null, @StyledNicks bit = 0,	@FindLastRead bit = 0) as
 begin
 		select
 		c.ForumID,
@@ -10363,7 +10668,7 @@ begin
 		Priority desc,
 		LastPosted desc
 end
-GO
+*/
 
 create procedure [{databaseOwner}].[{objectQualifier}TopicStatus_Delete] (@TopicStatusID int) as
 begin
@@ -10465,9 +10770,80 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}topic_unanswered](@BoardID int,@PageUserID int,@Since datetime,@CategoryID int=null, @StyledNicks bit = 0,	@FindLastRead bit = 0) as
+CREATE procedure [{databaseOwner}].[{objectQualifier}topic_unanswered]
+(   @BoardID int,
+    @CategoryID int=null,
+    @PageUserID int,		
+	@SinceDate datetime=null,
+	@ToDate datetime,
+	@PageIndex int = 1, 
+	@PageSize int = 0, 
+	@StyledNicks bit = 0,	
+	@FindLastRead bit = 0
+)
+AS
 begin
-		select
+   declare @post_totalrowsnumber int 
+   declare @firstselectrownum int   
+   declare @firstselectposted datetime
+
+	set nocount on	
+
+	-- find total returned count
+	select
+		@post_totalrowsnumber = count(1)		
+	from
+		[{databaseOwner}].[{objectQualifier}Topic] c
+		join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
+		join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
+		join [{databaseOwner}].[{objectQualifier}ActiveAccess] x on x.ForumID=d.ForumID
+		join [{databaseOwner}].[{objectQualifier}Category] cat on cat.CategoryID=d.CategoryID
+	where
+		(c.LastPosted between @SinceDate and @ToDate) and
+		x.UserID = @PageUserID and
+		CONVERT(int,x.ReadAccess) <> 0 and
+		cat.BoardID = @BoardID and
+		(@CategoryID is null or cat.CategoryID=@CategoryID) and
+		c.IsDeleted = 0 and	
+		c.TopicMovedID is null and
+		c.NumPosts = 1
+
+	  select @PageIndex = @PageIndex+1;
+      select @firstselectrownum = (@PageIndex - 1) * @PageSize + 1 
+	    -- find first selectedrowid 
+   if (@firstselectrownum > 0)   
+   set rowcount @firstselectrownum
+   else
+   -- should not be 0
+   set rowcount 1
+   	
+    select		
+		@firstselectposted = c.LastPosted
+	from
+		[{databaseOwner}].[{objectQualifier}Topic] c
+		join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
+		join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
+		join [{databaseOwner}].[{objectQualifier}ActiveAccess] x on x.ForumID=d.ForumID
+		join [{databaseOwner}].[{objectQualifier}Category] cat on cat.CategoryID=d.CategoryID			
+	where
+		(c.LastPosted between @SinceDate and @ToDate) and
+		x.UserID = @PageUserID and
+		CONVERT(int,x.ReadAccess) <> 0 and
+		cat.BoardID = @BoardID and
+		(@CategoryID is null or cat.CategoryID = @CategoryID) and
+		c.IsDeleted = 0 and	
+		(c.TopicMovedID is null) and
+		(c.NumPosts = 1)
+	order by
+	 c.LastPosted desc,
+		cat.SortOrder asc,
+		d.SortOrder asc,
+		d.Name asc,
+		c.Priority desc		
+		    
+	set rowcount @PageSize	
+
+select
 		c.ForumID,
 		c.TopicID,
 		c.TopicMovedID,
@@ -10498,13 +10874,13 @@ begin
 		FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(c.TopicMovedID,c.TopicID) AND mes2.Position = 0),
 	    StarterStyle = case(@StyledNicks)
 			when 1 then  ISNULL((SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=c.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
+		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=c.UserID AND LEN(f.Style) > 2 order BY f.SortOrder), 
 			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr 
 			join [{databaseOwner}].[{objectQualifier}Rank] r ON r.RankID = usr.RankID  where usr.UserID=c.UserID))  
 			else ''	 end ,
 		LastUserStyle= case(@StyledNicks)
 			when 1 then  ISNULL((SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=c.LastUserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
+		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=c.LastUserID AND LEN(f.Style) > 2 order BY f.SortOrder), 
 			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr 
 			join [{databaseOwner}].[{objectQualifier}Rank] r ON r.RankID = usr.RankID  where usr.UserID=c.LastUserID))  
 			else ''	 end,
@@ -10515,7 +10891,9 @@ begin
 		LastTopicAccess = case(@FindLastRead)
 		     when 1 then
 		       (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=c.TopicID AND y.UserID = @PageUserID)
-		     else ''	 end
+		     else ''	 end,
+        TotalRows = @post_totalrowsnumber,
+	    PageIndex = @PageIndex
 	from
 		[{databaseOwner}].[{objectQualifier}Topic] c
 		join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
@@ -10523,25 +10901,27 @@ begin
 		join [{databaseOwner}].[{objectQualifier}ActiveAccess] x on x.ForumID=d.ForumID
 		join [{databaseOwner}].[{objectQualifier}Category] cat on cat.CategoryID=d.CategoryID
 	where
-		@Since < c.LastPosted and
+		c.LastPosted <= @firstselectposted and
 		x.UserID = @PageUserID and
 		CONVERT(int,x.ReadAccess) <> 0 and
 		cat.BoardID = @BoardID and
 		(@CategoryID is null or cat.CategoryID=@CategoryID) and
 		c.IsDeleted = 0 and	
 		c.TopicMovedID is null and
-		c.NumPosts = 1
+		(c.NumPosts = 1)
 	order by
+	    c.LastPosted desc,
 		cat.SortOrder asc,
 		d.SortOrder asc,
 		d.Name asc,
-		Priority desc,
-		LastPosted desc
+		c.Priority desc
+
+		SET ROWCOUNT 0	
 end
 GO
 
-#IFSRVVER>8#create procedure [{databaseOwner}].[{objectQualifier}db_handle_computedcolumns](@SetOnDisk bit)  as
-
+#IFSRVVER>8#create procedure [{databaseOwner}].[{objectQualifier}db_handle_computedcolumns]( @SetOnDisk bit )  
+as
 begin
 	declare @tmpC nvarchar(255)
 	declare @tmpT nvarchar(255)

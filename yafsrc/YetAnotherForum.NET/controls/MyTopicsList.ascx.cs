@@ -202,30 +202,47 @@ namespace YAF.Controls
                         this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
                     break;
                 case TopicListMode.Unanswered:
+                  //   returns TotalRows - total unpaged rows number for pager
                     topicList =
                         LegacyDb.topic_unanswered(
-                            this.PageContext.PageBoardID,
-                            this.PageContext.PageUserID,
-                            this.sinceDate,
-                            categoryIDObject,
-                            this.Get<YafBoardSettings>().UseStyledNicks,
-                            this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
-                    break;
-                case TopicListMode.Unread:
-                    topicList = LegacyDb.topic_active(
                         this.PageContext.PageBoardID,
+                        categoryIDObject,
                         this.PageContext.PageUserID,
                         this.sinceDate,
+                        DateTime.UtcNow,
+                        // page index in db which is returned back  is +1 based!
+                        0,
+                        // set the page size here
+                        1000,
+                        this.Get<YafBoardSettings>().UseStyledNicks,
+                        this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
+                    break;
+                case TopicListMode.Unread:
+                    topicList = LegacyDb.topic_unread(
+                        this.PageContext.PageBoardID,
                         categoryIDObject,
+                        this.PageContext.PageUserID,
+                        this.sinceDate,
+                        DateTime.UtcNow,
+                        // page index in db which is returned back  is +1 based!
+                        0,
+                        // set the page size here
+                        1000,
                         this.Get<YafBoardSettings>().UseStyledNicks,
                         this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
                     break;
                 case TopicListMode.User:
+                    //   returns TotalRows - total unpaged rows number for pager
                     topicList = LegacyDb.Topics_ByUser(
                         this.PageContext.PageBoardID,
+                        categoryIDObject,
                         this.PageContext.PageUserID,
                         this.sinceDate,
-                        categoryIDObject,
+                        DateTime.UtcNow,
+                        // page index in db is 1 based!
+                        0,
+                        // set the page size here
+                        1000,
                         this.Get<YafBoardSettings>().UseStyledNicks,
                         this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
                     break;
