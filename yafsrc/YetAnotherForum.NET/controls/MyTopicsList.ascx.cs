@@ -18,6 +18,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+using System.Linq;
+
 namespace YAF.Controls
 {
     #region Using
@@ -188,16 +190,22 @@ namespace YAF.Controls
 
             // we'll hold topics in this table
             DataTable topicList = null;
-
+            int basePageSize = 5;
+            this.PagerTop.PageSize = basePageSize;
+            int nCurrentPageIndex = this.PagerTop.CurrentPageIndex;
             // now depending on mode fill the table
             switch (this.CurrentMode)
             {
                 case TopicListMode.Active:
-                    topicList = LegacyDb.topic_active(
-                        this.PageContext.PageBoardID,
+                        topicList = LegacyDb.topic_active(this.PageContext.PageBoardID,
+                        categoryIDObject,
                         this.PageContext.PageUserID,
                         this.sinceDate,
-                        categoryIDObject,
+                        DateTime.UtcNow,
+                        // page index in db which is returned back  is +1 based!
+                        nCurrentPageIndex,
+                        // set the page size here
+                        basePageSize,
                         this.Get<YafBoardSettings>().UseStyledNicks,
                         this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
                     break;
@@ -211,9 +219,9 @@ namespace YAF.Controls
                         this.sinceDate,
                         DateTime.UtcNow,
                         // page index in db which is returned back  is +1 based!
-                        0,
+                        nCurrentPageIndex,
                         // set the page size here
-                        1000,
+                        basePageSize,
                         this.Get<YafBoardSettings>().UseStyledNicks,
                         this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
                     break;
@@ -225,9 +233,9 @@ namespace YAF.Controls
                         this.sinceDate,
                         DateTime.UtcNow,
                         // page index in db which is returned back  is +1 based!
-                        0,
+                        nCurrentPageIndex,
                         // set the page size here
-                        1000,
+                        basePageSize,
                         this.Get<YafBoardSettings>().UseStyledNicks,
                         this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
                     break;
@@ -240,15 +248,26 @@ namespace YAF.Controls
                         this.sinceDate,
                         DateTime.UtcNow,
                         // page index in db is 1 based!
-                        0,
+                        nCurrentPageIndex,
                         // set the page size here
-                        1000,
+                        basePageSize,
                         this.Get<YafBoardSettings>().UseStyledNicks,
                         this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
                     break;
                 case TopicListMode.Favorite:
-                    topicList = this.Get<IFavoriteTopic>().FavoriteTopicDetails(this.sinceDate);
-                    break;
+                    topicList = LegacyDb.topic_favorite_details( 
+                        this.PageContext.PageBoardID,
+                        (YafContext.Current.Settings.CategoryID == 0) ? null : (object)YafContext.Current.Settings.CategoryID,
+                        this.PageContext.PageUserID,
+                        this.sinceDate,
+                        DateTime.UtcNow,
+                        // page index in db is 1 based!
+                        nCurrentPageIndex,
+                        // set the page size here
+                        basePageSize,
+                        this.Get<YafBoardSettings>().UseStyledNicks,
+                        this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
+                 break;
             }
 
             if (topicList == null)
@@ -264,24 +283,21 @@ namespace YAF.Controls
                 this.Get<IStyleTransform>().DecodeStyleByTable(ref topicList, true, "LastUserStyle", "StarterStyle");
             }
 
-            // let's page the results
-            DataView dv = topicList.DefaultView;
-            pds.DataSource = dv;
-            this.PagerTop.Count = dv.Count;
-
-            // TODO : page size definable?
-            this.PagerTop.PageSize = 15;
-            pds.PageSize = this.PagerTop.PageSize;
-            pds.CurrentPageIndex = this.PagerTop.CurrentPageIndex;
-
+        
             // set datasource of repeater
-            this.TopicList.DataSource = pds;
+            this.TopicList.DataSource = topicList;
+
+            if (topicList.Rows.Count > 0)
+            {
+                this.PagerTop.Count = topicList.AsEnumerable().First().Field<int>("TotalRows");
+            }
 
             // Get new Feeds links
             this.BindFeeds();
 
             // data bind controls
             this.DataBind();
+           
         }
 
         #endregion

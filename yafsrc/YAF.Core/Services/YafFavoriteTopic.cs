@@ -127,11 +127,17 @@ namespace YAF.Core.Services
     public DataTable FavoriteTopicDetails(DateTime sinceDate)
     {
       return LegacyDb.topic_favorite_details(
-        YafContext.Current.PageBoardID, 
-        YafContext.Current.PageUserID, 
-        sinceDate, 
-        (YafContext.Current.Settings.CategoryID == 0) ? null : (object)YafContext.Current.Settings.CategoryID, 
-        YafContext.Current.BoardSettings.UseStyledNicks);
+           YafContext.Current.PageBoardID,
+                         (YafContext.Current.Settings.CategoryID == 0) ? null : (object)YafContext.Current.Settings.CategoryID,
+                        YafContext.Current.PageUserID,
+                        sinceDate,
+                        DateTime.UtcNow,
+                        // page index in db is 1 based!
+                        0,
+                        // set the page size here
+                        1000,
+                        YafContext.Current.BoardSettings.UseStyledNicks,
+                        false);
     }
 
     /// <summary>
