@@ -5782,7 +5782,7 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}topic_active]
 (   @BoardID int,
     @CategoryID int=null,
     @PageUserID int,		
-	@SinceDate datetime=null,
+	@SinceDate datetime,
 	@ToDate datetime,
 	@PageIndex int = 1, 
 	@PageSize int = 0, 
@@ -5843,7 +5843,7 @@ begin
 		c.IsDeleted = 0
 		and	c.TopicMovedID is null	
 	order by
-		c.LastPosted desc,
+		c.LastPosted desc ,
 		cat.SortOrder asc,
 		d.SortOrder asc,
 		d.Name asc,
@@ -9877,7 +9877,9 @@ select
 		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=c.LastUserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
 			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr 
 			join [{databaseOwner}].[{objectQualifier}Rank] r ON r.RankID = usr.RankID  where usr.UserID=c.LastUserID))  
-			else ''	 end		
+			else ''	 end,
+        TotalRows = @post_totalrowsnumber,
+	    PageIndex = @PageIndex		
 	from
 		[{databaseOwner}].[{objectQualifier}Topic] c
 		join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
