@@ -578,7 +578,7 @@ namespace YAF.Pages
                         SyndicationItemExtensions.NewSyndicationPerson(string.Empty, row["LastUserID"].ToType<long>()));
 
                     syndicationItems.AddSyndicationItem(
-                        row["Topic"].ToString(),
+                        row["Subject"].ToString(),
                         GetPostLatestContent(
                             YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "m={0}&find=lastpost", row["LastMessageID"]),
                             lastPostIcon,
