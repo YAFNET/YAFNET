@@ -275,30 +275,31 @@ namespace YAF.Controls
                 return;
             }
 
-            // this.topics = topicList;
-            this.topics = topicList.Copy();
-            foreach (DataRow thisTableRow in this.topics.Rows)
+            this.topics = topicList;
+            
+            DataTable topicsNew = topicList.Copy();
+            foreach (DataRow thisTableRow in topicsNew.Rows)
             {
                 if (thisTableRow["LastPosted"] != DBNull.Value && thisTableRow["LastPosted"].ToType<DateTime>() <= this.sinceDate)
                 {
                     thisTableRow.Delete();
                 }
             }
-            
-            this.topics.AcceptChanges();
+
+            topicsNew.AcceptChanges();
             // styled nicks
             if (this.Get<YafBoardSettings>().UseStyledNicks)
             {
-                this.Get<IStyleTransform>().DecodeStyleByTable(ref this.topics, true, "LastUserStyle", "StarterStyle");
+                this.Get<IStyleTransform>().DecodeStyleByTable(ref topicsNew, true, "LastUserStyle", "StarterStyle");
             }
 
             if (topicList.Rows.Count > 0)
             {
-                this.PagerTop.Count = this.topics.AsEnumerable().First().Field<int>("TotalRows");
+                this.PagerTop.Count = topicsNew.AsEnumerable().First().Field<int>("TotalRows");
             }
 
             // set datasource of repeater
-            this.TopicList.DataSource = this.topics;
+            this.TopicList.DataSource = topicsNew;
 
            
 
