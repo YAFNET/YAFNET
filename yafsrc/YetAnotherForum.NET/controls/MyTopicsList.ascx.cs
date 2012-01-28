@@ -527,21 +527,19 @@ namespace YAF.Controls
             bool accessActive = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ActiveTopicFeedAccess);
             bool accessFavorite = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().FavoriteTopicFeedAccess);
 
+
             // RSS link setup 
             if (this.Get<YafBoardSettings>().ShowRSSLink)
             {
                 switch (this.CurrentMode)
                 {
                     case TopicListMode.User:
-                        this.AtomFeed.Visible = false;
                         this.RssFeed.Visible = false;
                         break;
                     case TopicListMode.Unread:
-                        this.AtomFeed.Visible = false;
                         this.RssFeed.Visible = false;
                         break;
                     case TopicListMode.Unanswered:
-                        this.AtomFeed.Visible = false;
                         this.RssFeed.Visible = false;
                         break;
                     case TopicListMode.Active:
@@ -566,11 +564,21 @@ namespace YAF.Controls
                 }
             }
 
+
             // Atom link setup 
             if (this.Get<YafBoardSettings>().ShowAtomLink)
             {
                 switch (this.CurrentMode)
                 {
+                    case TopicListMode.User:
+                        this.AtomFeed.Visible = false;
+                        break;
+                    case TopicListMode.Unread:
+                        this.AtomFeed.Visible = false;
+                        break;
+                    case TopicListMode.Unanswered:
+                        this.AtomFeed.Visible = false;
+                        break;
                     case TopicListMode.Active:
                         this.AtomFeed.TitleLocalizedTag = "ATOMICONTOOLTIPACTIVE";
                         this.AtomFeed.FeedType = YafRssFeeds.Active;

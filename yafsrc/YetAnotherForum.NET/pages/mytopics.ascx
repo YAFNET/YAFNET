@@ -20,7 +20,7 @@
                  </asp:PlaceHolder>		        
                </ul>
                 <div id="ActiveTopicsTab">
-                   <YAF:MyTopicsList runat="server" ID="ActiveTopics" CurrentMode="Active"/>
+                   <YAF:MyTopicsList runat="server" ID="ActiveTopics" CurrentMode="Active" AutoDatabind="True"/>
                 </div>
                 <asp:PlaceHolder ID="UnansweredTopicsTabContent" runat="server">
                 <div id="UnansweredTopicsTab">
