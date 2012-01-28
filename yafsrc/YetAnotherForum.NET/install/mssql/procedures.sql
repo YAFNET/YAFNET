@@ -2109,7 +2109,7 @@ IF @GetDefaults <= 0
 BEGIN
 		SELECT TOP 1 
 		Posts = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] a join [{databaseOwner}].[{objectQualifier}Topic] b on b.TopicID=a.TopicID join [{databaseOwner}].[{objectQualifier}Forum] c on c.ForumID=b.ForumID join [{databaseOwner}].[{objectQualifier}Category] d on d.CategoryID=c.CategoryID where d.BoardID=@BoardID AND (a.Flags & 24)=16),
-		Topics = (select count(1) from [{databaseOwner}].[{objectQualifier}Topic] a join [{databaseOwner}].[{objectQualifier}Forum] b on b.ForumID=a.ForumID join [{databaseOwner}].[{objectQualifier}Category] c on c.CategoryID=b.CategoryID where c.BoardID=@BoardID AND (a.Flags & 8) <> 8),
+		Topics = (select count(1) from [{databaseOwner}].[{objectQualifier}Topic] a join [{databaseOwner}].[{objectQualifier}Forum] b on b.ForumID=a.ForumID join [{databaseOwner}].[{objectQualifier}Category] c on c.CategoryID=b.CategoryID where c.BoardID=@BoardID AND a.IsDeleted = 0),
 		Forums = (select count(1) from [{databaseOwner}].[{objectQualifier}Forum] a join [{databaseOwner}].[{objectQualifier}Category] b on b.CategoryID=a.CategoryID where b.BoardID=@BoardID),	
 		LastPostInfoID	= 1,
 		LastPost	= a.Posted,
@@ -2908,13 +2908,13 @@ SELECT
 		(SELECT     count([{databaseOwner}].[{objectQualifier}Message].MessageID)
 		FROM         [{databaseOwner}].[{objectQualifier}Message] INNER JOIN
 							  [{databaseOwner}].[{objectQualifier}Topic] ON [{databaseOwner}].[{objectQualifier}Message].TopicID = [{databaseOwner}].[{objectQualifier}Topic].TopicID
-		WHERE (([{databaseOwner}].[{objectQualifier}Message].Flags & 16)=0) and (([{databaseOwner}].[{objectQualifier}Message].Flags & 8)=0) and (([{databaseOwner}].[{objectQualifier}Topic].Flags & 8) = 0) AND ([{databaseOwner}].[{objectQualifier}Topic].ForumID=b.ForumID)),
+		WHERE (([{databaseOwner}].[{objectQualifier}Message].Flags & 16)=0) and (([{databaseOwner}].[{objectQualifier}Message].Flags & 8)=0) and ([{databaseOwner}].[{objectQualifier}Topic].IsDeleted  = 0) AND ([{databaseOwner}].[{objectQualifier}Topic].ForumID=b.ForumID)),
 
 		ReportedCount	= 
 		(SELECT     count([{databaseOwner}].[{objectQualifier}Message].MessageID)
 		FROM         [{databaseOwner}].[{objectQualifier}Message] INNER JOIN
 							  [{databaseOwner}].[{objectQualifier}Topic] ON [{databaseOwner}].[{objectQualifier}Message].TopicID = [{databaseOwner}].[{objectQualifier}Topic].TopicID
-		WHERE (([{databaseOwner}].[{objectQualifier}Message].Flags & 128)=128) and (([{databaseOwner}].[{objectQualifier}Message].Flags & 8)=0) and (([{databaseOwner}].[{objectQualifier}Topic].Flags & 8) = 0) AND ([{databaseOwner}].[{objectQualifier}Topic].ForumID=b.ForumID))
+		WHERE (([{databaseOwner}].[{objectQualifier}Message].Flags & 128)=128) and (([{databaseOwner}].[{objectQualifier}Message].Flags & 8)=0) and ([{databaseOwner}].[{objectQualifier}Topic].IsDeleted = 0) AND ([{databaseOwner}].[{objectQualifier}Topic].ForumID=b.ForumID))
 		FROM
 		[{databaseOwner}].[{objectQualifier}Category] a
 
@@ -3698,7 +3698,7 @@ BEGIN
 		c.ForumID = @ForumID and
 		(c.Flags & 16)=0 and
 		(b.Flags & 8)=0 and
-		(c.Flags & 8)=0 and
+		c.IsDeleted=0 and
 		(b.Flags & 128)=128
 	ORDER BY
 		b.TopicID DESC, b.Posted DESC
@@ -3871,7 +3871,7 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}message_unapproved](@ForumI
 	where
 		a.ForumID = @ForumID and
 		(b.Flags & 16)=0 and
-		(a.Flags & 8)=0 and
+		a.IsDeleted =0 and
 		(b.Flags & 8)=0
 	order by
 		a.Posted
@@ -6492,7 +6492,7 @@ declare @shiftsticky int
 	FROM [{databaseOwner}].[{objectQualifier}Topic] c 
 	WHERE c.ForumID = @ForumID
 		AND	((Priority>0 AND c.Priority<>2) OR (c.Priority <=0 AND c.LastPosted>=@Date )) 
-		AND	(c.Flags & 8) <> 8
+		AND	c.IsDeleted = 0
 		AND	(c.TopicMovedID IS NOT NULL OR c.NumPosts > 0) 
 		AND
 		((@ShowMoved = 1)
@@ -6536,7 +6536,7 @@ declare @shiftsticky int
     [{databaseOwner}].[{objectQualifier}Topic] c
 	WHERE c.ForumID = @ForumID	    
 	AND	(( (@shiftsticky = 1) and (Priority>0 AND c.Priority<>2)) OR (c.Priority <=0 AND c.LastPosted>=@Date )) 
-		AND	(c.Flags & 8) <> 8
+		AND	c.IsDeleted = 0
 		AND	(c.TopicMovedID IS NOT NULL OR c.NumPosts > 0) 
 		AND
 		((@ShowMoved = 1)
@@ -6602,7 +6602,7 @@ declare @shiftsticky int
 		join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID	
 		WHERE c.ForumID = @ForumID
 		AND	(( (@shiftsticky = 1) and (c.Priority>0 AND c.Priority<>2)) OR (c.Priority <=0 AND c.LastPosted<=@firstselectposted )) 
-		AND	(c.Flags & 8) <> 8
+		AND	c.IsDeleted = 0
 		AND	((c.TopicMovedID IS NOT NULL) OR (c.NumPosts > 0)) 
 		AND
 		((@ShowMoved = 1)

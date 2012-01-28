@@ -147,19 +147,19 @@ namespace YAF.Controls
                 {
                     // all
                     // get all, from the beginning
-                    this.sinceDate = (DateTime)SqlDateTime.MinValue;
+                    this.sinceDate = DateTime.UtcNow.AddYears(-100);
                 }
                 else if (this.sinceValue > 0)
                 {
                     // days
                     // get posts newer then defined number of days
-                    this.sinceDate = DateTime.UtcNow - TimeSpan.FromDays(this.sinceValue);
+                    this.sinceDate = DateTime.UtcNow.AddDays(-this.sinceValue);
                 }
                 else if (this.sinceValue < 0)
                 {
                     // hours
                     // get posts newer then defined number of hours
-                    this.sinceDate = DateTime.UtcNow + TimeSpan.FromHours(this.sinceValue);
+                    this.sinceDate = DateTime.UtcNow.AddHours(-this.sinceValue);
                 }
             }
 
@@ -275,22 +275,32 @@ namespace YAF.Controls
                 return;
             }
 
-            this.topics = topicList;
-
+            // this.topics = topicList;
+            this.topics = topicList.Copy();
+            foreach (DataRow thisTableRow in this.topics.Rows)
+            {
+                if (thisTableRow["LastPosted"] != DBNull.Value && thisTableRow["LastPosted"].ToType<DateTime>() <= this.sinceDate)
+                {
+                    thisTableRow.Delete();
+                }
+            }
+            
+            this.topics.AcceptChanges();
             // styled nicks
             if (this.Get<YafBoardSettings>().UseStyledNicks)
             {
-                this.Get<IStyleTransform>().DecodeStyleByTable(ref topicList, true, "LastUserStyle", "StarterStyle");
+                this.Get<IStyleTransform>().DecodeStyleByTable(ref this.topics, true, "LastUserStyle", "StarterStyle");
             }
-
-        
-            // set datasource of repeater
-            this.TopicList.DataSource = topicList;
 
             if (topicList.Rows.Count > 0)
             {
-                this.PagerTop.Count = topicList.AsEnumerable().First().Field<int>("TotalRows");
+                this.PagerTop.Count = this.topics.AsEnumerable().First().Field<int>("TotalRows");
             }
+
+            // set datasource of repeater
+            this.TopicList.DataSource = this.topics;
+
+           
 
             // Get new Feeds links
             this.BindFeeds();
@@ -484,7 +494,6 @@ namespace YAF.Controls
         {
             // Set the controls' pager index to 0.
             this.PagerTop.CurrentPageIndex = 0;
-
             // save since option to rememver it next time
             switch (this.CurrentMode)
             {
