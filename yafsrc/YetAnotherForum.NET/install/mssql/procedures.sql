@@ -2908,13 +2908,13 @@ SELECT
 		(SELECT     count([{databaseOwner}].[{objectQualifier}Message].MessageID)
 		FROM         [{databaseOwner}].[{objectQualifier}Message] INNER JOIN
 							  [{databaseOwner}].[{objectQualifier}Topic] ON [{databaseOwner}].[{objectQualifier}Message].TopicID = [{databaseOwner}].[{objectQualifier}Topic].TopicID
-		WHERE (([{databaseOwner}].[{objectQualifier}Message].Flags & 16)=0) and (([{databaseOwner}].[{objectQualifier}Message].Flags & 8)=0) and ([{databaseOwner}].[{objectQualifier}Topic].IsDeleted  = 0) AND ([{databaseOwner}].[{objectQualifier}Topic].ForumID=b.ForumID)),
+		WHERE (([{databaseOwner}].[{objectQualifier}Message].Flags & 16)=0) and ([{databaseOwner}].[{objectQualifier}Message].IsDeleted=0) and ([{databaseOwner}].[{objectQualifier}Topic].IsDeleted  = 0) AND ([{databaseOwner}].[{objectQualifier}Topic].ForumID=b.ForumID)),
 
 		ReportedCount	= 
 		(SELECT     count([{databaseOwner}].[{objectQualifier}Message].MessageID)
 		FROM         [{databaseOwner}].[{objectQualifier}Message] INNER JOIN
 							  [{databaseOwner}].[{objectQualifier}Topic] ON [{databaseOwner}].[{objectQualifier}Message].TopicID = [{databaseOwner}].[{objectQualifier}Topic].TopicID
-		WHERE (([{databaseOwner}].[{objectQualifier}Message].Flags & 128)=128) and (([{databaseOwner}].[{objectQualifier}Message].Flags & 8)=0) and ([{databaseOwner}].[{objectQualifier}Topic].IsDeleted = 0) AND ([{databaseOwner}].[{objectQualifier}Topic].ForumID=b.ForumID))
+		WHERE (([{databaseOwner}].[{objectQualifier}Message].Flags & 128)=128) and ([{databaseOwner}].[{objectQualifier}Message].IsDeleted=0) and ([{databaseOwner}].[{objectQualifier}Topic].IsDeleted = 0) AND ([{databaseOwner}].[{objectQualifier}Topic].ForumID=b.ForumID))
 		FROM
 		[{databaseOwner}].[{objectQualifier}Category] a
 
@@ -3452,7 +3452,7 @@ begin
 	UPDATE [{databaseOwner}].[{objectQualifier}User] SET NumPosts = (SELECT count(MessageID) FROM [{databaseOwner}].[{objectQualifier}Message] WHERE UserID = @UserID AND IsDeleted = 0 AND IsApproved = 1) WHERE UserID = @UserID
 	
 	-- Delete topic if there are no more messages
-	select @MessageCount = count(1) from [{databaseOwner}].[{objectQualifier}Message] where TopicID = @TopicID and (Flags & 8)=0
+	select @MessageCount = count(1) from [{databaseOwner}].[{objectQualifier}Message] where TopicID = @TopicID and IsDeleted=0
 	if @MessageCount=0 exec [{databaseOwner}].[{objectQualifier}topic_delete] @TopicID, 1, @EraseMessage
 
 	-- update lastpost
@@ -3697,7 +3697,7 @@ BEGIN
 	WHERE
 		c.ForumID = @ForumID and
 		(c.Flags & 16)=0 and
-		(b.Flags & 8)=0 and
+		b.IsDeleted=0 and
 		c.IsDeleted=0 and
 		(b.Flags & 128)=128
 	ORDER BY
@@ -3872,7 +3872,7 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}message_unapproved](@ForumI
 		a.ForumID = @ForumID and
 		(b.Flags & 16)=0 and
 		a.IsDeleted =0 and
-		(b.Flags & 8)=0
+		b.IsDeleted=0
 	order by
 		a.Posted
 end
@@ -5062,7 +5062,7 @@ begin
 		CONVERT(int,x.ReadAccess) <> 0 and
 		e.BoardID = @BoardID and
 		(a.Flags & 24)=16 and
-		(c.Flags & 8)=0
+		c.IsDeleted=0
 	order by
 		a.Posted desc
 		
@@ -5714,7 +5714,7 @@ begin
 		c.UserID,
 		Starter = IsNull(c.UserName,b.Name),
 		NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@PageUserID IS NOT NULL AND mes.UserID = @PageUserID) OR (@PageUserID IS NULL)) ),
-		Replies = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=c.TopicID and (x.Flags & 8)=0) - 1,
+		Replies = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=c.TopicID and x.IsDeleted=0) - 1,
 		[Views] = c.[Views],
 		LastPosted = c.LastPosted,
 		LastUserID = c.LastUserID,
@@ -5863,7 +5863,7 @@ begin
 		c.UserID,
 		Starter = IsNull(c.UserName,b.Name),
 		NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@PageUserID IS NOT NULL AND mes.UserID = @PageUserID) OR (@PageUserID IS NULL)) ),
-		Replies = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=c.TopicID and (x.Flags & 8)=0) - 1,
+		Replies = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=c.TopicID and x.IsDeleted=0) - 1,
 		[Views] = c.[Views],
 		LastPosted = c.LastPosted,
 		LastUserID = c.LastUserID,
@@ -6110,7 +6110,7 @@ begin
 		declare @LastPosted datetime
 	declare @ForumID int
 	select @LastPosted = LastPosted, @ForumID = ForumID from [{databaseOwner}].[{objectQualifier}Topic] where TopicID = @TopicID AND TopicMovedID IS NULL
-	select top 1 TopicID from [{databaseOwner}].[{objectQualifier}Topic] where LastPosted>@LastPosted and ForumID = @ForumID AND (Flags & 8) = 0 AND TopicMovedID IS NULL order by LastPosted asc
+	select top 1 TopicID from [{databaseOwner}].[{objectQualifier}Topic] where LastPosted>@LastPosted and ForumID = @ForumID AND IsDeleted=0 AND TopicMovedID IS NULL order by LastPosted asc
 end
 GO
 
@@ -6119,7 +6119,7 @@ BEGIN
 		DECLARE @LastPosted datetime
 	DECLARE @ForumID int
 	SELECT @LastPosted = LastPosted, @ForumID = ForumID FROM [{databaseOwner}].[{objectQualifier}Topic] WHERE TopicID = @TopicID AND TopicMovedID IS NULL
-	SELECT TOP 1 TopicID from [{databaseOwner}].[{objectQualifier}Topic] where LastPosted<@LastPosted AND ForumID = @ForumID AND (Flags & 8) = 0 AND TopicMovedID IS NULL ORDER BY LastPosted DESC
+	SELECT TOP 1 TopicID from [{databaseOwner}].[{objectQualifier}Topic] where LastPosted<@LastPosted AND ForumID = @ForumID AND IsDeleted=0 AND TopicMovedID IS NULL ORDER BY LastPosted DESC
 END
 GO
 
@@ -6137,14 +6137,14 @@ BEGIN
 		IF @ShowDeleted = 1 
 			SELECT * FROM [{databaseOwner}].[{objectQualifier}Topic]
 		ELSE
-			SELECT * FROM [{databaseOwner}].[{objectQualifier}Topic] WHERE (Flags & 8) = 0
+			SELECT * FROM [{databaseOwner}].[{objectQualifier}Topic] WHERE IsDeleted=0
 	END
 	ELSE
 	BEGIN
 		IF @ShowDeleted = 1 
 			SELECT * FROM [{databaseOwner}].[{objectQualifier}Topic] WHERE TopicID = @TopicID
 		ELSE
-			SELECT * FROM [{databaseOwner}].[{objectQualifier}Topic] WHERE TopicID = @TopicID AND (Flags & 8) = 0		
+			SELECT * FROM [{databaseOwner}].[{objectQualifier}Topic] WHERE TopicID = @TopicID AND IsDeleted=0		
 	END
 END
 GO
@@ -6183,7 +6183,7 @@ BEGIN
 	SET @SQL = 'SELECT DISTINCT TOP ' + convert(varchar, @NumPosts) + ' t.Topic, t.LastPosted, t.Posted, t.TopicID, t.LastMessageID, t.LastMessageFlags FROM'
 	SET @SQL = @SQL + ' [{databaseOwner}].[{objectQualifier}Topic] t INNER JOIN [{databaseOwner}].[{objectQualifier}Category] c INNER JOIN [{databaseOwner}].[{objectQualifier}Forum] f ON c.CategoryID = f.CategoryID ON t.ForumID = f.ForumID'
 	SET @SQL = @SQL + ' join [{databaseOwner}].[{objectQualifier}ActiveAccess] v on v.ForumID=f.ForumID'
-	SET @SQL = @SQL + ' WHERE c.BoardID = ' + convert(varchar, @BoardID) + ' AND v.UserID=' + convert(varchar,@PageUserID) + ' AND (CONVERT(int,v.ReadAccess) <> 0 or (f.Flags & 2) = 0) AND (t.Flags & 8) != 8 AND t.TopicMovedID IS NULL AND (t.Priority = 2) ORDER BY t.LastPosted DESC'
+	SET @SQL = @SQL + ' WHERE c.BoardID = ' + convert(varchar, @BoardID) + ' AND v.UserID=' + convert(varchar,@PageUserID) + ' AND (CONVERT(int,v.ReadAccess) <> 0 or (f.Flags & 2) = 0) AND t.IsDeleted=0 AND t.TopicMovedID IS NULL AND (t.Priority = 2) ORDER BY t.LastPosted DESC'
 
 	EXEC(@SQL)	
 
@@ -6340,7 +6340,7 @@ begin
 		ON d.ForumID=c.ForumID
 	WHERE c.ForumID = @ForumID
 		AND  c.Priority=2 
-		AND	(c.Flags & 8) = 0
+		AND	c.IsDeleted=0
 		AND	(c.TopicMovedID IS NOT NULL OR c.NumPosts > 0) 
 		AND
 		((@ShowMoved = 1)
@@ -6366,7 +6366,7 @@ begin
 		ON d.ForumID=c.ForumID
 	WHERE c.ForumID = @ForumID
 		AND  c.Priority=2 
-		AND	(c.Flags & 8) = 0
+		AND	c.IsDeleted=0
 		AND	(c.TopicMovedID IS NOT NULL OR c.NumPosts > 0) 
 		AND
 		((@ShowMoved = 1)
@@ -6432,7 +6432,7 @@ begin
 		join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID	
 		WHERE c.ForumID = @ForumID		
 		AND  c.Priority=2 
-		AND	(c.Flags & 8) = 0
+		AND	c.IsDeleted=0
 		AND	(c.TopicMovedID IS NOT NULL OR c.NumPosts > 0) 
 		AND
 		((@ShowMoved = 1)
@@ -6477,7 +6477,7 @@ declare @shiftsticky int
 	FROM [{databaseOwner}].[{objectQualifier}Topic] c
 	WHERE c.ForumID = @ForumID		
 		AND (c.Priority=1) 
-		AND	(c.Flags & 8) <> 8
+		AND	c.IsDeleted=0
 		AND	(c.TopicMovedID IS NOT NULL OR c.NumPosts > 0) 
 		AND
 		((@ShowMoved = 1)
@@ -8469,7 +8469,7 @@ begin
 	UPDATE [{databaseOwner}].[{objectQualifier}User] SET NumPosts = (SELECT count(MessageID) FROM [{databaseOwner}].[{objectQualifier}Message] WHERE UserID = @UserID AND IsDeleted = 0 AND IsApproved = 1) WHERE UserID = @UserID
 
 	-- Delete topic if there are no more messages
-	select @MessageCount = count(1) from [{databaseOwner}].[{objectQualifier}Message] where TopicID = @TopicID and (Flags & 8)=0
+	select @MessageCount = count(1) from [{databaseOwner}].[{objectQualifier}Message] where TopicID = @TopicID and IsDeleted=0
 	if @MessageCount=0 exec [{databaseOwner}].[{objectQualifier}topic_delete] @TopicID
 	-- update lastpost
 	exec [{databaseOwner}].[{objectQualifier}topic_updatelastpost] @ForumID,@TopicID
@@ -8584,7 +8584,7 @@ UPDATE [{databaseOwner}].[{objectQualifier}Message] SET
 WHERE  MessageID = @MessageID
 
 	-- Delete topic if there are no more messages
-	select @MessageCount = count(1) from [{databaseOwner}].[{objectQualifier}Message] where TopicID = @OldTopicID and (Flags & 8)=0
+	select @MessageCount = count(1) from [{databaseOwner}].[{objectQualifier}Message] where TopicID = @OldTopicID and IsDeleted=0
 	if @MessageCount=0 exec [{databaseOwner}].[{objectQualifier}topic_delete] @OldTopicID
 
 	-- update lastpost
@@ -9850,7 +9850,7 @@ select
 		c.UserID,
 		Starter = IsNull(c.UserName,b.Name),
 		NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@PageUserID IS NOT NULL AND mes.UserID = @PageUserID) OR (@PageUserID IS NULL)) ),
-		Replies = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=c.TopicID and (x.Flags & 8)=0) - 1,
+		Replies = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=c.TopicID and x.IsDeleted=0) - 1,
 		[Views] = c.[Views],
 		LastPosted = c.LastPosted,
 		LastUserID = c.LastUserID,
@@ -10678,7 +10678,7 @@ select
 		c.UserID,
 		Starter = IsNull(c.UserName,b.Name),
 		NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@PageUserID IS NOT NULL AND mes.UserID = @PageUserID) OR (@PageUserID IS NULL)) ),
-		Replies = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=c.TopicID and (x.Flags & 8)=0) - 1,
+		Replies = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=c.TopicID and x.IsDeleted=0) - 1,
 		[Views] = c.[Views],
 		LastPosted = c.LastPosted,
 		LastUserID = c.LastUserID,
@@ -11004,7 +11004,7 @@ select
 		c.UserID,
 		Starter = IsNull(c.UserName,b.Name),
 		NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@PageUserID IS NOT NULL AND mes.UserID = @PageUserID) OR (@PageUserID IS NULL)) ),
-		Replies = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=c.TopicID and (x.Flags & 8)=0) - 1,
+		Replies = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=c.TopicID and x.IsDeleted=0) - 1,
 		[Views] = c.[Views],
 		LastPosted = c.LastPosted,
 		LastUserID = c.LastUserID,

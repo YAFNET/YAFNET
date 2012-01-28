@@ -190,7 +190,7 @@ namespace YAF.Controls
 
             // we'll hold topics in this table
             DataTable topicList = null;
-            int basePageSize = 5;
+            int basePageSize = this.Get<YafBoardSettings>().TopicsPerPage;
             this.PagerTop.PageSize = basePageSize;
             int nCurrentPageIndex = this.PagerTop.CurrentPageIndex;
             // now depending on mode fill the table
