@@ -21,16 +21,16 @@
         <td class="header1" width="1%">
             &nbsp; 
         </td>
-        <td class="header1" align="left">
+        <td class="header1">
             <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="topics" />
         </td>
-        <td class="header1" align="right" width="7%">
+        <td class="header1" style="text-align:center" width="7%">
             <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="replies" />
         </td>
-        <td class="header1" align="right" width="7%">
+        <td class="header1" style="text-align:center" width="7%">
             <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="views" />
         </td>
-        <td class="header1" align="left" width="20%">
+        <td class="header1" width="20%">
             <YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="lastpost" />
         </td>
     </tr>
@@ -44,8 +44,8 @@
     <tr>
         <td class="footer1" align="right" width="100%" colspan="5">
             <asp:LinkButton runat="server" OnClick="MarkAll_Click" ID="MarkAll" />
-            <YAF:RssFeedLink ID="RssFeed" runat="server" ShowSpacerBefore="true" />
-            <YAF:RssFeedLink ID="AtomFeed" runat="server" ShowSpacerBefore="true"  />   
+            <YAF:RssFeedLink ID="RssFeed" runat="server" ShowSpacerBefore="true" Visible="False" />
+            <YAF:RssFeedLink ID="AtomFeed" runat="server" ShowSpacerBefore="true" Visible="False"  />   
         </td>
     </tr>
 </table>

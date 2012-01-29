@@ -412,8 +412,17 @@ namespace YAF.Pages
                 urlAlphaNum);
 
             using (
-              DataTable dt = LegacyDb.topic_active(
-                this.PageContext.PageBoardID, this.PageContext.PageUserID, toActDate, categoryActiveId, false, this.Get<YafBoardSettings>().UseReadTrackingByDatabase))
+              DataTable dt = LegacyDb.topic_active(this.PageContext.PageBoardID,
+                        categoryActiveId,
+                        this.PageContext.PageUserID,
+                        toActDate,
+                        DateTime.UtcNow,
+                        // page index in db which is returned back  is +1 based!
+                        0,
+                        // set the page size here
+                        20,
+                        false,
+                        this.Get<YafBoardSettings>().UseReadTrackingByDatabase))
             {
                 foreach (DataRow row in dt.Rows)
                 {
@@ -528,8 +537,17 @@ namespace YAF.Pages
             }
 
             using (
-              DataTable dt = LegacyDb.topic_favorite_details(
-                this.PageContext.PageBoardID, this.PageContext.PageUserID, toFavDate, categoryActiveId, false))
+              DataTable dt = LegacyDb.topic_favorite_details(this.PageContext.PageBoardID,
+                        categoryActiveId,
+                        this.PageContext.PageUserID,
+                        toFavDate,
+                        DateTime.UtcNow,
+                        // page index in db is 1 based!
+                        0,
+                        // set the page size here
+                        20,
+                        false,
+                        false))
             {
                 string urlAlphaNum = FormatUrlForFeed(YafForumInfo.ForumBaseUrl);
                 string feedNameAlphaNum = new Regex(@"[^A-Za-z0-9]", RegexOptions.IgnoreCase).Replace(toFavText, string.Empty);
@@ -560,7 +578,7 @@ namespace YAF.Pages
                         SyndicationItemExtensions.NewSyndicationPerson(string.Empty, row["LastUserID"].ToType<long>()));
 
                     syndicationItems.AddSyndicationItem(
-                        row["Topic"].ToString(),
+                        row["Subject"].ToString(),
                         GetPostLatestContent(
                             YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "m={0}&find=lastpost", row["LastMessageID"]),
                             lastPostIcon,

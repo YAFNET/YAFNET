@@ -448,7 +448,7 @@ namespace YAF.Pages
             this.PageContext.QueryIDs = new QueryStringIDHelper(new[] { "m", "t", "q", "page" }, false);
 
             TypedMessageList currentMessage = null;
-
+            DataRow topicInfo = LegacyDb.topic_info(this.PageContext.PageTopicID);
             // we reply to a post with a quote
             if (this.QuotedMessageID != null)
             {
@@ -462,7 +462,7 @@ namespace YAF.Pages
                     YafBuildLink.AccessDenied();
                 }
 
-                if (!this.CanQuotePostCheck())
+                if (!this.CanQuotePostCheck(topicInfo))
                 {
                     YafBuildLink.AccessDenied();
                 }
@@ -488,7 +488,7 @@ namespace YAF.Pages
 
                 this._ownerUserId = currentMessage.UserID.ToType<int>();
 
-                if (!this.CanEditPostCheck(currentMessage))
+                if (!this.CanEditPostCheck(currentMessage, topicInfo))
                 {
                     YafBuildLink.AccessDenied();
                 }
@@ -934,7 +934,7 @@ namespace YAF.Pages
               this._forumEditor.Text,
               this.User != null ? null : this.From.Text,
               this.Get<HttpRequestBase>().UserHostAddress,
-              null,
+              DateTime.UtcNow,
               replyTo,
               messageFlags.BitValue,
               ref messageId);
@@ -1251,7 +1251,7 @@ namespace YAF.Pages
         /// <returns>
         /// Returns if user can edit post check.
         /// </returns>
-        private bool CanEditPostCheck([NotNull] TypedMessageList message)
+        private bool CanEditPostCheck([NotNull] TypedMessageList message, DataRow topicInfo )
         {
             bool postLocked = false;
 
@@ -1267,9 +1267,8 @@ namespace YAF.Pages
 
             DataRow forumInfo;
 
-            // get topic and forum information
-            DataRow topicInfo = LegacyDb.topic_info(this.PageContext.PageTopicID);
-            using (DataTable dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
+          // get  forum information
+          using (DataTable dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
             {
                 forumInfo = dt.Rows[0];
             }
@@ -1302,12 +1301,12 @@ namespace YAF.Pages
         /// <returns>
         /// The can quote post check.
         /// </returns>
-        private bool CanQuotePostCheck()
+        private bool CanQuotePostCheck(DataRow topicInfo)
         {
             DataRow forumInfo;
 
             // get topic and forum information
-            DataRow topicInfo = LegacyDb.topic_info(this.PageContext.PageTopicID);
+           
             using (DataTable dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
             {
                 forumInfo = dt.Rows[0];

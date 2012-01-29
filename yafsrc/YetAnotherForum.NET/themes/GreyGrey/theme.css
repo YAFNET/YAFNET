@@ -1496,3 +1496,6 @@ height:80em;
 .yafnet dl.AlphaSort dd a {color:black;}
 
 .yafnet .post_res { background-color: #F4E941;}
+
+.yafnet .topicReplies,
+.yafnet .topicViews {text-align:center;}

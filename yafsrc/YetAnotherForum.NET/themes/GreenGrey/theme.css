@@ -1116,7 +1116,7 @@ height:80em;
 .ui-helper-reset li {list-style-type:none}
 
 .message, .UserBox {vertical-align:top;}
-.UserBox {border-right: 1px solid #ccc}
+.yafnet .UserBox {border-right: 1px solid #ccc}
 
 .avatarimage {
 	display: inline-block;
@@ -1486,3 +1486,6 @@ height:80em;
 .yafnet dl.AlphaSort dd a {color:black;}
 
 .yafnet .post_res { background-color: #F4E941;}
+
+.yafnet .topicReplies,
+.yafnet .topicViews {text-align:center;}

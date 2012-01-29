@@ -117,50 +117,18 @@ namespace YAF.Controls
 		#region Methods
 
 		/// <summary>
-		/// Adds the user reputation.
+		/// Gets Voting Cookie Name.
 		/// </summary>
-		/// <param name="sender">
-		/// The sender. 
+		/// <param name="userId">
+		/// The user Id. 
 		/// </param>
-		/// <param name="e">
-		/// The <see cref="System.EventArgs"/> instance containing the event data. 
-		/// </param>
-		protected void AddUserReputation(object sender, EventArgs e)
+		/// <returns>
+		/// The voting cookie name. 
+		/// </returns>
+		[NotNull]
+		protected string VotingCookieName(int userId)
 		{
-			LegacyDb.user_addpoints(this.PostData.UserId, 1);
-
-			// TODO: Add Database Voting
-			this.AddUserVotingCookie();
-
-			this.AddReputation.Visible = false;
-			this.RemoveReputation.Visible = false;
-
-			// Reload UserBox
-			this.PageContext.CurrentForumPage.PageCache[Constants.Cache.UserBoxes] = null;
-
-			this.DataRow["Points"] = this.DataRow["Points"].ToType<int>() + 1;
-			this.UserBox1.PageCache = null;
-
-			var notification = (DialogBox)this.PageContext.CurrentForumPage.Notification;
-
-			notification.Show(
-				this.GetText("POSTS", "REP_VOTE_UP_MSG").FormatWith(
-					this.PageContext.Get<IUserDisplayName>().GetName(this.PostData.UserId)), 
-				this.GetText("POSTS", "REP_VOTE_TITLE"), 
-				DialogBox.DialogIcon.Info, 
-				new DialogBox.DialogButton
-					{
-						Text = this.GetText("COMMON", "OK"), 
-						CssClass = "StandardButton", 
-						ForumPageLink = new DialogBox.ForumLink { ForumPage = this.PageContext.ForumPageType }
-					}, 
-				null);
-
-			YafContext.Current.PageElements.RegisterJsBlockStartup(
-				"reputationprogressjs", 
-				JavaScriptBlocks.ReputationProgressChangeJs(
-					YafReputation.GenerateReputationBar(this.DataRow["Points"].ToType<int>(), this.PostData.UserId), 
-					this.PostData.UserId.ToString()));
+			return "YAF.NET_Reputation#{0}".FormatWith(userId);
 		}
 
 		/// <summary>
@@ -238,6 +206,25 @@ namespace YAF.Controls
 		}
 
 		/// <summary>
+		/// Get Row Span
+		/// </summary>
+		/// <returns>
+		/// Returns the row Span value 
+		/// </returns>
+		[NotNull]
+		protected string GetRowSpan()
+		{
+			if (this.DataRow != null && this.Get<YafBoardSettings>().AllowSignatures && this.DataRow["Signature"] != DBNull.Value
+			    && this.DataRow["Signature"].ToString().ToLower() != "<p>&nbsp;</p>"
+			    && this.DataRow["Signature"].ToString().Trim().Length > 0)
+			{
+				return "rowspan=\"2\"";
+			}
+
+			return string.Empty;
+		}
+
+		/// <summary>
 		/// The get indent span.
 		/// </summary>
 		/// <returns>
@@ -261,25 +248,6 @@ namespace YAF.Controls
 			return this.IsAlt ? "post_alt" : "post";
 		}
 
-		/// <summary>
-		/// Get Row Span
-		/// </summary>
-		/// <returns>
-		/// Returns the row Span value 
-		/// </returns>
-		[NotNull]
-		protected string GetRowSpan()
-		{
-			if (this.DataRow != null && this.Get<YafBoardSettings>().AllowSignatures && this.DataRow["Signature"] != DBNull.Value
-			    && this.DataRow["Signature"].ToString().ToLower() != "<p>&nbsp;</p>"
-			    && this.DataRow["Signature"].ToString().Trim().Length > 0)
-			{
-				return "rowspan=\"2\"";
-			}
-
-			return string.Empty;
-		}
-
 		// Prevents a high user box when displaying a deleted post.
 
 		/// <summary>
@@ -292,47 +260,6 @@ namespace YAF.Controls
 		protected string GetUserBoxHeight()
 		{
 			return this.PostData.PostDeleted ? "0" : "100";
-		}
-
-		/// <summary>
-		/// Handles the multi quote.
-		/// </summary>
-		/// <param name="sender">
-		/// The sender. 
-		/// </param>
-		/// <param name="e">
-		/// The <see cref="System.EventArgs"/> instance containing the event data. 
-		/// </param>
-		protected void HandleMultiQuote(object sender, EventArgs e)
-		{
-			if (this.MultiQuote.Checked)
-			{
-				if (this.Get<IYafSession>().MultiQuoteIds != null)
-				{
-					if (!this.Get<IYafSession>().MultiQuoteIds.Contains(this.PostData.MessageId))
-					{
-						this.Get<IYafSession>().MultiQuoteIds.Add(this.PostData.MessageId);
-					}
-				}
-				else
-				{
-					this.Get<IYafSession>().MultiQuoteIds = new ArrayList { this.PostData.MessageId };
-				}
-
-				this.MultiQuote.CssClass += " Checked";
-			}
-			else
-			{
-				if (this.Get<IYafSession>().MultiQuoteIds != null)
-				{
-					if (this.Get<IYafSession>().MultiQuoteIds.Contains(this.PostData.MessageId))
-					{
-						this.Get<IYafSession>().MultiQuoteIds.Remove(this.PostData.MessageId);
-					}
-				}
-
-				this.MultiQuote.CssClass = "MultiQuoteButton";
-			}
 		}
 
 		/// <summary>
@@ -365,6 +292,104 @@ namespace YAF.Controls
 				this.PopMenu1.Visible = true;
 				this.SetupPopupMenu();
 			}
+		}
+
+		/// <summary>
+		/// </summary>
+		private void SetupPopupMenu()
+		{
+			this.PopMenu1.ItemClick += this.PopMenu1_ItemClick;
+			this.PopMenu1.AddPostBackItem("userprofile", this.GetText("POSTS", "USERPROFILE"));
+
+			this.PopMenu1.AddPostBackItem("lastposts", this.GetText("PROFILE", "SEARCHUSER"));
+
+			if (this.Get<YafBoardSettings>().EnableThanksMod)
+			{
+				this.PopMenu1.AddPostBackItem("viewthanks", this.GetText("VIEWTHANKS", "TITLE"));
+			}
+
+			if (this.PageContext.IsAdmin)
+			{
+				this.PopMenu1.AddPostBackItem("edituser", this.GetText("POSTS", "EDITUSER"));
+			}
+
+			if (!this.PageContext.IsGuest)
+			{
+				if (this.Get<IUserIgnored>().IsIgnored(this.PostData.UserId))
+				{
+					this.PopMenu1.AddPostBackItem("toggleuserposts_show", this.GetText("POSTS", "TOGGLEUSERPOSTS_SHOW"));
+				}
+				else
+				{
+					this.PopMenu1.AddPostBackItem("toggleuserposts_hide", this.GetText("POSTS", "TOGGLEUSERPOSTS_HIDE"));
+				}
+			}
+
+			if (this.Get<YafBoardSettings>().EnableBuddyList && this.PageContext.PageUserID != (int)this.DataRow["UserID"])
+			{
+				// Should we add the "Add Buddy" item?
+				if (!this.Get<IBuddy>().IsBuddy((int)this.DataRow["UserID"], false) && !this.PageContext.IsGuest)
+				{
+					this.PopMenu1.AddPostBackItem("addbuddy", this.GetText("BUDDY", "ADDBUDDY"));
+				}
+				else if (this.Get<IBuddy>().IsBuddy((int)this.DataRow["UserID"], true) && !this.PageContext.IsGuest)
+				{
+					// Are the users approved buddies? Add the "Remove buddy" item.
+					this.PopMenu1.AddClientScriptItemWithPostback(
+						this.GetText("BUDDY", "REMOVEBUDDY"), 
+						"removebuddy", 
+						"if (confirm('{0}')) {1}".FormatWith(this.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE"), "{postbackcode}"));
+				}
+			}
+
+			this.PopMenu1.Attach(this.UserProfileLink);
+		}
+
+		/// <summary>
+		/// Adds the user reputation.
+		/// </summary>
+		/// <param name="sender">
+		/// The sender. 
+		/// </param>
+		/// <param name="e">
+		/// The <see cref="System.EventArgs"/> instance containing the event data. 
+		/// </param>
+		protected void AddUserReputation(object sender, EventArgs e)
+		{
+			LegacyDb.user_addpoints(this.PostData.UserId, 1);
+
+			// TODO: Add Database Voting
+			this.AddUserVotingCookie();
+
+			this.AddReputation.Visible = false;
+			this.RemoveReputation.Visible = false;
+
+			// Reload UserBox
+			this.PageContext.CurrentForumPage.PageCache[Constants.Cache.UserBoxes] = null;
+
+			this.DataRow["Points"] = this.DataRow["Points"].ToType<int>() + 1;
+			this.UserBox1.PageCache = null;
+
+			var notification = (DialogBox)this.PageContext.CurrentForumPage.Notification;
+
+			notification.Show(
+				this.GetText("POSTS", "REP_VOTE_UP_MSG").FormatWith(
+					this.PageContext.Get<IUserDisplayName>().GetName(this.PostData.UserId)), 
+				this.GetText("POSTS", "REP_VOTE_TITLE"), 
+				DialogBox.DialogIcon.Info, 
+				new DialogBox.DialogButton
+					{
+						Text = this.GetText("COMMON", "OK"), 
+						CssClass = "StandardButton", 
+						ForumPageLink = new DialogBox.ForumLink { ForumPage = this.PageContext.ForumPageType }
+					}, 
+				null);
+
+			YafContext.Current.PageElements.RegisterJsBlockStartup(
+				"reputationprogressjs", 
+				JavaScriptBlocks.ReputationProgressChangeJs(
+					YafReputation.GenerateReputationBar(this.DataRow["Points"].ToType<int>(), this.PostData.UserId), 
+					this.PostData.UserId.ToString()));
 		}
 
 		/// <summary>
@@ -412,6 +437,47 @@ namespace YAF.Controls
 				JavaScriptBlocks.ReputationProgressChangeJs(
 					YafReputation.GenerateReputationBar(this.DataRow["Points"].ToType<int>(), this.PostData.UserId), 
 					this.PostData.UserId.ToString()));
+		}
+
+		/// <summary>
+		/// Handles the multi quote.
+		/// </summary>
+		/// <param name="sender">
+		/// The sender. 
+		/// </param>
+		/// <param name="e">
+		/// The <see cref="System.EventArgs"/> instance containing the event data. 
+		/// </param>
+		protected void HandleMultiQuote(object sender, EventArgs e)
+		{
+			if (this.MultiQuote.Checked)
+			{
+				if (this.Get<IYafSession>().MultiQuoteIds != null)
+				{
+					if (!this.Get<IYafSession>().MultiQuoteIds.Contains(this.PostData.MessageId))
+					{
+						this.Get<IYafSession>().MultiQuoteIds.Add(this.PostData.MessageId);
+					}
+				}
+				else
+				{
+					this.Get<IYafSession>().MultiQuoteIds = new ArrayList { this.PostData.MessageId };
+				}
+
+				this.MultiQuote.CssClass += " Checked";
+			}
+			else
+			{
+				if (this.Get<IYafSession>().MultiQuoteIds != null)
+				{
+					if (this.Get<IYafSession>().MultiQuoteIds.Contains(this.PostData.MessageId))
+					{
+						this.Get<IYafSession>().MultiQuoteIds.Remove(this.PostData.MessageId);
+					}
+				}
+
+				this.MultiQuote.CssClass = "MultiQuoteButton";
+			}
 		}
 
 		/// <summary>
@@ -463,94 +529,6 @@ namespace YAF.Controls
 						this.Server.UrlEncode(this.Get<HttpRequestBase>().Url.ToString()), 
 						this.Server.UrlEncode("RT {1}: {0} {2}".FormatWith(twitterMsg.Truncate(100), twitterName, topicUrl))));
 			}
-		}
-
-		/// <summary>
-		/// Gets Voting Cookie Name.
-		/// </summary>
-		/// <param name="userId">
-		/// The user Id. 
-		/// </param>
-		/// <returns>
-		/// The voting cookie name. 
-		/// </returns>
-		[NotNull]
-		protected string VotingCookieName(int userId)
-		{
-			return "YAF.NET_Reputation#{0}".FormatWith(userId);
-		}
-
-		/// <summary>
-		/// Add Reputation Controls to the User PopMenu
-		/// </summary>
-		private void AddReputationControls()
-		{
-			if (this.PageContext.PageUserID != this.DataRow["UserID"].ToType<int>()
-			    && this.Get<YafBoardSettings>().EnableUserReputation && !this.IsGuest && !this.PageContext.IsGuest)
-			{
-				bool allowReputationVoting = true;
-
-				if (this.Get<HttpRequestBase>().Cookies[this.VotingCookieName(this.PageContext.PageUserID)] != null)
-				{
-					var reputatationCookie = this.Get<HttpRequestBase>().Cookies[this.VotingCookieName(this.PageContext.PageUserID)];
-
-					string[] userArray = reputatationCookie.Value.Split(',');
-
-					if (userArray.Any(userId => userId.ToType<int>().Equals(this.DataRow["UserID"].ToType<int>())))
-					{
-						allowReputationVoting = false;
-					}
-				}
-
-				if (allowReputationVoting)
-				{
-					// Check if the User matches minimal requirements for voting up
-					if (this.PageContext.Reputation >= this.Get<YafBoardSettings>().ReputationMinUpVoting)
-					{
-						this.AddReputation.Visible = true;
-					}
-
-					// Check if the User matches minimal requirements for voting down
-					if (this.PageContext.Reputation >= this.Get<YafBoardSettings>().ReputationMinDownVoting)
-					{
-						// Check if the Value is 0 or Bellow
-						if (!this.Get<YafBoardSettings>().ReputationAllowNegative && this.DataRow["Points"].ToType<int>() > 0
-						    || this.Get<YafBoardSettings>().ReputationAllowNegative)
-						{
-							this.RemoveReputation.Visible = true;
-						}
-					}
-				}
-			}
-			else
-			{
-				this.AddReputation.Visible = false;
-				this.RemoveReputation.Visible = false;
-			}
-		}
-
-		/// <summary>
-		/// Saves the Users Reputation Values to allow a User only once a day to Vote per user.
-		/// </summary>
-		private void AddUserVotingCookie()
-		{
-			string cookieCurrent = string.Empty;
-
-			if (this.Get<HttpRequestBase>().Cookies[this.VotingCookieName(this.PageContext.PageUserID)] != null)
-			{
-				cookieCurrent =
-					"{0},".FormatWith(this.Get<HttpRequestBase>().Cookies[this.VotingCookieName(this.PageContext.PageUserID)].Value);
-
-				this.Get<HttpRequestBase>().Cookies.Remove(this.VotingCookieName(this.PageContext.PageUserID));
-			}
-
-			var c = new HttpCookie(
-				this.VotingCookieName(this.PageContext.PageUserID), "{0}{1}".FormatWith(cookieCurrent, this.PostData.UserId))
-				{
-       Expires = DateTime.UtcNow.AddDays(1) 
-    };
-
-			this.Get<HttpResponseBase>().Cookies.Add(c);
 		}
 
 		/// <summary>
@@ -677,6 +655,55 @@ namespace YAF.Controls
 		}
 
 		/// <summary>
+		/// Add Reputation Controls to the User PopMenu
+		/// </summary>
+		private void AddReputationControls()
+		{
+			if (this.PageContext.PageUserID != this.DataRow["UserID"].ToType<int>()
+			    && this.Get<YafBoardSettings>().EnableUserReputation && !this.IsGuest && !this.PageContext.IsGuest)
+			{
+				bool allowReputationVoting = true;
+
+				if (this.Get<HttpRequestBase>().Cookies[this.VotingCookieName(this.PageContext.PageUserID)] != null)
+				{
+					var reputatationCookie = this.Get<HttpRequestBase>().Cookies[this.VotingCookieName(this.PageContext.PageUserID)];
+
+					string[] userArray = reputatationCookie.Value.Split(',');
+
+					if (userArray.Any(userId => userId.ToType<int>().Equals(this.DataRow["UserID"].ToType<int>())))
+					{
+						allowReputationVoting = false;
+					}
+				}
+
+				if (allowReputationVoting)
+				{
+					// Check if the User matches minimal requirements for voting up
+					if (this.PageContext.Reputation >= this.Get<YafBoardSettings>().ReputationMinUpVoting)
+					{
+						this.AddReputation.Visible = true;
+					}
+
+					// Check if the User matches minimal requirements for voting down
+					if (this.PageContext.Reputation >= this.Get<YafBoardSettings>().ReputationMinDownVoting)
+					{
+						// Check if the Value is 0 or Bellow
+						if (!this.Get<YafBoardSettings>().ReputationAllowNegative && this.DataRow["Points"].ToType<int>() > 0
+						    || this.Get<YafBoardSettings>().ReputationAllowNegative)
+						{
+							this.RemoveReputation.Visible = true;
+						}
+					}
+				}
+			}
+			else
+			{
+				this.AddReputation.Visible = false;
+				this.RemoveReputation.Visible = false;
+			}
+		}
+
+		/// <summary>
 		/// Do thanks row formatting.
 		/// </summary>
 		private void FormatThanksRow()
@@ -794,54 +821,27 @@ namespace YAF.Controls
 		}
 
 		/// <summary>
+		/// Saves the Users Reputation Values to allow a User only once a day to Vote per user.
 		/// </summary>
-		private void SetupPopupMenu()
+		private void AddUserVotingCookie()
 		{
-			this.PopMenu1.ItemClick += this.PopMenu1_ItemClick;
-			this.PopMenu1.AddPostBackItem("userprofile", this.GetText("POSTS", "USERPROFILE"));
+			string cookieCurrent = string.Empty;
 
-			this.PopMenu1.AddPostBackItem("lastposts", this.GetText("PROFILE", "SEARCHUSER"));
-
-			if (this.Get<YafBoardSettings>().EnableThanksMod)
+			if (this.Get<HttpRequestBase>().Cookies[this.VotingCookieName(this.PageContext.PageUserID)] != null)
 			{
-				this.PopMenu1.AddPostBackItem("viewthanks", this.GetText("VIEWTHANKS", "TITLE"));
+				cookieCurrent =
+					"{0},".FormatWith(this.Get<HttpRequestBase>().Cookies[this.VotingCookieName(this.PageContext.PageUserID)].Value);
+
+				this.Get<HttpRequestBase>().Cookies.Remove(this.VotingCookieName(this.PageContext.PageUserID));
 			}
 
-			if (this.PageContext.IsAdmin)
-			{
-				this.PopMenu1.AddPostBackItem("edituser", this.GetText("POSTS", "EDITUSER"));
-			}
+			var c = new HttpCookie(
+				this.VotingCookieName(this.PageContext.PageUserID), "{0}{1}".FormatWith(cookieCurrent, this.PostData.UserId))
+				{
+       Expires = DateTime.UtcNow.AddDays(1) 
+    };
 
-			if (!this.PageContext.IsGuest)
-			{
-				if (this.Get<IUserIgnored>().IsIgnored(this.PostData.UserId))
-				{
-					this.PopMenu1.AddPostBackItem("toggleuserposts_show", this.GetText("POSTS", "TOGGLEUSERPOSTS_SHOW"));
-				}
-				else
-				{
-					this.PopMenu1.AddPostBackItem("toggleuserposts_hide", this.GetText("POSTS", "TOGGLEUSERPOSTS_HIDE"));
-				}
-			}
-
-			if (this.Get<YafBoardSettings>().EnableBuddyList && this.PageContext.PageUserID != (int)this.DataRow["UserID"])
-			{
-				// Should we add the "Add Buddy" item?
-				if (!this.Get<IBuddy>().IsBuddy((int)this.DataRow["UserID"], false) && !this.PageContext.IsGuest)
-				{
-					this.PopMenu1.AddPostBackItem("addbuddy", this.GetText("BUDDY", "ADDBUDDY"));
-				}
-				else if (this.Get<IBuddy>().IsBuddy((int)this.DataRow["UserID"], true) && !this.PageContext.IsGuest)
-				{
-					// Are the users approved buddies? Add the "Remove buddy" item.
-					this.PopMenu1.AddClientScriptItemWithPostback(
-						this.GetText("BUDDY", "REMOVEBUDDY"), 
-						"removebuddy", 
-						"if (confirm('{0}')) {1}".FormatWith(this.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE"), "{postbackcode}"));
-				}
-			}
-
-			this.PopMenu1.Attach(this.UserProfileLink);
+			this.Get<HttpResponseBase>().Cookies.Add(c);
 		}
 
 		#endregion

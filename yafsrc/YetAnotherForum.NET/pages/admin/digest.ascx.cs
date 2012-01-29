@@ -106,7 +106,7 @@ namespace YAF.Pages.Admin
                                             ? this.GetText("ADMIN_DIGEST", "DIGEST_NEVER")
                                             : this.PageContext.BoardSettings.LastDigestSend;
 
-        this.DigestEnabled.Text = this.PageContext.BoardSettings.AllowDigestEmail ? "True" : "False";
+        this.DigestEnabled.Text = this.PageContext.BoardSettings.AllowDigestEmail ? this.GetText("COMMON", "YES") : this.GetText("COMMON", "NO");
 
         this.TestSend.Text = this.GetText("ADMIN_DIGEST", "SEND_TEST");
 

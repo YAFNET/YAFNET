@@ -5645,6 +5645,8 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("IsModeratorChanged", isModeratorChanged);
                 cmd.Parameters.AddWithValue("OverrideApproval", overrideApproval);
                 cmd.Parameters.AddWithValue("OriginalMessage", originalMessage);
+                cmd.Parameters.AddWithValue("CurrentUtcTimestamp", DateTime.UtcNow);
+                
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
             }
         }
@@ -7758,19 +7760,28 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
-        /// The topic_active.
+        /// Returns Topics Unread by a user
         /// </summary>
-        /// <param name="boardID">
+        /// <param name="boardId">
         /// The board id.
+        /// </param>
+        /// <param name="categoryId">
+        /// The category id.
         /// </param>
         /// <param name="pageUserId">
         /// The page user id.
         /// </param>
-        /// <param name="since">
-        /// The since.
+        /// <param name="sinceDate">
+        /// The since Date.
         /// </param>
-        /// <param name="categoryID">
-        /// The category id.
+        /// <param name="toDate">
+        /// The to Date.
+        /// </param> 
+        /// <param name="pageIndex">
+        /// The page Index.
+        /// </param>
+        /// <param name="pageSize">
+        /// The page Size.
         /// </param>
         /// <param name="useStyledNicks">
         /// Set to true to get color nicks for last user and topic starter.
@@ -7779,17 +7790,20 @@ namespace YAF.Classes.Data
         /// Indicates if the Table should Countain the last Access Date
         /// </param>
         /// <returns>
-        /// Returns the List with the Active Topics
+        /// Returns the List with the Topics Unread be a PageUserId
         /// </returns>
-        public static DataTable topic_active([NotNull] object boardID, [NotNull] object pageUserId, [NotNull] object since, [NotNull] object categoryID, [NotNull] object useStyledNicks, [CanBeNull]bool findLastRead)
+        public static DataTable topic_active([NotNull] object boardId, [CanBeNull] object categoryId, [NotNull] object pageUserId, [NotNull] object sinceDate, [NotNull] object toDate, [NotNull] object pageIndex, [NotNull] object pageSize, [NotNull] object useStyledNicks, [CanBeNull]bool findLastRead)
         {
             using (var cmd = MsSqlDbAccess.GetCommand("topic_active"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("BoardID", boardID);
+                cmd.Parameters.AddWithValue("BoardID", boardId);
+                cmd.Parameters.AddWithValue("CategoryID", categoryId);
                 cmd.Parameters.AddWithValue("PageUserID", pageUserId);
-                cmd.Parameters.AddWithValue("Since", since);
-                cmd.Parameters.AddWithValue("CategoryID", categoryID);
+                cmd.Parameters.AddWithValue("SinceDate", sinceDate);
+                cmd.Parameters.AddWithValue("ToDate", toDate);
+                cmd.Parameters.AddWithValue("PageIndex", pageIndex);
+                cmd.Parameters.AddWithValue("PageSize", pageSize);
                 cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
                 cmd.Parameters.AddWithValue("FindLastRead", findLastRead);
 
@@ -7803,14 +7817,23 @@ namespace YAF.Classes.Data
         /// <param name="boardID">
         /// The board id.
         /// </param>
+        /// <param name="categoryId">
+        /// The category id.
+        /// </param>
         /// <param name="pageUserId">
         /// The page user id.
         /// </param>
-        /// <param name="since">
-        /// The since.
+        /// <param name="sinceDate">
+        /// The since Date.
         /// </param>
-        /// <param name="categoryID">
-        /// The category id.
+        /// <param name="toDate">
+        /// The to Date.
+        /// </param> 
+        /// <param name="pageIndex">
+        /// The page Index.
+        /// </param>
+        /// <param name="pageSize">
+        /// The page Size.
         /// </param>
         /// <param name="useStyledNicks">
         /// Set to true to get color nicks for last user and topic starter.
@@ -7819,38 +7842,100 @@ namespace YAF.Classes.Data
         /// Indicates if the Table should Countain the last Access Date
         /// </param>
         /// <returns>
-        /// Returns the List with the Active Topics
+        /// Returns the List with the Topics Unanswered
         /// </returns>
-        public static DataTable topic_unanswered([NotNull] object boardID, [NotNull] object pageUserId, [NotNull] object since, [NotNull] object categoryID, [NotNull] object useStyledNicks, [CanBeNull]bool findLastRead)
+        public static DataTable topic_unanswered([NotNull] object boardId, [CanBeNull] object categoryId, [NotNull] object pageUserId, [NotNull] object sinceDate, [NotNull] object toDate, [NotNull] object pageIndex, [NotNull] object pageSize, [NotNull] object useStyledNicks, [CanBeNull]bool findLastRead)
         {
             using (var cmd = MsSqlDbAccess.GetCommand("topic_unanswered"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("BoardID", boardID);
+                cmd.Parameters.AddWithValue("BoardID", boardId);
+                cmd.Parameters.AddWithValue("CategoryID", categoryId);
                 cmd.Parameters.AddWithValue("PageUserID", pageUserId);
-                cmd.Parameters.AddWithValue("Since", since);
-                cmd.Parameters.AddWithValue("CategoryID", categoryID);
+                cmd.Parameters.AddWithValue("SinceDate", sinceDate);
+                cmd.Parameters.AddWithValue("ToDate", toDate);
+                cmd.Parameters.AddWithValue("PageIndex", pageIndex);
+                cmd.Parameters.AddWithValue("PageSize", pageSize);
                 cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
                 cmd.Parameters.AddWithValue("FindLastRead", findLastRead);
 
                 return MsSqlDbAccess.Current.GetData(cmd);
             }
         }
-
         /// <summary>
-        /// Gets all topics where the pageUserid has posted
+        /// Returns Topics Unread by a user
         /// </summary>
-        /// <param name="boardID">
+        /// <param name="boardId">
         /// The board id.
+        /// </param>
+        /// <param name="categoryId">
+        /// The category id.
         /// </param>
         /// <param name="pageUserId">
         /// The page user id.
         /// </param>
-        /// <param name="since">
-        /// The since.
+        /// <param name="sinceDate">
+        /// The since Date.
         /// </param>
-        /// <param name="categoryID">
+        /// <param name="toDate">
+        /// The to Date.
+        /// </param> 
+        /// <param name="pageIndex">
+        /// The page Index.
+        /// </param>
+        /// <param name="pageSize">
+        /// The page Size.
+        /// </param>
+        /// <param name="useStyledNicks">
+        /// Set to true to get color nicks for last user and topic starter.
+        /// </param>
+        /// <param name="findLastRead">
+        /// Indicates if the Table should Countain the last Access Date
+        /// </param>
+        /// <returns>
+        /// Returns the List with the Topics Unread be a PageUserId
+        /// </returns>
+        public static DataTable topic_unread([NotNull] object boardId, [CanBeNull] object categoryId, [NotNull] object pageUserId, [NotNull] object sinceDate, [NotNull] object toDate, [NotNull] object pageIndex, [NotNull] object pageSize, [NotNull] object useStyledNicks, [CanBeNull]bool findLastRead)
+        {
+            using (var cmd = MsSqlDbAccess.GetCommand("topic_unread"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("BoardID", boardId);
+                cmd.Parameters.AddWithValue("CategoryID", categoryId);
+                cmd.Parameters.AddWithValue("PageUserID", pageUserId);
+                cmd.Parameters.AddWithValue("SinceDate", sinceDate);
+                cmd.Parameters.AddWithValue("ToDate", toDate);
+                cmd.Parameters.AddWithValue("PageIndex", pageIndex);
+                cmd.Parameters.AddWithValue("PageSize", pageSize);
+                cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
+                cmd.Parameters.AddWithValue("FindLastRead", findLastRead);
+
+                return MsSqlDbAccess.Current.GetData(cmd);
+            }
+        }
+        /// <summary>
+        /// Gets all topics where the pageUserid has posted
+        /// </summary>
+        /// <param name="boardId">
+        /// The board id.
+        /// </param>
+        /// <param name="categoryId">
         /// The category id.
+        /// </param>
+        /// <param name="pageUserId">
+        /// The page user id.
+        /// </param>
+        /// <param name="sinceDate">
+        /// The since Date.
+        /// </param>
+        /// <param name="toDate">
+        /// The to Date.
+        /// </param> 
+        /// <param name="pageIndex">
+        /// The page Index.
+        /// </param>
+        /// <param name="pageSize">
+        /// The page Size.
         /// </param>
         /// <param name="useStyledNicks">
         /// Set to true to get color nicks for last user and topic starter.
@@ -7861,15 +7946,18 @@ namespace YAF.Classes.Data
         /// <returns>
         /// Returns the List with the User Topics
         /// </returns>
-        public static DataTable Topics_ByUser([NotNull] object boardID, [NotNull] object pageUserId, [NotNull] object since, [NotNull] object categoryID, [NotNull] object useStyledNicks, [CanBeNull]bool findLastRead)
+        public static DataTable Topics_ByUser([NotNull] object boardId, [NotNull] object categoryId, [NotNull] object pageUserId, [NotNull] object sinceDate, [NotNull] object toDate, [NotNull] object pageIndex, [NotNull] object pageSize, [NotNull] object useStyledNicks, [CanBeNull]bool findLastRead)
         {
             using (var cmd = MsSqlDbAccess.GetCommand("topics_byuser"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("BoardID", boardID);
+                cmd.Parameters.AddWithValue("BoardID", boardId);
+                cmd.Parameters.AddWithValue("CategoryID", categoryId);
                 cmd.Parameters.AddWithValue("PageUserID", pageUserId);
-                cmd.Parameters.AddWithValue("Since", since);
-                cmd.Parameters.AddWithValue("CategoryID", categoryID);
+                cmd.Parameters.AddWithValue("SinceDate", sinceDate);
+                cmd.Parameters.AddWithValue("ToDate", toDate);
+                cmd.Parameters.AddWithValue("PageIndex", pageIndex);
+                cmd.Parameters.AddWithValue("PageSize", pageSize);
                 cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
                 cmd.Parameters.AddWithValue("FindLastRead", findLastRead);
 
@@ -8010,16 +8098,21 @@ namespace YAF.Classes.Data
         /// <returns>
         /// a Data Table containing the current page user's favorite topics with details.
         /// </returns>
-        public static DataTable topic_favorite_details([NotNull] object boardID, [NotNull] object pageUserId, [NotNull] object since, [NotNull] object categoryID, [NotNull] object useStyledNicks)
+        public static DataTable topic_favorite_details([NotNull] object boardId, [CanBeNull] object categoryId, [NotNull] object pageUserId, [NotNull] object sinceDate, [NotNull] object toDate, [NotNull] object pageIndex, [NotNull] object pageSize, [NotNull] object useStyledNicks, [CanBeNull]bool findLastRead)
         {
             using (var cmd = MsSqlDbAccess.GetCommand("topic_favorite_details"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("BoardID", boardID);
+                cmd.Parameters.AddWithValue("BoardID", boardId);
+                cmd.Parameters.AddWithValue("CategoryID", categoryId);
                 cmd.Parameters.AddWithValue("PageUserID", pageUserId);
-                cmd.Parameters.AddWithValue("Since", since);
-                cmd.Parameters.AddWithValue("CategoryID", categoryID);
+                cmd.Parameters.AddWithValue("SinceDate", sinceDate);
+                cmd.Parameters.AddWithValue("ToDate", toDate);
+                cmd.Parameters.AddWithValue("PageIndex", pageIndex);
+                cmd.Parameters.AddWithValue("PageSize", pageSize);
                 cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
+                cmd.Parameters.AddWithValue("FindLastRead", findLastRead);
+
                 return MsSqlDbAccess.Current.GetData(cmd);
             }
         }

@@ -196,11 +196,15 @@ namespace YAF.Controls
 			switch (this.CurrentMode)
 			{
 				case TopicListMode.Active:
-					topicList = LegacyDb.topic_active(
-							this.PageContext.PageBoardID,
+                        topicList = LegacyDb.topic_active(this.PageContext.PageBoardID,
+                        categoryIDObject,
 							this.PageContext.PageUserID,
 							this.sinceDate,
-							categoryIDObject,
+                        DateTime.UtcNow,
+                        // page index in db which is returned back  is +1 based!
+                        nCurrentPageIndex,
+                        // set the page size here
+                        basePageSize,
 							this.Get<YafBoardSettings>().UseStyledNicks,
 							this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
 					break;
@@ -208,32 +212,58 @@ namespace YAF.Controls
 					topicList =
 							LegacyDb.topic_unanswered(
 									this.PageContext.PageBoardID,
+                        categoryIDObject,
 									this.PageContext.PageUserID,
 									this.sinceDate,
-									categoryIDObject,
+                        DateTime.UtcNow,
+                        // page index in db which is returned back  is +1 based!
+                        nCurrentPageIndex,
+                        // set the page size here
+                        basePageSize,
 									this.Get<YafBoardSettings>().UseStyledNicks,
 									this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
 					break;
 				case TopicListMode.Unread:
-					topicList = LegacyDb.topic_active(
+                    topicList = LegacyDb.topic_unread(
 							this.PageContext.PageBoardID,
+                        categoryIDObject,
 							this.PageContext.PageUserID,
 							this.sinceDate,
-							categoryIDObject,
+                        DateTime.UtcNow,
+                        // page index in db which is returned back  is +1 based!
+                        nCurrentPageIndex,
+                        // set the page size here
+                        basePageSize,
 							this.Get<YafBoardSettings>().UseStyledNicks,
 							this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
 					break;
 				case TopicListMode.User:
 					topicList = LegacyDb.Topics_ByUser(
 							this.PageContext.PageBoardID,
+                        categoryIDObject,
 							this.PageContext.PageUserID,
 							this.sinceDate,
-							categoryIDObject,
+                        DateTime.UtcNow,
+                        // page index in db is 1 based!
+                        nCurrentPageIndex,
+                        // set the page size here
+                        basePageSize,
 							this.Get<YafBoardSettings>().UseStyledNicks,
 							this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
 					break;
 				case TopicListMode.Favorite:
-					topicList = this.Get<IFavoriteTopic>().FavoriteTopicDetails(this.sinceDate);
+                    topicList = LegacyDb.topic_favorite_details( 
+                        this.PageContext.PageBoardID,
+                        (YafContext.Current.Settings.CategoryID == 0) ? null : (object)YafContext.Current.Settings.CategoryID,
+                        this.PageContext.PageUserID,
+                        this.sinceDate,
+                        DateTime.UtcNow,
+                        // page index in db is 1 based!
+                        nCurrentPageIndex,
+                        // set the page size here
+                        basePageSize,
+                        this.Get<YafBoardSettings>().UseStyledNicks,
+                        this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
 					break;
 			}
 
@@ -244,24 +274,29 @@ namespace YAF.Controls
 
 			this.topics = topicList;
 
+            DataTable topicsNew = topicList.Copy();
+            foreach (DataRow thisTableRow in topicsNew.Rows)
+            {
+                if (thisTableRow["LastPosted"] != DBNull.Value && thisTableRow["LastPosted"].ToType<DateTime>() <= this.sinceDate)
+                {
+                    thisTableRow.Delete();
+                }
+            }
 			// styled nicks
+            topicsNew.AcceptChanges();
 			if (this.Get<YafBoardSettings>().UseStyledNicks)
 			{
-				this.Get<IStyleTransform>().DecodeStyleByTable(ref topicList, true, "LastUserStyle", "StarterStyle");
+                this.Get<IStyleTransform>().DecodeStyleByTable(ref topicsNew, true, "LastUserStyle", "StarterStyle");
 			}
 
 			// let's page the results
-			DataView dv = topicList.DefaultView;
-			pds.DataSource = dv;
-			this.PagerTop.Count = dv.Count;
+            if (topicList.Rows.Count > 0)
+            {
+                this.PagerTop.Count = topicsNew.AsEnumerable().First().Field<int>("TotalRows");
+            }
 
-			// TODO : page size definable?
-			this.PagerTop.PageSize = 15;
-			pds.PageSize = this.PagerTop.PageSize;
-			pds.CurrentPageIndex = this.PagerTop.CurrentPageIndex;
+            this.TopicList.DataSource = topicsNew;
 
-			// set datasource of repeater
-			this.TopicList.DataSource = pds;
 
 			// Get new Feeds links
 			this.BindFeeds();
@@ -491,15 +526,12 @@ namespace YAF.Controls
 				switch (this.CurrentMode)
 				{
 					case TopicListMode.User:
-						this.AtomFeed.Visible = false;
 						this.RssFeed.Visible = false;
 						break;
 					case TopicListMode.Unread:
-						this.AtomFeed.Visible = false;
 						this.RssFeed.Visible = false;
 						break;
 					case TopicListMode.Unanswered:
-						this.AtomFeed.Visible = false;
 						this.RssFeed.Visible = false;
 						break;
 					case TopicListMode.Active:
@@ -529,6 +561,15 @@ namespace YAF.Controls
 			{
 				switch (this.CurrentMode)
 				{
+                    case TopicListMode.User:
+                        this.AtomFeed.Visible = false;
+                        break;
+                    case TopicListMode.Unread:
+                        this.AtomFeed.Visible = false;
+                        break;
+                    case TopicListMode.Unanswered:
+                        this.AtomFeed.Visible = false;
+                        break;
 					case TopicListMode.Active:
 						this.AtomFeed.TitleLocalizedTag = "ATOMICONTOOLTIPACTIVE";
 						this.AtomFeed.FeedType = YafRssFeeds.Active;
