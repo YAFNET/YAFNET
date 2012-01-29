@@ -2908,7 +2908,7 @@ SELECT
 		(SELECT     count([{databaseOwner}].[{objectQualifier}Message].MessageID)
 		FROM         [{databaseOwner}].[{objectQualifier}Message] INNER JOIN
 							  [{databaseOwner}].[{objectQualifier}Topic] ON [{databaseOwner}].[{objectQualifier}Message].TopicID = [{databaseOwner}].[{objectQualifier}Topic].TopicID
-		WHERE (([{databaseOwner}].[{objectQualifier}Message].Flags & 16)=0) and ([{databaseOwner}].[{objectQualifier}Message].IsDeleted=0) and ([{databaseOwner}].[{objectQualifier}Topic].IsDeleted  = 0) AND ([{databaseOwner}].[{objectQualifier}Topic].ForumID=b.ForumID)),
+		WHERE ([{databaseOwner}].[{objectQualifier}Message].IsApproved=0) and ([{databaseOwner}].[{objectQualifier}Message].IsDeleted=0) and ([{databaseOwner}].[{objectQualifier}Topic].IsDeleted  = 0) AND ([{databaseOwner}].[{objectQualifier}Topic].ForumID=b.ForumID)),
 
 		ReportedCount	= 
 		(SELECT     count([{databaseOwner}].[{objectQualifier}Message].MessageID)
@@ -3870,7 +3870,7 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}message_unapproved](@ForumI
 		inner join [{databaseOwner}].[{objectQualifier}User] c on c.UserID = b.UserID
 	where
 		a.ForumID = @ForumID and
-		(b.Flags & 16)=0 and
+		b.IsApproved=0 and
 		a.IsDeleted =0 and
 		b.IsDeleted=0
 	order by
@@ -4600,8 +4600,10 @@ begin
 				TopicID = @TopicID,
 				Browser = @Browser,
 				[Platform] = @Platform,
-				ForumPage = @ForumPage		
+				ForumPage = @ForumPage,
+				Flags = @ActiveFlags		
 			where SessionID = @SessionID AND BoardID=@BoardID			
+				-- cache will be updated every time set @ActiveUpdate = 1		
 			end
 			else
 			begin
@@ -4615,10 +4617,11 @@ begin
 				TopicID = @TopicID,
 				Browser = @Browser,
 				[Platform] = @Platform,
-				ForumPage = @ForumPage	
+				ForumPage = @ForumPage,
+				Flags = @ActiveFlags		
 			where Browser = @Browser AND IP = @IP AND BoardID=@BoardID
 			-- trace crawler: the cache is reset every time crawler moves to next page ? Disabled as cache reset will overload server 
-			-- set @ActiveUpdate = 1			
+				-- set @ActiveUpdate = 1				 
 			end
 		end
 		else 
@@ -8417,11 +8420,8 @@ begin
 		inner join [{databaseOwner}].[{objectQualifier}User] b on b.UserID = a.UserID
 		inner join [{databaseOwner}].[{objectQualifier}Topic] c on c.TopicID = a.TopicID
 	where
-		(a.Flags & 16)=16 and
+		a.IsApproved = 1 and
 		a.ReplyTo = @MessageID
-
-
-
 end
 GO
 
