@@ -4146,7 +4146,6 @@ Spoiler Content
     <Resource tag="ATTACHMENTS">فایلهای الصاق شده :</Resource>
     <Resource tag="BLOG">بلاگ</Resource>
     <Resource tag="BLOG_TITLE">Visit {0}'s Blog</Resource>
-    <Resource tag="BUZZ_TOPIC">Buzz this Topic</Resource>
     <Resource tag="CANT_DOWNLOAD">شما مجوز دیدن/دریافت ضمائم را ندارید.</Resource>
     <Resource tag="CANT_DOWNLOAD_REGISTER">شما[b] نمی توانید [/b]ضمائم را ببینید/دریافت کنید. ثبت نام کنید.</Resource>
     <Resource tag="CHOICE">انتخاب</Resource>
@@ -4170,6 +4169,7 @@ Spoiler Content
     <Resource tag="FACEBOOK_TITLE">Visit {0}'s Facebook Profile</Resource>
     <Resource tag="FACEBOOK_TOPIC">Like this Topic</Resource>
     <Resource tag="FORUM_JUMP">جهش به انجمن</Resource>
+    <Resource tag="GOOGLEPLUS_TOPIC">Share Topic on Google+</Resource>
     <Resource tag="GROUPS">گروه ها</Resource>
     <Resource tag="HOME">وب سایت</Resource>
     <Resource tag="HOME_TITLE">Visit {0}'s Homepage</Resource>
@@ -4188,6 +4188,8 @@ Spoiler Content
     <Resource tag="INFO_WATCH_TOPIC">از هم اکنون درباره پستهای جدید این انجمن به شما اطلاع داده می شود.</Resource>
     <Resource tag="IP">آی پی</Resource>
     <Resource tag="JOINED">تاریخ عضویت</Resource>
+    <Resource tag="LINKBACK_TOPIC">LinkBack Topic URL</Resource>
+    <Resource tag="LINKBACK_TOPIC_PROMT">Use the URL below if you want to LinkBack the topic URL on another website.</Resource>
     <Resource tag="LOCATION">مکان</Resource>
     <Resource tag="MESSAGEDELETED_MOD">پیغام بوسیله مدیر حذف شد.</Resource>
     <Resource tag="MESSAGEDELETED_USER">پیغام بوسیله کاربر حذف شد.</Resource>
@@ -4222,7 +4224,7 @@ Spoiler Content
     <Resource tag="RETWEET_TOPIC">Retweet this Topic</Resource>
     <Resource tag="RSSTOPIC">اشتراک عنوان</Resource>
     <Resource tag="SHARE">Share</Resource>
-    <Resource tag="SHARE_TOOLTIP">Share this Topic via Email, Twitter, Buzz, Facebook, Digg, Reddit or Tumblr.</Resource>
+    <Resource tag="SHARE_TOOLTIP">Share this Topic via Email, Twitter, Google+, Facebook, Digg, Reddit or Tumblr.</Resource>
     <Resource tag="SKYPE">اسکایپ</Resource>
     <Resource tag="SKYPE_TITLE">Contact {0} via Skype</Resource>
     <Resource tag="STATISTICS">آمار</Resource>

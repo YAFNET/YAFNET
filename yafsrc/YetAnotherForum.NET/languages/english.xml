@@ -2748,9 +2748,11 @@ Spoiler Content
       <Resource tag="WATCHTOPIC">Watch this topic</Resource>
       <Resource tag="YIM">YAHOO</Resource>
 	  <Resource tag="SHARE">Share</Resource>
-	  <Resource tag="SHARE_TOOLTIP">Share this Topic via Email, Twitter, Buzz, Facebook, Digg, Reddit or Tumblr.</Resource>
+	  <Resource tag="SHARE_TOOLTIP">Share this Topic via Email, Twitter, Google+, Facebook, Digg, Reddit or Tumblr.</Resource>
 	  <Resource tag="RETWEET_TOPIC">Retweet this Topic</Resource>
-	  <Resource tag="BUZZ_TOPIC">Buzz this Topic</Resource>
+    <Resource tag="LINKBACK_TOPIC_PROMT">Use the URL below if you want to LinkBack the topic URL on another website.</Resource>
+    <Resource tag="LINKBACK_TOPIC">LinkBack Topic URL</Resource>
+	  <Resource tag="GOOGLEPLUS_TOPIC">Share Topic on Google+</Resource>
 	  <Resource tag="FACEBOOK_TOPIC">Like this Topic</Resource>
 	  <Resource tag="FACEBOOK_SHARE_TOPIC">Share on Facebook</Resource>
 	  <Resource tag="TUMBLR_TOPIC">Share on Tumblr</Resource>

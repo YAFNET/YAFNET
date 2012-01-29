@@ -35,7 +35,9 @@
     <tr class="postTitle" >
         <td class="header1">
             <div class="leftItem">
+              <asp:HyperLink ID="TopicLink" runat="server" CssClass="HeaderTopicLink">
                 <asp:Label ID="TopicTitle" runat="server" />
+              </asp:HyperLink>
             </div>
             <div class="rightItem"  runat="server" visible="false">
                 <asp:HyperLink ID="ShareLink" runat="server" CssClass="PopMenuLink">

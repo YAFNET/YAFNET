@@ -109,6 +109,12 @@
 	background: -moz-linear-gradient(top,  #666,  #000);
 	
 }
+.yafnet a.HeaderTopicLink {
+	color: #ffffff;
+	font-weight: bold;
+	font-size: 10.5pt;
+	text-decoration:none;
+}
 .yafnet tr.forumRowTitle th {color: #ffffff;}
 .yafnet tr.header1 a {
 	color: #ffffff;

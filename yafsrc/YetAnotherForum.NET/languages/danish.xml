@@ -4163,7 +4163,6 @@ Spoiler Content
     <Resource tag="ATTACHMENTS">Vedhæftede fil(er):</Resource>
     <Resource tag="BLOG">Blog</Resource>
     <Resource tag="BLOG_TITLE">Visit {0}'s Blog</Resource>
-    <Resource tag="BUZZ_TOPIC">Buzz this Topic</Resource>
     <Resource tag="CANT_DOWNLOAD">Du har ikke tilladelse til at se/downloade vedhæftelserne.</Resource>
     <Resource tag="CANT_DOWNLOAD_REGISTER">Du [b]Kan ikke[/b] se/downloade vedhæftelserne. Prøv at registere.</Resource>
     <Resource tag="CHOICE">Vælg</Resource>
@@ -4187,6 +4186,7 @@ Spoiler Content
     <Resource tag="FACEBOOK_TITLE">Visit {0}'s Facebook Profile</Resource>
     <Resource tag="FACEBOOK_TOPIC">Like this Topic</Resource>
     <Resource tag="FORUM_JUMP">Hop til Forum</Resource>
+    <Resource tag="GOOGLEPLUS_TOPIC">Share Topic on Google+</Resource>
     <Resource tag="GROUPS">Gruppe</Resource>
     <Resource tag="HOME">WWW</Resource>
     <Resource tag="HOME_TITLE">Visit {0}'s Homepage</Resource>
@@ -4205,6 +4205,8 @@ Spoiler Content
     <Resource tag="INFO_WATCH_TOPIC">Du får nu en besked når der kommer nye indlæg i dette emne.</Resource>
     <Resource tag="IP">IP</Resource>
     <Resource tag="JOINED">Tilmeldt</Resource>
+    <Resource tag="LINKBACK_TOPIC">LinkBack Topic URL</Resource>
+    <Resource tag="LINKBACK_TOPIC_PROMT">Use the URL below if you want to LinkBack the topic URL on another website.</Resource>
     <Resource tag="LOCATION">Sted</Resource>
     <Resource tag="MESSAGEDELETED_MOD">Beskeden er slettet af en moderator.</Resource>
     <Resource tag="MESSAGEDELETED_USER">beskeden er slettet af en bruger.</Resource>
@@ -4239,7 +4241,7 @@ Spoiler Content
     <Resource tag="RETWEET_TOPIC">Retweet this Topic</Resource>
     <Resource tag="RSSTOPIC">RSS Feed</Resource>
     <Resource tag="SHARE">Share</Resource>
-    <Resource tag="SHARE_TOOLTIP">Share this Topic via Email, Twitter, Buzz, Facebook, Digg, Reddit or Tumblr.</Resource>
+    <Resource tag="SHARE_TOOLTIP">Share this Topic via Email, Twitter, Google+, Facebook, Digg, Reddit or Tumblr.</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
     <Resource tag="SKYPE_TITLE">Contact {0} via Skype</Resource>
     <Resource tag="STATISTICS">Statistik</Resource>

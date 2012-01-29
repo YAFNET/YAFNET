@@ -4111,7 +4111,7 @@
     <Content Include="themes\BlackGrey\heart_small.png" />
     <Content Include="themes\BlackGrey\icon_aim.png" />
     <Content Include="themes\BlackGrey\icon_blog.png" />
-    <Content Include="themes\BlackGrey\icon_buzz.png" />
+    <Content Include="themes\BlackGrey\icon_googleplus.png" />
     <Content Include="themes\BlackGrey\icon_digg.png" />
     <Content Include="themes\BlackGrey\icon_email.png" />
     <Content Include="themes\BlackGrey\icon_facebook.png" />
@@ -4221,7 +4221,7 @@
     <Content Include="themes\BlueGrey\heart_small.png" />
     <Content Include="themes\BlueGrey\icon_aim.png" />
     <Content Include="themes\BlueGrey\icon_blog.png" />
-    <Content Include="themes\BlueGrey\icon_buzz.png" />
+    <Content Include="themes\BlueGrey\icon_googleplus.png" />
     <Content Include="themes\BlueGrey\icon_digg.png" />
     <Content Include="themes\BlueGrey\icon_email.png" />
     <Content Include="themes\BlueGrey\icon_facebook.png" />
@@ -4581,7 +4581,7 @@
     <Content Include="themes\cleanSlate\heart_small.png" />
     <Content Include="themes\cleanSlate\icon_aim.png" />
     <Content Include="themes\cleanSlate\icon_blog.png" />
-    <Content Include="themes\cleanSlate\icon_buzz.png" />
+    <Content Include="themes\cleanSlate\icon_googleplus.png" />
     <Content Include="themes\cleanSlate\icon_digg.png" />
     <Content Include="themes\cleanSlate\icon_email.png" />
     <Content Include="themes\cleanSlate\icon_facebook.png" />
@@ -4687,7 +4687,7 @@
     <Content Include="themes\GreenGrey\heart_small.png" />
     <Content Include="themes\GreenGrey\icon_aim.png" />
     <Content Include="themes\GreenGrey\icon_blog.png" />
-    <Content Include="themes\GreenGrey\icon_buzz.png" />
+    <Content Include="themes\GreenGrey\icon_googleplus.png" />
     <Content Include="themes\GreenGrey\icon_digg.png" />
     <Content Include="themes\GreenGrey\icon_email.png" />
     <Content Include="themes\GreenGrey\icon_facebook.png" />
@@ -4798,7 +4798,7 @@
     <Content Include="themes\GreyGrey\heart_small.png" />
     <Content Include="themes\GreyGrey\icon_aim.png" />
     <Content Include="themes\GreyGrey\icon_blog.png" />
-    <Content Include="themes\GreyGrey\icon_buzz.png" />
+    <Content Include="themes\GreyGrey\icon_googleplus.png" />
     <Content Include="themes\GreyGrey\icon_digg.png" />
     <Content Include="themes\GreyGrey\icon_email.png" />
     <Content Include="themes\GreyGrey\icon_facebook.png" />
@@ -4906,7 +4906,7 @@
     <Content Include="themes\OrangeGrey\heart_small.png" />
     <Content Include="themes\OrangeGrey\icon_aim.png" />
     <Content Include="themes\OrangeGrey\icon_blog.png" />
-    <Content Include="themes\OrangeGrey\icon_buzz.png" />
+    <Content Include="themes\OrangeGrey\icon_googleplus.png" />
     <Content Include="themes\OrangeGrey\icon_digg.png" />
     <Content Include="themes\OrangeGrey\icon_email.png" />
     <Content Include="themes\OrangeGrey\icon_facebook.png" />
@@ -5016,7 +5016,7 @@
     <Content Include="themes\RedGrey\heart_small.png" />
     <Content Include="themes\RedGrey\icon_aim.png" />
     <Content Include="themes\RedGrey\icon_blog.png" />
-    <Content Include="themes\RedGrey\icon_buzz.png" />
+    <Content Include="themes\RedGrey\icon_googleplus.png" />
     <Content Include="themes\RedGrey\icon_digg.png" />
     <Content Include="themes\RedGrey\icon_email.png" />
     <Content Include="themes\RedGrey\icon_facebook.png" />
@@ -5111,7 +5111,7 @@
     <Content Include="themes\soclean\female.gif" />
     <Content Include="themes\soclean\handpointer1.png" />
     <Content Include="themes\soclean\heart_small.png" />
-    <Content Include="themes\soclean\icon_buzz.png" />
+    <Content Include="themes\soclean\icon_googleplus.png" />
     <Content Include="themes\soclean\icon_digg.png" />
     <Content Include="themes\soclean\icon_facebook.png" />
     <Content Include="themes\soclean\icon_facebook2.png" />
@@ -5168,7 +5168,7 @@
     <Content Include="themes\Yafmobile\folder_who.png" />
     <Content Include="themes\Yafmobile\handpointer1.png" />
     <Content Include="themes\Yafmobile\heart_small.png" />
-    <Content Include="themes\Yafmobile\icon_buzz.png" />
+    <Content Include="themes\Yafmobile\icon_googleplus.png" />
     <Content Include="themes\Yafmobile\icon_digg.png" />
     <Content Include="themes\Yafmobile\icon_email.png" />
     <Content Include="themes\Yafmobile\icon_facebook.png" />
@@ -5248,7 +5248,7 @@
     <Content Include="themes\yafpro\female.gif" />
     <Content Include="themes\yafpro\handpointer1.png" />
     <Content Include="themes\yafpro\heart_small.png" />
-    <Content Include="themes\yafpro\icon_buzz.png" />
+    <Content Include="themes\yafpro\icon_googleplus.png" />
     <Content Include="themes\yafpro\icon_digg.png" />
     <Content Include="themes\yafpro\icon_facebook.png" />
     <Content Include="themes\yafpro\icon_facebook2.png" />
@@ -5306,7 +5306,7 @@
     <Content Include="themes\yafvision\female.gif" />
     <Content Include="themes\yafvision\handpointer1.png" />
     <Content Include="themes\yafvision\heart_small.png" />
-    <Content Include="themes\yafvision\icon_buzz.png" />
+    <Content Include="themes\yafvision\icon_googleplus.png" />
     <Content Include="themes\yafvision\icon_digg.png" />
     <Content Include="themes\yafvision\icon_facebook.png" />
     <Content Include="themes\yafvision\icon_facebook2.png" />

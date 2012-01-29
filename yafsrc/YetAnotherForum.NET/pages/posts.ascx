@@ -38,7 +38,9 @@
     <tr class="postTitle">
         <td class="header1">
             <div class="leftItem">
+              <asp:HyperLink ID="TopicLink" runat="server" CssClass="HeaderTopicLink">
                 <asp:Label ID="TopicTitle" runat="server" />
+              </asp:HyperLink>
             </div>
             <div class="rightItem">
                 <div id="fb-root"></div>

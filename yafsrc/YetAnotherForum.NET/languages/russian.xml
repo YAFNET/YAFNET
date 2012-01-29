@@ -828,7 +828,7 @@
     <Resource tag="ALLOW_SENDMAIL">Разрешить отправлять Email:</Resource>
     <Resource tag="ALLOW_SENDMAIL_HELP">Разрешить пользователям отправлять сообщения друг другу по электронной почте.</Resource>
     <Resource tag="ALLOW_SHARE_TOPIC">Включить меню расшаривания:</Resource>
-    <Resource tag="ALLOW_SHARE_TOPIC_HELP">Включить меню при помощи которого пользователь сможет отправить по почтеЮ использовать Твиттерt, Buzz, Like on Facebook, Digg или Reddit для темы.</Resource>
+    <Resource tag="ALLOW_SHARE_TOPIC_HELP">Включить меню при помощи которого пользователь сможет отправить по почтеЮ использовать Твиттерt, Google+, Like on Facebook, Digg или Reddit для темы.</Resource>
     <Resource tag="ALLOW_SIGNATURE">Разрешить подписи:</Resource>
     <Resource tag="ALLOW_SIGNATURE_HELP">Разрешить пользователям добавлять подписи к сообщениям. Вы должны также установить параметры подписи(кол-во символов, разрешённые BBCode...) для каждой роли и/или статуса, чтобы действительно включить эту опцию.</Resource>
     <Resource tag="ALLOW_THANKS">Разрешить «Спасибо»</Resource>
@@ -4163,7 +4163,6 @@ Spoiler Content
     <Resource tag="ATTACHMENTS">Вложение(я):</Resource>
     <Resource tag="BLOG">БЛОГ</Resource>
     <Resource tag="BLOG_TITLE">Посетите блог {0}</Resource>
-    <Resource tag="BUZZ_TOPIC">Расшарить тему в Buzz</Resource>
     <Resource tag="CANT_DOWNLOAD">У Вас нет прав для просмотра или загрузки вложений.</Resource>
     <Resource tag="CANT_DOWNLOAD_REGISTER">У Вас нет прав для просмотра или загрузки вложений. Попробуйте зарегистрироваться.</Resource>
     <Resource tag="CHOICE">Вариант</Resource>
@@ -4187,6 +4186,7 @@ Spoiler Content
     <Resource tag="FACEBOOK_TITLE">Посетите профиль пользователя {0} в Facebook</Resource>
     <Resource tag="FACEBOOK_TOPIC">Смотреть в этой теме</Resource>
     <Resource tag="FORUM_JUMP">Быстрый переход</Resource>
+    <Resource tag="GOOGLEPLUS_TOPIC">Расшарить тему в Google+</Resource>
     <Resource tag="GROUPS">Группы</Resource>
     <Resource tag="HOME">WWW</Resource>
     <Resource tag="HOME_TITLE">Посетите домашнюю страницу {0}</Resource>
@@ -4205,6 +4205,8 @@ Spoiler Content
     <Resource tag="INFO_WATCH_TOPIC">Вы будете получать уведомления в случае появления новых сообщений в этой теме.</Resource>
     <Resource tag="IP">IP</Resource>
     <Resource tag="JOINED">Зарегистрирован</Resource>
+    <Resource tag="LINKBACK_TOPIC">LinkBack Topic URL</Resource>
+    <Resource tag="LINKBACK_TOPIC_PROMT">Use the URL below if you want to LinkBack the topic URL on another website.</Resource>
     <Resource tag="LOCATION">Откуда</Resource>
     <Resource tag="MESSAGEDELETED_MOD">Собщение удалено модератором.</Resource>
     <Resource tag="MESSAGEDELETED_USER">Сообщение удалено пользователем.</Resource>

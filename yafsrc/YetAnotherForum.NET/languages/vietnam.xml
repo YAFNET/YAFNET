@@ -4146,7 +4146,6 @@ Spoiler Content
     <Resource tag="ATTACHMENTS">Tập tin đính kèm(s):</Resource>
     <Resource tag="BLOG">BLOG</Resource>
     <Resource tag="BLOG_TITLE">Visit {0}'s Blog</Resource>
-    <Resource tag="BUZZ_TOPIC">Buzz this Topic</Resource>
     <Resource tag="CANT_DOWNLOAD">You don't have permission to view/download attachments.</Resource>
     <Resource tag="CANT_DOWNLOAD_REGISTER">You [b]cannot[/b] view/download attachments. Try register.</Resource>
     <Resource tag="CHOICE">Chọn</Resource>
@@ -4170,6 +4169,7 @@ Spoiler Content
     <Resource tag="FACEBOOK_TITLE">Visit {0}'s Facebook Profile</Resource>
     <Resource tag="FACEBOOK_TOPIC">Like this Topic</Resource>
     <Resource tag="FORUM_JUMP">Di chuyển</Resource>
+    <Resource tag="GOOGLEPLUS_TOPIC">Share Topic on Google+</Resource>
     <Resource tag="GROUPS">Nhóm</Resource>
     <Resource tag="HOME">WWW</Resource>
     <Resource tag="HOME_TITLE">Visit {0}'s Homepage</Resource>
@@ -4188,6 +4188,8 @@ Spoiler Content
     <Resource tag="INFO_WATCH_TOPIC">Bạn sẽ được thông báo khi có bài viết mới trong chủ đề này.</Resource>
     <Resource tag="IP">IP</Resource>
     <Resource tag="JOINED">Gia nhập</Resource>
+    <Resource tag="LINKBACK_TOPIC">LinkBack Topic URL</Resource>
+    <Resource tag="LINKBACK_TOPIC_PROMT">Use the URL below if you want to LinkBack the topic URL on another website.</Resource>
     <Resource tag="LOCATION">Đến từ</Resource>
     <Resource tag="MESSAGEDELETED_MOD">Bài viết được xoá bởi quản trị viên.</Resource>
     <Resource tag="MESSAGEDELETED_USER">Bài viết được xoá bởi người gửi.</Resource>
@@ -4222,7 +4224,7 @@ Spoiler Content
     <Resource tag="RETWEET_TOPIC">Retweet this Topic</Resource>
     <Resource tag="RSSTOPIC">RSS</Resource>
     <Resource tag="SHARE">Share</Resource>
-    <Resource tag="SHARE_TOOLTIP">Share this Topic via Email, Twitter, Buzz, Facebook, Digg, Reddit or Tumblr.</Resource>
+    <Resource tag="SHARE_TOOLTIP">Share this Topic via Email, Twitter, Google+, Facebook, Digg, Reddit or Tumblr.</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
     <Resource tag="SKYPE_TITLE">Contact {0} via Skype</Resource>
     <Resource tag="STATISTICS">Thống kê</Resource>

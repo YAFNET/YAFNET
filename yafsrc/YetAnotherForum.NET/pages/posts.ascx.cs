@@ -635,6 +635,11 @@ namespace YAF.Pages
                     this.TopicTitle.Text = this.Get<IBadWordReplace>().Replace(topicSubject);
                 }
 
+                this.TopicLink.ToolTip = this.Get<IBadWordReplace>().Replace(
+                    this.HtmlEncode(this._topic["Description"]));
+                this.TopicLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+                    ForumPages.posts, "t={0}", this.PageContext.PageTopicID);
+
                 this.ViewOptions.Visible = this.Get<YafBoardSettings>().AllowThreaded;
                 this.ForumJumpHolder.Visible = this.Get<YafBoardSettings>().ShowForumJump &&
                                                this.PageContext.Settings.LockedForum == 0;
@@ -1362,6 +1367,8 @@ namespace YAF.Pages
         /// </param>
         private void ShareMenu_ItemClick([NotNull] object sender, [NotNull] PopEventArgs e)
         {
+            var topicUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", this.PageContext.PageTopicID);
+
             switch (e.Item.ToLower())
             {
                 case "email":
@@ -1389,9 +1396,7 @@ namespace YAF.Pages
 
                         var tumblrUrl =
                             "http://www.tumblr.com/share/link?url={0}&name={1}{2}".FormatWith(
-                                this.Server.UrlEncode(this.Get<HttpRequestBase>().Url.ToString()),
-                                tumblrMsg,
-                                description);
+                                this.Server.UrlEncode(topicUrl), tumblrMsg, description);
 
                         this.Get<HttpResponseBase>().Redirect(tumblrUrl);
                     }
@@ -1409,11 +1414,9 @@ namespace YAF.Pages
                                 BBCodeHelper.StripBBCode(
                                     HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString((string)this._topic["Topic"]))));
 
-                        var topicUrl = YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.PageContext.PageTopicID);
-
                         var tweetUrl =
                             "http://twitter.com/share?url={0}&text={1}".FormatWith(
-                                this.Server.UrlEncode(this.Get<HttpRequestBase>().Url.ToString()),
+                                this.Server.UrlEncode(topicUrl),
                                 this.Server.UrlEncode(
                                     "RT {1}Thread: {0}".FormatWith(twitterMsg.Truncate(100), twitterName)));
 
@@ -1449,8 +1452,7 @@ namespace YAF.Pages
                     {
                         var diggUrl =
                             "http://digg.com/submit?url={0}&title={1}".FormatWith(
-                                this.Server.UrlEncode(this.Get<HttpRequestBase>().Url.ToString()),
-                                this.Server.UrlEncode((string)this._topic["Topic"]));
+                                this.Server.UrlEncode(topicUrl), this.Server.UrlEncode((string)this._topic["Topic"]));
 
                         this.Get<HttpResponseBase>().Redirect(diggUrl);
                     }
@@ -1460,21 +1462,19 @@ namespace YAF.Pages
                     {
                         var redditUrl =
                             "http://www.reddit.com/submit?url={0}&title={1}".FormatWith(
-                                this.Server.UrlEncode(this.Get<HttpRequestBase>().Url.ToString()),
-                                this.Server.UrlEncode((string)this._topic["Topic"]));
+                                this.Server.UrlEncode(topicUrl), this.Server.UrlEncode((string)this._topic["Topic"]));
 
                         this.Get<HttpResponseBase>().Redirect(redditUrl);
                     }
 
                     break;
-                case "buzz":
+                case "googleplus":
                     {
-                        var buzzUrl =
-                            "http://www.google.com/buzz/post?url={0}&messag={1}".FormatWith(
-                                this.Server.UrlEncode(this.Get<HttpRequestBase>().Url.ToString()),
-                                this.Server.UrlEncode("Thread: {0}".FormatWith((string)this._topic["Topic"])));
+                        var googlePlusUrl =
+                            "https://plusone.google.com/_/+1/confirm?hl=en&url={0}".FormatWith(
+                                this.Server.UrlEncode(topicUrl));
 
-                        this.Get<HttpResponseBase>().Redirect(buzzUrl);
+                        this.Get<HttpResponseBase>().Redirect(googlePlusUrl);
                     }
 
                     break;
@@ -1832,22 +1832,28 @@ namespace YAF.Pages
 
             if (this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ShowShareTopicTo))
             {
+                var topicUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", this.PageContext.PageTopicID);
+
                 if (this.Get<YafBoardSettings>().AllowEmailTopic)
                 {
                     this.ShareMenu.AddPostBackItem(
                         "email", this.GetText("EMAILTOPIC"), this.Get<ITheme>().GetItem("ICONS", "EMAIL"));
                 }
 
+                this.ShareMenu.AddClientScriptItem(
+                    this.GetText("LINKBACK_TOPIC"),
+                    "prompt('{0}','{1}');return false;"
+                        .FormatWith(this.GetText("LINKBACK_TOPIC_PROMT"), topicUrl),
+                    this.Get<ITheme>().GetItem("ICONS", "LINKBACK"));
+
                 this.ShareMenu.AddPostBackItem(
                     "retweet", this.GetText("RETWEET_TOPIC"), this.Get<ITheme>().GetItem("ICONS", "TWITTER"));
                 this.ShareMenu.AddPostBackItem(
-                    "buzz", this.GetText("BUZZ_TOPIC"), this.Get<ITheme>().GetItem("ICONS", "BUZZ"));
-                /* this.ShareMenu.AddPostBackItem(
-                 * "facebook", this.GetText("FACEBOOK_TOPIC"), this.Get<ITheme>().GetItem("ICONS", "FACEBOOK"));*/
+                    "googleplus", this.GetText("GOOGLEPLUS_TOPIC"), this.Get<ITheme>().GetItem("ICONS", "GOOGLEPLUS"));
 
                 var facebookUrl =
                     "http://www.facebook.com/plugins/like.php?href={0}".FormatWith(
-                        this.Server.UrlEncode(this.Get<HttpRequestBase>().Url.ToString()),
+                        this.Server.UrlEncode(topicUrl),
                         this.Server.UrlEncode((string)this._topic["Topic"]));
 
                 this.ShareMenu.AddClientScriptItem(

@@ -2,6 +2,7 @@
     Inherits="YAF.Controls.DisplayPost" EnableViewState="false" %>
 <%@ Register TagPrefix="YAF" TagName="DisplayPostFooter" Src="../../../controls/DisplayPostFooter.ascx" %>
 <%@ Import Namespace="YAF.Core" %>
+<%@ Import Namespace="YAF.Utils" %>
 <tr class="postheader">		
     <%#GetIndentCell()%>
     <td id="NameCell" class="postUser" runat="server">

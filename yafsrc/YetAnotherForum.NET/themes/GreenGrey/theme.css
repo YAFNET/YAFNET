@@ -110,6 +110,14 @@
 	
 }
 .yafnet tr.forumRowTitle th {color: #ffffff;}
+
+.yafnet a.HeaderTopicLink {
+	color: #ffffff!important;
+	font-weight: bold;
+	font-size: 11pt;
+	text-decoration:none;
+	text-shadow: 0 1px 1px rgba(0,0,0,.3);
+}
 .yafnet tr.header1 a {
 	color: #ffffff;
 	text-decoration: none;

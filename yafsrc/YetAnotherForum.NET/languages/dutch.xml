@@ -4095,7 +4095,6 @@ Spoiler Content
     <Resource tag="ATTACHMENTS">Bijlagen:</Resource>
     <Resource tag="BLOG">Blog</Resource>
     <Resource tag="BLOG_TITLE">Visit {0}'s Blog</Resource>
-    <Resource tag="BUZZ_TOPIC">Buzz this Topic</Resource>
     <Resource tag="CANT_DOWNLOAD">Je mag geen attachments bekijken/downloaden.</Resource>
     <Resource tag="CANT_DOWNLOAD_REGISTER">je mag [b]geen[/b] attachments bekijken/downloaden. Registreer jezelf</Resource>
     <Resource tag="CHOICE">Keuze</Resource>
@@ -4119,6 +4118,7 @@ Spoiler Content
     <Resource tag="FACEBOOK_TITLE">Visit {0}'s Facebook Profile</Resource>
     <Resource tag="FACEBOOK_TOPIC">Like this Topic</Resource>
     <Resource tag="FORUM_JUMP">Spring naar forum</Resource>
+    <Resource tag="GOOGLEPLUS_TOPIC">Share Topic on Google+</Resource>
     <Resource tag="GROUPS">Groep</Resource>
     <Resource tag="HOME">WWW</Resource>
     <Resource tag="HOME_TITLE">Visit {0}'s Homepage</Resource>
@@ -4137,6 +4137,8 @@ Spoiler Content
     <Resource tag="INFO_WATCH_TOPIC">Je zult vanaf nu op de hoogte gehouden worden wanneer nieuwe berichten geplaatst worden in dit topic.</Resource>
     <Resource tag="IP">ip</Resource>
     <Resource tag="JOINED">Lid sinds</Resource>
+    <Resource tag="LINKBACK_TOPIC">LinkBack Topic URL</Resource>
+    <Resource tag="LINKBACK_TOPIC_PROMT">Use the URL below if you want to LinkBack the topic URL on another website.</Resource>
     <Resource tag="LOCATION">Locatie</Resource>
     <Resource tag="MESSAGEDELETED_MOD">Bericht is verwijderd door een Moderator.</Resource>
     <Resource tag="MESSAGEDELETED_USER">Bericht is verwijderd door de gebruiker</Resource>
@@ -4171,7 +4173,7 @@ Spoiler Content
     <Resource tag="RETWEET_TOPIC">Retweet this Topic</Resource>
     <Resource tag="RSSTOPIC">RSS Feed</Resource>
     <Resource tag="SHARE">Share</Resource>
-    <Resource tag="SHARE_TOOLTIP">Share this Topic via Email, Twitter, Buzz, Facebook, Digg, Reddit or Tumblr.</Resource>
+    <Resource tag="SHARE_TOOLTIP">Share this Topic via Email, Twitter, Google+, Facebook, Digg, Reddit or Tumblr.</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
     <Resource tag="SKYPE_TITLE">Contact {0} via Skype</Resource>
     <Resource tag="STATISTICS">Statistieken</Resource>

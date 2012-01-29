@@ -4147,7 +4147,6 @@ Spoiler Content
     <Resource tag="ATTACHMENTS">Atasamente:</Resource>
     <Resource tag="BLOG">BLOG</Resource>
     <Resource tag="BLOG_TITLE">Visit {0}'s Blog</Resource>
-    <Resource tag="BUZZ_TOPIC">Buzz this Topic</Resource>
     <Resource tag="CANT_DOWNLOAD">Nu aveti permisiunea de a vedea/download-a atasamentele.</Resource>
     <Resource tag="CANT_DOWNLOAD_REGISTER">[b]Nu aveti permisiunea de[/b] vedea/download-a atasamentele. Incercati sa va inregistrati.</Resource>
     <Resource tag="CHOICE">Alegere</Resource>
@@ -4171,6 +4170,7 @@ Spoiler Content
     <Resource tag="FACEBOOK_TITLE">Visit {0}'s Facebook Profile</Resource>
     <Resource tag="FACEBOOK_TOPIC">Like this Topic</Resource>
     <Resource tag="FORUM_JUMP">Salt la forum </Resource>
+    <Resource tag="GOOGLEPLUS_TOPIC">Share Topic on Google+</Resource>
     <Resource tag="GROUPS">Groupuri</Resource>
     <Resource tag="HOME">WWW</Resource>
     <Resource tag="HOME_TITLE">Visit {0}'s Homepage</Resource>
@@ -4189,6 +4189,8 @@ Spoiler Content
     <Resource tag="INFO_WATCH_TOPIC">Vei fi notificat cand noi postari vor sosi pe acesta tema.</Resource>
     <Resource tag="IP">IP</Resource>
     <Resource tag="JOINED">Intrat</Resource>
+    <Resource tag="LINKBACK_TOPIC">LinkBack Topic URL</Resource>
+    <Resource tag="LINKBACK_TOPIC_PROMT">Use the URL below if you want to LinkBack the topic URL on another website.</Resource>
     <Resource tag="LOCATION">Locatia</Resource>
     <Resource tag="MESSAGEDELETED_MOD">Mesaj sters de catre Moderator.</Resource>
     <Resource tag="MESSAGEDELETED_USER">Mesaj sters de catre Utilizator.</Resource>
@@ -4223,7 +4225,7 @@ Spoiler Content
     <Resource tag="RETWEET_TOPIC">Retweet this Topic</Resource>
     <Resource tag="RSSTOPIC">RSS Feed</Resource>
     <Resource tag="SHARE">Share</Resource>
-    <Resource tag="SHARE_TOOLTIP">Share this Topic via Email, Twitter, Buzz, Facebook, Digg, Reddit or Tumblr.</Resource>
+    <Resource tag="SHARE_TOOLTIP">Share this Topic via Email, Twitter, Google+, Facebook, Digg, Reddit or Tumblr.</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
     <Resource tag="SKYPE_TITLE">Contact {0} via Skype</Resource>
     <Resource tag="STATISTICS">Statistici</Resource>

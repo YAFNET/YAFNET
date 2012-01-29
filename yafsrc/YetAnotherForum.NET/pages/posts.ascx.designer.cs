@@ -103,6 +103,15 @@ namespace YAF.Pages {
         protected global::YAF.Controls.ThemeButton PostReplyLink1;
         
         /// <summary>
+        /// TopicLink control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink TopicLink;
+        
+        /// <summary>
         /// TopicTitle control.
         /// </summary>
         /// <remarks>
@@ -184,15 +193,6 @@ namespace YAF.Pages {
         protected global::System.Web.UI.WebControls.HyperLink ImageMessageLink;
         
         /// <summary>
-        /// LastPostedText control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LastPostedText;
-        
-        /// <summary>
         /// LastPostedImage control.
         /// </summary>
         /// <remarks>
@@ -209,15 +209,6 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink ImageLastUnreadMessageLink;
-        
-        /// <summary>
-        /// LastUnreadText control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LastUnreadText;
         
         /// <summary>
         /// LastUnreadImage control.

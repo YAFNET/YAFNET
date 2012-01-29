@@ -34,6 +34,12 @@
 	font-weight: bold;
 	font-size: 9pt;
 }
+.yafnet a.HeaderTopicLink {
+	color: #ffffff;
+	font-weight: bold;
+	font-size: 9pt;
+	text-decoration:none;
+}
 
 .yafnet th
 {
