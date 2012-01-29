@@ -50,11 +50,10 @@ namespace YAF.Core
 		/// The data Cache.
 		/// </param>
 		public LoadPageLazyUserData(
-			[NotNull] IServiceLocator serviceLocator, [NotNull] IDBBroker dbBroker, [NotNull] IDataCache dataCache)
+			[NotNull] IServiceLocator serviceLocator, [NotNull] IDBBroker dbBroker)
 		{
 			this._dbBroker = dbBroker;
 			this.ServiceLocator = serviceLocator;
-			this.DataCache = dataCache;
 		}
 
 		#endregion
@@ -64,7 +63,7 @@ namespace YAF.Core
 		/// <summary>
 		/// Gets or sets DataCache.
 		/// </summary>
-		public IDataCache DataCache { get; set; }
+		// public IDataCache DataCache { get; set; }
 
 		/// <summary>
 		///   Gets Order.
@@ -102,12 +101,6 @@ namespace YAF.Core
 			{
 				// add the lazy user data to this page data...
 				@event.DataDictionary.AddRange(activeUserLazyData.ToDictionary());
-
-				if (@event.DataDictionary["ActiveUpdate"].ToType<bool>())
-				{
-					// purge the cache if something has changed...
-					this.DataCache.Remove(Constants.Cache.UsersOnlineStatus);
-				}
 			}
 		}
 

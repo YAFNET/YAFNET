@@ -41,10 +41,11 @@ namespace YAF.Core
 		/// <param name="legacyDb">
 		/// The legacy db.
 		/// </param>
-		public LoadPageFromDatabase([NotNull] IServiceLocator serviceLocator, ILogger logger)
+        public LoadPageFromDatabase([NotNull] IServiceLocator serviceLocator, ILogger logger, [NotNull] IDataCache dataCache)
 		{
 			this.ServiceLocator = serviceLocator;
 			Logger = logger;
+            this.DataCache = dataCache;
 		}
 
 		#endregion
@@ -52,6 +53,11 @@ namespace YAF.Core
 		#region Properties
 
 		public ILogger Logger { get; set; }
+
+        /// <summary>
+        /// Gets or sets DataCache.
+        /// </summary>
+        public IDataCache DataCache { get; set; }
 
 		/// <summary>
 		///   Gets Order.
@@ -148,6 +154,13 @@ namespace YAF.Core
 
 				// add all loaded page data into our data dictionary...
 				@event.DataDictionary.AddRange(pageRow.ToDictionary());
+
+                // clear active users list
+                if (@event.DataDictionary["ActiveUpdate"].ToType<bool>())
+                {
+                    // purge the cache if something has changed...
+                    this.DataCache.Remove(Constants.Cache.UsersOnlineStatus);
+                }
 			}
 			catch (Exception x)
 			{
