@@ -437,7 +437,7 @@ namespace YAF.Pages
                     string messageLink = YafBuildLink.GetLinkNotEscaped(
                         ForumPages.posts, true, "m={0}&find=lastpost", row["LastMessageID"]);
                     syndicationItems.AddSyndicationItem(
-                        row["Topic"].ToString(),
+                        row["Subject"].ToString(),
                         GetPostLatestContent(
                             messageLink,
                             lastPostIcon,

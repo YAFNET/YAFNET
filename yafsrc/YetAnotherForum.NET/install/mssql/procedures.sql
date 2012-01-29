@@ -10213,22 +10213,60 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}readforum_addorupdate](@UserID int,@ForumID int) as
-begin
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}readforum_addorupdate] (
+	@UserID INT
+	,@ForumID INT
+	)
+AS
+BEGIN
+	DECLARE @LastAccessDate DATETIME
 
-	declare	@LastAccessDate	datetime
+	IF EXISTS (
+			SELECT 1
+			FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking]
+			WHERE UserID = @UserID
+				AND ForumID = @ForumID
+			)
+	BEGIN
+		SET @LastAccessDate = (
+				SELECT LastAccessDate
+				FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking]
+				WHERE (
+						UserID = @UserID
+						AND ForumID = @ForumID
+						)
+				)
 
-	IF exists(select 1 from [{databaseOwner}].[{objectQualifier}ForumReadTracking] where UserID=@UserID AND ForumID=@ForumID)
-	begin
-		  SET @LastAccessDate = (SELECT LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] WHERE (UserID=@UserID AND ForumID=@ForumID))
-		  update [{databaseOwner}].[{objectQualifier}ForumReadTracking] set LastAccessDate=GETUTCDATE() where LastAccessDate = @LastAccessDate AND UserID=@UserID AND ForumID=@ForumID
-	end
+		UPDATE [{databaseOwner}].[{objectQualifier}ForumReadTracking]
+		SET LastAccessDate = GETUTCDATE()
+		WHERE LastAccessDate = @LastAccessDate
+			AND UserID = @UserID
+			AND ForumID = @ForumID
+	END
 	ELSE
-	  begin
-		  insert into [{databaseOwner}].[{objectQualifier}ForumReadTracking](UserID,ForumID,LastAccessDate)
-		  values (@UserID, @ForumID, GETUTCDATE())
-	  end
-end
+	BEGIN
+		INSERT INTO [{databaseOwner}].[{objectQualifier}ForumReadTracking] (
+			UserID
+			,ForumID
+			,LastAccessDate
+			)
+		VALUES (
+			@UserID
+			,@ForumID
+			,GETUTCDATE()
+			)
+	END
+
+	-- Delete TopicReadTracking for forum...
+	DELETE
+	FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking]
+	WHERE UserID = @UserID
+		AND TopicID IN (
+			SELECT TopicID
+			FROM yaf_Topic
+			WHERE ForumID = @ForumID
+			)
+END
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}readforum_delete](@UserID int) as

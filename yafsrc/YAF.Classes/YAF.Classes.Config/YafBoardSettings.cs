@@ -1456,12 +1456,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue("MaxPostSize", short.MaxValue);
+                return this._reg.GetValue<int>("MaxPostSize", short.MaxValue);
             }
 
             set
             {
-                this._reg.SetValue("MaxPostSize", value);
+                this._reg.SetValue<int>("MaxPostSize", value);
             }
         }
 

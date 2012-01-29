@@ -1,8 +1,9 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.mytopics" Codebehind="mytopics.ascx.cs" %>
 <%@ Register TagPrefix="YAF" TagName="MyTopicsList" Src="../controls/MyTopicsList.ascx" %>
+<%@ Register tagPrefix="YAF" namespace="YAF.Controls" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
-<div class="DivTopSeparator">
-</div>
+<div class="DivTopSeparator"> 
+</div> 
 
 <br style="clear: both" />
        <asp:Panel id="TopicsTabs" runat="server">
@@ -20,7 +21,7 @@
                  </asp:PlaceHolder>		        
                </ul>
                 <div id="ActiveTopicsTab">
-                   <YAF:MyTopicsList runat="server" ID="ActiveTopics" CurrentMode="Active"/>
+                   <YAF:MyTopicsList runat="server" ID="ActiveTopics" CurrentMode="Active" AutoDatabind="True"/>
                 </div>
                 <asp:PlaceHolder ID="UnansweredTopicsTabContent" runat="server">
                 <div id="UnansweredTopicsTab">

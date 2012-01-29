@@ -1,8 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.MyTopicsList" CodeBehind="MyTopicsList.ascx.cs"  EnableViewState="true" %>
-<%@ Import Namespace="YAF.Core" %>
-<%@ Import Namespace="YAF.Types.Constants" %>
-<%@ Import Namespace="YAF.Utils" %>
-<%@ Import Namespace="YAF.Types.Interfaces" %>
+<%@ Register tagPrefix="YAF" namespace="YAF.Controls" %>
 <%@ Register TagPrefix="YAF" TagName="TopicLine" Src="TopicLine.ascx" %>
 <table class="command" cellspacing="0" cellpadding="0" width="100%" style="padding-bottom: 10px;">
     <tr>
@@ -22,7 +19,7 @@
 <table class="content" cellspacing="1" cellpadding="0" width="100%">
     <tr>
         <td class="header1" width="1%">
-            &nbsp;
+            &nbsp; 
         </td>
         <td class="header1" align="left">
             <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="topics" />
