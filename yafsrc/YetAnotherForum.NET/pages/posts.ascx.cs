@@ -1367,7 +1367,7 @@ namespace YAF.Pages
         /// </param>
         private void ShareMenu_ItemClick([NotNull] object sender, [NotNull] PopEventArgs e)
         {
-            var topicUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", this.PageContext.PageTopicID);
+            var topicUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", this.PageContext.PageTopicID);
 
             switch (e.Item.ToLower())
             {
@@ -1832,7 +1832,7 @@ namespace YAF.Pages
 
             if (this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ShowShareTopicTo))
             {
-                var topicUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", this.PageContext.PageTopicID);
+                var topicUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", this.PageContext.PageTopicID);
 
                 if (this.Get<YafBoardSettings>().AllowEmailTopic)
                 {
