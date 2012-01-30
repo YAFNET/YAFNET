@@ -92,6 +92,7 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Content\PollTests.cs" />
     <Compile Include="Content\MessageTests.cs" />
     <Compile Include="Content\TopicTests.cs" />
     <Compile Include="TestSetup.cs" />

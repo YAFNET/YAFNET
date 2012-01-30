@@ -37,7 +37,7 @@ namespace YAF.Tests.Utils
         {
             get
             {
-                return ConfigurationManager.AppSettings["YAF.TestForumID"].ToType<int>();
+                return GetConfigValueAsInt("YAF.TestForumID", 1);
             }
         }
 
@@ -48,7 +48,7 @@ namespace YAF.Tests.Utils
         {
             get
             {
-                return ConfigurationManager.AppSettings["YAF.TestTopicID"].ToType<int>();
+                return GetConfigValueAsInt("YAF.TestTopicID", 1);
             }
         }
 
@@ -62,7 +62,7 @@ namespace YAF.Tests.Utils
         {
             get
             {
-                return Convert.ToBoolean(ConfigurationManager.AppSettings["YAF.UseExistingInstallation"]);
+                return GetConfigValueAsBoolean("YAF.UseExistingInstallation", false);
             }
         }
 
@@ -73,7 +73,7 @@ namespace YAF.Tests.Utils
         {
             get
             {
-                return ConfigurationManager.AppSettings["YAF.ConfigPassword"];
+                return GetConfigValueAsString("YAF.ConfigPassword") ?? "pass";
             }
         }
 
@@ -84,7 +84,7 @@ namespace YAF.Tests.Utils
         {
             get
             {
-                return ConfigurationManager.AppSettings["YAF.TestDatabase"];
+                return GetConfigValueAsString("YAF.TestDatabase") ?? "YAFNETTEST";
             }
         }
 
@@ -95,7 +95,7 @@ namespace YAF.Tests.Utils
         {
             get
             {
-                return ConfigurationManager.AppSettings["YAF.DatabaseServer"];
+                return GetConfigValueAsString("YAF.DatabaseServer") ?? "(local)";
             }
         }
 
@@ -117,7 +117,7 @@ namespace YAF.Tests.Utils
         {
             get
             {
-                return ConfigurationManager.AppSettings["YAF.TestApplicationPool"];
+                return GetConfigValueAsString("YAF.TestApplicationPool") ?? "ASP.NET v4.0 Classic";
             }
         }
 
@@ -131,7 +131,7 @@ namespace YAF.Tests.Utils
         {
             get
             {
-                return ConfigurationManager.AppSettings["YAF.TestApplicationName"];
+                return GetConfigValueAsString("YAF.TestApplicationName") ?? "YAFNETTEST";
             }
         }
 
@@ -142,10 +142,10 @@ namespace YAF.Tests.Utils
         {
             get
             {
-                return ConfigurationManager.AppSettings["YAF.PackageLocation"];
+                return GetConfigValueAsString("YAF.PackageLocation") ?? "Local";
             }
         }
-        
+
         /// <summary>
         /// Gets the install physical path.
         /// </summary>
@@ -153,7 +153,7 @@ namespace YAF.Tests.Utils
         {
             get
             {
-                return ConfigurationManager.AppSettings["YAF.InstallPhysicalPath"];
+                return GetConfigValueAsString("YAF.InstallPhysicalPath") ?? @"C:\Tests\";
             }
         }
 
@@ -164,7 +164,8 @@ namespace YAF.Tests.Utils
         {
             get
             {
-                return ConfigurationManager.AppSettings["YAF.ReleaseDownloadUrl"];
+                return GetConfigValueAsString("YAF.ReleaseDownloadUrl") ??
+                       "http://download.codeplex.com/Download?ProjectName=yafnet&amp;DownloadId=278003&amp;FileTime=129597508421400000&amp;Build=18347";
             }
         }
 
@@ -175,7 +176,8 @@ namespace YAF.Tests.Utils
         {
             get
             {
-                return ConfigurationManager.AppSettings["YAF.LocalReleasePackageFile"];
+                return GetConfigValueAsString("YAF.LocalReleasePackageFile") ??
+                       @"..\..\testfiles\YAF-v1.9.6-BETA1-BIN.zip";
             }
         }
 
@@ -186,7 +188,7 @@ namespace YAF.Tests.Utils
         {
             get
             {
-                return ConfigurationManager.AppSettings["YAF.AdminUserName"];
+                return GetConfigValueAsString("YAF.AdminUserName") ?? "Admin";
             }
         }
 
@@ -197,7 +199,7 @@ namespace YAF.Tests.Utils
         {
             get
             {
-                return ConfigurationManager.AppSettings["YAF.AdminPassword"];
+                return GetConfigValueAsString("YAF.AdminPassword") ?? "AdminAdmin1234?!";
             }
         }
 
@@ -211,7 +213,7 @@ namespace YAF.Tests.Utils
         {
             get
             {
-                return ConfigurationManager.AppSettings["YAF.TestUserName"];
+                return GetConfigValueAsString("YAF.TestUserName") ?? "TestUser";
             }
         }
 
@@ -222,7 +224,7 @@ namespace YAF.Tests.Utils
         {
             get
             {
-                return ConfigurationManager.AppSettings["YAF.TestUserPassword"];
+                return GetConfigValueAsString("YAF.TestUserPassword") ?? "TestUserTestUser1234?!";
             }
         }
 
@@ -233,7 +235,7 @@ namespace YAF.Tests.Utils
         {
             get
             {
-                return ConfigurationManager.AppSettings["YAF.DefaultWebsiteName"];
+                return GetConfigValueAsString("YAF.DefaultWebsiteName") ?? "Default Web Site";
             }
         }
 
@@ -246,7 +248,7 @@ namespace YAF.Tests.Utils
             {
                 return !UseExistingInstallation
                            ? InstallTestSiteURL
-                           : ConfigurationManager.AppSettings["YAF.TestForumUrl"];
+                           : GetConfigValueAsString("YAF.TestForumUrl") ?? "http://localhost:63645/";
             }
         }
 
@@ -260,7 +262,7 @@ namespace YAF.Tests.Utils
         {
             get
             {
-                return Convert.ToBoolean(ConfigurationManager.AppSettings["YAF.UseTestMailServer"]);
+                return GetConfigValueAsBoolean("YAF.UseTestMailServer", true);
             }
         }
 
@@ -271,7 +273,7 @@ namespace YAF.Tests.Utils
         {
             get
             {
-                return ConfigurationManager.AppSettings["YAF.TestMailHost"];
+                return GetConfigValueAsString("YAF.TestMailHost") ?? "localhost";
             }
         }
 
@@ -282,7 +284,7 @@ namespace YAF.Tests.Utils
         {
             get
             {
-                return ConfigurationManager.AppSettings["YAF.TestMailPassword"];
+                return GetConfigValueAsString("YAF.TestMailPassword") ?? "pass";
             }
         }
 
@@ -296,7 +298,7 @@ namespace YAF.Tests.Utils
         {
             get
             {
-                return ConfigurationManager.AppSettings["YAF.TestMailUserName"];
+                return GetConfigValueAsString("YAF.TestMailUserName") ?? "forum@yafnettest.com";
             }
         }
 
@@ -307,7 +309,7 @@ namespace YAF.Tests.Utils
         {
             get
             {
-                return ConfigurationManager.AppSettings["YAF.TestMailPort"];
+                return GetConfigValueAsString("YAF.TestMailPort") ?? "25";
             }
         }
 
@@ -318,8 +320,46 @@ namespace YAF.Tests.Utils
         {
             get
             {
-                return ConfigurationManager.AppSettings["YAF.TestForumMail"];
+                return GetConfigValueAsString("YAF.TestForumMail") ?? "forum@yafnettest.com";
             }
+        }
+
+        /// <summary>
+        /// Gets the config value as Int32.
+        /// </summary>
+        /// <param name="configKey">The config key.</param>
+        /// <param name="defaultValue">The default value.</param>
+        /// <returns>
+        /// Returns Boolean Value
+        /// </returns>
+        public static int GetConfigValueAsInt(string configKey, int defaultValue)
+        {
+            string value = GetConfigValueAsString(configKey);
+
+            return !string.IsNullOrEmpty(value) ? value.ToLower().ToType<int>() : defaultValue;
+        }
+
+        /// <summary>
+        /// Gets the config value as Boolean.
+        /// </summary>
+        /// <param name="configKey">The config key.</param>
+        /// <param name="defaultValue">if set to <c>true</c> [default value].</param>
+        /// <returns>Returns Boolean Value</returns>
+        public static bool GetConfigValueAsBoolean(string configKey, bool defaultValue)
+        {
+            string value = GetConfigValueAsString(configKey);
+
+            return !string.IsNullOrEmpty(value) ? Convert.ToBoolean(value.ToLower()) : defaultValue;
+        }
+
+        /// <summary>
+        /// Gets the config value as string.
+        /// </summary>
+        /// <param name="configKey">The config key.</param>
+        /// <returns>Returns String Value</returns>
+        public static string GetConfigValueAsString(string configKey)
+        {
+            return ConfigurationManager.AppSettings[configKey];
         }
     }
 }

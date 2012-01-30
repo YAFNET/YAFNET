@@ -18,7 +18,7 @@
  * DEALINGS IN THE SOFTWARE.
 */
 
-namespace YAF.Tests.UserTests.UserSettings
+namespace YAF.Tests.UserTests.Content
 {
     using System.Text.RegularExpressions;
 
@@ -31,10 +31,10 @@ namespace YAF.Tests.UserTests.UserSettings
     using YAF.Utils;
 
     /// <summary>
-    /// The Signature tests.
+    /// The topic poll tests.
     /// </summary>
     [TestFixture]
-    public class SignatureTests : TestBase
+    public class PollTests : TestBase
     {
         /// <summary>
         /// Gets or sets TestContext.
@@ -64,26 +64,35 @@ namespace YAF.Tests.UserTests.UserSettings
         }
 
         /// <summary>
-        /// Change the user signature test.
+        /// Create the new topic in forum 1 test.
         /// </summary>
         [Test]
-        public void Change_User_SignatureTest()
+        public void Create_New_Topic_Test()
         {
-            this.browser.GoTo("{0}yaf_cp_signature.aspx".FormatWith(TestConfig.TestForumUrl));
+            // Go to Post New Topic
+            this.browser.GoTo("{0}yaf_postmessage.aspx?f={0}".FormatWith(TestConfig.TestForumUrl, TestConfig.TestForumID));
 
-            Assert.IsTrue(this.browser.ContainsText("Edit Signature"), "Edit Signature is not available for that User");
+            Assert.IsTrue(this.browser.ContainsText("Post New Topic"), "Post New Topic not possible");
 
-            // Enter Signature
-            this.browser.TextField(Find.ById(new Regex("_SignatureEditor_YafTextEditor"))).TypeText(
-                "This is a Test Signature created by an Unit Test");
+            // Create New Topic
+            this.browser.TextField(Find.ById(new Regex("_TopicSubjectTextBox"))).TypeText("Auto Created Test Topic");
 
-            this.browser.Button(Find.ById(new Regex("_SignatureEditor_preview"))).Click();
+            if (this.browser.ContainsText("Description"))
+            {
+                this.browser.TextField(Find.ById(new Regex("_TopicDescriptionTextBox"))).TypeText("Test Description");
+            }
 
-            var previewCell = this.browser.TableCell(Find.ById(new Regex("_SignatureEditor_PreviewLine")));
+            if (this.browser.ContainsText("Status"))
+            {
+                this.browser.SelectList(Find.ById(new Regex("_TopicStatus"))).SelectByValue("INFORMATIC");
+            }
 
-            Assert.IsTrue(
-                previewCell.InnerHtml.Contains("This is a Test Signature created by an Unit Test"),
-                "Signature changing failed");
+            this.browser.TextField(Find.ById(new Regex("_YafTextEditor"))).TypeText("This is a Test Message Created by an automated Unit Test");
+
+            // Post New Topic
+            this.browser.Link(Find.ById(new Regex("_PostReply"))).Click();
+
+            Assert.IsTrue(this.browser.ContainsText("Next Topic"), "Topic Creating failed");
         }
     }
 }
