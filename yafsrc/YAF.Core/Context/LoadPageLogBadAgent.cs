@@ -1,14 +1,21 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="LoadPageLogBadAgent.cs" company="">
-//   
-// </copyright>
-// <summary>
-//   The load page log bad agent.
-// </summary>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-
+﻿/* Yet Another Forum.net
+ * Copyright (C) 2006-2012 Jaben Cargman
+ * http://www.yetanotherforum.net/
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
 namespace YAF.Core
 {
 	using System.Web;
@@ -19,7 +26,7 @@ namespace YAF.Core
 	using YAF.Types.EventProxies;
 	using YAF.Types.Interfaces;
 	using YAF.Utils;
-    using YAF.Utils.Helpers;
+		using YAF.Utils.Helpers;
 
 	/// <summary>
 	/// The load page log bad agent.
@@ -103,8 +110,8 @@ namespace YAF.Core
 				{
 					this.Logger.Warn("UserAgent string is empty.");
 				}
-             
-                if ((@event.Data.Platform.ToLower().Contains("unknown") || @event.Data.Browser.ToLower().Contains("unknown")) && (!UserAgentHelper.IsSearchEngineSpider(@event.Data.UserAgent)))
+						 
+								if ((@event.Data.Platform.ToLower().Contains("unknown") || @event.Data.Browser.ToLower().Contains("unknown")) && (!UserAgentHelper.IsSearchEngineSpider(@event.Data.UserAgent)))
 				{
 					this.Logger.Error(
 						"Unhandled UserAgent string:'{0}' /r/nPlatform:'{1}' /r/nBrowser:'{2}' /r/nSupports cookies='{3}' /r/nSupports EcmaScript='{4}' /r/nUserID='{5}'."

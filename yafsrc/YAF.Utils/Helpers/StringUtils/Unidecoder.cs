@@ -21,41 +21,60 @@ purpose.
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl.
 */
+
 namespace YAF.Utils.Helpers.StringUtils
 {
-  using System;
-  using System.Text;
+	#region Using
 
-  /// <summary>
-    /// ASCII transliterations of Unicode text
-    /// </summary>
-    public static partial class Unidecoder
-    {
-        /// <summary>
-        /// Transliterate an Unicode object into an ASCII string
-        /// </summary>
-        /// <remarks>
-        /// unidecode(u"\u5317\u4EB0") == "Bei Jing "
-        /// </remarks>
-        /// <param name="input">The input.</param>
-        /// <returns></returns>
-        public static string Unidecode(this string input)
-        {
-            if (String.IsNullOrEmpty(input)) return input;
-            var output = new StringBuilder();
-            foreach(var c in input.ToCharArray()) 
-            {
-                if(c<0x80) {
-                    output.Append(c);
-                    continue;
-                }
-                var h = c >> 8;
-                var l = c & 0xff;
+	using System;
+	using System.Text;
 
-                output.Append(Characters.ContainsKey(h) ? Characters[h][l] : "");
-            }
+	#endregion
 
-            return output.ToString();
-        }
-    }
+	/// <summary>
+	/// ASCII transliterations of Unicode text
+	/// </summary>
+	public static partial class Unidecoder
+	{
+		#region Public Methods
+
+		/// <summary>
+		/// Transliterate an Unicode object into an ASCII string
+		/// </summary>
+		/// <remarks>
+		/// unidecode(u"\u5317\u4EB0") == "Bei Jing "
+		/// </remarks>
+		/// <param name="input">
+		/// The input. 
+		/// </param>
+		/// <returns>
+		/// The unidecode.
+		/// </returns>
+		public static string Unidecode(this string input)
+		{
+			if (string.IsNullOrEmpty(input))
+			{
+				return input;
+			}
+
+			var output = new StringBuilder();
+			foreach (var c in input.ToCharArray())
+			{
+				if (c < 0x80)
+				{
+					output.Append(c);
+					continue;
+				}
+
+				var h = c >> 8;
+				var l = c & 0xff;
+
+				output.Append(Characters.ContainsKey(h) ? Characters[h][l] : string.Empty);
+			}
+
+			return output.ToString();
+		}
+
+		#endregion
+	}
 }

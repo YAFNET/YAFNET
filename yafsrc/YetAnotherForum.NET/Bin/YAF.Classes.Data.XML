@@ -4,24 +4,183 @@
         <name>YAF.Classes.Data</name>
     </assembly>
     <members>
-        <member name="T:YAF.Classes.Data.SearchBuilderExtensions">
+        <member name="T:YAF.Types.Objects.TypedUserFind">
             <summary>
-            The search builder extensions.
+            The typed user find.
             </summary>
         </member>
-        <member name="M:YAF.Classes.Data.SearchBuilderExtensions.BuildSql(System.Collections.Generic.IEnumerable{YAF.Classes.Data.SearchCondition},System.Boolean)">
+        <member name="M:YAF.Types.Objects.TypedUserFind.#ctor(System.Data.DataRow)">
             <summary>
-            The build sql.
+            Initializes a new instance of the <see cref="T:YAF.Types.Objects.TypedUserFind"/> class.
             </summary>
-            <param name="conditions">
-            The conditions.
+            <param name="row">
+            The row.
             </param>
-            <param name="surroundWithParathesis">
-            The surround with parathesis.
-            </param>
-            <returns>
-            The build sql.
-            </returns>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.AutoWatchTopics">
+            <summary>
+            Gets or sets AutoWatchTopics.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.UseSingleSignOn">
+            <summary>
+            Gets or sets a value indicating whether UseSingleSignOn.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.TextEditor">
+            <summary>
+            Gets or sets TextEditor.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.Avatar">
+            <summary>
+            Gets or sets Avatar.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.AvatarImage">
+            <summary>
+            Gets or sets AvatarImage.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.AvatarImageType">
+            <summary>
+            Gets or sets AvatarImageType.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.BoardID">
+            <summary>
+            Gets or sets BoardID.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.Culture">
+            <summary>
+            Gets or sets Culture.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.DailyDigest">
+            <summary>
+            Gets or sets DailyDigest.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.DisplayName">
+            <summary>
+            Gets or sets DisplayName.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.Email">
+            <summary>
+            Gets or sets Email.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.Flags">
+            <summary>
+            Gets or sets Flags.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.IP">
+            <summary>
+            Gets or sets IP.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.IsActiveExcluded">
+            <summary>
+            Gets or sets IsActiveExcluded.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.IsApproved">
+            <summary>
+            Gets or sets IsApproved.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.IsGuest">
+            <summary>
+            Gets or sets IsGuest.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.Joined">
+            <summary>
+            Gets or sets Joined.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.LanguageFile">
+            <summary>
+            Gets or sets LanguageFile.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.LastVisit">
+            <summary>
+            Gets or sets LastVisit.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.Name">
+            <summary>
+            Gets or sets Name.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.NotificationType">
+            <summary>
+            Gets or sets NotificationType.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.NumPosts">
+            <summary>
+            Gets or sets NumPosts.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.UseMobileTheme">
+            <summary>
+            Gets or sets UseMobileTheme.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.PMNotification">
+            <summary>
+            Gets or sets PMNotification.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.Password">
+            <summary>
+            Gets or sets Password.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.Points">
+            <summary>
+            Gets or sets Points.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.ProviderUserKey">
+            <summary>
+            Gets or sets ProviderUserKey.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.RankID">
+            <summary>
+            Gets or sets RankID.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.Signature">
+            <summary>
+            Gets or sets Signature.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.Suspended">
+            <summary>
+            Gets or sets Suspended.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.ThemeFile">
+            <summary>
+            Gets or sets ThemeFile.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.TimeZone">
+            <summary>
+            Gets or sets TimeZone.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.UserID">
+            <summary>
+            Gets or sets UserID.
+            </summary>
         </member>
         <member name="T:YAF.Classes.Data.MsSqlDbAccess">
             <summary>
@@ -313,6 +472,45 @@
             </summary>
             <exception cref="T:System.NotImplementedException">
             </exception>
+        </member>
+        <member name="T:YAF.Classes.Data.SettingsPropertyColumn">
+            <summary>
+            The settings property column.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.SettingsPropertyColumn.DataType">
+            <summary>
+            The data type.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.SettingsPropertyColumn.Settings">
+            <summary>
+            The settings.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.SettingsPropertyColumn.Size">
+            <summary>
+            The size.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.SettingsPropertyColumn.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.SettingsPropertyColumn"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.SettingsPropertyColumn.#ctor(System.Configuration.SettingsProperty,System.Data.SqlDbType,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.SettingsPropertyColumn"/> class.
+            </summary>
+            <param name="settings">
+            The settings.
+            </param>
+            <param name="dataType">
+            The data type.
+            </param>
+            <param name="size">
+            The size.
+            </param>
         </member>
         <member name="T:YAF.Classes.Data.LegacyDb">
             <summary>
@@ -799,6 +997,13 @@
             <param name="imageID">
             the image id.
             </param>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.album_images_by_user(System.Object)">
+            <summary>
+            Album images by users the specified user ID.
+            </summary>
+            <param name="userID">The user ID.</param>
+            <returns>All Albbum Images of the User</returns>
         </member>
         <member name="M:YAF.Classes.Data.LegacyDb.album_image_list(System.Object,System.Object)">
             <summary>
@@ -1737,12 +1942,55 @@
             The extension.
             </param>
         </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.TopicStatus_Delete(System.Object)">
+            <summary>
+            Delete a topic status.
+            </summary>
+            <param name="topicStatusID">The topic status ID.</param>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.TopicStatus_Edit(System.Object)">
+            <summary>
+            Get a Topic Status by topicStatusID
+            </summary>
+            <param name="topicStatusID">The topic status ID.</param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.TopicStatus_List(System.Object)">
+            <summary>
+            List all Topics of the Current Board
+            </summary>
+            <param name="boardID">The board ID.</param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.TopicStatus_Save(System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            Saves a topic status
+            </summary>
+            <param name="topicStatusID">The topic status ID.</param>
+            <param name="boardID">The board ID.</param>
+            <param name="topicStatusName">Name of the topic status.</param>
+            <param name="defaultDescription">The default description.</param>
+        </member>
         <member name="M:YAF.Classes.Data.LegacyDb.forum_delete(System.Object)">
             <summary>
             Deletes a forum
             </summary>
             <param name="forumID">
             The forum ID.
+            </param>
+            <returns>
+            bool to indicate that forum has been deleted
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.forum_move(System.Object,System.Object)">
+            <summary>
+            Deletes a forum
+            </summary>
+            <param name="forumOldID">
+            The forum Old ID.
+            </param>
+            <param name="forumNewID">
+            The forum New ID.
             </param>
             <returns>
             bool to indicate that forum has been deleted
@@ -2756,7 +3004,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.LegacyDb.message_update(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.message_update(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The message_update.
             </summary>
@@ -3851,21 +4099,30 @@
             The versionname.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.LegacyDb.topic_active(System.Object,System.Object,System.Object,System.Object,System.Object,System.Boolean)">
+        <member name="M:YAF.Classes.Data.LegacyDb.topic_active(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Boolean)">
             <summary>
-            The topic_active.
+            Returns Topics Unread by a user
             </summary>
-            <param name="boardID">
+            <param name="boardId">
             The board id.
+            </param>
+            <param name="categoryId">
+            The category id.
             </param>
             <param name="pageUserId">
             The page user id.
             </param>
-            <param name="since">
-            The since.
+            <param name="sinceDate">
+            The since Date.
             </param>
-            <param name="categoryID">
-            The category id.
+            <param name="toDate">
+            The to Date.
+            </param> 
+            <param name="pageIndex">
+            The page Index.
+            </param>
+            <param name="pageSize">
+            The page Size.
             </param>
             <param name="useStyledNicks">
             Set to true to get color nicks for last user and topic starter.
@@ -3874,24 +4131,103 @@
             Indicates if the Table should Countain the last Access Date
             </param>
             <returns>
-            Returns the List with the Active Topics
+            Returns the List with the Topics Unread be a PageUserId
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.LegacyDb.Topics_ByUser(System.Object,System.Object,System.Object,System.Object,System.Object,System.Boolean)">
+        <member name="M:YAF.Classes.Data.LegacyDb.topic_unanswered(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Boolean)">
             <summary>
-            Gets all topics where the pageUserid has posted
+            The topic_unanswered
             </summary>
             <param name="boardID">
             The board id.
             </param>
+            <param name="categoryId">
+            The category id.
+            </param>
             <param name="pageUserId">
             The page user id.
             </param>
-            <param name="since">
-            The since.
+            <param name="sinceDate">
+            The since Date.
             </param>
-            <param name="categoryID">
+            <param name="toDate">
+            The to Date.
+            </param> 
+            <param name="pageIndex">
+            The page Index.
+            </param>
+            <param name="pageSize">
+            The page Size.
+            </param>
+            <param name="useStyledNicks">
+            Set to true to get color nicks for last user and topic starter.
+            </param>
+            <param name="findLastRead">
+            Indicates if the Table should Countain the last Access Date
+            </param>
+            <returns>
+            Returns the List with the Topics Unanswered
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.topic_unread(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Boolean)">
+            <summary>
+            Returns Topics Unread by a user
+            </summary>
+            <param name="boardId">
+            The board id.
+            </param>
+            <param name="categoryId">
             The category id.
+            </param>
+            <param name="pageUserId">
+            The page user id.
+            </param>
+            <param name="sinceDate">
+            The since Date.
+            </param>
+            <param name="toDate">
+            The to Date.
+            </param> 
+            <param name="pageIndex">
+            The page Index.
+            </param>
+            <param name="pageSize">
+            The page Size.
+            </param>
+            <param name="useStyledNicks">
+            Set to true to get color nicks for last user and topic starter.
+            </param>
+            <param name="findLastRead">
+            Indicates if the Table should Countain the last Access Date
+            </param>
+            <returns>
+            Returns the List with the Topics Unread be a PageUserId
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.Topics_ByUser(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Boolean)">
+            <summary>
+            Gets all topics where the pageUserid has posted
+            </summary>
+            <param name="boardId">
+            The board id.
+            </param>
+            <param name="categoryId">
+            The category id.
+            </param>
+            <param name="pageUserId">
+            The page user id.
+            </param>
+            <param name="sinceDate">
+            The since Date.
+            </param>
+            <param name="toDate">
+            The to Date.
+            </param> 
+            <param name="pageIndex">
+            The page Index.
+            </param>
+            <param name="pageSize">
+            The page Size.
             </param>
             <param name="useStyledNicks">
             Set to true to get color nicks for last user and topic starter.
@@ -3966,7 +4302,7 @@
             The topic id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.LegacyDb.topic_favorite_details(System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.topic_favorite_details(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Boolean)">
             <summary>
             The topic_ favorite_ details.
             </summary>
@@ -4111,6 +4447,40 @@
             <returns>
             </returns>
         </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.announcements_list(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Boolean)">
+            <summary>
+            The topic_list.
+            </summary>
+            <param name="forumID">
+            The forum id.
+            </param>
+            <param name="userId">
+            The user id.
+            </param>
+            <param name="announcement">
+            The announcement.
+            </param>
+            <param name="date">
+            The date.
+            </param>
+            <param name="offset">
+            The offset.
+            </param>
+            <param name="count">
+            The count.
+            </param>
+            <param name="useStyledNicks">
+            To return style for user nicks in topic_list.
+            </param>
+            <param name="showMoved">
+            The show Moved.
+            </param>
+            <param name="findLastRead">
+            Indicates if the Table should Countain the last Access Date
+            </param>
+            <returns>
+            </returns>
+        </member>
         <member name="M:YAF.Classes.Data.LegacyDb.topic_lock(System.Object,System.Object)">
             <summary>
             The topic_lock.
@@ -4156,7 +4526,7 @@
             The topic_prune.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.LegacyDb.topic_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Int64@)">
+        <member name="M:YAF.Classes.Data.LegacyDb.topic_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Int64@)">
             <summary>
             The topic_save.
             </summary>
@@ -4314,14 +4684,10 @@
         </member>
         <member name="M:YAF.Classes.Data.LegacyDb.user_addpoints(System.Object,System.Object)">
             <summary>
-            The user_addpoints.
+            Add Reputation Points to the specified user id.
             </summary>
-            <param name="userID">
-            The user id.
-            </param>
-            <param name="points">
-            The points.
-            </param>
+            <param name="userID">The user ID.</param>
+            <param name="points">The points.</param>
         </member>
         <member name="M:YAF.Classes.Data.LegacyDb.user_adminsave(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
@@ -4693,6 +5059,34 @@
             <returns>
             </returns>
         </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.User_ListProfilesByIdsList(System.Int32[],System.Object)">
+            <summary>
+            The user_ list with todays birthdays.
+            </summary>
+            <param name="userIdsList">
+            The Int array of userIds.
+            </param>
+            <param name="useStyledNicks">
+            Return or not style info.
+            </param>
+            <returns>
+            The user_ list profiles.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.User_ListTodaysBirthdays(System.Object,System.Object)">
+            <summary>
+            The user_ list with todays birthdays.
+            </summary>
+            <param name="boardID">
+            The board id.
+            </param>
+            <param name="useStyledNicks">
+            Return style info.
+            </param>
+            <returns>
+            The user_ list with todays birthdays.
+            </returns>
+        </member>
         <member name="M:YAF.Classes.Data.LegacyDb.user_listmedals(System.Object)">
             <summary>
             Lists all medals held by user as they are to be shown in user box.
@@ -4942,25 +5336,10 @@
         </member>
         <member name="M:YAF.Classes.Data.LegacyDb.user_removepoints(System.Object,System.Object)">
             <summary>
-            The user_removepoints.
+            Remove Repuatation Points from the specified user id.
             </summary>
-            <param name="userID">
-            The user id.
-            </param>
-            <param name="points">
-            The points.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.LegacyDb.user_removepointsByTopicID(System.Object,System.Object)">
-            <summary>
-            The user_removepoints by topic id.
-            </summary>
-            <param name="topicID">
-            The topic id.
-            </param>
-            <param name="points">
-            The points.
-            </param>
+            <param name="userID">The user ID.</param>
+            <param name="points">The points.</param>
         </member>
         <member name="M:YAF.Classes.Data.LegacyDb.user_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
@@ -4976,6 +5355,7 @@
             The user name.
             </param>
             <param name="displayName">
+            the display name.
             </param>
             <param name="email">
             The email.
@@ -5068,6 +5448,20 @@
             The password.
             </param>
         </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.user_update_single_sign_on_status(System.Object,System.Object,System.Object)">
+            <summary>
+            Update the single Sign on Status
+            </summary>
+            <param name="userID">
+            The user id.
+            </param>
+            <param name="isFacebookUser">
+            The is Facebook User
+            </param>
+            <param name="isTwitterUser">
+            The is Twitter User.
+            </param>
+        </member>
         <member name="M:YAF.Classes.Data.LegacyDb.user_savesignature(System.Object,System.Object)">
             <summary>
             The user_savesignature.
@@ -5092,7 +5486,7 @@
         </member>
         <member name="M:YAF.Classes.Data.LegacyDb.user_setpoints(System.Object,System.Object)">
             <summary>
-            The user_setpoints.
+            Set the User Reputation Points to a specific value
             </summary>
             <param name="userID">
             The user id.
@@ -5320,7 +5714,7 @@
             The topic id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.LegacyDb.User_LastRead(System.Object,System.DateTime)">
+        <member name="M:YAF.Classes.Data.LegacyDb.User_LastRead(System.Object)">
             <summary>
             Get the Global Last Read DateTime User
             </summary>
@@ -5372,6 +5766,74 @@
             <returns>
             Returns the Last Read DateTime
             </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.SetPropertyValues(System.Int32,System.String,System.Int32,System.Configuration.SettingsPropertyValueCollection,System.Boolean)">
+            <summary>
+            The set property values.
+            </summary>
+            <param name="context">
+            The context.
+            </param>
+            <param name="collection">
+            The collection.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.SetProfileProperties(System.Int32,System.Object,System.Int32,System.Configuration.SettingsPropertyValueCollection,System.Collections.Generic.List{YAF.Classes.Data.SettingsPropertyColumn},System.Boolean)">
+            <summary>
+            The set profile properties.
+            </summary>
+            <param name="appName">
+            The app name.
+            </param>
+            <param name="userID">
+            The user id.
+            </param>
+            <param name="values">
+            The values.
+            </param>
+            <param name="settingsColumnsList">
+            The settings columns list.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.GetProfileStructure">
+            <summary>
+            The get profile structure.
+            </summary>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.AddProfileColumn(System.String,System.Data.SqlDbType,System.Int32)">
+            <summary>
+            The add profile column.
+            </summary>
+            <param name="name">
+            The name.
+            </param>
+            <param name="columnType">
+            The column type.
+            </param>
+            <param name="size">
+            The size.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.GetDbTypeAndSizeFromString(System.String,System.Data.SqlDbType@,System.Int32@)">
+            <summary>
+            The get db type and size from string.
+            </summary>
+            <param name="providerData">
+            The provider data.
+            </param>
+            <param name="dbType">
+            The db type.
+            </param>
+            <param name="size">
+            The size.
+            </param>
+            <returns>
+            The get db type and size from string.
+            </returns>
+            <exception cref="T:System.ArgumentException">
+            </exception>
         </member>
         <member name="M:YAF.Classes.Data.LegacyDb.GetBooleanRegistryValue(System.String)">
             <summary>
@@ -5982,432 +6444,78 @@
               Gets ScriptList.
             </summary>
         </member>
-        <member name="T:YAF.Classes.Data.QueryCounter">
+        <member name="T:YAF.Classes.Data.SearchBuilderExtensions">
             <summary>
-            The query counter.
+            The search builder extensions.
             </summary>
         </member>
-        <member name="M:YAF.Classes.Data.QueryCounter.#ctor(System.String)">
+        <member name="M:YAF.Classes.Data.SearchBuilderExtensions.BuildSql(System.Collections.Generic.IEnumerable{YAF.Classes.Data.SearchCondition},System.Boolean)">
             <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.QueryCounter"/> class.
+            The build sql.
             </summary>
-            <param name="sql">
-            The sql.
+            <param name="conditions">
+            The conditions.
             </param>
-        </member>
-        <member name="M:YAF.Classes.Data.QueryCounter.Dispose">
-            <summary>
-            The dispose.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Data.SearchCondition">
-            <summary>
-            The search condition.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.SearchCondition.#ctor">
-            <summary>
-              Initializes a new instance of the <see cref="T:YAF.Classes.Data.SearchCondition"/> class.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.SearchCondition.Condition">
-            <summary>
-              Gets or sets Condition.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.SearchCondition.ConditionType">
-            <summary>
-              Gets or sets ConditionType.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Data.DataModule">
-            <summary>
-            The data module.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.DataModule.Load(Autofac.ContainerBuilder)">
-            <summary>
-            The load.
-            </summary>
-            <param name="builder">
-            The builder.
-            </param>
-        </member>
-        <member name="T:YAF.Types.Objects.TypedUserFind">
-            <summary>
-            The typed user find.
-            </summary>
-        </member>
-        <member name="M:YAF.Types.Objects.TypedUserFind.#ctor(System.Data.DataRow)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Types.Objects.TypedUserFind"/> class.
-            </summary>
-            <param name="row">
-            The row.
-            </param>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.AutoWatchTopics">
-            <summary>
-            Gets or sets AutoWatchTopics.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.UseSingleSignOn">
-            <summary>
-            Gets or sets a value indicating whether UseSingleSignOn.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.TextEditor">
-            <summary>
-            Gets or sets TextEditor.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.Avatar">
-            <summary>
-            Gets or sets Avatar.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.AvatarImage">
-            <summary>
-            Gets or sets AvatarImage.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.AvatarImageType">
-            <summary>
-            Gets or sets AvatarImageType.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.BoardID">
-            <summary>
-            Gets or sets BoardID.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.Culture">
-            <summary>
-            Gets or sets Culture.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.DailyDigest">
-            <summary>
-            Gets or sets DailyDigest.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.DisplayName">
-            <summary>
-            Gets or sets DisplayName.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.Email">
-            <summary>
-            Gets or sets Email.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.Flags">
-            <summary>
-            Gets or sets Flags.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.IP">
-            <summary>
-            Gets or sets IP.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.IsActiveExcluded">
-            <summary>
-            Gets or sets IsActiveExcluded.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.IsApproved">
-            <summary>
-            Gets or sets IsApproved.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.IsGuest">
-            <summary>
-            Gets or sets IsGuest.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.Joined">
-            <summary>
-            Gets or sets Joined.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.LanguageFile">
-            <summary>
-            Gets or sets LanguageFile.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.LastVisit">
-            <summary>
-            Gets or sets LastVisit.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.Name">
-            <summary>
-            Gets or sets Name.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.NotificationType">
-            <summary>
-            Gets or sets NotificationType.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.NumPosts">
-            <summary>
-            Gets or sets NumPosts.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.UseMobileTheme">
-            <summary>
-            Gets or sets UseMobileTheme.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.PMNotification">
-            <summary>
-            Gets or sets PMNotification.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.Password">
-            <summary>
-            Gets or sets Password.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.Points">
-            <summary>
-            Gets or sets Points.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.ProviderUserKey">
-            <summary>
-            Gets or sets ProviderUserKey.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.RankID">
-            <summary>
-            Gets or sets RankID.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.Signature">
-            <summary>
-            Gets or sets Signature.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.Suspended">
-            <summary>
-            Gets or sets Suspended.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.ThemeFile">
-            <summary>
-            Gets or sets ThemeFile.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.TimeZone">
-            <summary>
-            Gets or sets TimeZone.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.UserID">
-            <summary>
-            Gets or sets UserID.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Data.MsSqlDbConnectionManager">
-            <summary>
-            Provides open/close management for DB Connections
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.MsSqlDbConnectionManager._connection">
-            <summary>
-              The _connection.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.MsSqlDbConnectionManager.#ctor">
-            <summary>
-              Initializes a new instance of the <see cref="T:YAF.Classes.Data.MsSqlDbConnectionManager"/> class.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.MsSqlDbConnectionManager.CloseConnection">
-            <summary>
-            The close connection.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.MsSqlDbConnectionManager.InitConnection">
-            <summary>
-            The init connection.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.MsSqlDbConnectionManager.Dispose">
-            <summary>
-            The dispose.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.MsSqlDbConnectionManager.Connection_InfoMessage(System.Object,System.Data.SqlClient.SqlInfoMessageEventArgs)">
-            <summary>
-            The connection_ info message.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="E:YAF.Classes.Data.MsSqlDbConnectionManager.InfoMessage">
-            <summary>
-              The info message.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.MsSqlDbConnectionManager.ConnectionString">
-            <summary>
-              Gets ConnectionString.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.MsSqlDbConnectionManager.DBConnection">
-            <summary>
-              Gets the current DB Connection in any state.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.MsSqlDbConnectionManager.OpenDBConnection">
-            <summary>
-              Gets an open connection to the DB. Can be called any number of times.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.MsSqlDbConnectionManager.YAF#Types#Interfaces#IDbConnectionManager#DBConnection">
-            <summary>
-            Gets DBConnection.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.MsSqlDbConnectionManager.YAF#Types#Interfaces#IDbConnectionManager#OpenDBConnection">
-            <summary>
-            Gets OpenDBConnection.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Data.DataRowConvert">
-            <summary>
-            Helper class to do basic data conversion for a DataRow.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.DataRowConvert._dbRow">
-            <summary>
-              The _db row.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.DataRowConvert.#ctor(System.Data.DataRow)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.DataRowConvert"/> class.
-            </summary>
-            <param name="dbRow">
-            The db row.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.DataRowConvert.AsBool(System.String)">
-            <summary>
-            The as bool.
-            </summary>
-            <param name="columnName">
-            The column name.
+            <param name="surroundWithParathesis">
+            The surround with parathesis.
             </param>
             <returns>
-            The as bool.
+            The build sql.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DataRowConvert.AsDateTime(System.String)">
+        <member name="T:YAF.Classes.Data.Import.DataImport">
             <summary>
-            The as date time.
+            The data import.
             </summary>
-            <param name="columnName">
-            The column name.
+        </member>
+        <member name="M:YAF.Classes.Data.Import.DataImport.BBCodeExtensionImport(System.Int32,System.IO.Stream)">
+            <summary>
+            The bb code extension import.
+            </summary>
+            <param name="boardId">
+            The board id.
+            </param>
+            <param name="imputStream">
+            The imput stream.
             </param>
             <returns>
+            Returns How Many Extensions where imported.
             </returns>
+            <exception cref="T:System.Exception">Import stream is not expected format.
+            </exception>
         </member>
-        <member name="M:YAF.Classes.Data.DataRowConvert.AsInt32(System.String)">
+        <member name="M:YAF.Classes.Data.Import.DataImport.FileExtensionImport(System.Int32,System.IO.Stream)">
             <summary>
-            The as int 32.
+            The file extension import.
             </summary>
-            <param name="columnName">
-            The column name.
+            <param name="boardId">
+            The board id.
+            </param>
+            <param name="imputStream">
+            The imput stream.
             </param>
             <returns>
+            Returns How Many Extensions where imported.
             </returns>
+            <exception cref="T:System.Exception">Import stream is not expected format.
+            </exception>
         </member>
-        <member name="M:YAF.Classes.Data.DataRowConvert.AsInt64(System.String)">
+        <member name="M:YAF.Classes.Data.Import.DataImport.TopicStatusImport(System.Int32,System.IO.Stream)">
             <summary>
-            The as int 64.
+            Topics the status import.
             </summary>
-            <param name="columnName">
-            The column name.
+            <param name="boardId">
+            The board id.
             </param>
+            <param name="imputStream">
+            The imput stream.
+            </param>
+            <exception cref="T:System.Exception">
+            Import stream is not expected format.
+            </exception>
             <returns>
+            Returns the Number of Imported Items.
             </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.DataRowConvert.AsString(System.String)">
-            <summary>
-            The as string.
-            </summary>
-            <param name="columnName">
-            The column name.
-            </param>
-            <returns>
-            The as string.
-            </returns>
-        </member>
-        <member name="T:YAF.Classes.Data.BaseDataTableResultFilter">
-            <summary>
-            The abstract base data table result filter.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.BaseDataTableResultFilter._sqlCommandStartsWith">
-            <summary>
-            The filter that sql commands starts with -- if none added all commands are processed.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.BaseDataTableResultFilter.Process(System.Data.DataTable@,System.String)">
-            <summary>
-            The process.
-            </summary>
-            <param name="dataTable">
-            The data table.
-            </param>
-            <param name="sqlCommand">
-            The sql command.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.BaseDataTableResultFilter.FilteredProcess(System.Data.DataTable@,System.String)">
-            <summary>
-            The filtered process.
-            </summary>
-            <param name="dataTable">
-            The data table.
-            </param>
-            <param name="sqlCommand">
-            The sql command.
-            </param>
-        </member>
-        <member name="P:YAF.Classes.Data.BaseDataTableResultFilter.Rank">
-            <summary>
-            Gets Rank.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.BaseDataTableResultFilter.SqlCommandStartsWith">
-            <summary>
-            Gets or sets SqlCommandStartsWith.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Data.SearchConditionType">
-            <summary>
-            The search condition type.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.SearchConditionType.AND">
-            <summary>
-              The and.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.SearchConditionType.OR">
-            <summary>
-              The or.
-            </summary>
         </member>
         <member name="T:YAF.Classes.Data.SearchBuilder">
             <summary>
@@ -6487,42 +6595,254 @@
             <returns>
             </returns>
         </member>
-        <member name="T:YAF.Classes.Data.Import.DataImport">
+        <member name="T:YAF.Classes.Data.BaseDataTableResultFilter">
             <summary>
-            The data import.
+            The abstract base data table result filter.
             </summary>
         </member>
-        <member name="M:YAF.Classes.Data.Import.DataImport.BBCodeExtensionImport(System.Int32,System.IO.Stream)">
+        <member name="F:YAF.Classes.Data.BaseDataTableResultFilter._sqlCommandStartsWith">
             <summary>
-            The bb code extension import.
+            The filter that sql commands starts with -- if none added all commands are processed.
             </summary>
-            <param name="boardId">
-            The board id.
-            </param>
-            <param name="imputStream">
-            The imput stream.
-            </param>
-            <returns>
-            The bb code extension import.
-            </returns>
-            <exception cref="T:System.Exception">
-            </exception>
         </member>
-        <member name="M:YAF.Classes.Data.Import.DataImport.FileExtensionImport(System.Int32,System.IO.Stream)">
+        <member name="M:YAF.Classes.Data.BaseDataTableResultFilter.Process(System.Data.DataTable@,System.String)">
             <summary>
-            The file extension import.
+            The process.
             </summary>
-            <param name="boardId">
-            The board id.
+            <param name="dataTable">
+            The data table.
             </param>
-            <param name="imputStream">
-            The imput stream.
+            <param name="sqlCommand">
+            The sql command.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.BaseDataTableResultFilter.FilteredProcess(System.Data.DataTable@,System.String)">
+            <summary>
+            The filtered process.
+            </summary>
+            <param name="dataTable">
+            The data table.
+            </param>
+            <param name="sqlCommand">
+            The sql command.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Data.BaseDataTableResultFilter.Rank">
+            <summary>
+            Gets Rank.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.BaseDataTableResultFilter.SqlCommandStartsWith">
+            <summary>
+            Gets or sets SqlCommandStartsWith.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.MsSqlDbConnectionManager">
+            <summary>
+            Provides open/close management for DB Connections
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.MsSqlDbConnectionManager._connection">
+            <summary>
+              The _connection.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbConnectionManager.#ctor">
+            <summary>
+              Initializes a new instance of the <see cref="T:YAF.Classes.Data.MsSqlDbConnectionManager"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbConnectionManager.CloseConnection">
+            <summary>
+            The close connection.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbConnectionManager.InitConnection">
+            <summary>
+            The init connection.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbConnectionManager.Dispose">
+            <summary>
+            The dispose.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbConnectionManager.Connection_InfoMessage(System.Object,System.Data.SqlClient.SqlInfoMessageEventArgs)">
+            <summary>
+            The connection_ info message.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="E:YAF.Classes.Data.MsSqlDbConnectionManager.InfoMessage">
+            <summary>
+              The info message.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.MsSqlDbConnectionManager.ConnectionString">
+            <summary>
+              Gets ConnectionString.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.MsSqlDbConnectionManager.DBConnection">
+            <summary>
+              Gets the current DB Connection in any state.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.MsSqlDbConnectionManager.OpenDBConnection">
+            <summary>
+              Gets an open connection to the DB. Can be called any number of times.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.MsSqlDbConnectionManager.YAF#Types#Interfaces#IDbConnectionManager#DBConnection">
+            <summary>
+            Gets DBConnection.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.MsSqlDbConnectionManager.YAF#Types#Interfaces#IDbConnectionManager#OpenDBConnection">
+            <summary>
+            Gets OpenDBConnection.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.QueryCounter">
+            <summary>
+            The query counter.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.QueryCounter.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.QueryCounter"/> class.
+            </summary>
+            <param name="sql">
+            The sql.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.QueryCounter.Dispose">
+            <summary>
+            The dispose.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.SearchCondition">
+            <summary>
+            The search condition.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.SearchCondition.#ctor">
+            <summary>
+              Initializes a new instance of the <see cref="T:YAF.Classes.Data.SearchCondition"/> class.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.SearchCondition.Condition">
+            <summary>
+              Gets or sets Condition.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.SearchCondition.ConditionType">
+            <summary>
+              Gets or sets ConditionType.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.DataRowConvert">
+            <summary>
+            Helper class to do basic data conversion for a DataRow.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.DataRowConvert._dbRow">
+            <summary>
+              The _db row.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.DataRowConvert.#ctor(System.Data.DataRow)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.DataRowConvert"/> class.
+            </summary>
+            <param name="dbRow">
+            The db row.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.DataRowConvert.AsBool(System.String)">
+            <summary>
+            The as bool.
+            </summary>
+            <param name="columnName">
+            The column name.
             </param>
             <returns>
-            The file extension import.
+            The as bool.
             </returns>
-            <exception cref="T:System.Exception">
-            </exception>
+        </member>
+        <member name="M:YAF.Classes.Data.DataRowConvert.AsDateTime(System.String)">
+            <summary>
+            The as date time.
+            </summary>
+            <param name="columnName">
+            The column name.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DataRowConvert.AsInt32(System.String)">
+            <summary>
+            The as int 32.
+            </summary>
+            <param name="columnName">
+            The column name.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DataRowConvert.AsInt64(System.String)">
+            <summary>
+            The as int 64.
+            </summary>
+            <param name="columnName">
+            The column name.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DataRowConvert.AsString(System.String)">
+            <summary>
+            The as string.
+            </summary>
+            <param name="columnName">
+            The column name.
+            </param>
+            <returns>
+            The as string.
+            </returns>
+        </member>
+        <member name="T:YAF.Classes.Data.SearchConditionType">
+            <summary>
+            The search condition type.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.SearchConditionType.AND">
+            <summary>
+              The and.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.SearchConditionType.OR">
+            <summary>
+              The or.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.DataModule">
+            <summary>
+            The data module.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.DataModule.Load(Autofac.ContainerBuilder)">
+            <summary>
+            The load.
+            </summary>
+            <param name="builder">
+            The builder.
+            </param>
         </member>
     </members>
 </doc>

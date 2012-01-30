@@ -1,18 +1,22 @@
-// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ForumPage.cs" company="">
-//   
-// </copyright>
-// <summary>
-//   The class that all YAF forum pages are derived from.
-// </summary>
-// --------------------------------------------------------------------------------------------------------------------
-
-#region Copyright (c) 2010 Tiny Gecko
-
-// <copyright file="this.cs" company="Tiny Gecko">
-// </copyright>
-#endregion
-
+/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjørnar Henden
+ * Copyright (C) 2006-2012 Jaben Cargman
+ * http://www.yetanotherforum.net/
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
 namespace YAF.Core
 {
 	#region Using
@@ -40,10 +44,10 @@ namespace YAF.Core
 	/// The class that all YAF forum pages are derived from.
 	/// </summary>
 	public abstract class ForumPage : UserControl, 
-	                                  IRaiseControlLifeCycles, 
-	                                  IHaveServiceLocator, 
-	                                  ILocatablePage, 
-	                                  IHaveLocalization
+																		IRaiseControlLifeCycles, 
+																		IHaveServiceLocator, 
+																		ILocatablePage, 
+																		IHaveLocalization
 	{
 		#region Constants and Fields
 
@@ -544,8 +548,8 @@ namespace YAF.Core
 
 			var refresh = new HtmlMeta
 				{
-       HttpEquiv = "Refresh", Content = "{1};url={0}".FormatWith(this.RefreshURL, this.RefreshTime) 
-    };
+			 HttpEquiv = "Refresh", Content = "{1};url={0}".FormatWith(this.RefreshURL, this.RefreshTime) 
+		};
 
 			addTo.Controls.Add(refresh);
 		}
