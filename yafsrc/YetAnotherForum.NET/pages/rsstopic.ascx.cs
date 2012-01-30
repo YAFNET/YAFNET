@@ -412,7 +412,7 @@ namespace YAF.Pages
                 urlAlphaNum);
 
             using (
-              DataTable dt = LegacyDb.topic_active(this.PageContext.PageBoardID,
+              DataTable dt = TabledCleanUpByDate(LegacyDb.topic_active(this.PageContext.PageBoardID,
                         categoryActiveId,
                         this.PageContext.PageUserID,
                         toActDate,
@@ -422,7 +422,7 @@ namespace YAF.Pages
                         // set the page size here
                         20,
                         false,
-                        this.Get<YafBoardSettings>().UseReadTrackingByDatabase))
+                        this.Get<YafBoardSettings>().UseReadTrackingByDatabase),"LastPosted",toActDate))
             {
                 foreach (DataRow row in dt.Rows)
                 {
@@ -537,7 +537,7 @@ namespace YAF.Pages
             }
 
             using (
-              DataTable dt = LegacyDb.topic_favorite_details(this.PageContext.PageBoardID,
+              DataTable dt = TabledCleanUpByDate(LegacyDb.topic_favorite_details(this.PageContext.PageBoardID,
                         categoryActiveId,
                         this.PageContext.PageUserID,
                         toFavDate,
@@ -547,7 +547,7 @@ namespace YAF.Pages
                         // set the page size here
                         20,
                         false,
-                        false))
+                        false),"LastPosted", toFavDate))
             {
                 string urlAlphaNum = FormatUrlForFeed(YafForumInfo.ForumBaseUrl);
                 string feedNameAlphaNum = new Regex(@"[^A-Za-z0-9]", RegexOptions.IgnoreCase).Replace(toFavText, string.Empty);
@@ -1090,6 +1090,25 @@ namespace YAF.Pages
 
                 feed.Items = syndicationItems;
             }
+        }
+
+        /// TODO: general clean-up after complex subquiries paging - a repeating code
+        private DataTable TabledCleanUpByDate(DataTable dt, string fieldName, DateTime cleanToDate)
+        {
+
+                if (dt == null || dt.Rows.Count <= 0) return dt;
+                DataTable topicsNew = dt.Copy();
+                foreach (DataRow thisTableRow in topicsNew.Rows)
+                {
+                    if (thisTableRow[fieldName] != DBNull.Value && thisTableRow[fieldName].ToType<DateTime>() <= cleanToDate)
+                    {
+                        thisTableRow.Delete();
+                    }
+                }
+
+                // styled nicks
+                topicsNew.AcceptChanges();
+            return topicsNew;
         }
 
         #endregion

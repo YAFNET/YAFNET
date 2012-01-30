@@ -9875,6 +9875,14 @@ select
 			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr 
 			join [{databaseOwner}].[{objectQualifier}Rank] r ON r.RankID = usr.RankID  where usr.UserID=c.LastUserID))  
 			else ''	 end,
+	    LastForumAccess = case(@FindLastRead)
+		     when 1 then
+		       (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x WHERE x.ForumID=d.ForumID AND x.UserID = @PageUserID)
+		     else ''	 end,
+		LastTopicAccess = case(@FindLastRead)
+		     when 1 then
+		       (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=c.TopicID AND y.UserID = @PageUserID)
+		     else ''	 end,
         TotalRows = @post_totalrowsnumber,
 	    PageIndex = @PageIndex		
 	from
