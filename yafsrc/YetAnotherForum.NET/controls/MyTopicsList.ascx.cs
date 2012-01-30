@@ -274,7 +274,8 @@ namespace YAF.Controls
 
 			if (topicList == null)
 			{
-				return;
+                this.PagerTop.Count = 0;
+                return;
 			}
 
 			this.topics = topicList;
@@ -296,10 +297,14 @@ namespace YAF.Controls
 			}
 
 			// let's page the results
-			if (topicList.Rows.Count > 0)
-			{
-				this.PagerTop.Count = topicsNew.AsEnumerable().First().Field<int>("TotalRows");
-			}
+            if (topicsNew.Rows.Count > 0)
+            {
+                this.PagerTop.Count = topicsNew.AsEnumerable().First().Field<int>("TotalRows");
+            }
+            else
+            {
+                this.PagerTop.Count = 0;
+            }
 
 			this.TopicList.DataSource = topicsNew;
 
