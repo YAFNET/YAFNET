@@ -128,7 +128,8 @@ namespace YAF.Pages
         /// <returns>Returns the File Url</returns>
         protected string GetAvatarUrlFileName(int userId, string avatarString, bool hasAvatarImage, string email)
         {
-            string avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userId, avatarString, hasAvatarImage, email);
+        	string avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(
+        		userId, avatarString, hasAvatarImage, new Lazy<string>(() => email));
 
             return avatarUrl.IsNotSet()
                        ? "{0}images/noavatar.gif".FormatWith(YafForumInfo.ForumClientFileRoot)

@@ -10653,16 +10653,16 @@ namespace YAF.Classes.Data
         /// <returns>
         /// Returns the Global Last Read DateTime
         /// </returns>
-        public static DateTime User_LastRead([NotNull] object userID, [NotNull] DateTime lastVisitDate)
+        public static DateTime? User_LastRead([NotNull] object userID)
         {
-            using (var cmd = MsSqlDbAccess.GetCommand("user_lastread"))
+					using (var cmd = MsSqlDbAccess.GetCommand("user_lastread"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("UserID", userID);
 
                 var tableLastRead = MsSqlDbAccess.Current.ExecuteScalar(cmd);
 
-                return tableLastRead != null ? (DateTime)tableLastRead : lastVisitDate;
+                return tableLastRead.ToType<DateTime?>();
             }
         }
 
@@ -10678,7 +10678,7 @@ namespace YAF.Classes.Data
         /// <returns>
         /// Returns the Last Read DateTime
         /// </returns>
-        public static DateTime Readtopic_lastread([NotNull] object userID, [NotNull] object topicID)
+        public static DateTime? Readtopic_lastread([NotNull] object userID, [NotNull] object topicID)
         {
             using (var cmd = MsSqlDbAccess.GetCommand("readtopic_lastread"))
             {
@@ -10688,9 +10688,7 @@ namespace YAF.Classes.Data
 
                 var tableLastRead = MsSqlDbAccess.Current.ExecuteScalar(cmd);
 
-                return tableLastRead != null && tableLastRead != DBNull.Value
-                           ? (DateTime)tableLastRead
-                           : DateTime.MinValue.AddYears(1902);
+            	return tableLastRead.ToType<DateTime?>();
             }
         }
 
@@ -10742,7 +10740,7 @@ namespace YAF.Classes.Data
         /// <returns>
         /// Returns the Last Read DateTime
         /// </returns>
-        public static DateTime ReadForum_lastread([NotNull] object userID, [NotNull] object forumID)
+        public static DateTime? ReadForum_lastread([NotNull] object userID, [NotNull] object forumID)
         {
             using (var cmd = MsSqlDbAccess.GetCommand("readforum_lastread"))
             {
@@ -10752,9 +10750,7 @@ namespace YAF.Classes.Data
 
                 var tableLastRead = MsSqlDbAccess.Current.ExecuteScalar(cmd);
 
-                return tableLastRead != null && tableLastRead != DBNull.Value
-                           ? (DateTime)tableLastRead
-                           : DateTime.MinValue.AddYears(1902);
+            	return tableLastRead.ToType<DateTime?>();
             }
         }
 

@@ -135,7 +135,8 @@ namespace YAF.Core
 						builder.RegisterType<YafAvatars>().As<IAvatars>().InstancePerLifetimeScope().PreserveExistingDefaults();
 						builder.RegisterType<TreatCacheKeyWithBoard>().As<ITreatCacheKey>().InstancePerLifetimeScope().PreserveExistingDefaults();
 						builder.RegisterType<CurrentBoardId>().As<IHaveBoardId>().InstancePerLifetimeScope().PreserveExistingDefaults();
-						builder.RegisterType<YafReadTracking>().As<IReadTracking>().InstancePerLifetimeScope().PreserveExistingDefaults();
+
+						builder.RegisterType<YafReadTrackCurrentUser>().As<IReadTrackCurrentUser>().InstancePerYafContext().PreserveExistingDefaults();
 
 						// cache bindings.
 						builder.RegisterType<StaticLockObject>().As<IHaveLockObject>().SingleInstance().PreserveExistingDefaults();

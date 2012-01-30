@@ -19,107 +19,110 @@
 
 namespace YAF.Pages.Admin
 {
-  #region Using
+	#region Using
 
-  using System;
+	using System;
 
-  using YAF.Classes;
-  using YAF.Classes.Data.Import;
-  using YAF.Core;
-  using YAF.Types;
-  using YAF.Types.Constants;
-  using YAF.Types.Interfaces;
-  using YAF.Utils;
+	using YAF.Classes;
+	using YAF.Classes.Data.Import;
+	using YAF.Core;
+	using YAF.Types;
+	using YAF.Types.Constants;
+	using YAF.Types.Interfaces;
+	using YAF.Utils;
 
-  #endregion
+	#endregion
 
-  /// <summary>
-  /// The Topic Status Import Page.
-  /// </summary>
-  public partial class topicstatus_import : AdminPage
-  {
-    #region Methods
+	/// <summary>
+	/// The Topic Status Import Page.
+	/// </summary>
+	public partial class topicstatus_import : AdminPage
+	{
+		#region Methods
 
-    /// <summary>
-    /// The cancel_ on click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Cancel_OnClick([NotNull] object sender, [NotNull] EventArgs e)
-    {
-        YafBuildLink.Redirect(ForumPages.admin_topicstatus);
-    }
+		/// <summary>
+		/// The cancel_ on click.
+		/// </summary>
+		/// <param name="sender">
+		/// The sender.
+		/// </param>
+		/// <param name="e">
+		/// The e.
+		/// </param>
+		protected void Cancel_OnClick([NotNull] object sender, [NotNull] EventArgs e)
+		{
+			YafBuildLink.Redirect(ForumPages.admin_topicstatus);
+		}
 
-    /// <summary>
-    /// The import_ on click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Import_OnClick([NotNull] object sender, [NotNull] EventArgs e)
-    {
-        // import selected file (if it's the proper format)...
-        if (this.importFile.PostedFile.ContentType != "text/xml")
-        {
-            return;
-        }
+		/// <summary>
+		/// The import_ on click.
+		/// </summary>
+		/// <param name="sender">
+		/// The sender.
+		/// </param>
+		/// <param name="e">
+		/// The e.
+		/// </param>
+		protected void Import_OnClick([NotNull] object sender, [NotNull] EventArgs e)
+		{
+			// import selected file (if it's the proper format)...
+			if (!this.importFile.PostedFile.ContentType.StartsWith("text"))
+			{
+				this.PageContext.AddLoadMessage(
+						this.GetText("ADMIN_TOPICSTATUS_IMPORT", "IMPORT_FAILED").FormatWith("Invalid upload format specified: " + this.importFile.PostedFile.ContentType));
 
-        try
-        {
-            int importedCount = DataImport.TopicStatusImport(
-                this.PageContext.PageBoardID, this.importFile.PostedFile.InputStream);
+				return;
+			}
 
-            this.PageContext.LoadMessage.AddSession(
-                importedCount > 0
-                    ? this.GetText("ADMIN_TOPICSTATUS_IMPORT", "IMPORT_SUCESS").FormatWith(importedCount)
-                    : this.GetText("ADMIN_TOPICSTATUS_IMPORT", "IMPORT_NOTHING"));
+			try
+			{
+				int importedCount = DataImport.TopicStatusImport(
+						this.PageContext.PageBoardID, this.importFile.PostedFile.InputStream);
 
-            YafBuildLink.Redirect(ForumPages.admin_topicstatus);
-        }
-        catch (Exception x)
-        {
-            this.PageContext.AddLoadMessage(
-                this.GetText("ADMIN_TOPICSTATUS_IMPORT", "IMPORT_FAILED").FormatWith(x.Message));
-        }
-    }
+				this.PageContext.LoadMessage.AddSession(
+						importedCount > 0
+								? this.GetText("ADMIN_TOPICSTATUS_IMPORT", "IMPORT_SUCESS").FormatWith(importedCount)
+								: this.GetText("ADMIN_TOPICSTATUS_IMPORT", "IMPORT_NOTHING"));
 
-      /// <summary>
-    /// The page_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-    {
-        if (this.IsPostBack)
-        {
-            return;
-        }
+				YafBuildLink.Redirect(ForumPages.admin_topicstatus);
+			}
+			catch (Exception x)
+			{
+				this.PageContext.AddLoadMessage(
+						this.GetText("ADMIN_TOPICSTATUS_IMPORT", "IMPORT_FAILED").FormatWith(x.Message));
+			}
+		}
 
-        this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-        this.PageLinks.AddLink(this.GetText("ADMIN_TOPICSTATUS", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_topicstatus));
-        this.PageLinks.AddLink(this.GetText("ADMIN_TOPICSTATUS_IMPORT", "TITLE"), string.Empty);
+		/// <summary>
+		/// The page_ load.
+		/// </summary>
+		/// <param name="sender">
+		/// The sender.
+		/// </param>
+		/// <param name="e">
+		/// The e.
+		/// </param>
+		protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+		{
+			if (this.IsPostBack)
+			{
+				return;
+			}
 
-        this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
-            this.GetText("ADMIN_ADMIN", "Administration"),
-            this.GetText("ADMIN_TOPICSTATUS", "TITLE"),
-            this.GetText("ADMIN_TOPICSTATUS_IMPORT", "TITLE"));
+			this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+			this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+			this.PageLinks.AddLink(this.GetText("ADMIN_TOPICSTATUS", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_topicstatus));
+			this.PageLinks.AddLink(this.GetText("ADMIN_TOPICSTATUS_IMPORT", "TITLE"), string.Empty);
 
-        this.Import.Text = this.GetText("ADMIN_TOPICSTATUS_IMPORT", "IMPORT");
-        this.cancel.Text = this.GetText("CANCEL");
-    }
+			this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
+					this.GetText("ADMIN_ADMIN", "Administration"),
+					this.GetText("ADMIN_TOPICSTATUS", "TITLE"),
+					this.GetText("ADMIN_TOPICSTATUS_IMPORT", "TITLE"));
 
-    #endregion
-  }
+			this.Import.Text = this.GetText("ADMIN_TOPICSTATUS_IMPORT", "IMPORT");
+			this.cancel.Text = this.GetText("CANCEL");
+		}
+
+		#endregion
+	}
 }

@@ -1,407 +1,497 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>YetAnotherForum.NET Installation and Upgrading</title>
-	<style type="text/css">
-		*
-		{
-			margin: 0;
-			padding: 0;
-		}
-		body
-		{
-			padding: 0 0 20px;
-			color: #333;
-			font: 83%/1.5 arial,tahoma,verdana,sans-serif;
-		}
-		/* LINKS */a, a:link, a:link, a:link, a:hover
-		{
-			background: transparent;
-			text-decoration: underline;
-			cursor: pointer;
-		}
-		a:link
-		{
-			color: #c00;
-		}
-		a:visited
-		{
-			color: #999;
-		}
-		a:hover, a:active
-		{
-			color: #069;
-		}
-		/* FORMS */form
-		{
-			margin: 0 0 1.5em;
-		}
-		input
-		{
-			font-family: arial,tahoma,verdana,sans-serif;
-			margin: 2px 0;
-		}
-		fieldset
-		{
-			border: none;
-		}
-		label
-		{
-			display: block;
-			padding: 5px 0;
-		}
-		label br
-		{
-			clear: left;
-		}
-		/* TYPOGRAPHY */p, ul, ol
-		{
-			margin: 0 0 1.5em;
-		}
-		h1, h2, h3, h4, h5, h6
-		{
-			letter-spacing: -1px;
-			font-family: arial,verdana,sans-serif;
-			margin: 1.2em 0 .3em;
-			color: #337;
-			border-bottom: 1px solid #eee;
-			padding-bottom: .1em;
-		}
-		h1
-		{
-			font-size: 196%;
-			margin-top: .6em;
-		}
-		h2
-		{
-			font-size: 136%;
-		}
-		h3
-		{
-			font-size: 126%;
-		}
-		h4
-		{
-			font-size: 116%;
-		}
-		h5
-		{
-			font-size: 106%;
-		}
-		h6
-		{
-			font-size: 96%;
-		}
-		.highlight
-		{
-			color: #E17000;
-		}
-		.subdued
-		{
-			color: #999;
-		}
-		.error
-		{
-			color: #c00;
-			font-weight: bold;
-		}
-		.success
-		{
-			color: #390;
-			font-weight: bold;
-		}
-		.caption
-		{
-			color: #999;
-			font-size: 11px;
-		}
-		.date
-		{
-			font: bold 82% arial;
-			color: #bbb;
-			display: block;
-			letter-spacing: 1px;
-		}
-		small
-		{
-			font-size: 11px;
-		}
-		.content
-		{
-			border: 1px solid #ccc;
-			padding: 5px;
-			margin-top: 10px;
-		}
-		/* LISTS */ul
-		{
-			margin: .3em 0 1.5em 0;
-			list-style-type: none;
-		}
-		ul.related
-		{
-			margin-top: -1em;
-		}
-		ol
-		{
-			margin: .5em .5em 1.5em;
-		}
-		ol li
-		{
-			margin-left: 1.4em;
-			padding-left: 0;
-			background: none;
-			list-style-type: decimal;
-		}
-		li
-		{
-			line-height: 1.4em;
-			padding-left: 25px;
-			background: transparent url("images/sprites.gif") no-repeat 0 0;
-		}
-		li.doc
-		{
-			background-position: 3px -500px;
-		}
-		ul.nomarker li
-		{
-			background: none;
-			padding-left: 0;
-		}
-		dl
-		{
-			margin: 0 0 1em 0;
-		}
-		dt
-		{
-			font-weight: bold;
-			margin-top: 1.3em;
-		}
-		dl dl
-		{
-			margin: 0 0 1.5em 30px;
-		}
-		/* GENERAL */img
-		{
-			border: none;
-		}
-		hr
-		{
-			margin: 1em 0;
-			background: #f2f2f2;
-			height: 1px;
-			color: #f2f2f2;
-			border: none;
-			clear: both;
-		}
-		.clear
-		{
-			clear: both;
-			position: relative;
-			font-size: 0px;
-			height: 0px;
-			line-height: 0px;
-		}
-		#wrap
-		{
-			padding: 10px;
-		}
-		.style1
-		{
-			color: #CC0000;
-		}
-	#content-wrap .content div p code.remove {
-	color: #F00;
-}
-    #content-wrap .content div p code.add {
-	color: green;
-}
+    <title>YetAnotherForum.NET Installation and Upgrading</title>
+    <style type="text/css">
+        *
+        {
+            margin: 0;
+            padding: 0;
+        }
+        body
+        {
+            padding: 0 0 20px;
+            color: #333;
+            font: 83%/1.5 arial,tahoma,verdana,sans-serif;
+        }
+        /* LINKS */a, a:link, a:link, a:link, a:hover
+        {
+            background: transparent;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        a:link
+        {
+            color: #c00;
+        }
+        a:visited
+        {
+            color: #999;
+        }
+        a:hover, a:active
+        {
+            color: #069;
+        }
+        /* FORMS */form
+        {
+            margin: 0 0 1.5em;
+        }
+        input
+        {
+            font-family: arial,tahoma,verdana,sans-serif;
+            margin: 2px 0;
+        }
+        fieldset
+        {
+            border: none;
+        }
+        label
+        {
+            display: block;
+            padding: 5px 0;
+        }
+        label br
+        {
+            clear: left;
+        }
+        /* TYPOGRAPHY */p, ul, ol
+        {
+            margin: 0 0 1.5em;
+        }
+        h1, h2, h3, h4, h5, h6
+        {
+            letter-spacing: -1px;
+            font-family: arial,verdana,sans-serif;
+            margin: 1.2em 0 .3em;
+            color: #337;
+            border-bottom: 1px solid #eee;
+            padding-bottom: .1em;
+        }
+        h1
+        {
+            font-size: 196%;
+            margin-top: .6em;
+        }
+        h2
+        {
+            font-size: 136%;
+        }
+        h3
+        {
+            font-size: 126%;
+        }
+        h4
+        {
+            font-size: 116%;
+        }
+        h5
+        {
+            font-size: 106%;
+        }
+        h6
+        {
+            font-size: 96%;
+        }
+        .highlight
+        {
+            color: #E17000;
+        }
+        .subdued
+        {
+            color: #999;
+        }
+        .error
+        {
+            color: #c00;
+            font-weight: bold;
+        }
+        .success
+        {
+            color: #390;
+            font-weight: bold;
+        }
+        .caption
+        {
+            color: #999;
+            font-size: 11px;
+        }
+        .date
+        {
+            font: bold 82% arial;
+            color: #bbb;
+            display: block;
+            letter-spacing: 1px;
+        }
+        small
+        {
+            font-size: 11px;
+        }
+        .content
+        {
+            border: 1px solid #ccc;
+            padding: 5px;
+            margin-top: 10px;
+        }
+        /* LISTS */ul
+        {
+            margin: .3em 0 1.5em 0;
+            list-style-type: none;
+        }
+        ul.related
+        {
+            margin-top: -1em;
+        }
+        ol
+        {
+            margin: .5em .5em 1.5em;
+        }
+        ol li
+        {
+            margin-left: 1.4em;
+            padding-left: 0;
+            background: none;
+            list-style-type: decimal;
+        }
+        li
+        {
+            line-height: 1.4em;
+            padding-left: 25px;
+            background: transparent url("images/sprites.gif") no-repeat 0 0;
+        }
+        li.doc
+        {
+            background-position: 3px -500px;
+        }
+        ul.nomarker li
+        {
+            background: none;
+            padding-left: 0;
+        }
+        dl
+        {
+            margin: 0 0 1em 0;
+        }
+        dt
+        {
+            font-weight: bold;
+            margin-top: 1.3em;
+        }
+        dl dl
+        {
+            margin: 0 0 1.5em 30px;
+        }
+        /* GENERAL */img
+        {
+            border: none;
+        }
+        hr
+        {
+            margin: 1em 0;
+            background: #f2f2f2;
+            height: 1px;
+            color: #f2f2f2;
+            border: none;
+            clear: both;
+        }
+        .clear
+        {
+            clear: both;
+            position: relative;
+            font-size: 0px;
+            height: 0px;
+            line-height: 0px;
+        }
+        #wrap
+        {
+            padding: 10px;
+        }
+        .style1
+        {
+            color: #CC0000;
+        }
+        #content-wrap .content div p code.remove
+        {
+            color: #F00;
+        }
+        #content-wrap .content div p code.add
+        {
+            color: green;
+        }
     </style>
 </head>
 <body>
-	<div id="wrap">
-		<div id="header">
-			<a href="http://www.yetanotherforum.net"><img src="images/YAFLogo.png" alt="YAF logo" style="border: 0" /></a>
-          <div class="content">
-			<h1>
-				YetAnotherForum.NET Installation &amp; Upgrading Instructions</h1>
-			<p>Thank you for downloading <strong>Yet Another Forum.NET</strong> ASP.NET Open Source Forum solution. The <strong>Yet Another Forum</strong> (<strong>YAF</strong>) project is an international collaboration of like-minded, skilled,
-			and creative individuals who are striving to make <strong>YAF</strong> the most robust and malleable forum solutions available. </p>
-			<p>If you have any thoughts or would like to contribute, please see the 
-			  contact information at the bottom of this document. </p>
-			<h2>Index</h2>
-            <ol>
-              <li><a href="#Require">Requirements</a></li>
-              <li><a href="#NewInstall">New Installation</a></li>
-              <li><a href="#Upgrade">Upgrade</a></li>
-              <li><a href="#Support">Support</a></li></ol>
-        </div>
-       </div>
-  <div id="content-wrap">
-			<div class="content">
-		      <h2><a name="Require" id="Require"></a>Installation Requirements</h2>
-				<p>
-		    Make sure your server / Host has the following requirements:</p>
-				<ol>
-					<li>Microsoft .NET Framework 4.0 (Use version 1.9.5.5 or earlier for .NET 
-                        Framework 3.5)</li>
-					<li>Microsoft SQL Server 2005 or above. SQL Server 2000 works, but requires removal 
-                        of some SQL forum database optimizations.</li>
-				</ol>
-			</div>
+    <div id="wrap">
+        <div id="header">
+            <a href="http://www.yetanotherforum.net">
+                <img src="images/YAFLogo.png" alt="YAF logo" style="border: 0" /></a>
             <div class="content">
-                <h2><a name="NewInstall" id="NewInstall"></a>New Installation</h2>
-                
-                <h3>STEP 1. UNZIP</h3>
-				<ol>
-					<li>Unzip the file structure YAF-BIN ZIP archive to the
-						folder you want to run YAF to run inside. The YAF \Bin directory <strong>must</strong> 
-                        be in your application root.</li>
-				</ol>
-                <h3>STEP 2. SETUP DATABASE</h3>
-				<ol>
-					<li>A valid database needs to exist on your SQL Server with proper permissions set
-						so that YAF can access it. When you run YAF for the first time it will detect that
-						the database is empty (or needs upgrading) and will automatically run you through
-						the process required to create the SQL database structures needed. </li>
-				</ol>
-<h3>STEP 3. COPY WEB.CONFIG FILE</h3>
-				<ol>
-				  <li>You need to copy the file recommended-web.config to your yaf root Folder and rename it to web.config.
-				  Warning: DO NOT edit the web.config unless you know what you're doing.</li>
-                 </ol>
-                  <h3>STEP 3a. (OPTIONAL) MODIFY &quot;app.config&quot; FILE:</h3>
-			      <ol>
-			        <li>By default YAF is designed to be installed at the root application on any IIS
-			          web server. If you want YAF to be installed off of the main root 
-			          in a sub folder, you need to modify
-			          the root key. Make sure the files in the /bin directory of the YAF zip file are
-			          copied to /bin directory on the root of your web server. Then open up &quot;app.config&quot;
-			          and un comment the &quot;<strong>YAF.AppRoot</strong>&quot; key. Enter the value as the&#160; directory to
-			          your forum.&#160; Example: If you have install the forum in the directory &quot;/forum/yaf/&quot;
-			          you will need to un comment/add key with name &quot;<strong>YAF.AppRoot</strong>&quot; and value &quot;/forum/yaf/&quot;
-			          to app.config. </li>
-		          </ol>
-			      <h3>STEP 3b.(OPTIONAL) MODIFY &quot;mail.config&quot; FILE:</h3>
-			      <ol>
-			        <li>Modify the SMTP settings by entering your mail server information. If you SMTP
-			          server requires SSL, you must add:
-			          <br />
-			          <strong>&lt;add key=&quot;YAF.UseSMTPSSL&quot; value=&quot;false&quot; /&gt;</strong> to your app.config or appSettings.</li>
-		          </ol>
-                  <h3>STEP 4. Run The Install Wizard</h3>
-			      <ol>
-			        <li>Open the file <YAF.AppRoot>install/default.aspx on your web site. If you are testing on your local computer, under a directory called YetAnotherForum.Net, the address should be: http://localhost/yetanotherforum.net/install/</li>
-			        <li>The wizard will guide you through the Install Process. </li>
-		          </ol>
-                  </div>
-                  
-    <div class="content">
-                  <h2>Upgrade Installation</h2>
-			      <h3><a name="Upgrade" id="Upgrade"></a>STEP 1. BACKUP &amp; REMOVE</h3>
-	  <ol>
-				    <li>Backup all your existing installation YAF files remove the following directories
-				      from your forum root directory: 
-				    <ul>
-				      <li><em>\bin</em></li>
-				      <li><em>\classes</em></li>
-				      <li><em>\controls</em></li>
-				      <li><em>\defs</em></li>
-				      <li><em>\editors</em></li>
-				      <li><em>\install</em></li>
-				      <li><em>\language</em></li>
-				      <li><em>\pages</em></li>
-				      <li><em>\template</em></li>
-				      <li><em>\themes</em></li>
-				      <li><em>\Web References</em></li>
-			        </ul></li>
-				    <li>Be careful not to delete the /images or /upload directory.</li>
-				    <li><span class="style1"> <strong>BACKUP YOUR DATABASE</strong></span></li>
-      </ol>
-      <h3>STEP 2. UNZIP</h3>
-				<ol>
-					<li>Unzip the file structure YAF-BIN ZIP archive to the
-						folder you want to run YAF to run inside. The YAF \Bin directory <strong>must</strong> 
-                        be in your application root.</li>
-				</ol>
-                  <h3>STEP 3. Upgrade - The WEB.CONFIG FILE</h3>
-  <p>Please follow these important directions:</p>
-	      <p>You need to MERGE the changes for the recommended-web.config or the v191-upgrade-web.config depending on the original web config you used.</p>
-	      <hr />
-<p><span class="error"><strong>IMPORTANT</strong>:</span> Remove the Lines if you Upgrade to YAF Version &gt;= 1.9.5.5</p>
-<div style="margin-left: 30px;border:1px dotted black;padding:5px">
-          <p><code class="remove">&lt;add tagPrefix=&quot;DotNetAge&quot; namespace=&quot;DNA.UI.JQuery&quot; assembly=&quot;DNA.UI.JQuery&quot;/&gt;<br />
-&lt;add tagPrefix=&quot;DotNetAge&quot; namespace=&quot;DNA.UI&quot; assembly=&quot;DNA&quot;/&gt;</code><br />
-      <hr />
-      <p><code class="remove">&lt;add tagPrefix=&quot;YAF&quot; namespace=&quot;YAF.Classes.UI&quot; assembly=&quot;YAF.Classes.UI&quot;/&gt;  </code></p>
-<hr />
-<p><code class="remove">&lt;add tagPrefix=&quot;YAF&quot; namespace=&quot;YAF.Classes.Utils&quot; assembly=&quot;YAF.Classes.Utils&quot;/&gt;<br />
-&lt;add tagPrefix=&quot;YAF&quot; namespace=&quot;YAF.Classes.Core&quot; assembly=&quot;YAF.Classes.Core&quot;/&gt;<br />
-&lt;add tagPrefix=&quot;YAF&quot; namespace=&quot;YAF.Classes.Data&quot; assembly=&quot;YAF.Classes.Data&quot;/&gt; </code></p>
-<hr />
-<p><code class="remove">&lt;add namespace=&quot;YAF&quot;/&gt;<br />
-&lt;add namespace=&quot;YAF.Classes.Utils&quot;/&gt;<br />
-&lt;add namespace=&quot;YAF.Classes.Core&quot;/&gt;<br />
-&lt;add namespace=&quot;YAF.Controls&quot;/&gt;<br />
-&lt;add namespace=&quot;YAF.Classes.Data&quot;/&gt;</code></p>
-<hr />
-<p><code class="remove">&lt;add namespace=&quot;YAF.Classes.UI&quot;/&gt;</code></p>
-</div>
-<br />
-<p><span class="error"><strong>IMPORTANT</strong>:</span> Update this following lines if you Upgrade to YAF Version &gt;= 1.9.5.5</p>
-<div style="margin-left: 30px;border:1px dotted black;padding:5px">
-<p>Change the Line from....</p>
-<p><code class="remove">&lt;add name=&quot;YafTaskModule&quot; type=&quot;YAF.Classes.Core.YafTaskModule, YAF.Classes.Core&quot;/&gt;</code></p>
-<p>to</p>
-<p><code>&lt;add name=&quot;YafTaskModule&quot; type=&quot;YAF.Core.YafTaskModule, YAF.Core&quot;/&gt;</code></p>
-<p>Change the Line from....</p>
-<p><code class="remove">&lt;add name=&quot;YafTaskModule&quot; type=&quot;YAF.Classes.Core.YafTaskModule, YAF.Classes.Core&quot; preCondition=&quot;managedHandler&quot;/&gt;</code></p>
-<p>to</p>
-<p><code class="add">&lt;add name=&quot;YafTaskModule&quot; type=&quot;YAF.Core.YafTaskModule, YAF.Core&quot; preCondition=&quot;managedHandler&quot;/&gt;</code></p>
-<p>Change the Line from....</p>
-<p><code class="remove">&lt;profile enabled=&quot;true&quot; defaultProvider=&quot;YafProfileProvider&quot; inherits=&quot;YAF.Classes.Utils.YafUserProfile&quot;&gt;</code></p>
-<p>to</p>
-<p><code class="add">&lt;profile enabled=&quot;true&quot; defaultProvider=&quot;YafProfileProvider&quot; inherits=&quot;YAF.Utils.YafUserProfile&quot;&gt;</code></p>
-<p>Change the Line from....</p>
-<p><code class="remove">&lt;add verb=&quot;POST,GET,HEAD&quot; path=&quot;ajaxpro/*.ashx&quot; type=&quot;AjaxPro.AjaxHandlerFactory, AjaxPro.2&quot;/&gt;</code></p>
-<p>to</p>
-<p><code class="add">&lt;add verb=&quot;GET&quot; path=&quot;Resource.ashx&quot; type=&quot;YAF.YafResourceHandler, YAF&quot; /&gt;</code></p>
-<p>Change the Line from....</p>
-<p><code class="remove">&lt;add name=&quot;AjaxPro&quot; preCondition=&quot;integratedMode&quot; verb=&quot;POST,GET,HEAD&quot; path=&quot;ajaxpro/*.ashx&quot; type=&quot;AjaxPro.AjaxHandlerFactory, AjaxPro.2&quot; /&gt;</code></p>
-<p>to</p>
-<p><code class="add">&lt;add name=&quot;YafHandler&quot; preCondition=&quot;integratedMode&quot; verb=&quot;GET&quot; path=&quot;Resource.ashx&quot; type=&quot;YAF.YafResourceHandler, YAF&quot; /&gt;</code></p>
-</div>
-<hr />
-<p><strong>How to merging Web.Config Files:</strong> </p>
-						<ol>
-						  <li>A tip to merge web.config files is to download 
-						    both of them, then use a merge program to combine. 
-						    WinMerge is a free and excellent merge program which 
-						    you can download here:
-						    <a href="http://www.winmerge.org/">http://www.winmerge.org/</a>
-						    </a>
-					      </li>
-				  </ol>
-<h3>STEP 4. UPGRADE Wizard:</h3>
+                <h1>
+                    YetAnotherForum.NET Installation &amp; Upgrading Instructions</h1>
+                <p>
+                    Thank you for downloading <strong>Yet Another Forum.NET</strong> ASP.NET Open Source
+                    Forum solution. The <strong>Yet Another Forum</strong> (<strong>YAF</strong>) project
+                    is an international collaboration of like-minded, skilled, and creative individuals
+                    who are striving to make <strong>YAF</strong> the most robust and malleable forum
+                    solutions available.
+                </p>
+                <p>
+                    If you have any thoughts or would like to contribute, please see the contact information
+                    at the bottom of this document.
+                </p>
+                <h2>
+                    Index</h2>
                 <ol>
-                  <li>
-                    Open the file &lt;YAF.AppRoot&gt;install/default.aspx on your web site. If you are testing
-                    on your local computer, under a directory called YetAnotherForum.Net, the address
-                  should be: <a href="http://localhost/yetanotherforum.net/install/">http://localhost/yetanotherforum.net/install/</a></li>
-                  <li>The wizard will guide you through the upgrade process.</li>
-</ol>
-         </div>
-           <div class="content">
-				<h2><a name="Support" id="Support"></a>Yet Another Forum Community Support</h2>
-				<p>If you have any questions, please visit the YAF Community Support forum: <a href="http://forum.yetanotherforum.net">
-						http://forum.yetanotherforum.net</a>, or visit the Wiki for More Informations.</p>
-				<h3>Yet Another Forum Priority Support and Consulting</h3>
-				<p>Please visit <a href="http://yetanotherforum.net/services.aspx">YAF Services 
-                    Page</a> for more information on Priority Support, Integration
-					and commercial business options.</p>
-				<h3>Contact Us</h3>					
-				<p>Thanks for trying YAF! If you have any suggestions or comments please post them 
+                    <li><a href="#Require">Requirements</a></li>
+                    <li><a href="#NewInstall">New Installation</a></li>
+                    <li><a href="#Upgrade">Upgrade</a></li>
+                    <li><a href="#Support">Support</a></li></ol>
+            </div>
+        </div>
+        <div id="content-wrap">
+            <div class="content">
+                <h2>
+                    <a name="Require" id="Require"></a>Installation Requirements</h2>
+                <p>
+                    Make sure your server / Host has the following requirements:</p>
+                <ol>
+                    <li>Microsoft .NET Framework 4.0 (Use version 1.9.5.5 or earlier for .NET Framework
+                        3.5)</li>
+                    <li>Microsoft SQL Server 2005 or above. SQL Server 2000 works, but requires removal
+                        of some SQL forum database optimizations.</li>
+                </ol>
+            </div>
+            <div class="content">
+                <h2>
+                    <a name="NewInstall" id="NewInstall"></a>New Installation</h2>
+                <h3>
+                    STEP 1. UNZIP</h3>
+                <ol>
+                    <li>Unzip the file structure YAF-BIN ZIP archive to the folder you want to run YAF to
+                        run inside. The YAF \Bin directory <strong>must</strong> be in your application
+                        root.</li>
+                </ol>
+                <h3>
+                    STEP 2. SETUP DATABASE</h3>
+                <ol>
+                    <li>A valid database needs to exist on your SQL Server with proper permissions set so
+                        that YAF can access it. When you run YAF for the first time it will detect that
+                        the database is empty (or needs upgrading) and will automatically run you through
+                        the process required to create the SQL database structures needed. </li>
+                </ol>
+                <h3>
+                    STEP 3. COPY WEB.CONFIG FILE</h3>
+                <ol>
+                    <li>You need to copy the file recommended-web.config to your yaf root Folder and rename
+                        it to web.config. Warning: DO NOT edit the web.config unless you know what you're
+                        doing.</li>
+                </ol>
+                <h3>
+                    STEP 3a. (OPTIONAL) MODIFY &quot;app.config&quot; FILE:</h3>
+                <ol>
+                    <li>By default YAF is designed to be installed at the root application on any IIS web
+                        server. If you want YAF to be installed off of the main root in a sub folder, you
+                        need to modify the root key. Make sure the files in the /bin directory of the YAF
+                        zip file are copied to /bin directory on the root of your web server. Then open
+                        up &quot;app.config&quot; and un comment the &quot;<strong>YAF.AppRoot</strong>&quot;
+                        key. Enter the value as the&#160; directory to your forum.&#160; Example: If you
+                        have install the forum in the directory &quot;/forum/yaf/&quot; you will need to
+                        un comment/add key with name &quot;<strong>YAF.AppRoot</strong>&quot; and value
+                        &quot;/forum/yaf/&quot; to app.config. </li>
+                </ol>
+                <h3>
+                    STEP 3b.(OPTIONAL) MODIFY &quot;mail.config&quot; FILE:</h3>
+                <ol>
+                    <li>Modify the SMTP settings by entering your mail server information. If you SMTP server
+                        requires SSL, you must add:
+                        <br />
+                        <strong>&lt;add key=&quot;YAF.UseSMTPSSL&quot; value=&quot;false&quot; /&gt;</strong>
+                        to your app.config or appSettings.</li>
+                </ol>
+                <h3>
+                    STEP 4. Run The Install Wizard</h3>
+                <ol>
+                    <li>Open the file
+                        <yaf.approot>
+                        install/default.aspx on your web site. If you are testing on your local computer,
+                        under a directory called YetAnotherForum.Net, the address should be: http://localhost/yetanotherforum.net/install/</li>
+                    <li>The wizard will guide you through the Install Process. </li>
+                </ol>
+
+                <h3>
+                    STEP 5. Generate a Machine Key for your installation.</h3>
+                <ol>
+                    <li>Open the file
+                        <yaf.approot>
+                        web.config and visit the a site that allows generation of a unique machine key for your forum. Such as this site:
+                        <a href="http://aspnetresources.com/tools/machineKey">AspNet Resources Machine Key Generator</a>.
+
+                        Copy and paste the generated machine key to your web.config in the &lt;system.web&gt; section.
+                </ol>
+            </div>
+            <div class="content">
+                <h2>
+                    Upgrade Installation</h2>
+                <h3>
+                    <a name="Upgrade" id="Upgrade"></a>STEP 1. BACKUP &amp; REMOVE</h3>
+                <ol>
+                    <li>Backup all your existing installation YAF files remove the following directories
+                        from your forum root directory:
+                        <ul>
+                            <li><em>\bin</em></li>
+                            <li><em>\classes</em></li>
+                            <li><em>\controls</em></li>
+                            <li><em>\defs</em></li>
+                            <li><em>\editors</em></li>
+                            <li><em>\install</em></li>
+                            <li><em>\language</em></li>
+                            <li><em>\pages</em></li>
+                            <li><em>\template</em></li>
+                            <li><em>\themes</em></li>
+                            <li><em>\Web References</em></li>
+                        </ul>
+                    </li>
+                    <li>Be careful not to delete the /images or /upload directory.</li>
+                    <li><span class="style1"><strong>BACKUP YOUR DATABASE</strong></span></li>
+                </ol>
+                <h3>
+                    STEP 2. UNZIP</h3>
+                <ol>
+                    <li>Unzip the file structure YAF-BIN ZIP archive to the folder you want to run YAF to
+                        run inside. The YAF \Bin directory <strong>must</strong> be in your application
+                        root.</li>
+                </ol>
+                <h3>
+                    STEP 3. Upgrade - The WEB.CONFIG FILE</h3>
+                <p>
+                    Please follow these important directions:</p>
+                <p>
+                    You need to MERGE the changes for the recommended-web.config or the v191-upgrade-web.config
+                    depending on the original web config you used.</p>
+                <hr />
+                <p>
+                    <span class="error"><strong>IMPORTANT</strong>:</span> Remove the Lines if you Upgrade
+                    to YAF Version &gt;= 1.9.5.5</p>
+                <div style="margin-left: 30px; border: 1px dotted black; padding: 5px">
+                    <p>
+                        <code class="remove">&lt;add tagPrefix=&quot;DotNetAge&quot; namespace=&quot;DNA.UI.JQuery&quot;
+                            assembly=&quot;DNA.UI.JQuery&quot;/&gt;<br />
+                            &lt;add tagPrefix=&quot;DotNetAge&quot; namespace=&quot;DNA.UI&quot; assembly=&quot;DNA&quot;/&gt;</code><br />
+                        <hr />
+                        <p>
+                            <code class="remove">&lt;add tagPrefix=&quot;YAF&quot; namespace=&quot;YAF.Classes.UI&quot;
+                                assembly=&quot;YAF.Classes.UI&quot;/&gt; </code>
+                        </p>
+                        <hr />
+                        <p>
+                            <code class="remove">&lt;add tagPrefix=&quot;YAF&quot; namespace=&quot;YAF.Classes.Utils&quot;
+                                assembly=&quot;YAF.Classes.Utils&quot;/&gt;<br />
+                                &lt;add tagPrefix=&quot;YAF&quot; namespace=&quot;YAF.Classes.Core&quot; assembly=&quot;YAF.Classes.Core&quot;/&gt;<br />
+                                &lt;add tagPrefix=&quot;YAF&quot; namespace=&quot;YAF.Classes.Data&quot; assembly=&quot;YAF.Classes.Data&quot;/&gt;
+                            </code>
+                        </p>
+                        <hr />
+                        <p>
+                            <code class="remove">&lt;add namespace=&quot;YAF&quot;/&gt;<br />
+                                &lt;add namespace=&quot;YAF.Classes.Utils&quot;/&gt;<br />
+                                &lt;add namespace=&quot;YAF.Classes.Core&quot;/&gt;<br />
+                                &lt;add namespace=&quot;YAF.Controls&quot;/&gt;<br />
+                                &lt;add namespace=&quot;YAF.Classes.Data&quot;/&gt;</code></p>
+                        <hr />
+                        <p>
+                            <code class="remove">&lt;add namespace=&quot;YAF.Classes.UI&quot;/&gt;</code></p>
+                </div>
+                <br />
+                <p>
+                    <span class="error"><strong>IMPORTANT</strong>:</span> Update this following lines
+                    if you Upgrade to YAF Version &gt;= 1.9.5.5</p>
+                <div style="margin-left: 30px; border: 1px dotted black; padding: 5px">
+                    <p>
+                        Change the Line from....</p>
+                    <p>
+                        <code class="remove">&lt;add name=&quot;YafTaskModule&quot; type=&quot;YAF.Classes.Core.YafTaskModule,
+                            YAF.Classes.Core&quot;/&gt;</code></p>
+                    <p>
+                        to</p>
+                    <p>
+                        <code>&lt;add name=&quot;YafTaskModule&quot; type=&quot;YAF.Core.YafTaskModule, YAF.Core&quot;/&gt;</code></p>
+                    <p>
+                        Change the Line from....</p>
+                    <p>
+                        <code class="remove">&lt;add name=&quot;YafTaskModule&quot; type=&quot;YAF.Classes.Core.YafTaskModule,
+                            YAF.Classes.Core&quot; preCondition=&quot;managedHandler&quot;/&gt;</code></p>
+                    <p>
+                        to</p>
+                    <p>
+                        <code class="add">&lt;add name=&quot;YafTaskModule&quot; type=&quot;YAF.Core.YafTaskModule,
+                            YAF.Core&quot; preCondition=&quot;managedHandler&quot;/&gt;</code></p>
+                    <p>
+                        Change the Line from....</p>
+                    <p>
+                        <code class="remove">&lt;profile enabled=&quot;true&quot; defaultProvider=&quot;YafProfileProvider&quot;
+                            inherits=&quot;YAF.Classes.Utils.YafUserProfile&quot;&gt;</code></p>
+                    <p>
+                        to</p>
+                    <p>
+                        <code class="add">&lt;profile enabled=&quot;true&quot; defaultProvider=&quot;YafProfileProvider&quot;
+                            inherits=&quot;YAF.Utils.YafUserProfile&quot;&gt;</code></p>
+                    <p>
+                        Change the Line from....</p>
+                    <p>
+                        <code class="remove">&lt;add verb=&quot;POST,GET,HEAD&quot; path=&quot;ajaxpro/*.ashx&quot;
+                            type=&quot;AjaxPro.AjaxHandlerFactory, AjaxPro.2&quot;/&gt;</code></p>
+                    <p>
+                        to</p>
+                    <p>
+                        <code class="add">&lt;add verb=&quot;GET&quot; path=&quot;Resource.ashx&quot; type=&quot;YAF.YafResourceHandler,
+                            YAF&quot; /&gt;</code></p>
+                    <p>
+                        Change the Line from....</p>
+                    <p>
+                        <code class="remove">&lt;add name=&quot;AjaxPro&quot; preCondition=&quot;integratedMode&quot;
+                            verb=&quot;POST,GET,HEAD&quot; path=&quot;ajaxpro/*.ashx&quot; type=&quot;AjaxPro.AjaxHandlerFactory,
+                            AjaxPro.2&quot; /&gt;</code></p>
+                    <p>
+                        to</p>
+                    <p>
+                        <code class="add">&lt;add name=&quot;YafHandler&quot; preCondition=&quot;integratedMode&quot;
+                            verb=&quot;GET&quot; path=&quot;Resource.ashx&quot; type=&quot;YAF.YafResourceHandler,
+                            YAF&quot; /&gt;</code></p>
+                </div>
+                <hr />
+                <p>
+                    <strong>How to merging Web.Config Files:</strong>
+                </p>
+                <ol>
+                    <li>A tip to merge web.config files is to download both of them, then use a merge program
+                        to combine. WinMerge is a free and excellent merge program which you can download
+                        here: <a href="http://www.winmerge.org/">http://www.winmerge.org/</a> </a> </li>
+                </ol>
+                <h3>
+                    STEP 4. UPGRADE Wizard:</h3>
+                <ol>
+                    <li>Open the file &lt;YAF.AppRoot&gt;install/default.aspx on your web site. If you are
+                        testing on your local computer, under a directory called YetAnotherForum.Net, the
+                        address should be: <a href="http://localhost/yetanotherforum.net/install/">http://localhost/yetanotherforum.net/install/</a></li>
+                    <li>The wizard will guide you through the upgrade process.</li>
+                </ol>
+            </div>
+            <div class="content">
+                <h2>
+                    <a name="Support" id="Support"></a>Yet Another Forum Community Support</h2>
+                <p>
+                    If you have any questions, please visit the YAF Community Support forum: <a href="http://forum.yetanotherforum.net">
+                        http://forum.yetanotherforum.net</a>, or visit the Wiki for More Informations.</p>
+                <h3>
+                    Yet Another Forum Priority Support and Consulting</h3>
+                <p>
+                    Please visit <a href="http://yetanotherforum.net/services.aspx">YAF Services Page</a>
+                    for more information on Priority Support, Integration and commercial business options.</p>
+                <h3>
+                    Contact Us</h3>
+                <p>
+                    Thanks for trying YAF! If you have any suggestions or comments please post them
                     on the support forum!</p>
-    </div>
-</div>
+            </div>
+        </div>
 </body>
 </html>

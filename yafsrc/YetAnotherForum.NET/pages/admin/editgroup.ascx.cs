@@ -266,8 +266,7 @@ namespace YAF.Pages.Admin
       LegacyDb.activeaccess_reset();
 
       // see if need to rename an existing role...
-      if (roleName != oldRoleName && RoleMembershipHelper.RoleExists(oldRoleName) &&
-          !RoleMembershipHelper.RoleExists(roleName) && !this.IsGuestX.Checked)
+      if (oldRoleName.IsSet() && roleName != oldRoleName && RoleMembershipHelper.RoleExists(oldRoleName) && !RoleMembershipHelper.RoleExists(roleName) && !this.IsGuestX.Checked)
       {
         // transfer users in addition to changing the name of the role...
         var users = this.Get<RoleProvider>().GetUsersInRole(oldRoleName);

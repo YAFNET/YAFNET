@@ -2819,10 +2819,10 @@ Spoiler Content
       <Resource tag="POSTEDBY">Posted by</Resource>
    </page>
    <page name="PROFILE">
-      <Resource tag="REPUTATION_RECEIVED">Numer of Reputation received from other users</Resource>
-      <Resource tag="THANKSFROM">Number of thanks</Resource>
-      <Resource tag="THANKSTOTIMES">Number of times this user was thanked</Resource>
-      <Resource tag="THANKSTOPOSTS">Number of posts for which this user was thanked</Resource>
+      <Resource tag="REPUTATION_RECEIVED">Community Reputation Received:</Resource>
+      <Resource tag="THANKSFROM">Thanks Given:</Resource>
+      <Resource tag="THANKSTOTIMES">Thanks Received:</Resource>
+      <Resource tag="THANKSTOPOSTS">Thanked Posts:</Resource>
       <Resource tag="ABOUT">About</Resource>
       <Resource tag="ADMIN_USER">Admin User</Resource>
       <Resource tag="AIM">AIM-Name:</Resource>
@@ -3406,15 +3406,6 @@ Visit {forumname} at {forumlink}
       <Resource tag="CURRENTMESSAGE">Current edition</Resource>
       <Resource tag="ORIGINALMESSAGE">Original edition</Resource>
       <Resource tag="HISTORYSTART">History editions</Resource>
-   </page>
-   <page name="IRKOO">
-      <Resource tag="NOT_AUTHORIZED">Please login to vote</Resource>
-      <Resource tag="MIN_VOTE_UP">Vote Up requires %min_rating% reputation</Resource>
-      <Resource tag="MIN_VOTE_DOWN">Vote Down requires %min_rating% reputation</Resource>
-      <Resource tag="SELF">You cannot vote for your message</Resource>
-      <Resource tag="VOTE_DOWN">Vote Down</Resource>
-      <Resource tag="VOTE_UP">Vote Up</Resource>
-      <Resource tag="USER_REPUTATION">Users Reputation</Resource>
    </page>
    <page name="TEAM">
       <Resource tag="TITLE">Council Members</Resource>

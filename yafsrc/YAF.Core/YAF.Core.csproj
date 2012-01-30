@@ -209,9 +209,8 @@
     <Compile Include="Services\YafDigest.cs" />
     <Compile Include="Services\YafFavoriteTopic.cs" />
     <Compile Include="Services\YafFormatMessage.cs" />
-    <Compile Include="Services\YAFIrkoo.cs" />
     <Compile Include="Services\YafPermissions.cs" />
-    <Compile Include="Services\YafReadTracking.cs" />
+    <Compile Include="Services\YafReadTrackCurrentUser.cs" />
     <Compile Include="Services\YafReputation.cs" />
     <Compile Include="Services\YafSendMail.cs" />
     <Compile Include="Services\YafSendMailThreaded.cs" />
