@@ -65,6 +65,11 @@
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Web.Mobile" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="YAF, Version=1.9.4.0, Culture=neutral, PublicKeyToken=8b49dc47f4701f66, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\YetAnotherForum.NET\Bin\YAF.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\DataController.cs" />
@@ -129,6 +134,13 @@
     <None Include="Installation\01.94.01.SqlDataProvider" />
     <None Include="Installation\01.95.50.SqlDataProvider" />
     <None Include="Installation\Uninstall.SqlDataProvider" />
+    <Content Include="web.config" />
+    <Content Include="web.Debug.config">
+      <DependentUpon>web.config</DependentUpon>
+    </Content>
+    <Content Include="web.Release.config">
+      <DependentUpon>web.config</DependentUpon>
+    </Content>
     <Content Include="Installation\UrlRewriter.config" />
     <None Include="Installation\YAF.DotNetNuke.Module.dnn">
       <SubType>Designer</SubType>
@@ -167,10 +179,6 @@
       <Project>{F80E0025-E57E-4BB5-89F2-CFBCAC1AFCF4}</Project>
       <Name>YAF.Utils</Name>
     </ProjectReference>
-    <ProjectReference Include="..\yafsrc\YetAnotherForum.NET\YAF.csproj">
-      <Project>{555357E5-A150-4C4D-BC81-97F4AE19086A}</Project>
-      <Name>YAF</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Installation\License.html" />
@@ -193,7 +201,9 @@
   <ItemGroup>
     <Content Include="App_LocalResources\YafDnnModule.ascx.de-DE.resx" />
     <Content Include="App_LocalResources\YafDnnModule.ascx.resx" />
-    <Content Include="App_LocalResources\YafDnnModuleEdit.ascx.de-DE.resx" />
+    <Content Include="App_LocalResources\YafDnnModuleEdit.ascx.de-DE.resx">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="App_LocalResources\YafDnnModuleEdit.ascx.resx" />
     <Content Include="App_LocalResources\YafDnnModuleImport.ascx.de-DE.resx" />
     <Content Include="App_LocalResources\YafDnnModuleImport.ascx.resx" />

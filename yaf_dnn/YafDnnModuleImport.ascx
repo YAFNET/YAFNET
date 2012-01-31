@@ -7,7 +7,7 @@
       <asp:Label ID="lImport" runat="server" ResourceKey="lImport"></asp:Label>
     </td>
     <td>
-      <asp:Button runat="server" id="btnImportUsers" />
+      <asp:Button runat="server" id="btnImportUsers" CssClass="wizButton" />
     </td>
   </tr>
   <tr>
@@ -25,7 +25,7 @@
       <dnn:label id="lblAddScheduler" runat="server"  ResourceKey="lblAddScheduler" controlname="btnAddScheduler" suffix=":" CssClass="SubHead"></dnn:label>
     </td>
     <td>
-      <asp:Button id="btnAddScheduler" CommandArgument="add" runat="server" ></asp:Button>
+      <asp:Button id="btnAddScheduler" CommandArgument="add" runat="server" CssClass="wizButton" ></asp:Button>
     </td>
   </tr>
   <tr>
@@ -36,7 +36,7 @@
   <tr>
     <td></td>
     <td>
-      <asp:Button runat="server" id="Close" cssclass="CommandButton" />
+      <asp:Button runat="server" id="Close"  CssClass="wizButton" />
     </td>
   </tr>
 </table>

@@ -29,16 +29,14 @@ namespace YAF.DotNetNuke
   using System.Threading;
 
   using global::DotNetNuke.Entities.Host;
-  using global::DotNetNuke.Entities.Portals;
   using global::DotNetNuke.Services.Mail;
 
   using YAF.Types;
   using YAF.Types.Attributes;
   using YAF.Types.Interfaces;
 
-  using global::DotNetNuke.Services.Messaging;
 
-  using MailPriority = global::DotNetNuke.Services.Mail.MailPriority;
+    using MailPriority = global::DotNetNuke.Services.Mail.MailPriority;
 
   #endregion
 

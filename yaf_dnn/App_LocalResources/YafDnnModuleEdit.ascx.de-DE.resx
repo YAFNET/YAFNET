@@ -147,11 +147,20 @@
   <data name="InheritLanguage.Text" xml:space="preserve">
     <value>Sprache vererben</value>
   </data>
+  <data name="OverrideTheme.Text" xml:space="preserve">
+    <value>Skin überschreiben?</value>
+  </data>
   <data name="SyncProfile.Help" xml:space="preserve">
     <value>Automatisch die Profile zwischen YAF und DotNetNuke syncronisieren.</value>
   </data>
   <data name="SyncProfile.Text" xml:space="preserve">
     <value>Profile autom. syncronisieren</value>
+  </data>
+  <data name="Theme.Help" xml:space="preserve">
+    <value>Skin wählen falls das Board Skin überschrieben werden soll.</value>
+  </data>
+  <data name="Theme.Text" xml:space="preserve">
+    <value>Forum Skin</value>
   </data>
   <data name="Update.Text" xml:space="preserve">
     <value>Aktualisieren</value>
