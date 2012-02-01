@@ -947,13 +947,14 @@ namespace YAF.Controls
         [NotNull]
         private string RemoveEmptyDividers([NotNull] string userBox)
         {
-            if (userBox.IndexOf(@"<div class=""section""></div>") > 0)
+            userBox = userBox.Replace("\"\"section\"\"", "\"section\"").Replace(@"""section""", "\"section\"");
+            if (userBox.IndexOf("<div class=\"section\"></div>", System.StringComparison.Ordinal) > 0)
             {
                 userBox =
                     userBox.Replace(
-                        userBox.IndexOf(@"<div class=""section""></div><br />") > 0
-                            ? @"<div class=""section""></div><br />"
-                            : @"<div class=""section""></div>",
+                        userBox.IndexOf("<div class=\"section\"></div><br />", System.StringComparison.Ordinal) > 0
+                            ? "<div class=\"section\"></div><br />"
+                            : "<div class=\"section\"></div>",
                         string.Empty);
             }
 
