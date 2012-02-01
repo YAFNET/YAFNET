@@ -198,6 +198,7 @@
                     <add key="YAF.FileRoot" value="~/DesktopModules/YetAnotherForumDotNet" />
                     <add key="YAF.AppRoot" value="~/DesktopModules/YetAnotherForumDotNet" />
                     <add key="YAF.BaseUrlMask" value="" />
+                    <add key="YAF.ForceScriptName" value="default.aspx" />
                     <add key="YAF.ShowToolBar" value="true" />
                     <add key="YAF.AllowLoginAndLogoff" value="false" />
                     <add key="YAF.RadEditorSkin" value="Default" />
