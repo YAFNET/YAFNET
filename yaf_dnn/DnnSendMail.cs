@@ -60,12 +60,17 @@ namespace YAF.DotNetNuke
 
       var settings = Host.GetHostSettingsDictionary();
 
-        string body = string.Empty;
+        var body = string.Empty;
+
+        bool mailIsHtml = false;
 
         if (mailMessage.AlternateViews.Count > 0)
         {
-            var stream = mailMessage.AlternateViews[0].ContentStream;
-            using (var reader = new StreamReader(stream))
+            var altView = mailMessage.AlternateViews[mailMessage.AlternateViews.Count > 1 ? 1 : 0];
+
+            mailIsHtml = altView.ContentType.MediaType.Equals("text/html");
+
+            using (var reader = new StreamReader(altView.ContentStream))
             {
                 body = reader.ReadToEnd();
             }
@@ -77,8 +82,8 @@ namespace YAF.DotNetNuke
         string.Empty, 
         string.Empty, 
         MailPriority.Normal, 
-        mailMessage.Subject, 
-        mailMessage.IsBodyHtml ? MailFormat.Html : MailFormat.Text, 
+        mailMessage.Subject,
+        mailIsHtml ? MailFormat.Html : MailFormat.Text, 
         mailMessage.BodyEncoding,
         body, 
         string.Empty, 
