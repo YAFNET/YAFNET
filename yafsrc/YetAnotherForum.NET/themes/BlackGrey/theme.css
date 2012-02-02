@@ -110,7 +110,7 @@
 	
 }
 .yafnet a.HeaderTopicLink {
-	color: #ffffff;
+	color: #ffffff!important;
 	font-weight: bold;
 	font-size: 10.5pt;
 	text-decoration:none;
@@ -253,6 +253,8 @@
 
 .yafnet .post,
 .yafnet .postheader {border-top:1px solid #e9e9e9;}
+
+.yafnet .postheader {background-color: white;}
 
 .activeDiscussionContent .post, 
 .forumStatisticsContent .post,
