@@ -119,7 +119,7 @@
             </td>
         </tr>
         <tr id="PollGroupList" runat="server" visible="false">
-            <td class="postformheader" style="width: 20%">
+            <td class="postheader" style="width: 20%">
                 <YAF:HelpLabel ID="PollGroupListLabel" runat="server" LocalizedTag="pollgroup_list" />
             </td>
             <td class="post" style="width: 80%">
