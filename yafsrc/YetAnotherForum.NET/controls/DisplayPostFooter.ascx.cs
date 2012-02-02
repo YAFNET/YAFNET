@@ -264,7 +264,7 @@ namespace YAF.Controls
                 {
                     this.ReportPost.Visible = true;
 
-                    this.ReportPost.NavigateUrl = YafBuildLink.GetLink(ForumPages.reportpost, "m={0}", this.PostData.MessageId);
+                    this.ReportPost.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.reportpost, "m={0}", this.PostData.MessageId);
                 }
             }
 
