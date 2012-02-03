@@ -55,7 +55,7 @@ namespace YAF.Install
     /// <summary>
     ///   The _db version before upgrade.
     /// </summary>
-    protected int _dbVersionBeforeUpgrade;
+    //private int _dbVersionBeforeUpgrade;
 
     /// <summary>
     ///   The _app password key.
@@ -128,6 +128,17 @@ namespace YAF.Install
     }
 
     /// <summary>
+    ///   Gets a value indicating whether IsInstalled.
+    /// </summary>
+    protected bool IsInstalled
+    {
+        get
+        {
+            return this._config.GetConfigValueAsString(_AppPasswordKey).IsSet();
+        }
+    }
+
+    /// <summary>
     ///   Gets CurrentConnString.
     /// </summary>
     private string CurrentConnString
@@ -187,17 +198,6 @@ namespace YAF.Install
     }
 
     /// <summary>
-    ///   Gets a value indicating whether IsInstalled.
-    /// </summary>
-    private bool IsInstalled
-    {
-      get
-      {
-        return this._config.GetConfigValueAsString(_AppPasswordKey).IsSet();
-      }
-    }
-
-    /// <summary>
     ///   Gets PageBoardID.
     /// </summary>
     private int PageBoardID
@@ -220,11 +220,9 @@ namespace YAF.Install
     #region Public Methods
 
     /// <summary>
-    /// The get membership error message.
+    /// Gets the membership error message.
     /// </summary>
-    /// <param name="status">
-    /// The status.
-    /// </param>
+    /// <param name="status">The status.</param>
     /// <returns>
     /// The get membership error message.
     /// </returns>
@@ -311,14 +309,16 @@ namespace YAF.Install
     {
       base.Render(writer);
 
-      if (this._loadMessage != string.Empty)
-      {
+        if (this._loadMessage == string.Empty)
+        {
+            return;
+        }
+
         writer.WriteLine("<script language='javascript'>");
         writer.WriteLine("onload = function() {");
         writer.WriteLine("	alert('{0}');", this._loadMessage);
         writer.WriteLine("}");
         writer.WriteLine("</script>");
-      }
     }
 
     /// <summary>
@@ -529,14 +529,8 @@ else
     /// <summary>
     /// The wizard_ next button click.
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    /// <exception cref="ApplicationException">
-    /// </exception>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.Web.UI.WebControls.WizardNavigationEventArgs"/> instance containing the event data.</param>
     protected void Wizard_NextButtonClick([NotNull] object sender, [NotNull] WizardNavigationEventArgs e)
     {
       e.Cancel = true;
@@ -660,7 +654,7 @@ else
           break;
         default:
           throw new ApplicationException(
-              "Installation Wizard step not handled: " + this.InstallWizard.WizardSteps[e.CurrentStepIndex].ID);
+              "Installation Wizard step not handled: {0}".FormatWith(this.InstallWizard.WizardSteps[e.CurrentStepIndex].ID));
       }
     }
 
@@ -691,26 +685,22 @@ else
     }
 
     /// <summary>
-    /// The btn test db connection manual_ click.
+    /// Handles the Click event of the TestDBConnectionManual control.
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void btnTestDBConnectionManual_Click([NotNull] object sender, [NotNull] EventArgs e)
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    protected void TestDBConnectionManual_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       // attempt to connect DB...
       string message;
 
       if (!TestDatabaseConnection(out message))
       {
-        UpdateInfoPanel(
-            this.ManualConnectionInfoHolder,
-            this.lblConnectionDetailsManual,
-            "Failed to connect:<br /><br />" + message,
-            "errorinfo");
+          UpdateInfoPanel(
+              this.ManualConnectionInfoHolder,
+              this.lblConnectionDetailsManual,
+              "Failed to connect:<br /><br />{0}".FormatWith(message),
+              "errorinfo");
       }
       else
       {
@@ -723,15 +713,11 @@ else
     }
 
     /// <summary>
-    /// The btn test db connection_ click.
+    /// Handles the Click event of the TestDBConnection control.
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void btnTestDBConnection_Click([NotNull] object sender, [NotNull] EventArgs e)
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    protected void TestDBConnection_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       // attempt to connect selected DB...
       YafContext.Current["ConnectionString"] = this.CurrentConnString;
@@ -742,7 +728,7 @@ else
         UpdateInfoPanel(
             this.ConnectionInfoHolder,
             this.lblConnectionDetails,
-            "Failed to connect:<br /><br />" + message,
+            "Failed to connect:<br /><br />{0}".FormatWith(message),
             "errorinfo");
       }
       else
@@ -756,15 +742,11 @@ else
     }
 
     /// <summary>
-    /// The btn test permissions_ click.
+    /// Handles the Click event of the TestPermissions control.
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void btnTestPermissions_Click([NotNull] object sender, [NotNull] EventArgs e)
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    protected void TestPermissions_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       UpdateStatusLabel(this.lblPermissionApp, 1);
       UpdateStatusLabel(this.lblPermissionUpload, 1);
@@ -782,15 +764,11 @@ else
     }
 
     /// <summary>
-    /// The btn test smtp_ click.
+    /// Handles the Click event of the TestSmtp control.
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void btnTestSmtp_Click([NotNull] object sender, [NotNull] EventArgs e)
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    protected void TestSmtp_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       try
       {
@@ -812,21 +790,17 @@ else
         UpdateInfoPanel(
             this.SmtpInfoHolder,
             this.lblSmtpTestDetails,
-            "Failed to connect:<br /><br />" + x.Message,
+            "Failed to connect:<br /><br />{0}".FormatWith(x.Message),
             "errorinfo");
       }
     }
 
     /// <summary>
-    /// The rbl yaf database_ selected index changed.
+    /// Handles the SelectedIndexChanged event of the YAFDatabase control.
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void rblYAFDatabase_SelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    protected void YAFDatabase_SelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
     {
         switch (this.rblYAFDatabase.SelectedValue)
         {
@@ -841,11 +815,22 @@ else
         }
     }
 
-      /// <summary>
+    /// <summary>
+    /// The On PreRender event.
+    /// </summary>
+    /// <param name="e">
+    /// the Event Arguments
+    /// </param>
+    protected override void OnPreRender(EventArgs e)
+    {
+        YafContext.Current.PageElements.RegisterJQueryUI(this.Page.Header);
+        base.OnPreRender(e);
+    }
+
+    /// <summary>
     /// Validates write permission in a specific directory. Should be moved to YAF.Classes.Utils.
     /// </summary>
-    /// <param name="directory">
-    /// </param>
+    /// <param name="directory">The directory.</param>
     /// <returns>
     /// The directory has write permission.
     /// </returns>
@@ -872,8 +857,7 @@ else
     /// <summary>
     /// Tests database connection. Can probably be moved to DB class.
     /// </summary>
-    /// <param name="exceptionMessage">
-    /// </param>
+    /// <param name="exceptionMessage">The exception message.</param>
     /// <returns>
     /// The test database connection.
     /// </returns>
@@ -950,7 +934,7 @@ else
     }
 
     /// <summary>
-    /// The create forum.
+    /// Creates the forum.
     /// </summary>
     /// <returns>
     /// The create forum.
@@ -1036,7 +1020,7 @@ else
 
       try
       {
-        string prefix = Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : String.Empty;
+        string prefix = Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty;
         
         // add administrators and registered if they don't already exist...
         if (!RoleMembershipHelper.RoleExists("{0}Administrators".FormatWith(prefix)))
@@ -1058,11 +1042,11 @@ else
         FormsAuthentication.SignOut();
         DataTable cult = StaticDataHelper.Cultures();
         string langFile = "english.xml";
+
         foreach (DataRow drow in
-            cult.Rows.Cast<DataRow>().Where(drow => drow["CultureTag"].ToString() == this.Culture.SelectedValue)
-            )
+            cult.Rows.Cast<DataRow>().Where(drow => drow["CultureTag"].ToString() == this.Culture.SelectedValue))
         {
-          langFile = (string)drow["CultureFile"];
+            langFile = (string)drow["CultureFile"];
         }
 
         LegacyDb.system_initialize(
@@ -1075,7 +1059,7 @@ else
             user.UserName,
             user.Email,
             user.ProviderUserKey,
-            Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : String.Empty);
+            Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty);
 
         LegacyDb.system_updateversion(YafForumInfo.AppVersion, YafForumInfo.AppVersionName);
         LegacyDb.system_updateversion(YafForumInfo.AppVersion, YafForumInfo.AppVersionName);
@@ -1127,15 +1111,8 @@ else
     /// <summary>
     /// The execute script.
     /// </summary>
-    /// <param name="scriptFile">
-    /// The script file.
-    /// </param>
-    /// <param name="useTransactions">
-    /// The use transactions.
-    /// </param>
-    /// <exception cref="Exception">
-    /// </exception>
-    /// <exception cref="IOException"><c>IOException</c>.</exception>
+    /// <param name="scriptFile">The script file.</param>
+    /// <param name="useTransactions">The use transactions.</param>
     private void ExecuteScript([NotNull] string scriptFile, bool useTransactions)
     {
       string script;
@@ -1146,7 +1123,7 @@ else
       {
         using (var file = new StreamReader(fileName))
         {
-          script = file.ReadToEnd() + "\r\n";
+          script = "{0}\r\n".FormatWith(file.ReadToEnd());
 
           file.Close();
         }
@@ -1198,11 +1175,9 @@ else
     }
 
     /// <summary>
-    /// The index of wizard id.
+    /// Indexes the of wizard ID.
     /// </summary>
-    /// <param name="id">
-    /// The id.
-    /// </param>
+    /// <param name="id">The id.</param>
     /// <returns>
     /// The index of wizard id.
     /// </returns>
@@ -1216,18 +1191,6 @@ else
       }
 
       return -1;
-    }
-
-    /// <summary>
-    /// The On PreRender event.
-    /// </summary>
-    /// <param name="e">
-    /// the Event Arguments
-    /// </param>
-    protected override void OnPreRender(EventArgs e)
-    {
-      YafContext.Current.PageElements.RegisterJQueryUI(this.Page.Header);
-      base.OnPreRender(e);
     }
 
     /// <summary>
@@ -1372,10 +1335,11 @@ else
         }
     }
 
-      /// <summary>
-    /// The update database connection.
+    /// <summary>
+    /// Updates the database connection.
     /// </summary>
     /// <returns>
+    /// The update database connection.
     /// </returns>
     private UpdateDBFailureType UpdateDatabaseConnection()
     {
@@ -1423,11 +1387,9 @@ else
     }
 
     /// <summary>
-    /// The upgrade database.
+    /// Upgrades the database.
     /// </summary>
-    /// <param name="fullText">
-    /// The full text.
-    /// </param>
+    /// <param name="fullText">The full text.</param>
     /// <returns>
     /// The upgrade database.
     /// </returns>
@@ -1455,7 +1417,7 @@ else
         // upgrade providers...
         Providers.Membership.DB.Current.UpgradeMembership(prevVersion, YafForumInfo.AppVersion);
 
-        if (LegacyDb.GetIsForumInstalled() && prevVersion < 30)
+        if (LegacyDb.GetIsForumInstalled() && prevVersion < 30 || this.UpgradeExtensions.Checked)
         {
           // load default bbcode if available...
           if (File.Exists(this.Request.MapPath(_BbcodeImport)))
@@ -1517,7 +1479,7 @@ else
           catch (Exception x)
           {
             // just a warning...
-            this.AddLoadMessage("Warning: FullText Support wasn't installed: " + x.Message);
+            this.AddLoadMessage("Warning: FullText Support wasn't installed: {0}".FormatWith(x.Message));
           }
         }
 

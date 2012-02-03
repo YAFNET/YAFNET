@@ -242,9 +242,9 @@
 				</ol>
 				<h3>STEP 4. Modify the root web.config of your DotNetnuke. <span style="color:red;">This is the most important step.</span></h3>
 			  <ol>
-					<li>
-					  <p><strong> </strong>Replace the <strong>YAF Config Password</strong> <code>&lt;add key=&quot;YAF.ConfigPassword&quot; value=&quot;<strong>XXXX</strong>&quot; /&gt;</code> with one you like.				      </p>
-			  </ol>
+					<li>Replace the <strong>YAF Config Password</strong> <code>&lt;add key=&quot;YAF.ConfigPassword&quot; value=&quot;<strong>XXXX</strong>&quot; /&gt;</code> with one you like.</li>
+					<li>Add the the <strong>BaseUrlMask</strong> <code>&lt;add key=&quot;YAF.BaseUrlMask&quot; value=&quot;http://yourdomain.com&quot; /&gt;</code> and enter your Website Url.
+		      </ol>
 			  <h3>STEP 5a. NEW INSTALLATION:</h3>
 <p>Now you can place the YAF Module on a Page you like, but make sure you are logged into DNN using the HOST account, it will automatically starts the Installation!</p>
 <h3>STEP 5b. UPGRADE:</h3>
