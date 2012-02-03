@@ -704,7 +704,7 @@ namespace YAF.Pages
                 }
 
                 // form user is only for "Guest"
-                this.From.Text = this.PageContext.PageUserName;
+                this.From.Text =this.Get<IUserDisplayName>().GetName(this.PageContext.PageUserID);
                 if (this.User != null)
                 {
                     this.FromRow.Visible = false;
@@ -1488,6 +1488,7 @@ namespace YAF.Pages
                 this.Get<IUserDisplayName>().GetName(message.UserID.ToType<int>()),
                 message.MessageID,
                 messageContent).TrimStart();
+
         }
 
         /// <summary>
