@@ -112,11 +112,16 @@ namespace Intelligencia.UrlRewriter
                         StringBuilder builder = new StringBuilder();
                         foreach (string value in queryStringCollection.AllKeys.Distinct())
                         {
-                            builder.AppendFormat("{0}={1}", value, queryStringCollection.GetValues(value).FirstOrDefault());
+                            builder.AppendFormat("{0}={1}&", value, queryStringCollection.GetValues(value).FirstOrDefault());
                         }
 
                         context.Location = context.Location.Remove(context.Location.IndexOf("?") + 1);
                         context.Location = context.Location + builder;
+
+                        if (context.Location.EndsWith(@"&"))
+                        {
+                            context.Location = context.Location.Remove(context.Location.Length - 1);
+                        }
                     }
 
                     ContextFacade.RewritePath(context.Location);
