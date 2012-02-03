@@ -97,7 +97,7 @@
                     </td>
                     <td class="post" align="center">
                        <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="yaflittlebutton" CommandName='edit' CommandArgument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>' TitleLocalizedTag="EDIT" ImageThemePage="ICONS" ImageThemeTag="EDIT_SMALL_ICON" runat="server"></YAF:ThemeButton>
-                       <YAF:ThemeButton ID="ThemeButtonDelete" OnLoad="Delete_Load" CssClass="yaflittlebutton" CommandName='delete' CommandArgument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>' TitleLocalizedTag="DELETE" ImageThemePage="ICONS" ImageThemeTag="DELETE_SMALL_ICON" runat="server"></YAF:ThemeButton>
+                       <YAF:ThemeButton ID="ThemeButtonDelete" OnLoad="Delete_Load" CssClass="yaflittlebutton" CommandName='delete' CommandArgument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>' TitleLocalizedTag="DELETE" ImageThemePage="ICONS" ImageThemeTag="DELETE_SMALL_ICON" Visible='<%# DataBinder.Eval(Container.DataItem, "IsGuest").ToType<bool>() == false %>' runat="server"></YAF:ThemeButton>
                     </td>
                 </tr>
             </ItemTemplate>
