@@ -8,7 +8,7 @@
         </td>
     </tr>
     <tr>
-        <td>
+        <td class="post">
             <YAF:AlbumImageList ID="AlbumImageList1" runat="server"></YAF:AlbumImageList>
         </td>
     </tr>
