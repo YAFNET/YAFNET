@@ -778,9 +778,15 @@ namespace YAF.Pages
         private string TransformExtSearchLink([NotNull] string searchEngine, [NotNull] string searchParams)
         {
             searchEngine = searchEngine.Replace("{ResultsPerPage}", this.listResInPage.SelectedValue);
+            
+            string url = this.ForumURL.TrimEnd('/').Replace("www.", string.Empty);
 
+            if (Config.IsMojoPortal)
+            {
+                url = BaseUrlBuilder.BaseUrl.TrimEnd('/').Replace("www.", string.Empty);
+            }
             // int forumID = int.Parse(this.listForum.SelectedValue);
-            searchEngine = searchEngine.Replace("{Site}", this.ForumURL.TrimEnd('/').Replace("www.", string.Empty));
+            searchEngine = searchEngine.Replace("{Site}", url);
 
             //// searchEngine = searchEngine.Replace("{Language}", this.PageContext.CultureUser.Substring(0,2));           
             string[] searchParamsDefArray = searchParams.Split('^');
