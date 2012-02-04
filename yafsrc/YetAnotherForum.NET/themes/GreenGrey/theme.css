@@ -684,7 +684,7 @@ This CSS already works on FireFox.
 	text-decoration: none;
 	color: #ffffff;
 }
-.yafnet .postTop a:active
+.yafnet .postTop a:active,
 .yafnet .Checked,
 .yafnet a.yaflittlebutton:active,
 .yafnet a.yafcssimagebutton:active {

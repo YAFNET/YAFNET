@@ -633,6 +633,7 @@ This CSS already works on FireFox.
 	color: #000090;
 }
 /* CCS Buttons */
+.yafnet .postTop a,
 .yafnet .MultiQuoteButton,
 .yafnet a.yaflittlebutton,
 .yafnet a.yafcssimagebutton {
@@ -664,6 +665,7 @@ This CSS already works on FireFox.
 	background: -moz-linear-gradient(top,  #666,  #000);
 	
 }
+.yafnet .postTop a:hover,
 .yafnet .MultiQuoteButton:hover,
 .yafnet a.yaflittlebutton:hover,
 .yafnet a.yafcssimagebutton:hover {
@@ -676,6 +678,7 @@ This CSS already works on FireFox.
 	text-decoration: none;
 	color: #ffffff;
 }
+.yafnet .postTop a:active,
 .yafnet .Checked,
 .yafnet a.yaflittlebutton:active,
 .yafnet a.yafcssimagebutton:active {
@@ -683,6 +686,7 @@ This CSS already works on FireFox.
 	color: #666;
 	background: -webkit-gradient(linear, left top, left bottom, from(#000), to(#444));
 	background: -moz-linear-gradient(top,  #000,  #444);
+	background: -o-gradient(linear, left top, left bottom, from(#000), to(#444));
 	
 	
 	text-decoration: none;
