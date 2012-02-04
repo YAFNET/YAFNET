@@ -412,7 +412,7 @@ namespace YAF.Classes
       get
       {
           return GetConfigValueAsString("YAF.JQueryUILangFile") ??
-               "http://ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery-ui-i18n.min.js";
+               "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/i18n/jquery-ui-i18n.min.js";
       }
     }
 
