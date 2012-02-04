@@ -4122,6 +4122,7 @@
     <Content Include="themes\BlackGrey\icon_home.png" />
     <Content Include="themes\BlackGrey\icon_icq.png" />
     <Content Include="themes\BlackGrey\icon_latest_reply.png" />
+    <Content Include="themes\BlackGrey\icon_linkback.png" />
     <Content Include="themes\BlackGrey\icon_msn.png" />
     <Content Include="themes\BlackGrey\icon_newest_reply.png" />
     <Content Include="themes\BlackGrey\icon_pm.png" />
@@ -4169,8 +4170,6 @@
     <Content Include="themes\BlackGrey\status_issue.png" />
     <Content Include="themes\BlackGrey\status_question.png" />
     <Content Include="themes\BlackGrey\status_solved.png" />
-    <Content Include="themes\BlackGrey\tab-line.png" />
-    <Content Include="themes\BlackGrey\tab.png" />
     <Content Include="themes\BlackGrey\theme.css" />
     <Content Include="themes\BlackGrey\topic.png" />
     <Content Include="themes\BlackGrey\topic_announce.png" />
@@ -4232,6 +4231,7 @@
     <Content Include="themes\BlueGrey\icon_home.png" />
     <Content Include="themes\BlueGrey\icon_icq.png" />
     <Content Include="themes\BlueGrey\icon_latest_reply.png" />
+    <Content Include="themes\BlueGrey\icon_linkback.png" />
     <Content Include="themes\BlueGrey\icon_msn.png" />
     <Content Include="themes\BlueGrey\icon_newest_reply.png" />
     <Content Include="themes\BlueGrey\icon_pm.png" />
@@ -4279,8 +4279,6 @@
     <Content Include="themes\BlueGrey\status_issue.png" />
     <Content Include="themes\BlueGrey\status_question.png" />
     <Content Include="themes\BlueGrey\status_solved.png" />
-    <Content Include="themes\BlueGrey\tab-line.png" />
-    <Content Include="themes\BlueGrey\tab.png" />
     <Content Include="themes\BlueGrey\theme.css" />
     <Content Include="themes\BlueGrey\topic.png" />
     <Content Include="themes\BlueGrey\topic_announce.png" />
@@ -4592,6 +4590,7 @@
     <Content Include="themes\cleanSlate\icon_home.png" />
     <Content Include="themes\cleanSlate\icon_icq.png" />
     <Content Include="themes\cleanSlate\icon_latest_reply.gif" />
+    <Content Include="themes\cleanSlate\icon_linkback.png" />
     <Content Include="themes\cleanSlate\icon_msn.png" />
     <Content Include="themes\cleanSlate\icon_newest_reply.gif" />
     <Content Include="themes\cleanSlate\icon_pm.png" />
@@ -4698,6 +4697,7 @@
     <Content Include="themes\GreenGrey\icon_home.png" />
     <Content Include="themes\GreenGrey\icon_icq.png" />
     <Content Include="themes\GreenGrey\icon_latest_reply.png" />
+    <Content Include="themes\GreenGrey\icon_linkback.png" />
     <Content Include="themes\GreenGrey\icon_msn.png" />
     <Content Include="themes\GreenGrey\icon_newest_reply.png" />
     <Content Include="themes\GreenGrey\icon_pm.png" />
@@ -4732,7 +4732,6 @@
     <Content Include="themes\GreenGrey\poll_choice.png" />
     <Content Include="themes\GreenGrey\poll_question.png" />
     <Content Include="themes\GreenGrey\PostHeader.png" />
-    <Content Include="themes\GreenGrey\reflection.js" />
     <Content Include="themes\GreenGrey\Report.png" />
     <Content Include="themes\GreenGrey\RightArrow.png" />
     <Content Include="themes\GreenGrey\RightArrowWhite.png" />
@@ -4746,8 +4745,6 @@
     <Content Include="themes\GreenGrey\status_issue.png" />
     <Content Include="themes\GreenGrey\status_question.png" />
     <Content Include="themes\GreenGrey\status_solved.png" />
-    <Content Include="themes\GreenGrey\tab-line.png" />
-    <Content Include="themes\GreenGrey\tab.png" />
     <Content Include="themes\GreenGrey\theme.css" />
     <Content Include="themes\GreenGrey\topic.png" />
     <Content Include="themes\GreenGrey\topic_announce.png" />
@@ -4809,6 +4806,7 @@
     <Content Include="themes\GreyGrey\icon_home.png" />
     <Content Include="themes\GreyGrey\icon_icq.png" />
     <Content Include="themes\GreyGrey\icon_latest_reply.png" />
+    <Content Include="themes\GreyGrey\icon_linkback.png" />
     <Content Include="themes\GreyGrey\icon_msn.png" />
     <Content Include="themes\GreyGrey\icon_newest_reply.png" />
     <Content Include="themes\GreyGrey\icon_pm.png" />
@@ -4854,8 +4852,6 @@
     <Content Include="themes\GreyGrey\status_issue.png" />
     <Content Include="themes\GreyGrey\status_question.png" />
     <Content Include="themes\GreyGrey\status_solved.png" />
-    <Content Include="themes\GreyGrey\tab-line.png" />
-    <Content Include="themes\GreyGrey\tab.png" />
     <Content Include="themes\GreyGrey\theme.css" />
     <Content Include="themes\GreyGrey\topic.png" />
     <Content Include="themes\GreyGrey\topic_announce.png" />
@@ -4917,6 +4913,7 @@
     <Content Include="themes\OrangeGrey\icon_home.png" />
     <Content Include="themes\OrangeGrey\icon_icq.png" />
     <Content Include="themes\OrangeGrey\icon_latest_reply.png" />
+    <Content Include="themes\OrangeGrey\icon_linkback.png" />
     <Content Include="themes\OrangeGrey\icon_msn.png" />
     <Content Include="themes\OrangeGrey\icon_newest_reply.png" />
     <Content Include="themes\OrangeGrey\icon_pm.png" />
@@ -4964,8 +4961,6 @@
     <Content Include="themes\OrangeGrey\status_issue.png" />
     <Content Include="themes\OrangeGrey\status_question.png" />
     <Content Include="themes\OrangeGrey\status_solved.png" />
-    <Content Include="themes\OrangeGrey\tab-line.png" />
-    <Content Include="themes\OrangeGrey\tab.png" />
     <Content Include="themes\OrangeGrey\theme.css" />
     <Content Include="themes\OrangeGrey\topic.png" />
     <Content Include="themes\OrangeGrey\topic_announce.png" />
@@ -5027,6 +5022,7 @@
     <Content Include="themes\RedGrey\icon_home.png" />
     <Content Include="themes\RedGrey\icon_icq.png" />
     <Content Include="themes\RedGrey\icon_latest_reply.png" />
+    <Content Include="themes\RedGrey\icon_linkback.png" />
     <Content Include="themes\RedGrey\icon_msn.png" />
     <Content Include="themes\RedGrey\icon_newest_reply.png" />
     <Content Include="themes\RedGrey\icon_pm.png" />
@@ -5074,8 +5070,6 @@
     <Content Include="themes\RedGrey\status_issue.png" />
     <Content Include="themes\RedGrey\status_question.png" />
     <Content Include="themes\RedGrey\status_solved.png" />
-    <Content Include="themes\RedGrey\tab-line.png" />
-    <Content Include="themes\RedGrey\tab.png" />
     <Content Include="themes\RedGrey\theme.css" />
     <Content Include="themes\RedGrey\topic.png" />
     <Content Include="themes\RedGrey\topic_announce.png" />
@@ -5117,6 +5111,7 @@
     <Content Include="themes\soclean\icon_digg.png" />
     <Content Include="themes\soclean\icon_facebook.png" />
     <Content Include="themes\soclean\icon_facebook2.png" />
+    <Content Include="themes\soclean\icon_linkback.png" />
     <Content Include="themes\soclean\icon_print.png" />
     <Content Include="themes\soclean\icon_reddit.png" />
     <Content Include="themes\soclean\icon_search.png" />
@@ -5254,6 +5249,7 @@
     <Content Include="themes\yafpro\icon_digg.png" />
     <Content Include="themes\yafpro\icon_facebook.png" />
     <Content Include="themes\yafpro\icon_facebook2.png" />
+    <Content Include="themes\yafpro\icon_linkback.png" />
     <Content Include="themes\yafpro\icon_print.png" />
     <Content Include="themes\yafpro\icon_reddit.png" />
     <Content Include="themes\yafpro\icon_search.png" />
@@ -5312,6 +5308,7 @@
     <Content Include="themes\yafvision\icon_digg.png" />
     <Content Include="themes\yafvision\icon_facebook.png" />
     <Content Include="themes\yafvision\icon_facebook2.png" />
+    <Content Include="themes\yafvision\icon_linkback.png" />
     <Content Include="themes\yafvision\icon_print.png" />
     <Content Include="themes\yafvision\icon_reddit.png" />
     <Content Include="themes\yafvision\icon_search.png" />
