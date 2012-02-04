@@ -1121,7 +1121,8 @@ height:80em;
 }
 .topicLastPost .avatarimage,
 .topicMain .avatarimage,
-.YAF_Pages_members .avatarimage {width: 40px; height: 40px;}
+.YAF_Pages_members .avatarimage,
+.YAF_Pages_team .avatarimage {width: 40px; height: 40px;}
 
 .AvatarWrap {
 	-webkit-box-shadow: inset 0 0 1px rgba(0,0,0,.8), inset 0 2px 0 rgba(255,255,255,.5), inset 0 -1px 0 rgba(0,0,0,.4);
@@ -1137,7 +1138,8 @@ height:80em;
 
 .topicLastPost .AvatarWrap,
 .topicMain .AvatarWrap,
-#yafpage_members .AvatarWrap {
+.YAF_Pages_members .AvatarWrap,
+.YAF_Pages_team .AvatarWrap {
 	float: left;
 	
 	width: 40px;
@@ -1154,6 +1156,8 @@ height:80em;
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	border-radius: 10px;
+	
+	background-size:40px!important;
 }
 
 .yafnet span.highlight {
