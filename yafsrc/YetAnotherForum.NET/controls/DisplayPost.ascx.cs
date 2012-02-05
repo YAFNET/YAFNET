@@ -361,7 +361,7 @@ namespace YAF.Controls
         /// </param>
         protected void RemoveUserReputation(object sender, EventArgs e)
         {
-            if (!this.AllowReputationVoting())
+            if (!this.CheckIfAllowReputationVoting())
             {
                 return;
             }
