@@ -39,6 +39,7 @@ namespace YAF.Install
     using YAF.Core;
     using YAF.Core.Tasks;
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Interfaces;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -51,7 +52,7 @@ namespace YAF.Install
   public partial class _default : Page, IHaveServiceLocator
   {
     #region Constants and Fields
-
+    
     /// <summary>
     ///   The _db version before upgrade.
     /// </summary>
@@ -86,6 +87,11 @@ namespace YAF.Install
     ///   The _load message.
     /// </summary>
     private string _loadMessage = string.Empty;
+
+    /// <summary>
+    /// Indicated that a new Forum Was Created
+    /// </summary>
+    protected bool NewForumCreated;
 
     #endregion
 
@@ -941,174 +947,175 @@ else
     /// </returns>
     private bool CreateForum()
     {
-      if (LegacyDb.GetIsForumInstalled())
-      {
-        this.AddLoadMessage("Forum is already installed.");
-        return false;
-      }
-
-      if (this.TheForumName.Text.Length == 0)
-      {
-        this.AddLoadMessage("You must enter a forum name.");
-        return false;
-      }
-
-      if (this.ForumEmailAddress.Text.Length == 0)
-      {
-        this.AddLoadMessage("You must enter a forum email address.");
-        return false;
-      }
-
-      MembershipUser user;
-
-      if (this.UserChoice.SelectedValue == "create")
-      {
-        if (this.UserName.Text.Length == 0)
+        if (LegacyDb.GetIsForumInstalled())
         {
-          this.AddLoadMessage("You must enter the admin user name,");
-          return false;
+            this.AddLoadMessage("Forum is already installed.");
+            return false;
         }
 
-        if (this.AdminEmail.Text.Length == 0)
+        if (this.TheForumName.Text.Length == 0)
         {
-          this.AddLoadMessage("You must enter the administrators email address.");
-          return false;
+            this.AddLoadMessage("You must enter a forum name.");
+            return false;
         }
 
-        if (this.Password1.Text.Length == 0)
+        if (this.ForumEmailAddress.Text.Length == 0)
         {
-          this.AddLoadMessage("You must enter a password.");
-          return false;
+            this.AddLoadMessage("You must enter a forum email address.");
+            return false;
         }
 
-        if (this.Password1.Text != this.Password2.Text)
+        MembershipUser user;
+
+        if (this.UserChoice.SelectedValue == "create")
         {
-          this.AddLoadMessage("The passwords must match.");
-          return false;
-        }
-
-        // create the admin user...
-        MembershipCreateStatus status;
-        user = this.Get<MembershipProvider>().CreateUser(
-            this.UserName.Text,
-            this.Password1.Text,
-            this.AdminEmail.Text,
-            this.SecurityQuestion.Text,
-            this.SecurityAnswer.Text,
-            true,
-            null,
-            out status);
-        if (status != MembershipCreateStatus.Success)
-        {
-          this.AddLoadMessage(
-              "Create Admin User Failed: {0}".FormatWith(this.GetMembershipErrorMessage(status)));
-          return false;
-        }
-      }
-      else
-      {
-        // try to get data for the existing user...
-        user = UserMembershipHelper.GetUser(this.ExistingUserName.Text.Trim());
-
-        if (user == null)
-        {
-          this.AddLoadMessage(
-              "Existing user name is invalid and does not represent a current user in the membership store.");
-          return false;
-        }
-      }
-
-      try
-      {
-        string prefix = Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty;
-        
-        // add administrators and registered if they don't already exist...
-        if (!RoleMembershipHelper.RoleExists("{0}Administrators".FormatWith(prefix)))
-        {
-          RoleMembershipHelper.CreateRole("{0}Administrators".FormatWith(prefix));
-        }
-
-        if (!RoleMembershipHelper.RoleExists("{0}Registered".FormatWith(prefix)))
-        {
-          RoleMembershipHelper.CreateRole("{0}Registered".FormatWith(prefix));
-        }
-
-        if (!RoleMembershipHelper.IsUserInRole(user.UserName, "{0}Administrators".FormatWith(prefix)))
-        {
-          RoleMembershipHelper.AddUserToRole(user.UserName, "{0}Administrators".FormatWith(prefix));
-        }
-
-        // logout administrator...
-        FormsAuthentication.SignOut();
-        DataTable cult = StaticDataHelper.Cultures();
-        string langFile = "english.xml";
-
-        foreach (DataRow drow in
-            cult.Rows.Cast<DataRow>().Where(drow => drow["CultureTag"].ToString() == this.Culture.SelectedValue))
-        {
-            langFile = (string)drow["CultureFile"];
-        }
-
-        LegacyDb.system_initialize(
-            this.TheForumName.Text,
-            this.TimeZones.SelectedValue,
-            this.Culture.SelectedValue,
-            langFile,
-            this.ForumEmailAddress.Text,
-            string.Empty,
-            user.UserName,
-            user.Email,
-            user.ProviderUserKey,
-            Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty);
-
-        LegacyDb.system_updateversion(YafForumInfo.AppVersion, YafForumInfo.AppVersionName);
-        LegacyDb.system_updateversion(YafForumInfo.AppVersion, YafForumInfo.AppVersionName);
-
-        // vzrus: uncomment it to not keep install/upgrade objects in db for a place and better security
-        // YAF.Classes.Data.DB.system_deleteinstallobjects();
-        // load default bbcode if available...
-        if (File.Exists(this.Request.MapPath(_BbcodeImport)))
-        {
-          // import into board...
-          using (var bbcodeStream = new StreamReader(this.Request.MapPath(_BbcodeImport)))
-          {
-            DataImport.BBCodeExtensionImport(this.PageBoardID, bbcodeStream.BaseStream);
-            bbcodeStream.Close();
-          }
-        }
-
-        // load default extensions if available...
-        if (File.Exists(this.Request.MapPath(_FileImport)))
-        {
-          // import into board...
-          using (var fileExtStream = new StreamReader(this.Request.MapPath(_FileImport)))
-          {
-            DataImport.FileExtensionImport(this.PageBoardID, fileExtStream.BaseStream);
-            fileExtStream.Close();
-          }
-        }
-
-        // load default topic status if available...
-        if (File.Exists(this.Request.MapPath(_TopicStatusImport)))
-        {
-            // import into board...
-            using (var topicStatusStream = new StreamReader(this.Request.MapPath(_TopicStatusImport)))
+            if (this.UserName.Text.Length == 0)
             {
-                DataImport.TopicStatusImport(this.PageBoardID, topicStatusStream.BaseStream);
-                topicStatusStream.Close();
+                this.AddLoadMessage("You must enter the admin user name,");
+                return false;
+            }
+
+            if (this.AdminEmail.Text.Length == 0)
+            {
+                this.AddLoadMessage("You must enter the administrators email address.");
+                return false;
+            }
+
+            if (this.Password1.Text.Length == 0)
+            {
+                this.AddLoadMessage("You must enter a password.");
+                return false;
+            }
+
+            if (this.Password1.Text != this.Password2.Text)
+            {
+                this.AddLoadMessage("The passwords must match.");
+                return false;
+            }
+
+            // create the admin user...
+            MembershipCreateStatus status;
+            user = this.Get<MembershipProvider>().CreateUser(
+                this.UserName.Text,
+                this.Password1.Text,
+                this.AdminEmail.Text,
+                this.SecurityQuestion.Text,
+                this.SecurityAnswer.Text,
+                true,
+                null,
+                out status);
+            if (status != MembershipCreateStatus.Success)
+            {
+                this.AddLoadMessage("Create Admin User Failed: {0}".FormatWith(this.GetMembershipErrorMessage(status)));
+                return false;
             }
         }
-      }
-      catch (Exception x)
-      {
-        this.AddLoadMessage(x.Message);
-        return false;
-      }
+        else
+        {
+            // try to get data for the existing user...
+            user = UserMembershipHelper.GetUser(this.ExistingUserName.Text.Trim());
 
-      return true;
+            if (user == null)
+            {
+                this.AddLoadMessage(
+                    "Existing user name is invalid and does not represent a current user in the membership store.");
+                return false;
+            }
+        }
+
+        try
+        {
+            string prefix = Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty;
+
+            // add administrators and registered if they don't already exist...
+            if (!RoleMembershipHelper.RoleExists("{0}Administrators".FormatWith(prefix)))
+            {
+                RoleMembershipHelper.CreateRole("{0}Administrators".FormatWith(prefix));
+            }
+
+            if (!RoleMembershipHelper.RoleExists("{0}Registered".FormatWith(prefix)))
+            {
+                RoleMembershipHelper.CreateRole("{0}Registered".FormatWith(prefix));
+            }
+
+            if (!RoleMembershipHelper.IsUserInRole(user.UserName, "{0}Administrators".FormatWith(prefix)))
+            {
+                RoleMembershipHelper.AddUserToRole(user.UserName, "{0}Administrators".FormatWith(prefix));
+            }
+
+            // logout administrator...
+            FormsAuthentication.SignOut();
+            DataTable cult = StaticDataHelper.Cultures();
+            string langFile = "english.xml";
+
+            foreach (DataRow drow in
+                cult.Rows.Cast<DataRow>().Where(drow => drow["CultureTag"].ToString() == this.Culture.SelectedValue))
+            {
+                langFile = (string)drow["CultureFile"];
+            }
+
+            LegacyDb.system_initialize(
+                this.TheForumName.Text,
+                this.TimeZones.SelectedValue,
+                this.Culture.SelectedValue,
+                langFile,
+                this.ForumEmailAddress.Text,
+                string.Empty,
+                user.UserName,
+                user.Email,
+                user.ProviderUserKey,
+                Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty);
+
+            LegacyDb.system_updateversion(YafForumInfo.AppVersion, YafForumInfo.AppVersionName);
+            LegacyDb.system_updateversion(YafForumInfo.AppVersion, YafForumInfo.AppVersionName);
+
+            // vzrus: uncomment it to not keep install/upgrade objects in db for a place and better security
+            // YAF.Classes.Data.DB.system_deleteinstallobjects();
+            // load default bbcode if available...
+            if (File.Exists(this.Request.MapPath(_BbcodeImport)))
+            {
+                // import into board...
+                using (var bbcodeStream = new StreamReader(this.Request.MapPath(_BbcodeImport)))
+                {
+                    DataImport.BBCodeExtensionImport(this.PageBoardID, bbcodeStream.BaseStream);
+                    bbcodeStream.Close();
+                }
+            }
+
+            // load default extensions if available...
+            if (File.Exists(this.Request.MapPath(_FileImport)))
+            {
+                // import into board...
+                using (var fileExtStream = new StreamReader(this.Request.MapPath(_FileImport)))
+                {
+                    DataImport.FileExtensionImport(this.PageBoardID, fileExtStream.BaseStream);
+                    fileExtStream.Close();
+                }
+            }
+
+            // load default topic status if available...
+            if (File.Exists(this.Request.MapPath(_TopicStatusImport)))
+            {
+                // import into board...
+                using (var topicStatusStream = new StreamReader(this.Request.MapPath(_TopicStatusImport)))
+                {
+                    DataImport.TopicStatusImport(this.PageBoardID, topicStatusStream.BaseStream);
+                    topicStatusStream.Close();
+                }
+            }
+        }
+        catch (Exception x)
+        {
+            this.AddLoadMessage(x.Message);
+            return false;
+        }
+
+        this.NewForumCreated = true;
+
+        return true;
     }
 
-    /// <summary>
+      /// <summary>
     /// The execute script.
     /// </summary>
     /// <param name="scriptFile">The script file.</param>
@@ -1417,7 +1424,7 @@ else
         // upgrade providers...
         Providers.Membership.DB.Current.UpgradeMembership(prevVersion, YafForumInfo.AppVersion);
 
-        if (LegacyDb.GetIsForumInstalled() && prevVersion < 30 || this.UpgradeExtensions.Checked)
+        if (LegacyDb.GetIsForumInstalled() && prevVersion < 30 || !this.NewForumCreated && this.UpgradeExtensions.Checked)
         {
           // load default bbcode if available...
           if (File.Exists(this.Request.MapPath(_BbcodeImport)))
@@ -1457,6 +1464,14 @@ else
         {
           // un-html encode all topic subject names...
           LegacyDb.unencode_all_topics_subjects(t => Server.HtmlDecode(t));
+        }
+
+        if (LegacyDb.GetIsForumInstalled() && prevVersion < 49)
+        {
+            // Reset The UserBox Template
+            this.Get<YafBoardSettings>().UserBox = Constants.UserBox.DisplayTemplateDefault;
+
+            ((YafLoadBoardSettings)this.Get<YafBoardSettings>()).SaveRegistry();
         }
 
         // vzrus: uncomment it to not keep install/upgrade objects in DB and for better security 
