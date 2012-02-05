@@ -222,6 +222,7 @@ namespace YAF.Providers.Membership
         cmd.Parameters.AddWithValue("PasswordQuestion", passwordQuestion);
         cmd.Parameters.AddWithValue("PasswordAnswer", passwordAnswer);
         cmd.Parameters.AddWithValue("IsApproved", isApproved);
+        cmd.Parameters.AddWithValue("@UTCTIMESTAMP", DateTime.UtcNow);
 
         // Input Output Parameters
         var paramUserKey = new SqlParameter("UserKey", SqlDbType.UniqueIdentifier);
@@ -413,6 +414,7 @@ namespace YAF.Providers.Membership
         cmd.Parameters.AddWithValue("@UserName", userName);
         cmd.Parameters.AddWithValue("@UserKey", providerUserKey);
         cmd.Parameters.AddWithValue("@UserIsOnline", userIsOnline);
+        cmd.Parameters.AddWithValue("@UTCTIMESTAMP", DateTime.UtcNow);
         using (DataTable dt = this._msSqlDbAccess.GetData(cmd))
         {
           if (dt.Rows.Count > 0)
@@ -608,7 +610,7 @@ namespace YAF.Providers.Membership
         // Nonstandard args
         cmd.Parameters.AddWithValue("@PreviousVersion", previousVersion);
         cmd.Parameters.AddWithValue("@NewVersion", newVersion);
-
+        cmd.Parameters.AddWithValue("@UTCTIMESTAMP", DateTime.UtcNow);
         this._msSqlDbAccess.ExecuteNonQuery(cmd);
       }
     }
