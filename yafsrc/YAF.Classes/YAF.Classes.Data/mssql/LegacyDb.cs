@@ -1090,6 +1090,7 @@ namespace YAF.Classes.Data
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("ProcessID", processId);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
 
                 return MsSqlDbAccess.Current.GetData(cmd).SelectTypedList(x => new TypedMailList(x));
             }
@@ -1469,6 +1470,7 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("ShowCrawlers", showCrawlers);
                 cmd.Parameters.AddWithValue("ActiveTime", activeTime);
                 cmd.Parameters.AddWithValue("StyledNicks", styledNicks);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
                 return MsSqlDbAccess.Current.GetData(cmd);
             }
         }
@@ -1609,6 +1611,7 @@ namespace YAF.Classes.Data
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("BoardID", boardId);
                 cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
 
                 return MsSqlDbAccess.Current.GetData(cmd);
             }
@@ -1793,6 +1796,7 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("FileName", fileName);
                 cmd.Parameters.AddWithValue("Bytes", bytes);
                 cmd.Parameters.AddWithValue("ContentType", contentType);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
             }
         }
@@ -1850,6 +1854,7 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("UserID", userID);
                 cmd.Parameters.AddWithValue("Title", title);
                 cmd.Parameters.AddWithValue("CoverImageID", coverImageID);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
                 cmd.Parameters.Add(paramOutput);
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
                 return Convert.ToInt32(paramOutput.Value);
@@ -2056,6 +2061,7 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("Mask", Mask);
                 cmd.Parameters.AddWithValue("Reason", reason);
                 cmd.Parameters.AddWithValue("UserID", userID);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
             }
         }
@@ -2216,6 +2222,7 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("UserKey", adminUserKey);
                 cmd.Parameters.AddWithValue("IsHostAdmin", 0);
                 cmd.Parameters.AddWithValue("RolePrefix", rolePrefix);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
 
                 return (int)MsSqlDbAccess.Current.ExecuteScalar(cmd);
             }
@@ -2444,6 +2451,7 @@ namespace YAF.Classes.Data
                 approved.Direction = ParameterDirection.Output;
                 cmd.Parameters.AddWithValue("FromUserID", FromUserID);
                 cmd.Parameters.AddWithValue("ToUserID", ToUserID);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
                 cmd.Parameters.Add(paramOutput);
                 cmd.Parameters.Add(approved);
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
@@ -2477,6 +2485,7 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("FromUserID", FromUserID);
                 cmd.Parameters.AddWithValue("ToUserID", ToUserID);
                 cmd.Parameters.AddWithValue("mutual", Mutual);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
                 cmd.Parameters.Add(paramOutput);
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
                 return paramOutput.Value.ToString();
@@ -2716,6 +2725,7 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("UserID", userID);
                 cmd.Parameters.AddWithValue("Hash", hash);
                 cmd.Parameters.AddWithValue("Email", email);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
             }
         }
@@ -3457,6 +3467,7 @@ namespace YAF.Classes.Data
                     cmd.Parameters.AddWithValue("UserID", userID);
                     cmd.Parameters.AddWithValue("Source", source.ToString());
                     cmd.Parameters.AddWithValue("Description", description.ToString());
+                    cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
                     MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
                 }
             }
@@ -4772,6 +4783,7 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("Subject", subject);
                 cmd.Parameters.AddWithValue("Body", body);
                 cmd.Parameters.AddWithValue("BodyHtml", bodyHtml);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
             }
         }
@@ -4812,6 +4824,7 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("Body", body);
                 cmd.Parameters.AddWithValue("BodyHtml", bodyHtml);
                 cmd.Parameters.AddWithValue("UserID", userID);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
             }
         }
@@ -5026,13 +5039,14 @@ namespace YAF.Classes.Data
         [NotNull]
         public static string message_AddThanks([NotNull] object FromUserID, [NotNull] object MessageID)
         {
-            using (var cmd = MsSqlDbAccess.GetCommand("message_Addthanks"))
+            using (var cmd = MsSqlDbAccess.GetCommand("message_addthanks"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 var paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 255);
                 paramOutput.Direction = ParameterDirection.Output;
                 cmd.Parameters.AddWithValue("FromUserID", FromUserID);
                 cmd.Parameters.AddWithValue("MessageID", MessageID);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
                 cmd.Parameters.Add(paramOutput);
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
                 return paramOutput.Value.ToString();
@@ -5422,6 +5436,7 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("ReporterID", userID);
                 cmd.Parameters.AddWithValue("ReportedDate", reportedDateTime);
                 cmd.Parameters.AddWithValue("ReportText", reportText);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
             }
         }
@@ -5464,6 +5479,7 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("MessageFlag", messageFlag);
                 cmd.Parameters.AddWithValue("MessageID", messageID);
                 cmd.Parameters.AddWithValue("UserID", userID);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
             }
         }
@@ -5519,6 +5535,7 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("ReplyTo", replyTo);
                 cmd.Parameters.AddWithValue("BlogPostID", null); // Ederon : 6/16/2007
                 cmd.Parameters.AddWithValue("Flags", flags);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
                 cmd.Parameters.Add(paramMessageID);
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
                 messageID = (long)paramMessageID.Value;
@@ -5729,6 +5746,7 @@ namespace YAF.Classes.Data
 
                 cmd.Parameters.AddWithValue("MessageID", messageId);
                 cmd.Parameters.AddWithValue("DaysToClean", daysToClean);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
 
                 return MsSqlDbAccess.Current.GetData(cmd);
             }
@@ -5776,6 +5794,7 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("Minutes", minutes);
                 cmd.Parameters.AddWithValue("NntpForumID", nntpForumID);
                 cmd.Parameters.AddWithValue("Active", active);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
                 return MsSqlDbAccess.Current.GetData(cmd);
             }
         }
@@ -5826,6 +5845,7 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("ForumID", forumID);
                 cmd.Parameters.AddWithValue("Active", active);
                 cmd.Parameters.AddWithValue("DateCutOff", datecutoff);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
             }
         }
@@ -5850,6 +5870,7 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("NntpForumID", nntpForumID);
                 cmd.Parameters.AddWithValue("LastMessageNo", lastMessageNo);
                 cmd.Parameters.AddWithValue("UserID", userID);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
             }
         }
@@ -5997,6 +6018,7 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("Posted", posted);
                 cmd.Parameters.AddWithValue("ExternalMessageId", externalMessageId);
                 cmd.Parameters.AddWithValue("ReferenceMessageId", referenceMessageId);
+                cmd.Parameters.AddWithValue("@UTCTIMESTAMP", DateTime.UtcNow);
 
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
             }
@@ -6084,7 +6106,7 @@ namespace YAF.Classes.Data
                         cmd.Parameters.AddWithValue("IsCrawler", isCrawler);
                         cmd.Parameters.AddWithValue("IsMobileDevice", isMobileDevice);
                         cmd.Parameters.AddWithValue("DontTrack", donttrack);
-                        cmd.Parameters.AddWithValue("CurrentTime", DateTime.UtcNow);
+                        cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
 
                         using (DataTable dt = MsSqlDbAccess.Current.GetData(cmd))
                         {
@@ -6246,6 +6268,7 @@ namespace YAF.Classes.Data
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("DaysRead", daysRead);
                 cmd.Parameters.AddWithValue("DaysUnread", daysUnread);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
             }
         }
@@ -6278,6 +6301,7 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("Subject", subject);
                 cmd.Parameters.AddWithValue("Body", body);
                 cmd.Parameters.AddWithValue("Flags", Flags);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
             }
         }
@@ -7285,6 +7309,7 @@ namespace YAF.Classes.Data
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("BoardId", boardId);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
                 return true;
             }
@@ -7346,6 +7371,7 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("UserName", userName);
                 cmd.Parameters.AddWithValue("UserID", userID);
                 cmd.Parameters.AddWithValue("IP", ip);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
                 return true;
             }
@@ -7532,6 +7558,7 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("@UserEmail", userEmail);
                 cmd.Parameters.AddWithValue("@UserKey", providerUserKey);
                 cmd.Parameters.AddWithValue("@RolePrefix", rolePrefix);
+                cmd.Parameters.AddWithValue("@UTCTIMESTAMP", DateTime.UtcNow);
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
             }
         }
@@ -8014,6 +8041,7 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("MessageID", messageID);
                 cmd.Parameters.AddWithValue("ForumID", forumId);
                 cmd.Parameters.AddWithValue("Subject", newTopicSubj);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
                 DataTable dt = MsSqlDbAccess.Current.GetData(cmd);
                 return long.Parse(dt.Rows[0]["TopicID"].ToString());
             }
@@ -8402,7 +8430,7 @@ namespace YAF.Classes.Data
         /// <param name="showMoved">
         /// The show moved.
         /// </param>
-        public static void topic_move([NotNull] object topicID, [NotNull] object forumID, [NotNull] object showMoved)
+        public static void topic_move([NotNull] object topicID, [NotNull] object forumID, [NotNull] object showMoved, [NotNull] object linkDays)
         {
             using (var cmd = MsSqlDbAccess.GetCommand("topic_move"))
             {
@@ -8410,6 +8438,8 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("TopicID", topicID);
                 cmd.Parameters.AddWithValue("ForumID", forumID);
                 cmd.Parameters.AddWithValue("ShowMoved", showMoved);
+                cmd.Parameters.AddWithValue("LinkDays", linkDays);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
             }
         }
@@ -8441,6 +8471,7 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("ForumID", forumID);
                 cmd.Parameters.AddWithValue("Days", days);
                 cmd.Parameters.AddWithValue("PermDelete", permDelete);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
 
                 cmd.CommandTimeout = int.Parse(Config.SqlCommandTimeout);
                 return (int)MsSqlDbAccess.Current.ExecuteScalar(cmd);
@@ -8526,6 +8557,7 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("Posted", posted);
                 cmd.Parameters.AddWithValue("BlogPostID", blogPostID);
                 cmd.Parameters.AddWithValue("Flags", flags);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
 
                 DataTable dt = MsSqlDbAccess.Current.GetData(cmd);
                 messageID = long.Parse(dt.Rows[0]["MessageID"].ToString());
@@ -8881,6 +8913,7 @@ namespace YAF.Classes.Data
                     cmd.Parameters.AddWithValue("Email", email);
                     cmd.Parameters.AddWithValue("ProviderUserKey", providerUserKey);
                     cmd.Parameters.AddWithValue("IsApproved", isApproved);
+                    cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
                     return (int)MsSqlDbAccess.Current.ExecuteScalar(cmd);
                 }
             }
@@ -8984,6 +9017,7 @@ namespace YAF.Classes.Data
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("BoardID", boardID);
                 cmd.Parameters.AddWithValue("Days", days);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
             }
         }
@@ -9203,6 +9237,7 @@ namespace YAF.Classes.Data
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("BoardID", boardID);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
                 return MsSqlDbAccess.Current.ExecuteScalar(cmd).ToType<int?>();
             }
         }
@@ -9426,6 +9461,7 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("GroupID", groupID);
                 cmd.Parameters.AddWithValue("RankID", rankID);
                 cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
+                cmd.Parameters.AddWithValue("@UTCTIMESTAMP", DateTime.UtcNow);
 
                 return MsSqlDbAccess.Current.GetData(cmd);
             }
@@ -9737,6 +9773,7 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("OnlyRibbon", onlyRibbon);
                 cmd.Parameters.AddWithValue("SortOrder", sortOrder);
                 cmd.Parameters.AddWithValue("DateAwarded", dateAwarded);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
 
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
             }
@@ -9793,6 +9830,7 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("UserName", userName);
                 cmd.Parameters.AddWithValue("Email", email);
                 cmd.Parameters.AddWithValue("TimeZone", timeZone);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
 
                 return (int)MsSqlDbAccess.Current.ExecuteScalar(cmd);
             }
@@ -10054,6 +10092,7 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("DSTUser", dSTUser);
                 cmd.Parameters.AddWithValue("HideUser", hideUser);
                 cmd.Parameters.AddWithValue("NotificationType", notificationType);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
             }
         }
@@ -10406,6 +10445,7 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("UserID", userID);
                 cmd.Parameters.AddWithValue("ForumID", forumID);
                 cmd.Parameters.AddWithValue("AccessMaskID", accessMaskID);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
             }
         }
@@ -10468,6 +10508,7 @@ namespace YAF.Classes.Data
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("UserID", userID);
                 cmd.Parameters.AddWithValue("ForumID", forumID);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
             }
         }
@@ -10544,6 +10585,7 @@ namespace YAF.Classes.Data
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("UserID", userID);
                 cmd.Parameters.AddWithValue("TopicID", topicID);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
             }
         }
@@ -10621,6 +10663,7 @@ namespace YAF.Classes.Data
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("UserID", userID);
                 cmd.Parameters.AddWithValue("TopicID", topicID);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
             }
         }
@@ -10708,6 +10751,7 @@ namespace YAF.Classes.Data
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("UserID", userID);
                 cmd.Parameters.AddWithValue("ForumID", forumID);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
             }
         }

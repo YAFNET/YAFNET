@@ -2462,8 +2462,10 @@ Spoiler Content
    </page>
    <page name="MOVETOPIC">
       <Resource tag="LEAVE_POINTER">Leave a link to the moved topic from the original forum</Resource>
+      <Resource tag="POINTER_DAYS">Days to keep link to topic:</Resource>
+      <Resource tag="POINTER_DAYS_INVALID">You should enter a positive integer value for the link</Resource>
       <Resource tag="MOVE">Move Topic</Resource>
-      <Resource tag="SELECT_FORUM">Select the forum you want to move the post to:</Resource>
+      <Resource tag="SELECT_FORUM">Select the forum you want to move the post to:</Resource>     
       <Resource tag="TITLE">Move Topic</Resource>
    </page>
    <page name="MYTOPICS">

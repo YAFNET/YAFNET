@@ -3994,6 +3994,8 @@ Spoiler Content
   <page name="MOVETOPIC">
     <Resource tag="LEAVE_POINTER">Оставить ссылку на тему на первоначальном форуме</Resource>
     <Resource tag="MOVE">Переместить тему</Resource>
+    <Resource tag="POINTER_DAYS">Хранить ссылку (дней):</Resource>
+    <Resource tag="POINTER_DAYS_INVALID">Вы должны ввест ицелое число дней</Resource>
     <Resource tag="SELECT_FORUM">Выберите форум, куда Вы хотите переместить эту тему:</Resource>
     <Resource tag="TITLE">Переместить тему</Resource>
   </page>
