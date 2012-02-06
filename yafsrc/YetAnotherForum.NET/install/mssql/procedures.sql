@@ -2150,6 +2150,7 @@ BEGIN
 		LastUser	= null,
 		LastUserStyle = ''
 		END
+		-- this can be in any very rare updatable cached place 
 		DELETE FROM [{databaseOwner}].[{objectQualifier}Topic] where TopicMovedID IS NOT NULL AND LinkDate IS NOT NULL AND LinkDate < GETUTCDATE()
 		
 END

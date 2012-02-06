@@ -477,6 +477,7 @@ namespace YAF.Providers.Membership
         // Nonstandard args
         cmd.Parameters.AddWithValue("@Username", username);
         cmd.Parameters.AddWithValue("@UserIsOnline", updateUser);
+        cmd.Parameters.AddWithValue("@UTCTIMESTAMP", DateTime.UtcNow);
         return this._msSqlDbAccess.GetData(cmd);
       }
     }

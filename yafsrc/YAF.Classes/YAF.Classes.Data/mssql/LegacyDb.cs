@@ -1302,6 +1302,7 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("GroupID", groupID);
                 cmd.Parameters.AddWithValue("RankID", rankID);
                 cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
 
                 return MsSqlDbAccess.Current.GetData(cmd).AsEnumerable().Select(x => new TypedUserList(x));
             }
