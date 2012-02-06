@@ -3935,8 +3935,8 @@ Spoiler Content
   <page name="MOVETOPIC">
     <Resource tag="LEAVE_POINTER">Einen Link im alten Forum hinterlassen, um auf das Thema im neuen Forum zu verweisen.</Resource>
     <Resource tag="MOVE">Thema verschieben</Resource>
-    <Resource tag="POINTER_DAYS">Days to keep link to topic:</Resource>
-    <Resource tag="POINTER_DAYS_INVALID">You should enter a positive integer value for the link</Resource>
+    <Resource tag="POINTER_DAYS">Wieviele Tage soll der Link sichtbar sein:</Resource>
+    <Resource tag="POINTER_DAYS_INVALID">Sie müssen eine Positive Zahl in Tagen angeben.</Resource>
     <Resource tag="SELECT_FORUM">Wähle das Forum, in welches das Thema verschoben werden soll:</Resource>
     <Resource tag="TITLE">Thema verschieben</Resource>
   </page>
