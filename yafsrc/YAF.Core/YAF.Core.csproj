@@ -30,6 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\YetAnotherForum.NET\Bin\YAF.Core.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac">
@@ -39,11 +40,6 @@
     <Reference Include="CookComputing.XmlRpcV2, Version=2.5.0.0, Culture=neutral, PublicKeyToken=a7d6e17aa302004d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\YetAnotherForum.NET\Bin\CookComputing.XmlRpcV2.dll</HintPath>
-    </Reference>
-    <Reference Include="FarsiLibrary, Version=1.9.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\YetAnotherForum.NET\Bin\FarsiLibrary.dll</HintPath>
-      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
@@ -253,6 +249,10 @@
     <Compile Include="Exceptions\YafTaskModuleNotRegisteredException.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FarsiLibrary\FarsiLibrary.csproj">
+      <Project>{ED29E567-C801-49E9-8C33-CFB66042B07B}</Project>
+      <Name>FarsiLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\YAF.Classes\YAF.Classes.Config\YAF.Classes.Config.csproj">
       <Project>{05E50D2F-9527-4CE8-A0F8-168281C426CB}</Project>
       <Name>YAF.Classes.Config</Name>

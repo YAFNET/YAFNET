@@ -101,10 +101,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Bin\CookComputing.XmlRpcV2.dll</HintPath>
     </Reference>
-    <Reference Include="FarsiLibrary, Version=2.5.1.5, Culture=neutral, PublicKeyToken=8b49dc47f4701f66, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Bin\FarsiLibrary.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.JScript" />
     <Reference Include="nStuff.UpdateControls, Version=1.2.0.0, Culture=neutral, PublicKeyToken=72f3f55dd4809977, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -5506,6 +5502,10 @@
     <Content Include="webconfigs\v191-upgrade-web.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FarsiLibrary\FarsiLibrary.csproj">
+      <Project>{ED29E567-C801-49E9-8C33-CFB66042B07B}</Project>
+      <Name>FarsiLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\URLRewriter.NET\Intelligencia.UrlRewriter.csproj">
       <Project>{F8516C67-92BE-43FF-A8A9-B71A3EA4BE0D}</Project>
       <Name>Intelligencia.UrlRewriter</Name>
