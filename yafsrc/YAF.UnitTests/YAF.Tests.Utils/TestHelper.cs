@@ -84,7 +84,7 @@ namespace YAF.Tests.Utils
             // Create User
             browser.Button(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_StepNextButton"))).Click();
 
-            if (browser.ContainsText("Forum Preferences"))
+            if (!browser.ContainsText("Forum Preferences"))
             {
                 return false;
             }

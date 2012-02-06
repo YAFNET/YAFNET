@@ -70,7 +70,7 @@ namespace YAF.Tests.UserTests.Content
         public void Create_New_Topic_Test()
         {
             // Go to Post New Topic
-            this.browser.GoTo("{0}yaf_postmessage.aspx?f={0}".FormatWith(TestConfig.TestForumUrl, TestConfig.TestForumID));
+            this.browser.GoTo("{0}yaf_postmessage.aspx?f={1}".FormatWith(TestConfig.TestForumUrl, TestConfig.TestForumID));
 
             Assert.IsTrue(this.browser.ContainsText("Post New Topic"), "Post New Topic not possible");
 

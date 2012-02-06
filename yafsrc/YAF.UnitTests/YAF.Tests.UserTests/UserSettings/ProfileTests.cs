@@ -147,7 +147,7 @@ namespace YAF.Tests.UserTests.UserSettings
             this.browser.Button(Find.ById(new Regex("_ProfileEditor_UpdateProfile"))).Click();
 
             // Check if Editor Is Correct
-            this.browser.GoTo("{0}yaf_postmessage.aspx?f={0}".FormatWith(TestConfig.TestForumUrl, TestConfig.TestForumID));
+            this.browser.GoTo("{0}yaf_postmessage.aspx?f={1}".FormatWith(TestConfig.TestForumUrl, TestConfig.TestForumID));
 
             Assert.IsNotNull(this.browser.Table(Find.ByClass("cke_editor")), "Changing Text Editor Failed failed");
 
