@@ -268,7 +268,7 @@ namespace YAF.Controls
                 }
             }
 
-            string userName = this.PostData.UserProfile.UserName;
+            string userName = this.DataRow["DisplayName"].ToString();
 
             // albums link
             if (this.PostData.UserId != this.PageContext.PageUserID &&
