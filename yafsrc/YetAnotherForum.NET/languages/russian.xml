@@ -533,7 +533,7 @@
     <Resource tag="ALLOW_REORDER_HELP">Пользователю разрешено или запрещено изменять порядок отображения медали.</Resource>
     <Resource tag="ALLOW_RIBBON">Орденская планка:</Resource>
     <Resource tag="ALLOW_RIBBON_HELP">Орденская планка для этой медали.</Resource>
-    <Resource tag="CONFIRM_REMOVE_GROUP">Удалить медаль из этйо группы?</Resource>
+    <Resource tag="CONFIRM_REMOVE_GROUP">Удалить медаль из этой группы?</Resource>
     <Resource tag="CONFIRM_REMOVE_USER">Удалить медаль у этого пользователя?</Resource>
     <Resource tag="DATE_AWARDED">Дата вручения</Resource>
     <Resource tag="EDIT_MEDAL_GROUP">Изменить медаль и/или группу</Resource>

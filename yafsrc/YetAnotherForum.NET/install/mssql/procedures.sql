@@ -1977,7 +1977,7 @@ begin
 	EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'language',@LanguageFile,@BoardID
 	
 	-- Rank
-	INSERT INTO [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts,PMLimit,SortOrder) VALUES (@BoardID,'Administration',0,null,2147483647,0)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts,PMLimit,Style,SortOrder) VALUES (@BoardID,'Administration',0,null,2147483647,'default!font-size: 8pt; color: #811334/yafpro!font-size: 8pt; color:blue',0)
 	SET @RankIDAdmin = SCOPE_IDENTITY()
 	INSERT INTO [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts,PMLimit,SortOrder) VALUES(@BoardID,'Guest',0,null,0,100)
 	SET @RankIDGuest = SCOPE_IDENTITY()
@@ -2005,9 +2005,9 @@ begin
 	VALUES(@BoardID,'No Access',0,0)
 
 	-- Group
-	INSERT INTO [{databaseOwner}].[{objectQualifier}Group](BoardID,Name,Flags,PMLimit,Style,SortOrder,UsrSigChars,UsrSigBBCodes,UsrAlbums,UsrAlbumImages) values(@BoardID, ISNULL(@RolePrefix,'') + 'Administrators',1,2147483647,'default!font-size: 8pt; color: red/soclean!font-size: 8pt; color:blue',0,256,'URL,IMG,SPOILER,QUOTE',10,120)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}Group](BoardID,Name,Flags,PMLimit,Style,SortOrder,UsrSigChars,UsrSigBBCodes,UsrAlbums,UsrAlbumImages) values(@BoardID, ISNULL(@RolePrefix,'') + 'Administrators',1,2147483647,'default!font-size: 8pt; color: red/yafpro!font-size: 8pt; color:blue',0,256,'URL,IMG,SPOILER,QUOTE',10,120)
 	set @GroupIDAdmin = SCOPE_IDENTITY()
-	INSERT INTO [{databaseOwner}].[{objectQualifier}Group](BoardID,Name,Flags,PMLimit,SortOrder,UsrSigChars,UsrSigBBCodes,UsrAlbums,UsrAlbumImages) values(@BoardID,'Guests',2,0,1,0,null,0,0)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}Group](BoardID,Name,Flags,PMLimit,Style,SortOrder,UsrSigChars,UsrSigBBCodes,UsrAlbums,UsrAlbumImages) values(@BoardID,'Guests',2,0,'default!font-size: 8pt; font-style: italic; font-weight: bold; color: #0c7333/yafpro!font-size: 8pt; color: #6e1987',1,0,null,0,0)
 	SET @GroupIDGuest = SCOPE_IDENTITY()
 	INSERT INTO [{databaseOwner}].[{objectQualifier}Group](BoardID,Name,Flags,PMLimit,SortOrder,UsrSigChars,UsrSigBBCodes,UsrAlbums,UsrAlbumImages) values(@BoardID,ISNULL(@RolePrefix,'') + 'Registered',4,100,1,128,'URL,IMG,SPOILER,QUOTE',5,30)
 	SET @GroupIDMember = SCOPE_IDENTITY()	
