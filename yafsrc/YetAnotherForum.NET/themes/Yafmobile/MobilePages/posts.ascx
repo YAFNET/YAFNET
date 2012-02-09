@@ -141,15 +141,13 @@
         </tr>
     </table>
 </asp:PlaceHolder>
+<YAF:Pager ID="PagerBottom" runat="server" LinkedPager="Pager" UsePostBack="false" />
 <asp:PlaceHolder ID="mobileHolder" runat="server" Visible="false">
 <table class="content postForumUsers" width="100%">
     <YAF:ForumUsers ID="ForumUsers1" runat="server" />
 </table>
 <table cellpadding="0" cellspacing="0" class="command" width="100%">
     <tr>
-        <td align="left">
-            <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="Pager" UsePostBack="false" />
-        </td>
         <td>
             <span id="dvFavorite2">
                 <YAF:ThemeButton ID="TagFavorite2" runat="server" CssClass="yafcssbigbutton rightItem"
@@ -171,6 +169,8 @@
         </td>
     </tr>
 </table>
+
+
 
 <YAF:PageLinks ID="PageLinksBottom" runat="server" LinkedPageLinkID="PageLinks" />
 <asp:PlaceHolder ID="ForumJumpHolder" runat="server">
