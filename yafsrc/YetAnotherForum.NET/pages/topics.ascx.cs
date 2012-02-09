@@ -151,13 +151,13 @@ namespace YAF.Pages
 		/// </param>
 		protected void ForumSearch_Click(object sender, EventArgs e)
 		{
-			if (string.IsNullOrEmpty(this.forumSearch.Text))
+			if (string.IsNullOrWhiteSpace(this.forumSearch.Text))
 			{
 				return;
 			}
-
+		    string ff = this.forumSearch.Text.TrimWordsOverMaxLengthWordsPreserved(50);
 			YafBuildLink.Redirect(
-					ForumPages.search, "search={0}&forum={1}", this.forumSearch.Text, this.PageContext.PageForumID);
+                    ForumPages.search, "search={0}&forum={1}", this.forumSearch.Text.TrimWordsOverMaxLengthWordsPreserved(this.Get<YafBoardSettings>().SearchStringMaxLength), this.PageContext.PageForumID);
 		}
 
 		/// <summary>

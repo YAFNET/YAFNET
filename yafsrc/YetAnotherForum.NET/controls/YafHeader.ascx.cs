@@ -146,7 +146,7 @@ namespace YAF.Controls
                 return;
             }
 
-            YafBuildLink.Redirect(ForumPages.search, "search={0}", this.searchInput.Text);
+            YafBuildLink.Redirect(ForumPages.search, "search={0}", this.searchInput.Text.TrimWordsOverMaxLengthWordsPreserved(this.Get<YafBoardSettings>().SearchStringMaxLength));
         }
 
         /// <summary>

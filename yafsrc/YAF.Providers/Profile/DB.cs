@@ -258,6 +258,27 @@ namespace YAF.Providers.Profile
     }
 
     /// <summary>
+    /// The get db type and size from string.
+    /// </summary>
+    /// <param name="providerData">
+    /// The provider data.
+    /// </param>
+    /// <param name="dbType">
+    /// The db type.
+    /// </param>
+    /// <param name="size">
+    /// The size.
+    /// </param>
+    /// <returns>
+    /// The get db type and size from string.
+    /// </returns>
+    /// <exception cref="ArgumentException">
+    /// </exception>
+    public static bool GetDbTypeAndSizeFromString(string providerData, out SqlDbType dbType, out int size)
+    {
+        return LegacyDb.GetDbTypeAndSizeFromString(providerData, out dbType, out size);
+    }
+    /// <summary>
     /// The get provider user key.
     /// </summary>
     /// <param name="appName">

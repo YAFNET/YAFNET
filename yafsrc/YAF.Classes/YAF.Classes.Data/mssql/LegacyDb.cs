@@ -11001,13 +11001,13 @@ namespace YAF.Classes.Data
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
             }
         }
-            /// <summary>
-    /// The get db type and size from string.
-    /// </summary>
-    /// <param name="providerData">
-    /// The provider data.
-    /// </param>
-    /// <param name="dbType">
+        /// <summary>
+        /// The get db type and size from string.
+        /// </summary>
+        /// <param name="providerData">
+        ///  The provider data.
+        /// </param>
+        /// <param name="dbType">
     /// The db type.
     /// </param>
     /// <param name="size">
@@ -11018,36 +11018,36 @@ namespace YAF.Classes.Data
     /// </returns>
     /// <exception cref="ArgumentException">
     /// </exception>
-    private static bool GetDbTypeAndSizeFromString(string providerData, out SqlDbType dbType, out int size)
-    {
-      size = -1;
-      dbType = SqlDbType.NVarChar;
-
-      if (providerData.IsNotSet())
-      {
-        return false;
-      }
-
-      // split the data
-      string[] chunk = providerData.Split(new[] { ';' });
-
-      // first item is the column name...
-      string columnName = chunk[0];
-
-      // get the datatype and ignore case...
-      dbType = (SqlDbType)Enum.Parse(typeof(SqlDbType), chunk[1], true);
-
-      if (chunk.Length > 2)
-      {
-        // handle size...
-        if (!Int32.TryParse(chunk[2], out size))
+        public static bool GetDbTypeAndSizeFromString(string providerData, out SqlDbType dbType, out int size)
         {
-          throw new ArgumentException("Unable to parse as integer: " + chunk[2]);
-        }
-      }
+            size = -1;
+            dbType = SqlDbType.NVarChar;
 
-      return true;
-    }
+            if (providerData.IsNotSet())
+            {
+                return false;
+            }
+
+            // split the data
+            string[] chunk = providerData.Split(new[] { ';' });
+
+            // first item is the column name...
+            string columnName = chunk[0];
+
+            // get the datatype and ignore case...
+            dbType = (SqlDbType)Enum.Parse(typeof(SqlDbType), chunk[1], true);
+
+            if (chunk.Length > 2)
+            {
+                // handle size...
+                if (!Int32.TryParse(chunk[2], out size))
+                {
+                    throw new ArgumentException("Unable to parse as integer: " + chunk[2]);
+                }
+            }
+
+            return true;
+        }
 
         static List<SettingsPropertyColumn> LoadFromPropertyValueCollection(SettingsPropertyValueCollection collection)
         {
