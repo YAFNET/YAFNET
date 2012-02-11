@@ -309,7 +309,7 @@ namespace YAF.Utilities
         public static string FacebookLoginJs(string remberMeId)
         {
             return
-                 @"function LoginUser() {{
+                @"function LoginUser() {{
 
                     var Remember = {1}('#{2}').is(':checked');
 
@@ -323,7 +323,7 @@ namespace YAF.Utilities
                               'link', response.link,
                               'username', response.username,
                               'birthday', response.birthday,
-                              'hometown', response.hometown.name,
+                              'hometown', response.hometown === undefined ? '' : response.hometown.name,
                               'gender', response.gender,
                               'email', response.email,
                               'timezone', response.timezone,
@@ -360,7 +360,7 @@ namespace YAF.Utilities
                 @"function postToFacebook() {{
 
                    FB.login(function(response) {{
-                       if (response.session) {{
+                       if (response.authResponse) {{
                              FB.ui(
                                 {{ method: 'feed', name: '{0}', link: '{2}', picture: '{3}', caption: '{4}', description: '{1}', message: '{0}'
                                 }},
