@@ -51,7 +51,7 @@
                                     <tr id="SingleSignOnRow" runat="server" Visible="false">
                                        <td style="text-align:center" colspan="2" class="postfooter">
                                          <asp:PlaceHolder id="FacebookHolder" runat="server" Visible="false">
-                                           <fb:login-button onlogin="LoginUser()" scope="email,user_birthday,status_update,publish_stream">
+                                           <fb:login-button onlogin="LoginUser()" scope="email,user_birthday,status_update,publish_stream,user_hometown,user_location">
                                              <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="FACEBOOK_LOGIN" />
                                            </fb:login-button>
                                            <div id="fb-root"></div>
