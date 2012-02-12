@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+﻿/* Yet Another Forum.net
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -16,69 +16,61 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Types.Interfaces.Data
+namespace YAF.Types.Interfaces
 {
 	#region Using
 
-	using System.Collections.Generic;
+	using System;
+	using System.Data;
 
 	#endregion
 
 	/// <summary>
-	/// The db specific function.
+	/// The i db function extensions.
 	/// </summary>
-	public interface IDbSpecificFunction
+	public static class IDbFunctionExtensions
 	{
-		#region Properties
-
-		/// <summary>
-		/// Gets ProviderName.
-		/// </summary>
-		string ProviderName { get; }
-
-		/// <summary>
-		///   Gets SortOrder.
-		/// </summary>
-		int SortOrder { get; }
-
-		#endregion
-
 		#region Public Methods
 
 		/// <summary>
-		/// The execute.
+		/// The get data.
 		/// </summary>
-		/// <param name="dbfunctionType">
-		/// The dbfunction type.
+		/// <param name="dbFunction">
+		/// The db function.
 		/// </param>
-		/// <param name="operationName">
-		/// The operation name.
-		/// </param>
-		/// <param name="parameters">
-		/// The parameters.
-		/// </param>
-		/// <param name="result">
-		/// The result.
+		/// <param name="function">
+		/// The function.
 		/// </param>
 		/// <returns>
-		/// The execute.
 		/// </returns>
-		bool Execute(
-			DbFunctionType dbfunctionType, 
-			string operationName, 
-			IEnumerable<KeyValuePair<string, object>> parameters, 
-			out object result);
+		[CanBeNull]
+		public static DataTable GetData([NotNull] this IDbFunction dbFunction, [NotNull] Func<object, object> function)
+		{
+			CodeContracts.ArgumentNotNull(dbFunction, "dbFunction");
+			CodeContracts.ArgumentNotNull(function, "function");
+
+			return (DataTable)function(dbFunction.GetData);
+		}
 
 		/// <summary>
-		/// The supported operation.
+		/// The get data set.
 		/// </summary>
-		/// <param name="operationName">
-		/// The operation name.
+		/// <param name="dbFunction">
+		/// The db function.
+		/// </param>
+		/// <param name="function">
+		/// The function.
 		/// </param>
 		/// <returns>
-		/// True if the operation is supported.
 		/// </returns>
-		bool IsSupportedOperation(string operationName);
+		[CanBeNull]
+		public static DataSet GetDataSet([NotNull] this IDbFunction dbFunction, [NotNull] Func<object, object> function)
+		{
+			CodeContracts.ArgumentNotNull(dbFunction, "dbFunction");
+			CodeContracts.ArgumentNotNull(function, "function");
+
+			return (DataSet)function(dbFunction.GetDataSet);
+		}
 
 		#endregion
 	}

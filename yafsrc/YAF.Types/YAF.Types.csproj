@@ -75,6 +75,8 @@
     <Compile Include="EventProxies\UpdateUserEvent.cs" />
     <Compile Include="EventProxies\UpdateUserPrivateMessageEvent.cs" />
     <Compile Include="EventProxies\UserLogoutEvent.cs" />
+    <Compile Include="Interfaces\Data\IDbConnectionParam.cs" />
+    <Compile Include="Interfaces\Extensions\DbSpecificFunctionExtensions.cs" />
     <Compile Include="Interfaces\Data\IDataLoadable.cs" />
     <Compile Include="Interfaces\Data\IDbFunction.cs" />
     <Compile Include="Interfaces\Data\IDbSpecificFunction.cs" />
@@ -101,6 +103,7 @@
     <Compile Include="Interfaces\Extensions\CollectionExtensions.cs" />
     <Compile Include="Interfaces\Extensions\IDbAccessConnectionExtensions.cs" />
     <Compile Include="Interfaces\Extensions\IDbAccessExtensions.cs" />
+    <Compile Include="Interfaces\Extensions\IDbFunctionExtensions.cs" />
     <Compile Include="Interfaces\Extensions\IDbUnitOfWorkExtensions.cs" />
     <Compile Include="Interfaces\Extensions\IHaveLocalizationExtensions.cs" />
     <Compile Include="Interfaces\Extensions\InjectServicesExtensions.cs" />

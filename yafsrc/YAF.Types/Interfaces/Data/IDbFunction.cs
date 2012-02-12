@@ -30,27 +30,27 @@ namespace YAF.Types.Interfaces
 	public enum DbFunctionType
 	{
 		/// <summary>
-		/// The query.
+		///   The query.
 		/// </summary>
 		Query, 
 
 		/// <summary>
-		/// The data table.
+		///   The data table.
 		/// </summary>
 		DataTable, 
 
 		/// <summary>
-		/// The data set.
+		///   The data set.
 		/// </summary>
 		DataSet, 
 
 		/// <summary>
-		/// The scalar.
+		///   The scalar.
 		/// </summary>
 		Scalar, 
 
 		/// <summary>
-		/// The reader.
+		///   The reader.
 		/// </summary>
 		Reader
 	}
@@ -68,7 +68,7 @@ namespace YAF.Types.Interfaces
 		/// <param name="message">
 		/// The message.
 		/// </param>
-		public DbFunctionCancelledException(string message)
+		public DbFunctionCancelledException([NotNull] string message)
 			: base(message)
 		{
 		}
@@ -84,24 +84,29 @@ namespace YAF.Types.Interfaces
 		#region Properties
 
 		/// <summary>
-		/// Gets GetData.
+		///   Gets GetData.
 		/// </summary>
 		dynamic GetData { get; }
 
 		/// <summary>
-		/// Gets GetDataSet.
+		///   Gets GetDataSet.
 		/// </summary>
 		dynamic GetDataSet { get; }
 
 		/// <summary>
-		/// Gets Query.
+		///   Gets Query.
 		/// </summary>
 		dynamic Query { get; }
 
 		/// <summary>
-		/// Gets Scalar.
+		///   Gets Scalar.
 		/// </summary>
 		dynamic Scalar { get; }
+
+		/// <summary>
+		/// Gets or sets the current Unit of Work used.
+		/// </summary>
+		IDbUnitOfWork UnitOfWork { get; set; }
 
 		#endregion
 	}

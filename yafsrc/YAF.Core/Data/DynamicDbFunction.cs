@@ -21,14 +21,17 @@ namespace YAF.Core.Data
 	#region Using
 
 	using System;
+	using System.Collections.Concurrent;
 	using System.Collections.Generic;
 	using System.Data.Common;
 	using System.Dynamic;
 	using System.Linq;
+	using System.Threading;
 
 	using YAF.Types;
 	using YAF.Types.Interfaces;
 	using YAF.Types.Interfaces.Data;
+	using YAF.Types.Interfaces.Extensions;
 	using YAF.Utils;
 
 	#endregion
@@ -39,6 +42,8 @@ namespace YAF.Core.Data
 	public class DynamicDbFunction : IDbFunction
 	{
 		#region Constants and Fields
+
+		private readonly IDbAccessProvider _dbAccessProvider;
 
 		/// <summary>
 		/// The _db specific functions.
@@ -72,16 +77,13 @@ namespace YAF.Core.Data
 		/// <summary>
 		/// Initializes a new instance of the <see cref="DynamicDbFunction"/> class.
 		/// </summary>
-		/// <param name="dbAccess">
-		/// The db access.
-		/// </param>
 		/// <param name="dbSpecificFunctions">
 		/// The db Specific Functions.
 		/// </param>
-		public DynamicDbFunction([NotNull] IDbAccess dbAccess, IEnumerable<IDbSpecificFunction> dbSpecificFunctions)
+		public DynamicDbFunction([NotNull] IDbAccessProvider dbAccessProvider, IEnumerable<IDbSpecificFunction> dbSpecificFunctions)
 		{
+			_dbAccessProvider = dbAccessProvider;
 			this._dbSpecificFunctions = dbSpecificFunctions;
-			this.DbAccess = dbAccess;
 			this._getDataProxy = new TryInvokeMemberProxy(this.InvokeGetData);
 			this._getDataSetProxy = new TryInvokeMemberProxy(this.InvokeGetDataSet);
 			this._queryProxy = new TryInvokeMemberProxy(this.InvokeQuery);
@@ -92,10 +94,25 @@ namespace YAF.Core.Data
 
 		#region Properties
 
-		/// <summary>
-		///   Gets or sets DbAccess.
-		/// </summary>
-		public IDbAccess DbAccess { get; set; }
+		private WeakReference _unitOfWork = new WeakReference(null);
+
+		public virtual IDbUnitOfWork UnitOfWork
+		{
+			get
+			{
+				if (this._unitOfWork != null && this._unitOfWork.IsAlive)
+				{
+					return this._unitOfWork.Target as IDbUnitOfWork;
+				}
+
+				return null;
+			}
+
+			set
+			{
+				this._unitOfWork = new WeakReference(value);
+			}
+		}
 
 		/// <summary>
 		///   Gets GetData.
@@ -179,18 +196,17 @@ namespace YAF.Core.Data
 
 			var operationName = binder.Name;
 
-			// see if there's a specific function override...
+			// see if there's a specific function override for the current provider...
 			var specificFunction =
-				this._dbSpecificFunctions.OrderBy(f => f.SortOrder).Where(
-					f => f.OperationNames.Any(s => string.Equals(s, operationName, StringComparison.OrdinalIgnoreCase))).FirstOrDefault
-					();
+				this._dbSpecificFunctions.GetForProviderAndOperation(this._dbAccessProvider.ProviderName, operationName).
+					FirstOrDefault();
 
-			if (specificFunction != null && specificFunction.Execute(functionType, operationName, parameters, out result))
+			if (specificFunction.Execute(functionType, operationName, parameters, out result))
 			{
 				return true;
 			}
 
-			using (var cmd = this.DbAccess.GetCommand(operationName.ToLower(), true, parameters))
+			using (var cmd = this._dbAccessProvider.Instance.GetCommand(operationName.ToLower(), true, parameters))
 			{
 				result = executeDb(cmd);
 			}
@@ -220,7 +236,7 @@ namespace YAF.Core.Data
 				DbFunctionType.DataTable, 
 				binder, 
 				this.MapParameters(binder.CallInfo, args), 
-				(cmd) => this.DbAccess.GetData(cmd), 
+				(cmd) => this._dbAccessProvider.Instance.GetData(cmd, this.UnitOfWork), 
 				out result);
 		}
 
@@ -246,7 +262,7 @@ namespace YAF.Core.Data
 				DbFunctionType.DataSet, 
 				binder, 
 				this.MapParameters(binder.CallInfo, args), 
-				(cmd) => this.DbAccess.GetDataset(cmd), 
+				(cmd) => this._dbAccessProvider.Instance.GetDataset(cmd, this.UnitOfWork), 
 				out result);
 		}
 
@@ -273,7 +289,7 @@ namespace YAF.Core.Data
 				this.MapParameters(binder.CallInfo, args), 
 				(cmd) =>
 					{
-						this.DbAccess.ExecuteNonQuery(cmd);
+						this._dbAccessProvider.Instance.ExecuteNonQuery(cmd, this.UnitOfWork);
 						return null;
 					}, 
 				out result);
@@ -300,7 +316,7 @@ namespace YAF.Core.Data
 				DbFunctionType.Scalar, 
 				binder, 
 				this.MapParameters(binder.CallInfo, args), 
-				(cmd) => this.DbAccess.ExecuteScalar(cmd), 
+				(cmd) => this._dbAccessProvider.Instance.ExecuteScalar(cmd, this.UnitOfWork), 
 				out result);
 		}
 

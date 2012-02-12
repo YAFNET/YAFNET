@@ -117,9 +117,6 @@ namespace YAF.Core
 			// data
 			builder.RegisterType<DbAccessProvider>().As<IDbAccessProvider>().SingleInstance();
 
-			builder.RegisterType<DbAccessBase>().AsSelf().Named<IDbAccess>("System.Data.SqlClient").InstancePerDependency().
-				PreserveExistingDefaults();
-
 			builder.Register(c => c.Resolve<IDbAccessProvider>().Instance).As<IDbAccess>().InstancePerDependency().
 				PreserveExistingDefaults();
 
@@ -128,7 +125,6 @@ namespace YAF.Core
 
 			builder.RegisterType<DynamicDbFunction>().As<IDbFunction>().InstancePerLifetimeScope().
 				PreserveExistingDefaults();
-
 
 			// system
 			builder.RegisterType<LocalHostedFileSystem>().As<IFileSystem>().InstancePerLifetimeScope().PreserveExistingDefaults();

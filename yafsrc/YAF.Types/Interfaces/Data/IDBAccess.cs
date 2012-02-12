@@ -25,6 +25,8 @@ namespace YAF.Types.Interfaces
 	using System.Data;
 	using System.Data.Common;
 
+	using YAF.Types.Interfaces.Data;
+
 	#endregion
 
 	/// <summary>
@@ -40,6 +42,11 @@ namespace YAF.Types.Interfaces
 		string ConnectionString { get; set; }
 
 		/// <summary>
+		/// Gets DbConnectionParameters.
+		/// </summary>
+		IEnumerable<IDbConnectionParam> DbConnectionParameters { get; }
+
+		/// <summary>
 		///   Gets the current db provider factory
 		/// </summary>
 		/// <returns>
@@ -47,9 +54,19 @@ namespace YAF.Types.Interfaces
 		DbProviderFactory DbProviderFactory { get; }
 
 		/// <summary>
-		/// Gets ProviderName.
+		/// Gets FullTextScript.
+		/// </summary>
+		string FullTextScript { get; }
+
+		/// <summary>
+		///   Gets ProviderName.
 		/// </summary>
 		string ProviderName { get; }
+
+		/// <summary>
+		/// Gets Scripts.
+		/// </summary>
+		IEnumerable<string> Scripts { get; }
 
 		#endregion
 

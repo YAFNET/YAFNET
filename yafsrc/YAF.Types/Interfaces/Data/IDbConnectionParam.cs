@@ -18,67 +18,32 @@
  */
 namespace YAF.Types.Interfaces.Data
 {
-	#region Using
-
-	using System.Collections.Generic;
-
-	#endregion
-
 	/// <summary>
-	/// The db specific function.
+	/// The db connection param.
 	/// </summary>
-	public interface IDbSpecificFunction
+	public interface IDbConnectionParam
 	{
 		#region Properties
 
 		/// <summary>
-		/// Gets ProviderName.
+		///   Gets or sets DefaultValue.
 		/// </summary>
-		string ProviderName { get; }
+		string DefaultValue { get; }
 
 		/// <summary>
-		///   Gets SortOrder.
+		///   Gets or sets ID.
 		/// </summary>
-		int SortOrder { get; }
-
-		#endregion
-
-		#region Public Methods
+		int ID { get; }
 
 		/// <summary>
-		/// The execute.
+		///   Gets or sets Label.
 		/// </summary>
-		/// <param name="dbfunctionType">
-		/// The dbfunction type.
-		/// </param>
-		/// <param name="operationName">
-		/// The operation name.
-		/// </param>
-		/// <param name="parameters">
-		/// The parameters.
-		/// </param>
-		/// <param name="result">
-		/// The result.
-		/// </param>
-		/// <returns>
-		/// The execute.
-		/// </returns>
-		bool Execute(
-			DbFunctionType dbfunctionType, 
-			string operationName, 
-			IEnumerable<KeyValuePair<string, object>> parameters, 
-			out object result);
+		string Label { get; }
 
 		/// <summary>
-		/// The supported operation.
+		///   Gets or sets a value indicating whether Visible.
 		/// </summary>
-		/// <param name="operationName">
-		/// The operation name.
-		/// </param>
-		/// <returns>
-		/// True if the operation is supported.
-		/// </returns>
-		bool IsSupportedOperation(string operationName);
+		bool Visible { get; }
 
 		#endregion
 	}

@@ -19,25 +19,49 @@
 
 namespace YAF.Classes.Data.Import
 {
+	#region Using
+
 	using System;
 	using System.Data;
 	using System.IO;
 	using System.Linq;
 
+	using YAF.Types;
 	using YAF.Types.Interfaces;
 	using YAF.Utils;
+
+	#endregion
 
 	/// <summary>
 	/// The data import.
 	/// </summary>
 	public class DataImport
 	{
+		#region Constants and Fields
+
+		/// <summary>
+		/// The _db function.
+		/// </summary>
 		private readonly IDbFunction _dbFunction;
 
-		public DataImport(IDbFunction dbFunction)
+		#endregion
+
+		#region Constructors and Destructors
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="DataImport"/> class.
+		/// </summary>
+		/// <param name="dbFunction">
+		/// The db function.
+		/// </param>
+		public DataImport([NotNull] IDbFunction dbFunction)
 		{
-			_dbFunction = dbFunction;
+			this._dbFunction = dbFunction;
 		}
+
+		#endregion
+
+		#region Public Methods
 
 		/// <summary>
 		/// The bb code extension import.
@@ -51,9 +75,10 @@ namespace YAF.Classes.Data.Import
 		/// <returns>
 		/// Returns How Many Extensions where imported.
 		/// </returns>
-		/// <exception cref="Exception">Import stream is not expected format.
+		/// <exception cref="Exception">
+		/// Import stream is not expected format.
 		/// </exception>
-		public int BBCodeExtensionImport(int boardId, Stream imputStream)
+		public int BBCodeExtensionImport(int boardId, [NotNull] Stream imputStream)
 		{
 			int importedCount = 0;
 
@@ -61,33 +86,33 @@ namespace YAF.Classes.Data.Import
 			var dsBBCode = new DataSet();
 			dsBBCode.ReadXml(imputStream);
 
-			if (dsBBCode.Tables["YafBBCode"] != null && dsBBCode.Tables["YafBBCode"].Columns["Name"] != null &&
-					dsBBCode.Tables["YafBBCode"].Columns["SearchRegex"] != null &&
-					dsBBCode.Tables["YafBBCode"].Columns["ExecOrder"] != null)
+			if (dsBBCode.Tables["YafBBCode"] != null && dsBBCode.Tables["YafBBCode"].Columns["Name"] != null
+			    && dsBBCode.Tables["YafBBCode"].Columns["SearchRegex"] != null
+			    && dsBBCode.Tables["YafBBCode"].Columns["ExecOrder"] != null)
 			{
 				var bbcodeList = LegacyDb.BBCodeList(boardId, null);
 
 				// import any extensions that don't exist...
 				foreach (DataRow row in from DataRow row in dsBBCode.Tables["YafBBCode"].Rows
-																let name = row["Name"].ToString()
-																where !bbcodeList.Any(b => b.Name == name)
-																select row)
+				                        let name = row["Name"].ToString()
+				                        where !bbcodeList.Any(b => b.Name == name)
+				                        select row)
 				{
 					// add this bbcode...
 					this._dbFunction.Query.bbcode_save(
-						null,
-						boardId,
-						row["Name"],
-						row["Description"],
-						row["OnClickJS"],
-						row["DisplayJS"],
-						row["EditJS"],
-						row["DisplayCSS"],
-						row["SearchRegex"],
-						row["ReplaceRegex"],
-						row["Variables"],
-						Convert.ToBoolean(row["UseModule"]),
-						row["ModuleClass"],
+						null, 
+						boardId, 
+						row["Name"], 
+						row["Description"], 
+						row["OnClickJS"], 
+						row["DisplayJS"], 
+						row["EditJS"], 
+						row["DisplayCSS"], 
+						row["SearchRegex"], 
+						row["ReplaceRegex"], 
+						row["Variables"], 
+						Convert.ToBoolean(row["UseModule"]), 
+						row["ModuleClass"], 
 						row["ExecOrder"]);
 
 					importedCount++;
@@ -113,24 +138,24 @@ namespace YAF.Classes.Data.Import
 		/// <returns>
 		/// Returns How Many Extensions where imported.
 		/// </returns>
-		/// <exception cref="Exception">Import stream is not expected format.
+		/// <exception cref="Exception">
+		/// Import stream is not expected format.
 		/// </exception>
-		public int FileExtensionImport(int boardId, Stream imputStream)
+		public int FileExtensionImport(int boardId, [NotNull] Stream imputStream)
 		{
 			int importedCount = 0;
 
 			var dsExtensions = new DataSet();
 			dsExtensions.ReadXml(imputStream);
 
-			if (dsExtensions.Tables["YafExtension"] != null &&
-					dsExtensions.Tables["YafExtension"].Columns["Extension"] != null)
+			if (dsExtensions.Tables["YafExtension"] != null && dsExtensions.Tables["YafExtension"].Columns["Extension"] != null)
 			{
 				DataTable extensionList = LegacyDb.extension_list(boardId);
 
 				// import any extensions that don't exist...
 				foreach (string ext in
-						dsExtensions.Tables["YafExtension"].Rows.Cast<DataRow>().Select(row => row["Extension"].ToString()).
-								Where(ext => extensionList.Select("Extension = '{0}'".FormatWith(ext)).Length == 0))
+					dsExtensions.Tables["YafExtension"].Rows.Cast<DataRow>().Select(row => row["Extension"].ToString()).Where(
+						ext => extensionList.Select("Extension = '{0}'".FormatWith(ext)).Length == 0))
 				{
 					// add this...
 					this._dbFunction.Query.extension_save(null, boardId, ext);
@@ -160,7 +185,7 @@ namespace YAF.Classes.Data.Import
 		/// <returns>
 		/// Returns the Number of Imported Items.
 		/// </returns>
-		public int TopicStatusImport(int boardId, Stream imputStream)
+		public int TopicStatusImport(int boardId, [NotNull] Stream imputStream)
 		{
 			int importedCount = 0;
 
@@ -168,11 +193,10 @@ namespace YAF.Classes.Data.Import
 			var dsStates = new DataSet();
 			dsStates.ReadXml(imputStream);
 
-			if (dsStates.Tables["YafTopicStatus"] != null
-					&& dsStates.Tables["YafTopicStatus"].Columns["TopicStatusName"] != null
-					&& dsStates.Tables["YafTopicStatus"].Columns["DefaultDescription"] != null)
+			if (dsStates.Tables["YafTopicStatus"] != null && dsStates.Tables["YafTopicStatus"].Columns["TopicStatusName"] != null
+			    && dsStates.Tables["YafTopicStatus"].Columns["DefaultDescription"] != null)
 			{
-				DataTable topicStatusList = ((DataTable)this._dbFunction.GetData.TopicStatus_List(boardId));
+				var topicStatusList = (DataTable)this._dbFunction.GetData.TopicStatus_List(boardId);
 
 				// import any topic status that don't exist...
 				foreach (DataRow row in
@@ -192,5 +216,7 @@ namespace YAF.Classes.Data.Import
 
 			return importedCount;
 		}
+
+		#endregion
 	}
 }

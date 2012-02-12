@@ -48,9 +48,10 @@ namespace YAF.Types.Interfaces
 			CodeContracts.ArgumentNotNull(dbAccess, "dbAccess");
 			CodeContracts.ArgumentNotNull(sql, "sql");
 
-			var cmd = dbAccess.GetCommand(sql, false);
-
-			return dbAccess.GetData(cmd, unitOfWork);
+			using (var cmd = dbAccess.GetCommand(sql, false))
+			{
+				return dbAccess.GetData(cmd, unitOfWork);
+			}
 		}
 
 		#endregion

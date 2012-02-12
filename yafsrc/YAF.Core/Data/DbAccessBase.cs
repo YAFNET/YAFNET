@@ -1,3 +1,12 @@
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="DbAccessBase.cs" company="">
+//   
+// </copyright>
+// <summary>
+//   The db access base.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
 namespace YAF.Core.Data
 {
 	#region Using
@@ -12,6 +21,7 @@ namespace YAF.Core.Data
 	using YAF.Classes.Data;
 	using YAF.Types;
 	using YAF.Types.Interfaces;
+	using YAF.Types.Interfaces.Data;
 	using YAF.Types.Interfaces.Extensions;
 	using YAF.Utils;
 
@@ -20,12 +30,12 @@ namespace YAF.Core.Data
 	/// <summary>
 	/// The db access base.
 	/// </summary>
-	public class DbAccessBase : IDbAccess
+	public abstract class DbAccessBase : IDbAccess
 	{
 		#region Constants and Fields
 
 		/// <summary>
-		/// The _provider name.
+		///   The _provider name.
 		/// </summary>
 		protected readonly string _providerName;
 
@@ -42,16 +52,20 @@ namespace YAF.Core.Data
 		/// <param name="providerName">
 		/// The provider name.
 		/// </param>
-		public DbAccessBase([NotNull] Func<string, DbProviderFactory> dbProviderFactory, string providerName)
+		/// <param name="connectionString">
+		/// The connection String.
+		/// </param>
+		public DbAccessBase(
+			[NotNull] Func<string, DbProviderFactory> dbProviderFactory, [NotNull] string providerName, [NotNull] string connectionString)
 		{
 			this._providerName = providerName;
 			this.DbProviderFactory = dbProviderFactory(providerName);
-			this.ConnectionString = Config.ConnectionString;
+			this.ConnectionString = connectionString;
 		}
 
 		#endregion
 
-		#region Properties
+		#region Public Properties
 
 		/// <summary>
 		///   Gets or sets ConnectionString.
@@ -59,12 +73,22 @@ namespace YAF.Core.Data
 		public virtual string ConnectionString { get; set; }
 
 		/// <summary>
-		/// Gets or sets DbProviderFactory.
+		///   Gets DbConnectionParameters.
+		/// </summary>
+		public abstract IEnumerable<IDbConnectionParam> DbConnectionParameters { get; }
+
+		/// <summary>
+		///   Gets or sets DbProviderFactory.
 		/// </summary>
 		public virtual DbProviderFactory DbProviderFactory { get; protected set; }
 
 		/// <summary>
-		/// Gets ProviderName.
+		///   Gets FullTextScript.
+		/// </summary>
+		public abstract string FullTextScript { get; }
+
+		/// <summary>
+		///   Gets ProviderName.
 		/// </summary>
 		public virtual string ProviderName
 		{
@@ -74,11 +98,14 @@ namespace YAF.Core.Data
 			}
 		}
 
+		/// <summary>
+		///   Gets Scripts.
+		/// </summary>
+		public abstract IEnumerable<string> Scripts { get; }
+
 		#endregion
 
-		#region Implemented Interfaces
-
-		#region IDbAccess
+		#region Public Methods
 
 		/// <summary>
 		/// The begin transaction.
@@ -195,15 +222,6 @@ namespace YAF.Core.Data
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.CommandText = "[{{databaseOwner}}].[{{objectQualifier}}{0}]".FormatWith(sql);
-
-				if (parameters.Any() && !parameters.All(x => x.Key.IsSet()))
-				{
-					cmd.CommandType = CommandType.Text;
-					cmd.CommandText = string.Format(
-						"EXEC {0} {1}", 
-						cmd.CommandText, 
-						Enumerable.Range(0, parameters.Count()).Select(x => string.Format("@{0}", x)).ToDelimitedString(","));
-				}
 			}
 			else
 			{
@@ -211,8 +229,8 @@ namespace YAF.Core.Data
 				cmd.CommandText = sql;
 			}
 
-			// add all/any parameters...
-			parameters.ToList().ForEach(x => cmd.AddParam(x));
+			// map parameters for this command...
+			this.MapParameters(cmd, parameters);
 
 			return cmd.ReplaceCommandText();
 		}
@@ -259,8 +277,6 @@ namespace YAF.Core.Data
 				return this.GetDatasetBasic(cmd, unitOfWork);
 			}
 		}
-
-		#endregion
 
 		#endregion
 
@@ -315,6 +331,25 @@ namespace YAF.Core.Data
 
 			// return the dataset
 			return ds;
+		}
+
+		/// <summary>
+		/// The map parameters.
+		/// </summary>
+		/// <param name="cmd">
+		/// The cmd.
+		/// </param>
+		/// <param name="parameters">
+		/// The parameters.
+		/// </param>
+		protected virtual void MapParameters(
+			[NotNull] DbCommand cmd, [NotNull] IEnumerable<KeyValuePair<string, object>> parameters)
+		{
+			CodeContracts.ArgumentNotNull(cmd, "cmd");
+			CodeContracts.ArgumentNotNull(parameters, "parameters");
+
+			// add all/any parameters...
+			parameters.ToList().ForEach(x => cmd.AddParam(x));
 		}
 
 		#endregion

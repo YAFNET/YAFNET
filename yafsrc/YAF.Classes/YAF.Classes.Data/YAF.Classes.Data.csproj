@@ -88,16 +88,15 @@
     <Compile Include="CommandTextExtensions.cs" />
     <Compile Include="DataModule.cs" />
     <Compile Include="DbAccessExtensions.cs" />
-    <Compile Include="mssql\DbConnectionUIParam.cs" />
     <Compile Include="mssql\LegacyDb.cs" />
-    <Compile Include="mssql\Search\SearchBuilder.cs" />
-    <Compile Include="mssql\Search\SearchBuilderExtensions.cs" />
-    <Compile Include="mssql\Search\SearchCondition.cs" />
-    <Compile Include="mssql\Search\SearchConditionType.cs" />
     <Compile Include="mssql\MsSqlDbAccess.cs" />
     <Compile Include="mssql\SettingsProfilePropertyColumn.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="mssql\MsSqlDbConnectionProvider.cs" />
+    <Compile Include="Search\SearchBuilder.cs" />
+    <Compile Include="Search\SearchBuilderExtensions.cs" />
+    <Compile Include="Search\SearchCondition.cs" />
+    <Compile Include="Search\SearchConditionType.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\YAF.Types\YAF.Types.csproj">
@@ -135,9 +134,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Import\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
