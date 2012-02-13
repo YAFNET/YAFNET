@@ -1,6 +1,6 @@
 <%@ Control Language="C#" Inherits="YAF.DotNetNuke.YafDnnWhatsNew" AutoEventWireup="true" CodeBehind="YafDnnWhatsNew.ascx.cs" %>
 <%@ Import Namespace="YAF.Utils" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" %>
+<%@ Register TagPrefix="YAF" assembly="YAF.Controls" Namespace="YAF.Controls" %>
 <asp:Repeater runat="server" ID="LatestPosts" OnItemDataBound="LatestPostsItemDataBound">
   <headerTemplate>
     <ul>

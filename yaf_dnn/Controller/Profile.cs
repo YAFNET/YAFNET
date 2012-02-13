@@ -17,19 +17,16 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace YAF.DotNetNuke
+namespace YAF.DotNetNuke.Controller
 {
     #region
 
     using System;
-    using System.Collections.Generic;
     using System.Data;
-
     using global::DotNetNuke.Common.Lists;
     using global::DotNetNuke.Common.Utilities;
     using global::DotNetNuke.Data;
     using global::DotNetNuke.Entities.Profile;
-
     using YAF.Utils;
 
     #endregion
@@ -37,72 +34,14 @@ namespace YAF.DotNetNuke
     /// <summary>
     /// DataController to Handling all SQL Stuff
     /// </summary>
-    public class DataController
+    public class Profile
     {
         #region Public Methods
 
         /// <summary>
-        /// Get all Messages From The Forum
-        /// </summary>
-        /// <returns>
-        /// Message List
-        /// </returns>
-        public static List<Messages> YafDnnGetMessages()
-        {
-            List<Messages> messagesList = new List<Messages>();
-
-            using (IDataReader dr = DataProvider.Instance().ExecuteReader("YafDnn_Messages"))
-            {
-                while (dr.Read())
-                {
-                    Messages message = new Messages
-                        {
-                            Message = Convert.ToString(dr["Message"]), 
-                            MessageId = dr["MessageID"].ToType<int>(), 
-                            TopicId = dr["TopicID"].ToType<int>(), 
-                            Posted = Convert.ToDateTime(dr["Posted"])
-                        };
-
-                    messagesList.Add(message);
-                }
-            }
-
-            return messagesList;
-        }
-
-        /// <summary>
-        /// Get all Messages From The Forum
-        /// </summary>
-        /// <returns>
-        /// Topics List
-        /// </returns>
-        public static List<Topics> YafDnnGetTopics()
-        {
-            List<Topics> topicsList = new List<Topics>();
-
-            using (IDataReader dr = DataProvider.Instance().ExecuteReader("YafDnn_Topics"))
-            {
-                while (dr.Read())
-                {
-                    Topics topic = new Topics
-                        {
-                            TopicName = Convert.ToString(dr["Topic"]), 
-                            TopicId = dr["TopicID"].ToType<int>(), 
-                            ForumId = dr["ForumID"].ToType<int>(), 
-                            Posted = Convert.ToDateTime(dr["Posted"])
-                        };
-
-                    topicsList.Add(topic);
-                }
-            }
-
-            return topicsList;
-        }
-
-        /// <summary>
         /// Get The Latest DateTime where on of the DNN Profile Fields was updated
         /// </summary>
-        /// <param name="userID"></param>
+        /// <param name="userID">The user ID.</param>
         /// <returns>
         /// The DateTime when the dnn Profile was last updated.
         /// </returns>
@@ -131,18 +70,18 @@ namespace YAF.DotNetNuke
             ListEntryInfoCollection dataTypes = objListController.GetListEntryInfoCollection("DataType");
 
             AddYafProfileDefinition(portalId, "YAF Profile", "Birthday", "DateTime", 0, dataTypes);
-            AddYafProfileDefinition(portalId, "YAF Profile", "Occupation", "Text", 0, dataTypes);
+            AddYafProfileDefinition(portalId, "YAF Profile", "Occupation", "Text", 400, dataTypes);
             AddYafProfileDefinition(portalId, "YAF Profile", "Gender", "Integer", 0, dataTypes);
-            AddYafProfileDefinition(portalId, "YAF Profile", "Blog", "Text", 50, dataTypes);
-            AddYafProfileDefinition(portalId, "YAF Profile", "MSN", "Text", 50, dataTypes);
-            AddYafProfileDefinition(portalId, "YAF Profile", "YIM", "Text", 50, dataTypes);
-            AddYafProfileDefinition(portalId, "YAF Profile", "AIM", "Text", 50, dataTypes);
-            AddYafProfileDefinition(portalId, "YAF Profile", "ICQ", "Text", 50, dataTypes);
+            AddYafProfileDefinition(portalId, "YAF Profile", "Blog", "Text", 255, dataTypes);
+            AddYafProfileDefinition(portalId, "YAF Profile", "MSN", "Text", 255, dataTypes);
+            AddYafProfileDefinition(portalId, "YAF Profile", "YIM", "Text", 255, dataTypes);
+            AddYafProfileDefinition(portalId, "YAF Profile", "AIM", "Text", 255, dataTypes);
+            AddYafProfileDefinition(portalId, "YAF Profile", "ICQ", "Text", 255, dataTypes);
             AddYafProfileDefinition(portalId, "YAF Profile", "Facebook", "Text", 400, dataTypes);
             AddYafProfileDefinition(portalId, "YAF Profile", "Twitter", "Text", 400, dataTypes);
             AddYafProfileDefinition(portalId, "YAF Profile", "TwitterId", "Text", 400, dataTypes);
-            AddYafProfileDefinition(portalId, "YAF Profile", "Region", "Text", 50, dataTypes);
-            AddYafProfileDefinition(portalId, "YAF Profile", "XMPP", "Text", 50, dataTypes);
+            AddYafProfileDefinition(portalId, "YAF Profile", "Region", "Text", 255, dataTypes);
+            AddYafProfileDefinition(portalId, "YAF Profile", "XMPP", "Text", 255, dataTypes);
         }
 
         /// <summary>

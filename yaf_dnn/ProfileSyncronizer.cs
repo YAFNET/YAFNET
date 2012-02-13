@@ -26,6 +26,8 @@ namespace YAF.DotNetNuke
     using System.Linq;
     using System.Web.Security;
 
+    using YAF.DotNetNuke.Controller;
+
     using global::DotNetNuke.Common.Utilities;
     using global::DotNetNuke.Entities.Modules;
     using global::DotNetNuke.Entities.Portals;
@@ -89,7 +91,7 @@ namespace YAF.DotNetNuke
                 var yafUserProfile = YafUserProfile.GetProfile(membershipUser.UserName);
 
                 var yafTime = yafUserProfile.LastUpdatedDate;
-                var dnnTime = DataController.YafDnnGetLastUpdatedProfile(dnnUserInfo.UserID);
+                var dnnTime = Profile.YafDnnGetLastUpdatedProfile(dnnUserInfo.UserID);
 
                 TimeSpan timeCompare = dnnTime - yafTime;
 

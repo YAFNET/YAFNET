@@ -54,11 +54,11 @@ namespace YAF.DotNetNuke
     /// <param name="mailMessage">
     /// The message.
     /// </param>
-    public void Send([NotNull] MailMessage mailMessage)
+      public void Send([NotNull] MailMessage mailMessage)
     {
-      CodeContracts.ArgumentNotNull(mailMessage, "mailMessage");
+        CodeContracts.ArgumentNotNull(mailMessage, "mailMessage");
 
-      var settings = Host.GetHostSettingsDictionary();
+        var settings = Host.GetHostSettingsDictionary();
 
         var body = string.Empty;
 
@@ -77,23 +77,23 @@ namespace YAF.DotNetNuke
         }
 
         Mail.SendMail(
-        mailMessage.From.Address, 
-        mailMessage.To.ToString(), 
-        string.Empty, 
-        string.Empty, 
-        MailPriority.Normal, 
-        mailMessage.Subject,
-        mailIsHtml ? MailFormat.Html : MailFormat.Text, 
-        mailMessage.BodyEncoding,
-        body, 
-        string.Empty, 
-        settings["SMTPServer"], 
-        settings["SMTPAuthentication"], 
-        settings["SMTPUsername"], 
-        settings["SMTPPassword"]);
+            mailMessage.From.Address,
+            mailMessage.To.ToString(),
+            string.Empty,
+            string.Empty,
+            MailPriority.Normal,
+            mailMessage.Subject,
+            mailIsHtml ? MailFormat.Html : MailFormat.Text,
+            mailMessage.BodyEncoding,
+            body,
+            string.Empty,
+            settings["SMTPServer"],
+            settings["SMTPAuthentication"],
+            settings["SMTPUsername"],
+            settings["SMTPPassword"]);
     }
 
-    #endregion
+      #endregion
 
     #region Implemented Interfaces
 

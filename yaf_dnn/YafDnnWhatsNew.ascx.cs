@@ -33,14 +33,13 @@ namespace YAF.DotNetNuke
     using System.Web.UI.WebControls;
     using global::DotNetNuke.Common;
     using global::DotNetNuke.Entities.Modules;
-    using global::DotNetNuke.Entities.Users;
     using global::DotNetNuke.Framework;
     using global::DotNetNuke.Services.Exceptions;
     using global::DotNetNuke.Services.Localization;
-    using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.DotNetNuke.Controller;
     using YAF.Types.Interfaces;
     using YAF.Utils;
 
@@ -65,24 +64,24 @@ namespace YAF.DotNetNuke
         private bool useRelativeTime;
 
         /// <summary>
-        ///   The i board id.
+        ///   The yaf board id.
         /// </summary>
-        private int iBoardId;
+        private int boardId;
 
         /// <summary>
-        ///   The i max posts.
+        ///   The max posts.
         /// </summary>
-        private int iMaxPosts;
+        private int maxPosts;
 
         /// <summary>
         ///   The yaf module id.
         /// </summary>
-        private int iYafModuleId;
+        private int yafModuleId;
 
         /// <summary>
         ///   The yaf tab id.
         /// </summary>
-        private int iYafTabId;
+        private int yafTabId;
 
         #endregion
 
@@ -314,15 +313,15 @@ namespace YAF.DotNetNuke
             string sMessageUrl =
                 this.ResolveUrl(
                     "~/Default.aspx?tabid={1}&g=posts&m={0}#post{0}".FormatWith(
-                        currentRow["LastMessageID"], this.iYafTabId));
+                        currentRow["LastMessageID"], this.yafTabId));
 
             // make message url...
-            if (Config.EnableURLRewriting)
+            if (Classes.Config.EnableURLRewriting)
             {
                 sMessageUrl =
                     Globals.ResolveUrl(
                         "~/tabid/{0}/g/posts/m/{1}/{2}.aspx#post{1}".FormatWith(
-                            this.iYafTabId, 
+                            this.yafTabId, 
                             currentRow["LastMessageID"], 
                             this.GetTopicNameFromMessage(currentRow["LastMessageID"].ToType<int>())));
             }
@@ -349,19 +348,19 @@ namespace YAF.DotNetNuke
                 lastUserLink.Text = sDisplayName;
                 lastUserLink.ToolTip = sDisplayName;
 
-                if (Config.EnableURLRewriting)
+                if (Classes.Config.EnableURLRewriting)
                 {
                     lastUserLink.NavigateUrl =
                         Globals.ResolveUrl(
                             "~/tabid/{0}/g/profile/u/{1}/{2}.aspx".FormatWith(
-                                this.iYafTabId, currentRow["LastUserID"], sDisplayName));
+                                this.yafTabId, currentRow["LastUserID"], sDisplayName));
                 }
                 else
                 {
                     lastUserLink.NavigateUrl =
                         this.ResolveUrl(
                             "~/Default.aspx?tabid={1}&g=profile&u={0}".FormatWith(
-                                currentRow["LastUserID"], this.iYafTabId));
+                                currentRow["LastUserID"], this.yafTabId));
                 }
             }
 
@@ -371,12 +370,12 @@ namespace YAF.DotNetNuke
 
             forumLink.Text = currentRow["Forum"].ToString();
 
-            if (Config.EnableURLRewriting)
+            if (Classes.Config.EnableURLRewriting)
             {
                 forumLink.NavigateUrl =
                     Globals.ResolveUrl(
                         "~/tabid/{0}/g/topics/f/{1}/{2}.aspx".FormatWith(
-                            this.iYafTabId, 
+                            this.yafTabId, 
                             currentRow["ForumID"], 
                             this.GetForumName(currentRow["ForumID"].ToType<int>())));
             }
@@ -384,16 +383,14 @@ namespace YAF.DotNetNuke
             {
                 forumLink.NavigateUrl =
                     this.ResolveUrl(
-                        "~/Default.aspx?tabid={1}&g=topics&f={0}".FormatWith(currentRow["ForumID"], this.iYafTabId));
+                        "~/Default.aspx?tabid={1}&g=topics&f={0}".FormatWith(currentRow["ForumID"], this.yafTabId));
             }
         }
 
         /// <summary>
-        /// The low range.
+        /// Lows the range.
         /// </summary>
-        /// <param name="id">
-        /// The id.
-        /// </param>
+        /// <param name="id">The id.</param>
         /// <returns>
         /// The low range.
         /// </returns>
@@ -530,8 +527,12 @@ namespace YAF.DotNetNuke
         {
             try
             {
-                DataTable activeTopics = Controller.DataController.TopicLatest(
-                    this.iBoardId, this.iMaxPosts, this.GetYafUserId(), false, true);
+                var yafUserId = this.GetYafUserId();
+
+                Data.ActiveAccessUser(this.boardId, yafUserId, HttpContext.Current.User.Identity.IsAuthenticated);
+
+                var activeTopics = Data.TopicLatest(
+                  this.boardId, this.maxPosts, yafUserId, false, true);
 
                 this.LatestPosts.DataSource = activeTopics;
                 this.LatestPosts.DataBind();
@@ -561,35 +562,19 @@ namespace YAF.DotNetNuke
         /// </returns>
         private int GetYafUserId()
         {
-            int iYafUserId = 1;
-
             // Check for user
-            if (!HttpContext.Current.User.Identity.IsAuthenticated)
+            if (HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                return iYafUserId;
+                // get the user from the membership provider
+                MembershipUser dnnUser = Membership.GetUser(UserInfo.Username, true);
+
+                if (dnnUser != null)
+                {
+                    return LegacyDb.user_get(this.boardId, dnnUser.ProviderUserKey);
+                }
             }
 
-            // Get current Dnn user
-            UserInfo dnnUserInfo = UserController.GetUserById(this.PortalSettings.PortalId, this.UserId);
-
-            // get the user from the membership provider
-            MembershipUser dnnUser = Membership.GetUser(dnnUserInfo.Username, true);
-
-            if (dnnUser == null)
-            {
-                return iYafUserId;
-            }
-
-            try
-            {
-                iYafUserId = LegacyDb.user_get(1, dnnUser.ProviderUserKey);
-            }
-            catch (Exception)
-            {
-                return iYafUserId;
-            }
-
-            return iYafUserId;
+            return UserMembershipHelper.GuestUserId;
         }
 
         /// <summary>
@@ -605,7 +590,7 @@ namespace YAF.DotNetNuke
 
                 if (!string.IsNullOrEmpty((string)moduleSettings["YafPage"]))
                 {
-                    this.iYafTabId = int.Parse((string)moduleSettings["YafPage"]);
+                    this.yafTabId = int.Parse((string)moduleSettings["YafPage"]);
                 }
                 else
                 {
@@ -626,7 +611,7 @@ namespace YAF.DotNetNuke
 
                 if (!string.IsNullOrEmpty((string)moduleSettings["YafModuleId"]))
                 {
-                    this.iYafModuleId = int.Parse((string)moduleSettings["YafModuleId"]);
+                    this.yafModuleId = int.Parse((string)moduleSettings["YafModuleId"]);
                 }
                 else
                 {
@@ -646,9 +631,9 @@ namespace YAF.DotNetNuke
                 }
 
                 // Get and Set Board Id
-                this.iBoardId = GetYafBoardId(this.iYafModuleId);
+                this.boardId = GetYafBoardId(this.yafModuleId);
 
-                if (this.iBoardId.Equals(-1))
+                if (this.boardId.Equals(-1))
                 {
                     // If Module is not Configured show Message or Redirect to Settings Page if Current User has Edit Rights
                     if (this.IsEditable)
@@ -667,13 +652,13 @@ namespace YAF.DotNetNuke
 
                 try
                 {
-                    this.iMaxPosts = !string.IsNullOrEmpty((string)moduleSettings["YafMaxPosts"])
+                    this.maxPosts = !string.IsNullOrEmpty((string)moduleSettings["YafMaxPosts"])
                                          ? int.Parse((string)moduleSettings["YafMaxPosts"])
                                          : 10;
                 }
                 catch (Exception)
                 {
-                    this.iMaxPosts = 10;
+                    this.maxPosts = 10;
                 }
 
                 if (!string.IsNullOrEmpty((string)moduleSettings["YafUseRelativeTime"]))

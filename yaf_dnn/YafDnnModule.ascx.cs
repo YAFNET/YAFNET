@@ -30,6 +30,8 @@ namespace YAF.DotNetNuke
     using System.Web.Security;
     using System.Web.UI;
 
+    using YAF.DotNetNuke.Controller;
+
     using global::DotNetNuke.Common;
     using global::DotNetNuke.Common.Utilities;
     using global::DotNetNuke.Entities.Modules;
@@ -529,7 +531,7 @@ namespace YAF.DotNetNuke
                     ProfileController.GetPropertyDefinitionsByCategory(
                         this.CurrentPortalSettings.PortalId, "YAF Profile").Count == 0)
                 {
-                    DataController.AddYafProfileDefinitions(this.CurrentPortalSettings.PortalId);
+                    Profile.AddYafProfileDefinitions(this.CurrentPortalSettings.PortalId);
                 }
                 else
                 {

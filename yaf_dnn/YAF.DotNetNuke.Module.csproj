@@ -31,11 +31,11 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\yafsrc\YetAnotherForum.NET\Bin\</OutputPath>
+    <OutputPath>..\YetAnotherForum.NET\Bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\yafsrc\YetAnotherForum.NET\Bin\YAF.DotNetNuke.Module.XML</DocumentationFile>
+    <DocumentationFile>..\YetAnotherForum.NET\Bin\YAF.DotNetNuke.Module.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Deploy|AnyCPU'">
     <OutputPath>..\YetAnotherForum.NET\Bin\</OutputPath>
@@ -72,8 +72,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controller\DataController.cs" />
-    <Compile Include="DataController.cs" />
+    <Compile Include="Controller\Data.cs" />
+    <Compile Include="Controller\Profile.cs" />
     <Compile Include="DnnRichEditor.cs" />
     <Compile Include="DnnSendMail.cs" />
     <Compile Include="DotNetNukeUrlBuilder.cs" />
