@@ -1256,7 +1256,8 @@ GO
 
 if not exists (select top 1 1 from syscolumns where id=object_id(N'[{databaseOwner}].[{objectQualifier}Group]') and name=N'PMLimit')
 begin
-		alter table [{databaseOwner}].[{objectQualifier}Group] add PMLimit int not null		
+
+		alter table [{databaseOwner}].[{objectQualifier}Group] add PMLimit int not null	constraint [DF_{objectQualifier}Group_PMLimit] default (0)
 end
 GO
 
@@ -1301,7 +1302,6 @@ grant update on [{databaseOwner}].[{objectQualifier}Group] to public
 end
 GO
 
-
 if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='UsrSigBBCodes')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Group] add UsrSigBBCodes nvarchar(255) null
@@ -1323,6 +1323,18 @@ GO
 if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='UsrAlbumImages')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Group] add UsrAlbumImages int not null constraint [DF_{objectQualifier}Group_UsrAlbumImages] default (0)
+end
+GO
+
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='IsHidden')
+begin
+alter table [{databaseOwner}].[{objectQualifier}Group] ADD [IsHidden] AS (CONVERT([bit],sign([Flags]&(16)),(0)))
+end
+GO
+
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='IsUserGroup')
+begin
+alter table [{databaseOwner}].[{objectQualifier}Group] ADD [IsUserGroup] AS (CONVERT([bit],sign([Flags]&(32)),(0)))
 end
 GO
 
