@@ -133,6 +133,7 @@ namespace YAF.Controls
 
              DataTable dt = LegacyDb.post_list(
                  this.TopicID,
+                 this.PageContext.PageUserID,
                  userId,
                  0,
                  showDeleted,

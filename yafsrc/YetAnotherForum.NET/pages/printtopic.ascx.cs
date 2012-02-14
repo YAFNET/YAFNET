@@ -38,7 +38,7 @@ namespace YAF.Pages
     #endregion
 
     /// <summary>
-    /// Summary description for printtopic.
+    /// Print topic Page.
     /// </summary>
     public partial class printtopic : ForumPage
     {
@@ -57,11 +57,9 @@ namespace YAF.Pages
         #region Methods
 
         /// <summary>
-        /// The get print body.
+        /// Gets the print body.
         /// </summary>
-        /// <param name="o">
-        /// The o.
-        /// </param>
+        /// <param name="o">The o.</param>
         /// <returns>
         /// The get print body.
         /// </returns>
@@ -82,11 +80,9 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The get print header.
+        /// Gets the print header.
         /// </summary>
-        /// <param name="o">
-        /// The o.
-        /// </param>
+        /// <param name="o">The o.</param>
         /// <returns>
         /// The get print header.
         /// </returns>
@@ -150,6 +146,7 @@ namespace YAF.Pages
             {
                 showDeleted = true;
             }
+
             if (!showDeleted && ((this.Get<YafBoardSettings>().ShowDeletedMessages &&
                                   !this.Get<YafBoardSettings>().ShowDeletedMessagesToAll)
                                  || this.PageContext.IsAdmin ||
@@ -160,6 +157,7 @@ namespace YAF.Pages
 
             var dt = LegacyDb.post_list(
                 this.PageContext.PageTopicID,
+                this.PageContext.PageUserID,
                 userId,
                 1,
                 showDeleted,

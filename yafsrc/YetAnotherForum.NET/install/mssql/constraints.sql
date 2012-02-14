@@ -771,6 +771,10 @@ if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databas
 	alter table [{databaseOwner}].[{objectQualifier}Buddy] add constraint IX_{objectQualifier}Buddy unique nonclustered([FromUserID],[ToUserID])
 go
 
+if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}ReputationVote]') and name='IX_{objectQualifier}ReputationVote')
+	alter table [{databaseOwner}].[{objectQualifier}ReputationVote] add constraint IX_{objectQualifier}ReputationVote unique nonclustered (ReputationFromUserID, ReputationToUserID)   
+go
+
 
 /*
 ** Foreign keys

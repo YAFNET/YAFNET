@@ -19,18 +19,39 @@
 
 namespace YAF.Core.Services
 {
+    using System;
     using System.Globalization;
 
     using YAF.Classes;
     using YAF.Types;
     using YAF.Types.Interfaces;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     /// <summary>
     /// Class to Generate The Reputation Bar
     /// </summary>
     public class YafReputation
     {
+        /// <summary>
+        /// Checks if allow reputation voting.
+        /// </summary>
+        /// <param name="voteDateToCheck">The last vote date to check.</param>
+        /// <returns>
+        /// Returns if the Users is allowed to Vote
+        /// </returns>
+        public static bool CheckIfAllowReputationVoting(object voteDateToCheck)
+        {
+            if (voteDateToCheck.IsNullOrEmptyDBField())
+            {
+                return true;
+            }
+
+            var reputationVoteDate = voteDateToCheck.ToType<DateTime>();
+
+            return reputationVoteDate < DateTime.UtcNow.AddHours(-24);
+        }
+
         /// <summary>
         /// Generate The Reputation Bar for the user
         /// </summary>

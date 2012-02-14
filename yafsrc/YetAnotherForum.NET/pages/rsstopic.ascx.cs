@@ -47,7 +47,7 @@ namespace YAF.Pages
     #endregion
 
     /// <summary>
-    /// Summary description for rss topic.
+    /// rss topic.
     /// </summary>
     public partial class rsstopic : ForumPage
     {
@@ -301,26 +301,13 @@ namespace YAF.Pages
         /// <summary>
         /// The method to return latest topic content to display in a feed.
         /// </summary>
-        /// <param name="link">
-        /// A linkt to an active topic.
-        /// </param>
-        /// <param name="imgUrl">
-        /// A latest topic icon Url.
-        /// </param>
-        /// <param name="imgAlt">
-        /// A latest topic icon Alt text.
-        /// </param>
-        /// <param name="linkName">
-        /// A latest topic displayed link name
-        /// </param>
-        /// <param name="text">
-        /// An active topic first message content/partial content.
-        /// </param>
-        /// <param name="flags">
-        /// </param>
-        /// <param name="altItem">
-        /// The alt Item.
-        /// </param>
+        /// <param name="link">A linkt to an active topic.</param>
+        /// <param name="imgUrl">A latest topic icon Url.</param>
+        /// <param name="imgAlt">A latest topic icon Alt text.</param>
+        /// <param name="linkName">A latest topic displayed link name</param>
+        /// <param name="text">An active topic first message content/partial content.</param>
+        /// <param name="flags">The flags.</param>
+        /// <param name="altItem">The alt Item.</param>
         /// <returns>
         /// An Html formatted first message content string.
         /// </returns>
@@ -343,23 +330,12 @@ namespace YAF.Pages
         /// <summary>
         /// The method creates YafSyndicationFeed for Active topics.
         /// </summary>
-        /// <param name="feed">
-        /// The YafSyndicationFeed.
-        /// </param>
-        /// <param name="feedType">
-        /// The FeedType.
-        /// </param>
-        /// <param name="atomFeedByVar">
-        /// The Atom feed checker.
-        /// </param>
-        /// <param name="lastPostIcon">
-        /// The icon for last post link.
-        /// </param>
-        /// <param name="lastPostName">
-        /// The last post name.
-        /// </param>
-        /// <param name="categoryActiveId">
-        /// </param>
+        /// <param name="feed">The YafSyndicationFeed.</param>
+        /// <param name="feedType">The FeedType.</param>
+        /// <param name="atomFeedByVar">The Atom feed checker.</param>
+        /// <param name="lastPostIcon">The icon for last post link.</param>
+        /// <param name="lastPostName">The last post name.</param>
+        /// <param name="categoryActiveId">The category active id.</param>
         private void GetActiveFeed(
           [NotNull] ref YafSyndicationFeed feed,
           YafRssFeeds feedType,
@@ -412,17 +388,22 @@ namespace YAF.Pages
                 urlAlphaNum);
 
             using (
-              DataTable dt = TabledCleanUpByDate(LegacyDb.topic_active(this.PageContext.PageBoardID,
-                        categoryActiveId,
-                        this.PageContext.PageUserID,
+                DataTable dt =
+                    this.TabledCleanUpByDate(
+                        LegacyDb.topic_active(
+                            this.PageContext.PageBoardID,
+                            categoryActiveId,
+                            this.PageContext.PageUserID,
                         toActDate,
                         DateTime.UtcNow,
                         // page index in db which is returned back  is +1 based!
                         0,
                         // set the page size here
                         20,
-                        false,
-                        this.Get<YafBoardSettings>().UseReadTrackingByDatabase),"LastPosted",toActDate))
+                            false,
+                            this.Get<YafBoardSettings>().UseReadTrackingByDatabase),
+                        "LastPosted",
+                        toActDate))
             {
                 foreach (DataRow row in dt.Rows)
                 {
@@ -476,23 +457,12 @@ namespace YAF.Pages
         /// <summary>
         /// The method creates YafSyndicationFeed for Favorite topics.
         /// </summary>
-        /// <param name="feed">
-        /// The YafSyndicationFeed.
-        /// </param>
-        /// <param name="feedType">
-        /// The FeedType.
-        /// </param>
-        /// <param name="atomFeedByVar">
-        /// The Atom feed checker.
-        /// </param>
-        /// <param name="lastPostIcon">
-        /// The icon for last post link.
-        /// </param>
-        /// <param name="lastPostName">
-        /// The last post name.
-        /// </param>
-        /// <param name="categoryActiveId">
-        /// </param>
+        /// <param name="feed">The YafSyndicationFeed.</param>
+        /// <param name="feedType">The FeedType.</param>
+        /// <param name="atomFeedByVar">The Atom feed checker.</param>
+        /// <param name="lastPostIcon">The icon for last post link.</param>
+        /// <param name="lastPostName">The last post name.</param>
+        /// <param name="categoryActiveId">The category active id.</param>
         private void GetFavoriteFeed(
           [NotNull] ref YafSyndicationFeed feed,
           YafRssFeeds feedType,
@@ -537,17 +507,22 @@ namespace YAF.Pages
             }
 
             using (
-              DataTable dt = TabledCleanUpByDate(LegacyDb.topic_favorite_details(this.PageContext.PageBoardID,
-                        categoryActiveId,
-                        this.PageContext.PageUserID,
+                DataTable dt =
+                    this.TabledCleanUpByDate(
+                        LegacyDb.topic_favorite_details(
+                            this.PageContext.PageBoardID,
+                            categoryActiveId,
+                            this.PageContext.PageUserID,
                         toFavDate,
                         DateTime.UtcNow,
                         // page index in db is 1 based!
                         0,
                         // set the page size here
                         20,
-                        false,
-                        false),"LastPosted", toFavDate))
+                            false,
+                            false),
+                        "LastPosted",
+                        toFavDate))
             {
                 string urlAlphaNum = FormatUrlForFeed(YafForumInfo.ForumBaseUrl);
                 string feedNameAlphaNum = new Regex(@"[^A-Za-z0-9]", RegexOptions.IgnoreCase).Replace(toFavText, string.Empty);
@@ -923,6 +898,7 @@ namespace YAF.Pages
 
             using (DataTable dt = LegacyDb.post_list(
                 topicId,
+                this.PageContext.PageUserID,
                 userId,
                 0,
                 showDeleted,
@@ -1092,13 +1068,23 @@ namespace YAF.Pages
             }
         }
 
-        /// TODO: general clean-up after complex subquiries paging - a repeating code
+        /// <summary>
+        /// Tableds the clean up by date.
+        ///  TODO: general clean-up after complex subquiries paging - a repeating code
+        /// </summary>
+        /// <param name="dt">The dt.</param>
+        /// <param name="fieldName">Name of the field.</param>
+        /// <param name="cleanToDate">The clean to date.</param>
+        /// <returns></returns>
         private DataTable TabledCleanUpByDate(DataTable dt, string fieldName, DateTime cleanToDate)
         {
+            if (dt == null || dt.Rows.Count <= 0)
+            {
+                return dt;
+            }
 
-                if (dt == null || dt.Rows.Count <= 0) return dt;
-                DataTable topicsNew = dt.Copy();
-                foreach (DataRow thisTableRow in topicsNew.Rows)
+            DataTable topicsNew = dt.Copy();
+            foreach (DataRow thisTableRow in topicsNew.Rows)
                 {
                     if (thisTableRow[fieldName] != DBNull.Value && thisTableRow[fieldName].ToType<DateTime>() <= cleanToDate)
                     {

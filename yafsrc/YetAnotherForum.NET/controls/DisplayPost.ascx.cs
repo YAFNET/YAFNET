@@ -25,7 +25,6 @@ namespace YAF.Controls
     using System;
     using System.Collections;
     using System.Data;
-    using System.Linq;
     using System.Text;
     using System.Web;
 
@@ -115,21 +114,6 @@ namespace YAF.Controls
         #endregion
 
         #region Methods
-
-        /// <summary>
-        /// Gets Voting Cookie Name.
-        /// </summary>
-        /// <param name="userId">
-        /// The user Id. 
-        /// </param>
-        /// <returns>
-        /// The voting cookie name. 
-        /// </returns>
-        [NotNull]
-        protected string VotingCookieName(int userId)
-        {
-            return "YAF.NET_Reputation#{0}".FormatWith(userId);
-        }
 
         /// <summary>
         /// Formats the dvThanksInfo section.
@@ -309,7 +293,7 @@ namespace YAF.Controls
         /// </param>
         protected void AddUserReputation(object sender, EventArgs e)
         {
-            if (!this.CheckIfAllowReputationVoting())
+            if (!YafReputation.CheckIfAllowReputationVoting(this.DataRow["ReputationVoteDate"]))
             {
                 return;
             }
@@ -317,10 +301,9 @@ namespace YAF.Controls
             this.AddReputation.Visible = false;
             this.RemoveReputation.Visible = false;
 
-            LegacyDb.user_addpoints(this.PostData.UserId, 1);
+            LegacyDb.user_addpoints(this.PostData.UserId, this.PageContext.PageUserID, 1);
 
-            // TODO: Add Database Voting
-            this.AddUserVotingCookie();
+            this.DataRow["ReputationVoteDate"] = DateTime.UtcNow;
 
             // Reload UserBox
             this.PageContext.CurrentForumPage.PageCache[Constants.Cache.UserBoxes] = null;
@@ -361,7 +344,7 @@ namespace YAF.Controls
         /// </param>
         protected void RemoveUserReputation(object sender, EventArgs e)
         {
-            if (!this.CheckIfAllowReputationVoting())
+            if (!YafReputation.CheckIfAllowReputationVoting(this.DataRow["ReputationVoteDate"]))
             {
                 return;
             }
@@ -369,10 +352,9 @@ namespace YAF.Controls
             this.AddReputation.Visible = false;
             this.RemoveReputation.Visible = false;
 
-            LegacyDb.user_removepoints(this.PostData.UserId, 1);
+            LegacyDb.user_removepoints(this.PostData.UserId, this.PageContext.PageUserID, 1);
 
-            // TODO: Add Database Voting
-            this.AddUserVotingCookie();
+            this.DataRow["ReputationVoteDate"] = DateTime.UtcNow;
 
             // Reload UserBox
             this.PageContext.CurrentForumPage.PageCache[Constants.Cache.UserBoxes] = null;
@@ -679,25 +661,6 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// Checks if allow reputation voting.
-        /// </summary>
-        /// <returns>Returns if the Users is allowed to Vote</returns>
-        private bool CheckIfAllowReputationVoting()
-        {
-            if (this.Get<HttpRequestBase>().Cookies[this.VotingCookieName(this.PageContext.PageUserID)] == null)
-            {
-                return true;
-            }
-
-            var reputatationCookie =
-                this.Get<HttpRequestBase>().Cookies[this.VotingCookieName(this.PageContext.PageUserID)];
-
-            string[] userArray = reputatationCookie.Value.Split(',');
-
-            return !userArray.Any(userId => userId.ToType<int>().Equals(this.DataRow["UserID"].ToType<int>()));
-        }
-
-        /// <summary>
         /// Add Reputation Controls to the User PopMenu
         /// </summary>
         private void AddReputationControls()
@@ -705,7 +668,7 @@ namespace YAF.Controls
             if (this.PageContext.PageUserID != this.DataRow["UserID"].ToType<int>() &&
                 this.Get<YafBoardSettings>().EnableUserReputation && !this.IsGuest && !this.PageContext.IsGuest)
             {
-                if (this.CheckIfAllowReputationVoting())
+                if (YafReputation.CheckIfAllowReputationVoting(this.DataRow["ReputationVoteDate"]))
                 {
                     // Check if the User matches minimal requirements for voting up
                     if (this.PageContext.Reputation >= this.Get<YafBoardSettings>().ReputationMinUpVoting)
@@ -857,29 +820,6 @@ namespace YAF.Controls
                     YafBuildLink.Redirect(ForumPages.viewthanks, "u={0}", this.PostData.UserId);
                     break;
             }
-        }
-
-        /// <summary>
-        /// Saves the Users Reputation Values to allow a User only once a day to Vote per user.
-        /// </summary>
-        private void AddUserVotingCookie()
-        {
-            string cookieCurrent = string.Empty;
-
-            if (this.Get<HttpRequestBase>().Cookies[this.VotingCookieName(this.PageContext.PageUserID)] != null)
-            {
-                cookieCurrent =
-                    "{0},".FormatWith(
-                        this.Get<HttpRequestBase>().Cookies[this.VotingCookieName(this.PageContext.PageUserID)].Value);
-
-                this.Get<HttpRequestBase>().Cookies.Remove(this.VotingCookieName(this.PageContext.PageUserID));
-            }
-
-            var c = new HttpCookie(
-                this.VotingCookieName(this.PageContext.PageUserID),
-                "{0}{1}".FormatWith(cookieCurrent, this.PostData.UserId)) { Expires = DateTime.UtcNow.AddDays(1) };
-
-            this.Get<HttpResponseBase>().Cookies.Add(c);
         }
 
         #endregion

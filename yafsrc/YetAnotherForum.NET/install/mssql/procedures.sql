@@ -4150,6 +4150,7 @@ delete from [{databaseOwner}].[{objectQualifier}Active];
 delete from [{databaseOwner}].[{objectQualifier}ActiveAccess];
 end
 GO
+
 CREATE procedure [{databaseOwner}].[{objectQualifier}pageaccess](
 	@BoardID int,
 	@UserID	int,
@@ -5085,6 +5086,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}post_list](
 				 @TopicID int,
+				 @PageUserID int,
 				 @AuthorUserID int,
 				 @UpdateViewCount smallint=1, 
 				 @ShowDeleted bit = 1, 
@@ -5242,6 +5244,7 @@ begin
 		b.[Signature],
 		Posts		= b.NumPosts,
 		b.Points,
+		ReputationVoteDate = CAST(ISNULL((select top 1 VoteDate from [{databaseOwner}].[{objectQualifier}ReputationVote] repVote where repVote.ReputationToUserID=b.UserID and repVote.ReputationFromUserID=@PageUserID), null) as datetime),
 		IsGuest	= IsNull(SIGN(b.Flags & 4),0),
 		d.[Views],
 		d.ForumID,
@@ -6940,10 +6943,24 @@ END
 GO
 
 
-create PROCEDURE [{databaseOwner}].[{objectQualifier}user_addpoints] (@UserID int,@Points int) AS
+create PROCEDURE [{databaseOwner}].[{objectQualifier}user_addpoints] (@UserID int,@FromUserID int = null, @UTCTIMESTAMP datetime, @Points int) AS
 BEGIN
-		
 	UPDATE [{databaseOwner}].[{objectQualifier}User] SET Points = Points + @Points WHERE UserID = @UserID
+
+	IF @FromUserID IS NOT NULL 
+	BEGIN
+		declare	@VoteDate datetime
+	set @VoteDate = (select top 1 VoteDate from [{databaseOwner}].[{objectQualifier}ReputationVote] where ReputationFromUserID=@FromUserID AND ReputationToUserID=@UserID)
+	IF @VoteDate is not null
+	begin	     
+		  update [{databaseOwner}].[{objectQualifier}ReputationVote] set VoteDate=@UTCTIMESTAMP where VoteDate = @VoteDate AND ReputationFromUserID=@FromUserID AND ReputationToUserID=@UserID
+	end
+	ELSE
+	  begin
+		  insert into [{databaseOwner}].[{objectQualifier}ReputationVote](ReputationFromUserID,ReputationToUserID,VoteDate)
+		  values (@FromUserID, @UserID, @UTCTIMESTAMP)
+	  end
+	END
 END
 
 GO
@@ -7248,6 +7265,7 @@ begin
 	delete from [{databaseOwner}].[{objectQualifier}WatchForum] where UserID = @UserID
 	delete from [{databaseOwner}].[{objectQualifier}TopicReadTracking] where UserID = @UserID
 	delete from [{databaseOwner}].[{objectQualifier}ForumReadTracking] where UserID = @UserID
+	delete from [{databaseOwner}].[{objectQualifier}ReputationVote] where UserID = @UserID
 	delete from [{databaseOwner}].[{objectQualifier}UserGroup] where UserID = @UserID
 	-- ABOT CHANGED
 	-- Delete UserForums entries Too 
@@ -7942,10 +7960,25 @@ begin
 end
 GO
 
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_removepoints] (@UserID int,@Points int) AS
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_removepoints] (@UserID int, @FromUserID int = null, @UTCTIMESTAMP datetime, @Points int) AS
 BEGIN
 	
 	UPDATE [{databaseOwner}].[{objectQualifier}User] SET Points = Points - @Points WHERE UserID = @UserID
+
+	IF @FromUserID IS NOT NULL 
+	BEGIN
+		declare	@VoteDate datetime
+	set @VoteDate = (select top 1 VoteDate from [{databaseOwner}].[{objectQualifier}ReputationVote] where ReputationFromUserID=@FromUserID AND ReputationToUserID=@UserID)
+	IF @VoteDate is not null
+	begin	     
+		  update [{databaseOwner}].[{objectQualifier}ReputationVote] set VoteDate=@UTCTIMESTAMP where VoteDate = @VoteDate AND ReputationFromUserID=@FromUserID AND ReputationToUserID=@UserID
+	end
+	ELSE
+	  begin
+		  insert into [{databaseOwner}].[{objectQualifier}ReputationVote](ReputationFromUserID,ReputationToUserID,VoteDate)
+		  values (@FromUserID, @UserID, @UTCTIMESTAMP)
+	  end
+	END
 END
 GO
 

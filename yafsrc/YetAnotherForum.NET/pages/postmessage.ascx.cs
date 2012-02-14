@@ -31,7 +31,6 @@ namespace YAF.Pages
 
     using YAF.Classes;
     using YAF.Classes.Data;
-    using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Services;
     using YAF.Core.Services.CheckForSpam;
@@ -449,6 +448,7 @@ namespace YAF.Pages
 
             TypedMessageList currentMessage = null;
             DataRow topicInfo = LegacyDb.topic_info(this.PageContext.PageTopicID);
+            
             // we reply to a post with a quote
             if (this.QuotedMessageID != null)
             {
@@ -650,6 +650,7 @@ namespace YAF.Pages
                             var messages = LegacyDb.post_list(
                                 this.TopicID,
                                 this.PageContext.PageUserID,
+                                this.PageContext.PageUserID,
                                 0,
                                 false,
                                 false,
@@ -704,7 +705,7 @@ namespace YAF.Pages
                 }
 
                 // form user is only for "Guest"
-                this.From.Text =this.Get<IUserDisplayName>().GetName(this.PageContext.PageUserID);
+                this.From.Text = this.Get<IUserDisplayName>().GetName(this.PageContext.PageUserID);
                 if (this.User != null)
                 {
                     this.FromRow.Visible = false;
@@ -1248,10 +1249,13 @@ namespace YAF.Pages
         /// <param name="message">
         /// The message.
         /// </param>
+        /// <param name="topicInfo">
+        /// The topic Info.
+        /// </param>
         /// <returns>
         /// Returns if user can edit post check.
         /// </returns>
-        private bool CanEditPostCheck([NotNull] TypedMessageList message, DataRow topicInfo )
+        private bool CanEditPostCheck([NotNull] TypedMessageList message, DataRow topicInfo)
         {
             bool postLocked = false;
 
@@ -1296,8 +1300,9 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The can quote post check.
+        /// Determines whether this instance [can quote post check] the specified topic info.
         /// </summary>
+        /// <param name="topicInfo">The topic info.</param>
         /// <returns>
         /// The can quote post check.
         /// </returns>
@@ -1306,7 +1311,6 @@ namespace YAF.Pages
             DataRow forumInfo;
 
             // get topic and forum information
-           
             using (DataTable dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
             {
                 forumInfo = dt.Rows[0];
@@ -1488,7 +1492,6 @@ namespace YAF.Pages
                 this.Get<IUserDisplayName>().GetName(message.UserID.ToType<int>()),
                 message.MessageID,
                 messageContent).TrimStart();
-
         }
 
         /// <summary>

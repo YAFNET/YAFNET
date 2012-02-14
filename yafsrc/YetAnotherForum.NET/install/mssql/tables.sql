@@ -2081,6 +2081,7 @@ BEGIN
 	)
 END
 GO
+
 exec('[{databaseOwner}].[{objectQualifier}drop_defaultconstraint_oncolumn] {objectQualifier}User, Culture')
 GO
 
@@ -2093,4 +2094,12 @@ GO
 
 if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='Styles')
 	alter table [{databaseOwner}].[{objectQualifier}Topic] add Styles nvarchar(255) NULL
+GO
+
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}ReputationVote]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	create table [{databaseOwner}].[{objectQualifier}ReputationVote](
+		ReputationFromUserID  int NOT NULL,
+		ReputationToUserID	  int NOT NULL,
+		VoteDate	datetime NOT NULL
+	)
 GO

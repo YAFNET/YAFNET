@@ -18,133 +18,135 @@
  */
 namespace YAF.Controls
 {
-  #region Using
+    #region Using
 
-  using System;
+    using System;
 
-  using YAF.Classes.Data;
-  using YAF.Core;
-  using YAF.Types;
-  using YAF.Types.Interfaces;
-  using YAF.Utils.Helpers;
-
-  #endregion
-
-  /// <summary>
-  /// The edit users points.
-  /// </summary>
-  public partial class EditUsersPoints : BaseUserControl
-  {
-    #region Properties
-
-    /// <summary>
-    ///   Gets user ID of edited user.
-    /// </summary>
-    protected int CurrentUserID
-    {
-      get
-      {
-        return (int)this.PageContext.QueryIDs["u"];
-      }
-    }
+    using YAF.Classes.Data;
+    using YAF.Core;
+    using YAF.Types;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     #endregion
 
-    #region Methods
-
     /// <summary>
-    /// The add points_ click.
+    /// The edit users points.
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void AddPoints_Click([NotNull] object sender, [NotNull] EventArgs e)
+    public partial class EditUsersPoints : BaseUserControl
     {
-        if (!this.Page.IsValid)
+        #region Properties
+
+        /// <summary>
+        ///   Gets user ID of edited user.
+        /// </summary>
+        protected int CurrentUserID
         {
-            return;
+            get
+            {
+                return this.PageContext.QueryIDs["u"].ToType<int>();
+            }
         }
 
-        LegacyDb.user_addpoints(this.CurrentUserID, this.txtAddPoints.Text);
-        this.BindData();
-    }
+        #endregion
 
-    /// <summary>
-    /// The page_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      this.PageContext.QueryIDs = new QueryStringIDHelper("u", true);
+        #region Methods
 
-        if (this.IsPostBack)
+        /// <summary>
+        /// The add points_ click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void AddPoints_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            return;
+            if (!this.Page.IsValid)
+            {
+                return;
+            }
+
+            LegacyDb.user_addpoints(this.CurrentUserID, null, this.txtAddPoints.Text);
+
+            this.BindData();
         }
 
-        this.Button1.Text = this.Get<ILocalization>().GetText("COMMON", "GO");
-        this.btnAddPoints.Text = this.Get<ILocalization>().GetText("COMMON", "GO");
-        this.btnUserPoints.Text = this.Get<ILocalization>().GetText("COMMON", "GO");
-
-        this.BindData();
-    }
-
-    /// <summary>
-    /// The remove points_ click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void RemovePoints_Click([NotNull] object sender, [NotNull] EventArgs e)
-    {
-        if (!this.Page.IsValid)
+        /// <summary>
+        /// The page_ load.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            return;
+            this.PageContext.QueryIDs = new QueryStringIDHelper("u", true);
+
+            if (this.IsPostBack)
+            {
+                return;
+            }
+
+            this.Button1.Text = this.Get<ILocalization>().GetText("COMMON", "GO");
+            this.btnAddPoints.Text = this.Get<ILocalization>().GetText("COMMON", "GO");
+            this.btnUserPoints.Text = this.Get<ILocalization>().GetText("COMMON", "GO");
+
+            this.BindData();
         }
 
-        LegacyDb.user_removepoints(this.CurrentUserID, this.txtRemovePoints.Text);
-        this.BindData();
-    }
-
-    /// <summary>
-    /// The set user points_ click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void SetUserPoints_Click([NotNull] object sender, [NotNull] EventArgs e)
-    {
-        if (!this.Page.IsValid)
+        /// <summary>
+        /// The remove points_ click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void RemovePoints_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            return;
+            if (!this.Page.IsValid)
+            {
+                return;
+            }
+
+            LegacyDb.user_removepoints(this.CurrentUserID, null, this.txtRemovePoints.Text);
+            this.BindData();
         }
 
-        LegacyDb.user_setpoints(this.CurrentUserID, this.txtUserPoints.Text);
-        this.BindData();
-    }
+        /// <summary>
+        /// The set user points_ click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void SetUserPoints_Click([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            if (!this.Page.IsValid)
+            {
+                return;
+            }
 
-    /// <summary>
-    /// The bind data.
-    /// </summary>
-    private void BindData()
-    {
-      this.ltrCurrentPoints.Text = LegacyDb.user_getpoints(this.CurrentUserID).ToString();
-    }
+            LegacyDb.user_setpoints(this.CurrentUserID, this.txtUserPoints.Text);
+            this.BindData();
+        }
 
-    #endregion
-  }
+        /// <summary>
+        /// The bind data.
+        /// </summary>
+        private void BindData()
+        {
+            this.ltrCurrentPoints.Text = LegacyDb.user_getpoints(this.CurrentUserID).ToString();
+        }
+
+        #endregion
+    }
 }

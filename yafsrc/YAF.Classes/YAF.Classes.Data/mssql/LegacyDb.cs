@@ -6820,6 +6820,7 @@ namespace YAF.Classes.Data
         /// <param name="topicId">
         /// The topic id.
         /// </param>
+        /// <param name="currentUserID"> </param>
         /// <param name="authorUserID">
         /// The author User ID.
         /// </param>
@@ -6869,7 +6870,11 @@ namespace YAF.Classes.Data
         /// </param>
         /// <returns>
         /// </returns>
-        public static DataTable post_list([NotNull] object topicId, [NotNull] object authorUserID, [NotNull] object updateViewCount,
+        public static DataTable post_list(
+            [NotNull] object topicId, 
+            object currentUserID,
+            [NotNull] object authorUserID, 
+            [NotNull] object updateViewCount,
                                           bool showDeleted,
                                           bool styledNicks,
                                           DateTime sincePostedDate,
@@ -6888,6 +6893,7 @@ namespace YAF.Classes.Data
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("TopicID", topicId);
+                cmd.Parameters.AddWithValue("PageUserID", currentUserID);
                 cmd.Parameters.AddWithValue("AuthorUserID", authorUserID);
                 cmd.Parameters.AddWithValue("UpdateViewCount", updateViewCount);
                 cmd.Parameters.AddWithValue("ShowDeleted", showDeleted);
@@ -8791,17 +8797,41 @@ namespace YAF.Classes.Data
         /// Add Reputation Points to the specified user id.
         /// </summary>
         /// <param name="userID">The user ID.</param>
+        /// <param name="fromUserID">From user ID.</param>
         /// <param name="points">The points.</param>
-        public static void user_addpoints([NotNull] object userID, [NotNull] object points)
+        public static void user_addpoints([NotNull] object userID, [CanBeNull] object fromUserID, [NotNull] object points)
         {
             using (var cmd = MsSqlDbAccess.GetCommand("user_addpoints"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("UserID", userID);
+                cmd.Parameters.AddWithValue("FromUserID", fromUserID);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
                 cmd.Parameters.AddWithValue("Points", points);
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
             }
         }
+
+        /// <summary>
+        /// Remove Repuatation Points from the specified user id.
+        /// </summary>
+        /// <param name="userID">The user ID.</param>
+        /// <param name="fromUserID">From user ID.</param>
+        /// <param name="points">The points.</param>
+        public static void user_removepoints([NotNull] object userID, [CanBeNull] object fromUserID, [NotNull] object points)
+        {
+            using (var cmd = MsSqlDbAccess.GetCommand("user_removepoints"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("UserID", userID);
+                cmd.Parameters.AddWithValue("FromUserID", fromUserID);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
+                cmd.Parameters.AddWithValue("Points", points);
+                MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
+            }
+        }
+
+        
 
         /// <summary>
         /// The user_adminsave.
@@ -9975,22 +10005,6 @@ namespace YAF.Classes.Data
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("UserId", userId);
                 cmd.Parameters.AddWithValue("IgnoredUserId", ignoredUserId);
-                MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
-            }
-        }
-
-        /// <summary>
-        /// Remove Repuatation Points from the specified user id.
-        /// </summary>
-        /// <param name="userID">The user ID.</param>
-        /// <param name="points">The points.</param>
-        public static void user_removepoints([NotNull] object userID, [NotNull] object points)
-        {
-            using (var cmd = MsSqlDbAccess.GetCommand("user_removepoints"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("UserID", userID);
-                cmd.Parameters.AddWithValue("Points", points);
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
             }
         }
