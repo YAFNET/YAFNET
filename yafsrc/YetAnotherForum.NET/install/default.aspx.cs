@@ -674,7 +674,7 @@ else
 					break;
 				default:
 					throw new ApplicationException(
-							"Installation Wizard step not handled: " + this.InstallWizard.WizardSteps[e.CurrentStepIndex].ID);
+              "Installation Wizard step not handled: {0}".FormatWith(this.InstallWizard.WizardSteps[e.CurrentStepIndex].ID));
 			}
 		}
 
@@ -723,7 +723,7 @@ else
 				UpdateInfoPanel(
 						this.ManualConnectionInfoHolder,
 						this.lblConnectionDetailsManual,
-						"Failed to connect:<br /><br />" + message,
+              "Failed to connect:<br /><br />{0}".FormatWith(message),
 						"errorinfo");
 			}
 			else
@@ -745,7 +745,7 @@ else
 		/// <param name="e">
 		/// The e.
 		/// </param>
-		protected void btnTestDBConnection_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void TestDBConnection_Click([NotNull] object sender, [NotNull] EventArgs e)
 		{
 			// attempt to connect selected DB...
 			YafContext.Current["ConnectionString"] = this.CurrentConnString;
@@ -756,7 +756,7 @@ else
 				UpdateInfoPanel(
 						this.ConnectionInfoHolder,
 						this.lblConnectionDetails,
-						"Failed to connect:<br /><br />" + message,
+            "Failed to connect:<br /><br />{0}".FormatWith(message),
 						"errorinfo");
 			}
 			else
@@ -778,7 +778,7 @@ else
 		/// <param name="e">
 		/// The e.
 		/// </param>
-		protected void btnTestPermissions_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void TestPermissions_Click([NotNull] object sender, [NotNull] EventArgs e)
 		{
 			UpdateStatusLabel(this.lblPermissionApp, 1);
 			UpdateStatusLabel(this.lblPermissionUpload, 1);
@@ -804,7 +804,7 @@ else
 		/// <param name="e">
 		/// The e.
 		/// </param>
-		protected void btnTestSmtp_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void TestSmtp_Click([NotNull] object sender, [NotNull] EventArgs e)
 		{
 			try
 			{
@@ -826,7 +826,7 @@ else
 				UpdateInfoPanel(
 						this.SmtpInfoHolder,
 						this.lblSmtpTestDetails,
-						"Failed to connect:<br /><br />" + x.Message,
+            "Failed to connect:<br /><br />{0}".FormatWith(x.Message),
 						"errorinfo");
 			}
 		}
@@ -840,7 +840,7 @@ else
 		/// <param name="e">
 		/// The e.
 		/// </param>
-		protected void rblYAFDatabase_SelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
+    protected void YAFDatabase_SelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
 		{
 			switch (this.rblYAFDatabase.SelectedValue)
 			{
@@ -891,7 +891,7 @@ else
 		/// <returns>
 		/// The test database connection.
 		/// </returns>
-		private bool TestDatabaseConnection([NotNull] out string exceptionMessage)
+    private static bool TestDatabaseConnection([NotNull] out string exceptionMessage)
 		{
 			return this.Get<Types.Interfaces.IDbAccess>().TestConnection(out exceptionMessage);
 		}
@@ -1030,8 +1030,7 @@ else
 						out status);
 				if (status != MembershipCreateStatus.Success)
 				{
-					this.AddLoadMessage(
-							"Create Admin User Failed: {0}".FormatWith(this.GetMembershipErrorMessage(status)));
+                this.AddLoadMessage("Create Admin User Failed: {0}".FormatWith(this.GetMembershipErrorMessage(status)));
 					return false;
 				}
 			}
@@ -1050,7 +1049,7 @@ else
 
 			try
 			{
-				string prefix = Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : String.Empty;
+            string prefix = Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty;
 
 				// add administrators and registered if they don't already exist...
 				if (!RoleMembershipHelper.RoleExists("{0}Administrators".FormatWith(prefix)))
@@ -1073,8 +1072,7 @@ else
 				DataTable cult = StaticDataHelper.Cultures();
 				string langFile = "english.xml";
 				foreach (DataRow drow in
-						cult.Rows.Cast<DataRow>().Where(drow => drow["CultureTag"].ToString() == this.Culture.SelectedValue)
-						)
+                cult.Rows.Cast<DataRow>().Where(drow => drow["CultureTag"].ToString() == this.Culture.SelectedValue))
 				{
 					langFile = (string)drow["CultureFile"];
 				}
@@ -1089,7 +1087,7 @@ else
 						user.UserName,
 						user.Email,
 						user.ProviderUserKey,
-						Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : String.Empty);
+                Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty);
 
 				LegacyDb.system_updateversion(YafForumInfo.AppVersion, YafForumInfo.AppVersionName);
 				LegacyDb.system_updateversion(YafForumInfo.AppVersion, YafForumInfo.AppVersionName);
@@ -1130,7 +1128,7 @@ else
 			{
 				using (var file = new StreamReader(fileName))
 				{
-					script = file.ReadToEnd() + "\r\n";
+          script = "{0}\r\n".FormatWith(file.ReadToEnd());
 
 					file.Close();
 				}
@@ -1405,10 +1403,16 @@ else
 					LegacyDb.unencode_all_topics_subjects(t => Server.HtmlDecode(t));
 				}
 
-				// vzrus: uncomment it to not keep install/upgrade objects in DB and for better security 
-				// DB.system_deleteinstallobjects();
+        if (LegacyDb.GetIsForumInstalled() && prevVersion < 49)
+        {				
+            // Reset The UserBox Template
+            this.Get<YafBoardSettings>().UserBox = Constants.UserBox.DisplayTemplateDefault;
+				    ((YafLoadBoardSettings)this.Get<YafBoardSettings>()).SaveRegistry();
 			}
 
+        // vzrus: uncomment it to not keep install/upgrade objects in DB and for better security 
+        // DB.system_deleteinstallobjects();
+      }
 			/*catch ( Exception x )
 {
 	AddLoadMessage( x.Message );
@@ -1425,7 +1429,7 @@ else
 				catch (Exception x)
 				{
 					// just a warning...
-					this.AddLoadMessage("Warning: FullText Support wasn't installed: " + x.Message);
+            this.AddLoadMessage("Warning: FullText Support wasn't installed: {0}".FormatWith(x.Message));
 				}
 			}
 

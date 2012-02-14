@@ -1,6 +1,6 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bj�rnar Henden
- * Copyright (C) 2006-2011 Jaben Cargman
+ * Copyright (C) 2006-2012 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -412,8 +412,17 @@ namespace YAF.Pages
                 urlAlphaNum);
 
             using (
-              DataTable dt = LegacyDb.topic_active(
-                this.PageContext.PageBoardID, this.PageContext.PageUserID, toActDate, categoryActiveId, false, this.Get<YafBoardSettings>().UseReadTrackingByDatabase))
+              DataTable dt = TabledCleanUpByDate(LegacyDb.topic_active(this.PageContext.PageBoardID,
+                        categoryActiveId,
+                        this.PageContext.PageUserID,
+                        toActDate,
+                        DateTime.UtcNow,
+                        // page index in db which is returned back  is +1 based!
+                        0,
+                        // set the page size here
+                        20,
+                        false,
+                        this.Get<YafBoardSettings>().UseReadTrackingByDatabase),"LastPosted",toActDate))
             {
                 foreach (DataRow row in dt.Rows)
                 {
@@ -437,7 +446,7 @@ namespace YAF.Pages
                     string messageLink = YafBuildLink.GetLinkNotEscaped(
                         ForumPages.posts, true, "m={0}&find=lastpost", row["LastMessageID"]);
                     syndicationItems.AddSyndicationItem(
-                        row["Topic"].ToString(),
+                        row["Subject"].ToString(),
                         GetPostLatestContent(
                             messageLink,
                             lastPostIcon,
@@ -528,8 +537,17 @@ namespace YAF.Pages
             }
 
             using (
-              DataTable dt = LegacyDb.topic_favorite_details(
-                this.PageContext.PageBoardID, this.PageContext.PageUserID, toFavDate, categoryActiveId, false))
+              DataTable dt = TabledCleanUpByDate(LegacyDb.topic_favorite_details(this.PageContext.PageBoardID,
+                        categoryActiveId,
+                        this.PageContext.PageUserID,
+                        toFavDate,
+                        DateTime.UtcNow,
+                        // page index in db is 1 based!
+                        0,
+                        // set the page size here
+                        20,
+                        false,
+                        false),"LastPosted", toFavDate))
             {
                 string urlAlphaNum = FormatUrlForFeed(YafForumInfo.ForumBaseUrl);
                 string feedNameAlphaNum = new Regex(@"[^A-Za-z0-9]", RegexOptions.IgnoreCase).Replace(toFavText, string.Empty);
@@ -560,7 +578,7 @@ namespace YAF.Pages
                         SyndicationItemExtensions.NewSyndicationPerson(string.Empty, row["LastUserID"].ToType<long>()));
 
                     syndicationItems.AddSyndicationItem(
-                        row["Topic"].ToString(),
+                        row["Subject"].ToString(),
                         GetPostLatestContent(
                             YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "m={0}&find=lastpost", row["LastMessageID"]),
                             lastPostIcon,
@@ -1072,6 +1090,25 @@ namespace YAF.Pages
 
                 feed.Items = syndicationItems;
             }
+        }
+
+        /// TODO: general clean-up after complex subquiries paging - a repeating code
+        private DataTable TabledCleanUpByDate(DataTable dt, string fieldName, DateTime cleanToDate)
+        {
+
+                if (dt == null || dt.Rows.Count <= 0) return dt;
+                DataTable topicsNew = dt.Copy();
+                foreach (DataRow thisTableRow in topicsNew.Rows)
+                {
+                    if (thisTableRow[fieldName] != DBNull.Value && thisTableRow[fieldName].ToType<DateTime>() <= cleanToDate)
+                    {
+                        thisTableRow.Delete();
+                    }
+                }
+
+                // styled nicks
+                topicsNew.AcceptChanges();
+            return topicsNew;
         }
 
         #endregion

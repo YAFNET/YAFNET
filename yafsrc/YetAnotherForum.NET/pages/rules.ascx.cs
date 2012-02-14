@@ -1,6 +1,6 @@
-/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bjørnar Henden
- * Copyright (C) 2006-2011 Jaben Cargman
+ï»¿/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjï¿½rnar Henden
+ * Copyright (C) 2006-2012 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -20,106 +20,108 @@
 
 namespace YAF.Pages
 {
-  // YAF.Pages
-  #region Using
+    #region Using
 
-  using System;
+    using System;
 
-  using YAF.Core;
-  using YAF.Types;
-  using YAF.Types.Constants;
-  using YAF.Types.Interfaces;
-  using YAF.Utils;
-
-  #endregion
-
-  /// <summary>
-  /// Summary description for rules.
-  /// </summary>
-  public partial class rules : ForumPage
-  {
-    #region Constructors and Destructors
-
-    /// <summary>
-    ///   Initializes a new instance of the <see cref = "rules" /> class.
-    /// </summary>
-    public rules()
-      : base("RULES")
-    {
-    }
+    using YAF.Classes;
+    using YAF.Core;
+    using YAF.Types;
+    using YAF.Types.Constants;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
 
     #endregion
 
-    #region Properties
-
     /// <summary>
-    ///   Gets a value indicating whether IsProtected.
+    /// Forum Rules Page.
     /// </summary>
-    public override bool IsProtected
+    public partial class rules : ForumPage
     {
-      get
-      {
-        return false;
-      }
+        #region Constructors and Destructors
+
+        /// <summary>
+        ///   Initializes a new instance of the <see cref = "rules" /> class.
+        /// </summary>
+        public rules()
+            : base("RULES")
+        {
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        ///   Gets a value indicating whether IsProtected.
+        /// </summary>
+        public override bool IsProtected
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// The accept_ click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Accept_Click([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            if (!this.Get<YafBoardSettings>().UseSSLToRegister)
+            {
+                YafBuildLink.Redirect(ForumPages.register);
+            }
+
+            this.Response.Redirect(YafBuildLink.GetLink(ForumPages.register, true).Replace("http:", "https:"));
+        }
+
+        /// <summary>
+        /// The cancel_ click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            YafBuildLink.Redirect(ForumPages.forum);
+        }
+
+        /// <summary>
+        /// The page_ load.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            if (this.IsPostBack)
+            {
+                return;
+            }
+
+            this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+
+            this.Accept.Text = this.GetText("ACCEPT");
+            this.Cancel.Text = this.GetText("DECLINE");
+        }
+
+        #endregion
     }
-
-    #endregion
-
-    #region Methods
-
-    /// <summary>
-    /// The accept_ click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Accept_Click([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      if (!this.PageContext.BoardSettings.UseSSLToRegister)
-      {
-        YafBuildLink.Redirect(ForumPages.register);
-      }
-
-      this.Response.Redirect(YafBuildLink.GetLink(ForumPages.register).Replace("http:", "https:"));
-    }
-
-    /// <summary>
-    /// The cancel_ click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      YafBuildLink.Redirect(ForumPages.forum);
-    }
-
-    /// <summary>
-    /// The page_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      if (!this.IsPostBack)
-      {
-        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-
-        this.Accept.Text = this.GetText("ACCEPT");
-        this.Cancel.Text = this.GetText("DECLINE");
-      }
-    }
-
-    #endregion
-  }
 }

@@ -1,6 +1,6 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bj?rnar Henden
- * Copyright (C) 2006-2011 Jaben Cargman
+ * Copyright (C) 2006-2012 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -75,6 +75,7 @@ namespace YAF.Controls
     public partial class MyTopicsList : BaseUserControl
     {
         /* Data Fields */
+
         #region Constants and Fields
 
         /// <summary>
@@ -98,14 +99,20 @@ namespace YAF.Controls
         private int sinceValue;
 
         /// <summary>
-        /// The Topic List Data Table
+        ///   The Topic List Data Table
         /// </summary>
         private DataTable topics;
 
         #endregion
 
         /* Properties */
-        #region Properties
+
+        #region Public Properties
+
+        /// <summary>
+        ///   Gets or sets a value indicating whether Auto Databind.
+        /// </summary>
+        public bool AutoDatabind { get; set; }
 
         /// <summary>
         ///   Gets or sets Determines what is th current mode of the control.
@@ -117,6 +124,7 @@ namespace YAF.Controls
         /* Event Handlers */
 
         /* Methods */
+
         #region Public Methods
 
         /// <summary>
@@ -160,13 +168,11 @@ namespace YAF.Controls
             // we want to filter topics since last visit
             if (this.sinceValue == 0)
             {
-                this.sinceDate = this.Get<IYafSession>().LastVisit;
+                this.sinceDate = this.Get<IYafSession>().LastVisit ?? DateTime.UtcNow;
 
                 if (this.CurrentMode.Equals(TopicListMode.Unread))
                 {
-                    this.sinceDate = this.Get<YafBoardSettings>().UseReadTrackingByDatabase
-                                         ? this.Get<IReadTracking>().GetUserLastRead(this.PageContext.PageUserID)
-                                         : this.Get<IYafSession>().LastVisit;
+                    this.sinceDate = this.Get<IReadTrackCurrentUser>().LastRead;
                 }
             }
 
@@ -185,76 +191,128 @@ namespace YAF.Controls
             // we'll hold topics in this table
             DataTable topicList = null;
 
+            if (this.sinceDate == DateTime.MinValue)
+            {
+                this.sinceDate = DateTime.UtcNow.AddYears(-50);
+            }
+
+            int basePageSize = this.Get<YafBoardSettings>().TopicsPerPage;
+            this.PagerTop.PageSize = basePageSize;
+            int nCurrentPageIndex = this.PagerTop.CurrentPageIndex;
+
             // now depending on mode fill the table
             switch (this.CurrentMode)
             {
                 case TopicListMode.Active:
                     topicList = LegacyDb.topic_active(
                         this.PageContext.PageBoardID,
+                        categoryIDObject,
                         this.PageContext.PageUserID,
                         this.sinceDate,
-                        categoryIDObject,
+                        DateTime.UtcNow,
+                        // page index in db which is returned back  is +1 based!
+                        nCurrentPageIndex,
+                        // set the page size here
+                        basePageSize,
                         this.Get<YafBoardSettings>().UseStyledNicks,
                         this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
                     break;
                 case TopicListMode.Unanswered:
-                    topicList =
-                        LegacyDb.topic_unanswered(
-                            this.PageContext.PageBoardID,
-                            this.PageContext.PageUserID,
-                            this.sinceDate,
-                            categoryIDObject,
-                            this.Get<YafBoardSettings>().UseStyledNicks,
-                            this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
-                    break;
-                case TopicListMode.Unread:
-                    topicList = LegacyDb.topic_active(
+                    topicList = LegacyDb.topic_unanswered(
                         this.PageContext.PageBoardID,
+                        categoryIDObject,
                         this.PageContext.PageUserID,
                         this.sinceDate,
+                        DateTime.UtcNow,
+                        // page index in db which is returned back  is +1 based!
+                        nCurrentPageIndex,
+                        // set the page size here
+                        basePageSize,
+                        this.Get<YafBoardSettings>().UseStyledNicks,
+                        this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
+                    break;
+                case TopicListMode.Unread:
+                    topicList = LegacyDb.topic_unread(
+                        this.PageContext.PageBoardID,
                         categoryIDObject,
+                        this.PageContext.PageUserID,
+                        this.sinceDate,
+                        DateTime.UtcNow,
+                        // page index in db which is returned back  is +1 based!
+                        nCurrentPageIndex,
+                        // set the page size here
+                        basePageSize,
                         this.Get<YafBoardSettings>().UseStyledNicks,
                         this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
                     break;
                 case TopicListMode.User:
                     topicList = LegacyDb.Topics_ByUser(
                         this.PageContext.PageBoardID,
+                        categoryIDObject,
                         this.PageContext.PageUserID,
                         this.sinceDate,
-                        categoryIDObject,
+                        DateTime.UtcNow,
+                        // page index in db is 1 based!
+                        nCurrentPageIndex,
+                        // set the page size here
+                        basePageSize,
                         this.Get<YafBoardSettings>().UseStyledNicks,
                         this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
                     break;
                 case TopicListMode.Favorite:
-                    topicList = this.Get<IFavoriteTopic>().FavoriteTopicDetails(this.sinceDate);
+                    topicList = LegacyDb.topic_favorite_details(
+                        this.PageContext.PageBoardID,
+                        (YafContext.Current.Settings.CategoryID == 0)
+                            ? null
+                            : (object)YafContext.Current.Settings.CategoryID,
+                        this.PageContext.PageUserID,
+                        this.sinceDate,
+                        DateTime.UtcNow,
+                        // page index in db is 1 based!
+                        nCurrentPageIndex,
+                        // set the page size here
+                        basePageSize,
+                        this.Get<YafBoardSettings>().UseStyledNicks,
+                        this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
                     break;
             }
 
             if (topicList == null)
             {
+                this.PagerTop.Count = 0;
                 return;
             }
 
             this.topics = topicList;
 
+            DataTable topicsNew = topicList.Copy();
+            foreach (DataRow thisTableRow in topicsNew.Rows)
+            {
+                if (thisTableRow["LastPosted"] != DBNull.Value
+                    && thisTableRow["LastPosted"].ToType<DateTime>() <= this.sinceDate)
+                {
+                    thisTableRow.Delete();
+                }
+            }
+
             // styled nicks
+            topicsNew.AcceptChanges();
             if (this.Get<YafBoardSettings>().UseStyledNicks)
             {
-                this.Get<IStyleTransform>().DecodeStyleByTable(ref topicList, true, "LastUserStyle", "StarterStyle");
+                this.Get<IStyleTransform>().DecodeStyleByTable(ref topicsNew, true, "LastUserStyle", "StarterStyle");
             }
 
             // let's page the results
-            DataView dv = topicList.DefaultView;
-            pds.DataSource = dv;
-            this.PagerTop.Count = dv.Count;
+            if (topicsNew.Rows.Count > 0)
+            {
+                this.PagerTop.Count = topicsNew.AsEnumerable().First().Field<int>("TotalRows");
+            }
+            else
+            {
+                this.PagerTop.Count = 0;
+            }
 
-            // TODO : page size definable?
-            this.PagerTop.PageSize = 15;
-            pds.PageSize = this.PagerTop.PageSize;
-            pds.CurrentPageIndex = this.PagerTop.CurrentPageIndex;
-
-            // set datasource of repeater
-            this.TopicList.DataSource = pds;
+            this.TopicList.DataSource = topicsNew;
 
             // Get new Feeds links
             this.BindFeeds();
@@ -268,41 +326,25 @@ namespace YAF.Controls
         #region Methods
 
         /// <summary>
-        /// The mark all_ click.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void MarkAll_Click([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            foreach (DataRow row in this.topics.Rows)
-            {
-                if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase)
-                {
-                    LegacyDb.Readtopic_AddOrUpdate(this.PageContext.PageUserID, row["TopicID"].ToType<int>());
-                }
-                else
-                {
-                    this.Get<IYafSession>().SetTopicRead(row["TopicID"].ToType<int>(), DateTime.UtcNow);
-                }
-            }
-        }
-
-        /// <summary>
         /// Initializes dropdown with options to filter results by date.
         /// </summary>
         protected void InitSinceDropdown()
         {
+            var lastVisit = this.Get<IYafSession>().LastVisit;
+
             // value 0, for since last visted
             this.Since.Items.Add(
                 new ListItem(
                     this.GetTextFormatted(
-                        "last_visit", !PageContext.IsMobileDevice ? this.Get<IDateTime>().FormatDateTime(this.Get<IYafSession>().LastVisit) : string.Empty),
+                        "last_visit",
+                        !this.PageContext.IsMobileDevice
+                            ? this.Get<IDateTime>().FormatDateTime(
+                                lastVisit.HasValue && lastVisit.Value != DateTime.MinValue
+                                    ? lastVisit.Value
+                                    : DateTime.UtcNow)
+                            : string.Empty),
                     "0"));
-            
+
             // negative values for hours backward
             this.Since.Items.Add(new ListItem(this.GetText("last_hour"), "-1"));
             this.Since.Items.Add(new ListItem(this.GetText("last_two_hours"), "-2"));
@@ -317,13 +359,40 @@ namespace YAF.Controls
         }
 
         /// <summary>
+        /// The mark all_ click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender. 
+        /// </param>
+        /// <param name="e">
+        /// The e. 
+        /// </param>
+        protected void MarkAll_Click([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            this.BindData();
+
+            if (this.topics.Rows.Count.Equals(0))
+            {
+                return;
+            }
+
+            foreach (DataRow row in this.topics.Rows)
+            {
+                this.Get<IReadTrackCurrentUser>().SetTopicRead(row["TopicID"].ToType<int>());
+            }
+
+            // Rebind
+            this.BindData();
+        }
+
+        /// <summary>
         /// The page_ load.
         /// </summary>
         /// <param name="sender">
-        /// The sender.
+        /// The sender. 
         /// </param>
         /// <param name="e">
-        /// The e.
+        /// The e. 
         /// </param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
@@ -349,19 +418,19 @@ namespace YAF.Controls
                         this.Since.Items.Add(new ListItem(this.GetText("SHOW_UNREAD_ONLY"), "0"));
                         this.Since.SelectedIndex = 0;
                         break;
-                   case TopicListMode.Active:
+                    case TopicListMode.Active:
                         previousSince = this.Get<IYafSession>().ActiveTopicSince;
                         this.Since.SelectedIndex = 0;
                         break;
-                   case TopicListMode.Unanswered:
+                    case TopicListMode.Unanswered:
                         previousSince = this.Get<IYafSession>().UnansweredTopicSince;
                         this.Since.Items.Add(new ListItem(this.GetText("show_all"), "9999"));
-                        this.Since.SelectedIndex = this.Since.Items.Count - 1;
+                        this.Since.SelectedIndex = 2;
                         break;
                     case TopicListMode.Favorite:
                         previousSince = this.Get<IYafSession>().FavoriteTopicSince;
                         this.Since.Items.Add(new ListItem(this.GetText("show_all"), "9999"));
-                        this.Since.SelectedIndex = this.Since.Items.Count - 1;
+                        this.Since.SelectedIndex = 2;
                         break;
                 }
 
@@ -379,17 +448,20 @@ namespace YAF.Controls
                 }
             }
 
-            this.BindData();
+            if (this.AutoDatabind)
+            {
+                this.BindData();
+            }
         }
 
         /// <summary>
         /// The pager_ page change.
         /// </summary>
         /// <param name="sender">
-        /// The sender.
+        /// The sender. 
         /// </param>
         /// <param name="e">
-        /// The e.
+        /// The e. 
         /// </param>
         protected void Pager_PageChange([NotNull] object sender, [NotNull] EventArgs e)
         {
@@ -400,10 +472,10 @@ namespace YAF.Controls
         /// The print forum name.
         /// </summary>
         /// <param name="row">
-        /// The row.
+        /// The row. 
         /// </param>
         /// <returns>
-        /// Returns the forum name output.
+        /// Returns the forum name output. 
         /// </returns>
         protected string PrintForumName([NotNull] DataRowView row)
         {
@@ -411,10 +483,12 @@ namespace YAF.Controls
             string html = string.Empty;
             if (forumName != this._lastForumName)
             {
-                html = @"<tr><td class=""header2"" colspan=""6""><a href=""{1}"" alt=""{2}"" title=""{2}"" >{0}</a></td></tr>".FormatWith(
-                    forumName,
-                    YafBuildLink.GetLink(ForumPages.topics, "f={0}", row["ForumID"]),
-                    this.GetText("COMMON", "VIEW_FORUM"));
+                html =
+                    @"<tr><td class=""header2"" colspan=""6""><a href=""{1}"" alt=""{2}"" title=""{2}"" >{0}</a></td></tr>"
+                        .FormatWith(
+                            forumName,
+                            YafBuildLink.GetLink(ForumPages.topics, "f={0}", row["ForumID"]),
+                            this.GetText("COMMON", "VIEW_FORUM"));
                 this._lastForumName = forumName;
             }
 
@@ -425,10 +499,10 @@ namespace YAF.Controls
         /// The since_ selected index changed.
         /// </summary>
         /// <param name="sender">
-        /// The sender.
+        /// The sender. 
         /// </param>
         /// <param name="e">
-        /// The e.
+        /// The e. 
         /// </param>
         protected void Since_SelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
         {
@@ -473,15 +547,12 @@ namespace YAF.Controls
                 switch (this.CurrentMode)
                 {
                     case TopicListMode.User:
-                        this.AtomFeed.Visible = false;
                         this.RssFeed.Visible = false;
                         break;
                     case TopicListMode.Unread:
-                        this.AtomFeed.Visible = false;
                         this.RssFeed.Visible = false;
                         break;
                     case TopicListMode.Unanswered:
-                        this.AtomFeed.Visible = false;
                         this.RssFeed.Visible = false;
                         break;
                     case TopicListMode.Active:
@@ -511,6 +582,15 @@ namespace YAF.Controls
             {
                 switch (this.CurrentMode)
                 {
+                    case TopicListMode.User:
+                        this.AtomFeed.Visible = false;
+                        break;
+                    case TopicListMode.Unread:
+                        this.AtomFeed.Visible = false;
+                        break;
+                    case TopicListMode.Unanswered:
+                        this.AtomFeed.Visible = false;
+                        break;
                     case TopicListMode.Active:
                         this.AtomFeed.TitleLocalizedTag = "ATOMICONTOOLTIPACTIVE";
                         this.AtomFeed.FeedType = YafRssFeeds.Active;

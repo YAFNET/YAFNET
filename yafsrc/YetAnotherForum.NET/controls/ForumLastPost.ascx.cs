@@ -1,5 +1,5 @@
 /* Yet Another Forum.NET
- * Copyright (C) 2006-2011 Jaben Cargman
+ * Copyright (C) 2006-2012 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -18,227 +18,194 @@
  */
 namespace YAF.Controls
 {
-    #region Using
+	#region Using
 
-    using System;
-    using System.Data;
-    using YAF.Classes;
-    using YAF.Core;
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Interfaces;
-    using YAF.Utils;
+	using System;
+	using System.Data;
+	using YAF.Classes;
+	using YAF.Core;
+	using YAF.Types;
+	using YAF.Types.Constants;
+	using YAF.Types.Interfaces;
+	using YAF.Types.Interfaces.Extensions;
+	using YAF.Utils;
 
-    #endregion
+	#endregion
 
-    /// <summary>
-    /// Renders the "Last Post" part of the Forum Topics
-    /// </summary>
-    public partial class ForumLastPost : BaseUserControl
-    {
-        #region Constants and Fields
+	/// <summary>
+	/// Renders the "Last Post" part of the Forum Topics
+	/// </summary>
+	public partial class ForumLastPost : BaseUserControl
+	{
+		#region Constants and Fields
 
-        /// <summary>
-        ///   The Go to last post Image ToolTip.
-        /// </summary>
-        private string _alt;
+		/// <summary>
+		///   The Go to last post Image ToolTip.
+		/// </summary>
+		private string _alt;
 
-        #endregion
+		#endregion
 
-        #region Constructors and Destructors
+		#region Constructors and Destructors
 
-        /// <summary>
-        ///   Initializes a new instance of the <see cref = "ForumLastPost" /> class.
-        /// </summary>
-        public ForumLastPost()
-        {
-            this.PreRender += this.ForumLastPost_PreRender;
-        }
+		/// <summary>
+		///   Initializes a new instance of the <see cref = "ForumLastPost" /> class.
+		/// </summary>
+		public ForumLastPost()
+		{
+			this.PreRender += this.ForumLastPost_PreRender;
+		}
 
-        #endregion
+		#endregion
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        ///   Gets or sets Alt.
-        /// </summary>
-        [NotNull]
-        public string Alt
-        {
-            get
-            {
-                return string.IsNullOrEmpty(this._alt) ? string.Empty : this._alt;
-            }
+		/// <summary>
+		///   Gets or sets Alt.
+		/// </summary>
+		[NotNull]
+		public string Alt
+		{
+			get
+			{
+				return string.IsNullOrEmpty(this._alt) ? string.Empty : this._alt;
+			}
 
-            set
-            {
-                this._alt = value;
-            }
-        }
+			set
+			{
+				this._alt = value;
+			}
+		}
 
-        /// <summary>
-        ///   Gets or sets DataRow.
-        /// </summary>
-        public DataRow DataRow { get; set; }
+		/// <summary>
+		///   Gets or sets DataRow.
+		/// </summary>
+		public DataRow DataRow { get; set; }
 
-        #endregion
+		#endregion
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// The forum last post_ pre render.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        private void ForumLastPost_PreRender([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            if (this.DataRow == null)
-            {
-                return;
-            }
+		/// <summary>
+		/// The forum last post_ pre render.
+		/// </summary>
+		/// <param name="sender">
+		/// The sender.
+		/// </param>
+		/// <param name="e">
+		/// The e.
+		/// </param>
+		private void ForumLastPost_PreRender([NotNull] object sender, [NotNull] EventArgs e)
+		{
+			if (this.DataRow == null)
+			{
+				return;
+			}
 
-            bool showLastLinks = true;
-            if (this.DataRow["ReadAccess"].ToType<int>() == 0)
-            {
-                this.TopicInPlaceHolder.Visible = false;
-                showLastLinks = false;
-            }
+			bool showLastLinks = true;
+			if (this.DataRow["ReadAccess"].ToType<int>() == 0)
+			{
+				this.TopicInPlaceHolder.Visible = false;
+				showLastLinks = false;
+			}
 
-            if (this.DataRow["LastPosted"] != DBNull.Value)
-            {
-                this.LastPostDate.DateTime = this.DataRow["LastPosted"];
-                this.topicLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-                    ForumPages.posts, "t={0}", this.DataRow["LastTopicID"]);
+			if (this.DataRow["LastPosted"] != DBNull.Value)
+			{
+				this.LastPostDate.DateTime = this.DataRow["LastPosted"];
+				this.topicLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+						ForumPages.posts, "t={0}", this.DataRow["LastTopicID"]);
 
-                var styles = this.Get<YafBoardSettings>().UseStyledTopicTitles
-                             ? this.Get<IStyleTransform>().DecodeStyleByString(
-                                 this.DataRow["LastTopicStyles"].ToString(), false)
-                             : string.Empty;
+				var styles = this.Get<YafBoardSettings>().UseStyledTopicTitles
+										 ? this.Get<IStyleTransform>().DecodeStyleByString(
+												 this.DataRow["LastTopicStyles"].ToString(), false)
+										 : string.Empty;
 
-                if (styles.IsSet())
-                {
-                    this.topicLink.Attributes.Add("style", styles);
-                }
+				if (styles.IsSet())
+				{
+					this.topicLink.Attributes.Add("style", styles);
+				}
 
-                if (this.DataRow["LastTopicStatus"].ToString().IsSet() && this.Get<YafBoardSettings>().EnableTopicStatus)
-                {
-                    var topicStatusIcon = this.Get<ITheme>().GetItem("TOPIC_STATUS", this.DataRow["LastTopicStatus"].ToString());
+				if (this.DataRow["LastTopicStatus"].ToString().IsSet() && this.Get<YafBoardSettings>().EnableTopicStatus)
+				{
+					var topicStatusIcon = this.Get<ITheme>().GetItem("TOPIC_STATUS", this.DataRow["LastTopicStatus"].ToString());
 
-                    if (topicStatusIcon.IsSet() && !topicStatusIcon.Contains("[TOPIC_STATUS."))
-                    {
-                        this.topicLink.Text =
-                            "<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" style=\"border: 0;width:16px;height:16px\" />&nbsp;{2}"
-                                .FormatWith(
-                                    this.Get<ITheme>().GetItem("TOPIC_STATUS", this.DataRow["LastTopicStatus"].ToString()),
-                                    this.GetText("TOPIC_STATUS", this.DataRow["LastTopicStatus"].ToString()),
-                                    this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.DataRow["LastTopicName"])).Truncate(50));
-                    }
-                    else
-                    {
-                        this.topicLink.Text = "[{0}]&nbsp;{1}".FormatWith(
-                        this.GetText("TOPIC_STATUS", this.DataRow["LastTopicStatus"].ToString()),
-                        this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.DataRow["LastTopicName"])).Truncate(50));
-                    }
-                }
-                else
-                {
-                    this.topicLink.Text =
-                    this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.DataRow["LastTopicName"].ToString())).Truncate(50);
-                }
+					if (topicStatusIcon.IsSet() && !topicStatusIcon.Contains("[TOPIC_STATUS."))
+					{
+						this.topicLink.Text =
+								"<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" style=\"border: 0;width:16px;height:16px\" />&nbsp;{2}"
+										.FormatWith(
+												this.Get<ITheme>().GetItem("TOPIC_STATUS", this.DataRow["LastTopicStatus"].ToString()),
+												this.GetText("TOPIC_STATUS", this.DataRow["LastTopicStatus"].ToString()),
+												this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.DataRow["LastTopicName"])).Truncate(50));
+					}
+					else
+					{
+						this.topicLink.Text = "[{0}]&nbsp;{1}".FormatWith(
+						this.GetText("TOPIC_STATUS", this.DataRow["LastTopicStatus"].ToString()),
+						this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.DataRow["LastTopicName"])).Truncate(50));
+					}
+				}
+				else
+				{
+					this.topicLink.Text =
+					this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.DataRow["LastTopicName"].ToString())).Truncate(50);
+				}
 
-                this.ProfileUserLink.UserID = this.DataRow["LastUserID"].ToType<int>();
-                this.ProfileUserLink.Style = this.Get<YafBoardSettings>().UseStyledNicks
-                                                 ? this.Get<IStyleTransform>().DecodeStyleByString(
-                                                     this.DataRow["Style"].ToString(), false)
-                                                 : string.Empty;
-                if (string.IsNullOrEmpty(this.Alt))
-                {
-                    this.Alt = this.GetText("GO_LAST_POST");
-                }
+				this.ProfileUserLink.UserID = this.DataRow["LastUserID"].ToType<int>();
+				this.ProfileUserLink.Style = this.Get<YafBoardSettings>().UseStyledNicks
+																				 ? this.Get<IStyleTransform>().DecodeStyleByString(
+																						 this.DataRow["Style"].ToString(), false)
+																				 : string.Empty;
+				if (string.IsNullOrEmpty(this.Alt))
+				{
+					this.Alt = this.GetText("GO_LAST_POST");
+				}
 
-                this.LastTopicImgLink.ToolTip = this.Alt;
+				this.LastTopicImgLink.ToolTip = this.Alt;
 
-                DateTime lastRead;
-                DateTime lastReadForum;
+				DateTime lastRead =
+					this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
+						forumId: this.DataRow["ForumID"].ToType<int>(),
+						topicId: this.DataRow["LastTopicID"].ToType<int>(),
+						forumReadOverride: this.DataRow["LastForumAccess"].ToType<DateTime?>(),
+						topicReadOverride: this.DataRow["LastTopicAccess"].ToType<DateTime?>());
 
-                if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase)
-                {
-                    try
-                    {
-                        lastRead = this.DataRow["LastTopicAccess"] != DBNull.Value
-                                       ? this.DataRow["LastTopicAccess"].ToType<DateTime>()
-                                       : DateTime.MinValue.AddYears(1902);
-                    }
-                    catch (Exception)
-                    {
-                        lastRead = this.Get<IReadTracking>().GetTopicRead(
-                            this.PageContext.PageUserID, this.DataRow["LastTopicID"].ToType<int>());
-                    }
+				this.LastTopicImgLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+						ForumPages.posts, "m={0}&find=lastpost", this.DataRow["LastMessageID"]);
 
-                    try
-                    {
-                        lastReadForum = this.DataRow["LastForumAccess"] != DBNull.Value
-                                            ? this.DataRow["LastForumAccess"].ToType<DateTime>()
-                                            : DateTime.MinValue.AddYears(1902);
-                    }
-                    catch (Exception)
-                    {
-                        lastReadForum = this.Get<IReadTracking>().GetForumRead(
-                            this.PageContext.PageUserID, this.DataRow["ForumID"].ToType<int>());
-                    }
-                }
-                else
-                {
-                    lastRead = this.Get<IYafSession>().GetTopicRead(this.DataRow["LastTopicID"].ToType<int>());
+				this.Icon.ThemeTag = (DateTime.Parse(Convert.ToString(this.DataRow["LastPosted"])) > lastRead)
+																 ? "ICON_NEWEST"
+																 : "ICON_LATEST";
 
-                    lastReadForum = this.Get<IYafSession>().GetForumRead(this.DataRow["ForumID"].ToType<int>());
-                }
+				this.Icon.Alt = this.LastTopicImgLink.ToolTip;
 
-                if (lastReadForum > lastRead)
-                {
-                    lastRead = lastReadForum;
-                }
+				this.ImageLastUnreadMessageLink.Visible = this.Get<YafBoardSettings>().ShowLastUnreadPost;
 
-                this.LastTopicImgLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-                    ForumPages.posts, "m={0}&find=lastpost", this.DataRow["LastMessageID"]);
+				if (this.ImageLastUnreadMessageLink.Visible)
+				{
+					this.ImageLastUnreadMessageLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+						////ForumPages.posts, "m={0}&find=unread", this.DataRow["LastMessageID"]);
+							ForumPages.posts, "t={0}&find=unread", this.DataRow["LastTopicID"]);
 
-                this.Icon.ThemeTag = (DateTime.Parse(Convert.ToString(this.DataRow["LastPosted"])) > lastRead)
-                                         ? "ICON_NEWEST"
-                                         : "ICON_LATEST";
+					this.LastUnreadImage.LocalizedTitle = this.GetText("DEFAULT", "GO_LASTUNREAD_POST");
+					this.LastUnreadImage.ThemeTag = (DateTime.Parse(this.DataRow["LastPosted"].ToString()) > lastRead)
+																							? "ICON_NEWEST_UNREAD"
+																							: "ICON_LATEST_UNREAD";
+				}
 
-                this.Icon.Alt = this.LastTopicImgLink.ToolTip;
+				this.LastTopicImgLink.Enabled = this.ImageLastUnreadMessageLink.Enabled = showLastLinks;
 
-                this.ImageLastUnreadMessageLink.Visible = this.Get<YafBoardSettings>().ShowLastUnreadPost;
+				this.LastPostedHolder.Visible = true;
+				this.NoPostsLabel.Visible = false;
+			}
+			else
+			{
+				// show "no posts"
+				this.LastPostedHolder.Visible = false;
+				this.NoPostsLabel.Visible = true;
+			}
+		}
 
-                if (this.ImageLastUnreadMessageLink.Visible)
-                {
-                    this.ImageLastUnreadMessageLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-                        ////ForumPages.posts, "m={0}&find=unread", this.DataRow["LastMessageID"]);
-                        ForumPages.posts, "t={0}&find=unread", this.DataRow["LastTopicID"]);
-
-                    this.LastUnreadImage.LocalizedTitle = this.GetText("DEFAULT", "GO_LASTUNREAD_POST");
-                    this.LastUnreadImage.ThemeTag = (DateTime.Parse(this.DataRow["LastPosted"].ToString()) > lastRead)
-                                                        ? "ICON_NEWEST_UNREAD"
-                                                        : "ICON_LATEST_UNREAD";
-                }
-
-                this.LastTopicImgLink.Enabled = this.ImageLastUnreadMessageLink.Enabled = showLastLinks;
-
-                this.LastPostedHolder.Visible = true;
-                this.NoPostsLabel.Visible = false;
-            }
-            else
-            {
-                // show "no posts"
-                this.LastPostedHolder.Visible = false;
-                this.NoPostsLabel.Visible = true;
-            }
-        }
-
-        #endregion
-    }
+		#endregion
+	}
 }

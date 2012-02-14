@@ -1,5 +1,5 @@
 /* YetAnotherForum.NET
- * Copyright (C) 2006-2011 Jaben Cargman
+ * Copyright (C) 2006-2012 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -91,7 +91,7 @@ namespace YAF
         // resource request
         GetResource(context);
       }
-      else if (context.Session["lastvisit"] != null || context.Request.UrlReferrer.AbsoluteUri.Contains(BaseUrlBuilder.BaseUrl))
+      else if (context.Session["lastvisit"] != null || context.Request.UrlReferrer != null && context.Request.UrlReferrer.AbsoluteUri.Contains(BaseUrlBuilder.BaseUrl))
       {
         if (context.Request.QueryString.GetFirstOrDefault("u") != null)
         {
@@ -714,9 +714,7 @@ namespace YAF
         isSearchEngine,
         isMobileDevice,
           dontTrack);
-
-        DataRow auldRow;
-
+    
       return pageRow["DownloadAccess"].ToType<bool>() ||
              pageRow["ModeratorAccess"].ToType<bool>();
     }
@@ -826,7 +824,7 @@ namespace YAF
       }
       catch (Exception x)
       {
-        LegacyDb.eventlog_create(null, this.GetType().ToString(), x, 1);
+          LegacyDb.eventlog_create(null, this.GetType().ToString(), x, EventLogTypes.Information);
         context.Response.Write("Error: Resource has been moved or is unavailable. Please contact the forum admin.");
       }
     }
@@ -890,7 +888,7 @@ namespace YAF
       }
       catch (Exception x)
       {
-        LegacyDb.eventlog_create(null, this.GetType().ToString(), x, 1);
+          LegacyDb.eventlog_create(null, this.GetType().ToString(), x, EventLogTypes.Information);
         context.Response.Write("Error: Resource has been moved or is unavailable. Please contact the forum admin.");
       }
     }
@@ -991,7 +989,7 @@ namespace YAF
       }
       catch (Exception x)
       {
-        LegacyDb.eventlog_create(null, this.GetType().ToString(), x, 1);
+          LegacyDb.eventlog_create(null, this.GetType().ToString(), x, EventLogTypes.Information);
         context.Response.Write("Error: Resource has been moved or is unavailable. Please contact the forum admin.");
       }
     }
@@ -1060,7 +1058,7 @@ namespace YAF
       }
       catch (Exception x)
       {
-        LegacyDb.eventlog_create(null, this.GetType().ToString(), x, 1);
+          LegacyDb.eventlog_create(null, this.GetType().ToString(), x, EventLogTypes.Information);
         context.Response.Write("Error: Resource has been moved or is unavailable. Please contact the forum admin.");
       }
     }
@@ -1169,7 +1167,7 @@ namespace YAF
       }
       catch (Exception x)
       {
-        LegacyDb.eventlog_create(null, this.GetType().ToString(), x, 1);
+          LegacyDb.eventlog_create(null, this.GetType().ToString(), x, EventLogTypes.Information);
         context.Response.Write("Error: Resource has been moved or is unavailable. Please contact the forum admin.");
       }
     }
@@ -1286,7 +1284,7 @@ namespace YAF
       }
       catch (Exception x)
       {
-        LegacyDb.eventlog_create(null, this.GetType().ToString(), x, 1);
+          LegacyDb.eventlog_create(null, this.GetType().ToString(), x, EventLogTypes.Information);
         context.Response.Write("Error: Resource has been moved or is unavailable. Please contact the forum admin.");
       }
     }
@@ -1306,7 +1304,7 @@ namespace YAF
           null,
           this.GetType().ToString(),
           "Remote Avatar is NOT supported on your Hosting Permission Level (must be High)",
-          0);
+          EventLogTypes.Error);
         return;
       }
 

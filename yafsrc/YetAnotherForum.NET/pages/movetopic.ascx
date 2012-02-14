@@ -23,6 +23,17 @@
 			</td>
 		</tr>
 	<tr>
+	</tr>
+		<tr id="trLeaveLinkDays" runat="server">
+			<td class="postheader" width="50%">
+				<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="POINTER_DAYS" />
+			</td>
+			<td class="post" width="50%">
+				<asp:TextBox ID="LinkDays" runat="server" />
+			</td>
+		</tr>
+	<tr>   
+
 		<td class="footer1" colspan="2" align="center">
 			<asp:Button ID="Move" CssClass="pbutton" runat="server" OnClick="Move_Click" />
 		</td>

@@ -139,7 +139,8 @@ GO
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_upgrade]
 (
 @PreviousVersion int,
-@NewVersion int
+@NewVersion int,
+@UTCTIMESTAMP datetime
 )
 AS
 BEGIN
@@ -147,7 +148,7 @@ BEGIN
 		BEGIN
 			-- RESOLVE SALT ISSUE IN 193 BETA and RC2
 			UPDATE [{databaseOwner}].[{objectQualifier}prov_Membership] SET PasswordSalt='UwB5AHMAdABlAG0ALgBCAHkAdABlAFsAXQA=' WHERE PasswordSalt IS NOT NULL;
-			UPDATE [{databaseOwner}].[{objectQualifier}prov_Membership] SET Joined=GETUTCDATE()  WHERE Joined IS NULL;
+			UPDATE [{databaseOwner}].[{objectQualifier}prov_Membership] SET Joined=@UTCTIMESTAMP  WHERE Joined IS NULL;
 		END	
 END 
 GO
@@ -223,6 +224,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_createuser]
 @PasswordQuestion nvarchar(256) = null,
 @PasswordAnswer nvarchar(256) = null,
 @IsApproved bit = null,
+@UTCTIMESTAMP datetime,
 @UserKey nvarchar(64) = null out
 )
 AS
@@ -234,7 +236,7 @@ BEGIN
 		SET @UserKey = NEWID()
 		
 	INSERT INTO [{databaseOwner}].[{objectQualifier}prov_Membership] (UserID,ApplicationID,Joined,Username,UsernameLwd,[Password],PasswordSalt,PasswordFormat,Email,EmailLwd,PasswordQuestion,PasswordAnswer,IsApproved)
-		VALUES (@UserKey, @ApplicationID, GETUTCDATE() ,@Username, LOWER(@Username), @Password, @PasswordSalt, @PasswordFormat, @Email, LOWER(@Email), @PasswordQuestion, @PasswordAnswer, @IsApproved);
+		VALUES (@UserKey, @ApplicationID, @UTCTIMESTAMP ,@Username, LOWER(@Username), @Password, @PasswordSalt, @PasswordFormat, @Email, LOWER(@Email), @PasswordQuestion, @PasswordAnswer, @IsApproved);
 END
 GO
 
@@ -393,7 +395,8 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_getuser]
 @ApplicationName nvarchar(256),
 @Username nvarchar(256) = null,
 @UserKey nvarchar(64) = null,
-@UserIsOnline bit
+@UserIsOnline bit,
+@UTCTIMESTAMP datetime
 )
 AS
 BEGIN
@@ -409,7 +412,7 @@ BEGIN
 	-- IF USER IS ONLINE DO AN UPDATE USER	
 	IF (@UserIsOnline = 1)
 	BEGIN
-		UPDATE [{databaseOwner}].[{objectQualifier}prov_Membership] SET LastActivity = GETUTCDATE()  WHERE UsernameLwd = LOWER(@Username) and ApplicationID = @ApplicationID
+		UPDATE [{databaseOwner}].[{objectQualifier}prov_Membership] SET LastActivity = @UTCTIMESTAMP  WHERE UsernameLwd = LOWER(@Username) and ApplicationID = @ApplicationID
 	END		
 END
 GO

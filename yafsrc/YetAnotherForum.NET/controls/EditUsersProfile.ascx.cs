@@ -1,5 +1,5 @@
 /* Yet Another Forum.NET
- * Copyright (C) 2006-2011 Jaben Cargman
+ * Copyright (C) 2006-2012 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -521,15 +521,21 @@ namespace YAF.Controls
             var ci = CultureInfo.CreateSpecificCulture(currentCultureLocal);
             if (this.Get<YafBoardSettings>().EnableDNACalendar)
             {
-                this.Birthday.Text = this.UserData.Profile.Birthday > DateTime.MinValue
-                                       ? this.UserData.Profile.Birthday.Date.ToString(
-                                         ci.DateTimeFormat.ShortDatePattern, CultureInfo.InvariantCulture)
-                                       : DateTime.MinValue.Date.ToString(
-                                         ci.DateTimeFormat.ShortDatePattern, CultureInfo.InvariantCulture);
-
                 if (this.Get<YafBoardSettings>().UseFarsiCalender && ci.IsFarsiCulture())
                 {
-                    this.Birthday.Text = PersianDateConverter.ToPersianDate(this.UserData.Profile.Birthday).ToString("d");
+                    this.Birthday.Text = this.UserData.Profile.Birthday > DateTime.MinValue ||
+                                         this.UserData.Profile.Birthday.IsNullOrEmptyDBField()
+                                             ? PersianDateConverter.ToPersianDate(this.UserData.Profile.Birthday).ToString("d")
+                                             : PersianDateConverter.ToPersianDate(PersianDate.MinValue).ToString("d");
+                }
+                else
+                {
+                    this.Birthday.Text = this.UserData.Profile.Birthday > DateTime.MinValue ||
+                                         this.UserData.Profile.Birthday.IsNullOrEmptyDBField()
+                                             ? this.UserData.Profile.Birthday.Date.ToString(
+                                                 ci.DateTimeFormat.ShortDatePattern, CultureInfo.InvariantCulture)
+                                             : DateTime.MinValue.Date.ToString(
+                                                 ci.DateTimeFormat.ShortDatePattern, CultureInfo.InvariantCulture);
                 }
 
                 this.Birthday.ToolTip = this.GetText("COMMON", "CAL_JQ_TT");
@@ -563,16 +569,22 @@ namespace YAF.Controls
             this.Skype.Text = this.UserData.Profile.Skype;
             this.Gender.SelectedIndex = this.UserData.Profile.Gender;
 
-            ListItem countryItem = this.Country.Items.FindByValue(this.UserData.Profile.Country.Trim());
-            if (countryItem != null)
+            if (this.UserData.Profile.Country.IsSet())
             {
-                countryItem.Selected = true;
+                ListItem countryItem = this.Country.Items.FindByValue(this.UserData.Profile.Country.Trim());
+                if (countryItem != null)
+                {
+                    countryItem.Selected = true;
+                }
             }
 
-            ListItem regionItem = this.Region.Items.FindByValue(this.UserData.Profile.Region.Trim());
-            if (regionItem != null)
+            if (this.UserData.Profile.Region.IsSet())
             {
-                regionItem.Selected = true;
+                ListItem regionItem = this.Region.Items.FindByValue(this.UserData.Profile.Region.Trim());
+                if (regionItem != null)
+                {
+                    regionItem.Selected = true;
+                }
             }
 
             ListItem timeZoneItem = this.TimeZones.Items.FindByValue(this.UserData.TimeZone.ToString());
@@ -636,9 +648,7 @@ namespace YAF.Controls
             }
 
             // If 2-letter language code is the same we return Culture, else we return a default full culture from language file
-            ListItem foundCultItem =
-              this.Culture.Items.FindByValue(
-                currentCultureLocal);
+            ListItem foundCultItem = this.Culture.Items.FindByValue(currentCultureLocal);
 
             if (foundCultItem != null)
             {

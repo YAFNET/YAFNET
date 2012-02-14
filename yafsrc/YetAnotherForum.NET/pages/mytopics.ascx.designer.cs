@@ -184,6 +184,24 @@ namespace YAF.Pages {
         protected global::System.Web.UI.WebControls.HiddenField hidLastTab;
         
         /// <summary>
+        /// hidLastTabId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidLastTabId;
+        
+        /// <summary>
+        /// ChangeTab control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ChangeTab;
+        
+        /// <summary>
         /// ForumJumpHolder control.
         /// </summary>
         /// <remarks>

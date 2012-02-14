@@ -1,5 +1,5 @@
 ﻿/* Yet Another Forum.NET
- * Copyright (C) 2006-2011 Jaben Cargman
+ * Copyright (C) 2006-2012 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -358,29 +358,20 @@ namespace YAF.Controls
         /// </param>
         protected void ExportSelected_Click([NotNull] object source, [NotNull] EventArgs e)
         {
+            int nItemCount = 0;
+
             var messageList = (DataView)this.MessagesView.DataSource;
-            var messageListSelected = messageList;
 
-            long nItemCount = 0;
-
-            foreach (
-                GridViewRow item in
-                    this.MessagesView.Rows.Cast<GridViewRow>().Where(item => item.RowType == DataControlRowType.DataRow))
+            foreach (GridViewRow item in
+                this.MessagesView.Rows.Cast<GridViewRow>().Where(
+                    item => !((CheckBox)item.FindControl("ItemCheck")).Checked))
             {
-                if (((CheckBox)item.FindControl("ItemCheck")).Checked)
-                {
-                    nItemCount++;
-                }
-                else
-                {
-                    DataRow row = messageList.Table.Rows[item.RowIndex];
-
-                    messageListSelected.Table.Rows.Remove(row);
-                }
+                messageList.Table.Rows.RemoveAt(item.RowIndex - nItemCount);
+                nItemCount++;
             }
 
             // Return if No Message Selected
-            if (nItemCount.Equals(0))
+            if (messageList.Table.Rows.Count.Equals(0))
             {
                 this.PageContext.AddLoadMessage(this.GetText("MSG_NOSELECTED"));
 
@@ -391,15 +382,15 @@ namespace YAF.Controls
 
             if (this.ExportType.SelectedItem.Value.Equals("xml"))
             {
-                this.ExportXmlFile(messageListSelected);
+                this.ExportXmlFile(messageList);
             }
             else if (this.ExportType.SelectedItem.Value.Equals("csv"))
             {
-                this.ExportCsvFile(messageListSelected);
+                this.ExportCsvFile(messageList);
             }
             else if (this.ExportType.SelectedItem.Value.Equals("txt"))
             {
-                this.ExportTextFile(messageListSelected);
+                this.ExportTextFile(messageList);
             }
 
             this.BindData();

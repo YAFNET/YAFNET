@@ -30,13 +30,16 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\YetAnotherForum.NET\Bin\YAF.Core.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac">
-      <HintPath>..\lib\Autofac.dll</HintPath>
+      <HintPath>..\YetAnotherForum.NET\Bin\Autofac.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="CookComputing.XmlRpcV2">
-      <HintPath>..\lib\CookComputing.XmlRpcV2.dll</HintPath>
+    <Reference Include="CookComputing.XmlRpcV2, Version=2.5.0.0, Culture=neutral, PublicKeyToken=a7d6e17aa302004d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\YetAnotherForum.NET\Bin\CookComputing.XmlRpcV2.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
@@ -211,9 +214,8 @@
     <Compile Include="Services\YafDigest.cs" />
     <Compile Include="Services\YafFavoriteTopic.cs" />
     <Compile Include="Services\YafFormatMessage.cs" />
-    <Compile Include="Services\YAFIrkoo.cs" />
     <Compile Include="Services\YafPermissions.cs" />
-    <Compile Include="Services\YafReadTracking.cs" />
+    <Compile Include="Services\YafReadTrackCurrentUser.cs" />
     <Compile Include="Services\YafReputation.cs" />
     <Compile Include="Services\YafSendMail.cs" />
     <Compile Include="Services\YafSendMailThreaded.cs" />

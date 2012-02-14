@@ -30,6 +30,7 @@ namespace YAF.Controls
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
+	using YAF.Types.Interfaces.Extensions;
     using YAF.Utils;
 
     #endregion
@@ -168,44 +169,17 @@ namespace YAF.Controls
             if (currentRow["LastPosted"] != DBNull.Value)
             {
                 lastPostedDateLabel.DateTime = currentRow["LastPosted"];
-                DateTime lastRead;
-                DateTime lastReadForum;
 
-                if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase)
-                {
-                    try
-                    {
-                        lastRead = currentRow["LastTopicAccess"] != DBNull.Value
-                                       ? currentRow["LastTopicAccess"].ToType<DateTime>()
-                                       : DateTime.MinValue.AddYears(1902);
-                    }
-                    catch (Exception)
-                    {
-                        lastRead = this.Get<IReadTracking>().GetTopicRead(
-                            this.PageContext.PageUserID, currentRow["LastTopicID"].ToType<int>());
-                    }
+				DateTime lastRead =
+					this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
+						forumId: currentRow["ForumID"].ToType<int>(),
+						topicId: currentRow["TopicID"].ToType<int>(),
+						forumReadOverride: currentRow["LastForumAccess"].ToType<DateTime?>() ?? DateTime.MinValue,
+						topicReadOverride: currentRow["LastTopicAccess"].ToType<DateTime?>() ?? DateTime.MinValue);
 
-                    try
-                    {
-                        lastReadForum = currentRow["LastForumAccess"] != DBNull.Value
-                                       ? currentRow["LastForumAccess"].ToType<DateTime>()
-                                       : DateTime.MinValue.AddYears(1902);
-                    }
-                    catch (Exception)
-                    {
-                        lastReadForum = this.Get<IReadTracking>().GetForumRead(
-                            this.PageContext.PageUserID, currentRow["ForumID"].ToType<int>());
-                    }
-                }
-                else
+				if (DateTime.Parse(currentRow["LastPosted"].ToString()) > lastRead)
                 {
-                   lastRead = this.Get<IYafSession>().GetTopicRead(currentRow["TopicID"].ToType<int>());
-                   lastReadForum = this.Get<IYafSession>().GetForumRead(currentRow["ForumID"].ToType<int>());
-                }
-
-                if (lastReadForum > lastRead)
-                {
-                    lastRead = lastReadForum;
+					this.Get<IYafSession>().UnreadTopics++;
                 }
 
                 lastUnreadImage.ThemeTag = (DateTime.Parse(currentRow["LastPosted"].ToString()) > lastRead)
@@ -249,6 +223,8 @@ namespace YAF.Controls
 
             if (activeTopics == null)
             {
+							this.Get<IYafSession>().UnreadTopics = 0;
+
             	activeTopics = this.Get<IDbFunction>().GetData.topic_latest(
             		this.PageContext.PageBoardID,
             		this.Get<YafBoardSettings>().ActiveDiscussionsCount,

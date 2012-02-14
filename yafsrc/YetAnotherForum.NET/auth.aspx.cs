@@ -352,15 +352,25 @@ namespace YAF
 
             var messageFlags = new MessageFlags { IsHtml = false, IsBBCode = true };
 
-            LegacyDb.pmessage_save(2, userId, subject, emailBody, messageFlags.BitValue);
-
             // Send Message also as DM to Twitter.
             var tweetApi = new TweetAPI(oAuth);
 
-            string message = "{0}. {1}".FormatWith(
+            if (YafContext.Current.Get<YafBoardSettings>().AllowPrivateMessages)
+            {
+                LegacyDb.pmessage_save(2, userId, subject, emailBody, messageFlags.BitValue);
+
+                string message = "{0}. {1}".FormatWith(
                 subject, YafContext.Current.Get<ILocalization>().GetText("LOGIN", "TWITTER_DM"));
 
-            tweetApi.SendDirectMessage(TweetAPI.ResponseFormat.json, user.UserName, message.Truncate(140));
+                tweetApi.SendDirectMessage(TweetAPI.ResponseFormat.json, user.UserName, message.Truncate(140));
+            }
+            else
+            {
+                string message = YafContext.Current.Get<ILocalization>().GetTextFormatted(
+                    "LOGIN", "TWITTER_DM", YafContext.Current.Get<YafBoardSettings>().Name, user.UserName, pass);
+
+                tweetApi.SendDirectMessage(TweetAPI.ResponseFormat.json, user.UserName, message.Truncate(140));
+            }
         }
 
         /// <summary>

@@ -1633,6 +1633,12 @@ begin
 end
 GO
 
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='LinkDate')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Topic] add [LinkDate] datetime null	
+end
+GO
+
 -- Rank Table
 if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='Flags')
 begin

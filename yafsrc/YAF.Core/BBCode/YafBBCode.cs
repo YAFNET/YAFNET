@@ -1,6 +1,6 @@
 /* Yet Another Forum.net
  * Copyright (C) 2003-2005 Bjørnar Henden
- * Copyright (C) 2006-2011 Jaben Cargman
+ * Copyright (C) 2006-2012 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -136,9 +136,17 @@ namespace YAF.Core.BBCode
         /// <summary>
         ///   The _rgx img Title.
         /// </summary>
+        private static readonly Regex _rgxImgEmptyTitle =
+            new Regex(
+                @"\[img=(?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>([^""\r\n\]\[]+?\.((jpg[^\]\[/img\]]*)|(jpeg[^\[\[/img\]]*)|(bmp[^\[\[/img\]]*)|(png[^\]\[/img\]]*)|(gif[^\]\[/img\]]*)|(tif[^\]\[/img\]]*)|(ashx[^\]\[/img\]]*)|(php[^\]\[/img\]]*)|(aspx[^\]\[/img\]]*))))\]\[/img\]",
+                _Options | RegexOptions.Compiled);
+
+        /// <summary>
+        ///   The _rgx img Title.
+        /// </summary>
         private static readonly Regex _rgxImgTitle =
             new Regex(
-                @"\[img=(?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>([^""\r\n\]\[]+?\.((jpg[^\]]*)|(jpeg[^\[]*)|(bmp[^\[]*)|(png[^\]]*)|(gif[^\]]*)|(tif[^\]]*)|(ashx[^\]]*)|(php[^\]]*)|(aspx[^\]]*))))\](?<description>(.+?))\[/img\]", 
+                @"\[img=(?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>([^""\r\n\]\[]+?\.((jpg[^\]]*)|(jpeg[^\]]*)|(bmp[^\]]*)|(png[^\]]*)|(gif[^\]]*)|(tif[^\]]*)|(ashx[^\]]*)|(php[^\]]*)|(aspx[^\]]*))))\](?<description>[^\[]*)\[/img\]", 
                 _Options | RegexOptions.Compiled);
 
         /// <summary>
@@ -322,7 +330,7 @@ namespace YAF.Core.BBCode
         {
             CodeContracts.ArgumentNotNull(rules, "rules");
 
-            var smiles = YafContext.Current.Get<IDBBroker>().GetSmilies();
+            var smiles = this.Get<IDBBroker>().GetSmilies();
             int codeOffset = 0;
 
             foreach (var smile in smiles)
@@ -458,7 +466,7 @@ namespace YAF.Core.BBCode
             string localQuoteStr = this.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTE");
             string localQuoteWroteStr = this.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTEWROTE");
             string localQuotePostedStr = this.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTEPOSTED");
-            string localCodeStr = YafContext.Current.Get<ILocalization>().GetText("COMMON", "BBCODE_CODE");
+            string localCodeStr = this.Get<ILocalization>().GetText("COMMON", "BBCODE_CODE");
 
             // handle font sizes -- this rule class internally handles the "size" variable
             ruleEngine.AddRule(
@@ -571,14 +579,22 @@ namespace YAF.Core.BBCode
                         _rgxImg,
                         "<img src=\"${http}${inner}\" alt=\"\"/>",
                         new[] { "http" },
-                        new[] { "http://" }));
+                        new[] { "http://" }) { RuleRank = 70 });
+
+                ruleEngine.AddRule(
+                    new VariableRegexReplaceRule(
+                        _rgxImgEmptyTitle,
+                        "<img src=\"${http}${inner}\" alt=\"\"/>",
+                        new[] { "http" },
+                        new[] { "http://" }) { RuleRank = 71 });
+
 
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
                         _rgxImgTitle,
-                        "<img src=\"${http}${inner}\" alt=\"${description}\" title=\"${description}\" />", 
-                        new[] { "http", "description" }, 
-                        new[] { "http://" }));
+                        "<img src=\"${http}${inner}\" alt=\"${description}\" title=\"${description}\" />",
+                        new[] { "http", "description" },
+                        new[] { "http://", string.Empty }) { RuleRank = 72 });
 
                 // tha_watcha : Easy Quote Disabled http://forum.yetanotherforum.net/yaf_postst13495_Addition-of-Easy-Quote-RegEx-in-Revision-4906.aspx
                 // Looks like it doesnt work as expected should be correctly implemented or else removed.
@@ -627,15 +643,13 @@ namespace YAF.Core.BBCode
                         @"<div class=""code""><strong>{0}</strong><div class=""innercode"">${inner}</div></div>".Replace("{0}", localCodeStr)));
 
                 // "quote" handling...
-                var sl = YafContext.Current.ServiceLocator;
-
                 string tmpReplaceStr3 =
                     @"<div class=""quote""><span class=""quotetitle"">{0} <a href=""{1}""><img src=""{2}"" title=""{3}"" alt=""{3}"" /></a></span><div class=""innerquote"">{4}</div></div>"
                         .FormatWith(
                             localQuotePostedStr.Replace("{0}", "${quote}"),
                             YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", "${id}"),
-                            sl.Get<ITheme>().GetItem("ICONS", "ICON_LATEST"),
-                            sl.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTEPOSTED_TT"),
+                            this.Get<ITheme>().GetItem("ICONS", "ICON_LATEST"),
+                            this.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTEPOSTED_TT"),
                             "${inner}");
 
                 ruleEngine.AddRule(new VariableRegexReplaceRule(_rgxQuote3, tmpReplaceStr3, new[] { "quote", "id" }) { RuleRank = 60 });
@@ -846,9 +860,9 @@ namespace YAF.Core.BBCode
                 // insert localized value...
                 string localValue = defaultValue;
 
-                if (YafContext.Current.Get<ILocalization>().GetTextExists("BBCODEMODULE", tagValue))
+                if (this.Get<ILocalization>().GetTextExists("BBCODEMODULE", tagValue))
                 {
-                    localValue = YafContext.Current.Get<ILocalization>().GetText("BBCODEMODULE", tagValue);
+                    localValue = this.Get<ILocalization>().GetText("BBCODEMODULE", tagValue);
                 }
 
                 sb.Insert(m.Groups[0].Index, localValue);
@@ -920,7 +934,7 @@ namespace YAF.Core.BBCode
         /// </param>
         public void RegisterCustomBBCodePageElements(Page currentPage, Type currentType, string editorID)
         {
-            var bbCodeTable = YafContext.Current.Get<IDBBroker>().GetCustomBBCode();
+            var bbCodeTable = this.Get<IDBBroker>().GetCustomBBCode();
             const string ScriptID = "custombbcode";
             var jsScriptBuilder = new StringBuilder();
             var cssBuilder = new StringBuilder();
@@ -986,7 +1000,7 @@ namespace YAF.Core.BBCode
         /// </param>
         protected void AddCustomBBCodeRules(IProcessReplaceRules rulesEngine)
         {
-            var bbcodeTable = YafContext.Current.Get<IDBBroker>().GetCustomBBCode();
+            var bbcodeTable = this.Get<IDBBroker>().GetCustomBBCode();
 
             // handle custom bbcodes row by row...
             foreach (var codeRow in

@@ -1,5 +1,5 @@
 /* Yet Another Forum.NET
- * Copyright (C) 2006-2011 Jaben Cargman
+ * Copyright (C) 2006-2012 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -63,11 +63,12 @@ namespace YAF.Controls
       this.TimeNow.Text = this.GetTextFormatted(
         "Current_Time", this.Get<IDateTime>().FormatTime(DateTime.UtcNow));
 
-      if (this.Get<IYafSession>().LastVisit != DateTime.MinValue)
+    	var lastVisit = this.Get<IYafSession>().LastVisit;
+
+      if (lastVisit.HasValue && lastVisit.Value != DateTime.MinValue)
       {
         this.TimeLastVisit.Visible = true;
-        this.TimeLastVisit.Text = this.GetTextFormatted(
-          "last_visit", this.Get<IDateTime>().FormatDateTime(this.Get<IYafSession>().LastVisit));
+        this.TimeLastVisit.Text = this.GetTextFormatted("last_visit", this.Get<IDateTime>().FormatDateTime(lastVisit.Value));
       }
       else
       {

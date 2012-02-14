@@ -110,6 +110,12 @@
 	background: -moz-linear-gradient(top,  #ed1c24,  #aa1317);
 	
 }
+.yafnet a.HeaderTopicLink {
+	color: #ffffff!important;
+	font-weight: bold;
+	font-size: 10.5pt;
+	text-decoration:none;
+}
 .yafnet tr.forumRowTitle th {color: #ffffff;}
 .yafnet tr.header1 a {
 	color: #ffffff;
@@ -244,6 +250,8 @@
 
 .yafnet .post,
 .yafnet .postheader {border-top:1px solid #e9e9e9;}
+
+.yafnet .postheader {background-color: white;}
 
 .activeDiscussionContent .post, 
 .forumStatisticsContent .post,
@@ -628,6 +636,7 @@ This CSS already works on FireFox.
 	color: #000090;
 }
 /* CCS Buttons */
+.yafnet .postTop a,
 .yafnet .MultiQuoteButton,
 .yafnet a.yaflittlebutton,
 .yafnet a.yafcssimagebutton {
@@ -659,6 +668,7 @@ This CSS already works on FireFox.
 	background: -moz-linear-gradient(top,  #ed1c24,  #aa1317);
 	
 }
+.yafnet .postTop a:hover,
 .yafnet .MultiQuoteButton:hover,
 .yafnet a.yaflittlebutton:hover,
 .yafnet a.yafcssimagebutton:hover {
@@ -670,6 +680,7 @@ This CSS already works on FireFox.
 	text-decoration: none;
 	color: #ffffff;
 }
+.yafnet .postTop a:active,
 .yafnet .Checked,
 .yafnet a.yaflittlebutton:active,
 .yafnet a.yafcssimagebutton:active {
@@ -1117,6 +1128,11 @@ height:80em;
 	display: inline-block;
 	overflow: hidden;
 }
+.topicLastPost .avatarimage,
+.topicMain .avatarimage,
+.YAF_Pages_members .avatarimage,
+.YAF_Pages_team .avatarimage {width: 40px; height: 40px;}
+
 .AvatarWrap {
 	-webkit-box-shadow: inset 0 0 1px rgba(0,0,0,.8), inset 0 2px 0 rgba(255,255,255,.5), inset 0 -1px 0 rgba(0,0,0,.4);
 	-moz-box-shadow: inset 0 0 1px rgba(0,0,0,.8), inset 0 2px 0 rgba(255,255,255,.5), inset 0 -1px 0 rgba(0,0,0,.4);
@@ -1131,7 +1147,8 @@ height:80em;
 
 .topicLastPost .AvatarWrap,
 .topicMain .AvatarWrap,
-#yafpage_members .AvatarWrap {
+.YAF_Pages_members .AvatarWrap,
+.YAF_Pages_team .AvatarWrap {
 	float: left;
 	
 	width: 40px;
@@ -1148,6 +1165,8 @@ height:80em;
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	border-radius: 10px;
+	
+	background-size:40px!important;
 }
 
 .yafnet span.highlight {
@@ -1494,3 +1513,6 @@ height:80em;
 .yafnet dl.AlphaSort dd a {color:black;}
 
 .yafnet .post_res { background-color: #F4E941;}
+
+.yafnet .topicReplies,
+.yafnet .topicViews {text-align:center;}

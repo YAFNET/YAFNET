@@ -1,5 +1,5 @@
 ﻿/* Yet Another Forum.net
- * Copyright (C) 2006-2011 Jaben Cargman
+ * Copyright (C) 2006-2012 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -24,6 +24,9 @@ namespace YAF.DotNetNuke
     using System;
     using System.Text;
     using System.Web;
+
+    using YAF.Types.Interfaces;
+
     using global::DotNetNuke.Common;
     using global::DotNetNuke.Entities.Portals;
     using global::DotNetNuke.Entities.Tabs;
@@ -168,7 +171,7 @@ namespace YAF.DotNetNuke
               }
               else
               {
-               newUrl.Append(YafContext.Current.BoardSettings.Name.Replace(" ", "-"));
+               newUrl.Append(YafContext.Current.Get<YafBoardSettings>().Name.Replace(" ", "-"));
               }
             }
 

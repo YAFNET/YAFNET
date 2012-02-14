@@ -1,5 +1,5 @@
 /* Yet Another Forum.NET
- * Copyright (C) 2006-2011 Jaben Cargman
+ * Copyright (C) 2006-2012 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -86,10 +86,7 @@ namespace YAF.Controls
     /// </param>
     protected override void OnPreRender([NotNull] EventArgs e)
     {
-        if (this.Get<YafBoardSettings>().EnableIrkoo && !this.Get<YafBoardSettings>().ShowIrkooRepOnlyInTopics)
-      {
-        YafContext.Current.PageElements.RegisterJsBlockStartup("IrkooMethods", YafIrkoo.IrkJsCode());
-      }
+
     }
 
     /// <summary>
@@ -158,12 +155,6 @@ namespace YAF.Controls
         if (this.PostfixText.IsSet())
         {
             output.Write(this.PostfixText);
-        }
-
-        // Show Irkoo reputation in userlinks?
-        if (this.Get<YafBoardSettings>().EnableIrkoo && !this.Get<YafBoardSettings>().ShowIrkooRepOnlyInTopics)
-        {
-            output.Write(YafIrkoo.IrkRating(this.UserID));
         }
 
         output.EndRender();

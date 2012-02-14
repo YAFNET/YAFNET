@@ -91,7 +91,7 @@ namespace YAF.Core
 
 			this.RegisterBasicBindings();
 			this.RegisterEventBindings();
-			this.RegisterIdentityProviders();
+						this.RegisterMembershipProviders();
 			this.RegisterServices();
 			this.RegisterModules();
 			this.RegisterPages();
@@ -153,7 +153,7 @@ namespace YAF.Core
 			builder.RegisterType<YafAvatars>().As<IAvatars>().InstancePerLifetimeScope().PreserveExistingDefaults();
 			builder.RegisterType<TreatCacheKeyWithBoard>().As<ITreatCacheKey>().InstancePerLifetimeScope().PreserveExistingDefaults();
 			builder.RegisterType<CurrentBoardId>().As<IHaveBoardId>().InstancePerLifetimeScope().PreserveExistingDefaults();
-			builder.RegisterType<YafReadTracking>().As<IReadTracking>().InstancePerLifetimeScope().PreserveExistingDefaults();
+						builder.RegisterType<YafReadTrackCurrentUser>().As<IReadTrackCurrentUser>().InstancePerYafContext().PreserveExistingDefaults();
 
 			// cache bindings.
 			builder.RegisterType<StaticLockObject>().As<IHaveLockObject>().SingleInstance().PreserveExistingDefaults();
@@ -317,13 +317,14 @@ namespace YAF.Core
 		/// <summary>
 		/// Register identity providers
 		/// </summary>
-		private void RegisterIdentityProviders()
+				private void RegisterMembershipProviders()
 		{
 			var builder = new ContainerBuilder();
 
 			// membership
 			builder.RegisterType<CurrentMembershipProvider>().AsSelf().InstancePerLifetimeScope().PreserveExistingDefaults();
-			builder.Register(x => x.Resolve<CurrentMembershipProvider>().Instance).ExternallyOwned().PreserveExistingDefaults();
+						builder.Register(x => x.Resolve<CurrentMembershipProvider>().Instance).ExternallyOwned().PreserveExistingDefaults(
+							);
 
 			// roles
 			builder.RegisterType<CurrentRoleProvider>().AsSelf().InstancePerLifetimeScope().PreserveExistingDefaults();

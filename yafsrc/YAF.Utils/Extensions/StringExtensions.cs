@@ -1,5 +1,5 @@
 ﻿/* Yet Another Forum.net
- * Copyright (C) 2006-2011 Jaben Cargman
+ * Copyright (C) 2006-2012 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -88,6 +88,49 @@ namespace YAF.Utils
 
 			return false;
 		}
+
+        /// <summary>
+        /// Function to remove words in a string based on a max string length, used i.e. in search.
+        /// </summary>
+        /// <param name="text">
+        /// The raw string to format
+        /// </param>
+        /// <param name="maxStringLength">
+        /// The max string length.
+        /// </param>
+        /// <returns>
+        /// The formatted string
+        /// </returns>
+        public static string TrimWordsOverMaxLengthWordsPreserved([NotNull] this string text, int maxStringLength)
+        {
+            CodeContracts.ArgumentNotNull(text, "text");
+            string newText = string.Empty;
+            if (maxStringLength > 0 && text.Length > 0)
+            {
+                string[] texArr = text.Trim().Split(' ');
+               
+                int length = 0;
+                int count = 0;
+                foreach (string s in texArr)
+                {
+                    length += s.Length;
+                    if (length > maxStringLength)
+                    {
+                        if (count == 0)
+                        {
+                            newText = string.Empty;
+                            
+                        }
+                        break;
+                        
+                    }
+                    count++;
+                    newText = newText + " " + s;
+                }
+            }
+
+            return newText.Trim();
+        }
 
 		/// <summary>
 		/// The fast index of.

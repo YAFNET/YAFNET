@@ -1,6 +1,8 @@
 #LoginBox, .MessageBox{  display:none;}  
 
-.ModalDialog, .ModalDialog {position: absolute;top: 0;left: 0;z-index: 100;text-align: left;}
+.ModalDialog {position: fixed;top: 0;left: 0;z-index: 200;text-align: left;}
+* html .ModalDialog {position: absoulte;}
+#LoginBox{  z-index: 100;}  
 .ModalDialog .popup{ position:relative;border:3px solid rgba(0,0,0,0);-webkit-border-radius:5px;-moz-border-radius:5px; border-radius:5px;-webkit-box-shadow:0 0 18px rgba(0,0,0,0.4);-moz-box-shadow:0 0 18px rgba(0,0,0,0.4);box-shadow:0 0 18px rgba(0,0,0,0.4);}
 
 .ModalDialog .DialogContent {

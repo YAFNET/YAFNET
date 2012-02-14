@@ -221,6 +221,7 @@ namespace YAF.Providers.Membership
 				cmd.AddParam("PasswordQuestion", passwordQuestion);
 				cmd.AddParam("PasswordAnswer", passwordAnswer);
 				cmd.AddParam("IsApproved", isApproved);
+				cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
 
 				// Input Output Parameters
 				cmd.CreateOutputParameter("UserKey", DbType.Guid, direction: ParameterDirection.InputOutput);
@@ -594,6 +595,7 @@ namespace YAF.Providers.Membership
 				// Nonstandard args
 				cmd.AddParam("PreviousVersion", previousVersion);
 				cmd.AddParam("NewVersion", newVersion);
+				cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
 
 				this._dbAccess.ExecuteNonQuery(cmd);
 			}

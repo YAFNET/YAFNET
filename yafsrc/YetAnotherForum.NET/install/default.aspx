@@ -14,7 +14,10 @@
 <body>
     <form id="Form1" runat="server">
     <script type="text/javascript">
-        jQuery('#Form1').submit(function () { jQuery('.wizStep').animate({ opacity: '0.4' }, 'fast'); jQuery('#YafLoader').css({ top: '40%', left: '50%', margin: '-' + (jQuery('#YafLoader').height() / 2) + 'px 0 0 -' + (jQuery('#YafLoader').width() / 2) + 'px' }); jQuery('#YafLoader').show() }); (function ($) { var cache = []; $.preLoadImages = function () { var args_len = arguments.length; for (var i = args_len; i--; ) { var cacheImage = document.createElement('img'); cacheImage.src = arguments[i]; cache.push(cacheImage) } } })(jQuery); jQuery.preLoadImages("loader.gif", "../resources/images/loader.gif");
+        jQuery('#Form1').submit(function () { jQuery('.wizStep').animate({ opacity: '0.4' }, 'fast'); jQuery('#YafLoader').css({ top: '40%', left: '50%', margin: '-' + (jQuery('#YafLoader').height() / 2) + 'px 0 0 -' + (jQuery('#YafLoader').width() / 2) + 'px' });
+            jQuery('#YafLoader').show(); });  (function ($) { var cache = []; $.preLoadImages = function () { var args_len = arguments.length; for (var i = args_len; i--; ) { var cacheImage = document.createElement('img'); cacheImage.src = arguments[i]; cache.push(cacheImage);
+                                                                                                                                               } };
+            })(jQuery); jQuery.preLoadImages("loader.gif", "../resources/images/loader.gif");
     </script>
     <asp:ScriptManager ID="ScriptManager1" runat="server">
     </asp:ScriptManager>
@@ -46,7 +49,7 @@
                     </ul>
                     <br />
                     <asp:Button ID="btnTestPermissions" runat="server" Text="Test Permissions" CssClass="wizButton"
-                        OnClick="btnTestPermissions_Click" />
+                        OnClick="TestPermissions_Click" />
                 </asp:WizardStep> 
                 <asp:WizardStep ID="WizCreatePassword" runat="server" Title="Create Config Password">
                     <h4 class="lined">
@@ -102,7 +105,7 @@
                 <asp:WizardStep runat="server" Title="Database Connection" ID="WizDatabaseConnection">
                     <h3 class="lined">
                         YAF Database Connection</h3>
-                    <asp:RadioButtonList ID="rblYAFDatabase" runat="server" AutoPostBack="true" OnSelectedIndexChanged="rblYAFDatabase_SelectedIndexChanged">
+                    <asp:RadioButtonList ID="rblYAFDatabase" runat="server" AutoPostBack="true" OnSelectedIndexChanged="YAFDatabase_SelectedIndexChanged">
                         <asp:ListItem Text="Use Existing DB Connection String" Selected="true" Value="existing"></asp:ListItem>
                         <asp:ListItem Text="Create New DB Connection String" Value="create"></asp:ListItem>
                     </asp:RadioButtonList>
@@ -177,7 +180,7 @@
                     <h4 class="lined">
                         Test Database Connection</h4>
                     <asp:Button ID="btnTestDBConnection" runat="server" CssClass="wizButton" Text="Test Connection"
-                        OnClick="btnTestDBConnection_Click" OnClientClick="return true;" />
+                        OnClick="TestDBConnection_Click" OnClientClick="return true;" />
                     <asp:PlaceHolder ID="ConnectionInfoHolder" runat="server" Visible="false">
                         <h4 class="lined">
                             Connection Details</h4>
@@ -234,7 +237,7 @@
                     <p>
                         Click the Previous button to edit the database configuration.</p>
                     <asp:Button ID="btnTestDBConnectionManual" runat="server" CssClass="wizButton" Text="Test Database Connection"
-                        OnClick="btnTestDBConnectionManual_Click" />
+                        OnClick="TestDBConnectionManual_Click" />
                     <asp:PlaceHolder ID="ManualConnectionInfoHolder" runat="server" Visible="false">
                         <h4 class="lined">
                             Connection Details</h4>
@@ -252,7 +255,7 @@
                     <br />
                     <br />
                     <asp:Button ID="btnTestSmtp" runat="server" Text="Test Smtp Settings" CssClass="wizButton"
-                        OnClick="btnTestSmtp_Click" />
+                        OnClick="TestSmtp_Click" />
                     <asp:PlaceHolder ID="SmtpInfoHolder" runat="server" Visible="false">
                         <h4 class="lined">
                             SMTP Test Details</h4>
@@ -262,11 +265,13 @@
                     </asp:PlaceHolder>
                 </asp:WizardStep>
                 <asp:WizardStep runat="server" Title="Upgrade Database" ID="WizInitDatabase">
-                    <strong>Initialize/Upgrade Database</strong><br />
+                    <strong><%# !NewForumCreated ? "Upgrade" : "Initialize"%> Database</strong><br />
                     <br />
-                    Clicking next will initalize/upgrade your database to the latest version.<br />
+                    Clicking next will <%# !NewForumCreated ? "upgrade" : "initialize"%> your database to the latest version.<br />
                     <br />
                     <asp:CheckBox ID="FullTextSupport" runat="server" Text="Attempt to Install FullText Search Support" />
+                    <br />
+                    <asp:CheckBox ID="UpgradeExtensions" Checked="True" Visible="<%# !NewForumCreated %>" runat="server" Text="Upgrade BBCode Extensions, File Extensions and Topic Status Lists" />
                 </asp:WizardStep>
                 <asp:WizardStep runat="server" Title="Create Forum" ID="WizCreateForum">
                     <strong>Create Board</strong><br />

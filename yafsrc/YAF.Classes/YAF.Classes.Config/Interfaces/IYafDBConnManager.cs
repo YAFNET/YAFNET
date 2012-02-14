@@ -20,7 +20,9 @@ namespace YAF.Classes.Data
 {
   using System.Data.SqlClient;
 
-  public interface IYafDBConnManager
+  using YAF.Types.Handlers;
+
+    public interface IYafDBConnManager
   {
     /// <summary>
     /// Gets ConnectionString.

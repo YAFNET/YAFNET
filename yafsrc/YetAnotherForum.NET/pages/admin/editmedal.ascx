@@ -232,7 +232,9 @@
 				</tr>
 				<tr>
 					<td class="header2">
-						<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="USER" LocalizedPage="MODERATE" /></td>
+					    <YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="USERNAME" LocalizedPage="ACTIVEUSERS" />
+						(<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="USER" LocalizedPage="MODERATE" />)
+                    </td>
 					<td class="header2">
 						<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="MESSAGE" LocalizedPage="COMMON" /></td>
 					<td class="header2">

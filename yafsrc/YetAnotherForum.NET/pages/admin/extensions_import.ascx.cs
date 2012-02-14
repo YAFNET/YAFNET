@@ -65,8 +65,11 @@ namespace YAF.Pages.Admin
     protected void Import_OnClick([NotNull] object sender, [NotNull] EventArgs e)
     {
       // import selected file (if it's the proper format)...
-      if (this.importFile.PostedFile.ContentType == "text/xml")
+			if (!this.importFile.PostedFile.ContentType.StartsWith("text"))
       {
+				this.PageContext.AddLoadMessage(
+					this.GetText("ADMIN_EXTENSIONS_IMPORT", "IMPORT_FAILED").FormatWith("Invalid upload format specified: " + this.importFile.PostedFile.ContentType));
+			}
         try
         {
           int importedCount = this.Get<DataImport>().FileExtensionImport(

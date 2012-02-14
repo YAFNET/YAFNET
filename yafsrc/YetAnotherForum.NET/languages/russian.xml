@@ -3,7 +3,7 @@
   <page name="ACTIVELOCATION">
     <Resource tag="ACTIVEUSERS">Просматривает список активных пользователей</Resource>
     <Resource tag="ADMIN_ACCESSMASKS">Просматривает маски доступа</Resource>
-    <Resource tag="ADMIN_ADMIN">Просматривает  главную страницу администратора</Resource>
+    <Resource tag="ADMIN_ADMIN">Просматривает главную страницу администратора</Resource>
     <Resource tag="ADMIN_ATTACHMENTS">Администрирует прикреплённые файлы</Resource>
     <Resource tag="ADMIN_BANNEDIP">Просматривает запрещённые IP</Resource>
     <Resource tag="ADMIN_BANNEDIP_EDIT">Редактирует запрещённые IP</Resource>
@@ -12,11 +12,11 @@
     <Resource tag="ADMIN_BBCODE_IMPORT">Импортирует  BB-коды</Resource>
     <Resource tag="ADMIN_BOARDS">Просматривает все конференции</Resource>
     <Resource tag="ADMIN_BOARDSETTINGS">Просматривает/редактирует настройки досок</Resource>
-    <Resource tag="ADMIN_DELETEFORUM">Delete forums</Resource>
+    <Resource tag="ADMIN_DELETEFORUM">Удалить форум</Resource>
     <Resource tag="ADMIN_EDITACCESSMASK">Редактирует маски доступа</Resource>
     <Resource tag="ADMIN_EDITBOARD">Редактирует конференции</Resource>
     <Resource tag="ADMIN_EDITCATEGORY">Редактирует категории</Resource>
-    <Resource tag="ADMIN_EDITFORUM">Редактиурет форумы</Resource>
+    <Resource tag="ADMIN_EDITFORUM">Редактирует форумы</Resource>
     <Resource tag="ADMIN_EDITGROUP">Редактирует группы</Resource>
     <Resource tag="ADMIN_EDITLANGUAGE">Редактирует языковой файл</Resource>
     <Resource tag="ADMIN_EDITMEDAL">Редактирует медали</Resource>
@@ -168,12 +168,12 @@
     <Resource tag="Administration">Администрирование</Resource>
     <Resource tag="ALL_BOARDS"> - Все конференции - </Resource>
     <Resource tag="APROVE_ALL">Одобрить всё</Resource>
-    <Resource tag="BOARD_STARTED">Доска создана:</Resource>
+    <Resource tag="BOARD_STARTED">Конференция создана:</Resource>
     <Resource tag="CONFIRM_APROVE">Одобрить этого пользователя?</Resource>
     <Resource tag="CONFIRM_APROVE_ALL">Одобрить всех пользователей?</Resource>
     <Resource tag="CONFIRM_DELETE">Удалить этого пользователя?</Resource>
     <Resource tag="CONFIRM_DELETE_ALL">Удалить всех неодобренных пользователей, зарегистированных раньше указанного числа дней?</Resource>
-    <Resource tag="DAYS_AGO">"{0:d} ({1:N0} дней назад)</Resource>
+    <Resource tag="DAYS_AGO">{0:d} ({1:N0} дней назад)</Resource>
     <Resource tag="DELETE_ALL">Удалить всех зарегистрированных ранее, дней:</Resource>
     <Resource tag="ERROR_DATABASESIZE">Невозможно определить размер БД</Resource>
     <Resource tag="HEADER1">Пользователи онлайн</Resource>
@@ -266,17 +266,17 @@
     <Resource tag="TITLE">Импортировать новые YafBBCode</Resource>
   </page>
   <page name="ADMIN_BOARDS">
-    <Resource tag="CONFIRM_DELETE">Удалить эту доску?</Resource>
-    <Resource tag="DELETE">Delete</Resource>
-    <Resource tag="EDIT">Edit</Resource>
+    <Resource tag="CONFIRM_DELETE">Удалить эту конференцию?</Resource>
+    <Resource tag="DELETE">Удалить</Resource>
+    <Resource tag="EDIT">Изменить</Resource>
     <Resource tag="ID">ID</Resource>
     <Resource tag="NAME">Название</Resource>
-    <Resource tag="NEW_BOARD">Новая доска</Resource>
+    <Resource tag="NEW_BOARD">Новая конференция</Resource>
     <Resource tag="TITLE">Конференция</Resource>
   </page>
   <page name="ADMIN_BOARDSETTINGS">
     <Resource tag="BOARD_ALLOW_DIGEST">Отправлять дайджест по пользователям ежедневно:</Resource>
-    <Resource tag="BOARD_ALLOW_DIGEST_HELP">Обязательное поле: доска должна иметь "YAF.BaseUrlMask" и "YAF.ForceScriptName" в вашем web.config чтобы дайджест работал.</Resource>
+    <Resource tag="BOARD_ALLOW_DIGEST_HELP">Обязательное поле: конференция должна иметь "YAF.BaseUrlMask" и "YAF.ForceScriptName" в вашем web.config чтобы дайджест работал.</Resource>
     <Resource tag="BOARD_CDN_HOSTED">Использовать внешний Google CDN файл jQuery UI CSS</Resource>
     <Resource tag="BOARD_CDN_HOSTED_HELP">Вы можете использовать размешённый на Google CDN файл jQuery UI CSS вместо встроенного</Resource>
     <Resource tag="BOARD_CULTURE">Язык/культура:</Resource>
@@ -298,7 +298,7 @@
     <Resource tag="BOARD_JQ_THEME">Тема jQuery UI:</Resource>
     <Resource tag="BOARD_JQ_THEME_HELP">Тема jQuery UI Theme для испольлзования на это даске для вкладок и аккордиона.</Resource>
     <Resource tag="BOARD_MOBILE_THEME">Мобильная тема:</Resource>
-    <Resource tag="BOARD_MOBILE_THEME_HELP">Мобильная тема для использования на этой доске.</Resource>
+    <Resource tag="BOARD_MOBILE_THEME_HELP">Мобильная тема для использования на этой конференции.</Resource>
     <Resource tag="BOARD_NAME">Название:</Resource>
     <Resource tag="BOARD_NAME_HELP">Название конференции</Resource>
     <Resource tag="BOARD_SETUP">Настройки текущей конференции</Resource>
@@ -324,16 +324,16 @@
     <Resource tag="YES">Да</Resource>
   </page>
   <page name="ADMIN_DELETEFORUM">
-    <Resource tag="DELETE_FORUM">Delete Forum</Resource>
-    <Resource tag="DELETE_MOVE_TITLE">Deleting Forum and Moving Topics</Resource>
-    <Resource tag="DELETE_MSG">Please do not navigate away from this page while the deletion is in progress...</Resource>
-    <Resource tag="DELETE_TITLE">Deleting Forum</Resource>
-    <Resource tag="HEADER1">Delete the forum:</Resource>
-    <Resource tag="MOVE_TOPICS">Move all Topics, before Deleting?</Resource>
-    <Resource tag="MOVE_TOPICS_HELP">Move all Topics inside the Forum to a Forum selected Bellow.</Resource>
-    <Resource tag="NEW_FORUM">New Forum:</Resource>
-    <Resource tag="NEW_FORUM_HELP">Select the new Forum for the Topics.</Resource>
-    <Resource tag="TITLE">Delete Forum</Resource>
+    <Resource tag="DELETE_FORUM">Удалить форум</Resource>
+    <Resource tag="DELETE_MOVE_TITLE">Удаление форума и перемещение тем</Resource>
+    <Resource tag="DELETE_MSG">Пожалуйста, не уходите с этой страницы, пока идёт удаление...</Resource>
+    <Resource tag="DELETE_TITLE">Удаление форума</Resource>
+    <Resource tag="HEADER1">Удалить этот форум:</Resource>
+    <Resource tag="MOVE_TOPICS">Переместить все темы перед удалением?</Resource>
+    <Resource tag="MOVE_TOPICS_HELP">Переместить все темы в форуме перед удалением.</Resource>
+    <Resource tag="NEW_FORUM">Новый форум:</Resource>
+    <Resource tag="NEW_FORUM_HELP">Выбрать новый форум для тем.</Resource>
+    <Resource tag="TITLE">Удалить форум</Resource>
   </page>
   <page name="ADMIN_DIGEST">
     <Resource tag="CONFIRM_FORCE">Вы уверены, что хотите инициировать отправку дайджеста прямо сейчас?</Resource>
@@ -458,8 +458,8 @@
     <Resource tag="NO_POSTSCOUNT_HELP">Если это включено, то посты на этом форуме не будут считаться в статистике.</Resource>
     <Resource tag="PARENT_FORUM">Родительский форум:</Resource>
     <Resource tag="PARENT_FORUM_HELP">Если значение выбрано, то тот форум будет подфорумом одного из форумов.</Resource>
-    <Resource tag="PRE_MODERATED">Премодериируемый:</Resource>
-    <Resource tag="PRE_MODERATED_HELP">Если этот форум премодерируемый, то сообщение должны быть одобрены модератором перед публикацией.</Resource>
+    <Resource tag="PRE_MODERATED">Пре-модерируемый:</Resource>
+    <Resource tag="PRE_MODERATED_HELP">Если этот форум пре-модерируемый, то сообщение должны быть одобрены модератором перед публикацией.</Resource>
     <Resource tag="REMOTE_URL">Удалённый URL:</Resource>
     <Resource tag="REMOTE_URL_HELP">Если вы введёте ссылку, то вместо форума будет отображаться контент по этой ссылке.</Resource>
     <Resource tag="SORT_ORDER">Сортировка:</Resource>
@@ -533,7 +533,7 @@
     <Resource tag="ALLOW_REORDER_HELP">Пользователю разрешено или запрещено изменять порядок отображения медали.</Resource>
     <Resource tag="ALLOW_RIBBON">Орденская планка:</Resource>
     <Resource tag="ALLOW_RIBBON_HELP">Орденская планка для этой медали.</Resource>
-    <Resource tag="CONFIRM_REMOVE_GROUP">Удалить медаль из этйо группы?</Resource>
+    <Resource tag="CONFIRM_REMOVE_GROUP">Удалить медаль из этой группы?</Resource>
     <Resource tag="CONFIRM_REMOVE_USER">Удалить медаль у этого пользователя?</Resource>
     <Resource tag="DATE_AWARDED">Дата вручения</Resource>
     <Resource tag="EDIT_MEDAL_GROUP">Изменить медаль и/или группу</Resource>
@@ -640,7 +640,7 @@
     <Resource tag="SIG_HTML_HELP">Разделённые запятой теги HTML, разрещённые в подписи обладателя статуса.</Resource>
     <Resource tag="SIG_LENGTH">Кол-во символов в подписи:</Resource>
     <Resource tag="SIG_LENGTH_HELP">Максимально разрешённое кол-во символов в подписи пользователя для данного статуса.</Resource>
-    <Resource tag="TITLE">Добавит/Изменить статус</Resource>
+    <Resource tag="TITLE">Добавить/Изменить статус</Resource>
   </page>
   <page name="ADMIN_EDITUSER">
     <Resource tag="ADD_POINTS">Добавить очки:</Resource>
@@ -658,8 +658,8 @@
     <Resource tag="ERROR_NEW_PASS">Нужно ввести новый пароль</Resource>
     <Resource tag="ERROR_NOTE_PASSRESET">Ошибка: Текущий провайдер Membership не поддерживает функцию сброса пароля. ПроверьтеЮ что опция "EnablePasswordReset" имеет значение "true" в секции конфигурации провайдера в web.config.</Resource>
     <Resource tag="ERROR_PASS_NOTMATCH">Подтвержение и пароль не совпадают</Resource>
-    <Resource tag="FACEBOOK_USER">Facebook User:</Resource>
-    <Resource tag="FACEBOOK_USER_HELP">Indicates if the User is logged in via Facebook.</Resource>
+    <Resource tag="FACEBOOK_USER">Пользователь Facebook:</Resource>
+    <Resource tag="FACEBOOK_USER_HELP">Показывает, что пользователь зашёл через Facebook.</Resource>
     <Resource tag="HEAD_KILL_USER">Уничтожить следы активности пользователя</Resource>
     <Resource tag="HEAD_USER_CHANGEPASS">Изменить пароль</Resource>
     <Resource tag="HEAD_USER_DETAILS">Данные пользователя</Resource>
@@ -683,13 +683,13 @@
     <Resource tag="RESET_PASS">Сброс пароля</Resource>
     <Resource tag="SET_POINTS">Ввести очки:</Resource>
     <Resource tag="TITLE">Редактирование пользователя "{0}"</Resource>
-    <Resource tag="TWITTER_USER">Twitter User:</Resource>
+    <Resource tag="TWITTER_USER">Пользователь Twitter:</Resource>
     <Resource tag="USER_AVATAR">Аватар пользователя</Resource>
     <Resource tag="USER_DETAILS">Данные пользователя</Resource>
     <Resource tag="USER_KILL">Подавление активности</Resource>
     <Resource tag="USER_PASS">Пароль пользователя</Resource>
     <Resource tag="USER_PROFILE">Профиль пользователя</Resource>
-    <Resource tag="USER_REPUTATION">User Reputation</Resource>
+    <Resource tag="USER_REPUTATION">Репутация пользователя</Resource>
     <Resource tag="USER_ROLES">Роли пользователя</Resource>
     <Resource tag="USER_SIG">Подпись пользователя</Resource>
     <Resource tag="USER_SUSPEND">Временно запретить</Resource>
@@ -791,8 +791,8 @@
     <Resource tag="ALL_USERS">Все пользователи</Resource>
     <Resource tag="ALLOW_CHANGE_AFTERVOTE">Разрешить изменение опроса после первого голосования:</Resource>
     <Resource tag="ALLOW_CHANGE_AFTERVOTE_HELP">Создатель может изменять варианты опросов даже после того как был отдан первый голос.</Resource>
-    <Resource tag="ALLOW_DISPLAY_COUNTRY">Allow Display Country:</Resource>
-    <Resource tag="ALLOW_DISPLAY_COUNTRY_HELP">If checked, the user country flag/name is displayed in the user data in messages list.</Resource>
+    <Resource tag="ALLOW_DISPLAY_COUNTRY">Разрешить отображение страны:</Resource>
+    <Resource tag="ALLOW_DISPLAY_COUNTRY_HELP">Если включено, то флаг/название страны будет отображаться в списке сообщений в данных пользователя.</Resource>
     <Resource tag="ALLOW_DISPLAY_GENDER">Показывать пол:</Resource>
     <Resource tag="ALLOW_DISPLAY_GENDER_HELP">Если включено, то иконка пола будет отображаться в пользовательских данных в сообщениях.</Resource>
     <Resource tag="ALLOW_EMAIL_CHANGE">Разрешить изменение Email:</Resource>
@@ -828,7 +828,7 @@
     <Resource tag="ALLOW_SENDMAIL">Разрешить отправлять Email:</Resource>
     <Resource tag="ALLOW_SENDMAIL_HELP">Разрешить пользователям отправлять сообщения друг другу по электронной почте.</Resource>
     <Resource tag="ALLOW_SHARE_TOPIC">Включить меню расшаривания:</Resource>
-    <Resource tag="ALLOW_SHARE_TOPIC_HELP">Включить меню при помощи которого пользователь сможет отправить по почтеЮ использовать Твиттерt, Buzz, Like on Facebook, Digg или Reddit для темы.</Resource>
+    <Resource tag="ALLOW_SHARE_TOPIC_HELP">Включить меню при помощи которого пользователь сможет отправить по почтеЮ использовать Твиттерt, Google+, Like on Facebook, Digg или Reddit для темы.</Resource>
     <Resource tag="ALLOW_SIGNATURE">Разрешить подписи:</Resource>
     <Resource tag="ALLOW_SIGNATURE_HELP">Разрешить пользователям добавлять подписи к сообщениям. Вы должны также установить параметры подписи(кол-во символов, разрешённые BBCode...) для каждой роли и/или статуса, чтобы действительно включить эту опцию.</Resource>
     <Resource tag="ALLOW_THANKS">Разрешить «Спасибо»</Resource>
@@ -882,8 +882,8 @@
     <Resource tag="DISABLE_REGISTER_HELP">Новые пользователи не смогут регистрироваться.</Resource>
     <Resource tag="DISCUSSIONS_CACHE_TIMEOUT">Таймаут кэша активных обсуждений:</Resource>
     <Resource tag="DISCUSSIONS_CACHE_TIMEOUT_HELP">В минутах</Resource>
-    <Resource tag="DISPLAY_POINTS">Display Reputation Bar:</Resource>
-    <Resource tag="DISPLAY_POINTS_HELP">If checked, the Reputation of the User will be displayed for each user.</Resource>
+    <Resource tag="DISPLAY_POINTS">Отображать репутацию:</Resource>
+    <Resource tag="DISPLAY_POINTS_HELP">Если включено, то будет отображаться общая репутация каждого пользователя.</Resource>
     <Resource tag="DISPLAY_TRESHOLD_IMGATTACH">Вложения изображений - максимальный порог отображения:</Resource>
     <Resource tag="DISPLAY_TRESHOLD_IMGATTACH_HELP">Максимальный размер изображения, до тех пор пока она будет отображаться как изображение в боксе вложений, в противном случае это будет ссылка.</Resource>
     <Resource tag="DYNAMIC_METATAGS">Добавить динамические метатеги к странице:</Resource>
@@ -907,9 +907,9 @@
     <Resource tag="ENABLE_RETWEET_MSG">Включить кнопку ретвиттера:</Resource>
     <Resource tag="ENABLE_RETWEET_MSG_HELP">Делает доступной кнопку ретвита и пользователь может проретвитить сообщение.</Resource>
     <Resource tag="ENABLE_SSO">Включить единую регистрацию в Facebook:</Resource>
-    <Resource tag="ENABLE_SSO_HELP">If checked, users will be able to Login to an existing account via Facebook and/or Twitter. To Enable it for Facebook you need to setup YAF.FacebookAPIKey and YAF.FacebookSecretKey Values, and for Twitter YAF.TwitterConsumerKey and YAF.TwitterConsumerSecret Values in the app.config (AppSettings).</Resource>
-    <Resource tag="ENABLE_USERREPUTATION">Use Reputation System:</Resource>
-    <Resource tag="ENABLE_USERREPUTATION_HELP">Setting to Enable/Disable the Build-In Reputation System to allow Users Give or Remove Reputation.</Resource>
+    <Resource tag="ENABLE_SSO_HELP">Если включено, то пользователи смогут входить в свой аккаунт через аккаунт Facebook и/или Twitter.Чтобы включить это для Facebook необходимо установить значения YAF.FacebookAPIKey и YAF.FacebookSecretKey, а для Twitter YAF.TwitterConsumerKey и YAF.TwitterConsumerSecret Values в app.config (AppSettings).</Resource>
+    <Resource tag="ENABLE_USERREPUTATION">Использовать систему репутации:</Resource>
+    <Resource tag="ENABLE_USERREPUTATION_HELP">Позволяет добавлять или снижать общую репутацию пользователя.</Resource>
     <Resource tag="EXTERN_NEWWINDOW">Показывать результаты внешнего поиска в новом окне:</Resource>
     <Resource tag="EXTERN_NEWWINDOW_HELP">Показывать результаты внешнего поиска в новом окне.</Resource>
     <Resource tag="EXTERN_SEARCH_PERMISS">Разрешения для внешнего поиска:</Resource>
@@ -952,10 +952,10 @@
     <Resource tag="HEADER_PERMISSION">Настройки разрешений</Resource>
     <Resource tag="HEADER_PMS">Личные сообщения</Resource>
     <Resource tag="HEADER_POLL">Опции опроса</Resource>
-    <Resource tag="HEADER_REPUTATION">Reputation Settings</Resource>
+    <Resource tag="HEADER_REPUTATION">Настройки репутации</Resource>
     <Resource tag="HEADER_SEARCH">Настройки поиска</Resource>
     <Resource tag="HEADER_SETUP">Настройки хоста</Resource>
-    <Resource tag="HEADER_SPAM">Spam Settings</Resource>
+    <Resource tag="HEADER_SPAM">Настройки анти-спама</Resource>
     <Resource tag="HEADER_SYNDICATION">Настройки синдикации</Resource>
     <Resource tag="HEADER_TEMPLATES">Настройки шаблонов</Resource>
     <Resource tag="HOST_ADVERTS">Реклама</Resource>
@@ -1080,18 +1080,18 @@
     <Resource tag="REPLACE_CACHE_TIMEOUT_HELP"> Смайлы, BB-коды , плохие слова и т.д.  (в минутах)</Resource>
     <Resource tag="REPORT_POST_PERMISSION">Разрешать жаловаться на сообщение:</Resource>
     <Resource tag="REPORT_POST_PERMISSION_HELP">Разрешать жаловаться на сообщение данным группам:</Resource>
-    <Resource tag="REPUTATION_ALLOWNEGATIVE">Allow Negative Reputation:</Resource>
-    <Resource tag="REPUTATION_ALLOWNEGATIVE_HELP">If allowed Users can get Negative Reputation Numbers.</Resource>
-    <Resource tag="REPUTATION_MAX">Maximum Positive Reputation Value:</Resource>
-    <Resource tag="REPUTATION_MAX_HELP">This Value is used to generate the Reputation Bar.</Resource>
-    <Resource tag="REPUTATION_MIN">Maximum Negative Reputation Value:</Resource>
-    <Resource tag="REPUTATION_MIN_HELP">This Value is used to generate the Reputation Bar.</Resource>
-    <Resource tag="REPUTATION_MINDOWN">Min. Value to allow Remove Reputation:</Resource>
-    <Resource tag="REPUTATION_MINDOWN_HELP">Check if the User matches minimal requirements for voting down.</Resource>
-    <Resource tag="REPUTATION_MINUP">Min. Value to allow Add Reputation:</Resource>
-    <Resource tag="REPUTATION_MINUP_HELP">Check if the User matches minimal requirements for voting up.</Resource>
-    <Resource tag="REPUTATION_TEMPLATE">Reputation template:</Resource>
-    <Resource tag="REPUTATION_TEMPLATE_HELP">Template for rendering user's reputation.</Resource>
+    <Resource tag="REPUTATION_ALLOWNEGATIVE">Разрешить отрицательную репутацию:</Resource>
+    <Resource tag="REPUTATION_ALLOWNEGATIVE_HELP">Если включено, то пользователи могут иметь отрицательную репутацию.</Resource>
+    <Resource tag="REPUTATION_MAX">Максимальное положительное значение репутации:</Resource>
+    <Resource tag="REPUTATION_MAX_HELP">Максимальное положительное значение репутации пользователя.</Resource>
+    <Resource tag="REPUTATION_MIN">Максимальное негативное значение репутации:</Resource>
+    <Resource tag="REPUTATION_MIN_HELP">Максимальное негативное значение общей репутации пользователя.</Resource>
+    <Resource tag="REPUTATION_MINDOWN">Минимальное значение репутации для понижения репутации:</Resource>
+    <Resource tag="REPUTATION_MINDOWN_HELP">Минимальное значение для понижения репутации другого пользовтаеля.</Resource>
+    <Resource tag="REPUTATION_MINUP">Минимальное значение для добавления репутации:</Resource>
+    <Resource tag="REPUTATION_MINUP_HELP">Минимальное значение для добавления репутации другому пользоателю.</Resource>
+    <Resource tag="REPUTATION_TEMPLATE">Шаблон репутации:</Resource>
+    <Resource tag="REPUTATION_TEMPLATE_HELP">Шаблон для отображения репутации пользователя.</Resource>
     <Resource tag="REQUIRE_LOGIN">Требовать входа на сайт:</Resource>
     <Resource tag="REQUIRE_LOGIN_HELP">Требовать входа на сайт, чтобы увидеть контент. Пользователи будут перенаправляться прямо к странице логина.</Resource>
     <Resource tag="RULES_ONREGISTER">Показывать правила форума перед регистрацией:</Resource>
@@ -1202,8 +1202,8 @@
     <Resource tag="STATS_CACHE_TIMEOUT_HELP">В минутах</Resource>
     <Resource tag="STYLED_NICKS">Использовать стилизированные ники:</Resource>
     <Resource tag="STYLED_NICKS_HELP">Если включено, вы можете использовать цыета или иное форматирование для ников пользователей. Может быть индивидуальным для каждого скина.</Resource>
-    <Resource tag="STYLED_TOPIC_TITLES">Use styled Topic Titles:</Resource>
-    <Resource tag="STYLED_TOPIC_TITLES_HELP">If checked, Mods and Admins can use colors, font size change etc. for topic titles.</Resource>
+    <Resource tag="STYLED_TOPIC_TITLES">Использовать стилизированные названия тем:</Resource>
+    <Resource tag="STYLED_TOPIC_TITLES_HELP">Если включено, администраторы и модераторы смогут использовать цвете, шрифт и прочее в названиях тем.</Resource>
     <Resource tag="THANKS_FROM_TEMPLATE">Шаблон для отображения «Спасибо» пользователю:</Resource>
     <Resource tag="THANKS_FROM_TEMPLATE_HELP">Шаблон для отображения Спасибо пользователю.</Resource>
     <Resource tag="THANKS_TO_TEMPLATE">Шаблон для отображения «Спасибо»:</Resource>
@@ -1219,8 +1219,8 @@
     <Resource tag="TWITTER_USERNAME_HELP">Упомянутое имя пользователя при ретвите темы или сообщения.</Resource>
     <Resource tag="UNHANDLED_USERAGENT_LOG">Включить журналирование для UserAgent:</Resource>
     <Resource tag="UNHANDLED_USERAGENT_LOG_HELP">Все неидентифицируемые UserAgent будут в журнале. Не включайте это постоянно.</Resource>
-    <Resource tag="USE_FARSI_CALENDER">Use Farsi (Shamsi) Persian Calender:</Resource>
-    <Resource tag="USE_FARSI_CALENDER_HELP">If enabled the Persian Calender all Date Times are Converted to the Persian Calender.</Resource>
+    <Resource tag="USE_FARSI_CALENDER">Использовать Фарси/арабский календарь :</Resource>
+    <Resource tag="USE_FARSI_CALENDER_HELP">Если включено то все даты будут преобразовываться в Фарси/арабские календарные даты.</Resource>
     <Resource tag="USE_READ_TRACKING">Отслеживать прочитанные сообщение в базе данных:</Resource>
     <Resource tag="USE_READ_TRACKING_HELP">Если включено, то непрочитанные темы или форумы будут храниться в базе данных. &lt;br /&gt;WARNING: This Can Increase your DB if you have a big amount of users and/or topics</Resource>
     <Resource tag="USER_CHANGE_LANGUAGE">Разрешить пользователям менять язык:</Resource>
@@ -1488,7 +1488,7 @@
     <Resource tag="EMAIL_CONTAINS">Email содержит:</Resource>
     <Resource tag="EXPORT_CSV">Экспортировать пользователя(лей) в формате CSV</Resource>
     <Resource tag="EXPORT_XML">Экспортировать пользователя(лей) в формате CSV Xml</Resource>
-    <Resource tag="FACEBOOK_USER">Facebook User</Resource>
+    <Resource tag="FACEBOOK_USER">Пользователь Facebook</Resource>
     <Resource tag="FILTER">Фильтровать по дате регистрации с:</Resource>
     <Resource tag="HEADER">Поиск пользователей</Resource>
     <Resource tag="IMPORT">Импортировать пользователя(лей)</Resource>
@@ -1504,7 +1504,7 @@
     <Resource tag="SEARCH">Поиск</Resource>
     <Resource tag="SYNC_ALL">Синхронизировать всех пользователей в Membership</Resource>
     <Resource tag="TITLE">Пользователи</Resource>
-    <Resource tag="TWITTER_USER">Twitter User</Resource>
+    <Resource tag="TWITTER_USER">Пользователь Twitter</Resource>
     <Resource tag="USER_NAME">Ник пользователя</Resource>
   </page>
   <page name="ADMIN_USERS_IMPORT">
@@ -1609,7 +1609,7 @@
   </page>
   <page name="BBCODEMODULE">
     <Resource tag="HIDDENMOD_DESC">Контент этого поста скрыт. После того, как вы поблагодарите постящего за это сообщение он будет доступен, обновите страницу для просмотра скрытого контента. You need to thank the Current Post</Resource>
-    <Resource tag="HIDDENMOD_GROUP">Не хватате прав для просмотра скрытого содержимого.</Resource>
+    <Resource tag="HIDDENMOD_GROUP">Не хватает прав для просмотра скрытого содержимого.</Resource>
     <Resource tag="HIDDENMOD_GUEST">Эта конференция требует регистрации перед тем как вы сможете увидеть скрытые сообщения.</Resource>
     <Resource tag="HIDDENMOD_POST">Скрытый текст (Вы должны быть зарегистрированы и иметь не менее {0} сообщений)</Resource>
     <Resource tag="HIDDENMOD_THANKS">Скрытый текст (Вы должны быть зарегистрированы и иметь не менее {0} «Спасибо»)</Resource>
@@ -1685,7 +1685,7 @@
     <Resource tag="BUTTON_THANKS">Спасибо</Resource>
     <Resource tag="BUTTON_THANKS_TT">Поблагодарить автора сообщения</Resource>
     <Resource tag="BUTTON_THANKSDELETE">Удалить «Спасибо»</Resource>
-    <Resource tag="BUTTON_THANKSDELETE_TT">Удалить ваше «Спасибо» автору сообщения</Resource>
+    <Resource tag="BUTTON_THANKSDELETE_TT">Удалить Ваше «Спасибо» автору сообщения</Resource>
     <Resource tag="BUTTON_UNDELETE">Восстановить</Resource>
     <Resource tag="BUTTON_UNDELETE_TT">Восстановить это сообщение</Resource>
     <Resource tag="BUTTON_UNLOCKTOPIC">Открыть</Resource>
@@ -1699,6 +1699,7 @@
     <Resource tag="MAXNUMBEROF">Максимальное число символов в каждом сообщении не более {0}</Resource>
   </page>
   <page name="COMMON">
+    <Resource tag="ALBUMIMG_BBCODE">Вставить изображение из альбома...</Resource>
     <Resource tag="ALLOWED">Разрешено</Resource>
     <Resource tag="BACK">Назад</Resource>
     <Resource tag="BAD_CAPTCHA">Введённый текст отличается от текста на изображении.</Resource>
@@ -2105,6 +2106,7 @@
     <Resource tag="PASSWORD_BAD_LENGTH">Минимальная длина нового пароля: {0}.</Resource>
     <Resource tag="PASSWORD_INCORRECT">Пароль неверен или новый пароль недействителен.</Resource>
     <Resource tag="PASSWORD_NOT_COMPLEX">Необходимое количество спецсимволов в пароле: {1}.</Resource>
+    <Resource tag="PASSWORD_NOT_NEW">Новый пароль не должен совпадать со старым.</Resource>
     <Resource tag="TITLE">Изменить пароль</Resource>
   </page>
   <page name="CP_EDITALBUMIMAGES">
@@ -2208,9 +2210,9 @@
     <Resource tag="TIMEZONE2">Чтобы показывать местную дату и время мы должны знать Ваш часовой пояс.</Resource>
     <Resource tag="TITLE">Изменить профиль</Resource>
     <Resource tag="TWITTER">Ваш ник в Twitter:</Resource>
-    <Resource tag="TWITTER_ID">Your Twitter Id:</Resource>
+    <Resource tag="TWITTER_ID">Ваш Twitter Id:</Resource>
     <Resource tag="USE_MOBILE_THEME">Использовать тему для мобильного устройства:</Resource>
-    <Resource tag="USE_SINGLESIGNON">Did you want to Use Single Sign On?&lt;br /&gt;You need to have Set Up the Facebook Profile ID above for Facebook Login and Twitter Id + Twitter Name for Twitter Login.</Resource>
+    <Resource tag="USE_SINGLESIGNON">Желаете ли Вы включить единый логин?&lt;br /&gt;Вам необходимо установить ID профиля Facebook выше для входа на сайт с его помощью и Twitter Id + имя в Twitter для входа через аккаунт Twitter.</Resource>
     <Resource tag="WEBLOG2">URL вашего публичного блога:</Resource>
     <Resource tag="WHERE">Где Вы живете?</Resource>
     <Resource tag="XMPP">Ваш Jabber ID:</Resource>
@@ -2362,8 +2364,8 @@
     <Resource tag="UNREAD0">У Вас {0} непрочитанных входящих сообщений.</Resource>
     <Resource tag="UNREAD1">У Вас {0} непрочитанное входящее сообщение.</Resource>
     <Resource tag="VIEWING">({0} просматривают)</Resource>
-    <Resource tag="VOTE_DOWN_TITLE">Remove -1 of the Users Reputation</Resource>
-    <Resource tag="VOTE_UP_TITLE">Add +1 to the Users Reputation.</Resource>
+    <Resource tag="VOTE_DOWN_TITLE">Удалить -1 из репутации пользователя.</Resource>
+    <Resource tag="VOTE_UP_TITLE">Добавить +1 к репутации пользователя.</Resource>
   </page>
   <page name="DELETEMESSAGE">
     <Resource tag="DELETE">Удалить</Resource>
@@ -3776,7 +3778,7 @@ Spoiler Content
     <Resource tag="ANNOUNCEMENT_NEW">Объявление (новые сообщения)</Resource>
     <Resource tag="FORUM_LOCKED">Форум закрыт</Resource>
     <Resource tag="HOT_NEW_POSTS">«Горячие темы» (новые посты)</Resource>
-    <Resource tag="HOT_NO_NEW_POSTS">«Горячие тема»</Resource>
+    <Resource tag="HOT_NO_NEW_POSTS">«Горячие темы»</Resource>
     <Resource tag="MOVED">Перемещено</Resource>
     <Resource tag="NEW_POSTS">Новые сообщения</Resource>
     <Resource tag="NEW_POSTS_LOCKED">Новые сообщения (закрытые)</Resource>
@@ -3872,12 +3874,13 @@ Spoiler Content
     <Resource tag="SSO_DEACTIVATED_BYUSER">Единая регистрация отключена, Вам необходимо включить её в своём профиле.</Resource>
     <Resource tag="SSO_FAILED">Логин через Facebook не удался. Нет пользователя с таким адресом Email .</Resource>
     <Resource tag="SSO_ID_NOTMATCH">Неверный ID пользователя Facebook !</Resource>
-    <Resource tag="SSO_TWITTER_FAILED">The Twitter Login failed, User does not exists.</Resource>
-    <Resource tag="SSO_TWITTERID_NOTMATCH">The Twitter ID and Twitter Name does not match!</Resource>
+    <Resource tag="SSO_TWITTER_FAILED">Вход через Twitter не удался, такой пользователь не существует.</Resource>
+    <Resource tag="SSO_TWITTERID_NOTMATCH"> Twitter ID и/или имя в Twitter неверны!</Resource>
     <Resource tag="TITLE">Вход</Resource>
-    <Resource tag="TWITTER_DM">You have received further Information to your new Account as Private Message on the Forum.</Resource>
-    <Resource tag="TWITTER_LOGIN">Login with Twitter</Resource>
-    <Resource tag="UPDATE_EMAIL">Please Update Your E-Mail Adress now!</Resource>
+    <Resource tag="TWITTER_DM">Вы получили дальнейшие инструкции в личные сообщения на форуме.</Resource>
+    <Resource tag="TWITTER_DM_ACCOUNT">Ваша информация об аккаунте форума {0} : Имя пользователя "{1}" Пароль "{2}"</Resource>
+    <Resource tag="TWITTER_LOGIN">Войти через Twitter</Resource>
+    <Resource tag="UPDATE_EMAIL">Пожалуйста, обновите ваш адрес E-Mail!</Resource>
     <Resource tag="USERNAME">Имя пользователя:</Resource>
     <Resource tag="WRONG_USERNAME_EMAIL">Неверное имя пользователя или адрес электронной почты.</Resource>
   </page>
@@ -3991,6 +3994,8 @@ Spoiler Content
   <page name="MOVETOPIC">
     <Resource tag="LEAVE_POINTER">Оставить ссылку на тему на первоначальном форуме</Resource>
     <Resource tag="MOVE">Переместить тему</Resource>
+    <Resource tag="POINTER_DAYS">Хранить ссылку (дней):</Resource>
+    <Resource tag="POINTER_DAYS_INVALID">Вы должны ввест ицелое число дней</Resource>
     <Resource tag="SELECT_FORUM">Выберите форум, куда Вы хотите переместить эту тему:</Resource>
     <Resource tag="TITLE">Переместить тему</Resource>
   </page>
@@ -4020,7 +4025,7 @@ Spoiler Content
     <Resource tag="SINCE">Начиная с</Resource>
     <Resource tag="TOPIC_STARTER">Автор темы</Resource>
     <Resource tag="TOPICS">Темы</Resource>
-    <Resource tag="UNANSWEREDTOPICS">Unanswered Topics</Resource>
+    <Resource tag="UNANSWEREDTOPICS">Неотвеченные темы</Resource>
     <Resource tag="UNREADTOPICS">Непрочитанные темы</Resource>
     <Resource tag="VIEWS">Просмотры</Resource>
   </page>
@@ -4160,7 +4165,6 @@ Spoiler Content
     <Resource tag="ATTACHMENTS">Вложение(я):</Resource>
     <Resource tag="BLOG">БЛОГ</Resource>
     <Resource tag="BLOG_TITLE">Посетите блог {0}</Resource>
-    <Resource tag="BUZZ_TOPIC">Расшарить тему в Buzz</Resource>
     <Resource tag="CANT_DOWNLOAD">У Вас нет прав для просмотра или загрузки вложений.</Resource>
     <Resource tag="CANT_DOWNLOAD_REGISTER">У Вас нет прав для просмотра или загрузки вложений. Попробуйте зарегистрироваться.</Resource>
     <Resource tag="CHOICE">Вариант</Resource>
@@ -4184,6 +4188,7 @@ Spoiler Content
     <Resource tag="FACEBOOK_TITLE">Посетите профиль пользователя {0} в Facebook</Resource>
     <Resource tag="FACEBOOK_TOPIC">Смотреть в этой теме</Resource>
     <Resource tag="FORUM_JUMP">Быстрый переход</Resource>
+    <Resource tag="GOOGLEPLUS_TOPIC">Расшарить тему в Google+</Resource>
     <Resource tag="GROUPS">Группы</Resource>
     <Resource tag="HOME">WWW</Resource>
     <Resource tag="HOME_TITLE">Посетите домашнюю страницу {0}</Resource>
@@ -4202,6 +4207,8 @@ Spoiler Content
     <Resource tag="INFO_WATCH_TOPIC">Вы будете получать уведомления в случае появления новых сообщений в этой теме.</Resource>
     <Resource tag="IP">IP</Resource>
     <Resource tag="JOINED">Зарегистрирован</Resource>
+    <Resource tag="LINKBACK_TOPIC">LinkBack Topic URL</Resource>
+    <Resource tag="LINKBACK_TOPIC_PROMT">Use the URL below if you want to LinkBack the topic URL on another website.</Resource>
     <Resource tag="LOCATION">Откуда</Resource>
     <Resource tag="MESSAGEDELETED_MOD">Собщение удалено модератором.</Resource>
     <Resource tag="MESSAGEDELETED_USER">Сообщение удалено пользователем.</Resource>
@@ -4226,13 +4233,13 @@ Spoiler Content
     <Resource tag="QUICKREPLY_SHOW">Показать форму быстрого ответа</Resource>
     <Resource tag="RANK">Статус</Resource>
     <Resource tag="REDDIT_TOPIC">Поделиться в Reddit</Resource>
-    <Resource tag="REP_VOTE_DOWN_MSG">You have successfully removed -1 Reputation to {0}.</Resource>
-    <Resource tag="REP_VOTE_TITLE">Thanks for your Voting!</Resource>
-    <Resource tag="REP_VOTE_UP_MSG">You have successfully given +1 Reputation to {0}.</Resource>
+    <Resource tag="REP_VOTE_DOWN_MSG">Вы успешно понизили на -1 репутацию {0}.</Resource>
+    <Resource tag="REP_VOTE_TITLE">Спасибо за Ваше мнение!</Resource>
+    <Resource tag="REP_VOTE_UP_MSG">ВЫ успешно добавили +1 к репутации {0}.</Resource>
     <Resource tag="REPORTEDFEEDBACK">Спасибо за информацию об этом сообщении.</Resource>
     <Resource tag="REPORTPOST">Жалоба!</Resource>
-    <Resource tag="REPORTPOST_TITLE">Report Post</Resource>
-    <Resource tag="REPUTATION">Reputation</Resource>
+    <Resource tag="REPORTPOST_TITLE">Пожаловаться</Resource>
+    <Resource tag="REPUTATION">Репутация</Resource>
     <Resource tag="RETWEET_TOPIC">Ретвит темы</Resource>
     <Resource tag="RSSTOPIC">RSS-лента темы</Resource>
     <Resource tag="SHARE">Поделиться</Resource>
@@ -4268,6 +4275,7 @@ Spoiler Content
     <Resource tag="USEROFFLINESTATUS">Пользователя нет на форуме</Resource>
     <Resource tag="USERONLINESTATUS">Пользователь находится на форуме</Resource>
     <Resource tag="USERPROFILE">Профиль пользователя</Resource>
+    <Resource tag="USERSUSPENDED">Пользователь забанен до {0}</Resource>
     <Resource tag="VIEW">Просмотр</Resource>
     <Resource tag="VIEW_TOOLTIP">Изменить режим просмотра с номального на дерево.</Resource>
     <Resource tag="VOTES">Голоса</Resource>
@@ -4332,7 +4340,7 @@ Spoiler Content
     <Resource tag="REALNAME">Настоящее имя:</Resource>
     <Resource tag="REGION">Регион:</Resource>
     <Resource tag="REMOVESUSPENSION">Отменить бан</Resource>
-    <Resource tag="REPUTATION_RECEIVED">Numer of Reputation received from other users</Resource>
+    <Resource tag="REPUTATION_RECEIVED">Общая репутация</Resource>
     <Resource tag="SEARCHUSER">Просмотр всех сообщений пользователя</Resource>
     <Resource tag="SKYPE">Skype(tm) ID:</Resource>
     <Resource tag="STATISTICS">Статистика</Resource>
@@ -4456,7 +4464,6 @@ Spoiler Content
     <Resource tag="RGN_RU_74">Челябинская область</Resource>
     <Resource tag="RGN_RU_75">Читинская область</Resource>
     <Resource tag="RGN_RU_76">Ярославская область</Resource>
-    <Resource tag="RGN_RU_77">Москва (77)</Resource>
     <Resource tag="RGN_RU_78">Санкт-Петербург (78)</Resource>
     <Resource tag="RGN_RU_79">Еврейская АО</Resource>
     <Resource tag="RGN_RU_80">Агинский Бурятский АО</Resource>
@@ -4469,8 +4476,7 @@ Spoiler Content
     <Resource tag="RGN_RU_87">Чукотский АО</Resource>
     <Resource tag="RGN_RU_88">Эвенкийский АО</Resource>
     <Resource tag="RGN_RU_89">Ямало Ненецкий АО</Resource>
-    <Resource tag="RGN_RU_97">Москва (97)</Resource>
-    <Resource tag="RGN_RU_99">Москва (99)</Resource>
+    <Resource tag="RGN_RU_99">Москва</Resource>
   </page>
   <page name="REGION_US">
     <Resource tag="RGN_US_AK">Alaska</Resource>
@@ -4588,13 +4594,13 @@ Spoiler Content
     <Resource tag="SEND_TITLE">Пожаловаться на сообщение с указанием причины</Resource>
   </page>
   <page name="REPUTATION_VALUES">
-    <Resource tag="EXALTED">Exalted</Resource>
-    <Resource tag="FRIENDLY">Friendly</Resource>
-    <Resource tag="HONORED">Honored</Resource>
-    <Resource tag="NEUTRAL">Neutral</Resource>
-    <Resource tag="UNFRIENDLY">Unfriendly</Resource>
-    <Resource tag="VALUE_0">Hated</Resource>
-    <Resource tag="VALUE_20">Hostile</Resource>
+    <Resource tag="EXALTED">Лучший</Resource>
+    <Resource tag="FRIENDLY">Хороший</Resource>
+    <Resource tag="HONORED">Отличный</Resource>
+    <Resource tag="NEUTRAL">Нейтральный</Resource>
+    <Resource tag="UNFRIENDLY">Нелюбимый</Resource>
+    <Resource tag="VALUE_0">Редиска</Resource>
+    <Resource tag="VALUE_20">Ненавидимый</Resource>
   </page>
   <page name="RTE">
     <Resource tag="BOLD">Жирный</Resource>
@@ -4890,8 +4896,8 @@ Spoiler Content
     <Resource tag="HELP_TITLE">Страница помощи.</Resource>
     <Resource tag="HOST">Хост</Resource>
     <Resource tag="HOST_TITLE">Настройки хоста.</Resource>
-    <Resource tag="INBOX">Входящие</Resource>
-    <Resource tag="INBOX_TITLE">Входящие личные сообщения.</Resource>
+    <Resource tag="INBOX">ЛС</Resource>
+    <Resource tag="INBOX_TITLE">Личные сообщения</Resource>
     <Resource tag="LOGGED_IN_AS">Вы вошли как: {0}</Resource>
     <Resource tag="LOGIN">Вход</Resource>
     <Resource tag="LOGIN_TITLE">Форма входа на форум.</Resource>

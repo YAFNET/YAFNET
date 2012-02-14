@@ -240,6 +240,7 @@ namespace YAF.Classes.Data
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.AddParam("ProcessID", processId);
+				cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
 
 				return Current.GetData(cmd).SelectTypedList(x => new TypedMailList(x));
 			}
@@ -407,6 +408,7 @@ namespace YAF.Classes.Data
 				cmd.AddParam("GroupID", groupID);
 				cmd.AddParam("RankID", rankID);
 				cmd.AddParam("StyledNicks", useStyledNicks);
+				cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
 
 				return Current.GetData(cmd).AsEnumerable().Select(x => new TypedUserList(x));
 			}
@@ -575,6 +577,7 @@ namespace YAF.Classes.Data
 				cmd.AddParam("ShowCrawlers", showCrawlers);
 				cmd.AddParam("ActiveTime", activeTime);
 				cmd.AddParam("StyledNicks", styledNicks);
+				cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
 				return Current.GetData(cmd);
 			}
 		}
@@ -715,6 +718,7 @@ namespace YAF.Classes.Data
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.AddParam("BoardID", boardId);
 				cmd.AddParam("StyledNicks", useStyledNicks);
+				cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
 
 				return Current.GetData(cmd);
 			}
@@ -893,6 +897,7 @@ namespace YAF.Classes.Data
 				cmd.AddParam("FileName", fileName);
 				cmd.AddParam("Bytes", bytes);
 				cmd.AddParam("ContentType", contentType);
+				cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
 				Current.ExecuteNonQuery(cmd);
 			}
 		}
@@ -1544,6 +1549,7 @@ namespace YAF.Classes.Data
 				approved.Direction = ParameterDirection.Output;
 				cmd.AddParam("FromUserID", FromUserID);
 				cmd.AddParam("ToUserID", ToUserID);
+				cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
 				cmd.Parameters.Add(paramOutput);
 				cmd.Parameters.Add(approved);
 				Current.ExecuteNonQuery(cmd);
@@ -1577,6 +1583,7 @@ namespace YAF.Classes.Data
 				cmd.AddParam("FromUserID", FromUserID);
 				cmd.AddParam("ToUserID", ToUserID);
 				cmd.AddParam("mutual", Mutual);
+				cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
 				cmd.Parameters.Add(paramOutput);
 				Current.ExecuteNonQuery(cmd);
 				return paramOutput.Value.ToString();
@@ -1816,6 +1823,7 @@ namespace YAF.Classes.Data
 				cmd.AddParam("UserID", userID);
 				cmd.AddParam("Hash", hash);
 				cmd.AddParam("Email", email);
+				cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
 				Current.ExecuteNonQuery(cmd);
 			}
 		}
@@ -2493,6 +2501,7 @@ namespace YAF.Classes.Data
 					cmd.AddParam("UserID", userID);
 					cmd.AddParam("Source", source.ToString());
 					cmd.AddParam("Description", description.ToString());
+					cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
 					Current.ExecuteNonQuery(cmd);
 				}
 			}
@@ -3802,6 +3811,7 @@ namespace YAF.Classes.Data
 				cmd.AddParam("Subject", subject);
 				cmd.AddParam("Body", body);
 				cmd.AddParam("BodyHtml", bodyHtml);
+				cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
 				Current.ExecuteNonQuery(cmd);
 			}
 		}
@@ -3842,6 +3852,7 @@ namespace YAF.Classes.Data
 				cmd.AddParam("Body", body);
 				cmd.AddParam("BodyHtml", bodyHtml);
 				cmd.AddParam("UserID", userID);
+				cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
 				Current.ExecuteNonQuery(cmd);
 			}
 		}
@@ -3981,6 +3992,7 @@ namespace YAF.Classes.Data
 				paramOutput.Direction = ParameterDirection.Output;
 				cmd.AddParam("FromUserID", FromUserID);
 				cmd.AddParam("MessageID", MessageID);
+				cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
 				cmd.Parameters.Add(paramOutput);
 				Current.ExecuteNonQuery(cmd);
 				return paramOutput.Value.ToString();
@@ -4370,6 +4382,7 @@ namespace YAF.Classes.Data
 				cmd.AddParam("ReporterID", userID);
 				cmd.AddParam("ReportedDate", reportedDateTime);
 				cmd.AddParam("ReportText", reportText);
+				cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
 				Current.ExecuteNonQuery(cmd);
 			}
 		}
@@ -4412,6 +4425,7 @@ namespace YAF.Classes.Data
 				cmd.AddParam("MessageFlag", messageFlag);
 				cmd.AddParam("MessageID", messageID);
 				cmd.AddParam("UserID", userID);
+				cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
 				Current.ExecuteNonQuery(cmd);
 			}
 		}
@@ -4467,6 +4481,8 @@ namespace YAF.Classes.Data
 				cmd.AddParam("ReplyTo", replyTo);
 				cmd.AddParam("BlogPostID", null); // Ederon : 6/16/2007
 				cmd.AddParam("Flags", flags);
+				cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
+
 				cmd.Parameters.Add(paramMessageID);
 				Current.ExecuteNonQuery(cmd);
 				messageID = (long)paramMessageID.Value;
@@ -4593,6 +4609,8 @@ namespace YAF.Classes.Data
 				cmd.AddParam("IsModeratorChanged", isModeratorChanged);
 				cmd.AddParam("OverrideApproval", overrideApproval);
 				cmd.AddParam("OriginalMessage", originalMessage);
+				cmd.AddParam("CurrentUtcTimestamp", DateTime.UtcNow);
+
 				Current.ExecuteNonQuery(cmd);
 			}
 		}
@@ -4617,6 +4635,7 @@ namespace YAF.Classes.Data
 
 				cmd.AddParam("MessageID", messageId);
 				cmd.AddParam("DaysToClean", daysToClean);
+				cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
 
 				return Current.GetData(cmd);
 			}
@@ -4664,6 +4683,8 @@ namespace YAF.Classes.Data
 				cmd.AddParam("Minutes", minutes);
 				cmd.AddParam("NntpForumID", nntpForumID);
 				cmd.AddParam("Active", active);
+				cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
+
 				return Current.GetData(cmd);
 			}
 		}
@@ -4714,6 +4735,8 @@ namespace YAF.Classes.Data
 				cmd.AddParam("ForumID", forumID);
 				cmd.AddParam("Active", active);
 				cmd.AddParam("DateCutOff", datecutoff);
+				cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
+
 				Current.ExecuteNonQuery(cmd);
 			}
 		}
@@ -4738,6 +4761,8 @@ namespace YAF.Classes.Data
 				cmd.AddParam("NntpForumID", nntpForumID);
 				cmd.AddParam("LastMessageNo", lastMessageNo);
 				cmd.AddParam("UserID", userID);
+				cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
+
 				Current.ExecuteNonQuery(cmd);
 			}
 		}
@@ -4885,6 +4910,7 @@ namespace YAF.Classes.Data
 				cmd.AddParam("Posted", posted);
 				cmd.AddParam("ExternalMessageId", externalMessageId);
 				cmd.AddParam("ReferenceMessageId", referenceMessageId);
+				cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
 
 				Current.ExecuteNonQuery(cmd);
 			}
@@ -4972,7 +4998,7 @@ namespace YAF.Classes.Data
 						cmd.AddParam("IsCrawler", isCrawler);
 						cmd.AddParam("IsMobileDevice", isMobileDevice);
 						cmd.AddParam("DontTrack", donttrack);
-						cmd.AddParam("CurrentTime", DateTime.UtcNow);
+						cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
 
 						using (DataTable dt = Current.GetData(cmd))
 						{
@@ -5135,6 +5161,8 @@ namespace YAF.Classes.Data
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.AddParam("DaysRead", daysRead);
 				cmd.AddParam("DaysUnread", daysUnread);
+				cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
+
 				Current.ExecuteNonQuery(cmd);
 			}
 		}
@@ -6180,6 +6208,8 @@ namespace YAF.Classes.Data
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.AddParam("BoardId", boardId);
+				cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
+
 				Current.ExecuteNonQuery(cmd);
 				return true;
 			}
@@ -6241,6 +6271,7 @@ namespace YAF.Classes.Data
 				cmd.AddParam("UserName", userName);
 				cmd.AddParam("UserID", userID);
 				cmd.AddParam("IP", ip);
+				cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
 				Current.ExecuteNonQuery(cmd);
 				return true;
 			}
@@ -6427,6 +6458,7 @@ namespace YAF.Classes.Data
 				cmd.AddParam("UserEmail", userEmail);
 				cmd.AddParam("UserKey", providerUserKey);
 				cmd.AddParam("RolePrefix", rolePrefix);
+				cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
 				Current.ExecuteNonQuery(cmd);
 			}
 		}
@@ -6808,6 +6840,8 @@ namespace YAF.Classes.Data
 				cmd.AddParam("MessageID", messageID);
 				cmd.AddParam("ForumID", forumId);
 				cmd.AddParam("Subject", newTopicSubj);
+				cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
+
 				DataTable dt = Current.GetData(cmd);
 				return long.Parse(dt.Rows[0]["TopicID"].ToString());
 			}
@@ -7165,6 +7199,9 @@ namespace YAF.Classes.Data
 				cmd.AddParam("TopicID", topicID);
 				cmd.AddParam("ForumID", forumID);
 				cmd.AddParam("ShowMoved", showMoved);
+				cmd.AddParam("LinkDays", linkDays);
+				cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
+
 				Current.ExecuteNonQuery(cmd);
 			}
 		}
@@ -7196,6 +7233,7 @@ namespace YAF.Classes.Data
 				cmd.AddParam("ForumID", forumID);
 				cmd.AddParam("Days", days);
 				cmd.AddParam("PermDelete", permDelete);
+				cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
 
 				cmd.CommandTimeout = int.Parse(Config.SqlCommandTimeout);
 				return (int)Current.ExecuteScalar(cmd);
@@ -7281,6 +7319,7 @@ namespace YAF.Classes.Data
 				cmd.AddParam("Posted", posted);
 				cmd.AddParam("BlogPostID", blogPostID);
 				cmd.AddParam("Flags", flags);
+				cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
 
 				DataTable dt = Current.GetData(cmd);
 				messageID = long.Parse(dt.Rows[0]["MessageID"].ToString());
@@ -7636,6 +7675,8 @@ namespace YAF.Classes.Data
 					cmd.AddParam("Email", email);
 					cmd.AddParam("ProviderUserKey", providerUserKey);
 					cmd.AddParam("IsApproved", isApproved);
+					cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
+
 					return (int)Current.ExecuteScalar(cmd);
 				}
 			}
@@ -7739,6 +7780,7 @@ namespace YAF.Classes.Data
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.AddParam("BoardID", boardID);
 				cmd.AddParam("Days", days);
+				cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
 				Current.ExecuteNonQuery(cmd);
 			}
 		}
@@ -7955,6 +7997,7 @@ namespace YAF.Classes.Data
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.AddParam("BoardID", boardID);
+				cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
 				return Current.ExecuteScalar(cmd).ToType<int?>();
 			}
 		}
@@ -8184,6 +8227,7 @@ namespace YAF.Classes.Data
 				cmd.AddParam("GroupID", groupID);
 				cmd.AddParam("RankID", rankID);
 				cmd.AddParam("StyledNicks", useStyledNicks);
+				cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
 
 				return Current.GetData(cmd);
 			}
@@ -8495,6 +8539,7 @@ namespace YAF.Classes.Data
 				cmd.AddParam("OnlyRibbon", onlyRibbon);
 				cmd.AddParam("SortOrder", sortOrder);
 				cmd.AddParam("DateAwarded", dateAwarded);
+				cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
 
 				Current.ExecuteNonQuery(cmd);
 			}
@@ -8551,6 +8596,7 @@ namespace YAF.Classes.Data
 				cmd.AddParam("UserName", userName);
 				cmd.AddParam("Email", email);
 				cmd.AddParam("TimeZone", timeZone);
+				cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
 
 				return (int)Current.ExecuteScalar(cmd);
 			}
@@ -8736,6 +8782,7 @@ namespace YAF.Classes.Data
 				cmd.AddParam("DSTUser", dSTUser);
 				cmd.AddParam("HideUser", hideUser);
 				cmd.AddParam("NotificationType", notificationType);
+				cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
 				Current.ExecuteNonQuery(cmd);
 			}
 		}
@@ -9076,6 +9123,7 @@ namespace YAF.Classes.Data
 				cmd.AddParam("UserID", userID);
 				cmd.AddParam("ForumID", forumID);
 				cmd.AddParam("AccessMaskID", accessMaskID);
+				cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
 				Current.ExecuteNonQuery(cmd);
 			}
 		}
@@ -9138,6 +9186,7 @@ namespace YAF.Classes.Data
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.AddParam("UserID", userID);
 				cmd.AddParam("ForumID", forumID);
+				cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
 				Current.ExecuteNonQuery(cmd);
 			}
 		}
@@ -9214,6 +9263,7 @@ namespace YAF.Classes.Data
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.AddParam("UserID", userID);
 				cmd.AddParam("TopicID", topicID);
+				cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
 				Current.ExecuteNonQuery(cmd);
 			}
 		}
@@ -9291,6 +9341,7 @@ namespace YAF.Classes.Data
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.AddParam("UserID", userID);
 				cmd.AddParam("TopicID", topicID);
+				cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
 				Current.ExecuteNonQuery(cmd);
 			}
 		}
@@ -9332,7 +9383,7 @@ namespace YAF.Classes.Data
 
 				var tableLastRead = Current.ExecuteScalar(cmd);
 
-				return tableLastRead != null ? (DateTime)tableLastRead : lastVisitDate;
+                return tableLastRead.ToType<DateTime?>();
 			}
 		}
 
@@ -9358,9 +9409,7 @@ namespace YAF.Classes.Data
 
 				var tableLastRead = Current.ExecuteScalar(cmd);
 
-				return tableLastRead != null && tableLastRead != DBNull.Value
-									 ? (DateTime)tableLastRead
-									 : DateTime.MinValue.AddYears(1902);
+            	return tableLastRead.ToType<DateTime?>();
 			}
 		}
 
@@ -9380,6 +9429,7 @@ namespace YAF.Classes.Data
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.AddParam("UserID", userID);
 				cmd.AddParam("ForumID", forumID);
+				cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
 				Current.ExecuteNonQuery(cmd);
 			}
 		}
@@ -9422,9 +9472,7 @@ namespace YAF.Classes.Data
 
 				var tableLastRead = Current.ExecuteScalar(cmd);
 
-				return tableLastRead != null && tableLastRead != DBNull.Value
-									 ? (DateTime)tableLastRead
-									 : DateTime.MinValue.AddYears(1902);
+            	return tableLastRead.ToType<DateTime?>();
 			}
 		}
 
@@ -9432,6 +9480,238 @@ namespace YAF.Classes.Data
 
 		#region Methods
 
+        public static void SetPropertyValues(int boardId, string appname, int userId, SettingsPropertyValueCollection collection, bool dirtyOnly = true)
+        {
+            if (userId == 0 || collection.Count < 1)
+            {
+                return;
+            }
+            bool itemsToSave = true;
+            if (dirtyOnly)
+            {
+                itemsToSave = collection.Cast<SettingsPropertyValue>().Any(pp => pp.IsDirty);
+            }
+
+            // First make sure we have at least one item to save
+
+            if (!itemsToSave)
+            {
+                return;
+            }
+            
+            // load the data for the configuration
+            List<SettingsPropertyColumn> spc = LoadFromPropertyValueCollection(collection);
+            
+            if (spc != null && spc.Count > 0)
+            {
+                // start saving...
+                LegacyDb.SetProfileProperties(boardId, appname, userId, collection, spc, dirtyOnly);
+            }
+        }
+
+        public static void SetProfileProperties([NotNull] int boardId, [NotNull] object appName, [NotNull] int userID, [NotNull] SettingsPropertyValueCollection values, [NotNull] List<SettingsPropertyColumn> settingsColumnsList, bool dirtyOnly)
+        {
+            string userName = string.Empty;
+            var dtu =  LegacyDb.UserList(boardId, userID, true, null, null, true);
+            foreach (var typedUserList in dtu)
+            {
+                userName = typedUserList.Name;
+                break;
+
+            }
+            if (userName.IsNotSet())
+            {
+                return;
+            }
+            using ( var conn = new MsSqlDbConnectionManager().OpenDBConnection)
+            {
+                var cmd = new SqlCommand();
+
+                cmd.Connection = conn;
+                
+                string table = MsSqlDbAccess.GetObjectName("UserProfile");
+                StringBuilder sqlCommand = new StringBuilder("IF EXISTS (SELECT 1 FROM ").Append(table);
+                sqlCommand.Append(" WHERE UserId = @UserID AND ApplicationName = @ApplicationName) ");
+                cmd.Parameters.AddWithValue("@UserID", userID);
+                cmd.Parameters.AddWithValue("@ApplicationName", appName);
+
+                // Build up strings used in the query
+                var columnStr = new StringBuilder();
+                var valueStr = new StringBuilder();
+                var setStr = new StringBuilder();
+                int count = 0;
+
+                foreach (SettingsPropertyColumn column in settingsColumnsList)
+                {
+                    // only write if it's dirty
+                    if (!dirtyOnly || values[column.Settings.Name].IsDirty)
+                    {
+                        columnStr.Append(", ");
+                        valueStr.Append(", ");
+                        columnStr.Append(column.Settings.Name);
+                        string valueParam = "@Value" + count;
+                        valueStr.Append(valueParam);
+                        cmd.Parameters.AddWithValue(valueParam, values[column.Settings.Name].PropertyValue);
+
+                        if ((column.DataType != SqlDbType.Timestamp) || column.Settings.Name != "LastUpdatedDate" || column.Settings.Name != "LastActivity")
+                        {
+                            if (count > 0)
+                            {
+                                setStr.Append(",");
+                            }
+
+                            setStr.Append(column.Settings.Name);
+                            setStr.Append("=");
+                            setStr.Append(valueParam);
+                        }
+
+                        count++;
+                    }
+                }
+
+                columnStr.Append(",LastUpdatedDate ");
+                valueStr.Append(",@LastUpdatedDate");
+                setStr.Append(",LastUpdatedDate=@LastUpdatedDate");
+                cmd.Parameters.AddWithValue("@LastUpdatedDate", DateTime.UtcNow);
+
+                // MembershipUser mu = System.Web.Security.Membership.GetUser(userID);
+
+                columnStr.Append(",LastActivity ");
+                valueStr.Append(",@LastActivity");
+                setStr.Append(",LastActivity=@LastActivity");
+                cmd.Parameters.AddWithValue("@LastActivity", DateTime.UtcNow);
+
+                columnStr.Append(",ApplicationName ");
+                valueStr.Append(",@ApplicationName");
+                setStr.Append(",ApplicationName=@ApplicationName");
+                // cmd.Parameters.AddWithValue("@ApplicationID", appId);
+
+                columnStr.Append(",IsAnonymous ");
+                valueStr.Append(",@IsAnonymous");
+                setStr.Append(",IsAnonymous=@IsAnonymous");
+                cmd.Parameters.AddWithValue("@IsAnonymous", 0);
+
+                columnStr.Append(",UserName ");
+                valueStr.Append(",@UserName");
+                setStr.Append(",UserName=@UserName");
+                cmd.Parameters.AddWithValue("@UserName", userName);
+
+                sqlCommand.Append("BEGIN UPDATE ").Append(table).Append(" SET ").Append(setStr.ToString());
+                sqlCommand.Append(" WHERE UserId = ").Append(userID.ToString()).Append("");
+
+                sqlCommand.Append(" END ELSE BEGIN INSERT ").Append(table).Append(" (UserId").Append(columnStr.ToString());
+                sqlCommand.Append(") VALUES (").Append(userID.ToString()).Append("").Append(valueStr.ToString()).Append(
+                  ") END");
+
+                cmd.CommandText = sqlCommand.ToString();
+                cmd.CommandType = CommandType.Text;
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public static DataTable GetProfileStructure()
+        {
+            string sql = @"SELECT TOP 1 * FROM {0}".FormatWith(MsSqlDbAccess.GetObjectName("UserProfile"));
+
+            using (var cmd = MsSqlDbAccess.GetCommand(sql,true))
+            {
+                cmd.CommandType = CommandType.Text;
+                return MsSqlDbAccess.Current.GetData(cmd);
+            }
+        }
+
+        public static void AddProfileColumn([NotNull] string name, SqlDbType columnType, int size)
+        {
+            // get column type...
+            string type = columnType.ToString();
+
+            if (size > 0)
+            {
+                type += "(" + size + ")";
+            }
+
+            string sql = "ALTER TABLE {0} ADD [{1}] {2} NULL".FormatWith(
+              MsSqlDbAccess.GetObjectName("UserProfile"), name, type);
+
+            using (var cmd = MsSqlDbAccess.GetCommand(sql, true))
+            {
+                cmd.CommandType = CommandType.Text;
+                MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
+            }
+        }
+
+        public static bool GetDbTypeAndSizeFromString(string providerData, out SqlDbType dbType, out int size)
+        {
+            size = -1;
+            dbType = SqlDbType.NVarChar;
+
+            if (providerData.IsNotSet())
+            {
+                return false;
+            }
+
+            // split the data
+            string[] chunk = providerData.Split(new[] { ';' });
+
+            // first item is the column name...
+            string columnName = chunk[0];
+
+            // get the datatype and ignore case...
+            dbType = (SqlDbType)Enum.Parse(typeof(SqlDbType), chunk[1], true);
+
+            if (chunk.Length > 2)
+            {
+                // handle size...
+                if (!Int32.TryParse(chunk[2], out size))
+                {
+                    throw new ArgumentException("Unable to parse as integer: " + chunk[2]);
+                }
+            }
+
+            return true;
+        }
+
+        static List<SettingsPropertyColumn> LoadFromPropertyValueCollection(SettingsPropertyValueCollection collection)
+        {
+            List<SettingsPropertyColumn> settingsColumnsList = new List<SettingsPropertyColumn>();
+                // clear it out just in case something is still in there...
+              
+
+                // validiate all the properties and populate the internal settings collection
+                foreach (SettingsPropertyValue value in collection)
+                {
+                    SqlDbType dbType;
+                    int size;
+
+                    // parse custom provider data...
+                   GetDbTypeAndSizeFromString(
+                      value.Property.Attributes["CustomProviderData"].ToString(), out dbType, out size);
+
+                    // default the size to 256 if no size is specified
+                    if (dbType == SqlDbType.NVarChar && size == -1)
+                    {
+                        size = 256;
+                    }
+
+                    settingsColumnsList.Add(new SettingsPropertyColumn(value.Property, dbType, size));
+                }
+
+                // sync profile table structure with the db...
+                DataTable structure = LegacyDb.GetProfileStructure();
+
+                // verify all the columns are there...
+                foreach (SettingsPropertyColumn column in settingsColumnsList)
+                {
+                    // see if this column exists
+                    if (!structure.Columns.Contains(column.Settings.Name))
+                    {
+                        // if not, create it...
+                        LegacyDb.AddProfileColumn(column.Settings.Name, column.DataType, column.Size);
+                    }
+                }
+            return settingsColumnsList;
+        }
 		/// <summary>
 		/// The get boolean registry value.
 		/// </summary>

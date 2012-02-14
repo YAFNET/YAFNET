@@ -1,5 +1,5 @@
 /* Yet Another Forum.NET
- * Copyright (C) 2006-2011 Jaben Cargman
+ * Copyright (C) 2006-2012 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -565,7 +565,7 @@ namespace YAF.Providers.Profile
             int size;
 
             // parse custom provider data...
-            this.GetDbTypeAndSizeFromString(property.Attributes["CustomProviderData"].ToString(), out dbType, out size);
+            DB.GetDbTypeAndSizeFromString(property.Attributes["CustomProviderData"].ToString(), out dbType, out size);
 
             // default the size to 256 if no size is specified
             if (dbType == SqlDbType.NVarChar && size == -1)
@@ -616,7 +616,7 @@ namespace YAF.Providers.Profile
           int size;
 
           // parse custom provider data...
-          this.GetDbTypeAndSizeFromString(
+          DB.GetDbTypeAndSizeFromString(
             value.Property.Attributes["CustomProviderData"].ToString(), out dbType, out size);
 
           // default the size to 256 if no size is specified
@@ -679,54 +679,6 @@ namespace YAF.Providers.Profile
     private string GenerateCacheKey(string name)
     {
       return "YafProfileProvider-{0}-{1}".FormatWith(name, this.ApplicationName);
-    }
-
-    /// <summary>
-    /// The get db type and size from string.
-    /// </summary>
-    /// <param name="providerData">
-    /// The provider data.
-    /// </param>
-    /// <param name="dbType">
-    /// The db type.
-    /// </param>
-    /// <param name="size">
-    /// The size.
-    /// </param>
-    /// <returns>
-    /// The get db type and size from string.
-    /// </returns>
-    /// <exception cref="ArgumentException">
-    /// </exception>
-    private bool GetDbTypeAndSizeFromString(string providerData, out SqlDbType dbType, out int size)
-    {
-      size = -1;
-      dbType = SqlDbType.NVarChar;
-
-      if (providerData.IsNotSet())
-      {
-        return false;
-      }
-
-      // split the data
-      string[] chunk = providerData.Split(new[] { ';' });
-
-      // first item is the column name...
-      string columnName = chunk[0];
-
-      // get the datatype and ignore case...
-      dbType = (SqlDbType)Enum.Parse(typeof(SqlDbType), chunk[1], true);
-
-      if (chunk.Length > 2)
-      {
-        // handle size...
-        if (!Int32.TryParse(chunk[2], out size))
-        {
-          throw new ArgumentException("Unable to parse as integer: " + chunk[2]);
-        }
-      }
-
-      return true;
     }
 
     /// <summary>

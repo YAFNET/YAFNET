@@ -1,8 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.MyTopicsList" CodeBehind="MyTopicsList.ascx.cs"  EnableViewState="true" %>
-<%@ Import Namespace="YAF.Core" %>
-<%@ Import Namespace="YAF.Types.Constants" %>
-<%@ Import Namespace="YAF.Utils" %>
-<%@ Import Namespace="YAF.Types.Interfaces" %>
+<%@ Register tagPrefix="YAF" namespace="YAF.Controls" %>
 <%@ Register TagPrefix="YAF" TagName="TopicLine" Src="TopicLine.ascx" %>
 <table class="command" cellspacing="0" cellpadding="0" width="100%" style="padding-bottom: 10px;">
     <tr>
@@ -22,18 +19,18 @@
 <table class="content" cellspacing="1" cellpadding="0" width="100%">
     <tr>
         <td class="header1" width="1%">
-            &nbsp;
+            &nbsp; 
         </td>
-        <td class="header1" align="left">
+        <td class="header1">
             <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="topics" />
         </td>
-        <td class="header1" align="right" width="7%">
+        <td class="header1" style="text-align:center" width="7%">
             <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="replies" />
         </td>
-        <td class="header1" align="right" width="7%">
+        <td class="header1" style="text-align:center" width="7%">
             <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="views" />
         </td>
-        <td class="header1" align="left" width="20%">
+        <td class="header1" width="20%">
             <YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="lastpost" />
         </td>
     </tr>
@@ -47,8 +44,8 @@
     <tr>
         <td class="footer1" align="right" width="100%" colspan="5">
             <asp:LinkButton runat="server" OnClick="MarkAll_Click" ID="MarkAll" />
-            <YAF:RssFeedLink ID="RssFeed" runat="server" ShowSpacerBefore="true" />
-            <YAF:RssFeedLink ID="AtomFeed" runat="server" ShowSpacerBefore="true"  />   
+            <YAF:RssFeedLink ID="RssFeed" runat="server" ShowSpacerBefore="true" Visible="False" />
+            <YAF:RssFeedLink ID="AtomFeed" runat="server" ShowSpacerBefore="true" Visible="False"  />   
         </td>
     </tr>
 </table>

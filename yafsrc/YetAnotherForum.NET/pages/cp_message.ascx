@@ -60,9 +60,9 @@
         </tr>
         <tr class="postfooter">
             <td class="small postTop" colspan='2'>
-                <a href="javascript:scroll(0,0)">
-                    <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="TOP" />
-                </a>
+               <a onclick="ScrollTop();" href="javascript: void(0)">            
+                 <YAF:ThemeImage ID="ThemeImage1" LocalizedTitlePage="POSTS" LocalizedTitleTag="TOP"  runat="server" ThemeTag="TOTOPPOST" />
+               </a>
             </td>
         </tr>
     </ItemTemplate>

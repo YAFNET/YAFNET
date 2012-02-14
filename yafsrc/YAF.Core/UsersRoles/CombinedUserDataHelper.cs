@@ -193,6 +193,16 @@ namespace YAF.Core
 		{
 			get
 			{
+          if (this.Membership == null && !this.IsGuest)
+          {
+              LegacyDb.eventlog_create(this.UserID, this,
+                  "ATTENTION! The user with id {0} and name {1} is very possibly is not in your Membership \r\n ".FormatWith(this.UserID, this.UserName) +
+                  "data but it's still in you YAF user table. The situation should not normally happen. \r\n " +
+                  "You should create a Membership data for the user first and " +
+                  "then delete him from YAF user table or leave him.", EventLogTypes.Error);
+
+          }
+
 				return this.IsGuest ? this.UserDictionary.GetValue("Email").ToType<string>() : this.Membership.Email;
 			}
 		}

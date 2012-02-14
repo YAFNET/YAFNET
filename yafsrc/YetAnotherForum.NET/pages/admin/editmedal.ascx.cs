@@ -22,7 +22,7 @@ namespace YAF.Pages.Admin
 	using YAF.Classes;
 	using YAF.Classes.Data;
 	using YAF.Core;
-	using YAF.Core.Data;
+    using YAF.Core.Services;
 	using YAF.Types;
 	using YAF.Types.Constants;
 	using YAF.Types.Flags;
@@ -413,8 +413,8 @@ namespace YAF.Pages.Admin
 		{
 			var dr = (DataRowView)data;
 
-			return "<a href=\"{1}\">{0}</a>".FormatWith(
-				this.HtmlEncode(dr["UserName"]), YafBuildLink.GetLink(ForumPages.admin_edituser, "u={0}", dr["UserID"]));
+            return "<a href=\"{2}\">{0}({1})</a>".FormatWith(
+              this.HtmlEncode(dr["DisplayName"]), this.HtmlEncode(dr["UserName"]), YafBuildLink.GetLink(ForumPages.admin_edituser, "u={0}", dr["UserID"]));
 		}
 
 		/// <summary>
@@ -433,8 +433,7 @@ namespace YAF.Pages.Admin
 				case "edit":
 
 					// load group-medal to the controls
-					using (DataTable dt = LegacyDb.group_medal_list(e.CommandArgument, this.Request.QueryString.GetFirstOrDefault("m"))
-						)
+                    using (DataTable dt = LegacyDb.group_medal_list(e.CommandArgument, this.Request.QueryString.GetFirstOrDefault("m")))
 					{
 						// prepare editing interface
 						this.AddGroup_Click(null, e);
@@ -901,7 +900,8 @@ namespace YAF.Pages.Admin
 				item.Selected = true;
 
 				// set preview image
-				preview.Src = "{0}{1}/{2}".FormatWith(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Medals, imageURL);
+                preview.Src = "{0}{1}/{2}".FormatWith(
+                  YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Medals, imageURL);
 			}
 			else
 			{

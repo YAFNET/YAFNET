@@ -12,6 +12,7 @@
     using YAF.Types.Constants;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Extensions;
     using YAF.Utils;
 
     #endregion
@@ -483,138 +484,97 @@
 
             var isHot = this.IsPopularTopic(lastPosted, row);
 
-            // Obsolette : Ederon
-            // bool isLocked = General.BinaryAnd(row["TopicFlags"], TopicFlags.Locked);
-            imgTitle = "???";
-
-            try
+            if (row["TopicMovedID"].ToString().Length > 0)
             {
-                // Obsolette : Ederon
-                // bool bIsLocked = isLocked || General.BinaryAnd( row ["ForumFlags"], ForumFlags.Locked );
-                if (row["TopicMovedID"].ToString().Length > 0)
-                {
-                    imgTitle = this.GetText("MOVED");
-                    return this.Get<ITheme>().GetItem("ICONS", "TOPIC_MOVED");
-                }
+                imgTitle = this.GetText("MOVED");
+                return this.Get<ITheme>().GetItem("ICONS", "TOPIC_MOVED");
+            }
 
-                DateTime lastRead;
-                DateTime lastReadForum;
+            DateTime lastRead = this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
+                row["ForumID"].ToType<int>(),
+                row["TopicID"].ToType<int>(),
+                row["LastForumAccess"].ToType<DateTime?>() ?? DateTime.MinValue,
+                row["LastTopicAccess"].ToType<DateTime?>() ?? DateTime.MinValue);
 
-                if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase)
-                {
-                    try
-                    {
-                        lastRead = row["LastTopicAccess"] != DBNull.Value
-                                       ? row["LastTopicAccess"].ToType<DateTime>()
-                                       : DateTime.MinValue.AddYears(1902);
-                    }
-                    catch (Exception)
-                    {
-                        lastRead = this.Get<IReadTracking>().GetTopicRead(
-                            this.PageContext.PageUserID, row["LastTopicID"].ToType<int>());
-                    }
-
-                    try
-                    {
-                        lastReadForum = row["LastForumAccess"] != DBNull.Value
-                                            ? row["LastForumAccess"].ToType<DateTime>()
-                                            : DateTime.MinValue.AddYears(1902);
-                    }
-                    catch (Exception)
-                    {
-                        lastReadForum = this.Get<IReadTracking>().GetForumRead(
-                            this.PageContext.PageUserID, row["ForumID"].ToType<int>());
-                    }
-                }
-                else
-                {
-                    lastRead = this.Get<IYafSession>().GetTopicRead(row["TopicID"].ToType<int>());
-                    lastReadForum = this.Get<IYafSession>().GetForumRead(row["ForumID"].ToType<int>());
-                }
-
-                if (lastReadForum > lastRead)
-                {
-                    lastRead = lastReadForum;
-                }
-
-                if (lastPosted > lastRead)
-                {
-                    this.Get<IYafSession>().UnreadTopics++;
-
-                    if (row["PollID"] != DBNull.Value)
-                    {
-                        imgTitle = this.GetText("POLL_NEW");
-                        return this.Get<ITheme>().GetItem("ICONS", "TOPIC_POLL_NEW");
-                    }
-
-                    switch (row["Priority"].ToString())
-                    {
-                        case "1":
-                            imgTitle = this.GetText("STICKY_NEW");
-                            return this.Get<ITheme>().GetItem("ICONS", "TOPIC_STICKY_NEW");
-                        case "2":
-                            imgTitle = this.GetText("ANNOUNCEMENT");
-                            return this.Get<ITheme>().GetItem("ICONS", "TOPIC_ANNOUNCEMENT_NEW");
-                        default:
-                            if (topicFlags.IsLocked || forumFlags.IsLocked)
-                            {
-                                imgTitle = this.GetText("NEW_POSTS_LOCKED");
-                                return this.Get<ITheme>().GetItem("ICONS", "TOPIC_NEW_LOCKED");
-                            }
-
-                            if (isHot)
-                            {
-                                imgTitle = this.GetText("ICONLEGEND", "HOT_NEW_POSTS");
-                                return this.Get<ITheme>().GetItem("ICONS", "TOPIC_HOT_NEW", this.Get<ITheme>().GetItem("ICONS", "TOPIC_NEW"));
-                            }
-
-                            imgTitle = this.GetText("ICONLEGEND", "NEW_POSTS");
-                            return this.Get<ITheme>().GetItem("ICONS", "TOPIC_NEW");
-                    }
-                }
+            if (lastPosted > lastRead)
+            {
+                this.Get<IYafSession>().UnreadTopics++;
 
                 if (row["PollID"] != DBNull.Value)
                 {
-                    imgTitle = this.GetText("POLL");
-                    return this.Get<ITheme>().GetItem("ICONS", "TOPIC_POLL");
+                    imgTitle = this.GetText("POLL_NEW");
+                    return this.Get<ITheme>().GetItem("ICONS", "TOPIC_POLL_NEW");
                 }
 
                 switch (row["Priority"].ToString())
                 {
                     case "1":
-                        imgTitle = this.GetText("STICKY");
-                        return this.Get<ITheme>().GetItem("ICONS", "TOPIC_STICKY");
+                        imgTitle = this.GetText("STICKY_NEW");
+                        return this.Get<ITheme>().GetItem("ICONS", "TOPIC_STICKY_NEW");
                     case "2":
                         imgTitle = this.GetText("ANNOUNCEMENT");
-                        return this.Get<ITheme>().GetItem("ICONS", "TOPIC_ANNOUNCEMENT");
+                        return this.Get<ITheme>().GetItem("ICONS", "TOPIC_ANNOUNCEMENT_NEW");
                     default:
                         if (topicFlags.IsLocked || forumFlags.IsLocked)
                         {
-                            imgTitle = this.GetText("NO_NEW_POSTS_LOCKED");
-                            return this.Get<ITheme>().GetItem("ICONS", "TOPIC_LOCKED");
+                            imgTitle = this.GetText("NEW_POSTS_LOCKED");
+                            return this.Get<ITheme>().GetItem("ICONS", "TOPIC_NEW_LOCKED");
                         }
 
                         if (isHot)
                         {
-                            imgTitle = this.GetText("HOT_NO_NEW_POSTS");
-                            return this.Get<ITheme>().GetItem("ICONS", "TOPIC_HOT", this.Get<ITheme>().GetItem("ICONS", "TOPIC"));
+                            imgTitle = this.GetText("ICONLEGEND", "HOT_NEW_POSTS");
+                            return this.Get<ITheme>().GetItem(
+                                "ICONS", "TOPIC_HOT_NEW", this.Get<ITheme>().GetItem("ICONS", "TOPIC_NEW"));
                         }
 
-                        imgTitle = this.GetText("NO_NEW_POSTS");
-                        return this.Get<ITheme>().GetItem("ICONS", "TOPIC");
+                        imgTitle = this.GetText("ICONLEGEND", "NEW_POSTS");
+                        return this.Get<ITheme>().GetItem("ICONS", "TOPIC_NEW");
                 }
             }
-            catch (Exception)
-            {
-                if (isHot)
-                {
-                    imgTitle = this.GetText("HOT_NO_NEW_POSTS");
-                    return this.Get<ITheme>().GetItem("ICONS", "TOPIC_HOT", this.Get<ITheme>().GetItem("ICONS", "TOPIC"));
-                }
 
-                imgTitle = this.GetText("NO_NEW_POSTS");
-                return this.Get<ITheme>().GetItem("ICONS", "TOPIC");
+            if (row["PollID"] != DBNull.Value)
+            {
+                imgTitle = this.GetText("POLL");
+                return this.Get<ITheme>().GetItem("ICONS", "TOPIC_POLL");
             }
+
+            switch (row["Priority"].ToString())
+            {
+                case "1":
+                    imgTitle = this.GetText("STICKY");
+                    return this.Get<ITheme>().GetItem("ICONS", "TOPIC_STICKY");
+                case "2":
+                    imgTitle = this.GetText("ANNOUNCEMENT");
+                    return this.Get<ITheme>().GetItem("ICONS", "TOPIC_ANNOUNCEMENT");
+                default:
+                    if (topicFlags.IsLocked || forumFlags.IsLocked)
+                    {
+                        imgTitle = this.GetText("NO_NEW_POSTS_LOCKED");
+                        return this.Get<ITheme>().GetItem("ICONS", "TOPIC_LOCKED");
+                    }
+
+                    if (isHot)
+                    {
+                        imgTitle = this.GetText("HOT_NO_NEW_POSTS");
+                        return this.Get<ITheme>().GetItem(
+                            "ICONS", "TOPIC_HOT", this.Get<ITheme>().GetItem("ICONS", "TOPIC"));
+                    }
+
+                    imgTitle = this.GetText("NO_NEW_POSTS");
+                    return this.Get<ITheme>().GetItem("ICONS", "TOPIC");
+            }
+
+            //this.Logger.Error(ex, "Hot post failure. Pl");
+
+            //if (isHot)
+            //{
+            //  imgTitle = this.GetText("HOT_NO_NEW_POSTS");
+            //  return this.Get<ITheme>().GetItem("ICONS", "TOPIC_HOT", this.Get<ITheme>().GetItem("ICONS", "TOPIC"));
+            //}
+
+            //imgTitle = this.GetText("NO_NEW_POSTS");
+            //return this.Get<ITheme>().GetItem("ICONS", "TOPIC");
         }
 
         /// <summary>

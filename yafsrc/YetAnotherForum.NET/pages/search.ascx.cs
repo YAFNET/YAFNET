@@ -1,6 +1,6 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bj�rnar Henden
- * Copyright (C) 2006-2011 Jaben Cargman
+ * Copyright (C) 2006-2012 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -778,9 +778,15 @@ namespace YAF.Pages
         private string TransformExtSearchLink([NotNull] string searchEngine, [NotNull] string searchParams)
         {
             searchEngine = searchEngine.Replace("{ResultsPerPage}", this.listResInPage.SelectedValue);
+            
+            string url = this.ForumURL.TrimEnd('/').Replace("www.", string.Empty);
 
+            if (Config.IsMojoPortal)
+            {
+                url = BaseUrlBuilder.BaseUrl.TrimEnd('/').Replace("www.", string.Empty);
+            }
             // int forumID = int.Parse(this.listForum.SelectedValue);
-            searchEngine = searchEngine.Replace("{Site}", this.ForumURL.TrimEnd('/').Replace("www.", string.Empty));
+            searchEngine = searchEngine.Replace("{Site}", url);
 
             //// searchEngine = searchEngine.Replace("{Language}", this.PageContext.CultureUser.Substring(0,2));           
             string[] searchParamsDefArray = searchParams.Split('^');

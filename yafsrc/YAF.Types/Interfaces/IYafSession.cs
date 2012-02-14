@@ -1,5 +1,5 @@
 ﻿/* Yet Another Forum.NET
- * Copyright (C) 2006-2011 Jaben Cargman
+ * Copyright (C) 2006-2012 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -81,11 +81,6 @@ namespace YAF.Types.Interfaces
         Hashtable ForumRead { get; set; }
 
         /// <summary>
-        ///   Gets or sets a value indicating whether HasLastVisit.
-        /// </summary>
-        bool HasLastVisit { get; set; }
-
-        /// <summary>
         ///   Gets or sets LastPm.
         /// </summary>
         DateTime LastPendingBuddies { get; set; }
@@ -103,7 +98,7 @@ namespace YAF.Types.Interfaces
         /// <summary>
         ///   Gets or sets LastVisit.
         /// </summary>
-        DateTime LastVisit { get; set; }
+        DateTime? LastVisit { get; set; }
 
         /// <summary>
         ///   Gets PanelState.

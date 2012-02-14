@@ -226,7 +226,9 @@
 	text-align: left;
 }
 /* Links in header1 */
-.yafnet tr.header1 a		{color:#FFFFFF;text-decoration:none}
+.yafnet a.HeaderTopicLink,
+.yafnet tr.header1 a		{color:#FFFFFF!important;text-decoration:none}
+.yafnet a.HeaderTopicLink:hover,
 .yafnet tr.header1 a:hover	{color:#C0C0FF;text-decoration:underline}
 /* Header 2 - Sub header */
 .yafnet .header2 {

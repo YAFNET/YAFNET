@@ -6,7 +6,7 @@
         <asp:HyperLink ID="topicLink" ToolTip='<%# this.GetText("COMMON", "VIEW_TOPIC") %>' CssClass="forumTopicLink" runat="server"></asp:HyperLink>
         <br />
     </asp:PlaceHolder>
-    <YAF:LocalizedLabel ID="ByLabel" runat="server" LocalizedTag="BY" />
+    <YAF:LocalizedLabel ID="ByLabel" runat="server" LocalizedTag="BY" LocalizedPage="TOPICS" />
     <YAF:UserLink ID="ProfileUserLink" runat="server" />
     &nbsp;<asp:HyperLink ID="LastTopicImgLink" runat="server">
         <YAF:ThemeImage ID="Icon" runat="server" />

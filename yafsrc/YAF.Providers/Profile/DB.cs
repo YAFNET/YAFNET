@@ -256,6 +256,10 @@ namespace YAF.Providers.Profile
 			}
 		}
 
+    public static bool GetDbTypeAndSizeFromString(string providerData, out SqlDbType dbType, out int size)
+    {
+        return LegacyDb.GetDbTypeAndSizeFromString(providerData, out dbType, out size);
+    }
 		/// <summary>
 		/// The get provider user key.
 		/// </summary>

@@ -1,6 +1,6 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
- * Copyright (C) 2006-2011 Jaben Cargman
+ * Copyright (C) 2006-2012 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -128,7 +128,8 @@ namespace YAF.Pages
         /// <returns>Returns the File Url</returns>
         protected string GetAvatarUrlFileName(int userId, string avatarString, bool hasAvatarImage, string email)
         {
-            string avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userId, avatarString, hasAvatarImage, email);
+        	string avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(
+        		userId, avatarString, hasAvatarImage, new Lazy<string>(() => email));
 
             return avatarUrl.IsNotSet()
                        ? "{0}images/noavatar.gif".FormatWith(YafForumInfo.ForumClientFileRoot)

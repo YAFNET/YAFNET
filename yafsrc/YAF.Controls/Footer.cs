@@ -22,6 +22,7 @@ namespace YAF.Controls
   #region Using
 
   using System.Collections.Generic;
+	using System;
   using System.Linq;
   using System.Reflection;
   using System.Text;
@@ -29,6 +30,7 @@ namespace YAF.Controls
   using System.Web.UI;
 
   using YAF.Classes;
+	using YAF.Classes.Data;
   using YAF.Core;
   using YAF.Types;
   using YAF.Types.Constants;
@@ -96,7 +98,6 @@ namespace YAF.Controls
 
       footer.Append(@"<br /><div class=""content"" style=""text-align:right;font-size:7pt"">");
 
-      bool br = false;
 
       if (this.PageContext.CurrentForumPage.IsAdminPage)
       {
@@ -124,7 +125,7 @@ namespace YAF.Controls
     /// </param>
     private void RenderGeneratedAndDebug([NotNull] StringBuilder footer)
     {
-      if (this.PageContext.BoardSettings.ShowPageGenerationTime)
+			if (this.Get<YafBoardSettings>().ShowPageGenerationTime)
       {
         footer.Append("<br />");
         footer.AppendFormat(this.GetText("COMMON", "GENERATED"), this.Get<IStopWatch>().Duration);
@@ -143,7 +144,7 @@ namespace YAF.Controls
       footer.Append(@"<br /><br /><a href=""http://validator.w3.org/check?uri=referer"" >XHTML</a> | ");
       footer.Append(@"<a href=""http://jigsaw.w3.org/css-validator/check/referer"" >CSS</a><br /><br />");
 
-      var extensions = this.Get<IList<Assembly>>("ExtensionAssemblies").Select(a => a.FullName);
+			var extensions = this.Get<IList<Assembly>>("ExtensionAssemblies").Select(a => a.FullName).ToList();
 
       if (extensions.Any(x => x.Contains("PublicKeyToken=f3828393ba2d803c")))
       {
@@ -182,8 +183,8 @@ namespace YAF.Controls
           @"<a target=""_top"" title=""{1}"" href=""{0}"">{1}</a> | ".FormatWith(
             YafBuildLink.GetLink(ForumPages.forum, "fullsite=true"), this.GetText("COMMON", "MOBILE_FULLSITE")));
       }
-      else if (this.PageContext.Vars.ContainsKey("IsMobile") && this.PageContext.Vars["IsMobile"] != null &&
-               this.PageContext.Vars["IsMobile"].ToType<bool>())
+			else if (this.PageContext.Vars.ContainsKey("IsMobile") && this.PageContext.Vars["IsMobile"] != null
+			         && this.PageContext.Vars["IsMobile"].ToType<bool>())
       {
         footer.Append(
           @"<a target=""_top"" title=""{1}"" href=""{0}"">{1}</a> | ".FormatWith(
@@ -219,7 +220,7 @@ namespace YAF.Controls
 
       // get the theme credit info from the theme file
       // it's not really an error if it doesn't exist
-      string themeCredit = this.PageContext.Theme.GetItem("THEME", "CREDIT", null);
+			string themeCredit = this.Get<ITheme>().GetItem("THEME", "CREDIT", null);
 
       // append theme Credit if it exists...
       if (themeCredit.IsSet())
@@ -232,7 +233,7 @@ namespace YAF.Controls
       footer.Append(this.GetText("COMMON", "POWERED_BY"));
       footer.Append(@" YAF");
 
-      if (this.PageContext.BoardSettings.ShowYAFVersion)
+			if (this.Get<YafBoardSettings>().ShowYAFVersion)
       {
         footer.AppendFormat(" {0} ", YafForumInfo.AppVersionName);
         if (Config.IsDotNetNuke)
@@ -254,9 +255,10 @@ namespace YAF.Controls
       }
 
       footer.AppendFormat(
-        @"</a> | <a target=""_top"" title=""{0}"" href=""{1}"">YAF &copy; 2003-2011, Yet Another Forum.NET</a>", 
+				@"</a> | <a target=""_top"" title=""{0}"" href=""{1}"">YAF &copy; 2003-{2}, Yet Another Forum.NET</a>", 
         "YetAnotherForum.NET", 
-        "http://www.yetanotherforum.net");
+				"http://www.yetanotherforum.net", 
+				DateTime.UtcNow.Year);
     }
 
     #endregion

@@ -1,5 +1,5 @@
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Classes.Config", "YAF.Classes\YAF.Classes.Config\YAF.Classes.Config.csproj", "{05E50D2F-9527-4CE8-A0F8-168281C426CB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Classes.Data", "YAF.Classes\YAF.Classes.Data\YAF.Classes.Data.csproj", "{9A454596-56DC-4834-A043-F3C1443F859B}"
@@ -7,8 +7,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Providers", "YAF.Providers\YAF.Providers.csproj", "{95A44CD9-4399-4DB9-823F-1A264083A390}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Intelligencia.UrlRewriter", "URLRewriter.NET\Intelligencia.UrlRewriter.csproj", "{F8516C67-92BE-43FF-A8A9-B71A3EA4BE0D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Classes.UnitTests", "YAF.Classes\YAF.Classes.UnitTests\YAF.Classes.UnitTests.csproj", "{DE644CB8-5686-4482-BDD3-DA24E464C44A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Controls", "YAF.Controls\YAF.Controls.csproj", "{C72A5FC8-4B1C-4A24-A306-FB550729DBF0}"
 EndProject
@@ -19,6 +17,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Types", "YAF.Types\YAF.Types.csproj", "{B9CF38B0-39CF-43C7-9589-166DCC665652}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Utils", "YAF.Utils\YAF.Utils.csproj", "{F80E0025-E57E-4BB5-89F2-CFBCAC1AFCF4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarsiLibrary", "FarsiLibrary\FarsiLibrary.csproj", "{ED29E567-C801-49E9-8C33-CFB66042B07B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,10 +42,6 @@ Global
 		{F8516C67-92BE-43FF-A8A9-B71A3EA4BE0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8516C67-92BE-43FF-A8A9-B71A3EA4BE0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8516C67-92BE-43FF-A8A9-B71A3EA4BE0D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DE644CB8-5686-4482-BDD3-DA24E464C44A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DE644CB8-5686-4482-BDD3-DA24E464C44A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DE644CB8-5686-4482-BDD3-DA24E464C44A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DE644CB8-5686-4482-BDD3-DA24E464C44A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C72A5FC8-4B1C-4A24-A306-FB550729DBF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C72A5FC8-4B1C-4A24-A306-FB550729DBF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C72A5FC8-4B1C-4A24-A306-FB550729DBF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -66,6 +62,10 @@ Global
 		{F80E0025-E57E-4BB5-89F2-CFBCAC1AFCF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F80E0025-E57E-4BB5-89F2-CFBCAC1AFCF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F80E0025-E57E-4BB5-89F2-CFBCAC1AFCF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED29E567-C801-49E9-8C33-CFB66042B07B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED29E567-C801-49E9-8C33-CFB66042B07B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED29E567-C801-49E9-8C33-CFB66042B07B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED29E567-C801-49E9-8C33-CFB66042B07B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

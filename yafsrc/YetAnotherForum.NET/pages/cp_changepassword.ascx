@@ -1,4 +1,4 @@
-<%@ Control Language="c#" Inherits="YAF.Pages.cp_changepassword" Codebehind="cp_changepassword.ascx.cs" %>
+﻿<%@ Control Language="c#" Inherits="YAF.Pages.cp_changepassword" Codebehind="cp_changepassword.ascx.cs" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <div class="DivTopSeparator">
 </div>
@@ -55,6 +55,8 @@
                         <asp:CompareValidator ID="NewPasswordCompare" runat="server" ControlToCompare="NewPassword"
                             ControlToValidate="ConfirmNewPassword" Display="Dynamic" ErrorMessage="The Confirm New Password must match the New Password entry."
                             ValidationGroup="ctl00$ChangePassword1"></asp:CompareValidator>
+                       <asp:CompareValidator ID="NewOldPasswordCompare" ControlToValidate="NewPassword" ControlToCompare="CurrentPassword" 
+                               Type="String" Operator="NotEqual" Text="New Password must be different from the old one." Runat = "Server" /> 
                         <asp:Literal ID="FailureText" runat="server" EnableViewState="False"></asp:Literal>
                     </td>
                 </tr>

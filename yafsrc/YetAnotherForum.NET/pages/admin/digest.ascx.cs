@@ -1,5 +1,5 @@
 ﻿/* Yet Another Forum.NET
- * Copyright (C) 2006-2011 Jaben Cargman
+ * Copyright (C) 2006-2012 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -22,6 +22,7 @@ namespace YAF.Pages.Admin
 
   using System;
 
+  using YAF.Classes;
   using YAF.Core;
   using YAF.Types;
   using YAF.Types.Constants;
@@ -56,7 +57,7 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void ForceSend_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      YafContext.Current.BoardSettings.ForceDigestSend = true;
+        this.Get<YafBoardSettings>().ForceDigestSend = true;
       ((YafLoadBoardSettings)YafContext.Current.BoardSettings).SaveRegistry();
 
       this.PageContext.AddLoadMessage(this.GetText("ADMIN_DIGEST", "MSG_FORCE_SEND"));
@@ -94,7 +95,7 @@ namespace YAF.Pages.Admin
             return;
         }
 
-        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
         this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
         this.PageLinks.AddLink(this.GetText("ADMIN_DIGEST", "TITLE"), string.Empty);
 
@@ -102,11 +103,11 @@ namespace YAF.Pages.Admin
               this.GetText("ADMIN_ADMIN", "Administration"),
               this.GetText("ADMIN_DIGEST", "TITLE"));
 
-        this.LastDigestSendLabel.Text = this.PageContext.BoardSettings.LastDigestSend.IsNotSet()
+        this.LastDigestSendLabel.Text = this.Get<YafBoardSettings>().LastDigestSend.IsNotSet()
                                             ? this.GetText("ADMIN_DIGEST", "DIGEST_NEVER")
-                                            : this.PageContext.BoardSettings.LastDigestSend;
+                                            : this.Get<YafBoardSettings>().LastDigestSend;
 
-        this.DigestEnabled.Text = this.PageContext.BoardSettings.AllowDigestEmail ? "True" : "False";
+        this.DigestEnabled.Text = this.Get<YafBoardSettings>().AllowDigestEmail ? this.GetText("COMMON", "YES") : this.GetText("COMMON", "NO");
 
         this.TestSend.Text = this.GetText("ADMIN_DIGEST", "SEND_TEST");
 
@@ -135,12 +136,12 @@ namespace YAF.Pages.Admin
       try
       {
         // create and send a test digest to the email provided...
-        var digestHtml = this.Get<IDigest>().GetDigestHtml(this.PageContext.PageUserID, this.PageContext.PageBoardID);
+        var digestHtml = this.Get<IDigest>().GetDigestHtml(this.PageContext.PageUserID, this.PageContext.PageBoardID, true);
 
         // send....
         this.Get<IDigest>().SendDigest(
           digestHtml, 
-          this.PageContext.BoardSettings.Name, 
+          this.Get<YafBoardSettings>().Name, 
           this.TextSendEmail.Text.Trim(), 
           "Digest Send Test", 
           this.SendMethod.SelectedItem.Text == "Queued");

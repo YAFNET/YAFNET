@@ -47,17 +47,7 @@
 			DataTable dt = LegacyDb.forum_listread(
 					this.PageContext.PageBoardID, this.PageContext.PageUserID, categoryId, null, false, false);
 
-			foreach (DataRow row in dt.Rows)
-			{
-				if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase)
-				{
-					this.Get<IReadTracking>().SetForumRead(this.PageContext.PageUserID, row["ForumID"].ToType<int>());
-				}
-				else
-				{
-					this.Get<IYafSession>().SetForumRead(row["ForumID"].ToType<int>(), DateTime.UtcNow);
-				}
-			}
+			this.Get<IReadTrackCurrentUser>().SetForumRead(dt.AsEnumerable().Select(r => r["ForumID"].ToType<int>()));
 
 			this.BindData();
 		}
@@ -94,7 +84,10 @@
 		protected int ColumnCount()
 		{
 			int cnt = 5;
-			if (PageContext.BoardSettings.ShowModeratorList && this.Get<YafBoardSettings>().ShowModeratorListAsColumn) cnt++;
+			if (this.Get<YafBoardSettings>().ShowModeratorList && this.Get<YafBoardSettings>().ShowModeratorListAsColumn)
+			{
+				cnt++;
+			}
 			return cnt;
 		}
 

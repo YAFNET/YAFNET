@@ -75,23 +75,6 @@ AS
 			INNER JOIN [{databaseOwner}].[{objectQualifier}Group] e on e.GroupID=b.GroupID' 
 GO
 
-IF NOT exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}PMessageView]') AND OBJECTPROPERTY(id, N'IsView') = 1)
-EXEC dbo.sp_executesql @statement = N'CREATE VIEW [{databaseOwner}].[{objectQualifier}PMessageView]
-AS
-SELECT
-	a.PMessageID, b.UserPMessageID, a.FromUserID, d.[Name] AS FromUser, 
-	b.[UserID] AS ToUserId, c.[Name] AS ToUser, a.Created, a.[Subject], 
-	a.Body, a.Flags, b.IsRead, b.IsInOutbox, b.IsArchived, b.IsDeleted
-FROM
-	[{databaseOwner}].[{objectQualifier}PMessage] a
-INNER JOIN
-	[{databaseOwner}].[{objectQualifier}UserPMessage] b ON a.PMessageID = b.PMessageID
-INNER JOIN
-	[{databaseOwner}].[{objectQualifier}User] c ON b.UserID = c.UserID
-INNER JOIN
-	[{databaseOwner}].[{objectQualifier}User] d ON a.FromUserID = d.UserID' 
-GO
-
 IF NOT exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}vaccess_null]') AND OBJECTPROPERTY(id, N'IsView') = 1)
 EXEC dbo.sp_executesql @statement = N'CREATE VIEW [{databaseOwner}].[{objectQualifier}vaccess_null]
 WITH SCHEMABINDING

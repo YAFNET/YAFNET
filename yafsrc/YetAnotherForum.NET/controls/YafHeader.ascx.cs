@@ -1,5 +1,5 @@
 ﻿/* Yet Another Forum.NET
- * Copyright (C) 2006-2011 Jaben Cargman
+ * Copyright (C) 2006-2012 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -28,7 +28,6 @@ namespace YAF.Controls
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -147,7 +146,7 @@ namespace YAF.Controls
                 return;
             }
 
-            YafBuildLink.Redirect(ForumPages.search, "search={0}", this.searchInput.Text);
+            YafBuildLink.Redirect(ForumPages.search, "search={0}", this.searchInput.Text.TrimWordsOverMaxLengthWordsPreserved(this.Get<YafBoardSettings>().SearchStringMaxLength));
         }
 
         /// <summary>
@@ -473,11 +472,8 @@ namespace YAF.Controls
                 else
                 {
                     string returnUrl = this.GetReturnUrl().IsSet()
-                                             ? "ReturnUrl={0}".FormatWith(
-                                               this.Get<YafBoardSettings>().UseSSLToLogIn
-                                                 ? this.GetReturnUrl().Replace("http:", "https:")
-                                                 : this.GetReturnUrl())
-                                             : string.Empty;
+                                           ? "ReturnUrl={0}".FormatWith(this.GetReturnUrl())
+                                           : string.Empty;
 
                     RenderMenuItem(
                         menuListItems,
@@ -485,7 +481,9 @@ namespace YAF.Controls
                         null,
                         this.GetText("TOOLBAR", "LOGIN"),
                         this.GetText("TOOLBAR", "LOGIN_TITLE"),
-                        YafBuildLink.GetLink(ForumPages.login, returnUrl),
+                       !this.Get<YafBoardSettings>().UseSSLToLogIn
+                               ? YafBuildLink.GetLink(ForumPages.login, returnUrl)
+                               : YafBuildLink.GetLink(ForumPages.login, true, returnUrl).Replace("http:", "https:"),
                         true,
                         false,
                         null,
@@ -506,7 +504,7 @@ namespace YAF.Controls
                         ? YafBuildLink.GetLink(ForumPages.rules)
                         : (!this.Get<YafBoardSettings>().UseSSLToRegister
                                ? YafBuildLink.GetLink(ForumPages.register)
-                               : YafBuildLink.GetLink(ForumPages.register).Replace("http:", "https:")),
+                               : YafBuildLink.GetLink(ForumPages.register, true).Replace("http:", "https:")),
                     true,
                     false,
                     null,
@@ -579,37 +577,22 @@ namespace YAF.Controls
                     null);
             }
 
-            var unreadTopics =
-                LegacyDb.topic_active(
-                    this.PageContext.PageBoardID,
-                    this.PageContext.PageUserID,
-                    this.Get<YafBoardSettings>().UseReadTrackingByDatabase
-                                    ? this.Get<IReadTracking>().GetUserLastRead(this.PageContext.PageUserID)
-                                    : this.Get<IYafSession>().LastVisit,
-                    null,
-                    false,
-                    this.Get<YafBoardSettings>().UseReadTrackingByDatabase).Rows.Count;
-
-            bool unread = this.PageContext.UnreadPrivate > 0 || this.PageContext.PendingBuddies > 0 || unreadTopics > 0;
+            bool unread = this.PageContext.UnreadPrivate > 0 || this.PageContext.PendingBuddies > 0/* ||
+                          this.PageContext.UnreadTopics > 0*/;
 
             // My Topics
             RenderMenuItem(
-                    MyTopicItem,
-                    "menuMy myTopics",
-                    null,
-                    this.GetText("TOOLBAR", "MYTOPICS"),
-                    this.GetText("TOOLBAR", "MYTOPICS"),
-                    YafBuildLink.GetLink(ForumPages.mytopics),
-                    false,
-                    unreadTopics > 0,
-                    unreadTopics.ToString(),
-                    this.GetText("TOOLBAR", "UNREADTOPICS").FormatWith(unreadTopics));
-
-            /*
-            this.MyTopics.ToolTip = this.GetText("TOOLBAR", "MYTOPICS");
-            this.MyTopics.NavigateUrl = YafBuildLink.GetLink(ForumPages.mytopics);
-            this.MyTopics.Text = this.GetText("TOOLBAR", "MYTOPICS");*/
-
+                MyTopicItem,
+                "menuMy myTopics",
+                null,
+                this.GetText("TOOLBAR", "MYTOPICS"),
+                this.GetText("TOOLBAR", "MYTOPICS"),
+                YafBuildLink.GetLink(ForumPages.mytopics),
+                false,
+                false,//this.PageContext.UnreadTopics > 0,
+                string.Empty,//this.PageContext.UnreadTopics.ToString(),
+                string.Empty);//this.GetText("TOOLBAR", "UNREADTOPICS").FormatWith(this.PageContext.UnreadTopics));
+            
             // Logout
             if (!Config.IsAnyPortal && Config.AllowLoginAndLogoff)
             {
@@ -682,13 +665,13 @@ namespace YAF.Controls
                     else
                     {
                         string returnUrl = this.GetReturnUrl().IsSet()
-                                                 ? "ReturnUrl={0}".FormatWith(
-                                                   this.Get<YafBoardSettings>().UseSSLToLogIn
-                                                     ? this.GetReturnUrl().Replace("http:", "https:")
-                                                     : this.GetReturnUrl())
-                                                 : string.Empty;
+                                               ? "ReturnUrl={0}".FormatWith(this.GetReturnUrl())
+                                               : string.Empty;
 
-                        loginLink.NavigateUrl = YafBuildLink.GetLink(ForumPages.login, returnUrl);
+                        loginLink.NavigateUrl = !this.Get<YafBoardSettings>().UseSSLToLogIn
+                                                    ? YafBuildLink.GetLink(ForumPages.login, returnUrl)
+                                                    : YafBuildLink.GetLink(ForumPages.login, true, returnUrl).Replace(
+                                                        "http:", "https:");
                     }
 
                     this.GuestUserMessage.Controls.Add(loginLink);
@@ -713,7 +696,7 @@ namespace YAF.Controls
                                 ? YafBuildLink.GetLink(ForumPages.rules)
                                 : (!this.Get<YafBoardSettings>().UseSSLToRegister
                                        ? YafBuildLink.GetLink(ForumPages.register)
-                                       : YafBuildLink.GetLink(ForumPages.register).Replace("http:", "https:"))
+                                       : YafBuildLink.GetLink(ForumPages.register, true).Replace("http:", "https:"))
                     };
 
                     this.GuestUserMessage.Controls.Add(registerLink);

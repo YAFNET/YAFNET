@@ -1,6 +1,6 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Björnar Henden
- * Copyright (C) 2006-2011 Jaben Cargman
+ * Copyright (C) 2006-2012 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -60,62 +60,67 @@ namespace YAF.Controls
         /// </param>
         protected void Login1_Authenticate([NotNull] object sender, [NotNull] AuthenticateEventArgs e)
         {
-            /*var userName = this.Login1.FindControlAs<TextBox>("UserName");
-              var password = this.Login1.FindControlAs<TextBox>("Password");
-
-              e.Authenticated = this.Get<MembershipProvider>().ValidateUser(userName.Text.Trim(), password.Text.Trim());*/
-
             e.Authenticated = false;
 
-            if (Login1.UserName.Contains("@") && this.Get<MembershipProvider>().RequiresUniqueEmail)
+            var realUserName = this.GetValidUsername(Login1.UserName, Login1.Password);
+
+            if (!realUserName.IsSet())
             {
-                // Email Login
-                var username = this.Get<MembershipProvider>().GetUserNameByEmail(Login1.UserName);
-                if (username != null)
+                return;
+            }
+
+            this.Login1.UserName = realUserName;
+            e.Authenticated = true;
+        }
+
+        /// <summary>
+        /// Gets the valid username.
+        /// </summary>
+        /// <param name="username">The username.</param>
+        /// <param name="password">The password.</param>
+        /// <returns>
+        /// The get valid login.
+        /// </returns>
+        protected virtual string GetValidUsername(string username, string password)
+        {
+            if (username.Contains("@") && this.Get<MembershipProvider>().RequiresUniqueEmail)
+            {
+                // attempt Email Login
+                string realUsername = this.Get<MembershipProvider>().GetUserNameByEmail(username);
+
+                if (realUsername.IsSet() && this.Get<MembershipProvider>().ValidateUser(realUsername, password))
                 {
-                    if (Membership.ValidateUser(username, Login1.Password))
+                    return realUsername;
+                }
+            }
+
+            // Standard user name login
+            if (this.Get<MembershipProvider>().ValidateUser(username, password))
+            {
+                return username;
+            }
+
+            // display name login...
+            if (this.Get<YafBoardSettings>().EnableDisplayName)
+            {
+                // Display name login
+                var id = this.Get<IUserDisplayName>().GetId(username);
+
+                if (id.HasValue)
+                {
+                    // get the username associated with this id...
+                    string realUsername = UserMembershipHelper.GetUserNameFromID(id.Value);
+
+                    // validate again...
+                    if (this.Get<MembershipProvider>().ValidateUser(realUsername, password))
                     {
-                        Login1.UserName = username;
-                        e.Authenticated = true;
-                    }
-                    else
-                    {
-                        e.Authenticated = false;
+                        return realUsername;
                     }
                 }
             }
-            else
-            {
-                // Standard user name login
-                if (this.Get<MembershipProvider>().ValidateUser(Login1.UserName, Login1.Password))
-                {
-                    e.Authenticated = true;
-                }
-                else if (this.Get<YafBoardSettings>().EnableDisplayName)
-                {
-                    // Display name login
-                    var id = this.Get<IUserDisplayName>().GetId(Login1.UserName);
 
-                    if (id.HasValue)
-                    {
-                        // get the username associated with this id...
-                        var username = UserMembershipHelper.GetUserNameFromID(id.Value);
-
-                        // validate again...
-                        if (this.Get<MembershipProvider>().ValidateUser(username, Login1.Password))
-                        {
-                            e.Authenticated = true;
-
-                            // update the username
-                            this.Login1.UserName = username;
-                        }
-                        else
-                        {
-                            e.Authenticated = false;
-                        }
-                    }
-                }
-            }
+            // no valid login -- return null
+            return null;
         }
 
         /// <summary>

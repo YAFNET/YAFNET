@@ -1,6 +1,6 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bj�rnar Henden
- * Copyright (C) 2006-2011 Jaben Cargman
+ * Copyright (C) 2006-2012 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -66,6 +66,13 @@ namespace YAF.Pages
     /// </param>
     protected void Move_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
+      int? linkDays = null;
+      int ld = -2;
+      if (this.LeavePointer.Checked && this.LinkDays.Text.IsSet() && !int.TryParse(this.LinkDays.Text, out ld))
+      {
+          this.PageContext.AddLoadMessage(this.GetText("POINTER_DAYS_INVALID"));
+          return;
+      }
       if (this.ForumList.SelectedValue.ToType<int>() <= 0)
       {
         this.PageContext.AddLoadMessage(this.GetText("CANNOT_MOVE_TO_CATEGORY"));
@@ -75,8 +82,12 @@ namespace YAF.Pages
       // only move if it's a destination is a different forum.
       if (this.ForumList.SelectedValue.ToType<int>() != this.PageContext.PageForumID)
       {
-        // Ederon : 7/14/2007
-        LegacyDb.topic_move(this.PageContext.PageTopicID, this.ForumList.SelectedValue, this.LeavePointer.Checked);
+          if (ld >= -2)
+          {
+              linkDays = ld;
+          }
+          // Ederon : 7/14/2007
+          LegacyDb.topic_move(this.PageContext.PageTopicID, this.ForumList.SelectedValue, this.LeavePointer.Checked, linkDays);
       }
 
       YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
@@ -131,10 +142,16 @@ namespace YAF.Pages
         this.Move.Text = this.GetText("MOVE");
         this.Move.ToolTip = "{0}: {1}".FormatWith(this.GetText("MOVE"), this.PageContext.PageTopicName);
 
+        bool showMoved = this.Get<YafBoardSettings>().ShowMoved;
         // Ederon : 7/14/2007 - by default, leave pointer is set on value defined on host level
         this.LeavePointer.Checked = this.Get<YafBoardSettings>().ShowMoved;
 
-        trLeaveLink.Visible = this.Get<YafBoardSettings>().ShowMoved;
+        trLeaveLink.Visible = showMoved;
+        trLeaveLinkDays.Visible = showMoved;
+        if (showMoved)
+        {
+            LinkDays.Text = "1";
+        }
 
         this.ForumList.DataSource = LegacyDb.forum_listall_sorted(this.PageContext.PageBoardID, this.PageContext.PageUserID);
 

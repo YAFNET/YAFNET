@@ -7,6 +7,7 @@
 <%@ Import Namespace="YAF.Controls" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Classes" %>
+<%@ Import Namespace="YAF.Types.Interfaces.Extensions" %>
 <tr class="<%=this.IsAlt ? "topicRow_Alt post_alt" : "topicRow post" %>">
     <asp:PlaceHolder ID="SelectionHolder" runat="server" Visible="false">
         <td>
@@ -23,7 +24,7 @@
         <%
             if (this.Get<YafBoardSettings>().ShowAvatarsInTopic)
             {
-                var avatarUrl = this.GetAvatarUrlFromID(Convert.ToInt32(this.TopicRow["UserID"]));
+                var avatarUrl = this.GetAvatarUrlFromID(this.TopicRow["UserID"].ToType<int>());
         %>
         <img src="<%=avatarUrl%>" alt="<%=this.AltLastPost%>" title="<%=this.AltLastPost%>"
             class="avatarimage" />
@@ -38,7 +39,7 @@
         <%
             }
 
-            string linkParams = "t={0}";
+            const string linkParams = "t={0}";
         %>
         <a href="<%=YafBuildLink.GetLink(ForumPages.posts, linkParams, this.TopicRow["LinkTopicID"])%>"
             class="post_link" title="<%=this.Get<IFormatMessage>().GetCleanedTopicMessage(this.TopicRow["FirstMessage"], this.TopicRow["LinkTopicID"]).MessageTruncated%>">
@@ -125,45 +126,12 @@
         <%
             }
 
-                DateTime lastRead;
-                DateTime lastReadForum;
-
-                if (this.Get<YafBoardSettings>().UseReadTrackingByDatabase)
-                {
-                    try
-                    {
-                        lastRead = this.TopicRow["LastTopicAccess"] != DBNull.Value
-                                       ? this.TopicRow["LastTopicAccess"].ToType<DateTime>()
-                                       : DateTime.MinValue.AddYears(1902);
-                    }
-                    catch (Exception)
-                    {
-                        lastRead = this.Get<IReadTracking>().GetTopicRead(
-                            this.PageContext.PageUserID, this.TopicRow["LastTopicID"].ToType<int>());
-                    }
-
-                    try
-                    {
-                        lastReadForum = this.TopicRow["LastForumAccess"] != DBNull.Value
-                                            ? this.TopicRow["LastForumAccess"].ToType<DateTime>()
-                                            : DateTime.MinValue.AddYears(1902);
-                    }
-                    catch (Exception)
-                    {
-                        lastReadForum = this.Get<IReadTracking>().GetForumRead(
-                            this.PageContext.PageUserID, this.TopicRow["ForumID"].ToType<int>());
-                    }
-                }
-                else
-                {
-                    lastRead = this.Get<IYafSession>().GetTopicRead(this.TopicRow["TopicID"].ToType<int>());
-                    lastReadForum = this.Get<IYafSession>().GetForumRead(this.TopicRow["ForumID"].ToType<int>());
-                }
-
-                if (lastReadForum > lastRead)
-                {
-                    lastRead = lastReadForum;
-                }
+            DateTime lastRead =
+                this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
+                forumId: this.TopicRow["ForumID"].ToType<int>(),
+                topicId: this.TopicRow["TopicID"].ToType<int>(),
+                forumReadOverride: this.TopicRow["LastForumAccess"].ToType<DateTime?>() ?? DateTime.MinValue,
+                topicReadOverride: this.TopicRow["LastTopicAccess"].ToType<DateTime?>() ?? DateTime.MinValue); 
 
 
         string strMiniPost = this.Get<ITheme>().GetItem(

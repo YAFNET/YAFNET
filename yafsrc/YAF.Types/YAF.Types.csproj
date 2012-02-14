@@ -112,6 +112,7 @@
     <Compile Include="Interfaces\Extensions\IServiceLocatorExtensions.cs" />
     <Compile Include="Interfaces\Extensions\KeyValuePairExtensions.cs" />
     <Compile Include="Interfaces\Extensions\LocatablePageExtension.cs" />
+    <Compile Include="Interfaces\Extensions\ReadTrackCurrentUserExtensions.cs" />
     <Compile Include="Interfaces\IAvatars.cs" />
     <Compile Include="Interfaces\IBackgroundTask.cs" />
     <Compile Include="Interfaces\IBadWordReplace.cs" />
@@ -161,7 +162,7 @@
     <Compile Include="Interfaces\ISendNotification.cs" />
     <Compile Include="Interfaces\IServiceLocator.cs" />
     <Compile Include="Interfaces\IReadOnlyProvider.cs" />
-    <Compile Include="Interfaces\IReadTracking.cs" />
+    <Compile Include="Interfaces\IReadTrackCurrentUser.cs" />
     <Compile Include="Interfaces\IStartTasks.cs" />
     <Compile Include="Interfaces\IStartupService.cs" />
     <Compile Include="Interfaces\IStopWatch.cs" />

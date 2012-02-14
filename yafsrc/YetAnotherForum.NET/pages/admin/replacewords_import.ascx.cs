@@ -1,5 +1,5 @@
 /* Yet Another Forum.NET
- * Copyright (C) 2006-2011 Jaben Cargman
+ * Copyright (C) 2006-2012 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -19,128 +19,133 @@
 
 namespace YAF.Pages.Admin
 {
-  #region Using
+	#region Using
 
-  using System;
-  using System.Data;
-  using System.Linq;
+	using System;
+	using System.Data;
+	using System.Linq;
 
-  using YAF.Classes.Data;
-  using YAF.Core;
-  using YAF.Types;
-  using YAF.Types.Constants;
-  using YAF.Types.Interfaces;
-  using YAF.Utils;
+	using YAF.Classes.Data;
+	using YAF.Core;
+	using YAF.Types;
+	using YAF.Types.Constants;
+	using YAF.Types.Interfaces;
+	using YAF.Utils;
 
-  #endregion
+	#endregion
 
-  /// <summary>
-  /// The replacewords_import.
-  /// </summary>
-  public partial class replacewords_import : AdminPage
-  {
-    #region Methods
+	/// <summary>
+	/// The replacewords_import.
+	/// </summary>
+	public partial class replacewords_import : AdminPage
+	{
+		#region Methods
 
-    /// <summary>
-    /// The cancel_ on click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Cancel_OnClick([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      YafBuildLink.Redirect(ForumPages.admin_replacewords);
-    }
+		/// <summary>
+		/// The cancel_ on click.
+		/// </summary>
+		/// <param name="sender">
+		/// The sender.
+		/// </param>
+		/// <param name="e">
+		/// The e.
+		/// </param>
+		protected void Cancel_OnClick([NotNull] object sender, [NotNull] EventArgs e)
+		{
+			YafBuildLink.Redirect(ForumPages.admin_replacewords);
+		}
 
-    /// <summary>
-    /// The import_ on click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Import_OnClick([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      // import selected file (if it's the proper format)...
-      if (this.importFile.PostedFile.ContentType == "text/xml")
-      {
-        try
-        {
-          // import replace words...
-          var dsReplaceWords = new DataSet();
-          dsReplaceWords.ReadXml(this.importFile.PostedFile.InputStream);
+		/// <summary>
+		/// The import_ on click.
+		/// </summary>
+		/// <param name="sender">
+		/// The sender.
+		/// </param>
+		/// <param name="e">
+		/// The e.
+		/// </param>
+		protected void Import_OnClick([NotNull] object sender, [NotNull] EventArgs e)
+		{
+			// import selected file (if it's the proper format)...
+			if (!this.importFile.PostedFile.ContentType.StartsWith("text"))
+			{
+				this.PageContext.AddLoadMessage(
+						this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_IMPORTED_FAILEDX").FormatWith("Invalid upload format specified: " + this.importFile.PostedFile.ContentType));
 
-          if (dsReplaceWords.Tables["YafReplaceWords"] != null &&
-              dsReplaceWords.Tables["YafReplaceWords"].Columns["badword"] != null &&
-              dsReplaceWords.Tables["YafReplaceWords"].Columns["goodword"] != null)
-          {
-            int importedCount = 0;
+				return;
+			}
 
-            DataTable replaceWordsList = LegacyDb.replace_words_list(this.PageContext.PageBoardID, null);
+			try
+			{
+				// import replace words...
+				var dsReplaceWords = new DataSet();
+				dsReplaceWords.ReadXml(this.importFile.PostedFile.InputStream);
 
-            // import any extensions that don't exist...
-            foreach (DataRow row in
-                dsReplaceWords.Tables["YafReplaceWords"].Rows.Cast<DataRow>().Where(row => replaceWordsList.Select("badword = '{0}' AND goodword = '{1}'".FormatWith(row["badword"], row["goodword"])).Length == 0))
-            {
-                // add this...
-                LegacyDb.replace_words_save(this.PageContext.PageBoardID, null, row["badword"], row["goodword"]);
-                importedCount++;
-            }
+				if (dsReplaceWords.Tables["YafReplaceWords"] != null &&
+						dsReplaceWords.Tables["YafReplaceWords"].Columns["badword"] != null &&
+						dsReplaceWords.Tables["YafReplaceWords"].Columns["goodword"] != null)
+				{
+					int importedCount = 0;
 
-              this.PageContext.LoadMessage.AddSession(
-                  importedCount > 0
-                      ? this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_IMPORTED").FormatWith(importedCount)
-                      : this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_NOTHING"));
+					DataTable replaceWordsList = LegacyDb.replace_words_list(this.PageContext.PageBoardID, null);
 
-              YafBuildLink.Redirect(ForumPages.admin_replacewords);
-          }
-          else
-          {
-            this.PageContext.AddLoadMessage(this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_IMPORTED_FAILED"));
-          }
-        }
-        catch (Exception x)
-        {
-          this.PageContext.AddLoadMessage(this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_IMPORTED_FAILEDX").FormatWith(x.Message));
-        }
-      }
-    }
+					// import any extensions that don't exist...
+					foreach (DataRow row in
+						dsReplaceWords.Tables["YafReplaceWords"].Rows.Cast<DataRow>().Where(row => replaceWordsList.Select("badword = '{0}' AND goodword = '{1}'".FormatWith(row["badword"], row["goodword"])).Length == 0))
+					{
+						// add this...
+						LegacyDb.replace_words_save(this.PageContext.PageBoardID, null, row["badword"], row["goodword"]);
+						importedCount++;
+					}
 
-    /// <summary>
-    /// The page_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-    {
-        if (this.IsPostBack)
-        {
-            return;
-        }
+					this.PageContext.LoadMessage.AddSession(
+						importedCount > 0
+							? this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_IMPORTED").FormatWith(importedCount)
+							: this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_NOTHING"));
 
-        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-        this.PageLinks.AddLink(this.GetText("ADMIN_REPLACEWORDS", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_replacewords));
-        this.PageLinks.AddLink(this.GetText("ADMIN_REPLACEWORDS_IMPORT", "TITLE"), string.Empty);
+					YafBuildLink.Redirect(ForumPages.admin_replacewords);
+				}
+				else
+				{
+					this.PageContext.AddLoadMessage(this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_IMPORTED_FAILED"));
+				}
+			}
+			catch (Exception x)
+			{
+				this.PageContext.AddLoadMessage(this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_IMPORTED_FAILEDX").FormatWith(x.Message));
+			}
+		}
 
-        this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
-            this.GetText("ADMIN_ADMIN", "Administration"),
-            this.GetText("ADMIN_REPLACEWORDS", "TITLE"),
-            this.GetText("ADMIN_REPLACEWORDS_IMPORT", "TITLE"));
+		/// <summary>
+		/// The page_ load.
+		/// </summary>
+		/// <param name="sender">
+		/// The sender.
+		/// </param>
+		/// <param name="e">
+		/// The e.
+		/// </param>
+		protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+		{
+			if (this.IsPostBack)
+			{
+				return;
+			}
 
-        this.Import.Text = this.GetText("COMMON", "IMPORT");
-        this.cancel.Text = this.GetText("COMMON", "CANCEL");
-    }
+			this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+			this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+			this.PageLinks.AddLink(this.GetText("ADMIN_REPLACEWORDS", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_replacewords));
+			this.PageLinks.AddLink(this.GetText("ADMIN_REPLACEWORDS_IMPORT", "TITLE"), string.Empty);
 
-    #endregion
-  }
+			this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
+					this.GetText("ADMIN_ADMIN", "Administration"),
+					this.GetText("ADMIN_REPLACEWORDS", "TITLE"),
+					this.GetText("ADMIN_REPLACEWORDS_IMPORT", "TITLE"));
+
+			this.Import.Text = this.GetText("COMMON", "IMPORT");
+			this.cancel.Text = this.GetText("COMMON", "CANCEL");
+		}
+
+		#endregion
+	}
 }

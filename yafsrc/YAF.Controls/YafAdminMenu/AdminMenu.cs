@@ -1,5 +1,5 @@
 /* Yet Another Forum.NET
- * Copyright (C) 2006-2011 Jaben Cargman
+ * Copyright (C) 2006-2012 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -39,7 +39,7 @@ namespace YAF.Controls
   #endregion
 
   /// <summary>
-  /// Summary description for AdminMenu.
+  /// Admin Menu Class.
   /// </summary>
   public class AdminMenu : BasePanel
   {
@@ -133,22 +133,25 @@ namespace YAF.Controls
           }
         }
 
-        string highlightStyle = string.Empty;
+        var highlightStyle = string.Empty;
+        var highlightCssClass = string.Empty;
 
         if (highlightPage)
         {
           highlightStyle = "color:red;";
+          highlightCssClass = " Selected";
         }
 
         if (item.Image.IsSet())
         {
           itemsList.AppendFormat(
-            @"<li class=""YafMenuItem""><span class=""YafMenuItemIcon""></span><a style=""position:relative;"" href=""{0}"">
+            @"<li class=""YafMenuItem {4}""><span class=""YafMenuItemIcon""></span><a style=""position:relative;"" href=""{0}"">
                           <img alt=""{1}"" src=""{2}"" /><span style=""margin-left:3px;{3}"">{1}</span></a></li>", 
             url, 
             this.GetText("ADMINMENU", !string.IsNullOrEmpty(item.ForumPage) ? item.ForumPage : "admin_install"), 
             YafForumInfo.GetURLToResource("icons/{0}.png".FormatWith(item.Image)), 
-            highlightStyle);
+            highlightStyle,
+            highlightCssClass);
         }
         else
         {

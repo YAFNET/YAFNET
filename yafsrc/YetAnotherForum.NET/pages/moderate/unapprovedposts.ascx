@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.moderate.unapprovedposts"CodeBehind="unapprovedposts.ascx.cs" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.moderate.unapprovedposts"CodeBehind="unapprovedposts.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Utils" %>
@@ -46,9 +46,9 @@
             </td>
         </tr>
         <tr class="postfooter">
-            <td class="small">
-                <a href="javascript:scroll(0,0)">
-                    <YAF:LocalizedLabel runat="server" LocalizedTag="TOP" />
+            <td class="small postTop">
+                <a onclick="ScrollTop();" href="javascript: void(0)">            
+                  <YAF:ThemeImage ID="ThemeImage1" LocalizedTitlePage="POSTS" LocalizedTitleTag="TOP"  runat="server" ThemeTag="TOTOPPOST" />
                 </a>
             </td>
             <td class="postfooter" style="float: left">

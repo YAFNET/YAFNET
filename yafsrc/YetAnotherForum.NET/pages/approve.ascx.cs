@@ -1,6 +1,6 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
- * Copyright (C) 2006-2011 Jaben Cargman
+ * Copyright (C) 2006-2012 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -20,139 +20,140 @@
 
 namespace YAF.Pages
 {
-  // YAF.Pages
-  #region Using
+	// YAF.Pages
+	#region Using
 
-  using System;
-  using System.Data;
-  using System.Web.Security;
+	using System;
+	using System.Data;
+	using System.Web.Security;
 
-  using YAF.Classes.Data;
-  using YAF.Core;
-  using YAF.Types;
-  using YAF.Types.Constants;
-  using YAF.Types.Interfaces;
-  using YAF.Utils;
+	using YAF.Classes.Data;
+	using YAF.Core;
+	using YAF.Types;
+	using YAF.Types.Constants;
+	using YAF.Types.Interfaces;
+	using YAF.Utils;
 
-  #endregion
+	#endregion
 
-  /// <summary>
-  /// Summary description for approve.
-  /// </summary>
-  public partial class approve : ForumPage
-  {
-    #region Constructors and Destructors
+	/// <summary>
+	/// Summary description for approve.
+	/// </summary>
+	public partial class approve : ForumPage
+	{
+		#region Constructors and Destructors
 
-    /// <summary>
-    ///   Initializes a new instance of the <see cref = "approve" /> class.
-    /// </summary>
-    public approve()
-      : base("APPROVE")
-    {
-    }
+		/// <summary>
+		///   Initializes a new instance of the <see cref = "approve" /> class.
+		/// </summary>
+		public approve()
+			: base("APPROVE")
+		{
+		}
 
-    #endregion
+		#endregion
 
-    #region Properties
+		#region Properties
 
-    /// <summary>
-    ///   Gets a value indicating whether IsProtected.
-    /// </summary>
-    public override bool IsProtected
-    {
-      get
-      {
-        return false;
-      }
-    }
+		/// <summary>
+		///   Gets a value indicating whether IsProtected.
+		/// </summary>
+		public override bool IsProtected
+		{
+			get
+			{
+				return false;
+			}
+		}
 
-    #endregion
+		#endregion
 
-    #region Public Methods
+		#region Public Methods
 
-    /// <summary>
-    /// The validate key_ click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    public void ValidateKey_Click([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      DataTable dt = LegacyDb.checkemail_update(this.key.Text);
-      DataRow row = dt.Rows[0];
-      string dbEmail = row["Email"].ToString();
+		/// <summary>
+		/// The validate key_ click.
+		/// </summary>
+		/// <param name="sender">
+		/// The sender.
+		/// </param>
+		/// <param name="e">
+		/// The e.
+		/// </param>
+		public void ValidateKey_Click([NotNull] object sender, [NotNull] EventArgs e)
+		{
+			DataTable dt = LegacyDb.checkemail_update(this.key.Text);
+			DataRow row = dt.Rows[0];
+			string dbEmail = row["Email"].ToString();
 
-      bool keyVerified = (row["ProviderUserKey"] == DBNull.Value) ? false : true;
+			bool keyVerified = (row["ProviderUserKey"] == DBNull.Value) ? false : true;
 
-      this.approved.Visible = keyVerified;
-      this.error.Visible = !keyVerified;
+			this.approved.Visible = keyVerified;
+			this.error.Visible = !keyVerified;
 
-      if (!keyVerified)
-      {
-        return;
-      }
+			if (!keyVerified)
+			{
+				return;
+			}
 
-      // approve and update e-mail in the membership as well...
-      MembershipUser user = UserMembershipHelper.GetMembershipUserByKey(row["ProviderUserKey"]);
-      if (!user.IsApproved)
-      {
-        user.IsApproved = true;
-      }
+			// approve and update e-mail in the membership as well...
+			MembershipUser user = UserMembershipHelper.GetMembershipUserByKey(row["ProviderUserKey"]);
+			if (!user.IsApproved)
+			{
+				user.IsApproved = true;
+			}
 
-      // update the email if anything was returned...
-      if (user.Email != dbEmail && dbEmail != string.Empty)
-      {
-        user.Email = dbEmail;
-      }
+			// update the email if anything was returned...
+			if (user.Email != dbEmail && dbEmail != string.Empty)
+			{
+				user.Email = dbEmail;
+			}
 
-      // tell the provider to update...
-      this.Get<MembershipProvider>().UpdateUser(user);
+			// tell the provider to update...
+			this.Get<MembershipProvider>().UpdateUser(user);
 
-      // now redirect to login...
-      this.PageContext.LoadMessage.AddSession(this.GetText("EMAIL_VERIFIED"));
+			// now redirect to main site...
+			this.PageContext.LoadMessage.AddSession(this.GetText("EMAIL_VERIFIED"));
 
-      YafBuildLink.Redirect(ForumPages.login);
-    }
+			// default redirect -- because if may not want to redirect to login.
+			YafBuildLink.Redirect(ForumPages.forum);
+		}
 
-    #endregion
+		#endregion
 
-    #region Methods
+		#region Methods
 
-    /// <summary>
-    /// The page_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      if (this.IsPostBack)
-      {
-        return;
-      }
+		/// <summary>
+		/// The page_ load.
+		/// </summary>
+		/// <param name="sender">
+		/// The sender.
+		/// </param>
+		/// <param name="e">
+		/// The e.
+		/// </param>
+		protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+		{
+			if (this.IsPostBack)
+			{
+				return;
+			}
 
-      this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-      this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
+			this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+			this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
-      this.ValidateKey.Text = this.GetText("validate");
-      if (this.Request.QueryString["k"] != null)
-      {
-        this.key.Text = this.Request.QueryString["k"];
-        this.ValidateKey_Click(sender, e);
-      }
-      else
-      {
-        this.approved.Visible = false;
-        this.error.Visible = !this.approved.Visible;
-      }
-    }
+			this.ValidateKey.Text = this.GetText("validate");
+			if (this.Request.QueryString["k"] != null)
+			{
+				this.key.Text = this.Request.QueryString["k"];
+				this.ValidateKey_Click(sender, e);
+			}
+			else
+			{
+				this.approved.Visible = false;
+				this.error.Visible = !this.approved.Visible;
+			}
+		}
 
-    #endregion
-  }
+		#endregion
+	}
 }

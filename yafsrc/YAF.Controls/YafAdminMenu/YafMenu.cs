@@ -87,7 +87,7 @@ public class YafMenuYafMenuSection
   /// The yaf menu item field.
   /// </summary>
   private YafMenuYafMenuSectionYafMenuItem[] yafMenuItemField;
-
+    /*
   /// <summary>
   /// The host admin only.
   /// </summary>
@@ -105,7 +105,7 @@ public class YafMenuYafMenuSection
     {
       this.hostAdminOnlyField = value;
     }
-  }
+  }*/
 
   /// <summary>
   /// The yaf menu item.
@@ -161,6 +161,25 @@ public class YafMenuYafMenuSection
       set
       {
           this.tagField = value;
+      }
+  }
+
+  /// <summary>
+  /// The title.
+  /// </summary>
+  /// <remarks>
+  /// </remarks>
+  [XmlAttribute]
+  public string HostAdminOnly
+  {
+      get
+      {
+          return this.hostAdminOnlyField;
+      }
+
+      set
+      {
+          this.hostAdminOnlyField = value;
       }
   }
 }

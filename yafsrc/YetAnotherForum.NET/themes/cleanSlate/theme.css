@@ -36,6 +36,12 @@
 	font-weight: bold;
 	font-size: 10.5pt;	
 }
+.yafnet a.HeaderTopicLink {
+	color: #ffffff;
+	font-weight: bold;
+	font-size: 10.5pt;
+	text-decoration:none;
+}
 
 .yafnet div.DivTopSeparator
 {

@@ -1,6 +1,6 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Björnar Henden
- * Copyright (C) 2006-2011 Jaben Cargman
+ * Copyright (C) 2006-2012 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -20,326 +20,339 @@
 
 namespace YAF.Pages
 {
-    // YAF.Pages
-    #region Using
+	// YAF.Pages
+	#region Using
 
-    using System;
-    using System.Web;
-    using System.Web.Security;
-    using System.Web.UI.HtmlControls;
-    using System.Web.UI.WebControls;
+	using System;
+	using System.Web;
+	using System.Web.Security;
+	using System.Web.UI.HtmlControls;
+	using System.Web.UI.WebControls;
 
-    using YAF.Classes;
-    using YAF.Classes.Data;
-    using YAF.Core;
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.EventProxies;
-    using YAF.Types.Interfaces;
-    using YAF.Utilities;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
+	using YAF.Classes;
+	using YAF.Classes.Data;
+	using YAF.Core;
+	using YAF.Types;
+	using YAF.Types.Constants;
+	using YAF.Types.EventProxies;
+	using YAF.Types.Interfaces;
+	using YAF.Utilities;
+	using YAF.Utils;
+	using YAF.Utils.Helpers;
 
-    #endregion
+	#endregion
 
-    /// <summary>
-    /// The Forum Login Page.
-    /// </summary>
-    public partial class login : ForumPage
-    {
-        #region Constructors and Destructors
+	/// <summary>
+	/// The Forum Login Page.
+	/// </summary>
+	public partial class login : ForumPage
+	{
+		#region Constructors and Destructors
 
-        /// <summary>
-        ///   Initializes a new instance of the <see cref = "login" /> class.
-        /// </summary>
-        public login()
-            : base("LOGIN")
-        {
-        }
+		/// <summary>
+		///   Initializes a new instance of the <see cref="login" /> class.
+		/// </summary>
+		public login()
+			: base("LOGIN")
+		{
+		}
 
-        #endregion
+		#endregion
 
-        #region Properties
+		#region Public Properties
 
-        /// <summary>
-        ///   Gets a value indicating whether IsProtected.
-        /// </summary>
-        public override bool IsProtected
-        {
-            get
-            {
-                return false;
-            }
-        }
+		/// <summary>
+		///   Gets a value indicating whether IsProtected.
+		/// </summary>
+		public override bool IsProtected
+		{
+			get
+			{
+				return false;
+			}
+		}
 
-        #endregion
+		#endregion
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// The login 1_ authenticate.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Login1_Authenticate([NotNull] object sender, [NotNull] AuthenticateEventArgs e)
-        {
-            /* var userName = this.Login1.FindControlAs<TextBox>("UserName").Text.Trim();
-            var password = this.Login1.FindControlAs<TextBox>("Password").Text.Trim();*/
-            e.Authenticated = false;
+		/// <summary>
+		/// The get valid login.
+		/// </summary>
+		/// <param name="username">
+		/// The username.
+		/// </param>
+		/// <param name="password">
+		/// The password.
+		/// </param>
+		/// <returns>
+		/// The get valid login.
+		/// </returns>
+		protected virtual string GetValidUsername(string username, string password)
+		{
+			if (username.Contains("@") && this.Get<MembershipProvider>().RequiresUniqueEmail)
+			{
+				// attempt Email Login
+				string realUsername = this.Get<MembershipProvider>().GetUserNameByEmail(username);
 
-            if (this.Login1.UserName.Contains("@") && this.Get<MembershipProvider>().RequiresUniqueEmail)
-            {
-                // Email Login
-                var username = this.Get<MembershipProvider>().GetUserNameByEmail(this.Login1.UserName);
-                if (username != null)
-                {
-                    if (this.Get<MembershipProvider>().ValidateUser(username, this.Login1.Password))
-                    {
-                        this.Login1.UserName = username;
-                        e.Authenticated = true;
-                    }
-                    else
-                    {
-                        e.Authenticated = false;
-                    }
-                }
-            }
-            else
-            {
-                // Standard user name login
-                if (this.Get<MembershipProvider>().ValidateUser(this.Login1.UserName, this.Login1.Password))
-                {
-                    e.Authenticated = true;
-                }
-                else if (this.Get<YafBoardSettings>().EnableDisplayName)
-                {
-                    // Display name login
-                    var id = this.Get<IUserDisplayName>().GetId(this.Login1.UserName);
+				if (realUsername.IsSet() && this.Get<MembershipProvider>().ValidateUser(realUsername, password))
+				{
+					return realUsername;
+				}
+			}
 
-                    if (id.HasValue)
-                    {
-                        // get the username associated with this id...
-                        var username = UserMembershipHelper.GetUserNameFromID(id.Value);
+			// Standard user name login
+			if (this.Get<MembershipProvider>().ValidateUser(username, password))
+			{
+				return username;
+			}
 
-                        // validate again...
-                        if (this.Get<MembershipProvider>().ValidateUser(username, this.Login1.Password))
-                        {
-                            e.Authenticated = true;
+			// display name login...
+			if (this.Get<YafBoardSettings>().EnableDisplayName)
+			{
+				// Display name login
+				var id = this.Get<IUserDisplayName>().GetId(username);
 
-                            // update the username
-                            this.Login1.UserName = username;
-                        }
-                        else
-                        {
-                            e.Authenticated = false;
-                        }
-                    }
-                }
-            }
-        }
+				if (id.HasValue)
+				{
+					// get the username associated with this id...
+					string realUsername = UserMembershipHelper.GetUserNameFromID(id.Value);
 
-        /// <summary>
-        /// The Logged In Event
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Login1_LoggedIn([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.Get<IRaiseEvent>().Raise(new SuccessfulUserLoginEvent(this.PageContext.PageUserID));
-            LegacyDb.user_update_single_sign_on_status(this.PageContext.PageUserID, false, false);
-        }
+					// validate again...
+					if (this.Get<MembershipProvider>().ValidateUser(realUsername, password))
+					{
+						return realUsername;
+					}
+				}
+			}
 
-        /// <summary>
-        /// The login 1_ login error.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Login1_LoginError([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            bool emptyFields = false;
+			// no valid login -- return null
+			return null;
+		}
 
-            var userName = this.Login1.FindControlAs<TextBox>("UserName");
-            var password = this.Login1.FindControlAs<TextBox>("Password");
+		/// <summary>
+		/// The login 1_ authenticate.
+		/// </summary>
+		/// <param name="sender">
+		/// The sender. 
+		/// </param>
+		/// <param name="e">
+		/// The e. 
+		/// </param>
+		protected void Login1_Authenticate([NotNull] object sender, [NotNull] AuthenticateEventArgs e)
+		{
+			var username = this.Login1.UserName.Trim();
+			var password = this.Login1.Password.Trim();
 
-            if (userName.Text.Trim().Length == 0)
-            {
-                this.PageContext.AddLoadMessage(this.GetText("REGISTER", "NEED_USERNAME"));
-                emptyFields = true;
-            }
+			e.Authenticated = false;
 
-            if (password.Text.Trim().Length == 0)
-            {
-                this.PageContext.AddLoadMessage(this.GetText("REGISTER", "NEED_PASSWORD"));
-                emptyFields = true;
-            }
+			var realUserName = this.GetValidUsername(username, password);
 
-            if (!emptyFields)
-            {
-                this.PageContext.AddLoadMessage(this.Login1.FailureText);
-            }
-        }
+			if (realUserName.IsSet())
+			{
+				this.Login1.UserName = realUserName;
+				e.Authenticated = true;
+			}
+		}
 
-        /// <summary>
-        /// The page_ load.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            if (this.IsPostBack)
-            {
-                return;
-            }
+		/// <summary>
+		/// The Logged In Event
+		/// </summary>
+		/// <param name="sender">
+		/// The sender. 
+		/// </param>
+		/// <param name="e">
+		/// The e. 
+		/// </param>
+		protected void Login1_LoggedIn([NotNull] object sender, [NotNull] EventArgs e)
+		{
+			this.Get<IRaiseEvent>().Raise(new SuccessfulUserLoginEvent(this.PageContext.PageUserID));
+			LegacyDb.user_update_single_sign_on_status(this.PageContext.PageUserID, false, false);
+		}
 
-            this.Login1.MembershipProvider = Config.MembershipProvider;
+		/// <summary>
+		/// The login 1_ login error.
+		/// </summary>
+		/// <param name="sender">
+		/// The sender. 
+		/// </param>
+		/// <param name="e">
+		/// The e. 
+		/// </param>
+		protected void Login1_LoginError([NotNull] object sender, [NotNull] EventArgs e)
+		{
+			bool emptyFields = false;
 
-            this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
-            this.PageLinks.AddLink(this.GetText("title"));
+			var userName = this.Login1.FindControlAs<TextBox>("UserName");
+			var password = this.Login1.FindControlAs<TextBox>("Password");
 
-            // Login1.CreateUserText = "Sign up for a new account.";
-            // Login1.CreateUserUrl = YafBuildLink.GetLink( ForumPages.register );
-            this.Login1.PasswordRecoveryText = this.GetText("lostpassword");
-            this.Login1.PasswordRecoveryUrl = YafBuildLink.GetLink(ForumPages.recoverpassword);
-            this.Login1.FailureText = this.GetText("password_error");
+			if (userName.Text.Trim().Length == 0)
+			{
+				this.PageContext.AddLoadMessage(this.GetText("REGISTER", "NEED_USERNAME"));
+				emptyFields = true;
+			}
 
-            this.Login1.DestinationPageUrl = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("ReturnUrl").IsSet()
-                                                 ? this.Server.UrlDecode(
-                                                     this.Request.QueryString.GetFirstOrDefault("ReturnUrl"))
-                                                 : YafBuildLink.GetLink(ForumPages.forum);
+			if (password.Text.Trim().Length == 0)
+			{
+				this.PageContext.AddLoadMessage(this.GetText("REGISTER", "NEED_PASSWORD"));
+				emptyFields = true;
+			}
 
-            // localize controls
-            var rememberMe = this.Login1.FindControlAs<CheckBox>("RememberMe");
-            var userName = this.Login1.FindControlAs<TextBox>("UserName");
-            var password = this.Login1.FindControlAs<TextBox>("Password");
-            var forumLogin = this.Login1.FindControlAs<Button>("LoginButton");
-            var passwordRecovery = this.Login1.FindControlAs<Button>("PasswordRecovery");
+			if (!emptyFields)
+			{
+				this.PageContext.AddLoadMessage(this.Login1.FailureText);
+			}
+		}
 
-            var singleSignOnRow = this.Login1.FindControlAs<HtmlTableRow>("SingleSignOnRow");
-            var facebookHolder = this.Login1.FindControlAs<PlaceHolder>("FacebookHolder");
-            var twitterHolder = this.Login1.FindControlAs<PlaceHolder>("TwitterHolder");
-            var twitterLogin = this.Login1.FindControlAs<HtmlButton>("TwitterLogin");
+		/// <summary>
+		/// The On PreRender event.
+		/// </summary>
+		/// <param name="e">
+		/// the Event Arguments 
+		/// </param>
+		protected override void OnPreRender([NotNull] EventArgs e)
+		{
+			if (this.Get<YafBoardSettings>().AllowSingleSignOn && Config.FacebookAPIKey.IsSet())
+			{
+				// setup jQuery and Facebook Scripts.
+				YafContext.Current.PageElements.RegisterJQuery();
 
-            userName.Focus();
+				YafContext.Current.PageElements.RegisterJsResourceInclude("yafPageMethodjs", "js/jquery.pagemethod.js");
 
-            /*
-              RequiredFieldValidator usernameRequired = ( RequiredFieldValidator ) Login1.FindControl( "UsernameRequired" );
-              RequiredFieldValidator passwordRequired = ( RequiredFieldValidator ) Login1.FindControl( "PasswordRequired" );
+				YafContext.Current.PageElements.RegisterJsBlockStartup("facebookInitJs", JavaScriptBlocks.FacebookInitJs);
 
-              usernameRequired.ToolTip = usernameRequired.ErrorMessage = GetText( "REGISTER", "NEED_USERNAME" );
-              passwordRequired.ToolTip = passwordRequired.ErrorMessage = GetText( "REGISTER", "NEED_PASSWORD" );
-              */
-            if (rememberMe != null)
-            {
-                rememberMe.Text = this.GetText("auto");
-            }
+				var rememberMe = this.Login1.FindControlAs<CheckBox>("RememberMe");
 
-            if (forumLogin != null)
-            {
-                forumLogin.Text = this.GetText("FORUM_LOGIN");
-            }
+				YafContext.Current.PageElements.RegisterJsBlockStartup(
+					"facebookLoginJs", JavaScriptBlocks.FacebookLoginJs(rememberMe.ClientID));
 
-            if (passwordRecovery != null)
-            {
-                passwordRecovery.Text = this.GetText("LOSTPASSWORD");
-            }
+				YafContext.Current.PageElements.RegisterJsBlockStartup("LoginCallSuccessJS", JavaScriptBlocks.LoginCallSuccessJS);
 
-            if (password != null && forumLogin != null)
-            {
-                password.Attributes.Add(
-                    "onkeydown",
-                    "if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{document.getElementById('{0}').click();return false;}}}} else {{return true}}; "
-                        .FormatWith(forumLogin.ClientID));
-            }
+				var asynchCallFailedJs =
+					this.Get<IScriptBuilder>().CreateStatement().AddFunc(
+						f => f.Name("LoginCallFailed").WithParams("res").Func(s => s.Add("alert('Error Occurred');")));
 
-            if (this.Get<YafBoardSettings>().AllowSingleSignOn && (Config.FacebookAPIKey.IsSet() || Config.TwitterConsumerKey.IsSet()))
-            {
-                singleSignOnRow.Visible = true;
+				YafContext.Current.PageElements.RegisterJsBlockStartup("LoginCallFailedJs", asynchCallFailedJs);
+			}
 
-                facebookHolder.Visible = Config.FacebookAPIKey.IsSet() && Config.FacebookSecretKey.IsSet();
+			base.OnPreRender(e);
+		}
 
-                twitterHolder.Visible = Config.TwitterConsumerKey.IsSet() && Config.TwitterConsumerSecret.IsSet();
+		/// <summary>
+		/// The page_ load.
+		/// </summary>
+		/// <param name="sender">
+		/// The sender. 
+		/// </param>
+		/// <param name="e">
+		/// The e. 
+		/// </param>
+		protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+		{
+			if (this.IsPostBack)
+			{
+				return;
+			}
 
-                if (twitterHolder.Visible)
-                {
-                    twitterLogin.Attributes.Add(
-                        "onclick",
-                        "javascript:window.open('{0}auth.aspx?twitterauth=true', 'TwitterLoginWindow', 'width=800,height=700,left=150,top=100,scrollbar=no,resize=no'); return false;"
-                            .FormatWith(YafForumInfo.ForumClientFileRoot));
+			this.Login1.MembershipProvider = Config.MembershipProvider;
 
-                    twitterLogin.InnerHtml =
-                        "<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" style=\"margin:0;\">".FormatWith(
-                            "{0}images/twitter_signin.png".FormatWith(YafForumInfo.ForumClientFileRoot),
-                            this.GetText("LOGIN", "TWITTER_LOGIN"));
-                }
-            }
+			this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+			this.PageLinks.AddLink(this.GetText("title"));
 
-            this.DataBind();
-        }
+			// Login1.CreateUserText = "Sign up for a new account.";
+			// Login1.CreateUserUrl = YafBuildLink.GetLink( ForumPages.register );
+			this.Login1.PasswordRecoveryText = this.GetText("lostpassword");
+			this.Login1.PasswordRecoveryUrl = YafBuildLink.GetLink(ForumPages.recoverpassword);
+			this.Login1.FailureText = this.GetText("password_error");
 
-        /// <summary>
-        /// The On PreRender event.
-        /// </summary>
-        /// <param name="e">
-        /// the Event Arguments
-        /// </param>
-        protected override void OnPreRender([NotNull] EventArgs e)
-        {
-            if (this.Get<YafBoardSettings>().AllowSingleSignOn && Config.FacebookAPIKey.IsSet())
-            {
-                // setup jQuery and Facebook Scripts.
-                YafContext.Current.PageElements.RegisterJQuery();
+			this.Login1.DestinationPageUrl = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("ReturnUrl").IsSet()
+			                                 	? this.Server.UrlDecode(this.Request.QueryString.GetFirstOrDefault("ReturnUrl"))
+			                                 	: YafBuildLink.GetLink(ForumPages.forum);
 
-                YafContext.Current.PageElements.RegisterJsResourceInclude("yafPageMethodjs", "js/jquery.pagemethod.js");
+			// localize controls
+			var rememberMe = this.Login1.FindControlAs<CheckBox>("RememberMe");
+			var userName = this.Login1.FindControlAs<TextBox>("UserName");
+			var password = this.Login1.FindControlAs<TextBox>("Password");
+			var forumLogin = this.Login1.FindControlAs<Button>("LoginButton");
+			var passwordRecovery = this.Login1.FindControlAs<Button>("PasswordRecovery");
 
-                YafContext.Current.PageElements.RegisterJsBlockStartup("facebookInitJs", JavaScriptBlocks.FacebookInitJs);
+			var singleSignOnRow = this.Login1.FindControlAs<HtmlTableRow>("SingleSignOnRow");
+			var facebookHolder = this.Login1.FindControlAs<PlaceHolder>("FacebookHolder");
+			var twitterHolder = this.Login1.FindControlAs<PlaceHolder>("TwitterHolder");
+			var twitterLogin = this.Login1.FindControlAs<HtmlButton>("TwitterLogin");
 
-                var rememberMe = this.Login1.FindControlAs<CheckBox>("RememberMe");
+			userName.Focus();
 
-                YafContext.Current.PageElements.RegisterJsBlockStartup("facebookLoginJs", JavaScriptBlocks.FacebookLoginJs(rememberMe.ClientID));
+			/*
+				RequiredFieldValidator usernameRequired = ( RequiredFieldValidator ) Login1.FindControl( "UsernameRequired" );
+				RequiredFieldValidator passwordRequired = ( RequiredFieldValidator ) Login1.FindControl( "PasswordRequired" );
 
-                YafContext.Current.PageElements.RegisterJsBlockStartup(
-                    "LoginCallSuccessJS", JavaScriptBlocks.LoginCallSuccessJS);
+				usernameRequired.ToolTip = usernameRequired.ErrorMessage = GetText( "REGISTER", "NEED_USERNAME" );
+				passwordRequired.ToolTip = passwordRequired.ErrorMessage = GetText( "REGISTER", "NEED_PASSWORD" );
+				*/
+			if (rememberMe != null)
+			{
+				rememberMe.Text = this.GetText("auto");
+			}
 
-                var asynchCallFailedJs =
-                    this.Get<IScriptBuilder>().CreateStatement().AddFunc(
-                        f => f.Name("LoginCallFailed").WithParams("res").Func(s => s.Add("alert('Error Occurred');")));
+			if (forumLogin != null)
+			{
+				forumLogin.Text = this.GetText("FORUM_LOGIN");
+			}
 
-                YafContext.Current.PageElements.RegisterJsBlockStartup("LoginCallFailedJs", asynchCallFailedJs);
-            }
+			if (passwordRecovery != null)
+			{
+				passwordRecovery.Text = this.GetText("LOSTPASSWORD");
+			}
 
-            base.OnPreRender(e);
-        }
+			if (password != null && forumLogin != null)
+			{
+				password.Attributes.Add(
+					"onkeydown", 
+					"if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{document.getElementById('{0}').click();return false;}}}} else {{return true}}; "
+						.FormatWith(forumLogin.ClientID));
+			}
 
-        /// <summary>
-        /// Called when Password Recovery is Clicked
-        /// </summary>
-        /// <param name="sender">
-        /// standard event object sender
-        /// </param>
-        /// <param name="e">
-        /// event args
-        /// </param>
-        protected void PasswordRecovery_Click([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            YafBuildLink.Redirect(ForumPages.recoverpassword);
-        }
+			if (this.Get<YafBoardSettings>().AllowSingleSignOn
+			    && (Config.FacebookAPIKey.IsSet() || Config.TwitterConsumerKey.IsSet()))
+			{
+				singleSignOnRow.Visible = true;
 
-        #endregion
-    }
+				facebookHolder.Visible = Config.FacebookAPIKey.IsSet() && Config.FacebookSecretKey.IsSet();
+
+				twitterHolder.Visible = Config.TwitterConsumerKey.IsSet() && Config.TwitterConsumerSecret.IsSet();
+
+				if (twitterHolder.Visible)
+				{
+					twitterLogin.Attributes.Add(
+						"onclick", 
+						"javascript:window.open('{0}auth.aspx?twitterauth=true', 'TwitterLoginWindow', 'width=800,height=700,left=150,top=100,scrollbar=no,resize=no'); return false;"
+							.FormatWith(YafForumInfo.ForumClientFileRoot));
+
+					twitterLogin.InnerHtml =
+						"<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" style=\"margin:0;\">".FormatWith(
+							"{0}images/twitter_signin.png".FormatWith(YafForumInfo.ForumClientFileRoot), 
+							this.GetText("LOGIN", "TWITTER_LOGIN"));
+				}
+			}
+
+			this.DataBind();
+		}
+
+		/// <summary>
+		/// Called when Password Recovery is Clicked
+		/// </summary>
+		/// <param name="sender">
+		/// standard event object sender 
+		/// </param>
+		/// <param name="e">
+		/// event args 
+		/// </param>
+		protected void PasswordRecovery_Click([NotNull] object sender, [NotNull] EventArgs e)
+		{
+			YafBuildLink.Redirect(ForumPages.recoverpassword);
+		}
+
+		#endregion
+	}
 }

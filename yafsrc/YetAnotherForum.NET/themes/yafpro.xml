@@ -190,6 +190,7 @@
     <Resource tag="PANEL_COLLAPSE">~/collapse.gif</Resource>
     <Resource tag="USER_ONLINE">~/icon_useronline.png</Resource>
     <Resource tag="USER_OFFLINE">~/icon_useroffline.png</Resource>
+    <Resource tag="USER_SUSPENDED">~/smiles-jail.gif</Resource>
     <Resource tag="GENDER_MALE">~/male.gif</Resource>
     <Resource tag="GENDER_FEMALE">~/female.gif</Resource>
     <Resource tag="RSSFEED">~/rssfeed.gif</Resource>
@@ -198,7 +199,8 @@
 	  <Resource tag="DIGG">~/icon_digg.png</Resource>
 	  <Resource tag="REDDIT">~/icon_reddit.png</Resource>
 	  <Resource tag="FACEBOOK">~/icon_facebook.png</Resource>
-	  <Resource tag="BUZZ">~/icon_buzz.png</Resource>
+	  <Resource tag="GOOGLEPLUS">~/icon_googleplus.png</Resource>
+	  <Resource tag="LINKBACK">~/icon_linkback.png</Resource>
 	  <Resource tag="PRINT">~/icon_print.png</Resource>
 	  	  <Resource tag="PM_READ">~/topic.png</Resource>
 	  <Resource tag="PM_NEW">~/topic_new.png</Resource>

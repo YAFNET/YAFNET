@@ -1,5 +1,5 @@
 /* Yet Another Forum.NET
- * Copyright (C) 2006-2011 Jaben Cargman
+ * Copyright (C) 2006-2012 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -947,13 +947,14 @@ namespace YAF.Controls
         [NotNull]
         private string RemoveEmptyDividers([NotNull] string userBox)
         {
-            if (userBox.IndexOf(@"<div class=""section""></div>") > 0)
+            userBox = userBox.Replace("\"\"section\"\"", "\"section\"").Replace(@"""section""", "\"section\"");
+            if (userBox.IndexOf("<div class=\"section\"></div>", System.StringComparison.Ordinal) > 0)
             {
                 userBox =
                     userBox.Replace(
-                        userBox.IndexOf(@"<div class=""section""></div><br />") > 0
-                            ? @"<div class=""section""></div><br />"
-                            : @"<div class=""section""></div>",
+                        userBox.IndexOf("<div class=\"section\"></div><br />", System.StringComparison.Ordinal) > 0
+                            ? "<div class=\"section\"></div><br />"
+                            : "<div class=\"section\"></div>",
                         string.Empty);
             }
 

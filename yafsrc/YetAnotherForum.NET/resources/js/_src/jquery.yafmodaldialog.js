@@ -56,7 +56,8 @@
 					 $(settings.Dialog + '#ModalDialog_overlay').remove();
 					
 					 return false;
-		 };	 
+		 };
+					 
 		// allow jQuery chaining
 		return this;
 	};
@@ -65,6 +66,10 @@
 		
 		settings = $.extend( {Dialog: "#MessageBox", ImagePath: "images/"}, settings);
 		
+		if ($('#LoginBox').is(':visible'))
+		{
+			$.fn.YafModalDialog.Close({ Dialog: '#LoginBox' });
+		}
 
         var top = getPageScroll()[1] + (getPageHeight() / 100);
 		var left =  $(window).width() / 2 - 205;
@@ -76,8 +81,6 @@
 		  top = 0;
 		  top = parseInt(cookieScroll) + 100;
 		}
-		top = 0;
-		top = parseInt(jQuery("input[id$='scrollTop']").val()) + 50;
 		
 		var DialogId = settings.Dialog;
 		DialogId = DialogId.replace("#", "");

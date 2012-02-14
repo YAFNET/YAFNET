@@ -1,5 +1,5 @@
 /* Yet Another Forum.NET
- * Copyright (C) 2006-2011 Jaben Cargman
+ * Copyright (C) 2006-2012 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -1280,12 +1280,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue("BoardPollID", 0);
+                return this._regBoard.GetValue("BoardPollID", 0);
             }
 
             set
             {
-                this._reg.SetValue("BoardPollID", value);
+                this._regBoard.SetValue("BoardPollID", value);
             }
         }
 
@@ -1456,12 +1456,12 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue("MaxPostSize", short.MaxValue);
+                return this._reg.GetValue<int>("MaxPostSize", short.MaxValue);
             }
 
             set
             {
-                this._reg.SetValue("MaxPostSize", value);
+                this._reg.SetValue<int>("MaxPostSize", value);
             }
         }
 
@@ -3175,70 +3175,6 @@ namespace YAF.Classes
             set
             {
                 this._reg.SetValue("ForumEmail", value);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether EnableIrkoo.
-        /// </summary>
-        public bool EnableIrkoo
-        {
-            get
-            {
-                return this._reg.GetValue("EnableIrkoo", false);
-            }
-
-            set
-            {
-                this._reg.SetValue("EnableIrkoo", value);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets IrkooSiteID.
-        /// </summary>
-        public string IrkooSiteID
-        {
-            get
-            {
-                return this._reg.GetValue("IrkooSiteID", string.Empty);
-            }
-
-            set
-            {
-                this._reg.SetValue("IrkooSiteID", value);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets IrkooSecretKey.
-        /// </summary>
-        public string IrkooSecretKey
-        {
-            get
-            {
-                return this._reg.GetValue("IrkooSecretKey", string.Empty);
-            }
-
-            set
-            {
-                this._reg.SetValue("IrkooSecretKey", value);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether ShowIrkooRepInUserLink.
-        /// </summary>
-        public bool ShowIrkooRepOnlyInTopics
-        {
-            get
-            {
-                return this._reg.GetValue("ShowIrkooRepOnlyInTopics", false);
-            }
-
-            set
-            {
-                this._reg.SetValue("ShowIrkooRepOnlyInTopics", value);
             }
         }
 

@@ -52,7 +52,8 @@ body {
 	<span class="FeatureHeader">YetAnotherForum.NET 1.9.6</span>
     <p>New features:</p>
 	<ul>
-        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/e97f83f02ee3">e97f83f02ee3</a> -  Added Single Sign On via Twitter - Setting Enable Single Sign On in Host Settings Needs to be enabled and YAF.TwitterConsumerKey andYAF.TwitterConsumerSecret needs to be setup in app.config. Twitter Users can also Retweet Messages and Topics directly via the Twitter API.</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/63215c15029e">63215c15029e</a> - Added Album Image List DropDown to the YAF Editor to include an Album Image in a Post.</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/e97f83f02ee3">e97f83f02ee3</a> - Added Single Sign On via Twitter - Setting Enable Single Sign On in Host Settings Needs to be enabled and YAF.TwitterConsumerKey andYAF.TwitterConsumerSecret needs to be setup in app.config. Twitter Users can also Retweet Messages and Topics directly via the Twitter API.</li>
         <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/e9fc44704e62">e9fc44704e62</a> - Added New Feature to Allow Topic Title Customization with CSS Styles for Mods and Admins.
         </li>
         <li> <a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/d6d136861018">d6d136861018</a> - Added One More Tab to the My Topics Page that shows all Unanswered Topics Topics.</li>
@@ -117,6 +118,27 @@ body {
 	</ul>
 <p><em>changes</em></p>
 	<ul>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/44ad0e9ab0bd">44ad0e9ab0bd</a> - Fixed the problem when a topic link could not be removed. Now we can simply enter a number of days until the link will be removed. </li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/7b63aeb74969">7b63aeb74969</a> - Disabled the  delete button for YAF guest user in admin section. Periodicallly someone deletes him by a reason.</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/ab7b55f0b666">ab7b55f0b666</a> - Added Option to choose to automatically Upgrade the BBCode Extensions, File Extensions and Topic Status Lists when Upgrading YAF</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/a965a3afbc80">a965a3afbc80</a> - Cleaned up the read tracking system. Added a last visit cookie for the guests. Hopefully added proper db read tracking (can be better, though).</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/9396ebd7d12a">9396ebd7d12a</a> - Fixed Issue if the oldRoleName didn't exist/wasn't already in the DB. Not all role providers accept empty strings as valid role Names.</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/b2f94f3dc441">b2f94f3dc441</a> - Removed Irkoo Feature.</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/b2f94f3dc441">b2f94f3dc441</a> - Fix for file import issues with IE9 -- now accepts any file that starts with &quot;text&quot; and explains the issue a bit better.</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/d1c59cb13360">d1c59cb13360</a> - Added Standard ASP.NET providers as an option -- but the default is still YAF.NET Providers.</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/3729d4fcf59d">3729d4fcf59d</a> - Portugues Language file updated by Sebastian Andres.</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/f386ab3a67ab">f386ab3a67ab</a> - Fixed YAF Pager when inside jQuery UI Tabs.</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/0c9e76f1a3d9">0c9e76f1a3d9</a> - Added a db paging to the My Topics tabs</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/f42e51baeb1c">f42e51baeb1c</a> - A perfomance tweak for forums with very large number of PMs.</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/a5131f290429">a5131f290429</a> - Fixed Issue YAF-174 Login and Register Urls are now absolute Urls in order to use https</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/78f192d56a4d">78f192d56a4d</a> - Security fix: Host Admin Menu Items (In the Admin Menu) where shown to Regular Admins</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/25fe364c4381">25fe364c4381</a> - Bugfix: Removed Line Break when editing Album/Album Image Title when editing via ajax</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/832c816b0f6e">832c816b0f6e</a> - Bugfix: Added Validator to check if the new password is different then the old Password on the Change Password Page.</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/0dae4665037c">0dae4665037c</a> - Bugfixes: Error Message was not Visible behind the LoginBox, Modal Dialog now scrolls with the Page.</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/3b1551fad5de">3b1551fad5de</a> - Tabs on the My Topics Page are now loaded when selected, instead of loading all Tab content at the same time. </li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/894aa5a91213">894aa5a91213</a> - Bugfix: User Suspension or Remove Suspension is now executed immediately</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/0bc4a049fa21">0bc4a049fa21</a> - A fix for board polls for multi-boards. </li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/31d8d0c224a8">31d8d0c224a8</a> - Jquery-UI DatePicker on the Edit User Profile page can now handle Farsi Calender and Input. </li>
 	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/662fd847579c">662fd847579c</a> - Bugfix: Export Function was not working after Postback, on the PM Inbox Page.</li>
 	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/089b699ea54e">089b699ea54e</a> - Enabled Sorting Members by Posts on the Members Page.</li>
 	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/e9fc44704e62">e9fc44704e62</a> - Removed the html tags feature in topic titles completly</li>

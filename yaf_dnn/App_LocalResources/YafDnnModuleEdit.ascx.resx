@@ -147,11 +147,20 @@
   <data name="InheritLanguage.Text" xml:space="preserve">
     <value>Inherit Language</value>
   </data>
+  <data name="OverrideTheme.Text" xml:space="preserve">
+    <value>Override Theme?</value>
+  </data>
   <data name="SyncProfile.Help" xml:space="preserve">
     <value>Auto Sync the User Profiles between YAF and DotNetNuke</value>
   </data>
   <data name="SyncProfile.Text" xml:space="preserve">
     <value>Auto Sync Profiles</value>
+  </data>
+  <data name="Theme.Help" xml:space="preserve">
+    <value>Select a Theme if you want to override the Current Board Theme.</value>
+  </data>
+  <data name="Theme.Text" xml:space="preserve">
+    <value>Forum Theme</value>
   </data>
   <data name="Update.Text" xml:space="preserve">
     <value>Update</value>

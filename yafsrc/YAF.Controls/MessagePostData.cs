@@ -1,5 +1,5 @@
 /* Yet Another Forum.NET
- * Copyright (C) 2006-2011 Jaben Cargman
+ * Copyright (C) 2006-2012 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -18,344 +18,332 @@
  */
 namespace YAF.Controls
 {
-    #region Using
+	#region Using
 
-    using System;
-    using System.Data;
-    using System.Web.UI;
-    using YAF.Classes;
-    using YAF.Core;
-    using YAF.Types;
-    using YAF.Types.Flags;
-    using YAF.Types.Interfaces;
-    using YAF.Utils;
+	using System;
+	using System.Data;
+	using System.Web.UI;
+	using YAF.Classes;
+	using YAF.Core;
+	using YAF.Types;
+	using YAF.Types.Flags;
+	using YAF.Types.Interfaces;
+	using YAF.Utils;
 
-    #endregion
+	#endregion
 
-    /// <summary>
-    /// Shows a Message Post
-    /// </summary>
-    public class MessagePostData : MessagePost
-    {
-        #region Constants and Fields
+	/// <summary>
+	/// Shows a Message Post
+	/// </summary>
+	public class MessagePostData : MessagePost
+	{
+		#region Constants and Fields
 
-        /// <summary>
-        ///   The _row.
-        /// </summary>
-        private DataRow _row;
+		/// <summary>
+		///   The _row.
+		/// </summary>
+		private DataRow _row;
 
-        /// <summary>
-        ///   The _show attachments.
-        /// </summary>
-        private bool _showAttachments = true;
+		/// <summary>
+		///   The _show attachments.
+		/// </summary>
+		private bool _showAttachments = true;
 
-        /// <summary>
-        ///   The _show signature.
-        /// </summary>
-        private bool _showSignature = true;
+		/// <summary>
+		///   The _show signature.
+		/// </summary>
+		private bool _showSignature = true;
 
-        #endregion
+		#endregion
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        ///   Gets or sets a value indicating whether IsAlt.
-        /// </summary>
-        public bool IsAltMessage { get; set; }
+		/// <summary>
+		///   Gets or sets a value indicating whether IsAlt.
+		/// </summary>
+		public bool IsAltMessage { get; set; }
 
-        /// <summary>
-        ///   Gets or sets a value indicating whether Col Span is.
-        /// </summary>
-        public string ColSpan { get; set; }
+		/// <summary>
+		///   Gets or sets a value indicating whether Col Span is.
+		/// </summary>
+		public string ColSpan { get; set; }
 
-        /// <summary>
-        ///   Gets or sets DataRow.
-        /// </summary>
-        public DataRow DataRow
-        {
-            get
-            {
-                return this._row;
-            }
+		/// <summary>
+		///   Gets or sets DataRow.
+		/// </summary>
+		public DataRow DataRow
+		{
+			get
+			{
+				return this._row;
+			}
 
-            set
-            {
-                this._row = value;
-                if (this._row != null)
-                {
-                    this.MessageFlags = new MessageFlags(this._row["Flags"]);
-                }
-            }
-        }
+			set
+			{
+				this._row = value;
+				if (this._row != null)
+				{
+					this.MessageFlags = new MessageFlags(this._row["Flags"]);
+				}
+			}
+		}
 
-        /// <summary>
-        ///   Gets Edited.
-        /// </summary>
-        public DateTime Edited
-        {
-            get
-            {
-                return this.DataRow != null ? Convert.ToDateTime(this.DataRow["Edited"]) : DateTime.UtcNow;
-            }
-        }
+		/// <summary>
+		///   Gets Edited.
+		/// </summary>
+		public DateTime Edited
+		{
+			get
+			{
+				return this.DataRow != null ? Convert.ToDateTime(this.DataRow["Edited"]) : DateTime.UtcNow;
+			}
+		}
 
-        /// <summary>
-        ///   Gets Message.
-        /// </summary>
-        public override string Message
-        {
-            get
-            {
-                if (this.DataRow != null)
-                {
-                    string message = this.DataRow["Message"].ToString();
+		/// <summary>
+		///   Gets Message.
+		/// </summary>
+		public override string Message
+		{
+			get
+			{
+				if (this.DataRow != null)
+				{
+					string message = this.DataRow["Message"].ToString();
 
-                    return TruncateMessage(message);
-                }
+					return TruncateMessage(message);
+				}
 
-                return string.Empty;
-            }
-        }
+				return string.Empty;
+			}
+		}
 
-        /// <summary>
-        ///   Gets Message Id.
-        /// </summary>
-        public int? MessageId
-        {
-            get
-            {
-                if (this.DataRow != null)
-                {
-                    return this.DataRow["MessageID"].ToType<int>();
-                }
+		/// <summary>
+		///   Gets Message Id.
+		/// </summary>
+		public int? MessageId
+		{
+			get
+			{
+				if (this.DataRow != null)
+				{
+					return this.DataRow["MessageID"].ToType<int>();
+				}
 
-                return null;
-            }
-        }
+				return null;
+			}
+		}
 
-        /// <summary>
-        ///   Gets Posted.
-        /// </summary>
-        public DateTime Posted
-        {
-            get
-            {
-                return this.DataRow != null ? Convert.ToDateTime(this.DataRow["Posted"]) : DateTime.UtcNow;
-            }
-        }
+		/// <summary>
+		///   Gets Posted.
+		/// </summary>
+		public DateTime Posted
+		{
+			get
+			{
+				return this.DataRow != null ? Convert.ToDateTime(this.DataRow["Posted"]) : DateTime.UtcNow;
+			}
+		}
 
-        /// <summary>
-        ///   Gets or sets a value indicating whether ShowAttachments.
-        /// </summary>
-        public bool ShowAttachments
-        {
-            get
-            {
-                return this._showAttachments;
-            }
+		/// <summary>
+		///   Gets or sets a value indicating whether ShowAttachments.
+		/// </summary>
+		public bool ShowAttachments
+		{
+			get
+			{
+				return this._showAttachments;
+			}
 
-            set
-            {
-                this._showAttachments = value;
-            }
-        }
+			set
+			{
+				this._showAttachments = value;
+			}
+		}
 
-        /// <summary>
-        ///   Gets or sets a value indicating whether ShowSignature.
-        /// </summary>
-        public bool ShowSignature
-        {
-            get
-            {
-                return this._showSignature;
-            }
+		/// <summary>
+		///   Gets or sets a value indicating whether ShowSignature.
+		/// </summary>
+		public bool ShowSignature
+		{
+			get
+			{
+				return this._showSignature;
+			}
 
-            set
-            {
-                this._showSignature = value;
-            }
-        }
+			set
+			{
+				this._showSignature = value;
+			}
+		}
 
-        /// <summary>
-        ///   Gets Signature.
-        /// </summary>
-        [CanBeNull]
-        public override string Signature
-        {
-            get
-            {
-                if (this.DataRow != null && this.ShowSignature && this.Get<YafBoardSettings>().AllowSignatures &&
-                    this.DataRow["Signature"] != DBNull.Value &&
-                    this.DataRow["Signature"].ToString().ToLower() != "<p>&nbsp;</p>" &&
-                    this.DataRow["Signature"].ToString().Trim().Length > 0)
-                {
-                    return this.DataRow["Signature"].ToString();
-                }
+		/// <summary>
+		///   Gets Signature.
+		/// </summary>
+		[CanBeNull]
+		public override string Signature
+		{
+			get
+			{
+				if (this.DataRow != null && this.ShowSignature && this.Get<YafBoardSettings>().AllowSignatures &&
+						this.DataRow["Signature"] != DBNull.Value &&
+						this.DataRow["Signature"].ToString().ToLower() != "<p>&nbsp;</p>" &&
+						this.DataRow["Signature"].ToString().Trim().Length > 0)
+				{
+					return this.DataRow["Signature"].ToString();
+				}
 
-                return null;
-            }
-        }
+				return null;
+			}
+		}
 
-        #endregion
+		#endregion
 
-        #region Public Methods
+		#region Public Methods
 
-        /// <summary>
-        /// The truncate message.
-        /// </summary>
-        /// <param name="message">
-        /// The message.
-        /// </param>
-        /// <returns>
-        /// The truncate message.
-        /// </returns>
-        public static string TruncateMessage([NotNull] string message)
-        {
-            // validate the size...
-            if (YafContext.Current.Get<YafBoardSettings>().MaxPostSize < 0)
-            {
-                return message;
-            }
+		/// <summary>
+		/// The truncate message.
+		/// </summary>
+		/// <param name="message">
+		/// The message.
+		/// </param>
+		/// <returns>
+		/// The truncate message.
+		/// </returns>
+		public static string TruncateMessage([NotNull] string message)
+		{
+			int maxPostSize = Math.Max(YafContext.Current.Get<YafBoardSettings>().MaxPostSize, 0);
 
-            if (message.Length < YafContext.Current.Get<YafBoardSettings>().MaxPostSize)
-            {
-                return message;
-            }
+			// 0 == unlimited
+			return maxPostSize == 0 || message.Length <= maxPostSize ? message : message.Truncate(maxPostSize);
+		}
 
-            // truncate... 
-            message = message.Substring(0, YafContext.Current.Get<YafBoardSettings>().MaxPostSize);
-            int lastSpaceIndex = message.LastIndexOf(" ");
+		#endregion
 
-            return "{0}...".FormatWith(lastSpaceIndex > 0 ? message.Substring(0, lastSpaceIndex) : message.Substring(0, message.Length - 3));
-        }
+		#region Methods
 
-        #endregion
+		/// <summary>
+		/// The on pre render.
+		/// </summary>
+		/// <param name="e">
+		/// The e.
+		/// </param>
+		protected override void OnPreRender([NotNull] EventArgs e)
+		{
+			if (this.DataRow != null && !this.MessageFlags.IsDeleted)
+			{
+				// populate DisplayUserID
+				if (!UserMembershipHelper.IsGuestUser(this.DataRow["UserID"]))
+				{
+					this.DisplayUserID = this.DataRow["UserID"].ToType<int>();
+				}
 
-        #region Methods
+				this.IsAlt = this.IsAltMessage;
 
-        /// <summary>
-        /// The on pre render.
-        /// </summary>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected override void OnPreRender([NotNull] EventArgs e)
-        {
-            if (this.DataRow != null && !this.MessageFlags.IsDeleted)
-            {
-                // populate DisplayUserID
-                if (!UserMembershipHelper.IsGuestUser(this.DataRow["UserID"]))
-                {
-                    this.DisplayUserID = this.DataRow["UserID"].ToType<int>();
-                }
+				this.RowColSpan = this.ColSpan;
 
-                this.IsAlt = this.IsAltMessage;
+				if (this.ShowAttachments && long.Parse(this.DataRow["HasAttachments"].ToString()) > 0)
+				{
+					// add attached files control...
+					var attached = new MessageAttached { MessageID = this.DataRow["MessageID"].ToType<int>() };
 
-                this.RowColSpan = this.ColSpan;
+					if (this.DataRow["UserID"] != DBNull.Value && YafContext.Current.Get<YafBoardSettings>().EnableDisplayName)
+					{
+						attached.UserName = UserMembershipHelper.GetDisplayNameFromID(this.DataRow["UserID"].ToType<long>());
+					}
+					else
+					{
+						attached.UserName = this.DataRow["UserName"].ToString();
+					}
 
-                if (this.ShowAttachments && long.Parse(this.DataRow["HasAttachments"].ToString()) > 0)
-                {
-                    // add attached files control...
-                    var attached = new MessageAttached { MessageID = this.DataRow["MessageID"].ToType<int>() };
+					this.Controls.Add(attached);
+				}
+			}
 
-                    if (this.DataRow["UserID"] != DBNull.Value && YafContext.Current.Get<YafBoardSettings>().EnableDisplayName)
-                    {
-                        attached.UserName = UserMembershipHelper.GetDisplayNameFromID(this.DataRow["UserID"].ToType<long>());
-                    }
-                    else
-                    {
-                        attached.UserName = this.DataRow["UserName"].ToString();
-                    }
+			base.OnPreRender(e);
+		}
 
-                    this.Controls.Add(attached);
-                }
-            }
+		/// <summary>
+		/// The render message.
+		/// </summary>
+		/// <param name="writer">
+		/// The writer.
+		/// </param>
+		protected override void RenderMessage([NotNull] HtmlTextWriter writer)
+		{
+			if (this.DataRow == null)
+			{
+				return;
+			}
 
-            base.OnPreRender(e);
-        }
+			if (this.MessageFlags.IsDeleted)
+			{
+				if (this.DataRow.Table.Columns.Contains("IsModeratorChanged"))
+				{
+					this.IsModeratorChanged = Convert.ToBoolean(this.DataRow["IsModeratorChanged"]);
+				}
 
-        /// <summary>
-        /// The render message.
-        /// </summary>
-        /// <param name="writer">
-        /// The writer.
-        /// </param>
-        protected override void RenderMessage([NotNull] HtmlTextWriter writer)
-        {
-            if (this.DataRow == null)
-            {
-                return;
-            }
+				// deleted message text...
+				this.RenderDeletedMessage(writer);
+			}
+			else if (this.MessageFlags.NotFormatted)
+			{
+				// just write out the message with no formatting...
+				writer.Write(this.Message);
+			}
+			else if (this.DataRow.Table.Columns.Contains("Edited"))
+			{
+				// handle a message that's been edited...
+				DateTime editedMessage = this.Posted;
 
-            if (this.MessageFlags.IsDeleted)
-            {
-                if (this.DataRow.Table.Columns.Contains("IsModeratorChanged"))
-                {
-                    this.IsModeratorChanged = Convert.ToBoolean(this.DataRow["IsModeratorChanged"]);
-                }
+				if (this.Edited > this.Posted)
+				{
+					editedMessage = this.Edited;
+				}
 
-                // deleted message text...
-                this.RenderDeletedMessage(writer);
-            }
-            else if (this.MessageFlags.NotFormatted)
-            {
-                // just write out the message with no formatting...
-                writer.Write(this.Message);
-            }
-            else if (this.DataRow.Table.Columns.Contains("Edited"))
-            {
-                // handle a message that's been edited...
-                DateTime editedMessage = this.Posted;
+				// tha_watcha : Since html message and bbcode can be mixed now, message should be always replace bbcode
+				this.RenderModulesInBBCode(
+						writer,
+						this.HighlightMessage(
+								this.Get<IFormatMessage>().FormatMessage(this.Message, this.MessageFlags, false, editedMessage)),
+						this.MessageFlags,
+						this.DisplayUserID,
+						this.MessageId);
 
-                if (this.Edited > this.Posted)
-                {
-                    editedMessage = this.Edited;
-                }
+				/*/if (this.MessageFlags.IsBBCode)
+			{
+				this.RenderModulesInBBCode(
+					writer, 
+					this.HighlightMessage(
+						this.Get<IFormatMessage>().FormatMessage(this.Message, this.MessageFlags, false, editedMessage)), 
+					this.MessageFlags, 
+					this.DisplayUserID);
+		 /* }
+			else
+			{
+				writer.Write(
+					this.HighlightMessage(
+						this.Get<IFormatMessage>().FormatMessage(this.Message, this.MessageFlags, false, editedMessage)));
+			}*/
+			}
+			else
+			{
+				// render standard using bbcode or html...
+				if (this.MessageFlags.IsBBCode)
+				{
+					this.RenderModulesInBBCode(
+							writer,
+							this.HighlightMessage(this.Get<IFormatMessage>().FormatMessage(this.Message, this.MessageFlags)),
+							this.MessageFlags,
+							this.DisplayUserID,
+							this.MessageId);
+				}
+				else
+				{
+					writer.Write(this.HighlightMessage(this.Get<IFormatMessage>().FormatMessage(this.Message, this.MessageFlags)));
+				}
+			}
+		}
 
-                // tha_watcha : Since html message and bbcode can be mixed now, message should be always replace bbcode
-                this.RenderModulesInBBCode(
-                    writer,
-                    this.HighlightMessage(
-                        this.Get<IFormatMessage>().FormatMessage(this.Message, this.MessageFlags, false, editedMessage)),
-                    this.MessageFlags,
-                    this.DisplayUserID,
-                    this.MessageId);
-
-                /*/if (this.MessageFlags.IsBBCode)
-              {
-                this.RenderModulesInBBCode(
-                  writer, 
-                  this.HighlightMessage(
-                    this.Get<IFormatMessage>().FormatMessage(this.Message, this.MessageFlags, false, editedMessage)), 
-                  this.MessageFlags, 
-                  this.DisplayUserID);
-             /* }
-              else
-              {
-                writer.Write(
-                  this.HighlightMessage(
-                    this.Get<IFormatMessage>().FormatMessage(this.Message, this.MessageFlags, false, editedMessage)));
-              }*/
-            }
-            else
-            {
-                // render standard using bbcode or html...
-                if (this.MessageFlags.IsBBCode)
-                {
-                    this.RenderModulesInBBCode(
-                        writer,
-                        this.HighlightMessage(this.Get<IFormatMessage>().FormatMessage(this.Message, this.MessageFlags)),
-                        this.MessageFlags,
-                        this.DisplayUserID,
-                        this.MessageId);
-                }
-                else
-                {
-                    writer.Write(this.HighlightMessage(this.Get<IFormatMessage>().FormatMessage(this.Message, this.MessageFlags)));
-                }
-            }
-        }
-
-        #endregion
-    }
+		#endregion
+	}
 }

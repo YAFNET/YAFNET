@@ -1,6 +1,6 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bj�rnar Henden
- * Copyright (C) 2006-2011 Jaben Cargman
+ * Copyright (C) 2006-2012 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -49,7 +49,6 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class users : AdminPage
     {
-        // Construction 
         #region Public Methods
 
         /// <summary>
@@ -112,7 +111,9 @@ namespace YAF.Pages.Admin
                     }
 
                     // get user(s) we are about to delete                
-                    using (DataTable dt = LegacyDb.user_list(this.PageContext.PageBoardID, e.CommandArgument, DBNull.Value))
+                    using (
+                        DataTable dt = LegacyDb.user_list(this.PageContext.PageBoardID, e.CommandArgument, DBNull.Value)
+                        )
                     {
                         // examine each if he's possible to delete
                         foreach (DataRow row in dt.Rows)
@@ -124,8 +125,8 @@ namespace YAF.Pages.Admin
                                 return;
                             }
 
-                            if ((row["IsAdmin"] == DBNull.Value || row["IsAdmin"].ToType<int>() <= 0) &&
-                                (row["IsHostAdmin"] == DBNull.Value || row["IsHostAdmin"].ToType<int>() <= 0))
+                            if ((row["IsAdmin"] == DBNull.Value || row["IsAdmin"].ToType<int>() <= 0)
+                                && (row["IsHostAdmin"] == DBNull.Value || row["IsHostAdmin"].ToType<int>() <= 0))
                             {
                                 continue;
                             }
@@ -235,14 +236,14 @@ namespace YAF.Pages.Admin
             this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
 
             // link to administration index
-            this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddLink(
+                this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
 
             // current page label (no link)
             this.PageLinks.AddLink(this.GetText("ADMIN_USERS", "TITLE"), string.Empty);
 
             this.Page.Header.Title = "{0} - {1}".FormatWith(
-               this.GetText("ADMIN_ADMIN", "Administration"),
-               this.GetText("ADMIN_USERS", "TITLE"));
+                this.GetText("ADMIN_ADMIN", "Administration"), this.GetText("ADMIN_USERS", "TITLE"));
         }
 
         /// <summary>
@@ -250,12 +251,18 @@ namespace YAF.Pages.Admin
         /// </summary>
         protected void InitSinceDropdown()
         {
+            var lastVisit = this.Get<IYafSession>().LastVisit;
+
             // value 0, for since last visted
             this.Since.Items.Add(
-              new ListItem(
-                "Last visit at {0}".FormatWith(
-                  this.Get<IDateTime>().FormatDateTime(this.Get<IYafSession>().LastVisit)),
-                "0"));
+                new ListItem(
+                    this.GetTextFormatted(
+                        "last_visit",
+                        this.Get<IDateTime>().FormatDateTime(
+                                lastVisit.HasValue && lastVisit.Value != DateTime.MinValue
+                                    ? lastVisit.Value
+                                    : DateTime.UtcNow)),
+                    "0"));
 
             // negative values for hours backward
             this.Since.Items.Add(new ListItem("Last hour", "-1"));
@@ -412,7 +419,7 @@ namespace YAF.Pages.Admin
 
             // show blocking ui...
             this.PageContext.PageElements.RegisterJsBlockStartup(
-              "BlockUIExecuteJs", JavaScriptBlocks.BlockUIExecuteJs("SyncUsersMessage"));
+                "BlockUIExecuteJs", JavaScriptBlocks.BlockUIExecuteJs("SyncUsersMessage"));
         }
 
         /// <summary>
@@ -484,7 +491,7 @@ namespace YAF.Pages.Admin
             // we want to filter topics since last visit
             if (sinceValue == 0)
             {
-                sinceDate = this.Get<IYafSession>().LastVisit;
+                sinceDate = this.Get<IYafSession>().LastVisit ?? DateTime.UtcNow;
             }
 
             // we are going to page results
@@ -494,13 +501,13 @@ namespace YAF.Pages.Admin
 
             // get users, eventually filter by groups or ranks
             using (
-              DataTable dt = LegacyDb.user_list(
-                this.PageContext.PageBoardID,
-                null,
-                null,
-                this.group.SelectedIndex <= 0 ? null : this.group.SelectedValue,
-                this.rank.SelectedIndex <= 0 ? null : this.rank.SelectedValue,
-                false))
+                DataTable dt = LegacyDb.user_list(
+                    this.PageContext.PageBoardID,
+                    null,
+                    null,
+                    this.group.SelectedIndex <= 0 ? null : this.group.SelectedValue,
+                    this.rank.SelectedIndex <= 0 ? null : this.rank.SelectedValue,
+                    false))
             {
                 using (DataView dv = dt.DefaultView)
                 {
@@ -508,15 +515,15 @@ namespace YAF.Pages.Admin
                     if (this.name.Text.Trim().Length > 0 || (this.Email.Text.Trim().Length > 0))
                     {
                         dv.RowFilter =
-                          "(Name LIKE '%{0}%' OR DisplayName LIKE '%{0}%') AND Email LIKE '%{1}%'".FormatWith(
-                            this.name.Text.Trim(), this.Email.Text.Trim());
+                            "(Name LIKE '%{0}%' OR DisplayName LIKE '%{0}%') AND Email LIKE '%{1}%'".FormatWith(
+                                this.name.Text.Trim(), this.Email.Text.Trim());
                     }
 
                     // filter by date of registration
                     if (sinceValue != 9999)
                     {
                         dv.RowFilter += "{1}Joined > '{0}'".FormatWith(
-                          sinceDate.ToString(), dv.RowFilter.IsNotSet() ? string.Empty : " AND ");
+                            sinceDate.ToString(), dv.RowFilter.IsNotSet() ? string.Empty : " AND ");
                     }
 
                     // set pager and datasource
@@ -550,9 +557,9 @@ namespace YAF.Pages.Admin
             var usersList = LegacyDb.user_list(this.PageContext.PageBoardID, null, true);
 
             usersList.DataSet.DataSetName = "YafUserList";
-            
+
             usersList.TableName = "YafUser";
-            
+
             usersList.Columns.Remove("AvatarImage");
             usersList.Columns.Remove("AvatarImageType");
 
@@ -661,7 +668,8 @@ namespace YAF.Pages.Admin
 
             this.Response.AppendHeader(
                 "Content-Disposition",
-                "attachment; filename=YafUsersExport-{0}.csv".FormatWith(HttpUtility.UrlEncode(DateTime.Now.ToString("yyyy'-'MM'-'dd'-'HHmm"))));
+                "attachment; filename=YafUsersExport-{0}.csv".FormatWith(
+                    HttpUtility.UrlEncode(DateTime.Now.ToString("yyyy'-'MM'-'dd'-'HHmm"))));
 
             var sw = new StreamWriter(this.Response.OutputStream);
 
@@ -716,7 +724,8 @@ namespace YAF.Pages.Admin
 
             this.Response.AppendHeader(
                 "Content-Disposition",
-                "attachment; filename=YafUsersExport-{0}.xml".FormatWith(HttpUtility.UrlEncode(DateTime.Now.ToString("yyyy'-'MM'-'dd'-'HHmm"))));
+                "attachment; filename=YafUsersExport-{0}.xml".FormatWith(
+                    HttpUtility.UrlEncode(DateTime.Now.ToString("yyyy'-'MM'-'dd'-'HHmm"))));
 
             usersList.DataSet.WriteXml(this.Response.OutputStream);
 
