@@ -903,6 +903,7 @@ namespace YAF.Pages
                 0,
                 showDeleted,
                 true,
+                this.Get<YafBoardSettings>().DisplayPoints,
                 DateTime.MinValue.AddYears(1901),
                 DateTime.UtcNow,
                 DateTime.MinValue.AddYears(1901),

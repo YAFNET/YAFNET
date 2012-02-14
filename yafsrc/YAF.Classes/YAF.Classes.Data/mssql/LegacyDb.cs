@@ -6877,6 +6877,7 @@ namespace YAF.Classes.Data
             [NotNull] object updateViewCount,
                                           bool showDeleted,
                                           bool styledNicks,
+                                          bool showReputation,
                                           DateTime sincePostedDate,
                                           DateTime toPostedDate,
                                           DateTime sinceEditedDate,
@@ -6898,6 +6899,7 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("UpdateViewCount", updateViewCount);
                 cmd.Parameters.AddWithValue("ShowDeleted", showDeleted);
                 cmd.Parameters.AddWithValue("StyledNicks", styledNicks);
+                cmd.Parameters.AddWithValue("ShowReputation", showReputation);
                 cmd.Parameters.AddWithValue("SincePostedDate", sincePostedDate);
                 cmd.Parameters.AddWithValue("ToPostedDate", toPostedDate);
                 cmd.Parameters.AddWithValue("SinceEditedDate", sinceEditedDate);

@@ -1001,10 +1001,12 @@ namespace YAF.Pages
 
             DataTable postListDataTable = LegacyDb.post_list(
                 this.PageContext.PageTopicID,
+                this.PageContext.PageUserID,
                 userId,
-                this.IsPostBack ? 0 : 1,
+                this.IsPostBack || PageContext.IsCrawler ? 0 : 1,
                 showDeleted,
                 this.Get<YafBoardSettings>().UseStyledNicks,
+                this.Get<YafBoardSettings>().DisplayPoints,
                 DateTime.MinValue.AddYears(1901),
                 DateTime.UtcNow,
                 DateTime.MinValue.AddYears(1901),

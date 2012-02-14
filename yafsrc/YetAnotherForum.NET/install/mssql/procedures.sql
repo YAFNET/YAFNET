@@ -5090,7 +5090,8 @@ create procedure [{databaseOwner}].[{objectQualifier}post_list](
 				 @AuthorUserID int,
 				 @UpdateViewCount smallint=1, 
 				 @ShowDeleted bit = 1, 
-				 @StyledNicks bit = 0, 
+				 @StyledNicks bit = 0,
+				 @ShowReputation bit = 0,
 				 @SincePostedDate datetime, 
 				 @ToPostedDate datetime, 
 				 @SinceEditedDate datetime, 
@@ -5244,7 +5245,7 @@ begin
 		b.[Signature],
 		Posts		= b.NumPosts,
 		b.Points,
-		ReputationVoteDate = CAST(ISNULL((select top 1 VoteDate from [{databaseOwner}].[{objectQualifier}ReputationVote] repVote where repVote.ReputationToUserID=b.UserID and repVote.ReputationFromUserID=@PageUserID), null) as datetime),
+		ReputationVoteDate = (CASE WHEN @ShowReputation = 1 THEN CAST(ISNULL((select top 1 VoteDate from [{databaseOwner}].[{objectQualifier}ReputationVote] repVote where repVote.ReputationToUserID=b.UserID and repVote.ReputationFromUserID=@PageUserID), null) as datetime) ELSE GETUTCDATE() END),
 		IsGuest	= IsNull(SIGN(b.Flags & 4),0),
 		d.[Views],
 		d.ForumID,
@@ -7265,7 +7266,7 @@ begin
 	delete from [{databaseOwner}].[{objectQualifier}WatchForum] where UserID = @UserID
 	delete from [{databaseOwner}].[{objectQualifier}TopicReadTracking] where UserID = @UserID
 	delete from [{databaseOwner}].[{objectQualifier}ForumReadTracking] where UserID = @UserID
-	delete from [{databaseOwner}].[{objectQualifier}ReputationVote] where UserID = @UserID
+	delete from [{databaseOwner}].[{objectQualifier}ReputationVote] where ReputationFromUserID = @UserID
 	delete from [{databaseOwner}].[{objectQualifier}UserGroup] where UserID = @UserID
 	-- ABOT CHANGED
 	-- Delete UserForums entries Too 
