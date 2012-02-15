@@ -1006,7 +1006,7 @@ namespace YAF.Pages
                 this.IsPostBack || PageContext.IsCrawler ? 0 : 1,
                 showDeleted,
                 this.Get<YafBoardSettings>().UseStyledNicks,
-                this.Get<YafBoardSettings>().DisplayPoints,
+                !this.PageContext.IsGuest && this.Get<YafBoardSettings>().DisplayPoints,
                 DateTime.MinValue.AddYears(1901),
                 DateTime.UtcNow,
                 DateTime.MinValue.AddYears(1901),

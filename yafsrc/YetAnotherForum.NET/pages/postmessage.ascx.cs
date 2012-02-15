@@ -654,7 +654,7 @@ namespace YAF.Pages
                                 0,
                                 false,
                                 false,
-                                this.Get<YafBoardSettings>().DisplayPoints,
+                                false,
                                 DateTime.MinValue.AddYears(1901),
                                 DateTime.UtcNow,
                                 DateTime.MinValue.AddYears(1901),

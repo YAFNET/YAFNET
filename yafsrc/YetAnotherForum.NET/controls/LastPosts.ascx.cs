@@ -138,7 +138,7 @@ namespace YAF.Controls
                  0,
                  showDeleted,
                  false,
-                 this.Get<YafBoardSettings>().DisplayPoints,
+                 false,
                  DateTime.MinValue.AddYears(1901),
                  DateTime.UtcNow,
                  DateTime.MinValue.AddYears(1901),
