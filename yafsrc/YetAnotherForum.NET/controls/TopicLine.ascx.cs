@@ -14,6 +14,7 @@
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Extensions;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -493,8 +494,9 @@
             DateTime lastRead = this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
                 row["ForumID"].ToType<int>(),
                 row["TopicID"].ToType<int>(),
-                row["LastForumAccess"].ToType<DateTime?>() ?? DateTime.MinValue,
-                row["LastTopicAccess"].ToType<DateTime?>() ?? DateTime.MinValue);
+                row["LastForumAccess"].IsNullOrEmptyDBField() ? DateTime.MinValue : row["LastForumAccess"].ToType<DateTime?>(),
+                row["LastTopicAccess"].IsNullOrEmptyDBField() ? DateTime.MinValue : row["LastForumAccess"].ToType<DateTime?>());
+                
 
             if (lastPosted > lastRead)
             {
@@ -565,16 +567,6 @@
                     return this.Get<ITheme>().GetItem("ICONS", "TOPIC");
             }
 
-            //this.Logger.Error(ex, "Hot post failure. Pl");
-
-            //if (isHot)
-            //{
-            //  imgTitle = this.GetText("HOT_NO_NEW_POSTS");
-            //  return this.Get<ITheme>().GetItem("ICONS", "TOPIC_HOT", this.Get<ITheme>().GetItem("ICONS", "TOPIC"));
-            //}
-
-            //imgTitle = this.GetText("NO_NEW_POSTS");
-            //return this.Get<ITheme>().GetItem("ICONS", "TOPIC");
         }
 
         /// <summary>

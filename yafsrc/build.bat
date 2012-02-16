@@ -1,1 +1,1 @@
-IF EXIST C:\Windows\Microsoft.NET\Framework\v4.0.30319\msbuild.exe yetanotherforum.net-2010.sln
+IF EXIST C:\Windows\Microsoft.NET\Framework\v4.0.30319\msbuild.exe YetAnotherForum.NET.sln
