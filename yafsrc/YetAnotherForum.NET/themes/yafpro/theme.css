@@ -360,24 +360,22 @@
     font-weight: normal;
 }
 
-.yafnet tr.topicRow .topicLastPost img.avatarimage,
-.yafnet tr.topicRow_Alt .topicLastPost img.avatarimage
-,#yafpage_members .avatarimage
+.yafnet tr.topicRow .topicLastPost .avatarimage,
+.yafnet tr.topicRow_Alt .topicLastPost .avatarimage,
+.YAF_Pages_members .avatarimage,
+.yafnet tr.topicRow .topicMain img.avatarimage,
+.yafnet tr.topicRow_Alt .topicMain img.avatarimage
 {
-    width: 40px;
-    height: 40px;
-    float: left;
-    padding: 3px;
+	width: 40px;
+	height: 40px;
+	float: left;
+	padding: 3px;
 }
 
 .yafnet tr.topicRow .topicMain img.avatarimage,
 .yafnet tr.topicRow_Alt .topicMain img.avatarimage
 {
-    width: 40px;
-    height: 40px;
-    float: left;
-    padding: 3px;	
-    padding-right: 8px;
+	padding-right: 8px;
 }
 
 .yafnet tr.topicRow .topicReplies,
