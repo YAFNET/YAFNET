@@ -87,7 +87,7 @@
 		
 		var MainDialogId = DialogId + 'Box';
 		
-		$(settings.Dialog).wrapInner("<div id=\"" + MainDialogId +"\" class=\"ModalDialog\" style=\"top: "+  top + "px; display: block; left: " + left +"px; \"><div class=\"popup\"><div class=\"DialogContent\">");
+		$(settings.Dialog).wrapInner("<div id=\"" + MainDialogId +"\" class=\"ModalDialog\" style=\"top: "+  top + "px; display: block; left: " + left +"px; \"><div class=\"yafpopup\"><div class=\"DialogContent\">");
 				$('#' + MainDialogId + ' .popup').after("<a href=\"javascript:void(0);\" class=\"close\" id=\"" + DialogId + "Close\"><img src=\"" + settings.ImagePath + "closelabel.png\" title=\"close\" class=\"close_image\"></a>");
 			    $(settings.Dialog).after("<div id=\"" + MainDialogId +  "_overlay\" class=\"ModalDialog_hide ModalDialog_overlayBG\" style=\"display: none; opacity: 0.2; \"></div>");
 				

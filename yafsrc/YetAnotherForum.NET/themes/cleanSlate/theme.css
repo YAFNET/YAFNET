@@ -159,8 +159,7 @@
 	font-size: 1em;
 	font-weight: bold;
 	line-height: 150%;
-	margin-left: 0 auto;
-	margin-right: 0 auto;
+	margin: 0 auto;
 	margin-bottom: 10px;
 	border: 1px solid #deb7b7;
 	padding: 5px 10px 5px 30px;
@@ -971,10 +970,10 @@
 {
 	padding: 4px;
 	border: 1px solid #999;
-  text-shadow: 0;
-  -webkit-box-shadow: 0;
-  moz-box-shadow: 0;
-  box-shadow: 0;
+  text-shadow: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
   color: #fff;
   background: #666;
   -webkit-border-radius: 1px;

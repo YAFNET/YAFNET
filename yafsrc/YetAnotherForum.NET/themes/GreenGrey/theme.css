@@ -811,63 +811,7 @@ This CSS already works on FireFox.
     -webkit-border-bottom-right-radius:0.3em;
     border-bottom-right-radius:0.3em;
 }
-/* ajax tabs */
-.yafnet .ajax__tab_yaf .ajax__tab_header 
-{
-    font-family:"Helvetica Neue", Arial, Sans-Serif;
-    background:url(tab-line.png) repeat-x bottom;
-    font-size:12px;
-    display:block;
-}
-.yafnet .ajax__tab_yaf .ajax__tab_header .ajax__tab_outer 
-{
-    background:url(tab.png) no-repeat left top;
-    border-color:#222;
-	
-    color:#222;
-    padding-left:10px;
-    margin-right:3px;
-}
-.yafnet .ajax__tab_yaf .ajax__tab_header .ajax__tab_inner 
-{
-    background:url(tab.png) no-repeat right top;
-    border-color:#666;
-    color:#666;
-    padding:3px 10px 2px 0px;
-}
-.yafnet .ajax__tab_yaf .ajax__tab_hover .ajax__tab_inner 
-{
-    color:#000000;
-}
-.yafnet .ajax__tab_yaf .ajax__tab_active .ajax__tab_outer 
-{
-    background:url(tab.png) no-repeat 0pt -40px;
-    border-bottom-color:#ffffff;
-}
-.yafnet .ajax__tab_yaf .ajax__tab_active .ajax__tab_inner 
-{
-    background:url(tab.png) no-repeat right -40px;
-    color:#000000;
-    border-color:#333
-}
-.yafnet .ajax__tab_yaf .ajax__tab_body 
-{
-    font-family:verdana,tahoma,helvetica;
-    font-size:10pt;
-    padding:8px;
-    background-color:#ffffff;
-    border:solid 1px #d7d7d7;
-	-moz-border-radius: 0.4em; 
-	-webkit-border-radius: 0.4em;
-	border-radius: 0.4em;
-    border-top-width:0;
-}
 
-/* scrolling */
-.yafnet .ajax__scroll_horiz {overflow-x:scroll;}
-.yafnet .ajax__scroll_vert {overflow-y:scroll;}
-.yafnet .ajax__scroll_both {overflow:scroll}
-.yafnet .ajax__scroll_auto {overflow:auto}
 
 /*Modal Popup*/
 .modalBackground
