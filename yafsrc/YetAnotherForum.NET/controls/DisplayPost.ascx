@@ -64,7 +64,7 @@
 </tr>
 <tr class="postfooter">
     <td class="small postTop" colspan='<%#GetIndentSpan()%>'>
-        <a onclick="ScrollTop();" href="javascript: void(0)">            
+        <a onclick="ScrollToTop();" href="javascript: void(0)">            
             <YAF:ThemeImage LocalizedTitlePage="POSTS" LocalizedTitleTag="TOP"  runat="server" ThemeTag="TOTOPPOST" />
         </a>
     </td>

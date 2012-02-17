@@ -7,9 +7,10 @@ function ChangeReputationBarColor(value, text, selector) {
     else if (value < 60) { jQuery(selector).children('.ReputationBarValue').addClass("BarYellow"); jQuery(selector).children('.ReputationBarValue').prepend('<p class="ReputationBarText">' + text + '</p>'); }
     else if (value < 80) { jQuery(selector).children('.ReputationBarValue').addClass("BarLightGreen"); jQuery(selector).children('.ReputationBarValue').prepend('<p class="ReputationBarText">' + text + '</p>'); }
     else if (value < 90) { jQuery(selector).children('.ReputationBarValue').addClass("BarGreen"); jQuery(selector).children('.ReputationBarValue').prepend('<p class="ReputationBarText">' + text + '</p>'); }
-    else { jQuery(selector).html('<div class="ui-progressbar-value ui-widget-header ui-corner-left ui-corner-right ReputationBarValue" style="width: ' + value + '%; "></div>'); jQuery(selector).children('.ReputationBarValue').addClass("BarDarkGreen"); jQuery(selector).children('.ReputationBarValue').prepend('<p class="ReputationBarText">' + text + '</p>'); } 
+    else { jQuery(selector).html('<div class="ui-progressbar-value ui-widget-header ui-corner-left ui-corner-right ReputationBarValue" style="width: ' + value + '%; "></div>'); jQuery(selector).children('.ReputationBarValue').addClass("BarDarkGreen"); jQuery(selector).children('.ReputationBarValue').prepend('<p class="ReputationBarText">' + text + '</p>'); }
 }
-function ScrollTop() { jQuery('body,html').animate({ scrollTop: 0 }, 820); return false }
+
+function ScrollToTop() { jQuery('body,html').animate({ scrollTop: 0 }, 820); return false; }
 
 function toggleContainer(id, senderId, showText, hideText) { var el = jQuery('#' + id); var sender = jQuery('#' + senderId); el.toggle(function () { sender.attr("title", hideText); sender.html(hideText); sender.addClass('hide'); }, function () { sender.attr("title", showText); sender.html(showText); sender.addClass('show'); }); }
 

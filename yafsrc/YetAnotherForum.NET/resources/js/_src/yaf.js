@@ -61,7 +61,7 @@ function ChangeReputationBarColor(value,text, selector){
                 }
 }
 
-function ScrollTop() { jQuery('body,html').animate({ scrollTop: 0 }, 820); return false; }
+function ScrollToTop() { jQuery('body,html').animate({ scrollTop: 0 }, 820); return false; }
 
 
 function toggleContainer(id, senderId, showText, hideText){
