@@ -446,7 +446,7 @@ namespace YAF.Controls
                     BBCodeHelper.StripBBCode(
                         HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString((string)this.DataRow["Message"]))));
 
-            var topicUrl = YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", this.DataRow["MessageID"]);
+            var topicUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "m={0}#post{0}", this.DataRow["MessageID"]);
 
             // Send Retweet Directlly thru the Twitter API if User is Twitter User
             if (Config.TwitterConsumerKey.IsSet() && Config.TwitterConsumerSecret.IsSet() &&
