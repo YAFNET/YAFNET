@@ -32,6 +32,7 @@ namespace YAF.Controls
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
@@ -279,10 +280,10 @@ namespace YAF.Controls
 
                 if (twitterHolder.Visible)
                 {
+                    // Redirect the user to Twitter for authorization.
                     twitterLogin.Attributes.Add(
                         "onclick",
-                        "javascript:window.open('{0}auth.aspx?twitterauth=true', 'TwitterLoginWindow', 'width=800,height=700,left=150,top=100,scrollbar=no,resize=no'); return false;"
-                            .FormatWith(YafForumInfo.ForumClientFileRoot));
+                        YafSingleSignOnUser.GenerateTwitterLoginUrl(true));
 
                     twitterLogin.InnerHtml =
                         "<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" style=\"margin:0;\">".FormatWith(

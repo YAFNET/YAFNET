@@ -24,7 +24,6 @@ namespace YAF.Classes
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Globalization;
     using System.Linq;
     using System.Net;
     using System.Text;
@@ -39,7 +38,6 @@ namespace YAF.Classes
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
-    using YAF.Types.EventProxies;
     using YAF.Types.Interfaces;
     using YAF.Utils;
 
@@ -87,7 +85,7 @@ namespace YAF.Classes
         /// Returns List of Suggest Words.
         /// </returns>
         [WebMethod(EnableSession = true)]
-        public string SpellCheck(string text, string lang, string engine, string suggest)
+        public string SpellCheck([NotNull]string text, [NotNull]string lang, string engine, string suggest)
         {
             if (suggest.Equals("undefined", StringComparison.OrdinalIgnoreCase))
             {
@@ -173,181 +171,20 @@ namespace YAF.Classes
             string locale,
             bool remember)
         {
-            if (!YafContext.Current.Get<YafBoardSettings>().AllowSingleSignOn)
-            {
-                return this.Get<ILocalization>().GetText("LOGIN", "SSO_DEACTIVATED");
-            }
-
-            // Check if username is null
-            if (string.IsNullOrEmpty(username))
-            {
-                username = name;
-            }
-
-            var userGender = 0;
-
-            if (!string.IsNullOrEmpty(gender))
-            {
-                switch (gender)
-                {
-                    case "male":
-                        userGender = 1;
-                        break;
-                    case "female":
-                        userGender = 2;
-                        break;
-                }
-            }
-
-            // Check if user exists
-            var userName = YafContext.Current.Get<MembershipProvider>().GetUserNameByEmail(email);
-
-            // Login user if exists
-            if (!string.IsNullOrEmpty(userName))
-            {
-                var yafUser = YafUserProfile.GetProfile(userName);
-
-                var yafUserData =
-                    new CombinedUserDataHelper(YafContext.Current.Get<MembershipProvider>().GetUser(userName, true));
-
-                if (!yafUserData.UseSingleSignOn)
-                {
-                    return this.Get<ILocalization>().GetText("LOGIN", "SSO_DEACTIVATED_BYUSER");
-                }
-
-                if (yafUser.Facebook.Equals(id))
-                {
-                    // Add Flag to User that indicates that the user is logged in via facebook
-                    LegacyDb.user_update_single_sign_on_status(yafUserData.UserID, true, false);
-
-                    FormsAuthentication.SetAuthCookie(userName, remember);
-
-                    YafContext.Current.Get<IRaiseEvent>().Raise(
-                        new SuccessfulUserLoginEvent(YafContext.Current.PageUserID));
-
-                    return "OK";
-                }
-
-                return this.Get<ILocalization>().GetText("LOGIN", "SSO_ID_NOTMATCH");
-            }
-
-            // Create User if not exists?!
-            if (YafContext.Current.Get<YafBoardSettings>().RegisterNewFacebookUser &&
-                !YafContext.Current.Get<YafBoardSettings>().DisableRegistrations)
-            {
-                MembershipCreateStatus status;
-
-                var pass = Membership.GeneratePassword(32, 16);
-                var securityAnswer = Membership.GeneratePassword(64, 30);
-
-                MembershipUser user = this.Get<MembershipProvider>().CreateUser(
-                    username, pass, email, "Answer is a generated Pass", securityAnswer, true, null, out status);
-
-                // setup inital roles (if any) for this user
-                RoleMembershipHelper.SetupUserRoles(YafContext.Current.PageBoardID, username);
-
-                // create the user in the YAF DB as well as sync roles...
-                int? userID = RoleMembershipHelper.CreateForumUser(user, YafContext.Current.PageBoardID);
-
-                // create empty profile just so they have one
-                YafUserProfile userProfile = YafUserProfile.GetProfile(username);
-
-                userProfile.Facebook = id;
-                userProfile.Homepage = link;
-
-                if (!string.IsNullOrEmpty(birthday))
-                {
-                    DateTime userBirthdate;
-                    var ci = CultureInfo.CreateSpecificCulture("en-US");
-                    DateTime.TryParse(birthday, ci, DateTimeStyles.None, out userBirthdate);
-
-                    if (userBirthdate > DateTime.MinValue.Date)
-                    {
-                        userProfile.Birthday = userBirthdate;
-                    }
-                }
-
-                userProfile.RealName = username;
-                userProfile.Gender = userGender;
-                
-                if (!string.IsNullOrEmpty(hometown))
-                {
-                    userProfile.Location = hometown;
-                }
-
-                userProfile.Save();
-
-                // setup their inital profile information
-                userProfile.Save();
-
-                if (userID == null)
-                {
-                    // something is seriously wrong here -- redirect to failure...
-                    return this.Get<ILocalization>().GetText("LOGIN", "SSO_FAILED");
-                }
-
-                if (this.Get<YafBoardSettings>().NotificationOnUserRegisterEmailList.IsSet())
-                {
-                    // send user register notification to the following admin users...
-                    this.SendRegistrationNotificationEmail(user);
-                }
-
-                // send user register notification to the following admin users...
-                this.SendRegistrationNotificationToUser(user, pass, securityAnswer);
-
-                // save the time zone...
-                int userId = UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey);
-
-                LegacyDb.user_save(
-                    userId,
-                    YafContext.Current.PageBoardID,
-                    username,
-                    null,
-                    email,
-                    timezone,
-                    null,
-                    null,
-                    null,
-                    true,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null);
-
-                bool autoWatchTopicsEnabled = this.Get<YafBoardSettings>().DefaultNotificationSetting ==
-                                              UserNotificationSetting.TopicsIPostToOrSubscribeTo;
-
-                // save the settings...
-                LegacyDb.user_savenotification(
-                    userId,
-                    true,
-                    autoWatchTopicsEnabled,
-                    this.Get<YafBoardSettings>().DefaultNotificationSetting,
-                    this.Get<YafBoardSettings>().DefaultSendDigestEmail);
-
-                // save avatar
-                LegacyDb.user_saveavatar(userId, "https://graph.facebook.com/{0}/picture".FormatWith(id), null, null);
-
-                // Clearing cache with old Active User Lazy Data ...
-                this.Get<IDataCache>().Remove(Constants.Cache.ActiveUserLazyData.FormatWith(userId));
-
-                this.Get<IRaiseEvent>().Raise(new NewUserRegisteredEvent(user, userId));
-
-                // Add Flag to User that indicates that the user is logged in via facebook
-                LegacyDb.user_update_single_sign_on_status(userId, true, false);
-
-                FormsAuthentication.SetAuthCookie(user.UserName, remember);
-
-                YafContext.Current.Get<IRaiseEvent>().Raise(new SuccessfulUserLoginEvent(YafContext.Current.PageUserID));
-
-                return "OK";
-            }
-
-            return this.Get<ILocalization>().GetText("LOGIN", "SSO_FAILED");
+            return YafSingleSignOnUser.LoginFacebookUser(
+                id,
+                name,
+                first_name,
+                last_name,
+                link,
+                username,
+                birthday,
+                hometown,
+                gender,
+                email,
+                timezone,
+                locale,
+                remember); 
         }
 
         /// <summary>
@@ -661,68 +498,6 @@ namespace YAF.Classes
             root.AppendChild(textElement);
 
             return doc.InnerXml;
-        }
-
-        /// <summary>
-        /// Send an Email to the Newly Created User with
-        /// his Account Info (Pass, Security Question and Answer)
-        /// </summary>
-        /// <param name="user">
-        /// The user.
-        /// </param>
-        /// <param name="pass">
-        /// The pass.
-        /// </param>
-        /// <param name="securityAnswer">
-        /// The security answer.
-        /// </param>
-        private void SendRegistrationNotificationToUser(
-            [NotNull] MembershipUser user, [NotNull] string pass, [NotNull] string securityAnswer)
-        {
-            var notifyUser = new YafTemplateEmail();
-
-            string subject =
-                this.Get<ILocalization>().GetText("COMMON", "NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT").FormatWith(
-                    this.Get<YafBoardSettings>().Name);
-
-            notifyUser.TemplateParams["{user}"] = user.UserName;
-            notifyUser.TemplateParams["{email}"] = user.Email;
-            notifyUser.TemplateParams["{pass}"] = pass;
-            notifyUser.TemplateParams["{answer}"] = securityAnswer;
-            notifyUser.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
-
-            string emailBody = notifyUser.ProcessTemplate("NOTIFICATION_ON_FACEBOOK_REGISTER");
-
-            this.Get<ISendMail>().Queue(this.Get<YafBoardSettings>().ForumEmail, user.Email, subject, emailBody);
-        }
-
-        /// <summary>
-        /// The send registration notification email.
-        /// </summary>
-        /// <param name="user">
-        /// The user.
-        /// </param>
-        private void SendRegistrationNotificationEmail([NotNull] MembershipUser user)
-        {
-            string[] emails = this.Get<YafBoardSettings>().NotificationOnUserRegisterEmailList.Split(';');
-
-            var notifyAdmin = new YafTemplateEmail();
-
-            string subject =
-                this.Get<ILocalization>().GetText("COMMON", "NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT").FormatWith(
-                    this.Get<YafBoardSettings>().Name);
-
-            notifyAdmin.TemplateParams["{adminlink}"] = YafBuildLink.GetLinkNotEscaped(ForumPages.admin_admin, true);
-            notifyAdmin.TemplateParams["{user}"] = user.UserName;
-            notifyAdmin.TemplateParams["{email}"] = user.Email;
-            notifyAdmin.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
-
-            string emailBody = notifyAdmin.ProcessTemplate("NOTIFICATION_ON_USER_REGISTER");
-
-            foreach (string email in emails.Where(email => email.Trim().IsSet()))
-            {
-                this.Get<ISendMail>().Queue(this.Get<YafBoardSettings>().ForumEmail, email.Trim(), subject, emailBody);
-            }
         }
 
         #endregion
