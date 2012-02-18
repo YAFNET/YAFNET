@@ -115,10 +115,16 @@ namespace YAF.Core.BBCode
             @"\[code\](?<inner>(.*?))\[/code\]", _Options | RegexOptions.Compiled);
 
         /// <summary>
-        ///   The _rgx code 2.
+        ///   The regex code with language string.
         /// </summary>
-        private static readonly Regex _rgxCode2 = new Regex(
-            @"\[code=(?<language>[^\]]*)\](?<inner>(.*?))\[/code\]", _Options | RegexOptions.Compiled);
+        private static readonly Regex _regexCodeWithLanguage = new Regex(
+            @"\[code=(?<language>[^\]]*)(?!;)\](?<inner>(.*?))\[/code\]", _Options | RegexOptions.Compiled);
+
+        /// <summary>
+        ///   The regex code with language and highlight string.
+        /// </summary>
+        private static readonly Regex _regexCodeWithLanguage2 = new Regex(
+            @"\[code=(?<language>(.*?));(?<highlight>[^\]]*)\](?<inner>(.*?))\[/code\]", _Options | RegexOptions.Compiled);
 
         /// <summary>
         ///   The _rgx hr.
@@ -630,8 +636,14 @@ namespace YAF.Core.BBCode
                 // add rule for code block type with syntax highlighting
                 ruleEngine.AddRule(
                     new SyntaxHighlightedCodeRegexReplaceRule(
-                        _rgxCode2,
-                        @"<div class=""code""><strong>{0}</strong><div class=""innercode"">${inner}</div></div>".Replace("{0}", localCodeStr)));
+                        _regexCodeWithLanguage,
+                        @"<div class=""code""><strong>{0}</strong><div class=""innercode"">${inner}</div></div>".Replace("{0}", localCodeStr)) { RuleRank = 41 });
+
+                // add rule for code block type with syntax highlighting
+                ruleEngine.AddRule(
+                    new SyntaxHighlightedCodeRegexReplaceRule(
+                        _regexCodeWithLanguage2,
+                        @"<div class=""code""><strong>{0}</strong><div class=""innercode"">${inner}</div></div>".Replace("{0}", localCodeStr)) { RuleRank = 40 });
 
                 // handle custom YafBBCode
                 this.AddCustomBBCodeRules(ruleEngine);
@@ -694,48 +706,48 @@ namespace YAF.Core.BBCode
             // e-mails
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
-                    @"<a.*?href=""mailto:(?<email>(.*?))"".*?>(?<inner>(.*?))</a>", 
-                    "[email=${email}]${inner}[/email]", 
-                    _Options, 
+                    @"<a.*?href=""mailto:(?<email>(.*?))"".*?>(?<inner>(.*?))</a>",
+                    "[email=${email}]${inner}[/email]",
+                    _Options,
                     new[] { "email" }));
 
             // urls
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
-                    @"<a.*?href=""(?<inner>(.*?))"".*?>(?<description>(.*?))</a>", 
-                    "[url=${inner}]${description}[/url]", 
-                    _Options, 
+                    @"<a.*?href=""(?<inner>(.*?))"".*?>(?<description>(.*?))</a>",
+                    "[url=${inner}]${description}[/url]",
+                    _Options,
                     new[] { "description" }));
 
             // TODO : this.AddSmiles(ruleEngine);
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
-                    @"<img.*?src=""(?<inner>(.*?))"".*?alt=""(?<description>(.*?))"".*?/>", 
-                    "[img=${inner}]${description}[/img]", 
-                    _Options, 
+                    @"<img.*?src=""(?<inner>(.*?))"".*?alt=""(?<description>(.*?))"".*?/>",
+                    "[img=${inner}]${description}[/img]",
+                    _Options,
                     new[] { "description" }));
 
             // handle font sizes -- this rule class internally handles the "size" variable
             ruleEngine.AddRule(
                 new FontSizeRegexReplaceRule(
-                    @"<span style=""font-size: (?<size>([1-9]));"">(?<inner>(.*?))</span>", 
-                    "[size=${size}]${inner}[/size]", 
+                    @"<span style=""font-size: (?<size>([1-9]));"">(?<inner>(.*?))</span>",
+                    "[size=${size}]${inner}[/size]",
                     _Options));
 
             // font
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
-                    @"<span style=""font-family: (?<font>(.*?));"">(?<inner>(.*?))</span>", 
-                    "[font=${font}]${inner}[/font]", 
-                    _Options, 
+                    @"<span style=""font-family: (?<font>(.*?));"">(?<inner>(.*?))</span>",
+                    "[font=${font}]${inner}[/font]",
+                    _Options,
                     new[] { "font" }));
 
             // color
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
-                    @"<span style=""color: (?<color>(\#?[-a-z0-9]*));"">(?<inner>(.*?))</span>", 
-                    "[color=${color}]${inner}[/color]", 
-                    _Options, 
+                    @"<span style=""color: (?<color>(\#?[-a-z0-9]*));"">(?<inner>(.*?))</span>",
+                    "[color=${color}]${inner}[/color]",
+                    _Options,
                     new[] { "color" }));
 
             // lists
@@ -743,32 +755,52 @@ namespace YAF.Core.BBCode
                 new SimpleRegexReplaceRule("<ul>(?<inner>(.*?))</ul>", "[list]${inner}[/list]", _Options));
 
             ruleEngine.AddRule(
-                new SimpleRegexReplaceRule("<ol type=\"1\">(?<inner>(.*?))</ol>", "[list=1]${inner}[/list]", RegexOptions.Singleline));
+                new SimpleRegexReplaceRule(
+                    "<ol type=\"1\">(?<inner>(.*?))</ol>", "[list=1]${inner}[/list]", RegexOptions.Singleline));
             ruleEngine.AddRule(
                 new SimpleRegexReplaceRule("<ol>(?<inner>(.*?))</ol>", "[list=i]${inner}[/list]", _Options));
 
             ruleEngine.AddRule(
-                new SimpleRegexReplaceRule("<ol style=\"list-style-type:number\">(?<inner>(.*?))</ol>", "[list=1]${inner}[/list]", RegexOptions.Singleline));
+                new SimpleRegexReplaceRule(
+                    "<ol style=\"list-style-type:number\">(?<inner>(.*?))</ol>",
+                    "[list=1]${inner}[/list]",
+                    RegexOptions.Singleline));
 
             ruleEngine.AddRule(
-                new SimpleRegexReplaceRule("<ol type=\"a\">(?<inner>(.*?))</ol>", "[list=a]${inner}[/list]", RegexOptions.Singleline));
+                new SimpleRegexReplaceRule(
+                    "<ol type=\"a\">(?<inner>(.*?))</ol>", "[list=a]${inner}[/list]", RegexOptions.Singleline));
             ruleEngine.AddRule(
-                new SimpleRegexReplaceRule("<ol type=\"A\">(?<inner>(.*?))</ol>", "[list=A]${inner}[/list]", RegexOptions.Singleline));
+                new SimpleRegexReplaceRule(
+                    "<ol type=\"A\">(?<inner>(.*?))</ol>", "[list=A]${inner}[/list]", RegexOptions.Singleline));
 
             ruleEngine.AddRule(
-                new SimpleRegexReplaceRule("<ol style=\"list-style-type:lower-alpha\">(?<inner>(.*?))</ol>", "[list=a]${inner}[/list]", RegexOptions.Singleline));
+                new SimpleRegexReplaceRule(
+                    "<ol style=\"list-style-type:lower-alpha\">(?<inner>(.*?))</ol>",
+                    "[list=a]${inner}[/list]",
+                    RegexOptions.Singleline));
             ruleEngine.AddRule(
-                new SimpleRegexReplaceRule("<ol style=\"list-style-type:upper-alpha\">(?<inner>(.*?))</ol>", "[list=A]${inner}[/list]", RegexOptions.Singleline));
+                new SimpleRegexReplaceRule(
+                    "<ol style=\"list-style-type:upper-alpha\">(?<inner>(.*?))</ol>",
+                    "[list=A]${inner}[/list]",
+                    RegexOptions.Singleline));
 
             ruleEngine.AddRule(
-                new SimpleRegexReplaceRule("<ol type=\"i\">(?<inner>(.*?))</ol>", "[list=i]${inner}[/list]", RegexOptions.Singleline));
+                new SimpleRegexReplaceRule(
+                    "<ol type=\"i\">(?<inner>(.*?))</ol>", "[list=i]${inner}[/list]", RegexOptions.Singleline));
             ruleEngine.AddRule(
-                new SimpleRegexReplaceRule("<ol type=\"I\">(?<inner>(.*?))</ol>", "[list=I]${inner}[/list]", RegexOptions.Singleline));
+                new SimpleRegexReplaceRule(
+                    "<ol type=\"I\">(?<inner>(.*?))</ol>", "[list=I]${inner}[/list]", RegexOptions.Singleline));
 
             ruleEngine.AddRule(
-               new SimpleRegexReplaceRule("<ol style=\"list-style-type:lower-roman\">(?<inner>(.*?))</ol>", "[list=i]${inner}[/list]", RegexOptions.Singleline));
+                new SimpleRegexReplaceRule(
+                    "<ol style=\"list-style-type:lower-roman\">(?<inner>(.*?))</ol>",
+                    "[list=i]${inner}[/list]",
+                    RegexOptions.Singleline));
             ruleEngine.AddRule(
-                new SimpleRegexReplaceRule("<ol style=\"list-style-type:upper-roman\">(?<inner>(.*?))</ol>", "[list=I]${inner}[/list]", RegexOptions.Singleline));
+                new SimpleRegexReplaceRule(
+                    "<ol style=\"list-style-type:upper-roman\">(?<inner>(.*?))</ol>",
+                    "[list=I]${inner}[/list]",
+                    RegexOptions.Singleline));
 
             // bullets
             ruleEngine.AddRule(new SingleRegexReplaceRule("<li>", "[*]", _Options));
@@ -809,15 +841,15 @@ namespace YAF.Core.BBCode
             // CODE Tags
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
-                    @"<div class=""code"">.*?<div class=""innercode"">.*?<pre class=""brush:(?<language>(.*?));"">(?<inner>(.*?))</pre>.*?</div>", 
-                    "[code=${language}]${inner}[/code]", 
-                    _Options, 
+                    @"<div class=""code"">.*?<div class=""innercode"">.*?<pre class=""brush:(?<language>(.*?));"">(?<inner>(.*?))</pre>.*?</div>",
+                    "[code=${language}]${inner}[/code]",
+                    _Options,
                     new[] { "language" }));
 
             ruleEngine.AddRule(
                 new SimpleRegexReplaceRule(
-                    "<div class=\"code\">.*?<div class=\"innercode\">(?<inner>(.*?))</div>", 
-                    "[code]${inner}[/code]", 
+                    "<div class=\"code\">.*?<div class=\"innercode\">(?<inner>(.*?))</div>",
+                    "[code]${inner}[/code]",
                     _Options));
 
             ruleEngine.AddRule(new SingleRegexReplaceRule("<br />", "\r\n", _Options));

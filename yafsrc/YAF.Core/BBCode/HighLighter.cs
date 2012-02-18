@@ -24,6 +24,8 @@ namespace YAF.Core.BBCode
     using System;
     using System.Text;
 
+    using YAF.Utils;
+
     #endregion
 
     /// <summary>
@@ -31,18 +33,6 @@ namespace YAF.Core.BBCode
     /// </summary>
     public class HighLighter
     {
-        /* Ederon : 6/16/2007 - conventions */
-
-        // To Replace Enter with <br />
-        #region Constants and Fields
-
-        /// <summary>
-        ///   The _replace enter.
-        /// </summary>
-        private bool _replaceEnter;
-
-        #endregion
-
         // Default Constructor
         #region Constructors and Destructors
 
@@ -51,7 +41,7 @@ namespace YAF.Core.BBCode
         /// </summary>
         public HighLighter()
         {
-            this._replaceEnter = false;
+            this.ReplaceEnter = false;
         }
 
         #endregion
@@ -61,41 +51,22 @@ namespace YAF.Core.BBCode
         /// <summary>
         ///   Gets or sets a value indicating whether ReplaceEnter.
         /// </summary>
-        public bool ReplaceEnter
-        {
-            get
-            {
-                return this._replaceEnter;
-            }
-
-            set
-            {
-                this._replaceEnter = value;
-            }
-        }
+        public bool ReplaceEnter { get; set; }
 
         #endregion
 
         #region Public Methods
 
         /// <summary>
-        /// The color text.
+        /// Colors the text.
         /// </summary>
-        /// <param name="tmpCode">
-        /// The tmp code.
-        /// </param>
-        /// <param name="pathToDefFile">
-        /// The path to def file.
-        /// </param>
-        /// <param name="language">
-        /// The language.
-        /// </param>
+        /// <param name="tmpCode">The tmp code.</param>
+        /// <param name="language">The language.</param>
+        /// <param name="highlight">The highlight.</param>
         /// <returns>
         /// The color text.
         /// </returns>
-        /// <exception cref="ApplicationException">
-        /// </exception>
-        public string ColorText(string tmpCode, string pathToDefFile, string language)
+        public string ColorText(string tmpCode, string language, string highlight)
         {
             language = language.ToLower();
 
@@ -109,7 +80,12 @@ namespace YAF.Core.BBCode
             var tmpOutput = new StringBuilder();
 
             // Create Output
-            tmpOutput.AppendFormat("<pre class=\"brush:{0};\">{1}", language, Environment.NewLine);
+            tmpOutput.AppendFormat(
+                "<pre class=\"brush:{0};{1}\">{2}",
+                language,
+                !string.IsNullOrEmpty(highlight) ? "highlight: [{0}];".FormatWith(highlight) : string.Empty,
+                Environment.NewLine);
+
             tmpOutput.Append(tmpCode);
             tmpOutput.AppendFormat("</pre>{0}", Environment.NewLine);
 

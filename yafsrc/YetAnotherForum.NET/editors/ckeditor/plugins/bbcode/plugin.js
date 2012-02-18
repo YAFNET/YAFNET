@@ -55,7 +55,7 @@ CKEDITOR.htmlDataProcessor.prototype =
 		// [code]
 		data = data.replace(/\[code\]/gi,'<code>');
 		// [code=language]
-		data = data.replace(/\[code=(.+?)\]/gi,'<code title="$1">');
+		data = data.replace(/\[code=(.+?)\]/gi,'<code title="brush:$1">');
 		data = data.replace(/\[\/code\]/gi,'</code>');
 		
 		// [color]

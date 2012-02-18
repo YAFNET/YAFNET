@@ -110,7 +110,7 @@ CKEDITOR.dialog.add('syntaxhighlight', function(editor)
             var optionsString = getStringForOptions(data);
             
             if (preElement) {
-                preElement.setAttribute('title', optionsString);
+                //preElement.setAttribute('title', optionsString);
                 preElement.setText(data.code);
             } else {
                 /*var newElement = new CKEDITOR.dom.element('code');
