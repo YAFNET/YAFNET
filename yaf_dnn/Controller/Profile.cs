@@ -69,9 +69,9 @@ namespace YAF.DotNetNuke.Controller
             ListController objListController = new ListController();
             ListEntryInfoCollection dataTypes = objListController.GetListEntryInfoCollection("DataType");
 
-            AddYafProfileDefinition(portalId, "YAF Profile", "Birthday", "DateTime", 0, dataTypes);
+            AddYafProfileDefinition(portalId, "YAF Profile", "Birthday", "DateTime", 255, dataTypes);
             AddYafProfileDefinition(portalId, "YAF Profile", "Occupation", "Text", 400, dataTypes);
-            AddYafProfileDefinition(portalId, "YAF Profile", "Gender", "Integer", 0, dataTypes);
+            AddYafProfileDefinition(portalId, "YAF Profile", "Gender", "List", 4, dataTypes);
             AddYafProfileDefinition(portalId, "YAF Profile", "Blog", "Text", 255, dataTypes);
             AddYafProfileDefinition(portalId, "YAF Profile", "MSN", "Text", 255, dataTypes);
             AddYafProfileDefinition(portalId, "YAF Profile", "YIM", "Text", 255, dataTypes);
@@ -133,6 +133,44 @@ namespace YAF.DotNetNuke.Controller
                 };
 
             ProfileController.AddPropertyDefinition(propertyDefinition);
+
+            // Add Gender List
+            if (!name.Equals("Gender"))
+            {
+                return;
+            }
+
+            var listController = new ListController();
+
+            listController.AddListEntry(
+                new ListEntryInfo
+                    {
+                        DefinitionID = Null.NullInteger,
+                        PortalID = portalId,
+                        ListName = name,
+                        Value = "0",
+                        Text = "None Specified"
+                    });
+
+            listController.AddListEntry(
+                new ListEntryInfo
+                    {
+                        DefinitionID = Null.NullInteger,
+                        PortalID = portalId,
+                        ListName = name,
+                        Value = "1",
+                        Text = "Male"
+                    });
+
+            listController.AddListEntry(
+                new ListEntryInfo
+                    {
+                        DefinitionID = Null.NullInteger,
+                        PortalID = portalId,
+                        ListName = name,
+                        Value = "2",
+                        Text = "Female"
+                    });
         }
 
         #endregion
