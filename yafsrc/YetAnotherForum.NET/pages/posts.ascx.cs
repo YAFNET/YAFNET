@@ -26,7 +26,6 @@ namespace YAF.Pages
     using System.Data;
     using System.IO;
     using System.Linq;
-    using System.Net;
     using System.Text;
     using System.Web;
     using System.Web.UI.HtmlControls;
@@ -37,7 +36,6 @@ namespace YAF.Pages
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Services;
-    using YAF.Core.Services.CheckForSpam;
     using YAF.Core.Services.Twitter;
     using YAF.Editors;
     using YAF.Types;
@@ -1572,7 +1570,7 @@ namespace YAF.Pages
             // Check for SPAM
             if (!this.PageContext.IsAdmin || !this.PageContext.IsModerator)
             {
-                if (this.IsPostSpam())
+                if (YafSpamCheck.IsPostSpam(this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName, this.PageContext.PageTopicName, this._quickReplyEditor.Text))
                 {
                     if (this.Get<YafBoardSettings>().SpamMessageHandling.Equals(1))
                     {
@@ -1672,101 +1670,6 @@ namespace YAF.Pages
                     YafBuildLink.Redirect(ForumPages.info, "i=1&url={0}", this.Server.UrlEncode(url));
                 }
             }
-        }
-
-        /// <summary>
-        /// Check This Post for SPAM against the BlogSpam.NET API or Akismet Service
-        /// </summary>
-        /// <returns>
-        /// Returns if Post is SPAM or not
-        /// </returns>
-        private bool IsPostSpam()
-        {
-            if (this.Get<YafBoardSettings>().SpamServiceType.Equals(0))
-            {
-                return false;
-            }
-
-            string ipAdress = this.Get<HttpRequestBase>().UserHostAddress;
-
-            if (ipAdress.Equals("::1"))
-            {
-                ipAdress = "127.0.0.1";
-            }
-
-            string whiteList = string.Empty;
-
-            if (ipAdress.Equals("127.0.0.1"))
-            {
-                whiteList = "whitelist=127.0.0.1";
-            }
-
-            string email, username;
-
-            if (this.User == null)
-            {
-                email = null;
-                username = "Guest";
-            }
-            else
-            {
-                email = this.User.Email;
-                username = this.User.UserName;
-            }
-
-            // HOLY! This needs to be torn out and rewriten using reusable/modular design!
-
-            // Use BlogSpam.NET API
-            if (this.Get<YafBoardSettings>().SpamServiceType.Equals(1))
-            {
-                try
-                {
-                    return
-                        BlogSpamNet.CommentIsSpam(
-                            new BlogSpamComment
-                                {
-                                    comment = this._quickReplyEditor.Text,
-                                    ip = ipAdress,
-                                    agent = this.Get<HttpRequestBase>().UserAgent,
-                                    email = email,
-                                    name = username,
-                                    version = string.Empty,
-                                    options = whiteList,
-                                    subject = this.PageContext.PageTopicName
-                                },
-                            true);
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
-            }
-
-            // Use Akismet API
-            if (this.Get<YafBoardSettings>().SpamServiceType.Equals(2) &&
-                !string.IsNullOrEmpty(this.Get<YafBoardSettings>().AkismetApiKey))
-            {
-                try
-                {
-                    var service = new AkismetSpamClient(
-                        this.Get<YafBoardSettings>().AkismetApiKey, new Uri(BaseUrlBuilder.BaseUrl));
-
-                    return
-                        service.CheckCommentForSpam(
-                            new Comment(IPAddress.Parse(ipAdress), this.Get<HttpRequestBase>().UserAgent)
-                                {
-                                    Content = this._quickReplyEditor.Text, 
-                                    Author = username, 
-                                    AuthorEmail = email
-                                });
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
-            }
-
-            return false;
         }
 
         /// <summary>

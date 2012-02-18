@@ -30,22 +30,27 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\YetAnotherForum.NET\Bin\YAF.Core.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Deploy|AnyCPU'">
+    <OutputPath>..\YetAnotherForum.NET\Bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac">
-      <HintPath>..\YetAnotherForum.NET\Bin\Autofac.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="CookComputing.XmlRpcV2, Version=2.5.0.0, Culture=neutral, PublicKeyToken=a7d6e17aa302004d, processorArchitecture=MSIL">
+    <Reference Include="Autofac, Version=2.3.2.632, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\YetAnotherForum.NET\Bin\CookComputing.XmlRpcV2.dll</HintPath>
+      <HintPath>..\Dependencies\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="CookComputing.XmlRpcV2, Version=2.5.0.0, Culture=neutral, PublicKeyToken=a7d6e17aa302004d, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -64,29 +69,10 @@
     </Compile>
     <Compile Include="BaseModules\ForumEditor.cs" />
     <Compile Include="BaseModules\MobileThemeForumModule.cs" />
-    <Compile Include="BaseModules\YafModuleScanner.cs" />
-    <Compile Include="BasePages\ModerateForumPage.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Context\LoadPageFromDatabase.cs" />
-    <Compile Include="Context\LoadPageLazyUserData.cs" />
-    <Compile Include="Context\LoadPageLogBadAgent.cs" />
-    <Compile Include="Context\LoadPageRequestInformation.cs" />
-    <Compile Include="Context\LoadPageVariablesFromQuery.cs" />
-    <Compile Include="Extensions\MembershipUserExtensions.cs" />
-    <Compile Include="Helpers\IPLocator.cs" />
-    <Compile Include="Services\Twitter\OAuthBase.cs" />
-    <Compile Include="Services\Twitter\OAuthTwitter.cs" />
-    <Compile Include="Services\Twitter\TweetAPI.cs" />
-    <Compile Include="Tasks\BaseTaskModuleManager.cs" />
-    <Compile Include="Cache\HttpRuntimeCache.cs" />
-    <Compile Include="Cache\StaticLockObject.cs" />
-    <Compile Include="Cache\TreatCacheKeyWithBoard.cs" />
-    <Compile Include="Events\AppInitTaskManager.cs" />
-    <Compile Include="Events\UpdateProviderOnInitEvent.cs" />
     <Compile Include="BaseModules\StartStopWatch.cs" />
     <Compile Include="BaseModules\UnloadSessionForumModule.cs" />
     <Compile Include="BaseModules\StandardModuleManager.cs" />
+    <Compile Include="BaseModules\YafModuleScanner.cs" />
     <Compile Include="BasePages\AdminPage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -97,11 +83,14 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="BasePages\ForumPageRenderedArgs.cs" />
+    <Compile Include="BasePages\ModerateForumPage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="BBCode\HighLighter.cs" />
     <Compile Include="BBCode\HighLightList.cs" />
     <Compile Include="BBCode\ProcessReplaceRules.cs" />
-    <Compile Include="BBCode\ReplaceBlocksCollection.cs" />
     <Compile Include="BBCode\ProcessReplaceRulesProvider.cs" />
+    <Compile Include="BBCode\ReplaceBlocksCollection.cs" />
     <Compile Include="BBCode\ReplaceRules\BaseReplaceRule.cs" />
     <Compile Include="BBCode\ReplaceRules\CodeRegexReplaceRule.cs" />
     <Compile Include="BBCode\ReplaceRules\FontSizeRegexReplaceRule.cs" />
@@ -113,43 +102,58 @@
     <Compile Include="BBCode\ReplaceRules\VariableRegexReplaceRule.cs" />
     <Compile Include="BBCode\YafBBCode.cs" />
     <Compile Include="BoardSettings\YafLoadBoardSettings.cs" />
+    <Compile Include="Cache\HttpRuntimeCache.cs" />
+    <Compile Include="Cache\StaticLockObject.cs" />
+    <Compile Include="Cache\TreatCacheKeyWithBoard.cs" />
     <Compile Include="Context\ContextVariableRepository.cs" />
+    <Compile Include="Context\LoadPageFromDatabase.cs" />
+    <Compile Include="Context\LoadPageLazyUserData.cs" />
+    <Compile Include="Context\LoadPageLogBadAgent.cs" />
+    <Compile Include="Context\LoadPageRequestInformation.cs" />
+    <Compile Include="Context\LoadPageVariablesFromQuery.cs" />
     <Compile Include="Context\UserPageBase.cs" />
     <Compile Include="Context\YafContext.cs" />
+    <Compile Include="Events\AppInitTaskManager.cs" />
     <Compile Include="Events\FireEvent.cs" />
     <Compile Include="Events\ServiceLocatorEventRaiser.cs" />
+    <Compile Include="Events\UpdateProviderOnInitEvent.cs" />
+    <Compile Include="Exceptions\YafTaskModuleNotRegisteredException.cs" />
     <Compile Include="Extensions\ApplicationStateBaseExtensions.cs" />
     <Compile Include="Extensions\AssemblyExtensions.cs" />
+    <Compile Include="Extensions\BackgroundTaskExtensions.cs" />
     <Compile Include="Extensions\BinaryExtensions.cs" />
     <Compile Include="Extensions\ControlExtensions.cs" />
     <Compile Include="Extensions\IBBCodeExtensions.cs" />
     <Compile Include="Extensions\IDateTimeExtensions.cs" />
     <Compile Include="Extensions\IFormatMessageExtensions.cs" />
+    <Compile Include="Extensions\IHaveComponentRegistryExtensions.cs" />
+    <Compile Include="Extensions\IModuleManagerExtensions.cs" />
+    <Compile Include="Extensions\IPermissionsExtensions.cs" />
+    <Compile Include="Extensions\IReplaceBlocksExtensions.cs" />
+    <Compile Include="Extensions\ISendMailExtensions.cs" />
     <Compile Include="Extensions\ITaskModuleManagerExtensions.cs" />
+    <Compile Include="Extensions\IYafThemeExtensions.cs" />
+    <Compile Include="Extensions\MailMessageExtensions.cs" />
+    <Compile Include="Extensions\MembershipUserExtensions.cs" />
+    <Compile Include="Extensions\ResourcesExtensions.cs" />
+    <Compile Include="Extensions\IHaveServiceLocatorExtensions.cs" />
+    <Compile Include="Extensions\SyndicationItemExtensions.cs" />
+    <Compile Include="GlobalContainer.cs" />
+    <Compile Include="Handlers\CantLoadThemeException.cs" />
+    <Compile Include="Handlers\LocalizationProvider.cs" />
+    <Compile Include="Handlers\ThemeProvider.cs" />
+    <Compile Include="Helpers\CaptchaHelper.cs" />
     <Compile Include="Helpers\CurrentBoardSettings.cs" />
     <Compile Include="Helpers\CurrentHttpApplicationStateBaseProvider.cs" />
     <Compile Include="Helpers\CurrentMembershipProvider.cs" />
     <Compile Include="Helpers\CurrentProfileProvider.cs" />
     <Compile Include="Helpers\CurrentRoleProvider.cs" />
     <Compile Include="Helpers\CurrentTaskModuleProvider.cs" />
-    <Compile Include="IHaveComponentRegistry.cs" />
-    <Compile Include="Extensions\IHaveComponentRegistryExtensions.cs" />
-    <Compile Include="Extensions\IModuleManagerExtensions.cs" />
-    <Compile Include="Extensions\IPermissionsExtensions.cs" />
-    <Compile Include="Extensions\IReplaceBlocksExtensions.cs" />
-    <Compile Include="Extensions\ISendMailExtensions.cs" />
-    <Compile Include="Extensions\IYafThemeExtensions.cs" />
-    <Compile Include="Extensions\MailMessageExtensions.cs" />
-    <Compile Include="Extensions\ResourcesExtensions.cs" />
-    <Compile Include="Extensions\IHaveServiceLocatorExtensions.cs" />
-    <Compile Include="GlobalContainer.cs" />
-    <Compile Include="Handlers\CantLoadThemeException.cs" />
-    <Compile Include="Handlers\LocalizationProvider.cs" />
-    <Compile Include="Handlers\ThemeProvider.cs" />
-    <Compile Include="Helpers\CaptchaHelper.cs" />
     <Compile Include="Helpers\DynamicConnectionManager.cs" />
+    <Compile Include="Helpers\IPLocator.cs" />
     <Compile Include="Helpers\PostDataHelper.cs" />
     <Compile Include="Helpers\StaticDataHelper.cs" />
+    <Compile Include="IHaveComponentRegistry.cs" />
     <Compile Include="Localization\Localizer.cs" />
     <Compile Include="Localization\LocalizerLoader.cs" />
     <Compile Include="Localization\YafLocalization.cs" />
@@ -167,10 +171,6 @@
     <Compile Include="Nntp\NntpUtil.cs" />
     <Compile Include="Nntp\YafNntp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\Startup\BaseStartupService.cs" />
-    <Compile Include="Services\CurrentBoardId.cs" />
-    <Compile Include="Services\ScriptBuilder\JavaScriptBuilder.cs" />
-    <Compile Include="Services\ScriptBuilder\JavaScriptFunction.cs" />
     <Compile Include="Services\CheckForSpam\AkismetSpamClient.cs" />
     <Compile Include="Services\CheckForSpam\AntiSpamTypePadClient.cs" />
     <Compile Include="Services\CheckForSpam\BlogSpamNet.cs" />
@@ -184,18 +184,25 @@
     <Compile Include="Services\CheckForSpam\InvalidResponseException.cs" />
     <Compile Include="Services\CheckForSpam\Stats.cs" />
     <Compile Include="Services\CheckForSpam\TrainComment.cs" />
-    <Compile Include="Services\ScriptBuilder\JavaScriptStatement.cs" />
+    <Compile Include="Services\CurrentBoardId.cs" />
     <Compile Include="Services\LoadMessage.cs" />
     <Compile Include="Services\PageElementRegister.cs" />
     <Compile Include="Services\PanelSessionState.cs" />
+    <Compile Include="Services\ScriptBuilder\JavaScriptBuilder.cs" />
+    <Compile Include="Services\ScriptBuilder\JavaScriptFunction.cs" />
+    <Compile Include="Services\ScriptBuilder\JavaScriptStatement.cs" />
     <Compile Include="Services\ScriptBuilder\ScriptBuilderExtensions.cs" />
     <Compile Include="Services\ScriptBuilder\ScriptFunctionContext.cs" />
+    <Compile Include="Services\ScriptBuilder\ScriptFunctionContextExtensions.cs" />
     <Compile Include="Services\ScriptBuilder\ScriptStatementContext.cs" />
     <Compile Include="Services\ScriptBuilder\ScriptStatementContextExtensions.cs" />
-    <Compile Include="Services\ScriptBuilder\ScriptFunctionContextExtensions.cs" />
+    <Compile Include="Services\Startup\BaseStartupService.cs" />
     <Compile Include="Services\Startup\PageRequestLoadServices.cs" />
     <Compile Include="Services\Startup\StartupCheckBannedIps.cs" />
     <Compile Include="Services\Startup\StartupInitializeDb.cs" />
+    <Compile Include="Services\Twitter\OAuthBase.cs" />
+    <Compile Include="Services\Twitter\OAuthTwitter.cs" />
+    <Compile Include="Services\Twitter\TweetAPI.cs" />
     <Compile Include="Services\YafAlbum.cs" />
     <Compile Include="Services\YafAvatars.cs" />
     <Compile Include="Services\YafBadWordReplace.cs" />
@@ -212,15 +219,15 @@
     <Compile Include="Services\YafSendMailThreaded.cs" />
     <Compile Include="Services\YafSendNotification.cs" />
     <Compile Include="Services\YafSession.cs" />
+    <Compile Include="Services\YafSpamCheck.cs" />
     <Compile Include="Services\YafStopWatch.cs" />
     <Compile Include="Services\YafTemplateEmail.cs" />
     <Compile Include="Services\YafThankYou.cs" />
     <Compile Include="Services\YafUserIgnored.cs" />
-    <Compile Include="Extensions\SyndicationItemExtensions.cs" />
     <Compile Include="Syndication\YafSyndicationFeed.cs" />
-    <Compile Include="Extensions\BackgroundTaskExtensions.cs" />
     <Compile Include="Tasks\BaseBackgroundTask.cs" />
     <Compile Include="BaseModules\BaseForumModule.cs" />
+    <Compile Include="Tasks\BaseTaskModuleManager.cs" />
     <Compile Include="Tasks\CleanUpTask.cs" />
     <Compile Include="Tasks\DigestSendForumModule.cs" />
     <Compile Include="Tasks\DigestSendTask.cs" />
@@ -246,7 +253,6 @@
     <Compile Include="UsersRoles\UserMembershipHelper.cs" />
     <Compile Include="YafBaseContainerModule.cs" />
     <Compile Include="YAFTaskModule.cs" />
-    <Compile Include="Exceptions\YafTaskModuleNotRegisteredException.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FarsiLibrary\FarsiLibrary.csproj">

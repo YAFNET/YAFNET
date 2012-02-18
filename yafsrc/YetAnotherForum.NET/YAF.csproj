@@ -755,9 +755,6 @@
     </Compile>
     <Content Include="advanced.aspx" />
     <Content Include="App_Data\Database.mdf" />
-    <Content Include="App_Data\Database_log.LDF">
-      <DependentUpon>Database.mdf</DependentUpon>
-    </Content>
     <Content Include="auth.aspx" />
     <Content Include="controls\AlbumImageList.ascx" />
     <Content Include="controls\AlbumList.ascx" />
