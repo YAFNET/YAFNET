@@ -301,8 +301,18 @@ namespace YAF.Pages
             {
                 this.PageContext.AddLoadMessage(
                   this.GetTextFormatted("TOPIC_NAME_WORDTOOLONG", this.Get<YafBoardSettings>().MaxWordLength));
-                this.TopicSubjectTextBox.Text =
+
+                try
+                {
+                    this.TopicSubjectTextBox.Text =
                     this.TopicSubjectTextBox.Text.Substring(this.Get<YafBoardSettings>().MaxWordLength).Substring(255);
+                }
+                catch (Exception)
+                {
+                    this.TopicSubjectTextBox.Text =
+                    this.TopicSubjectTextBox.Text.Substring(this.Get<YafBoardSettings>().MaxWordLength);
+                }
+
                 return false;
             }
 
@@ -312,8 +322,19 @@ namespace YAF.Pages
             {
                 this.PageContext.AddLoadMessage(
                   this.GetTextFormatted("TOPIC_DESCRIPTION_WORDTOOLONG", this.Get<YafBoardSettings>().MaxWordLength));
-                this.TopicDescriptionTextBox.Text =
+
+
+                try
+                {
+                    this.TopicDescriptionTextBox.Text =
                     this.TopicDescriptionTextBox.Text.Substring(this.Get<YafBoardSettings>().MaxWordLength).Substring(255);
+                }
+                catch (Exception)
+                {
+                    this.TopicDescriptionTextBox.Text =
+                        this.TopicDescriptionTextBox.Text.Substring(this.Get<YafBoardSettings>().MaxWordLength);
+                }
+                
                 return false;
             }
 
