@@ -52,13 +52,19 @@
 </tr>
 <tr class="<%#GetPostClass()%>">
     <td <%# GetRowSpan() %> valign="top" height="<%# GetUserBoxHeight() %>" class="UserBox" colspan='<%#GetIndentSpan()%>'>
-        <YAF:UserBox id="UserBox1" runat="server" Visible="<%# !PostData.IsSponserMessage %>" PageCache="<%# PageContext.CurrentForumPage.PageCache %>" DataRow="<%# DataRow %>"></YAF:UserBox>
+        <YAF:UserBox id="UserBox1" runat="server" Visible="<%# !PostData.IsSponserMessage %>" PageCache="<%# PageContext.CurrentForumPage.PageCache %>" DataRow='<%# DataRow %>'></YAF:UserBox>
     </td>
     <td valign="top" class="message">
         <div class="postdiv">
             <asp:panel id="panMessage" runat="server">      
                 <YAF:MessagePostData ID="MessagePost1" runat="server" DataRow="<%# DataRow %>" IsAltMessage="<%# this.IsAlt %>" ColSpan="<%#GetIndentSpan()%>"></YAF:MessagePostData>
-            </asp:panel>            
+            </asp:panel> 
+            <br />
+            <asp:PlaceHolder ID="MessageHistoryHolder" runat="server" Visible="false">
+		<a id="messageHistoryLink" rel="nofollow" runat="server" /> 
+		</asp:PlaceHolder>   
+        	<span id="DetailsDelimiter1" runat="server" visible='<%# this.MessageDetails.Text.Length > 0 %>'>&nbsp;|</span>
+		<asp:Literal id="MessageDetails" runat="server" visible="false" Mode="PassThrough"></asp:Literal>
         </div>
     </td>
 </tr>

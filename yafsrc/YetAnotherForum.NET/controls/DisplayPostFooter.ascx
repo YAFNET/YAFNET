@@ -35,14 +35,8 @@
 	<div class="rightItem postInfoRight">
         <YAF:ThemeButton ID="ReportPost" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS"
 				TextLocalizedTag="REPORTPOST" ImageThemeTag="REPORT_POST" TitleLocalizedTag="REPORTPOST_TITLE"></YAF:ThemeButton>					
-		<asp:PlaceHolder ID="MessageHistoryHolder" runat="server" Visible="false">
-		&nbsp;|&nbsp;
-		<a id="messageHistoryLink" rel="nofollow" runat="server" /> 
-		</asp:PlaceHolder>
-		<span id="DetailsDelimiter1" runat="server" visible="<%# this.MessageDetails.Text.Length > 0 %>">&nbsp;|</span>
-		<asp:Literal id="MessageDetails" runat="server" visible="false" Mode="PassThrough"></asp:Literal>
 		<span id="IPSpan1" runat="server" visible="false"> 
-		&nbsp;|&nbsp;
+		&nbsp;&nbsp;
 		<b><%# this.GetText("IP") %>:</b>&nbsp;<a id="IPLink1" target="_blank" runat="server"/>			   
 		</span> 		
 	</div>

@@ -114,57 +114,6 @@ namespace YAF.Controls
         {
             var sb = new StringBuilder();
 
-            if (!this.PostData.PostDeleted)
-            {
-                if (Convert.ToDateTime(this.DataRow["Edited"]) >
-                    Convert.ToDateTime(this.DataRow["Posted"]).AddSeconds(this.Get<YafBoardSettings>().EditTimeOut))
-                {
-                    string editedText = this.Get<IDateTime>().FormatDateTimeShort(Convert.ToDateTime(this.DataRow["Edited"]));
-
-                    // vzrus: Guests doesn't have right to view change history
-                    this.MessageHistoryHolder.Visible = true;
-
-                    if (HttpContext.Current.Server.HtmlDecode(Convert.ToString(this.DataRow["EditReason"])) != string.Empty)
-                    {
-                        // reason was specified
-                        this.messageHistoryLink.Title +=
-                          " | {0}: {1}".FormatWith(
-                            this.GetText("EDIT_REASON"),
-                            this.Get<IFormatMessage>().RepairHtml((string)this.DataRow["EditReason"], true));
-                    }
-                    else
-                    {
-                        this.messageHistoryLink.Title += " {0}: {1}".FormatWith(
-                          this.GetText("EDIT_REASON"),
-                          this.GetText("EDIT_REASON_NA"));
-                    }
-
-                    // message has been edited
-                    // show, why the post was edited or deleted?
-                    string whoChanged = Convert.ToBoolean(this.DataRow["IsModeratorChanged"])
-                                          ? this.GetText("EDITED_BY_MOD")
-                                          : this.GetText("EDITED_BY_USER");
-
-                    this.messageHistoryLink.InnerHtml =
-                      @"<span class=""editedinfo"" title=""{2}"">{0} {1}</span>".FormatWith(
-                        this.GetText("EDITED"), whoChanged, editedText + this.messageHistoryLink.Title);
-                    this.messageHistoryLink.HRef = YafBuildLink.GetLink(
-                      ForumPages.messagehistory, "m={0}", this.DataRow["MessageID"]);
-                }
-            }
-            else
-            {
-                string deleteText = HttpContext.Current.Server.HtmlDecode(Convert.ToString(this.DataRow["DeleteReason"])) !=
-                                    string.Empty
-                                        ? this.Get<IFormatMessage>().RepairHtml((string)this.DataRow["DeleteReason"], true)
-                                        : this.GetText("EDIT_REASON_NA");
-
-                sb.AppendFormat(
-                @" | <span class=""editedinfo"" title=""{1}"">{0}</span>",
-                this.GetText("EDIT_REASON"),
-                deleteText);
-            }
-
             // display admin only info
             if (this.PageContext.IsAdmin ||
                 (this.Get<YafBoardSettings>().AllowModeratorsViewIPs && this.PageContext.IsModerator))
@@ -178,14 +127,7 @@ namespace YAF.Controls
 
                 sb.Append(' ');
             }
-
-            if (sb.Length <= 0)
-            {
-                return;
-            }
-
-            this.MessageDetails.Visible = true;
-            this.MessageDetails.Text = @"<span class=""MessageDetails"">{0}</span>".FormatWith(sb);
+          
         }
 
         /// <summary>
