@@ -63,11 +63,24 @@ namespace YAF.Tests.Utils
         /// </returns>
         protected bool LoginUser()
         {
+            return this.LoginUser(TestConfig.TestUserName, TestConfig.TestUserPassword);
+        }
+
+        /// <summary>
+        /// Logins the user.
+        /// </summary>
+        /// <param name="userName">Name of the user.</param>
+        /// <param name="password">The password.</param>
+        /// <returns>
+        /// Returns if Successfully or not
+        /// </returns>
+        protected bool LoginUser(string userName, string password)
+        {
             // Login as Test User
-            var loginSucceed = TestHelper.LoginUser(this.browser, TestConfig.TestUserName, TestConfig.TestUserPassword);
+            var loginSucceed = TestHelper.LoginUser(this.browser, userName, password);
             if (!loginSucceed)
             {
-                TestHelper.RegisterStandardTestUser(this.browser);
+                TestHelper.RegisterStandardTestUser(this.browser, userName, password);
             }
 
             return this.browser.Link(Find.ById(new Regex("_LogOutButton"))).Exists;

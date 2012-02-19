@@ -36,12 +36,15 @@ namespace YAF.Tests.Utils
         /// Registers the standard test user.
         /// </summary>
         /// <param name="browser">The <paramref name="browser"/> instance.</param>
-        /// <returns>If User was Registered or not</returns>
-        public static bool RegisterStandardTestUser(IE browser)
+        /// <param name="userName">Name of the user.</param>
+        /// <param name="password">The password.</param>
+        /// <returns>
+        /// If User was Registered or not
+        /// </returns>
+        public static bool RegisterStandardTestUser(IE browser, string userName, string password)
         {
             browser.GoTo("{0}yaf_register.aspx".FormatWith(TestConfig.TestForumUrl));
 
-            var userName = TestConfig.TestUserName;
             var email = "{0}@test.com".FormatWith(userName.ToLower());
 
             browser.ShowWindow(NativeMethods.WindowShowStyle.Maximize);
@@ -73,11 +76,11 @@ namespace YAF.Tests.Utils
                 browser.TextField(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_DisplayName"))).TypeText(userName);
             }
 
-            browser.TextField(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_Password"))).TypeText(TestConfig.TestUserPassword);
-            browser.TextField(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_ConfirmPassword"))).TypeText(TestConfig.TestUserPassword);
+            browser.TextField(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_Password"))).TypeText(password);
+            browser.TextField(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_ConfirmPassword"))).TypeText(password);
             browser.TextField(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_Email"))).TypeText(email);
-            browser.TextField(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_Question"))).TypeText(TestConfig.TestUserPassword);
-            browser.TextField(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_Answer"))).TypeText(TestConfig.TestUserPassword);
+            browser.TextField(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_Question"))).TypeText(password);
+            browser.TextField(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_Answer"))).TypeText(password);
 
             ////browser.TextField(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_tbCaptcha"))).TypeText(captcha);
 

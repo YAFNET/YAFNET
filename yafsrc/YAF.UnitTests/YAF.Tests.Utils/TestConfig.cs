@@ -229,6 +229,31 @@ namespace YAF.Tests.Utils
         }
 
         /// <summary>
+        /// Gets the name of the test user 2.
+        /// </summary>
+        /// <value>
+        /// The name of the test user 2.
+        /// </value>
+        public static string TestUserName2
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.TestUserName2") ?? "TestUser2";
+            }
+        }
+
+        /// <summary>
+        /// Gets the test user 2 password.
+        /// </summary>
+        public static string TestUser2Password
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.TestUser2Password") ?? "TestUser2TestUser21234?!";
+            }
+        }
+
+        /// <summary>
         /// Gets Default Website Name.
         /// </summary>
         public static string DefaultWebsiteName
