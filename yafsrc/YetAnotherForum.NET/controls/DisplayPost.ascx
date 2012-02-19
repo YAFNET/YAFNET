@@ -1,6 +1,4 @@
-﻿<%@ Register TagPrefix="user" TagName="DisplayPostFooter" Src="DisplayPostFooter.ascx" %>
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Controls.DisplayPost"
-	EnableViewState="false" Codebehind="DisplayPost.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Controls.DisplayPost" EnableViewState="false" Codebehind="DisplayPost.ascx.cs" %>
 <%@ Register TagPrefix="YAF" TagName="DisplayPostFooter" Src="DisplayPostFooter.ascx" %>
 <%@ Import Namespace="YAF.Core"%>
 <%@ Import Namespace="YAF.Core.Services" %>
@@ -61,7 +59,7 @@
             </asp:panel> 
             <br />
             <asp:PlaceHolder ID="MessageHistoryHolder" runat="server" Visible="false">
-		<a id="messageHistoryLink" rel="nofollow" runat="server" /> 
+		<a id="messageHistoryLink" class="MessageHistoryLink" rel="nofollow" runat="server" /> 
 		</asp:PlaceHolder>   
         	<span id="DetailsDelimiter1" runat="server" visible='<%# this.MessageDetails.Text.Length > 0 %>'>&nbsp;|</span>
 		<asp:Literal id="MessageDetails" runat="server" visible="false" Mode="PassThrough"></asp:Literal>
