@@ -20,24 +20,20 @@
 
 namespace YAF.Tests.UserTests.UserSettings
 {
-    using System;
-    using System.IO;
     using System.Text.RegularExpressions;
 
     using NUnit.Framework;
 
     using WatiN.Core;
-    using WatiN.Core.DialogHandlers;
-    using WatiN.Core.Exceptions;
     using WatiN.Core.Native.Windows;
 
     using YAF.Tests.Utils;
-    using YAF.Utils;
 
     /// <summary>
     /// The user Reputation tests.
     /// </summary>
     [TestFixture]
+    [NUnit.Framework.Description("The user Reputation tests.")]
     public class ReputationTests : TestBase
     {
         /// <summary>
@@ -68,9 +64,10 @@ namespace YAF.Tests.UserTests.UserSettings
         }
 
         /// <summary>
-        /// Add reputation to test user test.
+        /// Add +1 Reputation from TestUser2 to TestUser Test.
         /// </summary>
         [Test]
+        [NUnit.Framework.Description("Add +1 Reputation from TestUser2 to TestUser Test.")]
         public void Add_Reputation_To_Test_User_Test()
         {
             // First Creating a new test topic with the test user
@@ -84,7 +81,6 @@ namespace YAF.Tests.UserTests.UserSettings
             // Go To New Test Topic Url
             this.browser.GoTo(newTestTopicUrl);
 
-
             Assert.IsTrue(
                this.browser.Link(Find.ById(new Regex("_AddReputation"))).Exists,
                "Reputation is deactivated  in yaf or the user has already voted within the last 24 hours, or the user doesnt have enough points to be allowed to vote");
@@ -95,9 +91,10 @@ namespace YAF.Tests.UserTests.UserSettings
         }
 
         /// <summary>
-        /// Remove  reputation from the test user test.
+        /// Add -1 Reputation from TestUser2 to TestUser Test
         /// </summary>
         [Test]
+        [NUnit.Framework.Description("Add -1 Reputation from TestUser2 to TestUser Test")]
         public void Remove_Reputation_From_Test_User_Test()
         {
             // First Creating a new test topic with the test user

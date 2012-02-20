@@ -20,8 +20,6 @@ namespace YAF.Utilities
 {
     #region Using
 
-    using System.Web.UI;
-
     using YAF.Classes;
     using YAF.Core;
     using YAF.Types;
@@ -32,7 +30,7 @@ namespace YAF.Utilities
     #endregion
 
     /// <summary>
-    /// Summary description for JavaScriptBlocks
+    /// Contains the Java Script Blocks
     /// </summary>
     public static class JavaScriptBlocks
     {
@@ -147,9 +145,40 @@ namespace YAF.Utilities
         {
             get
             {
-                return @"{0}(document).ready(function() {{ 
-					{0}('.ceebox').ceebox({{titles:true}});
-			}});".FormatWith(Config.JQueryAlias);
+                return 
+                    @"{0}(document).ready(function() {{ 
+					{0}('.ceebox').ceebox({{titles:true}});}});".FormatWith(Config.JQueryAlias);
+            }
+        }
+
+        /// <summary>
+        /// Gets the multi quote callback success JS.
+        /// </summary>
+        [NotNull]
+        public static string MultiQuoteCallbackSuccessJS
+        {
+            get
+            {
+                return
+                  @"function multiQuoteSuccess(res){{
+                  var multiQuoteButton = {0}('#' + res.d.Id).parent('span');
+                  multiQuoteButton.removeClass(multiQuoteButton.attr('class')).addClass(res.d.NewTitle);}}".FormatWith(Config.JQueryAlias); 
+            }
+        }
+
+        /// <summary>
+        /// Gets the multi quote button js.
+        /// </summary>
+        [NotNull]
+        public static string MultiQuoteButtonJs
+        {
+            get
+            {
+                return
+                    @"function handleMultiQuoteButton(button, msgId){{
+                     var messageId = msgId;var cssClass = {1}('#' + button.id).parent('span').attr('class');
+                     {1}.PageMethod('{0}YafAjax.asmx', 'HandleMultiQuote', multiQuoteSuccess, CallFailed, 'buttonId', button.id, 'multiquoteButton', button.checked, 'messageId', messageId, 'buttonCssClass', cssClass);}}"
+                        .FormatWith(YafForumInfo.ForumClientFileRoot, Config.JQueryAlias);
             }
         }
 
@@ -169,8 +198,6 @@ namespace YAF.Utilities
                      var albId = albumId;var newTitleTxt = {1}('#' + txtTitleId).val();
                      {1}.PageMethod('{0}YafAjax.asmx', 'ChangeAlbumTitle', changeTitleSuccess, CallFailed, 'albumID', albId, 'newTitle', newTitleTxt);}}"
                         .FormatWith(YafForumInfo.ForumClientFileRoot, Config.JQueryAlias);
-
-                // YAF.Classes.Core.YafAlbum.ChangeAlbumTitle(albumId, document.getElementById(txtTitleId).value, changeTitleSuccess, CallFailed);}}";
             }
         }
 
@@ -188,8 +215,6 @@ namespace YAF.Utilities
               var imgId = imageID;var newImgTitleTxt = {1}('#' + txtTitleId).val();
               {1}.PageMethod('{0}YafAjax.asmx', 'ChangeImageCaption', changeTitleSuccess, CallFailed, 'imageID', imgId, 'newCaption', newImgTitleTxt);}}"
                         .FormatWith(YafForumInfo.ForumClientFileRoot, Config.JQueryAlias);
-
-                // YAF.Classes.Core.YafAlbum.ChangeImageCaption(imageID, document.getElementById(txtTitleId).value, changeTitleSuccess, CallFailed);}}";
             }
         }
 

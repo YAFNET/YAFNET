@@ -22,6 +22,7 @@ namespace YAF.Classes
     #region Using
 
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
@@ -65,6 +66,49 @@ namespace YAF.Classes
         }
 
         #endregion
+
+        /// <summary>
+        /// Handles the multi quote Button.
+        /// </summary>
+        /// <param name="buttonId">The button id.</param>
+        /// <param name="multiquoteButton">The Multiquote Button Checkbox checked</param>
+        /// <param name="messageId">The message id.</param>
+        /// <param name="buttonCssClass">The button CSS class.</param>
+        /// <returns>Returns the Message Id and the Updated CSS Class for the Button</returns>
+        [WebMethod(EnableSession = true)]
+        public YafAlbum.ReturnClass HandleMultiQuote([NotNull]string buttonId, [NotNull]bool multiquoteButton, [NotNull]int messageId, [NotNull]string buttonCssClass)
+        {
+            if (multiquoteButton)
+            {
+                if (this.Get<IYafSession>().MultiQuoteIds != null)
+                {
+                    if (!this.Get<IYafSession>().MultiQuoteIds.Contains(messageId))
+                    {
+                        this.Get<IYafSession>().MultiQuoteIds.Add(messageId);
+                    }
+                }
+                else
+                {
+                    this.Get<IYafSession>().MultiQuoteIds = new ArrayList { messageId };
+                }
+
+                buttonCssClass += " Checked";
+            }
+            else
+            {
+                if (this.Get<IYafSession>().MultiQuoteIds != null)
+                {
+                    if (this.Get<IYafSession>().MultiQuoteIds.Contains(messageId))
+                    {
+                        this.Get<IYafSession>().MultiQuoteIds.Remove(messageId);
+                    }
+                }
+
+                buttonCssClass = "MultiQuoteButton";
+            }
+
+            return new YafAlbum.ReturnClass { Id = buttonId, NewTitle = buttonCssClass };
+        }
 
         /// <summary>
         /// Spell check via google api.

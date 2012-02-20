@@ -275,7 +275,6 @@ namespace YAF.Controls
             var sb = new StringBuilder();
             if (!this.PostData.PostDeleted)
             {
-
                 if (Convert.ToDateTime(this.DataRow["Edited"]) >
                     Convert.ToDateTime(this.DataRow["Posted"]).AddSeconds(this.Get<YafBoardSettings>().EditTimeOut))
                 {
@@ -324,12 +323,12 @@ namespace YAF.Controls
                 this.GetText("EDIT_REASON"),
                 deleteText);
             }
+
             if (sb.Length > 0)
             {
                 this.MessageDetails.Visible = true;
                 this.MessageDetails.Text = @"<span class=""MessageDetails"">{0}</span>".FormatWith(sb);
             }
-
             
             if (this.IsGuest)
             {
@@ -440,47 +439,6 @@ namespace YAF.Controls
                 JavaScriptBlocks.ReputationProgressChangeJs(
                     YafReputation.GenerateReputationBar(this.DataRow["Points"].ToType<int>(), this.PostData.UserId),
                     this.PostData.UserId.ToString()));
-        }
-
-        /// <summary>
-        /// Handles the multi quote.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender. 
-        /// </param>
-        /// <param name="e">
-        /// The <see cref="System.EventArgs"/> instance containing the event data. 
-        /// </param>
-        protected void HandleMultiQuote(object sender, EventArgs e)
-        {
-            if (this.MultiQuote.Checked)
-            {
-                if (this.Get<IYafSession>().MultiQuoteIds != null)
-                {
-                    if (!this.Get<IYafSession>().MultiQuoteIds.Contains(this.PostData.MessageId))
-                    {
-                        this.Get<IYafSession>().MultiQuoteIds.Add(this.PostData.MessageId);
-                    }
-                }
-                else
-                {
-                    this.Get<IYafSession>().MultiQuoteIds = new ArrayList { this.PostData.MessageId };
-                }
-
-                this.MultiQuote.CssClass += " Checked";
-            }
-            else
-            {
-                if (this.Get<IYafSession>().MultiQuoteIds != null)
-                {
-                    if (this.Get<IYafSession>().MultiQuoteIds.Contains(this.PostData.MessageId))
-                    {
-                        this.Get<IYafSession>().MultiQuoteIds.Remove(this.PostData.MessageId);
-                    }
-                }
-
-                this.MultiQuote.CssClass = "MultiQuoteButton";
-            }
         }
 
         /// <summary>
@@ -651,9 +609,6 @@ namespace YAF.Controls
             this.Quote.Visible = !this.PostData.PostDeleted && this.PostData.CanReply && !this.PostData.IsLocked;
             this.MultiQuote.Visible = !this.PostData.PostDeleted && this.PostData.CanReply && !this.PostData.IsLocked;
 
-            this.MultiQuote.Text = this.GetText("BUTTON_MULTI_QUOTE");
-            this.MultiQuote.ToolTip = this.GetText("BUTTON_MULTI_QUOTE_TT");
-
             this.Quote.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
                 ForumPages.postmessage,
                 "t={0}&f={1}&q={2}&page={3}",
@@ -682,6 +637,19 @@ namespace YAF.Controls
             YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.syntaxhighligher.css");
             YafContext.Current.PageElements.RegisterJsBlockStartup(
                 "syntaxhighlighterjs", JavaScriptBlocks.SyntaxHighlightLoadJs);
+
+            if (this.MultiQuote.Visible)
+            {
+                this.MultiQuote.Attributes.Add("onclick", "handleMultiQuoteButton(this, '{0}')".FormatWith(this.PostData.MessageId));
+
+                YafContext.Current.PageElements.RegisterJsBlockStartup(
+                    "MultiQuoteButtonJs", JavaScriptBlocks.MultiQuoteButtonJs);
+                YafContext.Current.PageElements.RegisterJsBlockStartup(
+                  "MultiQuoteCallbackSuccessJS", JavaScriptBlocks.MultiQuoteCallbackSuccessJS);
+
+                this.MultiQuote.Text = this.GetText("BUTTON_MULTI_QUOTE");
+                this.MultiQuote.ToolTip = this.GetText("BUTTON_MULTI_QUOTE_TT");
+            }
 
             if (this.Get<YafBoardSettings>().EnableUserReputation)
             {

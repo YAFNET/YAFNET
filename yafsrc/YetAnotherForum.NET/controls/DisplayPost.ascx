@@ -43,7 +43,7 @@
                 TitleLocalizedTag="BUTTON_UNDELETE_TT" />
             <YAF:ThemeButton ID="Quote" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_QUOTE"
                 TitleLocalizedTag="BUTTON_QUOTE_TT" />
-                <asp:CheckBox runat="server" ID="MultiQuote" CssClass="MultiQuoteButton" AutoPostBack="true" OnCheckedChanged="HandleMultiQuote"  />
+                <asp:CheckBox runat="server" ID="MultiQuote" CssClass="MultiQuoteButton"  />
         </div>
                 
     </td>
