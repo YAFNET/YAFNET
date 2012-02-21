@@ -215,6 +215,31 @@ namespace YAF.Classes
     }
 
     /// <summary>
+    ///   Gets DatabaseScheme.
+    /// </summary>
+    [NotNull]
+    public static string DatabaseScheme
+    {
+        get
+        {
+            return GetConfigValueAsString("YAF.DatabaseScheme") ?? "public";
+        }
+    }
+
+    /// <summary>
+    /// Gets a value indicating whether YAF should be optimized for use with very large number of forums. 
+    /// Before enabling you should know exactly what you do and what's it all for. Ask developers.
+    /// </summary>
+    [NotNull]
+    public static bool LargeForumTree
+    {
+        get
+        {
+            return GetConfigValueAsBool("YAF.LargeForumTree", false);
+        }
+    }
+
+    /// <summary>
     ///   Gets a value indicating whether Is Jquery Registration disabled? -- default is false.
     /// </summary>
     public static bool DisableJQuery
