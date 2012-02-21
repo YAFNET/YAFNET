@@ -171,7 +171,7 @@
 .yafnet td.header2,
 .yafnet th.header2 {
 	border-top:1px solid #555;
-	line-height: 20px;
+	line-height: 25px;
 	background: url('Header2Back.png') repeat-x #ffffff;
 	
 	background: -webkit-gradient(linear, left top, left bottom, from(#e3e3e3), to(#ffffff));
@@ -182,10 +182,14 @@
 	font-weight: bold;
 }
 .yafnet .headerReplies,
-.yafnet .headerViews {
-	text-align:left;
+.yafnet .headerViews,
+.yafnet .headerPosts,
+.yafnet .headerTopics {
+	text-align:center;
 }
-.headerLastPost {text-align:center;}
+
+.topicSubTitle .headerLastPost {text-align:left;}
+
 
 .postForumUsers tr.header2 td,
 #DataPanel1_Table td.header2,
@@ -281,12 +285,14 @@
 }
 
 /* Header of posts */
+.yafnet .postContainer_Alt .postheader,
+.yafnet .postContainer .postheader 
  {
 	background: url('Header2Back.png') repeat-x -3px #ffffff;
 	
-	background: -webkit-gradient(linear, left top, left bottom, from(#dfeec3), to(#ffffff));
-	background: -moz-linear-gradient(top,  #dfeec3,  #ffffff);
-    background: -o-linear-gradient(top, #dfeec3, #ffffff);
+	background: -webkit-gradient(linear, left top, left bottom, from(#e3e3e3), to(#ffffff));
+	background: -moz-linear-gradient(top,  #e3e3e3,  #ffffff);
+    background: -o-linear-gradient(top, #e3e3e3, #ffffff);
 }
 
 /* User info and post/article */
@@ -1258,12 +1264,14 @@ height:80em;
 /* Override jquery ui font-size */
 .ui-widget { font-size: 9pt!important; }
 
+.yafnet .GoToLink img  {vertical-align:middle;margin-left:12px}
 .yafnet .GoToLink,
 .yafnet .PopMenuLink {
 	display: inline-block;
 	zoom: 1; /* zoom and *display = ie7 hack for display:inline-block */
 	*display: inline;
 	vertical-align: baseline;
+	height:16px;
 
 	outline: none;
 	cursor: pointer;
@@ -1343,9 +1351,8 @@ height:80em;
 	box-shadow: 0 1px 4px rgba(0,0,0,.4);
 }
 .yafnet tr.forumRowTitle .headerForum {padding-left:34px;}
-.yafnet tr.forumRowTitle .headerLastPost,
+
 .yafnet tr.forumRowTitle .headerModerators,
-.yafnet tr.forumRowTitle .headerPosts,
 .yafnet tr.forumRowTitle .headerLastPost {text-align:left;}
 
 .yafnet .topicCountCol,
