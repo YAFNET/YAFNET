@@ -1140,7 +1140,36 @@ begin
 	alter table [{databaseOwner}].[{objectQualifier}User] add [IsTwitterUser][bit] NOT NULL CONSTRAINT [DF_{objectQualifier}IsTwitterUser] DEFAULT (0)
 end
 GO
-		
+
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='UserStyle')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}User] add [UserStyle] varchar(510) 
+end
+GO	
+
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='StyleFlags')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}User] add [StyleFlags] [int] NOT NULL CONSTRAINT [DF_{objectQualifier}User_StyleFlags] DEFAULT (0)
+end
+GO
+
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='IsUserStyle')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}User] add [IsUserStyle] AS (CONVERT([bit],sign([StyleFlags]&(1)),(0)))
+end
+GO	
+
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='IsGroupStyle')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}User] add [IsGroupStyle] AS (CONVERT([bit],sign([StyleFlags]&(2)),(0)))
+end
+GO	
+
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='IsRankStyle')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}User] add [IsRankStyle] AS (CONVERT([bit],sign([StyleFlags]&(4)),(0)))
+end
+GO	
 
 -- Forum Table
 if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='RemoteURL')

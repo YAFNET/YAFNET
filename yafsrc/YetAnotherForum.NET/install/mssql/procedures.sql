@@ -3220,7 +3220,17 @@ begin
 		set @GroupID = SCOPE_IDENTITY()
 		insert into [{databaseOwner}].[{objectQualifier}ForumAccess](GroupID,ForumID,AccessMaskID)
 		select @GroupID,a.ForumID,@AccessMaskID from [{databaseOwner}].[{objectQualifier}Forum] a join [{databaseOwner}].[{objectQualifier}Category] b on b.CategoryID=a.CategoryID where b.BoardID=@BoardID
-	end
+	end	 
+	-- group styles override rank styles
+	if (@Style is not null and LEN(@Style) > 2)
+	begin
+	update [{databaseOwner}].[{objectQualifier}User] set
+			UserStyle = @Style	WHERE   UserID IN (SELECT u.UserID FROM [{databaseOwner}].[{objectQualifier}User] u with(nolock)
+			join [{databaseOwner}].[{objectQualifier}UserGroup] b	on b.UserID = u.UserID		
+			INNER JOIN [{databaseOwner}].[{objectQualifier}Group] e on e.GroupID=b.GroupID WHERE b.GroupID = @GroupID AND u.IsUserStyle = 0 AND u.IsRankStyle = 0 )
+					
+	end		
+		  
 	select GroupID = @GroupID
 end
 GO
@@ -5102,7 +5112,8 @@ create procedure [{databaseOwner}].[{objectQualifier}post_list](
 				 @SortEdited int = 0,
 				 @SortPosition int = 0,				
 				 @ShowThanks bit = 0,
-				 @MessagePosition int = 0) as
+				 @MessagePosition int = 0,
+				 @UTCTIMESTAMP datetime) as
 begin
    declare @post_totalrowsnumber int 
    declare @firstselectrownum int 
@@ -5245,7 +5256,7 @@ begin
 		b.[Signature],
 		Posts		= b.NumPosts,
 		b.Points,
-		ReputationVoteDate = (CASE WHEN @ShowReputation = 1 THEN CAST(ISNULL((select top 1 VoteDate from [{databaseOwner}].[{objectQualifier}ReputationVote] repVote where repVote.ReputationToUserID=b.UserID and repVote.ReputationFromUserID=@PageUserID), null) as datetime) ELSE GETUTCDATE() END),
+		ReputationVoteDate = (CASE WHEN @ShowReputation = 1 THEN CAST(ISNULL((select top 1 VoteDate from [{databaseOwner}].[{objectQualifier}ReputationVote] repVote where repVote.ReputationToUserID=b.UserID and repVote.ReputationFromUserID=@PageUserID), null) as datetime) ELSE @UTCTIMESTAMP END),
 		IsGuest	= IsNull(SIGN(b.Flags & 4),0),
 		d.[Views],
 		d.ForumID,
@@ -5405,7 +5416,18 @@ begin
 	else begin
 		insert into [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts,RankImage, PMLimit,Style,SortOrder,Description,UsrSigChars,UsrSigBBCodes,UsrSigHTMLTags,UsrAlbums,UsrAlbumImages)
 		values(@BoardID,@Name,@Flags,@MinPosts,@RankImage,@PMLimit,@Style,@SortOrder,@Description,@UsrSigChars,@UsrSigBBCodes,@UsrSigHTMLTags,@UsrAlbums,@UsrAlbumImages);
-	end
+		set @RankID = SCOPE_IDENTITY()
+		-- select @RankID = RankID from [{databaseOwner}].[{objectQualifier}Rank] where RankID = @@Identity;
+	end	
+		-- group styles override rank styles
+	if (@Style is not null and LEN(@Style) > 2)
+	begin
+	update [{databaseOwner}].[{objectQualifier}User] set
+			UserStyle = @Style	 WHERE RankID IN (SELECT TOP 1 u.RankID FROM [{databaseOwner}].[{objectQualifier}User] u with(nolock)
+			join [{databaseOwner}].[{objectQualifier}UserGroup] e with(nolock) on e.UserID = u.UserID
+			join [{databaseOwner}].[{objectQualifier}Group] f with(nolock) on f.GroupID=e.GroupID WHERE u.RankID = @RankID  AND LEN(f.Style) > 2 AND  u.IsUserStyle = 0 AND u.IsGroupStyle = 0 ORDER BY f.SortOrder)				
+	end		  
+			
 end
 GO
 

@@ -6911,6 +6911,7 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("SortPosition", sortPosition);
                 cmd.Parameters.AddWithValue("ShowThanks", showThanks);
                 cmd.Parameters.AddWithValue("MessagePosition", messagePosition);
+                cmd.Parameters.AddWithValue("@UTCTIMESTAMP", DateTime.UtcNow);
 
                 return MsSqlDbAccess.Current.GetData(cmd);
             }
