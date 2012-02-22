@@ -20,7 +20,9 @@ namespace YAF.Core
 {
   #region Using
 
-  using System.Collections.Generic;
+	using System;
+	using System.Collections.Concurrent;
+	using System.Collections.Generic;
   using System.Linq;
   using System.Web;
 
@@ -38,15 +40,7 @@ namespace YAF.Core
   {
     #region Constants and Fields
 
-    /// <summary>
-    ///   The _lock task manager object.
-    /// </summary>
-    protected static object _lockTaskManagerObject = new object();
-
-    /// <summary>
-    ///   The _task manager.
-    /// </summary>
-    protected static Dictionary<string, IBackgroundTask> _taskManager = new Dictionary<string, IBackgroundTask>();
+		protected static ConcurrentDictionary<string, IBackgroundTask> _taskManager = new ConcurrentDictionary<string, IBackgroundTask>();
 
     #endregion
 
@@ -64,28 +58,14 @@ namespace YAF.Core
     }
 
     /// <summary>
-    ///   Current Page Instance of the Module Manager
-    /// </summary>
-    public virtual Dictionary<string, IBackgroundTask> TaskManager
-    {
-      get
-      {
-        return _taskManager;
-      }
-    }
-
-    /// <summary>
     ///   All the names of tasks running.
     /// </summary>
     [NotNull]
-    public virtual List<string> TaskManagerInstances
+    public virtual IList<string> TaskManagerInstances
     {
       get
       {
-        lock (_lockTaskManagerObject)
-        {
-          return this.TaskManager.Keys.ToList();
-        }
+        return _taskManager.Keys.ToList();
       }
     }
 
@@ -93,18 +73,11 @@ namespace YAF.Core
     ///   Gets TaskManagerSnapshot.
     /// </summary>
     [NotNull]
-    public virtual Dictionary<string, IBackgroundTask> TaskManagerSnapshot
+    public virtual IDictionary<string, IBackgroundTask> TaskManagerSnapshot
     {
       get
       {
-        var tasks = new Dictionary<string, IBackgroundTask>();
-
-        lock (_lockTaskManagerObject)
-        {
-          _taskManager.ToList().ForEach(x => tasks.Add(x.Key, x.Value));
-        }
-
-        return tasks;
+      	return _taskManager.ToDictionary(k => k.Key, v => v.Value);
       }
     }
 
@@ -124,18 +97,12 @@ namespace YAF.Core
     /// </returns>
     public virtual bool IsTaskRunning([NotNull] string instanceName)
     {
-      lock (_lockTaskManagerObject)
-      {
-        if (this.TaskManager.ContainsKey(instanceName) && this.TaskManager[instanceName].IsRunning)
-        {
-          return true;
-        }
-      }
+    	IBackgroundTask task;
 
-      return false;
+    	return this.TryGetTask(instanceName, out task) && task.IsRunning;
     }
 
-    /// <summary>
+  	/// <summary>
     /// Start a non-running task -- will set the <see cref="HttpApplication"/> instance.
     /// </summary>
     /// <param name="instanceName">
@@ -144,7 +111,7 @@ namespace YAF.Core
     /// <param name="start">
     /// Task to run
     /// </param>
-    public abstract void StartTask([NotNull] string instanceName, [NotNull] IBackgroundTask start);
+		public abstract bool StartTask([NotNull] string instanceName, [NotNull] Func<IBackgroundTask> start);
 
     /// <summary>
     /// Check if a task exists in the task manager. May not be running.
@@ -156,10 +123,7 @@ namespace YAF.Core
     /// </returns>
     public virtual bool TaskExists([NotNull] string instanceName)
     {
-      lock (_lockTaskManagerObject)
-      {
-        return this.TaskManager.ContainsKey(instanceName);
-      }
+    	return _taskManager.ContainsKey(instanceName);
     }
 
     /// <summary>
@@ -169,17 +133,9 @@ namespace YAF.Core
     /// </param>
     /// <returns>
     /// </returns>
-    public virtual IBackgroundTask TryGetTask([NotNull] string instanceName)
+    public virtual bool TryGetTask([NotNull] string instanceName, out IBackgroundTask task)
     {
-      lock (_lockTaskManagerObject)
-      {
-        if (this.TaskManager.ContainsKey(instanceName))
-        {
-          return this.TaskManager[instanceName];
-        }
-      }
-
-      return null;
+    	return _taskManager.TryGetValue(instanceName, out task);
     }
 
     /// <summary>
@@ -193,16 +149,9 @@ namespace YAF.Core
     /// </returns>
     public virtual bool TryRemoveTask([NotNull] string instanceName)
     {
-      lock (_lockTaskManagerObject)
-      {
-        if (this.TaskManager.ContainsKey(instanceName))
-        {
-          this.TaskManager.Remove(instanceName);
-          return true;
-        }
-      }
+			IBackgroundTask task;
 
-      return false;
+    	return _taskManager.TryRemove(instanceName, out task);
     }
 
     /// <summary>
@@ -212,49 +161,21 @@ namespace YAF.Core
     /// </param>
     public virtual void StopTask([NotNull] string instanceName)
     {
-      lock (_lockTaskManagerObject)
-      {
-        var task = this.TryGetTask(instanceName);
+			IBackgroundTask task;
 
-        if (task != null && task.IsRunning && !(task is ICriticalBackgroundTask))
-        {
-          if (this.TryRemoveTask(instanceName))
-          {
-            task.Dispose();
-          }
-        }
-      }
+			if (this.TryGetTask(instanceName, out task))
+			{
+				if (task != null && task.IsRunning && !(task is ICriticalBackgroundTask))
+				{
+					if (this.TryRemoveTask(instanceName))
+					{
+						task.Dispose();
+					}
+				}
+			}
     }
 
     #endregion
-
-    #endregion
-
-    #region Methods
-
-    /// <summary>
-    /// The add task.
-    /// </summary>
-    /// <param name="instanceName">
-    /// The instance name.
-    /// </param>
-    /// <param name="newTask">
-    /// The new task.
-    /// </param>
-    protected virtual void AddTask([NotNull] string instanceName, [NotNull] IBackgroundTask newTask)
-    {
-      lock (_lockTaskManagerObject)
-      {
-        if (!this.TaskManager.ContainsKey(instanceName))
-        {
-          this.TaskManager.Add(instanceName, newTask);
-        }
-        else
-        {
-          this.TaskManager[instanceName] = newTask;
-        }
-      }
-    }
 
     #endregion
   }

@@ -20,7 +20,8 @@ namespace YAF.Types.Interfaces
 {
   #region Using
 
-  using System.Collections.Generic;
+	using System;
+	using System.Collections.Generic;
   using System.Web;
 
   #endregion
@@ -38,19 +39,14 @@ namespace YAF.Types.Interfaces
     int TaskCount { get; }
 
     /// <summary>
-    ///   Current Page Instance of the Module Manager
-    /// </summary>
-    Dictionary<string, IBackgroundTask> TaskManager { get; }
-
-    /// <summary>
     ///   All the names of tasks running.
     /// </summary>
-    List<string> TaskManagerInstances { get; }
+    IList<string> TaskManagerInstances { get; }
 
     /// <summary>
     ///   Gets TaskManagerSnapshot.
     /// </summary>
-    Dictionary<string, IBackgroundTask> TaskManagerSnapshot { get; }
+		IDictionary<string, IBackgroundTask> TaskManagerSnapshot { get; }
 
     #endregion
 
@@ -75,7 +71,7 @@ namespace YAF.Types.Interfaces
     /// <param name="start">
     /// Task to run
     /// </param>
-    void StartTask([NotNull] string instanceName, [NotNull] IBackgroundTask start);
+		bool StartTask([NotNull] string instanceName, Func<IBackgroundTask> startTask);
 
     /// <summary>
     /// The stop task.
@@ -86,23 +82,13 @@ namespace YAF.Types.Interfaces
     void StopTask([NotNull] string instanceName);
 
     /// <summary>
-    /// Check if a task exists in the task manager. May not be running.
-    /// </summary>
-    /// <param name="instanceName">
-    /// </param>
-    /// <returns>
-    /// The task exists.
-    /// </returns>
-    bool TaskExists([NotNull] string instanceName);
-
-    /// <summary>
     /// Attempt to get the instance of the task.
     /// </summary>
     /// <param name="instanceName">
     /// </param>
     /// <returns>
     /// </returns>
-    IBackgroundTask TryGetTask([NotNull] string instanceName);
+    bool TryGetTask([NotNull] string instanceName, out IBackgroundTask task);
 
     /// <summary>
     /// The try remove task.

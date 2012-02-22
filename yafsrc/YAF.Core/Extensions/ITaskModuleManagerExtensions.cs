@@ -55,13 +55,7 @@ namespace YAF.Core
 
       string taskName = typeof(T).ToString();
 
-      if (!taskModuleManager.TaskExists(taskName))
-      {
-        taskModuleManager.StartTask(taskName, createTask());
-        return true;
-      }
-
-      return false;
+    	return taskModuleManager.StartTask(taskName, () => createTask());
     }
 
     /// <summary>

@@ -103,28 +103,47 @@ namespace YAF.Core
     /// <param name="start">
     /// Task to run
     /// </param>
-    public override void StartTask([NotNull] string instanceName, [NotNull] IBackgroundTask start)
+    public override bool StartTask([NotNull] string instanceName, [NotNull] Func<IBackgroundTask> start)
     {
       CodeContracts.ArgumentNotNull(instanceName, "instanceName");
       CodeContracts.ArgumentNotNull(start, "start");
 
       if (this._appInstance == null)
       {
-        return;
+      	return false;
       }
 
       // add and start this module...
-      if (!start.IsRunning && !this.TaskExists(instanceName))
+      if (!this.TaskExists(instanceName))
       {
         this.Logger.Debug("Starting Task {0} Under User {1}...".FormatWith(instanceName, Environment.UserName));
 
-        // setup and run...
-        this.Get<IInjectServices>().Inject(start);
-        start.Run();
+      	_taskManager.AddOrUpdate(
+      		instanceName,
+      		s =>
+      			{
+      				var task = start();
+      				this.Get<IInjectServices>().Inject(task);
+      				task.Run();
+      				return task;
+      			},
+      		(s, task) =>
+      			{
+      				if (task != null)
+      				{
+      					task.Dispose();
+      				}
 
-        // add it after so that IsRunning is set first...
-        this.AddTask(instanceName, start);
+      				var newTask = start();
+      				this.Get<IInjectServices>().Inject(newTask);
+      				newTask.Run();
+      				return task;
+      			});
+
+      	return true;
       }
+
+    	return false;
     }
 
     #endregion
@@ -147,7 +166,7 @@ namespace YAF.Core
       this.Get<CurrentTaskModuleProvider>().Instance = this;
 
       // create intermittent cleanup task...
-      this.StartTask("CleanUpTask", new CleanUpTask { TaskManager = this });
+      this.StartTask("CleanUpTask", () => new CleanUpTask { TaskManager = this });
 
       foreach (var instance in this.Get<IEnumerable<IStartTasks>>())
       {

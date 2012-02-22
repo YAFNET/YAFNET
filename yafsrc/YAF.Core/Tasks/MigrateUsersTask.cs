@@ -77,14 +77,9 @@ namespace YAF.Core.Tasks
         return false;
       }
 
-      if (!YafContext.Current.Get<ITaskModuleManager>().TaskExists(TaskName))
-      {
-        var task = new MigrateUsersTask { Data = boardId };
+      YafContext.Current.Get<ITaskModuleManager>().StartTask(TaskName, () => new MigrateUsersTask { Data = boardId });
 
-        YafContext.Current.Get<ITaskModuleManager>().StartTask(TaskName, task);
-      }
-
-      return true;
+			return true;
     }
 
     /// <summary>

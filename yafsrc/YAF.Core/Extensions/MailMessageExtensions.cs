@@ -20,8 +20,12 @@ namespace YAF.Core
 {
   #region Using
 
-  using System.Net.Mail;
+	using System;
+	using System.Linq;
+	using System.Net.Mail;
+  using System.Net.Mime;
   using System.Text;
+  using System.Text.RegularExpressions;
 
   using YAF.Classes;
   using YAF.Utils;
@@ -76,27 +80,23 @@ namespace YAF.Core
       mailMessage.From = fromAddress;
       mailMessage.Subject = subject;
 
-      Encoding textEncoding = Encoding.UTF8;
-
-      // TODO: Add code that figures out encoding...
-      /*
-      if ( !Regex.IsMatch( bodyText, @"^([0-9a-z!@#\$\%\^&\*\(\)\-=_\+])", RegexOptions.IgnoreCase ) ||
-              !Regex.IsMatch( subject, @"^([0-9a-z!@#\$\%\^&\*\(\)\-=_\+])", RegexOptions.IgnoreCase ) )
-      {
-        textEncoding = Encoding.Unicode;
-      }
-      */
-
-      // add text view...
-      mailMessage.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(bodyText, textEncoding, "text/plain"));
+      // add default text view
+			mailMessage.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(bodyText, ContainsUnicodeCharacter(bodyText) ? Encoding.Unicode : Encoding.UTF8, MediaTypeNames.Text.Plain));
 
       // see if html alternative is also desired...
       if (bodyHtml.IsSet())
       {
         mailMessage.AlternateViews.Add(
-          AlternateView.CreateAlternateViewFromString(bodyHtml, Encoding.UTF8, "text/html"));
+					AlternateView.CreateAlternateViewFromString(bodyHtml, ContainsUnicodeCharacter(bodyHtml) ? Encoding.Unicode : Encoding.UTF8, MediaTypeNames.Text.Html));
       }
     }
+
+		public static bool ContainsUnicodeCharacter(string input)
+		{
+			const int MaxAnsiCode = 255;
+
+			return input.ToCharArray().Any(c => c > MaxAnsiCode);
+		}
 
     /// <summary>
     /// Creates a SmtpClient and sends a MailMessage.

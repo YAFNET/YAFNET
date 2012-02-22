@@ -60,12 +60,7 @@ namespace YAF.Core.Tasks
     /// </param>
     private void Current_AfterInit([NotNull] object sender, [NotNull] EventArgs e)
     {
-      // add the mailing task if it's not already added...
-      if (this.Get<ITaskModuleManager>() != null && !this.Get<ITaskModuleManager>().TaskExists(UserCleanUpTask.TaskName))
-      {
-        // start it...
-        this.Get<ITaskModuleManager>().StartTask(UserCleanUpTask.TaskName, new UserCleanUpTask());
-      }
+      this.Get<ITaskModuleManager>().StartTask(UserCleanUpTask.TaskName, () => new UserCleanUpTask());
     }
 
     #endregion
