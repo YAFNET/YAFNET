@@ -26,10 +26,8 @@ namespace YAF.Core.Tasks
   using YAF.Types.Attributes;
   using YAF.Types.Interfaces;
   using YAF.Utils;
-  using YAF.Utils.Helpers.StringUtils;
-  using YAF.Core.Services;
 
-  #endregion
+	#endregion
 
   /// <summary>
   /// Sends Email in the background.

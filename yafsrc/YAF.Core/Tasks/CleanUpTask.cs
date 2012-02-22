@@ -18,66 +18,71 @@
  */
 namespace YAF.Core.Tasks
 {
-  using YAF.Types.Interfaces;
+	using YAF.Types.Interfaces;
 
-  /// <summary>
-  /// Automatically cleans up the tasks if they are no longer running...
-  /// </summary>
-  public class CleanUpTask : IntermittentBackgroundTask, ICriticalBackgroundTask
-  {
-    #region Constructors and Destructors
+	/// <summary>
+	/// Automatically cleans up the tasks if they are no longer running...
+	/// </summary>
+	public class CleanUpTask : IntermittentBackgroundTask, ICriticalBackgroundTask
+	{
+		#region Constructors and Destructors
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="CleanUpTask"/> class.
-    /// </summary>
-    public CleanUpTask()
-    {
-      // set interval values...
-      this.RunPeriodMs = 500;
-      this.StartDelayMs = 500;
-    }
+		/// <summary>
+		/// Initializes a new instance of the <see cref="CleanUpTask"/> class.
+		/// </summary>
+		public CleanUpTask()
+		{
+			// set interval values...
+			this.RunPeriodMs = 500;
+			this.StartDelayMs = 500;
+		}
 
-    #endregion
+		#endregion
 
-    #region Properties
+		#region Properties
 
-    /// <summary>
-    /// Gets or sets TaskManager.
-    /// </summary>
-    public ITaskModuleManager TaskManager { get; set; }
+		/// <summary>
+		/// Gets or sets TaskManager.
+		/// </summary>
+		public ITaskModuleManager TaskManager { get; set; }
 
-    #endregion
+		#endregion
 
-    #region Public Methods
+		#region Public Methods
 
-    /// <summary>
-    /// The run once.
-    /// </summary>
-    public override void RunOnce()
-    {
-      // look for tasks to clean up...
-      if (this.TaskManager != null)
-      {
-        // make collection local...
-        var taskListKeys = this.TaskManager.TaskManagerInstances;
+		/// <summary>
+		/// The run once.
+		/// </summary>
+		public override void RunOnce()
+		{
+			// look for tasks to clean up...
+			if (this.TaskManager == null)
+			{
+				return;
+			}
 
-        foreach (string instanceName in taskListKeys)
-        {
-          IBackgroundTask task = this.TaskManager.TryGetTask(instanceName);
+			// make collection local...
+			var taskListKeys = this.TaskManager.TaskManagerInstances;
 
-          if (task == null)
-          {
-            this.TaskManager.TryRemoveTask(instanceName);
-          }
-          else if (!task.IsRunning)
-          {
-            this.TaskManager.TryRemoveTask(instanceName);
-            task.Dispose();
-          }
-        }
-      }
-    }
+			foreach (string instanceName in taskListKeys)
+			{
+				IBackgroundTask task;
 
-    #endregion
-  }
+				if (this.TaskManager.TryGetTask(instanceName, out task))
+				{
+					if (!task.IsRunning)
+					{
+						this.TaskManager.TryRemoveTask(instanceName);
+						task.Dispose();
+					}
+				}
+				else
+				{
+					this.TaskManager.TryRemoveTask(instanceName);
+				}
+			}
+		}
+
+		#endregion
+	}
 }

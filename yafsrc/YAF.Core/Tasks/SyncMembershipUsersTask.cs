@@ -77,11 +77,7 @@ namespace YAF.Core.Tasks
         return false;
       }
 
-      if (!YafContext.Current.Get<ITaskModuleManager>().TaskExists(TaskName))
-      {
-        var task = new SyncMembershipUsersTask { Data = boardId };
-        YafContext.Current.Get<ITaskModuleManager>().StartTask(TaskName, task);
-      }
+      YafContext.Current.Get<ITaskModuleManager>().StartTask(TaskName, () => new SyncMembershipUsersTask { Data = boardId });
 
       return true;
     }

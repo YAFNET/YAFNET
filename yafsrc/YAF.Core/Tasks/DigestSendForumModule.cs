@@ -69,12 +69,7 @@ namespace YAF.Core.Tasks
     /// </param>
     private void Current_AfterInit([NotNull] object sender, [NotNull] EventArgs e)
     {
-      // add the mailing task if it's not already added...
-      if (this.Get<ITaskModuleManager>() != null && !this.Get<ITaskModuleManager>().TaskExists(_keyName))
-      {
-        // start it...
-        this.Get<ITaskModuleManager>().StartTask(_keyName, new DigestSendTask());
-      }
+	    this.Get<ITaskModuleManager>().StartTask(_keyName, () => new DigestSendTask());
     }
 
     #endregion

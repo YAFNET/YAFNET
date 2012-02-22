@@ -141,17 +141,8 @@ namespace YAF.Core.Tasks
         return false;
       }
 
-      if (!YafContext.Current.Get<ITaskModuleManager>().TaskExists(TaskName))
-      {
-        var task = new PruneTopicTask
-          {
-            Data = boardId, 
-            ForumId = forumId, 
-            Days = days, 
-            PermDelete = permDelete
-          };
-        YafContext.Current.Get<ITaskModuleManager>().StartTask(TaskName, task);
-      }
+    	YafContext.Current.Get<ITaskModuleManager>().StartTask(
+    		TaskName, () => new PruneTopicTask { Data = boardId, ForumId = forumId, Days = days, PermDelete = permDelete });
 
       return true;
     }

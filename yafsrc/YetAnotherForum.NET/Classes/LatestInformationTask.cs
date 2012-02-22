@@ -102,7 +102,7 @@ namespace YAF.Classes
 
       this.Culture = "US";
 
-      manager.StartTask(_taskName, this);
+      manager.StartTask(_taskName, () => this);
     }
 
     #endregion
