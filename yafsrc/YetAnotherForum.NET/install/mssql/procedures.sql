@@ -9,6 +9,10 @@ IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{database
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}db_handle_computedcolumns]
 GO
 
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_savestyle]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_savestyle]
+GO
+
 IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}topic_unanswered]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}topic_unanswered]
 GO
@@ -2861,10 +2865,7 @@ select
 		b.RemoteURL,		
 		ReadAccess = CONVERT(int,x.ReadAccess),
 		Style = case(@StyledNicks)
-			when 1 then  ISNULL((SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e with(nolock)
-			join [{databaseOwner}].[{objectQualifier}Group] f with(nolock) on f.GroupID=e.GroupID WHERE e.UserID=t.LastUserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
-			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr with(nolock)
-			join [{databaseOwner}].[{objectQualifier}Rank] r with(nolock) ON r.RankID = usr.RankID  where usr.UserID=t.LastUserID))  
+			when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr with(nolock) where usr.UserID = t.LastUserID)
 			else ''	 end,
 		LastForumAccess = case(@FindLastRead)
 			 when 1 then
@@ -3221,15 +3222,9 @@ begin
 		insert into [{databaseOwner}].[{objectQualifier}ForumAccess](GroupID,ForumID,AccessMaskID)
 		select @GroupID,a.ForumID,@AccessMaskID from [{databaseOwner}].[{objectQualifier}Forum] a join [{databaseOwner}].[{objectQualifier}Category] b on b.CategoryID=a.CategoryID where b.BoardID=@BoardID
 	end	 
-	-- group styles override rank styles
-	if (@Style is not null and LEN(@Style) > 2)
-	begin
-	update [{databaseOwner}].[{objectQualifier}User] set
-			UserStyle = @Style	WHERE   UserID IN (SELECT u.UserID FROM [{databaseOwner}].[{objectQualifier}User] u with(nolock)
-			join [{databaseOwner}].[{objectQualifier}UserGroup] b	on b.UserID = u.UserID		
-			INNER JOIN [{databaseOwner}].[{objectQualifier}Group] e on e.GroupID=b.GroupID WHERE b.GroupID = @GroupID AND u.IsUserStyle = 0 AND u.IsRankStyle = 0 )
-					
-	end		
+	-- group styles override rank styles	
+	EXEC [{databaseOwner}].[{objectQualifier}user_savestyle] @GroupID,null
+	
 		  
 	select GroupID = @GroupID
 end
@@ -5420,14 +5415,7 @@ begin
 		-- select @RankID = RankID from [{databaseOwner}].[{objectQualifier}Rank] where RankID = @@Identity;
 	end	
 		-- group styles override rank styles
-	if (@Style is not null and LEN(@Style) > 2)
-	begin
-	update [{databaseOwner}].[{objectQualifier}User] set
-			UserStyle = @Style	 WHERE RankID IN (SELECT TOP 1 u.RankID FROM [{databaseOwner}].[{objectQualifier}User] u with(nolock)
-			join [{databaseOwner}].[{objectQualifier}UserGroup] e with(nolock) on e.UserID = u.UserID
-			join [{databaseOwner}].[{objectQualifier}Group] f with(nolock) on f.GroupID=e.GroupID WHERE u.RankID = @RankID  AND LEN(f.Style) > 2 AND  u.IsUserStyle = 0 AND u.IsGroupStyle = 0 ORDER BY f.SortOrder)				
-	end		  
-			
+	EXEC [{databaseOwner}].[{objectQualifier}user_savestyle] null,@RankID	
 end
 GO
 
@@ -11250,4 +11238,39 @@ WHERE        (s.iscomputed = 1) AND (o.type = 'U') AND (s.xtype = 104)
 		deallocate c
 	end	
 end
+GO
+
+create procedure [{databaseOwner}].[{objectQualifier}user_savestyle](@GroupID int, @RankID int)  as
+
+begin
+-- loop thru users to sync styles
+ if @GroupID is not null or @RankID is not null or not exists (select 1 from [{databaseOwner}].[{objectQualifier}User] where UserStyle IS NOT NULL)
+ begin
+    declare @usridtmp int 
+	declare @styletmp varchar(255)
+	declare @rankidtmp int    
+      
+        declare c cursor for
+        select UserID,UserStyle,RankID from [{databaseOwner}].[{objectQualifier}User]    
+        FOR UPDATE -- OF UserStyle
+        open c
+        
+        fetch next from c into @usridtmp,@styletmp,@rankidtmp
+        while @@FETCH_STATUS = 0
+        begin      
+		UPDATE [{databaseOwner}].[{objectQualifier}User] SET UserStyle= ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
+			join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=@usridtmp AND LEN(f.Style) > 2 ORDER BY f.SortOrder), (SELECT TOP 1 r.Style FROM [{databaseOwner}].[{objectQualifier}Rank] r where RankID = @rankidtmp)) 
+        WHERE UserID = @usridtmp  -- CURRENT OF c 
+		  	 
+        fetch next from c into @usridtmp,@styletmp,@rankidtmp		
+		
+        end
+        close c
+        deallocate c  
+		end   
+   
+end
+GO
+
+EXEC [{databaseOwner}].[{objectQualifier}user_savestyle] null,null
 GO
