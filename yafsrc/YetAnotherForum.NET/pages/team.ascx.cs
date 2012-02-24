@@ -27,6 +27,7 @@ namespace YAF.Pages
     using System.Data;
     using System.Linq;
     using System.Web.UI.WebControls;
+
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Controls;
@@ -107,9 +108,9 @@ namespace YAF.Pages
         {
             // get a row with user lazy data...
             DataTable adminListDataTable = this.Get<IDataCache>().GetOrSet(
-              Constants.Cache.BoardAdmins,
-              () => LegacyDb.admin_list(this.PageContext.PageBoardID, this.Get<YafBoardSettings>().UseStyledNicks),
-              TimeSpan.FromMinutes(this.Get<YafBoardSettings>().BoardModeratorsCacheTimeout));
+                Constants.Cache.BoardAdmins,
+                () => LegacyDb.admin_list(this.PageContext.PageBoardID, this.Get<YafBoardSettings>().UseStyledNicks),
+                TimeSpan.FromMinutes(this.Get<YafBoardSettings>().BoardModeratorsCacheTimeout));
 
             if (this.Get<YafBoardSettings>().UseStyledNicks)
             {
@@ -172,9 +173,8 @@ namespace YAF.Pages
                 var sortedMod = new Moderator { Name = mod.Name, ModeratorID = mod.ModeratorID, Style = mod.Style };
 
                 // Check if Mod is already in modsSorted
-                if (
-                    modsSorted.Find(
-                        s => s.Name.Equals(sortedMod.Name) && s.ModeratorID.Equals(sortedMod.ModeratorID)) != null)
+                if (modsSorted.Find(s => s.Name.Equals(sortedMod.Name) && s.ModeratorID.Equals(sortedMod.ModeratorID))
+                    != null)
                 {
                     continue;
                 }
@@ -187,7 +187,8 @@ namespace YAF.Pages
 
                 for (int i = 0; i < forumsCount; i++)
                 {
-                    var forumsId = new ModeratorsForums { ForumID = modList[i].ForumID };
+                    var forumsId = new ModeratorsForums
+                        { ForumID = modList[i].ForumID, ForumName = modList[i].ForumName };
 
                     sortedMod.ForumIDs[i] = forumsId;
                 }
@@ -326,7 +327,7 @@ namespace YAF.Pages
             this.AdminsGrid.DataSource = this.GetAdmins();
 
             this.completeModsList = this.Get<IDataCache>().GetOrSet(
-               Constants.Cache.BoardModerators,
+                Constants.Cache.BoardModerators,
                 this.GetModerators,
                 TimeSpan.FromMinutes(this.Get<YafBoardSettings>().BoardModeratorsCacheTimeout));
 
@@ -372,8 +373,6 @@ namespace YAF.Pages
                 return;
             }
 
-            var allForums = LegacyDb.ForumListAll(this.PageContext.PageBoardID, this.PageContext.PageUserID).ToList();
-
             var modForums = (DropDownList)e.Item.FindControl("ModForums");
 
             var modLink = (UserLink)e.Item.FindControl("ModLink");
@@ -386,18 +385,22 @@ namespace YAF.Pages
             modAvatar.AlternateText = mod.Name;
             modAvatar.ToolTip = mod.Name;
 
-            foreach (var forumsItem in (from id in mod.ForumIDs
-                                        where allForums.Find(f => f.ForumID.Equals((int)id.ForumID)) != null
-                                        select allForums.Find(f => f.ForumID.Equals((int)id.ForumID))
-                                        into yafForum
-                                        select new ListItem { Value = yafForum.ForumID.ToString(), Text = yafForum.Forum }).Where(forumsItem => !modForums.Items.Contains((ListItem)forumsItem)))
+            foreach (var forumsItem in from forumsItem in mod.ForumIDs
+                                       let forumListItem =
+                                           new ListItem
+                                               {
+                                                   Value = forumsItem.ForumID.ToString(), Text = forumsItem.ForumName 
+                                               }
+                                       where !modForums.Items.Contains(forumListItem)
+                                       select forumsItem)
             {
-                modForums.Items.Add(forumsItem);
+                modForums.Items.Add(new ListItem { Value = forumsItem.ForumID.ToString(), Text = forumsItem.ForumName });
             }
 
             if (modForums.Items.Count > 0)
             {
-                modForums.Items.Insert(0, new ListItem(this.GetTextFormatted("VIEW_FORUMS", modForums.Items.Count), "intro"));
+                modForums.Items.Insert(
+                    0, new ListItem(this.GetTextFormatted("VIEW_FORUMS", modForums.Items.Count), "intro"));
                 modForums.Items.Insert(1, new ListItem("--------------------------", "break"));
             }
             else
@@ -484,6 +487,14 @@ namespace YAF.Pages
             ///   Gets or sets The Forum ID.
             /// </summary>
             public long ForumID { get; set; }
+
+            /// <summary>
+            /// Gets or sets the name of the forum.
+            /// </summary>
+            /// <value>
+            /// The name of the forum.
+            /// </value>
+            public string ForumName { get; set; }
 
             #endregion
         }

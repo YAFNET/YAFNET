@@ -381,6 +381,7 @@ namespace YAF.Core.Services
                     row =>
                     new SimpleModerator(
                         row.Field<int>("ForumID"), 
+                        row.Field<string>("ForumName"),
                         row.Field<int>("ModeratorID"), 
                         row.Field<string>("ModeratorName"), 
                         row.Field<string>("Style"),
@@ -411,6 +412,7 @@ namespace YAF.Core.Services
                     row =>
                     new SimpleModerator(
                         row.Field<int>("ForumID"),
+                        row.Field<string>("ForumName"),
                         row.Field<int>("ModeratorID"),
                         row.Field<string>("ModeratorName"),
                         row.Field<string>("Style"),
@@ -608,8 +610,9 @@ namespace YAF.Core.Services
 
                 // add topics
                 var topics =
-                    LegacyDb.topic_list(forum.ForumID, userId, timeFrame,DateTime.UtcNow, 0, maxCount, false, false, false).SelectTypedList(
-                    x => this.LoadSimpleTopic(x, forum1)).Where(x => x.LastPostDate >= timeFrame).ToList();
+                    LegacyDb.topic_list(
+                        forum.ForumID, userId, timeFrame, DateTime.UtcNow, 0, maxCount, false, false, false).
+                        SelectTypedList(x => this.LoadSimpleTopic(x, forum1)).Where(x => x.LastPostDate >= timeFrame).ToList();
 
                 forum.Topics = topics;
             }
@@ -657,8 +660,7 @@ namespace YAF.Core.Services
                 DataRow row = dataRow;
 
                 var message =
-                    messageTextTable.AsEnumerable().Where(
-                        x => x.Field<int>("MessageID") == row.Field<int>("MessageID")).FirstOrDefault();
+                    messageTextTable.AsEnumerable().FirstOrDefault(x => x.Field<int>("MessageID") == row.Field<int>("MessageID"));
 
                 if (message == null)
                 {

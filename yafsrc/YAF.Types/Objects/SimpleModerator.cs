@@ -18,81 +18,74 @@
  */
 namespace YAF.Types.Objects
 {
-  using System;
-
-  /// <summary>
-  /// The moderator.
-  /// </summary>
-  [Serializable]
-  public class SimpleModerator
-  {
-    /// <summary>
-    /// Initializes a new instance of the <see cref="SimpleModerator"/> class.
-    /// </summary>
-    /// <param name="forumID">
-    /// The forum id.
-    /// </param>
-    /// <param name="moderatorID">
-    /// The moderator id.
-    /// </param>
-    /// <param name="name">
-    /// The name.
-    /// </param>
-    /// <param name="isGroup">
-    /// The is group.
-    /// </param>
-    public SimpleModerator(long forumID, long moderatorID, string name, string style, bool isGroup)
-    {
-      ForumID = forumID;
-      ModeratorID = moderatorID;
-      Name = name;
-      Style = style; 
-      IsGroup = isGroup;
-    }
+    using System;
 
     /// <summary>
-    /// Gets or sets ForumID.
+    /// The moderator.
     /// </summary>
-    public long ForumID
+    [Serializable]
+    public class SimpleModerator
     {
-      get;
-      set;
-    }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SimpleModerator"/> class.
+        /// </summary>
+        /// <param name="forumID">
+        /// The forum id.
+        /// </param>
+        /// <param name="forumName">
+        /// The forum Name.
+        /// </param>
+        /// <param name="moderatorID">
+        /// The moderator id.
+        /// </param>
+        /// <param name="name">
+        /// The name.
+        /// </param>
+        /// <param name="style">
+        /// The style.
+        /// </param>
+        /// <param name="isGroup">
+        /// The is group.
+        /// </param>
+        public SimpleModerator(
+            long forumID, string forumName, long moderatorID, string name, string style, bool isGroup)
+        {
+            this.ForumID = forumID;
+            this.ForumName = forumName;
+            this.ModeratorID = moderatorID;
+            this.Name = name;
+            this.Style = style;
+            this.IsGroup = isGroup;
+        }
 
-    /// <summary>
-    /// Gets or sets ModeratorID.
-    /// </summary>
-    public long ModeratorID
-    {
-      get;
-      set;
-    }
+        /// <summary>
+        /// Gets or sets ForumID.
+        /// </summary>
+        public long ForumID { get; set; }
 
-    /// <summary>
-    /// Gets or sets Name.
-    /// </summary>
-    public string Name
-    {
-      get;
-      set;
-    }
+        /// <summary>
+        /// Gets or sets Forum Name.
+        /// </summary>
+        public string ForumName { get; set; }
 
-    /// <summary>
-    /// Gets or sets Style.
-    /// </summary>
-    public string Style
-    {
-        get;
-        set;
-    }
+        /// <summary>
+        /// Gets or sets ModeratorID.
+        /// </summary>
+        public long ModeratorID { get; set; }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether IsGroup.
-    /// </summary>
-    public bool IsGroup
-    {
-      get;
-      set;
+        /// <summary>
+        /// Gets or sets Name.
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets Style.
+        /// </summary>
+        public string Style { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether IsGroup.
+        /// </summary>
+        public bool IsGroup { get; set; }
     }
-  }
 }

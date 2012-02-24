@@ -2975,6 +2975,7 @@ create procedure [{databaseOwner}].[{objectQualifier}moderators_team_list] (@Sty
 BEGIN
 		select
 		ForumID = a.ForumID, 
+		ForumName = f.Name,
 		ModeratorID = e.UserID, 
 		ModeratorName = e.Name,	
 		Style = case(@StyledNicks)
@@ -2987,6 +2988,7 @@ BEGIN
 		INNER JOIN [{databaseOwner}].[{objectQualifier}AccessMask] c WITH(NOLOCK) ON c.AccessMaskID = a.AccessMaskID
 		INNER JOIN [{databaseOwner}].[{objectQualifier}UserGroup] d WITH(NOLOCK) on d.GroupID=a.GroupID
 		INNER JOIN [{databaseOwner}].[{objectQualifier}User] e WITH(NOLOCK) on e.UserID=d.UserID
+		INNER JOIN [{databaseOwner}].[{objectQualifier}Forum] f WITH(NOLOCK) on f.ForumID=a.ForumID
 	where
 		(b.Flags & 1)=0 and
 		(c.Flags & 64)<>0
