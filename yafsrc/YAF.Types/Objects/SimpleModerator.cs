@@ -48,12 +48,13 @@ namespace YAF.Types.Objects
         /// The is group.
         /// </param>
         public SimpleModerator(
-            long forumID, string forumName, long moderatorID, string name, string style, bool isGroup)
+            long forumID, string forumName, long moderatorID,  string name, string displayName, string style, bool isGroup)
         {
             this.ForumID = forumID;
             this.ForumName = forumName;
             this.ModeratorID = moderatorID;
             this.Name = name;
+            this.DisplayName = displayName;
             this.Style = style;
             this.IsGroup = isGroup;
         }
@@ -77,6 +78,11 @@ namespace YAF.Types.Objects
         /// Gets or sets Name.
         /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets Display Name.
+        /// </summary>
+        public string DisplayName { get; set; }
 
         /// <summary>
         /// Gets or sets Style.

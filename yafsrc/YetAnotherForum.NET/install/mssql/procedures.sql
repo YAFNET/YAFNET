@@ -2924,14 +2924,18 @@ create procedure [{databaseOwner}].[{objectQualifier}forum_moderators] (@StyledN
 BEGIN
 		select
 		ForumID = a.ForumID, 
+		ForumName = f.Name,
 		ModeratorID = a.GroupID, 
 		ModeratorName = b.Name,	
+		ModeratorDisplayName = b.Name,
 		Style = case(@StyledNicks)
 			when 1 then b.Style  
 			else ''	 end,						
 		IsGroup=1
 	from
-		[{databaseOwner}].[{objectQualifier}ForumAccess] a WITH(NOLOCK)
+	    [{databaseOwner}].[{objectQualifier}Forum] f WITH(NOLOCK) 
+		INNER JOIN [{databaseOwner}].[{objectQualifier}ForumAccess] a WITH(NOLOCK)
+		ON a.ForumID = f.ForumID
 		INNER JOIN [{databaseOwner}].[{objectQualifier}Group] b WITH(NOLOCK) ON b.GroupID = a.GroupID
 		INNER JOIN [{databaseOwner}].[{objectQualifier}AccessMask] c WITH(NOLOCK) ON c.AccessMaskID = a.AccessMaskID
 	where
@@ -2939,9 +2943,11 @@ BEGIN
 		(c.Flags & 64)<>0
 	union all
 	select 
-		ForumID = access.ForumID, 
+		ForumID = access.ForumID,
+		ForumName = f.Name,
 		ModeratorID = usr.UserID, 
-		ModeratorName = usr.Name,	
+		ModeratorName = usr.Name,
+		ModeratorDisplayName = usr.DisplayName,
 		Style = case(@StyledNicks)
 			when 1 then  usr.UserStyle
 			else ''	 end,						
@@ -2954,13 +2960,16 @@ BEGIN
 				ForumID				= x.ForumID,
 				ModeratorAccess		= MAX(ModeratorAccess)						
 			from
-				[{databaseOwner}].[{objectQualifier}vaccessfull] as x WITH(NOLOCK)
+                [{databaseOwner}].[{objectQualifier}vaccessfull] as x WITH(NOLOCK)		       				
 				INNER JOIN [{databaseOwner}].[{objectQualifier}UserGroup] a WITH(NOLOCK) on a.UserID=x.UserID
 				INNER JOIN [{databaseOwner}].[{objectQualifier}Group] b WITH(NOLOCK) on b.GroupID=a.GroupID
 			WHERE 
 				ModeratorAccess <> 0 AND x.AdminGroup = 0
 			GROUP BY a.UserId, x.ForumID
 		) access ON usr.UserID = access.UserID
+		JOIN    [{databaseOwner}].[{objectQualifier}Forum] f WITH(NOLOCK) 
+		ON f.ForumID = access.ForumID
+		           
 		JOIN [{databaseOwner}].[{objectQualifier}Rank] r
 		ON r.RankID = usr.RankID
 	where
@@ -2978,6 +2987,7 @@ BEGIN
 		ForumName = f.Name,
 		ModeratorID = e.UserID, 
 		ModeratorName = e.Name,	
+		ModeratorDisplayName = e.DisplayName,
 		Style = case(@StyledNicks)
 			when 1 then e.UserStyle  
 			else ''	 end,						

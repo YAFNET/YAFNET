@@ -383,7 +383,8 @@ namespace YAF.Core.Services
                         row.Field<int>("ForumID"), 
                         row.Field<string>("ForumName"),
                         row.Field<int>("ModeratorID"), 
-                        row.Field<string>("ModeratorName"), 
+                        row.Field<string>("ModeratorName"),
+                        row.Field<string>("ModeratorDisplayName"), 
                         row.Field<string>("Style"),
                         row["IsGroup"].ToType<bool>())).ToList();
         }
@@ -415,6 +416,7 @@ namespace YAF.Core.Services
                         row.Field<string>("ForumName"),
                         row.Field<int>("ModeratorID"),
                         row.Field<string>("ModeratorName"),
+                        row.Field<string>("ModeratorDisplayName"), 
                         row.Field<string>("Style"),
                         row["IsGroup"].ToType<bool>())).ToList();
         }

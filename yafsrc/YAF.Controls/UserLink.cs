@@ -58,19 +58,19 @@ namespace YAF.Controls
     }
 
       /// <summary>
-      ///   Gets or sets a Replace Name
+      /// Gets or sets a value indicating whether 
+      /// User Is a Guest.
       /// </summary>
-      [CanBeNull]
-      public string ReplaceName
+      public bool IsGuest
       {
           get
           {
-              return this.ViewState["ReplaceName"] != null ? this.ViewState["ReplaceName"].ToString() : string.Empty;
+              return this.ViewState["IsGuest"] != null && Convert.ToBoolean(this.ViewState["IsGuest"]);
           }
 
           set
           {
-              this.ViewState["ReplaceName"] = value;
+              this.ViewState["IsGuest"] = value;
           }
       }
 
@@ -97,7 +97,15 @@ namespace YAF.Controls
     /// </param>
     protected override void Render([NotNull] HtmlTextWriter output)
     {
-       string displayName = this.Get<IUserDisplayName>().GetName(this.UserID);
+        string displayName;
+        if (this.ReplaceName.IsNotSet())
+        {
+            displayName = this.Get<IUserDisplayName>().GetName(this.UserID);
+        }
+        else
+        {
+            displayName = this.ReplaceName;
+        }
 
         if (this.UserID == -1 || !displayName.IsSet())
         {
@@ -105,7 +113,17 @@ namespace YAF.Controls
         }
 
         // is this the guest user? If so, guest's don't have a profile.
-        bool isGuest = UserMembershipHelper.IsGuestUser(this.UserID);
+
+        bool isGuest;
+        if (IsGuest)
+       {
+           isGuest = this.IsGuest;
+       }
+        else
+       {
+
+           isGuest = UserMembershipHelper.IsGuestUser(this.UserID);
+       }
 
         output.BeginRender();
 

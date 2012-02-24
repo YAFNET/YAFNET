@@ -23,7 +23,7 @@
              		 	    <HeaderStyle HorizontalAlign="Center" CssClass="header2"></HeaderStyle>
 			  			    <ItemStyle CssClass="post" Width="150px"></ItemStyle>
 			  				    <ItemTemplate>
-               				        <YAF:UserLink ID="AdminLink" runat="server" UserID='<%# Convert.ToInt32(Eval("UserID")) %>' Style='<%# Eval("Style") %>'  />
+               				        <YAF:UserLink ID="AdminLink" runat="server" IsGuest="False" UserID='<%# Convert.ToInt32(Eval("UserID")) %>' Style='<%# Eval("Style") %>'  />
 			  				    </ItemTemplate>
              		 	</asp:TemplateColumn>
              		 	<asp:TemplateColumn HeaderText="Forums">
@@ -72,7 +72,7 @@
              		 	    <HeaderStyle HorizontalAlign="Center" CssClass="header2"></HeaderStyle>
 			  			    <ItemStyle CssClass="post" Width="150px"></ItemStyle>
 			  				    <ItemTemplate>
-               				        <YAF:UserLink ID="ModLink" runat="server" UserID='<%# Convert.ToInt32(Eval("ModeratorID")) %>' Style='<%# Eval("Style") %>'  />
+               				        <YAF:UserLink ID="ModLink" runat="server" ReplaceName='<%# Eval("DisplayName").ToString() %>' UserID='<%# Convert.ToInt32(Eval("ModeratorID")) %>' IsGuest="False" Style='<%# Eval("Style") %>'  />
 			  				    </ItemTemplate>
              		 	</asp:TemplateColumn>
              		 	<asp:TemplateColumn HeaderText="Forums">

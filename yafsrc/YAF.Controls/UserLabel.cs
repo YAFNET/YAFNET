@@ -139,6 +139,23 @@ namespace YAF.Controls
         }
 
         /// <summary>
+        ///   Gets or sets Style.
+        /// </summary>
+        [NotNull]
+        public string ReplaceName
+        {
+            get
+            {
+                return this.ViewState["ReplaceName"] != null ? this.ViewState["ReplaceName"].ToString() : string.Empty;
+            }
+
+            set
+            {
+                this.ViewState["ReplaceName"] = value;
+            }
+        }
+
+        /// <summary>
         ///   Gets or sets The userid of this user for the link
         /// </summary>
         public int UserID
@@ -171,7 +188,15 @@ namespace YAF.Controls
         /// </param>
         protected override void Render([NotNull] HtmlTextWriter output)
         {
-            string displayName = this.Get<IUserDisplayName>().GetName(this.UserID);
+            string displayName;
+            if (this.ReplaceName.IsNotSet())
+            {
+                displayName = this.Get<IUserDisplayName>().GetName(this.UserID);
+            }
+            else
+            {
+                displayName = this.ReplaceName;
+            }
 
             if (this.UserID == -1 || displayName.IsNotSet())
             {

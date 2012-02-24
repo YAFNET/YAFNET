@@ -170,7 +170,7 @@ namespace YAF.Pages
                     continue;
                 }
 
-                var sortedMod = new Moderator { Name = mod.Name, ModeratorID = mod.ModeratorID, Style = mod.Style };
+                var sortedMod = new Moderator { Name = mod.Name, ModeratorID = mod.ModeratorID, DisplayName = mod.DisplayName, Style = mod.Style };
 
                 // Check if Mod is already in modsSorted
                 if (modsSorted.Find(s => s.Name.Equals(sortedMod.Name) && s.ModeratorID.Equals(sortedMod.ModeratorID))
@@ -284,9 +284,13 @@ namespace YAF.Pages
             var adminLink = (UserLink)e.Item.FindControl("AdminLink");
             var adminAvatar = (Image)e.Item.FindControl("AdminAvatar");
 
-            adminAvatar.ImageUrl = this.GetAvatarUrlFromID(adminLink.UserID);
+            var drowv = (DataRowView)e.Item.DataItem;
+            int userid = drowv.Row["UserID"].ToType<int>();
+            string displayName = drowv.Row["DisplayName"].ToString();
+
+          /*  adminAvatar.ImageUrl = this.GetAvatarUrlFromID(adminLink.UserID);
             adminAvatar.AlternateText = adminLink.PostfixText;
-            adminAvatar.ToolTip = adminLink.PostfixText;
+            adminAvatar.ToolTip = adminLink.PostfixText; */
 
             // User Buttons 
             var adminUserButton = (ThemeButton)e.Item.FindControl("AdminUserButton");
@@ -295,26 +299,27 @@ namespace YAF.Pages
 
             adminUserButton.Visible = this.PageContext.IsAdmin;
 
-            var userData = new CombinedUserDataHelper(adminLink.UserID);
+         //   var userData = new CombinedUserDataHelper(adminLink.UserID);
 
-            if (userData.UserID == this.PageContext.PageUserID)
+            if (userid == this.PageContext.PageUserID)
             {
                 return;
             }
 
-            pm.Visible = !userData.IsGuest && this.User != null && this.Get<YafBoardSettings>().AllowPrivateMessages;
-            pm.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", userData.UserID);
-            pm.ParamTitle0 = userData.UserName;
+            pm.Visible = !PageContext.IsGuest && this.User != null && this.Get<YafBoardSettings>().AllowPrivateMessages;
+            pm.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", userid);
+            pm.ParamTitle0 = displayName;
 
             // email link
-            email.Visible = !userData.IsGuest && this.User != null && this.Get<YafBoardSettings>().AllowEmailSending;
-            email.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", userData.UserID);
-            email.ParamTitle0 = userData.UserName;
+            email.Visible = !PageContext.IsGuest && this.User != null && this.Get<YafBoardSettings>().AllowEmailSending;
+            email.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", userid);
+            email.ParamTitle0 = displayName;
 
-            if (this.PageContext.IsAdmin)
+         /*   if (this.PageContext.IsAdmin)
             {
                 email.TitleNonLocalized = userData.Membership.Email;
             }
+           */
         }
 
         /// <summary>
@@ -381,9 +386,9 @@ namespace YAF.Pages
 
             Moderator mod = this.completeModsList.Find(m => m.ModeratorID.Equals(modLink.UserID));
 
-            modAvatar.ImageUrl = this.GetAvatarUrlFromID(modLink.UserID);
+           /* modAvatar.ImageUrl = this.GetAvatarUrlFromID(modLink.UserID);
             modAvatar.AlternateText = mod.Name;
-            modAvatar.ToolTip = mod.Name;
+            modAvatar.ToolTip = mod.Name; */
 
             foreach (var forumsItem in from forumsItem in mod.ForumIDs
                                        let forumListItem =
@@ -417,26 +422,29 @@ namespace YAF.Pages
 
             try
             {
-                CombinedUserDataHelper userData = new CombinedUserDataHelper(modLink.UserID);
+                var drowv = (DataRowView)e.Item.DataItem;
+                int userid = drowv.Row["UserID"].ToType<int>();
+                string displayName = drowv.Row["DisplayName"].ToString();
+               //  CombinedUserDataHelper userData = new CombinedUserDataHelper(modLink.UserID);
 
-                if (userData.UserID == this.PageContext.PageUserID)
+                if (userid == this.PageContext.PageUserID)
                 {
                     return;
                 }
 
-                pm.Visible = !userData.IsGuest && this.User != null && this.Get<YafBoardSettings>().AllowPrivateMessages;
-                pm.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", userData.UserID);
-                pm.ParamTitle0 = userData.UserName;
+                pm.Visible = !this.PageContext.IsGuest && this.User != null && this.Get<YafBoardSettings>().AllowPrivateMessages;
+                pm.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", userid);
+                pm.ParamTitle0 = displayName;
 
                 // email link
-                email.Visible = !userData.IsGuest && this.User != null && this.Get<YafBoardSettings>().AllowEmailSending;
-                email.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", userData.UserID);
-                email.ParamTitle0 = userData.UserName;
+                email.Visible = !this.PageContext.IsGuest && this.User != null && this.Get<YafBoardSettings>().AllowEmailSending;
+                email.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", userid);
+                email.ParamTitle0 = displayName;
 
-                if (this.PageContext.IsAdmin)
+               /* if (this.PageContext.IsAdmin)
                 {
                     email.TitleNonLocalized = userData.Membership.Email;
-                }
+                } */
             }
             catch (Exception)
             {
@@ -467,6 +475,11 @@ namespace YAF.Pages
             ///   Gets or sets The Moderator Name
             /// </summary>
             public string Name { get; set; }
+
+            /// <summary>
+            ///   Gets or sets The Moderator Display Name
+            /// </summary>
+            public string DisplayName { get; set; }
 
             /// <summary>
             ///   Gets or sets The Moderator Style

@@ -95,7 +95,7 @@
                         title="<%# DataBinder.Eval(Container.DataItem,"DisplayName").ToString().IsSet() ? DataBinder.Eval(Container.DataItem,"DisplayName").ToString(): DataBinder.Eval(Container.DataItem,"Name").ToString() %>" class="avatarimage" />
                 </td>
                 <td class="post">
-                    <YAF:UserLink ID="UserProfileLink" runat="server"  UserID='<%# this.Eval("UserID").ToType<int>() %>'
+                    <YAF:UserLink ID="UserProfileLink" runat="server" IsGuest="False" ReplaceName='<%# this.Eval("DisplayName").ToString() %>'  UserID='<%# this.Eval("UserID").ToType<int>() %>'
                         Style='<%# Eval("Style") %>' />
                 </td>
                 <td class="post">
