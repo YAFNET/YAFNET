@@ -1448,3 +1448,8 @@ height:80em;
 
 .yafnet .topicReplies,
 .yafnet .topicViews {text-align:center;}
+
+.menuMyList li a {
+	content: '';
+}
+.loggedInUser {float:none!important;}
