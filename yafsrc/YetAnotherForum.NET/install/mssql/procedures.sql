@@ -1515,8 +1515,7 @@ begin
 			IsCrawler = CONVERT(int, SIGN((c.Flags & 8))),
 			IsHidden = ( a.IsActiveExcluded ),				
 			Style = case(@StyledNicks)
-			when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-			join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=a.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), r.Style)  
+			when 1 then  a.UserStyle
 			else ''	 end, 			
 			UserCount = 1,
 			c.[Login],
@@ -1549,8 +1548,7 @@ begin
 			IsCrawler = CONVERT(int, SIGN((c.Flags & 8))),
 			IsHidden = ( a.IsActiveExcluded ),		
 			Style = case(@StyledNicks)
-			when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-			join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=a.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), r.Style)  
+			when 1 then  a.UserStyle
 			else ''	 end, 	 						
 			UserCount = 1,
 			c.[Login],
@@ -1584,8 +1582,7 @@ begin
 			IsCrawler = CONVERT(int, SIGN((c.Flags & 8))),
 			IsHidden = ( a.IsActiveExcluded ),
 			Style = case(@StyledNicks)
-			when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-			join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=a.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), r.Style)  
+			when 1 then  a.UserStyle
 			else ''	 end, 				
 			UserCount = 1,
 			c.[Login],
@@ -1631,8 +1628,7 @@ begin
 			IsCrawler = CONVERT(int, SIGN((c.Flags & 8))),
 			IsHidden = ( a.IsActiveExcluded ),
 			Style = case(@StyledNicks)
-			when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-			join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=a.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), r.Style)  
+			when 1 then  a.UserStyle
 			else ''	 end, 				
 			UserCount = 1,
 			c.[Login],
@@ -1668,8 +1664,7 @@ begin
 			IsCrawler = CONVERT(int, SIGN((c.Flags & 8))),
 			IsHidden = ( a.IsActiveExcluded ),
 			Style = case(@StyledNicks)
-			when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-			join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=a.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), r.Style)  
+			when 1 then  a.UserStyle
 			else ''	 end, 					
 			UserCount = 1,
 			c.[Login],
@@ -1707,8 +1702,7 @@ begin
 			IsCrawler = CONVERT(int, SIGN((c.Flags & 8))),
 			IsHidden = ( a.IsActiveExcluded ),
 			Style = case(@StyledNicks)
-			when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-			join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=a.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), r.Style)  
+			when 1 then  a.UserStyle
 			else ''	 end, 					
 			UserCount = 1,
 			c.[Login],
@@ -1747,8 +1741,7 @@ begin
 		IsHidden	= ( b.IsActiveExcluded ),
 		IsCrawler	= Convert(int,a.Flags & 8),		
 		Style = case(@StyledNicks)
-		when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-		join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=b.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), r.Style)  
+		when 1 then  b.UserStyle
 		else ''	 end, 			
 		UserCount   = (SELECT COUNT(ac.UserID) from
 		[{databaseOwner}].[{objectQualifier}Active] ac with(nolock) where ac.UserID = a.UserID and ac.ForumID = @ForumID),
@@ -1756,7 +1749,6 @@ begin
 	from
 		[{databaseOwner}].[{objectQualifier}Active] a 
 		join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=a.UserID
-		JOIN [{databaseOwner}].[{objectQualifier}Rank] r on r.RankID=b.RankID
 	where
 		a.ForumID = @ForumID
 	group by
@@ -1764,7 +1756,7 @@ begin
 		b.Name,
 		b.IsActiveExcluded,
 		b.UserID,
-		r.Style,
+		b.UserStyle,
 		a.Flags,
 		a.Browser
 	order by
@@ -1780,16 +1772,14 @@ begin
 		IsHidden = ( b.IsActiveExcluded ),		
 		IsCrawler	= Convert(int,a.Flags & 8),
 		Style = case(@StyledNicks)
-			when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-			join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=b.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), c.Style)  
+			when 1 then  b.UserStyle
 			else ''	 end, 	
 		UserCount   = (SELECT COUNT(ac.UserID) from
 		[{databaseOwner}].[{objectQualifier}Active] ac with(nolock) where ac.UserID = a.UserID and ac.TopicID = @TopicID),
 		Browser = a.Browser
 	from
 		[{databaseOwner}].[{objectQualifier}Active] a with(nolock)
-		join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=a.UserID
-		JOIN [{databaseOwner}].[{objectQualifier}Rank] c on c.RankID=b.RankID
+		join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=a.UserID		
 	where
 		a.TopicID = @TopicID
 	group by
@@ -1797,7 +1787,7 @@ begin
 		b.Name,
 		b.IsActiveExcluded,
 		b.UserID,
-		c.Style,
+		b.UserStyle,
 		a.Flags,
 		a.Browser		
 	order by
@@ -2953,9 +2943,7 @@ BEGIN
 		ModeratorID = usr.UserID, 
 		ModeratorName = usr.Name,	
 		Style = case(@StyledNicks)
-			when 1 then  ISNULL((SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-			join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=usr.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
-			r.Style)  
+			when 1 then  usr.UserStyle
 			else ''	 end,						
 		IsGroup=0
 	from
@@ -2990,7 +2978,7 @@ BEGIN
 		ModeratorID = e.UserID, 
 		ModeratorName = e.Name,	
 		Style = case(@StyledNicks)
-			when 1 then b.Style  
+			when 1 then e.UserStyle  
 			else ''	 end,						
 		IsGroup=0
 	from
@@ -5253,8 +5241,7 @@ begin
 		RankName = c.Name,		
 		c.RankImage,
 		Style = case(@StyledNicks)
-			when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-		join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=b.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), c.Style)  
+			when 1 then  b.UserStyle
 			else ''	 end, 
 		Edited = IsNull(m.Edited,m.Posted),
 		HasAttachments	= ISNULL((select top 1 1 from [{databaseOwner}].[{objectQualifier}Attachment] x where x.MessageID=m.MessageID),0),
@@ -7441,8 +7428,7 @@ begin
 			CultureUser = a.Culture,						
 			RankName = b.Name,
 			Style = case(@StyledNicks)
-			when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-			join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=a.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), b.Style)  
+			when 1 then a.UserStyle
 			else ''	 end, 
 			NumDays = datediff(d,a.Joined,@UTCTIMESTAMP )+1,
 			NumPostsForum = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where (x.Flags & 24)=16),
@@ -7506,8 +7492,7 @@ begin
 		a.[Culture],			
 			CultureUser = a.Culture,	
 			Style = case(@StyledNicks)
-			when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-			join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=a.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), b.Style)  
+			when 1 then a.UserStyle
 			else ''	 end, 	
 			IsAdmin = (select count(1) from [{databaseOwner}].[{objectQualifier}UserGroup] x join [{databaseOwner}].[{objectQualifier}Group] y on y.GroupID=x.GroupID where x.UserID=a.UserID and (y.Flags & 1)<>0),
 			IsGuest	= IsNull(a.Flags & 4,0),
@@ -7567,8 +7552,7 @@ begin
 			IsHostAdmin	= IsNull(a.Flags & 1,0),			
 			RankName = b.Name,
 			Style = case(@StyledNicks)
-			when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-			join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=a.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), b.Style)  
+			when 1 then  a.UserStyle
 			else ''	 end 
 		from 
 			[{databaseOwner}].[{objectQualifier}User] a
@@ -7629,8 +7613,7 @@ begin
 			r.RankID,						
 			RankName = r.Name,
 			Style = case(@StyledNicks)
-			when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-			join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=a.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), r.Style)  
+			when 1 then  a.UserStyle
 			else ''	 end, 
 			NumDays = datediff(d,a.Joined,@UTCTIMESTAMP )+1,
 			NumPostsForum = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where (x.Flags & 24)=16),
@@ -7788,8 +7771,7 @@ begin
 			b.RankID,
 			RankName = b.Name,
 			Style = case(@StyledNicks)
-			when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-			join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=a.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), b.Style)  
+			when 1 then  a.UserStyle
 			else ''	 end,
 			TotalCount =  @user_totalrowsnumber 
 			from [{databaseOwner}].[{objectQualifier}User] a with(nolock)
@@ -9522,17 +9504,15 @@ BEGIN
 		sh.[Message],
 		sh.[Date], 
 		Style= case(@StyledNicks)
-			when 1 then  ISNULL((SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-			join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=sh.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
-			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr 
-			join [{databaseOwner}].[{objectQualifier}Rank] r ON r.RankID = usr.RankID  where usr.UserID= sh.UserID))  
+			when 1 then  usr.UserStyle
 			else ''	 end
 				
 	FROM
 		[{databaseOwner}].[{objectQualifier}ShoutboxMessage] sh
+		JOIN [{databaseOwner}].[{objectQualifier}User] usr on usr.UserID = sh.UserID
 	WHERE 
-		BoardId = @BoardId
-	ORDER BY Date DESC
+		sh.BoardId = @BoardId
+	ORDER BY sh.Date DESC
 	
 	SET ROWCOUNT 0
 END
@@ -10501,12 +10481,7 @@ begin
 	UserCount = 1,
 	IsHidden = (IsActiveExcluded),
 	Style = CASE(@StyledNicks)
-				WHEN 1 THEN
-						ISNULL ((SELECT TOP 1 G.Style
-						 FROM [{databaseOwner}].[{objectQualifier}UserGroup] AS UG
-							  JOIN [{databaseOwner}].[{objectQualifier}Group] G on G.GroupID=UG.GroupID
-							  WHERE UG.UserID=U.UserID AND LEN(G.Style) > 2 
-							  ORDER BY G.SortOrder), '')
+				WHEN 1 THEN U.UserStyle
 				ELSE ''
 			END
 	FROM [{databaseOwner}].[{objectQualifier}User] AS U
