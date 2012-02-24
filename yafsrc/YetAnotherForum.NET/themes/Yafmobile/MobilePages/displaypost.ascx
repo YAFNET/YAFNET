@@ -61,7 +61,7 @@
 		<td class="postfooter postInfoBottom">
 			 <span id="IPSpan1" class="rightItem postInfoRight" runat="server" visible="false"> 
 		&nbsp;&nbsp;
-		<b><%# this.GetText("IP") %>:</b>&nbsp;<a id="IPLink1" target="_blank" runat="server"/>			   
+		<strong><%# this.GetText("IP") %>:</strong>&nbsp;<a id="IPLink1" target="_blank" runat="server"/>			   
 	</span> &nbsp;&nbsp;	<YAF:DisplayPostFooter id="PostFooter" runat="server" DataRow="<%# DataRow %>"></YAF:DisplayPostFooter>
 		</td>
 </tr>

@@ -639,7 +639,7 @@ This CSS already works on FireFox.
 }
 
 /* CCS Buttons */
-.yafnet .postTop a,
+.yafnet .postTopLink,
 .yafnet .MultiQuoteButton,
 .yafnet a.yaflittlebutton,
 .yafnet a.yafcssimagebutton {
@@ -675,7 +675,7 @@ This CSS already works on FireFox.
 	transition: color .15s linear,background-color .15s linear;
 	
 }
-.yafnet .postTop a:hover,
+.yafnet .postTopLink:hover,
 .yafnet .MultiQuoteButton:hover,
 .yafnet a.yaflittlebutton:hover,
 .yafnet a.yafcssimagebutton:hover {
@@ -687,7 +687,7 @@ This CSS already works on FireFox.
 	text-decoration: none;
 	color: #ffffff;
 }
-.yafnet .postTop a:active,
+.yafnet .postTopLink:active,
 .yafnet .Checked,
 .yafnet a.yaflittlebutton:active,
 .yafnet a.yafcssimagebutton:active {

@@ -637,7 +637,7 @@ This CSS already works on FireFox.
 	color: #000090;
 }
 /* CCS Buttons */
-.yafnet .postTop a,
+.yafnet .postTopLink,
 .yafnet .MultiQuoteButton,
 .yafnet a.yaflittlebutton,
 .yafnet a.yafcssimagebutton {
@@ -669,7 +669,7 @@ This CSS already works on FireFox.
 	background: -moz-linear-gradient(top,  #666,  #000);
 	
 }
-.yafnet .postTop a:hover,
+.yafnet .postTopLink:hover,
 .yafnet .MultiQuoteButton:hover,
 .yafnet a.yaflittlebutton:hover,
 .yafnet a.yafcssimagebutton:hover {
@@ -682,7 +682,7 @@ This CSS already works on FireFox.
 	text-decoration: none;
 	color: #ffffff;
 }
-.yafnet .postTop a:active,
+.yafnet .postTopLink:active,
 .yafnet .Checked,
 .yafnet a.yaflittlebutton:active,
 .yafnet a.yafcssimagebutton:active {
@@ -1400,7 +1400,7 @@ height:80em;
 .yafnet .Unread a {color:white!important;font-weight:bold!important;font-size:0.9em!important;padding-left: 0px!important;}
 .yafnet .unread {padding-top:7px;}
 
-.yafnet .postTop a  {
+.yafnet .postTopLink  {
     -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
     -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
     box-shadow: 0 1px 4px rgba(0, 0, 0, .4);
@@ -1409,7 +1409,7 @@ height:80em;
 	border-radius: 0.4em;
 	padding:4px 3px 0 3px;
 }
-.yafnet .postTop a:hover  {
+.yafnet .postTopLink:hover  {
     background:#999;
 }
 
