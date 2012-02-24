@@ -18,6 +18,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+using System.Configuration;
+
 namespace YAF.Controls
 {
     #region Using
@@ -106,29 +108,6 @@ namespace YAF.Controls
         #endregion
 
         #region Methods
-
-        /// <summary>
-        /// The create message details.
-        /// </summary>
-        protected void CreateMessageDetails()
-        {
-            var sb = new StringBuilder();
-
-            // display admin only info
-            if (this.PageContext.IsAdmin ||
-                (this.Get<YafBoardSettings>().AllowModeratorsViewIPs && this.PageContext.IsModerator))
-            {
-                // We should show IP
-                this.IPSpan1.Visible = true;
-                string ip = IPHelper.GetIp4Address(this.DataRow["IP"].ToString());
-                this.IPLink1.HRef = this.Get<YafBoardSettings>().IPInfoPageURL.FormatWith(ip);
-                this.IPLink1.Title = this.GetText("COMMON", "TT_IPDETAILS");
-                this.IPLink1.InnerText = this.HtmlEncode(ip);
-
-                sb.Append(' ');
-            }
-          
-        }
 
         /// <summary>
         /// The on init.
@@ -239,7 +218,7 @@ namespace YAF.Controls
                               this.Get<YafBoardSettings>().AllowPrivateMessages && !this.PostData.IsSponserMessage;
             this.Pm.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", this.PostData.UserId);
             this.Pm.ParamTitle0 = userName;
-
+           
             // emailing
             this.Email.Visible = this.PostData.UserId != this.PageContext.PageUserID && !this.IsGuest &&
                                  !this.PostData.PostDeleted && this.PageContext.User != null &&
@@ -305,8 +284,7 @@ namespace YAF.Controls
             this.Twitter.Visible = this.PostData.UserProfile.Twitter.IsSet();
             this.Twitter.NavigateUrl = "http://twitter.com/{0}".FormatWith(this.PostData.UserProfile.Twitter);
             this.Twitter.ParamTitle0 = userName;
-
-            this.CreateMessageDetails();
+           
         }
 
         #endregion

@@ -71,6 +71,10 @@
         <a onclick="ScrollToTop();" href="javascript: void(0)">            
             <YAF:ThemeImage LocalizedTitlePage="POSTS" LocalizedTitleTag="TOP"  runat="server" ThemeTag="TOTOPPOST" />
         </a>
+     <span id="IPSpan1" class="rightItem postInfoRight" runat="server" visible="false"> 
+		&nbsp;&nbsp;
+		<b><%# this.GetText("IP") %>:</b>&nbsp;<a id="IPLink1" target="_blank" runat="server"/>			   
+	</span> 		
     </td>
 		<td class="postfooter postInfoBottom">
 			<YAF:DisplayPostFooter id="PostFooter" runat="server" DataRow="<%# DataRow %>"></YAF:DisplayPostFooter>

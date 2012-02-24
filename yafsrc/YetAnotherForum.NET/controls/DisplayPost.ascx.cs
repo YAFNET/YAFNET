@@ -309,6 +309,8 @@ namespace YAF.Controls
                         this.GetText("EDITED"), whoChanged, editedText + this.messageHistoryLink.Title);
                     this.messageHistoryLink.HRef = YafBuildLink.GetLink(
                       ForumPages.messagehistory, "m={0}", this.DataRow["MessageID"]);
+                    
+                   
                 }
             }
             else
@@ -322,6 +324,7 @@ namespace YAF.Controls
                 @"<span class=""editedinfo"" title=""{1}"">{0}: {1}</span>",
                 this.GetText("EDIT_REASON"),
                 deleteText);
+              
             }
 
             if (sb.Length > 0)
@@ -336,6 +339,19 @@ namespace YAF.Controls
             }
 
             this.PopMenu1.Visible = true;
+
+            // display admin only info
+            if (this.PageContext.IsAdmin ||
+                (this.Get<YafBoardSettings>().AllowModeratorsViewIPs && this.PageContext.IsModerator))
+            {
+                // We should show IP
+                this.IPSpan1.Visible = true;
+                string ip = IPHelper.GetIp4Address(this.DataRow["IP"].ToString());
+                this.IPLink1.HRef = this.Get<YafBoardSettings>().IPInfoPageURL.FormatWith(ip);
+                this.IPLink1.Title = this.GetText("COMMON", "TT_IPDETAILS");
+                this.IPLink1.InnerText = this.HtmlEncode(ip);
+            }
+
             this.SetupPopupMenu();
         }
 
