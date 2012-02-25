@@ -166,7 +166,7 @@ namespace YAF.Pages
 
       if (!this.IsPostBack)
       {
-        this.AddUser.Text = this.GetText("INVITE");
+          this.AddUser.Text = this.GetText("MODERATE", "INVITE");
 
         if (this.PageContext.Settings.LockedForum == 0)
         {
@@ -177,7 +177,7 @@ namespace YAF.Pages
         }
 
         this.PageLinks.AddForumLinks(this.PageContext.PageForumID);
-        this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
+        this.PageLinks.AddLink(this.GetText("MODERATE","TITLE"), string.Empty);
 
         this.PagerTop.PageSize = 25;
       }

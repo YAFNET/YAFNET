@@ -214,7 +214,7 @@ namespace YAF.Pages
                 foreach (DataRow row in dt.Rows)
                 {
                     // set username and disable its editing
-                    this.UserName.Text = row["Name"].ToString();
+                    this.UserName.Text = PageContext.BoardSettings.EnableDisplayName ? row["DisplayName"].ToString() : row["Name"].ToString();
                     this.UserName.Enabled = false;
 
                     // we don't need to find users now
