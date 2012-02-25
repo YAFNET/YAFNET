@@ -32,6 +32,7 @@ namespace YAF.Controls
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -315,7 +316,7 @@ namespace YAF.Controls
         protected virtual void RenderEditedMessage(
             [NotNull] HtmlTextWriter writer, [NotNull] DateTime edited, [NotNull] string editReason, int? messageId)
         {
-            string editedDateTime = this.Get<IDateTime>().FormatDateTimeShort(edited);
+            var editedDateTime = new DisplayDateTime { DateTime = edited }.RenderToString();
 
             // vzrus: TODO:  Guests doesn't have right to view change history
             // reason was specified ?!
@@ -330,7 +331,7 @@ namespace YAF.Controls
             var whoChanged = this.IsModeratorChanged ? this.GetText("POSTS", "EDITED_BY_MOD") : this.GetText("POSTS", "EDITED_BY_USER");
 
             writer.Write(
-                @"<p class=""MessageDetails""><em><a title=""{3}"" alt=""title=""{3}"" href=""{4}"">{0} {1}</a> @ {2}&nbsp;|&nbsp;<span class=""editedinfo"">{3}</span></em></p>"
+                @"<p class=""MessageDetails""><em><a title=""{3}"" alt=""title=""{3}"" href=""{4}"">{0} {1}</a>&nbsp;{2}&nbsp;|&nbsp;<span class=""editedinfo"">{3}</span></em></p>"
                     .FormatWith(
                         this.GetText("EDITED"),
                         whoChanged,
