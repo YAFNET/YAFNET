@@ -46,14 +46,8 @@
     <td valign="top" class="message">
         <div class="postdiv">
             <asp:panel id="panMessage" runat="server">      
-                <YAF:MessagePostData ID="MessagePost1" runat="server" DataRow="<%# DataRow %>" IsAltMessage="<%# this.IsAlt %>" ColSpan="<%#GetIndentSpan()%>"></YAF:MessagePostData>
+                <YAF:MessagePostData ID="MessagePost1" runat="server" DataRow="<%# DataRow %>" IsAltMessage="<%# this.IsAlt %>" ColSpan="<%#GetIndentSpan()%>" ShowEditMessage="True"></YAF:MessagePostData>
             </asp:panel>
-             <br />
-            <asp:PlaceHolder ID="MessageHistoryHolder" runat="server" Visible="false">
-		<a id="messageHistoryLink" rel="nofollow" runat="server" /> 
-		</asp:PlaceHolder>   
-        	<span id="DetailsDelimiter1" runat="server" visible='<%# this.MessageDetails.Text.Length > 0 %>'>&nbsp;|</span>
-		<asp:Literal id="MessageDetails" runat="server" visible="false" Mode="PassThrough"></asp:Literal>
         </div>
     </td>
 </tr>

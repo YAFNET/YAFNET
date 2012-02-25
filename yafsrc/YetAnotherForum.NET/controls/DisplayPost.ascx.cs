@@ -272,67 +272,7 @@ namespace YAF.Controls
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.NameCell.ColSpan = int.Parse(this.GetIndentSpan());
-            var sb = new StringBuilder();
-            if (!this.PostData.PostDeleted)
-            {
-                if (Convert.ToDateTime(this.DataRow["Edited"]) >
-                    Convert.ToDateTime(this.DataRow["Posted"]).AddSeconds(this.Get<YafBoardSettings>().EditTimeOut))
-                {
-                    string editedText = this.Get<IDateTime>().FormatDateTimeShort(Convert.ToDateTime(this.DataRow["Edited"]));
 
-                    // vzrus: Guests doesn't have right to view change history
-                    this.MessageHistoryHolder.Visible = true;
-
-                    if (HttpContext.Current.Server.HtmlDecode(Convert.ToString(this.DataRow["EditReason"])) != string.Empty)
-                    {
-                        // reason was specified
-                        this.messageHistoryLink.Title +=
-                          " {0}: {1}".FormatWith(
-                            this.GetText("EDIT_REASON"),
-                            this.Get<IFormatMessage>().RepairHtml((string)this.DataRow["EditReason"], true));
-                    }
-                    else
-                    {
-                        this.messageHistoryLink.Title += " {0}: {1}".FormatWith(
-                          this.GetText("EDIT_REASON"),
-                          this.GetText("EDIT_REASON_NA"));
-                    }
-
-                    // message has been edited
-                    // show, why the post was edited or deleted?
-                    string whoChanged = Convert.ToBoolean(this.DataRow["IsModeratorChanged"])
-                                          ? this.GetText("EDITED_BY_MOD")
-                                          : this.GetText("EDITED_BY_USER");
-
-                    this.messageHistoryLink.InnerHtml =
-                      @"<span class=""editedinfo"" title=""{2}"">{0} {1}</span>".FormatWith(
-                        this.GetText("EDITED"), whoChanged, editedText + this.messageHistoryLink.Title);
-                    this.messageHistoryLink.HRef = YafBuildLink.GetLink(
-                      ForumPages.messagehistory, "m={0}", this.DataRow["MessageID"]);
-                    
-                   
-                }
-            }
-            else
-            {
-                string deleteText = HttpContext.Current.Server.HtmlDecode(Convert.ToString(this.DataRow["DeleteReason"])) !=
-                                    string.Empty
-                                        ? this.Get<IFormatMessage>().RepairHtml((string)this.DataRow["DeleteReason"], true)
-                                        : this.GetText("EDIT_REASON_NA");
-
-                sb.AppendFormat(
-                @"<span class=""editedinfo"" title=""{1}"">{0}: {1}</span>",
-                this.GetText("EDIT_REASON"),
-                deleteText);
-              
-            }
-
-            if (sb.Length > 0)
-            {
-                this.MessageDetails.Visible = true;
-                this.MessageDetails.Text = @"<span class=""MessageDetails"">{0}</span>".FormatWith(sb);
-            }
-            
             if (this.IsGuest)
             {
                 return;
@@ -575,18 +515,6 @@ namespace YAF.Controls
         /// </param>
         private void DisplayPost_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var suspended = this.DataRow["Suspended"].ToType<DateTime?>();
-
-            if (suspended.HasValue && suspended.Value > DateTime.UtcNow)
-            {
-                this.ThemeImgSuspended.LocalizedTitle =
-                    this.GetText("POSTS", "USERSUSPENDED").FormatWith(
-                        this.Get<IDateTime>().FormatDateTimeShort(suspended.Value));
-
-                this.ThemeImgSuspended.Visible = true;
-                this.OnlineStatusImage.Visible = false;
-            }
-
             if (this.PageContext.IsGuest)
             {
                 this.PostFooter.TogglePost.Visible = false;
@@ -672,34 +600,30 @@ namespace YAF.Controls
                 // Setup UserBox Reputation Script Block
                 YafContext.Current.PageElements.RegisterJsBlockStartup(
                     "reputationprogressjs", JavaScriptBlocks.RepuatationProgressLoadJs);
+
+                this.AddReputationControls();
             }
 
-            if (!this.Get<YafBoardSettings>().EnableThanksMod)
+            // Is User Suspended
+            var suspended = this.DataRow["Suspended"].ToType<DateTime?>();
+
+            if (suspended.HasValue && suspended.Value > DateTime.UtcNow)
             {
-                return;
+                this.ThemeImgSuspended.LocalizedTitle =
+                    this.GetText("POSTS", "USERSUSPENDED").FormatWith(
+                        this.Get<IDateTime>().FormatDateTimeShort(suspended.Value));
+
+                this.ThemeImgSuspended.Visible = true;
+                this.OnlineStatusImage.Visible = false;
             }
-
-            // Register Javascript
-            const string AddThankBoxHTML =
-                "'<a class=\"yaflittlebutton\" href=\"javascript:addThanks(' + res.d.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + res.d.Title + '><span>' + res.d.Text + '</span></a>'";
-
-            const string RemoveThankBoxHTML =
-                "'<a class=\"yaflittlebutton\" href=\"javascript:removeThanks(' + res.d.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + res.d.Title + '><span>' + res.d.Text + '</span></a>'";
-
-            var thanksJs =
-                this.Get<IScriptBuilder>().CreateStatement().Add(JavaScriptBlocks.AddThanksJs(RemoveThankBoxHTML)).AddLine().Add(JavaScriptBlocks.RemoveThanksJs(AddThankBoxHTML));
-
-            YafContext.Current.PageElements.RegisterJsBlockStartup("ThanksJs", thanksJs);
 
             var asynchCallFailedJs =
                 this.Get<IScriptBuilder>().CreateStatement().AddFunc(
                     f => f.Name("CallFailed").WithParams("res").Func(s => s.Add("alert('Error Occurred');")));
 
             YafContext.Current.PageElements.RegisterJsBlockStartup("asynchCallFailedJs", asynchCallFailedJs);
-
+            
             this.FormatThanksRow();
-
-            this.AddReputationControls();
         }
 
         /// <summary>
@@ -743,6 +667,23 @@ namespace YAF.Controls
         /// </summary>
         private void FormatThanksRow()
         {
+            if (!this.Get<YafBoardSettings>().EnableThanksMod)
+            {
+                return;
+            }
+
+            // Register Javascript
+            const string AddThankBoxHTML =
+                "'<a class=\"yaflittlebutton\" href=\"javascript:addThanks(' + res.d.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + res.d.Title + '><span>' + res.d.Text + '</span></a>'";
+
+            const string RemoveThankBoxHTML =
+                "'<a class=\"yaflittlebutton\" href=\"javascript:removeThanks(' + res.d.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + res.d.Title + '><span>' + res.d.Text + '</span></a>'";
+
+            var thanksJs =
+                this.Get<IScriptBuilder>().CreateStatement().Add(JavaScriptBlocks.AddThanksJs(RemoveThankBoxHTML)).AddLine().Add(JavaScriptBlocks.RemoveThanksJs(AddThankBoxHTML));
+
+            YafContext.Current.PageElements.RegisterJsBlockStartup("ThanksJs", thanksJs);
+
             this.Thank.Visible = this.PostData.CanThankPost && !this.PageContext.IsGuest &&
                                  this.Get<YafBoardSettings>().EnableThanksMod;
 
