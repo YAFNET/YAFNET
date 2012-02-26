@@ -5753,7 +5753,7 @@ begin
 		ForumFlags = d.Flags,
 		FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(c.TopicMovedID,c.TopicID) AND mes2.Position = 0),
 		StarterStyle = case(@StyledNicks)
-			when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr with(nolock) where usr.UserID = c.UserID)
+			when 1 then  b.UserStyle
 			else ''	 end,
 		LastUserStyle= case(@StyledNicks)
 			when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr with(nolock) where usr.UserID = c.LastUserID)
@@ -5895,7 +5895,7 @@ begin
 		ForumFlags = d.Flags,
 		FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(c.TopicMovedID,c.TopicID) AND mes2.Position = 0),
 	    StarterStyle = case(@StyledNicks)
-			when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr with(nolock) where usr.UserID = c.UserID)
+			when 1 then  b.UserStyle
 			else ''	 end,
 		LastUserStyle= case(@StyledNicks)
 			when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr with(nolock) where usr.UserID = c.LastUserID)
@@ -6409,7 +6409,7 @@ begin
 			ForumFlags = d.Flags,
 			FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(c.TopicMovedID,c.TopicID) AND mes2.Position = 0),
 			StarterStyle = case(@StyledNicks)
-			when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr with(nolock) where usr.UserID = c.UserID)
+			when 1 then  b.UserStyle
 			else ''	 end,
 					LastUserStyle= case(@StyledNicks)
 			when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr with(nolock) where usr.UserID = c.LastUserID)
@@ -6573,7 +6573,7 @@ declare @shiftsticky int
 			ForumFlags = d.Flags,
 			FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(c.TopicMovedID,c.TopicID) AND mes2.Position = 0),
 			StarterStyle = case(@StyledNicks)
-			when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr with(nolock) where usr.UserID = c.UserID)
+			when 1 then  b.UserStyle
 			else ''	 end,
 			LastUserStyle= case(@StyledNicks)
 			when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr with(nolock) where usr.UserID = c.LastUserID)
@@ -9892,7 +9892,7 @@ select
 		ForumFlags = d.Flags,
 		FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(c.TopicMovedID,c.TopicID) AND mes2.Position = 0),
 		StarterStyle = case(@StyledNicks)
-			when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr with(nolock) where usr.UserID = c.UserID)
+			when 1 then  b.UserStyle
 			else ''	 end,
 		LastUserStyle= case(@StyledNicks)
 			when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr with(nolock) where usr.UserID = c.LastUserID)
@@ -10739,7 +10739,7 @@ select
 		ForumFlags = d.Flags,
 		FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(c.TopicMovedID,c.TopicID) AND mes2.Position = 0),
 	    StarterStyle = case(@StyledNicks)
-			when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr with(nolock) where usr.UserID = c.UserID)
+			when 1 then  b.UserStyle
 			else ''	 end,
 		LastUserStyle= case(@StyledNicks)
 			when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr with(nolock) where usr.UserID = c.LastUserID)
@@ -10984,7 +10984,7 @@ select
 		ForumFlags = d.Flags,
 		FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(c.TopicMovedID,c.TopicID) AND mes2.Position = 0),
 		StarterStyle = case(@StyledNicks)
-			when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr with(nolock) where usr.UserID = c.UserID)
+			when 1 then  b.UserStyle
 			else ''	 end,
 		LastUserStyle= case(@StyledNicks)
 			when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr with(nolock) where usr.UserID = c.LastUserID)

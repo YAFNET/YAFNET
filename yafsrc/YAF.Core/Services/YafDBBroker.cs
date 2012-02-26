@@ -400,7 +400,7 @@ namespace YAF.Core.Services
             // get the cached version of forum moderators if it's valid
             var moderator = this.DataCache.GetOrSet(
                 Constants.Cache.ForumModerators,
-                this.GetModeratorsTeam,
+                this.GetModerators,
                 TimeSpan.FromMinutes(this.Get<YafBoardSettings>().BoardModeratorsCacheTimeout));
 
             if (this.Get<YafBoardSettings>().UseStyledNicks)
@@ -502,20 +502,6 @@ namespace YAF.Core.Services
         public DataTable GetModerators()
         {
             DataTable moderator = LegacyDb.forum_moderators(this.Get<YafBoardSettings>().UseStyledNicks);
-            moderator.TableName = MsSqlDbAccess.GetObjectName("Moderator");
-
-            return moderator;
-        }
-
-        /// <summary>
-        ///  Get all moderators without Groups
-        /// </summary>
-        /// <returns>
-        /// Returns the Moderator List
-        /// </returns>
-        public DataTable GetModeratorsTeam()
-        {
-            DataTable moderator = LegacyDb.moderators_team_list(this.Get<YafBoardSettings>().UseStyledNicks);
             moderator.TableName = MsSqlDbAccess.GetObjectName("Moderator");
 
             return moderator;

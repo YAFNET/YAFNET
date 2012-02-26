@@ -274,6 +274,7 @@ namespace YAF.Pages
             
             // clear moderators cache
             this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
+            this.Get<IDataCache>().Remove(Constants.Cache.BoardModerators);
 
             // redirect to forum moderation page
             YafBuildLink.Redirect(ForumPages.moderating, "f={0}", this.PageContext.PageForumID);
