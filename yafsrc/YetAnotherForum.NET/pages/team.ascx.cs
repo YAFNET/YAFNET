@@ -121,36 +121,6 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The get avatar url from id.
-        /// </summary>
-        /// <param name="userID">
-        /// The user id.
-        /// </param>
-        /// <returns>
-        /// Returns the Avatar Url
-        /// </returns>
-        protected string GetAvatarUrlFromID(int userID)
-        {
-            string avatarUrl;
-
-            try
-            {
-                avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userID);
-
-                if (avatarUrl.IsNotSet())
-                {
-                    avatarUrl = "{0}images/noavatar.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
-                }
-            }
-            catch (Exception)
-            {
-                avatarUrl = "{0}images/noavatar.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
-            }
-
-            return avatarUrl;
-        }
-
-        /// <summary>
         /// Get all Moderators Without Groups.
         /// </summary>
         /// <returns>
@@ -170,7 +140,16 @@ namespace YAF.Pages
                     continue;
                 }
 
-                var sortedMod = new Moderator { Name = mod.Name, ModeratorID = mod.ModeratorID, DisplayName = mod.DisplayName, Style = mod.Style};
+                var sortedMod = new Moderator
+                    {
+                        Name = mod.Name,
+                        ModeratorID = mod.ModeratorID,
+                        Email = mod.Email,
+                        Avatar = mod.Avatar,
+                        AvatarImage = mod.AvatarImage,
+                        DisplayName = mod.DisplayName,
+                        Style = mod.Style
+                    };
 
                 // Check if Mod is already in modsSorted
                 if (modsSorted.Find(s => s.Name.Equals(sortedMod.Name) && s.ModeratorID.Equals(sortedMod.ModeratorID))
@@ -211,6 +190,24 @@ namespace YAF.Pages
         protected string GetStringSafely([NotNull] object svalue)
         {
             return svalue == null ? string.Empty : this.HtmlEncode(svalue.ToString());
+        }
+
+        /// <summary>
+        /// Gets the avatar Url for the user
+        /// </summary>
+        /// <param name="userId">The user id.</param>
+        /// <param name="avatarString">The avatar string.</param>
+        /// <param name="hasAvatarImage">if set to <c>true</c> [has avatar image].</param>
+        /// <param name="email">The email.</param>
+        /// <returns>Returns the File Url</returns>
+        protected string GetAvatarUrlFileName(int userId, string avatarString, bool hasAvatarImage, string email)
+        {
+            var avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(
+                userId, avatarString, hasAvatarImage, new Lazy<string>(() => email));
+
+            return avatarUrl.IsNotSet()
+                       ? "{0}images/noavatar.gif".FormatWith(YafForumInfo.ForumClientFileRoot)
+                       : avatarUrl;
         }
 
         /// <summary>
@@ -281,25 +278,27 @@ namespace YAF.Pages
                 return;
             }
 
-            var adminLink = (UserLink)e.Item.FindControl("AdminLink");
             var adminAvatar = (Image)e.Item.FindControl("AdminAvatar");
 
             var drowv = (DataRowView)e.Item.DataItem;
             int userid = drowv.Row["UserID"].ToType<int>();
             string displayName = drowv.Row["DisplayName"].ToString();
 
-          /*  adminAvatar.ImageUrl = this.GetAvatarUrlFromID(adminLink.UserID);
-            adminAvatar.AlternateText = adminLink.PostfixText;
-            adminAvatar.ToolTip = adminLink.PostfixText; */
-            adminAvatar.Visible = false; 
+            adminAvatar.ImageUrl = this.GetAvatarUrlFileName(
+                drowv.Row["UserID"].ToType<int>(),
+                drowv.Row["Avatar"].ToString(),
+                drowv.Row["AvatarImage"].ToString().IsSet(),
+                drowv.Row["Email"].ToString());
+
+            adminAvatar.AlternateText = displayName;
+            adminAvatar.ToolTip = displayName;
+
             // User Buttons 
             var adminUserButton = (ThemeButton)e.Item.FindControl("AdminUserButton");
             var pm = (ThemeButton)e.Item.FindControl("PM");
             var email = (ThemeButton)e.Item.FindControl("Email");
            
             adminUserButton.Visible = this.PageContext.IsAdmin;
-
-         //   var userData = new CombinedUserDataHelper(adminLink.UserID);
 
             if (userid == this.PageContext.PageUserID)
             {
@@ -314,12 +313,6 @@ namespace YAF.Pages
             email.Visible = !PageContext.IsGuest && this.User != null && this.Get<YafBoardSettings>().AllowEmailSending;
             email.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", userid);
             email.ParamTitle0 = displayName;
-
-         /*   if (this.PageContext.IsAdmin)
-            {
-                email.TitleNonLocalized = userData.Membership.Email;
-            }
-           */
         }
 
         /// <summary>
@@ -377,9 +370,7 @@ namespace YAF.Pages
 
             var modForums = (DropDownList)e.Item.FindControl("ModForums");
 
-            var modLink = (UserLink)e.Item.FindControl("ModLink");
-
-           
+            var modLink = (UserLink)e.Item.FindControl("ModLink");           
 
             Moderator mod = this.completeModsList.Find(m => m.ModeratorID.Equals(modLink.UserID));
 
@@ -413,11 +404,19 @@ namespace YAF.Pages
 
             adminUserButton.Visible = this.PageContext.IsAdmin;
 
-            try
-            {
+            /*try
+            {*/
                 Moderator drowv = (Moderator)e.Item.DataItem;
                 long userid = drowv.ModeratorID;
                 string displayName = drowv.DisplayName;
+
+                var modAvatar = (Image)e.Item.FindControl("ModAvatar");
+
+                modAvatar.ImageUrl = this.GetAvatarUrlFileName(
+                    userid.ToType<int>(), drowv.Avatar, drowv.AvatarImage, drowv.Email);
+
+                modAvatar.AlternateText = mod.DisplayName;
+                modAvatar.ToolTip = mod.DisplayName;
 
                 if (userid == this.PageContext.PageUserID)
                 {
@@ -432,40 +431,13 @@ namespace YAF.Pages
                 email.Visible = !this.PageContext.IsGuest && this.User != null && this.Get<YafBoardSettings>().AllowEmailSending;
                 email.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", userid);
                 email.ParamTitle0 = displayName;
-
-                var modAvatar = (Image)e.Item.FindControl("ModAvatar");
-                // modAvatar.ImageUrl = this.GetAvatarUrlFileName;
-                modAvatar.AlternateText = mod.DisplayName;
-                modAvatar.ToolTip = mod.DisplayName;
-                modAvatar.Visible = false;
-                /* if (this.PageContext.IsAdmin)
-                {
-                    email.TitleNonLocalized = userData.Membership.Email;
-                } */
-            }
+            /*}
             catch (Exception)
             {
                 return;
-            }
+            }*/
         }
 
-         /// <summary>
-        /// Gets the avatar Url for the user
-        /// </summary>
-        /// <param name="userId">The user id.</param>
-        /// <param name="avatarString">The avatar string.</param>
-        /// <param name="hasAvatarImage">if set to <c>true</c> [has avatar image].</param>
-        /// <param name="email">The email.</param>
-        /// <returns>Returns the File Url</returns>
-        protected string GetAvatarUrlFileName(int userId, string avatarString, bool hasAvatarImage, string email)
-        {
-        	string avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(
-        		userId, avatarString, hasAvatarImage, new Lazy<string>(() => email));
-
-            return avatarUrl.IsNotSet()
-                       ? "{0}images/noavatar.gif".FormatWith(YafForumInfo.ForumClientFileRoot)
-                       : avatarUrl;
-        }
         #endregion
 
         /// <summary>
@@ -484,6 +456,24 @@ namespace YAF.Pages
             ///   Gets or sets The Moderator ID (User ID)
             /// </summary>
             public long ModeratorID { get; set; }
+
+            /// <summary>
+            ///   Gets or sets The Moderator Email
+            /// </summary>
+            public string Email { get; set; }
+
+            /// <summary>
+            ///   Gets or sets The Moderator Avatar
+            /// </summary>
+            public string Avatar { get; set; }
+
+            /// <summary>
+            /// Gets or sets a value indicating whether [avatar image].
+            /// </summary>
+            /// <value>
+            ///   <c>true</c> if [avatar image]; otherwise, <c>false</c>.
+            /// </value>
+            public bool AvatarImage { get; set; }
 
             /// <summary>
             ///   Gets or sets The Moderator Name

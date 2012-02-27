@@ -41,6 +41,18 @@ namespace YAF.Types.Objects
         /// <param name="name">
         /// The name.
         /// </param>
+        /// <param name="email">
+        /// The email.
+        /// </param>
+        /// <param name="avatar">
+        /// The avatar.
+        /// </param>
+        /// <param name="avatarImage">
+        /// The avatar Image.
+        /// </param>
+        /// <param name="displayName">
+        /// The display Name.
+        /// </param>
         /// <param name="style">
         /// The style.
         /// </param>
@@ -48,12 +60,15 @@ namespace YAF.Types.Objects
         /// The is group.
         /// </param>
         public SimpleModerator(
-            long forumID, string forumName, long moderatorID,  string name, string displayName, string style, bool isGroup)
+            long forumID, string forumName, long moderatorID,  string name, string email, string avatar, bool avatarImage, string displayName, string style, bool isGroup)
         {
             this.ForumID = forumID;
             this.ForumName = forumName;
             this.ModeratorID = moderatorID;
             this.Name = name;
+            this.Email = email;
+            this.Avatar = avatar;
+            this.AvatarImage = avatarImage;
             this.DisplayName = displayName;
             this.Style = style;
             this.IsGroup = isGroup;
@@ -78,6 +93,24 @@ namespace YAF.Types.Objects
         /// Gets or sets Name.
         /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets Email.
+        /// </summary>
+        public string Email { get; set; }
+
+        /// <summary>
+        /// Gets or sets Avatar.
+        /// </summary>
+        public string Avatar { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [avatar image].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [avatar image]; otherwise, <c>false</c>.
+        /// </value>
+        public bool AvatarImage { get; set; }
 
         /// <summary>
         /// Gets or sets Display Name.

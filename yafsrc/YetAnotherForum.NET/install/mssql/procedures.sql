@@ -2927,6 +2927,9 @@ BEGIN
 		ForumName = f.Name,
 		ModeratorID = a.GroupID, 
 		ModeratorName = b.Name,	
+		ModeratorEmail = '',
+		ModeratorAvatar = '',
+		ModeratorAvatarImage = 0,
 		ModeratorDisplayName = b.Name,
 		Style = case(@StyledNicks)
 			when 1 then b.Style  
@@ -2947,6 +2950,9 @@ BEGIN
 		ForumName = f.Name,
 		ModeratorID = usr.UserID, 
 		ModeratorName = usr.Name,
+		ModeratorEmail = usr.Email,
+		ModeratorAvatar = ISNULL(usr.Avatar, ''),
+		ModeratorAvatarImage = CAST((select count(1) from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=usr.UserID and AvatarImage is not null)as bit),
 		ModeratorDisplayName = usr.DisplayName,
 		Style = case(@StyledNicks)
 			when 1 then  usr.UserStyle
@@ -2987,6 +2993,9 @@ BEGIN
 		ForumName = f.Name,
 		ModeratorID = e.UserID, 
 		ModeratorName = e.Name,	
+		ModeratorEmail = e.Email,
+		ModeratorAvatar = IsNull(e.Avatar, ''),
+		ModeratorAvatarImage = CAST((select count(1) from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=e.UserID and AvatarImage is not null)as bit),
 		ModeratorDisplayName = e.DisplayName,
 		Style = case(@StyledNicks)
 			when 1 then e.UserStyle  

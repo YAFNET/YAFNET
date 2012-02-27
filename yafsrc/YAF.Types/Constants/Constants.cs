@@ -117,6 +117,11 @@ namespace YAF.Types.Constants
             public const string ForumModerators = "ForumModerators";
 
             /// <summary>
+            ///   The forum team moderators.
+            /// </summary>
+            public const string ForumTeamModerators = "ForumTeamModerators";
+
+            /// <summary>
             ///   The guest groups cache.
             /// </summary>
             public const string GuestGroupsCache = "GuestGroupsCache";

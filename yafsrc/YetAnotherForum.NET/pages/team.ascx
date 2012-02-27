@@ -23,7 +23,7 @@
              		 	    <HeaderStyle HorizontalAlign="Center" CssClass="header2"></HeaderStyle>
 			  			    <ItemStyle CssClass="post" Width="150px"></ItemStyle>
 			  				    <ItemTemplate>
-               				        <YAF:UserLink ID="AdminLink" runat="server" IsGuest="False" UserID='<%# Convert.ToInt32(Eval("UserID")) %>' Style='<%# Eval("Style") %>'  />
+               				        <YAF:UserLink ID="AdminLink" runat="server" IsGuest="False" UserID='<%# this.Eval("UserID").ToType<int>() %>' Style='<%# Eval("Style") %>'  />
 			  				    </ItemTemplate>
              		 	</asp:TemplateColumn>
              		 	<asp:TemplateColumn HeaderText="Forums">
@@ -42,7 +42,7 @@
 			                        <YAF:ThemeButton ID="Email" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS" TextLocalizedTag="EMAIL" ImageThemeTag="EMAIL" 
                                      TitleLocalizedPage="POSTS" TitleLocalizedTag="EMAIL_TITLE" />
 			                        <YAF:ThemeButton ID="AdminUserButton" runat="server" TitleLocalizedPage="PROFILE" TitleLocalizedTag="ADMIN_USER" CssClass="yaflittlebutton" Visible="false"
-				                     TextLocalizedTag="ADMIN_USER" NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", Convert.ToInt32(Eval("UserID")) ) %>'>
+				                     TextLocalizedTag="ADMIN_USER" NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", this.Eval("UserID").ToType<int>() ) %>'>
 			                        </YAF:ThemeButton>
 			  				    </ItemTemplate>
              		 	</asp:TemplateColumn>
@@ -72,7 +72,7 @@
              		 	    <HeaderStyle HorizontalAlign="Center" CssClass="header2"></HeaderStyle>
 			  			    <ItemStyle CssClass="post" Width="150px"></ItemStyle>
 			  				    <ItemTemplate>
-               				        <YAF:UserLink ID="ModLink" runat="server" ReplaceName='<%# Eval("DisplayName").ToString() %>' UserID='<%# Convert.ToInt32(Eval("ModeratorID")) %>' IsGuest="False" Style='<%# Eval("Style") %>'  />
+               				        <YAF:UserLink ID="ModLink" runat="server" ReplaceName='<%# Eval("DisplayName").ToString() %>' UserID='<%# this.Eval("ModeratorID").ToType<int>() %>' IsGuest="False" Style='<%# Eval("Style") %>'  />
 			  				    </ItemTemplate>
              		 	</asp:TemplateColumn>
              		 	<asp:TemplateColumn HeaderText="Forums">
@@ -93,7 +93,7 @@
 			                        <YAF:ThemeButton ID="Email" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS" TextLocalizedTag="EMAIL" ImageThemeTag="EMAIL"
                                      TitleLocalizedPage="POSTS" TitleLocalizedTag="EMAIL_TITLE" />
 			                        <YAF:ThemeButton ID="AdminUserButton" runat="server" CssClass="yaflittlebutton" TitleLocalizedPage="PROFILE" TitleLocalizedTag="ADMIN_USER" Visible="false"
-				                     TextLocalizedTag="ADMIN_USER" NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", Convert.ToInt32(Eval("ModeratorID")) ) %>'>
+				                     TextLocalizedTag="ADMIN_USER" NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", this.Eval("ModeratorID").ToType<int>() ) %>'>
 			                        </YAF:ThemeButton>
 			  				    </ItemTemplate>
              		 	</asp:TemplateColumn>
