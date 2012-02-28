@@ -28,7 +28,7 @@
                 TitleLocalizedTag="BUTTON_QUOTE_TT" />
             <asp:CheckBox runat="server" ID="MultiQuote" CssClass="MultiQuoteButton"  />
         <a name="post<%# DataRow["MessageID"] %>" /><strong>						
-            <YAF:UserLink ID="UserProfileLink" runat="server" UserID='<%#DataRow["UserID"]%>' Style='<%#DataRow["Style"]%>' />
+           <YAF:UserLink  ID="UserProfileLink" runat="server" UserID='<%# DataRow["UserID"]%>' ReplaceName='<%# this.Get<YafBoardSettings>().EnableDisplayName && (!DataRow["IsGuest"].ToType<bool>() || (DataRow["IsGuest"].ToType<bool>() && DataRow["DisplayName"].ToString() == DataRow["UserName"].ToString())) ? DataRow["DisplayName"] : DataRow["UserName"]%>' PostfixText='<%# DataRow["IP"].ToString() == "NNTP" ? this.GetText("EXTERNALUSER") : String.Empty %>' Style='<%#DataRow["Style"]%>' CssClass="UserPopMenuLink" />
             <YAF:OnlineStatusImage id="OnlineStatusImage" runat="server" Visible='<%# PageContext.BoardSettings.ShowUserOnlineStatus && !UserMembershipHelper.IsGuestUser( DataRow["UserID"] )%>' Style="vertical-align: bottom" UserID='<%# DataRow["UserID"] %>'  />
             <YAF:ThemeImage ID="ThemeImgSuspended" ThemePage="ICONS" ThemeTag="USER_SUSPENDED"  UseTitleForEmptyAlt="True" Enabled='<%# DataRow["Suspended"] != DBNull.Value && DataRow["Suspended"].ToType<DateTime>() > DateTime.UtcNow %>' runat="server"></YAF:ThemeImage>
         </strong>
