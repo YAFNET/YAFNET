@@ -5613,7 +5613,7 @@ begin
 	EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'forumemail', @ForumEmail
 
 	-- initalize new board
-	EXEC [{databaseOwner}].[{objectQualifier}board_create] @Name, @Culture, @LanguageFile, '','',@User,@UserEmail,@UserKey,1,@RolePrefix
+	EXEC [{databaseOwner}].[{objectQualifier}board_create] @Name, @Culture, @LanguageFile, '','',@User,@UserEmail,@UserKey,1,@RolePrefix,@UTCTIMESTAMP
 end
 GO
 
