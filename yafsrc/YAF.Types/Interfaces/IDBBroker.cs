@@ -131,14 +131,6 @@ namespace YAF.Types.Interfaces
     List<SimpleModerator> GetAllModerators();
 
     /// <summary>
-    /// Get all moderators without Groups
-    /// </summary>
-    /// <returns>
-    /// Returns the Moderator List
-    /// </returns>
-    List<SimpleModerator> GetAllModeratorsTeam();
-
-    /// <summary>
     /// The get latest topics.
     /// </summary>
     /// <param name="numberOfPosts">
