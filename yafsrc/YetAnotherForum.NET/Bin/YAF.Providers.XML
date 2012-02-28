@@ -1208,6 +1208,25 @@
             <returns>
             </returns>
         </member>
+        <member name="M:YAF.Providers.Profile.DB.GetDbTypeAndSizeFromString(System.String,System.Data.SqlDbType@,System.Int32@)">
+            <summary>
+            The get db type and size from string.
+            </summary>
+            <param name="providerData">
+            The provider data.
+            </param>
+            <param name="dbType">
+            The db type.
+            </param>
+            <param name="size">
+            The size.
+            </param>
+            <returns>
+            The get db type and size from string.
+            </returns>
+            <exception cref="T:System.ArgumentException">
+            </exception>
+        </member>
         <member name="M:YAF.Providers.Profile.DB.GetProviderUserKey(System.Object,System.Object)">
             <summary>
             The get provider user key.
@@ -1877,25 +1896,6 @@
             <returns>
             The generate cache key.
             </returns>
-        </member>
-        <member name="M:YAF.Providers.Profile.YafProfileProvider.GetDbTypeAndSizeFromString(System.String,System.Data.SqlDbType@,System.Int32@)">
-            <summary>
-            The get db type and size from string.
-            </summary>
-            <param name="providerData">
-            The provider data.
-            </param>
-            <param name="dbType">
-            The db type.
-            </param>
-            <param name="size">
-            The size.
-            </param>
-            <returns>
-            The get db type and size from string.
-            </returns>
-            <exception cref="T:System.ArgumentException">
-            </exception>
         </member>
         <member name="M:YAF.Providers.Profile.YafProfileProvider.GetProfileAsCollection(System.Web.Profile.ProfileAuthenticationOption,System.Int32,System.Int32,System.Object,System.Object,System.Int32@)">
             <summary>

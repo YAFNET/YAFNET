@@ -3610,13 +3610,14 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.LegacyDb.post_list(System.Object,System.Object,System.Object,System.Boolean,System.Boolean,System.DateTime,System.DateTime,System.DateTime,System.DateTime,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Boolean,System.Int32)">
+        <member name="M:YAF.Classes.Data.LegacyDb.post_list(System.Object,System.Object,System.Object,System.Object,System.Boolean,System.Boolean,System.Boolean,System.DateTime,System.DateTime,System.DateTime,System.DateTime,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Boolean,System.Int32)">
             <summary>
             The post_list.
             </summary>
             <param name="topicId">
             The topic id.
             </param>
+            <param name="currentUserID"> </param>
             <param name="authorUserID">
             The author User ID.
             </param>
@@ -4492,7 +4493,7 @@
             The locked.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.LegacyDb.topic_move(System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.topic_move(System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The topic_move.
             </summary>
@@ -4682,11 +4683,20 @@
             The ignored user id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.LegacyDb.user_addpoints(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_addpoints(System.Object,System.Object,System.Object)">
             <summary>
             Add Reputation Points to the specified user id.
             </summary>
             <param name="userID">The user ID.</param>
+            <param name="fromUserID">From user ID.</param>
+            <param name="points">The points.</param>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.user_removepoints(System.Object,System.Object,System.Object)">
+            <summary>
+            Remove Repuatation Points from the specified user id.
+            </summary>
+            <param name="userID">The user ID.</param>
+            <param name="fromUserID">From user ID.</param>
             <param name="points">The points.</param>
         </member>
         <member name="M:YAF.Classes.Data.LegacyDb.user_adminsave(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
@@ -5334,13 +5344,6 @@
             The ignored user id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.LegacyDb.user_removepoints(System.Object,System.Object)">
-            <summary>
-            Remove Repuatation Points from the specified user id.
-            </summary>
-            <param name="userID">The user ID.</param>
-            <param name="points">The points.</param>
-        </member>
         <member name="M:YAF.Classes.Data.LegacyDb.user_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The user_save.
@@ -5821,7 +5824,7 @@
             The get db type and size from string.
             </summary>
             <param name="providerData">
-            The provider data.
+             The provider data.
             </param>
             <param name="dbType">
             The db type.

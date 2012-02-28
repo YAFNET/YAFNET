@@ -4,6 +4,110 @@
         <name>FarsiLibrary</name>
     </assembly>
     <members>
+        <member name="M:FarsiLibrary.Internals.ReflectionHelper.GetField(System.Type,System.String)">
+            <summary>
+            Find and returns a FieldInfo by its name, on 
+            the specified type.
+            </summary>
+            <param name="type"></param>
+            <param name="fieldName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FarsiLibrary.Internals.ReflectionHelper.SetField(System.Object,System.String,System.Object)">
+            <summary>
+            Sets a value to a field of the owner object
+            </summary>
+            <param name="owner"></param>
+            <param name="fieldName"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:FarsiLibrary.Internals.ReflectionHelper.GetField``1(System.Object,System.String)">
+            <summary>
+            Find and returns a FieldInfo by its name, on 
+            the specified type.
+            </summary>
+            <param name="fieldName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FarsiLibrary.Internals.ReflectionHelper.GetField(System.Object,System.String)">
+            <summary>
+            returns value of a field in the owner object.
+            </summary>
+            <param name="owner"></param>
+            <param name="fieldName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FarsiLibrary.Internals.ReflectionHelper.GetProperty(System.Type,System.Object,System.String)">
+            <summary>
+            Returns ProprtyInfo of a 
+            </summary>
+            <param name="type"></param>
+            <param name="owner"></param>
+            <param name="propName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FarsiLibrary.Internals.ReflectionHelper.GetProperty(System.Object,System.String)">
+            <summary>
+            Returns value of a property in the owner object.
+            </summary>
+            <param name="owner"></param>
+            <param name="propName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FarsiLibrary.Internals.ReflectionHelper.GetProperty``1(System.Object,System.String)">
+            <summary>
+            Returns value of a property in the owner object.
+            </summary>
+            <typeparam name="TResult"></typeparam>
+            <param name="owner"></param>
+            <param name="propName"></param>
+            <returns></returns>
+        </member>
+        <member name="P:FarsiLibrary.Formatter.ITimeUnit.MillisPerUnit">
+            <summary>
+            The number of milliseconds represented by each 
+            instance of this TimeUnit.
+            </summary>
+        </member>
+        <member name="P:FarsiLibrary.Formatter.ITimeUnit.MaxQuantity">
+            <summary>
+            The maximum quantity of this Unit to be used as a threshold for the next
+            largest Unit (e.g. if one <code>Second</code> represents 1000ms, and
+            <code>Second</code> has a maxQuantity of 5, then if the difference
+            between compared timestamps is larger than 5000ms, PrettyTime will move
+            on to the next smallest TimeUnit for calculation; <code>Minute</code>, by
+            default)
+            </summary>
+        </member>
+        <member name="P:FarsiLibrary.Formatter.ITimeUnit.Name">
+            <summary>
+            The grammatically singular name for this unit of time. (e.g. one "second")
+            </summary>
+        </member>
+        <member name="P:FarsiLibrary.Formatter.ITimeUnit.PluralName">
+            <summary>
+            The grammatically plural name for this unit of time. (e.g. many "seconds")
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:FarsiLibrary.Resources.FALocalizer">
+            <summary>
+            Farsi Localizer
+            </summary>
+        </member>
+        <member name="T:FarsiLibrary.toEnglish">
+            <summary>
+            Helper class to convert numbers to it's farsi equivalent. Use this class' methods to overcome a problem in displaying farsi numeric values.
+            </summary>
+        </member>
+        <member name="M:FarsiLibrary.toEnglish.Convert(System.String)">
+            <summary>
+            Converts a Farsi number to it's English numeric values.
+            </summary>
+            <remarks>This method only converts the numbers in a string, and does not convert any non-numeric characters.</remarks>
+            <param name="num"></param>
+            <returns></returns>
+        </member>
         <member name="T:FarsiLibrary.PersianDateConverter">
             <summary>Class to convert PersianDate into normal DateTime value and vice versa.
             <seealso cref="T:FarsiLibrary.PersianDate"/>
@@ -81,48 +185,38 @@
             <param name="MonthNo">Month no to evaluate in integer</param>
             <returns>number of days in the evaluated month</returns>
         </member>
-        <member name="P:FarsiLibrary.Formatter.ITimeUnit.MillisPerUnit">
+        <member name="T:FarsiLibrary.Internals.ThemeWrapper">
             <summary>
-            The number of milliseconds represented by each 
-            instance of this TimeUnit.
+            A wrapper around Win32 Theming. Return which theme is
+            currently active.
             </summary>
         </member>
-        <member name="P:FarsiLibrary.Formatter.ITimeUnit.MaxQuantity">
+        <member name="M:FarsiLibrary.Formatter.ITimeFormat.Format(FarsiLibrary.Formatter.Duration)">
             <summary>
-            The maximum quantity of this Unit to be used as a threshold for the next
-            largest Unit (e.g. if one <code>Second</code> represents 1000ms, and
-            <code>Second</code> has a maxQuantity of 5, then if the difference
-            between compared timestamps is larger than 5000ms, PrettyTime will move
-            on to the next smallest TimeUnit for calculation; <code>Minute</code>, by
-            default)
+            Formats a duration
             </summary>
-        </member>
-        <member name="P:FarsiLibrary.Formatter.ITimeUnit.Name">
-            <summary>
-            The grammatically singular name for this unit of time. (e.g. one "second")
-            </summary>
-        </member>
-        <member name="P:FarsiLibrary.Formatter.ITimeUnit.PluralName">
-            <summary>
-            The grammatically plural name for this unit of time. (e.g. many "seconds")
-            </summary>
+            <param name="duration"></param>
             <returns></returns>
         </member>
-        <member name="T:FarsiLibrary.Resources.ARLocalizer">
+        <member name="T:FarsiLibrary.toFarsi">
             <summary>
-            Localizer class used to get string values of Arabic language.
+            Helper class to convert numbers to it's farsi equivalent. Use this class' methods to overcome a problem in displaying farsi numeric values.
             </summary>
         </member>
-        <member name="T:FarsiLibrary.Resources.FALocalizer">
+        <member name="M:FarsiLibrary.toFarsi.Convert(System.String,System.Globalization.CultureInfo)">
             <summary>
-            Farsi Localizer
+            Converts a number in string format e.g. 14500 to its localized version, if <c>Localized</c> value is set to <c>true</c>.
             </summary>
+            <param name="num"></param>
+            <param name="culture"></param>
+            <returns></returns>
         </member>
-        <member name="M:FarsiLibrary.Resources.ARLocalizer.GetLocalizedString(FarsiLibrary.Resources.StringID)">
+        <member name="M:FarsiLibrary.toFarsi.Convert(System.String)">
             <summary>
-            Gets a localized string for Arabic culture, for specified <see cref="T:FarsiLibrary.Resources.StringID"/>.
+            Converts an English number to it's Farsi value.
             </summary>
-            <param name="id"></param>
+            <remarks>This method only converts the numbers in a string, and does not convert any non-numeric characters.</remarks>
+            <param name="num"></param>
             <returns></returns>
         </member>
         <member name="T:FarsiLibrary.PersianCalendar">
@@ -362,363 +456,6 @@
             </summary>
             <property_value>The last year of a 100-year range that can be represented by a 2-digit year.</property_value>
             <remarks>This property allows a 2-digit year to be properly translated to a 4-digit year. For example, if this property is set to 1429, the 100-year range is from 1330 to 1429; therefore, a 2-digit value of 30 is interpreted as 1330, while a 2-digit value of 29 is interpreted as 1429.</remarks>
-        </member>
-        <member name="T:FarsiLibrary.Internals.ThemeWrapper">
-            <summary>
-            A wrapper around Win32 Theming. Return which theme is
-            currently active.
-            </summary>
-        </member>
-        <member name="T:FarsiLibrary.Internals.Guard">
-            <summary>
-            Helper class for guard statements, which allow prettier
-            code for guard clauses
-            </summary>
-        </member>
-        <member name="M:FarsiLibrary.Internals.Guard.Against(System.Boolean,System.String)">
-            <summary>
-            Will throw a <see cref="T:System.InvalidOperationException"/> if the assertion
-            is true, with the specificied message.
-            </summary>
-            <param name="assertion">if set to <c>true</c> [assertion].</param>
-            <param name="message">The message.</param>
-            <example>
-            Sample usage:
-            <code>
-            Guard.Against(string.IsNullOrEmpty(name), "Name must have a value");
-            </code>
-            </example>
-        </member>
-        <member name="M:FarsiLibrary.Internals.Guard.Against``1(System.Boolean,System.String)">
-            <summary>
-            Will throw exception of type <typeparamref name="TException"/>
-            with the specified message if the assertion is true
-            </summary>
-            <typeparam name="TException"></typeparam>
-            <param name="assertion">if set to <c>true</c> [assertion].</param>
-            <param name="message">The message.</param>
-            <example>
-            Sample usage:
-            <code>
-            <![CDATA[
-            Guard.Against<ArgumentException>(string.IsNullOrEmpty(name), "Name must have a value");
-            ]]>
-            </code>
-            </example>
-        </member>
-        <member name="T:FarsiLibrary.Internals.CultureHelper">
-            <summary>
-            Base culture information
-            </summary>
-        </member>
-        <member name="M:FarsiLibrary.Internals.CultureHelper.GetDayOfWeek(System.DateTime,System.Globalization.Calendar)">
-            <summary>
-            Returns the day of week based on calendar.
-            </summary>
-            <param name="dt"></param>
-            <param name="calendar"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FarsiLibrary.Internals.CultureHelper.GetCultureDayOfWeek(System.Int32,System.Globalization.CultureInfo)">
-            <summary>
-            Finds the corresponding DayOfWeek in specified culture
-            </summary>
-            <param name="day"></param>
-            <param name="culture"></param>
-            <returns></returns>
-        </member>
-        <member name="P:FarsiLibrary.Internals.CultureHelper.CurrentCulture">
-            <summary>
-            Currently selected UICulture
-            </summary>
-        </member>
-        <member name="P:FarsiLibrary.Internals.CultureHelper.ArabicCulture">
-            <summary>
-            Instance of Arabic culture
-            </summary>
-        </member>
-        <member name="P:FarsiLibrary.Internals.CultureHelper.FarsiCulture">
-            <summary>
-            Instance of Farsi culture
-            </summary>
-        </member>
-        <member name="P:FarsiLibrary.Internals.CultureHelper.PersianCulture">
-            <summary>
-            Instance of Persian Culture with correct date formatting.
-            </summary>
-        </member>
-        <member name="P:FarsiLibrary.Internals.CultureHelper.NeutralCulture">
-            <summary>
-            Instance of Neutral culture
-            </summary>
-        </member>
-        <member name="P:FarsiLibrary.Internals.CultureHelper.CurrentCalendar">
-            <summary>
-            Returns the default calendar for the current culture.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:FarsiLibrary.Formatter.ITimeFormat.Format(FarsiLibrary.Formatter.Duration)">
-            <summary>
-            Formats a duration
-            </summary>
-            <param name="duration"></param>
-            <returns></returns>
-        </member>
-        <member name="T:FarsiLibrary.toFarsi">
-            <summary>
-            Helper class to convert numbers to it's farsi equivalent. Use this class' methods to overcome a problem in displaying farsi numeric values.
-            </summary>
-        </member>
-        <member name="M:FarsiLibrary.toFarsi.Convert(System.String,System.Globalization.CultureInfo)">
-            <summary>
-            Converts a number in string format e.g. 14500 to its localized version, if <c>Localized</c> value is set to <c>true</c>.
-            </summary>
-            <param name="num"></param>
-            <param name="culture"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FarsiLibrary.toFarsi.Convert(System.String)">
-            <summary>
-            Converts an English number to it's Farsi value.
-            </summary>
-            <remarks>This method only converts the numbers in a string, and does not convert any non-numeric characters.</remarks>
-            <param name="num"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FarsiLibrary.Internals.ReflectionHelper.GetField(System.Type,System.String)">
-            <summary>
-            Find and returns a FieldInfo by its name, on 
-            the specified type.
-            </summary>
-            <param name="type"></param>
-            <param name="fieldName"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FarsiLibrary.Internals.ReflectionHelper.SetField(System.Object,System.String,System.Object)">
-            <summary>
-            Sets a value to a field of the owner object
-            </summary>
-            <param name="owner"></param>
-            <param name="fieldName"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:FarsiLibrary.Internals.ReflectionHelper.GetField``1(System.Object,System.String)">
-            <summary>
-            Find and returns a FieldInfo by its name, on 
-            the specified type.
-            </summary>
-            <param name="fieldName"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FarsiLibrary.Internals.ReflectionHelper.GetField(System.Object,System.String)">
-            <summary>
-            returns value of a field in the owner object.
-            </summary>
-            <param name="owner"></param>
-            <param name="fieldName"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FarsiLibrary.Internals.ReflectionHelper.GetProperty(System.Type,System.Object,System.String)">
-            <summary>
-            Returns ProprtyInfo of a 
-            </summary>
-            <param name="type"></param>
-            <param name="owner"></param>
-            <param name="propName"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FarsiLibrary.Internals.ReflectionHelper.GetProperty(System.Object,System.String)">
-            <summary>
-            Returns value of a property in the owner object.
-            </summary>
-            <param name="owner"></param>
-            <param name="propName"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FarsiLibrary.Internals.ReflectionHelper.GetProperty``1(System.Object,System.String)">
-            <summary>
-            Returns value of a property in the owner object.
-            </summary>
-            <typeparam name="TResult"></typeparam>
-            <param name="owner"></param>
-            <param name="propName"></param>
-            <returns></returns>
-        </member>
-        <member name="T:FarsiLibrary.Resources.FALocalizeManager">
-            <summary>
-            Localizer class to work with internal localized strings.
-            </summary>
-        </member>
-        <member name="M:FarsiLibrary.Resources.FALocalizeManager.GetLocalizer">
-            <summary>
-            Returns an instance of the localized based on CurrentUICulture of the thread.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:FarsiLibrary.Resources.FALocalizeManager.GetLocalizerByCulture(System.Globalization.CultureInfo)">
-            <summary>
-            Returns a localizer instance based on the culture.
-            </summary>
-        </member>
-        <member name="M:FarsiLibrary.Resources.FALocalizeManager.OnLocalizerChanged(System.EventArgs)">
-            <summary>
-            Fires the LocalizerChanged event.
-            </summary>
-            <param name="e"></param>
-        </member>
-        <member name="E:FarsiLibrary.Resources.FALocalizeManager.LocalizerChanged">
-            <summary>
-            Fired when Localizer has changed.
-            </summary>
-        </member>
-        <member name="P:FarsiLibrary.Resources.FALocalizeManager.Instance">
-            <summary>
-            Singleton Instance of FALocalizeManager.
-            </summary>
-        </member>
-        <member name="P:FarsiLibrary.Resources.FALocalizeManager.CustomCulture">
-            <summary>
-            Custom culture, when set , is used across all controls.
-            </summary>
-        </member>
-        <member name="P:FarsiLibrary.Resources.FALocalizeManager.FarsiCulture">
-            <summary>
-            Farsi Culture
-            </summary>
-        </member>
-        <member name="P:FarsiLibrary.Resources.FALocalizeManager.ArabicCulture">
-            <summary>
-            Arabic Culture
-            </summary>
-        </member>
-        <member name="P:FarsiLibrary.Resources.FALocalizeManager.InvariantCulture">
-            <summary>
-            Invariant Culture
-            </summary>
-        </member>
-        <member name="P:FarsiLibrary.Resources.FALocalizeManager.CustomLocalizer">
-            <summary>
-            Gets or Sets a new instance of Localizer. If this value is initialized (default is null), Localize Manager class will use the custom class provided, to interpret localized strings.
-            </summary>
-        </member>
-        <member name="M:FarsiLibrary.Internals.Util.toDouble(System.Int32)">
-            <summary>
-            Adds a preceding zero to single day or months
-            </summary>
-            <param name="i"></param>
-            <returns></returns>
-        </member>
-        <member name="T:FarsiLibrary.ToWords">
-            <summary>
-            Classes to convert a number to its persian written form. It accepts both an Integer or Long as input parameter.
-            </summary>
-            <exception>Thrown when input number is larger than 999999999999</exception>
-            <example>
-            An example on how to convert a Integer number to words.
-            <code>
-            	class MyClass 
-                {
-            	   public static void Main() 
-                   {
-            	      Console.WriteLine(FarsiLibrary.Utils.ToWords.ToString(1452));
-            	   }
-            	}
-            </code>
-            </example>
-            <exception cref="T:System.ArgumentOutOfRangeException"></exception>
-        </member>
-        <member name="M:FarsiLibrary.ToWords.ToString(System.Int32)">
-            <overloads>Has two overloads.</overloads>
-            <summary>Converts an integer number to its written form in Persian</summary>
-            <param name="x"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FarsiLibrary.ToWords.ToString(System.Int64)">
-            <summary>Converts a long number to its written form in Persian</summary>
-            <param name="x"></param>
-            <returns></returns>
-            <exception cref="T:System.ArgumentOutOfRangeException"></exception>
-        </member>
-        <member name="T:FarsiLibrary.toEnglish">
-            <summary>
-            Helper class to convert numbers to it's farsi equivalent. Use this class' methods to overcome a problem in displaying farsi numeric values.
-            </summary>
-        </member>
-        <member name="M:FarsiLibrary.toEnglish.Convert(System.String)">
-            <summary>
-            Converts a Farsi number to it's English numeric values.
-            </summary>
-            <remarks>This method only converts the numbers in a string, and does not convert any non-numeric characters.</remarks>
-            <param name="num"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FarsiLibrary.DateTimeExtensions.ToPersianDate(System.DateTime)">
-            <summary>
-            Converts the DateTime to a PersianDate equivalant.
-            </summary>
-            <param name="dateTime"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FarsiLibrary.DateTimeExtensions.ToDateTime(FarsiLibrary.PersianDate)">
-            <summary>
-            Converts the PersianDate to a DateTime equivalant.
-            </summary>
-            <param name="persianDate"></param>
-            <returns></returns>
-        </member>
-        <member name="T:FarsiLibrary.PersianCultureInfo">
-            <summary>
-            CultureInfo for "FA-IR" culture, which has correct calendar information.
-            </summary>
-        </member>
-        <member name="M:FarsiLibrary.PersianCultureInfo.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:FarsiLibrary.PersianCultureInfo"/> class.
-            </summary>
-        </member>
-        <member name="M:FarsiLibrary.PersianCultureInfo.Clone">
-            <summary>
-            Creates a copy of the current <see cref="T:System.Globalization.CultureInfo"/>.
-            </summary>
-            <returns>
-            A copy of the current <see cref="T:System.Globalization.CultureInfo"/>.
-            </returns>
-        </member>
-        <member name="P:FarsiLibrary.PersianCultureInfo.Calendar">
-            <summary>
-            Gets the default calendar used by the culture.
-            </summary>
-            <value></value>
-            <returns>
-            A <see cref="T:System.Globalization.Calendar"/> that represents the default calendar used by the culture.
-            </returns>
-        </member>
-        <member name="P:FarsiLibrary.PersianCultureInfo.OptionalCalendars">
-            <summary>
-            Gets the list of calendars that can be used by the culture.
-            </summary>
-            <value></value>
-            <returns>
-            An array of type <see cref="T:System.Globalization.Calendar"/> that represents the calendars that can be used by the culture represented by the current <see cref="T:System.Globalization.CultureInfo"/>.
-            </returns>
-        </member>
-        <member name="P:FarsiLibrary.PersianCultureInfo.DateTimeFormat">
-            <summary>
-            Gets or sets a <see cref="T:System.Globalization.DateTimeFormatInfo"/> that defines the culturally appropriate format of displaying dates and times.
-            </summary>
-            <value></value>
-            <returns>
-            A <see cref="T:System.Globalization.DateTimeFormatInfo"/> that defines the culturally appropriate format of displaying dates and times.
-            </returns>
-            <exception cref="T:System.ArgumentNullException">
-            The property is set to null.
-            </exception>
-        </member>
-        <member name="T:FarsiLibrary.Resources.StringID">
-            <summary>
-            Various Strings that could be translater in Localizers.
-            </summary>
         </member>
         <member name="T:FarsiLibrary.PersianDate">
             <summary>
@@ -1065,6 +802,269 @@
         <member name="P:FarsiLibrary.PersianDate.MonthDays">
             <summary>
             Number of days in this month.
+            </summary>
+        </member>
+        <member name="T:FarsiLibrary.Internals.Guard">
+            <summary>
+            Helper class for guard statements, which allow prettier
+            code for guard clauses
+            </summary>
+        </member>
+        <member name="M:FarsiLibrary.Internals.Guard.Against(System.Boolean,System.String)">
+            <summary>
+            Will throw a <see cref="T:System.InvalidOperationException"/> if the assertion
+            is true, with the specificied message.
+            </summary>
+            <param name="assertion">if set to <c>true</c> [assertion].</param>
+            <param name="message">The message.</param>
+            <example>
+            Sample usage:
+            <code>
+            Guard.Against(string.IsNullOrEmpty(name), "Name must have a value");
+            </code>
+            </example>
+        </member>
+        <member name="M:FarsiLibrary.Internals.Guard.Against``1(System.Boolean,System.String)">
+            <summary>
+            Will throw exception of type <typeparamref name="TException"/>
+            with the specified message if the assertion is true
+            </summary>
+            <typeparam name="TException"></typeparam>
+            <param name="assertion">if set to <c>true</c> [assertion].</param>
+            <param name="message">The message.</param>
+            <example>
+            Sample usage:
+            <code>
+            <![CDATA[
+            Guard.Against<ArgumentException>(string.IsNullOrEmpty(name), "Name must have a value");
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="T:FarsiLibrary.ToWords">
+            <summary>
+            Classes to convert a number to its persian written form. It accepts both an Integer or Long as input parameter.
+            </summary>
+            <exception>Thrown when input number is larger than 999999999999</exception>
+            <example>
+            An example on how to convert a Integer number to words.
+            <code>
+            	class MyClass 
+                {
+            	   public static void Main() 
+                   {
+            	      Console.WriteLine(FarsiLibrary.Utils.ToWords.ToString(1452));
+            	   }
+            	}
+            </code>
+            </example>
+            <exception cref="T:System.ArgumentOutOfRangeException"></exception>
+        </member>
+        <member name="M:FarsiLibrary.ToWords.ToString(System.Int32)">
+            <overloads>Has two overloads.</overloads>
+            <summary>Converts an integer number to its written form in Persian</summary>
+            <param name="x"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FarsiLibrary.ToWords.ToString(System.Int64)">
+            <summary>Converts a long number to its written form in Persian</summary>
+            <param name="x"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentOutOfRangeException"></exception>
+        </member>
+        <member name="T:FarsiLibrary.Resources.ARLocalizer">
+            <summary>
+            Localizer class used to get string values of Arabic language.
+            </summary>
+        </member>
+        <member name="M:FarsiLibrary.Resources.ARLocalizer.GetLocalizedString(FarsiLibrary.Resources.StringID)">
+            <summary>
+            Gets a localized string for Arabic culture, for specified <see cref="T:FarsiLibrary.Resources.StringID"/>.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FarsiLibrary.Internals.Util.toDouble(System.Int32)">
+            <summary>
+            Adds a preceding zero to single day or months
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="T:FarsiLibrary.PersianCultureInfo">
+            <summary>
+            CultureInfo for "FA-IR" culture, which has correct calendar information.
+            </summary>
+        </member>
+        <member name="M:FarsiLibrary.PersianCultureInfo.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:FarsiLibrary.PersianCultureInfo"/> class.
+            </summary>
+        </member>
+        <member name="M:FarsiLibrary.PersianCultureInfo.Clone">
+            <summary>
+            Creates a copy of the current <see cref="T:System.Globalization.CultureInfo"/>.
+            </summary>
+            <returns>
+            A copy of the current <see cref="T:System.Globalization.CultureInfo"/>.
+            </returns>
+        </member>
+        <member name="P:FarsiLibrary.PersianCultureInfo.Calendar">
+            <summary>
+            Gets the default calendar used by the culture.
+            </summary>
+            <value></value>
+            <returns>
+            A <see cref="T:System.Globalization.Calendar"/> that represents the default calendar used by the culture.
+            </returns>
+        </member>
+        <member name="P:FarsiLibrary.PersianCultureInfo.OptionalCalendars">
+            <summary>
+            Gets the list of calendars that can be used by the culture.
+            </summary>
+            <value></value>
+            <returns>
+            An array of type <see cref="T:System.Globalization.Calendar"/> that represents the calendars that can be used by the culture represented by the current <see cref="T:System.Globalization.CultureInfo"/>.
+            </returns>
+        </member>
+        <member name="P:FarsiLibrary.PersianCultureInfo.DateTimeFormat">
+            <summary>
+            Gets or sets a <see cref="T:System.Globalization.DateTimeFormatInfo"/> that defines the culturally appropriate format of displaying dates and times.
+            </summary>
+            <value></value>
+            <returns>
+            A <see cref="T:System.Globalization.DateTimeFormatInfo"/> that defines the culturally appropriate format of displaying dates and times.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+            The property is set to null.
+            </exception>
+        </member>
+        <member name="T:FarsiLibrary.Internals.CultureHelper">
+            <summary>
+            Base culture information
+            </summary>
+        </member>
+        <member name="M:FarsiLibrary.Internals.CultureHelper.GetDayOfWeek(System.DateTime,System.Globalization.Calendar)">
+            <summary>
+            Returns the day of week based on calendar.
+            </summary>
+            <param name="dt"></param>
+            <param name="calendar"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FarsiLibrary.Internals.CultureHelper.GetCultureDayOfWeek(System.Int32,System.Globalization.CultureInfo)">
+            <summary>
+            Finds the corresponding DayOfWeek in specified culture
+            </summary>
+            <param name="day"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="P:FarsiLibrary.Internals.CultureHelper.CurrentCulture">
+            <summary>
+            Currently selected UICulture
+            </summary>
+        </member>
+        <member name="P:FarsiLibrary.Internals.CultureHelper.ArabicCulture">
+            <summary>
+            Instance of Arabic culture
+            </summary>
+        </member>
+        <member name="P:FarsiLibrary.Internals.CultureHelper.FarsiCulture">
+            <summary>
+            Instance of Farsi culture
+            </summary>
+        </member>
+        <member name="P:FarsiLibrary.Internals.CultureHelper.PersianCulture">
+            <summary>
+            Instance of Persian Culture with correct date formatting.
+            </summary>
+        </member>
+        <member name="P:FarsiLibrary.Internals.CultureHelper.NeutralCulture">
+            <summary>
+            Instance of Neutral culture
+            </summary>
+        </member>
+        <member name="P:FarsiLibrary.Internals.CultureHelper.CurrentCalendar">
+            <summary>
+            Returns the default calendar for the current culture.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FarsiLibrary.DateTimeExtensions.ToPersianDate(System.DateTime)">
+            <summary>
+            Converts the DateTime to a PersianDate equivalant.
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FarsiLibrary.DateTimeExtensions.ToDateTime(FarsiLibrary.PersianDate)">
+            <summary>
+            Converts the PersianDate to a DateTime equivalant.
+            </summary>
+            <param name="persianDate"></param>
+            <returns></returns>
+        </member>
+        <member name="T:FarsiLibrary.Resources.StringID">
+            <summary>
+            Various Strings that could be translater in Localizers.
+            </summary>
+        </member>
+        <member name="T:FarsiLibrary.Resources.FALocalizeManager">
+            <summary>
+            Localizer class to work with internal localized strings.
+            </summary>
+        </member>
+        <member name="M:FarsiLibrary.Resources.FALocalizeManager.GetLocalizer">
+            <summary>
+            Returns an instance of the localized based on CurrentUICulture of the thread.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FarsiLibrary.Resources.FALocalizeManager.GetLocalizerByCulture(System.Globalization.CultureInfo)">
+            <summary>
+            Returns a localizer instance based on the culture.
+            </summary>
+        </member>
+        <member name="M:FarsiLibrary.Resources.FALocalizeManager.OnLocalizerChanged(System.EventArgs)">
+            <summary>
+            Fires the LocalizerChanged event.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="E:FarsiLibrary.Resources.FALocalizeManager.LocalizerChanged">
+            <summary>
+            Fired when Localizer has changed.
+            </summary>
+        </member>
+        <member name="P:FarsiLibrary.Resources.FALocalizeManager.Instance">
+            <summary>
+            Singleton Instance of FALocalizeManager.
+            </summary>
+        </member>
+        <member name="P:FarsiLibrary.Resources.FALocalizeManager.CustomCulture">
+            <summary>
+            Custom culture, when set , is used across all controls.
+            </summary>
+        </member>
+        <member name="P:FarsiLibrary.Resources.FALocalizeManager.FarsiCulture">
+            <summary>
+            Farsi Culture
+            </summary>
+        </member>
+        <member name="P:FarsiLibrary.Resources.FALocalizeManager.ArabicCulture">
+            <summary>
+            Arabic Culture
+            </summary>
+        </member>
+        <member name="P:FarsiLibrary.Resources.FALocalizeManager.InvariantCulture">
+            <summary>
+            Invariant Culture
+            </summary>
+        </member>
+        <member name="P:FarsiLibrary.Resources.FALocalizeManager.CustomLocalizer">
+            <summary>
+            Gets or Sets a new instance of Localizer. If this value is initialized (default is null), Localize Manager class will use the custom class provided, to interpret localized strings.
             </summary>
         </member>
     </members>

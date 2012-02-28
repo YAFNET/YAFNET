@@ -2281,6 +2281,17 @@
               Gets DatabaseOwner.
             </summary>
         </member>
+        <member name="P:YAF.Classes.Config.DatabaseScheme">
+            <summary>
+              Gets DatabaseScheme.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.LargeForumTree">
+            <summary>
+            Gets a value indicating whether YAF should be optimized for use with very large number of forums. 
+            Before enabling you should know exactly what you do and what's it all for. Ask developers.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.Config.DisableJQuery">
             <summary>
               Gets a value indicating whether Is Jquery Registration disabled? -- default is false.
