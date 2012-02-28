@@ -449,14 +449,6 @@
             <param name="sender">The source of the event.</param>
             <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
         </member>
-        <member name="M:YAF.Pages.posts.IsPostSpam">
-            <summary>
-            Check This Post for SPAM against the BlogSpam.NET API or Akismet Service
-            </summary>
-            <returns>
-            Returns if Post is SPAM or not
-            </returns>
-        </member>
         <member name="M:YAF.Pages.posts.ViewMenu_ItemClick(System.Object,YAF.Controls.PopEventArgs)">
             <summary>
             The view menu_ item click.
@@ -3340,6 +3332,11 @@
               Table with choices
             </summary>
         </member>
+        <member name="F:YAF.Pages.postmessage.spamApproved">
+            <summary>
+              The Spam Approved Indicator
+            </summary>
+        </member>
         <member name="M:YAF.Pages.postmessage.#ctor">
             <summary>
               Initializes a new instance of the <see cref="T:YAF.Pages.postmessage"/> class.
@@ -3350,10 +3347,10 @@
             The cancel_ click.
             </summary>
             <param name="sender">
-            The sender.
+            The sender. 
             </param>
             <param name="e">
-            The e.
+            The e. 
             </param>
         </member>
         <member name="M:YAF.Pages.postmessage.GetPollGroupID">
@@ -3361,7 +3358,7 @@
             The get poll group id.
             </summary>
             <returns>
-            Returns the PollGroup Id
+            Returns the PollGroup Id 
             </returns>
         </member>
         <member name="M:YAF.Pages.postmessage.HandlePostToBlog(System.String,System.String)">
@@ -3369,13 +3366,13 @@
             The handle post to blog.
             </summary>
             <param name="message">
-            The message.
+            The message. 
             </param>
             <param name="subject">
-            The subject.
+            The subject. 
             </param>
             <returns>
-            Retuns the Blog Post ID
+            Retuns the Blog Post ID 
             </returns>
         </member>
         <member name="M:YAF.Pages.postmessage.IsPostReplyDelay">
@@ -3383,7 +3380,7 @@
             Verifies the user isn't posting too quickly, if so, tells them to wait.
             </summary>
             <returns>
-            True if there is a delay in effect.
+            True if there is a delay in effect. 
             </returns>
         </member>
         <member name="M:YAF.Pages.postmessage.IsPostReplyVerified">
@@ -3391,7 +3388,7 @@
             Handles verification of the PostReply. Adds javascript message if there is a problem.
             </summary>
             <returns>
-            true if everything is verified
+            true if everything is verified 
             </returns>
         </member>
         <member name="M:YAF.Pages.postmessage.NewTopic">
@@ -3399,7 +3396,7 @@
             The new topic.
             </summary>
             <returns>
-            Returns if New Topic
+            Returns if New Topic 
             </returns>
         </member>
         <member name="M:YAF.Pages.postmessage.OnInit(System.EventArgs)">
@@ -3407,7 +3404,7 @@
             The on init.
             </summary>
             <param name="e">
-            The e.
+            The e. 
             </param>
         </member>
         <member name="M:YAF.Pages.postmessage.Page_Load(System.Object,System.EventArgs)">
@@ -3415,10 +3412,10 @@
             The page_ load.
             </summary>
             <param name="sender">
-            The sender.
+            The sender. 
             </param>
             <param name="e">
-            The e.
+            The e. 
             </param>
         </member>
         <member name="M:YAF.Pages.postmessage.PostReplyHandleEditPost">
@@ -3426,7 +3423,7 @@
             The post reply handle edit post.
             </summary>
             <returns>
-            Returns the Message Id
+            Returns the Message Id 
             </returns>
         </member>
         <member name="M:YAF.Pages.postmessage.PostReplyHandleNewPost(System.Int64@)">
@@ -3434,10 +3431,10 @@
             The post reply handle new post.
             </summary>
             <param name="topicId">
-            The topic Id.
+            The topic Id. 
             </param>
             <returns>
-            Returns the Message Id.
+            Returns the Message Id. 
             </returns>
         </member>
         <member name="M:YAF.Pages.postmessage.PostReplyHandleReplyToTopic(System.Boolean)">
@@ -3445,10 +3442,10 @@
             The post reply handle reply to topic.
             </summary>
             <param name="isSpamApproved">
-            The is Spam Approved.
+            The is Spam Approved. 
             </param>
             <returns>
-            Returns the Message Id.
+            Returns the Message Id. 
             </returns>
         </member>
         <member name="M:YAF.Pages.postmessage.PostReply_Click(System.Object,System.EventArgs)">
@@ -3456,34 +3453,21 @@
             Handles the PostReply click including: Replying, Editing and New post.
             </summary>
             <param name="sender">
-            The Sender Object.
+            The Sender Object. 
             </param>
             <param name="e">
-            The Event Arguments.
+            The Event Arguments. 
             </param>
-        </member>
-        <member name="F:YAF.Pages.postmessage.spamApproved">
-            <summary>
-            The Spam Approved Indicator
-            </summary>
-        </member>
-        <member name="M:YAF.Pages.postmessage.IsPostSpam">
-            <summary>
-            Check This Post for SPAM against the BlogSpam.NET API or Akismet Service
-            </summary>
-            <returns>
-            Returns if Post is SPAM or not
-            </returns>
         </member>
         <member name="M:YAF.Pages.postmessage.Preview_Click(System.Object,System.EventArgs)">
             <summary>
             The preview_ click.
             </summary>
             <param name="sender">
-            The Sender Object.
+            The Sender Object. 
             </param>
             <param name="e">
-            The Event Arguments.
+            The Event Arguments. 
             </param>
         </member>
         <member name="M:YAF.Pages.postmessage.CanEditPostCheck(YAF.Types.Objects.TypedMessageList,System.Data.DataRow)">
@@ -3491,10 +3475,13 @@
             The can edit post check.
             </summary>
             <param name="message">
-            The message.
+            The message. 
+            </param>
+            <param name="topicInfo">
+            The topic Info. 
             </param>
             <returns>
-            Returns if user can edit post check.
+            Returns if user can edit post check. 
             </returns>
         </member>
         <member name="M:YAF.Pages.postmessage.CanHavePoll(System.Data.DataRow)">
@@ -3502,18 +3489,21 @@
             The can have poll.
             </summary>
             <param name="message">
-            The message.
+            The message. 
             </param>
             <returns>
-            The can have poll.
+            The can have poll. 
             </returns>
         </member>
         <member name="M:YAF.Pages.postmessage.CanQuotePostCheck(System.Data.DataRow)">
             <summary>
-            The can quote post check.
+            Determines whether this instance [can quote post check] the specified topic info.
             </summary>
+            <param name="topicInfo">
+            The topic info. 
+            </param>
             <returns>
-            The can quote post check.
+            The can quote post check. 
             </returns>
         </member>
         <member name="M:YAF.Pages.postmessage.GetPollID">
@@ -3521,7 +3511,7 @@
             The get poll id.
             </summary>
             <returns>
-            The get poll id.
+            The get poll id. 
             </returns>
         </member>
         <member name="M:YAF.Pages.postmessage.HasPoll(System.Data.DataRow)">
@@ -3529,24 +3519,26 @@
             The has poll.
             </summary>
             <param name="message">
-            The message.
+            The message. 
             </param>
             <returns>
-            The has poll.
+            The has poll. 
             </returns>
         </member>
         <member name="M:YAF.Pages.postmessage.InitEditedPost(YAF.Types.Objects.TypedMessageList)">
             <summary>
             The init edited post.
             </summary>
-            <param name="currentMessage">The current message.</param>
+            <param name="currentMessage">
+            The current message. 
+            </param>
         </member>
         <member name="M:YAF.Pages.postmessage.InitQuotedReply(YAF.Types.Objects.TypedMessageList)">
             <summary>
             The init quoted reply.
             </summary>
             <param name="message">
-            The current TypedMessage.
+            The current TypedMessage. 
             </param>
         </member>
         <member name="M:YAF.Pages.postmessage.InitReplyToTopic">
@@ -3559,13 +3551,13 @@
             Returns true if the topic is set to watch for userId
             </summary>
             <param name="userId">
-            The user Id.
+            The user Id. 
             </param>
             <param name="topicId">
-            The topic Id.
+            The topic Id. 
             </param>
             <returns>
-            The topic watched id.
+            The topic watched id. 
             </returns>
         </member>
         <member name="M:YAF.Pages.postmessage.UpdateWatchTopic(System.Int32,System.Int32)">
@@ -3573,10 +3565,10 @@
             Updates Watch Topic based on controls/settings for user...
             </summary>
             <param name="userId">
-            The user Id.
+            The user Id. 
             </param>
             <param name="topicId">
-            The topic Id.
+            The topic Id. 
             </param>
         </member>
         <member name="M:YAF.Pages.postmessage.WatchTopic(System.Int32,System.Int32)">
@@ -3584,10 +3576,10 @@
             Checks if this topic is watched, if not, adds it.
             </summary>
             <param name="userId">
-            The user Id.
+            The user Id. 
             </param>
             <param name="topicId">
-            The topic Id.
+            The topic Id. 
             </param>
         </member>
         <member name="P:YAF.Pages.postmessage.EditMessageID">
@@ -3598,6 +3590,11 @@
         <member name="P:YAF.Pages.postmessage.OriginalMessage">
             <summary>
               Gets or sets OriginalMessage.
+            </summary>
+        </member>
+        <member name="P:YAF.Pages.postmessage.PageIndex">
+            <summary>
+              Gets Page.
             </summary>
         </member>
         <member name="P:YAF.Pages.postmessage.PollGroupId">
@@ -3613,11 +3610,6 @@
         <member name="P:YAF.Pages.postmessage.TopicID">
             <summary>
               Gets TopicID.
-            </summary>
-        </member>
-        <member name="P:YAF.Pages.postmessage.PageIndex">
-            <summary>
-              Gets Page.
             </summary>
         </member>
         <member name="T:YAF.Pages.Admin.reindex">
@@ -7129,6 +7121,16 @@
             Class for JS jQuery  Ajax Methods
             </summary>
         </member>
+        <member name="M:YAF.Classes.YafAjax.HandleMultiQuote(System.String,System.Boolean,System.Int32,System.String)">
+            <summary>
+            Handles the multi quote Button.
+            </summary>
+            <param name="buttonId">The button id.</param>
+            <param name="multiquoteButton">The Multiquote Button Checkbox checked</param>
+            <param name="messageId">The message id.</param>
+            <param name="buttonCssClass">The button CSS class.</param>
+            <returns>Returns the Message Id and the Updated CSS Class for the Button</returns>
+        </member>
         <member name="M:YAF.Classes.YafAjax.SpellCheck(System.String,System.String,System.String,System.String)">
             <summary>
             Spell check via google api.
@@ -7346,29 +7348,6 @@
             The construct spell request content xml.
             </returns>
         </member>
-        <member name="M:YAF.Classes.YafAjax.SendRegistrationNotificationToUser(System.Web.Security.MembershipUser,System.String,System.String)">
-            <summary>
-            Send an Email to the Newly Created User with
-            his Account Info (Pass, Security Question and Answer)
-            </summary>
-            <param name="user">
-            The user.
-            </param>
-            <param name="pass">
-            The pass.
-            </param>
-            <param name="securityAnswer">
-            The security answer.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.YafAjax.SendRegistrationNotificationEmail(System.Web.Security.MembershipUser)">
-            <summary>
-            The send registration notification email.
-            </summary>
-            <param name="user">
-            The user.
-            </param>
-        </member>
         <member name="P:YAF.Classes.YafAjax.ServiceLocator">
             <summary>
               Gets ServiceLocator.
@@ -7474,7 +7453,7 @@
         </member>
         <member name="T:YAF.Pages.rsstopic">
             <summary>
-            Summary description for rss topic.
+            rss topic.
             </summary>
         </member>
         <member name="M:YAF.Pages.rsstopic.#ctor">
@@ -7508,26 +7487,13 @@
             <summary>
             The method to return latest topic content to display in a feed.
             </summary>
-            <param name="link">
-            A linkt to an active topic.
-            </param>
-            <param name="imgUrl">
-            A latest topic icon Url.
-            </param>
-            <param name="imgAlt">
-            A latest topic icon Alt text.
-            </param>
-            <param name="linkName">
-            A latest topic displayed link name
-            </param>
-            <param name="text">
-            An active topic first message content/partial content.
-            </param>
-            <param name="flags">
-            </param>
-            <param name="altItem">
-            The alt Item.
-            </param>
+            <param name="link">A linkt to an active topic.</param>
+            <param name="imgUrl">A latest topic icon Url.</param>
+            <param name="imgAlt">A latest topic icon Alt text.</param>
+            <param name="linkName">A latest topic displayed link name</param>
+            <param name="text">An active topic first message content/partial content.</param>
+            <param name="flags">The flags.</param>
+            <param name="altItem">The alt Item.</param>
             <returns>
             An Html formatted first message content string.
             </returns>
@@ -7536,45 +7502,23 @@
             <summary>
             The method creates YafSyndicationFeed for Active topics.
             </summary>
-            <param name="feed">
-            The YafSyndicationFeed.
-            </param>
-            <param name="feedType">
-            The FeedType.
-            </param>
-            <param name="atomFeedByVar">
-            The Atom feed checker.
-            </param>
-            <param name="lastPostIcon">
-            The icon for last post link.
-            </param>
-            <param name="lastPostName">
-            The last post name.
-            </param>
-            <param name="categoryActiveId">
-            </param>
+            <param name="feed">The YafSyndicationFeed.</param>
+            <param name="feedType">The FeedType.</param>
+            <param name="atomFeedByVar">The Atom feed checker.</param>
+            <param name="lastPostIcon">The icon for last post link.</param>
+            <param name="lastPostName">The last post name.</param>
+            <param name="categoryActiveId">The category active id.</param>
         </member>
         <member name="M:YAF.Pages.rsstopic.GetFavoriteFeed(YAF.Core.Syndication.YafSyndicationFeed@,YAF.Types.Constants.YafRssFeeds,System.Boolean,System.String,System.String,System.Object)">
             <summary>
             The method creates YafSyndicationFeed for Favorite topics.
             </summary>
-            <param name="feed">
-            The YafSyndicationFeed.
-            </param>
-            <param name="feedType">
-            The FeedType.
-            </param>
-            <param name="atomFeedByVar">
-            The Atom feed checker.
-            </param>
-            <param name="lastPostIcon">
-            The icon for last post link.
-            </param>
-            <param name="lastPostName">
-            The last post name.
-            </param>
-            <param name="categoryActiveId">
-            </param>
+            <param name="feed">The YafSyndicationFeed.</param>
+            <param name="feedType">The FeedType.</param>
+            <param name="atomFeedByVar">The Atom feed checker.</param>
+            <param name="lastPostIcon">The icon for last post link.</param>
+            <param name="lastPostName">The last post name.</param>
+            <param name="categoryActiveId">The category active id.</param>
         </member>
         <member name="M:YAF.Pages.rsstopic.GetForumFeed(YAF.Core.Syndication.YafSyndicationFeed@,YAF.Types.Constants.YafRssFeeds,System.Boolean,System.Object)">
             <summary>
@@ -7677,6 +7621,16 @@
             <param name="forumId">
             The forum id.
             </param>
+        </member>
+        <member name="M:YAF.Pages.rsstopic.TabledCleanUpByDate(System.Data.DataTable,System.String,System.DateTime)">
+            <summary>
+            Tableds the clean up by date.
+             TODO: general clean-up after complex subquiries paging - a repeating code
+            </summary>
+            <param name="dt">The dt.</param>
+            <param name="fieldName">Name of the field.</param>
+            <param name="cleanToDate">The clean to date.</param>
+            <returns></returns>
         </member>
         <member name="T:YAF.Pages.help.index">
             <summary>
@@ -12345,6 +12299,16 @@
             The e.
             </param>
         </member>
+        <member name="M:YAF.Controls.LoginBox.GetValidUsername(System.String,System.String)">
+            <summary>
+            Gets the valid username.
+            </summary>
+            <param name="username">The username.</param>
+            <param name="password">The password.</param>
+            <returns>
+            The get valid login.
+            </returns>
+        </member>
         <member name="M:YAF.Controls.LoginBox.Login1_LoginError(System.Object,System.EventArgs)">
             <summary>
             The login 1_ login error.
@@ -15011,7 +14975,7 @@
         </member>
         <member name="T:YAF.Pages.printtopic">
             <summary>
-            Summary description for printtopic.
+            Print topic Page.
             </summary>
         </member>
         <member name="M:YAF.Pages.printtopic.#ctor">
@@ -15021,22 +14985,18 @@
         </member>
         <member name="M:YAF.Pages.printtopic.GetPrintBody(System.Object)">
             <summary>
-            The get print body.
+            Gets the print body.
             </summary>
-            <param name="o">
-            The o.
-            </param>
+            <param name="o">The o.</param>
             <returns>
             The get print body.
             </returns>
         </member>
         <member name="M:YAF.Pages.printtopic.GetPrintHeader(System.Object)">
             <summary>
-            The get print header.
+            Gets the print header.
             </summary>
-            <param name="o">
-            The o.
-            </param>
+            <param name="o">The o.</param>
             <returns>
             The get print header.
             </returns>
@@ -23449,6 +23409,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Install._default.UpgradeExtensions">
+            <summary>
+            UpgradeExtensions control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Install._default.WizCreateForum">
             <summary>
             WizCreateForum control.
@@ -23656,11 +23625,6 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Install._default._dbVersionBeforeUpgrade">
-            <summary>
-              The _db version before upgrade.
-            </summary>
-        </member>
         <member name="F:YAF.Install._default._config">
             <summary>
               The _config.
@@ -23671,13 +23635,16 @@
               The _load message.
             </summary>
         </member>
+        <member name="F:YAF.Install._default.NewForumCreated">
+            <summary>
+            Indicated that a new Forum Was Created
+            </summary>
+        </member>
         <member name="M:YAF.Install._default.GetMembershipErrorMessage(System.Web.Security.MembershipCreateStatus)">
             <summary>
-            The get membership error message.
+            Gets the membership error message.
             </summary>
-            <param name="status">
-            The status.
-            </param>
+            <param name="status">The status.</param>
             <returns>
             The get membership error message.
             </returns>
@@ -23760,14 +23727,8 @@
             <summary>
             The wizard_ next button click.
             </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-            <exception cref="T:System.ApplicationException">
-            </exception>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.Web.UI.WebControls.WizardNavigationEventArgs"/> instance containing the event data.</param>
         </member>
         <member name="M:YAF.Install._default.Wizard_PreviousButtonClick(System.Object,System.Web.UI.WebControls.WizardNavigationEventArgs)">
             <summary>
@@ -23780,67 +23741,54 @@
             The e.
             </param>
         </member>
-        <member name="M:YAF.Install._default.btnTestDBConnectionManual_Click(System.Object,System.EventArgs)">
+        <member name="M:YAF.Install._default.TestDBConnectionManual_Click(System.Object,System.EventArgs)">
             <summary>
-            The btn test db connection manual_ click.
+            Handles the Click event of the TestDBConnectionManual control.
             </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
         </member>
-        <member name="M:YAF.Install._default.btnTestDBConnection_Click(System.Object,System.EventArgs)">
+        <member name="M:YAF.Install._default.TestDBConnection_Click(System.Object,System.EventArgs)">
             <summary>
-            The btn test db connection_ click.
+            Handles the Click event of the TestDBConnection control.
             </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
         </member>
-        <member name="M:YAF.Install._default.btnTestPermissions_Click(System.Object,System.EventArgs)">
+        <member name="M:YAF.Install._default.TestPermissions_Click(System.Object,System.EventArgs)">
             <summary>
-            The btn test permissions_ click.
+            Handles the Click event of the TestPermissions control.
             </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
         </member>
-        <member name="M:YAF.Install._default.btnTestSmtp_Click(System.Object,System.EventArgs)">
+        <member name="M:YAF.Install._default.TestSmtp_Click(System.Object,System.EventArgs)">
             <summary>
-            The btn test smtp_ click.
+            Handles the Click event of the TestSmtp control.
             </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
         </member>
-        <member name="M:YAF.Install._default.rblYAFDatabase_SelectedIndexChanged(System.Object,System.EventArgs)">
+        <member name="M:YAF.Install._default.YAFDatabase_SelectedIndexChanged(System.Object,System.EventArgs)">
             <summary>
-            The rbl yaf database_ selected index changed.
+            Handles the SelectedIndexChanged event of the YAFDatabase control.
             </summary>
-            <param name="sender">
-            The sender.
-            </param>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:YAF.Install._default.OnPreRender(System.EventArgs)">
+            <summary>
+            The On PreRender event.
+            </summary>
             <param name="e">
-            The e.
+            the Event Arguments
             </param>
         </member>
         <member name="M:YAF.Install._default.DirectoryHasWritePermission(System.String)">
             <summary>
             Validates write permission in a specific directory. Should be moved to YAF.Classes.Utils.
             </summary>
-            <param name="directory">
-            </param>
+            <param name="directory">The directory.</param>
             <returns>
             The directory has write permission.
             </returns>
@@ -23849,8 +23797,7 @@
             <summary>
             Tests database connection. Can probably be moved to DB class.
             </summary>
-            <param name="exceptionMessage">
-            </param>
+            <param name="exceptionMessage">The exception message.</param>
             <returns>
             The test database connection.
             </returns>
@@ -23893,7 +23840,7 @@
         </member>
         <member name="M:YAF.Install._default.CreateForum">
             <summary>
-            The create forum.
+            Creates the forum.
             </summary>
             <returns>
             The create forum.
@@ -23903,15 +23850,8 @@
             <summary>
             The execute script.
             </summary>
-            <param name="scriptFile">
-            The script file.
-            </param>
-            <param name="useTransactions">
-            The use transactions.
-            </param>
-            <exception cref="T:System.Exception">
-            </exception>
-            <exception cref="T:System.IO.IOException"><c>IOException</c>.</exception>
+            <param name="scriptFile">The script file.</param>
+            <param name="useTransactions">The use transactions.</param>
         </member>
         <member name="M:YAF.Install._default.FillWithConnectionStrings">
             <summary>
@@ -23928,22 +23868,12 @@
         </member>
         <member name="M:YAF.Install._default.IndexOfWizardID(System.String)">
             <summary>
-            The index of wizard id.
+            Indexes the of wizard ID.
             </summary>
-            <param name="id">
-            The id.
-            </param>
+            <param name="id">The id.</param>
             <returns>
             The index of wizard id.
             </returns>
-        </member>
-        <member name="M:YAF.Install._default.OnPreRender(System.EventArgs)">
-            <summary>
-            The On PreRender event.
-            </summary>
-            <param name="e">
-            the Event Arguments
-            </param>
         </member>
         <member name="M:YAF.Install._default.Page_Load(System.Object,System.EventArgs)">
             <summary>
@@ -23958,18 +23888,17 @@
         </member>
         <member name="M:YAF.Install._default.UpdateDatabaseConnection">
             <summary>
-            The update database connection.
+            Updates the database connection.
             </summary>
             <returns>
+            The update database connection.
             </returns>
         </member>
         <member name="M:YAF.Install._default.UpgradeDatabase(System.Boolean)">
             <summary>
-            The upgrade database.
+            Upgrades the database.
             </summary>
-            <param name="fullText">
-            The full text.
-            </param>
+            <param name="fullText">The full text.</param>
             <returns>
             The upgrade database.
             </returns>
@@ -23977,6 +23906,11 @@
         <member name="P:YAF.Install._default.ServiceLocator">
             <summary>
             Gets ServiceLocator.
+            </summary>
+        </member>
+        <member name="P:YAF.Install._default.IsInstalled">
+            <summary>
+              Gets a value indicating whether IsInstalled.
             </summary>
         </member>
         <member name="P:YAF.Install._default.CurrentConnString">
@@ -23987,11 +23921,6 @@
         <member name="P:YAF.Install._default.CurrentWizardStepID">
             <summary>
               Gets or sets CurrentWizardStepID.
-            </summary>
-        </member>
-        <member name="P:YAF.Install._default.IsInstalled">
-            <summary>
-              Gets a value indicating whether IsInstalled.
             </summary>
         </member>
         <member name="P:YAF.Install._default.PageBoardID">
@@ -24204,6 +24133,24 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Controls.DisplayPost.IPSpan1">
+            <summary>
+            IPSpan1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.DisplayPost.IPLink1">
+            <summary>
+            IPLink1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Controls.DisplayPost.PostFooter">
             <summary>
             PostFooter control.
@@ -24244,17 +24191,6 @@
             <summary>
               The current Post Data for this post.
             </summary>
-        </member>
-        <member name="M:YAF.Controls.DisplayPost.VotingCookieName(System.Int32)">
-            <summary>
-            Gets Voting Cookie Name.
-            </summary>
-            <param name="userId">
-            The user Id. 
-            </param>
-            <returns>
-            The voting cookie name. 
-            </returns>
         </member>
         <member name="M:YAF.Controls.DisplayPost.FormatThanksInfo(System.String)">
             <summary>
@@ -24326,10 +24262,6 @@
             The e. 
             </param>
         </member>
-        <member name="M:YAF.Controls.DisplayPost.SetupPopupMenu">
-            <summary>
-            </summary>
-        </member>
         <member name="M:YAF.Controls.DisplayPost.AddUserReputation(System.Object,System.EventArgs)">
             <summary>
             Adds the user reputation.
@@ -24352,17 +24284,6 @@
             The <see cref="T:System.EventArgs"/> instance containing the event data. 
             </param>
         </member>
-        <member name="M:YAF.Controls.DisplayPost.HandleMultiQuote(System.Object,System.EventArgs)">
-            <summary>
-            Handles the multi quote.
-            </summary>
-            <param name="sender">
-            The sender. 
-            </param>
-            <param name="e">
-            The <see cref="T:System.EventArgs"/> instance containing the event data. 
-            </param>
-        </member>
         <member name="M:YAF.Controls.DisplayPost.Retweet_Click(System.Object,System.EventArgs)">
             <summary>
             Retweets Message thru the Twitter API
@@ -24373,6 +24294,11 @@
             <param name="e">
             The <see cref="T:System.EventArgs"/> instance containing the event data. 
             </param>
+        </member>
+        <member name="M:YAF.Controls.DisplayPost.SetupPopupMenu">
+            <summary>
+            Setup the popup menu.
+            </summary>
         </member>
         <member name="M:YAF.Controls.DisplayPost.DisplayPost_PreRender(System.Object,System.EventArgs)">
             <summary>
@@ -24405,11 +24331,6 @@
             <param name="e">
             The e. 
             </param>
-        </member>
-        <member name="M:YAF.Controls.DisplayPost.AddUserVotingCookie">
-            <summary>
-            Saves the Users Reputation Values to allow a User only once a day to Vote per user.
-            </summary>
         </member>
         <member name="P:YAF.Controls.DisplayPost.CurrentPage">
             <summary>
@@ -27362,14 +27283,10 @@
         </member>
         <member name="M:YAF.Pages.login.GetValidUsername(System.String,System.String)">
             <summary>
-            The get valid login.
+            Gets the valid username.
             </summary>
-            <param name="username">
-            The username.
-            </param>
-            <param name="password">
-            The password.
-            </param>
+            <param name="username">The username.</param>
+            <param name="password">The password.</param>
             <returns>
             The get valid login.
             </returns>
@@ -31708,7 +31625,7 @@
         </member>
         <member name="T:YAF.Utilities.JavaScriptBlocks">
             <summary>
-            Summary description for JavaScriptBlocks
+            Contains the Java Script Blocks
             </summary>
         </member>
         <member name="M:YAF.Utilities.JavaScriptBlocks.FacebookLoginJs(System.String)">
@@ -31969,6 +31886,16 @@
               Gets CeeBox Load Js.
             </summary>
         </member>
+        <member name="P:YAF.Utilities.JavaScriptBlocks.MultiQuoteCallbackSuccessJS">
+            <summary>
+            Gets the multi quote callback success JS.
+            </summary>
+        </member>
+        <member name="P:YAF.Utilities.JavaScriptBlocks.MultiQuoteButtonJs">
+            <summary>
+            Gets the multi quote button js.
+            </summary>
+        </member>
         <member name="P:YAF.Utilities.JavaScriptBlocks.ChangeAlbumTitleJs">
             <summary>
               Gets the script for changing the album title.
@@ -32080,52 +32007,6 @@
             </summary>
             <param name="sender">The source of the event.</param>
             <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
-        </member>
-        <member name="M:YAF.Auth.LoginSuccess(System.Boolean,YAF.Core.Services.Twitter.OAuthTwitter,System.Int32,System.Web.Security.MembershipUser)">
-            <summary>
-            Call the Events when the Login was Successfully
-            </summary>
-            <param name="newUser">
-            The new user.
-            </param>
-            <param name="oAuth">
-            The o auth.
-            </param>
-            <param name="userId">
-            The user id.
-            </param>
-            <param name="user">
-            The user.
-            </param>
-        </member>
-        <member name="M:YAF.Auth.SendRegistrationMessageToUser(System.Web.Security.MembershipUser,System.String,System.String,System.Int32,YAF.Core.Services.Twitter.OAuthTwitter)">
-            <summary>
-            Send an Private Message to the Newly Created User with
-            his Account Info (Pass, Security Question and Answer)
-            </summary>
-            <param name="user">
-            The user.
-            </param>
-            <param name="pass">
-            The pass.
-            </param>
-            <param name="securityAnswer">
-            The security answer.
-            </param>
-            <param name="userId">
-            The user Id.
-            </param>
-            <param name="oAuth">
-            The o Auth.
-            </param>
-        </member>
-        <member name="M:YAF.Auth.SendRegistrationNotificationEmail(System.Web.Security.MembershipUser)">
-            <summary>
-            The send registration notification email.
-            </summary>
-            <param name="user">
-            The user.
-            </param>
         </member>
         <member name="T:YAF.Pages.recoverpassword">
             <summary>
@@ -32349,6 +32230,33 @@
         <member name="F:YAF.Pages.movetopic.LeavePointer">
             <summary>
             LeavePointer control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.movetopic.trLeaveLinkDays">
+            <summary>
+            trLeaveLinkDays control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.movetopic.LocalizedLabel4">
+            <summary>
+            LocalizedLabel4 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.movetopic.LinkDays">
+            <summary>
+            LinkDays control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -36845,17 +36753,6 @@
             Moderators List
             </returns>
         </member>
-        <member name="M:YAF.Pages.team.GetAvatarUrlFromID(System.Int32)">
-            <summary>
-            The get avatar url from id.
-            </summary>
-            <param name="userID">
-            The user id.
-            </param>
-            <returns>
-            Returns the Avatar Url
-            </returns>
-        </member>
         <member name="M:YAF.Pages.team.GetModerators">
             <summary>
             Get all Moderators Without Groups.
@@ -36874,6 +36771,16 @@
             <returns>
             The get string safely.
             </returns>
+        </member>
+        <member name="M:YAF.Pages.team.GetAvatarUrlFileName(System.Int32,System.String,System.Boolean,System.String)">
+            <summary>
+            Gets the avatar Url for the user
+            </summary>
+            <param name="userId">The user id.</param>
+            <param name="avatarString">The avatar string.</param>
+            <param name="hasAvatarImage">if set to <c>true</c> [has avatar image].</param>
+            <param name="email">The email.</param>
+            <returns>Returns the File Url</returns>
         </member>
         <member name="M:YAF.Pages.team.OnInit(System.EventArgs)">
             <summary>
@@ -36952,9 +36859,32 @@
               Gets or sets The Moderator ID (User ID)
             </summary>
         </member>
+        <member name="P:YAF.Pages.team.Moderator.Email">
+            <summary>
+              Gets or sets The Moderator Email
+            </summary>
+        </member>
+        <member name="P:YAF.Pages.team.Moderator.Avatar">
+            <summary>
+              Gets or sets The Moderator Avatar
+            </summary>
+        </member>
+        <member name="P:YAF.Pages.team.Moderator.AvatarImage">
+            <summary>
+            Gets or sets a value indicating whether [avatar image].
+            </summary>
+            <value>
+              <c>true</c> if [avatar image]; otherwise, <c>false</c>.
+            </value>
+        </member>
         <member name="P:YAF.Pages.team.Moderator.Name">
             <summary>
               Gets or sets The Moderator Name
+            </summary>
+        </member>
+        <member name="P:YAF.Pages.team.Moderator.DisplayName">
+            <summary>
+              Gets or sets The Moderator Display Name
             </summary>
         </member>
         <member name="P:YAF.Pages.team.Moderator.Style">
@@ -36971,6 +36901,14 @@
             <summary>
               Gets or sets The Forum ID.
             </summary>
+        </member>
+        <member name="P:YAF.Pages.team.ModeratorsForums.ForumName">
+            <summary>
+            Gets or sets the name of the forum.
+            </summary>
+            <value>
+            The name of the forum.
+            </value>
         </member>
         <member name="T:YAF.Pages.im_email">
             <summary>
@@ -39502,68 +39440,9 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Controls.DisplayPostFooter.MessageHistoryHolder">
-            <summary>
-            MessageHistoryHolder control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Controls.DisplayPostFooter.messageHistoryLink">
-            <summary>
-            messageHistoryLink control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Controls.DisplayPostFooter.DetailsDelimiter1">
-            <summary>
-            DetailsDelimiter1 control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Controls.DisplayPostFooter.MessageDetails">
-            <summary>
-            MessageDetails control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Controls.DisplayPostFooter.IPSpan1">
-            <summary>
-            IPSpan1 control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Controls.DisplayPostFooter.IPLink1">
-            <summary>
-            IPLink1 control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
         <member name="F:YAF.Controls.DisplayPostFooter._postDataHelperWrapper">
             <summary>
               The current Post Data for this post.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.DisplayPostFooter.CreateMessageDetails">
-            <summary>
-            The create message details.
             </summary>
         </member>
         <member name="M:YAF.Controls.DisplayPostFooter.OnInit(System.EventArgs)">

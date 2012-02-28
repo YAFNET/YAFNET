@@ -109,13 +109,21 @@
             The writer.
             </param>
         </member>
-        <member name="M:YAF.Controls.MessagePost.RenderDeletedMessage(System.Web.UI.HtmlTextWriter)">
+        <member name="M:YAF.Controls.MessagePost.RenderDeletedMessage(System.Web.UI.HtmlTextWriter,System.String)">
             <summary>
             The render deleted message.
             </summary>
-            <param name="writer">
-            The writer.
-            </param>
+            <param name="writer">The writer.</param>
+            <param name="deleteText">The delete reason text.</param>
+        </member>
+        <member name="M:YAF.Controls.MessagePost.RenderEditedMessage(System.Web.UI.HtmlTextWriter,System.DateTime,System.String,System.Nullable{System.Int32})">
+            <summary>
+            Renders the edited message.
+            </summary>
+            <param name="writer">The writer.</param>
+            <param name="edited">The edited date time.</param>
+            <param name="editReason">The edit reason text.</param>
+            <param name="messageId">The message id.</param>
         </member>
         <member name="M:YAF.Controls.MessagePost.RenderMessage(System.Web.UI.HtmlTextWriter)">
             <summary>
@@ -187,11 +195,9 @@
         </member>
         <member name="M:YAF.Controls.MessagePostData.TruncateMessage(System.String)">
             <summary>
-            The truncate message.
+            Truncates the message.
             </summary>
-            <param name="message">
-            The message.
-            </param>
+            <param name="message">The message.</param>
             <returns>
             The truncate message.
             </returns>
@@ -245,6 +251,11 @@
         <member name="P:YAF.Controls.MessagePostData.Posted">
             <summary>
               Gets Posted.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.MessagePostData.ShowEditMessage">
+            <summary>
+              Gets or sets a value indicating whether Show the Edit Message if needed.
             </summary>
         </member>
         <member name="P:YAF.Controls.MessagePostData.ShowAttachments">
@@ -1613,6 +1624,11 @@
               Gets or sets Style.
             </summary>
         </member>
+        <member name="P:YAF.Controls.UserLabel.ReplaceName">
+            <summary>
+              Gets or sets Style.
+            </summary>
+        </member>
         <member name="P:YAF.Controls.UserLabel.UserID">
             <summary>
               Gets or sets The userid of this user for the link
@@ -2459,9 +2475,10 @@
             Make the link target "blank" to open in a new window.
             </summary>
         </member>
-        <member name="P:YAF.Controls.UserLink.ReplaceName">
+        <member name="P:YAF.Controls.UserLink.IsGuest">
             <summary>
-              Gets or sets a Replace Name
+            Gets or sets a value indicating whether 
+            User Is a Guest.
             </summary>
         </member>
         <member name="T:YAF.Controls.DisplayDateTime">
