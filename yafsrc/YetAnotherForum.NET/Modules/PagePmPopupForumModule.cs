@@ -18,149 +18,153 @@
  */
 namespace YAF.Modules
 {
-  #region Using
+    #region Using
 
-  using System;
+    using System;
 
-  using YAF.Controls;
-  using YAF.Core;
-  using YAF.Types;
-  using YAF.Types.Attributes;
-  using YAF.Types.Constants;
-  using YAF.Types.Interfaces;
-  using YAF.Utils;
-
-  #endregion
-
-  /// <summary>
-  /// Summary description for PageTitleModule
-  /// </summary>
-  [YafModule("Page Title Module", "Tiny Gecko", 1)]
-  public class PagePmPopupForumModule : SimpleBaseForumModule
-  {
-    #region Public Methods
-
-    /// <summary>
-    /// The init after page.
-    /// </summary>
-    public override void InitAfterPage()
-    {
-      this.CurrentForumPage.PreRender += this.ForumPage_PreRender;
-      this.CurrentForumPage.Load += ForumPage_Load;
-    }
-
-    /// <summary>
-    /// The init before page.
-    /// </summary>
-    public override void InitBeforePage()
-    {
-    }
+    using YAF.Controls;
+    using YAF.Core;
+    using YAF.Types;
+    using YAF.Types.Attributes;
+    using YAF.Types.Constants;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
 
     #endregion
 
-    #region Methods
-
     /// <summary>
-    /// The display pm popup.
+    /// The Page PM Popup Module
     /// </summary>
-    /// <returns>
-    /// The display pm popup.
-    /// </returns>
-    protected bool DisplayPMPopup()
+    [YafModule("Page Title Module", "Tiny Gecko", 1)]
+    public class PagePmPopupForumModule : SimpleBaseForumModule
     {
-      return (this.PageContext.UnreadPrivate > 0) &&
-             (this.PageContext.LastUnreadPm > this.Get<IYafSession>().LastPm);
-    }
+        #region Public Methods
 
-    /// <summary>
-    /// The last pending buddies.
-    /// </summary>
-    /// <returns>
-    /// whether we should display the pending buddies notification or not
-    /// </returns>
-    protected bool DisplayPendingBuddies()
-    {
-      return (this.PageContext.PendingBuddies > 0) &&
-             (this.PageContext.LastPendingBuddies > this.Get<IYafSession>().LastPendingBuddies);
-    }
+        /// <summary>
+        /// The init after page.
+        /// </summary>
+        public override void InitAfterPage()
+        {
+            this.CurrentForumPage.PreRender += this.ForumPage_PreRender;
+            this.CurrentForumPage.Load += ForumPage_Load;
+        }
 
-    /// <summary>
-    /// The forum page_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    private static void ForumPage_Load([NotNull] object sender, [NotNull] EventArgs e)
-    {
-    }
+        /// <summary>
+        /// The init before page.
+        /// </summary>
+        public override void InitBeforePage()
+        {
+        }
 
-    /// <summary>
-    /// The forum page_ pre render.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    private void ForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      this.GeneratePopUp();
-    }
+        #endregion
 
-    /// <summary>
-    /// Creates this pages title and fires a PageTitleSet event if one is set
-    /// </summary>
-    private void GeneratePopUp()
-    {
-      var notification = (DialogBox)this.PageContext.CurrentForumPage.Notification;
+        #region Methods
 
-      // This happens when user logs in
-      if (this.DisplayPMPopup())
-      {
-        notification.Show(
-          this.GetText("COMMON", "UNREAD_MSG2").FormatWith(this.PageContext.UnreadPrivate), 
-          this.GetText("COMMON", "UNREAD_MSG_TITLE"), 
-          DialogBox.DialogIcon.Mail, 
-          new DialogBox.DialogButton
+        /// <summary>
+        /// Displays the PM popup.
+        /// </summary>
+        /// <returns>
+        /// The display pm popup.
+        /// </returns>
+        protected bool DisplayPMPopup()
+        {
+            return (this.PageContext.UnreadPrivate > 0)
+                   && (this.PageContext.LastUnreadPm > this.Get<IYafSession>().LastPm);
+        }
+
+        /// <summary>
+        /// The last pending buddies.
+        /// </summary>
+        /// <returns>
+        /// whether we should display the pending buddies notification or not
+        /// </returns>
+        protected bool DisplayPendingBuddies()
+        {
+            return (this.PageContext.PendingBuddies > 0)
+                   && (this.PageContext.LastPendingBuddies > this.Get<IYafSession>().LastPendingBuddies);
+        }
+
+        /// <summary>
+        /// The forum page_ load.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private static void ForumPage_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+        }
+
+        /// <summary>
+        /// The forum page_ pre render.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void ForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            this.GeneratePopUp();
+        }
+
+        /// <summary>
+        /// Creates this pages title and fires a PageTitleSet event if one is set
+        /// </summary>
+        private void GeneratePopUp()
+        {
+            var notification = (DialogBox)this.PageContext.CurrentForumPage.Notification;
+
+            // This happens when user logs in
+            if (this.DisplayPMPopup())
             {
-              Text = "Yes",
-              CssClass = "StandardButton OkButton", 
-              ForumPageLink = new DialogBox.ForumLink { ForumPage = ForumPages.cp_pm }
-            }, 
-          new DialogBox.DialogButton { Text = "No", CssClass = "StandardButton CancelButton" });
+                notification.Show(
+                    this.GetText("COMMON", "UNREAD_MSG2").FormatWith(this.PageContext.UnreadPrivate),
+                    this.GetText("COMMON", "UNREAD_MSG_TITLE"),
+                    DialogBox.DialogIcon.Mail,
+                    new DialogBox.DialogButton
+                        {
+                            Text = this.GetText("COMMON", "YES"),
+                            CssClass = "StandardButton OkButton",
+                            ForumPageLink = new DialogBox.ForumLink { ForumPage = ForumPages.cp_pm }
+                        },
+                    new DialogBox.DialogButton
+                        {
+                            Text = this.GetText("COMMON", "NO"), 
+                            CssClass = "StandardButton CancelButton"
+                        });
 
-        this.Get<IYafSession>().LastPm = this.PageContext.LastUnreadPm;
-      }
+                this.Get<IYafSession>().LastPm = this.PageContext.LastUnreadPm;
+            }
 
-      if (!this.DisplayPendingBuddies())
-      {
-        return;
-      }
+            if (!this.DisplayPendingBuddies())
+            {
+                return;
+            }
 
-      notification.Show(
-        this.GetText("BUDDY", "PENDINGBUDDIES2").FormatWith(this.PageContext.PendingBuddies), 
-        this.GetText("BUDDY", "PENDINGBUDDIES_TITLE"), 
-        DialogBox.DialogIcon.Info, 
-        new DialogBox.DialogButton
-          {
-            Text = "Yes", 
-            CssClass = "StandardButton OkButton", 
-            ForumPageLink = new DialogBox.ForumLink { ForumPage = ForumPages.cp_editbuddies }
-          }, 
-        new DialogBox.DialogButton
-          {
-            Text = "No",
-            CssClass = "StandardButton CancelButton", 
-            ForumPageLink = new DialogBox.ForumLink { ForumPage = YafContext.Current.ForumPageType }
-          });
+            notification.Show(
+                this.GetText("BUDDY", "PENDINGBUDDIES2").FormatWith(this.PageContext.PendingBuddies),
+                this.GetText("BUDDY", "PENDINGBUDDIES_TITLE"),
+                DialogBox.DialogIcon.Info,
+                new DialogBox.DialogButton
+                    {
+                        Text = this.GetText("COMMON", "YES"),
+                        CssClass = "StandardButton OkButton",
+                        ForumPageLink = new DialogBox.ForumLink { ForumPage = ForumPages.cp_editbuddies }
+                    },
+                new DialogBox.DialogButton
+                    {
+                        Text = this.GetText("COMMON", "NO"),
+                        CssClass = "StandardButton CancelButton",
+                        ForumPageLink = new DialogBox.ForumLink { ForumPage = YafContext.Current.ForumPageType }
+                    });
 
-      this.Get<IYafSession>().LastPendingBuddies = this.PageContext.LastPendingBuddies;
+            this.Get<IYafSession>().LastPendingBuddies = this.PageContext.LastPendingBuddies;
+        }
+
+        #endregion
     }
-
-    #endregion
-  }
 }

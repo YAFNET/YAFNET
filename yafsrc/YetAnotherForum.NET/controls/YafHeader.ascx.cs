@@ -90,11 +90,11 @@ namespace YAF.Controls
               DialogBox.DialogIcon.Question,
               new DialogBox.DialogButton
                 {
-                    Text = "Yes",
+                    Text = this.GetText("COMMON", "YES"),
                     CssClass = "StandardButton OkButton",
                     ForumPageLink = new DialogBox.ForumLink { ForumPage = ForumPages.logout }
                 },
-              new DialogBox.DialogButton { Text = "No", CssClass = "StandardButton CancelButton" });
+              new DialogBox.DialogButton { Text = this.GetText("COMMON", "NO"), CssClass = "StandardButton CancelButton" });
         }
 
         /// <summary>
