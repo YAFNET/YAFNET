@@ -777,7 +777,7 @@
   </page>
   <page name="ADMIN_HOSTSETTINGS">
     <Resource tag="ABANDON_TRACKUSR">Сбрасывать сессии для пользователей, которые не отслеживаются:</Resource>
-    <Resource tag="ABANDON_TRACKUSR_HELP">Автоматически сбрасывать сессии для пользователей, которые не отслеживаются, например ботов и  т.д. Используется только если возникают пробеомы с сессиями.</Resource>
+    <Resource tag="ABANDON_TRACKUSR_HELP">Автоматически сбрасывать сессии для пользователей, которые не отслеживаются, например ботов и  т.д. Используется только если возникают проблемы с сессиями.</Resource>
     <Resource tag="ACCEPT_HTML">Допустимые теги HTML:</Resource>
     <Resource tag="ACCEPT_HTML_HELP">Разделённый запятыми список тегов HTML, которые разрешены в тексте сообщений при использовании редакторов HTML.</Resource>
     <Resource tag="ACTIVE_USERTIME">Время списка активных пользователей:</Resource>
@@ -810,7 +810,7 @@
     <Resource tag="ALLOW_MOD_VIEWIP">Разрешить модераторам просматривать IP:</Resource>
     <Resource tag="ALLOW_MOD_VIEWIP_HELP">Разрешить модераторам просматривать IP адреса.</Resource>
     <Resource tag="ALLOW_MODIFY_DISPLAYNAME">Разрешить изменение отображаемого имени:</Resource>
-    <Resource tag="ALLOW_MODIFY_DISPLAYNAME_HELP">Если включена опция использования отображаемого имени, то это позволяет измениять отображаемое имя в профиле пользователя.</Resource>
+    <Resource tag="ALLOW_MODIFY_DISPLAYNAME_HELP">Если включена опция использования отображаемого имени, то это позволяет изменять отображаемое имя в профиле пользователя.</Resource>
     <Resource tag="ALLOW_MULTI_VOTING">Разрешить опрос с голосованием за несколько вариантов:</Resource>
     <Resource tag="ALLOW_MULTI_VOTING_HELP">Создатель опроса может разрешить голосование за несколько вариантов.</Resource>
     <Resource tag="ALLOW_NOTIFICATION_ONALL">Разрешить уведомление о всех постах во всех темах:</Resource>
@@ -818,7 +818,7 @@
     <Resource tag="ALLOW_PASS_CHANGE">Разрешить изменение пароля:</Resource>
     <Resource tag="ALLOW_PASS_CHANGE_HELP">Разрешить пользователям изменять их пароли.</Resource>
     <Resource tag="ALLOW_PM_NOTIFICATION">Разрешить уведомления о личных сообщениях:</Resource>
-    <Resource tag="ALLOW_PM_NOTIFICATION_HELP">Разрешить пользователям получать сообщения по электронной почте при появление нового ЛС.</Resource>
+    <Resource tag="ALLOW_PM_NOTIFICATION_HELP">Разрешить пользователям получать сообщения по электронной почте при появлении нового ЛС.</Resource>
     <Resource tag="ALLOW_PMS">Разрешить ЛС:</Resource>
     <Resource tag="ALLOW_PMS_HELP">Разрешить пользователям отправлять и получать ЛС. Вы должны также установить параметры ЛС для каждой группы и/или статуса, чтобы действительно включить их для пользователей.</Resource>
     <Resource tag="ALLOW_POSTBLOG">Разрешить постить в блоги:</Resource>
@@ -828,7 +828,7 @@
     <Resource tag="ALLOW_SENDMAIL">Разрешить отправлять Email:</Resource>
     <Resource tag="ALLOW_SENDMAIL_HELP">Разрешить пользователям отправлять сообщения друг другу по электронной почте.</Resource>
     <Resource tag="ALLOW_SHARE_TOPIC">Включить меню расшаривания:</Resource>
-    <Resource tag="ALLOW_SHARE_TOPIC_HELP">Включить меню при помощи которого пользователь сможет отправить по почтеЮ использовать Твиттерt, Google+, Like on Facebook, Digg или Reddit для темы.</Resource>
+    <Resource tag="ALLOW_SHARE_TOPIC_HELP">Включить меню при помощи которого пользователь сможет отправить по почте, использовать Твиттер, Google+, Like on Facebook, Digg или Reddit для темы.</Resource>
     <Resource tag="ALLOW_SIGNATURE">Разрешить подписи:</Resource>
     <Resource tag="ALLOW_SIGNATURE_HELP">Разрешить пользователям добавлять подписи к сообщениям. Вы должны также установить параметры подписи(кол-во символов, разрешённые BBCode...) для каждой роли и/или статуса, чтобы действительно включить эту опцию.</Resource>
     <Resource tag="ALLOW_THANKS">Разрешить «Спасибо»</Resource>
@@ -873,7 +873,7 @@
     <Resource tag="CREATE_NNTPNAMES">Создавать имена пользователей NNTP:</Resource>
     <Resource tag="CREATE_NNTPNAMES_HELP">Включите, чтобы пользователи добавлялись из сообщений usenet. Включайте это только в тестовых случаях и &lt;em&gt;НИКОГДА&lt;/em&gt; на работающем сервере. Главная цель этой опции - тестирование производительности.</Resource>
     <Resource tag="CROP_IMAGE_ATTACH">Обрезать изображение при предпросмотре:</Resource>
-    <Resource tag="CROP_IMAGE_ATTACH_HELP">Обрезать изображение при предпросмотре, используюя указанные параметры изображения.</Resource>
+    <Resource tag="CROP_IMAGE_ATTACH_HELP">Обрезать изображение при предпросмотре, используютя указанные параметры изображения.</Resource>
     <Resource tag="DAYS_BEFORE_POSTLOCK">Дни до тех пор пока посты закрыты:</Resource>
     <Resource tag="DAYS_BEFORE_POSTLOCK_HELP">Число дней, до того как посты невозможно редактировать или удалять. Установите 0, для отсутствия ограничений.</Resource>
     <Resource tag="DISABLE_NOFOLLOW_ONOLDERPOSTS">Отключить тег "NoFollow" по ссылкам и собщениям старше чем:</Resource>
@@ -887,7 +887,7 @@
     <Resource tag="DISPLAY_TRESHOLD_IMGATTACH">Вложения изображений - максимальный порог отображения:</Resource>
     <Resource tag="DISPLAY_TRESHOLD_IMGATTACH_HELP">Максимальный размер изображения, до тех пор пока она будет отображаться как изображение в боксе вложений, в противном случае это будет ссылка.</Resource>
     <Resource tag="DYNAMIC_METATAGS">Добавить динамические метатеги к странице:</Resource>
-    <Resource tag="DYNAMIC_METATAGS_HELP">Если включено, то описание и ключевые слова будут дя мететегов будет добавлены динамически к страницам сообщений.</Resource>
+    <Resource tag="DYNAMIC_METATAGS_HELP">Если включено, то описание и ключевые слова будут для метаданных будет добавлены динамически к страницам сообщений.</Resource>
     <Resource tag="EMAIL_VERIFICATION">Требовать подтверждения по Email:</Resource>
     <Resource tag="EMAIL_VERIFICATION_HELP">Требовать проверки адреса email.</Resource>
     <Resource tag="ENABLE_ABLBUMS">Включить альбомы:</Resource>
@@ -1050,7 +1050,7 @@
     <Resource tag="POST_AD">Реклама во 2ом сообщении:</Resource>
     <Resource tag="POST_AD_HELP">Поместите код, который вы желаете отображать во 2ом сообщении каждой темы. Оставьте пустым, если вы не желаете отображать что-либо.</Resource>
     <Resource tag="POSTEDIT_TIMEOUT">Таймаут редактирования поста:</Resource>
-    <Resource tag="POSTEDIT_TIMEOUT_HELP">Число секунд, пока пост может быть отредактирован без опказа его другим пользователям.</Resource>
+    <Resource tag="POSTEDIT_TIMEOUT_HELP">Число секунд, пока пост может быть отредактирован без показа его другим пользователям.</Resource>
     <Resource tag="POSTS_FEEDS_ACCESS">Доступ к лентам сообщений темы:</Resource>
     <Resource tag="POSTS_FEEDS_ACCESS_HELP">Ограничить доступ к лентам сообщений темы.</Resource>
     <Resource tag="POSTS_PER_PAGE">Кол-во сообщений на странице:</Resource>
@@ -1087,9 +1087,9 @@
     <Resource tag="REPUTATION_MIN">Максимальное негативное значение репутации:</Resource>
     <Resource tag="REPUTATION_MIN_HELP">Максимальное негативное значение общей репутации пользователя.</Resource>
     <Resource tag="REPUTATION_MINDOWN">Минимальное значение репутации для понижения репутации:</Resource>
-    <Resource tag="REPUTATION_MINDOWN_HELP">Минимальное значение для понижения репутации другого пользовтаеля.</Resource>
+    <Resource tag="REPUTATION_MINDOWN_HELP">Минимальное значение для понижения репутации другого пользователя.</Resource>
     <Resource tag="REPUTATION_MINUP">Минимальное значение для добавления репутации:</Resource>
-    <Resource tag="REPUTATION_MINUP_HELP">Минимальное значение для добавления репутации другому пользоателю.</Resource>
+    <Resource tag="REPUTATION_MINUP_HELP">Минимальное значение для добавления репутации другому пользователю.</Resource>
     <Resource tag="REPUTATION_TEMPLATE">Шаблон репутации:</Resource>
     <Resource tag="REPUTATION_TEMPLATE_HELP">Шаблон для отображения репутации пользователя.</Resource>
     <Resource tag="REQUIRE_LOGIN">Требовать входа на сайт:</Resource>
@@ -1149,7 +1149,7 @@
     <Resource tag="SHOW_MEDALS_HELP">Отображение медалей пользователя в постах.</Resource>
     <Resource tag="SHOW_MODLIST">Показывать список модераторов:</Resource>
     <Resource tag="SHOW_MODLIST_ASCOLUMN">Показывать список модераторов в столбце:</Resource>
-    <Resource tag="SHOW_MODLIST_ASCOLUMN_HELP">Показывает список модераторов виду столбца в списке категорий.</Resource>
+    <Resource tag="SHOW_MODLIST_ASCOLUMN_HELP">Показывает список модераторов в виде столбца в списке категорий.</Resource>
     <Resource tag="SHOW_MODLIST_HELP">Колонка со списком модераторов будет отображаться в списках форумов.</Resource>
     <Resource tag="SHOW_MOVED_TOPICS">Показывать перемещённые темы:</Resource>
     <Resource tag="SHOW_MOVED_TOPICS_HELP">Если это включено, то вместо перемещённых тем будут в старом месте будут видны ссылки на них в новом месте месте.</Resource>
@@ -1201,7 +1201,7 @@
     <Resource tag="STATS_CACHE_TIMEOUT">Таймаут кэша статистики форума:</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT_HELP">В минутах</Resource>
     <Resource tag="STYLED_NICKS">Использовать стилизированные ники:</Resource>
-    <Resource tag="STYLED_NICKS_HELP">Если включено, вы можете использовать цыета или иное форматирование для ников пользователей. Может быть индивидуальным для каждого скина.</Resource>
+    <Resource tag="STYLED_NICKS_HELP">Если включено, вы можете использовать цвета или иное форматирование для ников пользователей. Может быть индивидуальным для каждого скина.</Resource>
     <Resource tag="STYLED_TOPIC_TITLES">Использовать стилизированные названия тем:</Resource>
     <Resource tag="STYLED_TOPIC_TITLES_HELP">Если включено, администраторы и модераторы смогут использовать цвете, шрифт и прочее в названиях тем.</Resource>
     <Resource tag="THANKS_FROM_TEMPLATE">Шаблон для отображения «Спасибо» пользователю:</Resource>
@@ -1222,9 +1222,9 @@
     <Resource tag="USE_FARSI_CALENDER">Использовать Фарси/арабский календарь :</Resource>
     <Resource tag="USE_FARSI_CALENDER_HELP">Если включено то все даты будут преобразовываться в Фарси/арабские календарные даты.</Resource>
     <Resource tag="USE_READ_TRACKING">Отслеживать прочитанные сообщение в базе данных:</Resource>
-    <Resource tag="USE_READ_TRACKING_HELP">Если включено, то непрочитанные темы или форумы будут храниться в базе данных. &lt;br /&gt;WARNING: This Can Increase your DB if you have a big amount of users and/or topics</Resource>
+    <Resource tag="USE_READ_TRACKING_HELP">Если включено, то непрочитанные темы или форумы будут храниться в базе данных. &lt;br /&gt;Внимание: Это увеличивает объём базы данных и замедляет работу сайта в зависимости от числа зарегистрированных пользователей или числа тем.</Resource>
     <Resource tag="USER_CHANGE_LANGUAGE">Разрешить пользователям менять язык:</Resource>
-    <Resource tag="USER_CHANGE_LANGUAGE_HELP">Пользователя могут выбирать язык конференции(интерфейс).</Resource>
+    <Resource tag="USER_CHANGE_LANGUAGE_HELP">Пользователи могут выбирать язык конференции(интерфейс).</Resource>
     <Resource tag="USER_CHANGE_THEME">Разрешить пользователям менять тему:</Resource>
     <Resource tag="USER_CHANGE_THEME_HELP">Пользователи могут выбирать тему.</Resource>
     <Resource tag="USERBOX_TEMPLATE">Шаблон пользовательских данных:</Resource>
@@ -2118,7 +2118,7 @@
     <Resource tag="ERROR_MAXALBUMS">Вы больше не можете добавлять альбомы для вашей учётной записи.</Resource>
     <Resource tag="ERROR_TOOBIG">Размер изображения слишком большой.</Resource>
     <Resource tag="IMAGES_COUNT_LIMIT">Предельное количество разрешённых изображений достигнуто. Вы можете добавить не более чем {0} изображений в каждый альбом.</Resource>
-    <Resource tag="IMAGES_INFO">Примечание: В данный момент у Вас {0} изображений, Вам разрешены {1} iизображений в каждом альбоме. The max. filesize for an Image is {2} kb</Resource>
+    <Resource tag="IMAGES_INFO">Примечание: В данный момент у Вас {0} изображений, Вам разрешены {1} изображений в каждом альбоме. Максимальный размер файла - {2} КБ</Resource>
     <Resource tag="TITLE">Добавить/изменить альбом</Resource>
   </page>
   <page name="CP_EDITAVATAR">
