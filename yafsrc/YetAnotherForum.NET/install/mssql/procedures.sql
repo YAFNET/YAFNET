@@ -3085,7 +3085,8 @@ begin
 	order by
 		brd.Name,
 		c.SortOrder,
-		b.SortOrder
+		b.SortOrder,
+		a.SortOrder
 end
 GO
 

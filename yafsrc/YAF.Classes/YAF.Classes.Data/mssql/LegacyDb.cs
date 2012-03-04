@@ -8746,7 +8746,8 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("BoardID", boardID);
                 cmd.Parameters.AddWithValue("UserID", userID);
 
-                return userforumaccess_sort_list(MsSqlDbAccess.Current.GetData(cmd), 0, 0, 0);
+                ///TODO: Recursion doesn't work here correctly at all because of UNION in underlying sql script. Possibly the only acceptable solution will be splitting the UNIONed queries and displaying 2 "trees". Maybe another solution exists.  
+               return userforumaccess_sort_list(MsSqlDbAccess.Current.GetData(cmd), 0, 0, 0);
             }
         }
 
