@@ -346,7 +346,7 @@ namespace YAF.Utilities
                               'first_name', response.first_name,
                               'last_name', response.last_name,
                               'link', response.link,
-                              'username', response.username === undefined ? response.name : response.hometown.name,
+                              'username', response.username === undefined ? response.name : response.username,
                               'birthday', response.birthday,
                               'hometown', response.hometown === undefined ? '' : response.hometown.name,
                               'gender', response.gender,
