@@ -74,13 +74,13 @@
 			<YAF:DisplayPostFooter id="PostFooter" runat="server" DataRow="<%# DataRow %>"></YAF:DisplayPostFooter>
 		</td>
 </tr>
-<tr class="<%#GetPostClass()%>">
+<tr class="<%#GetPostClass()%> postThanksRow">
     <td style="padding: 5px;" colspan="2" valign="top">
-        <div style="font-weight: bold;" id="<%# "dvThanksInfo" + DataRow["MessageID"] %>">
+        <div id="<%# "dvThanksInfo" + DataRow["MessageID"] %>" class="ThanksInfo">
             <asp:Literal runat="server"  Visible="false" ID="ThanksDataLiteral"></asp:Literal></div>
     </td>
     <td class="message" style="padding: 5px;" valign="top">
-        <div id="<%# "dvThanks" + DataRow["MessageID"] %>">
+        <div id="<%# "dvThanks" + DataRow["MessageID"] %>" class="ThanksList">
             <asp:Literal runat="server" Visible="false" ID="thanksDataExtendedLiteral"></asp:Literal>
         </div>
     </td>
