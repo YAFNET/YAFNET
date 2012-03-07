@@ -6254,7 +6254,7 @@ BEGIN
 		t.TopicID,
 		t.TopicMovedID,
 		t.UserID,
-		t.UserName,		
+		UserName = IsNull(t.UserName,(select [Name] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID = t.UserID)),		
 		t.LastMessageID,
 		t.LastMessageFlags,
 		t.LastUserID,
