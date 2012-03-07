@@ -196,7 +196,7 @@ namespace YAF.Controls
                 this.sinceDate = DateTime.UtcNow.AddYears(-50);
             }
 
-            int basePageSize = this.Get<YafBoardSettings>().TopicsPerPage;
+            int basePageSize = this.Get<YafBoardSettings>().MyTopicsListPageSize;
             this.PagerTop.PageSize = basePageSize;
             int nCurrentPageIndex = this.PagerTop.CurrentPageIndex;
 

@@ -666,7 +666,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets MemberListPageSize in minutes.
+        /// Gets or sets Member ListPageSize.
         /// </summary>
         public int MemberListPageSize
         {
@@ -678,6 +678,22 @@ namespace YAF.Classes
             set
             {
                 this._reg.SetValue("MemberListPageSize", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets MyTopics List PageSize.
+        /// </summary>
+        public int MyTopicsListPageSize
+        {
+            get
+            {
+                return this._reg.GetValue("MyTopicsListPageSize", 20);
+            }
+
+            set
+            {
+                this._reg.SetValue("MyTopicsListPageSize", value);
             }
         }
 

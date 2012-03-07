@@ -79,7 +79,7 @@ namespace YAF.Core.Services
 		{
 			CodeContracts.ArgumentNotNull(userData, "userData");
 			return GetAvatarUrlForUser(
-				userData.UserID, userData.Avatar, userData.HasAvatarImage, new Lazy<string>(() => userData.Email));
+				userData.UserID, userData.Avatar, userData.HasAvatarImage, userData.Email);
 		}
 
 		/// <summary>
@@ -100,7 +100,7 @@ namespace YAF.Core.Services
 		/// <returns>
 		/// Returns the Avatar Url
 		/// </returns>
-		public string GetAvatarUrlForUser(int userId, string avatarString, bool hasAvatarImage, Lazy<string> email)
+		public string GetAvatarUrlForUser(int userId, string avatarString, bool hasAvatarImage, string email)
 		{
 			string avatarUrl = string.Empty;
 
@@ -118,14 +118,14 @@ namespace YAF.Core.Services
 								YafContext.Current.Get<YafBoardSettings>().AvatarHeight,
 								YafForumInfo.ForumClientFileRoot);
 			}
-			else if (YafContext.Current.Get<YafBoardSettings>().AvatarGravatar && email.IsValueCreated && email.Value.IsSet())
+			else if (YafContext.Current.Get<YafBoardSettings>().AvatarGravatar && email.IsSet())
 			{
 				// JoeOuts added 8/17/09 for Gravatar use
-
+           
 				// string noAvatarGraphicUrl = HttpContext.Current.Server.UrlEncode( string.Format( "{0}/images/avatars/{1}", YafForumInfo.ForumBaseUrl, "NoAvatar.gif" ) );
 				string gravatarUrl =
 						@"http://www.gravatar.com/avatar/{0}.jpg?r={1}".FormatWith(
-								StringExtensions.StringToHexBytes(email.Value),
+								StringExtensions.StringToHexBytes(email),
 								YafContext.Current.Get<YafBoardSettings>().GravatarRating);
 
 				avatarUrl =

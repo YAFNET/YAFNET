@@ -70,6 +70,6 @@ namespace YAF.Types.Interfaces
 		/// <returns>
 		/// Returns the Avatar Url
 		/// </returns>
-		string GetAvatarUrlForUser(int userId, string avatarString, bool hasAvatarImage, Lazy<string> email);
+		string GetAvatarUrlForUser(int userId, string avatarString, bool hasAvatarImage, string email);
 	}
 }

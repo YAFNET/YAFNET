@@ -4697,6 +4697,8 @@ Visit {forumname} at {forumlink}
        <Resource tag="ALLOW_MODIFY_DISPLAYNAME_HELP">If checked, and "Enable Display Name" checked, allow modification of Display Name in Edit Profile.</Resource>
 	   <Resource tag="MEMBERLIST_PAGE_SIZE">Member List Page Size:</Resource>
        <Resource tag="MEMBERLIST_PAGE_SIZE_HELP">Number entries on a page in the members list. </Resource>
+     <Resource tag="MYTOPICSLIST_PAGE_SIZE">My Topics List Page Size:</Resource>
+     <Resource tag="MYTOPICSLIST_PAGE_SIZE_HELP">Number entries on a page on the My Topics page. </Resource>
 	   <Resource tag="SHOW_USER_STATUS">Show User Online/Offline Status:</Resource>
        <Resource tag="SHOW_USER_STATUS_HELP">If checked, current user status is displayed in the forum. Hidden users are always displayed as offline.</Resource>
 	   <Resource tag="ALLOW_THANKS">Allow Users to Thank Posts:</Resource>
