@@ -281,6 +281,10 @@ IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{database
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}forum_list]
 GO
 
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}forum_maxid]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}forum_maxid]
+GO
+
 IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}forum_listall]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}forum_listall]
 GO
@@ -2566,6 +2570,12 @@ begin
 end
 GO
 
+create procedure [{databaseOwner}].[{objectQualifier}forum_maxid](@BoardID int) as
+begin	
+	select top 1 a.ForumID from [{databaseOwner}].[{objectQualifier}Forum] a join [{databaseOwner}].[{objectQualifier}Category] b on b.CategoryID=a.CategoryID where b.BoardID=@BoardID order by a.ForumID desc	
+end
+GO
+
 CREATE procedure [{databaseOwner}].[{objectQualifier}forum_listall] (@BoardID int,@UserID int,@root int = 0) as
 begin
 	if @root = 0
@@ -3085,8 +3095,7 @@ begin
 	order by
 		brd.Name,
 		c.SortOrder,
-		b.SortOrder,
-		a.SortOrder
+		b.SortOrder
 end
 GO
 

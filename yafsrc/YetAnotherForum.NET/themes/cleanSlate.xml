@@ -185,6 +185,7 @@
     <Resource tag="SUBFORUM_NEW">~/icon_subforum_new.gif</Resource>
     <Resource tag="FORUM">~/topic.gif</Resource>
     <Resource tag="FORUM_NEW">~/topic_new.gif</Resource>
+    <Resource tag="FORUM_ADDNEW_SMALL">~/plus_small_icon.png</Resource>
     <Resource tag="FORUM_LOCKED">~/topic_lock.gif</Resource>
     <Resource tag="FORUM_STATS">~/folder_stats.gif</Resource>
     <Resource tag="FORUM_USERS">~/folder_who.gif</Resource>

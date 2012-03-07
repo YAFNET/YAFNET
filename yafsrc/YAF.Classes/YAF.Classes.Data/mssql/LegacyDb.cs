@@ -3828,6 +3828,29 @@ namespace YAF.Classes.Data
             }
         }
 
+        // END ABOT CHANGE 16.04.04
+        // ABOT NEW 16.04.04: This new function lists all moderated topic by the specified user
+
+       
+        /// <summary>
+        /// Gets a max id of forums.
+        /// </summary>
+        /// <param name="boardID">
+        /// boardID
+        /// </param>
+        /// <returns>
+        /// DataTable with list of topics from a forum
+        /// </returns>
+        public static int forum_maxid([NotNull] object boardID)
+        {
+            using (var cmd = MsSqlDbAccess.GetCommand("forum_maxid"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("BoardID", boardID);
+                return Convert.ToInt32(MsSqlDbAccess.Current.ExecuteScalar(cmd));
+            }
+        }
+
         /// <summary>
         /// Listes all forums accessible to a user
         /// </summary>

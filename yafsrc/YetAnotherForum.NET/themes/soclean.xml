@@ -39,6 +39,7 @@
     <Resource tag="SUBFORUM">~/icon_subforum.gif</Resource>
     <Resource tag="SUBFORUM_NEW">~/icon_subforum_new.gif</Resource>
     <Resource tag="FORUM">~/topic.png</Resource>
+    <Resource tag="FORUM_ADDNEW_SMALL">~/plus_small_icon.png</Resource>
     <Resource tag="FORUM_NEW">~/topic_new.png</Resource>
     <Resource tag="FORUM_LOCKED">~/topic_lock.png</Resource>
     <Resource tag="FORUM_STATS">~/folder_stats.png</Resource>
