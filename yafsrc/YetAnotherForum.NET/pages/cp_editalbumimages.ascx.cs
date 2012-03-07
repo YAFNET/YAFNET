@@ -41,14 +41,14 @@ namespace YAF.Pages
     #endregion
 
     /// <summary>
-    /// The cp_editalbumimages.
+    /// The Edit User Album Images Page.
     /// </summary>
     public partial class cp_editalbumimages : ForumPageRegistered
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the cp_editalbumimages class.
+        /// Initializes a new instance of the <see cref="cp_editalbumimages"/> class.
         /// </summary>
         public cp_editalbumimages()
             : base("CP_EDITALBUMIMAGES")
@@ -62,12 +62,8 @@ namespace YAF.Pages
         /// <summary>
         /// The back button click event handler.
         /// </summary>
-        /// <param name="sender">
-        /// the sender.
-        /// </param>
-        /// <param name="e">
-        /// the e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Back_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.List.Items.Count > 0)
@@ -94,12 +90,8 @@ namespace YAF.Pages
         /// <summary>
         /// Deletes the album and all the images in it.
         /// </summary>
-        /// <param name="sender">
-        /// the sender.
-        /// </param>
-        /// <param name="e">
-        /// the e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void DeleteAlbum_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             string sUpDir =
@@ -118,12 +110,8 @@ namespace YAF.Pages
         /// <summary>
         /// The btn delete_ load.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void DeleteAlbum_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             ((Button)sender).Attributes["onclick"] = "return confirm(\'{0}\')".FormatWith(this.GetText("ASK_DELETEALBUM"));
@@ -132,12 +120,8 @@ namespace YAF.Pages
         /// <summary>
         /// The Upload file delete confirmation dialog.
         /// </summary>
-        /// <param name="sender">
-        /// the sender.
-        /// </param>
-        /// <param name="e">
-        /// the e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void ImageDelete_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             ((LinkButton)sender).Attributes["onclick"] = "return confirm('{0}')".FormatWith(this.GetText("ASK_DELETEIMAGE"));
@@ -146,12 +130,8 @@ namespace YAF.Pages
         /// <summary>
         /// The repater Item command event responsible for handling deletion of uploaded files.
         /// </summary>
-        /// <param name="source">
-        /// the source.
-        /// </param>
-        /// <param name="e">
-        /// the e.
-        /// </param>
+        /// <param name="source">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
         protected void List_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
         {
             switch (e.CommandName)
@@ -163,7 +143,8 @@ namespace YAF.Pages
 
                     YafAlbum.Album_Image_Delete(sUpDir, null, this.PageContext.PageUserID, e.CommandArgument.ToType<int>());
 
-                    this.BindVariousControls();
+                    // If the user is trying to edit an existing album, initialize the repeater.
+                    this.BindVariousControls(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a").Equals("new"));
 
                     DataTable sigData = LegacyDb.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
 
@@ -202,12 +183,8 @@ namespace YAF.Pages
         /// <summary>
         /// the page load event.
         /// </summary>
-        /// <param name="sender">
-        /// the sender.
-        /// </param>
-        /// <param name="e">
-        /// the e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (!this.Get<YafBoardSettings>().EnableAlbum)
@@ -314,16 +291,13 @@ namespace YAF.Pages
         /// <summary>
         /// Update the album title.
         /// </summary>
-        /// <param name="sender">
-        /// the sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void UpdateTitle_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             string albumID = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a");
             this.txtTitle.Text = HttpUtility.HtmlEncode(this.txtTitle.Text);
+
             if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a") == "new")
             {
                 albumID = LegacyDb.album_save(null, this.PageContext.PageUserID, this.txtTitle.Text, null).ToString();
@@ -339,12 +313,8 @@ namespace YAF.Pages
         /// <summary>
         /// The Upload button click event handler.
         /// </summary>
-        /// <param name="sender">
-        /// the sender.
-        /// </param>
-        /// <param name="e">
-        /// the e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Upload_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             try
@@ -389,7 +359,6 @@ namespace YAF.Pages
             {
                 LegacyDb.eventlog_create(this.PageContext.PageUserID, this, x);
                 this.PageContext.AddLoadMessage(x.Message);
-                return;
             }
         }
 
@@ -399,26 +368,26 @@ namespace YAF.Pages
         private void BindData()
         {
             // If the user is trying to edit an existing album, initialize the repeater.
-            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a") != "new")
-            {
-                this.BindVariousControls();
-            }
-            else
-            {
-                this.Delete.Visible = false;
-            }
+            this.BindVariousControls(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a").Equals("new"));
         }
 
         /// <summary>
         /// Binds the repeater and title controls and the visibilities of form elements.
         /// </summary>
-        private void BindVariousControls()
+        /// <param name="isNewAlbum">if set to <c>true</c> [is new album].</param>
+        private void BindVariousControls(bool isNewAlbum)
         {
-            this.txtTitle.Text = LegacyDb.album_gettitle(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"));
-            DataTable dt = LegacyDb.album_image_list(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"), null);
-            this.List.DataSource = dt;
-            this.List.Visible = (dt.Rows.Count > 0) ? true : false;
-            this.Delete.Visible = true;
+            this.Delete.Visible = !isNewAlbum;
+
+            if (!isNewAlbum)
+            {
+                this.txtTitle.Text = LegacyDb.album_gettitle(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"));
+
+                var albumList = LegacyDb.album_image_list(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"), null);
+                this.List.DataSource = albumList;
+                this.List.Visible = albumList.Rows.Count > 0;
+            }
+
             this.DataBind();
         }
 
@@ -462,9 +431,8 @@ namespace YAF.Pages
         /// <summary>
         /// Save the attached file both physically and in the db.
         /// </summary>
-        /// <param name="file">
-        /// the file.
-        /// </param>
+        /// <param name="file">the file.</param>
+        /// <exception cref="Exception">Album Image File is too big</exception>
         private void SaveAttachment([NotNull] HtmlInputFile file)
         {
             if (file.PostedFile == null || file.PostedFile.FileName.Trim().Length == 0 || file.PostedFile.ContentLength == 0)
@@ -521,22 +489,15 @@ namespace YAF.Pages
                     return;
                 }
 
-                int albumID = LegacyDb.album_save(null, this.PageContext.PageUserID, this.txtTitle.Text, null);
+                var newAlbumId = LegacyDb.album_save(null, this.PageContext.PageUserID, this.txtTitle.Text, null);
                 file.PostedFile.SaveAs(
-                  "{0}/{1}.{2}.{3}.yafalbum".FormatWith(sUpDir, this.PageContext.PageUserID, albumID.ToString(), filename));
-                LegacyDb.album_image_save(null, albumID, null, filename, file.PostedFile.ContentLength, file.PostedFile.ContentType);
+                  "{0}/{1}.{2}.{3}.yafalbum".FormatWith(sUpDir, this.PageContext.PageUserID, newAlbumId.ToString(), filename));
+                LegacyDb.album_image_save(null, newAlbumId, null, filename, file.PostedFile.ContentLength, file.PostedFile.ContentType);
 
                 // clear the cache for this user to update albums|images stats...
                 this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
 
-                // Response.Write("<script>document.forms[0].submit();</script>");
-                // this.Get<IRaiseEvent>().Raise(new Page_Load());
-                this.txtTitle.Text = LegacyDb.album_gettitle(albumID);
-                DataTable dt = LegacyDb.album_image_list(albumID, null);
-                this.List.DataSource = dt;
-                this.List.Visible = (dt.Rows.Count > 0) ? true : false;
-                this.Delete.Visible = true;
-                this.DataBind();
+                YafBuildLink.Redirect(ForumPages.cp_editalbumimages, "a={0}", newAlbumId);
             }
             else
             {
