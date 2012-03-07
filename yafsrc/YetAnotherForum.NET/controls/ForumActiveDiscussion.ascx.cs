@@ -134,9 +134,8 @@ namespace YAF.Controls
 
             if (!this.PageContext.IsMobileDevice)
             {
-                textMessageLink.ToolTip = "{0} {1}".FormatWith(
-                    this.GetText("COMMON", "VIEW_TOPIC"),
-                    this.GetText("STARTEDBY").FormatWith(currentRow["UserName"].ToString()));
+                textMessageLink.ToolTip = "{0}".FormatWith(
+                    this.GetText("COMMON", "VIEW_TOPIC"));
 
                 textMessageLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
                     ForumPages.posts, "t={0}", currentRow["TopicID"]);
