@@ -1029,6 +1029,8 @@
     <Resource tag="MOD_CACHE_TIMEOUT_HELP">In Minuten</Resource>
     <Resource tag="MODAL_LOGIN">Login Box (Modal PopUp Dialog) verwenden:</Resource>
     <Resource tag="MODAL_LOGIN_HELP">Wenn aktiviert, wird das Login-Control als Login-Box angezeigt. Ansonsten wird das Login Control auf einer einzelnen Seite angezeigt.</Resource>
+    <Resource tag="MYTOPICSLIST_PAGE_SIZE">Meine Themen Themen pro Seite:</Resource>
+    <Resource tag="MYTOPICSLIST_PAGE_SIZE_HELP">Anzal an Themen pro Seite die in der Meine Themen Seite angezeigt werden. </Resource>
     <Resource tag="NAME_LENGTH">Benutzername Max Länge:</Resource>
     <Resource tag="NAME_LENGTH_HELP">Max erlaubt Benutzernamelänge oder Benutzer Anzeigenamenlänge.</Resource>
     <Resource tag="NOFOLLOW_LINKTAGS">"nofollow" Tags in Links verwenden:</Resource>

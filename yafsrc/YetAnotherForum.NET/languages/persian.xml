@@ -1032,6 +1032,8 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="MOD_CACHE_TIMEOUT_HELP">دقیقه</Resource>
     <Resource tag="MODAL_LOGIN">از جعبه ورود استفاده کن:</Resource>
     <Resource tag="MODAL_LOGIN_HELP">در صورت علامت گذاری، کنترل ورود مانند جعبه نمایش داده می شود.</Resource>
+    <Resource tag="MYTOPICSLIST_PAGE_SIZE">My Topics List Page Size:</Resource>
+    <Resource tag="MYTOPICSLIST_PAGE_SIZE_HELP">Number entries on a page on the My Topics page. </Resource>
     <Resource tag="NAME_LENGTH">حداکثر طول نام کاربری:</Resource>
     <Resource tag="NAME_LENGTH_HELP">حداکثر طول نام کاربری یا نام نمایشی.</Resource>
     <Resource tag="NOFOLLOW_LINKTAGS">استفاده از برچسب "دنبال نکنید" در پیوند ها:</Resource>

@@ -1032,6 +1032,8 @@
     <Resource tag="MOD_CACHE_TIMEOUT_HELP">In minuten</Resource>
     <Resource tag="MODAL_LOGIN">Gebruik Login scherm(Modaal PopUp Dialoogvenster):</Resource>
     <Resource tag="MODAL_LOGIN_HELP">Wanneer aangevinkt, wordt het loginscherm als een popup-venster getoond. Anders wordt het scherm op een eigen pagina getoond.</Resource>
+    <Resource tag="MYTOPICSLIST_PAGE_SIZE">My Topics List Page Size:</Resource>
+    <Resource tag="MYTOPICSLIST_PAGE_SIZE_HELP">Number entries on a page on the My Topics page. </Resource>
     <Resource tag="NAME_LENGTH">Maximale lengte van de gebruikersnaam:</Resource>
     <Resource tag="NAME_LENGTH_HELP">Maximale lengte van de gebruikersnaam of de weergave naam.</Resource>
     <Resource tag="NOFOLLOW_LINKTAGS">Gebruik "NoFollow" Tag in Links:</Resource>

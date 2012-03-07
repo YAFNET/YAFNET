@@ -1031,6 +1031,8 @@
     <Resource tag="MOD_CACHE_TIMEOUT_HELP">В минутах</Resource>
     <Resource tag="MODAL_LOGIN">Использовать модальное всплывающее окно для входа:</Resource>
     <Resource tag="MODAL_LOGIN_HELP">Если отключено, то для входа будет использоватьс яотдельная страница.</Resource>
+    <Resource tag="MYTOPICSLIST_PAGE_SIZE">My Topics List Page Size:</Resource>
+    <Resource tag="MYTOPICSLIST_PAGE_SIZE_HELP">Number entries on a page on the My Topics page. </Resource>
     <Resource tag="NAME_LENGTH">Максимальное количество символов в нике пользователя:</Resource>
     <Resource tag="NAME_LENGTH_HELP">Максимально разрешённая длина имени пользователя и отображаемого имени пользователя.</Resource>
     <Resource tag="NOFOLLOW_LINKTAGS">Использовать тег "NoFollow" в ссылках:</Resource>
