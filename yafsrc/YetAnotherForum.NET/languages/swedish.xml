@@ -4177,7 +4177,7 @@ Spoiler Content
     <Resource tag="DIGG_TOPIC">Digg this Topic</Resource>
     <Resource tag="EDIT_REASON">Reason</Resource>
     <Resource tag="EDIT_REASON_NA">Not specified</Resource>
-    <Resource tag="EDITED">Edit</Resource>
+    <Resource tag="EDITED">Edited</Resource>
     <Resource tag="EDITED_BY_MOD">by moderator</Resource>
     <Resource tag="EDITED_BY_USER">by user</Resource>
     <Resource tag="EDITUSER">Edit</Resource>
