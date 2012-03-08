@@ -1455,3 +1455,11 @@ height:80em;
 
 .yafnet .topicReplies,
 .yafnet .topicViews {text-align:center;}
+
+.loggedInUser {float:none!important;}
+
+/* Album */
+.yafnet .albumtitle:hover
+{
+	background-color: yellow;
+}
