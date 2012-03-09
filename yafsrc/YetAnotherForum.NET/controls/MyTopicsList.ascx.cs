@@ -121,10 +121,6 @@ namespace YAF.Controls
 
         #endregion
 
-        /* Event Handlers */
-
-        /* Methods */
-
         #region Public Methods
 
         /// <summary>
@@ -176,9 +172,6 @@ namespace YAF.Controls
                 }
             }
 
-            // we want to page results
-            var pds = new PagedDataSource { AllowPaging = true };
-
             // filter by category
             object categoryIDObject = null;
 
@@ -196,8 +189,11 @@ namespace YAF.Controls
                 this.sinceDate = DateTime.UtcNow.AddYears(-50);
             }
 
+            // set the page size here
             int basePageSize = this.Get<YafBoardSettings>().MyTopicsListPageSize;
             this.PagerTop.PageSize = basePageSize;
+
+            // page index in db which is returned back  is +1 based!
             int nCurrentPageIndex = this.PagerTop.CurrentPageIndex;
 
             // now depending on mode fill the table
@@ -210,9 +206,7 @@ namespace YAF.Controls
                         this.PageContext.PageUserID,
                         this.sinceDate,
                         DateTime.UtcNow,
-                        // page index in db which is returned back  is +1 based!
                         nCurrentPageIndex,
-                        // set the page size here
                         basePageSize,
                         this.Get<YafBoardSettings>().UseStyledNicks,
                         this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
@@ -224,9 +218,7 @@ namespace YAF.Controls
                         this.PageContext.PageUserID,
                         this.sinceDate,
                         DateTime.UtcNow,
-                        // page index in db which is returned back  is +1 based!
                         nCurrentPageIndex,
-                        // set the page size here
                         basePageSize,
                         this.Get<YafBoardSettings>().UseStyledNicks,
                         this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
@@ -238,9 +230,7 @@ namespace YAF.Controls
                         this.PageContext.PageUserID,
                         this.sinceDate,
                         DateTime.UtcNow,
-                        // page index in db which is returned back  is +1 based!
                         nCurrentPageIndex,
-                        // set the page size here
                         basePageSize,
                         this.Get<YafBoardSettings>().UseStyledNicks,
                         this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
@@ -252,9 +242,7 @@ namespace YAF.Controls
                         this.PageContext.PageUserID,
                         this.sinceDate,
                         DateTime.UtcNow,
-                        // page index in db is 1 based!
                         nCurrentPageIndex,
-                        // set the page size here
                         basePageSize,
                         this.Get<YafBoardSettings>().UseStyledNicks,
                         this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
@@ -268,9 +256,7 @@ namespace YAF.Controls
                         this.PageContext.PageUserID,
                         this.sinceDate,
                         DateTime.UtcNow,
-                        // page index in db is 1 based!
                         nCurrentPageIndex,
-                        // set the page size here
                         basePageSize,
                         this.Get<YafBoardSettings>().UseStyledNicks,
                         this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
@@ -286,13 +272,11 @@ namespace YAF.Controls
             this.topics = topicList;
 
             DataTable topicsNew = topicList.Copy();
-            foreach (DataRow thisTableRow in topicsNew.Rows)
+
+            foreach (DataRow thisTableRow in topicsNew.Rows.Cast<DataRow>().Where(thisTableRow => thisTableRow["LastPosted"] != DBNull.Value
+                                                                                                  && thisTableRow["LastPosted"].ToType<DateTime>() <= this.sinceDate))
             {
-                if (thisTableRow["LastPosted"] != DBNull.Value
-                    && thisTableRow["LastPosted"].ToType<DateTime>() <= this.sinceDate)
-                {
-                    thisTableRow.Delete();
-                }
+                thisTableRow.Delete();
             }
 
             // styled nicks
@@ -303,14 +287,9 @@ namespace YAF.Controls
             }
 
             // let's page the results
-            if (topicsNew.Rows.Count > 0)
-            {
-                this.PagerTop.Count = topicsNew.AsEnumerable().First().Field<int>("TotalRows");
-            }
-            else
-            {
-                this.PagerTop.Count = 0;
-            }
+            this.PagerTop.Count = topicsNew.Rows.Count > 0
+                                      ? topicsNew.AsEnumerable().First().Field<int>("TotalRows")
+                                      : 0;
 
             this.TopicList.DataSource = topicsNew;
 
@@ -359,14 +338,10 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// The mark all_ click.
+        /// Mark all Topis in the List as Read
         /// </summary>
-        /// <param name="sender">
-        /// The sender. 
-        /// </param>
-        /// <param name="e">
-        /// The e. 
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void MarkAll_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.BindData();
@@ -386,14 +361,10 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// The page_ load.
+        /// Handles the Load event of the Page control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender. 
-        /// </param>
-        /// <param name="e">
-        /// The e. 
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.lastPostImageTT = this.GetText("DEFAULT", "GO_LAST_POST");
@@ -455,14 +426,10 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// The pager_ page change.
+        /// Handles the PageChange event of the Pager control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender. 
-        /// </param>
-        /// <param name="e">
-        /// The e. 
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Pager_PageChange([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.BindData();
@@ -496,14 +463,10 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// The since_ selected index changed.
+        /// Reloads the Topic Last Based on the Selected Since Value
         /// </summary>
-        /// <param name="sender">
-        /// The sender. 
-        /// </param>
-        /// <param name="e">
-        /// The e. 
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Since_SelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
         {
             // Set the controls' pager index to 0.
@@ -534,7 +497,7 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// The bind feeds.
+        /// Bind the Feeds
         /// </summary>
         private void BindFeeds()
         {
@@ -578,47 +541,49 @@ namespace YAF.Controls
             }
 
             // Atom link setup 
-            if (this.Get<YafBoardSettings>().ShowAtomLink)
+            if (!this.Get<YafBoardSettings>().ShowAtomLink)
             {
-                switch (this.CurrentMode)
-                {
-                    case TopicListMode.User:
-                        this.AtomFeed.Visible = false;
-                        break;
-                    case TopicListMode.Unread:
-                        this.AtomFeed.Visible = false;
-                        break;
-                    case TopicListMode.Unanswered:
-                        this.AtomFeed.Visible = false;
-                        break;
-                    case TopicListMode.Active:
-                        this.AtomFeed.TitleLocalizedTag = "ATOMICONTOOLTIPACTIVE";
-                        this.AtomFeed.FeedType = YafRssFeeds.Active;
-                        this.AtomFeed.ImageThemeTag = "ATOMFEED";
-                        this.AtomFeed.TextLocalizedTag = "ATOMFEED";
-                        this.AtomFeed.AdditionalParameters =
-                            "txt={0}&d={1}".FormatWith(
-                                this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text)),
-                                this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString())));
-                        this.AtomFeed.Visible = accessActive;
-                        break;
-                    case TopicListMode.Favorite:
-                        this.AtomFeed.TitleLocalizedTag = "ATOMICONTOOLTIPFAVORITE";
-                        this.AtomFeed.FeedType = YafRssFeeds.Favorite;
-                        this.AtomFeed.ImageThemeTag = "ATOMFEED";
-                        this.AtomFeed.TextLocalizedTag = "ATOMFEED";
-                        this.AtomFeed.AdditionalParameters =
-                            "txt={0}&d={1}".FormatWith(
-                                this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text)),
-                                this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString())));
-
-                        this.AtomFeed.Visible = accessFavorite;
-                        break;
-                }
-
-                // We should set token to show a common control to handlw it as an Atom feed.
-                this.AtomFeed.IsAtomFeed = true;
+                return;
             }
+
+            switch (this.CurrentMode)
+            {
+                case TopicListMode.User:
+                    this.AtomFeed.Visible = false;
+                    break;
+                case TopicListMode.Unread:
+                    this.AtomFeed.Visible = false;
+                    break;
+                case TopicListMode.Unanswered:
+                    this.AtomFeed.Visible = false;
+                    break;
+                case TopicListMode.Active:
+                    this.AtomFeed.TitleLocalizedTag = "ATOMICONTOOLTIPACTIVE";
+                    this.AtomFeed.FeedType = YafRssFeeds.Active;
+                    this.AtomFeed.ImageThemeTag = "ATOMFEED";
+                    this.AtomFeed.TextLocalizedTag = "ATOMFEED";
+                    this.AtomFeed.AdditionalParameters =
+                        "txt={0}&d={1}".FormatWith(
+                            this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text)),
+                            this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString())));
+                    this.AtomFeed.Visible = accessActive;
+                    break;
+                case TopicListMode.Favorite:
+                    this.AtomFeed.TitleLocalizedTag = "ATOMICONTOOLTIPFAVORITE";
+                    this.AtomFeed.FeedType = YafRssFeeds.Favorite;
+                    this.AtomFeed.ImageThemeTag = "ATOMFEED";
+                    this.AtomFeed.TextLocalizedTag = "ATOMFEED";
+                    this.AtomFeed.AdditionalParameters =
+                        "txt={0}&d={1}".FormatWith(
+                            this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text)),
+                            this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString())));
+
+                    this.AtomFeed.Visible = accessFavorite;
+                    break;
+            }
+
+            // We should set token to show a common control to handlw it as an Atom feed.
+            this.AtomFeed.IsAtomFeed = true;
         }
 
         #endregion

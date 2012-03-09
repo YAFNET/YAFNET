@@ -3,220 +3,50 @@
 <head>
     <title>YetAnotherForum.NET Installation and Upgrading</title>
     <style type="text/css">
-        *
-        {
-            margin: 0;
-            padding: 0;
-        }
-        body
-        {
-            padding: 0 0 20px;
-            color: #333;
-            font: 83%/1.5 arial,tahoma,verdana,sans-serif;
-        }
-        /* LINKS */a, a:link, a:link, a:link, a:hover
-        {
-            background: transparent;
-            text-decoration: underline;
-            cursor: pointer;
-        }
-        a:link
-        {
-            color: #c00;
-        }
-        a:visited
-        {
-            color: #999;
-        }
-        a:hover, a:active
-        {
-            color: #069;
-        }
-        /* FORMS */form
-        {
-            margin: 0 0 1.5em;
-        }
-        input
-        {
-            font-family: arial,tahoma,verdana,sans-serif;
-            margin: 2px 0;
-        }
-        fieldset
-        {
-            border: none;
-        }
-        label
-        {
-            display: block;
-            padding: 5px 0;
-        }
-        label br
-        {
-            clear: left;
-        }
-        /* TYPOGRAPHY */p, ul, ol
-        {
-            margin: 0 0 1.5em;
-        }
-        h1, h2, h3, h4, h5, h6
-        {
-            letter-spacing: -1px;
-            font-family: arial,verdana,sans-serif;
-            margin: 1.2em 0 .3em;
-            color: #337;
-            border-bottom: 1px solid #eee;
-            padding-bottom: .1em;
-        }
-        h1
-        {
-            font-size: 196%;
-            margin-top: .6em;
-        }
-        h2
-        {
-            font-size: 136%;
-        }
-        h3
-        {
-            font-size: 126%;
-        }
-        h4
-        {
-            font-size: 116%;
-        }
-        h5
-        {
-            font-size: 106%;
-        }
-        h6
-        {
-            font-size: 96%;
-        }
-        .highlight
-        {
-            color: #E17000;
-        }
-        .subdued
-        {
-            color: #999;
-        }
-        .error
-        {
-            color: #c00;
-            font-weight: bold;
-        }
-        .success
-        {
-            color: #390;
-            font-weight: bold;
-        }
-        .caption
-        {
-            color: #999;
-            font-size: 11px;
-        }
-        .date
-        {
-            font: bold 82% arial;
-            color: #bbb;
-            display: block;
-            letter-spacing: 1px;
-        }
-        small
-        {
-            font-size: 11px;
-        }
-        .content
-        {
-            border: 1px solid #ccc;
-            padding: 5px;
-            margin-top: 10px;
-        }
-        /* LISTS */ul
-        {
-            margin: .3em 0 1.5em 0;
-            list-style-type: none;
-        }
-        ul.related
-        {
-            margin-top: -1em;
-        }
-        ol
-        {
-            margin: .5em .5em 1.5em;
-        }
-        ol li
-        {
-            margin-left: 1.4em;
-            padding-left: 0;
-            background: none;
-            list-style-type: decimal;
-        }
-        li
-        {
-            line-height: 1.4em;
-            padding-left: 25px;
-            background: transparent url("images/sprites.gif") no-repeat 0 0;
-        }
-        li.doc
-        {
-            background-position: 3px -500px;
-        }
-        ul.nomarker li
-        {
-            background: none;
-            padding-left: 0;
-        }
-        dl
-        {
-            margin: 0 0 1em 0;
-        }
-        dt
-        {
-            font-weight: bold;
-            margin-top: 1.3em;
-        }
-        dl dl
-        {
-            margin: 0 0 1.5em 30px;
-        }
-        /* GENERAL */img
-        {
-            border: none;
-        }
-        hr
-        {
-            margin: 1em 0;
-            background: #f2f2f2;
-            height: 1px;
-            color: #f2f2f2;
-            border: none;
-            clear: both;
-        }
-        .clear
-        {
-            clear: both;
-            position: relative;
-            font-size: 0px;
-            height: 0px;
-            line-height: 0px;
-        }
-        #wrap
-        {
-            padding: 10px;
-        }
-        .style1
-        {
-            color: #CC0000;
-        }
-        #content-wrap .content div p code.remove
-        {
-            color: #F00;
-        }
-        #content-wrap .content div p code.add
-        {
-            color: green;
-        }
+        * {margin: 0;padding: 0;}
+        body{color:#333;font:83%/1.5 arial,tahoma,verdana,sans-serif;padding:0 0 20px;} 
+        a,a:link,a:link,a:link,a:hover{background:transparent;text-decoration:underline;cursor:pointer;} 
+        a:link{color:#c00;} 
+        a:hover,a:active{color:#069;} 
+        input{font-family:arial,tahoma,verdana,sans-serif;margin:2px 0;} 
+        label{display:block;padding:5px 0;} 
+        label br{clear:left;} 
+        h1,h2,h3,h4,h5,h6{letter-spacing:-1px;font-family:arial,verdana,sans-serif;color:#337;border-bottom:1px solid #eee;padding-bottom:.1em;margin:1.2em 0 .3em;} 
+        h1{font-size:196%;margin-top:.6em;} 
+        h2{font-size:136%;} 
+        h3{font-size:126%;} 
+        h4{font-size:116%;} 
+        h5{font-size:106%;} 
+        h6{font-size:96%;} 
+        .highlight{color:#E17000;} 
+        .error{color:#c00;font-weight:700;} 
+        .success{color:#390;font-weight:700;} 
+        .caption{color:#999;font-size:11px;} 
+        .date{font:bold 82% arial;color:#bbb;display:block;letter-spacing:1px;} 
+        small{font-size:11px;} 
+        .content{border:1px solid #ccc;margin-top:10px;padding:5px;} 
+        ul{list-style-type:none;margin:.3em 0 1.5em;} 
+        ul.related{margin-top:-1em;} 
+        ol{margin:.5em .5em 1.5em;} 
+        ol li{margin-left:1.4em;padding-left:0;background:none;list-style-type:decimal;} 
+        li{line-height:1.4em;padding-left:25px;background:transparent url(images/sprites.gif) no-repeat 0 0;} 
+        li.doc{background-position:3px -500px;} 
+        ul.nomarker li{background:none;padding-left:0;} 
+        dl{margin:0 0 1em;} 
+        dt{font-weight:700;margin-top:1.3em;} 
+        dl dl{margin:0 0 1.5em 30px;} 
+        hr{background:#f2f2f2;height:1px;color:#f2f2f2;border:none;clear:both;margin:1em 0;} 
+        .clear{clear:both;position:relative;font-size:0;height:0;line-height:0;} 
+        #wrap{width:90%;margin:20px auto;} 
+        .style1{color:#C00;} 
+        #content-wrap .content div p code.remove{color:red;} 
+        #content-wrap .content div p code.add{color:green;} 
+        #footer hr{height:1px;border:solid 1px gray;border-bottom:none;margin:10px 0 15px;} 
+        #footer p{float:left;margin:0 10px 10px;} 
+        #footer #copy{float:right;} 
+        a:visited,.subdued{color:#999;} 
+        form,p,ul,ol{margin:0 0 1.5em;} 
+        fieldset,img{border:none;}
     </style>
 </head>
 <body>
@@ -265,13 +95,16 @@
                     <a name="NewInstall" id="NewInstall"></a>New Installation</h2>
                 <h3>
                     STEP 1. UNZIP</h3>
-                <ol>
-                    <li>Unzip the file structure YAF-BIN ZIP archive to the folder you want to run YAF to
-                        run inside. The YAF \Bin directory <strong>must</strong> be in your application
-                        root.</li>
+              <ol>
+                    <li>The first step is to unzip yaf to the physical location where the Application (YAF) will be run from. By default in IIS  (Internet Information Server) expects the sites to be located at &quot;c:\Inetpub\wwwroot\...&quot; </li>
                 </ol>
-                <h3>
-                    STEP 2. SETUP DATABASE</h3>
+                <h3>STEP 2. Configuring the Appication in IIS (Internet Information Server) </h3>
+                <ol>
+                    <li>In IIS you need to create a new Virtual Directory, if you want to run YAF as application, that points to the physical directory where you extracted YAF in to. </li>
+                    <li>How to: <a href="http://msdn.microsoft.com/en-us/library/bb763173.aspx">Create and Configure Virtual Directories in IIS</a></li>
+                    <li>Make sure that the Application Pool for YAF is set to .NET 4</li>
+                </ol>
+                <h3>STEP 3. SETUP DATABASE</h3>
                 <ol>
                     <li>A valid database needs to exist on your SQL Server with proper permissions set so
                         that YAF can access it. When you run YAF for the first time it will detect that
@@ -279,14 +112,22 @@
                         the process required to create the SQL database structures needed. </li>
                 </ol>
                 <h3>
-                    STEP 3. COPY WEB.CONFIG FILE</h3>
+                    STEP 4. COPY WEB.CONFIG FILE</h3>
                 <ol>
                     <li>You need to copy the file recommended-web.config to your yaf root Folder and rename
                         it to web.config. Warning: DO NOT edit the web.config unless you know what you're
                         doing.</li>
                 </ol>
-                <h3>
-                    STEP 3a. (OPTIONAL) MODIFY &quot;app.config&quot; FILE:</h3>
+                <h3>STEP 4a. (OPTIONAL)  Generate a Machine Key for your installation.</h3>
+                <ol>
+                  <li>Open the file
+                    <yaf.approot>
+                    web.config and visit the a site that allows generation of a unique machine key for your forum. Such as this site: <a href="http://aspnetresources.com/tools/machineKey">AspNet Resources Machine Key Generator</a>.
+                    
+                    Copy and paste the generated machine key to your web.config in the &lt;system.web&gt; section.</li>
+                </ol>
+              <h3>
+        STEP 4b. (OPTIONAL) MODIFY &quot;app.config&quot; FILE:</h3>
                 <ol>
                     <li>By default YAF is designed to be installed at the root application on any IIS web
                         server. If you want YAF to be installed off of the main root in a sub folder, you
@@ -299,7 +140,7 @@
                         &quot;/forum/yaf/&quot; to app.config. </li>
                 </ol>
                 <h3>
-                    STEP 3b.(OPTIONAL) MODIFY &quot;mail.config&quot; FILE:</h3>
+                    STEP 4c.(OPTIONAL) MODIFY &quot;mail.config&quot; FILE:</h3>
                 <ol>
                     <li>Modify the SMTP settings by entering your mail server information. If you SMTP server
                         requires SSL, you must add:
@@ -308,26 +149,15 @@
                         to your app.config or appSettings.</li>
                 </ol>
                 <h3>
-                    STEP 4. Run The Install Wizard</h3>
+                    STEP 6. Run The Install Wizard</h3>
                 <ol>
                     <li>Open the file
                         <yaf.approot>
                         install/default.aspx on your web site. If you are testing on your local computer,
                         under a directory called YetAnotherForum.Net, the address should be: http://localhost/yetanotherforum.net/install/</li>
-                    <li>The wizard will guide you through the Install Process. </li>
+                    <li>The wizard will guide you through the Install Process.</li>
                 </ol>
-
-                <h3>
-                    STEP 5. Generate a Machine Key for your installation.</h3>
-                <ol>
-                    <li>Open the file
-                        <yaf.approot>
-                        web.config and visit the a site that allows generation of a unique machine key for your forum. Such as this site:
-                        <a href="http://aspnetresources.com/tools/machineKey">AspNet Resources Machine Key Generator</a>.
-
-                        Copy and paste the generated machine key to your web.config in the &lt;system.web&gt; section.
-                </ol>
-            </div>
+          </div>
             <div class="content">
                 <h2>
                     Upgrade Installation</h2>
@@ -493,5 +323,13 @@
                     on the support forum!</p>
             </div>
         </div>
+        	<div id="footer">
+<hr />
+		<p>
+			YetAnotherForum.NET (YAF) the Open Source Discussion Forum for ASP.NET - <a href="http://yetanotherforum.net/">http://YetAnotherForum.NET</a>
+		</p>
+		<p id="copy">
+		YetAnotherForum.NET Copyright © 2012 <a href="http://www.tinygecko.com/">Tiny Gecko</a>. </p>
+</div>
 </body>
 </html>

@@ -4,44 +4,19 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>Changelog - YetAnotherForum.NET</title>
 	<style type="text/css">
-
-#footer hr
-{
-	margin: 10px 0 15px 0;
-	height: 1px;
-	border: solid 1px gray;
-	border-bottom: none;
-}
-
-#footer p
-{
-	margin: 0 10px 10px 10px;
-	float: left;
-}
-
-#footer #copy
-{
-	float: right;
-}
-.FeatureHeader {
-	color: #C00;
-	font-family: Georgia;
-	font-weight:bold;
-	font-size:150%;
-	padding:20px 0px 6px 0px;
-	display:block;
-}
-#Content {
-	width: 90%;
-	margin: 20px auto;
-}
-body {
-	
-	color: black;
-	font: 80% Georgia;
-	font-weight:normal;
-}
-
+	  #footer hr{height:1px;border:solid 1px gray;border-bottom:none;margin:10px 0 15px;} 
+	  #footer p{float:left;margin:0 10px 10px;} 
+	  #footer #copy{float:right;} 
+	  .FeatureHeader{color:#C00;font-family:Georgia;font-weight:700;font-size:150%;display:block;padding:20px 0 6px;} 
+	  #Content{width:90%;margin:20px auto;} 
+	  body{color:#000;font:80% Georgia;font-weight:400;} 
+	  h1,h2,h3,h4,h5,h6{letter-spacing:-1px;font-family:arial,verdana,sans-serif;color:#337;border-bottom:1px solid #eee;padding-bottom:.1em;margin:1.2em 0 .3em;} 
+	  h1{font-size:196%;margin-top:.6em;} 
+	  h2{font-size:136%;} 
+	  h3{font-size:126%;} 
+	  h4{font-size:116%;} 
+	  h5{font-size:106%;} 
+	  h6{font-size:96%;}
 	</style>
 </head>
 <body>
@@ -49,9 +24,10 @@ body {
 <h1>
 <a href="http://www.yetanotherforum.net"><img src="forumlogo.jpg" alt="YAF logo" style="border: 0"></a></h1>
 <h1>YetAnotherForum.NET Changelog </h1>
-	<span class="FeatureHeader">YetAnotherForum.NET 1.9.6</span>
+	<span class="FeatureHeader">YAF.NET 1.9.6</span>
     <p>New features:</p>
 	<ul>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/96c018fd4b52">96c018fd4b52</a> - Added Keystroke Support to the YAF BBCode Editor you can now use CTRL+B for making the text Bold, CTRL+I for making the text Italic and CTRL+U for underlining the text</li>
         <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/63215c15029e">63215c15029e</a> - Added Album Image List DropDown to the YAF Editor to include an Album Image in a Post.</li>
         <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/e97f83f02ee3">e97f83f02ee3</a> - Added Single Sign On via Twitter - Setting Enable Single Sign On in Host Settings Needs to be enabled and YAF.TwitterConsumerKey andYAF.TwitterConsumerSecret needs to be setup in app.config. Twitter Users can also Retweet Messages and Topics directly via the Twitter API.</li>
         <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/e9fc44704e62">e9fc44704e62</a> - Added New Feature to Allow Topic Title Customization with CSS Styles for Mods and Admins.
@@ -118,6 +94,12 @@ body {
 	</ul>
 <p><em>changes</em></p>
 	<ul>
+      <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/aaa6b59e58b4">aaa6b59e58b4</a> - Forum Search Box is now correctly working when pressing the Enter Key on the Topics Page.</li>
+      <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/ce13a68fe6cd">ce13a68fe6cd</a> - Changed the "Edit by user/moderator" to "Edited by user/moderator"</li>
+      <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/e5c455e833ee">e5c455e833ee</a> - Added a setting for MyTopics page size, mostly for those who wants kinda sort it on forums with a moderate post rate.</li>
+      <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/e5c455e833ee">e5c455e833ee</a> - Fixed Email Problem with Gravatars.</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/934e75aec9a5">934e75aec9a5</a> - Fixed an Issue on the Album Page when Creating a New Album</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/67652998c9a0">67652998c9a0</a> - Updated Tiny_MCE Editor to Version 3.4.9</li>
 	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/0439e1a1b96b">0439e1a1b96b</a> - Mobile theme is now enabled by default for users in the user Profile.</li>
 	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/757930c535f5">757930c535f5</a> - Fixed [YAF-182] - Logout Buttons where not localized</li>
 	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/9c86f4db634c ">9c86f4db634c</a> - Individual moderators ot access mask for a forum could not be set if display names were enabled.</li>
@@ -159,7 +141,6 @@ body {
 	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/36565a3eb956">36565a3eb956</a> - Added Dummy &quot;Disabled&quot; Mobile Theme Item to allow disabling of the Mobile Theme for the Current Board.</li>
 	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/62d3e3e8485a">62d3e3e8485a</a> - Bugfix: Board Delete Function thrown Exception</li>
 	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/a36e06f1a7f8">a36e06f1a7f8</a> - Bugfix: with next/prev topic and moved topics.</li>
-        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/e38a71138de3">e38a71138de3</a> - Updated Tiny_MCE Editor to Version 3.4.8</li>
         <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/f423e45545b1">f423e45545b1</a> - Added A User Flag Indicating if the User is Logged in Via Facebook &quot;IsFacebookUser&quot;.</li>
         <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/e9f637b013ee">e9f637b013ee</a> - Watch/Unwatch Function for Topics fixed.</li>
         <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/c00af5433887">c00af5433887</a> - Assigned the Current Page Name as Css Class to every Page.</li>
@@ -298,7 +279,7 @@ body {
 		<li>#4756 - Fix for issue with YAF.Controls Style render throwing an out of bounds array exception.</li>
 		<li>#4754 - Added Message  to Post a Private Message Page when User doesn't exists after clicking &quot;Find User...&quot;</li>
 </ul>
-<span class="FeatureHeader">YetAnotherForum.NET 1.9.5.5</span>
+<span class="FeatureHeader">YAF.NET 1.9.5.5</span>
 <p><em>Change log starts at this release.</em></p>
 	<p>
 New features:</p>
@@ -469,7 +450,7 @@ New features:</p>
 			YetAnotherForum.NET (YAF) the Open Source Discussion Forum for ASP.NET - <a href="http://yetanotherforum.net/">http://YetAnotherForum.NET</a>
 		</p>
 		<p id="copy">
-		YetAnotherForum.NET Copyright © 2011 <a href="http://www.tinygecko.com/">Tiny Gecko</a>. </p>
+		YetAnotherForum.NET Copyright © 2012 <a href="http://www.tinygecko.com/">Tiny Gecko</a>. </p>
 </div>
 
 </body>
