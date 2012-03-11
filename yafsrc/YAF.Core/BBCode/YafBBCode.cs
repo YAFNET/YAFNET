@@ -583,14 +583,14 @@ namespace YAF.Core.BBCode
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
                         _rgxImg,
-                        "<img src=\"${http}${inner}\" alt=\"\"/>",
+                        "<img src=\"${http}${inner}\" alt=\"\" class=\"UserPostedImage\"/>",
                         new[] { "http" },
                         new[] { "http://" }) { RuleRank = 70 });
 
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
                         _rgxImgEmptyTitle,
-                        "<img src=\"${http}${inner}\" alt=\"\"/>",
+                        "<img src=\"${http}${inner}\" alt=\"\" class=\"UserPostedImage\"/>",
                         new[] { "http" },
                         new[] { "http://" }) { RuleRank = 71 });
 
@@ -598,7 +598,7 @@ namespace YAF.Core.BBCode
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
                         _rgxImgTitle,
-                        "<img src=\"${http}${inner}\" alt=\"${description}\" title=\"${description}\" />",
+                        "<img src=\"${http}${inner}\" alt=\"${description}\" title=\"${description}\" class=\"UserPostedImage\" />",
                         new[] { "http", "description" },
                         new[] { "http://", string.Empty }) { RuleRank = 72 });
 

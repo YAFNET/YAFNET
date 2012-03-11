@@ -22,13 +22,11 @@ namespace YAF.Controls
 
     using System;
     using System.Collections.Generic;
-    using System.Data;
     using System.Linq;
     using System.Text;
     using System.Web.UI;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Interfaces;
@@ -37,7 +35,7 @@ namespace YAF.Controls
     #endregion
 
     /// <summary>
-    /// Summary description for ForumJump.
+    /// Albums Image List Selector Menu
     /// </summary>
     public class AlbumListPopMenu : BaseControl, IPostBackEventHandler
     {
@@ -132,7 +130,8 @@ namespace YAF.Controls
         /// <param name="albumImage">
         /// The icon.
         /// </param>
-        public void AddClientScriptItem([NotNull] string description, [NotNull] string clientScript, [NotNull] string albumImage)
+        public void AddClientScriptItem(
+            [NotNull] string description, [NotNull] string clientScript, [NotNull] string albumImage)
         {
             this._items.Add(new InternalAlbumListItem(description, null, clientScript, albumImage));
         }
@@ -241,33 +240,25 @@ namespace YAF.Controls
             for (int i = 0; i < this._items.Count; i++)
             {
                 var thisItem = this._items[i];
-                if (i % 3 == 0 && i > 0 && i < this._items.Count)
+
+                if (rowPanel == 3 && i < this._items.Count)
                 {
-                    rowPanel++;
+                    sb.Append("</ul></div>");
+                    sb.Append("<div class=\"result\">");
+                    sb.Append("<ul class=\"AlbumImageList\">");
 
-                    if (rowPanel == 3)
-                    {
-                        sb.Append("</ul></div>");
-                        sb.Append("<div class=\"result\">");
-                        sb.Append("<ul class=\"AlbumImageList\">");
-
-                        rowPanel = 0;
-                    }
+                    rowPanel = 0;
                 }
 
-                string onClick;
-                string iconImage = string.Empty;
+                rowPanel++;
 
-                if (thisItem.ClientScript.IsSet())
-                {
-                    // js style
-                    onClick = thisItem.ClientScript.Replace(
-                        "{postbackcode}", Page.ClientScript.GetPostBackClientHyperlink(this, thisItem.PostBackArgument));
-                }
-                else
-                {
-                    onClick = Page.ClientScript.GetPostBackClientHyperlink(this, thisItem.PostBackArgument);
-                }
+                var iconImage = string.Empty;
+
+                var onClick = thisItem.ClientScript.IsSet()
+                                  ? thisItem.ClientScript.Replace(
+                                      "{postbackcode}",
+                                      this.Page.ClientScript.GetPostBackClientHyperlink(this, thisItem.PostBackArgument))
+                                  : this.Page.ClientScript.GetPostBackClientHyperlink(this, thisItem.PostBackArgument);
 
                 if (thisItem.AlbumImage.IsSet())
                 {
@@ -296,12 +287,8 @@ namespace YAF.Controls
         /// <summary>
         /// The pop menu_ init.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void PopMenu_Init([NotNull] object sender, [NotNull] EventArgs e)
         {
             // init the necessary js...
@@ -333,7 +320,11 @@ namespace YAF.Controls
         /// <param name="albumImage">
         /// The icon.
         /// </param>
-        public InternalAlbumListItem([NotNull] string description, [NotNull] string postbackArgument, [NotNull] string clientScript, [NotNull] string albumImage)
+        public InternalAlbumListItem(
+            [NotNull] string description,
+            [NotNull] string postbackArgument,
+            [NotNull] string clientScript,
+            [NotNull] string albumImage)
         {
             this.Description = description;
             this.PostBackArgument = postbackArgument;
