@@ -198,11 +198,15 @@ namespace YAF.Pages
             this.MarkRead.Text = this.GetText("MARKREAD");
             this.ForumJumpHolder.Visible = this.Get<YafBoardSettings>().ShowForumJump
                                            && this.PageContext.Settings.LockedForum == 0;
+
             this.LastPostImageTT = this.GetText("DEFAULT", "GO_LAST_POST");
 
-            this.forumSearch.Attributes["onkeydown"] =
-                "if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{document.getElementById('{0}').click();return false;}}}} else {{return true}}; "
-                    .FormatWith(this.forumSearchOK.ClientID);
+            if (ForumSearchHolder.Visible)
+            {
+                this.forumSearch.Attributes["onkeydown"] =
+                    "if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{document.getElementById('{0}').click();return false;}}}} else {{return true}}; "
+                        .FormatWith(this.forumSearchOK.ClientID);
+            }
 
             if (!this.IsPostBack)
             {

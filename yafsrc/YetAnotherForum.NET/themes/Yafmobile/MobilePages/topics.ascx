@@ -33,7 +33,7 @@
                 <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="lastpost" />
             </th>--%>
         </tr>
-        <YAF:ForumList AltLastPost="<%# this.lastPostImageTT %>" runat="server" ID="ForumList" />
+        <YAF:ForumList AltLastPost="<%# this.LastPostImageTT %>" runat="server" ID="ForumList" />
     </table>
 </asp:PlaceHolder>
 <table class="command" cellspacing="0" cellpadding="0" width="100%">
@@ -74,15 +74,15 @@
     </tr>
     <asp:Repeater ID="Announcements" runat="server">
         <ItemTemplate>
-            <YAF:TopicLine ID="TopicLine1" runat="server" AltLastPost="<%# this.lastPostImageTT %>" DataRow="<%# Container.DataItem %>" />
+            <YAF:TopicLine ID="TopicLine1" runat="server" AltLastPost="<%# this.LastPostImageTT %>" DataRow="<%# Container.DataItem %>" />
         </ItemTemplate>
     </asp:Repeater>
     <asp:Repeater ID="TopicList" runat="server">
         <ItemTemplate>
-            <YAF:TopicLine ID="TopicLine2" runat="server" AltLastPost="<%# this.lastPostImageTT %>" DataRow="<%# Container.DataItem %>" />
+            <YAF:TopicLine ID="TopicLine2" runat="server" AltLastPost="<%# this.LastPostImageTT %>" DataRow="<%# Container.DataItem %>" />
         </ItemTemplate>
         <AlternatingItemTemplate>
-            <YAF:TopicLine ID="TopicLine3" runat="server" IsAlt="True" AltLastPost="<%# this.lastPostImageTT %>" DataRow="<%# Container.DataItem %>" />
+            <YAF:TopicLine ID="TopicLine3" runat="server" IsAlt="True" AltLastPost="<%# this.LastPostImageTT %>" DataRow="<%# Container.DataItem %>" />
         </AlternatingItemTemplate>
     </asp:Repeater>
     <YAF:ForumUsers ID="ForumUsers1" runat="server" />
@@ -119,6 +119,14 @@
         </td>
     </tr>
 </table>
+<asp:PlaceHolder ID="ForumSearchHolder" runat="server" Visible="false">
+<div id="ForumSearchDiv">
+        <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="SEARCH_FORUM" />
+        &nbsp;<asp:TextBox id="forumSearch" runat="server"></asp:TextBox>
+        &nbsp;<YAF:ThemeButton ID="forumSearchOK" runat="server" CssClass="yaflittlebutton"
+                TextLocalizedTag="OK" TitleLocalizedTag="OK_TT" OnClick="ForumSearch_Click" />
+    </div>
+</asp:PlaceHolder>
 <asp:PlaceHolder ID="ForumJumpHolder" runat="server">
     <div id="DivForumJump" runat="server" visible="false">
         <YAF:LocalizedLabel ID="ForumJumpLabel" runat="server" LocalizedTag="FORUM_JUMP" />
