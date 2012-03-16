@@ -59,6 +59,7 @@
 	
 	background: -webkit-gradient(linear, left top, left bottom, from(#faa51a), to(#f47a20));
 	background: -moz-linear-gradient(top,  #faa51a,  #f47a20);
+	background: -o-linear-gradient(top,  #faa51a,  #f47a20);
 	
 }
 .yafnet .pbutton:hover
@@ -67,22 +68,7 @@
 	-moz-border-radius: 0.4em; 
 	-webkit-border-radius: 0.4em;
 	border-radius: 0.4em;
-	
-	background: url('ButtonHover.png') #f47c20;
-	
-	background: -webkit-gradient(linear, left top, left bottom, from(#f88e11), to(#f06015));
-	background: -moz-linear-gradient(top,  #f88e11,  #f06015);
-	
 }
-.yafnet .pbutton:active
-{
-	color: #fcd3a5;
-	 background: url('ButtonActive.png') #f47a20;
-	
-	background: -webkit-gradient(linear, left top, left bottom, from(#f47a20), to(#faa51a));
-	background: -moz-linear-gradient(top,  #f47a20,  #faa51a);
-	
-	}
 .yafnet img {
 	border: 0;
 }
@@ -108,6 +94,7 @@
 	
 	background: -webkit-gradient(linear, left top, left bottom, from(#faa51a), to(#f47a20));
 	background: -moz-linear-gradient(top,  #faa51a,  #f47a20);
+	background: -o-linear-gradient(top,  #faa51a,  #f47a20);
 	
 }
 .yafnet a.HeaderTopicLink {
@@ -132,7 +119,7 @@
 	
 	background: -webkit-gradient(linear, left top, left bottom, from(#faa51a), to(#f47a20));
 	background: -moz-linear-gradient(top,  #faa51a,  #f47a20);
-	
+	background: -o-linear-gradient(top,  #faa51a,  #f47a20);
 	
 	color: #ffffff;
 	font-weight: bold;
@@ -149,6 +136,7 @@
 	
 	background: -webkit-gradient(linear, left top, left bottom, from(#faa51a), to(#f47a20));
 	background: -moz-linear-gradient(top,  #faa51a,  #f47a20);
+	background: -o-linear-gradient(top,  #faa51a,  #f47a20);
 	
 	color: #ffffff;
 	font-weight: bold;
@@ -674,8 +662,11 @@ This CSS already works on FireFox.
 	
 	background: -webkit-gradient(linear, left top, left bottom, from(#faa51a), to(#f47a20));
 	background: -moz-linear-gradient(top,  #faa51a,  #f47a20);
+	background: -o-linear-gradient(top,  #faa51a,  #f47a20);
 	
 }
+.yafnet a.yafcssbigbutton:hover,
+.yafnet .pbutton:hover
 .yafnet .postTopLink:hover,
 .yafnet .MultiQuoteButton:hover,
 .yafnet a.yaflittlebutton:hover,
@@ -684,21 +675,25 @@ This CSS already works on FireFox.
 	
 	background: -webkit-gradient(linear, left top, left bottom, from(#f88e11), to(#f06015));
 	background: -moz-linear-gradient(top,  #f88e11,  #f06015);
-	
+	background: -o-linear-gradient(top,  #f88e11,  #f06015);
 
 	text-decoration: none;
 	color: #ffffff;
 }
+/* Active Buttons */
+.yafnet .pbutton:active,
+.yafnet a.yafcssbigbutton:active,
 .yafnet .postTopLink:active,
 .yafnet .Checked,
 .yafnet a.yaflittlebutton:active,
 .yafnet a.yafcssimagebutton:active {
-    background: url('ButtonActive.png') #f47a20;
-	
 	color: #fcd3a5;
+	
+	background: url('ButtonActive.png') #f47a20;
+	
 	background: -webkit-gradient(linear, left top, left bottom, from(#f47a20), to(#faa51a));
 	background: -moz-linear-gradient(top,  #f47a20,  #faa51a);
-	
+	background: -o-linear-gradient(top,  #f47a20,  #faa51a);
 	
 	text-decoration: none;
 }
@@ -733,6 +728,7 @@ This CSS already works on FireFox.
 	
 	background: -webkit-gradient(linear, left top, left bottom, from(#faa51a), to(#f47a20));
 	background: -moz-linear-gradient(top,  #faa51a,  #f47a20);
+	background: -o-linear-gradient(top,  #faa51a,  #f47a20);
 	
 }
 .yafnet a.yafcssbigbutton span{
@@ -743,25 +739,6 @@ This CSS already works on FireFox.
 .yafnet a.yafcssbigbutton img{
 	vertical-align: top;
 	padding: 0px 4px 0px 0px;
-}
-
-.yafnet a.yafcssbigbutton:hover {
-	color: #ffffff;
-	text-decoration: none;
-	
-	background: url('ButtonHover.png') #f47c20;
-	
-	background: -webkit-gradient(linear, left top, left bottom, from(#f88e11), to(#f06015));
-	background: -moz-linear-gradient(top,  #f88e11,  #f06015);
-	
-}
-.yafnet a.yafcssbigbutton:active{
-       background: url('ButtonActive.png') #f47a20;
-	   
-	color: #fcd3a5;
-	background: -webkit-gradient(linear, left top, left bottom, from(#f47a20), to(#faa51a));
-	background: -moz-linear-gradient(top,  #f47a20,  #faa51a);
-	
 }
 .yafnet a.yafcssbigbutton:active img{
     padding: 0px 4px 0px 0px;
@@ -850,6 +827,7 @@ This CSS already works on FireFox.
 	
 	background: -webkit-gradient(linear, left top, left bottom, from(#faa51a), to(#f47a20));
 	background: -moz-linear-gradient(top,  #faa51a,  #f47a20);
+	background: -o-linear-gradient(top,  #faa51a,  #f47a20);
 	
 	
 	color: #ffffff;
@@ -922,6 +900,7 @@ This CSS already works on FireFox.
 	
 	background: -webkit-gradient(linear, left top, left bottom, from(#faa51a), to(#f47a20));
 	background: -moz-linear-gradient(top,  #faa51a,  #f47a20);
+	background: -o-linear-gradient(top,  #faa51a,  #f47a20);
 	
 	
 	color: #ffffff;
@@ -1210,6 +1189,7 @@ height:80em;
 	background: linear-gradient(top,  #f88e11,  #f06015);
 	background: -webkit-gradient(linear, left top, left bottom, from(#f88e11), to(#f06015));
 	background: -moz-linear-gradient(top,  #f88e11,  #f06015);
+	background: -o-linear-gradient(top,  #f88e11,  #f06015);
 }
 .yafnet .menuContainer ul li a,
 .QuickSearch a {
@@ -1405,6 +1385,8 @@ height:80em;
 }
 .ModalDialog .header h3,
 .ModalDialog .modalHeader h3 {display:inline}
+
+.ModalDialog .DialogContent {background: #fff;}
 
 /* Header Notification Badges */
 .yafnet .Unread {
