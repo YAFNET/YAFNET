@@ -886,12 +886,7 @@
         </member>
         <member name="P:YAF.Classes.YafBoardSettings.MemberListPageSize">
             <summary>
-            Gets or sets Member ListPageSize.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.YafBoardSettings.MyTopicsListPageSize">
-            <summary>
-            Gets or sets MyTopics List PageSize.
+            Gets or sets MemberListPageSize in minutes.
             </summary>
         </member>
         <member name="P:YAF.Classes.YafBoardSettings.PostLatestFeedAccess">

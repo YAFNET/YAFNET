@@ -13229,6 +13229,11 @@
               The _show topic list selected.
             </summary>
         </member>
+        <member name="F:YAF.Pages.topics.lastPostImageTT">
+            <summary>
+              The last post image tooltip.
+            </summary>
+        </member>
         <member name="F:YAF.Pages.topics._forum">
             <summary>
               The _forum.
@@ -13260,21 +13265,30 @@
             <summary>
             Gets the sub forum title.
             </summary>
-            <returns>The get sub forum title.</returns>
+             The get sub forum title.
+            <returns></returns>
         </member>
         <member name="M:YAF.Pages.topics.NewTopic_Click(System.Object,System.EventArgs)">
             <summary>
             The new topic_ click.
             </summary>
-            <param name="sender">The source of the event.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
         </member>
         <member name="M:YAF.Pages.topics.ForumSearch_Click(System.Object,System.EventArgs)">
             <summary>
             The Forum Search
             </summary>
-            <param name="sender">The source of the event.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
         </member>
         <member name="M:YAF.Pages.topics.OnInit(System.EventArgs)">
             <summary>
@@ -13288,15 +13302,23 @@
             <summary>
             The page_ load.
             </summary>
-            <param name="sender">The source of the event.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
         </member>
         <member name="M:YAF.Pages.topics.WatchForum_Click(System.Object,System.EventArgs)">
             <summary>
             The watch forum_ click.
             </summary>
-            <param name="sender">The source of the event.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
         </member>
         <member name="M:YAF.Pages.topics.BindData">
             <summary>
@@ -13312,29 +13334,45 @@
             <summary>
             The mark read_ click.
             </summary>
-            <param name="sender">The source of the event.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
         </member>
         <member name="M:YAF.Pages.topics.Pager_PageChange(System.Object,System.EventArgs)">
             <summary>
             The pager_ page change.
             </summary>
-            <param name="sender">The source of the event.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
         </member>
         <member name="M:YAF.Pages.topics.ShowList_SelectedIndexChanged(System.Object,System.EventArgs)">
             <summary>
             The show list_ selected index changed.
             </summary>
-            <param name="sender">The source of the event.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
         </member>
-        <member name="M:YAF.Pages.topics.Topics_Unload(System.Object,System.EventArgs)">
+        <member name="M:YAF.Pages.topics.topics_Unload(System.Object,System.EventArgs)">
             <summary>
-            The Topics unload.
+            The topics_ unload.
             </summary>
-            <param name="sender">The source of the event.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
         </member>
         <member name="F:YAF.Pages.topics.PageLinks">
             <summary>
@@ -13677,14 +13715,6 @@
             Auto-generated field.
             To modify move field declaration from designer file to code-behind file.
             </remarks>
-        </member>
-        <member name="P:YAF.Pages.topics.LastPostImageTT">
-            <summary>
-            Gets or sets the last post image TT.
-            </summary>
-            <value>
-            The last post image TT.
-            </value>
         </member>
         <member name="T:YAF.Pages.profile">
             <summary>
@@ -15987,24 +16017,36 @@
         </member>
         <member name="M:YAF.Controls.MyTopicsList.MarkAll_Click(System.Object,System.EventArgs)">
             <summary>
-            Mark all Topis in the List as Read
+            The mark all_ click.
             </summary>
-            <param name="sender">The source of the event.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+            <param name="sender">
+            The sender. 
+            </param>
+            <param name="e">
+            The e. 
+            </param>
         </member>
         <member name="M:YAF.Controls.MyTopicsList.Page_Load(System.Object,System.EventArgs)">
             <summary>
-            Handles the Load event of the Page control.
+            The page_ load.
             </summary>
-            <param name="sender">The source of the event.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+            <param name="sender">
+            The sender. 
+            </param>
+            <param name="e">
+            The e. 
+            </param>
         </member>
         <member name="M:YAF.Controls.MyTopicsList.Pager_PageChange(System.Object,System.EventArgs)">
             <summary>
-            Handles the PageChange event of the Pager control.
+            The pager_ page change.
             </summary>
-            <param name="sender">The source of the event.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+            <param name="sender">
+            The sender. 
+            </param>
+            <param name="e">
+            The e. 
+            </param>
         </member>
         <member name="M:YAF.Controls.MyTopicsList.PrintForumName(System.Data.DataRowView)">
             <summary>
@@ -16019,14 +16061,18 @@
         </member>
         <member name="M:YAF.Controls.MyTopicsList.Since_SelectedIndexChanged(System.Object,System.EventArgs)">
             <summary>
-            Reloads the Topic Last Based on the Selected Since Value
+            The since_ selected index changed.
             </summary>
-            <param name="sender">The source of the event.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+            <param name="sender">
+            The sender. 
+            </param>
+            <param name="e">
+            The e. 
+            </param>
         </member>
         <member name="M:YAF.Controls.MyTopicsList.BindFeeds">
             <summary>
-            Bind the Feeds
+            The bind feeds.
             </summary>
         </member>
         <member name="P:YAF.Controls.MyTopicsList.AutoDatabind">
@@ -19056,24 +19102,6 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel139">
-            <summary>
-            HelpLabel139 control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Pages.Admin.hostsettings.MyTopicsListPageSize">
-            <summary>
-            MyTopicsListPageSize control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
         <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel99">
             <summary>
             HelpLabel99 control.
@@ -19176,6 +19204,24 @@
         <member name="F:YAF.Pages.Admin.hostsettings.DisableNoFollowLinksAfterDay">
             <summary>
             DisableNoFollowLinksAfterDay control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel106">
+            <summary>
+            HelpLabel106 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.DisplayPoints">
+            <summary>
+            DisplayPoints control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -19977,24 +20023,6 @@
         <member name="F:YAF.Pages.Admin.hostsettings.LocalizedLabel33">
             <summary>
             LocalizedLabel33 control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel106">
-            <summary>
-            HelpLabel106 control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Pages.Admin.hostsettings.DisplayPoints">
-            <summary>
-            DisplayPoints control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -26652,7 +26680,7 @@
         </member>
         <member name="T:YAF.Modules.PagePmPopupForumModule">
             <summary>
-            The Page PM Popup Module
+            Summary description for PageTitleModule
             </summary>
         </member>
         <member name="M:YAF.Modules.PagePmPopupForumModule.InitAfterPage">
@@ -26667,7 +26695,7 @@
         </member>
         <member name="M:YAF.Modules.PagePmPopupForumModule.DisplayPMPopup">
             <summary>
-            Displays the PM popup.
+            The display pm popup.
             </summary>
             <returns>
             The display pm popup.
@@ -36993,80 +37021,111 @@
         </member>
         <member name="T:YAF.Pages.cp_editalbumimages">
             <summary>
-            The Edit User Album Images Page.
+            The cp_editalbumimages.
             </summary>
         </member>
         <member name="M:YAF.Pages.cp_editalbumimages.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:YAF.Pages.cp_editalbumimages"/> class.
+              Initializes a new instance of the cp_editalbumimages class.
             </summary>
         </member>
         <member name="M:YAF.Pages.cp_editalbumimages.Back_Click(System.Object,System.EventArgs)">
             <summary>
             The back button click event handler.
             </summary>
-            <param name="sender">The source of the event.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+            <param name="sender">
+            the sender.
+            </param>
+            <param name="e">
+            the e.
+            </param>
         </member>
         <member name="M:YAF.Pages.cp_editalbumimages.DeleteAlbum_Click(System.Object,System.EventArgs)">
             <summary>
             Deletes the album and all the images in it.
             </summary>
-            <param name="sender">The source of the event.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+            <param name="sender">
+            the sender.
+            </param>
+            <param name="e">
+            the e.
+            </param>
         </member>
         <member name="M:YAF.Pages.cp_editalbumimages.DeleteAlbum_Load(System.Object,System.EventArgs)">
             <summary>
             The btn delete_ load.
             </summary>
-            <param name="sender">The source of the event.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
         </member>
         <member name="M:YAF.Pages.cp_editalbumimages.ImageDelete_Load(System.Object,System.EventArgs)">
             <summary>
             The Upload file delete confirmation dialog.
             </summary>
-            <param name="sender">The source of the event.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+            <param name="sender">
+            the sender.
+            </param>
+            <param name="e">
+            the e.
+            </param>
         </member>
         <member name="M:YAF.Pages.cp_editalbumimages.List_ItemCommand(System.Object,System.Web.UI.WebControls.RepeaterCommandEventArgs)">
             <summary>
             The repater Item command event responsible for handling deletion of uploaded files.
             </summary>
-            <param name="source">The source of the event.</param>
-            <param name="e">The <see cref="T:System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
+            <param name="source">
+            the source.
+            </param>
+            <param name="e">
+            the e.
+            </param>
         </member>
         <member name="M:YAF.Pages.cp_editalbumimages.Page_Load(System.Object,System.EventArgs)">
             <summary>
             the page load event.
             </summary>
-            <param name="sender">The source of the event.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+            <param name="sender">
+            the sender.
+            </param>
+            <param name="e">
+            the e.
+            </param>
         </member>
         <member name="M:YAF.Pages.cp_editalbumimages.UpdateTitle_Click(System.Object,System.EventArgs)">
             <summary>
             Update the album title.
             </summary>
-            <param name="sender">The source of the event.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+            <param name="sender">
+            the sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
         </member>
         <member name="M:YAF.Pages.cp_editalbumimages.Upload_Click(System.Object,System.EventArgs)">
             <summary>
             The Upload button click event handler.
             </summary>
-            <param name="sender">The source of the event.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+            <param name="sender">
+            the sender.
+            </param>
+            <param name="e">
+            the e.
+            </param>
         </member>
         <member name="M:YAF.Pages.cp_editalbumimages.BindData">
             <summary>
             Initializes the repeater control and the visibilities of form elements.
             </summary>
         </member>
-        <member name="M:YAF.Pages.cp_editalbumimages.BindVariousControls(System.Boolean)">
+        <member name="M:YAF.Pages.cp_editalbumimages.BindVariousControls">
             <summary>
             Binds the repeater and title controls and the visibilities of form elements.
             </summary>
-            <param name="isNewAlbum">if set to <c>true</c> [is new album].</param>
         </member>
         <member name="M:YAF.Pages.cp_editalbumimages.CheckValidFile(System.Web.UI.HtmlControls.HtmlInputFile)">
             <summary>
@@ -37083,8 +37142,9 @@
             <summary>
             Save the attached file both physically and in the db.
             </summary>
-            <param name="file">the file.</param>
-            <exception cref="T:System.Exception">Album Image File is too big</exception>
+            <param name="file">
+            the file.
+            </param>
         </member>
         <member name="F:YAF.Pages.cp_editalbumimages.PageLinks">
             <summary>

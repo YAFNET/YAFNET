@@ -513,25 +513,12 @@
             The yaf avatars.
             </summary>
         </member>
-        <member name="F:YAF.Core.Services.YafAvatars._yafBoardSettings">
-            <summary>
-            The _yaf board settings.
-            </summary>
-        </member>
-        <member name="M:YAF.Core.Services.YafAvatars.#ctor(YAF.Classes.YafBoardSettings)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Core.Services.YafAvatars"/> class.
-            </summary>
-            <param name="boardSettings">
-            The board settings.
-            </param>
-        </member>
         <member name="M:YAF.Core.Services.YafAvatars.GetAvatarUrlForCurrentUser">
             <summary>
             The get avatar url for current user.
             </summary>
             <returns>
-            Returns the Avatar Url 
+            Returns the Avatar Url
             </returns>
         </member>
         <member name="M:YAF.Core.Services.YafAvatars.GetAvatarUrlForUser(System.Int32)">
@@ -539,10 +526,10 @@
             The get avatar url for user.
             </summary>
             <param name="userId">
-            The user id. 
+            The user id.
             </param>
             <returns>
-            Returns the Avatar Url 
+            Returns the Avatar Url
             </returns>
         </member>
         <member name="M:YAF.Core.Services.YafAvatars.GetAvatarUrlForUser(YAF.Types.Interfaces.IUserData)">
@@ -550,30 +537,30 @@
             The get avatar url for user.
             </summary>
             <param name="userData">
-            The user data. 
+            The user data.
             </param>
             <returns>
-            Returns the Avatar Url 
+            Returns the Avatar Url
             </returns>
         </member>
-        <member name="M:YAF.Core.Services.YafAvatars.GetAvatarUrlForUser(System.Int32,System.String,System.Boolean,System.String)">
+        <member name="M:YAF.Core.Services.YafAvatars.GetAvatarUrlForUser(System.Int32,System.String,System.Boolean,System.Lazy{System.String})">
             <summary>
             The get avatar url for user.
             </summary>
             <param name="userId">
-            The user Id. 
+            The user Id.
             </param>
             <param name="avatarString">
-            The avatarString. 
+            The avatarString.
             </param>
             <param name="hasAvatarImage">
-            The hasAvatarImage. 
+            The hasAvatarImage.
             </param>
             <param name="email">
-            The email. 
+            The email.
             </param>
             <returns>
-            Returns the Avatar Url 
+            Returns the Avatar Url
             </returns>
         </member>
         <member name="T:YAF.Core.Services.ICheckForSpamClient">

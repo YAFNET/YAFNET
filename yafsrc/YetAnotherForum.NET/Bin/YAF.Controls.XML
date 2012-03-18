@@ -1850,7 +1850,7 @@
         </member>
         <member name="T:YAF.Controls.AlbumListPopMenu">
             <summary>
-            Albums Image List Selector Menu
+            Summary description for ForumJump.
             </summary>
         </member>
         <member name="F:YAF.Controls.AlbumListPopMenu._items">
@@ -1926,8 +1926,12 @@
             <summary>
             The pop menu_ init.
             </summary>
-            <param name="sender">The source of the event.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
         </member>
         <member name="E:YAF.Controls.AlbumListPopMenu.ItemClick">
             <summary>
