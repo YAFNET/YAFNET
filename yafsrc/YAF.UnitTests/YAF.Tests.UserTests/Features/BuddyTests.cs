@@ -18,7 +18,7 @@
  * DEALINGS IN THE SOFTWARE.
 */
 
-namespace YAF.Tests.UserTests.UserSettings
+namespace YAF.Tests.UserTests.Features
 {
     using System.Text.RegularExpressions;
 
@@ -139,12 +139,12 @@ namespace YAF.Tests.UserTests.UserSettings
             var deny = this.browser.Link(Find.ByText("Deny"));
 
             var confirmDialog = new ConfirmDialogHandler();
-            using (new UseDialogOnce(browser.DialogWatcher, confirmDialog))
+            using (new UseDialogOnce(this.browser.DialogWatcher, confirmDialog))
             {
                 deny.ClickNoWait();
                 confirmDialog.WaitUntilExists();
                 confirmDialog.OKButton.Click();
-                browser.WaitForComplete();
+                this.browser.WaitForComplete();
             }
 
             Assert.IsTrue(this.browser.ContainsText("Buddy request denied."), "Deny Request Failed");
@@ -192,12 +192,12 @@ namespace YAF.Tests.UserTests.UserSettings
             Assert.IsNotNull(delete, "Currently the Test User doesnt have any Buddies");
 
             var confirmDialog = new ConfirmDialogHandler();
-            using (new UseDialogOnce(browser.DialogWatcher, confirmDialog))
+            using (new UseDialogOnce(this.browser.DialogWatcher, confirmDialog))
             {
                 delete.ClickNoWait();
                 confirmDialog.WaitUntilExists();
                 confirmDialog.OKButton.Click();
-                browser.WaitForComplete();
+                this.browser.WaitForComplete();
             }
 
             Assert.IsTrue(this.browser.ContainsText("has been removed from your Buddy list."), "Remove Buddy Failed");

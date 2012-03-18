@@ -92,6 +92,7 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Features\MobileThemeTests.cs" />
     <Compile Include="Content\PollTests.cs" />
     <Compile Include="Content\MessageTests.cs" />
     <Compile Include="Content\TopicTests.cs" />
@@ -101,9 +102,9 @@
     <Compile Include="Authentification\RegisterTests.cs" />
     <Compile Include="UserSettings\AvatarTests.cs" />
     <Compile Include="UserSettings\ChangePasswordTests.cs" />
-    <Compile Include="UserSettings\AlbumTests.cs" />
-    <Compile Include="UserSettings\BuddyTests.cs" />
-    <Compile Include="UserSettings\ReputationTests.cs" />
+    <Compile Include="Features\AlbumTests.cs" />
+    <Compile Include="Features\BuddyTests.cs" />
+    <Compile Include="Features\ReputationTests.cs" />
     <Compile Include="UserSettings\PrivateMessageTests.cs" />
     <Compile Include="UserSettings\EmailNotifcationTests.cs" />
     <Compile Include="UserSettings\SignatureTests.cs" />

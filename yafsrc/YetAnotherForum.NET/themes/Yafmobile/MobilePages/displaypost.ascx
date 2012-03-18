@@ -3,6 +3,7 @@
 <%@ Register TagPrefix="YAF" TagName="DisplayPostFooter" Src="../../../controls/DisplayPostFooter.ascx" %>
 <%@ Import Namespace="YAF.Core" %>
 <%@ Import Namespace="YAF.Utils" %>
+<%@ Import Namespace="YAF.Types.Interfaces" %>
 <tr class="postheader">		
     <%#GetIndentCell()%>
     <td id="NameCell" class="postUser" runat="server">

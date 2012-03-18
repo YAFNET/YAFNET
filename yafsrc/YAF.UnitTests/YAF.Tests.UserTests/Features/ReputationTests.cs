@@ -18,7 +18,7 @@
  * DEALINGS IN THE SOFTWARE.
 */
 
-namespace YAF.Tests.UserTests.UserSettings
+namespace YAF.Tests.UserTests.Features
 {
     using System.Text.RegularExpressions;
 
