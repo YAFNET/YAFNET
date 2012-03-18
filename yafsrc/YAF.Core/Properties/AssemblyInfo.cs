@@ -49,5 +49,7 @@ using YAF.Types.Attributes;
 [assembly: AllowPartiallyTrustedCallers]
 #endif
 
+#if !NCRUNCH
 [assembly: AssemblyDelaySign(false)]
 [assembly: AssemblyKeyFile("..\\YetAnotherForum.NET.snk")]
+#endif

@@ -251,7 +251,7 @@ namespace YAF.Core.BBCode.ReplaceRules
         {
           // special handling to truncate urls
           innerReplace.Replace(
-            "${innertrunc}", StringExtensions.TruncateMiddle(m.Groups["inner"].Value, this._truncateLength));
+            "${innertrunc}", m.Groups["inner"].Value.TruncateMiddle(this._truncateLength));
         }
 
         // pulls the htmls into the replacement collection before it's inserted back into the main text

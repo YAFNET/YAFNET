@@ -18,7 +18,7 @@
  * DEALINGS IN THE SOFTWARE.
 */
 
-namespace YAF.Tests.UserTests.UserSettings
+namespace YAF.Tests.UserTests.Features
 {
     using System.IO;
     using System.Text.RegularExpressions;
@@ -128,12 +128,12 @@ namespace YAF.Tests.UserTests.UserSettings
             var delete = this.browser.Button(Find.ById(new Regex("_Delete")));
 
             var confirmDialog = new ConfirmDialogHandler();
-            using (new UseDialogOnce(browser.DialogWatcher, confirmDialog))
+            using (new UseDialogOnce(this.browser.DialogWatcher, confirmDialog))
             {
                 delete.ClickNoWait();
                 confirmDialog.WaitUntilExists();
                 confirmDialog.OKButton.Click();
-                browser.WaitForComplete();
+                this.browser.WaitForComplete();
             }
 
             Assert.IsTrue(this.browser.ContainsText("Album Images"), "Album deleting failed");
@@ -195,12 +195,12 @@ namespace YAF.Tests.UserTests.UserSettings
             var delete = this.browser.Link(Find.ById(new Regex("_List_ImageDelete_0")));
 
             var confirmDialog = new ConfirmDialogHandler();
-            using (new UseDialogOnce(browser.DialogWatcher, confirmDialog))
+            using (new UseDialogOnce(this.browser.DialogWatcher, confirmDialog))
             {
                 delete.ClickNoWait();
                 confirmDialog.WaitUntilExists();
                 confirmDialog.OKButton.Click();
-                browser.WaitForComplete();
+                this.browser.WaitForComplete();
             }
 
             var textNew = this.browser.Span(Find.ById(new Regex("_imagesInfo"))).InnerHtml;

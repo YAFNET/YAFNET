@@ -120,12 +120,14 @@
         </td>
     </tr>
 </table>
+<asp:PlaceHolder ID="ForumSearchHolder" runat="server">
 <div id="ForumSearchDiv">
         <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="SEARCH_FORUM" />
         &nbsp;<asp:TextBox id="forumSearch" runat="server"></asp:TextBox>
         &nbsp;<YAF:ThemeButton ID="forumSearchOK" runat="server" CssClass="yaflittlebutton"
                 TextLocalizedTag="OK" TitleLocalizedTag="OK_TT" OnClick="ForumSearch_Click" />
     </div>
+</asp:PlaceHolder>
 <asp:PlaceHolder ID="ForumJumpHolder" runat="server">
     <div id="DivForumJump">
         <YAF:LocalizedLabel ID="ForumJumpLabel" runat="server" LocalizedTag="FORUM_JUMP" />

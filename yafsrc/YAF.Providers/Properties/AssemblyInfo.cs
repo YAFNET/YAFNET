@@ -37,5 +37,7 @@ using System.Security;
 [assembly: AllowPartiallyTrustedCallers]
 #endif
 
+#if !NCRUNCH
 [assembly: AssemblyDelaySign(false)]
 [assembly: AssemblyKeyFile("..\\YetAnotherForum.NET.snk")]
+#endif
