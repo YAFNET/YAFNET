@@ -52,6 +52,7 @@
     <Compile Include="Attributes\StringValueAttribute.cs" />
     <Compile Include="Attributes\YafModule.cs" />
     <Compile Include="BadWordReplaceItem.cs" />
+    <Compile Include="ThemeResources.cs" />
     <Compile Include="CodeContracts.cs" />
     <Compile Include="Constants\CollapsiblePanelState.cs" />
     <Compile Include="Constants\Constants.cs" />

@@ -140,13 +140,13 @@ namespace YAF.Core
 
 						// cache bindings.
 						builder.RegisterType<StaticLockObject>().As<IHaveLockObject>().SingleInstance().PreserveExistingDefaults();
-						builder.RegisterType<HttpRuntimeCache>().As<IDataCache>().InstancePerLifetimeScope().PreserveExistingDefaults();
+						builder.RegisterType<HttpRuntimeCache>().As<IDataCache>().SingleInstance().PreserveExistingDefaults();
 
 						// Shared object store -- used for objects local only
-						builder.RegisterType<HttpRuntimeCache>().As<IObjectStore>().InstancePerLifetimeScope().PreserveExistingDefaults();
+						builder.RegisterType<HttpRuntimeCache>().As<IObjectStore>().SingleInstance().PreserveExistingDefaults();
 
 						builder.RegisterType<YafSession>().As<IYafSession>().InstancePerLifetimeScope().PreserveExistingDefaults();
-						builder.RegisterType<YafBadWordReplace>().As<IBadWordReplace>().InstancePerLifetimeScope().PreserveExistingDefaults();
+						builder.RegisterType<YafBadWordReplace>().As<IBadWordReplace>().SingleInstance().PreserveExistingDefaults();
 
 						builder.RegisterType<YafPermissions>().As<IPermissions>().InstancePerLifetimeScope().PreserveExistingDefaults();
 						builder.RegisterType<YafDateTime>().As<IDateTime>().InstancePerLifetimeScope().PreserveExistingDefaults();
@@ -174,7 +174,7 @@ namespace YAF.Core
 						builder.Register((k, p) => k.Resolve<ProcessReplaceRulesProvider>(p).Instance).InstancePerLifetimeScope().PreserveExistingDefaults();
 
 						// module resolution bindings...
-						builder.RegisterGeneric(typeof(StandardModuleManager<>)).As(typeof(IModuleManager<>)).InstancePerLifetimeScope();
+					builder.RegisterGeneric(typeof(StandardModuleManager<>)).As(typeof(IModuleManager<>)).InstancePerLifetimeScope();
 
 						// background emailing...
 						builder.RegisterType<YafSendMailThreaded>().As<ISendMailThreaded>().SingleInstance().PreserveExistingDefaults();
@@ -363,7 +363,7 @@ namespace YAF.Core
 
 						builder.Register(
 							x =>
-							x.Resolve<IEnumerable<IStartupService>>().Where(t => t is StartupInitializeDb).FirstOrDefault() as
+							x.Resolve<IEnumerable<IStartupService>>().FirstOrDefault(t => t is StartupInitializeDb) as
 							StartupInitializeDb).InstancePerLifetimeScope();
 
 						this.UpdateRegistry(builder);

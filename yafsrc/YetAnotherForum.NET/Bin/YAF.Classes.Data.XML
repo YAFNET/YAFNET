@@ -2010,6 +2010,17 @@
             DataTable with list of topics from a forum
             </returns>
         </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.forum_maxid(System.Object)">
+            <summary>
+            Gets a max id of forums.
+            </summary>
+            <param name="boardID">
+            boardID
+            </param>
+            <returns>
+            DataTable with list of topics from a forum
+            </returns>
+        </member>
         <member name="M:YAF.Classes.Data.LegacyDb.forum_listall(System.Object,System.Object)">
             <summary>
             Listes all forums accessible to a user

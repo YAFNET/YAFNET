@@ -513,12 +513,25 @@
             The yaf avatars.
             </summary>
         </member>
+        <member name="F:YAF.Core.Services.YafAvatars._yafBoardSettings">
+            <summary>
+            The _yaf board settings.
+            </summary>
+        </member>
+        <member name="M:YAF.Core.Services.YafAvatars.#ctor(YAF.Classes.YafBoardSettings)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Core.Services.YafAvatars"/> class.
+            </summary>
+            <param name="boardSettings">
+            The board settings.
+            </param>
+        </member>
         <member name="M:YAF.Core.Services.YafAvatars.GetAvatarUrlForCurrentUser">
             <summary>
             The get avatar url for current user.
             </summary>
             <returns>
-            Returns the Avatar Url
+            Returns the Avatar Url 
             </returns>
         </member>
         <member name="M:YAF.Core.Services.YafAvatars.GetAvatarUrlForUser(System.Int32)">
@@ -526,10 +539,10 @@
             The get avatar url for user.
             </summary>
             <param name="userId">
-            The user id.
+            The user id. 
             </param>
             <returns>
-            Returns the Avatar Url
+            Returns the Avatar Url 
             </returns>
         </member>
         <member name="M:YAF.Core.Services.YafAvatars.GetAvatarUrlForUser(YAF.Types.Interfaces.IUserData)">
@@ -537,30 +550,30 @@
             The get avatar url for user.
             </summary>
             <param name="userData">
-            The user data.
+            The user data. 
             </param>
             <returns>
-            Returns the Avatar Url
+            Returns the Avatar Url 
             </returns>
         </member>
-        <member name="M:YAF.Core.Services.YafAvatars.GetAvatarUrlForUser(System.Int32,System.String,System.Boolean,System.Lazy{System.String})">
+        <member name="M:YAF.Core.Services.YafAvatars.GetAvatarUrlForUser(System.Int32,System.String,System.Boolean,System.String)">
             <summary>
             The get avatar url for user.
             </summary>
             <param name="userId">
-            The user Id.
+            The user Id. 
             </param>
             <param name="avatarString">
-            The avatarString.
+            The avatarString. 
             </param>
             <param name="hasAvatarImage">
-            The hasAvatarImage.
+            The hasAvatarImage. 
             </param>
             <param name="email">
-            The email.
+            The email. 
             </param>
             <returns>
-            Returns the Avatar Url
+            Returns the Avatar Url 
             </returns>
         </member>
         <member name="T:YAF.Core.Services.ICheckForSpamClient">
@@ -1376,17 +1389,17 @@
         </member>
         <member name="F:YAF.Core.YafTheme._themeFile">
             <summary>
-            The _theme file.
+              The _theme file.
             </summary>
         </member>
-        <member name="F:YAF.Core.YafTheme._themeXmlDoc">
+        <member name="F:YAF.Core.YafTheme._themeResources">
             <summary>
-            The _theme xml doc.
+            The _theme resources.
             </summary>
         </member>
         <member name="M:YAF.Core.YafTheme.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:YAF.Core.YafTheme"/> class.
+              Initializes a new instance of the <see cref="T:YAF.Core.YafTheme"/> class.
             </summary>
         </member>
         <member name="M:YAF.Core.YafTheme.#ctor(System.String)">
@@ -1394,7 +1407,7 @@
             Initializes a new instance of the <see cref="T:YAF.Core.YafTheme"/> class.
             </summary>
             <param name="newThemeFile">
-            The new theme file.
+            The new theme file. 
             </param>
         </member>
         <member name="M:YAF.Core.YafTheme.IsValidTheme(System.String)">
@@ -1404,7 +1417,7 @@
             <param name="themeFile">
             </param>
             <returns>
-            The is valid theme.
+            The is valid theme. 
             </returns>
         </member>
         <member name="M:YAF.Core.YafTheme.BuildThemePath(System.String)">
@@ -1412,10 +1425,10 @@
             Gets full path to the given theme file.
             </summary>
             <param name="filename">
-            Short name of theme file.
+            Short name of theme file. 
             </param>
             <returns>
-            The build theme path.
+            The build theme path. 
             </returns>
         </member>
         <member name="M:YAF.Core.YafTheme.GetItem(System.String,System.String)">
@@ -1423,13 +1436,13 @@
             The get item.
             </summary>
             <param name="page">
-            The page.
+            The page. 
             </param>
             <param name="tag">
-            The tag.
+            The tag. 
             </param>
             <returns>
-            The get item.
+            The get item. 
             </returns>
         </member>
         <member name="M:YAF.Core.YafTheme.GetItem(System.String,System.String,System.String)">
@@ -1437,16 +1450,27 @@
             The get item.
             </summary>
             <param name="page">
-            The page.
+            The page. 
             </param>
             <param name="tag">
-            The tag.
+            The tag. 
             </param>
             <param name="defaultValue">
-            The default value.
+            The default value. 
             </param>
             <returns>
-            The get item.
+            The get item. 
+            </returns>
+        </member>
+        <member name="M:YAF.Core.YafTheme.GetMappedThemeFile(System.String)">
+            <summary>
+            The get mapped theme file.
+            </summary>
+            <param name="themeFile">
+            The theme file.
+            </param>
+            <returns>
+            The get mapped theme file.
             </returns>
         </member>
         <member name="M:YAF.Core.YafTheme.LoadThemeFile">
@@ -1456,12 +1480,12 @@
         </member>
         <member name="P:YAF.Core.YafTheme.LogMissingThemeItem">
             <summary>
-            Gets or sets a value indicating whether LogMissingThemeItem.
+              Gets or sets a value indicating whether LogMissingThemeItem.
             </summary>
         </member>
         <member name="P:YAF.Core.YafTheme.ThemeDir">
             <summary>
-            Gets ThemeDir.
+              Gets ThemeDir.
             </summary>
         </member>
         <member name="P:YAF.Core.YafTheme.ThemeFile">
@@ -2013,6 +2037,39 @@
             <summary>
             Gets or sets Children.
             </summary>
+        </member>
+        <member name="T:YAF.Core.LoadSerializedXmlFile`1">
+            <summary>
+            The load serialized xml file.
+            </summary>
+            <typeparam name="T">
+            </typeparam>
+        </member>
+        <member name="M:YAF.Core.LoadSerializedXmlFile`1.FromFile(System.String,System.String,System.Action{`0})">
+            <summary>
+            The attempt load file.
+            </summary>
+            <param name="xmlFileName">
+            The File Name. 
+            </param>
+            <param name="cacheName">
+            The cache Name. 
+            </param>
+            <param name="transformResource">
+            The transform Resource.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Core.LoadSerializedXmlFile`1.GetEncodingForXmlFile(System.String)">
+            <summary>
+            The get encoding for xml file.
+            </summary>
+            <param name="xmlFileName">
+            The xml file name. 
+            </param>
+            <returns>
+            </returns>
         </member>
         <member name="T:YAF.Core.LocalizationProvider">
             <summary>
@@ -9008,34 +9065,6 @@
             <param name="posted">
             The posted.
             </param>
-        </member>
-        <member name="T:YAF.Core.LocalizerLoader">
-            <summary>
-            The localizer loader.
-            </summary>
-        </member>
-        <member name="M:YAF.Core.LocalizerLoader.LoadLanguageFile(System.String,System.String)">
-            <summary>
-            The attempt load language file.
-            </summary>
-            <param name="languageFileName">
-            The language File Name.
-            </param>
-            <param name="cacheName">
-            The cache Name.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Core.LocalizerLoader.GetEncodingForXmlFile(System.String)">
-            <summary>
-            The get encoding for xml file.
-            </summary>
-            <param name="xmlFileName">
-            The xml file name.
-            </param>
-            <returns>
-            </returns>
         </member>
         <member name="T:YAF.Core.CurrentTaskModuleProvider">
             <summary>

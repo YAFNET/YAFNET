@@ -1,25 +1,25 @@
 # use glob syntax.
 syntax: glob
- 
+
 # Misc Mac/Windows stuff
- 
+
 .DS_Store
 Thumbs.db
 Desktop.ini
- 
+
 # builds
- 
+
 *.exe
 *.ex_
- 
+
 # vb6
- 
+
 *.SCC
 *.vbw
 *.pdb
 *.log
 *.Log
- 
+
 # c-sharp
 **\obj
 yafsrc\YAF.Classes\YAF.Classes.UnitTests\bin
@@ -29,3 +29,5 @@ yafsrc\YetAnotherForum.NET\remoteweb.config
 *.suo
 _ReSharper.*
 *.sln.cache
+*.cache
+*.ncrunch*

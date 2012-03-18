@@ -18,107 +18,107 @@
  */
 namespace YAF.Core
 {
-  #region Using
+	#region Using
 
-  using System.Collections.Generic;
-  using System.Linq;
+	using System.Collections.Generic;
+	using System.Linq;
 
-  using YAF.Types;
-  using YAF.Types.Interfaces;
+	using YAF.Types;
+	using YAF.Types.Interfaces;
 
-  #endregion
+	#endregion
 
-  /// <summary>
-  /// The standard module manager.
-  /// </summary>
-  /// <typeparam name="TModule">
-  /// The module type based on IBaseModule.
-  /// </typeparam>
-  public class StandardModuleManager<TModule> : IModuleManager<TModule>
-    where TModule : IBaseModule
-  {
-    #region Constants and Fields
+	/// <summary>
+	/// The standard module manager.
+	/// </summary>
+	/// <typeparam name="TModule">
+	/// The module type based on IBaseModule.
+	/// </typeparam>
+	public class StandardModuleManager<TModule> : IModuleManager<TModule>
+		where TModule : IBaseModule
+	{
+		#region Constants and Fields
 
-    /// <summary>
-    /// The _modules.
-    /// </summary>
-    private readonly IEnumerable<TModule> _modules;
+		/// <summary>
+		/// The _modules.
+		/// </summary>
+		private readonly IEnumerable<TModule> _modules;
 
-    #endregion
+		#endregion
 
-    #region Constructors and Destructors
+		#region Constructors and Destructors
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="StandardModuleManager{TModule}"/> class.
-    /// </summary>
-    /// <param name="modules">
-    /// The modules.
-    /// </param>
-    public StandardModuleManager([NotNull] IEnumerable<TModule> modules)
-    {
-      CodeContracts.ArgumentNotNull(modules, "modules");
+		/// <summary>
+		/// Initializes a new instance of the <see cref="StandardModuleManager{TModule}"/> class.
+		/// </summary>
+		/// <param name="modules">
+		/// The modules.
+		/// </param>
+		public StandardModuleManager([NotNull] IEnumerable<TModule> modules)
+		{
+			CodeContracts.ArgumentNotNull(modules, "modules");
 
-      this._modules = modules;
-    }
+			this._modules = modules;
+		}
 
-    #endregion
+		#endregion
 
-    #region Implemented Interfaces
+		#region Implemented Interfaces
 
-    #region IModuleManager<TModule>
+		#region IModuleManager<TModule>
 
-    /// <summary>
-    /// Get all instances of modules available.
-    /// </summary>
-    /// <param name="getInactive">
-    /// The get Inactive.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    public IEnumerable<TModule> GetAll(bool getInactive)
-    {
-      return !getInactive ? this._modules.Where(m => m.Active) : this._modules;
-    }
+		/// <summary>
+		/// Get all instances of modules available.
+		/// </summary>
+		/// <param name="getInactive">
+		/// The get Inactive.
+		/// </param>
+		/// <returns>
+		/// </returns>
+		public IEnumerable<TModule> GetAll(bool getInactive)
+		{
+			return !getInactive ? this._modules.Where(m => m.Active) : this._modules;
+		}
 
-    /// <summary>
-    /// Get an instance of a module (based on it's id).
-    /// </summary>
-    /// <param name="id">
-    /// The id.
-    /// </param>
-    /// <param name="getInactive">
-    /// The get Inactive.
-    /// </param>
-    /// <returns>
-    /// Instance of TModule or null if not found.
-    /// </returns>
-    public TModule GetBy([NotNull] string id, bool getInactive)
-    {
-      CodeContracts.ArgumentNotNull(id, "id");
+		/// <summary>
+		/// Get an instance of a module (based on it's id).
+		/// </summary>
+		/// <param name="id">
+		/// The id.
+		/// </param>
+		/// <param name="getInactive">
+		/// The get Inactive.
+		/// </param>
+		/// <returns>
+		/// Instance of TModule or null if not found.
+		/// </returns>
+		public TModule GetBy([NotNull] string id, bool getInactive)
+		{
+			CodeContracts.ArgumentNotNull(id, "id");
 
-        return !getInactive
-                   ? this._modules.Where(e => e.ModuleId.Equals(id) && e.Active).SingleOrDefault()
-                   : this._modules.Where(e => e.ModuleId.Equals(id)).SingleOrDefault();
-    }
+			return !getInactive
+								 ? this._modules.SingleOrDefault(e => e.ModuleId.Equals(id) && e.Active)
+								 : this._modules.SingleOrDefault(e => e.ModuleId.Equals(id));
+		}
 
-      /// <summary>
-      /// Get an instance of a module (based on it's id).
-      /// </summary>
-      /// <param name="id">
-      /// The id.
-      /// </param>
-      /// <returns>
-      /// Instance of TModule or null if not found.
-      /// </returns>
-      public TModule GetBy([NotNull] string id)
-    {
-        CodeContracts.ArgumentNotNull(id, "id");
+		/// <summary>
+		/// Get an instance of a module (based on it's id).
+		/// </summary>
+		/// <param name="id">
+		/// The id.
+		/// </param>
+		/// <returns>
+		/// Instance of TModule or null if not found.
+		/// </returns>
+		public TModule GetBy([NotNull] string id)
+		{
+			CodeContracts.ArgumentNotNull(id, "id");
 
-        return this._modules.Where(e => e.ModuleId.Equals(id)).SingleOrDefault();
-    }
+			return this._modules.SingleOrDefault(e => e.ModuleId.Equals(id));
+		}
 
-    #endregion
+		#endregion
 
-    #endregion
-  }
+		#endregion
+	}
 }
