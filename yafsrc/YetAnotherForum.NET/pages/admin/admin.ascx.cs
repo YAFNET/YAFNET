@@ -50,14 +50,10 @@ namespace YAF.Pages.Admin
         #region Public Methods
 
         /// <summary>
-        /// The board stats select_ changed.
+        /// Loads the Board Stats for the Selected Board
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         public void BoardStatsSelect_Changed([NotNull] object sender, [NotNull] EventArgs e)
         {
             // re-bind data
@@ -65,14 +61,10 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The user list_ item command.
+        /// Handles the ItemCommand event of the UserList control.
         /// </summary>
-        /// <param name="source">
-        /// The source.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="source">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
         public void UserList_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
         {
             switch (e.CommandName)
@@ -135,14 +127,10 @@ namespace YAF.Pages.Admin
         #region Methods
 
         /// <summary>
-        /// The approve all_ load.
+        /// Adds Confirmation Dialog to the Approve All Button
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void ApproveAll_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             ((Button)sender).Text = this.GetText("ADMIN_ADMIN", "APROVE_ALL");
@@ -150,28 +138,20 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The approve_ load.
+        /// Adds Confirmation Dialog to the Approve Button
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Approve_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_ADMIN", "CONFIRM_APROVE"));
         }
 
         /// <summary>
-        /// The delete all_ load.
+        /// Adds Confirmation Dialog to the Delete All Button
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void DeleteAll_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             ((Button)sender).Text = this.GetText("ADMIN_ADMIN", "DELETE_ALL");
@@ -180,14 +160,10 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The delete_ load.
+        /// Adds Confirmation Dialog to the Delete Button
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE"));
@@ -196,60 +172,82 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// Formats the forum link.
         /// </summary>
-        /// <param name="ForumID">
+        /// <param name="forumID">
         /// The forum ID.
         /// </param>
-        /// <param name="ForumName">
+        /// <param name="forumName">
         /// Name of the forum.
         /// </param>
         /// <returns>
         /// The format forum link.
         /// </returns>
-        protected string FormatForumLink([NotNull] object ForumID, [NotNull] object ForumName)
+        protected string FormatForumLink([NotNull] object forumID, [NotNull] object forumName)
         {
-            if (ForumID.ToString() == string.Empty || ForumName.ToString() == string.Empty)
+            if (forumID.ToString() == string.Empty || forumName.ToString() == string.Empty)
             {
                 return string.Empty;
             }
 
             return
                 "<a target=\"_top\" href=\"{0}\">{1}</a>".FormatWith(
-                    YafBuildLink.GetLink(ForumPages.topics, "f={0}", ForumID), ForumName);
+                    YafBuildLink.GetLink(ForumPages.topics, "f={0}", forumID), forumName);
         }
 
         /// <summary>
         /// Formats the topic link.
         /// </summary>
-        /// <param name="TopicID">
+        /// <param name="topicID">
         /// The topic ID.
         /// </param>
-        /// <param name="TopicName">
+        /// <param name="topicName">
         /// Name of the topic.
         /// </param>
         /// <returns>
         /// The format topic link.
         /// </returns>
-        protected string FormatTopicLink([NotNull] object TopicID, [NotNull] object TopicName)
+        protected string FormatTopicLink([NotNull] object topicID, [NotNull] object topicName)
         {
-            if (TopicID.ToString() == string.Empty || TopicName.ToString() == string.Empty)
+            if (topicID.ToString() == string.Empty || topicName.ToString() == string.Empty)
             {
                 return string.Empty;
             }
 
             return
                 "<a target=\"_top\" href=\"{0}\">{1}</a>".FormatWith(
-                    YafBuildLink.GetLink(ForumPages.posts, "t={0}", TopicID), TopicName);
+                    YafBuildLink.GetLink(ForumPages.posts, "t={0}", topicID), topicName);
         }
 
         /// <summary>
-        /// The page_ load.
+        /// Sets the location.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="userName">Name of the user.</param>
+        /// <returns>Returns the Location</returns>
+        protected string SetLocation([NotNull] string userName)
+        {
+            string location;
+
+            try
+            {
+                location = YafUserProfile.GetProfile(Eval("UserName").ToString()).Location;
+
+                if (string.IsNullOrEmpty(location))
+                {
+                    location = "-";
+                }
+            }
+            catch (Exception)
+            {
+                location = "-";
+            }
+
+            return this.HtmlEncode(this.Get<IBadWordReplace>().Replace(location));
+        }
+
+        /// <summary>
+        /// Handles the Load event of the Page control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.IsPostBack)
@@ -300,19 +298,15 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// The pager_ page change.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Pager_PageChange([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.BindActiveUserData();
         }
 
         /// <summary>
-        /// The bind data.
+        /// Binds the active user data.
         /// </summary>
         private void BindActiveUserData()
         {
@@ -372,7 +366,7 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The bind data.
+        /// Binds the data.
         /// </summary>
         private void BindData()
         {

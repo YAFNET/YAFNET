@@ -168,6 +168,7 @@
     <Resource tag="Administration">Администрирование</Resource>
     <Resource tag="ALL_BOARDS"> - Все конференции - </Resource>
     <Resource tag="APROVE_ALL">Одобрить всё</Resource>
+    <Resource tag="BOARD_LOCATION">Board Location</Resource>
     <Resource tag="BOARD_STARTED">Конференция создана:</Resource>
     <Resource tag="CONFIRM_APROVE">Одобрить этого пользователя?</Resource>
     <Resource tag="CONFIRM_APROVE_ALL">Одобрить всех пользователей?</Resource>

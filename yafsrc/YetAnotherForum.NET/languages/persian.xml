@@ -168,6 +168,7 @@
     <Resource tag="Administration">مدیریت</Resource>
     <Resource tag="ALL_BOARDS"> - همه تابلو ها - </Resource>
     <Resource tag="APROVE_ALL">تایید همه</Resource>
+    <Resource tag="BOARD_LOCATION">Board Location</Resource>
     <Resource tag="BOARD_STARTED">تاسیس تابلو :</Resource>
     <Resource tag="CONFIRM_APROVE">این کاربر را تائید می کنید؟</Resource>
     <Resource tag="CONFIRM_APROVE_ALL">همه کاربران را تائید می کنید؟</Resource>

@@ -3496,6 +3496,7 @@ Visit {forumname} at {forumlink}
       <Resource tag="APROVE_ALL">Approve All</Resource>
       <Resource tag="DELETE_ALL">Delete All More Than Days Old:</Resource>
       <Resource tag="ERROR_DATABASESIZE">Unable to fetch DB Size</Resource>
+      <Resource tag="BOARD_LOCATION">Board Location</Resource>     
    </page>
   <page name="ADMIN_COMMON">
     <Resource tag="YES">Yes</Resource>

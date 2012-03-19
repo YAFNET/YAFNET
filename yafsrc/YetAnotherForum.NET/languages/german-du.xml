@@ -169,6 +169,7 @@
     <Resource tag="Administration">Verwaltung</Resource>
     <Resource tag="ALL_BOARDS"> - Alle Boards - </Resource>
     <Resource tag="APROVE_ALL">Alle Genehmigen</Resource>
+    <Resource tag="BOARD_LOCATION">Ort im Board</Resource>
     <Resource tag="BOARD_STARTED">Board begonnen:</Resource>
     <Resource tag="CONFIRM_APROVE">Diesen Benutzer genehmigen?</Resource>
     <Resource tag="CONFIRM_APROVE_ALL">Alle Benutzer Genehmigen?</Resource>

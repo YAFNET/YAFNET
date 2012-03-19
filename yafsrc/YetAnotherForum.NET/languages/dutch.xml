@@ -168,6 +168,7 @@
     <Resource tag="Administration">Onderhoud</Resource>
     <Resource tag="ALL_BOARDS"> - Alle Boards - </Resource>
     <Resource tag="APROVE_ALL">Alles goedkeuren</Resource>
+    <Resource tag="BOARD_LOCATION">Board Location</Resource>
     <Resource tag="BOARD_STARTED">Board gestart:</Resource>
     <Resource tag="CONFIRM_APROVE">Deze gebruiker goedkeuren?</Resource>
     <Resource tag="CONFIRM_APROVE_ALL">Alle gebruikers goedkeuren?</Resource>

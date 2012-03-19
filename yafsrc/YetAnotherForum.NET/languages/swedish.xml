@@ -168,6 +168,7 @@
     <Resource tag="Administration">Administration</Resource>
     <Resource tag="ALL_BOARDS"> - All Boards - </Resource>
     <Resource tag="APROVE_ALL">Approve All</Resource>
+    <Resource tag="BOARD_LOCATION">Board Location</Resource>
     <Resource tag="BOARD_STARTED">Board started:</Resource>
     <Resource tag="CONFIRM_APROVE">Approve this User?</Resource>
     <Resource tag="CONFIRM_APROVE_ALL">Approve all Users?</Resource>
