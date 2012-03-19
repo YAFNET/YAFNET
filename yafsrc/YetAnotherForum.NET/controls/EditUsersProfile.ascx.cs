@@ -340,12 +340,20 @@ namespace YAF.Controls
                     displayName = this.DisplayName.Text.Trim();
                 }
             }
-
+            string userName = UserMembershipHelper.GetUserNameFromID(this.currentUserID);
             if (this.UpdateEmailFlag)
             {
                 string newEmail = this.Email.Text.Trim();
-
+              
+               
                 if (!ValidationHelper.IsValidEmail(newEmail))
+                {
+                    this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_EMAIL"));
+                    return;
+                }
+
+                string userNameFromEmail = this.Get<MembershipProvider>().GetUserNameByEmail(this.Email.Text.Trim());
+                if (userNameFromEmail != userName)
                 {
                     this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_EMAIL"));
                     return;
@@ -370,8 +378,6 @@ namespace YAF.Controls
                     }
                 }
             }
-
-            string userName = UserMembershipHelper.GetUserNameFromID(this.currentUserID);
 
             this.UpdateUserProfile(userName);
 

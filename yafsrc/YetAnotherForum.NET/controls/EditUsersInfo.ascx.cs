@@ -97,9 +97,15 @@ namespace YAF.Controls
       // Update the Membership
       if (!this.IsGuestX.Checked)
       {
-        MembershipUser user = UserMembershipHelper.GetUser(this.Name.Text.Trim());
-
-        if (this.Email.Text.Trim() != user.Email)
+         MembershipUser user = UserMembershipHelper.GetUser(this.Name.Text.Trim());
+        
+         string userName = this.Get<MembershipProvider>().GetUserNameByEmail(this.Email.Text.Trim());
+         if (userName != user.UserName)
+         {
+             this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_EMAIL"));
+             return;
+         }
+        if (this.Email.Text.Trim() != user.Email )
         {
           // update the e-mail here too...
           user.Email = this.Email.Text.Trim();
@@ -107,6 +113,7 @@ namespace YAF.Controls
 
         // Update IsApproved
         user.IsApproved = this.IsApproved.Checked;
+       
         this.Get<MembershipProvider>().UpdateUser(user);
       }
       else
