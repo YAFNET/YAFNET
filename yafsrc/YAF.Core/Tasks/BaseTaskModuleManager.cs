@@ -102,6 +102,28 @@ namespace YAF.Core
     	return this.TryGetTask(instanceName, out task) && task.IsRunning;
     }
 
+    /// <summary>
+    /// Check if Tasks are Running.
+    /// </summary>
+    /// <param name="instanceNames">
+    /// </param>
+    /// <returns>
+    /// The tasks are running.
+    /// </returns>
+    public virtual bool AreTasksRunning([NotNull] string[] instanceNames)
+    {
+        bool isRunning = false;
+        foreach (var s in instanceNames)
+        {
+            IBackgroundTask task;
+            isRunning = this.TryGetTask(s, out task) && task.IsRunning;
+            if (isRunning) break;
+        }
+
+        return isRunning;
+
+    }
+
   	/// <summary>
     /// Start a non-running task -- will set the <see cref="HttpApplication"/> instance.
     /// </summary>

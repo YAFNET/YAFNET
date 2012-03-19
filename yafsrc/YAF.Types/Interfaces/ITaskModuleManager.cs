@@ -63,6 +63,16 @@ namespace YAF.Types.Interfaces
     bool IsTaskRunning([NotNull] string instanceName);
 
     /// <summary>
+    /// Check if Tasks are Running.
+    /// </summary>
+    /// <param name="instanceName">
+    /// </param>
+    /// <returns>
+    /// The are tasks running.
+    /// </returns>
+    bool AreTasksRunning([NotNull] string[] instanceName);
+
+    /// <summary>
     /// Start a non-running task -- will set the <see cref="HttpApplication"/> instance.
     /// </summary>
     /// <param name="instanceName">

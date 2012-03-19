@@ -17,12 +17,13 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using YAF.Types.Constants;
+
 
 namespace YAF.Core.Tasks
 {
 	using System;
 
+    using YAF.Types.Constants;
 	using YAF.Classes.Data;
 	using YAF.Types.Interfaces;
 	using YAF.Utils;
@@ -30,14 +31,15 @@ namespace YAF.Core.Tasks
 	/// <summary>
 	/// The forum delete task.
 	/// </summary>
-    public class ForumDeleteTask : LongBackgroundTask,ICriticalBackgroundTask
+    public class CategoryDeleteTask : LongBackgroundTask,ICriticalBackgroundTask,IBlockableTask
 	{
 		#region Constants and Fields
 
 		/// <summary>
 		/// The _task name.
 		/// </summary>
-		private const string _TaskName = "ForumDeleteTask";
+		private const string _TaskName = "CategoryDeleteTask";
+      
 
 		#endregion
 
@@ -61,9 +63,9 @@ namespace YAF.Core.Tasks
 
 
 		/// <summary>
-		/// Gets or sets ForumId.
+		/// Gets or sets CategoryId.
 		/// </summary>
-		public int ForumId { get; set; }
+		public int CategoryId { get; set; }
 
 		/// <summary>
 		/// Gets or sets Forum New Id.
@@ -89,7 +91,7 @@ namespace YAF.Core.Tasks
 	    /// <returns>
 	    /// Returns if Task was Successfull
 	    /// </returns>
-	    public static bool Start(int boardId, int forumId, out string failureMessage)
+	    public static bool Start(int categoryId, out string failureMessage)
 		{
 
             failureMessage = string.Empty;
@@ -101,58 +103,18 @@ namespace YAF.Core.Tasks
             {
                 YafContext.Current.Get<ITaskModuleManager>().StartTask(TaskName,
                                                                        () =>
-                                                                       new ForumDeleteTask
+                                                                       new CategoryDeleteTask
                                                                            {
-                                                                               Data = boardId,
-                                                                               ForumId = forumId,
-                                                                               ForumNewId = -1
+                                                                               CategoryId = categoryId
                                                                            });
             }
             else
             {
-                failureMessage = "You can't delete forum while blocking {0} tasks are running.".FormatWith(BlockingTaskNames.ToDelimitedString(","));
+                failureMessage = "You can't delete category while some of the blocking {0} tasks are running.".FormatWith(BlockingTaskNames.ToDelimitedString(","));
                 return false;
             }
 
 		    return true;
-		}
-
-
-		/// <summary>
-		/// Creates the Forum Delete Task and moves the Messages to a new Forum
-		/// </summary>
-		/// <param name="boardId">
-		/// The board id.
-		/// </param>
-		/// <param name="forumOldId">
-		/// The forum Old Id.
-		/// </param>
-		/// <param name="forumNewId">
-		/// The Forum New Id.
-		/// </param>
-        /// <param name="failureMessage"> 
-        /// The failure message - is empty if task is launched successfully.
-        /// </param>
-		/// <returns>
-		/// Returns if Task was Successfull
-		/// </returns>
-        public static bool Start(int boardId, int forumOldId, int forumNewId, out string failureMessage)
-		{
-            failureMessage = string.Empty;
-			if (YafContext.Current.Get<ITaskModuleManager>() == null)
-			{
-				return false;
-			}
-            if (!YafContext.Current.Get<ITaskModuleManager>().IsTaskRunning("ForumSaveTask"))
-            {
-			YafContext.Current.Get<ITaskModuleManager>().StartTask(TaskName, () => new ForumDeleteTask { Data = boardId, ForumId = forumOldId, ForumNewId = forumNewId });
-            }
-            else
-            {
-                failureMessage = "You can't delete forum while ForumSaveTask is running.";
-                return false;
-            }
-            return true;
 		}
 
 		/// <summary>
@@ -160,27 +122,16 @@ namespace YAF.Core.Tasks
 		/// </summary>
 		public override void RunOnce()
 		{
-			try
-			{
-				if (this.ForumNewId.Equals(-1))
-				{
-					LegacyDb.forum_delete(this.ForumId);
-                    this.Logger.Info("Forum (ID: {0}) Delete Task Complete.".FormatWith(this.ForumId));
-					LegacyDb.eventlog_create(
-					null, TaskName, "Forum (ID: {0}) Delete Task Complete.".FormatWith(this.ForumId), 2);
-				}
-				else
-				{
-					LegacyDb.forum_move(this.ForumId, this.ForumNewId);
-
-					LegacyDb.eventlog_create(
-					null, TaskName, "Forum (ID: {0}) Delete Task Complete, and Topics has been moved to Forum (ID: {1})".FormatWith(this.ForumId, this.ForumNewId), 2);
-				}
+            try
+            {
+                this.Logger.Info("Starting Category {0} delete task.",this.CategoryId);
+                LegacyDb.category_delete(this.CategoryId);
+                this.Logger.Info("Category (ID: {0}) Delete Task Complete.",this.CategoryId);
+				
 			}
 			catch (Exception x)
 			{
-				LegacyDb.eventlog_create(
-						null, TaskName, "Error In Forum (ID: {0}) Delete Task: {1}".FormatWith(this.ForumId, x));
+                this.Logger.Error(x,"Error In Category (ID: {0}) Delete Task".FormatWith(this.CategoryId),x);
 			}
 		}
 

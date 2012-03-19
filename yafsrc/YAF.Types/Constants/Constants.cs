@@ -304,5 +304,11 @@ namespace YAF.Types.Constants
 
             #endregion
         }
+
+        public struct ForumRebuild
+        {
+            public static readonly string[] BlockingTaskNames = new[] { "BoardDeleteTask", "BoardCreateTask", "ForumDeleteTask", "ForumSaveTask", "CategoryDeleteTask", "CategorySaveTask" };
+        }
+
     }
 }

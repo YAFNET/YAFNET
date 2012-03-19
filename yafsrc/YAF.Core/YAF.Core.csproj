@@ -225,7 +225,13 @@
     <Compile Include="Extensions\BackgroundTaskExtensions.cs" />
     <Compile Include="Tasks\BaseBackgroundTask.cs" />
     <Compile Include="BaseModules\BaseForumModule.cs" />
+    <Compile Include="Tasks\IBlockableTask.cs" />
     <Compile Include="Tasks\CleanUpTask.cs" />
+    <Compile Include="Tasks\CategoryDeleteTask.cs" />
+    <Compile Include="Tasks\CategorySaveTask.cs" />
+    <Compile Include="Tasks\BoardDeleteTask.cs" />
+    <Compile Include="Tasks\BoardCreateTask.cs" />
+    <Compile Include="Tasks\ForumSaveTask.cs" />
     <Compile Include="Tasks\DigestSendForumModule.cs" />
     <Compile Include="Tasks\DigestSendTask.cs" />
     <Compile Include="Tasks\ForumDeleteTask.cs" />
