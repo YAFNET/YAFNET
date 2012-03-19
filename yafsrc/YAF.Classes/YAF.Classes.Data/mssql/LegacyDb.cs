@@ -64,6 +64,7 @@ namespace YAF.Classes.Data
             "mssql/triggers.sql",
             "mssql/functions.sql", 
             "mssql/procedures.sql",
+            "mssql/forum_ns.sql",
             "mssql/providers/tables.sql",
             "mssql/providers/indexes.sql",
             "mssql/providers/procedures.sql" 
@@ -3980,7 +3981,112 @@ namespace YAF.Classes.Data
         /// </returns>
         public static DataTable forum_listall_sorted([NotNull] object boardID, [NotNull] object userID)
         {
-            return forum_listall_sorted(boardID, userID, null, false, 0);
+            return !MsSqlDbAccess.LargeForumTree ? forum_listall_sorted(boardID, userID, null, false, 0) : forum_ns_getchildren_activeuser((int)boardID, 0, 0, (int)userID, false, false, "-");
+        }
+
+        static public DataTable forum_ns_getchildren_anyuser(int boardid, int categoryid, int forumid, int userid, bool notincluded, bool immediateonly, string indentchars)
+        {
+            using (var cmd = MsSqlDbAccess.GetCommand("forum_ns_getchildren_anyuser"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("BoardID", boardid);
+                cmd.Parameters.AddWithValue("CategoryID", categoryid);
+                cmd.Parameters.AddWithValue("ForumID", forumid);
+                cmd.Parameters.AddWithValue("UserID", userid);
+                cmd.Parameters.AddWithValue("NotIncluded", notincluded);
+                cmd.Parameters.AddWithValue("ImmediateOnly", immediateonly);
+
+                DataTable dt = MsSqlDbAccess.Current.GetData(cmd);
+                DataTable sorted = dt.Clone();
+                bool forumRow = false;
+                foreach (DataRow row in dt.Rows)
+                {
+                    DataRow newRow = sorted.NewRow();
+                    newRow.ItemArray = row.ItemArray;
+                    newRow = row;
+
+                    int currentIndent = (int)row["Level"];
+                    string sIndent = "";
+
+                    for (int j = 0; j < currentIndent; j++)
+                        sIndent += "--";
+                    if (currentIndent == 1 && !forumRow)
+                    {
+                        newRow["ForumID"] = currentIndent;
+                        newRow["Title"] = string.Format(" -{0} {1}", sIndent, row["CategoryName"]);
+                        forumRow = true;
+                    }
+                    else
+                    {
+                        newRow["ForumID"] = currentIndent;
+                        newRow["Title"] = string.Format(" -{0} {1}", sIndent, row["Title"]);
+                        forumRow = false;
+                    }
+
+                    // import the row into the destination
+                    sorted.Rows.Add(newRow);
+                }
+                return sorted;
+            }
+        }
+
+        static public DataTable forum_ns_getchildren_activeuser(int boardid, int categoryid, int forumid, int userid, bool notincluded, bool immediateonly, string indentchars)
+        {
+            using (var cmd = MsSqlDbAccess.GetCommand("forum_ns_getchildren_activeuser"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("BoardID", boardid);
+                cmd.Parameters.AddWithValue("CategoryID",categoryid);
+                cmd.Parameters.AddWithValue("ForumID",forumid);
+                cmd.Parameters.AddWithValue("UserID", userid);
+                cmd.Parameters.AddWithValue("NotIncluded", notincluded);
+                cmd.Parameters.AddWithValue("ImmediateOnly", immediateonly);
+
+                DataTable dt = MsSqlDbAccess.Current.GetData(cmd);
+                DataTable sorted = dt.Clone();
+                int categoryId = 0;
+                foreach (DataRow row in dt.Rows)
+                {
+                    DataRow newRow = sorted.NewRow();
+                    newRow.ItemArray = row.ItemArray;
+
+                    int currentIndent = (int)row["Level"];
+                    string sIndent = "";
+
+
+                    if (currentIndent >= 2)
+                    {
+                        for (int j = 0; j < currentIndent - 1; j++)
+                        {
+                            sIndent += "-";
+                            if (currentIndent > 2)
+                            {
+                                sIndent += "-";
+                            }
+                        }
+                    }
+
+                    if ((int)row["CategoryID"] != categoryId)
+                    {
+                        DataRow cRow = sorted.NewRow();
+                        // we add a category
+                        cRow["ForumID"] = -(int)row["CategoryID"];
+                        cRow["Title"] = string.Format(" {0}", row["CategoryName"]);
+                        categoryId = (int)row["CategoryID"];
+                        sorted.Rows.Add(cRow);
+
+                    }
+
+                    newRow["ForumID"] = row["ForumID"];
+                    newRow["Title"] = string.Format(" {0} {1}", sIndent, row["Title"]);
+                    sorted.Rows.Add(newRow);
+
+                }
+                return sorted;
+
+            }
         }
 
         /// <summary>
@@ -4058,11 +4164,26 @@ namespace YAF.Classes.Data
         /// </returns>
         public static DataTable forum_listpath([NotNull] object forumID)
         {
-            using (var cmd = MsSqlDbAccess.GetCommand("forum_listpath"))
+           
+
+            if (!MsSqlDbAccess.LargeForumTree)
             {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("ForumID", forumID);
-                return MsSqlDbAccess.Current.GetData(cmd);
+
+                using (var cmd = MsSqlDbAccess.GetCommand("forum_listpath"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("ForumID", forumID);
+                    return MsSqlDbAccess.Current.GetData(cmd);
+                }
+            }
+            else
+            {
+                using (var cmd = MsSqlDbAccess.GetCommand("forum_ns_listpath"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("ForumID", forumID);
+                    return MsSqlDbAccess.Current.GetData(cmd);
+                }
             }
         }
 
@@ -4092,17 +4213,38 @@ namespace YAF.Classes.Data
         /// </returns>
         public static DataTable forum_listread([NotNull] object boardID, [NotNull] object userID, [NotNull] object categoryID, [NotNull] object parentID, [NotNull] object useStyledNicks, [CanBeNull]bool findLastRead)
         {
-            using (var cmd = MsSqlDbAccess.GetCommand("forum_listread"))
+           
+            if (!MsSqlDbAccess.LargeForumTree)
             {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("BoardID", boardID);
-                cmd.Parameters.AddWithValue("UserID", userID);
-                cmd.Parameters.AddWithValue("CategoryID", categoryID);
-                cmd.Parameters.AddWithValue("ParentID", parentID);
-                cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
-                cmd.Parameters.AddWithValue("FindLastRead", findLastRead);
-                return MsSqlDbAccess.Current.GetData(cmd);
+
+
+                using (var cmd = MsSqlDbAccess.GetCommand("forum_listread"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("BoardID", boardID);
+                    cmd.Parameters.AddWithValue("UserID", userID);
+                    cmd.Parameters.AddWithValue("CategoryID", categoryID);
+                    cmd.Parameters.AddWithValue("ParentID", parentID);
+                    cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
+                    cmd.Parameters.AddWithValue("FindLastRead", findLastRead);
+                    return MsSqlDbAccess.Current.GetData(cmd);
+                }
             }
+            else
+            {
+                using (var cmd = MsSqlDbAccess.GetCommand("forum_ns_listread"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("BoardID", boardID);
+                    cmd.Parameters.AddWithValue("UserID", userID);
+                    cmd.Parameters.AddWithValue("CategoryID", categoryID);
+                    cmd.Parameters.AddWithValue("ParentID", parentID);
+                    cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
+                    cmd.Parameters.AddWithValue("FindLastRead", findLastRead);
+                    return MsSqlDbAccess.Current.GetData(cmd);
+                }
+            }
+
         }
 
         /// <summary>

@@ -60,7 +60,17 @@ namespace YAF.Classes.Data
     #endregion
 
     #region Properties
-
+    
+    /// <summary>
+    /// Gets LargeForumTree optimization setting.
+    /// </summary>
+    public static bool LargeForumTree
+    {
+        get
+        {
+            return Config.LargeForumTree;
+        }
+    }
     /// <summary>
     ///   Gets Current IDbAccess -- needs to be switched to direct injection into all DB classes.
     /// </summary>
