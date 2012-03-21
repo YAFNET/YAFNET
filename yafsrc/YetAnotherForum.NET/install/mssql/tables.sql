@@ -204,6 +204,7 @@ if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseO
 		LastMessageID	int NULL ,
 		LastUserID		int NULL ,
 		LastUserName	nvarchar (255) NULL ,
+		LastUserDisplayName	nvarchar (255) NULL,
 		NumTopics		int NOT NULL,
 		NumPosts		int NOT NULL,
 		RemoteURL		nvarchar(100) null,
@@ -261,6 +262,7 @@ if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseO
 		Indent			    int NOT NULL ,
 		UserID			    int NOT NULL ,
 		UserName		    nvarchar (255) NULL ,
+		UserDisplayName		nvarchar (255) NULL ,
 		Posted			    datetime NOT NULL ,
 		[Message]		    ntext NOT NULL ,
 		IP				    nvarchar (15) NOT NULL ,
@@ -364,7 +366,8 @@ if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseO
 		TopicID			    int IDENTITY (1, 1) NOT NULL ,
 		ForumID			    int NOT NULL ,
 		UserID			    int NOT NULL ,
-		UserName		    nvarchar (255) NULL ,		
+		UserName		    nvarchar (255) NULL ,
+		UserDisplayName		nvarchar (255) NULL ,	
 		Posted			    datetime NOT NULL ,
 		Topic			    nvarchar (100) NOT NULL ,
 		[Description]		nvarchar (255) NULL ,
@@ -377,7 +380,8 @@ if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseO
 		LastPosted		    datetime NULL ,
 		LastMessageID	    int NULL ,
 		LastUserID		    int NULL ,
-		LastUserName	    nvarchar (255) NULL,		
+		LastUserName	    nvarchar (255) NULL,
+		LastUserDisplayName	nvarchar (255) NULL,	
 		NumPosts		    int NOT NULL,
 		Flags			    int not null constraint [DF_{objectQualifier}Topic_Flags] default (0),
 		IsDeleted		    AS (CONVERT([bit],sign([Flags]&(8)),0)),
@@ -717,6 +721,7 @@ begin
 		[BoardId] [int] NOT NULL,
 		[UserID] [int] NULL,
 		[UserName] [nvarchar](255) NOT NULL,
+		[UserDisplayName] [nvarchar](255) NOT NULL,
 		[Message] [ntext] NULL,
 		[Date] [datetime] NOT NULL,
 		[IP] [varchar](50) NOT NULL
@@ -1226,20 +1231,47 @@ if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwne
 	alter table [{databaseOwner}].[{objectQualifier}Forum] add Styles nvarchar(255) NULL
 GO
 
-if exists (select * from syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}Forum]') and name='LastUserName' and prec < 255)
+if exists (select top 1 1 from syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}Forum]') and name='LastUserName' and prec < 255)
  	alter table [{databaseOwner}].[{objectQualifier}Forum] alter column [LastUserName]	nvarchar (255) NULL 
 GO
 
-if exists (select * from syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}nntptopic]') and name='Thread' and prec < 64)
- 	alter table [{databaseOwner}].[{objectQualifier}nntptopic] alter column [Thread]	nvarchar (64) NULL 
-GO
-
-if not exists (select * from syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}NntpForum]') and name='DateCutOff')
- 	alter table [{databaseOwner}].[{objectQualifier}NntpForum] ADD	DateCutOff datetime NULL
+if not exists (select top 1 1 from syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}Forum]') and name='LastUserDisplayName')
+ 	alter table [{databaseOwner}].[{objectQualifier}Forum] add [LastUserDisplayName]	nvarchar (255) NULL
+	
 GO
 
 if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='PollGroupID')
 	alter table [{databaseOwner}].[{objectQualifier}Forum] add PollGroupID int NULL
+GO
+
+if not exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='IsHidden')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Forum] ADD [IsHidden] AS (CONVERT([bit],sign([Flags]&(2)),(0)))
+end
+GO
+
+if not exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='IsLocked')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Forum] ADD [IsLocked] AS (CONVERT([bit],sign([Flags]&(1)),(0)))
+end
+GO
+
+if not exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='IsNoCount')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Forum] ADD [IsNoCount] AS (CONVERT([bit],sign([Flags]&(4)),(0)))
+end
+GO
+
+if not exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='IsModerated')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Forum] ADD [IsModerated] AS (CONVERT([bit],sign([Flags]&(8)),(0)))
+end
+GO
+
+if not exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='UserID')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Forum] ADD [UserID]  int null 
+end
 GO
 
 -- Group Table
@@ -1249,9 +1281,9 @@ begin
 end
 GO
 
-if exists (select * from syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}Group]') and name='Name' and prec < 255)
+if exists (select top 1 1 from syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}Group]') and name='Name' and prec < 255)
 begin
-if exists (select * from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='IX_{objectQualifier}Group')
+if exists (select top 1 1 from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='IX_{objectQualifier}Group')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Group] drop constraint IX_{objectQualifier}Group 
 end
@@ -1466,6 +1498,16 @@ begin
 end
 GO
 
+if not exists (select top 1 1 from syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}NntpForum]') and name='DateCutOff')
+ 	alter table [{databaseOwner}].[{objectQualifier}NntpForum] ADD	DateCutOff datetime NULL
+GO
+
+-- NntpTopic Table
+
+if exists (select top 1 1 from syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}nntptopic]') and name='Thread' and prec < 64)
+ 	alter table [{databaseOwner}].[{objectQualifier}nntptopic] alter column [Thread]	nvarchar (64) NULL 
+GO
+
 -- ReplaceWords Table
 if exists (select * from dbo.syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}Replace_Words]') and name='badword' and prec < 255)
  	alter table [{databaseOwner}].[{objectQualifier}Replace_Words] alter column badword nvarchar(255) NULL
@@ -1485,6 +1527,12 @@ GO
 if not exists (select top 1 1 from syscolumns where id=object_id(N'[{databaseOwner}].[{objectQualifier}ShoutboxMessage]') and name='BoardID')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}ShoutboxMessage] add BoardID int not null constraint [DF_{objectQualifier}ShoutboxMessage_BoardID] default (1)
+end
+GO
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}ShoutboxMessage]') and name='UserDisplayName')
+begin	
+	alter table [{databaseOwner}].[{objectQualifier}ShoutboxMessage] add UserDisplayName nvarchar (255) null
+	-- alter table [{databaseOwner}].[{objectQualifier}ShoutboxMessage] alter column UserDisplayName nvarchar (255) not null
 end
 GO
 
@@ -1539,35 +1587,14 @@ begin
 end
 GO
 
-if not exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='IsHidden')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='UserDisplayName')
 begin
-	alter table [{databaseOwner}].[{objectQualifier}Forum] ADD [IsHidden] AS (CONVERT([bit],sign([Flags]&(2)),(0)))
+	alter table [{databaseOwner}].[{objectQualifier}Message] add UserDisplayName nvarchar(255) 
+
 end
 GO
 
-if not exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='IsLocked')
-begin
-	alter table [{databaseOwner}].[{objectQualifier}Forum] ADD [IsLocked] AS (CONVERT([bit],sign([Flags]&(1)),(0)))
-end
-GO
 
-if not exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='IsNoCount')
-begin
-	alter table [{databaseOwner}].[{objectQualifier}Forum] ADD [IsNoCount] AS (CONVERT([bit],sign([Flags]&(4)),(0)))
-end
-GO
-
-if not exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='IsModerated')
-begin
-	alter table [{databaseOwner}].[{objectQualifier}Forum] ADD [IsModerated] AS (CONVERT([bit],sign([Flags]&(8)),(0)))
-end
-GO
-
-if not exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='UserID')
-begin
-	alter table [{databaseOwner}].[{objectQualifier}Forum] ADD [UserID]  int null 
-end
-GO
 
 if not exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='IsApproved')
 begin
@@ -1660,9 +1687,23 @@ GO
 
 if exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='LastUserName')
 begin
-	alter table [{databaseOwner}].[{objectQualifier}Topic] alter column [LastUserName]	nvarchar (255) NULL 
+	alter table [{databaseOwner}].[{objectQualifier}Topic] alter column [LastUserName]	nvarchar (255) NULL	
 end
 GO
+
+if not exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='UserDisplayName')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Topic] add [UserDisplayName]	nvarchar (255) NULL 
+
+end
+GO
+
+if not exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='LastUserDisplayName')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Topic] add [LastUserDisplayName]		nvarchar (255) NULL 
+end
+GO
+
 
 if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='LastMessageFlags')
 begin
@@ -2149,4 +2190,86 @@ if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseO
 		ReputationToUserID	  int NOT NULL,
 		VoteDate	datetime NOT NULL
 	)
+GO	
+
+-- display names upgrade routine can run really for ages on large forums 
+IF  exists(select top 1 1 from dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}forum_initdisplayname]'))
+DROP procedure [{databaseOwner}].[{objectQualifier}forum_initdisplayname]
+GO
+
+create procedure [{databaseOwner}].[{objectQualifier}forum_initdisplayname] as
+
+begin
+
+	declare @tmp int
+	declare @tmpUserID int
+	declare @tmpLastUserID int
+		
+		declare fc cursor for
+		select ForumID, LastUserID from [{databaseOwner}].[{objectQualifier}Forum]
+		where LastUserDisplayName IS NULL
+				
+		open fc
+		
+		fetch next from fc into @tmp,@tmpLastUserID
+		while @@FETCH_STATUS = 0
+		begin
+		update [{databaseOwner}].[{objectQualifier}Forum] set LastUserDisplayName = (select u.DisplayName FROM [{databaseOwner}].[{objectQualifier}User] u WHERE u.UserID = @tmpLastUserID) where [{databaseOwner}].[{objectQualifier}Forum].ForumID = @tmp 	
+	    fetch next from fc into @tmp,@tmpLastUserID
+		end
+		close fc
+		deallocate fc
+		
+		declare sbc cursor for
+		select ShoutBoxMessageID,UserID from [{databaseOwner}].[{objectQualifier}ShoutboxMessage]
+		where UserDisplayName IS NULL
+				
+		open sbc
+		
+		fetch next from sbc into @tmp,@tmpUserID
+		while @@FETCH_STATUS = 0
+		begin
+		update [{databaseOwner}].[{objectQualifier}ShoutboxMessage] set UserDisplayName = (select u.DisplayName FROM [{databaseOwner}].[{objectQualifier}User] u where u.UserID = @tmpUserID) where [{databaseOwner}].[{objectQualifier}ShoutboxMessage].ShoutBoxMessageID = @tmp
+	  	fetch next from sbc into @tmp,@tmpUserID
+		end
+		close sbc
+		deallocate sbc			
+		
+		declare mc cursor for
+		select MessageID,UserID from [{databaseOwner}].[{objectQualifier}Message]
+		where UserDisplayName IS NULL
+				
+		open mc
+		
+		fetch next from mc into @tmp,@tmpUserID
+		while @@FETCH_STATUS = 0
+		begin		
+	    update [{databaseOwner}].[{objectQualifier}Message]  set UserDisplayName = (select u.DisplayName FROM [{databaseOwner}].[{objectQualifier}User] u  WHERE u.UserID = @tmpUserID) where MessageID = @tmp
+	   	fetch next from mc into @tmp,@tmpUserID
+		end
+		close mc
+		deallocate mc		
+		
+		declare tc cursor for
+		select TopicID,UserID,LastUserID from [{databaseOwner}].[{objectQualifier}Topic]
+		where UserDisplayName IS NULL OR LastUserDisplayName IS NULL
+				
+		open tc
+		
+		fetch next from tc into @tmp,@tmpUserID,@tmpLastUserID
+		while @@FETCH_STATUS = 0
+		begin	
+	    
+	    update [{databaseOwner}].[{objectQualifier}Topic] set UserDisplayName = (select u.DisplayName FROM [{databaseOwner}].[{objectQualifier}User] u  WHERE u.UserID = @tmpUserID) where TopicID = @tmp
+	    update [{databaseOwner}].[{objectQualifier}Topic] set LastUserDisplayName = (select u.DisplayName FROM [{databaseOwner}].[{objectQualifier}User] u WHERE u.UserID = @tmpLastUserID) where TopicID = @tmp			
+
+		fetch next from tc into @tmp,@tmpUserID,@tmpLastUserID
+		end
+		close tc
+		deallocate tc			
+end
+GO
+
+if exists (select top 1 1 from [{databaseOwner}].[{objectQualifier}Message] where UserDisplayName IS NULL)
+exec('[{databaseOwner}].[{objectQualifier}forum_initdisplayname]')
 GO

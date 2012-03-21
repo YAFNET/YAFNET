@@ -1509,6 +1509,7 @@ begin
 		select
 			a.UserID,
 			UserName = a.Name,
+			UserDisplayName = a.DisplayName,
 			c.IP,
 			c.SessionID,
 			c.ForumID,
@@ -1542,6 +1543,7 @@ begin
 		select
 			a.UserID,
 			UserName = a.Name,
+			UserDisplayName = a.DisplayName,
 			c.IP,
 			c.SessionID,
 			c.ForumID,
@@ -1576,6 +1578,7 @@ begin
 		select
 			a.UserID,
 			UserName = a.Name,
+			UserDisplayName = a.DisplayName,
 			c.IP,
 			c.SessionID,
 			c.ForumID,
@@ -1621,6 +1624,7 @@ begin
 		select
 			a.UserID,
 			UserName = a.Name,
+			UserDisplayName = a.DisplayName,
 			c.IP,
 			c.SessionID,
 			c.ForumID,
@@ -1657,6 +1661,7 @@ begin
 			select
 			a.UserID,
 			UserName = a.Name,
+			UserDisplayName = a.DisplayName,
 			c.IP,
 			c.SessionID,
 			c.ForumID,
@@ -1695,6 +1700,7 @@ begin
 		select
 			a.UserID,
 			UserName = a.Name,
+			UserDisplayName = a.DisplayName,
 			c.IP,
 			c.SessionID,
 			c.ForumID,
@@ -1742,6 +1748,7 @@ begin
 		select
 		UserID		= a.UserID,
 		UserName	= b.Name,
+		UserDisplayName = b.DisplayName,
 		IsHidden	= ( b.IsActiveExcluded ),
 		IsCrawler	= Convert(int,a.Flags & 8),		
 		Style = case(@StyledNicks)
@@ -1757,6 +1764,7 @@ begin
 		a.ForumID = @ForumID
 	group by
 		a.UserID,
+		b.DisplayName,
 		b.Name,
 		b.IsActiveExcluded,
 		b.UserID,
@@ -1773,6 +1781,7 @@ begin
 		select
 		UserID		= a.UserID,
 		UserName	= b.Name,
+		UserDisplayName = b.DisplayName,
 		IsHidden = ( b.IsActiveExcluded ),		
 		IsCrawler	= Convert(int,a.Flags & 8),
 		Style = case(@StyledNicks)
@@ -1788,6 +1797,7 @@ begin
 		a.TopicID = @TopicID
 	group by
 		a.UserID,
+		b.DisplayName,
 		b.Name,
 		b.IsActiveExcluded,
 		b.UserID,
@@ -2849,7 +2859,8 @@ select
 		LastMessageID	= t.LastMessageID,
 		LastMessageFlags = t.LastMessageFlags,
 		LastUserID		= t.LastUserID,
-		LastUser		= IsNull(t.LastUserName,(select [Name] from [{databaseOwner}].[{objectQualifier}User] x with(nolock) where x.UserID=t.LastUserID)),
+		LastUser		= IsNull(t.LastUserName,(select x.[Name] from [{databaseOwner}].[{objectQualifier}User] x with(nolock) where x.UserID=t.LastUserID)),
+		LastUserDisplayName	= IsNull(t.LastUserDisplayName,(select x.[DisplayName] from [{databaseOwner}].[{objectQualifier}User] x with(nolock) where x.UserID=t.LastUserID)),
 		LastTopicID		= t.TopicID,
 		TopicMovedID    = t.TopicMovedID,
 		LastTopicName	= t.Topic,
@@ -3062,7 +3073,8 @@ begin
 		LastTopicID = (select top 1 y.TopicID from [{databaseOwner}].[{objectQualifier}Topic] x join [{databaseOwner}].[{objectQualifier}Message] y on y.TopicID=x.TopicID where x.ForumID = @ForumID and (y.Flags & 24)=16 and x.IsDeleted = 0order by y.Posted desc),
 		LastMessageID = (select top 1 y.MessageID from [{databaseOwner}].[{objectQualifier}Topic] x join [{databaseOwner}].[{objectQualifier}Message] y on y.TopicID=x.TopicID where x.ForumID = @ForumID and (y.Flags & 24)=16 and x.IsDeleted = 0order by y.Posted desc),
 		LastUserID = (select top 1 y.UserID from [{databaseOwner}].[{objectQualifier}Topic] x join [{databaseOwner}].[{objectQualifier}Message] y on y.TopicID=x.TopicID where x.ForumID = @ForumID and (y.Flags & 24)=16 and x.IsDeleted = 0order by y.Posted desc),
-		LastUserName = (select top 1 y.UserName from [{databaseOwner}].[{objectQualifier}Topic] x join [{databaseOwner}].[{objectQualifier}Message] y on y.TopicID=x.TopicID where x.ForumID = @ForumID and (y.Flags & 24)=16 and x.IsDeleted = 0order by y.Posted desc)
+		LastUserName = (select top 1 y.UserName from [{databaseOwner}].[{objectQualifier}Topic] x join [{databaseOwner}].[{objectQualifier}Message] y on y.TopicID=x.TopicID where x.ForumID = @ForumID and (y.Flags & 24)=16 and x.IsDeleted = 0order by y.Posted desc),
+		LastUserDisplayName = (select top 1 y.UserDisplayName from [{databaseOwner}].[{objectQualifier}Topic] x join [{databaseOwner}].[{objectQualifier}Message] y on y.TopicID=x.TopicID where x.ForumID = @ForumID and (y.Flags & 24)=16 and x.IsDeleted = 0 order by y.Posted desc)
 	where ForumID = @ForumID
 end
 GO
@@ -3344,13 +3356,14 @@ create procedure [{databaseOwner}].[{objectQualifier}message_approve](@MessageID
 	declare	@Flags	    int
 	declare @Posted		datetime
 	declare	@UserName	nvarchar(255)
-
+	declare	@UserDisplayName	nvarchar(255)
 	select 
 		@UserID = a.UserID,
 		@TopicID = a.TopicID,
 		@ForumID = b.ForumID,
 		@Posted = a.Posted,
 		@UserName = a.UserName,
+		@UserDisplayName = a.UserDisplayName,
 		@Flags	= a.Flags
 	from
 		[{databaseOwner}].[{objectQualifier}Message] a
@@ -3375,7 +3388,8 @@ create procedure [{databaseOwner}].[{objectQualifier}message_approve](@MessageID
 		LastTopicID = @TopicID,
 		LastMessageID = @MessageID,
 		LastUserID = @UserID,
-		LastUserName = @UserName
+		LastUserName = @UserName,
+		LastUserDisplayName = @UserDisplayName
 	where ForumID = @ForumID
 
 	-- update Topic table with info about last post in topic
@@ -3383,7 +3397,8 @@ create procedure [{databaseOwner}].[{objectQualifier}message_approve](@MessageID
 		LastPosted = @Posted,
 		LastMessageID = @MessageID,
 		LastUserID = @UserID,
-		LastUserName = @UserName,		
+		LastUserName = @UserName,
+		LastUserDisplayName = @UserDisplayName,		
 		LastMessageFlags = @Flags | 16,
 		NumPosts = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and x.IsApproved = 1 and x.IsDeleted = 0)
 	where TopicID = @TopicID
@@ -3417,6 +3432,7 @@ begin
 		LastMessageID = null,
 		LastUserID = null,
 		LastUserName = null,
+		LastUserDisplayName = null,
 		LastMessageFlags = null
 	where LastMessageID = @MessageID
 
@@ -3426,7 +3442,8 @@ begin
 		LastTopicID = null,
 		LastMessageID = null,
 		LastUserID = null,
-		LastUserName = null
+		LastUserName = null,
+		LastUserDisplayName = null
 	where LastMessageID = @MessageID
 
 	-- should it be physically deleter or not?
@@ -3600,6 +3617,7 @@ BEGIN
 		a.MessageID,
 		a.UserID,
 		UserName = b.Name,
+		UserDisplayName = b.DisplayName,
 		a.[Message],
 		c.TopicID,
 		c.ForumID,
@@ -3642,6 +3660,7 @@ SELECT
 		m.MessageID,
 		m.UserID,
 		IsNull(t.UserName, u.Name) as Name,
+		IsNull(t.UserDisplayName, u.DisplayName) as DisplayName,
 		m.[Message],
 		m.Posted,
 		t.TopicID,
@@ -3678,6 +3697,7 @@ BEGIN
 		b.[Flags],
 		b.[IsModeratorChanged],	
 		UserName	= IsNull(b.UserName,d.Name),
+		UserDisplayName	= IsNull(b.UserDisplayName,d.DisplayName),
 		UserID = b.UserID,
 		Posted		= b.Posted,
 		TopicID = b.TopicID,
@@ -3706,14 +3726,14 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_listreporters](@Mes
 BEGIN
 	IF ( @UserID > 0 )
 	BEGIN
-	SELECT b.UserID, UserName = a.Name, b.ReportedNumber, b.ReportText  
+	SELECT b.UserID, UserName = a.Name,UserDisplayName = a.DisplayName, b.ReportedNumber, b.ReportText  
 	FROM [{databaseOwner}].[{objectQualifier}User] a,			
 	[{databaseOwner}].[{objectQualifier}MessageReportedAudit] b		
 	WHERE   a.UserID = b.UserID  AND b.MessageID = @MessageID AND b.UserID = @UserID 
 	END
 	ELSE
 	BEGIN
-	SELECT b.UserID, UserName = a.Name, b.ReportedNumber, b.ReportText  
+	SELECT b.UserID, UserName = a.Name,UserDisplayName = a.DisplayName, b.ReportedNumber, b.ReportText  
 	FROM [{databaseOwner}].[{objectQualifier}User] a,			
 	[{databaseOwner}].[{objectQualifier}MessageReportedAudit] b		
 	WHERE   a.UserID = b.UserID  AND b.MessageID = @MessageID
@@ -3789,7 +3809,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_save](
 )
 AS
 BEGIN
-		DECLARE @ForumID INT, @ForumFlags INT, @Position INT, @Indent INT
+		DECLARE @ForumID INT, @ForumFlags INT, @Position INT, @Indent INT, @OverrideDisplayName BIT 
 
 	IF @Posted IS NULL
 		SET @Posted = @UTCTIMESTAMP 
@@ -3839,9 +3859,13 @@ BEGIN
 
 		UPDATE [{databaseOwner}].[{objectQualifier}Message] SET Position=Position+1 WHERE TopicID=@TopicID AND Position>=@Position
 	END
-
-	INSERT [{databaseOwner}].[{objectQualifier}Message] ( UserID, [Message], TopicID, Posted, UserName, IP, ReplyTo, Position, Indent, Flags, BlogPostID, ExternalMessageId, ReferenceMessageId)
-	VALUES ( @UserID, @Message, @TopicID, @Posted, @UserName, @IP, @ReplyTo, @Position, @Indent, @Flags & ~16, @BlogPostID, @ExternalMessageId, @ReferenceMessageId)	
+	 
+	if (SELECT Name FROM [{databaseOwner}].[{objectQualifier}User] WHERE UserID = @UserID) != @UserName
+	begin
+	SET @OverrideDisplayName = 1
+	end
+	INSERT [{databaseOwner}].[{objectQualifier}Message] ( UserID, [Message], TopicID, Posted, UserName, UserDisplayName, IP, ReplyTo, Position, Indent, Flags, BlogPostID, ExternalMessageId, ReferenceMessageId)
+	VALUES ( @UserID, @Message, @TopicID, @Posted, @UserName,(CASE WHEN @OverrideDisplayName = 1 THEN @UserName ELSE (SELECT DisplayName FROM [{databaseOwner}].[{objectQualifier}User] WHERE UserID = @UserID) END), @IP, @ReplyTo, @Position, @Indent, @Flags & ~16, @BlogPostID, @ExternalMessageId, @ReferenceMessageId)	
 	
 	SET @MessageID = SCOPE_IDENTITY()
 
@@ -3855,7 +3879,8 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}message_unapproved](@ForumI
 		select
 		MessageID	= b.MessageID,
 		UserID		= b.UserID,
-		UserName	= IsNull(b.UserName,c.Name),		
+		UserName	= IsNull(b.UserName,c.Name),
+		UserDisplayName = IsNull(b.UserDisplayName, c.DisplayName),		
 		Posted		= b.Posted,
 		TopicID		= a.TopicID,
 		Topic		= a.Topic,
@@ -4118,8 +4143,8 @@ begin
 		if (@ReferenceMessageId IS NULL)
 		begin
 			-- thread doesn't exists
-			insert into [{databaseOwner}].[{objectQualifier}Topic](ForumID,UserID,UserName,Posted,Topic,[Views],Priority,NumPosts)
-			values (@ForumID,@UserID,@UserName,@Posted,@Topic,0,0,0)
+			insert into [{databaseOwner}].[{objectQualifier}Topic](ForumID,UserID,UserName, UserDisplayName,Posted,Topic,[Views],Priority,NumPosts)
+			values (@ForumID,@UserID,@UserName, @UserName,@Posted,@Topic,0,0,0)
 			set @TopicID=SCOPE_IDENTITY()
 
 			insert into [{databaseOwner}].[{objectQualifier}NntpTopic](NntpForumID,Thread,TopicID)
@@ -5052,6 +5077,7 @@ begin
 		a.UserID,
 		a.Flags,
 		UserName = IsNull(a.UserName,b.Name),
+		UserDisplayName = IsNull(a.UserDisplayName, b.DisplayName),
 		b.[Signature],
 		c.TopicID
 	from
@@ -5230,7 +5256,7 @@ begin
 		m.ExternalMessageId,
 		m.ReferenceMessageId,
 		UserName = IsNull(m.UserName,b.Name),
-		b.DisplayName,
+		DisplayName =IsNull(m.UserDisplayName,b.DisplayName),
 		b.Suspended,
 		b.Joined,
 		b.Avatar,
@@ -5309,6 +5335,7 @@ begin
 		a.UserID,
 		a.Flags,
 		UserName = IsNull(a.UserName,b.Name),
+		DisplayName = IsNull(a.UserDisplayName,b.DisplayName),
 		b.[Signature]
 	from
 		[{databaseOwner}].[{objectQualifier}Message] a 
@@ -5726,12 +5753,14 @@ begin
 		[Styles] = c.Styles,
 		c.UserID,
 		Starter = IsNull(c.UserName,b.Name),
+		StarterDisplay = IsNull(c.UserDisplayName,b.DisplayName),
 		NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@PageUserID IS NOT NULL AND mes.UserID = @PageUserID) OR (@PageUserID IS NULL)) ),
 		Replies = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=c.TopicID and x.IsDeleted=0) - 1,
 		[Views] = c.[Views],
 		LastPosted = c.LastPosted,
 		LastUserID = c.LastUserID,
-		LastUserName = IsNull(c.LastUserName,(select Name from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
+		LastUserName = IsNull(c.LastUserName,(select x.Name from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
+		LastUserDisplayName = IsNull(c.LastUserDisplayName,(select x.DisplayName from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
 		LastMessageID = c.LastMessageID,
 		LastMessageFlags = c.LastMessageFlags,
 		LastTopicID = c.TopicID,
@@ -5868,12 +5897,14 @@ begin
 		[Styles] = c.Styles,
 		c.UserID,
 		Starter = IsNull(c.UserName,b.Name),
+		StarterDisplay = IsNull(c.UserDisplayName, b.DisplayName),
 		NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@PageUserID IS NOT NULL AND mes.UserID = @PageUserID) OR (@PageUserID IS NULL)) ),
 		Replies = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=c.TopicID and x.IsDeleted=0) - 1,
 		[Views] = c.[Views],
 		LastPosted = c.LastPosted,
 		LastUserID = c.LastUserID,
-		LastUserName = IsNull(c.LastUserName,(select Name from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
+		LastUserName = IsNull(c.LastUserName,(select x.Name from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
+		LastUserDisplayName = IsNull(c.LastUserDisplayName,(select x.DisplayName from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
 		LastMessageID = c.LastMessageID,
 		LastMessageFlags = c.LastMessageFlags,
 		LastTopicID = c.TopicID,
@@ -5942,6 +5973,7 @@ BEGIN
 		LastMessageID = null,
 		LastUserID = null,
 		LastUserName = null,
+		LastUserDisplayName = null,
 		LastPosted = null
 	WHERE LastMessageID IN (SELECT MessageID FROM  [{databaseOwner}].[{objectQualifier}Message] WHERE TopicID = @TopicID)
 	
@@ -6210,12 +6242,14 @@ BEGIN
 		t.TopicID,
 		t.TopicMovedID,
 		t.UserID,
-		t.UserName,		
+		t.UserName,
+		t.UserDisplayName,		
 		t.LastMessageID,
 		t.LastMessageFlags,
 		t.LastUserID,	
 		t.Posted,		
-		LastUserName = IsNull(t.LastUserName,(select [Name] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID = t.LastUserID))		
+		LastUserName = IsNull(t.LastUserName,(select x.[Name] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID = t.LastUserID)),
+		LastUserDisplayName = IsNull(t.LastUserName,(select x.[DisplayName] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID = t.LastUserID))				
 	FROM
 		[{databaseOwner}].[{objectQualifier}Message] m 
 	INNER JOIN	
@@ -6263,13 +6297,15 @@ BEGIN
 		t.TopicID,
 		t.TopicMovedID,
 		t.UserID,
-		UserName = IsNull(t.UserName,(select [Name] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID = t.UserID)),		
+		UserName = IsNull(t.UserName,(select x.[Name] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID = t.UserID)),
+		UserDisplayName = IsNull(t.UserDisplayName,(select x.[DisplayName] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID = t.UserID)),		
 		t.LastMessageID,
 		t.LastMessageFlags,
 		t.LastUserID,
 		t.NumPosts,
 		t.Posted,		
-		LastUserName = IsNull(t.LastUserName,(select [Name] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID = t.LastUserID)),
+		LastUserName = IsNull(t.LastUserName,(select x.[Name] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID = t.LastUserID)),
+		LastUserDisplayName = IsNull(t.LastUserDisplayName,(select x.[DisplayName] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID = t.LastUserID)),
 		LastUserStyle = case(@StyledNicks)
 			when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr with(nolock) where usr.UserID = t.LastUserID)
 			else ''	 end,
@@ -6386,12 +6422,14 @@ begin
 			c.[Styles],
 			c.UserID,
 			Starter = IsNull(c.UserName,b.Name),
+			StarterDisplay = IsNull(c.UserDisplayName,b.DisplayName),
 			Replies = c.NumPosts - 1,
 			NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@UserID IS NOT NULL AND mes.UserID = @UserID) OR (@UserID IS NULL)) ),			
 			[Views] = c.[Views],
 			LastPosted = c.LastPosted,
 			LastUserID = c.LastUserID,
-			LastUserName = IsNull(c.LastUserName,(SELECT Name FROM [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
+			LastUserName = IsNull(c.LastUserName,(SELECT x.Name FROM [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
+			LastUserDisplayName = IsNull(c.LastUserDisplayName,(SELECT x.DisplayName FROM [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
 			LastMessageID = c.LastMessageID,
 			LastTopicID = c.TopicID,
 			TopicFlags = c.Flags,
@@ -6550,12 +6588,14 @@ declare @shiftsticky int
 			c.[Styles],
 			c.UserID,
 			Starter = IsNull(c.UserName,b.Name),
+			StarterDisplay = IsNull(c.UserDisplayName,b.DisplayName),
 			Replies = c.NumPosts - 1,
 			NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@UserID IS NOT NULL AND mes.UserID = @UserID) OR (@UserID IS NULL)) ),			
 			[Views] = c.[Views],
 			LastPosted = c.LastPosted,
 			LastUserID = c.LastUserID,
-			LastUserName = IsNull(c.LastUserName,(SELECT Name FROM [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
+			LastUserName = IsNull(c.LastUserName,(SELECT x.Name FROM [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
+			LastUserDisplayName = IsNull(c.LastUserDisplayName,(SELECT x.DisplayName FROM [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
 			LastMessageID = c.LastMessageID,
 			LastTopicID = c.TopicID,
 			TopicFlags = c.Flags,
@@ -6606,6 +6646,7 @@ begin
 		a.MessageID,
 		a.UserID,
 		UserName = b.Name,
+		UserDisplayName = b.DisplayName,
 		a.[Message],
 		c.TopicID,
 		c.ForumID,
@@ -6660,8 +6701,8 @@ begin
 		-- delete an old link if exists
 		delete from [{databaseOwner}].[{objectQualifier}Topic] where TopicMovedID = @TopicID
 		-- create a moved message
-		insert into [{databaseOwner}].[{objectQualifier}Topic](ForumID,UserID,UserName,Posted,Topic,[Views],Flags,Priority,PollID,TopicMovedID,LastPosted,NumPosts,LinkDate)
-		select ForumID,UserID,UserName,Posted,Topic,0,Flags,Priority,PollID,@TopicID,LastPosted,0,@newTimestamp
+		insert into [{databaseOwner}].[{objectQualifier}Topic](ForumID,UserID,UserName,UserDisplayName,Posted,Topic,[Views],Flags,Priority,PollID,TopicMovedID,LastPosted,NumPosts,LinkDate)
+		select ForumID,UserID,UserName,UserDisplayName,Posted,Topic,0,Flags,Priority,PollID,@TopicID,LastPosted,0,@newTimestamp
 		from [{databaseOwner}].[{objectQualifier}Topic] where TopicID = @TopicID
 	end
 
@@ -6754,13 +6795,17 @@ create procedure [{databaseOwner}].[{objectQualifier}topic_save](
 ) as
 begin
 		declare @TopicID int
-	declare @MessageID int
+	declare @MessageID int, @OverrideDisplayName BIT
 
 	if @Posted is null set @Posted = @UTCTIMESTAMP 
-
+	if (SELECT Name FROM [{databaseOwner}].[{objectQualifier}User] WHERE UserID = @UserID) != @UserName
+	begin
+	SET @OverrideDisplayName = 1
+	end	
+	
 	-- create the topic
-	insert into [{databaseOwner}].[{objectQualifier}Topic](ForumID,Topic,UserID,Posted,[Views],[Priority],UserName,NumPosts, [Description], [Status], [Styles])
-	values(@ForumID,@Subject,@UserID,@Posted,0,@Priority,@UserName,0,@Description, @Status, @Styles)
+	insert into [{databaseOwner}].[{objectQualifier}Topic](ForumID,Topic,UserID,Posted,[Views],[Priority],UserName,UserDisplayName,NumPosts, [Description], [Status], [Styles])
+	values(@ForumID,@Subject,@UserID,@Posted,0,@Priority,@UserName,(CASE WHEN @OverrideDisplayName = 1 THEN @UserName ELSE (SELECT DisplayName FROM [{databaseOwner}].[{objectQualifier}User] WHERE UserID = @UserID) END), 0,@Description, @Status, @Styles)
 
 	-- get its id
 	set @TopicID = SCOPE_IDENTITY()
@@ -6781,6 +6826,7 @@ begin
 			LastMessageID = (select top 1 x.MessageID from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16 order by Posted desc),
 			LastUserID = (select top 1 x.UserID from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16 order by Posted desc),
 			LastUserName = (select top 1 x.UserName from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16 order by Posted desc),
+			LastUserDisplayName = (select top 1 x.UserDisplayName from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16 order by Posted desc),
 			LastMessageFlags = (select top 1 x.Flags from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16 order by Posted desc)
 		where TopicID = @TopicID
 	else
@@ -6789,6 +6835,7 @@ begin
 			LastMessageID = (select top 1 x.MessageID from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16 order by Posted desc),
 			LastUserID = (select top 1 x.UserID from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16 order by Posted desc),
 			LastUserName = (select top 1 x.UserName from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16 order by Posted desc),
+			LastUserDisplayName = (select top 1 x.UserDisplayName from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16 order by Posted desc),
 			LastMessageFlags = (select top 1 x.Flags from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16 order by Posted desc)
 		where TopicMovedID is null
 		and (@ForumID is null or ForumID=@ForumID)
@@ -7211,10 +7258,10 @@ begin
 		return
 	end
 
-	update [{databaseOwner}].[{objectQualifier}Message] set UserName=@UserName,UserID=@GuestUserID where UserID=@UserID
-	update [{databaseOwner}].[{objectQualifier}Topic] set UserName=@UserName,UserID=@GuestUserID where UserID=@UserID
-	update [{databaseOwner}].[{objectQualifier}Topic] set LastUserName=@UserName,LastUserID=@GuestUserID where LastUserID=@UserID
-	update [{databaseOwner}].[{objectQualifier}Forum] set LastUserName=@UserName,LastUserID=@GuestUserID where LastUserID=@UserID
+	update [{databaseOwner}].[{objectQualifier}Message] set UserName=@UserName,UserDisplayName=@UserName,UserID=@GuestUserID where UserID=@UserID
+	update [{databaseOwner}].[{objectQualifier}Topic] set UserName=@UserName,UserDisplayName=@UserName,UserID=@GuestUserID where UserID=@UserID
+	update [{databaseOwner}].[{objectQualifier}Topic] set LastUserName=@UserName,LastUserDisplayName=@UserName,LastUserID=@GuestUserID where LastUserID=@UserID
+	update [{databaseOwner}].[{objectQualifier}Forum] set LastUserName=@UserName,LastUserDisplayName=@UserName,LastUserID=@GuestUserID where LastUserID=@UserID
 
 	delete from [{databaseOwner}].[{objectQualifier}Active] where UserID=@UserID
 	delete from [{databaseOwner}].[{objectQualifier}EventLog] where UserID=@UserID	
@@ -8000,7 +8047,8 @@ AS
 begin
 	
 	declare @RankID int
-	declare @Flags int	 		
+	declare @Flags int	
+	declare @OldDisplayName nvarchar(255)		
 		
 	if @DSTUser is null SET @DSTUser = 0
 	if @HideUser is null SET @HideUser = 0
@@ -8024,7 +8072,7 @@ begin
 		insert into [{databaseOwner}].[{objectQualifier}UserGroup](UserID,GroupID) select @UserID,GroupID from [{databaseOwner}].[{objectQualifier}Group] where BoardID=@BoardID and (Flags & 4)<>0
 	end
 	else begin
-		set @Flags = (SELECT Flags FROM [{databaseOwner}].[{objectQualifier}User] where UserID = @UserID)
+		SELECT @Flags = Flags, @OldDisplayName = DisplayName FROM [{databaseOwner}].[{objectQualifier}User] where UserID = @UserID
 		
 		-- set user dirty 
 		set @Flags = @Flags	| 64
@@ -8038,7 +8086,7 @@ begin
 		SET @Flags = @Flags | 16 
 		ELSE IF ((@HideUser=0) AND ((@Flags & 16) = 16)) 
 		SET @Flags = @Flags ^ 16
-			
+		
 		update [{databaseOwner}].[{objectQualifier}User] set
 			TimeZone = @TimeZone,
 			LanguageFile = @LanguageFile,
@@ -8053,7 +8101,16 @@ begin
 			Flags = (CASE WHEN @Flags<>Flags THEN  @Flags ELSE Flags END),
 			DisplayName = (CASE WHEN (@DisplayName is not null) THEN  @DisplayName ELSE DisplayName END),
 			Email = (CASE WHEN (@Email is not null) THEN  @Email ELSE Email END) 
-		where UserID = @UserID		
+		where UserID = @UserID	
+		if (@DisplayName IS NOT NULL AND COALESCE(@OldDisplayName,'') != COALESCE(@DisplayName,''))
+		begin
+		-- sync display names everywhere - can run a long time on large forums
+		update [{databaseOwner}].[{objectQualifier}Forum] set LastUserDisplayName = @DisplayName where LastUserID = @UserID  
+		update [{databaseOwner}].[{objectQualifier}Topic] set LastUserDisplayName = @DisplayName where LastUserID = @UserID
+		update [{databaseOwner}].[{objectQualifier}Topic] set UserDisplayName = @DisplayName where LastUserID = @UserID
+		update [{databaseOwner}].[{objectQualifier}Message] set UserDisplayName = @DisplayName where UserID = @UserID
+		update [{databaseOwner}].[{objectQualifier}ShoutboxMessage] set UserDisplayName = @DisplayName where UseriD = @UserID
+		end
 		
 	end
 end
@@ -8365,7 +8422,8 @@ begin
 		b.LastMessageID,
 		LastTopicID = (select TopicID from [{databaseOwner}].[{objectQualifier}Message] x where x.MessageID=b.LastMessageID),
 		b.LastUserID,
-		LastUserName = IsNull(b.LastUserName,(select Name from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=b.LastUserID))
+		LastUserName = IsNull(b.LastUserName,(select x.Name from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=b.LastUserID)),
+		LastUserDisplayName = IsNull(b.LastUserDisplayName,(select x.DisplayName from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=b.LastUserID))
 	from
 		[{databaseOwner}].[{objectQualifier}WatchForum] a
 		inner join [{databaseOwner}].[{objectQualifier}Forum] b on b.ForumID = a.ForumID
@@ -8406,7 +8464,8 @@ begin
 		b.LastPosted,
 		b.LastMessageID,
 		b.LastUserID,
-		LastUserName = IsNull(b.LastUserName,(select Name from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=b.LastUserID))
+		LastUserName = IsNull(b.LastUserName,(select x.Name from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=b.LastUserID)),
+		LastUserDisplayName = IsNull(b.LastUserDisplayName,(select x.DisplayName from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=b.LastUserID))
 	from
 		[{databaseOwner}].[{objectQualifier}WatchTopic] a
 		inner join [{databaseOwner}].[{objectQualifier}Topic] b on b.TopicID = a.TopicID
@@ -8461,6 +8520,7 @@ begin
 		LastMessageID = null,
 		LastUserID = null,
 		LastUserName = null,
+		LastUserDisplayName = null,
 		LastMessageFlags = null
 	where LastMessageID = @MessageID
 
@@ -8469,7 +8529,8 @@ begin
 		LastTopicID = null,
 		LastMessageID = null,
 		LastUserID = null,
-		LastUserName = null
+		LastUserName = null,
+		LastUserDisplayName = null
 	where LastMessageID = @MessageID
 
 	-- "Delete" message
@@ -8578,7 +8639,8 @@ update [{databaseOwner}].[{objectQualifier}Message] set
 		LastMessageID = null,
 		LastUserID = null,
 		LastUserName = null,
-		LastMessageFlags = null 
+		LastMessageFlags = null,
+		LastUserDisplayName = null
 	where LastMessageID = @MessageID
 
 	update [{databaseOwner}].[{objectQualifier}Forum] set
@@ -8586,7 +8648,8 @@ update [{databaseOwner}].[{objectQualifier}Message] set
 		LastTopicID = null,
 		LastMessageID = null,
 		LastUserID = null,
-		LastUserName = null
+		LastUserName = null,
+		LastUserDisplayName = null
 	where LastMessageID = @MessageID
 
 
@@ -9532,12 +9595,15 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}shoutbox_savemessage](
 )
 AS
 BEGIN
+DECLARE @OverrideDisplayName BIT
 		IF @Date IS NULL
 		SET @Date = @UTCTIMESTAMP 
-
-	INSERT [{databaseOwner}].[{objectQualifier}ShoutboxMessage] (UserName, BoardId, UserID, Message, Date, IP)
-	VALUES (@UserName, @BoardId, @UserID, @Message, @Date, @IP)
-
+if (SELECT Name FROM [{databaseOwner}].[{objectQualifier}User] WHERE UserID = @UserID) != @UserName
+	begin
+	SET @OverrideDisplayName = 1
+	end	
+	INSERT [{databaseOwner}].[{objectQualifier}ShoutboxMessage] (UserName,UserDisplayName,BoardId, UserID, Message, Date, IP)
+	VALUES (@UserName,(CASE WHEN @OverrideDisplayName = 1 THEN @UserName ELSE (SELECT DisplayName FROM [{databaseOwner}].[{objectQualifier}User] WHERE UserID = @UserID) END), @BoardId, @UserID, @Message, @Date, @IP)
 END
 GO
 
@@ -9865,12 +9931,14 @@ select
 		[Styles] = c.Styles,
 		c.UserID,
 		Starter = IsNull(c.UserName,b.Name),
+		StarterDisplay = IsNull(c.UserDisplayName,b.DisplayName),
 		NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@PageUserID IS NOT NULL AND mes.UserID = @PageUserID) OR (@PageUserID IS NULL)) ),
 		Replies = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=c.TopicID and x.IsDeleted=0) - 1,
 		[Views] = c.[Views],
 		LastPosted = c.LastPosted,
 		LastUserID = c.LastUserID,
-		LastUserName = IsNull(c.LastUserName,(select Name from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
+		LastUserName = IsNull(c.LastUserName,(select x.Name from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
+		LastUserDisplayName = IsNull(c.LastUserDisplayName,(select x.DisplayName from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
 		LastMessageID = c.LastMessageID,
 		LastMessageFlags = c.LastMessageFlags,
 		LastTopicID = c.TopicID,
@@ -10278,7 +10346,7 @@ as
 	 delete from [{databaseOwner}].[{objectQualifier}MessageHistory]
 	 where DATEDIFF(day,Edited,@UTCTIMESTAMP ) > @DaysToClean	
 			  
-	 SELECT mh.*, m.UserID, m.UserName, t.ForumID, t.TopicID, t.Topic, IsNull(t.UserName, u.Name) as Name, m.Posted
+	 SELECT mh.*, m.UserID, m.UserName, m.UserDisplayName, t.ForumID, t.TopicID, t.Topic, IsNull(t.UserName, u.Name) as Name, m.Posted
 	 FROM [{databaseOwner}].[{objectQualifier}MessageHistory] mh
 	 LEFT JOIN [{databaseOwner}].[{objectQualifier}Message] m ON m.MessageID = mh.MessageID
 	 LEFT JOIN [{databaseOwner}].[{objectQualifier}Topic] t ON t.TopicID = m.TopicID
@@ -10712,12 +10780,14 @@ select
 		[Styles] = c.Styles,
 		c.UserID,
 		Starter = IsNull(c.UserName,b.Name),
+		StarterDisplay = IsNull(c.UserDisplayName,b.DisplayName),
 		NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@PageUserID IS NOT NULL AND mes.UserID = @PageUserID) OR (@PageUserID IS NULL)) ),
 		Replies = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=c.TopicID and x.IsDeleted=0) - 1,
 		[Views] = c.[Views],
 		LastPosted = c.LastPosted,
 		LastUserID = c.LastUserID,
-		LastUserName = IsNull(c.LastUserName,(select Name from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
+		LastUserName = IsNull(c.LastUserName,(select x.Name from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
+		LastUserDisplayName = IsNull(c.LastUserDisplayName,(select x.DisplayName from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
 		LastMessageID = c.LastMessageID,
 		LastMessageFlags = c.LastMessageFlags,
 		LastTopicID = c.TopicID,
@@ -10957,12 +11027,14 @@ select
 		[Styles] = c.Styles,
 		c.UserID,
 		Starter = IsNull(c.UserName,b.Name),
+		StarterDisplay = IsNull(c.UserDisplayName,b.DisplayName),
 		NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@PageUserID IS NOT NULL AND mes.UserID = @PageUserID) OR (@PageUserID IS NULL)) ),
 		Replies = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=c.TopicID and x.IsDeleted=0) - 1,
 		[Views] = c.[Views],
 		LastPosted = c.LastPosted,
 		LastUserID = c.LastUserID,
-		LastUserName = IsNull(c.LastUserName,(select Name from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
+		LastUserName = IsNull(c.LastUserName,(select x.Name from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
+		LastUserDisplayName = IsNull(c.LastUserDisplayName,(select x.DisplayName from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
 		LastMessageID = c.LastMessageID,
 		LastMessageFlags = c.LastMessageFlags,
 		LastTopicID = c.TopicID,
@@ -11107,3 +11179,7 @@ GO
 
 EXEC [{databaseOwner}].[{objectQualifier}user_savestyle] null,null
 GO
+
+
+
+
