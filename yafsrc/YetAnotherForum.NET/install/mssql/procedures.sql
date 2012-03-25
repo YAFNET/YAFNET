@@ -8107,7 +8107,7 @@ begin
 		-- sync display names everywhere - can run a long time on large forums
 		update [{databaseOwner}].[{objectQualifier}Forum] set LastUserDisplayName = @DisplayName where LastUserID = @UserID  
 		update [{databaseOwner}].[{objectQualifier}Topic] set LastUserDisplayName = @DisplayName where LastUserID = @UserID
-		update [{databaseOwner}].[{objectQualifier}Topic] set UserDisplayName = @DisplayName where LastUserID = @UserID
+		update [{databaseOwner}].[{objectQualifier}Topic] set UserDisplayName = @DisplayName where UserID = @UserID
 		update [{databaseOwner}].[{objectQualifier}Message] set UserDisplayName = @DisplayName where UserID = @UserID
 		update [{databaseOwner}].[{objectQualifier}ShoutboxMessage] set UserDisplayName = @DisplayName where UseriD = @UserID
 		end

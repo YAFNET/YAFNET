@@ -494,7 +494,7 @@ begin
 end
 GO
 
-#IFSRVVER>8#CREATE FUNCTION [{databaseOwner}].[{objectQualifier}Split]
+CREATE FUNCTION [{databaseOwner}].[{objectQualifier}Split]
 (
    @sInputList VARCHAR(8000) -- List of delimited items
   , @sDelimiter VARCHAR(8000) = ',' -- delimiter that separates items
