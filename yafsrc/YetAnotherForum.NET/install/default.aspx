@@ -265,13 +265,13 @@
                     </asp:PlaceHolder>
                 </asp:WizardStep>
                 <asp:WizardStep runat="server" Title="Upgrade Database" ID="WizInitDatabase">
-                    <strong><%# !NewForumCreated ? "Upgrade" : "Initialize"%> Database</strong><br />
+                    <strong><%# IsForumInstalled ? "Upgrade" : "Initialize"%> Database</strong><br />
                     <br />
-                    Clicking next will <%# !NewForumCreated ? "upgrade" : "initialize"%> your database to the latest version.<br />
+                    Clicking next will <%# IsForumInstalled ? "upgrade" : "initialize"%> your database to the latest version.<br />
                     <br />
                     <asp:CheckBox ID="FullTextSupport" runat="server" Text="Attempt to Install FullText Search Support" />
                     <br />
-                    <asp:CheckBox ID="UpgradeExtensions" Checked="True" Visible="<%# !NewForumCreated %>" runat="server" Text="Upgrade BBCode Extensions, File Extensions and Topic Status Lists" />
+                    <asp:CheckBox ID="UpgradeExtensions" Checked="True" Visible="<%# IsForumInstalled %>" runat="server" Text="Upgrade BBCode Extensions, File Extensions and Topic Status Lists" />
                 </asp:WizardStep>
                 <asp:WizardStep runat="server" Title="Create Forum" ID="WizCreateForum">
                     <strong>Create Board</strong><br />
