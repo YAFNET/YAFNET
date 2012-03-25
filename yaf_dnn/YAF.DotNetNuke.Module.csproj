@@ -38,9 +38,10 @@
     <DocumentationFile>..\YetAnotherForum.NET\Bin\YAF.DotNetNuke.Module.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Deploy|AnyCPU'">
-    <OutputPath>..\YetAnotherForum.NET\Bin\</OutputPath>
+    <OutputPath>..\yafsrc\YetAnotherForum.NET\Bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
-    <DocumentationFile>..\YetAnotherForum.NET\Bin\YAF.DotNetNuke.Module.XML</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
     <Optimize>true</Optimize>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
@@ -65,11 +66,6 @@
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Web.Mobile" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="YAF, Version=1.9.4.0, Culture=neutral, PublicKeyToken=8b49dc47f4701f66, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\YetAnotherForum.NET\Bin\YAF.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\Data.cs" />
@@ -178,6 +174,10 @@
     <ProjectReference Include="..\yafsrc\YAF.Utils\YAF.Utils.csproj">
       <Project>{F80E0025-E57E-4BB5-89F2-CFBCAC1AFCF4}</Project>
       <Name>YAF.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\yafsrc\YetAnotherForum.NET\YAF.csproj">
+      <Project>{555357E5-A150-4C4D-BC81-97F4AE19086A}</Project>
+      <Name>YAF</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
