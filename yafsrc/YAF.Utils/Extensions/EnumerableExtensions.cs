@@ -95,7 +95,7 @@ namespace YAF.Utils
 		}
 
 		/// <summary>
-		/// The infinite.
+		/// Creates an infinite IEnumerable from the currentEnumerable padding it with default(T).
 		/// </summary>
 		/// <param name="currentEnumerable">
 		/// The current enumerable.

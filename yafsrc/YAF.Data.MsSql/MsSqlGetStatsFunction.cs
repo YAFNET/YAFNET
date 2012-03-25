@@ -62,7 +62,7 @@ namespace YAF.Data.MsSql
 		/// <returns>
 		/// True if the operation is supported.
 		/// </returns>
-		public bool IsSupportedOperation([NotNull] string operationName)
+		public override bool IsSupportedOperation([NotNull] string operationName)
 		{
 			return operationName.Equals("getstats");
 		}

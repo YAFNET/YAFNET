@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Utils", "YAF.Utils\YAF.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarsiLibrary", "FarsiLibrary\FarsiLibrary.csproj", "{ED29E567-C801-49E9-8C33-CFB66042B07B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Data.MsSql", "YAF.Data.MsSql\YAF.Data.MsSql.csproj", "{900B3FCF-BD78-4718-A34D-2662576565C8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,6 +68,10 @@ Global
 		{ED29E567-C801-49E9-8C33-CFB66042B07B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED29E567-C801-49E9-8C33-CFB66042B07B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED29E567-C801-49E9-8C33-CFB66042B07B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{900B3FCF-BD78-4718-A34D-2662576565C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{900B3FCF-BD78-4718-A34D-2662576565C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{900B3FCF-BD78-4718-A34D-2662576565C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{900B3FCF-BD78-4718-A34D-2662576565C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

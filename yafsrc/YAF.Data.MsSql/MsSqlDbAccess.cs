@@ -156,21 +156,24 @@ namespace YAF.Data.MsSql
 			}
 		}
 
-		protected override void MapParameters(DbCommand cmd, IEnumerable<KeyValuePair<string, object>> parameters)
+		protected override void MapParameters(DbCommand cmd, IEnumerable<KeyValuePair<string, object>> keyValueParams)
 		{
+			// convert to list so there is no chance of multiple iterations.
+			var paramList = keyValueParams.ToList();
+
 			// handle positional stored procedure parameter call
-			if (cmd.CommandType == CommandType.StoredProcedure && parameters.Any() && !parameters.All(x => x.Key.IsSet()))
+			if (cmd.CommandType == CommandType.StoredProcedure && paramList.Any() && !paramList.All(x => x.Key.IsSet()))
 			{
 				cmd.CommandType = CommandType.Text;
 				cmd.CommandText = string.Format(
 					"EXEC {0} {1}",
 					cmd.CommandText,
-					Enumerable.Range(0, parameters.Count()).Select(x => string.Format("@{0}", x)).ToDelimitedString(","));
+					Enumerable.Range(0, paramList.Count()).Select(x => string.Format("@{0}", x)).ToDelimitedString(","));
 			}
 			else
 			{
 				// map named parameters...
-				base.MapParameters(cmd, parameters);	
+				base.MapParameters(cmd, paramList);	
 			}
 		}
 
