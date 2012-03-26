@@ -7236,7 +7236,7 @@ begin
 	declare @UserDisplayName		nvarchar(255)
 	declare @GuestCount		int
 
-	select @UserName = Name, @UserDisplayName = a.DisplayName from [{databaseOwner}].[{objectQualifier}User] where UserID=@UserID
+	select @UserName = Name, @UserDisplayName = DisplayName from [{databaseOwner}].[{objectQualifier}User] where UserID=@UserID
 
 	select top 1
 		@GuestUserID = a.UserID
