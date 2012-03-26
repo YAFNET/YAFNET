@@ -7233,9 +7233,10 @@ begin
 	
 	declare @GuestUserID	int
 	declare @UserName		nvarchar(255)
+	declare @UserDisplayName		nvarchar(255)
 	declare @GuestCount		int
 
-	select @UserName = Name from [{databaseOwner}].[{objectQualifier}User] where UserID=@UserID
+	select @UserName = Name, @UserDisplayName = a.DisplayName from [{databaseOwner}].[{objectQualifier}User] where UserID=@UserID
 
 	select top 1
 		@GuestUserID = a.UserID
@@ -7258,10 +7259,10 @@ begin
 		return
 	end
 
-	update [{databaseOwner}].[{objectQualifier}Message] set UserName=@UserName,UserDisplayName=@UserName,UserID=@GuestUserID where UserID=@UserID
-	update [{databaseOwner}].[{objectQualifier}Topic] set UserName=@UserName,UserDisplayName=@UserName,UserID=@GuestUserID where UserID=@UserID
-	update [{databaseOwner}].[{objectQualifier}Topic] set LastUserName=@UserName,LastUserDisplayName=@UserName,LastUserID=@GuestUserID where LastUserID=@UserID
-	update [{databaseOwner}].[{objectQualifier}Forum] set LastUserName=@UserName,LastUserDisplayName=@UserName,LastUserID=@GuestUserID where LastUserID=@UserID
+	update [{databaseOwner}].[{objectQualifier}Message] set UserName=@UserName,UserDisplayName=@UserDisplayName,UserID=@GuestUserID where UserID=@UserID
+	update [{databaseOwner}].[{objectQualifier}Topic] set UserName=@UserName,UserDisplayName=@UserDisplayName,UserID=@GuestUserID where UserID=@UserID
+	update [{databaseOwner}].[{objectQualifier}Topic] set LastUserName=@UserName,LastUserDisplayName=@UserDisplayName,LastUserID=@GuestUserID where LastUserID=@UserID
+	update [{databaseOwner}].[{objectQualifier}Forum] set LastUserName=@UserName,LastUserDisplayName=@UserDisplayName,LastUserID=@GuestUserID where LastUserID=@UserID
 
 	delete from [{databaseOwner}].[{objectQualifier}Active] where UserID=@UserID
 	delete from [{databaseOwner}].[{objectQualifier}EventLog] where UserID=@UserID	
