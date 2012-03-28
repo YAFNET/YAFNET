@@ -6693,7 +6693,7 @@ begin
 		declare @newTimestamp datetime
 		if @LinkDays > -1
 		begin
-		SET @newTimestamp = @UTCTIMESTAMP
+		SET @newTimestamp = DATEADD(d,@LinkDays,@UTCTIMESTAMP);
 		end
 	select @OldForumID = ForumID from [{databaseOwner}].[{objectQualifier}Topic] where TopicID = @TopicID
 
@@ -10347,7 +10347,7 @@ as
 	 delete from [{databaseOwner}].[{objectQualifier}MessageHistory]
 	 where DATEDIFF(day,Edited,@UTCTIMESTAMP ) > @DaysToClean	
 			  
-	 SELECT mh.*, m.UserID, m.UserName, m.UserDisplayName, t.ForumID, t.TopicID, t.Topic, IsNull(t.UserName, u.Name) as Name, m.Posted
+	 SELECT mh.*, m.UserID, m.UserName, IsNull(m.UserDisplayName,(SELECT u.DisplayName FROM [{databaseOwner}].[{objectQualifier}User] u where u.UserID = m.UserID)), t.ForumID, t.TopicID, t.Topic, m.Posted
 	 FROM [{databaseOwner}].[{objectQualifier}MessageHistory] mh
 	 LEFT JOIN [{databaseOwner}].[{objectQualifier}Message] m ON m.MessageID = mh.MessageID
 	 LEFT JOIN [{databaseOwner}].[{objectQualifier}Topic] t ON t.TopicID = m.TopicID
