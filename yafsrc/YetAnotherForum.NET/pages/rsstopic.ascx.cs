@@ -323,7 +323,7 @@ namespace YAF.Pages
             text = YafContext.Current.Get<IFormatMessage>().FormatSyndicationMessage(text, new MessageFlags(flags), altItem, 4000);
 
             return
-              @"{0}<table><tr><td><a href=""{1}"" ><img src=""{2}"" alt =""{3}"" title =""{3}"" ></img>{4}</a></td></tr><table>"
+              @"{0}<table><tr><td><a href=""{1}"" ><img src=""{2}"" alt =""{3}"" title =""{3}"" /></a></td></tr><table>"
                 .FormatWith(text, link, imgUrl, imgAlt, linkName);
         }
 
@@ -417,12 +417,12 @@ namespace YAF.Pages
                     if (syndicationItems.Count <= 0)
                     {
                         feed.Authors.Add(
-                            SyndicationItemExtensions.NewSyndicationPerson(string.Empty, row["UserID"].ToType<long>()));
+                            SyndicationItemExtensions.NewSyndicationPerson(string.Empty, row["UserID"].ToType<long>(),null,null));
                         feed.LastUpdatedTime = DateTime.UtcNow + this.Get<IDateTime>().TimeOffset;
                     }
 
                     feed.Contributors.Add(
-                        SyndicationItemExtensions.NewSyndicationPerson(string.Empty, row["LastUserID"].ToType<long>()));
+                        SyndicationItemExtensions.NewSyndicationPerson(string.Empty, row["LastUserID"].ToType<long>(), null, null));
 
                     string messageLink = YafBuildLink.GetLinkNotEscaped(
                         ForumPages.posts, true, "m={0}&find=lastpost", row["LastMessageID"]);
@@ -545,12 +545,12 @@ namespace YAF.Pages
                     if (syndicationItems.Count <= 0)
                     {
                         feed.Authors.Add(
-                            SyndicationItemExtensions.NewSyndicationPerson(string.Empty, row["UserID"].ToType<long>()));
+                            SyndicationItemExtensions.NewSyndicationPerson(string.Empty, row["UserID"].ToType<long>(), null, null));
                         feed.LastUpdatedTime = DateTime.UtcNow + this.Get<IDateTime>().TimeOffset;
                     }
 
                     feed.Contributors.Add(
-                        SyndicationItemExtensions.NewSyndicationPerson(string.Empty, row["LastUserID"].ToType<long>()));
+                        SyndicationItemExtensions.NewSyndicationPerson(string.Empty, row["LastUserID"].ToType<long>(), null, null));
 
                     syndicationItems.AddSyndicationItem(
                         row["Subject"].ToString(),
@@ -628,7 +628,7 @@ namespace YAF.Pages
                         }
 
                         feed.Authors.Add(
-                          SyndicationItemExtensions.NewSyndicationPerson(string.Empty, row["LastUserID"].ToType<long>()));
+                          SyndicationItemExtensions.NewSyndicationPerson(string.Empty, row["LastUserID"].ToType<long>(), null, null));
 
                         feed.LastUpdatedTime = DateTime.UtcNow + this.Get<IDateTime>().TimeOffset;
 
@@ -639,7 +639,7 @@ namespace YAF.Pages
                     if (!row["LastUserID"].IsNullOrEmptyDBField())
                     {
                         feed.Contributors.Add(
-                          SyndicationItemExtensions.NewSyndicationPerson(string.Empty, row["LastUserID"].ToType<long>()));
+                          SyndicationItemExtensions.NewSyndicationPerson(string.Empty, row["LastUserID"].ToType<long>(), null, null));
                     }
 
                     syndicationItems.AddSyndicationItem(
@@ -701,12 +701,12 @@ namespace YAF.Pages
                     if (syndicationItems.Count <= 0)
                     {
                         feed.Authors.Add(
-                            SyndicationItemExtensions.NewSyndicationPerson(string.Empty, row["UserID"].ToType<long>()));
+                            SyndicationItemExtensions.NewSyndicationPerson(string.Empty, row["UserID"].ToType<long>(), null, null));
                         feed.LastUpdatedTime = DateTime.UtcNow + this.Get<IDateTime>().TimeOffset;
                     }
 
                     feed.Contributors.Add(
-                        SyndicationItemExtensions.NewSyndicationPerson(string.Empty, row["LastUserID"].ToType<long>()));
+                        SyndicationItemExtensions.NewSyndicationPerson(string.Empty, row["LastUserID"].ToType<long>(), null, null));
 
                     syndicationItems.AddSyndicationItem(
                         row["Topic"].ToString(),
@@ -821,11 +821,11 @@ namespace YAF.Pages
                         {
                             feed.LastUpdatedTime = lastPosted + this.Get<IDateTime>().TimeOffset;
                             feed.Authors.Add(
-                              SyndicationItemExtensions.NewSyndicationPerson(string.Empty, row["UserID"].ToType<long>()));
+                              SyndicationItemExtensions.NewSyndicationPerson(string.Empty, row["UserID"].ToType<long>(), row["UserName"].ToString(), row["UserDisplayName"].ToString()));
                         }
 
                         feed.Contributors.Add(
-                          SyndicationItemExtensions.NewSyndicationPerson(string.Empty, row["LastUserID"].ToType<long>()));
+                          SyndicationItemExtensions.NewSyndicationPerson(string.Empty, row["LastUserID"].ToType<long>(), row["LastUserName"].ToString(), row["LastUserDisplayName"].ToString()));
 
                         string messageLink = YafBuildLink.GetLinkNotEscaped(
                           ForumPages.posts, true, "m={0}&find=lastpost", row["LastMessageID"]);
@@ -943,7 +943,7 @@ namespace YAF.Pages
                     if (syndicationItems.Count <= 0)
                     {
                         feed.Authors.Add(
-                          SyndicationItemExtensions.NewSyndicationPerson(string.Empty, row["UserID"].ToType<long>()));
+                          SyndicationItemExtensions.NewSyndicationPerson(string.Empty, row["UserID"].ToType<long>(), null, null));
                         feed.LastUpdatedTime = DateTime.UtcNow + this.Get<IDateTime>().TimeOffset;
                     }
 
@@ -956,7 +956,7 @@ namespace YAF.Pages
                     }
 
                     feed.Contributors.Add(
-                      SyndicationItemExtensions.NewSyndicationPerson(string.Empty, row["UserID"].ToType<long>()));
+                      SyndicationItemExtensions.NewSyndicationPerson(string.Empty, row["UserID"].ToType<long>(), null, null));
 
                     syndicationItems.AddSyndicationItem(
                         row["Topic"].ToString(),
@@ -1032,7 +1032,7 @@ namespace YAF.Pages
                     if (syndicationItems.Count <= 0)
                     {
                         feed.Authors.Add(
-                          SyndicationItemExtensions.NewSyndicationPerson(string.Empty, row["LastUserID"].ToType<long>()));
+                          SyndicationItemExtensions.NewSyndicationPerson(string.Empty, row["LastUserID"].ToType<long>(), null, null));
                         feed.LastUpdatedTime = DateTime.UtcNow + this.Get<IDateTime>().TimeOffset;
 
                         // Alternate Link
@@ -1040,7 +1040,7 @@ namespace YAF.Pages
                     }
 
                     feed.Contributors.Add(
-                      SyndicationItemExtensions.NewSyndicationPerson(string.Empty, row["LastUserID"].ToType<long>()));
+                      SyndicationItemExtensions.NewSyndicationPerson(string.Empty, row["LastUserID"].ToType<long>(), null, null));
 
                     syndicationItems.AddSyndicationItem(
                       row["Topic"].ToString(),

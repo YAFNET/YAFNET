@@ -5752,8 +5752,8 @@ begin
 		[Status] = c.Status,
 		[Styles] = c.Styles,
 		c.UserID,
-		Starter = IsNull(c.UserName,b.Name),
-		StarterDisplay = IsNull(c.UserDisplayName,b.DisplayName),
+		Starter = IsNull(c.UserName,b.Name),		
+		StarterDisplay = IsNull(c.UserDisplayName,b.DisplayName),		
 		NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@PageUserID IS NOT NULL AND mes.UserID = @PageUserID) OR (@PageUserID IS NULL)) ),
 		Replies = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=c.TopicID and x.IsDeleted=0) - 1,
 		[Views] = c.[Views],
@@ -6243,13 +6243,15 @@ BEGIN
 		t.TopicMovedID,
 		t.UserID,
 		t.UserName,
-		t.UserDisplayName,		
+		t.UserDisplayName,
+		StarterIsGuest = (select x.IsGuest from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=t.UserID),		
 		t.LastMessageID,
 		t.LastMessageFlags,
-		t.LastUserID,	
-		t.Posted,		
+		t.LastUserID,			
 		LastUserName = IsNull(t.LastUserName,(select x.[Name] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID = t.LastUserID)),
-		LastUserDisplayName = IsNull(t.LastUserName,(select x.[DisplayName] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID = t.LastUserID))				
+		LastUserDisplayName = IsNull(t.LastUserName,(select x.[DisplayName] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID = t.LastUserID)),
+		LastUserIsGuest = (select x.IsGuest from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=t.LastUserID),	
+		t.Posted					
 	FROM
 		[{databaseOwner}].[{objectQualifier}Message] m 
 	INNER JOIN	
