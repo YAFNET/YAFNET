@@ -129,12 +129,21 @@ namespace YAF.Core.Syndication
     /// </summary>
     /// <param name="userEmail">The email.</param>
     /// <param name="userId">The user Id.</param>
+    /// <param name="userName">The user name.</param>
+    /// <param name="userDisplayName"> The user dispaly name.</param>
     /// <returns>The SyndicationPerson.</returns>
-    public static SyndicationPerson NewSyndicationPerson(string userEmail, long userId)
+    public static SyndicationPerson NewSyndicationPerson(string userEmail, long userId, string userName, string userDisplayName)
     {
-      return new SyndicationPerson(userEmail, YafContext.Current.BoardSettings.EnableDisplayName
-                                                ? UserMembershipHelper.GetDisplayNameFromID(userId)
-                                                : UserMembershipHelper.GetUserNameFromID(userId), YafBuildLink.GetLinkNotEscaped(ForumPages.profile,true,"u={0}", userId));
+        string userNameToShow;
+        if (YafContext.Current.BoardSettings.EnableDisplayName)
+        {
+            userNameToShow = userDisplayName.IsNotSet() ? UserMembershipHelper.GetDisplayNameFromID(userId) : userDisplayName;
+        }
+        else
+        {
+            userNameToShow = userName.IsNotSet() ? UserMembershipHelper.GetUserNameFromID(userId) : userName;
+        }
+        return new SyndicationPerson(userEmail,userNameToShow, YafBuildLink.GetLinkNotEscaped(ForumPages.profile,true,"u={0}", userId));
     }
 
     /// <summary>
