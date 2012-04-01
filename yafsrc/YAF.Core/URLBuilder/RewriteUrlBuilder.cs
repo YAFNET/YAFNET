@@ -270,15 +270,15 @@ namespace YAF.Core
 
           newUrl += "_{0}".FormatWith(description);
         }
-
-        if (!isFeed)
+        newUrl += ".aspx";
+       /*  if (!isFeed)
         {
             newUrl += ".aspx";
         }
         else
         {
             newUrl += ".xml"; 
-        }
+        } */
 
           string restURL = parser.CreateQueryString(new[] { "g", useKey });
 
@@ -289,10 +289,10 @@ namespace YAF.Core
         }
 
         // see if we can just use the default (/)
-        if (newUrl.EndsWith("yaf_forum.aspx"))
+        if (newUrl.EndsWith("{0}forum.aspx".FormatWith(Config.UrlRewritingPrefix)))
         {
           // remove in favor of just slash...
-          newUrl = newUrl.Remove(newUrl.LastIndexOf("yaf_forum.aspx"), "yaf_forum.aspx".Length);
+            newUrl = newUrl.Remove(newUrl.LastIndexOf("{0}forum.aspx".FormatWith(Config.UrlRewritingPrefix), System.StringComparison.Ordinal), "{0}forum.aspx".FormatWith(Config.UrlRewritingPrefix).Length);
         }
 
         // add anchor

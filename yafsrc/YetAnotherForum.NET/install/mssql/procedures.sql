@@ -8105,14 +8105,15 @@ begin
 			DisplayName = (CASE WHEN (@DisplayName is not null) THEN  @DisplayName ELSE DisplayName END),
 			Email = (CASE WHEN (@Email is not null) THEN  @Email ELSE Email END) 
 		where UserID = @UserID	
+		-- here we sync a new display name everywhere
 		if (@DisplayName IS NOT NULL AND COALESCE(@OldDisplayName,'') != COALESCE(@DisplayName,''))
 		begin
 		-- sync display names everywhere - can run a long time on large forums
-		update [{databaseOwner}].[{objectQualifier}Forum] set LastUserDisplayName = @DisplayName where LastUserID = @UserID  
-		update [{databaseOwner}].[{objectQualifier}Topic] set LastUserDisplayName = @DisplayName where LastUserID = @UserID
-		update [{databaseOwner}].[{objectQualifier}Topic] set UserDisplayName = @DisplayName where UserID = @UserID
-		update [{databaseOwner}].[{objectQualifier}Message] set UserDisplayName = @DisplayName where UserID = @UserID
-		update [{databaseOwner}].[{objectQualifier}ShoutboxMessage] set UserDisplayName = @DisplayName where UseriD = @UserID
+		update [{databaseOwner}].[{objectQualifier}Forum] set LastUserDisplayName = @DisplayName where LastUserID = @UserID  AND (LastUserDisplayName IS NULL OR LastUserDisplayName = @OldDisplayName)
+		update [{databaseOwner}].[{objectQualifier}Topic] set LastUserDisplayName = @DisplayName where LastUserID = @UserID AND (LastUserDisplayName IS NULL OR LastUserDisplayName = @OldDisplayName)
+		update [{databaseOwner}].[{objectQualifier}Topic] set UserDisplayName = @DisplayName where UserID = @UserID AND (UserDisplayName IS NULL OR UserDisplayName = @OldDisplayName)
+		update [{databaseOwner}].[{objectQualifier}Message] set UserDisplayName = @DisplayName where UserID = @UserID AND (UserDisplayName IS NULL OR UserDisplayName = @OldDisplayName)
+		update [{databaseOwner}].[{objectQualifier}ShoutboxMessage] set UserDisplayName = @DisplayName where UseriD = @UserID AND (UserDisplayName IS NULL OR UserDisplayName = @OldDisplayName)
 		end
 		
 	end
