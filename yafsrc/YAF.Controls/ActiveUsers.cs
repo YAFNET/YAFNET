@@ -191,7 +191,10 @@ namespace YAF.Controls
                         Style =
                             this.Get<YafBoardSettings>().UseStyledNicks
                                 ? this.Get<IStyleTransform>().DecodeStyleByString(row["Style"].ToString(), false)
-                                : string.Empty
+                                : string.Empty,
+                        ReplaceName = this.Get<YafBoardSettings>().EnableDisplayName
+                              ? row["UserDisplayName"].ToString()
+                              : row["UserName"].ToString()
                     };
                 userLink.ID = "UserLink{0}{1}".FormatWith(this.InstantId, userLink.UserID);
                 

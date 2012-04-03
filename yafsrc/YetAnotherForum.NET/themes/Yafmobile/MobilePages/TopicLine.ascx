@@ -60,6 +60,7 @@
         {
           ID = "topicStarterLink",
           UserID = this.TopicRow["UserID"].ToType<int>(),
+          ReplaceName = this.Get<YafBoardSettings>().EnableDisplayName ? this.TopicRow["StarterDisplay"].ToString() : this.TopicRow["Starter"].ToString(),
           Style = this.TopicRow["StarterStyle"].ToString()
         }.RenderToString() %>
         </span>

@@ -86,7 +86,6 @@ namespace YAF.Controls
             var lastPostedImage = (ThemeImage)e.Item.FindControl("LastPostedImage");
             var imageLastUnreadMessageLink = (HyperLink)e.Item.FindControl("ImageLastUnreadMessageLink");
             var lastUnreadImage = (ThemeImage)e.Item.FindControl("LastUnreadImage");
-
             var lastUserLink = (UserLink)e.Item.FindControl("LastUserLink");
             var lastPostedDateLabel = (DisplayDateTime)e.Item.FindControl("LastPostDate");
             var forumLink = (HyperLink)e.Item.FindControl("ForumLink");
@@ -158,12 +157,15 @@ namespace YAF.Controls
 
                 lastUnreadImage.LocalizedTitle = this.firstUnreadPostToolTip;
             }
-
+            
             // Just in case...
             if (currentRow["LastUserID"] != DBNull.Value)
             {
                 lastUserLink.UserID = currentRow["LastUserID"].ToType<int>();
                 lastUserLink.Style = currentRow["LastUserStyle"].ToString();
+                lastUserLink.ReplaceName = this.Get<YafBoardSettings>().EnableDisplayName
+                              ? currentRow["LastUserDisplayName"].ToString()
+                              : currentRow["LastUserName"].ToString();
             }
 
             if (currentRow["LastPosted"] != DBNull.Value)

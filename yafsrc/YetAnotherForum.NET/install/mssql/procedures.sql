@@ -10552,6 +10552,8 @@ GO
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}recent_users](@BoardID int,@TimeSinceLastLogin int,@StyledNicks bit=0) as
 begin  
 	SELECT U.UserId,
+	UserName = U.Name,
+	UserDisplayName = U.DisplayName,
 	IsCrawler = 0,
 	UserCount = 1,
 	IsHidden = (IsActiveExcluded),

@@ -156,6 +156,10 @@ namespace YAF.Controls
 																				 ? this.Get<IStyleTransform>().DecodeStyleByString(
 																						 this.DataRow["Style"].ToString(), false)
 																				 : string.Empty;
+                this.ProfileUserLink.ReplaceName = this.Get<YafBoardSettings>().EnableDisplayName ?
+                    this.DataRow["LastUserDisplayName"].ToString()
+                    : this.DataRow["LastUserName"].ToString();
+	
 				if (string.IsNullOrEmpty(this.Alt))
 				{
 					this.Alt = this.GetText("GO_LAST_POST");

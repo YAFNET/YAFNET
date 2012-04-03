@@ -9685,7 +9685,7 @@ namespace YAF.Classes.Data
             // Profile columns cannot yet exist when we first are gettinng data.
             try
             {
-                var sqlBuilder = new StringBuilder("SELECT up.*, u.Name as UserName,u.DisplayName,Style = case(@StyledNicks) when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM ");
+                var sqlBuilder = new StringBuilder("SELECT up.*, u.Name as UserName,u.DisplayName as UserDisplayName,Style = case(@StyledNicks) when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM ");
                 sqlBuilder.Append(MsSqlDbAccess.GetObjectName("UserGroup"));
                 sqlBuilder.Append(" e join ");
                 sqlBuilder.Append(MsSqlDbAccess.GetObjectName("Group"));
@@ -9728,7 +9728,7 @@ namespace YAF.Classes.Data
             // Profile columns cannot yet exist when we first are gettinng data.
             try
             {
-                var sqlBuilder = new StringBuilder("SELECT up.Birthday, up.UserID, u.Name as UserName,u.DisplayName, u.TimeZone, Style = case(@StyledNicks) when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM ");
+                var sqlBuilder = new StringBuilder("SELECT up.Birthday, up.UserID, u.Name as UserName,u.DisplayName AS UserDisplayName, u.TimeZone, Style = case(@StyledNicks) when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM ");
                 sqlBuilder.Append(MsSqlDbAccess.GetObjectName("UserGroup"));
                 sqlBuilder.Append(" e join ");
                 sqlBuilder.Append(MsSqlDbAccess.GetObjectName("Group"));
