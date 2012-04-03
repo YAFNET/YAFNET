@@ -11180,8 +11180,7 @@ begin
    
 end
 GO
-
-EXEC [{databaseOwner}].[{objectQualifier}user_savestyle] null,null
+exec('[{databaseOwner}].[{objectQualifier}user_savestyle] null,null')
 GO
 
 

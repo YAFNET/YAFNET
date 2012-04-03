@@ -1154,7 +1154,7 @@ GO
 
 if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='UserStyle')
 begin
-	alter table [{databaseOwner}].[{objectQualifier}User] add [UserStyle] varchar(510) 
+	alter table [{databaseOwner}].[{objectQualifier}User] add [UserStyle] varchar(510) 		
 end
 GO	
 
@@ -2208,7 +2208,7 @@ begin
 		declare fc cursor for
 		select ForumID, LastUserID from [{databaseOwner}].[{objectQualifier}Forum]
 		where LastUserDisplayName IS NULL
-				
+		FOR UPDATE		
 		open fc
 		
 		fetch next from fc into @tmp,@tmpLastUserID
@@ -2223,7 +2223,7 @@ begin
 		declare sbc cursor for
 		select ShoutBoxMessageID,UserID from [{databaseOwner}].[{objectQualifier}ShoutboxMessage]
 		where UserDisplayName IS NULL
-				
+		FOR UPDATE		
 		open sbc
 		
 		fetch next from sbc into @tmp,@tmpUserID
@@ -2238,6 +2238,7 @@ begin
 		declare mc cursor for
 		select MessageID,UserID from [{databaseOwner}].[{objectQualifier}Message]
 		where UserDisplayName IS NULL
+		FOR UPDATE
 				
 		open mc
 		
@@ -2253,6 +2254,7 @@ begin
 		declare tc cursor for
 		select TopicID,UserID,LastUserID from [{databaseOwner}].[{objectQualifier}Topic]
 		where UserDisplayName IS NULL OR LastUserDisplayName IS NULL
+		FOR UPDATE
 				
 		open tc
 		
