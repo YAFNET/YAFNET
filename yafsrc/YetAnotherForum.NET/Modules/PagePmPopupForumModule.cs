@@ -119,7 +119,8 @@ namespace YAF.Modules
             var notification = (DialogBox)this.PageContext.CurrentForumPage.Notification;
 
             // This happens when user logs in
-            if (this.DisplayPMPopup())
+            if (this.DisplayPMPopup() && !this.PageContext.ForumPageType.Equals(ForumPages.cp_pm)
+                || !this.PageContext.ForumPageType.Equals(ForumPages.cp_editbuddies))
             {
                 notification.Show(
                     this.GetText("COMMON", "UNREAD_MSG2").FormatWith(this.PageContext.UnreadPrivate),
@@ -138,9 +139,13 @@ namespace YAF.Modules
                         });
 
                 this.Get<IYafSession>().LastPm = this.PageContext.LastUnreadPm;
+
+                // Avoid Showing Both Popups
+                return;
             }
 
-            if (!this.DisplayPendingBuddies())
+            if (!this.DisplayPendingBuddies() && this.PageContext.ForumPageType.Equals(ForumPages.cp_editbuddies)
+                || this.PageContext.ForumPageType.Equals(ForumPages.cp_pm))
             {
                 return;
             }
@@ -164,7 +169,7 @@ namespace YAF.Modules
 
             this.Get<IYafSession>().LastPendingBuddies = this.PageContext.LastPendingBuddies;
         }
-
-        #endregion
     }
+
+    #endregion
 }
