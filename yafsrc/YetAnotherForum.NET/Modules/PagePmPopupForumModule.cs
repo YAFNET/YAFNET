@@ -85,27 +85,19 @@ namespace YAF.Modules
         }
 
         /// <summary>
-        /// The forum page_ load.
+        /// Handles the Load event of the ForumPage control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private static void ForumPage_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
         }
 
         /// <summary>
-        /// The forum page_ pre render.
+        /// Handles the PreRender event of the ForumPage control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void ForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.GeneratePopUp();
@@ -119,8 +111,8 @@ namespace YAF.Modules
             var notification = (DialogBox)this.PageContext.CurrentForumPage.Notification;
 
             // This happens when user logs in
-            if (this.DisplayPMPopup() && !this.PageContext.ForumPageType.Equals(ForumPages.cp_pm)
-                || !this.PageContext.ForumPageType.Equals(ForumPages.cp_editbuddies))
+            if (this.DisplayPMPopup() && (!this.PageContext.ForumPageType.Equals(ForumPages.cp_pm)
+                || !this.PageContext.ForumPageType.Equals(ForumPages.cp_editbuddies)))
             {
                 notification.Show(
                     this.GetText("COMMON", "UNREAD_MSG2").FormatWith(this.PageContext.UnreadPrivate),
@@ -144,30 +136,28 @@ namespace YAF.Modules
                 return;
             }
 
-            if (!this.DisplayPendingBuddies() && this.PageContext.ForumPageType.Equals(ForumPages.cp_editbuddies)
-                || this.PageContext.ForumPageType.Equals(ForumPages.cp_pm))
+            if (this.DisplayPendingBuddies() && (!this.PageContext.ForumPageType.Equals(ForumPages.cp_editbuddies)
+                && !this.PageContext.ForumPageType.Equals(ForumPages.cp_pm)))
             {
-                return;
-            }
-
-            notification.Show(
-                this.GetText("BUDDY", "PENDINGBUDDIES2").FormatWith(this.PageContext.PendingBuddies),
-                this.GetText("BUDDY", "PENDINGBUDDIES_TITLE"),
-                DialogBox.DialogIcon.Info,
-                new DialogBox.DialogButton
+                notification.Show(
+                    this.GetText("BUDDY", "PENDINGBUDDIES2").FormatWith(this.PageContext.PendingBuddies),
+                    this.GetText("BUDDY", "PENDINGBUDDIES_TITLE"),
+                    DialogBox.DialogIcon.Info,
+                    new DialogBox.DialogButton
                     {
                         Text = this.GetText("COMMON", "YES"),
                         CssClass = "StandardButton OkButton",
                         ForumPageLink = new DialogBox.ForumLink { ForumPage = ForumPages.cp_editbuddies }
                     },
-                new DialogBox.DialogButton
+                    new DialogBox.DialogButton
                     {
-                        Text = this.GetText("COMMON", "NO"),
+                        Text = this.GetText("COMMON", "NO"), 
                         CssClass = "StandardButton CancelButton",
                         ForumPageLink = new DialogBox.ForumLink { ForumPage = YafContext.Current.ForumPageType }
                     });
 
-            this.Get<IYafSession>().LastPendingBuddies = this.PageContext.LastPendingBuddies;
+                this.Get<IYafSession>().LastPendingBuddies = this.PageContext.LastPendingBuddies;
+            }
         }
     }
 
