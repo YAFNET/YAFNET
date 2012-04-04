@@ -10488,13 +10488,13 @@ DECLARE @ParsedMessageIDs TABLE
 	  (
 			MessageID int
 	  )
-	DECLARE @MessageIDsChunk NVARCHAR(4000), @MessageID varchar(11), @Pos INT, @Itr INT, @trimindex int
+	DECLARE @MessageIDsChunk VARCHAR(8000), @MessageID varchar(11), @Pos INT, @Itr INT, @trimindex int
 	SET @Itr = 0
-	SET @MessageIDsChunk  = SUBSTRING( @MessageIDs, @Itr, @Itr + 4000 )
+	SET @MessageIDsChunk  = SUBSTRING( @MessageIDs, @Itr, @Itr + 8000 )
 	WHILE LEN(@MessageIDsChunk) > 0
 	BEGIN
 			SET @trimindex = CHARINDEX(',',REVERSE( @MessageIDsChunk ), 1 );
-			SET @MessageIDsChunk = SUBSTRING(@MessageIDsChunk,0, 4000-@trimindex)
+			SET @MessageIDsChunk = SUBSTRING(@MessageIDsChunk,0, 8000-@trimindex)
 			SET @Itr = @Itr - @trimindex
 			SET @MessageIDsChunk = LTRIM(RTRIM(@MessageIDsChunk))+ ','
 			SET @Pos = CHARINDEX(',', @MessageIDsChunk, 1)
@@ -10514,8 +10514,8 @@ DECLARE @ParsedMessageIDs TABLE
 					IF (LEN(@MessageIDsChunk) > 0)
 						   INSERT INTO @ParsedMessageIDs (MessageID) VALUES (CAST(@MessageIDsChunk AS int))  
 			END      
-			SET @Itr = @Itr + 4000;
-			SET @MessageIDsChunk  = SUBSTRING( @MessageIDs, @Itr, @Itr + 4000 )
+			SET @Itr = @Itr + 8000;
+			SET @MessageIDsChunk  = SUBSTRING( @MessageIDs, @Itr, @Itr + 8000 )
 	  END
 	  
 		SELECT a.MessageID, d.Message
@@ -10563,7 +10563,8 @@ begin
 	Style = CASE(@StyledNicks)
 				WHEN 1 THEN U.UserStyle
 				ELSE ''
-			END
+			END,
+    U.LastVisit
 	FROM [{databaseOwner}].[{objectQualifier}User] AS U
 				JOIN [{databaseOwner}].[{objectQualifier}Rank] R on R.RankID=U.RankID
 	WHERE (U.IsApproved = '1') AND

@@ -219,6 +219,9 @@ namespace YAF.Controls
                     new UserLink
                     {
                         UserID = (int)user["UserID"],
+                        ReplaceName = this.Get<YafBoardSettings>().EnableDisplayName
+                                                        ? user["UserDisplayName"].ToString()
+                                                        : user["UserName"].ToString(),
                         Style = this.Get<IStyleTransform>().DecodeStyleByString(user["Style"].ToString(), true),
                         PostfixText = " ({0})".FormatWith(GetUserAge(user["Birthday"].ToType<DateTime>()))
                     });
@@ -263,19 +266,16 @@ namespace YAF.Controls
             // Tommy MOD "Recent Users" Count.
             if (this.Get<YafBoardSettings>().ShowRecentUsers)
             {
-                DataTable activeUsers1Day = this.Get<IDataCache>().GetOrSet(
-                  Constants.Cache.VisitorsInTheLast24Hours,
-                  () => this.Get<IDBBroker>().GetRecentUsers(60 * 24),
-                  TimeSpan.FromMinutes(this.Get<YafBoardSettings>().ForumStatisticsCacheTimeout));
-                this.RecentUsers.ActiveUserTable = activeUsers1Day;
-
                 DataTable activeUsers30Day = this.Get<IDataCache>().GetOrSet(
                   Constants.Cache.VisitorsInTheLast30Days,
                   () => this.Get<IDBBroker>().GetRecentUsers(60 * 24 * 30),
                   TimeSpan.FromMinutes(this.Get<YafBoardSettings>().ForumStatisticsCacheTimeout));
-
+                var activeUsers1Day1 =
+                    activeUsers30Day.Select("LastVisit >= '{0}'".FormatWith(DateTime.UtcNow.AddDays(-1)));
                 this.RecentUsersCount.Text = this.GetTextFormatted(
-                    "RECENT_ONLINE_USERS", activeUsers1Day.Rows.Count, activeUsers30Day.Rows.Count);
+                    "RECENT_ONLINE_USERS", activeUsers1Day1.Length, activeUsers30Day.Rows.Count);
+                this.RecentUsers.ActiveUserTable = activeUsers1Day1.CopyToDataTable();
+
             }
             else
             {
