@@ -333,6 +333,9 @@ namespace YAF.Controls
                 this.StatsLastPostHolder.Visible = true;
 
                 this.LastPostUserLink.UserID = postsStatisticsDataRow["LastUserID"].ToType<int>();
+                this.LastPostUserLink.ReplaceName = this.Get<YafBoardSettings>().EnableDisplayName
+                                                        ? postsStatisticsDataRow["LastUserDisplayName"].ToString()
+                                                        : postsStatisticsDataRow["LastUser"].ToString();
                 this.LastPostUserLink.Style = postsStatisticsDataRow["LastUserStyle"].ToString();
                 this.StatsLastPost.Text = this.GetTextFormatted(
                     "stats_lastpost",
@@ -354,6 +357,9 @@ namespace YAF.Controls
             // Newest Member
             this.StatsNewestMember.Text = this.GetText("stats_lastmember");
             this.NewestMemberUserLink.UserID = userStatisticsDataRow["LastMemberID"].ToType<int>();
+            this.NewestMemberUserLink.ReplaceName = this.Get<YafBoardSettings>().EnableDisplayName
+                                                        ? userStatisticsDataRow["LastMemberDisplayName"].ToString()
+                                                        : userStatisticsDataRow["LastMemeber"].ToString();
             this.CollapsibleImage.ToolTip = this.GetText("COMMON", "SHOWHIDE");
 
             this.GetTodaysBirthdays();

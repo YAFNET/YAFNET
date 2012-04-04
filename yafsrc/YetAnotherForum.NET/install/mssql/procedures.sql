@@ -2123,6 +2123,7 @@ BEGIN
 		LastPost	= a.Posted,
 		LastUserID	= a.UserID,
 		LastUser	= e.Name,
+		LastUserDisplayName	= e.DisplayName,
 		LastUserStyle =  case(@StyledNicks)
 			when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr with(nolock) where usr.UserID = a.UserID)
 			else ''	 end
@@ -2151,6 +2152,7 @@ BEGIN
 		LastPost	= null,
 		LastUserID	= null,
 		LastUser	= null,
+		LastUserDisplayName	= null,
 		LastUserStyle = ''
 		END
 		-- this can be in any very rare updatable cached place 
@@ -2171,7 +2173,8 @@ BEGIN
 			SELECT TOP 1 
 				LastMemberInfoID= 1,
 				LastMemberID	= UserID,
-				LastMember	= [Name]
+				LastMember	= [Name],
+				LastMemberDisplayName	= [DisplayName]
 			FROM 
 				[{databaseOwner}].[{objectQualifier}User]
 			WHERE 
@@ -11184,7 +11187,6 @@ end
 GO
 exec('[{databaseOwner}].[{objectQualifier}user_savestyle] null,null')
 GO
-
 
 
 
