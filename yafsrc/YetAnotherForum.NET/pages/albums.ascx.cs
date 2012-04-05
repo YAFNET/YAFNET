@@ -18,6 +18,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+using YAF.Classes;
+
 namespace YAF.Pages
 {
   #region Using
@@ -103,7 +105,7 @@ namespace YAF.Pages
       this.PageLinks.Clear();
       this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
       this.PageLinks.AddLink(
-        displayName.IsSet()
+        this.Get<YafBoardSettings>().EnableDisplayName
           ? displayName
           : UserMembershipHelper.GetUserNameFromID(
             Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"))), 

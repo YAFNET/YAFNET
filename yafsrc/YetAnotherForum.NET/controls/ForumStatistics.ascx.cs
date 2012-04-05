@@ -359,7 +359,7 @@ namespace YAF.Controls
             this.NewestMemberUserLink.UserID = userStatisticsDataRow["LastMemberID"].ToType<int>();
             this.NewestMemberUserLink.ReplaceName = this.Get<YafBoardSettings>().EnableDisplayName
                                                         ? userStatisticsDataRow["LastMemberDisplayName"].ToString()
-                                                        : userStatisticsDataRow["LastMemeber"].ToString();
+                                                        : userStatisticsDataRow["LastMember"].ToString();
             this.CollapsibleImage.ToolTip = this.GetText("COMMON", "SHOWHIDE");
 
             this.GetTodaysBirthdays();

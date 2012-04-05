@@ -105,7 +105,7 @@ namespace YAF.Controls
                     @"<td style=""padding:5px"" class=""post"" align=""left""><strong>{0}&nbsp;<span id=""nick_{1}"" style =""{2}"" >{1}</span></strong></td>",
                     this.GetText("TOOLBAR", "LOGGED_IN_AS").FormatWith(string.Empty),
                     this.Get<HttpServerUtilityBase>().HtmlEncode(
-                        !string.IsNullOrEmpty(displayName) ? displayName : this.PageContext.PageUserName),
+                        this.Get<YafBoardSettings>().EnableDisplayName && displayName.IsSet() ? displayName : this.PageContext.PageUserName),
                     this.Get<YafBoardSettings>().UseStyledNicks
                         ? this.Get<IStyleTransform>().DecodeStyleByString(this.PageContext.UserStyle, false)
                         : null);

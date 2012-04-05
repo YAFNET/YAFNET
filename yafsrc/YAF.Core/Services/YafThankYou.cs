@@ -68,7 +68,7 @@ namespace YAF.Core.Services
                         @"<a id=""{0}"" href=""{1}""><u>{2}</u></a>",
                         dr["UserID"],
                         YafBuildLink.GetLink(ForumPages.profile, "u={0}", dr["UserID"]),
-                        dr["DisplayName"] != DBNull.Value
+                        YafContext.Current.Get<YafBoardSettings>().EnableDisplayName  
                             ? YafContext.Current.Get<HttpServerUtilityBase>().HtmlEncode(dr["DisplayName"].ToString())
                             : YafContext.Current.Get<HttpServerUtilityBase>().HtmlEncode(dr["Name"].ToString()));
 

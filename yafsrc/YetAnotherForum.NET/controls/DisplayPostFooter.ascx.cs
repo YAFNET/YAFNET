@@ -189,7 +189,10 @@ namespace YAF.Controls
                 }
             }
 
-            string userName = this.DataRow["DisplayName"].ToString();
+            string userName = this.Get<YafBoardSettings>().EnableDisplayName ?
+                    this.DataRow["DisplayName"].ToString()
+                    : this.DataRow["UserName"].ToString();
+            ;
 
             // albums link
             if (this.PostData.UserId != this.PageContext.PageUserID &&

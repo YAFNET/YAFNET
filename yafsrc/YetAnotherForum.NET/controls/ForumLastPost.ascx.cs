@@ -158,7 +158,7 @@ namespace YAF.Controls
 																				 : string.Empty;
                 this.ProfileUserLink.ReplaceName = this.Get<YafBoardSettings>().EnableDisplayName ?
                     this.DataRow["LastUserDisplayName"].ToString()
-                    : this.DataRow["LastUserName"].ToString();
+                    : this.DataRow["LastUser"].ToString();
 	
 				if (string.IsNullOrEmpty(this.Alt))
 				{

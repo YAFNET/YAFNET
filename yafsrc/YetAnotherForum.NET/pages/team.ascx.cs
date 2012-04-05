@@ -282,7 +282,7 @@ namespace YAF.Pages
 
             var drowv = (DataRowView)e.Item.DataItem;
             int userid = drowv.Row["UserID"].ToType<int>();
-            string displayName = drowv.Row["DisplayName"].ToString();
+            string displayName = YafContext.Current.Get<YafBoardSettings>().EnableDisplayName ? drowv.Row["DisplayName"].ToString() : drowv.Row["Name"].ToString();
 
             adminAvatar.ImageUrl = this.GetAvatarUrlFileName(
                 drowv.Row["UserID"].ToType<int>(),

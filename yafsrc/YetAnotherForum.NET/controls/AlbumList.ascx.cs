@@ -156,7 +156,7 @@ namespace YAF.Controls
       }
 
       string umhdn = UserMembershipHelper.GetDisplayNameFromID(this.UserID);
-      this.AlbumHeaderLabel.Param0 = !string.IsNullOrEmpty(umhdn)
+      this.AlbumHeaderLabel.Param0 = this.PageContext.BoardSettings.EnableDisplayName
                                        ? this.HtmlEncode(umhdn)
                                        : this.HtmlEncode(UserMembershipHelper.GetUserNameFromID(this.UserID));
 

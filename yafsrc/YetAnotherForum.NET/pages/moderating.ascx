@@ -26,7 +26,7 @@
         <ItemTemplate>
             <tr class="post">
                 <td>
-                    <%# (Eval("DisplayName") != DBNull.Value) ? Eval("DisplayName") : Eval("DisplayName")%>
+                    <%# this.Get<YafBoardSettings>().EnableDisplayName ? Eval("DisplayName") : Eval("DisplayName") %>
                 </td>
                 <td align="center">
                     <%# Eval("Accepted") %>

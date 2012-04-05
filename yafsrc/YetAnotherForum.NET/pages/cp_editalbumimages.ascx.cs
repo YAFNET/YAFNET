@@ -250,7 +250,8 @@ namespace YAF.Pages
             // Add the page links.
             this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
             this.PageLinks.AddLink(
-                !string.IsNullOrEmpty(displayName) ? displayName : UserMembershipHelper.GetUserNameFromID(userID),
+               YafContext.Current.Get<YafBoardSettings>().EnableDisplayName  
+                             ? displayName : UserMembershipHelper.GetUserNameFromID(userID),
                 YafBuildLink.GetLink(ForumPages.profile, "u={0}", userID.ToString()));
             this.PageLinks.AddLink(
                 this.GetText("ALBUMS"), YafBuildLink.GetLink(ForumPages.albums, "u={0}", userID.ToString()));

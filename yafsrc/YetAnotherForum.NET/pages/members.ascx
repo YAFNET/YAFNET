@@ -92,10 +92,10 @@
             <tr>
                 <td class="post">
                     <img src="<%# this.GetAvatarUrlFileName(this.Eval("UserID").ToType<int>(), Eval("Avatar").ToString(),Eval("AvatarImage").ToString().IsSet(), Eval("Email").ToString()) %>" alt="<%# DataBinder.Eval(Container.DataItem,"Name").ToString() %>"
-                        title="<%# DataBinder.Eval(Container.DataItem,"DisplayName").ToString().IsSet() ? DataBinder.Eval(Container.DataItem,"DisplayName").ToString(): DataBinder.Eval(Container.DataItem,"Name").ToString() %>" class="avatarimage" />
+                        title="<%# this.Get<YafBoardSettings>().EnableDisplayName ? this.Eval("DisplayName").ToString() : this.Eval("Name").ToString() %>" class="avatarimage" />
                 </td>
                 <td class="post">
-                    <YAF:UserLink ID="UserProfileLink" runat="server" IsGuest="False" ReplaceName='<%# this.Eval("DisplayName").ToString() %>'  UserID='<%# this.Eval("UserID").ToType<int>() %>'
+                    <YAF:UserLink ID="UserProfileLink" runat="server" IsGuest="False" ReplaceName='<%# this.Get<YafBoardSettings>().EnableDisplayName ? this.Eval("DisplayName").ToString() : this.Eval("Name").ToString() %>'  UserID='<%# this.Eval("UserID").ToType<int>() %>'
                         Style='<%# Eval("Style") %>' />
                 </td>
                 <td class="post">
