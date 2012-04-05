@@ -3812,7 +3812,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_save](
 )
 AS
 BEGIN
-		DECLARE @ForumID INT, @ForumFlags INT, @Position INT, @Indent INT, @OverrideDisplayName BIT 
+		DECLARE @ForumID INT, @ForumFlags INT, @Position INT, @Indent INT, @OverrideDisplayName BIT, @ReplaceName nvarchar(255) 
 
 	IF @Posted IS NULL
 		SET @Posted = @UTCTIMESTAMP 
@@ -3862,13 +3862,14 @@ BEGIN
 
 		UPDATE [{databaseOwner}].[{objectQualifier}Message] SET Position=Position+1 WHERE TopicID=@TopicID AND Position>=@Position
 	END
-	 
+	 	-- this check is for guest user only to not override replace name 
 	if (SELECT Name FROM [{databaseOwner}].[{objectQualifier}User] WHERE UserID = @UserID) != @UserName
 	begin
 	SET @OverrideDisplayName = 1
 	end
+	SET @ReplaceName = (CASE WHEN @OverrideDisplayName = 1 THEN @UserName ELSE (SELECT DisplayName FROM [{databaseOwner}].[{objectQualifier}User] WHERE UserID = @UserID) END);
 	INSERT [{databaseOwner}].[{objectQualifier}Message] ( UserID, [Message], TopicID, Posted, UserName, UserDisplayName, IP, ReplyTo, Position, Indent, Flags, BlogPostID, ExternalMessageId, ReferenceMessageId)
-	VALUES ( @UserID, @Message, @TopicID, @Posted, @UserName,(CASE WHEN @OverrideDisplayName = 1 THEN @UserName ELSE (SELECT DisplayName FROM [{databaseOwner}].[{objectQualifier}User] WHERE UserID = @UserID) END), @IP, @ReplyTo, @Position, @Indent, @Flags & ~16, @BlogPostID, @ExternalMessageId, @ReferenceMessageId)	
+	VALUES ( @UserID, @Message, @TopicID, @Posted, @UserName,@ReplaceName, @IP, @ReplyTo, @Position, @Indent, @Flags & ~16, @BlogPostID, @ExternalMessageId, @ReferenceMessageId)	
 	
 	SET @MessageID = SCOPE_IDENTITY()
 
@@ -6800,17 +6801,18 @@ create procedure [{databaseOwner}].[{objectQualifier}topic_save](
 ) as
 begin
 		declare @TopicID int
-	declare @MessageID int, @OverrideDisplayName BIT
+	declare @MessageID int, @OverrideDisplayName BIT, @ReplaceName nvarchar(255)
 
 	if @Posted is null set @Posted = @UTCTIMESTAMP 
+		-- this check is for guest user only to not override replace name 
 	if (SELECT Name FROM [{databaseOwner}].[{objectQualifier}User] WHERE UserID = @UserID) != @UserName
 	begin
 	SET @OverrideDisplayName = 1
 	end	
-	
+	SET @ReplaceName = (CASE WHEN @OverrideDisplayName = 1 THEN @UserName ELSE (SELECT DisplayName FROM [{databaseOwner}].[{objectQualifier}User] WHERE UserID = @UserID) END);
 	-- create the topic
 	insert into [{databaseOwner}].[{objectQualifier}Topic](ForumID,Topic,UserID,Posted,[Views],[Priority],UserName,UserDisplayName,NumPosts, [Description], [Status], [Styles])
-	values(@ForumID,@Subject,@UserID,@Posted,0,@Priority,@UserName,(CASE WHEN @OverrideDisplayName = 1 THEN @UserName ELSE (SELECT DisplayName FROM [{databaseOwner}].[{objectQualifier}User] WHERE UserID = @UserID) END), 0,@Description, @Status, @Styles)
+	values(@ForumID,@Subject,@UserID,@Posted,0,@Priority,@UserName,@ReplaceName, 0,@Description, @Status, @Styles)
 
 	-- get its id
 	set @TopicID = SCOPE_IDENTITY()
@@ -9602,15 +9604,17 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}shoutbox_savemessage](
 )
 AS
 BEGIN
-DECLARE @OverrideDisplayName BIT
+DECLARE @OverrideDisplayName BIT, @ReplaceName nvarchar(255)
 		IF @Date IS NULL
 		SET @Date = @UTCTIMESTAMP 
+		-- this check is for guest user only to not override replace name 
 if (SELECT Name FROM [{databaseOwner}].[{objectQualifier}User] WHERE UserID = @UserID) != @UserName
 	begin
 	SET @OverrideDisplayName = 1
 	end	
+	SET @ReplaceName = (CASE WHEN @OverrideDisplayName = 1 THEN @UserName ELSE (SELECT DisplayName FROM [{databaseOwner}].[{objectQualifier}User] WHERE UserID = @UserID) END);
 	INSERT [{databaseOwner}].[{objectQualifier}ShoutboxMessage] (UserName,UserDisplayName,BoardId, UserID, Message, Date, IP)
-	VALUES (@UserName,(CASE WHEN @OverrideDisplayName = 1 THEN @UserName ELSE (SELECT DisplayName FROM [{databaseOwner}].[{objectQualifier}User] WHERE UserID = @UserID) END), @BoardId, @UserID, @Message, @Date, @IP)
+	VALUES (@UserName,@ReplaceName, @BoardId, @UserID, @Message, @Date, @IP)
 END
 GO
 
