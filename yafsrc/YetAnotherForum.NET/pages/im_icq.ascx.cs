@@ -102,7 +102,8 @@ namespace YAF.Pages
 
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
         this.PageLinks.AddLink(
-          !string.IsNullOrEmpty(displayName) ? displayName : user.UserName, 
+          this.PageContext.BoardSettings.EnableDisplayName
+          ? displayName : user.UserName, 
           YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.UserID));
         this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 

@@ -115,13 +115,14 @@ namespace YAF.Pages
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       var userID = (int)Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("u"));
-      string displayName = UserMembershipHelper.GetDisplayNameFromID(userID);
+    
       if (!this.IsPostBack)
       {
         this.PageLinks.Clear();
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
         this.PageLinks.AddLink(
-          !string.IsNullOrEmpty(displayName) ? displayName : UserMembershipHelper.GetUserNameFromID(userID), 
+          this.PageContext.BoardSettings.EnableDisplayName  
+            ? UserMembershipHelper.GetDisplayNameFromID(userID) : UserMembershipHelper.GetUserNameFromID(userID), 
           YafBuildLink.GetLink(ForumPages.profile, "u={0}", userID));
         this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
       }

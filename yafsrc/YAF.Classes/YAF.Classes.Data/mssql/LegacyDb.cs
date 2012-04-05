@@ -1258,8 +1258,8 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("BoardID", boardID);
                 cmd.Parameters.AddWithValue("Filter", filter);
                 cmd.Parameters.AddWithValue("UserName", userName);
-                cmd.Parameters.AddWithValue("DisplayName", displayName);
                 cmd.Parameters.AddWithValue("Email", email);
+                cmd.Parameters.AddWithValue("DisplayName", displayName);
                 cmd.Parameters.AddWithValue("NotificationType", notificationType);
                 cmd.Parameters.AddWithValue("DailyDigest", dailyDigest);
 

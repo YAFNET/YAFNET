@@ -151,9 +151,9 @@ namespace YAF.Pages
             this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
 
             // users control panel
-            string displayName = UserMembershipHelper.GetDisplayNameFromID(this.PageContext.PageUserID);
             this.PageLinks.AddLink(
-              !string.IsNullOrEmpty(displayName) ? displayName : this.PageContext.PageUserName,
+             this.PageContext.BoardSettings.EnableDisplayName
+            ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.PageUserName,
               YafBuildLink.GetLink(ForumPages.cp_profile));
 
             // private messages

@@ -63,9 +63,9 @@ namespace YAF.Pages
     {
       if (!this.IsPostBack)
       {
-        string displayName = this.PageContext.CurrentUserData.DisplayName;
-        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink(!string.IsNullOrEmpty(displayName) ? displayName : this.PageContext.PageUserName, string.Empty);
+       this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.EnableDisplayName
+            ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.PageUserName, string.Empty);
       }
     }
 

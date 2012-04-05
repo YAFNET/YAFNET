@@ -109,13 +109,17 @@ namespace YAF.Core
     [NotNull]
     public IDictionary<int, string> Find([NotNull] string contains)
     {
-      IEnumerable<TypedUserFind> found = YafContext.Current.BoardSettings.EnableDisplayName
-                                           ? LegacyDb.UserFind(
-                                             YafContext.Current.PageBoardID, true, null, null, contains, null, null)
-                                           : LegacyDb.UserFind(
-                                             YafContext.Current.PageBoardID, true, contains, null, null, null, null);
+      IEnumerable<TypedUserFind> found;
 
-      return found.ToDictionary(k => k.UserID ?? 0, v => v.DisplayName);
+
+       if (YafContext.Current.BoardSettings.EnableDisplayName)
+       {
+           found = LegacyDb.UserFind(YafContext.Current.PageBoardID, true, null, null, contains, null, null);
+           return found.ToDictionary(k => k.UserID ?? 0, v => v.DisplayName);
+       }
+
+        found = LegacyDb.UserFind(YafContext.Current.PageBoardID, true, contains, null, null, null, null);
+        return found.ToDictionary(k => k.UserID ?? 0, v => v.Name);
     }
 
     /// <summary>

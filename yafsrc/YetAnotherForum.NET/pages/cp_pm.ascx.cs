@@ -127,7 +127,8 @@ namespace YAF.Pages
         // else if (_view == PMView.Archive)
         // this.PMTabs.ActiveTab = this.ArchiveTab;
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink(this.PageContext.PageUserName, YafBuildLink.GetLink(ForumPages.cp_profile));
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.EnableDisplayName  
+            ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.PageUserName, YafBuildLink.GetLink(ForumPages.cp_profile));
         this.PageLinks.AddLink(this.GetText("TITLE"));
 
         // InboxTab.HeaderText = GetText("INBOX");
