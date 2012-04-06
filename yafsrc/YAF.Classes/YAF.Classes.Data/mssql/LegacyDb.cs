@@ -9679,7 +9679,7 @@ namespace YAF.Classes.Data
         /// <returns>
         /// The user_ list profiles.
         /// </returns>
-        public static DataTable User_ListProfilesByIdsList([NotNull] int[] userIdsList, [CanBeNull] object useStyledNicks)
+        public static DataTable User_ListProfilesByIdsList([NotNull] int boardID, [NotNull] int[] userIdsList, [CanBeNull] object useStyledNicks)
         {
             string stIds = userIdsList.Aggregate(string.Empty, (current, userId) => current + (',' + userId)).Trim(',');
             // Profile columns cannot yet exist when we first are gettinng data.
@@ -9697,6 +9697,7 @@ namespace YAF.Classes.Data
                 using (var cmd = MsSqlDbAccess.GetCommand(sqlBuilder.ToString(), true))
                 {
                     cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
+                    cmd.Parameters.AddWithValue("BoardID", boardID);
                     return MsSqlDbAccess.Current.GetData(cmd);
                 }
             }
@@ -9733,10 +9734,11 @@ namespace YAF.Classes.Data
                 sqlBuilder.Append(MsSqlDbAccess.GetObjectName("User"));
                 sqlBuilder.Append(" u ON u.UserID = up.UserID JOIN ");
                 sqlBuilder.Append(MsSqlDbAccess.GetObjectName("Rank"));
-                sqlBuilder.Append(" r ON r.RankID = u.RankID where DAY(up.Birthday) = DAY(@CurrentDate) AND MONTH(up.Birthday) = MONTH(@CurrentDate) ");
+                sqlBuilder.Append(" r ON r.RankID = u.RankID where u.BoardID = @BoardID AND DAY(up.Birthday) = DAY(@CurrentDate) AND MONTH(up.Birthday) = MONTH(@CurrentDate) ");
                 using (var cmd = MsSqlDbAccess.GetCommand(sqlBuilder.ToString(), true))
                 {
                     cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
+                    cmd.Parameters.AddWithValue("BoardID", boardID);
                     cmd.Parameters.AddWithValue("CurrentDate", DateTime.UtcNow.Date);
                     return MsSqlDbAccess.Current.GetData(cmd);
                 }
