@@ -19,14 +19,11 @@
 
 namespace YAF.Controls
 {
-    // YAF.Pages
-
     #region Using
 
     using System;
     using System.Text;
     using System.Web;
-    using System.Web.UI;
 
     using YAF.Core;
     using YAF.Types;
@@ -38,7 +35,7 @@ namespace YAF.Controls
     #endregion
 
     /// <summary>
-    /// Summary description for Dialog Box.
+    /// Modal Notification Dialog Box (Pop Up)
     /// </summary>
     public partial class DialogBox : BaseUserControl
     {
@@ -239,11 +236,14 @@ namespace YAF.Controls
 
             var sbScript = new StringBuilder();
 
-            sbScript.Append(
-                "jQuery(document).ready(function() {{jQuery().YafModalDialog.Show({{Dialog : '#{0}',ImagePath : '{1}'}}); }});"
-                    .FormatWith(this.YafForumPageErrorPopup.ClientID, YafForumInfo.GetURLToResource("images/")));
+            sbScript.Append("Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(ShowNotificationPopup);");
 
-            YafContext.Current.PageElements.RegisterJsBlock("PopUp{0}".FormatWith(Guid.NewGuid()), sbScript.ToString());
+            sbScript.AppendFormat(
+                "function ShowNotificationPopup() {{ jQuery(document).ready(function() {{jQuery().YafModalDialog.Show({{Dialog : '#{0}',ImagePath : '{1}'}});return false; }});}}",
+                this.YafForumPageErrorPopup.ClientID,
+                YafForumInfo.GetURLToResource("images/"));
+
+            YafContext.Current.PageElements.RegisterJsBlockStartup("PopUp{0}".FormatWith(Guid.NewGuid()), sbScript.ToString());
 
             if (this.OkButtonLink.ForumPage.Equals(YafContext.Current.ForumPageType))
             {
@@ -254,7 +254,7 @@ namespace YAF.Controls
             else
             {
                 this.OkButton.OnClientClick =
-                    "jQuery().YafModalDialog.Close({{ Dialog: '#{0}' }});".FormatWith(
+                    "jQuery().YafModalDialog.Close({{ Dialog: '#{0}' }});return false;".FormatWith(
                         this.YafForumPageErrorPopup.ClientID);
             }
         }

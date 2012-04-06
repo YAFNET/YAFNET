@@ -198,8 +198,8 @@
 <YAF:PopMenu ID="ShareMenu" runat="server" Control="ShareLink" />
 <asp:UpdatePanel ID="PopupMenuUpdatePanel" runat="server">
     <ContentTemplate>
-        <YAF:PopMenu runat="server" ID="OptionsMenu" Control="OptionsLink" />
         <span id="WatchTopicID" runat="server" visible="false"></span>
     </ContentTemplate>
 </asp:UpdatePanel>
+<YAF:PopMenu runat="server" ID="OptionsMenu" Control="OptionsLink" />
 <YAF:PopMenu ID="ViewMenu" runat="server" Control="ViewLink" />
