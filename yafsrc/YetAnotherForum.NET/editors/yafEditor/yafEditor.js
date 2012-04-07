@@ -210,22 +210,28 @@ function wrapSelection(input, preString, postString) {
 					+ input.value.substring(selectionStart, selectionEnd)
 					+ postString
 					+ input.value.substring(selectionEnd);
-        if (selectionStart != selectionEnd) // has there been a selection
+        if (selectionStart != selectionEnd) {	
+			 // has there been a selection
             setSelectionRange(input, selectionStart, preString.length + postString.length + selectionEnd);
-        else // set caret
-            setCaretToPos(input, selectionStart + (preString + postString).length);
+		}
+        else {
+			// set caret
+            setCaretToPos(input, selectionStart + (preString).length);
+		}
     } else if (document.selection) {
         var sel = document.selection.createRange().text;
         if (sel) {
             document.selection.createRange().text = preString + sel + postString;
             input.focus();
         } else {
-            input.value += preString + postString;
-            input.focus();
+            input.value += preString;
+			input.focus();
+			input.value += postString
         }
     } else {
-        input.value += preString + postString;
+        input.value += preString;
         input.focus();
+		input.value += postString;
     }
 }
 
