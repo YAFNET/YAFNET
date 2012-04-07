@@ -1794,7 +1794,7 @@
     <Resource tag="PAGES">Pagini</Resource>
     <Resource tag="PM_NOTIFICATION_SUBJECT">Mesaj nou PM de la {0} la {1}</Resource>
     <Resource tag="POST">Post</Resource>
-    <Resource tag="POWERED_BY">Sustinut de {0} versiunea {1}</Resource>
+    <Resource tag="POWERED_BY">Sustinut de</Resource>
     <Resource tag="PRIORITY">Priority</Resource>
     <Resource tag="READ">Read</Resource>
     <Resource tag="REGMAIL_SENT">Un email a fost trimis. Verifica emailul si urmareste linkul.</Resource>

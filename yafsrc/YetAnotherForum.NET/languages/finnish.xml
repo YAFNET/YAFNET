@@ -1794,7 +1794,7 @@
     <Resource tag="PAGES">Pages</Resource>
     <Resource tag="PM_NOTIFICATION_SUBJECT">New Private Message From {0} at {1}</Resource>
     <Resource tag="POST">Post</Resource>
-    <Resource tag="POWERED_BY">Keskustelualueen voiman takaa {0} versiolla {1}</Resource>
+    <Resource tag="POWERED_BY">Keskustelualueen voiman takaa</Resource>
     <Resource tag="PRIORITY">Priority</Resource>
     <Resource tag="READ">Read</Resource>
     <Resource tag="REGMAIL_SENT">Posti on lähetetty. Tarkista postilaatikkosi ja klikkaa linkkiä viestissä.</Resource>

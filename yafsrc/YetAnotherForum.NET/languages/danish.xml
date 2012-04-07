@@ -1794,7 +1794,7 @@
     <Resource tag="PAGES">Sider</Resource>
     <Resource tag="PM_NOTIFICATION_SUBJECT">Ny privat besked fra {0} den {1}</Resource>
     <Resource tag="POST">Post</Resource>
-    <Resource tag="POWERED_BY">Powered by {0} version {1}</Resource>
+    <Resource tag="POWERED_BY">Powered by</Resource>
     <Resource tag="PRIORITY">Priority</Resource>
     <Resource tag="READ">Read</Resource>
     <Resource tag="REGMAIL_SENT">En e-mail er blevet sendt. Åben din indbakke og klik på linket i e-mailen.</Resource>

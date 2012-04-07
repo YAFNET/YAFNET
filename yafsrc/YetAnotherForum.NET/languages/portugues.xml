@@ -1794,7 +1794,7 @@
     <Resource tag="PAGES">Pages</Resource>
     <Resource tag="PM_NOTIFICATION_SUBJECT">Nova Mensagem Privada de {0} em {1}</Resource>
     <Resource tag="POST">Post</Resource>
-    <Resource tag="POWERED_BY">Powered by {0} versão {1}</Resource>
+    <Resource tag="POWERED_BY">Powered by</Resource>
     <Resource tag="PRIORITY">Priority</Resource>
     <Resource tag="READ">Read</Resource>
     <Resource tag="REGMAIL_SENT">Uma mensagem foi enviada. Verifique sua caixa de entrada e clique o link na mensagem.</Resource>

@@ -1794,7 +1794,7 @@
     <Resource tag="PAGES">Pages</Resource>
     <Resource tag="PM_NOTIFICATION_SUBJECT">New Private Message From {0} at {1}</Resource>
     <Resource tag="POST">Post</Resource>
-    <Resource tag="POWERED_BY">Powered by {0} version {1}</Resource>
+    <Resource tag="POWERED_BY">Powered by</Resource>
     <Resource tag="PRIORITY">Priority</Resource>
     <Resource tag="READ">Read</Resource>
     <Resource tag="REGMAIL_SENT">Ett e-postmeddelande har skickats. Kontrollera din inbox och klicka på länken i e-postmeddelandet.</Resource>
