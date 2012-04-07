@@ -26,8 +26,9 @@
                                 <tr class="postheader">
                                     <td width="20%">
                                         <strong>
-                                            <YAF:UserLink ID="ProfileLink" runat="server" UserID='<%# Container.DataItemToField<int>("UserID") %>' ReplaceName='<%# Container.DataItemToField<string>("UserName") %>'
-                                                BlankTarget="true" />
+                      <YAF:UserLink ID="ProfileLink" runat="server" UserID='<%# Container.DataItemToField<int>("UserID") %>' 
+                      ReplaceName='<%# this.Get<YafBoardSettings>().EnableDisplayName ? Container.DataItemToField<string>("DisplayName") : Container.DataItemToField<string>("UserName") %>' 
+                                               BlankTarget="true" />
                                         </strong>
                                     </td>
                                     <td width="80%" class="small" align="left">
@@ -52,8 +53,8 @@
                                 <tr class="postheader">
                                     <td width="20%">
                                         <strong>
-                                            <YAF:UserLink ID="ProfileLinkAlt" runat="server" UserID='<%# Container.DataItemToField<int>("UserID") %>' ReplaceName='<%# Container.DataItemToField<string>("UserName") %>'
-                                                BlankTarget="true" />
+                                            <YAF:UserLink ID="ProfileLink" runat="server" UserID='<%# Container.DataItemToField<int>("UserID") %>' ReplaceName='<%# this.Get<YafBoardSettings>().EnableDisplayName ? Container.DataItemToField<string>("DisplayName") : Container.DataItemToField<string>("UserName") %>' 
+                                                 BlankTarget="true" />
                                         </strong>
                                     </td>
                                     <td width="80%" class="small" align="left">
