@@ -254,7 +254,7 @@ namespace YAF.Controls
             else
             {
                 this.OkButton.OnClientClick =
-                    "jQuery().YafModalDialog.Close({{ Dialog: '#{0}' }});return false;".FormatWith(
+                    "jQuery().YafModalDialog.Close({{ Dialog: '#{0}' }});".FormatWith(
                         this.YafForumPageErrorPopup.ClientID);
             }
         }
