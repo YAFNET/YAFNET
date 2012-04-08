@@ -165,7 +165,7 @@ namespace YAF.Tests.Utils
             get
             {
                 return GetConfigValueAsString("YAF.ReleaseDownloadUrl") ??
-                       "http://download.codeplex.com/Download?ProjectName=yafnet&amp;DownloadId=278003&amp;FileTime=129597508421400000&amp;Build=18347";
+                       "http://download.codeplex.com/Download?ProjectName=yafnet&amp;DownloadId=360275&amp;FileTime=129772788879000000&amp;Build=18678";
             }
         }
 
@@ -177,7 +177,7 @@ namespace YAF.Tests.Utils
             get
             {
                 return GetConfigValueAsString("YAF.LocalReleasePackageFile") ??
-                       @"..\..\testfiles\YAF-v1.9.6-BETA1-BIN.zip";
+                       @"..\..\testfiles\YAF-v1.9.6.1-RTW-BIN.zip";
             }
         }
 

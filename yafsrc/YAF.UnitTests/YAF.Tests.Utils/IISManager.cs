@@ -41,7 +41,7 @@ namespace YAF.Tests.Utils
                 var defaultSite = serverManager.Sites[TestConfig.DefaultWebsiteName];
                 Application newApplication = defaultSite.Applications["/{0}".FormatWith(applicationName)];
 
-                // Remove if exitsts?!
+                // Remove if exists?!
                 if (newApplication != null)
                 {
                     defaultSite.Applications.Remove(newApplication);

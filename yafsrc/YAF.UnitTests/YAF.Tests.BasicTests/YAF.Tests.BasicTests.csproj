@@ -44,12 +44,6 @@
     <Reference Include="Autofac">
       <HintPath>..\..\YetAnotherForum.NET\Bin\Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.SqlServer.Management.Sdk.Sfc, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.SqlServer.Smo, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\Microsoft SQL Server\100\SDK\Assemblies\Microsoft.SqlServer.Smo.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Web.Administration, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -80,21 +74,34 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\xunit.dll</HintPath>
     </Reference>
+    <Reference Include="YAF">
+      <HintPath>..\..\YetAnotherForum.NET\Bin\YAF.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="YAF.Classes.Config, Version=1.9.6.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\YetAnotherForum.NET\Bin\YAF.Classes.Config.dll</HintPath>
     </Reference>
-    <Reference Include="YAF.Core">
+    <Reference Include="YAF.Controls, Version=1.9.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\YetAnotherForum.NET\Bin\YAF.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="YAF.Core, Version=1.9.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\YetAnotherForum.NET\Bin\YAF.Core.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="YAF.Providers">
       <HintPath>..\..\YetAnotherForum.NET\Bin\YAF.Providers.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="YAF.Types">
-      <HintPath>..\bin\YAF.Types.dll</HintPath>
+      <HintPath>..\..\YetAnotherForum.NET\Bin\YAF.Types.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="YAF.Utils">
       <HintPath>..\..\YetAnotherForum.NET\Bin\YAF.Utils.dll</HintPath>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -110,6 +117,12 @@
     <Compile Include="SpamClientTests.cs" />
     <Compile Include="UtilTests.cs" />
     <Compile Include="ScriptBuilderTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\YAF.Tests.Utils\YAF.Tests.Utils.csproj">
+      <Project>{E778E116-792B-4C78-8BD3-DE4844333C7D}</Project>
+      <Name>YAF.Tests.Utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
