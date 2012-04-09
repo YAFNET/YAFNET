@@ -137,7 +137,8 @@ namespace YAF.Pages
         {
             get
             {
-                return this._searchWhoCleaned ??
+                return this._searchWhoCleaned
+                       ??
                        (this._searchWhoCleaned =
                         StringExtensions.RemoveMultipleSingleQuotes(
                             StringExtensions.RemoveMultipleWhitespace(this.txtSearchStringFromWho.Text.Trim())));
@@ -174,12 +175,8 @@ namespace YAF.Pages
         /// <summary>
         /// Handles btn Click eventn for external search button 1
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e - EventArgs
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void BtnExtSearch1_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (!this.IsValidSearchRequest())
@@ -201,12 +198,8 @@ namespace YAF.Pages
         /// <summary>
         /// Handles btn Click eventn for external search button 2
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e - EventArgs
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void BtnExtSearch2_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (!this.IsValidSearchRequest())
@@ -304,8 +297,8 @@ namespace YAF.Pages
             {
                 searchTooLarge = true;
             }
-            else if (this.SearchWhatCleaned.Trim().IsNotSet() &&
-                     this.IsSearchTextTooLarge(this.SearchWhoCleaned.Trim()))
+            else if (this.SearchWhatCleaned.Trim().IsNotSet()
+                     && this.IsSearchTextTooLarge(this.SearchWhoCleaned.Trim()))
             {
                 searchTooLarge = true;
             }
@@ -338,28 +331,24 @@ namespace YAF.Pages
         /// </returns>
         protected bool IsValidSearchText([NotNull] string searchText)
         {
-            return searchText.IsSet() && !this.IsSearchTextTooSmall(searchText) &&
-                   !this.IsSearchTextTooLarge(searchText) &&
-                   Regex.IsMatch(searchText, this.Get<YafBoardSettings>().SearchStringPattern);
+            return searchText.IsSet() && !this.IsSearchTextTooSmall(searchText)
+                   && !this.IsSearchTextTooLarge(searchText)
+                   && Regex.IsMatch(searchText, this.Get<YafBoardSettings>().SearchStringPattern);
         }
 
         /// <summary>
         /// The on update history navigate.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="nStuff.UpdateControls.HistoryEventArgs"/> instance containing the event data.</param>
         protected void OnUpdateHistoryNavigate([NotNull] object sender, [NotNull] HistoryEventArgs e)
         {
             int pageNumber, pageSize;
 
             string[] pagerData = e.EntryName.Split('|');
 
-            if (pagerData.Length < 2 || !int.TryParse(pagerData[0], out pageNumber) ||
-                !int.TryParse(pagerData[1], out pageSize) || this.Get<IYafSession>().SearchData == null)
+            if (pagerData.Length < 2 || !int.TryParse(pagerData[0], out pageNumber)
+                || !int.TryParse(pagerData[1], out pageSize) || this.Get<IYafSession>().SearchData == null)
             {
                 return;
             }
@@ -381,14 +370,10 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The page_ load.
+        /// Handles the Load event of the Page control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.IsPostBack)
@@ -408,8 +393,8 @@ namespace YAF.Pages
                     this.listForum.Enabled = false;
                 }
 
-                if (!string.IsNullOrEmpty(this.Get<YafBoardSettings>().SearchEngine1) &&
-                    (!string.IsNullOrEmpty(this.Get<YafBoardSettings>().SearchEngine1Parameters)))
+                if (!string.IsNullOrEmpty(this.Get<YafBoardSettings>().SearchEngine1)
+                    && (!string.IsNullOrEmpty(this.Get<YafBoardSettings>().SearchEngine1Parameters)))
                 {
                     this.btnSearchExt1.Visible = true;
                     this.btnSearchExt1.Text =
@@ -418,8 +403,8 @@ namespace YAF.Pages
                             this.Get<YafBoardSettings>().SearchEngine1Parameters.Split('^')[0]);
                 }
 
-                if (!string.IsNullOrEmpty(this.Get<YafBoardSettings>().SearchEngine2) &&
-                    (!string.IsNullOrEmpty(this.Get<YafBoardSettings>().SearchEngine2Parameters)))
+                if (!string.IsNullOrEmpty(this.Get<YafBoardSettings>().SearchEngine2)
+                    && (!string.IsNullOrEmpty(this.Get<YafBoardSettings>().SearchEngine2Parameters)))
                 {
                     this.btnSearchExt2.Visible = true;
                     this.btnSearchExt2.Text =
@@ -453,7 +438,7 @@ namespace YAF.Pages
             this.listSearchWhat.Items.Add(new ListItem(this.GetText("match_exact"), "2"));
             this.listSearchWhat.Items.Add(new ListItem(this.GetText("match_any"), "1"));
             this.listSearchWhat.Items.Add(new ListItem(this.GetText("match_all"), "0"));
-            
+
             this.listSearchFromWho.SelectedIndex = 0;
             this.listSearchWhat.SelectedIndex = 2;
 
@@ -532,12 +517,8 @@ namespace YAF.Pages
         /// <summary>
         /// The pager_ page change.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Pager_PageChange([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.SmartScroller1.RegisterStartupReset();
@@ -547,12 +528,8 @@ namespace YAF.Pages
         /// <summary>
         /// The search res_ item data bound.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterItemEventArgs"/> instance containing the event data.</param>
         protected void SearchRes_ItemDataBound([NotNull] object sender, [NotNull] RepeaterItemEventArgs e)
         {
             var cell = (HtmlTableCell)e.Item.FindControl("CounterCol");
@@ -588,12 +565,8 @@ namespace YAF.Pages
         /// <summary>
         /// The btn search_ click.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void btnSearch_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.SearchUpdatePanel.Visible = true;
@@ -649,7 +622,8 @@ namespace YAF.Pages
         {
             searchParamsOptArrayj = searchParamsOptArrayj.Replace(
                 "{Word}",
-                this.txtSearchStringWhat.Text +
+                this.txtSearchStringWhat.Text
+                +
                 (!string.IsNullOrEmpty(this.txtSearchStringFromWho.Text)
                      ? " " + this.txtSearchStringFromWho.Text
                      : string.Empty));
@@ -716,7 +690,7 @@ namespace YAF.Pages
                     this.NoResults.Visible = !areResults;
                 }
 
-                this.UpdateHistory.AddEntry(this.Pager.CurrentPageIndex + "|" + this.Pager.PageSize);
+                this.UpdateHistory.AddEntry("{0}|{1}".FormatWith(this.Pager.CurrentPageIndex, this.Pager.PageSize));
 
                 var pagedData =
                     this.Get<IYafSession>().SearchData.AsEnumerable().Skip(this.Pager.SkipIndex).Take(
@@ -756,8 +730,7 @@ namespace YAF.Pages
                     break;
                 case SearchWhatFlags.AllWords:
                 case SearchWhatFlags.AnyWords:
-                    this.HighlightSearchWords.AddRange(
-                        this.SearchWhatCleaned.Split(' ').ToList().Where(x => x.IsSet()));
+                    this.HighlightSearchWords.AddRange(this.SearchWhatCleaned.Split(' ').ToList().Where(x => x.IsSet()));
                     break;
             }
         }
@@ -778,13 +751,14 @@ namespace YAF.Pages
         private string TransformExtSearchLink([NotNull] string searchEngine, [NotNull] string searchParams)
         {
             searchEngine = searchEngine.Replace("{ResultsPerPage}", this.listResInPage.SelectedValue);
-            
+
             string url = this.ForumURL.TrimEnd('/').Replace("www.", string.Empty);
 
             if (Config.IsMojoPortal)
             {
                 url = BaseUrlBuilder.BaseUrl.TrimEnd('/').Replace("www.", string.Empty);
             }
+
             // int forumID = int.Parse(this.listForum.SelectedValue);
             searchEngine = searchEngine.Replace("{Site}", url);
 

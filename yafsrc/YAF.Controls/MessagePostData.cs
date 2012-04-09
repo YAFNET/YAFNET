@@ -227,11 +227,9 @@ namespace YAF.Controls
         #region Methods
 
         /// <summary>
-        /// The on pre render.
+        /// Raises the <see cref="E:System.Web.UI.Control.PreRender"/> event.
         /// </summary>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             if (this.DataRow != null && !this.MessageFlags.IsDeleted)
@@ -306,18 +304,21 @@ namespace YAF.Controls
             else if (this.DataRow.Table.Columns.Contains("Edited"))
             {
                 // handle a message that's been edited...
-                DateTime editedMessage = this.Posted;
+                var editedMessageDateTime = this.Posted;
 
                 if (this.Edited > this.Posted)
                 {
-                    editedMessage = this.Edited;
+                    editedMessageDateTime = this.Edited;
                 }
+
+                var formattedMessage =
+                    this.Get<IFormatMessage>().FormatMessage(
+                        this.HighlightMessage(this.Message, true), this.MessageFlags, false, editedMessageDateTime);
 
                 // tha_watcha : Since html message and bbcode can be mixed now, message should be always replace bbcode
                 this.RenderModulesInBBCode(
                     writer,
-                    this.HighlightMessage(
-                        this.Get<IFormatMessage>().FormatMessage(this.Message, this.MessageFlags, false, editedMessage)),
+                    formattedMessage,
                     this.MessageFlags,
                     this.DisplayUserID,
                     this.MessageId);
@@ -327,40 +328,16 @@ namespace YAF.Controls
                 {
                     this.RenderEditedMessage(writer, this.Edited, Convert.ToString(this.DataRow["EditReason"]), this.MessageId);
                 }
-
-                /*/if (this.MessageFlags.IsBBCode)
-            {
-                this.RenderModulesInBBCode(
-                    writer, 
-                    this.HighlightMessage(
-                        this.Get<IFormatMessage>().FormatMessage(this.Message, this.MessageFlags, false, editedMessage)), 
-                    this.MessageFlags, 
-                    this.DisplayUserID);
-         /* }
-            else
-            {
-                writer.Write(
-                    this.HighlightMessage(
-                        this.Get<IFormatMessage>().FormatMessage(this.Message, this.MessageFlags, false, editedMessage)));
-            }*/
             }
             else
             {
-                // render standard using bbcode or html...
-                if (this.MessageFlags.IsBBCode)
-                {
-                    this.RenderModulesInBBCode(
-                        writer,
-                        this.HighlightMessage(this.Get<IFormatMessage>().FormatMessage(this.Message, this.MessageFlags)),
-                        this.MessageFlags,
-                        this.DisplayUserID,
-                        this.MessageId);
-                }
-                else
-                {
-                    writer.Write(
-                        this.HighlightMessage(this.Get<IFormatMessage>().FormatMessage(this.Message, this.MessageFlags)));
-                }
+                var formattedMessage =
+                    this.Get<IFormatMessage>().FormatMessage(
+                        this.HighlightMessage(this.Message, true), this.MessageFlags);
+
+                // tha_watcha : Since html message and bbcode can be mixed now, message should be always replace bbcode
+                this.RenderModulesInBBCode(
+                    writer, formattedMessage, this.MessageFlags, this.DisplayUserID, this.MessageID);
             }
         }
 

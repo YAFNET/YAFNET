@@ -24,7 +24,6 @@ namespace YAF.Controls
     using System.Collections.Generic;
     using System.Web;
     using System.Web.UI;
-    using System.Web.UI.WebControls;
 
     using YAF.Core;
     using YAF.Types;
@@ -216,30 +215,27 @@ namespace YAF.Controls
         /// <summary>
         /// Highlight a Message
         /// </summary>
-        /// <param name="message">
-        /// The Message to Hightlight
-        /// </param>
+        /// <param name="message">The Message to Hightlight</param>
+        /// <param name="renderBBCode">if set to <c>true</c> Render Highlight as BB Code or as Html Tags</param>
         /// <returns>
         /// The Message with the Span Tag and Css Class "highlight" that Hightlights it
         /// </returns>
-        protected virtual string HighlightMessage([NotNull] string message)
+        protected virtual string HighlightMessage([NotNull] string message, bool renderBBCode = false)
         {
             if (this.HighlightWords.Count > 0)
             {
                 // highlight word list
                 message = this.Get<IFormatMessage>().SurroundWordList(
-                    message, this.HighlightWords, @"<span class=""highlight"">", @"</span>");
+                    message, this.HighlightWords, renderBBCode ? "[h]" : @"<span class=""highlight"">", renderBBCode ? "[/h]" : @"</span>");
             }
 
             return message;
         }
 
         /// <summary>
-        /// The on pre render.
+        /// Raises the <see cref="E:System.Web.UI.Control.PreRender"/> event.
         /// </summary>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             if (this.Signature.IsSet())
@@ -298,8 +294,7 @@ namespace YAF.Controls
             writer.Write(
                 @"<span class=""MessageDetails""><em>{1}{0}</em></span>",
                 !string.IsNullOrEmpty(deleteText)
-                    ? @"&nbsp;|&nbsp;<span class=""editedinfo"" title=""{1}"">{0}: {1}</span>".
-                          FormatWith(this.GetText("EDIT_REASON"), deleteText)
+                    ? @"&nbsp;|&nbsp;<span class=""editedinfo"" title=""{1}"">{0}: {1}</span>".FormatWith(this.GetText("EDIT_REASON"), deleteText)
                     : string.Empty,
                 this.IsModeratorChanged
                     ? this.GetText("POSTS", "MESSAGEDELETED_MOD")
@@ -359,21 +354,13 @@ namespace YAF.Controls
             }
             else
             {
-                string formattedMessage =
-                    this.HighlightMessage(this.Get<IFormatMessage>().FormatMessage(this.Message, this.MessageFlags));
+                var formattedMessage =
+                    this.Get<IFormatMessage>().FormatMessage(
+                        this.HighlightMessage(this.Message, true), this.MessageFlags);
 
                 // tha_watcha : Since html message and bbcode can be mixed now, message should be always replace bbcode
                 this.RenderModulesInBBCode(
                     writer, formattedMessage, this.MessageFlags, this.DisplayUserID, this.MessageID);
-
-                /*if (this.MessageFlags.IsBBCode)
-                {
-                  this.RenderModulesInBBCode(writer, formattedMessage, this.MessageFlags, this.DisplayUserID);
-                }
-                else
-                {
-                  writer.Write(formattedMessage);
-                }*/
             }
         }
 
