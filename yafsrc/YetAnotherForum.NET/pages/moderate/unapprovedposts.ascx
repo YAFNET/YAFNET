@@ -47,7 +47,7 @@
         </tr>
         <tr class="postfooter">
             <td class="small postTop">
-                <a onclick="ScrollToTop();" href="javascript: void(0)">            
+                <a onclick="ScrollToTop();" class="postTopLink" href="javascript: void(0)">            
                   <YAF:ThemeImage ID="ThemeImage1" LocalizedTitlePage="POSTS" LocalizedTitleTag="TOP"  runat="server" ThemeTag="TOTOPPOST" />
                 </a>
             </td>
