@@ -71,7 +71,9 @@
 			$.fn.YafModalDialog.Close({ Dialog: '#LoginBox' });
 		}
 
-        var top = getPageScroll()[1] + (getPageHeight() / 100);
+        //var top = getPageScroll()[1] + (getPageHeight() / 100);
+		var top = '25%';
+		
 		var left =  $(window).width() / 2 - 205;
 
 		var cookieScroll = readCookie('ScrollPosition');
@@ -79,7 +81,7 @@
 		{
 	      eraseCookie('ScrollPosition');
 		  top = 0;
-		  top = parseInt(cookieScroll) + 100;
+		  top = (parseInt(cookieScroll) + 100) + 'px';
 		}
 		
 		var DialogId = settings.Dialog;
@@ -87,8 +89,8 @@
 		
 		var MainDialogId = DialogId + 'Box';
 		
-		$(settings.Dialog).wrapInner("<div id=\"" + MainDialogId +"\" class=\"ModalDialog\" style=\"top: "+  top + "px; display: block; left: " + left +"px; \"><div class=\"yafpopup\"><div class=\"DialogContent\">");
-				$('#' + MainDialogId + ' .yafpopup').after("<a href=\"javascript:void(0);\" class=\"close\" id=\"" + DialogId + "Close\"><img src=\"" + settings.ImagePath + "closelabel.png\" title=\"close\" class=\"close_image\"></a>");
+		$(settings.Dialog).wrapInner("<div id=\"" + MainDialogId +"\" class=\"ModalDialog\" style=\"top: "+  top + "; display: block; left: " + left +"px; \"><div class=\"yafpopup\"><div class=\"DialogContent\">");
+				$('#' + MainDialogId + ' .popup').after("<a href=\"javascript:void(0);\" class=\"close\" id=\"" + DialogId + "Close\"><img src=\"" + settings.ImagePath + "closelabel.png\" title=\"close\" class=\"close_image\"></a>");
 			    $(settings.Dialog).after("<div id=\"" + MainDialogId +  "_overlay\" class=\"ModalDialog_hide ModalDialog_overlayBG\" style=\"display: none; opacity: 0.2; \"></div>");
 				
 				$(settings.Dialog).fadeIn('normal');
