@@ -109,11 +109,11 @@ if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseO
 	create table [{databaseOwner}].[{objectQualifier}ActiveAccess](		
 		UserID			    int NOT NULL ,
 		BoardID			    int NOT NULL ,			
-		ForumID			    int,
+		ForumID			    int NOT NULL,
 		IsAdmin				bit NOT NULL ,
 		IsForumModerator	bit NOT NULL ,
 		IsModerator			bit NOT NULL ,
-		IsGuestX			bit NOT NULL constraint [DF_{objectQualifier}ActiveAccess_IsGuestX] default(0),
+		IsGuestX			bit NOT NULL,
 		LastActive			datetime NULL ,
 		ReadAccess			bit NOT NULL ,
 		PostAccess			bit NOT NULL ,
@@ -283,7 +283,7 @@ if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseO
 		MessageID		    int NOT NULL ,
 		[Message]		    ntext NOT NULL ,
 		IP				    nvarchar (15) NOT NULL ,
-		Edited			    datetime NULL,
+		Edited			    datetime NOT NULL,
 		EditedBy		    int NULL,	
 		EditReason          nvarchar (100) NULL ,
 		IsModeratorChanged  bit NOT NULL CONSTRAINT [DF_{objectQualifier}MessageHistory_IsModeratorChanged] DEFAULT (0),
@@ -1663,6 +1663,20 @@ begin
 	alter table [{databaseOwner}].[{objectQualifier}MessageHistory] drop column [MessageHistoryID]
 end
 GO
+-- the dependency should be dropped first
+if exists (select top 1 1 from  dbo.sysobjects where name='IX_{objectQualifier}MessageHistory' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}MessageHistory]'))
+	alter table [{databaseOwner}].[{objectQualifier}MessageHistory] drop constraint [IX_{objectQualifier}MessageHistory] 
+go
+if exists (select top 1 1 from syscolumns where id=object_id(N'[{databaseOwner}].[{objectQualifier}MessageHistory]') and name=N'Edited' and isnullable=1)
+begin		
+		grant update on [{databaseOwner}].[{objectQualifier}MessageHistory] to public
+		-- exec('[{databaseOwner}].[{objectQualifier}drop_defaultconstraint_oncolumn] {objectQualifier}MessageHistory, Edited')
+		exec('update [{databaseOwner}].[{objectQualifier}MessageHistory] set Edited = GETDATE() WHERE Edited IS NULL')
+		alter table [{databaseOwner}].[{objectQualifier}MessageHistory] alter column [Edited] datetime NOT NULL
+		revoke update on [{databaseOwner}].[{objectQualifier}MessageHistory] from public	    
+end
+GO
+
 -- Topic Table
 if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='IsLocked')
 begin
@@ -1984,6 +1998,10 @@ begin
     delete from [{databaseOwner}].[{objectQualifier}ActiveAccess]
 	alter table [{databaseOwner}].[{objectQualifier}ActiveAccess] add [IsGuestX] bit NOT NULL
 end
+GO
+
+if exists(select top 1 1 from dbo.syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}ActiveAccess]') and name=N'ForumID' and isnullable=1)
+	alter table [{databaseOwner}].[{objectQualifier}ActiveAccess] alter column ForumID int not null
 GO
 
 -- Choice Table

@@ -29,3 +29,7 @@ go
 if not exists(select top 1 1 from dbo.sysindexes where name=N'IX_{objectQualifier}prov_RoleMembership_UserID' and id=object_id(N'[{databaseOwner}].[{objectQualifier}prov_RoleMembership]'))
  CREATE  INDEX [IX_{objectQualifier}prov_RoleMembership_UserID] ON [{databaseOwner}].[{objectQualifier}prov_RoleMembership]([UserID])
 go
+
+if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}prov_RoleMembership]') and name='PK_{objectQualifier}prov_RoleMembership')
+	alter table [{databaseOwner}].[{objectQualifier}prov_RoleMembership] with nocheck add constraint [PK_{objectQualifier}prov_RoleMembership] primary key clustered(RoleID,UserID)   
+go

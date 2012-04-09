@@ -241,6 +241,8 @@ if exists (select top 1 1 from  dbo.sysobjects where name='FK_{objectQualifier}T
 	alter table [{databaseOwner}].[{objectQualifier}Topic] drop constraint [FK_{objectQualifier}Topic_{objectQualifier}Poll] 
 go 
 
+
+
 /* Drop old primary keys */
 
 if exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}BannedIP]') and name='PK_BannedIP')
@@ -386,6 +388,8 @@ if exists(select top 1 1 from dbo.sysindexes where id=object_id('[{databaseOwner
 	alter table [{databaseOwner}].[{objectQualifier}PollVote] drop constraint [PK_PollVote]
 go
 
+
+
 /*
 ** Unique constraints
 */
@@ -485,6 +489,9 @@ if exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwn
 	alter table [{databaseOwner}].[{objectQualifier}Thanks] drop constraint [IX_{objectQualifier}Thanks]
 go
 
+if exists (select top 1 1 from  dbo.sysobjects where name='IX_{objectQualifier}MessageHistory' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}MessageHistory]'))
+	alter table [{databaseOwner}].[{objectQualifier}MessageHistory] drop constraint [IX_{objectQualifier}MessageHistory] 
+go 
 /* Wrong index */
 /* Modified by Herman_Herman for SQL2K Compatibility */
 
@@ -497,13 +504,19 @@ if exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwn
     alter table [{databaseOwner}].[{objectQualifier}Forum] drop constraint IX_{objectQualifier}Forum
 go
 
+if exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}ForumReadTracking]') and name='IX_{objectQualifier}ForumReadTracking')
+    alter table [{databaseOwner}].[{objectQualifier}ForumReadTracking] drop constraint IX_{objectQualifier}ForumReadTracking
+go
+
+if exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}TopicReadTracking]') and name='IX_{objectQualifier}TopicReadTracking')
+    alter table [{databaseOwner}].[{objectQualifier}TopicReadTracking] drop constraint IX_{objectQualifier}TopicReadTracking
+go
 
 /* Build new constraints */
 
 /*
 ** Primary keys
 */
-
 
 if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}BannedIP]') and name='PK_{objectQualifier}BannedIP')
 	alter table [{databaseOwner}].[{objectQualifier}BannedIP] with nocheck add constraint [PK_{objectQualifier}BannedIP] primary key clustered(ID)
@@ -521,36 +534,53 @@ if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databas
 	alter table [{databaseOwner}].[{objectQualifier}CheckEmail] with nocheck add constraint [PK_{objectQualifier}CheckEmail] primary key clustered(CheckEmailID)   
 go
 
-
 if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}Choice]') and name='PK_{objectQualifier}Choice')
 	alter table [{databaseOwner}].[{objectQualifier}Choice] with nocheck add constraint [PK_{objectQualifier}Choice] primary key clustered(ChoiceID)   
 go
-
 
 if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='PK_{objectQualifier}Forum')
 	alter table [{databaseOwner}].[{objectQualifier}Forum] with nocheck add constraint [PK_{objectQualifier}Forum] primary key clustered(ForumID)   
 go
 
-
 if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}ForumAccess]') and name='PK_{objectQualifier}ForumAccess')
 	alter table [{databaseOwner}].[{objectQualifier}ForumAccess] with nocheck add constraint [PK_{objectQualifier}ForumAccess] primary key clustered(GroupID,ForumID)   
 go
 
+if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}MessageReported]') and name='PK_{objectQualifier}MessageReported')
+	alter table [{databaseOwner}].[{objectQualifier}MessageReported] with nocheck add constraint [PK_{objectQualifier}MessageReported] primary key clustered(MessageID)   
+go
 
 if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='PK_{objectQualifier}Group')
 	alter table [{databaseOwner}].[{objectQualifier}Group] with nocheck add constraint [PK_{objectQualifier}Group] primary key clustered(GroupID)   
 go
 
+if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}GroupMedal]') and name='PK_{objectQualifier}GroupMedal')
+	alter table [{databaseOwner}].[{objectQualifier}GroupMedal] with nocheck add constraint [PK_{objectQualifier}GroupMedal] primary key clustered(MedalID,GroupID)   
+go
+
+if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}ForumReadTracking]') and name='PK_{objectQualifier}ForumReadTracking')
+	alter table [{databaseOwner}].[{objectQualifier}ForumReadTracking] with nocheck add constraint [PK_{objectQualifier}ForumReadTracking] primary key clustered(UserID,ForumID)   
+go
+
+if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}TopicReadTracking]') and name='PK_{objectQualifier}TopicReadTracking')
+	alter table [{databaseOwner}].[{objectQualifier}TopicReadTracking] with nocheck add constraint [PK_{objectQualifier}TopicReadTracking] primary key clustered(UserID,TopicID)   
+go
+
+if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}UserMedal]') and name='PK_{objectQualifier}UserMedal')
+	alter table [{databaseOwner}].[{objectQualifier}UserMedal] with nocheck add constraint [PK_{objectQualifier}UserMedal] primary key clustered(MedalID,UserID)   
+go
 
 if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}Mail]') and name='PK_{objectQualifier}Mail')
 	alter table [{databaseOwner}].[{objectQualifier}Mail] with nocheck add constraint [PK_{objectQualifier}Mail] primary key clustered(MailID)   
 go
 
+if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}UserProfile]') and name='PK_{objectQualifier}UserProfile')
+	alter table [{databaseOwner}].[{objectQualifier}UserProfile] with nocheck add constraint [PK_{objectQualifier}UserProfile] primary key clustered(UserID,ApplicationName)   
+go
 
 if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='PK_{objectQualifier}Message')
 	alter table [{databaseOwner}].[{objectQualifier}Message] with nocheck add constraint [PK_{objectQualifier}Message] primary key clustered(MessageID)   
 go
-
 
 if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}PMessage]') and name='PK_{objectQualifier}PMessage')
 	alter table [{databaseOwner}].[{objectQualifier}PMessage] with nocheck add constraint [PK_{objectQualifier}PMessage] primary key clustered(PMessageID)   
@@ -663,6 +693,14 @@ if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databas
 	alter table [{databaseOwner}].[{objectQualifier}Thanks] with nocheck add constraint [PK_{objectQualifier}Thanks] PRIMARY KEY CLUSTERED (ThanksID)
 go
 
+if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}MessageHistory]') and name='PK_{objectQualifier}MessageHistory')
+	alter table [{databaseOwner}].[{objectQualifier}MessageHistory] with nocheck add constraint  [PK_{objectQualifier}MessageHistory] primary key clustered (MessageID,Edited)   
+go
+
+if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}ActiveAccess]') and name='PK_{objectQualifier}ActiveAccess')
+	alter table [{databaseOwner}].[{objectQualifier}ActiveAccess] with nocheck add constraint  [PK_{objectQualifier}ActiveAccess] primary key clustered (UserID,ForumID)   
+go
+
 /*
 ** Unique constraints
 */
@@ -675,28 +713,15 @@ go
 
 if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}WatchForum]') and name='IX_{objectQualifier}WatchForum')
 	alter table [{databaseOwner}].[{objectQualifier}WatchForum] add constraint IX_{objectQualifier}WatchForum unique nonclustered (ForumID,UserID)   
-go
-
-if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}MessageHistory]') and name='IX_{objectQualifier}MessageHistory')
-	alter table [{databaseOwner}].[{objectQualifier}MessageHistory] add constraint IX_{objectQualifier}MessageHistory unique nonclustered (Edited,MessageID)   
-go
+go 
 
 if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}UserProfile]') and name='IX_{objectQualifier}UserProfile')
 	alter table [{databaseOwner}].[{objectQualifier}UserProfile] add constraint IX_{objectQualifier}UserProfile unique nonclustered (UserID,ApplicationName)   
 go
 
-if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}ForumReadTracking]') and name='IX_{objectQualifier}ForumReadTracking')
-	alter table [{databaseOwner}].[{objectQualifier}ForumReadTracking] add constraint IX_{objectQualifier}ForumReadTracking unique nonclustered (UserID,ForumID)   
-go
-
-if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}TopicReadTracking]') and name='IX_{objectQualifier}TopicReadTracking')
-	alter table [{databaseOwner}].[{objectQualifier}TopicReadTracking] add constraint IX_{objectQualifier}TopicReadTracking unique nonclustered (UserID,TopicID)   
-go
-
 if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}WatchTopic]') and name='IX_{objectQualifier}WatchTopic')
 	alter table [{databaseOwner}].[{objectQualifier}WatchTopic] add constraint IX_{objectQualifier}WatchTopic unique nonclustered (TopicID,UserID)   
 go
-
 
 if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}Category]') and name='IX_{objectQualifier}Category')
 	alter table [{databaseOwner}].[{objectQualifier}Category] add constraint IX_{objectQualifier}Category unique nonclustered(BoardID,Name)
@@ -993,6 +1018,29 @@ if not exists (select top 1 1 from  dbo.sysobjects where name='FK_{objectQualifi
 	alter table [{databaseOwner}].[{objectQualifier}Group] add constraint [FK_{objectQualifier}Group_{objectQualifier}Board] foreign key(BoardID) references [{databaseOwner}].[{objectQualifier}Board] (BoardID)
 go
 
+if not exists (select top 1 1 from  dbo.sysobjects where name='FK_{objectQualifier}GroupMedal_{objectQualifier}Group' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}GroupMedal]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+	alter table [{databaseOwner}].[{objectQualifier}GroupMedal] add constraint [FK_{objectQualifier}GroupMedal_{objectQualifier}Group] foreign key(GroupID) references [{databaseOwner}].[{objectQualifier}Group] (GroupID)
+go
+
+if not exists (select top 1 1 from  dbo.sysobjects where name='FK_{objectQualifier}GroupMedal_{objectQualifier}Medal' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}GroupMedal]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+	alter table [{databaseOwner}].[{objectQualifier}GroupMedal] add constraint [FK_{objectQualifier}GroupMedal_{objectQualifier}Medal] foreign key(MedalID) references [{databaseOwner}].[{objectQualifier}Medal] (MedalID)
+go
+
+if not exists (select top 1 1 from  dbo.sysobjects where name='FK_{objectQualifier}UserMedal_{objectQualifier}User' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}UserMedal]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+	alter table [{databaseOwner}].[{objectQualifier}UserMedal] add constraint [FK_{objectQualifier}UserMedal_{objectQualifier}User] foreign key(UserID) references [{databaseOwner}].[{objectQualifier}User] (UserID)
+go
+
+if not exists (select top 1 1 from  dbo.sysobjects where name='FK_{objectQualifier}UserMedal_{objectQualifier}Medal' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}UserMedal]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+	alter table [{databaseOwner}].[{objectQualifier}UserMedal] add constraint [FK_{objectQualifier}UserMedal_{objectQualifier}Medal] foreign key(MedalID) references [{databaseOwner}].[{objectQualifier}Medal] (MedalID)
+go
+
+if not exists (select top 1 1 from  dbo.sysobjects where name='FK_{objectQualifier}UserProfile_{objectQualifier}User' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}UserProfile]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+	alter table [{databaseOwner}].[{objectQualifier}UserProfile] add constraint [FK_{objectQualifier}UserProfile_{objectQualifier}User] foreign key(UserID) references [{databaseOwner}].[{objectQualifier}User] (UserID)
+go
+
+if not exists (select top 1 1 from  dbo.sysobjects where name='FK_{objectQualifier}MessageReportedAudit_{objectQualifier}MessageReported' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}MessageReportedAudit]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+	alter table [{databaseOwner}].[{objectQualifier}MessageReportedAudit] add constraint [FK_{objectQualifier}MessageReportedAudit_{objectQualifier}MessageReported] foreign key(MessageID) references [{databaseOwner}].[{objectQualifier}MessageReported] (MessageID)
+go
 
 if not exists (select top 1 1 from  dbo.sysobjects where name='FK_{objectQualifier}NntpServer_{objectQualifier}Board' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}NntpServer]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table [{databaseOwner}].[{objectQualifier}NntpServer] add constraint [FK_{objectQualifier}NntpServer_{objectQualifier}Board] foreign key(BoardID) references [{databaseOwner}].[{objectQualifier}Board] (BoardID)
@@ -1018,11 +1066,9 @@ if not exists (select top 1 1 from  dbo.sysobjects where name='FK_{objectQualifi
 	alter table [{databaseOwner}].[{objectQualifier}User] add constraint [FK_{objectQualifier}User_{objectQualifier}Board] foreign key(BoardID) references [{databaseOwner}].[{objectQualifier}Board](BoardID)
 go
 
-
 if not exists (select top 1 1 from  dbo.sysobjects where name='FK_{objectQualifier}Forum_{objectQualifier}Forum' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table [{databaseOwner}].[{objectQualifier}Forum] add constraint [FK_{objectQualifier}Forum_{objectQualifier}Forum] foreign key(ParentID) references [{databaseOwner}].[{objectQualifier}Forum](ForumID)
 go
-
 
 if not exists (select top 1 1 from  dbo.sysobjects where name='FK_{objectQualifier}Message_{objectQualifier}Message' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}Message]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table [{databaseOwner}].[{objectQualifier}Message] add constraint [FK_{objectQualifier}Message_{objectQualifier}Message] foreign key(ReplyTo) references [{databaseOwner}].[{objectQualifier}Message](MessageID)
@@ -1079,7 +1125,22 @@ go
 
 if not exists (select top 1 1 from  dbo.sysobjects where name=N'FK_{objectQualifier}MessageHistory_MessageID' and parent_obj=object_id(N'[{databaseOwner}].[{objectQualifier}MessageHistory]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
     ALTER TABLE [{databaseOwner}].[{objectQualifier}MessageHistory] ADD CONSTRAINT [FK_{objectQualifier}MessageHistory_MessageID] FOREIGN KEY([MessageID]) REFERENCES [{databaseOwner}].[{objectQualifier}Message] ([MessageID]) 
-	ON DELETE NO ACTION 
+
+if not exists (select top 1 1 from  dbo.sysobjects where name='FK_{objectQualifier}ForumReadTracking_{objectQualifier}User' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}ForumReadTracking]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+	alter table [{databaseOwner}].[{objectQualifier}ForumReadTracking] add constraint [FK_{objectQualifier}ForumReadTracking_{objectQualifier}User] foreign key (UserID) references [{databaseOwner}].[{objectQualifier}User](UserID)
+go
+
+if not exists (select top 1 1 from  dbo.sysobjects where name='FK_{objectQualifier}ForumReadTracking_{objectQualifier}Forum' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}ForumReadTracking]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+	alter table [{databaseOwner}].[{objectQualifier}ForumReadTracking] add constraint [FK_{objectQualifier}ForumReadTracking_{objectQualifier}Forum] foreign key (ForumID) references [{databaseOwner}].[{objectQualifier}Forum](ForumID)
+go
+
+if not exists (select top 1 1 from  dbo.sysobjects where name='FK_{objectQualifier}TopicReadTracking_{objectQualifier}User' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}TopicReadTracking]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+	alter table [{databaseOwner}].[{objectQualifier}TopicReadTracking] add constraint [FK_{objectQualifier}TopicReadTracking_{objectQualifier}User] foreign key (UserID) references [{databaseOwner}].[{objectQualifier}User](UserID)
+go
+
+if not exists (select top 1 1 from  dbo.sysobjects where name='FK_{objectQualifier}TopicReadTracking_{objectQualifier}Topic' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}TopicReadTracking]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+	alter table [{databaseOwner}].[{objectQualifier}TopicReadTracking] add constraint [FK_{objectQualifier}TopicReadTracking_{objectQualifier}Topic] foreign key (TopicID) references [{databaseOwner}].[{objectQualifier}Topic](TopicID)
+go
 
 /* Default Constraints */
 if exists (select top 1 1 from  dbo.sysobjects where name=N'DF_{objectQualifier}Message_Flags' and parent_obj=object_id(N'[{databaseOwner}].[{objectQualifier}Message]'))
@@ -1132,6 +1193,10 @@ go
 
 if not exists (select top 1 1 from  dbo.sysobjects where name=N'DF_{objectQualifier}Extension_BoardID' and parent_obj=object_id(N'[{databaseOwner}].[{objectQualifier}Extension]'))
 	alter table [{databaseOwner}].[{objectQualifier}Extension] add constraint [DF_{objectQualifier}Extension_BoardID] default(1) for BoardID
+go
+
+if not exists (select top 1 1 from  dbo.sysobjects where name=N'DF_{objectQualifier}ActiveAccess_IsGuestX' and parent_obj=object_id(N'[{databaseOwner}].[{objectQualifier}ActiveAccess]'))
+	alter table [{databaseOwner}].[{objectQualifier}ActiveAccess] add constraint [DF_{objectQualifier}ActiveAccess_IsGuestX] default(1) for BoardID
 go
 
 

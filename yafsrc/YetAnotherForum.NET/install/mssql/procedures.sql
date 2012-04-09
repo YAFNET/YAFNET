@@ -2132,8 +2132,7 @@ BEGIN
 				join [{databaseOwner}].[{objectQualifier}Topic] b on b.TopicID=a.TopicID 
 				join [{databaseOwner}].[{objectQualifier}Forum] c on c.ForumID=b.ForumID 
 				join [{databaseOwner}].[{objectQualifier}Category] d on d.CategoryID=c.CategoryID 
-				join [{databaseOwner}].[{objectQualifier}User] e on e.UserID=a.UserID
-				JOIN [{databaseOwner}].[{objectQualifier}Rank] r on r.RankID=e.RankID		
+				join [{databaseOwner}].[{objectQualifier}User] e on e.UserID=a.UserID						
 			WHERE 
 				(a.Flags & 24) = 16
 				AND b.IsDeleted = 0 
@@ -5340,6 +5339,7 @@ begin
 		a.Flags,
 		UserName = IsNull(a.UserName,b.Name),
 		DisplayName = IsNull(a.UserDisplayName,b.DisplayName),
+		Style = b.UserStyle,
 		b.[Signature]
 	from
 		[{databaseOwner}].[{objectQualifier}Message] a 
@@ -10357,7 +10357,7 @@ as
 	 delete from [{databaseOwner}].[{objectQualifier}MessageHistory]
 	 where DATEDIFF(day,Edited,@UTCTIMESTAMP ) > @DaysToClean	
 			  
-	 SELECT mh.*, m.UserID, m.UserName, IsNull(m.UserDisplayName,(SELECT u.DisplayName FROM [{databaseOwner}].[{objectQualifier}User] u where u.UserID = m.UserID)), t.ForumID, t.TopicID, t.Topic, m.Posted
+	 SELECT mh.*, m.UserID, m.UserName, IsNull(m.UserDisplayName,(SELECT u.DisplayName FROM [{databaseOwner}].[{objectQualifier}User] u where u.UserID = m.UserID)) AS UserDisplayName, t.ForumID, t.TopicID, t.Topic, m.Posted
 	 FROM [{databaseOwner}].[{objectQualifier}MessageHistory] mh
 	 LEFT JOIN [{databaseOwner}].[{objectQualifier}Message] m ON m.MessageID = mh.MessageID
 	 LEFT JOIN [{databaseOwner}].[{objectQualifier}Topic] t ON t.TopicID = m.TopicID
