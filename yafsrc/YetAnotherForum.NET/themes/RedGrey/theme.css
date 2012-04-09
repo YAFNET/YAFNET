@@ -662,7 +662,7 @@ This CSS already works on FireFox.
 	
 }
 .yafnet a.yafcssbigbutton:hover,
-.yafnet .pbutton:hover
+.yafnet .pbutton:hover,
 .yafnet .postTopLink:hover,
 .yafnet .MultiQuoteButton:hover,
 .yafnet a.yaflittlebutton:hover,
@@ -1221,23 +1221,6 @@ height:80em;
 	color:#333!important;
 }
 
-/* Irkoo Service styles */
-.irk-rating { font-family: Arial, Sans-Serif; color: #080; }
-.irk-negative { color: #c00; }
-.irk-count { font-size: 12px; font-weight: bold; padding: 0 4px; vertical-align: middle; }
-.irk-down, .irk-up { cursor: pointer; width: 16px; height: 16px; vertical-align: middle; }
-.irk-down { background: url(http://z.irkoo.com/down.png); }
-.irk-down:hover { background: url(http://z.irkoo.com/down-hover.png); }
-.irk-down-voted .irk-down { background: url(http://z.irkoo.com/down-voted.png); }
-.irk-up { background: url(http://z.irkoo.com/up.png); }
-.irk-up:hover { background: url(http://z.irkoo.com/up-hover.png); }
-.irk-up-voted .irk-up { background: url(http://z.irkoo.com/up-voted.png); }
-/* irk-vote should have relative positioning needed for popup to be positioned correctly */
-.irk-vote { position: relative; }
-.irk-count, .irk-rating { font-family: Arial, Sans-Serif; color: #680; }
-.irk-negative, .irk-negative .irk-count { color: #c4e; }
-/* End of Irkoo Service styles */
-
 /* Override jquery ui font-size */
 .ui-widget { font-size: 9pt!important; }
 
@@ -1396,19 +1379,6 @@ height:80em;
 }
 .yafnet .Unread a {color:white!important;font-weight:bold!important;font-size:0.9em!important;padding-left: 0px!important;}
 .yafnet .unread {padding-top:7px;}
-
-.yafnet .postTopLink  {
-    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
-    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, .4);
-    border: 1px solid #aaa;
-    -webkit-border-radius: 0.4em;
-	border-radius: 0.4em;
-	padding:4px 3px 0 3px;
-}
-.yafnet .postTopLink:hover  {
-    background:#999;
-}
 
 /* Alpha Sort Control */
 .yafnet dl.AlphaSort {
