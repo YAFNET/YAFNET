@@ -512,6 +512,10 @@ if exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwn
     alter table [{databaseOwner}].[{objectQualifier}TopicReadTracking] drop constraint IX_{objectQualifier}TopicReadTracking
 go
 
+if exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}ReputationVote]') and name='IX_{objectQualifier}ReputationVote')
+    alter table [{databaseOwner}].[{objectQualifier}ReputationVote] drop constraint IX_{objectQualifier}ReputationVote
+go
+
 /* Build new constraints */
 
 /*
@@ -701,6 +705,10 @@ if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databas
 	alter table [{databaseOwner}].[{objectQualifier}ActiveAccess] with nocheck add constraint  [PK_{objectQualifier}ActiveAccess] primary key clustered (UserID,ForumID)   
 go
 
+if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}ReputationVote]') and name='PK_{objectQualifier}ReputationVote')
+	alter table [{databaseOwner}].[{objectQualifier}ReputationVote] with nocheck add constraint  [PK_{objectQualifier}ReputationVote] primary key clustered (ReputationFromUserID,ReputationToUserID)   
+go
+
 /*
 ** Unique constraints
 */
@@ -795,11 +803,6 @@ go
 if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}Buddy]') and name='IX_{objectQualifier}Buddy')
 	alter table [{databaseOwner}].[{objectQualifier}Buddy] add constraint IX_{objectQualifier}Buddy unique nonclustered([FromUserID],[ToUserID])
 go
-
-if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}ReputationVote]') and name='IX_{objectQualifier}ReputationVote')
-	alter table [{databaseOwner}].[{objectQualifier}ReputationVote] add constraint IX_{objectQualifier}ReputationVote unique nonclustered (ReputationFromUserID, ReputationToUserID)   
-go
-
 
 /*
 ** Foreign keys
@@ -1140,6 +1143,14 @@ go
 
 if not exists (select top 1 1 from  dbo.sysobjects where name='FK_{objectQualifier}TopicReadTracking_{objectQualifier}Topic' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}TopicReadTracking]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table [{databaseOwner}].[{objectQualifier}TopicReadTracking] add constraint [FK_{objectQualifier}TopicReadTracking_{objectQualifier}Topic] foreign key (TopicID) references [{databaseOwner}].[{objectQualifier}Topic](TopicID)
+go
+
+if not exists (select top 1 1 from  dbo.sysobjects where name='FK_{objectQualifier}ReputationVote_{objectQualifier}User_From' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}ReputationVote]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+	alter table [{databaseOwner}].[{objectQualifier}ReputationVote] add constraint [FK_{objectQualifier}ReputationVote_{objectQualifier}User_From] foreign key (ReputationFromUserID) references [{databaseOwner}].[{objectQualifier}User](UserID)
+go
+
+if not exists (select top 1 1 from  dbo.sysobjects where name='FK_{objectQualifier}ReputationVote_{objectQualifier}User_To' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}ReputationVote]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+	alter table [{databaseOwner}].[{objectQualifier}ReputationVote] add constraint [FK_{objectQualifier}ReputationVote_{objectQualifier}User_To] foreign key (ReputationToUserID) references [{databaseOwner}].[{objectQualifier}User](UserID)
 go
 
 /* Default Constraints */
