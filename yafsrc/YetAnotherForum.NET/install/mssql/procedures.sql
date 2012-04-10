@@ -4519,8 +4519,7 @@ begin
 		begin
 			raiserror('No candidates for a guest were found for the board %d.',16,1,@BoardID)
 			end
-	 -- verify that there's not the sane session for other board and drop it if required. Test code for portals with many boards
-	 delete from [{databaseOwner}].[{objectQualifier}Active] where (SessionID=@SessionID  and BoardID <> @BoardID)
+	
 			 
 	if @UserKey is null
 	begin
@@ -4547,7 +4546,9 @@ begin
 		set @ActiveFlags = @ActiveFlags | 4
 	end
 
-	
+	 -- verify that there's not the sane session for other board and drop it if required. Test code for portals with many boards
+	 delete from [{databaseOwner}].[{objectQualifier}Active] where (SessionID=@SessionID  and (BoardID <> @BoardID or userid <> @UserID))
+
 	-- Check valid ForumID
 	if @ForumID is not null and not exists(select 1 from [{databaseOwner}].[{objectQualifier}Forum] where ForumID=@ForumID) begin
 		set @ForumID = null
