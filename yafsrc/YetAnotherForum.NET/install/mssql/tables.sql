@@ -308,7 +308,7 @@ IF NOT EXISTS (select top 1 1 from sysobjects where id = object_id(N'[{databaseO
 	CREATE TABLE [{databaseOwner}].[{objectQualifier}MessageReportedAudit](
 		[LogID] [int] IDENTITY(1,1) NOT NULL,
 		[UserID] [int] NULL,
-		[MessageID] [int] NULL,
+		[MessageID] [int] NOT NULL,
 		[Reported] [datetime] NULL
 		)
 GO
@@ -2068,6 +2068,13 @@ BEGIN
     ALTER TABLE [{databaseOwner}].[{objectQualifier}MessageReportedAudit] ADD [ReportText] nvarchar(4000)  NULL 
 END
 GO
+
+if exists (select top 1 1 from syscolumns where id=object_id(N'[{databaseOwner}].[{objectQualifier}MessageReportedAudit]') and name=N'MessageID' and isnullable=1)
+begin
+		alter table [{databaseOwner}].[{objectQualifier}MessageReportedAudit] alter column [MessageID] integer NOT NULL		    
+end
+GO
+
 
 -- BannedIP Table
 

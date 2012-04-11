@@ -241,8 +241,6 @@ if exists (select top 1 1 from  dbo.sysobjects where name='FK_{objectQualifier}T
 	alter table [{databaseOwner}].[{objectQualifier}Topic] drop constraint [FK_{objectQualifier}Topic_{objectQualifier}Poll] 
 go 
 
-
-
 /* Drop old primary keys */
 
 if exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}BannedIP]') and name='PK_BannedIP')
@@ -1041,7 +1039,7 @@ if not exists (select top 1 1 from  dbo.sysobjects where name='FK_{objectQualifi
 	alter table [{databaseOwner}].[{objectQualifier}UserProfile] add constraint [FK_{objectQualifier}UserProfile_{objectQualifier}User] foreign key(UserID) references [{databaseOwner}].[{objectQualifier}User] (UserID)
 go
 
-if not exists (select top 1 1 from  dbo.sysobjects where name='FK_{objectQualifier}MessageReportedAudit_{objectQualifier}MessageReported' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}MessageReportedAudit]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+ if not exists (select top 1 1 from  dbo.sysobjects where name='FK_{objectQualifier}MessageReportedAudit_{objectQualifier}MessageReported' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}MessageReportedAudit]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table [{databaseOwner}].[{objectQualifier}MessageReportedAudit] add constraint [FK_{objectQualifier}MessageReportedAudit_{objectQualifier}MessageReported] foreign key(MessageID) references [{databaseOwner}].[{objectQualifier}MessageReported] (MessageID)
 go
 
