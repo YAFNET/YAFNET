@@ -27,7 +27,7 @@
                                     <td width="20%">
                                         <strong>
                       <YAF:UserLink ID="ProfileLink" runat="server" UserID='<%# Container.DataItemToField<int>("UserID") %>' 
-                      ReplaceName='<%# this.Get<YafBoardSettings>().EnableDisplayName ? Container.DataItemToField<string>("DisplayName") : Container.DataItemToField<string>("UserName") %>' 
+                      ReplaceName='<%# PageContext.BoardSettings.EnableDisplayName ? Container.DataItemToField<string>("DisplayName") : Container.DataItemToField<string>("UserName") %>' 
                                                BlankTarget="true" />
                                         </strong>
                                     </td>
@@ -53,7 +53,7 @@
                                 <tr class="postheader">
                                     <td width="20%">
                                         <strong>
-                                            <YAF:UserLink ID="ProfileLink" runat="server" UserID='<%# Container.DataItemToField<int>("UserID") %>' ReplaceName='<%# this.Get<YafBoardSettings>().EnableDisplayName ? Container.DataItemToField<string>("DisplayName") : Container.DataItemToField<string>("UserName") %>' 
+                                            <YAF:UserLink ID="ProfileLink" runat="server" UserID='<%# Container.DataItemToField<int>("UserID") %>' ReplaceName='<%# PageContext.BoardSettings.EnableDisplayName ? Container.DataItemToField<string>("DisplayName") : Container.DataItemToField<string>("UserName") %>' 
                                                  BlankTarget="true" />
                                         </strong>
                                     </td>
