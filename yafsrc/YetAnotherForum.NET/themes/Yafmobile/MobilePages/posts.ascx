@@ -183,6 +183,9 @@
     <YAF:PageAccess ID="PageAccess1" runat="server" />
 </div>
 </asp:PlaceHolder>
+<div id="DivSmartScroller">
+    <YAF:SmartScroller ID="SmartScroller1" runat="server" />
+</div>
 <YAF:PopMenu ID="ShareMenu" runat="server" Control="ShareLink" />
 <asp:UpdatePanel ID="PopupMenuUpdatePanel" runat="server">
     <ContentTemplate>
