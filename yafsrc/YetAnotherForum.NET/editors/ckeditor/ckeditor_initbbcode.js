@@ -51,7 +51,6 @@ CKEDITOR.on( 'dialogDefinition', function( ev )
 			tab = definition.getContents( 'Link' );
 			tab.remove( 'cmbTarget' );
 			tab = definition.getContents( 'info' );
-			tab.remove( 'txtAlt' );
 			tab.remove( 'basic' );
 		}
 	});

@@ -132,10 +132,10 @@ CKEDITOR.htmlDataProcessor.prototype =
 		html = html.replace( /<span class=\"highlight\">(.+?)<\/span>/gi, '[h]$1[/h]' ) ;
 		
 		// [img]
-		html = html.replace( /<img .*?alt=(["'])(.+?)\1.*?src=(["'])(.+?)\1.*?.*?>/gi, '[img=$4]$2[/img]') ;		
-		html = html.replace( /<img .*?src=(["'])(.+?)\1.*?alt=(["'])(.+?)\1.*?>/gi, '[img=$2]$4[/img]') ;		
-		html = html.replace( /<img .*?src=(["'])(.+?)\1.*?\/>/gi, '[img]$2[/img]') ;
-		html = html.replace( /<img .*?src=(["'])(.+?)\1.*?>/gi, '[img]$2[/img]') ;
+		html = html.replace(/<img alt=(["'])(.+?)[^"'] src=(["'])(.+?)\1.*?.*?>/gi, '[img=$4]$2[/img]');
+                html = html.replace(/<img .*?src=(["'])(.+?)\1.*?alt=(["'])(.+?)\1.*?>/gi, '[img=$2]$4[/img]');
+                html = html.replace(/<img .*?src=(["'])(.+?)\1.*?\/>/gi, '[img]$2[/img]');
+                html = html.replace(/<img .*?src=(["'])(.+?)\1.*?>/gi, '[img]$2[/img]');
 		
 		// [quote=username;1234]
 		html = html.replace(/<blockquote title=\"(.*?)\">/gi,"[quote=$1]");
