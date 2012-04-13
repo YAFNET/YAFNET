@@ -103,7 +103,7 @@
 					<YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="IS_ADMIN" LocalizedPage="ADMIN_GROUPS" />&nbsp;
 					<asp:Label ID="Label4" runat="server" ForeColor='<%# GetItemColor(this.Eval( "Flags" ).BinaryAnd(1)) %>'><%# GetItemName(this.Eval( "Flags" ).BinaryAnd(1)) %></asp:Label>&nbsp;|&nbsp;
 					<YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="PMS" LocalizedPage="ADMIN_GROUPS" />&nbsp;
-					 <asp:Label ID="Label6" runat="server" ForeColor='<%# GetItemColorString(((Convert.ToInt32(Eval("Flags")) & 1) == 1 ? "\u221E".ToString() : Eval("PMLimit").ToString())) %>'><%# ((Convert.ToInt32(Eval("Flags")) & 1) == 1 ? "\u221E".ToString() : Eval("PMLimit").ToString())%></asp:Label>&nbsp;|&nbsp;                   
+					 <asp:Label ID="Label6" runat="server" ForeColor='<%# GetItemColorString((Convert.ToInt32(Eval("PMLimit")) == int.MaxValue) ? "\u221E" : Eval("PMLimit").ToString()) %>'><%# ((Convert.ToInt32(Eval("PMLimit")) == int.MaxValue) ? "\u221E" : Eval("PMLimit").ToString())%></asp:Label>&nbsp;|&nbsp;                   
                     <br />
                     <YAF:LocalizedLabel  ID="HelpLabel10" runat="server" LocalizedTag="ALBUM_NUMBER" LocalizedPage="ADMIN_EDITGROUP" />
                     <asp:Label ID="Label9" runat="server" ForeColor='<%# GetItemColorString(this.Eval( "UsrAlbums" ).ToString()) %>'><%# this.Eval("UsrAlbums").ToString()%></asp:Label>&nbsp;|&nbsp;
