@@ -43,7 +43,7 @@ namespace YAF.Modules
         /// <summary>
         ///   The _error popup.
         /// </summary>
-        //protected PopupDialogNotification _errorPopup;
+        protected PopupDialogNotification _errorPopup;
 
         #endregion
 
@@ -54,17 +54,24 @@ namespace YAF.Modules
         /// </summary>
         public override void InitAfterPage()
         {
+            if (this._errorPopup == null)
+            {
+                this.AddErrorPopup();
+            }
+
+            this._errorPopup.Title = this.GetText("COMMON", "MODAL_NOTIFICATION_HEADER");
+
             this.CurrentForumPage.PreRender += this.CurrentForumPage_PreRender;
         }
 
-        /*
+
         /// <summary>
         /// The init forum.
         /// </summary>
         public override void InitForum()
         {
             this.ForumControl.Init += this.ForumControl_Init;
-        }*/
+        }
 
         #endregion
 
@@ -82,10 +89,10 @@ namespace YAF.Modules
                 return;
             }
 
-            if (ScriptManager.GetCurrent(this.ForumControl.Page) == null)
+            /*if (ScriptManager.GetCurrent(this.ForumControl.Page) == null)
             {
                 return;
-            }
+            }*/
 
             string displayMessage = this.PageContext.LoadMessage.LoadStringDelimited("<br />");
 
@@ -97,23 +104,14 @@ namespace YAF.Modules
                 return;
             }
 
-            var notification = (DialogBox)this.CurrentForumPage.Notification;
-
-            notification.Show(
-                displayMessage,
-                null,
-                DialogBox.DialogIcon.Info,
-                new DialogBox.DialogButton { Text = "Ok", CssClass = "LoginButton", },
-                null);
-
-            /*this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageContext.PageElements.RegisterJsBlockStartup(
                 this.ForumControl.Page,
                 "modalNotification",
                 "var fpModal = function() {{ {1}('{0}'); Sys.Application.remove_load(fpModal); }}; Sys.Application.add_load(fpModal);"
-                    .FormatWith(displayMessage, this._errorPopup.ShowModalFunction));*/
+                    .FormatWith(displayMessage, this._errorPopup.ShowModalFunction));
         }
 
-        /*
+
         /// <summary>
         /// Sets up the Modal Error Popup Dialog
         /// </summary>
@@ -136,7 +134,7 @@ namespace YAF.Modules
                 this._errorPopup = (PopupDialogNotification)this.ForumControl.FindControl("YafForumPageErrorPopup1");
                 this._errorPopup.Title = this.GetText("COMMON", "MODAL_NOTIFICATION_HEADER");
             }
-        }*/
+        }
 
         /// <summary>
         /// Handles the PreRender event of the CurrentForumPage control.
@@ -148,7 +146,6 @@ namespace YAF.Modules
             this.RegisterLoadString();
         }
 
-        /*
         /// <summary>
         /// Handles the Init event of the ForumControl control.
         /// </summary>
@@ -158,7 +155,7 @@ namespace YAF.Modules
         {
             // at this point, init has already been called...
             this.AddErrorPopup();
-        }*/
+        }
 
         #endregion
     }

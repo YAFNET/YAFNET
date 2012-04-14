@@ -24,6 +24,7 @@ namespace YAF.Controls
     using System;
     using System.Text;
     using System.Web;
+    using System.Web.UI;
 
     using YAF.Core;
     using YAF.Types;
@@ -139,7 +140,7 @@ namespace YAF.Controls
             [NotNull] string title,
             DialogIcon icon,
             [NotNull] DialogButton okButton,
-            [NotNull] DialogButton cancelButton)
+            [NotNull] DialogButton cancelButton) 
         {
             // Message Header
             this.Header.Text = !string.IsNullOrEmpty(title)
@@ -243,7 +244,7 @@ namespace YAF.Controls
                 this.YafForumPageErrorPopup.ClientID,
                 YafForumInfo.GetURLToResource("images/"));
 
-            YafContext.Current.PageElements.RegisterJsBlockStartup("PopUp{0}".FormatWith(Guid.NewGuid()), sbScript.ToString());
+            this.PageContext.PageElements.RegisterJsBlockStartup(this.Page, "PopUp{0}".FormatWith(Guid.NewGuid()), sbScript.ToString());
 
             if (this.OkButtonLink.ForumPage.Equals(YafContext.Current.ForumPageType))
             {
