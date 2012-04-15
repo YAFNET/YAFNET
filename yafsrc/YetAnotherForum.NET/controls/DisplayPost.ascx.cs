@@ -328,7 +328,7 @@ namespace YAF.Controls
 
             notification.Show(
                 this.GetText("POSTS", "REP_VOTE_UP_MSG").FormatWith(
-                    this.PageContext.Get<IUserDisplayName>().GetName(this.PostData.UserId)),
+                    this.Get<YafBoardSettings>().EnableDisplayName ? this.DataRow["DisplayName"] : this.DataRow["UserName"]),
                 this.GetText("POSTS", "REP_VOTE_TITLE"),
                 DialogBox.DialogIcon.Info,
                 new DialogBox.DialogButton
@@ -379,7 +379,7 @@ namespace YAF.Controls
 
             notification.Show(
                 this.GetText("POSTS", "REP_VOTE_DOWN_MSG").FormatWith(
-                    this.PageContext.Get<IUserDisplayName>().GetName(this.PostData.UserId)),
+                    this.Get<YafBoardSettings>().EnableDisplayName ? this.DataRow["DisplayName"] : this.DataRow["UserName"]),
                 this.GetText("POSTS", "REP_VOTE_TITLE"),
                 DialogBox.DialogIcon.Info,
                 new DialogBox.DialogButton
@@ -714,14 +714,14 @@ namespace YAF.Controls
                 thanksLabelText =
                     this.Get<ILocalization>().GetText("THANKSINFOSINGLE").FormatWith(
                         this.Get<HttpServerUtilityBase>().HtmlEncode(
-                            this.Get<IUserDisplayName>().GetName(this.PostData.UserId)));
+                             this.Get<YafBoardSettings>().EnableDisplayName ? this.DataRow["DisplayName"].ToString() : this.DataRow["UserName"].ToString()));
             }
             else
             {
                 thanksLabelText = this.Get<ILocalization>().GetText("THANKSINFO").FormatWith(
                     thanksNumber,
                     this.Get<HttpServerUtilityBase>().HtmlEncode(
-                        this.Get<IUserDisplayName>().GetName(this.PostData.UserId)));
+                        this.Get<YafBoardSettings>().EnableDisplayName ? this.DataRow["DisplayName"].ToString() : this.DataRow["UserName"].ToString()));
             }
 
             this.ThanksDataLiteral.Text =
@@ -753,11 +753,10 @@ namespace YAF.Controls
                     YafBuildLink.Redirect(ForumPages.profile, "u={0}", this.PostData.UserId);
                     break;
                 case "lastposts":
-                    string displayName = this.PageContext.Get<IUserDisplayName>().GetName(this.PostData.UserId);
                     YafBuildLink.Redirect(
                         ForumPages.search,
                         "postedby={0}",
-                        displayName.IsNotSet() ? this.PostData.UserProfile.UserName : displayName);
+                        this.Get<YafBoardSettings>().EnableDisplayName ? this.DataRow["DisplayName"] : this.DataRow["UserName"]);
                     break;
                 case "addbuddy":
                     this.PopMenu1.RemovePostBackItem("addbuddy");

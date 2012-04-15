@@ -1999,6 +1999,10 @@ begin
 	alter table [{databaseOwner}].[{objectQualifier}ActiveAccess] add [IsGuestX] bit NOT NULL
 end
 GO
+-- drop the old contrained just in case
+if exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}ActiveAccess]') and name='IX_{objectQualifier}ActiveAccess')
+	alter table [{databaseOwner}].[{objectQualifier}ActiveAccess] drop constraint IX_{objectQualifier}ActiveAccess
+go
 
 if exists(select top 1 1 from dbo.syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}ActiveAccess]') and name=N'ForumID' and isnullable=1)
 	alter table [{databaseOwner}].[{objectQualifier}ActiveAccess] alter column ForumID int not null

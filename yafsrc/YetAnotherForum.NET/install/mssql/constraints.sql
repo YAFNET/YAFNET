@@ -386,6 +386,10 @@ if exists(select top 1 1 from dbo.sysindexes where id=object_id('[{databaseOwner
 	alter table [{databaseOwner}].[{objectQualifier}PollVote] drop constraint [PK_PollVote]
 go
 
+if exists(select top 1 1 from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}GroupMedal]') and name='PK_{objectQualifier}GroupMedal_1')
+	alter table [{databaseOwner}].[{objectQualifier}GroupMedal] drop constraint [PK_{objectQualifier}GroupMedal_1]
+go
+
 
 
 /*

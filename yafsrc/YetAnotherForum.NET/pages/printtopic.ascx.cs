@@ -89,8 +89,7 @@ namespace YAF.Pages
         protected string GetPrintHeader([NotNull] object o)
         {
             var row = (DataRow)o;
-            string displayName = this.PageContext.Get<IUserDisplayName>().GetName((int)row["UserID"]);
-            return "<strong>{2}: {0}</strong> - {1}".FormatWith(displayName.IsNotSet() ? row["UserName"] : displayName, this.Get<IDateTime>().FormatDateTime((DateTime)row["Posted"]), this.GetText("postedby"));
+            return "<strong>{2}: {0}</strong> - {1}".FormatWith(this.Get<YafBoardSettings>().EnableDisplayName ? row["DisplayName"] : row["UserName"], this.Get<IDateTime>().FormatDateTime((DateTime)row["Posted"]), this.GetText("postedby"));
         }
 
         /// <summary>
