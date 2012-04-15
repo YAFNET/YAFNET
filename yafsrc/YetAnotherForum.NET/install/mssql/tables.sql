@@ -2229,21 +2229,25 @@ GO
 create procedure [{databaseOwner}].[{objectQualifier}forum_initdisplayname] as
 
 begin
-
+    declare @tmpUserName nvarchar(255)
+	declare @tmpUserDisplayName nvarchar(255)
+	declare @tmpLastUserName nvarchar(255)
+	declare @tmpLastUserDisplayName nvarchar(255)
 	declare @tmp int
 	declare @tmpUserID int
 	declare @tmpLastUserID int
 		
 		declare fc cursor for
 		select ForumID, LastUserID from [{databaseOwner}].[{objectQualifier}Forum]
-		where LastUserDisplayName IS NULL
+		where (LastUserDisplayName IS NULL OR LastUserName IS NULL) and LastUserID IS NOT NULL
 		FOR UPDATE		
 		open fc
 		
 		fetch next from fc into @tmp,@tmpLastUserID
 		while @@FETCH_STATUS = 0
 		begin
-		update [{databaseOwner}].[{objectQualifier}Forum] set LastUserDisplayName = (select u.DisplayName FROM [{databaseOwner}].[{objectQualifier}User] u WHERE u.UserID = @tmpLastUserID) where [{databaseOwner}].[{objectQualifier}Forum].ForumID = @tmp 	
+		select @tmpLastUserDisplayName = u.DisplayName,  @tmpLastUserName = u.Name FROM [{databaseOwner}].[{objectQualifier}User] u WHERE u.UserID = @tmpLastUserID
+		update [{databaseOwner}].[{objectQualifier}Forum] set LastUserDisplayName = @tmpLastUserDisplayName, LastUserName = @tmpLastUserName where [{databaseOwner}].[{objectQualifier}Forum].ForumID = @tmp 	
 	    fetch next from fc into @tmp,@tmpLastUserID
 		end
 		close fc
@@ -2258,7 +2262,8 @@ begin
 		fetch next from sbc into @tmp,@tmpUserID
 		while @@FETCH_STATUS = 0
 		begin
-		update [{databaseOwner}].[{objectQualifier}ShoutboxMessage] set UserDisplayName = (select u.DisplayName FROM [{databaseOwner}].[{objectQualifier}User] u where u.UserID = @tmpUserID) where [{databaseOwner}].[{objectQualifier}ShoutboxMessage].ShoutBoxMessageID = @tmp
+		select @tmpUserDisplayName = u.DisplayName,  @tmpUserName = u.Name FROM [{databaseOwner}].[{objectQualifier}User] u WHERE u.UserID = @tmpUserID
+		update [{databaseOwner}].[{objectQualifier}ShoutboxMessage] set UserDisplayName = @tmpUserDisplayName,UserName = @tmpUserName where [{databaseOwner}].[{objectQualifier}ShoutboxMessage].ShoutBoxMessageID = @tmp
 	  	fetch next from sbc into @tmp,@tmpUserID
 		end
 		close sbc
@@ -2273,8 +2278,9 @@ begin
 		
 		fetch next from mc into @tmp,@tmpUserID
 		while @@FETCH_STATUS = 0
-		begin		
-	    update [{databaseOwner}].[{objectQualifier}Message]  set UserDisplayName = (select u.DisplayName FROM [{databaseOwner}].[{objectQualifier}User] u  WHERE u.UserID = @tmpUserID) where MessageID = @tmp
+		begin
+		select @tmpUserDisplayName = u.DisplayName,  @tmpUserName = u.Name FROM [{databaseOwner}].[{objectQualifier}User] u WHERE u.UserID = @tmpUserID		
+	    update [{databaseOwner}].[{objectQualifier}Message]  set UserDisplayName = @tmpUserDisplayName, UserName = @tmpUserName where MessageID = @tmp
 	   	fetch next from mc into @tmp,@tmpUserID
 		end
 		close mc
@@ -2282,7 +2288,7 @@ begin
 		
 		declare tc cursor for
 		select TopicID,UserID,LastUserID from [{databaseOwner}].[{objectQualifier}Topic]
-		where UserDisplayName IS NULL OR LastUserDisplayName IS NULL
+		where (UserDisplayName IS NULL OR LastUserDisplayName IS NULL) and LastUserID IS NOT NULL 
 		FOR UPDATE
 				
 		open tc
@@ -2290,9 +2296,10 @@ begin
 		fetch next from tc into @tmp,@tmpUserID,@tmpLastUserID
 		while @@FETCH_STATUS = 0
 		begin	
-	    
-	    update [{databaseOwner}].[{objectQualifier}Topic] set UserDisplayName = (select u.DisplayName FROM [{databaseOwner}].[{objectQualifier}User] u  WHERE u.UserID = @tmpUserID) where TopicID = @tmp
-	    update [{databaseOwner}].[{objectQualifier}Topic] set LastUserDisplayName = (select u.DisplayName FROM [{databaseOwner}].[{objectQualifier}User] u WHERE u.UserID = @tmpLastUserID) where TopicID = @tmp			
+	    select @tmpUserDisplayName = u.DisplayName,  @tmpUserName = u.Name FROM [{databaseOwner}].[{objectQualifier}User] u WHERE u.UserID = @tmpUserID	
+		select @tmpLastUserDisplayName = u.DisplayName,  @tmpLastUserName = u.Name FROM [{databaseOwner}].[{objectQualifier}User] u WHERE u.UserID = @tmpLastUserID		
+	    update [{databaseOwner}].[{objectQualifier}Topic] set UserDisplayName = @tmpUserDisplayName, UserName = @tmpUserName  where TopicID = @tmp
+	    update [{databaseOwner}].[{objectQualifier}Topic] set LastUserDisplayName = @tmpLastUserDisplayName, LastUserName = @tmpLastUserName where TopicID = @tmp			
 
 		fetch next from tc into @tmp,@tmpUserID,@tmpLastUserID
 		end
