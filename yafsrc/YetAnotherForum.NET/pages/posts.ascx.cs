@@ -1208,11 +1208,11 @@ namespace YAF.Pages
 					else
 					{
 						// find first unread message
-						if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find").ToLower() == "unread")
+                        if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find").ToLower() == "unread")
 						{
 							DateTime lastRead =
-									this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
-											forumId: this.PageContext.PageForumID, topicId: this.PageContext.PageTopicID);
+									  !this.PageContext.IsCrawler ? this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
+                                      forumId: this.PageContext.PageForumID, topicId: this.PageContext.PageTopicID) : DateTime.UtcNow;
 
 							// Find next unread
 							using (
@@ -1230,16 +1230,19 @@ namespace YAF.Pages
 									messagePosition = unreadFirst.Field<int>("MessagePosition");
 
 									// move to this message on load...
-									PageContext.PageElements.RegisterJsBlockStartup(
-											this,
-											"GotoAnchorJs",
-											JavaScriptBlocks.LoadGotoAnchor("post{0}".FormatWith(findMessageId)));
+                                    if (!this.PageContext.IsCrawler)
+                                    {
+                                        PageContext.PageElements.RegisterJsBlockStartup(
+                                            this,
+                                            "GotoAnchorJs",
+                                            JavaScriptBlocks.LoadGotoAnchor("post{0}".FormatWith(findMessageId)));
+                                    }
 								}
 							}
 						}
 
 						// find last post
-						if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find").ToLower() == "lastpost")
+                        if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find").ToLower() == "lastpost")
 						{
 							// Find next unread
 							using (
@@ -1257,10 +1260,13 @@ namespace YAF.Pages
 									messagePosition = unreadFirst.Field<int>("MessagePosition");
 
 									// move to this message on load...
-									PageContext.PageElements.RegisterJsBlockStartup(
-											this,
-											"GotoAnchorJs",
-											JavaScriptBlocks.LoadGotoAnchor("post{0}".FormatWith(findMessageId)));
+                                    if (!this.PageContext.IsCrawler)
+                                    {
+                                        PageContext.PageElements.RegisterJsBlockStartup(
+                                            this,
+                                            "GotoAnchorJs",
+                                            JavaScriptBlocks.LoadGotoAnchor("post{0}".FormatWith(findMessageId)));
+                                    }
 								}
 							}
 						}
