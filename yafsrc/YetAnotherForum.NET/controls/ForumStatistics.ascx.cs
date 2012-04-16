@@ -274,7 +274,11 @@ namespace YAF.Controls
                     activeUsers30Day.Select("LastVisit >= '{0}'".FormatWith(DateTime.UtcNow.AddDays(-1)));
                 this.RecentUsersCount.Text = this.GetTextFormatted(
                     "RECENT_ONLINE_USERS", activeUsers1Day1.Length, activeUsers30Day.Rows.Count);
-                this.RecentUsers.ActiveUserTable = activeUsers1Day1.CopyToDataTable();
+                if (activeUsers1Day1.Length > 0)
+                {
+                    this.RecentUsers.ActiveUserTable = activeUsers1Day1.CopyToDataTable();
+                    RecentUsers.Visible = true;
+                }
 
             }
             else
