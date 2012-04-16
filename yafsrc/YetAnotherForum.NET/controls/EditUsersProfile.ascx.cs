@@ -304,13 +304,13 @@ namespace YAF.Controls
             }
 
             if (this.ICQ.Text.IsSet() &&
-                !(ValidationHelper.IsValidEmail(this.ICQ.Text) || ValidationHelper.IsValidInt(this.ICQ.Text)))
+                !(ValidationHelper.IsValidEmail(this.ICQ.Text) || ValidationHelper.IsNumeric(this.ICQ.Text)))
             {
                 this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_ICQ"));
                 return;
             }
 
-            if (this.Facebook.Text.IsSet() && !ValidationHelper.IsValidInt(this.Facebook.Text))
+            if (this.Facebook.Text.IsSet() && !ValidationHelper.IsNumeric(this.Facebook.Text))
             {
                 this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_FACEBOOK"));
                 return;
@@ -340,12 +340,12 @@ namespace YAF.Controls
                     displayName = this.DisplayName.Text.Trim();
                 }
             }
+
             string userName = UserMembershipHelper.GetUserNameFromID(this.currentUserID);
             if (this.UpdateEmailFlag)
             {
                 string newEmail = this.Email.Text.Trim();
               
-               
                 if (!ValidationHelper.IsValidEmail(newEmail))
                 {
                     this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_EMAIL"));

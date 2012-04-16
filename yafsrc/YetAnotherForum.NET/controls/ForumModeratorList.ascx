@@ -11,7 +11,7 @@
     </HeaderTemplate>
     <ItemTemplate>
         <asp:PlaceHolder ID="ModeratorUser" runat="server" Visible='<%# ((DataRow)Container.DataItem)["IsGroup"].ToType<int>() == 0 %>'>
-            <YAF:UserLink ID="ModeratorUserLink" runat="server" UserID='<%# ((DataRow)Container.DataItem)["ModeratorID"].ToType<int>()  %>' ReplaceName='<%# YafContext.Current.Get<YafBoardSettings>().EnableDisplayName ? ((DataRow)Container.DataItem)["ModeratorDisplayName"].ToString() : ((DataRow)Container.DataItem)["ModeratorName"].ToString() %>' /></asp:PlaceHolder><asp:PlaceHolder
+            <YAF:UserLink ID="ModeratorUserLink" runat="server" UserID='<%# ((DataRow)Container.DataItem)["ModeratorID"].ToType<int>()  %>' ReplaceName='<%# this.Get<YafBoardSettings>().EnableDisplayName ? ((DataRow)Container.DataItem)["ModeratorDisplayName"].ToString() : ((DataRow)Container.DataItem)["ModeratorName"].ToString() %>' /></asp:PlaceHolder><asp:PlaceHolder
                 ID="ModeratorGroup" runat="server" Visible='<%# ((DataRow)Container.DataItem)["IsGroup"].ToType<int>() != 0 %>'><strong><%# this.Get<YafBoardSettings>().EnableDisplayName ?
                                                                                                                                                               ((DataRow)Container.DataItem)["ModeratorDisplayName"].ToString() : ((DataRow)Container.DataItem)["ModeratorName"].ToString()%></strong></asp:PlaceHolder></ItemTemplate>
     <SeparatorTemplate>, </SeparatorTemplate>
