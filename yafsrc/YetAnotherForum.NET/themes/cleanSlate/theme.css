@@ -963,7 +963,7 @@
 .ModalDialog .DialogContent {
   display:table;
   width: 370px;
-  padding: 4px;
+  padding: 4px 0 4px 0;
   background: #eee;
 }
 .ModalDialog .modalHeader 
