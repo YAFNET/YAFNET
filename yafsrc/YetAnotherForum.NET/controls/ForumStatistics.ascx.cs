@@ -266,20 +266,23 @@ namespace YAF.Controls
             // Tommy MOD "Recent Users" Count.
             if (this.Get<YafBoardSettings>().ShowRecentUsers)
             {
-                DataTable activeUsers30Day = this.Get<IDataCache>().GetOrSet(
-                  Constants.Cache.VisitorsInTheLast30Days,
-                  () => this.Get<IDBBroker>().GetRecentUsers(60 * 24 * 30),
-                  TimeSpan.FromMinutes(this.Get<YafBoardSettings>().ForumStatisticsCacheTimeout));
-                var activeUsers1Day1 =
-                    activeUsers30Day.Select("LastVisit >= '{0}'".FormatWith(DateTime.UtcNow.AddDays(-1)));
-                this.RecentUsersCount.Text = this.GetTextFormatted(
-                    "RECENT_ONLINE_USERS", activeUsers1Day1.Length, activeUsers30Day.Rows.Count);
-                if (activeUsers1Day1.Length > 0)
+                var activeUsers30Day = this.Get<IDataCache>().GetOrSet(
+                    Constants.Cache.VisitorsInTheLast30Days,
+                    () => this.Get<IDBBroker>().GetRecentUsers(60*24*30),
+                    TimeSpan.FromMinutes(this.Get<YafBoardSettings>().ForumStatisticsCacheTimeout));
+                if (activeUsers30Day != null && activeUsers30Day.Rows.Count > 0)
                 {
-                    this.RecentUsers.ActiveUserTable = activeUsers1Day1.CopyToDataTable();
-                    RecentUsers.Visible = true;
+                    var activeUsers1Day1 =
+                        activeUsers30Day.Select("LastVisit >= '{0}'".FormatWith(DateTime.UtcNow.AddDays(-1)));
+                    this.RecentUsersCount.Text = this.GetTextFormatted(
+                        "RECENT_ONLINE_USERS", activeUsers1Day1.Length, activeUsers30Day.Rows.Count);
+                    if (activeUsers1Day1.Length > 0)
+                    {
+                        this.RecentUsers.ActiveUserTable = activeUsers1Day1.CopyToDataTable();
+                        RecentUsers.Visible = true;
+                    }
+                    RecentUsersPlaceHolder.Visible = true;
                 }
-
             }
             else
             {
