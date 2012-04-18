@@ -1469,6 +1469,7 @@ namespace YAF.Pages
                 this.Response.Redirect(this.Get<HttpRequestBase>().UrlReferrer.ToString());
             }
 
+            this.PriorityRow.Visible = false;
             this.SubjectRow.Visible = false;
             this.DescriptionRow.Visible = false;
             this.StatusRow.Visible = false;
