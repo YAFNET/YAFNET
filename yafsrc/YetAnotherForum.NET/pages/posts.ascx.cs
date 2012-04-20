@@ -969,18 +969,16 @@ namespace YAF.Pages
 
 			bool showDeleted = false;
 			int userId = 0;
-			if (this.Get<YafBoardSettings>().ShowDeletedMessagesToAll)
-			{
-				showDeleted = true;
-			}
+            if (this.Get<YafBoardSettings>().ShowDeletedMessagesToAll || this.PageContext.IsAdmin || this.PageContext.IsForumModerator)
+            {
+                showDeleted = true;
+            }
 
-			if (!showDeleted &&
-					((this.Get<YafBoardSettings>().ShowDeletedMessages &&
-						!this.Get<YafBoardSettings>().ShowDeletedMessagesToAll) || this.PageContext.IsAdmin ||
-					 this.PageContext.IsForumModerator))
-			{
-				userId = this.PageContext.PageUserID;
-			}
+            if (this.Get<YafBoardSettings>().ShowDeletedMessages)
+            {
+                userId = this.PageContext.PageUserID;
+            }
+
 
 			this.Pager.PageSize = this.Get<YafBoardSettings>().PostsPerPage;
 			int messagePosition;
