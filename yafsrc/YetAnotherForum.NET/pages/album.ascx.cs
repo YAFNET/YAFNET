@@ -18,6 +18,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+using YAF.Classes;
+
 namespace YAF.Pages
 {
   #region Using
@@ -86,7 +88,7 @@ namespace YAF.Pages
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!this.PageContext.BoardSettings.EnableAlbum)
+        if (!this.Get<YafBoardSettings>().EnableAlbum)
       {
         YafBuildLink.AccessDenied();
       }
@@ -104,13 +106,13 @@ namespace YAF.Pages
 
       // Generate the page links.
       this.PageLinks.Clear();
-      this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+      this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
       this.PageLinks.AddLink(displayName, YafBuildLink.GetLink(ForumPages.profile, "u={0}", userId));
       this.PageLinks.AddLink(this.GetText("ALBUMS"), YafBuildLink.GetLink(ForumPages.albums, "u={0}", userId));
       this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
       // Set the title text.
-      this.LocalizedLabel1.Param0 = !string.IsNullOrEmpty(displayName)
+      this.LocalizedLabel1.Param0 = this.Get<YafBoardSettings>().EnableDisplayName  
                                       ? this.Server.HtmlEncode(displayName)
                                       : this.Server.HtmlEncode(this.PageContext.User.UserName);
       this.LocalizedLabel1.Param1 = this.Server.HtmlEncode(LegacyDb.album_gettitle(albumId));

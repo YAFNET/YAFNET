@@ -331,7 +331,7 @@ namespace YAF.Pages
             }
 
             var userData = new CombinedUserDataHelper(user, this.UserId);
-
+           
             // populate user information controls...      
             // Is BuddyList feature enabled?
             if (this.Get<YafBoardSettings>().EnableBuddyList)
@@ -355,11 +355,10 @@ namespace YAF.Pages
                 this.AlbumList1.Dispose();
             }
 
-            string userDisplayName = this.Get<IUserDisplayName>().GetName(this.UserId);
+            
+            this.SetupUserProfileInfo(this.UserId, user, userData, userData.DisplayName);
 
-            this.SetupUserProfileInfo(this.UserId, user, userData, userDisplayName);
-
-            this.AddPageLinks(userDisplayName);
+            this.AddPageLinks(userData.DisplayName);
 
             this.SetupUserStatistics(userData);
 
@@ -367,7 +366,7 @@ namespace YAF.Pages
 
             this.SetupAvatar(this.UserId, userData);
 
-            this.Groups.DataSource = RoleMembershipHelper.GetRolesForUser(UserMembershipHelper.GetUserNameFromID(this.UserId));
+            this.Groups.DataSource = RoleMembershipHelper.GetRolesForUser(userData.UserName);
 
             // EmailRow.Visible = PageContext.IsAdmin;
             this.ModerateTab.Visible = this.PageContext.IsAdmin || this.PageContext.IsForumModerator;
@@ -379,7 +378,7 @@ namespace YAF.Pages
             {
                 this.LastPosts.DataSource =
                   LegacyDb.post_alluser(this.PageContext.PageBoardID, this.UserId, this.PageContext.PageUserID, 10).AsEnumerable();
-                this.SearchUser.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.search, "postedby={0}", userDisplayName);
+                this.SearchUser.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.search, "postedby={0}", this.Get<YafBoardSettings>().EnableDisplayName ? userData.DisplayName :userData.UserName);
             }
 
             this.DataBind();
