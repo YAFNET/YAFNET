@@ -44,7 +44,6 @@ namespace YAF.Core.Services
     /// </summary>
     public class YafFormatMessage : IFormatMessage, IHaveServiceLocator
     {
-        
         #region Constants and Fields
 
         /// <summary>
@@ -342,9 +341,7 @@ namespace YAF.Core.Services
                 // the fix provided by community 
                 var email = new VariableRegexReplaceRule(
                     _rgxEmail, "${before}<a href=\"mailto:${inner}\">${inner}</a>", new[] { "before" })
-                    {
-                        RuleRank = 10 
-                    };
+                    { RuleRank = 10 };
 
                 ruleEngine.AddRule(email);
 
@@ -355,13 +352,10 @@ namespace YAF.Core.Services
 
                 var url = new VariableRegexReplaceRule(
                     _rgxUrl1,
-                    "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace("{0}", target).
-                        Replace("{1}", nofollow),
+                    "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace("{0}", target).Replace("{1}", nofollow),
                     new[] { "before" },
                     new[] { string.Empty },
-                    50) {
-                            RuleRank = 10 
-                        };
+                    50) { RuleRank = 10 };
 
                 ruleEngine.AddRule(url);
 
@@ -373,13 +367,10 @@ namespace YAF.Core.Services
                 // (?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,:#~$]*[^.<])?)
                 url = new VariableRegexReplaceRule(
                     _rgxUrl2,
-                    "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace("{0}", target).
-                        Replace("{1}", nofollow),
+                    "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace("{0}", target).Replace("{1}", nofollow),
                     new[] { "before" },
                     new[] { string.Empty },
-                    50) {
-                            RuleRank = 10 
-                        };
+                    50) { RuleRank = 10 };
 
                 ruleEngine.AddRule(url);
 
@@ -389,9 +380,7 @@ namespace YAF.Core.Services
                         "{0}", target).Replace("{1}", nofollow),
                     new[] { "before" },
                     new[] { string.Empty },
-                    50) {
-                            RuleRank = 10 
-                        };
+                    50) { RuleRank = 10 };
 
                 ruleEngine.AddRule(url);
             }
@@ -482,6 +471,9 @@ namespace YAF.Core.Services
                                     StringExtensions.RemoveMultipleWhitespace(
                                         BBCodeHelper.StripBBCode(
                                             HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(returnMsg))));
+
+                                // encode Message For Security Reasons
+                                returnMsg = this.HttpServer.HtmlEncode(returnMsg);
 
                                 if (returnMsg.IsNotSet())
                                 {
