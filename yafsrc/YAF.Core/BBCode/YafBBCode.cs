@@ -176,6 +176,11 @@ namespace YAF.Core.BBCode
         private const string _RgxRight = @"\[right\](?<inner>(.*?))\[/right\]";
 
         /// <summary>
+        ///   The _rgx right.
+        /// </summary>
+        private const string _RgxIndent = @"\[indent\](?<inner>(.*?))\[/indent\]";
+
+        /// <summary>
         ///   The _rgx bullet.
         /// </summary>
         private const string _RgxBullet = @"\[\*\]";
@@ -572,6 +577,10 @@ namespace YAF.Core.BBCode
                 ruleEngine.AddRule(
                     new SimpleRegexReplaceRule(_RgxRight, "<div align=\"right\">${inner}</div>", _Options));
 
+                // indent
+                ruleEngine.AddRule(
+                    new SimpleRegexReplaceRule(_RgxIndent, "<div style=\"margin-left:40px\">${inner}</div>", _Options));
+
                 // TODO add max-width and max-height
                 /*
                 var maxWidth = this.Get<YafBoardSettings>().ImageAttachmentResizeWidth;
@@ -815,6 +824,11 @@ namespace YAF.Core.BBCode
             ruleEngine.AddRule(
                 new SimpleRegexReplaceRule(
                     "<div align=\"right\">(?<inner>(.*?))</div>", "[right]${inner}[/right]", _Options));
+
+            // Indent text
+            ruleEngine.AddRule(
+                new SimpleRegexReplaceRule(
+                    "<div style=\"margin-left:40px\">(?<inner>(.*?))</div>", "[indent]${inner}[/indent]", _Options));
 
             ruleEngine.AddRule(new SingleRegexReplaceRule("<b>", "[b]", _Options));
             ruleEngine.AddRule(new SingleRegexReplaceRule("</b>", "[/b]", _Options));
