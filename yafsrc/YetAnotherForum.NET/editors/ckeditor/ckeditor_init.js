@@ -21,6 +21,7 @@ function CKEditor_Load() {
 								 '/',
 								 ['Bold', 'Italic', 'Underline', '-', 'TextColor', 'Font', 'FontSize'],
 								 ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'PasteText','PasteFromWord'],
+		                         ['Outdent', 'Indent'],
 								 ['Scayt']
 								] ;
 								

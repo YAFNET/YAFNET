@@ -52,6 +52,14 @@ yafEditor.prototype.FormatText = function (command, option) {
         case "justifyright":
             wrapSelection(textObj, "[right]", "[/right]");
             break;
+        case "indent":
+            wrapSelection(textObj, "[indent]", "[/indent]");
+            break;
+        case "outdent":
+            if (getCurrentSelection(textObj)) {
+                removeFromSelection(textObj, "[indent]", "[/indent]");
+            }
+            break;
         case "createlink":
             var url = prompt('Enter URL:', 'http://');
 
@@ -198,6 +206,31 @@ function replaceSelection(input, replaceString) {
     else {
         input.value += replaceString;
         input.focus();
+    }
+}
+
+function removeFromSelection(input, preString, postString) {
+    if (input.setSelectionRange) {
+        var selectionStart = input.selectionStart;
+        var selectionEnd = input.selectionEnd;
+		
+		var selectedText = input.value.substring(selectionStart, selectionEnd);
+		
+		if (selectedText.indexOf(preString) != -1 && selectedText.indexOf(postString) != -1) {
+		
+        input.value = input.value.substring(0, selectionStart)
+					+ input.value.substring(selectionStart + preString.length, selectionEnd - postString.length)
+					+ input.value.substring(selectionEnd);
+					
+        if (selectionStart != selectionEnd) {	
+			 // has there been a selection
+            setSelectionRange(input, selectionStart, selectionEnd - postString.length - preString.length);
+		}
+        else {
+			// set caret
+            setCaretToPos(input, selectionStart + (preString).length);
+		}
+		}
     }
 }
 

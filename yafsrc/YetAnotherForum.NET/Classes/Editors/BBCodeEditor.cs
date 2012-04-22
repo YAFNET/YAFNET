@@ -294,6 +294,22 @@ namespace YAF.Editors
                 this.GetText("COMMON", "TT_ALIGNRIGHT"),
                 "yafEditor/justifyright.gif");
 
+            writer.WriteLine("&nbsp;");
+
+            this.RenderButton(
+                writer,
+                "outdent",
+                "FormatText('outdent','')",
+                this.GetText("COMMON", "OUTDENT"),
+                "yafEditor/outdent.gif");
+
+            this.RenderButton(
+                writer,
+                "indent",
+                "FormatText('indent','')",
+                this.GetText("COMMON", "INDENT"),
+                "yafEditor/indent.gif");
+
             var customBbCode = this.Get<IDBBroker>().GetCustomBBCode();
 
             if (customBbCode.Any())

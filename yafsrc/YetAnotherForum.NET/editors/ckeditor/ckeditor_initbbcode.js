@@ -19,7 +19,8 @@
 								 ['About'],
 								 '/',
 								 ['Bold','Italic','Underline','-', 'TextColor', 'Font', 'FontSize'],
-								 ['JustifyLeft','JustifyCenter','JustifyRight'],
+								 ['JustifyLeft', 'JustifyCenter', 'JustifyRight'],
+		                         ['Outdent', 'Indent'],
 								 ['Scayt']
 		                        ] ;
 								
@@ -51,6 +52,7 @@ CKEDITOR.on( 'dialogDefinition', function( ev )
 			tab = definition.getContents( 'Link' );
 			tab.remove( 'cmbTarget' );
 			tab = definition.getContents( 'info' );
+			tab.remove( 'txtAlt' );
 			tab.remove( 'basic' );
 		}
 	});
