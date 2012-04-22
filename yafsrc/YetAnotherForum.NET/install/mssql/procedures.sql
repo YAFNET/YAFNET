@@ -8086,7 +8086,7 @@ begin
 		select @RankID = RankID from [{databaseOwner}].[{objectQualifier}Rank] where (Flags & 1)<>0 and BoardID=@BoardID
 
 		insert into [{databaseOwner}].[{objectQualifier}User](BoardID,RankID,[Name],DisplayName,Password,Email,Joined,LastVisit,NumPosts,TimeZone,Flags,PMNotification,AutoWatchTopics,NotificationType,ProviderUserKey) 
-		values(@BoardID,@RankID,@UserName,@DisplayName,'-',@Email,@UTCTIMESTAMP ,@UTCTIMESTAMP ,0,@TimeZone, @Flags,@PMNotification,@AutoWatchTopics,@NotificationType,@ProviderUserKey)		
+		values(@BoardID,@RankID,@UserName,ISNULL(@DisplayName,@UserName),'-',@Email,@UTCTIMESTAMP ,@UTCTIMESTAMP ,0,@TimeZone, @Flags,@PMNotification,@AutoWatchTopics,@NotificationType,@ProviderUserKey)		
 	
 		set @UserID = SCOPE_IDENTITY()
 
