@@ -150,6 +150,21 @@
   <data name="OverrideTheme.Text" xml:space="preserve">
     <value>Skin überschreiben?</value>
   </data>
+  <data name="RemoveTabName0.Text" xml:space="preserve">
+    <value>Nicht entfernen</value>
+  </data>
+  <data name="RemoveTabName1.Text" xml:space="preserve">
+    <value>Immer Entfernen</value>
+  </data>
+  <data name="RemoveTabName2.Text" xml:space="preserve">
+    <value>Nur entfernen wenn mit Board Name übereinstimmt</value>
+  </data>
+  <data name="RemoveTabNameLabel.Help" xml:space="preserve">
+    <value>Option um den DNN Seiten Name oder Titel vom aktuellen Seiten Titel enfernen</value>
+  </data>
+  <data name="RemoveTabNameLabel.Text" xml:space="preserve">
+    <value>Seiten Name von Seiten Title entfernen</value>
+  </data>
   <data name="SyncProfile.Help" xml:space="preserve">
     <value>Automatisch die Profile zwischen YAF und DotNetNuke syncronisieren.</value>
   </data>

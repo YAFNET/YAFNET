@@ -58,6 +58,24 @@ namespace YAF.DotNetNuke {
         protected global::System.Web.UI.WebControls.DropDownList CategoryID;
         
         /// <summary>
+        /// RemoveTabNameLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UserControl RemoveTabNameLabel;
+        
+        /// <summary>
+        /// RemoveTabName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList RemoveTabName;
+        
+        /// <summary>
         /// Theme control.
         /// </summary>
         /// <remarks>

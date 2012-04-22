@@ -21,6 +21,14 @@
    </tr>
    <tr>
       <td class="SubHead">
+        <dnn:label id="RemoveTabNameLabel" runat="server" controlname="RemoveTabName" Suffix=":"></dnn:label>
+      </td>
+      <td>
+        <asp:dropdownlist cssclass="NormalTextBox" runat="server" id="RemoveTabName" style="width:150px"/>
+      </td>
+   </tr>
+   <tr>
+      <td class="SubHead">
         <dnn:label id="Theme" runat="server" controlname="ThemeID" Suffix=":"></dnn:label>
       </td>
       <td>

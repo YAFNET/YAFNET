@@ -24,22 +24,19 @@ namespace YAF.DotNetNuke
     using System;
     using System.Data;
     using System.Web.UI.WebControls;
-
-    using YAF.Classes;
-    using YAF.Core;
-    using YAF.Types.Interfaces;
-
     using global::DotNetNuke.Entities.Modules;
     using global::DotNetNuke.Services.Localization;
-
+    using YAF.Classes;
     using YAF.Classes.Data;
+    using YAF.Core;
     using YAF.Types.Constants;
+    using YAF.Types.Interfaces;
     using YAF.Utils;
 
     #endregion
 
     /// <summary>
-    /// Summary description for DotNetNukeModule.
+    /// The YAF Module Settings Page
     /// </summary>
     public partial class YafDnnModuleEdit : PortalModuleBase
     {
@@ -63,6 +60,26 @@ namespace YAF.DotNetNuke
         }
 
         /// <summary>
+        /// Cancel Editing.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private static void CancelClick(object sender, EventArgs e)
+        {
+            YafBuildLink.Redirect(ForumPages.forum);
+        }
+
+        /// <summary>
+        /// Create New Board
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private static void CreateClick(object sender, EventArgs e)
+        {
+            YafBuildLink.Redirect(ForumPages.admin_editboard);
+        }
+
+        /// <summary>
         /// Overrides the theme checked changed.
         /// </summary>
         /// <param name="sender">The sender.</param>
@@ -70,34 +87,6 @@ namespace YAF.DotNetNuke
         private void OverrideThemeCheckedChanged(object sender, EventArgs e)
         {
             this.ThemeID.Enabled = this.OverrideTheme.Checked;
-        }
-
-        /// <summary>
-        /// The cancel click.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        private static void CancelClick(object sender, EventArgs e)
-        {
-            YafBuildLink.Redirect(ForumPages.forum);
-        }
-
-        /// <summary>
-        /// The create click.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        private static void CreateClick(object sender, EventArgs e)
-        {
-            YafBuildLink.Redirect(ForumPages.admin_editboard);
         }
 
         /// <summary>
@@ -180,14 +169,10 @@ namespace YAF.DotNetNuke
         }
 
         /// <summary>
-        /// The board id selected index changed.
+        /// Change the Categories if the Board is changed
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void BoardIdSelectedIndexChanged(object sender, EventArgs e)
         {
             this.BindCategories();
@@ -196,12 +181,8 @@ namespace YAF.DotNetNuke
         /// <summary>
         /// The dot net nuke module edit_ load.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void DotNetNukeModuleEdit_Load(object sender, EventArgs e)
         {
             this.update.Text = Localization.GetString("Update.Text", this.LocalResourceFile);
@@ -237,6 +218,13 @@ namespace YAF.DotNetNuke
 
             this.BindThemes();
 
+            // Load Remove Tab Name Setting
+            this.RemoveTabName.Items.Add(new ListItem(Localization.GetString("RemoveTabName0.Text", this.LocalResourceFile), "0"));
+            this.RemoveTabName.Items.Add(new ListItem(Localization.GetString("RemoveTabName1.Text", this.LocalResourceFile), "1"));
+            this.RemoveTabName.Items.Add(new ListItem(Localization.GetString("RemoveTabName2.Text", this.LocalResourceFile), "2"));
+
+            this.RemoveTabName.SelectedValue = this.Settings["RemoveTabName"] != null ? this.Settings["RemoveTabName"].ToType<string>() : "1";
+
             // Load Inherit DNN Language Setting
             bool ineritDnnLang = true;
 
@@ -259,14 +247,10 @@ namespace YAF.DotNetNuke
         }
 
         /// <summary>
-        /// The update click.
+        /// Save the Settings
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void UpdateClick(object sender, EventArgs e)
         {
             var objModules = new ModuleController();
@@ -279,6 +263,7 @@ namespace YAF.DotNetNuke
                 objModules.UpdateModuleSetting(this.ModuleId, "forumtheme", this.ThemeID.SelectedValue);
             }
 
+            objModules.UpdateModuleSetting(this.ModuleId, "RemoveTabName", this.RemoveTabName.SelectedValue);
             objModules.UpdateModuleSetting(this.ModuleId, "OverrideTheme", this.OverrideTheme.Checked.ToString());
             objModules.UpdateModuleSetting(
                 this.ModuleId, "InheritDnnLanguage", this.InheritDnnLanguage.Checked.ToString());

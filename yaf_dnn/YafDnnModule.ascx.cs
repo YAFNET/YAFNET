@@ -29,9 +29,6 @@ namespace YAF.DotNetNuke
     using System.Web;
     using System.Web.Security;
     using System.Web.UI;
-
-    using YAF.DotNetNuke.Controller;
-
     using global::DotNetNuke.Common;
     using global::DotNetNuke.Common.Utilities;
     using global::DotNetNuke.Entities.Modules;
@@ -43,10 +40,10 @@ namespace YAF.DotNetNuke
     using global::DotNetNuke.Security;
     using global::DotNetNuke.Services.Exceptions;
     using global::DotNetNuke.Services.Localization;
-
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.DotNetNuke.Controller;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Utils;
@@ -694,11 +691,52 @@ namespace YAF.DotNetNuke
         /// </param>
         private void Forum1_PageTitleSet(object sender, ForumPageTitleArgs e)
         {
-            if (!string.IsNullOrEmpty(this.CurrentPortalSettings.ActiveTab.Title))
+            int removeTabName = 1;
+
+            if (this.Settings["RemoveTabName"] != null)
             {
-                this.BasePage.Title = this.BasePage.Title.Replace(
-                    this.CurrentPortalSettings.ActiveTab.Title, string.Empty);
+                removeTabName = this.Settings["RemoveTabName"].ToType<int>();
             }
+
+            // Check if Tab Name/Title Matches the Forum Board Name
+            if (removeTabName.Equals(2))
+            {
+                if (YafContext.Current.Get<YafBoardSettings>().Name.Equals(this.CurrentPortalSettings.ActiveTab.TabName))
+                {
+                    removeTabName = 1;
+                }
+
+                if (this.CurrentPortalSettings.ActiveTab.Title.IsSet())
+                {
+                    if (
+                        YafContext.Current.Get<YafBoardSettings>().Name.Equals(
+                            this.CurrentPortalSettings.ActiveTab.Title))
+                    {
+                        removeTabName = 1;
+                    }
+                }
+            }
+
+            // Remove Tab Title(Name) if already in the Page Title
+            if (removeTabName.Equals(1))
+            {
+                this.BasePage.Title =
+                    this.BasePage.Title.Replace(
+                        "> {0}".FormatWith(this.CurrentPortalSettings.ActiveTab.TabName), string.Empty);
+            }
+
+
+            /*this.BasePage.Title =
+                this.BasePage.Title.Replace(
+                    "> {0}".FormatWith(
+                        !string.IsNullOrEmpty(this.CurrentPortalSettings.ActiveTab.Title)
+                            ? this.CurrentPortalSettings.ActiveTab.Title
+                            : this.CurrentPortalSettings.ActiveTab.TabName),
+                    string.Empty);*/
+
+            // Remove Portal Name if already in the Page Title
+            /*this.BasePage.Title = this.BasePage.Title.Replace(
+                   this.CurrentPortalSettings.PortalName, string.Empty);*/
         }
 
         /// <summary>

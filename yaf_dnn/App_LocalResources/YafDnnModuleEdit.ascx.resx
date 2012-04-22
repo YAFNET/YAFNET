@@ -150,6 +150,21 @@
   <data name="OverrideTheme.Text" xml:space="preserve">
     <value>Override Theme?</value>
   </data>
+  <data name="RemoveTabName0.Text" xml:space="preserve">
+    <value>Dont Remove</value>
+  </data>
+  <data name="RemoveTabName1.Text" xml:space="preserve">
+    <value>Always Remove</value>
+  </data>
+  <data name="RemoveTabName2.Text" xml:space="preserve">
+    <value>Remove only if matches the Board Name</value>
+  </data>
+  <data name="RemoveTabNameLabel.Help" xml:space="preserve">
+    <value>Option to Remove Tab Name or Tab Title from Page Title</value>
+  </data>
+  <data name="RemoveTabNameLabel.Text" xml:space="preserve">
+    <value>Remove Tab Name from Page Title</value>
+  </data>
   <data name="SyncProfile.Help" xml:space="preserve">
     <value>Auto Sync the User Profiles between YAF and DotNetNuke</value>
   </data>
