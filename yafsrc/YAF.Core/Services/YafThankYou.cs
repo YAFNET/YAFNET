@@ -17,6 +17,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+using System.Web.Security;
+
 namespace YAF.Core.Services
 {
     using System;
@@ -137,16 +139,19 @@ namespace YAF.Core.Services
         {
             int thanksNumber = LegacyDb.message_ThanksNumber(messageID);
 
-            // get the user's display name.
-            string displayName =
-              YafContext.Current.Get<IUserDisplayName>().GetName(
-                UserMembershipHelper.GetUserIDFromProviderUserKey(
-                  UserMembershipHelper.GetMembershipUserByName(username).ProviderUserKey));
-
-            // if displayname is enabled in admin section, and the user has a display name, use it instead of username.
-            displayName = (displayName != string.Empty && YafContext.Current.Get<YafBoardSettings>().EnableDisplayName)
-                            ? displayName
-                            : username;
+ 
+            string displayName = username;
+            if (YafContext.Current.Get<YafBoardSettings>().EnableDisplayName)
+            {
+                // get the user's display name.
+                MembershipUser mu = UserMembershipHelper.GetMembershipUserByName(username);
+                if (mu != null)
+                {
+                    displayName = YafContext.Current.Get<IUserDisplayName>().GetName(
+                        UserMembershipHelper.GetUserIDFromProviderUserKey(
+                            mu.ProviderUserKey));
+                }
+            }
 
             string thanksText;
 

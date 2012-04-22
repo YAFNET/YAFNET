@@ -336,17 +336,22 @@ namespace YAF.Classes
         [WebMethod(EnableSession = true)]
         public ThankYouInfo AddThanks([NotNull] object msgID)
         {
-            var messageID = msgID.ToType<int>();
+            var messageId = msgID.ToType<int>();
 
-            string username =
-                LegacyDb.message_AddThanks(
-                    UserMembershipHelper.GetUserIDFromProviderUserKey(Membership.GetUser().ProviderUserKey), messageID);
+            var membershipUser = Membership.GetUser();
+            if (membershipUser != null)
+            {
+                string username =
+                    LegacyDb.message_AddThanks(
+                        UserMembershipHelper.GetUserIDFromProviderUserKey(membershipUser.ProviderUserKey), messageId);
 
-            // if the user is empty, return a null object...
-            return username.IsNotSet()
-                       ? null
-                       : YafThankYou.CreateThankYou(
-                           username, "BUTTON_THANKSDELETE", "BUTTON_THANKSDELETE_TT", messageID);
+                // if the user is empty, return a null object...
+                return username.IsNotSet()
+                           ? null
+                           : YafThankYou.CreateThankYou(
+                               username, "BUTTON_THANKSDELETE", "BUTTON_THANKSDELETE_TT", messageId);
+            }
+            return null;
         }
 
         /// <summary>
