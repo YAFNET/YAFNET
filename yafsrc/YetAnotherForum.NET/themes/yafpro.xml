@@ -203,8 +203,10 @@
 	  <Resource tag="GOOGLEPLUS">~/icon_googleplus.png</Resource>
 	  <Resource tag="LINKBACK">~/icon_linkback.png</Resource>
 	  <Resource tag="PRINT">~/icon_print.png</Resource>
-	  	  <Resource tag="PM_READ">~/topic.png</Resource>
+	  <Resource tag="PM_READ">~/topic.png</Resource>
 	  <Resource tag="PM_NEW">~/topic_new.png</Resource>
+	  <Resource tag="PM_READ_REPLY">~/topic_reply.png</Resource>
+      <Resource tag="PM_NEW_REPLY">~/topic_new_reply.png</Resource>
 	  <Resource tag="TWITTER2">~/icon_twitter2.png</Resource>
 	  <Resource tag="FACEBOOK2">~/icon_facebook2.png</Resource>
 	  <Resource tag="TUMBLR">~/icon_tumblr.png</Resource>

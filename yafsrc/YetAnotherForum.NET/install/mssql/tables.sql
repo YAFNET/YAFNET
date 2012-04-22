@@ -316,6 +316,7 @@ GO
 if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}PMessage]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}PMessage](
 		PMessageID		int IDENTITY (1, 1) NOT NULL ,
+		ReplyTo			    int NULL ,
 		FromUserID		int NOT NULL ,
 		Created			datetime NOT NULL ,
 		[Subject]		nvarchar (100) NOT NULL ,
@@ -575,7 +576,8 @@ begin
 		[IsRead]		AS (CONVERT([bit],sign([Flags]&(1)),(0))),
 		[IsInOutbox]	AS (CONVERT([bit],sign([Flags]&(2)),(0))),
 		[IsArchived]	AS (CONVERT([bit],sign([Flags]&(4)),(0))),
-		[IsDeleted]		AS (CONVERT([bit],sign([Flags]&(8)),(0)))			
+		[IsDeleted]		AS (CONVERT([bit],sign([Flags]&(8)),(0))),
+		[IsReply]		[bit] NOT NULL  DEFAULT (0)		
 	)
 end
 GO
@@ -2310,4 +2312,13 @@ GO
 
 if exists (select top 1 1 from [{databaseOwner}].[{objectQualifier}Message] where UserDisplayName IS NULL)
 exec('[{databaseOwner}].[{objectQualifier}forum_initdisplayname]')
+GO
+
+-- add ReplyTo Column to PMessage Table if not exists
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}PMessage]') and name='ReplyTo')
+	alter table [{databaseOwner}].[{objectQualifier}PMessage] add ReplyTo int NULL
+GO
+
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}UserPMessage]') and name='IsReply')
+    alter table [{databaseOwner}].[{objectQualifier}UserPMessage] ADD [IsReply] [bit] NOT NULL  DEFAULT (0)
 GO

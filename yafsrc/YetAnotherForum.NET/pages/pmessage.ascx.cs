@@ -42,7 +42,7 @@ namespace YAF.Pages
     #endregion
 
     /// <summary>
-    /// Summary description for pmessage.
+    /// The Post Private Message Page
     /// </summary>
     public partial class pmessage : ForumPage
     {
@@ -152,9 +152,10 @@ namespace YAF.Pages
 
             // users control panel
             this.PageLinks.AddLink(
-             this.PageContext.BoardSettings.EnableDisplayName
-            ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.PageUserName,
-              YafBuildLink.GetLink(ForumPages.cp_profile));
+                this.Get<YafBoardSettings>().EnableDisplayName
+                    ? this.PageContext.CurrentUserData.DisplayName
+                    : this.PageContext.PageUserName,
+                YafBuildLink.GetLink(ForumPages.cp_profile));
 
             // private messages
             this.PageLinks.AddLink(
@@ -291,6 +292,7 @@ namespace YAF.Pages
             // only administrators can send messages to all users
             this.AllUsers.Visible = YafContext.Current.IsAdmin;
 
+            // Is Reply
             if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("p").IsSet())
             {
                 // PM is a reply or quoted reply (isQuoting)
@@ -368,10 +370,8 @@ namespace YAF.Pages
                         // get quoted message
                         DataRow messagesRow =
                             LegacyDb.message_listreporters(
-                                Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("r")).
-                                    ToType<int>(),
-                                Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u")).
-                                    ToType<int>()).GetFirstRow();
+                                Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("r")).ToType<int>(),
+                                Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u")).ToType<int>()).GetFirstRow();
 
                         // there is such a message
                         // message info should be always returned as 1 row 
@@ -468,9 +468,6 @@ namespace YAF.Pages
             this.PreviewMessagePost.MessageFlags.IsBBCode = this._editor.UsesBBCode;
             this.PreviewMessagePost.Message = this._editor.Text;
 
-            // set message flags
-            var tFlags = new MessageFlags { IsHtml = this._editor.UsesHTML, IsBBCode = this._editor.UsesBBCode };
-
             if (!this.Get<YafBoardSettings>().AllowSignatures)
             {
                 return;
@@ -496,6 +493,10 @@ namespace YAF.Pages
         /// </param>
         protected void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
+            var replyTo = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("p").IsSet()
+                               ? this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("p").ToType<int>()
+                               : -1;
+
             // recipient was set in dropdown
             if (this.ToList.Visible)
             {
@@ -529,7 +530,7 @@ namespace YAF.Pages
                 string body = this._editor.Text;
                 var messageFlags = new MessageFlags { IsHtml = this._editor.UsesHTML, IsBBCode = this._editor.UsesBBCode };
 
-                LegacyDb.pmessage_save(YafContext.Current.PageUserID, 0, this.PmSubjectTextBox.Text, body, messageFlags.BitValue);
+                LegacyDb.pmessage_save(YafContext.Current.PageUserID, 0, this.PmSubjectTextBox.Text, body, messageFlags.BitValue, replyTo);
 
                 // redirect to outbox (sent items), not control panel
                 YafBuildLink.Redirect(ForumPages.cp_pm, "v={0}", "out");
@@ -537,9 +538,9 @@ namespace YAF.Pages
             else
             {
                 // remove all abundant whitespaces and separators
-                this.To.Text.Trim();
                 var rx = new Regex(@";(\s|;)*;");
                 this.To.Text = rx.Replace(this.To.Text, ";");
+
                 if (this.To.Text.StartsWith(";"))
                 {
                     this.To.Text = this.To.Text.Substring(1);
@@ -627,7 +628,7 @@ namespace YAF.Pages
                     var messageFlags = new MessageFlags { IsHtml = this._editor.UsesHTML, IsBBCode = this._editor.UsesBBCode };
 
                     LegacyDb.pmessage_save(
-                    YafContext.Current.PageUserID, userId, this.PmSubjectTextBox.Text, body, messageFlags.BitValue);
+                    YafContext.Current.PageUserID, userId, this.PmSubjectTextBox.Text, body, messageFlags.BitValue, replyTo);
 
                     // reset reciever's lazy data as he should be informed at once
                     this.Get<IDataCache>().Remove(

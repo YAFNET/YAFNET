@@ -854,8 +854,9 @@ namespace YAF.Pages.Admin
                     LegacyDb.user_get(YafContext.Current.PageBoardID, Membership.GetUser(_fromUser).ProviderUserKey),
                     LegacyDb.user_get(YafContext.Current.PageBoardID, Membership.GetUser(_toUser).ProviderUserKey),
                     this.TopicPrefixTB.Text.Trim() + this.randomGuid,
-                    pmessagePrefix + this.randomGuid + "   " + this.PMessageText.Text.Trim(),
-                    6);
+                    "{0}{1}   {2}".FormatWith(pmessagePrefix, this.randomGuid, this.PMessageText.Text.Trim()),
+                    6, 
+                    null);
             }
 
             if (this.MarkRead.Checked)

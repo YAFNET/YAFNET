@@ -5688,8 +5688,7 @@ namespace YAF.Classes.Data
         {
             using (var cmd = MsSqlDbAccess.GetCommand("message_save"))
             {
-                var paramMessageID = new SqlParameter("MessageID", messageID);
-                paramMessageID.Direction = ParameterDirection.Output;
+                var paramMessageID = new SqlParameter("MessageID", messageID) { Direction = ParameterDirection.Output };
 
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("TopicID", topicID);
@@ -6442,22 +6441,13 @@ namespace YAF.Classes.Data
         /// <summary>
         /// The pmessage_save.
         /// </summary>
-        /// <param name="fromUserID">
-        /// The from user id.
-        /// </param>
-        /// <param name="toUserID">
-        /// The to user id.
-        /// </param>
-        /// <param name="subject">
-        /// The subject.
-        /// </param>
-        /// <param name="body">
-        /// The body.
-        /// </param>
-        /// <param name="Flags">
-        /// The flags.
-        /// </param>
-        public static void pmessage_save([NotNull] object fromUserID, [NotNull] object toUserID, [NotNull] object subject, [NotNull] object body, [NotNull] object Flags)
+        /// <param name="fromUserID">The from user id.</param>
+        /// <param name="toUserID">The to user id.</param>
+        /// <param name="subject">The subject.</param>
+        /// <param name="body">The body.</param>
+        /// <param name="flags">The flags.</param>
+        /// <param name="replyTo">The reply to.</param>
+        public static void pmessage_save([NotNull] object fromUserID, [NotNull] object toUserID, [NotNull] object subject, [NotNull] object body, [NotNull] object flags, [CanBeNull] object replyTo)
         {
             using (var cmd = MsSqlDbAccess.GetCommand("pmessage_save"))
             {
@@ -6466,7 +6456,8 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("ToUserID", toUserID);
                 cmd.Parameters.AddWithValue("Subject", subject);
                 cmd.Parameters.AddWithValue("Body", body);
-                cmd.Parameters.AddWithValue("Flags", Flags);
+                cmd.Parameters.AddWithValue("Flags", flags);
+                cmd.Parameters.AddWithValue("ReplyTo", replyTo);
                 cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
             }

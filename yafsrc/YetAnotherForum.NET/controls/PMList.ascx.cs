@@ -22,7 +22,6 @@ namespace YAF.Controls
     #region Using
 
     using System;
-    using System.Collections;
     using System.ComponentModel;
     using System.Data;
     using System.IO;
@@ -39,6 +38,7 @@ namespace YAF.Controls
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -428,26 +428,25 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// The get image.
+        /// Get The Icon Image indicating if Unread or Read Message
         /// </summary>
-        /// <param name="o">
-        /// The o.
-        /// </param>
+        /// <param name="dataRow">The data row.</param>
         /// <returns>
-        /// The get image.
+        /// Returns the Image Url
         /// </returns>
-        protected string GetImage([NotNull] object o)
+        protected string GetImage([NotNull] object dataRow)
         {
-            return this.Get<ITheme>().GetItem(
-                "ICONS", Convert.ToBoolean(((DataRowView)o)["IsRead"]) ? "PM_READ" : "PM_NEW");
+            var isRead = ((DataRowView)dataRow)["IsRead"].ToType<bool>();
+
+            return ((DataRowView)dataRow)["IsReply"].ToType<bool>()
+                       ? this.Get<ITheme>().GetItem("ICONS", isRead ? "PM_READ_REPLY" : "PM_NEW_REPLY")
+                       : this.Get<ITheme>().GetItem("ICONS", isRead ? "PM_READ" : "PM_NEW");
         }
 
         /// <summary>
-        /// The get localized text.
+        /// Gets the localized text.
         /// </summary>
-        /// <param name="text">
-        /// The text.
-        /// </param>
+        /// <param name="text">The text.</param>
         /// <returns>
         /// The get localized text.
         /// </returns>
@@ -457,11 +456,9 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// The get message link.
+        /// Gets the message link.
         /// </summary>
-        /// <param name="messageId">
-        /// The message id.
-        /// </param>
+        /// <param name="messageId">The message id.</param>
         /// <returns>
         /// The get message link.
         /// </returns>
@@ -472,7 +469,7 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// The get message user header.
+        /// Gets the message user header.
         /// </summary>
         /// <returns>
         /// The get message user header.
@@ -483,29 +480,15 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// The get p message text.
+        /// Gets the message text.
         /// </summary>
-        /// <param name="text">
-        /// The text.
-        /// </param>
-        /// <param name="_total">
-        /// The _total.
-        /// </param>
-        /// <param name="_inbox">
-        /// The _inbox.
-        /// </param>
-        /// <param name="_outbox">
-        /// The _outbox.
-        /// </param>
-        /// <param name="_archive">
-        /// The _archive.
-        /// </param>
-        /// <param name="_limit">
-        /// The _limit.
-        /// </param>
-        /// <returns>
-        /// The get p message text.
-        /// </returns>
+        /// <param name="text">The text.</param>
+        /// <param name="_total">The _total.</param>
+        /// <param name="_inbox">The _inbox.</param>
+        /// <param name="_outbox">The _outbox.</param>
+        /// <param name="_archive">The _archive.</param>
+        /// <param name="_limit">The _limit.</param>
+        /// <returns>Returns the Message Text</returns>
         protected string GetPMessageText(
             [NotNull] string text,
             [NotNull] object _total,
@@ -530,7 +513,7 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// The get title.
+        /// Gets the title.
         /// </summary>
         /// <returns>
         /// The get title.
@@ -1008,10 +991,8 @@ namespace YAF.Controls
         /// <summary>
         /// Returns a <see cref="PMView"/> based on its URL query string value.
         /// </summary>
-        /// <param name="param">
-        /// </param>
-        /// <returns>
-        /// </returns>
+        /// <param name="param">The param.</param>
+        /// <returns>Returns the Current View</returns>
         public static PMView FromQueryString([NotNull] string param)
         {
             if (param.IsNotSet())

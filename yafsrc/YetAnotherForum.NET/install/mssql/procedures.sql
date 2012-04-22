@@ -4872,9 +4872,9 @@ GO
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}pmessage_list](@FromUserID int=null,@ToUserID int=null,@UserPMessageID int=null) AS
 BEGIN				
         SELECT
-	a.PMessageID, b.UserPMessageID, a.FromUserID, d.[Name] AS FromUser, 
+	a.ReplyTo, a.PMessageID, b.UserPMessageID, a.FromUserID, d.[Name] AS FromUser, 
 	b.[UserID] AS ToUserId, c.[Name] AS ToUser, a.Created, a.[Subject], 
-	a.Body, a.Flags, b.IsRead, b.IsInOutbox, b.IsArchived, b.IsDeleted
+	a.Body, a.Flags, b.IsRead,b.IsReply, b.IsInOutbox, b.IsArchived, b.IsDeleted
 FROM
 	[{databaseOwner}].[{objectQualifier}PMessage] a
 INNER JOIN
@@ -4917,14 +4917,25 @@ create procedure [{databaseOwner}].[{objectQualifier}pmessage_save](
 	@Subject	nvarchar(100),
 	@Body		ntext,
 	@Flags		int,
+	@ReplyTo    int,
 	@UTCTIMESTAMP datetime
 ) as
 begin
 	declare @PMessageID int
-	declare @UserID int      
-	 
-	insert into [{databaseOwner}].[{objectQualifier}PMessage](FromUserID,Created,Subject,Body,Flags)
-	values(@FromUserID,@UTCTIMESTAMP ,@Subject,@Body,@Flags)
+	declare @UserID int     
+	
+	IF @ReplyTo<0
+	begin
+	    insert into [{databaseOwner}].[{objectQualifier}PMessage](FromUserID,Created,Subject,Body,Flags)
+	    values(@FromUserID,@UTCTIMESTAMP ,@Subject,@Body,@Flags)
+    end
+	else
+	begin
+	    insert into [{databaseOwner}].[{objectQualifier}PMessage](FromUserID,Created,Subject,Body,Flags,ReplyTo)
+	    values(@FromUserID,@UTCTIMESTAMP ,@Subject,@Body,@Flags,@ReplyTo)
+
+		UPDATE [{databaseOwner}].[{objectQualifier}UserPMessage] SET [IsReply] = (1) WHERE PMessageID = @ReplyTo
+	end
 
 	set @PMessageID = SCOPE_IDENTITY()
 	if (@ToUserID = 0)
@@ -8385,6 +8396,7 @@ begin
 		ToUserID = c.UserID,
 		ToUser = c.Name,
 		d.IsRead,
+		d.IsReply,
 		d.UserPMessageID
 	FROM
 		[{databaseOwner}].[{objectQualifier}PMessage] a
