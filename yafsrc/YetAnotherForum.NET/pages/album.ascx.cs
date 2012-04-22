@@ -112,9 +112,7 @@ namespace YAF.Pages
       this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
       // Set the title text.
-      this.LocalizedLabel1.Param0 = this.Get<YafBoardSettings>().EnableDisplayName  
-                                      ? this.Server.HtmlEncode(displayName)
-                                      : this.Server.HtmlEncode(this.PageContext.User.UserName);
+      this.LocalizedLabel1.Param0 = this.Server.HtmlEncode(displayName);
       this.LocalizedLabel1.Param1 = this.Server.HtmlEncode(LegacyDb.album_gettitle(albumId));
 
       // Initialize the Album Image List control.
