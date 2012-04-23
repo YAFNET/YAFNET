@@ -4131,6 +4131,7 @@ Spoiler Content
     <Resource tag="VIEWS">Views</Resource>
   </page>
   <page name="PMESSAGE">
+    <Resource tag="ALLBUDDIES">All Buddies</Resource>
     <Resource tag="ALLUSERS">Visi vartotojai </Resource>
     <Resource tag="CLEAR">Clear</Resource>
     <Resource tag="FINDUSERS">Rasti Vartotojai </Resource>

@@ -2500,6 +2500,7 @@ Spoiler Content
    </page>
    <page name="PMESSAGE">
       <Resource tag="ALLUSERS">All Users</Resource>
+      <Resource tag="ALLBUDDIES">All Buddies</Resource>
       <Resource tag="CLEAR">Clear</Resource>
       <Resource tag="FINDUSERS">Find Users...</Resource>
       <Resource tag="MAX_RECIPIENT_INFO">You can send message to maximum of [b]{0}[/b] users at a time.</Resource>

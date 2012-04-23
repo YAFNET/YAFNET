@@ -4021,6 +4021,7 @@ Spoiler Content
     <Resource tag="VIEWS">مشاهدات</Resource>
   </page>
   <page name="PMESSAGE">
+    <Resource tag="ALLBUDDIES">All Buddies</Resource>
     <Resource tag="ALLUSERS">تمام کاربران</Resource>
     <Resource tag="CLEAR">پاک کردن</Resource>
     <Resource tag="FINDUSERS">جستجوی کاربران</Resource>

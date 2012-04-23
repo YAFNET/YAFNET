@@ -4032,6 +4032,7 @@ Spoiler Content
     <Resource tag="VIEWS">Visninger</Resource>
   </page>
   <page name="PMESSAGE">
+    <Resource tag="ALLBUDDIES">All Buddies</Resource>
     <Resource tag="ALLUSERS">Alle brugere</Resource>
     <Resource tag="CLEAR">Nulstil</Resource>
     <Resource tag="FINDUSERS">Find Brugere</Resource>

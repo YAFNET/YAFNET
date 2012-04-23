@@ -4015,6 +4015,7 @@ Spoiler Content
     <Resource tag="VIEWS">Görüntüle</Resource>
   </page>
   <page name="PMESSAGE">
+    <Resource tag="ALLBUDDIES">All Buddies</Resource>
     <Resource tag="ALLUSERS">Tüm Kullanıcılar</Resource>
     <Resource tag="CLEAR">Temizle</Resource>
     <Resource tag="FINDUSERS">Kullanıcıyı Bul</Resource>

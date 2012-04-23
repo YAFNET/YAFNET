@@ -4033,6 +4033,7 @@ Spoiler Content
     <Resource tag="VIEWS">Views</Resource>
   </page>
   <page name="PMESSAGE">
+    <Resource tag="ALLBUDDIES">All Buddies</Resource>
     <Resource tag="ALLUSERS">所有用户</Resource>
     <Resource tag="CLEAR">Clear</Resource>
     <Resource tag="FINDUSERS">查找用户</Resource>

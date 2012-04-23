@@ -447,12 +447,13 @@ namespace YAF.Controls
         /// Gets the localized text.
         /// </summary>
         /// <param name="text">The text.</param>
+        /// <param name="page">The rescource page.</param>
         /// <returns>
         /// The get localized text.
         /// </returns>
-        protected string GetLocalizedText([NotNull] string text)
+        protected string GetLocalizedText([NotNull] string text, string page)
         {
-            return this.HtmlEncode(this.GetText(text));
+            return this.HtmlEncode(!string.IsNullOrEmpty(page) ? this.GetText(page, text) : this.GetText(text));
         }
 
         /// <summary>
@@ -476,7 +477,7 @@ namespace YAF.Controls
         /// </returns>
         protected string GetMessageUserHeader()
         {
-            return this.GetLocalizedText(this.View == PMView.Outbox ? "to" : "from");
+            return this.GetLocalizedText(this.View == PMView.Outbox ? "to" : "from", "CP_PM");
         }
 
         /// <summary>
@@ -523,11 +524,11 @@ namespace YAF.Controls
             switch (this.View)
             {
                 case PMView.Outbox:
-                    return this.GetLocalizedText("SENTITEMS");
+                    return this.GetLocalizedText("SENTITEMS", null);
                 case PMView.Inbox:
-                    return this.GetLocalizedText("INBOX");
+                    return this.GetLocalizedText("INBOX", null);
                 default:
-                    return this.GetLocalizedText("ARCHIVE");
+                    return this.GetLocalizedText("ARCHIVE", null);
             }
         }
 

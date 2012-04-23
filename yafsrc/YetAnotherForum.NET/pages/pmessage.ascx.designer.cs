@@ -121,6 +121,15 @@ namespace YAF.Pages {
         protected global::System.Web.UI.WebControls.Button AllUsers;
         
         /// <summary>
+        /// AllBuddies control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button AllBuddies;
+        
+        /// <summary>
         /// Clear control.
         /// </summary>
         /// <remarks>

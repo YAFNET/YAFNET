@@ -4015,6 +4015,7 @@ Spoiler Content
     <Resource tag="VIEWS">Xem</Resource>
   </page>
   <page name="PMESSAGE">
+    <Resource tag="ALLBUDDIES">All Buddies</Resource>
     <Resource tag="ALLUSERS">Tất cả thành viên</Resource>
     <Resource tag="CLEAR">Xoá sạch</Resource>
     <Resource tag="FINDUSERS">Tìm thành viên</Resource>

@@ -3974,6 +3974,7 @@ Spoiler Content
     <Resource tag="VIEWS">Ansichten</Resource>
   </page>
   <page name="PMESSAGE">
+    <Resource tag="ALLBUDDIES">Alle Freunde</Resource>
     <Resource tag="ALLUSERS">Alle Benutzer</Resource>
     <Resource tag="CLEAR">Leeren</Resource>
     <Resource tag="FINDUSERS">Benutzer finden</Resource>

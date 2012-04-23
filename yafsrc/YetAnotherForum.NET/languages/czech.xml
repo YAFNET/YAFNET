@@ -4016,6 +4016,7 @@ Spoiler Content
     <Resource tag="VIEWS">Views</Resource>
   </page>
   <page name="PMESSAGE">
+    <Resource tag="ALLBUDDIES">All Buddies</Resource>
     <Resource tag="ALLUSERS">Všichni uživatelé</Resource>
     <Resource tag="CLEAR">Smazat</Resource>
     <Resource tag="FINDUSERS">Najít uživatele</Resource>

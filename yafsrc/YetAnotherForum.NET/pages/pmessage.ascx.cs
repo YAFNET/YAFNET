@@ -25,6 +25,7 @@ namespace YAF.Pages
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Text;
     using System.Text.RegularExpressions;
     using System.Web;
     using System.Web.UI.WebControls;
@@ -32,6 +33,7 @@ namespace YAF.Pages
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Flags;
@@ -71,23 +73,19 @@ namespace YAF.Pages
         #region Methods
 
         /// <summary>
-        /// Handles all users button click event.
+        /// Send pm to all users
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void AllUsers_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // create one entry to show in dropdown
-            var li = new ListItem("All Users", "0");
+            var li = new ListItem(this.GetText("ALLUSERS"), "0");
 
             // bind the list to dropdown
             this.ToList.Items.Add(li);
             this.ToList.Visible = true;
-            this.To.Text = "All Users";
+            this.To.Text = this.GetText("ALLUSERS");
 
             // hide To text box
             this.To.Visible = false;
@@ -95,6 +93,41 @@ namespace YAF.Pages
             // hide find users/all users buttons
             this.FindUsers.Visible = false;
             this.AllUsers.Visible = false;
+            this.AllBuddies.Visible = false;
+
+            // we need clear button now
+            this.Clear.Visible = true;
+        }
+
+        /// <summary>
+        /// Send PM to all Buddies
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected void AllBuddies_Click([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            // try to find users by user name
+            var usersFound = this.Get<IBuddy>().All();
+
+            var friendsString = new StringBuilder();
+
+            if (usersFound.Rows.Count <= 0)
+            {
+                return;
+            }
+
+            // we found a user(s)
+            foreach (DataRow row in usersFound.Rows)
+            {
+                friendsString.AppendFormat("{0};", row["Name"]);
+            }
+
+            this.To.Text = friendsString.ToString();
+
+            // hide find users/all users buttons
+            this.FindUsers.Visible = false;
+            this.AllUsers.Visible = false;
+            this.AllBuddies.Visible = false;
 
             // we need clear button now
             this.Clear.Visible = true;
@@ -137,6 +170,7 @@ namespace YAF.Pages
             // show find users and all users (if user is admin)
             this.FindUsers.Visible = true;
             this.AllUsers.Visible = YafContext.Current.IsAdmin;
+            this.AllBuddies.Visible = this.PageContext.UserHasBuddies;
 
             // clear button is not necessary now
             this.Clear.Visible = false;
@@ -287,10 +321,13 @@ namespace YAF.Pages
             // localize button labels
             this.FindUsers.Text = this.GetText("FINDUSERS");
             this.AllUsers.Text = this.GetText("ALLUSERS");
+            this.AllBuddies.Text = this.GetText("ALLBUDDIES");
             this.Clear.Text = this.GetText("CLEAR");
 
             // only administrators can send messages to all users
             this.AllUsers.Visible = YafContext.Current.IsAdmin;
+
+            this.AllBuddies.Visible = this.PageContext.UserHasBuddies;
 
             // Is Reply
             if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("p").IsSet())
@@ -332,6 +369,7 @@ namespace YAF.Pages
                     this.To.Enabled = false;
                     this.FindUsers.Enabled = false;
                     this.AllUsers.Enabled = false;
+                    this.AllBuddies.Enabled = false;
 
                     if (isQuoting)
                     {
@@ -388,6 +426,7 @@ namespace YAF.Pages
                             this.To.Enabled = false;
                             this.FindUsers.Enabled = false;
                             this.AllUsers.Enabled = false;
+                            this.AllBuddies.Enabled = false;
 
                             // Parse content with delimiter '|'  
                             string[] quoteList = messagesRow.Field<string>("ReportText").Split('|');
@@ -427,6 +466,7 @@ namespace YAF.Pages
                         // hide find user/all users buttons
                         this.FindUsers.Enabled = false;
                         this.AllUsers.Enabled = false;
+                        this.AllBuddies.Enabled = false;
                     }
                 }
             }

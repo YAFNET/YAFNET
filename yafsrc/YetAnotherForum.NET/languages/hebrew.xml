@@ -4057,6 +4057,7 @@ Spoiler Content
     <Resource tag="VIEWS">Views</Resource>
   </page>
   <page name="PMESSAGE">
+    <Resource tag="ALLBUDDIES">All Buddies</Resource>
     <Resource tag="ALLUSERS">כל המשתמשים</Resource>
     <Resource tag="CLEAR">נקה/י</Resource>
     <Resource tag="FINDUSERS">חפש משתמש</Resource>

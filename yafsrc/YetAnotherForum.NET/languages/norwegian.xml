@@ -4015,6 +4015,7 @@ Spoiler Content
     <Resource tag="VIEWS">Views</Resource>
   </page>
   <page name="PMESSAGE">
+    <Resource tag="ALLBUDDIES">All Buddies</Resource>
     <Resource tag="ALLUSERS">Alle brukere</Resource>
     <Resource tag="CLEAR">Clear</Resource>
     <Resource tag="FINDUSERS">Finn bruker</Resource>
