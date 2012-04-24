@@ -911,6 +911,10 @@
     <Resource tag="ENABLE_SSO_HELP">Если включено, то пользователи смогут входить в свой аккаунт через аккаунт Facebook и/или Twitter.Чтобы включить это для Facebook необходимо установить значения YAF.FacebookAPIKey и YAF.FacebookSecretKey, а для Twitter YAF.TwitterConsumerKey и YAF.TwitterConsumerSecret Values в app.config (AppSettings).</Resource>
     <Resource tag="ENABLE_USERREPUTATION">Использовать систему репутации:</Resource>
     <Resource tag="ENABLE_USERREPUTATION_HELP">Позволяет добавлять или снижать общую репутацию пользователя.</Resource>
+    <Resource tag="EVENTLOG_MAX_DAYS">Максимальное число дней для журнала</Resource>
+    <Resource tag="EVENTLOG_MAX_DAYS_HELP">Максимальное число дней для хранения записей, устаревшие удаляются.</Resource>
+    <Resource tag="EVENTLOG_MAX_MESSAGES">Максимальное число записей журнала</Resource>
+    <Resource tag="EVENTLOG_MAX_MESSAGES_HELP">Максимальное число записей журнала, устаревшие удаляются.</Resource>
     <Resource tag="EXTERN_NEWWINDOW">Показывать результаты внешнего поиска в новом окне:</Resource>
     <Resource tag="EXTERN_NEWWINDOW_HELP">Показывать результаты внешнего поиска в новом окне.</Resource>
     <Resource tag="EXTERN_SEARCH_PERMISS">Разрешения для внешнего поиска:</Resource>

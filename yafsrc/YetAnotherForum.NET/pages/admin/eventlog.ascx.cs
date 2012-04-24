@@ -56,7 +56,7 @@ namespace YAF.Pages.Admin
     protected void DeleteAll_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       // delete all event log entries of this board
-      LegacyDb.eventlog_delete(this.PageContext.PageBoardID);
+        LegacyDb.eventlog_delete(this.PageContext.PageBoardID, this.PageContext.PageUserID);
 
       // re-bind controls
       this.BindData();
@@ -208,7 +208,7 @@ namespace YAF.Pages.Admin
       pds.PageSize = this.PagerTop.PageSize;
 
       // list event for this board
-      DataTable dt = LegacyDb.eventlog_list(this.PageContext.PageBoardID);
+      DataTable dt = LegacyDb.eventlog_list(this.PageContext.PageBoardID,this.PageContext.PageUserID, this.PageContext.BoardSettings.EventLogMaxMessages, this.PageContext.BoardSettings.EventLogMaxDays);
       DataView dv = dt.DefaultView;
 
       this.PagerTop.Count = dv.Count;
@@ -252,7 +252,7 @@ namespace YAF.Pages.Admin
         case "delete":
 
           // delete just this particular log entry
-          LegacyDb.eventlog_delete(e.CommandArgument);
+              LegacyDb.eventlog_delete(e.CommandArgument, this.PageContext.PageUserID);
 
           // re-bind controls
           this.BindData();

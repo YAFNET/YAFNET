@@ -2407,25 +2407,15 @@ GO
 create procedure [{databaseOwner}].[{objectQualifier}eventlog_create](@UserID int,@Source nvarchar(50),@Description ntext,@Type int,@UTCTIMESTAMP datetime) as
 begin
 		insert into [{databaseOwner}].[{objectQualifier}EventLog](UserID,Source,[Description],[Type])
-	values(@UserID,@Source,@Description,@Type)
-
-	-- delete entries older than 10 days
-	delete from [{databaseOwner}].[{objectQualifier}EventLog] where EventTime+10<@UTCTIMESTAMP 
-
-	-- or if there are more then 1000	
-	if ((select count(1) from [{databaseOwner}].[{objectQualifier}eventlog]) >= 1050)
-	begin
-		
-		delete from [{databaseOwner}].[{objectQualifier}EventLog] WHERE EventLogID IN (SELECT TOP 100 EventLogID FROM [{databaseOwner}].[{objectQualifier}EventLog] ORDER BY EventTime)
-	end	
-	
+	values(@UserID,@Source,@Description,@Type)	
 end
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}eventlog_delete]
 (
 	@EventLogID int = null, 
-	@BoardID int = null
+	@BoardID int = null,
+	@PageUserID int
 ) as
 begin
 		-- either EventLogID or BoardID must be null, not both at the same time
@@ -2443,8 +2433,17 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}eventlog_list](@BoardID int) as
+create procedure [{databaseOwner}].[{objectQualifier}eventlog_list](@BoardID int, @PageUserID int, @MaxRows int, @MaxDays int, @UTCTIMESTAMP datetime) as
 begin
+-- delete entries older than 10 days
+	delete from [{databaseOwner}].[{objectQualifier}EventLog] where EventTime+@MaxDays<@UTCTIMESTAMP 
+
+	-- or if there are more then 1000	
+	if ((select count(1) from [{databaseOwner}].[{objectQualifier}eventlog]) >= @MaxRows + 50)
+	begin		
+		delete from [{databaseOwner}].[{objectQualifier}EventLog] WHERE EventLogID IN (SELECT TOP 100 EventLogID FROM [{databaseOwner}].[{objectQualifier}EventLog] ORDER BY EventTime)
+	end	
+
 		select
 		a.*,
 		ISNULL(b.[Name],'System') as [Name]
@@ -8086,7 +8085,7 @@ begin
 		select @RankID = RankID from [{databaseOwner}].[{objectQualifier}Rank] where (Flags & 1)<>0 and BoardID=@BoardID
 
 		insert into [{databaseOwner}].[{objectQualifier}User](BoardID,RankID,[Name],DisplayName,Password,Email,Joined,LastVisit,NumPosts,TimeZone,Flags,PMNotification,AutoWatchTopics,NotificationType,ProviderUserKey) 
-		values(@BoardID,@RankID,@UserName,ISNULL(@DisplayName,@UserName),'-',@Email,@UTCTIMESTAMP ,@UTCTIMESTAMP ,0,@TimeZone, @Flags,@PMNotification,@AutoWatchTopics,@NotificationType,@ProviderUserKey)		
+		values(@BoardID,@RankID,@UserName,@DisplayName,'-',@Email,@UTCTIMESTAMP ,@UTCTIMESTAMP ,0,@TimeZone, @Flags,@PMNotification,@AutoWatchTopics,@NotificationType,@ProviderUserKey)		
 	
 		set @UserID = SCOPE_IDENTITY()
 
@@ -11193,8 +11192,8 @@ begin
         begin      
 		UPDATE [{databaseOwner}].[{objectQualifier}User] SET UserStyle= ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
 			join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=@usridtmp AND LEN(f.Style) > 2 ORDER BY f.SortOrder), (SELECT TOP 1 r.Style FROM [{databaseOwner}].[{objectQualifier}Rank] r where RankID = @rankidtmp)) 
-        WHERE UserID = @usridtmp  -- CURRENT OF c 
-		  	 
+        WHERE UserID = @usridtmp  -- CURRENT OF c 	
+         	 
         fetch next from c into @usridtmp,@styletmp,@rankidtmp		
 		
         end

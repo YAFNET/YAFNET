@@ -1641,6 +1641,39 @@ namespace YAF.Classes
             }
         }
 
+        /// <summary>
+        /// Gets or sets Event Log Max Messages.
+        /// </summary>
+        public int EventLogMaxMessages
+        {
+            get
+            {
+                return this._reg.GetValue("EventLogMaxMessages", 1050);
+            }
+
+            set
+            {
+                this._reg.SetValue("EventLogMaxMessages", value);
+            }
+        }
+
+
+        /// <summary>
+        /// Gets or sets Event Log Max Days.
+        /// </summary>
+        public int EventLogMaxDays
+        {
+            get
+            {
+                return this._reg.GetValue("EventLogMaxDays", 365);
+            }
+
+            set
+            {
+                this._reg.SetValue("EventLogMaxDays", value);
+            }
+        }
+
         #endregion
 
         #region boolean settings

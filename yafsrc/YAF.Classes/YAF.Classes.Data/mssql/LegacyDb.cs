@@ -3502,9 +3502,9 @@ namespace YAF.Classes.Data
         /// <param name="boardID">
         /// ID of board.
         /// </param>
-        public static void eventlog_delete(int boardID)
+        public static void eventlog_delete(int boardID, int pageUserId)
         {
-            eventlog_delete(null, boardID);
+            eventlog_delete(null, boardID, pageUserId);
         }
 
         /// <summary>
@@ -3513,9 +3513,9 @@ namespace YAF.Classes.Data
         /// <param name="eventLogID">
         /// ID of event log entry.
         /// </param>
-        public static void eventlog_delete([NotNull] object eventLogID)
+        public static void eventlog_delete([NotNull] object eventLogID, int pageUserId)
         {
-            eventlog_delete(eventLogID, null);
+            eventlog_delete(eventLogID, null,pageUserId);
         }
 
         /// <summary>
@@ -3526,12 +3526,16 @@ namespace YAF.Classes.Data
         /// </param>
         /// <returns>
         /// </returns>
-        public static DataTable eventlog_list([NotNull] object boardID)
+        public static DataTable eventlog_list([NotNull] object boardID, [NotNull] object pageUserID, [NotNull] object maxRows, [NotNull] object maxDays)
         {
             using (var cmd = MsSqlDbAccess.GetCommand("eventlog_list"))
-            {
+            { 
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("BoardID", boardID);
+                cmd.Parameters.AddWithValue("PageUserID", pageUserID);
+                cmd.Parameters.AddWithValue("MaxRows", maxRows);
+                cmd.Parameters.AddWithValue("MaxDays", maxDays);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
                 return MsSqlDbAccess.Current.GetData(cmd);
             }
         }
@@ -11402,13 +11406,14 @@ namespace YAF.Classes.Data
         /// <param name="boardID">
         /// Specifies board. It is ignored if eventLogID parameter is not null.
         /// </param>
-        private static void eventlog_delete([NotNull] object eventLogID, [NotNull] object boardID)
+        private static void eventlog_delete([NotNull] object eventLogID, [NotNull] object boardID, [NotNull] object pageUserID)
         {
             using (var cmd = MsSqlDbAccess.GetCommand("eventlog_delete"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("EventLogID", eventLogID);
                 cmd.Parameters.AddWithValue("BoardID", boardID);
+                cmd.Parameters.AddWithValue("PageUserID", pageUserID);
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
             }
         }
