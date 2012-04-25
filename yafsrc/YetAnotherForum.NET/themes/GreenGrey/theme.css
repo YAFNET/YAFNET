@@ -1424,3 +1424,27 @@ height:80em;
 {
 	background-color: yellow;
 }
+
+/* Profile Menu */
+.yafnet #yafprofilemessenger li,
+.yafnet #yafprofilepersonal li {
+	list-style-type:none;
+	line-height:20px;
+	
+	background: url("ProfileMenu.png") no-repeat top left;
+}
+
+.yafnet #yafprofilemessenger li a,
+.yafnet #yafprofilepersonal li a {padding-left: 20px;}
+
+.yafnet #yafprofilemessenger li.yafprofilemenu_cp_pm {background-position: 0 -264px;}
+.yafnet #yafprofilemessenger li.yafprofilemenu_pmessage {background-position: 0 -330px}
+.yafnet #yafprofilepersonal li.yafprofilemenu_profile { background-position: 0 -396px;}
+.yafnet #yafprofilepersonal li.yafprofilemenu_cp_editprofile { background-position: 0 -198px;}
+.yafnet #yafprofilepersonal li.yafprofilemenu_cp_editbuddies {background-position: 0 -132px;}
+.yafnet #yafprofilepersonal li.yafprofilemenu_albums {background-position: 0 0;}
+.yafnet #yafprofilepersonal li.yafprofilemenu_viewthanks{background-position: 0 -462px;}
+.yafnet #yafprofilepersonal li.yafprofilemenu_cp_editavatar {background-position: 0 -198px;}
+.yafnet #yafprofilepersonal li.yafprofilemenu_cp_signature{background-position: 0 -330px}
+.yafnet #yafprofilepersonal li.yafprofilemenu_cp_subscriptions{background-position: 0 -198px;}
+.yafnet #yafprofilepersonal li.yafprofilemenu_cp_changepassword {background-position: 0 -66px;}
