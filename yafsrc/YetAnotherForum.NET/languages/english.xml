@@ -4402,6 +4402,8 @@ Visit {forumname} at {forumlink}
 	 <page name="ADMIN_HOSTSETTINGS">
 	   <Resource tag="TITLE">Host Settings</Resource>
      <Resource tag="CLEAR_CACHE">Clear Cache</Resource>
+     <Resource tag="ALLOW_USERTEXTEDITOR">Allow users to pick text editor</Resource>
+     <Resource tag="ALLOW_USERTEXTEDITOR_HELP">Allow users to pick text editor in their profiles.</Resource>
      <Resource tag="EVENTLOG_MAX_MESSAGES">Max event log message</Resource>
      <Resource tag="EVENTLOG_MAX_MESSAGES_HELP">Max number of event log messages. Outdated will be deleted.</Resource>
      <Resource tag="EVENTLOG_MAX_DAYS">Max number of days for event log</Resource>

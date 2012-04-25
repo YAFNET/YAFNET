@@ -909,10 +909,10 @@
     <Resource tag="ENABLE_SSO_HELP">Wenn diese Option aktiviert ist, können Benutzer sich über Facebook und/oder Twitter anmelden. Um diese Funktion zu aktivieren müssen die Parameter YAF.FacebookAPIKey und YAF.FacebookSecretKey angegeben werden, und für Twitter YAF.TwitterConsumerKey und YAF.TwitterConsumerSecret Werte in der app.config (AppSettings) Datei.</Resource>
     <Resource tag="ENABLE_USERREPUTATION">Use Reputation System:</Resource>
     <Resource tag="ENABLE_USERREPUTATION_HELP">Setting to Enable/Disable the Build-In Reputation System to allow Users Give or Remove Reputation.</Resource>
-    <Resource tag="EVENTLOG_MAX_DAYS">Max number of days for event log</Resource>
-    <Resource tag="EVENTLOG_MAX_DAYS_HELP">Max number of days for event log. Older ones will be deleted</Resource>
-    <Resource tag="EVENTLOG_MAX_MESSAGES">Max event log message</Resource>
-    <Resource tag="EVENTLOG_MAX_MESSAGES_HELP">Max number of event log messages. Outdated will be deleted.</Resource>
+    <Resource tag="EVENTLOG_MAX_DAYS">Anzahl An Tagen wie lange Ein Eintrag im Ereignis Log bleibt</Resource>
+    <Resource tag="EVENTLOG_MAX_DAYS_HELP">Anzahl An Tagen wie lange Eintrag im Ereignis Log bleiben soll, alte Einträge werden automatisch gelöscht.</Resource>
+    <Resource tag="EVENTLOG_MAX_MESSAGES">Max. Anzahl an Ereignis Log Einträgen</Resource>
+    <Resource tag="EVENTLOG_MAX_MESSAGES_HELP">Max. Anzahl an Event Log Einträge, ältere werden automatich gelöscht.</Resource>
     <Resource tag="EXTERN_NEWWINDOW">Externe Suchergebnisse in einem neuen Fenster:</Resource>
     <Resource tag="EXTERN_NEWWINDOW_HELP">Externe Suchergebnisse in einem neuen Fenster Öffnen.</Resource>
     <Resource tag="EXTERN_SEARCH_PERMISS">Externe Suchberechtigungen:</Resource>
