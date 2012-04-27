@@ -365,8 +365,7 @@ namespace YAF.Controls
                                     Page.HtmlEncode(
                                         this.Get<YafBoardSettings>().EnableDisplayName
                                             ? UserMembershipHelper.GetDisplayNameFromID(this.UserId)
-                                            : UserMembershipHelper.GetUserNameFromID(this.UserId)));
-
+                                            : UserMembershipHelper.GetUserNameFromID(this.UserId))));
                 }
             }
 

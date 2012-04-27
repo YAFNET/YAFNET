@@ -20,7 +20,8 @@ namespace YAF.Controls
 {
   #region Using
 
-  using System.Web.UI;
+    using System.Web;
+    using System.Web.UI;
 
   using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Utils;
@@ -282,12 +283,8 @@ namespace YAF.Controls
       {
         return this.GetText(this._localizedTitlePage, this._localizedTitleTag);
       }
-      else if (this._localizedTitleTag.IsSet())
-      {
-        return this.GetText(this._localizedTitleTag);
-      }
 
-      return null;
+        return this._localizedTitleTag.IsSet() ? this.GetText(this._localizedTitleTag) : null;
     }
 
     /// <summary>
@@ -305,15 +302,7 @@ namespace YAF.Controls
       }
 
       string src = this.GetCurrentThemeItem();
-      string title;
-      if (string.IsNullOrEmpty(this.LocalizedTitle.Trim()))
-      {
-        title = this.GetCurrentTitleItem();
-      }
-      else
-      {
-        title = this.LocalizedTitle;
-      }
+        string title = string.IsNullOrEmpty(this.LocalizedTitle.Trim()) ? this.GetCurrentTitleItem() : this.LocalizedTitle;
 
       // might not be needed...
       if (src.IsNotSet())
@@ -332,7 +321,7 @@ namespace YAF.Controls
 
       // this will output the src and alt attributes
       output.WriteAttribute("src", src);
-      output.WriteAttribute("alt", this.Alt);
+      output.WriteAttribute("alt", HttpUtility.HtmlEncode(this.Alt));
 
       if (this.Style.IsSet())
       {
@@ -346,7 +335,7 @@ namespace YAF.Controls
 
       if (title.IsSet())
       {
-        output.WriteAttribute("title", title);
+        output.WriteAttribute("title", HttpUtility.HtmlEncode(title));
       }
 
       // self closing end tag "/>"

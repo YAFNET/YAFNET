@@ -21,6 +21,7 @@ namespace YAF.Controls
     #region Using
 
     using System;
+    using System.Web;
     using System.Web.UI;
     using System.Web.UI.WebControls;
     using YAF.Core;
@@ -395,7 +396,7 @@ namespace YAF.Controls
         #region Methods
 
         /// <summary>
-        /// The get localized title.
+        /// Gets the localized title.
         /// </summary>
         /// <returns>
         /// The get localized title.
@@ -473,11 +474,11 @@ namespace YAF.Controls
 
             if (title.IsSet())
             {
-                output.WriteAttribute("title", title);
+                output.WriteAttribute("title", HttpUtility.HtmlEncode(title));
             }
             else if (this.TitleNonLocalized.IsSet())
             {
-                output.WriteAttribute("title", this.TitleNonLocalized);
+                output.WriteAttribute("title", HttpUtility.HtmlEncode(this.TitleNonLocalized));
             }
 
             output.WriteAttribute(
@@ -534,10 +535,8 @@ namespace YAF.Controls
         /// <summary>
         /// Setup the controls before render
         /// </summary>
-        /// <param name="sender">
-        /// </param>
-        /// <param name="e">
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void ThemeButton_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this._themeImage.ThemeTag.IsSet())
