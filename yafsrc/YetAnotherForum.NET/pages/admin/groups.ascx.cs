@@ -18,28 +18,27 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System.Drawing;
-
 namespace YAF.Pages.Admin
 {
   #region Using
 
-  using System;
-  using System.Collections.Specialized;
-  using System.Data;
-  using System.Linq;
-  using System.Web.UI.WebControls;
+    using System;
+    using System.Collections.Specialized;
+    using System.Data;
+    using System.Drawing;
+    using System.Linq;
+    using System.Web.UI.WebControls;
 
-  using YAF.Classes.Data;
-  using YAF.Core;
-  using YAF.Core.Services;
-  using YAF.Types;
-  using YAF.Types.Constants;
-  using YAF.Types.Interfaces;
-  using YAF.Utils;
-  using YAF.Utils.Helpers;
+    using YAF.Classes;
+    using YAF.Classes.Data;
+    using YAF.Core;
+    using YAF.Types;
+    using YAF.Types.Constants;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
+    using YAF.Utils.Helpers;
 
-  #endregion
+    #endregion
 
   /// <summary>
   /// Primary administrator interface for groups/roles editing.
@@ -106,7 +105,7 @@ namespace YAF.Pages.Admin
     protected override void CreatePageLinks()
     {
       // forum index
-      this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
 
       // admin index
      this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
@@ -210,7 +209,8 @@ namespace YAF.Pages.Admin
         case "add":
 
           // save role and get its ID
-          int _initialPMessages = 0;
+          const int _initialPMessages = 0;
+
           long groupID = LegacyDb.group_save(
             DBNull.Value, 
             this.PageContext.PageBoardID, 
@@ -303,7 +303,7 @@ namespace YAF.Pages.Admin
       }
 
       // check if there are any roles for syncing
-      if (this._availableRoles.Count > 0)
+      if (this._availableRoles.Count > 0 && !Config.IsDotNetNuke)
       {
         // make it datasource
         this.RoleListNet.DataSource = this._availableRoles;
