@@ -91,12 +91,12 @@ namespace YAF.Controls
             {
                 // always show active users...       
                 sb.Append(
-                    "<a href=\"{1}\" alt=\"{2}\" title=\"{2}\"  {3}>{0}</a>".FormatWith(
+                    "<a href=\"{1}\" title=\"{2}\">{0}</a>".FormatWith(
                         this.GetTextFormatted(
                             activeUsers == 1 ? "ACTIVE_USERS_COUNT1" : "ACTIVE_USERS_COUNT2", activeUsers),
                         YafBuildLink.GetLink(ForumPages.activeusers, "v={0}", 0),
                         this.GetText("COMMON", "VIEW_FULLINFO"),
-                        PageContext.IsCrawler ? "rel=\"nofolow\"" : string.Empty));
+                        PageContext.IsCrawler ? " rel=\"nofolow\"" : string.Empty));
             }
             else
             {
@@ -110,12 +110,12 @@ namespace YAF.Controls
             {
                 sb.Append(
                     canViewActive
-                        ? ", <a href=\"{1}\" alt=\"{2}\" title=\"{2}\" {3}>{0}</a>".FormatWith(
+                        ? ", <a href=\"{1}\" title=\"{2}\"{3}>{0}</a>".FormatWith(
                             this.GetTextFormatted(
                                 activeMembers == 1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2", activeMembers),
                             YafBuildLink.GetLink(ForumPages.activeusers, "v={0}", 1),
                             this.GetText("COMMON", "VIEW_FULLINFO"),
-                            PageContext.IsCrawler ? "rel=\"nofolow\"" : string.Empty)
+                            PageContext.IsCrawler ? " rel=\"nofolow\"" : string.Empty)
                         : ", {0}".FormatWith(
                             this.GetTextFormatted(
                                 activeMembers == 1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2", activeMembers)));
@@ -128,12 +128,12 @@ namespace YAF.Controls
                      this.Get<YafBoardSettings>().ShowCrawlersInActiveList))
                 {
                     sb.Append(
-                        ", <a href=\"{1}\" alt=\"{2}\" title=\"{2}\" {3}>{0}</a>".FormatWith(
+                        ", <a href=\"{1}\" title=\"{2}\"{3}>{0}</a>".FormatWith(
                             this.GetTextFormatted(
                                 activeGuests == 1 ? "ACTIVE_USERS_GUESTS1" : "ACTIVE_USERS_GUESTS2", activeGuests),
                             YafBuildLink.GetLink(ForumPages.activeusers, "v={0}", 2),
                             this.GetText("COMMON", "VIEW_FULLINFO"),
-                            PageContext.IsCrawler ? "rel=\"nofolow\"" : string.Empty));
+                            PageContext.IsCrawler ? " rel=\"nofolow\"" : string.Empty));
                 }
                 else
                 {
@@ -150,7 +150,7 @@ namespace YAF.Controls
                 if (activeHidden > 0 && this.PageContext.IsAdmin)
                 {
                     sb.Append(
-                      ", <a href=\"{1}\" alt=\"{2}\" title=\"{2}\">{0}</a>".FormatWith(
+                      ", <a href=\"{1}\" title=\"{2}\">{0}</a>".FormatWith(
                         this.GetTextFormatted("ACTIVE_USERS_HIDDEN", activeHidden),
                         YafBuildLink.GetLink(ForumPages.activeusers, "v={0}", 3),
                         this.GetText("COMMON", "VIEW_FULLINFO")));

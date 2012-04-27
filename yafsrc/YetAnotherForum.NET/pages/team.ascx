@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.team" Codebehind="team.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Utils" %>
+<%@ Import Namespace="YAF.Types.Interfaces" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
     <tr>
@@ -72,7 +73,7 @@
              		 	    <HeaderStyle HorizontalAlign="Center" CssClass="header2"></HeaderStyle>
 			  			    <ItemStyle CssClass="post" Width="150px"></ItemStyle>
 			  				    <ItemTemplate>
-               				        <YAF:UserLink ID="ModLink" runat="server" ReplaceName='<%# YafContext.Current.Get<YafBoardSettings>().EnableDisplayName ? Eval("DisplayName").ToString() : Eval("Name").ToString() %>' UserID='<%# this.Eval("ModeratorID").ToType<int>() %>' IsGuest="False" Style='<%# Eval("Style") %>'  />
+               				        <YAF:UserLink ID="ModLink" runat="server" ReplaceName='<%# this.Get<YafBoardSettings>().EnableDisplayName ? Eval("DisplayName").ToString() : Eval("Name").ToString() %>' UserID='<%# this.Eval("ModeratorID").ToType<int>() %>' IsGuest="False" Style='<%# Eval("Style") %>'  />
 			  				    </ItemTemplate>
              		 	</asp:TemplateColumn>
              		 	<asp:TemplateColumn HeaderText="Forums">

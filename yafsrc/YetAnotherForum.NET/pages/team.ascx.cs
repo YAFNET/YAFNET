@@ -282,7 +282,7 @@ namespace YAF.Pages
 
             var drowv = (DataRowView)e.Item.DataItem;
             int userid = drowv.Row["UserID"].ToType<int>();
-            string displayName = YafContext.Current.Get<YafBoardSettings>().EnableDisplayName ? drowv.Row["DisplayName"].ToString() : drowv.Row["Name"].ToString();
+            string displayName = this.Get<YafBoardSettings>().EnableDisplayName ? drowv.Row["DisplayName"].ToString() : drowv.Row["Name"].ToString();
 
             adminAvatar.ImageUrl = this.GetAvatarUrlFileName(
                 drowv.Row["UserID"].ToType<int>(),
@@ -370,7 +370,7 @@ namespace YAF.Pages
 
             var modForums = (DropDownList)e.Item.FindControl("ModForums");
 
-            var modLink = (UserLink)e.Item.FindControl("ModLink");           
+            var modLink = (UserLink)e.Item.FindControl("ModLink");
 
             Moderator mod = this.completeModsList.Find(m => m.ModeratorID.Equals(modLink.UserID));
 
@@ -406,31 +406,33 @@ namespace YAF.Pages
 
             /*try
             {*/
-                Moderator drowv = (Moderator)e.Item.DataItem;
-                long userid = drowv.ModeratorID;
-                string displayName = this.Get<YafBoardSettings>().EnableDisplayName ? drowv.DisplayName : drowv.Name;
+            Moderator drowv = (Moderator)e.Item.DataItem;
+            long userid = drowv.ModeratorID;
+            string displayName = this.Get<YafBoardSettings>().EnableDisplayName ? drowv.DisplayName : drowv.Name;
 
-                var modAvatar = (Image)e.Item.FindControl("ModAvatar");
+            var modAvatar = (Image)e.Item.FindControl("ModAvatar");
 
-                modAvatar.ImageUrl = this.GetAvatarUrlFileName(
-                    userid.ToType<int>(), drowv.Avatar, drowv.AvatarImage, drowv.Email);
+            modAvatar.ImageUrl = this.GetAvatarUrlFileName(
+                userid.ToType<int>(), drowv.Avatar, drowv.AvatarImage, drowv.Email);
 
-                modAvatar.AlternateText = displayName;
-                modAvatar.ToolTip = displayName;
+            modAvatar.AlternateText = displayName;
+            modAvatar.ToolTip = displayName;
 
-                if (userid == this.PageContext.PageUserID)
-                {
-                    return;
-                }
+            if (userid == this.PageContext.PageUserID)
+            {
+                return;
+            }
 
-                pm.Visible = !this.PageContext.IsGuest && this.User != null && this.Get<YafBoardSettings>().AllowPrivateMessages;
-                pm.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", userid);
-                pm.ParamTitle0 = displayName;
+            pm.Visible = !this.PageContext.IsGuest && this.User != null
+                         && this.Get<YafBoardSettings>().AllowPrivateMessages;
+            pm.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", userid);
+            pm.ParamTitle0 = displayName;
 
-                // email link
-                email.Visible = !this.PageContext.IsGuest && this.User != null && this.Get<YafBoardSettings>().AllowEmailSending;
-                email.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", userid);
-                email.ParamTitle0 = displayName;
+            // email link
+            email.Visible = !this.PageContext.IsGuest && this.User != null
+                            && this.Get<YafBoardSettings>().AllowEmailSending;
+            email.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", userid);
+            email.ParamTitle0 = displayName;
             /*}
             catch (Exception)
             {
