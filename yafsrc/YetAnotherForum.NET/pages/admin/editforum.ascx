@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.editforum"
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.editforum"
     CodeBehind="editforum.ascx.cs" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Controls" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
@@ -143,7 +143,7 @@
             <HeaderTemplate>
                 <tr>
                     <td class="header1" colspan="2">
-                        <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER1" LocalizedPage="ADMIN_EDITFORUM" />
+                        <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER2" LocalizedPage="ADMIN_EDITFORUM" />
                     </td>
                 </tr>
                 <tr class="header2">

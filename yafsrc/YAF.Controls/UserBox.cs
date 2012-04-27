@@ -358,11 +358,15 @@ namespace YAF.Controls
                 {
                     filler =
                         this.Get<YafBoardSettings>().UserBoxAvatar.FormatWith(
-                            @"<a href=""{1}"" title=""{2}""><img class=""avatarimage"" src=""{0}"" alt=""{2}"" title=""{2}""  /></a>".FormatWith(
+                            @"<a href=""{1}"" title=""{2}""><img class=""avatarimage"" src=""{0}"" alt=""{2}"" title=""{2}""  /></a>"
+                                .FormatWith(
                                     avatarUrl,
                                     YafBuildLink.GetLinkNotEscaped(ForumPages.profile, "u={0}", this.UserId),
-                                    this.Get<YafBoardSettings>().EnableDisplayName ? Page.HtmlEncode(UserMembershipHelper.GetDisplayNameFromID(this.UserId)) : Page.HtmlEncode(UserMembershipHelper.GetUserNameFromID(this.UserId))));
-                
+                                    Page.HtmlEncode(
+                                        this.Get<YafBoardSettings>().EnableDisplayName
+                                            ? UserMembershipHelper.GetDisplayNameFromID(this.UserId)
+                                            : UserMembershipHelper.GetUserNameFromID(this.UserId)));
+
                 }
             }
 
@@ -949,11 +953,11 @@ namespace YAF.Controls
         private string RemoveEmptyDividers([NotNull] string userBox)
         {
             userBox = userBox.Replace("\"\"section\"\"", "\"section\"").Replace(@"""section""", "\"section\"");
-            if (userBox.IndexOf("<div class=\"section\"></div>", System.StringComparison.Ordinal) > 0)
+            if (userBox.IndexOf("<div class=\"section\"></div>", StringComparison.Ordinal) > 0)
             {
                 userBox =
                     userBox.Replace(
-                        userBox.IndexOf("<div class=\"section\"></div><br />", System.StringComparison.Ordinal) > 0
+                        userBox.IndexOf("<div class=\"section\"></div><br />", StringComparison.Ordinal) > 0
                             ? "<div class=\"section\"></div><br />"
                             : "<div class=\"section\"></div>",
                         string.Empty);
