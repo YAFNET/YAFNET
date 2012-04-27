@@ -408,15 +408,15 @@ namespace YAF.Pages
             {*/
                 Moderator drowv = (Moderator)e.Item.DataItem;
                 long userid = drowv.ModeratorID;
-                string displayName = drowv.DisplayName;
+                string displayName = this.Get<YafBoardSettings>().EnableDisplayName ? drowv.DisplayName : drowv.Name;
 
                 var modAvatar = (Image)e.Item.FindControl("ModAvatar");
 
                 modAvatar.ImageUrl = this.GetAvatarUrlFileName(
                     userid.ToType<int>(), drowv.Avatar, drowv.AvatarImage, drowv.Email);
 
-                modAvatar.AlternateText = mod.DisplayName;
-                modAvatar.ToolTip = mod.DisplayName;
+                modAvatar.AlternateText = displayName;
+                modAvatar.ToolTip = displayName;
 
                 if (userid == this.PageContext.PageUserID)
                 {
