@@ -358,10 +358,11 @@ namespace YAF.Controls
                 {
                     filler =
                         this.Get<YafBoardSettings>().UserBoxAvatar.FormatWith(
-                            @"<a href=""{1}"" title=""{2}""><img class=""avatarimage"" src=""{0}"" alt=""{2}"" /></a>".FormatWith(
+                            @"<a href=""{1}"" title=""{2}""><img class=""avatarimage"" src=""{0}"" alt=""{2}"" title=""{2}""  /></a>".FormatWith(
                                     avatarUrl,
                                     YafBuildLink.GetLinkNotEscaped(ForumPages.profile, "u={0}", this.UserId),
-                                    UserMembershipHelper.GetDisplayNameFromID(this.UserId)));
+                                    this.Get<YafBoardSettings>().EnableDisplayName ? Page.HtmlEncode(UserMembershipHelper.GetDisplayNameFromID(this.UserId)) : Page.HtmlEncode(UserMembershipHelper.GetUserNameFromID(this.UserId))));
+                
                 }
             }
 
