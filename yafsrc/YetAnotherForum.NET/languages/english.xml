@@ -237,7 +237,7 @@
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;Remove Buddy&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;To remove a Buddy from Your List go to your &#39;My Buddies&#39; page. On the Tab &#39;Buddy List&#39; Click on the Button &#39;Remove Buddy&#39; of the User you want to remove&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;You’re Requests&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Your Requests&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;The Third Tab of the &#39;My Buddies&#39; Page shows your the Pending Request you have made.&lt;/p&gt;</Resource>
         <Resource tag="MYALBUMSCONTENT">&lt;p&gt;If the Administrator has enable the Album Feature and you are a member who has access to add Albums, you can create Albums of images that are linked to your public profile. Albums can be created by visiting the &lt;strong&gt;User Control Panel&lt;/strong&gt;, and clicking on the &#39;Edit Albums&#39; link, and then clicking on &#39;Add New Album&#39;. The Number of how many Albums and how many Images depends on what the Admin has Setup for your User Group which you are in.&lt;/p&gt;
 &lt;p&gt;Each album can have a title and you can set a Cover for it (Image from the Album) or use random, you can also add a caption for every Image.&lt;/p&gt;
@@ -2804,7 +2804,7 @@ Spoiler Content
       <Resource tag="BUDDYLIST">Buddy List</Resource>
       <Resource tag="PENDING_REQUESTS">Pending Requests</Resource>
       <Resource tag="POSTS">Posts</Resource>
-      <Resource tag="YOUR_REQUESTS">You’re Requests</Resource>
+      <Resource tag="YOUR_REQUESTS">Your Requests</Resource>
       <Resource tag="REQUEST_DATE">Request Date</Resource>
       <Resource tag="APPROVE">Approve</Resource>
       <Resource tag="DENY">Deny</Resource>

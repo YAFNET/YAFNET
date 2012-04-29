@@ -2166,7 +2166,7 @@
     <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REQUEST_DATE">Request Date</Resource>
     <Resource tag="YOUR_BUDDYLIST">Your Buddy List</Resource>
-    <Resource tag="YOUR_REQUESTS">You’re Requests</Resource>
+    <Resource tag="YOUR_REQUESTS">Your Requests</Resource>
   </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">Om dig</Resource>
@@ -3454,7 +3454,7 @@ Spoiler Content
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;Remove Buddy&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;To remove a Buddy from Your List go to your 'My Buddies' page. On the Tab 'Buddy List' Click on the Button 'Remove Buddy' of the User you want to remove&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;You’re Requests&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Your Requests&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;The Third Tab of the 'My Buddies' Page shows your the Pending Request you have made.&lt;/p&gt;</Resource>
     <Resource tag="BUDDIESTITLE">Buddies</Resource>
     <Resource tag="DISPLAYCONTENT">&lt;p&gt;You have a choice over how you view topics. When you're in a thread, look at the top bar. On the right hand side you'll see 'View'. Click on this and it lets you change how posts are ordered.&lt;/p&gt;
