@@ -35,17 +35,15 @@
                     <%# Eval("Access") %>
                 </td>
                 <td>
-                    <asp:LinkButton runat="server" Text='<%# this.GetText("EDIT")%>' CommandName="edit" CommandArgument='<%# Eval("UserID") %>' />
-                    |
-                    <asp:LinkButton runat="server" Text='<%# this.GetText("REMOVE")%>' OnLoad="DeleteUser_Load"
-                        CommandName="remove" CommandArgument='<%# Eval("UserID") %>' />
+                     <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="yaflittlebutton" CommandName='edit' CommandArgument='<%# Eval("UserID") %>' TitleLocalizedTag="EDIT" ImageThemePage="ICONS" ImageThemeTag="EDIT_SMALL_ICON" runat="server"></YAF:ThemeButton>
+                    <YAF:ThemeButton ID="ThemeButtonRemove" CssClass="yaflittlebutton" OnLoad="DeleteUser_Load"  CommandName='remove' CommandArgument='<%#Eval("UserID") %>' TitleLocalizedTag="REMOVE" ImageThemePage="ICONS" ImageThemeTag="DELETE_SMALL_ICON" runat="server"></YAF:ThemeButton>
                 </td>
             </tr>
         </ItemTemplate>
     </asp:Repeater>
     <tr class="footer1">
         <td colspan="4">
-            <asp:LinkButton runat="server" ID="AddUser" Text="Invite User" OnClick="AddUser_Click" />
+            <asp:Button runat="server" ID="AddUser" Text="Invite User" OnClick="AddUser_Click" CssClass="pbutton" />
         </td>
     </tr>
 </table>
