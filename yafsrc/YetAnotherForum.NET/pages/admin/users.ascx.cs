@@ -284,6 +284,7 @@ namespace YAF.Pages.Admin
             if (Config.IsAnyPortal)
             {
                 this.ImportUsers.Visible = false;
+                this.SyncUsers.Visible = false;
             }
 
             ControlHelper.AddOnClickConfirmDialog(this.SyncUsers, this.GetText("ADMIN_USERS", "CONFIRM_SYNC"));

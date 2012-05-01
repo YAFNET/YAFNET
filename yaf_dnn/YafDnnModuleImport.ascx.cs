@@ -46,7 +46,7 @@ namespace YAF.DotNetNuke
   #endregion
 
   /// <summary>
-  /// Summary description for DotNetNukeModule.
+  /// User Importer.
   /// </summary>
   public partial class YafDnnModuleImport : PortalModuleBase
   {
@@ -468,6 +468,7 @@ namespace YAF.DotNetNuke
           }
 
           bool roleChanged = false;
+
           foreach (string role in dnnUserInfo.Roles)
           {
               if (!RoleMembershipHelper.RoleExists(role))
@@ -489,6 +490,13 @@ namespace YAF.DotNetNuke
               {
                   // TODO :Dont do anything when user is already in role ?!
               }
+          }
+
+          // check if the user is still part of the dnn role
+          foreach (var yafUserRole in RoleMembershipHelper.GetRolesForUser(dnnUserInfo.Username).Where(yafUserRole => !dnnUserInfo.IsInRole(yafUserRole)))
+          {
+              RoleMembershipHelper.RemoveUserFromRole(dnnUserInfo.Username, yafUserRole);
+              roleChanged = true;
           }
 
           // Sync Roles

@@ -25,6 +25,7 @@ namespace YAF.DotNetNuke
     using System.Collections.Generic;
     using System.Data;
     using System.Globalization;
+    using System.Linq;
     using System.Threading;
     using System.Web;
     using System.Web.Security;
@@ -579,9 +580,17 @@ namespace YAF.DotNetNuke
                 }
                 catch
                 {
-                    // TODO :Dont do anything when user is already in role ?!
+                    // TODO : Dont do anything when user is already in role ?!
                 }
             }
+
+            // check if the user is still part of the dnn role
+            foreach (var yafUserRole in RoleMembershipHelper.GetRolesForUser(dnnUser.Username).Where(yafUserRole => !dnnUser.IsInRole(yafUserRole)))
+            {
+                RoleMembershipHelper.RemoveUserFromRole(dnnUser.Username, yafUserRole);
+                roleChanged = true;
+            }
+
 
             if (roleChanged)
             {

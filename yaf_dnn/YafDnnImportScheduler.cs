@@ -24,6 +24,7 @@ namespace YAF.DotNetNuke
     using System;
     using System.Data;
     using System.IO;
+    using System.Linq;
     using System.Web;
     using System.Web.Security;
     using global::DotNetNuke.Common.Utilities;
@@ -313,6 +314,13 @@ namespace YAF.DotNetNuke
                         {
                             // TODO :Dont do anything when user is already in role ?!
                         }
+                    }
+
+                    // check if the user is still part of the dnn role
+                    foreach (var yafUserRole in RoleMembershipHelper.GetRolesForUser(dnnUserInfo.Username).Where(yafUserRole => !dnnUserInfo.IsInRole(yafUserRole)))
+                    {
+                        RoleMembershipHelper.RemoveUserFromRole(dnnUserInfo.Username, yafUserRole);
+                        roleChanged = true;
                     }
 
                     // Sync Roles
