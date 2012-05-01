@@ -379,4 +379,35 @@
 .yafnet .AlbumImageList li img {max-width:60px;max-height:80px}	
 
 /* Resized User Posted Images to avoid Large Images breaking the forum layout */
-.yafnet .postdiv .UserPostedImage {max-width:500px;max-height:100%;}	
+.yafnet .postdiv .UserPostedImage {
+	max-width:500px;
+	max-height:100%;
+}	
+
+/* event log styling */
+.yafnet .ui-state-warning {
+	border: 1px solid #ff5114; 
+	background: #fce3bb; color: #ffffff; 
+}
+.yafnet .showEventItem, .yafnet .deleteEventItem {
+	color: black!important; 
+}
+.yafnet .EventDetails pre {
+	padding:15px;
+	word-wrap: break-word;
+	white-space: pre; 
+	white-space: pre-wrap;
+	white-space: pre-line;
+	white-space: -pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -moz-pre-wrap;
+	white-space: -hp-pre-wrap;
+	word-wrap: break-word;
+	border: 1px solid #999; 
+	background-color:#eee;
+	margin:10px
+}
+.yafnet .eventItem table td {
+	border:none!important;
+	padding:5px!important
+}

@@ -63,16 +63,9 @@
             </td>
         </tr>
         <tr>
-            <td class="header2">
-                <YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="USER_NAME" LocalizedPage="ADMIN_USERS" />
-                <br />
+            <td class="header2" colspan="4">
+                <YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="USER_NAME" LocalizedPage="ADMIN_USERS" />&nbsp;
                 (<YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="DISPLAY_NAME" LocalizedPage="ADMIN_USERS" />)
-            </td>
-            <td class="header2">
-                &nbsp;
-            </td>
-            <td class="header2">
-                &nbsp;
             </td>
         </tr>
         <asp:Repeater ID="UserList" runat="server" OnItemCommand="UserList_ItemCommand">

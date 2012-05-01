@@ -54,12 +54,8 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// The delete_ load.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         public void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             // add confirmation method on click
@@ -70,12 +66,8 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// The new user_ click.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         public void NewUser_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // redirect to create new user page
@@ -85,12 +77,8 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// The user list_ item command.
         /// </summary>
-        /// <param name="source">
-        /// The source.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="source">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
         public void UserList_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
         {
             switch (e.CommandName)
@@ -112,8 +100,7 @@ namespace YAF.Pages.Admin
 
                     // get user(s) we are about to delete                
                     using (
-                        DataTable dt = LegacyDb.user_list(this.PageContext.PageBoardID, e.CommandArgument, DBNull.Value)
-                        )
+                        DataTable dt = LegacyDb.user_list(this.PageContext.PageBoardID, e.CommandArgument, DBNull.Value))
                     {
                         // examine each if he's possible to delete
                         foreach (DataRow row in dt.Rows)
@@ -151,12 +138,8 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// The search_ click.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         public void Search_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // re-bind data
@@ -166,12 +149,8 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// Export all Users as CSV
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void ExportUsersCsv_Click(object sender, EventArgs e)
         {
             this.ExportAllUsers("csv");
@@ -180,12 +159,8 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// Export all Users as XML
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void ExportUsersXml_Click(object sender, EventArgs e)
         {
             this.ExportAllUsers("xml");
@@ -194,12 +169,8 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// Redirect to the Admin Users Import Page.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void ImportUsers_Click(object sender, EventArgs e)
         {
             YafBuildLink.Redirect(ForumPages.admin_users_import);
@@ -282,12 +253,8 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// The page_ load.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.PageContext.PageElements.RegisterJQuery();
@@ -370,12 +337,8 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// The pager top_ page change.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void PagerTop_PageChange([NotNull] object sender, [NotNull] EventArgs e)
         {
             // rebind
@@ -385,12 +348,8 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// The since_ selected index changed.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Since_SelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
         {
             // Set the controls' pager index to 0.
@@ -403,12 +362,8 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// The sync users_ click.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void SyncUsers_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // start...
@@ -425,12 +380,8 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// The update status timer_ tick.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void UpdateStatusTimer_Tick([NotNull] object sender, [NotNull] EventArgs e)
         {
             // see if the migration is done...
@@ -445,8 +396,6 @@ namespace YAF.Pages.Admin
             // done here...
             YafBuildLink.Redirect(ForumPages.admin_users);
         }
-
-        /* Methods */
 
         /// <summary>
         /// The bind data.

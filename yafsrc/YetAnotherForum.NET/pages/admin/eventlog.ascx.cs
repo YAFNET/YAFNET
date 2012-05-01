@@ -20,265 +20,284 @@
 
 namespace YAF.Pages.Admin
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.Data;
-  using System.Web.UI;
-  using System.Web.UI.WebControls;
+    using System;
+    using System.Data;
+    using System.Web.UI.WebControls;
 
-  using YAF.Classes.Data;
-  using YAF.Core;
-  using YAF.Types;
-  using YAF.Types.Constants;
-  using YAF.Types.Interfaces;
-  using YAF.Utils;
-  using YAF.Utils.Helpers;
+    using YAF.Classes;
+    using YAF.Classes.Data;
+    using YAF.Core;
+    using YAF.Types;
+    using YAF.Types.Constants;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     #endregion
 
-  /// <summary>
-  /// Summary description for attachments.
-  /// </summary>
-  public partial class eventlog : AdminPage
-  {
-    #region Methods
-
     /// <summary>
-    /// Handles delete all button on click event.
+    /// The Admin Event Log Page.
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void DeleteAll_Click([NotNull] object sender, [NotNull] EventArgs e)
+    public partial class eventlog : AdminPage
     {
-      // delete all event log entries of this board
-        LegacyDb.eventlog_delete(this.PageContext.PageBoardID, this.PageContext.PageUserID);
+        #region Methods
 
-      // re-bind controls
-      this.BindData();
-    }
-
-    /// <summary>
-    /// Handles load event for delete all button.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    /// <remarks>
-    /// Adds confirmation popup to click event of this button.
-    /// </remarks>
-    protected void DeleteAll_Load([NotNull] object sender, [NotNull] EventArgs e)
-    {
-        ((Button)sender).Text = this.GetText("ADMIN_EVENTLOG", "DELETE_ALL");
-        ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_EVENTLOG", "CONFIRM_DELETE_ALL"));
-    }
-
-    /// <summary>
-    /// Handles load event for log entry delete link button.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    /// <remarks>
-    /// Adds confirmation popup to click event of this button.
-    /// </remarks>
-    protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
-    {
-        ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_EVENTLOG", "CONFIRM_DELETE"));
-    }
-
-    /// <summary>
-    /// Gets HTML IMG code representing given log event icon.
-    /// </summary>
-    /// <param name="dataRow">
-    /// Data row containing event log entry data.
-    /// </param>
-    /// <returns>
-    /// return HTML code of event log entry image
-    /// </returns>
-    protected string EventImageCode([NotNull] object dataRow)
-    {
-      // cast object to the DataRowView
-      var row = (DataRowView)dataRow;
-
-      // set defaults
-      string imageType = "Error";
-
-      // find out of what type event log entry is
-      switch ((int)row["Type"])
-      {
-        case 1:
-          imageType = "Warning";
-          break;
-        case 2:
-          imageType = "Information";
-          break;
-      }
-
-      // return HTML code of event log entry image
-      return
-        @"<img src=""{0}"" alt=""{1}"" title=""{1}"" />".FormatWith(
-          YafForumInfo.GetURLToResource("icons/{0}.png".FormatWith(imageType.ToLower())), imageType);
-    }
-
-    /// <summary>
-    /// The on init.
-    /// </summary>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected override void OnInit([NotNull] EventArgs e)
-    {
-      this.List.ItemCommand += this.List_ItemCommand;
-
-      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-      this.InitializeComponent();
-      base.OnInit(e);
-    }
-
-    /// <summary>
-    /// Page load event handler.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      // do it only once, not on postbacks
-        if (this.IsPostBack)
+        /// <summary>
+        /// Delete Selected Event Log Entry
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected void DeleteAll_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            return;
+            // delete all event log entries of this board
+            LegacyDb.eventlog_delete(this.PageContext.PageBoardID, this.PageContext.PageUserID);
+
+            // re-bind controls
+            this.BindData();
         }
 
-        // create page links
-        // board index first
-        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        /// <summary>
+        /// Handles load event for delete all button.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        /// <remarks>
+        /// Adds confirmation popup to click event of this button.
+        /// </remarks>
+        protected void DeleteAll_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            ((Button)sender).Text = this.GetText("ADMIN_EVENTLOG", "DELETE_ALL");
+            ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_EVENTLOG", "CONFIRM_DELETE_ALL"));
+        }
 
-        // administration index second
-        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+        /// <summary>
+        /// Handles load event for log entry delete link button.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        /// <remarks>
+        /// Adds confirmation popup to click event of this button.
+        /// </remarks>
+        protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_EVENTLOG", "CONFIRM_DELETE"));
+        }
 
-        this.PageLinks.AddLink(this.GetText("ADMIN_EVENTLOG", "TITLE"), string.Empty);
+        /// <summary>
+        /// Gets HTML IMG code representing given log event icon.
+        /// </summary>
+        /// <param name="dataRow">
+        /// Data row containing event log entry data.
+        /// </param>
+        /// <returns>
+        /// return HTML code of event log entry image
+        /// </returns>
+        protected string EventImageCode([NotNull] object dataRow)
+        {
+            // cast object to the DataRowView
+            var row = (DataRowView)dataRow;
 
-        this.Page.Header.Title = "{0} - {1}".FormatWith(
-              this.GetText("ADMIN_ADMIN", "Administration"),
-              this.GetText("ADMIN_EVENTLOG", "TITLE"));
+            // set defaults
+            string imageType = "Error";
 
+            // find out of what type event log entry is
+            switch ((int)row["Type"])
+            {
+                case 1:
+                    imageType = "Warning";
+                    break;
+                case 2:
+                    imageType = "Information";
+                    break;
+            }
 
-        this.PagerTop.PageSize = 25;
+            // return HTML code of event log entry image
+            return
+                @"<img src=""{0}"" alt=""{1}"" title=""{1}"" />".FormatWith(
+                    YafForumInfo.GetURLToResource("icons/{0}.png".FormatWith(imageType.ToLower())), imageType);
+        }
 
-        // bind data to controls
-        this.BindData();
+        /// <summary>
+        /// Gets HTML IMG code representing given log event icon.
+        /// </summary>
+        /// <param name="dataRow">
+        /// Data row containing event log entry data.
+        /// </param>
+        /// <returns>
+        /// return HTML code of event log entry image
+        /// </returns>
+        protected string EventCssClass([NotNull] object dataRow)
+        {
+            // cast object to the DataRowView
+            var row = (DataRowView)dataRow;
+
+            string cssClass;
+
+            // find out of what type event log entry is
+            switch ((int)row["Type"])
+            {
+                case 0:
+                    cssClass = "ui-state-error";
+                    break;
+                case 1:
+                    cssClass = "ui-state-warning";
+                    break;
+                case 2:
+                    cssClass = "ui-state-highlight";
+                    break;
+                default:
+                    cssClass = "ui-state-error";
+                    break;
+            }
+
+            return cssClass;
+        }
+
+        /// <summary>
+        /// The on init.
+        /// </summary>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected override void OnInit([NotNull] EventArgs e)
+        {
+            this.List.ItemCommand += this.List_ItemCommand;
+
+            base.OnInit(e);
+        }
+
+        /// <summary>
+        /// Page load event handler.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            // do it only once, not on postbacks
+            if (this.IsPostBack)
+            {
+                return;
+            }
+
+            // create page links
+            // board index first
+            this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+
+            // administration index second
+            this.PageLinks.AddLink(
+                this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+
+            this.PageLinks.AddLink(this.GetText("ADMIN_EVENTLOG", "TITLE"), string.Empty);
+
+            this.Page.Header.Title = "{0} - {1}".FormatWith(
+                this.GetText("ADMIN_ADMIN", "Administration"), this.GetText("ADMIN_EVENTLOG", "TITLE"));
+
+            this.PagerTop.PageSize = 25;
+
+            // bind data to controls
+            this.BindData();
+        }
+
+        /// <summary>
+        /// The pager top_ page change.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void PagerTop_PageChange([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            // rebind
+            this.BindData();
+        }
+
+        /// <summary>
+        /// Populates data source and binds data to controls.
+        /// </summary>
+        private void BindData()
+        {
+            var pds = new PagedDataSource { AllowPaging = true, PageSize = this.PagerTop.PageSize };
+
+            // list event for this board
+            DataTable dt = LegacyDb.eventlog_list(
+                this.PageContext.PageBoardID,
+                this.PageContext.PageUserID,
+                this.Get<YafBoardSettings>().EventLogMaxMessages,
+                this.Get<YafBoardSettings>().EventLogMaxDays);
+            DataView dv = dt.DefaultView;
+
+            this.PagerTop.Count = dv.Count;
+            pds.DataSource = dv;
+
+            pds.CurrentPageIndex = this.PagerTop.CurrentPageIndex;
+            if (pds.CurrentPageIndex >= pds.PageCount)
+            {
+                pds.CurrentPageIndex = pds.PageCount - 1;
+            }
+
+            this.List.DataSource = pds;
+
+            // bind data to controls
+            this.DataBind();
+        }
+
+        /// <summary>
+        /// Handles single record commands in a repeater.
+        /// </summary>
+        /// <param name="source">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
+        private void List_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+        {
+            // what command are we serving?
+            switch (e.CommandName)
+            {
+                    // delete log entry
+                case "delete":
+
+                    // delete just this particular log entry
+                    LegacyDb.eventlog_delete(e.CommandArgument, this.PageContext.PageUserID);
+
+                    // re-bind controls
+                    this.BindData();
+                    break;
+
+                    // show/hide log entry details
+                /*case "show":
+
+                    // get details control
+                    Control ctl = e.Item.FindControl("details");
+
+                    // find link button control
+                    var showbutton = e.Item.FindControl("showbutton") as LinkButton;
+
+                    // invert visibility
+                    ctl.Visible = !ctl.Visible;
+
+                    // change visibility state of detail and label of linkbutton too
+                    showbutton.Text = ctl.Visible
+                                          ? this.GetText("ADMIN_EVENTLOG", "HIDE")
+                                          : this.GetText("ADMIN_EVENTLOG", "SHOW");
+
+                    break;*/
+            }
+        }
+
+        #endregion
     }
-
-    /// <summary>
-    /// The pager top_ page change.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void PagerTop_PageChange([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      // rebind
-      this.BindData();
-    }
-
-    /// <summary>
-    /// Populates data source and binds data to controls.
-    /// </summary>
-    private void BindData()
-    {
-      var pds = new PagedDataSource();
-      pds.AllowPaging = true;
-      pds.PageSize = this.PagerTop.PageSize;
-
-      // list event for this board
-      DataTable dt = LegacyDb.eventlog_list(this.PageContext.PageBoardID,this.PageContext.PageUserID, this.PageContext.BoardSettings.EventLogMaxMessages, this.PageContext.BoardSettings.EventLogMaxDays);
-      DataView dv = dt.DefaultView;
-
-      this.PagerTop.Count = dv.Count;
-      pds.DataSource = dv;
-
-      pds.CurrentPageIndex = this.PagerTop.CurrentPageIndex;
-      if (pds.CurrentPageIndex >= pds.PageCount)
-      {
-        pds.CurrentPageIndex = pds.PageCount - 1;
-      }
-
-      this.List.DataSource = pds;
-
-      // bind data to controls
-      this.DataBind();
-    }
-
-    /// <summary>
-    /// Required method for Designer support - do not modify
-    ///   the contents of this method with the code editor.
-    /// </summary>
-    private void InitializeComponent()
-    {
-    }
-
-    /// <summary>
-    /// Handles single record commands in a repeater.
-    /// </summary>
-    /// <param name="source">
-    /// The source.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    private void List_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
-    {
-      // what command are we serving?
-      switch (e.CommandName)
-      {
-          // delete log entry
-        case "delete":
-
-          // delete just this particular log entry
-              LegacyDb.eventlog_delete(e.CommandArgument, this.PageContext.PageUserID);
-
-          // re-bind controls
-          this.BindData();
-          break;
-
-          // show/hide log entry details
-        case "show":
-
-          // get details control
-          Control ctl = e.Item.FindControl("details");
-
-          // find link button control
-          var showbutton = e.Item.FindControl("showbutton") as LinkButton;
-
-          // invert visibility
-          ctl.Visible = !ctl.Visible;
-
-          // change visibility state of detail and label of linkbutton too
-              showbutton.Text = ctl.Visible
-                                    ? this.GetText("ADMIN_EVENTLOG", "HIDE")
-                                    : this.GetText("ADMIN_EVENTLOG", "SHOW");
-
-          break;
-      }
-    }
-
-    #endregion
-  }
 }
