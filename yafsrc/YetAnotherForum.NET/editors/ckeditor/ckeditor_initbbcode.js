@@ -27,6 +27,8 @@
 			config.entities_greek = false;
 			config.entities_latin = false;
 			config.language = editorLanguage;
+			config.disableObjectResizing = true;
+			config.forcePasteAsPlainText = true;
 			
 			config.contentsCss = 'editors/ckeditor/contents.css';
 		  });

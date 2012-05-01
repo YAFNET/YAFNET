@@ -1,5 +1,5 @@
 ﻿/*
-Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
@@ -422,6 +422,25 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 						marginLeft ? node.setStyle( 'margin-left', marginLeft ) : node.removeStyle( 'margin-left' );
 						marginRight ? node.setStyle( 'margin-right', marginRight ) : node.removeStyle( 'margin-right' );
+					}
+				}
+			});
+
+			editor.on( 'key', function( evt )
+			{
+				// Backspace at the beginning of  list item should outdent it.
+				if ( editor.mode == 'wysiwyg' && evt.data.keyCode == 8 )
+				{
+					var sel = editor.getSelection(),
+						range = sel.getRanges()[ 0 ],
+						li;
+
+					if ( range.collapsed &&
+						 ( li = range.startContainer.getAscendant( 'li', 1 ) ) &&
+						 range.checkBoundaryOfElement( li, CKEDITOR.START ) )
+					{
+						editor.execCommand( 'outdent' );
+						evt.cancel();
 					}
 				}
 			});

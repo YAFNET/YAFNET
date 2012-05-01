@@ -1,5 +1,5 @@
 ﻿/*
-Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
@@ -55,7 +55,7 @@ CKEDITOR.lang['pl'] =
 	subscript		: 'Indeks dolny',
 	superscript		: 'Indeks górny',
 	horizontalrule	: 'Wstaw poziomą linię',
-	pagebreak		: 'Wstaw pdodział strony',
+	pagebreak		: 'Wstaw podział strony',
 	pagebreakAlt		: 'Wstaw podział strony',
 	unlink			: 'Usuń odnośnik',
 	undo			: 'Cofnij',
@@ -302,7 +302,7 @@ CKEDITOR.lang['pl'] =
 			bgColor			: 'Kolor tła',
 			borderColor		: 'Kolor obramowania',
 			data			: 'Dane',
-			header			: 'Nagłowek',
+			header			: 'Nagłówek',
 			yes				: 'Tak',
 			no				: 'Nie',
 			invalidWidth	: 'Szerokość komórki musi być liczbą.',

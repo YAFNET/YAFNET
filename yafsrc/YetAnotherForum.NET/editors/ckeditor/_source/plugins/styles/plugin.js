@@ -1,5 +1,5 @@
 ﻿/*
-Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
@@ -1132,8 +1132,9 @@ CKEDITOR.STYLE_OBJECT = 3;
 	function removeFromElement( style, element )
 	{
 		var def = style._.definition,
-			attributes = CKEDITOR.tools.extend( {}, def.attributes, getOverrides( style )[ element.getName() ] ),
+			attributes = def.attributes,
 			styles = def.styles,
+			overrides = getOverrides( style )[ element.getName() ],
 			// If the style is only about the element itself, we have to remove the element.
 			removeEmpty = CKEDITOR.tools.isEmpty( attributes ) && CKEDITOR.tools.isEmpty( styles );
 
@@ -1158,6 +1159,9 @@ CKEDITOR.STYLE_OBJECT = 3;
 			removeEmpty = removeEmpty || !!element.getStyle( styleName );
 			element.removeStyle( styleName );
 		}
+
+		// Remove overrides, but don't remove the element if it's a block element
+		removeOverrides( element, overrides, blockElements[ element.getName() ] ) ;
 
 		if ( removeEmpty )
 		{
@@ -1200,8 +1204,9 @@ CKEDITOR.STYLE_OBJECT = 3;
 	 *  Note: Remove the element if no attributes remain.
 	 * @param {Object} element
 	 * @param {Object} overrides
+	 * @param {Boolean} Don't remove the element
 	 */
-	function removeOverrides( element, overrides )
+	function removeOverrides( element, overrides, dontRemove )
 	{
 		var attributes = overrides && overrides.attributes ;
 
@@ -1229,7 +1234,8 @@ CKEDITOR.STYLE_OBJECT = 3;
 			}
 		}
 
-		removeNoAttribsElement( element );
+		if ( !dontRemove )
+			removeNoAttribsElement( element );
 	}
 
 	// If the element has no more attributes, remove it.

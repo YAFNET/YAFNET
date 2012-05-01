@@ -1,5 +1,5 @@
 ﻿/*
-Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
@@ -93,14 +93,14 @@ CKEDITOR.lang['ar'] =
 		cssStyle		: 'نمط',
 		ok				: 'موافق',
 		cancel			: 'إلغاء الأمر',
-		close			: 'Close', // MISSING
-		preview			: 'Preview', // MISSING
+		close			: 'أغلق',
+		preview			: 'استعراض',
 		generalTab		: 'عام',
 		advancedTab		: 'متقدم',
 		validateNumberFailed : 'لايوجد نتيجة',
 		confirmNewPage	: 'ستفقد أي متغييرات اذا لم تقم بحفظها اولا. هل أنت متأكد أنك تريد صفحة جديدة؟',
 		confirmCancel	: 'بعض الخيارات قد تغيرت. هل أنت متأكد من إغلاق مربع النص؟',
-		options			: 'Options', // MISSING
+		options			: 'خيارات',
 		target			: 'Target', // MISSING
 		targetNew		: 'New Window (_blank)', // MISSING
 		targetTop		: 'Topmost Window (_top)', // MISSING

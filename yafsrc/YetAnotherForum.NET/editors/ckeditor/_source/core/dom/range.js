@@ -1,5 +1,5 @@
 ﻿/*
-Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
@@ -380,16 +380,23 @@ CKEDITOR.dom.range = function( document )
 		};
 	}
 
+
+	var isBogus = CKEDITOR.dom.walker.bogus();
 	// Evaluator for CKEDITOR.dom.element::checkBoundaryOfElement, reject any
 	// text node and non-empty elements unless it's being bookmark text.
-	function elementBoundaryEval( node )
+	function elementBoundaryEval( checkStart )
 	{
-		// Reject any text node unless it's being bookmark
-		// OR it's spaces. (#3883)
-		return node.type != CKEDITOR.NODE_TEXT
-			    && node.getName() in CKEDITOR.dtd.$removeEmpty
-			    || !CKEDITOR.tools.trim( node.getText() )
-			    || !!node.getParent().data( 'cke-bookmark' );
+		return function( node )
+		{
+			// Tolerant bogus br when checking at the end of block.
+			// Reject any text node unless it's being bookmark
+			// OR it's spaces.
+			// Reject any element unless it's being invisible empty. (#3883)
+			return !checkStart && isBogus( node ) ||
+					( node.type == CKEDITOR.NODE_TEXT ?
+				   	   !CKEDITOR.tools.trim( node.getText() ) || !!node.getParent().data( 'cke-bookmark' )
+				   	   : node.getName() in CKEDITOR.dtd.$removeEmpty );
+		};
 	}
 
 	var whitespaceEval = new CKEDITOR.dom.walker.whitespaces(),
@@ -1014,7 +1021,12 @@ CKEDITOR.dom.range = function( document )
 							// whitespaces at the end.
 							isWhiteSpace = false;
 
-							if ( sibling.type == CKEDITOR.NODE_TEXT )
+							if ( sibling.type == CKEDITOR.NODE_COMMENT )
+							{
+								sibling = sibling.getPrevious();
+								continue;
+							}
+							else if ( sibling.type == CKEDITOR.NODE_TEXT )
 							{
 								siblingText = sibling.getText();
 
@@ -1044,7 +1056,7 @@ CKEDITOR.dom.range = function( document )
 											sibling = null;
 										else
 										{
-											var allChildren = sibling.$.all || sibling.$.getElementsByTagName( '*' );
+											var allChildren = sibling.$.getElementsByTagName( '*' );
 											for ( var i = 0, child ; child = allChildren[ i++ ] ; )
 											{
 												if ( !CKEDITOR.dtd.$removeEmpty[ child.nodeName.toLowerCase() ] )
@@ -1183,7 +1195,7 @@ CKEDITOR.dom.range = function( document )
 
 								isWhiteSpace = /^[\s\ufeff]/.test( siblingText );
 							}
-							else
+							else if ( sibling.type == CKEDITOR.NODE_ELEMENT )
 							{
 								// If this is a visible element.
 								// We need to check for the bookmark attribute because IE insists on
@@ -1204,7 +1216,7 @@ CKEDITOR.dom.range = function( document )
 											sibling = null;
 										else
 										{
-											allChildren = sibling.$.all || sibling.$.getElementsByTagName( '*' );
+											allChildren = sibling.$.getElementsByTagName( '*' );
 											for ( i = 0 ; child = allChildren[ i++ ] ; )
 											{
 												if ( !CKEDITOR.dtd.$removeEmpty[ child.nodeName.toLowerCase() ] )
@@ -1222,6 +1234,8 @@ CKEDITOR.dom.range = function( document )
 										sibling = null;
 								}
 							}
+							else
+								isWhiteSpace = 1;
 
 							if ( isWhiteSpace )
 							{
@@ -1793,7 +1807,7 @@ CKEDITOR.dom.range = function( document )
 			// Create the walker, which will check if we have anything useful
 			// in the range.
 			var walker = new CKEDITOR.dom.walker( walkerRange );
-			walker.evaluator = elementBoundaryEval;
+			walker.evaluator = elementBoundaryEval( checkStart );
 
 			return walker[ checkStart ? 'checkBackward' : 'checkForward' ]();
 		},

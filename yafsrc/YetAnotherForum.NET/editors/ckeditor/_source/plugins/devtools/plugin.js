@@ -1,11 +1,11 @@
 ﻿/*
-Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
 CKEDITOR.plugins.add( 'devtools',
 {
-	lang : [ 'en' ],
+	lang : [ 'bg', 'cs', 'cy', 'da', 'de', 'el', 'en', 'eo', 'et', 'fa', 'fi', 'fr', 'gu', 'he', 'hr', 'it', 'nb', 'nl', 'no', 'pl', 'tr', 'ug', 'uk', 'vi', 'zh-cn' ],
 
 	init : function( editor )
 	{

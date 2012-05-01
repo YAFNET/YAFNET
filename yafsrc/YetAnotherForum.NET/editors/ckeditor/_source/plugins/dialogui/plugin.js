@@ -1,5 +1,5 @@
 ﻿/*
-Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
@@ -224,7 +224,7 @@ CKEDITOR.plugins.add( 'dialogui' );
 
 				initPrivateObject.call( this, elementDefinition );
 				var domId = this._.inputId = CKEDITOR.tools.getNextId() + '_textInput',
-					attributes = { 'class' : 'cke_dialog_ui_input_' + elementDefinition.type, id : domId, type : 'text' },
+					attributes = { 'class' : 'cke_dialog_ui_input_' + elementDefinition.type, id : domId, type : elementDefinition.type },
 					i;
 
 				// Set the validator, if any.
@@ -855,7 +855,9 @@ CKEDITOR.plugins.add( 'dialogui' );
 				var innerHTML = function()
 				{
 					var html = [];
-					legendLabel && html.push( '<legend>' + legendLabel + '</legend>' );
+					legendLabel && html.push( '<legend' +
+						( elementDefinition.labelStyle ? ' style="' + elementDefinition.labelStyle + '"' : '' ) +
+						'>' + legendLabel + '</legend>' );
 					for ( var i = 0; i < childHtmlList.length; i++ )
 						html.push( childHtmlList[ i ] );
 					return html.join( '' );
@@ -969,7 +971,13 @@ CKEDITOR.plugins.add( 'dialogui' );
 						/** @ignore */
 						onClick : function( dialog, func )
 						{
-							this.on( 'click', func );
+							this.on( 'click', function()
+								{
+									// Some browsers (Chrome, IE8, IE7 compat mode) don't move
+									// focus to clicked button. Force this.
+									this.getElement().focus();
+									func.apply( this, arguments );
+								});
 						}
 					}, true ),
 

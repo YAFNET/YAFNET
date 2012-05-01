@@ -7,105 +7,23 @@
 CKEDITOR.plugins.add( 'bbcode',
 {
 	requires : [ 'htmlwriter' ],
-	init : function( editor )
-	{
+	init : function( editor ) {
 		editor.dataProcessor = new CKEDITOR.htmlDataProcessor( editor );
+	},
+	beforeInit:function(editor) {
+		addEventOn(editor);
 	}
 });
 
-CKEDITOR.htmlDataProcessor.prototype =
-{
-    toHtml: function (data, fixForBody) {
+function addEventOn(editor) {
+  editor.on('paste', function (evt){
+    
+	evt.data['html'] = ConvertHtmlToBBCode(evt.data['text']);
+  });
+}
 
-        // Convert < and > to their HTML entities.
-        data = data.replace(/</g, '&lt;');
-        data = data.replace(/>/g, '&gt;');
-
-        // Convert line breaks to <br>.
-        data = data.replace(/(?:\r\n|\n|\r)/g, '<br>');
-
-        // [url]
-        data = data.replace(/\[url\](.+?)\[\/url]/gi, '<a href="$1">$1</a>');
-        data = data.replace(/\[url\=([^\]]+)](.+?)\[\/url]/gi, '<a href="$1">$2</a>');
-
-        // [b]
-        data = data.replace(/\[b\](.+?)\[\/b]/gi, '<b>$1</b>');
-
-        // [i]
-        data = data.replace(/\[i\](.+?)\[\/i]/gi, '<i>$1</i>');
-
-        // [u]
-        data = data.replace(/\[u\](.+?)\[\/u]/gi, '<u>$1</u>');
-
-        // [h]
-        data = data.replace(/\[h\](.+?)\[\/h]/gi, '<span style="background:yellow">$1</span>');
-
-        // [img]
-        data = data.replace(/\[img\](.*?)\[\/img\]/gi, '<img src="$1" />');
-        data = data.replace(/\[img\=([^\]]+)](.+?)\[\/img]/gi, '<img src="$1" alt="$2" title="$2" />');
-
-        // [quote=username;1234]
-        data = data.replace(/\[quote=(.*?)\]/gi, '<blockquote title="$1">');
-
-        // [quote]
-        data = data.replace(/\[quote\]/gi, '<blockquote>');
-        data = data.replace(/\[\/quote]/gi, "</blockquote> \n");
-
-        // [code]
-        data = data.replace(/\[code\]/gi, '<code>');
-        // [code=language]
-        data = data.replace(/\[code=(.+?)\]/gi, '<code title="brush:$1">');
-        data = data.replace(/\[\/code\]/gi, '</code>');
-
-        // [color]
-        data = data.replace(/\[color=(.*?)\](.*?)\[\/color\]/gi, '<span style="color: $1">$2</span>');
-
-        // [youtube]
-        /*		data = data.replace(/\[youtube\](.*?)\[\/youtube\]/gi, '<object width="425" height="350"><param name="movie" value="$1"></param><param name="wmode" value="transparent" /><embed src="$1" type="application/x-shockwave-flash" width="425" height="350" wmode="transparent"></embed></object>');*/
-
-        // [indent]
-        data = data.replace(/\[indent\]/gi, '<div style="margin-left:40px">');
-        data = data.replace(/\[\/indent\]/gi, '</div>');
-
-        // [left]
-        data = data.replace(/\[(.*?)\](.*?)\[\/(.*?)\]/gi, '<div style="text-align:$1">$2</div>');
-        //data = data.replace(/\[\/left\]/gi, '</div>');
-
-        // [list]
-        data = data.replace(/\[list\](.*?)\[\/list\]/gi, '<ul>$1</ul>');
-
-        // [list=1]
-        data = data.replace(/\[list=1\](.*?)\[\/list\]/gi, '<ol style="list-style-type:number">$1</ol>');
-
-        // [list=a]
-        data = data.replace(/\[list=a\](.*?)\[\/list\]/gi, '<ol style="list-style-type:lower-alpha">$1</ol>');
-
-        // [list=A]
-        data = data.replace(/\[list=A\](.*?)\[\/list\]/gi, '<ol style="list-style-type:upper-alpha">$1</ol>');
-
-        // [list=i]
-        data = data.replace(/\[list=i\](.*?)\[\/list\]/gi, '<ol style="list-style-type:lower-roman">$1</ol>');
-
-        // [list=I]
-        data = data.replace(/\[list=I\](.*?)\[\/list\]/gi, '<ol style="list-style-type:upper-roman">$1</ol>');
-
-        // [list=1]
-        data = data.replace(/\[list=1\](.*?)\[\/list\]/gi, '<ol>$1</ol>');
-
-        // [*]
-        data = data.replace(/\[\*]/gi, '<li>');
-
-        // [size=1]
-        data = data.replace(/\[size=(.*?)\](((\n|.)*).*?)\[\/size\]/gi, '<span style="font-size:$1">$2</span>');
-
-        // [font=?]
-        data = data.replace(/\[font=(.*?)\](((\n|.)*).*?)\[\/font\]/gi, '<span style="font-family:$1">$2</span>');
-
-        return data;
-    },
-
-    toDataFormat: function (html, fixForBody) {
-        // [url]
+function ConvertHtmlToBBCode(html) {
+		// [url]
         html = html.replace(/<a .*?href=(["'])(.+?)\1.*?>(.+?)<\/a>/gi, '[url=$2]$3[/url]');
         //html = html.replace(/<a.*?href=\"(.*?)\".*?>(.*?)<\/a>/gi,"[url=$1]$2[/url]");
 
@@ -214,6 +132,101 @@ CKEDITOR.htmlDataProcessor.prototype =
 
         html = html.replace(/<[^>]+>/g, '');
 
-        return html;
+        return html
+	}
+
+CKEDITOR.htmlDataProcessor.prototype =
+{
+    toHtml: function (data, fixForBody) {
+
+        // Convert < and > to their HTML entities.
+        data = data.replace(/</g, '&lt;');
+        data = data.replace(/>/g, '&gt;');
+
+        // Convert line breaks to <br>.
+        data = data.replace(/(?:\r\n|\n|\r)/g, '<br>');
+
+        // [url]
+        data = data.replace(/\[url\](.+?)\[\/url]/gi, '<a href="$1">$1</a>');
+        data = data.replace(/\[url\=([^\]]+)](.+?)\[\/url]/gi, '<a href="$1">$2</a>');
+
+        // [b]
+        data = data.replace(/\[b\](.+?)\[\/b]/gi, '<b>$1</b>');
+
+        // [i]
+        data = data.replace(/\[i\](.+?)\[\/i]/gi, '<i>$1</i>');
+
+        // [u]
+        data = data.replace(/\[u\](.+?)\[\/u]/gi, '<u>$1</u>');
+
+        // [h]
+        data = data.replace(/\[h\](.+?)\[\/h]/gi, '<span style="background:yellow">$1</span>');
+
+        // [img]
+        data = data.replace(/\[img\](.*?)\[\/img\]/gi, '<img src="$1" />');
+        data = data.replace(/\[img\=([^\]]+)](.+?)\[\/img]/gi, '<img src="$1" alt="$2" title="$2" />');
+
+        // [quote=username;1234]
+        data = data.replace(/\[quote=(.*?)\]/gi, '<blockquote title="$1">');
+
+        // [quote]
+        data = data.replace(/\[quote\]/gi, '<blockquote>');
+        data = data.replace(/\[\/quote]/gi, "</blockquote> \n");
+
+        // [code]
+        data = data.replace(/\[code\]/gi, '<code>');
+        // [code=language]
+        data = data.replace(/\[code=(.+?)\]/gi, '<code title="brush:$1">');
+        data = data.replace(/\[\/code\]/gi, '</code>');
+
+        // [color]
+        data = data.replace(/\[color=(.*?)\](.*?)\[\/color\]/gi, '<span style="color: $1">$2</span>');
+
+        // [youtube]
+        /*		data = data.replace(/\[youtube\](.*?)\[\/youtube\]/gi, '<object width="425" height="350"><param name="movie" value="$1"></param><param name="wmode" value="transparent" /><embed src="$1" type="application/x-shockwave-flash" width="425" height="350" wmode="transparent"></embed></object>');*/
+
+        // [indent]
+        data = data.replace(/\[indent\]/gi, '<div style="margin-left:40px">');
+        data = data.replace(/\[\/indent\]/gi, '</div>');
+
+        // [left]
+        data = data.replace(/\[(.*?)\](.*?)\[\/(.*?)\]/gi, '<div style="text-align:$1">$2</div>');
+        //data = data.replace(/\[\/left\]/gi, '</div>');
+
+        // [list]
+        data = data.replace(/\[list\](.*?)\[\/list\]/gi, '<ul>$1</ul>');
+
+        // [list=1]
+        data = data.replace(/\[list=1\](.*?)\[\/list\]/gi, '<ol style="list-style-type:number">$1</ol>');
+
+        // [list=a]
+        data = data.replace(/\[list=a\](.*?)\[\/list\]/gi, '<ol style="list-style-type:lower-alpha">$1</ol>');
+
+        // [list=A]
+        data = data.replace(/\[list=A\](.*?)\[\/list\]/gi, '<ol style="list-style-type:upper-alpha">$1</ol>');
+
+        // [list=i]
+        data = data.replace(/\[list=i\](.*?)\[\/list\]/gi, '<ol style="list-style-type:lower-roman">$1</ol>');
+
+        // [list=I]
+        data = data.replace(/\[list=I\](.*?)\[\/list\]/gi, '<ol style="list-style-type:upper-roman">$1</ol>');
+
+        // [list=1]
+        data = data.replace(/\[list=1\](.*?)\[\/list\]/gi, '<ol>$1</ol>');
+
+        // [*]
+        data = data.replace(/\[\*]/gi, '<li>');
+
+        // [size=1]
+        data = data.replace(/\[size=(.*?)\](((\n|.)*).*?)\[\/size\]/gi, '<span style="font-size:$1">$2</span>');
+
+        // [font=?]
+        data = data.replace(/\[font=(.*?)\](((\n|.)*).*?)\[\/font\]/gi, '<span style="font-family:$1">$2</span>');
+
+        return data;
+    },
+
+    toDataFormat: function (html, fixForBody) {
+        return ConvertHtmlToBBCode(html);
     }
 };

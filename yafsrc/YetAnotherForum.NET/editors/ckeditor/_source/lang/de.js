@@ -1,5 +1,5 @@
 ﻿/*
-Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
@@ -190,7 +190,7 @@ CKEDITOR.lang['de'] =
 		selectAnchor		: 'Anker auswählen',
 		anchorName		: 'nach Anker Name',
 		anchorId			: 'nach Element Id',
-		emailAddress		: 'E-Mail Addresse',
+		emailAddress		: 'E-Mail Adresse',
 		emailSubject		: 'Betreffzeile',
 		emailBody		: 'Nachrichtentext',
 		noAnchors		: '(keine Anker im Dokument vorhanden)',
