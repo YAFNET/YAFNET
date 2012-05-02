@@ -2109,7 +2109,6 @@ begin
 	delete from [{databaseOwner}].[{objectQualifier}NntpServer] where BoardID=@BoardID
 	delete from [{databaseOwner}].[{objectQualifier}BannedIP] where BoardID=@BoardID
 	delete from [{databaseOwner}].[{objectQualifier}Registry] where BoardID=@BoardID
-	delete from [{databaseOwner}].[{objectQualifier}AdminPageUserAccess] where BoardID=@BoardID
 	delete from [{databaseOwner}].[{objectQualifier}Board] where BoardID=@BoardID
 end
 GO
