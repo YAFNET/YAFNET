@@ -1606,7 +1606,7 @@ namespace YAF.Classes.Data
         /// </param>
         /// <returns>
         /// </returns>
-        public static DataTable admin_list([NotNull] object boardId, [NotNull] object useStyledNicks)
+        public static DataTable admin_list([CanBeNull] object boardId, [NotNull] object useStyledNicks)
         {
             using (var cmd = MsSqlDbAccess.GetCommand("admin_list"))
             {
@@ -1614,6 +1614,97 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("BoardID", boardId);
                 cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
                 cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
+
+                return MsSqlDbAccess.Current.GetData(cmd);
+            }
+        }
+
+        /// <summary>
+        /// The admin_pageaccesslist.
+        /// </summary>
+        /// <param name="boardId">
+        /// The board id.
+        /// </param>
+        /// <param name="useStyledNicks">
+        /// The use styled nicks.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static DataTable admin_pageaccesslist([CanBeNull] object boardId, [NotNull] object useStyledNicks)
+        {
+            using (var cmd = MsSqlDbAccess.GetCommand("admin_pageaccesslist"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("BoardID", boardId);
+                cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
+
+                return MsSqlDbAccess.Current.GetData(cmd);
+            }
+        }
+
+        /// <summary>
+        /// Saves access for an admin user for an admin page.  
+        /// </summary>
+        /// <param name="userId">
+        /// The user ID.
+        /// </param>
+        /// <param name="pageName">
+        /// The page name/
+        /// </param>
+        /// <param name="readAccess">
+        /// The read access. 
+        /// </param>
+        public static void adminpageaccess_save([NotNull] object userId, [NotNull] object pageName)
+        {
+            using (var cmd = MsSqlDbAccess.GetCommand("adminpageaccess_save"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("UserID", userId);
+                cmd.Parameters.AddWithValue("PageName", pageName);
+
+                MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
+            }
+        }
+
+        /// <summary>
+        ///  Deletes access for an admin user for an admin page.
+        /// </summary>
+        /// <param name="userId">
+        /// The user ID.
+        /// </param>
+        /// <param name="pageName">
+        /// The page name/
+        /// </param>
+        public static void adminpageaccess_delete([NotNull] object userId, [CanBeNull] object pageName)
+        {
+            using (var cmd = MsSqlDbAccess.GetCommand("adminpageaccess_delete"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("UserID", userId);
+                cmd.Parameters.AddWithValue("PageName", pageName);
+
+                MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
+            }
+        }
+
+        /// <summary>
+        /// Returns access lists for admin pages.
+        /// </summary>
+        /// <param name="userId">
+        /// The user ID.
+        /// </param>
+        /// <param name="pageName">
+        /// The page name/
+        /// </param>
+        /// <returns>A DataTable with access lists for admin pages.</returns>
+        public static DataTable adminpageaccess_list([CanBeNull] object userId, [CanBeNull] object pageName)
+        {
+            using (var cmd = MsSqlDbAccess.GetCommand("adminpageaccess_list"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("UserID", userId);
+                cmd.Parameters.AddWithValue("PageName", pageName);
 
                 return MsSqlDbAccess.Current.GetData(cmd);
             }

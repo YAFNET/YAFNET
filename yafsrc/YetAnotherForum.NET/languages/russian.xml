@@ -20,6 +20,8 @@
     <Resource tag="ADMIN_EDITGROUP">Редактирует группы</Resource>
     <Resource tag="ADMIN_EDITLANGUAGE">Редактирует языковой файл</Resource>
     <Resource tag="ADMIN_EDITMEDAL">Редактирует медали</Resource>
+    <Resource tag="ADMIN_EDITNNTPFORUM">Edits NNTP Forum</Resource>
+    <Resource tag="ADMIN_EDITNNTPSERVER">Edits NNTP Server</Resource>
     <Resource tag="ADMIN_EDITRANK">Редактирует статусы</Resource>
     <Resource tag="ADMIN_EDITUSER">Редактирует пользователя</Resource>
     <Resource tag="ADMIN_EVENTLOG">Просматривает логи</Resource>
@@ -54,6 +56,7 @@
     <Resource tag="ADMIN_TOPICSTATUS_EDIT">Редактирует статусы тем</Resource>
     <Resource tag="ADMIN_TOPICSTATUS_IMPORT">Импортирует/экспортирует список статусов</Resource>
     <Resource tag="ADMIN_USERS">Просматривает пользователей в разделе администрирования</Resource>
+    <Resource tag="ADMIN_USERS_IMPORT">Imports users</Resource>
     <Resource tag="ADMIN_VERSION">Просматривает версии</Resource>
     <Resource tag="ADMINTASK">Администрирует форум</Resource>
     <Resource tag="ALBUM">Просматривает альбом</Resource>
@@ -1305,6 +1308,23 @@
     <Resource tag="TITLE">Серверы NNTP</Resource>
     <Resource tag="USERNAME">Имя пользователя</Resource>
   </page>
+  <page name="ADMIN_PAGEACCESSEDIT">
+    <Resource tag="CANACCESS">Allowed</Resource>
+    <Resource tag="CANCEL">Cancel</Resource>
+    <Resource tag="GRANTALL">Grant All</Resource>
+    <Resource tag="HEADER">Page Access For</Resource>
+    <Resource tag="PAGE">Real Page</Resource>
+    <Resource tag="REVOKEALL">Revoke All</Resource>
+    <Resource tag="SAVE">Save</Resource>
+    <Resource tag="TITLE">Admin Page View Access</Resource>
+    <Resource tag="USERNAME">User</Resource>
+  </page>
+  <page name="ADMIN_PAGEACCESSLIST">
+    <Resource tag="BOARDNAME">Board Name</Resource>
+    <Resource tag="EDIT">Edit</Resource>
+    <Resource tag="HEADER">Admin User</Resource>
+    <Resource tag="TITLE">Admin Users Page Access List</Resource>
+  </page>
   <page name="ADMIN_PM">
     <Resource tag="CONFIRM_DELETE">Вы действительно желаете удалисть личные сообщения? Этот процесс необратим.</Resource>
     <Resource tag="DAYS">дней</Resource>
@@ -1552,6 +1572,8 @@
     <Resource tag="admin_nntpforums">Форумы NNTP</Resource>
     <Resource tag="admin_nntpretrieve">Получить статьи</Resource>
     <Resource tag="admin_nntpservers">Серверы NNTP</Resource>
+    <Resource tag="admin_pageaccessedit">Edit Admin Page Access</Resource>
+    <Resource tag="admin_pageaccesslist">Admin Page Access</Resource>
     <Resource tag="admin_pm">Личные сообщения</Resource>
     <Resource tag="admin_prune">Чистка тем</Resource>
     <Resource tag="admin_ranks">Статусы</Resource>
@@ -3837,6 +3859,7 @@ Spoiler Content
     <Resource tag="ECMAVERSION">Эта версия JavaScript не поддерживается. Пожалуйста, установите более новую версию браузера./</Resource>
     <Resource tag="EXCEPTION">Вы вошли как</Resource>
     <Resource tag="FAILURE">Произошла системная ошибка при выполнении вашего запроса. Пожалуйста, свяжитесь с администратором форума и расскажите что вы делали, когда это случилось.</Resource>
+    <Resource tag="HOSTADMINPERMISSIONSREQUIRED">To access the area your board's Host Admin should set some extra permissions for you.</Resource>
     <Resource tag="INVALID">Вы передали неверное значение форуму.</Resource>
     <Resource tag="MODERATED">Вы оставили сообщение в модерируемом форуме и поэтому модератор форума должен одобрить его перед тем как он станет видимым другим пользователям.</Resource>
     <Resource tag="REGISTRATION">Сообщение было послано на адрес электронной почты, который вы сообщили при регистрации. Пожалуйста, прочитайте инструкции в сообщении, чтобы войти на сайт.</Resource>
@@ -3847,6 +3870,7 @@ Spoiler Content
     <Resource tag="TITLE_ECMAVERSION">Версия JavaScript</Resource>
     <Resource tag="TITLE_EXCEPTION">Информация</Resource>
     <Resource tag="TITLE_FAILURE">Ошибка</Resource>
+    <Resource tag="TITLE_HOSTADMINPERMISSIONSREQUIRED">Host Admin permissions reqired!</Resource>
     <Resource tag="TITLE_INVALID">Недействительно</Resource>
     <Resource tag="TITLE_MODERATED">Информация</Resource>
     <Resource tag="TITLE_REGISTRATION">Спасибо</Resource>

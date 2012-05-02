@@ -20,6 +20,8 @@
     <Resource tag="ADMIN_EDITGROUP">در حال ویرایش گروه ها</Resource>
     <Resource tag="ADMIN_EDITLANGUAGE">یک فایل زبان را ویرایش می کند</Resource>
     <Resource tag="ADMIN_EDITMEDAL">در حال ویرایش مدالها</Resource>
+    <Resource tag="ADMIN_EDITNNTPFORUM">Edits NNTP Forum</Resource>
+    <Resource tag="ADMIN_EDITNNTPSERVER">Edits NNTP Server</Resource>
     <Resource tag="ADMIN_EDITRANK">در حال ویرایش رتبه ها</Resource>
     <Resource tag="ADMIN_EDITUSER">در حال ویرایش کاربر</Resource>
     <Resource tag="ADMIN_EVENTLOG">در حا مشاهده فایل مراودات</Resource>
@@ -54,6 +56,7 @@
     <Resource tag="ADMIN_TOPICSTATUS_EDIT">Edits Topic Status</Resource>
     <Resource tag="ADMIN_TOPICSTATUS_IMPORT">Imports topic status</Resource>
     <Resource tag="ADMIN_USERS">نمایش کاربران قسمت مدیریت</Resource>
+    <Resource tag="ADMIN_USERS_IMPORT">Imports users</Resource>
     <Resource tag="ADMIN_VERSION">نمایش نسخه</Resource>
     <Resource tag="ADMINTASK">انجام فرمان های مدیریتی</Resource>
     <Resource tag="ALBUM">نمایشگر آلبوم</Resource>
@@ -1317,6 +1320,23 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="TITLE">سرور های NNTP</Resource>
     <Resource tag="USERNAME">نام کاربری</Resource>
   </page>
+  <page name="ADMIN_PAGEACCESSEDIT">
+    <Resource tag="CANACCESS">Allowed</Resource>
+    <Resource tag="CANCEL">Cancel</Resource>
+    <Resource tag="GRANTALL">Grant All</Resource>
+    <Resource tag="HEADER">Page Access For</Resource>
+    <Resource tag="PAGE">Real Page</Resource>
+    <Resource tag="REVOKEALL">Revoke All</Resource>
+    <Resource tag="SAVE">Save</Resource>
+    <Resource tag="TITLE">Admin Page View Access</Resource>
+    <Resource tag="USERNAME">User</Resource>
+  </page>
+  <page name="ADMIN_PAGEACCESSLIST">
+    <Resource tag="BOARDNAME">Board Name</Resource>
+    <Resource tag="EDIT">Edit</Resource>
+    <Resource tag="HEADER">Admin User</Resource>
+    <Resource tag="TITLE">Admin Users Page Access List</Resource>
+  </page>
   <page name="ADMIN_PM">
     <Resource tag="CONFIRM_DELETE">آیا واقعا مایل به حذف پیام های خصوصی هستید؟ این فرآیند غیر قابل بازگشت می باشد.</Resource>
     <Resource tag="DAYS">روزها</Resource>
@@ -1571,6 +1591,8 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="admin_nntpforums"> انجمن های NNTP</Resource>
     <Resource tag="admin_nntpretrieve">بازیابی مقالات</Resource>
     <Resource tag="admin_nntpservers">سرویس دهنده های NNTP</Resource>
+    <Resource tag="admin_pageaccessedit">Edit Admin Page Access</Resource>
+    <Resource tag="admin_pageaccesslist">Admin Page Access</Resource>
     <Resource tag="admin_pm">پیام های خصوصی</Resource>
     <Resource tag="admin_prune">اصلاح موضوعات</Resource>
     <Resource tag="admin_ranks">رتبه ها</Resource>
@@ -3825,6 +3847,7 @@ Spoiler Content
     <Resource tag="ECMAVERSION">The JavaScript version is unsupported. Please use a more new browser version/</Resource>
     <Resource tag="EXCEPTION">وارد شده به عنوان:</Resource>
     <Resource tag="FAILURE">سیستم در اجرای درخواست شما با مشکل مواجه شد.با مدیر سایت تماس بگیرید و در خصوص این خطا و چگونگی رخداد آن توضیح دهید.</Resource>
+    <Resource tag="HOSTADMINPERMISSIONSREQUIRED">To access the area your board's Host Admin should set some extra permissions for you.</Resource>
     <Resource tag="INVALID">مقدار غیر معتبری را به انجمن ارسال کردید.</Resource>
     <Resource tag="MODERATED">با توجه به اینکه به یک انجمن تحت نظارت مطلب ارسال کرده اید , مطلب شما باید توسط مدیران انجمن برای ارسال نهایی مورد تائید قرار بکیرد .</Resource>
     <Resource tag="REGISTRATION">ایمیلی حاوی دستورالعمل های لازم برای ورود به انجمن برای شما ارسال شد.لطفاً به دقت آنرا مطالعه فرمایید.</Resource>
@@ -3835,6 +3858,7 @@ Spoiler Content
     <Resource tag="TITLE_ECMAVERSION">نسخه جاوا اسکریپت</Resource>
     <Resource tag="TITLE_EXCEPTION">اطلاعات</Resource>
     <Resource tag="TITLE_FAILURE">اشکال</Resource>
+    <Resource tag="TITLE_HOSTADMINPERMISSIONSREQUIRED">Host Admin permissions reqired!</Resource>
     <Resource tag="TITLE_INVALID">نا معتبر</Resource>
     <Resource tag="TITLE_MODERATED">اطلاعات</Resource>
     <Resource tag="TITLE_REGISTRATION">تشکر</Resource>

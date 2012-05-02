@@ -222,7 +222,7 @@ namespace YAF.Controls
                         ReplaceName = this.Get<YafBoardSettings>().EnableDisplayName
                                                         ? user["UserDisplayName"].ToString()
                                                         : user["UserName"].ToString(),
-                        Style = this.Get<IStyleTransform>().DecodeStyleByString(user["Style"].ToString(), true),
+                        Style = this.Get<IStyleTransform>().DecodeStyleByString(user["Style"].ToString(), false),
                         PostfixText = " ({0})".FormatWith(GetUserAge(user["Birthday"].ToType<DateTime>()))
                     });
 

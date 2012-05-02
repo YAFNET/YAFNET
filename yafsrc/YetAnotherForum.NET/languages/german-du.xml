@@ -20,6 +20,8 @@
     <Resource tag="ADMIN_EDITGROUP">Bearbeitet Gruppen</Resource>
     <Resource tag="ADMIN_EDITLANGUAGE">Bearbeitet eine Sprachendatei</Resource>
     <Resource tag="ADMIN_EDITMEDAL">Bearbeitet Medaillen</Resource>
+    <Resource tag="ADMIN_EDITNNTPFORUM">Edits NNTP Forum</Resource>
+    <Resource tag="ADMIN_EDITNNTPSERVER">Edits NNTP Server</Resource>
     <Resource tag="ADMIN_EDITRANK">Bearbeitet Ränge</Resource>
     <Resource tag="ADMIN_EDITUSER">Bearbeitet Benutzeruser</Resource>
     <Resource tag="ADMIN_EVENTLOG">Betrachtet/Bearbeitet Eventlog</Resource>
@@ -54,6 +56,7 @@
     <Resource tag="ADMIN_TOPICSTATUS_EDIT">Bearbeitet einen Themen Status</Resource>
     <Resource tag="ADMIN_TOPICSTATUS_IMPORT">Importiert Themen Status</Resource>
     <Resource tag="ADMIN_USERS">Betrachtet Benutzer im Adminbereich</Resource>
+    <Resource tag="ADMIN_USERS_IMPORT">Imports users</Resource>
     <Resource tag="ADMIN_VERSION">Betrachtet Version</Resource>
     <Resource tag="ADMINTASK">Führt Admin Aufgaben durch</Resource>
     <Resource tag="ALBUM">Betrachtet Album</Resource>
@@ -1307,6 +1310,23 @@
     <Resource tag="TITLE">NNTP Server</Resource>
     <Resource tag="USERNAME">Benutzername</Resource>
   </page>
+  <page name="ADMIN_PAGEACCESSEDIT">
+    <Resource tag="CANACCESS">Allowed</Resource>
+    <Resource tag="CANCEL">Cancel</Resource>
+    <Resource tag="GRANTALL">Grant All</Resource>
+    <Resource tag="HEADER">Page Access For</Resource>
+    <Resource tag="PAGE">Real Page</Resource>
+    <Resource tag="REVOKEALL">Revoke All</Resource>
+    <Resource tag="SAVE">Save</Resource>
+    <Resource tag="TITLE">Admin Page View Access</Resource>
+    <Resource tag="USERNAME">User</Resource>
+  </page>
+  <page name="ADMIN_PAGEACCESSLIST">
+    <Resource tag="BOARDNAME">Board Name</Resource>
+    <Resource tag="EDIT">Edit</Resource>
+    <Resource tag="HEADER">Admin User</Resource>
+    <Resource tag="TITLE">Admin Users Page Access List</Resource>
+  </page>
   <page name="ADMIN_PM">
     <Resource tag="CONFIRM_DELETE">Wollen Sie wirklich die Private Nachrichten löschen?</Resource>
     <Resource tag="DAYS">Tage</Resource>
@@ -1557,6 +1577,8 @@
     <Resource tag="admin_nntpforums">NNTP Foren</Resource>
     <Resource tag="admin_nntpretrieve">Artikel abrufen</Resource>
     <Resource tag="admin_nntpservers">NNTP Server</Resource>
+    <Resource tag="admin_pageaccessedit">Edit Admin Page Access</Resource>
+    <Resource tag="admin_pageaccesslist">Admin Page Access</Resource>
     <Resource tag="admin_pm">Private Nachrichten</Resource>
     <Resource tag="admin_prune">Themen kürzen</Resource>
     <Resource tag="admin_ranks">Ränke</Resource>
@@ -3778,6 +3800,7 @@ Spoiler Content
     <Resource tag="ECMAVERSION">Diese JavaScript Version wird nicht unterstützt. Bitte Nutzen Sie eine Neuere Version.</Resource>
     <Resource tag="EXCEPTION">Du bist angemeldet als</Resource>
     <Resource tag="FAILURE">Während der Verarbeitung trat ein Fehler auf. Bitte informiere den Administrator und schildere genau, was du getan hast, als der Fehler auftrat. Danke.</Resource>
+    <Resource tag="HOSTADMINPERMISSIONSREQUIRED">To access the area your board's Host Admin should set some extra permissions for you.</Resource>
     <Resource tag="INVALID">Du hast einen ungültigen Wert eingestellt.</Resource>
     <Resource tag="MODERATED">Da du in einem moderierten Forum einen Beitrag geschrieben hast, muss zuerst ein Moderator deinen Beitrag bestätigen, damit dieser sichtbar wird.</Resource>
     <Resource tag="REGISTRATION">Eine E-Mail wurde an die angegebene Adresse geschickt. Bitte lies die darin enthaltenen Informationen, um Dich einzuloggen.</Resource>
@@ -3788,6 +3811,7 @@ Spoiler Content
     <Resource tag="TITLE_ECMAVERSION">JavaScript Version</Resource>
     <Resource tag="TITLE_EXCEPTION">Information</Resource>
     <Resource tag="TITLE_FAILURE">Fehlschlag</Resource>
+    <Resource tag="TITLE_HOSTADMINPERMISSIONSREQUIRED">Host Admin permissions reqired!</Resource>
     <Resource tag="TITLE_INVALID">Ungültig</Resource>
     <Resource tag="TITLE_MODERATED">Information</Resource>
     <Resource tag="TITLE_REGISTRATION">Danke</Resource>

@@ -189,7 +189,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="YafAdminMenu\AdminMenuDef.xml" />
+    <EmbeddedResource Include="YafAdminMenu\AdminMenuDef.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="YafAdminMenu\YafMenu.xsc">

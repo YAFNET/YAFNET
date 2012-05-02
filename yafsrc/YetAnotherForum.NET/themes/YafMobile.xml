@@ -4,6 +4,8 @@
 		<Resource tag="CREDIT">Yaf Mobile Theme</Resource>
 	</page>
 	<page name="ICONS">
+    <Resource tag="ARROWUP_16">~/navigation-090-button.png</Resource>
+    <Resource tag="ARROWDOWN_16">~/navigation-270-button.png</Resource>
     <Resource tag="ALBUMS">~/albums.png</Resource>
     <Resource tag="TOTOPPOST">~/arrow_up_button.png</Resource>
 		<Resource tag="PM">~/icon_pm.png</Resource>
@@ -53,11 +55,14 @@
 		<Resource tag="USER_ONLINE">~/icon_useronline.png</Resource>
 		<Resource tag="USER_OFFLINE">~/icon_useroffline.png</Resource>
     <Resource tag="USER_SUSPENDED">~/smiles-jail.gif</Resource>
+    <Resource tag="USER_BUSINESS">~/user-business.png</Resource>
     <Resource tag="TWITTER">~/icon_twitter.png</Resource>
 	  <Resource tag="DIGG">~/icon_digg.png</Resource>
 	  <Resource tag="REDDIT">~/icon_reddit.png</Resource>
 	  <Resource tag="FACEBOOK">~/icon_facebook.png</Resource>
 	  <Resource tag="GOOGLEPLUS">~/icon_googleplus.png</Resource>
+    <Resource tag="LIVEJOURNAL">~/livejournal.png</Resource>
+    <Resource tag="VKONTAKTE">~/vkontakte.png</Resource>
 	  <Resource tag="PRINT">~/icon_print.png</Resource>
       <Resource tag="PM_READ">~/topic.png</Resource>
 	  <Resource tag="PM_NEW">~/topic_new.png</Resource>

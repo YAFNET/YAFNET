@@ -168,6 +168,12 @@ namespace YAF.Pages
                         this.RefreshTime = 10;
                         this.RefreshURL = YafBuildLink.GetLink(ForumPages.forum);
                         break;
+                    case InfoMessage.HostAdminPermissionsAreRequired: // some sort of failure
+                        this.Title.Text = this.GetText("TITLE_HOSTADMINPERMISSIONSREQUIRED");
+                        this.Info.Text = this.GetText("HOSTADMINPERMISSIONSREQUIRED");
+                        this.RefreshTime = 10;
+                        this.RefreshURL = YafBuildLink.GetLink(ForumPages.forum);
+                        break;
                 }
             }
             catch (Exception)

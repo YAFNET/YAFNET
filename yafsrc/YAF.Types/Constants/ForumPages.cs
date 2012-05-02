@@ -382,7 +382,17 @@ namespace YAF.Types.Constants
     /// <summary>
     /// The admin_medals.
     /// </summary>
-    admin_medals, 
+    admin_medals,
+
+    /// <summary>
+    /// The admin_pageaccesslist.
+    /// </summary>
+    admin_pageaccesslist,
+
+    /// <summary>
+    /// The admin_pageaccessedit.
+    /// </summary>
+    admin_pageaccessedit, 
 
     /// <summary>
     /// The admin_prune.

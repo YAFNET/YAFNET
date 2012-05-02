@@ -1041,8 +1041,8 @@ namespace YAF.Pages
             }
 
             // vzrus: automatically strip html tags from Topic Titles and Description
-            this.TopicSubjectTextBox.Text = HtmlHelper.StripHtml(this.TopicSubjectTextBox.Text);
-            this.TopicDescriptionTextBox.Text = HtmlHelper.StripHtml(this.TopicDescriptionTextBox.Text);
+            // this.TopicSubjectTextBox.Text = HtmlHelper.StripHtml(this.TopicSubjectTextBox.Text);
+            // this.TopicDescriptionTextBox.Text = HtmlHelper.StripHtml(this.TopicDescriptionTextBox.Text);
 
             // update the last post time...
             this.Get<IYafSession>().LastPost = DateTime.UtcNow.AddSeconds(30);

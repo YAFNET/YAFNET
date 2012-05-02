@@ -9,6 +9,18 @@ IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{database
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}db_handle_computedcolumns]
 GO
 
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}adminpageaccess_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}adminpageaccess_save]
+GO
+
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}adminpageaccess_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}adminpageaccess_delete]
+GO
+
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}adminpageaccess_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}adminpageaccess_list]
+GO
+
 IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_savestyle]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_savestyle]
 GO
@@ -835,6 +847,10 @@ GO
 
 IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}admin_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}admin_list]
+GO
+
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}admin_pageaccesslist]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}admin_pageaccesslist]
 GO
 
 IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_listmembers]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
@@ -2093,6 +2109,7 @@ begin
 	delete from [{databaseOwner}].[{objectQualifier}NntpServer] where BoardID=@BoardID
 	delete from [{databaseOwner}].[{objectQualifier}BannedIP] where BoardID=@BoardID
 	delete from [{databaseOwner}].[{objectQualifier}Registry] where BoardID=@BoardID
+	delete from [{databaseOwner}].[{objectQualifier}AdminPageUserAccess] where BoardID=@BoardID
 	delete from [{databaseOwner}].[{objectQualifier}Board] where BoardID=@BoardID
 end
 GO
@@ -7308,6 +7325,7 @@ begin
 	delete from [{databaseOwner}].[{objectQualifier}UserForum] where UserID = @UserID
 	delete from [{databaseOwner}].[{objectQualifier}IgnoreUser] where UserID = @UserID OR IgnoredUserID = @UserID
 	--END ABOT CHANGED 09.04.2004
+	delete from [{databaseOwner}].[{objectQualifier}AdminPageUserAccess] where UserID = @UserID
 	delete from [{databaseOwner}].[{objectQualifier}User] where UserID = @UserID
 end
 GO
@@ -7637,11 +7655,12 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}admin_list](@BoardID int, @StyledNicks bit = null,@UTCTIMESTAMP datetime) as
+create procedure [{databaseOwner}].[{objectQualifier}admin_list](@BoardID int = null, @StyledNicks bit = null,@UTCTIMESTAMP datetime) as
 begin
 		 select 
-			a.UserID,
+		a.UserID,
 		a.BoardID,
+		b.Name AS BoardName,
 		a.ProviderUserKey,
 		a.[Name],
 		a.[DisplayName],
@@ -7691,20 +7710,56 @@ begin
 			IsAdmin	= IsNull(c.IsAdmin,0),			
 			IsHostAdmin	= IsNull(a.Flags & 1,0)
 		from 
-			[{databaseOwner}].[{objectQualifier}User] a	
+			[{databaseOwner}].[{objectQualifier}User] a
+			JOIN
+			[{databaseOwner}].[{objectQualifier}Board] b	
+			ON b.BoardID = a.BoardID			
 			JOIN
 			[{databaseOwner}].[{objectQualifier}Rank] r	
 			ON r.RankID = a.RankID		
 			left join [{databaseOwner}].[{objectQualifier}vaccess] c on c.UserID=a.UserID
 		where 			
-			a.BoardID = @BoardID and
+			(@BoardID IS NULL OR a.BoardID = @BoardID) and
 			-- is not guest 
 			IsNull(a.Flags & 4,0) = 0 and
 			c.ForumID = 0 and
 			-- is admin 
 			(IsNull(c.IsAdmin,0) <> 0) 
 		order by 
-			a.Name
+			a.DisplayName
+end
+GO
+
+create procedure [{databaseOwner}].[{objectQualifier}admin_pageaccesslist](@BoardID int = null, @StyledNicks bit = null,@UTCTIMESTAMP datetime) as
+begin
+		 select 
+		a.UserID,
+		a.BoardID,
+		b.Name AS BoardName,
+		a.[Name],
+		a.[DisplayName],
+		a.[Culture],
+			a.NumPosts,
+			CultureUser = a.Culture,
+			Style = case(@StyledNicks)
+			when 1 then  a.UserStyle
+			else ''	 end
+		from 
+			[{databaseOwner}].[{objectQualifier}User] a
+			JOIN
+			[{databaseOwner}].[{objectQualifier}Board] b	
+			ON b.BoardID = a.BoardID			
+			left join [{databaseOwner}].[{objectQualifier}vaccess] c 
+			on c.UserID=a.UserID
+		where 			
+			(@BoardID IS NULL OR a.BoardID = @BoardID) and
+			-- is admin 
+			(IsNull(c.IsAdmin,0) <> 0) and
+			c.ForumID = 0 and 			
+			-- is not host admin 
+			IsNull(a.Flags & 1,0) = 0 
+		order by 
+			a.DisplayName
 end
 GO
 
@@ -11172,6 +11227,55 @@ WHERE        (s.iscomputed = 1) AND (o.type = 'U') AND (s.xtype = 104)
 end
 GO
 
+CREATE procedure [{databaseOwner}].[{objectQualifier}adminpageaccess_save] (@UserID int, @PageName nvarchar(128)) as
+begin
+	if not exists (select 1 from [{databaseOwner}].[{objectQualifier}AdminPageUserAccess] where UserID = @UserID and PageName = @PageName) 
+		begin
+		insert into [{databaseOwner}].[{objectQualifier}AdminPageUserAccess]  (UserID,PageName) 
+		values(@UserID,@PageName)
+	end	
+end
+GO
+
+CREATE procedure [{databaseOwner}].[{objectQualifier}adminpageaccess_delete] (@UserID int, @PageName nvarchar(128)) as
+begin
+		delete from [{databaseOwner}].[{objectQualifier}AdminPageUserAccess]  where UserID = @UserID AND (@PageName IS NULL OR PageName = @PageName);
+end
+GO
+
+CREATE procedure [{databaseOwner}].[{objectQualifier}adminpageaccess_list] (@UserID int, @PageName nvarchar(128) = null) as
+begin
+        if (@UserID > 0  and @PageName IS NOT NULL) 
+		select ap.*, 
+		u.Name as UserName, 
+		u.DisplayName as UserDisplayName, 
+		b.Name as BoardName 
+		from [{databaseOwner}].[{objectQualifier}AdminPageUserAccess] ap 
+		JOIN  [{databaseOwner}].[{objectQualifier}User] u on ap.UserID = u.UserID 
+		JOIN [{databaseOwner}].[{objectQualifier}Board] b ON b.BoardID = u.BoardID 
+		where u.UserID = @UserID and PageName = @PageName and (u.Flags & 1) <> 1 order by  b.BoardID,u.Name,ap.PageName;
+		else if (@UserID > 0 and @PageName IS  NULL) 
+		select ap.*, 
+		u.Name as UserName, 
+		u.DisplayName as UserDisplayName, 
+		b.Name as BoardName 
+		 from [{databaseOwner}].[{objectQualifier}AdminPageUserAccess] ap 
+		JOIN  [{databaseOwner}].[{objectQualifier}User] u on ap.UserID = u.UserID 
+		JOIN [{databaseOwner}].[{objectQualifier}Board] b ON b.BoardID = u.BoardID 
+		where u.UserID = @UserID and (u.Flags & 1) <> 1 order by  b.BoardID,u.Name,ap.PageName;
+		else
+		select ap.*, 
+		u.Name as UserName, 
+		u.DisplayName as UserDisplayName, 
+		b.Name as BoardName 
+		from [{databaseOwner}].[{objectQualifier}AdminPageUserAccess] ap 
+		JOIN  [{databaseOwner}].[{objectQualifier}User] u on ap.UserID = u.UserID 
+		JOIN [{databaseOwner}].[{objectQualifier}Board] b ON b.BoardID = u.BoardID 
+		where (u.Flags & 1) <> 1
+		order by  b.BoardID,u.Name,ap.PageName;
+end
+GO
+
 create procedure [{databaseOwner}].[{objectQualifier}user_savestyle](@GroupID int, @RankID int)  as
 
 begin
@@ -11205,6 +11309,4 @@ end
 GO
 exec('[{databaseOwner}].[{objectQualifier}user_savestyle] null,null')
 GO
-
-
 

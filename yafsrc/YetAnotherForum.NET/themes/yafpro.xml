@@ -141,6 +141,8 @@
     </Resource>
   </page>
 	<page name="ICONS">
+    <Resource tag="ARROWUP_16">~/navigation-090-button.png</Resource>
+    <Resource tag="ARROWDOWN_16">~/navigation-270-button.png</Resource>
     <Resource tag="ALBUMS">~/albums.png</Resource>
     <Resource tag="TOTOPPOST">~/arrow_up_button.png</Resource>
     <Resource tag="PM">~/icon_pm.png</Resource>
@@ -169,7 +171,7 @@
     <Resource tag="TOPIC_NEW_LOCKED">~/topic_lock_new.gif</Resource>
     <Resource tag="TOPIC_LOCKED">~/topic_lock.gif</Resource>
     <Resource tag="TOPIC_STICKY">~/topic_sticky.gif</Resource>
-	<Resource tag="TOPIC_STICKY_NEW">~/topic_sticky.gif</Resource>
+	  <Resource tag="TOPIC_STICKY_NEW">~/topic_sticky.gif</Resource>
     <Resource tag="TOPIC_MOVED">~/topic_moved.gif</Resource>
     <Resource tag="TOPIC_POLL">~/topic_poll.gif</Resource>
     <Resource tag="TOPIC_POLL_NEW">~/topic_poll_new.gif</Resource>
@@ -192,27 +194,30 @@
     <Resource tag="USER_ONLINE">~/icon_useronline.png</Resource>
     <Resource tag="USER_OFFLINE">~/icon_useroffline.png</Resource>
     <Resource tag="USER_SUSPENDED">~/smiles-jail.gif</Resource>
+    <Resource tag="USER_BUSINESS">~/user-business.png</Resource>
     <Resource tag="GENDER_MALE">~/male.gif</Resource>
     <Resource tag="GENDER_FEMALE">~/female.gif</Resource>
     <Resource tag="RSSFEED">~/rssfeed.gif</Resource>
     <Resource tag="ATOMFEED">~/atomfeed.png</Resource>
-		  <Resource tag="TWITTER">~/icon_twitter.png</Resource>
+		<Resource tag="TWITTER">~/icon_twitter.png</Resource>
 	  <Resource tag="DIGG">~/icon_digg.png</Resource>
 	  <Resource tag="REDDIT">~/icon_reddit.png</Resource>
 	  <Resource tag="FACEBOOK">~/icon_facebook.png</Resource>
 	  <Resource tag="GOOGLEPLUS">~/icon_googleplus.png</Resource>
+    <Resource tag="LIVEJOURNAL">~/livejournal.png</Resource>
+    <Resource tag="VKONTAKTE">~/vkontakte.png</Resource>
 	  <Resource tag="LINKBACK">~/icon_linkback.png</Resource>
 	  <Resource tag="PRINT">~/icon_print.png</Resource>
 	  <Resource tag="PM_READ">~/topic.png</Resource>
 	  <Resource tag="PM_NEW">~/topic_new.png</Resource>
 	  <Resource tag="PM_READ_REPLY">~/topic_reply.png</Resource>
-      <Resource tag="PM_NEW_REPLY">~/topic_new_reply.png</Resource>
+    <Resource tag="PM_NEW_REPLY">~/topic_new_reply.png</Resource>
 	  <Resource tag="TWITTER2">~/icon_twitter2.png</Resource>
 	  <Resource tag="FACEBOOK2">~/icon_facebook2.png</Resource>
 	  <Resource tag="TUMBLR">~/icon_tumblr.png</Resource>
 	  <Resource tag="VOTE_UP">~/VoteUp.png</Resource>
-	<Resource tag="VOTE_DOWN">~/VoteDown.png</Resource>
-	<Resource tag="REPORT_POST">~/Report.png</Resource>
+	  <Resource tag="VOTE_DOWN">~/VoteDown.png</Resource>
+	  <Resource tag="REPORT_POST">~/Report.png</Resource>
   </page>
 	<page name="SORT">
 		<Resource tag="ASCENDING">~/sort_up.gif</Resource>
@@ -232,10 +237,10 @@
     <Resource tag="VOTE_REFUSE">~/vote_refuse.gif</Resource>
   </page>
   <page name="TOPIC_STATUS">
-     <Resource tag="INFORMATIC">~/status_informatic.png</Resource>
-     <Resource tag="SOLVED">~/status_solved.png</Resource>
-     <Resource tag="QUESTION">~/status_question.png</Resource>
-	 <Resource tag="ISSUE">~/status_issue.png</Resource>
-	 <Resource tag="FIXED">~/status_fixed.png</Resource>
+    <Resource tag="INFORMATIC">~/status_informatic.png</Resource>
+    <Resource tag="SOLVED">~/status_solved.png</Resource>
+    <Resource tag="QUESTION">~/status_question.png</Resource>
+    <Resource tag="ISSUE">~/status_issue.png</Resource>
+    <Resource tag="FIXED">~/status_fixed.png</Resource>
   </page>
 </Resources>

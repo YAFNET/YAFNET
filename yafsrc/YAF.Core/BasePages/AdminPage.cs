@@ -17,6 +17,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
+using System.Data;
+using System.Linq;
+using YAF.Classes.Data;
+using YAF.Types.Constants;
+
 namespace YAF.Core
 {
   #region Using
@@ -87,10 +93,23 @@ namespace YAF.Core
     /// </param>
     private void AdminPage_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!this.PageContext.IsAdmin)
-      {
-        YafBuildLink.AccessDenied();
-      }
+        // not admins are forbidden
+        if (!this.PageContext.IsAdmin)
+        {
+            YafBuildLink.AccessDenied();
+        }
+
+        // host admins are not checked
+        if (this.PageContext.IsHostAdmin) return;
+
+        // Load the page access list.
+        var dt = LegacyDb.adminpageaccess_list(this.PageContext.PageUserID, this.PageContext.ForumPageType.ToString().ToLowerInvariant());
+        
+        // Check access rights to the page.
+        if (!this.PageContext.ForumPageType.ToString().IsSet() || dt == null || dt.Rows.Count <= 0 )
+        {
+            YafBuildLink.RedirectInfoPage(InfoMessage.HostAdminPermissionsAreRequired);
+        }
     }
 
     #endregion

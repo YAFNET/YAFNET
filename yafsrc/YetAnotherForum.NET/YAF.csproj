@@ -340,6 +340,20 @@
     <Compile Include="pages\admin\boardsettings.ascx.designer.cs">
       <DependentUpon>boardsettings.ascx</DependentUpon>
     </Compile>
+    <Compile Include="pages\admin\pageaccessedit.ascx.cs">
+      <DependentUpon>pageaccessedit.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\pageaccessedit.ascx.designer.cs">
+      <DependentUpon>pageaccessedit.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\pageaccesslist.ascx.cs">
+      <DependentUpon>pageaccesslist.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\pageaccesslist.ascx.designer.cs">
+      <DependentUpon>pageaccesslist.ascx</DependentUpon>
+    </Compile>
     <Compile Include="pages\admin\deleteforum.ascx.cs">
       <DependentUpon>deleteforum.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2625,6 +2639,8 @@
     <Content Include="languages\install\english.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="pages\admin\pageaccessedit.ascx" />
+    <Content Include="pages\admin\pageaccesslist.ascx" />
     <Content Include="pages\admin\deleteforum.ascx" />
     <Content Include="pages\admin\topicstatus.ascx" />
     <Content Include="pages\admin\topicstatus_edit.ascx" />
@@ -4140,23 +4156,30 @@
     <Content Include="themes\BlackGrey\js\jquery.tipTip.minified.js" />
     <Content Include="themes\BlackGrey\LeftArrow.png" />
     <Content Include="themes\BlackGrey\LeftArrowWhite.png" />
+    <Content Include="themes\BlackGrey\livejournal.png" />
     <Content Include="themes\BlackGrey\lock_small.png" />
     <Content Include="themes\BlackGrey\male.gif" />
     <Content Include="themes\BlackGrey\mask.gif" />
     <Content Include="themes\BlackGrey\mods_small.gif" />
     <Content Include="themes\BlackGrey\multipages_small.gif" />
     <Content Include="themes\BlackGrey\myMenuIcons.png" />
+    <Content Include="themes\BlackGrey\navigation-090-button.png" />
+    <Content Include="themes\BlackGrey\navigation-270-button.png" />
     <Content Include="themes\BlackGrey\plus_small_icon.png" />
     <Content Include="themes\BlackGrey\pm_new.png" />
+    <Content Include="themes\BlackGrey\pm_new_reply.png" />
     <Content Include="themes\BlackGrey\pm_read.png" />
+    <Content Include="themes\BlackGrey\pm_read_reply.png" />
     <Content Include="themes\BlackGrey\poll_choice.png" />
     <Content Include="themes\BlackGrey\poll_question.png" />
     <Content Include="themes\BlackGrey\PostHeader.png" />
+    <Content Include="themes\BlackGrey\ProfileMenu.png" />
     <Content Include="themes\BlackGrey\Report.png" />
     <Content Include="themes\BlackGrey\RightArrow.png" />
     <Content Include="themes\BlackGrey\RightArrowWhite.png" />
     <Content Include="themes\BlackGrey\rssfeed.gif" />
     <Content Include="themes\BlackGrey\sandclock.gif" />
+    <Content Include="themes\BlackGrey\user-business.png" />
     <Content Include="themes\BlackGrey\UserSuspended.png" />
     <Content Include="themes\BlackGrey\sort_down.gif" />
     <Content Include="themes\BlackGrey\sort_up.gif" />
@@ -4183,6 +4206,7 @@
     <Content Include="themes\BlackGrey\user_rank1.gif" />
     <Content Include="themes\BlackGrey\user_rank2.gif" />
     <Content Include="themes\BlackGrey\user_rank3.gif" />
+    <Content Include="themes\BlackGrey\vkontakte.png" />
     <Content Include="themes\BlackGrey\VoteDown.png" />
     <Content Include="themes\BlackGrey\VoteUp.png" />
     <Content Include="themes\BlackGrey\vote_lcap.gif" />
@@ -4249,23 +4273,30 @@
     <Content Include="themes\BlueGrey\js\jquery.tipTip.minified.js" />
     <Content Include="themes\BlueGrey\LeftArrow.png" />
     <Content Include="themes\BlueGrey\LeftArrowWhite.png" />
+    <Content Include="themes\BlueGrey\livejournal.png" />
     <Content Include="themes\BlueGrey\lock_small.png" />
     <Content Include="themes\BlueGrey\male.gif" />
     <Content Include="themes\BlueGrey\mask.gif" />
     <Content Include="themes\BlueGrey\mods_small.gif" />
     <Content Include="themes\BlueGrey\multipages_small.gif" />
     <Content Include="themes\BlueGrey\myMenuIcons.png" />
+    <Content Include="themes\BlueGrey\navigation-090-button.png" />
+    <Content Include="themes\BlueGrey\navigation-270-button.png" />
     <Content Include="themes\BlueGrey\plus_small_icon.png" />
     <Content Include="themes\BlueGrey\pm_new.png" />
+    <Content Include="themes\BlueGrey\pm_new_reply.png" />
     <Content Include="themes\BlueGrey\pm_read.png" />
+    <Content Include="themes\BlueGrey\pm_read_reply.png" />
     <Content Include="themes\BlueGrey\poll_choice.png" />
     <Content Include="themes\BlueGrey\poll_question.png" />
     <Content Include="themes\BlueGrey\PostHeader.png" />
+    <Content Include="themes\BlueGrey\ProfileMenu.png" />
     <Content Include="themes\BlueGrey\Report.png" />
     <Content Include="themes\BlueGrey\RightArrow.png" />
     <Content Include="themes\BlueGrey\RightArrowWhite.png" />
     <Content Include="themes\BlueGrey\rssfeed.gif" />
     <Content Include="themes\BlueGrey\sandclock.gif" />
+    <Content Include="themes\BlueGrey\user-business.png" />
     <Content Include="themes\BlueGrey\UserSuspended.png" />
     <Content Include="themes\BlueGrey\sort_down.gif" />
     <Content Include="themes\BlueGrey\sort_up.gif" />
@@ -4292,6 +4323,7 @@
     <Content Include="themes\BlueGrey\user_rank1.gif" />
     <Content Include="themes\BlueGrey\user_rank2.gif" />
     <Content Include="themes\BlueGrey\user_rank3.gif" />
+    <Content Include="themes\BlueGrey\vkontakte.png" />
     <Content Include="themes\BlueGrey\VoteDown.png" />
     <Content Include="themes\BlueGrey\VoteUp.png" />
     <Content Include="themes\BlueGrey\vote_lcap.gif" />
@@ -4605,11 +4637,14 @@
     <Content Include="themes\cleanSlate\icon_xmpp.png" />
     <Content Include="themes\cleanSlate\icon_yahoo.png" />
     <Content Include="themes\cleanSlate\LeftArrow.png" />
+    <Content Include="themes\cleanSlate\livejournal.png" />
     <Content Include="themes\cleanSlate\lock_small.png" />
     <Content Include="themes\cleanSlate\male.gif" />
     <Content Include="themes\cleanSlate\mask.gif" />
     <Content Include="themes\cleanSlate\mods_small.gif" />
     <Content Include="themes\cleanSlate\multipages_small.gif" />
+    <Content Include="themes\cleanSlate\navigation-090-button.png" />
+    <Content Include="themes\cleanSlate\navigation-270-button.png" />
     <Content Include="themes\cleanSlate\paper_clip_small.gif" />
     <Content Include="themes\cleanSlate\plus_small_icon.png" />
     <Content Include="themes\cleanSlate\poll_choice.png" />
@@ -4641,13 +4676,17 @@
     <Content Include="themes\cleanSlate\topic_lock_new.gif" />
     <Content Include="themes\cleanSlate\topic_moved.gif" />
     <Content Include="themes\cleanSlate\topic_new.gif" />
+    <Content Include="themes\cleanSlate\topic_new_reply.png" />
     <Content Include="themes\cleanSlate\topic_poll.gif" />
     <Content Include="themes\cleanSlate\topic_poll_new.gif" />
+    <Content Include="themes\cleanSlate\topic_reply.png" />
     <Content Include="themes\cleanSlate\topic_sticky.gif" />
+    <Content Include="themes\cleanSlate\user-business.png" />
     <Content Include="themes\cleanSlate\users_poll.gif" />
     <Content Include="themes\cleanSlate\user_rank1.gif" />
     <Content Include="themes\cleanSlate\user_rank2.gif" />
     <Content Include="themes\cleanSlate\user_rank3.gif" />
+    <Content Include="themes\cleanSlate\vkontakte.png" />
     <Content Include="themes\cleanSlate\VoteDown.png" />
     <Content Include="themes\cleanSlate\VoteUp.png" />
     <Content Include="themes\cleanSlate\vote_lcap.gif" />
@@ -4715,23 +4754,30 @@
     <Content Include="themes\GreenGrey\js\jquery.tipTip.minified.js" />
     <Content Include="themes\GreenGrey\LeftArrow.png" />
     <Content Include="themes\GreenGrey\LeftArrowWhite.png" />
+    <Content Include="themes\GreenGrey\livejournal.png" />
     <Content Include="themes\GreenGrey\lock_small.png" />
     <Content Include="themes\GreenGrey\male.gif" />
     <Content Include="themes\GreenGrey\mask.gif" />
     <Content Include="themes\GreenGrey\mods_small.gif" />
     <Content Include="themes\GreenGrey\multipages_small.gif" />
     <Content Include="themes\GreenGrey\myMenuIcons.png" />
+    <Content Include="themes\GreenGrey\navigation-090-button.png" />
+    <Content Include="themes\GreenGrey\navigation-270-button.png" />
     <Content Include="themes\GreenGrey\plus_small_icon.png" />
     <Content Include="themes\GreenGrey\pm_new.png" />
+    <Content Include="themes\GreenGrey\pm_new_reply.png" />
     <Content Include="themes\GreenGrey\pm_read.png" />
+    <Content Include="themes\GreenGrey\pm_read_reply.png" />
     <Content Include="themes\GreenGrey\poll_choice.png" />
     <Content Include="themes\GreenGrey\poll_question.png" />
     <Content Include="themes\GreenGrey\PostHeader.png" />
+    <Content Include="themes\GreenGrey\ProfileMenu.png" />
     <Content Include="themes\GreenGrey\Report.png" />
     <Content Include="themes\GreenGrey\RightArrow.png" />
     <Content Include="themes\GreenGrey\RightArrowWhite.png" />
     <Content Include="themes\GreenGrey\rssfeed.gif" />
     <Content Include="themes\GreenGrey\sandclock.gif" />
+    <Content Include="themes\GreenGrey\user-business.png" />
     <Content Include="themes\GreenGrey\UserSuspended.png" />
     <Content Include="themes\GreenGrey\sort_down.gif" />
     <Content Include="themes\GreenGrey\sort_up.gif" />
@@ -4758,6 +4804,7 @@
     <Content Include="themes\GreenGrey\user_rank1.gif" />
     <Content Include="themes\GreenGrey\user_rank2.gif" />
     <Content Include="themes\GreenGrey\user_rank3.gif" />
+    <Content Include="themes\GreenGrey\vkontakte.png" />
     <Content Include="themes\GreenGrey\VoteDown.png" />
     <Content Include="themes\GreenGrey\VoteUp.png" />
     <Content Include="themes\GreenGrey\vote_lcap.gif" />
@@ -4823,22 +4870,29 @@
     <Content Include="themes\GreyGrey\js\ColorGrey.js" />
     <Content Include="themes\GreyGrey\js\jquery.tipTip.minified.js" />
     <Content Include="themes\GreyGrey\LeftArrow.png" />
+    <Content Include="themes\GreyGrey\livejournal.png" />
     <Content Include="themes\GreyGrey\lock_small.png" />
     <Content Include="themes\GreyGrey\male.gif" />
     <Content Include="themes\GreyGrey\mask.gif" />
     <Content Include="themes\GreyGrey\mods_small.gif" />
     <Content Include="themes\GreyGrey\multipages_small.gif" />
     <Content Include="themes\GreyGrey\myMenuIcons.png" />
+    <Content Include="themes\GreyGrey\navigation-090-button.png" />
+    <Content Include="themes\GreyGrey\navigation-270-button.png" />
     <Content Include="themes\GreyGrey\plus_small_icon.png" />
     <Content Include="themes\GreyGrey\pm_new.png" />
+    <Content Include="themes\GreyGrey\pm_new_reply.png" />
     <Content Include="themes\GreyGrey\pm_read.png" />
+    <Content Include="themes\GreyGrey\pm_read_reply.png" />
     <Content Include="themes\GreyGrey\poll_choice.png" />
     <Content Include="themes\GreyGrey\poll_question.png" />
     <Content Include="themes\GreyGrey\PostHeader.png" />
+    <Content Include="themes\GreyGrey\ProfileMenu.png" />
     <Content Include="themes\GreyGrey\Report.png" />
     <Content Include="themes\GreyGrey\RightArrow.png" />
     <Content Include="themes\GreyGrey\rssfeed.gif" />
     <Content Include="themes\GreyGrey\sandclock.gif" />
+    <Content Include="themes\GreyGrey\user-business.png" />
     <Content Include="themes\GreyGrey\UserSuspended.png" />
     <Content Include="themes\GreyGrey\sort_down.gif" />
     <Content Include="themes\GreyGrey\sort_up.gif" />
@@ -4865,6 +4919,7 @@
     <Content Include="themes\GreyGrey\user_rank1.gif" />
     <Content Include="themes\GreyGrey\user_rank2.gif" />
     <Content Include="themes\GreyGrey\user_rank3.gif" />
+    <Content Include="themes\GreyGrey\vkontakte.png" />
     <Content Include="themes\GreyGrey\VoteDown.png" />
     <Content Include="themes\GreyGrey\VoteUp.png" />
     <Content Include="themes\GreyGrey\vote_lcap.gif" />
@@ -4931,23 +4986,30 @@
     <Content Include="themes\OrangeGrey\js\jquery.tipTip.minified.js" />
     <Content Include="themes\OrangeGrey\LeftArrow.png" />
     <Content Include="themes\OrangeGrey\LeftArrowWhite.png" />
+    <Content Include="themes\OrangeGrey\livejournal.png" />
     <Content Include="themes\OrangeGrey\lock_small.png" />
     <Content Include="themes\OrangeGrey\male.gif" />
     <Content Include="themes\OrangeGrey\mask.gif" />
     <Content Include="themes\OrangeGrey\mods_small.gif" />
     <Content Include="themes\OrangeGrey\multipages_small.gif" />
     <Content Include="themes\OrangeGrey\myMenuIcons.png" />
+    <Content Include="themes\OrangeGrey\navigation-090-button.png" />
+    <Content Include="themes\OrangeGrey\navigation-270-button.png" />
     <Content Include="themes\OrangeGrey\plus_small_icon.png" />
     <Content Include="themes\OrangeGrey\pm_new.png" />
+    <Content Include="themes\OrangeGrey\pm_new_reply.png" />
     <Content Include="themes\OrangeGrey\pm_read.png" />
+    <Content Include="themes\OrangeGrey\pm_read_reply.png" />
     <Content Include="themes\OrangeGrey\poll_choice.png" />
     <Content Include="themes\OrangeGrey\poll_question.png" />
     <Content Include="themes\OrangeGrey\PostHeader.png" />
+    <Content Include="themes\OrangeGrey\ProfileMenu.png" />
     <Content Include="themes\OrangeGrey\Report.png" />
     <Content Include="themes\OrangeGrey\RightArrow.png" />
     <Content Include="themes\OrangeGrey\RightArrowWhite.png" />
     <Content Include="themes\OrangeGrey\rssfeed.gif" />
     <Content Include="themes\OrangeGrey\sandclock.gif" />
+    <Content Include="themes\OrangeGrey\user-business.png" />
     <Content Include="themes\OrangeGrey\UserSuspended.png" />
     <Content Include="themes\OrangeGrey\sort_down.gif" />
     <Content Include="themes\OrangeGrey\sort_up.gif" />
@@ -4974,6 +5036,7 @@
     <Content Include="themes\OrangeGrey\user_rank1.gif" />
     <Content Include="themes\OrangeGrey\user_rank2.gif" />
     <Content Include="themes\OrangeGrey\user_rank3.gif" />
+    <Content Include="themes\OrangeGrey\vkontakte.png" />
     <Content Include="themes\OrangeGrey\VoteDown.png" />
     <Content Include="themes\OrangeGrey\VoteUp.png" />
     <Content Include="themes\OrangeGrey\vote_lcap.gif" />
@@ -5040,23 +5103,30 @@
     <Content Include="themes\RedGrey\js\jquery.tipTip.minified.js" />
     <Content Include="themes\RedGrey\LeftArrow.png" />
     <Content Include="themes\RedGrey\LeftArrowWhite.png" />
+    <Content Include="themes\RedGrey\livejournal.png" />
     <Content Include="themes\RedGrey\lock_small.png" />
     <Content Include="themes\RedGrey\male.gif" />
     <Content Include="themes\RedGrey\mask.gif" />
     <Content Include="themes\RedGrey\mods_small.gif" />
     <Content Include="themes\RedGrey\multipages_small.gif" />
     <Content Include="themes\RedGrey\myMenuIcons.png" />
+    <Content Include="themes\RedGrey\navigation-090-button.png" />
+    <Content Include="themes\RedGrey\navigation-270-button.png" />
     <Content Include="themes\RedGrey\plus_small_icon.png" />
     <Content Include="themes\RedGrey\pm_new.png" />
+    <Content Include="themes\RedGrey\pm_new_reply.png" />
     <Content Include="themes\RedGrey\pm_read.png" />
+    <Content Include="themes\RedGrey\pm_read_reply.png" />
     <Content Include="themes\RedGrey\poll_choice.png" />
     <Content Include="themes\RedGrey\poll_question.png" />
     <Content Include="themes\RedGrey\PostHeader.png" />
+    <Content Include="themes\RedGrey\ProfileMenu.png" />
     <Content Include="themes\RedGrey\Report.png" />
     <Content Include="themes\RedGrey\RightArrow.png" />
     <Content Include="themes\RedGrey\RightArrowWhite.png" />
     <Content Include="themes\RedGrey\rssfeed.gif" />
     <Content Include="themes\RedGrey\sandclock.gif" />
+    <Content Include="themes\RedGrey\user-business.png" />
     <Content Include="themes\RedGrey\UserSuspended.png" />
     <Content Include="themes\RedGrey\sort_down.gif" />
     <Content Include="themes\RedGrey\sort_up.gif" />
@@ -5083,6 +5153,7 @@
     <Content Include="themes\RedGrey\user_rank1.gif" />
     <Content Include="themes\RedGrey\user_rank2.gif" />
     <Content Include="themes\RedGrey\user_rank3.gif" />
+    <Content Include="themes\RedGrey\vkontakte.png" />
     <Content Include="themes\RedGrey\VoteDown.png" />
     <Content Include="themes\RedGrey\VoteUp.png" />
     <Content Include="themes\RedGrey\vote_lcap.gif" />
@@ -5120,11 +5191,14 @@
     <Content Include="themes\soclean\icon_xmpp.png" />
     <Content Include="themes\soclean\LeftArrow.png" />
     <Content Include="themes\soclean\LeftArrowWhite.png" />
+    <Content Include="themes\soclean\livejournal.png" />
     <Content Include="themes\soclean\lock_small.png" />
     <Content Include="themes\soclean\male.gif" />
     <Content Include="themes\soclean\mask.gif" />
     <Content Include="themes\soclean\mods_small.gif" />
     <Content Include="themes\soclean\multipages_small.gif" />
+    <Content Include="themes\soclean\navigation-090-button.png" />
+    <Content Include="themes\soclean\navigation-270-button.png" />
     <Content Include="themes\soclean\plus_small_icon.png" />
     <Content Include="themes\soclean\poll_choice.png" />
     <Content Include="themes\soclean\poll_question.png" />
@@ -5141,7 +5215,9 @@
     <Content Include="themes\soclean\status_solved.png" />
     <Content Include="themes\soclean\tab-line.png" />
     <Content Include="themes\soclean\tab.png" />
+    <Content Include="themes\soclean\user-business.png" />
     <Content Include="themes\soclean\users_poll.gif" />
+    <Content Include="themes\soclean\vkontakte.png" />
     <Content Include="themes\soclean\VoteDown.png" />
     <Content Include="themes\soclean\VoteUp.png" />
     <Content Include="themes\soclean\vote_refuse.gif" />
@@ -5182,6 +5258,7 @@
     <Content Include="themes\Yafmobile\icon_useroffline.png" />
     <Content Include="themes\Yafmobile\icon_useronline.png" />
     <Content Include="themes\Yafmobile\LeftArrow.png" />
+    <Content Include="themes\Yafmobile\livejournal.png" />
     <Content Include="themes\Yafmobile\lock_small.png" />
     <Content Include="themes\Yafmobile\mask.gif" />
     <Content Include="themes\Yafmobile\MobilePages\displayad.ascx" />
@@ -5201,6 +5278,8 @@
     <Content Include="themes\Yafmobile\MobilePages\topics.ascx" />
     <Content Include="themes\Yafmobile\mods_small.gif" />
     <Content Include="themes\Yafmobile\multipages_small.gif" />
+    <Content Include="themes\Yafmobile\navigation-090-button.png" />
+    <Content Include="themes\Yafmobile\navigation-270-button.png" />
     <Content Include="themes\Yafmobile\plus_small_icon.png" />
     <Content Include="themes\Yafmobile\poll_choice.png" />
     <Content Include="themes\Yafmobile\poll_question.png" />
@@ -5222,7 +5301,9 @@
     <Content Include="themes\Yafmobile\topic_poll.gif" />
     <Content Include="themes\Yafmobile\topic_poll_new.gif" />
     <Content Include="themes\Yafmobile\topic_sticky.gif" />
+    <Content Include="themes\Yafmobile\user-business.png" />
     <Content Include="themes\Yafmobile\users_poll.gif" />
+    <Content Include="themes\Yafmobile\vkontakte.png" />
     <Content Include="themes\Yafmobile\vote_lcap.gif" />
     <Content Include="themes\Yafmobile\vote_rcap.gif" />
     <Content Include="themes\Yafmobile\vote_refuse.gif" />
@@ -5258,11 +5339,14 @@
     <Content Include="themes\yafpro\icon_xmpp.png" />
     <Content Include="themes\yafpro\LeftArrow.png" />
     <Content Include="themes\yafpro\LeftArrowWhite.png" />
+    <Content Include="themes\yafpro\livejournal.png" />
     <Content Include="themes\yafpro\lock_small.png" />
     <Content Include="themes\yafpro\male.gif" />
     <Content Include="themes\yafpro\mask.gif" />
     <Content Include="themes\yafpro\mods_small.gif" />
     <Content Include="themes\yafpro\multipages_small.gif" />
+    <Content Include="themes\yafpro\navigation-090-button.png" />
+    <Content Include="themes\yafpro\navigation-270-button.png" />
     <Content Include="themes\yafpro\plus_small_icon.png" />
     <Content Include="themes\yafpro\poll_choice.png" />
     <Content Include="themes\yafpro\poll_question.png" />
@@ -5281,7 +5365,11 @@
     <Content Include="themes\yafpro\tab.png" />
     <Content Include="themes\yafpro\topic_hot.gif" />
     <Content Include="themes\yafpro\topic_hot_new.gif" />
+    <Content Include="themes\yafpro\topic_new_reply.png" />
+    <Content Include="themes\yafpro\topic_reply.png" />
+    <Content Include="themes\yafpro\user-business.png" />
     <Content Include="themes\yafpro\users_poll.gif" />
+    <Content Include="themes\yafpro\vkontakte.png" />
     <Content Include="themes\yafpro\VoteDown.png" />
     <Content Include="themes\yafpro\VoteUp.png" />
     <Content Include="themes\yafpro\vote_refuse.gif" />
@@ -5317,11 +5405,14 @@
     <Content Include="themes\yafvision\icon_xmpp.png" />
     <Content Include="themes\yafvision\LeftArrow.png" />
     <Content Include="themes\yafvision\LeftArrowWhite.png" />
+    <Content Include="themes\yafvision\livejournal.png" />
     <Content Include="themes\yafvision\lock_small.png" />
     <Content Include="themes\yafvision\male.gif" />
     <Content Include="themes\yafvision\mask.gif" />
     <Content Include="themes\yafvision\mods_small.gif" />
     <Content Include="themes\yafvision\multipages_small.gif" />
+    <Content Include="themes\yafvision\navigation-090-button.png" />
+    <Content Include="themes\yafvision\navigation-270-button.png" />
     <Content Include="themes\yafvision\plus_small_icon.png" />
     <Content Include="themes\yafvision\poll_choice.png" />
     <Content Include="themes\yafvision\poll_question.png" />
@@ -5340,7 +5431,11 @@
     <Content Include="themes\yafvision\tab.png" />
     <Content Include="themes\yafvision\topic_hot.png" />
     <Content Include="themes\yafvision\topic_hot_new.png" />
+    <Content Include="themes\yafvision\topic_new_reply.png" />
+    <Content Include="themes\yafvision\topic_reply.png" />
+    <Content Include="themes\yafvision\user-business.png" />
     <Content Include="themes\yafvision\users_poll.gif" />
+    <Content Include="themes\yafvision\vkontakte.png" />
     <Content Include="themes\yafvision\VoteDown.png" />
     <Content Include="themes\yafvision\VoteUp.png" />
     <Content Include="themes\yafvision\vote_refuse.gif" />
@@ -5498,6 +5593,7 @@
     <None Include="Web References\RegisterV2\RegisterV2.wsdl" />
     <Content Include="webconfigs\recommended-NET-web.config" />
     <Content Include="webconfigs\v191-upgrade-web.config" />
+    <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FarsiLibrary\FarsiLibrary.csproj">

@@ -17,6 +17,11 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+using System.Data;
+using System.Diagnostics;
+using System.Globalization;
+using YAF.Classes.Data;
+
 namespace YAF.Controls
 {
   #region Using
@@ -63,109 +68,78 @@ namespace YAF.Controls
     /// <param name="listItems">
     /// Menu Items
     /// </param>
-    protected void BuildUrlList(
-      [NotNull] HtmlTextWriter writer, [NotNull] IEnumerable<YafMenuYafMenuSectionYafMenuItem> listItems)
+    protected string BuildUrlList(
+    [NotNull] IEnumerable<YafMenuYafMenuSectionYafMenuItem> listItems)
     {
-      if (!listItems.Any())
-      {
-        return;
-      }
-
-      var itemsList = new StringBuilder();
-
-      // add each YafMenuItem to the NavView...
-      foreach (var item in listItems)
-      {
+        var itemsList = new StringBuilder();
         bool isVisible = true;
-
+        
+        foreach (var item in listItems.ToList())
+        {
 #if !DEBUG
-        isVisible = !(item.Debug.IsSet() && Convert.ToBoolean(item.Debug));
+            isVisible = !(item.Debug.IsSet() && Convert.ToBoolean(item.Debug));
 #endif
 
         if (!isVisible)
         {
           continue;
         }
+            string url = string.Empty;
+            bool highlightPage = false;
+            if (item.Link.IsSet())
+            {
+                url = item.Link.Replace("~", YafForumInfo.ForumClientFileRoot);
+            }
+            else if (item.ForumPage.IsSet())
+            {
+                var itemPage = item.ForumPage.ToEnum<ForumPages>();
+                
+                // internal "page" link...
+                url = YafBuildLink.GetLink(itemPage);
 
-        string url = string.Empty;
-
-        bool highlightPage = false;
-
-        if (item.Link.IsSet())
-        {
-          url = item.Link.Replace("~", YafForumInfo.ForumClientFileRoot);
-        }
-        else if (item.ForumPage.IsSet())
-        {
-          var itemPage = item.ForumPage.ToEnum<ForumPages>();
-
-            // internal "page" link...
-          url = YafBuildLink.GetLink(itemPage);
-
-          // Highlight the Current Page
-          if (this.PageContext.ForumPageType.Equals(itemPage))
-          {
-              highlightPage = true;
-          }
-
-          if (!string.IsNullOrEmpty(item.SubForumPage_0))
-          {
-              if (this.PageContext.ForumPageType.Equals(item.SubForumPage_0.ToEnum<ForumPages>()))
-              {
-                  highlightPage = true;
-              }
-          }
-
-          if (!string.IsNullOrEmpty(item.SubForumPage_1))
-          {
-              if (this.PageContext.ForumPageType.Equals(item.SubForumPage_1.ToEnum<ForumPages>()))
-              {
-                  highlightPage = true;
-              }
-          }
-
-          if (!string.IsNullOrEmpty(item.SubForumPage_2))
-          {
-              if (this.PageContext.ForumPageType.Equals(item.SubForumPage_2.ToEnum<ForumPages>()))
-              {
-                  highlightPage = true;
-              }
-          }
-        }
-
-        var highlightStyle = string.Empty;
-        var highlightCssClass = string.Empty;
-
-        if (highlightPage)
-        {
-          highlightStyle = "color:red;";
-          highlightCssClass = " Selected";
-        }
-
-        if (item.Image.IsSet())
-        {
-          itemsList.AppendFormat(
-            @"<li class=""YafMenuItem {4}""><span class=""YafMenuItemIcon""></span><a style=""position:relative;"" href=""{0}"">
+                // Highlight the Current Page
+                highlightPage = this.PageContext.ForumPageType.Equals(itemPage) ||
+                    (!string.IsNullOrEmpty(item.SubForumPage_0) &&
+                    this.PageContext.ForumPageType.Equals(item.SubForumPage_0.ToEnum<ForumPages>())) ||
+                    (!string.IsNullOrEmpty(item.SubForumPage_1) &&
+                    this.PageContext.ForumPageType.Equals(item.SubForumPage_1.ToEnum<ForumPages>())) ||
+                    (!string.IsNullOrEmpty(item.SubForumPage_2) &&
+                    this.PageContext.ForumPageType.Equals(item.SubForumPage_2.ToEnum<ForumPages>()));
+            }
+            
+            var highlightStyle = string.Empty;
+            var highlightCssClass = string.Empty;
+            
+            if (highlightPage)
+            {
+                highlightStyle = "color:red;";
+                highlightCssClass = " Selected";
+            }
+            
+            if (item.Image.IsSet())
+            {
+                itemsList.AppendFormat(
+                          @"<li class=""YafMenuItem {4}""><span class=""YafMenuItemIcon""></span><a style=""position:relative;"" href=""{0}"">
                           <img alt=""{1}"" src=""{2}"" /><span style=""margin-left:3px;{3}"">{1}</span></a></li>", 
-            url, 
-            this.GetText("ADMINMENU", !string.IsNullOrEmpty(item.ForumPage) ? item.ForumPage : "admin_install"), 
-            YafForumInfo.GetURLToResource("icons/{0}.png".FormatWith(item.Image)), 
-            highlightStyle,
-            highlightCssClass);
-        }
-        else
-        {
-          // just add the item regular style..
-          itemsList.AppendFormat(
+                          url,
+                          this.GetText("ADMINMENU", !string.IsNullOrEmpty(item.ForumPage) ? item.ForumPage : "admin_install"),
+                          YafForumInfo.GetURLToResource("icons/{0}.png".FormatWith(item.Image)),
+                          highlightStyle,
+                          highlightCssClass);
+            }
+            else
+            {
+                // just add the item regular style..
+                itemsList.AppendFormat(
             @"<li class=""YafMenuItem""><span class=""YafMenuItemIcon""></span><a style=""position:relative;"" href=""{0}"">
                           <span style=""margin-left:3px;{2}"">{1}</span></a></li>", 
             url, 
             this.GetText("ADMINMENU", "admin_install"), 
             highlightStyle);
+            }
         }
-      }
-
-      writer.WriteLine("<div><ul>{0}</ul></div>".FormatWith(itemsList));
+        
+        return "<div><ul>{0}</ul></div>".FormatWith(itemsList);
     }
 
     /// <summary>
@@ -195,6 +169,7 @@ namespace YAF.Controls
 
       string accordianJs;
 
+      // A magic digit why it's so? 
       if (viewIndex >= 7)
       {
         accordianJs =
@@ -259,7 +234,7 @@ namespace YAF.Controls
     {
         if (this._menuDef == null)
         {
-            this.LoadMenuFromXML();
+            this.LoadMenuFromXml();
         }
 
         var menuItems = this._menuDef.Items.ToList();
@@ -270,11 +245,14 @@ namespace YAF.Controls
         menuItems.AddRange(
             dynamicPages.Select(
                 p =>
-                new YafMenuYafMenuSection
                     {
-                        HostAdminOnly = p.IsHostAdminOnly.ToString(),
-                        Title = p.PageName,
-                        Tag = (p as INavigatablePage).PageCategory
+                        var navigatablePage = p as INavigatablePage;
+                        return navigatablePage != null ? new YafMenuYafMenuSection
+                                                              {
+                                                                  HostAdminOnly = p.IsHostAdminOnly.ToString(CultureInfo.InvariantCulture),
+                                                                  Title = p.PageName,
+                                                                  Tag = navigatablePage.PageCategory
+                                                              } : null;
                     }));
 
         return from value in menuItems
@@ -286,13 +264,13 @@ namespace YAF.Controls
       /// <summary>
     /// The load menu from xml.
     /// </summary>
-    private void LoadMenuFromXML()
+    private void LoadMenuFromXml()
     {
-      const string DefFile = "YAF.Controls.YafAdminMenu.AdminMenuDef.xml";
+      const string defFile = "YAF.Controls.YafAdminMenu.AdminMenuDef.xml";
 
       // load menu definition...
       var deserializer = new XmlSerializer(typeof(YafMenu));
-      using (Stream resourceStream = Assembly.GetAssembly(this.GetType()).GetManifestResourceStream(DefFile))
+      using (Stream resourceStream = Assembly.GetAssembly(this.GetType()).GetManifestResourceStream(defFile))
       {
         if (resourceStream != null)
         {
@@ -309,14 +287,62 @@ namespace YAF.Controls
     /// </param>
     private void RenderAccordian([NotNull] HtmlTextWriter writer)
     {
-      // build menu...
-      foreach (var value in this.GetMenuSections())
-      {
-        writer.WriteLine(@"<h3><a href=""#"">{0}</a></h3>".FormatWith(this.GetText("ADMINMENU", value.Tag)));
 
-        // add items...
-        this.BuildUrlList(writer, value.YafMenuItem);
-      }
+        bool show = false;
+
+        IEnumerable<DataRow> dt = !this.PageContext.IsHostAdmin ? LegacyDb.adminpageaccess_list(this.PageContext.PageUserID, null).AsEnumerable().ToList() : null;
+        // build menu...
+        foreach (var value in this.GetMenuSections())
+        {
+            // add items.. No items in menu - continue
+            if (!value.YafMenuItem.Any())
+            {
+                show = false;
+                continue;
+            }
+
+            // add items.. No items in menu - continue
+            if ((dt == null || !dt.Any()) && !this.PageContext.IsHostAdmin)
+            {
+                show = false;
+                continue;
+            }
+
+
+            // Check access rights to the page. Double check will be next to hide categories.
+            if (!this.PageContext.IsHostAdmin)
+            {
+                if (value.YafMenuItem.Any(va => dt.Any() && va.ForumPage.IsSet() && 
+                    (dt.Any(row => va.ForumPage == row["PageName"].ToString()))))
+                {
+                    show = true;
+                }
+            } 
+
+            // If a candidate entry was found ar this is a host admin 
+            if (show || this.PageContext.IsHostAdmin)
+            {
+               IEnumerable<YafMenuYafMenuSectionYafMenuItem> g;
+
+               // no need to check access rights for host admin
+               if (this.PageContext.IsHostAdmin)
+               {
+                   g = value.YafMenuItem;
+               }
+               else
+               {
+                   g = value.YafMenuItem.Where(va =>
+                       dt.Any(row => dt.Any() && va.ForumPage.IsSet() && va.ForumPage == row["PageName"].ToString()));
+               }
+
+                var ret = (this.BuildUrlList(g));
+                if (!ret.IsSet()) continue;
+                writer.WriteLine(@"<h3><a href=""#"">{0}</a></h3>".FormatWith(this.GetText("ADMINMENU", value.Tag)));
+                writer.WriteLine(ret);
+            }
+
+            show = false;
+        }
     }
 
     #endregion

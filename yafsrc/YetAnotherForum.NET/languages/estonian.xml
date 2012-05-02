@@ -20,6 +20,8 @@
     <Resource tag="ADMIN_EDITGROUP">Redigeerib gruppe</Resource>
     <Resource tag="ADMIN_EDITLANGUAGE">Redigeerib keelefaili</Resource>
     <Resource tag="ADMIN_EDITMEDAL">Redigeerib medaleid</Resource>
+    <Resource tag="ADMIN_EDITNNTPFORUM">Edits NNTP Forum</Resource>
+    <Resource tag="ADMIN_EDITNNTPSERVER">Edits NNTP Server</Resource>
     <Resource tag="ADMIN_EDITRANK">Redigeerib tasemeid</Resource>
     <Resource tag="ADMIN_EDITUSER">Redigeerib kasutajat</Resource>
     <Resource tag="ADMIN_EVENTLOG">Avab/redigeerib sündmustelogi</Resource>
@@ -54,6 +56,7 @@
     <Resource tag="ADMIN_TOPICSTATUS_EDIT">Edits Topic Status</Resource>
     <Resource tag="ADMIN_TOPICSTATUS_IMPORT">Imports topic status</Resource>
     <Resource tag="ADMIN_USERS">Avab kasutajad admin peatükis</Resource>
+    <Resource tag="ADMIN_USERS_IMPORT">Imports users</Resource>
     <Resource tag="ADMIN_VERSION">Avab versiooni</Resource>
     <Resource tag="ADMINTASK">Teostab administreerimisülesandeid</Resource>
     <Resource tag="ALBUM">Avab albumi</Resource>
@@ -1319,6 +1322,23 @@
     <Resource tag="TITLE">NNTP Servers</Resource>
     <Resource tag="USERNAME">User Name</Resource>
   </page>
+  <page name="ADMIN_PAGEACCESSEDIT">
+    <Resource tag="CANACCESS">Allowed</Resource>
+    <Resource tag="CANCEL">Cancel</Resource>
+    <Resource tag="GRANTALL">Grant All</Resource>
+    <Resource tag="HEADER">Page Access For</Resource>
+    <Resource tag="PAGE">Real Page</Resource>
+    <Resource tag="REVOKEALL">Revoke All</Resource>
+    <Resource tag="SAVE">Save</Resource>
+    <Resource tag="TITLE">Admin Page View Access</Resource>
+    <Resource tag="USERNAME">User</Resource>
+  </page>
+  <page name="ADMIN_PAGEACCESSLIST">
+    <Resource tag="BOARDNAME">Board Name</Resource>
+    <Resource tag="EDIT">Edit</Resource>
+    <Resource tag="HEADER">Admin User</Resource>
+    <Resource tag="TITLE">Admin Users Page Access List</Resource>
+  </page>
   <page name="ADMIN_PM">
     <Resource tag="CONFIRM_DELETE">Do you really want to delete private messages? This process is irreversible.</Resource>
     <Resource tag="DAYS">days</Resource>
@@ -1566,6 +1586,8 @@
     <Resource tag="admin_nntpforums">NNTP Forums</Resource>
     <Resource tag="admin_nntpretrieve">Retrieve Articles</Resource>
     <Resource tag="admin_nntpservers">NNTP Servers</Resource>
+    <Resource tag="admin_pageaccessedit">Edit Admin Page Access</Resource>
+    <Resource tag="admin_pageaccesslist">Admin Page Access</Resource>
     <Resource tag="admin_pm">Private Messages</Resource>
     <Resource tag="admin_prune">Prune Topics</Resource>
     <Resource tag="admin_ranks">Ranks</Resource>
@@ -3837,6 +3859,7 @@ Spoiler Content
     <Resource tag="ECMAVERSION">See JavaScripti versioon ei ole toetatud. Palun kasutage uuemat veebilehitsejat.</Resource>
     <Resource tag="EXCEPTION">Sisse logitud kui</Resource>
     <Resource tag="FAILURE">Süsteemis tekkis viga. Palun saatke foorumi administraatorile kirjeldus tegevustest, mis viisid veaolukorrani.</Resource>
+    <Resource tag="HOSTADMINPERMISSIONSREQUIRED">To access the area your board's Host Admin should set some extra permissions for you.</Resource>
     <Resource tag="INVALID">Te saatsite foorumisse keelatud väärtuse.</Resource>
     <Resource tag="MODERATED">Kuna postitasite modereeritavale foorumile, peab moderaator teie postituse kinnitama, et see nähtav oleks.</Resource>
     <Resource tag="REGISTRATION">Teie postkasti on saadetud e-kiri. Sisselogimiseks palun lugegge juhiseid e-kirjas.</Resource>
@@ -3847,6 +3870,7 @@ Spoiler Content
     <Resource tag="TITLE_ECMAVERSION">JavaScript versioon</Resource>
     <Resource tag="TITLE_EXCEPTION">Informatsioon</Resource>
     <Resource tag="TITLE_FAILURE">Viga</Resource>
+    <Resource tag="TITLE_HOSTADMINPERMISSIONSREQUIRED">Host Admin permissions reqired!</Resource>
     <Resource tag="TITLE_INVALID">Kehtetu</Resource>
     <Resource tag="TITLE_MODERATED">Informatsioon</Resource>
     <Resource tag="TITLE_REGISTRATION">Tänuavaldused</Resource>

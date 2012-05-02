@@ -20,6 +20,8 @@
     <Resource tag="ADMIN_EDITGROUP">Rediger grupper</Resource>
     <Resource tag="ADMIN_EDITLANGUAGE">Edits a languages file</Resource>
     <Resource tag="ADMIN_EDITMEDAL">Rediger medaljer</Resource>
+    <Resource tag="ADMIN_EDITNNTPFORUM">Edits NNTP Forum</Resource>
+    <Resource tag="ADMIN_EDITNNTPSERVER">Edits NNTP Server</Resource>
     <Resource tag="ADMIN_EDITRANK">Rediger rang</Resource>
     <Resource tag="ADMIN_EDITUSER">Rediger en bruger</Resource>
     <Resource tag="ADMIN_EVENTLOG">Vis/rediger handlings log</Resource>
@@ -54,6 +56,7 @@
     <Resource tag="ADMIN_TOPICSTATUS_EDIT">Edits Topic Status</Resource>
     <Resource tag="ADMIN_TOPICSTATUS_IMPORT">Imports topic status</Resource>
     <Resource tag="ADMIN_USERS">Vis brugere i admin sektionen</Resource>
+    <Resource tag="ADMIN_USERS_IMPORT">Imports users</Resource>
     <Resource tag="ADMIN_VERSION">Vis version</Resource>
     <Resource tag="ADMINTASK">Udfør administrator opgaver</Resource>
     <Resource tag="ALBUM">Vis album</Resource>
@@ -1319,6 +1322,23 @@
     <Resource tag="TITLE">NNTP Servers</Resource>
     <Resource tag="USERNAME">User Name</Resource>
   </page>
+  <page name="ADMIN_PAGEACCESSEDIT">
+    <Resource tag="CANACCESS">Allowed</Resource>
+    <Resource tag="CANCEL">Cancel</Resource>
+    <Resource tag="GRANTALL">Grant All</Resource>
+    <Resource tag="HEADER">Page Access For</Resource>
+    <Resource tag="PAGE">Real Page</Resource>
+    <Resource tag="REVOKEALL">Revoke All</Resource>
+    <Resource tag="SAVE">Save</Resource>
+    <Resource tag="TITLE">Admin Page View Access</Resource>
+    <Resource tag="USERNAME">User</Resource>
+  </page>
+  <page name="ADMIN_PAGEACCESSLIST">
+    <Resource tag="BOARDNAME">Board Name</Resource>
+    <Resource tag="EDIT">Edit</Resource>
+    <Resource tag="HEADER">Admin User</Resource>
+    <Resource tag="TITLE">Admin Users Page Access List</Resource>
+  </page>
   <page name="ADMIN_PM">
     <Resource tag="CONFIRM_DELETE">Do you really want to delete private messages? This process is irreversible.</Resource>
     <Resource tag="DAYS">days</Resource>
@@ -1566,6 +1586,8 @@
     <Resource tag="admin_nntpforums">NNTP Forums</Resource>
     <Resource tag="admin_nntpretrieve">Retrieve Articles</Resource>
     <Resource tag="admin_nntpservers">NNTP Servers</Resource>
+    <Resource tag="admin_pageaccessedit">Edit Admin Page Access</Resource>
+    <Resource tag="admin_pageaccesslist">Admin Page Access</Resource>
     <Resource tag="admin_pm">Private Messages</Resource>
     <Resource tag="admin_prune">Prune Topics</Resource>
     <Resource tag="admin_ranks">Ranks</Resource>
@@ -3836,6 +3858,7 @@ Spoiler Content
     <Resource tag="ECMAVERSION">The JavaScript version is unsupported. Please use a more new browser version/</Resource>
     <Resource tag="EXCEPTION">Du er logget ind som</Resource>
     <Resource tag="FAILURE">Der er sket en system fejl. Kontakt venligst administratoren og forklar hvad der skete.</Resource>
+    <Resource tag="HOSTADMINPERMISSIONSREQUIRED">To access the area your board's Host Admin should set some extra permissions for you.</Resource>
     <Resource tag="INVALID">Du har sendt en ugyldig værdi til forummet</Resource>
     <Resource tag="MODERATED">Da dit indlæg er i et modereret forum, skal forum moderatoren godkende dit indlæg før det bliver synligt.</Resource>
     <Resource tag="REGISTRATION">En email er blevet sendt til email adessen der er angivet. Læs venligst instruktionerne i emailen for at logge ind.</Resource>
@@ -3846,6 +3869,7 @@ Spoiler Content
     <Resource tag="TITLE_ECMAVERSION">JavaScript version</Resource>
     <Resource tag="TITLE_EXCEPTION">Information</Resource>
     <Resource tag="TITLE_FAILURE">Fejl</Resource>
+    <Resource tag="TITLE_HOSTADMINPERMISSIONSREQUIRED">Host Admin permissions reqired!</Resource>
     <Resource tag="TITLE_INVALID">Ugyldig</Resource>
     <Resource tag="TITLE_MODERATED">Information</Resource>
     <Resource tag="TITLE_REGISTRATION">Tak</Resource>

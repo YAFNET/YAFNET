@@ -711,6 +711,11 @@ if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databas
 	alter table [{databaseOwner}].[{objectQualifier}ReputationVote] with nocheck add constraint  [PK_{objectQualifier}ReputationVote] primary key clustered (ReputationFromUserID,ReputationToUserID)   
 go
 
+if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}AdminPageUserAccess]') and name='PK_{objectQualifier}AdminPageUserAccess')
+	alter table [{databaseOwner}].[{objectQualifier}AdminPageUserAccess] with nocheck add constraint [PK_{objectQualifier}AdminPageUserAccess] primary key clustered(UserID,PageName)   
+go
+
+
 /*
 ** Unique constraints
 */
@@ -1153,6 +1158,10 @@ go
 
 if not exists (select top 1 1 from  dbo.sysobjects where name='FK_{objectQualifier}ReputationVote_{objectQualifier}User_To' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}ReputationVote]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table [{databaseOwner}].[{objectQualifier}ReputationVote] add constraint [FK_{objectQualifier}ReputationVote_{objectQualifier}User_To] foreign key (ReputationToUserID) references [{databaseOwner}].[{objectQualifier}User](UserID)
+go
+
+if not exists (select top 1 1 from  dbo.sysobjects where name='FK_{objectQualifier}AdminPageUserAccess_{objectQualifier}UserID' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}AdminPageUserAccess]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+	alter table [{databaseOwner}].[{objectQualifier}AdminPageUserAccess] add constraint [FK_{objectQualifier}AdminPageUserAccess_{objectQualifier}UserID] foreign key (UserID) references [{databaseOwner}].[{objectQualifier}User](UserID) ON DELETE CASCADE
 go
 
 /* Default Constraints */

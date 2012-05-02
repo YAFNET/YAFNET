@@ -129,6 +129,13 @@ if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseO
 	)
 go
 
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}AdminPageUserAccess]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	create table [{databaseOwner}].[{objectQualifier}AdminPageUserAccess](
+		UserID		    int NOT NULL,		
+		PageName		nvarchar (128) NOT NULL
+	)
+go
+
 if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}BannedIP]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}BannedIP](
 		ID				int IDENTITY (1, 1) NOT NULL ,
@@ -618,7 +625,6 @@ begin
 	)
 end
 GO
-
 
 if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Extension]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 BEGIN

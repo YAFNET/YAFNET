@@ -20,6 +20,8 @@
     <Resource tag="ADMIN_EDITGROUP">تعديل المجموعات</Resource>
     <Resource tag="ADMIN_EDITLANGUAGE">تعديل ملف اللغات</Resource>
     <Resource tag="ADMIN_EDITMEDAL">تعديل  الاوسمة </Resource>
+    <Resource tag="ADMIN_EDITNNTPFORUM">Edits NNTP Forum</Resource>
+    <Resource tag="ADMIN_EDITNNTPSERVER">Edits NNTP Server</Resource>
     <Resource tag="ADMIN_EDITRANK">تعديل الرتبة </Resource>
     <Resource tag="ADMIN_EDITUSER">تعديل مستخدم</Resource>
     <Resource tag="ADMIN_EVENTLOG">عرض / وتعديل سجل الاحداث</Resource>
@@ -54,6 +56,7 @@
     <Resource tag="ADMIN_TOPICSTATUS_EDIT">Edits Topic Status</Resource>
     <Resource tag="ADMIN_TOPICSTATUS_IMPORT">Imports topic status</Resource>
     <Resource tag="ADMIN_USERS">عرض المستخدمين في القسم الاداري</Resource>
+    <Resource tag="ADMIN_USERS_IMPORT">Imports users</Resource>
     <Resource tag="ADMIN_VERSION">عرض النسخة</Resource>
     <Resource tag="ADMINTASK">اداء المهام الادارية</Resource>
     <Resource tag="ALBUM">عرض الألبوم</Resource>
@@ -1319,6 +1322,23 @@
     <Resource tag="TITLE">NNTP Servers</Resource>
     <Resource tag="USERNAME">User Name</Resource>
   </page>
+  <page name="ADMIN_PAGEACCESSEDIT">
+    <Resource tag="CANACCESS">Allowed</Resource>
+    <Resource tag="CANCEL">Cancel</Resource>
+    <Resource tag="GRANTALL">Grant All</Resource>
+    <Resource tag="HEADER">Page Access For</Resource>
+    <Resource tag="PAGE">Real Page</Resource>
+    <Resource tag="REVOKEALL">Revoke All</Resource>
+    <Resource tag="SAVE">Save</Resource>
+    <Resource tag="TITLE">Admin Page View Access</Resource>
+    <Resource tag="USERNAME">User</Resource>
+  </page>
+  <page name="ADMIN_PAGEACCESSLIST">
+    <Resource tag="BOARDNAME">Board Name</Resource>
+    <Resource tag="EDIT">Edit</Resource>
+    <Resource tag="HEADER">Admin User</Resource>
+    <Resource tag="TITLE">Admin Users Page Access List</Resource>
+  </page>
   <page name="ADMIN_PM">
     <Resource tag="CONFIRM_DELETE">Do you really want to delete private messages? This process is irreversible.</Resource>
     <Resource tag="DAYS">days</Resource>
@@ -1566,6 +1586,8 @@
     <Resource tag="admin_nntpforums">NNTP Forums</Resource>
     <Resource tag="admin_nntpretrieve">Retrieve Articles</Resource>
     <Resource tag="admin_nntpservers">NNTP Servers</Resource>
+    <Resource tag="admin_pageaccessedit">Edit Admin Page Access</Resource>
+    <Resource tag="admin_pageaccesslist">Admin Page Access</Resource>
     <Resource tag="admin_pm">Private Messages</Resource>
     <Resource tag="admin_prune">Prune Topics</Resource>
     <Resource tag="admin_ranks">Ranks</Resource>
@@ -3661,6 +3683,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="ECMAVERSION">متصفك لايدعم  الجافا(JavaScript). يرجى عمل تحديث للمتصفح /</Resource>
     <Resource tag="EXCEPTION">تم تسجيل دخول لـ</Resource>
     <Resource tag="FAILURE">لايمكن معالجة طلبك , .يرجى إلاتصال مع مدير المنتدى وشرح ما بمكن عملة وشكرا</Resource>
+    <Resource tag="HOSTADMINPERMISSIONSREQUIRED">To access the area your board's Host Admin should set some extra permissions for you.</Resource>
     <Resource tag="INVALID">قمت إدخال قيم غير صحيحه بالمنتدى </Resource>
     <Resource tag="MODERATED">تأكد من ان المشاركة قد تم تثبيتها في المنتدى  من قبل مشرف المنتدى .قبل  إلغاء المشاركة .</Resource>
     <Resource tag="REGISTRATION">تم ارسال تعليمات تسجيل الدخول الى عنوان البريد  الإلكتروني يرجو قراءة التعليمات .</Resource>
@@ -3671,6 +3694,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="TITLE_ECMAVERSION">(JavaScript) إصدار</Resource>
     <Resource tag="TITLE_EXCEPTION">معلومات </Resource>
     <Resource tag="TITLE_FAILURE">فشل الطلب</Resource>
+    <Resource tag="TITLE_HOSTADMINPERMISSIONSREQUIRED">Host Admin permissions reqired!</Resource>
     <Resource tag="TITLE_INVALID">غير صحيح</Resource>
     <Resource tag="TITLE_MODERATED">معلومات المشرف</Resource>
     <Resource tag="TITLE_REGISTRATION">الشكر</Resource>

@@ -41,6 +41,8 @@
     <Resource tag="ADMIN_EDITGROUP">Edits groups</Resource>
     <Resource tag="ADMIN_EDITLANGUAGE">Edits a languages file</Resource>
     <Resource tag="ADMIN_EDITMEDAL">Edits medals</Resource>
+    <Resource tag="ADMIN_EDITNNTPFORUM">Edits NNTP Forum</Resource>
+    <Resource tag="ADMIN_EDITNNTPSERVER">Edits NNTP Server</Resource>
     <Resource tag="ADMIN_EDITRANK">Edits ranks</Resource>
     <Resource tag="ADMIN_EDITUSER">Edits a user</Resource>
     <Resource tag="ADMIN_EVENTLOG">Views/edits event log</Resource>
@@ -75,6 +77,7 @@
     <Resource tag="ADMIN_TOPICSTATUS_EDIT">Edits Topic Status</Resource>
     <Resource tag="ADMIN_TOPICSTATUS_IMPORT">Imports topic status</Resource>
     <Resource tag="ADMIN_USERS">Views users in admin section</Resource>
+    <Resource tag="ADMIN_USERS_IMPORT">Imports users</Resource>
     <Resource tag="ADMIN_VERSION">Views version</Resource>
     <Resource tag="ADMINTASK">Performs admin tasks</Resource>
     <Resource tag="ALBUM">Views Album</Resource>
@@ -1341,6 +1344,23 @@
     <Resource tag="TITLE">NNTP Servers</Resource>
     <Resource tag="USERNAME">User Name</Resource>
   </page>
+  <page name="ADMIN_PAGEACCESSEDIT">
+    <Resource tag="CANACCESS">Allowed</Resource>
+    <Resource tag="CANCEL">Cancel</Resource>
+    <Resource tag="GRANTALL">Grant All</Resource>
+    <Resource tag="HEADER">Page Access For</Resource>
+    <Resource tag="PAGE">Real Page</Resource>
+    <Resource tag="REVOKEALL">Revoke All</Resource>
+    <Resource tag="SAVE">Save</Resource>
+    <Resource tag="TITLE">Admin Page View Access</Resource>
+    <Resource tag="USERNAME">User</Resource>
+  </page>
+  <page name="ADMIN_PAGEACCESSLIST">
+    <Resource tag="BOARDNAME">Board Name</Resource>
+    <Resource tag="EDIT">Edit</Resource>
+    <Resource tag="HEADER">Admin User</Resource>
+    <Resource tag="TITLE">Admin Users Page Access List</Resource>
+  </page>
   <page name="ADMIN_PM">
     <Resource tag="CONFIRM_DELETE">Do you really want to delete private messages? This process is irreversible.</Resource>
     <Resource tag="DAYS">days</Resource>
@@ -1588,6 +1608,8 @@
     <Resource tag="admin_nntpforums">NNTP Forums</Resource>
     <Resource tag="admin_nntpretrieve">Retrieve Articles</Resource>
     <Resource tag="admin_nntpservers">NNTP Servers</Resource>
+    <Resource tag="admin_pageaccessedit">Edit Admin Page Access</Resource>
+    <Resource tag="admin_pageaccesslist">Admin Page Access</Resource>
     <Resource tag="admin_pm">Private Messages</Resource>
     <Resource tag="admin_prune">Prune Topics</Resource>
     <Resource tag="admin_ranks">Ranks</Resource>
@@ -3859,6 +3881,7 @@ Spoiler Content
     <Resource tag="ECMAVERSION">The JavaScript version is unsupported. Please use a more new browser version/</Resource>
     <Resource tag="EXCEPTION">הינך מחובר/ת בתור</Resource>
     <Resource tag="FAILURE">אירעה שגיאת מערכת באת עיבוד הבקשה. נא דווח למנהל הפורום על התקלה והנסיבות להופעתה.</Resource>
+    <Resource tag="HOSTADMINPERMISSIONSREQUIRED">To access the area your board's Host Admin should set some extra permissions for you.</Resource>
     <Resource tag="INVALID">הזנת ערך לא תקין לפורום.</Resource>
     <Resource tag="MODERATED">מאחר וכתבת בפורום תחת ביקורת, אחראי פורום צריך לאשר את הודעתך לפני שהיא תוצג.</Resource>
     <Resource tag="REGISTRATION">הודעה דואר נשלחה לכתובת הדא"ל שסיפקת. נא עקוב אחר ההוראות בהודעה על מנת להתחבר.</Resource>
@@ -3869,6 +3892,7 @@ Spoiler Content
     <Resource tag="TITLE_ECMAVERSION">JavaScript version</Resource>
     <Resource tag="TITLE_EXCEPTION">מידע</Resource>
     <Resource tag="TITLE_FAILURE">כשלון</Resource>
+    <Resource tag="TITLE_HOSTADMINPERMISSIONSREQUIRED">Host Admin permissions reqired!</Resource>
     <Resource tag="TITLE_INVALID">לא תקין</Resource>
     <Resource tag="TITLE_MODERATED">מידע</Resource>
     <Resource tag="TITLE_REGISTRATION">תודה</Resource>

@@ -283,7 +283,7 @@ namespace YAF.Controls
             topicsNew.AcceptChanges();
             if (this.Get<YafBoardSettings>().UseStyledNicks)
             {
-                this.Get<IStyleTransform>().DecodeStyleByTable(ref topicsNew, true, "LastUserStyle", "StarterStyle");
+                this.Get<IStyleTransform>().DecodeStyleByTable(ref topicsNew, false, "LastUserStyle", "StarterStyle");
             }
 
             // let's page the results

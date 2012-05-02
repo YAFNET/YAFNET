@@ -238,7 +238,7 @@ namespace YAF.Controls
                 // Set colorOnly parameter to true, as we get all but color from css in the place
                 if (this.Get<YafBoardSettings>().UseStyledNicks)
                 {
-                    this.Get<IStyleTransform>().DecodeStyleByTable(ref activeTopics, true, "LastUserStyle");
+                    this.Get<IStyleTransform>().DecodeStyleByTable(ref activeTopics, false, "LastUserStyle");
                 }
 
                 if (this.PageContext.IsGuest)

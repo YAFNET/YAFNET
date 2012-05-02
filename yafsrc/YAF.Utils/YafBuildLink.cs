@@ -80,7 +80,12 @@ namespace YAF.Utils
     /// <summary>
     /// unsupported JS version
     /// </summary>
-    EcmaScriptVersionUnsupported = 10
+    EcmaScriptVersionUnsupported = 10,
+
+    /// <summary>
+    /// The message for admin to ask access for admin pages viewing.
+    /// </summary>
+    HostAdminPermissionsAreRequired = 11
   }
 
   /// <summary>

@@ -100,7 +100,7 @@ namespace YAF.Controls.Statistics
             if (this.Get<YafBoardSettings>().UseStyledNicks)
             {
               var styleTransform = this.Get<IStyleTransform>();
-              styleTransform.DecodeStyleByTable(ref dt, true, "LastUserStyle");
+              styleTransform.DecodeStyleByTable(ref dt, false, "LastUserStyle");
             }
 
             return dt;

@@ -1488,6 +1488,8 @@ Spoiler Content
       <Resource tag="ADMIN_DELETEFORUM">Delete forums</Resource> 
       <Resource tag="ADMIN_EDITGROUP">Edits groups</Resource>
       <Resource tag="ADMIN_EDITMEDAL">Edits medals</Resource>
+      <Resource tag="ADMIN_EDITNNTPFORUM">Edits NNTP Forum</Resource>
+      <Resource tag="ADMIN_EDITNNTPSERVER">Edits NNTP Server</Resource>
       <Resource tag="ADMIN_EDITRANK">Edits ranks</Resource>
       <Resource tag="ADMIN_EDITUSER">Edits a user</Resource>
       <Resource tag="ADMIN_REGUSER">Registers a user</Resource>
@@ -1507,9 +1509,10 @@ Spoiler Content
       <Resource tag="ADMIN_TASKMANAGER">Views/manages task manager</Resource>
       <Resource tag="ADMIN_TEST_DATA">Views/edits test data generator</Resource>
       <Resource tag="ADMIN_RESTARTAPP">Restarts application</Resource>
-	  <Resource tag="ADMIN_TOPICSTATUS">Views admin topic status</Resource>
+	    <Resource tag="ADMIN_TOPICSTATUS">Views admin topic status</Resource>
       <Resource tag="ADMIN_TOPICSTATUS_EDIT">Edits Topic Status</Resource>
       <Resource tag="ADMIN_TOPICSTATUS_IMPORT">Imports topic status</Resource>
+      <Resource tag="ADMIN_USERS_IMPORT">Imports users</Resource>
    </page>
    <page name="ACTIVEUSERS">
       <Resource tag="ACTIVE">Active</Resource>
@@ -2324,6 +2327,7 @@ Spoiler Content
       <Resource tag="COOKIES">To use the forum you should enable cookies in your browser.</Resource>
       <Resource tag="ECMAREQUIRED">To use the forum you should enable JavaScript in your browser.</Resource>
       <Resource tag="ECMAVERSION">The JavaScript version is unsupported. Please use a newer browser version/</Resource>
+      <Resource tag="HOSTADMINPERMISSIONSREQUIRED">To access the area your board's Host Admin should set some extra permissions for you.</Resource>
       <Resource tag="TITLE_ACCESSDENIED">Access Denied</Resource>
       <Resource tag="TITLE_EXCEPTION">Information</Resource>
       <Resource tag="TITLE_FAILURE">Failure</Resource>
@@ -2334,6 +2338,7 @@ Spoiler Content
       <Resource tag="TITLE_COOKIES">Requires cookies</Resource>
       <Resource tag="TITLE_ECMAREQUIRED">JavaScript required</Resource>
       <Resource tag="TITLE_ECMAVERSION">JavaScript version</Resource>
+      <Resource tag="TITLE_HOSTADMINPERMISSIONSREQUIRED">Host Admin permissions reqired!</Resource>
    </page>
    <page name="LANGUAGE">
       <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ</Resource>
@@ -3443,7 +3448,9 @@ Visit {forumname} at {forumlink}
       <Resource tag="admin_mail">Mail</Resource>
       <Resource tag="admin_digest">Digest</Resource>
       <Resource tag="admin_prune">Prune Topics</Resource>
-      <Resource tag="admin_pm">Private Messages</Resource>
+     <Resource tag="admin_pageaccesslist">Admin Page Access</Resource>
+     <Resource tag="admin_pageaccessedit">Edit Admin Page Access</Resource>
+     <Resource tag="admin_pm">Private Messages</Resource>
       <Resource tag="admin_attachments">Attachments</Resource>
       <Resource tag="admin_taskmanager">Task Manager</Resource>
       <Resource tag="admin_eventlog">Event Log</Resource>
@@ -3560,6 +3567,23 @@ Visit {forumname} at {forumlink}
       <Resource tag="USERNAME">User Name</Resource>
       <Resource tag="NEW_SERVER">New Server</Resource>
     </page>
+  <page name="ADMIN_PAGEACCESSLIST">
+    <Resource tag="TITLE">Admin Users Page Access List</Resource>
+    <Resource tag="HEADER">Admin User</Resource>
+    <Resource tag="EDIT">Edit</Resource>
+    <Resource tag="BOARDNAME">Board Name</Resource>
+  </page>
+  <page name="ADMIN_PAGEACCESSEDIT">
+    <Resource tag="TITLE">Admin Page View Access</Resource>
+    <Resource tag="HEADER">Page Access For</Resource>
+    <Resource tag="CANACCESS">Allowed</Resource>
+    <Resource tag="USERNAME">User</Resource>
+    <Resource tag="PAGE">Real Page</Resource>
+    <Resource tag="SAVE">Save</Resource>
+    <Resource tag="GRANTALL">Grant All</Resource>
+    <Resource tag="REVOKEALL">Revoke All</Resource>
+    <Resource tag="CANCEL">Cancel</Resource>
+  </page>
     <page name="ADMIN_RUNSQL">
       <Resource tag="TITLE">Run SQL Code</Resource>
       <Resource tag="HEADER">Run SQL Query</Resource>
