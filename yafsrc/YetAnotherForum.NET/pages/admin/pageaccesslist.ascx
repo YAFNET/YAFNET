@@ -10,20 +10,20 @@
 				  <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_PAGEACCESSLIST" />
 			</td>
 		</tr>
-		<tr class="header2">
-			<td>
+		<tr>
+			<td class="header2">
 				<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="HEADER"  LocalizedPage="ADMIN_PAGEACCESSLIST" />
 			</td>	
-            	<td>
+            <td class="header2">
 				<YAF:LocalizedLabel ID="BoardNameLabel" runat="server" LocalizedTag="BOARDnAME"  LocalizedPage="ADMIN_PAGEACCESSLIST" />
 			</td>	
-			<td>
-				&nbsp;
+			<td class="header2">&nbsp;
+				
 			</td>
 		</tr>
 		<asp:Repeater ID="List" runat="server" OnItemCommand="List_ItemCommand">
 			<ItemTemplate>
-				<tr class="postheader">
+				<tr class="post">
 					<td>
 					    <!-- User Name -->
 					  <img alt='<%# this.HtmlEncode(this.Get<YafBoardSettings>().EnableDisplayName ? Eval( "DisplayName") : Eval( "Name")) %>'
@@ -33,16 +33,14 @@
                     	<td>
                     	 <%# this.HtmlEncode(Eval( "BoardName")) %>
                         </td>		
-					<td width="15%" style="font-weight: normal">
-						<asp:LinkButton runat='server' CommandName='edit' CommandArgument='<%# Eval( "UserID") %>'>
-						  <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="yaflittlebutton" TitleLocalizedPage="ADMIN_PAGEACCESSLIST"   CommandName='edit' CommandArgument='<%# Eval( "UserID") %>' TitleLocalizedTag="EDIT" ImageThemePage="ICONS" ImageThemeTag="EDIT_SMALL_ICON" runat="server"></YAF:ThemeButton>
-                        </asp:LinkButton>
+					<td width="15%">
+						  <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="yaflittlebutton" TitleLocalizedPage="ADMIN_PAGEACCESSLIST" CommandName='edit' CommandArgument='<%# Eval( "UserID") %>' TitleLocalizedTag="EDIT" ImageThemePage="ICONS" ImageThemeTag="EDIT_SMALL_ICON" runat="server"></YAF:ThemeButton>
 					</td>
 				</tr>
 			</ItemTemplate>
 		</asp:Repeater>
 		<tr class="footer1" style="text-align: center;">
-			<td colspan="2">
+			<td colspan="3">
 			</td>
 		</tr>
 	</table>
