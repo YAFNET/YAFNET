@@ -23,6 +23,7 @@ namespace YAF.Controls
     using System;
     using System.Collections;
     using System.Data;
+    using System.Data.SqlTypes;
     using System.Web.UI.WebControls;
 
     using YAF.Core;
@@ -113,7 +114,7 @@ namespace YAF.Controls
             var row = (DataRow)e.Item.DataItem;
 
             DateTime lastRead = this.Get<IReadTrackCurrentUser>().GetForumRead(
-                row["ForumID"].ToType<int>(), row["LastForumAccess"].ToType<DateTime?>() ?? DateTime.MinValue);
+                row["ForumID"].ToType<int>(), row["LastForumAccess"].ToType<DateTime?>() ?? (DateTime)SqlDateTime.MinValue);
 
             DateTime lastPosted = row["LastPosted"].ToType<DateTime?>() ?? lastRead;
 

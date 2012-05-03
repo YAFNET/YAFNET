@@ -22,6 +22,7 @@ namespace YAF.Controls
 
     using System;
     using System.Data;
+    using System.Data.SqlTypes;
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
@@ -176,8 +177,8 @@ namespace YAF.Controls
                     this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
                         forumId: currentRow["ForumID"].ToType<int>(),
                         topicId: currentRow["TopicID"].ToType<int>(),
-                        forumReadOverride: currentRow["LastForumAccess"].ToType<DateTime?>() ?? DateTime.MinValue,
-                        topicReadOverride: currentRow["LastTopicAccess"].ToType<DateTime?>() ?? DateTime.MinValue);
+                        forumReadOverride: currentRow["LastForumAccess"].ToType<DateTime?>() ?? (DateTime)SqlDateTime.MinValue,
+                        topicReadOverride: currentRow["LastTopicAccess"].ToType<DateTime?>() ?? (DateTime)SqlDateTime.MinValue);
 
                 if (DateTime.Parse(currentRow["LastPosted"].ToString()) > lastRead)
                 {

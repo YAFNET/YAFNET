@@ -8,6 +8,7 @@
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Classes" %>
 <%@ Import Namespace="YAF.Types.Interfaces.Extensions" %>
+<%@ Import Namespace="System.Data.SqlTypes" %>
 <tr class="<%=this.IsAlt ? "topicRow_Alt post_alt" : "topicRow post" %>">
     <asp:PlaceHolder ID="SelectionHolder" runat="server" Visible="false">
         <td>
@@ -130,8 +131,8 @@
                 this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
                 forumId: this.TopicRow["ForumID"].ToType<int>(),
                 topicId: this.TopicRow["TopicID"].ToType<int>(),
-                forumReadOverride: this.TopicRow["LastForumAccess"].ToType<DateTime?>() ?? DateTime.MinValue,
-                topicReadOverride: this.TopicRow["LastTopicAccess"].ToType<DateTime?>() ?? DateTime.MinValue); 
+                forumReadOverride: this.TopicRow["LastForumAccess"].ToType<DateTime?>() ?? (DateTime)SqlDateTime.MinValue,
+                topicReadOverride: this.TopicRow["LastTopicAccess"].ToType<DateTime?>() ?? (DateTime)SqlDateTime.MinValue); 
 
 
         string strMiniPost = this.Get<ITheme>().GetItem(

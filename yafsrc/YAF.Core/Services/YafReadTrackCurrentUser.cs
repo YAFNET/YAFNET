@@ -23,6 +23,7 @@ namespace YAF.Core.Services
 
     using System;
     using System.Collections;
+    using System.Data.SqlTypes;
     using System.Web;
 
     using YAF.Classes;
@@ -61,13 +62,9 @@ namespace YAF.Core.Services
         /// <summary>
         /// Initializes a new instance of the <see cref="YafReadTrackCurrentUser"/> class. The yaf read track current user.
         /// </summary>
-        /// <param name="yafSession">
-        /// </param>
-        /// <param name="boardSettings">
-        /// </param>
-        /// <param name="sessionState">
-        /// The session State.
-        /// </param>
+        /// <param name="yafSession">The yaf session.</param>
+        /// <param name="boardSettings">The board settings.</param>
+        /// <param name="sessionState">The session State.</param>
         public YafReadTrackCurrentUser(
             IYafSession yafSession, YafBoardSettings boardSettings, HttpSessionStateBase sessionState)
         {
@@ -81,7 +78,7 @@ namespace YAF.Core.Services
         #region Public Properties
 
         /// <summary>
-        ///   The last visit.
+        ///   Gets the last visit.
         /// </summary>
         public DateTime LastRead
         {
@@ -100,7 +97,7 @@ namespace YAF.Core.Services
                     lastRead = this._yafSession.LastVisit;
                 }
 
-                return lastRead ?? DateTime.MinValue.AddYears(1902);
+                return lastRead ?? (DateTime)SqlDateTime.MinValue;
             }
         }
 
@@ -109,7 +106,7 @@ namespace YAF.Core.Services
         #region Properties
 
         /// <summary>
-        ///   The current user id.
+        ///   Gets the current user id.
         /// </summary>
         protected int CurrentUserID
         {
@@ -120,8 +117,11 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        ///   The is guest.
+        /// Gets a value indicating whether this user is guest.
         /// </summary>
+        /// <value>
+        ///   <c>true</c> if this user is guest; otherwise, <c>false</c>.
+        /// </value>
         protected bool IsGuest
         {
             get
@@ -137,14 +137,12 @@ namespace YAF.Core.Services
         /// <summary>
         /// The get forum read.
         /// </summary>
-        /// <param name="forumID">
-        /// </param>
-        /// <param name="readTimeOverride">
-        /// The read Time Override. 
-        /// </param>
+        /// <param name="forumID">The forum ID of the Forum</param>
+        /// <param name="readTimeOverride">The read Time Override.</param>
         /// <returns>
+        /// Returns the DateTime object from the Forum ID.
         /// </returns>
-        public DateTime GetForumRead(int forumID, DateTime? readTimeOverride = null)
+       public DateTime GetForumRead(int forumID, DateTime? readTimeOverride = null)
         {
             DateTime? readTime = this.GetSessionForumRead(forumID);
 
@@ -155,7 +153,7 @@ namespace YAF.Core.Services
                     if (readTimeOverride.HasValue)
                     {
                         // use it if it's not the min value...
-                        if (readTimeOverride.Value != DateTime.MinValue.AddYears(1902))
+                        if (readTimeOverride.Value != (DateTime)SqlDateTime.MinValue)
                         {
                             readTime = readTimeOverride.Value;
                         }
@@ -167,7 +165,7 @@ namespace YAF.Core.Services
                     }
 
                     // save value in session so that the db doesn't get called again...
-                    this._yafSession.SetForumRead(forumID, readTime ?? DateTime.MinValue.AddYears(1902));
+                    this._yafSession.SetForumRead(forumID, readTime ?? (DateTime)SqlDateTime.MinValue);
                 }
                 else
                 {
@@ -176,19 +174,17 @@ namespace YAF.Core.Services
                 }
             }
 
-            return readTime ?? DateTime.MinValue.AddYears(1902);
+            return readTime ?? (DateTime)SqlDateTime.MinValue;
         }
 
-        /// <summary>
-        /// The get topic read.
-        /// </summary>
-        /// <param name="topicID">
-        /// </param>
-        /// <param name="readTimeOverride">
-        /// The read Time Override. 
-        /// </param>
-        /// <returns>
-        /// </returns>
+       /// <summary>
+       /// The get topic read.
+       /// </summary>
+       /// <param name="topicID">The topicID you wish to find the DateTime object for.</param>
+       /// <param name="readTimeOverride">The read Time Override.</param>
+       /// <returns>
+       /// Returns the DateTime object from the topicID.
+       /// </returns>
         public DateTime GetTopicRead(int topicID, DateTime? readTimeOverride = null)
         {
             DateTime? readTime = this.GetSessionTopicRead(topicID);
@@ -200,7 +196,7 @@ namespace YAF.Core.Services
                     if (readTimeOverride.HasValue)
                     {
                         // use it if it's not the min value...
-                        if (readTimeOverride.Value != DateTime.MinValue.AddYears(1902))
+                        if (readTimeOverride.Value != (DateTime)SqlDateTime.MinValue)
                         {
                             readTime = readTimeOverride.Value;
                         }
@@ -212,7 +208,7 @@ namespace YAF.Core.Services
                     }
 
                     // save value in session so that the db doesn't get called again...
-                    this._yafSession.SetTopicRead(topicID, readTime ?? DateTime.MinValue.AddYears(1902));
+                    this._yafSession.SetTopicRead(topicID, readTime ?? (DateTime)SqlDateTime.MinValue);
                 }
                 else
                 {
@@ -221,14 +217,13 @@ namespace YAF.Core.Services
                 }
             }
 
-            return readTime ?? DateTime.MinValue.AddYears(1902);
+            return readTime ?? (DateTime)SqlDateTime.MinValue;
         }
 
         /// <summary>
         /// The set forum read.
         /// </summary>
-        /// <param name="forumID">
-        /// </param>
+        /// <param name="forumID">The forum ID of the Forum</param>
         public void SetForumRead(int forumID)
         {
             if (this._boardSettings.UseReadTrackingByDatabase && !this.IsGuest)
@@ -242,8 +237,7 @@ namespace YAF.Core.Services
         /// <summary>
         /// The set topic read.
         /// </summary>
-        /// <param name="topicID">
-        /// </param>
+        /// <param name="topicID">The topic id to mark read.</param>
         public void SetTopicRead(int topicID)
         {
             if (this._boardSettings.UseReadTrackingByDatabase && !this.IsGuest)
@@ -259,12 +253,11 @@ namespace YAF.Core.Services
         #region Methods
 
         /// <summary>
-        /// The get session forum read.
+        /// Gets the session forum read.
         /// </summary>
-        /// <param name="forumId">
-        /// The forum id. 
-        /// </param>
+        /// <param name="forumId">The forum id.</param>
         /// <returns>
+        /// The get session forum read.
         /// </returns>
         private DateTime? GetSessionForumRead(int forumId)
         {
@@ -279,12 +272,11 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        /// The get session topic read.
+        /// Gets the session topic read.
         /// </summary>
-        /// <param name="topicId">
-        /// The topic id. 
-        /// </param>
+        /// <param name="topicId">The topic id.</param>
         /// <returns>
+        /// The get session topic read.
         /// </returns>
         private DateTime? GetSessionTopicRead(int topicId)
         {

@@ -23,6 +23,7 @@ namespace YAF.Controls
 
   using System;
   using System.Data;
+  using System.Data.SqlTypes;
 
   using YAF.Classes;
   using YAF.Classes.Data;
@@ -139,9 +140,9 @@ namespace YAF.Controls
                  showDeleted,
                  false,
                  false,
-                 DateTime.MinValue.AddYears(1901),
+                 (DateTime)SqlDateTime.MinValue,
                  DateTime.UtcNow,
-                 DateTime.MinValue.AddYears(1901),
+                 (DateTime)SqlDateTime.MinValue,
                  DateTime.UtcNow,
                  0,
                  10,

@@ -4,6 +4,7 @@
 
     using System;
     using System.Data;
+    using System.Data.SqlTypes;
     using System.Text;
 
     using YAF.Classes;
@@ -494,10 +495,9 @@
             DateTime lastRead = this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
                 row["ForumID"].ToType<int>(),
                 row["TopicID"].ToType<int>(),
-                row["LastForumAccess"].IsNullOrEmptyDBField() ? DateTime.MinValue : row["LastForumAccess"].ToType<DateTime?>(),
-                row["LastTopicAccess"].IsNullOrEmptyDBField() ? DateTime.MinValue : row["LastForumAccess"].ToType<DateTime?>());
+                row["LastForumAccess"].IsNullOrEmptyDBField() ? (DateTime)SqlDateTime.MinValue : row["LastForumAccess"].ToType<DateTime?>(),
+                row["LastTopicAccess"].IsNullOrEmptyDBField() ? (DateTime)SqlDateTime.MinValue : row["LastForumAccess"].ToType<DateTime?>());
                 
-
             if (lastPosted > lastRead)
             {
                 this.Get<IYafSession>().UnreadTopics++;
@@ -566,7 +566,6 @@
                     imgTitle = this.GetText("NO_NEW_POSTS");
                     return this.Get<ITheme>().GetItem("ICONS", "TOPIC");
             }
-
         }
 
         /// <summary>
