@@ -16,6 +16,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
+using YAF.Utils.Helpers;
+
 namespace YAF.Controls
 {
     #region Using
@@ -23,7 +26,6 @@ namespace YAF.Controls
     using System;
     using System.Collections;
     using System.Data;
-    using System.Data.SqlTypes;
     using System.Web.UI.WebControls;
 
     using YAF.Core;
@@ -114,7 +116,7 @@ namespace YAF.Controls
             var row = (DataRow)e.Item.DataItem;
 
             DateTime lastRead = this.Get<IReadTrackCurrentUser>().GetForumRead(
-                row["ForumID"].ToType<int>(), row["LastForumAccess"].ToType<DateTime?>() ?? (DateTime)SqlDateTime.MinValue);
+                row["ForumID"].ToType<int>(), row["LastForumAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime());
 
             DateTime lastPosted = row["LastPosted"].ToType<DateTime?>() ?? lastRead;
 

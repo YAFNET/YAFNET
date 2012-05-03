@@ -16,13 +16,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
+using YAF.Utils.Helpers;
+
 namespace YAF.Controls
 {
     #region Using
 
     using System;
     using System.Data;
-    using System.Data.SqlTypes;
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
@@ -177,8 +179,8 @@ namespace YAF.Controls
                     this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
                         forumId: currentRow["ForumID"].ToType<int>(),
                         topicId: currentRow["TopicID"].ToType<int>(),
-                        forumReadOverride: currentRow["LastForumAccess"].ToType<DateTime?>() ?? (DateTime)SqlDateTime.MinValue,
-                        topicReadOverride: currentRow["LastTopicAccess"].ToType<DateTime?>() ?? (DateTime)SqlDateTime.MinValue);
+                        forumReadOverride: currentRow["LastForumAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime(),
+                        topicReadOverride: currentRow["LastTopicAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime());
 
                 if (DateTime.Parse(currentRow["LastPosted"].ToString()) > lastRead)
                 {

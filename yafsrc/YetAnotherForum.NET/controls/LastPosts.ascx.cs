@@ -17,14 +17,14 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+using YAF.Utils.Helpers;
+
 namespace YAF.Controls
 {
   #region Using
 
   using System;
   using System.Data;
-  using System.Data.SqlTypes;
-
   using YAF.Classes;
   using YAF.Classes.Data;
   using YAF.Core;
@@ -140,9 +140,9 @@ namespace YAF.Controls
                  showDeleted,
                  false,
                  false,
-                 (DateTime)SqlDateTime.MinValue,
+                 DateTimeHelper.SqlDbMinTime(),
                  DateTime.UtcNow,
-                 (DateTime)SqlDateTime.MinValue,
+                 DateTimeHelper.SqlDbMinTime(),
                  DateTime.UtcNow,
                  0,
                  10,

@@ -4,7 +4,6 @@
 
     using System;
     using System.Data;
-    using System.Data.SqlTypes;
     using System.Text;
 
     using YAF.Classes;
@@ -495,8 +494,8 @@
             DateTime lastRead = this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
                 row["ForumID"].ToType<int>(),
                 row["TopicID"].ToType<int>(),
-                row["LastForumAccess"].IsNullOrEmptyDBField() ? (DateTime)SqlDateTime.MinValue : row["LastForumAccess"].ToType<DateTime?>(),
-                row["LastTopicAccess"].IsNullOrEmptyDBField() ? (DateTime)SqlDateTime.MinValue : row["LastForumAccess"].ToType<DateTime?>());
+                row["LastForumAccess"].IsNullOrEmptyDBField() ? DateTimeHelper.SqlDbMinTime() : row["LastForumAccess"].ToType<DateTime?>(),
+                row["LastTopicAccess"].IsNullOrEmptyDBField() ? DateTimeHelper.SqlDbMinTime() : row["LastForumAccess"].ToType<DateTime?>());
                 
             if (lastPosted > lastRead)
             {

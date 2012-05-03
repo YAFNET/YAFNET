@@ -16,6 +16,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
+using YAF.Utils.Helpers;
+
 namespace YAF.Core.Services
 {
     #region Using
@@ -23,7 +26,6 @@ namespace YAF.Core.Services
     using System;
     using System.Collections;
     using System.Data;
-    using System.Data.SqlTypes;
     using System.Web;
 
     using YAF.Types;
@@ -322,7 +324,7 @@ namespace YAF.Core.Services
 
             set
             {
-                if (value == (DateTime)SqlDateTime.MinValue && this.SessionState["lastvisit"] != null)
+                if (value == DateTimeHelper.SqlDbMinTime() && this.SessionState["lastvisit"] != null)
                 {
                     this.SessionState.Remove("lastvisit");
                 }
@@ -478,7 +480,7 @@ namespace YAF.Core.Services
             Hashtable t = this.ForumRead;
             if (t == null || !t.ContainsKey(forumID))
             {
-                return this.LastVisit ?? (DateTime)SqlDateTime.MinValue;
+                return this.LastVisit ?? DateTimeHelper.SqlDbMinTime();
             }
 
             return (DateTime)t[forumID];
@@ -499,7 +501,7 @@ namespace YAF.Core.Services
 
             if (t == null || !t.ContainsKey(topicID))
             {
-                return this.LastVisit ?? (DateTime)SqlDateTime.MinValue;
+                return this.LastVisit ?? DateTimeHelper.SqlDbMinTime();
             }
 
             return (DateTime)t[topicID];

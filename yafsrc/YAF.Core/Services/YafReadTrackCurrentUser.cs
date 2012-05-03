@@ -17,13 +17,14 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+using YAF.Utils.Helpers;
+
 namespace YAF.Core.Services
 {
     #region Using
 
     using System;
     using System.Collections;
-    using System.Data.SqlTypes;
     using System.Web;
 
     using YAF.Classes;
@@ -97,7 +98,7 @@ namespace YAF.Core.Services
                     lastRead = this._yafSession.LastVisit;
                 }
 
-                return lastRead ?? (DateTime)SqlDateTime.MinValue;
+                return lastRead ?? DateTimeHelper.SqlDbMinTime();
             }
         }
 
@@ -153,7 +154,7 @@ namespace YAF.Core.Services
                     if (readTimeOverride.HasValue)
                     {
                         // use it if it's not the min value...
-                        if (readTimeOverride.Value != (DateTime)SqlDateTime.MinValue)
+                        if (readTimeOverride.Value >= DateTimeHelper.SqlDbMinTime())
                         {
                             readTime = readTimeOverride.Value;
                         }
@@ -165,7 +166,7 @@ namespace YAF.Core.Services
                     }
 
                     // save value in session so that the db doesn't get called again...
-                    this._yafSession.SetForumRead(forumID, readTime ?? (DateTime)SqlDateTime.MinValue);
+                    this._yafSession.SetForumRead(forumID, readTime ?? DateTimeHelper.SqlDbMinTime());
                 }
                 else
                 {
@@ -174,7 +175,7 @@ namespace YAF.Core.Services
                 }
             }
 
-            return readTime ?? (DateTime)SqlDateTime.MinValue;
+            return readTime ?? DateTimeHelper.SqlDbMinTime();
         }
 
        /// <summary>
@@ -196,7 +197,7 @@ namespace YAF.Core.Services
                     if (readTimeOverride.HasValue)
                     {
                         // use it if it's not the min value...
-                        if (readTimeOverride.Value != (DateTime)SqlDateTime.MinValue)
+                        if (readTimeOverride.Value >= DateTimeHelper.SqlDbMinTime())
                         {
                             readTime = readTimeOverride.Value;
                         }
@@ -208,7 +209,7 @@ namespace YAF.Core.Services
                     }
 
                     // save value in session so that the db doesn't get called again...
-                    this._yafSession.SetTopicRead(topicID, readTime ?? (DateTime)SqlDateTime.MinValue);
+                    this._yafSession.SetTopicRead(topicID, readTime ?? DateTimeHelper.SqlDbMinTime());
                 }
                 else
                 {
@@ -217,7 +218,7 @@ namespace YAF.Core.Services
                 }
             }
 
-            return readTime ?? (DateTime)SqlDateTime.MinValue;
+            return readTime ?? DateTimeHelper.SqlDbMinTime();
         }
 
         /// <summary>

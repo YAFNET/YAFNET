@@ -18,6 +18,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+using YAF.Utils.Helpers;
+
 namespace YAF.Pages
 {
     // YAF.Pages
@@ -84,7 +86,7 @@ namespace YAF.Pages
             DataTable dt = LegacyDb.topic_list(
                 this.PageContext.PageForumID,
                 null,
-                DateTime.MinValue.AddYears(1754),
+                DateTimeHelper.SqlDbMinTime(),
                 DateTime.UtcNow,
                 nCurrentPageIndex,
                 baseSize,

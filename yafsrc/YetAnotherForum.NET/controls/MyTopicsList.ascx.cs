@@ -18,13 +18,14 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+using YAF.Utils.Helpers;
+
 namespace YAF.Controls
 {
     #region Using
 
     using System;
     using System.Data;
-    using System.Data.SqlTypes;
     using System.Linq;
     using System.Web.UI.WebControls;
 
@@ -145,7 +146,7 @@ namespace YAF.Controls
                 {
                     // all
                     // get all, from the beginning
-                    this.sinceDate = (DateTime)SqlDateTime.MinValue;
+                    this.sinceDate = DateTimeHelper.SqlDbMinTime();
                 }
                 else if (this.sinceValue > 0)
                 {

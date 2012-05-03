@@ -24,7 +24,6 @@ namespace YAF.Pages.Admin
 
     using System;
     using System.Data;
-    using System.Data.SqlTypes;
     using System.IO;
     using System.Web;
     using System.Web.Security;
@@ -61,6 +60,7 @@ namespace YAF.Pages.Admin
             // add confirmation method on click
             ((ThemeButton)sender).Attributes["onclick"] =
                 "return confirm('{0}')".FormatWith(this.GetText("ADMIN_USERS", "CONFIRM_DELETE"));
+         
         }
 
         /// <summary>
@@ -422,7 +422,7 @@ namespace YAF.Pages.Admin
                 {
                     // all
                     // get all, from the beginning
-                    sinceDate = (DateTime)SqlDateTime.MinValue;
+                    sinceDate = DateTimeHelper.SqlDbMinTime();
                 }
                 else if (sinceValue > 0)
                 {

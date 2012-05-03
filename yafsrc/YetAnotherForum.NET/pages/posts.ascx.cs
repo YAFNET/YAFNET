@@ -24,7 +24,6 @@ namespace YAF.Pages
 
     using System;
     using System.Data;
-    using System.Data.SqlTypes;
     using System.IO;
     using System.Linq;
     using System.Text;
@@ -1004,9 +1003,9 @@ namespace YAF.Pages
                 showDeleted,
                 this.Get<YafBoardSettings>().UseStyledNicks,
                 !this.PageContext.IsGuest && this.Get<YafBoardSettings>().DisplayPoints,
-                DateTime.MinValue.AddYears(1901),
+                DateTimeHelper.SqlDbMinTime(),
                 DateTime.UtcNow,
-                DateTime.MinValue.AddYears(1901),
+                DateTimeHelper.SqlDbMinTime(),
                 DateTime.UtcNow,
                 Pager.CurrentPageIndex,
                 Pager.PageSize,
@@ -1185,7 +1184,7 @@ namespace YAF.Pages
                                 DataTable lastPost = LegacyDb.message_findunread(
                                     topicID: this.PageContext.PageTopicID,
                                     messageId: this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"),
-                                    lastRead: (DateTime)SqlDateTime.MinValue,
+                                    lastRead: DateTimeHelper.SqlDbMinTime(),
                                     showDeleted: showDeleted,
                                     authorUserID: userId))
                             {

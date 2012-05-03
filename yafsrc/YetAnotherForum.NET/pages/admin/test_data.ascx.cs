@@ -334,7 +334,7 @@ namespace YAF.Pages.Admin
             DataTable topics = LegacyDb.topic_list(
                 this.PostsForum.SelectedValue.ToType<int>(),
                 this.PageContext.PageUserID,
-                DateTime.MinValue.AddYears(1754),
+                DateTimeHelper.SqlDbMinTime(),
                 DateTime.UtcNow,
                 0,
                 100,

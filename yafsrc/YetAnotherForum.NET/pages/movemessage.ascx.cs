@@ -18,6 +18,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+using YAF.Utils.Helpers;
+
 namespace YAF.Pages
 {
     #region Using
@@ -88,7 +90,7 @@ namespace YAF.Pages
         /// </param>
         protected void ForumList_SelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.TopicsList.DataSource = LegacyDb.topic_list(this.ForumList.SelectedValue, null, DateTime.MinValue.AddYears(1754),DateTime.UtcNow, 0, 32762, false, false, false);
+            this.TopicsList.DataSource = LegacyDb.topic_list(this.ForumList.SelectedValue, null, DateTimeHelper.SqlDbMinTime(), DateTime.UtcNow, 0, 32762, false, false, false);
             this.TopicsList.DataTextField = "Subject";
             this.TopicsList.DataValueField = "TopicID";
             this.TopicsList.DataBind();
