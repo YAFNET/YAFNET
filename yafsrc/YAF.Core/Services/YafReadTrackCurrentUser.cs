@@ -154,7 +154,7 @@ namespace YAF.Core.Services
                     if (readTimeOverride.HasValue)
                     {
                         // use it if it's not the min value...
-                        if (readTimeOverride.Value >= DateTimeHelper.SqlDbMinTime())
+                        if (readTimeOverride.Value != DateTimeHelper.SqlDbMinTime())
                         {
                             readTime = readTimeOverride.Value;
                         }
@@ -197,7 +197,7 @@ namespace YAF.Core.Services
                     if (readTimeOverride.HasValue)
                     {
                         // use it if it's not the min value...
-                        if (readTimeOverride.Value >= DateTimeHelper.SqlDbMinTime())
+                        if (readTimeOverride.Value != DateTimeHelper.SqlDbMinTime())
                         {
                             readTime = readTimeOverride.Value;
                         }
