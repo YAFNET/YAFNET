@@ -494,7 +494,14 @@ namespace YAF
                     newImgSize.Height = finalHeight;
                     newImgSize.Width = newImgSize.Width - PixelPadding;
                     newImgSize.Height = newImgSize.Height - BottomSize - PixelPadding;
+
+                    if (newImgSize.Height <= BottomSize + PixelPadding)
+                    {
+                        newImgSize.Height = finalHeight;
+                    }
                 }
+
+                bool heightToSmallFix = newImgSize.Height <= BottomSize + PixelPadding;
 
                 using (
                     var dst = new Bitmap(
@@ -502,87 +509,48 @@ namespace YAF
                         newImgSize.Height + BottomSize + PixelPadding,
                         PixelFormat.Format24bppRgb))
                 {
+                    var rSrcImg = new Rectangle(
+                        0, 0, src.Width, src.Height + (heightToSmallFix ? BottomSize + PixelPadding : 0));
+
                     if (previewCropped)
                     {
-                        var rSrcImg = new Rectangle(x, y, newImgSize.Width, newImgSize.Height);
-                        var rDstImg = new Rectangle(
-                            3, 3, dst.Width - PixelPadding, dst.Height - PixelPadding - BottomSize);
-                        var rDstTxt1 = new Rectangle(3, rDstImg.Height + 3, newImgSize.Width, BottomSize - 13);
-                        var rDstTxt2 = new Rectangle(3, rDstImg.Height + 16, newImgSize.Width, BottomSize - 13);
-
-                        using (Graphics g = Graphics.FromImage(dst))
-                        {
-                            g.Clear(Color.FromArgb(64, 64, 64));
-                            g.FillRectangle(Brushes.White, rDstImg);
-
-                            g.CompositingMode = CompositingMode.SourceOver;
-                            g.CompositingQuality = CompositingQuality.GammaCorrected;
-                            g.SmoothingMode = SmoothingMode.HighQuality;
-                            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-
-                            g.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
-
-                            g.DrawImage(src, rDstImg, rSrcImg, GraphicsUnit.Pixel);
-
-                            using (var f = new Font("Arial", 10, FontStyle.Regular, GraphicsUnit.Pixel))
-                            {
-                                using (var brush = new SolidBrush(Color.FromArgb(191, 191, 191)))
-                                {
-                                    var sf = new StringFormat
-                                        { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center };
-
-                                    g.DrawString(localization.GetText("IMAGE_RESIZE_ENLARGE"), f, brush, rDstTxt1, sf);
-
-                                    sf.Alignment = StringAlignment.Far;
-                                    g.DrawString(
-                                        localization.GetText("IMAGE_RESIZE_VIEWS").FormatWith(downloads),
-                                        f,
-                                        brush,
-                                        rDstTxt2,
-                                        sf);
-                                }
-                            }
-                        }
+                        rSrcImg = new Rectangle(x, y, newImgSize.Width, newImgSize.Height);
                     }
-                    else
+
+                    var rDstImg = new Rectangle(3, 3, dst.Width - PixelPadding, dst.Height - PixelPadding - BottomSize);
+                    var rDstTxt1 = new Rectangle(3, rDstImg.Height + 3, newImgSize.Width, BottomSize - 13);
+                    var rDstTxt2 = new Rectangle(3, rDstImg.Height + 16, newImgSize.Width, BottomSize - 13);
+
+                    using (Graphics g = Graphics.FromImage(dst))
                     {
-                        var rSrcImg = new Rectangle(0, 0, src.Width, src.Height);
-                        var rDstImg = new Rectangle(
-                            3, 3, dst.Width - PixelPadding, dst.Height - PixelPadding - BottomSize);
-                        var rDstTxt1 = new Rectangle(3, rDstImg.Height + 3, newImgSize.Width, BottomSize - 13);
-                        var rDstTxt2 = new Rectangle(3, rDstImg.Height + 16, newImgSize.Width, BottomSize - 13);
+                        g.Clear(Color.FromArgb(64, 64, 64));
+                        g.FillRectangle(Brushes.White, rDstImg);
 
-                        using (Graphics g = Graphics.FromImage(dst))
+                        g.CompositingMode = CompositingMode.SourceOver;
+                        g.CompositingQuality = CompositingQuality.GammaCorrected;
+                        g.SmoothingMode = SmoothingMode.HighQuality;
+                        g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+
+                        g.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
+
+                        g.DrawImage(src, rDstImg, rSrcImg, GraphicsUnit.Pixel);
+
+                        using (var f = new Font("Arial", 10, FontStyle.Regular, GraphicsUnit.Pixel))
                         {
-                            g.Clear(Color.FromArgb(64, 64, 64));
-                            g.FillRectangle(Brushes.White, rDstImg);
-
-                            g.CompositingMode = CompositingMode.SourceOver;
-                            g.CompositingQuality = CompositingQuality.GammaCorrected;
-                            g.SmoothingMode = SmoothingMode.HighQuality;
-                            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-
-                            g.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
-
-                            g.DrawImage(src, rDstImg, rSrcImg, GraphicsUnit.Pixel);
-
-                            using (var f = new Font("Arial", 10, FontStyle.Regular, GraphicsUnit.Pixel))
+                            using (var brush = new SolidBrush(Color.FromArgb(191, 191, 191)))
                             {
-                                using (var brush = new SolidBrush(Color.FromArgb(191, 191, 191)))
-                                {
-                                    var sf = new StringFormat
-                                        { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center };
+                                var sf = new StringFormat
+                                    { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center };
 
-                                    g.DrawString(localization.GetText("IMAGE_RESIZE_ENLARGE"), f, brush, rDstTxt1, sf);
+                                g.DrawString(localization.GetText("IMAGE_RESIZE_ENLARGE"), f, brush, rDstTxt1, sf);
 
-                                    sf.Alignment = StringAlignment.Far;
-                                    g.DrawString(
-                                        localization.GetText("IMAGE_RESIZE_VIEWS").FormatWith(downloads),
-                                        f,
-                                        brush,
-                                        rDstTxt2,
-                                        sf);
-                                }
+                                sf.Alignment = StringAlignment.Far;
+                                g.DrawString(
+                                    localization.GetText("IMAGE_RESIZE_VIEWS").FormatWith(downloads),
+                                    f,
+                                    brush,
+                                    rDstTxt2,
+                                    sf);
                             }
                         }
                     }
@@ -1280,7 +1248,7 @@ namespace YAF
         }
 
         /// <summary>
-        /// The get response image preview.
+        /// Gest the Preview Image as Response
         /// </summary>
         /// <param name="context">
         /// The context.
@@ -1402,6 +1370,7 @@ namespace YAF
             catch (Exception x)
             {
                 LegacyDb.eventlog_create(null, this.GetType().ToString(), x, EventLogTypes.Information);
+
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
             }
