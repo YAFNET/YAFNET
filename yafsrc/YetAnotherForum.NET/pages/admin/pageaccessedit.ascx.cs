@@ -127,28 +127,33 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      // retrieve access mask ID from parameter (if applicable)
+        // retrieve access mask ID from parameter (if applicable)
         if (this.Request.QueryString.GetFirstOrDefault("u") != null)
-      {
-          object userId = this.Request.QueryString.GetFirstOrDefault("u");
-         
-          foreach (RepeaterItem ri in this.AccessList.Items)
-          {
-              string pageName = ((Label)ri.FindControl("PageName")).Text.Trim();
-              if (((CheckBox)ri.FindControl("ReadAccess")).Checked || "admin_admin".ToLowerInvariant() == pageName.ToLowerInvariant())
-              {
-                  // save it
-                  LegacyDb.adminpageaccess_save(
-                      userId,
-                      pageName);
-              }
-          }
-      }
+        {
+            object userId = this.Request.QueryString.GetFirstOrDefault("u");
 
-        YafBuildLink.Redirect(ForumPages.admin_pageaccesslist);
+            foreach (RepeaterItem ri in this.AccessList.Items)
+            {
+                bool readAccess = ((CheckBox) ri.FindControl("ReadAccess")).Checked;
+                string pageName = ((Label) ri.FindControl("PageName")).Text.Trim();
+                if (readAccess || "admin_admin".ToLowerInvariant() == pageName.ToLowerInvariant())
+                {
+                    // save it
+                        LegacyDb.adminpageaccess_save(
+                            userId,
+                            pageName);
+                }
+                else
+                {
+                    LegacyDb.adminpageaccess_delete(userId, pageName);
+                }
+            }
+
+            YafBuildLink.Redirect(ForumPages.admin_pageaccesslist);
+        }
     }
 
-    /// <summary>
+      /// <summary>
     /// The Grant All click.
     /// </summary>
     /// <param name="sender">
@@ -232,7 +237,7 @@ namespace YAF.Pages.Admin
             // Iterate thru all admin pages
             foreach (var listPage in listPages.ToList())
             {
-                if (dt.Rows.Cast<DataRow>().Any(dr => dr["PageName"].ToString() == listPage && hostPages.All(s => s != dr["PageName"].ToString())))
+                if (dt != null && dt.Rows.Cast<DataRow>().Any(dr => dr["PageName"].ToString() == listPage && hostPages.All(s => s != dr["PageName"].ToString())))
                 {
                     found = true;
                     adminPageAccesses.Add(new AdminPageAccess
