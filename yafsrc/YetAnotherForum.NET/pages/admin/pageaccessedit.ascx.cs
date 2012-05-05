@@ -159,7 +159,7 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void GrantAll_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-        // retrieve access mask ID from parameter (if applicable)
+        // save permissions to table -  checked only
         if (this.Request.QueryString.GetFirstOrDefault("u") != null)
         {
             object userId = this.Request.QueryString.GetFirstOrDefault("u");
@@ -186,7 +186,7 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void RevokeAll_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-        // retrieve access mask ID from parameter (if applicable)
+        // revoke permissions by deleting records from table. Number of records ther should be minimal.
         if (this.Request.QueryString.GetFirstOrDefault("u") != null)
         {
             object userId = this.Request.QueryString.GetFirstOrDefault("u");
@@ -219,14 +219,20 @@ namespace YAF.Pages.Admin
             // Load the page access list.
             DataTable dt = LegacyDb.adminpageaccess_list(
                 this.Request.QueryString.GetFirstOrDefault("u"), null);
-            // Check admin pages number
+            
+            // Get admin pages by page prefixes.
             var listPages = Enum.GetNames(typeof(ForumPages)).Where(
                 e => e.IndexOf("admin_", System.StringComparison.Ordinal) >= 0);
+            
+            // Initialize list with a helper class.
             var adminPageAccesses = new List<AdminPageAccess>();
+            
+            // Protected hostadmin pages
+            var hostPages = new []{"admin_boards","admin_hostsettings","admin_pageaccesslist","admin_pageaccessedit"};
             // Iterate thru all admin pages
             foreach (var listPage in listPages.ToList())
             {
-                if (dt.Rows.Cast<DataRow>().Any(dr => dr["PageName"].ToString() == listPage))
+                if (dt.Rows.Cast<DataRow>().Any(dr => dr["PageName"].ToString() == listPage && hostPages.All(s => s != dr["PageName"].ToString())))
                 {
                     found = true;
                     adminPageAccesses.Add(new AdminPageAccess
@@ -238,7 +244,7 @@ namespace YAF.Pages.Admin
                 }
                 
                 // If it doesn't contain page for the user add it.
-                if (!found)
+                if (!found && hostPages.All(s => s != listPage))
                 {
                     adminPageAccesses.Add(new AdminPageAccess
                     {

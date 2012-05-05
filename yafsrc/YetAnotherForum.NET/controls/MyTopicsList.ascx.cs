@@ -174,20 +174,20 @@ namespace YAF.Controls
             }
 
             // filter by category
-            object categoryIDObject = null;
+            object categoryIdObject = null;
 
             // is category set?
             if (this.PageContext.Settings.CategoryID != 0)
             {
-                categoryIDObject = this.PageContext.Settings.CategoryID;
+                categoryIdObject = this.PageContext.Settings.CategoryID;
             }
 
             // we'll hold topics in this table
             DataTable topicList = null;
-
+            
             if (this.sinceDate == DateTime.MinValue)
             {
-                this.sinceDate = DateTime.UtcNow.AddYears(-50);
+                this.sinceDate = DateTimeHelper.SqlDbMinTime();
             }
 
             // set the page size here
@@ -203,7 +203,7 @@ namespace YAF.Controls
                 case TopicListMode.Active:
                     topicList = LegacyDb.topic_active(
                         this.PageContext.PageBoardID,
-                        categoryIDObject,
+                        categoryIdObject,
                         this.PageContext.PageUserID,
                         this.sinceDate,
                         DateTime.UtcNow,
@@ -215,7 +215,7 @@ namespace YAF.Controls
                 case TopicListMode.Unanswered:
                     topicList = LegacyDb.topic_unanswered(
                         this.PageContext.PageBoardID,
-                        categoryIDObject,
+                        categoryIdObject,
                         this.PageContext.PageUserID,
                         this.sinceDate,
                         DateTime.UtcNow,
@@ -227,7 +227,7 @@ namespace YAF.Controls
                 case TopicListMode.Unread:
                     topicList = LegacyDb.topic_unread(
                         this.PageContext.PageBoardID,
-                        categoryIDObject,
+                        categoryIdObject,
                         this.PageContext.PageUserID,
                         this.sinceDate,
                         DateTime.UtcNow,
@@ -239,7 +239,7 @@ namespace YAF.Controls
                 case TopicListMode.User:
                     topicList = LegacyDb.Topics_ByUser(
                         this.PageContext.PageBoardID,
-                        categoryIDObject,
+                        categoryIdObject,
                         this.PageContext.PageUserID,
                         this.sinceDate,
                         DateTime.UtcNow,
@@ -264,9 +264,16 @@ namespace YAF.Controls
                     break;
             }
 
-            if (topicList == null)
+             if (topicList == null)
             {
                 this.PagerTop.Count = 0;
+                return;
+            }
+            if ( topicList.Rows.Count <=0)
+            {
+                this.PagerTop.Count = 0;
+                this.TopicList.DataSource = null;
+                this.TopicList.DataBind();
                 return;
             }
 
@@ -274,7 +281,7 @@ namespace YAF.Controls
 
             DataTable topicsNew = topicList.Copy();
 
-            foreach (DataRow thisTableRow in topicsNew.Rows.Cast<DataRow>().Where(thisTableRow => thisTableRow["LastPosted"] != DBNull.Value
+            foreach (var thisTableRow in topicsNew.Rows.Cast<DataRow>().Where(thisTableRow => thisTableRow["LastPosted"] != DBNull.Value
                                                                                                   && thisTableRow["LastPosted"].ToType<DateTime>() <= this.sinceDate))
             {
                 thisTableRow.Delete();

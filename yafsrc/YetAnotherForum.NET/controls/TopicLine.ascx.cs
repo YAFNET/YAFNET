@@ -478,7 +478,7 @@
             var row = (DataRowView)o;
             DateTime lastPosted = row["LastPosted"] != DBNull.Value
                                       ? (DateTime)row["LastPosted"]
-                                      : new DateTime(2000, 1, 1);
+                                      : DateTimeHelper.SqlDbMinTime();
 
             var topicFlags = new TopicFlags(row["TopicFlags"]);
             var forumFlags = new ForumFlags(row["ForumFlags"]);
