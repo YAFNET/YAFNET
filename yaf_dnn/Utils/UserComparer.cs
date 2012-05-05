@@ -17,7 +17,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace YAF.DotNetNuke
+namespace YAF.DotNetNuke.Utils
 {
     using System.Collections;
     using System.Globalization;
@@ -32,17 +32,14 @@ namespace YAF.DotNetNuke
         #region Implemented Interfaces
 
         /// <summary>
-        /// The compare.
+        /// Compares two objects and returns a value indicating whether one is less than, equal to, or greater than the other.
         /// </summary>
-        /// <param name="x">
-        /// The x.
-        /// </param>
-        /// <param name="y">
-        /// The y.
-        /// </param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
         /// <returns>
         /// The compare.
         /// </returns>
+        /// <exception cref="T:System.ArgumentException">Neither <paramref name="x"/> nor <paramref name="y"/> implements the <see cref="T:System.IComparable"/> interface.-or- <paramref name="x"/> and <paramref name="y"/> are of different types and neither one can handle comparisons with the other. </exception>
         public int Compare(object x, object y)
         {
             var comparer = new Comparer(CultureInfo.CurrentCulture);

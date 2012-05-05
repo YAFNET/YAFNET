@@ -21,7 +21,6 @@ namespace YAF.Pages
     #region Using
 
     using System;
-    using System.Web.UI;
 
     using YAF.Classes;
     using YAF.Controls;
@@ -35,7 +34,7 @@ namespace YAF.Pages
     #endregion
 
     /// <summary>
-    /// The mytopics page.
+    /// The my topics page.
     /// </summary>
     public partial class mytopics : ForumPage
     {
@@ -63,6 +62,30 @@ namespace YAF.Pages
         /// Indicates if the Favorite Tab was loaded
         /// </summary>
         private bool favoriteloaded;
+
+        /// <summary>
+        /// Gets or sets the current tab.
+        /// </summary>
+        /// <value>
+        /// The current tab.
+        /// </value>
+        private TopicListMode CurrentTab
+        {
+            get
+            {
+                if (this.ViewState["CurrentTab"] != null)
+                {
+                    return (TopicListMode)this.ViewState["CurrentTab"];
+                }
+
+                return TopicListMode.Active;
+            }
+
+            set
+            {
+                this.ViewState["CurrentTab"] = value;
+            }
+        }
 
         #region Constructors and Destructors
 
@@ -116,6 +139,8 @@ namespace YAF.Pages
         {
             if (this.IsPostBack)
             {
+                this.RefreshTab();
+
                 return;
             }
 
@@ -147,28 +172,34 @@ namespace YAF.Pages
         {
             switch (hidLastTabId.Value)
             {
-                case "ActiveTopicsTab":
-
-                    if (!this.activeloaded)
-                    {
-                        this.ActiveTopics.DataBind();
-                        this.UnansweredTopics.DataBind();
-                        if (this.UnreadTopicsTabTitle.Visible)
-                        {
-                            this.UnreadTopics.DataBind();
-                        }
-
-                        if (this.UserTopicsTabTitle.Visible)
-                        {
-                            this.MyTopics.DataBind();
-                            this.FavoriteTopics.DataBind();
-                        }
-
-                        this.activeloaded = true;
-                    }
-
-                    break;
                 case "UnansweredTopicsTab":
+                    this.CurrentTab = TopicListMode.Unanswered;
+                    break;
+                case "UnreadTopicsTab":
+                    this.CurrentTab = TopicListMode.Unread;
+                    break;
+                case "MyTopicsTab":
+                    this.CurrentTab = TopicListMode.User;
+                    break;
+                case "FavoriteTopicsTab":
+                    this.CurrentTab = TopicListMode.Favorite;
+                    break;
+                default:
+                    this.CurrentTab = TopicListMode.Active;
+                    break;
+            }
+
+            this.RefreshTab();
+        }
+
+        /// <summary>
+        /// Refreshes the tab.
+        /// </summary>
+        private void RefreshTab()
+        {
+            switch (this.CurrentTab)
+            {
+                case TopicListMode.Unanswered:
 
                     if (!this.unansweredloaded)
                     {
@@ -190,7 +221,7 @@ namespace YAF.Pages
                     }
 
                     break;
-                case "UnreadTopicsTab":
+                case TopicListMode.Unread:
 
                     if (!this.unreadloaded)
                     {
@@ -209,7 +240,7 @@ namespace YAF.Pages
                     }
 
                     break;
-                case "MyTopicsTab":
+                case TopicListMode.User:
 
                     if (!this.mytopicsloaded)
                     {
@@ -229,9 +260,25 @@ namespace YAF.Pages
 
                         this.mytopicsloaded = true;
                     }
+                    else
+                    {
+                        this.MyTopics.DataBind();
+
+                        this.ActiveTopics.DataBind();
+                        this.UnansweredTopics.DataBind();
+                        if (this.UnreadTopicsTabTitle.Visible)
+                        {
+                            this.UnreadTopics.DataBind();
+                        }
+
+                        if (this.UserTopicsTabTitle.Visible)
+                        {
+                            this.FavoriteTopics.DataBind();
+                        }
+                    }
 
                     break;
-                case "FavoriteTopicsTab":
+                case TopicListMode.Favorite:
 
                     if (!this.favoriteloaded)
                     {
@@ -250,6 +297,27 @@ namespace YAF.Pages
                         }
 
                         this.favoriteloaded = true;
+                    }
+
+                    break;
+                case TopicListMode.Active:
+
+                    if (!this.activeloaded)
+                    {
+                        this.ActiveTopics.DataBind();
+                        this.UnansweredTopics.DataBind();
+                        if (this.UnreadTopicsTabTitle.Visible)
+                        {
+                            this.UnreadTopics.DataBind();
+                        }
+
+                        if (this.UserTopicsTabTitle.Visible)
+                        {
+                            this.MyTopics.DataBind();
+                            this.FavoriteTopics.DataBind();
+                        }
+
+                        this.activeloaded = true;
                     }
 
                     break;

@@ -17,7 +17,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace YAF.DotNetNuke
+namespace YAF.DotNetNuke.Utils
 {
     using System;
     using System.Data;
@@ -25,23 +25,19 @@ namespace YAF.DotNetNuke
     using System.IO;
     using System.Linq;
     using System.Web.Security;
-
-    using YAF.DotNetNuke.Controller;
-
     using global::DotNetNuke.Common.Utilities;
     using global::DotNetNuke.Entities.Modules;
     using global::DotNetNuke.Entities.Portals;
     using global::DotNetNuke.Entities.Profile;
     using global::DotNetNuke.Entities.Users;
     using global::DotNetNuke.Services.FileSystem;
-
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.DotNetNuke.Controller;
     using YAF.Types.EventProxies;
     using YAF.Types.Interfaces;
     using YAF.Utils;
-
     using FileInfo = global::DotNetNuke.Services.FileSystem.FileInfo;
 
     /// <summary>
@@ -193,18 +189,21 @@ namespace YAF.DotNetNuke
 
             var yafUserData = new CombinedUserDataHelper(yafUserId);
 
-            if (yafUserProfile.RealName.Contains(" "))
+            if (!string.IsNullOrEmpty(yafUserProfile.RealName.Trim()))
             {
-                // Split Fullname into First and Lastname
-                var firstName = yafUserProfile.RealName.Remove(yafUserProfile.RealName.IndexOf(" "));
-                var lastName = yafUserProfile.RealName.Substring(yafUserProfile.RealName.IndexOf(" ") + 1);
+                if (yafUserProfile.RealName.Contains(" "))
+                {
+                    // Split Fullname into First and Lastname
+                    var firstName = yafUserProfile.RealName.Remove(yafUserProfile.RealName.IndexOf(" "));
+                    var lastName = yafUserProfile.RealName.Substring(yafUserProfile.RealName.IndexOf(" ") + 1);
 
-                dnnUserInfo.Profile.FirstName = firstName;
-                dnnUserInfo.Profile.LastName = lastName;
-            }
-            else
-            {
-                dnnUserInfo.Profile.FirstName = yafUserProfile.RealName;
+                    dnnUserInfo.Profile.FirstName = firstName;
+                    dnnUserInfo.Profile.LastName = lastName;
+                }
+                else
+                {
+                    dnnUserInfo.Profile.FirstName = yafUserProfile.RealName;
+                }
             }
 
             dnnUserInfo.Profile.Country = yafUserProfile.Country;
@@ -228,7 +227,7 @@ namespace YAF.DotNetNuke
             }*/
 
             // Save other Yaf Profile Properties as Custom DNN Profile Properties
-            dnnUserInfo.Profile.SetProfileProperty("Biography", yafUserProfile.Interests);
+            //dnnUserInfo.Profile.SetProfileProperty("Biography", yafUserProfile.Interests);
 
             dnnUserInfo.Profile.SetProfileProperty("Birthday", yafUserProfile.Birthday.ToString());
             dnnUserInfo.Profile.SetProfileProperty("Occupation", yafUserProfile.Occupation);
@@ -301,6 +300,7 @@ namespace YAF.DotNetNuke
 
             var yafUserData = new CombinedUserDataHelper(yafUserId);
 
+            yafUserProfile.RealName = dnnUserInfo.Profile.FullName;
             yafUserProfile.Country = dnnUserInfo.Profile.Country;
             yafUserProfile.Region = dnnUserInfo.Profile.Region;
             yafUserProfile.City = dnnUserInfo.Profile.City;
@@ -321,7 +321,7 @@ namespace YAF.DotNetNuke
             // Save other Yaf Profile Properties as Custom DNN Profile Properties
             try
             {
-                yafUserProfile.Interests = dnnUserInfo.Profile.GetPropertyValue("Biography");
+                //yafUserProfile.Interests = dnnUserInfo.Profile.GetPropertyValue("Biography");
                 yafUserProfile.Birthday = DateTime.Parse(dnnUserInfo.Profile.GetPropertyValue("Birthday"));
                 yafUserProfile.Occupation = dnnUserInfo.Profile.GetPropertyValue("Occupation");
                 yafUserProfile.Gender = int.Parse(dnnUserInfo.Profile.GetPropertyValue("Gender"));
@@ -341,7 +341,7 @@ namespace YAF.DotNetNuke
                 yafUserProfile.Save();
             }
             
-            YafDnnModule.YafCultureInfo userCuluture = new YafDnnModule.YafCultureInfo
+            YafCultureInfo userCuluture = new YafCultureInfo
                 {
                     LanguageFile = yafUserData.LanguageFile,
                     Culture = yafUserData.CultureUser
