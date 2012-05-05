@@ -18,8 +18,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using YAF.Utils.Helpers;
-
 namespace YAF.Controls
 {
     #region Using
@@ -36,6 +34,7 @@ namespace YAF.Controls
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -269,7 +268,8 @@ namespace YAF.Controls
                 this.PagerTop.Count = 0;
                 return;
             }
-            if ( topicList.Rows.Count <=0)
+
+            if (topicList.Rows.Count <= 0)
             {
                 this.PagerTop.Count = 0;
                 this.TopicList.DataSource = null;
