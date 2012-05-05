@@ -30,6 +30,9 @@ namespace YAF.DotNetNuke
     using System.Web;
     using System.Web.Security;
     using System.Web.UI;
+
+    using YAF.DotNetNuke.Utils;
+
     using global::DotNetNuke.Common;
     using global::DotNetNuke.Common.Utilities;
     using global::DotNetNuke.Entities.Modules;
@@ -433,72 +436,7 @@ namespace YAF.DotNetNuke
                 row["RankID"]);
         }
 
-        /// <summary>
-        /// The create yaf user.
-        /// </summary>
-        /// <param name="dnnUserInfo">
-        /// The dnn user info.
-        /// </param>
-        /// <param name="dnnUser">
-        /// The dnn user.
-        /// </param>
-        /// <returns>
-        /// Returns the User ID of the new User
-        /// </returns>
-        private int CreateYafUser(UserInfo dnnUserInfo, MembershipUser dnnUser)
-        {
-            YafContext.Current.Get<IDataCache>().Clear();
-
-            // setup roles
-            RoleMembershipHelper.SetupUserRoles(this.forum1.BoardID, dnnUser.UserName);
-
-            // create the user in the YAF DB so profile can ge created...
-            int? userId = RoleMembershipHelper.CreateForumUser(dnnUser, dnnUserInfo.DisplayName, this.forum1.BoardID);
-
-            if (userId == null)
-            {
-                return 0;
-            }
-
-            // create profile
-            YafUserProfile userProfile = YafUserProfile.GetProfile(dnnUser.UserName);
-
-            // setup their inital profile information
-            userProfile.Initialize(dnnUser.UserName, true);
-
-            userProfile.RealName = dnnUserInfo.Profile.FullName;
-            userProfile.Country = dnnUserInfo.Profile.Country;
-            userProfile.Region = dnnUserInfo.Profile.Region;
-            userProfile.City = dnnUserInfo.Profile.City;
-            userProfile.Homepage = dnnUserInfo.Profile.Website;
-
-            userProfile.Save();
-
-            int yafUserId = UserMembershipHelper.GetUserIDFromProviderUserKey(dnnUser.ProviderUserKey);
-
-            // Save User
-            LegacyDb.user_save(
-                yafUserId,
-                this.forum1.BoardID,
-                dnnUserInfo.DisplayName,
-                dnnUserInfo.DisplayName,
-                null,
-                ProfileSyncronizer.GetUserTimeZoneOffset(dnnUserInfo, this.PortalSettings),
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null);
-
-            return yafUserId;
-        }
+        
 
         /// <summary>
         /// The dot net nuke module_ load.
@@ -667,7 +605,7 @@ namespace YAF.DotNetNuke
 
             if (yafUserId == 0)
             {
-                yafUserId = this.CreateYafUser(dnnUserInfo, dnnUser);
+                yafUserId = UserImporter.CreateYafUser(dnnUserInfo, dnnUser, this.forum1.BoardID, this.portalSettings);
             }
 
             // super admin check...
@@ -822,25 +760,5 @@ namespace YAF.DotNetNuke
         }
 
         #endregion
-
-        /// <summary>
-        /// The yaf culture info.
-        /// </summary>
-        public class YafCultureInfo
-        {
-            #region Constants and Fields
-
-            /// <summary>
-            /// Gets or sets the culture.
-            /// </summary>
-            public string Culture { get; set; }
-
-            /// <summary>
-            /// Gets or sets the language file.
-            /// </summary>
-            public string LanguageFile { get; set; }
-
-            #endregion
-        }
     }
 }

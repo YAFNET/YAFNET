@@ -33,6 +33,7 @@ namespace YAF.DotNetNuke
     using global::DotNetNuke.Services.Scheduling;
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.DotNetNuke.Utils;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Utils;
@@ -130,74 +131,6 @@ namespace YAF.DotNetNuke
             // update...
             LegacyDb.user_adminsave(
               boardId, userId, row["Name"], row["DisplayName"], row["Email"], userFlags.BitValue, row["RankID"]);
-        }
-
-        /// <summary>
-        /// The create yaf user.
-        /// </summary>
-        /// <param name="dnnUserInfo">
-        /// The dnn user info.
-        /// </param>
-        /// <param name="dnnUser">
-        /// The dnn user.
-        /// </param>
-        /// <param name="boardId">
-        /// The i board id.
-        /// </param>
-        /// <returns>
-        /// Returns the User Id of the new user.
-        /// </returns>
-        private static int CreateYafUser(UserInfo dnnUserInfo, MembershipUser dnnUser, int boardId)
-        {
-            YafContext.Current.Get<IDataCache>().Clear();
-
-            // setup roles
-            RoleMembershipHelper.SetupUserRoles(boardId, dnnUser.UserName);
-
-            // create the user in the YAF DB so profile can ge created...
-            int? userId = RoleMembershipHelper.CreateForumUser(dnnUser, dnnUserInfo.DisplayName, boardId);
-
-            if (userId == null)
-            {
-                return 0;
-            }
-
-            // create profile
-            YafUserProfile userProfile = YafUserProfile.GetProfile(dnnUser.UserName);
-
-            // setup their inital profile information
-            userProfile.Initialize(dnnUser.UserName, true);
-            userProfile.RealName = dnnUserInfo.Profile.FullName;
-            userProfile.Region = dnnUserInfo.Profile.Region;
-            userProfile.Country = dnnUserInfo.Profile.Country;
-            userProfile.City = dnnUserInfo.Profile.City;
-            userProfile.Homepage = dnnUserInfo.Profile.Website;
-            userProfile.Save();
-
-            int yafUserId = UserMembershipHelper.GetUserIDFromProviderUserKey(dnnUser.ProviderUserKey);
-
-            // Save User
-            LegacyDb.user_save(
-              yafUserId,
-              boardId,
-              dnnUserInfo.DisplayName,
-              dnnUserInfo.DisplayName,
-              null,
-              ProfileSyncronizer.GetUserTimeZoneOffset(dnnUserInfo, null),
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null);
-
-            return yafUserId;
         }
 
         /// <summary>
@@ -341,7 +274,7 @@ namespace YAF.DotNetNuke
                     }
                     catch (Exception)
                     {
-                        yafUserId = CreateYafUser(dnnUserInfo, dnnUser, board);
+                        yafUserId = UserImporter.CreateYafUser(dnnUserInfo, dnnUser, board, null);
                         iNewUsers++;
                     }
 
