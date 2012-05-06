@@ -136,6 +136,15 @@ if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseO
 	)
 go
 
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}EventLogGroupAccess]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	create table [{databaseOwner}].[{objectQualifier}EventLogGroupAccess](
+		GroupID		    int NOT NULL,	
+		EventTypeID     int NOT NULL,  	
+		EventTypeName	nvarchar (128) NOT NULL,
+		DeleteAccess    bit NOT NULL constraint [DF_{objectQualifier}EventLogGroupAccess_DeleteAccess] default (0)
+	)
+go
+
 if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}BannedIP]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}BannedIP](
 		ID				int IDENTITY (1, 1) NOT NULL ,
@@ -2046,8 +2055,7 @@ GO
 
 if exists(select top 1 1 from dbo.syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}EventLog]') and name=N'UserID' and isnullable=0)
 	alter table [{databaseOwner}].[{objectQualifier}EventLog] alter column UserID int null
-GO
-	
+GO	
 
 -- Smiley Table
 if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Smiley]') and name='SortOrder')

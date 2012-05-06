@@ -18,6 +18,12 @@
       <SubForumPage_0>admin_pageaccessedit</SubForumPage_0>
       <Image>wall-small-brick</Image>
     </YafMenuItem>
+    <YafMenuItem>
+      <Title>Role Log Access</Title>
+      <ForumPage>admin_eventloggroups</ForumPage>
+      <SubForumPage_0>admin_eventloggroupaccess</SubForumPage_0>
+      <Image>wall-small-brick</Image>
+    </YafMenuItem>  
 	</YafMenuSection>
   <YafMenuSection Title="Settings" Tag="Settings" HostAdminOnly="False">
     <YafMenuItem>

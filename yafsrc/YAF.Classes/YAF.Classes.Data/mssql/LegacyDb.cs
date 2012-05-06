@@ -3616,17 +3616,106 @@ namespace YAF.Classes.Data
         /// The board id.
         /// </param>
         /// <returns>
+        /// A list of events for the pageUserID access level. 
         /// </returns>
         public static DataTable eventlog_list([NotNull] object boardID, [NotNull] object pageUserID, [NotNull] object maxRows, [NotNull] object maxDays)
         {
             using (var cmd = MsSqlDbAccess.GetCommand("eventlog_list"))
-            { 
+            {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("BoardID", boardID);
                 cmd.Parameters.AddWithValue("PageUserID", pageUserID);
                 cmd.Parameters.AddWithValue("MaxRows", maxRows);
                 cmd.Parameters.AddWithValue("MaxDays", maxDays);
                 cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
+                return MsSqlDbAccess.Current.GetData(cmd);
+            }
+        }
+
+        /// <summary>
+        /// Saves access entry for a log type for a user.
+        /// </summary>
+        /// <param name="groupID">
+        /// The group Id.
+        /// </param>
+        /// <param name="eventTypeId">
+        /// The event Type Id.
+        /// </param>
+        /// <param name="eventTypeName">
+        /// The event Type Name.
+        /// </param>
+        public static void eventloggroupaccess_save([NotNull] object groupID, [NotNull] object eventTypeId, [NotNull] object eventTypeName, [NotNull] object deleteAccess)
+        {
+            using (var cmd = MsSqlDbAccess.GetCommand("eventloggroupaccess_save"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("GroupID", groupID);
+                cmd.Parameters.AddWithValue("EventTypeID", eventTypeId);
+                cmd.Parameters.AddWithValue("EventTypeName", eventTypeName);
+                cmd.Parameters.AddWithValue("DeleteAccess", deleteAccess);
+                MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
+            }
+        }
+       
+        /// <summary>
+        /// Deletes event log access entries from table.
+        /// </summary>
+        /// <param name="groupID">
+        /// The group Id.
+        /// </param>
+        /// <param name="eventTypeId">
+        /// The event Type Id.
+        /// </param>
+        /// <param name="eventTypeName">
+        /// The event Type Name.
+        /// </param>
+        public static void eventloggroupaccess_delete([NotNull] object groupID, [NotNull] object eventTypeId, [NotNull] object eventTypeName)
+        {
+            using (var cmd = MsSqlDbAccess.GetCommand("eventloggroupaccess_delete"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("GroupID", groupID);
+                cmd.Parameters.AddWithValue("EventTypeID", eventTypeId);
+                cmd.Parameters.AddWithValue("EventTypeName", eventTypeName);
+                MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
+            }
+        }
+
+        /// <summary>
+        /// Returns a list of access entries for a group.
+        /// </summary>
+        /// <param name="groupID">
+        /// The group Id.
+        /// </param>
+        /// <param name="eventTypeId">
+        /// The event Type Id.
+        /// </param>
+        /// <returns>Returns a list of access entries for a group.</returns>
+        public static DataTable eventloggroupaccess_list([NotNull] object groupID, [NotNull] object eventTypeId)
+        {
+            using (var cmd = MsSqlDbAccess.GetCommand("eventloggroupaccess_list"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("GroupID", groupID);
+                cmd.Parameters.AddWithValue("EventTypeID", eventTypeId);
+                return MsSqlDbAccess.Current.GetData(cmd);
+            }
+        }
+
+        /// <summary>
+        /// Lists group for the board Id handy to display on the calling admin page. 
+        /// </summary>
+        /// <param name="boardId">
+        /// The board Id.
+        /// </param>
+        /// <returns>Lists group for the board Id handy to display on the calling admin page.
+        /// </returns>
+        public static DataTable group_eventlogaccesslist([CanBeNull] object boardId)
+        {
+            using (var cmd = MsSqlDbAccess.GetCommand("group_eventlogaccesslist"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@BoardID", boardId);
                 return MsSqlDbAccess.Current.GetData(cmd);
             }
         }
@@ -11505,6 +11594,27 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("EventLogID", eventLogID);
                 cmd.Parameters.AddWithValue("BoardID", boardID);
                 cmd.Parameters.AddWithValue("PageUserID", pageUserID);
+                MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
+            }
+        }
+
+        /// <summary>
+        /// Deletes events of a type.
+        /// </summary>
+        /// <param name="boardId">
+        /// The board Id.
+        /// </param>
+        /// <param name="pageUserId">
+        /// The page User Id.
+        /// </param>
+        public static void eventlog_deletebyuser([NotNull] object boardId, [NotNull] object pageUserId)
+        {
+            using (var cmd = MsSqlDbAccess.GetCommand("eventlog_deletebyuser"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("BoardID", boardId);
+                cmd.Parameters.AddWithValue("PageUserID", pageUserId);
+               
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
             }
         }

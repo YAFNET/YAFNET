@@ -420,6 +420,116 @@ namespace YAF.Classes
         }
 
         /// <summary>
+        /// Gets or sets LogError.
+        /// </summary>
+        public bool LogError
+        {
+            get
+            {
+                return this._reg.GetValue("LogError", true);
+            }
+
+            set
+            {
+                this._reg.SetValue("LogError", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets LogWarning.
+        /// </summary>
+        public bool LogWarning
+        {
+            get
+            {
+                return this._reg.GetValue("LogWarning", true);
+            }
+
+            set
+            {
+                this._reg.SetValue("LogWarning", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets LogBannedIP.
+        /// </summary>
+        public bool LogBannedIP
+        {
+            get
+            {
+                return this._reg.GetValue("LogBannedIP", false);
+            }
+
+            set
+            {
+                this._reg.SetValue("LogBannedIP", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets LogInformation.
+        /// </summary>
+        public bool LogInformation
+        {
+            get
+            {
+                return this._reg.GetValue("LogInformation", true);
+            }
+
+            set
+            {
+                this._reg.SetValue("LogInformation", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets LogBannedIP.
+        /// </summary>
+        public bool LogUserDeleted
+        {
+            get
+            {
+                return this._reg.GetValue("LogUserDeleted", false);
+            }
+
+            set
+            {
+                this._reg.SetValue("LogUserDeleted", value);
+            }
+        }
+        /// <summary>
+        /// Gets or sets LogUserSuspendedUnsuspended.
+        /// </summary>
+        public bool LogUserSuspendedUnsuspended
+        {
+            get
+            {
+                return this._reg.GetValue("LogUserSuspendedUnsuspended", false);
+            }
+
+            set
+            {
+                this._reg.SetValue("LogUserSuspendedUnsuspended", value);
+            }
+        }
+        /// <summary>
+        /// Gets or sets LogSqlError.
+        /// </summary>
+        public bool LogSqlError
+        {
+            get
+            {
+                return this._reg.GetValue("LogSqlError", false);
+            }
+
+            set
+            {
+                this._reg.SetValue("LogSqlError", value);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether FileExtensionAreAllowed.
         /// </summary>
         public bool FileExtensionAreAllowed

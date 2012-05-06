@@ -33,7 +33,8 @@
 		<ItemTemplate>
 			<tr>
 				<td class="post">
-					<%# Eval("Mask") %>
+				<asp:HiddenField ID="fID" Value='<%# Eval("ID") %>' runat="server"/>
+				<asp:Label ID="MaskBox" Text='<%# Eval("Mask") %>' runat="server"></asp:Label>	
 				</td>
 				<td class="post">
 					<%# this.Get<IDateTime>().FormatDateTime(Eval("Since")) %>

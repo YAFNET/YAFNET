@@ -18,6 +18,9 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+using System.Collections.Generic;
+using System.IO;
+
 namespace YAF.Pages.Admin
 {
     #region Using
@@ -51,8 +54,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void DeleteAll_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // delete all event log entries of this board
-            LegacyDb.eventlog_delete(this.PageContext.PageBoardID, this.PageContext.PageUserID);
+            LegacyDb.eventlog_deletebyuser(this.PageContext.PageBoardID, this.PageContext.PageUserID);
 
             // re-bind controls
             this.BindData();
@@ -72,7 +74,7 @@ namespace YAF.Pages.Admin
         /// </remarks>
         protected void DeleteAll_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            ((Button)sender).Text = this.GetText("ADMIN_EVENTLOG", "DELETE_ALL");
+            ((Button)sender).Text = this.GetText("ADMIN_EVENTLOG", "DELETE_ALLOWED");
             ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_EVENTLOG", "CONFIRM_DELETE_ALL"));
         }
 
@@ -108,23 +110,17 @@ namespace YAF.Pages.Admin
             var row = (DataRowView)dataRow;
 
             // set defaults
-            string imageType = "Error";
-
-            // find out of what type event log entry is
-            switch ((int)row["Type"])
+            string imageType = Enum.GetName(typeof (EventLogTypes), (int) row["Type"]);
+            
+            if (imageType.IsNotSet())
             {
-                case 1:
-                    imageType = "Warning";
-                    break;
-                case 2:
-                    imageType = "Information";
-                    break;
+                imageType = "Error";
             }
-
+            // var imageFile = new FileInfo(YafForumInfo.GetURLToResource("icons/{0}.png".FormatWith(imageType.ToLowerInvariant())));
             // return HTML code of event log entry image
             return
                 @"<img src=""{0}"" alt=""{1}"" title=""{1}"" />".FormatWith(
-                    YafForumInfo.GetURLToResource("icons/{0}.png".FormatWith(imageType.ToLower())), imageType);
+                    YafForumInfo.GetURLToResource("icons/{0}.png".FormatWith(imageType.ToLowerInvariant())), imageType);
         }
 
         /// <summary>
@@ -144,22 +140,14 @@ namespace YAF.Pages.Admin
             string cssClass;
 
             // find out of what type event log entry is
-            switch ((int)row["Type"])
+            string imageType = Enum.GetName(typeof(EventLogTypes), (int)row["Type"]);
+           // var imageFile = new FileInfo(YafForumInfo.GetURLToResource("icons/{0}.png".FormatWith(imageType.ToLowerInvariant())));
+                
+            if (imageType.IsNotSet())
             {
-                case 0:
-                    cssClass = "ui-state-error";
-                    break;
-                case 1:
-                    cssClass = "ui-state-warning";
-                    break;
-                case 2:
-                    cssClass = "ui-state-highlight";
-                    break;
-                default:
-                    cssClass = "ui-state-error";
-                    break;
+                imageType = "Error";
             }
-
+            cssClass = imageType.IsSet() ? "ui-state-{0}".FormatWith(imageType.ToLowerInvariant()) : "ui-state-error";
             return cssClass;
         }
 

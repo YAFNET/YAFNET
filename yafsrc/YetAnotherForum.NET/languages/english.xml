@@ -2266,6 +2266,12 @@ Spoiler Content
       <Resource tag="TITLE">Send a page to a friend</Resource>
       <Resource tag="TO">Send To (Email Address):</Resource>
    </page>
+  <page name="EVENTLOG_EVENTS">
+    <Resource tag="ERROR">Error</Resource>
+    <Resource tag="WARNING">Warning</Resource>
+    <Resource tag="INFORMATION">Information</Resource>
+    <Resource tag="SQLERROR">Sql Script Error</Resource>
+  </page>
    <page name="ICONLEGEND">
       <Resource tag="ANNOUNCEMENT">Announcement</Resource>
       <Resource tag="ANNOUNCEMENT_NEW">Announcement (New Posts)</Resource>
@@ -3448,6 +3454,8 @@ Visit {forumname} at {forumlink}
       <Resource tag="admin_mail">Mail</Resource>
       <Resource tag="admin_digest">Digest</Resource>
       <Resource tag="admin_prune">Prune Topics</Resource>
+     <Resource tag="admin_eventloggroupaccess">Event Log Access Edit</Resource>
+     <Resource tag="admin_eventloggroups">Event Log Roles</Resource>
      <Resource tag="admin_pageaccesslist">Admin Page Access</Resource>
      <Resource tag="admin_pageaccessedit">Edit Admin Page Access</Resource>
      <Resource tag="admin_pm">Private Messages</Resource>
@@ -3572,7 +3580,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="HEADER">Admin User</Resource>
     <Resource tag="EDIT">Edit</Resource>
     <Resource tag="BOARDNAME">Board Name</Resource>
-  </page>
+  </page>  
   <page name="ADMIN_PAGEACCESSEDIT">
     <Resource tag="TITLE">Admin Page View Access</Resource>
     <Resource tag="HEADER">Page Access For</Resource>
@@ -3582,6 +3590,38 @@ Visit {forumname} at {forumlink}
     <Resource tag="SAVE">Save</Resource>
     <Resource tag="GRANTALL">Grant All</Resource>
     <Resource tag="REVOKEALL">Revoke All</Resource>
+    <Resource tag="CANCEL">Cancel</Resource>
+  </page>  
+  <page name="ADMIN_EVENTLOGROUPACCESS">
+    <Resource tag="TITLE">Event Log Role Edit</Resource>
+    <Resource tag="HEADER">Event Log Access For</Resource>
+    <Resource tag="VIEWACCESS">Can View</Resource>
+    <Resource tag="DELETEACCESS">Can Delete</Resource>
+    <Resource tag="GROUPNAME">Role</Resource>
+    <Resource tag="BOARDNAME">Board Name</Resource>
+    <Resource tag="SAVE">Save</Resource>
+    <Resource tag="EVENT">Log Name</Resource>
+    <Resource tag="GRANTALL">Grant All View</Resource>
+    <Resource tag="REVOKEALL">Revoke All View</Resource>
+    <Resource tag="GRANTALLDELETE">Grant All Delete</Resource>
+    <Resource tag="REVOKEALLDELETE">Revoke All Delete</Resource>
+    <Resource tag="CANCEL">Cancel</Resource>
+    <Resource tag="LT_WARNING">Warnings</Resource>
+    <Resource tag="LT_ERROR">Errors</Resource>
+    <Resource tag="LT_INFORMATION">Information</Resource>
+    <Resource tag="LT_SQLERROR">Sql Errors</Resource>
+    <Resource tag="LT_USERSUSPENDED">Suspending users</Resource>
+    <Resource tag="LT_USERUNSUSPENDED">Unsuspending users</Resource>
+    <Resource tag="LT_USERDELETED">Deleting users</Resource>
+    <Resource tag="LT_IPBANSET">Setting IP ban</Resource>
+    <Resource tag="LT_IPBANLIFTED">Canceling IP ban</Resource>
+  </page>  
+  <page name="ADMIN_EVENTLOGGROUPS">
+    <Resource tag="TITLE">Event Log Roles</Resource>
+    <Resource tag="HEADER">Event Log Roles</Resource>
+    <Resource tag="CANACCESS">Allowed</Resource>
+    <Resource tag="GROUPNAME">Role</Resource>
+    <Resource tag="SAVE">Save</Resource>
     <Resource tag="CANCEL">Cancel</Resource>
   </page>
     <page name="ADMIN_RUNSQL">
@@ -3790,7 +3830,8 @@ Visit {forumname} at {forumlink}
     </page>
     <page name="ADMIN_EVENTLOG">
       <Resource tag="TITLE">Event Log</Resource>
-       <Resource tag="DELETE_ALL">Delete All</Resource>
+      <Resource tag="DELETE_ALL">Delete All</Resource>
+      <Resource tag="DELETE_ALLOWED">Clean Up</Resource>
       <Resource tag="SHOW">Show</Resource>
       <Resource tag="HIDE">Hide</Resource>
       <Resource tag="CONFIRM_DELETE_ALL">Delete all event log entries?</Resource>
@@ -4442,6 +4483,7 @@ Visit {forumname} at {forumlink}
 	   <Resource tag="HOST_AVATARS">Avatars</Resource>
 	   <Resource tag="HOST_CACHE">Cache</Resource>
 	   <Resource tag="HOST_SEARCH">Search</Resource>
+     <Resource tag="HOST_LOG">Logs</Resource>
      <Resource tag="HEADER_GEOLOCATION">Geolocation Settings</Resource>
 	   <Resource tag="HEADER_SETUP">Host Setup</Resource>
 	   <Resource tag="HEADER_FEATURES">Feature Settings</Resource>
@@ -4460,11 +4502,13 @@ Visit {forumname} at {forumlink}
 	   <Resource tag="HEADER_PMS">Private Messages</Resource>
 	   <Resource tag="HEADER_ALBUM">Album Settings</Resource>
 	   <Resource tag="HEADER_SYNDICATION">Syndication Feed Settings</Resource>
+     
 	   <Resource tag="HEADER_IRKOO">Irkoo Reputation Service</Resource>
      <Resource tag="HEADER_REPUTATION">Reputation Settings</Resource>
 	   <Resource tag="HEADER_CAPTCHA">CAPTCHA Settings</Resource>
 	   <Resource tag="HEADER_LOG">Log settings</Resource>
-	   <Resource tag="FORBIDDEN">Forbidden</Resource>
+     <Resource tag="HEADER_LOGSCOPE">Log scope</Resource>     
+     <Resource tag="FORBIDDEN">Forbidden</Resource>
 	   <Resource tag="REG_USERS">Registered Users</Resource>
 	   <Resource tag="ALL_USERS">All Users</Resource>
 	   <Resource tag="SERVER_VERSION">SQL Server Version:</Resource>
@@ -4581,7 +4625,25 @@ Visit {forumname} at {forumlink}
        <Resource tag="AVATAR_HEIGHT_HELP">Maximum height for avatars.</Resource>
 	   <Resource tag="AVATAR_SIZE">Avatar Size:</Resource>
        <Resource tag="AVATAR_SIZE_HELP">Maximum size for avatars in bytes.</Resource>
-	   <Resource tag="USERBOX_TEMPLATE">User box template:</Resource>
+     <Resource tag="LOG_ERROR">Allow log Application Errors:</Resource>
+       <Resource tag="LOG_ERROR_HELP">Application errors will be logged.</Resource>
+     <Resource tag="LOG_WARNING">Allow log Application Warnings:</Resource>
+       <Resource tag="LOG_WARNING_HELP">Application warnings will be logged.</Resource>
+     <Resource tag="LOG_INFORMATION">Allow log Application Info:</Resource>
+       <Resource tag="LOG_INFORMATION_HELP">Application info messages will be logged.</Resource>
+     <Resource tag="LOG_SQLERROR">Allow log Sql Errors:</Resource>
+       <Resource tag="LOG_SQLERROR_HELP">Sql errors will be logged.</Resource>
+     <Resource tag="LOG_USERSUSPENDED">Allow log user suspended and unsuspended:</Resource>
+       <Resource tag="LOG_USERSUSPENDED_HELP">Suspended and unsuspended events will be logged.</Resource>
+     <Resource tag="LOG_USERDELETED">Allow log user deleting event:</Resource>
+       <Resource tag="LOG_USERDELETED_HELP">User deleting event will be logged.</Resource>
+     <Resource tag="LOG_BANNEDIP">Allow log Banned IP actions:</Resource>
+       <Resource tag="LOG_BANNEDIP_HELP">Log banned IP set and lift.</Resource>
+     <Resource tag="LOG_USERDELETED">Allow log when a user is deleted:</Resource>
+       <Resource tag="LOG_USERDELETED_HELP">Log deleted users actions.</Resource>
+     <Resource tag="LOG_SUSPENDEDANDCONTRA">Allow log when users suspended or unsuspended:</Resource>
+       <Resource tag="LOG_SUSPENDEDANDCONTRA_HELP">Log when users are suspended or unsuspended.</Resource>
+     <Resource tag="USERBOX_TEMPLATE">User box template:</Resource>
        <Resource tag="USERBOX_TEMPLATE_HELP">Template for rendering user box by user's posts.</Resource>	   	   
 	   <Resource tag="AVATAR_TEMPLATE">Avatar template:</Resource>
        <Resource tag="AVATAR_TEMPLATE_HELP">Template for rendering avatar.</Resource>	   

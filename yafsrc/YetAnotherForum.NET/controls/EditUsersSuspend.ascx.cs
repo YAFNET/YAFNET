@@ -16,6 +16,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
+using System.Linq;
+using YAF.Classes;
+using YAF.Types.Constants;
+using YAF.Types.Objects;
+
 namespace YAF.Controls
 {
     #region Using
@@ -152,7 +158,13 @@ namespace YAF.Controls
         {
             // un-suspend user
             LegacyDb.user_suspend(this.CurrentUserID, null);
-
+            var usr =
+                LegacyDb.UserList(this.PageContext.PageBoardID,  (int?) this.CurrentUserID, null, null, null, false).ToList();
+            if (usr.Any())
+            {
+                this.Get<ILogger>().UserUnsuspended(this.PageContext.PageUserID, "YAF.Controls.EditUsersSuspend", "User {0} was unsuspended by {1}.".FormatWith(this.Get<YafBoardSettings>().EnableDisplayName ? usr.First().DisplayName : usr.First().Name, this.Get<YafBoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName), EventLogTypes.UserUnsuspended);
+            }
+           
             this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.CurrentUserID.ToType<int>()));
 
             // re-bind data
@@ -236,7 +248,14 @@ namespace YAF.Controls
 
             // suspend user by calling appropriate method
             LegacyDb.user_suspend(this.CurrentUserID, suspend);
+            var usr =
+               LegacyDb.UserList(this.PageContext.PageBoardID, this.CurrentUserID.ToType<int?>(), null, null, null, false).ToList();
 
+            if (usr.Any())
+            {
+                this.Get<ILogger>().UserSuspended(this.PageContext.PageUserID, "YAF.Controls.EditUsersSuspend", "User {0} was suspended by {1} until: {2} (UTC)".FormatWith(this.Get<YafBoardSettings>().EnableDisplayName ? usr.First().DisplayName : usr.First().Name, this.Get<YafBoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName, suspend), EventLogTypes.UserSuspended);
+            }
+            
             this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.CurrentUserID.ToType<int>()));
 
             // re-bind data

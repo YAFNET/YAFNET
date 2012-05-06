@@ -17,6 +17,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
+using YAF.Classes;
+
 namespace YAF.Pages.Admin
 {
   #region Using
@@ -155,10 +158,11 @@ namespace YAF.Pages.Admin
         this.mask.Text.Trim(), 
         this.BanReason.Text.Trim(), 
         this.PageContext.PageUserID);
-
+        this.Get<ILogger>().IpBanSet(this.PageContext.PageUserID, "YAF.Pages.Admin.bannedip_edit", "IP or mask {0} was saved by {1}.".FormatWith(this.mask.Text.Trim(), this.Get<YafBoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName));
+    
       // clear cache of banned IPs for this board
       this.Get<IDataCache>().Remove(Constants.Cache.BannedIP);
-
+      
       // go back to banned IP's administration page
       YafBuildLink.Redirect(ForumPages.admin_bannedip);
     }

@@ -21,6 +21,18 @@ IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{database
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}adminpageaccess_list]
 GO
 
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}eventloggroupaccess_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}eventloggroupaccess_save]
+GO
+
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}eventloggroupaccess_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}eventloggroupaccess_delete]
+GO
+
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}eventloggroupaccess_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}eventloggroupaccess_list]
+GO
+
 IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_savestyle]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_savestyle]
 GO
@@ -265,6 +277,10 @@ IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{database
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}eventlog_delete]
 GO
 
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}eventlog_deletebyuser]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}eventlog_deletebyuser]
+GO
+
 IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}eventlog_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}eventlog_list]
 GO
@@ -367,6 +383,10 @@ GO
 
 IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}group_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}group_delete]
+GO
+
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}group_eventlogaccesslist]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}group_eventlogaccesslist]
 GO
 
 IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}group_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
@@ -2449,6 +2469,35 @@ begin
 end
 GO
 
+create procedure [{databaseOwner}].[{objectQualifier}eventlog_deletebyuser]
+(	
+	@BoardID int = null,
+	@PageUserID int 
+) as
+begin
+if (exists (select top 1 1 from [{databaseOwner}].[{objectQualifier}User] where ((Flags & 1) = 1 and UserID = @PageUserID)))
+begin
+delete from [{databaseOwner}].[{objectQualifier}EventLog] where
+			(UserID is null or
+			UserID in (select UserID from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID))
+end
+else
+begin
+declare @tmp_evlogdelacc table (EventLogTID int);
+
+		-- either EventLogID or BoardID must be null, not both at the same time
+	insert into	@tmp_evlogdelacc(EventLogTID)
+	select a.EventLogID from [{databaseOwner}].[{objectQualifier}EventLog] a
+		left join [{databaseOwner}].[{objectQualifier}EventLogGroupAccess] e on e.EventTypeID = a.[Type] 
+		join [{databaseOwner}].[{objectQualifier}UserGroup] ug on (ug.UserID =  @PageUserID and ug.GroupID = e.GroupID)
+		left join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=a.UserID
+	    where e.DeleteAccess = 1
+		delete from [{databaseOwner}].[{objectQualifier}EventLog]
+		where EventLogID in (select EventLogTID from @tmp_evlogdelacc)
+	end	
+end
+GO
+
 create procedure [{databaseOwner}].[{objectQualifier}eventlog_list](@BoardID int, @PageUserID int, @MaxRows int, @MaxDays int, @UTCTIMESTAMP datetime) as
 begin
 -- delete entries older than 10 days
@@ -2459,15 +2508,29 @@ begin
 	begin		
 		delete from [{databaseOwner}].[{objectQualifier}EventLog] WHERE EventLogID IN (SELECT TOP 100 EventLogID FROM [{databaseOwner}].[{objectQualifier}EventLog] ORDER BY EventTime)
 	end	
-
+	if (exists (select top 1 1 from [{databaseOwner}].[{objectQualifier}User] where ((Flags & 1) = 1 and UserID = @PageUserID)))
 		select
-		a.*,
+		a.*,		
+		ISNULL(b.[Name],'System') as [Name]
+	from
+		[{databaseOwner}].[{objectQualifier}EventLog] a		
+		left join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=a.UserID
+	where	   
+		(b.UserID IS NULL or b.BoardID = @BoardID)	
+	order by
+		a.EventLogID desc
+		else
+		select
+		a.*,		
 		ISNULL(b.[Name],'System') as [Name]
 	from
 		[{databaseOwner}].[{objectQualifier}EventLog] a
+		left join [{databaseOwner}].[{objectQualifier}EventLogGroupAccess] e on e.EventTypeID = a.[Type]
+		join [{databaseOwner}].[{objectQualifier}UserGroup] ug on (ug.UserID =  @PageUserID and ug.GroupID = e.GroupID)
 		left join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=a.UserID
 	where
-		(b.UserID IS NULL or b.BoardID = @BoardID)		
+	    -- host admin user 1 flag should be excluded from the check in EventLogGroupAccess
+		(b.UserID IS NULL or b.BoardID = @BoardID)	
 	order by
 		a.EventLogID desc
 end
@@ -3157,6 +3220,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}group_delete](@GroupID int) as
 begin
+    delete from [{databaseOwner}].[{objectQualifier}EventLogGroupAccess] where GroupID = @GroupID
 	delete from [{databaseOwner}].[{objectQualifier}ForumAccess] where GroupID = @GroupID
 	delete from [{databaseOwner}].[{objectQualifier}UserGroup] where GroupID = @GroupID
 	delete from [{databaseOwner}].[{objectQualifier}Group] where GroupID = @GroupID
@@ -3169,6 +3233,17 @@ begin
 		select * from [{databaseOwner}].[{objectQualifier}Group] where BoardID=@BoardID order by SortOrder 
 	else
 		select * from [{databaseOwner}].[{objectQualifier}Group] where BoardID=@BoardID and GroupID=@GroupID
+end
+GO
+
+create procedure [{databaseOwner}].[{objectQualifier}group_eventlogaccesslist](@BoardID int = null) as
+begin
+		if @BoardID is null
+		select g.*,b.Name as BoardName from [{databaseOwner}].[{objectQualifier}Group] g
+		join [{databaseOwner}].[{objectQualifier}Board] b on b.BoardID = g.BoardID order by g.SortOrder 
+	else
+		select g.*,b.Name as BoardName from [{databaseOwner}].[{objectQualifier}Group] g
+		join [{databaseOwner}].[{objectQualifier}Board] b on b.BoardID = g.BoardID where g.BoardID=@BoardID  order by g.SortOrder
 end
 GO
 
@@ -11272,6 +11347,48 @@ begin
 		JOIN [{databaseOwner}].[{objectQualifier}Board] b ON b.BoardID = u.BoardID 
 		where (u.Flags & 1) <> 1
 		order by  b.BoardID,u.Name,ap.PageName;
+end
+GO
+
+CREATE procedure [{databaseOwner}].[{objectQualifier}eventloggroupaccess_save] (@GroupID int, @EventTypeID int, @EventTypeName nvarchar(128), @DeleteAccess bit = 0) as
+begin
+	if not exists (select top 1 1 from [{databaseOwner}].[{objectQualifier}EventLogGroupAccess] where GroupID = @GroupID and EventTypeName = @EventTypeName) 
+		begin
+		insert into [{databaseOwner}].[{objectQualifier}EventLogGroupAccess]  (GroupID,EventTypeID,EventTypeName,DeleteAccess) 
+		values(@GroupID,@EventTypeID,@EventTypeName,@DeleteAccess)
+	end	
+	else
+	begin
+		update [{databaseOwner}].[{objectQualifier}EventLogGroupAccess]  set DeleteAccess = @DeleteAccess
+		where GroupID = @GroupID and EventTypeID = @EventTypeID
+	end
+end
+GO
+
+
+CREATE procedure [{databaseOwner}].[{objectQualifier}eventloggroupaccess_delete] (@GroupID int, @EventTypeID int, @EventTypeName nvarchar(128)) as
+begin
+	if @EventTypeName is not null 
+	begin
+		delete from [{databaseOwner}].[{objectQualifier}EventLogGroupAccess]  where GroupID = @GroupID and EventTypeID = @EventTypeID
+	end	
+	else
+	begin
+	-- delete all access rights
+	    delete from [{databaseOwner}].[{objectQualifier}EventLogGroupAccess]  where GroupID = @GroupID 
+	end
+end
+GO
+
+CREATE procedure [{databaseOwner}].[{objectQualifier}eventloggroupaccess_list] (@GroupID int, @EventTypeID int = null) as
+begin 
+-- TODO - exclude host admins from list   
+if @EventTypeID is null   
+		select e.*, g.Name as GroupName from [{databaseOwner}].[{objectQualifier}EventLogGroupAccess] e 
+		join [{databaseOwner}].[{objectQualifier}Group] g on g.GroupID = e.GroupID where  e.GroupID = @GroupID
+		else
+		select e.*, g.Name as GroupName from [{databaseOwner}].[{objectQualifier}EventLogGroupAccess] e 
+		join [{databaseOwner}].[{objectQualifier}Group] g on g.GroupID = e.GroupID where  e.GroupID = @GroupID and e.EventTypeID = @EventTypeID
 end
 GO
 

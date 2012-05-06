@@ -18,6 +18,10 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+using System.Collections.Generic;
+using YAF.Classes;
+using YAF.Utils.Helpers;
+
 namespace YAF.Pages.Admin
 {
   #region Using
@@ -106,15 +110,36 @@ namespace YAF.Pages.Admin
                 YafBuildLink.Redirect(ForumPages.admin_bannedip_edit, "i={0}", e.CommandArgument);
                 break;
             case "delete":
+                string ip = GetIPFromID(e.CommandArgument);
                 LegacyDb.bannedip_delete(e.CommandArgument);
                 this.Get<IDataCache>().Remove(Constants.Cache.BannedIP);
                 this.BindData();
                 this.PageContext.AddLoadMessage(this.GetText("ADMIN_BANNEDIP", "MSG_REMOVEBAN"));
+                this.Get<ILogger>().IpBanLifted(this.PageContext.PageUserID, " YAF.Pages.Admin.bannedip", "IP or mask {0} was deleted by {1}.".FormatWith(ip, this.Get<YafBoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName));
                 break;
         }
     }
-
       /// <summary>
+      ///  Helper to get mask from ID.
+      ///  </summary>
+      ///  <param name="ID"></param>
+      ///  <returns></returns>
+      private string GetIPFromID(object ID)
+      {
+          foreach (RepeaterItem ri in this.list.Items)
+          {
+              var chid = ((Label)ri.FindControl("MaskBox")).Text;
+              var fid = ((HiddenField)ri.FindControl("fID")).Value;
+              if (ID.ToString() == fid)
+              {
+                  return chid;
+                  break;
+              }
+          }
+          return null;
+      }
+
+    /// <summary>
     /// The bind data.
     /// </summary>
     private void BindData()

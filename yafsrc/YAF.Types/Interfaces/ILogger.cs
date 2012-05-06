@@ -170,6 +170,20 @@ namespace YAF.Types.Interfaces
     /// </param>
     void Info([NotNull] Exception exception, [NotNull] string format, [NotNull] params object[] args);
 
+   /// <summary>
+   /// The info.
+   /// </summary>
+   /// <param name="userId">
+   /// The userId.
+   /// </param>
+   /// <param name="format">
+   /// The format.
+   /// </param>
+   /// <param name="args">
+   /// The args.
+   /// </param>
+    void Info(int userId, string format, params object[] args);
+
     /// <summary>
     /// The trace.
     /// </summary>
@@ -220,6 +234,91 @@ namespace YAF.Types.Interfaces
     /// </param>
     void Warn([NotNull] Exception exception, [NotNull] string format, [NotNull] params object[] args);
 
-    #endregion
+    /// <summary>
+    /// The UserUnsuspended.
+    /// </summary>
+    /// <param name="userId">
+    /// The user Id.
+    /// </param>
+    /// <param name="source">
+    /// The source.
+    /// </param>
+    /// <param name="format">
+    /// The format.
+    /// </param>
+    /// <param name="args">
+    /// The args.
+    /// </param>
+    void UserUnsuspended(int userId, string source, string format, params object[] args);
+
+    /// <summary>
+    /// The User Suspended.
+    /// </summary>
+    /// <param name="userId">
+    /// The user Id.
+    /// </param>
+    /// <param name="source">
+    /// The source.
+    /// </param>
+    /// <param name="format">
+    /// The format.
+    /// </param>
+    /// <param name="args">
+    /// The args.
+    /// </param>
+    void UserSuspended(int userId, string source, string format, params object[] args);
+
+      /// <summary>
+      /// The User Deleted.
+      /// </summary>
+      /// <param name="userId">
+      /// The user Id.
+      /// </param>
+      /// <param name="source">
+      /// The source.
+      /// </param>
+      /// <param name="format">
+      /// The format.
+      /// </param>
+      /// <param name="args">
+      /// The args.
+      /// </param>
+      void UserDeleted(int userId, string source, string format, params object[] args);
+
+      /// <summary>
+      /// The Ip Ban Set.
+      /// </summary>
+      /// <param name="userId">
+      /// The user Id.
+      /// </param>
+      /// <param name="source">
+      /// The source.
+      /// </param>
+      /// <param name="format">
+      /// The format.
+      /// </param>
+      /// <param name="args">
+      /// The args.
+      /// </param>
+      void IpBanSet(int userId, string source, string format, params object[] args);
+
+      /// <summary>
+      /// The Ip Ban Lifted.
+      /// </summary>
+      /// <param name="userId">
+      /// The user Id.
+      /// </param>
+      /// <param name="source">
+      /// The source.
+      /// </param>
+      /// <param name="format">
+      /// The format.
+      /// </param>
+      /// <param name="args">
+      /// The args.
+      /// </param>
+      void IpBanLifted(int userId, string source, string format, params object[] args);
+
+      #endregion
   }
 }

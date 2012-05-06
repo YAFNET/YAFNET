@@ -79,7 +79,7 @@ namespace YAF.Core
     {
       get
       {
-        return true;
+        return  YafContext.Current.BoardSettings.LogError;
       }
     }
 
@@ -101,8 +101,41 @@ namespace YAF.Core
     {
       get
       {
-        return true;
+          return YafContext.Current.BoardSettings.LogInformation;
       }
+    }
+
+    /// <summary>
+    ///   Gets a value indicating whether IsUserSuspendedeEnabled.
+    /// </summary>
+    public bool IsUserSuspendedEnabled
+    {
+        get
+        {
+            return YafContext.Current.BoardSettings.LogUserSuspendedUnsuspended;
+        }
+    }
+
+    /// <summary>
+    ///   Gets a value indicating whether IsUserDeletedEnabled.
+    /// </summary>
+    public bool IsUserDeletedEnabled
+    {
+        get
+        {
+            return YafContext.Current.BoardSettings.LogUserDeleted;
+        }
+    }
+
+    /// <summary>
+    ///   Gets a value indicating whether IsLogBannedIP.
+    /// </summary>
+    public bool IsLogBannedIP
+    {
+        get
+        {
+            return YafContext.Current.BoardSettings.LogBannedIP;
+        }
     }
 
     /// <summary>
@@ -123,7 +156,7 @@ namespace YAF.Core
     {
       get
       {
-        return true;
+          return YafContext.Current.BoardSettings.LogWarning;
       }
     }
 
@@ -152,6 +185,31 @@ namespace YAF.Core
 
       // TODO: come up with userid if the database is available.
       LegacyDb.eventlog_create(null, typeName, message, logTypes);
+    }
+
+      /// <summary>
+      /// The log.
+      /// </summary>
+      /// <param name="userId">
+      /// The userId.
+      ///  </param>
+      /// <param name="message">
+      /// The message.
+      /// </param>
+      /// <param name="logTypes">
+      /// The log types.
+      /// </param>
+      private void Log(int userId, [NotNull] string message, EventLogTypes logTypes)
+    {
+        string typeName = "Unknown";
+
+        if (this.Type != null)
+        {
+            typeName = this.Type.FullName;
+        }
+
+        // TODO: come up with userid if the database is available.
+        LegacyDb.eventlog_create(userId, typeName, message, logTypes);
     }
 
     /// <summary>
@@ -283,6 +341,26 @@ namespace YAF.Core
       }
     }
 
+      /// <summary>
+      /// The info.
+      /// </summary>
+      /// <param name="userId">
+      /// The userId.
+      ///  </param>
+      /// <param name="format">
+      /// The format.
+      /// </param>
+      /// <param name="args">
+      /// The args.
+      /// </param>
+      public void Info(int userId, string format, params object[] args)
+    {
+        if (this.IsInfoEnabled)
+        {
+            this.Log(userId,String.Format(format, args), EventLogTypes.Information);
+        }
+    }
+
     /// <summary>
     /// The info.
     /// </summary>
@@ -301,6 +379,121 @@ namespace YAF.Core
       {
         this.Log(String.Format(format, args) + "\r\n" + exception, EventLogTypes.Information);
       }
+    }
+
+    /// <summary>
+    /// The UserUnsuspended.
+    /// </summary>
+    /// <param name="userId">
+    /// The user Id.
+    /// </param>
+    /// <param name="source">
+    /// The source.
+    /// </param>
+    /// <param name="format">
+    /// The format.
+    /// </param>
+    /// <param name="args">
+    /// The args.
+    /// </param> 
+    public void UserUnsuspended(int userId, string source,  string format, params object[] args)
+    {
+      if (this.IsUserSuspendedEnabled)
+      {
+          LegacyDb.eventlog_create(userId, source, String.Format(format, args), EventLogTypes.UserUnsuspended);
+      }
+    }
+
+    /// <summary>
+    /// The User Suspended.
+    /// </summary>
+    /// <param name="userId">
+    /// The user Id.
+    /// </param>
+    /// <param name="source">
+    /// The source.
+    /// </param>
+    /// <param name="format">
+    /// The format.
+    /// </param>
+    /// <param name="args">
+    /// The args.
+    /// </param> 
+    public void UserSuspended(int userId, string source, string format, params object[] args)
+    {
+        if (this.IsUserSuspendedEnabled)
+        {
+            LegacyDb.eventlog_create(userId, source, String.Format(format, args), EventLogTypes.UserSuspended);
+        }
+    }
+
+    /// <summary>
+    /// The User Deleted.
+    /// </summary>
+    /// <param name="userId">
+    /// The user Id.
+    /// </param>
+    /// <param name="source">
+    /// The source.
+    /// </param>
+    /// <param name="format">
+    /// The format.
+    /// </param>
+    /// <param name="args">
+    /// The args.
+    /// </param>
+    public void UserDeleted(int userId, string source, string format, params object[] args)
+    {
+        if (this.IsUserDeletedEnabled)
+        {
+            LegacyDb.eventlog_create(userId, source, String.Format(format, args), EventLogTypes.UserDeleted);
+        }
+    }
+
+    /// <summary>
+    /// The Ip Ban Set.
+    /// </summary>
+    /// <param name="userId">
+    /// The user Id.
+    /// </param>
+    /// <param name="source">
+    /// The source.
+    /// </param>
+    /// <param name="format">
+    /// The format.
+    /// </param>
+    /// <param name="args">
+    /// The args.
+    /// </param>
+    public void IpBanSet(int userId, string source, string format, params object[] args)
+    {
+        if (this.IsLogBannedIP)
+        {
+            LegacyDb.eventlog_create(userId, source, String.Format(format, args), EventLogTypes.IpBanSet);
+        }
+    }
+
+    /// <summary>
+    /// The Ip Ban Lifted.
+    /// </summary>
+    /// <param name="userId">
+    /// The user Id.
+    /// </param>
+    /// <param name="source">
+    /// The source.
+    /// </param>
+    /// <param name="format">
+    /// The format.
+    /// </param>
+    /// <param name="args">
+    /// The args.
+    /// </param>
+    public void IpBanLifted(int userId, string source, string format, params object[] args)
+    {
+        if (this.IsLogBannedIP)
+        {
+            LegacyDb.eventlog_create(userId, source, String.Format(format, args), EventLogTypes.IpBanLifted);
+        }
     }
 
     /// <summary>

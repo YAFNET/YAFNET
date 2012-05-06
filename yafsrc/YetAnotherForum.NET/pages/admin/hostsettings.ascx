@@ -15,6 +15,7 @@
         <li><a href="#View8"><YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="HOST_AVATARS" LocalizedPage="ADMIN_HOSTSETTINGS" /></a></li>
         <li><a href="#View9"><YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="HOST_CACHE" LocalizedPage="ADMIN_HOSTSETTINGS" /></a></li>
         <li><a href="#View10"><YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="HOST_SEARCH" LocalizedPage="ADMIN_HOSTSETTINGS" /></a></li>
+        <li><a href="#View11"><YAF:LocalizedLabel ID="LocalizedLabel34" runat="server" LocalizedTag="HOST_LOG" LocalizedPage="ADMIN_HOSTSETTINGS" /></a></li>
 	</ul>
     <div id="View1">
 		<table class="content" cellspacing="2" width="100%" cellpadding="2" align="center">
@@ -117,7 +118,7 @@
                         <td class="postheader">
                             <YAF:HelpLabel ID="HelpLabel12" runat="server" LocalizedTag="MAX_POST_CHARS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
-                        <td class="post">
+                        <td class="post"> 
                             <asp:TextBox Style="width:350px" ID="MaxReportPostChars" runat="server" />
                         </td>
                     </tr>
@@ -938,51 +939,6 @@
                         <td class="post">
                             <asp:DropDownList Style="width:350px" ID="CaptchaTypeRegister" runat="server">
                             </asp:DropDownList>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="header1" colspan="2">
-                            <YAF:LocalizedLabel ID="LocalizedLabel29" runat="server" LocalizedTag="HEADER_LOG" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </td>
-                    </tr>
-                     <tr>
-                        <td class="postheader">
-                            <YAF:HelpLabel ID="HelpLabel140" runat="server" LocalizedTag="EVENTLOG_MAX_MESSAGES" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </td>
-                        <td class="post">
-                            <asp:TextBox Style="width:350px" ID="EventLogMaxMessages" runat="server"></asp:TextBox>
-                        </td>
-                    </tr>
-                     <tr>
-                        <td class="postheader">
-                            <YAF:HelpLabel ID="HelpLabel141" runat="server" LocalizedTag="EVENTLOG_MAX_DAYS" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </td>
-                        <td class="post">
-                            <asp:TextBox Style="width:350px" ID="EventLogMaxDays" runat="server"></asp:TextBox>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="postheader">
-                            <YAF:HelpLabel ID="HelpLabel149" runat="server" LocalizedTag="MESSAGE_CHANGE_HISTORY" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </td>
-                        <td class="post">
-                            <asp:TextBox Style="width:350px" ID="MessageHistoryDaysToLog" runat="server"></asp:TextBox>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="postheader">
-                            <YAF:HelpLabel ID="HelpLabel150" runat="server" LocalizedTag="ENABLE_LOCATIONPATH_ERRORS" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </td>
-                        <td class="post">
-                            <asp:CheckBox ID="EnableActiveLocationErrorsLog" runat="server"></asp:CheckBox>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="postheader">
-                            <YAF:HelpLabel ID="HelpLabel151" runat="server" LocalizedTag="UNHANDLED_USERAGENT_LOG" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </td>
-                        <td class="post">
-                            <asp:CheckBox ID="UserAgentBadLog" runat="server"></asp:CheckBox>
                         </td>
                     </tr>
                 </table>
@@ -1874,6 +1830,116 @@
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="ShowQuickSearch" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>
+                </table>
+        </div>
+        <div id="View11">
+                <table class="content" width="100%" cellspacing="2" cellpadding="2" align="center">
+                    <tr>
+                        <td class="header1" colspan="2">
+                            <YAF:LocalizedLabel ID="LocalizedLabel29" runat="server" LocalizedTag="HEADER_LOG" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                    </tr>
+                     <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel140" runat="server" LocalizedTag="EVENTLOG_MAX_MESSAGES" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:TextBox Style="width:350px" ID="EventLogMaxMessages" runat="server"></asp:TextBox>
+                        </td>
+                    </tr>
+                     <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel141" runat="server" LocalizedTag="EVENTLOG_MAX_DAYS" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:TextBox Style="width:350px" ID="EventLogMaxDays" runat="server"></asp:TextBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel149" runat="server" LocalizedTag="MESSAGE_CHANGE_HISTORY" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:TextBox Style="width:350px" ID="MessageHistoryDaysToLog" runat="server"></asp:TextBox>
+                        </td>
+                    </tr>
+                     <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel150" runat="server" LocalizedTag="ENABLE_LOCATIONPATH_ERRORS" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="EnableActiveLocationErrorsLog" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel151" runat="server" LocalizedTag="UNHANDLED_USERAGENT_LOG" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="UserAgentBadLog" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>
+                     <tr>
+                        <td class="header1" colspan="2">
+                            <YAF:LocalizedLabel ID="LocalizedLabel27" runat="server" LocalizedTag="HEADER_LOGSCOPE" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="LogErrorLabel" runat="server" LocalizedTag="LOG_ERROR" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="LogError" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>
+                      <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel142" runat="server" LocalizedTag="LOG_WARNING" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="LogWarning" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>
+                      <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel180" runat="server" LocalizedTag="LOG_INFORMATION" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="LogInformation" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>
+                      <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel210" runat="server" LocalizedTag="LOG_SQLERROR" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="LogSqlError" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>
+                      <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel211" runat="server" LocalizedTag="LOG_BANNEDIP" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="LogBannedIP" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>
+                     <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel212" runat="server" LocalizedTag="LOG_USERDELETED" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="LogUserDeleted" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>
+                     <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel213" runat="server" LocalizedTag="LOG_SUSPENDEDANDCONTRA" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="LogUserSuspendedUnsuspended" runat="server"></asp:CheckBox>
                         </td>
                     </tr>
                 </table>

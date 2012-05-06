@@ -715,12 +715,48 @@
     <Resource tag="CONFIRM_DELETE">Diesen Eintrag im Ereignisprotokoll löschen?</Resource>
     <Resource tag="CONFIRM_DELETE_ALL">Alle Einträge löschen?</Resource>
     <Resource tag="DELETE_ALL">Alle löschen</Resource>
+    <Resource tag="DELETE_ALLOWED">Clean Up</Resource>
     <Resource tag="HIDE">Verstecken</Resource>
     <Resource tag="SHOW">Zeigen</Resource>
     <Resource tag="SOURCE">Quelle</Resource>
     <Resource tag="TIME">Zeit</Resource>
     <Resource tag="TITLE">Ergeignis-Protokoll</Resource>
     <Resource tag="TYPE">Typ</Resource>
+  </page>
+  <page name="ADMIN_EVENTLOGGROUPS">
+    <Resource tag="CANACCESS">Allowed</Resource>
+    <Resource tag="CANCEL">Cancel</Resource>
+    <Resource tag="GRANTALL">Grant All</Resource>
+    <Resource tag="GROUPNAME">Role</Resource>
+    <Resource tag="HEADER">Event Log Roles</Resource>
+    <Resource tag="PAGE">Real Page</Resource>
+    <Resource tag="REVOKEALL">Revoke All</Resource>
+    <Resource tag="SAVE">Save</Resource>
+    <Resource tag="TITLE">Event Log Roles</Resource>
+  </page>
+  <page name="ADMIN_EVENTLOGROUPACCESS">
+    <Resource tag="BOARDNAME">Board Name</Resource>
+    <Resource tag="CANCEL">Cancel</Resource>
+    <Resource tag="DELETEACCESS">Can Delete</Resource>
+    <Resource tag="EVENT">Log Name</Resource>
+    <Resource tag="GRANTALL">Grant All View</Resource>
+    <Resource tag="GRANTALLDELETE">Grant All Delete</Resource>
+    <Resource tag="GROUPNAME">Role</Resource>
+    <Resource tag="HEADER">Event Log Access For</Resource>
+    <Resource tag="LT_ERROR">Errors</Resource>
+    <Resource tag="LT_INFORMATION">Information</Resource>
+    <Resource tag="LT_IPBANLIFTED">Canceling IP ban</Resource>
+    <Resource tag="LT_IPBANSET">Setting IP ban</Resource>
+    <Resource tag="LT_SQLERROR">Sql Errors</Resource>
+    <Resource tag="LT_USERDELETED">Deleting users</Resource>
+    <Resource tag="LT_USERSUSPENDED">Suspending users</Resource>
+    <Resource tag="LT_USERUNSUSPENDED">Unsuspending users</Resource>
+    <Resource tag="LT_WARNING">Warnings</Resource>
+    <Resource tag="REVOKEALL">Revoke All View</Resource>
+    <Resource tag="REVOKEALLDELETE">Revoke All Delete</Resource>
+    <Resource tag="SAVE">Save</Resource>
+    <Resource tag="TITLE">Event Log Role Edit</Resource>
+    <Resource tag="VIEWACCESS">Can View</Resource>
   </page>
   <page name="ADMIN_EXTENSIONS">
     <Resource tag="ADD">Hinzufügen</Resource>
@@ -955,6 +991,7 @@
     <Resource tag="HEADER_IRKOO">Irkoo-Reputation Service</Resource>
     <Resource tag="HEADER_LOG">Log-Einstellungen</Resource>
     <Resource tag="HEADER_LOGIN">Login / Registrierungseinstellungen</Resource>
+    <Resource tag="HEADER_LOGSCOPE">Log scope</Resource>
     <Resource tag="HEADER_PERMISSION">Berechtigungseinstellungen</Resource>
     <Resource tag="HEADER_PMS">Private Nachrichten</Resource>
     <Resource tag="HEADER_POLL">Abstimmungseinstellungen</Resource>
@@ -970,6 +1007,7 @@
     <Resource tag="HOST_DISPLAY">Darstellung</Resource>
     <Resource tag="HOST_EDITORS">Editoren</Resource>
     <Resource tag="HOST_FEATURES">Funktionen</Resource>
+    <Resource tag="HOST_LOG">Logs</Resource>
     <Resource tag="HOST_PERMISSION">Berechtigungen</Resource>
     <Resource tag="HOST_SEARCH">Suche</Resource>
     <Resource tag="HOST_TEMPLATES">Vorlagen</Resource>
@@ -1005,6 +1043,22 @@
     <Resource tag="LAZY_CACHE_TIMEOUT_HELP">In Minuten</Resource>
     <Resource tag="LOCATION_TEMPLATE">Lage Vorlage:</Resource>
     <Resource tag="LOCATION_TEMPLATE_HELP">Vorlage für die Darstellung des Benutzer Orts.</Resource>
+    <Resource tag="LOG_BANNEDIP">Allow log Banned IP actions:</Resource>
+    <Resource tag="LOG_BANNEDIP_HELP">Log banned IP set and lift.</Resource>
+    <Resource tag="LOG_ERROR">Allow log Application Errors:</Resource>
+    <Resource tag="LOG_ERROR_HELP">Application errors will be logged.</Resource>
+    <Resource tag="LOG_INFORMATION">Allow log Application Info:</Resource>
+    <Resource tag="LOG_INFORMATION_HELP">Application info messages will be logged.</Resource>
+    <Resource tag="LOG_SQLERROR">Allow log Sql Errors:</Resource>
+    <Resource tag="LOG_SQLERROR_HELP">Sql errors will be logged.</Resource>
+    <Resource tag="LOG_SUSPENDEDANDCONTRA">Allow log when users suspended or unsuspended:</Resource>
+    <Resource tag="LOG_SUSPENDEDANDCONTRA_HELP">Log when users are suspended or unsuspended.</Resource>
+    <Resource tag="LOG_USERDELETED">Allow log user deleting event:</Resource>
+    <Resource tag="LOG_USERDELETED_HELP">User deleting event will be logged.</Resource>
+    <Resource tag="LOG_USERSUSPENDED">Allow log user suspended and unsuspended:</Resource>
+    <Resource tag="LOG_USERSUSPENDED_HELP">Suspended and unsuspended events will be logged.</Resource>
+    <Resource tag="LOG_WARNING">Allow log Application Warnings:</Resource>
+    <Resource tag="LOG_WARNING_HELP">Application warnings will be logged.</Resource>
     <Resource tag="LOGIN_REDIR_URL">Eigene Login Umleitungs URL:</Resource>
     <Resource tag="LOGIN_REDIR_URL_HELP">Wenn die Anmeldung in der AppSettings deaktiviert ist (AllowLoginAndLogoff muss auf "false" gesetzt werden), ist dies die URL Anwender, wenn sie auf das Forum zugreifen wollen müssen umgeleitet werden. Optional können Sie "{0}" hinzufügen, um die URL zu der Rückgabe-URL, um die benutzerdefinierte URL übergeben. Z.B. "http://mydomain.com/login.aspx?PreviousUrl = {{0}}"</Resource>
     <Resource tag="MAX_ALLOWED_CHOICES">Max. Erlaubt Anzahl der Umfrage Optionen:</Resource>
@@ -1566,6 +1620,8 @@
     <Resource tag="admin_boardsettings">Board Einstellungen</Resource>
     <Resource tag="admin_digest">Digest</Resource>
     <Resource tag="admin_eventlog">Ereignisprotokoll</Resource>
+    <Resource tag="admin_eventloggroupaccess">Event Log Access Edit</Resource>
+    <Resource tag="admin_eventloggroups">Event Log Roles</Resource>
     <Resource tag="admin_extensions">Dateierweiterungen</Resource>
     <Resource tag="admin_forums">Foren</Resource>
     <Resource tag="admin_groups">Gruppen</Resource>
@@ -2418,6 +2474,12 @@
     <Resource tag="SUBJECT">Betreff:</Resource>
     <Resource tag="TITLE">Dieses Thema weiterleiten</Resource>
     <Resource tag="TO">Senden an (E-Mail-Adresse):</Resource>
+  </page>
+  <page name="EVENTLOG_EVENTS">
+    <Resource tag="ERROR">Error</Resource>
+    <Resource tag="INFORMATION">Information</Resource>
+    <Resource tag="SQLERROR">Sql Script Error</Resource>
+    <Resource tag="WARNING">Warning</Resource>
   </page>
   <page name="HELP_INDEX">
     <Resource tag="ANOUNCECONTENT">&lt;p&gt;Ankündigungen sind spezielle Beiträge, die von einem Administrator oder  Moderator geschrieben werden. Sie sind eine einfache Ein-Wege-Kommunikation mit dem Benutzer und Sie können nicht antworten. Wenn Sie eine Ankündigung diskutieren möchten, müssen Sie ein neues Thema  im Forum erstellen.&lt;/p&gt;

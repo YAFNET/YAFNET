@@ -56,6 +56,7 @@ function toggleItem(detailId)
                             <td width="1%">
                               <a name="event<%# Eval("EventLogID")%>" ></a>
                               <%# EventImageCode(Container.DataItem) %>
+                              <asp:HiddenField ID="EventTypeID" Value='<%# Eval("Type")%>' runat="server"/>
                             </td>
                             <td width="5%">
                               <%# HtmlEncode(Eval( "Name")) %>

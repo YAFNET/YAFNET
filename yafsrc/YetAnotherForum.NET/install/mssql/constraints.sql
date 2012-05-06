@@ -715,11 +715,13 @@ if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databas
 	alter table [{databaseOwner}].[{objectQualifier}AdminPageUserAccess] with nocheck add constraint [PK_{objectQualifier}AdminPageUserAccess] primary key clustered(UserID,PageName)   
 go
 
+if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}EventLogGroupAccess]') and name='PK_{objectQualifier}EventLogGroupAccess')
+	alter table [{databaseOwner}].[{objectQualifier}EventLogGroupAccess] with nocheck add constraint [PK_{objectQualifier}EventLogGroupAccess] primary key clustered(GroupID,EventTypeID)   
+go
 
 /*
 ** Unique constraints
 */
-
 
 if not exists (select top 1 1 from  dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}CheckEmail]') and name='IX_{objectQualifier}CheckEmail')
 	alter table [{databaseOwner}].[{objectQualifier}CheckEmail] add constraint IX_{objectQualifier}CheckEmail unique nonclustered (Hash)   
@@ -1162,6 +1164,10 @@ go
 
 if not exists (select top 1 1 from  dbo.sysobjects where name='FK_{objectQualifier}AdminPageUserAccess_{objectQualifier}UserID' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}AdminPageUserAccess]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table [{databaseOwner}].[{objectQualifier}AdminPageUserAccess] add constraint [FK_{objectQualifier}AdminPageUserAccess_{objectQualifier}UserID] foreign key (UserID) references [{databaseOwner}].[{objectQualifier}User](UserID) ON DELETE CASCADE
+go
+
+if not exists (select top 1 1 from  dbo.sysobjects where name='FK_{objectQualifier}EventLogGroupAccess_{objectQualifier}GroupID' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}EventLogGroupAccess]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+	alter table [{databaseOwner}].[{objectQualifier}EventLogGroupAccess] add constraint [FK_{objectQualifier}EventLogGroupAccess_{objectQualifier}GroupID] foreign key (GroupID) references [{databaseOwner}].[{objectQualifier}Group](GroupID) ON DELETE CASCADE
 go
 
 /* Default Constraints */

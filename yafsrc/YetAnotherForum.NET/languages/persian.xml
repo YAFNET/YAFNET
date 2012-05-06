@@ -714,12 +714,48 @@
     <Resource tag="CONFIRM_DELETE">این سیاهه حذف شود؟</Resource>
     <Resource tag="CONFIRM_DELETE_ALL">تمام سیاهه وقایع حذف شود؟</Resource>
     <Resource tag="DELETE_ALL">حذف همه</Resource>
+    <Resource tag="DELETE_ALLOWED">Clean Up</Resource>
     <Resource tag="HIDE">مخفی کردن</Resource>
     <Resource tag="SHOW">نمایش</Resource>
     <Resource tag="SOURCE">منبع</Resource>
     <Resource tag="TIME">زمان</Resource>
     <Resource tag="TITLE">سیاهه وقایع</Resource>
     <Resource tag="TYPE">نوع</Resource>
+  </page>
+  <page name="ADMIN_EVENTLOGGROUPS">
+    <Resource tag="CANACCESS">Allowed</Resource>
+    <Resource tag="CANCEL">Cancel</Resource>
+    <Resource tag="GRANTALL">Grant All</Resource>
+    <Resource tag="GROUPNAME">Role</Resource>
+    <Resource tag="HEADER">Event Log Roles</Resource>
+    <Resource tag="PAGE">Real Page</Resource>
+    <Resource tag="REVOKEALL">Revoke All</Resource>
+    <Resource tag="SAVE">Save</Resource>
+    <Resource tag="TITLE">Event Log Roles</Resource>
+  </page>
+  <page name="ADMIN_EVENTLOGROUPACCESS">
+    <Resource tag="BOARDNAME">Board Name</Resource>
+    <Resource tag="CANCEL">Cancel</Resource>
+    <Resource tag="DELETEACCESS">Can Delete</Resource>
+    <Resource tag="EVENT">Log Name</Resource>
+    <Resource tag="GRANTALL">Grant All View</Resource>
+    <Resource tag="GRANTALLDELETE">Grant All Delete</Resource>
+    <Resource tag="GROUPNAME">Role</Resource>
+    <Resource tag="HEADER">Event Log Access For</Resource>
+    <Resource tag="LT_ERROR">Errors</Resource>
+    <Resource tag="LT_INFORMATION">Information</Resource>
+    <Resource tag="LT_IPBANLIFTED">Canceling IP ban</Resource>
+    <Resource tag="LT_IPBANSET">Setting IP ban</Resource>
+    <Resource tag="LT_SQLERROR">Sql Errors</Resource>
+    <Resource tag="LT_USERDELETED">Deleting users</Resource>
+    <Resource tag="LT_USERSUSPENDED">Suspending users</Resource>
+    <Resource tag="LT_USERUNSUSPENDED">Unsuspending users</Resource>
+    <Resource tag="LT_WARNING">Warnings</Resource>
+    <Resource tag="REVOKEALL">Revoke All View</Resource>
+    <Resource tag="REVOKEALLDELETE">Revoke All Delete</Resource>
+    <Resource tag="SAVE">Save</Resource>
+    <Resource tag="TITLE">Event Log Role Edit</Resource>
+    <Resource tag="VIEWACCESS">Can View</Resource>
   </page>
   <page name="ADMIN_EXTENSIONS">
     <Resource tag="ADD">افزودن</Resource>
@@ -958,6 +994,7 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="HEADER_IRKOO">خدمات Irkoo</Resource>
     <Resource tag="HEADER_LOG">تنظیمات سیاهه</Resource>
     <Resource tag="HEADER_LOGIN">تنظیمات ورود/ثبت نام</Resource>
+    <Resource tag="HEADER_LOGSCOPE">Log scope</Resource>
     <Resource tag="HEADER_PERMISSION">تنظمیات مجوز</Resource>
     <Resource tag="HEADER_PMS">پیام شخصی</Resource>
     <Resource tag="HEADER_POLL">گزینه های آمار</Resource>
@@ -973,6 +1010,7 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="HOST_DISPLAY">نمایش</Resource>
     <Resource tag="HOST_EDITORS">ویرایشگر ها</Resource>
     <Resource tag="HOST_FEATURES">ویژگی ها</Resource>
+    <Resource tag="HOST_LOG">Logs</Resource>
     <Resource tag="HOST_PERMISSION">مجوزها</Resource>
     <Resource tag="HOST_SEARCH">جستجو</Resource>
     <Resource tag="HOST_TEMPLATES">شما ها</Resource>
@@ -1008,6 +1046,22 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="LAZY_CACHE_TIMEOUT_HELP">به دقیقه</Resource>
     <Resource tag="LOCATION_TEMPLATE">قالب مکان :</Resource>
     <Resource tag="LOCATION_TEMPLATE_HELP">قالبی که مکان کاربر بر اساس آن تولید می شود.</Resource>
+    <Resource tag="LOG_BANNEDIP">Allow log Banned IP actions:</Resource>
+    <Resource tag="LOG_BANNEDIP_HELP">Log banned IP set and lift.</Resource>
+    <Resource tag="LOG_ERROR">Allow log Application Errors:</Resource>
+    <Resource tag="LOG_ERROR_HELP">Application errors will be logged.</Resource>
+    <Resource tag="LOG_INFORMATION">Allow log Application Info:</Resource>
+    <Resource tag="LOG_INFORMATION_HELP">Application info messages will be logged.</Resource>
+    <Resource tag="LOG_SQLERROR">Allow log Sql Errors:</Resource>
+    <Resource tag="LOG_SQLERROR_HELP">Sql errors will be logged.</Resource>
+    <Resource tag="LOG_SUSPENDEDANDCONTRA">Allow log when users suspended or unsuspended:</Resource>
+    <Resource tag="LOG_SUSPENDEDANDCONTRA_HELP">Log when users are suspended or unsuspended.</Resource>
+    <Resource tag="LOG_USERDELETED">Allow log user deleting event:</Resource>
+    <Resource tag="LOG_USERDELETED_HELP">User deleting event will be logged.</Resource>
+    <Resource tag="LOG_USERSUSPENDED">Allow log user suspended and unsuspended:</Resource>
+    <Resource tag="LOG_USERSUSPENDED_HELP">Suspended and unsuspended events will be logged.</Resource>
+    <Resource tag="LOG_WARNING">Allow log Application Warnings:</Resource>
+    <Resource tag="LOG_WARNING_HELP">Application warnings will be logged.</Resource>
     <Resource tag="LOGIN_REDIR_URL">آدرس ارجاع دیگر ورود :</Resource>
     <Resource tag="LOGIN_REDIR_URL_HELP">اگر ورود در AppSettings غیر فعال بود، این آدرسی که کاربران برای دسترسی به انجمن به آن هدایت می شوند. {0} را آدرس بازگشت اضافه کنید. مثال : http://mydomain.com/login.aspx?PreviousUrl={{0}}"</Resource>
     <Resource tag="MAX_ALLOWED_CHOICES">حداکثر تعداد گزینه های هر نظر سنجی :</Resource>
@@ -1580,6 +1634,8 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="admin_boardsettings">تنظیمات تابلو</Resource>
     <Resource tag="admin_digest">خلاصه</Resource>
     <Resource tag="admin_eventlog">سیاهه وقایع</Resource>
+    <Resource tag="admin_eventloggroupaccess">Event Log Access Edit</Resource>
+    <Resource tag="admin_eventloggroups">Event Log Roles</Resource>
     <Resource tag="admin_extensions">پسوند فایل ها</Resource>
     <Resource tag="admin_forums">انجمن ها</Resource>
     <Resource tag="admin_groups">نقش ها</Resource>
@@ -2418,6 +2474,12 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="SUBJECT">موضوع:</Resource>
     <Resource tag="TITLE">ارسال صفحه به یک دوست</Resource>
     <Resource tag="TO">ارسال به ( آدرس پست الکترونیک ):</Resource>
+  </page>
+  <page name="EVENTLOG_EVENTS">
+    <Resource tag="ERROR">Error</Resource>
+    <Resource tag="INFORMATION">Information</Resource>
+    <Resource tag="SQLERROR">Sql Script Error</Resource>
+    <Resource tag="WARNING">Warning</Resource>
   </page>
   <page name="HELP_INDEX">
     <Resource tag="ANOUNCECONTENT">&lt;p&gt;Announcements are special messages posted by the administrator or moderators. They are a simple one-way communication with the users and you can't reply. If you wish to discuss announcements, you will have to create a new thread in the forum.&lt;/p&gt;

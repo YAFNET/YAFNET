@@ -233,7 +233,7 @@ namespace YAF.Pages.Admin
             var adminPageAccesses = new List<AdminPageAccess>();
             
             // Protected hostadmin pages
-            var hostPages = new []{"admin_boards","admin_hostsettings","admin_pageaccesslist","admin_pageaccessedit"};
+            var hostPages = new[] { "admin_boards", "admin_hostsettings", "admin_pageaccesslist", "admin_pageaccessedit", "admin_eventloggroups", "admin_eventloggroupaccess" };
             // Iterate thru all admin pages
             foreach (var listPage in listPages.ToList())
             {
