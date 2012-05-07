@@ -102,7 +102,6 @@ namespace YAF.Controls.Statistics
         /// </param>
         protected override void Render([NotNull] HtmlTextWriter writer)
         {
-            int currentRank = 1;
             string actRank = string.Empty;
 
             DataTable rankDt = this.Get<IDataCache>().GetOrSet(
@@ -112,26 +111,6 @@ namespace YAF.Controls.Statistics
                 this.PageContext.PageBoardID, DateTime.UtcNow.AddDays(-this.LastNumOfDays), this.DisplayNumber),
               TimeSpan.FromMinutes(5));
 
-            //// create XML data document...
-            // XmlDocument xml = new XmlDocument();
-
-            // rankDt.TableName = "UserActivityRank";
-            // xml.LoadXml( rankDt.DataSet.GetXml() );
-
-            //// transform using the MostActiveUser xslt...
-            // const string xsltFile = "YAF.Controls.Statistics.MostActiveUser.xslt";
-
-            // using ( Stream resourceStream = Assembly.GetAssembly( this.GetType() ).GetManifestResourceStream( xsltFile ) )
-            // {
-            // if ( resourceStream != null )
-            // {
-            // XslCompiledTransform myXslTrans = new XslCompiledTransform();
-
-            // //load the Xsl 
-            // myXslTrans.Load( XmlReader.Create( resourceStream ) );
-            // myXslTrans.Transform( xml.CreateNavigator(), xslArgs, writer );
-            // }
-            // }
             writer.BeginRender();
 
             var html = new StringBuilder();
