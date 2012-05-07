@@ -66,6 +66,12 @@ namespace YAF.Pages
       this.PollList.PollGroupId = this.PageContext.BoardSettings.BoardPollID;
       this.PollList.BoardId = this.PageContext.Settings.BoardID;
 
+      // Since these controls have EnabledViewState=false, set their visibility on every page load so that this value is not lost on postback.
+      // This is important for another reason: these are board settings; values in the view state should have no impact on whether these controls are shown or not.
+      this.ShoutBox1.Visible = this.PageContext.BoardSettings.ShowShoutbox;
+      this.ForumStats.Visible = this.PageContext.BoardSettings.ShowForumStatistics;
+      this.ActiveDiscussions.Visible = this.PageContext.BoardSettings.ShowActiveDiscussions;
+
       if (!this.IsPostBack)
       {
         // vzrus: needs testing, potentially can cause problems 
@@ -104,10 +110,6 @@ namespace YAF.Pages
         //    YafBuildLink.RedirectInfoPage(InfoMessage.RequiresEcmaScript);
         //  }
         //}
-
-        this.ShoutBox1.Visible = this.PageContext.BoardSettings.ShowShoutbox;
-        this.ForumStats.Visible = this.PageContext.BoardSettings.ShowForumStatistics;
-        this.ActiveDiscussions.Visible = this.PageContext.BoardSettings.ShowActiveDiscussions;
 
         if (this.PageContext.Settings.LockedForum == 0)
         {
