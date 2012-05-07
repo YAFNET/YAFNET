@@ -161,6 +161,7 @@ namespace YAF.Controls.Statistics
       }
 
       writer.WriteLine("</ol>");
+      writer.WriteLine("</div>");
       writer.EndRender();
     }
 
