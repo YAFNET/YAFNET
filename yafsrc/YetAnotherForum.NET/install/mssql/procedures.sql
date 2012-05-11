@@ -2498,6 +2498,7 @@ declare @tmp_evlogdelacc table (EventLogTID int);
 end
 GO
 
+
 create procedure [{databaseOwner}].[{objectQualifier}eventlog_list](@BoardID int, @PageUserID int, @MaxRows int, @MaxDays int,  @PageIndex int,
    @PageSize int, @SinceDate datetime, @ToDate datetime, @EventIDs varchar(8000) = null,
 @UTCTIMESTAMP datetime) as
@@ -8598,11 +8599,16 @@ create procedure [{databaseOwner}].[{objectQualifier}usergroup_save](@UserID int
 begin
 	
 	if @Member=0
+	begin
 		delete from [{databaseOwner}].[{objectQualifier}UserGroup] where UserID=@UserID and GroupID=@GroupID
+    end 
 	else
+	begin
 		insert into [{databaseOwner}].[{objectQualifier}UserGroup](UserID,GroupID)
 		select @UserID,@GroupID
-		where not exists(select 1 from [{databaseOwner}].[{objectQualifier}UserGroup] where UserID=@UserID and GroupID=@GroupID)
+		where not exists(select 1 from [{databaseOwner}].[{objectQualifier}UserGroup] where UserID=@UserID and GroupID=@GroupID)		
+    end
+	EXEC [{databaseOwner}].[{objectQualifier}user_savestyle] @GroupID,null
 end
 GO
 
