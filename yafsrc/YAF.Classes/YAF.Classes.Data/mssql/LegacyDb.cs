@@ -3615,10 +3615,34 @@ namespace YAF.Classes.Data
         /// <param name="boardID">
         /// The board id.
         /// </param>
+        /// <param name="pageUserID"> 
+        /// The page user ID.
+        /// </param>
+        /// <param name="maxRows"> 
+        /// The max Rows.
+        /// </param>
+        /// <param name="maxDays"> 
+        /// The max Days. 
+        /// </param>
+        /// <param name="pageIndex"> 
+        /// The page index. 
+        /// </param>
+        /// <param name="pageSize"> 
+        /// The page size. 
+        /// </param>
+        /// <param name="sinceDate"> 
+        /// The since date. 
+        /// </param>
+        /// <param name="toDate"> 
+        /// The to date. 
+        /// </param>
+        /// <param name="eventIDs">
+        /// Comma delimited list event types.
+        /// </param>
         /// <returns>
         /// A list of events for the pageUserID access level. 
         /// </returns>
-        public static DataTable eventlog_list([NotNull] object boardID, [NotNull] object pageUserID, [NotNull] object maxRows, [NotNull] object maxDays)
+        public static DataTable eventlog_list([NotNull] object boardID, [NotNull] object pageUserID, [NotNull] object maxRows, [NotNull] object maxDays, [NotNull] object pageIndex, [NotNull] object pageSize, [NotNull] object sinceDate, [NotNull] object toDate, [NotNull] object eventIDs)
         {
             using (var cmd = MsSqlDbAccess.GetCommand("eventlog_list"))
             {
@@ -3627,6 +3651,11 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("PageUserID", pageUserID);
                 cmd.Parameters.AddWithValue("MaxRows", maxRows);
                 cmd.Parameters.AddWithValue("MaxDays", maxDays);
+                cmd.Parameters.AddWithValue("PageIndex", pageIndex);
+                cmd.Parameters.AddWithValue("PageSize", pageSize);
+                cmd.Parameters.AddWithValue("SinceDate", sinceDate);
+                cmd.Parameters.AddWithValue("ToDate", toDate);
+                cmd.Parameters.AddWithValue("EventIDs", eventIDs);
                 cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
                 return MsSqlDbAccess.Current.GetData(cmd);
             }

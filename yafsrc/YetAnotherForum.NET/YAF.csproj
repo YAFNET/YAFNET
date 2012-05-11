@@ -2666,6 +2666,12 @@
     <Content Include="resources\css\jquery.msDropDown.css" />
     <Content Include="resources\css\jquery.spellchecker.css" />
     <Content Include="resources\HelpMenuList.xml" />
+    <Content Include="resources\icons\ipbanlifted.png" />
+    <Content Include="resources\icons\ipbanset.png" />
+    <Content Include="resources\icons\userdeleted.png" />
+    <Content Include="resources\icons\usersuspended.png" />
+    <Content Include="resources\icons\userunsuspended.png" />
+    <Content Include="resources\icons\wall-small-brick.png" />
     <Content Include="resources\images\ceebox\cee-close-btn.png" />
     <Content Include="resources\images\ceebox\cee-next-btn.gif" />
     <Content Include="resources\images\ceebox\cee-next-btn.png" />

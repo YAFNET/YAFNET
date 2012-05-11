@@ -2498,8 +2498,38 @@ declare @tmp_evlogdelacc table (EventLogTID int);
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}eventlog_list](@BoardID int, @PageUserID int, @MaxRows int, @MaxDays int, @UTCTIMESTAMP datetime) as
+create procedure [{databaseOwner}].[{objectQualifier}eventlog_list](@BoardID int, @PageUserID int, @MaxRows int, @MaxDays int,  @PageIndex int,
+   @PageSize int, @SinceDate datetime, @ToDate datetime, @EventIDs varchar(8000) = null,
+@UTCTIMESTAMP datetime) as
 begin
+   declare @TotalRows int 
+   declare @FirstSelectRowNumber int 
+   declare @FirstSelectRowID int
+   DECLARE @ParsedEventIDs TABLE
+	  (
+			EventID int
+	  )
+	  
+DECLARE @EventID varchar(11), @Pos INT      
+SET @Pos = CHARINDEX(',', @EventIDs, 1)
+-- check here if the value is not empty
+IF REPLACE(@EventIDs, ',', '') <> ''
+BEGIN
+ WHILE @Pos > 0
+				  BEGIN
+						SET @EventID = LTRIM(RTRIM(LEFT(@EventIDs, @Pos - 1)))
+						IF @EventID <> ''
+						BEGIN
+							  INSERT INTO @ParsedEventIDs (EventID) VALUES (CAST(@EventID AS int)) --Use Appropriate conversion
+						END
+						SET @EventIDs = RIGHT(@EventIDs, LEN(@EventIDs) - @Pos)
+						SET @Pos = CHARINDEX(',', @EventIDs, 1)
+				  END
+					 -- to be sure that last value is inserted
+					IF (LEN(@EventIDs) > 0)
+						   INSERT INTO @ParsedEventIDs (EventID) VALUES (CAST(@EventIDs AS int)) 
+END
+
 -- delete entries older than 10 days
 	delete from [{databaseOwner}].[{objectQualifier}EventLog] where EventTime+@MaxDays<@UTCTIMESTAMP 
 
@@ -2508,31 +2538,99 @@ begin
 	begin		
 		delete from [{databaseOwner}].[{objectQualifier}EventLog] WHERE EventLogID IN (SELECT TOP 100 EventLogID FROM [{databaseOwner}].[{objectQualifier}EventLog] ORDER BY EventTime)
 	end	
-	if (exists (select top 1 1 from [{databaseOwner}].[{objectQualifier}User] where ((Flags & 1) = 1 and UserID = @PageUserID)))
-		select
+
+	set nocount on
+	 set @PageIndex = @PageIndex + 1
+	if (exists (select top 1 1 from [{databaseOwner}].[{objectQualifier}User] where ((Flags & 1) = 1 and UserID = @PageUserID)))		
+	begin
+	  set @FirstSelectRowNumber = 0
+      set @FirstSelectRowID = 0
+      set @TotalRows = 0
+
+		select @TotalRows = count(1) from
+		[{databaseOwner}].[{objectQualifier}EventLog] a		
+		left join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=a.UserID
+	    where	   
+		(b.UserID IS NULL or b.BoardID = @BoardID)	and ((@EventIDs IS NULL )  OR  a.[Type] IN (select * from @ParsedEventIDs))  and EventTime between @SinceDate and @ToDate
+	
+        select @FirstSelectRowNumber = (@PageIndex - 1) * @PageSize + 1
+
+	if (@FirstSelectRowNumber <= @TotalRows)
+        begin
+		   -- find first selectedrowid 
+  
+    set rowcount @FirstSelectRowNumber
+   end
+   else
+   begin   
+   set rowcount 1
+   end
+       
+        select @FirstSelectRowID = EventLogID 
+       from
+		[{databaseOwner}].[{objectQualifier}EventLog] a		
+		left join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=a.UserID
+	    where	   
+		(b.UserID IS NULL or b.BoardID = @BoardID) and (@EventIDs IS NULL OR  a.[Type] IN (select * from @ParsedEventIDs))  and a.EventTime between @SinceDate and @ToDate
+		order by a.EventLogID desc
+
+      set rowcount @PageSize
+      select
 		a.*,		
-		ISNULL(b.[Name],'System') as [Name]
+		ISNULL(b.[Name],'System') as [Name],
+		TotalRows = @TotalRows
 	from
 		[{databaseOwner}].[{objectQualifier}EventLog] a		
 		left join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=a.UserID
-	where	   
-		(b.UserID IS NULL or b.BoardID = @BoardID)	
-	order by
-		a.EventLogID desc
-		else
-		select
-		a.*,		
-		ISNULL(b.[Name],'System') as [Name]
-	from
+      where EventLogID <= @FirstSelectRowID  and (b.UserID IS NULL or b.BoardID = @BoardID)	and (@EventIDs IS NULL OR  a.[Type] IN (select * from @ParsedEventIDs)) -- and a.EventTime between @SinceDate and @ToDate
+      order by a.EventLogID   desc   
+   end  
+else
+begin
+		select @TotalRows = count(1)  from
 		[{databaseOwner}].[{objectQualifier}EventLog] a
 		left join [{databaseOwner}].[{objectQualifier}EventLogGroupAccess] e on e.EventTypeID = a.[Type]
 		join [{databaseOwner}].[{objectQualifier}UserGroup] ug on (ug.UserID =  @PageUserID and ug.GroupID = e.GroupID)
 		left join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=a.UserID
-	where
-	    -- host admin user 1 flag should be excluded from the check in EventLogGroupAccess
-		(b.UserID IS NULL or b.BoardID = @BoardID)	
-	order by
-		a.EventLogID desc
+	where	 
+		(b.UserID IS NULL or b.BoardID = @BoardID)		and (@EventIDs IS NULL OR  a.[Type] IN (select * from @ParsedEventIDs))	 and a.EventTime between @SinceDate and @ToDate
+	
+        select @FirstSelectRowNumber = (@PageIndex - 1) * @PageSize + 1
+		       	   -- find first selectedrowid 
+   if (@TotalRows > 0)
+   begin
+    set rowcount @FirstSelectRowNumber
+   end
+   else
+   begin   
+   set rowcount 1
+   end
+
+        select @FirstSelectRowID = EventLogID 
+      from
+		[{databaseOwner}].[{objectQualifier}EventLog] a
+		left join [{databaseOwner}].[{objectQualifier}EventLogGroupAccess] e on e.EventTypeID = a.[Type]
+		join [{databaseOwner}].[{objectQualifier}UserGroup] ug on (ug.UserID =  @PageUserID and ug.GroupID = e.GroupID)
+		left join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=a.UserID
+	where	   
+		(b.UserID IS NULL or b.BoardID = @BoardID)	and (@EventIDs IS NULL OR  a.[Type] IN (select * from @ParsedEventIDs))	 and a.EventTime between @SinceDate and @ToDate
+		order by  a.EventLogID   desc
+
+      set rowcount @PageSize
+      select
+	  a.*,		
+		ISNULL(b.[Name],'System') as [Name],
+		TotalRows = @TotalRows
+		 from
+		[{databaseOwner}].[{objectQualifier}EventLog] a
+		left join [{databaseOwner}].[{objectQualifier}EventLogGroupAccess] e on e.EventTypeID = a.[Type]
+		join [{databaseOwner}].[{objectQualifier}UserGroup] ug on (ug.UserID =  @PageUserID and ug.GroupID = e.GroupID)
+		left join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=a.UserID
+	where	  EventLogID <= @FirstSelectRowID and (b.UserID IS NULL or b.BoardID = @BoardID) and (@EventIDs IS NULL OR  a.[Type] IN (select * from @ParsedEventIDs)) and a.EventTime between @SinceDate and @ToDate	
+      order by a.EventLogID  desc   
+   end  
+ set nocount off
+
 end
 GO
 

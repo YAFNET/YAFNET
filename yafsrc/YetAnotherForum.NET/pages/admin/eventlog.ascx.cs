@@ -20,6 +20,7 @@
 
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace YAF.Pages.Admin
 {
@@ -220,29 +221,37 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            var pds = new PagedDataSource { AllowPaging = true, PageSize = this.PagerTop.PageSize };
-
+            int baseSize = this.Get<YafBoardSettings>().MemberListPageSize;
+            int nCurrentPageIndex = this.PagerTop.CurrentPageIndex;
+            this.PagerTop.PageSize = baseSize;
+           
             // list event for this board
             DataTable dt = LegacyDb.eventlog_list(
                 this.PageContext.PageBoardID,
                 this.PageContext.PageUserID,
                 this.Get<YafBoardSettings>().EventLogMaxMessages,
-                this.Get<YafBoardSettings>().EventLogMaxDays);
-            DataView dv = dt.DefaultView;
+                this.Get<YafBoardSettings>().EventLogMaxDays, 
+                nCurrentPageIndex, 
+                baseSize, 
+                DateTimeHelper.SqlDbMinTime(), 
+                DateTime.UtcNow, 
+                null);
 
-            this.PagerTop.Count = dv.Count;
-            pds.DataSource = dv;
+            this.List.DataSource = dt;
 
-            pds.CurrentPageIndex = this.PagerTop.CurrentPageIndex;
-            if (pds.CurrentPageIndex >= pds.PageCount)
+            if (dt != null && dt.Rows.Count > 0)
             {
-                pds.CurrentPageIndex = pds.PageCount - 1;
+                this.PagerTop.Count = dt.AsEnumerable().First().Field<int>("TotalRows");
             }
-
-            this.List.DataSource = pds;
+            else
+            {
+                this.PagerTop.Count = 0;
+            }
 
             // bind data to controls
             this.DataBind();
+
+            
         }
 
         /// <summary>
