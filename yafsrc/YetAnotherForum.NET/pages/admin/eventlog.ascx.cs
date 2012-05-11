@@ -18,16 +18,13 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-
 namespace YAF.Pages.Admin
 {
     #region Using
 
     using System;
     using System.Data;
+    using System.Linq;
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
@@ -111,13 +108,13 @@ namespace YAF.Pages.Admin
             var row = (DataRowView)dataRow;
 
             // set defaults
-            string imageType = Enum.GetName(typeof (EventLogTypes), (int) row["Type"]);
-            
+            string imageType = Enum.GetName(typeof(EventLogTypes), (int)row["Type"]);
+
             if (imageType.IsNotSet())
             {
                 imageType = "Error";
             }
-            // var imageFile = new FileInfo(YafForumInfo.GetURLToResource("icons/{0}.png".FormatWith(imageType.ToLowerInvariant())));
+
             // return HTML code of event log entry image
             return
                 @"<img src=""{0}"" alt=""{1}"" title=""{1}"" />".FormatWith(
@@ -140,24 +137,39 @@ namespace YAF.Pages.Admin
 
             string cssClass;
 
-            // find out of what type event log entry is
-            string imageType = Enum.GetName(typeof(EventLogTypes), (int)row["Type"]);
-           // var imageFile = new FileInfo(YafForumInfo.GetURLToResource("icons/{0}.png".FormatWith(imageType.ToLowerInvariant())));
-                
-            if (imageType.IsNotSet())
+            try
             {
-                imageType = "Error";
+                // find out of what type event log entry is
+                var eventType = (EventLogTypes)row["Type"].ToType<int>();
+
+                switch (eventType)
+                {
+                    case EventLogTypes.Error:
+                        cssClass = "ui-state-error";
+                        break;
+                    case EventLogTypes.Warning:
+                        cssClass = "ui-state-warning";
+                        break;
+                    case EventLogTypes.Information:
+                        cssClass = "ui-state-highlight";
+                        break;
+                    default:
+                        cssClass = "ui-state-highlight";
+                        break;
+                }
             }
-            cssClass = imageType.IsSet() ? "ui-state-{0}".FormatWith(imageType.ToLowerInvariant()) : "ui-state-error";
+            catch (Exception)
+            {
+                return "ui-state-highlight";
+            }
+
             return cssClass;
         }
 
         /// <summary>
         /// The on init.
         /// </summary>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
             this.List.ItemCommand += this.List_ItemCommand;
@@ -166,14 +178,10 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// Page load event handler.
+        /// Handles the Load event of the Page control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             // do it only once, not on postbacks
@@ -204,12 +212,8 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// The pager top_ page change.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void PagerTop_PageChange([NotNull] object sender, [NotNull] EventArgs e)
         {
             // rebind
@@ -224,17 +228,17 @@ namespace YAF.Pages.Admin
             int baseSize = this.Get<YafBoardSettings>().MemberListPageSize;
             int nCurrentPageIndex = this.PagerTop.CurrentPageIndex;
             this.PagerTop.PageSize = baseSize;
-           
+
             // list event for this board
             DataTable dt = LegacyDb.eventlog_list(
                 this.PageContext.PageBoardID,
                 this.PageContext.PageUserID,
                 this.Get<YafBoardSettings>().EventLogMaxMessages,
-                this.Get<YafBoardSettings>().EventLogMaxDays, 
-                nCurrentPageIndex, 
-                baseSize, 
-                DateTimeHelper.SqlDbMinTime(), 
-                DateTime.UtcNow, 
+                this.Get<YafBoardSettings>().EventLogMaxDays,
+                nCurrentPageIndex,
+                baseSize,
+                DateTimeHelper.SqlDbMinTime(),
+                DateTime.UtcNow,
                 null);
 
             this.List.DataSource = dt;
@@ -250,8 +254,6 @@ namespace YAF.Pages.Admin
 
             // bind data to controls
             this.DataBind();
-
-            
         }
 
         /// <summary>
@@ -273,25 +275,6 @@ namespace YAF.Pages.Admin
                     // re-bind controls
                     this.BindData();
                     break;
-
-                    // show/hide log entry details
-                /*case "show":
-
-                    // get details control
-                    Control ctl = e.Item.FindControl("details");
-
-                    // find link button control
-                    var showbutton = e.Item.FindControl("showbutton") as LinkButton;
-
-                    // invert visibility
-                    ctl.Visible = !ctl.Visible;
-
-                    // change visibility state of detail and label of linkbutton too
-                    showbutton.Text = ctl.Visible
-                                          ? this.GetText("ADMIN_EVENTLOG", "HIDE")
-                                          : this.GetText("ADMIN_EVENTLOG", "SHOW");
-
-                    break;*/
             }
         }
 

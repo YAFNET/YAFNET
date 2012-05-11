@@ -21,19 +21,18 @@ namespace YAF.Pages
   #region Using
 
   using System;
-  using System.Web;
 
   using YAF.Classes;
   using YAF.Core;
   using YAF.Types;
   using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
   using YAF.Utils;
-  using YAF.Utils.Helpers;
 
   #endregion
 
   /// <summary>
-  /// Summary description for _default.
+  /// The Main Forum Page.
   /// </summary>
   public partial class forum : ForumPage
   {
@@ -52,28 +51,28 @@ namespace YAF.Pages
     #region Methods
 
     /// <summary>
-    /// The page_ load.
+    /// Handles the Load event of the Page control.
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      this.PollList.Visible = this.PageContext.BoardSettings.BoardPollID > 0;
-      this.PollList.PollGroupId = this.PageContext.BoardSettings.BoardPollID;
+      this.PollList.Visible = this.Get<YafBoardSettings>().BoardPollID > 0;
+      this.PollList.PollGroupId = this.Get<YafBoardSettings>().BoardPollID;
       this.PollList.BoardId = this.PageContext.Settings.BoardID;
 
       // Since these controls have EnabledViewState=false, set their visibility on every page load so that this value is not lost on postback.
       // This is important for another reason: these are board settings; values in the view state should have no impact on whether these controls are shown or not.
-      this.ShoutBox1.Visible = this.PageContext.BoardSettings.ShowShoutbox;
-      this.ForumStats.Visible = this.PageContext.BoardSettings.ShowForumStatistics;
-      this.ActiveDiscussions.Visible = this.PageContext.BoardSettings.ShowActiveDiscussions;
+      this.ShoutBox1.Visible = this.Get<YafBoardSettings>().ShowShoutbox;
+      this.ForumStats.Visible = this.Get<YafBoardSettings>().ShowForumStatistics;
+      this.ActiveDiscussions.Visible = this.Get<YafBoardSettings>().ShowActiveDiscussions;
 
-      if (!this.IsPostBack)
-      {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+        
+        /*
         // vzrus: needs testing, potentially can cause problems 
 
         // Jaben: I can't access MY OWN FORUM with this code. Commented out. Either it's an optional feature or will be completely removed.
@@ -109,20 +108,19 @@ namespace YAF.Pages
         //  {
         //    YafBuildLink.RedirectInfoPage(InfoMessage.RequiresEcmaScript);
         //  }
-        //}
+        //}*/
 
         if (this.PageContext.Settings.LockedForum == 0)
         {
-          this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-          if (this.PageContext.PageCategoryID != 0)
-          {
-            this.PageLinks.AddLink(
-              this.PageContext.PageCategoryName, 
-              YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
-            this.Welcome.Visible = false;
-          }
+            this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+            if (this.PageContext.PageCategoryID != 0)
+            {
+                this.PageLinks.AddLink(
+                    this.PageContext.PageCategoryName, 
+                    YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
+                this.Welcome.Visible = false;
+            }
         }
-      }
     }
 
     #endregion
