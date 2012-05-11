@@ -729,8 +729,8 @@ namespace YAF.Pages
             YafContext.Current.PageElements.RegisterJsBlockStartup(
                 "facebookPostJs",
                 JavaScriptBlocks.FacebookPostJs(
-                    Microsoft.JScript.GlobalObject.escape(message),
-                    Microsoft.JScript.GlobalObject.escape(description),
+                    this.Server.HtmlEncode(message),
+                    this.Server.HtmlEncode(description),
                     this.Get<HttpRequestBase>().Url.ToString(),
                     "{0}/YAFLogo.jpg".FormatWith(
                         Path.Combine(YafForumInfo.ForumBaseUrl, YafBoardFolders.Current.Images)),
@@ -1093,7 +1093,7 @@ namespace YAF.Pages
             }
 
             // if current index is 0 we are on the first page and the metadata can be added.
-            if (Pager.CurrentPageIndex == 0)
+            if (this.Pager.CurrentPageIndex == 0)
             {
                 // handle add description/keywords for SEO
                 this.AddMetaData(firstMessage: pagedData.First()["Message"]);
