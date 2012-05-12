@@ -141,4 +141,22 @@
   <data name="lblRelativeTime.Text" xml:space="preserve">
     <value>Show Relative Time</value>
   </data>
+  <data name="labelHtmlFooter.Help" xml:space="preserve">
+    <value>Customize the template for the footer.</value>
+  </data>
+  <data name="labelHtmlFooter.Text" xml:space="preserve">
+    <value>Html Footer Template</value>
+  </data>
+  <data name="labelHtmlHeader.Help" xml:space="preserve">
+    <value>Customize the template for the header.</value>
+  </data>
+  <data name="labelHtmlHeader.Text" xml:space="preserve">
+    <value>Html Header Template</value>
+  </data>
+  <data name="labelHtmlItem.Help" xml:space="preserve">
+    <value>Customize the template for the item.</value>
+  </data>
+  <data name="labelHtmlItem.Text" xml:space="preserve">
+    <value>Html Item Template</value>
+  </data>
 </root>

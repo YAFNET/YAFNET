@@ -141,4 +141,22 @@
   <data name="lblRelativeTime.Text" xml:space="preserve">
     <value>Zeige Relative Zeit</value>
   </data>
+  <data name="labelHtmlFooter.Help" xml:space="preserve">
+    <value>Passen Sie die Vorlage für den Fuß an.</value>
+  </data>
+  <data name="labelHtmlFooter.Text" xml:space="preserve">
+    <value>Html Fuß Vorlage</value>
+  </data>
+  <data name="labelHtmlHeader.Help" xml:space="preserve">
+    <value>Passen Sie die Vorlage für den Kopf an.</value>
+  </data>
+  <data name="labelHtmlHeader.Text" xml:space="preserve">
+    <value>Html Kopf Vorlage</value>
+  </data>
+  <data name="labelHtmlItem.Help" xml:space="preserve">
+    <value>Passen Sie die Vorlage für das Element an.</value>
+  </data>
+  <data name="labelHtmlItem.Text" xml:space="preserve">
+    <value>Html Element Vorlage</value>
+  </data>
 </root>

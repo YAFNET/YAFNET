@@ -24,8 +24,55 @@
 <h1>
 <a href="http://www.yetanotherforum.net"><img src="forumlogo.jpg" alt="YAF logo" style="border: 0"></a></h1>
 <h1>YetAnotherForum.NET Changelog </h1>
+<span class="FeatureHeader">YAF.NET 1.9.6.2</span>
+<p>New features:</p>
+	<ul>
+     <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/41c364b59497">41c364b59497</a> - Host Admins can control admin groups access to YAF event log by event type. They can set permissions to delete events by type too, i.e. readonly mode for each event.</li>
+     <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/215487e54451">215487e54451</a> - Added New Host Admin Page for Host Admins to restrict simply admins to various admin pages individually.</li>
+     <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/4630cfacc8d7">4630cfacc8d7</a> - Added settings to control number of records in the event log.</li>
+     <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/41a6bceefe75">41a6bceefe75</a> - Added Option to send PM to all Buddies of a User</li>
+     <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/776bb2ddcbbc">776bb2ddcbbc</a> - Added Indicator to a Private Message if its an Reply</li>
+     <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/ca58bfa27c3c">ca58bfa27c3c</a> - Added new BB Code Feature to the Editor for indent text</li>
+     <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/beff3c351d6e">beff3c351d6e</a> - Added DNN Option to Remove Tab Name/Title from the Current Page Title you can choose between &quot;Dont Remove&quot;, &quot;Always Remove&quot;, &quot;Remove only if matches the Board Name&quot;. Default Value : &quot;Always Remove&quot;</li>
+    </ul>
+<p><em>changes</em></p>
+	<ul>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/9ef84e89d04e">9ef84e89d04e</a> - [YAF-161] When creating a new Board the Current Superuser (Host Admin) will be created.</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/1cca346ec5de">1cca346ec5de</a> - Event Log Can handle huge logs</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/b39c4581d37c">b39c4581d37c</a> - Ensure ShoutBox, ForumStats, and ActiveDiscussions visibility board settings are respected across postbacks (this issue wasn't exposed in most typical YAF installations)</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/ada1137d3428">ada1137d3428</a> - Fixed Image Height of Attachment/Album Preview Images</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/de382f9d6144">de382f9d6144</a> - Updated CKEditor  to Version 3.6.3</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/de382f9d6144">de382f9d6144</a> - Fixed html to bbcode converting when Pasting Content in to CK Editor</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/d6039a8769eb">d6039a8769eb</a> - Modified the Event Log Styling, now it uses jquery ui themeing for the event log types</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/d5f86fd894a4">d5f86fd894a4</a> - Added Tooltip and Css Classes to the Profile Menu</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/65c0df153932">65c0df153932</a> - Fixed security vulnerability topic title was not encoded in some places</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/7ea541e0d202">7ea541e0d202</a> - Fixed an error when a guest is thanked.</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/d10f386f8a2d">d10f386f8a2d</a> - Fixed the behaviour when deleted messages stubs are displayed to an owner if  Show Deleted Messages is enabled. Admins can see half-deleted messages stubs in every case. Previously they couldn't see them at all.</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/a2bd0351c53d">a2bd0351c53d</a> - Applied Fix [YAF-193] YafResourceHandler.cs Webclient Credential Issue</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/5eac0294c267">5eac0294c267</a> - Fixed Issue where Facebook ID or ICQ Number is higher then the Max Integer Value when checking if string is a number.</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/386843ed0ecd">386843ed0ecd</a> - Fixed Image Inserting in CKEditor BBCode Mode.</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/cb840833c74f">cb840833c74f</a> - Fixed display bug for PMs in groups and ranks.</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/4065c2117d78">4065c2117d78</a> - Post Button now Says "Save" instead of "Post" when editing a Message on the Post Message Page.</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/51bf392b8a69">51bf392b8a69</a> - A fix for: when user is logged out and he logs in he's not displyed in active list.</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/87882a652a04">87882a652a04</a> - Azure Compatible Patch Added PKeys to all tables.</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/32c1d12fdeeb">32c1d12fdeeb</a> - Fixed Issue where the Text Higlight Function on the Search page was destroying the BB Code Html Code</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/63189fd15e47">63189fd15e47</a> - Fixed [YAF-187] Modal Dialog can go off screen</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/13a18b2c223b">13a18b2c223b</a> - Fixed the POWERED_BY Language String</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/24f1b48b554d">24f1b48b554d</a> - Cursor is now inside the BB Code when there is no text selected in the YAF BB Code Editor </li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/ccf8d0a0ebfa">ccf8d0a0ebfa</a> - Enabled new DisplayName things in the most performance-sensitive places. Good news for forums with many users they should not have 100500+ user_list calls anymore in most places. </li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/57c2c5520502">57c2c5520502</a> - Added fix to avoid showing both Popups for Pending Buddies and Unread PMs at the same time (thx to daveburke)</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/bcf58ff87ef8">bcf58ff87ef8</a> - The Display Name Cache is now cleared when A User Gets Deleted.</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/dde07258b1e3">dde07258b1e3</a> - Fixed Popups inside DNN</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/10f96efea9ad">10f96efea9ad</a> - Fixed Wrong Tool Tips on the Color Grey Themes</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/7b441aea6e71">7b441aea6e71</a> - Fix for birthdays with multiple boards.</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/513aaaeffa7c">513aaaeffa7c</a> - Sql 2005 Fix</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/65bf0a3d4c9f">65bf0a3d4c9f</a> - Fixed NullReferenceException caused by the Page Popup Forum Module</li>
+       <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/19b2f901ad64">19b2f901ad64</a> - Perfomance improvements. A user display name reform to radically solve display name hell. Now they are in tables and accessible everywhere. Bad news - upgrade on large forums takes ages. Good news - it should be run only once.</li>
+      <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/f032057d0a87">f032057d0a87</a> - Email Change Error Fix</li>
+      <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/72e661abccd4">72e661abccd4</a> - Location info now shows &quot;-&quot; if not set on the admin index page user list</li>
+</ul>
 <span class="FeatureHeader">YAF.NET 1.9.6.1</span>
-    <p>New features:</p>
+<p>New features:</p>
 	<ul>
     <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/96c018fd4b52">96c018fd4b52</a> - Added Keystroke Support to the YAF BBCode Editor you can now use CTRL+B for making the text Bold, CTRL+I for making the text Italic and CTRL+U for underlining the text</li>
     </ul>

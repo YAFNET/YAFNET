@@ -25,12 +25,16 @@ namespace YAF.DotNetNuke
     using System.Collections;
     using System.Data;
     using System.Globalization;
+    using System.IO;
     using System.Text;
     using System.Web;
     using System.Web.Caching;
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.UI.WebControls;
+
+    using YAF.Classes;
+
     using global::DotNetNuke.Common;
     using global::DotNetNuke.Entities.Modules;
     using global::DotNetNuke.Framework;
@@ -42,6 +46,7 @@ namespace YAF.DotNetNuke
     using YAF.DotNetNuke.Controller;
     using YAF.Types.Interfaces;
     using YAF.Utils;
+    using YAF.Utils.Extensions;
 
     #endregion
 
@@ -83,10 +88,16 @@ namespace YAF.DotNetNuke
         /// </summary>
         private int yafTabId;
 
+        private string headerTemplate;
+
+        private string itemTemplate;
+
+        private string footerTemplate;
+
         #endregion
 
         #region Methods
-
+        
         /// <summary>
         /// The clean string for url.
         /// </summary>
@@ -302,89 +313,44 @@ namespace YAF.DotNetNuke
         /// </param>
         protected void LatestPostsItemDataBound(object sender, RepeaterItemEventArgs e)
         {
-            // populate the controls here...
+            switch (e.Item.ItemType)
+            {
+                case ListItemType.Header:
+                    {
+                        Literal objLiteral = new Literal { Text = this.GetHeader() };
+                        e.Item.Controls.Add(objLiteral);
+                    }
+
+                    break;
+                case ListItemType.AlternatingItem:
+                case ListItemType.Item:
+                    {
+                        Literal objLiteral = new Literal { Text = this.ProcessItem(e) };
+                        e.Item.Controls.Add(objLiteral); 
+                    }
+
+                    break;
+                /*case ListItemType.Separator:
+                    {
+                        Literal objLiteral = new Literal { Text = this.ProcessSeparator() };
+                        e.Item.Controls.Add(objLiteral);
+                    }
+
+                    break;*/
+                case ListItemType.Footer:
+                    {
+                        Literal objLiteral = new Literal { Text = this.GetFooter() };
+                        e.Item.Controls.Add(objLiteral);
+                    }
+
+                    break;
+            }
+
+            /*// populate the controls here...
             if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem)
             {
                 return;
-            }
-
-            var currentRow = (DataRowView)e.Item.DataItem;
-
-            string sMessageUrl =
-                this.ResolveUrl(
-                    "~/Default.aspx?tabid={1}&g=posts&m={0}#post{0}".FormatWith(
-                        currentRow["LastMessageID"], this.yafTabId));
-
-            // make message url...
-            if (Classes.Config.EnableURLRewriting)
-            {
-                sMessageUrl =
-                    Globals.ResolveUrl(
-                        "~/tabid/{0}/g/posts/m/{1}/{2}.aspx#post{1}".FormatWith(
-                            this.yafTabId, 
-                            currentRow["LastMessageID"], 
-                            this.GetTopicNameFromMessage(currentRow["LastMessageID"].ToType<int>())));
-            }
-
-            // get the controls
-            var textMessageLink = (HyperLink)e.Item.FindControl("TextMessageLink");
-            var imageMessageLink = (HyperLink)e.Item.FindControl("ImageMessageLink");
-            var lastPostedImage = (ThemeImage)e.Item.FindControl("LastPostedImage");
-            var lastUserLink = (HyperLink)e.Item.FindControl("LastUserLink");
-            var forumLink = (HyperLink)e.Item.FindControl("ForumLink");
-
-            // populate them...
-            textMessageLink.Text = YafContext.Current.Get<IBadWordReplace>().Replace(currentRow["Topic"].ToString());
-            textMessageLink.NavigateUrl = sMessageUrl;
-            imageMessageLink.NavigateUrl = sMessageUrl;
-
-            lastPostedImage.LocalizedTitle = Localization.GetString("LastPost.Text", this.LocalResourceFile);
-
-            // Just in case...
-            if (currentRow["LastUserID"] != DBNull.Value)
-            {
-                var sDisplayName = UserMembershipHelper.GetDisplayNameFromID((int)currentRow["LastUserID"]);
-
-                lastUserLink.Text = sDisplayName;
-                lastUserLink.ToolTip = sDisplayName;
-
-                if (Classes.Config.EnableURLRewriting)
-                {
-                    lastUserLink.NavigateUrl =
-                        Globals.ResolveUrl(
-                            "~/tabid/{0}/g/profile/u/{1}/{2}.aspx".FormatWith(
-                                this.yafTabId, currentRow["LastUserID"], sDisplayName));
-                }
-                else
-                {
-                    lastUserLink.NavigateUrl =
-                        this.ResolveUrl(
-                            "~/Default.aspx?tabid={1}&g=profile&u={0}".FormatWith(
-                                currentRow["LastUserID"], this.yafTabId));
-                }
-            }
-
-            lastPostedImage.ThemeTag = "TOPIC_NEW";
-
-            lastPostedImage.Style = "width:16px;height:16px";
-
-            forumLink.Text = currentRow["Forum"].ToString();
-
-            if (Classes.Config.EnableURLRewriting)
-            {
-                forumLink.NavigateUrl =
-                    Globals.ResolveUrl(
-                        "~/tabid/{0}/g/topics/f/{1}/{2}.aspx".FormatWith(
-                            this.yafTabId, 
-                            currentRow["ForumID"], 
-                            this.GetForumName(currentRow["ForumID"].ToType<int>())));
-            }
-            else
-            {
-                forumLink.NavigateUrl =
-                    this.ResolveUrl(
-                        "~/Default.aspx?tabid={1}&g=topics&f={0}".FormatWith(currentRow["ForumID"], this.yafTabId));
-            }
+            }*/            
         }
 
         /// <summary>
@@ -671,12 +637,152 @@ namespace YAF.DotNetNuke
                 {
                     this.useRelativeTime = true;
                 }
+
+                if (!string.IsNullOrEmpty((string)moduleSettings["YafWhatsNewHeader"]))
+                {
+                    this.headerTemplate = (string)moduleSettings["YafWhatsNewHeader"];
+                }
+                else
+                {
+                    this.headerTemplate = "<ul>";
+                }
+
+                if (!string.IsNullOrEmpty((string)moduleSettings["YafWhatsNewItemTemplate"]))
+                {
+                    this.itemTemplate = (string)moduleSettings["YafWhatsNewItemTemplate"];
+                }
+                else
+                {
+                    this.itemTemplate = "<li class=\"YafPosts\">[LASTPOSTICON]&nbsp;<strong>[TOPICLINK]</strong>&nbsp;([FORUMLINK])<br />[BYTEXT]&nbsp;[LASTUSERLINK]&nbsp;[LASTPOSTEDDATETIME]</li>";
+                }
+
+                if (!string.IsNullOrEmpty((string)moduleSettings["YafWhatsNewFooter"]))
+                {
+                    this.footerTemplate = (string)moduleSettings["YafWhatsNewFooter"];
+                }
+                else
+                {
+                    this.footerTemplate = "</ul>";
+                }
             }
             catch (Exception exc)
             {
                 // Module failed to load 
                 Exceptions.ProcessModuleLoadException(this, exc);
             }
+        }
+
+        /// <summary>
+        /// Gets the List header.
+        /// </summary>
+        /// <returns>Returns the html header.</returns>
+        private string GetHeader()
+        {
+            return this.headerTemplate;
+        }
+
+        private string ProcessItem(RepeaterItemEventArgs e)
+        {
+            var currentRow = (DataRowView)e.Item.DataItem;
+
+            string sMessageUrl =
+                this.ResolveUrl(
+                    "~/Default.aspx?tabid={1}&g=posts&m={0}#post{0}".FormatWith(
+                        currentRow["LastMessageID"], this.yafTabId));
+
+            // make message url...
+            if (Classes.Config.EnableURLRewriting)
+            {
+                sMessageUrl =
+                    Globals.ResolveUrl(
+                        "~/tabid/{0}/g/posts/m/{1}/{2}.aspx#post{1}".FormatWith(
+                            this.yafTabId,
+                            currentRow["LastMessageID"],
+                            this.GetTopicNameFromMessage(currentRow["LastMessageID"].ToType<int>())));
+            }
+
+            // Render [LASTPOSTICON]
+            var lastPostedImage = new ThemeImage
+                {
+                    LocalizedTitlePage = "DEFAULT",
+                    LocalizedTitleTag = "GO_LAST_POST",
+                    LocalizedTitle = Localization.GetString("LastPost.Text", this.LocalResourceFile),
+                    ThemeTag = "TOPIC_NEW",
+                    Style = "width:16px;height:16px"
+                };
+
+            this.itemTemplate = this.itemTemplate.Replace("[LASTPOSTICON]", lastPostedImage.RenderToString());
+
+            // Render [TOPICLINK]
+            var textMessageLink = new HyperLink
+                {
+                    Text = YafContext.Current.Get<IBadWordReplace>().Replace(currentRow["Topic"].ToString()),
+                    NavigateUrl = sMessageUrl
+                };
+            this.itemTemplate = this.itemTemplate.Replace("[TOPICLINK]", textMessageLink.RenderToString());
+
+            // Render [FORUMLINK]
+            var forumLink = new HyperLink
+                {
+                    Text = currentRow["Forum"].ToString(),
+                    NavigateUrl =
+                        Classes.Config.EnableURLRewriting
+                            ? Globals.ResolveUrl(
+                                "~/tabid/{0}/g/topics/f/{1}/{2}.aspx".FormatWith(
+                                    this.yafTabId,
+                                    currentRow["ForumID"],
+                                    this.GetForumName(currentRow["ForumID"].ToType<int>())))
+                            : this.ResolveUrl(
+                                "~/Default.aspx?tabid={1}&g=topics&f={0}".FormatWith(currentRow["ForumID"], this.yafTabId))
+                };
+
+            this.itemTemplate = this.itemTemplate.Replace("[FORUMLINK]", forumLink.RenderToString());
+
+            // Render [BYTEXT]
+            this.itemTemplate = this.itemTemplate.Replace(
+                "[BYTEXT]", YafContext.Current.Get<IHaveLocalization>().GetText("SEARCH", "BY"));
+
+            // Render [LASTUSERLINK]
+            // Just in case...
+            if (currentRow["LastUserID"] != DBNull.Value)
+            {
+                var userName = YafContext.Current.Get<YafBoardSettings>().EnableDisplayName
+                                   ? currentRow["LastUserDisplayName"].ToString()
+                                   : currentRow["LastUserName"].ToString();
+
+                var lastUserLink = new HyperLink
+                    {
+                        Text = userName,
+                        ToolTip = userName,
+                        NavigateUrl =
+                            Classes.Config.EnableURLRewriting
+                                ? Globals.ResolveUrl(
+                                    "~/tabid/{0}/g/profile/u/{1}/{2}.aspx".FormatWith(
+                                        this.yafTabId, currentRow["LastUserID"], userName))
+                                : this.ResolveUrl(
+                                    "~/Default.aspx?tabid={1}&g=profile&u={0}".FormatWith(
+                                        currentRow["LastUserID"], this.yafTabId))
+                    };
+
+
+                this.itemTemplate = this.itemTemplate.Replace("[LASTUSERLINK]", lastUserLink.RenderToString());
+            }
+
+            // Render [LASTPOSTEDDATETIME]
+            var displayDateTime = new DisplayDateTime { DateTime = currentRow["LastPosted"].ToType<DateTime>() };
+
+            this.itemTemplate = this.itemTemplate.Replace("[LASTPOSTEDDATETIME]", displayDateTime.RenderToString());
+
+            return this.itemTemplate;
+        }
+
+        /// <summary>
+        /// Gets the List footer.
+        /// </summary>
+        /// <returns>Returns the html footer.</returns>
+        private string GetFooter()
+        {
+            return this.footerTemplate;
         }
 
         #endregion

@@ -10,6 +10,7 @@ IF  exists (select top 1 1 from {databaseOwner}sysobjects where id = OBJECT_ID(N
 DROP PROCEDURE {databaseOwner}{objectQualifier}YafDnn_LastUpdatedProfile
 GO
 
+
 /****YAF DNN SQL UNINSTALL SCRIPT BY INGO HERBOTE*/
 /**CONTRAINTS**/
 if exists (select top 1 1 from {databaseOwner}sysobjects where id = object_id(N'FK_{objectQualifier}yaf_UserProfile_{objectQualifier}yaf_User') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
@@ -252,6 +253,7 @@ if exists (select top 1 1 from {databaseOwner}sysobjects where id = object_id(N'
 ALTER TABLE {databaseOwner}{objectQualifier}yaf_AccessMask DROP CONSTRAINT FK_{objectQualifier}yaf_AccessMask_{objectQualifier}yaf_Board
 GO
 
+
 /**** VIEWS****/
 
 IF  EXISTS (select top 1 1 from sys.views WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}yaf_vaccess]'))
@@ -279,6 +281,14 @@ DROP VIEW {databaseOwner}{objectQualifier}yaf_PMessageView
 GO
 
 /**** Tables*********/
+
+if exists (select top 1 1 from {databaseOwner}sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_EventLogGroupAccess]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_EventLogGroupAccess
+GO
+
+if exists (select top 1 1 from {databaseOwner}sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_AdminPageUserAccess]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_AdminPageUserAccess
+GO
 
 if exists (select top 1 1 from {databaseOwner}sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_UserProfile]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 DROP TABLE {databaseOwner}{objectQualifier}yaf_UserProfile
@@ -1808,8 +1818,6 @@ IF  exists (select top 1 1 from {databaseOwner}sysobjects where id = OBJECT_ID(N
 DROP PROCEDURE {databaseOwner}{objectQualifier}yaf_db_handle_computedcolumns
 GO
 
-
-
 IF  exists (select top 1 1 from {databaseOwner}sysobjects where id = OBJECT_ID(N'{databaseOwner}{objectQualifier}yaf_album_images_by_user') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE {databaseOwner}{objectQualifier}yaf_album_images_by_user
 GO
@@ -1848,4 +1856,32 @@ GO
 
 IF  exists (select top 1 1 from {databaseOwner}sysobjects where id = OBJECT_ID(N'{databaseOwner}{objectQualifier}yaf_user_setnotdirty') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE {databaseOwner}{objectQualifier}yaf_user_setnotdirty
+GO
+
+IF  exists (select top 1 1 from {databaseOwner}sysobjects where id = OBJECT_ID(N'{databaseOwner}{objectQualifier}yaf_user_savestyle') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE {databaseOwner}{objectQualifier}yaf_user_savestyle
+GO
+
+IF  exists (select top 1 1 from {databaseOwner}sysobjects where id = OBJECT_ID(N'{databaseOwner}{objectQualifier}yaf_eventloggroupaccess_list') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE {databaseOwner}{objectQualifier}yaf_eventloggroupaccess_list
+GO
+
+IF  exists (select top 1 1 from {databaseOwner}sysobjects where id = OBJECT_ID(N'{databaseOwner}{objectQualifier}yaf_eventloggroupaccess_delete') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE {databaseOwner}{objectQualifier}yaf_eventloggroupaccess_delete
+GO
+
+IF  exists (select top 1 1 from {databaseOwner}sysobjects where id = OBJECT_ID(N'{databaseOwner}{objectQualifier}yaf_eventloggroupaccess_save') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE {databaseOwner}{objectQualifier}yaf_eventloggroupaccess_save
+GO
+
+IF  exists (select top 1 1 from {databaseOwner}sysobjects where id = OBJECT_ID(N'{databaseOwner}{objectQualifier}yaf_adminpageaccess_list') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE {databaseOwner}{objectQualifier}yaf_adminpageaccess_list
+GO
+
+IF  exists (select top 1 1 from {databaseOwner}sysobjects where id = OBJECT_ID(N'{databaseOwner}{objectQualifier}yaf_adminpageaccess_delete') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE {databaseOwner}{objectQualifier}yaf_adminpageaccess_delete
+GO
+
+IF  exists (select top 1 1 from {databaseOwner}sysobjects where id = OBJECT_ID(N'{databaseOwner}{objectQualifier}yaf_adminpageaccess_save') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE {databaseOwner}{objectQualifier}yaf_adminpageaccess_save
 GO

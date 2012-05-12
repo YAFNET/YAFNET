@@ -16,5 +16,17 @@
       <dnn:label id="lblRelativeTime" runat="server" controlname="UseRelativeTime" suffix=":"></dnn:label>
       <asp:CheckBox ID="UseRelativeTime" runat="server" Checked="true"></asp:CheckBox>
     </li>
+     <li class="SubHead" style="list-style-type: none;margin: 5px 0px 0px 0px;padding: 5px 0px 5px 18px;">
+      <dnn:label id="labelHtmlHeader" runat="server" controlname="HtmlHeader" suffix=":"></dnn:label>
+      <asp:TextBox ID="HtmlHeader" runat="server" TextMode="MultiLine" CssClass="NormalTextBox" Rows="2"></asp:TextBox>
+    </li>
+    <li class="SubHead" style="list-style-type: none;margin: 5px 0px 0px 0px;padding: 5px 0px 5px 18px;">
+      <dnn:label id="labelHtmlItem" runat="server" controlname="HtmlItem" suffix=":"></dnn:label>
+      <asp:TextBox ID="HtmlItem" runat="server" TextMode="MultiLine" CssClass="NormalTextBox" Rows="5"></asp:TextBox>
+    </li>
+    <li class="SubHead" style="list-style-type: none;margin: 5px 0px 0px 0px;padding: 5px 0px 5px 18px;">
+      <dnn:label id="labelHtmlFooter" runat="server" controlname="HtmlFooter" suffix=":"></dnn:label>
+      <asp:TextBox ID="HtmlFooter" runat="server" TextMode="MultiLine" CssClass="NormalTextBox" Rows="2"></asp:TextBox>
+    </li>
 </ul>
 

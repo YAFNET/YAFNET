@@ -19,208 +19,255 @@
 
 namespace YAF.DotNetNuke
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.Collections.Generic;
-  using System.Globalization;
-  using System.Web.UI.WebControls;
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Web.UI.WebControls;
 
-  using global::DotNetNuke.Common.Utilities;
-  using global::DotNetNuke.Entities.Modules;
-  using global::DotNetNuke.Entities.Tabs;
-  using global::DotNetNuke.Services.Exceptions;
+    using global::DotNetNuke.Common.Utilities;
+    using global::DotNetNuke.Entities.Modules;
+    using global::DotNetNuke.Entities.Tabs;
+    using global::DotNetNuke.Services.Exceptions;
 
-  using YAF.Utils;
+    using YAF.Utils;
 
     #endregion
 
-  /// -----------------------------------------------------------------------------
-  /// <summary>
-  /// The Settings class manages Module Settings
-  /// </summary>
-  /// <history> 
-  /// </history>
-  /// -----------------------------------------------------------------------------
-  public partial class YafDnnWhatsNewSettings : ModuleSettingsBase
-  {
-    #region Public Methods
-
     /// -----------------------------------------------------------------------------
     /// <summary>
-    /// LoadSettings loads the settings from the Database and displays them
+    /// The Settings class manages Module Settings
     /// </summary>
     /// <history> 
     /// </history>
     /// -----------------------------------------------------------------------------
-    public override void LoadSettings()
+    public partial class YafDnnWhatsNewSettings : ModuleSettingsBase
     {
-      this.FillYafInstances();
+        #region Public Methods
 
-      try
-      {
-        if (!this.IsPostBack)
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// LoadSettings loads the settings from the Database and displays them
+        /// </summary>
+        /// <history> 
+        /// </history>
+        /// -----------------------------------------------------------------------------
+        public override void LoadSettings()
         {
-          if (this.YafInstances.Items.Count > 0)
-          {
-            if (!string.IsNullOrEmpty((string)this.TabModuleSettings["YafPage"]) &&
-                !string.IsNullOrEmpty((string)this.TabModuleSettings["YafModuleId"]))
+            this.FillYafInstances();
+
+            try
             {
-              this.YafInstances.SelectedValue = "{0}-{1}".FormatWith(this.TabModuleSettings["YafPage"], this.TabModuleSettings["YafModuleId"]);
+                if (this.IsPostBack)
+                {
+                    return;
+                }
+
+                if (this.YafInstances.Items.Count > 0)
+                {
+                    if (!string.IsNullOrEmpty((string)this.TabModuleSettings["YafPage"])
+                        && !string.IsNullOrEmpty((string)this.TabModuleSettings["YafModuleId"]))
+                    {
+                        this.YafInstances.SelectedValue = "{0}-{1}".FormatWith(
+                            this.TabModuleSettings["YafPage"], this.TabModuleSettings["YafModuleId"]);
+                    }
+                }
+
+                if (!string.IsNullOrEmpty((string)this.TabModuleSettings["YafMaxPosts"]))
+                {
+                    this.txtMaxResult.Text = (string)this.TabModuleSettings["YafMaxPosts"];
+                }
+                else
+                {
+                    this.txtMaxResult.Text = "10";
+                }
+
+                if (!string.IsNullOrEmpty((string)this.TabModuleSettings["YafUseRelativeTime"]))
+                {
+                    bool yafUseRelativeTime;
+                    bool.TryParse((string)this.TabModuleSettings["YafUseRelativeTime"], out yafUseRelativeTime);
+
+                    this.UseRelativeTime.Checked = yafUseRelativeTime;
+                }
+
+                if (!string.IsNullOrEmpty((string)TabModuleSettings["YafWhatsNewHeader"]))
+                {
+                    this.HtmlHeader.Text = (string)TabModuleSettings["YafWhatsNewHeader"];
+                }
+                else
+                {
+                    this.HtmlHeader.Text = "<ul>";
+                }
+
+                if (!string.IsNullOrEmpty((string)TabModuleSettings["YafWhatsNewItemTemplate"]))
+                {
+                    this.HtmlItem.Text = (string)TabModuleSettings["YafWhatsNewItemTemplate"];
+                }
+                else
+                {
+                    this.HtmlItem.Text =
+                        "<li class=\"YafPosts\">[LASTPOSTICON]&nbsp;<strong>[TOPICLINK]</strong>&nbsp;([FORUMLINK])<br />[BYTEXT]&nbsp;[LASTUSERLINK]&nbsp;[LASTPOSTEDDATETIME]</li>";
+                }
+
+                if (!string.IsNullOrEmpty((string)TabModuleSettings["YafWhatsNewFooter"]))
+                {
+                    this.HtmlFooter.Text = (string)TabModuleSettings["YafWhatsNewFooter"];
+                }
+                else
+                {
+                    this.HtmlFooter.Text = "</ul>";
+                }
             }
-          }
-
-          if (!string.IsNullOrEmpty((string)this.TabModuleSettings["YafMaxPosts"]))
-          {
-            this.txtMaxResult.Text = (string)this.TabModuleSettings["YafMaxPosts"];
-          }
-          else
-          {
-            this.txtMaxResult.Text = "10";
-          }
-
-          if (!string.IsNullOrEmpty((string)this.TabModuleSettings["YafUseRelativeTime"]))
-          {
-              bool yafUseRelativeTime;
-              bool.TryParse((string)TabModuleSettings["YafUseRelativeTime"], out yafUseRelativeTime);
-
-              this.UseRelativeTime.Checked = yafUseRelativeTime;
-          }
-        }
-      }
-      catch (Exception exc)
-      {
-        // Module failed to load 
-        Exceptions.ProcessModuleLoadException(this, exc);
-      }
-    }
-
-    /// -----------------------------------------------------------------------------
-    /// <summary>
-    /// UpdateSettings saves the modified settings to the Database
-    /// </summary>
-    /// <history> 
-    /// </history>
-    /// -----------------------------------------------------------------------------
-    public override void UpdateSettings()
-    {
-      try
-      {
-        var objModules = new ModuleController();
-
-        if (this.YafInstances.Items.Count > 0)
-        {
-          string[] values = this.YafInstances.SelectedValue.Split(Convert.ToChar("-"));
-
-          if (values.Length == 2)
-          {
-            objModules.UpdateTabModuleSetting(this.TabModuleId, "YafPage", values[0]);
-            objModules.UpdateTabModuleSetting(this.TabModuleId, "YafModuleId", values[1]);
-          }
-        }
-
-        if (IsNumeric(this.txtMaxResult.Text) || !string.IsNullOrEmpty(this.txtMaxResult.Text))
-        {
-          objModules.UpdateTabModuleSetting(this.TabModuleId, "YafMaxPosts", this.txtMaxResult.Text);
-        }
-        else
-        {
-          objModules.UpdateTabModuleSetting(this.TabModuleId, "YafMaxPosts", "10");
-        }
-
-        objModules.UpdateTabModuleSetting(this.TabModuleId, "YafUseRelativeTime", this.UseRelativeTime.Checked.ToString());
-      }
-      catch (Exception exc)
-      {
-        // Module failed to load 
-        Exceptions.ProcessModuleLoadException(this, exc);
-      }
-    }
-
-    #endregion
-
-    #region Methods
-
-    /// <summary>
-    /// Check if Object is a Number
-    /// </summary>
-    /// <param name="valueToCheck">
-    /// Object to Check
-    /// </param>
-    /// <returns>
-    /// Returns bool Value
-    /// </returns>
-    private static bool IsNumeric(object valueToCheck)
-    {
-      double dummy;
-      string inputValue = Convert.ToString(valueToCheck);
-
-      bool numeric = double.TryParse(inputValue, NumberStyles.Any, null, out dummy);
-
-      return numeric;
-    }
-
-    /// <summary>
-    /// Fill DropDownList with Portal Tabs
-    /// </summary>
-    private void FillYafInstances()
-    {
-      var objTabController = new TabController();
-
-      List<TabInfo> objTabs = TabController.GetPortalTabs(this.PortalSettings.PortalId, -1, true, true);
-
-      DesktopModuleInfo objDesktopModuleInfo =
-        DesktopModuleController.GetDesktopModuleByModuleName("YetAnotherForumDotNet", this.PortalId);
-
-      if (objDesktopModuleInfo == null)
-      {
-        return;
-      }
-
-      foreach (TabInfo objTab in objTabs)
-      {
-        if (objTab == null || objTab.IsDeleted)
-        {
-          continue;
-        }
-
-        var objModules = new ModuleController();
-
-        foreach (KeyValuePair<int, ModuleInfo> pair in objModules.GetTabModules(objTab.TabID))
-        {
-          ModuleInfo objModule = pair.Value;
-
-          if (objModule.IsDeleted || objModule.DesktopModuleID != objDesktopModuleInfo.DesktopModuleID ||
-              objModule.IsDeleted)
-          {
-            continue;
-          }
-
-          string strPath = objTab.TabName;
-          TabInfo objTabSelected = objTab;
-
-          while (objTabSelected.ParentId != Null.NullInteger)
-          {
-            objTabSelected = objTabController.GetTab(objTabSelected.ParentId, objTab.PortalID, false);
-            if (objTabSelected == null)
+            catch (Exception exc)
             {
-              break;
+                // Module failed to load 
+                Exceptions.ProcessModuleLoadException(this, exc);
+            }
+        }
+
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// UpdateSettings saves the modified settings to the Database
+        /// </summary>
+        /// <history> 
+        /// </history>
+        /// -----------------------------------------------------------------------------
+        public override void UpdateSettings()
+        {
+            try
+            {
+                var objModules = new ModuleController();
+
+                if (this.YafInstances.Items.Count > 0)
+                {
+                    string[] values = this.YafInstances.SelectedValue.Split(Convert.ToChar("-"));
+
+                    if (values.Length == 2)
+                    {
+                        objModules.UpdateTabModuleSetting(this.TabModuleId, "YafPage", values[0]);
+                        objModules.UpdateTabModuleSetting(this.TabModuleId, "YafModuleId", values[1]);
+                    }
+                }
+
+                if (IsNumeric(this.txtMaxResult.Text) || !string.IsNullOrEmpty(this.txtMaxResult.Text))
+                {
+                    objModules.UpdateTabModuleSetting(this.TabModuleId, "YafMaxPosts", this.txtMaxResult.Text);
+                }
+                else
+                {
+                    objModules.UpdateTabModuleSetting(this.TabModuleId, "YafMaxPosts", "10");
+                }
+
+                objModules.UpdateTabModuleSetting(
+                    this.TabModuleId, "YafUseRelativeTime", this.UseRelativeTime.Checked.ToString());
+
+                if (!string.IsNullOrEmpty(this.HtmlHeader.Text))
+                {
+                    objModules.UpdateTabModuleSetting(this.TabModuleId, "YafWhatsNewHeader", this.HtmlHeader.Text);
+                }
+
+                if (!string.IsNullOrEmpty(this.HtmlItem.Text))
+                {
+                    objModules.UpdateTabModuleSetting(this.TabModuleId, "YafWhatsNewItemTemplate", this.HtmlItem.Text);
+                }
+
+                if (!string.IsNullOrEmpty(this.HtmlFooter.Text))
+                {
+                    objModules.UpdateTabModuleSetting(this.TabModuleId, "YafWhatsNewFooter", this.HtmlFooter.Text);
+                }
+            }
+            catch (Exception exc)
+            {
+                // Module failed to load 
+                Exceptions.ProcessModuleLoadException(this, exc);
+            }
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Check if Object is a Number
+        /// </summary>
+        /// <param name="valueToCheck">
+        /// Object to Check
+        /// </param>
+        /// <returns>
+        /// Returns bool Value
+        /// </returns>
+        private static bool IsNumeric(object valueToCheck)
+        {
+            double dummy;
+            string inputValue = Convert.ToString(valueToCheck);
+
+            bool numeric = double.TryParse(inputValue, NumberStyles.Any, null, out dummy);
+
+            return numeric;
+        }
+
+        /// <summary>
+        /// Fill DropDownList with Portal Tabs
+        /// </summary>
+        private void FillYafInstances()
+        {
+            var objTabController = new TabController();
+
+            List<TabInfo> objTabs = TabController.GetPortalTabs(this.PortalSettings.PortalId, -1, true, true);
+
+            DesktopModuleInfo objDesktopModuleInfo =
+                DesktopModuleController.GetDesktopModuleByModuleName("YetAnotherForumDotNet", this.PortalId);
+
+            if (objDesktopModuleInfo == null)
+            {
+                return;
             }
 
-            strPath = "{0} -> {1}".FormatWith(objTabSelected.TabName, strPath);
-          }
-
-          var objListItem = new ListItem
+            foreach (TabInfo objTab in objTabs)
             {
-              Value = "{0}-{1}".FormatWith(objModule.TabID, objModule.ModuleID),
-              Text = "{0} -> {1}".FormatWith(strPath, objModule.ModuleTitle)
-            };
+                if (objTab == null || objTab.IsDeleted)
+                {
+                    continue;
+                }
 
-          this.YafInstances.Items.Add(objListItem);
+                var objModules = new ModuleController();
+
+                foreach (KeyValuePair<int, ModuleInfo> pair in objModules.GetTabModules(objTab.TabID))
+                {
+                    ModuleInfo objModule = pair.Value;
+
+                    if (objModule.IsDeleted || objModule.DesktopModuleID != objDesktopModuleInfo.DesktopModuleID
+                        || objModule.IsDeleted)
+                    {
+                        continue;
+                    }
+
+                    string strPath = objTab.TabName;
+                    TabInfo objTabSelected = objTab;
+
+                    while (objTabSelected.ParentId != Null.NullInteger)
+                    {
+                        objTabSelected = objTabController.GetTab(objTabSelected.ParentId, objTab.PortalID, false);
+                        if (objTabSelected == null)
+                        {
+                            break;
+                        }
+
+                        strPath = "{0} -> {1}".FormatWith(objTabSelected.TabName, strPath);
+                    }
+
+                    var objListItem = new ListItem
+                        {
+                            Value = "{0}-{1}".FormatWith(objModule.TabID, objModule.ModuleID),
+                            Text = "{0} -> {1}".FormatWith(strPath, objModule.ModuleTitle)
+                        };
+
+                    this.YafInstances.Items.Add(objListItem);
+                }
+            }
         }
-      }
-    }
 
-    #endregion
-  }
+        #endregion
+    }
 }
