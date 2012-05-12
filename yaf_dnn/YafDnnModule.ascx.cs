@@ -31,8 +31,6 @@ namespace YAF.DotNetNuke
     using System.Web.Security;
     using System.Web.UI;
 
-    using YAF.DotNetNuke.Utils;
-
     using global::DotNetNuke.Common;
     using global::DotNetNuke.Common.Utilities;
     using global::DotNetNuke.Entities.Modules;
@@ -42,12 +40,14 @@ namespace YAF.DotNetNuke
     using global::DotNetNuke.Entities.Users;
     using global::DotNetNuke.Framework;
     using global::DotNetNuke.Security;
+    using global::DotNetNuke.Security.Roles;
     using global::DotNetNuke.Services.Exceptions;
     using global::DotNetNuke.Services.Localization;
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
     using YAF.DotNetNuke.Controller;
+    using YAF.DotNetNuke.Utils;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Utils;
@@ -248,33 +248,7 @@ namespace YAF.DotNetNuke
 
             return yafCultures;
         }
-
-        /// <summary>
-        /// The mark roles changed.
-        /// </summary>
-        private static void MarkRolesChanged()
-        {
-            RolePrincipal rolePrincipal;
-            if (Roles.CacheRolesInCookie)
-            {
-                string roleCookie = string.Empty;
-
-                HttpCookie cookie = HttpContext.Current.Request.Cookies[Roles.CookieName];
-                if (cookie != null)
-                {
-                    roleCookie = cookie.Value;
-                }
-
-                rolePrincipal = new RolePrincipal(HttpContext.Current.User.Identity, roleCookie);
-            }
-            else
-            {
-                rolePrincipal = new RolePrincipal(HttpContext.Current.User.Identity);
-            }
-
-            rolePrincipal.SetDirty();
-        }
-
+        
         /// <summary>
         /// The get yaf culture info.
         /// </summary>
@@ -347,7 +321,7 @@ namespace YAF.DotNetNuke
         private void CreateNewBoard(UserInfo dnnUserInfo, MembershipUser dnnUser)
         {
             // Add new admin users to group
-            if (!RoleMembershipHelper.IsUserInRole(dnnUserInfo.Username, this.portalSettings.AdministratorRoleName))
+            /*if (!RoleMembershipHelper.IsUserInRole(dnnUserInfo.Username, this.portalSettings.AdministratorRoleName))
             {
                 try
                 {
@@ -357,7 +331,7 @@ namespace YAF.DotNetNuke
                 {
                     // TODO :Dont do anything when user is already in role ?!
                 }
-            }
+            }*/
 
             if (dnnUserInfo.IsSuperUser)
             {
@@ -387,7 +361,8 @@ namespace YAF.DotNetNuke
                     yafCultureInfo.LanguageFile,
                     "DotNetNuke",
                     "DotNetNuke",
-                    string.Empty);
+                    string.Empty,
+                    dnnUserInfo.IsSuperUser);
 
                 // Assign the new forum to this module
                 ModuleController objForumSettings = new ModuleController();
@@ -434,12 +409,10 @@ namespace YAF.DotNetNuke
                 row["Email"],
                 userFlags.BitValue,
                 row["RankID"]);
-        }
-
-        
+        }        
 
         /// <summary>
-        /// The dot net nuke module_ load.
+        /// The dotnetnuke module load.
         /// </summary>
         /// <param name="sender">
         /// The sender.
@@ -489,50 +462,53 @@ namespace YAF.DotNetNuke
         /// Check if roles are syncronized and the user is added to them
         /// </summary>
         /// <param name="dnnUser">The Current DNN User</param>
-        private void CheckForRoles(UserInfo dnnUser)
+        /// <param name="yafUserId">The yaf user id.</param>
+        private void CheckForRoles(UserInfo dnnUser, int yafUserId)
         {
-            // see if the roles have been syncronized...
-            if (this.Session["{0}_rolesloaded".FormatWith(this.SessionUserKeyName)] != null)
+           // see if the roles have been syncronized...
+            /*if (this.Session["{0}_rolesloaded".FormatWith(this.SessionUserKeyName)] != null)
             {
                 return;
-            }
+            }*/
 
-            bool roleChanged = false;
+            var yafBoardRoles = Data.GetYafBoardRoles(this.forum1.BoardID);
 
-            foreach (string role in dnnUser.Roles)
+            var yafUserRoles = Data.GetYafUserRoles(this.forum1.BoardID, yafUserId);
+
+            var roleController = new RoleController();
+
+            foreach (var role in roleController.GetRolesByUser(dnnUser.UserID, this.CurrentPortalSettings.PortalId))
             {
-                if (!RoleMembershipHelper.RoleExists(role))
+                RoleInfo yafRoleFound = null;
+
+                var updateRole = false;
+
+                // First Create role in yaf if not exists
+                if (!yafBoardRoles.Any(yafRoleA => yafRoleA.RoleName.Equals(role)))
                 {
-                    RoleMembershipHelper.CreateRole(role);
-                    roleChanged = true;
+                    // If not Create Role in YAF
+                    yafRoleFound = new RoleInfo
+                        {
+                            RoleID = (int)RoleSyncronizer.CreateYafRole(role, this.forum1.BoardID), 
+                            RoleName = role
+                        };
+
+                    updateRole = true;
+                }
+                else
+                {
+                    if (!yafUserRoles.Any(yafRoleC => yafRoleC.RoleName.Equals(role)))
+                    {
+                        yafRoleFound = yafBoardRoles.Find(yafRole => yafRole.RoleName.Equals(role));
+                        updateRole = true;
+                    }
                 }
 
-                if (RoleMembershipHelper.IsUserInRole(dnnUser.Username, role))
+                if (updateRole && yafRoleFound != null)
                 {
-                    continue;
+                    // add/remove user to yaf role ?!
+                    RoleSyncronizer.UpdateUserRole(yafRoleFound, yafUserId, dnnUser.Username, true);
                 }
-
-                try
-                {
-                    RoleMembershipHelper.AddUserToRole(dnnUser.Username, role);
-                }
-                catch
-                {
-                    // TODO : Dont do anything when user is already in role ?!
-                }
-            }
-
-            // check if the user is still part of the dnn role
-            foreach (var yafUserRole in RoleMembershipHelper.GetRolesForUser(dnnUser.Username).Where(yafUserRole => !dnnUser.IsInRole(yafUserRole)))
-            {
-                RoleMembershipHelper.RemoveUserFromRole(dnnUser.Username, yafUserRole);
-                roleChanged = true;
-            }
-
-
-            if (roleChanged)
-            {
-                MarkRolesChanged();
             }
 
             this.Session["{0}_rolesloaded".FormatWith(this.SessionUserKeyName)] = true;
@@ -543,11 +519,8 @@ namespace YAF.DotNetNuke
         /// </summary>
         private void VerifyUser()
         {
-            // Get current Dnn user (DNN 4)
-            // UserInfo dnnUserInfo = UserController.GetUser(this.CurrentPortalSettings.PortalId, this.UserId, false);
-
             // Get current Dnn user (DNN 5)
-            UserInfo dnnUserInfo = UserController.GetUserById(this.CurrentPortalSettings.PortalId, UserId);
+            var dnnUserInfo = UserController.GetCurrentUserInfo();
 
             // get the user from the membership provider
             MembershipUser dnnUser = Membership.GetUser(dnnUserInfo.Username, true);
@@ -556,8 +529,6 @@ namespace YAF.DotNetNuke
             {
                 return;
             }
-
-            this.CheckForRoles(dnnUserInfo);
 
             // Admin or Host user?
             if ((dnnUserInfo.IsSuperUser || dnnUserInfo.UserID == this.portalSettings.AdministratorId) &&
@@ -583,6 +554,8 @@ namespace YAF.DotNetNuke
                 this.Session["{0}_userSync".FormatWith(this.SessionUserKeyName)] = null;
             }
 
+            this.CheckForRoles(dnnUserInfo, yafUserId);
+
             // Load Auto Sync Setting
             bool autoSyncProfile = true;
 
@@ -594,7 +567,7 @@ namespace YAF.DotNetNuke
             if (yafUserId > 0 && autoSyncProfile)
             {
                 ProfileSyncronizer.UpdateUserProfile(
-                    yafUserId, dnnUserInfo, dnnUser, PortalSettings.PortalId, this.forum1.BoardID);
+                    yafUserId, dnnUserInfo, dnnUser, this.CurrentPortalSettings.PortalId, this.forum1.BoardID);
             }
 
             // Has this user been registered in YAF already?);
@@ -621,7 +594,7 @@ namespace YAF.DotNetNuke
 
             YafContext.Current.Get<IDataCache>().Clear();
 
-            DataCache.ClearPortalCache(this.portalSettings.PortalId, true);
+            DataCache.ClearPortalCache(this.CurrentPortalSettings.PortalId, true);
 
             this.Session.Clear();
             this.Response.Redirect(Globals.NavigateURL(), true);
@@ -671,7 +644,6 @@ namespace YAF.DotNetNuke
                     this.BasePage.Title.Replace(
                         "> {0}".FormatWith(this.CurrentPortalSettings.ActiveTab.TabName), string.Empty);
             }
-
 
             /*this.BasePage.Title =
                 this.BasePage.Title.Replace(

@@ -27,12 +27,16 @@ namespace YAF.DotNetNuke
     using System.Linq;
     using System.Web;
     using System.Web.Security;
+
     using global::DotNetNuke.Common.Utilities;
     using global::DotNetNuke.Entities.Users;
+    using global::DotNetNuke.Security.Roles;
     using global::DotNetNuke.Services.Exceptions;
     using global::DotNetNuke.Services.Scheduling;
+
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.DotNetNuke.Controller;
     using YAF.DotNetNuke.Utils;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
@@ -54,7 +58,6 @@ namespace YAF.DotNetNuke
 
         #endregion
 
-        // private readonly PortalSettings _portalSettings;
         #region Constructors and Destructors
 
         /// <summary>
@@ -130,33 +133,7 @@ namespace YAF.DotNetNuke
 
             // update...
             LegacyDb.user_adminsave(
-              boardId, userId, row["Name"], row["DisplayName"], row["Email"], userFlags.BitValue, row["RankID"]);
-        }
-
-        /// <summary>
-        /// The mark roles changed.
-        /// </summary>
-        private static void MarkRolesChanged()
-        {
-            RolePrincipal rolePrincipal;
-            if (Roles.CacheRolesInCookie)
-            {
-                string roleCookie = string.Empty;
-
-                HttpCookie cookie = HttpContext.Current.Request.Cookies[Roles.CookieName];
-                if (cookie != null)
-                {
-                    roleCookie = cookie.Value;
-                }
-
-                rolePrincipal = new RolePrincipal(HttpContext.Current.User.Identity, roleCookie);
-            }
-            else
-            {
-                rolePrincipal = new RolePrincipal(HttpContext.Current.User.Identity);
-            }
-
-            rolePrincipal.SetDirty();
+                boardId, userId, row["Name"], row["DisplayName"], row["Email"], userFlags.BitValue, row["RankID"]);
         }
 
         /// <summary>
@@ -200,22 +177,22 @@ namespace YAF.DotNetNuke
         /// <summary>
         /// The import users.
         /// </summary>
-        /// <param name="board">
-        /// The i board.
-        /// </param>
-        /// <param name="portal">
-        /// The i portal.
-        /// </param>
-        private void ImportUsers(int board, int portal)
+        /// <param name="boardId">The board id.</param>
+        /// <param name="portalId">The portal id.</param>
+        private void ImportUsers(int boardId, int portalId)
         {
             int iNewUsers = 0;
-            bool bRolesChanged = false;
 
-            var users = UserController.GetUsers(portal);
+            var users = UserController.GetUsers(portalId);
             users.Sort(new UserComparer());
 
             try
             {
+                // Sync Roles
+                var rolesChanged = RoleSyncronizer.SyncronizeAllRoles(boardId, portalId);
+
+                var yafBoardRoles = Data.GetYafBoardRoles(boardId);
+
                 foreach (UserInfo dnnUserInfo in users)
                 {
                     MembershipUser dnnUser = Membership.GetUser(dnnUserInfo.Username, true);
@@ -225,23 +202,13 @@ namespace YAF.DotNetNuke
                         return;
                     }
 
-                    bool roleChanged = false;
-                    foreach (string role in dnnUserInfo.Roles)
+                    UserInfo info = dnnUserInfo;
+
+                    /*foreach (var role in dnnUserInfo.Roles.Where(role => !RoleMembershipHelper.IsUserInRole(info.Username, role)))
                     {
-                        if (!RoleMembershipHelper.RoleExists(role))
-                        {
-                            RoleMembershipHelper.CreateRole(role);
-                            roleChanged = true;
-                        }
-
-                        if (RoleMembershipHelper.IsUserInRole(dnnUserInfo.Username, role))
-                        {
-                            continue;
-                        }
-
                         try
                         {
-                            RoleMembershipHelper.AddUserToRole(dnnUserInfo.Username, role);
+                            RoleMembershipHelper.AddUserToRole(info.Username, role);
                         }
                         catch
                         {
@@ -250,31 +217,64 @@ namespace YAF.DotNetNuke
                     }
 
                     // check if the user is still part of the dnn role
-                    foreach (var yafUserRole in RoleMembershipHelper.GetRolesForUser(dnnUserInfo.Username).Where(yafUserRole => !dnnUserInfo.IsInRole(yafUserRole)))
+                    foreach (var yafUserRole in RoleMembershipHelper.GetRolesForUser(info.Username).Where(yafUserRole => !info.IsInRole(yafUserRole)))
                     {
-                        RoleMembershipHelper.RemoveUserFromRole(dnnUserInfo.Username, yafUserRole);
-                        roleChanged = true;
-                    }
-
-                    // Sync Roles
-                    if (roleChanged)
-                    {
-                        bRolesChanged = true;
-
-                        MarkRolesChanged();
-                    }
+                        RoleMembershipHelper.RemoveUserFromRole(info.Username, yafUserRole);
+                    }*/
 
                     int yafUserId;
 
                     try
                     {
-                        yafUserId = LegacyDb.user_get(board, dnnUser.ProviderUserKey);
+                        yafUserId = LegacyDb.user_get(boardId, dnnUser.ProviderUserKey);
 
-                        ProfileSyncronizer.UpdateUserProfile(yafUserId, dnnUserInfo, dnnUser, portal, board);
+                        ProfileSyncronizer.UpdateUserProfile(yafUserId, dnnUserInfo, dnnUser, portalId, boardId);
+
+                        var yafUserRoles = Data.GetYafUserRoles(boardId, yafUserId);
+
+                        var roleController = new RoleController();
+
+                        foreach (
+                            var role in
+                                roleController.GetRolesByUser(dnnUserInfo.UserID, portalId).Where(
+                                    role => !RoleMembershipHelper.IsUserInRole(info.Username, role)))
+                        {
+                            RoleInfo yafRoleFound = null;
+
+                            var updateRole = false;
+
+                            // First Create role in yaf if not exists
+                            if (!yafBoardRoles.Any(yafRoleA => yafRoleA.RoleName.Equals(role)))
+                            {
+                                // If not Create Role in YAF
+                                yafRoleFound = new RoleInfo
+                                    {
+                                        RoleID = (int)RoleSyncronizer.CreateYafRole(role, boardId), 
+                                        RoleName = role
+                                    };
+
+                                updateRole = true;
+                            }
+                            else
+                            {
+                                if (!yafUserRoles.Any(yafRoleC => yafRoleC.RoleName.Equals(role)))
+                                {
+                                    yafRoleFound = yafBoardRoles.Find(yafRole => yafRole.RoleName.Equals(role));
+
+                                    updateRole = true;
+                                }
+                            }
+
+                            if (updateRole && yafRoleFound != null)
+                            {
+                                // add/remove user to yaf role ?!
+                                RoleSyncronizer.UpdateUserRole(yafRoleFound, yafUserId, dnnUserInfo.Username, true);
+                            }
+                        }
                     }
                     catch (Exception)
                     {
-                        yafUserId = UserImporter.CreateYafUser(dnnUserInfo, dnnUser, board, null);
+                        yafUserId = UserImporter.CreateYafUser(dnnUserInfo, dnnUser, boardId, null);
                         iNewUsers++;
                     }
 
@@ -283,7 +283,7 @@ namespace YAF.DotNetNuke
                     // super admin check...
                     if (dnnUserInfo.IsSuperUser)
                     {
-                        CreateYafHostUser(yafUserId, board);
+                        CreateYafHostUser(yafUserId, boardId);
                     }
 
                     if (YafContext.Current.Settings != null)
@@ -294,7 +294,7 @@ namespace YAF.DotNetNuke
 
                 this.sInfo = "{0} User(s) Imported".FormatWith(iNewUsers);
 
-                if (bRolesChanged)
+                if (rolesChanged)
                 {
                     this.sInfo += ", but all Roles are syncronized!";
                 }

@@ -10,6 +10,10 @@ IF  exists (select top 1 1 from {databaseOwner}sysobjects where id = OBJECT_ID(N
 DROP PROCEDURE {databaseOwner}{objectQualifier}YafDnn_LastUpdatedProfile
 GO
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'{databaseOwner}{objectQualifier}YafDnn_GetPortalRoles') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+DROP PROCEDURE {databaseOwner}{objectQualifier}YafDnn_GetPortalRoles
+GO
+
 
 /****YAF DNN SQL UNINSTALL SCRIPT BY INGO HERBOTE*/
 /**CONTRAINTS**/

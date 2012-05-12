@@ -77,6 +77,12 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="DnnUtils\DnnFileSystem.cs" />
+    <Compile Include="Utils\RoleSyncronizer.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Utils\ProfileSyncronizer.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="UserComparer.cs" />
     <Compile Include="YafDnnWhatsNew.ascx.cs">
       <DependentUpon>YafDnnWhatsNew.ascx</DependentUpon>
@@ -129,6 +135,7 @@
     <None Include="BuildScripts\MSBuild.Extended.Tasks.Targets" />
     <None Include="Installation\01.94.01.SqlDataProvider" />
     <None Include="Installation\01.95.50.SqlDataProvider" />
+    <None Include="Installation\01.96.20.SqlDataProvider" />
     <None Include="Installation\Uninstall.SqlDataProvider" />
     <Content Include="web.config" />
     <Content Include="web.Debug.config">

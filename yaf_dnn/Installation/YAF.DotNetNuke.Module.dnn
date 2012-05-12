@@ -358,6 +358,10 @@
               <name>01.95.50.SqlDataProvider</name>
               <version>01.95.54750</version>
             </script>
+            <script type="Install">
+              <name>01.96.20.SqlDataProvider</name>
+              <version>01.96.25216</version>
+            </script>
             <script type="UnInstall">
               <name>Uninstall.SqlDataProvider</name>
             </script>

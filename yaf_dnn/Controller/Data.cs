@@ -25,9 +25,8 @@ namespace YAF.DotNetNuke.Controller
     using System.Collections.Generic;
     using System.Data;
     using System.Data.SqlClient;
-
     using global::DotNetNuke.Data;
-
+    using global::DotNetNuke.Security.Roles;
     using YAF.Classes.Data;
     using YAF.Utils;
 
@@ -153,6 +152,85 @@ namespace YAF.DotNetNuke.Controller
             }
 
             return topicsList;
+        }
+
+        /// <summary>
+        /// Gets the DNN portal roles.
+        /// </summary>
+        /// <param name="portalId">The portal id.</param>
+        /// <returns>Returns List with DNN Portal Roles.</returns>
+        public static List<RoleInfo> GetDnnPortalRoles(int portalId)
+        {
+            List<RoleInfo> roles = new List<RoleInfo>();
+
+            using (IDataReader dr = DataProvider.Instance().ExecuteReader("YafDnn_GetPortalRoles", portalId))
+            {
+                while (dr.Read())
+                {
+                    RoleInfo role = new RoleInfo
+                    {
+                        RoleName = Convert.ToString(dr["RoleName"]),
+                        RoleID = dr["RoleID"].ToType<int>(),
+                    };
+
+                    roles.Add(role);
+                }
+            }
+
+            return roles;
+        }
+
+        /// <summary>
+        /// Gets the yaf board roles.
+        /// </summary>
+        /// <param name="boardId">The board id.</param>
+        /// <returns>Returns the Yaf Board Roles</returns>
+        public static List<RoleInfo> GetYafBoardRoles(int boardId)
+        {
+            List<RoleInfo> roles = new List<RoleInfo>();
+
+            using (IDataReader dr = DataProvider.Instance().ExecuteReader("yaf_group_list", boardId, null))
+            {
+                while (dr.Read())
+                {
+                    RoleInfo role = new RoleInfo
+                    {
+                        RoleName = Convert.ToString(dr["Name"]),
+                        RoleID = dr["GroupID"].ToType<int>(),
+                    };
+
+                    roles.Add(role);
+                }
+            }
+
+            return roles;
+        }
+
+        /// <summary>
+        /// Gets the yaf user roles.
+        /// </summary>
+        /// <param name="boardId">The board id.</param>
+        /// <param name="yafUserId">The yaf user id.</param>
+        /// <returns>Returns List of yaf user roles</returns>
+        public static List<RoleInfo> GetYafUserRoles(int boardId, int yafUserId)
+        {
+            List<RoleInfo> roles = new List<RoleInfo>();
+
+            using (IDataReader dr = DataProvider.Instance().ExecuteReader("yaf_usergroup_list", yafUserId))
+            {
+                while (dr.Read())
+                {
+                    RoleInfo role = new RoleInfo
+                    {
+                        RoleName = Convert.ToString(dr["Name"]),
+                        RoleID = dr["GroupID"].ToType<int>(),
+                    };
+
+                    roles.Add(role);
+                }
+            }
+
+            return roles;
         }
 
         #endregion

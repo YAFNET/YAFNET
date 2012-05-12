@@ -34,12 +34,14 @@ namespace YAF.DotNetNuke
     using global::DotNetNuke.Common.Utilities;
     using global::DotNetNuke.Entities.Modules;
     using global::DotNetNuke.Entities.Users;
+    using global::DotNetNuke.Security.Roles;
     using global::DotNetNuke.Services.Exceptions;
     using global::DotNetNuke.Services.Localization;
     using global::DotNetNuke.Services.Scheduling;
 
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.DotNetNuke.Controller;
     using YAF.DotNetNuke.Utils;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
@@ -155,33 +157,6 @@ namespace YAF.DotNetNuke
             }
 
             return -1;
-        }
-
-        /// <summary>
-        /// The mark roles changed.
-        /// </summary>
-        private static void MarkRolesChanged()
-        {
-            RolePrincipal rolePrincipal;
-            if (Roles.CacheRolesInCookie)
-            {
-                string roleCookie = string.Empty;
-
-                HttpCookie cookie = HttpContext.Current.Request.Cookies[Roles.CookieName];
-
-                if (cookie != null)
-                {
-                    roleCookie = cookie.Value;
-                }
-
-                rolePrincipal = new RolePrincipal(HttpContext.Current.User.Identity, roleCookie);
-            }
-            else
-            {
-                rolePrincipal = new RolePrincipal(HttpContext.Current.User.Identity);
-            }
-
-            rolePrincipal.SetDirty();
         }
 
         /// <summary>
@@ -363,13 +338,18 @@ namespace YAF.DotNetNuke
         private void ImportClick(object sender, EventArgs e)
         {
             this.NewUsers = 0;
-            bool bRolesChanged = false;
 
             var users = UserController.GetUsers(this.PortalId);
             users.Sort(new UserComparer());
 
             try
             {
+                // Sync Roles
+                var rolesChanged = RoleSyncronizer.SyncronizeAllRoles(this.boardId, this.PortalSettings.PortalId);
+
+                var yafBoardRoles = Data.GetYafBoardRoles(this.boardId);
+
+                // Import Users
                 foreach (UserInfo dnnUserInfo in users)
                 {
                     // Get current Dnn user
@@ -383,24 +363,13 @@ namespace YAF.DotNetNuke
                         continue;
                     }
 
-                    bool roleChanged = false;
+                    UserInfo info = dnnUserInfo;
 
-                    foreach (string role in dnnUserInfo.Roles)
+                    /*foreach (var role in dnnUserInfo.Roles.Where(role => !RoleMembershipHelper.IsUserInRole(info.Username, role)))
                     {
-                        if (!RoleMembershipHelper.RoleExists(role))
-                        {
-                            RoleMembershipHelper.CreateRole(role);
-                            roleChanged = true;
-                        }
-
-                        if (RoleMembershipHelper.IsUserInRole(dnnUserInfo.Username, role))
-                        {
-                            continue;
-                        }
-
                         try
                         {
-                            RoleMembershipHelper.AddUserToRole(dnnUserInfo.Username, role);
+                            RoleMembershipHelper.AddUserToRole(info.Username, role);
                         }
                         catch
                         {
@@ -411,20 +380,11 @@ namespace YAF.DotNetNuke
                     // check if the user is still part of the dnn role
                     foreach (
                         var yafUserRole in
-                            RoleMembershipHelper.GetRolesForUser(dnnUserInfo.Username).Where(
-                                yafUserRole => !dnnUserInfo.IsInRole(yafUserRole)))
+                            RoleMembershipHelper.GetRolesForUser(info.Username).Where(
+                                yafUserRole => !info.IsInRole(yafUserRole)))
                     {
-                        RoleMembershipHelper.RemoveUserFromRole(dnnUserInfo.Username, yafUserRole);
-                        roleChanged = true;
-                    }
-
-                    // Sync Roles
-                    if (roleChanged)
-                    {
-                        bRolesChanged = true;
-
-                        MarkRolesChanged();
-                    }
+                        RoleMembershipHelper.RemoveUserFromRole(info.Username, yafUserRole);
+                    }*/
 
                     int yafUserId = LegacyDb.user_get(this.boardId, dnnUser.ProviderUserKey);
 
@@ -433,18 +393,50 @@ namespace YAF.DotNetNuke
                         yafUserId = UserImporter.CreateYafUser(dnnUserInfo, dnnUser, this.boardId, this.PortalSettings);
                         this.NewUsers++;
                     }
-
-                    /*try
+                    else
                     {
-                      yafUserId = LegacyDb.user_get(this.iBoardId, dnnUser.ProviderUserKey);
+                        var yafUserRoles = Data.GetYafUserRoles(this.boardId, yafUserId);
+
+                        var roleController = new RoleController();
+
+                        foreach (
+                            var role in
+                                roleController.GetRolesByUser(dnnUserInfo.UserID, this.PortalSettings.PortalId).Where(
+                                    role => !RoleMembershipHelper.IsUserInRole(info.Username, role)))
+                        {
+                            RoleInfo yafRoleFound = null;
+
+                            var updateRole = false;
+
+                            // First Create role in yaf if not exists
+                            if (!yafBoardRoles.Any(yafRoleA => yafRoleA.RoleName.Equals(role)))
+                            {
+                                // If not Create Role in YAF
+                                yafRoleFound = new RoleInfo
+                                    {
+                                        RoleID = (int)RoleSyncronizer.CreateYafRole(role, this.boardId), 
+                                        RoleName = role
+                                    };
+
+                                updateRole = true;
+                            }
+                            else
+                            {
+                                if (!yafUserRoles.Any(yafRoleC => yafRoleC.RoleName.Equals(role)))
+                                {
+                                    yafRoleFound = yafBoardRoles.Find(yafRole => yafRole.RoleName.Equals(role));
+
+                                    updateRole = true;
+                                }
+                            }
+
+                            if (updateRole && yafRoleFound != null)
+                            {
+                                // add/remove user to yaf role ?!
+                                RoleSyncronizer.UpdateUserRole(yafRoleFound, yafUserId, dnnUserInfo.Username, true);
+                            }
+                        }
                     }
-                    catch (Exception)
-                    {
-                      // Create user if Not Exist
-                      yafUserId = this.CreateYafUser(dnnUserInfo, dnnUser);
-
-                      this.NewUsers++;
-                    }*/
 
                     // super admin check...
                     if (dnnUserInfo.IsSuperUser)
@@ -454,14 +446,14 @@ namespace YAF.DotNetNuke
 
                     if (YafContext.Current.Settings != null)
                     {
-                        RoleMembershipHelper.UpdateForumUser(dnnUser, YafContext.Current.Settings.BoardID);
+                        RoleMembershipHelper.UpdateForumUser(dnnUser, this.boardId);
                     }
                 }
 
                 this.lInfo.Text =
                     Localization.GetString("UsersImported.Text", this.LocalResourceFile).FormatWith(this.NewUsers);
 
-                if (bRolesChanged)
+                if (rolesChanged)
                 {
                     this.lInfo.Text += Localization.GetString("RolesSynced.Text", this.LocalResourceFile);
                 }

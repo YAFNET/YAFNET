@@ -1,0 +1,12 @@
+﻿IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'{databaseOwner}{objectQualifier}YafDnn_GetPortalRoles') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+DROP PROCEDURE {databaseOwner}{objectQualifier}YafDnn_GetPortalRoles
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}YafDnn_GetPortalRoles
+  @PortalID int
+	AS
+	SELECT
+		RoleName,RoleID
+	FROM {databaseOwner}{objectQualifier}Roles
+	WHERE PortalID=@PortalID
+GO
