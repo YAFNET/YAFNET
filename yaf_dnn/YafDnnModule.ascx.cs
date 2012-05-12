@@ -465,11 +465,11 @@ namespace YAF.DotNetNuke
         /// <param name="yafUserId">The yaf user id.</param>
         private void CheckForRoles(UserInfo dnnUser, int yafUserId)
         {
-           // see if the roles have been syncronized...
-            /*if (this.Session["{0}_rolesloaded".FormatWith(this.SessionUserKeyName)] != null)
+            // see if the roles have been syncronized...
+            if (this.Session["{0}_rolesloaded".FormatWith(this.SessionUserKeyName)] != null)
             {
                 return;
-            }*/
+            }
 
             var yafBoardRoles = Data.GetYafBoardRoles(this.forum1.BoardID);
 
