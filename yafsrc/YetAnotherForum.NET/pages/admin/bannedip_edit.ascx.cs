@@ -178,7 +178,7 @@ namespace YAF.Pages.Admin
         }
 
         DataRow row =
-            LegacyDb.bannedip_list(this.PageContext.PageBoardID, this.Request.QueryString.GetFirstOrDefault("i")).Rows[0];
+            LegacyDb.bannedip_list(this.PageContext.PageBoardID, this.Request.QueryString.GetFirstOrDefault("i"), null, null).Rows[0];
         this.mask.Text = (string)row["Mask"];
     }
 

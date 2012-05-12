@@ -19,6 +19,8 @@
  */
 
 using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 using YAF.Classes;
 using YAF.Utils.Helpers;
 
@@ -119,6 +121,16 @@ namespace YAF.Pages.Admin
                 break;
         }
     }
+    /// <summary>
+    /// The pager top_ page change.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    protected void PagerTop_PageChange([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        // rebind
+        this.BindData();
+    }
       /// <summary>
       ///  Helper to get mask from ID.
       ///  </summary>
@@ -144,7 +156,19 @@ namespace YAF.Pages.Admin
     /// </summary>
     private void BindData()
     {
-      this.list.DataSource = LegacyDb.bannedip_list(this.PageContext.PageBoardID, null);
+        int baseSize = 2; // this.Get<YafBoardSettings>().MemberListPageSize;
+        int nCurrentPageIndex = this.PagerTop.CurrentPageIndex;
+        this.PagerTop.PageSize = baseSize;
+        var dt = LegacyDb.bannedip_list(this.PageContext.PageBoardID, null, nCurrentPageIndex, baseSize);
+      this.list.DataSource = dt;
+      if (dt != null && dt.Rows.Count > 0)
+      {
+          this.PagerTop.Count = dt.AsEnumerable().First().Field<int>("TotalRows");
+      }
+      else
+      {
+          this.PagerTop.Count = 0;
+      }
       this.DataBind();
     }
 

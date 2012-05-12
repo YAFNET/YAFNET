@@ -22,6 +22,15 @@ namespace YAF.Pages.Admin {
         protected global::YAF.Controls.PageLinks PageLinks;
         
         /// <summary>
+        /// PagerTop control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.Pager PagerTop;
+        
+        /// <summary>
         /// list control.
         /// </summary>
         /// <remarks>
@@ -29,6 +38,15 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater list;
+        
+        /// <summary>
+        /// PagerBottom control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.Pager PagerBottom;
         
         /// <summary>
         /// SmartScroller1 control.

@@ -2110,18 +2110,26 @@ namespace YAF.Classes.Data
         /// ID of board
         /// </param>
         /// <param name="ID">
-        /// ID
+        /// The IP ID.
+        /// </param>
+        /// <param name="pageIndex">
+        /// The 0-based page Index.
+        /// </param>
+        /// <param name="pageSize"> 
+        /// The page size.
         /// </param>
         /// <returns>
         /// DataTable of banned IPs
         /// </returns>
-        public static DataTable bannedip_list([NotNull] object boardID, [NotNull] object ID)
+        public static DataTable bannedip_list([NotNull] object boardID, [CanBeNull] object ID, [CanBeNull] object pageIndex, [CanBeNull] object pageSize)
         {
             using (var cmd = MsSqlDbAccess.GetCommand("bannedip_list"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("BoardID", boardID);
                 cmd.Parameters.AddWithValue("ID", ID);
+                cmd.Parameters.AddWithValue("PageIndex", pageIndex);
+                cmd.Parameters.AddWithValue("PageSize", pageSize);
                 return MsSqlDbAccess.Current.GetData(cmd);
             }
         }

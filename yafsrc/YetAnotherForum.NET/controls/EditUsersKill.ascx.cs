@@ -16,6 +16,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
+using YAF.Classes;
+
 namespace YAF.Controls
 {
   #region Using
@@ -158,8 +161,9 @@ namespace YAF.Controls
     /// </summary>
     private void BanUserIps()
     {
+
       var ips = this.IPAddresses;
-      var allIps = LegacyDb.bannedip_list(this.PageContext.PageBoardID, null).GetColumnAsList<string>("Mask").ToList();
+      var allIps = LegacyDb.bannedip_list(this.PageContext.PageBoardID, null, 0, 1000000).GetColumnAsList<string>("Mask").ToList();
 
       // remove all IPs from ips if they already exist in allIps...
       ips.RemoveAll(allIps.Contains);

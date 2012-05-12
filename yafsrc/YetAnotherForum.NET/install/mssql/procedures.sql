@@ -1955,12 +1955,51 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}bannedip_list](@BoardID int,@ID int=null) as
+create procedure [{databaseOwner}].[{objectQualifier}bannedip_list](@BoardID int,@ID int=null,@PageIndex int=null, @PageSize int=null) as
 begin
-		if @ID is null
-		select * from [{databaseOwner}].[{objectQualifier}BannedIP] where BoardID=@BoardID
+declare @TotalRows int
+declare @FirstSelectRowNumber int
+declare @FirstSelectRowID int
+        if @ID is null
+		begin
+		   set nocount on
+		   set @PageIndex = @PageIndex + 1
+		   set @FirstSelectRowNumber = 0
+		   set @FirstSelectRowID = 0
+		   set @TotalRows = 0
+		   
+		   select @TotalRows = count(1) from [{databaseOwner}].[{objectQualifier}BannedIP] where BoardID=@BoardID
+		   select @FirstSelectRowNumber = (@PageIndex - 1) * @PageSize + 1
+		   
+		   if (@FirstSelectRowNumber <= @TotalRows)
+		   begin
+		   -- find first selectedrowid 
+		   set rowcount @FirstSelectRowNumber
+		   end
+		   else
+		   begin  
+		   set rowcount 1
+		   end
+      -- find first row id for a current page 
+      select @FirstSelectRowID = ID 
+      from
+		[{databaseOwner}].[{objectQualifier}BannedIP] where BoardID=@BoardID
+		ORDER BY Mask
+
+      -- display page 
+      set rowcount @PageSize
+      select
+		a.*,
+		TotalRows = @TotalRows
+	from
+		[{databaseOwner}].[{objectQualifier}BannedIP] a		
+		 where a.ID >= @FirstSelectRowID and BoardID=@BoardID 
+		 ORDER BY a.Mask
+   set nocount off
+  end
+  
 	else
-		select * from [{databaseOwner}].[{objectQualifier}BannedIP] where BoardID=@BoardID and ID=@ID
+		select * from [{databaseOwner}].[{objectQualifier}BannedIP] where ID=@ID and BoardID=@BoardID
 end
 GO
 

@@ -123,9 +123,11 @@ namespace YAF.Core.Services
     /// </returns>
     protected override bool RunService()
     {
+
+      // TODO: The data cache needs a more fast string array check as number of banned ips can be huge, but current output is too demanding on perfomance in the cases.
       var bannedIPs =
         this.DataCache.GetOrSet(
-          Constants.Cache.BannedIP, () => LegacyDb.bannedip_list(YafContext.Current.PageBoardID, null)).AsEnumerable();
+          Constants.Cache.BannedIP, () => LegacyDb.bannedip_list(YafContext.Current.PageBoardID, null,0,1000000)).AsEnumerable();
 
       // check for this user in the list...
       if (
