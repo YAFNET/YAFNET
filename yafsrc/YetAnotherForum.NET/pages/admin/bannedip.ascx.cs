@@ -156,20 +156,19 @@ namespace YAF.Pages.Admin
     /// </summary>
     private void BindData()
     {
-        int baseSize = 2; // this.Get<YafBoardSettings>().MemberListPageSize;
-        int nCurrentPageIndex = this.PagerTop.CurrentPageIndex;
-        this.PagerTop.PageSize = baseSize;
-        var dt = LegacyDb.bannedip_list(this.PageContext.PageBoardID, null, nCurrentPageIndex, baseSize);
-      this.list.DataSource = dt;
-      if (dt != null && dt.Rows.Count > 0)
-      {
-          this.PagerTop.Count = dt.AsEnumerable().First().Field<int>("TotalRows");
-      }
-      else
-      {
-          this.PagerTop.Count = 0;
-      }
-      this.DataBind();
+        this.PagerTop.PageSize = this.Get<YafBoardSettings>().MemberListPageSize;
+        var dt = LegacyDb.bannedip_list(this.PageContext.PageBoardID, null, this.PagerTop.CurrentPageIndex, this.PagerTop.PageSize);
+        this.list.DataSource = dt;
+        if (dt != null && dt.Rows.Count > 0)
+        {
+            this.PagerTop.Count = dt.AsEnumerable().First().Field<int>("TotalRows");
+        }
+        else
+        {
+            this.PagerTop.Count = 0;
+        }
+        
+        this.DataBind();
     }
 
     #endregion
