@@ -2270,37 +2270,20 @@ namespace YAF.Classes.Data
         /// <summary>
         /// Creates a new board
         /// </summary>
-        /// <param name="adminUsername">
-        /// Membership Provider User Name
-        /// </param>
-        /// <param name="adminUserEmail">
-        /// The admin User Email.
-        /// </param>
-        /// <param name="adminUserKey">
-        /// Membership Provider User Key
-        /// </param>
-        /// <param name="boardName">
-        /// Name of new board
-        /// </param>
-        /// <param name="culture">
-        /// The culture.
-        /// </param>
-        /// <param name="languageFile">
-        /// The language File.
-        /// </param>
-        /// <param name="boardMembershipName">
-        /// Membership Provider Application Name for new board
-        /// </param>
-        /// <param name="boardRolesName">
-        /// Roles Provider Application Name for new board
-        /// </param>
-        /// <param name="rolePrefix">
-        /// The role Prefix.
-        /// </param>
+        /// <param name="adminUsername">Membership Provider User Name</param>
+        /// <param name="adminUserEmail">The admin User Email.</param>
+        /// <param name="adminUserKey">Membership Provider User Key</param>
+        /// <param name="boardName">Name of new board</param>
+        /// <param name="culture">The culture.</param>
+        /// <param name="languageFile">The language File.</param>
+        /// <param name="boardMembershipName">Membership Provider Application Name for new board</param>
+        /// <param name="boardRolesName">Roles Provider Application Name for new board</param>
+        /// <param name="rolePrefix">The role Prefix.</param>
+        /// <param name="isHostUser">The is host user.</param>
         /// <returns>
         /// The board_create.
         /// </returns>
-        public static int board_create([NotNull] object adminUsername, [NotNull] object adminUserEmail, [NotNull] object adminUserKey, [NotNull] object boardName, [NotNull] object culture, [NotNull] object languageFile, [NotNull] object boardMembershipName, [NotNull] object boardRolesName, [NotNull] object rolePrefix)
+        public static int board_create([NotNull] object adminUsername, [NotNull] object adminUserEmail, [NotNull] object adminUserKey, [NotNull] object boardName, [NotNull] object culture, [NotNull] object languageFile, [NotNull] object boardMembershipName, [NotNull] object boardRolesName, [NotNull] object rolePrefix, [NotNull] object isHostUser)
         {
             using (var cmd = MsSqlDbAccess.GetCommand("board_create"))
             {
@@ -2313,7 +2296,7 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("UserName", adminUsername);
                 cmd.Parameters.AddWithValue("UserEmail", adminUserEmail);
                 cmd.Parameters.AddWithValue("UserKey", adminUserKey);
-                cmd.Parameters.AddWithValue("IsHostAdmin", 0);
+                cmd.Parameters.AddWithValue("IsHostAdmin", isHostUser);
                 cmd.Parameters.AddWithValue("RolePrefix", rolePrefix);
                 cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
 

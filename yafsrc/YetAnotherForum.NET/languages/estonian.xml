@@ -375,17 +375,17 @@
     <Resource tag="TITLE">Add/Edit Access Masks</Resource>
   </page>
   <page name="ADMIN_EDITBOARD">
-    <Resource tag="ADMIN_USER">Create New Admin User:</Resource>
+    <Resource tag="ADMIN_USER">Create New Superuser (Host Admin):</Resource>
     <Resource tag="ADMIN_USER_HELP">Only required when creating a board using a new &amp; different membership application name.</Resource>
     <Resource tag="CULTURE">Culture:</Resource>
     <Resource tag="CULTURE_HELP">The Culture of the board.</Resource>
-    <Resource tag="HEADER2">New Administrator Information</Resource>
+    <Resource tag="HEADER2">New Superuser Information</Resource>
     <Resource tag="MEMBSHIP_APP_NAME">Membership Application Name:</Resource>
     <Resource tag="MEMBSHIP_APP_NAME_HELP">Application name required for provider, blank will use ApplicationName in web.config.</Resource>
-    <Resource tag="MSG_EMAIL_ADMIN">You must enter the email address of the administrator user.</Resource>
-    <Resource tag="MSG_NAME_ADMIN">You must enter the name of a administrator user.</Resource>
+    <Resource tag="MSG_EMAIL_ADMIN">You must enter the email address of the host admin.</Resource>
+    <Resource tag="MSG_NAME_ADMIN">You must enter the name of the host admin user.</Resource>
     <Resource tag="MSG_NAME_BOARD">You must enter a name for the board.</Resource>
-    <Resource tag="MSG_PASS_ADMIN">You must enter a password for the administrator user.</Resource>
+    <Resource tag="MSG_PASS_ADMIN">You must enter a password for the host admin user.</Resource>
     <Resource tag="MSG_PASS_MATCH">The passwords don't match.</Resource>
     <Resource tag="NAME">Name:</Resource>
     <Resource tag="NAME_HELP">The name of the board.</Resource>
@@ -406,9 +406,9 @@
     <Resource tag="THREADED_HELP">Allow threaded view for posts.</Resource>
     <Resource tag="TITLE">Add/Edit Board</Resource>
     <Resource tag="USER_MAIL">User Email:</Resource>
-    <Resource tag="USER_MAIL_HELP">Email address for administrator.</Resource>
+    <Resource tag="USER_MAIL_HELP">Email address for the host admin.</Resource>
     <Resource tag="USER_NAME">User Name:</Resource>
-    <Resource tag="USER_NAME_HELP">This will be the administrator for the board.</Resource>
+    <Resource tag="USER_NAME_HELP">This will be the host admin for the board.</Resource>
     <Resource tag="USER_PASS">Password:</Resource>
     <Resource tag="USER_PASS_HELP">Enter password for administrator here.</Resource>
     <Resource tag="VERIFY_PASS">Verify Password:</Resource>

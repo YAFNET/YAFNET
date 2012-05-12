@@ -20,8 +20,8 @@
     <Resource tag="ADMIN_EDITGROUP">Bearbeitet Gruppen</Resource>
     <Resource tag="ADMIN_EDITLANGUAGE">Bearbeitet eine Sprachendatei</Resource>
     <Resource tag="ADMIN_EDITMEDAL">Bearbeitet Medaillen</Resource>
-    <Resource tag="ADMIN_EDITNNTPFORUM">Edits NNTP Forum</Resource>
-    <Resource tag="ADMIN_EDITNNTPSERVER">Edits NNTP Server</Resource>
+    <Resource tag="ADMIN_EDITNNTPFORUM">Bearbeited NNTP Forum</Resource>
+    <Resource tag="ADMIN_EDITNNTPSERVER">Bearbeited NNTP Server</Resource>
     <Resource tag="ADMIN_EDITRANK">Bearbeitet Ränge</Resource>
     <Resource tag="ADMIN_EDITUSER">Bearbeitet Benutzeruser</Resource>
     <Resource tag="ADMIN_EVENTLOG">Betrachtet/Bearbeitet Eventlog</Resource>
@@ -56,7 +56,7 @@
     <Resource tag="ADMIN_TOPICSTATUS_EDIT">Bearbeitet einen Themen Status</Resource>
     <Resource tag="ADMIN_TOPICSTATUS_IMPORT">Importiert Themen Status</Resource>
     <Resource tag="ADMIN_USERS">Betrachtet Benutzer im Adminbereich</Resource>
-    <Resource tag="ADMIN_USERS_IMPORT">Imports users</Resource>
+    <Resource tag="ADMIN_USERS_IMPORT">Importiert Benutzer</Resource>
     <Resource tag="ADMIN_VERSION">Betrachtet Version</Resource>
     <Resource tag="ADMINTASK">Führt Admin Aufgaben durch</Resource>
     <Resource tag="ALBUM">Betrachtet Album</Resource>
@@ -376,17 +376,17 @@
     <Resource tag="TITLE">Zugangsmasken Hinzufügen / Bearbeiten </Resource>
   </page>
   <page name="ADMIN_EDITBOARD">
-    <Resource tag="ADMIN_USER">Neuen Admin Benutzer erstellen:</Resource>
+    <Resource tag="ADMIN_USER">Neuen System Verwalter erstellen:</Resource>
     <Resource tag="ADMIN_USER_HELP">Nur erforderlich, wenn Sie ein Board mit einem neuen und unterschiedlichen Membership Application Name verwenden.</Resource>
     <Resource tag="CULTURE">Sprache:</Resource>
     <Resource tag="CULTURE_HELP">Die Sprache des Boards.</Resource>
-    <Resource tag="HEADER2">Informationen für neue Administratoren</Resource>
+    <Resource tag="HEADER2">Information für den neuen Systemverwalter</Resource>
     <Resource tag="MEMBSHIP_APP_NAME">Membership Anwendungsname:</Resource>
     <Resource tag="MEMBSHIP_APP_NAME_HELP">Name der Anwendung sind für den Provider erforderlich, wenn es leer bleibt wird der ApplicationName in web.config verwendet.</Resource>
-    <Resource tag="MSG_EMAIL_ADMIN">Sie müssen eine E-Mail des Administrator-Benutzers eingeben.</Resource>
-    <Resource tag="MSG_NAME_ADMIN">Sie müssen den Namen eines Administrator-Benutzers eingeben.</Resource>
+    <Resource tag="MSG_EMAIL_ADMIN">Sie müssen eine E-Mail des Systemverwalter Benutzers eingeben.</Resource>
+    <Resource tag="MSG_NAME_ADMIN">Sie müssen den Namen eines Systemverwalter Benutzers eingeben.</Resource>
     <Resource tag="MSG_NAME_BOARD">Sie müssen einen Namen für das Board eingeben.</Resource>
-    <Resource tag="MSG_PASS_ADMIN">Sie müssen ein Passwort des Administrator-Benutzers eingeben.</Resource>
+    <Resource tag="MSG_PASS_ADMIN">Sie müssen ein Passwort des Systemverwalter Benutzers eingeben.</Resource>
     <Resource tag="MSG_PASS_MATCH">Die Passwörter stimmen nicht überein.</Resource>
     <Resource tag="NAME">Name:</Resource>
     <Resource tag="NAME_HELP">Der Name des Boards.</Resource>
@@ -402,7 +402,7 @@
     <Resource tag="STATUS_INVAL_PASS">Das Kennwort ist ungültig. Bitte geben Sie ein gültiges Passwort ein.</Resource>
     <Resource tag="STATUS_INVAL_QUESTION">Die Passwortwiederherstellungs Frage ist ungültig. Bitte überprüfen Sie die Eingabe und versuchen Sie es erneut.</Resource>
     <Resource tag="STATUS_PROVIDER_ERR">Die Authentifizierungs-Provider hat einen Fehler zurückgegeben. Bitte überprüfen Sie Ihre Eingabe und versuchen Sie es erneut. Wenn das Problem weiterhin besteht, wenden Sie sich bitte an Ihren Systemadministrator.</Resource>
-    <Resource tag="STATUS_USR_REJECTED">The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator.</Resource>
+    <Resource tag="STATUS_USR_REJECTED">Die Benutzer Registrierung wurde abgebrochen. Bitte überprüfen Sie ihre Angaben und versuchen es erneut. Wenn das Problem weiterhin besteht, wenden Sie sich an den Sytemverwalter.</Resource>
     <Resource tag="THREADED">Threaded Ansicht erlauben:</Resource>
     <Resource tag="THREADED_HELP">Erlaube die Threaded Ansicht für Beiträge</Resource>
     <Resource tag="TITLE">Board Hinzufügen/Bearbeiten</Resource>
@@ -715,7 +715,7 @@
     <Resource tag="CONFIRM_DELETE">Diesen Eintrag im Ereignisprotokoll löschen?</Resource>
     <Resource tag="CONFIRM_DELETE_ALL">Alle Einträge löschen?</Resource>
     <Resource tag="DELETE_ALL">Alle löschen</Resource>
-    <Resource tag="DELETE_ALLOWED">Clean Up</Resource>
+    <Resource tag="DELETE_ALLOWED">Aufräumen</Resource>
     <Resource tag="HIDE">Verstecken</Resource>
     <Resource tag="SHOW">Zeigen</Resource>
     <Resource tag="SOURCE">Quelle</Resource>
@@ -991,7 +991,7 @@
     <Resource tag="HEADER_IRKOO">Irkoo-Reputation Service</Resource>
     <Resource tag="HEADER_LOG">Log-Einstellungen</Resource>
     <Resource tag="HEADER_LOGIN">Login / Registrierungseinstellungen</Resource>
-    <Resource tag="HEADER_LOGSCOPE">Log scope</Resource>
+    <Resource tag="HEADER_LOGSCOPE">Ereignisprotokoll Anwendungsbereich</Resource>
     <Resource tag="HEADER_PERMISSION">Berechtigungseinstellungen</Resource>
     <Resource tag="HEADER_PMS">Private Nachrichten</Resource>
     <Resource tag="HEADER_POLL">Abstimmungseinstellungen</Resource>
@@ -1007,7 +1007,7 @@
     <Resource tag="HOST_DISPLAY">Darstellung</Resource>
     <Resource tag="HOST_EDITORS">Editoren</Resource>
     <Resource tag="HOST_FEATURES">Funktionen</Resource>
-    <Resource tag="HOST_LOG">Logs</Resource>
+    <Resource tag="HOST_LOG">Ereignisprotokoll</Resource>
     <Resource tag="HOST_PERMISSION">Berechtigungen</Resource>
     <Resource tag="HOST_SEARCH">Suche</Resource>
     <Resource tag="HOST_TEMPLATES">Vorlagen</Resource>
@@ -2476,10 +2476,10 @@
     <Resource tag="TO">Senden an (E-Mail-Adresse):</Resource>
   </page>
   <page name="EVENTLOG_EVENTS">
-    <Resource tag="ERROR">Error</Resource>
+    <Resource tag="ERROR">Fehler</Resource>
     <Resource tag="INFORMATION">Information</Resource>
-    <Resource tag="SQLERROR">Sql Script Error</Resource>
-    <Resource tag="WARNING">Warning</Resource>
+    <Resource tag="SQLERROR">Sql Skript Fehler</Resource>
+    <Resource tag="WARNING">Warnung</Resource>
   </page>
   <page name="HELP_INDEX">
     <Resource tag="ANOUNCECONTENT">&lt;p&gt;Ankündigungen sind spezielle Beiträge, die von einem Administrator oder  Moderator geschrieben werden. Sie sind eine einfache Ein-Wege-Kommunikation mit dem Benutzer und Sie können nicht antworten. Wenn Sie eine Ankündigung diskutieren möchten, müssen Sie ein neues Thema  im Forum erstellen.&lt;/p&gt;
@@ -3873,7 +3873,7 @@ Spoiler Content
     <Resource tag="TITLE_ECMAVERSION">JavaScript Version</Resource>
     <Resource tag="TITLE_EXCEPTION">Information</Resource>
     <Resource tag="TITLE_FAILURE">Fehlschlag</Resource>
-    <Resource tag="TITLE_HOSTADMINPERMISSIONSREQUIRED">Host Admin permissions reqired!</Resource>
+    <Resource tag="TITLE_HOSTADMINPERMISSIONSREQUIRED">Systemverwalter Berechtigungen werden bentötigt!</Resource>
     <Resource tag="TITLE_INVALID">Ungültig</Resource>
     <Resource tag="TITLE_MODERATED">Information</Resource>
     <Resource tag="TITLE_REGISTRATION">Danke</Resource>

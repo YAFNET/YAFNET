@@ -427,7 +427,9 @@ namespace YAF.Pages.Admin
                     "english.xml",
                     this.BoardMembershipName.Text.Trim(),
                     this.BoardRolesName.Text.Trim(),
-                    Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty);
+                    Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty,
+                    this.PageContext.IsHostAdmin);
+
                 this.CreateUsers(curboard, _usersNumber);
             }
 
@@ -856,7 +858,7 @@ namespace YAF.Pages.Admin
                     this.TopicPrefixTB.Text.Trim() + this.randomGuid,
                     "{0}{1}   {2}".FormatWith(pmessagePrefix, this.randomGuid, this.PMessageText.Text.Trim()),
                     6, 
-                    null);
+                    -1);
             }
 
             if (this.MarkRead.Checked)

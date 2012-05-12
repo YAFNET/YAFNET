@@ -41,7 +41,7 @@ namespace YAF.Pages.Admin
   #endregion
 
   /// <summary>
-  /// Summary description for WebForm1.
+  /// Admin Edit Board Page
   /// </summary>
   public partial class editboard : AdminPage
   {
@@ -88,28 +88,20 @@ namespace YAF.Pages.Admin
     }
 
     /// <summary>
-    /// The cancel_ click.
+    /// Cancel Edit/Create and return Back to the Boards Listening
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       YafBuildLink.Redirect(ForumPages.admin_boards);
     }
 
     /// <summary>
-    /// The create admin user_ checked changed.
+    /// Show/Hide Create Host Admin User Creating
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     protected void CreateAdminUser_CheckedChanged([NotNull] object sender, [NotNull] EventArgs e)
     {
       this.AdminInfo.Visible = this.CreateAdminUser.Checked;
@@ -118,35 +110,15 @@ namespace YAF.Pages.Admin
     /// <summary>
     /// The create board.
     /// </summary>
-    /// <param name="adminName">
-    /// The admin name.
-    /// </param>
-    /// <param name="adminPassword">
-    /// The admin password.
-    /// </param>
-    /// <param name="adminEmail">
-    /// The admin email.
-    /// </param>
-    /// <param name="adminPasswordQuestion">
-    /// The admin password question.
-    /// </param>
-    /// <param name="adminPasswordAnswer">
-    /// The admin password answer.
-    /// </param>
-    /// <param name="boardName">
-    /// The board name.
-    /// </param>
-    /// <param name="boardMembershipAppName">
-    /// The board membership app name.
-    /// </param>
-    /// <param name="boardRolesAppName">
-    /// The board roles app name.
-    /// </param>
-    /// <param name="createUserAndRoles">
-    /// The create user and roles.
-    /// </param>
-    /// <exception cref="ApplicationException">
-    /// </exception>
+    /// <param name="adminName">The admin name.</param>
+    /// <param name="adminPassword">The admin password.</param>
+    /// <param name="adminEmail">The admin email.</param>
+    /// <param name="adminPasswordQuestion">The admin password question.</param>
+    /// <param name="adminPasswordAnswer">The admin password answer.</param>
+    /// <param name="boardName">The board name.</param>
+    /// <param name="boardMembershipAppName">The board membership app name.</param>
+    /// <param name="boardRolesAppName">The board roles app name.</param>
+    /// <param name="createUserAndRoles">The create user and roles.</param>
     protected void CreateBoard(
         [NotNull] string adminName,
         [NotNull] string adminPassword,
@@ -185,6 +157,7 @@ namespace YAF.Pages.Admin
         MembershipCreateStatus createStatus;
         MembershipUser newAdmin = this.Get<MembershipProvider>().CreateUser(
           adminName, adminPassword, adminEmail, adminPasswordQuestion, adminPasswordAnswer, true, null, out createStatus);
+
         if (createStatus != MembershipCreateStatus.Success)
         {
           this.PageContext.AddLoadMessage(
@@ -210,7 +183,8 @@ namespace YAF.Pages.Admin
           langFile, 
           boardMembershipAppName, 
           boardRolesAppName,
-          Config.CreateDistinctRoles &&  Config.IsAnyPortal ? "YAF " : String.Empty);
+          Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty,
+          this.PageContext().IsHostAdmin);
       }
       else
       {
@@ -227,13 +201,14 @@ namespace YAF.Pages.Admin
           langFile, 
           boardMembershipAppName,
           boardRolesAppName,
-          Config.CreateDistinctRoles &&  Config.IsAnyPortal ? "YAF " : String.Empty);
+          Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty,
+          this.PageContext().IsHostAdmin);
       }
 
       if (newBoardID > 0 && Config.MultiBoardFolders)
       {
         // Successfully created the new board
-        string boardFolder = this.Server.MapPath(Path.Combine(Config.BoardRoot, newBoardID + "/"));
+        string boardFolder = this.Server.MapPath(Path.Combine(Config.BoardRoot, "{0}/".FormatWith(newBoardID)));
 
         // Create New Folders.
         if (!Directory.Exists(Path.Combine(boardFolder, "Images")))
@@ -269,11 +244,9 @@ namespace YAF.Pages.Admin
     }
 
     /// <summary>
-    /// The get membership error message.
+    /// Gets the membership error message.
     /// </summary>
-    /// <param name="status">
-    /// The status.
-    /// </param>
+    /// <param name="status">The status.</param>
     /// <returns>
     /// The get membership error message.
     /// </returns>
@@ -314,15 +287,12 @@ namespace YAF.Pages.Admin
         }
     }
 
+
     /// <summary>
-    /// The page_ load.
+    /// Handles the Load event of the Page control.
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
         if (this.IsPostBack)
@@ -330,7 +300,7 @@ namespace YAF.Pages.Admin
             return;
         }
 
-        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
         this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
         this.PageLinks.AddLink(this.GetText("ADMIN_BOARDS", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_editboard));
         this.PageLinks.AddLink(this.GetText("ADMIN_EDITBOARD", "TITLE"), string.Empty);
@@ -351,7 +321,7 @@ namespace YAF.Pages.Admin
 
         if (this.Culture.Items.Count > 0)
         {
-            this.Culture.Items.FindByValue(this.PageContext.BoardSettings.Culture).Selected = true;
+            this.Culture.Items.FindByValue(this.Get<YafBoardSettings>().Culture).Selected = true;
         }
 
         if (this.BoardID != null)
@@ -374,14 +344,10 @@ namespace YAF.Pages.Admin
     }
 
     /// <summary>
-    /// The save_ click.
+    /// Save Current board / Create new Board
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     protected void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       if (this.Name.Text.Trim().Length == 0)
@@ -470,8 +436,9 @@ namespace YAF.Pages.Admin
       YafBuildLink.Redirect(ForumPages.admin_boards);
     }
 
-    /// <summary>
+    /*/// <summary>
     /// The set drop down index.
+    /// Not used
     /// </summary>
     /// <param name="sender">
     /// The sender.
@@ -489,10 +456,10 @@ namespace YAF.Pages.Admin
       catch (Exception)
       {
       }
-    }
+    }*/
 
     /// <summary>
-    /// The bind data.
+    /// Binds the data.
     /// </summary>
     private void BindData()
     {
