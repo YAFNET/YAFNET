@@ -729,3 +729,65 @@
 .yafnet dl.AlphaSort dd a {color:#3b3b3b;}
 
 .yafnet .yafsignature {position:relative;}
+
+/* clean up model dialog */
+.ModalDialog .DialogContent {
+  display:table;
+  width: 370px;
+  padding: 4px 0 4px 0;
+  background: #eee;
+}
+.ModalDialog .modalHeader 
+{
+    padding: 4px;
+    border: 1px solid #999;
+  text-shadow: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  color: #fff;
+  background: #666;
+  -webkit-border-radius: 1px;
+  -moz-border-radius: 1px;
+  border-radius: 1px;
+  text-align:center;
+  
+  font-size: 10pt;
+}
+
+.ModalDialog .modalHeader h3
+{
+    display: inline;
+}
+
+.ModalDialog .modalFooter
+{
+    padding: 2px;
+    text-align: right;
+}
+
+.ModalDialog input, .ModalDialog select
+{
+    padding: 0px;
+}
+
+.ModalDialog hr
+{
+    height: 1px;
+    border: 0;
+    background-color: #aaa;
+    clear:both;
+}
+
+.ModalDialog .modalInner
+{
+    display: inline;
+}
+.ModalDialog .StandardButton,
+.ModalDialog .StandardButton:hover {
+  background: #666;
+}
+.ModalDialog .close {
+	top:10px;
+	right:10px
+}

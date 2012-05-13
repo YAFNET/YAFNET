@@ -914,7 +914,7 @@ This CSS already works on FireFox.
 .ModalDialog .DialogContent {
   display:table;
   width: 370px;
-  padding: 4px;
+  padding: 4px 0 4px 0;
   background: #eee;
 }
 .ModalDialog .modalHeader 
@@ -962,4 +962,12 @@ This CSS already works on FireFox.
 .ModalDialog .modalInner
 {
     display: inline;
+}
+.ModalDialog .StandardButton,
+.ModalDialog .StandardButton:hover {
+  background: #666;
+}
+.ModalDialog .close {
+	top:10px;
+	right:10px
 }
