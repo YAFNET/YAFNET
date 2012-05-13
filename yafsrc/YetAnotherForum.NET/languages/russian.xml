@@ -7,6 +7,7 @@
     <Resource tag="ADMIN_ATTACHMENTS">Администрирует прикреплённые файлы</Resource>
     <Resource tag="ADMIN_BANNEDIP">Просматривает запрещённые IP</Resource>
     <Resource tag="ADMIN_BANNEDIP_EDIT">Редактирует запрещённые IP</Resource>
+    <Resource tag="ADMIN_BANNEDIP_IMPORT">Imports banned ips</Resource>
     <Resource tag="ADMIN_BBCODE">Просматривает BB-коды</Resource>
     <Resource tag="ADMIN_BBCODE_EDIT">Редактирует  BB-коды</Resource>
     <Resource tag="ADMIN_BBCODE_IMPORT">Импортирует  BB-коды</Resource>
@@ -203,6 +204,7 @@
   <page name="ADMIN_BANNEDIP">
     <Resource tag="ADD_IP">Добавить новый IP</Resource>
     <Resource tag="BAN_BY">Забанил: </Resource>
+    <Resource tag="IMPORT_IPS">Import Adress(es)</Resource>
     <Resource tag="MASK">Маска</Resource>
     <Resource tag="REASON">Причина</Resource>
     <Resource tag="SINCE">С</Resource>
@@ -218,6 +220,16 @@
     <Resource tag="REASON">Причина:</Resource>
     <Resource tag="REASON_HELP">Причина запрещения адреса.</Resource>
     <Resource tag="TITLE">Добавить/Изменить запрещённый адрес IP</Resource>
+  </page>
+  <page name="ADMIN_BANNEDIP_IMPORT">
+    <Resource tag="HEADER">Import IP Addresses List</Resource>
+    <Resource tag="IMPORT">Import List</Resource>
+    <Resource tag="IMPORT_FAILED">Failed to import! Invalid upload format specified: {0} </Resource>
+    <Resource tag="IMPORT_FILE">Select Import File:</Resource>
+    <Resource tag="IMPORT_FILE_HELP">Must be *.txt file containting Ip Adresses on each line</Resource>
+    <Resource tag="IMPORT_NOTHING">Nothing imported: no new ip address was found in the upload.</Resource>
+    <Resource tag="IMPORT_SUCESS">{0} new ip adress(es) imported successfully.</Resource>
+    <Resource tag="TITLE">Import IP Addresses</Resource>
   </page>
   <page name="ADMIN_BBCODE">
     <Resource tag="ADD">Новый BB-код</Resource>
@@ -727,6 +739,7 @@
     <Resource tag="CANCEL">Отмена</Resource>
     <Resource tag="GROUPNAME">Роль</Resource>
     <Resource tag="HEADER">Журнал событий и роли</Resource>
+    <Resource tag="SAVE">Save</Resource>
     <Resource tag="TITLE">Журнал событий и роли</Resource>
   </page>
   <page name="ADMIN_EVENTLOGROUPACCESS">

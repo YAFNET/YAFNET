@@ -1481,6 +1481,7 @@ Spoiler Content
       <Resource tag="ADMIN_NNTPRETRIEVE">Retrieves NNTP</Resource>
       <Resource tag="ADMIN_VERSION">Views version</Resource>
       <Resource tag="ADMIN_BANNEDIP_EDIT">Edits banned IPs</Resource>
+      <Resource tag="ADMIN_BANNEDIP_IMPORT">Imports banned ips</Resource>
       <Resource tag="ADMIN_EDITACCESSMASK">Edits access masks</Resource>
       <Resource tag="ADMIN_EDITBOARD">Edits boards</Resource>
       <Resource tag="ADMIN_EDITCATEGORY">Edits categories</Resource>
@@ -4289,6 +4290,7 @@ Visit {forumname} at {forumlink}
 	  <page name="ADMIN_BANNEDIP">
 	   <Resource tag="TITLE">Banned IP Addresses</Resource>
 	   <Resource tag="ADD_IP">Add New Adress</Resource>
+     <Resource tag="IMPORT_IPS">Import Adress(es)</Resource>
 	   <Resource tag="MASK">Mask</Resource>
 	   <Resource tag="SINCE">Since</Resource>
 	   <Resource tag="REASON">Reason</Resource>
@@ -4305,6 +4307,16 @@ Visit {forumname} at {forumlink}
 	   <Resource tag="REASON">Reason:</Resource>
 	   <Resource tag="REASON_HELP">The reason why the ip was banned.</Resource>
 	 </page>
+  <page name="ADMIN_BANNEDIP_IMPORT">
+    <Resource tag="TITLE">Import IP Addresses</Resource>
+    <Resource tag="HEADER">Import IP Addresses List</Resource>
+    <Resource tag="IMPORT">Import List</Resource>
+    <Resource tag="IMPORT_FILE">Select Import File:</Resource>
+    <Resource tag="IMPORT_FILE_HELP">Must be *.txt file containting Ip Adresses on each line</Resource>
+    <Resource tag="IMPORT_SUCESS">{0} new ip adress(es) imported successfully.</Resource>
+    <Resource tag="IMPORT_NOTHING">Nothing imported: no new ip address was found in the upload.</Resource>
+    <Resource tag="IMPORT_FAILED">Failed to import! Invalid upload format specified: {0} </Resource>
+  </page>
 	  <page name="ADMIN_RANKS">
 	   <Resource tag="TITLE">Ranks</Resource>
 	   <Resource tag="NEW_RANK">New Rank</Resource>

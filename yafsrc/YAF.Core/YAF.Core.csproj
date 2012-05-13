@@ -181,6 +181,9 @@
     <Compile Include="Services\CheckForSpam\BlogSpamComment.cs" />
     <Compile Include="Services\CheckForSpam\CheckForSpamClientBase.cs" />
     <Compile Include="Services\CheckForSpam\Comment.cs" />
+    <Compile Include="Services\CheckForSpam\BotScout.cs" />
+    <Compile Include="Services\CheckForSpam\IBotCheck.cs" />
+    <Compile Include="Services\CheckForSpam\StopForumSpam.cs" />
     <Compile Include="Services\CheckForSpam\HttpClient.cs" />
     <Compile Include="Services\CheckForSpam\IBlogSpamNet.cs" />
     <Compile Include="Services\CheckForSpam\ICheckForSpamClient.cs" />

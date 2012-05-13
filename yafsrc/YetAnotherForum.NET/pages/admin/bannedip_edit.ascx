@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True"
+﻿<%@ Control Language="c#" AutoEventWireup="True"
 	Inherits="YAF.Pages.Admin.bannedip_edit" Codebehind="bannedip_edit.ascx.cs" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server">

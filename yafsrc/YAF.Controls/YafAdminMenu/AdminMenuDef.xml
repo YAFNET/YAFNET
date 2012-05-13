@@ -23,8 +23,8 @@
       <ForumPage>admin_eventloggroups</ForumPage>
       <SubForumPage_0>admin_eventloggroupaccess</SubForumPage_0>
       <Image>wall-small-brick</Image>
-    </YafMenuItem>  
-	</YafMenuSection>
+    </YafMenuItem>
+  </YafMenuSection>
   <YafMenuSection Title="Settings" Tag="Settings" HostAdminOnly="False">
     <YafMenuItem>
       <Title>Admin Index</Title>
@@ -117,6 +117,7 @@
       <Title>Banned IPs</Title>
       <ForumPage>admin_bannedip</ForumPage>
       <SubForumPage_0>admin_bannedip_edit</SubForumPage_0>
+      <SubForumPage_1>admin_bannedip_import</SubForumPage_1>
       <Image>lock</Image>
     </YafMenuItem>
     <YafMenuItem>

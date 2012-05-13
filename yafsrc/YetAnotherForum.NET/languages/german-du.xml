@@ -7,6 +7,7 @@
     <Resource tag="ADMIN_ATTACHMENTS">Betrachte Anhänge</Resource>
     <Resource tag="ADMIN_BANNEDIP">Betrachtet Gebannte IPs Liste</Resource>
     <Resource tag="ADMIN_BANNEDIP_EDIT">Bearbeitet Gebannte IPs</Resource>
+    <Resource tag="ADMIN_BANNEDIP_IMPORT">Importiert Gebannte Ips</Resource>
     <Resource tag="ADMIN_BBCODE">Betrachtet BBCodes</Resource>
     <Resource tag="ADMIN_BBCODE_EDIT">Bearbeitet BBcodes</Resource>
     <Resource tag="ADMIN_BBCODE_IMPORT">Importiert BBCodes</Resource>
@@ -204,6 +205,7 @@
   <page name="ADMIN_BANNEDIP">
     <Resource tag="ADD_IP">Neue Adresse hinzufügen</Resource>
     <Resource tag="BAN_BY">Gebannt durch</Resource>
+    <Resource tag="IMPORT_IPS">Adress(en) importieren</Resource>
     <Resource tag="MASK">Maske</Resource>
     <Resource tag="REASON">Grund</Resource>
     <Resource tag="SINCE">Seit</Resource>
@@ -219,6 +221,16 @@
     <Resource tag="REASON">Grund:</Resource>
     <Resource tag="REASON_HELP">Der Grund warum die IP Adresse gesperrt wurde.</Resource>
     <Resource tag="TITLE">Gesperrte IP-Adresse Hinzufügen / Bearbeiten</Resource>
+  </page>
+  <page name="ADMIN_BANNEDIP_IMPORT">
+    <Resource tag="HEADER">Import IP Addresses List</Resource>
+    <Resource tag="IMPORT">Import List</Resource>
+    <Resource tag="IMPORT_FAILED">Failed to import! Invalid upload format specified: {0} </Resource>
+    <Resource tag="IMPORT_FILE">Select Import File:</Resource>
+    <Resource tag="IMPORT_FILE_HELP">Must be *.txt file containting Ip Adresses on each line</Resource>
+    <Resource tag="IMPORT_NOTHING">Nothing imported: no new ip address was found in the upload.</Resource>
+    <Resource tag="IMPORT_SUCESS">{0} new ip adress(es) imported successfully.</Resource>
+    <Resource tag="TITLE">Import IP Addresses</Resource>
   </page>
   <page name="ADMIN_BBCODE">
     <Resource tag="ADD">Neuen BBCode hinzufügen</Resource>
@@ -1554,6 +1566,16 @@
     <Resource tag="TITLE">Hinzufügen / Bearbeiten von Themen Status</Resource>
     <Resource tag="TOPICSTATUS_NAME">Topic Status Value:</Resource>
     <Resource tag="TOPICSTATUS_NAME_HELP">This is the Value that is used to retrieve the Topic Status Icon and/or Text. That needs to be defined in the Theme Files and languages.</Resource>
+  </page>
+  <page name="ADMIN_TOPICSTATUS_IMPORT">
+    <Resource tag="HEADER">IP Adressen Liste Importieren</Resource>
+    <Resource tag="IMPORT">Importliste</Resource>
+    <Resource tag="IMPORT_FAILED">Import fehlgeschlagen! Falsches Format: {0}</Resource>
+    <Resource tag="IMPORT_FILE">Importdatei wählen:</Resource>
+    <Resource tag="IMPORT_FILE_HELP">Muss eine *.text Datei sein, und eine IP Adresse pro Zeile</Resource>
+    <Resource tag="IMPORT_NOTHING">Nichts importiert: keine neue IP Addresse gefunden.</Resource>
+    <Resource tag="IMPORT_SUCESS">{0} Neue IP Adressen wurden erfolgreich importiert.</Resource>
+    <Resource tag="TITLE">IP Adressen importieren</Resource>
   </page>
   <page name="ADMIN_TOPICSTATUS_IMPORT">
     <Resource tag="HEADER">Themen Status Liste Importieren</Resource>

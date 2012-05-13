@@ -169,7 +169,8 @@ namespace YAF.Controls
 
       string accordianJs;
 
-      // A magic digit why it's so? 
+      // A magic digit why it's so?
+      // 7 is the Number of sections inside the accordion and viewIndex marks the current opened section
       if (viewIndex >= 7)
       {
         accordianJs =
@@ -247,12 +248,14 @@ namespace YAF.Controls
                 p =>
                     {
                         var navigatablePage = p as INavigatablePage;
-                        return navigatablePage != null ? new YafMenuYafMenuSection
-                                                              {
-                                                                  HostAdminOnly = p.IsHostAdminOnly.ToString(CultureInfo.InvariantCulture),
-                                                                  Title = p.PageName,
-                                                                  Tag = navigatablePage.PageCategory
-                                                              } : null;
+                        return navigatablePage != null
+                                   ? new YafMenuYafMenuSection
+                                       {
+                                           HostAdminOnly = p.IsHostAdminOnly.ToString(CultureInfo.InvariantCulture),
+                                           Title = p.PageName,
+                                           Tag = navigatablePage.PageCategory
+                                       }
+                                   : null;
                     }));
 
         return from value in menuItems
@@ -287,10 +290,10 @@ namespace YAF.Controls
     /// </param>
     private void RenderAccordian([NotNull] HtmlTextWriter writer)
     {
-
         bool show = false;
 
         IEnumerable<DataRow> dt = !this.PageContext.IsHostAdmin ? LegacyDb.adminpageaccess_list(this.PageContext.PageUserID, null).AsEnumerable().ToList() : null;
+        
         // build menu...
         foreach (var value in this.GetMenuSections())
         {
@@ -313,7 +316,7 @@ namespace YAF.Controls
             if (!this.PageContext.IsHostAdmin)
             {
                 if (value.YafMenuItem.Any(va => dt.Any() && va.ForumPage.IsSet() && 
-                    (dt.Any(row => va.ForumPage == row["PageName"].ToString()))))
+                    dt.Any(row => va.ForumPage == row["PageName"].ToString())))
                 {
                     show = true;
                 }

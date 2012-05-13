@@ -7,6 +7,7 @@
     <Resource tag="ADMIN_ATTACHMENTS">Bekijkt attachments</Resource>
     <Resource tag="ADMIN_BANNEDIP">Bekijkt gebande IPs lijst</Resource>
     <Resource tag="ADMIN_BANNEDIP_EDIT">Bewerkt gebande IPs</Resource>
+    <Resource tag="ADMIN_BANNEDIP_IMPORT">Imports banned ips</Resource>
     <Resource tag="ADMIN_BBCODE">Bekijkt BBCodes</Resource>
     <Resource tag="ADMIN_BBCODE_EDIT">Bewerkt BBcodes</Resource>
     <Resource tag="ADMIN_BBCODE_IMPORT">Importeert BBCodes</Resource>
@@ -203,6 +204,7 @@
   <page name="ADMIN_BANNEDIP">
     <Resource tag="ADD_IP">Voeg nieuw ip toe</Resource>
     <Resource tag="BAN_BY">Geblokkeerd door</Resource>
+    <Resource tag="IMPORT_IPS">Import Adress(es)</Resource>
     <Resource tag="MASK">Masker</Resource>
     <Resource tag="REASON">Reden</Resource>
     <Resource tag="SINCE">Sinds</Resource>
@@ -218,6 +220,16 @@
     <Resource tag="REASON">Reden:</Resource>
     <Resource tag="REASON_HELP">De reden waarom het ip-adres is geblokkeerd.</Resource>
     <Resource tag="TITLE">Geblokkeerde IP-Adressen toevoegen/bewerken</Resource>
+  </page>
+  <page name="ADMIN_BANNEDIP_IMPORT">
+    <Resource tag="HEADER">Import IP Addresses List</Resource>
+    <Resource tag="IMPORT">Import List</Resource>
+    <Resource tag="IMPORT_FAILED">Failed to import! Invalid upload format specified: {0} </Resource>
+    <Resource tag="IMPORT_FILE">Select Import File:</Resource>
+    <Resource tag="IMPORT_FILE_HELP">Must be *.txt file containting Ip Adresses on each line</Resource>
+    <Resource tag="IMPORT_NOTHING">Nothing imported: no new ip address was found in the upload.</Resource>
+    <Resource tag="IMPORT_SUCESS">{0} new ip adress(es) imported successfully.</Resource>
+    <Resource tag="TITLE">Import IP Addresses</Resource>
   </page>
   <page name="ADMIN_BBCODE">
     <Resource tag="ADD">Nieuwe BBCode toevoegen</Resource>

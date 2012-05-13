@@ -18,28 +18,25 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using YAF.Classes;
-
 namespace YAF.Pages.Admin
 {
   #region Using
 
-  using System;
-  using System.Data;
-  using System.Text;
+    using System;
+    using System.Data;
+    using System.Text;
+    using YAF.Classes;
+    using YAF.Classes.Data;
+    using YAF.Core;
+    using YAF.Types;
+    using YAF.Types.Constants;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
 
-  using YAF.Classes.Data;
-  using YAF.Core;
-  using YAF.Core.Services;
-  using YAF.Types;
-  using YAF.Types.Constants;
-  using YAF.Types.Interfaces;
-  using YAF.Utils;
-
-  #endregion
+    #endregion
 
   /// <summary>
-  /// Summary description for bannedip_edit.
+  /// Admin Banned ip edit/add page.
   /// </summary>
   public partial class bannedip_edit : AdminPage
   {
@@ -75,7 +72,7 @@ namespace YAF.Pages.Admin
             return;
         }
 
-        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
         this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
 
         this.PageLinks.AddLink(this.GetText("ADMIN_BANNEDIP", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_bannedip));
@@ -179,7 +176,9 @@ namespace YAF.Pages.Admin
 
         DataRow row =
             LegacyDb.bannedip_list(this.PageContext.PageBoardID, this.Request.QueryString.GetFirstOrDefault("i"), null, null).Rows[0];
-        this.mask.Text = (string)row["Mask"];
+
+        this.mask.Text = row["Mask"].ToString();
+        this.BanReason.Text = row["Reason"].ToString();
     }
 
     #endregion

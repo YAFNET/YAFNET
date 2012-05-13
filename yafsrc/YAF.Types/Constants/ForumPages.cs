@@ -382,9 +382,9 @@ namespace YAF.Types.Constants
     /// <summary>
     /// The admin_medals.
     /// </summary>
-    admin_medals,
+    admin_medals, 
 
-    /// <summary>
+       /// <summary>
     /// The admin_pageaccesslist.
     /// </summary>
     admin_pageaccesslist,
@@ -392,12 +392,12 @@ namespace YAF.Types.Constants
     /// <summary>
     /// The admin_pageaccessedit.
     /// </summary>
-    admin_pageaccessedit,
+    admin_pageaccessedit, 
 
-    /// <summary>
+      /// <summary>
     /// The admin_eventloggroups.
     /// </summary>
-    admin_eventloggroups,
+   admin_eventloggroups,
 
     /// <summary>
     /// The admin_eventloggroupaccess.
@@ -447,7 +447,12 @@ namespace YAF.Types.Constants
     /// <summary>
     /// The admin_bannedip_edit.
     /// </summary>
-    admin_bannedip_edit, 
+    admin_bannedip_edit,
+
+    /// <summary>
+    /// The admin_bannedip_import.
+    /// </summary>
+    admin_bannedip_import, 
 
     /// <summary>
     /// The admin_editaccessmask.

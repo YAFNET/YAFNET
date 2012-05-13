@@ -5,7 +5,7 @@
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server">
   <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" />
-		<asp:Repeater ID="list" runat="server" OnItemCommand="list_ItemCommand">
+		<asp:Repeater ID="list" runat="server" OnItemCommand="List_ItemCommand">
 		<HeaderTemplate>
 				<table class="content" cellspacing="1" cellpadding="0" width="100%">
 
@@ -15,20 +15,20 @@
                      </td>
 				</tr>
 				<tr>
-					<td class="header2">
+					<td class="header2" width="15%">
 						<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="MASK" LocalizedPage="ADMIN_BANNEDIP" />
                     </td>
-					<td class="header2">
+					<td class="header2" width="15%">
 						<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="SINCE" LocalizedPage="ADMIN_BANNEDIP" />
                     </td>
-					<td class="header2">
+					<td class="header2" width="15%">
 						<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="REASON" LocalizedPage="ADMIN_BANNEDIP" />
                     </td>	
-					<td class="header2">
+					<td class="header2" width="10%">
 						<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="BAN_BY" LocalizedPage="ADMIN_BANNEDIP" />
                     </td>		
-					<td class="header2">
-						&nbsp;</td>
+					<td class="header2">&nbsp;
+						</td>
 				</tr>
 			</HeaderTemplate>
 		<ItemTemplate>
@@ -46,21 +46,19 @@
 				<td class="post">
 				<YAF:UserLink ID="UserLink1" runat="server" UserID='<%# string.IsNullOrEmpty(Eval("UserID").ToString())? -1 :Eval("UserID") %>' />
 				</td>
-				<td class="post">
-					<asp:LinkButton runat="server" CommandName='edit' CommandArgument='<%# Eval("ID") %>'>
-                      <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="EDIT" />
-                    </asp:LinkButton>
-					|
-					<asp:LinkButton runat="server" CommandName='delete' CommandArgument='<%# Eval("ID") %>'>
-                      <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="DELETE" />
-                    </asp:LinkButton>
+				<td class="post" style="text-align:right">
+				<YAF:ThemeButton ID="ThemeButtonEdit" CssClass="yaflittlebutton" CommandName='edit' CommandArgument='<%# Eval("ID") %>' 
+                    TitleLocalizedTag="EDIT" ImageThemePage="ICONS" ImageThemeTag="EDIT_SMALL_ICON" runat="server"></YAF:ThemeButton>
+                    <YAF:ThemeButton ID="ThemeButtonDelete" CssClass="yaflittlebutton" CommandName='delete' CommandArgument='<%# Eval("ID") %>' 
+                    TitleLocalizedTag="DELETE" ImageThemePage="ICONS" ImageThemeTag="DELETE_SMALL_ICON" runat="server"></YAF:ThemeButton>
 				</td>
 			</tr>
 			</ItemTemplate>
 		<FooterTemplate>
 			<tr>
-				<td class="footer1" colspan="5" align="center">
-					<asp:Button runat="server" OnLoad="Add_Load" CommandName='add' CssClass="pbutton"></asp:Button></td>
+				<td class="footer1" colspan="5" style="text-align:center">
+					<asp:Button runat="server" OnLoad="Import_Load" CommandName='import' CssClass="pbutton"></asp:Button>&nbsp;|&nbsp;<asp:Button 
+                    runat="server" OnLoad="Add_Load" CommandName='add' CssClass="pbutton"></asp:Button></td></td>
 			</tr>
 			</table>
 			</FooterTemplate>

@@ -23,6 +23,8 @@ namespace YAF.Classes.Data.Import
     using System.Data;
     using System.IO;
     using System.Linq;
+    using System.Net;
+
     using YAF.Utils;
 
     /// <summary>
@@ -119,8 +121,8 @@ namespace YAF.Classes.Data.Import
 
                 // import any extensions that don't exist...
                 foreach (string ext in
-                    dsExtensions.Tables["YafExtension"].Rows.Cast<DataRow>().Select(row => row["Extension"].ToString()).
-                        Where(ext => extensionList.Select("Extension = '{0}'".FormatWith(ext)).Length == 0))
+                    dsExtensions.Tables["YafExtension"].Rows.Cast<DataRow>().Select(row => row["Extension"].ToString()).Where(
+                    ext => extensionList.Select("Extension = '{0}'".FormatWith(ext)).Length == 0))
                 {
                     // add this...
                     LegacyDb.extension_save(null, boardId, ext);
@@ -182,6 +184,54 @@ namespace YAF.Classes.Data.Import
             {
                 throw new Exception("Import stream is not expected format.");
             }
+
+            return importedCount;
+        }
+
+        /// <summary>
+        /// Import List of Banned Ip Adresses
+        /// </summary>
+        /// <param name="boardId">The board id.</param>
+        /// <param name="userId">The user id.</param>
+        /// <param name="imputStream">The imput stream.</param>
+        /// <returns>
+        /// Returns the Number of Imported Items.
+        /// </returns>
+        /// <exception cref="Exception">
+        /// Import stream is not expected format.
+        /// </exception>
+        public static int BannedIpAdressesImport(int boardId, int userId, Stream imputStream)
+        {
+            int importedCount = 0;
+
+            var existingBannedIPList = LegacyDb.bannedip_list(boardId, null, 0, 1000000);
+
+            using (var streamReader = new StreamReader(imputStream))
+            {
+                while (!streamReader.EndOfStream)
+                {
+                    var line = streamReader.ReadLine();
+                    IPAddress importAddress;
+
+                    if (string.IsNullOrEmpty(line) || !IPAddress.TryParse(line, out importAddress))
+                    {
+                        continue;
+                    }
+
+                    if (existingBannedIPList.Select("Mask = '{0}'".FormatWith(importAddress.ToString())).Length != 0)
+                    {
+                        continue;
+                    }
+
+                    LegacyDb.bannedip_save(null, boardId, importAddress.ToString(), "Imported IP Adress", userId);
+                    importedCount++;
+                }
+            }
+            
+            /*else
+            {
+                throw new Exception("Import stream is not expected format.");
+            }*/
 
             return importedCount;
         }

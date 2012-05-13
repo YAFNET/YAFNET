@@ -325,6 +325,13 @@
     <Compile Include="pages\admin\bannedip_edit.ascx.designer.cs">
       <DependentUpon>bannedip_edit.ascx</DependentUpon>
     </Compile>
+    <Compile Include="pages\admin\bannedip_import.ascx.cs">
+      <DependentUpon>bannedip_import.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\bannedip_import.ascx.designer.cs">
+      <DependentUpon>bannedip_import.ascx</DependentUpon>
+    </Compile>
     <Compile Include="pages\admin\bbcode.ascx.designer.cs">
       <DependentUpon>bbcode.ascx</DependentUpon>
     </Compile>
@@ -2739,6 +2746,7 @@
     <Content Include="pages\admin\admin.ascx" />
     <Content Include="pages\admin\attachments.ascx" />
     <Content Include="pages\admin\bannedip.ascx" />
+    <Content Include="pages\admin\bannedip_import.ascx" />
     <Content Include="pages\admin\bannedip_edit.ascx" />
     <Content Include="pages\admin\bbcode.ascx" />
     <Content Include="pages\admin\bbcode_edit.ascx" />

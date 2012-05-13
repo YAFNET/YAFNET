@@ -62,7 +62,7 @@ namespace YAF.Classes
     }
 
     /// <summary>
-    ///   Gets the Used for Url Rewriting -- default is "default.aspx"
+    ///   Gets the Used for Url Rewriting -- default is "default.\.(.+)$\.(.+)$"
     /// </summary>
     [NotNull]
     public static string BaseScriptFile
@@ -758,6 +758,17 @@ namespace YAF.Classes
         get
         {
             return GetConfigValueAsString("YAF.FacebookSecretKey");
+        }
+    }
+
+    /// <summary>
+    ///   Gets BotScout API Key.
+    /// </summary>
+    public static string BotScoutApiKey
+    {
+        get
+        {
+            return GetConfigValueAsString("YAF.BotScoutApiKey");
         }
     }
 
