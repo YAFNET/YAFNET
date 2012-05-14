@@ -124,7 +124,7 @@ namespace YAF.Controls
             YafContext.Current.Get<HttpSessionStateBase>()["localizationFile"] =
                 this.Get<ILocalization>().LanguageFileName;
 
-            using (DataTable attachListDT = LegacyDb.attachment_list(this.MessageID, null, null))
+            using (DataTable attachListDT = LegacyDb.attachment_list(this.MessageID, null, null,null,null))
             {
                 // show file then image attachments...
                 int tmpDisplaySort = 0;

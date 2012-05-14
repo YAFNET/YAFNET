@@ -310,7 +310,7 @@ namespace YAF.Pages
     /// </summary>
     private void BindData()
     {
-      DataTable dt = LegacyDb.attachment_list(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"), null, null);
+      DataTable dt = LegacyDb.attachment_list(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"), null, null,0,1000);
       this.List.DataSource = dt;
 
       this.List.Visible = dt.Rows.Count > 0;

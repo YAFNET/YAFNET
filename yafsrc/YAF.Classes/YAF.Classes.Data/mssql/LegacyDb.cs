@@ -1638,7 +1638,7 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("BoardID", boardId);
                 cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
                 cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
-
+            
                 return MsSqlDbAccess.Current.GetData(cmd);
             }
         }
@@ -1705,7 +1705,7 @@ namespace YAF.Classes.Data
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("UserID", userId);
                 cmd.Parameters.AddWithValue("PageName", pageName);
-
+                  
                 return MsSqlDbAccess.Current.GetData(cmd);
             }
         }
@@ -2035,7 +2035,7 @@ namespace YAF.Classes.Data
         /// <returns>
         /// DataTable with attachement list
         /// </returns>
-        public static DataTable attachment_list([NotNull] object messageID, [NotNull] object attachmentID, [NotNull] object boardID)
+        public static DataTable attachment_list([NotNull] object messageID, [NotNull] object attachmentID, [NotNull] object boardID, [CanBeNull] object pageIndex, [CanBeNull] object pageSize)
         {
             using (var cmd = MsSqlDbAccess.GetCommand("attachment_list"))
             {
@@ -2043,6 +2043,8 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("MessageID", messageID);
                 cmd.Parameters.AddWithValue("AttachmentID", attachmentID);
                 cmd.Parameters.AddWithValue("BoardID", boardID);
+                cmd.Parameters.AddWithValue("PageIndex", pageIndex);
+                cmd.Parameters.AddWithValue("PageSize", pageSize);
                 return MsSqlDbAccess.Current.GetData(cmd);
             }
         }

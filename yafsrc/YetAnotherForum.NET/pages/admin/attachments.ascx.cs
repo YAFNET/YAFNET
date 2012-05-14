@@ -17,6 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
+using System.Data;
+using System.Linq;
+using YAF.Classes;
+
 namespace YAF.Pages.Admin
 {
   #region Using
@@ -102,8 +107,14 @@ namespace YAF.Pages.Admin
     /// </summary>
     private void BindData()
     {
-      this.List.DataSource = LegacyDb.attachment_list(null, null, this.PageContext.PageBoardID);
-      this.DataBind();
+        this.PagerTop.PageSize = this.Get<YafBoardSettings>().MemberListPageSize;
+        var dt = LegacyDb.attachment_list(null, null, this.PageContext.PageBoardID, this.PagerTop.CurrentPageIndex,
+                                 this.PagerTop.PageSize);
+        this.List.DataSource = LegacyDb.attachment_list(null, null, this.PageContext.PageBoardID, this.PagerTop.CurrentPageIndex, this.PagerTop.PageSize);
+        this.PagerTop.Count = dt != null && dt.Rows.Count > 0
+                                     ? dt.AsEnumerable().First().Field<int>("TotalRows")
+                                     : 0;
+        this.DataBind();
     }
 
     /// <summary>
@@ -134,6 +145,16 @@ namespace YAF.Pages.Admin
       }
     }
 
+    /// <summary>
+    /// The pager top_ page change.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    protected void PagerTop_PageChange([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        // rebind
+        this.BindData();
+    }
     #endregion
   }
 }

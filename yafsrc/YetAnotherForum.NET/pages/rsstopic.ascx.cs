@@ -742,7 +742,7 @@ namespace YAF.Pages
         private List<SyndicationLink> GetMediaLinks(int messageId)
         {
             var attachementLinks = new List<SyndicationLink>();
-            using (var attList = LegacyDb.attachment_list(messageId, null, this.PageContext.PageBoardID))
+            using (var attList = LegacyDb.attachment_list(messageId, null, this.PageContext.PageBoardID, 0, 1000))
             {
                 if (attList.Rows.Count > 0)
                 {

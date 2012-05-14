@@ -5,6 +5,7 @@
 <%@ Import Namespace="YAF.Utils" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server">
+     <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" />
 	<table class="content" width="100%" cellspacing="1" cellpadding="0">
 		<tr>
 			<td class="header1" colspan="8">
@@ -74,5 +75,6 @@
 			</ItemTemplate>
 		</asp:Repeater>
 	</table>
+     <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="PagerTop" />
 </YAF:AdminMenu>
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

@@ -1893,8 +1893,10 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}attachment_list](@MessageID int=null,@AttachmentID int=null,@BoardID int=null) as begin
-		if @MessageID is not null
+create procedure [{databaseOwner}].[{objectQualifier}attachment_list](@MessageID int=null,@AttachmentID int=null,@BoardID int=null,@PageIndex int = null, @PageSize int = 0) as begin
+declare @TotalRows int
+declare @FirstSelectRowNumber int
+declare @FirstSelectRowID int		if @MessageID is not null
 		select 
 			a.*,
 			e.BoardID
@@ -1921,15 +1923,35 @@ create procedure [{databaseOwner}].[{objectQualifier}attachment_list](@MessageID
 		where 
 			a.AttachmentID=@AttachmentID
 	else
-		select 
-			a.*,
-			BoardID		= @BoardID,
-			Posted		= b.Posted,
-			ForumID		= d.ForumID,
-			ForumName	= d.Name,
-			TopicID		= c.TopicID,
-			TopicName	= c.Topic
-		from 
+	begin
+
+			   set nocount on
+		   set @PageIndex = @PageIndex + 1
+		   set @FirstSelectRowNumber = 0
+		   set @FirstSelectRowID = 0
+		   set @TotalRows = 0
+		   
+		   select @TotalRows = count(1) from [{databaseOwner}].[{objectQualifier}Attachment] a
+			inner join [{databaseOwner}].[{objectQualifier}Message] b on b.MessageID = a.MessageID
+			inner join [{databaseOwner}].[{objectQualifier}Topic] c on c.TopicID = b.TopicID
+			inner join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID = c.ForumID
+			inner join [{databaseOwner}].[{objectQualifier}Category] e on e.CategoryID = d.CategoryID			
+		where
+			e.BoardID = @BoardID
+		   select @FirstSelectRowNumber = (@PageIndex - 1) * @PageSize + 1
+		   
+		   if (@FirstSelectRowNumber <= @TotalRows)
+		   begin
+		   -- find first selectedrowid 
+		   set rowcount @FirstSelectRowNumber
+		   end
+		   else
+		   begin  
+		   set rowcount 1
+		   end
+      -- find first row id for a current page 
+      select @FirstSelectRowID = AttachmentID 
+     from 
 			[{databaseOwner}].[{objectQualifier}Attachment] a
 			inner join [{databaseOwner}].[{objectQualifier}Message] b on b.MessageID = a.MessageID
 			inner join [{databaseOwner}].[{objectQualifier}Topic] c on c.TopicID = b.TopicID
@@ -1941,6 +1963,34 @@ create procedure [{databaseOwner}].[{objectQualifier}attachment_list](@MessageID
 			d.Name,
 			c.Topic,
 			b.Posted
+
+      -- display page 
+      set rowcount @PageSize
+     select 
+			a.*,
+			BoardID		= @BoardID,
+			Posted		= b.Posted,
+			ForumID		= d.ForumID,
+			ForumName	= d.Name,
+			TopicID		= c.TopicID,
+			TopicName	= c.Topic,
+			TotalRows  = @TotalRows
+		from 
+			[{databaseOwner}].[{objectQualifier}Attachment] a
+			inner join [{databaseOwner}].[{objectQualifier}Message] b on b.MessageID = a.MessageID
+			inner join [{databaseOwner}].[{objectQualifier}Topic] c on c.TopicID = b.TopicID
+			inner join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID = c.ForumID
+			inner join [{databaseOwner}].[{objectQualifier}Category] e on e.CategoryID = d.CategoryID			
+		where
+			a.AttachmentID >= @FirstSelectRowID  and e.BoardID = @BoardID
+		order by
+			d.Name,
+			c.Topic,
+			b.Posted
+   set nocount off
+
+		
+	end
 end
 GO
 
@@ -11466,7 +11516,7 @@ begin
 		select ap.*, 
 		u.Name as UserName, 
 		u.DisplayName as UserDisplayName, 
-		b.Name as BoardName 
+		b.Name as BoardName
 		from [{databaseOwner}].[{objectQualifier}AdminPageUserAccess] ap 
 		JOIN  [{databaseOwner}].[{objectQualifier}User] u on ap.UserID = u.UserID 
 		JOIN [{databaseOwner}].[{objectQualifier}Board] b ON b.BoardID = u.BoardID 
@@ -11475,7 +11525,8 @@ begin
 		select ap.*, 
 		u.Name as UserName, 
 		u.DisplayName as UserDisplayName, 
-		b.Name as BoardName 
+		b.Name as BoardName,
+		1 as ReadAccess  
 		 from [{databaseOwner}].[{objectQualifier}AdminPageUserAccess] ap 
 		JOIN  [{databaseOwner}].[{objectQualifier}User] u on ap.UserID = u.UserID 
 		JOIN [{databaseOwner}].[{objectQualifier}Board] b ON b.BoardID = u.BoardID 
@@ -11484,7 +11535,7 @@ begin
 		select ap.*, 
 		u.Name as UserName, 
 		u.DisplayName as UserDisplayName, 
-		b.Name as BoardName 
+		b.Name as BoardName
 		from [{databaseOwner}].[{objectQualifier}AdminPageUserAccess] ap 
 		JOIN  [{databaseOwner}].[{objectQualifier}User] u on ap.UserID = u.UserID 
 		JOIN [{databaseOwner}].[{objectQualifier}Board] b ON b.BoardID = u.BoardID 

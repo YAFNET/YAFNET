@@ -1067,7 +1067,7 @@ namespace YAF
                 // AttachmentID
                 using (
                     DataTable dt = LegacyDb.attachment_list(
-                        null, context.Request.QueryString.GetFirstOrDefault("a"), null))
+                        null, context.Request.QueryString.GetFirstOrDefault("a"), null,0,1000))
                 {
                     foreach (DataRow row in dt.Rows)
                     {
@@ -1186,7 +1186,7 @@ namespace YAF
                 // AttachmentID
                 using (
                     DataTable dt = LegacyDb.attachment_list(
-                        null, context.Request.QueryString.GetFirstOrDefault("i"), null))
+                        null, context.Request.QueryString.GetFirstOrDefault("i"), null,0,1000))
                 {
                     foreach (DataRow row in dt.Rows)
                     {
@@ -1296,7 +1296,7 @@ namespace YAF
                 // AttachmentID
                 using (
                     DataTable dt = LegacyDb.attachment_list(
-                        null, context.Request.QueryString.GetFirstOrDefault("p"), null))
+                        null, context.Request.QueryString.GetFirstOrDefault("p"), null,0,1000))
                 {
                     foreach (DataRow row in dt.Rows)
                     {
