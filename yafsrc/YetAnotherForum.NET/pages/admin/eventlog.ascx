@@ -24,9 +24,25 @@ function toggleItem(detailId)
     <table class="content" width="100%" cellspacing="0" cellpadding="0">
         <tr>
             <td class="header1" colspan="8">
-                <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_EVENTLOG" />
+                <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="EVENTLOG_EVENTS" />
             </td>
         </tr>
+    <tr>
+        <td class="postheader" colspan="2">
+            <YAF:LocalizedLabel ID="SinceDateLabel" runat="server" LocalizedPage="EVENTLOG_EVENTS"
+                LocalizedTag="SINCEDATE" />&nbsp;
+            <asp:TextBox ID="SinceDate" runat="server" CssClass="edit"></asp:TextBox>&nbsp;
+         </td>
+        <td class="postheader" colspan="2">
+            <YAF:LocalizedLabel ID="ToDateLabel" runat="server" LocalizedPage="EVENTLOG_EVENTS"
+                LocalizedTag="TODATE" />&nbsp;
+        
+            <asp:TextBox ID="ToDate" runat="server" CssClass="edit"></asp:TextBox>&nbsp;
+        </td>
+        <td class="postheader" colspan="1">
+          <YAF:ThemeButton ID="ApplyButton" CssClass="yafcssbigbutton rightItem" OnClick="ApplyButton_Click" TextLocalizedPage="EVENTLOG_EVENTS" TextLocalizedTag="APPLY" runat="server"></YAF:ThemeButton>&nbsp;
+        </td>
+    </tr>
         <asp:Repeater runat="server" ID="List">
             <HeaderTemplate>
                 <tr class="header2" id="headerSize">

@@ -18,6 +18,10 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+using System.Globalization;
+using FarsiLibrary;
+using YAF.Utilities;
+
 namespace YAF.Pages.Admin
 {
     #region Using
@@ -166,6 +170,7 @@ namespace YAF.Pages.Admin
             return cssClass;
         }
 
+
         /// <summary>
         /// The on init.
         /// </summary>
@@ -175,6 +180,57 @@ namespace YAF.Pages.Admin
             this.List.ItemCommand += this.List_ItemCommand;
 
             base.OnInit(e);
+        }
+        /// <summary>
+        /// The On PreRender event.
+        /// </summary>
+        /// <param name="e">
+        /// the Event Arguments
+        /// </param>
+        protected override void OnPreRender([NotNull] EventArgs e)
+        {
+            // setup jQuery and DatePicker JS...
+            YafContext.Current.PageElements.RegisterJQuery();
+            YafContext.Current.PageElements.RegisterJQueryUI();
+
+            var ci = CultureInfo.CreateSpecificCulture(PageContext.CultureUser);
+
+            if (!string.IsNullOrEmpty(this.GetText("COMMON", "CAL_JQ_CULTURE")))
+            {
+                var jqueryuiUrl = Config.JQueryUILangFile;
+
+                if (!jqueryuiUrl.StartsWith("http"))
+                {
+                    jqueryuiUrl = YafForumInfo.GetURLToResource(Config.JQueryUIFile);
+                }
+
+                YafContext.Current.PageElements.RegisterJsInclude("datepickerlang", jqueryuiUrl);
+
+                if (ci.IsFarsiCulture())
+                {
+                    YafContext.Current.PageElements.RegisterJsResourceInclude("datepicker-farsi", "js/jquery.ui.datepicker-farsi.js");
+                }
+            }
+
+           YafContext.Current.PageElements.RegisterJsBlockStartup(
+                "SDatePickerJs",
+                "$(document).ready(function() {var datePick = $('input[type=text][id*=SinceDate]').datepicker();});"); 
+
+           /* YafContext.Current.PageElements.RegisterJsBlockStartup(
+            "TDatePickerJs",
+            JavaScriptBlocks.DatePickerSafeLoadJs(
+                this.SinceDate.ClientID,
+                this.GetText("COMMON", "CAL_JQ_CULTURE_DFORMAT"),
+                this.GetText("COMMON", "CAL_JQ_CULTURE"))); */
+
+            YafContext.Current.PageElements.RegisterJsBlockStartup(
+               "TDatePickerJs",
+               JavaScriptBlocks.DatePickerLoadJs(
+                   this.ToDate.ClientID,
+                   this.GetText("COMMON", "CAL_JQ_CULTURE_DFORMAT"),
+                   this.GetText("COMMON", "CAL_JQ_CULTURE")));
+
+            base.OnPreRender(e);
         }
 
         /// <summary>
@@ -207,6 +263,33 @@ namespace YAF.Pages.Admin
 
             // bind data to controls
             this.BindData();
+
+
+            var ci = CultureInfo.CreateSpecificCulture(PageContext.CultureUser);
+            if (this.Get<YafBoardSettings>().EnableDNACalendar)
+            {
+                if (this.Get<YafBoardSettings>().UseFarsiCalender && ci.IsFarsiCulture())
+                {
+                    this.SinceDate.Text =  PersianDateConverter.ToPersianDate(PersianDate.MinValue).ToString("d");
+                    this.ToDate.Text = PersianDateConverter.ToPersianDate(PersianDate.Now).ToString("d");
+                }
+                else
+                {
+                    this.SinceDate.Text = DateTimeHelper.SqlDbMinTime().ToString(
+                                                 ci.DateTimeFormat.ShortDatePattern, CultureInfo.InvariantCulture);
+                    this.ToDate.Text = DateTime.UtcNow.Date.ToString(
+                                                 ci.DateTimeFormat.ShortDatePattern, CultureInfo.InvariantCulture);
+                }
+                
+                this.ToDate.ToolTip = this.SinceDate.ToolTip  = this.GetText("COMMON", "CAL_JQ_TT");
+            }
+            else
+            {
+                this.SinceDate.Visible = false;
+                this.SinceDateLabel.Visible = false;
+                this.ToDate.Visible = false;
+                this.ToDateLabel.Visible = false;
+            }
         }
 
         /// <summary>
@@ -237,8 +320,8 @@ namespace YAF.Pages.Admin
                 this.Get<YafBoardSettings>().EventLogMaxDays,
                 nCurrentPageIndex,
                 baseSize,
-                DateTimeHelper.SqlDbMinTime(),
-                DateTime.UtcNow,
+                this.SinceDate.Text.IsSet() ? this.SinceDate.Text.ToType<DateTime>() : DateTimeHelper.SqlDbMinTime(),
+                this.ToDate.Text.IsSet() ? this.ToDate.Text.ToType<DateTime>() : DateTime.UtcNow,
                 null);
 
             this.List.DataSource = dt;
@@ -254,6 +337,11 @@ namespace YAF.Pages.Admin
 
             // bind data to controls
             this.DataBind();
+        }
+
+        protected void ApplyButton_Click([NotNull] object source, EventArgs eventArgs)
+        {
+            BindData();
         }
 
         /// <summary>
