@@ -30,6 +30,7 @@ namespace YAF.Pages.Admin
     using FarsiLibrary;
     using YAF.Classes;
     using YAF.Classes.Data;
+    using YAF.Controls;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -74,8 +75,8 @@ namespace YAF.Pages.Admin
         /// </remarks>
         protected void DeleteAll_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            ((Button)sender).Text = this.GetText("ADMIN_EVENTLOG", "DELETE_ALLOWED");
-            ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_EVENTLOG", "CONFIRM_DELETE_ALL"));
+            ((ThemeButton)sender).Attributes["onclick"] =
+                "return confirm('{0}')".FormatWith(this.GetText("ADMIN_EVENTLOG", "CONFIRM_DELETE_ALL"));
         }
 
         /// <summary>
@@ -325,8 +326,6 @@ namespace YAF.Pages.Admin
             var toDate = DateTime.UtcNow;
 
             var ci = CultureInfo.CreateSpecificCulture("en");
-
-            DateTime temp;
 
             if (this.SinceDate.Text.IsSet())
             {

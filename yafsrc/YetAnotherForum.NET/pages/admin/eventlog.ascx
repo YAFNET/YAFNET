@@ -111,8 +111,8 @@ function toggleItem(detailId)
             <FooterTemplate>
                 <tr class="footer1">
                     <td colspan="5" align="center">
-                        <asp:Button runat="server" Enabled="<%# this.List.Items.Count > 0 %>" OnLoad="DeleteAll_Load" CssClass="pbutton" OnClick="DeleteAll_Click">
-                        </asp:Button>
+                        <YAF:ThemeButton runat="server" Visible="<%# this.List.Items.Count > 0 %>" OnLoad="DeleteAll_Load" CssClass="yaflittlebutton" OnClick="DeleteAll_Click" TextLocalizedPage="ADMIN_EVENTLOG" TextLocalizedTag="DELETE_ALLOWED">
+                        </YAF:ThemeButton>
                     </td>
                 </tr>
             </FooterTemplate>
