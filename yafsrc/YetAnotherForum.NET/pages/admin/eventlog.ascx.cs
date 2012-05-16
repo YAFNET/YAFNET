@@ -272,7 +272,7 @@ namespace YAF.Pages.Admin
                 }
                 else
                 {
-                    this.SinceDate.Text = DateTimeHelper.SqlDbMinTime().ToString(
+                    this.SinceDate.Text = DateTime.UtcNow.AddYears(-10).ToString(
                                                  ci.DateTimeFormat.ShortDatePattern, CultureInfo.InvariantCulture);
                     this.ToDate.Text = DateTime.UtcNow.Date.ToString(
                                                  ci.DateTimeFormat.ShortDatePattern, CultureInfo.InvariantCulture);
@@ -322,10 +322,10 @@ namespace YAF.Pages.Admin
             int nCurrentPageIndex = this.PagerTop.CurrentPageIndex;
             this.PagerTop.PageSize = baseSize;
 
-            var sinceDate = DateTimeHelper.SqlDbMinTime();
+            var sinceDate = DateTime.UtcNow.AddYears(-10);
             var toDate = DateTime.UtcNow;
 
-            var ci = CultureInfo.CreateSpecificCulture("en");
+            var ci = CultureInfo.CreateSpecificCulture(this.GetCulture());
 
             if (this.SinceDate.Text.IsSet())
             {
