@@ -23,26 +23,37 @@ function toggleItem(detailId)
     <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" />
     <table class="content" width="100%" cellspacing="0" cellpadding="0">
         <tr>
-            <td class="header1" colspan="8">
-                <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="EVENTLOG_EVENTS" />
+            <td class="header1" colspan="3">
+                <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_EVENTLOG" />
             </td>
         </tr>
-    <tr>
-        <td class="postheader" colspan="2">
-            <YAF:LocalizedLabel ID="SinceDateLabel" runat="server" LocalizedPage="EVENTLOG_EVENTS"
-                LocalizedTag="SINCEDATE" />&nbsp;
-            <asp:TextBox ID="SinceDate" runat="server" CssClass="edit"></asp:TextBox>&nbsp;
-         </td>
-        <td class="postheader" colspan="2">
-            <YAF:LocalizedLabel ID="ToDateLabel" runat="server" LocalizedPage="EVENTLOG_EVENTS"
-                LocalizedTag="TODATE" />&nbsp;
-        
-            <asp:TextBox ID="ToDate" runat="server" CssClass="edit"></asp:TextBox>&nbsp;
-        </td>
-        <td class="postheader" colspan="1">
-          <YAF:ThemeButton ID="ApplyButton" CssClass="yafcssbigbutton rightItem" OnClick="ApplyButton_Click" TextLocalizedPage="EVENTLOG_EVENTS" TextLocalizedTag="APPLY" runat="server"></YAF:ThemeButton>&nbsp;
-        </td>
-    </tr>
+        <tr class="header2">
+            <td>
+                <YAF:HelpLabel ID="SinceDateLabel" runat="server" LocalizedPage="ADMIN_EVENTLOG" LocalizedTag="SINCEDATE" Suffix=":" />&nbsp;
+                <asp:TextBox ID="SinceDate" runat="server" CssClass="edit"></asp:TextBox>
+            </td>
+            <td>
+                <YAF:HelpLabel ID="ToDateLabel" runat="server" LocalizedPage="ADMIN_EVENTLOG" Suffix=":" LocalizedTag="TODATE" />&nbsp;
+                <asp:TextBox ID="ToDate" runat="server" CssClass="edit"></asp:TextBox>
+            </td>
+            <td>
+                <YAF:HelpLabel ID="HelpLabel1" runat="server" LocalizedPage="ADMIN_EVENTLOG" Suffix=":" LocalizedTag="TYPES" />&nbsp;
+                <asp:DropDownList ID="Types" runat="server" CssClass="edit"></asp:DropDownList>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" class="footer1" style="text-align:center">
+                <YAF:ThemeButton ID="ApplyButton" CssClass="yaflittlebutton" OnClick="ApplyButton_Click" TextLocalizedPage="ADMIN_EVENTLOG" TextLocalizedTag="APPLY" runat="server"></YAF:ThemeButton>
+            </td>
+        </tr>
+    </table>
+    <br/>
+    <table class="content" width="100%" cellspacing="0" cellpadding="0">
+        <tr>
+            <td class="header1" colspan="8">
+                <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_EVENTLOG" />
+            </td>
+        </tr>
         <asp:Repeater runat="server" ID="List">
             <HeaderTemplate>
                 <tr class="header2" id="headerSize">
@@ -67,7 +78,7 @@ function toggleItem(detailId)
                 <tr>
                     <td colspan="5">
                       <div class="<%# EventCssClass(Container.DataItem) %> ui-corner-all eventItem">
-                        <table style="padding:0:margin:0;">
+                        <table style="padding:0;margin:0;">
                           <tr>
                             <td width="1%">
                               <a name="event<%# Eval("EventLogID")%>" ></a>

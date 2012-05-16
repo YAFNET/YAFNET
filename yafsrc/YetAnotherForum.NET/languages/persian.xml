@@ -723,16 +723,23 @@
     <Resource tag="VIEW_ALL">نمایش همه</Resource>
   </page>
   <page name="ADMIN_EVENTLOG">
+    <Resource tag="APPLY">Apply</Resource>
     <Resource tag="CONFIRM_DELETE">این سیاهه حذف شود؟</Resource>
     <Resource tag="CONFIRM_DELETE_ALL">تمام سیاهه وقایع حذف شود؟</Resource>
     <Resource tag="DELETE_ALL">حذف همه</Resource>
     <Resource tag="DELETE_ALLOWED">Clean Up</Resource>
     <Resource tag="HIDE">مخفی کردن</Resource>
     <Resource tag="SHOW">نمایش</Resource>
+    <Resource tag="SINCEDATE">Start Date</Resource>
+    <Resource tag="SINCEDATE_HELP">Select the start date for the log to show.</Resource>
     <Resource tag="SOURCE">منبع</Resource>
     <Resource tag="TIME">زمان</Resource>
     <Resource tag="TITLE">سیاهه وقایع</Resource>
+    <Resource tag="TODATE">End Date</Resource>
+    <Resource tag="TODATE_HELP">Select the end date for log to show.</Resource>
     <Resource tag="TYPE">نوع</Resource>
+    <Resource tag="TYPES">Type</Resource>
+    <Resource tag="TYPES_HELP">Choose to restrict the Log to certain types of events.</Resource>
   </page>
   <page name="ADMIN_EVENTLOGGROUPS">
     <Resource tag="CANACCESS">Allowed</Resource>

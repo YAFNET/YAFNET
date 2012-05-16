@@ -724,16 +724,25 @@
     <Resource tag="VIEW_ALL">Alle anzeigen</Resource>
   </page>
   <page name="ADMIN_EVENTLOG">
+    <Resource tag="APPLY">Apply</Resource>
     <Resource tag="CONFIRM_DELETE">Diesen Eintrag im Ereignisprotokoll löschen?</Resource>
     <Resource tag="CONFIRM_DELETE_ALL">Alle Einträge löschen?</Resource>
     <Resource tag="DELETE_ALL">Alle löschen</Resource>
     <Resource tag="DELETE_ALLOWED">Aufräumen</Resource>
     <Resource tag="HIDE">Verstecken</Resource>
     <Resource tag="SHOW">Zeigen</Resource>
+    <Resource tag="SINCEDATE">Startdatum</Resource>
+    <Resource tag="SINCEDATE_HELP">Wählen Sie das Startdatum für den Zeitraum des Protokolls das angezeigt werden soll.</Resource>
     <Resource tag="SOURCE">Quelle</Resource>
+    <Resource tag="SQLERROR">Sql Skript Fehler</Resource>
     <Resource tag="TIME">Zeit</Resource>
     <Resource tag="TITLE">Ergeignis-Protokoll</Resource>
+    <Resource tag="TODATE">Enddatum</Resource>
+    <Resource tag="TODATE_HELP">Wählen Sie den Endzeitrum des Protokolls das angezeigt werden soll.</Resource>
     <Resource tag="TYPE">Typ</Resource>
+    <Resource tag="TYPES">Typen</Resource>
+    <Resource tag="TYPES_HELP">Wählen Sie ein Ereignislog Typ um nur bestimmte Ereignisse anzuzeigen.</Resource>
+    <Resource tag="WARNING">Warnung</Resource>
   </page>
   <page name="ADMIN_EVENTLOGGROUPS">
     <Resource tag="CANACCESS">Allowed</Resource>
@@ -2498,10 +2507,11 @@
     <Resource tag="TO">Senden an (E-Mail-Adresse):</Resource>
   </page>
   <page name="EVENTLOG_EVENTS">
+    <Resource tag="APPLY">Übernehmen</Resource>
     <Resource tag="ERROR">Fehler</Resource>
     <Resource tag="INFORMATION">Information</Resource>
-    <Resource tag="SQLERROR">Sql Skript Fehler</Resource>
-    <Resource tag="WARNING">Warnung</Resource>
+    <Resource tag="SQLERROR">Sql Script Error</Resource>
+    <Resource tag="WARNING">Warning</Resource>
   </page>
   <page name="HELP_INDEX">
     <Resource tag="ANOUNCECONTENT">&lt;p&gt;Ankündigungen sind spezielle Beiträge, die von einem Administrator oder  Moderator geschrieben werden. Sie sind eine einfache Ein-Wege-Kommunikation mit dem Benutzer und Sie können nicht antworten. Wenn Sie eine Ankündigung diskutieren möchten, müssen Sie ein neues Thema  im Forum erstellen.&lt;/p&gt;

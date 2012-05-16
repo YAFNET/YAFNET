@@ -725,16 +725,23 @@
     <Resource tag="VIEW_ALL">View All</Resource>
   </page>
   <page name="ADMIN_EVENTLOG">
+    <Resource tag="APPLY">Apply</Resource>
     <Resource tag="CONFIRM_DELETE">Delete this event log entry?</Resource>
     <Resource tag="CONFIRM_DELETE_ALL">Delete all event log entries?</Resource>
     <Resource tag="DELETE_ALL">Delete All</Resource>
     <Resource tag="DELETE_ALLOWED">Clean Up</Resource>
     <Resource tag="HIDE">Hide</Resource>
     <Resource tag="SHOW">Show</Resource>
+    <Resource tag="SINCEDATE">Start Date</Resource>
+    <Resource tag="SINCEDATE_HELP">Select the start date for the log to show.</Resource>
     <Resource tag="SOURCE">Source</Resource>
     <Resource tag="TIME">Time</Resource>
     <Resource tag="TITLE">Event Log</Resource>
+    <Resource tag="TODATE">End Date</Resource>
+    <Resource tag="TODATE_HELP">Select the end date for log to show.</Resource>
     <Resource tag="TYPE">Type</Resource>
+    <Resource tag="TYPES">Type</Resource>
+    <Resource tag="TYPES_HELP">Choose to restrict the Log to certain types of events.</Resource>
   </page>
   <page name="ADMIN_EVENTLOGGROUPS">
     <Resource tag="CANACCESS">Allowed</Resource>

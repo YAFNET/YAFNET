@@ -55,7 +55,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel SinceDateLabel;
+        protected global::YAF.Controls.HelpLabel SinceDateLabel;
         
         /// <summary>
         /// SinceDate control.
@@ -73,7 +73,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel ToDateLabel;
+        protected global::YAF.Controls.HelpLabel ToDateLabel;
         
         /// <summary>
         /// ToDate control.
@@ -85,6 +85,24 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.TextBox ToDate;
         
         /// <summary>
+        /// HelpLabel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel1;
+        
+        /// <summary>
+        /// Types control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList Types;
+        
+        /// <summary>
         /// ApplyButton control.
         /// </summary>
         /// <remarks>
@@ -92,6 +110,15 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Controls.ThemeButton ApplyButton;
+        
+        /// <summary>
+        /// LocalizedLabel6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel6;
         
         /// <summary>
         /// List control.

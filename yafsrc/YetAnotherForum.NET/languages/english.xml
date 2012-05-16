@@ -3840,6 +3840,13 @@ Visit {forumname} at {forumlink}
       <Resource tag="TYPE">Type</Resource>
       <Resource tag="SOURCE">Source</Resource>
       <Resource tag="TIME">Time</Resource>
+      <Resource tag="APPLY">Apply</Resource>
+      <Resource tag="SINCEDATE">Start Date</Resource>
+      <Resource tag="TODATE">End Date</Resource>
+      <Resource tag="SINCEDATE_HELP">Select the start date for the log to show.</Resource>
+      <Resource tag="TODATE_HELP">Select the end date for log to show.</Resource>
+      <Resource tag="TYPES">Type</Resource>
+      <Resource tag="TYPES_HELP">Choose to restrict the Log to certain types of events.</Resource>
     </page>
     <page name="ADMIN_BOARDSETTINGS">
       <Resource tag="TITLE">Board Settings</Resource>

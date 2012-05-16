@@ -18,25 +18,23 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System.Globalization;
-using FarsiLibrary;
-using YAF.Utilities;
-
 namespace YAF.Pages.Admin
 {
     #region Using
 
     using System;
     using System.Data;
+    using System.Globalization;
     using System.Linq;
     using System.Web.UI.WebControls;
-
+    using FarsiLibrary;
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
+    using YAF.Utilities;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -170,7 +168,6 @@ namespace YAF.Pages.Admin
             return cssClass;
         }
 
-
         /// <summary>
         /// The on init.
         /// </summary>
@@ -181,6 +178,7 @@ namespace YAF.Pages.Admin
 
             base.OnInit(e);
         }
+
         /// <summary>
         /// The On PreRender event.
         /// </summary>
@@ -213,22 +211,11 @@ namespace YAF.Pages.Admin
             }
 
            YafContext.Current.PageElements.RegisterJsBlockStartup(
-                "SDatePickerJs",
-                "$(document).ready(function() {var datePick = $('input[type=text][id*=SinceDate]').datepicker();});"); 
-
-           /* YafContext.Current.PageElements.RegisterJsBlockStartup(
-            "TDatePickerJs",
-            JavaScriptBlocks.DatePickerSafeLoadJs(
-                this.SinceDate.ClientID,
-                this.GetText("COMMON", "CAL_JQ_CULTURE_DFORMAT"),
-                this.GetText("COMMON", "CAL_JQ_CULTURE"))); */
-
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
-               "TDatePickerJs",
-               JavaScriptBlocks.DatePickerLoadJs(
-                   this.ToDate.ClientID,
-                   this.GetText("COMMON", "CAL_JQ_CULTURE_DFORMAT"),
-                   this.GetText("COMMON", "CAL_JQ_CULTURE")));
+              "DatePickerJs",
+              JavaScriptBlocks.DatePickerLoadJs(
+                  "{0}, #{1}".FormatWith(this.ToDate.ClientID, this.SinceDate.ClientID),
+                  this.GetText("COMMON", "CAL_JQ_CULTURE_DFORMAT"),
+                  this.GetText("COMMON", "CAL_JQ_CULTURE")));
 
             base.OnPreRender(e);
         }
@@ -261,16 +248,25 @@ namespace YAF.Pages.Admin
 
             this.PagerTop.PageSize = 25;
 
-            // bind data to controls
-            this.BindData();
+            this.Types.Items.Add(new ListItem(this.GetText("ALL"), "-1"));
 
+            foreach (int eventTypeId in Enum.GetValues(typeof(EventLogTypes)))
+            {
+                var eventTypeName = this.GetText(
+                    "ADMIN_EVENTLOGROUPACCESS",
+                    "LT_{0}".FormatWith(Enum.GetName(typeof(EventLogTypes), eventTypeId).ToUpperInvariant()));
 
-            var ci = CultureInfo.CreateSpecificCulture(PageContext.CultureUser);
-            if (this.Get<YafBoardSettings>().EnableDNACalendar)
+                this.Types.Items.Add(
+                    new ListItem(eventTypeName, eventTypeId.ToString()));
+            }
+
+            var ci = CultureInfo.CreateSpecificCulture(this.GetCulture());
+
+            if (this.Get<YafBoardSettings>().EnableDNACalendar) // <-- Should be removed legacy settting not needed anymore.
             {
                 if (this.Get<YafBoardSettings>().UseFarsiCalender && ci.IsFarsiCulture())
                 {
-                    this.SinceDate.Text =  PersianDateConverter.ToPersianDate(PersianDate.MinValue).ToString("d");
+                    this.SinceDate.Text = PersianDateConverter.ToPersianDate(PersianDate.MinValue).ToString("d");
                     this.ToDate.Text = PersianDateConverter.ToPersianDate(PersianDate.Now).ToString("d");
                 }
                 else
@@ -290,6 +286,9 @@ namespace YAF.Pages.Admin
                 this.ToDate.Visible = false;
                 this.ToDateLabel.Visible = false;
             }
+
+            // bind data to controls
+            this.BindData();
         }
 
         /// <summary>
@@ -304,6 +303,16 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
+        /// Handles the Click event of the ApplyButton control.
+        /// </summary>
+        /// <param name="source">The source of the event.</param>
+        /// <param name="eventArgs">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected void ApplyButton_Click([NotNull] object source, EventArgs eventArgs)
+        {
+            this.BindData();
+        }
+
+        /// <summary>
         /// Populates data source and binds data to controls.
         /// </summary>
         private void BindData()
@@ -311,6 +320,41 @@ namespace YAF.Pages.Admin
             int baseSize = this.Get<YafBoardSettings>().MemberListPageSize;
             int nCurrentPageIndex = this.PagerTop.CurrentPageIndex;
             this.PagerTop.PageSize = baseSize;
+
+            var sinceDate = DateTimeHelper.SqlDbMinTime();
+            var toDate = DateTime.UtcNow;
+
+            var ci = CultureInfo.CreateSpecificCulture("en");
+
+            DateTime temp;
+
+            if (this.SinceDate.Text.IsSet())
+            {
+                if (this.Get<YafBoardSettings>().UseFarsiCalender && ci.IsFarsiCulture())
+                {
+                    var persianDate = new PersianDate(this.SinceDate.Text);
+
+                    sinceDate = PersianDateConverter.ToGregorianDateTime(persianDate);
+                }
+                else
+                {
+                    DateTime.TryParse(this.SinceDate.Text, ci, DateTimeStyles.None, out sinceDate);
+                }
+            }
+
+            if (this.ToDate.Text.IsSet())
+            {
+                if (this.Get<YafBoardSettings>().UseFarsiCalender && ci.IsFarsiCulture())
+                {
+                    var persianDate = new PersianDate(this.ToDate.Text);
+
+                    toDate = PersianDateConverter.ToGregorianDateTime(persianDate);
+                }
+                else
+                {
+                    DateTime.TryParse(this.ToDate.Text, ci, DateTimeStyles.None, out toDate);
+                }
+            }
 
             // list event for this board
             DataTable dt = LegacyDb.eventlog_list(
@@ -320,28 +364,20 @@ namespace YAF.Pages.Admin
                 this.Get<YafBoardSettings>().EventLogMaxDays,
                 nCurrentPageIndex,
                 baseSize,
-                this.SinceDate.Text.IsSet() ? this.SinceDate.Text.ToType<DateTime>() : DateTimeHelper.SqlDbMinTime(),
-                this.ToDate.Text.IsSet() ? this.ToDate.Text.ToType<DateTime>() : DateTime.UtcNow,
-                null);
+                sinceDate,
+                toDate,
+                this.Types.SelectedValue.Equals("-1")
+                                  ? null
+                                  : this.Types.SelectedValue);
 
             this.List.DataSource = dt;
 
-            if (dt != null && dt.Rows.Count > 0)
-            {
-                this.PagerTop.Count = dt.AsEnumerable().First().Field<int>("TotalRows");
-            }
-            else
-            {
-                this.PagerTop.Count = 0;
-            }
+            this.PagerTop.Count = dt != null && dt.Rows.Count > 0
+                                      ? dt.AsEnumerable().First().Field<int>("TotalRows")
+                                      : 0;
 
             // bind data to controls
             this.DataBind();
-        }
-
-        protected void ApplyButton_Click([NotNull] object source, EventArgs eventArgs)
-        {
-            BindData();
         }
 
         /// <summary>
@@ -364,6 +400,35 @@ namespace YAF.Pages.Admin
                     this.BindData();
                     break;
             }
+        }
+
+        /// <summary>
+        /// Gets the culture.
+        /// </summary>
+        /// <returns>
+        /// The get culture.
+        /// </returns>
+        private string GetCulture()
+        {
+            // Language and culture
+            string languageFile = this.Get<YafBoardSettings>().Language;
+            string culture4tag = this.Get<YafBoardSettings>().Culture;
+
+            if (!string.IsNullOrEmpty(this.PageContext.LanguageFile))
+            {
+                languageFile = this.PageContext.LanguageFile;
+            }
+
+            if (!string.IsNullOrEmpty(this.PageContext.CultureUser))
+            {
+                culture4tag = this.PageContext.CultureUser;
+            }
+
+            // Get first default full culture from a language file tag.
+            string langFileCulture = StaticDataHelper.CultureDefaultFromFile(languageFile);
+            return langFileCulture.Substring(0, 2) == culture4tag.Substring(0, 2)
+                                          ? culture4tag
+                                          : langFileCulture;
         }
 
         #endregion

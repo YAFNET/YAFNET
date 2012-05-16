@@ -723,16 +723,23 @@
     <Resource tag="VIEW_ALL">Bekijk alles</Resource>
   </page>
   <page name="ADMIN_EVENTLOG">
+    <Resource tag="APPLY">Apply</Resource>
     <Resource tag="CONFIRM_DELETE">Verwijder dit event log item?</Resource>
     <Resource tag="CONFIRM_DELETE_ALL">Verwijder alle event log items?</Resource>
     <Resource tag="DELETE_ALL">Verwijder Alles</Resource>
     <Resource tag="DELETE_ALLOWED">Clean Up</Resource>
     <Resource tag="HIDE">Verberg</Resource>
     <Resource tag="SHOW">Laat zien</Resource>
+    <Resource tag="SINCEDATE">Start Date</Resource>
+    <Resource tag="SINCEDATE_HELP">Select the start date for the log to show.</Resource>
     <Resource tag="SOURCE">Bron</Resource>
     <Resource tag="TIME">Tijd</Resource>
     <Resource tag="TITLE">Event Log</Resource>
+    <Resource tag="TODATE">End Date</Resource>
+    <Resource tag="TODATE_HELP">Select the end date for log to show.</Resource>
     <Resource tag="TYPE">Type</Resource>
+    <Resource tag="TYPES">Type</Resource>
+    <Resource tag="TYPES_HELP">Choose to restrict the Log to certain types of events.</Resource>
   </page>
   <page name="ADMIN_EVENTLOGGROUPS">
     <Resource tag="CANACCESS">Allowed</Resource>
