@@ -272,13 +272,13 @@ namespace YAF.Pages.Admin
                 }
                 else
                 {
-                    this.SinceDate.Text = DateTime.UtcNow.AddYears(-10).ToString(
+                    this.SinceDate.Text = DateTime.UtcNow.AddDays(-this.Get<YafBoardSettings>().EventLogMaxDays).ToString(
                                                  ci.DateTimeFormat.ShortDatePattern, CultureInfo.InvariantCulture);
                     this.ToDate.Text = DateTime.UtcNow.Date.ToString(
                                                  ci.DateTimeFormat.ShortDatePattern, CultureInfo.InvariantCulture);
                 }
-                
-                this.ToDate.ToolTip = this.SinceDate.ToolTip  = this.GetText("COMMON", "CAL_JQ_TT");
+
+                this.ToDate.ToolTip = this.SinceDate.ToolTip = this.GetText("COMMON", "CAL_JQ_TT");
             }
             else
             {
@@ -322,7 +322,7 @@ namespace YAF.Pages.Admin
             int nCurrentPageIndex = this.PagerTop.CurrentPageIndex;
             this.PagerTop.PageSize = baseSize;
 
-            var sinceDate = DateTime.UtcNow.AddYears(-10);
+            var sinceDate = DateTime.UtcNow.AddDays(-this.Get<YafBoardSettings>().EventLogMaxDays);
             var toDate = DateTime.UtcNow;
 
             var ci = CultureInfo.CreateSpecificCulture(this.GetCulture());
