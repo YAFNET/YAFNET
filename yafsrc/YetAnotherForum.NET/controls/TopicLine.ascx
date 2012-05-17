@@ -130,8 +130,8 @@
                 this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
                 forumId: this.TopicRow["ForumID"].ToType<int>(),
                 topicId: this.TopicRow["TopicID"].ToType<int>(),
-                forumReadOverride: this.TopicRow["LastForumAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime(),
-                topicReadOverride: this.TopicRow["LastTopicAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime()); 
+                forumReadOverride: this.TopicRow["LastForumAccess"].ToType<DateTime?>() ?? YAF.Utils.Helpers.DateTimeHelper.SqlDbMinTime(),
+                topicReadOverride: this.TopicRow["LastTopicAccess"].ToType<DateTime?>() ?? YAF.Utils.Helpers.DateTimeHelper.SqlDbMinTime()); 
 
 
         string strMiniPost = this.Get<ITheme>().GetItem(

@@ -123,24 +123,37 @@ namespace YAF.Core.Services
     /// </returns>
     protected override bool RunService()
     {
-
-      // TODO: The data cache needs a more fast string array check as number of banned ips can be huge, but current output is too demanding on perfomance in the cases.
-      var bannedIPs =
-        this.DataCache.GetOrSet(
-          Constants.Cache.BannedIP, () => LegacyDb.bannedip_list(YafContext.Current.PageBoardID, null,0,1000000)).AsEnumerable();
-
-      // check for this user in the list...
-      if (
-        bannedIPs.Any(
-          row => IPHelper.IsBanned(row.Field<string>("Mask"), this.HttpRequestBase.ServerVariables["REMOTE_ADDR"])))
-      {
-        // we're done...
-        this.Logger.Info(@"Ending Response for Banned User at IP ""{0}""", this.HttpRequestBase.ServerVariables["REMOTE_ADDR"]);
-        this.HttpResponseBase.End();
-        return false;
-      }
-
-      return true;
+        // TODO: The data cache needs a more fast string array check as number of banned ips can be huge, but current output is too demanding on perfomance in the cases.
+        var bannedIPs = this.DataCache.GetOrSet(
+            Constants.Cache.BannedIP, () =>
+            {
+                var dt = LegacyDb.bannedip_list(YafContext.Current.PageBoardID, null, 0, 1000000);
+               
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    var lst = new string[dt.Rows.Count];
+                    int cntr = 0;
+                    foreach (DataRow vv in dt.Rows)
+                    {
+                        lst[cntr] = vv["Mask"].ToString().Trim();
+                        cntr++;
+                    }
+                    return lst.ToList();
+                }
+                return null;
+            });
+        
+        // check for this user in the list...
+        if (bannedIPs !=null && bannedIPs.Any(
+            row => IPHelper.IsBanned(row, this.HttpRequestBase.ServerVariables["REMOTE_ADDR"])))
+        {
+            // we're done...
+            this.Logger.Info(@"Ending Response for Banned User at IP ""{0}""", this.HttpRequestBase.ServerVariables["REMOTE_ADDR"]);
+            this.HttpResponseBase.End();
+            return false;
+        }
+        
+        return true;
     }
 
     #endregion
