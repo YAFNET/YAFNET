@@ -2034,7 +2034,7 @@ declare @FirstSelectRowID int
       select @FirstSelectRowID = ID 
       from
 		[{databaseOwner}].[{objectQualifier}BannedIP] where BoardID=@BoardID
-		ORDER BY Mask
+		ORDER BY ID, Mask
 
       -- display page 
       set rowcount @PageSize
@@ -2044,7 +2044,7 @@ declare @FirstSelectRowID int
 	from
 		[{databaseOwner}].[{objectQualifier}BannedIP] a		
 		 where a.ID >= @FirstSelectRowID and BoardID=@BoardID 
-		 ORDER BY a.Mask
+		 ORDER BY a.ID, a.Mask
    set nocount off
   end
   
@@ -2055,7 +2055,8 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}bannedip_save](@ID int=null,@BoardID int,@Mask varchar(57), @Reason nvarchar(128), @UserID int, @UTCTIMESTAMP datetime) as
 begin
-		if @ID is null or @ID = 0 begin
+		if (@ID is null or @ID = 0 ) 
+		begin
 		insert into [{databaseOwner}].[{objectQualifier}BannedIP](BoardID,Mask,Since,Reason,UserID) values(@BoardID,@Mask,@UTCTIMESTAMP ,@Reason,@UserID)
 	end
 	else begin
