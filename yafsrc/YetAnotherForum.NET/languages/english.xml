@@ -116,7 +116,7 @@
       <Resource tag="EDITPROFILETITLE">Editing User Profile &amp; Forum Settings</Resource>
         <Resource tag="MYSETTINGSTITLE">My Settings (User Control Panel)</Resource>
         <Resource tag="MYPICSTITLE">Signatures, Avatars Pictures</Resource>
-        <Resource tag="BUDDIESTITLE">Buddies</Resource>
+        <Resource tag="BUDDIESTITLE">Friends</Resource>
         <Resource tag="MYALBUMSTITLE">Albums</Resource>
       <Resource tag="THANKSTITLE">Thanks Feature</Resource>
       <Resource tag="THANKSCONTENT">&lt;p&gt;The &#39;Thanks&#39; - System is a function that allows you to give back another user a positive feedback, for example he or she has posted a message you find useful or helps you to solve a problem.&lt;/p&gt;
@@ -164,7 +164,7 @@
   &lt;li&gt;&lt;strong&gt;About&lt;/strong&gt; - Shows all Informations the user has provided on his Profile Page such as Real name, gender, Status if User is Online/Offline, Forum Rank, and other.&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;Statistics&lt;/strong&gt; - Shows statistical information such as Joined date, Last Visit, Number of thanks, Number of times this user was thanked                          and Number of posts for which this user was thanked.&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;Last 10 Post&lt;/strong&gt; - Shows if available the Last 10 Messages the User has written&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Buddies - &lt;/strong&gt;Shows the Buddies the User has in the Forum.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Friends - &lt;/strong&gt;Shows the Friends the User has in the Forum.&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;Albums - &lt;/strong&gt;Shows the Albums (if enabled) that the User has generated.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Personal information such as E-Mail Address or Passwords are &lt;strong&gt;NOT&lt;/strong&gt; shown.&lt;/p&gt;</Resource>
@@ -221,24 +221,24 @@
 &lt;p&gt;There is also a Setting &amp;quot;Single Sign On&amp;quot; (If it&amp;rsquo;s activated). If you turn it on you can login thru Facebook, you also enter your Facebook ID above.&lt;/p&gt;
 
 </Resource>
-      <Resource tag="BUDDIESCONTENT">&lt;p&gt;Buddies are a friendship function and are a two-way relationship between two users. It is initiated by one user and accepted by the other.
+      <Resource tag="BUDDIESCONTENT">&lt;p&gt;Friends are a friendship function and are a two-way relationship between two users. It is initiated by one user and accepted by the other.
 &lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Where is list of Buddies displayed?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Your Buddies are displayed on the &#39;My Buddies&#39; you can access this page from the Header Link &#39;My Buddies&#39;, or from the &lt;strong&gt;User Control Panel&lt;/strong&gt; Link &#39;Edit Buddies&#39;. &lt;/p&gt;
-&lt;p&gt;&lt;em&gt;Note: If you don&#39;t See this Link you don&#39;t have any Buddies, didn&#39;t send any Request or you didn&#39;t have any Pending Buddy Requests.&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;Your buddies are also displayed in your profile page.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;How can I request a User as Buddy or accept a Buddy Request?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;To request a user as Buddy, view the profile page of the person you want to become friends with and click the &#39;Add as Buddy&#39; link.&lt;/p&gt;
-&lt;p&gt;To accept a Buddy request friend, go to your &#39;My Buddies&#39; page. On the Tab &#39;Pending Requests&#39; you see The List of Users with pending requests. There you have three choices...&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Where is list of Friends displayed?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Your Friends are displayed on the &#39;My Friends&#39; you can access this page from the Header Link &#39;My Friends&#39;, or from the &lt;strong&gt;User Control Panel&lt;/strong&gt; Link &#39;Edit Friends&#39;. &lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Note: If you don&#39;t See this Link you don&#39;t have any Friends, didn&#39;t send any Request or you didn&#39;t have any Pending Friend Requests.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Your Friends are also displayed in your profile page.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;How can I request a User as Friend or accept a Friend Request?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;To request a user as Friend, view the profile page of the person you want to become friends with and click the &#39;Add as Friend&#39; link.&lt;/p&gt;
+&lt;p&gt;To accept a Friend request friend, go to your &#39;My Friends&#39; page. On the Tab &#39;Pending Requests&#39; you see The List of Users with pending requests. There you have three choices...&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Approve&lt;/strong&gt; - You Become Buddy of the User who requests it &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Approve&lt;/strong&gt; - You Become Friend of the User who requests it &lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;Deny&lt;/strong&gt; - Reject the request&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt; Approve and Add - &lt;/strong&gt;You become Buddy of the User who requests it, and also the User becomes a Body in your List.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt; Approve and Add - &lt;/strong&gt;You become Friend of the User who requests it, and also the User becomes a Body in your List.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;Remove Buddy&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;To remove a Buddy from Your List go to your &#39;My Buddies&#39; page. On the Tab &#39;Buddy List&#39; Click on the Button &#39;Remove Buddy&#39; of the User you want to remove&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Remove Friend&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;To remove a Friend from Your List go to your &#39;My Friends&#39; page. On the Tab &#39;Friend List&#39; Click on the Button &#39;Remove Friend&#39; of the User you want to remove&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Your Requests&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;The Third Tab of the &#39;My Buddies&#39; Page shows your the Pending Request you have made.&lt;/p&gt;</Resource>
+&lt;p&gt;The Third Tab of the &#39;My Friends&#39; Page shows your the Pending Request you have made.&lt;/p&gt;</Resource>
         <Resource tag="MYALBUMSCONTENT">&lt;p&gt;If the Administrator has enable the Album Feature and you are a member who has access to add Albums, you can create Albums of images that are linked to your public profile. Albums can be created by visiting the &lt;strong&gt;User Control Panel&lt;/strong&gt;, and clicking on the &#39;Edit Albums&#39; link, and then clicking on &#39;Add New Album&#39;. The Number of how many Albums and how many Images depends on what the Admin has Setup for your User Group which you are in.&lt;/p&gt;
 &lt;p&gt;Each album can have a title and you can set a Cover for it (Image from the Album) or use random, you can also add a caption for every Image.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How do I upload pictures?&lt;/strong&gt;&lt;/p&gt;
@@ -351,9 +351,9 @@
 &lt;p&gt;This will inform you about several actions...&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;New Private Message(s)&lt;/li&gt;
-  &lt;li&gt;New Buddy Requests&lt;/li&gt;
-  &lt;li&gt;Approved Buddy Requests&lt;/li&gt;
-  &lt;li&gt;Denied Buddy Requests&lt;br /&gt;
+  &lt;li&gt;New Friend Requests&lt;/li&gt;
+  &lt;li&gt;Approved Friend Requests&lt;/li&gt;
+  &lt;li&gt;Denied Friend Requests&lt;br /&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;em&gt;You may also receive a couple of Information and Error Messages in the same way.&lt;/em&gt;&lt;/p&gt;</Resource>
@@ -1410,7 +1410,7 @@ Spoiler Content
       <Resource tag="CP_PM">Views Private Messages</Resource>
       <Resource tag="CP_PROFILE">Views profile settings</Resource>
       <Resource tag="CP_PROFILE_OFUSER">Views profile of user</Resource>
-      <Resource tag="CP_EDITBUDDIES">Edits buddies</Resource>
+      <Resource tag="CP_EDITBUDDIES">Edits Friends</Resource>
       <Resource tag="ALBUM">Views Album</Resource>
       <Resource tag="ALBUM_OFUSER">of user</Resource>
       <Resource tag="ALBUM_OWN">View/Edit your Album</Resource>
@@ -2512,7 +2512,7 @@ Spoiler Content
    </page>
    <page name="PMESSAGE">
       <Resource tag="ALLUSERS">All Users</Resource>
-      <Resource tag="ALLBUDDIES">All Buddies</Resource>
+      <Resource tag="ALLBUDDIES">All Friends</Resource>
       <Resource tag="CLEAR">Clear</Resource>
       <Resource tag="FINDUSERS">Find Users...</Resource>
       <Resource tag="MAX_RECIPIENT_INFO">You can send message to maximum of [b]{0}[/b] users at a time.</Resource>
@@ -2794,26 +2794,26 @@ Spoiler Content
     <Resource tag="REP_VOTE_TITLE">Thanks for your Voting!</Resource>
    </page>
    <page name="BUDDY">
-      <Resource tag="ADDBUDDY">Add as buddy</Resource>
-      <Resource tag="AWAIT_BUDDY_APPROVAL">(Awaiting Buddy Approval)</Resource>
-      <Resource tag="REMOVEBUDDY">Remove Buddy</Resource>
-      <Resource tag="NOTIFICATION_BUDDYREQUEST">Buddy request sent.</Resource>
-      <Resource tag="NOTIFICATION_BUDDYAPPROVED">You have been added to {0}'s buddy list.</Resource>
-      <Resource tag="NOTIFICATION_BUDDYAPPROVED_MUTUAL">You and {0} are now buddies.</Resource>
-      <Resource tag="NOTIFICATION_BUDDYDENIED">Buddy request denied.</Resource>
-      <Resource tag="NOTIFICATION_ALL_APPROVED">All buddy requests approved.</Resource>
-      <Resource tag="NOTIFICATION_ALL_APPROVED_ADDED">All buddy requests approved and added to your buddy list.</Resource>
-      <Resource tag="NOTIFICATION_ALL_DENIED">All buddy requests more than 14 days old denied.</Resource>
-    <Resource tag="PENDINGBUDDIES_TITLE">New Buddy request(s)</Resource>
-      <Resource tag="PENDINGBUDDIES">You have {0} pending buddy request(s)</Resource>
-    <Resource tag="PENDINGBUDDIES2">You have {0} pending buddy request(s). Would you like to go to your Buddy list now?</Resource>
-      <Resource tag="REMOVEBUDDY_NOTIFICATION">{0} has been removed from your Buddy list.</Resource>
+      <Resource tag="ADDBUDDY">Add as Friend</Resource>
+      <Resource tag="AWAIT_BUDDY_APPROVAL">(Awaiting Friend Approval)</Resource>
+      <Resource tag="REMOVEBUDDY">Remove Friend</Resource>
+      <Resource tag="NOTIFICATION_BUDDYREQUEST">Friend request sent.</Resource>
+      <Resource tag="NOTIFICATION_BUDDYAPPROVED">You have been added to {0}'s Friend list.</Resource>
+      <Resource tag="NOTIFICATION_BUDDYAPPROVED_MUTUAL">You and {0} are now Friends.</Resource>
+      <Resource tag="NOTIFICATION_BUDDYDENIED">Friend request denied.</Resource>
+      <Resource tag="NOTIFICATION_ALL_APPROVED">All Friend requests approved.</Resource>
+      <Resource tag="NOTIFICATION_ALL_APPROVED_ADDED">All Friend requests approved and added to your Friend list.</Resource>
+      <Resource tag="NOTIFICATION_ALL_DENIED">All Friend requests more than 14 days old denied.</Resource>
+    <Resource tag="PENDINGBUDDIES_TITLE">New Friend request(s)</Resource>
+      <Resource tag="PENDINGBUDDIES">You have {0} pending Friend request(s)</Resource>
+    <Resource tag="PENDINGBUDDIES2">You have {0} pending Friend request(s). Would you like to go to your Friend list now?</Resource>
+      <Resource tag="REMOVEBUDDY_NOTIFICATION">{0} has been removed from your Friend list.</Resource>
    </page>
    <page name="CP_EDITBUDDIES">
-      <Resource tag="BUDDYLIST_TT">Buddies Control Panel</Resource>
-      <Resource tag="EDIT_BUDDIES">Edit Buddies</Resource>
-      <Resource tag="YOUR_BUDDYLIST">My Buddies</Resource>
-      <Resource tag="BUDDYLIST">Buddy List</Resource>
+      <Resource tag="BUDDYLIST_TT">Friends Control Panel</Resource>
+      <Resource tag="EDIT_BUDDIES">Edit Friends</Resource>
+      <Resource tag="YOUR_BUDDYLIST">My Friends</Resource>
+      <Resource tag="BUDDYLIST">Friend List</Resource>
       <Resource tag="PENDING_REQUESTS">Pending Requests</Resource>
       <Resource tag="POSTS">Posts</Resource>
       <Resource tag="YOUR_REQUESTS">Your Requests</Resource>
@@ -2826,8 +2826,8 @@ Spoiler Content
       <Resource tag="APPROVE_ADD_ALL">Approve and Add All</Resource>
       <Resource tag="NOTIFICATION_DENY">Deny this request?</Resource>
       <Resource tag="NOTIFICATION_APPROVEALL">Approve all requests?</Resource>
-      <Resource tag="NOTIFICATION_APPROVEALLADD">Approve all requests and add them to your buddy list too?</Resource>
-      <Resource tag="NOTIFICATION_REMOVE">Remove Buddy?</Resource>
+      <Resource tag="NOTIFICATION_APPROVEALLADD">Approve all requests and add them to your Friend list too?</Resource>
+      <Resource tag="NOTIFICATION_REMOVE">Remove Friend?</Resource>
       <Resource tag="NOTIFICATION_REMOVE_OLD_UNAPPROVED">Delete all unapproved requests more than 14 days old?</Resource>
    </page>
    <page name="PRINTTOPIC">
@@ -3324,7 +3324,7 @@ Visit {forumname} at {forumlink}
    <page name="TOOLBAR">
       <Resource tag="MYALBUMS">My Albums</Resource>
       <Resource tag="INBOX">My Inbox</Resource>
-      <Resource tag="BUDDIES">My Buddies</Resource>
+      <Resource tag="BUDDIES">My Friends</Resource>
       <Resource tag="BUDDYREQUEST">({0} pending)</Resource>
       <Resource tag="MYTOPICS">My Topics</Resource>
       <Resource tag="ACTIVETOPICS">Active Topics</Resource>
@@ -3349,7 +3349,7 @@ Visit {forumname} at {forumlink}
       <Resource tag="TEAM">Team</Resource>  
 	  <Resource tag="MYALBUMS_TITLE">Shows the Albums Page which shows all your albums.</Resource>
       <Resource tag="INBOX_TITLE">Shows Private Messages Inbox.</Resource>
-      <Resource tag="BUDDIES_TITLE">Shows your Buddy List.</Resource>
+      <Resource tag="BUDDIES_TITLE">Shows your Friend List.</Resource>
       <Resource tag="MYTOPICS_TITLE">Shows the Active and Favorite Topics.</Resource>
       <Resource tag="ACTIVETOPICS_TITLE">Shows the Active Topics Page.</Resource>
       <Resource tag="ADMIN_TITLE">Shows the Admin Index.</Resource>
@@ -4814,8 +4814,8 @@ Visit {forumname} at {forumlink}
        <Resource tag="SHOW_USER_STATUS_HELP">If checked, current user status is displayed in the forum. Hidden users are always displayed as offline.</Resource>
 	   <Resource tag="ALLOW_THANKS">Allow Users to Thank Posts:</Resource>
        <Resource tag="ALLOW_THANKS_HELP">If checked users can thank posts they consider useful.</Resource>
-	   <Resource tag="ENABLE_BUDDYLIST">Enable Buddy List:</Resource>
-       <Resource tag="ENABLE_BUDDYLIST_HELP">If checked users can add each other as buddies.</Resource>
+	   <Resource tag="ENABLE_BUDDYLIST">Enable Friend List:</Resource>
+       <Resource tag="ENABLE_BUDDYLIST_HELP">If checked users can add each other as Friends.</Resource>
 	   <Resource tag="SHOW_THANK_DATE">Show The Date on Which Users Have Thanked Posts:</Resource>
        <Resource tag="SHOW_THANK_DATE_HELP">If checked users can see on which date posts have been thanked. (Thanks Mod must be enabled first.)</Resource>
 	   <Resource tag="REMOVE_NESTED_QUOTES">Remove Nested Quotes:</Resource>

@@ -4079,7 +4079,7 @@ Spoiler Content
     <Resource tag="VIEWS">Bekeken</Resource>
   </page>
   <page name="PMESSAGE">
-    <Resource tag="ALLBUDDIES">All Buddies</Resource>
+    <Resource tag="ALLBUDDIES">All Friends</Resource>
     <Resource tag="ALLUSERS">Alle gebruikers</Resource>
     <Resource tag="CLEAR">Wissen</Resource>
     <Resource tag="FINDUSERS">Gebruikers zoeken</Resource>
@@ -4832,7 +4832,7 @@ Bezoek {forumname} op {forumlink}
     <Resource tag="ADMIN">Beheer</Resource>
     <Resource tag="ADMIN_TITLE">Shows the Admin Index.</Resource>
     <Resource tag="BUDDIES">Vrienden</Resource>
-    <Resource tag="BUDDIES_TITLE">Shows your Buddy List.</Resource>
+    <Resource tag="BUDDIES_TITLE">Shows your Friend List.</Resource>
     <Resource tag="BUDDYREQUEST">({0} onbehandeld)</Resource>
     <Resource tag="DISABLED_REGISTER">Nieuwe registraties zijn niet mogelijk</Resource>
     <Resource tag="FORUM_TITLE">Shows the Forum Mainpage.</Resource>

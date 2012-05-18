@@ -72,7 +72,7 @@
     <Resource tag="CP_CHANGEPASSWORD">Changes password</Resource>
     <Resource tag="CP_EDITALBUMIMAGES">Edits album images</Resource>
     <Resource tag="CP_EDITAVATAR">Edits his avatar</Resource>
-    <Resource tag="CP_EDITBUDDIES">Edits buddies</Resource>
+    <Resource tag="CP_EDITBUDDIES">Edits Friends</Resource>
     <Resource tag="CP_EDITPROFILE">Edits his profile</Resource>
     <Resource tag="CP_MESSAGE">Views Private Messages</Resource>
     <Resource tag="CP_PM">Views Private Messages</Resource>
@@ -948,8 +948,8 @@
     <Resource tag="EMAIL_VERIFICATION_HELP">If unchecked users will not need to verify their email address.</Resource>
     <Resource tag="ENABLE_ABLBUMS">Enable Album Feature:</Resource>
     <Resource tag="ENABLE_ABLBUMS_HELP">If checked, album feature is enabled. You should set allowed number of images and albums for each group and/or rank too, to enable the feature.</Resource>
-    <Resource tag="ENABLE_BUDDYLIST">Enable Buddy List:</Resource>
-    <Resource tag="ENABLE_BUDDYLIST_HELP">If checked users can add each other as buddies.</Resource>
+    <Resource tag="ENABLE_BUDDYLIST">Enable Friend List:</Resource>
+    <Resource tag="ENABLE_BUDDYLIST_HELP">If checked users can add each other as Friends.</Resource>
     <Resource tag="ENABLE_CALENDER">Enable calendar:</Resource>
     <Resource tag="ENABLE_CALENDER_HELP">Enables/disables calendar in profile, if it causes troubles on servers/for users with different cultures.</Resource>
     <Resource tag="ENABLE_CAPTCHA_FORPOST">Enable CAPTCHA for Post a Message:</Resource>
@@ -3535,25 +3535,25 @@ Spoiler Content
 
 &lt;p&gt;NOTE: Don't forget to close an open BB Code tag. Tags that are not closed will be not formatted.&lt;/p&gt;</Resource>
     <Resource tag="BBCODESTITLE">BB Codes List</Resource>
-    <Resource tag="BUDDIESCONTENT">&lt;p&gt;Buddies are a friendship function and are a two-way relationship between two users. It is initiated by one user and accepted by the other.
+    <Resource tag="BUDDIESCONTENT">&lt;p&gt;Friends are a friendship function and are a two-way relationship between two users. It is initiated by one user and accepted by the other.
 &lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Where is list of Buddies displayed?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Your Buddies are displayed on the 'My Buddies' you can access this page from the Header Link 'My Buddies', or from the &lt;strong&gt;User Control Panel&lt;/strong&gt; Link 'Edit Buddies'. &lt;/p&gt;
-&lt;p&gt;&lt;em&gt;Note: If you don't See this Link you don't have any Buddies, didn't send any Request or you didn't have any Pending Buddy Requests.&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;Your buddies are also displayed in your profile page.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;How can I request a User as Buddy or accept a Buddy Request?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;To request a user as Buddy, view the profile page of the person you want to become friends with and click the 'Add as Buddy' link.&lt;/p&gt;
-&lt;p&gt;To accept a Buddy request friend, go to your 'My Buddies' page. On the Tab 'Pending Requests' you see The List of Users with pending requests. There you have three choices...&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Where is list of Friends displayed?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Your Friends are displayed on the 'My Friends' you can access this page from the Header Link 'My Friends', or from the &lt;strong&gt;User Control Panel&lt;/strong&gt; Link 'Edit Friends'. &lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Note: If you don't See this Link you don't have any Friends, didn't send any Request or you didn't have any Pending Friend Requests.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Your Friends are also displayed in your profile page.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;How can I request a User as Friend or accept a Friend Request?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;To request a user as Friend, view the profile page of the person you want to become friends with and click the 'Add as Friend' link.&lt;/p&gt;
+&lt;p&gt;To accept a Friend request friend, go to your 'My Friends' page. On the Tab 'Pending Requests' you see The List of Users with pending requests. There you have three choices...&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Approve&lt;/strong&gt; - You Become Buddy of the User who requests it &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Approve&lt;/strong&gt; - You Become Friend of the User who requests it &lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;Deny&lt;/strong&gt; - Reject the request&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt; Approve and Add - &lt;/strong&gt;You become Buddy of the User who requests it, and also the User becomes a Body in your List.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt; Approve and Add - &lt;/strong&gt;You become Friend of the User who requests it, and also the User becomes a Body in your List.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;Remove Buddy&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;To remove a Buddy from Your List go to your 'My Buddies' page. On the Tab 'Buddy List' Click on the Button 'Remove Buddy' of the User you want to remove&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Remove Friend&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;To remove a Friend from Your List go to your 'My Friends' page. On the Tab 'Friend List' Click on the Button 'Remove Friend' of the User you want to remove&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Your Requests&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;The Third Tab of the 'My Buddies' Page shows your the Pending Request you have made.&lt;/p&gt;</Resource>
-    <Resource tag="BUDDIESTITLE">Buddies</Resource>
+&lt;p&gt;The Third Tab of the 'My Friends' Page shows your the Pending Request you have made.&lt;/p&gt;</Resource>
+    <Resource tag="BUDDIESTITLE">Friends</Resource>
     <Resource tag="DISPLAYCONTENT">&lt;p&gt;You have a choice over how you view topics. When you're in a thread, look at the top bar. On the right hand side you'll see 'View'. Click on this and it lets you change how posts are ordered.&lt;/p&gt;
 &lt;p&gt;You have two choices:&lt;/p&gt;
 &lt;ul&gt;
@@ -3743,9 +3743,9 @@ Spoiler Content
 &lt;p&gt;This will inform you about several actions...&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;New Private Message(s)&lt;/li&gt;
-  &lt;li&gt;New Buddy Requests&lt;/li&gt;
-  &lt;li&gt;Approved Buddy Requests&lt;/li&gt;
-  &lt;li&gt;Denied Buddy Requests&lt;br /&gt;
+  &lt;li&gt;New Friend Requests&lt;/li&gt;
+  &lt;li&gt;Approved Friend Requests&lt;/li&gt;
+  &lt;li&gt;Denied Friend Requests&lt;br /&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;em&gt;You may also receive a couple of Information and Error Messages in the same way.&lt;/em&gt;&lt;/p&gt;</Resource>
@@ -3775,7 +3775,7 @@ Spoiler Content
   &lt;li&gt;&lt;strong&gt;About&lt;/strong&gt; - Shows all Informations the user has provided on his Profile Page such as Real name, gender, Status if User is Online/Offline, Forum Rank, and other.&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;Statistics&lt;/strong&gt; - Shows statistical information such as Joined date, Last Visit, Number of thanks, Number of times this user was thanked                          and Number of posts for which this user was thanked.&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;Last 10 Post&lt;/strong&gt; - Shows if available the Last 10 Messages the User has written&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Buddies - &lt;/strong&gt;Shows the Buddies the User has in the Forum.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Friends - &lt;/strong&gt;Shows the Friends the User has in the Forum.&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;Albums - &lt;/strong&gt;Shows the Albums (if enabled) that the User has generated.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Personal information such as E-Mail Address or Passwords are &lt;strong&gt;NOT&lt;/strong&gt; shown.&lt;/p&gt;</Resource>
@@ -4106,7 +4106,7 @@ Spoiler Content
     <Resource tag="VIEWS">Visite</Resource>
   </page>
   <page name="PMESSAGE">
-    <Resource tag="ALLBUDDIES">All Buddies</Resource>
+    <Resource tag="ALLBUDDIES">All Friends</Resource>
     <Resource tag="ALLUSERS">Tutti gli utenti</Resource>
     <Resource tag="CLEAR">Cancella</Resource>
     <Resource tag="FINDUSERS">Cerca utenti...</Resource>
