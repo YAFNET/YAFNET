@@ -1896,7 +1896,8 @@ GO
 create procedure [{databaseOwner}].[{objectQualifier}attachment_list](@MessageID int=null,@AttachmentID int=null,@BoardID int=null,@PageIndex int = null, @PageSize int = 0) as begin
 declare @TotalRows int
 declare @FirstSelectRowNumber int
-declare @FirstSelectRowID int		if @MessageID is not null
+declare @FirstSelectRowID int		
+   if @MessageID is not null
 		select 
 			a.*,
 			e.BoardID
@@ -1960,9 +1961,7 @@ declare @FirstSelectRowID int		if @MessageID is not null
 		where
 			e.BoardID = @BoardID
 		order by
-			d.Name,
-			c.Topic,
-			b.Posted
+			a.AttachmentID
 
       -- display page 
       set rowcount @PageSize
@@ -1984,9 +1983,7 @@ declare @FirstSelectRowID int		if @MessageID is not null
 		where
 			a.AttachmentID >= @FirstSelectRowID  and e.BoardID = @BoardID
 		order by
-			d.Name,
-			c.Topic,
-			b.Posted
+			a.AttachmentID
    set nocount off
 
 		
@@ -2009,6 +2006,7 @@ create procedure [{databaseOwner}].[{objectQualifier}bannedip_list](@BoardID int
 begin
 declare @TotalRows int
 declare @FirstSelectRowNumber int
+declare @FirstSelectRowMask nvarchar(100)
 declare @FirstSelectRowID int
         if @ID is null
 		begin
@@ -2031,10 +2029,10 @@ declare @FirstSelectRowID int
 		   set rowcount 1
 		   end
       -- find first row id for a current page 
-      select @FirstSelectRowID = ID 
+      select @FirstSelectRowID = ID, @FirstSelectRowMask = Mask 
       from
 		[{databaseOwner}].[{objectQualifier}BannedIP] where BoardID=@BoardID
-		ORDER BY ID, Mask
+		ORDER BY a.ID
 
       -- display page 
       set rowcount @PageSize
@@ -2044,7 +2042,7 @@ declare @FirstSelectRowID int
 	from
 		[{databaseOwner}].[{objectQualifier}BannedIP] a		
 		 where a.ID >= @FirstSelectRowID and BoardID=@BoardID 
-		 ORDER BY a.ID, a.Mask
+		 ORDER BY a.ID
    set nocount off
   end
   
