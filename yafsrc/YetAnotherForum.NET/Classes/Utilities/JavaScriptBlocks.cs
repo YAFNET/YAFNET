@@ -35,7 +35,7 @@ namespace YAF.Utilities
     public static class JavaScriptBlocks
     {
         #region Properties
-        
+
         /// <summary>
         /// Gets Facebook Init Js.
         /// </summary>
@@ -80,7 +80,7 @@ namespace YAF.Utilities
                     else {{
                       // Show MessageBox
                       {1}('span[id$=_YafPopupErrorMessageInner]').html(res.d);
-                      {1}().YafModalDialog.Show({{Dialog : '#' + {1}('div[id$=_YafForumPageErrorPopup]').attr('id'),ImagePath : '/yaf/resources/images/'}});
+                      {1}().YafModalDialog.Show({{Dialog : '#' + {1}('div[id$=_YafForumPageErrorPopup1]').attr('id'),ImagePath : '/yaf/resources/images/'}});
                     }} }}".FormatWith(YafBuildLink.GetLink(ForumPages.forum), Config.JQueryAlias);
             }
         }
@@ -488,7 +488,7 @@ namespace YAF.Utilities
 
             return
                 @"Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadDatePicker);
-                  function loadDatePicker() {{	{3}(document).ready(function() {{ {3}('#{0}').datepicker({{changeMonth:true,changeYear:true,maxDate:'+0d',dateFormat:'{1}',}}); {2} }});}} "
+                  function loadDatePicker() {{	{3}(document).ready(function() {{ {3}('#{0}').datepicker({{showButtonPanel: true,changeMonth:true,changeYear:true,maxDate:'+0d',dateFormat:'{1}',}}); {2} }});}} "
                     .FormatWith(fieldId, dateFormat, cultureJs, Config.JQueryAlias);
         }
 
@@ -754,6 +754,24 @@ namespace YAF.Utilities
 			                    ChangeReputationBarColor({0}(this).attr('data-percent'),{0}(this).attr('data-text'), this);
 			                    }}
 		             }});}});".FormatWith(Config.JQueryAlias, userId, generateReputationBar);
+        }
+
+        /// <summary>
+        /// Toggle Event Log Item Js Scripts
+        /// used to show/hide event log item
+        /// </summary>
+        /// <param name="showText">The show text.</param>
+        /// <param name="hideText">The hide text.</param>
+        /// <returns>Toggle Event Log Item Js</returns>
+        [NotNull]
+        public static string ToggleEventLogItemJs(string showText, string hideText)
+        {
+            return
+                @"function toggleEventLogItem(detailId) {{
+                           var show = '{1}';var hide = '{2}';
+	                       {0}('#Show'+ detailId).text({0}('#Show'+ detailId).text() == show ? hide : show);
+                           {0}('#eventDetails' + detailId).slideToggle('slow'); return false;
+                  }}".FormatWith(Config.JQueryAlias, showText, hideText);
         }
 
         #endregion

@@ -171,12 +171,9 @@ namespace YAF.Controls
            
             if (!string.IsNullOrEmpty(this.GetText("COMMON", "CAL_JQ_CULTURE")))
             {
-                var jqueryuiUrl = Config.JQueryUILangFile;
-
-                if (!jqueryuiUrl.StartsWith("http"))
-                {
-                    jqueryuiUrl = YafForumInfo.GetURLToResource(Config.JQueryUIFile);
-                }
+                var jqueryuiUrl = !Config.JQueryUILangFile.StartsWith("http")
+                                      ? YafForumInfo.GetURLToResource(Config.JQueryUILangFile)
+                                      : Config.JQueryUILangFile;
 
                 YafContext.Current.PageElements.RegisterJsInclude("datepickerlang", jqueryuiUrl);
 

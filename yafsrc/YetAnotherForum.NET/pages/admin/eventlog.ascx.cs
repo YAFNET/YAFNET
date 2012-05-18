@@ -196,12 +196,9 @@ namespace YAF.Pages.Admin
 
             if (!string.IsNullOrEmpty(this.GetText("COMMON", "CAL_JQ_CULTURE")))
             {
-                var jqueryuiUrl = Config.JQueryUILangFile;
-
-                if (!jqueryuiUrl.StartsWith("http"))
-                {
-                    jqueryuiUrl = YafForumInfo.GetURLToResource(Config.JQueryUIFile);
-                }
+                var jqueryuiUrl = !Config.JQueryUILangFile.StartsWith("http")
+                                      ? YafForumInfo.GetURLToResource(Config.JQueryUILangFile)
+                                      : Config.JQueryUILangFile;
 
                 YafContext.Current.PageElements.RegisterJsInclude("datepickerlang", jqueryuiUrl);
 
@@ -217,6 +214,11 @@ namespace YAF.Pages.Admin
                   "{0}, #{1}".FormatWith(this.ToDate.ClientID, this.SinceDate.ClientID),
                   this.GetText("COMMON", "CAL_JQ_CULTURE_DFORMAT"),
                   this.GetText("COMMON", "CAL_JQ_CULTURE")));
+
+            YafContext.Current.PageElements.RegisterJsBlockStartup(
+                "ToggleEventLogItemJs",
+                JavaScriptBlocks.ToggleEventLogItemJs(
+                    this.GetText("ADMIN_EVENTLOG", "SHOW"), this.GetText("ADMIN_EVENTLOG", "HIDE")));
 
             base.OnPreRender(e);
         }
