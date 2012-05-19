@@ -1767,7 +1767,6 @@ namespace YAF.Classes
             }
         }
 
-
         /// <summary>
         /// Gets or sets Event Log Max Days.
         /// </summary>
@@ -1784,9 +1783,61 @@ namespace YAF.Classes
             }
         }
 
+        /// <summary>
+        /// Gets or sets Message Notifcation Duration
+        /// </summary>
+        public int MessageNotifcationDuration
+        {
+            get
+            {
+                return this._reg.GetValue("MessageNotifcationDuration", 30);
+            }
+
+            set
+            {
+                this._reg.SetValue("MessageNotifcationDuration", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether 
+        /// which Message Notification System should been used
+        /// 0 = Modal Dialog
+        /// 1 = Notification Bar
+        /// </summary>
+        public int MessageNotificationSystem
+        {
+            get
+            {
+                return this._reg.GetValue("MessageNotificationSystem", 1);
+            }
+
+            set
+            {
+                this._reg.SetValue("MessageNotificationSystem", value);
+            }
+        }
+
         #endregion
 
         #region boolean settings
+
+        /// <summary>
+        /// Gets or sets a value indicating whether Show Notification Messages as alerts
+        /// on Mobile Devices.
+        /// </summary>
+        public bool NotifcationNativeOnMobile
+        {
+            get
+            {
+                return this._reg.GetValue("NotifcationNativeOnMobile", true);
+            }
+
+            set
+            {
+                this._reg.SetValue("NotifcationNativeOnMobile", value);
+            }
+        }
 
         /// <summary>
         /// Gets or sets a value indicating whether AllowUsersTextEditor.

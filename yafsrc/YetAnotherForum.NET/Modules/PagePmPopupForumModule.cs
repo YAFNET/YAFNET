@@ -21,7 +21,9 @@ namespace YAF.Modules
     #region Using
 
     using System;
+    using System.Web;
 
+    using YAF.Classes;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Types;
@@ -111,24 +113,37 @@ namespace YAF.Modules
             var notification = (DialogBox)this.PageContext.CurrentForumPage.Notification;
 
             // This happens when user logs in
-            if (this.DisplayPMPopup() && (!this.PageContext.ForumPageType.Equals(ForumPages.cp_pm)
-                || !this.PageContext.ForumPageType.Equals(ForumPages.cp_editbuddies)))
+            if (this.DisplayPMPopup()
+                &&
+                (!this.PageContext.ForumPageType.Equals(ForumPages.cp_pm)
+                 || !this.PageContext.ForumPageType.Equals(ForumPages.cp_editbuddies)))
             {
-                notification.Show(
-                    this.GetText("COMMON", "UNREAD_MSG2").FormatWith(this.PageContext.UnreadPrivate),
-                    this.GetText("COMMON", "UNREAD_MSG_TITLE"),
-                    DialogBox.DialogIcon.Mail,
-                    new DialogBox.DialogButton
-                        {
-                            Text = this.GetText("COMMON", "YES"),
-                            CssClass = "StandardButton OkButton",
-                            ForumPageLink = new DialogBox.ForumLink { ForumPage = ForumPages.cp_pm }
-                        },
-                    new DialogBox.DialogButton
-                        {
-                            Text = this.GetText("COMMON", "NO"), 
-                            CssClass = "StandardButton CancelButton"
-                        });
+                if (this.Get<YafBoardSettings>().MessageNotificationSystem.Equals(0)
+                    &&
+                    !(this.Get<YafBoardSettings>().NotifcationNativeOnMobile
+                      && this.Get<HttpRequestBase>().Browser.IsMobileDevice))
+                {
+                    notification.Show(
+                        this.GetText("COMMON", "UNREAD_MSG2").FormatWith(this.PageContext.UnreadPrivate),
+                        this.GetText("COMMON", "UNREAD_MSG_TITLE"),
+                        DialogBox.DialogIcon.Mail,
+                        new DialogBox.DialogButton
+                            {
+                                Text = this.GetText("COMMON", "YES"),
+                                CssClass = "StandardButton OkButton",
+                                ForumPageLink = new DialogBox.ForumLink { ForumPage = ForumPages.cp_pm }
+                            },
+                        new DialogBox.DialogButton
+                            {
+                                Text = this.GetText("COMMON", "NO"), 
+                                CssClass = "StandardButton CancelButton"
+                            });
+                }
+                else
+                {
+                    this.PageContext.AddLoadMessage(
+                        this.GetText("COMMON", "UNREAD_MSG").FormatWith(this.PageContext.UnreadPrivate));
+                }
 
                 this.Get<IYafSession>().LastPm = this.PageContext.LastUnreadPm;
 
@@ -136,28 +151,43 @@ namespace YAF.Modules
                 return;
             }
 
-            if (this.DisplayPendingBuddies() && (!this.PageContext.ForumPageType.Equals(ForumPages.cp_editbuddies)
-                && !this.PageContext.ForumPageType.Equals(ForumPages.cp_pm)))
+            if (!this.DisplayPendingBuddies()
+                ||
+                (this.PageContext.ForumPageType.Equals(ForumPages.cp_editbuddies)
+                 || this.PageContext.ForumPageType.Equals(ForumPages.cp_pm)))
+            {
+                return;
+            }
+
+            if (this.Get<YafBoardSettings>().MessageNotificationSystem.Equals(0)
+                &&
+                !(this.Get<YafBoardSettings>().NotifcationNativeOnMobile
+                  && this.Get<HttpRequestBase>().Browser.IsMobileDevice))
             {
                 notification.Show(
                     this.GetText("BUDDY", "PENDINGBUDDIES2").FormatWith(this.PageContext.PendingBuddies),
                     this.GetText("BUDDY", "PENDINGBUDDIES_TITLE"),
                     DialogBox.DialogIcon.Info,
                     new DialogBox.DialogButton
-                    {
-                        Text = this.GetText("COMMON", "YES"),
-                        CssClass = "StandardButton OkButton",
-                        ForumPageLink = new DialogBox.ForumLink { ForumPage = ForumPages.cp_editbuddies }
-                    },
+                        {
+                            Text = this.GetText("COMMON", "YES"),
+                            CssClass = "StandardButton OkButton",
+                            ForumPageLink = new DialogBox.ForumLink { ForumPage = ForumPages.cp_editbuddies }
+                        },
                     new DialogBox.DialogButton
-                    {
-                        Text = this.GetText("COMMON", "NO"), 
-                        CssClass = "StandardButton CancelButton",
-                        ForumPageLink = new DialogBox.ForumLink { ForumPage = YafContext.Current.ForumPageType }
-                    });
-
-                this.Get<IYafSession>().LastPendingBuddies = this.PageContext.LastPendingBuddies;
+                        {
+                            Text = this.GetText("COMMON", "NO"),
+                            CssClass = "StandardButton CancelButton",
+                            ForumPageLink = new DialogBox.ForumLink { ForumPage = YafContext.Current.ForumPageType }
+                        });
             }
+            else
+            {
+                this.PageContext.AddLoadMessage(
+                    this.GetText("BUDDY", "PENDINGBUDDIES2").FormatWith(this.PageContext.PendingBuddies));
+            }
+
+            this.Get<IYafSession>().LastPendingBuddies = this.PageContext.LastPendingBuddies;
         }
     }
 

@@ -1014,6 +1014,7 @@
     <Resource tag="HEADER_LOG">Log instellingen</Resource>
     <Resource tag="HEADER_LOGIN">Login/Registratie instellingen</Resource>
     <Resource tag="HEADER_LOGSCOPE">Log scope</Resource>
+    <Resource tag="HEADER_MESSAGE_NOTIFICATION">Message Notification Settings</Resource>
     <Resource tag="HEADER_PERMISSION">Machtiging instellingen</Resource>
     <Resource tag="HEADER_PMS"> Berichten</Resource>
     <Resource tag="HEADER_POLL">Poll Opties</Resource>
@@ -1109,8 +1110,11 @@
     <Resource tag="MEMBERLIST_PAGE_SIZE_HELP">n pagina in de Gebruikerslijst. </Resource>
     <Resource tag="MESSAGE_CHANGE_HISTORY">Archiveringstijd bericht</Resource>
     <Resource tag="MESSAGE_CHANGE_HISTORY_HELP">Aantal dagen dat de wijzigingen van de berichten bewaarde worden.</Resource>
+    <Resource tag="MESSAGE_SYSTEM">Notification System for System Messages:</Resource>
+    <Resource tag="MESSAGE_SYSTEM_HELP">You can choose Between Modal Dialog or a Top Notification Bar for System Messages.</Resource>
     <Resource tag="MOD_CACHE_TIMEOUT">Board Moderators Cache Timeout:</Resource>
     <Resource tag="MOD_CACHE_TIMEOUT_HELP">In minuten</Resource>
+    <Resource tag="MODAL_DIALOG">Modal Dialog</Resource>
     <Resource tag="MODAL_LOGIN">Gebruik Login scherm(Modaal PopUp Dialoogvenster):</Resource>
     <Resource tag="MODAL_LOGIN_HELP">Wanneer aangevinkt, wordt het loginscherm als een popup-venster getoond. Anders wordt het scherm op een eigen pagina getoond.</Resource>
     <Resource tag="MYTOPICSLIST_PAGE_SIZE">My Topics List Page Size:</Resource>
@@ -1119,6 +1123,11 @@
     <Resource tag="NAME_LENGTH_HELP">Maximale lengte van de gebruikersnaam of de weergave naam.</Resource>
     <Resource tag="NOFOLLOW_LINKTAGS">Gebruik "NoFollow" Tag in Links:</Resource>
     <Resource tag="NOFOLLOW_LINKTAGS_HELP">Als deze is aangevinkt, zullen alle links de "nofollow tag" gebruiken.</Resource>
+    <Resource tag="NOTIFICATION_BAR">Notification Bar</Resource>
+    <Resource tag="NOTIFICATION_DURATION">Notification Bar Display Duration:</Resource>
+    <Resource tag="NOTIFICATION_DURATION_HELP">Duration (in Seconds) how long the Bar is displayed.</Resource>
+    <Resource tag="NOTIFICATION_MOBILE">Use Native Message Dialogs on Mobile:</Resource>
+    <Resource tag="NOTIFICATION_MOBILE_HELP">Option to Show Native Notifcation Dialogs on Mobile Devices.</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT">Online Gebruiker Status Cache Timeout:</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT_HELP">Dit kun je Fine-tunen afhankelijk van de activiteit op je forum in milliseconden)</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE">Poll Afbeelding Bestandsgrootte:</Resource>

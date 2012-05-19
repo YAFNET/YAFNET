@@ -121,9 +121,10 @@ namespace YAF.Pages.Admin
             }
 
             this.PageContext.LoadMessage.AddSession(
-                            importedCount > 0
-                                ? this.GetText("ADMIN_USERS_IMPORT", "IMPORT_SUCESS").FormatWith(importedCount)
-                                : this.GetText("ADMIN_USERS_IMPORT", "IMPORT_NOTHING"));
+                importedCount > 0
+                    ? this.GetText("ADMIN_USERS_IMPORT", "IMPORT_SUCESS").FormatWith(importedCount)
+                    : this.GetText("ADMIN_USERS_IMPORT", "IMPORT_NOTHING"),
+                MessageTypes.Information);
 
             YafBuildLink.Redirect(ForumPages.admin_users);
         }

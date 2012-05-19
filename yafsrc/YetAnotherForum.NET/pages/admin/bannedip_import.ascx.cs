@@ -41,7 +41,7 @@ namespace YAF.Pages.Admin
         #region Methods
 
         /// <summary>
-        /// Handles the OnClick event of the Cancel control.
+        /// Cancel Import and Return Back to Previous Page
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
@@ -51,7 +51,7 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// Handles the OnClick event of the Import control.
+        /// Try to Import from selected File
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
@@ -75,7 +75,8 @@ namespace YAF.Pages.Admin
                 this.PageContext.LoadMessage.AddSession(
                     importedCount > 0
                         ? this.GetText("ADMIN_BANNEDIP_IMPORT", "IMPORT_SUCESS").FormatWith(importedCount)
-                        : this.GetText("ADMIN_BANNEDIP_IMPORT", "IMPORT_NOTHING"));
+                        : this.GetText("ADMIN_BANNEDIP_IMPORT", "IMPORT_NOTHING"),
+                    MessageTypes.Information);
 
                 YafBuildLink.Redirect(ForumPages.admin_bannedip);
             }

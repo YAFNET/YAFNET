@@ -25,6 +25,7 @@ namespace YAF.Pages.Admin
   using System;
   using System.Web;
 
+  using YAF.Classes;
   using YAF.Core;
   using YAF.Types;
   using YAF.Types.Constants;
@@ -34,7 +35,7 @@ namespace YAF.Pages.Admin
   #endregion
 
   /// <summary>
-  /// Summary description for restartapp.
+  /// The Admin Restart App Page.
   /// </summary>
   public partial class restartapp : AdminPage
   {
@@ -53,7 +54,7 @@ namespace YAF.Pages.Admin
     {
       if (!this.IsPostBack)
       {
-       this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+          this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
        this.PageLinks.AddLink(this.GetText("ADMIN_RESTARTAPP", "TITLE"), string.Empty);
 
@@ -84,7 +85,7 @@ namespace YAF.Pages.Admin
       }
       else
       {
-          this.PageContext.LoadMessage.Add(this.GetText("ADMIN_RESTARTAPP", "MSG_TRUST"));
+          this.PageContext.AddLoadMessage(this.GetText("ADMIN_RESTARTAPP", "MSG_TRUST"), MessageTypes.Error);
       }
     }
 

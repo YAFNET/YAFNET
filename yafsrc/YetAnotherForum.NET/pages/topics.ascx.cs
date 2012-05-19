@@ -18,8 +18,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using YAF.Utils.Helpers;
-
 namespace YAF.Pages
 {
     #region Using
@@ -31,13 +29,13 @@ namespace YAF.Pages
 
     using YAF.Classes;
     using YAF.Classes.Data;
-    using YAF.Controls;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -174,9 +172,9 @@ namespace YAF.Pages
         {
             this.Unload += this.Topics_Unload;
 
-            ShowList.SelectedIndexChanged += this.ShowList_SelectedIndexChanged;
-            MarkRead.Click += this.MarkRead_Click;
-            Pager.PageChange += this.Pager_PageChange;
+            this.ShowList.SelectedIndexChanged += this.ShowList_SelectedIndexChanged;
+            this.MarkRead.Click += this.MarkRead_Click;
+            this.Pager.PageChange += this.Pager_PageChange;
             this.NewTopic1.Click += this.NewTopic_Click;
             this.NewTopic2.Click += this.NewTopic_Click;
             this.WatchForum.Click += this.WatchForum_Click;
@@ -203,7 +201,7 @@ namespace YAF.Pages
 
             this.LastPostImageTT = this.GetText("DEFAULT", "GO_LAST_POST");
 
-            if (ForumSearchHolder.Visible)
+            if (this.ForumSearchHolder.Visible)
             {
                 this.forumSearch.Attributes["onkeydown"] =
                     "if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{document.getElementById('{0}').click();return false;}}}} else {{return true}}; "
@@ -311,30 +309,14 @@ namespace YAF.Pages
             {
                 LegacyDb.watchforum_add(this.PageContext.PageUserID, this.PageContext.PageForumID);
 
-                // PageContext.AddLoadMessage(GetText("INFO_WATCH_FORUM"));
-                var notification = (DialogBox)this.PageContext.CurrentForumPage.Notification;
-
-                notification.Show(
-                    this.GetText("INFO_WATCH_FORUM"),
-                    null,
-                    DialogBox.DialogIcon.Info,
-                    new DialogBox.DialogButton { Text = "Ok", CssClass = "LoginButton", },
-                    null);
+                this.PageContext.AddLoadMessage(this.GetText("INFO_WATCH_FORUM"));
             }
             else
             {
                 var tmpID = this.WatchForumID.InnerText.ToType<int>();
                 LegacyDb.watchforum_delete(tmpID);
 
-                // PageContext.AddLoadMessage(GetText("INFO_UNWATCH_FORUM"));
-                var notification = (DialogBox)this.PageContext.CurrentForumPage.Notification;
-
-                notification.Show(
-                    this.GetText("INFO_UNWATCH_FORUM"),
-                    null,
-                    DialogBox.DialogIcon.Info,
-                    new DialogBox.DialogButton { Text = "Ok", CssClass = "LoginButton", },
-                    null);
+                this.PageContext.AddLoadMessage(this.GetText("INFO_UNWATCH_FORUM"));
             }
 
             this.HandleWatchForum();

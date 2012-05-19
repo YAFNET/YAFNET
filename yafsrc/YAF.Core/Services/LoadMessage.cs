@@ -18,204 +18,202 @@
  */
 namespace YAF.Core.Services
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.Collections.Generic;
-  using System.Linq;
-  using System.Web;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web;
 
-  using YAF.Types;
-  using YAF.Types.Interfaces;
-
-  #endregion
-
-  /// <summary>
-  /// The load message.
-  /// </summary>
-  public class LoadMessage
-  {
-    #region Constants and Fields
-
-    /// <summary>
-    ///   The _load string list.
-    /// </summary>
-    private List<string> _loadStringList = new List<string>();
+    using YAF.Types;
+    using YAF.Types.Constants;
+    using YAF.Types.Interfaces;
+    using YAF.Types.Objects;
 
     #endregion
 
-    #region Constructors and Destructors
-
     /// <summary>
-    ///   Initializes a new instance of the <see cref = "LoadMessage" /> class.
+    /// The load message.
     /// </summary>
-    public LoadMessage()
+    public class LoadMessage
     {
+        #region Constants and Fields
 
-      if (this.SessionLoadString.Any())
-      {
-        // get this as the current "loadstring"
-        this._loadStringList.AddRange(this.SessionLoadString);
+        /// <summary>
+        ///   The _load string list.
+        /// </summary>
+        private readonly List<MessageNotification> _loadStringList = new List<MessageNotification>();
 
-        // session load string no longer needed
-        this.SessionLoadString.Clear();
-      }
+        #endregion
 
-      YafContext.Current.Unload += this.Current_Unload;
-    }
+        #region Constructors and Destructors
 
-    #endregion
-
-    #region Properties
-
-    protected List<string> SessionLoadString
-    {
-      get
-      {
-        if (YafContext.Current.Get<HttpSessionStateBase>()["LoadStringList"] == null)
+        /// <summary>
+        ///   Initializes a new instance of the <see cref = "LoadMessage" /> class.
+        /// </summary>
+        public LoadMessage()
         {
-          YafContext.Current.Get<HttpSessionStateBase>()["LoadStringList"] = new List<string>();
+            if (this.SessionLoadString.Any())
+            {
+                // get this as the current "loadstring"
+                this._loadStringList.AddRange(this.SessionLoadString);
+
+                // session load string no longer needed
+                this.SessionLoadString.Clear();
+            }
+
+            YafContext.Current.Unload += this.Current_Unload;
         }
 
-        return YafContext.Current.Get<HttpSessionStateBase>()["LoadStringList"] as List<string>;
-      }
-    }
+        #endregion
 
-    /// <summary>
-    ///   Gets LoadString.
-    /// </summary>
-    public string LoadString
-    {
-      get
-      {
-        if (!this.LoadStringList.Any())
+        #region Properties
+
+        /// <summary>
+        ///   Gets LoadString.
+        /// </summary>
+        /*public string LoadString
         {
-          return String.Empty;
+            get
+            {
+                return !this.LoadStringList.Any() ? string.Empty : this.LoadStringDelimited("\r\n");
+            }
+        }*/
+
+        /// <summary>
+        ///   Gets LoadStringList.
+        /// </summary>
+        [NotNull]
+        public List<MessageNotification> LoadStringList
+        {
+            get
+            {
+                return this._loadStringList;
+            }
         }
 
-        return this.LoadStringDelimited("\r\n");
-      }
+        /*
+        /// <summary>
+        ///   Gets StringJavascript.
+        /// </summary>
+        public string StringJavascript
+        {
+            get
+            {
+                return CleanJsString(this.LoadString);
+            }
+        }*/
+
+        /// <summary>
+        /// Gets the session load string.
+        /// </summary>
+        protected List<MessageNotification> SessionLoadString
+        {
+            get
+            {
+                if (YafContext.Current.Get<HttpSessionStateBase>()["LoadStringList"] == null)
+                {
+                    YafContext.Current.Get<HttpSessionStateBase>()["LoadStringList"] = new List<MessageNotification>();
+                }
+
+                return YafContext.Current.Get<HttpSessionStateBase>()["LoadStringList"] as List<MessageNotification>;
+            }
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Cleans the js string.
+        /// </summary>
+        /// <param name="jsString">The js string.</param>
+        /// <returns>
+        /// The clean js string.
+        /// </returns>
+        [NotNull]
+        public static string CleanJsString([NotNull] string jsString)
+        {
+            string message = jsString;
+            message = message.Replace("\\", "\\\\");
+            message = message.Replace("'", "\\'");
+            message = message.Replace("\r\n", "\\r\\n");
+            message = message.Replace("\n", "\\n");
+            message = message.Replace("\"", "\\\"");
+            return message;
+        }
+
+        /// <summary>
+        /// AddLoadMessage creates a message that will be returned on the next page load.
+        /// </summary>
+        /// <param name="message">The message you wish to display.</param>
+        /// <param name="messageType">Type of the message.</param>
+        public void Add([NotNull] string message, MessageTypes messageType)
+        {
+            this.LoadStringList.Add(new MessageNotification(message, messageType));
+        }
+
+        /// <summary>
+        /// AddLoadMessageSession creates a message that will be returned on the next page.
+        /// </summary>
+        /// <param name="message">The message you wish to display.</param>
+        /// <param name="messageType">Type of the message.</param>
+        public void AddSession([NotNull] string message, MessageTypes messageType)
+        {
+            // add it too the session list...
+            this.SessionLoadString.Add(new MessageNotification(message, messageType));
+        }
+
+        /// <summary>
+        /// Clear the Load String (error) List
+        /// </summary>
+        public void Clear()
+        {
+            this.LoadStringList.Clear();
+        }
+
+        /*
+        /// <summary>
+        /// Loads the string delimited.
+        /// </summary>
+        /// <param name="delimiter">The delimiter.</param>
+        /// <returns>
+        /// The load string delimited.
+        /// </returns>
+        public string LoadStringDelimited([NotNull] string delimiter)
+        {
+            return !this.LoadStringList.Any()
+                       ? string.Empty
+                       : this.LoadStringList.Aggregate((current, next) => current + delimiter + next);
+        }
+        */
+
+        /// <summary>
+        /// Gets the message.
+        /// </summary>
+        /// <returns>Returns the Current Message</returns>
+        public MessageNotification GetMessage()
+        {
+            return !this.LoadStringList.Any()
+                       ? null
+                       : this.LoadStringList.First();
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Clear the load message...
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private void Current_Unload([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            // clear the load message...
+            this.Clear();
+        }
+
+        #endregion
     }
-
-    /// <summary>
-    ///   Gets LoadStringList.
-    /// </summary>
-    [NotNull]
-    public List<string> LoadStringList
-    {
-      get
-      {
-
-
-        return this._loadStringList;
-      }
-    }
-
-    /// <summary>
-    ///   Gets StringJavascript.
-    /// </summary>
-    public string StringJavascript
-    {
-      get
-      {
-        return CleanJsString(this.LoadString);
-      }
-    }
-
-    #endregion
-
-    #region Public Methods
-
-    /// <summary>
-    /// The clean js string.
-    /// </summary>
-    /// <param name="jsString">
-    /// The js string.
-    /// </param>
-    /// <returns>
-    /// The clean js string.
-    /// </returns>
-    [NotNull]
-    public static string CleanJsString([NotNull] string jsString)
-    {
-      string message = jsString;
-      message = message.Replace("\\", "\\\\");
-      message = message.Replace("'", "\\'");
-      message = message.Replace("\r\n", "\\r\\n");
-      message = message.Replace("\n", "\\n");
-      message = message.Replace("\"", "\\\"");
-      return message;
-    }
-
-    /// <summary>
-    /// AddLoadMessage creates a message that will be returned on the next page load.
-    /// </summary>
-    /// <param name="message">
-    /// The message you wish to display.
-    /// </param>
-    public void Add([NotNull] string message)
-    {
-      this.LoadStringList.Add(message);
-    }
-
-    /// <summary>
-    /// AddLoadMessageSession creates a message that will be returned on the next page.
-    /// </summary>
-    /// <param name="message">
-    /// The message you wish to display.
-    /// </param>
-    public void AddSession([NotNull] string message)
-    {
-      // add it too the session list...
-      this.SessionLoadString.Add(message);
-    }
-
-    /// <summary>
-    /// Clear the Load String (error) List
-    /// </summary>
-    public void Clear()
-    {
-      this.LoadStringList.Clear();
-    }
-
-    /// <summary>
-    /// The load string delimited.
-    /// </summary>
-    /// <param name="delimiter">
-    /// The delimiter.
-    /// </param>
-    /// <returns>
-    /// The load string delimited.
-    /// </returns>
-    public string LoadStringDelimited([NotNull] string delimiter)
-    {
-      if (!this.LoadStringList.Any())
-      {
-        return String.Empty;
-      }
-
-      return this.LoadStringList.Aggregate((current, next) => current + delimiter + next);
-    }
-
-    #endregion
-
-    #region Methods
-
-    /// <summary>
-    /// The current_ unload.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    private void Current_Unload([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      // clear the load message...
-      this.Clear();
-    }
-
-    #endregion
-  }
 }

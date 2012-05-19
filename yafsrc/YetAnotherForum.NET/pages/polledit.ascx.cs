@@ -466,9 +466,10 @@ namespace YAF.Pages
                         this._forumId, 
                         this._categoryId, 
                         this._boardId);
+
                     if (result == 1)
                     {
-                        this.PageContext.LoadMessage.Add(this.GetText("POLLEDIT", "POLLGROUP_ATTACHED"));
+                        this.PageContext.AddLoadMessage(this.GetText("POLLEDIT", "POLLGROUP_ATTACHED"));
                     }
 
                     return true;
@@ -503,6 +504,7 @@ namespace YAF.Pages
 
                 var rawChoices = new string[3, this.ChoiceRepeater.Items.Count];
                 int j = 0;
+                
                 foreach (RepeaterItem ri in this.ChoiceRepeater.Items)
                 {
                     string choiceObjectPath = ((TextBox)ri.FindControl("ObjectPath")).Text.Trim();

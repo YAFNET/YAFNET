@@ -2146,6 +2146,69 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.DropDownList CaptchaTypeRegister;
         
         /// <summary>
+        /// LocalizedLabel35 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel35;
+        
+        /// <summary>
+        /// HelpLabel216 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel216;
+        
+        /// <summary>
+        /// MessageNotificationSystem control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList MessageNotificationSystem;
+        
+        /// <summary>
+        /// HelpLabel214 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel214;
+        
+        /// <summary>
+        /// MessageNotifcationDuration control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox MessageNotifcationDuration;
+        
+        /// <summary>
+        /// HelpLabel215 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel215;
+        
+        /// <summary>
+        /// NotifcationNativeOnMobile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox NotifcationNativeOnMobile;
+        
+        /// <summary>
         /// LocalizedLabel13 control.
         /// </summary>
         /// <remarks>

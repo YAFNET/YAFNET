@@ -48,10 +48,12 @@
     <Compile Include="Attributes\AssemblyModuleSortOrder.cs" />
     <Compile Include="Attributes\ExcludeAttribute.cs" />
     <Compile Include="Attributes\ExportServiceAttribute.cs" />
+    <Compile Include="Constants\MessageTypes.cs" />
     <Compile Include="Attributes\InjectAttribute.cs" />
     <Compile Include="Attributes\StringValueAttribute.cs" />
     <Compile Include="Attributes\YafModule.cs" />
     <Compile Include="BadWordReplaceItem.cs" />
+    <Compile Include="Objects\MessageNotification.cs" />
     <Compile Include="ThemeResources.cs" />
     <Compile Include="CodeContracts.cs" />
     <Compile Include="Constants\CollapsiblePanelState.cs" />

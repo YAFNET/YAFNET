@@ -21,9 +21,7 @@ namespace YAF.Modules
     #region Using
 
     using System;
-    using System.Web.UI;
 
-    using YAF.Controls;
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Attributes;
@@ -43,7 +41,7 @@ namespace YAF.Modules
         /// <summary>
         ///   The _error popup.
         /// </summary>
-        protected PopupDialogNotification _errorPopup;
+        private PopupDialogNotification _errorPopup;
 
         #endregion
 
@@ -64,7 +62,6 @@ namespace YAF.Modules
             this.CurrentForumPage.PreRender += this.CurrentForumPage_PreRender;
         }
 
-
         /// <summary>
         /// The init forum.
         /// </summary>
@@ -84,7 +81,9 @@ namespace YAF.Modules
         {
             this.PageContext.PageElements.RegisterJQuery();
 
-            if (this.PageContext.LoadMessage.LoadString.Length <= 0)
+            var message = this.PageContext.LoadMessage.GetMessage();
+
+            if (message == null)
             {
                 return;
             }
@@ -94,12 +93,10 @@ namespace YAF.Modules
                 return;
             }*/
 
-            string displayMessage = this.PageContext.LoadMessage.LoadStringDelimited("<br />");
-
             // Get the clean JS string.
-            displayMessage = LoadMessage.CleanJsString(displayMessage);
+            message.Message = LoadMessage.CleanJsString(message.Message);
 
-            if (string.IsNullOrEmpty(displayMessage))
+            if (string.IsNullOrEmpty(message.Message))
             {
                 return;
             }
@@ -107,10 +104,9 @@ namespace YAF.Modules
             this.PageContext.PageElements.RegisterJsBlockStartup(
                 this.ForumControl.Page,
                 "modalNotification",
-                "var fpModal = function() {{ {1}('{0}'); Sys.Application.remove_load(fpModal); }}; Sys.Application.add_load(fpModal);"
-                    .FormatWith(displayMessage, this._errorPopup.ShowModalFunction));
+                "var fpModal = function() {{ {2}('{0}', '{1}'); Sys.Application.remove_load(fpModal); }}; Sys.Application.add_load(fpModal);"
+                    .FormatWith(message.Message, message.MessageType.ToString().ToLower(), this._errorPopup.ShowModalFunction));
         }
-
 
         /// <summary>
         /// Sets up the Modal Error Popup Dialog

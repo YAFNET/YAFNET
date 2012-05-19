@@ -941,6 +941,36 @@
                             </asp:DropDownList>
                         </td>
                     </tr>
+                    <tr>
+                        <td class="header1" colspan="2">
+                            <YAF:LocalizedLabel ID="LocalizedLabel35" runat="server" LocalizedTag="HEADER_MESSAGE_NOTIFICATION" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel216" runat="server" LocalizedTag="MESSAGE_SYSTEM" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:DropDownList Style="width:350px" ID="MessageNotificationSystem" runat="server">
+                            </asp:DropDownList>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader" style="width:50%">
+                            <YAF:HelpLabel ID="HelpLabel214" runat="server" LocalizedTag="NOTIFICATION_DURATION" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:TextBox Style="width:350px" ID="MessageNotifcationDuration" runat="server" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel215" runat="server" LocalizedTag="NOTIFICATION_MOBILE" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="NotifcationNativeOnMobile" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>
                 </table>
 	</div>
     <div id="View3">

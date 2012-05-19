@@ -1007,6 +1007,7 @@
     <Resource tag="HEADER_LOG">Настройки журнала</Resource>
     <Resource tag="HEADER_LOGIN">Настройки входа/регистрации</Resource>
     <Resource tag="HEADER_LOGSCOPE">Журналируемые события</Resource>
+    <Resource tag="HEADER_MESSAGE_NOTIFICATION">Message Notification Settings</Resource>
     <Resource tag="HEADER_PERMISSION">Настройки разрешений</Resource>
     <Resource tag="HEADER_PMS">Личные сообщения</Resource>
     <Resource tag="HEADER_POLL">Опции опроса</Resource>
@@ -1102,8 +1103,11 @@
     <Resource tag="MEMBERLIST_PAGE_SIZE_HELP">Количество ников на странице списка участников. </Resource>
     <Resource tag="MESSAGE_CHANGE_HISTORY">Время хранения сообщений в архиве</Resource>
     <Resource tag="MESSAGE_CHANGE_HISTORY_HELP">Число дней, пока модифицированные варианты сообщений хранятся в архиве.</Resource>
+    <Resource tag="MESSAGE_SYSTEM">Notification System for System Messages:</Resource>
+    <Resource tag="MESSAGE_SYSTEM_HELP">You can choose Between Modal Dialog or a Top Notification Bar for System Messages.</Resource>
     <Resource tag="MOD_CACHE_TIMEOUT">Таймаут кэша модераторов конференции:</Resource>
     <Resource tag="MOD_CACHE_TIMEOUT_HELP">В минутах</Resource>
+    <Resource tag="MODAL_DIALOG">Modal Dialog</Resource>
     <Resource tag="MODAL_LOGIN">Использовать модальное всплывающее окно для входа:</Resource>
     <Resource tag="MODAL_LOGIN_HELP">Если отключено, то для входа будет использоватьс яотдельная страница.</Resource>
     <Resource tag="MYTOPICSLIST_PAGE_SIZE">Размер страницы Мои Темы:</Resource>
@@ -1112,6 +1116,11 @@
     <Resource tag="NAME_LENGTH_HELP">Максимально разрешённая длина имени пользователя и отображаемого имени пользователя.</Resource>
     <Resource tag="NOFOLLOW_LINKTAGS">Использовать тег "NoFollow" в ссылках:</Resource>
     <Resource tag="NOFOLLOW_LINKTAGS_HELP">Все ссылки будут иметь тег nofollow и большинство ботов не будут уходить по ним.</Resource>
+    <Resource tag="NOTIFICATION_BAR">Notification Bar</Resource>
+    <Resource tag="NOTIFICATION_DURATION">Notification Bar Display Duration:</Resource>
+    <Resource tag="NOTIFICATION_DURATION_HELP">Duration (in Seconds) how long the Bar is displayed.</Resource>
+    <Resource tag="NOTIFICATION_MOBILE">Use Native Message Dialogs on Mobile:</Resource>
+    <Resource tag="NOTIFICATION_MOBILE_HELP">Option to Show Native Notifcation Dialogs on Mobile Devices.</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT">Таймаут кэша пользователя онлайн:</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT_HELP">Вы можете уставливать это значение в зависимости от активности на сайте(в миллисекундах)</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE">Размер файла изображения в опросах:</Resource>

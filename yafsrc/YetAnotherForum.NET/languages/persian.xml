@@ -1014,6 +1014,7 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="HEADER_LOG">تنظیمات سیاهه</Resource>
     <Resource tag="HEADER_LOGIN">تنظیمات ورود/ثبت نام</Resource>
     <Resource tag="HEADER_LOGSCOPE">Log scope</Resource>
+    <Resource tag="HEADER_MESSAGE_NOTIFICATION">Message Notification Settings</Resource>
     <Resource tag="HEADER_PERMISSION">تنظمیات مجوز</Resource>
     <Resource tag="HEADER_PMS">پیام شخصی</Resource>
     <Resource tag="HEADER_POLL">گزینه های آمار</Resource>
@@ -1109,8 +1110,11 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="MEMBERLIST_PAGE_SIZE_HELP">تعداد مدخل های یک صفحه در فهرست اعضاء.</Resource>
     <Resource tag="MESSAGE_CHANGE_HISTORY">تاریخچه بایگانی پیام ها</Resource>
     <Resource tag="MESSAGE_CHANGE_HISTORY_HELP">تعداد روزهای پیگرد تغییرات پیام.</Resource>
+    <Resource tag="MESSAGE_SYSTEM">Notification System for System Messages:</Resource>
+    <Resource tag="MESSAGE_SYSTEM_HELP">You can choose Between Modal Dialog or a Top Notification Bar for System Messages.</Resource>
     <Resource tag="MOD_CACHE_TIMEOUT">انقضای حافظه موقت محدود کننده های تابلو :</Resource>
     <Resource tag="MOD_CACHE_TIMEOUT_HELP">دقیقه</Resource>
+    <Resource tag="MODAL_DIALOG">Modal Dialog</Resource>
     <Resource tag="MODAL_LOGIN">از جعبه ورود استفاده کن:</Resource>
     <Resource tag="MODAL_LOGIN_HELP">در صورت علامت گذاری، کنترل ورود مانند جعبه نمایش داده می شود.</Resource>
     <Resource tag="MYTOPICSLIST_PAGE_SIZE">My Topics List Page Size:</Resource>
@@ -1119,6 +1123,11 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="NAME_LENGTH_HELP">حداکثر طول نام کاربری یا نام نمایشی.</Resource>
     <Resource tag="NOFOLLOW_LINKTAGS">استفاده از برچسب "دنبال نکنید" در پیوند ها:</Resource>
     <Resource tag="NOFOLLOW_LINKTAGS_HELP">در صورت علامت خوردن همه پیوند ها برچسب " دنبال نکنید" خواهند خورد.</Resource>
+    <Resource tag="NOTIFICATION_BAR">Notification Bar</Resource>
+    <Resource tag="NOTIFICATION_DURATION">Notification Bar Display Duration:</Resource>
+    <Resource tag="NOTIFICATION_DURATION_HELP">Duration (in Seconds) how long the Bar is displayed.</Resource>
+    <Resource tag="NOTIFICATION_MOBILE">Use Native Message Dialogs on Mobile:</Resource>
+    <Resource tag="NOTIFICATION_MOBILE_HELP">Option to Show Native Notifcation Dialogs on Mobile Devices.</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT">انقضای حافظه موقت وضعیت کاربران بر خط:</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT_HELP">می توانید بر اساس فعالیت سایت خود بر حسب میلی ثانیه تنظمی کنید.</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE">اندازه تصویر نظر سنجی :</Resource>

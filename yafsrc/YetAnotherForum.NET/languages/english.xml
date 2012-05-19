@@ -4521,7 +4521,7 @@ Visit {forumname} at {forumlink}
 	   <Resource tag="HEADER_PMS">Private Messages</Resource>
 	   <Resource tag="HEADER_ALBUM">Album Settings</Resource>
 	   <Resource tag="HEADER_SYNDICATION">Syndication Feed Settings</Resource>
-     
+     <Resource tag="HEADER_MESSAGE_NOTIFICATION">Message Notification Settings</Resource>
 	   <Resource tag="HEADER_IRKOO">Irkoo Reputation Service</Resource>
      <Resource tag="HEADER_REPUTATION">Reputation Settings</Resource>
 	   <Resource tag="HEADER_CAPTCHA">CAPTCHA Settings</Resource>
@@ -4974,6 +4974,14 @@ Visit {forumname} at {forumlink}
      <Resource tag="REPUTATION_MAX_HELP">This Value is used to generate the Reputation Bar.</Resource>
      <Resource tag="USE_FARSI_CALENDER">Use Farsi (Shamsi) Persian Calender:</Resource>
      <Resource tag="USE_FARSI_CALENDER_HELP">If enabled the Persian Calender all Date Times are Converted to the Persian Calender.</Resource>
+     <Resource tag="MESSAGE_SYSTEM">Notification System for System Messages:</Resource>
+     <Resource tag="MESSAGE_SYSTEM_HELP">You can choose Between Modal Dialog or a Top Notification Bar for System Messages.</Resource>
+     <Resource tag="NOTIFICATION_DURATION">Notification Bar Display Duration:</Resource>
+     <Resource tag="NOTIFICATION_DURATION_HELP">Duration (in Seconds) how long the Bar is displayed.</Resource>
+     <Resource tag="NOTIFICATION_MOBILE">Use Native Message Dialogs on Mobile:</Resource>
+     <Resource tag="NOTIFICATION_MOBILE_HELP">Option to Show Native Notifcation Dialogs on Mobile Devices.</Resource>
+     <Resource tag="MODAL_DIALOG">Modal Dialog</Resource>
+     <Resource tag="NOTIFICATION_BAR">Notification Bar</Resource>
    </page>
 	  <page name="ADMIN_TEST_DATA">
 	   <Resource tag="TITLE">Create Test Data (DEBUG Only)</Resource>

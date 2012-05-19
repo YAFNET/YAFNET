@@ -2671,6 +2671,7 @@
     <Content Include="pages\admin\users_import.ascx" />
     <Content Include="ReadMe.htm" />
     <Content Include="resources\css\jquery.msDropDown.css" />
+    <Content Include="resources\css\jquery.notification.css" />
     <Content Include="resources\css\jquery.spellchecker.css" />
     <Content Include="resources\HelpMenuList.xml" />
     <Content Include="resources\icons\ipbanlifted.png" />
@@ -3534,6 +3535,7 @@
     <Content Include="resources\js\jquery.ceebox-min.js" />
     <Content Include="resources\js\jquery.min.js" />
     <Content Include="resources\js\jquery.msDropDown.js" />
+    <Content Include="resources\js\jquery.notification.js" />
     <Content Include="resources\js\jquery.pagemethod.js" />
     <Content Include="resources\js\jquery.pagination.js" />
     <Content Include="resources\js\jquery.spellchecker.min.js" />
