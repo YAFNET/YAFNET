@@ -2032,7 +2032,7 @@ declare @FirstSelectRowID int
       select @FirstSelectRowID = ID, @FirstSelectRowMask = Mask 
       from
 		[{databaseOwner}].[{objectQualifier}BannedIP] where BoardID=@BoardID
-		ORDER BY a.ID
+		ORDER BY ID
 
       -- display page 
       set rowcount @PageSize
