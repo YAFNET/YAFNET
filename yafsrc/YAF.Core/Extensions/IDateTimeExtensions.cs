@@ -264,6 +264,21 @@ namespace YAF.Core
       }
     }
 
+    /// <summary>
+    /// The minimal date time suitable for database.
+    /// </summary>
+    /// <param name="dateTimeInstance">
+    /// The yaf date time.
+    /// </param>
+    /// <returns>
+    /// Returnes the minimal date time suitable for database.
+    /// </returns>
+    public static DateTime SqlDbMinTime([NotNull] this DateTime dateTimeInstance)
+    {
+        return DateTime.MinValue.AddYears(1902);
+    }
+
+
     #endregion
   }
 }

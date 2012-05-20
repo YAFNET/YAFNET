@@ -36,7 +36,6 @@ namespace YAF.Install
 
     using YAF.Classes;
     using YAF.Classes.Data;
-    using YAF.Classes.Data.Import;
     using YAF.Core;
     using YAF.Core.Tasks;
     using YAF.Types;

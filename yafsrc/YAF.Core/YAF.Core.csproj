@@ -77,6 +77,7 @@
     <Compile Include="Context\LoadPageVariablesFromQuery.cs" />
     <Compile Include="Extensions\MembershipUserExtensions.cs" />
     <Compile Include="Helpers\IPLocator.cs" />
+    <Compile Include="Import\DataImport.cs" />
     <Compile Include="Services\Twitter\OAuthBase.cs" />
     <Compile Include="Services\Twitter\OAuthTwitter.cs" />
     <Compile Include="Services\Twitter\TweetAPI.cs" />
