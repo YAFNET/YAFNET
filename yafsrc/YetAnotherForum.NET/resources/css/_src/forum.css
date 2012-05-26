@@ -304,6 +304,10 @@
     width:40px;
 	height:40px;
 }
+.yafnet .SmilieList li img {
+    max-width:40px;
+	max-height:40px;
+}
 .yafnet .SmilieList li a{
     display:block;
     text-decoration:none;

@@ -7,6 +7,7 @@ body{
     position: absolute;
     top: 0;
 	left: 0;
+	right:0;
     position: fixed;
     z-index: 50000;
     margin: 0;
@@ -40,11 +41,11 @@ body{
     text-shadow: 0 1px 0 rgba(0,0,0,0.5);
 }
 .notification_background {
-	border-bottom: 1px solid black;
-	
-	box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.50);
-    -moz-box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.50);
-    -webkit-box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.50);
+	border: 1px solid black;
+	-webkit-border-bottom-left-radius: 0.4em;
+	-webkit-border-bottom-right-radius: 0.4em;
+	border-bottom-left-radius: 0.4em;
+	border-bottom-right-radius: 0.4em;
 	
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
 	filter: alpha(opacity=95);
@@ -69,63 +70,60 @@ body{
 
 /* Error Message */
 .error_bg{
-    background: #ed1c24;
-	
-	background-image: -moz-linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.05) 49%, rgba(0,0,0,.05) 51%, rgba(0,0,0,.1));
-	background-image: -ms-linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.05) 49%, rgba(0,0,0,.05) 51%, rgba(0,0,0,.1));
-	background-image: -o-linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.05) 49%, rgba(0,0,0,.05) 51%, rgba(0,0,0,.1));
-	background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,.1)), color-stop(49%, rgba(255,255,255,.05)), color-stop(51%, rgba(0,0,0,.05)), to(rgba(0,0,0,.1)));
-	background-image: -webkit-linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.05) 49%, rgba(0,0,0,.05) 51%, rgba(0,0,0,.1));
-	background-image: linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.05) 49%, rgba(0,0,0,.05) 51%, rgba(0,0,0,.1));
-}
-.error_bg .info_more_descrption{
+    background: #ffcaca;
 
-    -moz-box-shadow: 0 0 5px #b2495b;
-    -webkit-box-shadow: 0 0 5px #b2495b;
-    box-shadow: 0 0 5px #b2495b;
+	border-color:#ff9797;
+	
+	-webkit-box-shadow:  0px 3px 0px 0px rgba(255, 151, 151, 1);
+	-moz-box-shadow:  0px 3px 0px 0px rgba(255, 151, 151, 1);
+	box-shadow:  0px 3px 0px 0px rgba(255, 151, 151, 1);
+}
+.error_bg .message_area {
+    color: #575757;
+    text-shadow:none;
 }
 /**************/
 
 /* Success Message */
 .succ_bg{
-    background-color: #9eda29;
-	
-	background-image: -moz-linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.05) 49%, rgba(0,0,0,.05) 51%, rgba(0,0,0,.1));
-	background-image: -ms-linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.05) 49%, rgba(0,0,0,.05) 51%, rgba(0,0,0,.1));
-	background-image: -o-linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.05) 49%, rgba(0,0,0,.05) 51%, rgba(0,0,0,.1));
-	background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,.1)), color-stop(49%, rgba(255,255,255,.05)), color-stop(51%, rgba(0,0,0,.05)), to(rgba(0,0,0,.1)));
-	background-image: -webkit-linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.05) 49%, rgba(0,0,0,.05) 51%, rgba(0,0,0,.1));
-	background-image: linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.05) 49%, rgba(0,0,0,.05) 51%, rgba(0,0,0,.1));
-}
+    background: #b9ffb6;
 
-.succ_bg .info_more_descrption{    
-    -moz-box-shadow: 0 0 5px #56a25e;
-    -webkit-box-shadow: 0 0 5px #56a25e;
-    box-shadow: 0 0 5px #56a25e;
+	border-color:#99db96;
+	
+	-webkit-box-shadow:  0px 3px 0px 0px rgba(153, 219, 150, 1);
+	-moz-box-shadow:  0px 3px 0px 0px rgba(153, 219, 150, 1);
+	box-shadow:  0px 3px 0px 0px rgba(153, 219, 150, 1);
+}
+.succ_bg .message_area {
+    color: #575757;
+    text-shadow:none;
 }
 /**************/
 
 /* Info Message */
 .info_bg{
     background: #446bb8;
+
+	border-color:#032567;
 	
-	background-image: -moz-linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.05) 49%, rgba(0,0,0,.05) 51%, rgba(0,0,0,.1));
-	background-image: -ms-linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.05) 49%, rgba(0,0,0,.05) 51%, rgba(0,0,0,.1));
-	background-image: -o-linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.05) 49%, rgba(0,0,0,.05) 51%, rgba(0,0,0,.1));
-	background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,.1)), color-stop(49%, rgba(255,255,255,.05)), color-stop(51%, rgba(0,0,0,.05)), to(rgba(0,0,0,.1)));
-	background-image: -webkit-linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.05) 49%, rgba(0,0,0,.05) 51%, rgba(0,0,0,.1));
-	background-image: linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.05) 49%, rgba(0,0,0,.05) 51%, rgba(0,0,0,.1));
+	-webkit-box-shadow:  0px 3px 0px 0px rgba(3, 37, 103, 1);
+	-moz-box-shadow:  0px 3px 0px 0px rgba(3, 37, 103, 1);
+	box-shadow:  0px 3px 0px 0px rgba(3, 37, 103, 1);
 }
 /**************/
 
 /* Warn Message */
 .warn_bg{
-    background: #ff5616;
+    background: #ffcfac;
+
+	border-color:#f7a467;
 	
-	background-image: -moz-linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.05) 49%, rgba(0,0,0,.05) 51%, rgba(0,0,0,.1));
-	background-image: -ms-linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.05) 49%, rgba(0,0,0,.05) 51%, rgba(0,0,0,.1));
-	background-image: -o-linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.05) 49%, rgba(0,0,0,.05) 51%, rgba(0,0,0,.1));
-	background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,.1)), color-stop(49%, rgba(255,255,255,.05)), color-stop(51%, rgba(0,0,0,.05)), to(rgba(0,0,0,.1)));
-	background-image: -webkit-linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.05) 49%, rgba(0,0,0,.05) 51%, rgba(0,0,0,.1));
-	background-image: linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.05) 49%, rgba(0,0,0,.05) 51%, rgba(0,0,0,.1));
+	-webkit-box-shadow:  0px 3px 0px 0px rgba(247, 164, 103, 1);
+	-moz-box-shadow:  0px 3px 0px 0px rgba(247, 164, 103, 1);
+	box-shadow:  0px 3px 0px 0px rgba(247, 164, 103, 1);
 }
+.warn_bg .message_area {
+    color: #575757;
+    text-shadow:none;
+}
+/**************/
