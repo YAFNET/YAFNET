@@ -101,7 +101,7 @@ namespace YAF.Pages
 
         string link =
           "<a href=\"{0}\">{1}</a>".FormatWith(
-            YafBuildLink.GetLink(ForumPages.profile, "u={0}", row["LastUserID"]), row["LastUserName"]);
+            YafBuildLink.GetLink(ForumPages.profile, "u={0}", row["LastUserID"]), HtmlEncode(row["LastUserName"]));
         string by = this.GetTextFormatted(
           "lastpostlink", this.Get<IDateTime>().FormatDateTime((DateTime)row["LastPosted"]), link);
 
