@@ -2,7 +2,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <MSBuildExtendedTasksPath Condition="'$(MSBuildExtendedTasksPath)' == ''">$(MSBuildExtensionsPath)\MSBuildCommunityTasks\</MSBuildExtendedTasksPath>
-    <MSBuildExtendedTasksLib>$(MSBuildExtendedTasksPath)MSBuild.Extended.Tasks.dll</MSBuildExtendedTasksLib>
+    <MSBuildExtendedTasksLib>$(MSBuildProjectDirectory)\Libaries\MSBuild\MSBuild.Extended.Tasks.dll</MSBuildExtendedTasksLib>
     <MSBuildExtendedTasksNameSpace>MSBuild.Extended.Tasks</MSBuildExtendedTasksNameSpace>
   </PropertyGroup>
 
