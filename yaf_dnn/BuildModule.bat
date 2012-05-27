@@ -4,4 +4,4 @@
 @SET PATH=%FrameworkDir%;%FrameworkSDKDir%;%PATH%
 @SET LANGDIR=EN
 
-msbuild.exe YetAnotherForum.NET.sln /p:Configuration=Release /t:Clean;Build /p:WarningLevel=0
+msbuild.exe YAF.DotNetNuke.Module.sln /p:Configuration=Release /t:Clean;Build /p:WarningLevel=0

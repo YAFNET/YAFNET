@@ -31,11 +31,12 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\YetAnotherForum.NET\Bin\</OutputPath>
+    <OutputPath>..\yafsrc\YetAnotherForum.NET\Bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\YetAnotherForum.NET\Bin\YAF.DotNetNuke.Module.XML</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Deploy|AnyCPU'">
     <OutputPath>..\yafsrc\YetAnotherForum.NET\Bin\</OutputPath>
@@ -73,9 +74,6 @@
     <Compile Include="DnnRichEditor.cs" />
     <Compile Include="DnnSendMail.cs" />
     <Compile Include="DotNetNukeUrlBuilder.cs" />
-    <Compile Include="ProfileSyncronizer.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="DnnUtils\DnnFileSystem.cs" />
     <Compile Include="Utils\RoleSyncronizer.cs">
       <SubType>ASPXCodeBehind</SubType>
@@ -83,7 +81,9 @@
     <Compile Include="Utils\ProfileSyncronizer.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UserComparer.cs" />
+    <Compile Include="Utils\UserComparer.cs" />
+    <Compile Include="Utils\UserImporter.cs" />
+    <Compile Include="YafCultureInfo.cs" />
     <Compile Include="YafDnnWhatsNew.ascx.cs">
       <DependentUpon>YafDnnWhatsNew.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
