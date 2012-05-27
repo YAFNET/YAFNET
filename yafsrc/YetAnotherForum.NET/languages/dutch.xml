@@ -1142,6 +1142,8 @@
     <Resource tag="POPULAR_VIEWS_HELP">The number of topic views before a topic becomes popular.</Resource>
     <Resource tag="POST_AD">2e post advertentie:</Resource>
     <Resource tag="POST_AD_HELP">Zet hier de code om een advertentie weer te geven in elk topic na het eerste bericht. Als je hier geen advertentie wilt weergeven, niets invullen.</Resource>
+    <Resource tag="POSTED_IMAGE_RESIZE">Resize User Posted Images:</Resource>
+    <Resource tag="POSTED_IMAGE_RESIZE_HELP">Resize user posted images in messages, if there are bigger then the max values bellow.</Resource>
     <Resource tag="POSTEDIT_TIMEOUT">Timeout voor het bewerken van een bericht:</Resource>
     <Resource tag="POSTEDIT_TIMEOUT_HELP">Aantal seconden dat een bericht bewerkt kan worden zonder dit aan andere gebruikers te laten zien.</Resource>
     <Resource tag="POSTS_FEEDS_ACCESS">Berichten Feed Toegang:</Resource>

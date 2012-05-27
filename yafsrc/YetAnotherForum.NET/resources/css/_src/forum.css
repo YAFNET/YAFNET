@@ -382,12 +382,6 @@
 .yafnet .AlbumImageList li {width:60px;height:80px;float:left;}
 .yafnet .AlbumImageList li img {max-width:60px;max-height:80px}	
 
-/* Resized User Posted Images to avoid Large Images breaking the forum layout */
-.yafnet .postdiv .UserPostedImage {
-	max-width:500px;
-	max-height:100%;
-}	
-
 /* event log styling */
 .yafnet .ui-state-warning {
 	border: 1px solid #ff5114; 

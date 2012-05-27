@@ -1135,6 +1135,8 @@
     <Resource tag="POPULAR_VIEWS_HELP">Число просмотров перед тем как тема становится популярной.</Resource>
     <Resource tag="POST_AD">Реклама во 2ом сообщении:</Resource>
     <Resource tag="POST_AD_HELP">Поместите код, который вы желаете отображать во 2ом сообщении каждой темы. Оставьте пустым, если вы не желаете отображать что-либо.</Resource>
+    <Resource tag="POSTED_IMAGE_RESIZE">Resize User Posted Images:</Resource>
+    <Resource tag="POSTED_IMAGE_RESIZE_HELP">Resize user posted images in messages, if there are bigger then the max values bellow.</Resource>
     <Resource tag="POSTEDIT_TIMEOUT">Таймаут редактирования поста:</Resource>
     <Resource tag="POSTEDIT_TIMEOUT_HELP">Число секунд, пока пост может быть отредактирован без показа его другим пользователям.</Resource>
     <Resource tag="POSTS_FEEDS_ACCESS">Доступ к лентам сообщений темы:</Resource>

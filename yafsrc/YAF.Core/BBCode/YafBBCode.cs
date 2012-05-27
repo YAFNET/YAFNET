@@ -469,6 +469,7 @@ namespace YAF.Core.BBCode
             string target = (this.Get<YafBoardSettings>().BlankLinks || targetBlankOverride)
                                 ? "target=\"_blank\""
                                 : string.Empty;
+
             string nofollow = useNoFollow ? "rel=\"nofollow\"" : string.Empty;
 
             const string ClassModal = "class=\"ceebox\"";
@@ -490,7 +491,7 @@ namespace YAF.Core.BBCode
                        _rgxNoParse,
                         @"${inner}"));
 
-                ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxBold, "<b>${inner}</b>"));
+                ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxBold, "<strong>${inner}</strong>"));
                 ruleEngine.AddRule(new SimpleRegexReplaceRule(_RgxStrike, "<s>${inner}</s>", _Options));
                 ruleEngine.AddRule(new SimpleRegexReplaceRule(_RgxItalic, "<em>${inner}</em>", _Options));
                 ruleEngine.AddRule(new SimpleRegexReplaceRule(_RgxUnderline, "<u>${inner}</u>", _Options));
@@ -581,34 +582,48 @@ namespace YAF.Core.BBCode
                 ruleEngine.AddRule(
                     new SimpleRegexReplaceRule(_RgxIndent, "<div style=\"margin-left:40px\">${inner}</div>", _Options));
 
-                // TODO add max-width and max-height
-                /*
+                // add max-width and max-height to posted Image
                 var maxWidth = this.Get<YafBoardSettings>().ImageAttachmentResizeWidth;
                 var maxHeight = this.Get<YafBoardSettings>().ImageAttachmentResizeHeight;
 
-                string styleAttribute = "style=\"max-width:{0}px;max-height:{1}px\"".FormatWith(maxWidth, maxHeight);*/
+                string styleAttribute = this.Get<YafBoardSettings>().ResizePostedImages
+                                            ? " style=\"max-width:{0}px;max-height:{1}px\"".FormatWith(
+                                                maxWidth, maxHeight)
+                                            : string.Empty;
 
                 // image
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
                         _rgxImg,
-                        "<img src=\"${http}${inner}\" alt=\"\" class=\"UserPostedImage\"/>",
-                        new[] { "http" },
+                        "<img src=\"${http}${inner}\" alt=\"UserPostedImage\" class=\"UserPostedImage\"{0} />".Replace(
+                            "{0}", styleAttribute),
+                        new[]
+                            {
+                                "http"
+                            },
                         new[] { "http://" }) { RuleRank = 70 });
 
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
                         _rgxImgEmptyTitle,
-                        "<img src=\"${http}${inner}\" alt=\"\" class=\"UserPostedImage\"/>",
-                        new[] { "http" },
+                        "<img src=\"${http}${inner}\" alt=\"UserPostedImage\" class=\"UserPostedImage\"{0} />".Replace(
+                            "{0}", styleAttribute),
+                        new[]
+                            {
+                                "http"
+                            },
                         new[] { "http://" }) { RuleRank = 71 });
 
 
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
                         _rgxImgTitle,
-                        "<img src=\"${http}${inner}\" alt=\"${description}\" title=\"${description}\" class=\"UserPostedImage\" />",
-                        new[] { "http", "description" },
+                        "<img src=\"${http}${inner}\" alt=\"${description}\" title=\"${description}\" class=\"UserPostedImage\"{0} />"
+                            .Replace("{0}", styleAttribute),
+                        new[]
+                            {
+                                "http", "description"
+                            },
                         new[] { "http://", string.Empty }) { RuleRank = 72 });
 
                 // tha_watcha : Easy Quote Disabled http://forum.yetanotherforum.net/yaf_postst13495_Addition-of-Easy-Quote-RegEx-in-Revision-4906.aspx

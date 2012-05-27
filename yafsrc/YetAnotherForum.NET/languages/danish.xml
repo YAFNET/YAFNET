@@ -1036,10 +1036,10 @@
     <Resource tag="HOST_TEMPLATES">Templates</Resource>
     <Resource tag="IMAGE_ATTACH_RESIZE">Enable Image Attachment Resize:</Resource>
     <Resource tag="IMAGE_ATTACH_RESIZE_HELP">Attached images will be resized to thumbnails if they are too large.</Resource>
-    <Resource tag="IMAGE_RESIZE_HEIGHT">Image Attachment Resize Max Height:</Resource>
+    <Resource tag="IMAGE_RESIZE_HEIGHT">Image Resize Max Height:</Resource>
     <Resource tag="IMAGE_RESIZE_HEIGHT_HELP">Maximum Height of the resized attachment images.</Resource>
-    <Resource tag="IMAGE_RESIZE_WIDTH">Image Attachment Resize Max Width:</Resource>
-    <Resource tag="IMAGE_RESIZE_WIDTH_HELP">Maximum Width of the resized attachment images.</Resource>
+    <Resource tag="IMAGE_RESIZE_WIDTH">Image Resize Max Width:</Resource>
+    <Resource tag="IMAGE_RESIZE_WIDTH_HELP">Maximum Width of the resized attachment images (Be aware that Values above 500 pixel break the Forum Layout).</Resource>
     <Resource tag="IMAGES_PER_PAGE">Images Per Page:</Resource>
     <Resource tag="IMAGES_PER_PAGE_HELP">Number of images to show per page.</Resource>
     <Resource tag="IP_INFOSERVICE">Enable IP Info Service:</Resource>
@@ -1142,6 +1142,8 @@
     <Resource tag="POPULAR_VIEWS_HELP">The number of topic views before a topic becomes popular.</Resource>
     <Resource tag="POST_AD">2nd post ad:</Resource>
     <Resource tag="POST_AD_HELP">Place the code that you wish to be displayed in each thread after the 1st post. If you do not want an ad to be displayed, don't put anything in the box.</Resource>
+    <Resource tag="POSTED_IMAGE_RESIZE">Resize User Posted Images:</Resource>
+    <Resource tag="POSTED_IMAGE_RESIZE_HELP">Resize user posted images in messages, if there are bigger then the max values bellow.</Resource>
     <Resource tag="POSTEDIT_TIMEOUT">Post editing timeout:</Resource>
     <Resource tag="POSTEDIT_TIMEOUT_HELP">Number of seconds while post may be modified without showing that to other users</Resource>
     <Resource tag="POSTS_FEEDS_ACCESS">Posts Feeds Access:</Resource>

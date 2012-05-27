@@ -121,7 +121,6 @@
     <Resource tag="RECOVERPASSWORD">Keine Daten</Resource>
     <Resource tag="REGISTER">Registriert sich</Resource>
     <Resource tag="REPORTPOST">Melden</Resource>
-    <Resource tag="REPORTPOST_TITLE">Beitrag Melden</Resource>
     <Resource tag="RSSTOPIC">Betrachtet RSS Feed</Resource>
     <Resource tag="RULES">Betrachtet Forum Regeln</Resource>
     <Resource tag="SEARCH">Benutzt Suche</Resource>
@@ -734,7 +733,6 @@
     <Resource tag="SINCEDATE">Startdatum</Resource>
     <Resource tag="SINCEDATE_HELP">Wählen Sie das Startdatum für den Zeitraum des Protokolls das angezeigt werden soll.</Resource>
     <Resource tag="SOURCE">Quelle</Resource>
-    <Resource tag="SQLERROR">Sql Skript Fehler</Resource>
     <Resource tag="TIME">Zeit</Resource>
     <Resource tag="TITLE">Ergeignis-Protokoll</Resource>
     <Resource tag="TODATE">Enddatum</Resource>
@@ -742,16 +740,12 @@
     <Resource tag="TYPE">Typ</Resource>
     <Resource tag="TYPES">Typen</Resource>
     <Resource tag="TYPES_HELP">Wählen Sie ein Ereignislog Typ um nur bestimmte Ereignisse anzuzeigen.</Resource>
-    <Resource tag="WARNING">Warnung</Resource>
   </page>
   <page name="ADMIN_EVENTLOGGROUPS">
     <Resource tag="CANACCESS">Allowed</Resource>
     <Resource tag="CANCEL">Cancel</Resource>
-    <Resource tag="GRANTALL">Grant All</Resource>
     <Resource tag="GROUPNAME">Role</Resource>
     <Resource tag="HEADER">Event Log Roles</Resource>
-    <Resource tag="PAGE">Real Page</Resource>
-    <Resource tag="REVOKEALL">Revoke All</Resource>
     <Resource tag="SAVE">Save</Resource>
     <Resource tag="TITLE">Event Log Roles</Resource>
   </page>
@@ -1035,9 +1029,9 @@
     <Resource tag="HOST_TEMPLATES">Vorlagen</Resource>
     <Resource tag="IMAGE_ATTACH_RESIZE">Bildanhänge verkleinern aktivieren</Resource>
     <Resource tag="IMAGE_ATTACH_RESIZE_HELP">Angehängten Bilder werden zu den Thumbnails verkleinert, falls sie zu groß sind.</Resource>
-    <Resource tag="IMAGE_RESIZE_HEIGHT">Bild Anhang Max. Höhe:</Resource>
+    <Resource tag="IMAGE_RESIZE_HEIGHT">Bild Max. Höhe:</Resource>
     <Resource tag="IMAGE_RESIZE_HEIGHT_HELP">Maximale Höhe der verkleinert Angehangen Bilder.</Resource>
-    <Resource tag="IMAGE_RESIZE_WIDTH">Bild Anhang Max. Breite:</Resource>
+    <Resource tag="IMAGE_RESIZE_WIDTH">Bild Max. Breite:</Resource>
     <Resource tag="IMAGE_RESIZE_WIDTH_HELP">Maximale Breite der verkleinert Angehangen Bilder.</Resource>
     <Resource tag="IMAGES_PER_PAGE">Bilder pro Seite:</Resource>
     <Resource tag="IMAGES_PER_PAGE_HELP">Anzahl an Bildern die pro Seite gezeigt werden.</Resource>
@@ -1141,6 +1135,8 @@
     <Resource tag="POPULAR_VIEWS_HELP">Die Anzahl an Aufrufen die Benötigt sind bevor ein Thema Beliebt wird.</Resource>
     <Resource tag="POST_AD">Werbe Code:</Resource>
     <Resource tag="POST_AD_HELP">Platzieren Sie den Code den Sie anzeigen möchten in jedem Thema nach dem ersten Beitrag. Wenn Sie keine Werbung anzeigen möchten lassen Sie die Box leer.</Resource>
+    <Resource tag="POSTED_IMAGE_RESIZE">Bilder in Beiträgen Verkleinern:</Resource>
+    <Resource tag="POSTED_IMAGE_RESIZE_HELP">Bilder die von Benutzern in Beiträgen geposted werden verkleinern falls Sie grlößer als die Werte unten sind.</Resource>
     <Resource tag="POSTEDIT_TIMEOUT">Beitrag bearbeiten Timeout:</Resource>
     <Resource tag="POSTEDIT_TIMEOUT_HELP">Anzahl der Sekunden, während Beiträge bearbeitet werden können, ohne das es den Benutzern gezeigt wird.</Resource>
     <Resource tag="POSTS_FEEDS_ACCESS">Beitrags-Feeds Zugang:</Resource>
@@ -1575,11 +1571,8 @@
   <page name="ADMIN_TOPICSTATUS_EDIT">
     <Resource tag="DEFAULT_DESCRIPTION">Default Status Name:</Resource>
     <Resource tag="DEFAULT_DESCRIPTION_HELP">Default Status Name, this Name is used when its not found in the current Language File.</Resource>
-    <Resource tag="FILE_EXTENSION">Dateierweiterung:</Resource>
-    <Resource tag="FILE_EXTENSION_HELP">Beispiel: Geben Sie "jpg" für eine JPEG-Grafik-Datei ein.</Resource>
     <Resource tag="HEADER">Hinzufügen / Bearbeiten von Themen Status</Resource>
     <Resource tag="MSG_ENTER">Sie müssen etwas eingeben.</Resource>
-    <Resource tag="MSG_REMOVE">Entfernen Sie die Zeit in der Erweiterung.</Resource>
     <Resource tag="TITLE">Hinzufügen / Bearbeiten von Themen Status</Resource>
     <Resource tag="TOPICSTATUS_NAME">Topic Status Value:</Resource>
     <Resource tag="TOPICSTATUS_NAME_HELP">This is the Value that is used to retrieve the Topic Status Icon and/or Text. That needs to be defined in the Theme Files and languages.</Resource>
@@ -1593,16 +1586,6 @@
     <Resource tag="IMPORT_NOTHING">Nichts importiert: keine neue IP Addresse gefunden.</Resource>
     <Resource tag="IMPORT_SUCESS">{0} Neue IP Adressen wurden erfolgreich importiert.</Resource>
     <Resource tag="TITLE">IP Adressen importieren</Resource>
-  </page>
-  <page name="ADMIN_TOPICSTATUS_IMPORT">
-    <Resource tag="HEADER">Themen Status Liste Importieren</Resource>
-    <Resource tag="IMPORT">Importliste</Resource>
-    <Resource tag="IMPORT_FAILED">Import fehlgeschlagen: {0}</Resource>
-    <Resource tag="IMPORT_FILE">Importdatei wählen:</Resource>
-    <Resource tag="IMPORT_FILE_HELP">Muss eine *.xml Datei sein</Resource>
-    <Resource tag="IMPORT_NOTHING">Nichts importiert: kein neuer Status wurde im Upload gefunden.</Resource>
-    <Resource tag="IMPORT_SUCESS">{0} Neue Statuse erfolgreich importiert.</Resource>
-    <Resource tag="TITLE">Status importieren</Resource>
   </page>
   <page name="ADMIN_USERS">
     <Resource tag="APPROVED">Genehmigt</Resource>
@@ -1659,8 +1642,8 @@
     <Resource tag="admin_boardsettings">Board Einstellungen</Resource>
     <Resource tag="admin_digest">Digest</Resource>
     <Resource tag="admin_eventlog">Ereignisprotokoll</Resource>
-    <Resource tag="admin_eventloggroupaccess">Event Log Access Edit</Resource>
-    <Resource tag="admin_eventloggroups">Event Log Roles</Resource>
+    <Resource tag="admin_eventloggroupaccess">Ereignisprotokoll Zugriff Bearbeiten</Resource>
+    <Resource tag="admin_eventloggroups">Ereignisprotokoll Rollen</Resource>
     <Resource tag="admin_extensions">Dateierweiterungen</Resource>
     <Resource tag="admin_forums">Foren</Resource>
     <Resource tag="admin_groups">Gruppen</Resource>
@@ -1672,8 +1655,8 @@
     <Resource tag="admin_nntpforums">NNTP Foren</Resource>
     <Resource tag="admin_nntpretrieve">Artikel abrufen</Resource>
     <Resource tag="admin_nntpservers">NNTP Server</Resource>
-    <Resource tag="admin_pageaccessedit">Edit Admin Page Access</Resource>
-    <Resource tag="admin_pageaccesslist">Admin Page Access</Resource>
+    <Resource tag="admin_pageaccessedit">Admin Seiten Zugriff Bearbeiten</Resource>
+    <Resource tag="admin_pageaccesslist">Admin Seiten Zugriff</Resource>
     <Resource tag="admin_pm">Private Nachrichten</Resource>
     <Resource tag="admin_prune">Themen kürzen</Resource>
     <Resource tag="admin_ranks">Ränke</Resource>
@@ -2438,7 +2421,6 @@
     <Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} Mitglieder</Resource>
     <Resource tag="ACTIVE_USERS_TIME">in den Letzten {0:N0} Minuten</Resource>
     <Resource tag="ALPHABET_FILTER">Alphabet Filter</Resource>
-    <Resource tag="ALPHABET_FILTER_BY">Liste durch Buchstabe {0} filtern.</Resource>
     <Resource tag="ATOMICONTOOLTIPACTIVE">Abonnieren Sie aktiv Themen über Atom.</Resource>
     <Resource tag="ATOMICONTOOLTIPFAVORITE">Abonnieren Sie Ihre Lieblings-Themen über Atom.</Resource>
     <Resource tag="ATOMICONTOOLTIPFORUM">Abonnieren Sie Forum Atom-Feed.</Resource>
@@ -2515,11 +2497,10 @@
     <Resource tag="TO">Senden an (E-Mail-Adresse):</Resource>
   </page>
   <page name="EVENTLOG_EVENTS">
-    <Resource tag="APPLY">Übernehmen</Resource>
     <Resource tag="ERROR">Fehler</Resource>
     <Resource tag="INFORMATION">Information</Resource>
-    <Resource tag="SQLERROR">Sql Script Error</Resource>
-    <Resource tag="WARNING">Warning</Resource>
+    <Resource tag="SQLERROR">Sql Script Fehler</Resource>
+    <Resource tag="WARNING">Warnung</Resource>
   </page>
   <page name="HELP_INDEX">
     <Resource tag="ANOUNCECONTENT">&lt;p&gt;Ankündigungen sind spezielle Beiträge, die von einem Administrator oder  Moderator geschrieben werden. Sie sind eine einfache Ein-Wege-Kommunikation mit dem Benutzer und Sie können nicht antworten. Wenn Sie eine Ankündigung diskutieren möchten, müssen Sie ein neues Thema  im Forum erstellen.&lt;/p&gt;
@@ -3902,7 +3883,7 @@ Spoiler Content
     <Resource tag="ECMAVERSION">Diese JavaScript Version wird nicht unterstützt. Bitte Nutzen Sie eine Neuere Version.</Resource>
     <Resource tag="EXCEPTION">Du bist angemeldet als</Resource>
     <Resource tag="FAILURE">Während der Verarbeitung trat ein Fehler auf. Bitte informiere den Administrator und schildere genau, was du getan hast, als der Fehler auftrat. Danke.</Resource>
-    <Resource tag="HOSTADMINPERMISSIONSREQUIRED">To access the area your board's Host Admin should set some extra permissions for you.</Resource>
+    <Resource tag="HOSTADMINPERMISSIONSREQUIRED">Bevor Sie diesen Bereich Betreten können muss der Host Admin ihnen Spezielle Berechtigungen geben.</Resource>
     <Resource tag="INVALID">Du hast einen ungültigen Wert eingestellt.</Resource>
     <Resource tag="MODERATED">Da du in einem moderierten Forum einen Beitrag geschrieben hast, muss zuerst ein Moderator deinen Beitrag bestätigen, damit dieser sichtbar wird.</Resource>
     <Resource tag="REGISTRATION">Eine E-Mail wurde an die angegebene Adresse geschickt. Bitte lies die darin enthaltenen Informationen, um Dich einzuloggen.</Resource>
@@ -3918,15 +3899,6 @@ Spoiler Content
     <Resource tag="TITLE_MODERATED">Information</Resource>
     <Resource tag="TITLE_REGISTRATION">Danke</Resource>
     <Resource tag="TITLE_SUSPENDED">Gesperrt</Resource>
-  </page>
-  <page name="IRKOO">
-    <Resource tag="MIN_VOTE_DOWN">Negativ abstimmen erfordert %min_rating% Ruf Punkte</Resource>
-    <Resource tag="MIN_VOTE_UP">Positiv abstimmen erfordert %min_rating% Ruf Punkte</Resource>
-    <Resource tag="NOT_AUTHORIZED">Bitte melden Sie sich an um abzustimmen</Resource>
-    <Resource tag="SELF">Sie können nicht für Ihren Beitrag abstimmen.</Resource>
-    <Resource tag="USER_REPUTATION">Benutzer Reputation</Resource>
-    <Resource tag="VOTE_DOWN">Positiv abstimmen</Resource>
-    <Resource tag="VOTE_UP">Negativ abstimmen</Resource>
   </page>
   <page name="LANGUAGE">
     <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ</Resource>
@@ -4002,7 +3974,7 @@ Spoiler Content
     <Resource tag="ACCESSMASK">Zugangsmaske</Resource>
     <Resource tag="BY">von {0}</Resource>
     <Resource tag="CONFIRM_DELETE">Thema wirklich löschen?</Resource>
-    <Resource tag="CONFIRM_DELETE_USER">Delete this user?</Resource>
+    <Resource tag="CONFIRM_DELETE_USER">Diesen Benutzer löschen?</Resource>
     <Resource tag="CONFIRM_DELETETOPICLINK">Themenlink löschen? Das Thema selber wird nicht gelöscht.</Resource>
     <Resource tag="DELETED">Thema gelöscht.</Resource>
     <Resource tag="EDIT">editieren</Resource>
@@ -4308,7 +4280,7 @@ Spoiler Content
     <Resource tag="REP_VOTE_UP_MSG">Sie haben erfolgreich {0} +1 Reputation gegeben.</Resource>
     <Resource tag="REPORTEDFEEDBACK">Danke, dass du den Beitrag gemeldet hast</Resource>
     <Resource tag="REPORTPOST">Diesen Beitrag melden</Resource>
-    <Resource tag="REPORTPOST_TITLE">Report Post</Resource>
+    <Resource tag="REPORTPOST_TITLE">Beitrag Melden</Resource>
     <Resource tag="REPUTATION">Reputation</Resource>
     <Resource tag="RETWEET_TOPIC">Thema retweeten</Resource>
     <Resource tag="RSSTOPIC">RSS-Feed</Resource>

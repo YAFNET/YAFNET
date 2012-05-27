@@ -4572,9 +4572,11 @@ Visit {forumname} at {forumlink}
        <Resource tag="MODAL_LOGIN_HELP">If checked, the Login Control is displayed as Login Box. Otherwise Login Control will be Displayed on a Single Page.</Resource>
 	   <Resource tag="IMAGE_ATTACH_RESIZE">Enable Image Attachment Resize:</Resource>
        <Resource tag="IMAGE_ATTACH_RESIZE_HELP">Attached images will be resized to thumbnails if they are too large.</Resource>
-	   <Resource tag="IMAGE_RESIZE_WIDTH">Image Attachment Resize Max Width:</Resource>
+     <Resource tag="POSTED_IMAGE_RESIZE">Resize User Posted Images:</Resource>
+     <Resource tag="POSTED_IMAGE_RESIZE_HELP">Resize user posted images in messages, if there are bigger then the max values bellow.</Resource>
+     <Resource tag="IMAGE_RESIZE_WIDTH">Image Resize Max Width:</Resource>
        <Resource tag="IMAGE_RESIZE_WIDTH_HELP">Maximum Width of the resized attachment images.</Resource>
-	   <Resource tag="IMAGE_RESIZE_HEIGHT">Image Attachment Resize Max Height:</Resource>
+	   <Resource tag="IMAGE_RESIZE_HEIGHT">Image Resize Max Height:</Resource>
        <Resource tag="IMAGE_RESIZE_HEIGHT_HELP">Maximum Height of the resized attachment images.</Resource>
 	   <Resource tag="CROP_IMAGE_ATTACH">Crop Image Attachment Preview:</Resource>
        <Resource tag="CROP_IMAGE_ATTACH_HELP">Crop the Preview of the Image and use above Dimensions as Image Size.</Resource>

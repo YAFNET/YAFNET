@@ -1143,6 +1143,8 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="POPULAR_VIEWS_HELP">The number of topic views before a topic becomes popular.</Resource>
     <Resource tag="POST_AD">آگهی جداکننده ارسال:</Resource>
     <Resource tag="POST_AD_HELP">کدی را که می خواهدی پس از اولین ارسال مرتبا نمایش داده شود قرار دهید. می توانید این گزینه را خالی رها کنید.</Resource>
+    <Resource tag="POSTED_IMAGE_RESIZE">Resize User Posted Images:</Resource>
+    <Resource tag="POSTED_IMAGE_RESIZE_HELP">Resize user posted images in messages, if there are bigger then the max values bellow.</Resource>
     <Resource tag="POSTEDIT_TIMEOUT">انقضای زمان برای ارسال:</Resource>
     <Resource tag="POSTEDIT_TIMEOUT_HELP">تعداد ثانیه هایی که یک ارسال می تواند بدون نمایش به دیگران ویرایش شود.</Resource>
     <Resource tag="POSTS_FEEDS_ACCESS">دسترسی خوراک ارسال ها:</Resource>

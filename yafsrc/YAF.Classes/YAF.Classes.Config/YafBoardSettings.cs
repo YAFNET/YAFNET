@@ -1646,7 +1646,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue("ImageAttachmentResizeWidth", 200);
+                return this._reg.GetValue("ImageAttachmentResizeWidth", 500);
             }
 
             set
@@ -1662,7 +1662,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue("ImageAttachmentResizeHeight", 200);
+                return this._reg.GetValue("ImageAttachmentResizeHeight", 500);
             }
 
             set
@@ -2928,6 +2928,22 @@ namespace YAF.Classes
             set
             {
                 this._reg.SetValue("EnableImageAttachmentResize", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether Resize Posted Images.
+        /// </summary>
+        public bool ResizePostedImages
+        {
+            get
+            {
+                return this._reg.GetValue("ResizePostedImages", true);
+            }
+
+            set
+            {
+                this._reg.SetValue("ResizePostedImages", value);
             }
         }
 

@@ -661,6 +661,24 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox EnableImageAttachmentResize;
         
         /// <summary>
+        /// HelpLabel217 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel217;
+        
+        /// <summary>
+        /// ResizePostedImages control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ResizePostedImages;
+        
+        /// <summary>
         /// HelpLabel23 control.
         /// </summary>
         /// <remarks>
