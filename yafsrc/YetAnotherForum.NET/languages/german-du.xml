@@ -21,8 +21,8 @@
     <Resource tag="ADMIN_EDITGROUP">Bearbeitet Gruppen</Resource>
     <Resource tag="ADMIN_EDITLANGUAGE">Bearbeitet eine Sprachendatei</Resource>
     <Resource tag="ADMIN_EDITMEDAL">Bearbeitet Medaillen</Resource>
-    <Resource tag="ADMIN_EDITNNTPFORUM">Bearbeited NNTP Forum</Resource>
-    <Resource tag="ADMIN_EDITNNTPSERVER">Bearbeited NNTP Server</Resource>
+    <Resource tag="ADMIN_EDITNNTPFORUM">Bearbeitet NNTP Forum</Resource>
+    <Resource tag="ADMIN_EDITNNTPSERVER">Bearbeitet NNTP Server</Resource>
     <Resource tag="ADMIN_EDITRANK">Bearbeitet Ränge</Resource>
     <Resource tag="ADMIN_EDITUSER">Bearbeitet Benutzeruser</Resource>
     <Resource tag="ADMIN_EVENTLOG">Betrachtet/Bearbeitet Eventlog</Resource>
@@ -178,7 +178,7 @@
     <Resource tag="CONFIRM_APROVE_ALL">Alle Benutzer Genehmigen?</Resource>
     <Resource tag="CONFIRM_DELETE">Diesen Benutzer löschen?</Resource>
     <Resource tag="CONFIRM_DELETE_ALL">Alle nicht bestätigten Benutzer löschen die älter als die spezifizierte Anzahl an Tagen sind?</Resource>
-    <Resource tag="DAYS_AGO">{0:d} ({1:N0} days ago)</Resource>
+    <Resource tag="DAYS_AGO">{0:d} (vor {1:N0} tagen)</Resource>
     <Resource tag="DELETE_ALL">Alle löschen älter als Tage:</Resource>
     <Resource tag="ERROR_DATABASESIZE">DB Größe konnte nicht ermittelt werden</Resource>
     <Resource tag="HEADER1">Wer ist Online</Resource>
@@ -222,14 +222,14 @@
     <Resource tag="TITLE">Gesperrte IP-Adresse Hinzufügen / Bearbeiten</Resource>
   </page>
   <page name="ADMIN_BANNEDIP_IMPORT">
-    <Resource tag="HEADER">Import IP Addresses List</Resource>
-    <Resource tag="IMPORT">Import List</Resource>
-    <Resource tag="IMPORT_FAILED">Failed to import! Invalid upload format specified: {0} </Resource>
-    <Resource tag="IMPORT_FILE">Select Import File:</Resource>
-    <Resource tag="IMPORT_FILE_HELP">Must be *.txt file containting Ip Adresses on each line</Resource>
-    <Resource tag="IMPORT_NOTHING">Nothing imported: no new ip address was found in the upload.</Resource>
-    <Resource tag="IMPORT_SUCESS">{0} new ip adress(es) imported successfully.</Resource>
-    <Resource tag="TITLE">Import IP Addresses</Resource>
+    <Resource tag="HEADER">Importieren von IP-Adressen-Listen</Resource>
+    <Resource tag="IMPORT">Liste importieren</Resource>
+    <Resource tag="IMPORT_FAILED">Import fehlgeschlagen! Falsches Format: {0} </Resource>
+    <Resource tag="IMPORT_FILE">Datei wählen zum importieren:</Resource>
+    <Resource tag="IMPORT_FILE_HELP">Muss eine *.txt Datei Sein die eine IP Adress pro Zeile enthällt.</Resource>
+    <Resource tag="IMPORT_NOTHING">Nichts importiert: Es wurde keine Neue IP Adresse gefunden.</Resource>
+    <Resource tag="IMPORT_SUCESS">{0} neue IP Adresse(n) erfolgreich importiert.</Resource>
+    <Resource tag="TITLE">Importieren von IP-Adressen</Resource>
   </page>
   <page name="ADMIN_BBCODE">
     <Resource tag="ADD">Neuen BBCode hinzufügen</Resource>
@@ -258,7 +258,7 @@
     <Resource tag="EXEC_ORDER_HELP">Die Erforderliche Nummer repräsentiert in welcher Reihenfolge die Erweiterungen ausgeführt werden. Niedrigste werden zuerst ausgeführt.</Resource>
     <Resource tag="HEADER">BBCode Erweiterung Hinzufügen / Bearbeiten</Resource>
     <Resource tag="HEADER1">Name &amp; Beschreibung (Alle Felder sind Pflichtfelder)</Resource>
-    <Resource tag="HEADER2">Regular Expression</Resource>
+    <Resource tag="HEADER2">Regulärer Ausdruck</Resource>
     <Resource tag="HEADER3">Javascript &amp; CSS (Alle Felder sind optional)</Resource>
     <Resource tag="MSG_NUMBER">Sie müssen ein Zahlenwert von 0 bis 32767 eingeben.</Resource>
     <Resource tag="MSG_POSITIVE_VALUE">Die Sortierreihenfolge Wert sollte eine positive Ganzzahl sein  zwischen 0 bis 32767.</Resource>
@@ -283,8 +283,8 @@
   </page>
   <page name="ADMIN_BOARDS">
     <Resource tag="CONFIRM_DELETE">Dieses Board löschen?</Resource>
-    <Resource tag="DELETE">Delete</Resource>
-    <Resource tag="EDIT">Edit</Resource>
+    <Resource tag="DELETE">Löschen</Resource>
+    <Resource tag="EDIT">Berarbeiten</Resource>
     <Resource tag="ID">ID</Resource>
     <Resource tag="NAME">Name</Resource>
     <Resource tag="NEW_BOARD">Neues Board</Resource>
@@ -325,7 +325,7 @@
     <Resource tag="BOARD_THREADED">Threaded erlauben:</Resource>
     <Resource tag="BOARD_THREADED_HELP">Threaded Ansicht von Beiträgen erlauben.</Resource>
     <Resource tag="BOARD_TOPIC_DEFAULT">Zeige Themen Standard:</Resource>
-    <Resource tag="BOARD_TOPIC_DEFAULT_HELP">Ders Standard Board Zeige Thema Intervall Auswahl.</Resource>
+    <Resource tag="BOARD_TOPIC_DEFAULT_HELP">Die Standard Themen Ansicht.</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY">Copyright Entfernungsschlüssel:</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY_HELP">Entfernen Sie die Copyright-Informationen und den Link zu YAF aus der Fußzeile Ihrer gesamten Forum Domäne.  Erhältlich &lt;a href="http://yetanotherforum.net/purchase.aspx"&gt; auf der YAF.NET Website &lt;/ a&gt;.</Resource>
     <Resource tag="HEADER">Aktuelle Boardeinstellungen</Resource>
@@ -405,7 +405,7 @@
     <Resource tag="SECURITY_ANSWER_HELP">Die Antwort auf die Sicherheitsfrage.</Resource>
     <Resource tag="SECURITY_QUESTION">Sicherheits-Frage:</Resource>
     <Resource tag="SECURITY_QUESTION_HELP">Diese Frage wird gestellt wenn Sie versuchen ein verlorenes Passwort wiederherzustellen</Resource>
-    <Resource tag="STATUS_DUP_EMAIL">Ein Benutzername für diese E-Mail Adresse exeitiert bereits. Bitte verwenden Sie eine Andere E-Mail Adresse.</Resource>
+    <Resource tag="STATUS_DUP_EMAIL">Ein Benutzername für diese E-Mail Adresse existiert bereits. Bitte verwenden Sie eine Andere E-Mail Adresse.</Resource>
     <Resource tag="STATUS_DUP_NAME">Benutzername existiert bereits. Bitte wählen Sie einen anderen Namen.</Resource>
     <Resource tag="STATUS_INVAL_ANSWER">Die Passwortwiederherstellungs Antwort ist ungültig. Bitte überprüfen Sie die Eingabe und versuchen Sie es erneut.</Resource>
     <Resource tag="STATUS_INVAL_MAIL">Die E-Mail-Adresse ist ungültig. Bitte überprüfen Sie die Eingabe und versuchen Sie es erneut.</Resource>
@@ -723,7 +723,7 @@
     <Resource tag="VIEW_ALL">Alle anzeigen</Resource>
   </page>
   <page name="ADMIN_EVENTLOG">
-    <Resource tag="APPLY">Apply</Resource>
+    <Resource tag="APPLY">Übernehmen</Resource>
     <Resource tag="CONFIRM_DELETE">Diesen Eintrag im Ereignisprotokoll löschen?</Resource>
     <Resource tag="CONFIRM_DELETE_ALL">Alle Einträge löschen?</Resource>
     <Resource tag="DELETE_ALL">Alle löschen</Resource>
@@ -734,7 +734,7 @@
     <Resource tag="SINCEDATE_HELP">Wählen Sie das Startdatum für den Zeitraum des Protokolls das angezeigt werden soll.</Resource>
     <Resource tag="SOURCE">Quelle</Resource>
     <Resource tag="TIME">Zeit</Resource>
-    <Resource tag="TITLE">Ergeignis-Protokoll</Resource>
+    <Resource tag="TITLE">Ereignis-Protokoll</Resource>
     <Resource tag="TODATE">Enddatum</Resource>
     <Resource tag="TODATE_HELP">Wählen Sie den Endzeitrum des Protokolls das angezeigt werden soll.</Resource>
     <Resource tag="TYPE">Typ</Resource>
@@ -742,36 +742,36 @@
     <Resource tag="TYPES_HELP">Wählen Sie ein Ereignislog Typ um nur bestimmte Ereignisse anzuzeigen.</Resource>
   </page>
   <page name="ADMIN_EVENTLOGGROUPS">
-    <Resource tag="CANACCESS">Allowed</Resource>
-    <Resource tag="CANCEL">Cancel</Resource>
-    <Resource tag="GROUPNAME">Role</Resource>
-    <Resource tag="HEADER">Event Log Roles</Resource>
-    <Resource tag="SAVE">Save</Resource>
-    <Resource tag="TITLE">Event Log Roles</Resource>
+    <Resource tag="CANACCESS">Erlaubt</Resource>
+    <Resource tag="CANCEL">Abbruch</Resource>
+    <Resource tag="GROUPNAME">Gruppe</Resource>
+    <Resource tag="HEADER">Ereignisprotokoll Gruppen</Resource>
+    <Resource tag="SAVE">Speichern</Resource>
+    <Resource tag="TITLE">Ereignisprotokoll Gruppen</Resource>
   </page>
   <page name="ADMIN_EVENTLOGROUPACCESS">
     <Resource tag="BOARDNAME">Board Name</Resource>
-    <Resource tag="CANCEL">Cancel</Resource>
-    <Resource tag="DELETEACCESS">Can Delete</Resource>
-    <Resource tag="EVENT">Log Name</Resource>
-    <Resource tag="GRANTALL">Grant All View</Resource>
-    <Resource tag="GRANTALLDELETE">Grant All Delete</Resource>
-    <Resource tag="GROUPNAME">Role</Resource>
-    <Resource tag="HEADER">Event Log Access For</Resource>
-    <Resource tag="LT_ERROR">Errors</Resource>
+    <Resource tag="CANCEL">Abbruch</Resource>
+    <Resource tag="DELETEACCESS">Kann Löschen</Resource>
+    <Resource tag="EVENT">Logname</Resource>
+    <Resource tag="GRANTALL">Alle Ansehen erlauben</Resource>
+    <Resource tag="GRANTALLDELETE">Alle Löschen erlauben</Resource>
+    <Resource tag="GROUPNAME">Gruppe</Resource>
+    <Resource tag="HEADER">Ereignisprotokoll Zugriff für</Resource>
+    <Resource tag="LT_ERROR">Fehler</Resource>
     <Resource tag="LT_INFORMATION">Information</Resource>
-    <Resource tag="LT_IPBANLIFTED">Canceling IP ban</Resource>
-    <Resource tag="LT_IPBANSET">Setting IP ban</Resource>
-    <Resource tag="LT_SQLERROR">Sql Errors</Resource>
-    <Resource tag="LT_USERDELETED">Deleting users</Resource>
-    <Resource tag="LT_USERSUSPENDED">Suspending users</Resource>
-    <Resource tag="LT_USERUNSUSPENDED">Unsuspending users</Resource>
-    <Resource tag="LT_WARNING">Warnings</Resource>
-    <Resource tag="REVOKEALL">Revoke All View</Resource>
-    <Resource tag="REVOKEALLDELETE">Revoke All Delete</Resource>
-    <Resource tag="SAVE">Save</Resource>
-    <Resource tag="TITLE">Event Log Role Edit</Resource>
-    <Resource tag="VIEWACCESS">Can View</Resource>
+    <Resource tag="LT_IPBANLIFTED">IP-Verbot Abbrechen </Resource>
+    <Resource tag="LT_IPBANSET">Festlegen von einem IP-Verbot</Resource>
+    <Resource tag="LT_SQLERROR">SQL Fehler</Resource>
+    <Resource tag="LT_USERDELETED">Löschen von Benutzern</Resource>
+    <Resource tag="LT_USERSUSPENDED">Benutzer sperren</Resource>
+    <Resource tag="LT_USERUNSUSPENDED">Entsperren von Benutzern</Resource>
+    <Resource tag="LT_WARNING">Warnungen</Resource>
+    <Resource tag="REVOKEALL">Alle Ansehen wiederrufen</Resource>
+    <Resource tag="REVOKEALLDELETE">Alle Löschen wiederrufen</Resource>
+    <Resource tag="SAVE">Speichern</Resource>
+    <Resource tag="TITLE">Ereignisprotokoll Gruppe bearbeiten</Resource>
+    <Resource tag="VIEWACCESS">Kann Ansehen</Resource>
   </page>
   <page name="ADMIN_EXTENSIONS">
     <Resource tag="ADD">Hinzufügen</Resource>
@@ -953,22 +953,20 @@
     <Resource tag="ENABLE_CAPTCHA_FORPOST_HELP">Erfordert das eingeben eines CAPTCHA wenn ein Benutzer ein Beitrag schreiben will (Auch Schnellantwort)</Resource>
     <Resource tag="ENABLE_DISPLAY_NAME">Anzeigename aktivieren:</Resource>
     <Resource tag="ENABLE_DISPLAY_NAME_HELP">Wenn diese Option aktiviert, verwendet YAF den alternativen "Anzeigenamen" anstelle des Benutzernamens.</Resource>
-    <Resource tag="ENABLE_IRKOO">Irkoo Reputation Service verwenden:</Resource>
-    <Resource tag="ENABLE_IRKOO_HELP">Irkoo ist ein kostenloser Service, der einen Benutzer Ruf zur Seite hinzufügt. Besuchen Sie die Webseite &lt;strong&gt;http://www.Irkoo.com&lt;/strong&gt;, um die Site-ID und den geheimen Schlüssel für Ihre Website zu erhalten.</Resource>
     <Resource tag="ENABLE_LOCATIONPATH_ERRORS">Aktivieren von Aktiver Ort Fehlerprotokollierung</Resource>
     <Resource tag="ENABLE_LOCATIONPATH_ERRORS_HELP">Wenn aktiviert, Alle Aktive Fehler werden Protokolliert</Resource>
     <Resource tag="ENABLE_RETWEET_MSG">Beitrag Retweeten Button aktivieren:</Resource>
     <Resource tag="ENABLE_RETWEET_MSG_HELP">Aktiviert / deaktiviert den Retweet Button, wo der Benutzer ein Beitrag retweeten kann.</Resource>
     <Resource tag="ENABLE_SSO">Single Sign On Aktivieren:</Resource>
     <Resource tag="ENABLE_SSO_HELP">Wenn diese Option aktiviert ist, können Benutzer sich über Facebook und/oder Twitter anmelden. Um diese Funktion zu aktivieren müssen die Parameter YAF.FacebookAPIKey und YAF.FacebookSecretKey angegeben werden, und für Twitter YAF.TwitterConsumerKey und YAF.TwitterConsumerSecret Werte in der app.config (AppSettings) Datei.</Resource>
-    <Resource tag="ENABLE_USERREPUTATION">Use Reputation System:</Resource>
-    <Resource tag="ENABLE_USERREPUTATION_HELP">Setting to Enable/Disable the Build-In Reputation System to allow Users Give or Remove Reputation.</Resource>
+    <Resource tag="ENABLE_USERREPUTATION">Reputation System verwenden:</Resource>
+    <Resource tag="ENABLE_USERREPUTATION_HELP">Einstellung um das Reputationssystem zu de-aktivieren, um Benutzern zu erlauben andere Benutzer zu bewerten.</Resource>
     <Resource tag="EVENTLOG_MAX_DAYS">Anzahl An Tagen wie lange Ein Eintrag im Ereignis Log bleibt</Resource>
     <Resource tag="EVENTLOG_MAX_DAYS_HELP">Anzahl An Tagen wie lange Eintrag im Ereignis Log bleiben soll, alte Einträge werden automatisch gelöscht.</Resource>
     <Resource tag="EVENTLOG_MAX_MESSAGES">Max. Anzahl an Ereignis Log Einträgen</Resource>
-    <Resource tag="EVENTLOG_MAX_MESSAGES_HELP">Max. Anzahl an Event Log Einträge, ältere werden automatich gelöscht.</Resource>
+    <Resource tag="EVENTLOG_MAX_MESSAGES_HELP">Max. Anzahl an Event Log Einträge, ältere werden automatisch gelöscht.</Resource>
     <Resource tag="EXTERN_NEWWINDOW">Externe Suchergebnisse in einem neuen Fenster:</Resource>
-    <Resource tag="EXTERN_NEWWINDOW_HELP">Externe Suchergebnisse in einem neuen Fenster Öffnen.</Resource>
+    <Resource tag="EXTERN_NEWWINDOW_HELP">Externe Suchergebnisse in einem neuen Fenster öffnen.</Resource>
     <Resource tag="EXTERN_SEARCH_PERMISS">Externe Suchberechtigungen:</Resource>
     <Resource tag="EXTERN_SEARCH_PERMISS_HELP">Externe Suche für Folgende Erlauben</Resource>
     <Resource tag="FAVTOPIC_FEEDS_ACCESS">Favorisierte Themen-Feeds Zugang:</Resource>
@@ -990,8 +988,6 @@
     <Resource tag="GRAVATAR_RATING_HELP">Max. Bewertung von Gravataren wenn erlaubt.</Resource>
     <Resource tag="GROUPS_TEMPLATE">Gruppen Vorlage:</Resource>
     <Resource tag="GROUPS_TEMPLATE_HELP">Vorlage für die Darstellung von Benutzer-Gruppen.</Resource>
-    <Resource tag="GUESTS_VIEW_IRKOO">Erlaubt den Gästen die Benutzer Ruf zu sehen:</Resource>
-    <Resource tag="GUESTS_VIEW_IRKOO_HELP">Wenn aktiviert, können die Gäste den Mitglieder Ruf sehen.</Resource>
     <Resource tag="HEADER_ADVERTS">Werbeeinstellungen</Resource>
     <Resource tag="HEADER_ALBUM">Albumeinstellungen</Resource>
     <Resource tag="HEADER_AVATARS">Avatar Einstellungen</Resource>
@@ -1003,7 +999,6 @@
     <Resource tag="HEADER_GEOLOCATION">Geolocation Einstellungen</Resource>
     <Resource tag="HEADER_HOTTOPICS">Beliebte Themen Einstellungen</Resource>
     <Resource tag="HEADER_IMAGE_ATTACH">Bildanhang Einstellungen</Resource>
-    <Resource tag="HEADER_IRKOO">Irkoo-Reputation Service</Resource>
     <Resource tag="HEADER_LOG">Log-Einstellungen</Resource>
     <Resource tag="HEADER_LOGIN">Login / Registrierungseinstellungen</Resource>
     <Resource tag="HEADER_LOGSCOPE">Ereignisprotokoll Anwendungsbereich</Resource>
@@ -1011,7 +1006,7 @@
     <Resource tag="HEADER_PERMISSION">Berechtigungseinstellungen</Resource>
     <Resource tag="HEADER_PMS">Private Nachrichten</Resource>
     <Resource tag="HEADER_POLL">Abstimmungseinstellungen</Resource>
-    <Resource tag="HEADER_REPUTATION">Reputation Settings</Resource>
+    <Resource tag="HEADER_REPUTATION">Reputation Einstellungen</Resource>
     <Resource tag="HEADER_SEARCH">Sucheinstellungen</Resource>
     <Resource tag="HEADER_SETUP">Host Konfiguration</Resource>
     <Resource tag="HEADER_SPAM">Spam Einstellungen</Resource>
@@ -1043,12 +1038,6 @@
     <Resource tag="IP_INFOSERVICE_XMLURL_HELP">Aktivieren um Informationen über die Benutzer IPs als XML-Daten zu erhalten.</Resource>
     <Resource tag="IPINFO_ULRL">IP-Infoseite URL:</Resource>
     <Resource tag="IPINFO_ULRL_HELP">Aktivieren um Informationen über den IPs Verbleib als Web-Seite zu erhalten.</Resource>
-    <Resource tag="IRKOO_ONLY_ONTOPICPAGES">Benutzerprofil Ruf in Benutzer-Links nur in Themenseiten Anzeigen:</Resource>
-    <Resource tag="IRKOO_ONLY_ONTOPICPAGES_HELP">Wenn aktiviert, wird der Benutzer Ruf nur in Thema Seiten angezeigt werden.</Resource>
-    <Resource tag="IRKOO_SECRETKEY">Irkoo geheimen Schlüssel:</Resource>
-    <Resource tag="IRKOO_SECRETKEY_HELP">Geben Sie den Irkoo geheimen Schlüssel ein.</Resource>
-    <Resource tag="IRKOO_SITEID">Irkoo Seiten-ID:</Resource>
-    <Resource tag="IRKOO_SITEID_HELP">Geben Sie den Irkoo Site-ID ein.</Resource>
     <Resource tag="JOINDATE_TEMPLATE">Anmeldedatum Vorlage:</Resource>
     <Resource tag="JOINDATE_TEMPLATE_HELP">Vorlage für die Darstellung des Benutzers Anmeldedatums.</Resource>
     <Resource tag="LASTPOST_COUNT">Aktive Diskussionen Anzahl:</Resource>
@@ -1059,17 +1048,17 @@
     <Resource tag="LAZY_CACHE_TIMEOUT_HELP">In Minuten</Resource>
     <Resource tag="LOCATION_TEMPLATE">Lage Vorlage:</Resource>
     <Resource tag="LOCATION_TEMPLATE_HELP">Vorlage für die Darstellung des Benutzer Orts.</Resource>
-    <Resource tag="LOG_BANNEDIP">Allow log Banned IP actions:</Resource>
-    <Resource tag="LOG_BANNEDIP_HELP">Log banned IP set and lift.</Resource>
-    <Resource tag="LOG_ERROR">Allow log Application Errors:</Resource>
+    <Resource tag="LOG_BANNEDIP">Gesperrte IP Adress Aktionen protokollieren:</Resource>
+    <Resource tag="LOG_BANNEDIP_HELP">IP AddressSperren und Entsperrungen werden protokolliert.</Resource>
+    <Resource tag="LOG_ERROR">Anwendungsfehler protokollieren:</Resource>
     <Resource tag="LOG_ERROR_HELP">Application errors will be logged.</Resource>
-    <Resource tag="LOG_INFORMATION">Allow log Application Info:</Resource>
+    <Resource tag="LOG_INFORMATION">Anwendungsinfos protokollieren:</Resource>
     <Resource tag="LOG_INFORMATION_HELP">Application info messages will be logged.</Resource>
-    <Resource tag="LOG_SQLERROR">Allow log Sql Errors:</Resource>
-    <Resource tag="LOG_SQLERROR_HELP">Sql errors will be logged.</Resource>
+    <Resource tag="LOG_SQLERROR">Sql Fehler protokollieren:</Resource>
+    <Resource tag="LOG_SQLERROR_HELP">Sql Fehler werden im Ereignisprotokoll gespeichert.</Resource>
     <Resource tag="LOG_SUSPENDEDANDCONTRA">Allow log when users suspended or unsuspended:</Resource>
     <Resource tag="LOG_SUSPENDEDANDCONTRA_HELP">Log when users are suspended or unsuspended.</Resource>
-    <Resource tag="LOG_USERDELETED">Allow log user deleting event:</Resource>
+    <Resource tag="LOG_USERDELETED">Benutzer löschen protokollieren:</Resource>
     <Resource tag="LOG_USERDELETED_HELP">User deleting event will be logged.</Resource>
     <Resource tag="LOG_USERSUSPENDED">Allow log user suspended and unsuspended:</Resource>
     <Resource tag="LOG_USERSUSPENDED_HELP">Suspended and unsuspended events will be logged.</Resource>
@@ -1168,16 +1157,16 @@
     <Resource tag="REPLACE_CACHE_TIMEOUT_HELP"> Smileys, BB code, bad words, etc. (in Minuten)</Resource>
     <Resource tag="REPORT_POST_PERMISSION">Beitrag Melden Berechtigungen</Resource>
     <Resource tag="REPORT_POST_PERMISSION_HELP">Beitrags melden erlauben für:</Resource>
-    <Resource tag="REPUTATION_ALLOWNEGATIVE">Allow Negative Reputation:</Resource>
+    <Resource tag="REPUTATION_ALLOWNEGATIVE">Negative Reputation zulassen:</Resource>
     <Resource tag="REPUTATION_ALLOWNEGATIVE_HELP">If allowed Users can get Negative Reputation Numbers.</Resource>
     <Resource tag="REPUTATION_MAX">Maximum Positive Reputation Value:</Resource>
     <Resource tag="REPUTATION_MAX_HELP">This Value is used to generate the Reputation Bar.</Resource>
     <Resource tag="REPUTATION_MIN">Maximum Negative Reputation Value:</Resource>
     <Resource tag="REPUTATION_MIN_HELP">This Value is used to generate the Reputation Bar.</Resource>
     <Resource tag="REPUTATION_MINDOWN">Min. Value to allow Remove Reputation:</Resource>
-    <Resource tag="REPUTATION_MINDOWN_HELP">Check if the User matches minimal requirements for voting down.</Resource>
+    <Resource tag="REPUTATION_MINDOWN_HELP">Minimale Anforderung für den Benutzer bevor er negative Bewertungen abgeben kann.</Resource>
     <Resource tag="REPUTATION_MINUP">Min. Value to allow Add Reputation:</Resource>
-    <Resource tag="REPUTATION_MINUP_HELP">Check if the User matches minimal requirements for voting up.</Resource>
+    <Resource tag="REPUTATION_MINUP_HELP">Minimale Anforderung für den Benutzer bevor er Positive Bewertungen abgeben kann.</Resource>
     <Resource tag="REPUTATION_TEMPLATE">Reputations Vorlage:</Resource>
     <Resource tag="REPUTATION_TEMPLATE_HELP">Vorlage für die Darstellung der Benutzer Reputation.</Resource>
     <Resource tag="REQUIRE_LOGIN">Benutzer anmelden erfordern:</Resource>
@@ -1390,21 +1379,21 @@
     <Resource tag="USERNAME">Benutzername</Resource>
   </page>
   <page name="ADMIN_PAGEACCESSEDIT">
-    <Resource tag="CANACCESS">Allowed</Resource>
-    <Resource tag="CANCEL">Cancel</Resource>
-    <Resource tag="GRANTALL">Grant All</Resource>
-    <Resource tag="HEADER">Page Access For</Resource>
-    <Resource tag="PAGE">Real Page</Resource>
-    <Resource tag="REVOKEALL">Revoke All</Resource>
-    <Resource tag="SAVE">Save</Resource>
-    <Resource tag="TITLE">Admin Page View Access</Resource>
-    <Resource tag="USERNAME">User</Resource>
+    <Resource tag="CANACCESS">Erlaubt</Resource>
+    <Resource tag="CANCEL">Abbrechen</Resource>
+    <Resource tag="GRANTALL">Alle erteilen</Resource>
+    <Resource tag="HEADER">Seiten Zugriff für</Resource>
+    <Resource tag="PAGE">Richtige Seite</Resource>
+    <Resource tag="REVOKEALL">Alle Wiederrufen</Resource>
+    <Resource tag="SAVE">Speichern</Resource>
+    <Resource tag="TITLE">Admin Seiten Zugriff</Resource>
+    <Resource tag="USERNAME">Benutzer</Resource>
   </page>
   <page name="ADMIN_PAGEACCESSLIST">
     <Resource tag="BOARDNAME">Board Name</Resource>
-    <Resource tag="EDIT">Edit</Resource>
-    <Resource tag="HEADER">Admin User</Resource>
-    <Resource tag="TITLE">Admin Users Page Access List</Resource>
+    <Resource tag="EDIT">Bearbeiten</Resource>
+    <Resource tag="HEADER">Benutzer Admin</Resource>
+    <Resource tag="TITLE">Admin Benutzer Seiten Zugriffsliste</Resource>
   </page>
   <page name="ADMIN_PM">
     <Resource tag="CONFIRM_DELETE">Wollen Sie wirklich die Private Nachrichten löschen?</Resource>
@@ -1569,13 +1558,13 @@
     <Resource tag="TOPICSTATUS_NAME">Status Name</Resource>
   </page>
   <page name="ADMIN_TOPICSTATUS_EDIT">
-    <Resource tag="DEFAULT_DESCRIPTION">Default Status Name:</Resource>
-    <Resource tag="DEFAULT_DESCRIPTION_HELP">Default Status Name, this Name is used when its not found in the current Language File.</Resource>
+    <Resource tag="DEFAULT_DESCRIPTION">Standard Status-Name:</Resource>
+    <Resource tag="DEFAULT_DESCRIPTION_HELP">Der Standard Name wird verwendet wenn keine Lokalisierung in der Sprachdatei gefunden wurde.</Resource>
     <Resource tag="HEADER">Hinzufügen / Bearbeiten von Themen Status</Resource>
     <Resource tag="MSG_ENTER">Sie müssen etwas eingeben.</Resource>
     <Resource tag="TITLE">Hinzufügen / Bearbeiten von Themen Status</Resource>
-    <Resource tag="TOPICSTATUS_NAME">Topic Status Value:</Resource>
-    <Resource tag="TOPICSTATUS_NAME_HELP">This is the Value that is used to retrieve the Topic Status Icon and/or Text. That needs to be defined in the Theme Files and languages.</Resource>
+    <Resource tag="TOPICSTATUS_NAME">Themen Status Wert:</Resource>
+    <Resource tag="TOPICSTATUS_NAME_HELP">Dieser Wert wird verwendet um das Status Icon oder die Lokalisation zu laden. Dieser Eintrag sollte in den Skin und Sprachdateien vorhanden sein.</Resource>
   </page>
   <page name="ADMIN_TOPICSTATUS_IMPORT">
     <Resource tag="HEADER">IP Adressen Liste Importieren</Resource>
@@ -1594,8 +1583,8 @@
     <Resource tag="DISPLAY_NAME">Anzeige Name</Resource>
     <Resource tag="EMAIL">E-Mail</Resource>
     <Resource tag="EMAIL_CONTAINS">E-Mail enthält:</Resource>
-    <Resource tag="EXPORT_CSV">Export All User(s) as CSV</Resource>
-    <Resource tag="EXPORT_XML">Export All User(s) as Xml</Resource>
+    <Resource tag="EXPORT_CSV">All Benutzer als CSV Exportieren</Resource>
+    <Resource tag="EXPORT_XML">All Benutzer als XML Exportieren</Resource>
     <Resource tag="FACEBOOK_USER">Facebook Benutzer</Resource>
     <Resource tag="FILTER">Filtern nach Eintrittsdatum seit:</Resource>
     <Resource tag="HEADER">Benutzer suchen</Resource>
@@ -1617,12 +1606,12 @@
   </page>
   <page name="ADMIN_USERS_IMPORT">
     <Resource tag="HEADER">Benutzer suchen</Resource>
-    <Resource tag="IMPORT_FAILED">Failed to import: {0}</Resource>
-    <Resource tag="IMPORT_FAILED_FORMAT">Input failed, wrong file format!</Resource>
-    <Resource tag="IMPORT_FILE">Select Import File:</Resource>
-    <Resource tag="IMPORT_FILE_HELP">Must be *.xml or *.csv file</Resource>
-    <Resource tag="IMPORT_NOTHING">Nothing imported: no new user where found in the upload.</Resource>
-    <Resource tag="IMPORT_SUCESS">{0} User(s) imported successfully.</Resource>
+    <Resource tag="IMPORT_FAILED">Importieren fehlgeschlagen: {0}</Resource>
+    <Resource tag="IMPORT_FAILED_FORMAT">Import fehlgeschlagen, Falsches Format!</Resource>
+    <Resource tag="IMPORT_FILE">Datei wählen zum importieren:</Resource>
+    <Resource tag="IMPORT_FILE_HELP">Muss eine *.xml oder *.csv datei sein</Resource>
+    <Resource tag="IMPORT_NOTHING">Nichts importiert, es wurden keine Neuen Benutzer gefunden.</Resource>
+    <Resource tag="IMPORT_SUCESS">{0} Benutzer erfolgreich importiert.</Resource>
     <Resource tag="TITLE">Benutzer</Resource>
   </page>
   <page name="ADMIN_VERSION">
@@ -4106,9 +4095,9 @@ Spoiler Content
   <page name="POLLEDIT">
     <Resource tag="ASK_POLL_DELETE">Wollen Sie diese Umfrage wirklich löschen?</Resource>
     <Resource tag="ASK_POLL_DELETE_ALL">Wollen Sie diese Umfrage endgültig löschen?</Resource>
-    <Resource tag="ASK_POLLGROUP_DETACH">Wollen Sie wirklich die Umfrage Gruppe trennen?</Resource>
+    <Resource tag="ASK_POLLGROUP_DETACH">Wollen Sie wirklich die Umfragegruppe trennen?</Resource>
     <Resource tag="ASK_POLLROUP_DELETE_ALL">Wollen Sie wirklich die Umfragegruppe Komplett Löschen?</Resource>
-    <Resource tag="ASK_POLLROUP_DETACH_EVR">Wollen Sie Wirklich diese Poll Gruppe überall entfernen?</Resource>
+    <Resource tag="ASK_POLLROUP_DETACH_EVR">Wollen Sie Wirklich diese Umfragegruppe überall entfernen?</Resource>
     <Resource tag="CHOICE">Wahl {0}:</Resource>
     <Resource tag="CREATEPOLL">Umfrage Erstellen</Resource>
     <Resource tag="DETACHGROUP_EVERYWHERE">Gruppe überall trennen</Resource>
@@ -4546,13 +4535,13 @@ Spoiler Content
     <Resource tag="SEND_TITLE">Beitrag, mit dem oben eingegebenen Text melden</Resource>
   </page>
   <page name="REPUTATION_VALUES">
-    <Resource tag="EXALTED">Exalted</Resource>
-    <Resource tag="FRIENDLY">Friendly</Resource>
-    <Resource tag="HONORED">Honored</Resource>
+    <Resource tag="EXALTED">Erhaben</Resource>
+    <Resource tag="FRIENDLY">Freundlich</Resource>
+    <Resource tag="HONORED">Geehrt</Resource>
     <Resource tag="NEUTRAL">Neutral</Resource>
-    <Resource tag="UNFRIENDLY">Unfriendly</Resource>
-    <Resource tag="VALUE_0">Hated</Resource>
-    <Resource tag="VALUE_20">Hostile</Resource>
+    <Resource tag="UNFRIENDLY">Unfreundlich</Resource>
+    <Resource tag="VALUE_0">Verhasst</Resource>
+    <Resource tag="VALUE_20">Feindlich</Resource>
   </page>
   <page name="RTE">
     <Resource tag="BOLD">Fett</Resource>
@@ -4695,7 +4684,7 @@ Hallo!
 
       Benutzername: {user}
 	  Automatisch generiertes Passwort: {pass}
-	  Automatich generierte Sicherheits Antwort: {answer}
+	  Automatisch generierte Sicherheits Antwort: {answer}
       E-Mail: {email} (Bitte ändern Sie nicht ihre E-Mail Adresse, ansonsten können Sie sich nicht mehr über Facebook anmelden)
 	  
     </Resource>
@@ -4718,7 +4707,7 @@ Der Beitrag wurde im {forumname} forum veröffentlicht.
 
       Benutzername: {user}
 	  Automatisch generiertes Passwort: {pass}
-	  Automatich generierte Sicherheits Antwort: {answer}
+	  Automatisch generierte Sicherheits Antwort: {answer}
       E-Mail: {email} (Bitte ändern Sie nicht ihre E-Mail Adresse, ansonsten können Sie sich nicht mehr über Facebook anmelden)
 	  
     </Resource>
@@ -4729,7 +4718,7 @@ Der Beitrag wurde im {forumname} forum veröffentlicht.
 
       Benutzername: {user}
 	  Automatisch generiertes Passwort: {pass}
-	  Automatich generierte Sicherheits Antwort: {answer}
+	  Automatisch generierte Sicherheits Antwort: {answer}
       E-Mail: {email} (Bitte ändern umgehend ihre E-Mail Adresse.)
 	  
     </Resource>
