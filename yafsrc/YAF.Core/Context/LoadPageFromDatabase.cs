@@ -18,151 +18,161 @@
  */
 namespace YAF.Core
 {
-	using System;
-	using System.Data;
-	using System.Web;
-	using System.Web.Security;
+    using System;
+    using System.Data;
+    using System.Web;
+    using System.Web.Security;
 
-	using YAF.Classes.Data;
-	using YAF.Types;
-	using YAF.Types.Attributes;
-	using YAF.Types.Constants;
-	using YAF.Types.EventProxies;
-	using YAF.Types.Interfaces;
-	using YAF.Types.Interfaces.Extensions;
-	using YAF.Utils;
-	using YAF.Utils.Extensions;
+    using YAF.Classes.Data;
+    using YAF.Types;
+    using YAF.Types.Attributes;
+    using YAF.Types.Constants;
+    using YAF.Types.EventProxies;
+    using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Extensions;
+    using YAF.Utils;
+    using YAF.Utils.Extensions;
 
-	/// <summary>
-	/// The load page from database.
-	/// </summary>
-	[ExportService(ServiceLifetimeScope.InstancePerContext, null, typeof(IHandleEvent<InitPageLoadEvent>))]
-	public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServiceLocator
-	{
-		#region Constructors and Destructors
+    /// <summary>
+    /// The load page from database.
+    /// </summary>
+    [ExportService(ServiceLifetimeScope.InstancePerContext, null, typeof(IHandleEvent<InitPageLoadEvent>))]
+    public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServiceLocator
+    {
+        #region Constructors and Destructors
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="LoadPageFromDatabase"/> class.
-		/// </summary>
-		/// <param name="serviceLocator">
-		/// The service locator.
-		/// </param>
-		/// <param name="legacyDb">
-		/// The legacy db.
-		/// </param>
-        public LoadPageFromDatabase([NotNull] IServiceLocator serviceLocator, ILogger logger, [NotNull] IDataCache dataCache)
-		{
-			this.ServiceLocator = serviceLocator;
-			Logger = logger;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LoadPageFromDatabase"/> class.
+        /// </summary>
+        /// <param name="serviceLocator">The service locator.</param>
+        /// <param name="logger">The logger.</param>
+        /// <param name="dataCache">The data cache.</param>
+        public LoadPageFromDatabase(
+            [NotNull] IServiceLocator serviceLocator, ILogger logger, [NotNull] IDataCache dataCache)
+        {
+            this.ServiceLocator = serviceLocator;
+            this.Logger = logger;
             this.DataCache = dataCache;
-		}
+        }
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		public ILogger Logger { get; set; }
+        /// <summary>
+        /// Gets or sets the logger.
+        /// </summary>
+        /// <value>
+        /// The logger.
+        /// </value>
+        public ILogger Logger { get; set; }
 
         /// <summary>
         /// Gets or sets DataCache.
         /// </summary>
         public IDataCache DataCache { get; set; }
 
-		/// <summary>
-		///   Gets Order.
-		/// </summary>
-		public int Order
-		{
-			get
-			{
-				return 1000;
-			}
-		}
+        /// <summary>
+        ///   Gets Order.
+        /// </summary>
+        public int Order
+        {
+            get
+            {
+                return 1000;
+            }
+        }
 
-		/// <summary>
-		///   Gets or sets ServiceLocator.
-		/// </summary>
-		public IServiceLocator ServiceLocator { get; set; }
+        /// <summary>
+        ///   Gets or sets ServiceLocator.
+        /// </summary>
+        public IServiceLocator ServiceLocator { get; set; }
 
-		#endregion
+        #endregion
 
-		#region Implemented Interfaces
+        #region Implemented Interfaces
 
-		#region IHandleEvent<InitPageLoadEvent>
+        #region IHandleEvent<InitPageLoadEvent>
 
-		/// <summary>
-		/// The handle.
-		/// </summary>
-		/// <param name="event">
-		/// The event.
-		/// </param>
-		/// <exception cref="ApplicationException">Failed to find guest user.</exception>
-		public void Handle([NotNull] InitPageLoadEvent @event)
-		{
-			try
-			{
-				object userKey = null;
+        /// <summary>
+        /// The handle.
+        /// </summary>
+        /// <param name="event">
+        /// The event.
+        /// </param>
+        /// <exception cref="ApplicationException">Failed to find guest user.</exception>
+        /// <exception cref="ApplicationException">Failed to create new user.</exception>
+        /// <exception cref="ApplicationException">Unable to find the Guest User!</exception>
+        public void Handle([NotNull] InitPageLoadEvent @event)
+        {
+            try
+            {
+                object userKey = null;
 
-				if (YafContext.Current.User != null)
-				{
-					userKey = YafContext.Current.User.ProviderUserKey;
-				}
+                if (YafContext.Current.User != null)
+                {
+                    userKey = YafContext.Current.User.ProviderUserKey;
+                }
 
-				int tries = 0;
-				DataRow pageRow;
+                int tries = 0;
+                DataRow pageRow;
 
-				do
-				{
-					pageRow = LegacyDb.pageload(
-						this.Get<HttpSessionStateBase>().SessionID,
-						YafContext.Current.PageBoardID,
-						userKey,
-						this.Get<HttpRequestBase>().UserHostAddress,
-						this.Get<HttpRequestBase>().FilePath,
-						this.Get<HttpRequestBase>().QueryString.ToString(),
-						@event.Data.Browser,
-						@event.Data.Platform,
-						@event.Data.CategoryID,
-						@event.Data.ForumID,
-						@event.Data.TopicID,
-						@event.Data.MessageID,
-						// don't track if this is a search engine
-						@event.Data.IsSearchEngine,
-						@event.Data.IsMobileDevice,
-						@event.Data.DontTrack);
+                do
+                {
+                    pageRow = LegacyDb.pageload(
+                        this.Get<HttpSessionStateBase>().SessionID,
+                        YafContext.Current.PageBoardID,
+                        userKey,
+                        this.Get<HttpRequestBase>().UserHostAddress,
+                        this.Get<HttpRequestBase>().FilePath,
+                        this.Get<HttpRequestBase>().QueryString.ToString(),
+                        @event.Data.Browser,
+                        @event.Data.Platform,
+                        @event.Data.CategoryID,
+                        @event.Data.ForumID,
+                        @event.Data.TopicID,
+                        @event.Data.MessageID,
+                        // don't track if this is a search engine
+                        @event.Data.IsSearchEngine,
+                        @event.Data.IsMobileDevice,
+                        @event.Data.DontTrack);
 
-					// if the user doesn't exist...
-					if (userKey != null && pageRow == null)
-					{
-						// create the user...
-						if (!RoleMembershipHelper.DidCreateForumUser(YafContext.Current.User, YafContext.Current.PageBoardID))
-						{
-							throw new ApplicationException("Failed to create new user.");
-						}
-					}
+                    // if the user doesn't exist...
+                    if (userKey != null && pageRow == null)
+                    {
+                        // create the user...
+                        if (
+                            !RoleMembershipHelper.DidCreateForumUser(
+                                YafContext.Current.User, YafContext.Current.PageBoardID))
+                        {
+                            throw new ApplicationException("Failed to create new user.");
+                        }
+                    }
 
-					if (tries++ >= 2)
-					{
-						if (userKey != null && pageRow == null)
-						{
-							// probably no permissions, use guest user instead...
-							userKey = null;
-							continue;
-						}
+                    if (tries++ < 2)
+                    {
+                        continue;
+                    }
 
-						// fail...
-						break;
-					}
-				}
-				while (pageRow == null && userKey != null);
+                    if (userKey != null && pageRow == null)
+                    {
+                        // probably no permissions, use guest user instead...
+                        userKey = null;
+                        continue;
+                    }
 
-				if (pageRow == null)
-				{
-					throw new ApplicationException("Unable to find the Guest User!");
-				}
+                    // fail...
+                    break;
+                }
+                while (pageRow == null && userKey != null);
 
-				// add all loaded page data into our data dictionary...
-				@event.DataDictionary.AddRange(pageRow.ToDictionary());
+                if (pageRow == null)
+                {
+                    throw new ApplicationException("Unable to find the Guest User!");
+                }
+
+                // add all loaded page data into our data dictionary...
+                @event.DataDictionary.AddRange(pageRow.ToDictionary());
 
                 // clear active users list
                 if (@event.DataDictionary["ActiveUpdate"].ToType<bool>())
@@ -170,36 +180,36 @@ namespace YAF.Core
                     // purge the cache if something has changed...
                     this.DataCache.Remove(Constants.Cache.UsersOnlineStatus);
                 }
-			}
-			catch (Exception x)
-			{
+            }
+            catch (Exception x)
+            {
 #if !DEBUG
 
-				// log the exception...
-				this.Logger.Fatal(x, "Failure Initializing User/Page.");
+                // log the exception...
+                this.Logger.Fatal(x, "Failure Initializing User/Page.");
 
-				// log the user out...
-				FormsAuthentication.SignOut();
+                // log the user out...
+                FormsAuthentication.SignOut();
 
-				if (YafContext.Current.ForumPageType != ForumPages.info)
-				{
-					// show a failure notice since something is probably up with membership...
-					YafBuildLink.RedirectInfoPage(InfoMessage.Failure);
-				}
-				else
-				{
-					// totally failing... just re-throw the exception...
-					throw;
-				}
+                if (YafContext.Current.ForumPageType != ForumPages.info)
+                {
+                    // show a failure notice since something is probably up with membership...
+                    YafBuildLink.RedirectInfoPage(InfoMessage.Failure);
+                }
+                else
+                {
+                    // totally failing... just re-throw the exception...
+                    throw;
+                }
 #else
-				// re-throw exception...
+    // re-throw exception...
 				throw;
 #endif
-			}
-		}
+            }
+        }
 
-		#endregion
+        #endregion
 
-		#endregion
-	}
+        #endregion
+    }
 }

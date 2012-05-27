@@ -47,8 +47,7 @@ namespace YAF.Modules
         /// </summary>
         public override void InitAfterPage()
         {
-            this.CurrentForumPage.PreRender += this.ForumPage_PreRender;
-            this.CurrentForumPage.Load += ForumPage_Load;
+            this.CurrentForumPage.Load += this.ForumPage_Load;
         }
 
         /// <summary>
@@ -91,16 +90,7 @@ namespace YAF.Modules
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private static void ForumPage_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-        }
-
-        /// <summary>
-        /// Handles the PreRender event of the ForumPage control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void ForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
+        private void ForumPage_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.GeneratePopUp();
         }

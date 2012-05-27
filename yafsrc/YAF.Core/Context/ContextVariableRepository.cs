@@ -58,7 +58,7 @@ namespace YAF.Core
     #region Properties
 
     /// <summary>
-    ///   Flag set if the system should check if the user is suspended and redirect appropriately. Defaults to true.
+    /// Gets or sets a value indicating whether this Flag set if the system should check if the user is suspended and redirect appropriately. Defaults to true.
     ///   Setting to false effectively disables suspend checking.
     /// </summary>
     public bool IsSuspendCheckEnabled

@@ -102,6 +102,20 @@ namespace YAF.Core
         #region Events
 
         /// <summary>
+        ///   The after init.
+        /// </summary>
+        public event EventHandler<EventArgs> AfterInit;
+
+        /// <summary>
+        ///   The before init.
+        /// </summary>
+        public event EventHandler<EventArgs> BeforeInit;
+
+        #endregion
+
+        #region Events
+
+        /// <summary>
         ///   On YafContext Constructor Call
         /// </summary>
         public event EventHandler<EventArgs> Init;
@@ -184,7 +198,7 @@ namespace YAF.Core
         }
 
         /// <summary>
-        ///   Current Page Instance of the Module Manager
+        ///   Gets the current Page Instance of the Module Manager
         /// </summary>
         [Obsolete("Use Service Location or Dependency Injection to get interface: IModuleManager<ForumEditor>")]
         public IModuleManager<ForumEditor> EditorModuleManager
@@ -358,9 +372,8 @@ namespace YAF.Core
         #region Indexers
 
         /// <summary>
-        ///   Returns a value from the YafContext Global Instance Variables (Vars) collection.
+        /// Returns a value from the YafContext Global Instance Variables (Vars) collection.
         /// </summary>
-        /// <param name = "varName"></param>
         /// <returns>Value if it's found, null if it doesn't exist.</returns>
         public object this[[NotNull] string varName]
         {
@@ -372,53 +385,6 @@ namespace YAF.Core
             set
             {
                 this._variables[varName] = value;
-            }
-        }
-
-        #region Events
-
-        /// <summary>
-        ///   The after init.
-        /// </summary>
-        public event EventHandler<EventArgs> AfterInit;
-
-        /// <summary>
-        ///   The before init.
-        /// </summary>
-        public event EventHandler<EventArgs> BeforeInit;
-
-        #endregion
-
-        protected override void InitUserAndPage()
-        {
-            if (this._initUserPage)
-            {
-                return;
-            }
-
-            if (this.BeforeInit != null)
-            {
-                this.BeforeInit(this, new EventArgs());
-            }
-
-            if (this.User != null
-                &&
-                (this.Get<HttpSessionStateBase>()["UserUpdated"] == null
-                 || this.Get<HttpSessionStateBase>()["UserUpdated"].ToString() != this.User.UserName))
-            {
-                RoleMembershipHelper.UpdateForumUser(this.User, this.PageBoardID);
-                this.Get<HttpSessionStateBase>()["UserUpdated"] = this.User.UserName;
-            }
-
-            var pageLoadEvent = new InitPageLoadEvent();
-
-            this.Get<IRaiseEvent>().Raise(pageLoadEvent);
-
-            this.Page = pageLoadEvent.DataDictionary;
-
-            if (this.AfterInit != null)
-            {
-                this.AfterInit(this, new EventArgs());
             }
         }
 
@@ -458,5 +424,41 @@ namespace YAF.Core
         #endregion
 
         #endregion
+
+        /// <summary>
+        /// Initialize the user data and page data...
+        /// </summary>
+        protected override void InitUserAndPage()
+        {
+            if (this._initUserPage)
+            {
+                return;
+            }
+
+            if (this.BeforeInit != null)
+            {
+                this.BeforeInit(this, new EventArgs());
+            }
+
+            if (this.User != null
+                &&
+                (this.Get<HttpSessionStateBase>()["UserUpdated"] == null
+                 || this.Get<HttpSessionStateBase>()["UserUpdated"].ToString() != this.User.UserName))
+            {
+                RoleMembershipHelper.UpdateForumUser(this.User, this.PageBoardID);
+                this.Get<HttpSessionStateBase>()["UserUpdated"] = this.User.UserName;
+            }
+
+            var pageLoadEvent = new InitPageLoadEvent();
+
+            this.Get<IRaiseEvent>().Raise(pageLoadEvent);
+
+            this.Page = pageLoadEvent.DataDictionary;
+
+            if (this.AfterInit != null)
+            {
+                this.AfterInit(this, new EventArgs());
+            }
+        }
     }
 }
