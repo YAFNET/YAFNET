@@ -48,7 +48,7 @@
         }
     }   
 
-    <%=YAF.Classes.Config.JQueryAlias %>(document).ready(function () {
+    <%= YAF.Classes.Config.JQueryAlias %>(document).ready(function () {
 		<%=YAF.Classes.Config.JQueryAlias %>(".PopupBody #shoutBoxChatArea").height(<%=YAF.Classes.Config.JQueryAlias %>(window).height()- 250);
 		
         window.Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function() {
@@ -58,13 +58,14 @@
                 clearOnEndRequest = false;
             }
         });
+        
         if (<%=this.shoutBoxPanel.Visible ? "true" : "false" %>)
         {
             setTimeout('checkForNewMessages()', 5000);
         }
     });
 	
-	<%=YAF.Classes.Config.JQueryAlias %>(window).resize(function() {
+	<%= YAF.Classes.Config.JQueryAlias %>(window).resize(function() {
        <%=YAF.Classes.Config.JQueryAlias %>(".PopupBody #shoutBoxChatArea").height(jQuery(window).height()- 250);
       });
 </script>
