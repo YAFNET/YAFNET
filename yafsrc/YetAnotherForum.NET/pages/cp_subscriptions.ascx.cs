@@ -18,6 +18,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+using YAF.Classes;
+
 namespace YAF.Pages
 {
   // YAF.Pages
@@ -101,10 +103,10 @@ namespace YAF.Pages
 
         string link =
           "<a href=\"{0}\">{1}</a>".FormatWith(
-            YafBuildLink.GetLink(ForumPages.profile, "u={0}", row["LastUserID"]), HtmlEncode(row["LastUserName"]));
+          YafBuildLink.GetLink(ForumPages.profile, "u={0}", row["LastUserID"]), this.Get<YafBoardSettings>().EnableDisplayName ? HtmlEncode(row["LastUserDisplayName"]) : HtmlEncode(row["LastUserName"]));
         string by = this.GetTextFormatted(
           "lastpostlink", this.Get<IDateTime>().FormatDateTime((DateTime)row["LastPosted"]), link);
-
+          
         string html = @"{0} <a href=""{1}""><img src=""{2}"" alt="""" /></a>".FormatWith(
           by,
           YafBuildLink.GetLink(ForumPages.posts, "m={0}&find=lastpost", row["LastMessageID"]), 
