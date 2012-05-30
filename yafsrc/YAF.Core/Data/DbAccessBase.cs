@@ -214,7 +214,7 @@ namespace YAF.Core.Data
 			[CanBeNull] IEnumerable<KeyValuePair<string, object>> parameters = null)
 		{
 			DbCommand cmd = this.DbProviderFactory.CreateCommand();
-			parameters = parameters ?? Enumerable.Empty<KeyValuePair<string, object>>();
+			parameters = parameters.IfNullEmpty();
 
 			cmd.CommandTimeout = int.Parse(Config.SqlCommandTimeout);
 
@@ -349,7 +349,7 @@ namespace YAF.Core.Data
 			CodeContracts.ArgumentNotNull(parameters, "parameters");
 
 			// add all/any parameters...
-			parameters.ToList().ForEach(x => cmd.AddParam(x));
+			parameters.ForEach(cmd.AddParam);
 		}
 
 		#endregion

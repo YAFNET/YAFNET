@@ -16,6 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
 namespace YAF.Core.Data
 {
 	#region Using
@@ -39,22 +40,22 @@ namespace YAF.Core.Data
 		#region Constants and Fields
 
 		/// <summary>
-		/// The _db access providers.
+		///   The _db access providers.
 		/// </summary>
 		private readonly IIndex<string, IDbAccess> _dbAccessProviders;
 
 		/// <summary>
-		/// The _last provider name.
+		///   The _last provider name.
 		/// </summary>
 		private readonly string _lastProviderName = string.Empty;
 
 		/// <summary>
-		/// The _service locator.
+		///   The _service locator.
 		/// </summary>
 		private readonly IServiceLocator _serviceLocator;
 
 		/// <summary>
-		/// The _db access.
+		///   The _db access.
 		/// </summary>
 		private IDbAccess _dbAccess;
 
@@ -66,10 +67,10 @@ namespace YAF.Core.Data
 		/// Initializes a new instance of the <see cref="DbAccessProvider"/> class.
 		/// </summary>
 		/// <param name="dbAccessProviders">
-		/// The db access providers.
+		/// The db access providers. 
 		/// </param>
 		/// <param name="serviceLocator">
-		/// The service locator.
+		/// The service locator. 
 		/// </param>
 		public DbAccessProvider(IIndex<string, IDbAccess> dbAccessProviders, IServiceLocator serviceLocator)
 		{
@@ -80,14 +81,15 @@ namespace YAF.Core.Data
 
 		#endregion
 
-		#region Properties
+		#region Public Properties
 
 		/// <summary>
 		///   The create.
 		/// </summary>
-		/// <returns>
-		/// </returns>
-		/// <exception cref="NoValidDbAccessProviderFoundException"><c>NoValidDbAccessProviderFoundException</c>.</exception>
+		/// <returns> </returns>
+		/// <exception cref="NoValidDbAccessProviderFoundException">
+		///   <c>NoValidDbAccessProviderFoundException</c>
+		///   .</exception>
 		[CanBeNull]
 		public IDbAccess Instance
 		{
@@ -124,19 +126,31 @@ namespace YAF.Core.Data
 		}
 
 		/// <summary>
-		/// Gets or sets ProviderName.
+		///   Gets or sets ProviderName.
 		/// </summary>
 		public string ProviderName { get; set; }
 
 		#endregion
 	}
 
+	/// <summary>
+	/// The no valid db access provider found exception.
+	/// </summary>
 	public class NoValidDbAccessProviderFoundException : Exception
 	{
+		#region Constructors and Destructors
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="NoValidDbAccessProviderFoundException"/> class.
+		/// </summary>
+		/// <param name="message">
+		/// The message.
+		/// </param>
 		public NoValidDbAccessProviderFoundException(string message)
 			: base(message)
 		{
-			
 		}
+
+		#endregion
 	}
 }
