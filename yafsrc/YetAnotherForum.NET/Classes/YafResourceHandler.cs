@@ -98,9 +98,29 @@ namespace YAF
                      context.Request.UrlReferrer != null
                      && context.Request.UrlReferrer.AbsoluteUri.Contains(BaseUrlBuilder.BaseUrl))
             {
+                // defaults
+                var previewCropped = false;
+                var localizationFile = "english.xml";
+
+                if (context.Session["imagePreviewCropped"] != null && context.Session["imagePreviewCropped"] is bool)
+                {
+                    previewCropped = (bool)context.Session["imagePreviewCropped"];
+                }
+
+                if (context.Session["localizationFile"] != null && context.Session["localizationFile"] is string)
+                {
+                    localizationFile = context.Session["localizationFile"].ToString();
+                }
+
+                if (context.Session["localizationFile"] != null && context.Session["localizationFile"] is string)
+                {
+                    localizationFile = context.Session["localizationFile"].ToString();
+                }
+                /////////////
+
                 if (context.Request.QueryString.GetFirstOrDefault("u") != null)
                 {
-                    GetResponseLocalAvatar(context);
+                    this.GetResponseLocalAvatar(context);
                 }
                 else if (context.Request.QueryString.GetFirstOrDefault("url") != null
                          && context.Request.QueryString.GetFirstOrDefault("width") != null
@@ -119,7 +139,8 @@ namespace YAF
                 }
                 else if (context.Request.QueryString.GetFirstOrDefault("p") != null)
                 {
-                    this.GetResponseImagePreview(context);
+                    this.GetResponseImagePreview(
+                        context, localizationFile, previewCropped);
                 }
                 else if (context.Request.QueryString.GetFirstOrDefault("c") != null)
                 {
@@ -131,12 +152,12 @@ namespace YAF
                          && context.Request.QueryString.GetFirstOrDefault("album") != null)
                 {
                     // album cover
-                    this.GetAlbumCover(context);
+                    this.GetAlbumCover(context, localizationFile, previewCropped);
                 }
                 else if (context.Request.QueryString.GetFirstOrDefault("imgprv") != null)
                 {
                     // album image preview
-                    this.GetAlbumImagePreview(context);
+                    this.GetAlbumImagePreview(context, localizationFile, previewCropped);
                 }
                 else if (context.Request.QueryString.GetFirstOrDefault("image") != null)
                 {
@@ -195,242 +216,32 @@ namespace YAF
         }
 
         /// <summary>
-        /// The get cover resized.
+        /// Get the Album Or Image Attachement Preview
         /// </summary>
-        /// <param name="data">
-        /// The data.
-        /// </param>
-        /// <param name="previewWidth">
-        /// The preview width.
-        /// </param>
-        /// <param name="previewHeight">
-        /// The preview height.
-        /// </param>
-        /// <param name="previewCropped">
-        /// Use Image Cropping</param>
-        /// <param name="localizationFile">
-        /// The localization file.
-        /// </param>
-        /// <param name="imagesNumber">
-        /// Number of images in the album.
-        /// </param>
-        /// <returns>
-        /// Resized Cover
-        /// </returns>
-        [NotNull]
-        private static MemoryStream GetCoverResized(
-            [NotNull] MemoryStream data,
-            int previewWidth,
-            int previewHeight,
-            bool previewCropped,
-            [NotNull] string localizationFile,
-            [NotNull] string imagesNumber)
-        {
-            const int PixelPadding = 6;
-            const int BottomSize = 26;
-
-            var localization = new YafLocalization("ALBUM");
-            localization.LoadTranslation(localizationFile);
-
-            using (var src = new Bitmap(data))
-            {
-                var ms = new MemoryStream();
-
-                // Cropped Image
-                int size = previewWidth;
-
-                var newImgSize = new Size(previewWidth, previewHeight);
-                int x = 0;
-                int y = 0;
-
-                if (previewCropped)
-                {
-                    // Determine dimensions of resized version of the image 
-                    if (newImgSize.Width > newImgSize.Height)
-                    {
-                        newImgSize.Width =
-                            decimal.Round(
-                                (size.ToType<decimal>()
-                                 * (newImgSize.Width.ToType<decimal>() / newImgSize.Height.ToType<decimal>())).ToType
-                                    <decimal>(),
-                                0).ToType<int>();
-                        newImgSize.Height = size;
-                    }
-                    else if (newImgSize.Height > newImgSize.Width)
-                    {
-                        newImgSize.Height =
-                            decimal.Round(
-                                (size.ToType<decimal>()
-                                 * (newImgSize.Height.ToType<decimal>() / newImgSize.Width.ToType<decimal>())).ToType
-                                    <decimal>(),
-                                0).ToType<int>();
-                        newImgSize.Width = size;
-                    }
-                    else
-                    {
-                        newImgSize.Width = size;
-                        newImgSize.Height = size;
-                    }
-
-                    newImgSize.Width = newImgSize.Width - PixelPadding;
-                    newImgSize.Height = newImgSize.Height - BottomSize - PixelPadding;
-
-                    // moves cursor so that crop is more centered 
-                    x = newImgSize.Width / 2;
-                    y = newImgSize.Height / 2;
-                }
-                else
-                {
-                    var finalHeight = Math.Abs(src.Height * newImgSize.Width / src.Width);
-
-                    // Height resize if necessary
-                    if (finalHeight > newImgSize.Height)
-                    {
-                        newImgSize.Width = src.Width * newImgSize.Height / src.Height;
-                        finalHeight = newImgSize.Height;
-                    }
-
-                    newImgSize.Height = finalHeight;
-                    newImgSize.Width = newImgSize.Width - PixelPadding;
-                    newImgSize.Height = newImgSize.Height - BottomSize - PixelPadding;
-                }
-
-                using (
-                    var dst = new Bitmap(
-                        newImgSize.Width + PixelPadding,
-                        newImgSize.Height + BottomSize + PixelPadding,
-                        PixelFormat.Format24bppRgb))
-                {
-                    if (previewCropped)
-                    {
-                        var rSrcImg = new Rectangle(x, y, newImgSize.Width, newImgSize.Height);
-                        var rDstImg = new Rectangle(
-                            3, 3, dst.Width - PixelPadding, dst.Height - PixelPadding - BottomSize);
-                        var rDstTxt1 = new Rectangle(3, rDstImg.Height + 3, newImgSize.Width, BottomSize - 13);
-                        var rDstTxt2 = new Rectangle(3, rDstImg.Height + 16, newImgSize.Width, BottomSize - 13);
-
-                        using (Graphics g = Graphics.FromImage(dst))
-                        {
-                            g.Clear(Color.FromArgb(64, 64, 64));
-                            g.FillRectangle(Brushes.White, rDstImg);
-
-                            g.CompositingMode = CompositingMode.SourceOver;
-                            g.CompositingQuality = CompositingQuality.GammaCorrected;
-                            g.SmoothingMode = SmoothingMode.HighQuality;
-                            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-
-                            g.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
-
-                            g.DrawImage(src, rDstImg, rSrcImg, GraphicsUnit.Pixel);
-
-                            using (var f = new Font("Arial", 10, FontStyle.Regular, GraphicsUnit.Pixel))
-                            {
-                                using (var brush = new SolidBrush(Color.FromArgb(191, 191, 191)))
-                                {
-                                    var sf = new StringFormat
-                                        { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center };
-
-                                    g.DrawString(localization.GetText("ALBUM_VIEW"), f, brush, rDstTxt1, sf);
-
-                                    sf.Alignment = StringAlignment.Far;
-                                    g.DrawString(
-                                        localization.GetText("ALBUM_IMAGES_NUMBER").FormatWith(imagesNumber),
-                                        f,
-                                        brush,
-                                        rDstTxt2,
-                                        sf);
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        var rSrcImg = new Rectangle(0, 0, src.Width, src.Height);
-                        var rDstImg = new Rectangle(
-                            3, 3, dst.Width - PixelPadding, dst.Height - PixelPadding - BottomSize);
-                        var rDstTxt1 = new Rectangle(3, rDstImg.Height + 3, newImgSize.Width, BottomSize - 13);
-                        var rDstTxt2 = new Rectangle(3, rDstImg.Height + 16, newImgSize.Width, BottomSize - 13);
-
-                        using (Graphics g = Graphics.FromImage(dst))
-                        {
-                            g.Clear(Color.FromArgb(64, 64, 64));
-                            g.FillRectangle(Brushes.White, rDstImg);
-
-                            g.CompositingMode = CompositingMode.SourceOver;
-                            g.CompositingQuality = CompositingQuality.GammaCorrected;
-                            g.SmoothingMode = SmoothingMode.HighQuality;
-                            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-
-                            g.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
-
-                            g.DrawImage(src, rDstImg, rSrcImg, GraphicsUnit.Pixel);
-
-                            using (var f = new Font("Arial", 10, FontStyle.Regular, GraphicsUnit.Pixel))
-                            {
-                                using (var brush = new SolidBrush(Color.FromArgb(191, 191, 191)))
-                                {
-                                    var sf = new StringFormat
-                                        { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center };
-
-                                    g.DrawString(localization.GetText("ALBUM_VIEW"), f, brush, rDstTxt1, sf);
-
-                                    sf.Alignment = StringAlignment.Far;
-                                    g.DrawString(
-                                        localization.GetText("ALBUM_IMAGES_NUMBER").FormatWith(imagesNumber),
-                                        f,
-                                        brush,
-                                        rDstTxt2,
-                                        sf);
-                                }
-                            }
-                        }
-                    }
-
-                    // save the bitmap to the stream...
-                    dst.Save(ms, ImageFormat.Png);
-                    ms.Position = 0;
-
-                    return ms;
-                }
-            }
-        }
-
-        /// <summary>
-        /// The get image resized.
-        /// </summary>
-        /// <param name="data">
-        /// The data.
-        /// </param>
-        /// <param name="previewWidth">
-        /// The preview width.
-        /// </param>
-        /// <param name="previewHeight">
-        /// The preview height.
-        /// </param>
-        /// <param name="previewCropped">
-        /// The preview Cropped</param>
-        /// <param name="downloads">
-        /// The downloads.
-        /// </param>
-        /// <param name="localizationFile">
-        /// The localization file.
-        /// </param>
+        /// <param name="data">The data.</param>
+        /// <param name="previewWidth">The preview width.</param>
+        /// <param name="previewHeight">The preview height.</param>
+        /// <param name="previewCropped">The preview Cropped</param>
+        /// <param name="downloads">The downloads.</param>
+        /// <param name="localizationFile">The localization file.</param>
+        /// <param name="localizationPage">The localization page.</param>
         /// <returns>
         /// Resized Image Stream
         /// </returns>
         [NotNull]
-        private static MemoryStream GetImageResized(
+        private static MemoryStream GetAlbumOrAttachmentImageResized(
             [NotNull] Stream data,
             int previewWidth,
             int previewHeight,
             bool previewCropped,
             int downloads,
-            [NotNull] string localizationFile)
+            [NotNull] string localizationFile,
+            string localizationPage)
         {
             const int PixelPadding = 6;
             const int BottomSize = 26;
 
-            var localization = new YafLocalization("POSTS");
+            var localization = new YafLocalization(localizationPage);
             localization.LoadTranslation(localizationFile);
 
             using (var src = new Bitmap(data))
@@ -452,8 +263,7 @@ namespace YAF
                         newImgSize.Width =
                             decimal.Round(
                                 (size.ToType<decimal>()
-                                 * (newImgSize.Width.ToType<decimal>() / newImgSize.Height.ToType<decimal>())).ToType
-                                    <decimal>(),
+                                 * (newImgSize.Width.ToType<decimal>() / newImgSize.Height.ToType<decimal>())).ToType<decimal>(),
                                 0).ToType<int>();
                         newImgSize.Height = size;
                     }
@@ -462,8 +272,7 @@ namespace YAF
                         newImgSize.Height =
                             decimal.Round(
                                 (size.ToType<decimal>()
-                                 * (newImgSize.Height.ToType<decimal>() / newImgSize.Width.ToType<decimal>())).ToType
-                                    <decimal>(),
+                                 * (newImgSize.Height.ToType<decimal>() / newImgSize.Width.ToType<decimal>())).ToType<decimal>(),
                                 0).ToType<int>();
                         newImgSize.Width = size;
                     }
@@ -655,18 +464,10 @@ namespace YAF
         /// <param name="context">
         /// The context.
         /// </param>
-        private static void GetResponseLocalAvatar([NotNull] HttpContext context)
+        private void GetResponseLocalAvatar([NotNull] HttpContext context)
         {
             try
             {
-                // string eTag = String.Format( @"""{0}""", context.Request.QueryString.GetFirstOrDefault("u") );
-
-                // if ( CheckETag( context, eTag ) )
-                // {
-                // found eTag... no need to resend/create this image -- just mark another view?
-                // return;
-                // }
-
                 using (DataTable dt = LegacyDb.user_avatarimage(context.Request.QueryString.GetFirstOrDefault("u")))
                 {
                     foreach (DataRow row in dt.Rows)
@@ -691,8 +492,12 @@ namespace YAF
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception x)
             {
+                LegacyDb.eventlog_create(null, this.GetType().ToString(), x, EventLogTypes.Information);
+
+                context.Response.Write(
+                    "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
             }
         }
 
@@ -759,40 +564,16 @@ namespace YAF
         /// <summary>
         /// The get album cover.
         /// </summary>
-        /// <param name="context">
-        /// The context.
-        /// </param>
-        private void GetAlbumCover([NotNull] HttpContext context)
+        /// <param name="context">The context.</param>
+        /// <param name="localizationFile">The localization file.</param>
+        /// <param name="previewCropped">if set to <c>true</c> [preview cropped].</param>
+        private void GetAlbumCover(
+            [NotNull] HttpContext context,
+            string localizationFile,
+            bool previewCropped)
         {
-            // default is 200x200
-            int previewMaxWidth = 200;
-            int previewMaxHeight = 200;
-            bool previewCropped = false;
-            string localizationFile = "english.xml";
-
-            if (context.Session["imagePreviewWidth"] != null && context.Session["imagePreviewWidth"] is int)
-            {
-                previewMaxWidth = (int)context.Session["imagePreviewWidth"];
-            }
-
-            if (context.Session["imagePreviewHeight"] != null && context.Session["imagePreviewHeight"] is int)
-            {
-                previewMaxHeight = (int)context.Session["imagePreviewHeight"];
-            }
-
-            if (context.Session["imagePreviewCropped"] != null && context.Session["imagePreviewCropped"] is bool)
-            {
-                previewCropped = (bool)context.Session["imagePreviewCropped"];
-            }
-
-            if (context.Session["localizationFile"] != null && context.Session["localizationFile"] is string)
-            {
-                localizationFile = context.Session["localizationFile"].ToString();
-            }
-
-            string eTag =
-                @"""{0}""".FormatWith(
-                    context.Request.QueryString.GetFirstOrDefault("cover") + localizationFile.GetHashCode());
+            var eTag = @"""{0}{1}""".FormatWith(
+                context.Request.QueryString.GetFirstOrDefault("cover"), localizationFile.GetHashCode());
 
             if (CheckETag(context, eTag))
             {
@@ -802,70 +583,66 @@ namespace YAF
 
             try
             {
+                // CoverID
+                string fileName = string.Empty;
+                var data = new MemoryStream();
+                if (context.Request.QueryString.GetFirstOrDefault("cover") == "0")
                 {
-                    // CoverID
-                    string fileName = string.Empty;
-                    var data = new MemoryStream();
-                    if (context.Request.QueryString.GetFirstOrDefault("cover") == "0")
+                    fileName =
+                        context.Server.MapPath(
+                            "{0}/images/{1}".FormatWith(YafForumInfo.ForumClientFileRoot, "noCover.png"));
+                }
+                else
+                {
+                    using (
+                        DataTable dt = LegacyDb.album_image_list(
+                            null, context.Request.QueryString.GetFirstOrDefault("cover")))
                     {
-                        fileName =
-                            context.Server.MapPath(
-                                "{0}/images/{1}".FormatWith(YafForumInfo.ForumClientFileRoot, "noCover.png"));
-                    }
-                    else
-                    {
-                        using (
-                            DataTable dt = LegacyDb.album_image_list(
-                                null, context.Request.QueryString.GetFirstOrDefault("cover")))
+                        if (dt.Rows.Count > 0)
                         {
-                            if (dt.Rows.Count > 0)
-                            {
-                                DataRow row = dt.Rows[0];
-                                string sUpDir = YafBoardFolders.Current.Uploads;
+                            DataRow row = dt.Rows[0];
+                            string sUpDir = YafBoardFolders.Current.Uploads;
 
-                                string oldFileName =
-                                    context.Server.MapPath(
-                                        "{0}/{1}.{2}.{3}".FormatWith(
-                                            sUpDir, row["UserID"], row["AlbumID"], row["FileName"]));
-                                string newFileName =
-                                    context.Server.MapPath(
-                                        "{0}/{1}.{2}.{3}.yafalbum".FormatWith(
-                                            sUpDir, row["UserID"], row["AlbumID"], row["FileName"]));
+                            string oldFileName =
+                                context.Server.MapPath(
+                                    "{0}/{1}.{2}.{3}".FormatWith(sUpDir, row["UserID"], row["AlbumID"], row["FileName"]));
+                            string newFileName =
+                                context.Server.MapPath(
+                                    "{0}/{1}.{2}.{3}.yafalbum".FormatWith(
+                                        sUpDir, row["UserID"], row["AlbumID"], row["FileName"]));
 
-                                // use the new fileName (with extension) if it exists...
-                                fileName = File.Exists(newFileName) ? newFileName : oldFileName;
-                            }
+                            // use the new fileName (with extension) if it exists...
+                            fileName = File.Exists(newFileName) ? newFileName : oldFileName;
                         }
                     }
-
-                    using (var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
-                    {
-                        var buffer = new byte[input.Length];
-                        input.Read(buffer, 0, buffer.Length);
-                        data.Write(buffer, 0, buffer.Length);
-                        input.Close();
-                    }
-
-                    // reset position...
-                    data.Position = 0;
-                    string imagesNumber =
-                        LegacyDb.album_getstats(null, context.Request.QueryString.GetFirstOrDefault("album"))[1].
-                            ToString();
-                    MemoryStream ms = GetCoverResized(
-                        data, previewMaxWidth, previewMaxHeight, previewCropped, localizationFile, imagesNumber);
-
-                    context.Response.ContentType = "image/png";
-
-                    // output stream...
-                    context.Response.OutputStream.Write(ms.ToArray(), 0, (int)ms.Length);
-                    context.Response.Cache.SetCacheability(HttpCacheability.Public);
-                    context.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(2));
-                    context.Response.Cache.SetLastModified(DateTime.UtcNow);
-                    context.Response.Cache.SetETag(eTag);
-
-                    data.Dispose();
-                    ms.Dispose();
                 }
+
+                using (var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
+                {
+                    var buffer = new byte[input.Length];
+                    input.Read(buffer, 0, buffer.Length);
+                    data.Write(buffer, 0, buffer.Length);
+                    input.Close();
+                }
+
+                // reset position...
+                data.Position = 0;
+                var imagesNumber =
+                    LegacyDb.album_getstats(null, context.Request.QueryString.GetFirstOrDefault("album"))[1];
+                MemoryStream ms = GetAlbumOrAttachmentImageResized(
+                    data, 200, 200, previewCropped, imagesNumber, localizationFile, "ALBUM");
+
+                context.Response.ContentType = "image/png";
+
+                // output stream...
+                context.Response.OutputStream.Write(ms.ToArray(), 0, (int)ms.Length);
+                context.Response.Cache.SetCacheability(HttpCacheability.Public);
+                context.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(2));
+                context.Response.Cache.SetLastModified(DateTime.UtcNow);
+                context.Response.Cache.SetETag(eTag);
+
+                data.Dispose();
+                ms.Dispose();
             }
             catch (Exception x)
             {
@@ -946,40 +723,16 @@ namespace YAF
         /// <summary>
         /// The get album image preview.
         /// </summary>
-        /// <param name="context">
-        /// The context.
-        /// </param>
-        private void GetAlbumImagePreview([NotNull] HttpContext context)
+        /// <param name="context">The context.</param>
+        /// <param name="localizationFile">The localization file.</param>
+        /// <param name="previewCropped">if set to <c>true</c> [preview cropped].</param>
+        private void GetAlbumImagePreview(
+            [NotNull] HttpContext context,
+            string localizationFile,
+            bool previewCropped)
         {
-            // default is 200x200
-            int previewMaxWidth = 200;
-            int previewMaxHeight = 200;
-            bool previewCropped = false;
-            string localizationFile = "english.xml";
-
-            if (context.Session["imagePreviewWidth"] != null && context.Session["imagePreviewWidth"] is int)
-            {
-                previewMaxWidth = (int)context.Session["imagePreviewWidth"];
-            }
-
-            if (context.Session["imagePreviewHeight"] != null && context.Session["imagePreviewHeight"] is int)
-            {
-                previewMaxHeight = (int)context.Session["imagePreviewHeight"];
-            }
-
-            if (context.Session["imagePreviewCropped"] != null && context.Session["imagePreviewCropped"] is bool)
-            {
-                previewCropped = (bool)context.Session["imagePreviewCropped"];
-            }
-
-            if (context.Session["localizationFile"] != null && context.Session["localizationFile"] is string)
-            {
-                localizationFile = context.Session["localizationFile"].ToString();
-            }
-
-            string eTag =
-                @"""{0}""".FormatWith(
-                    context.Request.QueryString.GetFirstOrDefault("imgprv") + localizationFile.GetHashCode());
+            var eTag = @"""{0}{1}""".FormatWith(
+                context.Request.QueryString.GetFirstOrDefault("imgprv"), localizationFile.GetHashCode());
 
             if (CheckETag(context, eTag))
             {
@@ -1022,13 +775,14 @@ namespace YAF
                         // reset position...
                         data.Position = 0;
 
-                        MemoryStream ms = GetImageResized(
+                        MemoryStream ms = GetAlbumOrAttachmentImageResized(
                             data,
-                            previewMaxWidth,
-                            previewMaxHeight,
+                            200,
+                            200,
                             previewCropped,
                             (int)row["Downloads"],
-                            localizationFile);
+                            localizationFile,
+                            "POSTS");
 
                         context.Response.ContentType = "image/png";
 
@@ -1067,11 +821,11 @@ namespace YAF
                 // AttachmentID
                 using (
                     DataTable dt = LegacyDb.attachment_list(
-                        null, context.Request.QueryString.GetFirstOrDefault("a"), null,0,1000))
+                        null, context.Request.QueryString.GetFirstOrDefault("a"), null, 0, 1000))
                 {
                     foreach (DataRow row in dt.Rows)
                     {
-                        // TODO : check download permissions here					
+                        // TODO : check download permissions here
                         if (!this.CheckAccessRights(row["BoardID"], row["MessageID"]))
                         {
                             // tear it down
@@ -1186,11 +940,11 @@ namespace YAF
                 // AttachmentID
                 using (
                     DataTable dt = LegacyDb.attachment_list(
-                        null, context.Request.QueryString.GetFirstOrDefault("i"), null,0,1000))
+                        null, context.Request.QueryString.GetFirstOrDefault("i"), null, 0, 1000))
                 {
                     foreach (DataRow row in dt.Rows)
                     {
-                        // TODO : check download permissions here					
+                        // TODO : check download permissions here
                         if (!this.CheckAccessRights(row["BoardID"], row["MessageID"]))
                         {
                             // tear it down
@@ -1250,16 +1004,26 @@ namespace YAF
         /// <summary>
         /// Gest the Preview Image as Response
         /// </summary>
-        /// <param name="context">
-        /// The context.
-        /// </param>
-        private void GetResponseImagePreview([NotNull] HttpContext context)
+        /// <param name="context">The context.</param>
+        /// <param name="localizationFile">The localization file.</param>
+        /// <param name="previewCropped">if set to <c>true</c> [preview cropped].</param>
+        private void GetResponseImagePreview(
+            [NotNull] HttpContext context,
+            string localizationFile,
+            bool previewCropped)
         {
-            // default is 200x200
-            int previewMaxWidth = 200;
-            int previewMaxHeight = 200;
-            bool previewCropped = false;
-            string localizationFile = "english.xml";
+            var eTag = @"""{0}{1}""".FormatWith(
+                context.Request.QueryString.GetFirstOrDefault("p"), localizationFile.GetHashCode());
+
+            if (CheckETag(context, eTag))
+            {
+                // found eTag... no need to resend/create this image...
+                return;
+            }
+
+            // defaults
+            var previewMaxWidth = 200;
+            var previewMaxHeight = 200;
 
             if (context.Session["imagePreviewWidth"] != null && context.Session["imagePreviewWidth"] is int)
             {
@@ -1271,36 +1035,16 @@ namespace YAF
                 previewMaxHeight = (int)context.Session["imagePreviewHeight"];
             }
 
-            if (context.Session["imagePreviewCropped"] != null && context.Session["imagePreviewCropped"] is bool)
-            {
-                previewCropped = (bool)context.Session["imagePreviewCropped"];
-            }
-
-            if (context.Session["localizationFile"] != null && context.Session["localizationFile"] is string)
-            {
-                localizationFile = context.Session["localizationFile"].ToString();
-            }
-
-            string eTag =
-                @"""{0}""".FormatWith(
-                    context.Request.QueryString.GetFirstOrDefault("p") + localizationFile.GetHashCode());
-
-            if (CheckETag(context, eTag))
-            {
-                // found eTag... no need to resend/create this image...
-                return;
-            }
-
             try
             {
                 // AttachmentID
                 using (
                     DataTable dt = LegacyDb.attachment_list(
-                        null, context.Request.QueryString.GetFirstOrDefault("p"), null,0,1000))
+                        null, context.Request.QueryString.GetFirstOrDefault("p"), null, 0, 1000))
                 {
                     foreach (DataRow row in dt.Rows)
                     {
-                        // TODO : check download permissions here					
+                        // TODO : check download permissions here
                         if (!this.CheckAccessRights(row["BoardID"], row["MessageID"]))
                         {
                             // tear it down
@@ -1343,13 +1087,14 @@ namespace YAF
                         // reset position...
                         data.Position = 0;
 
-                        MemoryStream ms = GetImageResized(
+                        MemoryStream ms = GetAlbumOrAttachmentImageResized(
                             data,
                             previewMaxWidth,
                             previewMaxHeight,
                             previewCropped,
                             (int)row["Downloads"],
-                            localizationFile);
+                            localizationFile,
+                            "POSTS");
 
                         context.Response.ContentType = "image/png";
 
