@@ -1,5 +1,5 @@
-/* Yet Another Forum.NET
- * Copyright (C) 2006-2012 Jaben Cargman
+/* Yet Another Forum.net
+ * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -18,94 +18,42 @@
  */
 namespace YAF.Types.Interfaces
 {
-  #region Using
+	#region Using
 
-  using System.Data;
+	using System.Data;
 
-  #endregion
+	#endregion
 
-  /// <summary>
-  /// The i db access extensions.
-  /// </summary>
-  public static class IDbAccessExtensions
-  {
-    #region Public Methods
+	/// <summary>
+	/// The db access extensions
+	/// </summary>
+	public static class IDbAccessExtensions
+	{
+		#region Public Methods
 
-    /// <summary>
-    /// The execute non query.
-    /// </summary>
-    /// <param name="dbAccess">
-    /// The db access.
-    /// </param>
-    /// <param name="cmd">
-    /// The cmd.
-    /// </param>
-    public static void ExecuteNonQuery([NotNull] this IDbAccess dbAccess, [NotNull] IDbCommand cmd)
-    {
-      CodeContracts.ArgumentNotNull(dbAccess, "dbAccess");
-      CodeContracts.ArgumentNotNull(cmd, "cmd");
+		/// <summary>
+		/// The get data.
+		/// </summary>
+		/// <param name="dbAccess">
+		/// The db access.
+		/// </param>
+		/// <param name="sql">
+		/// The sql.
+		/// </param>
+		/// <param name="unitOfWork"></param>
+		/// <returns>
+		/// </returns>
+		public static DataTable GetData([NotNull] this IDbAccess dbAccess, [NotNull] string sql, [CanBeNull] IDbUnitOfWork unitOfWork = null)
+		{
+			CodeContracts.ArgumentNotNull(dbAccess, "dbAccess");
+			CodeContracts.ArgumentNotNull(sql, "sql");
 
-      dbAccess.ExecuteNonQuery(cmd, false);
-    }
+			using (var cmd = dbAccess.GetCommand(sql, false))
+			{
+				return dbAccess.GetData(cmd, unitOfWork);
+			}
+		}
 
-    /// <summary>
-    /// The execute scalar.
-    /// </summary>
-    /// <param name="dbAccess">
-    /// The db access.
-    /// </param>
-    /// <param name="cmd">
-    /// The cmd.
-    /// </param>
-    /// <returns>
-    /// The execute scalar.
-    /// </returns>
-    public static object ExecuteScalar([NotNull] this IDbAccess dbAccess, [NotNull] IDbCommand cmd)
-    {
-      CodeContracts.ArgumentNotNull(dbAccess, "dbAccess");
-      CodeContracts.ArgumentNotNull(cmd, "cmd");
-
-      return dbAccess.ExecuteScalar(cmd, false);
-    }
-
-    /// <summary>
-    /// The get data.
-    /// </summary>
-    /// <param name="dbAccess">
-    /// The db access.
-    /// </param>
-    /// <param name="cmd">
-    /// The cmd.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    public static DataTable GetData([NotNull] this IDbAccess dbAccess, [NotNull] IDbCommand cmd)
-    {
-      CodeContracts.ArgumentNotNull(dbAccess, "dbAccess");
-      CodeContracts.ArgumentNotNull(cmd, "cmd");
-
-      return dbAccess.GetData(cmd, false);
-    }
-
-    /// <summary>
-    /// The get dataset.
-    /// </summary>
-    /// <param name="dbAccess">
-    /// The db access.
-    /// </param>
-    /// <param name="cmd">
-    /// The cmd.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    public static DataSet GetDataset([NotNull] this IDbAccess dbAccess, [NotNull] IDbCommand cmd)
-    {
-      CodeContracts.ArgumentNotNull(dbAccess, "dbAccess");
-      CodeContracts.ArgumentNotNull(cmd, "cmd");
-
-      return dbAccess.GetDataset(cmd, false);
-    }
-
-    #endregion
-  }
+		#endregion
+	}
 }

@@ -1,126 +1,126 @@
-/* Yet Another Forum.net
- * Copyright (C) 2006-2012 Jaben Cargman
- * http://www.yetanotherforum.net/
- * 
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- */
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="CurrentBoardSettings.cs" company="">
+//   
+// </copyright>
+// <summary>
+//   The current board settings.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
 namespace YAF.Core
 {
-  #region Using
+	#region Using
 
-  using System.Web;
+	using System.Web;
 
-  using YAF.Classes;
-  using YAF.Types;
-  using YAF.Types.Constants;
-  using YAF.Types.Interfaces;
+	using YAF.Classes;
+	using YAF.Types;
+	using YAF.Types.Constants;
+	using YAF.Types.Interfaces;
 
-  #endregion
+	#endregion
 
-  /// <summary>
-  /// The current board settings.
-  /// </summary>
-  public class CurrentBoardSettings : IReadWriteProvider<YafBoardSettings>
-  {
-    #region Constants and Fields
+	/// <summary>
+	/// The current board settings.
+	/// </summary>
+	public class CurrentBoardSettings : IReadWriteProvider<YafBoardSettings>
+	{
+		#region Constants and Fields
 
-    /// <summary>
-    ///   The _application state base.
-    /// </summary>
-    private readonly HttpApplicationStateBase _applicationStateBase;
+		/// <summary>
+		///   The _application state base.
+		/// </summary>
+		private readonly HttpApplicationStateBase _applicationStateBase;
 
-    /// <summary>
-    ///   The _have board id.
-    /// </summary>
-    private readonly IHaveBoardId _haveBoardId;
+		/// <summary>
+		/// The _db function.
+		/// </summary>
+		private readonly IDbFunction _dbFunction;
 
-    /// <summary>
-    ///   The _inject services.
-    /// </summary>
-    private readonly IInjectServices _injectServices;
+		/// <summary>
+		///   The _have board id.
+		/// </summary>
+		private readonly IHaveBoardId _haveBoardId;
 
-    /// <summary>
-    /// The _treat cache key.
-    /// </summary>
-    private readonly ITreatCacheKey _treatCacheKey;
+		/// <summary>
+		///   The _inject services.
+		/// </summary>
+		private readonly IInjectServices _injectServices;
 
-    #endregion
+		/// <summary>
+		///   The _treat cache key.
+		/// </summary>
+		private readonly ITreatCacheKey _treatCacheKey;
 
-    #region Constructors and Destructors
+		#endregion
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="CurrentBoardSettings"/> class.
-    /// </summary>
-    /// <param name="applicationStateBase">
-    /// The application state base.
-    /// </param>
-    /// <param name="injectServices">
-    /// The inject services.
-    /// </param>
-    /// <param name="haveBoardId">
-    /// The have board id.
-    /// </param>
-    /// <param name="treatCacheKey">
-    /// </param>
-    public CurrentBoardSettings(
-      [NotNull] HttpApplicationStateBase applicationStateBase, 
-      [NotNull] IInjectServices injectServices, 
-      [NotNull] IHaveBoardId haveBoardId, 
-      [NotNull] ITreatCacheKey treatCacheKey)
-    {
-      CodeContracts.ArgumentNotNull(applicationStateBase, "applicationStateBase");
-      CodeContracts.ArgumentNotNull(injectServices, "injectServices");
-      CodeContracts.ArgumentNotNull(haveBoardId, "haveBoardId");
-      CodeContracts.ArgumentNotNull(treatCacheKey, "treatCacheKey");
+		#region Constructors and Destructors
 
-      this._applicationStateBase = applicationStateBase;
-      this._injectServices = injectServices;
-      this._haveBoardId = haveBoardId;
-      this._treatCacheKey = treatCacheKey;
-    }
+		/// <summary>
+		/// Initializes a new instance of the <see cref="CurrentBoardSettings"/> class.
+		/// </summary>
+		/// <param name="applicationStateBase">
+		/// The application state base.
+		/// </param>
+		/// <param name="injectServices">
+		/// The inject services.
+		/// </param>
+		/// <param name="haveBoardId">
+		/// The have board id.
+		/// </param>
+		/// <param name="treatCacheKey">
+		/// </param>
+		/// <param name="dbFunction">
+		/// The db Function.
+		/// </param>
+		public CurrentBoardSettings(
+			[NotNull] HttpApplicationStateBase applicationStateBase, 
+			[NotNull] IInjectServices injectServices, 
+			[NotNull] IHaveBoardId haveBoardId, 
+			[NotNull] ITreatCacheKey treatCacheKey, [NotNull] IDbFunction dbFunction)
+		{
+			CodeContracts.ArgumentNotNull(applicationStateBase, "applicationStateBase");
+			CodeContracts.ArgumentNotNull(injectServices, "injectServices");
+			CodeContracts.ArgumentNotNull(haveBoardId, "haveBoardId");
+			CodeContracts.ArgumentNotNull(treatCacheKey, "treatCacheKey");
 
-    #endregion
+			this._applicationStateBase = applicationStateBase;
+			this._injectServices = injectServices;
+			this._haveBoardId = haveBoardId;
+			this._treatCacheKey = treatCacheKey;
+			this._dbFunction = dbFunction;
+		}
 
-    #region Properties
+		#endregion
 
-    /// <summary>
-    ///   Gets or sets Object.
-    /// </summary>
-    public YafBoardSettings Instance
-    {
-      get
-      {
-        return this._applicationStateBase.GetOrSet(
-          this._treatCacheKey.Treat(Constants.Cache.BoardSettings), 
-          () =>
-            {
-              var boardSettings = new YafLoadBoardSettings(this._haveBoardId.BoardId);
+		#region Properties
 
-              // inject
-              this._injectServices.Inject(boardSettings);
+		/// <summary>
+		///   Gets or sets Object.
+		/// </summary>
+		public YafBoardSettings Instance
+		{
+			get
+			{
+				return this._applicationStateBase.GetOrSet(
+					this._treatCacheKey.Treat(Constants.Cache.BoardSettings), 
+					() =>
+						{
+							var boardSettings = new YafLoadBoardSettings(this._haveBoardId.BoardId, this._dbFunction);
 
-              return boardSettings;
-            });
-      }
+							// inject
+							this._injectServices.Inject(boardSettings);
 
-      set
-      {
-        this._applicationStateBase.Set(this._treatCacheKey.Treat(Constants.Cache.BoardSettings), value);
-      }
-    }
+							return boardSettings;
+						});
+			}
 
-    #endregion
-  }
+			set
+			{
+				this._applicationStateBase.Set(this._treatCacheKey.Treat(Constants.Cache.BoardSettings), value);
+			}
+		}
+
+		#endregion
+	}
 }

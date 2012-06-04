@@ -1,5 +1,5 @@
 /* Yet Another Forum.NET
- * Copyright (C) 2006-2012 Jaben Cargman
+ * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -16,9 +16,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
-using YAF.Utils.Helpers;
-
 namespace YAF.Controls
 {
     #region Using
@@ -33,7 +30,7 @@ namespace YAF.Controls
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Extensions;
+	using YAF.Types.Interfaces.Extensions;
     using YAF.Utils;
 
     #endregion
@@ -89,6 +86,7 @@ namespace YAF.Controls
             var lastPostedImage = (ThemeImage)e.Item.FindControl("LastPostedImage");
             var imageLastUnreadMessageLink = (HyperLink)e.Item.FindControl("ImageLastUnreadMessageLink");
             var lastUnreadImage = (ThemeImage)e.Item.FindControl("LastUnreadImage");
+
             var lastUserLink = (UserLink)e.Item.FindControl("LastUserLink");
             var lastPostedDateLabel = (DisplayDateTime)e.Item.FindControl("LastPostDate");
             var forumLink = (HyperLink)e.Item.FindControl("ForumLink");
@@ -118,14 +116,14 @@ namespace YAF.Controls
                     textMessageLink.Text =
                         "<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" style=\"border: 0;width:16px;height:16px\" />&nbsp;{2}"
                             .FormatWith(
-                                this.Get<ITheme>().GetItem("TOPIC_STATUS", currentRow["Status"].ToString()),
-                                this.GetText("TOPIC_STATUS", currentRow["Status"].ToString()),
-                                topicSubject);
+                    this.Get<ITheme>().GetItem("TOPIC_STATUS", currentRow["Status"].ToString()),
+                        this.GetText("TOPIC_STATUS", currentRow["Status"].ToString()),
+                        topicSubject);
                 }
                 else
                 {
                     textMessageLink.Text =
-                        "[{0}]&nbsp;{1}".FormatWith(
+                    "[{0}]&nbsp;{1}".FormatWith(
                             this.GetText("TOPIC_STATUS", currentRow["Status"].ToString()), topicSubject);
                 }
             }
@@ -138,7 +136,6 @@ namespace YAF.Controls
             {
                 textMessageLink.ToolTip = "{0}".FormatWith(
                     this.GetText("COMMON", "VIEW_TOPIC"));
-
                 textMessageLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
                     ForumPages.posts, "t={0}", currentRow["TopicID"]);
             }
@@ -160,7 +157,7 @@ namespace YAF.Controls
 
                 lastUnreadImage.LocalizedTitle = this.firstUnreadPostToolTip;
             }
-            
+
             // Just in case...
             if (currentRow["LastUserID"] != DBNull.Value)
             {
@@ -175,16 +172,16 @@ namespace YAF.Controls
             {
                 lastPostedDateLabel.DateTime = currentRow["LastPosted"];
 
-                DateTime lastRead =
-                    this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
-                        forumId: currentRow["ForumID"].ToType<int>(),
-                        topicId: currentRow["TopicID"].ToType<int>(),
+				DateTime lastRead =
+					this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
+						forumId: currentRow["ForumID"].ToType<int>(),
+						topicId: currentRow["TopicID"].ToType<int>(),
                         forumReadOverride: currentRow["LastForumAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime(),
                         topicReadOverride: currentRow["LastTopicAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime());
 
-                if (DateTime.Parse(currentRow["LastPosted"].ToString()) > lastRead)
+				if (DateTime.Parse(currentRow["LastPosted"].ToString()) > lastRead)
                 {
-                    this.Get<IYafSession>().UnreadTopics++;
+					this.Get<IYafSession>().UnreadTopics++;
                 }
 
                 lastUnreadImage.ThemeTag = (DateTime.Parse(currentRow["LastPosted"].ToString()) > lastRead)
@@ -228,7 +225,7 @@ namespace YAF.Controls
 
             if (activeTopics == null)
             {
-                this.Get<IYafSession>().UnreadTopics = 0;
+							this.Get<IYafSession>().UnreadTopics = 0;
 
                 activeTopics = LegacyDb.topic_latest(
                     boardID: this.PageContext.PageBoardID,

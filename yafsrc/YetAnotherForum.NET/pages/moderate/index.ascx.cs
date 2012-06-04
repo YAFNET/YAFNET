@@ -1,6 +1,6 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
- * Copyright (C) 2006-2012 Jaben Cargman
+ * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -20,125 +20,126 @@
 
 namespace YAF.Pages.moderate
 {
-    #region Using
+	#region Using
 
-    using System;
-    using System.Data;
-    using System.Web.UI.WebControls;
+	using System;
+	using System.Data;
+	using System.Web.UI.WebControls;
 
-    using YAF.Classes;
-    using YAF.Classes.Data;
-    using YAF.Core;
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Interfaces;
-    using YAF.Utils;
+	using YAF.Classes;
+	using YAF.Classes.Data;
+	using YAF.Core;
+	using YAF.Types;
+	using YAF.Types.Constants;
+	using YAF.Types.Interfaces;
+	using YAF.Utils;
+	using YAF.Utils.Extensions;
 
-    #endregion
+	#endregion
 
-    /// <summary>
-    /// Base root control for moderating, linking to other moderating controls/pages.
-    /// </summary>
-    public partial class index : ModerateForumPage
-    {
-        #region Constructors and Destructors
+	/// <summary>
+	/// Base root control for moderating, linking to other moderating controls/pages.
+	/// </summary>
+	public partial class index : ModerateForumPage
+	{
+		#region Constructors and Destructors
 
-        /// <summary>
-        ///   Initializes a new instance of the <see cref = "index" /> class. 
-        ///   Default constructor.
-        /// </summary>
-        public index()
-            : base("MODERATE_DEFAULT")
-        {
-        }
+		/// <summary>
+		///   Initializes a new instance of the <see cref = "index" /> class. 
+		///   Default constructor.
+		/// </summary>
+		public index()
+			: base("MODERATE_DEFAULT")
+		{
+		}
 
-        #endregion
+		#endregion
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Creates page links for this page.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-            // forum index
-            this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+		/// <summary>
+		/// Creates page links for this page.
+		/// </summary>
+		protected override void CreatePageLinks()
+		{
+			// forum index
+			this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
 
-            // moderation index
-            this.PageLinks.AddLink(this.GetText("TITLE"));
-        }
+			// moderation index
+			this.PageLinks.AddLink(this.GetText("TITLE"));
+		}
 
-        /// <summary>
-        /// Handles event of item commands for each forum.
-        /// </summary>
-        /// <param name="source">
-        /// The source.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void ForumList_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
-        {
-            // which command are we handling
-            switch (e.CommandName.ToLower())
-            {
-                case "viewunapprovedposts":
+		/// <summary>
+		/// Handles event of item commands for each forum.
+		/// </summary>
+		/// <param name="source">
+		/// The source.
+		/// </param>
+		/// <param name="e">
+		/// The e.
+		/// </param>
+		protected void ForumList_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+		{
+			// which command are we handling
+			switch (e.CommandName.ToLower())
+			{
+				case "viewunapprovedposts":
 
-                    // go to unapproved posts for selected forum
-                    YafBuildLink.Redirect(ForumPages.moderate_unapprovedposts, "f={0}", e.CommandArgument);
-                    break;
-                case "viewreportedposts":
+					// go to unapproved posts for selected forum
+					YafBuildLink.Redirect(ForumPages.moderate_unapprovedposts, "f={0}", e.CommandArgument);
+					break;
+				case "viewreportedposts":
 
-                    // go to spam reports for selected forum
-                    YafBuildLink.Redirect(ForumPages.moderate_reportedposts, "f={0}", e.CommandArgument);
-                    break;
-            }
-        }
+					// go to spam reports for selected forum
+					YafBuildLink.Redirect(ForumPages.moderate_reportedposts, "f={0}", e.CommandArgument);
+					break;
+			}
+		}
 
-        /// <summary>
-        /// Handles page load event.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            // this needs to be done just once, not during postbacks
-            if (this.IsPostBack)
-            {
-                return;
-            }
+		/// <summary>
+		/// Handles page load event.
+		/// </summary>
+		/// <param name="sender">
+		/// The sender.
+		/// </param>
+		/// <param name="e">
+		/// The e.
+		/// </param>
+		protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+		{
+			// this needs to be done just once, not during postbacks
+			if (this.IsPostBack)
+			{
+				return;
+			}
 
-            // create page links
-            this.CreatePageLinks();
+			// create page links
+			this.CreatePageLinks();
 
-            // bind data
-            this.BindData();
-        }
+			// bind data
+			this.BindData();
+		}
 
-        /// <summary>
-        /// Bind data for this control.
-        /// </summary>
-        private void BindData()
-        {
-            // get list of forums and their moderating data
-            using (DataSet ds = LegacyDb.forum_moderatelist(this.PageContext.PageUserID, this.PageContext.PageBoardID))
-            {
-                this.CategoryList.DataSource = ds.Tables[MsSqlDbAccess.GetObjectName("Category")];
-            }
+		/// <summary>
+		/// Bind data for this control.
+		/// </summary>
+		private void BindData()
+		{
+			// get list of forums and their moderating data
+			using (DataSet ds = LegacyDb.forum_moderatelist(this.PageContext.PageUserID, this.PageContext.PageBoardID))
+			{
+				this.CategoryList.DataSource = ds.GetTable("Category");
+			}
 
-            // bind data to controls
-            this.DataBind();
+			// bind data to controls
+			this.DataBind();
 
-            if (this.CategoryList.Items.Count.Equals(0))
-            {
-                this.InfoPlaceHolder.Visible = true;
-            }
-        }
+			if (this.CategoryList.Items.Count.Equals(0))
+			{
+				this.InfoPlaceHolder.Visible = true;
+			}
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

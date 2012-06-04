@@ -24,10 +24,10 @@ namespace YAF.Core
   using System.Globalization;
   using System.Threading;
 
-  using YAF.Types.Interfaces;
   using YAF.Classes.Data;
+  using YAF.Types.Interfaces;
 
-  #endregion
+	#endregion
 
   /// <summary>
   /// The localization handler.

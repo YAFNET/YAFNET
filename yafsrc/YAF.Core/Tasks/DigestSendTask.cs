@@ -29,12 +29,14 @@ namespace YAF.Core
 
   using YAF.Classes;
   using YAF.Core;
+  using YAF.Core.Data;
   using YAF.Core.Services;
   using YAF.Core.Tasks;
   using YAF.Types;
+  using YAF.Types.Attributes;
   using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Classes.Data;
   using YAF.Utils;
+  using YAF.Utils.Extensions;
   using YAF.Utils.Helpers.StringUtils;
   using YAF.Types.Interfaces;
   using YAF.Types.Objects;
@@ -80,6 +82,9 @@ namespace YAF.Core
         return _taskName;
       }
     }
+
+		[Inject]
+  	public IDbFunction DbFunction { get; set; }
 
     #endregion
 
@@ -153,11 +158,11 @@ namespace YAF.Core
     {
       try
       {
-        var boardIds = LegacyDb.board_list(null).AsEnumerable().Select(b => b.Field<int>("BoardID"));
+        var boardIds = ((DataTable)this.DbFunction.GetData.board_list(null)).AsEnumerable().Select(b => b.Field<int>("BoardID"));
 
         foreach (var boardId in boardIds)
         {
-          var boardSettings = new YafLoadBoardSettings(boardId);
+          var boardSettings = new YafLoadBoardSettings(boardId, this.DbFunction);
 
           if (!this.IsTimeToSendDigestForBoard(boardSettings))
           {
@@ -167,13 +172,12 @@ namespace YAF.Core
           if (Config.BaseUrlMask.IsNotSet())
           {
             // fail...
-            LegacyDb.eventlog_create(null, "DigestSendTask", "Failed to send digest because BaseUrlMask value is not set in your appSettings.");
+						this.Logger.Error("Failed to send digest because BaseUrlMask value is not set in your appSettings.");
             return;
           }
 
           // get users with digest enabled...
-          var usersWithDigest =
-            LegacyDb.UserFind(boardId, false, null, null, null, null, true).Where(x => !x.IsGuest && (x.IsApproved ?? false));
+          var usersWithDigest = ((DataTable)this.DbFunction.GetData.user_find(boardId, false, null, null, null, null, true)).Typed<TypedUserFind>().ToList().Where(x => !x.IsGuest && (x.IsApproved ?? false));
 
           if (usersWithDigest.Any())
           {
@@ -184,7 +188,7 @@ namespace YAF.Core
       }
       catch (Exception ex)
       {
-        LegacyDb.eventlog_create(null, TaskName, "Error In {0} Task: {1}".FormatWith(TaskName, ex));
+				this.Logger.Error(ex, "Error In {0} Task", TaskName);
       }
     }
 
@@ -208,8 +212,7 @@ namespace YAF.Core
         }
         catch (Exception e)
         {
-          LegacyDb.eventlog_create(
-            null, TaskName, "Error In Creating Digest for User {0}: {1}".FormatWith(user.UserID, e.ToString()));
+					this.Logger.Error(e, "Error In Creating Digest for User {0}".FormatWith(user.UserID));
         }
 
         if (digestHtml.IsSet())

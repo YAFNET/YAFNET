@@ -23,7 +23,6 @@ namespace YAF.Core.Services
   using System.Collections.Generic;
   using System.Web;
 
-  using YAF.Classes.Data;
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Types.Interfaces;
@@ -61,10 +60,11 @@ namespace YAF.Core.Services
     /// <param name="dbBroker">
     /// The db broker.
     /// </param>
-    public YafUserIgnored([NotNull] HttpSessionStateBase sessionStateBase, [NotNull] IDBBroker dbBroker)
+    public YafUserIgnored([NotNull] HttpSessionStateBase sessionStateBase, [NotNull] IDBBroker dbBroker, IDbFunction dbFunction)
     {
       this.SessionStateBase = sessionStateBase;
-      this._dbBroker = dbBroker;
+    	DbFunction = dbFunction;
+    	this._dbBroker = dbBroker;
     }
 
     #endregion
@@ -76,7 +76,9 @@ namespace YAF.Core.Services
     /// </summary>
     public HttpSessionStateBase SessionStateBase { get; set; }
 
-    #endregion
+  	public IDbFunction DbFunction { get; set; }
+
+  	#endregion
 
     #region Implemented Interfaces
 
@@ -90,7 +92,7 @@ namespace YAF.Core.Services
     /// </param>
     public void AddIgnored(int ignoredUserId)
     {
-      LegacyDb.user_addignoreduser(YafContext.Current.PageUserID, ignoredUserId);
+      this.DbFunction.Query.user_addignoreduser(YafContext.Current.PageUserID, ignoredUserId);
       this.ClearIgnoreCache();
     }
 
@@ -135,7 +137,7 @@ namespace YAF.Core.Services
     /// </param>
     public void RemoveIgnored(int ignoredUserId)
     {
-      LegacyDb.user_removeignoreduser(YafContext.Current.PageUserID, ignoredUserId);
+      this.DbFunction.Query.user_removeignoreduser(YafContext.Current.PageUserID, ignoredUserId);
       this.ClearIgnoreCache();
     }
 

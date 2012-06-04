@@ -806,25 +806,25 @@ namespace YAF.Controls
                 this.GetText("rank"),
                 this.Get<YafBoardSettings>().UseStyledNicks ? @"<span class=""YafRank_{0}"" style=""{1}"">{0}</span>".FormatWith(this.DataRow["RankName"], rankStyle) : this.DataRow["RankName"]);
 
-            // replaces template placeholder with actual rank
-            userBox = rx.Replace(userBox, filler);
-            return userBox;
-        }
+        // replaces template placeholder with actual rank
+      userBox = rx.Replace(userBox, filler);
+      return userBox;
+    }
 
-        /// <summary>
-        /// The match user box rank images.
-        /// </summary>
-        /// <param name="userBox">
-        /// The user box.
-        /// </param>
-        /// <returns>
-        /// Returns the Rank Images Userbox string.
-        /// </returns>
-        [NotNull]
-        private string MatchUserBoxRankImages([NotNull] string userBox)
-        {
-            string filler = string.Empty;
-            var rx = this.GetRegex(Constants.UserBox.RankImage);
+    /// <summary>
+    /// The match user box rank images.
+    /// </summary>
+    /// <param name="userBox">
+    /// The user box.
+    /// </param>
+    /// <returns>
+    /// The match user box rank images.
+    /// </returns>
+    [NotNull]
+    private string MatchUserBoxRankImages([NotNull] string userBox)
+    {
+      string filler = string.Empty;
+      var rx = this.GetRegex(Constants.UserBox.RankImage);
 
             if (!this.DataRow["RankImage"].IsNullOrEmptyDBField())
             {

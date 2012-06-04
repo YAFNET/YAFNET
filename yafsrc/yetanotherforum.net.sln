@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Utils", "YAF.Utils\YAF.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarsiLibrary", "FarsiLibrary\FarsiLibrary.csproj", "{ED29E567-C801-49E9-8C33-CFB66042B07B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Data.MsSql", "YAF.Data.MsSql\YAF.Data.MsSql.csproj", "{900B3FCF-BD78-4718-A34D-2662576565C8}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Third-Party Libs", "Third-Party Libs", "{CFC7B19E-F7F2-41F1-B709-5C1D72A9BAD0}"
 EndProject
 Global

@@ -18,44 +18,159 @@
  */
 namespace YAF.Types.EventProxies
 {
-  #region Using
+	#region Using
 
-  using YAF.Types.Interfaces;
+	using YAF.Types.Interfaces;
 
-  #endregion
+	#endregion
 
-  /// <summary>
-  /// The forum page init event.
-  /// </summary>
-  public class ForumPageInitEvent : IAmEvent
-  {
-  }
+	/// <summary>
+	/// The forum page init event.
+	/// </summary>
+	public class ForumPageInitEvent : IAmEvent
+	{
+		#region Constructors and Destructors
 
-  /// <summary>
-  /// The forum page pre load event.
-  /// </summary>
-  public class ForumPagePreLoadEvent : IAmEvent
-  {
-  }
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ForumPageInitEvent"/> class.
+		/// </summary>
+		/// <param name="currentPage">
+		/// The current page.
+		/// </param>
+		public ForumPageInitEvent([NotNull] ILocatablePage currentPage)
+		{
+			this.CurrentPage = currentPage;
+		}
 
-  /// <summary>
-  /// The forum page post load event.
-  /// </summary>
-  public class ForumPagePostLoadEvent : IAmEvent
-  {
-  }
+		#endregion
 
-  /// <summary>
-  /// The forum page prerender event.
-  /// </summary>
-  public class ForumPagePreRenderEvent : IAmEvent
-  {
-  }
+		#region Properties
 
-  /// <summary>
-  /// The forum page unload load event.
-  /// </summary>
-  public class ForumPageUnloadEvent : IAmEvent
-  {
-  }
+		/// <summary>
+		/// Gets or sets CurrentPage.
+		/// </summary>
+		public ILocatablePage CurrentPage { get; set; }
+
+		#endregion
+	}
+
+	/// <summary>
+	/// The forum page pre load event.
+	/// </summary>
+	public class ForumPagePreLoadEvent : IAmEvent
+	{
+		#region Constructors and Destructors
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ForumPagePostLoadEvent"/> class.
+		/// </summary>
+		/// <param name="currentPage">
+		/// The current page.
+		/// </param>
+		public ForumPagePreLoadEvent([NotNull] ILocatablePage currentPage)
+		{
+			this.CurrentPage = currentPage;
+		}
+
+		#endregion
+
+		#region Properties
+
+		/// <summary>
+		/// Gets or sets CurrentPage.
+		/// </summary>
+		public ILocatablePage CurrentPage { get; set; }
+
+		#endregion
+	}
+
+	/// <summary>
+	/// The forum page post load event.
+	/// </summary>
+	public class ForumPagePostLoadEvent : IAmEvent
+	{
+		#region Constructors and Destructors
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ForumPagePostLoadEvent"/> class.
+		/// </summary>
+		/// <param name="currentPage">
+		/// The current page.
+		/// </param>
+		public ForumPagePostLoadEvent([NotNull] ILocatablePage currentPage)
+		{
+			this.CurrentPage = currentPage;
+		}
+
+		#endregion
+
+		#region Properties
+
+		/// <summary>
+		/// Gets or sets CurrentPage.
+		/// </summary>
+		public ILocatablePage CurrentPage { get; set; }
+
+		#endregion
+	}
+
+	/// <summary>
+	/// The forum page prerender event.
+	/// </summary>
+	public class ForumPagePreRenderEvent : IAmEvent
+	{
+		#region Constructors and Destructors
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ForumPagePreRenderEvent"/> class.
+		/// </summary>
+		/// <param name="currentPage">
+		/// The current page.
+		/// </param>
+		public ForumPagePreRenderEvent([NotNull] ILocatablePage currentPage)
+		{
+			this.CurrentPage = currentPage;
+		}
+
+		#endregion
+
+		#region Properties
+
+		/// <summary>
+		/// Gets or sets CurrentPage.
+		/// </summary>
+		public ILocatablePage CurrentPage { get; set; }
+
+		#endregion
+	}
+
+	/// <summary>
+	/// The forum page unload load event.
+	/// </summary>
+	public class ForumPageUnloadEvent : IAmEvent
+	{
+		#region Constructors and Destructors
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ForumPageUnloadEvent"/> class.
+		/// </summary>
+		/// <param name="currentPage">
+		/// The current page.
+		/// </param>
+		public ForumPageUnloadEvent([NotNull] ILocatablePage currentPage)
+		{
+			this.CurrentPage = currentPage;
+		}
+
+		#endregion
+
+		#region Properties
+
+		/// <summary>
+		/// Gets or sets CurrentPage.
+		/// </summary>
+		public ILocatablePage CurrentPage { get; set; }
+
+		#endregion
+	}
 }

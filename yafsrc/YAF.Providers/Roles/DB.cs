@@ -20,22 +20,23 @@ namespace YAF.Providers.Roles
 {
   #region Using
 
-  using System;
-  using System.Data;
-  using System.Data.SqlClient;
+	using System;
+	using System.Data;
+	using System.Data.SqlClient;
 
-  using YAF.Classes;
-  using YAF.Classes.Pattern;
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Classes.Data;
-  using YAF.Types;
+	using YAF.Classes;
+	using YAF.Classes.Data;
+	using YAF.Classes.Pattern;
+	using YAF.Core;
+	using YAF.Types.Interfaces;
+	using YAF.Utils;
 
-  #endregion
+	#endregion
 
   /// <summary>
   /// The yaf roles db conn manager.
   /// </summary>
-  public class MsSqlRolesDbConnectionManager : MsSqlDbConnectionManager
+  public class MsSqlRolesDbConnectionProvider : MsSqlDbConnectionProvider
   {
     #region Properties
 
@@ -68,7 +69,7 @@ namespace YAF.Providers.Roles
     /// <summary>
     ///   The _db access.
     /// </summary>
-    private readonly MsSqlDbAccess _msSqlDbAccess = new MsSqlDbAccess();
+		private readonly IDbAccess _dbAccess = new MsSqlDbAccess(new MsSqlRolesDbConnectionProvider());
 
     #endregion
 
@@ -79,7 +80,6 @@ namespace YAF.Providers.Roles
     /// </summary>
     public DB()
     {
-      this._msSqlDbAccess.SetConnectionManagerAdapter<MsSqlRolesDbConnectionManager>();
     }
 
     #endregion
@@ -115,13 +115,13 @@ namespace YAF.Providers.Roles
     /// </param>
     public void AddUserToRole(object appName, object userName, object roleName)
     {
-      using (var cmd = new SqlCommand(MsSqlDbAccess.GetObjectName("prov_role_addusertorole")))
+      using (var cmd = this._dbAccess.GetCommand("prov_role_addusertorole"))
       {
-        cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue("ApplicationName", appName);
-        cmd.Parameters.AddWithValue("Username", userName);
-        cmd.Parameters.AddWithValue("RoleName", roleName);
-        this._msSqlDbAccess.ExecuteNonQuery(cmd);
+        cmd.AddParam("ApplicationName", appName);
+        cmd.AddParam("Username", userName);
+        cmd.AddParam("RoleName", roleName);
+
+        this._dbAccess.ExecuteNonQuery(cmd);
       }
     }
 
@@ -136,12 +136,12 @@ namespace YAF.Providers.Roles
     /// </param>
     public void CreateRole(object appName, object roleName)
     {
-      using (var cmd = new SqlCommand(MsSqlDbAccess.GetObjectName("prov_role_createrole")))
+      using (var cmd = this._dbAccess.GetCommand("prov_role_createrole"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue("ApplicationName", appName);
-        cmd.Parameters.AddWithValue("RoleName", roleName);
-        this._msSqlDbAccess.ExecuteNonQuery(cmd);
+        cmd.AddParam("ApplicationName", appName);
+        cmd.AddParam("RoleName", roleName);
+        this._dbAccess.ExecuteNonQuery(cmd);
       }
     }
 
@@ -162,18 +162,16 @@ namespace YAF.Providers.Roles
     /// </returns>
     public int DeleteRole(object appName, object roleName, object deleteOnlyIfRoleIsEmpty)
     {
-      using (var cmd = new SqlCommand(MsSqlDbAccess.GetObjectName("prov_role_deleterole")))
+      using (var cmd = this._dbAccess.GetCommand("prov_role_deleterole"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue("ApplicationName", appName);
-        cmd.Parameters.AddWithValue("RoleName", roleName);
-        cmd.Parameters.AddWithValue("DeleteOnlyIfRoleIsEmpty", deleteOnlyIfRoleIsEmpty);
+        cmd.AddParam("ApplicationName", appName);
+        cmd.AddParam("RoleName", roleName);
+        cmd.AddParam("DeleteOnlyIfRoleIsEmpty", deleteOnlyIfRoleIsEmpty);
 
-        var p = new SqlParameter("ReturnValue", SqlDbType.Int);
-        p.Direction = ParameterDirection.ReturnValue;
-        cmd.Parameters.Add(p);
+				cmd.CreateOutputParameter("ReturnValue", DbType.Int32, direction: ParameterDirection.ReturnValue);
 
-        this._msSqlDbAccess.ExecuteNonQuery(cmd);
+        this._dbAccess.ExecuteNonQuery(cmd);
 
         return Convert.ToInt32(cmd.Parameters["ReturnValue"].Value);
       }
@@ -193,12 +191,12 @@ namespace YAF.Providers.Roles
     /// </returns>
     public DataTable FindUsersInRole(object appName, object roleName)
     {
-      using (var cmd = new SqlCommand(MsSqlDbAccess.GetObjectName("prov_role_findusersinrole")))
+      using (var cmd = this._dbAccess.GetCommand("prov_role_findusersinrole"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue("ApplicationName", appName);
-        cmd.Parameters.AddWithValue("RoleName", roleName);
-        return this._msSqlDbAccess.GetData(cmd);
+        cmd.AddParam("ApplicationName", appName);
+        cmd.AddParam("RoleName", roleName);
+        return this._dbAccess.GetData(cmd);
       }
     }
 
@@ -216,12 +214,11 @@ namespace YAF.Providers.Roles
     /// </returns>
     public object GetRoleExists(object appName, object roleName)
     {
-      using (var cmd = new SqlCommand(MsSqlDbAccess.GetObjectName("prov_role_exists")))
+      using (var cmd = this._dbAccess.GetCommand("prov_role_exists"))
       {
-        cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue("ApplicationName", appName);
-        cmd.Parameters.AddWithValue("RoleName", roleName);
-        return this._msSqlDbAccess.ExecuteScalar(cmd);
+        cmd.AddParam("ApplicationName", appName);
+        cmd.AddParam("RoleName", roleName);
+        return this._dbAccess.ExecuteScalar(cmd);
       }
     }
 
@@ -239,12 +236,11 @@ namespace YAF.Providers.Roles
     /// </returns>
     public DataTable GetRoles(object appName, object username)
     {
-      using (var cmd = new SqlCommand(MsSqlDbAccess.GetObjectName("prov_role_getroles")))
+      using (var cmd = this._dbAccess.GetCommand("prov_role_getroles"))
       {
-        cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue("ApplicationName", appName);
-        cmd.Parameters.AddWithValue("Username", username);
-        return this._msSqlDbAccess.GetData(cmd);
+        cmd.AddParam("ApplicationName", appName);
+        cmd.AddParam("Username", username);
+        return this._dbAccess.GetData(cmd);
       }
     }
 
@@ -265,13 +261,12 @@ namespace YAF.Providers.Roles
     /// </returns>
     public DataTable IsUserInRole(object appName, object userName, object roleName)
     {
-      using (var cmd = new SqlCommand(MsSqlDbAccess.GetObjectName("prov_role_isuserinrole")))
+      using (var cmd = this._dbAccess.GetCommand("prov_role_isuserinrole"))
       {
-        cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue("ApplicationName", appName);
-        cmd.Parameters.AddWithValue("Username", userName);
-        cmd.Parameters.AddWithValue("RoleName", roleName);
-        return this._msSqlDbAccess.GetData(cmd);
+        cmd.AddParam("ApplicationName", appName);
+        cmd.AddParam("Username", userName);
+        cmd.AddParam("RoleName", roleName);
+        return this._dbAccess.GetData(cmd);
       }
     }
 
@@ -289,13 +284,12 @@ namespace YAF.Providers.Roles
     /// </param>
     public void RemoveUserFromRole(object appName, string userName, string roleName)
     {
-      using (var cmd = new SqlCommand(MsSqlDbAccess.GetObjectName("prov_role_removeuserfromrole")))
+      using (var cmd = this._dbAccess.GetCommand("prov_role_removeuserfromrole"))
       {
-        cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue("ApplicationName", appName);
-        cmd.Parameters.AddWithValue("Username", userName);
-        cmd.Parameters.AddWithValue("RoleName", roleName);
-        this._msSqlDbAccess.ExecuteNonQuery(cmd);
+        cmd.AddParam("ApplicationName", appName);
+        cmd.AddParam("Username", userName);
+        cmd.AddParam("RoleName", roleName);
+        this._dbAccess.ExecuteNonQuery(cmd);
       }
     }
 

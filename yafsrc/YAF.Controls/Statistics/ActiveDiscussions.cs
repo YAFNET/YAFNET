@@ -25,7 +25,6 @@ namespace YAF.Controls.Statistics
     using System.Text;
     using System.Web.UI;
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -88,7 +87,7 @@ namespace YAF.Controls.Statistics
         () =>
           {
             // nothing was cached, retrieve it from the database
-            var dt = LegacyDb.topic_latest(
+            DataTable dt = this.Get<IDbFunction>().GetData.topic_latest(
               this.PageContext.PageBoardID,
               this._displayNumber,
               this.PageContext.PageUserID,

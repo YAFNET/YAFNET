@@ -18,205 +18,207 @@
  */
 namespace YAF.Utils.Helpers
 {
-    #region Using
+	#region Using
 
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Data.Common;
-    using System.Linq;
+	using System;
+	using System.Collections.Generic;
+	using System.Data;
+	using System.Data.Common;
+	using System.Linq;
 
-    using YAF.Types;
+	using YAF.Types;
 
-    #endregion
+	#endregion
 
-    /// <summary>
-    /// The db helper.
-    /// </summary>
-    public static class DBHelper
-    {
-        #region Public Methods
+	/// <summary>
+	/// The db helper.
+	/// </summary>
+	public static class DBHelper
+	{
+		#region Public Methods
 
-        /// <summary>
-        /// Converts <paramref name="columnName"/> in a <see cref="DataTable"/> to a generic List of type T.
-        /// </summary>
-        /// <typeparam name="T">
-        /// The type of elements in the list.
-        /// </typeparam>
-        /// <param name="dataTable">
-        /// The data table.
-        /// </param>
-        /// <param name="columnName">
-        /// Name of the column.
-        /// </param>
-        /// <returns>
-        /// The get column as list.
-        /// </returns>
-        [NotNull]
-        public static List<T> GetColumnAsList<T>([NotNull] this DataTable dataTable, [NotNull] string columnName)
-        {
-            return (from x in dataTable.AsEnumerable() select x.Field<T>(columnName)).ToList();
-        }
+		/// <summary>
+		/// Converts <paramref name="columnName"/> in a <see cref="DataTable"/> to a generic List of type T.
+		/// </summary>
+		/// <typeparam name="T">
+		/// The type of elements in the list.
+		/// </typeparam>
+		/// <param name="dataTable">
+		/// The data table.
+		/// </param>
+		/// <param name="columnName">
+		/// Name of the column.
+		/// </param>
+		/// <returns>
+		/// The get column as list.
+		/// </returns>
+		[NotNull]
+		public static List<T> GetColumnAsList<T>([NotNull] this DataTable dataTable, [NotNull] string columnName)
+		{
+			return (from x in dataTable.AsEnumerable() select x.Field<T>(columnName)).ToList();
+		}
 
-        /// <summary>
-        /// Converts the first column of a <see cref="DataTable"/> to a generic List of type T.
-        /// </summary>
-        /// <typeparam name="T">
-        /// The type of elements in the list.
-        /// </typeparam>
-        /// <param name="dataTable">
-        /// The data table.
-        /// </param>
-        /// <returns>
-        /// The get first column as list.
-        /// </returns>
-        [NotNull]
-        public static List<T> GetFirstColumnAsList<T>([NotNull] this DataTable dataTable)
-        {
-            return (from x in dataTable.AsEnumerable() select x.Field<T>(0)).ToList();
-        }
+		/// <summary>
+		/// Converts the first column of a <see cref="DataTable"/> to a generic List of type T.
+		/// </summary>
+		/// <typeparam name="T">
+		/// The type of elements in the list.
+		/// </typeparam>
+		/// <param name="dataTable">
+		/// The data table.
+		/// </param>
+		/// <returns>
+		/// The get first column as list.
+		/// </returns>
+		[NotNull]
+		public static List<T> GetFirstColumnAsList<T>([NotNull] this DataTable dataTable)
+		{
+			return (from x in dataTable.AsEnumerable() select x.Field<T>(0)).ToList();
+		}
 
-        /// <summary>
-        /// Gets the first row (<see cref="DataRow"/>) of a <see cref="DataTable"/>.
-        /// </summary>
-        /// <param name="dt">
-        /// The Data Table.
-        /// </param>
-        /// <returns>
-        /// The get first row.
-        /// </returns>
-        public static DataRow GetFirstRow([NotNull] this DataTable dt)
-        {
-            return dt.Rows.Count > 0 ? dt.Rows[0] : null;
-        }
+		/// <summary>
+		/// Gets the first row (<see cref="DataRow"/>) of a <see cref="DataTable"/>.
+		/// </summary>
+		/// <param name="dt">
+		/// The Data Table.
+		/// </param>
+		/// <returns>
+		/// The get first row.
+		/// </returns>
+		public static DataRow GetFirstRow([NotNull] this DataTable dt)
+		{
+			return dt.Rows.Count > 0 ? dt.Rows[0] : null;
+		}
 
-        /// <summary>
-        /// Gets the specified column of the first row as the type specified. If not available returns default value.
-        /// </summary>
-        /// <typeparam name="T">
-        /// Type if column to return
-        /// </typeparam>
-        /// <param name="dt">
-        /// <see cref="DataTable"/> to pull from
-        /// </param>
-        /// <param name="columnName">
-        /// Name of column to convert
-        /// </param>
-        /// <param name="defaultValue">
-        /// value to return if something is not available
-        /// </param>
-        /// <returns>
-        /// The get first row column as value.
-        /// </returns>
-        public static T GetFirstRowColumnAsValue<T>(
-            [NotNull] this DataTable dt, [NotNull] string columnName, T defaultValue)
-        {
-            if (dt.Rows.Count > 0 && dt.Columns.Contains(columnName))
-            {
-                if (dt.Rows[0][columnName] != DBNull.Value)
-                {
-                    return dt.Rows[0][columnName].ToType<T>();
-                }
-            }
+		/// <summary>
+		/// Gets the specified column of the first row as the type specified. If not available returns default value.
+		/// </summary>
+		/// <typeparam name="T">
+		/// Type if column to return
+		/// </typeparam>
+		/// <param name="dt">
+		/// <see cref="DataTable"/> to pull from
+		/// </param>
+		/// <param name="columnName">
+		/// Name of column to convert
+		/// </param>
+		/// <param name="defaultValue">
+		/// value to return if something is not available
+		/// </param>
+		/// <returns>
+		/// The get first row column as value.
+		/// </returns>
+		public static T GetFirstRowColumnAsValue<T>(
+				[NotNull] this DataTable dt, [NotNull] string columnName, T defaultValue)
+		{
+			if (dt.Rows.Count > 0 && dt.Columns.Contains(columnName))
+			{
+				if (dt.Rows[0][columnName] != DBNull.Value)
+				{
+					return dt.Rows[0][columnName].ToType<T>();
+				}
+			}
 
-            return defaultValue;
-        }
+			return defaultValue;
+		}
 
-        /// <summary>
-        /// Gets the first row of the data table or redirects to invalid request
-        /// </summary>
-        /// <param name="dt">
-        /// The dt.
-        /// </param>
-        /// <returns>
-        /// The get first row or invalid.
-        /// </returns>
-        [CanBeNull]
-        public static DataRow GetFirstRowOrInvalid([NotNull] this DataTable dt)
-        {
-            DataRow row = dt.GetFirstRow();
+		/// <summary>
+		/// Gets the first row of the data table or redirects to invalid request
+		/// </summary>
+		/// <param name="dt">
+		/// The dt.
+		/// </param>
+		/// <returns>
+		/// The get first row or invalid.
+		/// </returns>
+		[CanBeNull]
+		public static DataRow GetFirstRowOrInvalid([NotNull] this DataTable dt)
+		{
+			DataRow row = dt.GetFirstRow();
 
-            if (row != null)
-            {
-                return row;
-            }
+			if (row != null)
+			{
+				return row;
+			}
 
-            // fail...
-            YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
+			// fail...
+			YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
 
-            return null;
-        }
+			return null;
+		}
 
-        /// <summary>
-        /// Tests if an DB object (in <see cref="DataRow"/>) is <see cref="DBNull"/>.Value, <see langword="null"/> or empty.
-        /// </summary>
-        /// <param name="columnValue">The column value.</param>
-        /// <returns>
-        /// The is <see langword="null"/> or empty db field.
-        /// </returns>
-        public static bool IsNullOrEmptyDBField([NotNull] this object columnValue)
-        {
-            return columnValue == DBNull.Value || columnValue.ToString().IsNotSet();
-        }
+		/// <summary>
+		/// Tests if an DB object (in <see cref="DataRow"/>) is <see cref="DBNull"/>.Value, <see langword="null"/> or empty.
+		/// </summary>
+		/// <param name="columnValue">The column value.</param>
+		/// <returns>
+		/// The is <see langword="null"/> or empty db field.
+		/// </returns>
+		public static bool IsNullOrEmptyDBField([NotNull] this object columnValue)
+		{
+			return columnValue == DBNull.Value || columnValue.ToString().IsNotSet();
+		}
 
-        /// <summary>
-        /// Selects a typed list of rows using the <paramref name="createNew"/> delegate.
-        /// </summary>
-        /// <typeparam name="T">
-        /// The type of elements in the list.
-        /// </typeparam>
-        /// <param name="dataTable">
-        /// The data table.
-        /// </param>
-        /// <param name="createNew">
-        /// The create new.
-        /// </param>
-        /// <returns>
-        /// The select typed list.
-        /// </returns>
-        [NotNull]
-        public static IEnumerable<T> SelectTypedList<T>(
-            [NotNull] this DataTable dataTable, [NotNull] Func<DataRow, T> createNew)
-        {
-            CodeContracts.ArgumentNotNull(dataTable, "dataTable");
-            CodeContracts.ArgumentNotNull(createNew, "createNew");
+		/// <summary>
+		/// Selects a typed list of rows using the <paramref name="createNew"/> delegate.
+		/// </summary>
+		/// <typeparam name="T">
+		/// The type of elements in the list.
+		/// </typeparam>
+		/// <param name="dataTable">
+		/// The data table.
+		/// </param>
+		/// <param name="createNew">
+		/// The create new.
+		/// </param>
+		/// <returns>
+		/// The select typed list.
+		/// </returns>
+		[NotNull]
+		public static IEnumerable<T> SelectTypedList<T>(
+				[NotNull] this DataTable dataTable, [NotNull] Func<DataRow, T> createNew)
+		{
+			CodeContracts.ArgumentNotNull(dataTable, "dataTable");
+			CodeContracts.ArgumentNotNull(createNew, "createNew");
 
-            return dataTable.AsEnumerable().Select(createNew);
-        }
+			return dataTable.AsEnumerable().Select(createNew);
+		}
 
-        /// <summary>
-        /// The to trace string.
-        /// </summary>
-        /// <param name="command">
-        /// The command.
-        /// </param>
-        /// <returns>
-        /// Returns the Debug String
-        /// </returns>
-        public static string ToDebugString([NotNull] this IDbCommand command)
-        {
-            CodeContracts.ArgumentNotNull(command, "command");
+		/// <summary>
+		/// The to trace string.
+		/// </summary>
+		/// <param name="command">
+		/// The command.
+		/// </param>
+		/// <returns>
+		/// Returns the Debug String
+		/// </returns>
+		public static string ToDebugString([NotNull] this IDbCommand command)
+		{
+			CodeContracts.ArgumentNotNull(command, "command");
 
-            string debugString = command.CommandText;
+			string debugString = command.CommandText;
 
-            try
-            {
-                if (command.Parameters != null)
-                {
-                    debugString = command.Parameters.Cast<DbParameter>().Aggregate(
-                        debugString,
-                        (current, p) =>
-                        "{0}{1}".FormatWith(current, ("\n[" + p.ParameterName + "] - [" + p.DbType + "] - [" + p.Value + "]")));
-                }
-            }
-            catch (Exception ex)
-            {
-                debugString += "Error in getting parameters {0}".FormatWith(ex);
-            }
+			try
+			{
+				if (command.Parameters != null)
+				{
+					debugString = command.Parameters.Cast<DbParameter>().Aggregate(
+						debugString,
+						(current, p) =>
+						"{0}{1}".FormatWith(
+							current,
+							string.Format("\n[{0}] - [{1}] - [{2}]", p.ParameterName, p.DbType, (p.Value == DBNull.Value ? "NULL" : p.Value))));
+				}
+			}
+			catch (Exception ex)
+			{
+				debugString += "Error in getting parameters {0}".FormatWith(ex);
+			}
 
-            return debugString;
-        }
+			return debugString;
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

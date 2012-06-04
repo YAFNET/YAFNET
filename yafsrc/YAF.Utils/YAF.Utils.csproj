@@ -54,6 +54,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\DataExtensions.cs" />
+    <Compile Include="Extensions\DataSetExtensions.cs" />
+    <Compile Include="Extensions\DbFunctionExtensions.cs" />
+    <Compile Include="Extensions\EventExtensions.cs" />
+    <Compile Include="Extensions\DbCommandExtensions.cs" />
     <Compile Include="Extensions\JsonExtension.cs" />
     <Compile Include="Extensions\SqlCommandExtensions.cs" />
     <Compile Include="Extensions\LanguageExtensions.cs" />

@@ -19,7 +19,7 @@
 namespace YAF.Types.Interfaces
 {
   using System;
-  using System.Data;
+  using System.Collections.Generic;
   using System.Web.Security;
 
   using YAF.Types.Constants;
@@ -42,9 +42,9 @@ namespace YAF.Types.Interfaces
     string CultureUser { get; }
 
     /// <summary>
-    ///   Gets DBRow.
+    ///   Gets User Dictionary.
     /// </summary>
-    DataRow DBRow { get; }
+    IDictionary<string, object> UserDictionary { get; }
 
     /// <summary>
     ///   Gets a value indicating whether  DST is Enabled.

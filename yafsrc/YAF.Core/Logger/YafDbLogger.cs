@@ -21,9 +21,7 @@ namespace YAF.Core
   #region Using
 
   using System;
-  using System.Web;
 
-  using YAF.Classes.Data;
   using YAF.Types;
   using YAF.Types.Attributes;
   using YAF.Types.Constants;
@@ -36,6 +34,9 @@ namespace YAF.Core
   /// </summary>
   public class YafDbLogger : ILogger
   {
+		[Inject]
+		public IDbFunction DbFunction { get; set; }
+
     /// <summary>
     /// Initializes a new instance of the <see cref="YafDbLogger"/> class.
     /// </summary>
@@ -184,7 +185,7 @@ namespace YAF.Core
       }
 
       // TODO: come up with userid if the database is available.
-      LegacyDb.eventlog_create(null, typeName, message, logTypes);
+      this.DbFunction.Query.eventlog_create(null, typeName, message, logTypes);
     }
 
       /// <summary>

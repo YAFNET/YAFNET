@@ -27,7 +27,6 @@ namespace YAF.Controls
     using System.Web.UI;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Interfaces;
@@ -124,7 +123,7 @@ namespace YAF.Controls
             YafContext.Current.Get<HttpSessionStateBase>()["localizationFile"] =
                 this.Get<ILocalization>().LanguageFileName;
 
-            using (DataTable attachListDT = LegacyDb.attachment_list(this.MessageID, null, null,null,null))
+						using (DataTable attachListDT = this.Get<IDbFunction>().GetData.attachment_list(this.MessageID, null, null))
             {
                 // show file then image attachments...
                 int tmpDisplaySort = 0;

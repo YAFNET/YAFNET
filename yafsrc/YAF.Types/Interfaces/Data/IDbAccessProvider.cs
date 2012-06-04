@@ -18,41 +18,24 @@
  */
 namespace YAF.Types.Interfaces
 {
-  using System;
-  using System.Data;
+	#region Using
 
-  using YAF.Types.Handlers;
+	using System.Data.Common;
 
-  public interface IDbConnectionManager : IDisposable
-  {
-    /// <summary>
-    /// Gets ConnectionString.
-    /// </summary>
-    string ConnectionString { get; }
+	#endregion
 
-    /// <summary>
-    /// Gets the current DB Connection in any state.
-    /// </summary>
-    IDbConnection DBConnection { get; }
+	/// <summary>
+	/// The db access provider.
+	/// </summary>
+	public interface IDbAccessProvider : IReadWriteProvider<IDbAccess>
+	{
+		#region Properties
 
-    /// <summary>
-    /// Gets an open connection to the DB. Can be called any number of times.
-    /// </summary>
-    IDbConnection OpenDBConnection { get; }
+		/// <summary>
+		/// Gets or sets ProviderName.
+		/// </summary>
+		string ProviderName { get; set; }
 
-    /// <summary>
-    /// The info message.
-    /// </summary>
-    event YafDBConnInfoMessageEventHandler InfoMessage;
-
-    /// <summary>
-    /// The init connection.
-    /// </summary>
-    void InitConnection();
-
-    /// <summary>
-    /// The close connection.
-    /// </summary>
-    void CloseConnection();
-  }
+		#endregion
+	}
 }

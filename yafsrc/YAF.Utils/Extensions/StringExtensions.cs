@@ -705,6 +705,36 @@ namespace YAF.Utils
 			return output;
 		}
 
+		public static string Left(this string input, int length)
+		{
+			string result = input;
+			if (input != null && input.Length > length)
+			{
+				result = input.Substring(0, length);
+			}
+			return result;
+		}
+
+		public static string Right(this string input, int length)
+		{
+			string result = input;
+			if (input != null && input.Length > length)
+			{
+				result = input.Substring(input.Length - length, length);
+			}
+			return result;
+		}
+
+		public static string After(this string input, int index)
+		{
+			string result = input;
+			if (input != null && input.Length > index)
+			{
+				result = input.Substring(index, input.Length - index);
+			}
+			return result;			
+		}
+
 		#endregion
 	}
 }

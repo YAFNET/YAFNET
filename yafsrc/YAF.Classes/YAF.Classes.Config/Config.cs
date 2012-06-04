@@ -140,9 +140,25 @@ namespace YAF.Classes
     {
       get
       {
-        return ConfigurationManager.ConnectionStrings[ConnectionStringName].ConnectionString;
+				return ConnectionStringSettings.ConnectionString;
       }
     }
+
+		public static ConnectionStringSettings ConnectionStringSettings
+		{
+			get
+			{
+				return ConfigurationManager.ConnectionStrings[ConnectionStringName];
+			}
+		}
+
+		public static string ConnectionProviderName
+		{
+			get
+			{
+				return ConnectionStringSettings.ProviderName;
+			}
+		}
 
     /// <summary>
     ///   Gets ConnectionStringName.

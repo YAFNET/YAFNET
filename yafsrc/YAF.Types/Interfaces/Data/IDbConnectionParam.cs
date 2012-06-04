@@ -1,5 +1,5 @@
-﻿/* Yet Another Forum.net
- * Copyright (C) 2006-2012 Jaben Cargman
+﻿/* Yet Another Forum.NET
+ * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -16,31 +16,35 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Core
+namespace YAF.Types.Interfaces.Data
 {
-  using YAF.Classes;
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Classes.Data;
+	/// <summary>
+	/// The db connection param.
+	/// </summary>
+	public interface IDbConnectionParam
+	{
+		#region Properties
 
-  /// <summary>
-  /// The yaf dynamic db conn manager.
-  /// </summary>
-  public class MsSqlDynamicDbConnectionManager : MsSqlDbConnectionManager
-  {
-    /// <summary>
-    /// Gets ConnectionString.
-    /// </summary>
-    public override string ConnectionString
-    {
-      get
-      {
-        if (YafContext.Current.Vars.ContainsKey("ConnectionString"))
-        {
-          return YafContext.Current.Vars["ConnectionString"] as string;
-        }
+		/// <summary>
+		///   Gets or sets DefaultValue.
+		/// </summary>
+		string DefaultValue { get; }
 
-        return Config.ConnectionString;
-      }
-    }
-  }
+		/// <summary>
+		///   Gets or sets ID.
+		/// </summary>
+		int ID { get; }
+
+		/// <summary>
+		///   Gets or sets Label.
+		/// </summary>
+		string Label { get; }
+
+		/// <summary>
+		///   Gets or sets a value indicating whether Visible.
+		/// </summary>
+		bool Visible { get; }
+
+		#endregion
+	}
 }

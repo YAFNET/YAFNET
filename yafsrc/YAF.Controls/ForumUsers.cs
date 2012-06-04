@@ -24,13 +24,12 @@ namespace YAF.Controls
   using System;
   using System.Web.UI;
 
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Classes.Data;
+  using YAF.Core;
+	using YAF.Types.Interfaces;
   using YAF.Utils;
   using YAF.Types;
-  using YAF.Types.Interfaces;
 
-  #endregion
+	#endregion
 
   /// <summary>
   /// Summary description for ForumUsers.
@@ -139,8 +138,8 @@ namespace YAF.Controls
         this._activeUsers.ActiveUserTable =
           this.Get<IDBBroker>().StyleTransformDataTable(
             bTopic
-              ? LegacyDb.active_listtopic(this.PageContext.PageTopicID, this.PageContext.BoardSettings.UseStyledNicks)
-              : LegacyDb.active_listforum(this.PageContext.PageForumID, this.PageContext.BoardSettings.UseStyledNicks));
+							? this.Get<IDbFunction>().GetData.active_listtopic(this.PageContext.PageTopicID, this.PageContext.BoardSettings.UseStyledNicks)
+							: this.Get<IDbFunction>().GetData.active_listforum(this.PageContext.PageForumID, this.PageContext.BoardSettings.UseStyledNicks));
       }
 
       // add it...

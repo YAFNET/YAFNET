@@ -331,7 +331,7 @@ namespace YAF.Pages
             }
 
             var userData = new CombinedUserDataHelper(user, this.UserId);
-           
+
             // populate user information controls...      
             // Is BuddyList feature enabled?
             if (this.Get<YafBoardSettings>().EnableBuddyList)
@@ -355,10 +355,11 @@ namespace YAF.Pages
                 this.AlbumList1.Dispose();
             }
 
-            
-            this.SetupUserProfileInfo(this.UserId, user, userData, userData.DisplayName);
+            string userDisplayName = this.Get<IUserDisplayName>().GetName(this.UserId);
 
-            this.AddPageLinks(userData.DisplayName);
+            this.SetupUserProfileInfo(this.UserId, user, userData, userDisplayName);
+
+            this.AddPageLinks(userDisplayName);
 
             this.SetupUserStatistics(userData);
 
@@ -376,9 +377,10 @@ namespace YAF.Pages
 
             if (this.LastPosts.Visible)
             {
-                this.LastPosts.DataSource =
-                  LegacyDb.post_alluser(this.PageContext.PageBoardID, this.UserId, this.PageContext.PageUserID, 10).AsEnumerable();
-                this.SearchUser.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.search, "postedby={0}", this.Get<YafBoardSettings>().EnableDisplayName ? userData.DisplayName :userData.UserName);
+            	DataTable dt = LegacyDb.post_alluser(this.PageContext.PageBoardID, this.UserId, this.PageContext.PageUserID, 10);
+
+                this.LastPosts.DataSource = dt.AsEnumerable();
+                this.SearchUser.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.search, "postedby={0}", userDisplayName);
             }
 
             this.DataBind();
@@ -433,7 +435,7 @@ namespace YAF.Pages
             {
                 this.lnkBuddy.Visible = false;
             }
-            else if (this.Get<IBuddy>().IsBuddy((int)userData.DBRow["userID"], true) && !this.PageContext.IsGuest)
+            else if (this.Get<IBuddy>().IsBuddy((int)userData.UserDictionary["userID"], true) && !this.PageContext.IsGuest)
             {
                 this.lnkBuddy.Visible = true;
                 this.lnkBuddy.Text = "({0})".FormatWith(this.GetText("BUDDY", "REMOVEBUDDY"));
@@ -442,7 +444,7 @@ namespace YAF.Pages
                   "return confirm('{0}')".FormatWith(
                     this.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE"));
             }
-            else if (this.Get<IBuddy>().IsBuddy((int)userData.DBRow["userID"], false))
+            else if (this.Get<IBuddy>().IsBuddy((int)userData.UserDictionary["userID"], false))
             {
                 this.lnkBuddy.Visible = false;
                 this.ltrApproval.Visible = true;
@@ -574,7 +576,7 @@ namespace YAF.Pages
             this.Joined.Text = "{0}".FormatWith(this.Get<IDateTime>().FormatDateLong(Convert.ToDateTime(userData.Joined)));
 
             // vzrus: Show last visit only to admins if user is hidden
-            if (!this.PageContext.IsAdmin && Convert.ToBoolean(userData.DBRow["IsActiveExcluded"]))
+            if (!this.PageContext.IsAdmin && Convert.ToBoolean(userData.UserDictionary["IsActiveExcluded"]))
             {
                 this.LastVisit.Text = this.GetText("COMMON", "HIDDEN");
                 this.LastVisit.Visible = true;
@@ -669,8 +671,8 @@ namespace YAF.Pages
                 this.Occupation.InnerHtml = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.Occupation));
             }
 
-            this.ThanksFrom.Text = LegacyDb.user_getthanks_from(userData.DBRow["userID"], this.PageContext.PageUserID).ToString();
-            int[] thanksToArray = LegacyDb.user_getthanks_to(userData.DBRow["userID"], this.PageContext.PageUserID);
+            this.ThanksFrom.Text = LegacyDb.user_getthanks_from(userData.UserDictionary["userID"], this.PageContext.PageUserID).ToString();
+            int[] thanksToArray = LegacyDb.user_getthanks_to(userData.UserDictionary["userID"], this.PageContext.PageUserID);
             this.ThanksToTimes.Text = thanksToArray[0].ToString();
             this.ThanksToPosts.Text = thanksToArray[1].ToString();
             this.ReputationReceived.Text = userData.Points.ToString();
@@ -748,16 +750,16 @@ namespace YAF.Pages
         {
             double allPosts = 0.0;
 
-            if (userData.DBRow["NumPostsForum"].ToType<int>() > 0)
+            if (userData.UserDictionary["NumPostsForum"].ToType<int>() > 0)
             {
-                allPosts = 100.0 * userData.DBRow["NumPosts"].ToType<int>() /
-                           userData.DBRow["NumPostsForum"].ToType<int>();
+                allPosts = 100.0 * userData.UserDictionary["NumPosts"].ToType<int>() /
+                           userData.UserDictionary["NumPostsForum"].ToType<int>();
             }
 
             this.Stats.InnerHtml = "{0:N0}<br />[{1} / {2}]".FormatWith(
-                userData.DBRow["NumPosts"],
+                userData.UserDictionary["NumPosts"],
                 this.GetTextFormatted("NUMALL", allPosts),
-                this.GetTextFormatted("NUMDAY", (double)userData.DBRow["NumPosts"].ToType<int>() / userData.DBRow["NumDays"].ToType<int>()));
+                this.GetTextFormatted("NUMDAY", (double)userData.UserDictionary["NumPosts"].ToType<int>() / userData.UserDictionary["NumDays"].ToType<int>()));
         }
 
         #endregion

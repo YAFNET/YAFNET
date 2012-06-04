@@ -26,7 +26,6 @@ namespace YAF.Core.Services
   using System.Linq;
   using System.Text.RegularExpressions;
 
-  using YAF.Classes.Data;
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Types.Interfaces;
@@ -60,10 +59,11 @@ namespace YAF.Core.Services
     /// <param name="logger">
     /// The logger.
     /// </param>
-    public YafBadWordReplace([NotNull] IObjectStore objectStore, [NotNull] ILogger logger)
+    public YafBadWordReplace([NotNull] IObjectStore objectStore, [NotNull] ILogger logger, IDbFunction dbFunction)
     {
       this.ObjectStore = objectStore;
       this.Logger = logger;
+    	DbFunction = dbFunction;
     }
 
     #endregion
@@ -75,7 +75,9 @@ namespace YAF.Core.Services
     /// </summary>
     public ILogger Logger { get; set; }
 
-    /// <summary>
+  	public IDbFunction DbFunction { get; set; }
+
+  	/// <summary>
     /// Gets or sets ObjectStore.
     /// </summary>
     public IObjectStore ObjectStore { get; set; }
@@ -91,7 +93,7 @@ namespace YAF.Core.Services
           Constants.Cache.ReplaceWords, 
           () =>
             {
-              var replaceWords = LegacyDb.replace_words_list(YafContext.Current.PageBoardID, null).AsEnumerable();
+              var replaceWords = ((DataTable)this.DbFunction.GetData.replace_words_list(YafContext.Current.PageBoardID, null)).AsEnumerable();
 
               // move to collection...
               return

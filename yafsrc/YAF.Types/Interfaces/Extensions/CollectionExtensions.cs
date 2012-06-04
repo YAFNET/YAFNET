@@ -1,27 +1,16 @@
-/* Yet Another Forum.net
- * Copyright (C) 2006-2012 Jaben Cargman
- * http://www.yetanotherforum.net/
- * 
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- */
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="CollectionExtensions.cs" company="">
+//   
+// </copyright>
+// <summary>
+//   The collection extensions.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
 namespace YAF.Types.Interfaces.Extensions
 {
 	using System.Collections.Generic;
 	using System.Linq;
-
-	using YAF.Types;
 
 	/// <summary>
 	/// The collection extensions.
@@ -74,12 +63,68 @@ namespace YAF.Types.Interfaces.Extensions
 		/// </typeparam>
 		/// <typeparam name="TValue">
 		/// </typeparam>
-		public static void AddRange<TKey, TValue>([NotNull] this IDictionary<TKey, TValue> dictionaryFirst, [NotNull] IDictionary<TKey, TValue> dictionarySecondary)
+		public static void AddRange<TKey, TValue>(
+			[NotNull] this IDictionary<TKey, TValue> dictionaryFirst, [NotNull] IDictionary<TKey, TValue> dictionarySecondary)
 		{
 			CodeContracts.ArgumentNotNull(dictionaryFirst, "dictionaryFirst");
 			CodeContracts.ArgumentNotNull(dictionarySecondary, "dictionarySecondary");
 
 			dictionarySecondary.ToList().ForEach(i => dictionaryFirst.AddOrUpdate(i.Key, i.Value));
+		}
+
+		/// <summary>
+		/// The get value.
+		/// </summary>
+		/// <param name="dictionary">
+		/// The dictionary.
+		/// </param>
+		/// <param name="key">
+		/// The key.
+		/// </param>
+		/// <typeparam name="TKey">
+		/// </typeparam>
+		/// <typeparam name="TValue">
+		/// </typeparam>
+		/// <returns>
+		/// </returns>
+		public static TValue GetValue<TKey, TValue>([NotNull] this IDictionary<TKey, TValue> dictionary, TKey key)
+		{
+			CodeContracts.ArgumentNotNull(dictionary, "dictionary");
+
+			return GetValueOrDefault(dictionary, key, default(TValue));
+		}
+
+		/// <summary>
+		/// The get value or default.
+		/// </summary>
+		/// <param name="dictionary">
+		/// The dictionary.
+		/// </param>
+		/// <param name="key">
+		/// The key.
+		/// </param>
+		/// <param name="defaultValue">
+		/// The default value.
+		/// </param>
+		/// <typeparam name="TKey">
+		/// </typeparam>
+		/// <typeparam name="TValue">
+		/// </typeparam>
+		/// <returns>
+		/// </returns>
+		public static TValue GetValueOrDefault<TKey, TValue>(
+			[NotNull] this IDictionary<TKey, TValue> dictionary, TKey key, TValue defaultValue)
+		{
+			CodeContracts.ArgumentNotNull(dictionary, "dictionary");
+
+			TValue returnValue;
+
+			if (dictionary.TryGetValue(key, out returnValue))
+			{
+				return returnValue;
+			}
+
+			return defaultValue;
 		}
 
 		#endregion

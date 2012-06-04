@@ -21,15 +21,15 @@ namespace YAF.Controls
   #region Using
 
   using System;
-  using System.Diagnostics;
   using System.IO;
   using System.Net;
   using System.Net.Sockets;
   using System.Text;
   using System.Web;
 
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Classes.Data;
+  using YAF.Core;
+  using YAF.Types.Attributes;
+  using YAF.Types.Interfaces;
   using YAF.Utils;
   using YAF.Types;
 
@@ -40,6 +40,9 @@ namespace YAF.Controls
   /// </summary>
   public class RecaptchaValidator
   {
+		[Inject]
+  	public ILogger Logger { get; set; }
+
     #region Constants and Fields
 
     /// <summary>
@@ -183,7 +186,8 @@ namespace YAF.Controls
       }
       catch (WebException exception)
       {
-        LegacyDb.eventlog_create(YafContext.Current.PageUserID, this, exception.Message, EventLogEntryType.Error);
+				this.Logger.Error(exception, "Error in Recaptcha Response for UserID: {0}".FormatWith(YafContext.Current.PageUserID));
+
         return RecaptchaResponse.RecaptchaNotReachable;
       }
 

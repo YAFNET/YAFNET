@@ -1,6 +1,5 @@
-﻿/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bjørnar Henden
- * Copyright (C) 2006-2012 Jaben Cargman
+﻿/* Yet Another Forum.net
+ * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -17,75 +16,104 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
 namespace YAF.Utils.Extensions
 {
-    using System;
-    using System.IO;
-    using System.Runtime.Serialization.Json;
-    using System.Text;
+	#region Using
 
-    /// <summary>
-    /// Json Extension
-    /// </summary>
-    public static class JsonExtension
-    {
-        /// <summary>
-        /// Froms the json.
-        /// </summary>
-        /// <typeparam name="TType">The type of the type.</typeparam>
-        /// <param name="json">The json.</param>
-        /// <returns>Deserialised Json Strin</returns>
-        public static TType FromJson<TType>(this string json)
-        {
-            return Deserialise<TType>(json);
-        }
+	using System;
+	using System.IO;
+	using System.Runtime.Serialization.Json;
+	using System.Text;
 
-        /// <summary>
-        /// Deserialises the specified json.
-        /// </summary>
-        /// <typeparam name="T">The Object</typeparam>
-        /// <param name="json">The json.</param>
-        /// <returns>Deserialised Json Strin</returns>
-        public static T Deserialise<T>(string json)
-        {
-            T obj = Activator.CreateInstance<T>();
-            using (MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(json)))
-            {
-                DataContractJsonSerializer serializer = new DataContractJsonSerializer(obj.GetType());
-                obj = (T)serializer.ReadObject(ms);
-                return obj;
-            }
-        }
+	using YAF.Types;
 
-        /// <summary>
-        /// Serializes the specified obj.
-        /// </summary>
-        /// <typeparam name="T">The Object</typeparam>
-        /// <param name="obj">The obj.</param>
-        /// <returns>Serialised Json String</returns>
-        public static string Serialize<T>(T obj)
-        {
-            DataContractJsonSerializer serializer = new DataContractJsonSerializer(obj.GetType());
-            using (MemoryStream ms = new MemoryStream())
-            {
-                serializer.WriteObject(ms, obj);
-                return Encoding.Default.GetString(ms.ToArray());
-            }
-        }
+	#endregion
 
-        /// <summary>
-        /// To Json String Extension
-        /// </summary>
-        /// <param name="obj">
-        /// The obj.
-        /// </param>
-        /// <returns>
-        /// Serialised Json String
-        /// </returns>
-        public static string ToJson(this object obj)
-        {
-            return Serialize(obj);
-        }
-    }
+	/// <summary>
+	/// Json Extension
+	/// </summary>
+	public static class JsonExtension
+	{
+		#region Public Methods
+
+		/// <summary>
+		/// Deserialises the specified json.
+		/// </summary>
+		/// <typeparam name="T">
+		/// The Object
+		/// </typeparam>
+		/// <param name="json">
+		/// The json.
+		/// </param>
+		/// <returns>
+		/// Deserialised Json Strin
+		/// </returns>
+		public static T Deserialise<T>([NotNull] string json)
+		{
+			var obj = Activator.CreateInstance<T>();
+			using (var ms = new MemoryStream(Encoding.Unicode.GetBytes(json)))
+			{
+				var serializer = new DataContractJsonSerializer(obj.GetType());
+				obj = (T)serializer.ReadObject(ms);
+				return obj;
+			}
+		}
+
+		/// <summary>
+		/// Froms the json.
+		/// </summary>
+		/// <typeparam name="TType">
+		/// The type of the type.
+		/// </typeparam>
+		/// <param name="json">
+		/// The json.
+		/// </param>
+		/// <returns>
+		/// Deserialised Json Strin
+		/// </returns>
+		public static TType FromJson<TType>([NotNull] this string json)
+		{
+			return Deserialise<TType>(json);
+		}
+
+		/// <summary>
+		/// Serializes the specified obj.
+		/// </summary>
+		/// <typeparam name="T">
+		/// The Object
+		/// </typeparam>
+		/// <param name="obj">
+		/// The obj.
+		/// </param>
+		/// <returns>
+		/// Serialised Json String
+		/// </returns>
+		[NotNull]
+		public static string Serialize<T>(T obj)
+		{
+			var serializer = new DataContractJsonSerializer(obj.GetType());
+			using (var ms = new MemoryStream())
+			{
+				serializer.WriteObject(ms, obj);
+				return Encoding.Default.GetString(ms.ToArray());
+			}
+		}
+
+		/// <summary>
+		/// To Json String Extension
+		/// </summary>
+		/// <param name="obj">
+		/// The obj.
+		/// </param>
+		/// <returns>
+		/// Serialised Json String
+		/// </returns>
+		[NotNull]
+		public static string ToJson([NotNull] this object obj)
+		{
+			return Serialize(obj);
+		}
+
+		#endregion
+	}
 }

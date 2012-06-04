@@ -1,5 +1,5 @@
-﻿/* Yet Another Forum.NET
- * Copyright (C) 2006-2012 Jaben Cargman
+/* Yet Another Forum.net
+ * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -16,21 +16,29 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Classes.Data
-{
-  /// <summary>
-  /// The search condition type.
-  /// </summary>
-  public enum SearchConditionType
-  {
-    /// <summary>
-    ///   The and.
-    /// </summary>
-    AND, 
 
-    /// <summary>
-    ///   The or.
-    /// </summary>
-    OR
-  }
+namespace YAF.Types.Interfaces
+{
+	using System.Collections.Generic;
+
+	/// <summary>
+	/// The i data loadable.
+	/// </summary>
+	public interface IDataLoadable
+	{
+		#region Public Methods
+
+		/// <summary>
+		/// The load from dictionary.
+		/// </summary>
+		/// <param name="dictionary">
+		/// The dictionary.
+		/// </param>
+		/// <param name="clear">
+		/// The clear.
+		/// </param>
+		void LoadFromDictionary([NotNull] IDictionary<string, object> dictionary, bool clear = true);
+
+		#endregion
+	}
 }
