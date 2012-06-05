@@ -350,11 +350,11 @@ namespace YAF.Controls
                 }
 
                 string userNameFromEmail = this.Get<MembershipProvider>().GetUserNameByEmail(this.Email.Text.Trim());
-                if (userNameFromEmail != userName)
-                {
+                if (userNameFromEmail.IsSet() && userNameFromEmail != userName)
+                 {
                     this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_EMAIL"));
                     return;
-                }
+                 }
 
                 if (this.Get<YafBoardSettings>().EmailVerification)
                 {
