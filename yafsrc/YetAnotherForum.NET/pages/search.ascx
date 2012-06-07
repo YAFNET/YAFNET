@@ -115,7 +115,7 @@
                         <strong>
                             <YAF:LocalizedLabel runat="server" LocalizedTag="topic" />
                         </strong><a title='<%# this.GetText("COMMON", "VIEW_TOPIC") %>' alt='<%# this.GetText("COMMON", "VIEW_TOPIC") %>' href="<%# YafBuildLink.GetLink(ForumPages.posts,"t={0}", Container.DataItemToField<int>("TopicID")) %>">
-                            <%# Container.DataItemToField<string>("Topic") %>
+                            <%# HtmlEncode(Container.DataItemToField<string>("Topic"))%>
                         </a>
                          <a id="AncAltPost"    href="<%# YafBuildLink.GetLink(ForumPages.posts,"m={0}#post{0}", Container.DataItemToField<int>("MessageID")) %>" >&nbsp;
                            <img id="ImgAltPost" title='<%#  this.GetText("GO_LAST_POST") %>' alt='<%#  this.GetText("GO_TO_LASTPOST") %>' src='<%#  GetThemeContents("ICONS", "ICON_LATEST") %>' />

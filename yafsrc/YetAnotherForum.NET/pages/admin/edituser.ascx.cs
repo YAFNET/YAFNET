@@ -18,6 +18,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+using YAF.Classes;
+
 namespace YAF.Pages.Admin
 {
   #region Using
@@ -144,13 +146,13 @@ namespace YAF.Pages.Admin
         return;
       }
 
-      this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-     this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+      this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+      this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
 
       this.PageLinks.AddLink(this.GetText("ADMIN_USERS", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_users));
 
       // current page label (no link)
-      this.PageLinks.AddLink(this.GetText("ADMIN_EDITUSER", "TITLE").FormatWith(userRow["Name"].ToString()), string.Empty);
+      this.PageLinks.AddLink(this.GetText("ADMIN_EDITUSER", "TITLE").FormatWith(this.Get<YafBoardSettings>().EnableDisplayName ? userRow["DisplayName"].ToString() : userRow["Name"].ToString()), string.Empty);
 
       this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
          this.GetText("ADMIN_ADMIN", "Administration"),
