@@ -301,12 +301,12 @@
 	float: left;
 	padding: 0px;
 	margin:0px;
-    width:40px;
-	height:40px;
+    min-width:40px;
+	min-height:40px;
 }
 .yafnet .SmilieList li img {
-    max-width:40px;
-	max-height:40px;
+	max-width: 80px;
+	max-height: 80px;
 }
 .yafnet .SmilieList li a{
     display:block;
