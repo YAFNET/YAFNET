@@ -827,6 +827,8 @@ namespace YAF.Pages
 
             long messageId = this.EditMessageID.Value;
 
+            this.UpdateWatchTopic(this.PageContext.PageUserID, this.PageContext.PageTopicID);
+
             this.HandlePostToBlog(this._forumEditor.Text, this.TopicSubjectTextBox.Text);
 
             // remove cache if it exists...
