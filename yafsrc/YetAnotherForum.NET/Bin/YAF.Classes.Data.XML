@@ -4,182 +4,46 @@
         <name>YAF.Classes.Data</name>
     </assembly>
     <members>
-        <member name="T:YAF.Types.Objects.TypedUserFind">
+        <member name="T:YAF.Classes.Data.BaseDataTableResultFilter">
             <summary>
-            The typed user find.
+            The abstract base data table result filter.
             </summary>
         </member>
-        <member name="M:YAF.Types.Objects.TypedUserFind.#ctor(System.Data.DataRow)">
+        <member name="F:YAF.Classes.Data.BaseDataTableResultFilter._sqlCommandStartsWith">
             <summary>
-            Initializes a new instance of the <see cref="T:YAF.Types.Objects.TypedUserFind"/> class.
+            The filter that sql commands starts with -- if none added all commands are processed.
             </summary>
-            <param name="row">
-            The row.
+        </member>
+        <member name="M:YAF.Classes.Data.BaseDataTableResultFilter.Process(System.Data.DataTable@,System.String)">
+            <summary>
+            The process.
+            </summary>
+            <param name="dataTable">
+            The data table.
+            </param>
+            <param name="sqlCommand">
+            The sql command.
             </param>
         </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.AutoWatchTopics">
+        <member name="M:YAF.Classes.Data.BaseDataTableResultFilter.FilteredProcess(System.Data.DataTable@,System.String)">
             <summary>
-            Gets or sets AutoWatchTopics.
+            The filtered process.
+            </summary>
+            <param name="dataTable">
+            The data table.
+            </param>
+            <param name="sqlCommand">
+            The sql command.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Data.BaseDataTableResultFilter.Rank">
+            <summary>
+            Gets Rank.
             </summary>
         </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.UseSingleSignOn">
+        <member name="P:YAF.Classes.Data.BaseDataTableResultFilter.SqlCommandStartsWith">
             <summary>
-            Gets or sets a value indicating whether UseSingleSignOn.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.TextEditor">
-            <summary>
-            Gets or sets TextEditor.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.Avatar">
-            <summary>
-            Gets or sets Avatar.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.AvatarImage">
-            <summary>
-            Gets or sets AvatarImage.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.AvatarImageType">
-            <summary>
-            Gets or sets AvatarImageType.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.BoardID">
-            <summary>
-            Gets or sets BoardID.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.Culture">
-            <summary>
-            Gets or sets Culture.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.DailyDigest">
-            <summary>
-            Gets or sets DailyDigest.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.DisplayName">
-            <summary>
-            Gets or sets DisplayName.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.Email">
-            <summary>
-            Gets or sets Email.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.Flags">
-            <summary>
-            Gets or sets Flags.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.IP">
-            <summary>
-            Gets or sets IP.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.IsActiveExcluded">
-            <summary>
-            Gets or sets IsActiveExcluded.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.IsApproved">
-            <summary>
-            Gets or sets IsApproved.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.IsGuest">
-            <summary>
-            Gets or sets IsGuest.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.Joined">
-            <summary>
-            Gets or sets Joined.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.LanguageFile">
-            <summary>
-            Gets or sets LanguageFile.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.LastVisit">
-            <summary>
-            Gets or sets LastVisit.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.Name">
-            <summary>
-            Gets or sets Name.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.NotificationType">
-            <summary>
-            Gets or sets NotificationType.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.NumPosts">
-            <summary>
-            Gets or sets NumPosts.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.UseMobileTheme">
-            <summary>
-            Gets or sets UseMobileTheme.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.PMNotification">
-            <summary>
-            Gets or sets PMNotification.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.Password">
-            <summary>
-            Gets or sets Password.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.Points">
-            <summary>
-            Gets or sets Points.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.ProviderUserKey">
-            <summary>
-            Gets or sets ProviderUserKey.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.RankID">
-            <summary>
-            Gets or sets RankID.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.Signature">
-            <summary>
-            Gets or sets Signature.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.Suspended">
-            <summary>
-            Gets or sets Suspended.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.ThemeFile">
-            <summary>
-            Gets or sets ThemeFile.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.TimeZone">
-            <summary>
-            Gets or sets TimeZone.
-            </summary>
-        </member>
-        <member name="P:YAF.Types.Objects.TypedUserFind.UserID">
-            <summary>
-            Gets or sets UserID.
+            Gets or sets SqlCommandStartsWith.
             </summary>
         </member>
         <member name="T:YAF.Classes.Data.MsSqlDbAccess">
@@ -456,6 +320,11 @@
             <returns>
             </returns>
         </member>
+        <member name="P:YAF.Classes.Data.MsSqlDbAccess.LargeForumTree">
+            <summary>
+            Gets LargeForumTree optimization setting.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.Data.MsSqlDbAccess.Current">
             <summary>
               Gets Current IDbAccess -- needs to be switched to direct injection into all DB classes.
@@ -472,6 +341,184 @@
             </summary>
             <exception cref="T:System.NotImplementedException">
             </exception>
+        </member>
+        <member name="T:YAF.Types.Objects.TypedUserFind">
+            <summary>
+            The typed user find.
+            </summary>
+        </member>
+        <member name="M:YAF.Types.Objects.TypedUserFind.#ctor(System.Data.DataRow)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Types.Objects.TypedUserFind"/> class.
+            </summary>
+            <param name="row">
+            The row.
+            </param>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.AutoWatchTopics">
+            <summary>
+            Gets or sets AutoWatchTopics.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.UseSingleSignOn">
+            <summary>
+            Gets or sets a value indicating whether UseSingleSignOn.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.TextEditor">
+            <summary>
+            Gets or sets TextEditor.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.Avatar">
+            <summary>
+            Gets or sets Avatar.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.AvatarImage">
+            <summary>
+            Gets or sets AvatarImage.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.AvatarImageType">
+            <summary>
+            Gets or sets AvatarImageType.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.BoardID">
+            <summary>
+            Gets or sets BoardID.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.Culture">
+            <summary>
+            Gets or sets Culture.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.DailyDigest">
+            <summary>
+            Gets or sets DailyDigest.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.DisplayName">
+            <summary>
+            Gets or sets DisplayName.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.Email">
+            <summary>
+            Gets or sets Email.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.Flags">
+            <summary>
+            Gets or sets Flags.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.IP">
+            <summary>
+            Gets or sets IP.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.IsActiveExcluded">
+            <summary>
+            Gets or sets IsActiveExcluded.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.IsApproved">
+            <summary>
+            Gets or sets IsApproved.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.IsGuest">
+            <summary>
+            Gets or sets IsGuest.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.Joined">
+            <summary>
+            Gets or sets Joined.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.LanguageFile">
+            <summary>
+            Gets or sets LanguageFile.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.LastVisit">
+            <summary>
+            Gets or sets LastVisit.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.Name">
+            <summary>
+            Gets or sets Name.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.NotificationType">
+            <summary>
+            Gets or sets NotificationType.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.NumPosts">
+            <summary>
+            Gets or sets NumPosts.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.UseMobileTheme">
+            <summary>
+            Gets or sets UseMobileTheme.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.PMNotification">
+            <summary>
+            Gets or sets PMNotification.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.Password">
+            <summary>
+            Gets or sets Password.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.Points">
+            <summary>
+            Gets or sets Points.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.ProviderUserKey">
+            <summary>
+            Gets or sets ProviderUserKey.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.RankID">
+            <summary>
+            Gets or sets RankID.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.Signature">
+            <summary>
+            Gets or sets Signature.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.Suspended">
+            <summary>
+            Gets or sets Suspended.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.ThemeFile">
+            <summary>
+            Gets or sets ThemeFile.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.TimeZone">
+            <summary>
+            Gets or sets TimeZone.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.UserID">
+            <summary>
+            Gets or sets UserID.
+            </summary>
         </member>
         <member name="T:YAF.Classes.Data.SettingsPropertyColumn">
             <summary>
@@ -948,6 +995,56 @@
             <returns>
             </returns>
         </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.admin_pageaccesslist(System.Object,System.Object)">
+            <summary>
+            The admin_pageaccesslist.
+            </summary>
+            <param name="boardId">
+            The board id.
+            </param>
+            <param name="useStyledNicks">
+            The use styled nicks.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.adminpageaccess_save(System.Object,System.Object)">
+            <summary>
+            Saves access for an admin user for an admin page.  
+            </summary>
+            <param name="userId">
+            The user ID.
+            </param>
+            <param name="pageName">
+            The page name/
+            </param>
+            <param name="readAccess">
+            The read access. 
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.adminpageaccess_delete(System.Object,System.Object)">
+            <summary>
+             Deletes access for an admin user for an admin page.
+            </summary>
+            <param name="userId">
+            The user ID.
+            </param>
+            <param name="pageName">
+            The page name/
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.adminpageaccess_list(System.Object,System.Object)">
+            <summary>
+            Returns access lists for admin pages.
+            </summary>
+            <param name="userId">
+            The user ID.
+            </param>
+            <param name="pageName">
+            The page name/
+            </param>
+            <returns>A DataTable with access lists for admin pages.</returns>
+        </member>
         <member name="M:YAF.Classes.Data.LegacyDb.album_delete(System.Object)">
             <summary>
             Deletes an album and all Images in that album.
@@ -1094,7 +1191,7 @@
             ID of attachemnt to download
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.LegacyDb.attachment_list(System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.attachment_list(System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             Gets a list of attachments
             </summary>
@@ -1139,7 +1236,7 @@
             ID of banned ip to delete
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.LegacyDb.bannedip_list(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.bannedip_list(System.Object,System.Object,System.Object,System.Object)">
             <summary>
             List of Baned IP's
             </summary>
@@ -1147,7 +1244,13 @@
             ID of board
             </param>
             <param name="ID">
-            ID
+            The IP ID.
+            </param>
+            <param name="pageIndex">
+            The 0-based page Index.
+            </param>
+            <param name="pageSize"> 
+            The page size.
             </param>
             <returns>
             DataTable of banned IPs
@@ -1241,37 +1344,20 @@
             The execorder.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.LegacyDb.board_create(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.board_create(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             Creates a new board
             </summary>
-            <param name="adminUsername">
-            Membership Provider User Name
-            </param>
-            <param name="adminUserEmail">
-            The admin User Email.
-            </param>
-            <param name="adminUserKey">
-            Membership Provider User Key
-            </param>
-            <param name="boardName">
-            Name of new board
-            </param>
-            <param name="culture">
-            The culture.
-            </param>
-            <param name="languageFile">
-            The language File.
-            </param>
-            <param name="boardMembershipName">
-            Membership Provider Application Name for new board
-            </param>
-            <param name="boardRolesName">
-            Roles Provider Application Name for new board
-            </param>
-            <param name="rolePrefix">
-            The role Prefix.
-            </param>
+            <param name="adminUsername">Membership Provider User Name</param>
+            <param name="adminUserEmail">The admin User Email.</param>
+            <param name="adminUserKey">Membership Provider User Key</param>
+            <param name="boardName">Name of new board</param>
+            <param name="culture">The culture.</param>
+            <param name="languageFile">The language File.</param>
+            <param name="boardMembershipName">Membership Provider Application Name for new board</param>
+            <param name="boardRolesName">Roles Provider Application Name for new board</param>
+            <param name="rolePrefix">The role Prefix.</param>
+            <param name="isHostUser">The is host user.</param>
             <returns>
             The board_create.
             </returns>
@@ -1860,7 +1946,7 @@
             The description.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.LegacyDb.eventlog_delete(System.Int32)">
+        <member name="M:YAF.Classes.Data.LegacyDb.eventlog_delete(System.Int32,System.Int32)">
             <summary>
             Deletes all event log entries for given board.
             </summary>
@@ -1868,7 +1954,7 @@
             ID of board.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.LegacyDb.eventlog_delete(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.eventlog_delete(System.Object,System.Int32)">
             <summary>
             Deletes event log entry of given ID.
             </summary>
@@ -1876,14 +1962,89 @@
             ID of event log entry.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.LegacyDb.eventlog_list(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.eventlog_list(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The eventlog_list.
             </summary>
             <param name="boardID">
             The board id.
             </param>
+            <param name="pageUserID"> 
+            The page user ID.
+            </param>
+            <param name="maxRows"> 
+            The max Rows.
+            </param>
+            <param name="maxDays"> 
+            The max Days. 
+            </param>
+            <param name="pageIndex"> 
+            The page index. 
+            </param>
+            <param name="pageSize"> 
+            The page size. 
+            </param>
+            <param name="sinceDate"> 
+            The since date. 
+            </param>
+            <param name="toDate"> 
+            The to date. 
+            </param>
+            <param name="eventIDs">
+            Comma delimited list event types.
+            </param>
             <returns>
+            A list of events for the pageUserID access level. 
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.eventloggroupaccess_save(System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            Saves access entry for a log type for a user.
+            </summary>
+            <param name="groupID">
+            The group Id.
+            </param>
+            <param name="eventTypeId">
+            The event Type Id.
+            </param>
+            <param name="eventTypeName">
+            The event Type Name.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.eventloggroupaccess_delete(System.Object,System.Object,System.Object)">
+            <summary>
+            Deletes event log access entries from table.
+            </summary>
+            <param name="groupID">
+            The group Id.
+            </param>
+            <param name="eventTypeId">
+            The event Type Id.
+            </param>
+            <param name="eventTypeName">
+            The event Type Name.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.eventloggroupaccess_list(System.Object,System.Object)">
+            <summary>
+            Returns a list of access entries for a group.
+            </summary>
+            <param name="groupID">
+            The group Id.
+            </param>
+            <param name="eventTypeId">
+            The event Type Id.
+            </param>
+            <returns>Returns a list of access entries for a group.</returns>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.group_eventlogaccesslist(System.Object)">
+            <summary>
+            Lists group for the board Id handy to display on the calling admin page. 
+            </summary>
+            <param name="boardId">
+            The board Id.
+            </param>
+            <returns>Lists group for the board Id handy to display on the calling admin page.
             </returns>
         </member>
         <member name="M:YAF.Classes.Data.LegacyDb.extension_delete(System.Object)">
@@ -3403,25 +3564,16 @@
             The days unread.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.LegacyDb.pmessage_save(System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.pmessage_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The pmessage_save.
             </summary>
-            <param name="fromUserID">
-            The from user id.
-            </param>
-            <param name="toUserID">
-            The to user id.
-            </param>
-            <param name="subject">
-            The subject.
-            </param>
-            <param name="body">
-            The body.
-            </param>
-            <param name="Flags">
-            The flags.
-            </param>
+            <param name="fromUserID">The from user id.</param>
+            <param name="toUserID">The to user id.</param>
+            <param name="subject">The subject.</param>
+            <param name="body">The body.</param>
+            <param name="flags">The flags.</param>
+            <param name="replyTo">The reply to.</param>
         </member>
         <member name="M:YAF.Classes.Data.LegacyDb.poll_remove(System.Object,System.Object,System.Object,System.Boolean,System.Boolean)">
             <summary>
@@ -5080,7 +5232,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.LegacyDb.User_ListProfilesByIdsList(System.Int32[],System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.User_ListProfilesByIdsList(System.Int32,System.Int32[],System.Object)">
             <summary>
             The user_ list with todays birthdays.
             </summary>
@@ -5872,7 +6024,7 @@
             The inner run sql execute reader.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.LegacyDb.eventlog_delete(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.eventlog_delete(System.Object,System.Object,System.Object)">
             <summary>
             Calls underlying stroed procedure for deletion of event log entry(ies).
             </summary>
@@ -5881,6 +6033,17 @@
             </param>
             <param name="boardID">
             Specifies board. It is ignored if eventLogID parameter is not null.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.eventlog_deletebyuser(System.Object,System.Object)">
+            <summary>
+            Deletes events of a type.
+            </summary>
+            <param name="boardId">
+            The board Id.
+            </param>
+            <param name="pageUserId">
+            The page User Id.
             </param>
         </member>
         <member name="M:YAF.Classes.Data.LegacyDb.forum_deleteAttachments(System.Object)">
@@ -6477,59 +6640,18 @@
             The build sql.
             </returns>
         </member>
-        <member name="T:YAF.Classes.Data.Import.DataImport">
+        <member name="T:YAF.Classes.Data.DataModule">
             <summary>
-            The data import.
+            The data module.
             </summary>
         </member>
-        <member name="M:YAF.Classes.Data.Import.DataImport.BBCodeExtensionImport(System.Int32,System.IO.Stream)">
+        <member name="M:YAF.Classes.Data.DataModule.Load(Autofac.ContainerBuilder)">
             <summary>
-            The bb code extension import.
+            The load.
             </summary>
-            <param name="boardId">
-            The board id.
+            <param name="builder">
+            The builder.
             </param>
-            <param name="imputStream">
-            The imput stream.
-            </param>
-            <returns>
-            Returns How Many Extensions where imported.
-            </returns>
-            <exception cref="T:System.Exception">Import stream is not expected format.
-            </exception>
-        </member>
-        <member name="M:YAF.Classes.Data.Import.DataImport.FileExtensionImport(System.Int32,System.IO.Stream)">
-            <summary>
-            The file extension import.
-            </summary>
-            <param name="boardId">
-            The board id.
-            </param>
-            <param name="imputStream">
-            The imput stream.
-            </param>
-            <returns>
-            Returns How Many Extensions where imported.
-            </returns>
-            <exception cref="T:System.Exception">Import stream is not expected format.
-            </exception>
-        </member>
-        <member name="M:YAF.Classes.Data.Import.DataImport.TopicStatusImport(System.Int32,System.IO.Stream)">
-            <summary>
-            Topics the status import.
-            </summary>
-            <param name="boardId">
-            The board id.
-            </param>
-            <param name="imputStream">
-            The imput stream.
-            </param>
-            <exception cref="T:System.Exception">
-            Import stream is not expected format.
-            </exception>
-            <returns>
-            Returns the Number of Imported Items.
-            </returns>
         </member>
         <member name="T:YAF.Classes.Data.SearchBuilder">
             <summary>
@@ -6608,48 +6730,6 @@
             </param>
             <returns>
             </returns>
-        </member>
-        <member name="T:YAF.Classes.Data.BaseDataTableResultFilter">
-            <summary>
-            The abstract base data table result filter.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.BaseDataTableResultFilter._sqlCommandStartsWith">
-            <summary>
-            The filter that sql commands starts with -- if none added all commands are processed.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.BaseDataTableResultFilter.Process(System.Data.DataTable@,System.String)">
-            <summary>
-            The process.
-            </summary>
-            <param name="dataTable">
-            The data table.
-            </param>
-            <param name="sqlCommand">
-            The sql command.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.BaseDataTableResultFilter.FilteredProcess(System.Data.DataTable@,System.String)">
-            <summary>
-            The filtered process.
-            </summary>
-            <param name="dataTable">
-            The data table.
-            </param>
-            <param name="sqlCommand">
-            The sql command.
-            </param>
-        </member>
-        <member name="P:YAF.Classes.Data.BaseDataTableResultFilter.Rank">
-            <summary>
-            Gets Rank.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.BaseDataTableResultFilter.SqlCommandStartsWith">
-            <summary>
-            Gets or sets SqlCommandStartsWith.
-            </summary>
         </member>
         <member name="T:YAF.Classes.Data.MsSqlDbConnectionManager">
             <summary>
@@ -6844,19 +6924,6 @@
             <summary>
               The or.
             </summary>
-        </member>
-        <member name="T:YAF.Classes.Data.DataModule">
-            <summary>
-            The data module.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.DataModule.Load(Autofac.ContainerBuilder)">
-            <summary>
-            The load.
-            </summary>
-            <param name="builder">
-            The builder.
-            </param>
         </member>
     </members>
 </doc>

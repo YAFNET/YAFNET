@@ -82,24 +82,21 @@
             Gets CustomBBCode.
             </summary>
         </member>
-        <member name="M:YAF.Controls.MessagePost.HighlightMessage(System.String)">
+        <member name="M:YAF.Controls.MessagePost.HighlightMessage(System.String,System.Boolean)">
             <summary>
             Highlight a Message
             </summary>
-            <param name="message">
-            The Message to Hightlight
-            </param>
+            <param name="message">The Message to Hightlight</param>
+            <param name="renderBBCode">if set to <c>true</c> Render Highlight as BB Code or as Html Tags</param>
             <returns>
             The Message with the Span Tag and Css Class "highlight" that Hightlights it
             </returns>
         </member>
         <member name="M:YAF.Controls.MessagePost.OnPreRender(System.EventArgs)">
             <summary>
-            The on pre render.
+            Raises the <see cref="E:System.Web.UI.Control.PreRender"/> event.
             </summary>
-            <param name="e">
-            The e.
-            </param>
+            <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         </member>
         <member name="M:YAF.Controls.MessagePost.Render(System.Web.UI.HtmlTextWriter)">
             <summary>
@@ -204,11 +201,9 @@
         </member>
         <member name="M:YAF.Controls.MessagePostData.OnPreRender(System.EventArgs)">
             <summary>
-            The on pre render.
+            Raises the <see cref="E:System.Web.UI.Control.PreRender"/> event.
             </summary>
-            <param name="e">
-            The e.
-            </param>
+            <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         </member>
         <member name="M:YAF.Controls.MessagePostData.RenderMessage(System.Web.UI.HtmlTextWriter)">
             <summary>
@@ -378,16 +373,14 @@
         </member>
         <member name="T:YAF.Controls.ProfileMenu">
             <summary>
-            Summary description for ForumUsers.
+            User Profile Menu in the User Control Panel
             </summary>
         </member>
         <member name="M:YAF.Controls.ProfileMenu.Render(System.Web.UI.HtmlTextWriter)">
             <summary>
-            The render.
+            Render the Profile Menu
             </summary>
-            <param name="writer">
-            The writer.
-            </param>
+            <param name="writer">The <see cref="T:System.Web.UI.HtmlTextWriter"/> object that receives the server control content.</param>
         </member>
         <member name="T:YafMenu">
             <summary>
@@ -1391,7 +1384,7 @@
         </member>
         <member name="M:YAF.Controls.ThemeButton.GetLocalizedTitle">
             <summary>
-            The get localized title.
+            Gets the localized title.
             </summary>
             <returns>
             The get localized title.
@@ -1425,10 +1418,8 @@
             <summary>
             Setup the controls before render
             </summary>
-            <param name="sender">
-            </param>
-            <param name="e">
-            </param>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
         </member>
         <member name="E:YAF.Controls.ThemeButton.Click">
             <summary>
@@ -1747,6 +1738,14 @@
             </summary>
             <param name="writer">
             The writer.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.MessageBox.OnPreRender(System.EventArgs)">
+            <summary>
+            The On PreRender event.
+            </summary>
+            <param name="e">
+            the Event Arguments
             </param>
         </member>
         <member name="P:YAF.Controls.MessageBox.BodyTemplate">
@@ -2520,7 +2519,7 @@
               The _menu def.
             </summary>
         </member>
-        <member name="M:YAF.Controls.AdminMenu.BuildUrlList(System.Web.UI.HtmlTextWriter,System.Collections.Generic.IEnumerable{YafMenuYafMenuSectionYafMenuItem})">
+        <member name="M:YAF.Controls.AdminMenu.BuildUrlList(System.Collections.Generic.IEnumerable{YafMenuYafMenuSectionYafMenuItem})">
             <summary>
             Builds a Url List
             </summary>
@@ -2555,7 +2554,7 @@
             Returns the Menu Sections
             </returns>
         </member>
-        <member name="M:YAF.Controls.AdminMenu.LoadMenuFromXML">
+        <member name="M:YAF.Controls.AdminMenu.LoadMenuFromXml">
             <summary>
             The load menu from xml.
             </summary>

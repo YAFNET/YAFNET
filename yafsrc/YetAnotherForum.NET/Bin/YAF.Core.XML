@@ -1202,16 +1202,31 @@
               YafContext Constructor
             </summary>
         </member>
-        <member name="M:YAF.Core.YafContext.AddLoadMessage(System.String)">
+        <member name="M:YAF.Core.YafContext.AddLoadMessage(System.String,YAF.Types.Constants.MessageTypes)">
             <summary>
             Helper Function that adds a "load message" to the load message class.
             </summary>
-            <param name="loadMessage">
-            </param>
+            <param name="message">The message.</param>
+            <param name="messageType">The message type.</param>
         </member>
         <member name="M:YAF.Core.YafContext.Dispose">
             <summary>
             The dispose.
+            </summary>
+        </member>
+        <member name="M:YAF.Core.YafContext.InitUserAndPage">
+            <summary>
+            Initialize the user data and page data...
+            </summary>
+        </member>
+        <member name="E:YAF.Core.YafContext.AfterInit">
+            <summary>
+              The after init.
+            </summary>
+        </member>
+        <member name="E:YAF.Core.YafContext.BeforeInit">
+            <summary>
+              The before init.
             </summary>
         </member>
         <member name="E:YAF.Core.YafContext.Init">
@@ -1226,75 +1241,75 @@
         </member>
         <member name="P:YAF.Core.YafContext.Current">
             <summary>
-              Get the instance of the Forum Context
+              Gets the instance of the Forum Context
             </summary>
         </member>
         <member name="P:YAF.Core.YafContext.Application">
             <summary>
-            Returns the current application.
+            Gets the current application.
             </summary>
         </member>
         <member name="P:YAF.Core.YafContext.BoardSettings">
             <summary>
-              Current Board Settings
+             Gets or sets the Current Board Settings
             </summary>
         </member>
         <member name="P:YAF.Core.YafContext.CurrentForumPage">
             <summary>
-              Forum page instance of the current forum page.
+              Gets or sets the Forum page instance of the current forum page.
               May not be valid until everything is initialized.
             </summary>
         </member>
         <member name="P:YAF.Core.YafContext.CurrentUserData">
             <summary>
-              Instance of the Combined UserData for the current user.
+              Gets the Instance of the Combined UserData for the current user.
             </summary>
         </member>
         <member name="P:YAF.Core.YafContext.EditorModuleManager">
             <summary>
-              Current Page Instance of the Module Manager
+              Gets the current Page Instance of the Module Manager
             </summary>
         </member>
         <member name="P:YAF.Core.YafContext.ForumPageType">
             <summary>
-              Get the current page as the forumPage Enum (for comparison)
+              Gets the current page as the forumPage Enum (for comparison)
             </summary>
         </member>
         <member name="P:YAF.Core.YafContext.Globals">
             <summary>
-              Access to the Context Global Variable Repository Class
+              Gets the Access to the Context Global Variable Repository Class
               which is a helper class that accesses YafContext.Vars with strongly
               typed properties for primary variables.
             </summary>
         </member>
         <member name="P:YAF.Core.YafContext.LoadMessage">
             <summary>
-              Current Page Load Message
+             Gets the current Page Load Message
             </summary>
         </member>
         <member name="P:YAF.Core.YafContext.PageElements">
             <summary>
-              Current Page Elements
+              Gets the Current Page Elements
             </summary>
         </member>
         <member name="P:YAF.Core.YafContext.Profile">
             <summary>
-              Current Page User Profile
+              Gets the Current Page User Profile
             </summary>
         </member>
         <member name="P:YAF.Core.YafContext.QueryIDs">
             <summary>
-              Current Page Query ID Helper
+              Gets or sets the Current Page Query ID Helper
             </summary>
         </member>
         <member name="P:YAF.Core.YafContext.ServiceLocator">
             <summary>
-              Provides access to the Service Locatorer
+              Gets the Provides access to the Service Locatorer
             </summary>
         </member>
         <member name="P:YAF.Core.YafContext.Settings">
             <summary>
-              Current Page Control Settings from Forum Control
+              Gets the Current Page Control Settings from Forum Control
             </summary>
         </member>
         <member name="P:YAF.Core.YafContext.Theme">
@@ -1309,31 +1324,20 @@
         </member>
         <member name="P:YAF.Core.YafContext.User">
             <summary>
-              Current Membership User
+              Gets or sets the Current Membership User
             </summary>
         </member>
         <member name="P:YAF.Core.YafContext.Vars">
             <summary>
-              YafContext Global Instance Variables
+              Gets the YafContext Global Instance Variables
               Use for plugins or other situations where a value is needed per instance.
             </summary>
         </member>
         <member name="P:YAF.Core.YafContext.Item(System.String)">
             <summary>
-              Returns a value from the YafContext Global Instance Variables (Vars) collection.
+            Returns a value from the YafContext Global Instance Variables (Vars) collection.
             </summary>
-            <param name = "varName"></param>
             <returns>Value if it's found, null if it doesn't exist.</returns>
-        </member>
-        <member name="E:YAF.Core.YafContext.AfterInit">
-            <summary>
-              The after init.
-            </summary>
-        </member>
-        <member name="E:YAF.Core.YafContext.BeforeInit">
-            <summary>
-              The before init.
-            </summary>
         </member>
         <member name="T:YAF.Core.UpdateProviderOnInitEvent">
             <summary>
@@ -1414,10 +1418,9 @@
             <summary>
             Basic testing of the theme's validity...
             </summary>
-            <param name="themeFile">
-            </param>
+            <param name="themeFile">The theme file.</param>
             <returns>
-            The is valid theme. 
+            The is valid theme.
             </returns>
         </member>
         <member name="M:YAF.Core.YafTheme.BuildThemePath(System.String)">
@@ -1433,49 +1436,37 @@
         </member>
         <member name="M:YAF.Core.YafTheme.GetItem(System.String,System.String)">
             <summary>
-            The get item.
+            Get the Item.
             </summary>
-            <param name="page">
-            The page. 
-            </param>
-            <param name="tag">
-            The tag. 
-            </param>
+            <param name="page">The page.</param>
+            <param name="tag">The tag.</param>
             <returns>
-            The get item. 
+            The item.
             </returns>
         </member>
         <member name="M:YAF.Core.YafTheme.GetItem(System.String,System.String,System.String)">
             <summary>
-            The get item.
+            Get the Item.
             </summary>
-            <param name="page">
-            The page. 
-            </param>
-            <param name="tag">
-            The tag. 
-            </param>
-            <param name="defaultValue">
-            The default value. 
-            </param>
+            <param name="page">The page.</param>
+            <param name="tag">The tag.</param>
+            <param name="defaultValue">The default value.</param>
             <returns>
-            The get item. 
+            The item.
             </returns>
         </member>
         <member name="M:YAF.Core.YafTheme.GetMappedThemeFile(System.String)">
             <summary>
-            The get mapped theme file.
+            Gets the mapped theme file.
             </summary>
-            <param name="themeFile">
-            The theme file.
-            </param>
+            <param name="themeFile">The theme file.</param>
             <returns>
             The get mapped theme file.
             </returns>
         </member>
         <member name="M:YAF.Core.YafTheme.LoadThemeFile">
             <summary>
-            The load theme file.
+            Loads the theme file.
             </summary>
         </member>
         <member name="P:YAF.Core.YafTheme.LogMissingThemeItem">
@@ -1490,7 +1481,7 @@
         </member>
         <member name="P:YAF.Core.YafTheme.ThemeFile">
             <summary>
-              Get or Set the current Theme File
+              Gets or sets the current Theme File
             </summary>
         </member>
         <member name="T:YAF.Core.DigestSendTask">
@@ -2503,6 +2494,60 @@
               Gets or sets ExtensionAssemblies.
             </summary>
         </member>
+        <member name="T:YAF.Core.Tasks.BoardDeleteTask">
+            <summary>
+            The forum delete task.
+            </summary>
+        </member>
+        <member name="T:YAF.Core.Tasks.ICriticalBackgroundTask">
+            <summary>
+            Marker interface for a task that is very important and shouldn't be stopped
+            </summary>
+        </member>
+        <member name="T:YAF.Core.Tasks.IBlockableTask">
+            <summary>
+            Marker interface for a task that is blocked by other tasks.
+            </summary>
+        </member>
+        <member name="F:YAF.Core.Tasks.BoardDeleteTask._TaskName">
+            <summary>
+            The _task name.
+            </summary>
+        </member>
+        <member name="F:YAF.Core.Tasks.BoardDeleteTask.BlockingTaskNames">
+            <summary>
+            The Blocking Task Names.
+            </summary>
+        </member>
+        <member name="M:YAF.Core.Tasks.BoardDeleteTask.Start(System.Int32,System.String@)">
+            <summary>
+            Creates the Board Delete Task
+            </summary>
+            <param name="boardId">
+            The board id.
+            </param>
+            <param name="failureMessage"> 
+            The failure message - is empty if task is launched successfully.
+            </param>
+            <returns>
+            Returns if Task was Successfull
+            </returns>
+        </member>
+        <member name="M:YAF.Core.Tasks.BoardDeleteTask.RunOnce">
+            <summary>
+            The run once.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.Tasks.BoardDeleteTask.TaskName">
+            <summary>
+            Gets TaskName.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.Tasks.BoardDeleteTask.BoardIdToDelete">
+            <summary>
+            Gets or sets BoardIdToDelete.
+            </summary>
+        </member>
         <member name="T:YAF.Core.Syndication.YafSyndicationFeed">
             <summary>
             Summary description for YafSyndicationFeed.
@@ -3462,11 +3507,6 @@
               Gets or sets a value indicating whether IsRegisteredPage.
             </summary>
         </member>
-        <member name="P:YAF.Core.ForumPage.LoadMessage">
-            <summary>
-              Gets LoadMessage.
-            </summary>
-        </member>
         <member name="P:YAF.Core.ForumPage.Localization">
             <summary>
               Gets the Localization.
@@ -3568,6 +3608,74 @@
             <summary>
             Gets PageName.
             </summary>
+        </member>
+        <member name="T:YAF.Core.DataImport">
+            <summary>
+            The data import.
+            </summary>
+        </member>
+        <member name="M:YAF.Core.DataImport.BBCodeExtensionImport(System.Int32,System.IO.Stream)">
+            <summary>
+            The bb code extension import.
+            </summary>
+            <param name="boardId">
+            The board id.
+            </param>
+            <param name="imputStream">
+            The imput stream.
+            </param>
+            <returns>
+            Returns How Many Extensions where imported.
+            </returns>
+            <exception cref="T:System.Exception">Import stream is not expected format.
+            </exception>
+        </member>
+        <member name="M:YAF.Core.DataImport.FileExtensionImport(System.Int32,System.IO.Stream)">
+            <summary>
+            The file extension import.
+            </summary>
+            <param name="boardId">
+            The board id.
+            </param>
+            <param name="imputStream">
+            The imput stream.
+            </param>
+            <returns>
+            Returns How Many Extensions where imported.
+            </returns>
+            <exception cref="T:System.Exception">Import stream is not expected format.
+            </exception>
+        </member>
+        <member name="M:YAF.Core.DataImport.TopicStatusImport(System.Int32,System.IO.Stream)">
+            <summary>
+            Topics the status import.
+            </summary>
+            <param name="boardId">
+            The board id.
+            </param>
+            <param name="imputStream">
+            The imput stream.
+            </param>
+            <exception cref="T:System.Exception">
+            Import stream is not expected format.
+            </exception>
+            <returns>
+            Returns the Number of Imported Items.
+            </returns>
+        </member>
+        <member name="M:YAF.Core.DataImport.BannedIpAdressesImport(System.Int32,System.Int32,System.IO.Stream)">
+            <summary>
+            Import List of Banned Ip Adresses
+            </summary>
+            <param name="boardId">The board id.</param>
+            <param name="userId">The user id.</param>
+            <param name="imputStream">The imput stream.</param>
+            <returns>
+            Returns the Number of Imported Items.
+            </returns>
+            <exception cref="T:System.Exception">
+            Import stream is not expected format.
+            </exception>
         </member>
         <member name="T:YAF.Core.IPDetails">
             <summary>
@@ -3695,17 +3803,12 @@
             <param name="dbBroker">
             The db broker.
             </param>
-            <param name="dataCache">
-            The data Cache.
-            </param>
         </member>
         <member name="M:YAF.Core.LoadPageLazyUserData.Handle(YAF.Types.EventProxies.InitPageLoadEvent)">
             <summary>
-            The handle.
+            Handles the specified @event.
             </summary>
-            <param name="event">
-            The event.
-            </param>
+            <param name="event">The @event.</param>
         </member>
         <member name="P:YAF.Core.LoadPageLazyUserData.Order">
             <summary>
@@ -3729,11 +3832,6 @@
             <param name="message">
             The message.
             </param>
-        </member>
-        <member name="T:YAF.Core.Tasks.ICriticalBackgroundTask">
-            <summary>
-            Marker interface for a task that is very important and shouldn't be stopped
-            </summary>
         </member>
         <member name="T:YAF.Core.Services.YafReadTrackCurrentUser">
             <summary>
@@ -3759,86 +3857,77 @@
             <summary>
             Initializes a new instance of the <see cref="T:YAF.Core.Services.YafReadTrackCurrentUser"/> class. The yaf read track current user.
             </summary>
-            <param name="yafSession">
-            </param>
-            <param name="boardSettings">
-            </param>
-            <param name="sessionState">
-            The session State.
-            </param>
+            <param name="yafSession">The yaf session.</param>
+            <param name="boardSettings">The board settings.</param>
+            <param name="sessionState">The session State.</param>
         </member>
         <member name="M:YAF.Core.Services.YafReadTrackCurrentUser.GetForumRead(System.Int32,System.Nullable{System.DateTime})">
             <summary>
             The get forum read.
             </summary>
-            <param name="forumID">
-            </param>
-            <param name="readTimeOverride">
-            The read Time Override. 
-            </param>
+            <param name="forumID">The forum ID of the Forum</param>
+            <param name="readTimeOverride">The read Time Override.</param>
             <returns>
+            Returns the DateTime object from the Forum ID.
             </returns>
         </member>
         <member name="M:YAF.Core.Services.YafReadTrackCurrentUser.GetTopicRead(System.Int32,System.Nullable{System.DateTime})">
             <summary>
             The get topic read.
             </summary>
-            <param name="topicID">
-            </param>
-            <param name="readTimeOverride">
-            The read Time Override. 
-            </param>
+            <param name="topicID">The topicID you wish to find the DateTime object for.</param>
+            <param name="readTimeOverride">The read Time Override.</param>
             <returns>
+            Returns the DateTime object from the topicID.
             </returns>
         </member>
         <member name="M:YAF.Core.Services.YafReadTrackCurrentUser.SetForumRead(System.Int32)">
             <summary>
             The set forum read.
             </summary>
-            <param name="forumID">
-            </param>
+            <param name="forumID">The forum ID of the Forum</param>
         </member>
         <member name="M:YAF.Core.Services.YafReadTrackCurrentUser.SetTopicRead(System.Int32)">
             <summary>
             The set topic read.
             </summary>
-            <param name="topicID">
-            </param>
+            <param name="topicID">The topic id to mark read.</param>
         </member>
         <member name="M:YAF.Core.Services.YafReadTrackCurrentUser.GetSessionForumRead(System.Int32)">
             <summary>
-            The get session forum read.
+            Gets the session forum read.
             </summary>
-            <param name="forumId">
-            The forum id. 
-            </param>
+            <param name="forumId">The forum id.</param>
             <returns>
+            The get session forum read.
             </returns>
         </member>
         <member name="M:YAF.Core.Services.YafReadTrackCurrentUser.GetSessionTopicRead(System.Int32)">
             <summary>
-            The get session topic read.
+            Gets the session topic read.
             </summary>
-            <param name="topicId">
-            The topic id. 
-            </param>
+            <param name="topicId">The topic id.</param>
             <returns>
+            The get session topic read.
             </returns>
         </member>
         <member name="P:YAF.Core.Services.YafReadTrackCurrentUser.LastRead">
             <summary>
-              The last visit.
+              Gets the last visit.
             </summary>
         </member>
         <member name="P:YAF.Core.Services.YafReadTrackCurrentUser.CurrentUserID">
             <summary>
-              The current user id.
+              Gets the current user id.
             </summary>
         </member>
         <member name="P:YAF.Core.Services.YafReadTrackCurrentUser.IsGuest">
             <summary>
-              The is guest.
+            Gets a value indicating whether this user is guest.
             </summary>
+            <value>
+              <c>true</c> if this user is guest; otherwise, <c>false</c>.
+            </value>
         </member>
         <member name="T:YAF.Core.Services.YafDBBroker">
             <summary>
@@ -4926,9 +5015,10 @@
         </member>
         <member name="M:YAF.Core.Services.YafSendMailThreaded.GetMailListSafe">
             <summary>
-            The get mail list safe.
+            Gets the mail list safe.
             </summary>
             <returns>
+            The get mail list safe.
             </returns>
         </member>
         <member name="P:YAF.Core.Services.YafSendMailThreaded.Logger">
@@ -5381,6 +5471,50 @@
               Gets elements (using in the head or header) that are registered on the page.
               Used mostly by RegisterPageElementHelper.
             </summary>
+        </member>
+        <member name="T:YAF.Core.Services.CheckForSpam.StopForumSpam">
+            <summary>
+            Spam Checking Class for the StopForumSpam.com API
+            </summary>
+        </member>
+        <member name="T:YAF.Core.Services.CheckForSpam.IBotCheck">
+            <summary>
+            Bot Check Interface
+            </summary>
+        </member>
+        <member name="M:YAF.Core.Services.CheckForSpam.IBotCheck.CheckForBot(System.Object,System.Object,System.Object)">
+            <summary>
+            Checks if user is a Bot.
+            </summary>
+            <param name="ipAddress">
+            The ip address.
+            </param>
+            <param name="emailAddress">
+            The email Address.
+            </param>
+            <param name="userName">
+            Name of the user.
+            </param>
+            <returns>
+            Returns if user is a possible Bot or not
+            </returns>
+        </member>
+        <member name="M:YAF.Core.Services.CheckForSpam.StopForumSpam.CheckForBot(System.Object,System.Object,System.Object)">
+            <summary>
+            Checks if user is a Bot.
+            </summary>
+            <param name="ipAddress">
+            The ip address.
+            </param>
+            <param name="emailAddress">
+            The email Address.
+            </param>
+            <param name="userName">
+            Name of the user.
+            </param>
+            <returns>
+            Returns if user is a possible Bot or not
+            </returns>
         </member>
         <member name="T:YAF.Core.IModuleManagerExtensions">
             <summary>
@@ -6750,7 +6884,7 @@
         </member>
         <member name="P:YAF.Core.ContextVariableRepository.IsSuspendCheckEnabled">
             <summary>
-              Flag set if the system should check if the user is suspended and redirect appropriately. Defaults to true.
+            Gets or sets a value indicating whether this Flag set if the system should check if the user is suspended and redirect appropriately. Defaults to true.
               Setting to false effectively disables suspend checking.
             </summary>
         </member>
@@ -6815,6 +6949,11 @@
             </summary>
         </member>
         <member name="F:YAF.Core.BBCode.YafBBCode._RgxRight">
+            <summary>
+              The _rgx right.
+            </summary>
+        </member>
+        <member name="F:YAF.Core.BBCode.YafBBCode._RgxIndent">
             <summary>
               The _rgx right.
             </summary>
@@ -7230,6 +7369,16 @@
             The is task running.
             </returns>
         </member>
+        <member name="M:YAF.Core.BaseTaskModuleManager.AreTasksRunning(System.String[])">
+            <summary>
+            Check if Tasks are Running.
+            </summary>
+            <param name="instanceNames">
+            </param>
+            <returns>
+            The tasks are running.
+            </returns>
+        </member>
         <member name="M:YAF.Core.BaseTaskModuleManager.StartTask(System.String,System.Func{YAF.Types.Interfaces.IBackgroundTask})">
             <summary>
             Start a non-running task -- will set the <see cref="T:System.Web.HttpApplication"/> instance.
@@ -7542,6 +7691,90 @@
               Gets or sets Container.
             </summary>
         </member>
+        <member name="T:YAF.Core.Tasks.CategorySaveTask">
+            <summary>
+            Run when we want to do migration of users in the background...
+            </summary>
+        </member>
+        <member name="F:YAF.Core.Tasks.CategorySaveTask._taskName">
+            <summary>
+            The _task name.
+            </summary>
+        </member>
+        <member name="F:YAF.Core.Tasks.CategorySaveTask._boardIdToSave">
+            <summary>
+            The _board id.
+            </summary>
+        </member>
+        <member name="F:YAF.Core.Tasks.CategorySaveTask._categoryId">
+            <summary>
+            The _category Id.
+            </summary>
+        </member>
+        <member name="F:YAF.Core.Tasks.CategorySaveTask.BlockingTaskNames">
+            <summary>
+            The Blocking Task Names.
+            </summary>
+        </member>
+        <member name="M:YAF.Core.Tasks.CategorySaveTask.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Core.Tasks.CategorySaveTask"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Core.Tasks.CategorySaveTask.Start(System.Object,System.Object,System.Object,System.Object,System.Object,System.String@)">
+            <summary>
+             The start.
+             </summary>
+            <param name="boardId"> The board Id.</param>
+            <param name="categoryId"> The category Id.</param>
+            <param name="categoryName"> The category Name.</param>
+            <param name="categoryImage"> The category Image.</param>
+            <param name="sortOrder"> The category sort order.</param>
+            <param name="failureMessage"> The failure message to return.</param>
+            <returns>
+             The start.
+             </returns>
+        </member>
+        <member name="M:YAF.Core.Tasks.CategorySaveTask.RunOnce">
+            <summary>
+            The run once.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.Tasks.CategorySaveTask.BoardIdToSave">
+            <summary>
+            Gets or sets BoardIdToSave.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.Tasks.CategorySaveTask.CategoryId">
+            <summary>
+            Gets or sets CategoryId.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.Tasks.CategorySaveTask.CategoryName">
+            <summary>
+            Gets or sets CategoryName.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.Tasks.CategorySaveTask.CategoryImage">
+            <summary>
+            Gets or sets CategoryImage.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.Tasks.CategorySaveTask.SortOrder">
+            <summary>
+            Gets or sets SortOrder.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.Tasks.CategorySaveTask.CategoryOut">
+            <summary>
+            Gets or sets CategoryOut.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.Tasks.CategorySaveTask.TaskName">
+            <summary>
+            Gets TaskName.
+            </summary>
+        </member>
         <member name="T:YAF.Core.Services.YafPermissions">
             <summary>
             The yaf permissions.
@@ -7700,11 +7933,9 @@
         </member>
         <member name="M:YAF.Core.LoadPageVariablesFromQuery.Handle(YAF.Types.EventProxies.InitPageLoadEvent)">
             <summary>
-            The handle.
+            Handles the specified @event.
             </summary>
-            <param name="event">
-            The event.
-            </param>
+            <param name="event">The @event.</param>
         </member>
         <member name="P:YAF.Core.LoadPageVariablesFromQuery.Order">
             <summary>
@@ -8259,71 +8490,53 @@
         </member>
         <member name="M:YAF.Core.Services.LoadMessage.CleanJsString(System.String)">
             <summary>
-            The clean js string.
+            Cleans the js string.
             </summary>
-            <param name="jsString">
-            The js string.
-            </param>
+            <param name="jsString">The js string.</param>
             <returns>
             The clean js string.
             </returns>
         </member>
-        <member name="M:YAF.Core.Services.LoadMessage.Add(System.String)">
+        <member name="M:YAF.Core.Services.LoadMessage.Add(System.String,YAF.Types.Constants.MessageTypes)">
             <summary>
             AddLoadMessage creates a message that will be returned on the next page load.
             </summary>
-            <param name="message">
-            The message you wish to display.
-            </param>
+            <param name="message">The message you wish to display.</param>
+            <param name="messageType">Type of the message.</param>
         </member>
-        <member name="M:YAF.Core.Services.LoadMessage.AddSession(System.String)">
+        <member name="M:YAF.Core.Services.LoadMessage.AddSession(System.String,YAF.Types.Constants.MessageTypes)">
             <summary>
             AddLoadMessageSession creates a message that will be returned on the next page.
             </summary>
-            <param name="message">
-            The message you wish to display.
-            </param>
+            <param name="message">The message you wish to display.</param>
+            <param name="messageType">Type of the message.</param>
         </member>
         <member name="M:YAF.Core.Services.LoadMessage.Clear">
             <summary>
             Clear the Load String (error) List
             </summary>
         </member>
-        <member name="M:YAF.Core.Services.LoadMessage.LoadStringDelimited(System.String)">
+        <member name="M:YAF.Core.Services.LoadMessage.GetMessage">
             <summary>
-            The load string delimited.
+            Gets the message.
             </summary>
-            <param name="delimiter">
-            The delimiter.
-            </param>
-            <returns>
-            The load string delimited.
-            </returns>
+            <returns>Returns the Current Message</returns>
         </member>
         <member name="M:YAF.Core.Services.LoadMessage.Current_Unload(System.Object,System.EventArgs)">
             <summary>
-            The current_ unload.
+            Clear the load message...
             </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="P:YAF.Core.Services.LoadMessage.LoadString">
-            <summary>
-              Gets LoadString.
-            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
         </member>
         <member name="P:YAF.Core.Services.LoadMessage.LoadStringList">
             <summary>
               Gets LoadStringList.
             </summary>
         </member>
-        <member name="P:YAF.Core.Services.LoadMessage.StringJavascript">
+        <member name="P:YAF.Core.Services.LoadMessage.SessionLoadString">
             <summary>
-              Gets StringJavascript.
+            Gets the session load string.
             </summary>
         </member>
         <member name="T:YAF.Core.ThemeProvider">
@@ -8510,6 +8723,17 @@
             </param>
             <returns>
             The format time.
+            </returns>
+        </member>
+        <member name="M:YAF.Core.IDateTimeExtensions.SqlDbMinTime(System.DateTime)">
+            <summary>
+            The minimal date time suitable for database.
+            </summary>
+            <param name="dateTimeInstance">
+            The yaf date time.
+            </param>
+            <returns>
+            Returnes the minimal date time suitable for database.
             </returns>
         </member>
         <member name="T:YAF.Core.BBCode.ReplaceBlocksCollection">
@@ -8978,6 +9202,156 @@
             The i critical startup service.
             </summary>
         </member>
+        <member name="T:YAF.Core.Tasks.BoardCreateTask">
+            <summary>
+            Run when we want to do migration of users in the background...
+            </summary>
+        </member>
+        <member name="F:YAF.Core.Tasks.BoardCreateTask._TaskName">
+            <summary>
+            The _task name.
+            </summary>
+        </member>
+        <member name="F:YAF.Core.Tasks.BoardCreateTask._blockingTaskNames">
+            <summary>
+            The Blocking Task Names.
+            </summary>
+        </member>
+        <member name="M:YAF.Core.Tasks.BoardCreateTask.Start(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.String@)">
+            <summary>
+            Starts the Board Create Task
+            </summary>
+            <param name="adminUserName">Name of the admin user.</param>
+            <param name="admiUserEmail">The admi user email.</param>
+            <param name="adminUserProviderUserkey">The admin user provider userkey.</param>
+            <param name="boardName">Name of the board.</param>
+            <param name="culture">The culture.</param>
+            <param name="languageFileName">Name of the language file.</param>
+            <param name="boardMembershipAppName">Name of the board membership app.</param>
+            <param name="boardRolesAppName">Name of the board roles app.</param>
+            <param name="rolePrefix">The role prefix.</param>
+            <param name="failureMessage">The failure message.</param>
+            <returns>
+            Returns the new Board ID
+            </returns>
+        </member>
+        <member name="M:YAF.Core.Tasks.BoardCreateTask.RunOnce">
+            <summary>
+            The run once.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.Tasks.BoardCreateTask.TaskName">
+            <summary>
+             Gets TaskName.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.Tasks.BoardCreateTask.BlockingTaskNames">
+            <summary>
+            Gets Blocking Task Names.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.Tasks.BoardCreateTask.BoardOut">
+            <summary>
+            Gets or sets ForumOut.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.Tasks.BoardCreateTask.AdminUserName">
+            <summary>
+            Gets or sets AdminUserName.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.Tasks.BoardCreateTask.AdminUserEmail">
+            <summary>
+            Gets or sets AdminUserEmail.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.Tasks.BoardCreateTask.AdminUserProviderUserKey">
+            <summary>
+            Gets or sets AdminUserProviderUserKey.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.Tasks.BoardCreateTask.BoardName">
+            <summary>
+            Gets or sets Board Name.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.Tasks.BoardCreateTask.Culture">
+            <summary>
+            Gets or sets Culture.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.Tasks.BoardCreateTask.LanguageFileName">
+            <summary>
+            Gets or sets LanguageFileName.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.Tasks.BoardCreateTask.BoardMembershipAppName">
+            <summary>
+            Gets or sets BoardMembershipAppName.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.Tasks.BoardCreateTask.BoardRolesAppName">
+            <summary>
+            Gets or sets BoardRolesAppName.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.Tasks.BoardCreateTask.RolePrefix">
+            <summary>
+            Gets or sets RolePrefix.
+            </summary>
+        </member>
+        <member name="T:YAF.Core.Tasks.CategoryDeleteTask">
+            <summary>
+            The forum delete task.
+            </summary>
+        </member>
+        <member name="F:YAF.Core.Tasks.CategoryDeleteTask._TaskName">
+            <summary>
+            The _task name.
+            </summary>
+        </member>
+        <member name="F:YAF.Core.Tasks.CategoryDeleteTask.BlockingTaskNames">
+            <summary>
+            The Blocking Task Names.
+            </summary>
+        </member>
+        <member name="M:YAF.Core.Tasks.CategoryDeleteTask.Start(System.Int32,System.String@)">
+            <summary>
+            Creates the Forum Delete Task
+            </summary>
+            <param name="boardId">
+            The board id.
+            </param>
+            <param name="forumId">
+            The forum id.
+            </param>
+            <param name="failureMessage"> 
+            The failure message - is empty if task is launched successfully.
+            </param>
+            <returns>
+            Returns if Task was Successfull
+            </returns>
+        </member>
+        <member name="M:YAF.Core.Tasks.CategoryDeleteTask.RunOnce">
+            <summary>
+            The run once.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.Tasks.CategoryDeleteTask.TaskName">
+            <summary>
+            Gets TaskName.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.Tasks.CategoryDeleteTask.CategoryId">
+            <summary>
+            Gets or sets CategoryId.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.Tasks.CategoryDeleteTask.ForumNewId">
+            <summary>
+            Gets or sets Forum New Id.
+            </summary>
+        </member>
         <member name="T:YAF.Core.Syndication.SyndicationItemExtensions">
             <summary>
             The syndication item extensions.
@@ -9035,12 +9409,14 @@
             The posted.
             </param>
         </member>
-        <member name="M:YAF.Core.Syndication.SyndicationItemExtensions.NewSyndicationPerson(System.String,System.Int64)">
+        <member name="M:YAF.Core.Syndication.SyndicationItemExtensions.NewSyndicationPerson(System.String,System.Int64,System.String,System.String)">
             <summary>
             Add a new syndication person.
             </summary>
             <param name="userEmail">The email.</param>
             <param name="userId">The user Id.</param>
+            <param name="userName">The user name.</param>
+            <param name="userDisplayName"> The user dispaly name.</param>
             <returns>The SyndicationPerson.</returns>
         </member>
         <member name="M:YAF.Core.Syndication.SyndicationItemExtensions.AddSyndicationItem(System.Collections.Generic.List{System.ServiceModel.Syndication.SyndicationItem},System.String,System.String,System.String,System.String,System.DateTime)">
@@ -10123,12 +10499,9 @@
             <summary>
             Initializes a new instance of the <see cref="T:YAF.Core.LoadPageFromDatabase"/> class.
             </summary>
-            <param name="serviceLocator">
-            The service locator.
-            </param>
-            <param name="legacyDb">
-            The legacy db.
-            </param>
+            <param name="serviceLocator">The service locator.</param>
+            <param name="logger">The logger.</param>
+            <param name="dataCache">The data cache.</param>
         </member>
         <member name="M:YAF.Core.LoadPageFromDatabase.Handle(YAF.Types.EventProxies.InitPageLoadEvent)">
             <summary>
@@ -10138,6 +10511,16 @@
             The event.
             </param>
             <exception cref="T:System.ApplicationException">Failed to find guest user.</exception>
+            <exception cref="T:System.ApplicationException">Failed to create new user.</exception>
+            <exception cref="T:System.ApplicationException">Unable to find the Guest User!</exception>
+        </member>
+        <member name="P:YAF.Core.LoadPageFromDatabase.Logger">
+            <summary>
+            Gets or sets the logger.
+            </summary>
+            <value>
+            The logger.
+            </value>
         </member>
         <member name="P:YAF.Core.LoadPageFromDatabase.DataCache">
             <summary>
@@ -10218,7 +10601,12 @@
             The _task name.
             </summary>
         </member>
-        <member name="M:YAF.Core.Tasks.ForumDeleteTask.Start(System.Int32,System.Int32)">
+        <member name="F:YAF.Core.Tasks.ForumDeleteTask.BlockingTaskNames">
+            <summary>
+            The Blocking Task Names.
+            </summary>
+        </member>
+        <member name="M:YAF.Core.Tasks.ForumDeleteTask.Start(System.Int32,System.Int32,System.String@)">
             <summary>
             Creates the Forum Delete Task
             </summary>
@@ -10228,11 +10616,14 @@
             <param name="forumId">
             The forum id.
             </param>
+            <param name="failureMessage"> 
+            The failure message - is empty if task is launched successfully.
+            </param>
             <returns>
             Returns if Task was Successfull
             </returns>
         </member>
-        <member name="M:YAF.Core.Tasks.ForumDeleteTask.Start(System.Int32,System.Int32,System.Int32)">
+        <member name="M:YAF.Core.Tasks.ForumDeleteTask.Start(System.Int32,System.Int32,System.Int32,System.String@)">
             <summary>
             Creates the Forum Delete Task and moves the Messages to a new Forum
             </summary>
@@ -10244,6 +10635,9 @@
             </param>
             <param name="forumNewId">
             The Forum New Id.
+            </param>
+            <param name="failureMessage"> 
+            The failure message - is empty if task is launched successfully.
             </param>
             <returns>
             Returns if Task was Successfull
@@ -10628,6 +11022,28 @@
             </param>
             <returns>
             The test comment.
+            </returns>
+        </member>
+        <member name="T:YAF.Core.Services.CheckForSpam.BotScout">
+            <summary>
+            Spam Checking Class for the BotScout.com API
+            </summary>
+        </member>
+        <member name="M:YAF.Core.Services.CheckForSpam.BotScout.CheckForBot(System.Object,System.Object,System.Object)">
+            <summary>
+            Checks if user is a Bot.
+            </summary>
+            <param name="ipAddress">
+            The ip address.
+            </param>
+            <param name="emailAddress">
+            The email Address.
+            </param>
+            <param name="userName">
+            Name of the user.
+            </param>
+            <returns>
+            Returns if user is a possible Bot or not
             </returns>
         </member>
         <member name="T:YAF.Core.CaptchaHelper">
@@ -11047,11 +11463,9 @@
         </member>
         <member name="M:YAF.Core.LoadPageRequestInformation.Handle(YAF.Types.EventProxies.InitPageLoadEvent)">
             <summary>
-            The handle.
+            Handles the specified @event.
             </summary>
-            <param name="event">
-            The event.
-            </param>
+            <param name="event">The @event.</param>
         </member>
         <member name="P:YAF.Core.LoadPageRequestInformation.HttpRequestBase">
             <summary>
@@ -11698,11 +12112,9 @@
         </member>
         <member name="M:YAF.Core.UserMembershipHelper.ApproveUser(System.Int32)">
             <summary>
-            The approve user.
+            Approves the user.
             </summary>
-            <param name="userID">
-            The user id.
-            </param>
+            <param name="userID">The user id.</param>
             <returns>
             The approve user.
             </returns>
@@ -11711,8 +12123,7 @@
             <summary>
             Verifies that the the user no longer has a cache...
             </summary>
-            <param name="userId">
-            </param>
+            <param name="userId">The user id.</param>
         </member>
         <member name="M:YAF.Core.UserMembershipHelper.DeleteAllUnapproved(System.DateTime)">
             <summary>
@@ -11724,13 +12135,11 @@
         </member>
         <member name="M:YAF.Core.UserMembershipHelper.DeleteUser(System.Int32)">
             <summary>
-            The delete user.
+            Deletes the user.
             </summary>
-            <param name="userID">
-            The user id.
-            </param>
+            <param name="userID">The user id.</param>
             <returns>
-            The delete user.
+            Returns if Deleting was successfully
             </returns>
         </member>
         <member name="M:YAF.Core.UserMembershipHelper.FindUsersByEmail(System.String)">
@@ -11774,19 +12183,19 @@
         </member>
         <member name="M:YAF.Core.UserMembershipHelper.GetAllUsers">
             <summary>
-            The get all users.
+            Gets all users.
             </summary>
             <returns>
+            The get all users.
             </returns>
         </member>
         <member name="M:YAF.Core.UserMembershipHelper.GetMembershipUserById(System.Nullable{System.Int64})">
             <summary>
-            The get membership user by id.
+            Gets the membership user by id.
             </summary>
-            <param name="userID">
-            The user id.
-            </param>
+            <param name="userID">The user id.</param>
             <returns>
+            The get membership user by id.
             </returns>
         </member>
         <member name="M:YAF.Core.UserMembershipHelper.GetMembershipUserById(System.Int64)">
@@ -11794,8 +12203,10 @@
             get the membership user from the userID
             </summary>
             <param name="userID">
+            The user ID.
             </param>
             <returns>
+            The get membership user by id.
             </returns>
         </member>
         <member name="M:YAF.Core.UserMembershipHelper.GetMembershipUserByKey(System.Object)">
@@ -11803,8 +12214,10 @@
             get the membership user from the providerUserKey
             </summary>
             <param name="providerUserKey">
+            The provider user key.
             </param>
             <returns>
+            The get membership user by key.
             </returns>
         </member>
         <member name="M:YAF.Core.UserMembershipHelper.GetMembershipUserByName(System.String)">
@@ -11812,16 +12225,17 @@
             get the membership user from the userName
             </summary>
             <param name="userName">
+            Name of the user.
             </param>
             <returns>
+            The get membership user by name.
             </returns>
         </member>
         <member name="M:YAF.Core.UserMembershipHelper.GetProviderUserKeyFromID(System.Int64)">
             <summary>
             Gets the user provider key from the UserID for a user
             </summary>
-            <param name="userID">
-            </param>
+            <param name="userID">The user ID.</param>
             <returns>
             The get provider user key from id.
             </returns>
@@ -11838,8 +12252,7 @@
             <summary>
             Method returns MembershipUser
             </summary>
-            <param name="username">
-            </param>
+            <param name="username">The username.</param>
             <returns>
             Returns MembershipUser
             </returns>
@@ -11848,10 +12261,8 @@
             <summary>
             Method returns MembershipUser
             </summary>
-            <param name="username">
-            </param>
-            <param name="updateOnlineStatus">
-            </param>
+            <param name="username">The username.</param>
+            <param name="updateOnlineStatus">if set to <c>true</c> [update online status].</param>
             <returns>
             Returns MembershipUser
             </returns>
@@ -11860,8 +12271,7 @@
             <summary>
             Method returns MembershipUser
             </summary>
-            <param name="providerKey">
-            </param>
+            <param name="providerKey">The provider key.</param>
             <returns>
             Returns MembershipUser
             </returns>
@@ -11876,12 +12286,10 @@
         </member>
         <member name="M:YAF.Core.UserMembershipHelper.GetUser(System.Object,System.Boolean)">
             <summary>
-            Method returns MembershipUser 
+            Method returns MembershipUser
             </summary>
-            <param name="providerKey">
-            </param>
-            <param name="updateOnlineStatus">
-            </param>
+            <param name="providerKey">The provider key.</param>
+            <param name="updateOnlineStatus">if set to <c>true</c> [update online status].</param>
             <returns>
             Returns MembershipUser
             </returns>
@@ -11890,8 +12298,7 @@
             <summary>
             Method which returns MembershipUser
             </summary>
-            <param name="updateOnlineStatus">
-            </param>
+            <param name="updateOnlineStatus">if set to <c>true</c> [update online status].</param>
             <returns>
             Returns MembershipUser
             </returns>
@@ -11900,8 +12307,7 @@
             <summary>
             Get the UserID from the ProviderUserKey
             </summary>
-            <param name="providerUserKey">
-            </param>
+            <param name="providerUserKey">The provider user key.</param>
             <returns>
             The get user id from provider user key.
             </returns>
@@ -11910,8 +12316,7 @@
             <summary>
             Gets the user name from the UesrID
             </summary>
-            <param name="userID">
-            </param>
+            <param name="userID">The user ID.</param>
             <returns>
             The get user name from id.
             </returns>
@@ -11920,8 +12325,7 @@
             <summary>
             Gets the user name from the UesrID
             </summary>
-            <param name="userID">
-            </param>
+            <param name="userID">The user ID.</param>
             <returns>
             The get user name from id.
             </returns>
@@ -11931,23 +12335,23 @@
             Helper function that gets user data from the DB (or cache)
             </summary>
             <param name="userID">
+            The user ID.
             </param>
             <param name="allowCached">
+            if set to <c>true</c> [allow cached].
             </param>
             <returns>
+            The get user row for id.
             </returns>
         </member>
         <member name="M:YAF.Core.UserMembershipHelper.GetUserRowForID(System.Int32,System.Boolean)">
             <summary>
-            The get user row for id.
+            Gets the user row for ID.
             </summary>
-            <param name="userID">
-            The user id.
-            </param>
-            <param name="allowCached">
-            The allow cached.
-            </param>
+            <param name="userID">The user id.</param>
+            <param name="allowCached">The allow cached.</param>
             <returns>
+            The get user row for id.
             </returns>
         </member>
         <member name="M:YAF.Core.UserMembershipHelper.GetUserRowForID(System.Int64)">
@@ -11955,18 +12359,19 @@
             Default allows the user row to be cached (mostly used for Provider key and UserID which never change)
             </summary>
             <param name="userID">
+            The user ID.
             </param>
             <returns>
+            The get user row for id.
             </returns>
         </member>
         <member name="M:YAF.Core.UserMembershipHelper.GetUserRowForID(System.Int32)">
             <summary>
-            The get user row for id.
+            Gets the user row for ID.
             </summary>
-            <param name="userID">
-            The user id.
-            </param>
+            <param name="userID">The user id.</param>
             <returns>
+            The get user row for id.
             </returns>
         </member>
         <member name="M:YAF.Core.UserMembershipHelper.IsGuestUser(System.Object)">
@@ -11998,10 +12403,8 @@
             Helper function to update a user's email address.
             Syncs with both the YAF DB and Membership Provider.
             </summary>
-            <param name="userID">
-            </param>
-            <param name="newEmail">
-            </param>
+            <param name="userID">The user ID.</param>
+            <param name="newEmail">The new email.</param>
             <returns>
             The update email.
             </returns>
@@ -12011,10 +12414,8 @@
             Checks Membership Provider to see if a user
             with the username and email passed exists.
             </summary>
-            <param name="userName">
-            </param>
-            <param name="email">
-            </param>
+            <param name="userName">Name of the user.</param>
+            <param name="email">The email.</param>
             <returns>
             true if they exist
             </returns>
@@ -12023,7 +12424,7 @@
             <summary>
             Gets the guest user id for the current board.
             </summary>
-            <exception cref="T:YAF.Core.NoValidGuestUserForBoardException"><c>NoValidGuestUserForBoardException</c>.</exception>
+            <exception cref="T:YAF.Core.NoValidGuestUserForBoardException">No Valid Guest User Exception</exception>
         </member>
         <member name="P:YAF.Core.UserMembershipHelper.GuestUserName">
             <summary>
@@ -12106,6 +12507,20 @@
             <summary>
             The log.
             </summary>
+            <param name="message">
+            The message.
+            </param>
+            <param name="logTypes">
+            The log types.
+            </param>
+        </member>
+        <member name="M:YAF.Core.YafDbLogger.Log(System.Int32,System.String,YAF.Types.Constants.EventLogTypes)">
+            <summary>
+            The log.
+            </summary>
+            <param name="userId">
+            The userId.
+             </param>
             <param name="message">
             The message.
             </param>
@@ -12199,12 +12614,111 @@
             The args.
             </param>
         </member>
+        <member name="M:YAF.Core.YafDbLogger.Info(System.Int32,System.String,System.Object[])">
+            <summary>
+            The info.
+            </summary>
+            <param name="userId">
+            The userId.
+             </param>
+            <param name="format">
+            The format.
+            </param>
+            <param name="args">
+            The args.
+            </param>
+        </member>
         <member name="M:YAF.Core.YafDbLogger.Info(System.Exception,System.String,System.Object[])">
             <summary>
             The info.
             </summary>
             <param name="exception">
             The exception.
+            </param>
+            <param name="format">
+            The format.
+            </param>
+            <param name="args">
+            The args.
+            </param>
+        </member>
+        <member name="M:YAF.Core.YafDbLogger.UserUnsuspended(System.Int32,System.String,System.String,System.Object[])">
+            <summary>
+            The UserUnsuspended.
+            </summary>
+            <param name="userId">
+            The user Id.
+            </param>
+            <param name="source">
+            The source.
+            </param>
+            <param name="format">
+            The format.
+            </param>
+            <param name="args">
+            The args.
+            </param> 
+        </member>
+        <member name="M:YAF.Core.YafDbLogger.UserSuspended(System.Int32,System.String,System.String,System.Object[])">
+            <summary>
+            The User Suspended.
+            </summary>
+            <param name="userId">
+            The user Id.
+            </param>
+            <param name="source">
+            The source.
+            </param>
+            <param name="format">
+            The format.
+            </param>
+            <param name="args">
+            The args.
+            </param> 
+        </member>
+        <member name="M:YAF.Core.YafDbLogger.UserDeleted(System.Int32,System.String,System.String,System.Object[])">
+            <summary>
+            The User Deleted.
+            </summary>
+            <param name="userId">
+            The user Id.
+            </param>
+            <param name="source">
+            The source.
+            </param>
+            <param name="format">
+            The format.
+            </param>
+            <param name="args">
+            The args.
+            </param>
+        </member>
+        <member name="M:YAF.Core.YafDbLogger.IpBanSet(System.Int32,System.String,System.String,System.Object[])">
+            <summary>
+            The Ip Ban Set.
+            </summary>
+            <param name="userId">
+            The user Id.
+            </param>
+            <param name="source">
+            The source.
+            </param>
+            <param name="format">
+            The format.
+            </param>
+            <param name="args">
+            The args.
+            </param>
+        </member>
+        <member name="M:YAF.Core.YafDbLogger.IpBanLifted(System.Int32,System.String,System.String,System.Object[])">
+            <summary>
+            The Ip Ban Lifted.
+            </summary>
+            <param name="userId">
+            The user Id.
+            </param>
+            <param name="source">
+            The source.
             </param>
             <param name="format">
             The format.
@@ -12281,6 +12795,21 @@
         <member name="P:YAF.Core.YafDbLogger.IsInfoEnabled">
             <summary>
               Gets a value indicating whether IsInfoEnabled.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.YafDbLogger.IsUserSuspendedEnabled">
+            <summary>
+              Gets a value indicating whether IsUserSuspendedeEnabled.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.YafDbLogger.IsUserDeletedEnabled">
+            <summary>
+              Gets a value indicating whether IsUserDeletedEnabled.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.YafDbLogger.IsLogBannedIP">
+            <summary>
+              Gets a value indicating whether IsLogBannedIP.
             </summary>
         </member>
         <member name="P:YAF.Core.YafDbLogger.IsTraceEnabled">
@@ -12547,6 +13076,159 @@
         <member name="P:YAF.Core.Tasks.SyncMembershipUsersTask.TaskName">
             <summary>
               Gets TaskName.
+            </summary>
+        </member>
+        <member name="T:YAF.Core.Tasks.ForumSaveTask">
+            <summary>
+            Run when we want to do migration of users in the background...
+            </summary>
+        </member>
+        <member name="F:YAF.Core.Tasks.ForumSaveTask._taskName">
+            <summary>
+            The _task name.
+            </summary>
+        </member>
+        <member name="F:YAF.Core.Tasks.ForumSaveTask._forumId">
+            <summary>
+            The _forum id.
+            </summary>
+        </member>
+        <member name="F:YAF.Core.Tasks.ForumSaveTask._categoryId">
+            <summary>
+            The _category Id.
+            </summary>
+        </member>
+        <member name="F:YAF.Core.Tasks.ForumSaveTask.BlockingTaskNames">
+            <summary>
+            The Blocking Task Names.
+            </summary>
+        </member>
+        <member name="M:YAF.Core.Tasks.ForumSaveTask.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Core.Tasks.ForumSaveTask"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Core.Tasks.ForumSaveTask.Start(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Boolean,System.String@)">
+            <summary>
+            The start.
+            </summary>
+            <param name="forumId">
+            The forum Id.
+             </param>
+            <param name="categoryId">
+            The category Id.
+             </param>
+            <param name="parentId">
+            The parent Id. 
+             </param>
+            <param name="name">
+            The forum name.
+             </param>
+            <param name="description">
+            The description.
+             </param>
+            <param name="sortOrder">
+            The sort Order.
+             </param>
+            <param name="locked"> 
+             The locked. </param>
+            <returns>
+            The start.
+            </returns>
+        </member>
+        <member name="M:YAF.Core.Tasks.ForumSaveTask.RunOnce">
+            <summary>
+            The run once.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.Tasks.ForumSaveTask.ForumId">
+            <summary>
+            Gets or sets ForumId.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.Tasks.ForumSaveTask.CategoryId">
+            <summary>
+            Gets or sets CategoryId.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.Tasks.ForumSaveTask.ParentId">
+            <summary>
+            Gets or sets ParentId.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.Tasks.ForumSaveTask.Name">
+            <summary>
+            Gets or sets Name.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.Tasks.ForumSaveTask.Description">
+            <summary>
+            Gets or sets Description.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.Tasks.ForumSaveTask.SortOrder">
+            <summary>
+            Gets or sets SortOrder.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.Tasks.ForumSaveTask.Locked">
+            <summary>
+            Gets or sets Locked.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.Tasks.ForumSaveTask.Hidden">
+            <summary>
+            Gets or sets Hidden.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.Tasks.ForumSaveTask.IsTest">
+            <summary>
+            Gets or sets IsTest.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.Tasks.ForumSaveTask.Moderated">
+            <summary>
+            Gets or sets Moderated.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.Tasks.ForumSaveTask.AccessMaskId">
+            <summary>
+            Gets or sets AccessMaskId.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.Tasks.ForumSaveTask.RemoteURL">
+            <summary>
+            Gets or sets RemoteURL.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.Tasks.ForumSaveTask.ThemeURL">
+            <summary>
+            Gets or sets ThemeURL.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.Tasks.ForumSaveTask.ImageURL">
+            <summary>
+            Gets or sets ImageURL.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.Tasks.ForumSaveTask.Styles">
+            <summary>
+            Gets or sets Styles.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.Tasks.ForumSaveTask.ForumOut">
+            <summary>
+            Gets or sets ForumOut.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.Tasks.ForumSaveTask.Dummy">
+            <summary>
+            Gets or sets Dummy.
+            </summary>
+        </member>
+        <member name="P:YAF.Core.Tasks.ForumSaveTask.TaskName">
+            <summary>
+            Gets TaskName.
             </summary>
         </member>
         <member name="T:YAF.Core.Services.YafThankYou">
@@ -12832,11 +13514,9 @@
         </member>
         <member name="M:YAF.Core.LoadPageLogBadAgent.Handle(YAF.Types.EventProxies.InitPageLoadEvent)">
             <summary>
-            The handle.
+            Handles the specified @event.
             </summary>
-            <param name="event">
-            The event.
-            </param>
+            <param name="event">The @event.</param>
         </member>
         <member name="P:YAF.Core.LoadPageLogBadAgent.HttpRequestBase">
             <summary>
