@@ -963,6 +963,7 @@ height:80em;
 	border: 1px solid rgba(0,118,163,0.25);
 	background-color: rgb(66,165,255);
 	background-color: rgba(66,165,255,0.92);
+
 	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(transparent), to(#000));
 	border-radius: 3px;
 	-webkit-border-radius: 3px;
@@ -971,6 +972,8 @@ height:80em;
 	-webkit-box-shadow: 0 0 3px #555;
 	-moz-box-shadow: 0 0 3px #555;
 }
+* html #tiptip_content {background-color: rgb(66,165,255);}
+*:first-child+html #tiptip_content {background-color: rgb(66,165,255);}
 
 #tiptip_arrow, #tiptip_arrow_inner {
 	position: absolute;
@@ -1042,6 +1045,9 @@ height:80em;
 		border-top-color: rgba(20,20,20,0.92);
 	}
 }
+
+/* Selection of rules to make tiptip work in IE6 */
+* html #tiptip_arrow {display:none;}
 
 .adminContent li,
 .ui-helper-reset li {list-style-type:none}

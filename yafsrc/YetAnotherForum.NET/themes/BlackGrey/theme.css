@@ -967,6 +967,8 @@ height:80em;
 	-webkit-box-shadow: 0 0 3px #555555;
 	-moz-box-shadow: 0 0 3px #555555;
 }
+* html #tiptip_content {background-color: rgb(3,51,51));}
+*:first-child+html #tiptip_content {background-color: rgb(3,51,51);}
 
 #tiptip_arrow, #tiptip_arrow_inner {
 	position: absolute;
@@ -1038,6 +1040,9 @@ height:80em;
 		border-top-color: rgba(20,20,20,0.92);
 	}
 }
+
+/* Selection of rules to make tiptip work in IE6 */
+* html #tiptip_arrow {display:none;}
 
 .adminContent li,
 .ui-helper-reset li {list-style-type:none}
