@@ -568,7 +568,7 @@ namespace YAF.Core.Services
             else
             {
                 string message = YafContext.Current.Get<ILocalization>().GetTextFormatted(
-                    "LOGIN", "TWITTER_DM", YafContext.Current.Get<YafBoardSettings>().Name, user.UserName, pass);
+                    "LOGIN", "TWITTER_DM_ACCOUNT", YafContext.Current.Get<YafBoardSettings>().Name, user.UserName, pass);
 
                 tweetApi.SendDirectMessage(TweetAPI.ResponseFormat.json, user.UserName, message.Truncate(140));
             }
