@@ -60,7 +60,6 @@
     <Compile Include="Helpers\DateTimeHelper.cs" />
     <Compile Include="Helpers\HashHelper.cs" />
     <Compile Include="Helpers\ImageUtils\CaptchaImage.cs" />
-    <Compile Include="Extensions\ControlExtension.cs" />
     <Compile Include="Extensions\ArrayExtensions.cs" />
     <Compile Include="Extensions\DataContainerExtensions.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />

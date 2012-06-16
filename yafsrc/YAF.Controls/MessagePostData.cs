@@ -303,6 +303,11 @@ namespace YAF.Controls
             }
             else if (this.DataRow.Table.Columns.Contains("Edited"))
             {
+                if (this.DataRow.Table.Columns.Contains("IsModeratorChanged"))
+                {
+                    this.IsModeratorChanged = Convert.ToBoolean(this.DataRow["IsModeratorChanged"]);
+                }
+
                 // handle a message that's been edited...
                 var editedMessageDateTime = this.Posted;
 
@@ -326,7 +331,7 @@ namespace YAF.Controls
                 // Render Edit Message
                 if (this.ShowEditMessage && this.Edited > this.Posted.AddSeconds(this.Get<YafBoardSettings>().EditTimeOut))
                 {
-                    this.RenderEditedMessage(writer, this.Edited, Convert.ToString(this.DataRow["EditReason"]), this.MessageId);
+                    this.RenderEditedMessage(writer, this.Edited, Convert.ToString(this.DataRow["EditReason"]), this.DataRow, this.MessageId);
                 }
             }
             else

@@ -4516,7 +4516,7 @@ Visit {forumname} at {forumlink}
 	   <Resource tag="HEADER_SEARCH">Search Settings</Resource>
 	   <Resource tag="HEADER_SPAM">Spam Settings</Resource>
 	   <Resource tag="HEADER_LOGIN">Login/Registration Settings</Resource>
-	   <Resource tag="HEADER_IMAGE_ATTACH">Image Attachment Settings</Resource>
+	   <Resource tag="HEADER_IMAGE_ATTACH">Image Attachment &amp; Resize Settings</Resource>
 	   <Resource tag="HEADER_POLL">Poll Settings</Resource>
 	   <Resource tag="HEADER_PMS">Private Messages</Resource>
 	   <Resource tag="HEADER_ALBUM">Album Settings</Resource>

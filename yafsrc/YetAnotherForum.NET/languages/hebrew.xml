@@ -1031,7 +1031,7 @@
     <Resource tag="HEADER_FEATURES">Feature Settings</Resource>
     <Resource tag="HEADER_GEOLOCATION">Geolocation Settings</Resource>
     <Resource tag="HEADER_HOTTOPICS">Hot (Popular) Topic Settings</Resource>
-    <Resource tag="HEADER_IMAGE_ATTACH">Image Attachment Settings</Resource>
+    <Resource tag="HEADER_IMAGE_ATTACH">Image Attachment &amp; Resize Settings</Resource>
     <Resource tag="HEADER_IRKOO">Irkoo Reputation Service</Resource>
     <Resource tag="HEADER_LOG">Log settings</Resource>
     <Resource tag="HEADER_LOGIN">Login/Registration Settings</Resource>

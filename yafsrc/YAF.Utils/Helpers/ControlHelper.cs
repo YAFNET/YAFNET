@@ -18,29 +18,26 @@
  */
 namespace YAF.Utils.Helpers
 {
-  using System;
-  using System.Collections.Generic;
-  using System.IO;
-  using System.Linq;
-  using System.Web.UI;
-  using System.Web.UI.HtmlControls;
-  using System.Web.UI.WebControls;
-
-  using YAF.Utils;
-  using YAF.Utils.Helpers.StringUtils;
-  using YAF.Types;
-  using YAF.Types.Interfaces;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Web.UI;
+    using System.Web.UI.HtmlControls;
+    using System.Web.UI.WebControls;
+    using YAF.Types;
+    using YAF.Types.Interfaces;
 
   /// <summary>
   /// Provides helper functions for using and accessing controls.
   /// </summary>
   public static class ControlHelper
   {
-    /// <summary>
-    /// Renders a control to a string.
-    /// </summary>
-    /// <param name="control"></param>
-    /// <returns></returns>
+      /// <summary>
+      /// Renders a control to a string.
+      /// </summary>
+      /// <param name="control">The control.</param>
+      /// <returns>Returns the Rendered Control as string</returns>
     [NotNull]
     public static string RenderToString([NotNull] this Control control)
     {
@@ -68,15 +65,16 @@ namespace YAF.Utils.Helpers
         }
       }
 
-      return String.Empty;
+      return string.Empty;
     }
 
     /// <summary>
-    /// Renders a control to a string.
+    /// New user control.
     /// </summary>
-    /// <param name="control"></param>
-    /// <param name="controlPath"></param>
-    /// <returns></returns>
+    /// <typeparam name="T">the typeparameter</typeparam>
+    /// <param name="control">The control.</param>
+    /// <param name="controlPath">The control path.</param>
+    /// <returns>Returns the new Control</returns>
     [CanBeNull]
     public static T NewUserControl<T>([NotNull] this UserControl control, [NotNull] string controlPath) where
       T : UserControl
@@ -129,38 +127,12 @@ namespace YAF.Utils.Helpers
     }
 
     /// <summary>
-    /// Finds a control recursively (forward only) using <paramref name="isControl"/> function.
+    /// Finds the control recursive reverse.
     /// </summary>
-    /// <param name="sourceControl">
-    /// Control to start search from.
-    /// </param>
-    /// <param name="isControl">
-    /// Function to test if we found the control.
-    /// </param>
+    /// <param name="sourceControl">The source control.</param>
+    /// <param name="id">The id.</param>
     /// <returns>
-    /// List of controls found
-    /// </returns>
-    [NotNull]
-    private static List<Control> ControlListNoParents([NotNull] this Control sourceControl, [NotNull] Func<Control, bool> isControl)
-    {
-      CodeContracts.ArgumentNotNull(sourceControl, "sourceControl");
-      CodeContracts.ArgumentNotNull(isControl, "isControl");
-
-      return (from c in sourceControl.Controls.Cast<Control>().AsQueryable()
-              where !c.HasControls()
-              select c).Where(isControl).ToList();
-    }
-
-    /// <summary>
     /// The find control recursive reverse.
-    /// </summary>
-    /// <param name="sourceControl">
-    /// The source control.
-    /// </param>
-    /// <param name="id">
-    /// The id.
-    /// </param>
-    /// <returns>
     /// </returns>
     public static Control FindControlRecursiveReverse([NotNull] this Control sourceControl, [NotNull] string id)
     {
@@ -173,24 +145,17 @@ namespace YAF.Utils.Helpers
       {
         return foundControl;
       }
-      else if (sourceControl.Parent != null)
-      {
-        return FindControlRecursiveReverse(sourceControl.Parent, id);
-      }
 
-      return null;
+        return sourceControl.Parent != null ? FindControlRecursiveReverse(sourceControl.Parent, id) : null;
     }
 
     /// <summary>
-    /// The find control recursive both.
+    /// Finds the control recursive both.
     /// </summary>
-    /// <param name="sourceControl">
-    /// The source control.
-    /// </param>
-    /// <param name="id">
-    /// The id.
-    /// </param>
+    /// <param name="sourceControl">The source control.</param>
+    /// <param name="id">The id.</param>
     /// <returns>
+    /// The find control recursive both.
     /// </returns>
     public static Control FindControlRecursiveBoth([NotNull] this Control sourceControl, [NotNull] string id)
     {
@@ -217,8 +182,10 @@ namespace YAF.Utils.Helpers
     /// The id.
     /// </param>
     /// <typeparam name="T">
+    /// the typeparameter
     /// </typeparam>
     /// <returns>
+    /// Returns the Control as strongly typed
     /// </returns>
     public static T FindControlAs<T>([NotNull] this Control sourceControl, [NotNull] string id) where T : class
     {
@@ -236,17 +203,13 @@ namespace YAF.Utils.Helpers
     }
 
     /// <summary>
-    /// The find control recursive as.
+    /// Finds the control recursive as.
     /// </summary>
-    /// <param name="sourceControl">
-    /// The source control.
-    /// </param>
-    /// <param name="id">
-    /// The id.
-    /// </param>
-    /// <typeparam name="T">
-    /// </typeparam>
+    /// <typeparam name="T">the typeparameter</typeparam>
+    /// <param name="sourceControl">The source control.</param>
+    /// <param name="id">The id.</param>
     /// <returns>
+    /// The find control recursive as.
     /// </returns>
     public static T FindControlRecursiveAs<T>([NotNull] this Control sourceControl, [NotNull] string id) where T : class
     {
@@ -263,17 +226,13 @@ namespace YAF.Utils.Helpers
     }
 
     /// <summary>
-    /// The find control recursive reverse as.
+    /// Finds the control recursive reverse as.
     /// </summary>
-    /// <param name="sourceControl">
-    /// The source control.
-    /// </param>
-    /// <param name="id">
-    /// The id.
-    /// </param>
-    /// <typeparam name="T">
-    /// </typeparam>
+    /// <typeparam name="T">the typeparameter</typeparam>
+    /// <param name="sourceControl">The source control.</param>
+    /// <param name="id">The id.</param>
     /// <returns>
+    /// The find control recursive reverse as.
     /// </returns>
     public static T FindControlRecursiveReverseAs<T>([NotNull] this Control sourceControl, [NotNull] string id) where T : class
     {
@@ -290,17 +249,13 @@ namespace YAF.Utils.Helpers
     }
 
     /// <summary>
-    /// The find control recursive both as.
+    /// Finds the control recursive both as.
     /// </summary>
-    /// <param name="sourceControl">
-    /// The source control.
-    /// </param>
-    /// <param name="id">
-    /// The id.
-    /// </param>
-    /// <typeparam name="T">
-    /// </typeparam>
+    /// <typeparam name="T">the typeparameter</typeparam>
+    /// <param name="sourceControl">The source control.</param>
+    /// <param name="id">The id.</param>
     /// <returns>
+    /// The find control recursive both as.
     /// </returns>
     public static T FindControlRecursiveBothAs<T>([NotNull] this Control sourceControl, [NotNull] string id) where T : class
     {
@@ -407,8 +362,6 @@ namespace YAF.Utils.Helpers
     /// <returns>
     /// List of type T with controls.
     /// </returns>
-    /// <exception cref="ArgumentNullException">
-    /// </exception>
     [NotNull]
     public static IEnumerable<T> FindControlType<T>([NotNull] this Control sourceControl)
     {
@@ -418,12 +371,11 @@ namespace YAF.Utils.Helpers
     }
 
     /// <summary>
-    /// The make css include control.
+    /// Makes the CSS include control.
     /// </summary>
-    /// <param name="href">
-    /// The href.
-    /// </param>
+    /// <param name="href">The href.</param>
     /// <returns>
+    /// The make css include control.
     /// </returns>
     [NotNull]
     public static HtmlLink MakeCssIncludeControl([NotNull] string href)
@@ -444,6 +396,7 @@ namespace YAF.Utils.Helpers
     /// The style information to add to the control.
     /// </param>
     /// <returns>
+    /// Returns the css control
     /// </returns>
     [NotNull]
     public static HtmlGenericControl MakeCssControl([NotNull] string css)
@@ -464,6 +417,7 @@ namespace YAF.Utils.Helpers
     /// The href to the javascript script file.
     /// </param>
     /// <returns>
+    /// Returns the JS Include Control
     /// </returns>
     [NotNull]
     public static HtmlGenericControl MakeJsIncludeControl([NotNull] string href)
@@ -589,8 +543,8 @@ namespace YAF.Utils.Helpers
     /// <summary>
     /// Adds a class to the attribute "class". If one exists, it appends the class.
     /// </summary>
-    /// <param name="control"></param>
-    /// <param name="cssClass"></param>
+    /// <param name="control">The control.</param>
+    /// <param name="cssClass">The CSS class.</param>
     public static void AddClass([NotNull] this WebControl control, [NotNull] string cssClass)
     {
       CodeContracts.ArgumentNotNull(control, "control");
@@ -624,7 +578,7 @@ namespace YAF.Utils.Helpers
       CodeContracts.ArgumentNotNull(control, "control");
       CodeContracts.ArgumentNotNull(message, "message");
 
-      AddOnClickConfirmDialog((WebControl) control, message);
+      AddOnClickConfirmDialog((WebControl)control, message);
     }
 
     /// <summary>
@@ -643,5 +597,28 @@ namespace YAF.Utils.Helpers
 
       control.Attributes["onclick"] = "return confirm('{0}');".FormatWith(message);
     }
+
+    /// <summary>
+    /// Finds a control recursively (forward only) using <paramref name="isControl"/> function.
+    /// </summary>
+    /// <param name="sourceControl">
+    /// Control to start search from.
+    /// </param>
+    /// <param name="isControl">
+    /// Function to test if we found the control.
+    /// </param>
+    /// <returns>
+    /// List of controls found
+    /// </returns>
+    [NotNull]
+    private static IEnumerable<Control> ControlListNoParents([NotNull] this Control sourceControl, [NotNull] Func<Control, bool> isControl)
+    {
+        CodeContracts.ArgumentNotNull(sourceControl, "sourceControl");
+        CodeContracts.ArgumentNotNull(isControl, "isControl");
+
+        return (from c in sourceControl.Controls.Cast<Control>().AsQueryable()
+                where !c.HasControls()
+                select c).Where(isControl).ToList();
+    }    
   }
 }

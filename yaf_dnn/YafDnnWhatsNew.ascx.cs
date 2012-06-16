@@ -34,6 +34,7 @@ namespace YAF.DotNetNuke
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
+    using YAF.Utils.Helpers;
 
     using global::DotNetNuke.Common;
     using global::DotNetNuke.Entities.Modules;

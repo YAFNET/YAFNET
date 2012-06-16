@@ -22,9 +22,11 @@ namespace YAF.Controls
 
     using System;
     using System.Collections.Generic;
+    using System.Data;
     using System.Web;
     using System.Web.UI;
 
+    using YAF.Classes;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -307,9 +309,10 @@ namespace YAF.Controls
         /// <param name="writer">The writer.</param>
         /// <param name="edited">The edited date time.</param>
         /// <param name="editReason">The edit reason text.</param>
+        /// <param name="currentRow">The current row.</param>
         /// <param name="messageId">The message id.</param>
         protected virtual void RenderEditedMessage(
-            [NotNull] HtmlTextWriter writer, [NotNull] DateTime edited, [NotNull] string editReason, int? messageId)
+            [NotNull] HtmlTextWriter writer, [NotNull] DateTime edited, [NotNull] string editReason, [NotNull] DataRow currentRow, int? messageId)
         {
             var editedDateTime = new DisplayDateTime { DateTime = edited }.RenderToString();
 
@@ -323,7 +326,13 @@ namespace YAF.Controls
 
             // message has been edited
             // show, why the post was edited or deleted?
-            var whoChanged = this.IsModeratorChanged ? this.GetText("POSTS", "EDITED_BY_MOD") : this.GetText("POSTS", "EDITED_BY_USER");
+            var whoChanged = this.IsModeratorChanged
+                                 ? "{0}: {1}".FormatWith(
+                                     this.GetText("POSTS", "EDITED_BY_MOD"),
+                                     currentRow[this.Get<YafBoardSettings>().EnableDisplayName
+                                             ? "EditedByDisplayName"
+                                             : "EditedByUserName"])
+                                 : this.GetText("POSTS", "EDITED_BY_USER");
 
             writer.Write(
                 @"<p class=""MessageDetails""><em><a title=""{3}"" alt=""title=""{3}"" href=""{4}"">{0} {1}</a>&nbsp;{2}&nbsp;|&nbsp;<span class=""editedinfo"">{3}</span></em></p>"
@@ -332,7 +341,7 @@ namespace YAF.Controls
                         whoChanged,
                         editedDateTime,
                         editReasonText,
-                        YafBuildLink.GetLink(ForumPages.messagehistory, "m={0}", messageId.Value)));
+                        YafBuildLink.GetLink(ForumPages.messagehistory, "m={0}", messageId.ToType<int>())));
         }
 
         /// <summary>
