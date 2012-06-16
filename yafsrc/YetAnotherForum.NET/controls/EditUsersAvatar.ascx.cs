@@ -83,28 +83,20 @@ namespace YAF.Controls
         #region Methods
 
         /// <summary>
-        /// The back_ click.
+        /// Cancel Editing
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Back_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             YafBuildLink.Redirect(this._adminEditMode ? ForumPages.admin_users : ForumPages.cp_profile);
         }
 
         /// <summary>
-        /// The delete avatar_ click.
+        /// Delete The Current Avatar
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void DeleteAvatar_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             LegacyDb.user_deleteavatar(this._currentUserID);
@@ -117,19 +109,15 @@ namespace YAF.Controls
         /// <summary>
         /// The page_ load.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.PageContext.QueryIDs = new QueryStringIDHelper("u");
 
             if (this._adminEditMode && this.PageContext.IsAdmin && this.PageContext.QueryIDs.ContainsKey("u"))
             {
-                this._currentUserID = (int)this.PageContext.QueryIDs["u"];
+                this._currentUserID = this.PageContext.QueryIDs["u"].ToType<int>();
             }
             else
             {
@@ -147,7 +135,8 @@ namespace YAF.Controls
                 // save the avatar right now...
                 LegacyDb.user_saveavatar(
                     this._currentUserID,
-                    "{0}{1}".FormatWith(BaseUrlBuilder.BaseUrl, this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("av")),
+                    "{0}{1}".FormatWith(
+                        BaseUrlBuilder.BaseUrl, this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("av")),
                     null,
                     null);
 
@@ -188,19 +177,16 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// The remote update_ click.
+        /// Saves the Remote Avatar
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void RemoteUpdate_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.Avatar.Text.Length > 0 && !this.Avatar.Text.StartsWith("http://"))
+            if (this.Avatar.Text.Length > 0 && !this.Avatar.Text.StartsWith("http://")
+                && !this.Avatar.Text.StartsWith("https://"))
             {
-                this.Avatar.Text = "http://" + this.Avatar.Text;
+                this.Avatar.Text = "http://{0}".FormatWith(this.Avatar.Text);
             }
 
             // update
@@ -216,18 +202,14 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// The upload update_ click.
+        /// Saves the local Avatar
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void UploadUpdate_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.File.PostedFile == null || this.File.PostedFile.FileName.Trim().Length <= 0 ||
-                this.File.PostedFile.ContentLength <= 0)
+            if (this.File.PostedFile == null || this.File.PostedFile.FileName.Trim().Length <= 0
+                || this.File.PostedFile.ContentLength <= 0)
             {
                 return;
             }
@@ -244,8 +226,7 @@ namespace YAF.Controls
                 {
                     if (img.Width > x || img.Height > y)
                     {
-                        this.PageContext.AddLoadMessage(
-                            this.GetText("CP_EDITAVATAR", "WARN_TOOBIG").FormatWith(x, y));
+                        this.PageContext.AddLoadMessage(this.GetText("CP_EDITAVATAR", "WARN_TOOBIG").FormatWith(x, y));
                         this.PageContext.AddLoadMessage(
                             this.GetText("CP_EDITAVATAR", "WARN_SIZE").FormatWith(img.Width, img.Height));
                         this.PageContext.AddLoadMessage(this.GetText("CP_EDITAVATAR", "WARN_RESIZED"));
@@ -255,30 +236,32 @@ namespace YAF.Controls
                 }
 
                 // Delete old first...
-                    LegacyDb.user_deleteavatar(this._currentUserID);
+                LegacyDb.user_deleteavatar(this._currentUserID);
 
-                    LegacyDb.user_saveavatar(
-                      this._currentUserID, null, resized ?? this.File.PostedFile.InputStream, this.File.PostedFile.ContentType);
+                LegacyDb.user_saveavatar(
+                    this._currentUserID,
+                    null,
+                    resized ?? this.File.PostedFile.InputStream,
+                    this.File.PostedFile.ContentType);
 
-                    // clear the cache for this user...
-                    this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this._currentUserID));
+                // clear the cache for this user...
+                this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this._currentUserID));
 
-                    if (nAvatarSize > 0 && this.File.PostedFile.ContentLength >= nAvatarSize && resized == null)
-                    {
-                        this.PageContext.AddLoadMessage(
-                          this.GetText("CP_EDITAVATAR", "WARN_BIGFILE").FormatWith(nAvatarSize));
-                        this.PageContext.AddLoadMessage(
-                          this.GetText("CP_EDITAVATAR", "WARN_FILESIZE").FormatWith(
-                            this.File.PostedFile.ContentLength));
-                    }
+                if (nAvatarSize > 0 && this.File.PostedFile.ContentLength >= nAvatarSize && resized == null)
+                {
+                    this.PageContext.AddLoadMessage(
+                        this.GetText("CP_EDITAVATAR", "WARN_BIGFILE").FormatWith(nAvatarSize));
+                    this.PageContext.AddLoadMessage(
+                        this.GetText("CP_EDITAVATAR", "WARN_FILESIZE").FormatWith(this.File.PostedFile.ContentLength));
+                }
 
-                    this.AvatarImg.ImageUrl = "{0}resource.ashx?u={1}&upd={2}".FormatWith(
-                      YafForumInfo.ForumClientFileRoot, this._currentUserID, DateTime.Now.Ticks);
+                this.AvatarImg.ImageUrl = "{0}resource.ashx?u={1}&upd={2}".FormatWith(
+                    YafForumInfo.ForumClientFileRoot, this._currentUserID, DateTime.Now.Ticks);
 
-                    if ( this.AvatarImg.ImageUrl.IsSet())
-                    {
-                        this.NoAvatar.Visible = false;
-                    }
+                if (this.AvatarImg.ImageUrl.IsSet())
+                {
+                    this.NoAvatar.Visible = false;
+                }
             }
             catch (Exception)
             {
@@ -290,7 +273,7 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// The bind data.
+        /// Binds the data.
         /// </summary>
         private void BindData()
         {
@@ -306,11 +289,11 @@ namespace YAF.Controls
             this.DeleteAvatar.Visible = false;
             this.NoAvatar.Visible = false;
 
-            if (this.Get<YafBoardSettings>().AvatarUpload && row["HasAvatarImage"] != null &&
-                long.Parse(row["HasAvatarImage"].ToString()) > 0)
+            if (this.Get<YafBoardSettings>().AvatarUpload && row["HasAvatarImage"] != null
+                && long.Parse(row["HasAvatarImage"].ToString()) > 0)
             {
                 this.AvatarImg.ImageUrl = "{0}resource.ashx?u={1}".FormatWith(
-                  YafForumInfo.ForumClientFileRoot, this._currentUserID);
+                    YafForumInfo.ForumClientFileRoot, this._currentUserID);
                 this.Avatar.Text = string.Empty;
                 this.DeleteAvatar.Visible = true;
             }
@@ -318,11 +301,11 @@ namespace YAF.Controls
             {
                 // Took out PageContext.BoardSettings.AvatarRemote
                 this.AvatarImg.ImageUrl =
-                  "{3}resource.ashx?url={0}&width={1}&height={2}".FormatWith(
-                    this.Server.UrlEncode(row["Avatar"].ToString()),
-                    this.Get<YafBoardSettings>().AvatarWidth,
-                    this.Get<YafBoardSettings>().AvatarHeight,
-                    YafForumInfo.ForumClientFileRoot);
+                    "{3}resource.ashx?url={0}&width={1}&height={2}".FormatWith(
+                        this.Server.UrlEncode(row["Avatar"].ToString()),
+                        this.Get<YafBoardSettings>().AvatarWidth,
+                        this.Get<YafBoardSettings>().AvatarHeight,
+                        YafForumInfo.ForumClientFileRoot);
 
                 this.Avatar.Text = row["Avatar"].ToString();
                 this.DeleteAvatar.Visible = true;
@@ -341,14 +324,14 @@ namespace YAF.Controls
                 string emailHash = s.ToString();
 
                 string gravatarUrl = "http://www.gravatar.com/avatar/{0}.jpg?r={1}".FormatWith(
-                  emailHash, this.Get<YafBoardSettings>().GravatarRating);
+                    emailHash, this.Get<YafBoardSettings>().GravatarRating);
 
                 this.AvatarImg.ImageUrl =
-                  "{3}resource.ashx?url={0}&width={1}&height={2}".FormatWith(
-                    this.Server.UrlEncode(gravatarUrl),
-                    this.Get<YafBoardSettings>().AvatarWidth,
-                    this.Get<YafBoardSettings>().AvatarHeight,
-                    YafForumInfo.ForumClientFileRoot);
+                    "{3}resource.ashx?url={0}&width={1}&height={2}".FormatWith(
+                        this.Server.UrlEncode(gravatarUrl),
+                        this.Get<YafBoardSettings>().AvatarWidth,
+                        this.Get<YafBoardSettings>().AvatarHeight,
+                        YafForumInfo.ForumClientFileRoot);
 
                 this.NoAvatar.Text = "Gravatar Image";
                 this.NoAvatar.Visible = true;
@@ -361,9 +344,9 @@ namespace YAF.Controls
 
             int rowSpan = 2;
 
-            this.AvatarUploadRow.Visible = this._adminEditMode ? true : this.Get<YafBoardSettings>().AvatarUpload;
-            this.AvatarRemoteRow.Visible = this._adminEditMode ? true : this.Get<YafBoardSettings>().AvatarRemote;
-            this.AvatarOurs.Visible = this._adminEditMode ? true : this.Get<YafBoardSettings>().AvatarGallery;
+            this.AvatarUploadRow.Visible = this._adminEditMode || this.Get<YafBoardSettings>().AvatarUpload;
+            this.AvatarRemoteRow.Visible = this._adminEditMode || this.Get<YafBoardSettings>().AvatarRemote;
+            this.AvatarOurs.Visible = this._adminEditMode || this.Get<YafBoardSettings>().AvatarGallery;
 
             if (this._adminEditMode || this.Get<YafBoardSettings>().AvatarUpload)
             {
