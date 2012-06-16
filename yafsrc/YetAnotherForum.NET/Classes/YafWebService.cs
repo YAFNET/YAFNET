@@ -25,14 +25,16 @@ using YAF.Classes;
 using YAF.Classes.Data;
 using YAF.Core;
 using YAF.Types;
+using YAF.Types.Constants;
 using YAF.Types.EventProxies;
+using YAF.Types.Flags;
 using YAF.Types.Interfaces;
 using YAF.Utils;
 
 #endregion
 
 /// <summary>
-/// Summary description for YafForumWebService
+/// Forum WebService for various Functions
 /// </summary>
 [WebService(Namespace = "http://yetanotherforum.net/services")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
@@ -52,51 +54,26 @@ public class YafWebService : WebService, IHaveServiceLocator
     #region Public Methods
 
     /// <summary>
-    /// The create new topic.
+    /// Creates the new topic.
     /// </summary>
-    /// <param name="token">
-    /// The token.
-    /// </param>
-    /// <param name="forumid">
-    /// The forumid.
-    /// </param>
-    /// <param name="userid">
-    /// The userid.
-    /// </param>
-    /// <param name="username">
-    /// The username.
-    /// </param>
-    /// <param name="status">
-    /// The status.
-    /// </param>
-    /// <param name="styles">
-    /// The styles.
-    /// </param>
-    /// <param name="description">
-    /// The description.
-    /// </param>
-    /// <param name="subject">
-    /// The subject.
-    /// </param>
-    /// <param name="post">
-    /// The post.
-    /// </param>
-    /// <param name="ip">
-    /// The ip.
-    /// </param>
-    /// <param name="priority">
-    /// The priority.
-    /// </param>
-    /// <param name="flags">
-    /// The flags.
-    /// </param>
+    /// <param name="token">The token.</param>
+    /// <param name="forumid">The forumid.</param>
+    /// <param name="userid">The userid.</param>
+    /// <param name="username">The username.</param>
+    /// <param name="status">The status.</param>
+    /// <param name="styles">The styles.</param>
+    /// <param name="description">The description.</param>
+    /// <param name="subject">The subject.</param>
+    /// <param name="post">The post.</param>
+    /// <param name="ip">The ip.</param>
+    /// <param name="priority">The priority.</param>
+    /// <param name="flags">The flags.</param>
     /// <returns>
-    /// The create new topic.
+    /// Returns the new Message Id
     /// </returns>
     /// <exception cref="SecurityFailureInvalidWebServiceTokenException">
     /// Invalid Secure Web Service Token: Operation Failed
     /// </exception>
-    /// <exception cref="SecurityFailureInvalidWebServiceTokenException">Invalid Secure Web Service Token: Operation Failed</exception>
     [WebMethod]
     public long CreateNewTopic(
         [NotNull] string token,
@@ -134,32 +111,26 @@ public class YafWebService : WebService, IHaveServiceLocator
             username,
             ip,
             DateTime.UtcNow,
-            null,
+            string.Empty,
             flags,
             ref messageId);
     }
 
     /// <summary>
-    /// The set display name from username.
+    /// Sets the display name from username.
     /// </summary>
-    /// <param name="token">
-    /// The token.
-    /// </param>
-    /// <param name="username">
-    /// The username.
-    /// </param>
-    /// <param name="displayName">
-    /// The display Name.
-    /// </param>
-    /// <exception cref="Exception">
-    /// <c>Exception</c>.
-    /// </exception>
+    /// <param name="token">The token.</param>
+    /// <param name="username">The username.</param>
+    /// <param name="displayName">The display Name.</param>
     /// <returns>
     /// The set display name from username.
     /// </returns>
+    /// <exception cref="Exception">
+    ///   <c>Exception</c>.
+    ///   </exception>
     /// <exception cref="NonUniqueDisplayNameException">
-    /// <c>NonUniqueDisplayNameException</c>.
-    /// </exception>
+    ///   <c>NonUniqueDisplayNameException</c>.
+    ///   </exception>
     /// <exception cref="SecurityFailureInvalidWebServiceTokenException">Invalid Secure Web Service Token: Operation Failed</exception>
     [WebMethod]
     public bool SetDisplayNameFromUsername(
