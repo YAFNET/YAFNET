@@ -614,8 +614,20 @@ namespace YAF.Pages
             if (this.User != null && !string.IsNullOrEmpty(userData.Profile.Region))
             {
                 this.RegionTR.Visible = true;
-                string tag = "RGN_{0}_{1}".FormatWith(this.Get<ILocalization>().Culture.Name.Remove(0, 3).ToUpperInvariant(), userData.Profile.Region);
-                this.RegionLabel.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(this.GetText("REGION", tag)));
+
+                try
+                {
+                    var tag = "RGN_{0}_{1}".FormatWith(
+                        !string.IsNullOrEmpty(userData.Profile.Country.Trim())
+                            ? userData.Profile.Country.Trim()
+                            : this.Get<ILocalization>().Culture.Name.Remove(0, 3).ToUpperInvariant(),
+                        userData.Profile.Region);
+                    this.RegionLabel.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(this.GetText("REGION", tag)));
+                }
+                catch (Exception)
+                {
+                    this.RegionTR.Visible = false;
+                }
             }
 
             if (this.User != null && !string.IsNullOrEmpty(userData.Profile.City))
