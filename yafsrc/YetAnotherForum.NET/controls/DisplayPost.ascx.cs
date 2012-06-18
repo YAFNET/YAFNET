@@ -271,16 +271,10 @@ namespace YAF.Controls
         /// </param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
+            // Set column span for layout depending on is it TreeView or not.
             this.NameCell.ColSpan = int.Parse(this.GetIndentSpan());
 
-            if (this.IsGuest)
-            {
-                return;
-            }
-
-            this.PopMenu1.Visible = true;
-
-            // display admin only info
+            // Display admin/moderator only info
             if (this.PageContext.IsAdmin ||
                 (this.Get<YafBoardSettings>().AllowModeratorsViewIPs && this.PageContext.IsModerator))
             {
@@ -292,6 +286,13 @@ namespace YAF.Controls
                 this.IPLink1.InnerText = this.HtmlEncode(ip);
             }
 
+            if (this.IsGuest)
+            {
+                return;
+            }
+
+            // Set up popup menu if it's not a guest.
+            this.PopMenu1.Visible = true;
             this.SetupPopupMenu();
         }
 
