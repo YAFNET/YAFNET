@@ -331,7 +331,8 @@ namespace YAF.Controls
                 // Render Edit Message
                 if (this.ShowEditMessage && this.Edited > this.Posted.AddSeconds(this.Get<YafBoardSettings>().EditTimeOut))
                 {
-                    this.RenderEditedMessage(writer, this.Edited, Convert.ToString(this.DataRow["EditReason"]), this.DataRow, this.MessageId);
+                    this.RenderEditedMessage(
+                        writer, this.Edited, Convert.ToString(this.DataRow["EditReason"]), this.MessageId);
                 }
             }
             else

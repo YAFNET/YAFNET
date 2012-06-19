@@ -309,10 +309,9 @@ namespace YAF.Controls
         /// <param name="writer">The writer.</param>
         /// <param name="edited">The edited date time.</param>
         /// <param name="editReason">The edit reason text.</param>
-        /// <param name="currentRow">The current row.</param>
         /// <param name="messageId">The message id.</param>
         protected virtual void RenderEditedMessage(
-            [NotNull] HtmlTextWriter writer, [NotNull] DateTime edited, [NotNull] string editReason, [NotNull] DataRow currentRow, int? messageId)
+            [NotNull] HtmlTextWriter writer, [NotNull] DateTime edited, [NotNull] string editReason, int? messageId)
         {
             var editedDateTime = new DisplayDateTime { DateTime = edited }.RenderToString();
 
@@ -327,11 +326,7 @@ namespace YAF.Controls
             // message has been edited
             // show, why the post was edited or deleted?
             var whoChanged = this.IsModeratorChanged
-                                 ? "{0}: {1}".FormatWith(
-                                     this.GetText("POSTS", "EDITED_BY_MOD"),
-                                     currentRow[this.Get<YafBoardSettings>().EnableDisplayName
-                                             ? "EditedByDisplayName"
-                                             : "EditedByUserName"])
+                                 ? this.GetText("POSTS", "EDITED_BY_MOD")
                                  : this.GetText("POSTS", "EDITED_BY_USER");
 
             writer.Write(
