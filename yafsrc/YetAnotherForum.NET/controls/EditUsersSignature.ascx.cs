@@ -416,8 +416,6 @@ namespace YAF.Controls
             {
                 this.PageContext.AddLoadMessage(
                   this.GetTextFormatted("SIGNATURE_MAX", this._allowedNumberOfCharacters));
-
-                return;
             }
         }
 

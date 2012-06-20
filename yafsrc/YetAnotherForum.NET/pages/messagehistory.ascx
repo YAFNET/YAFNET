@@ -2,6 +2,7 @@
 <%@ Import Namespace="YAF.Core" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Utils" %>
+<%@ Import Namespace="YAF.Utils.Helpers" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
     <tr>
@@ -36,11 +37,11 @@
                     </strong>
                     <%# Container.DataItemToField<string>("EditReason").IsNotSet() ? this.GetText("EDIT_REASON_NA") : Container.DataItemToField<string>("EditReason") %>
                     <br />
-                    <span id="IPSpan1" runat="server" visible='<%# PageContext.IsAdmin || (PageContext.BoardSettings.AllowModeratorsViewIPs && PageContext.IsModerator)%>'>
+                    <span id="IPSpan1" runat="server" visible='<%# PageContext.IsAdmin || (this.Get<YafBoardSettings>().AllowModeratorsViewIPs && PageContext.ForumModeratorAccess)%>'>
                         <strong>
-                            <%# this.GetText("IP") %>:</strong><a id="IPLink1" href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL, YAF.Utils.Helpers.IPHelper.GetIp4Address(Container.DataItemToField<string>("IP"))) %>'
+                            <%# this.GetText("IP") %>:</strong><a id="IPLink1" href='<%# this.Get<YafBoardSettings>().IPInfoPageURL.FormatWith(IPHelper.GetIp4Address(Container.DataItemToField<string>("IP"))) %>'
                                 title='<%# this.GetText("COMMON","TT_IPDETAILS") %>'
-                                target="_blank" runat="server"><%# YAF.Utils.Helpers.IPHelper.GetIp4Address(Container.DataItemToField<string>("IP")) %></a>
+                                target="_blank" runat="server"><%# IPHelper.GetIp4Address(Container.DataItemToField<string>("IP")) %></a>
                     </span>
                 </td>
             </tr>

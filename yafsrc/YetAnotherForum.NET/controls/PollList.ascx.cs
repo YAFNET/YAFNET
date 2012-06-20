@@ -19,7 +19,6 @@
 
 namespace YAF.Controls
 {
-  // YAF.Pages
   #region Using
 
   using System;
@@ -189,8 +188,7 @@ namespace YAF.Controls
     /// <summary>
     /// Checks if user can edit a poll
     /// </summary>
-    /// <param name="pollId">
-    /// </param>
+    /// <param name="pollId">The poll id.</param>
     /// <returns>
     /// The can edit poll.
     /// </returns>
@@ -201,14 +199,14 @@ namespace YAF.Controls
       {
         // Only if show buttons are enabled user can edit poll 
         return this.ShowButtons &&
-               (this.PageContext.IsAdmin || this.PageContext.IsForumModerator ||
+               (this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess ||
                 (this.PageContext.PageUserID == this._dtPollGroupAllChoices.Rows[0]["GroupUserID"].ToType<int>() &&
                  (this.PollHasNoVotes(pollId) && (!this.IsPollClosed(pollId)))));
       }
 
       // we don't call PollHasNoVotes method here
       return this.ShowButtons &&
-             (this.PageContext.IsAdmin || this.PageContext.IsForumModerator ||
+             (this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess ||
               (this.PageContext.PageUserID == this._dtPollGroupAllChoices.Rows[0]["GroupUserID"].ToType<int>() &&
                (!this.IsPollClosed(pollId))));
     }
@@ -221,23 +219,18 @@ namespace YAF.Controls
     /// </returns>
     protected bool CanRemoveGroup()
     {
-      bool hasNoVotes = true;
+        bool hasNoVotes = !this._dtPollAllChoices.Rows.Cast<DataRow>().Any(dr => dr["Votes"].ToType<int>() > 0);
 
-      foreach (DataRow dr in this._dtPollAllChoices.Rows.Cast<DataRow>().Where(dr => dr["Votes"].ToType<int>() > 0))
-      {
-        hasNoVotes = false;
-      }
-
-      if (!this.Get<YafBoardSettings>().AllowPollChangesAfterFirstVote)
+        if (!this.Get<YafBoardSettings>().AllowPollChangesAfterFirstVote)
       {
         return this.ShowButtons &&
-               (this.PageContext.IsAdmin || this.PageContext.IsForumModerator ||
+               (this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess ||
                 (this.PageContext.PageUserID == this._dtPollGroupAllChoices.Rows[0]["GroupUserID"].ToType<int>() &&
                  hasNoVotes));
       }
 
       return this.ShowButtons &&
-             (this.PageContext.IsAdmin || this.PageContext.IsForumModerator ||
+             (this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess ||
               (this.PageContext.PageUserID == this._dtPollGroupAllChoices.Rows[0]["GroupUserID"].ToType<int>()));
     }
 
@@ -266,8 +259,7 @@ namespace YAF.Controls
     /// <summary>
     /// Checks if a user can delete poll without deleting it from database
     /// </summary>
-    /// <param name="pollId">
-    /// </param>
+    /// <param name="pollId">The poll id.</param>
     /// <returns>
     /// The can remove poll.
     /// </returns>
@@ -275,16 +267,15 @@ namespace YAF.Controls
     {
       return false;
 
-      /*return this.ShowButtons &&
-             (this.PageContext.IsAdmin || this.PageContext.IsForumModerator ||
-              (this.PageContext.PageUserID == Convert.ToInt32(this._dtPollGroupAllChoices.Rows[0]["GroupUserID"]))); */
+        /*return this.ShowButtons &&
+               (this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess ||
+                (this.PageContext.PageUserID == Convert.ToInt32(this._dtPollGroupAllChoices.Rows[0]["GroupUserID"]))); */
     }
 
     /// <summary>
     /// Checks if a user can delete poll completely from database.
     /// </summary>
-    /// <param name="pollId">
-    /// </param>
+    /// <param name="pollId">The poll id.</param>
     /// <returns>
     /// The can remove poll completely.
     /// </returns>
@@ -293,7 +284,7 @@ namespace YAF.Controls
         if (!this.Get<YafBoardSettings>().AllowPollChangesAfterFirstVote)
       {
         return this.ShowButtons &&
-               (this.PageContext.IsAdmin || this.PageContext.IsModerator ||
+               (this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess ||
                 (this.PageContext.PageUserID == this._dtPollGroupAllChoices.Rows[0]["GroupUserID"].ToType<int>() &&
                  this.PollHasNoVotes(pollId)));
       }
@@ -304,14 +295,10 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// The days to run.
+    /// Days to run.
     /// </summary>
-    /// <param name="pollId">
-    /// The poll Id.
-    /// </param>
-    /// <param name="soon">
-    /// The soon.
-    /// </param>
+    /// <param name="pollId">The poll Id.</param>
+    /// <param name="soon">The soon.</param>
     /// <returns>
     /// The days to run.
     /// </returns>
@@ -341,11 +328,9 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// The get image height.
+    /// Gets the height of the image.
     /// </summary>
-    /// <param name="mimeType">
-    /// The mime type.
-    /// </param>
+    /// <param name="mimeType">The mime type.</param>
     /// <returns>
     /// The get image height.
     /// </returns>
@@ -357,11 +342,9 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// The get poll is closed.
+    /// Gets the poll is closed.
     /// </summary>
-    /// <param name="pollId">
-    /// The poll Id.
-    /// </param>
+    /// <param name="pollId">The poll Id.</param>
     /// <returns>
     /// The get poll is closed.
     /// </returns>
@@ -377,11 +360,9 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// The get poll question.
+    /// Gets the poll question.
     /// </summary>
-    /// <param name="pollId">
-    /// The poll Id.
-    /// </param>
+    /// <param name="pollId">The poll Id.</param>
     /// <returns>
     /// The get poll question.
     /// </returns>
@@ -397,16 +378,12 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Get Theme Contents
+    /// Gets the theme contents.
     /// </summary>
-    /// <param name="page">
-    /// The Page
-    /// </param>
-    /// <param name="tag">
-    /// Tag
-    /// </param>
+    /// <param name="page">The page.</param>
+    /// <param name="tag">The tag.</param>
     /// <returns>
-    /// Content
+    /// Returns the Content
     /// </returns>
     protected string GetThemeContents([NotNull] string page, [NotNull] string tag)
     {
@@ -414,11 +391,9 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// The get total.
+    /// Gets the total.
     /// </summary>
-    /// <param name="pollId">
-    /// The poll Id.
-    /// </param>
+    /// <param name="pollId">The poll Id.</param>
     /// <returns>
     /// The get total.
     /// </returns>
@@ -434,20 +409,12 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// The is not voted.
+    /// Determines whether [is not voted] [the specified poll id].
     /// </summary>
-    /// <param name="pollId">
-    /// The poll id.
-    /// </param>
-    /// <param name="allowManyChoices">
-    /// The allow Many Choices.
-    /// </param>
-    /// <param name="pollChoices">
-    /// The poll Choices.
-    /// </param>
-    /// <param name="hasVote">
-    /// The has Vote.
-    /// </param>
+    /// <param name="pollId">The poll id.</param>
+    /// <param name="allowManyChoices">The allow Many Choices.</param>
+    /// <param name="pollChoices">The poll Choices.</param>
+    /// <param name="hasVote">The has Vote.</param>
     /// <returns>
     /// The is not voted.
     /// </returns>
@@ -568,11 +535,9 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// The is poll closed.
+    /// Determines whether [is poll closed] [the specified poll id].
     /// </summary>
-    /// <param name="pollId">
-    /// The poll Id.
-    /// </param>
+    /// <param name="pollId">The poll Id.</param>
     /// <returns>
     /// The is poll closed.
     /// </returns>
@@ -584,26 +549,20 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Page_Load
+    /// Handles the Load event of the Page control.
     /// </summary>
-    /// <param name="sender">
-    /// The object sender.
-    /// </param>
-    /// <param name="e">
-    /// The EventArgs e.
-    /// </param>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       this.LoadData();
     }
 
     /// <summary>
-    /// PollGroup_ItemCommand
+    /// PollGroup ItemCommand
     /// </summary>
-    /// <param name="source">
-    /// </param>
-    /// <param name="e">
-    /// </param>
+    /// <param name="source">The source of the event.</param>
+    /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
     protected void PollGroup_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
     {
       if (e.CommandName == "new" && this.PageContext.ForumVoteAccess)
@@ -668,12 +627,8 @@ namespace YAF.Controls
     /// <summary>
     /// The PollGroup item command.
     /// </summary>
-    /// <param name="source">
-    /// The source.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
+    /// <param name="source">The source of the event.</param>
+    /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterItemEventArgs"/> instance containing the event data.</param>
     protected void PollGroup_OnItemDataBound([NotNull] object source, [NotNull] RepeaterItemEventArgs e)
     {
       RepeaterItem item = e.Item;
@@ -698,14 +653,12 @@ namespace YAF.Controls
         bool hasVote;
         bool isNotVoted = this.IsNotVoted(
           pollId, drowv.Row["AllowMultipleChoices"].ToType<bool>(), out choicePId, out hasVote);
-        bool cvote = this.HasVoteAccess(pollId) ? isNotVoted : false;
+        bool cvote = this.HasVoteAccess(pollId) && isNotVoted;
         pollChoiceList.ChoiceId = choicePId;
 
         // If guest are not allowed to view options we don't render them
-        pollChoiceList.Visible = !cvote && !this.PageContext.BoardSettings.AllowGuestsViewPollOptions &&
-                                 this.PageContext.IsGuest
-                                   ? false
-                                   : true;
+        pollChoiceList.Visible = !(!cvote && !this.Get<YafBoardSettings>().AllowGuestsViewPollOptions &&
+                                   this.PageContext.IsGuest);
 
         bool isClosedBound = false;
         bool allowsMultipleChoices = false;
@@ -742,8 +695,6 @@ namespace YAF.Controls
           showVoters = Convert.ToBoolean(thisPollTable.Rows[0]["ShowVoters"]);
         }
 
-        string voters = string.Empty;
-
         if (showVoters)
         {
             DataTable dtAllPollGroupVotesShow = LegacyDb.pollgroup_votecheck(drowv.Row["PollGroupID"].ToType<int>(), null, null);
@@ -754,7 +705,6 @@ namespace YAF.Controls
         pollChoiceList.PollId = pollId.ToType<int>();
         pollChoiceList.MaxImageAspect = this.MaxImageAspect;
 
-       
         // returns number of day to run - null if poll has no expiration date 
         bool soon;
         int? daystorun = this.DaysToRun(pollId, out soon);
@@ -782,9 +732,7 @@ namespace YAF.Controls
             hasVoteEmptyCounter++;
           }
 
-          bool isclosedbound = !dr["Closes"].IsNullOrEmptyDBField() && Convert.ToBoolean(dr["IsClosedBound"])
-                                 ? dr["Closes"].ToType<DateTime>() < DateTime.UtcNow
-                                 : false;
+          bool isclosedbound = !dr["Closes"].IsNullOrEmptyDBField() && Convert.ToBoolean(dr["IsClosedBound"]) && dr["Closes"].ToType<DateTime>() < DateTime.UtcNow;
 
           if (voted || isclosedbound)
           {
@@ -1023,8 +971,7 @@ namespace YAF.Controls
     /// <summary>
     /// Returns an image width|height ratio.
     /// </summary>
-    /// <param name="mimeType">
-    /// </param>
+    /// <param name="mimeType">Type of the MIME.</param>
     /// <returns>
     /// The get image aspect.
     /// </returns>
@@ -1123,7 +1070,7 @@ namespace YAF.Controls
 
       // if the page user can cheange the poll. Only a group owner, forum moderator  or an admin can do it.   );
       this._canChange = (this._dtPollAllChoices.Rows[0]["GroupUserID"].ToType<int>() == this.PageContext.PageUserID) ||
-                        this.PageContext.IsAdmin || this.PageContext.IsForumModerator;
+                        this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess;
 
       // check if we should hide pollgroup repeater when a message is posted
       if (this.PageContext.ForumPageType == ForumPages.postmessage)
@@ -1180,7 +1127,7 @@ namespace YAF.Controls
           userId = this.PageContext.PageUserID;
         }
          
-        this._dtAllPollGroupVotes = LegacyDb.pollgroup_votecheck(_dtPollGroupAllChoices.Rows[0]["PollGroupID"].ToType<int>(), userId, remoteIp);
+        this._dtAllPollGroupVotes = LegacyDb.pollgroup_votecheck(this._dtPollGroupAllChoices.Rows[0]["PollGroupID"].ToType<int>(), userId, remoteIp);
 
         this._isBound = this._dtPollGroupAllChoices.Rows[0]["IsBound"].ToType<bool>();
 
@@ -1241,7 +1188,7 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// The has owner existing group access.
+    /// Determines whether [has owner existing group access].
     /// </summary>
     /// <returns>
     /// The has owner existing group access.
@@ -1254,7 +1201,7 @@ namespace YAF.Controls
         if (this.TopicId > 0)
         {
           return (this._topicUser == this.PageContext.PageUserID) || this.PageContext.IsAdmin ||
-                 this.PageContext.IsForumModerator;
+                 this.PageContext.ForumModeratorAccess;
         }
 
         // only admins can edit this
@@ -1264,7 +1211,7 @@ namespace YAF.Controls
         }
 
         // in other places only admins and forum moderators can have access
-        return this.PageContext.IsAdmin || this.PageContext.IsForumModerator;
+        return this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess;
       }
 
       return false;
@@ -1358,7 +1305,7 @@ namespace YAF.Controls
     /// </returns>
     private string ParamsToSend()
     {
-      string sb = String.Empty;
+      string sb = string.Empty;
 
       if (this.TopicId > 0)
       {
@@ -1441,8 +1388,7 @@ namespace YAF.Controls
     /// <summary>
     /// Checks if a poll has no votes.
     /// </summary>
-    /// <param name="pollId">
-    /// </param>
+    /// <param name="pollId">The poll id.</param>
     /// <returns>
     /// The poll has no votes.
     /// </returns>

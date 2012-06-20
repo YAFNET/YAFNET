@@ -238,7 +238,7 @@ namespace YAF.Pages
             this.AddPageLinks();
 
             // Admin can attach an existing group if it's a new poll - this.pollID <= 0
-            if (!this.PageContext.IsAdmin && !this.PageContext.IsForumModerator)
+            if (!this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess)
             {
                 return;
             }
@@ -596,7 +596,7 @@ namespace YAF.Pages
             if (this._choices.Rows.Count > 0)
             {
                 if ((this._choices.Rows[0]["UserID"].ToType<int>() != this.PageContext.PageUserID) &&
-                    (!this.PageContext.IsAdmin) && (!this.PageContext.IsForumModerator))
+                    (!this.PageContext.IsAdmin) && (!this.PageContext.ForumModeratorAccess))
                 {
                     YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
                 }
@@ -709,7 +709,7 @@ namespace YAF.Pages
                 this.Get<YafBoardSettings>().AllowUsersHidePollResults || PageContext.IsAdmin ||
                 PageContext.IsForumModerator;
             this.tr_AllowMultipleChoices.Visible = this.Get<YafBoardSettings>().AllowMultipleChoices ||
-                                                   PageContext.IsAdmin || PageContext.IsForumModerator;
+                                                   PageContext.IsAdmin || PageContext.ForumModeratorAccess;
             this.tr_ShowVoters.Visible = true;
             this.tr_AllowSkipVote.Visible = false;
         }
@@ -942,7 +942,7 @@ namespace YAF.Pages
             if (this._topicId > 0)
             {
                 // admins can add any number of polls
-                if (PageContext.IsAdmin || PageContext.IsForumModerator)
+                if (PageContext.IsAdmin || PageContext.ForumModeratorAccess)
                 {
                     return true;
                 }

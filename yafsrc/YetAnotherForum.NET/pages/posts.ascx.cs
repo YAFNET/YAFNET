@@ -186,7 +186,8 @@ namespace YAF.Pages
         {
             if (!this.PageContext.ForumModeratorAccess)
             {
-                YafBuildLink.AccessDenied( /*"You don't have access to delete topics."*/);
+                /*"You don't have access to delete topics."*/
+                YafBuildLink.AccessDenied();
             }
 
             LegacyDb.topic_delete(this.PageContext.PageTopicID);
@@ -302,8 +303,11 @@ namespace YAF.Pages
 
             html.Append(" (");
             html.Append(
-                new UserLink { ID = "UserLinkForRow{0}".FormatWith(messageId), UserID = row.Field<int>("UserID") }.
-                    RenderToString());
+                new UserLink
+                    {
+                        ID = "UserLinkForRow{0}".FormatWith(messageId), 
+                        UserID = row.Field<int>("UserID")
+                    }.RenderToString());
 
             html.AppendFormat(
                 " - {0})</span>",
@@ -341,7 +345,8 @@ namespace YAF.Pages
         {
             if (!this.PageContext.ForumModeratorAccess)
             {
-                YafBuildLink.AccessDenied( /*"You are not a forum moderator."*/);
+                // "You are not a forum moderator.
+                YafBuildLink.AccessDenied();
             }
 
             LegacyDb.topic_lock(this.PageContext.PageTopicID, true);
@@ -398,7 +403,7 @@ namespace YAF.Pages
         {
             if (!this.PageContext.ForumModeratorAccess)
             {
-                YafBuildLink.AccessDenied( /*"You are not a forum moderator."*/);
+                YafBuildLink.AccessDenied(/*"You are not a forum moderator."*/);
             }
         }
 
@@ -860,7 +865,7 @@ namespace YAF.Pages
         {
             if (!this.PageContext.ForumModeratorAccess)
             {
-                YafBuildLink.AccessDenied( /*"You are not a forum moderator."*/);
+                YafBuildLink.AccessDenied(/*"You are not a forum moderator."*/);
             }
 
             LegacyDb.topic_lock(this.PageContext.PageTopicID, false);
@@ -968,7 +973,7 @@ namespace YAF.Pages
             bool showDeleted = false;
             int userId = 0;
             if (this.Get<YafBoardSettings>().ShowDeletedMessagesToAll || this.PageContext.IsAdmin
-                || this.PageContext.IsForumModerator)
+                || this.PageContext.ForumModeratorAccess)
             {
                 showDeleted = true;
             }
@@ -977,7 +982,6 @@ namespace YAF.Pages
             {
                 userId = this.PageContext.PageUserID;
             }
-
 
             this.Pager.PageSize = this.Get<YafBoardSettings>().PostsPerPage;
             int messagePosition;
@@ -1007,8 +1011,8 @@ namespace YAF.Pages
                 DateTime.UtcNow,
                 DateTimeHelper.SqlDbMinTime(),
                 DateTime.UtcNow,
-                Pager.CurrentPageIndex,
-                Pager.PageSize,
+                this.Pager.CurrentPageIndex,
+                this.Pager.PageSize,
                 1,
                 0,
                 this.IsThreaded ? 1 : 0,
@@ -1337,6 +1341,7 @@ namespace YAF.Pages
         /// <param name="e">
         /// The Pop Event Arguments.
         /// </param>
+        /// <exception cref="ApplicationException"></exception>
         private void ShareMenu_ItemClick([NotNull] object sender, [NotNull] PopEventArgs e)
         {
             var topicUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", this.PageContext.PageTopicID);
@@ -1539,7 +1544,7 @@ namespace YAF.Pages
                 return;
             }
 
-            if (!(this.PageContext.IsAdmin || this.PageContext.IsModerator)
+            if (!(this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess)
                 && this.Get<YafBoardSettings>().PostFloodDelay > 0)
             {
                 if (YafContext.Current.Get<IYafSession>().LastPost
@@ -1581,7 +1586,7 @@ namespace YAF.Pages
             bool spamApproved = true;
 
             // Check for SPAM
-            if (!this.PageContext.IsAdmin || !this.PageContext.IsModerator)
+            if (!this.PageContext.IsAdmin || !this.PageContext.ForumModeratorAccess)
             {
                 if (YafSpamCheck.IsPostSpam(
                     this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
@@ -1607,7 +1612,7 @@ namespace YAF.Pages
             }
 
             // Bypass Approval if Admin or Moderator
-            if (this.PageContext.IsAdmin || this.PageContext.IsModerator)
+            if (this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess)
             {
                 spamApproved = true;
             }
