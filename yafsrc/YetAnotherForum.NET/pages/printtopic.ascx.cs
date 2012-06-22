@@ -18,8 +18,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using YAF.Utils.Helpers;
-
 namespace YAF.Pages
 {
     // YAF.Pages
@@ -36,6 +34,7 @@ namespace YAF.Pages
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -151,7 +150,7 @@ namespace YAF.Pages
             if (!showDeleted && ((this.Get<YafBoardSettings>().ShowDeletedMessages &&
                                   !this.Get<YafBoardSettings>().ShowDeletedMessagesToAll)
                                  || this.PageContext.IsAdmin ||
-                                 this.PageContext.IsForumModerator))
+                                 this.PageContext.ForumModeratorAccess))
             {
                 userId = this.PageContext.PageUserID;
             }
