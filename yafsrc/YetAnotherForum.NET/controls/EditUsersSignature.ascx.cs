@@ -111,7 +111,7 @@ namespace YAF.Controls
                     return this.PageContext.QueryIDs["u"].ToType<int>();
                 }
 
-                if (this.InModeratorMode && (this.PageContext.IsAdmin || this.PageContext.IsModerator) &&
+                if (this.InModeratorMode && (this.PageContext.IsAdmin || this.PageContext.IsForumModerator) &&
                     this.PageContext.QueryIDs.ContainsKey("u"))
                 {
                     return this.PageContext.QueryIDs["u"].ToType<int>();
