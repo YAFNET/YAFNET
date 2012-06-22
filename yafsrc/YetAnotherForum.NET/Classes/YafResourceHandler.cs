@@ -27,19 +27,23 @@ namespace YAF
     using System.Drawing.Imaging;
     using System.Drawing.Text;
     using System.IO;
+    using System.Linq;
     using System.Net;
+    using System.Text;
     using System.Web;
     using System.Web.Security;
     using System.Web.SessionState;
 
     using YAF.Classes;
     using YAF.Classes.Data;
+    using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
     using YAF.Utils;
+    using YAF.Utils.Extensions;
     using YAF.Utils.Helpers;
 
     #endregion
@@ -118,7 +122,11 @@ namespace YAF
                 }
                 /////////////
 
-                if (context.Request.QueryString.GetFirstOrDefault("u") != null)
+                if (context.Request.QueryString.GetFirstOrDefault("userinfo") != null)
+                {
+                    this.GetUserInfo(context);
+                }
+                else if (context.Request.QueryString.GetFirstOrDefault("u") != null)
                 {
                     this.GetResponseLocalAvatar(context);
                 }
@@ -456,6 +464,118 @@ namespace YAF
             Stream responseStream = httpWebResponse.GetResponseStream();
 
             responseStream.CopyTo(context.Response.OutputStream);
+        }
+
+        /// <summary>
+        /// Gets the user info as json string
+        /// </summary>
+        /// <param name="context">The context.</param>
+        private void GetUserInfo([NotNull] HttpContext context)
+        {
+            try
+            {
+                var userId = context.Request.QueryString.GetFirstOrDefault("userinfo").ToType<int>();
+
+                MembershipUser user = UserMembershipHelper.GetMembershipUserById(userId);
+
+                if (user == null || user.ProviderUserKey.ToString() == "0")
+                {
+                    context.Response.Write(
+                   "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
+
+                    return;
+                }
+
+                var userData = new CombinedUserDataHelper(user, userId);
+
+                context.Response.Clear();
+
+                context.Response.ContentType = "application/json";
+                context.Response.ContentEncoding = Encoding.UTF8;
+                context.Response.Cache.SetCacheability(HttpCacheability.Public);
+                context.Response.Cache.SetExpires(
+                    DateTime.UtcNow.AddMilliseconds(YafContext.Current.Get<YafBoardSettings>().OnlineStatusCacheTimeout));
+                context.Response.Cache.SetLastModified(DateTime.UtcNow);
+
+                var avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userId);
+
+                avatarUrl = avatarUrl.IsNotSet()
+                           ? "{0}images/noavatar.gif".FormatWith(YafForumInfo.ForumClientFileRoot)
+                           : avatarUrl;
+
+                var activeUsers = this.Get<IDataCache>().GetOrSet(
+                    Constants.Cache.UsersOnlineStatus,
+                    () =>
+                    this.Get<IDBBroker>().GetActiveList(
+                        false, YafContext.Current.Get<YafBoardSettings>().ShowCrawlersInActiveList),
+                    TimeSpan.FromMilliseconds(YafContext.Current.Get<YafBoardSettings>().OnlineStatusCacheTimeout));
+
+                var userIsOnline =
+                    activeUsers.AsEnumerable().Any(
+                        x => x.Field<int>("UserId").Equals(userId) && !x.Field<bool>("IsHidden"));
+
+                var userName = this.Get<YafBoardSettings>().EnableDisplayName ? userData.DisplayName : userData.UserName;
+
+                var location = userData.Profile.Country.IsSet()
+                                   ? YafContext.Current.Get<IHaveLocalization>().GetText(
+                                       "COUNTRY", userData.Profile.Country.Trim())
+                                   : userData.Profile.Location;
+
+                if (userData.Profile.Region.IsSet() && userData.Profile.Country.IsSet())
+                {
+                    var tag = "RGN_{0}_{1}".FormatWith(userData.Profile.Country.Trim(), userData.Profile.Region);
+
+                    location += ", {0}".FormatWith(YafContext.Current.Get<IHaveLocalization>().GetText("REGION", tag));
+                }
+
+                var pmButton = new ThemeButton
+                                   {
+                                       ID = "PM",
+                                       CssClass = "yafcssimagebutton",
+                                       TextLocalizedPage = "POSTS",
+                                       TextLocalizedTag = "PM",
+                                       ImageThemeTag = "PM",
+                                       TitleLocalizedTag = "PM_TITLE",
+                                       TitleLocalizedPage = "POSTS",
+                                       NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", userId),
+                                       ParamTitle0 = userName,
+                                       Visible =
+                                           !userData.IsGuest && this.Get<YafBoardSettings>().AllowPrivateMessages
+                                           && !userId.Equals(YafContext.Current.PageUserID) && !YafContext.Current.IsGuest
+                                   };
+  
+                var userInfo = new YafUserInfo
+                                   {
+                                       name = userName,
+                                       realname = userData.Profile.RealName,
+                                       avatar = avatarUrl,
+                                       profilelink = YafBuildLink.GetLink(ForumPages.profile, "u={0}", userId),
+                                       interests = userData.Profile.Interests,
+                                       homepage = userData.Profile.Homepage,
+                                       posts = "{0:N0}".FormatWith(userData.NumPosts),
+                                      rank = userData.RankName,
+                                       location = location,
+                                       joined = this.Get<IDateTime>().FormatDateLong(userData.Joined),
+                                       online = userIsOnline,
+                                       actionButtons = pmButton.RenderToString()
+                                   };
+
+                if (YafContext.Current.Get<YafBoardSettings>().EnableUserReputation)
+                {
+                    userInfo.points = (userData.Points.ToType<int>() > 0 ? "+" : string.Empty) + userData.Points;
+                }
+
+                context.Response.Write(userInfo.ToJson());
+
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+            }
+            catch (Exception x)
+            {
+                LegacyDb.eventlog_create(null, this.GetType().ToString(), x, EventLogTypes.Information);
+
+                context.Response.Write(
+                    "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
+            }
         }
 
         /// <summary>
@@ -1220,5 +1340,116 @@ namespace YAF
         }
 
         #endregion
+
+        /// <summary>
+        /// Yaf User Info
+        /// </summary>
+        [Serializable]
+        public class YafUserInfo
+        {
+            /// <summary>
+            /// Gets or sets the name.
+            /// </summary>
+            /// <value>
+            /// The name.
+            /// </value>
+            public string name { get; set; }
+
+            /// <summary>
+            /// Gets or sets the realname.
+            /// </summary>
+            /// <value>
+            /// The realname.
+            /// </value>
+            public string realname { get; set; }
+
+            /// <summary>
+            /// Gets or sets the avatar.
+            /// </summary>
+            /// <value>
+            /// The avatar.
+            /// </value>
+            public string avatar { get; set; }
+
+            /// <summary>
+            /// Gets or sets the interests.
+            /// </summary>
+            /// <value>
+            /// The interests.
+            /// </value>
+            public string interests { get; set; }
+
+            /// <summary>
+            /// Gets or sets the homepage.
+            /// </summary>
+            /// <value>
+            /// The homepage.
+            /// </value>
+            public string homepage { get; set; }
+
+            /// <summary>
+            /// Gets or sets the profilelink.
+            /// </summary>
+            /// <value>
+            /// The profilelink.
+            /// </value>
+            public string profilelink { get; set; }
+
+            /// <summary>
+            /// Gets or sets the posts.
+            /// </summary>
+            /// <value>
+            /// The posts.
+            /// </value>
+            public string posts { get; set; }
+
+            /// <summary>
+            /// Gets or sets the points.
+            /// </summary>
+            /// <value>
+            /// The points.
+            /// </value>
+            public string points { get; set; }
+
+            /// <summary>
+            /// Gets or sets the rank.
+            /// </summary>
+            /// <value>
+            /// The rank.
+            /// </value>
+            public string rank { get; set; }
+
+            /// <summary>
+            /// Gets or sets the location.
+            /// </summary>
+            /// <value>
+            /// The location.
+            /// </value>
+            public string location { get; set; }
+
+            /// <summary>
+            /// Gets or sets the joined.
+            /// </summary>
+            /// <value>
+            /// The joined.
+            /// </value>
+            public string joined { get; set; }
+
+            /// <summary>
+            /// Gets or sets a value indicating whether this <see cref="YafUserInfo"/> is online.
+            /// </summary>
+            /// <value>
+            ///   <c>true</c> if online; otherwise, <c>false</c>.
+            /// </value>
+            public bool online { get; set; }
+
+            /// <summary>
+            /// Gets or sets the action buttons.
+            /// </summary>
+            /// <value>
+            /// The action buttons.
+            /// </value>
+            public string actionButtons { get; set; }
+        }
     }
 }

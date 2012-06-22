@@ -377,14 +377,36 @@
   </page>
   <page name="ADMIN_EDITACCESSMASKS">
     <Resource tag="ACCESS">دسترسی</Resource>
+    <Resource tag="DELETE_ACCESS">Delete Access</Resource>
+    <Resource tag="DELETE_ACCESS_HELP">Allows Users to Delete their own Posts</Resource>
+    <Resource tag="DOWNLOAD_ACCESS">Download Access</Resource>
+    <Resource tag="DOWNLOAD_ACCESS_HELP">Allows Users to Download Attachments in Posts.</Resource>
+    <Resource tag="EDIT_ACCESS">Edit Access</Resource>
+    <Resource tag="EDIT_ACCESS_HELP">Allows Users to Edit their own Posts.</Resource>
     <Resource tag="MASK_NAME">نام:</Resource>
     <Resource tag="MASK_NAME_HELP">نام این قالب دسترسی:</Resource>
     <Resource tag="MASK_ORDER">اولویت:</Resource>
     <Resource tag="MASK_ORDER_HELP">مرتب سازی اولویت برای این قالب دسترسی.</Resource>
+    <Resource tag="MODERATOR_ACCESS">Morderator Access</Resource>
+    <Resource tag="MODERATOR_ACCESS_HELP">Allows Users to Edit/Delete all Posts and Topics in a Forum.</Resource>
     <Resource tag="MSG_MASK_NAME">شما می بایست نامی برای قالب دسترسی وارد کنید.</Resource>
     <Resource tag="MSG_NUMBER_SORT">شما می بایست عددی بین 0 تا 32767 برای ترتیب مرتب سازی وارد کنید.</Resource>
     <Resource tag="MSG_POSITIVE_SORT">ترتیب مرتب سازی می بایست بین 0 تا 32767 و عددی صحیح و مثبت باشد..</Resource>
+    <Resource tag="POLL_ACCESS">Poll Access</Resource>
+    <Resource tag="POLL_ACCESS_HELP">Allows Users to Create Polls in Topics.</Resource>
+    <Resource tag="POST_ACCESS">Post Access</Resource>
+    <Resource tag="POST_ACCESS_HELP">Allows Users to Post New Topics in a Forum.</Resource>
+    <Resource tag="PRIORITY_ACCESS">Priority Access</Resource>
+    <Resource tag="PRIORITY_ACCESS_HELP">Allows Users to Change the Priority of Topic (Normal, Sticky, Anouncement).</Resource>
+    <Resource tag="READ_ACCESS">Read Access</Resource>
+    <Resource tag="READ_ACCESS_HELP">Allows Users to Read Topics and Messages in a Forum.</Resource>
+    <Resource tag="REPLY_ACCESS">Reply Access</Resource>
+    <Resource tag="REPLY_ACCESS_HELP">Allows Users to Reply to existing Topics in a Forum.</Resource>
     <Resource tag="TITLE">افزودن/ویرایش قالب دسترسی</Resource>
+    <Resource tag="UPLOAD_ACCESS">Upload Access</Resource>
+    <Resource tag="UPLOAD_ACCESS_HELP">Allows Users to Upload Attachments in Posts.</Resource>
+    <Resource tag="VOTE_ACCESS">Vote Access</Resource>
+    <Resource tag="VOTE_ACCESS_HELP">Allows Users to Vote in Polls.</Resource>
   </page>
   <page name="ADMIN_EDITBOARD">
     <Resource tag="ADMIN_USER">ساخت کاربر مدیر جدید:</Resource>
@@ -959,6 +981,8 @@
     <Resource tag="ENABLE_CAPTCHA_FORPOST_HELP">الزام کاربران در ورود CAPTCHA قبل از ارسال یا پاسخ در انجمن.</Resource>
     <Resource tag="ENABLE_DISPLAY_NAME">فعالیت نام نمایشی :</Resource>
     <Resource tag="ENABLE_DISPLAY_NAME_HELP">با انتخاب این گزینه YAF نام نمایشی را جای نام کاربری نشان خواهد داد.</Resource>
+    <Resource tag="ENABLE_HOVERCARDS">Enable User Info Hover Cards:</Resource>
+    <Resource tag="ENABLE_HOVERCARDS_HELP">If enabled it shows an Hover Card (Which shows some quick info about the user) when you hover an user name. This will also show an Hover Card on the Twitter &amp; Facebook Profile Button.</Resource>
     <Resource tag="ENABLE_IRKOO">استفاده از سرویس شهرت IrKoo:</Resource>
     <Resource tag="ENABLE_IRKOO_HELP">IrKoo سرویسی رایگان است که شهرت کاربرانتنان را به سایت شما ضمیمه می کند:
 http://wwww.IrKoo.Com/</Resource>
@@ -2435,6 +2459,9 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="ATOMICONTOOLTIPFORUM">خوراک اتم انجمن را بگیرید.</Resource>
     <Resource tag="BY">بوسیله {0}</Resource>
     <Resource tag="CURRENT_TIME">زمان فعلی: {0}.</Resource>
+    <Resource tag="ERROR_FB_HOVERCARD">The requested user could not be found.</Resource>
+    <Resource tag="ERROR_HOVERCARD">Sorry, no data found or something went wrong.</Resource>
+    <Resource tag="ERROR_TWIT_HOVERCARD">Invalid username or you have exceeded Twitter request limit.&lt;br/&gt;&lt;small&gt;Please note, Twitter only allows 150 requests per hour.&lt;/small&gt;.</Resource>
     <Resource tag="FORUM">انجمن</Resource>
     <Resource tag="GO_LAST_POST">برو به آخرین ارسال</Resource>
     <Resource tag="GO_LASTUNREAD_POST">برو به آخرین ناخوانده</Resource>
@@ -2443,6 +2470,9 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="LAST_VISIT">آخرین بازدید شما: {0}.</Resource>
     <Resource tag="LASTPOST">آخرین ارسال</Resource>
     <Resource tag="LATEST_POSTS">آخرین ارسالها</Resource>
+    <Resource tag="LOADING_FB_HOVERCARD">Loading Facebook Info ...</Resource>
+    <Resource tag="LOADING_HOVERCARD">Loading User Info ...</Resource>
+    <Resource tag="LOADING_TWIT_HOVERCARD">Loading Twitter Info ...</Resource>
     <Resource tag="MAIN_FORUM_ATOM">اتم انجمن اصلی</Resource>
     <Resource tag="MAIN_FORUM_RSS">اشتراک انجمن اصلی</Resource>
     <Resource tag="MARKALL">تمام انجمنها را بصورت خوانده شده در آیند</Resource>

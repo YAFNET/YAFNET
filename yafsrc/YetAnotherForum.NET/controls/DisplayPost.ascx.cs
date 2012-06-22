@@ -23,7 +23,6 @@ namespace YAF.Controls
     #region Using
 
     using System;
-    using System.Collections;
     using System.Data;
     using System.Text;
     using System.Web;
@@ -276,7 +275,7 @@ namespace YAF.Controls
 
             // Display admin/moderator only info
             if (this.PageContext.IsAdmin ||
-                (this.Get<YafBoardSettings>().AllowModeratorsViewIPs && this.PageContext.IsModerator))
+                (this.Get<YafBoardSettings>().AllowModeratorsViewIPs && this.PageContext.ForumModeratorAccess))
             {
                 // We should show IP
                 this.IPSpan1.Visible = true;

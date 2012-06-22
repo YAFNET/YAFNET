@@ -87,7 +87,7 @@ namespace YAF.Controls
         /// </summary>
         public ThemeButton()
         {
-            Load += this.ThemeButton_Load;
+            this.Load += this.ThemeButton_Load;
             this._attributeCollection = new AttributeCollection(ViewState);
         }
 
@@ -154,7 +154,7 @@ namespace YAF.Controls
 
             set
             {
-                ViewState["commandArgument"] = value;
+                this.ViewState["commandArgument"] = value;
             }
         }
 
@@ -170,7 +170,7 @@ namespace YAF.Controls
 
             set
             {
-                ViewState["commandName"] = value;
+                this.ViewState["commandName"] = value;
             }
         }
 
@@ -182,12 +182,12 @@ namespace YAF.Controls
         {
             get
             {
-                return (ViewState["CssClass"] != null) ? ViewState["CssClass"] as string : "yafcssbutton";
+                return (this.ViewState["CssClass"] != null) ? ViewState["CssClass"] as string : "yafcssbutton";
             }
 
             set
             {
-                ViewState["CssClass"] = value;
+                this.ViewState["CssClass"] = value;
             }
         }
 
@@ -231,12 +231,12 @@ namespace YAF.Controls
         {
             get
             {
-                return (ViewState["NavigateUrl"] != null) ? ViewState["NavigateUrl"] as string : string.Empty;
+                return (this.ViewState["NavigateUrl"] != null) ? this.ViewState["NavigateUrl"] as string : string.Empty;
             }
 
             set
             {
-                ViewState["NavigateUrl"] = value;
+                this.ViewState["NavigateUrl"] = value;
             }
         }
 
@@ -280,12 +280,12 @@ namespace YAF.Controls
         {
             get
             {
-                return (ViewState["TitleLocalizedPage"] != null) ? ViewState["TitleLocalizedPage"] as string : "BUTTON";
+                return (this.ViewState["TitleLocalizedPage"] != null) ? this.ViewState["TitleLocalizedPage"] as string : "BUTTON";
             }
 
             set
             {
-                ViewState["TitleLocalizedPage"] = value;
+                this.ViewState["TitleLocalizedPage"] = value;
             }
         }
 
@@ -345,12 +345,12 @@ namespace YAF.Controls
         {
             get
             {
-                return (ViewState["TitleLocalizedTag"] != null) ? ViewState["TitleLocalizedTag"] as string : string.Empty;
+                return (this.ViewState["TitleLocalizedTag"] != null) ? this.ViewState["TitleLocalizedTag"] as string : string.Empty;
             }
 
             set
             {
-                ViewState["TitleLocalizedTag"] = value;
+                this.ViewState["TitleLocalizedTag"] = value;
             }
         }
 
@@ -362,12 +362,12 @@ namespace YAF.Controls
         {
             get
             {
-                return (ViewState["TitleNonLocalized"] != null) ? ViewState["TitleNonLocalized"] as string : string.Empty;
+                return (this.ViewState["TitleNonLocalized"] != null) ? this.ViewState["TitleNonLocalized"] as string : string.Empty;
             }
 
             set
             {
-                ViewState["TitleNonLocalized"] = value;
+                this.ViewState["TitleNonLocalized"] = value;
             }
         }
 
@@ -403,7 +403,7 @@ namespace YAF.Controls
         /// </returns>
         protected string GetLocalizedTitle()
         {
-            if (Site != null && this.Site.DesignMode && this.TitleLocalizedTag.IsSet())
+            if (this.Site != null && this.Site.DesignMode && this.TitleLocalizedTag.IsSet())
             {
                 return "[TITLE:{0}]".FormatWith(this.TitleLocalizedTag);
             }
@@ -450,7 +450,7 @@ namespace YAF.Controls
                 handler(this, e);
             }
 
-            RaiseBubbleEvent(this, e);
+            this.RaiseBubbleEvent(this, e);
         }
 
         /// <summary>
@@ -466,7 +466,7 @@ namespace YAF.Controls
 
             output.BeginRender();
             output.WriteBeginTag("a");
-            output.WriteAttribute("id", ClientID);
+            output.WriteAttribute("id", this.ClientID);
             if (this.CssClass.IsSet())
             {
                 output.WriteAttribute("class", this.CssClass);
@@ -505,7 +505,7 @@ namespace YAF.Controls
                             this._attributeCollection[key], "this.blur(); this.onclick = function() { return false; }; return true;"));
                         wroteOnClick = true;
                     }
-                    else if (key.ToLower().StartsWith("on") || key.ToLower() == "rel" || key.ToLower() == "target")
+                    else if (key.ToLower().StartsWith("data-") || key.ToLower().StartsWith("on") || key.ToLower() == "rel" || key.ToLower() == "target")
                     {
                         // only write javascript attributes -- and a few other attributes...
                         output.WriteAttribute(key, this._attributeCollection[key]);

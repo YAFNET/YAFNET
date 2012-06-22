@@ -24,6 +24,7 @@ namespace YAF.Utils.Extensions
     using System.IO;
     using System.Runtime.Serialization.Json;
     using System.Text;
+    using System.Web.Script.Serialization;
 
     /// <summary>
     /// Json Extension
@@ -59,26 +60,30 @@ namespace YAF.Utils.Extensions
         }
 
         /// <summary>
-        /// Serializes the specified obj.
+        /// Serializes the specified object.
         /// </summary>
-        /// <typeparam name="T">The Object</typeparam>
-        /// <param name="obj">The obj.</param>
-        /// <returns>Serialised Json String</returns>
-        public static string Serialize<T>(T obj)
+        /// <param name="obj">The object that will be serialized.</param>
+        /// <returns>
+        /// Serialised Json String
+        /// </returns>
+        public static string Serialize(object obj)
         {
-            DataContractJsonSerializer serializer = new DataContractJsonSerializer(obj.GetType());
+            /*var serializer = new DataContractJsonSerializer(obj.GetType());
             using (MemoryStream ms = new MemoryStream())
             {
                 serializer.WriteObject(ms, obj);
                 return Encoding.Default.GetString(ms.ToArray());
-            }
+            }*/
+
+            var serializer = new JavaScriptSerializer();
+            return serializer.Serialize(obj);
         }
 
         /// <summary>
         /// To Json String Extension
         /// </summary>
         /// <param name="obj">
-        /// The obj.
+        /// The object that will be serialized.
         /// </param>
         /// <returns>
         /// Serialised Json String

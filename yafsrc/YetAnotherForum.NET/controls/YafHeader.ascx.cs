@@ -303,7 +303,7 @@ namespace YAF.Controls
 
                 // Admin
                 RenderMenuItem(
-                    menuAdminItems,
+                    this.menuAdminItems,
                     "menuAdmin",
                     null,
                     this.GetText("TOOLBAR", "ADMIN"),
@@ -322,7 +322,7 @@ namespace YAF.Controls
 
                 // Admin
                 RenderMenuItem(
-                    menuAdminItems,
+                    this.menuAdminItems,
                     "menuAdmin",
                     null,
                     this.GetText("TOOLBAR", "HOST"),
@@ -335,13 +335,13 @@ namespace YAF.Controls
             }
 
             // Moderate
-            if (this.PageContext.IsModerator || this.PageContext.IsForumModerator)
+            if (this.PageContext.IsModeratorInAnyForum)
             {
                 this.AdminModHolder.Visible = true;
 
                 // Admin
                 RenderMenuItem(
-                    menuAdminItems,
+                    this.menuAdminItems,
                     "menuAdmin",
                     null,
                     this.GetText("TOOLBAR", "MODERATE"),
@@ -361,7 +361,7 @@ namespace YAF.Controls
         {
             // Forum
             RenderMenuItem(
-                    menuListItems,
+                    this.menuListItems,
                     "menuGeneral",
                     null,
                     this.GetText("DEFAULT", "FORUM"),
@@ -376,11 +376,11 @@ namespace YAF.Controls
             if (this.PageContext.IsGuest)
             {
                 RenderMenuItem(
-                    menuListItems,
+                    this.menuListItems,
                     "menuGeneral",
                     null,
-                     this.GetText("TOOLBAR", "ACTIVETOPICS"),
-                     this.GetText("TOOLBAR", "ACTIVETOPICS_TITLE"),
+                    this.GetText("TOOLBAR", "ACTIVETOPICS"),
+                    this.GetText("TOOLBAR", "ACTIVETOPICS_TITLE"),
                     YafBuildLink.GetLink(ForumPages.mytopics),
                     false,
                     false,
@@ -392,7 +392,7 @@ namespace YAF.Controls
             if (this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ExternalSearchPermissions) || this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().SearchPermissions))
             {
                 RenderMenuItem(
-                    menuListItems,
+                    this.menuListItems,
                     "menuGeneral",
                     null,
                     this.GetText("TOOLBAR", "SEARCH"),
@@ -408,7 +408,7 @@ namespace YAF.Controls
             if (this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().MembersListViewPermissions))
             {
                 RenderMenuItem(
-                    menuListItems,
+                    this.menuListItems,
                     "menuGeneral",
                     null,
                     this.GetText("TOOLBAR", "MEMBERS"),
@@ -424,7 +424,7 @@ namespace YAF.Controls
             if (this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ShowTeamTo))
             {
                 RenderMenuItem(
-                    menuListItems,
+                    this.menuListItems,
                     "menuGeneral",
                     null,
                     this.GetText("TOOLBAR", "TEAM"),
@@ -440,7 +440,7 @@ namespace YAF.Controls
             if (this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ShowHelpTo))
             {
                 RenderMenuItem(
-                    menuListItems,
+                    this.menuListItems,
                     "menuGeneral",
                     null,
                     this.GetText("TOOLBAR", "HELP"),
@@ -458,7 +458,7 @@ namespace YAF.Controls
                 if (this.Get<YafBoardSettings>().UseLoginBox && !(this.Get<IYafSession>().UseMobileTheme ?? false))
                 {
                     RenderMenuItem(
-                        menuListItems,
+                        this.menuListItems,
                         "menuAccount",
                         "LoginLink",
                         this.GetText("TOOLBAR", "LOGIN"),
@@ -476,14 +476,14 @@ namespace YAF.Controls
                                            : string.Empty;
 
                     RenderMenuItem(
-                        menuListItems,
+                        this.menuListItems,
                         "menuAccount",
                         null,
                         this.GetText("TOOLBAR", "LOGIN"),
                         this.GetText("TOOLBAR", "LOGIN_TITLE"),
-                       !this.Get<YafBoardSettings>().UseSSLToLogIn
-                               ? YafBuildLink.GetLink(ForumPages.login, returnUrl)
-                               : YafBuildLink.GetLink(ForumPages.login, true, returnUrl).Replace("http:", "https:"),
+                        !this.Get<YafBoardSettings>().UseSSLToLogIn
+                            ? YafBuildLink.GetLink(ForumPages.login, returnUrl)
+                            : YafBuildLink.GetLink(ForumPages.login, true, returnUrl).Replace("http:", "https:"),
                         true,
                         false,
                         null,
@@ -495,7 +495,7 @@ namespace YAF.Controls
             if (this.PageContext.IsGuest && !this.Get<YafBoardSettings>().DisableRegistrations && !Config.IsAnyPortal)
             {
                 RenderMenuItem(
-                    menuListItems,
+                    this.menuListItems,
                     "menuGeneral",
                     null,
                     this.GetText("TOOLBAR", "REGISTER"),
@@ -533,7 +533,7 @@ namespace YAF.Controls
             if (this.Get<YafBoardSettings>().AllowPrivateMessages)
             {
                 RenderMenuItem(
-                    MyInboxItem,
+                    this.MyInboxItem,
                     "menuMy myPm",
                     null,
                     this.GetText("TOOLBAR", "INBOX"),
@@ -549,7 +549,7 @@ namespace YAF.Controls
             if (this.Get<YafBoardSettings>().EnableBuddyList && this.PageContext.UserHasBuddies)
             {
                 RenderMenuItem(
-                    MyBuddiesItem,
+                    this.MyBuddiesItem,
                     "menuMy myBuddies",
                     null,
                     this.GetText("TOOLBAR", "BUDDIES"),
@@ -565,7 +565,7 @@ namespace YAF.Controls
             if (this.Get<YafBoardSettings>().EnableAlbum && (this.PageContext.UsrAlbums > 0 || this.PageContext.NumAlbums > 0))
             {
                 RenderMenuItem(
-                    MyAlbumsItem,
+                    this.MyAlbumsItem,
                     "menuMy myAlbums",
                     null,
                     this.GetText("TOOLBAR", "MYALBUMS"),
@@ -582,7 +582,7 @@ namespace YAF.Controls
 
             // My Topics
             RenderMenuItem(
-                MyTopicItem,
+                this.MyTopicItem,
                 "menuMy myTopics",
                 null,
                 this.GetText("TOOLBAR", "MYTOPICS"),
@@ -596,20 +596,20 @@ namespace YAF.Controls
             // Logout
             if (!Config.IsAnyPortal && Config.AllowLoginAndLogoff)
             {
-                LogutItem.Visible = true;
-                LogOutButton.Text = this.GetText("TOOLBAR", "LOGOUT");
-                LogOutButton.ToolTip = this.GetText("TOOLBAR", "LOGOUT");
+                this.LogutItem.Visible = true;
+                this.LogOutButton.Text = this.GetText("TOOLBAR", "LOGOUT");
+                this.LogOutButton.ToolTip = this.GetText("TOOLBAR", "LOGOUT");
             }
 
             // Logged in as : username
-            LoggedInUserPanel.Visible = true;
+            this.LoggedInUserPanel.Visible = true;
 
             if (unread)
             {
-                LoggedInUserPanel.CssClass = "loggedInUser unread";
+                this.LoggedInUserPanel.CssClass = "loggedInUser unread";
             }
 
-            LoggedInUserPanel.Controls.Add(
+            this.LoggedInUserPanel.Controls.Add(
                 new Label { Text = this.GetText("TOOLBAR", "LOGGED_IN_AS").FormatWith("&nbsp;") });
 
             var userLink = new UserLink
@@ -619,7 +619,7 @@ namespace YAF.Controls
                     CssClass = "currentUser"
                 };
 
-            LoggedInUserPanel.Controls.Add(userLink);
+            this.LoggedInUserPanel.Controls.Add(userLink);
         }
 
         /// <summary>

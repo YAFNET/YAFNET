@@ -20,39 +20,34 @@ namespace YAF.Controls
 {
   #region Using
 
-  using System;
-  using System.Web.UI;
-
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Types;
+    using System;
+    using System.Web.UI;
+    using YAF.Core;
+    using YAF.Types;
+    using YAF.Types.Interfaces;
 
   #endregion
 
   /// <summary>
-  /// Summary description for PageLinks.
+  /// The Page Access Control
   /// </summary>
   public class PageAccess : BaseControl
   {
     #region Methods
 
-    /// <summary>
-    /// The on init.
-    /// </summary>
-    /// <param name="e">
-    /// The e.
-    /// </param>
+      /// <summary>
+      /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event.
+      /// </summary>
+      /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
     protected override void OnInit([NotNull] EventArgs e)
     {
-      Load += new EventHandler(this.Page_Load);
       base.OnInit(e);
     }
 
     /// <summary>
-    /// The render.
+    /// Renders the Control
     /// </summary>
-    /// <param name="writer">
-    /// The writer.
-    /// </param>
+    /// <param name="writer">The writer.</param>
     protected override void Render([NotNull] HtmlTextWriter writer)
     {
       writer.WriteLine(this.GetText(PageContext.ForumPostAccess ? "can_post" : "cannot_post"));
@@ -67,19 +62,6 @@ namespace YAF.Controls
       writer.WriteLine("<br />");
       writer.WriteLine(this.GetText(PageContext.ForumVoteAccess ? "can_vote" : "cannot_vote"));
       writer.WriteLine("<br />");
-    }
-
-    /// <summary>
-    /// The page_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    private void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-    {
     }
 
     #endregion

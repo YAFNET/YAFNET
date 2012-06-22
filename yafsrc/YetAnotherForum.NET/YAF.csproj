@@ -2670,6 +2670,7 @@
     <Content Include="pages\admin\topicstatus_import.ascx" />
     <Content Include="pages\admin\users_import.ascx" />
     <Content Include="ReadMe.htm" />
+    <Content Include="resources\css\jquery.hovercard.css" />
     <Content Include="resources\css\jquery.msDropDown.css" />
     <Content Include="resources\css\jquery.notification.css" />
     <Content Include="resources\css\jquery.spellchecker.css" />
@@ -3533,6 +3534,7 @@
     <Content Include="resources\js\DataPanel.js" />
     <Content Include="resources\js\jquery.blockUI.js" />
     <Content Include="resources\js\jquery.ceebox-min.js" />
+    <Content Include="resources\js\jquery.hovercard.js" />
     <Content Include="resources\js\jquery.min.js" />
     <Content Include="resources\js\jquery.msDropDown.js" />
     <Content Include="resources\js\jquery.notification.js" />

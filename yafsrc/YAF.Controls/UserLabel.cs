@@ -188,15 +188,9 @@ namespace YAF.Controls
         /// </param>
         protected override void Render([NotNull] HtmlTextWriter output)
         {
-            string displayName;
-            if (this.ReplaceName.IsNotSet())
-            {
-                displayName = this.Get<IUserDisplayName>().GetName(this.UserID);
-            }
-            else
-            {
-                displayName = this.ReplaceName;
-            }
+            var displayName = this.ReplaceName.IsNotSet()
+                              ? this.Get<IUserDisplayName>().GetName(this.UserID)
+                              : this.ReplaceName;
 
             if (this.UserID == -1 || displayName.IsNotSet())
             {
