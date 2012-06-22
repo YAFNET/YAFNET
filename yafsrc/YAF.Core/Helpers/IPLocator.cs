@@ -21,6 +21,8 @@ namespace YAF.Core
 {
   #region Using
 
+    using System.Collections.Concurrent;
+    using System.Collections.Generic;
     using System.Net;
     using System.Xml.Serialization;
     using YAF.Classes;
@@ -62,11 +64,11 @@ namespace YAF.Core
         /// <returns>
         /// IPLocator Class
         /// </returns>
-        public ThreadSafeDictionary<string, string> GetData([CanBeNull] string ip, [CanBeNull] string format, bool callback, string culture, string browser, string os)
+        public IDictionary<string, string> GetData([CanBeNull] string ip, [CanBeNull] string format, bool callback, string culture, string browser, string os)
         {
             CodeContracts.ArgumentNotNull(ip, "ip");
 
-            ThreadSafeDictionary<string, string> res = new ThreadSafeDictionary<string, string>();
+            IDictionary<string, string> res = new ConcurrentDictionary<string, string>();
 
             if (YafContext.Current.Get<YafBoardSettings>().IPLocatorResultsMapping.IsNotSet() ||
                 YafContext.Current.Get<YafBoardSettings>().IPLocatorUrlPath.IsNotSet())
@@ -80,12 +82,12 @@ namespace YAF.Core
                 {
                     string path = YafContext.Current.Get<YafBoardSettings>().IPLocatorUrlPath.FormatWith(Utils.Helpers.IPHelper.GetIp4Address(ip));
                     var client = new WebClient();
-                    string[] eResult = client.DownloadString(path).Split(';');
+                    string[] result = client.DownloadString(path).Split(';');
                     string[] sray = YafContext.Current.Get<YafBoardSettings>().IPLocatorResultsMapping.Trim().Split(',');
-                    if (eResult.Length > 0 && eResult.Length == sray.Length)
+                    if (result.Length > 0 && result.Length == sray.Length)
                     {
                         int i = 0;
-                        foreach (string str in eResult)
+                        foreach (string str in result)
                         {
                             res.Add(sray[i].Trim(), str);
                             i++;

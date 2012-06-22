@@ -22,6 +22,7 @@ namespace YAF.Controls
 
     using System;
     using System.Collections;
+    using System.Collections.Concurrent;
     using System.Data;
     using System.Globalization;
     using System.Linq;
@@ -159,12 +160,11 @@ namespace YAF.Controls
         /// <summary>
         /// Gets UserBoxRegex.
         /// </summary>
-        protected IThreadSafeDictionary<string, Regex> UserBoxRegex
+        protected ConcurrentDictionary<string, Regex> UserBoxRegex
         {
             get
             {
-                return this.Get<IObjectStore>().GetOrSet(
-                    "UserBoxRegexDictionary", () => new ThreadSafeDictionary<string, Regex>());
+                return this.Get<IObjectStore>().GetOrSet("UserBoxRegexDictionary", () => new ConcurrentDictionary<string, Regex>());
             }
         }
 
@@ -303,7 +303,7 @@ namespace YAF.Controls
             if (!this.UserBoxRegex.TryGetValue(search, out thisRegex))
             {
                 thisRegex = new Regex(search, RegexOptions.Compiled);
-                this.UserBoxRegex.MergeSafe(search, thisRegex);
+                this.UserBoxRegex.AddOrUpdate(search, (k) => thisRegex, (k, v) => thisRegex);
             }
 
             return thisRegex;

@@ -24,6 +24,7 @@ namespace YAF.Pages
   #region Using
 
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Net.Mail;
     using System.Text;
@@ -58,7 +59,7 @@ namespace YAF.Pages
     /// <summary>
     ///   Gets User IP Info.
     /// </summary>
-    public ThreadSafeDictionary<string,string> _UserIpLocator;
+    public IDictionary<string, string> _UserIpLocator;
 
     /// <summary>
     ///   The recPH.

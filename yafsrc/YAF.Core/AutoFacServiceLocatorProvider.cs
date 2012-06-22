@@ -21,6 +21,7 @@ namespace YAF.Core
   #region Using
 
   using System;
+  using System.Collections.Concurrent;
   using System.Collections.Generic;
   using System.Linq;
   using System.Reflection;
@@ -53,8 +54,8 @@ namespace YAF.Core
     /// <summary>
     /// The _injection cache.
     /// </summary>
-    private static readonly IThreadSafeDictionary<KeyValuePair<Type, Type>, IList<PropertyInfo>> _injectionCache =
-      new ThreadSafeDictionary<KeyValuePair<Type, Type>, IList<PropertyInfo>>();
+    private static readonly ConcurrentDictionary<KeyValuePair<Type, Type>, IList<PropertyInfo>> _injectionCache =
+      new ConcurrentDictionary<KeyValuePair<Type, Type>, IList<PropertyInfo>>();
 
     #endregion
 
@@ -115,10 +116,10 @@ namespace YAF.Core
         properties =
           type.GetProperties(DefaultFlags).Where(
             p =>
-            p.GetSetMethod(false) != null && p.GetIndexParameters().Count() == 0 && p.IsDefined(attributeType, true)).
+            p.GetSetMethod(false) != null && !p.GetIndexParameters().Any() && p.IsDefined(attributeType, true)).
             ToList();
 
-        _injectionCache.MergeSafe(keyPair, properties);
+        _injectionCache.AddOrUpdate(keyPair, (k) => properties, (k, v) => properties);
       }
 
       foreach (var injectProp in properties)
