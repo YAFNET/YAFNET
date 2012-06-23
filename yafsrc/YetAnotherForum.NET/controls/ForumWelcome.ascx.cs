@@ -31,7 +31,7 @@ namespace YAF.Controls
   #endregion
 
   /// <summary>
-  /// The forum welcome.
+  /// The forum welcome control which shows the current Time and the Last Visit Time of the Current User.
   /// </summary>
   public partial class ForumWelcome : BaseUserControl
   {
@@ -50,20 +50,16 @@ namespace YAF.Controls
     #region Methods
 
     /// <summary>
-    /// The forum welcome_ pre render.
+    /// Handles the PreRender event of the ForumWelcome control.
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     private void ForumWelcome_PreRender([NotNull] object sender, [NotNull] EventArgs e)
     {
       this.TimeNow.Text = this.GetTextFormatted(
         "Current_Time", this.Get<IDateTime>().FormatTime(DateTime.UtcNow));
-
-    	var lastVisit = this.Get<IYafSession>().LastVisit;
+        
+      var lastVisit = this.Get<IYafSession>().LastVisit;
 
       if (lastVisit.HasValue && lastVisit.Value != DateTime.MinValue)
       {
@@ -75,21 +71,14 @@ namespace YAF.Controls
         this.TimeLastVisit.Visible = false;
       }
 
-      if (this.PageContext.UnreadPrivate > 0)
+      // tha_watcha Obsolete, we alread have notfications for that
+      /*if (this.PageContext.UnreadPrivate > 0)
       {
         this.UnreadMsgs.Visible = true;
         this.UnreadMsgs.NavigateUrl = YafBuildLink.GetLink(ForumPages.cp_pm);
-        if (this.PageContext.UnreadPrivate == 1)
-        {
           this.UnreadMsgs.Text = this.GetTextFormatted(
-            "unread1", this.PageContext.UnreadPrivate);
-        }
-        else
-        {
-          this.UnreadMsgs.Text = this.GetTextFormatted(
-            "unread0", this.PageContext.UnreadPrivate);
-        }
-      }
+              this.PageContext.UnreadPrivate == 1 ? "unread1" : "unread0", this.PageContext.UnreadPrivate);
+      }*/
     }
 
     #endregion

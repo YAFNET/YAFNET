@@ -41,6 +41,27 @@ namespace YAF.Controls
         #region Properties
 
         /// <summary>
+        /// Gets or sets a value indicating whether [enable hover card].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [enable hover card]; otherwise, <c>false</c>.
+        /// </value>
+        public bool EnableHoverCard
+        {
+            get
+            {
+                return this.ViewState["EnableHoverCard"] != null
+                           ? Convert.ToBoolean(this.ViewState["EnableHoverCard"])
+                           : true;
+            }
+
+            set
+            {
+                this.ViewState["EnableHoverCard"] = value;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether 
         /// Make the link target "blank" to open in a new window.
         /// </summary>
@@ -86,7 +107,7 @@ namespace YAF.Controls
         /// </param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            if (!this.Get<YafBoardSettings>().EnableUserInfoHoverCards)
+            if (!this.Get<YafBoardSettings>().EnableUserInfoHoverCards && this.EnableHoverCard)
             {
                 return;
             }
@@ -136,10 +157,17 @@ namespace YAF.Controls
 
                 output.WriteAttribute("href", YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.UserID));
 
-                if (this.Get<YafBoardSettings>().EnableUserInfoHoverCards)
+                if (this.Get<YafBoardSettings>().EnableUserInfoHoverCards && this.EnableHoverCard)
                 {
-                    this.CssClass += "userHoverCard";
-                    
+                    if (this.CssClass.IsSet())
+                    {
+                        this.CssClass += " userHoverCard";
+                    }
+                    else
+                    {
+                        this.CssClass = "userHoverCard";
+                    }
+
                     output.WriteAttribute(
                         "data-hovercard",
                         "{0}resource.ashx?userinfo={1}&type=json".FormatWith(

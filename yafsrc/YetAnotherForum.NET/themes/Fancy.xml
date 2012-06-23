@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Resources theme="Fancy" dir="Fancy">
+  <page name="THEME">   
+    <Resource tag="CREDIT"></Resource>
+	<Resource tag="HEADER">
+	&lt;script type="text/javascript" src="~/js/jquery.tipTip.minified.js"&gt;&lt;/script&gt;
+	&lt;script type="text/javascript" src="~/js/Fancy.js"&gt;&lt;/script&gt;
+	</Resource>
+	<Resource tag="DIGESTHEAD">
+      &lt;style type="text/css"&gt;
+      #yaf_digest{font-family:arial,helvetica,"lucida grande",verdana,sans-serif;font-size:9.5pt;color:#000;background-color:#ededed;}#yaf_digest h1{font-size:14pt;}#yaf_digest .title{float:left;}#yaf_digest .top{border-left:solid 1px #FFF;border-right:solid 1px #FFF;border-top:solid 1px #FFF;-moz-border-radius-topleft:.4em;-moz-border-radius-topright:.4em;-webkit-border-top-left-radius:.4em;-webkit-border-top-right-radius:.4em;border-top-left-radius:.4em;border-top-right-radius:.4em;background-color:#FFF;width:905px;margin:auto;padding:4px 40px;}#yaf_digest .bottom{border-left:solid 1px #FFF;border-right:solid 1px #FFF;border-bottom:solid 1px #FFF;-moz-border-radius-bottomleft:.4em;-moz-border-radius-bottomright:.4em;-webkit-border-bottom-left-radius:.4em;-webkit-border-bottom-right-radius:.4em;border-bottom-left-radius:.4em;border-bottom-right-radius:.4em;background-color:#FFF;width:905px;font-weight:700;margin:auto;padding:20px 40px;}#yaf_digest .date{float:right;color:#999;}#yaf_digest .main{border-top:solid 1px #aaa;border-bottom:solid 1px #aaa;clear:both;background-color:#FFF;overflow:visible;width:957px;margin:auto;padding:5px 15px 15px;}#yaf_digest br{clear:both;}#yaf_digest h1.header{margin-left:24px;color:#000;font-weight:700;}#yaf_digest .forumTitle{color:#105CB6;border-bottom:1px solid #aaa;margin-top:2px;margin-bottom:5px;margin-left:16px;padding:8px 8px 4px;}#yaf_digest .topic{padding:4px 0 4px 25px;}#yaf_digest .comments{padding-left:15px;font-style:italic;}#yaf_digest .topic h3{font-size:12pt;padding-bottom:0;margin-bottom:0;}#yaf_digest .topic a{text-decoration:underline;}#yaf_digest .topic h5{font-size:9pt;padding-top:0;margin-top:0;}#yaf_digest .topic .shortpost{background-color:#eee;border:1px solid #eee;-moz-border-radius:.4em;-webkit-border-radius:.4em;border-radius:.4em;margin-left:15px;margin-right:15px;font-size:10pt;padding:10px;}#yaf_digest .topic .link{display:block;font-weight:700;}#yaf_digest .topic .by{display:block;color:#999;font-style:italic;}#yaf_digest a:link,#yaf_digest a{color:#105CB6;text-decoration:none;}
+      &lt;/style&gt;
+    </Resource>
+  </page>
+  <page name="ICONS">
+    <Resource tag="ARROWUP_16">~/images/navigation-090-button.png</Resource>
+    <Resource tag="ARROWDOWN_16">~/images/navigation-270-button.png</Resource>
+    <Resource tag="ALBUMS">~/images/albums.png</Resource>
+    <Resource tag="TOTOPPOST">~/images/arrow_up_button.png</Resource>
+    <Resource tag="PM">~/images/icon_pm.png</Resource>
+    <Resource tag="EMAIL">~/images/icon_email.png</Resource>
+    <Resource tag="HOME">~/images/icon_home.png</Resource>
+    <Resource tag="BLOG">~/images/icon_blog.png</Resource>
+    <Resource tag="DUSTBIN_SMALL">~/images/dustbin.gif</Resource>
+    <Resource tag="COPY_SMALL_ICON">~/images/copy_small_icon.png</Resource>
+    <Resource tag="EDIT_SMALL_ICON">~/images/edit_small_icon.gif</Resource>
+    <Resource tag="DELETE_SMALL_ICON">~/images/delete_small_icon.gif</Resource>
+    <Resource tag="MULTIPAGES_SMALL">~/images/multipages_small.gif</Resource>
+    <Resource tag="MSN">~/images/icon_msn.png</Resource>
+    <Resource tag="AIM">~/images/icon_aim.png</Resource>
+    <Resource tag="YIM">~/images/icon_yahoo.png</Resource>
+    <Resource tag="ICQ">~/images/icon_icq.png</Resource>
+    <Resource tag="XMPP">~/images/icon_xmpp.png</Resource>
+    <Resource tag="SKYPE">~/images/icon_skype.png</Resource>
+    <Resource tag="SEARCH">~/images/icon_search.png</Resource>
+    <Resource tag="THANKSINFOLIST_IMAGE">~/images/heart_small.png</Resource>
+	  <Resource tag="TOPIC_HOT_NEW">~/images/topic_hot_new.png</Resource>
+    <Resource tag="TOPIC_HOT">~/images/topic_hot.png</Resource>
+    <Resource tag="TOPIC_NEW">~/images/topic_new.png</Resource>
+	  <Resource tag="TOPIC">~/images/topic.png</Resource>
+	  <Resource tag="TOPIC_ANNOUNCEMENT">~/images/topic_announce.png</Resource>
+	  <Resource tag="TOPIC_ANNOUNCEMENT_NEW">~/images/topic_announce_new.png</Resource>
+	  <Resource tag="TOPIC_NEW_LOCKED">~/images/topic_lock_new.png</Resource>
+	  <Resource tag="TOPIC_LOCKED">~/images/topic_lock.png</Resource>
+	  <Resource tag="TOPIC_STICKY">~/images/topic_sticky.png</Resource>
+	  <Resource tag="TOPIC_STICKY_NEW">~/images/topic_sticky_new.png</Resource>
+	  <Resource tag="TOPIC_MOVED">~/images/topic_moved.png</Resource>
+	  <Resource tag="TOPIC_POLL">~/images/topic_poll.png</Resource>
+	  <Resource tag="TOPIC_POLL_NEW">~/images/topic_poll_new.png</Resource>
+    <Resource tag="SUBFORUM">~/images/icon_subforum.png</Resource>
+    <Resource tag="SUBFORUM_NEW">~/images/icon_subforum_new.png</Resource>
+	  <Resource tag="FORUM">~/images/forum.png</Resource>
+    <Resource tag="FORUM_ADDNEW_SMALL">~/images/plus_small_icon.png</Resource>
+	  <Resource tag="FORUM_NEW">~/images/forum_new.png</Resource>
+	  <Resource tag="FORUM_LOCKED">~/images/forum_locked.png</Resource>
+    <Resource tag="FORUM_STATS">~/images/folder_stats.gif</Resource>
+    <Resource tag="FORUM_USERS">~/images/folder_who.gif</Resource>
+   <Resource tag="ICON_NEWEST">~/images/icon_newest_reply.png</Resource>
+    <Resource tag="ICON_LATEST">~/images/icon_latest_reply.png</Resource>
+    <Resource tag="ICON_NEWEST_UNREAD">~/images/icon_topiclatestunread_newest.png</Resource>
+    <Resource tag="ICON_LATEST_UNREAD">~/images/icon_topic_latestunread.png</Resource>
+    <Resource tag="ATTACHED_FILE">~/images/icon_file.gif</Resource>
+    <Resource tag="MODS_SMALL">~/images/mods_small.gif</Resource>
+    <Resource tag="PANEL_EXPAND">~/images/expand.gif</Resource>
+    <Resource tag="PANEL_COLLAPSE">~/images/collapse.gif</Resource>
+    <Resource tag="USER_ONLINE">~/images/icon_useronline.png</Resource>
+    <Resource tag="USER_OFFLINE">~/images/icon_useroffline.png</Resource>
+    <Resource tag="USER_SUSPENDED">~/images/UserSuspended.png</Resource>
+    <Resource tag="USER_BUSINESS">~/images/user-business.png</Resource>
+    <Resource tag="GENDER_MALE">~/images/male.gif</Resource>
+    <Resource tag="GENDER_FEMALE">~/images/female.gif</Resource>
+    <Resource tag="RSSFEED">~/images/rssfeed.gif</Resource>
+    <Resource tag="ATOMFEED">~/images/atomfeed.png</Resource>
+		  <Resource tag="TWITTER">~/images/icon_twitter.png</Resource>
+	  <Resource tag="DIGG">~/images/icon_digg.png</Resource>
+	  <Resource tag="REDDIT">~/images/icon_reddit.png</Resource>
+	  <Resource tag="FACEBOOK">~/images/icon_facebook.png</Resource>
+	  <Resource tag="GOOGLEPLUS">~/images/icon_googleplus.png</Resource>
+    <Resource tag="LIVEJOURNAL">~/images/livejournal.png</Resource>
+    <Resource tag="VKONTAKTE">~/images/vkontakte.png</Resource>
+	  <Resource tag="LINKBACK">~/images/icon_linkback.png</Resource>
+	  <Resource tag="PRINT">~/images/icon_print.png</Resource>
+	  <Resource tag="PM_READ">~/images/pm_read.png</Resource>
+	  <Resource tag="PM_NEW">~/images/pm_new.png</Resource>
+	  <Resource tag="PM_READ_REPLY">~/images/pm_read_reply.png</Resource>
+	  <Resource tag="PM_NEW_REPLY">~/images/pm_new_reply.png</Resource>
+	  <Resource tag="TWITTER2">~/images/icon_twitter2.png</Resource>
+	  <Resource tag="FACEBOOK2">~/images/icon_facebook2.png</Resource>
+	  <Resource tag="TUMBLR">~/images/icon_tumblr.png</Resource>
+	  <Resource tag="VOTE_UP">~/images/VoteUp.png</Resource>
+	<Resource tag="VOTE_DOWN">~/images/VoteDown.png</Resource>
+	<Resource tag="REPORT_POST">~/images/Report.png</Resource>
+  </page>
+  <page name="SORT">
+    <Resource tag="ASCENDING">~/images/sort_up.gif</Resource>
+    <Resource tag="DESCENDING">~/images/sort_down.gif</Resource>
+  </page>
+  <page name="VOTE">
+    <Resource tag="LCAP">~/images/vote_lcap.gif</Resource>
+    <Resource tag="RCAP">~/images/vote_rcap.gif</Resource>
+    <Resource tag="BAR">~/images/voting_bar.gif</Resource>
+    <Resource tag="POLL_CLOSED">~/images/lock_small.png</Resource>
+    <Resource tag="POLL_QUESTION">~/images/poll_question.png</Resource>
+    <Resource tag="POLL_CHOICE">~/images/poll_choice.png</Resource>
+    <Resource tag="POLL_MASK">~/images/mask.gif</Resource>
+    <Resource tag="POLL_NOTCLOSED">~/images/sandclock.gif</Resource>
+    <Resource tag="POLL_VOTED">~/images/handpointer1.png</Resource>
+    <Resource tag="VOTE_USERS">~/images/users_poll.gif</Resource>
+    <Resource tag="VOTE_REFUSE">~/images/vote_refuse.gif</Resource>
+  </page>
+  <page name="TOPIC_STATUS">
+     <Resource tag="INFORMATIC">~/images/status_informatic.png</Resource>
+     <Resource tag="SOLVED">~/images/status_solved.png</Resource>
+     <Resource tag="QUESTION">~/images/status_question.png</Resource>
+	 <Resource tag="ISSUE">~/images/status_issue.png</Resource>
+	 <Resource tag="FIXED">~/images/status_fixed.png</Resource>
+  </page>
+</Resources>
