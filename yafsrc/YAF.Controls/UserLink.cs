@@ -138,7 +138,8 @@ namespace YAF.Controls
 
                 if (this.Get<YafBoardSettings>().EnableUserInfoHoverCards)
                 {
-                    output.WriteAttribute("class", "userHoverCard");
+                    this.CssClass += "userHoverCard";
+                    
                     output.WriteAttribute(
                         "data-hovercard",
                         "{0}resource.ashx?userinfo={1}&type=json".FormatWith(
