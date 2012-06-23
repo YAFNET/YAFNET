@@ -546,14 +546,14 @@ namespace YAF
   
                 var userInfo = new YafUserInfo
                                    {
-                                       name = userName,
-                                       realname = userData.Profile.RealName,
+                                       name = HttpUtility.HtmlEncode(userName),
+                                       realname = HttpUtility.HtmlEncode(userData.Profile.RealName),
                                        avatar = avatarUrl,
                                        profilelink = YafBuildLink.GetLink(ForumPages.profile, "u={0}", userId),
-                                       interests = userData.Profile.Interests,
+                                       interests = HttpUtility.HtmlEncode(userData.Profile.Interests),
                                        homepage = userData.Profile.Homepage,
                                        posts = "{0:N0}".FormatWith(userData.NumPosts),
-                                      rank = userData.RankName,
+                                       rank = userData.RankName,
                                        location = location,
                                        joined = this.Get<IDateTime>().FormatDateLong(userData.Joined),
                                        online = userIsOnline,
