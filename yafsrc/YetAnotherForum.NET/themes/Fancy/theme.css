@@ -1,3 +1,5 @@
+@import url("uniform.default.css");
+
 @font-face {
     font-family: 'EntypoRegular';
     src: url('fonts/entypo-webfont.eot');
@@ -26,58 +28,59 @@ html { min-height: 100%; }
 	font-family: Arial, Helvetica, sans-serif;
 	color: black;
 }
-.yafnet input,
-.yafnet select,
-.yafnet textarea {
-    font-family: Arial, Helvetica, sans-serif;
-	border: 1px solid #aaaaaa;	
-	-webkit-border-radius: 7px;
-	-moz-border-radius: 7px;
-	border-radius: 7px;
-    font-size: 9pt;
-    color: black;	
-    padding: 4px;
-    background-color: #f5f5f5;
-}
-.yafnet input:focus,
-.yafnet select:focus,
-.yafnet textarea:focus {
-  border-color: rgba(82, 168, 236, 0.8);
-  outline: 0;
-  outline: thin dotted \9;
-
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
-     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
-          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
-}
 .yafnet textarea {
 		width:98%;
 		padding:0px;
 }
-.yafnet input[type="image"]
-{
-    padding: 0px;
-    border: 0px;
-}
-.yafnet input[type="checkbox"]
-{
-    border: 0px;
-    padding: 0px;
-    margin: 5px;
+.yafnet input[type="image"] {border: 0;}
+
+.yafnet input[type="text"],
+.yafnet textarea {
+  padding: 5px;
+  margin:2px 2px 2px 2px;
+  font: 13px/100% "Helvetica Neue", "Helvetica";
+  line-height: 18px;
+  *line-height: 20px;
+  display: inline-block;
+  *display: inline;
+  color: #333333;
+  text-align: left;
+  vertical-align: middle;
+  background-color: #f5f5f5;
+  *background-color: #e6e6e6;
+  background-image: -ms-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+  background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: linear-gradient(top, #ffffff, #e6e6e6);
+  background-repeat: repeat-x;
+  border: 1px solid #cccccc;
+  *border: 0;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+  border-bottom-color: #b3b3b3;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#ffffff', endColorstr='#e6e6e6', GradientType=0);
+  filter: progid:dximagetransform.microsoft.gradient(enabled='false');
+  *zoom: 1;
+  -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.2), inset 0 4px 5px rgba(0,0,0,.6), inset 0 1px 0 rgba(0,0,0,.6);
+  -moz-box-shadow: 0 1px 0 rgba(255,255,255,.2), inset 0 4px 5px rgba(0,0,0,.6), inset 0 1px 0 rgba(0,0,0,.6);
+  box-shadow: 0 1px 0 rgba(255,255,255,.2), inset 0 3px 5px rgba(0,0,0,.6), inset 0 1px 0 rgba(0,0,0,.6);
 }
 
-.yafnet input:hover,
-.yafnet select:hover,
-.yafnet textarea:hover
-{
-    background-color: #fff;
-    border: 1px solid #ccc;	
+.yafnet input[type="text"]:focus,
+.yafnet textarea:focus {
+	outline:none;
 }
 
 .yafnet .yafcssimagebutton img {
 	padding-right: 5px;
 }
-
+.yafnet .dd,
+.yafnet dl.AlphaSort dd,
 .yafnet input[type="submit"],
 .yafnet a.pagelink,
 .yafnet a.pagelinkfirst,
@@ -106,8 +109,9 @@ html { min-height: 100%; }
   line-height: 18px;
   *line-height: 20px;
 }
-
-
+.yafnet .dd,
+.yafnet dl.AlphaSort dd,
+.yafnet .dd-select,
 .yafnet input[type="submit"],
 .yafnet a.pagelink,
 .yafnet a.pagelinkfirst,
@@ -146,12 +150,15 @@ html { min-height: 100%; }
      -moz-border-radius: 4px;
           border-radius: 4px;
   filter: progid:dximagetransform.microsoft.gradient(startColorstr='#ffffff', endColorstr='#e6e6e6', GradientType=0);
-  filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+  filter: progid:dximagetransform.microsoft.gradient(enabled='false');
   *zoom: 1;
   -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
      -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
           box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
 }
+.yafnet .dd:hover,
+.yafnet dl.AlphaSort dd:hover,
+.yafnet .dd-select:hover,
 .yafnet input[type="submit"]:hover,
 .yafnet a.pagelink:hover,
 .yafnet a.pagelinkfirst:hover,
@@ -178,6 +185,9 @@ html { min-height: 100%; }
        -o-transition: background-position 0.1s linear;
           transition: background-position 0.1s linear;
 }
+.yafnet .dd:focus,
+.yafnet dl.AlphaSort dd:focus,
+.yafnet .dd-select:focus,
 .yafnet input[type="submit"]:focus,
 .yafnet a.pagelink:focus,
 .yafnet a.pagelinkfirst:focus,
@@ -196,6 +206,9 @@ html { min-height: 100%; }
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
+.yafnet .dd:active,
+.yafnet dl.AlphaSort dd:active,
+.yafnet .dd-select:active,
 .yafnet input[type="submit"]:active,
 .yafnet a.pagelink:active,
 .yafnet a.pagelinkfirst:active,
@@ -206,7 +219,7 @@ html { min-height: 100%; }
 .yafnet .PopMenuLink:active,
 .yafnet .pbutton:active,
 .yafnet .postTopLink:active,
-.yafnet .MultiQuoteButton:active,
+.yafnet .MultiQuoteButton,
 .yafnet .yaflittlebutton:active,
 .yafnet .yafcssimagebutton:active,
 .yafnet .yafcssbigbutton span:active {
@@ -256,7 +269,7 @@ html { min-height: 100%; }
   border-color: #0055cc #0055cc #003580;
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
   filter: progid:dximagetransform.microsoft.gradient(startColorstr='#0088cc', endColorstr='#0055cc', GradientType=0);
-  filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+  filter: progid:dximagetransform.microsoft.gradient(enabled='false');
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   color: white;
 }
@@ -274,10 +287,14 @@ html { min-height: 100%; }
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
    background-color: #0055cc;
   *background-color: #004ab3;
-  
-  
-
 }
+/* the checked MultiQuote Button */
+.yafnet .Checked {
+	-webkit-box-shadow: 0 1px 0 rgba(255,255,255,.2), inset 0 4px 5px rgba(0,0,0,.6), inset 0 1px 0 rgba(0,0,0,.6);
+	-moz-box-shadow: 0 1px 0 rgba(255,255,255,.2), inset 0 4px 5px rgba(0,0,0,.6), inset 0 1px 0 rgba(0,0,0,.6);
+	box-shadow: 0 1px 0 rgba(255,255,255,.2), inset 0 3px 5px rgba(0,0,0,.6), inset 0 1px 0 rgba(0,0,0,.6);
+}
+
 .yafnet ul {
 	margin: 2px 2px 2px 2px;
 	padding: 0;
@@ -852,7 +869,6 @@ box-shadow:         0px 0px 2px rgba(0, 0, 0, 0.62);
 	color: black;
 	font-weight: bold;
 }
-
 .yafnet .menuMyList li a
 {
   font-family: 'EntypoRegular';
@@ -916,6 +932,13 @@ box-shadow:         0px 0px 2px rgba(0, 0, 0, 0.62);
 .yafnet .outerMenuContainer a {
 	text-decoration: none;
 	color:white;
+}
+.QuickSearchButton
+{
+  font-family: 'EntypoRegular';
+  font-size: 34px;
+  font-weight: normal;
+  vertical-align:top
 }
 .yafnet a.QuickSearchButton {
 	color:black;
@@ -1055,6 +1078,7 @@ box-shadow:         0px 0px 2px rgba(0, 0, 0, 0.62);
 	border-radius: 7px;
 	
 	background-color: white;
+	padding:10px 0 10px 0;
 }
 .yafnet dl.AlphaSort dt {
 	padding:10px 0 4px 10px;height:22px;
@@ -1066,18 +1090,8 @@ box-shadow:         0px 0px 2px rgba(0, 0, 0, 0.62);
     border-top-left-radius:3px;
 	border-top-right-radius:3px;
 }
-.yafnet dl.AlphaSort dd {     
-    border: 1px solid #aaaaaa;	
-	-webkit-border-radius: 0.4em;
-	border-radius: 0.4em;
-    font-size: 9pt;
-    color: black;	
-    padding: 4px;
-    background-color: #f5f5f5;
-}
 .yafnet dl.AlphaSort .SelectedLetter {background-color: #e5e5e5;color:#3b3b3b;font-weight:bold}
 
-.yafnet dl.AlphaSort dd:hover { background-color: #ccc;color:black;cursor:pointer;}
 .yafnet dl.AlphaSort dd:hover a { font-weight:bold}
 
 .yafnet dl.AlphaSort dd a {color:black;}
@@ -1125,3 +1139,38 @@ box-shadow:         0px 0px 2px rgba(0, 0, 0, 0.62);
 
 /* HoverCard */
 .yafnet .hc-details { -moz-box-shadow: 0px 0px 5px rgba(0, 0, 0, 1);-webkit-box-shadow:0px 0px 5px rgba(0, 0, 0, 1);box-shadow: 0px 0px 5px rgba(0, 0, 0, 1);border:solid 1px white;z-index:100;}
+
+/* Select styling */
+.yafnet .dd-container {padding:5px;display:inline-block;}
+.yafnet .dd-select{text-align:left;}
+.yafnet .dd-desc { color:#aaa; display:block; overflow: hidden; font-weight:normal; line-height: 1.4em; }
+.yafnet .dd-selected{ overflow:hidden; display:block; padding:7px; font-weight:bold; }
+.yafnet .dd-selected-text {font-size:12px; text-overflow: ellipsis;
+    display: inline-block;
+    width: 275px;
+    white-space: nowrap;
+    overflow: hidden;
+    vertical-align: top;}
+.yafnet .dd-pointer{ width:0; height:0; position:absolute; right:10px; top:50%; margin-top:-3px;}
+.yafnet .dd-pointer-down{ border:solid 5px transparent; border-top:solid 5px #000; }
+.yafnet .dd-pointer-up{border:solid 5px transparent !important; border-bottom:solid 5px #000 !important; margin-top:-8px;}
+.yafnet .ddChild,
+.yafnet .dd-options{ border:solid 1px #ccc; border-top:none; list-style:none; -moz-box-shadow:0px 1px 5px #ddd;box-shadow:0px 1px 5px #ddd; display:none; position:absolute; z-index:2000; margin:0; padding:0;background:#fff; overflow:auto;position:absolute;width: 513px; height: 157px; z-index: 9999;border-bottom-color: #b3b3b3;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;}
+.yafnet .dd-options li {list-style-type: none;padding: 0;margin: 0;}
+.yafnet .ddChild a,
+.yafnet .dd-option{ text-align:left;padding:10px; display:block; border-bottom:solid 1px #ddd; overflow:hidden; text-decoration:none; color:#333; cursor:pointer;-webkit-transition: all 0.25s ease-in-out; -moz-transition: all 0.25s ease-in-out;-o-transition: all 0.25s ease-in-out;-ms-transition: all 0.25s ease-in-out; }
+.yafnet .dd-options > li:last-child > .dd-option{ border-bottom:none;}
+.yafnet .ddChild a:hover,
+.yafnet .dd-option:hover{ background:#f3f3f3!important; color:#000!important;}
+.yafnet .dd-selected-description-truncated { text-overflow: ellipsis; white-space:nowrap; }
+.yafnet .dd-option-selected { background:#f6f6f6; }
+.yafnet .dd-option-image,.yafnet  .dd-selected-image { margin-right:5px;}
+.yafnet .dd-image-right { float:right; margin-right:15px; margin-left:5px;}
+.yafnet .dd-container { position: relative }
+.yafnet .dd-selected-text{font-weight:bold}
+.yafnet .dd {width:300px!important;}
+.yafnet .dd .ddTitle {text-align:left;border:none!important;background: transparent!important;}
+.yafnet .ddChild {text-align:left;margin-top:13px!important;padding:6px;width:280px!important;}

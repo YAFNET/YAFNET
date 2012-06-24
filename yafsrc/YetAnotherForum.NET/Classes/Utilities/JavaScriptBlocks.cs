@@ -581,7 +581,7 @@ namespace YAF.Utilities
         /// </returns>
         public static string DropDownLoadJs([NotNull] string dropDownId)
         {
-            return @"function pageLoad() {{ {0}('#{1}').msDropDown(); }} ".FormatWith(Config.JQueryAlias, dropDownId);
+            return @"Sys.Application.add_load(test);function test() {{ {0}('#{1}').msDropDown(); }} ".FormatWith(Config.JQueryAlias, dropDownId);
         }
 
         /// <summary>
