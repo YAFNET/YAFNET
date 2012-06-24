@@ -17,15 +17,12 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System.Web.Security;
-
 namespace YAF.Core.Services
 {
-    using System;
     using System.Data;
     using System.Text;
     using System.Web;
-
+    using System.Web.Security;
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Types;
@@ -139,7 +136,6 @@ namespace YAF.Core.Services
         {
             int thanksNumber = LegacyDb.message_ThanksNumber(messageID);
 
- 
             string displayName = username;
             if (YafContext.Current.Get<YafBoardSettings>().EnableDisplayName)
             {
@@ -152,6 +148,8 @@ namespace YAF.Core.Services
                             mu.ProviderUserKey));
                 }
             }
+
+            displayName = YafContext.Current.Get<HttpServerUtilityBase>().HtmlEncode(displayName);
 
             string thanksText;
 
@@ -172,6 +170,7 @@ namespace YAF.Core.Services
             }
 
             thanksText = YafContext.Current.Get<ILocalization>().GetText("POSTS", "THANKSINFO").FormatWith(thanksNumber, displayName);
+
             return
                 "<img id=\"ThanksInfoImage{0}\" src=\"{1}\"  runat=\"server\" title=\"{2}\" />&nbsp;{2}".FormatWith(
                     messageID, YafContext.Current.Get<ITheme>().GetItem("ICONS", "THANKSINFOLIST_IMAGE"), thanksText);

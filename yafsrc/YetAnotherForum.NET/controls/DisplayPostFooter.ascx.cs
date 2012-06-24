@@ -25,6 +25,7 @@ namespace YAF.Controls
     using System;
     using System.Data;
     using System.Text;
+    using System.Web;
 
     using YAF.Classes;
     using YAF.Classes.Data;
@@ -182,6 +183,8 @@ namespace YAF.Controls
             string userName = this.Get<YafBoardSettings>().EnableDisplayName
                                   ? this.DataRow["DisplayName"].ToString()
                                   : this.DataRow["UserName"].ToString();
+
+            userName = this.Get<HttpServerUtilityBase>().HtmlEncode(userName);
 
             // albums link
             if (this.PostData.UserId != this.PageContext.PageUserID && !this.PostData.PostDeleted

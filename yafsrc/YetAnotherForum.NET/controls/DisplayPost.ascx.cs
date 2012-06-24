@@ -328,7 +328,10 @@ namespace YAF.Controls
 
             notification.Show(
                 this.GetText("POSTS", "REP_VOTE_UP_MSG").FormatWith(
-                    this.Get<YafBoardSettings>().EnableDisplayName ? this.DataRow["DisplayName"] : this.DataRow["UserName"]),
+                    this.Get<HttpServerUtilityBase>().HtmlEncode(
+                        this.Get<YafBoardSettings>().EnableDisplayName
+                            ? this.DataRow["DisplayName"].ToString()
+                            : this.DataRow["UserName"].ToString())),
                 this.GetText("POSTS", "REP_VOTE_TITLE"),
                 DialogBox.DialogIcon.Info,
                 new DialogBox.DialogButton
@@ -379,15 +382,18 @@ namespace YAF.Controls
 
             notification.Show(
                 this.GetText("POSTS", "REP_VOTE_DOWN_MSG").FormatWith(
-                    this.Get<YafBoardSettings>().EnableDisplayName ? this.DataRow["DisplayName"] : this.DataRow["UserName"]),
+                    this.Get<HttpServerUtilityBase>().HtmlEncode(
+                        this.Get<YafBoardSettings>().EnableDisplayName
+                            ? this.DataRow["DisplayName"].ToString()
+                            : this.DataRow["UserName"].ToString())),
                 this.GetText("POSTS", "REP_VOTE_TITLE"),
                 DialogBox.DialogIcon.Info,
                 new DialogBox.DialogButton
-                {
-                    Text = this.GetText("COMMON", "OK"),
-                    CssClass = "StandardButton",
-                    ForumPageLink = new DialogBox.ForumLink { ForumPage = this.PageContext.ForumPageType }
-                },
+                    {
+                        Text = this.GetText("COMMON", "OK"),
+                        CssClass = "StandardButton",
+                        ForumPageLink = new DialogBox.ForumLink { ForumPage = this.PageContext.ForumPageType }
+                    },
                 null);
 
             YafContext.Current.PageElements.RegisterJsBlockStartup(
@@ -707,25 +713,17 @@ namespace YAF.Controls
                 return;
             }
 
-            string thanksLabelText;
 
-            if (thanksNumber == 1)
-            {
-                thanksLabelText =
-                    this.Get<ILocalization>().GetText("THANKSINFOSINGLE").FormatWith(
-                        this.Get<HttpServerUtilityBase>().HtmlEncode(
-                             this.Get<YafBoardSettings>().EnableDisplayName ? this.DataRow["DisplayName"].ToString() : this.DataRow["UserName"].ToString()));
-            }
-            else
-            {
-                thanksLabelText = this.Get<ILocalization>().GetText("THANKSINFO").FormatWith(
-                    thanksNumber,
-                    this.Get<HttpServerUtilityBase>().HtmlEncode(
-                        this.Get<YafBoardSettings>().EnableDisplayName ? this.DataRow["DisplayName"].ToString() : this.DataRow["UserName"].ToString()));
-            }
+            var username =
+                this.HtmlEncode(
+                    this.DataRow[this.Get<YafBoardSettings>().EnableDisplayName ? "DisplayName" : "UserName"].ToString());
+
+            var thanksLabelText = thanksNumber == 1
+                                  ? this.Get<ILocalization>().GetText("THANKSINFOSINGLE").FormatWith(username)
+                                  : this.Get<ILocalization>().GetText("THANKSINFO").FormatWith(thanksNumber, username);
 
             this.ThanksDataLiteral.Text =
-                "<img id=\"ThanksInfoImage{0}\" src=\"{1}\"  runat=\"server\" title=\"{2}\" />&nbsp;{2}".FormatWith(
+                "<img id=\"ThanksInfoImage{0}\" src=\"{1}\" alt=\"thanks\"  runat=\"server\" />&nbsp;{2}".FormatWith(
                     this.DataRow["MessageID"],
                     this.Get<ITheme>().GetItem("ICONS", "THANKSINFOLIST_IMAGE"),
                     thanksLabelText);

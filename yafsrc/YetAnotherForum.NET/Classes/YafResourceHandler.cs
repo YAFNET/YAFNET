@@ -516,6 +516,8 @@ namespace YAF
 
                 var userName = this.Get<YafBoardSettings>().EnableDisplayName ? userData.DisplayName : userData.UserName;
 
+                userName = HttpUtility.HtmlEncode(userName);
+
                 var location = userData.Profile.Country.IsSet()
                                    ? YafContext.Current.Get<IHaveLocalization>().GetText(
                                        "COUNTRY", userData.Profile.Country.Trim())
@@ -546,7 +548,7 @@ namespace YAF
   
                 var userInfo = new YafUserInfo
                                    {
-                                       name = HttpUtility.HtmlEncode(userName),
+                                       name = userName,
                                        realname = HttpUtility.HtmlEncode(userData.Profile.RealName),
                                        avatar = avatarUrl,
                                        profilelink = YafBuildLink.GetLink(ForumPages.profile, "u={0}", userId),
