@@ -616,7 +616,8 @@ namespace YAF.Controls
                 {
                     ID = "UserLoggedIn", 
                     UserID = this.PageContext.PageUserID,
-                    CssClass = "currentUser"
+                    CssClass = "currentUser",
+                    EnableHoverCard = false
                 };
 
             this.LoggedInUserPanel.Controls.Add(userLink);
