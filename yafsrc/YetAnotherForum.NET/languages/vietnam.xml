@@ -4507,6 +4507,34 @@ Spoiler Content
     <Resource tag="TITLE">Quên mật khẩu</Resource>
     <Resource tag="USERNAME_FAILURE">Không xác minh được người dùng.</Resource>
   </page>
+  <page name="Region_CH">
+    <Resource tag="RGN_CH_AG">Aargau</Resource>
+    <Resource tag="RGN_CH_AI">Appenzell Inner-Rhodes</Resource>
+    <Resource tag="RGN_CH_AR">Appenzell Outer-Rhodes</Resource>
+    <Resource tag="RGN_CH_BE">Bern</Resource>
+    <Resource tag="RGN_CH_BL">Basel District</Resource>
+    <Resource tag="RGN_CH_BS">Basel</Resource>
+    <Resource tag="RGN_CH_FR">Fribourg</Resource>
+    <Resource tag="RGN_CH_GE">Geneva</Resource>
+    <Resource tag="RGN_CH_GL">Glarus</Resource>
+    <Resource tag="RGN_CH_GR">Grisons</Resource>
+    <Resource tag="RGN_CH_JU">Jura</Resource>
+    <Resource tag="RGN_CH_LU">Lucerne</Resource>
+    <Resource tag="RGN_CH_NE">Neuchâtel</Resource>
+    <Resource tag="RGN_CH_NW">Nidwalden</Resource>
+    <Resource tag="RGN_CH_OW">Obwalden</Resource>
+    <Resource tag="RGN_CH_SG">St. Gallen</Resource>
+    <Resource tag="RGN_CH_SH">Schaffhausen</Resource>
+    <Resource tag="RGN_CH_SO">Solothurn</Resource>
+    <Resource tag="RGN_CH_SZ">Schwyz</Resource>
+    <Resource tag="RGN_CH_TG">Thurgau</Resource>
+    <Resource tag="RGN_CH_TI">Ticino</Resource>
+    <Resource tag="RGN_CH_UR">Uri</Resource>
+    <Resource tag="RGN_CH_VD">Vaud</Resource>
+    <Resource tag="RGN_CH_VS">Valais</Resource>
+    <Resource tag="RGN_CH_ZG">Zug</Resource>
+    <Resource tag="RGN_CH_ZH">Zurich</Resource>
+  </page>
   <page name="REGION_DE">
     <Resource tag="RGN_DE_BA">Bavaria</Resource>
     <Resource tag="RGN_DE_BB">Brandenburg</Resource>

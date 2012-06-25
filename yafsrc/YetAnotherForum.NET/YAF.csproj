@@ -97,6 +97,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CookComputing.XmlRpcV2, Version=2.5.0.0, Culture=neutral, PublicKeyToken=a7d6e17aa302004d, processorArchitecture=MSIL">
@@ -4117,6 +4118,12 @@
     </Compile>
     <Content Include="App_Browsers\w3cvalidator.browser" />
     <Content Include="app.config" />
+    <None Include="BuildScripts\MSBuild.Community.Tasks.Targets">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="BuildScripts\YAF.Package.targets">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="editors\tiny_mce\plugins\spellchecker\classes\EnchantSpell.php" />
     <None Include="editors\tiny_mce\plugins\spellchecker\classes\GoogleSpell.php" />
     <None Include="editors\tiny_mce\plugins\spellchecker\classes\PSpell.php" />
@@ -4733,6 +4740,8 @@
     <Content Include="themes\Fancy\images\albums.png" />
     <Content Include="themes\Fancy\images\arrow_up_button.png" />
     <Content Include="themes\Fancy\images\atomfeed.png" />
+    <Content Include="themes\Fancy\images\bg-input-focus.png" />
+    <Content Include="themes\Fancy\images\bg-input.png" />
     <Content Include="themes\Fancy\images\ButtonActive.png" />
     <Content Include="themes\Fancy\images\ButtonHover.png" />
     <Content Include="themes\Fancy\images\collapse.gif" />
@@ -4812,6 +4821,7 @@
     <Content Include="themes\Fancy\images\sandclock.gif" />
     <Content Include="themes\Fancy\images\sort_down.gif" />
     <Content Include="themes\Fancy\images\sort_up.gif" />
+    <Content Include="themes\Fancy\images\sprite.png" />
     <Content Include="themes\Fancy\images\status_fixed.png" />
     <Content Include="themes\Fancy\images\status_informatic.png" />
     <Content Include="themes\Fancy\images\status_issue.png" />
@@ -4844,8 +4854,11 @@
     <Content Include="themes\Fancy\images\vote_refuse.gif" />
     <Content Include="themes\Fancy\images\voting_bar.gif" />
     <Content Include="themes\Fancy\js\Fancy.js" />
+    <Content Include="themes\Fancy\js\jquery.ddslick.js" />
     <Content Include="themes\Fancy\js\jquery.tipTip.minified.js" />
+    <Content Include="themes\Fancy\js\jquery.uniform.min.js" />
     <Content Include="themes\Fancy\theme.css" />
+    <Content Include="themes\Fancy\uniform.default.css" />
     <Content Include="themes\GreenGrey.xml" />
     <Content Include="themes\GreenGrey\albums.png" />
     <Content Include="themes\GreenGrey\arrow_up_button.png" />
@@ -5833,4 +5846,12 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <PropertyGroup>
+    <Extension>zip</Extension>
+    <PackageName>YAF</PackageName>
+    <MSBuildCommunityTasksPath>$(MSBuildProjectDirectory)\BuildScripts</MSBuildCommunityTasksPath>
+  </PropertyGroup>
+  <Import Project="BuildScripts\YAF.Package.Targets" />
+  <Target Name="AfterBuild" DependsOnTargets="PackageModule">
+  </Target>
 </Project>

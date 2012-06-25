@@ -2298,7 +2298,7 @@
     <Resource tag="CITY">Stadt:</Resource>
     <Resource tag="COUNTRY">Land:</Resource>
     <Resource tag="DISPLAYNAME">Welchen Name wollen Sie für andere sichtbar machen?</Resource>
-    <Resource tag="DST">Sommerzeit</Resource>
+    <Resource tag="DST">Uhrzeit automatisch auf Sommerzeit einstellen?</Resource>
     <Resource tag="DUPLICATED_EMAIL">Die E-Mail-Adresse eingegeben haben, ist bereits im Einsatz.</Resource>
     <Resource tag="EDIT_ALBUMS">Alben bearbeiten</Resource>
     <Resource tag="EMAIL">Du musst immer eine gültige E-Mail-Adresse angeben.</Resource>
@@ -4441,6 +4441,34 @@ Spoiler Content
     <Resource tag="QUESTION_FAILURE">Die Antwort ist leider falsch. Bitte nochmal versuchen.</Resource>
     <Resource tag="TITLE">Passwort vergessen</Resource>
     <Resource tag="USERNAME_FAILURE">Der eingegebene Benutzername ist unbekannt</Resource>
+  </page>
+  <page name="Region_CH">
+    <Resource tag="RGN_CH_AG">Aargau</Resource>
+    <Resource tag="RGN_CH_AI">Appenzell Innerrhoden</Resource>
+    <Resource tag="RGN_CH_AR">Appenzell Ausserrhoden</Resource>
+    <Resource tag="RGN_CH_BE">Bern</Resource>
+    <Resource tag="RGN_CH_BL">Basel-Land</Resource>
+    <Resource tag="RGN_CH_BS">Basel-Stadt</Resource>
+    <Resource tag="RGN_CH_FR">Freiburg (Fribourg)</Resource>
+    <Resource tag="RGN_CH_GE">Genève (Genf)</Resource>
+    <Resource tag="RGN_CH_GL">Glarus</Resource>
+    <Resource tag="RGN_CH_GR">Graubünden (Grischun)</Resource>
+    <Resource tag="RGN_CH_JU">Jura</Resource>
+    <Resource tag="RGN_CH_LU">Luzern</Resource>
+    <Resource tag="RGN_CH_NE">Neuchâtel (Neuenburg)</Resource>
+    <Resource tag="RGN_CH_NW">Nidwalden</Resource>
+    <Resource tag="RGN_CH_OW">Obwalden</Resource>
+    <Resource tag="RGN_CH_SG">St. Gallen</Resource>
+    <Resource tag="RGN_CH_SH">Schaffhausen</Resource>
+    <Resource tag="RGN_CH_SO">Solothurn</Resource>
+    <Resource tag="RGN_CH_SZ">Schwyz</Resource>
+    <Resource tag="RGN_CH_TG">Thurgau</Resource>
+    <Resource tag="RGN_CH_TI">Ticino (Tessin)</Resource>
+    <Resource tag="RGN_CH_UR">Uri</Resource>
+    <Resource tag="RGN_CH_VD">Vaud (Waadt)</Resource>
+    <Resource tag="RGN_CH_VS">Valais (Wallis)</Resource>
+    <Resource tag="RGN_CH_ZG">Zug</Resource>
+    <Resource tag="RGN_CH_ZH">Zürich</Resource>
   </page>
   <page name="REGION_DE">
     <Resource tag="RGN_DE_BA">Bayern</Resource>
