@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="MSBuild.Community.Tasks.Targets" />
+  <Target Name="PackageModule" Condition=" '$(Configuration)|$(Platform)' == 'Deploy|AnyCPU' ">
+    <GetAssemblyIdentity AssemblyFiles="$(MSBuildProjectDirectory)\bin\YAF.dll">
+      <Output TaskParameter="Assemblies" ItemName="AssemblyIdentities"/>
+    </GetAssemblyIdentity>
+    
+    <ItemGroup>
+      <DefaultExclude Include="**\.svn\**" />
+      <DefaultExclude Include="**\bin\**" />
+      <DefaultExclude Include="**\obj\**" />
+      <DefaultExclude Include="**\Release\**" />
+      <DefaultExclude Include="**\Debug\**" />
+      <DefaultExclude Include="**\Test\**" />
+      <DefaultExclude Include="**\TestResults\**" />
+      <DefaultExclude Include="**\doc\**" />
+      <DefaultExclude Include="**\www\**" />
+      <DefaultExclude Include="**\*.user" />
+      <DefaultExclude Include="**\*.suo" />
+      <DefaultExclude Include="**\*.zip" />
+      <DefaultExclude Include="**\*.db" />
+      <DefaultExclude Include="**\*.txt" />
+      <DefaultExclude Include="**\*ReSharper.*\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.ascx" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
+      <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.js" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
+      <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.css" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
+      <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.html" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
+      <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.htm" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
+      <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.jpg" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
+      <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.jpeg" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
+      <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.gif" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
+      <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.png" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
+      <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.xml" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
+      <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.txt" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
+      <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.aspx" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
+      <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.sql" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
+      <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.xsl" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
+      <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.asmx" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
+      <yafInstall-Include Include="$(MSBuildProjectDirectory)\*.config" Exclude="$(MSBuildProjectDirectory)\packages.config;$(MSBuildProjectDirectory)\web.config;" />
+      <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.browser" />
+      <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.mdf" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <yafsrcInclude Include="$(MSBuildProjectDirectory)\..\**\*.*" Exclude="$(MSBuildProjectDirectory)\..\**\*.ReSharper;$(MSBuildProjectDirectory)\..\**\*.testsettings;$(MSBuildProjectDirectory)\..\**\*.chm;$(MSBuildProjectDirectory)\..\**\*.psd;$(MSBuildProjectDirectory)\..\**\TestResults\**;$(MSBuildProjectDirectory)\..\**\nStuff.UpdateControls\**;$(MSBuildProjectDirectory)\..\**\Dependencies\**;$(MSBuildProjectDirectory)\..\**\CookComputing.XmlRpc\**;$(MSBuildProjectDirectory)\..\**\obj\**;$(MSBuildProjectDirectory)\..\**\_ReSharper*\**;$(MSBuildProjectDirectory)\..\**\bin\**;$(MSBuildProjectDirectory)\..\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;$(MSBuildProjectDirectory)\..\**\*.user;$(MSBuildProjectDirectory)\..\**\.svn\**;$(MSBuildProjectDirectory)\..\**\*.suo;" />
+    </ItemGroup>
+
+   <CreateItem Include="$(MSBuildProjectDirectory)\recommended-NET-web.config">
+      <Output TaskParameter="Include" ItemName="InstallConfig" />
+    </CreateItem>
+
+    <CreateItem Include="$(MSBuildProjectDirectory)\bin\**\*.dll">
+      <Output TaskParameter="Include" ItemName="LibaryFiles" />
+    </CreateItem>
+
+    <Copy SourceFiles="@(yafInstall-Include)" DestinationFolder="$(MSBuildProjectDirectory)\Package\%(RecursiveDir)" />
+    <Copy SourceFiles="@(LibaryFiles)" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\webconfigs\recommended-NET-web.config" DestinationFiles="$(MSBuildProjectDirectory)\Package\web.config"/>
+
+    <CreateItem Include="$(MSBuildProjectDirectory)\Package\**\*.*">
+      <Output TaskParameter="Include" ItemName="OutputContentInstall" />
+    </CreateItem>
+    
+    <!-- Create the Install package -->
+    <Zip Files="@(OutputContentInstall)" WorkingDirectory="$(MSBuildProjectDirectory)\Package" ZipFileName="$(PackageName)-v%(AssemblyIdentities.Version)-RTW-Install.$(Extension)" />
+    <!-- Copy the Install package to the Packages folder -->
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-RTW-Install.$(Extension)" DestinationFolder="$(MSBuildProjectDirectory)\..\deploy" />
+
+    <Delete Files="$(MSBuildProjectDirectory)\Package\App_Data\Database.mdf"/>
+    <Delete Files="$(MSBuildProjectDirectory)\Package\web.config"/>
+    <Delete Files="$(MSBuildProjectDirectory)\Package\app.config"/>
+    <Delete Files="$(MSBuildProjectDirectory)\Package\db.config"/>
+    <Delete Files="$(MSBuildProjectDirectory)\Package\mail.config"/>
+    <Delete Files="$(MSBuildProjectDirectory)\Package\UrlRewriter.config"/>
+
+    <CreateItem Include="$(MSBuildProjectDirectory)\Package\**\*.*">
+      <Output TaskParameter="Include" ItemName="OutputContentUpgrade" />
+    </CreateItem>
+
+    <Zip Files="@(OutputContentUpgrade)" WorkingDirectory="$(MSBuildProjectDirectory)\Package" ZipFileName="$(PackageName)-v%(AssemblyIdentities.Version)-RTW-Upgrade.$(Extension)" />
+    
+    <!-- Copy the Upgrade package to the Packages folder -->
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-RTW-Upgrade.$(Extension)" DestinationFolder="$(MSBuildProjectDirectory)\..\deploy" />
+
+    <RemoveDir Directories ="$(MSBuildProjectDirectory)\Package" />
+
+    <!-- Create SOURCE ZIP  -->
+
+    <!-- create the SOURCE RESOURCES.ZIP file -->
+    <Copy SourceFiles="@(yafsrcInclude)" DestinationFolder="$(MSBuildProjectDirectory)\Package\%(RecursiveDir)" />
+
+    <CreateItem Include="$(MSBuildProjectDirectory)\Package\**\*.*">
+      <Output TaskParameter="Include" ItemName="OutputSource" />
+    </CreateItem>
+
+    <Zip Files="@(OutputSource)" WorkingDirectory="$(MSBuildProjectDirectory)\Package" ZipFileName="$(PackageName)-v%(AssemblyIdentities.Version)-RTW-SRC.$(Extension)" />
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-RTW-SRC.$(Extension)" DestinationFolder="$(MSBuildProjectDirectory)\..\deploy" />
+
+    <Delete Files="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-RTW-Install.$(Extension)" />
+    <Delete Files="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-RTW-Upgrade.$(Extension)" />
+    <Delete Files="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-RTW-SRC.$(Extension)" />
+
+    <RemoveDir Directories ="$(MSBuildProjectDirectory)\Package" />
+
+    
+  </Target>
+</Project>
