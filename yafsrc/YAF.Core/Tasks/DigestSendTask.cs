@@ -16,28 +16,20 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Core
+namespace YAF.Core.Tasks
 {
   #region Using
 
-  using System;
-  using System.Collections.Generic;
-  using System.Data;
-  using System.Linq;
-  using System.Net;
-  using System.Text.RegularExpressions;
-
-  using YAF.Classes;
-  using YAF.Core;
-  using YAF.Core.Services;
-  using YAF.Core.Tasks;
-  using YAF.Types;
-  using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Classes.Data;
-  using YAF.Utils;
-  using YAF.Utils.Helpers.StringUtils;
-  using YAF.Types.Interfaces;
-  using YAF.Types.Objects;
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
+    using YAF.Classes;
+    using YAF.Classes.Data;
+    using YAF.Types;
+    using YAF.Types.Interfaces;
+    using YAF.Types.Objects;
+    using YAF.Utils;
 
   #endregion
 
@@ -51,7 +43,7 @@ namespace YAF.Core
     /// <summary>
     ///   The _task name.
     /// </summary>
-    private const string _taskName = "DigestSendTask";
+    private const string _TaskName = "DigestSendTask";
 
     #endregion
 
@@ -77,7 +69,7 @@ namespace YAF.Core
     {
       get
       {
-        return _taskName;
+        return _TaskName;
       }
     }
 
@@ -91,7 +83,7 @@ namespace YAF.Core
     public override void RunOnce()
     {
       //// validate DB run...
-      //this.Get<StartupInitializeDb>().Run();
+      ////this.Get<StartupInitializeDb>().Run();
 
       this.SendDigest();
     }
@@ -101,11 +93,9 @@ namespace YAF.Core
     #region Methods
 
     /// <summary>
-    /// The is time to send digest for board.
+    /// Determines whether is time to send digest for board.
     /// </summary>
-    /// <param name="boardSettings">
-    /// The board settings.
-    /// </param>
+    /// <param name="boardSettings">The board settings.</param>
     /// <returns>
     /// The is time to send digest for board.
     /// </returns>
@@ -178,7 +168,7 @@ namespace YAF.Core
           if (usersWithDigest.Any())
           {
             // start sending...
-            this.SendDigestToUsers(usersWithDigest, boardId, boardSettings.Name);
+            this.SendDigestToUsers(usersWithDigest, boardId, boardSettings);
           }
         }
       }
@@ -189,49 +179,49 @@ namespace YAF.Core
     }
 
     /// <summary>
-    /// The send digest to users.
+    /// Sends the digest to users.
     /// </summary>
-    /// <param name="usersWithDigest">
-    ///   The users with digest.
-    /// </param>
-    /// <param name="boardId"></param>
-    /// <param name="forumName"></param>
-    private void SendDigestToUsers(IEnumerable<TypedUserFind> usersWithDigest, int boardId, string forumName)
+    /// <param name="usersWithDigest">The users with digest.</param>
+    /// <param name="boardId">The board id.</param>
+    /// <param name="boardSettings">The board settings.</param>
+    private void SendDigestToUsers(IEnumerable<TypedUserFind> usersWithDigest, int boardId, YafLoadBoardSettings boardSettings)
     {
-      foreach (var user in usersWithDigest)
-      {
-        string digestHtml = string.Empty;
-
-        try
+        foreach (var user in usersWithDigest)
         {
-          digestHtml = this.Get<IDigest>().GetDigestHtml(user.UserID ?? 0, boardId);
+            string digestHtml = string.Empty;
+
+            try
+            {
+                digestHtml = this.Get<IDigest>().GetDigestHtml(user.UserID ?? 0, boardId, boardSettings.WebServiceToken);
+            }
+            catch (Exception e)
+            {
+                LegacyDb.eventlog_create(
+                    null, TaskName, "Error In Creating Digest for User {0}: {1}".FormatWith(user.UserID, e.ToString()));
+            }
+
+            if (!digestHtml.IsSet())
+            {
+                continue;
+            }
+
+            if (user.ProviderUserKey == null)
+            {
+                continue;
+            }
+
+            var membershipUser = UserMembershipHelper.GetUser(user.ProviderUserKey);
+
+            if (membershipUser == null || membershipUser.Email.IsNotSet())
+            {
+                continue;
+            }
+
+            // send the digest...
+            this.Get<IDigest>().SendDigest(digestHtml, boardSettings.Name, membershipUser.Email, user.DisplayName, true);
         }
-        catch (Exception e)
-        {
-          LegacyDb.eventlog_create(
-            null, TaskName, "Error In Creating Digest for User {0}: {1}".FormatWith(user.UserID, e.ToString()));
-        }
-
-        if (digestHtml.IsSet())
-        {
-          if (user.ProviderUserKey == null)
-          {
-            continue;
-          }
-
-          var membershipUser = UserMembershipHelper.GetUser(user.ProviderUserKey);
-
-          if (membershipUser == null || membershipUser.Email.IsNotSet())
-          {
-            continue;
-          }
-
-          // send the digest...
-          this.Get<IDigest>().SendDigest(digestHtml, forumName, membershipUser.Email, user.DisplayName, true);
-        }
-      }
     }
 
-    #endregion
+      #endregion
   }
 }

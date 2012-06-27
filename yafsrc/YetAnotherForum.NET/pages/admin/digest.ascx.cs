@@ -32,29 +32,25 @@ namespace YAF.Pages.Admin
   #endregion
 
   /// <summary>
-  /// The digest.
+  /// Manage Forum Digest Sending
   /// </summary>
   public partial class digest : AdminPage
   {
-    ///<summary>
-    ///</summary>
+      /// <summary>
+      /// Initializes a new instance of the <see cref="digest"/> class.
+      /// </summary>
     public digest()
       : base("ADMIN_DIGEST")
     {
-      
     }
 
     #region Methods
 
     /// <summary>
-    /// The force send_ click.
+    /// Force Sending the Current Digest
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     protected void ForceSend_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
         this.Get<YafBoardSettings>().ForceDigestSend = true;
@@ -64,30 +60,25 @@ namespace YAF.Pages.Admin
     }
 
     /// <summary>
-    /// The generate digest_ click.
+    /// Generate a test Digest
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     protected void GenerateDigest_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       this.DigestHtmlPlaceHolder.Visible = true;
-      this.DigestFrame.Attributes["src"] = this.Get<IDigest>().GetDigestUrl(
-        this.PageContext.PageUserID, this.PageContext.PageBoardID, true);
+        this.DigestFrame.Attributes["src"] = this.Get<IDigest>().GetDigestUrl(
+            this.PageContext.PageUserID,
+            this.PageContext.PageBoardID,
+            this.Get<YafBoardSettings>().WebServiceToken,
+            true);
     }
 
     /// <summary>
-    /// The page_ load.
+    /// Handles the Load event of the Page control.
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
         if (this.IsPostBack)
@@ -118,14 +109,10 @@ namespace YAF.Pages.Admin
     }
 
     /// <summary>
-    /// The test send_ click.
+    /// Send Test Digest
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     protected void TestSend_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       if (this.TextSendEmail.Text.IsNotSet())
@@ -136,7 +123,7 @@ namespace YAF.Pages.Admin
       try
       {
         // create and send a test digest to the email provided...
-        var digestHtml = this.Get<IDigest>().GetDigestHtml(this.PageContext.PageUserID, this.PageContext.PageBoardID, true);
+          var digestHtml = this.Get<IDigest>().GetDigestHtml(this.PageContext.PageUserID, this.PageContext.PageBoardID, this.Get<YafBoardSettings>().WebServiceToken, true);
 
         // send....
         this.Get<IDigest>().SendDigest(
