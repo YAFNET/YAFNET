@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.version"
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.version"
     CodeBehind="version.ascx.cs" %>
 <%@ Import Namespace="YAF.Utils" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
@@ -12,7 +12,7 @@
         <tr>
             <td class="post">
                 <div style="font-size: 11pt;">
-                    <img src="<%=YafForumInfo.ForumClientFileRoot + "/images/YafLogo.png" %>" alt="YAF.NET" style="float:left; padding: 10px" />
+                    <img src="<%=YafForumInfo.ForumClientFileRoot + "images/YafLogo.png" %>" alt="YAF.NET" style="float:left; padding: 10px" />
                     <p>
                         <asp:Label ID="RunningVersion" runat="server"></asp:Label></p>
                     <p>
