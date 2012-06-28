@@ -1,12 +1,15 @@
 /*
   YAF SQL Functions File Created 09/07/2007
-	
+    
 
   Remove Comments RegEx: \/\*(.*)\*\/
   Remove Extra Stuff: SET ANSI_NULLS ON\nGO\nSET QUOTED_IDENTIFIER ON\nGO\n\n\n 
 */
 
 -- scalar functions
+IF  exists(select top 1 1 from dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}registry_value]') AND xtype in (N'FN', N'IF', N'TF'))
+DROP FUNCTION [{databaseOwner}].[{objectQualifier}registry_value]
+GO
 
 IF  exists(select top 1 1 from dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}bitset]') AND xtype in (N'FN', N'IF', N'TF'))
 DROP FUNCTION [{databaseOwner}].[{objectQualifier}bitset]
@@ -63,178 +66,199 @@ IF  exists(select top 1 1 from dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseO
 DROP FUNCTION [{databaseOwner}].[{objectQualifier}Split]
 GO
 
+CREATE FUNCTION [{databaseOwner}].[{objectQualifier}registry_value] (
+    @Name NVARCHAR(64)
+    ,@BoardID INT = NULL
+    )
+RETURNS NVARCHAR(MAX)
+AS
+BEGIN
+    DECLARE @returnValue NVARCHAR(MAX)
+
+    SET @returnValue = (
+            SELECT CAST([Value] AS NVARCHAR(MAX))
+            FROM [{databaseOwner}].[{objectQualifier}Registry]
+            WHERE LOWER([Name]) = LOWER(@Name)
+                AND (
+                    @BoardID IS NULL
+                    OR @BoardID = [BoardID]
+                    )
+            )
+
+    RETURN @returnValue
+END
+GO
 
 create function [{databaseOwner}].[{objectQualifier}forum_posts](@ForumID int) returns int as
-
 begin
-	declare @NumPosts int
-	declare @tmp int
+    declare @NumPosts int
+    declare @tmp int
 
-	select @NumPosts=NumPosts from [{databaseOwner}].[{objectQualifier}Forum] where ForumID=@ForumID
+    select @NumPosts=NumPosts from [{databaseOwner}].[{objectQualifier}Forum] where ForumID=@ForumID
 
 
-	if exists(select 1 from [{databaseOwner}].[{objectQualifier}Forum] where ParentID=@ForumID)
+    if exists(select 1 from [{databaseOwner}].[{objectQualifier}Forum] where ParentID=@ForumID)
 
-	begin
-		declare c cursor for
-		select ForumID from [{databaseOwner}].[{objectQualifier}Forum]
+    begin
+        declare c cursor for
+        select ForumID from [{databaseOwner}].[{objectQualifier}Forum]
 
-		where ParentID = @ForumID
-		
-		open c
-		
-		fetch next from c into @tmp
-		while @@FETCH_STATUS = 0
-		begin
-			set @NumPosts=@NumPosts+[{databaseOwner}].[{objectQualifier}forum_posts](@tmp)
+        where ParentID = @ForumID
+        
+        open c
+        
+        fetch next from c into @tmp
+        while @@FETCH_STATUS = 0
+        begin
+            set @NumPosts=@NumPosts+[{databaseOwner}].[{objectQualifier}forum_posts](@tmp)
 
-			fetch next from c into @tmp
-		end
-		close c
-		deallocate c
-	end
+            fetch next from c into @tmp
+        end
+        close c
+        deallocate c
+    end
 
-	return @NumPosts
+    return @NumPosts
 end
 GO
 
 create function [{databaseOwner}].[{objectQualifier}forum_topics](@ForumID int) returns int as
 
 begin
-	declare @NumTopics int
-	declare @tmp int
+    declare @NumTopics int
+    declare @tmp int
 
-	select @NumTopics=NumTopics from [{databaseOwner}].[{objectQualifier}Forum] where ForumID=@ForumID
+    select @NumTopics=NumTopics from [{databaseOwner}].[{objectQualifier}Forum] where ForumID=@ForumID
 
 
-	if exists(select 1 from [{databaseOwner}].[{objectQualifier}Forum] where ParentID=@ForumID)
+    if exists(select 1 from [{databaseOwner}].[{objectQualifier}Forum] where ParentID=@ForumID)
 
-	begin
-		declare c cursor for
-		select ForumID from [{databaseOwner}].[{objectQualifier}Forum]
+    begin
+        declare c cursor for
+        select ForumID from [{databaseOwner}].[{objectQualifier}Forum]
 
-		where ParentID = @ForumID
-		
-		open c
-		
-		fetch next from c into @tmp
-		while @@FETCH_STATUS = 0
-		begin
-			set @NumTopics=@NumTopics+[{databaseOwner}].[{objectQualifier}forum_topics](@tmp)
+        where ParentID = @ForumID
+        
+        open c
+        
+        fetch next from c into @tmp
+        while @@FETCH_STATUS = 0
+        begin
+            set @NumTopics=@NumTopics+[{databaseOwner}].[{objectQualifier}forum_topics](@tmp)
 
-			fetch next from c into @tmp
-		end
-		close c
-		deallocate c
-	end
+            fetch next from c into @tmp
+        end
+        close c
+        deallocate c
+    end
 
-	return @NumTopics
+    return @NumTopics
 end
 GO
 
 CREATE FUNCTION [{databaseOwner}].[{objectQualifier}forum_lasttopic] 
 
 (	
-	@ForumID int,
-	@UserID int = null,
-	@LastTopicID int = null,
-	@LastPosted datetime = null
+    @ForumID int,
+    @UserID int = null,
+    @LastTopicID int = null,
+    @LastPosted datetime = null
 ) RETURNS int AS
 BEGIN
-	-- local variables for temporary values
-	declare @SubforumID int
-	declare @TopicID int
-	declare @Posted datetime
+    -- local variables for temporary values
+    declare @SubforumID int
+    declare @TopicID int
+    declare @Posted datetime
 
-	-- try to retrieve last direct topic posed in forums if not supplied as argument 
-	if (@LastTopicID is null or @LastPosted is null) BEGIN
-		IF (@UserID IS NULL)
-		BEGIN	
-				SELECT TOP 1 
-					@LastTopicID=a.LastTopicID,
-					@LastPosted=a.LastPosted
-				FROM
-					[{databaseOwner}].[{objectQualifier}Forum] a WITH(NOLOCK)
-					INNER JOIN [{databaseOwner}].[{objectQualifier}ActiveAccess] x WITH(NOLOCK) ON a.ForumID=x.ForumID
-				WHERE
-					a.ForumID = @ForumID AND a.IsHidden = 0
-		END			
-		ELSE
-		BEGIN	
-				SELECT TOP 1
-					@LastTopicID=a.LastTopicID,
-					@LastPosted=a.LastPosted
-				FROM
-					[{databaseOwner}].[{objectQualifier}Forum] a WITH(NOLOCK)
-					INNER JOIN [{databaseOwner}].[{objectQualifier}ActiveAccess] x WITH(NOLOCK) ON a.ForumID=x.ForumID
-				WHERE
-					(a.IsHidden = 0 or x.ReadAccess <> 0) AND a.ForumID=@ForumID and x.UserID=@UserID
-		END	
-	END
+    -- try to retrieve last direct topic posed in forums if not supplied as argument 
+    if (@LastTopicID is null or @LastPosted is null) BEGIN
+        IF (@UserID IS NULL)
+        BEGIN	
+                SELECT TOP 1 
+                    @LastTopicID=a.LastTopicID,
+                    @LastPosted=a.LastPosted
+                FROM
+                    [{databaseOwner}].[{objectQualifier}Forum] a WITH(NOLOCK)
+                    INNER JOIN [{databaseOwner}].[{objectQualifier}ActiveAccess] x WITH(NOLOCK) ON a.ForumID=x.ForumID
+                WHERE
+                    a.ForumID = @ForumID AND a.IsHidden = 0
+        END			
+        ELSE
+        BEGIN	
+                SELECT TOP 1
+                    @LastTopicID=a.LastTopicID,
+                    @LastPosted=a.LastPosted
+                FROM
+                    [{databaseOwner}].[{objectQualifier}Forum] a WITH(NOLOCK)
+                    INNER JOIN [{databaseOwner}].[{objectQualifier}ActiveAccess] x WITH(NOLOCK) ON a.ForumID=x.ForumID
+                WHERE
+                    (a.IsHidden = 0 or x.ReadAccess <> 0) AND a.ForumID=@ForumID and x.UserID=@UserID
+        END	
+    END
 
-	-- look for newer topic/message in subforums
-	if exists(select 1 from [{databaseOwner}].[{objectQualifier}Forum] where ParentID=@ForumID)
-	begin
-		declare c cursor FORWARD_ONLY READ_ONLY for
-			SELECT
-				a.ForumID,
-				a.LastTopicID,
-				a.LastPosted
-			FROM
-				[{databaseOwner}].[{objectQualifier}Forum] a WITH(NOLOCK)
-				JOIN [{databaseOwner}].[{objectQualifier}ActiveAccess] x WITH(NOLOCK) ON a.ForumID=x.ForumID
-			WHERE
-				a.ParentID=@ForumID and
-				(					
-					(x.UserID=@UserID and ((a.Flags & 2)=0 or x.ReadAccess<>0))
-				)	
-			UNION			
-			SELECT
-				a.ForumID,
-				a.LastTopicID,
-				a.LastPosted
-			FROM
-				[{databaseOwner}].[{objectQualifier}Forum] a WITH(NOLOCK)
-				JOIN [{databaseOwner}].[{objectQualifier}ActiveAccess]x WITH(NOLOCK) ON a.ForumID=x.ForumID
-			WHERE
-				a.ParentID=@ForumID and
-				(					
-					(@UserID is null and (a.Flags & 2)=0)
-				)
-			
-		open c
-		
-		-- cycle through subforums
-		fetch next from c into @SubforumID, @TopicID, @Posted
-		while @@FETCH_STATUS = 0
-		begin
-			-- get last topic/message info for subforum
-			SELECT 
-				@TopicID = LastTopicID,
-				@Posted = LastPosted
-			FROM
-				[{databaseOwner}].[{objectQualifier}forum_lastposted](@SubforumID, @UserID, @TopicID, @Posted)
+    -- look for newer topic/message in subforums
+    if exists(select 1 from [{databaseOwner}].[{objectQualifier}Forum] where ParentID=@ForumID)
+    begin
+        declare c cursor FORWARD_ONLY READ_ONLY for
+            SELECT
+                a.ForumID,
+                a.LastTopicID,
+                a.LastPosted
+            FROM
+                [{databaseOwner}].[{objectQualifier}Forum] a WITH(NOLOCK)
+                JOIN [{databaseOwner}].[{objectQualifier}ActiveAccess] x WITH(NOLOCK) ON a.ForumID=x.ForumID
+            WHERE
+                a.ParentID=@ForumID and
+                (					
+                    (x.UserID=@UserID and ((a.Flags & 2)=0 or x.ReadAccess<>0))
+                )	
+            UNION			
+            SELECT
+                a.ForumID,
+                a.LastTopicID,
+                a.LastPosted
+            FROM
+                [{databaseOwner}].[{objectQualifier}Forum] a WITH(NOLOCK)
+                JOIN [{databaseOwner}].[{objectQualifier}ActiveAccess]x WITH(NOLOCK) ON a.ForumID=x.ForumID
+            WHERE
+                a.ParentID=@ForumID and
+                (					
+                    (@UserID is null and (a.Flags & 2)=0)
+                )
+            
+        open c
+        
+        -- cycle through subforums
+        fetch next from c into @SubforumID, @TopicID, @Posted
+        while @@FETCH_STATUS = 0
+        begin
+            -- get last topic/message info for subforum
+            SELECT 
+                @TopicID = LastTopicID,
+                @Posted = LastPosted
+            FROM
+                [{databaseOwner}].[{objectQualifier}forum_lastposted](@SubforumID, @UserID, @TopicID, @Posted)
 
 
-			-- if subforum has newer topic/message, make it last for parent forum
-			if (@TopicID is not null and @Posted is not null and @LastPosted < @Posted) begin
-				SET @LastTopicID = @TopicID
-				SET @LastPosted = @Posted
-			end
-			-- workaround to avoid logical expressions with NULL possible differences through SQL server versions. 
-			if (@TopicID is not null and @Posted is not null and @LastPosted is null) begin
-				SET @LastTopicID = @TopicID
-				SET @LastPosted = @Posted
-			end	
+            -- if subforum has newer topic/message, make it last for parent forum
+            if (@TopicID is not null and @Posted is not null and @LastPosted < @Posted) begin
+                SET @LastTopicID = @TopicID
+                SET @LastPosted = @Posted
+            end
+            -- workaround to avoid logical expressions with NULL possible differences through SQL server versions. 
+            if (@TopicID is not null and @Posted is not null and @LastPosted is null) begin
+                SET @LastTopicID = @TopicID
+                SET @LastPosted = @Posted
+            end	
 
-			fetch next from c into @SubforumID, @TopicID, @Posted
-		end
-		close c
-		deallocate c
-	end
+            fetch next from c into @SubforumID, @TopicID, @Posted
+        end
+        close c
+        deallocate c
+    end
 
-	-- return id of topic with last message in this forum or its subforums
-	RETURN @LastTopicID
+    -- return id of topic with last message in this forum or its subforums
+    RETURN @LastTopicID
 END
 GO
 
@@ -248,161 +272,161 @@ GO
 CREATE FUNCTION [{databaseOwner}].[{objectQualifier}forum_lastposted] 
 
 (	
-	@ForumID int,
-	@UserID int = null,
-	@LastTopicID int = null,
-	@LastPosted datetime = null
+    @ForumID int,
+    @UserID int = null,
+    @LastTopicID int = null,
+    @LastPosted datetime = null
 )
 RETURNS @LastPostInForum TABLE 
 (
-	LastTopicID int,
-	LastPosted datetime
+    LastTopicID int,
+    LastPosted datetime
 )
 AS
 BEGIN
-	-- local variables for temporary values
-	declare @SubforumID int
-	declare @TopicID int
-	declare @Posted datetime
+    -- local variables for temporary values
+    declare @SubforumID int
+    declare @TopicID int
+    declare @Posted datetime
 
-	-- try to retrieve last direct topic posed in forums if not supplied as argument 
-	if (@LastTopicID is null or @LastPosted is null) BEGIN
-		IF (@UserID IS NULL)
-		BEGIN	
-				SELECT TOP 1 
-					@LastTopicID=a.LastTopicID,
-					@LastPosted=a.LastPosted
-				FROM
-					[{databaseOwner}].[{objectQualifier}Forum] a WITH(NOLOCK)
-					INNER JOIN [{databaseOwner}].[{objectQualifier}ActiveAccess] x WITH(NOLOCK) ON a.ForumID=x.ForumID
-				WHERE
-					a.ForumID = @ForumID AND a.IsHidden = 0
-		END			
-		ELSE
-		BEGIN	
-				SELECT TOP 1
-					@LastTopicID=a.LastTopicID,
-					@LastPosted=a.LastPosted
-				FROM
-					[{databaseOwner}].[{objectQualifier}Forum] a WITH(NOLOCK)
-					INNER JOIN [{databaseOwner}].[{objectQualifier}ActiveAccess] x WITH(NOLOCK) ON a.ForumID=x.ForumID
-				WHERE
-					(a.IsHidden = 0 or x.ReadAccess <> 0) AND a.ForumID=@ForumID and x.UserID=@UserID
-		END	
-	END
+    -- try to retrieve last direct topic posed in forums if not supplied as argument 
+    if (@LastTopicID is null or @LastPosted is null) BEGIN
+        IF (@UserID IS NULL)
+        BEGIN	
+                SELECT TOP 1 
+                    @LastTopicID=a.LastTopicID,
+                    @LastPosted=a.LastPosted
+                FROM
+                    [{databaseOwner}].[{objectQualifier}Forum] a WITH(NOLOCK)
+                    INNER JOIN [{databaseOwner}].[{objectQualifier}ActiveAccess] x WITH(NOLOCK) ON a.ForumID=x.ForumID
+                WHERE
+                    a.ForumID = @ForumID AND a.IsHidden = 0
+        END			
+        ELSE
+        BEGIN	
+                SELECT TOP 1
+                    @LastTopicID=a.LastTopicID,
+                    @LastPosted=a.LastPosted
+                FROM
+                    [{databaseOwner}].[{objectQualifier}Forum] a WITH(NOLOCK)
+                    INNER JOIN [{databaseOwner}].[{objectQualifier}ActiveAccess] x WITH(NOLOCK) ON a.ForumID=x.ForumID
+                WHERE
+                    (a.IsHidden = 0 or x.ReadAccess <> 0) AND a.ForumID=@ForumID and x.UserID=@UserID
+        END	
+    END
 
-	-- look for newer topic/message in subforums
-	if exists(select 1 from [{databaseOwner}].[{objectQualifier}Forum] where ParentID=@ForumID)
+    -- look for newer topic/message in subforums
+    if exists(select 1 from [{databaseOwner}].[{objectQualifier}Forum] where ParentID=@ForumID)
 
-	begin
-		declare c cursor FORWARD_ONLY READ_ONLY for
-			SELECT
-				a.ForumID,
-				a.LastTopicID,
-				a.LastPosted
-			FROM
-				[{databaseOwner}].[{objectQualifier}Forum] a WITH(NOLOCK)
-				JOIN [{databaseOwner}].[{objectQualifier}ActiveAccess] x WITH(NOLOCK) ON a.ForumID=x.ForumID
-			WHERE
-				a.ParentID=@ForumID and
-				(					
-					(x.UserID=@UserID and ((a.Flags & 2)=0 or x.ReadAccess<>0))
-				)	
-			UNION			
-			SELECT
-				a.ForumID,
-				a.LastTopicID,
-				a.LastPosted
-			FROM
-				[{databaseOwner}].[{objectQualifier}Forum] a WITH(NOLOCK)
-				JOIN [{databaseOwner}].[{objectQualifier}ActiveAccess]x WITH(NOLOCK) ON a.ForumID=x.ForumID
-			WHERE
-				a.ParentID=@ForumID and
-				(					
-					(@UserID is null and (a.Flags & 2)=0)
-				)
-			
-		open c
-		
-		-- cycle through subforums
-		fetch next from c into @SubforumID, @TopicID, @Posted
-		while @@FETCH_STATUS = 0
-		begin
-			-- get last topic/message info for subforum
-			SELECT 
-				@TopicID = LastTopicID,
-				@Posted = LastPosted
-			FROM
-				[{databaseOwner}].[{objectQualifier}forum_lastposted](@SubforumID, @UserID, @TopicID, @Posted)
+    begin
+        declare c cursor FORWARD_ONLY READ_ONLY for
+            SELECT
+                a.ForumID,
+                a.LastTopicID,
+                a.LastPosted
+            FROM
+                [{databaseOwner}].[{objectQualifier}Forum] a WITH(NOLOCK)
+                JOIN [{databaseOwner}].[{objectQualifier}ActiveAccess] x WITH(NOLOCK) ON a.ForumID=x.ForumID
+            WHERE
+                a.ParentID=@ForumID and
+                (					
+                    (x.UserID=@UserID and ((a.Flags & 2)=0 or x.ReadAccess<>0))
+                )	
+            UNION			
+            SELECT
+                a.ForumID,
+                a.LastTopicID,
+                a.LastPosted
+            FROM
+                [{databaseOwner}].[{objectQualifier}Forum] a WITH(NOLOCK)
+                JOIN [{databaseOwner}].[{objectQualifier}ActiveAccess]x WITH(NOLOCK) ON a.ForumID=x.ForumID
+            WHERE
+                a.ParentID=@ForumID and
+                (					
+                    (@UserID is null and (a.Flags & 2)=0)
+                )
+            
+        open c
+        
+        -- cycle through subforums
+        fetch next from c into @SubforumID, @TopicID, @Posted
+        while @@FETCH_STATUS = 0
+        begin
+            -- get last topic/message info for subforum
+            SELECT 
+                @TopicID = LastTopicID,
+                @Posted = LastPosted
+            FROM
+                [{databaseOwner}].[{objectQualifier}forum_lastposted](@SubforumID, @UserID, @TopicID, @Posted)
 
 
-			-- if subforum has newer topic/message, make it last for parent forum
-			if (@TopicID is not null and @Posted is not null and @LastPosted < @Posted) begin
-				SET @LastTopicID = @TopicID
-				SET @LastPosted = @Posted
-			end
+            -- if subforum has newer topic/message, make it last for parent forum
+            if (@TopicID is not null and @Posted is not null and @LastPosted < @Posted) begin
+                SET @LastTopicID = @TopicID
+                SET @LastPosted = @Posted
+            end
 
-			fetch next from c into @SubforumID, @TopicID, @Posted
-		end
-		close c
-		deallocate c
-	end
+            fetch next from c into @SubforumID, @TopicID, @Posted
+        end
+        close c
+        deallocate c
+    end
 
-	-- return vector
-	INSERT @LastPostInForum
-	SELECT 
-		@LastTopicID,
-		@LastPosted
-	RETURN
+    -- return vector
+    INSERT @LastPostInForum
+    SELECT 
+        @LastTopicID,
+        @LastPosted
+    RETURN
 END
 GO
 
 CREATE FUNCTION [{databaseOwner}].[{objectQualifier}medal_getribbonsetting]
 (
-	@RibbonURL nvarchar(250),
-	@Flags int,
-	@OnlyRibbon bit
+    @RibbonURL nvarchar(250),
+    @Flags int,
+    @OnlyRibbon bit
 )
 RETURNS bit
 AS
 BEGIN
 
-	if ((@RibbonURL is null) or ((@Flags & 2) = 0)) set @OnlyRibbon = 0
+    if ((@RibbonURL is null) or ((@Flags & 2) = 0)) set @OnlyRibbon = 0
 
-	return @OnlyRibbon
+    return @OnlyRibbon
 
 END
 GO
 
 CREATE FUNCTION [{databaseOwner}].[{objectQualifier}medal_getsortorder]
 (
-	@SortOrder tinyint,
-	@DefaultSortOrder tinyint,
-	@Flags int
+    @SortOrder tinyint,
+    @DefaultSortOrder tinyint,
+    @Flags int
 )
 RETURNS tinyint
 AS
 BEGIN
 
-	if ((@Flags & 8) = 0) set @SortOrder = @DefaultSortOrder
+    if ((@Flags & 8) = 0) set @SortOrder = @DefaultSortOrder
 
-	return @SortOrder
+    return @SortOrder
 
 END
 GO
 
 CREATE FUNCTION [{databaseOwner}].[{objectQualifier}medal_gethide]
 (
-	@Hide bit,
-	@Flags int
+    @Hide bit,
+    @Flags int
 )
 RETURNS bit
 AS
 BEGIN
 
-	if ((@Flags & 4) = 0) set @Hide = 0
+    if ((@Flags & 4) = 0) set @Hide = 0
 
-	return @Hide
+    return @Hide
 
 END
 GO
@@ -414,15 +438,15 @@ GO
 @ShowThanksDate bit
 ) returns VARCHAR(MAX)
 BEGIN
-	DECLARE @Output VARCHAR(MAX)
-		SELECT @Output = COALESCE(@Output+',', '') + CAST(i.ThanksFromUserID AS varchar) + 
-	CASE @ShowThanksDate WHEN 1 THEN ',' + CAST (i.ThanksDate AS varchar)  ELSE '' end
-			FROM	[{databaseOwner}].[{objectQualifier}Thanks] i
-			WHERE	i.MessageID = @MessageID	ORDER BY i.ThanksDate
-	-- Add the last comma if @Output has data.
-	IF @Output <> ''
-		SELECT @Output = @Output + ','
-	RETURN @Output
+    DECLARE @Output VARCHAR(MAX)
+        SELECT @Output = COALESCE(@Output+',', '') + CAST(i.ThanksFromUserID AS varchar) + 
+    CASE @ShowThanksDate WHEN 1 THEN ',' + CAST (i.ThanksDate AS varchar)  ELSE '' end
+            FROM	[{databaseOwner}].[{objectQualifier}Thanks] i
+            WHERE	i.MessageID = @MessageID	ORDER BY i.ThanksDate
+    -- Add the last comma if @Output has data.
+    IF @Output <> ''
+        SELECT @Output = @Output + ','
+    RETURN @Output
 END
 GO
 
@@ -432,15 +456,15 @@ GO
 @ShowThanksDate bit
 ) returns VARCHAR(8000)
 BEGIN
-	DECLARE @Output VARCHAR(8000)
-		SELECT @Output = COALESCE(@Output+',', '') + CAST(i.ThanksFromUserID AS varchar) + 
-	CASE @ShowThanksDate WHEN 1 THEN ',' + CAST (i.ThanksDate AS varchar)  ELSE '' end
-			FROM	[{databaseOwner}].[{objectQualifier}Thanks] i
-			WHERE	i.MessageID = @MessageID	ORDER BY i.ThanksDate
-	-- Add the last comma if @Output has data.
-	IF @Output <> ''
-		SELECT @Output = @Output + ','
-	RETURN @Output
+    DECLARE @Output VARCHAR(8000)
+        SELECT @Output = COALESCE(@Output+',', '') + CAST(i.ThanksFromUserID AS varchar) + 
+    CASE @ShowThanksDate WHEN 1 THEN ',' + CAST (i.ThanksDate AS varchar)  ELSE '' end
+            FROM	[{databaseOwner}].[{objectQualifier}Thanks] i
+            WHERE	i.MessageID = @MessageID	ORDER BY i.ThanksDate
+    -- Add the last comma if @Output has data.
+    IF @Output <> ''
+        SELECT @Output = @Output + ','
+    RETURN @Output
 END
 GO
 
@@ -500,20 +524,20 @@ CREATE FUNCTION [{databaseOwner}].[{objectQualifier}Split]
   , @sDelimiter VARCHAR(8000) = ',' -- delimiter that separates items
 ) RETURNS @List TABLE (item VARCHAR(8000))
 
-	BEGIN
-	DECLARE @sItem VARCHAR(8000)
-	WHILE CHARINDEX(@sDelimiter,@sInputList,0) <> 0
-	 BEGIN
-	 SELECT
-	  @sItem=RTRIM(LTRIM(SUBSTRING(@sInputList,1,CHARINDEX(@sDelimiter,@sInputList,0)-1))),
-	  @sInputList=RTRIM(LTRIM(SUBSTRING(@sInputList,CHARINDEX(@sDelimiter,@sInputList,0)+LEN(@sDelimiter),LEN(@sInputList))))
+    BEGIN
+    DECLARE @sItem VARCHAR(8000)
+    WHILE CHARINDEX(@sDelimiter,@sInputList,0) <> 0
+     BEGIN
+     SELECT
+      @sItem=RTRIM(LTRIM(SUBSTRING(@sInputList,1,CHARINDEX(@sDelimiter,@sInputList,0)-1))),
+      @sInputList=RTRIM(LTRIM(SUBSTRING(@sInputList,CHARINDEX(@sDelimiter,@sInputList,0)+LEN(@sDelimiter),LEN(@sInputList))))
  
-	 IF LEN(@sItem) > 0
-	  INSERT INTO @List SELECT @sItem
-	 END
+     IF LEN(@sItem) > 0
+      INSERT INTO @List SELECT @sItem
+     END
 
-	IF LEN(@sInputList) > 0
-	 INSERT INTO @List SELECT @sInputList -- Put the last item in
-	RETURN
-	END
+    IF LEN(@sInputList) > 0
+     INSERT INTO @List SELECT @sInputList -- Put the last item in
+    RETURN
+    END
 GO
