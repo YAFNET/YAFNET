@@ -64,17 +64,19 @@ namespace YAF.Core.Services
         #region IDigest
 
         /// <summary>
-        /// The get digest html.
+        /// Gets the digest HTML.
         /// </summary>
         /// <param name="userId">The user id.</param>
         /// <param name="boardId">The board id.</param>
+        /// <param name="webServiceToken">The web service token.</param>
         /// <param name="showErrors">if set to <c>true</c> [show errors].</param>
         /// <returns>
         /// The get digest html.
         /// </returns>
-        public string GetDigestHtml(int userId, int boardId, bool showErrors = false)
+        public string GetDigestHtml(int userId, int boardId, string webServiceToken, bool showErrors = false)
         {
-            var request = (HttpWebRequest)WebRequest.Create(this.GetDigestUrl(userId, boardId, showErrors));
+            var request =
+                (HttpWebRequest)WebRequest.Create(this.GetDigestUrl(userId, boardId, webServiceToken, showErrors));
 
             string digestHtml = string.Empty;
 
@@ -91,69 +93,63 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        /// The get digest url.
+        /// Gets the digest URL.
         /// </summary>
         /// <param name="userId">The user id.</param>
         /// <param name="boardId">The board id.</param>
+        /// <param name="webServiceToken">The web service token.</param>
         /// <returns>
         /// The get digest url.
         /// </returns>
-        public string GetDigestUrl(int userId, int boardId)
+        public string GetDigestUrl(int userId, int boardId, string webServiceToken)
         {
             return "{0}{1}{2}?{3}".FormatWith(
                 BaseUrlBuilder.BaseUrl,
                 BaseUrlBuilder.AppPath,
                 "digest.aspx",
-                "token={0}&userid={1}&boardid={2}".FormatWith(
-                    this.Get<YafBoardSettings>().WebServiceToken, userId, boardId));
+                "token={0}&userid={1}&boardid={2}".FormatWith(webServiceToken, userId, boardId));
         }
 
         /// <summary>
-        /// The get digest url.
+        /// Gets the digest URL.
         /// </summary>
         /// <param name="userId">The user id.</param>
         /// <param name="boardId">The board id.</param>
+        /// <param name="webServiceToken">The web service token.</param>
         /// <param name="showErrors">Show errors creating the digest.</param>
         /// <returns>
         /// The get digest url.
         /// </returns>
-        public string GetDigestUrl(int userId, int boardId, bool showErrors)
+        public string GetDigestUrl(int userId, int boardId, string webServiceToken, bool showErrors)
         {
             return "{0}{1}{2}?{3}".FormatWith(
                 BaseUrlBuilder.BaseUrl,
                 BaseUrlBuilder.AppPath,
                 "digest.aspx",
                 "token={0}&userid={1}&boardid={2}&showerror={3}".FormatWith(
-                    this.Get<YafBoardSettings>().WebServiceToken, userId, boardId, showErrors.ToString().ToLower()));
+                    webServiceToken, userId, boardId, showErrors.ToString().ToLower()));
         }
 
         /// <summary>
         /// Sends the digest html to the email/name specified.
         /// </summary>
-        /// <param name="digestHtml">
-        /// The digest html.
-        /// </param>
-        /// <param name="forumName">
-        /// The forum name.
-        /// </param>
-        /// <param name="toEmail">
-        /// The to email.
-        /// </param>
-        /// <param name="toName">
-        /// The to name.
-        /// </param>
-        /// <param name="sendQueued">
-        /// The send queued.
-        /// </param>
+        /// <param name="digestHtml">The digest html.</param>
+        /// <param name="forumName">The forum name.</param>
+        /// <param name="forumEmail">The forum email.</param>
+        /// <param name="toEmail">The to email.</param>
+        /// <param name="toName">The to name.</param>
+        /// <param name="sendQueued">The send queued.</param>
         public void SendDigest(
             [NotNull] string digestHtml,
             [NotNull] string forumName,
+            [NotNull] string forumEmail,
             [NotNull] string toEmail,
             [CanBeNull] string toName,
             bool sendQueued)
         {
             CodeContracts.ArgumentNotNull(digestHtml, "digestHtml");
             CodeContracts.ArgumentNotNull(forumName, "forumName");
+            CodeContracts.ArgumentNotNull(forumEmail, "forumEmail");
             CodeContracts.ArgumentNotNull(toEmail, "toEmail");
 
             string subject = "Active Topics and New Topics on {0}".FormatWith(forumName);
@@ -169,8 +165,8 @@ namespace YAF.Core.Services
             {
                 // queue to send...
                 this.Get<ISendMail>().Queue(
-                    this.Get<YafBoardSettings>().ForumEmail,
-                    this.Get<YafBoardSettings>().Name,
+                    forumEmail,
+                    forumName,
                     toEmail,
                     toName,
                     subject,
@@ -181,8 +177,8 @@ namespace YAF.Core.Services
             {
                 // send direct...
                 this.Get<ISendMail>().Send(
-                    this.Get<YafBoardSettings>().ForumEmail,
-                    this.Get<YafBoardSettings>().Name,
+                    forumEmail,
+                    forumName,
                     toEmail,
                     toName,
                     subject,

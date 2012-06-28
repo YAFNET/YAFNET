@@ -18,80 +18,65 @@
  */
 namespace YAF.Types.Interfaces
 {
-  /// <summary>
-  /// The digest interface
-  /// </summary>
-  public interface IDigest
-  {
-    #region Public Methods
-
-      /// <summary>
-      /// The get digest html.
-      /// </summary>
-      /// <param name="userId">The user id.</param>
-      /// <param name="boardId">The board id.</param>
-      /// <param name="showErrors">if set to <c>true</c> [show errors].</param>
-      /// <returns>
-      /// The get digest html.
-      /// </returns>
-    string GetDigestHtml(int userId, int boardId, bool showErrors = false);
-
     /// <summary>
-    /// The get digest url.
+    /// The digest interface
     /// </summary>
-    /// <param name="userId">
-    /// The user id.
-    /// </param>
-    /// <param name="boardId">
-    /// The board id.
-    /// </param>
-    /// <returns>
-    /// The get digest url.
-    /// </returns>
-    string GetDigestUrl(int userId, int boardId);
+    public interface IDigest
+    {
+        #region Public Methods
 
-    /// <summary>
-    /// The get digest url.
-    /// </summary>
-    /// <param name="userId">
-    /// The user id.
-    /// </param>
-    /// <param name="boardId">
-    /// The board id.
-    /// </param>
-    /// <param name="showErrors">
-    /// Show digest generation errors 
-    /// </param>
-    /// <returns>
-    /// The get digest url.
-    /// </returns>
-    string GetDigestUrl(int userId, int boardId, bool showErrors);
+        /// <summary>
+        /// Gets the digest HTML.
+        /// </summary>
+        /// <param name="userId">The user id.</param>
+        /// <param name="boardId">The board id.</param>
+        /// <param name="webServiceToken">The web service token.</param>
+        /// <param name="showErrors">if set to <c>true</c> [show errors].</param>
+        /// <returns>
+        /// The get digest html.
+        /// </returns>
+        string GetDigestHtml(int userId, int boardId, string webServiceToken, bool showErrors = false);
 
-    /// <summary>
-    /// Sends the digest html to the email/name specified.
-    /// </summary>
-    /// <param name="digestHtml">
-    /// The digest html.
-    /// </param>
-    /// <param name="forumName">
-    /// The forum name.
-    /// </param>
-    /// <param name="toEmail">
-    /// The to email.
-    /// </param>
-    /// <param name="toName">
-    /// The to name.
-    /// </param>
-    /// <param name="sendQueued">
-    /// The send queued.
-    /// </param>
-    void SendDigest(
-      [NotNull] string digestHtml, 
-      [NotNull] string forumName, 
-      [NotNull] string toEmail, 
-      [CanBeNull] string toName, 
-      bool sendQueued);
+        /// <summary>
+        /// Gets the digest URL.
+        /// </summary>
+        /// <param name="userId">The user id.</param>
+        /// <param name="boardId">The board id.</param>
+        /// <param name="webServiceToken">The web service token.</param>
+        /// <returns>
+        /// The get digest url.
+        /// </returns>
+        string GetDigestUrl(int userId, int boardId, string webServiceToken);
 
-    #endregion
-  }
+        /// <summary>
+        /// Gets the digest URL.
+        /// </summary>
+        /// <param name="userId">The user id.</param>
+        /// <param name="boardId">The board id.</param>
+        /// <param name="webServiceToken">The web service token.</param>
+        /// <param name="showErrors">Show digest generation errors</param>
+        /// <returns>
+        /// The get digest url.
+        /// </returns>
+        string GetDigestUrl(int userId, int boardId, string webServiceToken, bool showErrors);
+
+        /// <summary>
+        /// Sends the digest html to the email/name specified.
+        /// </summary>
+        /// <param name="digestHtml">The digest html.</param>
+        /// <param name="forumName">The forum name.</param>
+        /// <param name="forumEmail">The forum email.</param>
+        /// <param name="toEmail">The to email.</param>
+        /// <param name="toName">The to name.</param>
+        /// <param name="sendQueued">The send queued.</param>
+        void SendDigest(
+            [NotNull] string digestHtml,
+            [NotNull] string forumName,
+            [NotNull] string forumEmail,
+            [NotNull] string toEmail,
+            [CanBeNull] string toName,
+            bool sendQueued);
+
+        #endregion
+    }
 }
