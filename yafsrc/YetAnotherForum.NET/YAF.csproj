@@ -97,6 +97,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CookComputing.XmlRpcV2, Version=2.5.0.0, Culture=neutral, PublicKeyToken=a7d6e17aa302004d, processorArchitecture=MSIL">
@@ -2670,6 +2671,7 @@
     <Content Include="pages\admin\topicstatus_import.ascx" />
     <Content Include="pages\admin\users_import.ascx" />
     <Content Include="ReadMe.htm" />
+    <Content Include="resources\css\jquery.hovercard.css" />
     <Content Include="resources\css\jquery.msDropDown.css" />
     <Content Include="resources\css\jquery.notification.css" />
     <Content Include="resources\css\jquery.spellchecker.css" />
@@ -3533,6 +3535,7 @@
     <Content Include="resources\js\DataPanel.js" />
     <Content Include="resources\js\jquery.blockUI.js" />
     <Content Include="resources\js\jquery.ceebox-min.js" />
+    <Content Include="resources\js\jquery.hovercard.js" />
     <Content Include="resources\js\jquery.min.js" />
     <Content Include="resources\js\jquery.msDropDown.js" />
     <Content Include="resources\js\jquery.notification.js" />
@@ -4115,6 +4118,12 @@
     </Compile>
     <Content Include="App_Browsers\w3cvalidator.browser" />
     <Content Include="app.config" />
+    <None Include="BuildScripts\MSBuild.Community.Tasks.Targets">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="BuildScripts\YAF.Package.targets">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="editors\tiny_mce\plugins\spellchecker\classes\EnchantSpell.php" />
     <None Include="editors\tiny_mce\plugins\spellchecker\classes\GoogleSpell.php" />
     <None Include="editors\tiny_mce\plugins\spellchecker\classes\PSpell.php" />
@@ -4726,6 +4735,130 @@
     <Content Include="themes\cleanSlate\vote_refuse.gif" />
     <Content Include="themes\cleanSlate\voting_bar.gif" />
     <Content Include="themes\cleanSlate\cleanslate.js" />
+    <Content Include="themes\Fancy.xml" />
+    <Content Include="themes\Fancy\fonts\entypo-webfont.svg" />
+    <Content Include="themes\Fancy\images\albums.png" />
+    <Content Include="themes\Fancy\images\arrow_up_button.png" />
+    <Content Include="themes\Fancy\images\atomfeed.png" />
+    <Content Include="themes\Fancy\images\bg-input-focus.png" />
+    <Content Include="themes\Fancy\images\bg-input.png" />
+    <Content Include="themes\Fancy\images\ButtonActive.png" />
+    <Content Include="themes\Fancy\images\ButtonHover.png" />
+    <Content Include="themes\Fancy\images\collapse.gif" />
+    <Content Include="themes\Fancy\images\copy_small_icon.png" />
+    <Content Include="themes\Fancy\images\delete_small_icon.gif" />
+    <Content Include="themes\Fancy\images\DownArrow.png" />
+    <Content Include="themes\Fancy\images\DownArrowWhite.png" />
+    <Content Include="themes\Fancy\images\dustbun.gif" />
+    <Content Include="themes\Fancy\images\edit_small_icon.gif" />
+    <Content Include="themes\Fancy\images\error.png" />
+    <Content Include="themes\Fancy\images\expand.gif" />
+    <Content Include="themes\Fancy\images\female.gif" />
+    <Content Include="themes\Fancy\images\folder_stats.gif" />
+    <Content Include="themes\Fancy\images\folder_who.gif" />
+    <Content Include="themes\Fancy\images\FooterBack.png" />
+    <Content Include="themes\Fancy\images\forum.png" />
+    <Content Include="themes\Fancy\images\forum_locked.png" />
+    <Content Include="themes\Fancy\images\forum_new.png" />
+    <Content Include="themes\Fancy\images\handpointer1.png" />
+    <Content Include="themes\Fancy\images\Header2Back.png" />
+    <Content Include="themes\Fancy\images\HeaderBack.png" />
+    <Content Include="themes\Fancy\images\heart_small.png" />
+    <Content Include="themes\Fancy\images\icon_aim.png" />
+    <Content Include="themes\Fancy\images\icon_blog.png" />
+    <Content Include="themes\Fancy\images\icon_digg.png" />
+    <Content Include="themes\Fancy\images\icon_email.png" />
+    <Content Include="themes\Fancy\images\icon_facebook.png" />
+    <Content Include="themes\Fancy\images\icon_facebook2.png" />
+    <Content Include="themes\Fancy\images\icon_file.gif" />
+    <Content Include="themes\Fancy\images\icon_googleplus.png" />
+    <Content Include="themes\Fancy\images\icon_home.png" />
+    <Content Include="themes\Fancy\images\icon_icq.png" />
+    <Content Include="themes\Fancy\images\icon_latest_reply.png" />
+    <Content Include="themes\Fancy\images\icon_linkback.png" />
+    <Content Include="themes\Fancy\images\icon_msn.png" />
+    <Content Include="themes\Fancy\images\icon_newest_reply.png" />
+    <Content Include="themes\Fancy\images\icon_pm.png" />
+    <Content Include="themes\Fancy\images\icon_print.png" />
+    <Content Include="themes\Fancy\images\icon_reddit.png" />
+    <Content Include="themes\Fancy\images\icon_search.png" />
+    <Content Include="themes\Fancy\images\icon_skype.png" />
+    <Content Include="themes\Fancy\images\icon_subforum.png" />
+    <Content Include="themes\Fancy\images\icon_subforum_new.png" />
+    <Content Include="themes\Fancy\images\icon_topiclatestunread_newest.png" />
+    <Content Include="themes\Fancy\images\icon_topic_latestunread.png" />
+    <Content Include="themes\Fancy\images\icon_tumblr.png" />
+    <Content Include="themes\Fancy\images\icon_twitter.png" />
+    <Content Include="themes\Fancy\images\icon_twitter2.png" />
+    <Content Include="themes\Fancy\images\icon_useroffline.png" />
+    <Content Include="themes\Fancy\images\icon_useronline.png" />
+    <Content Include="themes\Fancy\images\icon_xmpp.png" />
+    <Content Include="themes\Fancy\images\icon_yahoo.png" />
+    <Content Include="themes\Fancy\images\LeftArrow.png" />
+    <Content Include="themes\Fancy\images\LeftArrowWhite.png" />
+    <Content Include="themes\Fancy\images\livejournal.png" />
+    <Content Include="themes\Fancy\images\lock_small.png" />
+    <Content Include="themes\Fancy\images\male.gif" />
+    <Content Include="themes\Fancy\images\mask.gif" />
+    <Content Include="themes\Fancy\images\mods_small.gif" />
+    <Content Include="themes\Fancy\images\multipages_small.gif" />
+    <Content Include="themes\Fancy\images\navigation-090-button.png" />
+    <Content Include="themes\Fancy\images\navigation-270-button.png" />
+    <Content Include="themes\Fancy\images\odnoklassniki.png" />
+    <Content Include="themes\Fancy\images\plus_small_icon.png" />
+    <Content Include="themes\Fancy\images\pm_new.png" />
+    <Content Include="themes\Fancy\images\pm_new_reply.png" />
+    <Content Include="themes\Fancy\images\pm_read.png" />
+    <Content Include="themes\Fancy\images\pm_read_reply.png" />
+    <Content Include="themes\Fancy\images\poll_choice.png" />
+    <Content Include="themes\Fancy\images\poll_question.png" />
+    <Content Include="themes\Fancy\images\PostHeader.png" />
+    <Content Include="themes\Fancy\images\ProfileMenu.png" />
+    <Content Include="themes\Fancy\images\Report.png" />
+    <Content Include="themes\Fancy\images\RightArrow.png" />
+    <Content Include="themes\Fancy\images\RightArrowWhite.png" />
+    <Content Include="themes\Fancy\images\rssfeed.gif" />
+    <Content Include="themes\Fancy\images\sandclock.gif" />
+    <Content Include="themes\Fancy\images\sort_down.gif" />
+    <Content Include="themes\Fancy\images\sort_up.gif" />
+    <Content Include="themes\Fancy\images\sprite.png" />
+    <Content Include="themes\Fancy\images\status_fixed.png" />
+    <Content Include="themes\Fancy\images\status_informatic.png" />
+    <Content Include="themes\Fancy\images\status_issue.png" />
+    <Content Include="themes\Fancy\images\status_question.png" />
+    <Content Include="themes\Fancy\images\status_solved.png" />
+    <Content Include="themes\Fancy\images\topic.png" />
+    <Content Include="themes\Fancy\images\topic_announce.png" />
+    <Content Include="themes\Fancy\images\topic_announce_new.png" />
+    <Content Include="themes\Fancy\images\topic_hot.png" />
+    <Content Include="themes\Fancy\images\topic_hot_new.png" />
+    <Content Include="themes\Fancy\images\topic_lock.png" />
+    <Content Include="themes\Fancy\images\topic_lock_new.png" />
+    <Content Include="themes\Fancy\images\topic_moved.png" />
+    <Content Include="themes\Fancy\images\topic_new.png" />
+    <Content Include="themes\Fancy\images\topic_poll.png" />
+    <Content Include="themes\Fancy\images\topic_poll_new.png" />
+    <Content Include="themes\Fancy\images\topic_sticky.png" />
+    <Content Include="themes\Fancy\images\topic_sticky_new.png" />
+    <Content Include="themes\Fancy\images\user-business.png" />
+    <Content Include="themes\Fancy\images\UserSuspended.png" />
+    <Content Include="themes\Fancy\images\users_poll.gif" />
+    <Content Include="themes\Fancy\images\user_rank1.gif" />
+    <Content Include="themes\Fancy\images\user_rank2.gif" />
+    <Content Include="themes\Fancy\images\user_rank3.gif" />
+    <Content Include="themes\Fancy\images\vkontakte.png" />
+    <Content Include="themes\Fancy\images\VoteDown.png" />
+    <Content Include="themes\Fancy\images\VoteUp.png" />
+    <Content Include="themes\Fancy\images\vote_lcap.gif" />
+    <Content Include="themes\Fancy\images\vote_rcap.gif" />
+    <Content Include="themes\Fancy\images\vote_refuse.gif" />
+    <Content Include="themes\Fancy\images\voting_bar.gif" />
+    <Content Include="themes\Fancy\js\Fancy.js" />
+    <Content Include="themes\Fancy\js\jquery.ddslick.js" />
+    <Content Include="themes\Fancy\js\jquery.tipTip.minified.js" />
+    <Content Include="themes\Fancy\js\jquery.uniform.min.js" />
+    <Content Include="themes\Fancy\theme.css" />
+    <Content Include="themes\Fancy\uniform.default.css" />
     <Content Include="themes\GreenGrey.xml" />
     <Content Include="themes\GreenGrey\albums.png" />
     <Content Include="themes\GreenGrey\arrow_up_button.png" />
@@ -5472,6 +5605,9 @@
     <Content Include="themes\yafvision\VoteUp.png" />
     <Content Include="themes\yafvision\vote_refuse.gif" />
     <Content Include="themes\yafvision\yafvision.js" />
+    <None Include="themes\Fancy\fonts\entypo-webfont.eot" />
+    <None Include="themes\Fancy\fonts\entypo-webfont.ttf" />
+    <None Include="themes\Fancy\fonts\entypo-webfont.woff" />
     <None Include="Web References\RegisterV2\LatestVersionInformation.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
@@ -5710,4 +5846,12 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <PropertyGroup>
+    <Extension>zip</Extension>
+    <PackageName>YAF</PackageName>
+    <MSBuildCommunityTasksPath>$(MSBuildProjectDirectory)\BuildScripts</MSBuildCommunityTasksPath>
+  </PropertyGroup>
+  <Import Project="BuildScripts\YAF.Package.Targets" />
+  <Target Name="AfterBuild" DependsOnTargets="PackageModule">
+  </Target>
 </Project>

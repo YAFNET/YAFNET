@@ -28,6 +28,7 @@ namespace YAF.Classes
     using System.Linq;
     using System.Net;
     using System.Text;
+    using System.Web;
     using System.Web.Script.Serialization;
     using System.Web.Script.Services;
     using System.Web.Security;
@@ -349,8 +350,12 @@ namespace YAF.Classes
                 return username.IsNotSet()
                            ? null
                            : YafThankYou.CreateThankYou(
-                               username, "BUTTON_THANKSDELETE", "BUTTON_THANKSDELETE_TT", messageId);
+                               this.Get<HttpServerUtilityBase>().HtmlEncode(username),
+                               "BUTTON_THANKSDELETE",
+                               "BUTTON_THANKSDELETE_TT",
+                               messageId);
             }
+
             return null;
         }
 

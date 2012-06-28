@@ -1282,6 +1282,24 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox EnableTopicStatus;
         
         /// <summary>
+        /// HelpLabel218 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel218;
+        
+        /// <summary>
+        /// EnableUserInfoHoverCards control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox EnableUserInfoHoverCards;
+        
+        /// <summary>
         /// LocalizedLabel23 control.
         /// </summary>
         /// <remarks>

@@ -1,0 +1,24 @@
+.hc-preview { position: relative; display:inline; }
+.hc-name { position:relative;  display:inline-block!important;float:none!important;cursor:pointer; z-index:50}
+.hc-details { left:-10px;top:-10px; margin-right:80px; text-align:left; font-family:Sans-serif !important; font-size:12px !important; color:#666 !important; line-height:1.5em; position:absolute;padding:2em 10px 10px;display:none;-moz-box-shadow: rgba(42, 73, 133, 0.4) 0 4px 12px 0, rgba(255, 255, 255, 0.506) 0 1px 0 0 inset;-webkit-box-shadow: rgba(42, 73, 133, 0.4) 0 4px 12px 0, rgba(255, 255, 255, 0.506) 0 1px 0 0 inset;box-shadow: rgba(42, 73, 133, 0.4) 0 4px 12px 0, rgba(255, 255, 255, 0.506) 0 1px 0 0 inset;border:solid 1px #ddd;z-index:100;}
+.hc-pic { width:70px; margin-top:-1em; float:right;}
+.hc-details-open-left { left: auto; right:-10px; margin-left:80px; margin-right:0; } 
+.hc-details-open-left > .hc-pic { float:left; } 
+.hc-details-open-top { bottom:-10px; top:auto; padding: 10px 10px 2em;} 
+.hc-details-open-top > .hc-pic { margin-top:10px; float:right;  }
+.hc-details .s-action{ position: absolute; top:5px; right:8px; } 
+.hc-details-open-left .s-action{ top:5px; left:8px;right:auto; } 
+.hc-details-open-top .s-action{ top:auto; bottom:5px; right:8px; } 
+.hc-details .s-card-pad{ border-top: solid 1px #eee; margin-top:10px; padding-top:10px; overflow:hidden; } 
+.hc-details-open-top .s-card-pad { border:none; border-bottom: solid 1px #eee; margin-top:0;padding-top:0; margin-bottom:10px;padding-bottom:10px; }
+.hc-details .s-card .s-strong{ font-weight:bold; color: #555; } 
+.hc-details .s-img{ float: left; margin-right: 10px; max-width: 70px;} 
+.hc-details .s-name{ color:#222; font-weight:bold;} 
+.hc-details .s-loc{ float:left;}
+.hc-details .s-href{ clear:both; float:left;} 
+.hc-details .s-desc{ float:left; font-family: Georgia; font-style: italic; margin-top:5px;width:100%;} 
+.hc-details .s-username{ text-decoration:none;} 
+.hc-details .s-stats { display:block;float:left; margin-top:5px; clear:both;padding:0;}
+.hc-details ul.s-stats li{ list-style:none; float:left; display:block; padding:0px 10px !important;margin:0; border-left:solid 1px #eaeaea;} 
+.hc-details ul.s-stats li:first-child{ border:none; padding-left:0px!important;} 
+.hc-details .s-count { font-weight: bold;}

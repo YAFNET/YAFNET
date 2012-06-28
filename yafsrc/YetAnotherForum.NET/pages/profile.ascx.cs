@@ -20,11 +20,11 @@
 
 namespace YAF.Pages
 {
-    // YAF.Pages
     #region Using
 
     using System;
     using System.Data;
+    using System.Text;
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.UI.WebControls;
@@ -47,15 +47,6 @@ namespace YAF.Pages
     /// </summary>
     public partial class profile : ForumPage
     {
-        #region Constants and Fields
-
-        /// <summary>
-        ///   The forum access.
-        /// </summary>
-        protected Repeater ForumAccess;
-
-        #endregion
-
         #region Constructors and Destructors
 
         /// <summary>
@@ -127,8 +118,7 @@ namespace YAF.Pages
                 {
                     // Check if a user have permissions to have albums, even if he has no albums at all.
                     var usrAlbums =
-                      LegacyDb.user_getalbumsdata(albumUser, YafContext.Current.PageBoardID).GetFirstRowColumnAsValue<int?>(
-                        "UsrAlbums", null);
+                        LegacyDb.user_getalbumsdata(albumUser, YafContext.Current.PageBoardID).GetFirstRowColumnAsValue<int?>("UsrAlbums", null);
 
                     if (usrAlbums.HasValue && usrAlbums > 0)
                     {
@@ -167,13 +157,15 @@ namespace YAF.Pages
             YafContext.Current.PageElements.RegisterJQueryUI();
 
             YafContext.Current.PageElements.RegisterJsBlock(
-              "ProfileTabsJs", JavaScriptBlocks.JqueryUITabsLoadJs(this.ProfileTabs.ClientID, this.hidLastTab.ClientID, true));
+                "ProfileTabsJs",
+                JavaScriptBlocks.JqueryUITabsLoadJs(this.ProfileTabs.ClientID, this.hidLastTab.ClientID, true));
 
             // Setup Syntax Highlight JS
-            YafContext.Current.PageElements.RegisterJsResourceInclude("syntaxhighlighter", "js/jquery.syntaxhighligher.js");
+            YafContext.Current.PageElements.RegisterJsResourceInclude(
+                "syntaxhighlighter", "js/jquery.syntaxhighligher.js");
             YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.syntaxhighligher.css");
             YafContext.Current.PageElements.RegisterJsBlockStartup(
-              "syntaxhighlighterjs", JavaScriptBlocks.SyntaxHighlightLoadJs);
+                "syntaxhighlighterjs", JavaScriptBlocks.SyntaxHighlightLoadJs);
 
             base.OnPreRender(e);
         }
@@ -248,14 +240,10 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The lnk_ add buddy.
+        /// The add buddy.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Web.UI.WebControls.CommandEventArgs"/> instance containing the event data.</param>
         protected void lnk_AddBuddy([NotNull] object sender, [NotNull] CommandEventArgs e)
         {
             if (e.CommandArgument.ToString() == "addbuddy")
@@ -269,7 +257,7 @@ namespace YAF.Pages
                 if (Convert.ToBoolean(strBuddyRequest[1]))
                 {
                     this.PageContext.AddLoadMessage(
-                      this.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL").FormatWith(strBuddyRequest[0]));
+                        this.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL").FormatWith(strBuddyRequest[0]));
                 }
                 else
                 {
@@ -281,8 +269,7 @@ namespace YAF.Pages
             else
             {
                 this.PageContext.AddLoadMessage(
-                  this.GetText("REMOVEBUDDY_NOTIFICATION").FormatWith(
-                    this.Get<IBuddy>().Remove(this.UserId)));
+                    this.GetText("REMOVEBUDDY_NOTIFICATION").FormatWith(this.Get<IBuddy>().Remove(this.UserId)));
             }
 
             this.BindData();
@@ -291,12 +278,8 @@ namespace YAF.Pages
         /// <summary>
         /// The lnk_ view thanks.
         /// </summary>
-        /// <param name="sender">
-        /// the sender.
-        /// </param>
-        /// <param name="e">
-        /// the e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Web.UI.WebControls.CommandEventArgs"/> instance containing the event data.</param>
         protected void lnk_ViewThanks([NotNull] object sender, [NotNull] CommandEventArgs e)
         {
             YafBuildLink.Redirect(ForumPages.viewthanks, "u={0}", this.UserId);
@@ -313,8 +296,10 @@ namespace YAF.Pages
             this.PageLinks.Clear();
             this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
             this.PageLinks.AddLink(
-              this.GetText("MEMBERS"),
-              this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().MembersListViewPermissions) ? YafBuildLink.GetLink(ForumPages.members) : null);
+                this.GetText("MEMBERS"),
+                this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().MembersListViewPermissions)
+                    ? YafBuildLink.GetLink(ForumPages.members)
+                    : null);
             this.PageLinks.AddLink(userDisplayName, string.Empty);
         }
 
@@ -327,11 +312,12 @@ namespace YAF.Pages
 
             if (user == null || user.ProviderUserKey.ToString() == "0")
             {
-                YafBuildLink.AccessDenied(/*No such user exists or this is an nntp user ("0") */);
+                // No such user exists or this is an nntp user ("0")
+                YafBuildLink.AccessDenied();
             }
 
             var userData = new CombinedUserDataHelper(user, this.UserId);
-           
+
             // populate user information controls...      
             // Is BuddyList feature enabled?
             if (this.Get<YafBoardSettings>().EnableBuddyList)
@@ -355,7 +341,6 @@ namespace YAF.Pages
                 this.AlbumList1.Dispose();
             }
 
-            
             this.SetupUserProfileInfo(this.UserId, user, userData, userData.DisplayName);
 
             this.AddPageLinks(userData.DisplayName);
@@ -377,8 +362,16 @@ namespace YAF.Pages
             if (this.LastPosts.Visible)
             {
                 this.LastPosts.DataSource =
-                  LegacyDb.post_alluser(this.PageContext.PageBoardID, this.UserId, this.PageContext.PageUserID, 10).AsEnumerable();
-                this.SearchUser.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.search, "postedby={0}", this.Get<YafBoardSettings>().EnableDisplayName ? userData.DisplayName :userData.UserName);
+                    LegacyDb.post_alluser(
+                    this.PageContext.PageBoardID, 
+                    this.UserId, 
+                    this.PageContext.PageUserID, 
+                    10).AsEnumerable();
+
+                this.SearchUser.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+                    ForumPages.search,
+                    "postedby={0}",
+                    this.Get<YafBoardSettings>().EnableDisplayName ? userData.DisplayName : userData.UserName);
             }
 
             this.DataBind();
@@ -403,11 +396,11 @@ namespace YAF.Pages
             {
                 // Took out PageContext.BoardSettings.AvatarRemote
                 this.Avatar.ImageUrl =
-                  "{3}resource.ashx?url={0}&width={1}&height={2}".FormatWith(
-                    this.Server.UrlEncode(userData.Avatar),
-                    this.Get<YafBoardSettings>().AvatarWidth,
-                    this.Get<YafBoardSettings>().AvatarHeight,
-                    YafForumInfo.ForumClientFileRoot);
+                    "{3}resource.ashx?url={0}&width={1}&height={2}".FormatWith(
+                        this.Server.UrlEncode(userData.Avatar),
+                        this.Get<YafBoardSettings>().AvatarWidth,
+                        this.Get<YafBoardSettings>().AvatarHeight,
+                        YafForumInfo.ForumClientFileRoot);
             }
             else
             {
@@ -439,8 +432,7 @@ namespace YAF.Pages
                 this.lnkBuddy.Text = "({0})".FormatWith(this.GetText("BUDDY", "REMOVEBUDDY"));
                 this.lnkBuddy.CommandArgument = "removebuddy";
                 this.lnkBuddy.Attributes["onclick"] =
-                  "return confirm('{0}')".FormatWith(
-                    this.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE"));
+                    "return confirm('{0}')".FormatWith(this.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE"));
             }
             else if (this.Get<IBuddy>().IsBuddy((int)userData.DBRow["userID"], false))
             {
@@ -468,7 +460,7 @@ namespace YAF.Pages
         /// <param name="userData">
         /// The user data.
         /// </param>
-        private void SetupUserLinks([NotNull] CombinedUserDataHelper userData)
+        private void SetupUserLinks([NotNull] IUserData userData)
         {
             string userName = userData.UserName;
 
@@ -486,7 +478,8 @@ namespace YAF.Pages
 
             if (userData.Profile.Facebook.IsSet())
             {
-                this.Facebook.NavigateUrl = "https://www.facebook.com/profile.php?id={0}".FormatWith(userData.Profile.Facebook);
+                this.Facebook.NavigateUrl =
+                    "https://www.facebook.com/profile.php?id={0}".FormatWith(userData.Profile.Facebook);
             }
 
             this.Facebook.ParamTitle0 = userName;
@@ -500,12 +493,14 @@ namespace YAF.Pages
                 return;
             }
 
-            this.PM.Visible = !userData.IsGuest && this.User != null && this.Get<YafBoardSettings>().AllowPrivateMessages;
+            this.PM.Visible = !userData.IsGuest && this.User != null
+                              && this.Get<YafBoardSettings>().AllowPrivateMessages;
             this.PM.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", userData.UserID);
             this.PM.ParamTitle0 = userName;
 
             // email link
-            this.Email.Visible = !userData.IsGuest && this.User != null && this.Get<YafBoardSettings>().AllowEmailSending;
+            this.Email.Visible = !userData.IsGuest && this.User != null
+                                 && this.Get<YafBoardSettings>().AllowEmailSending;
             this.Email.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", userData.UserID);
             if (this.PageContext.IsAdmin)
             {
@@ -555,10 +550,7 @@ namespace YAF.Pages
         /// The user display name.
         /// </param>
         private void SetupUserProfileInfo(
-          int userID,
-          [NotNull] MembershipUser user,
-          [NotNull] CombinedUserDataHelper userData,
-          [NotNull] string userDisplayName)
+            int userID, [NotNull] MembershipUser user, [NotNull] IUserData userData, [NotNull] string userDisplayName)
         {
             this.UserLabel1.UserID = userData.UserID;
 
@@ -571,7 +563,8 @@ namespace YAF.Pages
                 this.Name.Text = this.HtmlEncode(userDisplayName);
             }
 
-            this.Joined.Text = "{0}".FormatWith(this.Get<IDateTime>().FormatDateLong(Convert.ToDateTime(userData.Joined)));
+            this.Joined.Text =
+                "{0}".FormatWith(this.Get<IDateTime>().FormatDateLong(Convert.ToDateTime(userData.Joined)));
 
             // vzrus: Show last visit only to admins if user is hidden
             if (!this.PageContext.IsAdmin && Convert.ToBoolean(userData.DBRow["IsActiveExcluded"]))
@@ -600,7 +593,9 @@ namespace YAF.Pages
             if (this.User != null && !string.IsNullOrEmpty(userData.Profile.Country.Trim()))
             {
                 this.CountryTR.Visible = true;
-                this.CountryLabel.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(this.GetText("COUNTRY", userData.Profile.Country.Trim())));
+                this.CountryLabel.Text =
+                    this.HtmlEncode(
+                        this.Get<IBadWordReplace>().Replace(this.GetText("COUNTRY", userData.Profile.Country.Trim())));
 
                 this.CountryFlagImage.Src = this.Get<ITheme>().GetItem(
                     "FLAGS",
@@ -617,12 +612,14 @@ namespace YAF.Pages
 
                 try
                 {
-                    var tag = "RGN_{0}_{1}".FormatWith(
-                        !string.IsNullOrEmpty(userData.Profile.Country.Trim())
-                            ? userData.Profile.Country.Trim()
-                            : this.Get<ILocalization>().Culture.Name.Remove(0, 3).ToUpperInvariant(),
-                        userData.Profile.Region);
-                    this.RegionLabel.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(this.GetText("REGION", tag)));
+                    var tag =
+                        "RGN_{0}_{1}".FormatWith(
+                            !string.IsNullOrEmpty(userData.Profile.Country.Trim())
+                                ? userData.Profile.Country.Trim()
+                                : this.Get<ILocalization>().Culture.Name.Remove(0, 3).ToUpperInvariant(),
+                            userData.Profile.Region);
+                    this.RegionLabel.Text =
+                        this.HtmlEncode(this.Get<IBadWordReplace>().Replace(this.GetText("REGION", tag)));
                 }
                 catch (Exception)
                 {
@@ -645,13 +642,15 @@ namespace YAF.Pages
             if (this.User != null && !string.IsNullOrEmpty(userData.Profile.RealName))
             {
                 this.RealNameTR.Visible = true;
-                this.RealName.InnerHtml = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.RealName));
+                this.RealName.InnerText = this.HtmlEncode(
+                    this.Get<IBadWordReplace>().Replace(userData.Profile.RealName));
             }
 
             if (this.User != null && !string.IsNullOrEmpty(userData.Profile.Interests))
             {
                 this.InterestsTR.Visible = true;
-                this.Interests.InnerHtml = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.Interests));
+                this.Interests.InnerText =
+                    this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.Interests));
             }
 
             if (this.User != null && (userData.Profile.Gender > 0))
@@ -660,28 +659,31 @@ namespace YAF.Pages
                 string imageAlt = string.Empty;
 
                 this.GenderTR.Visible = true;
-                 switch (userData.Profile.Gender)
-                 {
+                switch (userData.Profile.Gender)
+                {
                     case 1:
                         imagePath = this.PageContext.Get<ITheme>().GetItem("ICONS", "GENDER_MALE", null);
                         imageAlt = this.GetText("USERGENDER_MAS");
                         break;
-                     case 2:
-                         imagePath = this.PageContext.Get<ITheme>().GetItem("ICONS", "GENDER_FEMALE", null);
-                         imageAlt = this.GetText("USERGENDER_FEM");
-                         break;
-                 }
+                    case 2:
+                        imagePath = this.PageContext.Get<ITheme>().GetItem("ICONS", "GENDER_FEMALE", null);
+                        imageAlt = this.GetText("USERGENDER_FEM");
+                        break;
+                }
 
-                 this.Gender.InnerHtml = @"<a><img src=""{0}"" alt=""{1}"" title=""{1}"" /></a>&nbsp;{1}".FormatWith(imagePath, imageAlt);
+                this.Gender.InnerHtml =
+                    @"<a><img src=""{0}"" alt=""{1}"" title=""{1}"" /></a>&nbsp;{1}".FormatWith(imagePath, imageAlt);
             }
 
             if (this.User != null && !string.IsNullOrEmpty(userData.Profile.Occupation))
             {
                 this.OccupationTR.Visible = true;
-                this.Occupation.InnerHtml = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.Occupation));
+                this.Occupation.InnerText =
+                    this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.Occupation));
             }
 
-            this.ThanksFrom.Text = LegacyDb.user_getthanks_from(userData.DBRow["userID"], this.PageContext.PageUserID).ToString();
+            this.ThanksFrom.Text =
+                LegacyDb.user_getthanks_from(userData.DBRow["userID"], this.PageContext.PageUserID).ToString();
             int[] thanksToArray = LegacyDb.user_getthanks_to(userData.DBRow["userID"], this.PageContext.PageUserID);
             this.ThanksToTimes.Text = thanksToArray[0].ToString();
             this.ThanksToPosts.Text = thanksToArray[1].ToString();
@@ -725,16 +727,66 @@ namespace YAF.Pages
                 this.lblyim.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.YIM));
             }
 
+            var loadHoverCardJs = false;
+
             if (this.User != null && !string.IsNullOrEmpty(userData.Profile.Facebook))
             {
                 this.FacebookTR.Visible = true;
                 this.lblfacebook.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.Facebook));
+
+                if (this.Get<YafBoardSettings>().EnableUserInfoHoverCards)
+                {
+                    this.lblfacebook.Attributes.Add("data-hovercard", this.lblfacebook.Text);
+                    this.Facebook.Attributes.Add("data-hovercard", this.lblfacebook.Text);
+
+                    this.lblfacebook.CssClass += " Facebook-HoverCard";
+                    this.Facebook.CssClass += " Facebook-HoverCard";
+
+                    loadHoverCardJs = true;
+                }
             }
 
             if (this.User != null && !string.IsNullOrEmpty(userData.Profile.Twitter))
             {
                 this.TwitterTR.Visible = true;
                 this.lbltwitter.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.Twitter));
+
+                if (this.Get<YafBoardSettings>().EnableUserInfoHoverCards)
+                {
+                    this.lbltwitter.Attributes.Add("data-hovercard", this.lbltwitter.Text);
+                    this.Twitter.Attributes.Add("data-hovercard", this.lbltwitter.Text);
+
+                    this.lbltwitter.CssClass += " Twitter-HoverCard";
+                    this.Twitter.CssClass += " Twitter-HoverCard";
+
+                    loadHoverCardJs = true;
+                }
+            }
+
+            if (loadHoverCardJs && this.Get<YafBoardSettings>().EnableUserInfoHoverCards)
+            {
+                var hoverCardLoadJs = new StringBuilder();
+
+                YafContext.Current.PageElements.RegisterJsResourceInclude("hovercard", "js/jquery.hovercard.js");
+                YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.hovercard.css");
+
+                hoverCardLoadJs.Append(
+                    JavaScriptBlocks.HoverCardLoadJs(
+                        ".Facebook-HoverCard",
+                        "Facebook",
+                        this.GetText("DEFAULT", "LOADING_FB_HOVERCARD"),
+                        this.GetText("DEFAULT", "ERROR_FB_HOVERCARD")));
+
+                hoverCardLoadJs.Append(
+                    JavaScriptBlocks.HoverCardLoadJs(
+                        ".Twitter-HoverCard",
+                        "Twitter",
+                        this.GetText("DEFAULT", "LOADING_TWIT_HOVERCARD"),
+                        this.GetText("DEFAULT", "ERROR_TWIT_HOVERCARD")));
+
+                // Setup Hover Card JS
+                YafContext.Current.PageElements.RegisterJsBlockStartup(
+                    "hovercardtwitterfacebookjs", hoverCardLoadJs.ToString());
             }
 
             if (this.User != null && userData.Profile.Birthday != DateTime.MinValue)
@@ -762,14 +814,15 @@ namespace YAF.Pages
 
             if (userData.DBRow["NumPostsForum"].ToType<int>() > 0)
             {
-                allPosts = 100.0 * userData.DBRow["NumPosts"].ToType<int>() /
-                           userData.DBRow["NumPostsForum"].ToType<int>();
+                allPosts = 100.0 * userData.DBRow["NumPosts"].ToType<int>()
+                           / userData.DBRow["NumPostsForum"].ToType<int>();
             }
 
             this.Stats.InnerHtml = "{0:N0}<br />[{1} / {2}]".FormatWith(
                 userData.DBRow["NumPosts"],
                 this.GetTextFormatted("NUMALL", allPosts),
-                this.GetTextFormatted("NUMDAY", (double)userData.DBRow["NumPosts"].ToType<int>() / userData.DBRow["NumDays"].ToType<int>()));
+                this.GetTextFormatted(
+                    "NUMDAY", (double)userData.DBRow["NumPosts"].ToType<int>() / userData.DBRow["NumDays"].ToType<int>()));
         }
 
         #endregion

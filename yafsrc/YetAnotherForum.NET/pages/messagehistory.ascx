@@ -2,6 +2,7 @@
 <%@ Import Namespace="YAF.Core" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Utils" %>
+<%@ Import Namespace="YAF.Utils.Helpers" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
     <tr>
@@ -36,11 +37,11 @@
                     </strong>
                     <%# Container.DataItemToField<string>("EditReason").IsNotSet() ? this.GetText("EDIT_REASON_NA") : Container.DataItemToField<string>("EditReason") %>
                     <br />
-                    <span id="IPSpan1" runat="server" visible='<%# PageContext.IsAdmin || (PageContext.BoardSettings.AllowModeratorsViewIPs && PageContext.IsModerator)%>'>
+                    <span id="IPSpan1" runat="server" visible='<%# PageContext.IsAdmin || (this.Get<YafBoardSettings>().AllowModeratorsViewIPs && PageContext.ForumModeratorAccess)%>'>
                         <strong>
-                            <%# this.GetText("IP") %>:</strong><a id="IPLink1" href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL, YAF.Utils.Helpers.IPHelper.GetIp4Address(Container.DataItemToField<string>("IP"))) %>'
+                            <%# this.GetText("IP") %>:</strong><a id="IPLink1" href='<%# this.Get<YafBoardSettings>().IPInfoPageURL.FormatWith(IPHelper.GetIp4Address(Container.DataItemToField<string>("IP"))) %>'
                                 title='<%# this.GetText("COMMON","TT_IPDETAILS") %>'
-                                target="_blank" runat="server"><%# YAF.Utils.Helpers.IPHelper.GetIp4Address(Container.DataItemToField<string>("IP")) %></a>
+                                target="_blank" runat="server"><%# IPHelper.GetIp4Address(Container.DataItemToField<string>("IP")) %></a>
                     </span>
                 </td>
             </tr>
@@ -56,15 +57,15 @@
                     <strong>
                         <YAF:UserLink ID="UserLink1" runat="server" UserID='<%# Container.DataItemToField<int>("UserID") %>' />
                     </strong>
-                    <YAF:OnlineStatusImage ID="OnlineStatusImage" runat="server" Visible='<%# PageContext.BoardSettings.ShowUserOnlineStatus && !UserMembershipHelper.IsGuestUser( Container.DataItemToField<int>("UserID") )%>'
+                    <YAF:OnlineStatusImage ID="OnlineStatusImage" runat="server" Visible='<%# this.Get<YafBoardSettings>().ShowUserOnlineStatus && !UserMembershipHelper.IsGuestUser( Container.DataItemToField<int>("UserID") )%>'
                         Style="vertical-align: bottom" UserID='<%# Container.DataItemToField<int>("UserID") %>' />
                     &nbsp; <strong>
                         <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="POSTED" />
                     </strong>
                     <%# this.Get<IDateTime>().FormatDateTimeTopic( Container.DataItemToField<DateTime>("Posted") )%>
-                    &nbsp; <span id="IPSpan2" runat="server" visible='<%# PageContext.IsAdmin || (PageContext.BoardSettings.AllowModeratorsViewIPs && PageContext.IsModerator)%>'>
+                    &nbsp; <span id="IPSpan2" runat="server" visible='<%# PageContext.IsAdmin || (this.Get<YafBoardSettings>().AllowModeratorsViewIPs && PageContext.IsModeratorInAnyForum)%>'>
                         <strong>
-                            <%# this.GetText("IP") %>: </strong><a id="IPLink2" href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,YAF.Utils.Helpers.IPHelper.GetIp4Address(Container.DataItemToField<string>("IP"))) %>'
+                            <%# this.GetText("IP") %>: </strong><a id="IPLink2" href='<%# this.Get<YafBoardSettings>().IPInfoPageURL.FormatWith(YAF.Utils.Helpers.IPHelper.GetIp4Address(Container.DataItemToField<string>("IP"))) %>'
                                 title='<%# this.GetText("COMMON","TT_IPDETAILS") %>'
                                 target="_blank" runat="server"><%# YAF.Utils.Helpers.IPHelper.GetIp4Address(Container.DataItemToField<string>("IP")) %></a>
                     </span>
@@ -73,7 +74,7 @@
             <tr>
                 <td class="post" colspan="2" align="center">
                     <YAF:MessagePostData ID="MessagePostPrimary" runat="server" ShowAttachments="false"
-                        ShowSignature="false" DataRow="<%# PageContext.IsAdmin || PageContext.IsModerator ? Container.DataItem : null %>">
+                        ShowSignature="false" DataRow="<%# PageContext.IsAdmin || PageContext.IsModeratorInAnyForum ? Container.DataItem : null %>">
                     </YAF:MessagePostData>
                 </td>
             </tr>
@@ -113,9 +114,9 @@
                             LocalizedTag="EDITREASON" />                   
                     <%# Container.DataItemToField<string>("EditReason").IsNotSet() ? this.GetText("EDIT_REASON_NA") : Container.DataItemToField<string>("EditReason") %>
                     <br />
-                    <span id="IPSpan3" runat="server" visible='<%# PageContext.IsAdmin || (PageContext.BoardSettings.AllowModeratorsViewIPs && PageContext.IsModerator)%>'>
+                    <span id="IPSpan3" runat="server" visible='<%# PageContext.IsAdmin || (this.Get<YafBoardSettings>().AllowModeratorsViewIPs && PageContext.IsModeratorInAnyForum)%>'>
                         <strong>
-                            <%# this.GetText("IP") %>: </strong><a id="IPLink3" href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,YAF.Utils.Helpers.IPHelper.GetIp4Address(Container.DataItemToField<string>("IP"))) %>'
+                            <%# this.GetText("IP") %>: </strong><a id="IPLink3" href='<%# this.Get<YafBoardSettings>().IPInfoPageURL.FormatWith(YAF.Utils.Helpers.IPHelper.GetIp4Address(Container.DataItemToField<string>("IP"))) %>'
                                 title='<%# this.GetText("COMMON","TT_IPDETAILS") %>'
                                 target="_blank" runat="server"><%# YAF.Utils.Helpers.IPHelper.GetIp4Address(Container.DataItemToField<string>("IP")) %></a>
                     </span>
@@ -125,7 +126,7 @@
             <tr>
                 <td class="post" colspan="2" align="center">
                     <YAF:MessagePostData ID="MessagePostCurrent" runat="server" ShowAttachments="false"
-                        ShowSignature="false" DataRow="<%# PageContext.IsAdmin || PageContext.IsModerator ? Container.DataItem : null %>">
+                        ShowSignature="false" DataRow="<%# PageContext.IsAdmin || PageContext.IsModeratorInAnyForum ? Container.DataItem : null %>">
                     </YAF:MessagePostData>
                 </td>
             </tr>

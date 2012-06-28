@@ -169,7 +169,7 @@ namespace YAF.Controls
                             YafBuildLink.GetLink(ForumPages.admin_admin), this.GetText("TOOLBAR", "ADMIN")));
                 }
 
-                if (this.PageContext.IsModerator || this.PageContext.IsForumModerator)
+                if (this.PageContext.IsModeratorInAnyForum)
                 {
                     buildHeader.AppendFormat(
                         "	<a href=\"{0}\">{1}</a> | ".FormatWith(
@@ -271,8 +271,8 @@ namespace YAF.Controls
             }
 
             buildHeader.ToString().TrimEnd(' ', '|');
-            buildHeader.AppendFormat("</td></tr></table>");
-            buildHeader.AppendFormat("<br />");
+            buildHeader.Append("</td></tr></table>");
+            buildHeader.Append("<br />");
 
             // END HEADER
             writer.Write(buildHeader);

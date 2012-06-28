@@ -751,6 +751,8 @@ namespace YAF.DotNetNuke
                                    ? currentRow["LastUserDisplayName"].ToString()
                                    : currentRow["LastUserName"].ToString();
 
+                userName = this.HtmlEncode(userName);
+
                 var lastUserLink = new HyperLink
                     {
                         Text = userName,

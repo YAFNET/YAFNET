@@ -47,14 +47,10 @@ namespace YAF.Controls
     #region Methods
 
     /// <summary>
-    /// The forum icon legend_ pre render.
+    /// Handles the PreRender event of the ForumIconLegend control.
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     private void ForumIconLegend_PreRender([NotNull] object sender, [NotNull] EventArgs e)
     {
     }

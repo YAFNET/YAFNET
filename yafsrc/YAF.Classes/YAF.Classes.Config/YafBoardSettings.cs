@@ -3336,6 +3336,22 @@ namespace YAF.Classes
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether use user info hover Cards.
+        /// </summary>
+        public bool EnableUserInfoHoverCards
+        {
+            get
+            {
+                return this._reg.GetValue("EnableUserInfoHoverCards", true);
+            }
+
+            set
+            {
+                this._reg.SetValue("EnableUserInfoHoverCards", value);
+            }
+        }
+
         #endregion
 
         #region string settings

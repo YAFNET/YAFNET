@@ -98,12 +98,6 @@
 .yafnet tr.header1 a		{color:#FFFFFF!important;text-decoration:none}
 .yafnet a.HeaderTopicLink:hover,
 .yafnet tr.header1 a:hover	{color:#C0C0FF;text-decoration:underline}
-.yafnet .header1Title {
-	color: #FFFFFF;
-	font-weight: bold;
-	line-height: 18px;
-	font-size:12px;		
-}
 
 /* yaf header */
 .yafnet #yafheader

@@ -8,7 +8,7 @@
  * of the License, or (at your option) any later version.
  * 
  * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * but WITHOUT ANY WARRANTY; without even the implied warranty fo
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  * 
@@ -291,7 +291,7 @@ namespace YAF.Core
         /// <summary>
         ///   Gets a value indicating whether the current user is a modeator for at least one forum (True);
         /// </summary>
-        public bool IsModerator
+        public bool IsModeratorInAnyForum
         {
             get
             {
@@ -657,7 +657,6 @@ namespace YAF.Core
         /// </summary>
         protected virtual void InitUserAndPage()
         {
-
         }
 
         /// <summary>

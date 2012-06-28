@@ -75,8 +75,12 @@ namespace YAF.Core.Services
         /// </returns>
         public string GetDigestHtml(int userId, int boardId, string webServiceToken, bool showErrors = false)
         {
+<<<<<<< local
             var request =
                 (HttpWebRequest)WebRequest.Create(this.GetDigestUrl(userId, boardId, webServiceToken, showErrors));
+=======
+            var request = (HttpWebRequest)WebRequest.Create(this.GetDigestUrl(userId, boardId, webServiceToken, showErrors));
+>>>>>>> other
 
             string digestHtml = string.Empty;
 
@@ -107,7 +111,12 @@ namespace YAF.Core.Services
                 BaseUrlBuilder.BaseUrl,
                 BaseUrlBuilder.AppPath,
                 "digest.aspx",
+<<<<<<< local
                 "token={0}&userid={1}&boardid={2}".FormatWith(webServiceToken, userId, boardId));
+=======
+                "token={0}&userid={1}&boardid={2}".FormatWith(
+                    webServiceToken, userId, boardId));
+>>>>>>> other
         }
 
         /// <summary>

@@ -208,14 +208,6 @@
     font-size: 15px;
     line-height: 30px;
 }	
-.yafnet .header1Title {
-    background: url('titleBack.gif') repeat-x black;
-    color: #ffffff;
-    font-weight: bold;
-    padding-left: 10px;	
-    font-size: 15px;
-    line-height: 30px;
-}
 .yafnet .postTitle .rightItem a
 {
     color: White;

@@ -11,7 +11,7 @@ using System.Security;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Tiny Gecko")]
 [assembly: AssemblyProduct("YAF")]
-[assembly: AssemblyCopyright("Copyright © 2006-2011 Yet Another Forum.NET")]
+[assembly: AssemblyCopyright("Copyright © 2006-2012 Yet Another Forum.NET")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -30,8 +30,8 @@ using System.Security;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.9.6.1")]
-[assembly: AssemblyFileVersion("1.9.6.1")]
+[assembly: AssemblyVersion("1.9.6.2")]
+[assembly: AssemblyFileVersion("1.9.6.2")]
 
 #if (!COMPACT_FRAMEWORK)
 

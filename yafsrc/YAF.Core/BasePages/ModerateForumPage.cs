@@ -35,10 +35,12 @@ namespace YAF.Core
   {
     #region Constructors and Destructors
 
-    public ModerateForumPage()
+      /// <summary>
+      /// Initializes a new instance of the <see cref="ModerateForumPage"/> class.
+      /// </summary>
+      public ModerateForumPage()
       : this(null)
     {
-
     }
 
     /// <summary>
@@ -83,7 +85,7 @@ namespace YAF.Core
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       // Only moderators are allowed here
-      if (!this.PageContext.ForumModeratorAccess || !this.PageContext.IsModerator)
+      if (!this.PageContext.ForumModeratorAccess || !this.PageContext.IsModeratorInAnyForum)
       {
         YafBuildLink.AccessDenied();
       }

@@ -33,7 +33,6 @@ namespace YAF.Pages
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
-    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Flags;
@@ -396,7 +395,7 @@ namespace YAF.Pages
                      this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("r").IsSet())
             {
                 // We check here if the user have access to the option
-                if (this.PageContext.IsModerator || this.PageContext.IsForumModerator)
+                if (this.PageContext.IsModeratorInAnyForum || this.PageContext.IsForumModerator)
                 {
                     // PM is being sent to a predefined user
                     int toUser;

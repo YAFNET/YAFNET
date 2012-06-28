@@ -127,23 +127,6 @@
 	padding-left: 10px;
 	font-size: 15px;
 	line-height: 30px;
-}	
-.yafnet .header1Title {
-	text-shadow: 0 1px 1px rgba(0,0,0,.3);
-	 -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 60px rgba(0, 0, 0, 0.1) inset;
-               -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-                    box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-	background: url('HeaderBack.png') repeat-x #d81b21;
-	
-	background: -webkit-gradient(linear, left top, left bottom, from(#ed1c24), to(#aa1317));
-	background: -moz-linear-gradient(top,  #ed1c24,  #aa1317);
-	background: -o-linear-gradient(top,  #ed1c24,  #aa1317);
-	
-	color: #ffffff;
-	font-weight: bold;
-	padding-left: 10px;	
-	font-size: 15px;
-	line-height: 30px;
 }
 .yafnet .postTitle .rightItem a
 {
