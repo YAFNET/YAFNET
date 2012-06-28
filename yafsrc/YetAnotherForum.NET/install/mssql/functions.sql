@@ -75,15 +75,20 @@ AS
 BEGIN
     DECLARE @returnValue NVARCHAR(MAX)
 
-    SET @returnValue = (
+    IF @BoardID IS NOT NULL AND EXISTS(SELECT 1 FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE LOWER([Name]) = LOWER(@Name) AND [BoardID] = @BoardID)
+    BEGIN
+        SET @returnValue = (
             SELECT CAST([Value] AS NVARCHAR(MAX))
             FROM [{databaseOwner}].[{objectQualifier}Registry]
-            WHERE LOWER([Name]) = LOWER(@Name)
-                AND (
-                    @BoardID IS NULL
-                    OR @BoardID = [BoardID]
-                    )
-            )
+            WHERE LOWER([Name]) = LOWER(@Name) AND [BoardID] = @BoardID)
+    END
+    ELSE
+    BEGIN
+        SET @returnValue = (
+            SELECT CAST([Value] AS NVARCHAR(MAX))
+            FROM [{databaseOwner}].[{objectQualifier}Registry]
+            WHERE LOWER([Name]) = LOWER(@Name) AND [BoardID] IS NULL)
+    END
 
     RETURN @returnValue
 END
