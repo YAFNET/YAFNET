@@ -4,82 +4,6 @@
         <name>Autofac</name>
     </assembly>
     <members>
-        <member name="T:Autofac.Features.LazyDependencies.LazyRegistrationSource">
-            <summary>
-            Support the <see cref="T:System.Lazy`1"/> 
-            type automatically whenever type T is registered with the container.
-            When a dependency of a lazy type is used, the instantiation of the underlying
-            component will be delayed until the Value property is first accessed.
-            </summary>
-        </member>
-        <member name="T:Autofac.Core.IRegistrationSource">
-            <summary>
-            Allows registrations to be made on-the-fly when unregistered
-            services are requested (lazy registrations.)
-            </summary>
-        </member>
-        <member name="M:Autofac.Core.IRegistrationSource.RegistrationsFor(Autofac.Core.Service,System.Func{Autofac.Core.Service,System.Collections.Generic.IEnumerable{Autofac.Core.IComponentRegistration}})">
-            <summary>
-            Retrieve registrations for an unregistered service, to be used
-            by the container.
-            </summary>
-            <param name="service">The service that was requested.</param>
-            <param name="registrationAccessor">A function that will return existing registrations for a service.</param>
-            <returns>Registrations providing the service.</returns>
-            <remarks>
-            If the source is queried for service s, and it returns a component that implements both s and s', then it
-            will not be queried again for either s or s'. This means that if the source can return other implementations
-            of s', it should return these, plus the transitive closure of other components implementing their 
-            additional services, along with the implementation of s. It is not an error to return components
-            that do not implement <paramref name="service"/>.
-            </remarks>
-        </member>
-        <member name="P:Autofac.Core.IRegistrationSource.IsAdapterForIndividualComponents">
-            <summary>
-            Gets whether the registrations provided by this source are 1:1 adapters on top
-            of other components (I.e. like Meta, Func or Owned.)
-            </summary>
-        </member>
-        <member name="T:Autofac.Features.LazyDependencies.LazyWithMetadataRegistrationSource">
-            <summary>
-            Support the <see cref="T:System.Lazy`2"/>
-            types automatically whenever type T is registered with the container.
-            Metadata values come from the component registration's metadata.
-            When a dependency of a lazy type is used, the instantiation of the underlying
-            component will be delayed until the Value property is first accessed.
-            </summary>
-        </member>
-        <member name="T:Autofac.Features.Metadata.Meta`2">
-            <summary>
-            Provides a value along with metadata describing the value.
-            </summary>
-            <typeparam name="T">The type of the value.</typeparam>
-            <typeparam name="TMetadata">An interface to which metadata values can be bound.</typeparam>
-        </member>
-        <member name="M:Autofac.Features.Metadata.Meta`2.#ctor(`0,`1)">
-            <summary>
-            Create a new instance.
-            </summary>
-            <param name="value">The value described by the instance.</param>
-            <param name="metadata">The metadata describing the value.</param>
-        </member>
-        <member name="P:Autofac.Features.Metadata.Meta`2.Value">
-            <summary>
-            The value described by <see cref="P:Autofac.Features.Metadata.Meta`2.Metadata"/>.
-            </summary>
-        </member>
-        <member name="P:Autofac.Features.Metadata.Meta`2.Metadata">
-            <summary>
-            Metadata describing the value.
-            </summary>
-        </member>
-        <member name="T:Autofac.Features.Metadata.StronglyTypedMetaRegistrationSource">
-            <summary>
-            Support the <see cref="T:Autofac.Features.Metadata.Meta`2"/>
-            types automatically whenever type T is registered with the container.
-            Metadata values come from the component registration's metadata.
-            </summary>
-        </member>
         <member name="T:Autofac.Features.GeneratedFactories.FactoryGenerator">
             <summary>
             Generates context-bound closures that represent factories from
@@ -580,6 +504,34 @@
             var handler = container.Resolve&lt;IHandler&lt;DerivedCommand&gt;&gt;();
             handler.Handle(new DerivedCommand());
             </example>
+        </member>
+        <member name="T:Autofac.Core.IRegistrationSource">
+            <summary>
+            Allows registrations to be made on-the-fly when unregistered
+            services are requested (lazy registrations.)
+            </summary>
+        </member>
+        <member name="M:Autofac.Core.IRegistrationSource.RegistrationsFor(Autofac.Core.Service,System.Func{Autofac.Core.Service,System.Collections.Generic.IEnumerable{Autofac.Core.IComponentRegistration}})">
+            <summary>
+            Retrieve registrations for an unregistered service, to be used
+            by the container.
+            </summary>
+            <param name="service">The service that was requested.</param>
+            <param name="registrationAccessor">A function that will return existing registrations for a service.</param>
+            <returns>Registrations providing the service.</returns>
+            <remarks>
+            If the source is queried for service s, and it returns a component that implements both s and s', then it
+            will not be queried again for either s or s'. This means that if the source can return other implementations
+            of s', it should return these, plus the transitive closure of other components implementing their 
+            additional services, along with the implementation of s. It is not an error to return components
+            that do not implement <paramref name="service"/>.
+            </remarks>
+        </member>
+        <member name="P:Autofac.Core.IRegistrationSource.IsAdapterForIndividualComponents">
+            <summary>
+            Gets whether the registrations provided by this source are 1:1 adapters on top
+            of other components (I.e. like Meta, Func or Owned.)
+            </summary>
         </member>
         <member name="M:Autofac.Features.Variance.ContravariantRegistrationSource.RegistrationsFor(Autofac.Core.Service,System.Func{Autofac.Core.Service,System.Collections.Generic.IEnumerable{Autofac.Core.IComponentRegistration}})">
             <summary>
@@ -4503,6 +4455,21 @@
             </summary>
             <param name="builder">The builder to register the module with.</param>
             <typeparam name="TModule">The module to add.</typeparam>
+        </member>
+        <member name="M:Autofac.RegistrationExtensions.RegisterAssemblyModules(Autofac.ContainerBuilder,System.Reflection.Assembly[])">
+            <summary>
+            Registers modules found in an assembly.
+            </summary>
+            <param name="builder">Container builder.</param>
+            <param name="assemblies">The assemblies from which to register modules.</param>
+        </member>
+        <member name="M:Autofac.RegistrationExtensions.RegisterAssemblyModules``1(Autofac.ContainerBuilder,System.Reflection.Assembly[])">
+            <summary>
+            Registers modules found in an assembly.
+            </summary>
+            <param name="builder">Container builder.</param>
+            <param name="assemblies">The assemblies from which to register modules.</param>
+            <typeparam name="TModule">The type of the module to add.</typeparam>
         </member>
         <member name="M:Autofac.RegistrationExtensions.RegisterComponent(Autofac.ContainerBuilder,Autofac.Core.IComponentRegistration)">
             <summary>
