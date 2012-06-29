@@ -63,24 +63,16 @@ namespace YAF.Types.Interfaces
         /// <summary>
         /// Sends the digest html to the email/name specified.
         /// </summary>
-        /// <param name="digestHtml">
-        /// The digest html.
-        /// </param>
-        /// <param name="forumName">
-        /// The forum name.
-        /// </param>
-        /// <param name="toEmail">
-        /// The to email.
-        /// </param>
-        /// <param name="toName">
-        /// The to name.
-        /// </param>
-        /// <param name="sendQueued">
-        /// The send queued.
-        /// </param>
+        /// <param name="digestHtml">The digest html.</param>
+        /// <param name="forumName">The forum name.</param>
+        /// <param name="forumEmail">The forum email.</param>
+        /// <param name="toEmail">The to email.</param>
+        /// <param name="toName">The to name.</param>
+        /// <param name="sendQueued">The send queued.</param>
         void SendDigest(
             [NotNull] string digestHtml,
             [NotNull] string forumName,
+            [NotNull] string forumEmail,
             [NotNull] string toEmail,
             [CanBeNull] string toName,
             bool sendQueued);

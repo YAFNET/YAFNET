@@ -1864,12 +1864,12 @@ BEGIN
         DECLARE @count int, @max int, @maxStr nvarchar(255), @countStr nvarchar(255), @dtStr nvarchar(255)
     
     SET @count = ISNULL((SELECT COUNT(DISTINCT IP + '.' + CAST(UserID as varchar(10))) FROM [{databaseOwner}].[{objectQualifier}Active] WITH (NOLOCK) WHERE BoardID = @BoardID),0)
-    SET @maxStr = ISNULL((SELECT CAST([Value] AS nvarchar) FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE BoardID = @BoardID AND [Name] = N'maxusers'),'1')
+    SET @maxStr = (SELECT ISNULL([{databaseOwner}].[{objectQualifier}registry_value](N'maxusers', @BoardID), '1'))
     SET @max = CAST(@maxStr AS int)
     SET @countStr = CAST(@count AS nvarchar)
     SET @dtStr = CONVERT(nvarchar,@UTCTIMESTAMP,126)
 
-    IF NOT EXISTS ( SELECT 1 FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE BoardID = @BoardID and [Name] = N'maxusers' )
+    IF NOT EXISTS ( SELECT 1 FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE BoardID = @BoardID and [Name] = N'maxusers')
     BEGIN 
         INSERT INTO [{databaseOwner}].[{objectQualifier}Registry](BoardID,[Name],[Value]) VALUES (@BoardID,N'maxusers',CAST(@countStr AS ntext))
         INSERT INTO [{databaseOwner}].[{objectQualifier}Registry](BoardID,[Name],[Value]) VALUES (@BoardID,N'maxuserswhen',CAST(@dtStr AS ntext))
@@ -2098,12 +2098,12 @@ begin
     declare	@ForumID				int
     declare @UserFlags				int
 
-    SET @TimeZone = (SELECT ISNULL(CAST(CAST([Value] as nvarchar(50)) as int), 0) FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE LOWER([Name]) = LOWER('TimeZone'))
-    SET @ForumEmail = (SELECT CAST([Value] as nvarchar(50)) FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE LOWER([Name]) = LOWER('ForumEmail'))
-
     -- Board
     INSERT INTO [{databaseOwner}].[{objectQualifier}Board](Name, AllowThreaded, MembershipAppName, RolesAppName ) values(@BoardName,0, @MembershipAppName, @RolesAppName)
     SET @BoardID = SCOPE_IDENTITY()
+
+    SET @TimeZone = (SELECT ISNULL(CAST([{databaseOwner}].[{objectQualifier}registry_value](N'TimeZone', @BoardID) as int), 0))
+    SET @ForumEmail = (SELECT [{databaseOwner}].[{objectQualifier}registry_value](N'ForumEmail', @BoardID))
     
     EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'culture',@Culture,@BoardID
     EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'language',@LanguageFile,@BoardID
@@ -2288,8 +2288,8 @@ create procedure [{databaseOwner}].[{objectQualifier}board_userstats](@BoardID i
 BEGIN
         SELECT		
         Members = (select count(1) from [{databaseOwner}].[{objectQualifier}User] a where a.BoardID=@BoardID AND (Flags & 2) = 2 AND (a.Flags & 4) = 0),
-        MaxUsers = (SELECT CAST([Value] as nvarchar(255)) FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE LOWER(Name) = LOWER('maxusers') and BoardID=@BoardID),
-        MaxUsersWhen = (SELECT CAST([Value] as nvarchar(255)) FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE LOWER(Name) = LOWER('maxuserswhen') and BoardID=@BoardID),		
+        MaxUsers = (SELECT [{databaseOwner}].[{objectQualifier}registry_value](N'maxusers', @BoardID)),
+        MaxUsersWhen = (SELECT [{databaseOwner}].[{objectQualifier}registry_value](N'maxuserswhen', @BoardID)),
         LastMemberInfo.*
     FROM
         (
@@ -7383,7 +7383,7 @@ BEGIN
             SET @DisplayName = @UserName
         END		
 
-        SET @TimeZone = (SELECT ISNULL(CAST(CAST([Value] as nvarchar(50)) as int), 0) FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE LOWER([Name]) = LOWER('TimeZone'))
+        SET @TimeZone = (SELECT ISNULL(CAST([{databaseOwner}].[{objectQualifier}registry_value]('TimeZone', @BoardID) as int), 0))
 
         INSERT INTO [{databaseOwner}].[{objectQualifier}User](BoardID,RankID,[Name],DisplayName,Password,Email,Joined,LastVisit,NumPosts,TimeZone,Flags,ProviderUserKey) 
         VALUES(@BoardID,@RankID,@UserName,@DisplayName,'-',@Email,@UTCTIMESTAMP ,@UTCTIMESTAMP ,0, @timezone,@approvedFlag,@ProviderUserKey)
@@ -8703,9 +8703,12 @@ begin
     begin
         insert into [{databaseOwner}].[{objectQualifier}UserGroup](UserID,GroupID)
         select @UserID,@GroupID
-        where not exists(select 1 from [{databaseOwner}].[{objectQualifier}UserGroup] where UserID=@UserID and GroupID=@GroupID)		
-    end
-    EXEC [{databaseOwner}].[{objectQualifier}user_savestyle] @GroupID,null
+        where not exists(select 1 from [{databaseOwner}].[{objectQualifier}UserGroup] where UserID=@UserID and GroupID=@GroupID)
+        
+        UPDATE [{databaseOwner}].[{objectQualifier}User] SET UserStyle= ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
+        join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=@UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), (SELECT TOP 1 r.Style FROM [{databaseOwner}].[{objectQualifier}Rank] r where r.RankID = [{databaseOwner}].[{objectQualifier}User].RankID)) 
+        WHERE UserID = @UserID    	
+    end          
 end
 GO
 

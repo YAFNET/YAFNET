@@ -218,7 +218,8 @@ namespace YAF.Core.Tasks
             }
 
             // send the digest...
-            this.Get<IDigest>().SendDigest(digestHtml, boardSettings.Name, membershipUser.Email, user.DisplayName, true);
+            this.Get<IDigest>().SendDigest(
+                digestHtml, boardSettings.Name, boardSettings.ForumEmail, membershipUser.Email, user.DisplayName, true);
         }
     }
 

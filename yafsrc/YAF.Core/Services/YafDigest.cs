@@ -75,7 +75,12 @@ namespace YAF.Core.Services
         /// </returns>
         public string GetDigestHtml(int userId, int boardId, string webServiceToken, bool showErrors = false)
         {
+<<<<<<< local
+            var request =
+                (HttpWebRequest)WebRequest.Create(this.GetDigestUrl(userId, boardId, webServiceToken, showErrors));
+=======
             var request = (HttpWebRequest)WebRequest.Create(this.GetDigestUrl(userId, boardId, webServiceToken, showErrors));
+>>>>>>> other
 
             string digestHtml = string.Empty;
 
@@ -106,8 +111,12 @@ namespace YAF.Core.Services
                 BaseUrlBuilder.BaseUrl,
                 BaseUrlBuilder.AppPath,
                 "digest.aspx",
+<<<<<<< local
+                "token={0}&userid={1}&boardid={2}".FormatWith(webServiceToken, userId, boardId));
+=======
                 "token={0}&userid={1}&boardid={2}".FormatWith(
                     webServiceToken, userId, boardId));
+>>>>>>> other
         }
 
         /// <summary>
@@ -133,30 +142,23 @@ namespace YAF.Core.Services
         /// <summary>
         /// Sends the digest html to the email/name specified.
         /// </summary>
-        /// <param name="digestHtml">
-        /// The digest html.
-        /// </param>
-        /// <param name="forumName">
-        /// The forum name.
-        /// </param>
-        /// <param name="toEmail">
-        /// The to email.
-        /// </param>
-        /// <param name="toName">
-        /// The to name.
-        /// </param>
-        /// <param name="sendQueued">
-        /// The send queued.
-        /// </param>
+        /// <param name="digestHtml">The digest html.</param>
+        /// <param name="forumName">The forum name.</param>
+        /// <param name="forumEmail">The forum email.</param>
+        /// <param name="toEmail">The to email.</param>
+        /// <param name="toName">The to name.</param>
+        /// <param name="sendQueued">The send queued.</param>
         public void SendDigest(
             [NotNull] string digestHtml,
             [NotNull] string forumName,
+            [NotNull] string forumEmail,
             [NotNull] string toEmail,
             [CanBeNull] string toName,
             bool sendQueued)
         {
             CodeContracts.ArgumentNotNull(digestHtml, "digestHtml");
             CodeContracts.ArgumentNotNull(forumName, "forumName");
+            CodeContracts.ArgumentNotNull(forumEmail, "forumEmail");
             CodeContracts.ArgumentNotNull(toEmail, "toEmail");
 
             string subject = "Active Topics and New Topics on {0}".FormatWith(forumName);
@@ -172,8 +174,8 @@ namespace YAF.Core.Services
             {
                 // queue to send...
                 this.Get<ISendMail>().Queue(
-                    this.Get<YafBoardSettings>().ForumEmail,
-                    this.Get<YafBoardSettings>().Name,
+                    forumEmail,
+                    forumName,
                     toEmail,
                     toName,
                     subject,
@@ -184,8 +186,8 @@ namespace YAF.Core.Services
             {
                 // send direct...
                 this.Get<ISendMail>().Send(
-                    this.Get<YafBoardSettings>().ForumEmail,
-                    this.Get<YafBoardSettings>().Name,
+                    forumEmail,
+                    forumName,
                     toEmail,
                     toName,
                     subject,
