@@ -26,13 +26,23 @@ namespace YAF.Core
   /// </summary>
   public class ForumPageRenderedArgs : EventArgs
   {
+      /// <summary>
+      /// The Html Text Writer
+      /// </summary>
     private HtmlTextWriter _writer;
 
-    public ForumPageRenderedArgs(System.Web.UI.HtmlTextWriter writer)
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ForumPageRenderedArgs"/> class.
+    /// </summary>
+    /// <param name="writer">The writer.</param>
+    public ForumPageRenderedArgs(HtmlTextWriter writer)
     {
       this._writer = writer;
     }
 
+    /// <summary>
+    /// Gets the writer.
+    /// </summary>
     public HtmlTextWriter Writer
     {
       get { return this._writer; }

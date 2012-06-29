@@ -412,6 +412,7 @@ namespace YAF
         /// Raises the <see cref="E:System.Web.UI.Control.Load"/> event.
         /// </summary>
         /// <param name="e">The <see cref="T:System.EventArgs"/> object that contains the event data.</param>
+        /// <exception cref="ApplicationException"></exception>
         protected override void OnLoad(EventArgs e)
         {
             // context is ready to be loaded, call the before page load event...
@@ -448,6 +449,9 @@ namespace YAF
             this._currentForumPage.ForumFooter = this._footer;
 
             this._currentForumPage.ForumHeader = this._header;
+
+            // only show header if showtoolbar is enabled
+            this._currentForumPage.ForumHeader.Visible = this._currentForumPage.ShowToolBar;
 
             // don't allow as a popup if it's not allowed by the page...
             if (!this._currentForumPage.AllowAsPopup && this.Popup)

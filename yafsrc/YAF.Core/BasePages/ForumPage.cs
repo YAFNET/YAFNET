@@ -29,7 +29,6 @@ namespace YAF.Core
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Constants;
@@ -378,11 +377,9 @@ namespace YAF.Core
         #region Public Methods
 
         /// <summary>
-        /// The is null.
+        /// Determines whether the specified value is null.
         /// </summary>
-        /// <param name="value">
-        /// The value.
-        /// </param>
+        /// <param name="value">The value.</param>
         /// <returns>
         /// The is null.
         /// </returns>
@@ -446,11 +443,9 @@ namespace YAF.Core
         }
 
         /// <summary>
-        /// The html encode.
+        /// Encodes the HTML
         /// </summary>
-        /// <param name="data">
-        /// The data.
-        /// </param>
+        /// <param name="data">The data.</param>
         /// <returns>
         /// The html encode.
         /// </returns>
@@ -518,11 +513,9 @@ namespace YAF.Core
         }
 
         /// <summary>
-        /// The insert css refresh.
+        /// Inserts the CSS refresh.
         /// </summary>
-        /// <param name="addTo">
-        /// The add to.
-        /// </param>
+        /// <param name="addTo">The control to add.</param>
         protected void InsertCssRefresh([NotNull] Control addTo)
         {
             // make the style sheet link controls.
@@ -541,11 +534,9 @@ namespace YAF.Core
         }
 
         /// <summary>
-        /// The on pre render.
+        /// Raises the <see cref="E:System.Web.UI.Control.PreRender"/> event.
         /// </summary>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             YafContext.Current.PageElements.RegisterJQuery();
@@ -555,8 +546,7 @@ namespace YAF.Core
         /// <summary>
         /// Writes the document
         /// </summary>
-        /// <param name="writer">
-        /// </param>
+        /// <param name="writer">The <see cref="T:System.Web.UI.HtmlTextWriter"/> object that receives the server control content.</param>
         protected override void Render([NotNull] HtmlTextWriter writer)
         {
             base.Render(writer);
@@ -588,10 +578,8 @@ namespace YAF.Core
         /// <summary>
         /// Called first to initialize the context
         /// </summary>
-        /// <param name="sender">
-        /// </param>
-        /// <param name="e">
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void ForumPage_Init([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.Get<IRaiseEvent>().Raise(new ForumPageInitEvent());
@@ -615,10 +603,8 @@ namespace YAF.Core
         /// <summary>
         /// Called when page is loaded
         /// </summary>
-        /// <param name="sender">
-        /// </param>
-        /// <param name="e">
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void ForumPage_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.Get<YafBoardSettings>().DoUrlReferrerSecurityCheck)
@@ -631,14 +617,10 @@ namespace YAF.Core
         }
 
         /// <summary>
-        /// The forum page_ pre render.
+        /// Called when the page is pre rendered
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void ForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.Get<IRaiseEvent>().Raise(new ForumPagePreRenderEvent());
@@ -647,10 +629,10 @@ namespace YAF.Core
             this.SetupHeaderElements();
 
             // setup the forum control header & footer properties
-            if (this.ForumHeader != null)
+            /*if (this.ForumHeader != null)
             {
                 this.ForumHeader.Visible = this.ShowToolBar;
-            }
+            }*/
 
             this.ForumFooter.Visible = this.ShowFooter;
         }
@@ -658,10 +640,8 @@ namespace YAF.Core
         /// <summary>
         /// Called when the page is unloaded
         /// </summary>
-        /// <param name="sender">
-        /// </param>
-        /// <param name="e">
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void ForumPage_Unload([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.Get<IRaiseEvent>().Raise(new ForumPageUnloadEvent());

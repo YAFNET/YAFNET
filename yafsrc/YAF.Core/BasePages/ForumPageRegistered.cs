@@ -19,10 +19,10 @@
 
 namespace YAF.Core
 {
-  /// <summary>
-  /// Summary description for ForumPageRegistered.
-  /// </summary>
-  public class ForumPageRegistered : ForumPage
+    /// <summary>
+    /// Forum Page Registered Class
+    /// </summary>
+    public class ForumPageRegistered : ForumPage
   {
     /// <summary>
     /// Initializes a new instance of the <see cref="ForumPageRegistered"/> class. 
@@ -42,7 +42,7 @@ namespace YAF.Core
     public ForumPageRegistered(string transPage)
       : base(transPage)
     {
-      IsRegisteredPage = true;
+      this.IsRegisteredPage = true;
     }
   }
 }

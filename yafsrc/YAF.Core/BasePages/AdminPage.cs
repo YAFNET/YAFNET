@@ -18,100 +18,100 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System.Data;
-using System.Linq;
-using YAF.Classes.Data;
-using YAF.Types.Constants;
-
 namespace YAF.Core
 {
-  #region Using
+    #region Using
 
-  using System;
+    using System;
 
-  using YAF.Types;
-  using YAF.Utils;
-
-  #endregion
-
-  /// <summary>
-  /// Admin page with extra security. All admin pages need to be derived from this base class.
-  /// </summary>
-  public class AdminPage : ForumPage
-  {
-    #region Constructors and Destructors
-
-    /// <summary>
-    ///   Initializes a new instance of the <see cref = "AdminPage" /> class. 
-    ///   Creates the Administration page.
-    /// </summary>
-    public AdminPage()
-      : this(null)
-    {
-    }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="AdminPage"/> class.
-    /// </summary>
-    /// <param name="transPage">
-    /// The trans page.
-    /// </param>
-    public AdminPage([CanBeNull] string transPage)
-      : base(transPage)
-    {
-      this.IsAdminPage = true;
-      this.Load += this.AdminPage_Load;
-    }
+    using YAF.Classes.Data;
+    using YAF.Types;
+    using YAF.Utils;
 
     #endregion
 
-    #region Properties
-
     /// <summary>
-    /// Gets PageName.
+    /// Admin page with extra security. All admin pages need to be derived from this base class.
     /// </summary>
-    public override string PageName
+    public class AdminPage : ForumPage
     {
-      get
-      {
-        return "admin_{0}".FormatWith(base.PageName);
-      }
-    }
+        #region Constructors and Destructors
 
-    #endregion
-
-    #region Methods
-
-    /// <summary>
-    /// The admin page_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    private void AdminPage_Load([NotNull] object sender, [NotNull] EventArgs e)
-    {
-        // not admins are forbidden
-        if (!this.PageContext.IsAdmin)
+        /// <summary>
+        ///   Initializes a new instance of the <see cref = "AdminPage" /> class. 
+        ///   Creates the Administration page.
+        /// </summary>
+        public AdminPage()
+            : this(null)
         {
-            YafBuildLink.AccessDenied();
         }
 
-        // host admins are not checked
-        if (this.PageContext.IsHostAdmin) return;
-
-        // Load the page access list.
-        var dt = LegacyDb.adminpageaccess_list(this.PageContext.PageUserID, this.PageContext.ForumPageType.ToString().ToLowerInvariant());
-        
-        // Check access rights to the page.
-        if (!this.PageContext.ForumPageType.ToString().IsSet() || dt == null || dt.Rows.Count <= 0 )
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AdminPage"/> class.
+        /// </summary>
+        /// <param name="transPage">
+        /// The trans page.
+        /// </param>
+        public AdminPage([CanBeNull] string transPage)
+            : base(transPage)
         {
-            YafBuildLink.RedirectInfoPage(InfoMessage.HostAdminPermissionsAreRequired);
+            this.IsAdminPage = true;
+            this.Load += this.AdminPage_Load;
         }
-    }
 
-    #endregion
-  }
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets PageName.
+        /// </summary>
+        public override string PageName
+        {
+            get
+            {
+                return "admin_{0}".FormatWith(base.PageName);
+            }
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// The admin page_ load.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void AdminPage_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            // not admins are forbidden
+            if (!this.PageContext.IsAdmin)
+            {
+                YafBuildLink.AccessDenied();
+            }
+
+            // host admins are not checked
+            if (this.PageContext.IsHostAdmin)
+            {
+                return;
+            }
+
+            // Load the page access list.
+            var dt = LegacyDb.adminpageaccess_list(
+                this.PageContext.PageUserID, this.PageContext.ForumPageType.ToString().ToLowerInvariant());
+
+            // Check access rights to the page.
+            if (!this.PageContext.ForumPageType.ToString().IsSet() || dt == null || dt.Rows.Count <= 0)
+            {
+                YafBuildLink.RedirectInfoPage(InfoMessage.HostAdminPermissionsAreRequired);
+            }
+        }
+
+        #endregion
+    }
 }
