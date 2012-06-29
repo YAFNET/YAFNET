@@ -2098,7 +2098,7 @@ begin
     declare	@ForumID				int
     declare @UserFlags				int
 
-    SET @TimeZone = ISNULL((SELECT CAST(CAST([Value] as nvarchar(50)) as int) FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE LOWER([Name]) = LOWER('TimeZone')), 0)
+    SET @TimeZone = (SELECT ISNULL(CAST(CAST([Value] as nvarchar(50)) as int), 0) FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE LOWER([Name]) = LOWER('TimeZone'))
     SET @ForumEmail = (SELECT CAST([Value] as nvarchar(50)) FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE LOWER([Name]) = LOWER('ForumEmail'))
 
     -- Board
@@ -7383,7 +7383,7 @@ BEGIN
             SET @DisplayName = @UserName
         END		
 
-        SET @TimeZone = ISNULL((SELECT CAST(CAST([Value] as nvarchar(50)) as int) FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE LOWER([Name]) = LOWER('TimeZone')), 0)
+        SET @TimeZone = (SELECT ISNULL(CAST(CAST([Value] as nvarchar(50)) as int), 0) FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE LOWER([Name]) = LOWER('TimeZone'))
 
         INSERT INTO [{databaseOwner}].[{objectQualifier}User](BoardID,RankID,[Name],DisplayName,Password,Email,Joined,LastVisit,NumPosts,TimeZone,Flags,ProviderUserKey) 
         VALUES(@BoardID,@RankID,@UserName,@DisplayName,'-',@Email,@UTCTIMESTAMP ,@UTCTIMESTAMP ,0, @timezone,@approvedFlag,@ProviderUserKey)
