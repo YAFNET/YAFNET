@@ -28,6 +28,7 @@ namespace YAF.Tests.BasicTests
     using Xunit;
 
     using YAF.Core;
+    using YAF.Core.Tasks;
     using YAF.Types.Interfaces;
 
     using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
