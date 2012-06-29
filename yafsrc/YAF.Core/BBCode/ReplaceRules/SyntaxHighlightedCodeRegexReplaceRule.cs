@@ -73,7 +73,7 @@ namespace YAF.Core.BBCode.ReplaceRules
             while (m.Success)
             {
                 string inner = this._syntaxHighlighter.ColorText(
-                    this.GetInnerValue(m.Groups["inner"].Value), m.Groups["language"].Value, m.Groups["highlight"].Value);
+                    this.GetInnerValue(m.Groups["inner"].Value), m.Groups["language"].Value);
 
                 string replaceItem = this._regExReplace.Replace("${inner}", inner);
 

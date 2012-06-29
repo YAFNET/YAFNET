@@ -118,13 +118,7 @@ namespace YAF.Core.BBCode
         ///   The regex code with language string.
         /// </summary>
         private static readonly Regex _regexCodeWithLanguage = new Regex(
-            @"\[code=(?<language>[^\]]*)(?!;)\](?<inner>(.*?))\[/code\]", _Options | RegexOptions.Compiled);
-
-        /// <summary>
-        ///   The regex code with language and highlight string.
-        /// </summary>
-        private static readonly Regex _regexCodeWithLanguage2 = new Regex(
-            @"\[code=(?<language>(.*?));(?<highlight>[^\]]*)\](?<inner>(.*?))\[/code\]", _Options | RegexOptions.Compiled);
+            @"\[code=(?<language>[^\]]*)\](?<inner>(.*?))\[/code\]", _Options | RegexOptions.Compiled);
 
         /// <summary>
         ///   The _rgx hr.
@@ -614,7 +608,6 @@ namespace YAF.Core.BBCode
                             },
                         new[] { "http://" }) { RuleRank = 71 });
 
-
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
                         _rgxImgTitle,
@@ -661,13 +654,10 @@ namespace YAF.Core.BBCode
                 ruleEngine.AddRule(
                     new SyntaxHighlightedCodeRegexReplaceRule(
                         _regexCodeWithLanguage,
-                        @"<div class=""code""><strong>{0}</strong><div class=""innercode"">${inner}</div></div>".Replace("{0}", localCodeStr)) { RuleRank = 41 });
-
-                // add rule for code block type with syntax highlighting
-                ruleEngine.AddRule(
-                    new SyntaxHighlightedCodeRegexReplaceRule(
-                        _regexCodeWithLanguage2,
-                        @"<div class=""code""><strong>{0}</strong><div class=""innercode"">${inner}</div></div>".Replace("{0}", localCodeStr)) { RuleRank = 40 });
+                        @"<div class=""code""><strong>{0}</strong><div class=""innercode"">${inner}</div></div>".Replace("{0}", localCodeStr))
+                        {
+                            RuleRank = 40
+                        });
 
                 // handle custom YafBBCode
                 this.AddCustomBBCodeRules(ruleEngine);
@@ -706,11 +696,11 @@ namespace YAF.Core.BBCode
             // post and topic rules...
             ruleEngine.AddRule(
                 new PostTopicRegexReplaceRule(
-                    _RgxPost, @"<a {0} href=""${post}"" title=""${inner}"">${inner}</a>".Replace("{0}", target), _Options));
+                    _RgxPost, @"<a href=""${post}"" title=""${inner}"">${inner}</a>", _Options));
 
             ruleEngine.AddRule(
                 new PostTopicRegexReplaceRule(
-                    _RgxTopic, @"<a {0} href=""${topic}"" title=""${inner}"">${inner}</a>".Replace("{0}", target), _Options));
+                    _RgxTopic, @"<a href=""${topic}"" title=""${inner}"">${inner}</a>", _Options));
         }
 
         /// <summary>

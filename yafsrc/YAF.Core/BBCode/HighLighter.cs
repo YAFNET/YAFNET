@@ -62,11 +62,10 @@ namespace YAF.Core.BBCode
         /// </summary>
         /// <param name="tmpCode">The tmp code.</param>
         /// <param name="language">The language.</param>
-        /// <param name="highlight">The highlight.</param>
         /// <returns>
         /// The color text.
         /// </returns>
-        public string ColorText(string tmpCode, string language, string highlight)
+        public string ColorText(string tmpCode, string language)
         {
             language = language.ToLower();
 
@@ -79,11 +78,20 @@ namespace YAF.Core.BBCode
 
             var tmpOutput = new StringBuilder();
 
+            var highlight = string.Empty;
+
+            // extract highlight
+            if (language.Contains(";"))
+            {
+                highlight = language.Substring(language.IndexOf(";") + 1);
+                language = language.Remove(language.IndexOf(";"));
+            }
+
             // Create Output
             tmpOutput.AppendFormat(
-                "<pre class=\"brush:{0};{1}\">{2}",
+                "<pre class=\"brush:{0}{1}\">{2}",
                 language,
-                !string.IsNullOrEmpty(highlight) ? "highlight: [{0}];".FormatWith(highlight) : string.Empty,
+                !string.IsNullOrEmpty(highlight) ? ";highlight: [{0}];".FormatWith(highlight) : string.Empty,
                 Environment.NewLine);
 
             tmpOutput.Append(tmpCode);
