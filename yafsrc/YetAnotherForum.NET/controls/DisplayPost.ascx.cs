@@ -324,23 +324,12 @@ namespace YAF.Controls
             this.DataRow["Points"] = this.DataRow["Points"].ToType<int>() + 1;
             this.UserBox1.PageCache = null;
 
-            var notification = (DialogBox)this.PageContext.CurrentForumPage.Notification;
-
-            notification.Show(
-                this.GetText("POSTS", "REP_VOTE_UP_MSG").FormatWith(
+            this.PageContext.AddLoadMessage(
+                this.GetTextFormatted(
+                    "REP_VOTE_UP_MSG",
                     this.Get<HttpServerUtilityBase>().HtmlEncode(
-                        this.Get<YafBoardSettings>().EnableDisplayName
-                            ? this.DataRow["DisplayName"].ToString()
-                            : this.DataRow["UserName"].ToString())),
-                this.GetText("POSTS", "REP_VOTE_TITLE"),
-                DialogBox.DialogIcon.Info,
-                new DialogBox.DialogButton
-                    {
-                        Text = this.GetText("COMMON", "OK"),
-                        CssClass = "StandardButton",
-                        ForumPageLink = new DialogBox.ForumLink { ForumPage = this.PageContext.ForumPageType }
-                    },
-                null);
+                        this.DataRow[this.Get<YafBoardSettings>().EnableDisplayName ? "DisplayName" : "UserName"].ToString())),
+                MessageTypes.Success);
 
             YafContext.Current.PageElements.RegisterJsBlockStartup(
                 "reputationprogressjs",
@@ -378,23 +367,12 @@ namespace YAF.Controls
             this.DataRow["Points"] = this.DataRow["Points"].ToType<int>() - 1;
             this.UserBox1.PageCache = null;
 
-            var notification = (DialogBox)this.PageContext.CurrentForumPage.Notification;
-
-            notification.Show(
-                this.GetText("POSTS", "REP_VOTE_DOWN_MSG").FormatWith(
-                    this.Get<HttpServerUtilityBase>().HtmlEncode(
-                        this.Get<YafBoardSettings>().EnableDisplayName
-                            ? this.DataRow["DisplayName"].ToString()
-                            : this.DataRow["UserName"].ToString())),
-                this.GetText("POSTS", "REP_VOTE_TITLE"),
-                DialogBox.DialogIcon.Info,
-                new DialogBox.DialogButton
-                    {
-                        Text = this.GetText("COMMON", "OK"),
-                        CssClass = "StandardButton",
-                        ForumPageLink = new DialogBox.ForumLink { ForumPage = this.PageContext.ForumPageType }
-                    },
-                null);
+            this.PageContext.AddLoadMessage(
+                this.GetTextFormatted(
+                   "REP_VOTE_DOWN_MSG",
+                   this.Get<HttpServerUtilityBase>().HtmlEncode(
+                        this.DataRow[this.Get<YafBoardSettings>().EnableDisplayName ? "DisplayName" : "UserName"].ToString())),
+                MessageTypes.Success);
 
             YafContext.Current.PageElements.RegisterJsBlockStartup(
                 "reputationprogressjs",
@@ -713,7 +691,6 @@ namespace YAF.Controls
                 return;
             }
 
-
             var username =
                 this.HtmlEncode(
                     this.DataRow[this.Get<YafBoardSettings>().EnableDisplayName ? "DisplayName" : "UserName"].ToString());
@@ -737,12 +714,8 @@ namespace YAF.Controls
         /// <summary>
         /// The pop menu 1_ item click.
         /// </summary>
-        /// <param name="sender">
-        /// The sender. 
-        /// </param>
-        /// <param name="e">
-        /// The e. 
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="YAF.Controls.PopEventArgs"/> instance containing the event data.</param>
         private void PopMenu1_ItemClick([NotNull] object sender, [NotNull] PopEventArgs e)
         {
             switch (e.Item)
@@ -762,7 +735,8 @@ namespace YAF.Controls
                     if (Convert.ToBoolean(strBuddyRequest[1]))
                     {
                         this.PageContext.AddLoadMessage(
-                            this.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL").FormatWith(strBuddyRequest[0]));
+                            this.GetTextFormatted("NOTIFICATION_BUDDYAPPROVED_MUTUAL", strBuddyRequest[0]), MessageTypes.Success);
+
                         this.PopMenu1.AddClientScriptItemWithPostback(
                             this.GetText("BUDDY", "REMOVEBUDDY"),
                             "removebuddy",
@@ -780,8 +754,9 @@ namespace YAF.Controls
                         this.PopMenu1.RemovePostBackItem("removebuddy");
                         this.PopMenu1.AddPostBackItem("addbuddy", this.GetText("BUDDY", "ADDBUDDY"));
                         this.PageContext.AddLoadMessage(
-                            this.GetText("REMOVEBUDDY_NOTIFICATION").FormatWith(
-                                this.Get<IBuddy>().Remove(this.PostData.UserId)));
+                            this.GetTextFormatted(
+                                "REMOVEBUDDY_NOTIFICATION", this.Get<IBuddy>().Remove(this.PostData.UserId)),
+                            MessageTypes.Success);
                         break;
                     }
 
