@@ -24,7 +24,6 @@ namespace YAF.DotNetNuke.Utils
     using global::DotNetNuke.Entities.Users;
     using YAF.Classes.Data;
     using YAF.Core;
-    using YAF.Types.Interfaces;
     using YAF.Utils;
 
     /// <summary>
@@ -42,23 +41,22 @@ namespace YAF.DotNetNuke.Utils
         /// <returns>
         /// Returns the User ID of the new User
         /// </returns>
-        public static int CreateYafUser(UserInfo dnnUserInfo, MembershipUser dnnUser, int boardID, PortalSettings portalSettings)
+        public static int CreateYafUser(
+            UserInfo dnnUserInfo, MembershipUser dnnUser, int boardID, PortalSettings portalSettings)
         {
-            YafContext.Current.Get<IDataCache>().Clear();
-
             // setup roles
             RoleMembershipHelper.SetupUserRoles(boardID, dnnUser.UserName);
 
             // create the user in the YAF DB so profile can ge created...
-            int? userId = RoleMembershipHelper.CreateForumUser(dnnUser, dnnUserInfo.DisplayName, boardID);
+            var yafUserId = RoleMembershipHelper.CreateForumUser(dnnUser, boardID);
 
-            if (userId == null)
+            if (yafUserId == null)
             {
                 return 0;
             }
 
             // create profile
-            YafUserProfile userProfile = YafUserProfile.GetProfile(dnnUser.UserName);
+            var userProfile = YafUserProfile.GetProfile(dnnUser.UserName);
 
             // setup their inital profile information
             userProfile.Initialize(dnnUser.UserName, true);
@@ -68,10 +66,8 @@ namespace YAF.DotNetNuke.Utils
             userProfile.Region = dnnUserInfo.Profile.Region;
             userProfile.City = dnnUserInfo.Profile.City;
             userProfile.Homepage = dnnUserInfo.Profile.Website;
-
+            
             userProfile.Save();
-
-            int yafUserId = UserMembershipHelper.GetUserIDFromProviderUserKey(dnnUser.ProviderUserKey);
 
             // Save User
             LegacyDb.user_save(
@@ -94,7 +90,7 @@ namespace YAF.DotNetNuke.Utils
                 null,
                 null);
 
-            return yafUserId;
+            return yafUserId.ToType<int>();
         }
     }
 }

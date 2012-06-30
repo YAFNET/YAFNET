@@ -23,6 +23,7 @@ namespace YAF.DotNetNuke.Utils
     using System.Linq;
 
     using global::DotNetNuke.Entities.Modules;
+    using global::DotNetNuke.Entities.Users;
     using global::DotNetNuke.Security.Roles;
 
     using YAF.Classes.Data;
@@ -34,6 +35,57 @@ namespace YAF.DotNetNuke.Utils
     /// </summary>
     public class RoleSyncronizer : PortalModuleBase
     {
+        /// <summary>
+        /// Syncronizes the user roles.
+        /// </summary>
+        /// <param name="boardId">The board id.</param>
+        /// <param name="portalId">The portal id.</param>
+        /// <param name="yafUserId">The yaf user id.</param>
+        /// <param name="dnnUserInfo">The DNN user info.</param>
+        public static void SyncronizeUserRoles(int boardId, int portalId, int yafUserId, UserInfo dnnUserInfo)
+        {
+            var yafUserRoles = Data.GetYafUserRoles(boardId, yafUserId);
+
+            var yafBoardRoles = Data.GetYafBoardRoles(boardId);
+
+            var roleController = new RoleController();
+
+            foreach (var role in
+                roleController.GetRolesByUser(dnnUserInfo.UserID, portalId).Where(
+                    role => !RoleMembershipHelper.IsUserInRole(dnnUserInfo.Username, role)))
+            {
+                RoleInfo yafRoleFound = null;
+
+                var updateRole = false;
+
+                // First Create role in yaf if not exists
+                if (!yafBoardRoles.Any(yafRoleA => yafRoleA.RoleName.Equals(role)))
+                {
+                    // If not Create Role in YAF
+                    yafRoleFound = new RoleInfo { RoleID = (int)CreateYafRole(role, boardId), RoleName = role };
+
+                    updateRole = true;
+                }
+                else
+                {
+                    if (!yafUserRoles.Any(yafRoleC => yafRoleC.RoleName.Equals(role)))
+                    {
+                        yafRoleFound = yafBoardRoles.Find(yafRole => yafRole.RoleName.Equals(role));
+
+                        updateRole = true;
+                    }
+                }
+
+                if (updateRole && yafRoleFound != null)
+                {
+                    // add/remove user to yaf role ?!
+                    UpdateUserRole(yafRoleFound, yafUserId, dnnUserInfo.Username, true);
+                }
+            }
+
+            LegacyDb.activeaccess_reset();
+        }
+
         /// <summary>
         /// Syncronizes the yaf roles.
         /// </summary>
@@ -57,8 +109,15 @@ namespace YAF.DotNetNuke.Utils
                         dnnRole => !yafBoardRoles.Any(yafRole => yafRole.RoleName.Equals(dnnRole.RoleName))))
                 {
                     // If not Create Role in YAF
-                    CreateYafRole(dnnRole.RoleName, boardId);
-
+                    try
+                    {
+                        CreateYafRole(dnnRole.RoleName, boardId);
+                    }
+                    catch (Exception)
+                    {
+                        rolesChanged = false;
+                    }
+                   
                     rolesChanged = true;
                 }
 

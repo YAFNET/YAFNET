@@ -102,8 +102,7 @@ namespace YAF.Core
             get
             {
                 return
-                    LegacyDb.user_list(YafContext.Current.PageBoardID, GuestUserId, true).GetFirstRowColumnAsValue
-                        <string>("Name", null);
+                    LegacyDb.user_list(YafContext.Current.PageBoardID, GuestUserId, true).GetFirstRowColumnAsValue<string>("Name", null);
             }
         }
 
@@ -210,8 +209,7 @@ namespace YAF.Core
 
                 // iterate through each one...
                 foreach (MembershipUser user in
-                    allUsers.Cast<MembershipUser>().Where(user => !user.IsApproved && user.CreationDate < createdCutoff)
-                    )
+                    allUsers.Cast<MembershipUser>().Where(user => !user.IsApproved && user.CreationDate < createdCutoff))
                 {
                     // delete this user...
                     LegacyDb.user_delete(GetUserIDFromProviderUserKey(user.ProviderUserKey));
@@ -252,6 +250,7 @@ namespace YAF.Core
                 YafContext.Current.Get<MembershipProvider>().DeleteUser(userName, true);
                 LegacyDb.user_delete(userID);
                 YafContext.Current.Get<ILogger>().UserDeleted(YafContext.Current.PageUserID, "UserMembershipHelper.DeleteUser", "User {0} was deleted by user id {1}.".FormatWith(userName, YafContext.Current.PageUserID));
+                
                 // clear the cache
                 YafContext.Current.Get<IDataCache>().Remove(Constants.Cache.UsersOnlineStatus);
                 YafContext.Current.Get<IDataCache>().Remove(Constants.Cache.BoardUserStats);

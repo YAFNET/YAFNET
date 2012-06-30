@@ -26,8 +26,8 @@ namespace YAF.Core
     using System.Data;
     using System.Linq;
 
+    using YAF.Classes;
     using YAF.Classes.Data;
-    using YAF.Classes.Pattern;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
@@ -41,21 +41,25 @@ namespace YAF.Core
     /// </summary>
     public class DefaultUserDisplayName : IUserDisplayName, IHaveServiceLocator
     {
-        public IServiceLocator ServiceLocator { get; set; }
-
         #region Constructors and Destructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DefaultUserDisplayName"/> class.
         /// </summary>
+        /// <param name="serviceLocator">The service locator.</param>
         public DefaultUserDisplayName(IServiceLocator serviceLocator)
         {
-            ServiceLocator = serviceLocator;
+            this.ServiceLocator = serviceLocator;
         }
 
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets the ServiceLocator.
+        /// </summary>
+        public IServiceLocator ServiceLocator { get; set; }
 
         /// <summary>
         ///   Gets UserDisplayNameCollection.
@@ -79,8 +83,7 @@ namespace YAF.Core
         /// <summary>
         /// Remove the item from collection
         /// </summary>
-        /// <param name="userId">
-        /// </param>
+        /// <param name="userId">The user id.</param>
         public void Clear(int userId)
         {
             // update collection...
@@ -98,20 +101,18 @@ namespace YAF.Core
         }
 
         /// <summary>
-        /// The find.
+        /// Find user
         /// </summary>
-        /// <param name="contains">
-        /// The contains.
-        /// </param>
+        /// <param name="contains">The contains.</param>
         /// <returns>
+        /// Returns the Found User
         /// </returns>
         [NotNull]
         public IDictionary<int, string> Find([NotNull] string contains)
         {
             IEnumerable<TypedUserFind> found;
 
-
-            if (YafContext.Current.BoardSettings.EnableDisplayName)
+            if (YafContext.Current.Get<YafBoardSettings>().EnableDisplayName)
             {
                 found = LegacyDb.UserFind(YafContext.Current.PageBoardID, true, null, null, contains, null, null);
                 return found.ToDictionary(k => k.UserID ?? 0, v => v.DisplayName);
@@ -122,12 +123,11 @@ namespace YAF.Core
         }
 
         /// <summary>
-        /// The get id.
+        /// Get the userid from the user name.
         /// </summary>
-        /// <param name="name">
-        /// The name.
-        /// </param>
+        /// <param name="name">The name.</param>
         /// <returns>
+        /// The get id.
         /// </returns>
         public int? GetId([NotNull] string name)
         {
@@ -150,7 +150,7 @@ namespace YAF.Core
             else
             {
                 // find the username...
-                if (YafContext.Current.BoardSettings.EnableDisplayName)
+                if (YafContext.Current.Get<YafBoardSettings>().EnableDisplayName)
                 {
                     var user =
                       LegacyDb.UserFind(YafContext.Current.PageBoardID, false, null, null, name, null, null).FirstOrDefault();
@@ -158,7 +158,7 @@ namespace YAF.Core
                     if (user != null)
                     {
                         userId = user.UserID ?? 0;
-                        this.UserDisplayNameCollection.AddOrUpdate(userId.Value, (k) => user.DisplayName, (k, v) => user.DisplayName);
+                        this.UserDisplayNameCollection.AddOrUpdate(userId.Value, k => user.DisplayName, (k, v) => user.DisplayName);
                     }
                 }
                 else
@@ -169,7 +169,7 @@ namespace YAF.Core
                     if (user != null)
                     {
                         userId = user.UserID ?? 0;
-                        this.UserDisplayNameCollection.AddOrUpdate(userId.Value, (k) => user.DisplayName, (k, v) => user.DisplayName);
+                        this.UserDisplayNameCollection.AddOrUpdate(userId.Value, k => user.DisplayName, (k, v) => user.DisplayName);
                     }
                 }
             }
@@ -178,11 +178,9 @@ namespace YAF.Core
         }
 
         /// <summary>
-        /// The get.
+        /// Get the Display Name from a <paramref name="userId"/>
         /// </summary>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
+        /// <param name="userId">The user id.</param>
         /// <returns>
         /// The get.
         /// </returns>
@@ -196,7 +194,7 @@ namespace YAF.Core
 
                 if (row != null)
                 {
-                    if (YafContext.Current.BoardSettings.EnableDisplayName)
+                    if (YafContext.Current.Get<YafBoardSettings>().EnableDisplayName)
                     {
                         displayName = row.Field<string>("DisplayName");
                     }
@@ -207,7 +205,7 @@ namespace YAF.Core
                         displayName = row.Field<string>("Name");
                     }
 
-                    this.UserDisplayNameCollection.AddOrUpdate(userId, (k) => displayName, (k, v) => displayName);
+                    this.UserDisplayNameCollection.AddOrUpdate(userId, k => displayName, (k, v) => displayName);
                 }
             }
 

@@ -18,70 +18,61 @@
  */
 namespace YAF.Core
 {
-  using System;
-  using System.Data;
+    using System;
+    using System.Data;
 
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
-
-  /// <summary>
-  /// The user helper.
-  /// </summary>
-  public static class UserHelper
-  {
-    #region Public Methods
+    using YAF.Classes;
+    using YAF.Types.Interfaces;
 
     /// <summary>
-    /// The get user language file.
+    /// The user helper.
     /// </summary>
-    /// <param name="userId">
-    /// </param>
-    /// <returns>
-    /// language file name. If null -- use default language
-    /// </returns>
-    public static string GetUserLanguageFile(int userId)
+    public static class UserHelper
     {
-      // get the user information...
-      DataRow row = UserMembershipHelper.GetUserRowForID(userId);
+        #region Public Methods
 
-      if (row != null && row["LanguageFile"] != DBNull.Value && YafContext.Current.BoardSettings.AllowUserLanguage)
-      {
-        return row["LanguageFile"].ToString();
-      }
+        /// <summary>
+        /// Gets the user language file.
+        /// </summary>
+        /// <param name="userId">The user id.</param>
+        /// <returns>
+        /// language file name. If null -- use default language
+        /// </returns>
+        public static string GetUserLanguageFile(int userId)
+        {
+            // get the user information...
+            DataRow row = UserMembershipHelper.GetUserRowForID(userId);
 
-      return null;
+            if (row != null && row["LanguageFile"] != DBNull.Value
+                && YafContext.Current.Get<YafBoardSettings>().AllowUserLanguage)
+            {
+                return row["LanguageFile"].ToString();
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Gets the user theme file.
+        /// </summary>
+        /// <param name="userId">The user id.</param>
+        /// <returns>Returns User theme</returns>
+        public static string GetUserThemeFile(int userId)
+        {
+            DataRow row = UserMembershipHelper.GetUserRowForID(userId);
+
+            string themeFile = row["ThemeFile"] != DBNull.Value && YafContext.Current.Get<YafBoardSettings>().AllowUserTheme
+                                   ? row["ThemeFile"].ToString()
+                                   : YafContext.Current.Get<YafBoardSettings>().Theme;
+
+            if (!YafTheme.IsValidTheme(themeFile))
+            {
+                themeFile = StaticDataHelper.Themes().Rows[0][1].ToString();
+            }
+
+            return themeFile;
+        }
+
+        #endregion
     }
-
-    /// <summary>
-    /// </summary>
-    /// <param name="userId">
-    /// The user id.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    public static string GetUserThemeFile(int userId)
-    {
-      DataRow row = UserMembershipHelper.GetUserRowForID(userId);
-      
-      string themeFile = null;
-
-      if (row["ThemeFile"] != DBNull.Value && YafContext.Current.BoardSettings.AllowUserTheme)
-      {
-        // use user-selected theme
-        themeFile = row["ThemeFile"].ToString();
-      }
-      else
-      {
-        themeFile = YafContext.Current.BoardSettings.Theme;
-      }
-
-      if (!YafTheme.IsValidTheme(themeFile))
-      {
-        themeFile = StaticDataHelper.Themes().Rows[0][1].ToString();
-      }
-
-      return themeFile;
-    }
-
-    #endregion
-  }
 }

@@ -25,14 +25,11 @@ namespace YAF.DotNetNuke
     using System.Collections.Generic;
     using System.Data;
     using System.Globalization;
-    using System.Linq;
     using System.Threading;
     using System.Web;
     using System.Web.Security;
     using System.Web.UI;
 
-    using global::DotNetNuke.Common;
-    using global::DotNetNuke.Common.Utilities;
     using global::DotNetNuke.Entities.Modules;
     using global::DotNetNuke.Entities.Modules.Actions;
     using global::DotNetNuke.Entities.Portals;
@@ -40,7 +37,6 @@ namespace YAF.DotNetNuke
     using global::DotNetNuke.Entities.Users;
     using global::DotNetNuke.Framework;
     using global::DotNetNuke.Security;
-    using global::DotNetNuke.Security.Roles;
     using global::DotNetNuke.Services.Exceptions;
     using global::DotNetNuke.Services.Localization;
     using YAF.Classes;
@@ -178,17 +174,15 @@ namespace YAF.DotNetNuke
         }
 
         /// <summary>
-        /// The on init.
+        /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event.
         /// </summary>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnInit(EventArgs e)
         {
             this.InitializeComponent();
 
             base.OnInit(e);
-        }
+        }   
 
         /// <summary>
         /// Get Default CDefault
@@ -203,12 +197,8 @@ namespace YAF.DotNetNuke
 
             if (parent != null)
             {
-                if (parent is CDefault)
-                {
-                    return (CDefault)parent;
-                }
-
-                return GetDefault(parent);
+                var cDefault = parent as CDefault;
+                return cDefault ?? GetDefault(parent);
             }
 
             return null;
@@ -427,12 +417,6 @@ namespace YAF.DotNetNuke
                 return;
             }
 
-            // Check for user
-            if (!HttpContext.Current.User.Identity.IsAuthenticated)
-            {
-                return;
-            }
-
             // Check if Yaf Profile exists as dnn profile Definition
             if (this.Session["{0}_profileproperties".FormatWith(this.CurrentPortalSettings.PortalId)] == null)
             {
@@ -448,9 +432,15 @@ namespace YAF.DotNetNuke
                 }
             }
 
+            // Check for user
+            if (!HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                return;
+            }
+
             try
             {
-                this.VerifyUser();
+               this.VerifyUser();
             }
             catch (Exception ex)
             {
@@ -471,45 +461,7 @@ namespace YAF.DotNetNuke
                 return;
             }
 
-            var yafBoardRoles = Data.GetYafBoardRoles(this.forum1.BoardID);
-
-            var yafUserRoles = Data.GetYafUserRoles(this.forum1.BoardID, yafUserId);
-
-            var roleController = new RoleController();
-
-            foreach (var role in roleController.GetRolesByUser(dnnUser.UserID, this.CurrentPortalSettings.PortalId))
-            {
-                RoleInfo yafRoleFound = null;
-
-                var updateRole = false;
-
-                // First Create role in yaf if not exists
-                if (!yafBoardRoles.Any(yafRoleA => yafRoleA.RoleName.Equals(role)))
-                {
-                    // If not Create Role in YAF
-                    yafRoleFound = new RoleInfo
-                        {
-                            RoleID = (int)RoleSyncronizer.CreateYafRole(role, this.forum1.BoardID), 
-                            RoleName = role
-                        };
-
-                    updateRole = true;
-                }
-                else
-                {
-                    if (!yafUserRoles.Any(yafRoleC => yafRoleC.RoleName.Equals(role)))
-                    {
-                        yafRoleFound = yafBoardRoles.Find(yafRole => yafRole.RoleName.Equals(role));
-                        updateRole = true;
-                    }
-                }
-
-                if (updateRole && yafRoleFound != null)
-                {
-                    // add/remove user to yaf role ?!
-                    RoleSyncronizer.UpdateUserRole(yafRoleFound, yafUserId, dnnUser.Username, true);
-                }
-            }
+            RoleSyncronizer.SyncronizeUserRoles(this.forum1.BoardID, this.PortalSettings.PortalId, yafUserId, dnnUser);
 
             this.Session["{0}_rolesloaded".FormatWith(this.SessionUserKeyName)] = true;
         }
@@ -519,13 +471,13 @@ namespace YAF.DotNetNuke
         /// </summary>
         private void VerifyUser()
         {
-            // Get current Dnn user (DNN 5)
+            // Get current Dnn user
             var dnnUserInfo = UserController.GetCurrentUserInfo();
 
             // get the user from the membership provider
-            MembershipUser dnnUser = Membership.GetUser(dnnUserInfo.Username, true);
+            MembershipUser dnnMembershipUser = Membership.GetUser(dnnUserInfo.Username, true);
 
-            if (dnnUser == null)
+            if (dnnMembershipUser == null)
             {
                 return;
             }
@@ -534,27 +486,38 @@ namespace YAF.DotNetNuke
             if ((dnnUserInfo.IsSuperUser || dnnUserInfo.UserID == this.portalSettings.AdministratorId) &&
                 this.createNewBoard)
             {
-                this.CreateNewBoard(dnnUserInfo, dnnUser);
+                this.CreateNewBoard(dnnUserInfo, dnnMembershipUser);
             }
 
-            int yafUserId;
+            var yafUserId = LegacyDb.user_get(this.forum1.BoardID, dnnMembershipUser.ProviderUserKey);
 
-            try
+            if (yafUserId.Equals(0))
             {
-                yafUserId = LegacyDb.user_get(this.forum1.BoardID, dnnUser.ProviderUserKey);
+                yafUserId = UserImporter.CreateYafUser(
+                    dnnUserInfo, dnnMembershipUser, this.forum1.BoardID, this.PortalSettings);
 
-                if (yafUserId > 0)
+                RoleMembershipHelper.UpdateForumUser(dnnMembershipUser, this.forum1.BoardID, dnnUserInfo.Roles);
+
+                // super admin check...
+                if (dnnUserInfo.IsSuperUser)
                 {
-                    this.Session["{0}_userSync".FormatWith(this.SessionUserKeyName)] = true;
+                    this.CreateYafHostUser(yafUserId);
                 }
+
+                this.Session["{0}_userSync".FormatWith(this.SessionUserKeyName)] = true;
             }
-            catch (Exception)
+            else
             {
-                yafUserId = 0;
-                this.Session["{0}_userSync".FormatWith(this.SessionUserKeyName)] = null;
+                RoleMembershipHelper.UpdateForumUser(dnnMembershipUser, this.forum1.BoardID, dnnUserInfo.Roles);
+
+                this.CheckForRoles(dnnUserInfo, yafUserId);
             }
 
-            this.CheckForRoles(dnnUserInfo, yafUserId);
+            // Has this user been registered in YAF already?);
+            if (this.Session["{0}_userSync".FormatWith(this.SessionUserKeyName)] != null)
+            {
+                return;
+            }
 
             // Load Auto Sync Setting
             bool autoSyncProfile = true;
@@ -564,40 +527,15 @@ namespace YAF.DotNetNuke
                 bool.TryParse((string)this.Settings["AutoSyncProfile"], out autoSyncProfile);
             }
 
-            if (yafUserId > 0 && autoSyncProfile)
-            {
-                ProfileSyncronizer.UpdateUserProfile(
-                    yafUserId, dnnUserInfo, dnnUser, this.CurrentPortalSettings.PortalId, this.forum1.BoardID);
-            }
-
-            // Has this user been registered in YAF already?);
-            if (this.Session["{0}_userSync".FormatWith(this.SessionUserKeyName)] != null)
+            if (!autoSyncProfile)
             {
                 return;
             }
 
-            if (yafUserId == 0)
-            {
-                yafUserId = UserImporter.CreateYafUser(dnnUserInfo, dnnUser, this.forum1.BoardID, this.portalSettings);
-            }
+            ProfileSyncronizer.UpdateUserProfile(
+                yafUserId, dnnUserInfo, dnnMembershipUser, this.CurrentPortalSettings.PortalId, this.forum1.BoardID);
 
-            // super admin check...
-            if (dnnUserInfo.IsSuperUser)
-            {
-                this.CreateYafHostUser(yafUserId);
-            }
-
-            if (YafContext.Current.Settings != null)
-            {
-                RoleMembershipHelper.UpdateForumUser(dnnUser, YafContext.Current.Settings.BoardID);
-            }
-
-            YafContext.Current.Get<IDataCache>().Clear();
-
-            DataCache.ClearPortalCache(this.CurrentPortalSettings.PortalId, true);
-
-            this.Session.Clear();
-            this.Response.Redirect(Globals.NavigateURL(), true);
+            this.Session["{0}_userSync".FormatWith(this.SessionUserKeyName)] = true;
         }
 
         /// <summary>
@@ -671,7 +609,7 @@ namespace YAF.DotNetNuke
             this.forum1 = new Forum();
 
             this.pnlModuleContent.Controls.Add(this.forum1);
-
+            
             this.Load += this.DotNetNukeModule_Load;
             this.forum1.PageTitleSet += this.Forum1_PageTitleSet;
 
@@ -711,14 +649,16 @@ namespace YAF.DotNetNuke
                     bool.TryParse((string)this.Settings["OverrideTheme"], out overrideTheme);
                 }
 
-                if (overrideTheme)
+                if (!overrideTheme)
                 {
-                    var forumThemeFile = this.Settings["forumtheme"].ToString();
+                    return;
+                }
 
-                    if (!string.IsNullOrEmpty(forumThemeFile))
-                    {
-                        YafContext.Current.Page["ForumTheme"] = forumThemeFile;
-                    }
+                var forumThemeFile = this.Settings["forumtheme"].ToString();
+
+                if (!string.IsNullOrEmpty(forumThemeFile))
+                {
+                    YafContext.Current.Page["ForumTheme"] = forumThemeFile;
                 }
             }
             catch (Exception)
