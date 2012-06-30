@@ -44,11 +44,11 @@ function showNotification(params){
     } else if(options['type'] == 'warning'){
         icon = 'warning.png'; // over write the message to warning message
     } 
-    
+	
     // Parent Div container
     var container = '<div id="info_message" class="notification_background '+msgclass+'" onclick="return closeNotification();" title="Click to Hide Notification"><div class="center_auto"><div class="info_message_text message_area">';
 	container += '<img class="message_icon" src="' + options['imagepath'] + icon + '" alt="'+ options['type'] + '" title="'+ options['type'] + '" />&nbsp;';
-    container += options['message'];
+    container += options['message'].replaceAll('\\n', '<br />');
 	container += '</div><div class="clearboth"></div>';
 	container += '</div>';
     
@@ -75,6 +75,27 @@ function showNotification(params){
     });
     
 }
+String.prototype.replaceAll = function(token, newToken, ignoreCase) {
+    var str, i = -1, _token;
+    if((str = this.toString()) && typeof token === "string") {
+        _token = ignoreCase === true? token.toLowerCase() : undefined;
+        while((i = (
+            _token !== undefined? 
+                str.toLowerCase().indexOf(
+                            _token, 
+                            i >= 0? i + newToken.length : 0
+                ) : str.indexOf(
+                            token,
+                            i >= 0? i + newToken.length : 0
+                )
+        )) !== -1 ) {
+            str = str.substring(0, i)
+                    .concat(newToken)
+                    .concat(str.substring(i + token.length));
+        }
+    }
+return str;
+};
 // function to close notification message
 // slideUp the message
 function closeNotification(duration){
@@ -106,7 +127,3 @@ function slideDownNotification(startAfter, autoClose, duration){
         }
     }, parseInt(startAfter * 1000));    
 }
-
-
-
-
