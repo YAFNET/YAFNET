@@ -4740,6 +4740,7 @@
     <Content Include="themes\cleanSlate\cleanslate.js" />
     <Content Include="themes\Fancy.xml" />
     <Content Include="themes\Fancy\fonts\entypo-webfont.svg" />
+    <Content Include="themes\Fancy\fonts\Lobster-webfont.svg" />
     <Content Include="themes\Fancy\images\albums.png" />
     <Content Include="themes\Fancy\images\arrow_up_button.png" />
     <Content Include="themes\Fancy\images\atomfeed.png" />
@@ -4857,7 +4858,7 @@
     <Content Include="themes\Fancy\images\vote_refuse.gif" />
     <Content Include="themes\Fancy\images\voting_bar.gif" />
     <Content Include="themes\Fancy\js\Fancy.js" />
-    <Content Include="themes\Fancy\js\jquery.ddslick.js" />
+    <Content Include="themes\Fancy\js\jquery.msDropDown.js" />
     <Content Include="themes\Fancy\js\jquery.tipTip.minified.js" />
     <Content Include="themes\Fancy\js\jquery.uniform.min.js" />
     <Content Include="themes\Fancy\theme.css" />
@@ -5611,6 +5612,9 @@
     <None Include="themes\Fancy\fonts\entypo-webfont.eot" />
     <None Include="themes\Fancy\fonts\entypo-webfont.ttf" />
     <None Include="themes\Fancy\fonts\entypo-webfont.woff" />
+    <None Include="themes\Fancy\fonts\Lobster-webfont.eot" />
+    <None Include="themes\Fancy\fonts\Lobster-webfont.ttf" />
+    <None Include="themes\Fancy\fonts\Lobster-webfont.woff" />
     <None Include="Web References\RegisterV2\LatestVersionInformation.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>

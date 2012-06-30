@@ -9,6 +9,15 @@
     font-weight: normal;
     font-style: normal;
 }
+@font-face {
+    font-family: 'Lobster';
+    src: url('fonts/Lobster-webfont.eot');
+    src: url('fonts/Lobster-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/Lobster-webfont.ttf') format('truetype'),
+         url('fonts/Lobster-webfont.svg#Lobster13Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
 
 body {
 	background-color: #2a4985;
@@ -22,18 +31,19 @@ html { min-height: 100%; }
 
 .yafnet img {border: 0;}
 
-.yafnet,
-.yafnet td {
+.yafnet {
 	font-size:12px;
-	font-family: Arial, Helvetica, sans-serif;
-	color: black;
+	font-family: Verdana, Geneva, sans-serif;
+	color: white;
 }
+.yafnet .content {color: black;}
 .yafnet textarea {
 		width:98%;
 		padding:0px;
 }
 .yafnet input[type="image"] {border: 0;}
 
+.yafnet input[type="password"],
 .yafnet input[type="text"],
 .yafnet textarea {
   padding: 5px;
@@ -71,14 +81,36 @@ html { min-height: 100%; }
   box-shadow: 0 1px 0 rgba(255,255,255,.2), inset 0 3px 5px rgba(0,0,0,.6), inset 0 1px 0 rgba(0,0,0,.6);
 }
 
+.yafnet input[type="password"]:focus,
 .yafnet input[type="text"]:focus,
 .yafnet textarea:focus {
-	outline:none;
+  background-color: #ccc;
+  *background-color: #e8e8e8;
+  background-image: -ms-linear-gradient(top, #e8e8e8, #ccc);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#e8e8e8), to(#ccc));
+  background-image: -webkit-linear-gradient(top, #f5f5f5, #e8e8e8);
+  background-image: -o-linear-gradient(top, #e8e8e8, #ccc);
+  background-image: -moz-linear-gradient(top, #e8e8e8, #ccc);
+  background-image: linear-gradient(top, #e8e8e8, #ccc);
+  -webkit-transition: background-position 0.1s linear;
+     -moz-transition: background-position 0.1s linear;
+      -ms-transition: background-position 0.1s linear;
+       -o-transition: background-position 0.1s linear;
+          transition: background-position 0.1s linear;
+  outline:none;
 }
 
 .yafnet .yafcssimagebutton img {
 	padding-right: 5px;
 }
+.yafnet .pagination a, .yafnet .pagination span,
+.yafnet .pagination .current.smiliesPagerPrev, 
+.yafnet .pagination .current.smiliesPagerNext,
+.yafnet .ButtonOut,
+.yafnet .ButtonOver,
+.yafnet .ButtonChecked,
+.yafnet .ButtonOff,
+.ModalDialog .RecoveryButtton,
 .yafnet .dd,
 .yafnet dl.AlphaSort dd,
 .yafnet input[type="submit"],
@@ -88,7 +120,7 @@ html { min-height: 100%; }
 .yafnet .pagecurrent,
 .yafnet .pagecount,
 .yafnet .GoToLink,
-.yafnet .PopMenuLink,
+.yafnet a.PopMenuLink,
 .yafnet .pbutton,
 .yafnet .postTopLink,
 .yafnet .MultiQuoteButton,
@@ -97,18 +129,33 @@ html { min-height: 100%; }
 
   padding: 4px 7px 4px;
   margin:2px 2px 2px 2px;
-  font: 12px/100% "Helvetica Neue", "Helvetica";
+  font-size: 12px;
+
   line-height: 16px;
   *line-height: 18px;
 }
-
+.yafnet .ui-tabs-nav li,
+.yafnet li.ui-tabs-selected,
+.ModalDialog .StandardButton,
+.ModalDialog .LoginButton,
 .yafnet .yafcssbigbutton span {
   padding: 4px 10px 4px;
   margin:2px 2px 2px 2px;
-  font: 13px/100% "Helvetica Neue", "Helvetica";
+  font-size: 13px/100%;
   line-height: 18px;
   *line-height: 20px;
 }
+.yafnet .pagination a, .yafnet .pagination span,
+.yafnet .pagination .current.smiliesPagerPrev, 
+.yafnet .pagination .current.smiliesPagerNext,
+.yafnet .ui-tabs-nav li,
+.yafnet .ButtonOut,
+.yafnet .ButtonOver,
+.yafnet .ButtonChecked,
+.yafnet .ButtonOff,
+.ModalDialog .modalFooter a,
+.ModalDialog .RecoveryButtton,
+.ModalDialog .LoginButton,
 .yafnet .dd,
 .yafnet dl.AlphaSort dd,
 .yafnet .dd-select,
@@ -155,7 +202,16 @@ html { min-height: 100%; }
   -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
      -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
           box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  font-family:"helvetica neue", "helvetica", "arial", sans-serif;
 }
+.yafnet .pagination a:hover, .yafnet .pagination span:hover,
+.yafnet .pagination .current.smiliesPagerPrev:hover, 
+.yafnet .pagination .current.smiliesPagerNext:hover,
+.yafnet .ui-tabs-nav li:hover,
+.yafnet .ButtonOver,
+.ModalDialog .modalFooter a:hover,
+.ModalDialog .RecoveryButtton:hover,
+.ModalDialog .LoginButton:hover,
 .yafnet .dd:hover,
 .yafnet dl.AlphaSort dd:hover,
 .yafnet .dd-select:hover,
@@ -185,6 +241,14 @@ html { min-height: 100%; }
        -o-transition: background-position 0.1s linear;
           transition: background-position 0.1s linear;
 }
+.yafnet .pagination a:focus, .yafnet .pagination span:focus,
+.yafnet .pagination .current.smiliesPagerPrev:focus, 
+.yafnet .pagination .current.smiliesPagerNext:focus,
+.yafnet .ui-tabs-nav li:focus,
+.yafnet .ButtonChecked,
+.ModalDialog .modalFooter a:focus,
+.ModalDialog .RecoveryButtton:focus,
+.ModalDialog .LoginButton:focus,
 .yafnet .dd:focus,
 .yafnet dl.AlphaSort dd:focus,
 .yafnet .dd-select:focus,
@@ -206,6 +270,15 @@ html { min-height: 100%; }
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
+.yafnet .pagination .current,
+.yafnet .pagination a:active, .yafnet .pagination span:active,
+.yafnet .pagination .current.smiliesPagerPrev:active, 
+.yafnet .pagination .current.smiliesPagerNext:active,
+.yafnet .ui-tabs-nav li:active,
+.yafnet li.ui-tabs-selected,
+.ModalDialog .StandardButton:active,
+.ModalDialog .RecoveryButtton:active,
+.ModalDialog .LoginButton:active,
 .yafnet .dd:active,
 .yafnet dl.AlphaSort dd:active,
 .yafnet .dd-select:active,
@@ -231,6 +304,7 @@ html { min-height: 100%; }
      -moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
           box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
 }
+.yafnet .ButtonOff,
 .yafnet .GoToLink[disabled],
 .yafnet .PopMenuLink[disabled],
 .yafnet .pbutton[disabled],
@@ -248,6 +322,9 @@ html { min-height: 100%; }
      -moz-box-shadow: none;
           box-shadow: none;
 }
+.ModalDialog .StandardButton,
+.ModalDialog .RecoveryButtton,
+.ModalDialog .LoginButton,
 .yafnet .content input[type="submit"],
 .yafnet .content .pbutton,
 .yafnet .content .GoToLink,
@@ -273,7 +350,9 @@ html { min-height: 100%; }
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   color: white;
 }
-
+.ModalDialog .StandardButton:hover,
+.ModalDialog .RecoveryButtton:hover,
+.ModalDialog .LoginButton:hover,
 .yafnet .content input[type="submit"]:hover,
 .yafnet .content .pbutton:hover,
 .yafnet .content .GoToLink:hover,
@@ -304,13 +383,15 @@ html { min-height: 100%; }
 }
 /* Header 1 - Main header */
 .yafnet .header1,
+.yafnet .HeaderTopicLink,
 .yafnet tr.forumRowTitle,
 .yafnet .topicTitle th {	
-	font-weight: bold;
+    font-weight:normal!important;
 	padding-left: 10px;
-	font-size: 11pt;
+	font-size: 14pt;
 	line-height: 20px;
-	text-align:left
+	text-align:left;
+    font-family:'Lobster',Arial, Helvetica, sans-serif;
 }
 
 
@@ -410,13 +491,6 @@ html { min-height: 100%; }
 #yafprofilecontent .post,
 #yafprofilecontent .postheader {border-top:none;}
 
-/* Header of posts */
-.yafnet .postheader a {
-	font-size: 11pt;
-	color: Black;	
-}
-
-
 /* User info and post/article */
 .yafnet .post,
 .yafnet .post_alt,
@@ -444,11 +518,6 @@ html { min-height: 100%; }
 /* Footer of posts */
 .yafnet .postfooter {
 	height: 30px;
-}
-/* Area between posts */
-.yafnet .postsep {
-	background-color: white;
-	height: 10px;
 }
 /* most tables are class 'content' */
 .yafnet table.content {
@@ -515,7 +584,6 @@ html { min-height: 100%; }
                     box-shadow:0 8px 10px rgba(0, 0, 0, 0.5);
 }
 .yafnet .postformheader {
-	background-color: #EEEEEE;
 	font-weight:bold;
 }
 .yafnet .fileattach .filetitle,
@@ -551,8 +619,9 @@ html { min-height: 100%; }
 	line-height: 30px;	
 }
 /* used for quoting messages */
+.yafnet .code,
 .yafnet .quote {
-  padding: 4px;
+    padding: 4px;
 	border: 1px solid white;
 	-webkit-border-radius: 7px;
 	-moz-border-radius: 7px;
@@ -575,15 +644,6 @@ html { min-height: 100%; }
     font-style: italic;
 }
 /* used for code */
-.yafnet .code {
-	margin: 10px;
-	background-color: #f9f9f9;
-	border: solid 1px #110000;
-	border-left: 4px solid red;
-	-moz-border-radius: 0.4em; 
-	-webkit-border-radius: 0.4em;
-	border-radius: 0.4em;
-}
 .yafnet .innercode {
 	padding: 4px;
 	
@@ -648,42 +708,7 @@ html { min-height: 100%; }
 	border-radius: 0.4em;
 	width: 100%;
 }
-.yafnet .ButtonOut {
-	border: #669966 1px solid;
-	-moz-border-radius: 0.4em; 
-	-webkit-border-radius: 0.4em;
-	border-radius: 0.4em;
-}
-.yafnet .ButtonOver {
-	border: #000000 1px solid;
-	-moz-border-radius: 0.4em; 
-	-webkit-border-radius: 0.4em;
-	border-radius: 0.4em;
-	background-color: #ffffff;
-}
-.yafnet .ButtonChecked {
-	border: #000000 1px solid;
-	-moz-border-radius: 0.4em; 
-	-webkit-border-radius: 0.4em;
-	border-radius: 0.4em;
-}
-.yafnet .ButtonOff {
-	border: #669966 1px solid;
-	-moz-border-radius: 0.4em; 
-	-webkit-border-radius: 0.4em;
-	border-radius: 0.4em;
-}
-.yafnet #bbcodeFeatures {
-	border: #eeffee 1px solid;
-	-moz-border-radius: 0.4em; 
-	-webkit-border-radius: 0.4em;
-	border-radius: 0.4em;
-}
-/*
-Use this to setup overflow feature for your site.
-On IE that would mean specifying a width so that the overflow will work properly.
-This CSS already works on FireFox.
-*/
+
 .yafnet div.postdiv {width: 100%;min-height: 100px;overflow: auto;	}
 .yafnet div.AdMessage {min-height: 10px;}
 .yafnet .yafsignature {border-top: solid 1px #666;margin-top: 15px;padding-top: 5px;}
@@ -863,11 +888,12 @@ box-shadow:         0px 0px 2px rgba(0, 0, 0, 0.62);
 .yafnet .menuList li a,
 .yafnet .menuAdminList li a
 {
+	font-family:"Lobster";
     font-weight: bold;
-	text-transform:uppercase;
-	font-size: 93%;
+	
+	font-size: 14pt;
 	color: black;
-	font-weight: bold;
+	font-weight:lighter;
 }
 .yafnet .menuMyList li a
 {
@@ -875,31 +901,16 @@ box-shadow:         0px 0px 2px rgba(0, 0, 0, 0.62);
   font-size: 34px;
   font-weight: normal;
   color:white;
-  vertical-align:text-bottom;
+  vertical-align:sub
 }
-
 .yafnet .menuMyList li
 {
     display: inline;
     padding:0px;
 }
-
-.yafnet .loggedInUser {color:white;}
-.yafnet .currentUser{font-weight:bold;color:#2a4985;}
-.guestUser { 
-    background: url("images/error.png") #fdd no-repeat 8px 50%;
-    font-style:italic;
-    color: #281b1b;
-    font-size: 1.1em;
-    width:97.8%;
-    line-height: 150%;
-    margin-bottom: 10px;
-    border: 1px solid #deb7b7;
-    padding:5px  0 5px 30px;
-    -webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
-}
+.yafnet .loggedInUser{vertical-align:baseline}
+.yafnet .currentUser{font-weight:bold;}
+.guestUser { position:absolute;left:-9999px;}
 
 .yafnet .menuContainer {
 	border-spacing: 0;
@@ -957,38 +968,12 @@ box-shadow:         0px 0px 2px rgba(0, 0, 0, 0.62);
 /* Override jquery ui font-size */
 .ui-widget { font-size: 9pt!important; }
 
-.yafnet a.PopMenuLink {
-	 color: #333333;
-}
 .yafnet .PrevTopicLink {
 	background: url("images/LeftArrow.png") transparent no-repeat 0% 50%;
 }
 
 .yafnet .NextTopicLink {
 	background: url("images/RightArrow.png") transparent no-repeat 100% 50%;
-}
-
-.yafnet .pagination a, .yafnet .pagination span {
-    text-decoration: none;
-	background: #F5F5F5;
-	border: 1px solid #444444;
-	-moz-border-radius: 0.4em; 
-	-webkit-border-radius: 0.4em;
-	border-radius: 0.4em;
-	padding: 1px 3px 1px 3px;
-	margin-right: 2px;
-}
-
-.yafnet .pagination .current {
-    background: #446bb8;
-    color: #fff;
-	border: solid 1px #AAE;
-}
-
-.yafnet .pagination .current.smiliesPagerPrev, .yafnet .pagination .current.smiliesPagerNext{
-	color:#999;
-	border-color:#999;
-	background:#fff;
 }
 .yafnet .EditUserProfileTable .postheader {
 	padding-left: 30px;
@@ -1011,23 +996,26 @@ box-shadow:         0px 0px 2px rgba(0, 0, 0, 0.62);
 .ModalDialog input[type=text], .ModalDialog input[type=password] {
 	background: #ccc;
 }
-.ModalDialog .StandardButton,
-.ModalDialog .RecoveryButtton,
-.ModalDialog .LoginButton {
-	background: url('images/HeaderBack.png') #333;	
-	background: -webkit-gradient(linear, left top, left bottom, from(#666), to(#000));
-	background: -moz-linear-gradient(top,  #666,  #000);
-    background: -o-linear-gradient(top,  #666,  #000);
+.ModalDialog input.OkButton:hover,
+.ModalDialog input.OkButton {
+  background-color: #436b0c;
+  *background-color: #6b9d28;
+  background-image: -ms-linear-gradient(top, #6b9d28, #436b0c);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#6b9d28), to(#436b0c));
+  background-image: -webkit-linear-gradient(top, #6b9d28, #436b0c);
+  background-image: -o-linear-gradient(top, #6b9d28, #436b0c);
+  background-image: -moz-linear-gradient(top, #6b9d28, #436b0c);
+  background-image: linear-gradient(top, #6b9d28, #436b0c);
+  background-repeat: repeat-x;
+  border-color: #0055cc #0055cc #003580;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#0088cc', endColorstr='#0055cc', GradientType=0);
+  filter: progid:dximagetransform.microsoft.gradient(enabled='false');
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  color: white;
 }
-.ModalDialog .OkButton:hover,
-.ModalDialog .OkButton {
-	background: #436b0c;
-	background: -webkit-gradient(linear, left top, left bottom, from(#6b9d28), to(#436b0c));
-	background: -moz-linear-gradient(top,  #6b9d28,  #436b0c);
-	background: -o-linear-gradient(top,  #6b9d28,  #436b0c);
-}
-.ModalDialog .CancelButton:hover,
-.ModalDialog .CancelButton{
+.ModalDialog input.CancelButton:hover,
+.ModalDialog input.CancelButton{
 	background: #d81b21;
 	background: -webkit-gradient(linear, left top, left bottom, from(#ed1c24), to(#aa1317));
 	background: -moz-linear-gradient(top,  #ed1c24,  #aa1317);
@@ -1096,7 +1084,7 @@ box-shadow:         0px 0px 2px rgba(0, 0, 0, 0.62);
 
 .yafnet dl.AlphaSort dd a {color:black;}
 
-.yafnet .post_res { background-color: #F4E941;}
+.yafnet .post_res { background-color: #f3f3f3;}
 
 .yafnet .topicReplies,
 .yafnet .topicViews {text-align:center;}
@@ -1141,36 +1129,41 @@ box-shadow:         0px 0px 2px rgba(0, 0, 0, 0.62);
 .yafnet .hc-details { -moz-box-shadow: 0px 0px 5px rgba(0, 0, 0, 1);-webkit-box-shadow:0px 0px 5px rgba(0, 0, 0, 1);box-shadow: 0px 0px 5px rgba(0, 0, 0, 1);border:solid 1px white;z-index:100;}
 
 /* Select styling */
-.yafnet .dd-container {padding:5px;display:inline-block;}
-.yafnet .dd-select{text-align:left;}
-.yafnet .dd-desc { color:#aaa; display:block; overflow: hidden; font-weight:normal; line-height: 1.4em; }
-.yafnet .dd-selected{ overflow:hidden; display:block; padding:7px; font-weight:bold; }
-.yafnet .dd-selected-text {font-size:12px; text-overflow: ellipsis;
-    display: inline-block;
-    width: 275px;
-    white-space: nowrap;
-    overflow: hidden;
-    vertical-align: top;}
-.yafnet .dd-pointer{ width:0; height:0; position:absolute; right:10px; top:50%; margin-top:-3px;}
-.yafnet .dd-pointer-down{ border:solid 5px transparent; border-top:solid 5px #000; }
-.yafnet .dd-pointer-up{border:solid 5px transparent !important; border-bottom:solid 5px #000 !important; margin-top:-8px;}
-.yafnet .ddChild,
-.yafnet .dd-options{ border:solid 1px #ccc; border-top:none; list-style:none; -moz-box-shadow:0px 1px 5px #ddd;box-shadow:0px 1px 5px #ddd; display:none; position:absolute; z-index:2000; margin:0; padding:0;background:#fff; overflow:auto;position:absolute;width: 513px; height: 157px; z-index: 9999;border-bottom-color: #b3b3b3;
+.yafnet .dd {text-align:left;background-color:#fff;font-family:Arial, Helvetica, sans-serif;font-size:12px;}.dd .ddTitle{background:#f2f2f2;border:1px solid #c3c3c3;text-indent:0;cursor:default;overflow:hidden;padding:3px;height:15px}.dd .ddTitle span.arrow{background:none!important;width:auto!important;height:auto!important;font-family:'EntypoRegular';font-size:40px;float:right;display:inline-block;cursor:pointer;margin-top:-5px;}.dd .ddTitle span.ddTitleText{font-weight:bold;width:100%;text-overflow: ellipsis;display: inline-block;white-space: nowrap;overflow: hidden;vertical-align: top;}.dd .ddTitle span.ddTitleText img{text-align:left;padding:0 2px 0 0;}.dd .ddTitle img.selected{vertical-align:top;padding:0 3px 0 0;}.dd .ddChild{position:absolute;border:1px solid #c3c3c3;border-top:none;display:none;width:auto;overflow:auto;overflow-x:hidden!important;background-color:#fff;margin:0;}.dd .ddChild .opta a,.dd .ddChild .opta a:visited{padding-left:10px;}.dd .ddChild a{display:block;text-decoration:none;color:#000;overflow:hidden;text-overflow: ellipsis; white-space:nowrap;cursor:pointer;padding:2px 0 2px 3px;}.dd .ddChild a img{border:0;vertical-align:middle;padding:0 2px 0 0;}.hidden{display:none;}.dd .borderTop{border-top:1px solid #c3c3c3!important;}.dd .noBorderTop{border-top:none 0!important;}.dd .ddChild a:hover,.dd .ddChild a.selected{background-color:#ccc!important;}
+
+.yafnet .ddChild{ border:solid 1px #ccc; border-top:none; list-style:none; -moz-box-shadow:0px 1px 5px #ddd;box-shadow:0px 1px 5px #ddd; display:none; position:absolute; z-index:2000; margin:0; padding:0;background:#fff; overflow:auto;position:absolute;height: 157px; z-index: 9999;border-bottom-color: #b3b3b3;
   -webkit-border-radius: 4px;
      -moz-border-radius: 4px;
           border-radius: 4px;}
-.yafnet .dd-options li {list-style-type: none;padding: 0;margin: 0;}
-.yafnet .ddChild a,
-.yafnet .dd-option{ text-align:left;padding:10px; display:block; border-bottom:solid 1px #ddd; overflow:hidden; text-decoration:none; color:#333; cursor:pointer;-webkit-transition: all 0.25s ease-in-out; -moz-transition: all 0.25s ease-in-out;-o-transition: all 0.25s ease-in-out;-ms-transition: all 0.25s ease-in-out; }
-.yafnet .dd-options > li:last-child > .dd-option{ border-bottom:none;}
-.yafnet .ddChild a:hover,
-.yafnet .dd-option:hover{ background:#f3f3f3!important; color:#000!important;}
-.yafnet .dd-selected-description-truncated { text-overflow: ellipsis; white-space:nowrap; }
-.yafnet .dd-option-selected { background:#f6f6f6; }
-.yafnet .dd-option-image,.yafnet  .dd-selected-image { margin-right:5px;}
-.yafnet .dd-image-right { float:right; margin-right:15px; margin-left:5px;}
-.yafnet .dd-container { position: relative }
-.yafnet .dd-selected-text{font-weight:bold}
-.yafnet .dd {width:300px!important;}
+.yafnet .ddChild a{ font-size: 11px!important;text-align:left;padding:6px!important; display:block; border-bottom:solid 1px #ddd; overflow:hidden; text-decoration:none; color:#333; cursor:pointer;-webkit-transition: all 0.25s ease-in-out; -moz-transition: all 0.25s ease-in-out;-o-transition: all 0.25s ease-in-out;-ms-transition: all 0.25s ease-in-out; }
+.yafnet .ddChild a:hover{ background:#f3f3f3!important; color:#000!important;}
+
+
+.yafnet .ddOutOfVision:after {clear:both;}
 .yafnet .dd .ddTitle {text-align:left;border:none!important;background: transparent!important;}
-.yafnet .ddChild {text-align:left;margin-top:13px!important;padding:6px;width:280px!important;}
+.yafnet .ddChild {text-align:left;margin-top:13px!important;padding:6px;}
+
+/* jQuery-UI Override */
+.yafnet .ui-widget-header {
+	border: none;
+	background:none;
+}
+.yafnet .ui-tabs-panel {
+	border-top: 1px dotted gray;
+}
+.yafnet li.ui-tabs-selected {
+	line-height:21px;
+}
+.yafnet .ui-state-default a{
+color: black;
+}
+.yafnet .ui-accordion-header {
+  background-color: #f5f5f5;
+  *background-color: #e6e6e6;
+  background-image: -ms-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+  background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: linear-gradient(top, #ffffff, #e6e6e6);
+}
