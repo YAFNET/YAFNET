@@ -8704,9 +8704,10 @@ begin
         insert into [{databaseOwner}].[{objectQualifier}UserGroup](UserID,GroupID)
         select @UserID,@GroupID
         where not exists(select 1 from [{databaseOwner}].[{objectQualifier}UserGroup] where UserID=@UserID and GroupID=@GroupID)
-        
-    end          
-    EXEC [{databaseOwner}].[{objectQualifier}user_savestyle] @GroupID,null
+        UPDATE [{databaseOwner}].[{objectQualifier}User] SET UserStyle= ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
+        join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=@UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), (SELECT TOP 1 r.Style FROM [{databaseOwner}].[{objectQualifier}Rank] r where r.RankID = [{databaseOwner}].[{objectQualifier}User].RankID)) 
+        WHERE UserID = @UserID    	
+    end  
 end
 GO
 
