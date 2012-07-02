@@ -1,5 +1,5 @@
-/* Yet Another Forum.NET
- * Copyright (C) 2006-2012 Jaben Cargman
+﻿/* Yet Another Forum.NET
+ * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -18,33 +18,34 @@
  */
 namespace YAF.Classes.Data
 {
-  #region Using
-
-  using Autofac;
-
-  using YAF.Types;
-  using YAF.Types.Interfaces;
-
-  #endregion
-
   /// <summary>
-  /// The data module.
+  /// The search condition.
   /// </summary>
-  public class DataModule : Module
+  public class SearchCondition
   {
-    #region Methods
+    #region Constructors and Destructors
 
     /// <summary>
-    /// The load.
+    ///   Initializes a new instance of the <see cref = "SearchCondition" /> class.
     /// </summary>
-    /// <param name="builder">
-    /// The builder.
-    /// </param>
-    protected override void Load([NotNull] ContainerBuilder builder)
+    public SearchCondition()
     {
-      builder.RegisterType<MsSqlDbAccess>().As<IDbAccess>().InstancePerLifetimeScope();
-      builder.RegisterType<MsSqlDbConnectionManager>().As<IDbConnectionManager>().InstancePerLifetimeScope();
+      this.ConditionType = SearchConditionType.AND;
     }
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    ///   Gets or sets Condition.
+    /// </summary>
+    public string Condition { get; set; }
+
+    /// <summary>
+    ///   Gets or sets ConditionType.
+    /// </summary>
+    public SearchConditionType ConditionType { get; set; }
 
     #endregion
   }

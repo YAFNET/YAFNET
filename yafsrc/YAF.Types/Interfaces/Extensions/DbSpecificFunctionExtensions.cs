@@ -18,101 +18,101 @@
  */
 namespace YAF.Types.Interfaces.Extensions
 {
-	#region Using
+    #region Using
 
-	using System;
-	using System.Collections.Generic;
-	using System.Linq;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
-	using YAF.Types.Interfaces.Data;
+    using YAF.Types.Interfaces.Data;
 
-	#endregion
+    #endregion
 
-	/// <summary>
-	/// The db specific function extensions.
-	/// </summary>
-	public static class DbSpecificFunctionExtensions
-	{
-		#region Public Methods
+    /// <summary>
+    /// The db specific function extensions.
+    /// </summary>
+    public static class DbSpecificFunctionExtensions
+    {
+        #region Public Methods
 
-		/// <summary>
-		/// The is operation supported.
-		/// </summary>
-		/// <param name="functions">
-		/// The functions.
-		/// </param>
-		/// <param name="providerName">
-		/// The provider name.
-		/// </param>
-		/// <returns>
-		/// The is operation supported.
-		/// </returns>
-		[NotNull]
-		public static IEnumerable<IDbSpecificFunction> GetForProvider(
-			[NotNull] this IEnumerable<IDbSpecificFunction> functions, [NotNull] string providerName)
-		{
-			CodeContracts.ArgumentNotNull(functions, "functions");
-			CodeContracts.ArgumentNotNull(providerName, "providerName");
+        /// <summary>
+        /// The is operation supported.
+        /// </summary>
+        /// <param name="functions">
+        /// The functions.
+        /// </param>
+        /// <param name="providerName">
+        /// The provider name.
+        /// </param>
+        /// <returns>
+        /// The is operation supported.
+        /// </returns>
+        [NotNull]
+        public static IEnumerable<IDbSpecificFunction> GetForProvider(
+            [NotNull] this IEnumerable<IDbSpecificFunction> functions, [NotNull] string providerName)
+        {
+            CodeContracts.ArgumentNotNull(functions, "functions");
+            CodeContracts.ArgumentNotNull(providerName, "providerName");
 
-			return
-				functions.Where(p => string.Equals(p.ProviderName, providerName, StringComparison.OrdinalIgnoreCase)).OrderBy(
-					f => f.SortOrder);
-		}
+            return functions
+                .Where(p => string.Equals(p.ProviderName, providerName, StringComparison.OrdinalIgnoreCase))
+                .OrderBy(f => f.SortOrder);
+        }
 
-		/// <summary>
-		/// The get for provider and operation.
-		/// </summary>
-		/// <param name="functions">
-		/// The functions.
-		/// </param>
-		/// <param name="providerName">
-		/// The provider name.
-		/// </param>
-		/// <param name="operationName">
-		/// The operation name.
-		/// </param>
-		/// <returns>
-		/// </returns>
-		[NotNull]
-		public static IEnumerable<IDbSpecificFunction> GetForProviderAndOperation(
-			[NotNull] this IEnumerable<IDbSpecificFunction> functions, 
-			[NotNull] string providerName, 
-			[NotNull] string operationName)
-		{
-			CodeContracts.ArgumentNotNull(functions, "functions");
-			CodeContracts.ArgumentNotNull(providerName, "providerName");
-			CodeContracts.ArgumentNotNull(operationName, "operationName");
+        /// <summary>
+        /// The get for provider and operation.
+        /// </summary>
+        /// <param name="functions">
+        /// The functions.
+        /// </param>
+        /// <param name="providerName">
+        /// The provider name.
+        /// </param>
+        /// <param name="operationName">
+        /// The operation name.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        [NotNull]
+        public static IEnumerable<IDbSpecificFunction> GetForProviderAndOperation(
+            [NotNull] this IEnumerable<IDbSpecificFunction> functions, 
+            [NotNull] string providerName, 
+            [NotNull] string operationName)
+        {
+            CodeContracts.ArgumentNotNull(functions, "functions");
+            CodeContracts.ArgumentNotNull(providerName, "providerName");
+            CodeContracts.ArgumentNotNull(operationName, "operationName");
 
-			return functions.GetForProvider(providerName).Where(s => s.IsSupportedOperation(operationName));
-		}
+            return functions.GetForProvider(providerName).Where(s => s.IsSupportedOperation(operationName));
+        }
 
-		/// <summary>
-		/// The is operation supported.
-		/// </summary>
-		/// <param name="functions">
-		/// The functions.
-		/// </param>
-		/// <param name="providerName">
-		/// The provider name.
-		/// </param>
-		/// <param name="operationName">
-		/// The operation name.
-		/// </param>
-		/// <returns>
-		/// The is operation supported.
-		/// </returns>
-		public static bool IsOperationSupported(
-			[NotNull] this IEnumerable<IDbSpecificFunction> functions, 
-			[NotNull] string providerName, 
-			[NotNull] string operationName)
-		{
-			CodeContracts.ArgumentNotNull(functions, "functions");
-			CodeContracts.ArgumentNotNull(providerName, "providerName");
-			CodeContracts.ArgumentNotNull(operationName, "operationName");
+        /// <summary>
+        /// The is operation supported.
+        /// </summary>
+        /// <param name="functions">
+        /// The functions.
+        /// </param>
+        /// <param name="providerName">
+        /// The provider name.
+        /// </param>
+        /// <param name="operationName">
+        /// The operation name.
+        /// </param>
+        /// <returns>
+        /// The is operation supported.
+        /// </returns>
+        public static bool IsOperationSupported(
+            [NotNull] this IEnumerable<IDbSpecificFunction> functions, 
+            [NotNull] string providerName, 
+            [NotNull] string operationName)
+        {
+            CodeContracts.ArgumentNotNull(functions, "functions");
+            CodeContracts.ArgumentNotNull(providerName, "providerName");
+            CodeContracts.ArgumentNotNull(operationName, "operationName");
 
-			return functions.GetForProvider(providerName).Any(x => x.IsSupportedOperation(operationName));
-		}
+            return functions.GetForProvider(providerName).Any(x => x.IsSupportedOperation(operationName));
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

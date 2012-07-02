@@ -89,20 +89,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="common\BaseDataTableResultFilter.cs" />
-    <Compile Include="common\DataModule.cs" />
-    <Compile Include="common\DataRowConvert.cs" />
+    <Compile Include="CommandTextExtensions.cs" />
+    <Compile Include="DbAccessExtensions.cs" />
     <Compile Include="mssql\LegacyDb.cs" />
-    <Compile Include="mssql\Search\SearchBuilder.cs" />
-    <Compile Include="mssql\Search\SearchBuilderExtensions.cs" />
-    <Compile Include="mssql\Search\SearchCondition.cs" />
-    <Compile Include="mssql\Search\SearchConditionType.cs" />
-    <Compile Include="mssql\MsSqlDbAccess.cs" />
-    <Compile Include="mssql\SettingsProfilePropertyColumn.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="common\QueryCounter.cs" />
-    <Compile Include="mssql\MsSqlDbConnectionManager.cs" />
-    <Compile Include="common\TypedUserFind.cs" />
+    <Compile Include="Search\SearchBuilder.cs" />
+    <Compile Include="Search\SearchBuilderExtensions.cs" />
+    <Compile Include="Search\SearchCondition.cs" />
+    <Compile Include="Search\SearchConditionType.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\YAF.Types\YAF.Types.csproj">
@@ -142,6 +136,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="common\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

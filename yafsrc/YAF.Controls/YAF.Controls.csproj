@@ -145,10 +145,6 @@
       <Project>{05E50D2F-9527-4CE8-A0F8-168281C426CB}</Project>
       <Name>YAF.Classes.Config</Name>
     </ProjectReference>
-    <ProjectReference Include="..\YAF.Classes\YAF.Classes.Data\YAF.Classes.Data.csproj">
-      <Project>{9A454596-56DC-4834-A043-F3C1443F859B}</Project>
-      <Name>YAF.Classes.Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\YAF.Core\YAF.Core.csproj">
       <Project>{BCEFE9BE-7417-47FB-A0E8-75E0201E88E8}</Project>
       <Name>YAF.Core</Name>

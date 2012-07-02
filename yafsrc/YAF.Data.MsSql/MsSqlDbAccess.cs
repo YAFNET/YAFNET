@@ -1,6 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="MsSqlDbAccess.cs" company="">
-//   
 // </copyright>
 // <summary>
 //   The i db setup.
@@ -9,176 +8,187 @@
 
 namespace YAF.Data.MsSql
 {
-	using System;
-	using System.Collections.Generic;
-	using System.Data;
-	using System.Data.Common;
-	using System.Linq;
+    #region Using
 
-	using YAF.Classes;
-	using YAF.Core.Data;
-	using YAF.Types;
-	using YAF.Types.Interfaces.Data;
-	using YAF.Utils;
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Data.Common;
+    using System.Linq;
 
-	/// <summary>
-	/// The i db setup.
-	/// </summary>
-	public class MsSqlDbAccess : DbAccessBase
-	{
-		#region Constants and Fields
+    using YAF.Classes;
+    using YAF.Core.Data;
+    using YAF.Types;
+    using YAF.Types.Interfaces.Data;
+    using YAF.Utils;
 
-		/// <summary>
-		///   Lists the UI parameters...
-		/// </summary>
-		protected DbConnectionParam[] DbParameters = new[]
-			{
-				new DbConnectionParam(0, "Password", string.Empty, true), new DbConnectionParam(1, "Data Source", "(local)", true), 
-				new DbConnectionParam(2, "Initial Catalog", string.Empty, true), 
-				new DbConnectionParam(11, "Use Integrated Security", "true", true)
-			};
+    #endregion
 
-		/// <summary>
-		///   The _script list.
-		/// </summary>
-		private static readonly string[] _scriptList = {
-		                                               	"mssql/tables.sql", "mssql/indexes.sql", "mssql/views.sql", 
-		                                               	"mssql/constraints.sql", "mssql/triggers.sql", "mssql/functions.sql", 
-		                                               	"mssql/procedures.sql", "mssql/providers/tables.sql", 
-		                                               	"mssql/providers/indexes.sql", "mssql/providers/procedures.sql"
-		                                               };
+    /// <summary>
+    /// The i db setup.
+    /// </summary>
+    public class MsSqlDbAccess : DbAccessBase
+    {
+        #region Constants and Fields
 
-		#endregion
+        /// <summary>
+        /// Lists the UI parameters...
+        /// </summary>
+        protected DbConnectionParam[] DbParameters = new[]
+            {
+                new DbConnectionParam(0, "Password", string.Empty, true), new DbConnectionParam(1, "Data Source", "(local)", true), 
+                new DbConnectionParam(2, "Initial Catalog", string.Empty, true), new DbConnectionParam(11, "Use Integrated Security", "true", true)
+            };
 
-		#region Constructors and Destructors
+        /// <summary>
+        /// The _script list.
+        /// </summary>
+        private static readonly string[] _scriptList = {
+                                                           "mssql/tables.sql", "mssql/indexes.sql", "mssql/views.sql", "mssql/constraints.sql",
+                                                           "mssql/triggers.sql", "mssql/functions.sql", "mssql/procedures.sql", "mssql/providers/tables.sql",
+                                                           "mssql/providers/indexes.sql", "mssql/providers/procedures.sql"
+                                                       };
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="MsSqlDbAccess"/> class.
-		/// </summary>
-		/// <param name="dbProviderFactory">
-		/// The db provider factory.
-		/// </param>
-		public MsSqlDbAccess([NotNull] Func<string, DbProviderFactory> dbProviderFactory)
-			: base(dbProviderFactory, "System.Data.SqlClient", Config.ConnectionString)
-		{
-		}
+        #endregion
 
-		#endregion
+        #region Constructors and Destructors
 
-		#region Public Properties
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MsSqlDbAccess"/> class.
+        /// </summary>
+        /// <param name="dbProviderFactory">
+        /// The db provider factory. 
+        /// </param>
+        public MsSqlDbAccess([NotNull] Func<string, DbProviderFactory> dbProviderFactory)
+            : base(dbProviderFactory, "System.Data.SqlClient", Config.ConnectionString)
+        {
+        }
 
-		/// <summary>
-		///   Gets a value indicating whether PanelGetStats.
-		/// </summary>
-		public static bool PanelGetStats
-		{
-			get
-			{
-				return true;
-			}
-		}
+        #endregion
 
-		/// <summary>
-		///   Gets a value indicating whether PanelRecoveryMode.
-		/// </summary>
-		public static bool PanelRecoveryMode
-		{
-			get
-			{
-				return true;
-			}
-		}
+        #region Public Properties
 
-		/// <summary>
-		///   Gets a value indicating whether PanelReindex.
-		/// </summary>
-		public static bool PanelReindex
-		{
-			get
-			{
-				return true;
-			}
-		}
+        /// <summary>
+        /// Gets a value indicating whether PanelGetStats.
+        /// </summary>
+        public static bool PanelGetStats
+        {
+            get
+            {
+                return true;
+            }
+        }
 
-		/// <summary>
-		///   Gets a value indicating whether PanelShrink.
-		/// </summary>
-		public static bool PanelShrink
-		{
-			get
-			{
-				return true;
-			}
-		}
+        /// <summary>
+        /// Gets a value indicating whether PanelRecoveryMode.
+        /// </summary>
+        public static bool PanelRecoveryMode
+        {
+            get
+            {
+                return true;
+            }
+        }
 
-		/// <summary>
-		///   Gets a value indicating whether PasswordPlaceholderVisible.
-		/// </summary>
-		public static bool PasswordPlaceholderVisible
-		{
-			get
-			{
-				return false;
-			}
-		}
+        /// <summary>
+        /// Gets a value indicating whether PanelReindex.
+        /// </summary>
+        public static bool PanelReindex
+        {
+            get
+            {
+                return true;
+            }
+        }
 
-		/// <summary>
-		///   Gets DbConnectionParameters.
-		/// </summary>
-		public override IEnumerable<IDbConnectionParam> DbConnectionParameters
-		{
-			get
-			{
-				return this.DbParameters;
-			}
-		}
+        /// <summary>
+        /// Gets a value indicating whether PanelShrink.
+        /// </summary>
+        public static bool PanelShrink
+        {
+            get
+            {
+                return true;
+            }
+        }
 
-		/// <summary>
-		///   Gets or sets FullTextScript.
-		/// </summary>
-		[NotNull]
-		public string FullTextScript
-		{
-			get
-			{
-				return "mssql/fulltext.sql";
-			}
-		}
+        /// <summary>
+        /// Gets a value indicating whether PasswordPlaceholderVisible.
+        /// </summary>
+        public static bool PasswordPlaceholderVisible
+        {
+            get
+            {
+                return false;
+            }
+        }
 
-		/// <summary>
-		///   Gets Scripts.
-		/// </summary>
-		public override IEnumerable<string> Scripts
-		{
-			get
-			{
-				return _scriptList;
-			}
-		}
+        /// <summary>
+        /// Gets DbConnectionParameters.
+        /// </summary>
+        public override IEnumerable<IDbConnectionParam> DbConnectionParameters
+        {
+            get
+            {
+                return this.DbParameters;
+            }
+        }
 
-		protected override void MapParameters(DbCommand cmd, IEnumerable<KeyValuePair<string, object>> keyValueParams)
-		{
-			// convert to list so there is no chance of multiple iterations.
-			var paramList = keyValueParams.ToList();
+        /// <summary>
+        /// Gets or sets FullTextScript.
+        /// </summary>
+        [NotNull]
+        public override string FullTextScript
+        {
+            get
+            {
+                return "mssql/fulltext.sql";
+            }
+        }
 
-			// handle positional stored procedure parameter call
-			if (cmd.CommandType == CommandType.StoredProcedure && paramList.Any() && !paramList.All(x => x.Key.IsSet()))
-			{
-				cmd.CommandType = CommandType.Text;
-				cmd.CommandText = string.Format(
-					"EXEC {0} {1}",
-					cmd.CommandText,
-					Enumerable.Range(0, paramList.Count()).Select(x => string.Format("@{0}", x)).ToDelimitedString(","));
-			}
-			else
-			{
-				// map named parameters...
-				base.MapParameters(cmd, paramList);	
-			}
-		}
+        /// <summary>
+        /// Gets Scripts.
+        /// </summary>
+        public override IEnumerable<string> Scripts
+        {
+            get
+            {
+                return _scriptList;
+            }
+        }
 
+        #endregion
 
+        #region Methods
 
-		#endregion
-	}
+        /// <summary>
+        /// The map parameters.
+        /// </summary>
+        /// <param name="cmd">
+        /// The cmd.
+        /// </param>
+        /// <param name="keyValueParams">
+        /// The key value params.
+        /// </param>
+        protected override void MapParameters(DbCommand cmd, IEnumerable<KeyValuePair<string, object>> keyValueParams)
+        {
+            // convert to list so there is no chance of multiple iterations.
+            var paramList = keyValueParams.ToList();
+
+            // handle positional stored procedure parameter call
+            if (cmd.CommandType == CommandType.StoredProcedure && paramList.Any() && !paramList.All(x => x.Key.IsSet()))
+            {
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = string.Format(
+                    "EXEC {0} {1}", cmd.CommandText, Enumerable.Range(0, paramList.Count()).Select(x => string.Format("@{0}", x)).ToDelimitedString(","));
+            }
+            else
+            {
+                // map named parameters...
+                base.MapParameters(cmd, paramList);
+            }
+        }
+
+        #endregion
+    }
 }

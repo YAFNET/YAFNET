@@ -59,7 +59,6 @@
     <Compile Include="Extensions\EventExtensions.cs" />
     <Compile Include="Extensions\DbCommandExtensions.cs" />
     <Compile Include="Extensions\JsonExtension.cs" />
-    <Compile Include="Extensions\SqlCommandExtensions.cs" />
     <Compile Include="Extensions\LanguageExtensions.cs" />
     <Compile Include="Helpers\DateTimeHelper.cs" />
     <Compile Include="Helpers\HashHelper.cs" />

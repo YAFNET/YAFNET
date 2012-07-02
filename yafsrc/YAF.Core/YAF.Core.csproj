@@ -81,13 +81,19 @@
     <Compile Include="Data\DbConnectionParam.cs" />
     <Compile Include="Data\DbUnitOfWorkBase.cs" />
     <Compile Include="Data\DynamicDbFunction.cs" />
+    <Compile Include="Data\QueryCounter.cs" />
+    <Compile Include="Data\Search\SearchBuilder.cs" />
+    <Compile Include="Data\Search\SearchBuilderExtensions.cs" />
+    <Compile Include="Data\Search\SearchCondition.cs" />
+    <Compile Include="Data\Search\SearchConditionType.cs" />
     <Compile Include="Data\TryInvokeMemberProxy.cs" />
     <Compile Include="Data\TypedUserFind.cs" />
     <Compile Include="Extensions\MembershipUserExtensions.cs" />
     <Compile Include="Extensions\YafBoardFolderExtensions.cs" />
     <Compile Include="Helpers\IPLocator.cs" />
+    <Compile Include="Logger\UserAgentLogger.cs" />
     <Compile Include="Services\System\LocalHostedFileSystem.cs" />
-		<Compile Include="Import\DataImport.cs" />
+    <Compile Include="Import\DataImport.cs" />
     <Compile Include="Services\Twitter\OAuthBase.cs" />
     <Compile Include="Services\Twitter\OAuthTwitter.cs" />
     <Compile Include="Services\Twitter\TweetAPI.cs" />
@@ -165,8 +171,7 @@
     <Compile Include="Helpers\PostDataHelper.cs" />
     <Compile Include="Helpers\StaticDataHelper.cs" />
     <Compile Include="Localization\Localizer.cs" />
-    <Compile Include="Localization\LocalizerLoader.cs" />
-		<Compile Include="Helpers\LoadSerializedXmlFile.cs" />
+    <Compile Include="Helpers\LoadSerializedXmlFile.cs" />
     <Compile Include="Localization\YafLocalization.cs" />
     <Compile Include="Logger\LoggerModule.cs" />
     <Compile Include="Logger\YafDbLogger.cs" />
@@ -280,10 +285,6 @@
     <ProjectReference Include="..\YAF.Classes\YAF.Classes.Config\YAF.Classes.Config.csproj">
       <Project>{05E50D2F-9527-4CE8-A0F8-168281C426CB}</Project>
       <Name>YAF.Classes.Config</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\YAF.Classes\YAF.Classes.Data\YAF.Classes.Data.csproj">
-      <Project>{9A454596-56DC-4834-A043-F3C1443F859B}</Project>
-      <Name>YAF.Classes.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\YAF.Types\YAF.Types.csproj">
       <Project>{B9CF38B0-39CF-43C7-9589-166DCC665652}</Project>

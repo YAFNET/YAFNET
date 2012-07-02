@@ -5640,10 +5640,6 @@
       <Project>{05E50D2F-9527-4CE8-A0F8-168281C426CB}</Project>
       <Name>YAF.Classes.Config</Name>
     </ProjectReference>
-    <ProjectReference Include="..\YAF.Classes\YAF.Classes.Data\YAF.Classes.Data.csproj">
-      <Project>{9A454596-56DC-4834-A043-F3C1443F859B}</Project>
-      <Name>YAF.Classes.Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\YAF.Controls\YAF.Controls.csproj">
       <Project>{C72A5FC8-4B1C-4A24-A306-FB550729DBF0}</Project>
       <Name>YAF.Controls</Name>

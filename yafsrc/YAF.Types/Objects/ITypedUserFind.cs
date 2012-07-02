@@ -207,20 +207,5 @@ namespace YAF.Types.Objects
 		int? UserID { get; set; }
 
 		#endregion
-
-		#region Public Methods
-
-		/// <summary>
-		/// The load from dictionary.
-		/// </summary>
-		/// <param name="dictionary">
-		/// The dictionary.
-		/// </param>
-		/// <param name="clear">
-		/// The clear.
-		/// </param>
-		void LoadFromDictionary([NotNull] IDictionary<string, object> dictionary, bool clear = true);
-
-		#endregion
 	}
 }
