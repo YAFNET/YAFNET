@@ -29,7 +29,6 @@ namespace YAF.Core
   using Autofac;
   using Autofac.Core;
 
-  using YAF.Classes.Pattern;
   using YAF.Types;
   using YAF.Types.Interfaces;
   using YAF.Utils;
@@ -116,27 +115,18 @@ namespace YAF.Core
         properties =
           type.GetProperties(DefaultFlags).Where(
             p =>
-            p.GetSetMethod(false) != null && !p.GetIndexParameters().Any() && p.IsDefined(attributeType, true)).
-            ToList();
+            p.GetSetMethod(false) != null && !p.GetIndexParameters().Any() && p.IsDefined(attributeType, true)).ToList();
 
-        _injectionCache.AddOrUpdate(keyPair, (k) => properties, (k, v) => properties);
+        _injectionCache.AddOrUpdate(keyPair, k => properties, (k, v) => properties);
       }
 
       foreach (var injectProp in properties)
       {
-        object serviceInstance;
+          object serviceInstance = injectProp.PropertyType == typeof(ILogger)
+                                       ? this.Container.Resolve<ILoggerProvider>().Create(injectProp.DeclaringType)
+                                       : this.Container.Resolve(injectProp.PropertyType);
 
-        if (injectProp.PropertyType == typeof(ILogger))
-        {
-          // we're getting the logger via the logger factory...
-          serviceInstance = this.Container.Resolve<ILoggerProvider>().Create(injectProp.DeclaringType);
-        }
-        else
-        {
-          serviceInstance = this.Container.Resolve(injectProp.PropertyType);
-        }
-
-        // set value is super slow... best not to use it very much.
+          // set value is super slow... best not to use it very much.
         injectProp.SetValue(instance, serviceInstance, null);
       }
     }
@@ -148,9 +138,7 @@ namespace YAF.Core
     /// <summary>
     /// The get.
     /// </summary>
-    /// <param name="serviceType">
-    /// The service type.
-    /// </param>
+    /// <param name="serviceType">The service type.</param>
     /// <returns>
     /// The get.
     /// </returns>
@@ -309,6 +297,7 @@ namespace YAF.Core
     /// <exception cref="NotSupportedException">
     /// <c>NotSupportedException</c>.
     /// </exception>
+    /// <exception cref="NotSupportedException">Parameter Type of is not supported.</exception>
     [NotNull]
     private static IEnumerable<Parameter> ConvertToAutofacParameters(
       [NotNull] IEnumerable<IServiceLocationParameter> parameters)

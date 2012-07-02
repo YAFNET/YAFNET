@@ -545,13 +545,15 @@ namespace YAF
                                            !userData.IsGuest && this.Get<YafBoardSettings>().AllowPrivateMessages
                                            && !userId.Equals(YafContext.Current.PageUserID) && !YafContext.Current.IsGuest
                                    };
-  
+
                 var userInfo = new YafUserInfo
                                    {
                                        name = userName,
                                        realname = HttpUtility.HtmlEncode(userData.Profile.RealName),
                                        avatar = avatarUrl,
-                                       profilelink = YafBuildLink.GetLink(ForumPages.profile, "u={0}", userId),
+                                       profilelink =
+                                           YafBuildLink.GetLink(ForumPages.profile, "u={0}", userId).Replace(
+                                               "resource.ashx", "default.aspx"),
                                        interests = HttpUtility.HtmlEncode(userData.Profile.Interests),
                                        homepage = userData.Profile.Homepage,
                                        posts = "{0:N0}".FormatWith(userData.NumPosts),
