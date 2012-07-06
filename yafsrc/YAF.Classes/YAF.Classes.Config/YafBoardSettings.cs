@@ -3363,7 +3363,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue("IPInfoPageURL", "http://www.dnsstuff.com/tools/whois.ch?ip={0}");
+                return this._reg.GetValue("IPInfoPageURL", "http://www.ip2location.com/{0}");
             }
 
             set
