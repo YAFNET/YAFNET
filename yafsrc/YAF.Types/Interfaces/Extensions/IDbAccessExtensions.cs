@@ -106,6 +106,29 @@ namespace YAF.Types.Interfaces
       return dbAccess.GetDataset(cmd, false);
     }
 
+    /// <summary>
+    /// The get data.
+    /// </summary>
+    /// <param name="dbAccess">
+    /// The db access.
+    /// </param>
+    /// <param name="sql">
+    /// The sql.
+    /// </param>
+    /// <param name="unitOfWork"></param>
+    /// <returns>
+    /// </returns>
+    public static DataTable GetData([NotNull] this IDbAccessV2 dbAccess, [NotNull] string sql, [CanBeNull] IDbUnitOfWork unitOfWork = null)
+    {
+        CodeContracts.ArgumentNotNull(dbAccess, "dbAccess");
+        CodeContracts.ArgumentNotNull(sql, "sql");
+
+        using (var cmd = dbAccess.GetCommand(sql, false))
+        {
+            return dbAccess.GetData(cmd, unitOfWork);
+        }
+    }
+
     #endregion
   }
 }

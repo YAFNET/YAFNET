@@ -79,6 +79,14 @@
     <Compile Include="Context\LoadPageLogBadAgent.cs" />
     <Compile Include="Context\LoadPageRequestInformation.cs" />
     <Compile Include="Context\LoadPageVariablesFromQuery.cs" />
+    <Compile Include="Data\DbAccessBase.cs" />
+    <Compile Include="Data\DbAccessProvider.cs" />
+    <Compile Include="Data\DbConnectionParam.cs" />
+    <Compile Include="Data\DbUnitOfWorkBase.cs" />
+    <Compile Include="Data\DynamicDbFunction.cs" />
+    <Compile Include="Data\TryInvokeMemberProxy.cs" />
+    <Compile Include="Data\CommandTextHelpers.cs" />
+    <Compile Include="Extensions\DbAccessExtensions.cs" />
     <Compile Include="Extensions\MembershipUserExtensions.cs" />
     <Compile Include="Helpers\IPLocator.cs" />
     <Compile Include="Import\DataImport.cs" />

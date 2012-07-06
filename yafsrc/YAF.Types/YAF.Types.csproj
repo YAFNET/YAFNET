@@ -32,6 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
@@ -53,6 +54,17 @@
     <Compile Include="Attributes\StringValueAttribute.cs" />
     <Compile Include="Attributes\YafModule.cs" />
     <Compile Include="BadWordReplaceItem.cs" />
+    <Compile Include="Interfaces\Data\IDataLoadable.cs" />
+    <Compile Include="Interfaces\Data\IDbAccessProvider.cs" />
+    <Compile Include="Interfaces\Data\IDbAccessV2.cs" />
+    <Compile Include="Interfaces\Data\IDbConnectionParam.cs" />
+    <Compile Include="Interfaces\Data\IDbFunction.cs" />
+    <Compile Include="Interfaces\Data\IDbSpecificFunction.cs" />
+    <Compile Include="Interfaces\Data\IDbUnitOfWork.cs" />
+    <Compile Include="Interfaces\Extensions\DbSpecificFunctionExtensions.cs" />
+    <Compile Include="Interfaces\Extensions\IDbAccessConnectionExtensions.cs" />
+    <Compile Include="Interfaces\Extensions\IDbFunctionExtensions.cs" />
+    <Compile Include="Interfaces\Extensions\IDbUnitOfWorkExtensions.cs" />
     <Compile Include="Objects\MessageNotification.cs" />
     <Compile Include="ThemeResources.cs" />
     <Compile Include="CodeContracts.cs" />
@@ -115,9 +127,9 @@
     <Compile Include="Interfaces\IEditorModule.cs" />
     <Compile Include="Interfaces\IBaseForumModule.cs" />
     <Compile Include="Interfaces\IBaseModule.cs" />
-    <Compile Include="Interfaces\IDataTableResultFilter.cs" />
+    <Compile Include="Interfaces\Data\IDataTableResultFilter.cs" />
     <Compile Include="Interfaces\IDateTime.cs" />
-    <Compile Include="Interfaces\IDBBroker.cs" />
+    <Compile Include="Interfaces\Data\IDBBroker.cs" />
     <Compile Include="Interfaces\IDigest.cs" />
     <Compile Include="Interfaces\IFavoriteTopic.cs" />
     <Compile Include="Interfaces\Events\IHandleEvent.cs" />
@@ -166,8 +178,8 @@
     <Compile Include="Interfaces\IUserData.cs" />
     <Compile Include="Interfaces\IUserDisplayName.cs" />
     <Compile Include="Interfaces\IUserIgnored.cs" />
-    <Compile Include="Interfaces\IDBAccess.cs" />
-    <Compile Include="Interfaces\IDbConnectionManager.cs" />
+    <Compile Include="Interfaces\Data\IDBAccess.cs" />
+    <Compile Include="Interfaces\Data\IDbConnectionManager.cs" />
     <Compile Include="Interfaces\IWriteValue.cs" />
     <Compile Include="Interfaces\IYafSession.cs" />
     <Compile Include="Interfaces\ITheme.cs" />
