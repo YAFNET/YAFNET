@@ -34,9 +34,10 @@
                                  <asp:LinkButton ID="PasswordRecovery" CssClass="RecoveryButtton" runat="server" CausesValidation="false"
                                                 OnClick="PasswordRecovery_Click" />
                                  <asp:PlaceHolder ID="FaceBookHolder" runat="server" Visible="false">
-                                    <fb:login-button onlogin="LoginUser(response)" scope="email,user_birthday,status_update,publish_stream,user_hometown,user_location">
-                                      <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="FACEBOOK_LOGIN" LocalizedPage="LOGIN" />
-                                    </fb:login-button>
+                                    <div class="fb-login-button" data-onlogin="LoginUser()" 
+                                         data-scope="email,user_birthday,status_update,publish_stream,user_hometown,user_location">
+                                        <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="FACEBOOK_LOGIN" />
+                                    </div>
                                     <div id="fb-root"></div>
                                  </asp:PlaceHolder>
                                  <asp:PlaceHolder id="TwitterHolder" runat="server" Visible="false">

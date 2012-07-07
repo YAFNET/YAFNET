@@ -47,18 +47,17 @@ namespace YAF.Utilities
                     @"window.fbAsyncInit = function() {{
                        FB.init({{
                              appId: '{0}',
-                             status: true, // check login status
-                             cookie: true, // enable cookies to allow the server to access the session
-                             xfbml: true  // parse XFBML
+                             status: true,
+                             cookie: true,
+                             xfbml: true
                             }}); 
                      }};
-                      (function() {{
-                              var e = document.createElement('script');
-                              e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
-                              e.async = true;
-                              document.getElementById('fb-root').appendChild(e);
-                       }}());"
-                        .FormatWith(Config.FacebookAPIKey);
+                     (function(d){{
+                                   var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {{return;}}
+                                   js = d.createElement('script'); js.id = id; js.async = true;
+                                   js.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+                                   d.getElementsByTagName('head')[0].appendChild(js);
+                     }}(document));".FormatWith(Config.FacebookAPIKey, YafForumInfo.ForumBaseUrl);
             }
         }
 
@@ -81,9 +80,9 @@ namespace YAF.Utilities
                     else {{
                       // Show MessageBox
                       {1}('span[id$=_YafPopupErrorMessageInner]').html(res.d);
-                      {1}().YafModalDialog.Show({{Dialog : '#' + {1}('div[id$=_YafForumPageErrorPopup1]').attr('id'),ImagePath : '/yaf/resources/images/'}});
+                      {1}().YafModalDialog.Show({{Dialog : '#' + {1}('div[id$=_YafForumPageErrorPopup1]').attr('id'),ImagePath : '{2}resources/images/'}});
                     }} }}"
-                        .FormatWith(YafBuildLink.GetLink(ForumPages.forum), Config.JQueryAlias);
+                        .FormatWith(YafBuildLink.GetLink(ForumPages.forum), Config.JQueryAlias, YafForumInfo.ForumClientFileRoot);
             }
         }
 
@@ -360,10 +359,10 @@ namespace YAF.Utilities
                               'username', response.username === undefined ? response.name : response.username,
                               'birthday', response.birthday,
                               'hometown', response.hometown === undefined ? '' : response.hometown.name,
-                              'gender', response.gender,
+                              'gender', response.gender === undefined ? '0' : response.gender,
                               'email', response.email,
-                              'timezone', response.timezone,
-                              'locale', response.locale,
+                              'timezone', response.timezone === undefined ? '' : response.timezone,
+                              'locale', '',
                               'remember', Remember);
                      }});}}"
                     .FormatWith(YafForumInfo.ForumClientFileRoot, Config.JQueryAlias, remberMeId);

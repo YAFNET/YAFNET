@@ -1012,19 +1012,9 @@
 {
 	display: inline;
 }
-
-.StandardButton {
-	border: none;
-
-	vertical-align: baseline;
-	margin: 0;
-	cursor: pointer;
-	text-align: center!important;
-	text-decoration: none;
-	font: none !important;
-	padding: .1em 0.5em .1em;
-	text-shadow: 0 1px 1px rgba(0,0,0,.3);
-	
+.yafnet .RecoveryButtton, 
+.yafnet .LoginButton,
+.yafnet .StandardButton {
 	-webkit-border-radius: .5em; 
 	-moz-border-radius: .5em;
 	border-radius: .5em;
@@ -1035,7 +1025,19 @@
 
 	color: #fff!important;
 	border: solid 1px #333;
-	background: #666 !important;
+	background: #666;
+}
+
+.yafnet .StandardButton {
+	border: none;
+
+	vertical-align: baseline;
+	margin: 0;
+	cursor: pointer;
+	text-align: center!important;
+	text-decoration: none;
+	font: none !important;
+	padding: .1em 0.5em .1em;
 	
 	height:auto;
 	width:80px;
