@@ -181,6 +181,7 @@ namespace YAF.Controls
 
             var imageIcon = new HtmlImage { Src = this.Icon, Alt = "Icon", };
 
+            imageIcon.Attributes.Add("class", "DialogIcon");
             imageIcon.Attributes.Add("style", "padding:5px");
 
             this.Controls.Add(imageIcon);

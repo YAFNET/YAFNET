@@ -133,9 +133,9 @@ namespace YAF.Modules
             {
                 // Show as Modal Dialog
                 jsFunction =
-                    @"function {2}(newErrorStr) {{  if (newErrorStr != null && newErrorStr != """" && {4}('#{1}') != null) {{
+                    @"function {2}(newErrorStr, newErrorType) {{  if (newErrorStr != null && newErrorStr != """" && {4}('#{1}') != null) {{
                      {4}('#{1}').html(newErrorStr);
-                     {4}().YafModalDialog.Show({{Dialog : '#{0}',ImagePath : '{3}'}});
+                     {4}().YafModalDialog.Show({{Dialog : '#{0}',ImagePath : '{3}', Type : newErrorType}});
                 }} }}"
                         .FormatWith(
                             this.ClientID,

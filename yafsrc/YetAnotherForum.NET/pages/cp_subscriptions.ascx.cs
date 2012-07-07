@@ -18,31 +18,28 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using YAF.Classes;
-
 namespace YAF.Pages
 {
   // YAF.Pages
   #region Using
 
-  using System;
-  using System.Data;
-  using System.Linq;
-  using System.Web.UI.WebControls;
+    using System;
+    using System.Data;
+    using System.Linq;
+    using System.Web.UI.WebControls;
+    using YAF.Classes;
+    using YAF.Classes.Data;
+    using YAF.Core;
+    using YAF.Types;
+    using YAF.Types.Constants;
+    using YAF.Types.EventProxies;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
 
-  using YAF.Classes.Data;
-  using YAF.Core;
-  using YAF.Core.Services;
-  using YAF.Types;
-  using YAF.Types.Constants;
-  using YAF.Types.EventProxies;
-  using YAF.Types.Interfaces;
-  using YAF.Utils;
-
-  #endregion
+    #endregion
 
   /// <summary>
-  /// Summary description for cp_subscriptions.
+  /// User Page To Manage Email Subcriptions
   /// </summary>
   public partial class cp_subscriptions : ForumPageRegistered
   {
@@ -61,11 +58,9 @@ namespace YAF.Pages
     #region Methods
 
     /// <summary>
-    /// The format forum replies.
+    /// Formats the forum replies.
     /// </summary>
-    /// <param name="o">
-    /// The o.
-    /// </param>
+    /// <param name="o">The o.</param>
     /// <returns>
     /// The format forum replies.
     /// </returns>
@@ -73,20 +68,13 @@ namespace YAF.Pages
     {
       var row = o as DataRow;
 
-      if (row != null)
-      {
-        return "{0}".FormatWith((int)row["Messages"] - (int)row["Topics"]);
-      }
-
-      return string.Empty;
+      return row != null ? "{0}".FormatWith((int)row["Messages"] - (int)row["Topics"]) : string.Empty;
     }
 
     /// <summary>
-    /// The format last posted.
+    /// Formats the last posted.
     /// </summary>
-    /// <param name="o">
-    /// The o.
-    /// </param>
+    /// <param name="o">The o.</param>
     /// <returns>
     /// The format last posted.
     /// </returns>
@@ -119,21 +107,20 @@ namespace YAF.Pages
     }
 
     /// <summary>
-    /// The page_ load.
+    /// Handles the Load event of the Page control.
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!this.IsPostBack)
-      {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
         this.BindData();
 
-        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
         this.PageLinks.AddLink(this.PageContext.PageUserName, YafBuildLink.GetLink(ForumPages.cp_profile));
         this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
@@ -141,48 +128,39 @@ namespace YAF.Pages
         this.UnsubscribeTopics.Text = this.GetText("unsubscribe");
         this.SaveUser.Text = this.GetText("Save");
 
-        this.DailyDigestRow.Visible = this.PageContext.BoardSettings.AllowDigestEmail;
-        this.PMNotificationRow.Visible = this.PageContext.BoardSettings.AllowPMEmailNotification;
+        this.DailyDigestRow.Visible = this.Get<YafBoardSettings>().AllowDigestEmail;
+        this.PMNotificationRow.Visible = this.Get<YafBoardSettings>().AllowPMEmailNotification;
 
         var items = EnumHelper.EnumToDictionary<UserNotificationSetting>();
 
-        if (!this.PageContext.BoardSettings.AllowNotificationAllPostsAllTopics)
+        if (!this.Get<YafBoardSettings>().AllowNotificationAllPostsAllTopics)
         {
-          // remove it...
-          items.Remove(UserNotificationSetting.AllTopics.ToInt());
+            // remove it...
+            items.Remove(UserNotificationSetting.AllTopics.ToInt());
         }
 
         this.rblNotificationType.Items.AddRange(
-          items.Select(x => new ListItem(this.GetText(x.Value), x.Key.ToString())).ToArray());
+            items.Select(x => new ListItem(this.GetText(x.Value), x.Key.ToString())).ToArray());
 
         var setting =
-          this.rblNotificationType.Items.FindByValue(
-            this.PageContext.CurrentUserData.NotificationSetting.ToInt().ToString());
-
-        if (setting == null)
-        {
-          setting = this.rblNotificationType.Items.FindByValue(0.ToString());
-        }
+            this.rblNotificationType.Items.FindByValue(
+                this.PageContext.CurrentUserData.NotificationSetting.ToInt().ToString())
+            ?? this.rblNotificationType.Items.FindByValue(0.ToString());
 
         if (setting != null)
         {
-          setting.Selected = true;
+            setting.Selected = true;
         }
 
         // update the ui...
         this.UpdateSubscribeUI(this.PageContext.CurrentUserData.NotificationSetting);
-      }
     }
 
     /// <summary>
-    /// The pager top_ page change.
+    /// Rebinds the Data After a Page Change
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     protected void PagerTop_PageChange([NotNull] object sender, [NotNull] EventArgs e)
     {
       // rebind
@@ -190,50 +168,44 @@ namespace YAF.Pages
     }
 
     /// <summary>
-    /// The save user_ click.
+    /// Save Preferences
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     protected void SaveUser_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (this.Page.IsValid)
-      {
+        if (!this.Page.IsValid)
+        {
+            return;
+        }
+
         bool autoWatchTopicsEnabled = false;
 
         var value = this.rblNotificationType.SelectedValue.ToEnum<UserNotificationSetting>();
 
         if (value == UserNotificationSetting.TopicsIPostToOrSubscribeTo)
         {
-          autoWatchTopicsEnabled = true;
+            autoWatchTopicsEnabled = true;
         }
 
         // save the settings...
         LegacyDb.user_savenotification(
-          this.PageContext.PageUserID, 
-          this.PMNotificationEnabled.Checked, 
-          autoWatchTopicsEnabled, 
-          this.rblNotificationType.SelectedValue, 
-          this.DailyDigestEnabled.Checked);
+            this.PageContext.PageUserID, 
+            this.PMNotificationEnabled.Checked, 
+            autoWatchTopicsEnabled, 
+            this.rblNotificationType.SelectedValue, 
+            this.DailyDigestEnabled.Checked);
 
         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
 
         this.PageContext.AddLoadMessage(this.GetText("SAVED_NOTIFICATION_SETTING"));
-      }
     }
 
     /// <summary>
-    /// The unsubscribe forums_ click.
+    /// Unwatch Forums
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     protected void UnsubscribeForums_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       bool noneChecked = true;
@@ -242,11 +214,14 @@ namespace YAF.Pages
       {
         var ctrl = (CheckBox)this.ForumList.Items[i].FindControl("unsubf");
         var lbl = (Label)this.ForumList.Items[i].FindControl("tfid");
-        if (ctrl.Checked)
-        {
+          
+          if (!ctrl.Checked)
+          {
+              continue;
+          }
+
           LegacyDb.watchforum_delete(lbl.Text);
           noneChecked = false;
-        }
       }
 
       if (noneChecked)
@@ -260,14 +235,10 @@ namespace YAF.Pages
     }
 
     /// <summary>
-    /// The unsubscribe topics_ click.
+    /// Unwatch Topics
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     protected void UnsubscribeTopics_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       bool noneChecked = true;
@@ -276,16 +247,19 @@ namespace YAF.Pages
       {
         var ctrl = (CheckBox)this.TopicList.Items[i].FindControl("unsubx");
         var lbl = (Label)this.TopicList.Items[i].FindControl("ttid");
-        if (ctrl.Checked)
-        {
+          
+          if (!ctrl.Checked)
+          {
+              continue;
+          }
+
           LegacyDb.watchtopic_delete(lbl.Text);
           noneChecked = false;
-        }
       }
 
       if (noneChecked)
       {
-        this.PageContext.AddLoadMessage(this.GetText("WARN_SELECTTOPICS"));
+        this.PageContext.AddLoadMessage(this.GetText("WARN_SELECTTOPICS"), MessageTypes.Warning);
       }
       else
       {
@@ -294,14 +268,10 @@ namespace YAF.Pages
     }
 
     /// <summary>
-    /// The rbl notification type_ selection changed.
+    /// Handles the SelectionChanged event of the Notification Type control.
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     protected void rblNotificationType_SelectionChanged([NotNull] object sender, [NotNull] EventArgs e)
     {
       var selectedValue = this.rblNotificationType.SelectedItem.Value.ToEnum<UserNotificationSetting>();

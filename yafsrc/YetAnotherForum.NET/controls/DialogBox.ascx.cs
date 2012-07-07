@@ -72,7 +72,7 @@ namespace YAF.Controls
             /// </summary>
             Question = 5
         }
-
+        
         #endregion
 
         #region Properties
@@ -138,7 +138,7 @@ namespace YAF.Controls
         public void Show(
             [NotNull] string message,
             [NotNull] string title,
-            DialogIcon icon,
+            [CanBeNull] DialogIcon icon,
             [NotNull] DialogButton okButton,
             [NotNull] DialogButton cancelButton) 
         {
