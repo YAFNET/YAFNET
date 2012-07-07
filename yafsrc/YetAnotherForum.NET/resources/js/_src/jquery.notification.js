@@ -49,7 +49,7 @@ function showNotification(params){
     var container = '<div id="info_message" class="notification_background '+msgclass+'" onclick="return closeNotification();" title="Click to Hide Notification"><div class="center_auto"><div class="info_message_text message_area">';
 	container += '<img class="message_icon" src="' + options['imagepath'] + icon + '" alt="'+ options['type'] + '" title="'+ options['type'] + '" />&nbsp;';
     container += options['message'].replaceAll('\\n', '<br />');
-	container += '</div><div class="clearboth"></div>';
+	container += '</div><div class="info_progress"></div><div class="clearboth"></div>';
 	container += '</div>';
     
     $notification = $(container);
@@ -69,6 +69,13 @@ function showNotification(params){
     
     // Slide Down notification message after startAfter seconds
     slideDownNotification(options['showAfter'], options['autoClose'],options['duration']);
+	
+	var animationDuration = options['duration'] + "s";
+	var progressDuration = (options['duration'] -1) + "s";
+	
+	$('div#info_message').css("-webkit-animation-duration", animationDuration).css("-moz-animation-duration", animationDuration).css("-o-animation-duration", animationDuration).css("-ms-animation-duration", animationDuration).css("animation-duration", animationDuration);
+	
+	$('#info_message .info_progress').css("-webkit-animation-duration", progressDuration).css("-moz-animation-duration", progressDuration).css("-o-animation-duration", progressDuration).css("-ms-animation-duration", progressDuration).css("animation-duration", progressDuration);
     
     $('.link_notification').live('click', function(){
         $('.info_more_descrption').html(options['description']).slideDown('fast');
