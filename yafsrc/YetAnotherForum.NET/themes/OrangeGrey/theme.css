@@ -751,6 +751,11 @@ This CSS already works on FireFox.
 	padding: 5px 10px 5px 10px;
 	list-style-type: none;
 	margin: 0;
+	font-size:12px;
+	font-family:Arial;
+	color: #000;
+	font-weight:normal;
+	text-shadow:none;
 }
 .yafnet .yafpopupmenu li.popupitemhover {
 	background-color: #cccccc;

@@ -37,6 +37,8 @@ html { min-height: 100%; }
 	color: white;
 }
 .yafnet .content {color: black;}
+
+/* Input (Textboxes) Styling */
 .yafnet textarea {
 		width:98%;
 		padding:0px;
@@ -99,10 +101,12 @@ html { min-height: 100%; }
           transition: background-position 0.1s linear;
   outline:none;
 }
+/****************************************/
 
 .yafnet .yafcssimagebutton img {
 	padding-right: 5px;
 }
+.yafnet input[type="checkbox"],
 .yafnet .pagination a, .yafnet .pagination span,
 .yafnet .pagination .current.smiliesPagerPrev, 
 .yafnet .pagination .current.smiliesPagerNext,
@@ -136,8 +140,6 @@ html { min-height: 100%; }
 }
 .yafnet .ui-tabs-nav li,
 .yafnet li.ui-tabs-selected,
-.ModalDialog .StandardButton,
-.ModalDialog .LoginButton,
 .yafnet .yafcssbigbutton span {
   padding: 4px 10px 4px;
   margin:2px 2px 2px 2px;
@@ -154,8 +156,6 @@ html { min-height: 100%; }
 .yafnet .ButtonChecked,
 .yafnet .ButtonOff,
 .ModalDialog .modalFooter a,
-.ModalDialog .RecoveryButtton,
-.ModalDialog .LoginButton,
 .yafnet .dd,
 .yafnet dl.AlphaSort dd,
 .yafnet .dd-select,
@@ -210,8 +210,6 @@ html { min-height: 100%; }
 .yafnet .ui-tabs-nav li:hover,
 .yafnet .ButtonOver,
 .ModalDialog .modalFooter a:hover,
-.ModalDialog .RecoveryButtton:hover,
-.ModalDialog .LoginButton:hover,
 .yafnet .dd:hover,
 .yafnet dl.AlphaSort dd:hover,
 .yafnet .dd-select:hover,
@@ -247,8 +245,6 @@ html { min-height: 100%; }
 .yafnet .ui-tabs-nav li:focus,
 .yafnet .ButtonChecked,
 .ModalDialog .modalFooter a:focus,
-.ModalDialog .RecoveryButtton:focus,
-.ModalDialog .LoginButton:focus,
 .yafnet .dd:focus,
 .yafnet dl.AlphaSort dd:focus,
 .yafnet .dd-select:focus,
@@ -276,9 +272,6 @@ html { min-height: 100%; }
 .yafnet .pagination .current.smiliesPagerNext:active,
 .yafnet .ui-tabs-nav li:active,
 .yafnet li.ui-tabs-selected,
-.ModalDialog .StandardButton:active,
-.ModalDialog .RecoveryButtton:active,
-.ModalDialog .LoginButton:active,
 .yafnet .dd:active,
 .yafnet dl.AlphaSort dd:active,
 .yafnet .dd-select:active,
@@ -322,8 +315,10 @@ html { min-height: 100%; }
      -moz-box-shadow: none;
           box-shadow: none;
 }
-.ModalDialog .StandardButton,
+/* Blue Buttons */
+.ModalDialog a.StandardButton,
 .ModalDialog .RecoveryButtton,
+.ModalDialog input[type="submit"],
 .ModalDialog .LoginButton,
 .yafnet .content input[type="submit"],
 .yafnet .content .pbutton,
@@ -350,9 +345,9 @@ html { min-height: 100%; }
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   color: white;
 }
-.ModalDialog .StandardButton:hover,
+.ModalDialog a.StandardButton:hover,
 .ModalDialog .RecoveryButtton:hover,
-.ModalDialog .LoginButton:hover,
+.ModalDialog input.LoginButton:hover,
 .yafnet .content input[type="submit"]:hover,
 .yafnet .content .pbutton:hover,
 .yafnet .content .GoToLink:hover,
@@ -367,12 +362,21 @@ html { min-height: 100%; }
    background-color: #0055cc;
   *background-color: #004ab3;
 }
+.ModalDialog input.LoginButton:hover
+{
+   background-color: #0055cc!important;
+  *background-color: #004ab3!important;
+}
+
+/****************************************/
 /* the checked MultiQuote Button */
+.yafnet .MultiQuoteButton input[type="checkbox"] {left:-9999px;}
 .yafnet .Checked {
 	-webkit-box-shadow: 0 1px 0 rgba(255,255,255,.2), inset 0 4px 5px rgba(0,0,0,.6), inset 0 1px 0 rgba(0,0,0,.6);
 	-moz-box-shadow: 0 1px 0 rgba(255,255,255,.2), inset 0 4px 5px rgba(0,0,0,.6), inset 0 1px 0 rgba(0,0,0,.6);
 	box-shadow: 0 1px 0 rgba(255,255,255,.2), inset 0 3px 5px rgba(0,0,0,.6), inset 0 1px 0 rgba(0,0,0,.6);
 }
+/****************************************/
 
 .yafnet ul {
 	margin: 2px 2px 2px 2px;
@@ -726,7 +730,7 @@ html { min-height: 100%; }
 /* CSS Popupmenu */
 .yafnet .yafpopupmenu {background-color: white;border: solid 1px #333;-moz-border-radius: 0.4em; -webkit-border-radius: 0.4em;border-radius: 0.4em;}
 .yafnet .yafpopupmenu ul {	list-style-type: none;padding: 0;margin: 0;}
-.yafnet .yafpopupmenu li {padding: 5px 10px 5px 10px;list-style-type: none;margin: 0;}
+.yafnet .yafpopupmenu li {padding: 5px 10px 5px 10px;list-style-type: none;margin: 0;color:black;font-size:12px;font-family: Verdana, Geneva, sans-serif;}
 .yafnet .yafpopupmenu li.popupitemhover {background-color: #ccc;}
 .yafnet .yafpopupmenu li:first-child.popupitemhover {background-color: #ccc;-moz-border-radius-topleft:0.3em;-webkit-border-top-left-radius:0.3em;border-top-left-radius:0.3em;
 	-moz-border-radius-topright:0.3em;
@@ -1036,7 +1040,8 @@ box-shadow:         0px 0px 2px rgba(0, 0, 0, 0.62);
 .ModalDialog .header h3,
 .ModalDialog .modalHeader h3 {display:inline}
 
-.ModalDialog .DialogContent {background: #fff;}
+.ModalDialog .DialogContent {background: #fff;color:black;}
+.ModalDialog .modalInner {color:black;}
 
 /* Header Notification Badges */
 .yafnet .Unread {

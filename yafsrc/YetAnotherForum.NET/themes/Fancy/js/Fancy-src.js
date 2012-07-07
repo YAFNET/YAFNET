@@ -28,8 +28,12 @@
         })
     });
 
-
-    jQuery("input:checkbox, input:radio, input:file").not('.MultiQuoteButton input').uniform();
+    if (jQuery("input:checkbox").not('.MultiQuoteButton input'))
+	{
+		jQuery("input:checkbox").not('.MultiQuoteButton input').uniform();
+	}
+       
+    jQuery("input:radio, input:file").not('.MultiQuoteButton input').uniform();
     jQuery('.QuickSearchButton').text('A');
     jQuery('select').not('[id*="ProfileEditor_Country"]').each(function (index, element) {
         jQuery(this).msDropDown();

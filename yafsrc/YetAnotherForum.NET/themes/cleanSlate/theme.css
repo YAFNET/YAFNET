@@ -853,6 +853,10 @@
 .yafnet .yafpopupmenu li {
 	padding: 5px 10px 5px 10px;
 	margin: 0;
+	font-family: arial,helvetica,"lucida grande",verdana,sans-serif;
+	font-size: 9pt;
+	color: #333333;
+	font-weight:normal;
 }
 .yafnet .yafpopupmenu li.popupitemhover {
 	background-color: #cccccc;

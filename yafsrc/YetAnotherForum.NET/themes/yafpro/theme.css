@@ -1,8 +1,4 @@
-﻿.yafnet {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 9pt;
-    color: #3B3b3b;
-}
+﻿.yafnet,
 .yafnet td {
     font-family: sans-serif, Helvetica, Arial;
     font-size: 9pt;
@@ -841,6 +837,10 @@ This CSS already works on FireFox.
 .yafnet .yafpopupmenu li {
     padding: 5px 10px 5px 10px;
     margin: 0;
+	font-family: sans-serif, Helvetica, Arial;
+    font-size: 9pt;
+    color: #3b3b3b;
+	font-weight:normal;
 }
 .yafnet .yafpopupmenu li.popupitemhover {
     background-color: #cccccc;
