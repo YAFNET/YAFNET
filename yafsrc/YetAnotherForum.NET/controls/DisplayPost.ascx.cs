@@ -273,18 +273,6 @@ namespace YAF.Controls
             // Set column span for layout depending on is it TreeView or not.
             this.NameCell.ColSpan = int.Parse(this.GetIndentSpan());
 
-            // Display admin/moderator only info
-            if (this.PageContext.IsAdmin ||
-                (this.Get<YafBoardSettings>().AllowModeratorsViewIPs && this.PageContext.ForumModeratorAccess))
-            {
-                // We should show IP
-                this.IPSpan1.Visible = true;
-                string ip = IPHelper.GetIp4Address(this.DataRow["IP"].ToString());
-                this.IPLink1.HRef = this.Get<YafBoardSettings>().IPInfoPageURL.FormatWith(ip);
-                this.IPLink1.Title = this.GetText("COMMON", "TT_IPDETAILS");
-                this.IPLink1.InnerText = this.HtmlEncode(ip);
-            }
-
             if (this.IsGuest)
             {
                 return;
@@ -432,6 +420,23 @@ namespace YAF.Controls
                         this.Server.UrlEncode(
                             "RT {1}: {0} {2}".FormatWith(twitterMsg.Truncate(100), twitterName, topicUrl))));
             }
+        }
+
+        private void ShowIPInfo()
+        {
+            // Display admin/moderator only info
+            if (this.PageContext.IsAdmin ||
+                (this.Get<YafBoardSettings>().AllowModeratorsViewIPs && this.PageContext.ForumModeratorAccess))
+            {
+                // We should show IP
+                this.IPSpan1.Visible = true;
+                var ip = IPHelper.GetIp4Address(this.PostData.DataRow["IP"].ToString());
+                this.IPLink1.HRef = this.Get<YafBoardSettings>().IPInfoPageURL.FormatWith(ip);
+                this.IPLink1.Title = this.GetText("COMMON", "TT_IPDETAILS");
+                this.IPLink1.InnerText = this.HtmlEncode(ip);
+            }
+
+            
         }
 
         /// <summary>
@@ -608,6 +613,8 @@ namespace YAF.Controls
             YafContext.Current.PageElements.RegisterJsBlockStartup("asynchCallFailedJs", asynchCallFailedJs);
             
             this.FormatThanksRow();
+
+            this.ShowIPInfo();
         }
 
         /// <summary>
