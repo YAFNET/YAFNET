@@ -1,3 +1,23 @@
+/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjørnar Henden
+ * Copyright (C) 2006-2012 Jaben Cargman
+ * http://www.yetanotherforum.net/
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+
 namespace YAF.Pages.Admin
 {
     #region Using
@@ -13,7 +33,6 @@ namespace YAF.Pages.Admin
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
-    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Flags;
@@ -26,7 +45,7 @@ namespace YAF.Pages.Admin
     #endregion
 
     /// <summary>
-    /// The editmedal.
+    /// Administration inferface to Add/Edit Medals
     /// </summary>
     public partial class editmedal : AdminPage
     {
@@ -79,7 +98,7 @@ namespace YAF.Pages.Admin
             if (this.AvailableGroupList.SelectedIndex < 0)
             {
                 // no group selected
-                this.PageContext.AddLoadMessage("Please select user group!");
+                this.PageContext.AddLoadMessage("Please select user group!", MessageTypes.Warning);
                 return;
             }
 
@@ -171,33 +190,31 @@ namespace YAF.Pages.Admin
             if (this.UserID.Text.IsNotSet() && this.UserNameList.SelectedValue.IsNotSet() && this.UserName.Text.IsNotSet())
             {
                 // no username, nor userID specified
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITMEDAL", "MSG_VALID_USER"));
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITMEDAL", "MSG_VALID_USER"), MessageTypes.Warning);
                 return;
             }
 
             if (this.UserNameList.SelectedValue.IsNotSet() && this.UserID.Text.IsNotSet())
             {
                 // only username is specified, we must find id for it
-              
                 var users = LegacyDb.UserFind(this.PageContext.PageBoardID, true, this.UserName.Text, null, this.UserName.Text, null, null);
 
                 if (users.Count() > 1)
                 {
                     // more than one user is avalilable for this username
-                    this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITMEDAL", "MSG_AMBIGOUS_USER"));
+                    this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITMEDAL", "MSG_AMBIGOUS_USER"), MessageTypes.Warning);
                     return;
                 }
-                else if (!users.Any())
+
+                if (!users.Any())
                 {
                     // no user found
-                    this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITMEDAL", "MSG_VALID_USER"));
+                    this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITMEDAL", "MSG_VALID_USER"), MessageTypes.Warning);
                     return;
                 }
-                else
-                {
-                    // save id to the control
-                    this.UserID.Text = (users.First().UserID ?? 0).ToString();
-                }
+
+                // save id to the control
+                this.UserID.Text = (users.First().UserID ?? 0).ToString();
             }
             else if (this.UserID.Text.IsNotSet())
             {
@@ -214,6 +231,12 @@ namespace YAF.Pages.Admin
               this.UserOnlyRibbon.Checked,
               this.UserSortOrder.Text,
               null);
+
+            if (this.Get<YafBoardSettings>().EmailUserOnMedalAward)
+            {
+                this.Get<ISendNotification>().ToUserWithNewMedal(
+                    this.UserID.Text.ToType<int>(), this.Name.Text);
+            }
 
             // disable/hide edit controls
             this.AddUserCancel_Click(sender, e);
@@ -317,7 +340,7 @@ namespace YAF.Pages.Admin
         protected override void CreatePageLinks()
         {
             // forum index
-            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
 
             // administration index
             this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
@@ -521,8 +544,7 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// Removes an individual user from the cache...
         /// </summary>
-        /// <param name="userId">
-        /// </param>
+        /// <param name="userId">The user id.</param>
         protected void RemoveUserFromCache(int userId)
         {
             // remove user from cache...
@@ -532,29 +554,25 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// Handles save button click.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.MedalImage.SelectedIndex <= 0)
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITMEDAL", "MSG_IMAGE"));
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITMEDAL", "MSG_IMAGE"), MessageTypes.Warning);
                 return;
             }
 
             if (this.SmallMedalImage.SelectedIndex <= 0)
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITMEDAL", "MSG_SMALL_IMAGE"));
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITMEDAL", "MSG_SMALL_IMAGE"), MessageTypes.Warning);
                 return;
             }
 
             if (this.SortOrder.Text.Trim().Length == 0)
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_VALUE"));
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_VALUE"), MessageTypes.Warning);
                 return;
             }
 
@@ -562,13 +580,13 @@ namespace YAF.Pages.Admin
 
             if (!ValidationHelper.IsValidPosShort(this.SortOrder.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_POSITIVE_VALUE"));
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_POSITIVE_VALUE"), MessageTypes.Warning);
                 return;
             }
 
             if (!short.TryParse(this.SortOrder.Text.Trim(), out sortOrder))
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_CATEGORY"));
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_CATEGORY"), MessageTypes.Warning);
                 return;
             }
 
@@ -804,9 +822,6 @@ namespace YAF.Pages.Admin
 
                 using (DataTable dt = LegacyDb.group_list(this.PageContext.PageBoardID, null))
                 {
-                    // get data row
-                    DataRow row = dt.Rows[0];
-
                     this.AvailableGroupList.DataSource = dt;
                     this.AvailableGroupList.DataTextField = "Name";
                     this.AvailableGroupList.DataValueField = "GroupID";

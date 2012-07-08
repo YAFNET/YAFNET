@@ -18,6 +18,8 @@
  */
 namespace YAF.Types.Interfaces
 {
+    using System.Web.Security;
+
     /// <summary>
     /// The SendNotification Interface
     /// </summary>
@@ -69,5 +71,31 @@ namespace YAF.Types.Interfaces
         /// The new message id.
         /// </param>
         void ToWatchingUsers(int newMessageId);
+
+        /// <summary>
+        /// Send an Email to the Newly Created User with
+        /// his Account Info (Pass, Security Question and Answer)
+        /// </summary>
+        /// <param name="user">
+        /// The user.
+        /// </param>
+        /// <param name="pass">
+        /// The pass.
+        /// </param>
+        /// <param name="securityAnswer">
+        /// The security answer.
+        /// </param>
+        /// <param name="templateName">
+        /// The template Name.
+        /// </param>
+        void SendRegistrationNotificationToUser(
+            [NotNull] MembershipUser user, [NotNull] string pass, [NotNull] string securityAnswer, string templateName);
+
+        /// <summary>
+        /// Sends notification that the User was awarded with a Medal
+        /// </summary>
+        /// <param name="toUserId">To user id.</param>
+        /// <param name="medalName">Name of the medal.</param>
+        void ToUserWithNewMedal([NotNull] int toUserId, [NotNull] string medalName);
     }
 }

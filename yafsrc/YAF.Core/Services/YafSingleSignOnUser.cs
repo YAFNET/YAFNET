@@ -181,7 +181,7 @@ namespace YAF.Core.Services
                         int userId = UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey);
 
                         // send user register notification to the following admin users...
-                        SendRegistrationMessageToUser(user, pass, securityAnswer, userId, oAuth);
+                        SendRegistrationMessageToTwitterUser(user, pass, securityAnswer, userId, oAuth);
 
                         LegacyDb.user_save(
                             userId,
@@ -421,8 +421,9 @@ namespace YAF.Core.Services
                     SendRegistrationNotificationEmail(user);
                 }
 
-                // send user register notification to the following admin users...
-                SendRegistrationNotificationToUser(user, pass, securityAnswer);
+                // send user register notification to the user...
+                YafContext.Current.Get<ISendNotification>().SendRegistrationNotificationToUser(
+                    user, pass, securityAnswer, "NOTIFICATION_ON_FACEBOOK_REGISTER");
 
                 // save the time zone...
                 int userId = UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey);
@@ -535,7 +536,7 @@ namespace YAF.Core.Services
         /// <param name="oAuth">
         /// The o Auth.
         /// </param>
-        private static void SendRegistrationMessageToUser([NotNull] MembershipUser user, [NotNull] string pass, [NotNull] string securityAnswer, [NotNull] int userId, OAuthTwitter oAuth)
+        private static void SendRegistrationMessageToTwitterUser([NotNull] MembershipUser user, [NotNull] string pass, [NotNull] string securityAnswer, [NotNull] int userId, OAuthTwitter oAuth)
         {
             var notifyUser = new YafTemplateEmail();
 
@@ -549,7 +550,7 @@ namespace YAF.Core.Services
             notifyUser.TemplateParams["{answer}"] = securityAnswer;
             notifyUser.TemplateParams["{forumname}"] = YafContext.Current.Get<YafBoardSettings>().Name;
 
-            string emailBody = notifyUser.ProcessTemplate("NOTIFICATION_ON_FACEBOOK_REGISTER");
+            string emailBody = notifyUser.ProcessTemplate("NOTIFICATION_ON_TWITTER_REGISTER");
 
             var messageFlags = new MessageFlags { IsHtml = false, IsBBCode = true };
 
@@ -601,39 +602,6 @@ namespace YAF.Core.Services
             {
                 YafContext.Current.Get<ISendMail>().Queue(YafContext.Current.Get<YafBoardSettings>().ForumEmail, email.Trim(), subject, emailBody);
             }
-        }
-
-        /// <summary>
-        /// Send an Email to the Newly Created User with
-        /// his Account Info (Pass, Security Question and Answer)
-        /// </summary>
-        /// <param name="user">
-        /// The user.
-        /// </param>
-        /// <param name="pass">
-        /// The pass.
-        /// </param>
-        /// <param name="securityAnswer">
-        /// The security answer.
-        /// </param>
-        private static void SendRegistrationNotificationToUser(
-            [NotNull] MembershipUser user, [NotNull] string pass, [NotNull] string securityAnswer)
-        {
-            var notifyUser = new YafTemplateEmail();
-
-            string subject =
-                YafContext.Current.Get<ILocalization>().GetText("COMMON", "NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT").FormatWith(
-                    YafContext.Current.Get<YafBoardSettings>().Name);
-
-            notifyUser.TemplateParams["{user}"] = user.UserName;
-            notifyUser.TemplateParams["{email}"] = user.Email;
-            notifyUser.TemplateParams["{pass}"] = pass;
-            notifyUser.TemplateParams["{answer}"] = securityAnswer;
-            notifyUser.TemplateParams["{forumname}"] = YafContext.Current.Get<YafBoardSettings>().Name;
-
-            string emailBody = notifyUser.ProcessTemplate("NOTIFICATION_ON_FACEBOOK_REGISTER");
-
-            YafContext.Current.Get<ISendMail>().Queue(YafContext.Current.Get<YafBoardSettings>().ForumEmail, user.Email, subject, emailBody);
         }
     }
 }

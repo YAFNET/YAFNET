@@ -1926,6 +1926,7 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="NAME">نام</Resource>
     <Resource tag="NO">بلی</Resource>
     <Resource tag="NONE">تهی</Resource>
+    <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT">You have been award on the {0} Forum</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">پیام جدید در انجمن {0} نیاز به تائید دارد</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE">A Message on {0} Forum was reported</Resource>
     <Resource tag="NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT">Registration on {0} Forum successfully</Resource>
@@ -4810,6 +4811,11 @@ Spoiler Content
       User Email: {email} (Please dont change your email, or you are unable to login with facebook)
 	  
     </Resource>
+    <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_TEXT">
+    Hello {user}.
+
+    Congratulations you have been award with the {medalname} on the {forumname} forum.
+  </Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL_TEXT">پیامی که نیازمند تصدیق شما می باشد در {forumname} انجمن ارسال شده است :
 پیوند مدیریت : {adminlink}</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE_TEXT">
@@ -4827,7 +4833,7 @@ The Message was posted in the {forumname} forum.
       User Name: {user}
 	  Auto Generated Password: {pass}
 	  Auto Generated Security Answer: {answer}
-      User Email: {email} (Please dont change your email, or you are unable to login with facebook)
+      User Email: {email}
 	  
     </Resource>
     <Resource tag="NOTIFICATION_ON_TWITTER_REGISTER">

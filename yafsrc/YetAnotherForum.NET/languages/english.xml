@@ -1674,9 +1674,10 @@ Spoiler Content
       <Resource tag="CAL_JQ_CULTURE"></Resource>
       <Resource tag="CAL_JQ_CULTURE_DFORMAT">MM/dd/YY</Resource>
       <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">New User Registered on {0} Forum</Resource>
-	  <Resource tag="NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT">Registration on {0} Forum successfully</Resource>
+	    <Resource tag="NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT">Registration on {0} Forum successfully</Resource>
       <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">New Message on {0} Forum needs to be approved</Resource>
-	  <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE">A Message on {0} Forum was reported</Resource>
+	    <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE">A Message on {0} Forum was reported</Resource>
+      <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT">You have been award on the {0} Forum</Resource>
       <Resource tag="CUSTOM_BBCODE">More BBCode</Resource>
       <Resource tag="ALBUMIMG_BBCODE">Insert Album Image...</Resource>
       <Resource tag="EMAILVERIFICATION_SUBJECT">{0} Email Verification</Resource>
@@ -3238,16 +3239,21 @@ Hello!
 	  
     </Resource>
 	<Resource tag="NOTIFICATION_ON_REGISTER">
-      Hello {user}.
+    Hello {user}.
 
-      You have been successfully Registred on the {forumname} forum:
+    You have been successfully Registred on the {forumname} forum:
 
-      User Name: {user}
-	  Auto Generated Password: {pass}
-	  Auto Generated Security Answer: {answer}
-      User Email: {email} (Please dont change your email, or you are unable to login with facebook)
-	  
-    </Resource>
+    User Name: {user}
+    Auto Generated Password: {pass}
+    Auto Generated Security Answer: {answer}
+    User Email: {email}
+
+  </Resource>
+  <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_TEXT">
+    Hello {user}.
+
+    Congratulations you have been award with the {medalname} on the {forumname} forum.
+  </Resource>
       <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL_TEXT">
       A new message that needs your approved has been posted in the {forumname} forum:
       

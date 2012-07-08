@@ -1903,6 +1903,7 @@
     <Resource tag="NAME">Name</Resource>
     <Resource tag="NO">Nein</Resource>
     <Resource tag="NONE">Keine</Resource>
+    <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT">Sie haben eine Auszeichnung erhalten im {0} Forum</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">Neue Nachricht im Forum {0} Forum muss genehmigt werden.</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE">Ein Beitrag im {0} Forum wurde gemeldet</Resource>
     <Resource tag="NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT">Registrierung im {0} Forum erfolgreich</Resource>
@@ -4757,6 +4758,11 @@ Hallo!
       E-Mail: {email} (Bitte ändern Sie nicht ihre E-Mail Adresse, ansonsten können Sie sich nicht mehr über Facebook anmelden)
 	  
     </Resource>
+    <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_TEXT">
+      Hallo {user}.
+
+      Glückwunsch Sie wurden mit der {medalname} Ausgezeichnet im {forumname} forum.
+    </Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL_TEXT">
 		Eine neue Nachricht muß bestätigt werden die im forum {forumname} geschrieben wurde:
 		
@@ -4775,10 +4781,10 @@ Der Beitrag wurde im {forumname} forum veröffentlicht.
       Sie haben wurden erfolgreich im forum {forumname} registriert:
 
       Benutzername: {user}
-	  Automatisch generiertes Passwort: {pass}
-	  Automatisch generierte Sicherheits Antwort: {answer}
-      E-Mail: {email} (Bitte ändern Sie nicht ihre E-Mail Adresse, ansonsten können Sie sich nicht mehr über Facebook anmelden)
-	  
+      Automatisch generiertes Passwort: {pass}
+      Automatisch generierte Sicherheits Antwort: {answer}
+      E-Mail: {email}
+
     </Resource>
     <Resource tag="NOTIFICATION_ON_TWITTER_REGISTER">
       Hallo {user}.

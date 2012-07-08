@@ -1921,6 +1921,7 @@
     <Resource tag="NAME">Name</Resource>
     <Resource tag="NO">No</Resource>
     <Resource tag="NONE">None</Resource>
+    <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT">You have been award on the {0} Forum</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">New Message on {0} Forum Needs to be Approved</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE">A Message on {0} Forum was reported</Resource>
     <Resource tag="NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT">Registration on {0} Forum successfully</Resource>
@@ -4839,6 +4840,11 @@ Hello!
       User Email: {email} (Please dont change your email, or you are unable to login with facebook)
 	  
     </Resource>
+    <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_TEXT">
+    Hello {user}.
+
+    Congratulations you have been award with the {medalname} on the {forumname} forum.
+  </Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL_TEXT">
 		A new message that needs your approved has been posted in the {forumname} forum:
 		
@@ -4859,7 +4865,7 @@ The Message was posted in the {forumname} forum.
       User Name: {user}
 	  Auto Generated Password: {pass}
 	  Auto Generated Security Answer: {answer}
-      User Email: {email} (Please dont change your email, or you are unable to login with facebook)
+      User Email: {email}
 	  
     </Resource>
     <Resource tag="NOTIFICATION_ON_TWITTER_REGISTER">

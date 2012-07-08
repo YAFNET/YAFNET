@@ -1918,6 +1918,7 @@
     <Resource tag="NAME">Naam</Resource>
     <Resource tag="NO">Nee</Resource>
     <Resource tag="NONE">Geen</Resource>
+    <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT">You have been award on the {0} Forum</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">Nieuw bericht op {0} Forum heeft goedkeuring nodig</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE">A Message on {0} Forum was reported</Resource>
     <Resource tag="NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT">Registration on {0} Forum successfully</Resource>
@@ -4766,6 +4767,11 @@ Als je je e-mail niet wilde wijzigen, dan kun je deze mail negeren.
       User Email: {email} (Please dont change your email, or you are unable to login with facebook)
 	  
     </Resource>
+    <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_TEXT">
+    Hello {user}.
+
+    Congratulations you have been award with the {medalname} on the {forumname} forum.
+  </Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL_TEXT">		Een nieuw bericht dat goedgekeurd moet worden is geplaatst op het {forumname} forum:
 		
 		Beheerlink: {adminlink}
@@ -4783,10 +4789,10 @@ The Message was posted in the {forumname} forum.
       You have been successfully Registred on the {forumname} forum:
 
       User Name: {user}
-	  Auto Generated Password: {pass}
-	  Auto Generated Security Answer: {answer}
-      User Email: {email} (Please dont change your email, or you are unable to login with facebook)
-	  
+      Auto Generated Password: {pass}
+      Auto Generated Security Answer: {answer}
+      User Email: {email}
+
     </Resource>
     <Resource tag="NOTIFICATION_ON_TWITTER_REGISTER">
       Hello {user}.

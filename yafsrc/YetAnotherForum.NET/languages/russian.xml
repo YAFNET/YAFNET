@@ -1900,6 +1900,7 @@
     <Resource tag="NAME">Имя</Resource>
     <Resource tag="NO">Нет</Resource>
     <Resource tag="NONE">Ничего</Resource>
+    <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT">You have been award on the {0} Forum</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">Новое сообщение на форуме {0} должно быть Вами одобрено</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE">Пожаловались на сообщение в форуме {0}</Resource>
     <Resource tag="NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT">Успешная регистрация на форуме {0}</Resource>
@@ -4796,6 +4797,11 @@ Spoiler Content
       Ваша эл. почта: {email} (Пожалуйста не меняйте, иначе Вы не сможете войти через Facebook)
 	  
     </Resource>
+    <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_TEXT">
+    Hello {user}.
+
+    Congratulations you have been award with the {medalname} on the {forumname} forum.
+  </Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL_TEXT">
       Новое сообщение ожидающее вашего одобрения появилось на форуме: {forumname}
 

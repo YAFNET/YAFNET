@@ -1916,6 +1916,7 @@
     <Resource tag="NAME">Nome</Resource>
     <Resource tag="NO">No</Resource>
     <Resource tag="NONE">Nessuno</Resource>
+    <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT">You have been award on the {0} Forum</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">Nuovi messaggi in attesa di approvazione sul forum {0}</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE">E' stato segnalato un messaggio sul forum {0}</Resource>
     <Resource tag="NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT">Registrazione al forum {0} completata</Resource>
@@ -4840,6 +4841,11 @@ Ciao!
       E-mail: {email} (Per favore non modificare la tua e-mail, altrimenti non potrai più accedere tramite Facebook)
 	  
     </Resource>
+    <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_TEXT">
+    Hello {user}.
+
+    Congratulations you have been award with the {medalname} on the {forumname} forum.
+  </Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL_TEXT">
 		E' stato postato un nuovo messaggio che richiede la tua approvazione sul forum {forumname}:
 		

@@ -626,6 +626,23 @@ namespace YAF.Classes
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether send an 
+        /// Email when a Single User is awarded with an Medal.
+        /// </summary>
+        public bool EmailUserOnMedalAward
+        {
+            get
+            {
+                return this._regBoard.GetValue("EmailUserOnMedalAward", true);
+            }
+
+            set
+            {
+                this._regBoard.SetValue("EmailUserOnMedalAward", value);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether 
         /// which Spam Service Type should been used
         /// 0 = No Service
