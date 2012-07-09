@@ -41,38 +41,38 @@ namespace YAF.Core.Data
         [NotNull]
         public static string CleanForServerVersion([NotNull] string scriptChunk, ushort version)
         {
-            if (!scriptChunk.Contains("#IFSRVVER"))
+            const string ServerVersionBegin = "#IFSRVVER";
+
+            if (!scriptChunk.Contains(ServerVersionBegin))
             {
                 return scriptChunk;
             }
-            else
+
+            int indSign = scriptChunk.IndexOf(ServerVersionBegin) + ServerVersionBegin.Length;
+            string temp = scriptChunk.Substring(indSign);
+            int indEnd = temp.IndexOf("#");
+            int indEqual = temp.IndexOf("=");
+            int indMore = temp.IndexOf(">");
+
+            if (indEqual >= 0 && indEqual < indEnd)
             {
-                int indSign = scriptChunk.IndexOf("#IFSRVVER") + 9;
-                string temp = scriptChunk.Substring(indSign);
-                int indEnd = temp.IndexOf("#");
-                int indEqual = temp.IndexOf("=");
-                int indMore = temp.IndexOf(">");
-
-                if (indEqual >= 0 && indEqual < indEnd)
+                ushort indVerEnd = Convert.ToUInt16(temp.Substring(indEqual + 1, indEnd - indEqual - 1).Trim());
+                if (version == indVerEnd)
                 {
-                    ushort indVerEnd = Convert.ToUInt16(temp.Substring(indEqual + 1, indEnd - indEqual - 1).Trim());
-                    if (version == indVerEnd)
-                    {
-                        return scriptChunk.Substring(indEnd + indSign + 1);
-                    }
+                    return scriptChunk.Substring(indEnd + indSign + 1);
                 }
-
-                if (indMore >= 0 && indMore < indEnd)
-                {
-                    ushort indVerEnd = Convert.ToUInt16(temp.Substring(indMore + 1, indEnd - indMore - 1).Trim());
-                    if (version > indVerEnd)
-                    {
-                        return scriptChunk.Substring(indEnd + indSign + 1);
-                    }
-                }
-
-                return string.Empty;
             }
+
+            if (indMore >= 0 && indMore < indEnd)
+            {
+                ushort indVerEnd = Convert.ToUInt16(temp.Substring(indMore + 1, indEnd - indMore - 1).Trim());
+                if (version > indVerEnd)
+                {
+                    return scriptChunk.Substring(indEnd + indSign + 1);
+                }
+            }
+
+            return string.Empty;
         }
 
         /// <summary>
