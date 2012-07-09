@@ -409,3 +409,18 @@
 	border:none!important;
 	padding:5px!important
 }
+
+/* forum Icon Legend */
+.yafnet .forumIconLegend {
+	padding: 2px; 
+	margin: 2px;
+	width:100%
+}
+.yafnet .forumIconLegend li {
+	list-style:none;
+	float:left
+}
+
+.yafnet .forumIconLegend li img {
+	vertical-align:middle
+}
