@@ -75,7 +75,6 @@
     <Compile Include="Pattern\IInstanceFactory.cs" />
     <Compile Include="Pattern\PageSingleton.cs" />
     <Compile Include="Pattern\RegistryDictionary.cs" />
-    <Compile Include="Pattern\SingleClassInstanceFactory.cs" />
     <Compile Include="Pattern\TypeDictionary.cs" />
     <Compile Include="Pattern\TypeFactoryInstance.cs" />
     <Compile Include="Pattern\TypeFactoryInstanceApplicationBoardScope.cs" />

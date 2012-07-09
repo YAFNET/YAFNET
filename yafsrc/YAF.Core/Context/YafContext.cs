@@ -16,6 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
 namespace YAF.Core
 {
     #region Using
@@ -51,39 +52,56 @@ namespace YAF.Core
         protected ILifetimeScope _contextLifetimeContainer;
 
         /// <summary>
-        ///   The _current forum page.
+        /// The _current forum page.
         /// </summary>
         protected ForumPage _currentForumPage;
 
         /// <summary>
-        ///   The _repository.
+        /// The _repository.
         /// </summary>
         protected ContextVariableRepository _repository;
 
         /// <summary>
-        ///   The _single instance factory.
+        /// The _user.
         /// </summary>
-        protected SingleClassInstanceFactory _singleInstanceFactory = new SingleClassInstanceFactory();
+        protected MembershipUser _user;
 
         /// <summary>
-        ///   The _variables.
+        /// The _variables.
         /// </summary>
         protected TypeDictionary _variables = new TypeDictionary();
 
         /// <summary>
-        ///   The _user.
+        /// The _combined user data.
         /// </summary>
-        protected MembershipUser _user = null;
+        private CombinedUserDataHelper _combinedUserData;
+
+        /// <summary>
+        /// The _load message.
+        /// </summary>
+        private LoadMessage _loadMessage;
+
+        /// <summary>
+        /// The _page elements.
+        /// </summary>
+        private PageElementRegister _pageElements;
+
+        /// <summary>
+        /// The _query i ds.
+        /// </summary>
+        private QueryStringIDHelper _queryIDs;
 
         #endregion
 
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "YafContext" /> class. 
-        ///   YafContext Constructor
+        /// Initializes a new instance of the <see cref="YafContext"/> class. YafContext Constructor
         /// </summary>
-        public YafContext(ILifetimeScope contextLifetimeContainer)
+        /// <param name="contextLifetimeContainer">
+        /// The context Lifetime Container.
+        /// </param>
+        internal YafContext(ILifetimeScope contextLifetimeContainer)
         {
             this._contextLifetimeContainer = contextLifetimeContainer;
 
@@ -99,46 +117,31 @@ namespace YAF.Core
 
         #endregion
 
-        #region Events
+        #region Public Events
 
         /// <summary>
-        ///   The after init.
+        /// The after init.
         /// </summary>
         public event EventHandler<EventArgs> AfterInit;
 
         /// <summary>
-        ///   The before init.
+        /// The before init.
         /// </summary>
         public event EventHandler<EventArgs> BeforeInit;
 
-        #endregion
-
-        #region Events
-
         /// <summary>
-        ///   On YafContext Constructor Call
+        /// On YafContext Constructor Call
         /// </summary>
         public event EventHandler<EventArgs> Init;
 
         /// <summary>
-        ///   On YafContext Unload Call
+        /// On YafContext Unload Call
         /// </summary>
         public event EventHandler<EventArgs> Unload;
 
         #endregion
 
-        #region Properties
-
-        /// <summary>
-        ///   Gets the instance of the Forum Context
-        /// </summary>
-        public static YafContext Current
-        {
-            get
-            {
-                return GlobalContainer.Container.Resolve<YafContext>();
-            }
-        }
+        #region Public Properties
 
         /// <summary>
         /// Gets the current application.
@@ -153,7 +156,18 @@ namespace YAF.Core
         }
 
         /// <summary>
-        ///  Gets or sets the Current Board Settings
+        /// Gets the instance of the Forum Context
+        /// </summary>
+        public static YafContext Current
+        {
+            get
+            {
+                return GlobalContainer.Container.Resolve<YafContext>();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the Current Board Settings
         /// </summary>
         [Obsolete("Use ServiceLocation or DI directly: this.Get<YafBoardSettings>().")]
         public virtual YafBoardSettings BoardSettings
@@ -170,8 +184,7 @@ namespace YAF.Core
         }
 
         /// <summary>
-        ///   Gets or sets the Forum page instance of the current forum page.
-        ///   May not be valid until everything is initialized.
+        /// Gets or sets the Forum page instance of the current forum page. May not be valid until everything is initialized.
         /// </summary>
         public ForumPage CurrentForumPage
         {
@@ -187,18 +200,18 @@ namespace YAF.Core
         }
 
         /// <summary>
-        ///   Gets the Instance of the Combined UserData for the current user.
+        /// Gets the Instance of the Combined UserData for the current user.
         /// </summary>
         public IUserData CurrentUserData
         {
             get
             {
-                return this._singleInstanceFactory.GetInstance<CombinedUserDataHelper>();
+                return this._combinedUserData ?? (this._combinedUserData = new CombinedUserDataHelper());
             }
         }
 
         /// <summary>
-        ///   Gets the current Page Instance of the Module Manager
+        /// Gets the current Page Instance of the Module Manager
         /// </summary>
         [Obsolete("Use Service Location or Dependency Injection to get interface: IModuleManager<ForumEditor>")]
         public IModuleManager<ForumEditor> EditorModuleManager
@@ -210,7 +223,7 @@ namespace YAF.Core
         }
 
         /// <summary>
-        ///   Gets the current page as the forumPage Enum (for comparison)
+        /// Gets the current page as the forumPage Enum (for comparison)
         /// </summary>
         public ForumPages ForumPageType
         {
@@ -233,9 +246,7 @@ namespace YAF.Core
         }
 
         /// <summary>
-        ///   Gets the Access to the Context Global Variable Repository Class
-        ///   which is a helper class that accesses YafContext.Vars with strongly
-        ///   typed properties for primary variables.
+        /// Gets the Access to the Context Global Variable Repository Class which is a helper class that accesses YafContext.Vars with strongly typed properties for primary variables.
         /// </summary>
         public ContextVariableRepository Globals
         {
@@ -246,29 +257,29 @@ namespace YAF.Core
         }
 
         /// <summary>
-        ///  Gets the current Page Load Message
+        /// Gets the current Page Load Message
         /// </summary>
         public LoadMessage LoadMessage
         {
             get
             {
-                return this._singleInstanceFactory.GetInstance<LoadMessage>();
+                return this._loadMessage ?? (this._loadMessage = new LoadMessage());
             }
         }
 
         /// <summary>
-        ///   Gets the Current Page Elements
+        /// Gets the Current Page Elements
         /// </summary>
         public PageElementRegister PageElements
         {
             get
             {
-                return this._singleInstanceFactory.GetInstance<PageElementRegister>();
+                return this._pageElements ?? (this._pageElements = new PageElementRegister());
             }
         }
 
         /// <summary>
-        ///   Gets the Current Page User Profile
+        /// Gets the Current Page User Profile
         /// </summary>
         public YafUserProfile Profile
         {
@@ -279,23 +290,23 @@ namespace YAF.Core
         }
 
         /// <summary>
-        ///   Gets or sets the Current Page Query ID Helper
+        /// Gets or sets the Current Page Query ID Helper
         /// </summary>
         public QueryStringIDHelper QueryIDs
         {
             get
             {
-                return this._singleInstanceFactory.GetInstance<QueryStringIDHelper>();
+                return this._queryIDs;
             }
 
             set
             {
-                this._singleInstanceFactory.SetInstance(value);
+                this._queryIDs = value;
             }
         }
 
         /// <summary>
-        ///   Gets the Provides access to the Service Locatorer
+        /// Gets the Provides access to the Service Locatorer
         /// </summary>
         public IServiceLocator ServiceLocator
         {
@@ -306,7 +317,7 @@ namespace YAF.Core
         }
 
         /// <summary>
-        ///   Gets the Current Page Control Settings from Forum Control
+        /// Gets the Current Page Control Settings from Forum Control
         /// </summary>
         public YafControlSettings Settings
         {
@@ -329,7 +340,7 @@ namespace YAF.Core
         }
 
         /// <summary>
-        ///   Gets the UrlBuilder
+        /// Gets the UrlBuilder
         /// </summary>
         public IUrlBuilder UrlBuilder
         {
@@ -340,7 +351,7 @@ namespace YAF.Core
         }
 
         /// <summary>
-        ///   Gets or sets the Current Membership User
+        /// Gets or sets the Current Membership User
         /// </summary>
         public MembershipUser User
         {
@@ -356,8 +367,7 @@ namespace YAF.Core
         }
 
         /// <summary>
-        ///   Gets the YafContext Global Instance Variables
-        ///   Use for plugins or other situations where a value is needed per instance.
+        /// Gets the YafContext Global Instance Variables Use for plugins or other situations where a value is needed per instance.
         /// </summary>
         public TypeDictionary Vars
         {
@@ -369,12 +379,14 @@ namespace YAF.Core
 
         #endregion
 
-        #region Indexers
+        #region Public Indexers
 
         /// <summary>
         /// Returns a value from the YafContext Global Instance Variables (Vars) collection.
         /// </summary>
-        /// <returns>Value if it's found, null if it doesn't exist.</returns>
+        /// <returns>
+        /// Value if it's found, null if it doesn't exist. 
+        /// </returns>
         public object this[[NotNull] string varName]
         {
             get
@@ -390,23 +402,21 @@ namespace YAF.Core
 
         #endregion
 
-        #region Public Methods
+        #region Public Methods and Operators
 
         /// <summary>
         /// Helper Function that adds a "load message" to the load message class.
         /// </summary>
-        /// <param name="message">The message.</param>
-        /// <param name="messageType">The message type.</param>
+        /// <param name="message">
+        /// The message. 
+        /// </param>
+        /// <param name="messageType">
+        /// The message type. 
+        /// </param>
         public void AddLoadMessage([NotNull] string message, MessageTypes messageType = MessageTypes.Information)
         {
             this.LoadMessage.Add(message, messageType);
         }
-
-        #endregion
-
-        #region Implemented Interfaces
-
-        #region IDisposable
 
         /// <summary>
         /// The dispose.
@@ -423,7 +433,7 @@ namespace YAF.Core
 
         #endregion
 
-        #endregion
+        #region Methods
 
         /// <summary>
         /// Initialize the user data and page data...
@@ -460,5 +470,7 @@ namespace YAF.Core
                 this.AfterInit(this, new EventArgs());
             }
         }
+
+        #endregion
     }
 }
