@@ -79,6 +79,7 @@
     <Compile Include="Context\LoadPageLogBadAgent.cs" />
     <Compile Include="Context\LoadPageRequestInformation.cs" />
     <Compile Include="Context\LoadPageVariablesFromQuery.cs" />
+    <Compile Include="Context\YafContextPageProvider.cs" />
     <Compile Include="Data\DbAccessBase.cs" />
     <Compile Include="Data\DbAccessProvider.cs" />
     <Compile Include="Data\DbConnectionParam.cs" />

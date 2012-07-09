@@ -111,6 +111,10 @@ namespace YAF.Core
 
             builder.RegisterType<AutoFacServiceLocatorProvider>().AsSelf().As<IServiceLocator>().As<IInjectServices>().InstancePerLifetimeScope();
 
+            // YafContext registration...
+            builder.RegisterType<YafContextPageProvider>().AsSelf().As<IReadOnlyProvider<YafContext>>().SingleInstance().PreserveExistingDefaults();
+            builder.Register((k) => k.Resolve<YafContextPageProvider>().Instance).ExternallyOwned().PreserveExistingDefaults();
+
             // Http Application Base
             builder.RegisterType<CurrentHttpApplicationStateBaseProvider>().SingleInstance().PreserveExistingDefaults();
             builder.Register(k => k.Resolve<CurrentHttpApplicationStateBaseProvider>().Instance).ExternallyOwned().PreserveExistingDefaults();

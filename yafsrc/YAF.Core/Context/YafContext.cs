@@ -83,9 +83,9 @@ namespace YAF.Core
         ///   Initializes a new instance of the <see cref = "YafContext" /> class. 
         ///   YafContext Constructor
         /// </summary>
-        public YafContext()
+        public YafContext(ILifetimeScope contextLifetimeContainer)
         {
-            this._contextLifetimeContainer = GlobalContainer.Container.BeginLifetimeScope(YafLifetimeScope.Context);
+            this._contextLifetimeContainer = contextLifetimeContainer;
 
             // init the respository
             this._repository = new ContextVariableRepository(this._variables);
@@ -136,7 +136,7 @@ namespace YAF.Core
         {
             get
             {
-                return PageSingleton<YafContext>.Instance;
+                return GlobalContainer.Container.Resolve<YafContext>();
             }
         }
 
