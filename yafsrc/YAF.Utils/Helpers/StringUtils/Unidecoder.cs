@@ -69,7 +69,7 @@ namespace YAF.Utils.Helpers.StringUtils
 				var h = c >> 8;
 				var l = c & 0xff;
 
-				output.Append(Characters.ContainsKey(h) ? Characters[h][l] : string.Empty);
+				output.Append(characters.ContainsKey(h) ? characters[h][l] : string.Empty);
 			}
 
 			return output.ToString();
