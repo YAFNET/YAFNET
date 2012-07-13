@@ -28,6 +28,7 @@ namespace YAF.DotNetNuke
     using System.Web.Security;
 
     using global::DotNetNuke.Common.Utilities;
+    using global::DotNetNuke.Entities.Portals;
     using global::DotNetNuke.Entities.Users;
     using global::DotNetNuke.Services.Exceptions;
     using global::DotNetNuke.Services.Scheduling;
@@ -183,6 +184,9 @@ namespace YAF.DotNetNuke
             var users = UserController.GetUsers(portalId);
             users.Sort(new UserComparer());
 
+            // Load PortalSettings
+            var portalGUID = new PortalController().GetPortal(portalId).GUID;
+
             try
             {
                 // Sync Roles
@@ -207,7 +211,8 @@ namespace YAF.DotNetNuke
                     }
                     else
                     {
-                        ProfileSyncronizer.UpdateUserProfile(yafUserId, dnnUserInfo, dnnUser, portalId, boardId);
+                        ProfileSyncronizer.UpdateUserProfile(
+                            yafUserId, dnnUserInfo, dnnUser, portalId, portalGUID, boardId);
                     }
 
                     RoleSyncronizer.SyncronizeUserRoles(boardId, portalId, yafUserId, dnnUserInfo);

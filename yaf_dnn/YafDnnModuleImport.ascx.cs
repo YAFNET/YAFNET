@@ -87,12 +87,8 @@ namespace YAF.DotNetNuke
         /// <summary>
         /// The add scheduler click.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void AddSchedulerClick(object sender, EventArgs e)
         {
             var btn = (Button)sender;
@@ -193,12 +189,8 @@ namespace YAF.DotNetNuke
         /// <summary>
         /// The close click.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void CloseClick(object sender, EventArgs e)
         {
             this.Response.Redirect(Globals.NavigateURL(), true);
@@ -242,14 +234,10 @@ namespace YAF.DotNetNuke
         }
 
         /// <summary>
-        /// The dot net nuke module import_ load.
+        /// Handles the Load event of the DotNetNukeModuleImport control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void DotNetNukeModuleImport_Load(object sender, EventArgs e)
         {
             this.btnImportUsers.Text = Localization.GetString("ImportNow.Text", this.LocalResourceFile);
@@ -325,14 +313,10 @@ namespace YAF.DotNetNuke
         }
 
         /// <summary>
-        /// The import click.
+        /// Import/Update Users and Sync Roles
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void ImportClick(object sender, EventArgs e)
         {
             this.NewUsers = 0;
@@ -368,7 +352,13 @@ namespace YAF.DotNetNuke
                     }
                     else
                     {
-                        ProfileSyncronizer.UpdateUserProfile(yafUserId, dnnUserInfo, dnnUser, this.PortalSettings.PortalId, this.boardId);
+                        ProfileSyncronizer.UpdateUserProfile(
+                            yafUserId,
+                            dnnUserInfo,
+                            dnnUser,
+                            this.PortalSettings.PortalId,
+                            this.PortalSettings.GUID,
+                            this.boardId);
                     }
 
                     RoleSyncronizer.SyncronizeUserRoles(this.boardId, this.PortalSettings.PortalId, yafUserId, dnnUserInfo);

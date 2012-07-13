@@ -533,7 +533,12 @@ namespace YAF.DotNetNuke
             }
 
             ProfileSyncronizer.UpdateUserProfile(
-                yafUserId, dnnUserInfo, dnnMembershipUser, this.CurrentPortalSettings.PortalId, this.forum1.BoardID);
+                yafUserId,
+                dnnUserInfo,
+                dnnMembershipUser,
+                this.CurrentPortalSettings.PortalId,
+                this.CurrentPortalSettings.GUID,
+                this.forum1.BoardID);
 
             this.Session["{0}_userSync".FormatWith(this.SessionUserKeyName)] = true;
         }
@@ -541,12 +546,8 @@ namespace YAF.DotNetNuke
         /// <summary>
         /// Change Page Title
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
         private void Forum1_PageTitleSet(object sender, ForumPageTitleArgs e)
         {
             int removeTabName = 1;
