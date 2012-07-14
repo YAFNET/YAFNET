@@ -3928,8 +3928,8 @@ Visit {forumname} at {forumlink}
       <Resource tag="BOARD_DIGEST_NEWUSERS_HELP">When a new user account is created, default send digest to true?</Resource>
       <Resource tag="BOARD_DEFAULT_NOTIFICATION_HELP">When a new user account is created, what notification setting does it default to?</Resource>
       <Resource tag="BOARD_EMAIL_MODS_HELP">Should all the moderators of a forum be notified if a new post that needs approval is created?</Resource>
-	  <Resource tag="BOARD_EMAIL_REPORTMODS">Email Moderators On a Reported Post:</Resource>
-	  <Resource tag="BOARD_EMAIL_REPORTMODS_HELP">Should all the moderators of a forum be notified if someone reported a post?</Resource>
+      <Resource tag="BOARD_EMAIL_REPORTMODS">Email Moderators On a Reported Post:</Resource>
+      <Resource tag="BOARD_EMAIL_REPORTMODS_HELP">Should all the moderators of a forum be notified if someone reported a post?</Resource>
     </page>
      <page name="ADMIN_FORUMS">
       <Resource tag="CONFIRM_DELETE_CAT">Delete this category?</Resource>
@@ -4584,6 +4584,7 @@ Visit {forumname} at {forumlink}
 	   <Resource tag="HEADER_POLL">Poll Settings</Resource>
 	   <Resource tag="HEADER_PMS">Private Messages</Resource>
 	   <Resource tag="HEADER_ALBUM">Album Settings</Resource>
+     <Resource tag="HEADER_SHOUT">Shoutbox Settings</Resource>
 	   <Resource tag="HEADER_SYNDICATION">Syndication Feed Settings</Resource>
      <Resource tag="HEADER_MESSAGE_NOTIFICATION">Message Notification Settings</Resource>
 	   <Resource tag="HEADER_IRKOO">Irkoo Reputation Service</Resource>
@@ -4832,6 +4833,8 @@ Visit {forumname} at {forumlink}
        <Resource tag="SHOW_FORUM_JUMP_HELP">Enable or disable display of the Forum Jump Box throughout the forum.</Resource>
 	   <Resource tag="SHOW_SHOUTBOX">Show Shoutbox:</Resource>
        <Resource tag="SHOW_SHOUTBOX_HELP">Enable or disable display of the Shoutbox (Chat Module) in the forum page.</Resource>
+     <Resource tag="SHOUTBOX_COUNT">Shoutbox Message Count:</Resource>
+     <Resource tag="SHOUTBOX_COUNT_HELP">The Number of Messages that will be shown in the shoutbox.</Resource>
 	   <Resource tag="SHOW_GROUPS">Show Groups:</Resource>
        <Resource tag="SHOW_GROUPS_HELP">Should the groups a user is part of be visible on the posts page.</Resource>
 	   <Resource tag="SHOW_GROUPS_INPROFILE">Show Groups in profile:</Resource>

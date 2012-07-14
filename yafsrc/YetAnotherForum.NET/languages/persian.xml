@@ -1045,6 +1045,7 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="HEADER_REPUTATION">Reputation Settings</Resource>
     <Resource tag="HEADER_SEARCH">تنظیمات جستجو</Resource>
     <Resource tag="HEADER_SETUP">نصب میزبان</Resource>
+    <Resource tag="HEADER_SHOUT">Shoutbox Settings</Resource>
     <Resource tag="HEADER_SPAM">Spam Settings</Resource>
     <Resource tag="HEADER_SYNDICATION">تنظیمات خوراک اجتماعی</Resource>
     <Resource tag="HEADER_TEMPLATES">تنظیمات شما</Resource>
@@ -1239,6 +1240,8 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="SERVER_VERSION_HELP">SQL server چه نسخه ای است؟</Resource>
     <Resource tag="SERVERTIME_CORRECT">اصلاح منطقه زمانی سرور:</Resource>
     <Resource tag="SERVERTIME_CORRECT_HELP">در صورت اشتباه بودن UTC سرور عددی بین 720- تا 720 وارد کنید.</Resource>
+    <Resource tag="SHOUTBOX_COUNT">Shoutbox Message Count:</Resource>
+    <Resource tag="SHOUTBOX_COUNT_HELP">The Number of Messages that will be shown in the shoutbox.</Resource>
     <Resource tag="SHOW_ACTIVE_DISCUSSION">نمایش بحث های فعال:</Resource>
     <Resource tag="SHOW_ACTIVE_DISCUSSION_HELP">فعال یا غیر فعال کردن نمایش فهرست بحث های فعال در صفحه شاخص تابلو.</Resource>
     <Resource tag="SHOW_ATOM_LINKS">نمایش پیوندهای اتم :</Resource>

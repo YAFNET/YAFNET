@@ -1134,22 +1134,6 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <YAF:HelpLabel ID="HelpLabel165" runat="server" LocalizedTag="SHOW_SHOUTBOX" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </td>
-                        <td class="post">
-                            <asp:CheckBox ID="ShowShoutbox" runat="server"></asp:CheckBox>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="postheader">
-                            <YAF:HelpLabel ID="HelpLabel166" runat="server" LocalizedTag="SHOW_SHOUTBOX_SMILIES" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </td>
-                        <td class="post">
-                            <asp:CheckBox ID="ShowShoutboxSmiles" runat="server"></asp:CheckBox>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="postheader">
                             <YAF:HelpLabel ID="HelpLabel167" runat="server" LocalizedTag="SHOW_GROUPS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
@@ -1260,6 +1244,35 @@
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" ID="TopicsPerPage" runat="server"></asp:TextBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="header1" colspan="2">
+                            <YAF:LocalizedLabel ID="LocalizedLabel36" runat="server" LocalizedTag="HEADER_SHOUT" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel165" runat="server" LocalizedTag="SHOW_SHOUTBOX" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="ShowShoutbox" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel166" runat="server" LocalizedTag="SHOW_SHOUTBOX_SMILIES" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="ShowShoutboxSmiles" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel219" runat="server" LocalizedTag="SHOUTBOX_COUNT" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:TextBox Style="width:350px" ID="ShoutboxShowMessageCount" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                 </table>

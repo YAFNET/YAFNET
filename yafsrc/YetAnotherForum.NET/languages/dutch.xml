@@ -1045,6 +1045,7 @@
     <Resource tag="HEADER_REPUTATION">Reputation Settings</Resource>
     <Resource tag="HEADER_SEARCH">Zoek instellingen</Resource>
     <Resource tag="HEADER_SETUP">Host Installatie</Resource>
+    <Resource tag="HEADER_SHOUT">Shoutbox Settings</Resource>
     <Resource tag="HEADER_SPAM">Spam Settings</Resource>
     <Resource tag="HEADER_SYNDICATION">Syndicatie Feed instellingen</Resource>
     <Resource tag="HEADER_TEMPLATES">Template instellingen</Resource>
@@ -1238,6 +1239,8 @@
     <Resource tag="SERVER_VERSION_HELP">De versie van de SQL Server die gebruikt wordt.</Resource>
     <Resource tag="SERVERTIME_CORRECT">Server Tijdzone correctie:</Resource>
     <Resource tag="SERVERTIME_CORRECT_HELP">Vul een positieve of negatieve waarde in (in minuten tussen -720 en 720, als de UTC waarde niet goed is): </Resource>
+    <Resource tag="SHOUTBOX_COUNT">Shoutbox Message Count:</Resource>
+    <Resource tag="SHOUTBOX_COUNT_HELP">The Number of Messages that will be shown in the shoutbox.</Resource>
     <Resource tag="SHOW_ACTIVE_DISCUSSION">Laat Actieve Topics zien:</Resource>
     <Resource tag="SHOW_ACTIVE_DISCUSSION_HELP">Zet de Actieve Topics aan of uit op de startpagina.</Resource>
     <Resource tag="SHOW_ATOM_LINKS">Laat Atom Links zien:</Resource>

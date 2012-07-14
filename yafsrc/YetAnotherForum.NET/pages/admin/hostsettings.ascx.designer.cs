@@ -2560,42 +2560,6 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox ShowForumJump;
         
         /// <summary>
-        /// HelpLabel165 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel165;
-        
-        /// <summary>
-        /// ShowShoutbox control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ShowShoutbox;
-        
-        /// <summary>
-        /// HelpLabel166 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel166;
-        
-        /// <summary>
-        /// ShowShoutboxSmiles control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ShowShoutboxSmiles;
-        
-        /// <summary>
         /// HelpLabel167 control.
         /// </summary>
         /// <remarks>
@@ -2846,6 +2810,69 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TopicsPerPage;
+        
+        /// <summary>
+        /// LocalizedLabel36 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel36;
+        
+        /// <summary>
+        /// HelpLabel165 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel165;
+        
+        /// <summary>
+        /// ShowShoutbox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ShowShoutbox;
+        
+        /// <summary>
+        /// HelpLabel166 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel166;
+        
+        /// <summary>
+        /// ShowShoutboxSmiles control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ShowShoutboxSmiles;
+        
+        /// <summary>
+        /// HelpLabel219 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel219;
+        
+        /// <summary>
+        /// ShoutboxShowMessageCount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ShoutboxShowMessageCount;
         
         /// <summary>
         /// LocalizedLabel14 control.

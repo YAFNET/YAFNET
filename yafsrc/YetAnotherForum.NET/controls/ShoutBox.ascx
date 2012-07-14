@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="True" Inherits="YAF.Controls.ShoutBox" CodeBehind="ShoutBox.ascx.cs" EnableViewState="false" %>
 <%@ Import Namespace="YAF.Utils" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
+<%@ Import Namespace="YAF.Types.Constants" %>
 <script type="text/javascript">
     var lastMessageId = 0;
     var clearOnEndRequest = false;
@@ -108,7 +109,7 @@
                                             <ItemTemplate>
                                                 <div style="padding: 0; margin: 0">
                                                     <b>
-                                                        <YAF:UserLink ID="UserLink1" runat="server" BlankTarget="true" UserID='<%# Convert.ToInt32(((System.Data.DataRow)Container.DataItem)["UserID"]) %>'
+                                                        <YAF:UserLink ID="UserLink1" runat="server" BlankTarget="true" UserID='<%# ((System.Data.DataRow)Container.DataItem)["UserID"].ToType<int>() %>'
                                                             Style='<%# ((System.Data.DataRow)Container.DataItem)["Style"] %>'>
                                                         </YAF:UserLink>
                                                     </b>(<em><YAF:DisplayDateTime ID="PostedDateTime" runat="server" Format="BothTopic"
@@ -131,11 +132,11 @@
                                     AutoCompleteType="Disabled" autocomplete="off" />
                             </td>
                             <td class="footer1" style="text-align: center; white-space: nowrap;">
-                                <asp:Button ID="btnButton" OnClick="btnButton_Click" CssClass="pbutton" Text="Submit" OnClientClick="clearOnEndRequest = true;"
+                                <asp:Button ID="btnButton" OnClick="Submit_Click" CssClass="pbutton" Text="Submit" OnClientClick="clearOnEndRequest = true;"
                                     Visible="true" runat="server" />
-                                <asp:Button ID="btnClear" OnClick="btnClear_Click" CssClass="pbutton" Text="Clear"  OnClientClick="clearOnEndRequest = true;"
+                                <asp:Button ID="btnClear" OnClick="Clear_Click" CssClass="pbutton" Text="Clear"  OnClientClick="clearOnEndRequest = true;"
                                     Visible="false" runat="server" />
-                                <asp:Button ID="btnRefresh" runat="server" OnClick="btnRefresh_Click" style="display:none;"/>
+                                <asp:Button ID="btnRefresh" runat="server" OnClick="Refresh_Click" style="display:none;"/>
                             </td>
                         </tr>
                         <tr style="height:30px">
@@ -152,7 +153,7 @@
                             </td>
                             <td class="post" style="text-align: center;">
                                 <asp:PlaceHolder ID="FlyOutHolder" runat="server">
-                                    <asp:Button ID="btnFlyOut" OnClientClick="openShoutBoxWin(); return false;" CssClass="pbutton" OnClick="btnRefresh_Click"
+                                    <asp:Button ID="btnFlyOut" OnClientClick="openShoutBoxWin(); return false;" CssClass="pbutton" OnClick="Refresh_Click"
                                         Text="FlyOut" runat="server" />
                                 </asp:PlaceHolder>
                             </td>

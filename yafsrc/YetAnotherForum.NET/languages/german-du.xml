@@ -1038,6 +1038,7 @@
     <Resource tag="HEADER_REPUTATION">Reputation Einstellungen</Resource>
     <Resource tag="HEADER_SEARCH">Sucheinstellungen</Resource>
     <Resource tag="HEADER_SETUP">Host Konfiguration</Resource>
+    <Resource tag="HEADER_SHOUT">Shoutboxeinstellungen</Resource>
     <Resource tag="HEADER_SPAM">Spam Einstellungen</Resource>
     <Resource tag="HEADER_SYNDICATION">Syndication-Feed Einstellungen</Resource>
     <Resource tag="HEADER_TEMPLATES">Vorlageneinstellungen</Resource>
@@ -1231,6 +1232,8 @@
     <Resource tag="SERVER_VERSION_HELP">SQL Server Version die ausgeführt wird.</Resource>
     <Resource tag="SERVERTIME_CORRECT">Server Zeitzonen Korrektur:</Resource>
     <Resource tag="SERVERTIME_CORRECT_HELP">Geben Sie einen positiven oder einen negativen Wert in Minuten zwischen -720 und 720 ein. Wenn der Server UTC Zeit falsch ist:</Resource>
+    <Resource tag="SHOUTBOX_COUNT">Anzahl der Shoutbox Einträge:</Resource>
+    <Resource tag="SHOUTBOX_COUNT_HELP">Max. Anzahl an Einträgen die in der Shoutbox angezeigt werden sollen.</Resource>
     <Resource tag="SHOW_ACTIVE_DISCUSSION">Aktive Diskussionen Anzeigen:</Resource>
     <Resource tag="SHOW_ACTIVE_DISCUSSION_HELP">Aktivieren oder Deaktivieren Anzeige der aktiven Diskussionen Liste in der Bord Hauptseite.</Resource>
     <Resource tag="SHOW_ATOM_LINKS">Atom Links anzeigen</Resource>

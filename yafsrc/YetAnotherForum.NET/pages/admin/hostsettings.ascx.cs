@@ -46,14 +46,10 @@ namespace YAF.Pages.Admin
         #region Methods
 
         /// <summary>
-        /// The active discussions cache reset_ click.
+        /// Resets the Active Discussions Cache
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void ActiveDiscussionsCacheReset_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.RemoveCacheKey(Constants.Cache.ActiveDiscussions);
@@ -61,67 +57,87 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The board categories cache reset_ click.
+        /// Resets the Board Categories Cache
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void BoardCategoriesCacheReset_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.RemoveCacheKey(Constants.Cache.ForumCategory);
         }
 
         /// <summary>
-        /// The board moderators cache reset_ click.
+        /// Resets the Board Categories Cache
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void BoardModeratorsCacheReset_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.RemoveCacheKey(Constants.Cache.ForumModerators);
         }
 
         /// <summary>
-        /// The board user statistics cache reset_ click.
+        /// Resets the Board User Stats Cache
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void BoardUserStatsCacheReset_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.RemoveCacheKey(Constants.Cache.BoardUserStats);
         }
 
         /// <summary>
-        /// The forum statistics cache reset_ click.
+        /// Resets the the User Lazy Data Cache
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected void UserLazyDataCacheReset_Click([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            // vzrus: remove all users lazy data 
+            this.Get<IDataCache>().RemoveOf<object>(
+                k => k.Key.StartsWith(Constants.Cache.ActiveUserLazyData.FormatWith(string.Empty)));
+            this.CheckCache();
+        }
+
+        /// <summary>
+        /// Resets the Replace Rules Cache
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected void ReplaceRulesCacheReset_Click([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            this.Get<IObjectStore>().RemoveOf<IProcessReplaceRules>();
+            this.CheckCache();
+        }
+
+        /// <summary>
+        /// Resets the Forum Statistics Cache
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void ForumStatisticsCacheReset_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.RemoveCacheKey(Constants.Cache.BoardStats);
         }
 
         /// <summary>
-        /// The On PreRender event.
+        /// Resets the Complete Cache
         /// </summary>
-        /// <param name="e">
-        /// the Event Arguments
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected void ResetCacheAll_Click([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            // clear all cache keys
+            this.Get<IObjectStore>().Clear();
+            this.Get<IDataCache>().Clear();
+
+            this.CheckCache();
+        }
+
+        /// <summary>
+        /// Registers the needed Javascripts
+        /// </summary>
+        /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // setup jQuery and YAF JS...
@@ -136,14 +152,10 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The page_ load.
+        /// Handles the Load event of the Page control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (!this.PageContext.IsHostAdmin)
@@ -201,45 +213,7 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The user lazy data cache reset_ click.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void UserLazyDataCacheReset_Click([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            // vzrus: remove all users lazy data 
-            this.Get<IDataCache>().RemoveOf<object>(
-                k => k.Key.StartsWith(Constants.Cache.ActiveUserLazyData.FormatWith(string.Empty)));
-            this.CheckCache();
-        }
-
-        /// <summary>
-        /// The replace rules cache reset_ click.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void ReplaceRulesCacheReset_Click([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.Get<IObjectStore>().RemoveOf<IProcessReplaceRules>();
-            this.CheckCache();
-        }
-
-        /// <summary>
-        /// The reset cache all_ click.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void ResetCacheAll_Click([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            // clear all cache keys
-            this.Get<IObjectStore>().Clear();
-            this.Get<IDataCache>().Clear();
-
-            this.CheckCache();
-        }
-
-        /// <summary>
-        /// The save_ click.
+        /// Saves the Host Settings
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
@@ -386,7 +360,7 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The bind data.
+        /// Binds the data.
         /// </summary>
         private void BindData()
         {
@@ -501,7 +475,7 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The check cache.
+        /// Checks the cache.
         /// </summary>
         private void CheckCache()
         {
@@ -528,11 +502,9 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The remove cache key.
+        /// Removes the cache key.
         /// </summary>
-        /// <param name="key">
-        /// The key.
-        /// </param>
+        /// <param name="key">The key.</param>
         private void RemoveCacheKey([NotNull] string key)
         {
             this.Get<IDataCache>().Remove(key);

@@ -1038,6 +1038,7 @@
     <Resource tag="HEADER_REPUTATION">Настройки репутации</Resource>
     <Resource tag="HEADER_SEARCH">Настройки поиска</Resource>
     <Resource tag="HEADER_SETUP">Настройки хоста</Resource>
+    <Resource tag="HEADER_SHOUT">Shoutbox Settings</Resource>
     <Resource tag="HEADER_SPAM">Настройки анти-спама</Resource>
     <Resource tag="HEADER_SYNDICATION">Настройки синдикации</Resource>
     <Resource tag="HEADER_TEMPLATES">Настройки шаблонов</Resource>
@@ -1231,6 +1232,8 @@
     <Resource tag="SERVER_VERSION_HELP">Какая версия сервера SQL исполняется.</Resource>
     <Resource tag="SERVERTIME_CORRECT">Коррекция временной зоны сервера:</Resource>
     <Resource tag="SERVERTIME_CORRECT_HELP">Введите целое число (минуты) между -720 и 720, только если это время UTC неверно: </Resource>
+    <Resource tag="SHOUTBOX_COUNT">Shoutbox Message Count:</Resource>
+    <Resource tag="SHOUTBOX_COUNT_HELP">The Number of Messages that will be shown in the shoutbox.</Resource>
     <Resource tag="SHOW_ACTIVE_DISCUSSION">Показывать активные обсуждения:</Resource>
     <Resource tag="SHOW_ACTIVE_DISCUSSION_HELP">Включить или отключить отображение активных обсуждений.</Resource>
     <Resource tag="SHOW_ATOM_LINKS">Отображать ссылки на ленты Atom:</Resource>
