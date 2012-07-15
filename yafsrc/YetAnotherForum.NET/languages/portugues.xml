@@ -5066,6 +5066,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="TOPIC_STARTER">Tópico Inicial</Resource>
     <Resource tag="TOPICS">Tópicos</Resource>
     <Resource tag="UNWATCHFORUM">Fórum Não Visitado</Resource>
+    <Resource tag="USER_AVATAR">{0}'s Avatar</Resource>
     <Resource tag="VIEWS">Visitas</Resource>
     <Resource tag="WARN_FORUM_LOCKED">O fórum está fechado.</Resource>
     <Resource tag="WARN_LOGIN_FORUMWATCH">Você precisa estar conectado para visitar os fóruns.</Resource>

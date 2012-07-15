@@ -5057,6 +5057,7 @@ Vizitati forumul {forumname} la adresa {forumlink}
     <Resource tag="TOPIC_STARTER">Inceput tema</Resource>
     <Resource tag="TOPICS">Teme</Resource>
     <Resource tag="UNWATCHFORUM">Forum nesupravegheat</Resource>
+    <Resource tag="USER_AVATAR">{0}'s Avatar</Resource>
     <Resource tag="VIEWS">Vederi</Resource>
     <Resource tag="WARN_FORUM_LOCKED">Forum inchis.</Resource>
     <Resource tag="WARN_LOGIN_FORUMWATCH">Trebuie sa te inregistrezi sa poti vizualiza forumul.</Resource>

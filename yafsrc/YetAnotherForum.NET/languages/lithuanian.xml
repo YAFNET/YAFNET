@@ -5211,6 +5211,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="TOPIC_STARTER">Tema Pradedančiųjų </Resource>
     <Resource tag="TOPICS">Temos </Resource>
     <Resource tag="UNWATCHFORUM">Nebestebėti Forumas </Resource>
+    <Resource tag="USER_AVATAR">{0}'s Avatar</Resource>
     <Resource tag="VIEWS">Žiūrėti </Resource>
     <Resource tag="WARN_FORUM_LOCKED">Šis forumas uždarytas. </Resource>
     <Resource tag="WARN_LOGIN_FORUMWATCH">

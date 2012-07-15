@@ -5067,6 +5067,7 @@ Visitez {forumname} à l'adresse {forumlink}
     <Resource tag="TOPIC_STARTER">Initiateur du Sujet</Resource>
     <Resource tag="TOPICS">Sujets</Resource>
     <Resource tag="UNWATCHFORUM">Ne plus observer ce forum</Resource>
+    <Resource tag="USER_AVATAR">{0}'s Avatar</Resource>
     <Resource tag="VIEWS">Vus</Resource>
     <Resource tag="WARN_FORUM_LOCKED">Ce forum est bloqué.</Resource>
     <Resource tag="WARN_LOGIN_FORUMWATCH">Vous devez être enregistré pour observer un forum.</Resource>

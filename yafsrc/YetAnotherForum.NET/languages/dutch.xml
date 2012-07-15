@@ -4989,6 +4989,7 @@ Bezoek {forumname} op {forumlink}
     <Resource tag="TOPIC_STARTER">Auteur</Resource>
     <Resource tag="TOPICS">Topic</Resource>
     <Resource tag="UNWATCHFORUM">Forum niet meer volgen</Resource>
+    <Resource tag="USER_AVATAR">{0}'s Avatar</Resource>
     <Resource tag="VIEWS">Gelezen</Resource>
     <Resource tag="WARN_FORUM_LOCKED">Het forum is gesloten.</Resource>
     <Resource tag="WARN_LOGIN_FORUMWATCH">Je moet geregistreerd zijn om fora te kunnen volgen.</Resource>

@@ -5026,6 +5026,7 @@ Spoiler Content
     <Resource tag="TOPIC_STARTER">Автор темы</Resource>
     <Resource tag="TOPICS">Темы</Resource>
     <Resource tag="UNWATCHFORUM">Не отслеживать форум</Resource>
+    <Resource tag="USER_AVATAR">{0}'s Avatar</Resource>
     <Resource tag="VIEWS">Просмотров</Resource>
     <Resource tag="WARN_FORUM_LOCKED">Форум закрыт.</Resource>
     <Resource tag="WARN_LOGIN_FORUMWATCH">Для просмотра форумов Вы должны быть зарегистрированным пользователем.</Resource>

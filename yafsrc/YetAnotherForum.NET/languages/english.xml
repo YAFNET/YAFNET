@@ -3430,12 +3430,13 @@ Visit {forumname} at {forumlink}
       <Resource tag="POSTS">Posts</Resource>
       <Resource tag="REPLIES">Replies</Resource>
       <Resource tag="RSSFEED">Rss Feed</Resource>
-    <Resource tag="ATOMFEED">Atom Feed</Resource>
+      <Resource tag="ATOMFEED">Atom Feed</Resource>
       <Resource tag="SHOWTOPICS">Show Topics</Resource>
       <Resource tag="SUBFORUMS">Sub-forums</Resource>
       <Resource tag="TODAYAT">[b]Today[/b] at {0:T}</Resource>
       <Resource tag="TOPIC_STARTER">Topic Starter</Resource>
       <Resource tag="TOPICS">Topics</Resource>
+      <Resource tag="USER_AVATAR">{0}'s Avatar</Resource>
       <Resource tag="UNWATCHFORUM">Unwatch Forum</Resource>
       <Resource tag="VIEWS">Views</Resource>
       <Resource tag="WARN_FORUM_LOCKED">The forum is closed.</Resource>

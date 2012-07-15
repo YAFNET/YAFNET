@@ -5061,6 +5061,7 @@ Külastage {forumname} aadressil {forumlink}
     <Resource tag="TOPIC_STARTER">Teemaalgataja</Resource>
     <Resource tag="TOPICS">Teemad</Resource>
     <Resource tag="UNWATCHFORUM">Lõpeta foorumi jälgimine</Resource>
+    <Resource tag="USER_AVATAR">{0}'s Avatar</Resource>
     <Resource tag="VIEWS">Vaatamisi</Resource>
     <Resource tag="WARN_FORUM_LOCKED">Foorum on suletud.</Resource>
     <Resource tag="WARN_LOGIN_FORUMWATCH">Foorumite jälgimiseks tuleb registreeruda.</Resource>

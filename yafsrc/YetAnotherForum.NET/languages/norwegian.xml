@@ -5051,6 +5051,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="TOPIC_STARTER">Startet av</Resource>
     <Resource tag="TOPICS">Emner</Resource>
     <Resource tag="UNWATCHFORUM">Uovervåket forum</Resource>
+    <Resource tag="USER_AVATAR">{0}'s Avatar</Resource>
     <Resource tag="VIEWS">Visninger</Resource>
     <Resource tag="WARN_FORUM_LOCKED">Forumet er stengt.</Resource>
     <Resource tag="WARN_LOGIN_FORUMWATCH">Du må være registrert for å benytte forumet.</Resource>

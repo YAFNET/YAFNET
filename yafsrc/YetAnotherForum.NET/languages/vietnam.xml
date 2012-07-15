@@ -5065,6 +5065,7 @@ The Message was posted in the {forumname} forum.
     <Resource tag="TOPIC_STARTER">Tác giả</Resource>
     <Resource tag="TOPICS">Chủ đề</Resource>
     <Resource tag="UNWATCHFORUM">Hủy theo dõi diễn đàn này</Resource>
+    <Resource tag="USER_AVATAR">{0}'s Avatar</Resource>
     <Resource tag="VIEWS">Xem</Resource>
     <Resource tag="WARN_FORUM_LOCKED">Diễn đàn đã khóa.</Resource>
     <Resource tag="WARN_LOGIN_FORUMWATCH">Bạn cần đăng nhập để xem diễn đàn.</Resource>

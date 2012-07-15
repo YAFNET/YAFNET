@@ -5057,6 +5057,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="TOPIC_STARTER">Startet af</Resource>
     <Resource tag="TOPICS">Emner</Resource>
     <Resource tag="UNWATCHFORUM">Stop med at følge dette forum</Resource>
+    <Resource tag="USER_AVATAR">{0}'s Avatar</Resource>
     <Resource tag="VIEWS">Visninger</Resource>
     <Resource tag="WARN_FORUM_LOCKED">Dette forum er lukket.</Resource>
     <Resource tag="WARN_LOGIN_FORUMWATCH">Du skal være tilmeldt for at se fora.</Resource>

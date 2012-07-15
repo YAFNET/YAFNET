@@ -4987,6 +4987,7 @@ Der Bestätigungscode lautet
     <Resource tag="TOPIC_STARTER">Begonnen von</Resource>
     <Resource tag="TOPICS">Themen</Resource>
     <Resource tag="UNWATCHFORUM">Forum Abonnement auflösen</Resource>
+    <Resource tag="USER_AVATAR">{0}'s Avatar</Resource>
     <Resource tag="VIEWS">Aufrufe</Resource>
     <Resource tag="WARN_FORUM_LOCKED">Das Forum ist geschlossen.</Resource>
     <Resource tag="WARN_LOGIN_FORUMWATCH">Du musst registriert sein, um dieses Forum zu sehen.</Resource>

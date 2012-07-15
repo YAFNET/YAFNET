@@ -5068,6 +5068,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="TOPIC_STARTER">Konversationen startades av</Resource>
     <Resource tag="TOPICS">Konversationer</Resource>
     <Resource tag="UNWATCHFORUM">Avbryt prenumeration på detta forum</Resource>
+    <Resource tag="USER_AVATAR">{0}'s Avatar</Resource>
     <Resource tag="VIEWS">Visningar</Resource>
     <Resource tag="WARN_FORUM_LOCKED">Forumet är stängt.</Resource>
     <Resource tag="WARN_LOGIN_FORUMWATCH">Du måste registrera dig för att prenumerera på ett forum.</Resource>

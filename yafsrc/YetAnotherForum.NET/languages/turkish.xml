@@ -5050,6 +5050,7 @@ Ziyaret için {forumname}  {forumlink}
     <Resource tag="TOPIC_STARTER">Konuyu Başlatan Üye Adı</Resource>
     <Resource tag="TOPICS">Konular</Resource>
     <Resource tag="UNWATCHFORUM">Takip İptali</Resource>
+    <Resource tag="USER_AVATAR">{0}'s Avatar</Resource>
     <Resource tag="VIEWS">İzlenme</Resource>
     <Resource tag="WARN_FORUM_LOCKED">Korum Kapalı.</Resource>
     <Resource tag="WARN_LOGIN_FORUMWATCH">Forumu izlemek için kayıt olmalısınız.</Resource>

@@ -4896,6 +4896,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="TOPIC_STARTER">بداية موضوع </Resource>
     <Resource tag="TOPICS">المواضيع</Resource>
     <Resource tag="UNWATCHFORUM">عدم مشاهدة المنتدى</Resource>
+    <Resource tag="USER_AVATAR">{0}'s Avatar</Resource>
     <Resource tag="VIEWS">عرض</Resource>
     <Resource tag="WARN_FORUM_LOCKED">هذا  المنتدى مغلق  .</Resource>
     <Resource tag="WARN_LOGIN_FORUMWATCH">يجب عليك التسجيل  في المنتدى اولا.</Resource>

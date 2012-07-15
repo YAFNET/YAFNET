@@ -25,8 +25,13 @@
             if (this.Get<YafBoardSettings>().ShowAvatarsInTopic)
             {
                 var avatarUrl = this.GetAvatarUrlFromID(this.TopicRow["UserID"].ToType<int>());
+
+                var avatarTitle = this.GetTextFormatted(
+                    "USER_AVATAR",
+                    this.TopicRow[this.Get<YafBoardSettings>().EnableDisplayName ? "StarterDisplay" : "Starter"].
+                        ToString());
         %>
-        <img src="<%=avatarUrl%>" alt="<%=this.AltLastPost%>" title="<%=this.AltLastPost%>"
+        <img src="<%=avatarUrl%>" alt="<%= avatarTitle %>" title="<%= avatarTitle %>"
             class="avatarimage" />
         <%}
 
@@ -71,7 +76,7 @@
         {
           ID = "topicStarterLink",
           UserID = this.TopicRow["UserID"].ToType<int>(),
-          ReplaceName = this.Get<YafBoardSettings>().EnableDisplayName ? this.TopicRow["StarterDisplay"].ToString() : this.TopicRow["Starter"].ToString(),
+          ReplaceName = this.TopicRow[this.Get<YafBoardSettings>().EnableDisplayName ? "StarterDisplay" : "Starter"].ToString(),
           Style = this.TopicRow["StarterStyle"].ToString()
         }.RenderToString() %>
         </span>
@@ -119,9 +124,14 @@
             {
                 int userID = this.TopicRow["LastUserID"].ToType<int>();
 
+                var lastAvatarTitle = this.GetTextFormatted(
+                    "USER_AVATAR",
+                    this.TopicRow[this.Get<YafBoardSettings>().EnableDisplayName ? "LastUserDisplayName" : "LastUserName"].
+                        ToString());
+
                 if (this.Get<YafBoardSettings>().ShowAvatarsInTopic)
                 {%>
-        <img src="<%=this.GetAvatarUrlFromID(userID)%>" alt="<%=this.AltLastPost%>" title="<%=this.AltLastPost%>"
+        <img src="<%=this.GetAvatarUrlFromID(userID)%>" alt="<%=lastAvatarTitle%>" title="<%=lastAvatarTitle%>"
             class="avatarimage" />
         <%
             }
@@ -157,7 +167,7 @@
                 
         %>
         <%=new UserLink { UserID = userID, 
-                          ReplaceName = this.Get<YafBoardSettings>().EnableDisplayName ? this.TopicRow["LastUserDisplayName"].ToString() : this.TopicRow["LastUserName"].ToString(),
+                          ReplaceName = this.TopicRow[this.Get<YafBoardSettings>().EnableDisplayName ? "LastUserDisplayName" : "LastUserName"].ToString(),
                           Style = this.TopicRow["LastUserStyle"].ToString() }.RenderToString() %>
         <a href="<%=YafBuildLink.GetLink(ForumPages.posts, "m={0}&find=lastpost", this.TopicRow["LastMessageID"]) %>"
             title="<%=this.AltLastPost%>">

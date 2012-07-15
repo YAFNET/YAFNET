@@ -5070,6 +5070,7 @@ Visita il forum {forumname} su {forumlink}
     <Resource tag="TOPIC_STARTER">OP discussione</Resource>
     <Resource tag="TOPICS">Discussioni</Resource>
     <Resource tag="UNWATCHFORUM">Non controllare il forum</Resource>
+    <Resource tag="USER_AVATAR">{0}'s Avatar</Resource>
     <Resource tag="VIEWS">Visualizzazioni</Resource>
     <Resource tag="WARN_FORUM_LOCKED">Il forum è chiuso.</Resource>
     <Resource tag="WARN_LOGIN_FORUMWATCH">Devi essere registrato per guardare il forum.</Resource>

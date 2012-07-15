@@ -5069,6 +5069,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="TOPIC_STARTER">话题发起人</Resource>
     <Resource tag="TOPICS">话题</Resource>
     <Resource tag="UNWATCHFORUM">未订阅</Resource>
+    <Resource tag="USER_AVATAR">{0}'s Avatar</Resource>
     <Resource tag="VIEWS">浏览</Resource>
     <Resource tag="WARN_FORUM_LOCKED">论坛关闭.</Resource>
     <Resource tag="WARN_LOGIN_FORUMWATCH">注册后才能订阅论坛.</Resource>

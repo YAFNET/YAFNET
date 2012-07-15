@@ -5051,6 +5051,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="TOPIC_STARTER">Téma zahájil</Resource>
     <Resource tag="TOPICS">Témata</Resource>
     <Resource tag="UNWATCHFORUM">Ukončit sledování fóra</Resource>
+    <Resource tag="USER_AVATAR">{0}'s Avatar</Resource>
     <Resource tag="VIEWS">Zobrazení</Resource>
     <Resource tag="WARN_FORUM_LOCKED">Fórum je uzavřeno.</Resource>
     <Resource tag="WARN_LOGIN_FORUMWATCH">Abyste mohli sledovat jednotlivá fóra, musíte se zaregistrovat.</Resource>

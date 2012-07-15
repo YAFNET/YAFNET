@@ -5081,6 +5081,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="TOPIC_STARTER">Temat Otwierający</Resource>
     <Resource tag="TOPICS">Tematy</Resource>
     <Resource tag="UNWATCHFORUM">Unwatch Forum</Resource>
+    <Resource tag="USER_AVATAR">{0}'s Avatar</Resource>
     <Resource tag="VIEWS">Wyświetleń</Resource>
     <Resource tag="WARN_FORUM_LOCKED">Forum jest zamknięte.</Resource>
     <Resource tag="WARN_LOGIN_FORUMWATCH">Musisz się zarejestrować, aby przeglądać to forum.</Resource>

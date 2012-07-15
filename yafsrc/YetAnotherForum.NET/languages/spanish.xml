@@ -5068,6 +5068,7 @@ The Message was posted in the {forumname} forum.
     <Resource tag="TOPIC_STARTER">Iniciador de tema</Resource>
     <Resource tag="TOPICS">Temas</Resource>
     <Resource tag="UNWATCHFORUM">Dejar de vigilar foro</Resource>
+    <Resource tag="USER_AVATAR">{0}'s Avatar</Resource>
     <Resource tag="VIEWS">Lecturas</Resource>
     <Resource tag="WARN_FORUM_LOCKED">El foro está cerrado.</Resource>
     <Resource tag="WARN_LOGIN_FORUMWATCH">Debes estar registrado para vigilar foros.</Resource>

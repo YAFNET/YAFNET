@@ -5051,6 +5051,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="TOPIC_STARTER">Aloittaja</Resource>
     <Resource tag="TOPICS">Aiheet</Resource>
     <Resource tag="UNWATCHFORUM">Peru alueen seuranta</Resource>
+    <Resource tag="USER_AVATAR">{0}'s Avatar</Resource>
     <Resource tag="VIEWS">Luettu</Resource>
     <Resource tag="WARN_FORUM_LOCKED">Alue on suljettu.</Resource>
     <Resource tag="WARN_LOGIN_FORUMWATCH">Sinun täytyy rekisteröityä lukeaksi alueita.</Resource>
