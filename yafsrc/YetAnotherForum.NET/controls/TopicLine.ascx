@@ -28,8 +28,8 @@
 
                 var avatarTitle = this.GetTextFormatted(
                     "USER_AVATAR",
-                    this.TopicRow[this.Get<YafBoardSettings>().EnableDisplayName ? "StarterDisplay" : "Starter"].
-                        ToString());
+                    this.HtmlEncode(this.TopicRow[this.Get<YafBoardSettings>().EnableDisplayName ? "StarterDisplay" : "Starter"].
+                        ToString()));
         %>
         <img src="<%=avatarUrl%>" alt="<%= avatarTitle %>" title="<%= avatarTitle %>"
             class="avatarimage" />
@@ -126,8 +126,8 @@
 
                 var lastAvatarTitle = this.GetTextFormatted(
                     "USER_AVATAR",
-                    this.TopicRow[this.Get<YafBoardSettings>().EnableDisplayName ? "LastUserDisplayName" : "LastUserName"].
-                        ToString());
+                    this.HtmlEncode(this.TopicRow[this.Get<YafBoardSettings>().EnableDisplayName ? "LastUserDisplayName" : "LastUserName"].
+                        ToString()));
 
                 if (this.Get<YafBoardSettings>().ShowAvatarsInTopic)
                 {%>
