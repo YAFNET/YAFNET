@@ -494,7 +494,11 @@ namespace YAF.DotNetNuke
             if (yafUserId.Equals(0))
             {
                 yafUserId = UserImporter.CreateYafUser(
-                    dnnUserInfo, dnnMembershipUser, this.forum1.BoardID, this.PortalSettings);
+                    dnnUserInfo,
+                    dnnMembershipUser,
+                    this.forum1.BoardID,
+                    this.PortalSettings,
+                    YafContext.Current.Get<YafBoardSettings>());
 
                 RoleMembershipHelper.UpdateForumUser(dnnMembershipUser, this.forum1.BoardID, dnnUserInfo.Roles);
 

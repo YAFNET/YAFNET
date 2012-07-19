@@ -27,6 +27,8 @@ namespace YAF.DotNetNuke
     using System.Web;
     using System.Web.Security;
 
+    using YAF.Classes;
+
     using global::DotNetNuke.Common.Utilities;
     using global::DotNetNuke.Entities.Portals;
     using global::DotNetNuke.Entities.Users;
@@ -187,6 +189,11 @@ namespace YAF.DotNetNuke
             // Load PortalSettings
             var portalGUID = new PortalController().GetPortal(portalId).GUID;
 
+            // Load Yaf Board Settings if needed
+            var boardSettings = YafContext.Current == null
+                                    ? new YafLoadBoardSettings(boardId)
+                                    : YafContext.Current.Get<YafBoardSettings>();
+
             try
             {
                 // Sync Roles
@@ -206,7 +213,7 @@ namespace YAF.DotNetNuke
                     if (yafUserId.Equals(0))
                     {
                         // Create user if Not Exist
-                        yafUserId = UserImporter.CreateYafUser(dnnUserInfo, dnnUser, boardId, null);
+                        yafUserId = UserImporter.CreateYafUser(dnnUserInfo, dnnUser, boardId, null, boardSettings);
                         iNewUsers++;
                     }
                     else

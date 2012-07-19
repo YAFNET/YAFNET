@@ -20,6 +20,11 @@
 namespace YAF.DotNetNuke.Utils
 {
     using System.Web.Security;
+
+    using YAF.Classes;
+    using YAF.Types.Constants;
+    using YAF.Types.Interfaces;
+
     using global::DotNetNuke.Entities.Portals;
     using global::DotNetNuke.Entities.Users;
     using YAF.Classes.Data;
@@ -38,11 +43,11 @@ namespace YAF.DotNetNuke.Utils
         /// <param name="dnnUser">The dnn user.</param>
         /// <param name="boardID">The board ID.</param>
         /// <param name="portalSettings">The portal settings.</param>
+        /// <param name="boardSettings">The board settings.</param>
         /// <returns>
         /// Returns the User ID of the new User
         /// </returns>
-        public static int CreateYafUser(
-            UserInfo dnnUserInfo, MembershipUser dnnUser, int boardID, PortalSettings portalSettings)
+        public static int CreateYafUser(UserInfo dnnUserInfo, MembershipUser dnnUser, int boardID, PortalSettings portalSettings, YafBoardSettings boardSettings)
         {
             // setup roles
             RoleMembershipHelper.SetupUserRoles(boardID, dnnUser.UserName);
@@ -89,6 +94,17 @@ namespace YAF.DotNetNuke.Utils
                 null,
                 null,
                 null);
+
+            bool autoWatchTopicsEnabled =
+                boardSettings.DefaultNotificationSetting.Equals(UserNotificationSetting.TopicsIPostToOrSubscribeTo);
+
+            // save notification Settings
+            LegacyDb.user_savenotification(
+                yafUserId,
+                true,
+                autoWatchTopicsEnabled,
+                boardSettings.DefaultNotificationSetting,
+                boardSettings.DefaultSendDigestEmail);
 
             return yafUserId.ToType<int>();
         }

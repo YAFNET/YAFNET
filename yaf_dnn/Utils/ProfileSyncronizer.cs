@@ -190,7 +190,6 @@ namespace YAF.DotNetNuke.Utils
 
             dnnUserInfo.Profile.Website = yafUserProfile.Homepage;
             dnnUserInfo.Email = membershipUser.Email;
-            dnnUserInfo.Profile.TimeZone = int.Parse(yafUserData.TimeZone.ToString());
 
             if (!string.IsNullOrEmpty(yafUserData.CultureUser))
             {
@@ -328,7 +327,7 @@ namespace YAF.DotNetNuke.Utils
                 null,
                 yafUserData.DisplayName,
                 null,
-                dnnUserInfo.Profile.TimeZone,
+                yafUserData.TimeZone,
                 userCuluture.LanguageFile,
                 userCuluture.Culture,
                 yafUserData.ThemeFile,

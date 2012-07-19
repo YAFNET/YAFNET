@@ -30,6 +30,8 @@ namespace YAF.DotNetNuke
     using System.Web.Security;
     using System.Web.UI.WebControls;
 
+    using YAF.Classes;
+
     using global::DotNetNuke.Common;
     using global::DotNetNuke.Common.Utilities;
     using global::DotNetNuke.Entities.Modules;
@@ -347,7 +349,13 @@ namespace YAF.DotNetNuke
 
                     if (yafUserId.Equals(0))
                     {
-                        yafUserId = UserImporter.CreateYafUser(dnnUserInfo, dnnUser, this.boardId, this.PortalSettings);
+                        yafUserId = UserImporter.CreateYafUser(
+                            dnnUserInfo,
+                            dnnUser,
+                            this.boardId,
+                            this.PortalSettings,
+                            YafContext.Current.Get<YafBoardSettings>());
+
                         this.NewUsers++;
                     }
                     else
