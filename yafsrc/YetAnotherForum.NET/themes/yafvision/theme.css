@@ -1,6 +1,6 @@
 ﻿.yafnet .EditorDiv td
 {
-    padding: 0px !important;
+    padding: 0 !important;
     border: 0 !important;
 }
 
@@ -15,7 +15,8 @@
 {
     font-family: Verdana,Arial,Helvetica,sans-serif;
     -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;		    
+    -webkit-border-radius: 3px;
+	border-radius: 3px;	    
     font-size: 8pt;
     color: #3b3b3b;	
     padding: 4px;
@@ -25,14 +26,14 @@
 
 .yafnet input[type="image"]
 {
-    padding: 0px;
-    border: 0px;
+    padding: 0;
+    border: 0;
 }
 
 .yafnet input[type="checkbox"]
 {
-    border: 0px;
-    padding: 0px;
+    border: 0;
+    padding: 0;
     margin: 5px;
 }
 
@@ -97,7 +98,7 @@
 }
 .yafnet #yafheader ul li
 {
-	padding: 0 0px 0 5px;
+	padding: 0 0 0 5px;
 	margin: 0;
 	border-left: 1px solid #ddd;
 }
@@ -143,7 +144,7 @@
 }
 .yafnet #yafheader .currentUser
 {
-    font-weight: bold;
+	font-weight: bolder;
 }
 .yafnet #yafheader .guestUser  
 {    
@@ -152,8 +153,7 @@
     font-size: 1em;
     font-weight: bold;
     line-height: 150%;
-    margin-left: 0 auto;
-    margin-right: 0 auto;
+    margin: 0 auto;
     margin-bottom: 10px;
     border: 1px solid #deb7b7;
     padding: 5px 10px 5px 30px;
@@ -181,6 +181,10 @@
 {
 
 }
+/* added hover styles for jquery change in yafvision.js - much more responsive - and doesn't clash with 'hovercards' for users */
+.yafnet .topicRow_hover, .topicRow_Alt_hover, .forumRow_hover, .forumRow_Alt_hover { background-color: #e9f2ff !important; }
+/* end change */
+
 .yafnet tr.topicRow .topicLastPost .avatarimage,
 .yafnet tr.topicRow_Alt .topicLastPost .avatarimage,
 .YAF_Pages_members .avatarimage,
@@ -229,10 +233,13 @@
 	background: url('bg_header1.png') repeat-x;
 	color: #FFFFFF;
 	font-weight: bold;
-	line-height: 22px;
+	line-height: 24px;
 	font-size:12px;
 	text-align: left;
 }
+
+.yafnet .header1 select, .yafnet .header1 input, .yafnet .header2 select, .yafnet .header2 input { background-color: transparent; }
+
 /* Links in header1 */
 .yafnet a.HeaderTopicLink,
 .yafnet tr.header1 a		{color:#FFFFFF!important;text-decoration:none}
@@ -250,12 +257,15 @@
 .yafnet td.header2links	a:hover	{color: #3A4F6C;text-decoration:none;font-size:7.5pt;}
 /* Footer1 - Bottom of tables */
 .yafnet .footer1 {
+  background-color: #D1DCEB;
 	background: url('bg_footer1.png') repeat-x;
 	font-size: 7pt;
 	height: 28px;
 }
 .yafnet .footer1 select,
+.yafnet tr.footer1 { border-top: 1px solid #5176B5; }
 .yafnet .footer1 td {
+  background-color: #D1DCEB;
 	font-size: 7pt;
 }
 .yafnet .postformheader {
@@ -266,7 +276,7 @@
 .yafnet .fileattach {
 	padding: 5px;
 	background-color: #eeeeee;
-	border: solid 1px #808080;
+	border: 1px solid #808080;
 }
 .yafnet .fileattach .filetitle,
 .yafnet .fileattach .imgtitle {
@@ -286,6 +296,12 @@
 .yafnet .postheader {
 	background-color: #E4EAF2;
 	color:#404040;
+}
+.yafnet .postContainer .message,
+.yafnet .postContainer_Alt .message,
+.yafnet .postContainer .postInfoBottom,
+.yafnet .postContainer_Alt .postInfoBottom {
+	border-right: 1px solid #8394B2;
 }
 /* User info and post/article */
 .yafnet .post {
@@ -327,9 +343,9 @@
 .yafnet table.content {
 	font-family: verdana,Arial,Helvetica,sans-serif;
 	font-size: 8pt;
-	border: solid 1px #8394B2;
+	border: 1px solid #8394B2;
 	color: #000000;
-	padding: 0px;
+	padding: 0;
 	background-color: #FFFFFF;
 	border-collapse: collapse;
 }
@@ -338,7 +354,7 @@
 	padding: 5px;
 }
 .yafnet #RichEdit td {
-	padding: 0px;
+	padding: 0;
 }
 /* links inside content table*/
 .yafnet .content a		{ color: #222; text-decoration: none; }
@@ -351,7 +367,7 @@
 .yafnet .innerquote {
 	padding: 4px;
 	background-color: #E4EAF2;
-	border: solid 1px #8394B2;
+	border: 1px solid #8394B2;
 }
 /* used for code */
 .yafnet .code {
@@ -365,7 +381,7 @@
 .yafnet .innercode {
 	padding: 4px;
 	background-color: #FFFFFF;
-	border: solid 1px #95B4F3;
+	border: 1px solid #95B4F3;
 	color:#000000;
 	font-family:Courier New,Courier;
 }
@@ -392,7 +408,7 @@
 }
 /* Table just above and below tables */
 .yafnet table.command {
-	/*border: solid 1px blue;*/
+	/*border: 1px solid blue;*/
 	padding: 3px;
 }
 .yafnet .yafForumWelcome
@@ -406,7 +422,7 @@
 .yafnet .yafPageLink a:hover { color: #6594D5; }
 /* for printing */
 .yafnet .print {
-	border: solid 1px #C0C0C0;
+	border: 1px solid #C0C0C0;
 }
 .yafnet .printheader {
 	background-color: #DDDDDD;
@@ -432,12 +448,13 @@ This CSS already works on FireFox.
 {
 	padding: 5px;
 	background-color:#f2f2f2;
-	border: solid 1px #ddd;
+	border: 1px solid #ddd;
 	color: #888;
 	font-size: 9pt;
 	text-align: center;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;	
+	border-radius: 3px;	
 }
 .yafnet div.postdiv {
 	width: 100%;
@@ -461,7 +478,7 @@ This CSS already works on FireFox.
 /* CSS Pagelinks */
 .yafnet .yafpager {
 	color: #555555;
-	margin: 6px 0px 6px 0px;
+	margin: 6px 0 6px 0;
 }
 .yafnet a.pagelink,
 .yafnet a.pagelinkfirst,
@@ -499,9 +516,9 @@ This CSS already works on FireFox.
     display: block;
     float: right;
 	font-size: 9px; 
-    height: 19px;
-    margin: 2px 0px 2px 2px;    
-    padding-right: 5px;
+    height: 24px;
+    margin: 2px 0 2px 2px;    
+    padding-right: 4px;
     text-decoration: none;
     text-transform: uppercase;
     font-family: Arial;
@@ -511,12 +528,12 @@ This CSS already works on FireFox.
 .yafnet a.yaflittlebutton span {
     background: transparent url('ButtonBack.gif') no-repeat;
     display: block;
-    line-height: 11px;
-    padding: 4px 3px 4px 8px;
+    line-height: 18px;
+    padding: 4px 3px 2px 8px;
 }
 .yafnet a.yaflittlebutton img {
 	vertical-align: middle;
-	padding: 0px 4px 2px 0px;
+	padding: 0 4px 2px 0;
 }
 .yafnet .MultiQuoteButton:hover,
 .yafnet a.yaflittlebutton:hover {
@@ -529,12 +546,12 @@ This CSS already works on FireFox.
     outline: none;
 }
 .yafnet a.yaflittlebutton:active img {
-    padding: 0px 4px 2px 0px;
+    padding: 0 4px 2px 0;
 }
 .yafnet .Checked label,
 .yafnet a.yaflittlebutton:active span{
     background-position: bottom left;
-    padding: 5px 3px 3px 8px;
+    padding: 4px 3px 2px 8px;
 }
 .yafnet a.yafcssbigbutton{
 	background: transparent url('ButtonEndBig.gif') no-repeat scroll top right;
@@ -542,7 +559,7 @@ This CSS already works on FireFox.
     display: block;
 		font-size: 10px; 
     height: 24px;
-    margin: 2px 0px 2px 2px;    
+    margin: 2px 0 2px 2px;    
     padding-right: 4px;
     text-decoration: none;
     text-transform: uppercase;
@@ -557,7 +574,7 @@ This CSS already works on FireFox.
 }
 .yafnet a.yafcssbigbutton img{
 	vertical-align: middle;
-	padding: 0px 4px 2px 0px;
+	padding: 0 4px 2px 0;
 }
 .yafnet a.yafcssbigbutton:hover {
 	color: #000000;
@@ -568,7 +585,7 @@ This CSS already works on FireFox.
     outline: none; /* hide dotted outline in Firefox */
 }
 .yafnet a.yafcssbigbutton:active img{
-    padding: 0px 4px 2px 0px;
+    padding: 0 4px 2px 0;
 }
 .yafnet a.yafcssbigbutton:active span{
     background-position: bottom left;
@@ -584,9 +601,9 @@ This CSS already works on FireFox.
     display: block;
     float: left;
 	font-size: 10px; 
-    height: 19px;
-    margin: 2px 0px 2px 2px;
-    padding-right: 5px;
+    height: 24px;
+    margin: 2px 0 2px 2px;
+    padding-right: 4px;
     text-decoration: none;
     text-transform: uppercase;
     font-family: Arial;
@@ -595,12 +612,12 @@ This CSS already works on FireFox.
 .yafnet a.yafcssimagebutton span{
     background: transparent url('ButtonBack.gif') no-repeat;
     display: block;
-    line-height: 14px;
+    line-height: 19px;
     padding: 3px 4px 2px 8px;
 }
 .yafnet a.yafcssimagebutton img{
 	vertical-align: top;
-	padding: 0px 4px 0px 0px;
+	padding: 0 4px 0 0;
 }
 .yafnet a.yafcssimagebutton:hover{
 	text-decoration: none;
@@ -611,7 +628,7 @@ This CSS already works on FireFox.
     outline: none; /* hide dotted outline in Firefox */
 }
 .yafnet a.yafcssimagebutton:active img{
-    padding: 0px 4px 0px 0px;
+    padding: 0 4px 0 0;
 }
 .yafnet a.yafcssimagebutton:active span{
     background-position: bottom left;
@@ -620,7 +637,7 @@ This CSS already works on FireFox.
 /* CSS Popupmenu */
 .yafnet .yafpopupmenu {
 	background-color: #ffffff;
-	border: solid 1px #333333;
+	border: 1px solid #333333;
 	
 }
 .yafnet .yafpopupmenu ul {	
@@ -660,7 +677,7 @@ This CSS already works on FireFox.
     background:url(tab.png) no-repeat right top;
     border-color:#666;
     color:#666;
-    padding:3px 10px 2px 0px;
+    padding:3px 10px 2px 0;
 }
 .yafnet .ajax__tab_yaf .ajax__tab_hover .ajax__tab_inner 
 {
@@ -704,7 +721,7 @@ This CSS already works on FireFox.
 .modalPopup
 {
 	background-color: #ffffff;
-	border: solid 1px #aaaaaa;
+	border: 1px solid #aaaaaa;
 	width: 400px;
 	padding: 1px;
 }
@@ -763,13 +780,13 @@ This CSS already works on FireFox.
 .gotoPageForm
 {	
 	background-color: #ffffff;
-	border: solid 1px #555555;
+	border: 1px solid #555;
 	width: 90px;
 	margin: 1px;			
 }
 .gotoPageForm .gotoBase
 {
-	border: solid 1px #ffffff;
+	border: 1px solid #ffffff;
 }
 .gotoPageForm .gotoHeader
 {
@@ -799,22 +816,6 @@ This CSS already works on FireFox.
 {
 		padding-top:0;
 }
-/* Irkoo Service styles */
-.irk-rating { font-family: Arial, Sans-Serif; color: #080; }
-.irk-negative { color: #c00; }
-.irk-count { font-size: 12px; font-weight: bold; padding: 0 4px; vertical-align: middle; }
-.irk-down, .irk-up { cursor: pointer; width: 16px; height: 16px; vertical-align: middle; }
-.irk-down { background: url(http://z.irkoo.com/down.png); }
-.irk-down:hover { background: url(http://z.irkoo.com/down-hover.png); }
-.irk-down-voted .irk-down { background: url(http://z.irkoo.com/down-voted.png); }
-.irk-up { background: url(http://z.irkoo.com/up.png); }
-.irk-up:hover { background: url(http://z.irkoo.com/up-hover.png); }
-.irk-up-voted .irk-up { background: url(http://z.irkoo.com/up-voted.png); }
-/* irk-vote should have relative positioning needed for popup to be positioned correctly */
-.irk-vote { position: relative; }
-.irk-count, .irk-rating { font-family: Arial, Sans-Serif; color: #680; }
-.irk-negative, .irk-negative .irk-count { color: #c4e; }
-/* End of Irkoo Service styles */
 
 /* Override jquery ui font-size */
 .ui-widget { font-size: 9pt!important; }
@@ -853,7 +854,7 @@ This CSS already works on FireFox.
 .yafnet .pagination .current {
     background: #446bb8;
     color: #fff;
-	border: solid 1px #AAE;
+	border: 1px solid #AAE;
 }
 
 .yafnet .pagination .current.smiliesPagerPrev, .yafnet .pagination .current.smiliesPagerNext{
@@ -866,6 +867,7 @@ This CSS already works on FireFox.
     padding:2px 4px 2px 4px;
     background-color:red;
 	height:20px;
+	-moz-border-radius: 0.4em;
     -webkit-border-radius: 0.4em;
 	border-radius: 0.4em;
     box-shadow:1px 1px 1px gray;
@@ -919,7 +921,7 @@ This CSS already works on FireFox.
 
 .ModalDialog input, .ModalDialog select
 {
-    padding: 0px;
+    padding: 0;
 }
 
 .ModalDialog hr
