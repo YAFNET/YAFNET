@@ -79,11 +79,9 @@ namespace YAF.Pages.help
         #region Methods
 
         /// <summary>
-        /// The on init.
+        /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event.
         /// </summary>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
             this.PreRender += Index_PreRender;
@@ -98,14 +96,10 @@ namespace YAF.Pages.help
         }
 
         /// <summary>
-        /// The page_ load.
+        /// Handles the Load event of the Page control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.LoadHelpContent();
@@ -159,14 +153,10 @@ namespace YAF.Pages.help
         }
 
         /// <summary>
-        /// The Pre Render to load the Javascript file
+        /// Load the Javascript files
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private static void Index_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
             // setup jQuery and YAF JS...
@@ -186,7 +176,7 @@ namespace YAF.Pages.help
         }
 
         /// <summary>
-        /// The bind data.
+        /// Binds the data.
         /// </summary>
         private void BindData()
         {
@@ -235,14 +225,10 @@ namespace YAF.Pages.help
         }
 
         /// <summary>
-        /// The do search_ click.
+        /// Search for Help Content
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void DoSearch_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (string.IsNullOrEmpty(this.search.Text))
@@ -252,14 +238,14 @@ namespace YAF.Pages.help
 
             if (this.search.Text.Length <= 3)
             {
-                this.PageContext.AddLoadMessage(this.GetText("SEARCHLONGER"));
+                this.PageContext.AddLoadMessage(this.GetText("SEARCHLONGER"), MessageTypes.Error);
 
                 return;
             }
 
-            IList<string> highlightWords = new List<string> { this.search.Text };
+            var highlightWords = new List<string> { this.search.Text };
 
-            List<YafHelpContent> searchlist =
+            var searchlist =
               this.helpContents.FindAll(
                 check =>
                 check.HelpContent.ToLower().Contains(this.search.Text.ToLower()) ||
@@ -275,7 +261,7 @@ namespace YAF.Pages.help
 
             if (searchlist.Count.Equals(0))
             {
-                this.PageContext.AddLoadMessage(this.GetText("NORESULTS"));
+                this.PageContext.AddLoadMessage(this.GetText("NORESULTS"), MessageTypes.Warning);
 
                 return;
             }
@@ -300,7 +286,7 @@ namespace YAF.Pages.help
             // vzrus tip: some features can be disabled and users shouldn't normally see them in help.
             // The list can include some limitations based on host settings when features are enabled.  
             // tha_watcha: actually not really needed content describes that things can be disabled.
-            List<HelpMenu.YafHelpNavigation> helpNavigation = new List<HelpMenu.YafHelpNavigation>();
+            var helpNavigation = new List<HelpMenu.YafHelpNavigation>();
 
             var serializer = new XmlSerializer(typeof(List<HelpMenu.YafHelpNavigation>));
 

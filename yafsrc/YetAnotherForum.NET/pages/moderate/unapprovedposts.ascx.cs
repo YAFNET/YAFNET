@@ -17,6 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
 namespace YAF.Pages.moderate
 {
     #region Using
@@ -38,7 +39,7 @@ namespace YAF.Pages.moderate
     #endregion
 
     /// <summary>
-    /// Summary description for _default.
+    /// Moderating Page for Unapproved Posts.
     /// </summary>
     public partial class unapprovedposts : ModerateForumPage
     {
@@ -75,12 +76,8 @@ namespace YAF.Pages.moderate
         /// <summary>
         /// Handles load event for delete button, adds confirmation dialog.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             var button = sender as ThemeButton;
@@ -97,7 +94,7 @@ namespace YAF.Pages.moderate
         /// Message data row.
         /// </param>
         /// <returns>
-        /// Formatted string with escaped HTML markup and formatted this.Get<IBBCode>().
+        /// Formatted string with escaped HTML markup and formatted.
         /// </returns>
         protected string FormatMessage([NotNull] DataRowView row)
         {
@@ -125,26 +122,20 @@ namespace YAF.Pages.moderate
         }
 
         /// <summary>
-        /// The on init.
+        /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event.
         /// </summary>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
-            List.ItemCommand += this.List_ItemCommand;
+            this.List.ItemCommand += this.List_ItemCommand;
             base.OnInit(e);
         }
 
         /// <summary>
         /// Handles page load event.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             // do this just on page load, not postbacks
@@ -175,12 +166,8 @@ namespace YAF.Pages.moderate
         /// <summary>
         /// Handles post moderation events/buttons.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
         private void List_ItemCommand([NotNull] object sender, [NotNull] RepeaterCommandEventArgs e)
         {
             // which command are we handling
@@ -198,7 +185,7 @@ namespace YAF.Pages.moderate
                     this.BindData();
 
                     // tell user message was approved
-                    this.PageContext.AddLoadMessage(this.GetText("APPROVED"));
+                    this.PageContext.AddLoadMessage(this.GetText("APPROVED"), MessageTypes.Success);
 
                     // send notification to watching users...
                     this.Get<ISendNotification>().ToWatchingUsers(e.CommandArgument.ToType<int>());
