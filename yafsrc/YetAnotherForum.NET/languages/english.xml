@@ -4266,7 +4266,7 @@ Visit {forumname} at {forumlink}
 	   <Resource tag="ROLE_NAME">Name:</Resource>
        <Resource tag="ROLE_NAME_HELP">Name of this role.</Resource>
 	   <Resource tag="IS_START">Is Start:</Resource>
-       <Resource tag="IS_START_HELP">If this is checked, all new users will be a member of this role.</Resource>
+       <Resource tag="IS_START_HELP">If this is checked, all new users will be a member of this role. &lt;br /&gt;&lt;span style=&quot;color:red&quot;&gt;[b]Warning:[/b] at least one Group need to have this Check box enabled or new users wont be able to register.[/b]&lt;/span&gt;</Resource>
 	   <Resource tag="FORUM_MOD">Is Forum Moderator:</Resource>
        <Resource tag="FORUM_MOD_HELP">When this is checked, members of this role will have some admin access rights in YAF.</Resource>
 	   <Resource tag="IS_ADMIN">Is Admin:</Resource>
@@ -4407,7 +4407,7 @@ Visit {forumname} at {forumlink}
 	   <Resource tag="RANK_NAME">Name:</Resource>
 	   <Resource tag="RANK_NAME_HELP">Name of this rank.</Resource>
 	   <Resource tag="IS_START">Is Start:</Resource>
-	   <Resource tag="IS_START_HELP">Means that this is the rank that new users belong to. Only one rank should have this checked.</Resource>
+	   <Resource tag="IS_START_HELP">Means that this is the rank that new users belong to. Only one rank should have this checked. &lt;br /&gt;&lt;span style=&quot;color:red&quot;&gt;[b]Warning:[/b] at least one Rank need to have this Check box enabled or new users wont be able to register.&lt;/span&gt;</Resource>
 	   <Resource tag="LADDER_GROUP">Is Ladder Group:</Resource>
 	   <Resource tag="LADDER_GROUP_HELP">If this is checked, this rank should be part of the ladder system where users advance as they post messages.</Resource>
 	   <Resource tag="MIN_POSTS">Minimum Posts:</Resource>

@@ -525,9 +525,9 @@
     <Resource tag="IS_ADMIN">Ist Admin:</Resource>
     <Resource tag="IS_ADMIN_HELP">Bedeutet, dass Benutzer in dieser Rolle Admins im Forum sind.</Resource>
     <Resource tag="IS_GUEST">Ist Gast:</Resource>
-    <Resource tag="IS_GUEST_HELP">Dieser Wert ist intern, und damit steht die Gruppe nicht zur Verfügung. Verwenden Sie diese Gruppe niemals für einen Benutzer aus dem (1) Gast Benutzer. Wenn Sie diesen Wert für diese Gruppe setzen müssen alle Gast Benutzer ein Mitglied dieser Gruppe sein.</Resource>
+    <Resource tag="IS_GUEST_HELP">Dieser Wert ist intern, und damit steht die Gruppe nicht zur Verfügung. Verwenden Sie diese Gruppe niemals für einen Benutzer aus dem (1) Gast Benutzer. Wenn Sie diesen Wert für diese Gruppe setzen sind alle Gast Benutzer ein Mitglied dieser Gruppe.</Resource>
     <Resource tag="IS_START">Ist Start:</Resource>
-    <Resource tag="IS_START_HELP">Wenn aktiviert werden alle neuen Benutzer ein Mitglied dieser Gruppe sein.</Resource>
+    <Resource tag="IS_START_HELP">Wenn aktiviert werden alle neuen Benutzer ein Mitglied dieser Gruppe sein. &lt;br /&gt;&lt;span style=&quot;color:red&quot;&gt;[b]Warnung:[/b] Mindestens eine Gruppe Muss die Option aktiviert haben ansonsten können sich neue Benutzer nicht registrieren.&lt;/span&gt;</Resource>
     <Resource tag="MSG_ALBUM_NUMBER">Sie müssen eine Zahl für die Anzahl an Benutzeralben eingeben.</Resource>
     <Resource tag="MSG_INTEGER">Sie müssen einen Integer-Wert für die Priorität eingeben.</Resource>
     <Resource tag="MSG_SIG_NUMBER">Sie müssen eine Zahl für die Anzahl an Zeichen in einer Signatur eingeben.</Resource>
@@ -652,7 +652,7 @@
     <Resource tag="IMAGES_NUMBER">Alben Bilderanzahl:</Resource>
     <Resource tag="IMAGES_NUMBER_HELP">Integer-Wert für die Benutzer erlaubte Bilder pro Album.</Resource>
     <Resource tag="IS_START">Ist Start:</Resource>
-    <Resource tag="IS_START_HELP">Damit ist gemeint das neue Benutzer zu diesem Rang gehören, Nur ein Rang sollte das aktiviert haben.</Resource>
+    <Resource tag="IS_START_HELP">Damit ist gemeint das neue Benutzer zu diesem Rang gehören, Nur ein Rang sollte das aktiviert haben. &lt;br /&gt;&lt;span style=&quot;color:red&quot;&gt;[b]Warnung:[/b] Mindestens ein Rank Muss die Option aktiviert haben ansonsten können sich neue Benutzer nicht registrieren.&lt;/span&gt;</Resource>
     <Resource tag="LADDER_GROUP">Ist Aufsteigende Gruppe:</Resource>
     <Resource tag="LADDER_GROUP_HELP">Wenn aktiviert, ist dieser Rang teil eines System wo der Benutzer durch das veröffentlichen von Beiträgen aufsteigen kann.</Resource>
     <Resource tag="MIN_POSTS">Minimale Beiträge:</Resource>

@@ -188,6 +188,7 @@ namespace YAF.Pages.Admin
             this.AllowDigestEmail.Checked = this.Get<YafBoardSettings>().AllowDigestEmail;
             this.DefaultSendDigestEmail.Checked = this.Get<YafBoardSettings>().DefaultSendDigestEmail;
             this.JqueryUIThemeCDNHosted.Checked = this.Get<YafBoardSettings>().JqueryUIThemeCDNHosted;
+            this.ForumEmail.Text = this.Get<YafBoardSettings>().ForumEmail;
 
             this.CopyrightRemovalKey.Text = this.Get<YafBoardSettings>().CopyrightRemovalDomainKey;
 
@@ -260,6 +261,7 @@ namespace YAF.Pages.Admin
             this.Get<YafBoardSettings>().DefaultNotificationSetting =
                 this.DefaultNotificationSetting.SelectedValue.ToEnum<UserNotificationSetting>();
 
+            this.Get<YafBoardSettings>().ForumEmail = this.ForumEmail.Text;
             this.Get<YafBoardSettings>().CopyrightRemovalDomainKey = this.CopyrightRemovalKey.Text.Trim();
             this.Get<YafBoardSettings>().JqueryUITheme = this.JqueryUITheme.SelectedValue;
             this.Get<YafBoardSettings>().JqueryUIThemeCDNHosted = this.JqueryUIThemeCDNHosted.Checked;

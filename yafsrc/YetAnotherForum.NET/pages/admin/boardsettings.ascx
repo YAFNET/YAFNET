@@ -21,6 +21,14 @@
                 <asp:TextBox ID="Name" runat="server" Width="400"></asp:TextBox>
             </td>
         </tr>
+        <tr>
+            <td class="postheader">
+                <YAF:HelpLabel ID="HelpLabel4" runat="server" LocalizedTag="FORUM_EMAIL" LocalizedPage="ADMIN_HOSTSETTINGS" />
+            </td>
+            <td class="post">
+                <asp:TextBox ID="ForumEmail" runat="server" Width="400"></asp:TextBox>
+            </td>
+        </tr>
         <asp:PlaceHolder ID="CopyrightHolder" runat="server">
         <tr>
             <td class="postheader" style="width: 50%">

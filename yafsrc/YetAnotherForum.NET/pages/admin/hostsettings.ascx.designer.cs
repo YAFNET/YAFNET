@@ -184,24 +184,6 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.TextBox ServerTimeCorrection;
         
         /// <summary>
-        /// HelpLabel3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel3;
-        
-        /// <summary>
-        /// ForumEmail control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ForumEmail;
-        
-        /// <summary>
         /// HelpLabel4 control.
         /// </summary>
         /// <remarks>

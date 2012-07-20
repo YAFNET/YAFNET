@@ -528,7 +528,7 @@
     <Resource tag="IS_GUEST">Is Guest::</Resource>
     <Resource tag="IS_GUEST_HELP">This flag is internal and makes the role unavailable to .NET membership. Never assign this role to any users except the (1) guest user. If you do flag this role as IsGuest, the guest user must a member of it. Never use this flag in conjunction with any other flags.</Resource>
     <Resource tag="IS_START">Is Start:</Resource>
-    <Resource tag="IS_START_HELP">If this is checked, all new users will be a member of this role.</Resource>
+    <Resource tag="IS_START_HELP">If this is checked, all new users will be a member of this role. &lt;br /&gt;&lt;span style=&quot;color:red&quot;&gt;[b]Warning:[/b] at least one Group need to have this Check box enabled or new users wont be able to register.[/b]&lt;/span&gt;</Resource>
     <Resource tag="MSG_ALBUM_NUMBER">You should enter integer value for the number of user albums.</Resource>
     <Resource tag="MSG_INTEGER">You should enter integer value for priority.</Resource>
     <Resource tag="MSG_SIG_NUMBER">You should enter integer value for the number of chars in user signature.</Resource>
@@ -654,7 +654,7 @@
     <Resource tag="IMAGES_NUMBER">Album Images Number:</Resource>
     <Resource tag="IMAGES_NUMBER_HELP">Integer value for a user allowed images number per album.</Resource>
     <Resource tag="IS_START">Is Start:</Resource>
-    <Resource tag="IS_START_HELP">Means that this is the rank that new users belong to. Only one rank should have this checked.</Resource>
+    <Resource tag="IS_START_HELP">Means that this is the rank that new users belong to. Only one rank should have this checked. &lt;br /&gt;&lt;span style=&quot;color:red&quot;&gt;[b]Warning:[/b] at least one Rank need to have this Check box enabled or new users wont be able to register.&lt;/span&gt;</Resource>
     <Resource tag="LADDER_GROUP">Is Ladder Group:</Resource>
     <Resource tag="LADDER_GROUP_HELP">If this is checked, this rank should be part of the ladder system where users advance as they post messages.</Resource>
     <Resource tag="MIN_POSTS">Minimum Posts:</Resource>

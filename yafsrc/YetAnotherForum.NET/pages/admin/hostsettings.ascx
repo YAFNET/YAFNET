@@ -43,14 +43,6 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <YAF:HelpLabel ID="HelpLabel3" runat="server" LocalizedTag="FORUM_EMAIL" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </td>
-                        <td class="post">
-                            <asp:TextBox Style="width:350px" ID="ForumEmail" runat="server"></asp:TextBox>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="postheader">
                             <YAF:HelpLabel ID="HelpLabel4" runat="server" LocalizedTag="EMAIL_VERIFICATION" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
