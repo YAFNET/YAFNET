@@ -175,6 +175,15 @@ function mouseHover(cell,hover) {
 	}
 }
 
+jQuery(document).ready(function(e) {
+    jQuery(".postContainer .UserPostedImage,.postContainer_Alt .UserPostedImage").each(function (index, element) {
+	    var image = jQuery(this);
+		if (!image.parents('a').length) {
+			image.wrap('<a href="' + image.attr("src") +  '" class="ceebox" title="' + image.attr("alt") +  '"/>');
+		}
+    });
+});	
+
 document.onclick = yaf_hidemenu;
 if(document.addEventListener) document.addEventListener("click",function(e){window.event=e;},true);
 if(document.addEventListener) document.addEventListener("mouseover",function(e){window.event=e;},true);

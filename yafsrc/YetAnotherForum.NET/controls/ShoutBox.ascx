@@ -107,12 +107,12 @@
                                     <ContentTemplate>
                                         <asp:Repeater ID="shoutBoxRepeater" runat="server">
                                             <ItemTemplate>
-                                                <div style="padding: 0; margin: 0">
-                                                    <b>
+                                                <div style="padding: 0; margin: 0" class="shoutBoxChatLine">
+                                                    <strong>
                                                         <YAF:UserLink ID="UserLink1" runat="server" BlankTarget="true" UserID='<%# ((System.Data.DataRow)Container.DataItem)["UserID"].ToType<int>() %>'
                                                             Style='<%# ((System.Data.DataRow)Container.DataItem)["Style"] %>'>
                                                         </YAF:UserLink>
-                                                    </b>(<em><YAF:DisplayDateTime ID="PostedDateTime" runat="server" Format="BothTopic"
+                                                    </strong>(<em><YAF:DisplayDateTime ID="PostedDateTime" runat="server" Format="BothTopic"
                                                         DateTime='<%#((System.Data.DataRow)Container.DataItem)["Date"]%>'>
                                                     </YAF:DisplayDateTime>
                                                     </em>):

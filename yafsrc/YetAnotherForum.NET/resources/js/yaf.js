@@ -18,7 +18,7 @@ function getEvent(eventobj) { if (eventobj.stopPropagation) { eventobj.stopPropa
 
 function yaf_mouseover() { var evt = getEvent(window.event); if (evt.srcElement) { evt.srcElement.style.cursor = "hand"; } else if (evt.target) { evt.target.style.cursor = "pointer"; } }
 
-function yaf_left(obj) { return jQuery(obj).position().left; }
+function yaf_left(obj) { return jQuery(obj).offset().left; }
 
 function yaf_top(obj) { return jQuery(obj).position().top + jQuery(obj).outerHeight() + 1; }
 
@@ -42,4 +42,7 @@ function mouseHover(cell, hover) {
         catch (e) { cell.style.cursor = "hand"; } 
     } else { cell.className = "popupitem"; } 
 }
+
+jQuery(document).ready(function(e){jQuery(".postContainer .UserPostedImage,.postContainer_Alt .UserPostedImage").each(function(index,element){var image=jQuery(this);if(!image.parents('a').length){image.wrap('<a href="'+image.attr("src")+'" class="ceebox" title="'+image.attr("alt")+'"/>')}})});
+
 document.onclick = yaf_hidemenu; if (document.addEventListener) document.addEventListener("click", function (e) { window.event = e; }, true); if (document.addEventListener) document.addEventListener("mouseover", function (e) { window.event = e; }, true);
