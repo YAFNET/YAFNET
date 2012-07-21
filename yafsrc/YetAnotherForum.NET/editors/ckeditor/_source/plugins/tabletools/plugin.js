@@ -771,6 +771,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 	CKEDITOR.plugins.tabletools =
 	{
+		requires : [ 'table', 'dialog', 'contextmenu' ],
+
 		init : function( editor )
 		{
 			var lang = editor.lang.table;

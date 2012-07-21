@@ -10,7 +10,7 @@ CKEDITOR.plugins.setLang( 'placeholder', 'da',
 		title		: 'Egenskaber for pladsholder',
 		toolbar		: 'Opret pladsholder',
 		text		: 'Tekst til pladsholder',
-		edit		: 'Rediger pladsholder',
+		edit		: 'Redigér pladsholder',
 		textMissing	: 'Pladsholder skal indeholde tekst'
 	}
 });

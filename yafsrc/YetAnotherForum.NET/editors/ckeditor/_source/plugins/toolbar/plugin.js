@@ -57,6 +57,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 	CKEDITOR.plugins.add( 'toolbar',
 	{
+		requires : [ 'button' ],
 		init : function( editor )
 		{
 			var endFlag;

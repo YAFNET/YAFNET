@@ -118,3 +118,15 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
  *     });
  * alert( someObject.fire( 'someEvent' ) );  // "true"
  */
+
+/**
+ * Removes the current listener.
+ * @name CKEDITOR.eventInfo.prototype.removeListener
+ * @function
+ * @example
+ * someObject.on( 'someEvent', function( event )
+ *     {
+ *         <b>event.removeListener()</b>;
+ *			// Now this function won't be called again by 'someEvent'
+ *     });
+ */

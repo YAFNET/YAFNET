@@ -7,7 +7,7 @@ CKEDITOR.plugins.setLang( 'a11yhelp', 'da',
 {
 	accessibilityHelp :
 	{
-		title : 'Accessibility Instructions', // MISSING
+		title : 'Tilgængelighedsinstrukser',
 		contents : 'Help Contents. To close this dialog press ESC.', // MISSING
 		legend :
 		[

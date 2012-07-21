@@ -141,7 +141,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 			dir = editor.lang.dir,
 			tabsToRemove = {},
 			i,
-			processed;
+			processed, stopPropagation;
 
 			if ( ( buttonsOrder == 'OS' && CKEDITOR.env.mac ) ||    // The buttons in MacOS Apps are in reverse order (#4750)
 				( buttonsOrder == 'rtl' && dir == 'ltr' ) ||
@@ -397,16 +397,18 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 		this.changeFocus = changeFocus;
 
 
-		function focusKeydownHandler( evt )
+		function keydownHandler( evt )
 		{
 			// If I'm not the top dialog, ignore.
 			if ( me != CKEDITOR.dialog._.currentTop )
 				return;
 
 			var keystroke = evt.data.getKeystroke(),
-				rtl = editor.lang.dir == 'rtl';
+				rtl = editor.lang.dir == 'rtl',
+				button;
 
-			processed = 0;
+			processed = stopPropagation = 0;
+
 			if ( keystroke == 9 || keystroke == CKEDITOR.SHIFT + 9 )
 			{
 				var shiftPressed = ( keystroke == CKEDITOR.SHIFT + 9 );
@@ -450,35 +452,64 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 				changeFocus( 1 );
 				processed = 1;
 			}
-
-			if ( processed )
+			// If user presses enter key in a text box, it implies clicking OK for the dialog.
+			else if ( keystroke == 13 /*ENTER*/ )
 			{
-				evt.stop();
-				evt.data.preventDefault();
+				// Don't do that for a target that handles ENTER.
+				var target = evt.data.getTarget();
+				if ( !target.is( 'a', 'button', 'select' ) && ( !target.is( 'input' ) || target.$.type != 'button' ) )
+				{
+					button = this.getButton( 'ok' );
+					button && CKEDITOR.tools.setTimeout( button.click, 0, button );
+					processed = 1;
+				}
+				stopPropagation = 1; // Always block the propagation (#4269)
 			}
+			else if ( keystroke == 27 /*ESC*/ )
+			{
+				button = this.getButton( 'cancel' );
+
+				// If there's a Cancel button, click it, else just fire the cancel event and hide the dialog.
+				if ( button )
+					CKEDITOR.tools.setTimeout( button.click, 0, button );
+				else
+				{
+					if ( this.fire( 'cancel', { hide : true } ).hide !== false )
+						this.hide();
+				}
+				stopPropagation = 1; // Always block the propagation (#4269)
+			}
+			else
+				return;
+
+			keypressHandler( evt );
 		}
 
-		function focusKeyPressHandler( evt )
+		function keypressHandler( evt )
 		{
-			processed && evt.data.preventDefault();
+			if ( processed )
+				evt.data.preventDefault(1);
+			else if ( stopPropagation )
+				evt.data.stopPropagation();
 		}
 
 		var dialogElement = this._.element;
 		// Add the dialog keyboard handlers.
 		this.on( 'show', function()
 			{
-				dialogElement.on( 'keydown', focusKeydownHandler, this, null, 0 );
+				dialogElement.on( 'keydown', keydownHandler, this );
+
 				// Some browsers instead, don't cancel key events in the keydown, but in the
-				// keypress. So we must do a longer trip in those cases. (#4531)
-				if ( CKEDITOR.env.opera || ( CKEDITOR.env.gecko && CKEDITOR.env.mac ) )
-					dialogElement.on( 'keypress', focusKeyPressHandler, this );
+				// keypress. So we must do a longer trip in those cases. (#4531,#8985)
+				if ( CKEDITOR.env.opera || CKEDITOR.env.gecko )
+					dialogElement.on( 'keypress', keypressHandler, this );
 
 			} );
 		this.on( 'hide', function()
 			{
-				dialogElement.removeListener( 'keydown', focusKeydownHandler );
-				if ( CKEDITOR.env.opera || ( CKEDITOR.env.gecko && CKEDITOR.env.mac ) )
-					dialogElement.removeListener( 'keypress', focusKeyPressHandler );
+				dialogElement.removeListener( 'keydown', keydownHandler );
+				if ( CKEDITOR.env.opera || CKEDITOR.env.gecko )
+					dialogElement.removeListener( 'keypress', keypressHandler );
 
 				// Reset fields state when closing dialog.
 				iterContents( function( item ) { resetField.apply( item ); } );
@@ -486,7 +517,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 		this.on( 'iframeAdded', function( evt )
 			{
 				var doc = new CKEDITOR.dom.document( evt.data.iframe.$.contentWindow.document );
-				doc.on( 'keydown', focusKeydownHandler, this, null, 0 );
+				doc.on( 'keydown', keydownHandler, this, null, 0 );
 			} );
 
 		// Auto-focus logic in dialog.
@@ -815,24 +846,6 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 			element.on( 'keydown', accessKeyDownHandler );
 			element.on( CKEDITOR.env.opera ? 'keypress' : 'keyup', accessKeyUpHandler );
 
-			// Prevent some keys from bubbling up. (#4269)
-			for ( var event in { keyup :1, keydown :1, keypress :1 } )
-				element.on( event, preventKeyBubbling );
-
-			// Register the Esc hotkeys.
-			registerAccessKey( this, this, '\x1b', null, function()
-					{
-						var button = this.getButton( 'cancel' );
-						// If there's a Cancel button, click it, else just fire the cancel event and hide the dialog
-						if ( button )
-							button.click();
-						else
-						{
-							if ( this.fire( 'cancel', { hide : true } ).hide !== false )
-								this.hide();
-						}
-					} );
-
 			// Reset the hasFocus state.
 			this._.hasFocus = false;
 
@@ -950,6 +963,8 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 
 			this.fire( 'hide', {} );
 			this._.editor.fire( 'dialogHide', this );
+			// Reset the tab page.
+			this.selectPage( this._.tabIdList[ 0 ] );
 			var element = this._.element;
 			element.setStyle( 'display', 'none' );
 			this.parts.dialog.setStyle( 'visibility', 'hidden' );
@@ -978,10 +993,6 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 				// Remove access key handlers.
 				element.removeListener( 'keydown', accessKeyDownHandler );
 				element.removeListener( CKEDITOR.env.opera ? 'keypress' : 'keyup', accessKeyUpHandler );
-
-				// Remove bubbling-prevention handler. (#4269)
-				for ( var event in { keyup :1, keydown :1, keypress :1 } )
-					element.removeListener( event, preventKeyBubbling );
 
 				var editor = this._.editor;
 				editor.focus();
@@ -2197,14 +2208,6 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 
 	var tabAccessKeyDown = function( dialog, key )
 	{
-	};
-
-	// ESC, ENTER
-	var preventKeyBubblingKeys = { 27 :1, 13 :1 };
-	var preventKeyBubbling = function( e )
-	{
-		if ( e.data.getKeystroke() in preventKeyBubblingKeys )
-			e.data.stopPropagation();
 	};
 
 	(function()

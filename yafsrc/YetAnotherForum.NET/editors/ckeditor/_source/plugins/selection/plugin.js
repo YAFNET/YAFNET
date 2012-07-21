@@ -414,10 +414,14 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						if ( ( CKEDITOR.env.ie7Compat || CKEDITOR.env.ie6Compat )
 							 && doc.$.compatMode != 'BackCompat' )
 						{
+							function moveRangeToPoint( range, x, y )
+							{
+								// Error prune in IE7. (#9034, #9110)
+								try { range.moveToPoint( x, y ); } catch ( e ) {}
+							}
+
 							html.on( 'mousedown', function( evt )
 							{
-								evt = evt.data.$;
-
 								// Expand the text range along with mouse move.
 								function onHover( evt )
 								{
@@ -426,7 +430,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									{
 										// Read the current cursor.
 										var rngEnd = body.$.createTextRange();
-										rngEnd.moveToPoint( evt.x, evt.y );
+
+										moveRangeToPoint( rngEnd, evt.x, evt.y );
 
 										// Handle drag directions.
 										textRng.setEndPoint(
@@ -440,6 +445,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									}
 								}
 
+								evt = evt.data.$;
+
 								// We're sure that the click happens at the region
 								// below body, but not on scrollbar.
 								if ( evt.y < html.$.clientHeight
@@ -448,8 +455,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								{
 									// Start to build the text range.
 									var textRng = body.$.createTextRange();
-									textRng.moveToPoint( evt.x, evt.y );
-									textRng.select();
+									moveRangeToPoint( textRng, evt.x, evt.y );
 
 									html.on( 'mousemove', onHover );
 
@@ -457,8 +463,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									{
 										html.removeListener( 'mousemove', onHover );
 										evt.removeListener();
+
+										// Make it in effect on mouse up. (#9022)
 										textRng.select();
-										textRng = null;
 									} );
 								}
 							});
@@ -585,7 +592,16 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					command : 'selectAll'
 				});
 
-			editor.selectionChange = checkSelectionChangeTimeout;
+			/**
+			 * Check if to fire the {@link CKEDITOR.editor#selectionChange} event
+			 * for the current editor instance.
+			 *
+			 * @param {Boolean} checkNow Check immediately without any delay.
+			 */
+			editor.selectionChange = function( checkNow )
+			{
+				( checkNow ? checkSelectionChange : checkSelectionChangeTimeout ).call( this );
+			};
 
 			// IE9 might cease to work if there's an object selection inside the iframe (#7639).
 			CKEDITOR.env.ie9Compat && editor.on( 'destroy', function()
@@ -1434,8 +1450,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 					this.isLocked = 0;
 					this.reset();
-
-					doc.getBody().focus();
 
 					if ( selectedElement )
 						this.selectElement( selectedElement );

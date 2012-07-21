@@ -323,20 +323,20 @@ CKEDITOR.config =
 		'resize,' +
 		'save,' +
 		'scayt,' +
-		'smiley,' +
 		'showblocks,' +
 		'showborders,' +
+		'smiley,' +
 		'sourcearea,' +
+		'specialchar,' +
 		'stylescombo,' +
+		'tab,' +
 		'table,' +
 		'tabletools,' +
-		'specialchar,' +
-		'tab,' +
 		'templates,' +
 		'toolbar,' +
 		'undo,' +
-		'wysiwygarea,' +
-		'wsc',
+		'wsc,' +
+		'wysiwygarea',
 
 	/**
 	 * A list of additional plugins to be loaded. This setting makes it easier

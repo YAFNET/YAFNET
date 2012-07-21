@@ -5,6 +5,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 CKEDITOR.plugins.add( 'find',
 {
+	requires : [ 'dialog' ],
 	init : function( editor )
 	{
 		var forms = CKEDITOR.plugins.find;

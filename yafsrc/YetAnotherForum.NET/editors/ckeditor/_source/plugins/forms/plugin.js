@@ -9,6 +9,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 CKEDITOR.plugins.add( 'forms',
 {
+	requires : [ 'dialog' ],
 	init : function( editor )
 	{
 		var lang = editor.lang;

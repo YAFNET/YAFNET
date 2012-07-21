@@ -10,7 +10,7 @@ CKEDITOR.plugins.setLang( 'placeholder', 'vi',
 		title		: 'Thuộc tính đặt chỗ',
 		toolbar		: 'Tạo đặt chỗ',
 		text		: 'Văn bản đặt chỗ',
-		edit		: 'Edit Placeholder', // MISSING
+		edit		: 'Chỉnh sửa ',
 		textMissing	: 'The placeholder must contain text.' // MISSING
 	}
 });

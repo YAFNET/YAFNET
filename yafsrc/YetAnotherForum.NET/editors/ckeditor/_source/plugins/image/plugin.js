@@ -12,6 +12,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 CKEDITOR.plugins.add( 'image',
 {
+	requires: [ 'dialog' ],
+
 	init : function( editor )
 	{
 		var pluginName = 'image';

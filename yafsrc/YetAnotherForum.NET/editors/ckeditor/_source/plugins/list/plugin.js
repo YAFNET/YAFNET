@@ -31,6 +31,17 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		}
 	}
 
+	// Inheirt inline styles from another element.
+	function inheirtInlineStyles( parent, el )
+	{
+		var style = parent.getAttribute( 'style' );
+
+		// Put parent styles before child styles.
+		style && el.setAttribute( 'style',
+			style.replace( /([^;])$/, '$1;' ) +
+			( el.getAttribute( 'style' ) || '' ) );
+	}
+
 	CKEDITOR.plugins.list = {
 		/*
 		 * Convert a DOM list tree into a data structure that is easier to
@@ -108,7 +119,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				paragraphName = ( paragraphMode == CKEDITOR.ENTER_P ? 'p' : 'div' );
 			while ( 1 )
 			{
-				var item = listArray[ currentIndex ];
+				var item = listArray[ currentIndex ],
+					itemGrandParent = item.grandparent;
 
 				orgDir = item.element.getDirection( 1 );
 
@@ -144,21 +156,28 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					currentListItem.append( listData.listNode );
 					currentIndex = listData.nextIndex;
 				}
-				else if ( item.indent == -1 && !baseIndex && item.grandparent )
+				else if ( item.indent == -1 && !baseIndex && itemGrandParent )
 				{
-					if ( listNodeNames[ item.grandparent.getName() ] )
+					if ( listNodeNames[ itemGrandParent.getName() ] )
+					{
 						currentListItem = item.element.clone( false, true );
+						if ( orgDir != itemGrandParent.getDirection( 1 ) )
+							currentListItem.setAttribute( 'dir', orgDir );
+					}
 					else
 						currentListItem = new CKEDITOR.dom.documentFragment( doc );
 
 					// Migrate all children to the new container,
 					// apply the proper text direction.
-					var dirLoose = item.grandparent.getDirection( 1 ) != orgDir,
-						needsBlock = currentListItem.type == CKEDITOR.NODE_DOCUMENT_FRAGMENT &&
-									 paragraphMode != CKEDITOR.ENTER_BR,
+					var dirLoose = itemGrandParent.getDirection( 1 ) != orgDir,
 						li = item.element,
 						className = li.getAttribute( 'class' ),
 						style = li.getAttribute( 'style' );
+
+					var needsBlock = currentListItem.type ==
+					                 CKEDITOR.NODE_DOCUMENT_FRAGMENT &&
+					                 ( paragraphMode != CKEDITOR.ENTER_BR || dirLoose ||
+					                   style || className );
 
 					var child, count = item.contents.length;
 					for ( i = 0 ; i < count; i++ )
@@ -171,14 +190,11 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							if ( dirLoose && !child.getDirection() )
 								child.setAttribute( 'dir', orgDir );
 
-							// Merge into child styles.
-							style && child.setAttribute( 'style',
-										 style.replace( /([^;])$/, '$1;') +
-										 ( child.getAttribute( 'style' ) || '' ) );
+							inheirtInlineStyles( li, child );
 
 							className && child.addClass( className );
 						}
-						else if ( dirLoose || needsBlock || style || className )
+						else if ( needsBlock )
 						{
 							// Establish new block to hold text direction and styles.
 							if ( !block )
@@ -299,17 +315,27 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		}
 
 		var root = groupObj.root,
-			fakeParent = root.getDocument().createElement( this.type );
-		// Copy all attributes, except from 'start' and 'type'.
-		root.copyAttributes( fakeParent, { start : 1, type : 1 } );
-		// The list-style-type property should be ignored.
-		fakeParent.removeStyle( 'list-style-type' );
+			doc = root.getDocument(),
+			listNode,
+			newListNode;
 
 		for ( i = 0 ; i < selectedListItems.length ; i++ )
 		{
 			var listIndex = selectedListItems[i].getCustomData( 'listarray_index' );
-			listArray[listIndex].parent = fakeParent;
+			listNode = listArray[ listIndex ].parent;
+
+			// Switch to new list node for this particular item.
+			if ( !listNode.is( this.type ) )
+			{
+				newListNode = doc.createElement( this.type );
+				// Copy all attributes, except from 'start' and 'type'.
+				listNode.copyAttributes( newListNode, { start : 1, type : 1 } );
+				// The list-style-type property should be ignored.
+				newListNode.removeStyle( 'list-style-type' );
+				listArray[ listIndex ].parent = newListNode;
+			}
 		}
+
 		var newList = CKEDITOR.plugins.list.arrayToList( listArray, database, null, editor.config.enterMode );
 		var child, length = newList.listNode.getChildCount();
 		for ( i = 0 ; i < length && ( child = newList.listNode.getChild( i ) ) ; i++ )
@@ -497,11 +523,12 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	}
 
 	var elementType = CKEDITOR.dom.walker.nodeType( CKEDITOR.NODE_ELEMENT );
-	// Merge list items with direction preserved. (#7448)
-	function mergeListItems( from, into, refNode, toHead )
+
+	// Merge child nodes with direction preserved. (#7448)
+	function mergeChildren( from, into, refNode, forward )
 	{
 		var child, itemDir;
-		while ( ( child = from.getFirst( elementType ) ) )
+		while ( ( child = from[ forward ? 'getLast' : 'getFirst' ]( elementType ) ) )
 		{
 			if ( ( itemDir = child.getDirection( 1 ) ) !== into.getDirection( 1 ) )
 				child.setAttribute( 'dir', itemDir );
@@ -509,8 +536,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			child.remove();
 
 			refNode ?
-				child[ toHead ? 'insertBefore' : 'insertAfter' ]( refNode ) :
-				into.append( child, toHead  );
+				child[ forward ? 'insertBefore' : 'insertAfter' ]( refNode ) :
+				into.append( child, forward  );
 		}
 	}
 
@@ -657,26 +684,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 			// For all new lists created, merge into adjacent, same type lists.
 			for ( i = 0 ; i < listsCreated.length ; i++ )
-			{
-				listNode = listsCreated[i];
-				var mergeSibling, listCommand = this;
-				( mergeSibling = function( rtl )
-				{
-
-					var sibling = listNode[ rtl ?
-						'getPrevious' : 'getNext' ]( CKEDITOR.dom.walker.whitespaces( true ) );
-					if ( sibling && sibling.getName &&
-						 sibling.getName() == listCommand.type )
-					{
-						// Move children order by merge direction.(#3820)
-						mergeListItems( listNode, sibling, null, !rtl );
-
-						listNode.remove();
-						listNode = sibling;
-					}
-				} )();
-				mergeSibling( 1 );
-			}
+				mergeListSiblings( listsCreated[ i ] );
 
 			// Clean up, restore selection and update toolbar button states.
 			CKEDITOR.dom.element.clearAllMarkers( database );
@@ -684,6 +692,26 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			editor.focus();
 		}
 	};
+
+	// Merge list adjacent, of same type lists.
+	function mergeListSiblings( listNode )
+	{
+		var mergeSibling;
+		( mergeSibling = function( rtl )
+		{
+			var sibling = listNode[ rtl ? 'getPrevious' : 'getNext' ]( nonEmpty );
+			if ( sibling && sibling.type == CKEDITOR.NODE_ELEMENT &&
+			     sibling.is( listNode.getName() ) )
+			{
+				// Move children order by merge direction.(#3820)
+				mergeChildren( listNode, sibling, null, !rtl );
+
+				listNode.remove();
+				listNode = sibling;
+			}
+		} )();
+		mergeSibling( 1 );
+	}
 
 	var dtd = CKEDITOR.dtd;
 	var tailNbspRegex = /[\t\r\n ]*(?:&nbsp;|\xa0)$/;
@@ -766,6 +794,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		var frag = nextCursor.extractContents();
 
 		cursor.trim( false, true );
+		var bm = cursor.createBookmark();
 
 		// Kill original bogus;
 		var currentPath = new CKEDITOR.dom.elementPath( cursor.startContainer );
@@ -798,7 +827,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				// If next line is in the sub list of the current list item.
 				if ( currentLi.contains( nextLi ) )
 				{
-					mergeListItems( sublist, nextLi.getParent(), nextLi );
+					mergeChildren( sublist, nextLi.getParent(), nextLi );
 					sublist.remove();
 				}
 				// Migrate the sub list to current list item.
@@ -807,27 +836,41 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			}
 		}
 
-
-		if ( nextCursor.checkStartOfBlock() &&
+		// Remove any remaining empty path blocks at next line after merging.
+		while ( nextCursor.checkStartOfBlock() &&
 			 nextCursor.checkEndOfBlock() )
 		{
-			var nextBlock = nextPath.block,
-				parentBlock = nextBlock.getParent();
+			nextPath = new CKEDITOR.dom.elementPath( nextCursor.startContainer );
+			var nextBlock = nextPath.block, parent;
 
-			nextBlock.remove();
-
-			// Remove if the path block container is now empty, e.g. li.
-			if ( parentBlock &&
-				 !parentBlock.getFirst( nonEmpty ) &&
-				 !parentBlock.equals( nextPath.blockLimit ) )
+			// Check if also to remove empty list.
+			if ( nextBlock.is( 'li' ) )
 			{
-				parentBlock.remove();
+				parent = nextBlock.getParent();
+				if ( nextBlock.equals( parent.getLast( nonEmpty ) )
+						&& nextBlock.equals( parent.getFirst( nonEmpty ) ) )
+					nextBlock = parent;
 			}
+
+			nextCursor.moveToPosition( nextBlock, CKEDITOR.POSITION_BEFORE_START );
+			nextBlock.remove();
 		}
+
+		// Check if need to further merge with the list resides after the merged block. (#9080)
+		var walkerRng = nextCursor.clone(), body = editor.document.getBody();
+		walkerRng.setEndAt( body, CKEDITOR.POSITION_BEFORE_END );
+		var walker = new CKEDITOR.dom.walker( walkerRng );
+		walker.evaluator = function( node ) { return nonEmpty( node ) && !blockBogus( node ); };
+		var next = walker.next();
+		if ( next && next.type == CKEDITOR.NODE_ELEMENT && next.getName() in CKEDITOR.dtd.$list )
+			mergeListSiblings( next );
+
+		cursor.moveToBookmark( bm );
 
 		// Make fresh selection.
 		cursor.select();
 
+		editor.selectionChange( 1 );
 		editor.fire( 'saveSnapshot' );
 	}
 
@@ -861,9 +904,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			editor.on( 'selectionChange', CKEDITOR.tools.bind( onSelectionChange, numberedListCommand ) );
 			editor.on( 'selectionChange', CKEDITOR.tools.bind( onSelectionChange, bulletedListCommand ) );
 
-			// [IE8] Fix "backspace" after list and "del" at the end of list item. (#8248)
-			if ( CKEDITOR.env.ie8Compat )
-			{
+				// Handled backspace/del key to join list items. (#8248,#9080)
 				editor.on( 'key', function( evt )
 				{
 					var key = evt.data.keyCode;
@@ -886,22 +927,49 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 						if ( isBackspace )
 						{
-							walker.range.setStartAt( body, CKEDITOR.POSITION_AFTER_START );
-							walker.range.setEnd( range.startContainer, range.startOffset );
+							var previous, joinWith;
 
-							var previous = walker.previous();
+							var path = new CKEDITOR.dom.elementPath( range.startContainer );
 
-							// Check if cursor collapsed right behind of a list.
-							if ( previous &&
-								 previous.type == CKEDITOR.NODE_ELEMENT &&
-								 previous.getName() in listNodeNames )
+							// Join a sub list's first line, with the previous visual line in parent.
+							if ( ( previous = path.contains( listNodeNames ) ) &&
+							     range.checkBoundaryOfElement( previous, CKEDITOR.START ) &&
+							     ( previous = previous.getParent() ) && previous.is( 'li' ) &&
+							     ( previous = getSubList( previous ) ) )
 							{
-								walker.range.selectNodeContents( previous );
-								walker.reset();
-								walker.evaluator = isTextBlock;
+								joinWith = previous;
+								previous = previous.getPrevious( nonEmpty );
+								// Place cursor before the nested list.
+								cursor.moveToPosition(
+									previous && blockBogus( previous ) ? previous : joinWith,
+									CKEDITOR.POSITION_BEFORE_START );
+							}
+							// Join any line following a list, with the last visual line of the list.
+							else
+							{
+								walker.range.setStartAt( body, CKEDITOR.POSITION_AFTER_START );
+								walker.range.setEnd( range.startContainer, range.startOffset );
+								previous = walker.previous();
 
-								// Place cursor at the end of previous block.
-								cursor.moveToElementEditEnd( walker.lastForward() );
+								if ( previous && previous.type == CKEDITOR.NODE_ELEMENT &&
+								   ( previous.getName() in listNodeNames || previous.is( 'li' ) ) )
+								{
+									if ( !previous.is( 'li' ) )
+									{
+										walker.range.selectNodeContents( previous );
+										walker.reset();
+										walker.evaluator = isTextBlock;
+										previous = walker.previous();
+									}
+
+									joinWith = previous;
+									// Place cursor at the end of previous block.
+									cursor.moveToElementEditEnd( joinWith );
+								}
+							}
+
+							if ( joinWith )
+							{
 								joinNextLineToCursor( editor, cursor, range );
 								evt.cancel();
 							}
@@ -947,9 +1015,12 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								}
 							}
 						}
+
+						// The backspace/del could potentially put cursor at a bad position,
+						// being it handled or not, check immediately the selection to have it fixed.
+						setTimeout( function() { editor.selectionChange( 1 ); } );
 					}
 				} );
-			}
 		},
 
 		afterInit : function ( editor )

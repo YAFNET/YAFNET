@@ -31,7 +31,8 @@ CKEDITOR.lang['et'] =
 	 * Screenreader titles. Please note that screenreaders are not always capable
 	 * of reading non-English words. So be careful while translating it.
 	 */
-	editorTitle : 'Rikkalik tekstiredaktor %1, abi jaoks vajuta ALT 0.',
+	editorTitle : 'Vormindatud teksti redaktor %1',
+	editorHelp : 'Abi saamiseks vajuta ALT 0',
 
 	// ARIA descriptions.
 	toolbars	: 'Redaktori tööriistaribad',

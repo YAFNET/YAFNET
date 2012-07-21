@@ -12,7 +12,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 {
 	CKEDITOR.plugins.add( 'div',
 	{
-		requires : [ 'editingblock', 'domiterator', 'styles' ],
+		requires : [ 'editingblock', 'dialog', 'domiterator', 'styles' ],
 
 		init : function( editor )
 		{
