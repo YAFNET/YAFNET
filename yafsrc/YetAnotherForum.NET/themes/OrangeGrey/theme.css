@@ -1,12 +1,8 @@
-.yafnet {
-	font-size:12px;
-	font-family:Arial;
-	color: #000;
-}
+.yafnet,
 .yafnet td {
 	font-size:12px;
-	font-family:Arial;
-	color: #000;
+	font-family: Arial,Helvetica,sans-serif;
+	color: black;
 }
 .yafnet input,
 .yafnet select,
@@ -21,18 +17,17 @@
     background-color: #f5f5f5;
 }
 .yafnet textarea {
-		width:98%;
-		padding:0px;
+	width:98%;
+	padding:0;
 }
-.yafnet input[type="image"]
+.yafnet input[type="image"],
+.yafnet input[type="checkbox"]
 {
-    padding: 0px;
-    border: 0px;
+    padding: 0;
+    border: 0;
 }
 .yafnet input[type="checkbox"]
 {
-    border: 0px;
-    padding: 0px;
     margin: 5px;
 }
 
@@ -238,7 +233,8 @@
 .forumStatisticsContent .postheader,
 .smiliesContent .post,
 #yafprofilecontent .post,
-#yafprofilecontent .postheader {border-top:none;}
+#yafprofilecontent .postheader,
+.yafnet .LastPosts .header2 {border-top:none;}
 
 .yafnet .linkedPostsContent .postheader,
 .yafnet .LastPosts .postheader {
@@ -377,7 +373,7 @@ border-bottom-left-radius:0.3em;}
     padding: 8px;
 }
 .yafnet .content td table td table td {
-	padding: 0px;	
+	padding: 0;	
 }
 .yafnet .content .headersub {
 	color: #ffffff;
@@ -581,7 +577,7 @@ This CSS already works on FireFox.
 /* CSS Pagelinks */
 .yafnet .yafpager {
 	color: #555555;
-	margin: 6px 0px 6px 0px;
+	margin: 6px 0 6px 0;
 }
 .yafnet a.pagelink,
 .yafnet a.pagelinkfirst,
@@ -721,10 +717,10 @@ This CSS already works on FireFox.
 }
 .yafnet a.yafcssbigbutton img{
 	vertical-align: top;
-	padding: 0px 4px 0px 0px;
+	padding: 0 4px 0 0;
 }
 .yafnet a.yafcssbigbutton:active img{
-    padding: 0px 4px 0px 0px;
+    padding: 0 4px 0 0;
 }
 .yafnet a.yafcssbigbutton:active span{
     background-position: bottom left;
@@ -1375,7 +1371,7 @@ height:80em;
 	border-radius: 0.4em;
     box-shadow:1px 1px 1px gray;
 }
-.yafnet .Unread a {color:white!important;font-weight:bold!important;font-size:0.9em!important;padding-left: 0px!important;}
+.yafnet .Unread a {color:white!important;font-weight:bold!important;font-size:0.9em!important;padding-left: 0!important;}
 .yafnet .unread {padding-top:7px;}
 
 /* Alpha Sort Control */
