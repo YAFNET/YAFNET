@@ -18,14 +18,11 @@
  */
 namespace YAF.Controls
 {
-  using System.Web.UI;
-
-  using YAF.Core;
-
-  using YAF.Core.BBCode;
-  using YAF.Types.Interfaces;
-  using YAF.Utils;
-  using YAF.Types;
+    using System.Web.UI;
+    using YAF.Core;
+    using YAF.Types;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
 
   /// <summary>
   /// The localization support extensions.

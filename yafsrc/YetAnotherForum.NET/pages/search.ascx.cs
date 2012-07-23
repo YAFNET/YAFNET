@@ -546,23 +546,6 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// Get Theme Contents
-        /// </summary>
-        /// <param name="page">
-        /// The Localization Page.
-        /// </param>
-        /// <param name="tag">
-        /// The Localisation Page Tag.
-        /// </param>
-        /// <returns>
-        /// Returns Theme Content.
-        /// </returns>
-        protected string GetThemeContents([NotNull] string page, [NotNull] string tag)
-        {
-            return this.Get<ITheme>().GetItem(page, tag);
-        }
-
-        /// <summary>
         /// The btn search_ click.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
