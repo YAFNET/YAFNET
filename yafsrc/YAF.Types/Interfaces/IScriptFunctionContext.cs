@@ -26,11 +26,6 @@ namespace YAF.Types.Interfaces
     #region Properties
 
     /// <summary>
-    /// Gets ScriptBuilder.
-    /// </summary>
-    IScriptBuilder ScriptBuilder { get; }
-
-    /// <summary>
     /// Gets ScriptFunction.
     /// </summary>
     IScriptFunction ScriptFunction { get; }

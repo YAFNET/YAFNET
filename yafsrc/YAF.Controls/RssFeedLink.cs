@@ -20,17 +20,17 @@ namespace YAF.Controls
 {
   #region Using
 
-  using System;
-  using System.Web.UI;
-
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Utils;
-  using YAF.Types;
-  using YAF.Types.Constants;
+    using System;
+    using System.Web.UI;
+    using YAF.Core;
+    using YAF.Types;
+    using YAF.Types.Constants;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
 
   #endregion
 
-  /// <summary>
+    /// <summary>
   /// The RSS feed link (with optional icon)
   /// </summary>
   public class RssFeedLink : BaseControl

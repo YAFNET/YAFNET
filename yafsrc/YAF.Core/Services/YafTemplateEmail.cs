@@ -19,16 +19,14 @@
 
 namespace YAF.Core.Services
 {
-  using System.Collections.Specialized;
-  using System.Net.Mail;
+    using System.Collections.Specialized;
+    using System.Net.Mail;
+    using YAF.Classes.Data;
+    using YAF.Core;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
 
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Classes.Data;
-  using YAF.Utils;
-  using YAF.Utils.Helpers.StringUtils;
-  using YAF.Types.Interfaces;
-
-  /// <summary>
+    /// <summary>
   /// The yaf template email.
   /// </summary>
   public class YafTemplateEmail

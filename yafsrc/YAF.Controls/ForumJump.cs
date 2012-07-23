@@ -20,21 +20,20 @@ namespace YAF.Controls
 {
   #region Using
 
-  using System;
-  using System.Collections.Specialized;
-  using System.Data;
-  using System.Web.UI;
-
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Core.Services;
-  using YAF.Classes.Data;
-  using YAF.Utils;
-  using YAF.Types;
-  using YAF.Types.Constants;
+    using System;
+    using System.Collections.Specialized;
+    using System.Data;
+    using System.Web.UI;
+    using YAF.Classes.Data;
+    using YAF.Core;
+    using YAF.Types;
+    using YAF.Types.Constants;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
 
   #endregion
 
-  /// <summary>
+    /// <summary>
   /// Summary description for ForumJump.
   /// </summary>
   public class ForumJump : BaseControl, IPostBackDataHandler
