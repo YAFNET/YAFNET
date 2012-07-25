@@ -31,3 +31,5 @@ _ReSharper.*
 *.sln.cache
 *.cache
 *.ncrunch*
+**\bin\Debug
+**\bin\Release

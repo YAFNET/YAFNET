@@ -41,12 +41,12 @@ namespace YAF.Classes.Data
 		/// </param>
 		public static DbCommand ReplaceCommandText([NotNull] this DbCommand dbCommand)
 		{
-			var commandText = dbCommand.CommandText;
+            var commandText = dbCommand.CommandText;
 
-			commandText = commandText.Replace("{databaseOwner}", Config.DatabaseOwner);
-			commandText = commandText.Replace("{objectQualifier}", Config.DatabaseObjectQualifier);
+            commandText = commandText.Replace("{databaseOwner}", Config.DatabaseOwner);
+            commandText = commandText.Replace("{objectQualifier}", Config.DatabaseObjectQualifier);
 
-			dbCommand.CommandText = commandText;
+		    dbCommand.CommandText = commandText;
 
 			return dbCommand;
 		}

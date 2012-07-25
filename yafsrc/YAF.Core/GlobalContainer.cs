@@ -18,81 +18,84 @@
  */
 namespace YAF.Core
 {
-  #region Using
+    #region Using
 
-  using Autofac;
+    using Autofac;
 
-  using YAF.Types;
-  using YAF.Types.Interfaces;
-
-  #endregion
-
-  /// <summary>
-  /// Instance of the Global Container... yes, a God class. It's the best way to do it, though.
-  /// </summary>
-  public static class GlobalContainer
-  {
-    #region Constants and Fields
-
-    /// <summary>
-    /// The _sync object.
-    /// </summary>
-    private static readonly object _syncObject = new object();
-
-    /// <summary>
-    ///   The _container.
-    /// </summary>
-    private static IContainer _container;
+    using YAF.Types;
+    using YAF.Types.Interfaces;
 
     #endregion
 
-    #region Properties
-
     /// <summary>
-    ///   Gets Container.
+    /// Instance of the Global Container... yes, a God class. It's the best way to do it, though.
     /// </summary>
-    public static IContainer Container
+    public static class GlobalContainer
     {
-      get
-      {
-        if (_container == null)
-        {
-          lock (_syncObject)
-          {
-            if (_container == null)
-            {
-              _container = CreateContainer();
+        #region Constants and Fields
 
-              // immediately setup the static service locator...
-              ServiceLocatorAccess.CurrentServiceProvider = _container.Resolve<IServiceLocator>();
+        /// <summary>
+        /// The _sync object.
+        /// </summary>
+        private static readonly object _syncObject = new object();
+
+        /// <summary>
+        ///   The _container.
+        /// </summary>
+        private static IContainer _container;
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        ///   Gets Container.
+        /// </summary>
+        public static IContainer Container
+        {
+            get
+            {
+                if (_container == null)
+                {
+                    lock (_syncObject)
+                    {
+                        if (_container == null)
+                        {
+                            _container = CreateContainer();
+
+                            // immediately setup the static service locator...
+                            ServiceLocatorAccess.CurrentServiceProvider = _container.Resolve<IServiceLocator>();
+                        }
+                    }
+                }
+
+                return _container;
             }
-          }
         }
 
-        return _container;
-      }
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// The create container.
+        /// </summary>
+        /// <returns>
+        /// The Autofac.IContainer.
+        /// </returns>
+        private static IContainer CreateContainer()
+        {
+            var builder = new ContainerBuilder();
+
+            var mainModule = new YafBaseContainerModule();
+            var logModule = new LoggingModule();
+
+            builder.RegisterModule(mainModule);
+            builder.RegisterModule(logModule);
+
+            return builder.Build();
+        }
+
+        #endregion
     }
-
-    #endregion
-
-    #region Methods
-
-    /// <summary>
-    /// The create container.
-    /// </summary>
-    private static IContainer CreateContainer()
-    {
-      var builder = new ContainerBuilder();
-
-      var mainModule = new YafBaseContainerModule();
-      var logModule = new LoggingModule();
-
-      builder.RegisterModule(mainModule);
-      builder.RegisterModule(logModule);
-
-      return builder.Build();
-    }
-
-    #endregion
-  }
 }

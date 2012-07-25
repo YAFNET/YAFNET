@@ -33,7 +33,7 @@ namespace YAF.Types.Interfaces
 		#region Public Methods
 
 		/// <summary>
-		/// The get data.
+		/// Gets a DataTable using the new dynamic Db Function
 		/// </summary>
 		/// <param name="dbFunction">
 		/// The db function.
@@ -43,8 +43,8 @@ namespace YAF.Types.Interfaces
 		/// </param>
 		/// <returns>
 		/// </returns>
-		[CanBeNull]
-		public static DataTable GetData([NotNull] this IDbFunction dbFunction, [NotNull] Func<object, object> function)
+		[NotNull]
+		public static DataTable GetAsDataTable([NotNull] this IDbFunction dbFunction, [NotNull] Func<dynamic, object> function)
 		{
 			CodeContracts.ArgumentNotNull(dbFunction, "dbFunction");
 			CodeContracts.ArgumentNotNull(function, "function");
@@ -63,8 +63,8 @@ namespace YAF.Types.Interfaces
 		/// </param>
 		/// <returns>
 		/// </returns>
-		[CanBeNull]
-		public static DataSet GetDataSet([NotNull] this IDbFunction dbFunction, [NotNull] Func<object, object> function)
+        [NotNull]
+		public static DataSet GetAsDataSet([NotNull] this IDbFunction dbFunction, [NotNull] Func<dynamic, object> function)
 		{
 			CodeContracts.ArgumentNotNull(dbFunction, "dbFunction");
 			CodeContracts.ArgumentNotNull(function, "function");

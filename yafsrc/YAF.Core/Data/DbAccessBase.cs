@@ -151,6 +151,8 @@ namespace YAF.Core.Data
                         // get an open connection
                         cmd.Connection = connection;
                         cmd.ExecuteNonQuery();
+
+                        connection.Close();
                     }
                 }
                 else
@@ -189,6 +191,8 @@ namespace YAF.Core.Data
                         // get an open connection
                         cmd.Connection = connection;
                         results = cmd.ExecuteScalar();
+
+                        connection.Close();
                     }
                 }
                 else

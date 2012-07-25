@@ -22,6 +22,7 @@ namespace YAF.Core
 
     using System;
     using System.Collections.Generic;
+    using System.Data.Common;
     using System.Linq;
     using System.Reflection;
 
@@ -30,6 +31,7 @@ namespace YAF.Core
 
     using YAF.Classes;
     using YAF.Core.BBCode;
+    using YAF.Core.Data;
     using YAF.Core.Nntp;
     using YAF.Core.Services;
     using YAF.Types;
@@ -110,6 +112,9 @@ namespace YAF.Core
             builder.Register(x => this.ExtensionAssemblies).Named<IList<Assembly>>("ExtensionAssemblies").SingleInstance();
 
             builder.RegisterType<AutoFacServiceLocatorProvider>().AsSelf().As<IServiceLocator>().As<IInjectServices>().InstancePerLifetimeScope();
+
+            // register data bindings...
+            RegisterDataBindings(builder);
 
             // YafContext registration...
             builder.RegisterType<YafContextPageProvider>().AsSelf().As<IReadOnlyProvider<YafContext>>().SingleInstance().PreserveExistingDefaults();
@@ -208,6 +213,15 @@ namespace YAF.Core
             this.UpdateRegistry(builder);
         }
 
+        private static void RegisterDataBindings(ContainerBuilder builder)
+        {
+            // data
+            builder.RegisterType<DbAccessProvider>().As<IDbAccessProvider>().SingleInstance();
+            builder.Register(c => c.Resolve<IDbAccessProvider>().Instance).As<IDbAccessV2>().InstancePerDependency().PreserveExistingDefaults();
+            builder.Register((c, p) => DbProviderFactories.GetFactory(p.TypedAs<string>())).ExternallyOwned().PreserveExistingDefaults();
+            builder.RegisterType<DynamicDbFunction>().As<IDbFunction>().InstancePerLifetimeScope().PreserveExistingDefaults();
+        }
+
         /// <summary>
         /// Register event bindings
         /// </summary>
@@ -258,36 +272,38 @@ namespace YAF.Core
 
             foreach (var c in classes)
             {
-                var built = builder.RegisterType(c).As(c);
-
                 var exportAttribute = c.GetAttribute<ExportServiceAttribute>();
 
-                if (exportAttribute != null && exportAttribute.RegisterSpecifiedTypes != null
-                    && exportAttribute.RegisterSpecifiedTypes.Length > 0)
-                {
-                    // only register types provided...
-                    foreach (var regType in exportAttribute.RegisterSpecifiedTypes)
-                    {
-                        built.As(regType);
-                    }
-                }
-                else
-                {
-                    // register all associated interfaces including inheritated interfaces!
-                    foreach (var regType in c.GetInterfaces().Where(i => !exclude.Contains(i)))
-                    {
-                        built.As(regType);
-                    }
-                }
-
-                if (exportAttribute == null || built == null)
+                if (exportAttribute == null)
                 {
                     continue;
                 }
 
+                var built = builder.RegisterType(c).As(c);
+
+                Type[] typesToRegister = null;
+
+                if (exportAttribute.RegisterSpecifiedTypes != null &&
+                    exportAttribute.RegisterSpecifiedTypes.Any())
+                {
+                    // only register types provided...
+                    typesToRegister = exportAttribute.RegisterSpecifiedTypes;
+                }
+                else
+                {
+                    // register all associated interfaces including inherited interfaces
+                    typesToRegister = c.GetInterfaces().Where(i => !exclude.Contains(i)).ToArray();
+                }
+                
                 if (exportAttribute.Named.IsSet())
                 {
-                    built = built.Named(exportAttribute.Named, c.GetType());
+                    // register types as "Named"
+                    built = typesToRegister.Aggregate(built, (current, regType) => current.Named(exportAttribute.Named, regType));
+                }
+                else
+                {
+                    // register types "As"
+                    built = typesToRegister.Aggregate(built, (current, regType) => current.As(regType));
                 }
 
                 switch (exportAttribute.ServiceLifetimeScope)

@@ -212,13 +212,7 @@ namespace YAF.Core.Data
                 .GetForProviderAndOperation(this._dbAccessProvider.ProviderName, operationName)
                 .FirstOrDefault();
 
-            if (specificFunction == null)
-            {
-                throw new NotSupportedException(
-                    string.Format("Operation: [{0}] Is not Supported for Provider: [{1}]", operationName, this._dbAccessProvider.ProviderName));
-            }
-
-            if (specificFunction.Execute(functionType, operationName, parameters, out result))
+            if (specificFunction != null && specificFunction.Execute(functionType, operationName, parameters, out result))
             {
                 return true;
             }

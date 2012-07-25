@@ -89,7 +89,7 @@ namespace YAF.Core.Data
 		/// <returns> </returns>
 		/// <exception cref="NoValidDbAccessProviderFoundException">
 		///   <c>NoValidDbAccessProviderFoundException</c>
-		///   .</exception>
+		/// .</exception>
 		[CanBeNull]
 		public IDbAccessV2 Instance
 		{
@@ -103,7 +103,7 @@ namespace YAF.Core.Data
 				if (this._dbAccess == null && this.ProviderName.IsSet())
 				{
 					// attempt to get the provider...
-					this._dbAccessProviders.TryGetValue(this.ProviderName.ToLower(), out this._dbAccess);
+					this._dbAccessProviders.TryGetValue(this.ProviderName, out this._dbAccess);
 				}
 
 				if (this._dbAccess == null)
