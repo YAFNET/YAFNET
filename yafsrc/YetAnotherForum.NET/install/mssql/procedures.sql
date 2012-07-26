@@ -2802,7 +2802,7 @@ begin
 
     declare @tmpTopicID int;
     declare topic_cursor cursor for
-        select TopicID from [{databaseOwner}].[{objectQualifier}topic]
+        select TopicID from [{databaseOwner}].[{objectQualifier}Topic]
         where ForumID = @ForumID
         order by TopicID desc
     
@@ -11011,7 +11011,7 @@ BEGIN
     WHERE UserID = @UserID
         AND TopicID IN (
             SELECT TopicID
-            FROM yaf_Topic
+            FROM [{databaseOwner}].[{objectQualifier}Topic]
             WHERE ForumID = @ForumID
             )
 END
@@ -11259,7 +11259,7 @@ begin
 
     declare @tmpTopicID int;
     declare topic_cursor cursor for
-        select TopicID from [{databaseOwner}].[{objectQualifier}topic]
+        select TopicID from [{databaseOwner}].[{objectQualifier}Topic]
         where ForumID = @ForumOldID
         order by TopicID desc
     
