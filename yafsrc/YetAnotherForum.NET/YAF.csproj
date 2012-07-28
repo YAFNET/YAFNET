@@ -4,7 +4,7 @@
   <PropertyGroup>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{555357E5-A150-4C4D-BC81-97F4AE19086A}</ProjectGuid>
+    <ProjectGuid>{EE718FE9-C9B5-4736-965B-748572C80B88}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -887,13 +887,16 @@
     <Content Include="editors\ckeditor\lang\hi.js" />
     <Content Include="editors\ckeditor\lang\hr.js" />
     <Content Include="editors\ckeditor\lang\hu.js" />
+    <Content Include="editors\ckeditor\lang\id.js" />
     <Content Include="editors\ckeditor\lang\is.js" />
     <Content Include="editors\ckeditor\lang\it.js" />
     <Content Include="editors\ckeditor\lang\ja.js" />
+    <Content Include="editors\ckeditor\lang\ka.js" />
     <Content Include="editors\ckeditor\lang\km.js" />
     <Content Include="editors\ckeditor\lang\ko.js" />
     <Content Include="editors\ckeditor\lang\lt.js" />
     <Content Include="editors\ckeditor\lang\lv.js" />
+    <Content Include="editors\ckeditor\lang\mk.js" />
     <Content Include="editors\ckeditor\lang\mn.js" />
     <Content Include="editors\ckeditor\lang\ms.js" />
     <Content Include="editors\ckeditor\lang\nb.js" />
@@ -911,6 +914,7 @@
     <Content Include="editors\ckeditor\lang\sv.js" />
     <Content Include="editors\ckeditor\lang\th.js" />
     <Content Include="editors\ckeditor\lang\tr.js" />
+    <Content Include="editors\ckeditor\lang\ug.js" />
     <Content Include="editors\ckeditor\lang\uk.js" />
     <Content Include="editors\ckeditor\lang\vi.js" />
     <Content Include="editors\ckeditor\lang\zh-cn.js" />
@@ -925,11 +929,45 @@
     <Content Include="editors\ckeditor\plugins\about\dialogs\logo_ckeditor.png" />
     <Content Include="editors\ckeditor\plugins\adobeair\plugin.js" />
     <Content Include="editors\ckeditor\plugins\autogrow\plugin.js" />
+    <Content Include="editors\ckeditor\plugins\bbcodeselector\dialogs\bbcodeselector.js" />
+    <Content Include="editors\ckeditor\plugins\bbcodeselector\images\yafbbcode.gif" />
+    <Content Include="editors\ckeditor\plugins\bbcodeselector\lang\en.js" />
+    <Content Include="editors\ckeditor\plugins\bbcodeselector\plugin.js" />
     <Content Include="editors\ckeditor\plugins\bbcode\plugin.js" />
     <Content Include="editors\ckeditor\plugins\clipboard\dialogs\paste.js" />
     <Content Include="editors\ckeditor\plugins\colordialog\dialogs\colordialog.js" />
+    <Content Include="editors\ckeditor\plugins\devtools\lang\bg.js" />
+    <Content Include="editors\ckeditor\plugins\devtools\lang\cs.js" />
+    <Content Include="editors\ckeditor\plugins\devtools\lang\cy.js" />
+    <Content Include="editors\ckeditor\plugins\devtools\lang\da.js" />
+    <Content Include="editors\ckeditor\plugins\devtools\lang\de.js" />
+    <Content Include="editors\ckeditor\plugins\devtools\lang\el.js" />
+    <Content Include="editors\ckeditor\plugins\devtools\lang\en.js" />
+    <Content Include="editors\ckeditor\plugins\devtools\lang\eo.js" />
+    <Content Include="editors\ckeditor\plugins\devtools\lang\et.js" />
+    <Content Include="editors\ckeditor\plugins\devtools\lang\fa.js" />
+    <Content Include="editors\ckeditor\plugins\devtools\lang\fi.js" />
+    <Content Include="editors\ckeditor\plugins\devtools\lang\fr.js" />
+    <Content Include="editors\ckeditor\plugins\devtools\lang\gu.js" />
+    <Content Include="editors\ckeditor\plugins\devtools\lang\he.js" />
+    <Content Include="editors\ckeditor\plugins\devtools\lang\hr.js" />
+    <Content Include="editors\ckeditor\plugins\devtools\lang\it.js" />
+    <Content Include="editors\ckeditor\plugins\devtools\lang\nb.js" />
+    <Content Include="editors\ckeditor\plugins\devtools\lang\nl.js" />
+    <Content Include="editors\ckeditor\plugins\devtools\lang\no.js" />
+    <Content Include="editors\ckeditor\plugins\devtools\lang\pl.js" />
+    <Content Include="editors\ckeditor\plugins\devtools\lang\pt-br.js" />
+    <Content Include="editors\ckeditor\plugins\devtools\lang\tr.js" />
+    <Content Include="editors\ckeditor\plugins\devtools\lang\ug.js" />
+    <Content Include="editors\ckeditor\plugins\devtools\lang\uk.js" />
+    <Content Include="editors\ckeditor\plugins\devtools\lang\vi.js" />
+    <Content Include="editors\ckeditor\plugins\devtools\lang\zh-cn.js" />
+    <Content Include="editors\ckeditor\plugins\devtools\lang\_translationstatus.txt" />
+    <Content Include="editors\ckeditor\plugins\devtools\plugin.js" />
     <Content Include="editors\ckeditor\plugins\dialog\dialogDefinition.js" />
     <Content Include="editors\ckeditor\plugins\div\dialogs\div.js" />
+    <Content Include="editors\ckeditor\plugins\docprops\dialogs\docprops.js" />
+    <Content Include="editors\ckeditor\plugins\docprops\plugin.js" />
     <Content Include="editors\ckeditor\plugins\find\dialogs\find.js" />
     <Content Include="editors\ckeditor\plugins\flash\dialogs\flash.js" />
     <Content Include="editors\ckeditor\plugins\flash\images\placeholder.png" />
@@ -957,6 +995,7 @@
     <Content Include="editors\ckeditor\plugins\placeholder\lang\en.js" />
     <Content Include="editors\ckeditor\plugins\placeholder\placeholder.gif" />
     <Content Include="editors\ckeditor\plugins\placeholder\plugin.js" />
+    <Content Include="editors\ckeditor\plugins\preview\preview.html" />
     <Content Include="editors\ckeditor\plugins\scayt\dialogs\options.js" />
     <Content Include="editors\ckeditor\plugins\scayt\dialogs\toolbar.css" />
     <Content Include="editors\ckeditor\plugins\showblocks\images\block_address.png" />
@@ -994,7 +1033,18 @@
     <Content Include="editors\ckeditor\plugins\smiley\images\wink_smile.gif" />
     <Content Include="editors\ckeditor\plugins\specialchar\dialogs\specialchar.js" />
     <Content Include="editors\ckeditor\plugins\specialchar\lang\en.js" />
+    <Content Include="editors\ckeditor\plugins\stylesheetparser\plugin.js" />
     <Content Include="editors\ckeditor\plugins\styles\styles\default.js" />
+    <Content Include="editors\ckeditor\plugins\swf\plugin.js" />
+    <Content Include="editors\ckeditor\plugins\syntaxhighlight\dialogs\syntaxhighlight.js" />
+    <Content Include="editors\ckeditor\plugins\syntaxhighlight\images\syntaxhighlight.gif" />
+    <Content Include="editors\ckeditor\plugins\syntaxhighlight\lang\de.js" />
+    <Content Include="editors\ckeditor\plugins\syntaxhighlight\lang\en.js" />
+    <Content Include="editors\ckeditor\plugins\syntaxhighlight\lang\zh-cn.js" />
+    <Content Include="editors\ckeditor\plugins\syntaxhighlight\plugin.js" />
+    <Content Include="editors\ckeditor\plugins\syntaxhighlight\readme.txt" />
+    <Content Include="editors\ckeditor\plugins\syntaxhighlight\scripts\shCore.js" />
+    <Content Include="editors\ckeditor\plugins\syntaxhighlight\styles\shCore.css" />
     <Content Include="editors\ckeditor\plugins\tableresize\plugin.js" />
     <Content Include="editors\ckeditor\plugins\tabletools\dialogs\tableCell.js" />
     <Content Include="editors\ckeditor\plugins\table\dialogs\table.js" />
@@ -1018,6 +1068,7 @@
     <Content Include="editors\ckeditor\plugins\wsc\dialogs\tmpFrameset.html" />
     <Content Include="editors\ckeditor\plugins\wsc\dialogs\wsc.css" />
     <Content Include="editors\ckeditor\plugins\wsc\dialogs\wsc.js" />
+    <Content Include="editors\ckeditor\plugins\xml\plugin.js" />
     <Content Include="editors\ckeditor\skins\black\dialog.css" />
     <Content Include="editors\ckeditor\skins\black\editor.css" />
     <Content Include="editors\ckeditor\skins\black\icons.png" />
@@ -1114,6 +1165,7 @@
     <Content Include="editors\tiny_mce\langs\kl.js" />
     <Content Include="editors\tiny_mce\langs\km.js" />
     <Content Include="editors\tiny_mce\langs\ko.js" />
+    <Content Include="editors\tiny_mce\langs\kz.js" />
     <Content Include="editors\tiny_mce\langs\lb.js" />
     <Content Include="editors\tiny_mce\langs\lt.js" />
     <Content Include="editors\tiny_mce\langs\lv.js" />
@@ -1139,6 +1191,7 @@
     <Content Include="editors\tiny_mce\langs\sq.js" />
     <Content Include="editors\tiny_mce\langs\sr.js" />
     <Content Include="editors\tiny_mce\langs\sv.js" />
+    <Content Include="editors\tiny_mce\langs\sy.js" />
     <Content Include="editors\tiny_mce\langs\ta.js" />
     <Content Include="editors\tiny_mce\langs\te.js" />
     <Content Include="editors\tiny_mce\langs\th.js" />
@@ -2204,6 +2257,9 @@
     <Content Include="editors\tiny_mce\plugins\template\langs\zh_dlg.js" />
     <Content Include="editors\tiny_mce\plugins\template\langs\zu_dlg.js" />
     <Content Include="editors\tiny_mce\plugins\template\template.htm" />
+    <Content Include="editors\tiny_mce\plugins\visualblocks\css\visualblocks.css" />
+    <Content Include="editors\tiny_mce\plugins\visualblocks\editor_plugin.js" />
+    <Content Include="editors\tiny_mce\plugins\visualblocks\editor_plugin_src.js" />
     <Content Include="editors\tiny_mce\plugins\visualchars\editor_plugin.js" />
     <Content Include="editors\tiny_mce\plugins\visualchars\editor_plugin_src.js" />
     <Content Include="editors\tiny_mce\plugins\wordcount\editor_plugin.js" />
@@ -2304,6 +2360,7 @@
     <Content Include="editors\tiny_mce\plugins\xhtmlxtras\langs\zh-tw_dlg.js" />
     <Content Include="editors\tiny_mce\plugins\xhtmlxtras\langs\zh_dlg.js" />
     <Content Include="editors\tiny_mce\plugins\xhtmlxtras\langs\zu_dlg.js" />
+    <Content Include="editors\tiny_mce\spell.asp" />
     <Content Include="editors\tiny_mce\themes\advanced\about.htm" />
     <Content Include="editors\tiny_mce\themes\advanced\anchor.htm" />
     <Content Include="editors\tiny_mce\themes\advanced\charmap.htm" />
@@ -2409,6 +2466,8 @@
     <Content Include="editors\tiny_mce\themes\advanced\langs\km_dlg.js" />
     <Content Include="editors\tiny_mce\themes\advanced\langs\ko.js" />
     <Content Include="editors\tiny_mce\themes\advanced\langs\ko_dlg.js" />
+    <Content Include="editors\tiny_mce\themes\advanced\langs\kz.js" />
+    <Content Include="editors\tiny_mce\themes\advanced\langs\kz_dlg.js" />
     <Content Include="editors\tiny_mce\themes\advanced\langs\lb.js" />
     <Content Include="editors\tiny_mce\themes\advanced\langs\lb_dlg.js" />
     <Content Include="editors\tiny_mce\themes\advanced\langs\lt.js" />
@@ -2459,6 +2518,8 @@
     <Content Include="editors\tiny_mce\themes\advanced\langs\sr_dlg.js" />
     <Content Include="editors\tiny_mce\themes\advanced\langs\sv.js" />
     <Content Include="editors\tiny_mce\themes\advanced\langs\sv_dlg.js" />
+    <Content Include="editors\tiny_mce\themes\advanced\langs\sy.js" />
+    <Content Include="editors\tiny_mce\themes\advanced\langs\sy_dlg.js" />
     <Content Include="editors\tiny_mce\themes\advanced\langs\ta.js" />
     <Content Include="editors\tiny_mce\themes\advanced\langs\ta_dlg.js" />
     <Content Include="editors\tiny_mce\themes\advanced\langs\te.js" />
@@ -2553,6 +2614,7 @@
     <Content Include="editors\tiny_mce\themes\simple\langs\kl.js" />
     <Content Include="editors\tiny_mce\themes\simple\langs\km.js" />
     <Content Include="editors\tiny_mce\themes\simple\langs\ko.js" />
+    <Content Include="editors\tiny_mce\themes\simple\langs\kz.js" />
     <Content Include="editors\tiny_mce\themes\simple\langs\lb.js" />
     <Content Include="editors\tiny_mce\themes\simple\langs\lt.js" />
     <Content Include="editors\tiny_mce\themes\simple\langs\lv.js" />
@@ -2578,6 +2640,7 @@
     <Content Include="editors\tiny_mce\themes\simple\langs\sq.js" />
     <Content Include="editors\tiny_mce\themes\simple\langs\sr.js" />
     <Content Include="editors\tiny_mce\themes\simple\langs\sv.js" />
+    <Content Include="editors\tiny_mce\themes\simple\langs\sy.js" />
     <Content Include="editors\tiny_mce\themes\simple\langs\ta.js" />
     <Content Include="editors\tiny_mce\themes\simple\langs\te.js" />
     <Content Include="editors\tiny_mce\themes\simple\langs\th.js" />
@@ -4141,6 +4204,7 @@
     <None Include="editors\tiny_mce\plugins\spellchecker\classes\utils\Logger.php" />
     <None Include="editors\tiny_mce\plugins\spellchecker\includes\general.php" />
     <Content Include="packages.config" />
+    <Content Include="editors\tiny_mce\themes\advanced\img\Thumbs.db" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
