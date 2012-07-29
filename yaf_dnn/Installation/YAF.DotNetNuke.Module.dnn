@@ -1,6 +1,6 @@
 <dotnetnuke type="Package" version="5.0">
   <packages>
-    <package name="YetAnotherForumDotNet" type="Module" version="01.96.15112">
+    <package name="YetAnotherForumDotNet" type="Module" version="01.96.25374">
       <friendlyName>YetAnotherForumDotNet</friendlyName>
       <description>
         &lt;strong&gt;YetAnotherForum.NET&lt;/strong&gt; as DotNetNuke Module. Yet Another Forum.NET (YAF) is an open source ASP.NET forum system.&lt;br /&gt;
@@ -66,9 +66,6 @@
           <assemblies>
             <basePath>bin</basePath>
             <assembly>
-              <name>AjaxControlToolkit.dll</name>
-            </assembly>
-            <assembly>
               <name>Autofac.Configuration.dll</name>
             </assembly>
             <assembly>
@@ -97,6 +94,9 @@
             </assembly>
             <assembly>
               <name>YAF.Core.dll</name>
+            </assembly>
+            <assembly>
+              <name>YAF.Data.MsSql.dll</name>
             </assembly>
             <assembly>
               <name>YAF.dll</name>
@@ -369,7 +369,7 @@
         </component>
       </components>
     </package>
-    <package name="YAF.WhatsNew" type="Module" version="01.96.15112">
+    <package name="YAF.WhatsNew" type="Module" version="01.96.25374">
       <friendlyName>YAF What's New</friendlyName>
       <description>
         &lt;p&gt;This Module displays the Latest Posts from a  &lt;strong&gt;YetAnotherForum.NET&lt;/strong&gt; Module. Based on the Current Users Authorization Level. You can define Which Forum should been used, and how many Posts should displayed.

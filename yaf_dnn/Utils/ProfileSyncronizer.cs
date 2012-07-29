@@ -24,7 +24,6 @@ namespace YAF.DotNetNuke.Utils
     using System.Globalization;
     using System.Linq;
     using System.Web.Security;
-
     using global::DotNetNuke.Common;
     using global::DotNetNuke.Common.Utilities;
     using global::DotNetNuke.Entities.Modules;
@@ -35,6 +34,7 @@ namespace YAF.DotNetNuke.Utils
     using YAF.Classes.Data;
     using YAF.Core;
     using YAF.DotNetNuke.Controller;
+    using YAF.Types;
     using YAF.Types.EventProxies;
     using YAF.Types.Interfaces;
     using YAF.Utils;
@@ -184,9 +184,10 @@ namespace YAF.DotNetNuke.Utils
                 }
             }
 
-            dnnUserInfo.Profile.Country = yafUserProfile.Country;
+            dnnUserInfo.Profile.Country = new RegionInfo(new CultureInfo(yafUserProfile.Country).LCID).EnglishName;
+
             dnnUserInfo.Profile.City = yafUserProfile.City;
-            dnnUserInfo.Profile.Region = yafUserProfile.Region;
+            //dnnUserInfo.Profile.Region = yafUserProfile.Region;
 
             dnnUserInfo.Profile.Website = yafUserProfile.Homepage;
             dnnUserInfo.Email = membershipUser.Email;
@@ -267,8 +268,9 @@ namespace YAF.DotNetNuke.Utils
             var yafUserData = new CombinedUserDataHelper(yafUserId);
 
             yafUserProfile.RealName = dnnUserInfo.Profile.FullName;
-            yafUserProfile.Country = dnnUserInfo.Profile.Country;
-            yafUserProfile.Region = dnnUserInfo.Profile.Region;
+
+            yafUserProfile.Country = GetRegionInfoFromCountryName(dnnUserInfo.Profile.Country).TwoLetterISORegionName;
+            
             yafUserProfile.City = dnnUserInfo.Profile.City;
             yafUserProfile.Homepage = dnnUserInfo.Profile.Website;
 
@@ -404,6 +406,17 @@ namespace YAF.DotNetNuke.Utils
                 return string.Empty;
             }
         }*/
+
+        /// <summary>
+        /// Gets the name of the region info from country (English Name).
+        /// </summary>
+        /// <param name="countryEnglishName">Name of the country english.</param>
+        /// <returns>The RegionInfo for the Country</returns>
+        private static RegionInfo GetRegionInfoFromCountryName([NotNull]string countryEnglishName)
+        {
+            return
+                CultureInfo.GetCultures(CultureTypes.SpecificCultures).Select(ci => new RegionInfo(ci.LCID)).FirstOrDefault(region => region.EnglishName.Equals(countryEnglishName));
+        }
 
         /// <summary>
         /// Save Dnn Avatar as Yaf Remote Avatar with relative Path.
