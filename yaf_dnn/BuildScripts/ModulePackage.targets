@@ -88,7 +88,6 @@
       <Output TaskParameter="Include" ItemName="LibaryFiles" />
     </CreateItem>
 
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\Libaries\AjaxControlToolkit.dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
     <Copy SourceFiles="@(LibaryFiles)" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
     <Copy SourceFiles="@(SqlDataProviderFiles)" DestinationFolder="$(MSBuildProjectDirectory)\Package\" />
     <Copy SourceFiles="@(PackageManifestFiles)" DestinationFolder="$(MSBuildProjectDirectory)\Package" />
