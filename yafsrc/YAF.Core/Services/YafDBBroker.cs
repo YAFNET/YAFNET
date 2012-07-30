@@ -326,11 +326,11 @@ namespace YAF.Core.Services
         /// <returns> Returns the active list. </returns>
         public DataTable GetActiveList(int activeTime, bool guests, bool crawlers)
         {
-            return this.StyleTransformDataTable(
+            return
                 this.DbFunction.GetAsDataTable(
                     cdb =>
                     cdb.active_list(
-                        YafContext.Current.PageBoardID, guests, crawlers, activeTime, this.BoardSettings.UseStyledNicks, DateTime.UtcNow)));
+                        YafContext.Current.PageBoardID, guests, crawlers, activeTime, this.BoardSettings.UseStyledNicks, DateTime.UtcNow));
         }
 
         /// <summary>
@@ -344,11 +344,6 @@ namespace YAF.Core.Services
                 Constants.Cache.ForumModerators,
                 this.GetModerators,
                 TimeSpan.FromMinutes(this.BoardSettings.BoardModeratorsCacheTimeout));
-
-            if (this.BoardSettings.UseStyledNicks)
-            {
-                this.Get<IStyleTransform>().DecodeStyleByTable(ref moderator, false);
-            }
 
             return
                 moderator.SelectTypedList(
@@ -460,13 +455,6 @@ namespace YAF.Core.Services
                             this.DbFunction.GetAsDataTable(
                                 cdb =>
                                 cdb.shoutbox_getmessages(boardId, this.BoardSettings.ShoutboxShowMessageCount, this.BoardSettings.UseStyledNicks));
-
-                        // Set colorOnly parameter to false, as we get all color info from data base
-                        if (this.BoardSettings.UseStyledNicks)
-                        {
-                            this.Get<IStyleTransform>().DecodeStyleByTable(ref messages, false);
-                        }
-
                         var flags = new MessageFlags { IsBBCode = true, IsHtml = false };
 
                         foreach (var row in messages.AsEnumerable())
@@ -580,7 +568,7 @@ namespace YAF.Core.Services
             if (this.BoardSettings.UseStyledNicks)
             {
                 var styleTransform = this.Get<IStyleTransform>();
-                styleTransform.DecodeStyleByTable(ref dt, true);
+                styleTransform.DecodeStyleByTable(dt, true);
             }
 
             return dt;
@@ -597,7 +585,7 @@ namespace YAF.Core.Services
             if (this.BoardSettings.UseStyledNicks)
             {
                 var styleTransform = this.Get<IStyleTransform>();
-                styleTransform.DecodeStyleByTable(ref dt, true, styleColumns);
+                styleTransform.DecodeStyleByTable(dt, true, styleColumns);
             }
 
             return dt;

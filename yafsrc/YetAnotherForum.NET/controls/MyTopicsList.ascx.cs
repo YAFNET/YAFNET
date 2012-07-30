@@ -281,8 +281,9 @@ namespace YAF.Controls
 
             DataTable topicsNew = topicList.Copy();
 
-            foreach (var thisTableRow in topicsNew.Rows.Cast<DataRow>().Where(thisTableRow => thisTableRow["LastPosted"] != DBNull.Value
-                                                                                                  && thisTableRow["LastPosted"].ToType<DateTime>() <= this.sinceDate))
+            foreach (var thisTableRow in topicsNew
+                .Rows.Cast<DataRow>()
+                .Where(thisTableRow => thisTableRow["LastPosted"] != DBNull.Value && thisTableRow["LastPosted"].ToType<DateTime>() <= this.sinceDate))
             {
                 thisTableRow.Delete();
             }
@@ -291,7 +292,7 @@ namespace YAF.Controls
             topicsNew.AcceptChanges();
             if (this.Get<YafBoardSettings>().UseStyledNicks)
             {
-                this.Get<IStyleTransform>().DecodeStyleByTable(ref topicsNew, false, "LastUserStyle", "StarterStyle");
+                this.Get<IStyleTransform>().DecodeStyleByTable(topicsNew, false, new string[] { "LastUserStyle", "StarterStyle" });
             }
 
             // let's page the results

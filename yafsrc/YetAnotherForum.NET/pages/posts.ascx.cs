@@ -1051,7 +1051,7 @@ namespace YAF.Pages
             if (this.Get<YafBoardSettings>().UseStyledNicks)
             {
                 // needs to be moved to the paged data below -- so it doesn't operate on unnecessary rows
-                new StyleTransform(this.Get<ITheme>()).DecodeStyleByTable(ref postListDataTable, true);
+                this.Get<IStyleTransform>().DecodeStyleByTable(postListDataTable, true);
             }
 
             // convert to linq...

@@ -20,14 +20,15 @@ namespace YAF.Types.Interfaces.Data
 {
 	#region Using
 
-	using System.Collections.Generic;
+    using System;
+    using System.Collections.Generic;
 
 	#endregion
 
-	/// <summary>
+    /// <summary>
 	/// The db specific function.
 	/// </summary>
-	public interface IDbSpecificFunction
+    public interface IDbSpecificFunction : IDbSortableOperation
 	{
 		#region Properties
 
@@ -36,49 +37,33 @@ namespace YAF.Types.Interfaces.Data
 		/// </summary>
 		string ProviderName { get; }
 
-		/// <summary>
-		///   Gets SortOrder.
-		/// </summary>
-		int SortOrder { get; }
-
 		#endregion
 
 		#region Public Methods
 
-		/// <summary>
-		/// The execute.
-		/// </summary>
-		/// <param name="dbfunctionType">
-		/// The dbfunction type.
-		/// </param>
-		/// <param name="operationName">
-		/// The operation name.
-		/// </param>
-		/// <param name="parameters">
-		/// The parameters.
-		/// </param>
-		/// <param name="result">
-		/// The result.
-		/// </param>
-		/// <returns>
-		/// The execute.
-		/// </returns>
-		bool Execute(
-			DbFunctionType dbfunctionType, 
-			string operationName, 
-			IEnumerable<KeyValuePair<string, object>> parameters, 
-			out object result);
-
-		/// <summary>
-		/// The supported operation.
-		/// </summary>
-		/// <param name="operationName">
-		/// The operation name.
-		/// </param>
-		/// <returns>
-		/// True if the operation is supported.
-		/// </returns>
-		bool IsSupportedOperation(string operationName);
+	    /// <summary>
+	    /// The execute.
+	    /// </summary>
+	    /// <param name="dbfunctionType">
+	    /// The dbfunction type.
+	    /// </param>
+	    /// <param name="operationName">
+	    /// The operation name.
+	    /// </param>
+	    /// <param name="parameters">
+	    /// The parameters.
+	    /// </param>
+	    /// <param name="result">
+	    /// The result.
+	    /// </param>
+	    /// <returns>
+	    /// The execute.
+	    /// </returns>
+	    bool Execute(
+	        DbFunctionType dbfunctionType,
+	        string operationName,
+	        IEnumerable<KeyValuePair<string, object>> parameters,
+	        out object result);
 
 		#endregion
 	}

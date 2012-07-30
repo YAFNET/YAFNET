@@ -64,7 +64,7 @@ namespace YAF.Controls
 
       if (YafContext.Current.BoardSettings.UseStyledNicks)
       {
-        this.Get<IStyleTransform>().DecodeStyleByTable(ref dt, false);
+        this.Get<IStyleTransform>().DecodeStyleByTable(dt, false);
       }
 
       this.Groups.DataSource = dt;

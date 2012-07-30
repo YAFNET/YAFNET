@@ -88,19 +88,22 @@ namespace YAF.Controls.Statistics
         () =>
           {
             // nothing was cached, retrieve it from the database
-            var dt = LegacyDb.topic_latest(
-              this.PageContext.PageBoardID,
-              this._displayNumber,
-              this.PageContext.PageUserID,
-              this.Get<YafBoardSettings>().UseStyledNicks,
-              this.Get<YafBoardSettings>().NoCountForumsInActiveDiscussions,
-              this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
+              var dt =
+                  this.Get<IDbFunction>().GetAsDataTable(
+                      cdb =>
+                      cdb.topic_latest(
+                          this.PageContext.PageBoardID,
+                          this._displayNumber,
+                          this.PageContext.PageUserID,
+                          this.Get<YafBoardSettings>().UseStyledNicks,
+                          this.Get<YafBoardSettings>().NoCountForumsInActiveDiscussions,
+                          this.Get<YafBoardSettings>().UseReadTrackingByDatabase));
 
             // Set colorOnly parameter to true, as we get all but color from css in the place
             if (this.Get<YafBoardSettings>().UseStyledNicks)
             {
               var styleTransform = this.Get<IStyleTransform>();
-              styleTransform.DecodeStyleByTable(ref dt, false, "LastUserStyle");
+              styleTransform.DecodeStyleByTable(dt, false, new[] { "LastUserStyle" });
             }
 
             return dt;

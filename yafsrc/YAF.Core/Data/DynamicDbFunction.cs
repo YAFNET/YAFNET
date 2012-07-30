@@ -50,7 +50,9 @@ namespace YAF.Core.Data
         /// <summary>
         /// The _db specific functions.
         /// </summary>
-        private readonly IEnumerable<IDbSpecificFunction> _dbSpecificFunctions;
+        private readonly Func<IEnumerable<IDbSpecificFunction>> _dbSpecificFunctions;
+
+        private readonly Func<IEnumerable<IDbDataFilter>> _dbFilterFunctions;
 
         /// <summary>
         /// The _get data proxy.
@@ -90,10 +92,12 @@ namespace YAF.Core.Data
         /// <param name="dbSpecificFunctions">
         /// The db Specific Functions. 
         /// </param>
-        public DynamicDbFunction([NotNull] IDbAccessProvider dbAccessProvider, IEnumerable<IDbSpecificFunction> dbSpecificFunctions)
+        public DynamicDbFunction([NotNull] IDbAccessProvider dbAccessProvider, Func<IEnumerable<IDbSpecificFunction>> dbSpecificFunctions, Func<IEnumerable<IDbDataFilter>> dbFilterFunctions)
         {
             this._dbAccessProvider = dbAccessProvider;
             this._dbSpecificFunctions = dbSpecificFunctions;
+            this._dbFilterFunctions = dbFilterFunctions;
+
             this._getDataProxy = new TryInvokeMemberProxy(this.InvokeGetData);
             this._getDataSetProxy = new TryInvokeMemberProxy(this.InvokeGetDataSet);
             this._queryProxy = new TryInvokeMemberProxy(this.InvokeQuery);
@@ -208,18 +212,29 @@ namespace YAF.Core.Data
             var operationName = binder.Name;
 
             // see if there's a specific function override for the current provider...
-            var specificFunction = this._dbSpecificFunctions
-                .GetForProviderAndOperation(this._dbAccessProvider.ProviderName, operationName)
+            var specificFunction = this._dbSpecificFunctions()
+                .WhereProviderName(this._dbAccessProvider.ProviderName)
+                .BySortOrder()
+                .WhereOperationSupported(operationName)
                 .FirstOrDefault();
 
-            if (specificFunction != null && specificFunction.Execute(functionType, operationName, parameters, out result))
+            if (specificFunction == null || !specificFunction.Execute(functionType, operationName, parameters, out result))
             {
-                return true;
+                using (var cmd = this._dbAccessProvider.Instance.GetCommand(operationName.ToLower(), true, parameters))
+                {
+                    result = executeDb(cmd);
+                }
             }
 
-            using (var cmd = this._dbAccessProvider.Instance.GetCommand(operationName.ToLower(), true, parameters))
+            // execute filter...
+            var filterFunctions = this._dbFilterFunctions()
+                .BySortOrder()
+                .WhereOperationSupported(operationName)
+                .ToList();
+
+            foreach (var filter in filterFunctions)
             {
-                result = executeDb(cmd);
+                filter.Run(functionType, operationName, parameters, result);
             }
 
             return true;
