@@ -62,7 +62,7 @@
     <Compile Include="Interfaces\Data\IDbAccessProvider.cs" />
     <Compile Include="Interfaces\Data\IDbAccessV2.cs" />
     <Compile Include="Interfaces\Data\IDbConnectionParam.cs" />
-    <Compile Include="Interfaces\Data\IDbFunctionItem.cs" />
+    <Compile Include="Interfaces\Data\IDbDataFilter.cs" />
     <Compile Include="Interfaces\Data\IDbFunction.cs" />
     <Compile Include="Interfaces\Data\IDbSortableOperation.cs" />
     <Compile Include="Interfaces\Data\IDbSpecificFunction.cs" />
