@@ -104,7 +104,7 @@ namespace YAF.Pages
             if (this.Get<YafBoardSettings>().UseStyledNicks)
             {
                 var styleTransform = this.Get<IStyleTransform>();
-                styleTransform.DecodeStyleByTable(ref dt, false, "StarterStyle", "LastUserStyle");
+                styleTransform.DecodeStyleByTable(dt, false, new string[] { "StarterStyle", "LastUserStyle" });
             }
 
             return dt;

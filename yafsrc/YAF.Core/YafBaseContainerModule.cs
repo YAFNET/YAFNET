@@ -32,11 +32,13 @@ namespace YAF.Core
     using YAF.Classes;
     using YAF.Core.BBCode;
     using YAF.Core.Data;
+    using YAF.Core.Data.Filters;
     using YAF.Core.Nntp;
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Data;
     using YAF.Utils;
 
     #endregion
@@ -110,7 +112,6 @@ namespace YAF.Core
             var builder = new ContainerBuilder();
 
             builder.Register(x => this.ExtensionAssemblies).Named<IList<Assembly>>("ExtensionAssemblies").SingleInstance();
-
             builder.RegisterType<AutoFacServiceLocatorProvider>().AsSelf().As<IServiceLocator>().As<IInjectServices>().InstancePerLifetimeScope();
 
             // register data bindings...
@@ -197,29 +198,32 @@ namespace YAF.Core
                 PreserveExistingDefaults();
 
             // module resolution bindings...
-            builder.RegisterGeneric(typeof(StandardModuleManager<>)).As(typeof(IModuleManager<>)).
-                InstancePerLifetimeScope();
+            builder.RegisterGeneric(typeof(StandardModuleManager<>)).As(typeof(IModuleManager<>)).InstancePerLifetimeScope();
 
             // background emailing...
-            builder.RegisterType<YafSendMailThreaded>().As<ISendMailThreaded>().SingleInstance().
-                PreserveExistingDefaults();
+            builder.RegisterType<YafSendMailThreaded>().As<ISendMailThreaded>().SingleInstance().PreserveExistingDefaults();
+
+            // style transformation...
+            builder.RegisterType<StyleTransform>().As<IStyleTransform>().InstancePerYafContext().PreserveExistingDefaults();
 
             // board settings...
-            builder.RegisterType<CurrentBoardSettings>().AsSelf().InstancePerMatchingLifetimeScope(
-                YafLifetimeScope.Context).PreserveExistingDefaults();
-            builder.Register(k => k.Resolve<CurrentBoardSettings>().Instance).ExternallyOwned().PreserveExistingDefaults
-                ();
+            builder.RegisterType<CurrentBoardSettings>().AsSelf().InstancePerYafContext().PreserveExistingDefaults();
+            builder.Register(k => k.Resolve<CurrentBoardSettings>().Instance).ExternallyOwned().PreserveExistingDefaults();
 
             this.UpdateRegistry(builder);
         }
 
-        private static void RegisterDataBindings(ContainerBuilder builder)
+        private void RegisterDataBindings(ContainerBuilder builder)
         {
             // data
             builder.RegisterType<DbAccessProvider>().As<IDbAccessProvider>().SingleInstance();
             builder.Register(c => c.Resolve<IDbAccessProvider>().Instance).As<IDbAccessV2>().InstancePerDependency().PreserveExistingDefaults();
             builder.Register((c, p) => DbProviderFactories.GetFactory(p.TypedAs<string>())).ExternallyOwned().PreserveExistingDefaults();
+
             builder.RegisterType<DynamicDbFunction>().As<IDbFunction>().InstancePerLifetimeScope().PreserveExistingDefaults();
+
+            // register filters... Style filter depends on YafBoardSettings so it must be in the YafContext.
+            builder.RegisterType<StyleFilter>().As<IDbDataFilter>().InstancePerYafContext().PreserveExistingDefaults();
         }
 
         /// <summary>

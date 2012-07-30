@@ -85,6 +85,7 @@
     <Compile Include="Data\DbConnectionParam.cs" />
     <Compile Include="Data\DbUnitOfWorkBase.cs" />
     <Compile Include="Data\DynamicDbFunction.cs" />
+    <Compile Include="Data\Filters\StyleFilter.cs" />
     <Compile Include="Data\TryInvokeMemberProxy.cs" />
     <Compile Include="Data\CommandTextHelpers.cs" />
     <Compile Include="Extensions\DbAccessExtensions.cs" />
@@ -300,6 +301,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

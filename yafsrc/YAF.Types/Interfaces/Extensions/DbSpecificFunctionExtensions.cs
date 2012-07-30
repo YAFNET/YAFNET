@@ -28,6 +28,39 @@ namespace YAF.Types.Interfaces.Extensions
 
     #endregion
 
+    public static class SortableOperationExtensions
+    {
+        public static IOrderedEnumerable<T> BySortOrder<T>(this IEnumerable<T> sortEnumerable)
+            where T : IDbSortableOperation
+        {
+            return sortEnumerable.OrderBy(x => x.SortOrder);
+        }
+
+        /// <summary>
+        /// The is operation supported.
+        /// </summary>
+        /// <param name="functions">
+        /// The functions.
+        /// </param>
+        /// <param name="providerName">
+        /// The provider name.
+        /// </param>
+        /// <param name="operationName">
+        /// The operation name.
+        /// </param>
+        /// <returns>
+        /// The is operation supported.
+        /// </returns>
+        public static IEnumerable<T> WhereOperationSupported<T>([NotNull] this IEnumerable<T> checkSupported, [NotNull] string operationName)
+            where T : IDbSortableOperation
+        {
+            CodeContracts.ArgumentNotNull(checkSupported, "checkSupported");
+            CodeContracts.ArgumentNotNull(operationName, "operationName");
+
+            return checkSupported.Where(x => x.IsSupportedOperation(operationName));
+        }
+    }
+
     /// <summary>
     /// The db specific function extensions.
     /// </summary>
@@ -36,7 +69,7 @@ namespace YAF.Types.Interfaces.Extensions
         #region Public Methods
 
         /// <summary>
-        /// The is operation supported.
+        /// Returns IEnumerable where the provider name is supported.
         /// </summary>
         /// <param name="functions">
         /// The functions.
@@ -48,69 +81,12 @@ namespace YAF.Types.Interfaces.Extensions
         /// The is operation supported.
         /// </returns>
         [NotNull]
-        public static IEnumerable<IDbSpecificFunction> GetForProvider(
-            [NotNull] this IEnumerable<IDbSpecificFunction> functions, [NotNull] string providerName)
+        public static IEnumerable<IDbSpecificFunction> WhereProviderName([NotNull] this IEnumerable<IDbSpecificFunction> functions, [NotNull] string providerName)
         {
             CodeContracts.ArgumentNotNull(functions, "functions");
             CodeContracts.ArgumentNotNull(providerName, "providerName");
 
-            return functions
-                .Where(p => string.Equals(p.ProviderName, providerName, StringComparison.OrdinalIgnoreCase))
-                .OrderBy(f => f.SortOrder);
-        }
-
-        /// <summary>
-        /// The get for provider and operation.
-        /// </summary>
-        /// <param name="functions">
-        /// The functions.
-        /// </param>
-        /// <param name="providerName">
-        /// The provider name.
-        /// </param>
-        /// <param name="operationName">
-        /// The operation name.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        [NotNull]
-        public static IEnumerable<IDbSpecificFunction> GetForProviderAndOperation(
-            [NotNull] this IEnumerable<IDbSpecificFunction> functions, 
-            [NotNull] string providerName, 
-            [NotNull] string operationName)
-        {
-            CodeContracts.ArgumentNotNull(functions, "functions");
-            CodeContracts.ArgumentNotNull(providerName, "providerName");
-            CodeContracts.ArgumentNotNull(operationName, "operationName");
-
-            return functions.GetForProvider(providerName).Where(s => s.IsSupportedOperation(operationName));
-        }
-
-        /// <summary>
-        /// The is operation supported.
-        /// </summary>
-        /// <param name="functions">
-        /// The functions.
-        /// </param>
-        /// <param name="providerName">
-        /// The provider name.
-        /// </param>
-        /// <param name="operationName">
-        /// The operation name.
-        /// </param>
-        /// <returns>
-        /// The is operation supported.
-        /// </returns>
-        public static bool IsOperationSupported(
-            [NotNull] this IEnumerable<IDbSpecificFunction> functions, 
-            [NotNull] string providerName, 
-            [NotNull] string operationName)
-        {
-            CodeContracts.ArgumentNotNull(functions, "functions");
-            CodeContracts.ArgumentNotNull(providerName, "providerName");
-            CodeContracts.ArgumentNotNull(operationName, "operationName");
-
-            return functions.GetForProvider(providerName).Any(x => x.IsSupportedOperation(operationName));
+            return functions.Where(p => string.Equals(p.ProviderName, providerName, StringComparison.OrdinalIgnoreCase));
         }
 
         #endregion

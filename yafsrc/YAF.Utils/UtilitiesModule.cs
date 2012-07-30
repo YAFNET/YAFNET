@@ -44,8 +44,6 @@ namespace YAF.Utils
     /// </param>
     protected override void Load([NotNull] ContainerBuilder builder)
     {
-      builder.RegisterType<StyleTransform>().As<IStyleTransform>().InstancePerLifetimeScope();
-
       this.RegisterWebAbstractions(builder);
     }
 

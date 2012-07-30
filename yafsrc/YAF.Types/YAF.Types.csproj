@@ -13,6 +13,10 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
+    <SccProjectName>&lt;Project Location In Database&gt;</SccProjectName>
+    <SccLocalPath>&lt;Local Binding Root of Project&gt;</SccLocalPath>
+    <SccAuxPath>&lt;Source Control Database&gt;</SccAuxPath>
+    <SccProvider>Mercurial Source Control Package</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -58,13 +62,16 @@
     <Compile Include="Interfaces\Data\IDbAccessProvider.cs" />
     <Compile Include="Interfaces\Data\IDbAccessV2.cs" />
     <Compile Include="Interfaces\Data\IDbConnectionParam.cs" />
+    <Compile Include="Interfaces\Data\IDbFunctionItem.cs" />
     <Compile Include="Interfaces\Data\IDbFunction.cs" />
+    <Compile Include="Interfaces\Data\IDbSortableOperation.cs" />
     <Compile Include="Interfaces\Data\IDbSpecificFunction.cs" />
     <Compile Include="Interfaces\Data\IDbUnitOfWork.cs" />
     <Compile Include="Interfaces\Extensions\DbSpecificFunctionExtensions.cs" />
     <Compile Include="Interfaces\Extensions\IDbAccessConnectionExtensions.cs" />
     <Compile Include="Interfaces\Extensions\IDbFunctionExtensions.cs" />
     <Compile Include="Interfaces\Extensions\IDbUnitOfWorkExtensions.cs" />
+    <Compile Include="Interfaces\IStyleTransform.cs" />
     <Compile Include="Objects\MessageNotification.cs" />
     <Compile Include="ThemeResources.cs" />
     <Compile Include="CodeContracts.cs" />
@@ -170,7 +177,6 @@
     <Compile Include="Interfaces\IStartTasks.cs" />
     <Compile Include="Interfaces\IStartupService.cs" />
     <Compile Include="Interfaces\IStopWatch.cs" />
-    <Compile Include="Interfaces\IStyleTransform.cs" />
     <Compile Include="Interfaces\IRequireStartupServices.cs" />
     <Compile Include="Interfaces\ITaskModuleManager.cs" />
     <Compile Include="Interfaces\ITreatCacheKey.cs" />

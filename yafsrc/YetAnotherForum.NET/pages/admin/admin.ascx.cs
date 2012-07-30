@@ -430,19 +430,16 @@ namespace YAF.Pages.Admin
         private DataTable GetActiveUsersData(bool showGuests, bool showCrawlers)
         {
             // vzrus: Here should not be a common cache as it's should be individual for each user because of ActiveLocationcontrol to hide unavailable places.        
-            DataTable activeUsers = LegacyDb.active_list_user(
-                this.PageContext.PageBoardID,
-                this.PageContext.PageUserID,
-                showGuests,
-                showCrawlers,
-                this.Get<YafBoardSettings>().ActiveListTime,
-                this.Get<YafBoardSettings>().UseStyledNicks);
-
-            // Set colorOnly parameter to false, as we get active users style from database        
-            if (this.Get<YafBoardSettings>().UseStyledNicks)
-            {
-                this.Get<IStyleTransform>().DecodeStyleByTable(ref activeUsers, false);
-            }
+            DataTable activeUsers =
+                this.Get<IDbFunction>().GetAsDataTable(
+                    cdb => 
+                    cdb.active_list_user(
+                        this.PageContext.PageBoardID,
+                        this.PageContext.PageUserID,
+                        showGuests,
+                        showCrawlers,
+                        this.Get<YafBoardSettings>().ActiveListTime,
+                        this.Get<YafBoardSettings>().UseStyledNicks));
 
             return activeUsers;
         }

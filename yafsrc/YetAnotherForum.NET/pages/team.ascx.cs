@@ -109,12 +109,12 @@ namespace YAF.Pages
             // get a row with user lazy data...
             DataTable adminListDataTable = this.Get<IDataCache>().GetOrSet(
                 Constants.Cache.BoardAdmins,
-                () => LegacyDb.admin_list(this.PageContext.PageBoardID, this.Get<YafBoardSettings>().UseStyledNicks),
+                () => this.Get<IDbFunction>().GetAsDataTable(cdb => cdb.admin_list(this.PageContext.PageBoardID, this.Get<YafBoardSettings>().UseStyledNicks)),
                 TimeSpan.FromMinutes(this.Get<YafBoardSettings>().BoardModeratorsCacheTimeout));
 
             if (this.Get<YafBoardSettings>().UseStyledNicks)
             {
-                this.Get<IStyleTransform>().DecodeStyleByTable(ref adminListDataTable, false);
+                this.Get<IStyleTransform>().DecodeStyleByTable(adminListDataTable, false);
             }
 
             return adminListDataTable;

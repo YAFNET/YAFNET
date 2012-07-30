@@ -193,7 +193,7 @@ namespace YAF.Pages
 
             if (this.Get<YafBoardSettings>().UseStyledNicks)
             {
-                new StyleTransform(this.Get<ITheme>()).DecodeStyleByTable(ref this._userListDataTable, false);
+                this.Get<IStyleTransform>().DecodeStyleByTable(this._userListDataTable);
             }
 
             if (this._userListDataTable.Rows.Count > 0)
@@ -242,7 +242,7 @@ namespace YAF.Pages
             this.Posts.Text = this.GetText("posts");
             this.LastVisitLB.Text = this.GetText("members", "lastvisit");
        
-            using (DataTable dt = LegacyDb.group_list(this.PageContext.PageBoardID, null))
+            using (DataTable dt = this.Get<IDbFunction>().GetAsDataTable(cdb => cdb.group_list(this.PageContext.PageBoardID, null)))
             {
                 // add empty item for no filtering
                 DataRow newRow = dt.NewRow();
@@ -276,7 +276,7 @@ namespace YAF.Pages
             this.NumPostDDL.DataBind();
 
             // get list of user ranks for filtering
-            using (DataTable dt = LegacyDb.rank_list(this.PageContext.PageBoardID, null))
+            using (DataTable dt = this.Get<IDbFunction>().GetAsDataTable(cdb => cdb.rank_list(this.PageContext.PageBoardID, null)))
             {
                 // add empty for for no filtering
                 DataRow newRow = dt.NewRow();
@@ -594,25 +594,20 @@ namespace YAF.Pages
             switch (field)
             {
                 case "Name":
-                    ViewState["SortNameField"] = ViewState["SortNameField"] == null ? 0 : 
-                    (ViewState["SortNameField"].ToType<int>() == 1 ? 2 : 1);
+                    ViewState["SortNameField"] = ViewState["SortNameField"] == null ? 0 : (ViewState["SortNameField"].ToType<int>() == 1 ? 2 : 1);
                     break;
                 case "RankName":
-                    ViewState["SortRankNameField"] = ViewState["SortRankNameField"] == null ? 0 :
-                  (ViewState["SortRankNameField"].ToType<int>() == 1 ? 2 : 1);
-                  break;
+                    ViewState["SortRankNameField"] = ViewState["SortRankNameField"] == null ? 0 : (ViewState["SortRankNameField"].ToType<int>() == 1 ? 2 : 1);
+                    break;
                 case "Joined":
-                    ViewState["SortJoinedField"] = ViewState["SortJoinedField"] == null ? 0 :
-                  (ViewState["SortJoinedField"].ToType<int>() == 1 ? 2 : 1);
-                  break;
+                    ViewState["SortJoinedField"] = ViewState["SortJoinedField"] == null ? 0 : (ViewState["SortJoinedField"].ToType<int>() == 1 ? 2 : 1);
+                    break;
                 case "NumPosts":
-                  ViewState["SortNumPostsField"] = ViewState["SortNumPostsField"] == null ? 0 :
-                 (ViewState["SortNumPostsField"].ToType<int>() == 1 ? 2 : 1);
-                 break;
+                    ViewState["SortNumPostsField"] = ViewState["SortNumPostsField"] == null ? 0 : (ViewState["SortNumPostsField"].ToType<int>() == 1 ? 2 : 1);
+                    break;
                 case "LastVisit":
-                    ViewState["SortLastVisitField"] = ViewState["SortLastVisitField"] == null  ? 0 :
-                 (ViewState["SortLastVisitField"].ToType<int>() == 1 ? 2 : 1);
-                 break;
+                    ViewState["SortLastVisitField"] = ViewState["SortLastVisitField"] == null ? 0 : (ViewState["SortLastVisitField"].ToType<int>() == 1 ? 2 : 1);
+                    break;
                 default:
                     break;
             }

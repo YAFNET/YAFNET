@@ -116,7 +116,7 @@ namespace YAF.Controls
                 if (topicStatusIcon.IsSet() && !topicStatusIcon.Contains("[TOPIC_STATUS."))
                 {
                     textMessageLink.Text =
-                        "<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" style=\"border: 0;width:16px;height:16px\" />&nbsp;{2}"
+                        @"<img src=""{0}"" alt=""{1}"" title=""{1}"" style=""border: 0;width:16px;height:16px"" />&nbsp;{2}"
                             .FormatWith(
                                 this.Get<ITheme>().GetItem("TOPIC_STATUS", currentRow["Status"].ToString()),
                                 this.GetText("TOPIC_STATUS", currentRow["Status"].ToString()),
@@ -241,7 +241,7 @@ namespace YAF.Controls
                 // Set colorOnly parameter to true, as we get all but color from css in the place
                 if (this.Get<YafBoardSettings>().UseStyledNicks)
                 {
-                    this.Get<IStyleTransform>().DecodeStyleByTable(ref activeTopics, false, "LastUserStyle");
+                    this.Get<IStyleTransform>().DecodeStyleByTable(activeTopics, false, new[] { "LastUserStyle" });
                 }
 
                 if (this.PageContext.IsGuest)
