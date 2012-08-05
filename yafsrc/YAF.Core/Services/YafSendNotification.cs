@@ -228,44 +228,45 @@ namespace YAF.Core.Services
                     toEMail = userList.First().Email;
                 }
 
-                if (privateMessageNotificationEnabled)
+                if (!privateMessageNotificationEnabled)
                 {
-                    // get the PM ID
-                    // Ederon : 11/21/2007 - PageBoardID as parameter of DB.pmessage_list?
-                    // using (DataTable dt = DB.pmessage_list(toUserID, PageContext.PageBoardID, null))
-                    int userPMessageId =
-                        LegacyDb.pmessage_list(toUserId, null, null).GetFirstRow().Field<int>("UserPMessageID");
+                    return;
+                }
 
-                    /*// get the sender e-mail -- DISABLED: too much information...
+                // get the PM ID
+                // Ederon : 11/21/2007 - PageBoardID as parameter of DB.pmessage_list?
+                // using (DataTable dt = DB.pmessage_list(toUserID, PageContext.PageBoardID, null))
+                int userPMessageId =
+                    LegacyDb.pmessage_list(toUserId, null, null).GetFirstRow().Field<int>("UserPMessageID");
+
+                /*// get the sender e-mail -- DISABLED: too much information...
                     // using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, PageContext.PageUserID, true ) )
                     // senderEmail = ( string ) dt.Rows [0] ["Email"];*/
 
-                    var languageFile = UserHelper.GetUserLanguageFile(toUserId);
+                var languageFile = UserHelper.GetUserLanguageFile(toUserId);
 
-                    // send this user a PM notification e-mail
-                    var notificationTemplate = new YafTemplateEmail("PMNOTIFICATION") { TemplateLanguageFile = languageFile };
+                // send this user a PM notification e-mail
+                var notificationTemplate = new YafTemplateEmail("PMNOTIFICATION") { TemplateLanguageFile = languageFile };
 
-                    var displayName = this.Get<IUserDisplayName>().GetName(YafContext.Current.PageUserID);
+                var displayName = this.Get<IUserDisplayName>().GetName(YafContext.Current.PageUserID);
 
-                    // fill the template with relevant info
-                    notificationTemplate.TemplateParams["{fromuser}"] = displayName.IsNotSet()
-                                                                            ? YafContext.Current.PageUserName
-                                                                            : displayName;
-                    notificationTemplate.TemplateParams["{link}"] =
-                        "{0}\r\n\r\n".FormatWith(
-                            YafBuildLink.GetLinkNotEscaped(ForumPages.cp_message, true, "pm={0}", userPMessageId));
-                    notificationTemplate.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
-                    notificationTemplate.TemplateParams["{subject}"] = subject;
+                // fill the template with relevant info
+                notificationTemplate.TemplateParams["{fromuser}"] = displayName;
 
-                    // create notification email subject
-                    var emailSubject =
-                        this.Get<ILocalization>().GetText(
-                            "COMMON", "PM_NOTIFICATION_SUBJECT", languageFile).FormatWith(
-                                YafContext.Current.PageUserName, this.Get<YafBoardSettings>().Name, subject);
+                notificationTemplate.TemplateParams["{link}"] =
+                    "{0}\r\n\r\n".FormatWith(
+                        YafBuildLink.GetLinkNotEscaped(ForumPages.cp_message, true, "pm={0}", userPMessageId));
+                notificationTemplate.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
+                notificationTemplate.TemplateParams["{subject}"] = subject;
 
-                    // send email
-                    notificationTemplate.SendEmail(new MailAddress(toEMail), emailSubject, true);
-                }
+                // create notification email subject
+                var emailSubject =
+                    this.Get<ILocalization>().GetText(
+                        "COMMON", "PM_NOTIFICATION_SUBJECT", languageFile).FormatWith(
+                            displayName, this.Get<YafBoardSettings>().Name, subject);
+
+                // send email
+                notificationTemplate.SendEmail(new MailAddress(toEMail), emailSubject, true);
             }
             catch (Exception x)
             {
@@ -384,8 +385,7 @@ namespace YAF.Core.Services
             var notifyUser = new YafTemplateEmail();
 
             var subject =
-                YafContext.Current.Get<ILocalization>().GetText("COMMON", "NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT").
-                    FormatWith(YafContext.Current.Get<YafBoardSettings>().Name);
+                YafContext.Current.Get<ILocalization>().GetText("COMMON", "NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT").FormatWith(YafContext.Current.Get<YafBoardSettings>().Name);
 
             notifyUser.TemplateParams["{user}"] = user.UserName;
             notifyUser.TemplateParams["{email}"] = user.Email;
