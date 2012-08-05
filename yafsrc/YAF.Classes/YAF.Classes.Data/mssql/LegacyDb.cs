@@ -2422,27 +2422,17 @@ namespace YAF.Classes.Data
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
             }
         }
-
         /// <summary>
         /// Saves board information
         /// </summary>
-        /// <param name="boardID">
-        /// BoardID
-        /// </param>
-        /// <param name="languageFile">
-        /// The language File.
-        /// </param>
-        /// <param name="culture">
-        /// The culture.
-        /// </param>
-        /// <param name="name">
-        /// Name of Board
-        /// </param>
-        /// <param name="allowThreaded">
-        /// Boolen value, allowThreaded
-        /// </param>
+        /// <param name="boardID">The board ID.</param>
+        /// <param name="languageFile">The language File.</param>
+        /// <param name="forumEmail">The forum email.</param>
+        /// <param name="culture">The culture.</param>
+        /// <param name="name">Name of Board</param>
+        /// <param name="allowThreaded">Boolen value, allowThreaded</param>
         /// <returns>
-        /// The board_save.
+        /// Returns the saved Board Id
         /// </returns>
         public static int board_save([NotNull] object boardID, [NotNull] object languageFile, [NotNull] object culture, [NotNull] object name, [NotNull] object allowThreaded)
         {
@@ -2457,6 +2447,33 @@ namespace YAF.Classes.Data
                 return (int)MsSqlDbAccess.Current.ExecuteScalar(cmd);
             }
         }
+        /*
+        /// <summary>
+        /// Saves board information
+        /// </summary>
+        /// <param name="boardID">The board ID.</param>
+        /// <param name="languageFile">The language File.</param>
+        /// <param name="forumEmail">The forum email.</param>
+        /// <param name="culture">The culture.</param>
+        /// <param name="name">Name of Board</param>
+        /// <param name="allowThreaded">Boolen value, allowThreaded</param>
+        /// <returns>
+        /// Returns the saved Board Id
+        /// </returns>
+        public static int board_save([NotNull] object boardID, [NotNull] object languageFile, [NotNull] object forumEmail, [NotNull] object culture, [NotNull] object name, [NotNull] object allowThreaded)
+        {
+            using (var cmd = MsSqlDbAccess.GetCommand("board_save"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("BoardID", boardID);
+                cmd.Parameters.AddWithValue("Name", name);
+                cmd.Parameters.AddWithValue("LanguageFile", languageFile);
+                cmd.Parameters.AddWithValue("ForumEmail", forumEmail);
+                cmd.Parameters.AddWithValue("Culture", culture);
+                cmd.Parameters.AddWithValue("AllowThreaded", allowThreaded);
+                return (int)MsSqlDbAccess.Current.ExecuteScalar(cmd);
+            }
+        }*/
 
         /// <summary>
         /// Gets statistica about number of posts etc.
@@ -11048,34 +11065,11 @@ namespace YAF.Classes.Data
         /// <summary>
         /// Delete the Read Tracking
         /// </summary>
-        /// <param name="userID">
-        /// The user id
-        /// </param>
-        /*public static void Readtopic_delete([NotNull] object userID)
-        {
-            using (var cmd = MsSqlDbAccess.GetCommand("readtopic_delete"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("UserID", userID);
-                MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
-            }
-        }*/
-
-        /// <summary>
-        /// Get the Global Last Read DateTime User
-        /// </summary>
-        /// <param name="userID">
-        /// The user ID.
-        /// </param>
-        /// <param name="lastVisitDate">
-        /// The last Visit Date of the User
-        /// </param>
-        /// <returns>
-        /// Returns the Global Last Read DateTime
-        /// </returns>
+        /// <param name="userID">The user id</param>
+        /// <returns>Returns the Global Last Read DateTime</returns>
         public static DateTime? User_LastRead([NotNull] object userID)
         {
-					using (var cmd = MsSqlDbAccess.GetCommand("user_lastread"))
+            using (var cmd = MsSqlDbAccess.GetCommand("user_lastread"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("UserID", userID);
@@ -11108,7 +11102,7 @@ namespace YAF.Classes.Data
 
                 var tableLastRead = MsSqlDbAccess.Current.ExecuteScalar(cmd);
 
-            	return tableLastRead.ToType<DateTime?>();
+                return tableLastRead.ToType<DateTime?>();
             }
         }
 
@@ -11425,47 +11419,57 @@ namespace YAF.Classes.Data
             return true;
         }
 
+        /// <summary>
+        /// Loads from property value collection.
+        /// </summary>
+        /// <param name="collection">The collection.</param>
+        /// <returns></returns>
         static List<SettingsPropertyColumn> LoadFromPropertyValueCollection(SettingsPropertyValueCollection collection)
         {
+            // clear it out just in case something is still in there...
             List<SettingsPropertyColumn> settingsColumnsList = new List<SettingsPropertyColumn>();
-                // clear it out just in case something is still in there...
-              
 
-                // validiate all the properties and populate the internal settings collection
-                foreach (SettingsPropertyValue value in collection)
+            // validiate all the properties and populate the internal settings collection
+            foreach (SettingsPropertyValue value in collection)
+            {
+                SqlDbType dbType;
+                int size;
+
+                var tempProperty = value.Property.Attributes["CustomProviderData"];
+
+                if (tempProperty == null)
                 {
-                    SqlDbType dbType;
-                    int size;
-
-                    // parse custom provider data...
-                   GetDbTypeAndSizeFromString(
-                      value.Property.Attributes["CustomProviderData"].ToString(), out dbType, out size);
-
-                    // default the size to 256 if no size is specified
-                    if (dbType == SqlDbType.NVarChar && size == -1)
-                    {
-                        size = 256;
-                    }
-
-                    settingsColumnsList.Add(new SettingsPropertyColumn(value.Property, dbType, size));
+                    continue;
                 }
 
-                // sync profile table structure with the db...
-                DataTable structure = LegacyDb.GetProfileStructure();
+                // parse custom provider data...
+                GetDbTypeAndSizeFromString(tempProperty.ToString(), out dbType, out size);
 
-                // verify all the columns are there...
-                foreach (SettingsPropertyColumn column in settingsColumnsList)
+
+                // default the size to 256 if no size is specified
+                if (dbType == SqlDbType.NVarChar && size == -1)
                 {
-                    // see if this column exists
-                    if (!structure.Columns.Contains(column.Settings.Name))
-                    {
-                        // if not, create it...
-                        LegacyDb.AddProfileColumn(column.Settings.Name, column.DataType, column.Size);
-                    }
+                    size = 256;
                 }
+
+                settingsColumnsList.Add(new SettingsPropertyColumn(value.Property, dbType, size));
+            }
+
+            // sync profile table structure with the db...
+            DataTable structure = GetProfileStructure();
+
+            // verify all the columns are there...
+            foreach (
+                SettingsPropertyColumn column in
+                    settingsColumnsList.Where(column => !structure.Columns.Contains(column.Settings.Name)))
+            {
+                // if not, create it...
+                AddProfileColumn(column.Settings.Name, column.DataType, column.Size);
+            }
+
             return settingsColumnsList;
         }
-  
+
         #endregion
 
         #endregion
