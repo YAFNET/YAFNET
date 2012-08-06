@@ -60,7 +60,7 @@ namespace YAF.Utils.Helpers
             if (!String.IsNullOrEmpty(ipString))
             {
                 string[] ipAddresses = ipString.Split(',');
-                string firstNonLocalAddress = ipAddresses.FirstOrDefault(ip =>IPAddress.TryParse(ipString.Split(',')[0].Trim(), out ipAddress) && !IsNonRoutableIpAddress(ipAddress));
+                string firstNonLocalAddress = ipAddresses.FirstOrDefault(ip =>IPAddress.TryParse(ipString.Split(',')[0].Trim(), out ipAddress) && IsNonRoutableIpAddress(ipAddress));
                 if (!String.IsNullOrEmpty(firstNonLocalAddress))
                     return firstNonLocalAddress;
             }

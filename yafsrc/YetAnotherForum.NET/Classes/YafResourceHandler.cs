@@ -685,7 +685,7 @@ namespace YAF
                 HttpContext.Current.Session.SessionID,
                 boardID,
                 userKey,
-                HttpContext.Current.Request.UserHostAddress,
+                HttpContext.Current.Request.GetUserRealIPAddress(),
                 HttpContext.Current.Request.FilePath,
                 HttpContext.Current.Request.QueryString.ToString(),
                 browser,

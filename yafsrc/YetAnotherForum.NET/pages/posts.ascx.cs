@@ -1637,7 +1637,7 @@ namespace YAF.Pages
                     this.PageContext.PageUserID,
                     msg,
                     null,
-                    this.Get<HttpRequestBase>().UserHostAddress,
+                    this.Get<HttpRequestBase>().GetUserRealIPAddress(),
                     null,
                     replyTo,
                     tFlags.BitValue,

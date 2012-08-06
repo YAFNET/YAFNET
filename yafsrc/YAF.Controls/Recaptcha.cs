@@ -16,6 +16,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
+using YAF.Utils.Helpers;
+
 namespace YAF.Controls
 {
   #region Using
@@ -311,7 +314,7 @@ namespace YAF.Controls
       {
         var validator = new RecaptchaValidator();
         validator.PrivateKey = this.PrivateKey;
-        validator.RemoteIP = this.Page.Request.UserHostAddress;
+        validator.RemoteIP = this.Page.Request.GetUserRealIPAddress();
         validator.Challenge = this.Context.Request.Form["recaptcha_challenge_field"];
         validator.Response = this.Context.Request.Form["recaptcha_response_field"];
         try

@@ -9,6 +9,8 @@
 //  Note: clear button removes message more than 24hrs old from db
  */
 
+using YAF.Utils.Helpers;
+
 namespace YAF.Controls
 {
     #region Using
@@ -159,7 +161,7 @@ namespace YAF.Controls
                     this.messageTextBox.Text,
                     username,
                     this.PageContext.PageUserID,
-                    this.Get<HttpRequestBase>().UserHostAddress);
+                    this.Get<HttpRequestBase>().GetUserRealIPAddress());
 
                 this.Get<IDataCache>().Remove(Constants.Cache.Shoutbox);
             }

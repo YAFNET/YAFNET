@@ -16,6 +16,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
+using YAF.Utils.Helpers;
+
 namespace YAF.Core
 {
     using System;
@@ -123,7 +126,7 @@ namespace YAF.Core
                         this.Get<HttpSessionStateBase>().SessionID,
                         YafContext.Current.PageBoardID,
                         userKey,
-                        this.Get<HttpRequestBase>().UserHostAddress,
+                        this.Get<HttpRequestBase>().GetUserRealIPAddress(),
                         this.Get<HttpRequestBase>().FilePath,
                         this.Get<HttpRequestBase>().QueryString.ToString(),
                         @event.Data.Browser,

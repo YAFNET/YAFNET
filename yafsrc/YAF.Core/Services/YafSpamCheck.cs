@@ -53,7 +53,7 @@ namespace YAF.Core.Services
             }
             
 
-            string ipAdress = YafContext.Current.Get<HttpRequestBase>().UserHostAddress;
+            string ipAdress = YafContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress();
             bool isLocal = YafContext.Current.Get<HttpRequestBase>().IsLocal;
 
             string whiteList = string.Empty;
