@@ -20,55 +20,58 @@
 
 namespace YAF.Pages
 {
-  #region Using
+    #region Using
 
-  using System;
+    using System;
 
-  using YAF.Core;
-  using YAF.Types;
-  using YAF.Types.Constants;
-  using YAF.Utils;
-
-  #endregion
-
-  /// <summary>
-  /// Summary description for editprofile.
-  /// </summary>
-  public partial class cp_profile : ForumPageRegistered
-  {
-    #region Constructors and Destructors
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="cp_profile"/> class.
-    /// </summary>
-    public cp_profile()
-      : base("CP_PROFILE")
-    {
-    }
+    using YAF.Classes;
+    using YAF.Core;
+    using YAF.Types;
+    using YAF.Types.Constants;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
 
     #endregion
 
-    #region Methods
-
     /// <summary>
-    /// The page_ load.
+    /// Users Edit Profile Page.
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    public partial class cp_profile : ForumPageRegistered
     {
-      if (!this.IsPostBack)
-      {
-       this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink(this.PageContext.BoardSettings.EnableDisplayName
-            ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.PageUserName, string.Empty);
-      }
-    }
+        #region Constructors and Destructors
 
-    #endregion
-  }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="cp_profile"/> class.
+        /// </summary>
+        public cp_profile()
+            : base("CP_PROFILE")
+        {
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Handles the Load event of the Page control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
+        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            if (this.IsPostBack)
+            {
+                return;
+            }
+
+            this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddLink(
+                this.Get<YafBoardSettings>().EnableDisplayName
+                    ? this.PageContext.CurrentUserData.DisplayName
+                    : this.PageContext.PageUserName,
+                YafBuildLink.GetLink(ForumPages.cp_profile));
+        }
+
+        #endregion
+    }
 }

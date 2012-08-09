@@ -56,12 +56,8 @@ namespace YAF.Pages
         /// <summary>
         /// The cancel push button_ click.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void CancelPushButton_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             YafBuildLink.Redirect(ForumPages.cp_profile);
@@ -70,26 +66,18 @@ namespace YAF.Pages
         /// <summary>
         /// The continue push button_ click.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void ContinuePushButton_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             YafBuildLink.Redirect(ForumPages.cp_profile);
         }
 
         /// <summary>
-        /// The page_ load.
+        /// Handles the Load event of the Page control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         private void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (!this.Get<YafBoardSettings>().AllowPasswordChange &&
@@ -105,7 +93,11 @@ namespace YAF.Pages
             }
 
             this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
-            this.PageLinks.AddLink(this.PageContext.PageUserName, YafBuildLink.GetLink(ForumPages.cp_profile));
+            this.PageLinks.AddLink(
+                this.Get<YafBoardSettings>().EnableDisplayName
+                    ? this.PageContext.CurrentUserData.DisplayName
+                    : this.PageContext.PageUserName,
+                YafBuildLink.GetLink(ForumPages.cp_profile));
             this.PageLinks.AddLink(this.GetText("TITLE"));
 
             var oldPasswordRequired =

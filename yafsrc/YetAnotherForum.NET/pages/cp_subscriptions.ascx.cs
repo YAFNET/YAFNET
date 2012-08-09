@@ -121,7 +121,11 @@ namespace YAF.Pages
         this.BindData();
 
         this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink(this.PageContext.PageUserName, YafBuildLink.GetLink(ForumPages.cp_profile));
+        this.PageLinks.AddLink(
+                this.Get<YafBoardSettings>().EnableDisplayName
+                    ? this.PageContext.CurrentUserData.DisplayName
+                    : this.PageContext.PageUserName,
+                YafBuildLink.GetLink(ForumPages.cp_profile));
         this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
         this.UnsubscribeForums.Text = this.GetText("unsubscribe");
@@ -198,7 +202,7 @@ namespace YAF.Pages
 
         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
 
-        this.PageContext.AddLoadMessage(this.GetText("SAVED_NOTIFICATION_SETTING"));
+        this.PageContext.AddLoadMessage(this.GetText("SAVED_NOTIFICATION_SETTING"), MessageTypes.Success);
     }
 
     /// <summary>
@@ -226,7 +230,7 @@ namespace YAF.Pages
 
       if (noneChecked)
       {
-        this.PageContext.AddLoadMessage(this.GetText("WARN_SELECTFORUMS"));
+        this.PageContext.AddLoadMessage(this.GetText("WARN_SELECTFORUMS"), MessageTypes.Warning);
       }
       else
       {

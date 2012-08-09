@@ -17,7 +17,7 @@
 		<td class="postformheader" valign="top">
 			<YAF:LocalizedLabel runat="server" LocalizedTag="previewtitle" />
 		</td>
-		<td id="PreviewCell" runat="server" class="post" valign="top">
+		<td id="PreviewCell" runat="server" class="post previewPostContent" valign="top">
 			<YAF:MessagePost ID="PreviewMessagePost" runat="server" />
 		</td>
 	</tr>
