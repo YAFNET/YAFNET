@@ -5416,28 +5416,38 @@ namespace YAF.Classes.Data
         /// <summary>
         /// The message_ add thanks.
         /// </summary>
-        /// <param name="FromUserID">
+        /// <param name="fromUserID">
         /// The from user id.
         /// </param>
-        /// <param name="MessageID">
+        /// <param name="messageID">
         /// The message id.
         /// </param>
+        /// <param name="useDisplayName">
+        /// Use Display Name.
+        /// </param>
         /// <returns>
-        /// The message_ add thanks.
+        /// Returns the Name of the User
         /// </returns>
         [NotNull]
-        public static string message_AddThanks([NotNull] object FromUserID, [NotNull] object MessageID)
+        public static string message_AddThanks([NotNull] object fromUserID, [NotNull] object messageID, [NotNull] object useDisplayName)
         {
             using (var cmd = MsSqlDbAccess.GetCommand("message_addthanks"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                var paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 255);
-                paramOutput.Direction = ParameterDirection.Output;
-                cmd.Parameters.AddWithValue("FromUserID", FromUserID);
-                cmd.Parameters.AddWithValue("MessageID", MessageID);
+
+                var paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 255)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+
+                cmd.Parameters.AddWithValue("FromUserID", fromUserID);
+                cmd.Parameters.AddWithValue("MessageID", messageID);
                 cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
+                cmd.Parameters.AddWithValue("UseDisplayName", useDisplayName);
                 cmd.Parameters.Add(paramOutput);
+
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
+
                 return paramOutput.Value.ToString();
             }
         }
@@ -5483,27 +5493,31 @@ namespace YAF.Classes.Data
         /// <summary>
         /// The message_ remove thanks.
         /// </summary>
-        /// <param name="FromUserID">
-        /// The from user id.
-        /// </param>
-        /// <param name="MessageID">
-        /// The message id.
-        /// </param>
+        /// <param name="FromUserID">The from user id.</param>
+        /// <param name="MessageID">The message id.</param>
+        /// <param name="useDisplayName">use the display name.</param>
         /// <returns>
-        /// The message_ remove thanks.
+        /// Returns the name of the user
         /// </returns>
         [NotNull]
-        public static string message_RemoveThanks([NotNull] object FromUserID, [NotNull] object MessageID)
+        public static string message_RemoveThanks([NotNull] object FromUserID, [NotNull] object MessageID, [NotNull] object useDisplayName)
         {
             using (var cmd = MsSqlDbAccess.GetCommand("message_Removethanks"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                var paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 255);
-                paramOutput.Direction = ParameterDirection.Output;
+
+                var paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 255)
+                {
+                    Direction = ParameterDirection.Output
+                };
+
                 cmd.Parameters.AddWithValue("FromUserID", FromUserID);
                 cmd.Parameters.AddWithValue("MessageID", MessageID);
+                cmd.Parameters.AddWithValue("UseDisplayName", useDisplayName);
                 cmd.Parameters.Add(paramOutput);
+                
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
+                
                 return paramOutput.Value.ToString();
             }
         }

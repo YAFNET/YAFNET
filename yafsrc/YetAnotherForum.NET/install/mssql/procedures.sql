@@ -1258,6 +1258,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_addthanks]
     @FromUserID int,
     @MessageID int,
     @UTCTIMESTAMP datetime,
+	@UseDisplayName bit=0,
     @paramOutput nvarchar(255) = null out
 AS
 BEGIN
@@ -1267,7 +1268,11 @@ DECLARE @ToUserID int
     SET @ToUserID = (SELECT UserID FROM [{databaseOwner}].[{objectQualifier}Message] WHERE (MessageID = @MessageID))
     INSERT INTO [{databaseOwner}].[{objectQualifier}Thanks] (ThanksFromUserID, ThanksToUserID, MessageID, ThanksDate) Values 
                                 (@FromUserID, @ToUserId, @MessageID, @UTCTIMESTAMP )
-    SET @paramOutput = (SELECT [Name] FROM [{databaseOwner}].[{objectQualifier}User] WHERE (UserID=@ToUserID))
+    
+	IF @UseDisplayName = 1
+			SET @paramOutput = (SELECT [DisplayName] FROM [{databaseOwner}].[{objectQualifier}User] WHERE (UserID=@ToUserID))
+	ELSE
+	        SET @paramOutput = (SELECT [Name] FROM [{databaseOwner}].[{objectQualifier}User] WHERE (UserID=@ToUserID))
 END
 ELSE
     SET @paramOutput = ''
@@ -1378,13 +1383,17 @@ GO
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_removethanks] 
     @FromUserID int,
     @MessageID int,
+	@UseDisplayName bit=0,
     @paramOutput nvarchar(255) = null out
 AS
 BEGIN
     DELETE FROM [{databaseOwner}].[{objectQualifier}Thanks] WHERE (ThanksFromUserID=@FromUserID AND MessageID=@MessageID)
     DECLARE @ToUserID int
     SET @ToUserID = (SELECT UserID FROM [{databaseOwner}].[{objectQualifier}Message] WHERE (MessageID = @MessageID))
-    SET @paramOutput = (SELECT [Name] FROM [{databaseOwner}].[{objectQualifier}User] WHERE (UserID=@ToUserID))
+    IF @UseDisplayName = 1
+			SET @paramOutput = (SELECT [DisplayName] FROM [{databaseOwner}].[{objectQualifier}User] WHERE (UserID=@ToUserID))
+	ELSE
+	        SET @paramOutput = (SELECT [Name] FROM [{databaseOwner}].[{objectQualifier}User] WHERE (UserID=@ToUserID))
 END
 GO
 
@@ -2313,7 +2322,7 @@ BEGIN
 END
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}board_save](@BoardID int,@Name nvarchar(50), @LanguageFile nvarchar(50), @Culture varchar(10), @AllowThreaded bit) as
+create procedure [{databaseOwner}].[{objectQualifier}board_save](@BoardID int,@Name nvarchar(50), @LanguageFile nvarchar(50),@Culture varchar(10), @AllowThreaded bit) as
 begin
 
         EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'culture', @Culture, @BoardID

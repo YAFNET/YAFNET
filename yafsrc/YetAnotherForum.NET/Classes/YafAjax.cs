@@ -342,9 +342,9 @@ namespace YAF.Classes
             var membershipUser = Membership.GetUser();
             if (membershipUser != null)
             {
-                string username =
+                var username =
                     LegacyDb.message_AddThanks(
-                        UserMembershipHelper.GetUserIDFromProviderUserKey(membershipUser.ProviderUserKey), messageId);
+                        UserMembershipHelper.GetUserIDFromProviderUserKey(membershipUser.ProviderUserKey), messageId, this.Get<YafBoardSettings>().EnableDisplayName);
 
                 // if the user is empty, return a null object...
                 return username.IsNotSet()
@@ -374,9 +374,9 @@ namespace YAF.Classes
         {
             var messageID = msgID.ToType<int>();
 
-            string username =
+            var username =
                 LegacyDb.message_RemoveThanks(
-                    UserMembershipHelper.GetUserIDFromProviderUserKey(Membership.GetUser().ProviderUserKey), messageID);
+                    UserMembershipHelper.GetUserIDFromProviderUserKey(Membership.GetUser().ProviderUserKey), messageID, this.Get<YafBoardSettings>().EnableDisplayName);
 
             return YafThankYou.CreateThankYou(username, "BUTTON_THANKS", "BUTTON_THANKS_TT", messageID);
         }
