@@ -4436,11 +4436,8 @@ namespace YAF.Classes.Data
         /// </returns>
         public static DataTable forum_listread([NotNull] object boardID, [NotNull] object userID, [NotNull] object categoryID, [NotNull] object parentID, [NotNull] object useStyledNicks, [CanBeNull]bool findLastRead)
         {
-           
             if (!MsSqlDbAccess.LargeForumTree)
             {
-
-
                 using (var cmd = MsSqlDbAccess.GetCommand("forum_listread"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -7664,18 +7661,15 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
-        /// The rsstopic_list.
+        /// Gets all Topics for an RSS Feed of specified forum id.
         /// </summary>
-        /// <param name="forumId">
-        /// The forum id.
-        /// </param>
+        /// <param name="forumId">The forum id.</param>
+        /// <param name="topicLimit">The topic limit.</param>
         /// <returns>
+        /// Returns a DataTable with the Topics of a Forum
         /// </returns>
-        public static DataTable rsstopic_list(int forumId)
+        public static DataTable rsstopic_list(int forumId, int topicLimit)
         {
-            // TODO: vzrus: possible move to an sp and registry settings for rsstopiclimit
-            int topicLimit = 1000;
-
             var sb = new StringBuilder();
 
             sb.AppendFormat(

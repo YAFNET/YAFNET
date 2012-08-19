@@ -149,7 +149,7 @@
         &lt;li&gt;Export  Selected / Export All – Export the Message(s) as file (You Can select the  export format bellow –XML-/CSV-/Text-File)&lt;/li&gt;
         &lt;li&gt;Delete  Selected / Delete All – Delete the Message(s)&lt;/li&gt;
         &lt;/ul&gt;
-        &lt;p&gt;Depending  on how many Messages you allowed to have you should delete some of them from  time (You can export them before you delete them to keep them on your local computer). Otherwise when your Mailbox is full you are not able to receive new  messages. On the Bottom you will be informed how many Messages you have and how  many you can Maximal have.&lt;/p&gt;
+        &lt;p&gt;Depending  on how many Messages you are allowed to have you should delete some of them from  time (You can export them before you delete them to keep them on your local computer). Otherwise when your Mailbox is full you are not able to receive new  messages. On the Bottom you will be informed how many Messages you have and how  many you can Maximal have.&lt;/p&gt;
       </Resource>
       <Resource tag="PUBLICPROFILECONTENT">&lt;p&gt;As member you have a publicly viewable profile page. This page includes information provided by the member, either during the registration process or later on via the User Control Panel.&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;There are a multiple ways to view a members profile...&lt;/em&gt;&lt;/p&gt;
@@ -2649,7 +2649,7 @@ Spoiler Content
       <Resource tag="ASK_DELETEIMAGE">Delete this image?</Resource>
       <Resource tag="ALBUMS_COUNT_LIMIT">You can't create more than {0} albums.</Resource>
       <Resource tag="IMAGES_COUNT_LIMIT">Your image limit is reached. You can add no more than {0} images for each album.</Resource>
-      <Resource tag="IMAGES_INFO">Note: Currently this Album contains {0} Image(s) you allowed to have {1} images for each album. The max. filesize for an Image is {2} kb</Resource>
+      <Resource tag="IMAGES_INFO">Note: Currently this Album contains {0} Image(s) you are allowed to have {1} images for each album. The max. filesize for an Image is {2} kb</Resource>
    </page>
    <page name="ALBUM">
       <Resource tag="ALBUMS">Albums</Resource>
@@ -5055,6 +5055,8 @@ Visit {forumname} at {forumlink}
      <Resource tag="ENABLE_HOVERCARDS">Enable User Info Hover Cards:</Resource>
      <Resource tag="ENABLE_HOVERCARDS_HELP">If enabled it shows an Hover Card (Which shows some quick info about the user) when you hover an user name. This will also show an Hover Card on the Twitter &amp; Facebook Profile Button.
      </Resource>
+     <Resource tag="TOPICFEED_COUNT">Max. Topics on the Forum Feed:</Resource>
+     <Resource tag="TOPICFEED_COUNT_HELP">The maximum Amount of Topics to show on the Atom/Rss Feed.</Resource>
    </page>
 	  <page name="ADMIN_TEST_DATA">
 	   <Resource tag="TITLE">Create Test Data (DEBUG Only)</Resource>

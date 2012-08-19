@@ -1336,6 +1336,8 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="TITLE">تنظیمات میزبان</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS">دسترسی خوراک موضوعات:</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS_HELP">محدود کردن خوراک موضوعات.</Resource>
+    <Resource tag="TOPICFEED_COUNT">Max. Topics on the Forum Feed:</Resource>
+    <Resource tag="TOPICFEED_COUNT_HELP">The maximum Amount of Topics to show on the Atom/Rss Feed.</Resource>
     <Resource tag="TOPICS_PER_PAGE">عنوان بر صفحه :</Resource>
     <Resource tag="TOPICS_PER_PAGE_HELP">تعداد عناوین برای نمایش در یک صفحه.</Resource>
     <Resource tag="TWITTER_USERNAME">Twitter Username for Retweets:</Resource>
@@ -3688,7 +3690,7 @@ Spoiler Content
         &lt;li&gt;Export  Selected / Export All – Export the Message(s) as file (You Can select the  export format bellow –XML-/CSV-/Text-File)&lt;/li&gt;
         &lt;li&gt;Delete  Selected / Delete All – Delete the Message(s)&lt;/li&gt;
         &lt;/ul&gt;
-        &lt;p&gt;Depending  on how many Messages you allowed to have you should delete some of them from  time (You can export them before you delete them to keep them on your local computer). Otherwise when your Mailbox is full you are not able to receive new  messages. On the Bottom you will be informed how many Messages you have and how  many you can Maximal have.&lt;/p&gt;
+        &lt;p&gt;Depending  on how many Messages you are allowed to have you should delete some of them from  time (You can export them before you delete them to keep them on your local computer). Otherwise when your Mailbox is full you are not able to receive new  messages. On the Bottom you will be informed how many Messages you have and how  many you can Maximal have.&lt;/p&gt;
       </Resource>
     <Resource tag="MESSENGERTITLE">Private Messages (Messenger)</Resource>
     <Resource tag="MODSADMINSCONTENT">&lt;p&gt;Moderators oversee specific forums. They generally have the ability to edit and delete posts, move topics, and perform other actions. Becoming a moderator for a specific forum is usually rewarded to users who are particularly helpful and knowledgeable in the subject of the forum they are moderating.&lt;/p&gt;

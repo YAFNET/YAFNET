@@ -47,7 +47,7 @@ namespace YAF.Pages
     #endregion
 
     /// <summary>
-    /// rss topic.
+    /// Generates the RSS Feeds.
     /// </summary>
     public partial class rsstopic : ForumPage
     {
@@ -1050,12 +1050,12 @@ namespace YAF.Pages
             var syndicationItems = new List<SyndicationItem>();
 
             // vzrus changed to separate DLL specific code
-            using (DataTable dt = LegacyDb.rsstopic_list(forumId))
+            using (DataTable dt = LegacyDb.rsstopic_list(forumId, this.Get<YafBoardSettings>().TopicsFeedItemsCount))
             {
                 string urlAlphaNum = FormatUrlForFeed(BaseUrlBuilder.BaseUrl);
 
                 feed = new YafSyndicationFeed(
-                    this.GetText("DEFAULT", "FORUM") + ":" + this.PageContext.PageForumName,
+                    "{0}:{1}".FormatWith(this.GetText("DEFAULT", "FORUM"), this.PageContext.PageForumName),
                     feedType,
                     atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
                     urlAlphaNum);

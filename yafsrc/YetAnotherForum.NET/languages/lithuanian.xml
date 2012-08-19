@@ -528,7 +528,7 @@
     <Resource tag="IS_GUEST">Is Guest::</Resource>
     <Resource tag="IS_GUEST_HELP">This flag is internal and makes the role unavailable to .NET membership. Never assign this role to any users except the (1) guest user. If you do flag this role as IsGuest, the guest user must a member of it. Never use this flag in conjunction with any other flags.</Resource>
     <Resource tag="IS_START">Is Start:</Resource>
-    <Resource tag="IS_START_HELP">If this is checked, all new users will be a member of this role. &lt;br /&gt;&lt;span style=&quot;color:red&quot;&gt;[b]Warning:[/b] at least one Group need to have this Check box enabled or new users wont be able to register.[/b]&lt;/span&gt;</Resource>
+    <Resource tag="IS_START_HELP">If this is checked, all new users will be a member of this role. &lt;br /&gt;&lt;span style="color:red"&gt;[b]Warning:[/b] at least one Group need to have this Check box enabled or new users wont be able to register.[/b]&lt;/span&gt;</Resource>
     <Resource tag="MSG_ALBUM_NUMBER">You should enter integer value for the number of user albums.</Resource>
     <Resource tag="MSG_INTEGER">You should enter integer value for priority.</Resource>
     <Resource tag="MSG_SIG_NUMBER">You should enter integer value for the number of chars in user signature.</Resource>
@@ -654,7 +654,7 @@
     <Resource tag="IMAGES_NUMBER">Album Images Number:</Resource>
     <Resource tag="IMAGES_NUMBER_HELP">Integer value for a user allowed images number per album.</Resource>
     <Resource tag="IS_START">Is Start:</Resource>
-    <Resource tag="IS_START_HELP">Means that this is the rank that new users belong to. Only one rank should have this checked. &lt;br /&gt;&lt;span style=&quot;color:red&quot;&gt;[b]Warning:[/b] at least one Rank need to have this Check box enabled or new users wont be able to register.&lt;/span&gt;</Resource>
+    <Resource tag="IS_START_HELP">Means that this is the rank that new users belong to. Only one rank should have this checked. &lt;br /&gt;&lt;span style="color:red"&gt;[b]Warning:[/b] at least one Rank need to have this Check box enabled or new users wont be able to register.&lt;/span&gt;</Resource>
     <Resource tag="LADDER_GROUP">Is Ladder Group:</Resource>
     <Resource tag="LADDER_GROUP_HELP">If this is checked, this rank should be part of the ladder system where users advance as they post messages.</Resource>
     <Resource tag="MIN_POSTS">Minimum Posts:</Resource>
@@ -1335,6 +1335,8 @@
     <Resource tag="TITLE">Host Settings</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS">Topics Feeds Access:</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS_HELP">Restrict display of topics feeds.</Resource>
+    <Resource tag="TOPICFEED_COUNT">Max. Topics on the Forum Feed:</Resource>
+    <Resource tag="TOPICFEED_COUNT_HELP">The maximum Amount of Topics to show on the Atom/Rss Feed.</Resource>
     <Resource tag="TOPICS_PER_PAGE">Topics Per Page:</Resource>
     <Resource tag="TOPICS_PER_PAGE_HELP">Number of topics to show per page.</Resource>
     <Resource tag="TWITTER_USERNAME">Twitter Username for Retweets:</Resource>
@@ -2296,7 +2298,7 @@
     <Resource tag="ERROR_MAXALBUMS">You cannot add any more albums to this account.</Resource>
     <Resource tag="ERROR_TOOBIG">You cannot upload images that big.</Resource>
     <Resource tag="IMAGES_COUNT_LIMIT">Your image limit is reached. You can add no more then {0} images.</Resource>
-    <Resource tag="IMAGES_INFO">Note: Currently this Album contains {0} Image(s) you allowed to have {1} images for each album. The max. filesize for an Image is {2} kb</Resource>
+    <Resource tag="IMAGES_INFO">Note: Currently this Album contains {0} Image(s) you are allowed to have {1} images for each album. The max. filesize for an Image is {2} kb</Resource>
     <Resource tag="TITLE">Add/Edit Album</Resource>
   </page>
   <page name="CP_EDITAVATAR">
@@ -3770,7 +3772,7 @@ Spoiler Content
         &lt;li&gt;Export  Selected / Export All – Export the Message(s) as file (You Can select the  export format bellow –XML-/CSV-/Text-File)&lt;/li&gt;
         &lt;li&gt;Delete  Selected / Delete All – Delete the Message(s)&lt;/li&gt;
         &lt;/ul&gt;
-        &lt;p&gt;Depending  on how many Messages you allowed to have you should delete some of them from  time (You can export them before you delete them to keep them on your local computer). Otherwise when your Mailbox is full you are not able to receive new  messages. On the Bottom you will be informed how many Messages you have and how  many you can Maximal have.&lt;/p&gt;
+        &lt;p&gt;Depending  on how many Messages you are allowed to have you should delete some of them from  time (You can export them before you delete them to keep them on your local computer). Otherwise when your Mailbox is full you are not able to receive new  messages. On the Bottom you will be informed how many Messages you have and how  many you can Maximal have.&lt;/p&gt;
       </Resource>
     <Resource tag="MESSENGERTITLE">Private Messages (Messenger)</Resource>
     <Resource tag="MODSADMINSCONTENT">&lt;p&gt;Moderators oversee specific forums. They generally have the ability to edit and delete posts, move topics, and perform other actions. Becoming a moderator for a specific forum is usually rewarded to users who are particularly helpful and knowledgeable in the subject of the forum they are moderating.&lt;/p&gt;

@@ -1705,6 +1705,24 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox ShowAtomLink;
         
         /// <summary>
+        /// HelpLabel3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel3;
+        
+        /// <summary>
+        /// TopicsFeedItemsCount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TopicsFeedItemsCount;
+        
+        /// <summary>
         /// HelpLabel133 control.
         /// </summary>
         /// <remarks>

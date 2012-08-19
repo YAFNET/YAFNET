@@ -2965,7 +2965,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether ShowShoutbox.
+        /// Gets or sets a value indicating whether Show Shoutbox.
         /// </summary>
         public bool ShowShoutbox
         {
@@ -3286,6 +3286,22 @@ namespace YAF.Classes
             set
             {
                 this._regBoard.SetValue("PopularTopicDays", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the Number of Topics to show on the Forum Feed
+        /// </summary>
+        public int TopicsFeedItemsCount
+        {
+            get
+            {
+                return this._regBoard.GetValue("TopicsFeedItemsCount", 20);
+            }
+
+            set
+            {
+                this._regBoard.SetValue("TopicsFeedItemsCount", value);
             }
         }
 

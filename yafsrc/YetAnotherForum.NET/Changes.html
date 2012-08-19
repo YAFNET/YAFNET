@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+﻿<!DOCTYPE HTML>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -27,7 +27,8 @@
 <span class="FeatureHeader">YAF.NET 1.9.6.2</span>
 <p>New features:</p>
 	<ul>
-     <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/96c018fd4b52">96c018fd4b52</a> - Added Keystroke For Quotes  to the YAF BBCode Editor you can now use CTRL+Q for inserting and &quot;[quote]&quot;...&quot;[/quote]&quot;</li>
+     <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/b506207a5743">b506207a5743</a> - Added new &quot;Fancy&quot; Theme</li>
+     <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/85b13f3dcc25">85b13f3dcc25</a> - Added Keystroke For Quotes  to the YAF BBCode Editor you can now use CTRL+Q for inserting and &quot;[quote]&quot;...&quot;[/quote]&quot;</li>
      <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/b19372ea7cdc">b19372ea7cdc</a> - Added HoverCards to Username. If enabled it shows an Hover Card (Which shows some quick info about the user) when you hover an user name. This will also show an Hover Card on the Twitter &amp; Facebook Profile Button.</li>
      <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/b6e1187445d2">b6e1187445d2</a> - Added New Notification Bar for System Messages (In the Host Settings you can choose Between Modal Dialog or Notification Bar for Messages, also the Display Duration can be defined there). Also added an option to show the alert dialog for messages on Mobile Devices.</li>
      <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/44b739c04251">44b739c04251</a> - Added Display Options for the Event Log, you can define Start and End Date and also Event Type</li>
@@ -43,15 +44,24 @@
     </ul>
 <p><em>changes</em></p>
 	<ul>
+        <li>Added New Host Setting: &quot;Max. Topics on the Forum Feed&quot; to limit the amount of Topics on the Forum Feed</li>
+        <li>Added YAF.Data.MsSql. The &quot;blind&quot; stored dynamic procedure engine is working properly. Converted a lot of YafDBBroker to use the new dynamic sproc db system.</li>
+        <li>Upgraded project to VS2012</li>
+        <li>Fixed wrong tooltip for the avatar images on the topicline control</li>
+        <li>Added Warning Message to the IsStart Flag on the Edit Rank/Group Page, to avoid breaking the Registration when no Group or Rank has one IsStart Flag.</li>
+        <li>Fixed Exceptions when ShowToolBar is set to false</li>
+        <li>Added Regions of Switzerland to The Region List</li>
+        <li>DependencyResolutionException on Digest fixed</li>
+        <li>Added Nuget to the project. Updated AutoFac to latest (2.6) and XMLRPC to latest.</li>
+        <li>Updated Tiny_MCE Editor to Version 3.5.6 and added Spell Checking</li>
+        <li>Updated CKEditor  to Version 3.6.4</li>
         <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/22c42d685ef5">22c42d685ef5</a> - Fixed an Issue with large smilies in the smilies box</li>
-        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/7797d3c0ae67">7797d3c0ae67</a> - Updated Tiny_MCE Editor to Version 3.5.2</li>
         <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/969f193fdd0c">969f193fdd0c</a> - Fixed an Issue with Duplicated   background email sending  </li>
         <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/4d371d60f60e">4d371d60f60e</a> - Renamed Buddy/Buddies Feature to Friend/Friend</li>
         <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/9ef84e89d04e">9ef84e89d04e</a> - [YAF-161] When creating a new Board the Current Superuser (Host Admin) will be created.</li>
         <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/1cca346ec5de">1cca346ec5de</a> - Event Log Can handle huge logs</li>
         <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/b39c4581d37c">b39c4581d37c</a> - Ensure ShoutBox, ForumStats, and ActiveDiscussions visibility board settings are respected across postbacks (this issue wasn't exposed in most typical YAF installations)</li>
         <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/ada1137d3428">ada1137d3428</a> - Fixed Image Height of Attachment/Album Preview Images</li>
-        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/de382f9d6144">de382f9d6144</a> - Updated CKEditor  to Version 3.6.3</li>
         <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/de382f9d6144">de382f9d6144</a> - Fixed html to bbcode converting when Pasting Content in to CK Editor</li>
         <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/d6039a8769eb">d6039a8769eb</a> - Modified the Event Log Styling, now it uses jquery ui themeing for the event log types</li>
         <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/d5f86fd894a4">d5f86fd894a4</a> - Added Tooltip and Css Classes to the Profile Menu</li>
@@ -214,9 +224,7 @@
         <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/c00af5433887">c00af5433887</a> - Assigned the Current Page Name as Css Class to every Page.</li>
         <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/757fc0ba957e">757fc0ba957e</a> - Added Correct Forum Url to the Forum Logo Link</li>
         <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/65a59eceeef7">65a59eceeef7</a> - Fixed a security issue. While guests are posting they can change/delete messages send with the same IP only.        </li>
-        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/65a59eceeef7">65a59eceeef7</a> - Added Guest group too in UserBox as users are
-          <pre>
-        alarmed by a false group info.</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/65a59eceeef7">65a59eceeef7</a> - Added Guest group too in UserBox as users are alarmed by a false group info.</li>
         <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/296314ae30bd">296314ae30bd</a> - A fix for correct birtday date.</li>
         <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/089342e1eb25">089342e1eb25</a> - Added New Topic Icon &quot;TOPIC_STICKY_NEW, and added all Missing Topic Icons to the Topics Icon Legend.</li>
         <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/1ee0ba0390f1">1ee0ba0390f1</a> - Fixed Issue when Compiling YAF Project, AutoFac.dll is not deleted anymore.</li>

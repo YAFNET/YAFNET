@@ -1335,6 +1335,8 @@
     <Resource tag="TITLE">Host Instellingen</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS">Topics Feed Toegang:</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS_HELP">Beperk weergave van topic feeds.</Resource>
+    <Resource tag="TOPICFEED_COUNT">Max. Topics on the Forum Feed:</Resource>
+    <Resource tag="TOPICFEED_COUNT_HELP">The maximum Amount of Topics to show on the Atom/Rss Feed.</Resource>
     <Resource tag="TOPICS_PER_PAGE">Topics Per Pagina:</Resource>
     <Resource tag="TOPICS_PER_PAGE_HELP">Aantal Topics per Pagina.</Resource>
     <Resource tag="TWITTER_USERNAME">Twitter Username for Retweets:</Resource>
@@ -3678,7 +3680,7 @@ Spoiler Content
         &lt;li&gt;Export  Selected / Export All – Export the Message(s) as file (You Can select the  export format bellow –XML-/CSV-/Text-File)&lt;/li&gt;
         &lt;li&gt;Delete  Selected / Delete All – Delete the Message(s)&lt;/li&gt;
         &lt;/ul&gt;
-        &lt;p&gt;Depending  on how many Messages you allowed to have you should delete some of them from  time (You can export them before you delete them to keep them on your local computer). Otherwise when your Mailbox is full you are not able to receive new  messages. On the Bottom you will be informed how many Messages you have and how  many you can Maximal have.&lt;/p&gt;
+        &lt;p&gt;Depending  on how many Messages you are allowed to have you should delete some of them from  time (You can export them before you delete them to keep them on your local computer). Otherwise when your Mailbox is full you are not able to receive new  messages. On the Bottom you will be informed how many Messages you have and how  many you can Maximal have.&lt;/p&gt;
       </Resource>
     <Resource tag="MESSENGERTITLE">berichten (Messenger)</Resource>
     <Resource tag="MODSADMINSCONTENT">&lt;p&gt;Moderatoren beheren een aantal (sub)forums. Normaal gesproken kunnen ze berichten bewerken en verwijderen, topics verplaatsen en andere acties uitvoeren. Moderator worden voor een bepaald (sub)forum is normaal gesproken voor leden die erg behulpzaam zijn en ook veel weten van de materie van de onderdelen van het forum die ze modereren.&lt;/p&gt;

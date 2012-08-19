@@ -737,6 +737,14 @@
                     </tr>
                     <tr>
                         <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel3" runat="server" LocalizedTag="TOPICFEED_COUNT" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:TextBox Style="width:350px" ID="TopicsFeedItemsCount" runat="server"></asp:TextBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
                             <YAF:HelpLabel ID="HelpLabel133" runat="server" LocalizedTag="POSTS_FEEDS_ACCESS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>              
                         <td class="post">
