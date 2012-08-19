@@ -532,7 +532,7 @@ namespace YAF.Pages
                 this.TagFavorite2.Visible = false;
             }
 
-            this._quickReplyEditor.BaseDir = YafForumInfo.ForumClientFileRoot + "editors";
+            this._quickReplyEditor.BaseDir = "{0}editors".FormatWith(YafForumInfo.ForumClientFileRoot);
             this._quickReplyEditor.StyleSheet = this.Get<ITheme>().BuildThemePath("theme.css");
 
             this._topic = LegacyDb.topic_info(this.PageContext.PageTopicID);
@@ -905,7 +905,11 @@ namespace YAF.Pages
             {
                 HtmlMeta descriptionMeta;
 
-                string content = "{0}: {1}".FormatWith(this._topic["Topic"], message.MessageTruncated);
+                // Use Topic Description if set
+                var descriptionContent = !this._topic["Description"].IsNullOrEmptyDBField()
+                                         ? this.Get<IBadWordReplace>().Replace(
+                                             this.HtmlEncode(this._topic["Description"]))
+                                         : "{0}: {1}".FormatWith(this._topic["Topic"], message.MessageTruncated);
 
                 if (meta.Any(x => x.Name.Equals("description")))
                 {
@@ -913,11 +917,11 @@ namespace YAF.Pages
                     descriptionMeta = meta.FirstOrDefault(x => x.Name.Equals("description"));
                     if (descriptionMeta != null)
                     {
-                        descriptionMeta.Content = content;
+                        descriptionMeta.Content = descriptionContent;
 
                         this.Page.Header.Controls.Remove(descriptionMeta);
 
-                        descriptionMeta = ControlHelper.MakeMetaDiscriptionControl(content);
+                        descriptionMeta = ControlHelper.MakeMetaDiscriptionControl(descriptionContent);
 
                         // add to the header...
                         this.Page.Header.Controls.Add(descriptionMeta);
@@ -925,7 +929,7 @@ namespace YAF.Pages
                 }
                 else
                 {
-                    descriptionMeta = ControlHelper.MakeMetaDiscriptionControl(content);
+                    descriptionMeta = ControlHelper.MakeMetaDiscriptionControl(descriptionContent);
 
                     // add to the header...
                     this.Page.Header.Controls.Add(descriptionMeta);
