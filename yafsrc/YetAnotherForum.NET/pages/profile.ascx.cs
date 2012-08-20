@@ -25,6 +25,7 @@ namespace YAF.Pages
     using System;
     using System.Data;
     using System.Text;
+    using System.Web;
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.UI.WebControls;
@@ -341,13 +342,17 @@ namespace YAF.Pages
                 this.AlbumList1.Dispose();
             }
 
-            this.SetupUserProfileInfo(this.UserId, user, userData, userData.DisplayName);
+            var userNameOrDisplayName =
+                this.Get<HttpServerUtilityBase>().HtmlEncode(
+                    this.Get<YafBoardSettings>().EnableDisplayName ? userData.DisplayName : userData.UserName);
 
-            this.AddPageLinks(userData.DisplayName);
+            this.SetupUserProfileInfo(this.UserId, user, userData, userNameOrDisplayName);
+
+            this.AddPageLinks(userNameOrDisplayName);
 
             this.SetupUserStatistics(userData);
 
-            this.SetupUserLinks(userData);
+            this.SetupUserLinks(userData, userNameOrDisplayName);
 
             this.SetupAvatar(this.UserId, userData);
 
@@ -457,13 +462,10 @@ namespace YAF.Pages
         /// <summary>
         /// The setup user links.
         /// </summary>
-        /// <param name="userData">
-        /// The user data.
-        /// </param>
-        private void SetupUserLinks([NotNull] IUserData userData)
+        /// <param name="userData">The user data.</param>
+        /// <param name="userName">Name of the user.</param>
+        private void SetupUserLinks([NotNull] IUserData userData, string userName)
         {
-            string userName = userData.UserName;
-
             // homepage link
             this.Home.Visible = userData.Profile.Homepage.IsSet();
             this.SetupThemeButtonWithLink(this.Home, userData.Profile.Homepage);
@@ -554,9 +556,9 @@ namespace YAF.Pages
         {
             this.UserLabel1.UserID = userData.UserID;
 
-            if (this.PageContext.IsAdmin && userDisplayName != user.UserName)
+            if (this.PageContext.IsAdmin && userData.DisplayName != user.UserName)
             {
-                this.Name.Text = this.HtmlEncode("{0} ({1})".FormatWith(userDisplayName, user.UserName));
+                this.Name.Text = this.HtmlEncode("{0} ({1})".FormatWith(userData.DisplayName, user.UserName));
             }
             else
             {
