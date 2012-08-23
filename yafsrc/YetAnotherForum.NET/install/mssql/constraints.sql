@@ -1039,11 +1039,11 @@ if not exists (select top 1 1 from  dbo.sysobjects where name='FK_{objectQualifi
 go
 
 if not exists (select top 1 1 from  dbo.sysobjects where name='FK_{objectQualifier}UserMedal_{objectQualifier}User' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}UserMedal]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
-	alter table [{databaseOwner}].[{objectQualifier}UserMedal] add constraint [FK_{objectQualifier}UserMedal_{objectQualifier}User] foreign key(UserID) references [{databaseOwner}].[{objectQualifier}User] (UserID)
+	alter table [{databaseOwner}].[{objectQualifier}UserMedal] add constraint [FK_{objectQualifier}UserMedal_{objectQualifier}User] foreign key(UserID) references [{databaseOwner}].[{objectQualifier}User] (UserID) on delete cascade
 go
 
 if not exists (select top 1 1 from  dbo.sysobjects where name='FK_{objectQualifier}UserMedal_{objectQualifier}Medal' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}UserMedal]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
-	alter table [{databaseOwner}].[{objectQualifier}UserMedal] add constraint [FK_{objectQualifier}UserMedal_{objectQualifier}Medal] foreign key(MedalID) references [{databaseOwner}].[{objectQualifier}Medal] (MedalID)
+	alter table [{databaseOwner}].[{objectQualifier}UserMedal] add constraint [FK_{objectQualifier}UserMedal_{objectQualifier}Medal] foreign key(MedalID) references [{databaseOwner}].[{objectQualifier}Medal] (MedalID)  on delete cascade
 go
 
 if not exists (select top 1 1 from  dbo.sysobjects where name='FK_{objectQualifier}UserProfile_{objectQualifier}User' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}UserProfile]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)

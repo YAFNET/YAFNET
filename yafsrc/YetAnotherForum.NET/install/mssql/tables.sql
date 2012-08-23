@@ -2336,3 +2336,7 @@ GO
 if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}UserPMessage]') and name='IsReply')
     alter table [{databaseOwner}].[{objectQualifier}UserPMessage] ADD [IsReply] [bit] NOT NULL  DEFAULT (0)
 GO
+
+-- a deleted user was not previously deleted from here - clean-up possible needs a prefetch into temp table for perfomance 
+exec('delete from [{databaseOwner}].[{objectQualifier}UserMedal] where [UserID] NOT IN (select [UserID] from [{databaseOwner}].[{objectQualifier}User])')
+GO
