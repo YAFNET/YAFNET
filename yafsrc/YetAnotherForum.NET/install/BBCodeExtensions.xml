@@ -7,7 +7,7 @@
     <EditJS />
     <DisplayCSS />
     <SearchRegex>\[youtube\](?&lt;inner&gt;http://(?&lt;prefix&gt;[A-Za-z][A-Za-z][A-Za-z]?\.)?youtube.com/watch\?v=(?&lt;id&gt;[0-9A-Za-z-_]{11}))[^[]*\[/youtube\]|\[youtube\](?&lt;inner&gt;http://(?&lt;prefix&gt;[A-Za-z][A-Za-z][A-Za-z]?\.)?youtu.be/(?&lt;id&gt;[0-9A-Za-z-_]{11}))\[/youtube\]</SearchRegex>
-    <ReplaceRegex>&lt;iframe width="560" height="350" src="http://${prefix}youtube.com/embed/${id}?hd=1" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;</ReplaceRegex>
+    <ReplaceRegex>&lt;!-- BEGIN youtube --&gt;&lt;div&gt;&lt;iframe width="560" height="350" src="http://${prefix}youtube.com/embed/${id}?hd=1" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;!-- END youtube --&gt;</ReplaceRegex>
     <Variables>id;prefix</Variables>
     <UseModule>false</UseModule>
     <ModuleClass />
@@ -21,7 +21,7 @@
     <EditJS />
     <DisplayCSS />
     <SearchRegex>\[googlemaps\](?&lt;inner&gt;.+?)\[/googlemaps\]</SearchRegex>
-    <ReplaceRegex>&lt;iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="${inner}&amp;amp;output=embed"&gt;&lt;/iframe&gt;</ReplaceRegex>
+    <ReplaceRegex>&lt;div&gt;&lt;iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="${inner}&amp;amp;output=embed"&gt;&lt;/iframe&gt;&lt;/div&gt;</ReplaceRegex>
     <Variables />
     <UseModule>false</UseModule>
     <ModuleClass />
@@ -121,7 +121,8 @@
     <EditJS />
     <DisplayCSS />
     <SearchRegex>\[vimeo\](?&lt;inner&gt;http://(?&lt;prefix&gt;[A-Za-z][A-Za-z][A-Za-z]?\.)?vimeo.com/(?&lt;vimeoId&gt;[0-9]{8}))[^[]*\[/vimeo\]</SearchRegex>
-    <ReplaceRegex>&lt;iframe width="560" height="350" src="http://player.vimeo.com/video/${vimeoId}?show_title=1&amp;amp;show_byline=1&amp;amp;show_portrait=1&amp;amp;&amp;amp;fullscreen=1" frameborder="0"&gt;&lt;/iframe&gt;</ReplaceRegex>
+    <ReplaceRegex>&lt;div&gt;&lt;iframe width="560" height="350" src="http://player.vimeo.com/video/${vimeoId}?show_title=1&amp;amp;show_byline=1&amp;amp;show_portrait=1&amp;amp;&amp;amp;fullscreen=1" frameborder="0"&gt;&lt;/iframe&gt;&lt;/div&gt;
+    </ReplaceRegex>
     <Variables>prefix;vimeoId</Variables>
     <UseModule>false</UseModule>
     <ModuleClass />
