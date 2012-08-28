@@ -26,7 +26,7 @@
 			<YAF:LocalizedLabel ID="TopicSubjectLabel" runat="server" LocalizedTag="subject" />
 		</td>
 		<td class="post" width="80%">
-			<asp:TextBox ID="TopicSubjectTextBox" runat="server" CssClass="edit" MaxLength="100" Width="400" />
+			<asp:TextBox ID="TopicSubjectTextBox" runat="server" CssClass="edit" MaxLength="100" Width="400" autocomplete="off" />
 		</td>
 	</tr>
     <tr id="DescriptionRow" visible="false" runat="server">
@@ -34,7 +34,7 @@
 			<YAF:LocalizedLabel ID="TopicDescriptionLabel" runat="server" LocalizedTag="description" />
 		</td>
 		<td class="post" width="80%">
-			<asp:TextBox ID="TopicDescriptionTextBox" runat="server" CssClass="edit" MaxLength="100" Width="400" />
+			<asp:TextBox ID="TopicDescriptionTextBox" runat="server" CssClass="edit" MaxLength="100" Width="400" autocomplete="off" />
 		</td>
 	</tr>
 	<tr id="BlogRow" runat="server" visible="false">
