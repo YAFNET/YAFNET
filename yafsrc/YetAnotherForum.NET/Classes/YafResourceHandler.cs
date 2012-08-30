@@ -539,7 +539,8 @@ namespace YAF
                                        ImageThemeTag = "PM",
                                        TitleLocalizedTag = "PM_TITLE",
                                        TitleLocalizedPage = "POSTS",
-                                       NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", userId),
+                                       NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", userId).Replace(
+                                               "resource.ashx", "default.aspx"),
                                        ParamTitle0 = userName,
                                        Visible =
                                            !userData.IsGuest && this.Get<YafBoardSettings>().AllowPrivateMessages
