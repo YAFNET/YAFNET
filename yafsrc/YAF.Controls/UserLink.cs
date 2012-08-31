@@ -170,8 +170,8 @@ namespace YAF.Controls
 
                     output.WriteAttribute(
                         "data-hovercard",
-                        "{0}resource.ashx?userinfo={1}&type=json".FormatWith(
-                            YafForumInfo.ForumClientFileRoot, this.UserID));
+                        "{0}resource.ashx?userinfo={1}&type=json&forumUrl={2}".FormatWith(
+                            YafForumInfo.ForumClientFileRoot, this.UserID, YafBuildLink.GetLinkNotEscaped(ForumPages.forum)));
                 }
                 else
                 {

@@ -82,7 +82,7 @@
                             dataUrl = obj.attr('data-hovercard');
                         }
 
-                        LoadSocialProfile("custom", dataUrl, curHCDetails, options.customCardJSON);
+                        LoadSocialProfile("custom", "", dataUrl, curHCDetails, options.customCardJSON);
                     }
 					
 					//check for yaf profile. If already loaded don't load again
@@ -96,7 +96,7 @@
                             dataUrl = obj.attr('data-hovercard');
                         }
 
-                        LoadSocialProfile("yaf", dataUrl, curHCDetails, options.customCardJSON);
+                        LoadSocialProfile("yaf", obj.attr('href'), dataUrl, curHCDetails, options.customCardJSON);
                     }
 
                     //check for twitter profile. If already loaded don't load again
@@ -110,7 +110,7 @@
                             tUsername = obj.attr('data-hovercard');
                         }
 
-                        LoadSocialProfile("twitter", tUsername, curHCDetails);
+                        LoadSocialProfile("twitter", "", tUsername, curHCDetails);
                     }
 
                     //check for facebook profile. If already loaded don't load again
@@ -124,7 +124,7 @@
                             fbUsername = obj.attr('data-hovercard');
                         }
 
-                        LoadSocialProfile("facebook", fbUsername, curHCDetails);
+                        LoadSocialProfile("facebook", "", fbUsername, curHCDetails);
                     }
 
                     //Callback function                    
@@ -169,7 +169,7 @@
             }
 
             //Private base function to load any social profile
-            function LoadSocialProfile(type, username, curHCDetails, customCardJSON) {
+            function LoadSocialProfile(type, href, username, curHCDetails, customCardJSON) {
                 var cardHTML,dataType, urlToRequest, customCallback, loadingHTML, errorHTML;
 
                 switch (type) {
@@ -277,7 +277,7 @@
                                 return '<div class="s-card s-card-pad">' +
                                         (profileData.avatar ? ('<img class="s-img" style="' + online + '" src=' + profileData.avatar + ' />') : '') +
                                         (profileData.realname ? ('<label class="s-name">' + profileData.realname + ' </label>') : ('<label class="s-name">' + profileData.name + ' </label>')) +
-										(profileData.profilelink ? ('(<a class="s-username" title="Visit full profile for ' + profileData.name + '" href="' + profileData.profilelink + '">' + profileData.name + '</a>)<br/>') : '') +
+										(href ? ('(<a class="s-username" title="Visit full profile for ' + profileData.name + '" href="' + href + '">' + profileData.name + '</a>)<br/>') : '') +
 										(profileData.location ? ('<label class="s-loc">' + profileData.location + '</label><br />') : '') +
                                         (profileData.rank ? ('<label class="s-loc">' + profileData.rank + '</label>') : '') +
 										(profileData.interests ? ('<p class="s-desc">' + profileData.interests + '</p>') : '') +

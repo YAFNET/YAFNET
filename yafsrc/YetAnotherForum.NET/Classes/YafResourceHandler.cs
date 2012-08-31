@@ -530,6 +530,10 @@ namespace YAF
                     location += ", {0}".FormatWith(YafContext.Current.Get<IHaveLocalization>().GetText("REGION", tag));
                 }
 
+                var forumUrl = context.Request.QueryString.GetFirstOrDefault("forumUrl");
+
+                forumUrl = forumUrl.Replace(".aspx", ".aspx?g={0}&u={1}".FormatWith(ForumPages.pmessage, userId));
+
                 var pmButton = new ThemeButton
                                    {
                                        ID = "PM",
@@ -539,7 +543,7 @@ namespace YAF
                                        ImageThemeTag = "PM",
                                        TitleLocalizedTag = "PM_TITLE",
                                        TitleLocalizedPage = "POSTS",
-                                       NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", userId).Replace(
+                                       NavigateUrl = Config.IsAnyPortal ? forumUrl : YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, true, "u={0}", userId).Replace(
                                                "resource.ashx", "default.aspx"),
                                        ParamTitle0 = userName,
                                        Visible =
@@ -552,9 +556,9 @@ namespace YAF
                                        name = userName,
                                        realname = HttpUtility.HtmlEncode(userData.Profile.RealName),
                                        avatar = avatarUrl,
-                                       profilelink =
-                                           YafBuildLink.GetLink(ForumPages.profile, "u={0}", userId).Replace(
-                                               "resource.ashx", "default.aspx"),
+                                       /*profilelink =
+                                           Config.IsAnyPortal ? userlinkUrl : YafBuildLink.GetLink(ForumPages.profile, true, "u={0}", userId).Replace(
+                                               "resource.ashx", "default.aspx"),*/
                                        interests = HttpUtility.HtmlEncode(userData.Profile.Interests),
                                        homepage = userData.Profile.Homepage,
                                        posts = "{0:N0}".FormatWith(userData.NumPosts),
