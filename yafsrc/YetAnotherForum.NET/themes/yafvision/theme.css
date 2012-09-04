@@ -81,12 +81,20 @@
 {
     border: 1px solid #ddd;
 	line-height: 20px;
-	padding: 3px;
+	padding: 0;
+	margin: 3px 0;
 }
 .yafnet #yafheader ul li a
 {
 	font-weight: bold;
 	padding: 2px
+}
+
+.yafnet li.menuGeneral {
+padding-right: 5px !important;
+}
+.yafnet li.menuAdmin {
+padding-right: 5px !important;
 }
 .yafnet #yafheader ul.menuAdminList
 {
@@ -140,7 +148,7 @@
 .yafnet #yafheader .loggedInUser
 {
     float: left !important;
-    margin-right: 10px;
+    margin-right: 0 10px 0 10px;
 }
 .yafnet #yafheader .currentUser
 {
@@ -247,7 +255,7 @@
 .yafnet tr.header1 a:hover	{color:#C0C0FF;text-decoration:underline}
 /* Header 2 - Sub header */
 .yafnet .header2 {
-	background: url('bg_header2.png') repeat-x;
+	background: url('bg_header2.png') repeat-x bottom;
 	color: #3A4F6C;
 	font-weight: bold;
 	line-height: 18px;
