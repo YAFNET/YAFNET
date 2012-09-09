@@ -45,19 +45,19 @@
 				<tr class="post">
 					<td>
 						<a target="_top" href='<%# YafBuildLink.GetLink(ForumPages.topics,"f={0}",Eval("ForumID")) %>'>
-							<%# Eval("ForumName") %>
+							<%# HtmlEncode(Eval("ForumName")) %>
 						</a>
 					</td>
 					<td>
 						<a target="_top" href='<%# YafBuildLink.GetLink(ForumPages.posts,"t={0}",Eval("TopicID")) %>'>
-							<%# Eval("TopicName") %>
+							<%# HtmlEncode(Eval("TopicName")) %>
 						</a>
 					</td>
 					<td>
 						<%# this.Get<IDateTime>().FormatDateTimeShort(Eval( "Posted")) %>
 					</td>
 					<td>
-						<%# Eval( "FileName") %>
+						<%# HtmlEncode(Eval( "FileName")) %>
 					</td>
 					<td align="right">
 						<%# Eval( "Downloads") %>
