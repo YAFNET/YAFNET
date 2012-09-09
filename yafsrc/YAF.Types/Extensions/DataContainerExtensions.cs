@@ -16,16 +16,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Utils
+namespace YAF.Types.Extensions
 {
   #region Using
 
-  using System.Data;
-  using System.Web.UI;
+    using System.Data;
+    using System.Web.UI;
 
-  using YAF.Utils.Helpers.StringUtils;
-
-  #endregion
+    #endregion
 
   /// <summary>
   /// The data container extensions.

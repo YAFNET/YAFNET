@@ -26,8 +26,9 @@ namespace YAF.Utils.Helpers
 
   using YAF.Classes;
   using YAF.Types;
+    using YAF.Types.Extensions;
 
-  #endregion
+    #endregion
 
   /// <summary>
   /// Helper for Figuring out the User Agent.

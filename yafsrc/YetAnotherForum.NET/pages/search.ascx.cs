@@ -31,6 +31,8 @@ namespace YAF.Pages
     using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
 
+    using YAF.Types.Extensions;
+
     using nStuff.UpdateControls;
 
     using YAF.Classes;

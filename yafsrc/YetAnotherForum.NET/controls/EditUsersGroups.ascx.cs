@@ -18,185 +18,184 @@
  */
 namespace YAF.Controls
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.Data;
-  using System.Web.UI.WebControls;
+    using System;
+    using System.Data;
+    using System.Web.UI.WebControls;
 
-  using YAF.Classes.Data;
-  using YAF.Core;
-  using YAF.Core.Services;
-  using YAF.Types;
-  using YAF.Types.Constants;
-  using YAF.Types.EventProxies;
-  using YAF.Types.Interfaces;
-  using YAF.Utils;
-  using YAF.Utils.Helpers;
-
-  #endregion
-
-  /// <summary>
-  /// The edit users groups.
-  /// </summary>
-  public partial class EditUsersGroups : BaseUserControl
-  {
-    #region Properties
-
-    /// <summary>
-    ///   Gets user ID of edited user.
-    /// </summary>
-    protected int CurrentUserID
-    {
-      get
-      {
-        return (int)this.PageContext.QueryIDs["u"];
-      }
-    }
+    using YAF.Classes.Data;
+    using YAF.Core;
+    using YAF.Core.Services;
+    using YAF.Types;
+    using YAF.Types.Constants;
+    using YAF.Types.EventProxies;
+    using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     #endregion
 
-    #region Methods
-
     /// <summary>
-    /// Handles click on cancel button.
+    /// The edit users groups.
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
+    public partial class EditUsersGroups : BaseUserControl
     {
-      // redurect to user admin page.
-      YafBuildLink.Redirect(ForumPages.admin_users);
-    }
+        #region Properties
 
-    /// <summary>
-    /// Checks if user is memeber of role or not depending on value of parameter.
-    /// </summary>
-    /// <param name="o">
-    /// Parameter if 0, user is not member of a role.
-    /// </param>
-    /// <returns>
-    /// True if user is member of role (o &gt; 0), false otherwise.
-    /// </returns>
-    protected bool IsMember([NotNull] object o)
-    {
-      return long.Parse(o.ToString()) > 0;
-    }
-
-    /// <summary>
-    /// Handles page load event.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-    {
-        this.PageContext.QueryIDs = new QueryStringIDHelper("u", true);
-
-        // this needs to be done just once, not during postbacks
-        if (this.IsPostBack)
+        /// <summary>
+        ///   Gets user ID of edited user.
+        /// </summary>
+        protected int CurrentUserID
         {
-            return;
+            get
+            {
+                return (int)this.PageContext.QueryIDs["u"];
+            }
         }
 
-        this.Save.Text = this.Get<ILocalization>().GetText("COMMON", "SAVE");
+        #endregion
 
-        // bind data
-        this.BindData();
-    }
+        #region Methods
 
-      /// <summary>
-    /// Handles click on save button.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      // go through all roles displayed on page
-      for (int i = 0; i < this.UserGroups.Items.Count; i++)
-      {
-        // get current item
-        RepeaterItem item = this.UserGroups.Items[i];
-
-        // get role ID from it
-        int roleID = int.Parse(((Label)item.FindControl("GroupID")).Text);
-
-        // get role name
-        string roleName = string.Empty;
-        using (DataTable dt = LegacyDb.group_list(this.PageContext.PageBoardID, roleID))
+        /// <summary>
+        /// Handles click on cancel button.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-          foreach (DataRow row in dt.Rows)
-          {
-            roleName = (string)row["Name"];
-          }
+            // redurect to user admin page.
+            YafBuildLink.Redirect(ForumPages.admin_users);
         }
 
-        // is user supposed to be in that role?
-        bool isChecked = ((CheckBox)item.FindControl("GroupMember")).Checked;
+        /// <summary>
+        /// Checks if user is memeber of role or not depending on value of parameter.
+        /// </summary>
+        /// <param name="o">
+        /// Parameter if 0, user is not member of a role.
+        /// </param>
+        /// <returns>
+        /// True if user is member of role (o &gt; 0), false otherwise.
+        /// </returns>
+        protected bool IsMember([NotNull] object o)
+        {
+            return long.Parse(o.ToString()) > 0;
+        }
 
-        // save user in role
-        LegacyDb.usergroup_save(this.CurrentUserID, roleID, isChecked);
+        /// <summary>
+        /// Handles page load event.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            this.PageContext.QueryIDs = new QueryStringIDHelper("u", true);
 
-        // empty out access table
-        LegacyDb.activeaccess_reset();
+            // this needs to be done just once, not during postbacks
+            if (this.IsPostBack)
+            {
+                return;
+            }
 
-        // update roles if this user isn't the guest
-          if (UserMembershipHelper.IsGuestUser(this.CurrentUserID))
-          {
-              continue;
-          }
+            this.Save.Text = this.GetText("COMMON", "SAVE");
 
-         
+            // bind data
+            this.BindData();
+        }
 
-          // get user's name
-          string userName = UserMembershipHelper.GetUserNameFromID(this.CurrentUserID);
+        /// <summary>
+        /// Handles click on save button.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            // go through all roles displayed on page
+            for (int i = 0; i < this.UserGroups.Items.Count; i++)
+            {
+                // get current item
+                RepeaterItem item = this.UserGroups.Items[i];
 
-          // add/remove user from roles in membership provider
-          if (isChecked && !RoleMembershipHelper.IsUserInRole(userName, roleName))
-          {
-              RoleMembershipHelper.AddUserToRole(userName, roleName);
-          }
-          else if (!isChecked && RoleMembershipHelper.IsUserInRole(userName, roleName))
-          {
-              RoleMembershipHelper.RemoveUserFromRole(userName, roleName);
-          }
+                // get role ID from it
+                int roleID = int.Parse(((Label)item.FindControl("GroupID")).Text);
 
-          // Clearing cache with old permisssions data...
-        this.Get<IDataCache>().Remove(Constants.Cache.ActiveUserLazyData.FormatWith(this.CurrentUserID));
-      }
+                // get role name
+                string roleName = string.Empty;
+                using (DataTable dt = this.Get<IDbFunction>().GetAsDataTable(cdb => cdb.group_list(this.PageContext.PageBoardID, roleID)))
+                {
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        roleName = (string)row["Name"];
+                    }
+                }
 
-      // update forum moderators cache just in case something was changed...
-      this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
+                // is user supposed to be in that role?
+                bool isChecked = ((CheckBox)item.FindControl("GroupMember")).Checked;
 
-      // clear the cache for this user...
-      this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.CurrentUserID));
+                // save user in role
+                this.Get<IDbFunction>().Query.usergroup_save(this.CurrentUserID, roleID, isChecked);
 
-      this.BindData();
+                // empty out access table
+                this.Get<IDbFunction>().Query.activeaccess_reset();
+
+                // update roles if this user isn't the guest
+                if (UserMembershipHelper.IsGuestUser(this.CurrentUserID))
+                {
+                    continue;
+                }
+
+                // get user's name
+                string userName = UserMembershipHelper.GetUserNameFromID(this.CurrentUserID);
+
+                // add/remove user from roles in membership provider
+                if (isChecked && !RoleMembershipHelper.IsUserInRole(userName, roleName))
+                {
+                    RoleMembershipHelper.AddUserToRole(userName, roleName);
+                }
+                else if (!isChecked && RoleMembershipHelper.IsUserInRole(userName, roleName))
+                {
+                    RoleMembershipHelper.RemoveUserFromRole(userName, roleName);
+                }
+
+                // Clearing cache with old permisssions data...
+                this.Get<IDataCache>().Remove(Constants.Cache.ActiveUserLazyData.FormatWith(this.CurrentUserID));
+            }
+
+            // update forum moderators cache just in case something was changed...
+            this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
+
+            // clear the cache for this user...
+            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.CurrentUserID));
+
+            this.BindData();
+        }
+
+        /// <summary>
+        /// Bind data for this control.
+        /// </summary>
+        private void BindData()
+        {
+            // get user roles
+            this.UserGroups.DataSource = this.Get<IDbFunction>().GetAsDataTable(cdb => cdb.group_member(this.PageContext.PageBoardID, this.CurrentUserID));
+
+            // bind data to controls
+            this.DataBind();
+        }
+
+        #endregion
     }
-
-    /// <summary>
-    /// Bind data for this control.
-    /// </summary>
-    private void BindData()
-    {
-      // get user roles
-      this.UserGroups.DataSource = LegacyDb.group_member(this.PageContext.PageBoardID, this.CurrentUserID);
-
-      // bind data to controls
-      this.DataBind();
-    }
-
-    #endregion
-  }
 }

@@ -16,16 +16,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Utils.Extensions
+namespace YAF.Types.Extensions
 {
   #region Using
 
-  using System;
-  using System.Collections.Generic;
+    using System;
 
-  using YAF.Types;
+    using YAF.Types;
 
-  #endregion
+    #endregion
 
   /// <summary>
   /// The using extensions.

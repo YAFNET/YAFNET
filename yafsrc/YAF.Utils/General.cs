@@ -28,8 +28,9 @@ namespace YAF.Utils
 
     using YAF.Classes;
     using YAF.Types;
+    using YAF.Types.Extensions;
 
-  #endregion
+    #endregion
 
     /// <summary>
     /// Summary description for General Utils.

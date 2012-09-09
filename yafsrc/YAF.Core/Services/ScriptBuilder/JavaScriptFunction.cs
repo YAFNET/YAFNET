@@ -24,6 +24,7 @@ namespace YAF.Core
   using System.Text;
 
   using YAF.Types;
+  using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
   using YAF.Utils;
 

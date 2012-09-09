@@ -1,6 +1,7 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.cp_subscriptions"CodeBehind="cp_subscriptions.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Utils" %>
+<%@ Import Namespace="YAF.Types.Extensions" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <asp:UpdatePanel ID="PreferencesUpdatePanel" runat="server">
     <ContentTemplate>

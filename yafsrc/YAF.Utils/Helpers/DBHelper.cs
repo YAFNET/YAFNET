@@ -27,6 +27,7 @@ namespace YAF.Utils.Helpers
     using System.Linq;
 
     using YAF.Types;
+    using YAF.Types.Extensions;
 
     #endregion
 

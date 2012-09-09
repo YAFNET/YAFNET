@@ -25,6 +25,7 @@ namespace YAF.Core.Tasks
 
     using YAF.Classes.Data;
     using YAF.Types.Constants;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
 

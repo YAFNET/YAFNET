@@ -29,6 +29,7 @@ namespace YAF.Core
   using System.Security.Policy;
 
   using YAF.Types;
+  using YAF.Types.Extensions;
   using YAF.Utils;
 
   /// <summary>

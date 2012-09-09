@@ -14,7 +14,9 @@ namespace YAF.Utils.Helpers.MinifyUtils
 	using System.IO;
 	using System.Text;
 
-	#endregion
+	using YAF.Types.Extensions;
+
+    #endregion
 
 	/// <summary>
 	/// JS Minify Class

@@ -16,21 +16,21 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Utils
+namespace YAF.Types.Extensions
 {
 	#region Using
 
-	using System;
-	using System.Collections.Generic;
-	using System.IO;
-	using System.Linq;
-	using System.Security.Cryptography;
-	using System.Text;
-	using System.Text.RegularExpressions;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Security.Cryptography;
+    using System.Text;
+    using System.Text.RegularExpressions;
 
-	using YAF.Types;
+    using YAF.Types;
 
-	#endregion
+    #endregion
 
 	/// <summary>
 	/// The string helper.

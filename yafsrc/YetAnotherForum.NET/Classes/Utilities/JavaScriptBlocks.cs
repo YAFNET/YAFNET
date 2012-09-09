@@ -24,6 +24,7 @@ namespace YAF.Utilities
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
 

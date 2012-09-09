@@ -22,6 +22,7 @@ namespace YAF.Core
 
   using System;
 
+  using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
   using YAF.Utils;
 

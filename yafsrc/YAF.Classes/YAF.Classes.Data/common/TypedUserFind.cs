@@ -24,6 +24,7 @@ namespace YAF.Types.Objects
     using System.Data;
 
     using YAF.Classes;
+    using YAF.Types.Extensions;
     using YAF.Utils;
 
     #endregion

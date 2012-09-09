@@ -27,7 +27,9 @@ namespace YAF.Utils.Helpers
 	using System.Net;
 	using System.Web;
 
-	#endregion
+	using YAF.Types.Extensions;
+
+    #endregion
 
 	/// <summary>
 	/// The image helper.

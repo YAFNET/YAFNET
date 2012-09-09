@@ -24,6 +24,7 @@ namespace YAF.Core.Tasks
   using System.Diagnostics;
 
   using YAF.Types.Attributes;
+  using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
   using YAF.Utils;
 

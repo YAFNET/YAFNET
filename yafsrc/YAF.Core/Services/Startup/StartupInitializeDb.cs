@@ -23,6 +23,7 @@ namespace YAF.Core.Services
   using System.Web;
 
   using YAF.Classes.Data;
+  using YAF.Types.Extensions;
   using YAF.Utils;
   using YAF.Core.Tasks;
   using YAF.Types;

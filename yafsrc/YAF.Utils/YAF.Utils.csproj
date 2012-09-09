@@ -58,25 +58,13 @@
   <ItemGroup>
     <Compile Include="Extensions\DataExtensions.cs" />
     <Compile Include="Extensions\DataSetExtensions.cs" />
-    <Compile Include="Extensions\DbCommandExtensions.cs" />
-    <Compile Include="Extensions\DbFunctionExtensions.cs" />
     <Compile Include="Extensions\JsonExtension.cs" />
-    <Compile Include="Extensions\LanguageExtensions.cs" />
     <Compile Include="Helpers\DateTimeHelper.cs" />
     <Compile Include="Helpers\HashHelper.cs" />
     <Compile Include="Helpers\ImageUtils\CaptchaImage.cs" />
-    <Compile Include="Extensions\ArrayExtensions.cs" />
-    <Compile Include="Extensions\DataContainerExtensions.cs" />
-    <Compile Include="Extensions\EnumerableExtensions.cs" />
-    <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\IRegistrationBuilderExtension.cs" />
     <Compile Include="Helpers\EnumHelper.cs" />
     <Compile Include="Extensions\HtmlWriterExtensions.cs" />
-    <Compile Include="Extensions\NameValueCollectionExtensions.cs" />
-    <Compile Include="Extensions\ObjectExtensions.cs" />
-    <Compile Include="Extensions\StreamExtensions.cs" />
-    <Compile Include="Extensions\StringExtensions.cs" />
-    <Compile Include="Extensions\ViewStateExtensions.cs" />
     <Compile Include="General.cs" />
     <Compile Include="Helpers\BBCodeHelper.cs" />
     <Compile Include="Helpers\ConfigHelper.cs" />
@@ -87,7 +75,6 @@
     <Compile Include="Helpers\IPHelper.cs" />
     <Compile Include="Helpers\JsAndCssHelper.cs" />
     <Compile Include="Helpers\QueryStringIDHelper.cs" />
-    <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Helpers\MinifyUtils\JSMinify.cs" />
     <Compile Include="Helpers\StringUtils\Characters.cs" />
     <Compile Include="Helpers\StringUtils\Unidecoder.cs" />

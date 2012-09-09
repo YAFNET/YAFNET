@@ -28,6 +28,7 @@ namespace YAF.Providers.Roles
 
     using YAF.Classes.Pattern;
     using YAF.Core;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Constants;
     using YAF.Types;

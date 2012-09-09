@@ -4,6 +4,7 @@
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Utils" %>
 <%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="YAF.Types.Extensions" %>
 <asp:Repeater ID="ReportedPostsRepeater" runat="server" Visible="false">
     <HeaderTemplate>
         <table width="100%" class="content" style="width:100%">

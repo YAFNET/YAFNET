@@ -23,6 +23,7 @@ namespace YAF.Core
   using System.Web.Profile;
 
   using YAF.Classes;
+  using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
   using YAF.Utils;
 

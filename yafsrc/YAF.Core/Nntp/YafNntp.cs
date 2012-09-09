@@ -29,6 +29,7 @@ namespace YAF.Core.Nntp
 
   using YAF.Classes.Data;
   using YAF.Types;
+  using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
   using YAF.Types.Objects;
   using YAF.Utils;

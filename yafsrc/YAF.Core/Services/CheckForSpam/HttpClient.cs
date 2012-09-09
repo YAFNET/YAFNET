@@ -28,6 +28,7 @@ namespace YAF.Core.Services
   using System.Net;
   using System.Text;
 
+  using YAF.Types.Extensions;
   using YAF.Utils;
   using YAF.Utils.Helpers.StringUtils;
   using YAF.Types;

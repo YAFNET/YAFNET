@@ -16,16 +16,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Utils
+namespace YAF.Types.Extensions
 {
-  using System.Collections;
-  using System.Collections.Generic;
-  using System.Collections.Specialized;
-  using System.Linq;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Collections.Specialized;
+    using System.Linq;
 
-  using YAF.Types;
+    using YAF.Types;
 
-  public static class NameValueCollectionExtensions
+    public static class NameValueCollectionExtensions
   {
     /// <summary>
     /// Flattens a <see cref="NameValueCollection"/> to a simple string <see cref="IDictionary{TKey,TValue}"/>.
@@ -35,11 +35,11 @@ namespace YAF.Utils
     /// <returns>
     /// </returns>
     [NotNull]
-    public static IDictionary<string, string> ToSimpleDictionary([NotNull] this NameValueCollection collection)
+    public static ILookup<string, string> ToLookup([NotNull] this NameValueCollection collection)
     {
       CodeContracts.ArgumentNotNull(collection, "collection");
 
-      return collection.AllKeys.ToDictionary(key => key, key => collection[key]);
+        return collection.Cast<string>().ToLookup(key => key, key => collection[key]);
     }
 
     /// <summary>

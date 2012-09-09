@@ -24,8 +24,9 @@ namespace YAF.Utils
 		using YAF.Classes;
 		using YAF.Types;
 		using YAF.Types.Constants;
+		using YAF.Types.Extensions;
 
-		/// <summary>
+    /// <summary>
 	/// Class provides helper functions related to the forum path and urls as well as forum version information.
 	/// </summary>
 	public static class YafForumInfo

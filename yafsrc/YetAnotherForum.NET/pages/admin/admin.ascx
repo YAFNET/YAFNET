@@ -3,6 +3,7 @@
 <%@ Import Namespace="YAF.Utils" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Utils.Helpers" %>
+<%@ Import Namespace="YAF.Types.Extensions" %>
 <YAF:PageLinks ID="PageLinks" runat="server" />
 <YAF:AdminMenu ID="Adminmenu1" runat="server">
     <asp:PlaceHolder ID="UpdateHightlight" runat="server" Visible="false">

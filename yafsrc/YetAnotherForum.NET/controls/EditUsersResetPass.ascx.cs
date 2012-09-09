@@ -28,6 +28,7 @@ namespace YAF.Controls
   using YAF.Core;
   using YAF.Core.Services;
   using YAF.Types;
+  using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
   using YAF.Utils;
   using YAF.Utils.Helpers;

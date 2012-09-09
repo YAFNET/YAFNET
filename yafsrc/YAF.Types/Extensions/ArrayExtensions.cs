@@ -17,16 +17,16 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace YAF.Utils
+namespace YAF.Types.Extensions
 {
 	#region Using
 
-	using System.Collections.Generic;
-	using System.Text;
+    using System.Collections.Generic;
+    using System.Text;
 
-	using YAF.Types;
+    using YAF.Types;
 
-	#endregion
+    #endregion
 
 	/// <summary>
 	/// The bit bool extensions.

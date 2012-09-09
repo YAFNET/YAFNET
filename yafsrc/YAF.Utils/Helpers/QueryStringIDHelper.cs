@@ -24,6 +24,7 @@ namespace YAF.Utils.Helpers
   using System.Collections.Generic;
   using System.Web;
 
+  using YAF.Types.Extensions;
   using YAF.Utils;
   using YAF.Utils.Helpers.StringUtils;
   using YAF.Types;
@@ -216,7 +217,7 @@ namespace YAF.Utils.Helpers
 
         long idConverted = -1;
 
-        if (StringExtensions.IsSet(HttpContext.Current.Request.QueryString.GetFirstOrDefault(idNames[i])) && long.TryParse(HttpContext.Current.Request.QueryString.GetFirstOrDefault(idNames[i]), out idConverted))
+        if (HttpContext.Current.Request.QueryString.GetFirstOrDefault(idNames[i]).IsSet() && long.TryParse(HttpContext.Current.Request.QueryString.GetFirstOrDefault(idNames[i]), out idConverted))
         {
           this.Params.Add(idNames[i], idConverted);
         }

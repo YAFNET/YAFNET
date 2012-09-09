@@ -21,6 +21,7 @@
 namespace YAF.Core.Services.Twitter
 {
     using YAF.Types;
+    using YAF.Types.Extensions;
     using YAF.Types.Objects;
     using YAF.Utils;
     using YAF.Utils.Extensions;

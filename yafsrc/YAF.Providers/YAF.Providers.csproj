@@ -103,10 +103,6 @@
       <Project>{B9CF38B0-39CF-43C7-9589-166DCC665652}</Project>
       <Name>YAF.Types</Name>
     </ProjectReference>
-    <ProjectReference Include="..\YAF.Utils\YAF.Utils.csproj">
-      <Project>{F80E0025-E57E-4BB5-89F2-CFBCAC1AFCF4}</Project>
-      <Name>YAF.Utils</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

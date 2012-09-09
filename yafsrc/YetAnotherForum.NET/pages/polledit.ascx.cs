@@ -32,10 +32,14 @@ namespace YAF.Pages
     using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Types.Constants;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Objects;
     using YAF.Utils;
     using YAF.Utils.Helpers;
+
+    using ObjectExtensions = YAF.Types.Extensions.ObjectExtensions;
+    using StringExtensions = YAF.Types.Extensions.StringExtensions;
 
     #endregion
 
@@ -169,7 +173,7 @@ namespace YAF.Pages
         /// </returns>
         protected bool IsInputVerified()
         {
-            if (this.PollGroupListDropDown.SelectedIndex.ToType<int>() <= 0)
+            if (ObjectExtensions.ToType<int>(this.PollGroupListDropDown.SelectedIndex) <= 0)
             {
                 if (this.Question.Text.Trim().Length == 0)
                 {
@@ -191,14 +195,14 @@ namespace YAF.Pages
                 }
 
                 int dateVerified;
-                if (!int.TryParse(this.PollExpire.Text.Trim(), out dateVerified) && this.PollExpire.Text.Trim().IsSet())
+                if (!int.TryParse(this.PollExpire.Text.Trim(), out dateVerified) && StringExtensions.IsSet(this.PollExpire.Text.Trim()))
                 {
                     YafContext.Current.AddLoadMessage(this.GetText("POLLEDIT", "EXPIRE_BAD"));
                     return false;
                 }
 
                 // Set default value
-                if (this.PollExpire.Text.Trim().IsNotSet() && this.IsClosedBoundCheckBox.Checked)
+                if (StringExtensions.IsNotSet(this.PollExpire.Text.Trim()) && this.IsClosedBoundCheckBox.Checked)
                 {
                     this.PollExpire.Text = "1";
                 }
@@ -369,11 +373,11 @@ namespace YAF.Pages
                 string questionPath = this.QuestionObjectPath.Text.Trim();
                 string questionMime = string.Empty;
 
-                if (questionPath.IsSet())
+                if (StringExtensions.IsSet(questionPath))
                 {
                     long length;
                     questionMime = ImageHelper.GetImageParameters(new Uri(questionPath), out length);
-                    if (questionMime.IsNotSet())
+                    if (StringExtensions.IsNotSet(questionMime))
                     {
                         YafContext.Current.AddLoadMessage(this.GetTextFormatted("POLLIMAGE_INVALID", questionPath));
                         return false;
@@ -413,11 +417,11 @@ namespace YAF.Pages
                     string choiceImageMime = string.Empty;
 
                     // update choice
-                    if (choiceObjectPath.IsSet())
+                    if (StringExtensions.IsSet(choiceObjectPath))
                     {
                         long length;
                         choiceImageMime = ImageHelper.GetImageParameters(new Uri(choiceObjectPath), out length);
-                        if (choiceImageMime.IsNotSet())
+                        if (StringExtensions.IsNotSet(choiceImageMime))
                         {
                             YafContext.Current.AddLoadMessage(
                                 this.GetTextFormatted("POLLIMAGE_INVALID", choiceObjectPath.Trim()));
@@ -458,10 +462,10 @@ namespace YAF.Pages
             {
                 // User wishes to create a poll  
                 // The value was selected, we attach an existing poll
-                if (this.PollGroupListDropDown.SelectedIndex.ToType<int>() > 0)
+                if (ObjectExtensions.ToType<int>(this.PollGroupListDropDown.SelectedIndex) > 0)
                 {
                     int result = LegacyDb.pollgroup_attach(
-                        this.PollGroupListDropDown.SelectedValue.ToType<int>(), 
+                        ObjectExtensions.ToType<int>(this.PollGroupListDropDown.SelectedValue), 
                         this._topicId, 
                         this._forumId, 
                         this._categoryId, 
@@ -478,11 +482,11 @@ namespace YAF.Pages
                 string questionPath = this.QuestionObjectPath.Text.Trim();
                 string questionMime = string.Empty;
 
-                if (questionPath.IsSet())
+                if (StringExtensions.IsSet(questionPath))
                 {
                     long length;
                     questionMime = ImageHelper.GetImageParameters(new Uri(questionPath), out length);
-                    if (questionMime.IsNotSet())
+                    if (StringExtensions.IsNotSet(questionMime))
                     {
                         YafContext.Current.AddLoadMessage(
                             this.GetTextFormatted("POLLIMAGE_INVALID", this.QuestionObjectPath.Text.Trim()));
@@ -511,11 +515,11 @@ namespace YAF.Pages
 
                     string choiceObjectMime = string.Empty;
 
-                    if (choiceObjectPath.IsSet())
+                    if (StringExtensions.IsSet(choiceObjectPath))
                     {
                         long length;
                         choiceObjectMime = ImageHelper.GetImageParameters(new Uri(choiceObjectPath), out length);
-                        if (choiceObjectMime.IsNotSet())
+                        if (StringExtensions.IsNotSet(choiceObjectMime))
                         {
                             YafContext.Current.AddLoadMessage(
                                 this.GetTextFormatted("POLLIMAGE_INVALID", choiceObjectPath.Trim()));
@@ -547,9 +551,9 @@ namespace YAF.Pages
                     realTopic = this._editTopicId;
                 }
 
-                if (this._datePollExpire == null && this.PollExpire.Text.Trim().IsSet())
+                if (this._datePollExpire == null && StringExtensions.IsSet(this.PollExpire.Text.Trim()))
                 {
-                    this._datePollExpire = DateTime.UtcNow.AddDays(this.PollExpire.Text.Trim().ToType<int>());
+                    this._datePollExpire = DateTime.UtcNow.AddDays(ObjectExtensions.ToType<int>(this.PollExpire.Text.Trim()));
                 }
 
                 pollSaveList.Add(
@@ -595,17 +599,17 @@ namespace YAF.Pages
             // we edit existing poll 
             if (this._choices.Rows.Count > 0)
             {
-                if ((this._choices.Rows[0]["UserID"].ToType<int>() != this.PageContext.PageUserID) &&
+                if ((ObjectExtensions.ToType<int>(this._choices.Rows[0]["UserID"]) != this.PageContext.PageUserID) &&
                     (!this.PageContext.IsAdmin) && (!this.PageContext.ForumModeratorAccess))
                 {
                     YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
                 }
 
-                this.IsBoundCheckBox.Checked = this._choices.Rows[0]["IsBound"].ToType<bool>();
-                this.IsClosedBoundCheckBox.Checked = this._choices.Rows[0]["IsClosedBound"].ToType<bool>();
-                this.AllowMultipleChoicesCheckBox.Checked = this._choices.Rows[0]["AllowMultipleChoices"].ToType<bool>();
-                this.AllowSkipVoteCheckBox.Checked = this._choices.Rows[0]["AllowSkipVote"].ToType<bool>();
-                this.ShowVotersCheckBox.Checked = this._choices.Rows[0]["ShowVoters"].ToType<bool>();
+                this.IsBoundCheckBox.Checked = ObjectExtensions.ToType<bool>(this._choices.Rows[0]["IsBound"]);
+                this.IsClosedBoundCheckBox.Checked = ObjectExtensions.ToType<bool>(this._choices.Rows[0]["IsClosedBound"]);
+                this.AllowMultipleChoicesCheckBox.Checked = ObjectExtensions.ToType<bool>(this._choices.Rows[0]["AllowMultipleChoices"]);
+                this.AllowSkipVoteCheckBox.Checked = ObjectExtensions.ToType<bool>(this._choices.Rows[0]["AllowSkipVote"]);
+                this.ShowVotersCheckBox.Checked = ObjectExtensions.ToType<bool>(this._choices.Rows[0]["ShowVoters"]);
                 this.Question.Text = this._choices.Rows[0]["Question"].ToString();
                 this.QuestionObjectPath.Text = this._choices.Rows[0]["QuestionObjectPath"].ToString();
 
@@ -613,7 +617,7 @@ namespace YAF.Pages
                 {
                     TimeSpan closing = (DateTime)this._choices.Rows[0]["Closes"] - DateTime.UtcNow;
 
-                    this.PollExpire.Text = (closing.TotalDays + 1).ToType<int>().ToString();
+                    this.PollExpire.Text = ObjectExtensions.ToType<int>((closing.TotalDays + 1)).ToString();
                 }
                 else
                 {

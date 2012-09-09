@@ -16,41 +16,48 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Utils
+namespace YAF.Types.Extensions
 {
-  #region Using
+    using System.IO;
 
-  using System;
-  using System.Linq;
-  using System.Security.Permissions;
-  using System.Security.Policy;
-
-  using YAF.Types;
-
-  #endregion
-
-  /// <summary>
-  /// The type extensions.
-  /// </summary>
-  public static class TypeExtensions
+    public static class StreamExtensions
   {
-    #region Public Methods
-
     /// <summary>
-    /// The get signing key.
+    /// Converts a Stream to a String.
     /// </summary>
-    /// <param name="sourceType">
-    /// The source type.
+    /// <param name="theStream">
     /// </param>
     /// <returns>
+    /// The stream to string.
     /// </returns>
-    public static StrongNamePublicKeyBlob GetSigningKey([NotNull] this Type sourceType)
+    public static string AsString(this Stream theStream)
     {
-      CodeContracts.ArgumentNotNull(sourceType, "sourceType");
-
-      return sourceType.Assembly.Evidence.OfType<StrongName>().Select(t => t.PublicKey).FirstOrDefault();
+      var reader = new StreamReader(theStream);
+      return reader.ReadToEnd();
     }
 
-    #endregion
+    /// <summary>
+    /// The copy stream.
+    /// </summary>
+    /// <param name="input">
+    /// The input.
+    /// </param>
+    /// <param name="output">
+    /// The output.
+    /// </param>
+    public static void CopyTo(this Stream input, Stream output)
+    {
+      var buffer = new byte[1024];
+      int count = buffer.Length;
+
+      while (count > 0)
+      {
+        count = input.Read(buffer, 0, count);
+        if (count > 0)
+        {
+          output.Write(buffer, 0, count);
+        }
+      }
+    }
   }
 }

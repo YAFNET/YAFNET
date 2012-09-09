@@ -28,6 +28,7 @@ namespace YAF.Pages.Admin
   using RegisterV2;
   using YAF.Types;
   using YAF.Types.Constants;
+  using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
   using YAF.Utils;
 

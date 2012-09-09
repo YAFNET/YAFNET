@@ -25,8 +25,9 @@ namespace YAF.Utils
   using System.Text;
 
     using YAF.Types;
+  using YAF.Types.Extensions;
 
-  #endregion
+    #endregion
 
   /// <summary>
   /// Helps parse URLs

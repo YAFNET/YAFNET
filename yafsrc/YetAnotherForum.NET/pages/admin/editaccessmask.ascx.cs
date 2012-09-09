@@ -30,6 +30,7 @@ namespace YAF.Pages.Admin
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;
+    using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Utils;
@@ -136,25 +137,27 @@ namespace YAF.Pages.Admin
             }
 
             // save it
-            LegacyDb.accessmask_save(
-                accessMaskID,
-                this.PageContext.PageBoardID,
-                this.Name.Text,
-                this.ReadAccess.Checked,
-                this.PostAccess.Checked,
-                this.ReplyAccess.Checked,
-                this.PriorityAccess.Checked,
-                this.PollAccess.Checked,
-                this.VoteAccess.Checked,
-                this.ModeratorAccess.Checked,
-                this.EditAccess.Checked,
-                this.DeleteAccess.Checked,
-                this.UploadAccess.Checked,
-                this.DownloadAccess.Checked,
-                sortOrder);
+            this.Get<IDbFunction>().GetAsDataTable(
+                cdb =>
+                cdb.accessmask_save(
+                    accessMaskID,
+                    this.PageContext.PageBoardID,
+                    this.Name.Text,
+                    this.ReadAccess.Checked,
+                    this.PostAccess.Checked,
+                    this.ReplyAccess.Checked,
+                    this.PriorityAccess.Checked,
+                    this.PollAccess.Checked,
+                    this.VoteAccess.Checked,
+                    this.ModeratorAccess.Checked,
+                    this.EditAccess.Checked,
+                    this.DeleteAccess.Checked,
+                    this.UploadAccess.Checked,
+                    this.DownloadAccess.Checked,
+                    sortOrder));
 
             // empty out access table
-            LegacyDb.activeaccess_reset();
+            this.Get<IDbFunction>().Query.activeaccess_reset();
 
             // clear cache
             this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
@@ -173,9 +176,7 @@ namespace YAF.Pages.Admin
             if (this.Request.QueryString.GetFirstOrDefault("i") != null)
             {
                 // load access mask
-                using (
-                    DataTable dt = LegacyDb.accessmask_list(
-                        this.PageContext.PageBoardID, this.Request.QueryString.GetFirstOrDefault("i")))
+                using (DataTable dt = this.Get<IDbFunction>().GetAsDataTable(cdb => cdb.accessmask_list(this.PageContext.PageBoardID, this.Request.QueryString.GetFirstOrDefault("i"))))
                 {
                     // we need just one
                     DataRow row = dt.Rows[0];

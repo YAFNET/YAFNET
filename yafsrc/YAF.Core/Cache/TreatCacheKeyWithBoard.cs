@@ -21,6 +21,7 @@ namespace YAF.Core
   #region Using
 
   using YAF.Types;
+  using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
   using YAF.Utils;
 

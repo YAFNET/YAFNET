@@ -26,6 +26,7 @@ namespace YAF.Utils.Helpers
     using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
     using YAF.Types;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
 
   /// <summary>

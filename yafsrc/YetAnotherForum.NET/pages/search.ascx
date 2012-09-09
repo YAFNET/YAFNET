@@ -3,6 +3,7 @@
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Utils" %>
+<%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Register TagPrefix="YAF" TagName="DialogBox" Src="../controls/DialogBox.ascx" %>
 <%@ Register Namespace="nStuff.UpdateControls" Assembly="nStuff.UpdateControls" TagPrefix="nStuff" %>
 <YAF:PageLinks ID="PageLinks" runat="server" />

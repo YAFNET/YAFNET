@@ -21,6 +21,7 @@ namespace YAF.Classes.Data
   using System.Collections.Generic;
   using System.Text;
 
+  using YAF.Types.Extensions;
   using YAF.Utils;
   using YAF.Utils.Helpers;
   using YAF.Types;

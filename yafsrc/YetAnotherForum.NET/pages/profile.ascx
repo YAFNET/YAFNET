@@ -4,6 +4,7 @@
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Utils" %>
+<%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Register TagPrefix="YAF" TagName="SignatureEdit" Src="../controls/EditUsersSignature.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="SuspendUser" Src="../controls/EditUsersSuspend.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="ForumAccess" Src="../controls/ForumProfileAccess.ascx" %>

@@ -23,7 +23,8 @@ using System.Web;
 
 namespace YAF.Classes.Data
 {
-  using YAF.Utils;
+    using YAF.Types.Extensions;
+    using YAF.Utils;
   using YAF.Utils.Helpers.StringUtils;
 
   /// <summary>

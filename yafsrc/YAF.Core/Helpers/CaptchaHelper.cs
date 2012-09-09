@@ -24,6 +24,7 @@ namespace YAF.Core
   using System.Web;
   using System.Web.Caching;
 
+  using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
   using YAF.Utils;
   using YAF.Types;

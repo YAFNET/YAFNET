@@ -23,6 +23,7 @@ namespace YAF.Core.BBCode
   using System.Text;
   using System.Text.RegularExpressions;
 
+  using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
   using YAF.Utils;
   using YAF.Utils.Helpers.StringUtils;

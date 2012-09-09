@@ -4,6 +4,7 @@
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Utils" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
+<%@ Import Namespace="YAF.Types.Extensions" %>
 <div class="imgtitle">
     <YAF:LocalizedLabel ID="AlbumHeaderLabel" runat="server" LocalizedTag="ALBUMS_HEADER_TEXT"
         Param0="" />

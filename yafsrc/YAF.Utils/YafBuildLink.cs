@@ -24,8 +24,9 @@ namespace YAF.Utils
 
   using YAF.Classes;
   using YAF.Types.Constants;
+  using YAF.Types.Extensions;
 
-  #endregion
+    #endregion
 
   /// <summary>
   /// Enumerates forum info messages.

@@ -2,6 +2,7 @@
     CodeBehind="LastPosts.ascx.cs" %>
 <%@ Import Namespace="YAF.Utils" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
+<%@ Import Namespace="YAF.Types.Extensions" %>
 <asp:Timer ID="LastPostUpdateTimer" runat="server" Interval="30000" OnTick="LastPostUpdateTimer_Tick">
 </asp:Timer>
 <div style="overflow: scroll; height: 400px;">

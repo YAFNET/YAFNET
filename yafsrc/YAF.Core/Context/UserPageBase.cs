@@ -26,6 +26,7 @@ namespace YAF.Core
     using System.Threading;
 
     using YAF.Classes;
+    using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Utils;
 

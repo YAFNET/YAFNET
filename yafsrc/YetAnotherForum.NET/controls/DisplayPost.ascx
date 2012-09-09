@@ -5,6 +5,7 @@
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Utils" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
+<%@ Import Namespace="YAF.Types.Extensions" %>
 <tr class="postheader">		
     <%#GetIndentCell()%>
     <td width="140" id="NameCell" class="postUser" runat="server">

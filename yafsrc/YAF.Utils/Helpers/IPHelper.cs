@@ -28,8 +28,9 @@ namespace YAF.Utils.Helpers
   using System;
 
   using YAF.Types;
+  using YAF.Types.Extensions;
 
-  #endregion
+    #endregion
 
   /// <summary>
   /// The ip helper.
@@ -150,25 +151,31 @@ namespace YAF.Utils.Helpers
     // don't resolve nntp
     if (addressIpv6.IsSet() && addressIpv6.ToLower().Contains("nntp")) return addressIpv6;
 
-     //Loop through all address InterNetwork - Address for IP version 4))
-    foreach (var ipAddress in
-        Dns.GetHostAddresses(addressIpv6).Where(ipAddress => ipAddress.AddressFamily == AddressFamily.InterNetwork))
+    try
     {
-        ip4Address = ipAddress.ToString();
-        break;
-    }
+        // Loop through all address InterNetwork - Address for IP version 4))
+        foreach (var ipAddress in Dns.GetHostAddresses(addressIpv6).Where(ipAddress => ipAddress.AddressFamily == AddressFamily.InterNetwork))
+        {
+            ip4Address = ipAddress.ToString();
+            break;
+        }
 
-    if (ip4Address.IsSet())
-    {
-      return ip4Address;
-    }
+        if (ip4Address.IsSet())
+        {
+            return ip4Address;
+        }
 
-    // to find by host name - is not in use so far. 
-    foreach (var ipAddress in
-        Dns.GetHostAddresses(Dns.GetHostName()).Where(ipAddress => ipAddress.AddressFamily == AddressFamily.InterNetwork))
+        // to find by host name - is not in use so far. 
+        foreach (var ipAddress in Dns.GetHostAddresses(Dns.GetHostName()).Where(ipAddress => ipAddress.AddressFamily == AddressFamily.InterNetwork))
+        {
+            ip4Address = ipAddress.ToString();
+            break;
+        }
+    }
+    catch (Exception)
     {
-        ip4Address = ipAddress.ToString();
-        break;
+        // TODO: log.
+        
     }
 
     return ip4Address;

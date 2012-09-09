@@ -3,6 +3,7 @@
 <%@ Import Namespace="System.Data" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Utils" %>
+<%@ Import Namespace="YAF.Types.Extensions" %>
 
 <asp:Repeater ID="ModeratorList" runat="server">
     <HeaderTemplate>

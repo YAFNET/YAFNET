@@ -5,6 +5,7 @@
 <%@ Import Namespace="YAF.Types.Flags" %>
 <%@ Import Namespace="YAF.Utils" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
+<%@ Import Namespace="YAF.Types.Extensions" %>
 <YAF:PageLinks ID="PageLinks" runat="server" />
 <YAF:AdminMenu runat="server">
     <table class="content" cellspacing="1" cellpadding="0" width="100%">

@@ -32,6 +32,7 @@ namespace YAF.Core.Nntp
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Classes.Data;
+  using YAF.Types.Extensions;
   using YAF.Utils;
 
   #endregion

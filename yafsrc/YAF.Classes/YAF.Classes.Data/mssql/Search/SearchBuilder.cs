@@ -24,6 +24,7 @@ namespace YAF.Classes.Data
   using System.Diagnostics;
   using System.Linq;
 
+  using YAF.Types.Extensions;
   using YAF.Utils;
   using YAF.Utils.Helpers.StringUtils;
   using YAF.Types;

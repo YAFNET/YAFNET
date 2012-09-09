@@ -25,6 +25,7 @@ namespace YAF.Modules.BBCode
 
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Types.Extensions;
     using YAF.Utils;
 
     /// <summary>

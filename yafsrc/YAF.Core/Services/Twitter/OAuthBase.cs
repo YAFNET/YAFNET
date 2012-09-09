@@ -39,7 +39,11 @@ namespace YAF.Core.Services.Twitter
     using System.Text;
     using System.Web;
 
+    using YAF.Types.Extensions;
     using YAF.Utils;
+
+    using ObjectExtensions = YAF.Types.Extensions.ObjectExtensions;
+    using StringExtensions = YAF.Types.Extensions.StringExtensions;
 
     #endregion
 
@@ -314,7 +318,7 @@ namespace YAF.Core.Services.Twitter
             switch (signatureType)
             {
                 case SignatureTypes.PLAINTEXT:
-                    return HttpUtility.UrlEncode("{0}&{1}".FormatWith(consumerSecret, tokenSecret));
+                    return HttpUtility.UrlEncode(StringExtensions.FormatWith("{0}&{1}", consumerSecret, tokenSecret));
                 case SignatureTypes.HMACSHA1:
                     string signatureBase = this.GenerateSignatureBase(
                         url,
@@ -334,7 +338,7 @@ namespace YAF.Core.Services.Twitter
                         {
                             Key =
                                 Encoding.ASCII.GetBytes(
-                                    "{0}&{1}".FormatWith(this.UrlEncode(consumerSecret), string.IsNullOrEmpty(tokenSecret) ? string.Empty : this.UrlEncode(tokenSecret)))
+                                    StringExtensions.FormatWith("{0}&{1}", this.UrlEncode(consumerSecret), string.IsNullOrEmpty(tokenSecret) ? string.Empty : this.UrlEncode(tokenSecret)))
                         };
 
                     return this.GenerateSignatureUsingHash(signatureBase, hmacsha1);
@@ -450,7 +454,7 @@ namespace YAF.Core.Services.Twitter
 
             parameters.Sort(new QueryParameterComparer());
 
-            normalizedUrl = "{0}://{1}".FormatWith(url.Scheme, url.Host);
+            normalizedUrl = StringExtensions.FormatWith("{0}://{1}", url.Scheme, url.Host);
             if (!((url.Scheme == "http" && url.Port == 80) || (url.Scheme == "https" && url.Port == 443)))
             {
                 normalizedUrl += ":" + url.Port;
@@ -493,7 +497,7 @@ namespace YAF.Core.Services.Twitter
         public virtual string GenerateTimeStamp()
         {
             TimeSpan ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
-            return ts.TotalSeconds.ToType<long>().ToString();
+            return ObjectExtensions.ToType<long>(ts.TotalSeconds).ToString();
         }
 
         #endregion

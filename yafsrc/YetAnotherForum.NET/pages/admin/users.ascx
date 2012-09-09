@@ -2,6 +2,7 @@
     CodeBehind="users.ascx.cs" %>
 <%@ Import Namespace="YAF.Utils" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
+<%@ Import Namespace="YAF.Types.Extensions" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server" ID="Adminmenu1">
     <table cellspacing="0" cellpadding="0" class="content" width="100%">

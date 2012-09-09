@@ -27,6 +27,7 @@ namespace YAF.Providers.Utils
   using System.Xml;
 
   using YAF.Classes;
+  using YAF.Types.Extensions;
   using YAF.Utils;
   using YAF.Types;
 
@@ -186,7 +187,7 @@ namespace YAF.Providers.Utils
       var exceptionXmlDoc = new XmlDocument();
       exceptionXmlDoc.Load(
         HttpContext.Current.Server.MapPath(
-          "{0}resources/{1}".FormatWith(YafForumInfo.ForumServerFileRoot, ProviderExceptionFile)));
+          "{0}resources/{1}".FormatWith(Config.ServerFileRoot, ProviderExceptionFile)));
 
       return exceptionXmlDoc;
     }

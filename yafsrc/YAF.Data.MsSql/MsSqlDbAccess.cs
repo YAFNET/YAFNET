@@ -30,6 +30,7 @@ namespace YAF.Data.MsSql
     using YAF.Core.Data;
     using YAF.Types;
     using YAF.Types.Attributes;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Utils;
