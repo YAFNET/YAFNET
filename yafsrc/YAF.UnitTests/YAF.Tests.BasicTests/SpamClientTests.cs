@@ -101,5 +101,44 @@ namespace YAF.Tests.BasicTests
                     false),
                 "This Comment should been False (No SPAM)");
         }
+
+        /// <summary>
+        /// A Test to Check for Bot via StopForumSpam.com API
+        /// </summary>
+        [TestMethod]
+        [Description("A Test to Check for Bot via StopForumSpam.com API")]
+        public void Check_For_Bot_Test_via_StopForumSpam()
+        {
+            Assert.IsTrue(
+                new StopForumSpam().CheckForBot("147.202.45.202", "Rating@Mail.ru", "someone"),
+                "This should be a Bot");
+        }
+
+        /// <summary>
+        /// A Test to Check for Bot via BotScout.com API
+        /// </summary>
+        [TestMethod]
+        [Description("A Test to Check for Bot via BotScout.com API")]
+        public void Check_For_Bot_Test_via_BotScout()
+        {
+            Assert.IsTrue(
+                new BotScout().CheckForBot("147.202.45.202", "Rating@Mail.ru", "someone"),
+                "This should be a Bot");
+        }
+
+        /// <summary>
+        /// A Test to Check for Bot via BotScout.com and StopForumSpam.com API
+        /// </summary>
+        [TestMethod]
+        [Description("A Test to Check for Bot via BotScout.com API and StopForumSpam.com API")]
+        public void Check_For_Bot_Test()
+        {
+            var botScoutCheck = new BotScout().CheckForBot("147.202.45.202", "Rating@Mail.ru", "someone");
+            var stopForumSpamCheck = new StopForumSpam().CheckForBot("147.202.45.202", "Rating@Mail.ru", "someone");
+
+            Assert.IsTrue(
+                botScoutCheck && stopForumSpamCheck,
+                "This should be a Bot");
+        }
     }
 }

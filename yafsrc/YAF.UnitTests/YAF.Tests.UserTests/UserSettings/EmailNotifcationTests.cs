@@ -23,12 +23,13 @@ namespace YAF.Tests.UserTests.UserSettings
     using System;
     using System.Text.RegularExpressions;
 
+    using YAF.Types.Extensions;
+
     using netDumbster.smtp;
     using NUnit.Framework;
     using WatiN.Core;
     using WatiN.Core.Native.Windows;
     using YAF.Tests.Utils;
-    using YAF.Utils;
 
     /// <summary>
     /// The Email Notification tests.

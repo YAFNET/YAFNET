@@ -23,13 +23,18 @@ namespace YAF.Tests.AdminTests
     using System.IO;
     using System.Net;
     using System.Xml;
+
     using ICSharpCode.SharpZipLib.Zip;
+
     using netDumbster.smtp;
+
     using NUnit.Framework;
+
     using WatiN.Core;
     using WatiN.Core.Native.Windows;
+
     using YAF.Tests.Utils;
-    using YAF.Utils;
+    using YAF.Types.Extensions;
 
     /// <summary>
     /// Testing a YAF Installation

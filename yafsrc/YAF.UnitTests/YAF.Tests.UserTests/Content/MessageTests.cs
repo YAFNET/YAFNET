@@ -28,7 +28,7 @@ namespace YAF.Tests.UserTests.Content
     using WatiN.Core.Native.Windows;
 
     using YAF.Tests.Utils;
-    using YAF.Utils;
+    using YAF.Types.Extensions;
 
     /// <summary>
     /// The Message tests.

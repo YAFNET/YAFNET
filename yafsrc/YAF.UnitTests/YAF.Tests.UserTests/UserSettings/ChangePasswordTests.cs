@@ -28,7 +28,7 @@ namespace YAF.Tests.UserTests.UserSettings
     using WatiN.Core.Native.Windows;
 
     using YAF.Tests.Utils;
-    using YAF.Utils;
+    using YAF.Types.Extensions;
 
     /// <summary>
     /// The user Change Password tests.
@@ -79,9 +79,9 @@ namespace YAF.Tests.UserTests.UserSettings
 
             // Enter New Password
             this.browser.TextField(Find.ById(new Regex("_ChangePasswordContainerID_NewPassword"))).TypeText(
-                string.Format("{0}ABCDEF", TestConfig.TestUserPassword));
+                "{0}ABCDEF".FormatWith(TestConfig.TestUserPassword));
             this.browser.TextField(Find.ById(new Regex("_ChangePasswordContainerID_ConfirmNewPassword"))).TypeText(
-                string.Format("{0}ABCDEF", TestConfig.TestUserPassword));
+                "{0}ABCDEF".FormatWith(TestConfig.TestUserPassword));
 
             // Submit
             this.browser.Button(Find.ById(new Regex("_ChangePasswordContainerID_ChangePasswordPushButton"))).Click();
@@ -96,7 +96,7 @@ namespace YAF.Tests.UserTests.UserSettings
 
             // Enter Old Password
             this.browser.TextField(Find.ById(new Regex("_ChangePasswordContainerID_CurrentPassword"))).TypeText(
-                string.Format("{0}ABCDEF", TestConfig.TestUserPassword));
+                "{0}ABCDEF".FormatWith(TestConfig.TestUserPassword));
 
             // Enter New Password
             this.browser.TextField(Find.ById(new Regex("_ChangePasswordContainerID_NewPassword"))).TypeText(

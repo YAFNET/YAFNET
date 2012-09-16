@@ -28,7 +28,7 @@ namespace YAF.Tests.AdminTests.Users
     using WatiN.Core.DialogHandlers;
 
     using YAF.Tests.Utils;
-    using YAF.Utils;
+    using YAF.Types.Extensions;
 
     /// <summary>
     /// The Manage User Tests
@@ -89,26 +89,5 @@ namespace YAF.Tests.AdminTests.Users
             }
         }
 
-        [Test]
-        // TODO
-        public void Add_User_To_Test_Role_Test()
-        {
-            /*this.browser.GoTo("{0}yaf_admin_users.aspx".FormatWith(TestConfig.TestForumUrl));
-
-            // Search for TestUser
-            this.browser.TextField(Find.ById(new Regex("_name"))).TypeText(TestConfig.TestUserName);
-            this.browser.Button(Find.ById(new Regex("_search"))).Click();
-
-            var userProfileLink = this.browser.Link(Find.ById(new Regex("_NameEdit_0")));
-
-            Assert.IsNotNull(userProfileLink, "Test User doesn't Exist");
-
-            userProfileLink.Click();
-
-            this.browser.Link(Find.ByText("User Roles")).Click();
-
-
-            */
-        }
     }
 }

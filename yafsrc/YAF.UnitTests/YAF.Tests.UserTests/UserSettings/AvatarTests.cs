@@ -29,7 +29,7 @@ namespace YAF.Tests.UserTests.UserSettings
     using WatiN.Core.Native.Windows;
 
     using YAF.Tests.Utils;
-    using YAF.Utils;
+    using YAF.Types.Extensions;
 
     /// <summary>
     /// The user Avatar tests.

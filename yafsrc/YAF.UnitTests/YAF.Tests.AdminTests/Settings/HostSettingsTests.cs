@@ -27,7 +27,7 @@ namespace YAF.Tests.AdminTests.Settings
     using WatiN.Core;
 
     using YAF.Tests.Utils;
-    using YAF.Utils;
+    using YAF.Types.Extensions;
 
     /// <summary>
     /// The  Host Settings Tests

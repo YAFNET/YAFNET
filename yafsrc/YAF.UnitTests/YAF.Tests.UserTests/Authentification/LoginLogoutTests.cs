@@ -28,7 +28,7 @@ namespace YAF.Tests.UserTests.Authentification
     using WatiN.Core.Native.Windows;
 
     using YAF.Tests.Utils;
-    using YAF.Utils;
+    using YAF.Types.Extensions;
 
     /// <summary>
     /// The login/log off user tester.

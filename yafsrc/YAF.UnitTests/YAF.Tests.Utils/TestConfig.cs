@@ -23,7 +23,7 @@ namespace YAF.Tests.Utils
     using System;
     using System.Configuration;
 
-    using YAF.Utils;
+    using YAF.Types.Extensions;
 
     /// <summary>
     /// Configuration Settings

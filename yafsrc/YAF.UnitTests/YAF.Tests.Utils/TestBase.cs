@@ -26,7 +26,7 @@ namespace YAF.Tests.Utils
     using WatiN.Core;
     using WatiN.Core.Exceptions;
     using WatiN.Core.Native.Windows;
-    using YAF.Utils;
+    using YAF.Types.Extensions;
 
     /// <summary>
     /// Unit TestBase.

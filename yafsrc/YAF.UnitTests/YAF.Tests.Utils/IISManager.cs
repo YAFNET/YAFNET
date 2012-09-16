@@ -22,7 +22,7 @@ namespace YAF.Tests.Utils
 {
     using Microsoft.Web.Administration;
 
-    using YAF.Utils;
+    using YAF.Types.Extensions;
 
     /// <summary>
     /// IISManager Class to modify IIS Apps

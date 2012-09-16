@@ -25,7 +25,7 @@ namespace YAF.Tests.Utils
     using WatiN.Core;
     using WatiN.Core.Native.Windows;
 
-    using YAF.Utils;
+    using YAF.Types.Extensions;
 
     /// <summary>
     /// Test Helper Class

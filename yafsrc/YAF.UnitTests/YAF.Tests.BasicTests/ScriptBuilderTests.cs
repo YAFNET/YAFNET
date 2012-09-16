@@ -22,17 +22,17 @@ namespace YAF.Tests.BasicTests
 {
     using Autofac;
 
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using NUnit.Framework;
 
     using YAF.Core;
     using YAF.Types.Attributes;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
 
     /// <summary>
     ///  The script builder tests.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class ScriptBuilderTests : IHaveServiceLocator
     {
         #region Constructors and Destructors
@@ -65,7 +65,7 @@ namespace YAF.Tests.BasicTests
         /// <summary>
         /// The test script building assumptions.
         /// </summary>
-        [TestMethod]
+        [Test]
         [Description("The test script building assumptions.")]
         public void Test_ScriptBuilding_Assumptions()
         {
