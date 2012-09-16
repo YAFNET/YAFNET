@@ -1429,7 +1429,7 @@ GO
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_viewallthanks] @UserID int, @PageUserID int
 AS 
     BEGIN
-        select  t.ThanksFromUserID,
+        SELECT  t.ThanksFromUserID,
                 t.ThanksToUserID,
                 c.MessageID,
                 a.ForumID,
@@ -1440,21 +1440,20 @@ AS
                 c.Posted,
                 c.[Message],
                 c.Flags
-                from   [{databaseOwner}].[{objectQualifier}Thanks] t
+		FROM   
+				[{databaseOwner}].[{objectQualifier}Thanks] t
                 join [{databaseOwner}].[{objectQualifier}Message] c  on c.MessageID = t.MessageID		 
                 join [{databaseOwner}].[{objectQualifier}Topic] a on a.TopicID = c.TopicID
                 join [{databaseOwner}].[{objectQualifier}User] b on c.UserID = b.UserID
                 join [{databaseOwner}].[{objectQualifier}ActiveAccess] x on x.ForumID = a.ForumID
-        where   CONVERT(int,x.ReadAccess) <> 0
-                AND x.UserID = @PageUserID			
-                AND c.IsApproved = 1
+        WHERE	
+				c.IsDeleted = 0
+                AND c.IsApproved = 1     				
+                AND (t.ThanksFromUserID = @UserID OR t.thankstouserID = @UserID)
                 AND a.TopicMovedID IS NULL
-                AND a.IsDeleted = 0
-                AND c.IsDeleted = 0
-             AND
-            ( t.ThanksFromUserID = @UserID 
-            OR t.thankstouserID = @UserID )
-
+                AND a.IsDeleted = 0     
+                AND x.UserID = @PageUserID	      
+                AND x.ReadAccess <> 0
         ORDER BY c.Posted DESC
     END
 Go
