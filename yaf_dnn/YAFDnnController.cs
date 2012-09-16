@@ -22,14 +22,15 @@ namespace YAF.DotNetNuke
     #region Using
 
     using System;
-    using System.Collections.Generic;
     using System.Linq;
 
     using global::DotNetNuke.Common.Utilities;
+
     using global::DotNetNuke.Entities.Modules;
+
     using global::DotNetNuke.Services.Search;
 
-    using YAF.Utils;
+    using YAF.Types.Extensions;
 
     #endregion
 
@@ -41,9 +42,9 @@ namespace YAF.DotNetNuke
         #region Constants and Fields
 
         /// <summary>
-        /// The i board id.
+        /// The current Board id.
         /// </summary>
-        private int iBoardId = 1;
+        private int boardId = 1;
 
         #endregion
 
@@ -65,33 +66,28 @@ namespace YAF.DotNetNuke
             {
                 if (!string.IsNullOrEmpty(this.Settings["forumboardid"].ToString()))
                 {
-                    this.iBoardId = int.Parse(this.Settings["forumboardid"].ToString());
+                    this.boardId = this.Settings["forumboardid"].ToType<int>();
                 }
             }
             catch (Exception)
             {
-                this.iBoardId = 1;
+                this.boardId = 1;
             }
 
             var searchItemCollection = new SearchItemInfoCollection();
 
             // Get all Messages
-            List<Messages> yafMessages = Controller.Data.YafDnnGetMessages();
+            var yafMessages = Controller.Data.YafDnnGetMessages();
 
             // Get all Topics
-            List<Topics> yafTopics = Controller.Data.YafDnnGetTopics();
+            var yafTopics = Controller.Data.YafDnnGetTopics();
 
             foreach (Messages message in yafMessages)
             {
                 // find the Topic of the message
-                Messages curMessage = message;
+                var curMessage = message;
 
-                Topics curTopic = yafTopics.Find(topics => topics.TopicId.Equals(curMessage.TopicId));
-
-                if (!curTopic.ForumId.Equals(this.iBoardId))
-                {
-                    continue;
-                }
+                var curTopic = yafTopics.Find(topics => topics.TopicId.Equals(curMessage.TopicId) && topics.ForumId.Equals(this.boardId));
 
                 // Format message
                 string sMessage = message.Message;
@@ -100,7 +96,7 @@ namespace YAF.DotNetNuke
                 {
                     string[] sMessageC = sMessage.Split(' ');
 
-                    Messages message1 = message;
+                    var message1 = message;
 
                     foreach (var searchItem in
                         sMessageC.Select(
@@ -138,7 +134,7 @@ namespace YAF.DotNetNuke
 
             foreach (Topics topic in yafTopics)
             {
-                if (!topic.ForumId.Equals(this.iBoardId))
+                if (!topic.ForumId.Equals(this.boardId))
                 {
                     continue;
                 }

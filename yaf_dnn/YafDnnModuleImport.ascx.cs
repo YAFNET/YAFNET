@@ -30,22 +30,27 @@ namespace YAF.DotNetNuke
     using System.Web.Security;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
-
     using global::DotNetNuke.Common;
+
     using global::DotNetNuke.Common.Utilities;
+
     using global::DotNetNuke.Entities.Modules;
+
     using global::DotNetNuke.Entities.Users;
+
     using global::DotNetNuke.Services.Exceptions;
+
     using global::DotNetNuke.Services.Localization;
+
     using global::DotNetNuke.Services.Scheduling;
 
+    using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
     using YAF.DotNetNuke.Utils;
+    using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
 
     #endregion
 

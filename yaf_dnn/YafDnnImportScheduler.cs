@@ -27,20 +27,23 @@ namespace YAF.DotNetNuke
     using System.Web;
     using System.Web.Security;
 
-    using YAF.Classes;
-
     using global::DotNetNuke.Common.Utilities;
+
     using global::DotNetNuke.Entities.Portals;
+
     using global::DotNetNuke.Entities.Users;
+
     using global::DotNetNuke.Services.Exceptions;
+
     using global::DotNetNuke.Services.Scheduling;
 
+    using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
     using YAF.DotNetNuke.Utils;
+    using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
 
     #endregion
 

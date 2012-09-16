@@ -25,7 +25,6 @@ namespace YAF.DotNetNuke
     using System.Collections;
     using System.Data;
     using System.Globalization;
-    using System.IO;
     using System.Text;
     using System.Web;
     using System.Web.Caching;
@@ -33,21 +32,24 @@ namespace YAF.DotNetNuke
     using System.Web.UI;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
-    using YAF.Utils.Helpers;
-
     using global::DotNetNuke.Common;
+
     using global::DotNetNuke.Entities.Modules;
+
     using global::DotNetNuke.Framework;
+
     using global::DotNetNuke.Services.Exceptions;
+
     using global::DotNetNuke.Services.Localization;
+
+    using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
     using YAF.DotNetNuke.Controller;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
-    using YAF.Utils.Extensions;
+    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -89,39 +91,44 @@ namespace YAF.DotNetNuke
         /// </summary>
         private int yafTabId;
 
+        /// <summary>
+        /// The header Template
+        /// </summary>
         private string headerTemplate;
 
+        /// <summary>
+        /// The item Template
+        /// </summary>
         private string itemTemplate;
 
+        /// <summary>
+        /// The footer Template
+        /// </summary>
         private string footerTemplate;
 
         #endregion
 
         #region Methods
-        
+
         /// <summary>
         /// The clean string for url.
         /// </summary>
-        /// <param name="str">
-        /// The str.
-        /// </param>
-        /// <returns>
-        /// Returns the Cleaned String
-        /// </returns>
-        protected static string CleanStringForURL(string str)
+        /// <param name="inputString">The input string.</param>
+        /// <returns>Returns the Cleaned String</returns>
+        protected static string CleanStringForURL(string inputString)
         {
             var sb = new StringBuilder();
 
             // trim...
-            str = HttpContext.Current.Server.HtmlDecode(str.Trim());
+            inputString = HttpContext.Current.Server.HtmlDecode(inputString.Trim());
 
             // fix ampersand...
-            str = str.Replace("&", "and");
+            inputString = inputString.Replace("&", "and");
 
             // normalize the Unicode
-            str = str.Normalize(NormalizationForm.FormD);
+            inputString = inputString.Normalize(NormalizationForm.FormD);
 
-            foreach (char currentChar in str)
+            foreach (char currentChar in inputString)
             {
                 if (char.IsWhiteSpace(currentChar) || currentChar == '.')
                 {
@@ -290,14 +297,10 @@ namespace YAF.DotNetNuke
         }
 
         /// <summary>
-        /// The high range.
+        /// High the range.
         /// </summary>
-        /// <param name="id">
-        /// The id.
-        /// </param>
-        /// <returns>
-        /// The high range.
-        /// </returns>
+        /// <param name="id">The id.</param>
+        /// <returns>The high range.</returns>
         protected int HighRange(int id)
         {
             return (int)(Math.Ceiling((double)(id / CacheSize)) * CacheSize);
@@ -306,12 +309,8 @@ namespace YAF.DotNetNuke
         /// <summary>
         /// The latest posts_ item data bound.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="RepeaterItemEventArgs" /> instance containing the event data.</param>
         protected void LatestPostsItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             switch (e.Item.ItemType)
@@ -366,17 +365,11 @@ namespace YAF.DotNetNuke
             return (int)(Math.Floor((double)(id / CacheSize)) * CacheSize);
         }
 
-        /// -----------------------------------------------------------------------------
         /// <summary>
-        /// Page_Load runs when the control is loaded
+        /// Handles the Load event of the Page control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender. 
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        /// -----------------------------------------------------------------------------
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void Page_Load(object sender, EventArgs e)
         {
             Type csType = typeof(Page);
@@ -488,7 +481,7 @@ namespace YAF.DotNetNuke
         }
 
         /// <summary>
-        /// The bind data.
+        /// Binds the data.
         /// </summary>
         private void BindData()
         {
@@ -682,6 +675,11 @@ namespace YAF.DotNetNuke
             return this.headerTemplate;
         }
 
+        /// <summary>
+        /// Processes the item.
+        /// </summary>
+        /// <param name="e">The <see cref="RepeaterItemEventArgs" /> instance containing the event data.</param>
+        /// <returns>Returns the Item as string</returns>
         private string ProcessItem(RepeaterItemEventArgs e)
         {
             var currentRow = (DataRowView)e.Item.DataItem;
@@ -766,7 +764,6 @@ namespace YAF.DotNetNuke
                                     "~/Default.aspx?tabid={1}&g=profile&u={0}".FormatWith(
                                         currentRow["LastUserID"], this.yafTabId))
                     };
-
 
                 this.itemTemplate = this.itemTemplate.Replace("[LASTUSERLINK]", lastUserLink.RenderToString());
             }

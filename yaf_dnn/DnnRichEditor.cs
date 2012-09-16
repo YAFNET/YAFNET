@@ -21,16 +21,16 @@ namespace YAF.Editors
 {
   #region Using
 
-  using System;
-  using System.Web.UI;
-  using System.Web.UI.WebControls;
+    using System;
+    using System.Web.UI;
+    using System.Web.UI.WebControls;
 
-  using global::DotNetNuke.Modules.HTMLEditorProvider;
+    using global::DotNetNuke.Modules.HTMLEditorProvider;
 
-  using YAF.Classes;
-  using YAF.Classes.Data;
-  using YAF.Types.Constants;
-  using YAF.Utils;
+    using YAF.Classes;
+    using YAF.Classes.Data;
+    using YAF.Types.Constants;
+    using YAF.Types.Extensions;
 
     #endregion
 
@@ -189,7 +189,7 @@ namespace YAF.Editors
       }
 
       this._editor.Height = Unit.Pixel(400);
-      this._editor.Width = Unit.Percentage(100);
+      this._editor.Width = Unit.Percentage(100); // Change Me
 
       this.Controls.Add(this._editor.HtmlEditorControl);
 
@@ -257,7 +257,7 @@ namespace YAF.Editors
     }
 
     /// <summary>
-    /// The init dnn editor.
+    /// Init the DNN editor.
     /// </summary>
     /// <returns>
     /// The init dnn editor.

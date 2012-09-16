@@ -24,12 +24,16 @@ namespace YAF.DotNetNuke
     using System;
     using System.Data;
     using System.Web.UI.WebControls;
+
     using global::DotNetNuke.Entities.Modules;
+
     using global::DotNetNuke.Services.Localization;
+
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Types.Constants;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
 

@@ -27,11 +27,14 @@ namespace YAF.DotNetNuke
     using System.Web.UI.WebControls;
 
     using global::DotNetNuke.Common.Utilities;
+
     using global::DotNetNuke.Entities.Modules;
+
     using global::DotNetNuke.Entities.Tabs;
+
     using global::DotNetNuke.Services.Exceptions;
 
-    using YAF.Utils;
+    using YAF.Types.Extensions;
 
     #endregion
 

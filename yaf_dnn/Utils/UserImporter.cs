@@ -21,14 +21,15 @@ namespace YAF.DotNetNuke.Utils
 {
     using System.Web.Security;
 
-    using YAF.Classes;
-    using YAF.Types.Constants;
-    using YAF.Types.Interfaces;
-
     using global::DotNetNuke.Entities.Portals;
+
     using global::DotNetNuke.Entities.Users;
+
+    using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Types.Constants;
+    using YAF.Types.Extensions;
     using YAF.Utils;
 
     /// <summary>

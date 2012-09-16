@@ -35,6 +35,7 @@ namespace YAF.DotNetNuke.Utils
     using YAF.Core;
     using YAF.DotNetNuke.Controller;
     using YAF.Types;
+    using YAF.Types.Extensions;
     using YAF.Types.EventProxies;
     using YAF.Types.Interfaces;
     using YAF.Utils;
@@ -184,10 +185,12 @@ namespace YAF.DotNetNuke.Utils
                 }
             }
 
+            dnnUserInfo.DisplayName = yafUserData.DisplayName;
+
             dnnUserInfo.Profile.Country = new RegionInfo(new CultureInfo(yafUserProfile.Country).LCID).EnglishName;
 
             dnnUserInfo.Profile.City = yafUserProfile.City;
-            //dnnUserInfo.Profile.Region = yafUserProfile.Region;
+            ////dnnUserInfo.Profile.Region = yafUserProfile.Region;
 
             dnnUserInfo.Profile.Website = yafUserProfile.Homepage;
             dnnUserInfo.Email = membershipUser.Email;
@@ -264,8 +267,47 @@ namespace YAF.DotNetNuke.Utils
             {
                 return;
             }
-
+            
             var yafUserData = new CombinedUserDataHelper(yafUserId);
+
+            YafCultureInfo userCuluture = new YafCultureInfo
+            {
+                LanguageFile = yafUserData.LanguageFile,
+                Culture = yafUserData.CultureUser
+            };
+
+            if (!string.IsNullOrEmpty(dnnUserInfo.Profile.PreferredLocale))
+            {
+                CultureInfo newCulture = new CultureInfo(dnnUserInfo.Profile.PreferredLocale);
+
+                foreach (DataRow row in
+                    StaticDataHelper.Cultures().Rows.Cast<DataRow>().Where(
+                        row => dnnUserInfo.Profile.PreferredLocale == row["CultureTag"].ToString() || newCulture.TwoLetterISOLanguageName == row["CultureTag"].ToString()))
+                {
+                    userCuluture.LanguageFile = row["CultureFile"].ToString();
+                    userCuluture.Culture = row["CultureTag"].ToString();
+                }
+            }
+
+            LegacyDb.user_save(
+                yafUserId,
+                boardId,
+                null,
+                dnnUserInfo.DisplayName,
+                null,
+                yafUserData.TimeZone,
+                userCuluture.LanguageFile,
+                userCuluture.Culture,
+                yafUserData.ThemeFile,
+                yafUserData.UseSingleSignOn,
+                yafUserData.TextEditor,
+                yafUserData.UseMobileTheme,
+                null,
+                null,
+                null,
+                yafUserData.DSTUser,
+                yafUserData.IsActiveExcluded,
+                null);
 
             yafUserProfile.RealName = dnnUserInfo.Profile.FullName;
 
@@ -301,49 +343,12 @@ namespace YAF.DotNetNuke.Utils
             {
                 yafUserProfile.Save();
             }
-            
-            YafCultureInfo userCuluture = new YafCultureInfo
-                {
-                    LanguageFile = yafUserData.LanguageFile,
-                    Culture = yafUserData.CultureUser
-                };
-
-            if (string.IsNullOrEmpty(dnnUserInfo.Profile.PreferredLocale))
-            {
-                return;
-            }
-
-            CultureInfo newCulture = new CultureInfo(dnnUserInfo.Profile.PreferredLocale);
-
-            foreach (DataRow row in
-                StaticDataHelper.Cultures().Rows.Cast<DataRow>().Where(
-                    row => dnnUserInfo.Profile.PreferredLocale == row["CultureTag"].ToString() || newCulture.TwoLetterISOLanguageName == row["CultureTag"].ToString()))
-            {
-                userCuluture.LanguageFile = row["CultureFile"].ToString();
-                userCuluture.Culture = row["CultureTag"].ToString();
-            }
-
-            LegacyDb.user_save(
-                yafUserId,
-                boardId,
-                null,
-                yafUserData.DisplayName,
-                null,
-                yafUserData.TimeZone,
-                userCuluture.LanguageFile,
-                userCuluture.Culture,
-                yafUserData.ThemeFile,
-                yafUserData.UseSingleSignOn,
-                yafUserData.TextEditor,
-                yafUserData.UseMobileTheme,
-                null,
-                null,
-                null,
-                yafUserData.DSTUser,
-                yafUserData.IsActiveExcluded,
-                null);
 
             var currentTime = DateTime.Now;
+
+            YafContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserEvent(yafUserId));
+
+            YafContext.Current.Get<IDataCache>().Clear();
 
             DataCache.SetCache(cacheKeyYafName, currentTime);
         }

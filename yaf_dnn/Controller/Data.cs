@@ -28,7 +28,7 @@ namespace YAF.DotNetNuke.Controller
     using global::DotNetNuke.Data;
     using global::DotNetNuke.Security.Roles;
     using YAF.Classes.Data;
-    using YAF.Utils;
+    using YAF.Types.Extensions;
 
     #endregion
 

@@ -44,9 +44,10 @@ namespace YAF.DotNetNuke
     using YAF.Core;
     using YAF.DotNetNuke.Controller;
     using YAF.DotNetNuke.Utils;
+
+    using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
 
     #endregion
 
