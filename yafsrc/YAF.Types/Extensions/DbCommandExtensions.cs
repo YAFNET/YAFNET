@@ -140,7 +140,7 @@ namespace YAF.Types.Extensions
 					p.DbType = DbType.String;
 					p.Size = 4000;
 				}
-				else if (item.GetType() == typeof(ExpandoObject))
+				else if (item is ExpandoObject)
 				{
 					var d = (IDictionary<string, object>)item;
 					p.Value = d.Values.FirstOrDefault();

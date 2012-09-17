@@ -32,51 +32,55 @@ namespace YAF.Core.Data
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Interfaces.Extensions;
-    using YAF.Utils;
 
     #endregion
 
     /// <summary>
-    /// The dynamic db function.
+    ///     The dynamic db function.
     /// </summary>
     public class DynamicDbFunction : IDbFunction
     {
-        #region Constants and Fields
+        #region Fields
 
         /// <summary>
-        /// The _db access provider.
+        ///     The data reader proxy.
+        /// </summary>
+        private readonly TryInvokeMemberProxy _dataReaderProxy;
+
+        /// <summary>
+        ///     The _db access provider.
         /// </summary>
         private readonly IDbAccessProvider _dbAccessProvider;
-
-        /// <summary>
-        /// The _db specific functions.
-        /// </summary>
-        private readonly Func<IEnumerable<IDbSpecificFunction>> _dbSpecificFunctions;
 
         private readonly Func<IEnumerable<IDbDataFilter>> _dbFilterFunctions;
 
         /// <summary>
-        /// The _get data proxy.
+        ///     The _db specific functions.
+        /// </summary>
+        private readonly Func<IEnumerable<IDbSpecificFunction>> _dbSpecificFunctions;
+
+        /// <summary>
+        ///     The _get data proxy.
         /// </summary>
         private readonly TryInvokeMemberProxy _getDataProxy;
 
         /// <summary>
-        /// The _get data set proxy.
+        ///     The _get data set proxy.
         /// </summary>
         private readonly TryInvokeMemberProxy _getDataSetProxy;
 
         /// <summary>
-        /// The _query proxy.
+        ///     The _query proxy.
         /// </summary>
         private readonly TryInvokeMemberProxy _queryProxy;
 
         /// <summary>
-        /// The _scalar proxy.
+        ///     The _scalar proxy.
         /// </summary>
         private readonly TryInvokeMemberProxy _scalarProxy;
 
         /// <summary>
-        /// The _unit of work.
+        ///     The _unit of work.
         /// </summary>
         private WeakReference _unitOfWork = new WeakReference(null);
 
@@ -85,15 +89,14 @@ namespace YAF.Core.Data
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DynamicDbFunction"/> class.
+        ///     Initializes a new instance of the <see cref="DynamicDbFunction" /> class.
         /// </summary>
-        /// <param name="dbAccessProvider">
-        /// The db Access Provider.
-        /// </param>
-        /// <param name="dbSpecificFunctions">
-        /// The db Specific Functions. 
-        /// </param>
-        public DynamicDbFunction([NotNull] IDbAccessProvider dbAccessProvider, Func<IEnumerable<IDbSpecificFunction>> dbSpecificFunctions, Func<IEnumerable<IDbDataFilter>> dbFilterFunctions)
+        /// <param name="dbAccessProvider"> The db Access Provider. </param>
+        /// <param name="dbSpecificFunctions"> The db Specific Functions. </param>
+        public DynamicDbFunction(
+            [NotNull] IDbAccessProvider dbAccessProvider,
+            Func<IEnumerable<IDbSpecificFunction>> dbSpecificFunctions,
+            Func<IEnumerable<IDbDataFilter>> dbFilterFunctions)
         {
             this._dbAccessProvider = dbAccessProvider;
             this._dbSpecificFunctions = dbSpecificFunctions;
@@ -103,6 +106,7 @@ namespace YAF.Core.Data
             this._getDataSetProxy = new TryInvokeMemberProxy(this.InvokeGetDataSet);
             this._queryProxy = new TryInvokeMemberProxy(this.InvokeQuery);
             this._scalarProxy = new TryInvokeMemberProxy(this.InvokeScalar);
+            this._dataReaderProxy = new TryInvokeMemberProxy(this.InvokeDataReader);
         }
 
         #endregion
@@ -110,7 +114,7 @@ namespace YAF.Core.Data
         #region Public Properties
 
         /// <summary>
-        /// Gets GetData.
+        ///     Gets GetData.
         /// </summary>
         public dynamic GetData
         {
@@ -120,8 +124,16 @@ namespace YAF.Core.Data
             }
         }
 
+        public dynamic GetDataReader
+        {
+            get
+            {
+                return this._dataReaderProxy.ToDynamic();
+            }
+        }
+
         /// <summary>
-        /// Gets GetDataSet.
+        ///     Gets GetDataSet.
         /// </summary>
         public dynamic GetDataSet
         {
@@ -132,7 +144,7 @@ namespace YAF.Core.Data
         }
 
         /// <summary>
-        /// Gets Query.
+        ///     Gets Query.
         /// </summary>
         public dynamic Query
         {
@@ -143,7 +155,7 @@ namespace YAF.Core.Data
         }
 
         /// <summary>
-        /// Gets Scalar.
+        ///     Gets Scalar.
         /// </summary>
         public dynamic Scalar
         {
@@ -154,7 +166,7 @@ namespace YAF.Core.Data
         }
 
         /// <summary>
-        /// Gets or sets UnitOfWork.
+        ///     Gets or sets UnitOfWork.
         /// </summary>
         public virtual IDbUnitOfWork UnitOfWork
         {
@@ -179,31 +191,19 @@ namespace YAF.Core.Data
         #region Methods
 
         /// <summary>
-        /// The db function execute.
+        ///     The db function execute.
         /// </summary>
-        /// <param name="functionType">
-        /// The function Type. 
-        /// </param>
-        /// <param name="binder">
-        /// The binder. 
-        /// </param>
-        /// <param name="parameters">
-        /// The parameters. 
-        /// </param>
-        /// <param name="executeDb">
-        /// The execute db. 
-        /// </param>
-        /// <param name="result">
-        /// The result. 
-        /// </param>
-        /// <returns>
-        /// The db function execute. 
-        /// </returns>
+        /// <param name="functionType"> The function Type. </param>
+        /// <param name="binder"> The binder. </param>
+        /// <param name="parameters"> The parameters. </param>
+        /// <param name="executeDb"> The execute db. </param>
+        /// <param name="result"> The result. </param>
+        /// <returns> The db function execute. </returns>
         protected bool DbFunctionExecute(
-            DbFunctionType functionType, 
-            [NotNull] InvokeMemberBinder binder, 
-            [NotNull] IList<KeyValuePair<string, object>> parameters, 
-            [NotNull] Func<DbCommand, object> executeDb, 
+            DbFunctionType functionType,
+            [NotNull] InvokeMemberBinder binder,
+            [NotNull] IList<KeyValuePair<string, object>> parameters,
+            [NotNull] Func<DbCommand, object> executeDb,
             [CanBeNull] out object result)
         {
             CodeContracts.ArgumentNotNull(binder, "binder");
@@ -241,134 +241,114 @@ namespace YAF.Core.Data
             return true;
         }
 
+        protected bool InvokeDataReader(InvokeMemberBinder binder, object[] args, out object result)
+        {
+            return this.DbFunctionExecute(
+                DbFunctionType.Reader,
+                binder,
+                this.MapParameters(binder.CallInfo, args),
+                (cmd) => this._dbAccessProvider.Instance.GetReader(cmd, this.UnitOfWork),
+                out result);
+        }
+
         /// <summary>
-        /// The invoke get data.
+        ///     The invoke get data.
         /// </summary>
-        /// <param name="binder">
-        /// The binder. 
-        /// </param>
-        /// <param name="args">
-        /// The args. 
-        /// </param>
-        /// <param name="result">
-        /// The result. 
-        /// </param>
-        /// <returns>
-        /// The invoke get data. 
-        /// </returns>
+        /// <param name="binder"> The binder. </param>
+        /// <param name="args"> The args. </param>
+        /// <param name="result"> The result. </param>
+        /// <returns> The invoke get data. </returns>
         protected bool InvokeGetData(
             [NotNull] InvokeMemberBinder binder, [NotNull] object[] args, [NotNull] out object result)
         {
             return this.DbFunctionExecute(
-                DbFunctionType.DataTable, 
-                binder, 
-                this.MapParameters(binder.CallInfo, args), 
-                (cmd) => this._dbAccessProvider.Instance.GetData(cmd, this.UnitOfWork), 
+                DbFunctionType.DataTable,
+                binder,
+                this.MapParameters(binder.CallInfo, args),
+                (cmd) => this._dbAccessProvider.Instance.GetData(cmd, this.UnitOfWork),
                 out result);
         }
 
         /// <summary>
-        /// The invoke get data set.
+        ///     The invoke get data set.
         /// </summary>
-        /// <param name="binder">
-        /// The binder. 
-        /// </param>
-        /// <param name="args">
-        /// The args. 
-        /// </param>
-        /// <param name="result">
-        /// The result. 
-        /// </param>
-        /// <returns>
-        /// The invoke get data set. 
-        /// </returns>
+        /// <param name="binder"> The binder. </param>
+        /// <param name="args"> The args. </param>
+        /// <param name="result"> The result. </param>
+        /// <returns> The invoke get data set. </returns>
         protected bool InvokeGetDataSet(
             [NotNull] InvokeMemberBinder binder, [NotNull] object[] args, [NotNull] out object result)
         {
             return this.DbFunctionExecute(
-                DbFunctionType.DataSet, 
-                binder, 
-                this.MapParameters(binder.CallInfo, args), 
-                (cmd) => this._dbAccessProvider.Instance.GetDataset(cmd, this.UnitOfWork), 
+                DbFunctionType.DataSet,
+                binder,
+                this.MapParameters(binder.CallInfo, args),
+                (cmd) => this._dbAccessProvider.Instance.GetDataset(cmd, this.UnitOfWork),
                 out result);
         }
 
         /// <summary>
-        /// The invoke query.
+        ///     The invoke query.
         /// </summary>
-        /// <param name="binder">
-        /// The binder. 
-        /// </param>
-        /// <param name="args">
-        /// The args. 
-        /// </param>
-        /// <param name="result">
-        /// The result. 
-        /// </param>
-        /// <returns>
-        /// The invoke query. 
-        /// </returns>
+        /// <param name="binder"> The binder. </param>
+        /// <param name="args"> The args. </param>
+        /// <param name="result"> The result. </param>
+        /// <returns> The invoke query. </returns>
         protected bool InvokeQuery([NotNull] InvokeMemberBinder binder, [NotNull] object[] args, [NotNull] out object result)
         {
             return this.DbFunctionExecute(
-                DbFunctionType.Query, 
-                binder, 
-                this.MapParameters(binder.CallInfo, args), 
+                DbFunctionType.Query,
+                binder,
+                this.MapParameters(binder.CallInfo, args),
                 (cmd) =>
                     {
                         this._dbAccessProvider.Instance.ExecuteNonQuery(cmd, this.UnitOfWork);
                         return null;
-                    }, 
+                    },
                 out result);
         }
 
         /// <summary>
-        /// The invoke scalar.
+        ///     The invoke scalar.
         /// </summary>
-        /// <param name="binder">
-        /// The binder. 
-        /// </param>
-        /// <param name="args">
-        /// The args. 
-        /// </param>
-        /// <param name="result">
-        /// The result. 
-        /// </param>
-        /// <returns>
-        /// The invoke scalar. 
-        /// </returns>
+        /// <param name="binder"> The binder. </param>
+        /// <param name="args"> The args. </param>
+        /// <param name="result"> The result. </param>
+        /// <returns> The invoke scalar. </returns>
         protected bool InvokeScalar([NotNull] InvokeMemberBinder binder, [NotNull] object[] args, [NotNull] out object result)
         {
             return this.DbFunctionExecute(
-                DbFunctionType.Scalar, 
-                binder, 
-                this.MapParameters(binder.CallInfo, args), 
-                (cmd) => this._dbAccessProvider.Instance.ExecuteScalar(cmd, this.UnitOfWork), 
+                DbFunctionType.Scalar,
+                binder,
+                this.MapParameters(binder.CallInfo, args),
+                (cmd) => this._dbAccessProvider.Instance.ExecuteScalar(cmd, this.UnitOfWork),
                 out result);
         }
 
         /// <summary>
-        /// The map parameters.
+        ///     The map parameters.
         /// </summary>
-        /// <param name="callInfo">
-        /// The call info. 
-        /// </param>
-        /// <param name="args">
-        /// The args. 
-        /// </param>
-        /// <returns>
-        /// </returns>
+        /// <param name="callInfo"> The call info. </param>
+        /// <param name="args"> The args. </param>
+        /// <returns> </returns>
         [NotNull]
         protected IList<KeyValuePair<string, object>> MapParameters([NotNull] CallInfo callInfo, [NotNull] object[] args)
         {
             CodeContracts.ArgumentNotNull(callInfo, "callInfo");
             CodeContracts.ArgumentNotNull(args, "args");
 
-            return args
-                .Reverse()
-                .Zip(callInfo.ArgumentNames.Reverse().Infinite(), (a, name) => new KeyValuePair<string, object>(name, a))
-                .Reverse()
-                .ToList();
+            var argsPairs =
+                args.Reverse()
+                    .Zip(callInfo.ArgumentNames.Reverse().Infinite(), (a, name) => new KeyValuePair<string, object>(name, a))
+                    .Reverse()
+                    .ToList();
+
+            foreach (var pair in argsPairs.Where(x => x.Value is IEntity))
+            {
+                // explode this object out...
+            }
+
+            return argsPairs;
         }
 
         #endregion

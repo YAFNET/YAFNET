@@ -16,6 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
 namespace YAF.Types.Extensions
 {
     #region Using
@@ -25,7 +26,6 @@ namespace YAF.Types.Extensions
     using System.Data;
     using System.Linq;
 
-    using YAF.Types;
     using YAF.Types.Interfaces;
 
     #endregion
@@ -43,7 +43,8 @@ namespace YAF.Types.Extensions
         /// <param name="reader"> The reader. </param>
         /// <param name="comparer"> The comparer. </param>
         /// <returns> </returns>
-        public static IEnumerable<IDictionary<string, object>> ToDictionary([NotNull] this IDataReader reader, [CanBeNull] IEqualityComparer<string> comparer = null)
+        public static IEnumerable<IDictionary<string, object>> ToDictionary(
+            [NotNull] this IDataReader reader, [CanBeNull] IEqualityComparer<string> comparer = null)
         {
             CodeContracts.ArgumentNotNull(reader, "reader");
 
@@ -75,9 +76,9 @@ namespace YAF.Types.Extensions
             CodeContracts.ArgumentNotNull(dataRow, "dataRow");
 
             return dataRow.Table.Columns
-                    .OfType<DataColumn>()
-                    .Select(c => c.ColumnName)
-                    .ToDictionary(k => k, v => dataRow[v] == DBNull.Value ? null : dataRow[v], comparer ?? StringComparer.OrdinalIgnoreCase);
+                .OfType<DataColumn>()
+                .Select(c => c.ColumnName)
+                .ToDictionary(k => k, v => dataRow[v] == DBNull.Value ? null : dataRow[v], comparer ?? StringComparer.OrdinalIgnoreCase);
         }
 
         /// <summary>
@@ -94,12 +95,12 @@ namespace YAF.Types.Extensions
 
             var columns = dataTable.Columns.OfType<DataColumn>().Select(c => c.ColumnName);
 
-            return
-                dataTable
-                    .AsEnumerable()
-                    .Select(dataRow => columns
-                        .ToDictionary(k => k, v => dataRow[v] == DBNull.Value ? null : dataRow[v], comparer ?? StringComparer.OrdinalIgnoreCase))
-                    .Cast<IDictionary<string, object>>();
+            return dataTable
+                .AsEnumerable()
+                .Select(
+                    dataRow =>
+                    columns.ToDictionary(k => k, v => dataRow[v] == DBNull.Value ? null : dataRow[v], comparer ?? StringComparer.OrdinalIgnoreCase))
+                .Cast<IDictionary<string, object>>();
         }
 
         /// <summary>
@@ -121,6 +122,22 @@ namespace YAF.Types.Extensions
                         newObj.LoadFromDictionary(d);
                         return newObj;
                     });
+        }
+
+        public static IList<T> Typed<T>(
+            [NotNull] this IDataReader dataReader, [CanBeNull] IEqualityComparer<string> comparer = null)
+            where T : IDataLoadable, new()
+        {
+            return dataReader
+                .ToDictionary(comparer)
+                .Select(
+                    d =>
+                        {
+                            var newObj = new T();
+                            newObj.LoadFromDictionary(d);
+                            return newObj;
+                        })
+                .ToList();
         }
 
         #endregion

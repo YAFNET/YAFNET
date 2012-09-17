@@ -24,12 +24,14 @@ namespace YAF.Tests.UserTests
     using System.Net;
     using System.Xml;
     using ICSharpCode.SharpZipLib.Zip;
+
+    using YAF.Types.Extensions;
+
     using netDumbster.smtp;
     using NUnit.Framework;
     using WatiN.Core;
     using WatiN.Core.Native.Windows;
     using YAF.Tests.Utils;
-    using YAF.Utils;
 
     /// <summary>
     /// Testing a YAF Installation

@@ -223,6 +223,9 @@ namespace YAF.Core
 
             builder.RegisterType<DynamicDbFunction>().As<IDbFunction>().InstancePerLifetimeScope().PreserveExistingDefaults();
 
+            // register generic IRepository handler, which can be easily overriden by more advanced repository handler
+            builder.RegisterGeneric(typeof(BasicRepository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope();
+
             // register filters... Style filter depends on YafBoardSettings so it must be in the YafContext.
             builder.RegisterType<StyleFilter>().As<IDbDataFilter>().InstancePerYafContext().PreserveExistingDefaults();
         }

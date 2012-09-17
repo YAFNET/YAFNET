@@ -33,3 +33,5 @@ _ReSharper.*
 *.ncrunch*
 **\bin\Debug
 **\bin\Release
+packages/*
+YAF.UnitTests/*/bin/*

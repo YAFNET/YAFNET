@@ -86,6 +86,7 @@
     <Compile Include="Data\DbUnitOfWorkBase.cs" />
     <Compile Include="Data\DynamicDbFunction.cs" />
     <Compile Include="Data\Filters\StyleFilter.cs" />
+    <Compile Include="Data\BasicRepository.cs" />
     <Compile Include="Data\TryInvokeMemberProxy.cs" />
     <Compile Include="Data\CommandTextHelpers.cs" />
     <Compile Include="Extensions\DbAccessExtensions.cs" />

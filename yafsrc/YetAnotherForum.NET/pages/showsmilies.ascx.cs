@@ -28,6 +28,8 @@ namespace YAF.Pages
   using YAF.Core;
   using YAF.Types;
   using YAF.Types.Extensions;
+  using YAF.Types.Interfaces;
+  using YAF.Types.Models;
   using YAF.Utils;
 
   #endregion
@@ -97,7 +99,7 @@ namespace YAF.Pages
     /// </summary>
     private void BindData()
     {
-      this.List.DataSource = LegacyDb.smiley_listunique(this.PageContext.PageBoardID);
+      this.List.DataSource = this.GetRepository<Smiley>().ListUnique(this.PageContext.PageBoardID);
       this.DataBind();
     }
 

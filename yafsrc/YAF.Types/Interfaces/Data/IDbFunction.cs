@@ -103,6 +103,11 @@ namespace YAF.Types.Interfaces
 		/// </summary>
 		dynamic Scalar { get; }
 
+        /// <summary>
+        /// Gets an IDataReader
+        /// </summary>
+	    dynamic GetDataReader { get; }
+
 		/// <summary>
 		/// Gets or sets the current Unit of Work used.
 		/// </summary>

@@ -27,6 +27,7 @@ namespace YAF.Controls
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
@@ -209,7 +210,7 @@ namespace YAF.Controls
 
             if (this.Get<YafBoardSettings>().ShowShoutboxSmiles)
             {
-                this.smiliesRepeater.DataSource = LegacyDb.smiley_listunique(this.PageContext.PageBoardID);
+                this.smiliesRepeater.DataSource = this.GetRepository<Smiley>().ListUnique(this.PageContext.PageBoardID);
             }
         }
 

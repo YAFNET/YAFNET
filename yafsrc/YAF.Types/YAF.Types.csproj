@@ -39,6 +39,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -81,11 +82,15 @@
     <Compile Include="Interfaces\Data\IDbSortableOperation.cs" />
     <Compile Include="Interfaces\Data\IDbSpecificFunction.cs" />
     <Compile Include="Interfaces\Data\IDbUnitOfWork.cs" />
+    <Compile Include="Interfaces\Data\IRepository.cs" />
     <Compile Include="Interfaces\Extensions\DbSpecificFunctionExtensions.cs" />
     <Compile Include="Interfaces\Extensions\IDbAccessConnectionExtensions.cs" />
     <Compile Include="Interfaces\Extensions\IDbFunctionExtensions.cs" />
     <Compile Include="Interfaces\Extensions\IDbUnitOfWorkExtensions.cs" />
+    <Compile Include="Interfaces\Data\IEntity.cs" />
     <Compile Include="Interfaces\IStyleTransform.cs" />
+    <Compile Include="Models\Smiley.cs" />
+    <Compile Include="Models\Extensions\SmileyRepositoryExtensions.cs" />
     <Compile Include="Objects\MessageNotification.cs" />
     <Compile Include="ThemeResources.cs" />
     <Compile Include="CodeContracts.cs" />

@@ -402,10 +402,15 @@ namespace YAF.Types.Extensions
                     return default(T);
                 }
             }
+            else if (instanceType.IsClass && !(instance is IConvertible))
+            {
+                // just cast since it's a class....
+                return (T)instance;
+            }
 
             Type conversionType = typeof(T);
 
-            if (conversionType.IsGenericType && conversionType.GetGenericTypeDefinition().Equals(typeof(Nullable<>)))
+            if (conversionType.IsGenericType && conversionType.GetGenericTypeDefinition() == typeof(Nullable<>))
             {
                 conversionType = (new NullableConverter(conversionType)).UnderlyingType;
             }
