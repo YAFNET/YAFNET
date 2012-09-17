@@ -59,6 +59,7 @@
     <Compile Include="Attributes\StringValueAttribute.cs" />
     <Compile Include="Attributes\YafModule.cs" />
     <Compile Include="BadWordReplaceItem.cs" />
+    <Compile Include="EventProxies\RepositoryEvent.cs" />
     <Compile Include="Extensions\ArrayExtensions.cs" />
     <Compile Include="Extensions\DataContainerExtensions.cs" />
     <Compile Include="Extensions\DataExtensions.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="Extensions\LanguageExtensions.cs" />
     <Compile Include="Extensions\NameValueCollectionExtensions.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
+    <Compile Include="Extensions\RepositoryExtensions.cs" />
     <Compile Include="Extensions\StreamExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />

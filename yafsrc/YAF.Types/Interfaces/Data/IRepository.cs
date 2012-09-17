@@ -29,7 +29,12 @@ namespace YAF.Types.Interfaces.Data
         #region Public Properties
 
         /// <summary>
-        /// Gets the db function.
+        /// Gets the db event.
+        /// </summary>
+        IRaiseEvent DbEvent { get; }
+
+        /// <summary>
+        ///     Gets the db function.
         /// </summary>
         IDbFunction DbFunction { get; }
 

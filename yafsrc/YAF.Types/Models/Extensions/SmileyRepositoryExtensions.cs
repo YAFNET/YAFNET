@@ -23,6 +23,7 @@ namespace YAF.Types.Models
     using System.Collections.Generic;
     using System.Data;
 
+    using YAF.Core.Extensions;
     using YAF.Types.Interfaces.Data;
 
     #endregion
@@ -48,6 +49,7 @@ namespace YAF.Types.Models
             CodeContracts.ArgumentNotNull(repository, "repository");
 
             repository.DbFunction.Query.smiley_delete(SmileyID: smileyID);
+            repository.FireDeleted(smileyID);
         }
 
         /// <summary>
@@ -162,13 +164,20 @@ namespace YAF.Types.Models
         /// <param name="replace">
         /// The replace. 
         /// </param>
-        public static void Save(
-            this IRepository<Smiley> repository, int? smileyID, int boardID, string code, string icon, string emoticon, byte sortOrder, short replace)
+        public static void Save(this IRepository<Smiley> repository, int? smileyID, int boardID, string code, string icon, string emoticon, byte sortOrder, short replace)
         {
             CodeContracts.ArgumentNotNull(repository, "repository");
 
-            repository.DbFunction.Query.smiley_save(
-                SmileyID: smileyID, BoardID: boardID, Code: code, Icon: icon, Emoticon: emoticon, SortOrder: sortOrder, Replace: replace);
+            repository.DbFunction.Query.smiley_save(SmileyID: smileyID, BoardID: boardID, Code: code, Icon: icon, Emoticon: emoticon, SortOrder: sortOrder, Replace: replace);
+
+            if (smileyID.HasValue)
+            {
+                repository.FireUpdated(smileyID);
+            }
+            else
+            {
+                repository.FireNew(null);
+            }
         }
 
         #endregion

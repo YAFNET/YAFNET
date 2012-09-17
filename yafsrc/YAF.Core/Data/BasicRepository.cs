@@ -39,11 +39,15 @@ namespace YAF.Core.Data
         /// Initializes a new instance of the <see cref="BasicRepository{T}"/> class.
         /// </summary>
         /// <param name="dbFunction">
-        /// The db function.
+        /// The db function. 
         /// </param>
-        public BasicRepository(IDbFunction dbFunction)
+        /// <param name="raiseEvent">
+        /// The raise Event.
+        /// </param>
+        public BasicRepository(IDbFunction dbFunction, IRaiseEvent raiseEvent)
         {
             this.DbFunction = dbFunction;
+            this.DbEvent = raiseEvent;
         }
 
         #endregion
@@ -51,7 +55,12 @@ namespace YAF.Core.Data
         #region Public Properties
 
         /// <summary>
-        /// Gets the db function.
+        /// Gets the db event.
+        /// </summary>
+        public IRaiseEvent DbEvent { get; private set; }
+
+        /// <summary>
+        ///     Gets the db function.
         /// </summary>
         public IDbFunction DbFunction { get; private set; }
 
