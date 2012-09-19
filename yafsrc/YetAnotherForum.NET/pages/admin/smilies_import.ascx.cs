@@ -179,7 +179,7 @@ namespace YAF.Pages.Admin
                 else
                 {
                     // Get max value of SortOrder
-                    using (DataView dv = this.GetRepository<Smiley>().ListUnique(this.PageContext.PageBoardID).DefaultView)
+                    using (DataView dv = this.GetRepository<Smiley>().ListUnique().DefaultView)
                     {
                         dv.Sort = "SortOrder desc";
                         if (dv.Count > 0)
@@ -212,16 +212,12 @@ namespace YAF.Pages.Admin
                         continue;
                     }
 
-                    this.GetRepository<Smiley>().Save(null, this.PageContext.PageBoardID, lineSplit[2], lineSplit[0], lineSplit[1], (byte)sortOrder, 0);
+                    this.GetRepository<Smiley>().Save(null, lineSplit[2], lineSplit[0], lineSplit[1], (byte)sortOrder, 0);
                     sortOrder++;
                 }
                 while (true);
 
                 file.Close();
-
-                // invalidate the cache...
-                this.Get<IDataCache>().Remove(Constants.Cache.Smilies);
-                this.Get<IObjectStore>().RemoveOf<IProcessReplaceRules>();
             }
 
             YafBuildLink.Redirect(ForumPages.admin_smilies);

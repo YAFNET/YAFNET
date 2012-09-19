@@ -25,6 +25,7 @@ namespace YAF.Pages.Admin
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Types.Objects;
     using YAF.Utilities;
     using YAF.Utils;
@@ -237,7 +238,7 @@ namespace YAF.Pages.Admin
             this.PostsCategory.DataSource = categories;
 
             // Access Mask Lists               
-            this.ForumsStartMask.DataSource = LegacyDb.accessmask_list(this.PageContext.PageBoardID, null);
+            this.ForumsStartMask.DataSource = this.GetRepository<AccessMask>().List();
             this.ForumsAdminMask.DataSource = this.ForumsStartMask.DataSource;
 
             this.ForumsGroups.DataSource = LegacyDb.group_list(this.PageContext.PageBoardID, null);

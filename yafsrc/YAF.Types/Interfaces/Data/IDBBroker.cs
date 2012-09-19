@@ -24,6 +24,7 @@ namespace YAF.Types.Interfaces
   using System.Collections.Generic;
   using System.Data;
 
+  using YAF.Types.Models;
   using YAF.Types.Objects;
 
   #endregion
@@ -201,7 +202,7 @@ namespace YAF.Types.Interfaces
     /// <returns>
     /// Table with list of smiles
     /// </returns>
-    IEnumerable<TypedSmileyList> GetSmilies();
+    IList<Smiley> GetSmilies();
 
     /// <summary>
     /// Loads the message text into the paged data if "Message" and "MessageID" exists.

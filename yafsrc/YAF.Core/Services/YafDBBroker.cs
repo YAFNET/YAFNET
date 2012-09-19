@@ -34,6 +34,7 @@ namespace YAF.Core.Services
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Types.Objects;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -511,14 +512,9 @@ namespace YAF.Core.Services
         ///     The get smilies.
         /// </summary>
         /// <returns> Table with list of smiles </returns>
-        public IEnumerable<TypedSmileyList> GetSmilies()
+        public IList<Smiley> GetSmilies()
         {
-            return this.DataCache.GetOrSet(
-                Constants.Cache.Smilies,
-                () =>
-                this.DbFunction.GetAsDataTable(cdb => cdb.smiley_list(YafContext.Current.PageBoardID, null))
-                    .SelectTypedList(x => new TypedSmileyList(x)).ToList(),
-                TimeSpan.FromMinutes(60));
+            return this.DataCache.GetOrSet(Constants.Cache.Smilies, () => this.GetRepository<Smiley>().ListTyped(), TimeSpan.FromMinutes(60));
         }
 
         /// <summary>

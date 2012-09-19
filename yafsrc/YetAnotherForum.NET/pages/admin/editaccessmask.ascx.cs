@@ -33,6 +33,7 @@ namespace YAF.Pages.Admin
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -110,10 +111,11 @@ namespace YAF.Pages.Admin
         protected void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // retrieve access mask ID from parameter (if applicable)
-            object accessMaskID = null;
+            int? accessMaskID = null;
+
             if (this.Request.QueryString.GetFirstOrDefault("i") != null)
             {
-                accessMaskID = this.Request.QueryString.GetFirstOrDefault("i");
+                accessMaskID = this.Request.QueryString.GetFirstOrDefaultAs<int>("i");
             }
 
             if (this.Name.Text.Trim().Length <= 0)
@@ -137,24 +139,21 @@ namespace YAF.Pages.Admin
             }
 
             // save it
-            this.Get<IDbFunction>().GetAsDataTable(
-                cdb =>
-                cdb.accessmask_save(
-                    accessMaskID,
-                    this.PageContext.PageBoardID,
-                    this.Name.Text,
-                    this.ReadAccess.Checked,
-                    this.PostAccess.Checked,
-                    this.ReplyAccess.Checked,
-                    this.PriorityAccess.Checked,
-                    this.PollAccess.Checked,
-                    this.VoteAccess.Checked,
-                    this.ModeratorAccess.Checked,
-                    this.EditAccess.Checked,
-                    this.DeleteAccess.Checked,
-                    this.UploadAccess.Checked,
-                    this.DownloadAccess.Checked,
-                    sortOrder));
+            this.GetRepository<AccessMask>().Save(
+                accessMaskID,
+                this.Name.Text,
+                this.ReadAccess.Checked,
+                this.PostAccess.Checked,
+                this.ReplyAccess.Checked,
+                this.PriorityAccess.Checked,
+                this.PollAccess.Checked,
+                this.VoteAccess.Checked,
+                this.ModeratorAccess.Checked,
+                this.EditAccess.Checked,
+                this.DeleteAccess.Checked,
+                this.UploadAccess.Checked,
+                this.DownloadAccess.Checked,
+                sortOrder);
 
             // empty out access table
             this.Get<IDbFunction>().Query.activeaccess_reset();
@@ -176,10 +175,10 @@ namespace YAF.Pages.Admin
             if (this.Request.QueryString.GetFirstOrDefault("i") != null)
             {
                 // load access mask
-                using (DataTable dt = this.Get<IDbFunction>().GetAsDataTable(cdb => cdb.accessmask_list(this.PageContext.PageBoardID, this.Request.QueryString.GetFirstOrDefault("i"))))
+                using (DataTable dataTable = this.GetRepository<AccessMask>().List(this.Request.QueryString.GetFirstOrDefaultAs<int>("i")))
                 {
                     // we need just one
-                    DataRow row = dt.Rows[0];
+                    DataRow row = dataTable.Rows[0];
 
                     // get access mask properties
                     this.Name.Text = (string)row["Name"];

@@ -34,6 +34,7 @@ namespace YAF.Pages
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
@@ -64,7 +65,7 @@ namespace YAF.Pages
         public override void DataBind()
         {
             // load data
-            DataTable dt;
+            DataTable dataTable;
 
             // only admin can assign all access masks
             if (!this.PageContext.IsAdmin)
@@ -73,15 +74,15 @@ namespace YAF.Pages
                 var flags = (int)AccessFlags.Flags.ModeratorAccess;
 
                 // non-admins cannot assign moderation access masks
-                dt = LegacyDb.accessmask_list(this.PageContext.PageBoardID, null, flags);
+                dataTable = this.GetRepository<AccessMask>().List(excludeFlags: flags);
             }
             else
             {
-                dt = LegacyDb.accessmask_list(this.PageContext.PageBoardID, null);
+                dataTable = this.GetRepository<AccessMask>().List();
             }
 
             // setup datasource for access masks dropdown
-            this.AccessMaskID.DataSource = dt;
+            this.AccessMaskID.DataSource = dataTable;
             this.AccessMaskID.DataValueField = "AccessMaskID";
             this.AccessMaskID.DataTextField = "Name";
 
@@ -272,14 +273,14 @@ namespace YAF.Pages
 
             // save permission
             LegacyDb.userforum_save(userId.Value, this.PageContext.PageForumID, this.AccessMaskID.SelectedValue);
-            
+
             // clear moderators cache
             this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
             this.Get<IDataCache>().Remove(Constants.Cache.BoardModerators);
 
             // redirect to forum moderation page
             YafBuildLink.Redirect(ForumPages.moderating, "f={0}", this.PageContext.PageForumID);
-          
+
         }
 
         #endregion

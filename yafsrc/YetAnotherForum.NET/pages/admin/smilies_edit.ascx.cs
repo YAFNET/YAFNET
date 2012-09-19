@@ -121,9 +121,7 @@ namespace YAF.Pages.Admin
 
             if (this.Request["s"] != null)
             {
-                using (
-                    DataTable dt = this.GetRepository<Smiley>().List(
-                        this.PageContext.PageBoardID, this.Request.QueryString.GetFirstOrDefaultAs<int>("s")))
+                using (DataTable dt = this.GetRepository<Smiley>().List(this.Request.QueryString.GetFirstOrDefaultAs<int>("s")))
                 {
                     if (dt.Rows.Count > 0)
                     {
@@ -134,8 +132,8 @@ namespace YAF.Pages.Admin
                             this.Icon.Items.FindByText(dt.Rows[0]["Icon"].ToString()).Selected = true;
                         }
 
-                        this.Preview.Src = "{0}{1}/{2}".FormatWith(
-                            YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Emoticons, dt.Rows[0]["Icon"]);
+                        this.Preview.Src = "{0}{1}/{2}"
+                            .FormatWith(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Emoticons, dt.Rows[0]["Icon"]);
                         this.SortOrder.Text = dt.Rows[0]["SortOrder"].ToString(); // Ederon : 9/4/2007
                     }
                 }
@@ -225,12 +223,7 @@ namespace YAF.Pages.Admin
 
             var smileyId = this.Request.QueryString.GetFirstOrDefaultAs<int>("s");
 
-            this.GetRepository<Smiley>().Save(
-                smileyId, this.PageContext.PageBoardID, code, icon, emotion, sortOrder, 0);
-
-            // invalidate the cache...
-            this.Get<IDataCache>().Remove(Constants.Cache.Smilies);
-            this.Get<IObjectStore>().RemoveOf<IProcessReplaceRules>();
+            this.GetRepository<Smiley>().Save(smileyId, code, icon, emotion, sortOrder, 0);
 
             YafBuildLink.Redirect(ForumPages.admin_smilies);
         }

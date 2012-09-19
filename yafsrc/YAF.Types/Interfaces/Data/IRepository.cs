@@ -24,7 +24,7 @@ namespace YAF.Types.Interfaces.Data
     /// <typeparam name="T">
     /// </typeparam>
     public interface IRepository<T>
-        : IEntity
+        : IEntity, IHaveBoardId
     {
         #region Public Properties
 

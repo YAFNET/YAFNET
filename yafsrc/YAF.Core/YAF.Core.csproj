@@ -89,6 +89,7 @@
     <Compile Include="Data\BasicRepository.cs" />
     <Compile Include="Data\TryInvokeMemberProxy.cs" />
     <Compile Include="Data\CommandTextHelpers.cs" />
+    <Compile Include="Events\SmileyEventCacheInvalidate.cs" />
     <Compile Include="Extensions\DbAccessExtensions.cs" />
     <Compile Include="Extensions\MembershipUserExtensions.cs" />
     <Compile Include="Helpers\IPLocator.cs" />
@@ -305,6 +306,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

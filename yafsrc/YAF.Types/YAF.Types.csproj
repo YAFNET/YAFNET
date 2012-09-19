@@ -91,6 +91,8 @@
     <Compile Include="Interfaces\Extensions\IDbUnitOfWorkExtensions.cs" />
     <Compile Include="Interfaces\Data\IEntity.cs" />
     <Compile Include="Interfaces\IStyleTransform.cs" />
+    <Compile Include="Models\AccessMask.cs" />
+    <Compile Include="Models\Extensions\AccessMaskRepositoryExtensions.cs" />
     <Compile Include="Models\Smiley.cs" />
     <Compile Include="Models\Extensions\SmileyRepositoryExtensions.cs" />
     <Compile Include="Objects\MessageNotification.cs" />
@@ -228,7 +230,6 @@
     <Compile Include="Objects\TypedNntpForum.cs" />
     <Compile Include="Objects\TypedParameter.cs" />
     <Compile Include="Objects\TypedPollGroup.cs" />
-    <Compile Include="Objects\TypedSmileyList.cs" />
     <Compile Include="Objects\TypedTopicSimpleList.cs" />
     <Compile Include="Objects\TypedUserList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

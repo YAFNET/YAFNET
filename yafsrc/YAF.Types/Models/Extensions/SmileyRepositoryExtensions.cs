@@ -20,10 +20,13 @@ namespace YAF.Types.Models
 {
     #region Using
 
+    using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Data;
 
     using YAF.Core.Extensions;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces.Data;
 
     #endregion
@@ -67,11 +70,11 @@ namespace YAF.Types.Models
         /// <returns>
         /// The <see cref="DataTable"/> . 
         /// </returns>
-        public static DataTable List(this IRepository<Smiley> repository, int boardID, int? smileyID = null)
+        public static DataTable List(this IRepository<Smiley> repository, int? smileyID = null, int? boardId = null)
         {
             CodeContracts.ArgumentNotNull(repository, "repository");
 
-            return repository.DbFunction.GetData.smiley_list(BoardID: boardID, SmileyID: smileyID);
+            return repository.DbFunction.GetData.smiley_list(BoardID: boardId ?? repository.BoardId, SmileyID: smileyID);
         }
 
         /// <summary>
@@ -89,11 +92,21 @@ namespace YAF.Types.Models
         /// <returns>
         /// The <see cref="List"/>.
         /// </returns>
-        public static IList<Smiley> ListTyped(this IRepository<Smiley> repository, int boardID, int? smileyID = null)
+        public static IList<Smiley> ListTyped(this IRepository<Smiley> repository, int? smileyID = null, int? boardId = null)
         {
             CodeContracts.ArgumentNotNull(repository, "repository");
 
-            return repository.DbFunction.GetDataReader.smiley_list(BoardID: boardID, SmileyID: smileyID).Typed<Smiley>();
+            IList<Smiley> smilies = null;
+
+            var readerFunction = new Action<IDataReader>(
+                reader =>
+                    {
+                        smilies = reader.Typed<Smiley>();
+                    });
+
+            repository.DbFunction.GetDataReader.smiley_list(BoardID: boardId ?? repository.BoardId, SmileyID: smileyID, Reader: readerFunction);
+
+            return smilies;
         }
 
         /// <summary>
@@ -108,11 +121,11 @@ namespace YAF.Types.Models
         /// <returns>
         /// The <see cref="DataTable"/> . 
         /// </returns>
-        public static DataTable ListUnique(this IRepository<Smiley> repository, int boardID)
+        public static DataTable ListUnique(this IRepository<Smiley> repository, int? boardId = null)
         {
             CodeContracts.ArgumentNotNull(repository, "repository");
 
-            return repository.DbFunction.GetData.smiley_listunique(BoardID: boardID);
+            return repository.DbFunction.GetData.smiley_listunique(BoardID: boardId ?? repository.BoardId);
         }
 
         /// <summary>
@@ -130,11 +143,12 @@ namespace YAF.Types.Models
         /// <param name="move">
         /// The move. 
         /// </param>
-        public static void Resort(this IRepository<Smiley> repository, int boardID, int smileyID, int move)
+        public static void Resort(this IRepository<Smiley> repository, int smileyID, int move, int? boardId = null)
         {
             CodeContracts.ArgumentNotNull(repository, "repository");
 
-            repository.DbFunction.Query.smiley_resort(BoardID: boardID, SmileyID: smileyID, Move: move);
+            repository.DbFunction.Query.smiley_resort(BoardID: boardId ?? repository.BoardId, SmileyID: smileyID, Move: move);
+            repository.FireUpdated(smileyID);
         }
 
         /// <summary>
@@ -164,11 +178,11 @@ namespace YAF.Types.Models
         /// <param name="replace">
         /// The replace. 
         /// </param>
-        public static void Save(this IRepository<Smiley> repository, int? smileyID, int boardID, string code, string icon, string emoticon, byte sortOrder, short replace)
+        public static void Save(this IRepository<Smiley> repository, int? smileyID, string code, string icon, string emoticon, byte sortOrder, short replace, int? boardId = null)
         {
             CodeContracts.ArgumentNotNull(repository, "repository");
 
-            repository.DbFunction.Query.smiley_save(SmileyID: smileyID, BoardID: boardID, Code: code, Icon: icon, Emoticon: emoticon, SortOrder: sortOrder, Replace: replace);
+            repository.DbFunction.Query.smiley_save(SmileyID: smileyID, BoardID: boardId ?? repository.BoardId, Code: code, Icon: icon, Emoticon: emoticon, SortOrder: sortOrder, Replace: replace);
 
             if (smileyID.HasValue)
             {
@@ -176,7 +190,7 @@ namespace YAF.Types.Models
             }
             else
             {
-                repository.FireNew(null);
+                repository.FireNew();
             }
         }
 

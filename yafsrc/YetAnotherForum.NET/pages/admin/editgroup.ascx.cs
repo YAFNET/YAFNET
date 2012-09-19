@@ -36,6 +36,7 @@ namespace YAF.Pages.Admin
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -390,7 +391,7 @@ namespace YAF.Pages.Admin
             {
                 this.AccessList.DataSource = LegacyDb.forumaccess_group(this.Request.QueryString.GetFirstOrDefault("i"));
             }
-            this.AccessMasksList = LegacyDb.accessmask_list(this.PageContext.PageBoardID, null);
+            this.AccessMasksList = this.GetRepository<AccessMask>().List();
             // bind data to controls
             this.DataBind();
 

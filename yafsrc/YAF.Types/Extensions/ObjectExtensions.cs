@@ -16,7 +16,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
 namespace YAF.Types.Extensions
 {
     #region Using
@@ -33,7 +32,6 @@ namespace YAF.Types.Extensions
     using System.Text.RegularExpressions;
     using System.Web.UI;
 
-    using YAF.Types;
     using YAF.Types.Attributes;
 
     #endregion
@@ -46,9 +44,14 @@ namespace YAF.Types.Extensions
         #region Public Methods and Operators
 
         /// <summary>
-        ///     Turns any object into a Dictionary
+        /// Turns any object into a Dictionary
         /// </summary>
-        /// <param name="thingy"> The thingy. </param>
+        /// <param name="thingy">
+        /// The thingy. 
+        /// </param>
+        /// <returns>
+        /// The <see cref="IDictionary"/>.
+        /// </returns>
         public static IDictionary<string, object> AnyToDictionary([NotNull] this object thingy)
         {
             CodeContracts.ArgumentNotNull(thingy, "thingy");
@@ -57,11 +60,17 @@ namespace YAF.Types.Extensions
         }
 
         /// <summary>
-        ///     Converts an object to a type.
+        /// Converts an object to a type.
         /// </summary>
-        /// <param name="value"> Object to convert </param>
-        /// <param name="type"> Type to convert to e.g. System.Guid </param>
-        /// <returns> The convert object to type. </returns>
+        /// <param name="value">
+        /// Object to convert 
+        /// </param>
+        /// <param name="type">
+        /// Type to convert to e.g. System.Guid 
+        /// </param>
+        /// <returns>
+        /// The convert object to type. 
+        /// </returns>
         [CanBeNull]
         public static object ConvertObjectToType([CanBeNull] object value, [NotNull] string type)
         {
@@ -100,12 +109,17 @@ namespace YAF.Types.Extensions
         }
 
         /// <summary>
-        ///     Provides a chaining action with the object.
+        /// Provides a chaining action with the object.
         /// </summary>
-        /// <typeparam name="T"> </typeparam>
-        /// <param name="obj"> </param>
-        /// <param name="action"> </param>
-        /// <returns> </returns>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <param name="obj">
+        /// </param>
+        /// <param name="action">
+        /// </param>
+        /// <returns>
+        /// The <see cref="T"/>.
+        /// </returns>
         public static T DoWith<T>(this T obj, [NotNull] Action<T> action)
         {
             action(obj);
@@ -113,11 +127,16 @@ namespace YAF.Types.Extensions
         }
 
         /// <summary>
-        ///     The get attribute.
+        /// The get attribute.
         /// </summary>
-        /// <param name="objectType"> The object type. </param>
-        /// <typeparam name="TAttribute"> </typeparam>
-        /// <returns> </returns>
+        /// <param name="objectType">
+        /// The object type. 
+        /// </param>
+        /// <typeparam name="TAttribute">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="TAttribute"/>.
+        /// </returns>
         public static TAttribute GetAttribute<TAttribute>([NotNull] this Type objectType) where TAttribute : Attribute
         {
             CodeContracts.ArgumentNotNull(objectType, "objectType");
@@ -126,11 +145,16 @@ namespace YAF.Types.Extensions
         }
 
         /// <summary>
-        ///     The get attributes.
+        /// The get attributes.
         /// </summary>
-        /// <param name="objectType"> The object type. </param>
-        /// <typeparam name="TAttribute"> </typeparam>
-        /// <returns> </returns>
+        /// <param name="objectType">
+        /// The object type. 
+        /// </param>
+        /// <typeparam name="TAttribute">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="IEnumerable"/>.
+        /// </returns>
         [NotNull]
         public static IEnumerable<TAttribute> GetAttributes<TAttribute>([NotNull] this Type objectType)
             where TAttribute : Attribute
@@ -141,28 +165,55 @@ namespace YAF.Types.Extensions
         }
 
         /// <summary>
-        ///     Does this instance have this interface?
+        /// Does this instance have this interface?
         /// </summary>
-        /// <typeparam name="T"> </typeparam>
-        /// <param name="instance"> </param>
-        /// <returns> The has interface. </returns>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <param name="instance">
+        /// </param>
+        /// <returns>
+        /// The has interface. 
+        /// </returns>
         public static bool HasInterface<T>([NotNull] this object instance)
         {
-            return typeof(T).IsAssignableFrom(instance.GetType());
+            return instance is T;
         }
 
         /// <summary>
-        ///     Checks if source is in the list provided.
+        /// The is default.
         /// </summary>
-        /// <typeparam name="T"> </typeparam>
-        /// <param name="source"> </param>
-        /// <param name="list"> </param>
-        /// <returns> The is in. </returns>
+        /// <param name="valueType">
+        /// The value type.
+        /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        public static bool IsDefault<T>(this T valueType)
+            where T : struct
+        {
+            return Equals(valueType, default(T));
+        }
+
+        /// <summary>
+        /// Checks if source is in the list provided.
+        /// </summary>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <param name="source">
+        /// </param>
+        /// <param name="list">
+        /// </param>
+        /// <returns>
+        /// The is in. 
+        /// </returns>
         /// <exception cref="ArgumentNullException">
-        ///     <paramref name="source" />
+        /// <paramref name="source"/>
         ///     is
         ///     <c>null</c>
-        ///     .</exception>
+        ///     .
+        /// </exception>
         public static bool IsIn<T>(this T source, [NotNull] params T[] list)
         {
             CodeContracts.ArgumentNotNull(list, "list");
@@ -171,13 +222,34 @@ namespace YAF.Types.Extensions
         }
 
         /// <summary>
-        ///     Converts the object to the class (T) or returns null if it's not an instance of that class or instance is null.
+        /// The is not default.
         /// </summary>
-        /// <typeparam name="T"> </typeparam>
-        /// <param name="instance"> </param>
-        /// <returns> </returns>
+        /// <param name="valueType">
+        /// The value type.
+        /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        public static bool IsNotDefault<T>(this T valueType)
+            where T : struct
+        {
+            return !Equals(valueType, default(T));
+        }
+
+        /// <summary>
+        /// Converts the object to the class (T) or returns null if it's not an instance of that class or instance is null.
+        /// </summary>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <param name="instance">
+        /// </param>
+        /// <returns>
+        /// The <see cref="T"/>.
+        /// </returns>
         [CanBeNull]
-        public static T ToClass<T>([NotNull] this object instance) where T : class
+        public static T ToClass<T>([CanBeNull] this object instance) where T : class
         {
             if (instance != null && instance is T)
             {
@@ -188,11 +260,15 @@ namespace YAF.Types.Extensions
         }
 
         /// <summary>
-        ///     Converts an object to a different object (class) by copying fields (if they exist). Used to convert annonomous objects to strongly typed objects.
+        /// Converts an object to a different object (class) by copying fields (if they exist). Used to convert annonomous objects to strongly typed objects.
         /// </summary>
-        /// <typeparam name="T"> </typeparam>
-        /// <param name="obj"> </param>
-        /// <returns> </returns>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <param name="obj">
+        /// </param>
+        /// <returns>
+        /// The <see cref="T"/>.
+        /// </returns>
         [NotNull]
         public static T ToDifferentClassType<T>([NotNull] this object obj) where T : class
         {
@@ -216,20 +292,28 @@ namespace YAF.Types.Extensions
         }
 
         /// <summary>
-        ///     The to dynamic.
+        /// The to dynamic.
         /// </summary>
-        /// <param name="instance"> The instance. </param>
-        /// <returns> The to dynamic. </returns>
+        /// <param name="instance">
+        /// The instance. 
+        /// </param>
+        /// <returns>
+        /// The to dynamic. 
+        /// </returns>
         public static dynamic ToDynamic([NotNull] this object instance)
         {
             return instance;
         }
 
         /// <summary>
-        ///     Turns the object into an ExpandoObject
+        /// Turns the object into an ExpandoObject
         /// </summary>
-        /// <param name="obj"> The object. </param>
-        /// <returns> The to expando. </returns>
+        /// <param name="obj">
+        /// The object. 
+        /// </param>
+        /// <returns>
+        /// The to expando. 
+        /// </returns>
         [NotNull]
         public static dynamic ToExpando([NotNull] this object obj)
         {
@@ -262,11 +346,16 @@ namespace YAF.Types.Extensions
         }
 
         /// <summary>
-        ///     The to generic list.
+        /// The to generic list.
         /// </summary>
-        /// <param name="listObjects"> The list objects. </param>
-        /// <typeparam name="T"> </typeparam>
-        /// <returns> </returns>
+        /// <param name="listObjects">
+        /// The list objects. 
+        /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
         [NotNull]
         public static List<T> ToGenericList<T>([NotNull] this IList listObjects)
         {
@@ -285,13 +374,19 @@ namespace YAF.Types.Extensions
         // from James Newton-King.
 
         /// <summary>
-        ///     Enables you to get a string representation of the object using string formatting with property names, rather than index based values.
+        /// Enables you to get a string representation of the object using string formatting with property names, rather than index based values.
         /// </summary>
-        /// <param name="anObject"> The object being extended. </param>
-        /// <param name="aFormat"> The formatting string, like "Hi, my name is {FirstName} {LastName}". </param>
-        /// <returns> A formatted string with the values from the object replaced in the format string. </returns>
+        /// <param name="anObject">
+        /// The object being extended. 
+        /// </param>
+        /// <param name="aFormat">
+        /// The formatting string, like "Hi, my name is {FirstName} {LastName}". 
+        /// </param>
+        /// <returns>
+        /// A formatted string with the values from the object replaced in the format string. 
+        /// </returns>
         /// <remarks>
-        ///     To embed a pair of {} on the string, simply double them: "I am a {{Literal}}".
+        /// To embed a pair of {} on the string, simply double them: "I am a {{Literal}}".
         /// </remarks>
         [NotNull]
         public static string ToString([NotNull] this object anObject, [NotNull] string aFormat)
@@ -300,14 +395,22 @@ namespace YAF.Types.Extensions
         }
 
         /// <summary>
-        ///     Enables you to get a string representation of the object using string formatting with property names, rather than index based values.
+        /// Enables you to get a string representation of the object using string formatting with property names, rather than index based values.
         /// </summary>
-        /// <param name="anObject"> The object being extended. </param>
-        /// <param name="aFormat"> The formatting string, like "Hi, my name is {FirstName} {LastName}". </param>
-        /// <param name="formatProvider"> An System. <see cref="IFormatProvider" /> that provides culture-specific formatting information. </param>
-        /// <returns> A formatted string with the values from the object replaced in the format string. </returns>
+        /// <param name="anObject">
+        /// The object being extended. 
+        /// </param>
+        /// <param name="aFormat">
+        /// The formatting string, like "Hi, my name is {FirstName} {LastName}". 
+        /// </param>
+        /// <param name="formatProvider">
+        /// An System. <see cref="IFormatProvider"/> that provides culture-specific formatting information. 
+        /// </param>
+        /// <returns>
+        /// A formatted string with the values from the object replaced in the format string. 
+        /// </returns>
         /// <remarks>
-        ///     To embed a pair of {} on the string, simply double them: "I am a {{Literal}}".
+        /// To embed a pair of {} on the string, simply double them: "I am a {{Literal}}".
         /// </remarks>
         [NotNull]
         public static string ToString(
@@ -371,11 +474,15 @@ namespace YAF.Types.Extensions
         }
 
         /// <summary>
-        ///     Converts an object to Type using the Convert.ChangeType() call.
+        /// Converts an object to Type using the Convert.ChangeType() call.
         /// </summary>
-        /// <typeparam name="T"> </typeparam>
-        /// <param name="instance"> </param>
-        /// <returns> </returns>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <param name="instance">
+        /// </param>
+        /// <returns>
+        /// The <see cref="T"/>.
+        /// </returns>
         public static T ToType<T>([CanBeNull] this object instance)
         {
             if (instance == null)
@@ -419,12 +526,19 @@ namespace YAF.Types.Extensions
         }
 
         /// <summary>
-        ///     The to type or default.
+        /// The to type or default.
         /// </summary>
-        /// <param name="instance"> The instance. </param>
-        /// <param name="defaultValue"> The default value. </param>
-        /// <typeparam name="T"> </typeparam>
-        /// <returns> </returns>
+        /// <param name="instance">
+        /// The instance. 
+        /// </param>
+        /// <param name="defaultValue">
+        /// The default value. 
+        /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="T"/>.
+        /// </returns>
         public static T ToTypeOrDefault<T>([CanBeNull] this object instance, T defaultValue)
         {
             try
@@ -448,20 +562,28 @@ namespace YAF.Types.Extensions
         }
 
         /// <summary>
-        ///     The verify bool.
+        /// The verify bool.
         /// </summary>
-        /// <param name="o"> The o. </param>
-        /// <returns> The verify bool. </returns>
+        /// <param name="o">
+        /// The o. 
+        /// </param>
+        /// <returns>
+        /// The verify bool. 
+        /// </returns>
         public static bool VerifyBool([NotNull] object o)
         {
             return Convert.ToBoolean(o);
         }
 
         /// <summary>
-        ///     The verify int 32.
+        /// The verify int 32.
         /// </summary>
-        /// <param name="o"> The o. </param>
-        /// <returns> The verify int 32. </returns>
+        /// <param name="o">
+        /// The o. 
+        /// </param>
+        /// <returns>
+        /// The verify int 32. 
+        /// </returns>
         public static int VerifyInt32([NotNull] object o)
         {
             return Convert.ToInt32(o);

@@ -404,7 +404,7 @@ namespace YAF.Types.Extensions
 		/// <returns>
 		/// The remove multiple single quotes.
 		/// </returns>
-		public static string RemoveMultipleSingleQuotes(string text)
+		public static string RemoveMultipleSingleQuotes(this string text)
 		{
 			string result = String.Empty;
 			if (text.IsNotSet())
@@ -424,7 +424,7 @@ namespace YAF.Types.Extensions
 		/// <returns>
 		/// The remove multiple whitespace.
 		/// </returns>
-		public static string RemoveMultipleWhitespace(string text)
+		public static string RemoveMultipleWhitespace(this string text)
 		{
 			string result = String.Empty;
 			if (text.IsNotSet())

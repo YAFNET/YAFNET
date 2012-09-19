@@ -16,7 +16,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
 namespace YAF.Core.Data
 {
     #region Using
@@ -53,11 +52,17 @@ namespace YAF.Core.Data
         #region Constructors and Destructors
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="DbAccessBase" /> class.
+        /// Initializes a new instance of the <see cref="DbAccessBase"/> class.
         /// </summary>
-        /// <param name="dbProviderFactory"> The db provider factory. </param>
-        /// <param name="providerName"> The provider name. </param>
-        /// <param name="connectionString"> The connection String. </param>
+        /// <param name="dbProviderFactory">
+        /// The db provider factory. 
+        /// </param>
+        /// <param name="providerName">
+        /// The provider name. 
+        /// </param>
+        /// <param name="connectionString">
+        /// The connection String. 
+        /// </param>
         public DbAccessBase(
             [NotNull] Func<string, DbProviderFactory> dbProviderFactory, [NotNull] string providerName, [NotNull] string connectionString)
         {
@@ -111,10 +116,14 @@ namespace YAF.Core.Data
         #region Public Methods and Operators
 
         /// <summary>
-        ///     The begin transaction.
+        /// The begin transaction.
         /// </summary>
-        /// <param name="isolationLevel"> The isolation level. </param>
-        /// <returns> </returns>
+        /// <param name="isolationLevel">
+        /// The isolation level. 
+        /// </param>
+        /// <returns>
+        /// The <see cref="IDbUnitOfWork"/>.
+        /// </returns>
         [NotNull]
         public virtual IDbUnitOfWork BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.ReadUncommitted)
         {
@@ -122,10 +131,14 @@ namespace YAF.Core.Data
         }
 
         /// <summary>
-        ///     The execute non query.
+        /// The execute non query.
         /// </summary>
-        /// <param name="cmd"> The cmd. </param>
-        /// <param name="unitOfWork"> The unit of work. </param>
+        /// <param name="cmd">
+        /// The cmd. 
+        /// </param>
+        /// <param name="unitOfWork">
+        /// The unit of work. 
+        /// </param>
         public virtual void ExecuteNonQuery([NotNull] DbCommand cmd, [CanBeNull] IDbUnitOfWork unitOfWork = null)
         {
             CodeContracts.ArgumentNotNull(cmd, "cmd");
@@ -153,11 +166,17 @@ namespace YAF.Core.Data
         }
 
         /// <summary>
-        ///     The execute scalar.
+        /// The execute scalar.
         /// </summary>
-        /// <param name="cmd"> The cmd. </param>
-        /// <param name="unitOfWork"> The unit of work. </param>
-        /// <returns> The execute scalar. </returns>
+        /// <param name="cmd">
+        /// The cmd. 
+        /// </param>
+        /// <param name="unitOfWork">
+        /// The unit of work. 
+        /// </param>
+        /// <returns>
+        /// The execute scalar. 
+        /// </returns>
         public virtual object ExecuteScalar([NotNull] DbCommand cmd, [CanBeNull] IDbUnitOfWork unitOfWork = null)
         {
             CodeContracts.ArgumentNotNull(cmd, "cmd");
@@ -189,12 +208,20 @@ namespace YAF.Core.Data
         }
 
         /// <summary>
-        ///     The get command.
+        /// The get command.
         /// </summary>
-        /// <param name="sql"> The sql. </param>
-        /// <param name="isStoredProcedure"> The is stored procedure. </param>
-        /// <param name="parameters"> The parameters. </param>
-        /// <returns> </returns>
+        /// <param name="sql">
+        /// The sql. 
+        /// </param>
+        /// <param name="isStoredProcedure">
+        /// The is stored procedure. 
+        /// </param>
+        /// <param name="parameters">
+        /// The parameters. 
+        /// </param>
+        /// <returns>
+        /// The <see cref="DbCommand"/>.
+        /// </returns>
         public virtual DbCommand GetCommand(
             [NotNull] string sql, bool isStoredProcedure = true, [CanBeNull] IEnumerable<KeyValuePair<string, object>> parameters = null)
         {
@@ -221,11 +248,17 @@ namespace YAF.Core.Data
         }
 
         /// <summary>
-        ///     The get data.
+        /// The get data.
         /// </summary>
-        /// <param name="cmd"> The cmd. </param>
-        /// <param name="unitOfWork"> The unit of work. </param>
-        /// <returns> </returns>
+        /// <param name="cmd">
+        /// The cmd. 
+        /// </param>
+        /// <param name="unitOfWork">
+        /// The unit of work. 
+        /// </param>
+        /// <returns>
+        /// The <see cref="DataTable"/>.
+        /// </returns>
         public virtual DataTable GetData([NotNull] DbCommand cmd, [CanBeNull] IDbUnitOfWork unitOfWork = null)
         {
             CodeContracts.ArgumentNotNull(cmd, "cmd");
@@ -237,11 +270,17 @@ namespace YAF.Core.Data
         }
 
         /// <summary>
-        ///     The get dataset.
+        /// The get dataset.
         /// </summary>
-        /// <param name="cmd"> The cmd. </param>
-        /// <param name="unitOfWork"> The unit of work. </param>
-        /// <returns> </returns>
+        /// <param name="cmd">
+        /// The cmd. 
+        /// </param>
+        /// <param name="unitOfWork">
+        /// The unit of work. 
+        /// </param>
+        /// <returns>
+        /// The <see cref="DataSet"/>.
+        /// </returns>
         [NotNull]
         public virtual DataSet GetDataset([NotNull] DbCommand cmd, [CanBeNull] IDbUnitOfWork unitOfWork = null)
         {
@@ -253,8 +292,24 @@ namespace YAF.Core.Data
             }
         }
 
-        public IDataReader GetReader(DbCommand cmd, IDbUnitOfWork unitOfWork = null)
+        /// <summary>
+        /// The get reader.
+        /// </summary>
+        /// <param name="cmd">
+        /// The cmd.
+        /// </param>
+        /// <param name="readData">
+        /// The read data.
+        /// </param>
+        /// <param name="unitOfWork">
+        /// The unit of work.
+        /// </param>
+        /// <returns>
+        /// The <see cref="object"/>.
+        /// </returns>
+        public void GetReader(DbCommand cmd, [NotNull] Action<IDataReader> readData, IDbUnitOfWork unitOfWork = null)
         {
+            CodeContracts.ArgumentNotNull(readData, "readData");
             CodeContracts.ArgumentNotNull(cmd, "cmd");
 
             using (var qc = new QueryCounter(cmd.CommandText))
@@ -265,13 +320,13 @@ namespace YAF.Core.Data
                     using (var connection = this.CreateConnectionOpen())
                     {
                         cmd.Connection = connection;
-                        return cmd.ExecuteReader();
+                        readData(cmd.ExecuteReader());
                     }
                 }
                 else
                 {
                     unitOfWork.Setup(cmd);
-                    return cmd.ExecuteReader();
+                    readData(cmd.ExecuteReader());
                 }
             }
         }
@@ -281,21 +336,31 @@ namespace YAF.Core.Data
         #region Methods
 
         /// <summary>
-        ///     The format procedure text.
+        /// The format procedure text.
         /// </summary>
-        /// <param name="functionName"> The function name. </param>
-        /// <returns> The format procedure text. </returns>
+        /// <param name="functionName">
+        /// The function name. 
+        /// </param>
+        /// <returns>
+        /// The format procedure text. 
+        /// </returns>
         protected virtual string FormatProcedureText(string functionName)
         {
             return "[{{databaseOwner}}].[{{objectQualifier}}{0}]".FormatWith(functionName);
         }
 
         /// <summary>
-        ///     The get dataset basic.
+        /// The get dataset basic.
         /// </summary>
-        /// <param name="cmd"> The cmd. </param>
-        /// <param name="unitOfWork"> The unit of work. </param>
-        /// <returns> </returns>
+        /// <param name="cmd">
+        /// The cmd. 
+        /// </param>
+        /// <param name="unitOfWork">
+        /// The unit of work. 
+        /// </param>
+        /// <returns>
+        /// The <see cref="DataSet"/>.
+        /// </returns>
         [NotNull]
         protected virtual DataSet GetDatasetBasic([NotNull] DbCommand cmd, [CanBeNull] IDbUnitOfWork unitOfWork = null)
         {
@@ -337,10 +402,14 @@ namespace YAF.Core.Data
         }
 
         /// <summary>
-        ///     The map parameters.
+        /// The map parameters.
         /// </summary>
-        /// <param name="cmd"> The cmd. </param>
-        /// <param name="parameters"> The parameters. </param>
+        /// <param name="cmd">
+        /// The cmd. 
+        /// </param>
+        /// <param name="parameters">
+        /// The parameters. 
+        /// </param>
         protected virtual void MapParameters([NotNull] DbCommand cmd, [NotNull] IEnumerable<KeyValuePair<string, object>> parameters)
         {
             CodeContracts.ArgumentNotNull(cmd, "cmd");

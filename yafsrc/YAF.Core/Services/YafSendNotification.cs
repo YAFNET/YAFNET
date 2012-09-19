@@ -304,7 +304,9 @@ namespace YAF.Core.Services
             }
 
             // TODO : Rewrite Watch Topic code to allow watch mails in the users language, as workaround send all messages in the default board language
-            var languageFile = this.Get<YafBoardSettings>().Language;
+            string languageFile = this.Get<YafBoardSettings>().Language;
+            string boardName = this.Get<YafBoardSettings>().Name;
+            string forumEmail = this.Get<YafBoardSettings>().ForumEmail;
 
             foreach (var message in LegacyDb.MessageList(newMessageId))
             {
@@ -313,27 +315,27 @@ namespace YAF.Core.Services
                 var watchEmail = new YafTemplateEmail("TOPICPOST") { TemplateLanguageFile = languageFile };
 
                 // cleaned body as text...
-                var bodyText =
-                    StringExtensions.RemoveMultipleWhitespace(
-                        BBCodeHelper.StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(message.Message))));
+                var bodyText = BBCodeHelper
+                    .StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(message.Message)))
+                    .RemoveMultipleWhitespace();
 
                 // Send track mails
                 var subject =
-                    this.Get<ILocalization>().GetText("COMMON", "TOPIC_NOTIFICATION_SUBJECT", languageFile).FormatWith(
-                        this.Get<YafBoardSettings>().Name);
+                    this.Get<ILocalization>()
+                        .GetText("COMMON", "TOPIC_NOTIFICATION_SUBJECT", languageFile)
+                        .FormatWith(boardName);
 
-                watchEmail.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
+                watchEmail.TemplateParams["{forumname}"] = boardName;
                 watchEmail.TemplateParams["{topic}"] = HttpUtility.HtmlDecode(message.Topic);
                 watchEmail.TemplateParams["{postedby}"] = UserMembershipHelper.GetDisplayNameFromID(userId);
                 watchEmail.TemplateParams["{body}"] = bodyText;
                 watchEmail.TemplateParams["{bodytruncated}"] = bodyText.Truncate(160);
-                watchEmail.TemplateParams["{link}"] = YafBuildLink.GetLinkNotEscaped(
-                    ForumPages.posts, true, "m={0}#post{0}", newMessageId);
-
+                watchEmail.TemplateParams["{link}"] = YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "m={0}#post{0}", newMessageId);
+                
                 watchEmail.CreateWatch(
                     message.TopicID ?? 0,
                     userId,
-                    new MailAddress(this.Get<YafBoardSettings>().ForumEmail, this.Get<YafBoardSettings>().Name),
+                    new MailAddress(forumEmail, boardName),
                     subject);
 
                 // create individual watch emails for all users who have All Posts on...
@@ -347,7 +349,7 @@ namespace YAF.Core.Services
 
                     var membershipUser = UserMembershipHelper.GetUser(user.ProviderUserKey);
 
-                    if (!membershipUser.Email.IsSet())
+                    if (membershipUser == null || !membershipUser.Email.IsSet())
                     {
                         continue;
                     }
@@ -356,7 +358,7 @@ namespace YAF.Core.Services
                                                           ? user.LanguageFile
                                                           : this.Get<ILocalization>().LanguageFileName;
                     watchEmail.SendEmail(
-                        new MailAddress(this.Get<YafBoardSettings>().ForumEmail, this.Get<YafBoardSettings>().Name),
+                        new MailAddress(forumEmail, boardName),
                         new MailAddress(membershipUser.Email, membershipUser.UserName),
                         subject,
                         true);

@@ -48,7 +48,8 @@ namespace YAF.Types.EventProxies
     /// <summary>
     ///     The repository event.
     /// </summary>
-    public class RepositoryEvent : IAmEvent
+    public class RepositoryEvent<T> : IAmEvent
+        where T : IEntity
     {
         #region Constructors and Destructors
 

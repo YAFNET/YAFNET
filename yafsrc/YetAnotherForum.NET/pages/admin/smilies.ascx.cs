@@ -140,7 +140,7 @@ namespace YAF.Pages.Admin
         private void BindData()
         {
             this.Pager.PageSize = 25;
-            DataView dv = this.GetRepository<Smiley>().List(this.PageContext.PageBoardID).DefaultView;
+            DataView dv = this.GetRepository<Smiley>().List().DefaultView;
             this.Pager.Count = dv.Count;
 
             var pds = new PagedDataSource
@@ -183,28 +183,16 @@ namespace YAF.Pages.Admin
                     YafBuildLink.Redirect(ForumPages.admin_smilies_edit, "s={0}", e.CommandArgument);
                     break;
                 case "moveup":
-                    this.GetRepository<Smiley>().Resort(this.PageContext.PageBoardID, e.CommandArgument.ToType<int>(), -1);
-
-                    // invalidate the cache...
-                    this.Get<IDataCache>().Remove(Constants.Cache.Smilies);
+                    this.GetRepository<Smiley>().Resort(e.CommandArgument.ToType<int>(), -1);
                     this.BindData();
-                    this.Get<IObjectStore>().RemoveOf<IProcessReplaceRules>();
                     break;
                 case "movedown":
-                    this.GetRepository<Smiley>().Resort(this.PageContext.PageBoardID, e.CommandArgument.ToType<int>(), 1);
-
-                    // invalidate the cache...
-                    this.Get<IDataCache>().Remove(Constants.Cache.Smilies);
+                    this.GetRepository<Smiley>().Resort(e.CommandArgument.ToType<int>(), 1);
                     this.BindData();
-                    this.Get<IObjectStore>().RemoveOf<IProcessReplaceRules>();
                     break;
                 case "delete":
                     this.GetRepository<Smiley>().Delete(e.CommandArgument.ToType<int>());
-
-                    // invalidate the cache...
-                    this.Get<IDataCache>().Remove(Constants.Cache.Smilies);
                     this.BindData();
-                    this.Get<IObjectStore>().RemoveOf<IProcessReplaceRules>();
                     break;
                 case "import":
                     YafBuildLink.Redirect(ForumPages.admin_smilies_import);

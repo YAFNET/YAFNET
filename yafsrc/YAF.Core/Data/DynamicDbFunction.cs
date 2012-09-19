@@ -16,13 +16,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
 namespace YAF.Core.Data
 {
     #region Using
 
     using System;
     using System.Collections.Generic;
+    using System.Data;
     using System.Data.Common;
     using System.Dynamic;
     using System.Linq;
@@ -52,6 +52,9 @@ namespace YAF.Core.Data
         /// </summary>
         private readonly IDbAccessProvider _dbAccessProvider;
 
+        /// <summary>
+        /// The _db filter functions.
+        /// </summary>
         private readonly Func<IEnumerable<IDbDataFilter>> _dbFilterFunctions;
 
         /// <summary>
@@ -89,13 +92,20 @@ namespace YAF.Core.Data
         #region Constructors and Destructors
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="DynamicDbFunction" /> class.
+        /// Initializes a new instance of the <see cref="DynamicDbFunction"/> class.
         /// </summary>
-        /// <param name="dbAccessProvider"> The db Access Provider. </param>
-        /// <param name="dbSpecificFunctions"> The db Specific Functions. </param>
+        /// <param name="dbAccessProvider">
+        /// The db Access Provider. 
+        /// </param>
+        /// <param name="dbSpecificFunctions">
+        /// The db Specific Functions. 
+        /// </param>
+        /// <param name="dbFilterFunctions">
+        /// The db Filter Functions.
+        /// </param>
         public DynamicDbFunction(
-            [NotNull] IDbAccessProvider dbAccessProvider,
-            Func<IEnumerable<IDbSpecificFunction>> dbSpecificFunctions,
+            [NotNull] IDbAccessProvider dbAccessProvider, 
+            Func<IEnumerable<IDbSpecificFunction>> dbSpecificFunctions, 
             Func<IEnumerable<IDbDataFilter>> dbFilterFunctions)
         {
             this._dbAccessProvider = dbAccessProvider;
@@ -124,6 +134,9 @@ namespace YAF.Core.Data
             }
         }
 
+        /// <summary>
+        /// Gets the get data reader.
+        /// </summary>
         public dynamic GetDataReader
         {
             get
@@ -191,19 +204,31 @@ namespace YAF.Core.Data
         #region Methods
 
         /// <summary>
-        ///     The db function execute.
+        /// The db function execute.
         /// </summary>
-        /// <param name="functionType"> The function Type. </param>
-        /// <param name="binder"> The binder. </param>
-        /// <param name="parameters"> The parameters. </param>
-        /// <param name="executeDb"> The execute db. </param>
-        /// <param name="result"> The result. </param>
-        /// <returns> The db function execute. </returns>
+        /// <param name="functionType">
+        /// The function Type. 
+        /// </param>
+        /// <param name="binder">
+        /// The binder. 
+        /// </param>
+        /// <param name="parameters">
+        /// The parameters. 
+        /// </param>
+        /// <param name="executeDb">
+        /// The execute db. 
+        /// </param>
+        /// <param name="result">
+        /// The result. 
+        /// </param>
+        /// <returns>
+        /// The db function execute. 
+        /// </returns>
         protected bool DbFunctionExecute(
-            DbFunctionType functionType,
-            [NotNull] InvokeMemberBinder binder,
-            [NotNull] IList<KeyValuePair<string, object>> parameters,
-            [NotNull] Func<DbCommand, object> executeDb,
+            DbFunctionType functionType, 
+            [NotNull] InvokeMemberBinder binder, 
+            [NotNull] IList<KeyValuePair<string, object>> parameters, 
+            [NotNull] Func<DbCommand, object> executeDb, 
             [CanBeNull] out object result)
         {
             CodeContracts.ArgumentNotNull(binder, "binder");
@@ -241,96 +266,166 @@ namespace YAF.Core.Data
             return true;
         }
 
+        /// <summary>
+        /// The invoke data reader.
+        /// </summary>
+        /// <param name="binder">
+        /// The binder.
+        /// </param>
+        /// <param name="args">
+        /// The args.
+        /// </param>
+        /// <param name="result">
+        /// The result.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
         protected bool InvokeDataReader(InvokeMemberBinder binder, object[] args, out object result)
         {
+            var parameters = this.MapParameters(binder.CallInfo, args);
+
+            var actionParameter =
+                parameters.FirstOrDefault(
+                    x => x.Value != null && x.Value.GetType().IsGenericType && x.Value.GetType().GetGenericArguments().Any(a => a == typeof(IDataReader)));
+            
+            if (actionParameter.IsDefault())
+            {
+               throw new ArgumentNullException("DataReader", "DataReader must be invoked with a parameter of Action<IDataReader> that does the DataReading."); 
+            }
+
+            parameters.Remove(actionParameter);
+
             return this.DbFunctionExecute(
-                DbFunctionType.Reader,
+                DbFunctionType.Reader, 
                 binder,
-                this.MapParameters(binder.CallInfo, args),
-                (cmd) => this._dbAccessProvider.Instance.GetReader(cmd, this.UnitOfWork),
+                parameters,
+                (cmd) =>
+                    {
+                        this._dbAccessProvider.Instance.GetReader(cmd, (Action<IDataReader>)actionParameter.Value, this.UnitOfWork);
+                        return true;
+                    }, 
                 out result);
         }
 
         /// <summary>
-        ///     The invoke get data.
+        /// The invoke get data.
         /// </summary>
-        /// <param name="binder"> The binder. </param>
-        /// <param name="args"> The args. </param>
-        /// <param name="result"> The result. </param>
-        /// <returns> The invoke get data. </returns>
+        /// <param name="binder">
+        /// The binder. 
+        /// </param>
+        /// <param name="args">
+        /// The args. 
+        /// </param>
+        /// <param name="result">
+        /// The result. 
+        /// </param>
+        /// <returns>
+        /// The invoke get data. 
+        /// </returns>
         protected bool InvokeGetData(
             [NotNull] InvokeMemberBinder binder, [NotNull] object[] args, [NotNull] out object result)
         {
             return this.DbFunctionExecute(
-                DbFunctionType.DataTable,
-                binder,
-                this.MapParameters(binder.CallInfo, args),
-                (cmd) => this._dbAccessProvider.Instance.GetData(cmd, this.UnitOfWork),
+                DbFunctionType.DataTable, 
+                binder, 
+                this.MapParameters(binder.CallInfo, args), 
+                (cmd) => this._dbAccessProvider.Instance.GetData(cmd, this.UnitOfWork), 
                 out result);
         }
 
         /// <summary>
-        ///     The invoke get data set.
+        /// The invoke get data set.
         /// </summary>
-        /// <param name="binder"> The binder. </param>
-        /// <param name="args"> The args. </param>
-        /// <param name="result"> The result. </param>
-        /// <returns> The invoke get data set. </returns>
+        /// <param name="binder">
+        /// The binder. 
+        /// </param>
+        /// <param name="args">
+        /// The args. 
+        /// </param>
+        /// <param name="result">
+        /// The result. 
+        /// </param>
+        /// <returns>
+        /// The invoke get data set. 
+        /// </returns>
         protected bool InvokeGetDataSet(
             [NotNull] InvokeMemberBinder binder, [NotNull] object[] args, [NotNull] out object result)
         {
             return this.DbFunctionExecute(
-                DbFunctionType.DataSet,
-                binder,
-                this.MapParameters(binder.CallInfo, args),
-                (cmd) => this._dbAccessProvider.Instance.GetDataset(cmd, this.UnitOfWork),
+                DbFunctionType.DataSet, 
+                binder, 
+                this.MapParameters(binder.CallInfo, args), 
+                (cmd) => this._dbAccessProvider.Instance.GetDataset(cmd, this.UnitOfWork), 
                 out result);
         }
 
         /// <summary>
-        ///     The invoke query.
+        /// The invoke query.
         /// </summary>
-        /// <param name="binder"> The binder. </param>
-        /// <param name="args"> The args. </param>
-        /// <param name="result"> The result. </param>
-        /// <returns> The invoke query. </returns>
+        /// <param name="binder">
+        /// The binder. 
+        /// </param>
+        /// <param name="args">
+        /// The args. 
+        /// </param>
+        /// <param name="result">
+        /// The result. 
+        /// </param>
+        /// <returns>
+        /// The invoke query. 
+        /// </returns>
         protected bool InvokeQuery([NotNull] InvokeMemberBinder binder, [NotNull] object[] args, [NotNull] out object result)
         {
             return this.DbFunctionExecute(
-                DbFunctionType.Query,
-                binder,
-                this.MapParameters(binder.CallInfo, args),
+                DbFunctionType.Query, 
+                binder, 
+                this.MapParameters(binder.CallInfo, args), 
                 (cmd) =>
                     {
                         this._dbAccessProvider.Instance.ExecuteNonQuery(cmd, this.UnitOfWork);
                         return null;
-                    },
+                    }, 
                 out result);
         }
 
         /// <summary>
-        ///     The invoke scalar.
+        /// The invoke scalar.
         /// </summary>
-        /// <param name="binder"> The binder. </param>
-        /// <param name="args"> The args. </param>
-        /// <param name="result"> The result. </param>
-        /// <returns> The invoke scalar. </returns>
+        /// <param name="binder">
+        /// The binder. 
+        /// </param>
+        /// <param name="args">
+        /// The args. 
+        /// </param>
+        /// <param name="result">
+        /// The result. 
+        /// </param>
+        /// <returns>
+        /// The invoke scalar. 
+        /// </returns>
         protected bool InvokeScalar([NotNull] InvokeMemberBinder binder, [NotNull] object[] args, [NotNull] out object result)
         {
             return this.DbFunctionExecute(
-                DbFunctionType.Scalar,
-                binder,
-                this.MapParameters(binder.CallInfo, args),
-                (cmd) => this._dbAccessProvider.Instance.ExecuteScalar(cmd, this.UnitOfWork),
+                DbFunctionType.Scalar, 
+                binder, 
+                this.MapParameters(binder.CallInfo, args), 
+                (cmd) => this._dbAccessProvider.Instance.ExecuteScalar(cmd, this.UnitOfWork), 
                 out result);
         }
 
         /// <summary>
-        ///     The map parameters.
+        /// The map parameters.
         /// </summary>
-        /// <param name="callInfo"> The call info. </param>
-        /// <param name="args"> The args. </param>
-        /// <returns> </returns>
+        /// <param name="callInfo">
+        /// The call info. 
+        /// </param>
+        /// <param name="args">
+        /// The args. 
+        /// </param>
+        /// <returns>
+        /// The <see cref="IList"/>.
+        /// </returns>
         [NotNull]
         protected IList<KeyValuePair<string, object>> MapParameters([NotNull] CallInfo callInfo, [NotNull] object[] args)
         {
