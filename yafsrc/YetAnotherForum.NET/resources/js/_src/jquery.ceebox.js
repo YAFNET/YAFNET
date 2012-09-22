@@ -1,4 +1,3 @@
-//ceebox
 /*
  * CeeBox 2.1.4 jQuery Plugin (minimized version)
  * Requires jQuery 1.3.2 and swfobject.jquery.js plugin to work
@@ -31,6 +30,7 @@
             B(this, f, a, d);
         });
         b(c).live("click", function (f) {
+			
             var e = b(f.target).closest("[href]"),
                 g = e.data("ceebox");
             if (g) {
@@ -56,9 +56,9 @@
                 }, {
                     gallery: g.gallery
                 }));
+				
                 return false;
             }
-            return false;
         });
     }
     function w(c) {
