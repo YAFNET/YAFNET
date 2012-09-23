@@ -343,9 +343,8 @@ namespace YAF.Pages
                 this.AlbumList1.Dispose();
             }
 
-            var userNameOrDisplayName =
-                this.Get<HttpServerUtilityBase>().HtmlEncode(
-                    this.Get<YafBoardSettings>().EnableDisplayName ? userData.DisplayName : userData.UserName);
+            var userNameOrDisplayName =                
+                    this.Get<YafBoardSettings>().EnableDisplayName ? userData.DisplayName : userData.UserName;
 
             this.SetupUserProfileInfo(this.UserId, user, userData, userNameOrDisplayName);
 
