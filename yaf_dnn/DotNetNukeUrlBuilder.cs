@@ -25,13 +25,16 @@ namespace YAF.DotNetNuke
     using System.Text;
     using System.Web;
 
-    using YAF.Types.Interfaces;
-
     using global::DotNetNuke.Common;
+
     using global::DotNetNuke.Entities.Portals;
+
     using global::DotNetNuke.Entities.Tabs;
+
     using YAF.Classes;
     using YAF.Core;
+    using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
     using YAF.Utils;
 
     #endregion
