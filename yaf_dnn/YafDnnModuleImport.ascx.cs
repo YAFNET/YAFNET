@@ -350,6 +350,11 @@ namespace YAF.DotNetNuke
                         continue;
                     }
 
+                    if (dnnUserInfo.IsDeleted)
+                    {
+                        continue;
+                    }
+
                     int yafUserId = LegacyDb.user_get(this.boardId, dnnUser.ProviderUserKey);
 
                     if (yafUserId.Equals(0))

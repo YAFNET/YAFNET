@@ -208,7 +208,12 @@ namespace YAF.DotNetNuke
 
                     if (dnnUser == null)
                     {
-                        return;
+                        continue;
+                    }
+
+                    if (dnnUserInfo.IsDeleted)
+                    {
+                        continue;
                     }
 
                     int yafUserId = LegacyDb.user_get(boardId, dnnUser.ProviderUserKey);
