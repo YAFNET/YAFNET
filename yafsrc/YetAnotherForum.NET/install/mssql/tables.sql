@@ -802,8 +802,8 @@ begin
 end
 GO
 
-if exists (select top 1 1 from syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}Active]') and name='ForumPage' and prec < 255)
- 	alter table [{databaseOwner}].[{objectQualifier}Active] alter column [ForumPage] nvarchar(255) 
+if exists (select top 1 1 from syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}Active]') and name='ForumPage' and prec < 1024)
+ 	alter table [{databaseOwner}].[{objectQualifier}Active] alter column [ForumPage] nvarchar(1024) 
 GO
 
 if exists (select top 1 1 from syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}Active]') and name='IP' and prec < 39)
