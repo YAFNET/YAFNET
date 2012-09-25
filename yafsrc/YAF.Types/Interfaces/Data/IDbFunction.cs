@@ -18,101 +18,101 @@
  */
 namespace YAF.Types.Interfaces
 {
-	#region Using
+    #region Using
 
-	using System;
+    using System;
 
-	#endregion
+    #endregion
 
-	/// <summary>
-	/// The db function type.
-	/// </summary>
-	public enum DbFunctionType
-	{
-		/// <summary>
-		///   The query.
-		/// </summary>
-		Query, 
-
-		/// <summary>
-		///   The data table.
-		/// </summary>
-		DataTable, 
-
-		/// <summary>
-		///   The data set.
-		/// </summary>
-		DataSet, 
-
-		/// <summary>
-		///   The scalar.
-		/// </summary>
-		Scalar, 
-
-		/// <summary>
-		///   The reader.
-		/// </summary>
-		Reader
-	}
-
-	/// <summary>
-	/// The db function cancelled exception.
-	/// </summary>
-	public class DbFunctionCancelledException : Exception
-	{
-		#region Constructors and Destructors
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="DbFunctionCancelledException"/> class.
-		/// </summary>
-		/// <param name="message">
-		/// The message.
-		/// </param>
-		public DbFunctionCancelledException([NotNull] string message)
-			: base(message)
-		{
-		}
-
-		#endregion
-	}
-
-	/// <summary>
-	/// The i db function.
-	/// </summary>
-	public interface IDbFunction
-	{
-		#region Properties
-
-		/// <summary>
-		///   Gets GetData.
-		/// </summary>
-		dynamic GetData { get; }
-
-		/// <summary>
-		///   Gets GetDataSet.
-		/// </summary>
-		dynamic GetDataSet { get; }
-
-		/// <summary>
-		///   Gets Query.
-		/// </summary>
-		dynamic Query { get; }
-
-		/// <summary>
-		///   Gets Scalar.
-		/// </summary>
-		dynamic Scalar { get; }
+    /// <summary>
+    ///     The db function type.
+    /// </summary>
+    public enum DbFunctionType
+    {
+        /// <summary>
+        ///     The query.
+        /// </summary>
+        Query, 
 
         /// <summary>
-        /// Gets an IDataReader
+        ///     The data table.
         /// </summary>
-	    dynamic GetDataReader { get; }
+        DataTable, 
 
-		/// <summary>
-		/// Gets or sets the current Unit of Work used.
-		/// </summary>
-		IDbUnitOfWork UnitOfWork { get; set; }
+        /// <summary>
+        ///     The data set.
+        /// </summary>
+        DataSet, 
 
-		#endregion
-	}
+        /// <summary>
+        ///     The scalar.
+        /// </summary>
+        Scalar, 
+
+        /// <summary>
+        ///     The reader.
+        /// </summary>
+        Reader
+    }
+
+    /// <summary>
+    ///     The db function cancelled exception.
+    /// </summary>
+    public class DbFunctionCancelledException : Exception
+    {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DbFunctionCancelledException"/> class.
+        /// </summary>
+        /// <param name="message">
+        /// The message. 
+        /// </param>
+        public DbFunctionCancelledException([NotNull] string message)
+            : base(message)
+        {
+        }
+
+        #endregion
+    }
+
+    /// <summary>
+    ///     The i db function.
+    /// </summary>
+    public interface IDbFunction
+    {
+        #region Public Properties
+
+        /// <summary>
+        ///     Gets GetData.
+        /// </summary>
+        dynamic GetData { get; }
+
+        /// <summary>
+        ///     Gets GetDataSet.
+        /// </summary>
+        dynamic GetDataSet { get; }
+
+        /// <summary>
+        /// Gets the get reader.
+        /// </summary>
+        dynamic GetReader { get; }
+
+        /// <summary>
+        ///     Gets Query.
+        /// </summary>
+        dynamic Query { get; }
+
+        /// <summary>
+        ///     Gets Scalar.
+        /// </summary>
+        dynamic Scalar { get; }
+
+        /// <summary>
+        ///     Gets or sets the current Unit of Work used.
+        /// </summary>
+        IDbUnitOfWork UnitOfWork { get; set; }
+
+        #endregion
+    }
 }

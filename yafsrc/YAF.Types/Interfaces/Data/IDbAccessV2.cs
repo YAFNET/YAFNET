@@ -32,7 +32,7 @@ namespace YAF.Types.Interfaces
     /// <summary>
     ///     DBAccess Interface
     /// </summary>
-    public interface IDbAccessV2
+    public interface IDbAccessV2 : ICreateUnitOfWork
     {
         #region Public Properties
 
@@ -72,17 +72,6 @@ namespace YAF.Types.Interfaces
         #region Public Methods and Operators
 
         /// <summary>
-        /// The begin transaction.
-        /// </summary>
-        /// <param name="isolationLevel">
-        /// The isolation level. 
-        /// </param>
-        /// <returns>
-        /// The <see cref="IDbUnitOfWork"/>.
-        /// </returns>
-        IDbUnitOfWork BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.ReadUncommitted);
-
-        /// <summary>
         /// The execute non query.
         /// </summary>
         /// <param name="cmd">
@@ -91,7 +80,7 @@ namespace YAF.Types.Interfaces
         /// <param name="unitOfWork">
         /// The unit Of Work. 
         /// </param>
-        void ExecuteNonQuery([NotNull] DbCommand cmd, [CanBeNull] IDbUnitOfWork unitOfWork = null);
+        void ExecuteNonQuery([NotNull] IDbCommand cmd, [CanBeNull] IDbUnitOfWork unitOfWork = null);
 
         /// <summary>
         /// The execute scalar.
@@ -105,7 +94,7 @@ namespace YAF.Types.Interfaces
         /// <returns>
         /// The execute scalar. 
         /// </returns>
-        object ExecuteScalar([NotNull] DbCommand cmd, [CanBeNull] IDbUnitOfWork unitOfWork = null);
+        object ExecuteScalar([NotNull] IDbCommand cmd, [CanBeNull] IDbUnitOfWork unitOfWork = null);
 
         /// <summary>
         /// The get command.
@@ -122,7 +111,7 @@ namespace YAF.Types.Interfaces
         /// <returns>
         /// The <see cref="DbCommand"/>.
         /// </returns>
-        DbCommand GetCommand(
+        IDbCommand GetCommand(
             [NotNull] string sql, 
             bool isStoredProcedure = true, 
             [CanBeNull] IEnumerable<KeyValuePair<string, object>> parameters = null);
@@ -139,7 +128,7 @@ namespace YAF.Types.Interfaces
         /// <returns>
         /// The <see cref="DataTable"/>.
         /// </returns>
-        DataTable GetData([NotNull] DbCommand cmd, [CanBeNull] IDbUnitOfWork unitOfWork = null);
+        DataTable GetData([NotNull] IDbCommand cmd, [CanBeNull] IDbUnitOfWork unitOfWork = null);
 
         /// <summary>
         /// The get dataset.
@@ -153,7 +142,7 @@ namespace YAF.Types.Interfaces
         /// <returns>
         /// The <see cref="DataSet"/>.
         /// </returns>
-        DataSet GetDataset([NotNull] DbCommand cmd, [CanBeNull] IDbUnitOfWork unitOfWork = null);
+        DataSet GetDataset([NotNull] IDbCommand cmd, [CanBeNull] IDbUnitOfWork unitOfWork = null);
 
         /// <summary>
         /// The get reader.
@@ -168,7 +157,7 @@ namespace YAF.Types.Interfaces
         /// <returns>
         /// The <see cref="IDataReader"/>.
         /// </returns>
-        void GetReader([NotNull] DbCommand cmd, Action<IDataReader> readAction, [CanBeNull] IDbUnitOfWork unitOfWork = null);
+        IDataReader GetReader([NotNull] IDbCommand cmd, [CanBeNull] IDbUnitOfWork unitOfWork);
 
         #endregion
     }

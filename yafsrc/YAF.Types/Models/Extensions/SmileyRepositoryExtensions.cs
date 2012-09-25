@@ -20,13 +20,12 @@ namespace YAF.Types.Models
 {
     #region Using
 
-    using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Data;
 
     using YAF.Core.Extensions;
     using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
     #endregion
@@ -96,17 +95,10 @@ namespace YAF.Types.Models
         {
             CodeContracts.ArgumentNotNull(repository, "repository");
 
-            IList<Smiley> smilies = null;
-
-            var readerFunction = new Action<IDataReader>(
-                reader =>
-                    {
-                        smilies = reader.Typed<Smiley>();
-                    });
-
-            repository.DbFunction.GetDataReader.smiley_list(BoardID: boardId ?? repository.BoardId, SmileyID: smileyID, Reader: readerFunction);
-
-            return smilies;
+            using (var unitOfWork = repository.DbFunction.BeginUnitOfWork(repository.DbAccess))
+            {
+                return repository.DbFunction.GetTypedAs<Smiley>(r => r.smiley_list(BoardID: boardId ?? repository.BoardId, SmileyID: smileyID));    
+            }
         }
 
         /// <summary>
@@ -191,6 +183,36 @@ namespace YAF.Types.Models
             else
             {
                 repository.FireNew();
+            }
+        }
+
+        /// <summary>
+        /// Save the instance of the smiley object.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="smiley">
+        /// The smiley.
+        /// </param>
+        public static void Save(this IRepository<Smiley> repository, Smiley smiley)
+        {
+            CodeContracts.ArgumentNotNull(repository, "repository");
+
+            if (smiley.BoardID == 0)
+            {
+                smiley.BoardID = repository.BoardId;
+            }
+
+            repository.DbFunction.Query.smiley_save(smiley);
+
+            if (smiley.SmileyID > 0)
+            {
+                repository.FireUpdated(smiley.SmileyID, smiley);
+            }
+            else
+            {
+                repository.FireNew(null, smiley);
             }
         }
 

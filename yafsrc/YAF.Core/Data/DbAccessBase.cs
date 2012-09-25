@@ -139,7 +139,7 @@ namespace YAF.Core.Data
         /// <param name="unitOfWork">
         /// The unit of work. 
         /// </param>
-        public virtual void ExecuteNonQuery([NotNull] DbCommand cmd, [CanBeNull] IDbUnitOfWork unitOfWork = null)
+        public virtual void ExecuteNonQuery([NotNull] IDbCommand cmd, [CanBeNull] IDbUnitOfWork unitOfWork = null)
         {
             CodeContracts.ArgumentNotNull(cmd, "cmd");
 
@@ -177,7 +177,7 @@ namespace YAF.Core.Data
         /// <returns>
         /// The execute scalar. 
         /// </returns>
-        public virtual object ExecuteScalar([NotNull] DbCommand cmd, [CanBeNull] IDbUnitOfWork unitOfWork = null)
+        public virtual object ExecuteScalar([NotNull] IDbCommand cmd, [CanBeNull] IDbUnitOfWork unitOfWork = null)
         {
             CodeContracts.ArgumentNotNull(cmd, "cmd");
 
@@ -222,7 +222,7 @@ namespace YAF.Core.Data
         /// <returns>
         /// The <see cref="DbCommand"/>.
         /// </returns>
-        public virtual DbCommand GetCommand(
+        public virtual IDbCommand GetCommand(
             [NotNull] string sql, bool isStoredProcedure = true, [CanBeNull] IEnumerable<KeyValuePair<string, object>> parameters = null)
         {
             DbCommand cmd = this.DbProviderFactory.CreateCommand();
@@ -259,7 +259,7 @@ namespace YAF.Core.Data
         /// <returns>
         /// The <see cref="DataTable"/>.
         /// </returns>
-        public virtual DataTable GetData([NotNull] DbCommand cmd, [CanBeNull] IDbUnitOfWork unitOfWork = null)
+        public virtual DataTable GetData([NotNull] IDbCommand cmd, [CanBeNull] IDbUnitOfWork unitOfWork = null)
         {
             CodeContracts.ArgumentNotNull(cmd, "cmd");
 
@@ -282,7 +282,7 @@ namespace YAF.Core.Data
         /// The <see cref="DataSet"/>.
         /// </returns>
         [NotNull]
-        public virtual DataSet GetDataset([NotNull] DbCommand cmd, [CanBeNull] IDbUnitOfWork unitOfWork = null)
+        public virtual DataSet GetDataset([NotNull] IDbCommand cmd, [CanBeNull] IDbUnitOfWork unitOfWork = null)
         {
             CodeContracts.ArgumentNotNull(cmd, "cmd");
 
@@ -307,27 +307,15 @@ namespace YAF.Core.Data
         /// <returns>
         /// The <see cref="object"/>.
         /// </returns>
-        public void GetReader(DbCommand cmd, [NotNull] Action<IDataReader> readData, IDbUnitOfWork unitOfWork = null)
+        public IDataReader GetReader(IDbCommand cmd, IDbUnitOfWork unitOfWork)
         {
-            CodeContracts.ArgumentNotNull(readData, "readData");
+            CodeContracts.ArgumentNotNull(unitOfWork, "unitOfWork");
             CodeContracts.ArgumentNotNull(cmd, "cmd");
 
             using (var qc = new QueryCounter(cmd.CommandText))
             {
-                if (unitOfWork == null)
-                {
-                    // see if an existing connection is present
-                    using (var connection = this.CreateConnectionOpen())
-                    {
-                        cmd.Connection = connection;
-                        readData(cmd.ExecuteReader());
-                    }
-                }
-                else
-                {
-                    unitOfWork.Setup(cmd);
-                    readData(cmd.ExecuteReader());
-                }
+                unitOfWork.Setup(cmd);
+                return cmd.ExecuteReader();
             }
         }
 
@@ -362,7 +350,7 @@ namespace YAF.Core.Data
         /// The <see cref="DataSet"/>.
         /// </returns>
         [NotNull]
-        protected virtual DataSet GetDatasetBasic([NotNull] DbCommand cmd, [CanBeNull] IDbUnitOfWork unitOfWork = null)
+        protected virtual DataSet GetDatasetBasic([NotNull] IDbCommand cmd, [CanBeNull] IDbUnitOfWork unitOfWork = null)
         {
             CodeContracts.ArgumentNotNull(cmd, "cmd");
 
@@ -376,24 +364,25 @@ namespace YAF.Core.Data
                     cmd.Connection = connection;
 
                     // create the adapter and fill....
-                    using (var da = this.DbProviderFactory.CreateDataAdapter())
+                    IDbDataAdapter dataAdapter = this.DbProviderFactory.CreateDataAdapter();
+
+                    if (dataAdapter != null)
                     {
-                        da.SelectCommand = cmd;
-                        da.SelectCommand.Connection = connection;
-                        da.Fill(ds);
+                        dataAdapter.SelectCommand = cmd;
+                        dataAdapter.SelectCommand.Connection = connection;
+                        dataAdapter.Fill(ds);
                     }
                 }
             }
             else
             {
-                // create the adapter and fill...
-                using (var da = this.DbProviderFactory.CreateDataAdapter())
+                IDbDataAdapter dataAdapter = this.DbProviderFactory.CreateDataAdapter();
+
+                if (dataAdapter != null)
                 {
-                    da.SelectCommand = cmd;
-
-                    unitOfWork.Setup(da.SelectCommand);
-
-                    da.Fill(ds);
+                    dataAdapter.SelectCommand = cmd;
+                    unitOfWork.Setup(dataAdapter.SelectCommand);
+                    dataAdapter.Fill(ds);
                 }
             }
 
@@ -410,7 +399,7 @@ namespace YAF.Core.Data
         /// <param name="parameters">
         /// The parameters. 
         /// </param>
-        protected virtual void MapParameters([NotNull] DbCommand cmd, [NotNull] IEnumerable<KeyValuePair<string, object>> parameters)
+        protected virtual void MapParameters([NotNull] IDbCommand cmd, [NotNull] IEnumerable<KeyValuePair<string, object>> parameters)
         {
             CodeContracts.ArgumentNotNull(cmd, "cmd");
             CodeContracts.ArgumentNotNull(parameters, "parameters");

@@ -562,9 +562,12 @@ namespace YAF.Core
         {
             get
             {
-                return this.Page == null || this.Page["Suspended"] != null
-                           ? DateTime.UtcNow
-                           : Convert.ToDateTime(this.Page["Suspended"]);
+                if (this.IsSuspended)
+                {
+                    return Convert.ToDateTime(this.Page["Suspended"]);
+                }
+
+                return DateTime.MinValue;
             }
         }
 

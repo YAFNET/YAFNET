@@ -51,17 +51,14 @@ namespace YAF.Core.Services
             {
                 return false;
             }
+            
 
             string ipAdress = YafContext.Current.Get<HttpRequestBase>().UserHostAddress;
-
-            if (ipAdress.Equals("::1"))
-            {
-                ipAdress = "127.0.0.1";
-            }
+            bool isLocal = YafContext.Current.Get<HttpRequestBase>().IsLocal;
 
             string whiteList = string.Empty;
 
-            if (ipAdress.Equals("127.0.0.1"))
+            if (isLocal)
             {
                 whiteList = "whitelist=127.0.0.1";
             }

@@ -18,60 +18,91 @@
  */
 namespace YAF.Types.Interfaces
 {
-	#region Using
+    #region Using
 
-	using System;
-	using System.Data;
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
 
-	#endregion
+    using YAF.Types.Extensions;
 
-	/// <summary>
-	/// The i db function extensions.
-	/// </summary>
-	public static class IDbFunctionExtensions
-	{
-		#region Public Methods
+    #endregion
 
-		/// <summary>
-		/// Gets a DataTable using the new dynamic Db Function
-		/// </summary>
-		/// <param name="dbFunction">
-		/// The db function.
-		/// </param>
-		/// <param name="function">
-		/// The function.
-		/// </param>
-		/// <returns>
-		/// </returns>
-		[NotNull]
-		public static DataTable GetAsDataTable([NotNull] this IDbFunction dbFunction, [NotNull] Func<dynamic, object> function)
-		{
-			CodeContracts.ArgumentNotNull(dbFunction, "dbFunction");
-			CodeContracts.ArgumentNotNull(function, "function");
+    /// <summary>
+    ///     The i db function extensions.
+    /// </summary>
+    public static class IDbFunctionExtensions
+    {
+        #region Public Methods and Operators
 
-			return (DataTable)function(dbFunction.GetData);
-		}
-
-		/// <summary>
-		/// The get data set.
-		/// </summary>
-		/// <param name="dbFunction">
-		/// The db function.
-		/// </param>
-		/// <param name="function">
-		/// The function.
-		/// </param>
-		/// <returns>
-		/// </returns>
+        /// <summary>
+        /// The get data set.
+        /// </summary>
+        /// <param name="dbFunction">
+        /// The db function. 
+        /// </param>
+        /// <param name="function">
+        /// The function. 
+        /// </param>
+        /// <returns>
+        /// The <see cref="DataSet"/>.
+        /// </returns>
         [NotNull]
-		public static DataSet GetAsDataSet([NotNull] this IDbFunction dbFunction, [NotNull] Func<dynamic, object> function)
-		{
-			CodeContracts.ArgumentNotNull(dbFunction, "dbFunction");
-			CodeContracts.ArgumentNotNull(function, "function");
+        public static DataSet GetAsDataSet([NotNull] this IDbFunction dbFunction, [NotNull] Func<dynamic, object> function)
+        {
+            CodeContracts.ArgumentNotNull(dbFunction, "dbFunction");
+            CodeContracts.ArgumentNotNull(function, "function");
 
-			return (DataSet)function(dbFunction.GetDataSet);
-		}
+            return (DataSet)function(dbFunction.GetDataSet);
+        }
 
-		#endregion
-	}
+        /// <summary>
+        /// Gets a DataTable using the new dynamic Db Function
+        /// </summary>
+        /// <param name="dbFunction">
+        /// The db function. 
+        /// </param>
+        /// <param name="function">
+        /// The function. 
+        /// </param>
+        /// <returns>
+        /// The <see cref="DataTable"/>.
+        /// </returns>
+        [NotNull]
+        public static DataTable GetAsDataTable([NotNull] this IDbFunction dbFunction, [NotNull] Func<dynamic, object> function)
+        {
+            CodeContracts.ArgumentNotNull(dbFunction, "dbFunction");
+            CodeContracts.ArgumentNotNull(function, "function");
+
+            return (DataTable)function(dbFunction.GetData);
+        }
+
+        /// <summary>
+        /// Gets Typed IDataLoadable objects through the data reader.
+        /// </summary>
+        /// <param name="dbFunction">
+        /// The db function.
+        /// </param>
+        /// <param name="function">
+        /// The function.
+        /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="IList"/>.
+        /// </returns>
+        public static IList<T> GetTypedAs<T>([NotNull] this IDbFunction dbFunction, [NotNull] Func<dynamic, object> function)
+            where T : IDataLoadable, new()
+        {
+            CodeContracts.ArgumentNotNull(dbFunction, "dbFunction");
+            CodeContracts.ArgumentNotNull(function, "function");
+
+            using (var dataReader = (IDataReader)function(dbFunction.GetReader))
+            {
+                return dataReader.Typed<T>();
+            }
+        }
+
+        #endregion
+    }
 }

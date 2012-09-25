@@ -18,73 +18,102 @@
  */
 namespace YAF.Types.Extensions
 {
-	#region Using
+    #region Using
 
     using System;
     using System.Collections.Generic;
+    using System.Data;
 
-    using YAF.Types;
     using YAF.Types.Interfaces;
 
     #endregion
 
-	/// <summary>
-	/// The db function extensions.
-	/// </summary>
-	public static class DbFunctionExtensions
-	{
-		#region Public Methods
+    /// <summary>
+    ///     The db function extensions.
+    /// </summary>
+    public static class DbFunctionExtensions
+    {
+        #region Public Methods and Operators
 
-		/// <summary>
-		/// The get data typed.
-		/// </summary>
-		/// <param name="dbFunction">
-		/// The db function.
-		/// </param>
-		/// <param name="function">
-		/// The function.
-		/// </param>
-		/// <param name="comparer">
-		/// The comparer.
-		/// </param>
-		/// <typeparam name="T">
-		/// </typeparam>
-		/// <returns>
-		/// </returns>
-		[CanBeNull]
-		public static IEnumerable<T> GetDataTyped<T>(
-			[NotNull] this IDbFunction dbFunction, 
-			[NotNull] Func<object, object> function, 
-			[CanBeNull] IEqualityComparer<string> comparer = null) where T : IDataLoadable, new()
-		{
-			CodeContracts.ArgumentNotNull(dbFunction, "dbFunction");
-			CodeContracts.ArgumentNotNull(function, "function");
+        /// <summary>
+        /// The begin unit of work.
+        /// </summary>
+        /// <param name="dbFunction">
+        /// The db function.
+        /// </param>
+        /// <param name="createUnitOfWork">
+        /// The create unit of work.
+        /// </param>
+        /// <param name="isolationLevel">
+        /// The isolation level.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IDbUnitOfWork"/>.
+        /// </returns>
+        public static IDbUnitOfWork BeginUnitOfWork(
+            [NotNull] this IDbFunction dbFunction, 
+            [NotNull] ICreateUnitOfWork createUnitOfWork, 
+            IsolationLevel isolationLevel = IsolationLevel.ReadUncommitted)
+        {
+            CodeContracts.ArgumentNotNull(dbFunction, "dbFunction");
+            CodeContracts.ArgumentNotNull(createUnitOfWork, "createUnitOfWork");
 
-			return dbFunction.GetData(function).Typed<T>(comparer);
-		}
+            dbFunction.UnitOfWork = createUnitOfWork.BeginTransaction(isolationLevel);
+            return dbFunction.UnitOfWork;
+        }
 
-		/// <summary>
-		/// The get scalar as.
-		/// </summary>
-		/// <param name="dbFunction">
-		/// The db function.
-		/// </param>
-		/// <param name="function">
-		/// The function.
-		/// </param>
-		/// <typeparam name="T">
-		/// </typeparam>
-		/// <returns>
-		/// </returns>
-		[CanBeNull]
-		public static T GetScalar<T>([NotNull] this IDbFunction dbFunction, [NotNull] Func<object, object> function)
-		{
-			CodeContracts.ArgumentNotNull(dbFunction, "dbFunction");
-			CodeContracts.ArgumentNotNull(function, "function");
+        /// <summary>
+        /// The get data typed.
+        /// </summary>
+        /// <param name="dbFunction">
+        /// The db function. 
+        /// </param>
+        /// <param name="function">
+        /// The function. 
+        /// </param>
+        /// <param name="comparer">
+        /// The comparer. 
+        /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="IEnumerable"/>.
+        /// </returns>
+        [CanBeNull]
+        public static IEnumerable<T> GetDataTyped<T>(
+            [NotNull] this IDbFunction dbFunction, 
+            [NotNull] Func<object, object> function, 
+            [CanBeNull] IEqualityComparer<string> comparer = null) where T : IDataLoadable, new()
+        {
+            CodeContracts.ArgumentNotNull(dbFunction, "dbFunction");
+            CodeContracts.ArgumentNotNull(function, "function");
 
-			return ((object)function(dbFunction.Scalar)).ToType<T>();
-		}
+            return dbFunction.GetData(function).Typed<T>(comparer);
+        }
 
-		#endregion
-	}
+        /// <summary>
+        /// The get scalar as.
+        /// </summary>
+        /// <param name="dbFunction">
+        /// The db function. 
+        /// </param>
+        /// <param name="function">
+        /// The function. 
+        /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="T"/>.
+        /// </returns>
+        [CanBeNull]
+        public static T GetScalar<T>([NotNull] this IDbFunction dbFunction, [NotNull] Func<object, object> function)
+        {
+            CodeContracts.ArgumentNotNull(dbFunction, "dbFunction");
+            CodeContracts.ArgumentNotNull(function, "function");
+
+            return ((object)function(dbFunction.Scalar)).ToType<T>();
+        }
+
+        #endregion
+    }
 }
