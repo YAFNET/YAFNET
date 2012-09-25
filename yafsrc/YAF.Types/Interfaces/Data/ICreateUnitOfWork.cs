@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2006-2012 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -16,31 +16,27 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Types.Interfaces.Data
+namespace YAF.Types.Interfaces
 {
+    using System.Data;
+
     /// <summary>
-    /// The Repository interface.
+    /// The BeginDbUnitOfWork interface.
     /// </summary>
-    /// <typeparam name="T">
-    /// </typeparam>
-    public interface IRepository<T> : IEntity, IHaveBoardId
+    public interface ICreateUnitOfWork
     {
-        #region Public Properties
+        #region Public Methods and Operators
 
         /// <summary>
-        /// Gets the db access.
+        /// Creates an IDbUnitOfWork (IDisposable) transaction scope.
         /// </summary>
-        IDbAccessV2 DbAccess { get; }
-
-        /// <summary>
-        ///     Gets the db event.
-        /// </summary>
-        IRaiseEvent DbEvent { get; }
-
-        /// <summary>
-        ///     Gets the db function.
-        /// </summary>
-        IDbFunction DbFunction { get; }
+        /// <param name="isolationLevel">
+        /// The isolation level.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IDbUnitOfWork"/>.
+        /// </returns>
+        IDbUnitOfWork BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.ReadUncommitted);
 
         #endregion
     }

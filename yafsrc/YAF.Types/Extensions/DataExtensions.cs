@@ -16,7 +16,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
 namespace YAF.Types.Extensions
 {
     #region Using
@@ -38,11 +37,17 @@ namespace YAF.Types.Extensions
         #region Public Methods and Operators
 
         /// <summary>
-        ///     The to dictionary.
+        /// The to dictionary.
         /// </summary>
-        /// <param name="reader"> The reader. </param>
-        /// <param name="comparer"> The comparer. </param>
-        /// <returns> </returns>
+        /// <param name="reader">
+        /// The reader. 
+        /// </param>
+        /// <param name="comparer">
+        /// The comparer. 
+        /// </param>
+        /// <returns>
+        /// The <see cref="IEnumerable"/>.
+        /// </returns>
         public static IEnumerable<IDictionary<string, object>> ToDictionary(
             [NotNull] this IDataReader reader, [CanBeNull] IEqualityComparer<string> comparer = null)
         {
@@ -64,11 +69,17 @@ namespace YAF.Types.Extensions
         }
 
         /// <summary>
-        ///     The to dictionary.
+        /// The to dictionary.
         /// </summary>
-        /// <param name="dataRow"> The data row. </param>
-        /// <param name="comparer"> The comparer. </param>
-        /// <returns> </returns>
+        /// <param name="dataRow">
+        /// The data row. 
+        /// </param>
+        /// <param name="comparer">
+        /// The comparer. 
+        /// </param>
+        /// <returns>
+        /// The <see cref="IDictionary"/>.
+        /// </returns>
         [NotNull]
         public static IDictionary<string, object> ToDictionary(
             [NotNull] this DataRow dataRow, [CanBeNull] IEqualityComparer<string> comparer = null)
@@ -82,11 +93,17 @@ namespace YAF.Types.Extensions
         }
 
         /// <summary>
-        ///     The to dictionary.
+        /// The to dictionary.
         /// </summary>
-        /// <param name="dataTable"> The data table. </param>
-        /// <param name="comparer"> The comparer. </param>
-        /// <returns> </returns>
+        /// <param name="dataTable">
+        /// The data table. 
+        /// </param>
+        /// <param name="comparer">
+        /// The comparer. 
+        /// </param>
+        /// <returns>
+        /// The <see cref="IEnumerable"/>.
+        /// </returns>
         [NotNull]
         public static IEnumerable<IDictionary<string, object>> ToDictionary(
             [NotNull] this DataTable dataTable, [CanBeNull] IEqualityComparer<string> comparer = null)
@@ -104,12 +121,19 @@ namespace YAF.Types.Extensions
         }
 
         /// <summary>
-        ///     The typed.
+        /// The typed.
         /// </summary>
-        /// <param name="dataTable"> The data table. </param>
-        /// <param name="comparer"> The comparer. </param>
-        /// <typeparam name="T"> </typeparam>
-        /// <returns> </returns>
+        /// <param name="dataTable">
+        /// The data table. 
+        /// </param>
+        /// <param name="comparer">
+        /// The comparer. 
+        /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="IEnumerable"/>.
+        /// </returns>
         [NotNull]
         public static IEnumerable<T> Typed<T>(
             [NotNull] this DataTable dataTable, [CanBeNull] IEqualityComparer<string> comparer = null)
@@ -124,6 +148,20 @@ namespace YAF.Types.Extensions
                     });
         }
 
+        /// <summary>
+        /// The typed.
+        /// </summary>
+        /// <param name="dataReader">
+        /// The data reader.
+        /// </param>
+        /// <param name="comparer">
+        /// The comparer.
+        /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="IList"/>.
+        /// </returns>
         public static IList<T> Typed<T>(
             [NotNull] this IDataReader dataReader, [CanBeNull] IEqualityComparer<string> comparer = null)
             where T : IDataLoadable, new()

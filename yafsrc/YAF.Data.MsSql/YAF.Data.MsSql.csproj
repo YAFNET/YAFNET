@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseMsSqlFunction.cs" />
+    <Compile Include="Functions\BaseReflectedSpecificFunctions.cs" />
     <Compile Include="MsSqlDbAccess.cs" />
     <Compile Include="Functions\MsSqlGetStatsFunction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -66,7 +67,6 @@
       <Name>YAF.Utils</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <PropertyGroup>

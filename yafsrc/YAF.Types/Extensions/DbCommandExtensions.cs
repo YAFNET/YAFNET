@@ -45,8 +45,7 @@ namespace YAF.Types.Extensions
 		/// <param name="excludeNames">
 		/// List of parameter exclusions.
 		/// </param>
-		public static void AddDynamicParams(
-			[NotNull] this DbCommand cmd, [NotNull] dynamic parameters, [NotNull] params string[] excludeNames)
+		public static void AddDynamicParams([NotNull] this IDbCommand cmd, [NotNull] dynamic parameters, [CanBeNull] params string[] excludeNames)
 		{
 			CodeContracts.ArgumentNotNull(cmd, "cmd");
 			CodeContracts.ArgumentNotNull(parameters, "parameters");
@@ -75,7 +74,7 @@ namespace YAF.Types.Extensions
 		/// <param name="item">
 		/// The item.
 		/// </param>
-		public static void AddParam([NotNull] this DbCommand cmd, [CanBeNull] object item)
+		public static void AddParam([NotNull] this IDbCommand cmd, [CanBeNull] object item)
 		{
 			CodeContracts.ArgumentNotNull(cmd, "cmd");
 
@@ -101,7 +100,7 @@ namespace YAF.Types.Extensions
 		/// <param name="item">
 		/// The item.
 		/// </param>
-		public static void AddParam([NotNull] this DbCommand cmd, [NotNull] string name, [CanBeNull] object item)
+		public static void AddParam([NotNull] this IDbCommand cmd, [NotNull] string name, [CanBeNull] object item)
 		{
 			CodeContracts.ArgumentNotNull(cmd, "cmd");
 			CodeContracts.ArgumentNotNull(name, "name");
@@ -118,7 +117,7 @@ namespace YAF.Types.Extensions
 		/// <param name="param">
 		/// The param.
 		/// </param>
-		public static void AddParam([NotNull] this DbCommand cmd, KeyValuePair<string, object> param)
+		public static void AddParam([NotNull] this IDbCommand cmd, KeyValuePair<string, object> param)
 		{
 			CodeContracts.ArgumentNotNull(cmd, "cmd");
 
@@ -206,24 +205,24 @@ namespace YAF.Types.Extensions
 		/// <param name="direction">
 		/// The direction.
 		/// </param>
-		public static void CreateOutputParameter([NotNull] this DbCommand cmd, [NotNull] string parameterName, 
-		                                         DbType dbType, 
-		                                         int size = 0, 
-		                                         ParameterDirection direction = ParameterDirection.Output)
+        public static void CreateOutputParameter([NotNull] this IDbCommand cmd, [NotNull] string parameterName,
+                                                 DbType dbType,
+                                                 int size = 0,
+                                                 ParameterDirection direction = ParameterDirection.Output)
 		{
-			CodeContracts.ArgumentNotNull(cmd, "cmd");
-			CodeContracts.ArgumentNotNull(parameterName, "parameterName");
+		    CodeContracts.ArgumentNotNull(cmd, "cmd");
+		    CodeContracts.ArgumentNotNull(parameterName, "parameterName");
 
-			var p = cmd.CreateParameter();
+		    var p = cmd.CreateParameter();
 
-			p.ParameterName = parameterName;
-			p.DbType = dbType;
-			p.Size = size;
-			p.Direction = direction;
+		    p.ParameterName = parameterName;
+		    p.DbType = dbType;
+		    p.Size = size;
+		    p.Direction = direction;
 
-			cmd.Parameters.Add(p);
+		    cmd.Parameters.Add(p);
 		}
 
-		#endregion
+        #endregion
 	}
 }

@@ -23,7 +23,6 @@ namespace YAF.Core.Data
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Data.Common;
     using System.Dynamic;
     using System.Linq;
 
@@ -43,17 +42,12 @@ namespace YAF.Core.Data
         #region Fields
 
         /// <summary>
-        ///     The data reader proxy.
-        /// </summary>
-        private readonly TryInvokeMemberProxy _dataReaderProxy;
-
-        /// <summary>
         ///     The _db access provider.
         /// </summary>
         private readonly IDbAccessProvider _dbAccessProvider;
 
         /// <summary>
-        /// The _db filter functions.
+        ///     The _db filter functions.
         /// </summary>
         private readonly Func<IEnumerable<IDbDataFilter>> _dbFilterFunctions;
 
@@ -71,6 +65,11 @@ namespace YAF.Core.Data
         ///     The _get data set proxy.
         /// </summary>
         private readonly TryInvokeMemberProxy _getDataSetProxy;
+
+        /// <summary>
+        /// The _get reader proxy.
+        /// </summary>
+        private readonly TryInvokeMemberProxy _getReaderProxy;
 
         /// <summary>
         ///     The _query proxy.
@@ -101,7 +100,7 @@ namespace YAF.Core.Data
         /// The db Specific Functions. 
         /// </param>
         /// <param name="dbFilterFunctions">
-        /// The db Filter Functions.
+        /// The db Filter Functions. 
         /// </param>
         public DynamicDbFunction(
             [NotNull] IDbAccessProvider dbAccessProvider, 
@@ -116,7 +115,7 @@ namespace YAF.Core.Data
             this._getDataSetProxy = new TryInvokeMemberProxy(this.InvokeGetDataSet);
             this._queryProxy = new TryInvokeMemberProxy(this.InvokeQuery);
             this._scalarProxy = new TryInvokeMemberProxy(this.InvokeScalar);
-            this._dataReaderProxy = new TryInvokeMemberProxy(this.InvokeDataReader);
+            this._getReaderProxy = new TryInvokeMemberProxy(this.InvokeDataReader);
         }
 
         #endregion
@@ -135,17 +134,6 @@ namespace YAF.Core.Data
         }
 
         /// <summary>
-        /// Gets the get data reader.
-        /// </summary>
-        public dynamic GetDataReader
-        {
-            get
-            {
-                return this._dataReaderProxy.ToDynamic();
-            }
-        }
-
-        /// <summary>
         ///     Gets GetDataSet.
         /// </summary>
         public dynamic GetDataSet
@@ -153,6 +141,17 @@ namespace YAF.Core.Data
             get
             {
                 return this._getDataSetProxy.ToDynamic();
+            }
+        }
+
+        /// <summary>
+        /// Gets the get reader.
+        /// </summary>
+        public dynamic GetReader
+        {
+            get
+            {
+                return this._getReaderProxy.ToDynamic();
             }
         }
 
@@ -195,7 +194,14 @@ namespace YAF.Core.Data
 
             set
             {
-                this._unitOfWork = new WeakReference(value);
+                if (value == null && this._unitOfWork != null)
+                {
+                    this._unitOfWork = null;
+                }
+                else
+                {
+                    this._unitOfWork = new WeakReference(value);
+                }
             }
         }
 
@@ -228,7 +234,7 @@ namespace YAF.Core.Data
             DbFunctionType functionType, 
             [NotNull] InvokeMemberBinder binder, 
             [NotNull] IList<KeyValuePair<string, object>> parameters, 
-            [NotNull] Func<DbCommand, object> executeDb, 
+            [NotNull] Func<IDbCommand, object> executeDb, 
             [CanBeNull] out object result)
         {
             CodeContracts.ArgumentNotNull(binder, "binder");
@@ -270,41 +276,29 @@ namespace YAF.Core.Data
         /// The invoke data reader.
         /// </summary>
         /// <param name="binder">
-        /// The binder.
+        /// The binder. 
         /// </param>
         /// <param name="args">
-        /// The args.
+        /// The args. 
         /// </param>
         /// <param name="result">
-        /// The result.
+        /// The result. 
         /// </param>
         /// <returns>
-        /// The <see cref="bool"/>.
+        /// The <see cref="bool"/> . 
         /// </returns>
         protected bool InvokeDataReader(InvokeMemberBinder binder, object[] args, out object result)
         {
-            var parameters = this.MapParameters(binder.CallInfo, args);
-
-            var actionParameter =
-                parameters.FirstOrDefault(
-                    x => x.Value != null && x.Value.GetType().IsGenericType && x.Value.GetType().GetGenericArguments().Any(a => a == typeof(IDataReader)));
-            
-            if (actionParameter.IsDefault())
+            if (this.UnitOfWork == null)
             {
-               throw new ArgumentNullException("DataReader", "DataReader must be invoked with a parameter of Action<IDataReader> that does the DataReading."); 
+                throw new ArgumentNullException("UnitOfWork", "GetReader must be executed in the context of an IUnitOfWork.");
             }
-
-            parameters.Remove(actionParameter);
 
             return this.DbFunctionExecute(
                 DbFunctionType.Reader, 
                 binder,
-                parameters,
-                (cmd) =>
-                    {
-                        this._dbAccessProvider.Instance.GetReader(cmd, (Action<IDataReader>)actionParameter.Value, this.UnitOfWork);
-                        return true;
-                    }, 
+                this.MapParameters(binder.CallInfo, args), 
+                (cmd) => this._dbAccessProvider.Instance.GetReader(cmd, this.UnitOfWork), 
                 out result);
         }
 
@@ -424,7 +418,7 @@ namespace YAF.Core.Data
         /// The args. 
         /// </param>
         /// <returns>
-        /// The <see cref="IList"/>.
+        /// The <see cref="IList"/> . 
         /// </returns>
         [NotNull]
         protected IList<KeyValuePair<string, object>> MapParameters([NotNull] CallInfo callInfo, [NotNull] object[] args)
@@ -438,9 +432,15 @@ namespace YAF.Core.Data
                     .Reverse()
                     .ToList();
 
-            foreach (var pair in argsPairs.Where(x => x.Value is IEntity))
+            var entities = argsPairs.Where(x => x.Value is IEntity).ToList();
+
+            foreach (var pair in entities)
             {
-                // explode this object out...
+                // remove the individual entity
+                argsPairs.Remove(pair);
+
+                // Add all items in this object...
+                argsPairs.AddRange(pair.AnyToDictionary());
             }
 
             return argsPairs;

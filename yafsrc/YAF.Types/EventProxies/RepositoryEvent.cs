@@ -25,47 +25,53 @@ namespace YAF.Types.EventProxies
     #endregion
 
     /// <summary>
-    /// The repository event type.
+    ///     The repository event type.
     /// </summary>
     public enum RepositoryEventType
     {
         /// <summary>
-        /// The new.
+        ///     The new.
         /// </summary>
         New, 
 
         /// <summary>
-        /// The update.
+        ///     The update.
         /// </summary>
         Update, 
 
         /// <summary>
-        /// The delete.
+        ///     The delete.
         /// </summary>
         Delete
     }
 
     /// <summary>
-    ///     The repository event.
+    /// The repository event.
     /// </summary>
+    /// <typeparam name="T">
+    /// </typeparam>
     public class RepositoryEvent<T> : IAmEvent
-        where T : IEntity
+        where T : class, IEntity
     {
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RepositoryEvent"/> class.
+        /// Initializes a new instance of the <see cref="RepositoryEvent{T}"/> class. 
         /// </summary>
         /// <param name="repositoryEventType">
-        /// The repository event type.
+        /// The repository event type. 
         /// </param>
         /// <param name="entityId">
-        /// The entity id.
+        /// The entity id. 
         /// </param>
-        public RepositoryEvent(RepositoryEventType repositoryEventType, int? entityId)
+        /// <param name="entity">
+        /// The entity.
+        /// </param>
+        public RepositoryEvent(RepositoryEventType repositoryEventType, int? entityId, T entity = null)
         {
             this.RepositoryEventType = repositoryEventType;
             this.EntityId = entityId;
+            this.Entity = entity;
         }
 
         #endregion
@@ -73,12 +79,17 @@ namespace YAF.Types.EventProxies
         #region Public Properties
 
         /// <summary>
-        /// Gets or sets the entity id.
+        /// Gets or sets the entity.
+        /// </summary>
+        public T Entity { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the entity id.
         /// </summary>
         public int? EntityId { get; set; }
 
         /// <summary>
-        /// Gets or sets the repository event type.
+        ///     Gets or sets the repository event type.
         /// </summary>
         public RepositoryEventType RepositoryEventType { get; set; }
 

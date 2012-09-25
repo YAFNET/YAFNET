@@ -144,7 +144,7 @@ namespace YAF.Core
                 .ToList()
                 .FirstOrDefault(x => x.Value.IsSet() && x.Value.Equals(name, StringComparison.CurrentCultureIgnoreCase));
 
-            if (keyValue.IsNotNull())
+            if (keyValue.IsNotDefault())
             {
                 userId = keyValue.Key;
             }

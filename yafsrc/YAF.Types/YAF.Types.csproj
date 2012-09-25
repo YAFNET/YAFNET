@@ -75,6 +75,7 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Extensions\ViewStateExtensions.cs" />
+    <Compile Include="Interfaces\Data\ICreateUnitOfWork.cs" />
     <Compile Include="Interfaces\Data\IDataLoadable.cs" />
     <Compile Include="Interfaces\Data\IDbAccessProvider.cs" />
     <Compile Include="Interfaces\Data\IDbAccessV2.cs" />
@@ -145,7 +146,6 @@
     <Compile Include="Interfaces\Extensions\IObjectStoreExtensions.cs" />
     <Compile Include="Interfaces\Extensions\IReadValueExtensions.cs" />
     <Compile Include="Interfaces\Extensions\IServiceLocatorExtensions.cs" />
-    <Compile Include="Interfaces\Extensions\KeyValuePairExtensions.cs" />
     <Compile Include="Interfaces\Extensions\LocatablePageExtension.cs" />
     <Compile Include="Interfaces\Extensions\ReadTrackCurrentUserExtensions.cs" />
     <Compile Include="Interfaces\IAvatars.cs" />

@@ -185,7 +185,7 @@ namespace YAF.Data.MsSql
         /// <param name="keyValueParams">
         /// The key value params.
         /// </param>
-        protected override void MapParameters(DbCommand cmd, IEnumerable<KeyValuePair<string, object>> keyValueParams)
+        protected override void MapParameters(IDbCommand cmd, IEnumerable<KeyValuePair<string, object>> keyValueParams)
         {
             // convert to list so there is no chance of multiple iterations.
             var paramList = keyValueParams.ToList();

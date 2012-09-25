@@ -45,12 +45,12 @@ namespace YAF.Core.Extensions
         /// </param>
         /// <typeparam name="T">
         /// </typeparam>
-        public static void FireDeleted<T>(this IRepository<T> repository, int? id = null)
-            where T : IEntity
+        public static void FireDeleted<T>(this IRepository<T> repository, int? id = null, T entity = null)
+            where T : class, IEntity
         {
             CodeContracts.ArgumentNotNull(repository, "repository");
 
-            repository.DbEvent.Raise(new RepositoryEvent<T>(RepositoryEventType.Delete, id));
+            repository.DbEvent.Raise(new RepositoryEvent<T>(RepositoryEventType.Delete, id, entity));
         }
 
         /// <summary>
@@ -64,12 +64,12 @@ namespace YAF.Core.Extensions
         /// </param>
         /// <typeparam name="T">
         /// </typeparam>
-        public static void FireNew<T>([NotNull] this IRepository<T> repository, int? id = null)
-            where T : IEntity
+        public static void FireNew<T>([NotNull] this IRepository<T> repository, int? id = null, T entity = null)
+            where T : class, IEntity
         {
             CodeContracts.ArgumentNotNull(repository, "repository");
 
-            repository.DbEvent.Raise(new RepositoryEvent<T>(RepositoryEventType.New, id));
+            repository.DbEvent.Raise(new RepositoryEvent<T>(RepositoryEventType.New, id, entity));
         }
 
         /// <summary>
@@ -83,12 +83,12 @@ namespace YAF.Core.Extensions
         /// </param>
         /// <typeparam name="T">
         /// </typeparam>
-        public static void FireUpdated<T>(this IRepository<T> repository, int? id = null)
-            where T : IEntity
+        public static void FireUpdated<T>(this IRepository<T> repository, int? id = null, T entity = null)
+            where T : class, IEntity
         {
             CodeContracts.ArgumentNotNull(repository, "repository");
 
-            repository.DbEvent.Raise(new RepositoryEvent<T>(RepositoryEventType.Update, id));
+            repository.DbEvent.Raise(new RepositoryEvent<T>(RepositoryEventType.Update, id, entity));
         }
 
         #endregion
