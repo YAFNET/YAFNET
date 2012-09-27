@@ -172,29 +172,9 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// Get the Users age
-        /// </summary>
-        /// <param name="birthdate">
-        /// Birthdate of the User
-        /// </param>
-        /// <returns>
-        /// The Age
-        /// </returns>
-        private static int GetUserAge(DateTime birthdate)
-        {
-            var userAge = DateTime.Now.Year - birthdate.Year;
-
-            if (DateTime.Now < birthdate.AddYears(userAge))
-            {
-                userAge--;
-            }
-
-            return userAge;
-        }
-
-        /// <summary>
         /// Gets the todays birthdays.
         /// </summary>
+        /// TODO: Make DST shift for the user
         private void GetTodaysBirthdays()
         {
             if (!this.Get<YafBoardSettings>().ShowTodaysBirthdays)
@@ -206,7 +186,7 @@ namespace YAF.Controls
 
             var users = this.Get<IDataCache>().GetOrSet(
                 Constants.Cache.TodaysBirthdays,
-                () => LegacyDb.User_ListTodaysBirthdays(this.PageContext.PageBoardID, this.Get<YafBoardSettings>().UseStyledNicks),
+                () => CommonDb.User_ListTodaysBirthdays(this.PageContext.PageBoardID, this.Get<YafBoardSettings>().UseStyledNicks),
                 TimeSpan.FromHours(1));
 
             if (users == null || users.Rows.Count <= 0)
@@ -216,30 +196,50 @@ namespace YAF.Controls
 
             foreach (DataRow user in users.Rows)
             {
+                DateTime birth;
+
+                if (!DateTime.TryParse(user["Birthday"].ToString(), out birth)) continue;
+
+                int tz;
+
+                if (!int.TryParse(user["TimeZone"].ToString(), out tz))
+                {
+                    tz = 0;
+                }
+
+                // Get the user birhday based on his timezone date.
+                var dtt = birth.AddYears(DateTime.UtcNow.Year - birth.Year);
+
+                // The user can be congratulated. The time zone in profile is saved in the list user timezone
+                if (DateTime.UtcNow <= dtt.AddMinutes(-tz).ToUniversalTime() ||
+                    DateTime.UtcNow >= dtt.AddMinutes(-tz + 1440).ToUniversalTime()) continue;
+
                 this.BirthdayUsers.Controls.Add(
                     new UserLink
                     {
                         UserID = (int)user["UserID"],
                         ReplaceName = this.Get<YafBoardSettings>().EnableDisplayName
-                                                        ? user["UserDisplayName"].ToString()
-                                                        : user["UserName"].ToString(),
+                                              ? user["UserDisplayName"].ToString()
+                                              : user["UserName"].ToString(),
                         Style = this.Get<IStyleTransform>().DecodeStyleByString(user["Style"].ToString(), false),
-                        PostfixText = " ({0})".FormatWith(GetUserAge(user["Birthday"].ToType<DateTime>()))
+                        PostfixText = " ({0})".FormatWith(DateTime.Now.Year - user["Birthday"].ToType<DateTime>().Year)
                     });
 
                 var separator = new HtmlGenericControl { InnerHtml = "&nbsp;,&nbsp;" };
 
                 this.BirthdayUsers.Controls.Add(separator);
-
-                this.BirthdayUsers.Visible = true;
+                if (!this.BirthdayUsers.Visible)
+                {
+                    this.BirthdayUsers.Visible = true;
+                }
             }
-
             if (this.BirthdayUsers.Visible)
             {
                 // Remove last Separator
                 this.BirthdayUsers.Controls.RemoveAt(this.BirthdayUsers.Controls.Count - 1);
             }
         }
+
 
         /// <summary>
         /// The forum statistics_ load.
