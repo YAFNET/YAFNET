@@ -72,7 +72,7 @@
     <Resource tag="CP_CHANGEPASSWORD">Changes password</Resource>
     <Resource tag="CP_EDITALBUMIMAGES">Edits album images</Resource>
     <Resource tag="CP_EDITAVATAR">Edits his avatar</Resource>
-    <Resource tag="CP_EDITBUDDIES">Edits Friends</Resource>
+    <Resource tag="CP_EDITBUDDIES">Edits buddies</Resource>
     <Resource tag="CP_EDITPROFILE">Edits his profile</Resource>
     <Resource tag="CP_MESSAGE">Views Private Messages</Resource>
     <Resource tag="CP_PM">Views Private Messages</Resource>
@@ -291,7 +291,7 @@
     <Resource tag="TITLE">Boards</Resource>
   </page>
   <page name="ADMIN_BOARDSETTINGS">
-    <Resource tag="BOARD_ALLOW_DIGEST">Allow Digest Email Sending for Users:</Resource>
+    <Resource tag="BOARD_ALLOW_DIGEST">Allow Digest E-mail Sending for Users:</Resource>
     <Resource tag="BOARD_ALLOW_DIGEST_HELP">NOTE: board must have "YAF.BaseUrlMask" and "YAF.ForceScriptName" AppSettings defined in your web.config for digest to function.</Resource>
     <Resource tag="BOARD_CDN_HOSTED">Use Google Hosted CDN jQuery UI CSS File?</Resource>
     <Resource tag="BOARD_CDN_HOSTED_HELP">You can use the Google Hosted CSS Files, or instead use internal.</Resource>
@@ -303,11 +303,11 @@
     <Resource tag="BOARD_DIGEST_HOURS_HELP">Number of hours before attempting to send another digest. Digest only attempts sending between 12:00 and 6:00am.</Resource>
     <Resource tag="BOARD_DIGEST_NEWUSERS">Default Send Digest "On" for New Users?</Resource>
     <Resource tag="BOARD_DIGEST_NEWUSERS_HELP">When a new user account is created, default send digest to true?</Resource>
-    <Resource tag="BOARD_EMAIL_MODS">Email Moderators On New Moderated Post:</Resource>
+    <Resource tag="BOARD_EMAIL_MODS">E-mail Moderators On New Moderated Post:</Resource>
     <Resource tag="BOARD_EMAIL_MODS_HELP">Should all the moderators of a forum be notified if a new post that needs approval is created?</Resource>
-    <Resource tag="BOARD_EMAIL_ONREGISTER">Send Email Notification On User Register to Emails:</Resource>
-    <Resource tag="BOARD_EMAIL_ONREGISTER_HELP">Semi-colon (;) separated list of emails to send a notification to on user registration.</Resource>
-    <Resource tag="BOARD_EMAIL_REPORTMODS">Email Moderators On a Reported Post:</Resource>
+    <Resource tag="BOARD_EMAIL_ONREGISTER">Send E-mail Notification On User Register to E-mails:</Resource>
+    <Resource tag="BOARD_EMAIL_ONREGISTER_HELP">Semi-colon (;) separated list of e-mails to send a notification to on user registration.</Resource>
+    <Resource tag="BOARD_EMAIL_REPORTMODS">E-mail Moderators On a Reported Post:</Resource>
     <Resource tag="BOARD_EMAIL_REPORTMODS_HELP">Should all the moderators of a forum be notified if someone reported a post?</Resource>
     <Resource tag="BOARD_FILE_EXTENSIONS">File Extensions List is:</Resource>
     <Resource tag="BOARD_FILE_EXTENSIONS_HELP">Is the list of file extensions allowed files or disallowed files (less secure)?</Resource>
@@ -353,12 +353,12 @@
   </page>
   <page name="ADMIN_DIGEST">
     <Resource tag="CONFIRM_FORCE">Are you sure you want to schedule a digest send right now?</Resource>
-    <Resource tag="DIGEST_EMAIL">Email:</Resource>
-    <Resource tag="DIGEST_EMAIL_HELP">Send a test digest to the email.</Resource>
+    <Resource tag="DIGEST_EMAIL">E-mail:</Resource>
+    <Resource tag="DIGEST_EMAIL_HELP">Send a test digest to the e-mail.</Resource>
     <Resource tag="DIGEST_ENABLED">Digest Enabled:</Resource>
     <Resource tag="DIGEST_ENABLED_HELP">Change in your Board Settings.</Resource>
     <Resource tag="DIGEST_GENERATE">Digest:</Resource>
-    <Resource tag="DIGEST_GENERATE_HELP">Generate Digest for this admin account and currently selected theme. (May not actually look like this rendered in an email client.)</Resource>
+    <Resource tag="DIGEST_GENERATE_HELP">Generate Digest for this admin account and currently selected theme. (May not actually look like this rendered in an e-mail client.)</Resource>
     <Resource tag="DIGEST_LAST">Last Digest Send:</Resource>
     <Resource tag="DIGEST_LAST_HELP">The last time (based on server time) the digest task was run.&gt;</Resource>
     <Resource tag="DIGEST_METHOD">Send Method:</Resource>
@@ -371,7 +371,7 @@
     <Resource tag="MSG_FORCE_SEND">Digest Send Scheduled for Immediate Sending</Resource>
     <Resource tag="MSG_SEND_ERR">Exception Getting Digest: {0}</Resource>
     <Resource tag="MSG_SEND_SUC">Sent via {0} successfully.</Resource>
-    <Resource tag="MSG_VALID_MAIL">Please enter a valid email address to send a test.</Resource>
+    <Resource tag="MSG_VALID_MAIL">Please enter a valid e-mail address to send a test.</Resource>
     <Resource tag="SEND_TEST">Send Test</Resource>
     <Resource tag="TITLE">Digest</Resource>
   </page>
@@ -409,17 +409,17 @@
     <Resource tag="VOTE_ACCESS_HELP">Allows Users to Vote in Polls.</Resource>
   </page>
   <page name="ADMIN_EDITBOARD">
-    <Resource tag="ADMIN_USER">Create New Superuser (Host Admin):</Resource>
+    <Resource tag="ADMIN_USER">Create New Admin User:</Resource>
     <Resource tag="ADMIN_USER_HELP">Only required when creating a board using a new &amp; different membership application name.</Resource>
     <Resource tag="CULTURE">Culture:</Resource>
     <Resource tag="CULTURE_HELP">The Culture of the board.</Resource>
-    <Resource tag="HEADER2">New Superuser Information</Resource>
+    <Resource tag="HEADER2">New Administrator Information</Resource>
     <Resource tag="MEMBSHIP_APP_NAME">Membership Application Name:</Resource>
     <Resource tag="MEMBSHIP_APP_NAME_HELP">Application name required for provider, blank will use ApplicationName in web.config.</Resource>
-    <Resource tag="MSG_EMAIL_ADMIN">You must enter the email address of the host admin.</Resource>
-    <Resource tag="MSG_NAME_ADMIN">You must enter the name of the host admin user.</Resource>
+    <Resource tag="MSG_EMAIL_ADMIN">You must enter the e-mail address of the administrator user.</Resource>
+    <Resource tag="MSG_NAME_ADMIN">You must enter the name of a administrator user.</Resource>
     <Resource tag="MSG_NAME_BOARD">You must enter a name for the board.</Resource>
-    <Resource tag="MSG_PASS_ADMIN">You must enter a password for the host admin user.</Resource>
+    <Resource tag="MSG_PASS_ADMIN">You must enter a password for the administrator user.</Resource>
     <Resource tag="MSG_PASS_MATCH">The passwords don't match.</Resource>
     <Resource tag="NAME">Name:</Resource>
     <Resource tag="NAME_HELP">The name of the board.</Resource>
@@ -439,10 +439,10 @@
     <Resource tag="THREADED">Allow Threaded:</Resource>
     <Resource tag="THREADED_HELP">Allow threaded view for posts.</Resource>
     <Resource tag="TITLE">Add/Edit Board</Resource>
-    <Resource tag="USER_MAIL">User Email:</Resource>
-    <Resource tag="USER_MAIL_HELP">Email address for the host admin.</Resource>
+    <Resource tag="USER_MAIL">User e-mail:</Resource>
+    <Resource tag="USER_MAIL_HELP">E-mail address for administrator.</Resource>
     <Resource tag="USER_NAME">User Name:</Resource>
-    <Resource tag="USER_NAME_HELP">This will be the host admin for the board.</Resource>
+    <Resource tag="USER_NAME_HELP">This will be the administrator for the board.</Resource>
     <Resource tag="USER_PASS">Password:</Resource>
     <Resource tag="USER_PASS_HELP">Enter password for administrator here.</Resource>
     <Resource tag="VERIFY_PASS">Verify Password:</Resource>
@@ -527,7 +527,7 @@
     <Resource tag="IS_GUEST">Is Guest::</Resource>
     <Resource tag="IS_GUEST_HELP">This flag is internal and makes the role unavailable to .NET membership. Never assign this role to any users except the (1) guest user. If you do flag this role as IsGuest, the guest user must a member of it. Never use this flag in conjunction with any other flags.</Resource>
     <Resource tag="IS_START">Is Start:</Resource>
-    <Resource tag="IS_START_HELP">If this is checked, all new users will be a member of this role. &lt;br /&gt;&lt;span style="color:red"&gt;[b]Warning:[/b] at least one Group need to have this Check box enabled or new users wont be able to register.[/b]&lt;/span&gt;</Resource>
+    <Resource tag="IS_START_HELP">If this is checked, all new users will be a member of this role.</Resource>
     <Resource tag="MSG_ALBUM_NUMBER">You should enter integer value for the number of user albums.</Resource>
     <Resource tag="MSG_INTEGER">You should enter integer value for priority.</Resource>
     <Resource tag="MSG_SIG_NUMBER">You should enter integer value for the number of chars in user signature.</Resource>
@@ -652,7 +652,7 @@
     <Resource tag="IMAGES_NUMBER">Album Images Number:</Resource>
     <Resource tag="IMAGES_NUMBER_HELP">Integer value for a user allowed images number per album.</Resource>
     <Resource tag="IS_START">Is Start:</Resource>
-    <Resource tag="IS_START_HELP">Means that this is the rank that new users belong to. Only one rank should have this checked. &lt;br /&gt;&lt;span style="color:red"&gt;[b]Warning:[/b] at least one Rank need to have this Check box enabled or new users wont be able to register.&lt;/span&gt;</Resource>
+    <Resource tag="IS_START_HELP">Means that this is the rank that new users belong to. Only one rank should have this checked.</Resource>
     <Resource tag="LADDER_GROUP">Is Ladder Group:</Resource>
     <Resource tag="LADDER_GROUP_HELP">If this is checked, this rank should be part of the ladder system where users advance as they post messages.</Resource>
     <Resource tag="MIN_POSTS">Minimum Posts:</Resource>
@@ -685,8 +685,8 @@
     <Resource tag="CHANGE_NEW_PASS">New Password:</Resource>
     <Resource tag="CHANGE_NEW_PASS_HELP">New user password.</Resource>
     <Resource tag="CHANGE_PASS">Change Password</Resource>
-    <Resource tag="CHANGE_PASS_NOTIFICATION">Send Email Notification:</Resource>
-    <Resource tag="CHANGE_PASS_NOTIFICATION_HELP">Email the user a notification of their new password?</Resource>
+    <Resource tag="CHANGE_PASS_NOTIFICATION">Send E-mail Notification:</Resource>
+    <Resource tag="CHANGE_PASS_NOTIFICATION_HELP">E-mail the user a notification of their new password?</Resource>
     <Resource tag="CONFIRM_PASS">Confirm Password:</Resource>
     <Resource tag="CONFIRM_PASS_HELP">Confirm the new password.</Resource>
     <Resource tag="CURRENT_POINTS">Current Points:</Resource>
@@ -708,12 +708,12 @@
     <Resource tag="MEMBER">Member</Resource>
     <Resource tag="MSG_GUEST_APPROVED">The Guest user must be marked as Approved or your forum will be unstable.</Resource>
     <Resource tag="MSG_PASS_CHANGED">User Password Changed</Resource>
-    <Resource tag="MSG_PASS_CHANGED_NOTI">User Password Changed and Notification Email Sent.</Resource>
-    <Resource tag="MSG_PASS_RESET">User Password Reset and Notification Email Sent</Resource>
+    <Resource tag="MSG_PASS_CHANGED_NOTI">User Password Changed and Notification E-mail Sent.</Resource>
+    <Resource tag="MSG_PASS_RESET">User Password Reset and Notification E-mail Sent</Resource>
     <Resource tag="MSG_USER_KILLED">User {0} Killed!</Resource>
     <Resource tag="PASS_OPTION">Option:</Resource>
-    <Resource tag="PASS_OPTION_CHANGE">Manually Change Password and Optionally Email New Password to User</Resource>
-    <Resource tag="PASS_OPTION_RESET">Reset Password and Email New Password to User</Resource>
+    <Resource tag="PASS_OPTION_CHANGE">Manually Change Password and Optionally E-mail New Password to User</Resource>
+    <Resource tag="PASS_OPTION_RESET">Reset Password and e-mail New Password to User</Resource>
     <Resource tag="PASS_REQUIREMENT">{0} minimum length. {1} minimum non-alphanumeric characters ($#@!).</Resource>
     <Resource tag="PASSWORD_REQUIREMENTS">Membership Password Requirements:</Resource>
     <Resource tag="REMOVE_POINTS">Remove Points:</Resource>
@@ -766,11 +766,8 @@
   <page name="ADMIN_EVENTLOGGROUPS">
     <Resource tag="CANACCESS">Allowed</Resource>
     <Resource tag="CANCEL">Cancel</Resource>
-    <Resource tag="GRANTALL">Grant All</Resource>
     <Resource tag="GROUPNAME">Role</Resource>
     <Resource tag="HEADER">Event Log Roles</Resource>
-    <Resource tag="PAGE">Real Page</Resource>
-    <Resource tag="REVOKEALL">Revoke All</Resource>
     <Resource tag="SAVE">Save</Resource>
     <Resource tag="TITLE">Event Log Roles</Resource>
   </page>
@@ -873,10 +870,10 @@
     <Resource tag="ALLOW_DISPLAY_COUNTRY_HELP">If checked, the user country flag/name is displayed in the user data in messages list.</Resource>
     <Resource tag="ALLOW_DISPLAY_GENDER">Allow Display Gender:</Resource>
     <Resource tag="ALLOW_DISPLAY_GENDER_HELP">If checked, the user gender is displayed in the user data in messages list.</Resource>
-    <Resource tag="ALLOW_EMAIL_CHANGE">Allow Email Change:</Resource>
-    <Resource tag="ALLOW_EMAIL_CHANGE_HELP">Allow users to change their email address.</Resource>
-    <Resource tag="ALLOW_EMAIL_TOPIC">Allow Email Topic:</Resource>
-    <Resource tag="ALLOW_EMAIL_TOPIC_HELP">If checked, users will be allowed to email topics.</Resource>
+    <Resource tag="ALLOW_EMAIL_CHANGE">Allow E-mail Change:</Resource>
+    <Resource tag="ALLOW_EMAIL_CHANGE_HELP">Allow users to change their e-mail address.</Resource>
+    <Resource tag="ALLOW_EMAIL_TOPIC">Allow E-mail Topic:</Resource>
+    <Resource tag="ALLOW_EMAIL_TOPIC_HELP">If checked, users will be allowed to e-mail topics.</Resource>
     <Resource tag="ALLOW_FORUMS_DUPLICATENAME">Allow Forums With Same Name:</Resource>
     <Resource tag="ALLOW_FORUMS_DUPLICATENAME_HELP">If checked forums with duplicated names can be created.</Resource>
     <Resource tag="ALLOW_GRAVATARS">Allow Gravatars:</Resource>
@@ -892,21 +889,21 @@
     <Resource tag="ALLOW_MULTI_VOTING">Allow Multiple Choices Voting:</Resource>
     <Resource tag="ALLOW_MULTI_VOTING_HELP">If enabled users can create poll questions allowing multiple choices voting.</Resource>
     <Resource tag="ALLOW_NOTIFICATION_ONALL">Allow Notification of All Posts on All topics:</Resource>
-    <Resource tag="ALLOW_NOTIFICATION_ONALL_HELP">Allow users to get individual email notifications on all emails -- tons of email traffic.</Resource>
+    <Resource tag="ALLOW_NOTIFICATION_ONALL_HELP">Allow users to get individual e-mail notifications on all e-mails -- tons of e-mail traffic.</Resource>
     <Resource tag="ALLOW_PASS_CHANGE">Allow Password Change:</Resource>
     <Resource tag="ALLOW_PASS_CHANGE_HELP">Allow users to change their passwords.</Resource>
     <Resource tag="ALLOW_PM_NOTIFICATION">Allow Private Message Notifications:</Resource>
-    <Resource tag="ALLOW_PM_NOTIFICATION_HELP">Allow users email notifications when new private messages arrive.</Resource>
+    <Resource tag="ALLOW_PM_NOTIFICATION_HELP">Allow users e-mail notifications when new private messages arrive.</Resource>
     <Resource tag="ALLOW_PMS">Allow Private Messages:</Resource>
     <Resource tag="ALLOW_PMS_HELP">Allow users to access and send private messages. You should explicitly give permission for each group and/or rank too to enable them for users.</Resource>
     <Resource tag="ALLOW_POSTBLOG">Allow Post to Blog:</Resource>
     <Resource tag="ALLOW_POSTBLOG_HELP">If checked, post to blog feature is enabled.</Resource>
     <Resource tag="ALLOW_QUICK_ANSWER">Allow Quick Answer:</Resource>
     <Resource tag="ALLOW_QUICK_ANSWER_HELP">Enable or disable display of the Quick Reply Box at the bottom of the Posts page</Resource>
-    <Resource tag="ALLOW_SENDMAIL">Allow Email Sending:</Resource>
-    <Resource tag="ALLOW_SENDMAIL_HELP">Allow users to send emails to each other.</Resource>
+    <Resource tag="ALLOW_SENDMAIL">Allow E-mail Sending:</Resource>
+    <Resource tag="ALLOW_SENDMAIL_HELP">Allow users to send e-mails to each other.</Resource>
     <Resource tag="ALLOW_SHARE_TOPIC">Enable Share Menu:</Resource>
-    <Resource tag="ALLOW_SHARE_TOPIC_HELP">Enables/disables the share Menu, where a user can Email, Tweet, Buzz, Like on Facebook, Digg, Reddit or Tumblr a Topic.</Resource>
+    <Resource tag="ALLOW_SHARE_TOPIC_HELP">Enables/disables the share Menu, where a user can E-mail, Tweet, Buzz, Like on Facebook, Digg, Reddit or Tumblr a Topic.</Resource>
     <Resource tag="ALLOW_SIGNATURE">Allow Signatures:</Resource>
     <Resource tag="ALLOW_SIGNATURE_HELP">Allow users to create signatures. You should set allowed number of characters and BBCodes for each group and/or rank to really enable the feature.</Resource>
     <Resource tag="ALLOW_THANKS">Allow Users to Thank Posts:</Resource>
@@ -966,12 +963,12 @@
     <Resource tag="DISPLAY_TRESHOLD_IMGATTACH_HELP">Maximum size of picture attachment to display as picture. Pictures over this size will be displayed as links.</Resource>
     <Resource tag="DYNAMIC_METATAGS">Add Dynamic Page Meta Tags:</Resource>
     <Resource tag="DYNAMIC_METATAGS_HELP">If checked, description and keywords meta tags will be created dynamically on the post pages.</Resource>
-    <Resource tag="EMAIL_VERIFICATION">Require Email Verification:</Resource>
-    <Resource tag="EMAIL_VERIFICATION_HELP">If unchecked users will not need to verify their email address.</Resource>
+    <Resource tag="EMAIL_VERIFICATION">Require E-mail Verification:</Resource>
+    <Resource tag="EMAIL_VERIFICATION_HELP">If unchecked users will not need to verify their e-mail address.</Resource>
     <Resource tag="ENABLE_ABLBUMS">Enable Album Feature:</Resource>
     <Resource tag="ENABLE_ABLBUMS_HELP">If checked, album feature is enabled. You should set allowed number of images and albums for each group and/or rank too, to enable the feature.</Resource>
-    <Resource tag="ENABLE_BUDDYLIST">Enable Friend List:</Resource>
-    <Resource tag="ENABLE_BUDDYLIST_HELP">If checked users can add each other as Friends.</Resource>
+    <Resource tag="ENABLE_BUDDYLIST">Enable Buddy List:</Resource>
+    <Resource tag="ENABLE_BUDDYLIST_HELP">If checked users can add each other as buddies.</Resource>
     <Resource tag="ENABLE_CALENDER">Enable calendar:</Resource>
     <Resource tag="ENABLE_CALENDER_HELP">Enables/disables calendar in profile, if it causes troubles on servers/for users with different cultures.</Resource>
     <Resource tag="ENABLE_CAPTCHA_FORPOST">Enable CAPTCHA for Post a Message:</Resource>
@@ -979,7 +976,8 @@
     <Resource tag="ENABLE_DISPLAY_NAME">Enable Display Name:</Resource>
     <Resource tag="ENABLE_DISPLAY_NAME_HELP">If checked, YAF uses an alternative "Display Name" instead of the UserName.</Resource>
     <Resource tag="ENABLE_HOVERCARDS">Enable User Info Hover Cards:</Resource>
-    <Resource tag="ENABLE_HOVERCARDS_HELP">If enabled it shows an Hover Card (Which shows some quick info about the user) when you hover an user name. This will also show an Hover Card on the Twitter &amp; Facebook Profile Button.</Resource>
+    <Resource tag="ENABLE_HOVERCARDS_HELP">If enabled it shows an Hover Card (Which shows some quick info about the user) when you hover an user name. This will also show an Hover Card on the Twitter &amp; Facebook Profile Button.
+     </Resource>
     <Resource tag="ENABLE_IRKOO">Use Irkoo Reputation Service:</Resource>
     <Resource tag="ENABLE_IRKOO_HELP">Irkoo is a free service that adds user reputations to your site  Visit &lt;strong&gt;http://www.Irkoo.com&lt;/strong&gt; to get the site ID and secret key for your website.</Resource>
     <Resource tag="ENABLE_LOCATIONPATH_ERRORS">Enable Active Location Error Log:</Resource>
@@ -1007,8 +1005,8 @@
     <Resource tag="FORBIDDEN">Forbidden</Resource>
     <Resource tag="FORUM_EDITOR">Forum Editor:</Resource>
     <Resource tag="FORUM_EDITOR_HELP">Select global editor type for your forum. To use the HTML editors (FCK and FreeTextBox) the .bin file must be in the \bin directory and the proper support files must be put in \editors.</Resource>
-    <Resource tag="FORUM_EMAIL">Forum Email:</Resource>
-    <Resource tag="FORUM_EMAIL_HELP">The from address when sending emails to users.</Resource>
+    <Resource tag="FORUM_EMAIL">Forum E-mail:</Resource>
+    <Resource tag="FORUM_EMAIL_HELP">The from address when sending e-mails to users.</Resource>
     <Resource tag="FORUM_FEEDS_ACCESS">Forum Feeds Access:</Resource>
     <Resource tag="FORUM_FEEDS_ACCESS_HELP">Restrict display of forum feeds.</Resource>
     <Resource tag="GENDER_TEMPLATE">Gender:</Resource>
@@ -1029,7 +1027,7 @@
     <Resource tag="HEADER_FEATURES">Feature Settings</Resource>
     <Resource tag="HEADER_GEOLOCATION">Geolocation Settings</Resource>
     <Resource tag="HEADER_HOTTOPICS">Hot (Popular) Topic Settings</Resource>
-    <Resource tag="HEADER_IMAGE_ATTACH">Image Attachment &amp; Resize Settings</Resource>
+    <Resource tag="HEADER_IMAGE_ATTACH">Image Attachment Settings</Resource>
     <Resource tag="HEADER_IRKOO">Irkoo Reputation Service</Resource>
     <Resource tag="HEADER_LOG">Log settings</Resource>
     <Resource tag="HEADER_LOGIN">Login/Registration Settings</Resource>
@@ -1057,10 +1055,10 @@
     <Resource tag="HOST_TEMPLATES">Templates</Resource>
     <Resource tag="IMAGE_ATTACH_RESIZE">Enable Image Attachment Resize:</Resource>
     <Resource tag="IMAGE_ATTACH_RESIZE_HELP">Attached images will be resized to thumbnails if they are too large.</Resource>
-    <Resource tag="IMAGE_RESIZE_HEIGHT">Image Resize Max Height:</Resource>
+    <Resource tag="IMAGE_RESIZE_HEIGHT">Image Attachment Resize Max Height:</Resource>
     <Resource tag="IMAGE_RESIZE_HEIGHT_HELP">Maximum Height of the resized attachment images.</Resource>
-    <Resource tag="IMAGE_RESIZE_WIDTH">Image Resize Max Width:</Resource>
-    <Resource tag="IMAGE_RESIZE_WIDTH_HELP">Maximum Width of the resized attachment images (Be aware that Values above 500 pixel break the Forum Layout).</Resource>
+    <Resource tag="IMAGE_RESIZE_WIDTH">Image Attachment Resize Max Width:</Resource>
+    <Resource tag="IMAGE_RESIZE_WIDTH_HELP">Maximum Width of the resized attachment images.</Resource>
     <Resource tag="IMAGES_PER_PAGE">Images Per Page:</Resource>
     <Resource tag="IMAGES_PER_PAGE_HELP">Number of images to show per page.</Resource>
     <Resource tag="IP_INFOSERVICE">Enable IP Info Service:</Resource>
@@ -1239,8 +1237,8 @@
     <Resource tag="SHOUTBOX_COUNT_HELP">The Number of Messages that will be shown in the shoutbox.</Resource>
     <Resource tag="SHOW_ACTIVE_DISCUSSION">Show Active Discussions:</Resource>
     <Resource tag="SHOW_ACTIVE_DISCUSSION_HELP">Enable or disable display of active discussions list on board index page.</Resource>
-    <Resource tag="SHOW_ATOM_LINKS">Show Atom Links:</Resource>
-    <Resource tag="SHOW_ATOM_LINKS_HELP">Enable or disable display of Atom links throughout the forum.</Resource>
+    <Resource tag="SHOW_ATOM_LINKS">Mostra link Atom:</Resource>
+    <Resource tag="SHOW_ATOM_LINKS_HELP">Abilita o disabilita la visualizzazione dei link Atom sul forum.</Resource>
     <Resource tag="SHOW_AVATARS_TOPICLISTS">Show Avatars in Topic Listing:</Resource>
     <Resource tag="SHOW_AVATARS_TOPICLISTS_HELP">If this is checked, the topic pages will show avatar graphics.</Resource>
     <Resource tag="SHOW_BOTS_INACTIVE">Show Crawlers In Active Lists:</Resource>
@@ -1369,7 +1367,7 @@
   <page name="ADMIN_MAIL">
     <Resource tag="ALL_USERS">All Users</Resource>
     <Resource tag="CONFIRM_SEND">Are you sure you want to send this mail?</Resource>
-    <Resource tag="HEADER">Compose Email</Resource>
+    <Resource tag="HEADER">Compose E-mail</Resource>
     <Resource tag="MAIL_MESSAGE">Message:</Resource>
     <Resource tag="MAIL_SUBJECT">Subject:</Resource>
     <Resource tag="MAIL_TO">To:</Resource>
@@ -1490,7 +1488,7 @@
     <Resource tag="MSG_CREATED">User {0} Created Successfully.</Resource>
     <Resource tag="MSG_ERROR_CREATE">Membership Error Creating User: {0}</Resource>
     <Resource tag="MSG_INVALID_MAIL">You have entered an illegal e-mail address.</Resource>
-    <Resource tag="MSG_NAME_EXISTS">Username or email are already registered.</Resource>
+    <Resource tag="MSG_NAME_EXISTS">Username or e-mail are already registered.</Resource>
     <Resource tag="REGISTER">Register User</Resource>
     <Resource tag="TITLE">New User</Resource>
   </page>
@@ -1634,8 +1632,8 @@
     <Resource tag="CONFIRM_DELETE">Delete this user?</Resource>
     <Resource tag="CONFIRM_SYNC">Are you sure?</Resource>
     <Resource tag="DISPLAY_NAME">Display Name</Resource>
-    <Resource tag="EMAIL">Email</Resource>
-    <Resource tag="EMAIL_CONTAINS">Email Contains:</Resource>
+    <Resource tag="EMAIL">E-mail</Resource>
+    <Resource tag="EMAIL_CONTAINS">E-mail Contains:</Resource>
     <Resource tag="EXPORT_CSV">Export All User(s) as CSV</Resource>
     <Resource tag="EXPORT_XML">Export All User(s) as Xml</Resource>
     <Resource tag="FACEBOOK_USER">Facebook User</Resource>
@@ -1761,25 +1759,25 @@
     <Resource tag="UP_TITLE">Vai alla cartella superiore.</Resource>
   </page>
   <page name="BBCODEMODULE">
-    <Resource tag="HIDDENMOD_DESC">Il testo di questo messaggio è nascosto agli utenti che non cliccano sul pulsante "Grazie". Aggiorna la pagina dopo aver ringraziato l'autore.</Resource>
+    <Resource tag="HIDDENMOD_DESC">Testo nascosto agli utenti che non cliccano su Grazie. Aggiorna la pagina dopo aver ringraziato.</Resource>
     <Resource tag="HIDDENMOD_GROUP">Non godi di privilegi sufficienti per visualizzare i testo nascosto.</Resource>
     <Resource tag="HIDDENMOD_GUEST">Devi essere registrato ed aver effettuato l'accesso al sito per leggere i messaggi di questo forum.</Resource>
-    <Resource tag="HIDDENMOD_POST">Testo nascosto (devi essere registrato ed aver scritto almeno {0} messaggi per visualizzarlo).</Resource>
-    <Resource tag="HIDDENMOD_THANKS">Testo nascosto (Devi essere registrato ed aver ricevuto almeno {0} ringraziamenti per visualizzarlo).</Resource>
-    <Resource tag="HIDEGROUPMOD_DESCRIPTION">Nascondi il testo agli utenti Ospiti oppure ad altri gruppi, se definiti.</Resource>
-    <Resource tag="HIDEMOD_DESCRIPTION">Questo tag nasconde il testo di questo messaggio agli utenti finché non cliccano sul pulsante "Grazie".</Resource>
-    <Resource tag="HIDEMOD_REPLY">Testo nascosto (devi essere registrato e rispondere al messaggio per visualizzarlo).</Resource>
-    <Resource tag="HIDEMOD_REPLYTHANKS">Testo nascosto (devi essere registrato e rispondere al messaggio oppure ringraziare per visualizzarlo)-</Resource>
-    <Resource tag="HIDEPOSTS_DESCRIPTION">Questo tag nasconde il testo agli utenti che hanno scritto meno di X messaggi.</Resource>
-    <Resource tag="HIDEREPLY_DESCRIPTION">Questo tag nasconde il testo agli utenti finché non scrivono nella stessa discussione.</Resource>
-    <Resource tag="HIDEREPLYTHANKS_DESCRIPTION">Questo tag nasconde il testo agli utenti finché non scrivono nella stessa discussione o finché non cliccano sul pulsante "Grazie".</Resource>
-    <Resource tag="HIDETHANKS_DESCRIPTION">Questo tag nasconde il testo agli utenti che hanno ricevuto meno di X ringraziamenti.</Resource>
-    <Resource tag="SPOILERMOD_DESCRIPTION">Inserisci qui il testo a scomparsa</Resource>
+    <Resource tag="HIDDENMOD_POST">Testo nascosto (devi aver scritto almeno {0} messaggi per visualizzarlo).</Resource>
+    <Resource tag="HIDDENMOD_THANKS">Testo nascosto (Devi aver ricevuto almeno {0} ringraziamenti per visualizzarlo).</Resource>
+    <Resource tag="HIDEGROUPMOD_DESCRIPTION">Testo nascosto agli Ospiti od altri gruppi.</Resource>
+    <Resource tag="HIDEMOD_DESCRIPTION">Testo nascosto agli utenti che non cliccano su Grazie.</Resource>
+    <Resource tag="HIDEMOD_REPLY">Testo nascosto (devi rispondere al messaggio per visualizzarlo).</Resource>
+    <Resource tag="HIDEMOD_REPLYTHANKS">Testo nascosto (devirispondere al messaggio oppure ringraziare per visualizzarlo)-</Resource>
+    <Resource tag="HIDEPOSTS_DESCRIPTION">Testo nascosto agli utenti con meno di X messaggi.</Resource>
+    <Resource tag="HIDEREPLY_DESCRIPTION">Testo nascosto agli utenti che non scrivono nella discussione.</Resource>
+    <Resource tag="HIDEREPLYTHANKS_DESCRIPTION">Testo nascosto agli utenti che non scrivono nella discussione o non cliccano su Grazie.</Resource>
+    <Resource tag="HIDETHANKS_DESCRIPTION">Testo nascosto agli utenti con meno di X ringraziamenti.</Resource>
+    <Resource tag="SPOILERMOD_DESCRIPTION">Inserire qui il testo a scomparsa.</Resource>
     <Resource tag="SPOILERMOD_HIDE">Nascondi il testo a scomparsa</Resource>
     <Resource tag="SPOILERMOD_SHOW">Mostra il testo a scomparsa</Resource>
     <Resource tag="SPOILERMOD_TOOLTIP">Clicca qui per mostrare o nascondere il testo a scomparsa (spoiler)</Resource>
     <Resource tag="UERLINKMOD_DESCRIPTION">Inserisci qui il nome dell'utente</Resource>
-    <Resource tag="YOUTUBEMOD_DESCRIPTION">Inserisci qui il link YouTube</Resource>
+    <Resource tag="YOUTUBEMOD_DESCRIPTION">URL condividi YouTube.</Resource>
   </page>
   <page name="BUDDY">
     <Resource tag="ADDBUDDY">Aggiungi come amico</Resource>
@@ -1912,7 +1910,7 @@
     <Resource tag="HTMLTAG_FORBIDDEN">Il testo inserito non può contenere tag HTML.</Resource>
     <Resource tag="HTMLTAG_WRONG">Il testo inserito contiene il tag HTML proibito {0}.</Resource>
     <Resource tag="LOADING">In caricamento...</Resource>
-    <Resource tag="MAX_ONLINE">Il numero massimo di utenti registrati contemporaneamente in linea è stato {0} il {1}.</Resource>
+    <Resource tag="MAX_ONLINE">Il numero massimo di utenti registrati in linea è stato {0} il {1}. Ora sul forum:</Resource>
     <Resource tag="MESSAGE">Messaggio</Resource>
     <Resource tag="MOBILE_FULLSITE">Mostra sito completo</Resource>
     <Resource tag="MOBILE_VIEWSITE">Mostra sito mobile</Resource>
@@ -2328,7 +2326,7 @@
     <Resource tag="HOMEPAGE">Home page:</Resource>
     <Resource tag="HOMEPAGE2">Home page personale:</Resource>
     <Resource tag="ICQ">Il tuo numero ICQ:</Resource>
-    <Resource tag="LOCATION">Dove ti trovi?</Resource>
+    <Resource tag="LOCATION">Da dove scrivi?</Resource>
     <Resource tag="MAIL_SENT">Un'e-mail è stata inviata a {0}. Sara' necessario validare il nuovo indirizzo e-mail cliccando sul link nel messaggio affinché le modifiche abbiano effetto.</Resource>
     <Resource tag="MESSENGER">Servizi di instant messaging</Resource>
     <Resource tag="METAWEBLOG_API_ID">ID API MetaWeblog:</Resource>
@@ -2338,7 +2336,7 @@
     <Resource tag="METAWEBLOG_TITLE">Invia su MetaWeblog (impostazioni API)</Resource>
     <Resource tag="MSN">Il tuo nome MSN (Live-ID):</Resource>
     <Resource tag="OVERRIDE_DEFAULT_THEMES">Seleziona un tema personalizzato per il forum:</Resource>
-    <Resource tag="PM_EMAIL_NOTIFICATION">Vuoi ricevere una notifica in email quando hai un nuovo messaggio privato?</Resource>
+    <Resource tag="PM_EMAIL_NOTIFICATION">Vuoi ricevere una notifica in e-mail quando hai un nuovo messaggio privato?</Resource>
     <Resource tag="REALNAME2">Qual è il tuo vero nome?</Resource>
     <Resource tag="REGION">Provincia:</Resource>
     <Resource tag="SELECT_LANGUAGE">La tua lingua:</Resource>
@@ -2353,7 +2351,7 @@
     <Resource tag="USE_MOBILE_THEME">Usa un tema speciale coi dispositivi mobili.</Resource>
     <Resource tag="USE_SINGLESIGNON">Vuoi usare il single sign-on?&lt;br /&gt;Devi aver impostato qui sopra l'ID del tuo profilo Facebook oppure i tuoi ID e nome Twitter.</Resource>
     <Resource tag="WEBLOG2">Il tuo Weblog:</Resource>
-    <Resource tag="WHERE">Dove ti trovi?</Resource>
+    <Resource tag="WHERE">Da dove scrivi?</Resource>
     <Resource tag="XMPP">Il tuo ID Jabber:</Resource>
     <Resource tag="YIM">Il tuo ID Yahoo:</Resource>
   </page>
@@ -2465,8 +2463,8 @@
     <Resource tag="ACTIVE_USERS_MEMBERS2">di cui {0:N0} utenti registrati</Resource>
     <Resource tag="ACTIVE_USERS_TIME">negli ultimi {0:N0} minuti</Resource>
     <Resource tag="ALPHABET_FILTER">Ordine alfabetico</Resource>
-    <Resource tag="ATOMICONTOOLTIPACTIVE">Sottoscrivi le discussioni attive tramite Atom.</Resource>
-    <Resource tag="ATOMICONTOOLTIPFAVORITE">Sottoscrivi le tue discussioni preferite tramite Atom.</Resource>
+    <Resource tag="ATOMICONTOOLTIPACTIVE">Sottoscrivi le discussioni attive tramite feed Atom.</Resource>
+    <Resource tag="ATOMICONTOOLTIPFAVORITE">Sottoscrivi le tue discussioni preferite tramite feed Atom.</Resource>
     <Resource tag="ATOMICONTOOLTIPFORUM">Sottoscrivi i feed Atom del forum.</Resource>
     <Resource tag="BY">di {0}</Resource>
     <Resource tag="CURRENT_TIME">Ora corrente: {0}.</Resource>
@@ -2484,15 +2482,15 @@
     <Resource tag="LOADING_FB_HOVERCARD">Loading Facebook Info ...</Resource>
     <Resource tag="LOADING_HOVERCARD">Loading User Info ...</Resource>
     <Resource tag="LOADING_TWIT_HOVERCARD">Loading Twitter Info ...</Resource>
-    <Resource tag="MAIN_FORUM_ATOM">Atom forum principale</Resource>
-    <Resource tag="MAIN_FORUM_RSS">RSS forum principale</Resource>
+    <Resource tag="MAIN_FORUM_ATOM">Feed Atom forum principale</Resource>
+    <Resource tag="MAIN_FORUM_RSS">Feed RSS forum principale</Resource>
     <Resource tag="MARKALL">Contrassegna tutti i forum come letti</Resource>
     <Resource tag="MODERATORS">Moderatori</Resource>
     <Resource tag="NO_FORUM_ACCESS">(Nessun Accesso)</Resource>
     <Resource tag="NO_POSTS">Nessun messaggio</Resource>
     <Resource tag="ONDATE">il {0}</Resource>
     <Resource tag="POSTS">Messaggi</Resource>
-    <Resource tag="RECENT_ONLINE_USERS">{0} utenti registrati nelle ultime 24 ore e {1} negli ultimi 30 giorni.</Resource>
+    <Resource tag="RECENT_ONLINE_USERS">{0} utenti registrati nelle ultime 24 ore e {1} negli ultimi 30 giorni. Visti nelle ultime 24 ore:</Resource>
     <Resource tag="RECENT_USERS">Di recente</Resource>
     <Resource tag="RSSICONTOOLTIPACTIVE">Sottoscrivi le discussioni attive tramite RSS.</Resource>
     <Resource tag="RSSICONTOOLTIPFAVORITE">Sottoscrivi le tue discussioni preferite tramite RSS.</Resource>
@@ -3582,25 +3580,25 @@ Spoiler Content
 
 &lt;p&gt;NOTE: Don't forget to close an open BB Code tag. Tags that are not closed will be not formatted.&lt;/p&gt;</Resource>
     <Resource tag="BBCODESTITLE">BB Codes List</Resource>
-    <Resource tag="BUDDIESCONTENT">&lt;p&gt;Friends are a friendship function and are a two-way relationship between two users. It is initiated by one user and accepted by the other.
+    <Resource tag="BUDDIESCONTENT">&lt;p&gt;Buddies are a friendship function and are a two-way relationship between two users. It is initiated by one user and accepted by the other.
 &lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Where is list of Friends displayed?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Your Friends are displayed on the 'My Friends' you can access this page from the Header Link 'My Friends', or from the &lt;strong&gt;User Control Panel&lt;/strong&gt; Link 'Edit Friends'. &lt;/p&gt;
-&lt;p&gt;&lt;em&gt;Note: If you don't See this Link you don't have any Friends, didn't send any Request or you didn't have any Pending Friend Requests.&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;Your Friends are also displayed in your profile page.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;How can I request a User as Friend or accept a Friend Request?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;To request a user as Friend, view the profile page of the person you want to become friends with and click the 'Add as Friend' link.&lt;/p&gt;
-&lt;p&gt;To accept a Friend request friend, go to your 'My Friends' page. On the Tab 'Pending Requests' you see The List of Users with pending requests. There you have three choices...&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Where is list of Buddies displayed?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Your Buddies are displayed on the 'My Buddies' you can access this page from the Header Link 'My Buddies', or from the &lt;strong&gt;User Control Panel&lt;/strong&gt; Link 'Edit Buddies'. &lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Note: If you don't See this Link you don't have any Buddies, didn't send any Request or you didn't have any Pending Buddy Requests.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Your buddies are also displayed in your profile page.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;How can I request a User as Buddy or accept a Buddy Request?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;To request a user as Buddy, view the profile page of the person you want to become friends with and click the 'Add as Buddy' link.&lt;/p&gt;
+&lt;p&gt;To accept a Buddy request friend, go to your 'My Buddies' page. On the Tab 'Pending Requests' you see The List of Users with pending requests. There you have three choices...&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Approve&lt;/strong&gt; - You Become Friend of the User who requests it &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Approve&lt;/strong&gt; - You Become Buddy of the User who requests it &lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;Deny&lt;/strong&gt; - Reject the request&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt; Approve and Add - &lt;/strong&gt;You become Friend of the User who requests it, and also the User becomes a Body in your List.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt; Approve and Add - &lt;/strong&gt;You become Buddy of the User who requests it, and also the User becomes a Body in your List.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;Remove Friend&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;To remove a Friend from Your List go to your 'My Friends' page. On the Tab 'Friend List' Click on the Button 'Remove Friend' of the User you want to remove&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Your Requests&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;The Third Tab of the 'My Friends' Page shows your the Pending Request you have made.&lt;/p&gt;</Resource>
-    <Resource tag="BUDDIESTITLE">Friends</Resource>
+&lt;p&gt;&lt;strong&gt;Remove Buddy&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;To remove a Buddy from Your List go to your 'My Buddies' page. On the Tab 'Buddy List' Click on the Button 'Remove Buddy' of the User you want to remove&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;You’re Requests&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The Third Tab of the 'My Buddies' Page shows your the Pending Request you have made.&lt;/p&gt;</Resource>
+    <Resource tag="BUDDIESTITLE">Buddies</Resource>
     <Resource tag="DISPLAYCONTENT">&lt;p&gt;You have a choice over how you view topics. When you're in a thread, look at the top bar. On the right hand side you'll see 'View'. Click on this and it lets you change how posts are ordered.&lt;/p&gt;
 &lt;p&gt;You have two choices:&lt;/p&gt;
 &lt;ul&gt;
@@ -3695,7 +3693,7 @@ Spoiler Content
         &lt;li&gt;Export  Selected / Export All – Export the Message(s) as file (You Can select the  export format bellow –XML-/CSV-/Text-File)&lt;/li&gt;
         &lt;li&gt;Delete  Selected / Delete All – Delete the Message(s)&lt;/li&gt;
         &lt;/ul&gt;
-        &lt;p&gt;Depending  on how many Messages you are allowed to have you should delete some of them from  time (You can export them before you delete them to keep them on your local computer). Otherwise when your Mailbox is full you are not able to receive new  messages. On the Bottom you will be informed how many Messages you have and how  many you can Maximal have.&lt;/p&gt;
+        &lt;p&gt;Depending  on how many Messages you allowed to have you should delete some of them from  time (You can export them before you delete them to keep them on your local computer). Otherwise when your Mailbox is full you are not able to receive new  messages. On the Bottom you will be informed how many Messages you have and how  many you can Maximal have.&lt;/p&gt;
       </Resource>
     <Resource tag="MESSENGERTITLE">Private Messages (Messenger)</Resource>
     <Resource tag="MODSADMINSCONTENT">&lt;p&gt;Moderators oversee specific forums. They generally have the ability to edit and delete posts, move topics, and perform other actions. Becoming a moderator for a specific forum is usually rewarded to users who are particularly helpful and knowledgeable in the subject of the forum they are moderating.&lt;/p&gt;
@@ -3790,9 +3788,9 @@ Spoiler Content
 &lt;p&gt;This will inform you about several actions...&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;New Private Message(s)&lt;/li&gt;
-  &lt;li&gt;New Friend Requests&lt;/li&gt;
-  &lt;li&gt;Approved Friend Requests&lt;/li&gt;
-  &lt;li&gt;Denied Friend Requests&lt;br /&gt;
+  &lt;li&gt;New Buddy Requests&lt;/li&gt;
+  &lt;li&gt;Approved Buddy Requests&lt;/li&gt;
+  &lt;li&gt;Denied Buddy Requests&lt;br /&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;em&gt;You may also receive a couple of Information and Error Messages in the same way.&lt;/em&gt;&lt;/p&gt;</Resource>
@@ -3822,7 +3820,7 @@ Spoiler Content
   &lt;li&gt;&lt;strong&gt;About&lt;/strong&gt; - Shows all Informations the user has provided on his Profile Page such as Real name, gender, Status if User is Online/Offline, Forum Rank, and other.&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;Statistics&lt;/strong&gt; - Shows statistical information such as Joined date, Last Visit, Number of thanks, Number of times this user was thanked                          and Number of posts for which this user was thanked.&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;Last 10 Post&lt;/strong&gt; - Shows if available the Last 10 Messages the User has written&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Friends - &lt;/strong&gt;Shows the Friends the User has in the Forum.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Buddies - &lt;/strong&gt;Shows the Buddies the User has in the Forum.&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;Albums - &lt;/strong&gt;Shows the Albums (if enabled) that the User has generated.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Personal information such as E-Mail Address or Passwords are &lt;strong&gt;NOT&lt;/strong&gt; shown.&lt;/p&gt;</Resource>
@@ -4073,7 +4071,7 @@ Spoiler Content
   <page name="MODERATE_DEFAULT">
     <Resource tag="CATEGORY">Categoria</Resource>
     <Resource tag="FORUM">Forum</Resource>
-    <Resource tag="REPORTED">Segnalato come post offensivo</Resource>
+    <Resource tag="REPORTED">Segnalato come post inappropriato</Resource>
     <Resource tag="SPAM_REPORTED">Il messaggio è stato correttamente segnalato come spam al servizio antispam Akismet.</Resource>
     <Resource tag="SPAM_REPORTED_FAILED">La segnalazione del messaggio come spam è fallita. Per favore controlla la tua chiave API!</Resource>
     <Resource tag="TITLE">Modera</Resource>
@@ -4130,7 +4128,7 @@ Spoiler Content
     <Resource tag="GUESTTITLE">Discussioni attive</Resource>
     <Resource tag="LAST_24">(Ultime 24 ore)</Resource>
     <Resource tag="LAST_DAY">Ultimo giorno</Resource>
-    <Resource tag="LAST_EIGHT_HOURS">last 8 hours</Resource>
+    <Resource tag="LAST_EIGHT_HOURS">Ultime otto ore</Resource>
     <Resource tag="LAST_HOUR">Ultima ora</Resource>
     <Resource tag="LAST_MONTH">Ultimo mese</Resource>
     <Resource tag="LAST_TWO_DAYS">Ultimi due giorni</Resource>
@@ -4145,7 +4143,7 @@ Spoiler Content
     <Resource tag="REPLIES">Risposte</Resource>
     <Resource tag="RSSFEED">Feed RSS</Resource>
     <Resource tag="SHOW_ALL">Mostra tutti</Resource>
-    <Resource tag="SINCE">Dal</Resource>
+    <Resource tag="SINCE">Da</Resource>
     <Resource tag="TOPIC_STARTER">Autore discussione</Resource>
     <Resource tag="TOPICS">Discussioni</Resource>
     <Resource tag="UNANSWEREDTOPICS">Discussioni senza risposta</Resource>
@@ -4166,11 +4164,11 @@ Spoiler Content
     <Resource tag="NEED_TO">Devi indicare il destinatario del messaggio.</Resource>
     <Resource tag="NO_SUCH_USER">L'utente non esiste.</Resource>
     <Resource tag="NOT_GUEST">Non si possono inviare messaggi privati agli ospiti.</Resource>
-    <Resource tag="OWN_PMBOX_FULL">La tua cassetta postale è piena. Il numero massimo di messaggi è {0}. Per favore cancellane alcuni per liberare spazio.</Resource>
+    <Resource tag="OWN_PMBOX_FULL">Non puoi inviare e ricevere altri messaggi privati perché hai raggiunto il numero massimo che ti è consentito di archiviare nella tua cassetta postale, pari a  {0}.</Resource>
     <Resource tag="PMLIMIT_ALL">        Hai {0} messaggi privati: {1} ricevuti, {2} inviati e {3} archiviati su un totale di {4} permessi. La tua cassetta postale e' piena al {5}%.
     </Resource>
     <Resource tag="PREVIEWTITLE">Anteprima:</Resource>
-    <Resource tag="RECIPIENTS_PMBOX_FULL">La cassetta postale dell'utente {0} è piena. Deve cancellare alcuni messaggi prima che tu possa inviargliene uno.</Resource>
+    <Resource tag="RECIPIENTS_PMBOX_FULL">La cassetta postale dell'utente {0} non può ricevere altri messaggi privati.</Resource>
     <Resource tag="REPORTED_SUBJECT">Risposta alla tua segnalazione</Resource>
     <Resource tag="SAVE">Invia</Resource>
     <Resource tag="SUBJECT">Soggetto:</Resource>
@@ -4247,8 +4245,8 @@ Spoiler Content
     <Resource tag="NEWPOSTOPTIONS">Opzioni:</Resource>
     <Resource tag="NEWTOPIC">Apri nuova discussione</Resource>
     <Resource tag="NORMAL">Normale</Resource>
-    <Resource tag="PERSISTENCY">Persistente:</Resource>
-    <Resource tag="PERSISTENCY_INFO">I topic persistenti non sono cancellabili per trascorsi limiti di tempo (not pruned)</Resource>
+    <Resource tag="PERSISTENCY">Persistente</Resource>
+    <Resource tag="PERSISTENCY_INFO">I topic persistenti non sono cancellabili per trascorsi limiti di tempo</Resource>
     <Resource tag="POSTED">Inviati:</Resource>
     <Resource tag="POSTTOBLOG_FAILED">Si è verificato un errore nell'effettuare il post nel tuo blog. Potrebbe essere fallita l'autenticazione.</Resource>
     <Resource tag="PREVIEW">Anteprima</Resource>
@@ -4270,7 +4268,7 @@ Spoiler Content
     <Resource tag="TOPIC_NAME_TOOLONG">L'oggetto della discussione non può essere più lungo di 255 caratteri.</Resource>
     <Resource tag="TOPIC_NAME_WORDTOOLONG">Le singole parole usate nell'oggetto della discussione non possono essere più lunghe di {0} caratteri. Suggerimento: usa delle abbreviazioni.</Resource>
     <Resource tag="TOPICATTACH">Vuoi allegare dei file a questo messaggio?</Resource>
-    <Resource tag="TOPICWATCH">Segui questa discussione e ricevi notifiche delle attività via e-mail?</Resource>
+    <Resource tag="TOPICWATCH">Segui questa discussione e ricevi notifiche delle attività via e-mail</Resource>
     <Resource tag="WAIT">Non puoi inviare nuovi messaggi per i prossimi {0:N0} secondi.</Resource>
   </page>
   <page name="POSTS">
@@ -4279,7 +4277,7 @@ Spoiler Content
     <Resource tag="AIM">AIM</Resource>
     <Resource tag="AIM_TITLE">Contatta {0} tramite AOL Instant Messenger</Resource>
     <Resource tag="ATOMTOPIC">Feed Atom</Resource>
-    <Resource tag="ATTACHMENTINFO">({0:N0}KB) scaricato [b]{1:N0}[/b] volta(e).</Resource>
+    <Resource tag="ATTACHMENTINFO">({0:N0}KB) scaricato [b]{1:N0}[/b] volte.</Resource>
     <Resource tag="ATTACHMENTS">File allegati:</Resource>
     <Resource tag="BLOG">BLOG</Resource>
     <Resource tag="BLOG_TITLE">Visita il blog di {0}</Resource>
@@ -4289,7 +4287,7 @@ Spoiler Content
     <Resource tag="CLOSE_TEXT">Chiudi</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">Cancello questo messaggio?</Resource>
     <Resource tag="CONFIRM_DELETETOPIC">Cancello questo topic?</Resource>
-    <Resource tag="CONFIRM_REPORTPOST">Sei sicuro di voler segnalare questo post come offensivo?</Resource>
+    <Resource tag="CONFIRM_REPORTPOST">Sei sicuro di voler segnalare questo post come inappropriato?</Resource>
     <Resource tag="DIGG_TOPIC">Digg questa discussione</Resource>
     <Resource tag="EDIT_REASON">Motivo</Resource>
     <Resource tag="EDIT_REASON_NA">Non specificato</Resource>
@@ -4335,7 +4333,7 @@ Spoiler Content
     <Resource tag="NEXTTOPIC">Discussione successiva</Resource>
     <Resource tag="NORMAL">Normale</Resource>
     <Resource tag="OPTIONS">Opzioni</Resource>
-    <Resource tag="OPTIONS_TOOLTIP">Opzioni per la sottoscrizione delle discussioni tramite e-mail, RSS, Atom e per visualizzare la versione stampabile della pagina.</Resource>
+    <Resource tag="OPTIONS_TOOLTIP">Opzioni per la sottoscrizione delle discussioni tramite e-mail, feed RSS od Atom e per visualizzare la versione stampabile della pagina.</Resource>
     <Resource tag="PM">PM</Resource>
     <Resource tag="PM_TITLE">Invia un MP a {0}</Resource>
     <Resource tag="POINTS">Punti</Resource>
@@ -4355,13 +4353,13 @@ Spoiler Content
     <Resource tag="REP_VOTE_TITLE">Grazie per aver votato!</Resource>
     <Resource tag="REP_VOTE_UP_MSG">+1 per il karma di {0} assegnato.</Resource>
     <Resource tag="REPORTEDFEEDBACK">Grazie per aver segnalato questo messaggio.</Resource>
-    <Resource tag="REPORTPOST">Segnala come messaggio offensivo</Resource>
+    <Resource tag="REPORTPOST">Segnala come messaggio inappropriato</Resource>
     <Resource tag="REPORTPOST_TITLE">Segnala messaggio</Resource>
     <Resource tag="REPUTATION">Karma</Resource>
     <Resource tag="RETWEET_TOPIC">Retweet questa discussione</Resource>
     <Resource tag="RSSTOPIC">Feed RSS</Resource>
     <Resource tag="SHARE">Condividi</Resource>
-    <Resource tag="SHARE_TOOLTIP">Condividi questa discussione tramite e-mail, Twitter, Google+, Facebook, Digg, Reddit or Tumblr.</Resource>
+    <Resource tag="SHARE_TOOLTIP">Condividi questa discussione tramite e-mail, Twitter, Google+, Facebook, Digg, Reddit o Tumblr.</Resource>
     <Resource tag="SKYPE">Skype</Resource>
     <Resource tag="SKYPE_TITLE">Contata {0} tramite Skype</Resource>
     <Resource tag="STATISTICS">Statistiche</Resource>
@@ -4441,7 +4439,7 @@ Spoiler Content
     <Resource tag="JOINED">Iscritto:</Resource>
     <Resource tag="LAST10">Ultimi 10 messaggi</Resource>
     <Resource tag="LASTVISIT">Ultima visita:</Resource>
-    <Resource tag="LOCATION">Dove ti trovi:</Resource>
+    <Resource tag="LOCATION">Da dove scrivi:</Resource>
     <Resource tag="MEDALS">Medaglie:</Resource>
     <Resource tag="MEMBERS">Membri</Resource>
     <Resource tag="MINUTES">minuti</Resource>
@@ -4611,7 +4609,7 @@ Spoiler Content
     <Resource tag="INVALID_DISPLAYNAME">Per favore scegli un altro nome visualizzato.</Resource>
     <Resource tag="INVALID_QUESTION">Per favore scegli un'altra domanda.</Resource>
     <Resource tag="INVALID_USERNAME">Per favore scegli un altro nome utente.</Resource>
-    <Resource tag="LOCATION">Dove ti trovi?</Resource>
+    <Resource tag="LOCATION">Da dove scrivi?</Resource>
     <Resource tag="NEED_ANSWER">La risposta di sicurezza è obbligatoria.</Resource>
     <Resource tag="NEED_DISPLAYNAME">Il nome visualizzato è obbligatorio.</Resource>
     <Resource tag="NEED_EMAIL">L'e-mail è obbligatoria.</Resource>
