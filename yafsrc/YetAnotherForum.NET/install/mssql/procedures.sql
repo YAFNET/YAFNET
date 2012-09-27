@@ -3745,8 +3745,8 @@ begin
     -- should it be physically deleter or not?
     if (@EraseMessage = 1) begin
         delete [{databaseOwner}].[{objectQualifier}Attachment] where MessageID = @MessageID
-        delete [{databaseOwner}].[{objectQualifier}MessageReported] where MessageID = @MessageID
-        delete [{databaseOwner}].[{objectQualifier}MessageReportedAudit] where MessageID = @MessageID
+		delete [{databaseOwner}].[{objectQualifier}MessageReportedAudit] where MessageID = @MessageID
+        delete [{databaseOwner}].[{objectQualifier}MessageReported] where MessageID = @MessageID        
         --delete thanks related to this message
         delete [{databaseOwner}].[{objectQualifier}Thanks] where MessageID = @MessageID
         delete [{databaseOwner}].[{objectQualifier}MessageHistory] where MessageID = @MessageID
