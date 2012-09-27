@@ -9680,15 +9680,15 @@ namespace YAF.Classes.Data
                 sqlBuilder.Append(MsSqlDbAccess.GetObjectName("User"));
                 sqlBuilder.Append(" u ON u.UserID = up.UserID JOIN ");
                 sqlBuilder.Append(MsSqlDbAccess.GetObjectName("Rank"));
-                sqlBuilder.Append(" r ON r.RankID = u.RankID where u.BoardID = @BoardID AND (DAY(up.Birthday) between @CurrentDay1 and @CurrentDay2) AND (MONTH(up.Birthday) between @CurrentMonth1 and @CurrentMonth2)");
+                sqlBuilder.Append(" r ON r.RankID = u.RankID where u.BoardID = @BoardID AND DATEADD(year, DATEDIFF(year,up.Birthday,@CurrentUtc1),up.Birthday) > @CurrentUtc1 and  DATEADD(year, DATEDIFF(year,up.Birthday,@CurrentUtc2),up.Birthday) < @CurrentUtc2");
                 using (var cmd = MsSqlDbAccess.GetCommand(sqlBuilder.ToString(), true))
                 {
                     cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
                     cmd.Parameters.AddWithValue("BoardID", boardID);
-                    cmd.Parameters.AddWithValue("CurrentDay1", DateTime.UtcNow.Date.AddDays(-1).Day;
-                    cmd.Parameters.AddWithValue("CurrentDay2", DateTime.UtcNow.Date.AddDays(1).Day;
-                    cmd.Parameters.AddWithValue("CurrentMonth1", DateTime.UtcNow.Date.AddDays(-1).Month;
-                    cmd.Parameters.AddWithValue("CurrentMonth2", DateTime.UtcNow.Date.AddDays(1).Month;
+                    cmd.Parameters.AddWithValue("CurrentYear", DateTime.UtcNow.Year);
+                    cmd.Parameters.AddWithValue("CurrentUtc1", DateTime.UtcNow.Date.AddDays(-1));
+                    cmd.Parameters.AddWithValue("CurrentUtc2", DateTime.UtcNow.Date.AddDays(1));
+
                     return MsSqlDbAccess.Current.GetData(cmd);
                 }
             }
