@@ -149,7 +149,7 @@
     <Compile Include="Interfaces\IReadValueExtensions.cs" />
     <Compile Include="Interfaces\IServiceLocatorExtensions.cs" />
     <Compile Include="Interfaces\ILocatablePageExtensions.cs" />
-    <Compile Include="Extensions\ReadTrackCurrentUserExtensions.cs" />
+    <Compile Include="Interfaces\IReadTrackCurrentUserExtensions.cs" />
     <Compile Include="Interfaces\IAvatars.cs" />
     <Compile Include="Interfaces\IBackgroundTask.cs" />
     <Compile Include="Interfaces\IBadWordReplace.cs" />
