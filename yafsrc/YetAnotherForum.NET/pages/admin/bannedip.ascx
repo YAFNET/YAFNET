@@ -2,6 +2,7 @@
 <%@ Import Namespace="YAF.Core"%>
 <%@ Import Namespace="YAF.Core.Services" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
+<%@ Import Namespace="YAF.Types.Interfaces.Extensions" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server">
   <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" />

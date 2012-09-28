@@ -16,14 +16,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces.Data
 {
-  using System;
-  using System.Data;
+    using System;
+    using System.Data;
 
-  using YAF.Types.Handlers;
+    using YAF.Types.Handlers;
 
-  public interface IDbConnectionManager : IDisposable
+    public interface IDbConnectionManager : IDisposable
   {
     /// <summary>
     /// Gets ConnectionString.

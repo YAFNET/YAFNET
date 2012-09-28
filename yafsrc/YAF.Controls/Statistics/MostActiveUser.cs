@@ -32,6 +32,7 @@ namespace YAF.Controls.Statistics
     using YAF.Types.Constants;
     using YAF.Core.Services;
     using YAF.Classes.Data;
+    using YAF.Types.Interfaces.Extensions;
     using YAF.Utils;
     using YAF.Types;
     using YAF.Types.Constants;

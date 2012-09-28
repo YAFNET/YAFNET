@@ -30,6 +30,8 @@ namespace YAF.Controls.Statistics
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Data;
+    using YAF.Types.Interfaces.Extensions;
     using YAF.Utils;
 
   #endregion

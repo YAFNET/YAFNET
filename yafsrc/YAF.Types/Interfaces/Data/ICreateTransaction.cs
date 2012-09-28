@@ -16,27 +16,27 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces.Data
 {
     using System.Data;
 
     /// <summary>
-    /// The BeginDbUnitOfWork interface.
+    ///     The CreateTransaction interface.
     /// </summary>
-    public interface ICreateUnitOfWork
+    public interface ICreateTransaction
     {
         #region Public Methods and Operators
 
         /// <summary>
-        /// Creates an IDbUnitOfWork (IDisposable) transaction scope.
+        /// The begin transaction.
         /// </summary>
         /// <param name="isolationLevel">
         /// The isolation level.
         /// </param>
         /// <returns>
-        /// The <see cref="IDbUnitOfWork"/>.
+        /// The <see cref="IDbTransaction"/>.
         /// </returns>
-        IDbUnitOfWork BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.ReadUncommitted);
+        IDbTransaction BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.ReadUncommitted);
 
         #endregion
     }

@@ -22,6 +22,7 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
+    using System.Collections.Generic;
     using System.Data;
     using System.IO;
     using System.Linq;
@@ -33,6 +34,7 @@ namespace YAF.Pages.Admin
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Extensions;
     using YAF.Types.Models;
     using YAF.Utils;
 
@@ -121,22 +123,23 @@ namespace YAF.Pages.Admin
 
             if (this.Request["s"] != null)
             {
-                using (DataTable dt = this.GetRepository<Smiley>().List(this.Request.QueryString.GetFirstOrDefaultAs<int>("s")))
-                {
-                    if (dt.Rows.Count > 0)
-                    {
-                        this.Code.Text = dt.Rows[0]["Code"].ToString();
-                        this.Emotion.Text = dt.Rows[0]["Emoticon"].ToString();
-                        if (this.Icon.Items.FindByText(dt.Rows[0]["Icon"].ToString()) != null)
-                        {
-                            this.Icon.Items.FindByText(dt.Rows[0]["Icon"].ToString()).Selected = true;
-                        }
+                Smiley smiley =
+                    this.GetRepository<Smiley>().ListTyped(this.Request.QueryString.GetFirstOrDefaultAs<int>("s")).FirstOrDefault();
 
-                        this.Preview.Src = "{0}{1}/{2}"
-                            .FormatWith(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Emoticons, dt.Rows[0]["Icon"]);
-                        this.SortOrder.Text = dt.Rows[0]["SortOrder"].ToString(); // Ederon : 9/4/2007
+                if (smiley != null)
+                {
+                    this.Code.Text = smiley.Code;
+                    this.Emotion.Text = smiley.Emoticon;
+
+                    if (this.Icon.Items.FindByText(smiley.Icon) != null)
+                    {
+                        this.Icon.Items.FindByText(smiley.Icon).Selected = true;
                     }
+
+                    this.Preview.Src = "{0}{1}/{2}".FormatWith(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Emoticons, smiley.Icon);
+                    this.SortOrder.Text = smiley.SortOrder.ToString(); // Ederon : 9/4/2007
                 }
+
             }
             else
             {

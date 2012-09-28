@@ -29,8 +29,9 @@ namespace YAF
   using YAF.Core.Services;
   using YAF.Types;
   using YAF.Types.Interfaces;
+  using YAF.Types.Interfaces.Extensions;
 
-  #endregion
+    #endregion
 
   /// <summary>
   /// Optional forum page base providing some helper functions.

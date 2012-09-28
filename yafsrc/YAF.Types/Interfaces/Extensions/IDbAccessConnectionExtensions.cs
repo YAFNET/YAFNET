@@ -23,7 +23,9 @@ namespace YAF.Types.Interfaces.Extensions
 	using System.Data;
 	using System.Data.Common;
 
-	#endregion
+	using YAF.Types.Interfaces.Data;
+
+    #endregion
 
 	/// <summary>
 	/// The db connection extensions.

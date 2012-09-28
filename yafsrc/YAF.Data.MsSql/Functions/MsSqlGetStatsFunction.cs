@@ -19,14 +19,16 @@
 namespace YAF.Data.MsSql
 {
 	using System.Collections.Generic;
+	using System.Data;
 	using System.Data.SqlClient;
 	using System.Text;
 
 	using YAF.Types;
 	using YAF.Types.Attributes;
 	using YAF.Types.Interfaces;
+	using YAF.Types.Interfaces.Data;
 
-	/// <summary>
+    /// <summary>
 	/// The ms sql get stats function.
 	/// </summary>
 	[ExportService(ServiceLifetimeScope.OwnedByContainer)]
@@ -88,7 +90,7 @@ namespace YAF.Data.MsSql
 		/// <param name="sqlConnection">
 		/// The sql connection.
 		/// </param>
-		/// <param name="dbUnitOfWork">
+		/// <param name="dbTransaction">
 		/// The db unit of work.
 		/// </param>
 		/// <param name="dbfunctionType">
@@ -108,7 +110,7 @@ namespace YAF.Data.MsSql
 		/// </returns>
 		protected override bool RunOperation(
 			SqlConnection sqlConnection, 
-			IDbUnitOfWork dbUnitOfWork, 
+			IDbTransaction dbTransaction, 
 			DbFunctionType dbfunctionType, 
 			string operationName, 
 			IEnumerable<KeyValuePair<string, object>> parameters, 
@@ -132,7 +134,7 @@ namespace YAF.Data.MsSql
 
 			using (var cmd = this.DbAccess.GetCommand(sb.ToString(), false))
 			{
-				this.DbAccess.ExecuteNonQuery(cmd, dbUnitOfWork);
+				this.DbAccess.ExecuteNonQuery(cmd, dbTransaction);
 			}
 
 			// no result...

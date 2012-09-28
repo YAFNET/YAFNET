@@ -26,6 +26,7 @@ namespace YAF.Types.Extensions
     using System.Linq;
 
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Data;
 
     #endregion
 

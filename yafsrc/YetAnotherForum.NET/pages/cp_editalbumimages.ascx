@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true"
     Inherits="YAF.Pages.cp_editalbumimages" Codebehind="cp_editalbumimages.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
+<%@ Import Namespace="YAF.Types.Interfaces.Extensions" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <div class="DivTopSeparator">
 </div>

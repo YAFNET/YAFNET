@@ -28,6 +28,7 @@ namespace YAF.Core
 	using System.Linq;
 
 	using YAF.Types.Extensions;
+	using YAF.Types.Interfaces.Extensions;
 	using YAF.Utils;
 	using YAF.Core.Services;
 	using YAF.Types;

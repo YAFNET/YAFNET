@@ -27,8 +27,9 @@ namespace YAF.Classes.Data
   using YAF.Types;
   using YAF.Types.Handlers;
   using YAF.Types.Interfaces;
+  using YAF.Types.Interfaces.Data;
 
-  #endregion
+    #endregion
 
   /// <summary>
   /// Provides open/close management for DB Connections

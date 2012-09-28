@@ -10,6 +10,7 @@
 namespace YAF.Data.MsSql
 {
 	using System.Collections.Generic;
+	using System.Data;
 	using System.Data.SqlClient;
 
 	using YAF.Types;
@@ -134,15 +135,15 @@ namespace YAF.Data.MsSql
 			{
 				this._sqlMessages.Clear();
 
-				using (var unitOfWork = this.DbAccess.BeginTransaction())
+				using (var dbTransaction = this.DbAccess.BeginTransaction())
 				{
-					if (unitOfWork.Transaction.Connection is SqlConnection)
+					if (dbTransaction.Connection is SqlConnection)
 					{
-						var sqlConnection = unitOfWork.Transaction.Connection as SqlConnection;
+						var sqlConnection = dbTransaction.Connection as SqlConnection;
 						sqlConnection.FireInfoMessageEventOnUserErrors = true;
 						sqlConnection.InfoMessage += new SqlInfoMessageEventHandler(this.sqlConnection_InfoMessage);
 
-						return this.RunOperation(sqlConnection, unitOfWork, dbfunctionType, operationName, parameters, out result);
+						return this.RunOperation(sqlConnection, dbTransaction, dbfunctionType, operationName, parameters, out result);
 					}
 				}
 			}
@@ -173,7 +174,7 @@ namespace YAF.Data.MsSql
 		/// <param name="sqlConnection">
 		/// The sql connection.
 		/// </param>
-		/// <param name="unitOfWork">
+		/// <param name="dbTransaction">
 		/// The unit Of Work.
 		/// </param>
 		/// <param name="dbfunctionType">
@@ -192,7 +193,8 @@ namespace YAF.Data.MsSql
 		/// The run operation.
 		/// </returns>
 		protected abstract bool RunOperation(
-			[NotNull] SqlConnection sqlConnection, [NotNull] IDbUnitOfWork unitOfWork, 
+			[NotNull] SqlConnection sqlConnection,
+            [NotNull] IDbTransaction dbTransaction, 
 			DbFunctionType dbfunctionType, 
 			[NotNull] string operationName, 
 			[NotNull] IEnumerable<KeyValuePair<string, object>> parameters, 

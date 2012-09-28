@@ -25,8 +25,9 @@ namespace YAF.Core
   using System.Web.UI;
 
   using YAF.Types.Interfaces;
+  using YAF.Types.Interfaces.Extensions;
 
-  #endregion
+    #endregion
 
   /// <summary>
   /// Summary description for BaseControl.

@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true"
     Inherits="YAF.Controls.EditUsersProfile" Codebehind="EditUsersProfile.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
+<%@ Import Namespace="YAF.Types.Interfaces.Extensions" %>
 <table width="100%" class="content EditUserProfileTable" cellspacing="1" cellpadding="4">
     <tr>
         <td class="header1" colspan="2">

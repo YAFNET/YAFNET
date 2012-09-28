@@ -3,6 +3,7 @@
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Utils" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
+<%@ Import Namespace="YAF.Types.Interfaces.Extensions" %>
 <%@ Register TagPrefix="YAF" TagName="DisplayPost" Src="../controls/DisplayPost.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="DisplayAd" Src="../controls/DisplayAd.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="PollList" Src="../controls/PollList.ascx" %>

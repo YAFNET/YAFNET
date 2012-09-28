@@ -24,8 +24,9 @@ namespace YAF.Classes.Data
 
   using YAF.Types;
   using YAF.Types.Interfaces;
+  using YAF.Types.Interfaces.Data;
 
-  #endregion
+    #endregion
 
   /// <summary>
   /// The data module.

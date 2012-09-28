@@ -16,15 +16,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Types
+namespace YAF.Types.Interfaces.Extensions
 {
   #region Using
 
-  using System;
+    using System;
 
-  using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces;
 
-  #endregion
+    #endregion
 
   /// <summary>
   /// The i read value extensions.

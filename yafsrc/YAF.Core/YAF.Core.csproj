@@ -83,10 +83,9 @@
     <Compile Include="Data\DbAccessBase.cs" />
     <Compile Include="Data\DbAccessProvider.cs" />
     <Compile Include="Data\DbConnectionParam.cs" />
-    <Compile Include="Data\DbUnitOfWorkBase.cs" />
     <Compile Include="Data\DynamicDbFunction.cs" />
     <Compile Include="Data\Filters\StyleFilter.cs" />
-    <Compile Include="Data\BasicRepository.cs" />
+    <Compile Include="Data\BasicRepository{T}.cs" />
     <Compile Include="Data\TryInvokeMemberProxy.cs" />
     <Compile Include="Data\CommandTextHelpers.cs" />
     <Compile Include="Events\SmileyEventCacheInvalidate.cs" />

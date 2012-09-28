@@ -30,6 +30,7 @@ namespace YAF.Controls
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Extensions;
     using YAF.Utils;
 
     #endregion
@@ -37,7 +38,7 @@ namespace YAF.Controls
     /// <summary>
     /// Pager Control.
     /// </summary>
-    public class Pager : BaseControl, IPostBackEventHandler
+    public class Pager : BaseControl, IPostBackEventHandler, IPager
     {
         #region Constants and Fields
 
@@ -123,17 +124,6 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        ///   Gets PageCount.
-        /// </summary>
-        public int PageCount
-        {
-            get
-            {
-                return (int)Math.Ceiling((double)this.Count / this.PageSize);
-            }
-        }
-
-        /// <summary>
         ///   Gets or sets PageSize.
         /// </summary>
         public int PageSize
@@ -146,17 +136,6 @@ namespace YAF.Controls
             set
             {
                 this.ViewState["PageSize"] = value;
-            }
-        }
-
-        /// <summary>
-        ///   Gets the current item index.
-        /// </summary>
-        public int SkipIndex
-        {
-            get
-            {
-                return (int)Math.Ceiling((double)this.CurrentPageIndex * this.PageSize);
             }
         }
 
@@ -398,7 +377,7 @@ gotoForm.fadeIn( 'slow', function() {{
                 this.CurrentLinkedPager.CopyPagerSettings(this);
             }
 
-            if (this.PageCount < 2)
+            if (this.PageCount() < 2)
             {
                 return;
             }
@@ -419,7 +398,7 @@ gotoForm.fadeIn( 'slow', function() {{
                 pagesText = this.GetText("COMMON", "PAGES");
             }
 
-            this._pageLabel.Text = @"{0:N0} {1}".FormatWith(this.PageCount, pagesText);
+            this._pageLabel.Text = @"{0:N0} {1}".FormatWith(this.PageCount(), pagesText);
 
             // render this control...
             this._pageLabel.RenderControl(output);
@@ -466,9 +445,9 @@ gotoForm.fadeIn( 'slow', function() {{
                 iStart = 0;
             }
 
-            if (iEnd > this.PageCount)
+            if (iEnd > this.PageCount())
             {
-                iEnd = this.PageCount;
+                iEnd = this.PageCount();
             }
 
             if (iStart > 0)
@@ -524,7 +503,7 @@ gotoForm.fadeIn( 'slow', function() {{
                 }
             }
 
-            if (this.CurrentPageIndex < (this.PageCount - 1))
+            if (this.CurrentPageIndex < (this.PageCount() - 1))
             {
                 output.RenderAnchorBegin(
                     this.GetLinkUrl(this.CurrentPageIndex + 2, postBack),
@@ -539,13 +518,13 @@ gotoForm.fadeIn( 'slow', function() {{
                 output.WriteEndTag("a");
             }
 
-            if (iEnd >= this.PageCount)
+            if (iEnd >= this.PageCount())
             {
                 return;
             }
 
             output.RenderAnchorBegin(
-                this.GetLinkUrl(this.PageCount, postBack), "pagelinklast", this.GetText("COMMON", "GOTOLASTPAGE_TT"));
+                this.GetLinkUrl(this.PageCount(), postBack), "pagelinklast", this.GetText("COMMON", "GOTOLASTPAGE_TT"));
 
             output.WriteBeginTag("span");
             output.Write(HtmlTextWriter.TagRightChar);
@@ -568,7 +547,7 @@ gotoForm.fadeIn( 'slow', function() {{
         {
             int newPage = e.GotoPage - 1;
 
-            if (newPage >= 0 && newPage < this.PageCount)
+            if (newPage >= 0 && newPage < this.PageCount())
             {
                 // set a new page index...
                 this.CurrentPageIndex = newPage;

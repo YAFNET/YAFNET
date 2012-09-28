@@ -22,6 +22,7 @@ namespace YAF.Core
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Extensions;
     using YAF.Types.Models;
 
     /// <summary>

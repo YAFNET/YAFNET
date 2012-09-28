@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2006-2012 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -16,27 +16,28 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces.Data
 {
-	#region Using
+    using System;
+    using System.Data;
 
-	using System;
-	using System.Data.Common;
+    /// <summary>
+    ///     The DbFunctionSession interface.
+    /// </summary>
+    public interface IDbFunctionSession : IDbFunction, IDisposable
+    {
+        #region Public Properties
 
-	#endregion
+        /// <summary>
+        ///     Gets the get reader.
+        /// </summary>
+        dynamic GetReader { get; }
 
-	/// <summary>
-	/// The db unit of work.
-	/// </summary>
-	public interface IDbUnitOfWork : IDisposable
-	{
-		#region Properties
+        /// <summary>
+        ///     Gets or sets the current Db Transaction
+        /// </summary>
+        IDbTransaction DbTransaction { get; }
 
-		/// <summary>
-		/// Gets Transaction.
-		/// </summary>
-		DbTransaction Transaction { get; }
-
-		#endregion
-	}
+        #endregion
+    }
 }

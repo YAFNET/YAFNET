@@ -2,7 +2,8 @@
     Inherits="YAF.Controls.PollChoiceList" %>
 <%@ Import Namespace="YAF.Core" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
-            <asp:Repeater ID="Poll" runat="server" OnItemDataBound="Poll_OnItemDataBound" OnItemCommand="Poll_ItemCommand"
+<%@ Import Namespace="YAF.Types.Interfaces.Extensions" %>
+<asp:Repeater ID="Poll" runat="server" OnItemDataBound="Poll_OnItemDataBound" OnItemCommand="Poll_ItemCommand"
                 Visible="true" DataSource="<%# this.DataSource %>">
                 <HeaderTemplate> 
                 </HeaderTemplate>

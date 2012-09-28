@@ -2,6 +2,7 @@
 <%@ Import Namespace="YAF.Core" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Utils" %>
+<%@ Import Namespace="YAF.Types.Interfaces.Extensions" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:Pager runat="server" ID="Pager" OnPageChange="Pager_PageChange" />
 <table class="content" width="100%" cellspacing="1" cellpadding="0">

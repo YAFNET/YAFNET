@@ -3,6 +3,7 @@
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
+<%@ Import Namespace="YAF.Types.Interfaces.Extensions" %>
 <script type="text/javascript">
     var lastMessageId = 0;
     var clearOnEndRequest = false;

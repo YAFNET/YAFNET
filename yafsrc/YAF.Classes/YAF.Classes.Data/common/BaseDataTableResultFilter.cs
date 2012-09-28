@@ -25,8 +25,9 @@ namespace YAF.Classes.Data
   using System.Linq;
 
   using YAF.Types.Interfaces;
+  using YAF.Types.Interfaces.Data;
 
-  #endregion
+    #endregion
 
   /// <summary>
   /// The abstract base data table result filter.

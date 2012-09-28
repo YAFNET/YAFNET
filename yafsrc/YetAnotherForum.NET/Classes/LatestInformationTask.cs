@@ -30,6 +30,7 @@ namespace YAF.Classes
   using YAF.Types.Attributes;
   using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
+  using YAF.Types.Interfaces.Extensions;
   using YAF.Utils;
 
   #endregion

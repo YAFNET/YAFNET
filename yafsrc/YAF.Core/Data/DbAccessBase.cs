@@ -125,9 +125,9 @@ namespace YAF.Core.Data
         /// The <see cref="IDbUnitOfWork"/>.
         /// </returns>
         [NotNull]
-        public virtual IDbUnitOfWork BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.ReadUncommitted)
+        public virtual IDbTransaction BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.ReadUncommitted)
         {
-            return new DbUnitOfWorkBase(this.CreateConnectionOpen(), isolationLevel);
+            return this.CreateConnectionOpen().BeginTransaction(isolationLevel);
         }
 
         /// <summary>
@@ -136,16 +136,16 @@ namespace YAF.Core.Data
         /// <param name="cmd">
         /// The cmd. 
         /// </param>
-        /// <param name="unitOfWork">
+        /// <param name="dbTransaction">
         /// The unit of work. 
         /// </param>
-        public virtual void ExecuteNonQuery([NotNull] IDbCommand cmd, [CanBeNull] IDbUnitOfWork unitOfWork = null)
+        public virtual void ExecuteNonQuery([NotNull] IDbCommand cmd, [CanBeNull] IDbTransaction dbTransaction = null)
         {
             CodeContracts.ArgumentNotNull(cmd, "cmd");
 
             using (var qc = new QueryCounter(cmd.CommandText))
             {
-                if (unitOfWork == null)
+                if (dbTransaction == null)
                 {
                     using (var connection = this.CreateConnectionOpen())
                     {
@@ -158,8 +158,7 @@ namespace YAF.Core.Data
                 }
                 else
                 {
-                    unitOfWork.Setup(cmd);
-
+                    cmd.Populate(dbTransaction);
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -171,13 +170,13 @@ namespace YAF.Core.Data
         /// <param name="cmd">
         /// The cmd. 
         /// </param>
-        /// <param name="unitOfWork">
+        /// <param name="dbTransaction">
         /// The unit of work. 
         /// </param>
         /// <returns>
         /// The execute scalar. 
         /// </returns>
-        public virtual object ExecuteScalar([NotNull] IDbCommand cmd, [CanBeNull] IDbUnitOfWork unitOfWork = null)
+        public virtual object ExecuteScalar([NotNull] IDbCommand cmd, [CanBeNull] IDbTransaction dbTransaction = null)
         {
             CodeContracts.ArgumentNotNull(cmd, "cmd");
 
@@ -185,7 +184,7 @@ namespace YAF.Core.Data
             {
                 object results = null;
 
-                if (unitOfWork == null)
+                if (dbTransaction == null)
                 {
                     using (var connection = this.CreateConnectionOpen())
                     {
@@ -198,7 +197,7 @@ namespace YAF.Core.Data
                 }
                 else
                 {
-                    unitOfWork.Setup(cmd);
+                    cmd.Populate(dbTransaction);
 
                     results = cmd.ExecuteScalar();
                 }
@@ -253,19 +252,19 @@ namespace YAF.Core.Data
         /// <param name="cmd">
         /// The cmd. 
         /// </param>
-        /// <param name="unitOfWork">
+        /// <param name="dbTransaction">
         /// The unit of work. 
         /// </param>
         /// <returns>
         /// The <see cref="DataTable"/>.
         /// </returns>
-        public virtual DataTable GetData([NotNull] IDbCommand cmd, [CanBeNull] IDbUnitOfWork unitOfWork = null)
+        public virtual DataTable GetData([NotNull] IDbCommand cmd, [CanBeNull] IDbTransaction dbTransaction = null)
         {
             CodeContracts.ArgumentNotNull(cmd, "cmd");
 
             using (var qc = new QueryCounter(cmd.CommandText))
             {
-                return this.GetDatasetBasic(cmd, unitOfWork).Tables[0];
+                return this.GetDatasetBasic(cmd, dbTransaction).Tables[0];
             }
         }
 
@@ -275,20 +274,20 @@ namespace YAF.Core.Data
         /// <param name="cmd">
         /// The cmd. 
         /// </param>
-        /// <param name="unitOfWork">
+        /// <param name="dbTransaction">
         /// The unit of work. 
         /// </param>
         /// <returns>
         /// The <see cref="DataSet"/>.
         /// </returns>
         [NotNull]
-        public virtual DataSet GetDataset([NotNull] IDbCommand cmd, [CanBeNull] IDbUnitOfWork unitOfWork = null)
+        public virtual DataSet GetDataset([NotNull] IDbCommand cmd, [CanBeNull] IDbTransaction dbTransaction = null)
         {
             CodeContracts.ArgumentNotNull(cmd, "cmd");
 
             using (var qc = new QueryCounter(cmd.CommandText))
             {
-                return this.GetDatasetBasic(cmd, unitOfWork);
+                return this.GetDatasetBasic(cmd, dbTransaction);
             }
         }
 
@@ -301,20 +300,21 @@ namespace YAF.Core.Data
         /// <param name="readData">
         /// The read data.
         /// </param>
-        /// <param name="unitOfWork">
+        /// <param name="dbTransaction">
         /// The unit of work.
         /// </param>
         /// <returns>
         /// The <see cref="object"/>.
         /// </returns>
-        public IDataReader GetReader(IDbCommand cmd, IDbUnitOfWork unitOfWork)
+        public IDataReader GetReader(IDbCommand cmd, IDbTransaction dbTransaction)
         {
-            CodeContracts.ArgumentNotNull(unitOfWork, "unitOfWork");
+            CodeContracts.ArgumentNotNull(dbTransaction, "unitOfWork");
             CodeContracts.ArgumentNotNull(cmd, "cmd");
 
             using (var qc = new QueryCounter(cmd.CommandText))
             {
-                unitOfWork.Setup(cmd);
+                cmd.Populate(dbTransaction);
+
                 return cmd.ExecuteReader();
             }
         }
@@ -343,20 +343,20 @@ namespace YAF.Core.Data
         /// <param name="cmd">
         /// The cmd. 
         /// </param>
-        /// <param name="unitOfWork">
+        /// <param name="dbTransaction">
         /// The unit of work. 
         /// </param>
         /// <returns>
         /// The <see cref="DataSet"/>.
         /// </returns>
         [NotNull]
-        protected virtual DataSet GetDatasetBasic([NotNull] IDbCommand cmd, [CanBeNull] IDbUnitOfWork unitOfWork = null)
+        protected virtual DataSet GetDatasetBasic([NotNull] IDbCommand cmd, [CanBeNull] IDbTransaction dbTransaction = null)
         {
             CodeContracts.ArgumentNotNull(cmd, "cmd");
 
             var ds = new DataSet();
 
-            if (unitOfWork == null)
+            if (dbTransaction == null)
             {
                 using (var connection = this.CreateConnectionOpen())
                 {
@@ -380,8 +380,9 @@ namespace YAF.Core.Data
 
                 if (dataAdapter != null)
                 {
+                    cmd.Populate(dbTransaction);
+
                     dataAdapter.SelectCommand = cmd;
-                    unitOfWork.Setup(dataAdapter.SelectCommand);
                     dataAdapter.Fill(ds);
                 }
             }

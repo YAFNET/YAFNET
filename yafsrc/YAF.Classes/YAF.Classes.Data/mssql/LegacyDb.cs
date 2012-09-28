@@ -39,6 +39,7 @@ namespace YAF.Classes.Data
     using YAF.Types.Extensions;
     using YAF.Types.Handlers;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Extensions;
     using YAF.Types.Objects;
     using YAF.Utils;
     using YAF.Utils.Helpers;

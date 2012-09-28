@@ -5,6 +5,7 @@
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Utils" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
+<%@ Import Namespace="YAF.Types.Interfaces.Extensions" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <asp:Repeater ID="Inbox" runat="server" OnItemCommand="Inbox_ItemCommand">
     <HeaderTemplate>

@@ -28,6 +28,7 @@ namespace YAF.Core.Services
     using YAF.Core.Services.CheckForSpam;
     using YAF.Types;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Extensions;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
