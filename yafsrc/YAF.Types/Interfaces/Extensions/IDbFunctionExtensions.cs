@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces.Extensions
 {
     #region Using
 
@@ -25,6 +25,7 @@ namespace YAF.Types.Interfaces
     using System.Data;
 
     using YAF.Types.Extensions;
+    using YAF.Types.Interfaces.Data;
 
     #endregion
 
@@ -45,7 +46,7 @@ namespace YAF.Types.Interfaces
         /// The function. 
         /// </param>
         /// <returns>
-        /// The <see cref="DataSet"/>.
+        /// The <see cref="DataSet"/> . 
         /// </returns>
         [NotNull]
         public static DataSet GetAsDataSet([NotNull] this IDbFunction dbFunction, [NotNull] Func<dynamic, object> function)
@@ -66,7 +67,7 @@ namespace YAF.Types.Interfaces
         /// The function. 
         /// </param>
         /// <returns>
-        /// The <see cref="DataTable"/>.
+        /// The <see cref="DataTable"/> . 
         /// </returns>
         [NotNull]
         public static DataTable GetAsDataTable([NotNull] this IDbFunction dbFunction, [NotNull] Func<dynamic, object> function)
@@ -78,26 +79,78 @@ namespace YAF.Types.Interfaces
         }
 
         /// <summary>
-        /// Gets Typed IDataLoadable objects through the data reader.
+        /// The get data typed.
         /// </summary>
         /// <param name="dbFunction">
-        /// The db function.
+        /// The db function. 
         /// </param>
         /// <param name="function">
-        /// The function.
+        /// The function. 
+        /// </param>
+        /// <param name="comparer">
+        /// The comparer. 
         /// </param>
         /// <typeparam name="T">
         /// </typeparam>
         /// <returns>
-        /// The <see cref="IList"/>.
+        /// The <see cref="IEnumerable"/> . 
         /// </returns>
-        public static IList<T> GetTypedAs<T>([NotNull] this IDbFunction dbFunction, [NotNull] Func<dynamic, object> function)
-            where T : IDataLoadable, new()
+        [CanBeNull]
+        public static IEnumerable<T> GetDataTyped<T>(
+            [NotNull] this IDbFunction dbFunction, 
+            [NotNull] Func<object, object> function, 
+            [CanBeNull] IEqualityComparer<string> comparer = null) where T : IDataLoadable, new()
         {
             CodeContracts.ArgumentNotNull(dbFunction, "dbFunction");
             CodeContracts.ArgumentNotNull(function, "function");
 
-            using (var dataReader = (IDataReader)function(dbFunction.GetReader))
+            return dbFunction.GetData(function).Typed<T>(comparer);
+        }
+
+        /// <summary>
+        /// The get scalar as.
+        /// </summary>
+        /// <param name="dbFunction">
+        /// The db function. 
+        /// </param>
+        /// <param name="function">
+        /// The function. 
+        /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="T"/> . 
+        /// </returns>
+        [CanBeNull]
+        public static T GetScalar<T>([NotNull] this IDbFunction dbFunction, [NotNull] Func<object, object> function)
+        {
+            CodeContracts.ArgumentNotNull(dbFunction, "dbFunction");
+            CodeContracts.ArgumentNotNull(function, "function");
+
+            return ((object)function(dbFunction.Scalar)).ToType<T>();
+        }
+
+        /// <summary>
+        /// Gets Typed IDataLoadable objects through the data reader.
+        /// </summary>
+        /// <param name="dbFunctionSession">
+        /// The db function. 
+        /// </param>
+        /// <param name="function">
+        /// The function. 
+        /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="IList"/> . 
+        /// </returns>
+        public static IList<T> GetTypedAs<T>([NotNull] this IDbFunctionSession dbFunctionSession, [NotNull] Func<dynamic, object> function)
+            where T : IDataLoadable, new()
+        {
+            CodeContracts.ArgumentNotNull(dbFunctionSession, "dbFunctionSession");
+            CodeContracts.ArgumentNotNull(function, "function");
+
+            using (var dataReader = (IDataReader)function(dbFunctionSession.GetReader))
             {
                 return dataReader.Typed<T>();
             }

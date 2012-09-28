@@ -16,13 +16,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces.Extensions
 {
   #region Using
 
-  using System.Data;
+    using System.Data;
 
-  #endregion
+    using YAF.Types.Interfaces.Data;
+
+    #endregion
 
   /// <summary>
   /// The i db access extensions.
@@ -115,17 +117,17 @@ namespace YAF.Types.Interfaces
     /// <param name="sql">
     /// The sql.
     /// </param>
-    /// <param name="unitOfWork"></param>
+    /// <param name="dbTransaction"></param>
     /// <returns>
     /// </returns>
-    public static DataTable GetData([NotNull] this IDbAccessV2 dbAccess, [NotNull] string sql, [CanBeNull] IDbUnitOfWork unitOfWork = null)
+    public static DataTable GetData([NotNull] this IDbAccessV2 dbAccess, [NotNull] string sql, [CanBeNull] IDbTransaction dbTransaction = null)
     {
         CodeContracts.ArgumentNotNull(dbAccess, "dbAccess");
         CodeContracts.ArgumentNotNull(sql, "sql");
 
         using (var cmd = dbAccess.GetCommand(sql, false))
         {
-            return dbAccess.GetData(cmd, unitOfWork);
+            return dbAccess.GetData(cmd, dbTransaction);
         }
     }
 

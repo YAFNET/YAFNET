@@ -16,71 +16,73 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces.Extensions
 {
-	#region Using
+    #region Using
 
-	using System.Data;
+    using System.Data;
 
-	#endregion
+    using YAF.Types.Interfaces.Data;
 
-	/// <summary>
-	/// The db unit of work extensions.
-	/// </summary>
-	public static class IDbUnitOfWorkExtensions
-	{
-		#region Public Methods
+    #endregion
 
-		/// <summary>
-		/// The commit.
-		/// </summary>
-		/// <param name="unitOfWork">
-		/// The unit of work.
-		/// </param>
-		public static void Commit([NotNull] this IDbUnitOfWork unitOfWork)
-		{
-			CodeContracts.ArgumentNotNull(unitOfWork, "unitOfWork");
+    /// <summary>
+    ///     The db unit of work extensions.
+    /// </summary>
+    public static class IDbUnitOfWorkExtensions
+    {
+        #region Public Methods and Operators
 
-			if (unitOfWork.Transaction != null)
-			{
-				unitOfWork.Transaction.Commit();
-			}
-		}
+        /// <summary>
+        /// The commit.
+        /// </summary>
+        /// <param name="dbFunctionSession">
+        /// The db function session.
+        /// </param>
+        public static void Commit([NotNull] this IDbFunctionSession dbFunctionSession)
+        {
+            CodeContracts.ArgumentNotNull(dbFunctionSession, "dbFunctionSession");
 
-		/// <summary>
-		/// The rollback.
-		/// </summary>
-		/// <param name="unitOfWork">
-		/// The unit of work.
-		/// </param>
-		public static void Rollback([NotNull] this IDbUnitOfWork unitOfWork)
-		{
-			CodeContracts.ArgumentNotNull(unitOfWork, "unitOfWork");
+            if (dbFunctionSession.DbTransaction != null)
+            {
+                dbFunctionSession.DbTransaction.Commit();
+            }
+        }
 
-			if (unitOfWork.Transaction != null)
-			{
-				unitOfWork.Transaction.Rollback();
-			}
-		}
+        /// <summary>
+        /// The rollback.
+        /// </summary>
+        /// <param name="dbFunctionSession">
+        /// The db function session.
+        /// </param>
+        public static void Rollback([NotNull] this IDbFunctionSession dbFunctionSession)
+        {
+            CodeContracts.ArgumentNotNull(dbFunctionSession, "dbFunctionSession");
 
-		/// <summary>
-		/// The setup.
-		/// </summary>
-		/// <param name="unitOfWork">
-		/// The unit of work.
-		/// </param>
-		/// <param name="command">
-		/// The command.
-		/// </param>
-		public static void Setup([NotNull] this IDbUnitOfWork unitOfWork, [NotNull] IDbCommand command)
-		{
-			CodeContracts.ArgumentNotNull(unitOfWork, "unitOfWork");
-			CodeContracts.ArgumentNotNull(command, "command");
+            if (dbFunctionSession.DbTransaction != null)
+            {
+                dbFunctionSession.DbTransaction.Rollback();
+            }
+        }
 
-			command.Connection = unitOfWork.Transaction.Connection;
-			command.Transaction = unitOfWork.Transaction;
-		}
+        /// <summary>
+        /// The setup.
+        /// </summary>
+        /// <param name="command">
+        /// The command. 
+        /// </param>
+        /// <param name="dbTransaction">
+        /// The db transaction. 
+        /// </param>
+        public static void Populate([NotNull] this IDbCommand command, IDbTransaction dbTransaction)
+        {
+            CodeContracts.ArgumentNotNull(dbTransaction, "dbTransaction");
+            CodeContracts.ArgumentNotNull(command, "command");
 
-		#endregion
-	}
+            command.Connection = dbTransaction.Connection;
+            command.Transaction = dbTransaction;
+        }
+
+        #endregion
+    }
 }

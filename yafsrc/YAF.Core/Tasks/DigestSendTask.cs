@@ -29,6 +29,7 @@ namespace YAF.Core.Tasks
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Extensions;
     using YAF.Types.Objects;
     using YAF.Utils;
 

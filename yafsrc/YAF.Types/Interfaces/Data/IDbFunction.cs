@@ -16,11 +16,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces.Data
 {
     #region Using
 
     using System;
+    using System.Data;
 
     #endregion
 
@@ -94,11 +95,6 @@ namespace YAF.Types.Interfaces
         dynamic GetDataSet { get; }
 
         /// <summary>
-        /// Gets the get reader.
-        /// </summary>
-        dynamic GetReader { get; }
-
-        /// <summary>
         ///     Gets Query.
         /// </summary>
         dynamic Query { get; }
@@ -108,10 +104,18 @@ namespace YAF.Types.Interfaces
         /// </summary>
         dynamic Scalar { get; }
 
+        #endregion
+
+        #region Public Methods and Operators
+
         /// <summary>
-        ///     Gets or sets the current Unit of Work used.
+        /// The create session.
         /// </summary>
-        IDbUnitOfWork UnitOfWork { get; set; }
+        /// <param name="isolationLevel"> </param>
+        /// <returns>
+        /// The <see cref="IDbFunctionSession"/>.
+        /// </returns>
+        IDbFunctionSession CreateSession(IsolationLevel isolationLevel = IsolationLevel.ReadUncommitted);
 
         #endregion
     }

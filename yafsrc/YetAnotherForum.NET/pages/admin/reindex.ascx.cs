@@ -31,6 +31,7 @@ namespace YAF.Pages.Admin
   using YAF.Types.Extensions;
   using YAF.Types.Handlers;
   using YAF.Types.Interfaces;
+  using YAF.Types.Interfaces.Extensions;
   using YAF.Utils;
 
   #endregion

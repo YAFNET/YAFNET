@@ -16,14 +16,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Types.Interfaces.Extensions
+namespace YAF.Types.Extensions
 {
-	using System.Collections.Generic;
-	using System.Linq;
+    using System.Collections.Generic;
+    using System.Linq;
 
-	using YAF.Types;
+    using YAF.Types;
 
-	/// <summary>
+    /// <summary>
 	/// The collection extensions.
 	/// </summary>
 	public static class CollectionExtensions

@@ -16,18 +16,18 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces.Data
 {
   #region Using
 
-  using System;
-  using System.Collections.Generic;
-  using System.Data;
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
 
-  using YAF.Types.Models;
-  using YAF.Types.Objects;
+    using YAF.Types.Models;
+    using YAF.Types.Objects;
 
-  #endregion
+    #endregion
 
   /// <summary>
   /// The idb broker.

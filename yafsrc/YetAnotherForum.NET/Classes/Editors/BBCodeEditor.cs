@@ -32,6 +32,8 @@ namespace YAF.Editors
     using YAF.Core.BBCode;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Data;
+    using YAF.Types.Interfaces.Extensions;
     using YAF.Utils;
     using YAF.Controls;
     using YAF.Types;

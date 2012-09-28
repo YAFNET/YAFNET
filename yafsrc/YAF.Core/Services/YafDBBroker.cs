@@ -34,6 +34,8 @@ namespace YAF.Core.Services
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Data;
+    using YAF.Types.Interfaces.Extensions;
     using YAF.Types.Models;
     using YAF.Types.Objects;
     using YAF.Utils;

@@ -1,4 +1,4 @@
-﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.smilies"CodeBehind="smilies.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.smilies" CodeBehind="smilies.ascx.cs" %>
 <%@ Import Namespace="YAF.Utils" %>
 <YAF:PageLinks ID="PageLinks" runat="server" />
 <YAF:AdminMenu runat="server">

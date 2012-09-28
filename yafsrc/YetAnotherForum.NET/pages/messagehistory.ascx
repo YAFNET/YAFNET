@@ -4,6 +4,7 @@
 <%@ Import Namespace="YAF.Utils" %>
 <%@ Import Namespace="YAF.Utils.Helpers" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
+<%@ Import Namespace="YAF.Types.Interfaces.Extensions" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
     <tr>

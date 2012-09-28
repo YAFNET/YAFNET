@@ -25,8 +25,9 @@ namespace YAF.Controls
     using YAF.Types;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Extensions;
 
-  #endregion
+    #endregion
 
   /// <summary>
   /// The yaf bb code control.

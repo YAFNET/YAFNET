@@ -23,8 +23,9 @@ namespace YAF.Core
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Types.Interfaces;
+  using YAF.Types.Interfaces.Extensions;
 
-  #endregion
+    #endregion
 
   /// <summary>
   /// The i yaf theme extensions.

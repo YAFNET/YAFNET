@@ -28,43 +28,10 @@ namespace YAF.Types.Interfaces.Extensions
 
     #endregion
 
-    public static class SortableOperationExtensions
-    {
-        public static IOrderedEnumerable<T> BySortOrder<T>(this IEnumerable<T> sortEnumerable)
-            where T : IDbSortableOperation
-        {
-            return sortEnumerable.OrderBy(x => x.SortOrder);
-        }
-
-        /// <summary>
-        /// The is operation supported.
-        /// </summary>
-        /// <param name="functions">
-        /// The functions.
-        /// </param>
-        /// <param name="providerName">
-        /// The provider name.
-        /// </param>
-        /// <param name="operationName">
-        /// The operation name.
-        /// </param>
-        /// <returns>
-        /// The is operation supported.
-        /// </returns>
-        public static IEnumerable<T> WhereOperationSupported<T>([NotNull] this IEnumerable<T> checkSupported, [NotNull] string operationName)
-            where T : IDbSortableOperation
-        {
-            CodeContracts.ArgumentNotNull(checkSupported, "checkSupported");
-            CodeContracts.ArgumentNotNull(operationName, "operationName");
-
-            return checkSupported.Where(x => x.IsSupportedOperation(operationName));
-        }
-    }
-
     /// <summary>
     /// The db specific function extensions.
     /// </summary>
-    public static class DbSpecificFunctionExtensions
+    public static class IDbSpecificFunctionExtensions
     {
         #region Public Methods
 

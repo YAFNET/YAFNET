@@ -32,6 +32,8 @@ namespace YAF.Pages
     using System.Web.UI.WebControls;
 
     using YAF.Types.Extensions;
+    using YAF.Types.Interfaces.Data;
+    using YAF.Types.Interfaces.Extensions;
 
     using nStuff.UpdateControls;
 
@@ -114,16 +116,8 @@ namespace YAF.Pages
         {
             get
             {
-                switch (this._searchWhatCleaned)
-                {
-                    case null:
-                        this._searchWhatCleaned =
-                            StringExtensions.RemoveMultipleSingleQuotes(
-                                StringExtensions.RemoveMultipleWhitespace(this.txtSearchStringWhat.Text.Trim()));
-                        break;
-                }
-
-                return this._searchWhatCleaned;
+                return this._searchWhatCleaned
+                       ?? (this._searchWhatCleaned = this.txtSearchStringWhat.Text.Trim().RemoveMultipleWhitespace().RemoveMultipleSingleQuotes());
             }
 
             set
@@ -140,10 +134,7 @@ namespace YAF.Pages
             get
             {
                 return this._searchWhoCleaned
-                       ??
-                       (this._searchWhoCleaned =
-                        StringExtensions.RemoveMultipleSingleQuotes(
-                            StringExtensions.RemoveMultipleWhitespace(this.txtSearchStringFromWho.Text.Trim())));
+                       ?? (this._searchWhoCleaned = this.txtSearchStringFromWho.Text.Trim().RemoveMultipleWhitespace().RemoveMultipleSingleQuotes());
             }
 
             set
@@ -634,58 +625,56 @@ namespace YAF.Pages
             try
             {
 #endif
-                if (newSearch && !this.IsValidSearchRequest())
+            if (newSearch && !this.IsValidSearchRequest())
+            {
+                return;
+            }
+
+            if (newSearch || this.Get<IYafSession>().SearchData == null)
+            {
+                var sw = (SearchWhatFlags)Enum.Parse(typeof(SearchWhatFlags), this.listSearchWhat.SelectedValue);
+                var sfw = (SearchWhatFlags)Enum.Parse(typeof(SearchWhatFlags), this.listSearchFromWho.SelectedValue);
+                int forumId = int.Parse(this.listForum.SelectedValue);
+
+                var searchResults = LegacyDb.GetSearchResult(
+                    this.SearchWhatCleaned,
+                    this.SearchWhoCleaned,
+                    sfw,
+                    sw,
+                    forumId,
+                    this.PageContext.PageUserID,
+                    this.PageContext.PageBoardID,
+                    this.Get<YafBoardSettings>().ReturnSearchMax,
+                    this.Get<YafBoardSettings>().UseFullTextSearch,
+                    this.Get<YafBoardSettings>().EnableDisplayName);
+
+                if (newSearch)
                 {
-                    return;
+                    // setup highlighting
+                    this.SetupHighlightWords(sw);
                 }
 
-                if (newSearch || this.Get<IYafSession>().SearchData == null)
-                {
-                    var sw = (SearchWhatFlags)Enum.Parse(typeof(SearchWhatFlags), this.listSearchWhat.SelectedValue);
-                    var sfw = (SearchWhatFlags)Enum.Parse(typeof(SearchWhatFlags), this.listSearchFromWho.SelectedValue);
-                    int forumId = int.Parse(this.listForum.SelectedValue);
+                this.Get<IYafSession>().SearchData = searchResults;
 
-                    var searchResults = LegacyDb.GetSearchResult(
-                        this.SearchWhatCleaned,
-                        this.SearchWhoCleaned,
-                        sfw,
-                        sw,
-                        forumId,
-                        this.PageContext.PageUserID,
-                        this.PageContext.PageBoardID,
-                        this.Get<YafBoardSettings>().ReturnSearchMax,
-                        this.Get<YafBoardSettings>().UseFullTextSearch,
-                        this.Get<YafBoardSettings>().EnableDisplayName);
+                this.Pager.CurrentPageIndex = 0;
+                this.Pager.PageSize = int.Parse(this.listResInPage.SelectedValue);
+                this.Pager.Count = searchResults.AsEnumerable().Count();
 
-                    if (newSearch)
-                    {
-                        // setup highlighting
-                        this.SetupHighlightWords(sw);
-                    }
+                bool areResults = this.Pager.Count > 0;
 
-                    this.Get<IYafSession>().SearchData = searchResults;
+                this.SearchRes.Visible = areResults;
+                this.NoResults.Visible = !areResults;
+            }
 
-                    this.Pager.CurrentPageIndex = 0;
-                    this.Pager.PageSize = int.Parse(this.listResInPage.SelectedValue);
-                    this.Pager.Count = searchResults.AsEnumerable().Count();
+            this.UpdateHistory.AddEntry("{0}|{1}".FormatWith(this.Pager.CurrentPageIndex, this.Pager.PageSize));
 
-                    bool areResults = this.Pager.Count > 0;
+            var pagedData = this.Get<IYafSession>().SearchData.AsEnumerable().ToList().GetPaged(this.Pager);
 
-                    this.SearchRes.Visible = areResults;
-                    this.NoResults.Visible = !areResults;
-                }
+            // only load required messages
+            this.Get<IDBBroker>().LoadMessageText(pagedData);
 
-                this.UpdateHistory.AddEntry("{0}|{1}".FormatWith(this.Pager.CurrentPageIndex, this.Pager.PageSize));
-
-                var pagedData =
-                    this.Get<IYafSession>().SearchData.AsEnumerable().Skip(this.Pager.SkipIndex).Take(
-                        this.Pager.PageSize);
-
-                // only load required messages
-                this.Get<IDBBroker>().LoadMessageText(pagedData);
-
-                this.SearchRes.DataSource = pagedData;
-                this.SearchRes.DataBind();
+            this.SearchRes.DataSource = pagedData;
+            this.SearchRes.DataBind();
 #if (!DEBUG)
             }
             catch (Exception x)

@@ -16,23 +16,20 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces.Data
 {
     #region Using
 
-    using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Data.Common;
-
-    using YAF.Types.Interfaces.Data;
 
     #endregion
 
     /// <summary>
     ///     DBAccess Interface
     /// </summary>
-    public interface IDbAccessV2 : ICreateUnitOfWork
+    public interface IDbAccessV2 : ICreateTransaction
     {
         #region Public Properties
 
@@ -77,10 +74,10 @@ namespace YAF.Types.Interfaces
         /// <param name="cmd">
         /// The cmd. 
         /// </param>
-        /// <param name="unitOfWork">
+        /// <param name="dbTransaction">
         /// The unit Of Work. 
         /// </param>
-        void ExecuteNonQuery([NotNull] IDbCommand cmd, [CanBeNull] IDbUnitOfWork unitOfWork = null);
+        void ExecuteNonQuery([NotNull] IDbCommand cmd, [CanBeNull] IDbTransaction dbTransaction = null);
 
         /// <summary>
         /// The execute scalar.
@@ -88,13 +85,13 @@ namespace YAF.Types.Interfaces
         /// <param name="cmd">
         /// The cmd. 
         /// </param>
-        /// <param name="unitOfWork">
+        /// <param name="dbTransaction">
         /// The unit Of Work. 
         /// </param>
         /// <returns>
         /// The execute scalar. 
         /// </returns>
-        object ExecuteScalar([NotNull] IDbCommand cmd, [CanBeNull] IDbUnitOfWork unitOfWork = null);
+        object ExecuteScalar([NotNull] IDbCommand cmd, [CanBeNull] IDbTransaction dbTransaction = null);
 
         /// <summary>
         /// The get command.
@@ -122,13 +119,13 @@ namespace YAF.Types.Interfaces
         /// <param name="cmd">
         /// The cmd. 
         /// </param>
-        /// <param name="unitOfWork">
+        /// <param name="dbTransaction">
         /// The unit Of Work. 
         /// </param>
         /// <returns>
         /// The <see cref="DataTable"/>.
         /// </returns>
-        DataTable GetData([NotNull] IDbCommand cmd, [CanBeNull] IDbUnitOfWork unitOfWork = null);
+        DataTable GetData([NotNull] IDbCommand cmd, [CanBeNull] IDbTransaction dbTransaction = null);
 
         /// <summary>
         /// The get dataset.
@@ -136,13 +133,13 @@ namespace YAF.Types.Interfaces
         /// <param name="cmd">
         /// The cmd. 
         /// </param>
-        /// <param name="unitOfWork">
+        /// <param name="dbTransaction">
         /// The unit Of Work. 
         /// </param>
         /// <returns>
         /// The <see cref="DataSet"/>.
         /// </returns>
-        DataSet GetDataset([NotNull] IDbCommand cmd, [CanBeNull] IDbUnitOfWork unitOfWork = null);
+        DataSet GetDataset([NotNull] IDbCommand cmd, [CanBeNull] IDbTransaction dbTransaction = null);
 
         /// <summary>
         /// The get reader.
@@ -151,13 +148,13 @@ namespace YAF.Types.Interfaces
         /// The cmd.
         /// </param>
         /// <param name="readAction"> </param>
-        /// <param name="unitOfWork">
+        /// <param name="dbTransaction">
         /// The unit of work.
         /// </param>
         /// <returns>
         /// The <see cref="IDataReader"/>.
         /// </returns>
-        IDataReader GetReader([NotNull] IDbCommand cmd, [CanBeNull] IDbUnitOfWork unitOfWork);
+        IDataReader GetReader([NotNull] IDbCommand cmd, [CanBeNull] IDbTransaction dbTransaction);
 
         #endregion
     }

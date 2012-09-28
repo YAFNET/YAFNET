@@ -4,6 +4,7 @@
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Utils" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
+<%@ Import Namespace="YAF.Types.Interfaces.Extensions" %>
 
 <asp:Repeater ID="ModeratorList" runat="server">
     <HeaderTemplate>

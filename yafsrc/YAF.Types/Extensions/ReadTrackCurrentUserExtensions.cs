@@ -17,14 +17,16 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace YAF.Types.Interfaces.Extensions
+namespace YAF.Types.Extensions
 {
 	#region Using
 
-	using System;
-	using System.Collections.Generic;
+    using System;
+    using System.Collections.Generic;
 
-	#endregion
+    using YAF.Types.Interfaces;
+
+    #endregion
 
 	/// <summary>
 	/// The read track current user extensions.

@@ -9,6 +9,7 @@ namespace YAF.Core.Tasks
     using YAF.Classes.Data;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Extensions;
     using YAF.Utils; 
     #endregion
 

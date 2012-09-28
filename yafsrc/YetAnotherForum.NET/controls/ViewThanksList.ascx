@@ -5,6 +5,7 @@
 <%@ Import Namespace="YAF.Utils" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
+<%@ Import Namespace="YAF.Types.Interfaces.Extensions" %>
 <table class="command" cellspacing="0" cellpadding="0" width="100%">
     <tr>
         <td>

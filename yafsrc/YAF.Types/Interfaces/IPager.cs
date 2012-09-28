@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2006-2012 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -16,31 +16,29 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Types.Interfaces.Data
+namespace YAF.Types.Interfaces
 {
     /// <summary>
-    /// The Repository interface.
+    /// The Pager interface.
     /// </summary>
-    /// <typeparam name="T">
-    /// </typeparam>
-    public interface IRepository<T> : IEntity, IHaveBoardId
+    public interface IPager
     {
         #region Public Properties
 
         /// <summary>
-        /// Gets the db access.
+        ///     Gets or sets Count.
         /// </summary>
-        IDbAccessV2 DbAccess { get; }
+        int Count { get; set; }
 
         /// <summary>
-        ///     Gets the db event.
+        ///     Gets or sets CurrentPageIndex.
         /// </summary>
-        IRaiseEvent DbEvent { get; }
+        int CurrentPageIndex { get; set; }
 
         /// <summary>
-        ///     Gets the db function.
+        ///     Gets or sets PageSize.
         /// </summary>
-        IDbFunction DbFunction { get; }
+        int PageSize { get; set; }
 
         #endregion
     }

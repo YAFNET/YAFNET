@@ -37,7 +37,7 @@ namespace YAF.Core.Data
     /// <summary>
     ///     The dynamic db function.
     /// </summary>
-    public class DynamicDbFunction : IDbFunction
+    public class DynamicDbFunction : IDbFunctionSession
     {
         #region Fields
 
@@ -67,7 +67,7 @@ namespace YAF.Core.Data
         private readonly TryInvokeMemberProxy _getDataSetProxy;
 
         /// <summary>
-        /// The _get reader proxy.
+        ///     The _get reader proxy.
         /// </summary>
         private readonly TryInvokeMemberProxy _getReaderProxy;
 
@@ -82,9 +82,9 @@ namespace YAF.Core.Data
         private readonly TryInvokeMemberProxy _scalarProxy;
 
         /// <summary>
-        ///     The _unit of work.
+        /// The _db transaction.
         /// </summary>
-        private WeakReference _unitOfWork = new WeakReference(null);
+        private IDbTransaction _dbTransaction;
 
         #endregion
 
@@ -123,6 +123,22 @@ namespace YAF.Core.Data
         #region Public Properties
 
         /// <summary>
+        ///     Gets or sets UnitOfWork.
+        /// </summary>
+        public IDbTransaction DbTransaction
+        {
+            get
+            {
+                return this._dbTransaction;
+            }
+
+            protected set
+            {
+                this._dbTransaction = value;
+            }
+        }
+
+        /// <summary>
         ///     Gets GetData.
         /// </summary>
         public dynamic GetData
@@ -145,7 +161,7 @@ namespace YAF.Core.Data
         }
 
         /// <summary>
-        /// Gets the get reader.
+        ///     Gets the get reader.
         /// </summary>
         public dynamic GetReader
         {
@@ -177,32 +193,47 @@ namespace YAF.Core.Data
             }
         }
 
+        #endregion
+
+        #region Public Methods and Operators
+
         /// <summary>
-        ///     Gets or sets UnitOfWork.
+        /// The create session.
         /// </summary>
-        public virtual IDbUnitOfWork UnitOfWork
+        /// <param name="isolationLevel">
+        /// The isolation level. 
+        /// </param>
+        /// <returns>
+        /// The <see cref="IDbFunctionSession"/> . 
+        /// </returns>
+        public IDbFunctionSession CreateSession(IsolationLevel isolationLevel = IsolationLevel.ReadUncommitted)
         {
-            get
-            {
-                if (this._unitOfWork != null && this._unitOfWork.IsAlive)
+            return new DynamicDbFunction(this._dbAccessProvider, this._dbSpecificFunctions, this._dbFilterFunctions)
                 {
-                    return this._unitOfWork.Target as IDbUnitOfWork;
-                }
+                    DbTransaction = this._dbAccessProvider.Instance.BeginTransaction(isolationLevel)
+                };
+        }
 
-                return null;
+        /// <summary>
+        ///     The dispose.
+        /// </summary>
+        public void Dispose()
+        {
+            if (this._dbTransaction == null)
+            {
+                return;
             }
 
-            set
+            if (this._dbTransaction.Connection != null)
             {
-                if (value == null && this._unitOfWork != null)
+                if (this._dbTransaction.Connection.State == ConnectionState.Open)
                 {
-                    this._unitOfWork = null;
-                }
-                else
-                {
-                    this._unitOfWork = new WeakReference(value);
+                    this._dbTransaction.Connection.Close();
                 }
             }
+
+            this._dbTransaction.Dispose();
+            this._dbTransaction = null;
         }
 
         #endregion
@@ -289,16 +320,16 @@ namespace YAF.Core.Data
         /// </returns>
         protected bool InvokeDataReader(InvokeMemberBinder binder, object[] args, out object result)
         {
-            if (this.UnitOfWork == null)
+            if (this.DbTransaction == null)
             {
-                throw new ArgumentNullException("UnitOfWork", "GetReader must be executed in the context of an IUnitOfWork.");
+                throw new ArgumentNullException("UnitOfWork", "GetReader must be executed in the context of an Session.");
             }
 
             return this.DbFunctionExecute(
                 DbFunctionType.Reader, 
-                binder,
+                binder, 
                 this.MapParameters(binder.CallInfo, args), 
-                (cmd) => this._dbAccessProvider.Instance.GetReader(cmd, this.UnitOfWork), 
+                (cmd) => this._dbAccessProvider.Instance.GetReader(cmd, this.DbTransaction), 
                 out result);
         }
 
@@ -324,7 +355,7 @@ namespace YAF.Core.Data
                 DbFunctionType.DataTable, 
                 binder, 
                 this.MapParameters(binder.CallInfo, args), 
-                (cmd) => this._dbAccessProvider.Instance.GetData(cmd, this.UnitOfWork), 
+                (cmd) => this._dbAccessProvider.Instance.GetData(cmd, this.DbTransaction), 
                 out result);
         }
 
@@ -350,7 +381,7 @@ namespace YAF.Core.Data
                 DbFunctionType.DataSet, 
                 binder, 
                 this.MapParameters(binder.CallInfo, args), 
-                (cmd) => this._dbAccessProvider.Instance.GetDataset(cmd, this.UnitOfWork), 
+                (cmd) => this._dbAccessProvider.Instance.GetDataset(cmd, this.DbTransaction), 
                 out result);
         }
 
@@ -377,7 +408,7 @@ namespace YAF.Core.Data
                 this.MapParameters(binder.CallInfo, args), 
                 (cmd) =>
                     {
-                        this._dbAccessProvider.Instance.ExecuteNonQuery(cmd, this.UnitOfWork);
+                        this._dbAccessProvider.Instance.ExecuteNonQuery(cmd, this.DbTransaction);
                         return null;
                     }, 
                 out result);
@@ -404,7 +435,7 @@ namespace YAF.Core.Data
                 DbFunctionType.Scalar, 
                 binder, 
                 this.MapParameters(binder.CallInfo, args), 
-                (cmd) => this._dbAccessProvider.Instance.ExecuteScalar(cmd, this.UnitOfWork), 
+                (cmd) => this._dbAccessProvider.Instance.ExecuteScalar(cmd, this.DbTransaction), 
                 out result);
         }
 

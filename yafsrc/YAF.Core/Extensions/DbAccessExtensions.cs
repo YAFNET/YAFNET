@@ -24,6 +24,7 @@ namespace YAF.Classes.Data
 
 	using YAF.Types;
 	using YAF.Types.Interfaces;
+	using YAF.Types.Interfaces.Data;
 	using YAF.Types.Interfaces.Extensions;
 
 	/// <summary>

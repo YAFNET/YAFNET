@@ -22,11 +22,12 @@ namespace YAF.Types.Models
 
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
 
-    using YAF.Core.Extensions;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
+    using YAF.Types.Interfaces.Extensions;
 
     #endregion
 
@@ -60,11 +61,11 @@ namespace YAF.Types.Models
         /// <param name="repository">
         /// The repository. 
         /// </param>
-        /// <param name="boardID">
-        /// The board id. 
-        /// </param>
         /// <param name="smileyID">
         /// The smiley id. 
+        /// </param>
+        /// <param name="boardId">
+        /// The board Id.
         /// </param>
         /// <returns>
         /// The <see cref="DataTable"/> . 
@@ -80,24 +81,24 @@ namespace YAF.Types.Models
         /// The list typed.
         /// </summary>
         /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="boardID">
-        /// The board id.
+        /// The repository. 
         /// </param>
         /// <param name="smileyID">
-        /// The smiley id.
+        /// The smiley id. 
+        /// </param>
+        /// <param name="boardId">
+        /// The board Id.
         /// </param>
         /// <returns>
-        /// The <see cref="List"/>.
+        /// The <see cref="List"/> . 
         /// </returns>
         public static IList<Smiley> ListTyped(this IRepository<Smiley> repository, int? smileyID = null, int? boardId = null)
         {
             CodeContracts.ArgumentNotNull(repository, "repository");
 
-            using (var unitOfWork = repository.DbFunction.BeginUnitOfWork(repository.DbAccess))
+            using (var functionSession = repository.DbFunction.CreateSession())
             {
-                return repository.DbFunction.GetTypedAs<Smiley>(r => r.smiley_list(BoardID: boardId ?? repository.BoardId, SmileyID: smileyID));    
+                return functionSession.GetTypedAs<Smiley>(r => r.smiley_list(BoardID: boardId ?? repository.BoardId, SmileyID: smileyID));
             }
         }
 
@@ -107,8 +108,8 @@ namespace YAF.Types.Models
         /// <param name="repository">
         /// The repository. 
         /// </param>
-        /// <param name="boardID">
-        /// The board id. 
+        /// <param name="boardId">
+        /// The board Id.
         /// </param>
         /// <returns>
         /// The <see cref="DataTable"/> . 
@@ -121,19 +122,43 @@ namespace YAF.Types.Models
         }
 
         /// <summary>
+        /// The list unique typed.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="boardId">
+        /// The board id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IList"/>.
+        /// </returns>
+        public static IList<Smiley> ListUniqueTyped(this IRepository<Smiley> repository, int? boardId = null)
+        {
+            CodeContracts.ArgumentNotNull(repository, "repository");
+
+            return repository.ListTyped(boardId: boardId)
+                .GroupBy(s => new { s.Icon, s.Emoticon })
+                .Select(x => x.FirstOrDefault())
+                .OrderBy(s => s.SortOrder)
+                .ThenBy(s => s.Code)
+                .ToList();
+        }
+
+        /// <summary>
         /// The resort.
         /// </summary>
         /// <param name="repository">
         /// The repository. 
-        /// </param>
-        /// <param name="boardID">
-        /// The board id. 
         /// </param>
         /// <param name="smileyID">
         /// The smiley id. 
         /// </param>
         /// <param name="move">
         /// The move. 
+        /// </param>
+        /// <param name="boardId">
+        /// The board Id.
         /// </param>
         public static void Resort(this IRepository<Smiley> repository, int smileyID, int move, int? boardId = null)
         {
@@ -152,9 +177,6 @@ namespace YAF.Types.Models
         /// <param name="smileyID">
         /// The smiley id. 
         /// </param>
-        /// <param name="boardID">
-        /// The board id. 
-        /// </param>
         /// <param name="code">
         /// The code. 
         /// </param>
@@ -170,11 +192,29 @@ namespace YAF.Types.Models
         /// <param name="replace">
         /// The replace. 
         /// </param>
-        public static void Save(this IRepository<Smiley> repository, int? smileyID, string code, string icon, string emoticon, byte sortOrder, short replace, int? boardId = null)
+        /// <param name="boardId">
+        /// The board Id.
+        /// </param>
+        public static void Save(
+            this IRepository<Smiley> repository, 
+            int? smileyID, 
+            string code, 
+            string icon, 
+            string emoticon, 
+            byte sortOrder, 
+            short replace, 
+            int? boardId = null)
         {
             CodeContracts.ArgumentNotNull(repository, "repository");
 
-            repository.DbFunction.Query.smiley_save(SmileyID: smileyID, BoardID: boardId ?? repository.BoardId, Code: code, Icon: icon, Emoticon: emoticon, SortOrder: sortOrder, Replace: replace);
+            repository.DbFunction.Query.smiley_save(
+                SmileyID: smileyID, 
+                BoardID: boardId ?? repository.BoardId, 
+                Code: code, 
+                Icon: icon, 
+                Emoticon: emoticon, 
+                SortOrder: sortOrder, 
+                Replace: replace);
 
             if (smileyID.HasValue)
             {
@@ -190,10 +230,10 @@ namespace YAF.Types.Models
         /// Save the instance of the smiley object.
         /// </summary>
         /// <param name="repository">
-        /// The repository.
+        /// The repository. 
         /// </param>
         /// <param name="smiley">
-        /// The smiley.
+        /// The smiley. 
         /// </param>
         public static void Save(this IRepository<Smiley> repository, Smiley smiley)
         {
