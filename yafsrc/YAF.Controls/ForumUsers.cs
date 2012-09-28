@@ -29,7 +29,6 @@ namespace YAF.Controls
   using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Classes.Data;
   using YAF.Types.Interfaces.Data;
-  using YAF.Types.Interfaces.Extensions;
   using YAF.Utils;
   using YAF.Types;
   using YAF.Types.Interfaces;

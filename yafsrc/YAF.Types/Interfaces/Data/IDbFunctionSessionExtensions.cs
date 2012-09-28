@@ -16,20 +16,18 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Types.Interfaces.Extensions
+namespace YAF.Types.Interfaces.Data
 {
     #region Using
 
     using System.Data;
-
-    using YAF.Types.Interfaces.Data;
 
     #endregion
 
     /// <summary>
     ///     The db unit of work extensions.
     /// </summary>
-    public static class IDbUnitOfWorkExtensions
+    public static class IDbFunctionSessionExtensions
     {
         #region Public Methods and Operators
 

@@ -25,7 +25,6 @@ namespace YAF.Core.Services
     using YAF.Core;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Extensions;
     using YAF.Utils;
 
     /// <summary>

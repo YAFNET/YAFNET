@@ -3,7 +3,6 @@
 <%@ Register TagPrefix="YAF" Namespace="YAF.Controls" %>
 <%@ Import Namespace="YAF.Core"%>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
-<%@ Import Namespace="YAF.Types.Interfaces.Extensions" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server">
 	<table class="content" width="100%" cellspacing="1" cellpadding="0">

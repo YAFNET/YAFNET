@@ -32,7 +32,6 @@ namespace YAF.Providers.Roles
     using YAF.Types.Interfaces;
     using YAF.Types.Constants;
     using YAF.Types;
-    using YAF.Types.Interfaces.Extensions;
     using YAF.Utils;
     using YAF.Providers.Utils;
 

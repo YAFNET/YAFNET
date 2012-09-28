@@ -3,7 +3,6 @@
 <%@ Import Namespace="YAF.Core.Services" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Utils.Helpers" %>
-<%@ Import Namespace="YAF.Types.Interfaces.Extensions" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <div class="DivTopSeparator"></div>
 <YAF:Pager runat="server" ID="Pager" OnPageChange="Pager_PageChange" />

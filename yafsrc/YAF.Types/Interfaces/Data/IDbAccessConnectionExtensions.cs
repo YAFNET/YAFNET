@@ -16,14 +16,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Types.Interfaces.Extensions
+namespace YAF.Types.Interfaces.Data
 {
 	#region Using
 
-	using System.Data;
-	using System.Data.Common;
-
-	using YAF.Types.Interfaces.Data;
+    using System.Data;
+    using System.Data.Common;
 
     #endregion
 

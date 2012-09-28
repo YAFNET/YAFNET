@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Types.Interfaces.Extensions
+namespace YAF.Types.Interfaces.Data
 {
     #region Using
 
@@ -25,7 +25,6 @@ namespace YAF.Types.Interfaces.Extensions
     using System.Data;
 
     using YAF.Types.Extensions;
-    using YAF.Types.Interfaces.Data;
 
     #endregion
 
@@ -93,7 +92,7 @@ namespace YAF.Types.Interfaces.Extensions
         /// <typeparam name="T">
         /// </typeparam>
         /// <returns>
-        /// The <see cref="IEnumerable"/> . 
+        /// The <see cref="IEnumerable{T}"/> . 
         /// </returns>
         [CanBeNull]
         public static IEnumerable<T> GetDataTyped<T>(
@@ -142,7 +141,7 @@ namespace YAF.Types.Interfaces.Extensions
         /// <typeparam name="T">
         /// </typeparam>
         /// <returns>
-        /// The <see cref="IList"/> . 
+        /// The <see cref="IList{T}"/> . 
         /// </returns>
         public static IList<T> GetTypedAs<T>([NotNull] this IDbFunctionSession dbFunctionSession, [NotNull] Func<dynamic, object> function)
             where T : IDataLoadable, new()

@@ -16,12 +16,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Types.Interfaces.Extensions
+namespace YAF.Types.Interfaces.Data
 {
     using System.Collections.Generic;
     using System.Linq;
-
-    using YAF.Types.Interfaces.Data;
 
     /// <summary>
     /// The i db sortable operation extensions.
@@ -39,7 +37,7 @@ namespace YAF.Types.Interfaces.Extensions
         /// <typeparam name="T">
         /// </typeparam>
         /// <returns>
-        /// The <see cref="IOrderedEnumerable"/>.
+        /// The <see cref="IOrderedEnumerable{TElement}"/>.
         /// </returns>
         public static IOrderedEnumerable<T> BySortOrder<T>(this IEnumerable<T> sortEnumerable)
             where T : IDbSortableOperation

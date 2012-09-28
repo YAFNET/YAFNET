@@ -1,7 +1,6 @@
 <%@ Control Language="c#" AutoEventWireup="True" EnableViewState="true" Inherits="YAF.Pages.Admin.eventlog"
     CodeBehind="eventlog.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
-<%@ Import Namespace="YAF.Types.Interfaces.Extensions" %>
    
 <YAF:PageLinks runat="server" ID="PageLinks" />
 

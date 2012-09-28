@@ -35,7 +35,6 @@ namespace YAF.Pages.help
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Extensions;
     using YAF.Utilities;
     using YAF.Utils;
 

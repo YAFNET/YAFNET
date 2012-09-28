@@ -42,7 +42,6 @@ namespace YAF.Install
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Extensions;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 

@@ -21,7 +21,7 @@ namespace YAF.Types.Models
     using System.Data;
 
     using YAF.Types.Interfaces.Data;
-    using YAF.Types.Interfaces.Extensions;
+    using YAF.Types.Interfaces;
 
     /// <summary>
     /// The access mask repository extensions.

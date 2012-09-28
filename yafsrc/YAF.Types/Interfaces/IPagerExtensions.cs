@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Types.Interfaces.Extensions
+namespace YAF.Types.Interfaces
 {
     using System;
     using System.Collections.Generic;
@@ -43,7 +43,7 @@ namespace YAF.Types.Interfaces.Extensions
         /// <typeparam name="T">
         /// </typeparam>
         /// <returns>
-        /// The <see cref="IEnumerable"/>.
+        /// The <see cref="IEnumerable{T}"/>.
         /// </returns>
         public static IList<T> GetPaged<T>([NotNull] this IList<T> list, [NotNull] IPager pager)
         {

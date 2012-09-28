@@ -32,7 +32,6 @@ namespace YAF.Pages.moderate
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Extensions;
     using YAF.Utils;
 
     #endregion

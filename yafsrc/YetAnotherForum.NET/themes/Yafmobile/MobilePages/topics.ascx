@@ -1,7 +1,6 @@
 <%@ Control Language="c#" CodeBehind="../../../controls/topics.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.topics" %>
 <%@ Import Namespace="YAF.Core" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
-<%@ Import Namespace="YAF.Types.Interfaces.Extensions" %>
 <%@ Register TagPrefix="YAF" TagName="ForumList" Src="ForumList.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="TopicLine" Src="TopicLine.ascx" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />

@@ -29,7 +29,7 @@ namespace YAF.Providers.Roles
   using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Classes.Data;
   using YAF.Types;
-  using YAF.Types.Interfaces.Extensions;
+  using YAF.Types.Interfaces.Data;
 
     #endregion
 

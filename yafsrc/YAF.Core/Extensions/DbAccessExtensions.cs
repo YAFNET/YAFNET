@@ -25,9 +25,8 @@ namespace YAF.Classes.Data
 	using YAF.Types;
 	using YAF.Types.Interfaces;
 	using YAF.Types.Interfaces.Data;
-	using YAF.Types.Interfaces.Extensions;
 
-	/// <summary>
+    /// <summary>
 	/// The db access extensions.
 	/// </summary>
 	public static class DbAccessV2Extensions

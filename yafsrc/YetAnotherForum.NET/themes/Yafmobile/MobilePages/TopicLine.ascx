@@ -8,7 +8,6 @@
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Classes" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
-<%@ Import Namespace="YAF.Types.Interfaces.Extensions" %>
 <tr class="<%=this.IsAlt ? "topicRow_Alt post_alt" : "topicRow post" %>">
      <asp:PlaceHolder ID="SelectionHolder" runat="server" Visible="false">
         <td>

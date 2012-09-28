@@ -1,7 +1,6 @@
 <%@ Control Language="C#" AutoEventWireup="True" EnableViewState="false" CodeBehind="PollList.ascx.cs"
     Inherits="YAF.Controls.PollList" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
-<%@ Import Namespace="YAF.Types.Interfaces.Extensions" %>
 <%@ Register TagPrefix="YAF" TagName="PollChoiceList" Src="PollChoiceList.ascx" %>
 <asp:PlaceHolder id="PollListHolder" runat="server" Visible="true">
 <table cellpadding="0" cellspacing="1" class="content" width="100%">

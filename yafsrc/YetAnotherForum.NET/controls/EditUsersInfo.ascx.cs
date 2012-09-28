@@ -32,7 +32,6 @@ namespace YAF.Controls
   using YAF.Types.Extensions;
   using YAF.Types.Flags;
   using YAF.Types.Interfaces;
-  using YAF.Types.Interfaces.Extensions;
   using YAF.Utils;
   using YAF.Utils.Helpers;
 
