@@ -57,22 +57,22 @@ namespace YAF.Controls
         #region Constants and Fields
 
         /// <summary>
-        ///   The admin edit mode.
+        /// The admin edit mode.
         /// </summary>
         private bool adminEditMode;
 
         /// <summary>
-        ///   The current user id.
+        /// The current user id.
         /// </summary>
         private int currentUserID;
 
         /// <summary>
-        ///   The _user data.
+        /// The _user data.
         /// </summary>
         private CombinedUserDataHelper _userData;
 
         /// <summary>
-        ///   The current culture.
+        /// The current culture.
         /// </summary>
         private string currentCulture = "en-US";
 
@@ -81,7 +81,7 @@ namespace YAF.Controls
         #region Properties
 
         /// <summary>
-        ///   Gets or sets a value indicating whether InAdminPages.
+        /// Gets or sets a value indicating whether InAdminPages.
         /// </summary>
         public bool InAdminPages
         {
@@ -97,7 +97,7 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        ///   Gets or sets a value indicating whether UpdateEmailFlag.
+        /// Gets or sets a value indicating whether UpdateEmailFlag.
         /// </summary>
         protected bool UpdateEmailFlag
         {
@@ -113,7 +113,7 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        ///   Gets UserData.
+        /// Gets UserData.
         /// </summary>
         [NotNull]
         private CombinedUserDataHelper UserData
@@ -165,11 +165,11 @@ namespace YAF.Controls
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // setup jQuery and DatePicker JS...
-                YafContext.Current.PageElements.RegisterJQuery();
-                YafContext.Current.PageElements.RegisterJQueryUI();
+            YafContext.Current.PageElements.RegisterJQuery();
+            YafContext.Current.PageElements.RegisterJQueryUI();
 
-            var ci = CultureInfo.CreateSpecificCulture(this.GetCulture());
-           
+            var ci = CultureInfo.CreateSpecificCulture(this.GetCulture(true));
+
             if (!string.IsNullOrEmpty(this.GetText("COMMON", "CAL_JQ_CULTURE")))
             {
                 var jqueryuiUrl = !Config.JQueryUILangFile.StartsWith("http")
@@ -193,10 +193,10 @@ namespace YAF.Controls
 
             YafContext.Current.PageElements.RegisterJsResourceInclude("msdropdown", "js/jquery.msDropDown.js");
 
-             YafContext.Current.PageElements.RegisterJsBlockStartup(
-                "dropDownJs", JavaScriptBlocks.DropDownLoadJs(this.Country.ClientID));
+            YafContext.Current.PageElements.RegisterJsBlockStartup(
+               "dropDownJs", JavaScriptBlocks.DropDownLoadJs(this.Country.ClientID));
 
-            YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.msDropDown.css"); 
+            YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.msDropDown.css");
 
             base.OnPreRender(e);
         }
@@ -343,7 +343,7 @@ namespace YAF.Controls
             if (this.UpdateEmailFlag)
             {
                 string newEmail = this.Email.Text.Trim();
-              
+
                 if (!ValidationHelper.IsValidEmail(newEmail))
                 {
                     this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_EMAIL"));
@@ -352,10 +352,10 @@ namespace YAF.Controls
 
                 string userNameFromEmail = this.Get<MembershipProvider>().GetUserNameByEmail(this.Email.Text.Trim());
                 if (userNameFromEmail.IsSet() && userNameFromEmail != userName)
-                 {
+                {
                     this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_EMAIL"));
                     return;
-                 }
+                }
 
                 if (this.Get<YafBoardSettings>().EmailVerification)
                 {
@@ -379,8 +379,8 @@ namespace YAF.Controls
 
             this.UpdateUserProfile(userName);
 
-            // vzrus: We should do it as we need to write null value to db, else it will be empty. 
-            // Localizer currently treats only nulls. 
+            // vzrus: We should do it as we need to write null value to db, else it will be empty.
+            // Localizer currently treats only nulls.
             object language = null;
             object culture = this.Culture.SelectedValue;
             object theme = this.Theme.SelectedValue;
@@ -411,8 +411,7 @@ namespace YAF.Controls
             }
 
             // save remaining settings to the DB
-            LegacyDb.user_save(
-              this.currentUserID,
+            LegacyDb.user_save(this.currentUserID,
               this.PageContext.PageBoardID,
               null,
               displayName,
@@ -506,7 +505,7 @@ namespace YAF.Controls
             this.Country.DataValueField = "Value";
             this.Country.DataTextField = "Name";
 
-            string currentCultureLocal = this.GetCulture();
+            string currentCultureLocal = this.GetCulture(true);
             this.currentCulture = currentCultureLocal;
             if (this.UserData.Profile.Country.IsSet())
             {
@@ -529,7 +528,7 @@ namespace YAF.Controls
                 {
                     this.Birthday.Text = this.UserData.Profile.Birthday > DateTime.MinValue ||
                                          this.UserData.Profile.Birthday.IsNullOrEmptyDBField()
-                                             ? PersianDateConverter.ToPersianDate(this.UserData.Profile.Birthday).ToString("d")
+                                         ? PersianDateConverter.ToPersianDate(this.UserData.Profile.Birthday).ToString("d")
                                              : PersianDateConverter.ToPersianDate(PersianDate.MinValue).ToString("d");
                 }
                 else
@@ -732,16 +731,16 @@ namespace YAF.Controls
             if (this.Get<YafBoardSettings>().EnableDNACalendar && this.Birthday.Text.IsSet())
             {
                 DateTime userBirthdate;
-                var ci = CultureInfo.CreateSpecificCulture(this.GetCulture());
+                var ci = CultureInfo.CreateSpecificCulture(this.GetCulture(true));
 
                 if (this.Get<YafBoardSettings>().UseFarsiCalender && ci.IsFarsiCulture())
                 {
-                    PersianDate persianDate = new PersianDate(this.Birthday.Text);
+                    var persianDate = new PersianDate(this.Birthday.Text);
                     userBirthdate = PersianDateConverter.ToGregorianDateTime(persianDate);
 
                     if (userBirthdate > DateTime.MinValue.Date)
                     {
-                        userProfile.Birthday = userBirthdate;
+                        userProfile.Birthday = userBirthdate.Date;
                     }
                 }
                 else
@@ -750,7 +749,8 @@ namespace YAF.Controls
 
                     if (userBirthdate > DateTime.MinValue.Date)
                     {
-                        userProfile.Birthday = userBirthdate;
+                        // Attention! This is stored in profile in the user timezone date
+                        userProfile.Birthday = userBirthdate.Date;
                     }
                 }
             }
@@ -758,11 +758,11 @@ namespace YAF.Controls
             userProfile.BlogServiceUrl = this.WeblogUrl.Text.Trim();
             userProfile.BlogServiceUsername = this.WeblogUsername.Text.Trim();
             userProfile.BlogServicePassword = this.WeblogID.Text.Trim();
-            
+
             // Sync to User Profile Mirror table while it's dirty
             SettingsPropertyValueCollection settingsPropertyValueCollection = userProfile.PropertyValues;
             LegacyDb.SetPropertyValues(PageContext.PageBoardID, UserMembershipHelper.ApplicationName(), this.currentUserID, settingsPropertyValueCollection);
-           
+
             userProfile.Save();
         }
 
@@ -791,7 +791,8 @@ namespace YAF.Controls
             }
         }
 
-        #endregion        
+        #endregion
+        
 
         /// <summary>
         /// Gets the culture.
@@ -799,27 +800,42 @@ namespace YAF.Controls
         /// <returns>
         /// The get culture.
         /// </returns>
-        private string GetCulture()
+        private string GetCulture(bool overrideByPageUserCulture)
         {
             // Language and culture
             string languageFile = this.Get<YafBoardSettings>().Language;
-            string culture4tag = this.Get<YafBoardSettings>().Culture;
-
-            if (!string.IsNullOrEmpty(this.UserData.LanguageFile))
+            string culture4Tag = this.Get<YafBoardSettings>().Culture;
+            if (overrideByPageUserCulture)
             {
-                languageFile = this.UserData.LanguageFile;
+                if (this.PageContext.CurrentUserData.LanguageFile.IsSet())
+                {
+                    languageFile = this.PageContext.CurrentUserData.LanguageFile;
+                }
+
+                if (this.PageContext.CurrentUserData.CultureUser.IsSet())
+                {
+                    culture4Tag = this.PageContext.CurrentUserData.CultureUser;
+                }
             }
-
-            if (!string.IsNullOrEmpty(this.UserData.CultureUser))
+            else
             {
-                culture4tag = this.UserData.CultureUser;
+                if (!string.IsNullOrEmpty(this.UserData.LanguageFile))
+                {
+                    languageFile = this.UserData.LanguageFile;
+                }
+
+                if (!string.IsNullOrEmpty(this.UserData.CultureUser))
+                {
+                    culture4Tag = this.UserData.CultureUser;
+                }
             }
 
             // Get first default full culture from a language file tag.
             string langFileCulture = StaticDataHelper.CultureDefaultFromFile(languageFile);
-            return langFileCulture.Substring(0, 2) == culture4tag.Substring(0, 2)
-                                          ? culture4tag
+            return langFileCulture.Substring(0, 2) == culture4Tag.Substring(0, 2)
+                                          ? culture4Tag
                                           : langFileCulture;
+
         }
     }
 }
