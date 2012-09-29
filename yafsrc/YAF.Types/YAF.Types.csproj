@@ -86,7 +86,7 @@
     <Compile Include="Interfaces\Data\IDbFunctionSession.cs" />
     <Compile Include="Interfaces\Data\IDbSortableOperation.cs" />
     <Compile Include="Interfaces\Data\IDbSpecificFunction.cs" />
-    <Compile Include="Interfaces\Data\IRepository{T}.cs" />
+    <Compile Include="Interfaces\Data\IRepository.cs" />
     <Compile Include="Interfaces\Data\IDbSpecificFunctionExtensions.cs" />
     <Compile Include="Interfaces\Data\IDbAccessConnectionExtensions.cs" />
     <Compile Include="Interfaces\Data\IDbFunctionExtensions.cs" />
@@ -96,6 +96,10 @@
     <Compile Include="Interfaces\IStyleTransform.cs" />
     <Compile Include="Models\AccessMask.cs" />
     <Compile Include="Models\AccessMaskRepositoryExtensions.cs" />
+    <Compile Include="Models\Active.cs" />
+    <Compile Include="Models\ActiveAccess.cs" />
+    <Compile Include="Models\ActiveAccessRepositoryExtensions.cs" />
+    <Compile Include="Models\ActiveRepositoryExtensions.cs" />
     <Compile Include="Models\Smiley.cs" />
     <Compile Include="Models\SmileyRepositoryExtensions.cs" />
     <Compile Include="Objects\MessageNotification.cs" />
@@ -161,7 +165,6 @@
     <Compile Include="Interfaces\IBaseModule.cs" />
     <Compile Include="Interfaces\Data\IDataTableResultFilter.cs" />
     <Compile Include="Interfaces\IDateTime.cs" />
-    <Compile Include="Interfaces\Data\IDBBroker.cs" />
     <Compile Include="Interfaces\IDigest.cs" />
     <Compile Include="Interfaces\IFavoriteTopic.cs" />
     <Compile Include="Interfaces\Events\IHandleEvent.cs" />

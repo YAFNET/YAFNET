@@ -48,6 +48,9 @@
       <HintPath>..\packages\xmlrpcnet.3.0.0.266\lib\net20\CookComputing.XmlRpcV2.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Omu.ValueInjecter">
+      <HintPath>..\packages\valueinjecter.2.3.3\lib\net35\Omu.ValueInjecter.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -80,12 +83,14 @@
     <Compile Include="Context\LoadPageRequestInformation.cs" />
     <Compile Include="Context\LoadPageVariablesFromQuery.cs" />
     <Compile Include="Context\YafContextPageProvider.cs" />
+    <Compile Include="Data\DataReaderFilter.cs" />
+    <Compile Include="Data\DataRecordInjection.cs" />
     <Compile Include="Data\DbAccessBase.cs" />
     <Compile Include="Data\DbAccessProvider.cs" />
     <Compile Include="Data\DbConnectionParam.cs" />
     <Compile Include="Data\DynamicDbFunction.cs" />
     <Compile Include="Data\Filters\StyleFilter.cs" />
-    <Compile Include="Data\BasicRepository{T}.cs" />
+    <Compile Include="Data\BasicRepository.cs" />
     <Compile Include="Data\TryInvokeMemberProxy.cs" />
     <Compile Include="Data\CommandTextHelpers.cs" />
     <Compile Include="Events\SmileyEventCacheInvalidate.cs" />

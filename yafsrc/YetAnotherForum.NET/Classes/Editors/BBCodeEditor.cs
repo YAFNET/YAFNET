@@ -30,6 +30,7 @@ namespace YAF.Editors
     using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Core.BBCode;
+    using YAF.Core.Services;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
@@ -312,7 +313,7 @@ namespace YAF.Editors
                 this.GetText("COMMON", "INDENT"),
                 "yafEditor/indent.gif");
 
-            var customBbCode = this.Get<IDBBroker>().GetCustomBBCode();
+            var customBbCode = this.Get<YafDbBroker>().GetCustomBBCode();
 
             if (customBbCode.Any())
             {

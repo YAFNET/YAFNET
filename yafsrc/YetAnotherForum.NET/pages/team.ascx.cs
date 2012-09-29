@@ -32,6 +32,7 @@ namespace YAF.Pages
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -135,7 +136,7 @@ namespace YAF.Pages
         [NotNull]
         protected List<Moderator> GetModerators()
         {
-            var moderators = this.Get<IDBBroker>().GetAllModerators();
+            var moderators = this.Get<YafDbBroker>().GetAllModerators();
 
             var modsSorted = new List<Moderator>();
 

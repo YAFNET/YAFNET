@@ -16,7 +16,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
 namespace YAF.Core.Data.Filters
 {
     #region Using
@@ -31,22 +30,36 @@ namespace YAF.Core.Data.Filters
 
     #endregion
 
+    /// <summary>
+    /// The style filter.
+    /// </summary>
     public class StyleFilter : IDbDataFilter
     {
         #region Fields
 
+        /// <summary>
+        /// The _board settings.
+        /// </summary>
         private readonly YafBoardSettings _boardSettings;
 
+        /// <summary>
+        /// The _style transform.
+        /// </summary>
         private readonly IStyleTransform _styleTransform;
 
+        /// <summary>
+        /// The _styled nick operations.
+        /// </summary>
         private readonly string[] _styledNickOperations = new[]
             {
-                "active_list",
-                "forum_moderators",
-                "topic_latest",
-                "shoutbox_getmessages",
-                "topic_latest",
-                "active_list_user",
+                "active_list", 
+                "active_listtopic", 
+                "active_listforum", 
+                "forum_moderators", 
+                "topic_latest", 
+                "shoutbox_getmessages", 
+                "topic_latest", 
+                "active_list_user", 
                 "admin_list"
             };
 
@@ -54,6 +67,15 @@ namespace YAF.Core.Data.Filters
 
         #region Constructors and Destructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StyleFilter"/> class.
+        /// </summary>
+        /// <param name="styleTransform">
+        /// The style transform.
+        /// </param>
+        /// <param name="boardSettings">
+        /// The board settings.
+        /// </param>
         public StyleFilter(IStyleTransform styleTransform, YafBoardSettings boardSettings)
         {
             this._styleTransform = styleTransform;
@@ -64,8 +86,14 @@ namespace YAF.Core.Data.Filters
 
         #region Public Properties
 
+        /// <summary>
+        /// Gets or sets the service locator.
+        /// </summary>
         public IServiceLocator ServiceLocator { get; set; }
 
+        /// <summary>
+        /// Gets the sort order.
+        /// </summary>
         public int SortOrder
         {
             get
@@ -78,18 +106,46 @@ namespace YAF.Core.Data.Filters
 
         #region Public Methods and Operators
 
+        /// <summary>
+        /// The is supported operation.
+        /// </summary>
+        /// <param name="operationName">
+        /// The operation name.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
         public bool IsSupportedOperation(string operationName)
         {
             return this._styledNickOperations.Contains(operationName.ToLower());
         }
 
+        /// <summary>
+        /// The run.
+        /// </summary>
+        /// <param name="dbfunctionType">
+        /// The dbfunction type.
+        /// </param>
+        /// <param name="operationName">
+        /// The operation name.
+        /// </param>
+        /// <param name="parameters">
+        /// The parameters.
+        /// </param>
+        /// <param name="data">
+        /// The data.
+        /// </param>
         public void Run(DbFunctionType dbfunctionType, string operationName, IEnumerable<KeyValuePair<string, object>> parameters, object data)
         {
-            if (dbfunctionType == DbFunctionType.DataTable && this._styledNickOperations.Contains(operationName.ToLower()) && this._boardSettings.UseStyledNicks)
+            if (this._styledNickOperations.Contains(operationName.ToLower()) && this._boardSettings.UseStyledNicks)
             {
                 bool colorOnly = false;
-                var dataTable = (DataTable)data;
-                this._styleTransform.DecodeStyleByTable(dataTable, colorOnly);
+
+                if (dbfunctionType == DbFunctionType.DataTable)
+                {
+                    var dataTable = (DataTable)data;
+                    this._styleTransform.DecodeStyleByTable(dataTable, colorOnly);
+                }
             }
         }
 

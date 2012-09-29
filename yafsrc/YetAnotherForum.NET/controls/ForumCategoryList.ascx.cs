@@ -27,6 +27,7 @@ namespace YAF.Controls
 	using YAF.Classes;
 	using YAF.Classes.Data;
 	using YAF.Core;
+	using YAF.Core.Services;
 	using YAF.Types;
 	using YAF.Types.Extensions;
 	using YAF.Types.Interfaces;
@@ -113,7 +114,7 @@ namespace YAF.Controls
 		/// </summary>
 		private void BindData()
 		{
-			DataSet ds = this.Get<IDBBroker>().BoardLayout(
+			DataSet ds = this.Get<YafDbBroker>().BoardLayout(
 					this.PageContext.PageBoardID, this.PageContext.PageUserID, this.PageContext.PageCategoryID, null);
 
 			this.CategoryList.DataSource = ds.Tables["Category"];

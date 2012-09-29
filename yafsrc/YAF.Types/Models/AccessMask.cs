@@ -21,11 +21,8 @@ namespace YAF.Types.Models
     #region Using
 
     using System;
-    using System.Collections.Generic;
     using System.Data.Linq.Mapping;
 
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
     #endregion
@@ -35,41 +32,12 @@ namespace YAF.Types.Models
     /// </summary>
     [Serializable]
     [Table(Name = "AccessMask")]
-    public partial class AccessMask : IEntity, IDataLoadable
+    public partial class AccessMask : IEntity
     {
-        #region Fields
-
-        /// <summary>
-        /// The _ access mask id.
-        /// </summary>
-        private int _AccessMaskID;
-
-        /// <summary>
-        /// The _ board id.
-        /// </summary>
-        private int _BoardID;
-
-        /// <summary>
-        /// The _ flags.
-        /// </summary>
-        private int _Flags;
-
-        /// <summary>
-        /// The _ name.
-        /// </summary>
-        private string _Name;
-
-        /// <summary>
-        /// The _ sort order.
-        /// </summary>
-        private short _SortOrder;
-
-        #endregion
-
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AccessMask"/> class.
+        ///     Initializes a new instance of the <see cref="AccessMask" /> class.
         /// </summary>
         public AccessMask()
         {
@@ -81,167 +49,38 @@ namespace YAF.Types.Models
         #region Public Properties
 
         /// <summary>
-        /// Gets or sets the access mask id.
+        ///     Gets or sets the access mask id.
         /// </summary>
-        public int AccessMaskID
-        {
-            get
-            {
-                return this._AccessMaskID;
-            }
-
-            set
-            {
-                this._AccessMaskID = value;
-            }
-        }
+        public int AccessMaskID { get; set; }
 
         /// <summary>
-        /// Gets or sets the board id.
+        ///     Gets or sets the board id.
         /// </summary>
-        public int BoardID
-        {
-            get
-            {
-                return this._BoardID;
-            }
-
-            set
-            {
-                this._BoardID = value;
-            }
-        }
+        public int BoardID { get; set; }
 
         /// <summary>
-        /// Gets or sets the flags.
+        ///     Gets or sets the flags.
         /// </summary>
-        public int Flags
-        {
-            get
-            {
-                return this._Flags;
-            }
-
-            set
-            {
-                this._Flags = value;
-            }
-        }
+        public int Flags { get; set; }
 
         /// <summary>
-        /// Gets or sets the name.
+        ///     Gets or sets the name.
         /// </summary>
-        public string Name
-        {
-            get
-            {
-                return this._Name;
-            }
-
-            set
-            {
-                this._Name = value;
-            }
-        }
+        public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the sort order.
+        ///     Gets or sets the sort order.
         /// </summary>
-        public short SortOrder
-        {
-            get
-            {
-                return this._SortOrder;
-            }
-
-            set
-            {
-                this._SortOrder = value;
-            }
-        }
-
-        #endregion
-
-        #region Public Methods and Operators
-
-        /// <summary>
-        /// The load from dictionary.
-        /// </summary>
-        /// <param name="dictionary">
-        /// The dictionary.
-        /// </param>
-        /// <param name="clear">
-        /// The clear.
-        /// </param>
-        public void LoadFromDictionary(IDictionary<string, object> dictionary, bool clear = true)
-        {
-            if (dictionary.ContainsKey("AccessMaskID"))
-            {
-                this._AccessMaskID = dictionary["AccessMaskID"].ToType<int>();
-            }
-            else if (clear)
-            {
-                this._AccessMaskID = default(int);
-            }
-
-            if (dictionary.ContainsKey("BoardID"))
-            {
-                this._BoardID = dictionary["BoardID"].ToType<int>();
-            }
-            else if (clear)
-            {
-                this._BoardID = default(int);
-            }
-
-            if (dictionary.ContainsKey("Name"))
-            {
-                this._Name = dictionary["Name"].ToType<string>();
-            }
-            else if (clear)
-            {
-                this._Name = default(string);
-            }
-
-            if (dictionary.ContainsKey("Flags"))
-            {
-                this._Flags = dictionary["Flags"].ToType<int>();
-            }
-            else if (clear)
-            {
-                this._Flags = default(int);
-            }
-
-            if (dictionary.ContainsKey("SortOrder"))
-            {
-                this._SortOrder = dictionary["SortOrder"].ToType<short>();
-            }
-            else if (clear)
-            {
-                this._SortOrder = default(short);
-            }
-
-            this.OnLoadedFromDictionary(dictionary, clear);
-        }
+        public short SortOrder { get; set; }
 
         #endregion
 
         #region Methods
 
         /// <summary>
-        /// The on created.
+        ///     The on created.
         /// </summary>
         partial void OnCreated();
-
-        /// <summary>
-        /// The on loaded from dictionary.
-        /// </summary>
-        /// <param name="dictionary">
-        /// The dictionary.
-        /// </param>
-        /// <param name="clear">
-        /// The clear.
-        /// </param>
-        partial void OnLoadedFromDictionary(IDictionary<string, object> dictionary, bool clear = true);
 
         #endregion
     }

@@ -279,7 +279,7 @@ namespace YAF.Controls
       this._topicHours = -YafContext.Current.BoardSettings.DigestSendEveryXHours;
 
 
-      this._forumData = this.Get<IDBBroker>().GetSimpleForumTopic(
+      this._forumData = this.Get<YafDbBroker>().GetSimpleForumTopic(
         this.BoardID, this.CurrentUserID, DateTime.Now.AddHours(this._topicHours), 9999);
 
       if (!this.NewTopics.Any() && !this.ActiveTopics.Any())

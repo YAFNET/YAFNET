@@ -19,137 +19,141 @@
 
 namespace YAF.Controls
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.Web.UI;
+    using System;
+    using System.Web.UI;
 
-  using YAF.Core;
-  using YAF.Types.Extensions;
-  using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Classes.Data;
-  using YAF.Types.Interfaces.Data;
-  using YAF.Utils;
-  using YAF.Types;
-  using YAF.Types.Interfaces;
-
-  #endregion
-
-  /// <summary>
-  /// Summary description for ForumUsers.
-  /// </summary>
-  public class ForumUsers : BaseControl
-  {
-    #region Constants and Fields
-
-    /// <summary>
-    ///   The _active users.
-    /// </summary>
-    private readonly ActiveUsers _activeUsers = new ActiveUsers();
+    using YAF.Classes;
+    using YAF.Core;
+    using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
+    using YAF.Types.Constants;
+    using YAF.Classes.Data;
+    using YAF.Types.Interfaces.Data;
+    using YAF.Types.Models;
+    using YAF.Utils;
+    using YAF.Types;
+    using YAF.Types.Interfaces;
 
     #endregion
 
-    #region Constructors and Destructors
-
     /// <summary>
-    ///   Initializes a new instance of the <see cref = "ForumUsers" /> class.
+    /// Summary description for ForumUsers.
     /// </summary>
-    public ForumUsers()
+    public class ForumUsers : BaseControl
     {
-      this._activeUsers.ID = this.GetUniqueID("ActiveUsers");
-      this.Load += this.ForumUsers_Load;
+        #region Constants and Fields
+
+        /// <summary>
+        ///   The _active users.
+        /// </summary>
+        private readonly ActiveUsers _activeUsers = new ActiveUsers();
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        ///   Initializes a new instance of the <see cref = "ForumUsers" /> class.
+        /// </summary>
+        public ForumUsers()
+        {
+            this._activeUsers.ID = this.GetUniqueID("ActiveUsers");
+            this.Load += this.ForumUsers_Load;
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        ///   Gets or sets a value indicating whether TreatGuestAsHidden.
+        /// </summary>
+        public bool TreatGuestAsHidden
+        {
+            get
+            {
+                return this._activeUsers.TreatGuestAsHidden;
+            }
+
+            set
+            {
+                this._activeUsers.TreatGuestAsHidden = value;
+            }
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// The render.
+        /// </summary>
+        /// <param name="writer">
+        /// The writer.
+        /// </param>
+        protected override void Render([NotNull] HtmlTextWriter writer)
+        {
+            // Ederon : 07/14/2007
+            if (!this.Get<YafBoardSettings>().ShowBrowsingUsers)
+            {
+                return;
+            }
+
+            bool bTopic = this.PageContext.PageTopicID > 0;
+
+            if (bTopic)
+            {
+                writer.WriteLine(@"<tr id=""{0}"" class=""header2"">".FormatWith(this.ClientID));
+                writer.WriteLine(
+                  "<td colspan=\"3\">{0}</td>".FormatWith(this.GetText("TOPICBROWSERS")));
+                writer.WriteLine("</tr>");
+                writer.WriteLine("<tr class=\"post\">");
+                writer.WriteLine("<td colspan=\"3\">");
+            }
+            else
+            {
+                writer.WriteLine(@"<tr id=""{0}"" class=""header2"">".FormatWith(this.ClientID));
+                writer.WriteLine("<td colspan=\"6\">{0}</td>".FormatWith(this.GetText("FORUMUSERS")));
+                writer.WriteLine("</tr>");
+                writer.WriteLine("<tr class=\"post\">");
+                writer.WriteLine("<td colspan=\"6\">");
+            }
+
+            base.Render(writer);
+
+            writer.WriteLine("</td>");
+            writer.WriteLine("</tr>");
+        }
+
+        /// <summary>
+        /// The forum users_ load.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void ForumUsers_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            bool inTopic = this.PageContext.PageTopicID > 0;
+
+            if (this._activeUsers.ActiveUserTable == null)
+            {
+                bool useStyledNicks = this.Get<YafBoardSettings>().UseStyledNicks;
+
+                this._activeUsers.ActiveUserTable =
+                    inTopic
+                        ? this.GetRepository<Active>().ListTopic(this.PageContext.PageTopicID, useStyledNicks)
+                        : this.GetRepository<Active>().ListForum(this.PageContext.PageForumID, useStyledNicks);
+            }
+
+            // add it...
+            this.Controls.Add(this._activeUsers);
+        }
+
+        #endregion
     }
-
-    #endregion
-
-    #region Properties
-
-    /// <summary>
-    ///   Gets or sets a value indicating whether TreatGuestAsHidden.
-    /// </summary>
-    public bool TreatGuestAsHidden
-    {
-      get
-      {
-        return this._activeUsers.TreatGuestAsHidden;
-      }
-
-      set
-      {
-        this._activeUsers.TreatGuestAsHidden = value;
-      }
-    }
-
-    #endregion
-
-    #region Methods
-
-    /// <summary>
-    /// The render.
-    /// </summary>
-    /// <param name="writer">
-    /// The writer.
-    /// </param>
-    protected override void Render([NotNull] HtmlTextWriter writer)
-    {
-      // Ederon : 07/14/2007
-      if (!this.PageContext.BoardSettings.ShowBrowsingUsers)
-      {
-        return;
-      }
-
-      bool bTopic = this.PageContext.PageTopicID > 0;
-
-      if (bTopic)
-      {
-        writer.WriteLine(@"<tr id=""{0}"" class=""header2"">".FormatWith(this.ClientID));
-        writer.WriteLine(
-          "<td colspan=\"3\">{0}</td>".FormatWith(this.GetText("TOPICBROWSERS")));
-        writer.WriteLine("</tr>");
-        writer.WriteLine("<tr class=\"post\">");
-        writer.WriteLine("<td colspan=\"3\">");
-      }
-      else
-      {
-        writer.WriteLine(@"<tr id=""{0}"" class=""header2"">".FormatWith(this.ClientID));
-        writer.WriteLine("<td colspan=\"6\">{0}</td>".FormatWith(this.GetText("FORUMUSERS")));
-        writer.WriteLine("</tr>");
-        writer.WriteLine("<tr class=\"post\">");
-        writer.WriteLine("<td colspan=\"6\">");
-      }
-
-      base.Render(writer);
-
-      writer.WriteLine("</td>");
-      writer.WriteLine("</tr>");
-    }
-
-    /// <summary>
-    /// The forum users_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    private void ForumUsers_Load([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      bool bTopic = this.PageContext.PageTopicID > 0;
-
-      if (this._activeUsers.ActiveUserTable == null)
-      {
-        this._activeUsers.ActiveUserTable =
-          this.Get<IDBBroker>().StyleTransformDataTable(
-            bTopic
-              ? LegacyDb.active_listtopic(this.PageContext.PageTopicID, this.PageContext.BoardSettings.UseStyledNicks)
-              : LegacyDb.active_listforum(this.PageContext.PageForumID, this.PageContext.BoardSettings.UseStyledNicks));
-      }
-
-      // add it...
-      this.Controls.Add(this._activeUsers);
-    }
-
-    #endregion
-  }
 }

@@ -199,7 +199,7 @@ namespace YAF.Core.Services
     {
       if (this._favoriteTopicList == null)
       {
-        this._favoriteTopicList = YafContext.Current.Get<IDBBroker>().FavoriteTopicList(YafContext.Current.PageUserID);
+        this._favoriteTopicList = YafContext.Current.Get<YafDbBroker>().FavoriteTopicList(YafContext.Current.PageUserID);
       }
     }
 

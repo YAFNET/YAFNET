@@ -23,6 +23,7 @@ namespace YAF.Controls
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -51,7 +52,7 @@ namespace YAF.Controls
         {
             get
             {
-                return this.Get<IDBBroker>().GetShoutBoxMessages(YafContext.Current.PageBoardID);
+                return this.Get<YafDbBroker>().GetShoutBoxMessages(YafContext.Current.PageBoardID);
             }
         }
 

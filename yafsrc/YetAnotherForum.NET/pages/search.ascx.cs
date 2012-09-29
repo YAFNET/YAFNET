@@ -31,6 +31,7 @@ namespace YAF.Pages
     using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
 
+    using YAF.Core.Services;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces.Data;
 
@@ -670,7 +671,7 @@ namespace YAF.Pages
             var pagedData = this.Get<IYafSession>().SearchData.AsEnumerable().ToList().GetPaged(this.Pager);
 
             // only load required messages
-            this.Get<IDBBroker>().LoadMessageText(pagedData);
+            this.Get<YafDbBroker>().LoadMessageText(pagedData);
 
             this.SearchRes.DataSource = pagedData;
             this.SearchRes.DataBind();

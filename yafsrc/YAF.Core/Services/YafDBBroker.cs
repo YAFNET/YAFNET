@@ -45,17 +45,17 @@ namespace YAF.Core.Services
     /// <summary>
     ///     Class used for multi-step DB operations so they can be cached, etc.
     /// </summary>
-    public class YafDBBroker : IDBBroker, IHaveServiceLocator
+    public class YafDbBroker : IHaveServiceLocator
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="YafDBBroker" /> class.
+        ///     Initializes a new instance of the <see cref="YafDbBroker" /> class.
         /// </summary>
         /// <param name="serviceLocator"> The service locator. </param>
         /// <param name="httpSessionState"> The http session state. </param>
         /// <param name="dataCache"> The data cache. </param>
-        public YafDBBroker(
+        public YafDbBroker(
             IServiceLocator serviceLocator,
             YafBoardSettings boardSettings,
             HttpSessionStateBase httpSessionState,
@@ -315,25 +315,10 @@ namespace YAF.Core.Services
         /// <param name="guests"> The guests. </param>
         /// <param name="crawlers"> The bots. </param>
         /// <returns> Returns the active list. </returns>
-        public DataTable GetActiveList(bool guests, bool crawlers)
+        public DataTable GetActiveList(bool guests, bool crawlers, int? activeTime = null)
         {
-            return this.GetActiveList(this.BoardSettings.ActiveListTime, guests, crawlers);
-        }
-
-        /// <summary>
-        ///     The get active list.
-        /// </summary>
-        /// <param name="activeTime"> The active time. </param>
-        /// <param name="guests"> The guests. </param>
-        /// <param name="crawlers"> The crawlers. </param>
-        /// <returns> Returns the active list. </returns>
-        public DataTable GetActiveList(int activeTime, bool guests, bool crawlers)
-        {
-            return
-                this.DbFunction.GetAsDataTable(
-                    cdb =>
-                    cdb.active_list(
-                        YafContext.Current.PageBoardID, guests, crawlers, activeTime, this.BoardSettings.UseStyledNicks, DateTime.UtcNow));
+            return this.GetRepository<Active>().List(
+                guests, crawlers, activeTime ?? this.BoardSettings.ActiveListTime, this.BoardSettings.UseStyledNicks);
         }
 
         /// <summary>

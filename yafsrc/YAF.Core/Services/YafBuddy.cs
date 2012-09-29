@@ -44,7 +44,7 @@ namespace YAF.Core.Services
     /// <summary>
     /// The _db broker.
     /// </summary>
-    private readonly IDBBroker _dbBroker;
+    private readonly YafDbBroker _dbBroker;
 
     #endregion
 
@@ -59,7 +59,7 @@ namespace YAF.Core.Services
     /// <param name="dbBroker">
     /// The db broker.
     /// </param>
-    public YafBuddy([NotNull] IServiceLocator serviceLocator, [NotNull] IDBBroker dbBroker)
+    public YafBuddy([NotNull] IServiceLocator serviceLocator, [NotNull] YafDbBroker dbBroker)
     {
       this.ServiceLocator = serviceLocator;
       this._dbBroker = dbBroker;

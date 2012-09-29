@@ -86,7 +86,7 @@ namespace YAF.Core.Services
         /// </param>
         public void ToModeratorsThatMessageNeedsApproval(int forumId, int newMessageId)
         {
-            var moderatorsFiltered = this.Get<IDBBroker>().GetAllModerators().Where(f => f.ForumID.Equals(forumId));
+            var moderatorsFiltered = this.Get<YafDbBroker>().GetAllModerators().Where(f => f.ForumID.Equals(forumId));
             var moderatorUserNames = new List<string>();
 
             foreach (var moderator in moderatorsFiltered)
@@ -150,7 +150,7 @@ namespace YAF.Core.Services
             try
             {
                 var moderatorsFiltered =
-                    this.Get<IDBBroker>().GetAllModerators().Where(f => f.ForumID.Equals(pageForumID));
+                    this.Get<YafDbBroker>().GetAllModerators().Where(f => f.ForumID.Equals(pageForumID));
                 var moderatorUserNames = new List<string>();
 
                 foreach (var moderator in moderatorsFiltered)

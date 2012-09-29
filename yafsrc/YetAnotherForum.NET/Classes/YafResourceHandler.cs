@@ -508,7 +508,7 @@ namespace YAF
                 var activeUsers = this.Get<IDataCache>().GetOrSet(
                     Constants.Cache.UsersOnlineStatus,
                     () =>
-                    this.Get<IDBBroker>().GetActiveList(
+                    this.Get<YafDbBroker>().GetActiveList(
                         false, YafContext.Current.Get<YafBoardSettings>().ShowCrawlersInActiveList),
                     TimeSpan.FromMilliseconds(YafContext.Current.Get<YafBoardSettings>().OnlineStatusCacheTimeout));
 

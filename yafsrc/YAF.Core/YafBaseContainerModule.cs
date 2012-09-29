@@ -146,7 +146,7 @@ namespace YAF.Core
             builder.RegisterType<YafBBCode>().As<IBBCode>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<YafFormatMessage>().As<IFormatMessage>().InstancePerLifetimeScope().
                 PreserveExistingDefaults();
-            builder.RegisterType<YafDBBroker>().As<IDBBroker>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<YafDbBroker>().AsSelf().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<YafAvatars>().As<IAvatars>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<TreatCacheKeyWithBoard>().As<ITreatCacheKey>().InstancePerLifetimeScope().
                 PreserveExistingDefaults();

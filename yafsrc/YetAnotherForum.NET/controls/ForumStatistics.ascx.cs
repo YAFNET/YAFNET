@@ -28,11 +28,13 @@ namespace YAF.Controls
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -256,13 +258,14 @@ namespace YAF.Controls
             // Active users : Call this before forum_stats to clean up active users
             DataTable activeUsers = this.Get<IDataCache>().GetOrSet(
               Constants.Cache.UsersOnlineStatus,
-              () => this.Get<IDBBroker>().GetActiveList(false, this.Get<YafBoardSettings>().ShowCrawlersInActiveList),
+              () => this.Get<YafDbBroker>().GetActiveList(false, this.Get<YafBoardSettings>().ShowCrawlersInActiveList),
               TimeSpan.FromMilliseconds(this.Get<YafBoardSettings>().OnlineStatusCacheTimeout));
 
             this.ActiveUsers1.ActiveUserTable = activeUsers;
 
             // "Active Users" Count and Most Users Count 
-            DataRow activeStats = LegacyDb.active_stats(this.PageContext.PageBoardID);
+            DataRow activeStats = this.GetRepository<Active>().Stats();
+
             this.ActiveUserCount.Text = this.FormatActiveUsers(activeStats);
 
             // Tommy MOD "Recent Users" Count.
@@ -270,8 +273,9 @@ namespace YAF.Controls
             {
                 var activeUsers30Day = this.Get<IDataCache>().GetOrSet(
                     Constants.Cache.VisitorsInTheLast30Days,
-                    () => this.Get<IDBBroker>().GetRecentUsers(60*24*30),
+                    () => this.Get<YafDbBroker>().GetRecentUsers(60 * 24 * 30),
                     TimeSpan.FromMinutes(this.Get<YafBoardSettings>().ForumStatisticsCacheTimeout));
+
                 if (activeUsers30Day != null && activeUsers30Day.Rows.Count > 0)
                 {
                     var activeUsers1Day1 =
@@ -350,7 +354,7 @@ namespace YAF.Controls
                     "stats_lastpost",
                     new DisplayDateTime
                         {
-                            DateTime = postsStatisticsDataRow["LastPost"], 
+                            DateTime = postsStatisticsDataRow["LastPost"],
                             Format = DateTimeFormat.BothTopic
                         }.RenderToString());
             }

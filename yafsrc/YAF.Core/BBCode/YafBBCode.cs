@@ -32,6 +32,7 @@ namespace YAF.Core.BBCode
 
     using YAF.Classes;
     using YAF.Core.BBCode.ReplaceRules;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -337,7 +338,7 @@ namespace YAF.Core.BBCode
         {
             CodeContracts.ArgumentNotNull(rules, "rules");
 
-            var smiles = this.Get<IDBBroker>().GetSmilies();
+            var smiles = this.Get<YafDbBroker>().GetSmilies();
             int codeOffset = 0;
 
             foreach (var smile in smiles)
@@ -987,7 +988,7 @@ namespace YAF.Core.BBCode
         /// </param>
         public void RegisterCustomBBCodePageElements(Page currentPage, Type currentType, string editorID)
         {
-            var bbCodeTable = this.Get<IDBBroker>().GetCustomBBCode();
+            var bbCodeTable = this.Get<YafDbBroker>().GetCustomBBCode();
             const string ScriptID = "custombbcode";
             var jsScriptBuilder = new StringBuilder();
             var cssBuilder = new StringBuilder();
@@ -1053,7 +1054,7 @@ namespace YAF.Core.BBCode
         /// </param>
         protected void AddCustomBBCodeRules(IProcessReplaceRules rulesEngine)
         {
-            var bbcodeTable = this.Get<IDBBroker>().GetCustomBBCode();
+            var bbcodeTable = this.Get<YafDbBroker>().GetCustomBBCode();
 
             // handle custom bbcodes row by row...
             foreach (var codeRow in

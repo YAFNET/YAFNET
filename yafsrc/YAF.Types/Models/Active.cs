@@ -18,28 +18,24 @@
  */
 namespace YAF.Types.Models
 {
-    #region Using
-
     using System;
     using System.Data.Linq.Mapping;
 
     using YAF.Types.Interfaces.Data;
 
-    #endregion
-
     /// <summary>
-    ///     A class which represents the yaf_Smiley table in the Yaf Database.
+    ///     A class which represents the Active table.
     /// </summary>
     [Serializable]
-    [Table(Name = "Smiley")]
-    public partial class Smiley : IEntity
+    [Table(Name = "Active")]
+    public partial class Active : IEntity
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="Smiley" /> class.
+        /// Initializes a new instance of the <see cref="Active"/> class.
         /// </summary>
-        public Smiley()
+        public Active()
         {
             this.OnCreated();
         }
@@ -49,41 +45,76 @@ namespace YAF.Types.Models
         #region Public Properties
 
         /// <summary>
-        ///     Gets or sets the board id.
+        /// Gets or sets the board id.
         /// </summary>
         public int BoardID { get; set; }
 
         /// <summary>
-        ///     Gets or sets the code.
+        /// Gets or sets the browser.
         /// </summary>
-        public string Code { get; set; }
+        public string Browser { get; set; }
 
         /// <summary>
-        ///     Gets or sets the emoticon.
+        /// Gets or sets the flags.
         /// </summary>
-        public string Emoticon { get; set; }
+        public int? Flags { get; set; }
 
         /// <summary>
-        ///     Gets or sets the icon.
+        /// Gets or sets the forum id.
         /// </summary>
-        public string Icon { get; set; }
+        public int? ForumID { get; set; }
 
         /// <summary>
-        ///     Gets or sets the smiley id.
+        /// Gets or sets the forum page.
         /// </summary>
-        public int SmileyID { get; set; }
+        public string ForumPage { get; set; }
 
         /// <summary>
-        ///     Gets or sets the sort order.
+        /// Gets or sets the ip.
         /// </summary>
-        public byte SortOrder { get; set; }
+        public string IP { get; set; }
+
+        /// <summary>
+        /// Gets or sets the last active.
+        /// </summary>
+        public DateTime LastActive { get; set; }
+
+        /// <summary>
+        /// Gets or sets the location.
+        /// </summary>
+        public string Location { get; set; }
+
+        /// <summary>
+        /// Gets or sets the login.
+        /// </summary>
+        public DateTime Login { get; set; }
+
+        /// <summary>
+        /// Gets or sets the platform.
+        /// </summary>
+        public string Platform { get; set; }
+
+        /// <summary>
+        /// Gets or sets the session id.
+        /// </summary>
+        public string SessionID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the topic id.
+        /// </summary>
+        public int? TopicID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user id.
+        /// </summary>
+        public int UserID { get; set; }
 
         #endregion
 
         #region Methods
 
         /// <summary>
-        ///     The on created.
+        /// The on created.
         /// </summary>
         partial void OnCreated();
 

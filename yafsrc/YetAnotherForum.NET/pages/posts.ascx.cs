@@ -1098,7 +1098,7 @@ namespace YAF.Pages
             // Add thanks info and styled nicks if they are enabled
             if (this.Get<YafBoardSettings>().EnableThanksMod)
             {
-                this.Get<IDBBroker>().AddThanksInfo(dataRows: pagedData);
+                this.Get<YafDbBroker>().AddThanksInfo(dataRows: pagedData);
             }
 
             // if current index is 0 we are on the first page and the metadata can be added.

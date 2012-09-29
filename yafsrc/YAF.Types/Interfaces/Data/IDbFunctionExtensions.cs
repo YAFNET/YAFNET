@@ -129,32 +129,6 @@ namespace YAF.Types.Interfaces.Data
             return ((object)function(dbFunction.Scalar)).ToType<T>();
         }
 
-        /// <summary>
-        /// Gets Typed IDataLoadable objects through the data reader.
-        /// </summary>
-        /// <param name="dbFunctionSession">
-        /// The db function. 
-        /// </param>
-        /// <param name="function">
-        /// The function. 
-        /// </param>
-        /// <typeparam name="T">
-        /// </typeparam>
-        /// <returns>
-        /// The <see cref="IList{T}"/> . 
-        /// </returns>
-        public static IList<T> GetTypedAs<T>([NotNull] this IDbFunctionSession dbFunctionSession, [NotNull] Func<dynamic, object> function)
-            where T : IDataLoadable, new()
-        {
-            CodeContracts.ArgumentNotNull(dbFunctionSession, "dbFunctionSession");
-            CodeContracts.ArgumentNotNull(function, "function");
-
-            using (var dataReader = (IDataReader)function(dbFunctionSession.GetReader))
-            {
-                return dataReader.Typed<T>();
-            }
-        }
-
         #endregion
     }
 }

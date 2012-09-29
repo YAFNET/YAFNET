@@ -16,46 +16,29 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Types.Interfaces.Data
+namespace YAF.Types.Models
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
+    using YAF.Types.Interfaces.Data;
 
     /// <summary>
-    ///     The DbFunctionSession interface.
+    /// The active access repository extensions.
     /// </summary>
-    public interface IDbFunctionSession : IDbFunction, IDisposable
+    public static class ActiveAccessRepositoryExtensions
     {
-        #region Public Properties
-
-        /// <summary>
-        ///     Gets or sets the current Db Transaction
-        /// </summary>
-        IDbTransaction DbTransaction { get; }
-
-        /// <summary>
-        /// Gets the get reader.
-        /// </summary>
-        dynamic GetReader { get; }
-
-        #endregion
-
         #region Public Methods and Operators
 
         /// <summary>
-        /// The get typed.
+        /// The reset.
         /// </summary>
-        /// <param name="getFunction">
-        /// The get function. 
+        /// <param name="repository">
+        /// The repository.
         /// </param>
-        /// <typeparam name="T">
-        /// </typeparam>
-        /// <returns>
-        /// The <see cref="IList"/> . 
-        /// </returns>
-        IList<T> GetTyped<T>(Func<dynamic, object> getFunction)
-            where T : new();
+        public static void Reset(this IRepository<ActiveAccess> repository)
+        {
+            CodeContracts.ArgumentNotNull(repository, "repository");
+
+            repository.DbFunction.Query.activeaccess_reset();
+        }
 
         #endregion
     }

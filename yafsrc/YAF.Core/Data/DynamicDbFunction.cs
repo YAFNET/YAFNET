@@ -26,9 +26,10 @@ namespace YAF.Core.Data
     using System.Dynamic;
     using System.Linq;
 
+    using Omu.ValueInjecter;
+
     using YAF.Types;
     using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
     #endregion
@@ -81,7 +82,7 @@ namespace YAF.Core.Data
         private readonly TryInvokeMemberProxy _scalarProxy;
 
         /// <summary>
-        /// The _db transaction.
+        ///     The _db transaction.
         /// </summary>
         private IDbTransaction _dbTransaction;
 
@@ -235,6 +236,37 @@ namespace YAF.Core.Data
             this._dbTransaction = null;
         }
 
+        /// <summary>
+        /// The get typed.
+        /// </summary>
+        /// <param name="getFunction">
+        /// The get function. 
+        /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="IList"/> . 
+        /// </returns>
+        public IList<T> GetTyped<T>(Func<dynamic, object> getFunction)
+            where T : new()
+        {
+            var objectList = new List<T>();
+
+            using (var dataReader = (IDataReader)getFunction(this.GetReader))
+            {
+                while (dataReader.Read())
+                {
+                    var o = new T();
+                    o.InjectFrom<DataRecordInjection>(dataReader);
+                    objectList.Add(o);
+                }
+
+                dataReader.Close();
+            }
+
+            return objectList;
+        }
+
         #endregion
 
         #region Methods
@@ -288,17 +320,8 @@ namespace YAF.Core.Data
                 }
             }
 
-            // execute filter...
-            var filterFunctions = this._dbFilterFunctions()
-                .BySortOrder()
-                .WhereOperationSupported(operationName)
-                .ToList();
-
-            foreach (var filter in filterFunctions)
-            {
-                filter.Run(functionType, operationName, parameters, result);
-            }
-
+            this.RunFilters(functionType, parameters, operationName, ref result);
+ 
             return true;
         }
 
@@ -474,6 +497,35 @@ namespace YAF.Core.Data
             }
 
             return argsPairs;
+        }
+
+        /// <summary>
+        /// The run filters.
+        /// </summary>
+        /// <param name="functionType">
+        /// The function type.
+        /// </param>
+        /// <param name="parameters">
+        /// The parameters.
+        /// </param>
+        /// <param name="operationName">
+        /// The operation name.
+        /// </param>
+        /// <param name="result">
+        /// The result.
+        /// </param>
+        private void RunFilters(DbFunctionType functionType, IList<KeyValuePair<string, object>> parameters, string operationName, ref object result)
+        {
+            // execute filter...
+            var filterFunctions = this._dbFilterFunctions()
+                .BySortOrder()
+                .WhereOperationSupported(operationName)
+                .ToList();
+
+            foreach (var filter in filterFunctions)
+            {
+                filter.Run(functionType, operationName, parameters, result);
+            }
         }
 
         #endregion

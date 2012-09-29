@@ -97,7 +97,7 @@ namespace YAF.Types.Models
 
             using (var functionSession = repository.DbFunction.CreateSession())
             {
-                return functionSession.GetTypedAs<Smiley>(r => r.smiley_list(BoardID: boardId ?? repository.BoardId, SmileyID: smileyID));
+                return functionSession.GetTyped<Smiley>(r => r.smiley_list(BoardID: boardId ?? repository.BoardId, SmileyID: smileyID));
             }
         }
 

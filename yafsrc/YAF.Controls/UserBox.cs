@@ -635,7 +635,7 @@ namespace YAF.Controls
 
             if (this.Get<YafBoardSettings>().ShowMedals)
             {
-                DataTable dt = this.Get<IDBBroker>().UserMedals(this.UserId);
+                DataTable dt = this.Get<YafDbBroker>().UserMedals(this.UserId);
 
                 // vzrus: If user doesn't have we shouldn't render this waisting resources
                 if (dt.Rows.Count <= 0)

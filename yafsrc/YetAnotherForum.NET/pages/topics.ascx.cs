@@ -30,6 +30,7 @@ namespace YAF.Pages
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -329,7 +330,7 @@ namespace YAF.Pages
         /// </summary>
         private void BindData()
         {
-            DataSet ds = this.Get<IDBBroker>().BoardLayout(
+            DataSet ds = this.Get<YafDbBroker>().BoardLayout(
                 this.PageContext.PageBoardID,
                 this.PageContext.PageUserID,
                 this.PageContext.PageCategoryID,

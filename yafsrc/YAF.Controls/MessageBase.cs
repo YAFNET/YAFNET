@@ -29,6 +29,7 @@ namespace YAF.Controls
     using System.Web.UI;
 
     using YAF.Core;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
@@ -65,7 +66,7 @@ namespace YAF.Controls
                   "CustomBBCodeRegExDictionary",
                   () =>
                   {
-                      var bbcodeTable = this.Get<IDBBroker>().GetCustomBBCode();
+                      var bbcodeTable = this.Get<YafDbBroker>().GetCustomBBCode();
                   	return
                   		bbcodeTable.Where(b => (b.UseModule ?? false) && b.ModuleClass.IsSet() && b.SearchRegex.IsSet()).
                   			ToDictionary(codeRow => codeRow, codeRow => new Regex(codeRow.SearchRegex, _Options));
