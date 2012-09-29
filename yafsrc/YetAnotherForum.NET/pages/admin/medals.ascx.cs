@@ -34,6 +34,7 @@ namespace YAF.Pages.Admin
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -103,19 +104,18 @@ namespace YAF.Pages.Admin
                     YafBuildLink.Redirect(ForumPages.admin_editmedal, "m={0}", e.CommandArgument);
                     break;
                 case "delete":
-
                     // delete medal
-                    LegacyDb.medal_delete(e.CommandArgument);
+                    this.GetRepository<Medal>().Delete(e.CommandArgument.ToType<int>());
 
                     // re-bind data
                     this.BindData();
                     break;
                 case "moveup":
-                    LegacyDb.medal_resort(this.PageContext.PageBoardID, e.CommandArgument, -1);
+                    this.GetRepository<Medal>().Resort(e.CommandArgument.ToType<int>(), -1);
                     this.BindData();
                     break;
                 case "movedown":
-                    LegacyDb.medal_resort(this.PageContext.PageBoardID, e.CommandArgument, 1);
+                    this.GetRepository<Medal>().Resort(e.CommandArgument.ToType<int>(), 1);
                     this.BindData();
                     break;
             }
@@ -202,7 +202,7 @@ namespace YAF.Pages.Admin
         private void BindData()
         {
             // list medals for this board
-            this.MedalList.DataSource = LegacyDb.medal_list(this.PageContext.PageBoardID, null);
+            this.MedalList.DataSource = this.GetRepository<Medal>().List();
 
             // bind data to controls
             this.DataBind();

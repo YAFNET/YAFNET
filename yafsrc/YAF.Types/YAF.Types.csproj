@@ -100,6 +100,8 @@
     <Compile Include="Models\ActiveAccess.cs" />
     <Compile Include="Models\ActiveAccessRepositoryExtensions.cs" />
     <Compile Include="Models\ActiveRepositoryExtensions.cs" />
+    <Compile Include="Models\MedalRepositoryExtensions.cs" />
+    <Compile Include="Models\Medal.cs" />
     <Compile Include="Models\Smiley.cs" />
     <Compile Include="Models\SmileyRepositoryExtensions.cs" />
     <Compile Include="Objects\MessageNotification.cs" />

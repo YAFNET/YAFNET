@@ -38,6 +38,7 @@ namespace YAF.Pages.Admin
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -577,7 +578,7 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            short sortOrder;
+            byte sortOrder;
 
             if (!ValidationHelper.IsValidPosShort(this.SortOrder.Text.Trim()))
             {
@@ -585,23 +586,23 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            if (!short.TryParse(this.SortOrder.Text.Trim(), out sortOrder))
+            if (!byte.TryParse(this.SortOrder.Text.Trim(), out sortOrder))
             {
                 this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_CATEGORY"), MessageTypes.Warning);
                 return;
             }
 
             // data
-            object medalID = null;
-            object ribbonURL = null, smallRibbonURL = null;
-            object ribbonWidth = null, ribbonHeight = null;
+            int? medalID = null;
+            string ribbonURL = null, smallRibbonURL = null;
+            short? ribbonWidth = null, ribbonHeight = null;
             Size imageSize;
             var flags = new MedalFlags(0);
 
             // retrieve medal ID, use null if we are creating new one
             if (this.Request.QueryString.GetFirstOrDefault("m") != null)
             {
-                medalID = this.Request.QueryString.GetFirstOrDefault("m");
+                medalID = this.Request.QueryString.GetFirstOrDefaultAs<int>("m");
             }
 
             // flags
@@ -611,8 +612,8 @@ namespace YAF.Pages.Admin
             flags.AllowHiding = this.AllowHiding.Checked;
 
             // get medal images
-            object imageURL = this.MedalImage.SelectedValue;
-            object smallImageURL = this.SmallMedalImage.SelectedValue;
+            string imageURL = this.MedalImage.SelectedValue;
+            string smallImageURL = this.SmallMedalImage.SelectedValue;
             if (this.RibbonImage.SelectedIndex > 0)
             {
                 ribbonURL = this.RibbonImage.SelectedValue;
@@ -623,31 +624,30 @@ namespace YAF.Pages.Admin
                 smallRibbonURL = this.SmallRibbonImage.SelectedValue;
 
                 imageSize = this.GetImageSize(smallRibbonURL.ToString());
-                ribbonWidth = imageSize.Width;
-                ribbonHeight = imageSize.Height;
+                ribbonWidth = imageSize.Width.ToType<short>();
+                ribbonHeight = imageSize.Height.ToType<short>();
             }
 
             // get size of small image
             imageSize = this.GetImageSize(smallImageURL.ToString());
 
             // save medal
-            LegacyDb.medal_save(
-              this.PageContext.PageBoardID,
-              medalID,
-              this.Name.Text,
-              this.Description.Text,
-              this.Message.Text,
-              this.Category.Text,
-              imageURL,
-              ribbonURL,
-              smallImageURL,
-              smallRibbonURL,
-              imageSize.Width,
-              imageSize.Height,
-              ribbonWidth,
-              ribbonHeight,
-              sortOrder,
-              flags.BitValue);
+            this.GetRepository<Medal>().Save(
+                medalID,
+                this.Name.Text,
+                this.Description.Text,
+                this.Message.Text,
+                this.Category.Text,
+                imageURL,
+                ribbonURL,
+                smallImageURL,
+                smallRibbonURL,
+                (short)imageSize.Width,
+                (short)imageSize.Height,
+                ribbonWidth,
+                ribbonHeight,
+                sortOrder,
+                flags.BitValue);
 
             // go back to medals administration
             YafBuildLink.Redirect(ForumPages.admin_medals);
@@ -795,7 +795,7 @@ namespace YAF.Pages.Admin
                 this.AddUserRow.Visible = true;
                 this.AddGroupRow.Visible = true;
 
-                using (DataTable dt = LegacyDb.medal_list(this.Request.QueryString.GetFirstOrDefault("m")))
+                using (DataTable dt = this.GetRepository<Medal>().List(this.Request.QueryString.GetFirstOrDefaultAs<int>("m")))
                 {
                     // get data row
                     DataRow row = dt.Rows[0];
