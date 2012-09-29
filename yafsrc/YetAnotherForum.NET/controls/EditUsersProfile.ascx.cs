@@ -120,7 +120,11 @@ namespace YAF.Controls
         {
             get
             {
-                return this._userData ?? (this._userData = new CombinedUserDataHelper(this.currentUserID));
+                return _userData ?? (_userData = new CombinedUserDataHelper(this.currentUserID));
+            }
+            set
+            {
+                _userData = value;
             }
         }
 
@@ -449,6 +453,7 @@ namespace YAF.Controls
             }
             else
             {
+                this._userData = null;
                 this.BindData();
             }
         }
