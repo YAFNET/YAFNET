@@ -22,6 +22,9 @@ namespace YAF.DotNetNuke.Utils
     using System;
     using System.Linq;
 
+    using YAF.Types.Interfaces;
+    using YAF.Types.Models;
+
     using global::DotNetNuke.Entities.Modules;
     using global::DotNetNuke.Entities.Users;
     using global::DotNetNuke.Security.Roles;
@@ -83,7 +86,8 @@ namespace YAF.DotNetNuke.Utils
                 }
             }
 
-            LegacyDb.activeaccess_reset();
+            // empty out access table
+            YafContext.Current.GetRepository<ActiveAccess>().Reset();
         }
 
         /// <summary>

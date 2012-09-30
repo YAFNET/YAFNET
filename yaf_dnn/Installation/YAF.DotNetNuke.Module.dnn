@@ -84,6 +84,9 @@
               <name>nStuff.UpdateControls.dll</name>
             </assembly>
             <assembly>
+              <name>Omu.ValueInjecter.dll</name>
+            </assembly>
+            <assembly>
               <name>YAF.Classes.Config.dll</name>
             </assembly>
             <assembly>
