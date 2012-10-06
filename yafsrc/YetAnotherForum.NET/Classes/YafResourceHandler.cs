@@ -534,7 +534,14 @@ namespace YAF
 
                 var forumUrl = context.Request.QueryString.GetFirstOrDefault("forumUrl");
 
-                forumUrl = forumUrl.Replace(".aspx", ".aspx?g={0}&u={1}".FormatWith(ForumPages.pmessage, userId));
+                if (Config.IsMojoPortal)
+                {
+                    forumUrl = forumUrl + "&g={0}&u={1}".FormatWith(ForumPages.pmessage, userId);
+                }
+                else
+                {
+                    forumUrl = forumUrl.Replace(".aspx", ".aspx?g={0}&u={1}".FormatWith(ForumPages.pmessage, userId));
+                }
 
                 var pmButton = new ThemeButton
                                    {
