@@ -532,7 +532,7 @@ namespace YAF
                     location += ", {0}".FormatWith(YafContext.Current.Get<IHaveLocalization>().GetText("REGION", tag));
                 }
 
-                var forumUrl = context.Request.QueryString.GetFirstOrDefault("forumUrl");
+                var forumUrl = HttpUtility.UrlDecode(context.Request.QueryString.GetFirstOrDefault("forumUrl"));
 
                 if (Config.IsMojoPortal)
                 {

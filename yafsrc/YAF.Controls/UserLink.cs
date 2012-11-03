@@ -22,6 +22,7 @@ namespace YAF.Controls
     #region Using
 
     using System;
+    using System.Web;
     using System.Web.UI;
 
     using YAF.Classes;
@@ -172,7 +173,7 @@ namespace YAF.Controls
                     output.WriteAttribute(
                         "data-hovercard",
                         "{0}resource.ashx?userinfo={1}&type=json&forumUrl={2}".FormatWith(
-                            YafForumInfo.ForumClientFileRoot, this.UserID, YafBuildLink.GetLinkNotEscaped(ForumPages.forum)));
+                            YafForumInfo.ForumClientFileRoot, this.UserID, HttpUtility.UrlEncode(YafBuildLink.GetBasePath()));
                 }
                 else
                 {
