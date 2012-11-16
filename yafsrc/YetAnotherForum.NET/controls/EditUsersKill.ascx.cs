@@ -147,11 +147,10 @@ namespace YAF.Controls
         var userData = new CombinedUserDataHelper(user, (int)this.CurrentUserID.Value);
 
         this.ViewPostsLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-            ForumPages.search, 
-            "postedby={0}", 
-            !userData.IsGuest
-                ? userData.Membership.UserName
-                : (userData.DisplayName.IsSet() ? userData.DisplayName : userData.UserName));
+            ForumPages.search,
+            "postedby={0}",
+            !userData.IsGuest ? (this.Get<YafBoardSettings>().EnableDisplayName ? userData.DisplayName : userData.UserName)
+            : (UserMembershipHelper.GuestUserName));
 
         // bind data
         this.BindData();
