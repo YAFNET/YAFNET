@@ -29,6 +29,7 @@ namespace YAF.Core.Services
 
     using YAF.Classes;
     using YAF.Classes.Data;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -353,10 +354,9 @@ namespace YAF.Core.Services
         ///     The get custom bb code.
         /// </summary>
         /// <returns> Returns List with Custom BBCodes </returns>
-        public IEnumerable<TypedBBCode> GetCustomBBCode()
+        public IEnumerable<BBCode> GetCustomBBCode()
         {
-            return this.DataCache.GetOrSet(
-                Constants.Cache.CustomBBCode, () => LegacyDb.BBCodeList(YafContext.Current.PageBoardID, null).ToList());
+            return this.DataCache.GetOrSet(Constants.Cache.CustomBBCode, () => this.GetRepository<BBCode>().ListTyped());
         }
 
         /// <summary>

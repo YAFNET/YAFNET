@@ -21,6 +21,9 @@ namespace YAF.Types.Models
     using System;
     using System.Data.Linq.Mapping;
 
+    using ServiceStack.DataAnnotations;
+
+    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
@@ -28,7 +31,7 @@ namespace YAF.Types.Models
     /// </summary>
     [Serializable]
     [Table(Name = "Active")]
-    public partial class Active : IEntity
+    public partial class Active : IEntity, IHaveBoardID
     {
         #region Constructors and Destructors
 

@@ -19,9 +19,13 @@
 namespace YAF.Core.Data
 {
     using System;
+    using System.ComponentModel;
     using System.Data;
+    using System.Linq;
 
     using Omu.ValueInjecter;
+
+    using ServiceStack.DataAnnotations;
 
     using YAF.Types;
 
@@ -61,11 +65,21 @@ namespace YAF.Core.Data
                     continue;
                 }
 
-                activeTarget.SetValue(
-                    target,
-                    activeTarget.PropertyType != value.GetType()
-                        ? Convert.ChangeType(value, activeTarget.PropertyType)
-                        : value);
+                if (activeTarget.PropertyType == value.GetType())
+                {
+                    activeTarget.SetValue(target, value);
+                }
+                else
+                {
+                    Type conversionType = activeTarget.PropertyType;
+
+                    if (conversionType.IsGenericType && conversionType.GetGenericTypeDefinition() == typeof(Nullable<>))
+                    {
+                        conversionType = (new NullableConverter(conversionType)).UnderlyingType;
+                    }
+
+                    activeTarget.SetValue(target, Convert.ChangeType(value, conversionType));
+                }
             }
         }
 

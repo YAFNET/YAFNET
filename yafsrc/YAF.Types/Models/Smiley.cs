@@ -23,6 +23,9 @@ namespace YAF.Types.Models
     using System;
     using System.Data.Linq.Mapping;
 
+    using ServiceStack.DataAnnotations;
+
+    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
     #endregion
@@ -32,7 +35,7 @@ namespace YAF.Types.Models
     /// </summary>
     [Serializable]
     [Table(Name = "Smiley")]
-    public partial class Smiley : IEntity
+    public partial class Smiley : IEntity, IHaveID, IHaveBoardID
     {
         #region Constructors and Destructors
 
@@ -47,6 +50,13 @@ namespace YAF.Types.Models
         #endregion
 
         #region Public Properties
+
+        /// <summary>
+        ///     Gets or sets the smiley id.
+        /// </summary>
+        [AutoIncrement]
+        [Alias("SmileyID")]
+        public int ID { get; set; }
 
         /// <summary>
         ///     Gets or sets the board id.
@@ -67,11 +77,6 @@ namespace YAF.Types.Models
         ///     Gets or sets the icon.
         /// </summary>
         public string Icon { get; set; }
-
-        /// <summary>
-        ///     Gets or sets the smiley id.
-        /// </summary>
-        public int SmileyID { get; set; }
 
         /// <summary>
         ///     Gets or sets the sort order.

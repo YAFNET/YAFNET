@@ -37,11 +37,13 @@ namespace YAF.Install
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Core.Tasks;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -136,7 +138,18 @@ namespace YAF.Install
         {
             get
             {
-                return LegacyDb.GetIsForumInstalled();
+                try
+                {
+                    using (DataTable dt = this.GetRepository<Board>().List())
+                    {
+                        return dt.Rows.Count > 0;
+                    }
+                }
+                catch
+                {
+                }
+
+                return false;
             }
         }
 
@@ -421,7 +434,7 @@ namespace YAF.Install
 
                     break;
                 case "WizCreateForum":
-                    if (LegacyDb.GetIsForumInstalled())
+                    if (this.IsForumInstalled)
                     {
                         this.InstallWizard.ActiveStepIndex++;
                     }
@@ -957,7 +970,7 @@ namespace YAF.Install
         /// </returns>
         private bool CreateForum()
         {
-            if (LegacyDb.GetIsForumInstalled())
+            if (this.IsForumInstalled)
             {
                 this.AddLoadMessage("Forum is already installed.");
                 return false;
@@ -1429,13 +1442,12 @@ namespace YAF.Install
 
                 // Ederon : 9/7/2007
                 // resync all boards - necessary for propr last post bubbling
-                LegacyDb.board_resync();
+                this.GetRepository<Board>().Resync();
 
                 // upgrade providers...
                 Providers.Membership.DB.Current.UpgradeMembership(prevVersion, YafForumInfo.AppVersion);
 
-                if (LegacyDb.GetIsForumInstalled() && prevVersion < 30
-                    || this.IsForumInstalled && this.UpgradeExtensions.Checked)
+                if (this.IsForumInstalled && prevVersion < 30 || this.IsForumInstalled && this.UpgradeExtensions.Checked)
                 {
                     // load default bbcode if available...
                     if (File.Exists(this.Request.MapPath(_BbcodeImport)))
@@ -1471,13 +1483,13 @@ namespace YAF.Install
                     }
                 }
 
-                if (LegacyDb.GetIsForumInstalled() && prevVersion < 42)
+                if (this.IsForumInstalled && prevVersion < 42)
                 {
                     // un-html encode all topic subject names...
                     LegacyDb.unencode_all_topics_subjects(t => Server.HtmlDecode(t));
                 }
 
-                if (LegacyDb.GetIsForumInstalled() && prevVersion < 49)
+                if (this.IsForumInstalled && prevVersion < 49)
                 {
                     // Reset The UserBox Template
                     this.Get<YafBoardSettings>().UserBox = Constants.UserBox.DisplayTemplateDefault;

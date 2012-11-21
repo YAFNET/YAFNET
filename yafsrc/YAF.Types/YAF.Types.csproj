@@ -69,14 +69,15 @@
     <Compile Include="Extensions\LanguageExtensions.cs" />
     <Compile Include="Extensions\NameValueCollectionExtensions.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
+    <Compile Include="Interfaces\Data\IDbAccessV2Extensions.cs" />
     <Compile Include="Interfaces\Data\IDbSortableOperationExtensions.cs" />
+    <Compile Include="Interfaces\Data\IHaveID.cs" />
     <Compile Include="Interfaces\IPagerExtensions.cs" />
     <Compile Include="Interfaces\IRepositoryExtensions.cs" />
     <Compile Include="Extensions\StreamExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Extensions\ViewStateExtensions.cs" />
-    <Compile Include="Interfaces\Data\ICreateTransaction.cs" />
     <Compile Include="Interfaces\Data\IDataLoadable.cs" />
     <Compile Include="Interfaces\Data\IDbAccessProvider.cs" />
     <Compile Include="Interfaces\Data\IDbAccessV2.cs" />
@@ -88,22 +89,20 @@
     <Compile Include="Interfaces\Data\IDbSpecificFunction.cs" />
     <Compile Include="Interfaces\Data\IRepository.cs" />
     <Compile Include="Interfaces\Data\IDbSpecificFunctionExtensions.cs" />
-    <Compile Include="Interfaces\Data\IDbAccessConnectionExtensions.cs" />
     <Compile Include="Interfaces\Data\IDbFunctionExtensions.cs" />
     <Compile Include="Interfaces\Data\IDbFunctionSessionExtensions.cs" />
     <Compile Include="Interfaces\Data\IEntity.cs" />
     <Compile Include="Interfaces\IPager.cs" />
     <Compile Include="Interfaces\IStyleTransform.cs" />
     <Compile Include="Models\AccessMask.cs" />
-    <Compile Include="Models\AccessMaskRepositoryExtensions.cs" />
     <Compile Include="Models\Active.cs" />
     <Compile Include="Models\ActiveAccess.cs" />
-    <Compile Include="Models\ActiveAccessRepositoryExtensions.cs" />
-    <Compile Include="Models\ActiveRepositoryExtensions.cs" />
-    <Compile Include="Models\MedalRepositoryExtensions.cs" />
+    <Compile Include="Models\Attachment.cs" />
+    <Compile Include="Models\BannedIP.cs" />
+    <Compile Include="Models\BBCode.cs" />
+    <Compile Include="Models\Board.cs" />
     <Compile Include="Models\Medal.cs" />
     <Compile Include="Models\Smiley.cs" />
-    <Compile Include="Models\SmileyRepositoryExtensions.cs" />
     <Compile Include="Objects\MessageNotification.cs" />
     <Compile Include="ThemeResources.cs" />
     <Compile Include="CodeContracts.cs" />
@@ -171,7 +170,7 @@
     <Compile Include="Interfaces\IFavoriteTopic.cs" />
     <Compile Include="Interfaces\Events\IHandleEvent.cs" />
     <Compile Include="Interfaces\IFormatMessage.cs" />
-    <Compile Include="Interfaces\IHaveBoardId.cs" />
+    <Compile Include="Interfaces\IHaveBoardID.cs" />
     <Compile Include="Interfaces\IHaveLocalization.cs" />
     <Compile Include="Interfaces\IHaveLockObject.cs" />
     <Compile Include="Interfaces\IHaveServiceLocator.cs" />
@@ -243,7 +242,19 @@
     <Compile Include="ServiceLocatorAccess.cs" />
     <Compile Include="YafLifetimeScope.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ServiceStack.OrmLite\src\ServiceStack.Interfaces\ServiceStack.Interfaces.csproj">
+      <Project>{42E1C8C0-A163-44CC-92B1-8F416F2C0B01}</Project>
+      <Name>ServiceStack.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServiceStack.OrmLite\src\ServiceStack.OrmLite\ServiceStack.OrmLite.csproj">
+      <Project>{96179ac6-f6f1-40c3-9fdd-4f6582f54c5c}</Project>
+      <Name>ServiceStack.OrmLite</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

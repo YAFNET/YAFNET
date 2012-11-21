@@ -20,6 +20,7 @@ namespace YAF.Types.Interfaces.Data
 {
     #region Using
 
+    using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Data.Common;
@@ -29,7 +30,7 @@ namespace YAF.Types.Interfaces.Data
     /// <summary>
     ///     DBAccess Interface
     /// </summary>
-    public interface IDbAccessV2 : ICreateTransaction
+    public interface IDbAccessV2
     {
         #region Public Properties
 
@@ -69,29 +70,23 @@ namespace YAF.Types.Interfaces.Data
         #region Public Methods and Operators
 
         /// <summary>
-        /// The execute non query.
+        /// The execute.
         /// </summary>
+        /// <param name="execFunc">
+        /// The exec func.
+        /// </param>
         /// <param name="cmd">
-        /// The cmd. 
+        /// The cmd.
         /// </param>
         /// <param name="dbTransaction">
-        /// The unit Of Work. 
+        /// The db transaction.
         /// </param>
-        void ExecuteNonQuery([NotNull] IDbCommand cmd, [CanBeNull] IDbTransaction dbTransaction = null);
-
-        /// <summary>
-        /// The execute scalar.
-        /// </summary>
-        /// <param name="cmd">
-        /// The cmd. 
-        /// </param>
-        /// <param name="dbTransaction">
-        /// The unit Of Work. 
-        /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
         /// <returns>
-        /// The execute scalar. 
+        /// The <see cref="T"/>.
         /// </returns>
-        object ExecuteScalar([NotNull] IDbCommand cmd, [CanBeNull] IDbTransaction dbTransaction = null);
+        T Execute<T>(Func<IDbCommand, T> execFunc, IDbCommand cmd = null, [CanBeNull] IDbTransaction dbTransaction = null);
 
         /// <summary>
         /// The get command.
@@ -106,55 +101,12 @@ namespace YAF.Types.Interfaces.Data
         /// Command Parameters 
         /// </param>
         /// <returns>
-        /// The <see cref="DbCommand"/>.
+        /// The <see cref="DbCommand"/> . 
         /// </returns>
         IDbCommand GetCommand(
             [NotNull] string sql, 
             bool isStoredProcedure = true, 
             [CanBeNull] IEnumerable<KeyValuePair<string, object>> parameters = null);
-
-        /// <summary>
-        /// The get data.
-        /// </summary>
-        /// <param name="cmd">
-        /// The cmd. 
-        /// </param>
-        /// <param name="dbTransaction">
-        /// The unit Of Work. 
-        /// </param>
-        /// <returns>
-        /// The <see cref="DataTable"/>.
-        /// </returns>
-        DataTable GetData([NotNull] IDbCommand cmd, [CanBeNull] IDbTransaction dbTransaction = null);
-
-        /// <summary>
-        /// The get dataset.
-        /// </summary>
-        /// <param name="cmd">
-        /// The cmd. 
-        /// </param>
-        /// <param name="dbTransaction">
-        /// The unit Of Work. 
-        /// </param>
-        /// <returns>
-        /// The <see cref="DataSet"/>.
-        /// </returns>
-        DataSet GetDataset([NotNull] IDbCommand cmd, [CanBeNull] IDbTransaction dbTransaction = null);
-
-        /// <summary>
-        /// The get reader.
-        /// </summary>
-        /// <param name="cmd">
-        /// The cmd.
-        /// </param>
-        /// <param name="readAction"> </param>
-        /// <param name="dbTransaction">
-        /// The unit of work.
-        /// </param>
-        /// <returns>
-        /// The <see cref="IDataReader"/>.
-        /// </returns>
-        IDataReader GetReader([NotNull] IDbCommand cmd, [CanBeNull] IDbTransaction dbTransaction);
 
         #endregion
     }

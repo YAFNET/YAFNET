@@ -21,14 +21,14 @@ namespace YAF.Types.Interfaces
   /// <summary>
   /// The i have board id.
   /// </summary>
-  public interface IHaveBoardId
+  public interface IHaveBoardID
   {
     #region Properties
 
     /// <summary>
     /// Gets BoardId.
     /// </summary>
-    int BoardId { get; }
+    int BoardID { get; }
 
     #endregion
   }

@@ -5,10 +5,12 @@ namespace YAF.Core.Tasks
     #region Using
     using System;
 
+    using YAF.Core.Extensions;
     using YAF.Types.Constants;
     using YAF.Classes.Data;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils; 
     #endregion
 
@@ -91,10 +93,10 @@ namespace YAF.Core.Tasks
 		{
 			try
 			{
-                this.Logger.Info(
-                  "Starting Board delete task for BoardId {0} delete task.",
+                this.Logger.Info("Starting Board delete task for BoardId {0} delete task.",
                   this.BoardIdToDelete);
-			    LegacyDb.board_delete(this.BoardIdToDelete);
+
+			    this.GetRepository<Board>().DeleteByID(this.BoardIdToDelete);
                 this.Logger.Info(
                  "Board delete task for BoardId {0} delete task is completed.",
                  this.BoardIdToDelete);

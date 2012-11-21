@@ -35,6 +35,7 @@ namespace YAF.Controls
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
+    using YAF.Types.Models;
     using YAF.Types.Objects;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -58,19 +59,19 @@ namespace YAF.Controls
         /// <summary>
         /// Gets CustomBBCode.
         /// </summary>
-        protected IDictionary<TypedBBCode, Regex> CustomBBCode
+        protected IDictionary<BBCode, Regex> CustomBBCode
         {
             get
             {
                 return this.Get<IObjectStore>().GetOrSet(
-                  "CustomBBCodeRegExDictionary",
-                  () =>
-                  {
-                      var bbcodeTable = this.Get<YafDbBroker>().GetCustomBBCode();
-                  	return
-                  		bbcodeTable.Where(b => (b.UseModule ?? false) && b.ModuleClass.IsSet() && b.SearchRegex.IsSet()).
-                  			ToDictionary(codeRow => codeRow, codeRow => new Regex(codeRow.SearchRegex, _Options));
-                  });
+                    "CustomBBCodeRegExDictionary",
+                    () =>
+                        {
+                            var bbcodeTable = this.Get<YafDbBroker>().GetCustomBBCode();
+                            return
+                                bbcodeTable.Where(b => (b.UseModule ?? false) && b.ModuleClass.IsSet() && b.SearchRegex.IsSet()).ToDictionary(
+                                    codeRow => codeRow, codeRow => new Regex(codeRow.SearchRegex, _Options));
+                        });
             }
         }
 

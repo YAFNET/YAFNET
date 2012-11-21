@@ -20,6 +20,7 @@ namespace YAF.Pages.Admin
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -61,12 +62,6 @@ namespace YAF.Pages.Admin
         ///   The pmessage prefix.
         /// </summary>
         private const string pmessagePrefix = "pmsg-";
-
-        /// <summary>
-        ///   The board object stats.
-        /// </summary>
-        private DataRow boardObjectStats = LegacyDb.board_poststats(
-            YafContext.Current.PageBoardID, YafContext.Current.Get<YafBoardSettings>().UseStyledNicks, true);
 
         /// <summary>
         ///   The random guid.
@@ -244,7 +239,7 @@ namespace YAF.Pages.Admin
             this.ForumsGroups.DataSource = LegacyDb.group_list(this.PageContext.PageBoardID, null);
 
             // Board lists
-            this.UsersBoardsList.DataSource = LegacyDb.board_list(null);
+            this.UsersBoardsList.DataSource = this.GetRepository<Board>().List(null);
             this.CategoriesBoardsList.DataSource = this.UsersBoardsList.DataSource;
             this.PMessagesBoardsList.DataSource = this.UsersBoardsList.DataSource;
 
@@ -420,22 +415,22 @@ namespace YAF.Pages.Admin
             for (i = 0; i < _boardNumber; i++)
             {
                 string boardName = this.BoardPrefixTB.Text.Trim() + Guid.NewGuid();
-                int curboard = LegacyDb.board_create(
-                    this.PageContext.User.UserName,
-                    this.PageContext.User.Email,
-                    this.PageContext.User.ProviderUserKey,
+                int curboard = this.GetRepository<Board>().Create(
                     boardName,
                     "en-US",
                     "english.xml",
                     this.BoardMembershipName.Text.Trim(),
                     this.BoardRolesName.Text.Trim(),
-                    Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty,
-                    this.PageContext.IsHostAdmin);
+                    this.PageContext.User.UserName,
+                    this.PageContext.User.Email,
+                    this.PageContext.User.ProviderUserKey.ToString(),
+                    this.PageContext.IsHostAdmin,
+                    Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty);
 
                 this.CreateUsers(curboard, _usersNumber);
             }
 
-            return i + " Boards, " + _usersNumber + " Users in each Board; ";
+            return string.Format("{0} Boards, {1} Users in each Board; ", i, _usersNumber);
         }
 
         /// <summary>

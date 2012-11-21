@@ -43,7 +43,7 @@ namespace YAF.Classes.Data
     /// <summary>
     /// The _cmd.
     /// </summary>
-    private string _cmd;
+    public string CurrentSql;
 #endif
 
     /// <summary>
@@ -55,7 +55,7 @@ namespace YAF.Classes.Data
     public QueryCounter(string sql)
     {
 #if DEBUG
-      this._cmd = sql;
+      this.CurrentSql = sql;
 
       if (HttpContext.Current != null)
       {
@@ -83,7 +83,7 @@ namespace YAF.Classes.Data
 
       double duration = (double) this._stopWatch.ElapsedMilliseconds/1000.0;
 
-      this._cmd = "{0}: {1:N3}".FormatWith(this._cmd, duration);
+      this.CurrentSql = "{0}: {1:N3}".FormatWith(this.CurrentSql, duration);
 
       if (HttpContext.Current != null)
       {
@@ -98,11 +98,11 @@ namespace YAF.Classes.Data
 
         if (HttpContext.Current.Items["CmdQueries"] == null)
         {
-          HttpContext.Current.Items["CmdQueries"] = this._cmd;
+          HttpContext.Current.Items["CmdQueries"] = this.CurrentSql;
         }
         else
         {
-          HttpContext.Current.Items["CmdQueries"] += "<br />" + this._cmd;
+          HttpContext.Current.Items["CmdQueries"] += "<br />" + this.CurrentSql;
         }
       }
 

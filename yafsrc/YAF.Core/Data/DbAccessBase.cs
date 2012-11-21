@@ -29,7 +29,6 @@ namespace YAF.Core.Data
     using YAF.Classes.Data;
     using YAF.Types;
     using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
     #endregion
@@ -113,95 +112,54 @@ namespace YAF.Core.Data
         #endregion
 
         #region Public Methods and Operators
-
+        
         /// <summary>
-        /// The begin transaction.
+        /// The execute.
         /// </summary>
-        /// <param name="isolationLevel">
-        /// The isolation level. 
+        /// <param name="execFunc">
+        /// The exec func.
         /// </param>
-        /// <returns>
-        /// The <see cref="IDbUnitOfWork"/>.
-        /// </returns>
-        [NotNull]
-        public virtual IDbTransaction BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.ReadUncommitted)
-        {
-            return this.CreateConnectionOpen().BeginTransaction(isolationLevel);
-        }
-
-        /// <summary>
-        /// The execute non query.
-        /// </summary>
         /// <param name="cmd">
-        /// The cmd. 
+        /// The cmd.
         /// </param>
         /// <param name="dbTransaction">
-        /// The unit of work. 
+        /// The db transaction.
         /// </param>
-        public virtual void ExecuteNonQuery([NotNull] IDbCommand cmd, [CanBeNull] IDbTransaction dbTransaction = null)
-        {
-            CodeContracts.ArgumentNotNull(cmd, "cmd");
-
-            using (var qc = new QueryCounter(cmd.CommandText))
-            {
-                if (dbTransaction == null)
-                {
-                    using (var connection = this.CreateConnectionOpen())
-                    {
-                        // get an open connection
-                        cmd.Connection = connection;
-                        cmd.ExecuteNonQuery();
-
-                        connection.Close();
-                    }
-                }
-                else
-                {
-                    cmd.Populate(dbTransaction);
-                    cmd.ExecuteNonQuery();
-                }
-            }
-        }
-
-        /// <summary>
-        /// The execute scalar.
-        /// </summary>
-        /// <param name="cmd">
-        /// The cmd. 
-        /// </param>
-        /// <param name="dbTransaction">
-        /// The unit of work. 
-        /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
         /// <returns>
-        /// The execute scalar. 
+        /// The <see cref="T"/>.
         /// </returns>
-        public virtual object ExecuteScalar([NotNull] IDbCommand cmd, [CanBeNull] IDbTransaction dbTransaction = null)
+        public virtual T Execute<T>(Func<IDbCommand, T> execFunc, IDbCommand cmd = null, IDbTransaction dbTransaction = null)
         {
-            CodeContracts.ArgumentNotNull(cmd, "cmd");
+            var command = cmd ?? this.GetCommand(string.Empty, false);
 
-            using (var qc = new QueryCounter(cmd.CommandText))
+            using (var qc = new QueryCounter(command.CommandText))
             {
-                object results = null;
+                T result = default(T);
 
                 if (dbTransaction == null)
                 {
                     using (var connection = this.CreateConnectionOpen())
                     {
                         // get an open connection
-                        cmd.Connection = connection;
-                        results = cmd.ExecuteScalar();
+                        command.Connection = connection;
+
+                        result = execFunc(command);
 
                         connection.Close();
                     }
                 }
                 else
                 {
-                    cmd.Populate(dbTransaction);
+                    command.Populate(dbTransaction);
 
-                    results = cmd.ExecuteScalar();
+                    result = execFunc(command);
                 }
 
-                return results == DBNull.Value ? null : results;
+                qc.CurrentSql = command.CommandText;
+
+                return result;
             }
         }
 
@@ -218,7 +176,7 @@ namespace YAF.Core.Data
         /// The parameters. 
         /// </param>
         /// <returns>
-        /// The <see cref="DbCommand"/>.
+        /// The <see cref="DbCommand"/> . 
         /// </returns>
         public virtual IDbCommand GetCommand(
             [NotNull] string sql, bool isStoredProcedure = true, [CanBeNull] IEnumerable<KeyValuePair<string, object>> parameters = null)
@@ -245,79 +203,6 @@ namespace YAF.Core.Data
             return cmd.ReplaceCommandText();
         }
 
-        /// <summary>
-        /// The get data.
-        /// </summary>
-        /// <param name="cmd">
-        /// The cmd. 
-        /// </param>
-        /// <param name="dbTransaction">
-        /// The unit of work. 
-        /// </param>
-        /// <returns>
-        /// The <see cref="DataTable"/>.
-        /// </returns>
-        public virtual DataTable GetData([NotNull] IDbCommand cmd, [CanBeNull] IDbTransaction dbTransaction = null)
-        {
-            CodeContracts.ArgumentNotNull(cmd, "cmd");
-
-            using (var qc = new QueryCounter(cmd.CommandText))
-            {
-                return this.GetDatasetBasic(cmd, dbTransaction).Tables[0];
-            }
-        }
-
-        /// <summary>
-        /// The get dataset.
-        /// </summary>
-        /// <param name="cmd">
-        /// The cmd. 
-        /// </param>
-        /// <param name="dbTransaction">
-        /// The unit of work. 
-        /// </param>
-        /// <returns>
-        /// The <see cref="DataSet"/>.
-        /// </returns>
-        [NotNull]
-        public virtual DataSet GetDataset([NotNull] IDbCommand cmd, [CanBeNull] IDbTransaction dbTransaction = null)
-        {
-            CodeContracts.ArgumentNotNull(cmd, "cmd");
-
-            using (var qc = new QueryCounter(cmd.CommandText))
-            {
-                return this.GetDatasetBasic(cmd, dbTransaction);
-            }
-        }
-
-        /// <summary>
-        /// The get reader.
-        /// </summary>
-        /// <param name="cmd">
-        /// The cmd.
-        /// </param>
-        /// <param name="readData">
-        /// The read data.
-        /// </param>
-        /// <param name="dbTransaction">
-        /// The unit of work.
-        /// </param>
-        /// <returns>
-        /// The <see cref="object"/>.
-        /// </returns>
-        public IDataReader GetReader(IDbCommand cmd, IDbTransaction dbTransaction)
-        {
-            CodeContracts.ArgumentNotNull(dbTransaction, "unitOfWork");
-            CodeContracts.ArgumentNotNull(cmd, "cmd");
-
-            using (var qc = new QueryCounter(cmd.CommandText))
-            {
-                cmd.Populate(dbTransaction);
-
-                return cmd.ExecuteReader();
-            }
-        }
-
         #endregion
 
         #region Methods
@@ -334,60 +219,6 @@ namespace YAF.Core.Data
         protected virtual string FormatProcedureText(string functionName)
         {
             return "[{{databaseOwner}}].[{{objectQualifier}}{0}]".FormatWith(functionName);
-        }
-
-        /// <summary>
-        /// The get dataset basic.
-        /// </summary>
-        /// <param name="cmd">
-        /// The cmd. 
-        /// </param>
-        /// <param name="dbTransaction">
-        /// The unit of work. 
-        /// </param>
-        /// <returns>
-        /// The <see cref="DataSet"/>.
-        /// </returns>
-        [NotNull]
-        protected virtual DataSet GetDatasetBasic([NotNull] IDbCommand cmd, [CanBeNull] IDbTransaction dbTransaction = null)
-        {
-            CodeContracts.ArgumentNotNull(cmd, "cmd");
-
-            var ds = new DataSet();
-
-            if (dbTransaction == null)
-            {
-                using (var connection = this.CreateConnectionOpen())
-                {
-                    // see if an existing connection is present
-                    cmd.Connection = connection;
-
-                    // create the adapter and fill....
-                    IDbDataAdapter dataAdapter = this.DbProviderFactory.CreateDataAdapter();
-
-                    if (dataAdapter != null)
-                    {
-                        dataAdapter.SelectCommand = cmd;
-                        dataAdapter.SelectCommand.Connection = connection;
-                        dataAdapter.Fill(ds);
-                    }
-                }
-            }
-            else
-            {
-                IDbDataAdapter dataAdapter = this.DbProviderFactory.CreateDataAdapter();
-
-                if (dataAdapter != null)
-                {
-                    cmd.Populate(dbTransaction);
-
-                    dataAdapter.SelectCommand = cmd;
-                    dataAdapter.Fill(ds);
-                }
-            }
-
-            // return the dataset
-            return ds;
         }
 
         /// <summary>

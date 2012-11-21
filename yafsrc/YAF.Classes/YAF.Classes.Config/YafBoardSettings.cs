@@ -19,9 +19,11 @@
 namespace YAF.Classes
 {
     using System;
+    using System.Data;
     using System.Web.Security;
 
     using YAF.Classes.Pattern;
+    using YAF.Types;
     using YAF.Types.Constants;
 
     /// <summary>
@@ -32,32 +34,32 @@ namespace YAF.Classes
         /// <summary>
         /// The _reg.
         /// </summary>
-        protected readonly RegistryDictionaryOverride _reg;
+        protected virtual RegistryDictionaryOverride _reg { get; set; }
 
         /// <summary>
         /// The _reg board.
         /// </summary>
-        protected readonly RegistryDictionary _regBoard;
+        protected virtual RegistryDictionary _regBoard { get; set; }
 
         /// <summary>
         /// The _board id.
         /// </summary>
-        protected object _boardID;
+        protected int _boardID;
 
         /// <summary>
         /// The _legacy board settings.
         /// </summary>
-        protected YafLegacyBoardSettings _legacyBoardSettings = new YafLegacyBoardSettings();
+        protected virtual YafLegacyBoardSettings _legacyBoardSettings { get; set; }
 
         /// <summary>
         /// The _membership app name.
         /// </summary>
-        protected string _membershipAppName;
+        protected virtual string _membershipAppName { get; set; }
 
         /// <summary>
         /// The _roles app name.
         /// </summary>
-        protected string _rolesAppName;
+        protected virtual string _rolesAppName { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="YafBoardSettings"/> class.

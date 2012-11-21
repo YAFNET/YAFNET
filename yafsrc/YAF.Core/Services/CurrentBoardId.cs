@@ -28,14 +28,14 @@ namespace YAF.Core.Services
   /// <summary>
   /// The current board id.
   /// </summary>
-  public class CurrentBoardId : IHaveBoardId
+  public class CurrentBoardId : IHaveBoardID
   {
     #region Properties
 
     /// <summary>
     ///   Gets BoardId.
     /// </summary>
-    public int BoardId
+    public int BoardID
     {
       get
       {

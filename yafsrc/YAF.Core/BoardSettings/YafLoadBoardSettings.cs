@@ -18,144 +18,237 @@
  */
 namespace YAF.Core
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.Data;
-  using System.Web.Security;
+    using System;
+    using System.Data;
+    using System.Web.Security;
 
-  using YAF.Classes;
-  using YAF.Classes.Data;
-  using YAF.Types.Extensions;
-  using YAF.Types.Interfaces;
-  using YAF.Utils;
-  using YAF.Types;
-
-  #endregion
-
-  /// <summary>
-  /// The yaf load board settings.
-  /// </summary>
-  public class YafLoadBoardSettings : YafBoardSettings
-  {
-    #region Constructors and Destructors
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="YafLoadBoardSettings"/> class.
-    /// </summary>
-    /// <param name="boardID">
-    /// The board id.
-    /// </param>
-    /// <exception cref="Exception">
-    /// </exception>
-    /// <exception cref="EmptyBoardSettingException"><c>EmptyBoardSettingException</c>.</exception>
-    public YafLoadBoardSettings([NotNull] object boardID)
-    {
-      this._boardID = boardID;
-
-      // get the board table
-      DataTable dataTable = LegacyDb.board_list(this._boardID);
-
-      if (dataTable.Rows.Count == 0)
-      {
-        throw new EmptyBoardSettingException("No data for board ID: {0}".FormatWith(this._boardID));
-      }
-
-      // setup legacy board settings...
-      this.SetupLegacyBoardSettings(dataTable.Rows[0]);
-
-      // get all the registry values for the forum
-      this.LoadBoardSettingsFromDB();
-    }
+    using YAF.Classes;
+    using YAF.Classes.Data;
+    using YAF.Core.Model;
+    using YAF.Types;
+    using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
+    using YAF.Types.Models;
 
     #endregion
 
-    #region Public Methods
-
     /// <summary>
-    /// Saves the whole setting registry to the database.
+    ///     The yaf load board settings.
     /// </summary>
-    public void SaveRegistry()
+    public class YafLoadBoardSettings : YafBoardSettings
     {
-      // loop through all values and commit them to the DB
-      foreach (string key in this._reg.Keys)
-      {
-        LegacyDb.registry_save(key, this._reg[key]);
-      }
+        #region Fields
 
-      foreach (string key in this._regBoard.Keys)
-      {
-        LegacyDb.registry_save(key, this._regBoard[key], this._boardID);
-      }
-    }
+        /// <summary>
+        /// The _current board row.
+        /// </summary>
+        private DataRow _currentBoardRow;
 
-    #endregion
+        #endregion
 
-    #region Methods
+        #region Constructors and Destructors
 
-    /// <summary>
-    /// The load board settings from db.
-    /// </summary>
-    /// <exception cref="Exception">
-    /// </exception>
-    protected void LoadBoardSettingsFromDB()
-    {
-      DataTable dataTable;
-
-      using (dataTable = LegacyDb.registry_list())
-      {
-        // get all the registry settings into our hash table
-        foreach (DataRow dr in dataTable.Rows)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="YafLoadBoardSettings"/> class.
+        /// </summary>
+        /// <param name="boardID">
+        /// The board id.
+        /// </param>
+        /// <exception cref="Exception">
+        /// </exception>
+        /// <exception cref="EmptyBoardSettingException">
+        /// <c>EmptyBoardSettingException</c>.
+        /// </exception>
+        public YafLoadBoardSettings([NotNull] int boardID)
         {
-          this._reg.Add(dr["Name"].ToString().ToLower(), dr["Value"] == DBNull.Value ? null : dr["Value"]);
-        }
-      }
+            this._boardID = boardID;
 
-      using (dataTable = LegacyDb.registry_list(null, this._boardID))
-      {
-        // get all the registry settings into our hash table
-        foreach (DataRow dr in dataTable.Rows)
-        {
-          this._regBoard.Add(dr["Name"].ToString().ToLower(), dr["Value"] == DBNull.Value ? null : dr["Value"]);
+            // get all the registry values for the forum
+            this.LoadBoardSettingsFromDB();
         }
-      }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets the current board row.
+        /// </summary>
+        /// <exception cref="EmptyBoardSettingException">
+        /// </exception>
+        protected DataRow CurrentBoardRow
+        {
+            get
+            {
+                if (this._currentBoardRow == null)
+                {
+                    var dataTable = YafContext.Current.GetRepository<Board>().List(this._boardID);
+
+                    if (dataTable.Rows.Count == 0)
+                    {
+                        throw new EmptyBoardSettingException("No data for board ID: {0}".FormatWith(this._boardID));
+                    }
+
+                    this._currentBoardRow = dataTable.Rows[0];
+                }
+
+                return this._currentBoardRow;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the _legacy board settings.
+        /// </summary>
+        protected override YafLegacyBoardSettings _legacyBoardSettings
+        {
+            get
+            {
+                return base._legacyBoardSettings ?? (base._legacyBoardSettings = this.SetupLegacyBoardSettings(this.CurrentBoardRow));
+            }
+
+            set
+            {
+                base._legacyBoardSettings = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the _membership app name.
+        /// </summary>
+        protected override string _membershipAppName
+        {
+            get
+            {
+                return base._membershipAppName ?? (base._membershipAppName = this._legacyBoardSettings.MembershipAppName);
+            }
+
+            set
+            {
+                base._membershipAppName = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the _roles app name.
+        /// </summary>
+        protected override string _rolesAppName
+        {
+            get
+            {
+                return base._rolesAppName ?? (base._rolesAppName = this._legacyBoardSettings.RolesAppName);
+            }
+
+            set
+            {
+                base._rolesAppName = value;
+            }
+        }
+
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>
+        ///     Saves the whole setting registry to the database.
+        /// </summary>
+        public void SaveRegistry()
+        {
+            // loop through all values and commit them to the DB
+            foreach (string key in this._reg.Keys)
+            {
+                LegacyDb.registry_save(key, this._reg[key]);
+            }
+
+            foreach (string key in this._regBoard.Keys)
+            {
+                LegacyDb.registry_save(key, this._regBoard[key], this._boardID);
+            }
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        ///     The load board settings from db.
+        /// </summary>
+        /// <exception cref="Exception">
+        /// </exception>
+        protected void LoadBoardSettingsFromDB()
+        {
+            DataTable dataTable;
+
+            using (dataTable = LegacyDb.registry_list())
+            {
+                // get all the registry settings into our hash table
+                foreach (DataRow dr in dataTable.Rows)
+                {
+                    this._reg.Add(dr["Name"].ToString().ToLower(), dr["Value"] == DBNull.Value ? null : dr["Value"]);
+                }
+            }
+
+            using (dataTable = LegacyDb.registry_list(null, this._boardID))
+            {
+                // get all the registry settings into our hash table
+                foreach (DataRow dr in dataTable.Rows)
+                {
+                    this._regBoard.Add(dr["Name"].ToString().ToLower(), dr["Value"] == DBNull.Value ? null : dr["Value"]);
+                }
+            }
+        }
+
+        /// <summary>
+        /// The setup legacy board settings.
+        /// </summary>
+        /// <param name="board">
+        /// The board.
+        /// </param>
+        /// <returns>
+        /// The <see cref="YafLegacyBoardSettings"/>.
+        /// </returns>
+        private YafLegacyBoardSettings SetupLegacyBoardSettings([NotNull] DataRow board)
+        {
+            CodeContracts.ArgumentNotNull(board, "board");
+
+            var membershipAppName = board["MembershipAppName"].ToString().IsNotSet()
+                                        ? YafContext.Current.Get<MembershipProvider>().ApplicationName
+                                        : board["MembershipAppName"].ToString();
+
+            var rolesAppName = board["RolesAppName"].ToString().IsNotSet()
+                                   ? YafContext.Current.Get<RoleProvider>().ApplicationName
+                                   : board["RolesAppName"].ToString();
+
+            return new YafLegacyBoardSettings(
+                board["Name"].ToString(), 
+                Convert.ToString(board["SQLVersion"]), 
+                board["AllowThreaded"].ToType<bool>(), 
+                membershipAppName, 
+                rolesAppName);
+        }
+
+        #endregion
     }
 
     /// <summary>
-    /// The setup legacy board settings.
+    ///     The empty board setting exception.
     /// </summary>
-    /// <param name="board">
-    /// The board.
-    /// </param>
-    private void SetupLegacyBoardSettings([NotNull] DataRow board)
+    public class EmptyBoardSettingException : Exception
     {
-      CodeContracts.ArgumentNotNull(board, "board");
+        #region Constructors and Destructors
 
-      this._membershipAppName = board["MembershipAppName"].ToString().IsNotSet()
-                                  ? YafContext.Current.Get<MembershipProvider>().ApplicationName
-                                  : board["MembershipAppName"].ToString();
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EmptyBoardSettingException"/> class.
+        /// </summary>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        public EmptyBoardSettingException(string message)
+            : base(message)
+        {
+        }
 
-      this._rolesAppName = board["RolesAppName"].ToString().IsNotSet()
-                             ? YafContext.Current.Get<RoleProvider>().ApplicationName
-                             : board["RolesAppName"].ToString();
-
-      this._legacyBoardSettings = new YafLegacyBoardSettings(
-        board["Name"].ToString(), 
-        Convert.ToString(board["SQLVersion"]), 
-        board["AllowThreaded"].ToType<bool>(), 
-        this._membershipAppName, 
-        this._rolesAppName);
+        #endregion
     }
-
-    #endregion
-  }
-
-  public class EmptyBoardSettingException : Exception
-  {
-    public EmptyBoardSettingException(string message)
-      : base(message)
-    {
-      
-    }
-  }
 }

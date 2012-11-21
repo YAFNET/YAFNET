@@ -30,10 +30,12 @@ namespace YAF.Pages.Admin
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Types.Objects;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -59,7 +61,9 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+            var boardSettings = this.Get<YafBoardSettings>();
+
+            this.PageLinks.AddLink(boardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
             this.PageLinks.AddLink(this.GetText("ADMIN_BOARDSETTINGS", "TITLE"), string.Empty);
@@ -122,39 +126,37 @@ namespace YAF.Pages.Admin
 
             // bind poll group list
             var pollGroup =
-                LegacyDb.PollGroupList(this.PageContext.PageUserID, null, this.PageContext.PageBoardID).Distinct(
-                    new AreEqualFunc<TypedPollGroup>((v1, v2) => v1.PollGroupID == v2.PollGroupID)).ToList();
+                LegacyDb.PollGroupList(this.PageContext.PageUserID, null, this.PageContext.PageBoardID)
+                        .Distinct(new AreEqualFunc<TypedPollGroup>((v1, v2) => v1.PollGroupID == v2.PollGroupID))
+                        .ToList();
 
             pollGroup.Insert(0, new TypedPollGroup(string.Empty, -1));
 
             // TODO: vzrus needs some work, will be in polls only until feature is debugged there.
-            this.PollGroupListDropDown.Items.AddRange(
-                pollGroup.Select(x => new ListItem(x.Question, x.PollGroupID.ToString())).ToArray());
+            this.PollGroupListDropDown.Items.AddRange(pollGroup.Select(x => new ListItem(x.Question, x.PollGroupID.ToString())).ToArray());
 
             // population default notification setting options...
             var items = EnumHelper.EnumToDictionary<UserNotificationSetting>();
 
-            if (!this.Get<YafBoardSettings>().AllowNotificationAllPostsAllTopics)
+            if (!boardSettings.AllowNotificationAllPostsAllTopics)
             {
                 // remove it...
                 items.Remove(UserNotificationSetting.AllTopics.ToInt());
             }
 
             var notificationItems =
-                items.Select(
-                    x => new ListItem(HtmlHelper.StripHtml(this.GetText("CP_SUBSCRIPTIONS", x.Value)), x.Key.ToString()))
-                    .ToArray();
+                items.Select(x => new ListItem(HtmlHelper.StripHtml(this.GetText("CP_SUBSCRIPTIONS", x.Value)), x.Key.ToString())).ToArray();
 
             this.DefaultNotificationSetting.Items.AddRange(notificationItems);
 
-            SetSelectedOnList(ref this.JqueryUITheme, this.Get<YafBoardSettings>().JqueryUITheme);
+            SetSelectedOnList(ref this.JqueryUITheme, boardSettings.JqueryUITheme);
 
             // Get first default full culture from a language file tag.
-            string langFileCulture = StaticDataHelper.CultureDefaultFromFile(this.Get<YafBoardSettings>().Language)
+            string langFileCulture = StaticDataHelper.CultureDefaultFromFile(boardSettings.Language)
                                      ?? "en-US";
 
-            SetSelectedOnList(ref this.Theme, this.Get<YafBoardSettings>().Theme);
-            SetSelectedOnList(ref this.MobileTheme, this.Get<YafBoardSettings>().MobileTheme);
+            SetSelectedOnList(ref this.Theme, boardSettings.Theme);
+            SetSelectedOnList(ref this.MobileTheme, boardSettings.MobileTheme);
 
             // If 2-letter language code is the same we return Culture, else we return  a default full culture from language file
             /* SetSelectedOnList(
@@ -162,42 +164,39 @@ namespace YAF.Pages.Admin
                 langFileCulture.Substring(0, 2) == this.Get<YafBoardSettings>().Culture
                   ? this.Get<YafBoardSettings>().Culture
                   : langFileCulture);*/
-            SetSelectedOnList(ref this.Culture, this.Get<YafBoardSettings>().Culture);
+            SetSelectedOnList(ref this.Culture, boardSettings.Culture);
             if (this.Culture.SelectedIndex == 0)
             {
                 // If 2-letter language code is the same we return Culture, else we return  a default full culture from language file
                 SetSelectedOnList(
-                    ref this.Culture,
-                    langFileCulture.Substring(0, 2) == this.Get<YafBoardSettings>().Culture
-                        ? this.Get<YafBoardSettings>().Culture
-                        : langFileCulture);
+                    ref this.Culture, langFileCulture.Substring(0, 2) == boardSettings.Culture ? boardSettings.Culture : langFileCulture);
             }
 
-            SetSelectedOnList(ref this.ShowTopic, this.Get<YafBoardSettings>().ShowTopicsDefault.ToString());
+            SetSelectedOnList(ref this.ShowTopic, boardSettings.ShowTopicsDefault.ToString());
             SetSelectedOnList(
-                ref this.FileExtensionAllow, this.Get<YafBoardSettings>().FileExtensionAreAllowed ? "0" : "1");
+                ref this.FileExtensionAllow, boardSettings.FileExtensionAreAllowed ? "0" : "1");
 
             SetSelectedOnList(
                 ref this.DefaultNotificationSetting,
-                this.Get<YafBoardSettings>().DefaultNotificationSetting.ToInt().ToString());
+                boardSettings.DefaultNotificationSetting.ToInt().ToString());
 
             this.NotificationOnUserRegisterEmailList.Text =
-                this.Get<YafBoardSettings>().NotificationOnUserRegisterEmailList;
-            this.AllowThemedLogo.Checked = this.Get<YafBoardSettings>().AllowThemedLogo;
-            this.EmailModeratorsOnModeratedPost.Checked = this.Get<YafBoardSettings>().EmailModeratorsOnModeratedPost;
-            this.EmailModeratorsOnReportedPost.Checked = this.Get<YafBoardSettings>().EmailModeratorsOnReportedPost;
-            this.AllowDigestEmail.Checked = this.Get<YafBoardSettings>().AllowDigestEmail;
-            this.DefaultSendDigestEmail.Checked = this.Get<YafBoardSettings>().DefaultSendDigestEmail;
-            this.JqueryUIThemeCDNHosted.Checked = this.Get<YafBoardSettings>().JqueryUIThemeCDNHosted;
-            this.ForumEmail.Text = this.Get<YafBoardSettings>().ForumEmail;
+                boardSettings.NotificationOnUserRegisterEmailList;
+            this.AllowThemedLogo.Checked = boardSettings.AllowThemedLogo;
+            this.EmailModeratorsOnModeratedPost.Checked = boardSettings.EmailModeratorsOnModeratedPost;
+            this.EmailModeratorsOnReportedPost.Checked = boardSettings.EmailModeratorsOnReportedPost;
+            this.AllowDigestEmail.Checked = boardSettings.AllowDigestEmail;
+            this.DefaultSendDigestEmail.Checked = boardSettings.DefaultSendDigestEmail;
+            this.JqueryUIThemeCDNHosted.Checked = boardSettings.JqueryUIThemeCDNHosted;
+            this.ForumEmail.Text = boardSettings.ForumEmail;
 
-            this.CopyrightRemovalKey.Text = this.Get<YafBoardSettings>().CopyrightRemovalDomainKey;
+            this.CopyrightRemovalKey.Text = boardSettings.CopyrightRemovalDomainKey;
 
-            this.DigestSendEveryXHours.Text = this.Get<YafBoardSettings>().DigestSendEveryXHours.ToString();
+            this.DigestSendEveryXHours.Text = boardSettings.DigestSendEveryXHours.ToString();
 
-            if (this.Get<YafBoardSettings>().BoardPollID > 0)
+            if (boardSettings.BoardPollID > 0)
             {
-                this.PollGroupListDropDown.SelectedValue = this.Get<YafBoardSettings>().BoardPollID.ToString();
+                this.PollGroupListDropDown.SelectedValue = boardSettings.BoardPollID.ToString();
             }
             else
             {
@@ -229,43 +228,41 @@ namespace YAF.Pages.Admin
                 languageFile = cultures.First().Field<string>("CultureFile");
             }
 
-            LegacyDb.board_save(
-                this.PageContext.PageBoardID,
-                languageFile,
-                this.Culture.SelectedValue,
-                this.Name.Text,
-                this.AllowThreaded.Checked);
+            this.GetRepository<Board>()
+                .Save(this.PageContext.PageBoardID, this.Name.Text, languageFile, this.Culture.SelectedValue, this.AllowThreaded.Checked);
 
             // save poll group
-            this.Get<YafBoardSettings>().BoardPollID = this.PollGroupListDropDown.SelectedIndex.ToType<int>() > 0
+            var boardSettings = this.Get<YafBoardSettings>();
+
+            boardSettings.BoardPollID = this.PollGroupListDropDown.SelectedIndex.ToType<int>() > 0
                                                            ? this.PollGroupListDropDown.SelectedValue.ToType<int>()
                                                            : 0;
 
-            this.Get<YafBoardSettings>().Language = languageFile;
-            this.Get<YafBoardSettings>().Culture = this.Culture.SelectedValue;
-            this.Get<YafBoardSettings>().Theme = this.Theme.SelectedValue;
+            boardSettings.Language = languageFile;
+            boardSettings.Culture = this.Culture.SelectedValue;
+            boardSettings.Theme = this.Theme.SelectedValue;
 
             // allow null/empty as a mobile theme many not be desired.
-            this.Get<YafBoardSettings>().MobileTheme = this.MobileTheme.SelectedValue ?? string.Empty;
+            boardSettings.MobileTheme = this.MobileTheme.SelectedValue ?? string.Empty;
 
-            this.Get<YafBoardSettings>().ShowTopicsDefault = this.ShowTopic.SelectedValue.ToType<int>();
-            this.Get<YafBoardSettings>().AllowThemedLogo = this.AllowThemedLogo.Checked;
-            this.Get<YafBoardSettings>().FileExtensionAreAllowed = this.FileExtensionAllow.SelectedValue.ToType<int>()
+            boardSettings.ShowTopicsDefault = this.ShowTopic.SelectedValue.ToType<int>();
+            boardSettings.AllowThemedLogo = this.AllowThemedLogo.Checked;
+            boardSettings.FileExtensionAreAllowed = this.FileExtensionAllow.SelectedValue.ToType<int>()
                                                                    == 0;
-            this.Get<YafBoardSettings>().NotificationOnUserRegisterEmailList =
+            boardSettings.NotificationOnUserRegisterEmailList =
                 this.NotificationOnUserRegisterEmailList.Text.Trim();
 
-            this.Get<YafBoardSettings>().EmailModeratorsOnModeratedPost = this.EmailModeratorsOnModeratedPost.Checked;
-            this.Get<YafBoardSettings>().EmailModeratorsOnReportedPost = this.EmailModeratorsOnReportedPost.Checked;
-            this.Get<YafBoardSettings>().AllowDigestEmail = this.AllowDigestEmail.Checked;
-            this.Get<YafBoardSettings>().DefaultSendDigestEmail = this.DefaultSendDigestEmail.Checked;
-            this.Get<YafBoardSettings>().DefaultNotificationSetting =
+            boardSettings.EmailModeratorsOnModeratedPost = this.EmailModeratorsOnModeratedPost.Checked;
+            boardSettings.EmailModeratorsOnReportedPost = this.EmailModeratorsOnReportedPost.Checked;
+            boardSettings.AllowDigestEmail = this.AllowDigestEmail.Checked;
+            boardSettings.DefaultSendDigestEmail = this.DefaultSendDigestEmail.Checked;
+            boardSettings.DefaultNotificationSetting =
                 this.DefaultNotificationSetting.SelectedValue.ToEnum<UserNotificationSetting>();
 
-            this.Get<YafBoardSettings>().ForumEmail = this.ForumEmail.Text;
-            this.Get<YafBoardSettings>().CopyrightRemovalDomainKey = this.CopyrightRemovalKey.Text.Trim();
-            this.Get<YafBoardSettings>().JqueryUITheme = this.JqueryUITheme.SelectedValue;
-            this.Get<YafBoardSettings>().JqueryUIThemeCDNHosted = this.JqueryUIThemeCDNHosted.Checked;
+            boardSettings.ForumEmail = this.ForumEmail.Text;
+            boardSettings.CopyrightRemovalDomainKey = this.CopyrightRemovalKey.Text.Trim();
+            boardSettings.JqueryUITheme = this.JqueryUITheme.SelectedValue;
+            boardSettings.JqueryUIThemeCDNHosted = this.JqueryUIThemeCDNHosted.Checked;
 
             int hours;
 
@@ -274,10 +271,10 @@ namespace YAF.Pages.Admin
                 hours = 24;
             }
 
-            this.Get<YafBoardSettings>().DigestSendEveryXHours = hours;
+            boardSettings.DigestSendEveryXHours = hours;
 
             // save the settings to the database
-            ((YafLoadBoardSettings)this.Get<YafBoardSettings>()).SaveRegistry();
+            ((YafLoadBoardSettings)boardSettings).SaveRegistry();
 
             // Reload forum settings
             this.PageContext.BoardSettings = null;
@@ -313,7 +310,7 @@ namespace YAF.Pages.Admin
         private void BindData()
         {
             DataRow row;
-            using (DataTable dt = LegacyDb.board_list(this.PageContext.PageBoardID))
+            using (DataTable dt = this.GetRepository<Board>().List(this.PageContext.PageBoardID))
             {
                 row = dt.Rows[0];
             }

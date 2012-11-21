@@ -38,12 +38,14 @@ namespace YAF
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Extensions;
     using YAF.Utils.Helpers;
@@ -950,9 +952,7 @@ namespace YAF
             try
             {
                 // AttachmentID
-                using (
-                    DataTable dt = LegacyDb.attachment_list(
-                        null, context.Request.QueryString.GetFirstOrDefault("a"), null, 0, 1000))
+                using (DataTable dt = this.GetRepository<Attachment>().List(null, context.Request.QueryString.GetFirstOrDefaultAs<int>("a"), null, 0, 1000))
                 {
                     foreach (DataRow row in dt.Rows)
                     {
@@ -984,8 +984,7 @@ namespace YAF
 
                             using (var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
                             {
-                                data = new byte[input.Length];
-                                input.Read(data, 0, data.Length);
+                                data = input.ToArray();
                                 input.Close();
                             }
                         }
@@ -1000,7 +999,8 @@ namespace YAF
                             "attachment; filename={0}".FormatWith(
                                 HttpUtility.UrlPathEncode(row["FileName"].ToString()).Replace("+", "_")));
                         context.Response.OutputStream.Write(data, 0, data.Length);
-                        LegacyDb.attachment_download(context.Request.QueryString.GetFirstOrDefault("a"));
+
+                        this.GetRepository<Attachment>().Download(context.Request.QueryString.GetFirstOrDefaultAs<int>("a"));
                         break;
                     }
                 }
@@ -1064,14 +1064,12 @@ namespace YAF
                 if (CheckETag(context, eTag))
                 {
                     // found eTag... no need to resend/create this image -- just mark another view?
-                    LegacyDb.attachment_download(context.Request.QueryString.GetFirstOrDefault("i"));
+                    this.GetRepository<Attachment>().Download(context.Request.QueryString.GetFirstOrDefaultAs<int>("i"));
                     return;
                 }
 
                 // AttachmentID
-                using (
-                    DataTable dt = LegacyDb.attachment_list(
-                        null, context.Request.QueryString.GetFirstOrDefault("i"), null, 0, 1000))
+                using (DataTable dt = this.GetRepository<Attachment>().List(null, context.Request.QueryString.GetFirstOrDefaultAs<int>("i"), null, 0, 1000))
                 {
                     foreach (DataRow row in dt.Rows)
                     {
@@ -1103,8 +1101,7 @@ namespace YAF
 
                             using (var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
                             {
-                                data = new byte[input.Length];
-                                input.Read(data, 0, data.Length);
+                                data = input.ToArray();
                                 input.Close();
                             }
                         }
@@ -1119,7 +1116,7 @@ namespace YAF
                         context.Response.OutputStream.Write(data, 0, data.Length);
 
                         // add a download count...
-                        LegacyDb.attachment_download(context.Request.QueryString.GetFirstOrDefault("i"));
+                        this.GetRepository<Attachment>().Download(context.Request.QueryString.GetFirstOrDefaultAs<int>("i"));
                         break;
                     }
                 }
@@ -1143,8 +1140,7 @@ namespace YAF
             string localizationFile,
             bool previewCropped)
         {
-            var eTag = @"""{0}{1}""".FormatWith(
-                context.Request.QueryString.GetFirstOrDefault("p"), localizationFile.GetHashCode());
+            var eTag = @"""{0}{1}""".FormatWith(context.Request.QueryString.GetFirstOrDefault("p"), localizationFile.GetHashCode());
 
             if (CheckETag(context, eTag))
             {
@@ -1169,9 +1165,7 @@ namespace YAF
             try
             {
                 // AttachmentID
-                using (
-                    DataTable dt = LegacyDb.attachment_list(
-                        null, context.Request.QueryString.GetFirstOrDefault("p"), null, 0, 1000))
+                using (DataTable dt = this.GetRepository<Attachment>().List(null, context.Request.QueryString.GetFirstOrDefaultAs<int>("p"), null, 0, 1000))
                 {
                     foreach (DataRow row in dt.Rows)
                     {
@@ -1180,8 +1174,7 @@ namespace YAF
                         {
                             // tear it down
                             // no permission to download
-                            context.Response.Write(
-                                "You have insufficient rights to download this resource. Contact forum administrator for further details.");
+                            context.Response.Write("You have insufficient rights to download this resource. Contact forum administrator for further details.");
                             return;
                         }
 

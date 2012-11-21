@@ -33,12 +33,14 @@ namespace YAF.Pages.Admin
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.RegisterV2;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -348,7 +350,7 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            DataTable dt = LegacyDb.board_list(null);
+            DataTable dt = this.GetRepository<Board>().List();
 
             // add row for "all boards" (null value)
             DataRow r = dt.NewRow();
@@ -378,7 +380,7 @@ namespace YAF.Pages.Admin
             // this.DataBind();
 
             // get stats for current board, selected board or all boards (see function)
-            DataRow row = LegacyDb.board_stats(this.GetSelectedBoardID());
+            DataRow row = this.GetRepository<Board>().Stats(this.GetSelectedBoardID());
 
             this.NumPosts.Text = "{0:N0}".FormatWith(row["NumPosts"]);
             this.NumTopics.Text = "{0:N0}".FormatWith(row["NumTopics"]);
@@ -452,7 +454,7 @@ namespace YAF.Pages.Admin
         /// <returns>
         /// Returns ID of selected board (for host admin), ID of current board (for admin), null if all boards is selected.
         /// </returns>
-        private object GetSelectedBoardID()
+        private int? GetSelectedBoardID()
         {
             // check dropdown only if user is hostadmin
             if (!this.PageContext.IsHostAdmin)
@@ -461,7 +463,7 @@ namespace YAF.Pages.Admin
             }
 
             // -1 means all boards are selected
-            return this.BoardStatsSelect.SelectedValue == "-1" ? null : this.BoardStatsSelect.SelectedValue;
+            return this.BoardStatsSelect.SelectedValue == "-1" ? (int?)null : this.BoardStatsSelect.SelectedValue.ToType<int>();
         }
 
         #endregion

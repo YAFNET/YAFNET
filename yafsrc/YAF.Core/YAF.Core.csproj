@@ -91,13 +91,28 @@
     <Compile Include="Data\DynamicDbFunction.cs" />
     <Compile Include="Data\Filters\StyleFilter.cs" />
     <Compile Include="Data\BasicRepository.cs" />
+    <Compile Include="Data\MappingHelper.cs" />
+    <Compile Include="Events\AttachmentEventHandleFileDelete.cs" />
+    <Compile Include="Events\BannedIPEventCacheInvalidate.cs" />
+    <Compile Include="Events\InitDatabaseProviderEvent.cs" />
     <Compile Include="Data\TryInvokeMemberProxy.cs" />
     <Compile Include="Data\CommandTextHelpers.cs" />
     <Compile Include="Events\SmileyEventCacheInvalidate.cs" />
+    <Compile Include="Model\BoardRepositoryExtensions.cs" />
     <Compile Include="Extensions\DbAccessExtensions.cs" />
+    <Compile Include="Extensions\IRepositoryExtensions.cs" />
     <Compile Include="Extensions\MembershipUserExtensions.cs" />
+    <Compile Include="Helpers\FileHelpers.cs" />
     <Compile Include="Helpers\IPLocator.cs" />
     <Compile Include="Import\DataImport.cs" />
+    <Compile Include="Model\AccessMaskRepositoryExtensions.cs" />
+    <Compile Include="Model\ActiveAccessRepositoryExtensions.cs" />
+    <Compile Include="Model\ActiveRepositoryExtensions.cs" />
+    <Compile Include="Model\BBCodeRepositoryExtensions.cs" />
+    <Compile Include="Model\BannedIpRepositoryExtensions.cs" />
+    <Compile Include="Model\MedalRepositoryExtensions.cs" />
+    <Compile Include="Model\AttachmentRepositoryExtensions.cs" />
+    <Compile Include="Model\SmileyRepositoryExtensions.cs" />
     <Compile Include="Services\Twitter\OAuthBase.cs" />
     <Compile Include="Services\Twitter\OAuthTwitter.cs" />
     <Compile Include="Services\Twitter\TweetAPI.cs" />
@@ -287,6 +302,14 @@
       <Project>{ED29E567-C801-49E9-8C33-CFB66042B07B}</Project>
       <Name>FarsiLibrary</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ServiceStack.OrmLite\src\ServiceStack.Interfaces\ServiceStack.Interfaces.csproj">
+      <Project>{42e1c8c0-a163-44cc-92b1-8f416f2c0b01}</Project>
+      <Name>ServiceStack.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServiceStack.OrmLite\src\ServiceStack.OrmLite\ServiceStack.OrmLite.csproj">
+      <Project>{96179ac6-f6f1-40c3-9fdd-4f6582f54c5c}</Project>
+      <Name>ServiceStack.OrmLite</Name>
+    </ProjectReference>
     <ProjectReference Include="..\YAF.Classes\YAF.Classes.Config\YAF.Classes.Config.csproj">
       <Project>{05E50D2F-9527-4CE8-A0F8-168281C426CB}</Project>
       <Name>YAF.Classes.Config</Name>
@@ -309,6 +332,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

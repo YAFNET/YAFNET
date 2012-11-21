@@ -23,9 +23,14 @@ namespace YAF.Types.Interfaces.Data
     /// </summary>
     /// <typeparam name="T">
     /// </typeparam>
-    public interface IRepository<T> : IEntity, IHaveBoardId
+    public interface IRepository<T> : IEntity, IHaveBoardID
     {
         #region Public Properties
+
+        /// <summary>
+        /// Gets the db access.
+        /// </summary>
+        IDbAccessV2 DbAccess { get; }
 
         /// <summary>
         ///     Gets the db event.

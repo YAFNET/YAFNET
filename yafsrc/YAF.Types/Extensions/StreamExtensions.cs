@@ -20,44 +20,71 @@ namespace YAF.Types.Extensions
 {
     using System.IO;
 
+    /// <summary>
+    /// The stream extensions.
+    /// </summary>
     public static class StreamExtensions
-  {
-    /// <summary>
-    /// Converts a Stream to a String.
-    /// </summary>
-    /// <param name="theStream">
-    /// </param>
-    /// <returns>
-    /// The stream to string.
-    /// </returns>
-    public static string AsString(this Stream theStream)
     {
-      var reader = new StreamReader(theStream);
-      return reader.ReadToEnd();
-    }
+        #region Public Methods and Operators
 
-    /// <summary>
-    /// The copy stream.
-    /// </summary>
-    /// <param name="input">
-    /// The input.
-    /// </param>
-    /// <param name="output">
-    /// The output.
-    /// </param>
-    public static void CopyTo(this Stream input, Stream output)
-    {
-      var buffer = new byte[1024];
-      int count = buffer.Length;
-
-      while (count > 0)
-      {
-        count = input.Read(buffer, 0, count);
-        if (count > 0)
+        /// <summary>
+        /// Converts a Stream to a String.
+        /// </summary>
+        /// <param name="theStream">
+        /// </param>
+        /// <returns>
+        /// The stream to string. 
+        /// </returns>
+        public static string AsString(this Stream theStream)
         {
-          output.Write(buffer, 0, count);
+            var reader = new StreamReader(theStream);
+            return reader.ReadToEnd();
         }
-      }
+
+        /// <summary>
+        /// The copy stream.
+        /// </summary>
+        /// <param name="input">
+        /// The input. 
+        /// </param>
+        /// <param name="output">
+        /// The output. 
+        /// </param>
+        public static void CopyTo(this Stream input, Stream output)
+        {
+            var buffer = new byte[1024];
+            int count = buffer.Length;
+
+            while (count > 0)
+            {
+                count = input.Read(buffer, 0, count);
+                if (count > 0)
+                {
+                    output.Write(buffer, 0, count);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Reads the stream into a byte array.
+        /// </summary>
+        /// <param name="stream">
+        /// The stream.
+        /// </param>
+        /// <returns>
+        /// The <see cref="byte[]"/>.
+        /// </returns>
+        public static byte[] ToArray([NotNull] this Stream stream)
+        {
+            CodeContracts.ArgumentNotNull(stream, "stream");
+
+            var data = new byte[stream.Length];
+            stream.Seek(0, SeekOrigin.Begin);
+            stream.Read(data, 0, (int)stream.Length);
+
+            return data;
+        }
+
+        #endregion
     }
-  }
 }

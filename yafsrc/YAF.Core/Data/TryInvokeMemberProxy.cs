@@ -18,83 +18,77 @@
  */
 namespace YAF.Core.Data
 {
-	using System.Dynamic;
+    using System.Dynamic;
 
-	using YAF.Types;
+    using YAF.Types;
 
-	/// <summary>
-	/// The dynamic db.
-	/// </summary>
-	public class TryInvokeMemberProxy : DynamicObject
-	{
-		#region Constants and Fields
+    /// <summary>
+    ///     The dynamic db.
+    /// </summary>
+    public class TryInvokeMemberProxy : DynamicObject
+    {
+        #region Fields
 
-		/// <summary>
-		///   The _try invoke func.
-		/// </summary>
-		private readonly TryInvokeFunc _tryInvokeFunc;
+        /// <summary>
+        ///     The _try invoke func.
+        /// </summary>
+        private readonly TryInvokeFunc _tryInvokeFunc;
 
-		#endregion
+        #endregion
 
-		#region Constructors and Destructors
+        #region Constructors and Destructors
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="TryInvokeMemberProxy"/> class.
-		/// </summary>
-		/// <param name="tryInvokeFunc">
-		/// The try invoke func.
-		/// </param>
-		public TryInvokeMemberProxy([NotNull] TryInvokeFunc tryInvokeFunc)
-		{
-			CodeContracts.ArgumentNotNull(tryInvokeFunc, "tryInvokeFunc");
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TryInvokeMemberProxy"/> class.
+        /// </summary>
+        /// <param name="tryInvokeFunc">
+        /// The try invoke func. 
+        /// </param>
+        public TryInvokeMemberProxy([NotNull] TryInvokeFunc tryInvokeFunc)
+        {
+            CodeContracts.ArgumentNotNull(tryInvokeFunc, "tryInvokeFunc");
 
-			this._tryInvokeFunc = tryInvokeFunc;
-		}
+            this._tryInvokeFunc = tryInvokeFunc;
+        }
 
-		#endregion
+        #endregion
 
-		#region Delegates
+        #region Delegates
 
-		/// <summary>
-		/// The try invoke func.
-		/// </summary>
-		/// <param name="binder">
-		/// The binder.
-		/// </param>
-		/// <param name="args">
-		/// The args.
-		/// </param>
-		/// <param name="result">
-		/// The result.
-		/// </param>
-		public delegate bool TryInvokeFunc(
-			[NotNull] InvokeMemberBinder binder, [NotNull] object[] args, [NotNull] out object result);
+        /// <summary>
+        ///     The try invoke func.
+        /// </summary>
+        /// <param name="binder"> The binder. </param>
+        /// <param name="args"> The args. </param>
+        /// <param name="result"> The result. </param>
+        public delegate bool TryInvokeFunc(
+            [NotNull] InvokeMemberBinder binder, [NotNull] object[] args, [NotNull] out object result);
 
-		#endregion
+        #endregion
 
-		#region Public Methods
+        #region Public Methods and Operators
 
-		/// <summary>
-		/// The try invoke member.
-		/// </summary>
-		/// <param name="binder">
-		/// The binder.
-		/// </param>
-		/// <param name="args">
-		/// The args.
-		/// </param>
-		/// <param name="result">
-		/// The result.
-		/// </param>
-		/// <returns>
-		/// The try invoke member.
-		/// </returns>
-		public override bool TryInvokeMember(
-			[NotNull] InvokeMemberBinder binder, [NotNull] object[] args, [NotNull] out object result)
-		{
-			return this._tryInvokeFunc(binder, args, out result);
-		}
+        /// <summary>
+        /// The try invoke member.
+        /// </summary>
+        /// <param name="binder">
+        /// The binder. 
+        /// </param>
+        /// <param name="args">
+        /// The args. 
+        /// </param>
+        /// <param name="result">
+        /// The result. 
+        /// </param>
+        /// <returns>
+        /// The try invoke member. 
+        /// </returns>
+        public override bool TryInvokeMember(
+            [NotNull] InvokeMemberBinder binder, [NotNull] object[] args, [NotNull] out object result)
+        {
+            return this._tryInvokeFunc(binder, args, out result);
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

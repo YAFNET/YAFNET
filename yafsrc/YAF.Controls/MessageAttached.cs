@@ -29,9 +29,11 @@ namespace YAF.Controls
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
@@ -112,20 +114,17 @@ namespace YAF.Controls
             string[] aImageExtensions = { "jpg", "gif", "png", "bmp" };
 
             string stats = this.GetText("ATTACHMENTINFO");
-            string strFileIcon = this.PageContext.Get<ITheme>().GetItem("ICONS", "ATTACHED_FILE");
+            string strFileIcon = this.Get<ITheme>().GetItem("ICONS", "ATTACHED_FILE");
 
-            ////string attachGroupId = Guid.NewGuid().ToString().Substring(0, 5);
+            var session = this.Get<HttpSessionStateBase>();
+            var settings = this.Get<YafBoardSettings>();
 
-            YafContext.Current.Get<HttpSessionStateBase>()["imagePreviewWidth"] =
-                this.Get<YafBoardSettings>().ImageAttachmentResizeWidth;
-            YafContext.Current.Get<HttpSessionStateBase>()["imagePreviewHeight"] =
-                this.Get<YafBoardSettings>().ImageAttachmentResizeHeight;
-            YafContext.Current.Get<HttpSessionStateBase>()["imagePreviewCropped"] =
-                this.Get<YafBoardSettings>().ImageAttachmentResizeCropped;
-            YafContext.Current.Get<HttpSessionStateBase>()["localizationFile"] =
-                this.Get<ILocalization>().LanguageFileName;
+            session["imagePreviewWidth"] = settings.ImageAttachmentResizeWidth;
+            session["imagePreviewHeight"] = settings.ImageAttachmentResizeHeight;
+            session["imagePreviewCropped"] = settings.ImageAttachmentResizeCropped;
+            session["localizationFile"] = this.Get<ILocalization>().LanguageFileName;
 
-            using (DataTable attachListDT = LegacyDb.attachment_list(this.MessageID, null, null,null,null))
+            using (DataTable attachListDT = this.GetRepository<Attachment>().List(this.MessageID, null, null,null,null))
             {
                 // show file then image attachments...
                 int tmpDisplaySort = 0;
@@ -143,7 +142,7 @@ namespace YAF.Controls
 
                         // verify it's not too large to display
                         // Ederon : 02/17/2009 - made it board setting
-                        if (dr["Bytes"].ToType<int>() <= this.Get<YafBoardSettings>().PictureAttachmentDisplayTreshold)
+                        if (dr["Bytes"].ToType<int>() <= settings.PictureAttachmentDisplayTreshold)
                         {
                             // is it an image file?
                             bShowImage = aImageExtensions.Any(t => strFilename.ToLower().EndsWith(t));
@@ -168,7 +167,7 @@ namespace YAF.Controls
                             if (this.PageContext.ForumDownloadAccess || this.PageContext.ForumModeratorAccess)
                             {
                                 // user has rights to download, show him image
-                                if (!this.Get<YafBoardSettings>().EnableImageAttachmentResize)
+                                if (!settings.EnableImageAttachmentResize)
                                 {
                                     writer.Write(
                                         @"<div class=""attachedimg""><img src=""{0}resource.ashx?a={1}"" alt=""{2}"" /></div>",

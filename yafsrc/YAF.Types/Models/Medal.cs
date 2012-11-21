@@ -21,6 +21,9 @@ namespace YAF.Types.Models
     using System;
     using System.Data.Linq.Mapping;
 
+    using ServiceStack.DataAnnotations;
+
+    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
@@ -28,7 +31,7 @@ namespace YAF.Types.Models
     /// </summary>
     [Serializable]
     [Table(Name = "Medal")]
-    public partial class Medal : IEntity
+    public partial class Medal : IEntity, IHaveBoardID, IHaveID
     {
         #region Constructors and Destructors
 
@@ -43,6 +46,13 @@ namespace YAF.Types.Models
         #endregion
 
         #region Public Properties
+
+        /// <summary>
+        /// Gets or sets the medal id.
+        /// </summary>
+        [AutoIncrement]
+        [Alias("MedalID")]
+        public int ID { get; set; }
 
         /// <summary>
         /// Gets or sets the board id.
@@ -63,11 +73,6 @@ namespace YAF.Types.Models
         /// Gets or sets the flags.
         /// </summary>
         public int Flags { get; set; }
-
-        /// <summary>
-        /// Gets or sets the medal id.
-        /// </summary>
-        public int MedalID { get; set; }
 
         /// <summary>
         /// Gets or sets the medal url.

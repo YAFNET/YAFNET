@@ -41,17 +41,21 @@ namespace YAF.Core.Data
         /// <param name="dbFunction">
         /// The db function. 
         /// </param>
+        /// <param name="dbAccess">
+        /// The db Access.
+        /// </param>
         /// <param name="raiseEvent">
         /// The raise Event. 
         /// </param>
         /// <param name="haveBoardId">
         /// The have Board Id. 
         /// </param>
-        public BasicRepository(IDbFunction dbFunction, IRaiseEvent raiseEvent, IHaveBoardId haveBoardId)
+        public BasicRepository(IDbFunction dbFunction, IDbAccessV2 dbAccess, IRaiseEvent raiseEvent, IHaveBoardID haveBoardId)
         {
             this.DbFunction = dbFunction;
+            this.DbAccess = dbAccess;
             this.DbEvent = raiseEvent;
-            this.BoardId = haveBoardId.BoardId;
+            this.BoardID = haveBoardId.BoardID;
         }
 
         #endregion
@@ -61,7 +65,12 @@ namespace YAF.Core.Data
         /// <summary>
         ///     Gets or sets the board id.
         /// </summary>
-        public int BoardId { get; set; }
+        public int BoardID { get; set; }
+
+        /// <summary>
+        /// Gets the db access.
+        /// </summary>
+        public IDbAccessV2 DbAccess { get; private set; }
 
         /// <summary>
         ///     Gets the db event.

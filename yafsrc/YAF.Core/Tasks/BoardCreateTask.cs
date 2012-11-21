@@ -24,9 +24,11 @@ namespace YAF.Core.Tasks
     using System;
 
     using YAF.Classes.Data;
+    using YAF.Core.Model;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
@@ -204,17 +206,17 @@ namespace YAF.Core.Tasks
                 this.Logger.Info("Starting  Board Add Task for board {0}.", _boardOut);
 
                 // Create Board
-                _boardOut = LegacyDb.board_create(
-                    this.AdminUserName,
-                    this.AdminUserEmail,
-                    this.AdminUserProviderUserKey,
-                    this.BoardName,
-                    this.Culture,
-                    this.LanguageFileName,
-                    this.BoardMembershipAppName,
-                    this.BoardRolesAppName,
-                    this.RolePrefix,
-                    0);
+                _boardOut = this.GetRepository<Board>().Create(
+                    this.BoardName.ToString(),
+                    this.Culture.ToString(),
+                    this.LanguageFileName.ToString(),
+                    this.BoardMembershipAppName.ToString(),
+                    this.BoardRolesAppName.ToString(),
+                    this.AdminUserName.ToString(),
+                    this.AdminUserEmail.ToString(),
+                    this.AdminUserProviderUserKey.ToString(),
+                    false,
+                    this.RolePrefix.ToString());
                 this.Logger.Info("Board Add Task for board {0} completed.", _boardOut);
             }
             catch (Exception)

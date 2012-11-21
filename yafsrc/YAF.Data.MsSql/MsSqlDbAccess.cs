@@ -31,37 +31,41 @@ namespace YAF.Data.MsSql
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
-    using YAF.Utils;
 
     #endregion
 
     /// <summary>
-    /// The i db setup.
+    ///     The i db setup.
     /// </summary>
-    [ExportService(ServiceLifetimeScope.InstancePerDependancy, "System.Data.SqlClient", new Type[] { typeof(IDbAccessV2) })]
+    [ExportService(ServiceLifetimeScope.InstancePerDependancy, SqlServerClientProviderTypeName, new[] { typeof(IDbAccessV2) })]
     public class MsSqlDbAccess : DbAccessBase
     {
-        #region Constants and Fields
+        internal const string SqlServerClientProviderTypeName = "System.Data.SqlClient";
+
+        #region Static Fields
 
         /// <summary>
-        /// Lists the UI parameters...
+        ///     The _script list.
+        /// </summary>
+        private static readonly string[] _scriptList =
+            {
+                "mssql/tables.sql", "mssql/indexes.sql", "mssql/views.sql", "mssql/constraints.sql", 
+                "mssql/triggers.sql", "mssql/functions.sql", "mssql/procedures.sql", 
+                "mssql/providers/tables.sql", "mssql/providers/indexes.sql", "mssql/providers/procedures.sql"
+            };
+
+        #endregion
+
+        #region Fields
+
+        /// <summary>
+        ///     Lists the UI parameters...
         /// </summary>
         protected DbConnectionParam[] DbParameters = new[]
             {
                 new DbConnectionParam(0, "Password", string.Empty, true), new DbConnectionParam(1, "Data Source", "(local)", true), 
                 new DbConnectionParam(2, "Initial Catalog", string.Empty, true), new DbConnectionParam(11, "Use Integrated Security", "true", true)
-            };
-
-        /// <summary>
-        /// The _script list.
-        /// </summary>
-        private static readonly string[] _scriptList =
-            {
-                "mssql/tables.sql", "mssql/indexes.sql", "mssql/views.sql", "mssql/constraints.sql",
-                "mssql/triggers.sql", "mssql/functions.sql", "mssql/procedures.sql",
-                "mssql/providers/tables.sql", "mssql/providers/indexes.sql", "mssql/providers/procedures.sql"
             };
 
         #endregion
@@ -75,7 +79,7 @@ namespace YAF.Data.MsSql
         /// The db provider factory. 
         /// </param>
         public MsSqlDbAccess([NotNull] Func<string, DbProviderFactory> dbProviderFactory)
-            : base(dbProviderFactory, "System.Data.SqlClient", Config.ConnectionString)
+            : base(dbProviderFactory, SqlServerClientProviderTypeName, Config.ConnectionString)
         {
         }
 
@@ -84,7 +88,7 @@ namespace YAF.Data.MsSql
         #region Public Properties
 
         /// <summary>
-        /// Gets a value indicating whether PanelGetStats.
+        ///     Gets a value indicating whether PanelGetStats.
         /// </summary>
         public static bool PanelGetStats
         {
@@ -95,7 +99,7 @@ namespace YAF.Data.MsSql
         }
 
         /// <summary>
-        /// Gets a value indicating whether PanelRecoveryMode.
+        ///     Gets a value indicating whether PanelRecoveryMode.
         /// </summary>
         public static bool PanelRecoveryMode
         {
@@ -106,7 +110,7 @@ namespace YAF.Data.MsSql
         }
 
         /// <summary>
-        /// Gets a value indicating whether PanelReindex.
+        ///     Gets a value indicating whether PanelReindex.
         /// </summary>
         public static bool PanelReindex
         {
@@ -117,7 +121,7 @@ namespace YAF.Data.MsSql
         }
 
         /// <summary>
-        /// Gets a value indicating whether PanelShrink.
+        ///     Gets a value indicating whether PanelShrink.
         /// </summary>
         public static bool PanelShrink
         {
@@ -128,7 +132,7 @@ namespace YAF.Data.MsSql
         }
 
         /// <summary>
-        /// Gets a value indicating whether PasswordPlaceholderVisible.
+        ///     Gets a value indicating whether PasswordPlaceholderVisible.
         /// </summary>
         public static bool PasswordPlaceholderVisible
         {
@@ -139,7 +143,7 @@ namespace YAF.Data.MsSql
         }
 
         /// <summary>
-        /// Gets DbConnectionParameters.
+        ///     Gets DbConnectionParameters.
         /// </summary>
         public override IEnumerable<IDbConnectionParam> DbConnectionParameters
         {
@@ -150,7 +154,7 @@ namespace YAF.Data.MsSql
         }
 
         /// <summary>
-        /// Gets or sets FullTextScript.
+        ///     Gets or sets FullTextScript.
         /// </summary>
         [NotNull]
         public override string FullTextScript
@@ -162,7 +166,7 @@ namespace YAF.Data.MsSql
         }
 
         /// <summary>
-        /// Gets Scripts.
+        ///     Gets Scripts.
         /// </summary>
         public override IEnumerable<string> Scripts
         {
@@ -180,10 +184,10 @@ namespace YAF.Data.MsSql
         /// The map parameters.
         /// </summary>
         /// <param name="cmd">
-        /// The cmd.
+        /// The cmd. 
         /// </param>
         /// <param name="keyValueParams">
-        /// The key value params.
+        /// The key value params. 
         /// </param>
         protected override void MapParameters(IDbCommand cmd, IEnumerable<KeyValuePair<string, object>> keyValueParams)
         {
@@ -195,8 +199,8 @@ namespace YAF.Data.MsSql
             {
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = string.Format(
-                    "EXEC {0} {1}",
-                    cmd.CommandText,
+                    "EXEC {0} {1}", 
+                    cmd.CommandText, 
                     Enumerable.Range(0, paramList.Count()).Select(x => string.Format("@{0}", x)).ToDelimitedString(","));
 
                 // add params without "keys" as they need to be index (0, 1, 2, 3)...

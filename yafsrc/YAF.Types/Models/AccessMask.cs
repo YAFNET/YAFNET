@@ -23,6 +23,9 @@ namespace YAF.Types.Models
     using System;
     using System.Data.Linq.Mapping;
 
+    using ServiceStack.DataAnnotations;
+
+    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
     #endregion
@@ -32,7 +35,7 @@ namespace YAF.Types.Models
     /// </summary>
     [Serializable]
     [Table(Name = "AccessMask")]
-    public partial class AccessMask : IEntity
+    public partial class AccessMask : IEntity, IHaveBoardID, IHaveID
     {
         #region Constructors and Destructors
 
@@ -51,7 +54,9 @@ namespace YAF.Types.Models
         /// <summary>
         ///     Gets or sets the access mask id.
         /// </summary>
-        public int AccessMaskID { get; set; }
+        [AutoIncrement]
+        [Alias("AccessMaskID")]
+        public int ID { get; set; }
 
         /// <summary>
         ///     Gets or sets the board id.

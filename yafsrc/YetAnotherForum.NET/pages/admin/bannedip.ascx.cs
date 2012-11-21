@@ -30,10 +30,13 @@ namespace YAF.Pages.Admin
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Extensions;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
@@ -117,8 +120,7 @@ namespace YAF.Pages.Admin
                     break;
                 case "delete":
                     string ip = this.GetIPFromID(e.CommandArgument);
-                    LegacyDb.bannedip_delete(e.CommandArgument);
-                    this.Get<IDataCache>().Remove(Constants.Cache.BannedIP);
+                    this.GetRepository<BannedIP>().DeleteByID(e.CommandArgument.ToType<int>());
                     this.BindData();
                     this.PageContext.AddLoadMessage(this.GetText("ADMIN_BANNEDIP", "MSG_REMOVEBAN"));
                     this.Get<ILogger>().IpBanLifted(
@@ -166,12 +168,12 @@ namespace YAF.Pages.Admin
         private void BindData()
         {
             this.PagerTop.PageSize = this.Get<YafBoardSettings>().MemberListPageSize;
-            var dt = LegacyDb.bannedip_list(
-                this.PageContext.PageBoardID, null, this.PagerTop.CurrentPageIndex, this.PagerTop.PageSize);
-            this.list.DataSource = dt;
 
-            this.PagerTop.Count = dt != null && dt.Rows.Count > 0
-                                      ? dt.AsEnumerable().First().Field<int>("TotalRows")
+            var bannedList = this.GetRepository<BannedIP>().List(null, this.PagerTop.CurrentPageIndex, this.PagerTop.PageSize);
+            this.list.DataSource = bannedList;
+
+            this.PagerTop.Count = bannedList != null && bannedList.Rows.Count > 0
+                                      ? bannedList.AsEnumerable().First().Field<int>("TotalRows")
                                       : 0;
 
             this.DataBind();

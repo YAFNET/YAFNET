@@ -13,6 +13,8 @@ namespace YAF.Data.MsSql
 	using System.Data;
 	using System.Data.SqlClient;
 
+	using ServiceStack.OrmLite;
+
 	using YAF.Types;
 	using YAF.Types.Interfaces;
 	using YAF.Types.Interfaces.Data;

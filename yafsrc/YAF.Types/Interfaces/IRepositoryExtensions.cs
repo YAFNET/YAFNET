@@ -20,15 +20,13 @@ namespace YAF.Types.Interfaces
 {
     #region Using
 
-    using YAF.Types;
     using YAF.Types.EventProxies;
-    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
     #endregion
 
     /// <summary>
-    /// The repository extensions.
+    ///     The repository extensions.
     /// </summary>
     public static class IRepositoryExtensions
     {
@@ -38,19 +36,60 @@ namespace YAF.Types.Interfaces
         /// The fire deleted.
         /// </summary>
         /// <param name="repository">
-        /// The repository.
+        /// The repository. 
         /// </param>
         /// <param name="id">
-        /// The id.
+        /// The id. 
+        /// </param>
+        /// <param name="entity">
+        /// The entity.
         /// </param>
         /// <typeparam name="T">
         /// </typeparam>
-        public static void FireDeleted<T>(this IRepository<T> repository, int? id = null, T entity = null)
-            where T : class, IEntity
+        public static void FireDeleted<T>(this IRepository<T> repository, int? id = null, T entity = null) where T : class, IEntity
         {
             CodeContracts.ArgumentNotNull(repository, "repository");
 
             repository.DbEvent.Raise(new RepositoryEvent<T>(RepositoryEventType.Delete, id, entity));
+        }
+
+        /// <summary>
+        /// The fire deleted.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="entity">
+        /// The entity.
+        /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
+        public static void FireDeleted<T>(this IRepository<T> repository, T entity) where T : class, IEntity, IHaveID
+        {
+            CodeContracts.ArgumentNotNull(repository, "repository");
+
+            repository.DbEvent.Raise(new RepositoryEvent<T>(RepositoryEventType.Delete, entity.ID, entity));
+        }
+
+        /// <summary>
+        /// The fire new.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository. 
+        /// </param>
+        /// <param name="id">
+        /// The id. 
+        /// </param>
+        /// <param name="entity">
+        /// The entity.
+        /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
+        public static void FireNew<T>([NotNull] this IRepository<T> repository, int? id = null, T entity = null) where T : class, IEntity
+        {
+            CodeContracts.ArgumentNotNull(repository, "repository");
+
+            repository.DbEvent.Raise(new RepositoryEvent<T>(RepositoryEventType.New, id, entity));
         }
 
         /// <summary>
@@ -59,17 +98,37 @@ namespace YAF.Types.Interfaces
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="id">
-        /// The id.
+        /// <param name="entity">
+        /// The entity.
         /// </param>
         /// <typeparam name="T">
         /// </typeparam>
-        public static void FireNew<T>([NotNull] this IRepository<T> repository, int? id = null, T entity = null)
-            where T : class, IEntity
+        public static void FireNew<T>([NotNull] this IRepository<T> repository, T entity) where T : class, IEntity, IHaveID
         {
             CodeContracts.ArgumentNotNull(repository, "repository");
 
-            repository.DbEvent.Raise(new RepositoryEvent<T>(RepositoryEventType.New, id, entity));
+            repository.DbEvent.Raise(new RepositoryEvent<T>(RepositoryEventType.New, entity.ID, entity));
+        }
+
+        /// <summary>
+        /// The fire updated.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository. 
+        /// </param>
+        /// <param name="id">
+        /// The id. 
+        /// </param>
+        /// <param name="entity">
+        /// The entity.
+        /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
+        public static void FireUpdated<T>(this IRepository<T> repository, int? id = null, T entity = null) where T : class, IEntity
+        {
+            CodeContracts.ArgumentNotNull(repository, "repository");
+
+            repository.DbEvent.Raise(new RepositoryEvent<T>(RepositoryEventType.Update, id, entity));
         }
 
         /// <summary>
@@ -78,17 +137,16 @@ namespace YAF.Types.Interfaces
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="id">
-        /// The id.
+        /// <param name="entity">
+        /// The entity.
         /// </param>
         /// <typeparam name="T">
         /// </typeparam>
-        public static void FireUpdated<T>(this IRepository<T> repository, int? id = null, T entity = null)
-            where T : class, IEntity
+        public static void FireUpdated<T>(this IRepository<T> repository, T entity) where T : class, IEntity, IHaveID
         {
             CodeContracts.ArgumentNotNull(repository, "repository");
 
-            repository.DbEvent.Raise(new RepositoryEvent<T>(RepositoryEventType.Update, id, entity));
+            repository.DbEvent.Raise(new RepositoryEvent<T>(RepositoryEventType.Update, entity.ID, entity));
         }
 
         #endregion

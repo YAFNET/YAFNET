@@ -27,8 +27,11 @@ namespace YAF.Core
     using System.Linq;
     using System.Net;
 
+    using YAF.Core.Model;
     using YAF.Types.Extensions;
-    using YAF.Utils;
+    using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Data;
+    using YAF.Types.Models;
 
     /// <summary>
     /// The data import.
@@ -53,6 +56,8 @@ namespace YAF.Core
         {
             int importedCount = 0;
 
+            var repository = YafContext.Current.Get<IRepository<YAF.Types.Models.BBCode>>();
+
             // import extensions...
             var dsBBCode = new DataSet();
             dsBBCode.ReadXml(imputStream);
@@ -61,30 +66,33 @@ namespace YAF.Core
                 dsBBCode.Tables["YafBBCode"].Columns["SearchRegex"] != null &&
                 dsBBCode.Tables["YafBBCode"].Columns["ExecOrder"] != null)
             {
-                var bbcodeList = LegacyDb.BBCodeList(boardId, null);
+                var bbcodeList = repository.ListTyped(boardId: boardId);
 
                 // import any extensions that don't exist...
-                foreach (DataRow row in from DataRow row in dsBBCode.Tables["YafBBCode"].Rows
-                                        let name = row["Name"].ToString()
-                                        where !bbcodeList.Any(b => b.Name == name)
-                                        select row)
+                foreach (
+                    DataRow row in
+                        from DataRow row in dsBBCode.Tables["YafBBCode"].Rows
+                        let name = row["Name"].ToString()
+                        where bbcodeList.All(b => b.Name != name)
+                        select row)
                 {
                     // add this bbcode...
-                    LegacyDb.bbcode_save(
+                    repository.Save(
                         null,
-                        boardId,
-                        row["Name"],
-                        row["Description"],
-                        row["OnClickJS"],
-                        row["DisplayJS"],
-                        row["EditJS"],
-                        row["DisplayCSS"],
-                        row["SearchRegex"],
-                        row["ReplaceRegex"],
-                        row["Variables"],
+                        row["Name"].ToString(),
+                        row["Description"].ToString(),
+                        row["OnClickJS"].ToString(),
+                        row["DisplayJS"].ToString(),
+                        row["EditJS"].ToString(),
+                        row["DisplayCSS"].ToString(),
+                        row["SearchRegex"].ToString(),
+                        row["ReplaceRegex"].ToString(),
+                        row["Variables"].ToString(),
                         Convert.ToBoolean(row["UseModule"]),
-                        row["ModuleClass"],
-                        row["ExecOrder"]);
+                        row["ModuleClass"].ToString(),
+                        row["ExecOrder"].ToType<int>(),
+                        boardId);
+
                     importedCount++;
                 }
             }
@@ -207,7 +215,8 @@ namespace YAF.Core
         {
             int importedCount = 0;
 
-            var existingBannedIPList = LegacyDb.bannedip_list(boardId, null, 0, 1000000);
+            var repository = YafContext.Current.Get<IRepository<BannedIP>>();
+            var existingBannedIPList = repository.List(boardId: boardId);
 
             using (var streamReader = new StreamReader(imputStream))
             {
@@ -226,7 +235,7 @@ namespace YAF.Core
                         continue;
                     }
 
-                    LegacyDb.bannedip_save(null, boardId, importAddress.ToString(), "Imported IP Adress", userId);
+                    repository.Save(null, importAddress.ToString(), "Imported IP Adress", userId, boardId);
                     importedCount++;
                 }
             }

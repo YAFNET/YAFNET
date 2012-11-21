@@ -18,7 +18,7 @@
  */
 namespace YAF.Core.Tasks
 {
-  #region Using
+    #region Using
 
     using System;
     using System.Collections.Generic;
@@ -26,204 +26,207 @@ namespace YAF.Core.Tasks
     using System.Linq;
     using YAF.Classes;
     using YAF.Classes.Data;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Data;
+    using YAF.Types.Models;
     using YAF.Types.Objects;
     using YAF.Utils;
 
-  #endregion
-
-  /// <summary>
-  /// The digest send task.
-  /// </summary>
-  public class DigestSendTask : IntermittentBackgroundTask
-  {
-    #region Constants and Fields
-
-    /// <summary>
-    ///   The _task name.
-    /// </summary>
-    private const string _TaskName = "DigestSendTask";
-
     #endregion
 
-    #region Constructors and Destructors
-
     /// <summary>
-    ///   Initializes a new instance of the <see cref = "DigestSendTask" /> class.
+    /// The digest send task.
     /// </summary>
-    public DigestSendTask()
+    public class DigestSendTask : IntermittentBackgroundTask
     {
-      this.RunPeriodMs = 300 * 1000;
-      this.StartDelayMs = 30 * 1000;
-    }
+        #region Constants and Fields
 
-    #endregion
+        /// <summary>
+        ///   The _task name.
+        /// </summary>
+        private const string _TaskName = "DigestSendTask";
 
-    #region Properties
+        #endregion
 
-    /// <summary>
-    ///   Gets TaskName.
-    /// </summary>
-    public static string TaskName
-    {
-      get
-      {
-        return _TaskName;
-      }
-    }
+        #region Constructors and Destructors
 
-    #endregion
-
-    #region Public Methods
-
-    /// <summary>
-    /// The run once.
-    /// </summary>
-    public override void RunOnce()
-    {
-      //// validate DB run...
-      ////this.Get<StartupInitializeDb>().Run();
-
-      this.SendDigest();
-    }
-
-    #endregion
-
-    #region Methods
-
-    /// <summary>
-    /// Determines whether is time to send digest for board.
-    /// </summary>
-    /// <param name="boardSettings">The board settings.</param>
-    /// <returns>
-    /// The is time to send digest for board.
-    /// </returns>
-    private bool IsTimeToSendDigestForBoard([NotNull] YafLoadBoardSettings boardSettings)
-    {
-      CodeContracts.ArgumentNotNull(boardSettings, "boardSettings");
-
-      if (boardSettings.AllowDigestEmail)
-      {
-        DateTime lastSend = DateTime.MinValue;
-        bool sendDigest = false;
-        int sendEveryXHours = boardSettings.DigestSendEveryXHours;
-
-        if (boardSettings.LastDigestSend.IsSet())
+        /// <summary>
+        ///   Initializes a new instance of the <see cref = "DigestSendTask" /> class.
+        /// </summary>
+        public DigestSendTask()
         {
-          lastSend = Convert.ToDateTime(boardSettings.LastDigestSend);
+            this.RunPeriodMs = 300 * 1000;
+            this.StartDelayMs = 30 * 1000;
         }
 
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        ///   Gets TaskName.
+        /// </summary>
+        public static string TaskName
+        {
+            get
+            {
+                return _TaskName;
+            }
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// The run once.
+        /// </summary>
+        public override void RunOnce()
+        {
+            //// validate DB run...
+            ////this.Get<StartupInitializeDb>().Run();
+
+            this.SendDigest();
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Determines whether is time to send digest for board.
+        /// </summary>
+        /// <param name="boardSettings">The board settings.</param>
+        /// <returns>
+        /// The is time to send digest for board.
+        /// </returns>
+        private bool IsTimeToSendDigestForBoard([NotNull] YafLoadBoardSettings boardSettings)
+        {
+            CodeContracts.ArgumentNotNull(boardSettings, "boardSettings");
+
+            if (boardSettings.AllowDigestEmail)
+            {
+                DateTime lastSend = DateTime.MinValue;
+                bool sendDigest = false;
+                int sendEveryXHours = boardSettings.DigestSendEveryXHours;
+
+                if (boardSettings.LastDigestSend.IsSet())
+                {
+                    lastSend = Convert.ToDateTime(boardSettings.LastDigestSend);
+                }
+
 #if (DEBUG)
-        // haven't sent in X hours or more and it's 12 to 5 am.
-        sendDigest = lastSend < DateTime.Now.AddHours(-sendEveryXHours);      
+                // haven't sent in X hours or more and it's 12 to 5 am.
+                sendDigest = lastSend < DateTime.Now.AddHours(-sendEveryXHours);
 #else
         // haven't sent in X hours or more and it's 12 to 5 am.
         sendDigest = lastSend < DateTime.Now.AddHours(-sendEveryXHours) && DateTime.Now < DateTime.Today.AddHours(6);
 #endif
-        if (sendDigest || boardSettings.ForceDigestSend)
-        {
-          // && DateTime.Now < DateTime.Today.AddHours(5))
-          // we're good to send -- update latest send so no duplication...
-          boardSettings.LastDigestSend = DateTime.Now.ToString();
-          boardSettings.ForceDigestSend = false;
-          boardSettings.SaveRegistry();
+                if (sendDigest || boardSettings.ForceDigestSend)
+                {
+                    // && DateTime.Now < DateTime.Today.AddHours(5))
+                    // we're good to send -- update latest send so no duplication...
+                    boardSettings.LastDigestSend = DateTime.Now.ToString();
+                    boardSettings.ForceDigestSend = false;
+                    boardSettings.SaveRegistry();
 
-          return true;
+                    return true;
+                }
+            }
+
+            return false;
         }
-      }
 
-      return false;
-    }
-
-    /// <summary>
-    /// The send digest.
-    /// </summary>
-    private void SendDigest()
-    {
-      try
-      {
-        var boardIds = LegacyDb.board_list(null).AsEnumerable().Select(b => b.Field<int>("BoardID"));
-
-        foreach (var boardId in boardIds)
+        /// <summary>
+        /// The send digest.
+        /// </summary>
+        private void SendDigest()
         {
-          var boardSettings = new YafLoadBoardSettings(boardId);
-
-          if (!this.IsTimeToSendDigestForBoard(boardSettings))
-          {
-            continue;
-          }
-
-          if (Config.BaseUrlMask.IsNotSet())
-          {
-            // fail...
-            LegacyDb.eventlog_create(null, "DigestSendTask", "Failed to send digest because BaseUrlMask value is not set in your appSettings.");
-            return;
-          }
-
-          // get users with digest enabled...
-          var usersWithDigest =
-            LegacyDb.UserFind(boardId, false, null, null, null, null, true).Where(x => !x.IsGuest && (x.IsApproved ?? false));
-
-          if (usersWithDigest.Any())
-          {
-            // start sending...
-            this.SendDigestToUsers(usersWithDigest, boardId, boardSettings);
-          }
-        }
-      }
-      catch (Exception ex)
-      {
-        LegacyDb.eventlog_create(null, TaskName, "Error In {0} Task: {1}".FormatWith(TaskName, ex));
-      }
-    }
-
-    /// <summary>
-    /// Sends the digest to users.
-    /// </summary>
-    /// <param name="usersWithDigest">The users with digest.</param>
-    /// <param name="boardId">The board id.</param>
-    /// <param name="boardSettings">The board settings.</param>
-    private void SendDigestToUsers(IEnumerable<TypedUserFind> usersWithDigest, int boardId, YafLoadBoardSettings boardSettings)
-    {
-        foreach (var user in usersWithDigest)
-        {
-            string digestHtml = string.Empty;
-
             try
             {
-                digestHtml = this.Get<IDigest>().GetDigestHtml(user.UserID ?? 0, boardId, boardSettings.WebServiceToken);
+                var boardIds = this.GetRepository<Board>().ListTyped().Select(b => b.ID);
+
+                foreach (var boardId in boardIds)
+                {
+                    var boardSettings = new YafLoadBoardSettings(boardId);
+
+                    if (!this.IsTimeToSendDigestForBoard(boardSettings))
+                    {
+                        continue;
+                    }
+
+                    if (Config.BaseUrlMask.IsNotSet())
+                    {
+                        // fail...
+                        LegacyDb.eventlog_create(null, "DigestSendTask", "Failed to send digest because BaseUrlMask value is not set in your appSettings.");
+                        return;
+                    }
+
+                    // get users with digest enabled...
+                    var usersWithDigest =
+                      LegacyDb.UserFind(boardId, false, null, null, null, null, true).Where(x => !x.IsGuest && (x.IsApproved ?? false));
+
+                    if (usersWithDigest.Any())
+                    {
+                        // start sending...
+                        this.SendDigestToUsers(usersWithDigest, boardId, boardSettings);
+                    }
+                }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                LegacyDb.eventlog_create(
-                    null, TaskName, "Error In Creating Digest for User {0}: {1}".FormatWith(user.UserID, e.ToString()));
+                LegacyDb.eventlog_create(null, TaskName, "Error In {0} Task: {1}".FormatWith(TaskName, ex));
             }
-
-            if (!digestHtml.IsSet())
-            {
-                continue;
-            }
-
-            if (user.ProviderUserKey == null)
-            {
-                continue;
-            }
-
-            var membershipUser = UserMembershipHelper.GetUser(user.ProviderUserKey);
-
-            if (membershipUser == null || membershipUser.Email.IsNotSet())
-            {
-                continue;
-            }
-
-            // send the digest...
-            this.Get<IDigest>().SendDigest(
-                digestHtml, boardSettings.Name, boardSettings.ForumEmail, membershipUser.Email, user.DisplayName, true);
         }
-    }
 
-      #endregion
-  }
+        /// <summary>
+        /// Sends the digest to users.
+        /// </summary>
+        /// <param name="usersWithDigest">The users with digest.</param>
+        /// <param name="boardId">The board id.</param>
+        /// <param name="boardSettings">The board settings.</param>
+        private void SendDigestToUsers(IEnumerable<TypedUserFind> usersWithDigest, int boardId, YafLoadBoardSettings boardSettings)
+        {
+            foreach (var user in usersWithDigest)
+            {
+                string digestHtml = string.Empty;
+
+                try
+                {
+                    digestHtml = this.Get<IDigest>().GetDigestHtml(user.UserID ?? 0, boardId, boardSettings.WebServiceToken);
+                }
+                catch (Exception e)
+                {
+                    LegacyDb.eventlog_create(
+                        null, TaskName, "Error In Creating Digest for User {0}: {1}".FormatWith(user.UserID, e.ToString()));
+                }
+
+                if (!digestHtml.IsSet())
+                {
+                    continue;
+                }
+
+                if (user.ProviderUserKey == null)
+                {
+                    continue;
+                }
+
+                var membershipUser = UserMembershipHelper.GetUser(user.ProviderUserKey);
+
+                if (membershipUser == null || membershipUser.Email.IsNotSet())
+                {
+                    continue;
+                }
+
+                // send the digest...
+                this.Get<IDigest>().SendDigest(
+                    digestHtml, boardSettings.Name, boardSettings.ForumEmail, membershipUser.Email, user.DisplayName, true);
+            }
+        }
+
+        #endregion
+    }
 }

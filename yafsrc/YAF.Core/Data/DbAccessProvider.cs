@@ -106,6 +106,7 @@ namespace YAF.Core.Data
 				{
 					// attempt to get the provider...
 					this._dbAccessProviders.TryGetValue(this.ProviderName, out this._dbAccess);
+                    this._serviceLocator.Get<IRaiseEvent>().Raise(new InitDatabaseProviderEvent(this.ProviderName, this._dbAccess));
 				}
 
 				if (this._dbAccess == null)
@@ -135,7 +136,7 @@ namespace YAF.Core.Data
 		#endregion
 	}
 
-	/// <summary>
+    /// <summary>
 	/// The no valid db access provider found exception.
 	/// </summary>
 	public class NoValidDbAccessProviderFoundException : Exception

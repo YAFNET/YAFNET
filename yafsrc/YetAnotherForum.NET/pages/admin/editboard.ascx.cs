@@ -33,6 +33,7 @@ namespace YAF.Pages.Admin
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -176,17 +177,7 @@ namespace YAF.Pages.Admin
                 RoleMembershipHelper.AddUserToRole(newAdmin.UserName, "Administrators");
 
                 // Create Board
-                newBoardID = LegacyDb.board_create(
-                  newAdmin.UserName,
-                  newAdmin.Email,
-                  newAdmin.ProviderUserKey,
-                  boardName,
-                  this.Culture.SelectedItem.Value,
-                  langFile,
-                  boardMembershipAppName,
-                  boardRolesAppName,
-                  Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty,
-                  this.PageContext().IsHostAdmin);
+                newBoardID = this.DbCreateBoard(boardName, boardMembershipAppName, boardRolesAppName, langFile, newAdmin);
             }
             else
             {
@@ -194,17 +185,7 @@ namespace YAF.Pages.Admin
                 MembershipUser newAdmin = UserMembershipHelper.GetUser();
 
                 // Create Board
-                newBoardID = LegacyDb.board_create(
-                  newAdmin.UserName,
-                  newAdmin.Email,
-                  newAdmin.ProviderUserKey,
-                  boardName,
-                  this.Culture.SelectedItem.Value,
-                  langFile,
-                  boardMembershipAppName,
-                  boardRolesAppName,
-                  Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty,
-                  this.PageContext().IsHostAdmin);
+                newBoardID = this.DbCreateBoard(boardName, boardMembershipAppName, boardRolesAppName, langFile, newAdmin);
             }
 
             if (newBoardID > 0 && Config.MultiBoardFolders)
@@ -242,7 +223,24 @@ namespace YAF.Pages.Admin
 
             // Return application name to as they were before.
             this.Get<MembershipProvider>().ApplicationName = currentMembershipAppName;
-            YafContext.Current.Get<RoleProvider>().ApplicationName = currentRolesAppName;
+            this.Get<RoleProvider>().ApplicationName = currentRolesAppName;
+        }
+
+        private int DbCreateBoard(string boardName, string boardMembershipAppName, string boardRolesAppName, string langFile, MembershipUser newAdmin)
+        {
+            int newBoardID = this.GetRepository<Board>()
+                                 .Create(
+                                     boardName,
+                                     this.Culture.SelectedItem.Value,
+                                     langFile,
+                                     boardMembershipAppName,
+                                     boardRolesAppName,
+                                     newAdmin.UserName,
+                                     newAdmin.Email,
+                                     newAdmin.ProviderUserKey.ToString(),
+                                     this.PageContext().IsHostAdmin,
+                                     Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty);
+            return newBoardID;
         }
 
         /// <summary>
@@ -330,7 +328,7 @@ namespace YAF.Pages.Admin
             {
                 this.CreateNewAdminHolder.Visible = false;
 
-                using (DataTable dt = LegacyDb.board_list(this.BoardID))
+                using (DataTable dt = this.GetRepository<Board>().List(this.BoardID))
                 {
                     DataRow row = dt.Rows[0];
                     this.Name.Text = (string)row["Name"];
@@ -397,8 +395,8 @@ namespace YAF.Pages.Admin
                 }
 
                 // Save current board settings
-                LegacyDb.board_save(
-                  this.BoardID, langFile, this.Culture.SelectedItem.Value, this.Name.Text.Trim(), this.AllowThreaded.Checked);
+                this.GetRepository<Board>()
+                    .Save(this.BoardID ?? 0, this.Name.Text.Trim(), langFile, this.Culture.SelectedItem.Value, this.AllowThreaded.Checked);
             }
             else
             {

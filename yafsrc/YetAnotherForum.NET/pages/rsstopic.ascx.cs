@@ -35,12 +35,14 @@ namespace YAF.Pages
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Core.Syndication;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
     using YAF.Utils.Helpers.StringUtils;
@@ -732,10 +734,7 @@ namespace YAF.Pages
                         row["Message"].ToString(),
                         null,
                         YafBuildLink.GetLinkNotEscaped(
-                            ForumPages.posts,
-                            true,
-                            "t={0}",
-                            this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t")),
+                            ForumPages.posts, true, "t={0}", this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t")),
                         "urn:{0}:ft{1}:st{2}:tid{3}:lmid{4}:{5}".FormatWith(
                             urlAlphaNum,
                             feedType,
@@ -764,7 +763,7 @@ namespace YAF.Pages
         private List<SyndicationLink> GetMediaLinks(int messageId)
         {
             var attachementLinks = new List<SyndicationLink>();
-            using (var attList = LegacyDb.attachment_list(messageId, null, this.PageContext.PageBoardID, 0, 1000))
+            using (var attList = this.GetRepository<Attachment>().List(messageId, null, this.PageContext.PageBoardID, 0, 1000))
             {
                 if (attList.Rows.Count > 0)
                 {
@@ -775,9 +774,7 @@ namespace YAF.Pages
                             new SyndicationLink(
                             new Uri(
                             "{0}{1}resource.ashx?a={2}".FormatWith(
-                                YafForumInfo.ForumBaseUrl,
-                                YafForumInfo.ForumClientFileRoot.TrimStart('/'),
-                                attachLink["AttachmentID"])),
+                                YafForumInfo.ForumBaseUrl, YafForumInfo.ForumClientFileRoot.TrimStart('/'), attachLink["AttachmentID"])),
                             "enclosure",
                             attachLink["FileName"].ToString(),
                             attachLink["ContentType"].ToString(),

@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{96179AC6-F6F1-40C3-9FDD-4F6582F54C5C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ServiceStack.OrmLite</RootNamespace>
+    <AssemblyName>ServiceStack.OrmLite</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'STATIC_ONLY NO_EXPRESSIONS|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\STATIC_ONLY NO_EXPRESSIONS\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'MonoTouch|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\MonoTouch\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;STATIC_ONLY NO_EXPRESSIONS</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>YetAnotherForum.NET.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Expressions\ReadConnectionExtensions.cs" />
+    <Compile Include="Expressions\WriteConnectionExtensions.cs" />
+    <Compile Include="ForeignKeyAttribute.cs" />
+    <Compile Include="OrmLiteReadConnectionExtensions.cs" />
+    <Compile Include="OrmLiteTransaction.cs" />
+    <Compile Include="OrmLiteWriteConnectionExtensions.cs" />
+    <Compile Include="DbTypes.cs" />
+    <Compile Include="INamingStrategy.cs" />
+    <Compile Include="OrmLiteConfigExtensions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="OrmLiteNamingStrategyBase.cs" />
+    <Compile Include="PropertyInvoker.cs" />
+    <Compile Include="FieldDefinition.cs" />
+    <Compile Include="IPropertyInvoker.cs" />
+    <Compile Include="ModelDefinition.cs" />
+    <Compile Include="OrmLiteConfig.cs" />
+    <Compile Include="OrmLiteConnection.cs" />
+    <Compile Include="OrmLiteConnectionFactory.cs" />
+    <Compile Include="OrmLitePersistenceProvider.cs" />
+    <Compile Include="IOrmLiteDialectProvider.cs" />
+    <Compile Include="OrmLiteDialectProviderBase.cs" />
+    <Compile Include="OrmLiteWriteExtensions.cs" />
+    <Compile Include="OrmLiteReadExtensions.cs" />
+    <Compile Include="OrmLiteUtilExtensions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReflectionPropertyInvoker.cs" />
+    <Compile Include="SchemaAttribute.cs" />
+    <Compile Include="SqlBuilder.cs" />
+    <Compile Include="SqlInValues.cs" />
+    <Compile Include="ComputeAttribute.cs" />
+    <Compile Include="IgnoreAttribute.cs" />
+    <Compile Include="PrimaryKeyAttribute.cs" />
+    <Compile Include="SequenceAttribute.cs" />
+    <Compile Include="DecimalLengthAttribute.cs" />
+    <Compile Include="Expressions\ReadExtensions.cs" />
+    <Compile Include="Expressions\SqlExpressionVisitor.cs" />
+    <Compile Include="Expressions\WriteExtensions.cs" />
+    <Compile Include="Expressions\Sql.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="OrmLiteApi.cd" />
+    <None Include="YetAnotherForum.NET.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ServiceStack.Common\ServiceStack.Common.csproj">
+      <Project>{982416db-c143-4028-a0c3-cf41892d18d3}</Project>
+      <Name>ServiceStack.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServiceStack.Interfaces\ServiceStack.Interfaces.csproj">
+      <Project>{42e1c8c0-a163-44cc-92b1-8f416f2c0b01}</Project>
+      <Name>ServiceStack.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServiceStack.Text\ServiceStack.Text.csproj">
+      <Project>{579b3fdb-cdad-44e1-8417-885c38e49a0e}</Project>
+      <Name>ServiceStack.Text</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
