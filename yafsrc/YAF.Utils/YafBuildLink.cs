@@ -95,7 +95,20 @@ namespace YAF.Utils
   public static class YafBuildLink
   {
     #region Public Methods
-
+    /// <summary>
+    /// Gets base path to the page without ampersand.
+    /// </summary>
+    /// <param name="page">Page to which to create a base path link.</param>
+    /// <param name="fullUrl">if set to <c>true</c> [full URL].</param>
+    /// <returns>
+    /// Base URL to the given page.
+    /// </returns>
+    public static string GetBasePath(bool fullUrl = false)
+    {
+        return fullUrl
+            ? YafFactoryProvider.UrlBuilder.BuildUrlFull("").TrimEnd('&')
+            : YafFactoryProvider.UrlBuilder.BuildUrl("").TrimEnd('&');
+    }
     /// <summary>
     /// Redirects response to the access denied page.
     /// </summary>

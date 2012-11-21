@@ -5107,6 +5107,7 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("Minutes", minutes);
                 cmd.Parameters.AddWithValue("NntpForumID", nntpForumID);
                 cmd.Parameters.AddWithValue("Active", active);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
 
                 return MsSqlDbAccess.Current.GetData(cmd).AsEnumerable().Select(r => new TypedNntpForum(r));
             }
