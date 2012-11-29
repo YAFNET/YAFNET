@@ -24,8 +24,10 @@ namespace YAF.Core.Tasks
   using System;
 
   using YAF.Classes.Data;
+  using YAF.Core.Model;
   using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
+  using YAF.Types.Models;
   using YAF.Utils;
 
   /// <summary>
@@ -226,8 +228,9 @@ namespace YAF.Core.Tasks
     {
         try
         {
-            this.Logger.Info("Starting Category Save Task for CategoryID {0}.",this.CategoryId);
-            LegacyDb.category_save(this.BoardIdToSave, this.CategoryId, this.CategoryName, this.CategoryImage, this.SortOrder); 
+            this.Logger.Info("Starting Category Save Task for CategoryID {0}.", this.CategoryId);
+            this.GetRepository<Category>()
+                .Save((int)this.CategoryId, this.CategoryName.ToString(), this.CategoryImage.ToString(), (short)this.SortOrder, (int)this.BoardIdToSave);
             this.Logger.Info("Category Save Task for CategoryID {0} is completed.", CategoryId);
         }
         catch (Exception x)

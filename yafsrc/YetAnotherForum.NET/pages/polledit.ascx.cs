@@ -31,9 +31,11 @@ namespace YAF.Pages
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Types.Objects;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -666,9 +668,7 @@ namespace YAF.Pages
                 {
                     // categoryid should not be null here
                     pgidt =
-                        (int)
-                        LegacyDb.category_listread(
-                            this.PageContext.PageBoardID, this.PageContext.PageUserID, this._categoryId).Rows[0]["PollGroupID"];
+                        (int)this.GetRepository<Category>().Listread(this.PageContext.PageUserID, this._categoryId ?? 0, this.PageContext.PageBoardID).Rows[0]["PollGroupID"];
                 }
 
                 if (pgidt > 0)

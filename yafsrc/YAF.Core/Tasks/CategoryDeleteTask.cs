@@ -23,39 +23,41 @@ namespace YAF.Core.Tasks
 {
 	using System;
 
-    using YAF.Types.Constants;
+	using YAF.Core.Extensions;
+	using YAF.Core.Model;
+	using YAF.Types.Constants;
 	using YAF.Classes.Data;
 	using YAF.Types.Extensions;
 	using YAF.Types.Interfaces;
+	using YAF.Types.Models;
 	using YAF.Utils;
 
-	/// <summary>
-	/// The forum delete task.
-	/// </summary>
-    public class CategoryDeleteTask : LongBackgroundTask,ICriticalBackgroundTask,IBlockableTask
-	{
-		#region Constants and Fields
+    /// <summary>
+    /// The forum delete task.
+    /// </summary>
+    public class CategoryDeleteTask : LongBackgroundTask, ICriticalBackgroundTask, IBlockableTask
+    {
+        #region Constants and Fields
 
-		/// <summary>
-		/// The _task name.
-		/// </summary>
-		private const string _TaskName = "CategoryDeleteTask";
-      
+        /// <summary>
+        /// The _task name.
+        /// </summary>
+        private const string _TaskName = "CategoryDeleteTask";
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		/// <summary>
-		/// Gets TaskName.
-		/// </summary>
-		public static string TaskName
-		{
-			get
-			{
-				return _TaskName;
-			}
-		}
+        /// <summary>
+        /// Gets TaskName.
+        /// </summary>
+        public static string TaskName
+        {
+            get
+            {
+                return _TaskName;
+            }
+        }
 
         /// <summary>
         /// The Blocking Task Names.
@@ -63,79 +65,76 @@ namespace YAF.Core.Tasks
         private static readonly string[] BlockingTaskNames = Constants.ForumRebuild.BlockingTaskNames;
 
 
-		/// <summary>
-		/// Gets or sets CategoryId.
-		/// </summary>
-		public int CategoryId { get; set; }
+        /// <summary>
+        /// Gets or sets CategoryId.
+        /// </summary>
+        public int CategoryId { get; set; }
 
-		/// <summary>
-		/// Gets or sets Forum New Id.
-		/// </summary>
-		public int ForumNewId { get; set; }
+        /// <summary>
+        /// Gets or sets Forum New Id.
+        /// </summary>
+        public int ForumNewId { get; set; }
 
-		#endregion
+        #endregion
 
-		#region Public Methods
+        #region Public Methods
 
-	    /// <summary>
-	    /// Creates the Forum Delete Task
-	    /// </summary>
-	    /// <param name="boardId">
-	    /// The board id.
-	    /// </param>
-	    /// <param name="forumId">
-	    /// The forum id.
-	    /// </param>
-	    /// <param name="failureMessage"> 
-	    /// The failure message - is empty if task is launched successfully.
-	    /// </param>
-	    /// <returns>
-	    /// Returns if Task was Successfull
-	    /// </returns>
-	    public static bool Start(int categoryId, out string failureMessage)
-		{
-
+        /// <summary>
+        /// Creates the Forum Delete Task
+        /// </summary>
+        /// <param name="boardId">
+        /// The board id.
+        /// </param>
+        /// <param name="forumId">
+        /// The forum id.
+        /// </param>
+        /// <param name="failureMessage"> 
+        /// The failure message - is empty if task is launched successfully.
+        /// </param>
+        /// <returns>
+        /// Returns if Task was Successfull
+        /// </returns>
+        public static bool Start(int categoryId, out string failureMessage)
+        {
             failureMessage = string.Empty;
-			if (YafContext.Current.Get<ITaskModuleManager>() == null)
-			{
-				return false;
-			}
-            if (!YafContext.Current.Get<ITaskModuleManager>().AreTasksRunning(BlockingTaskNames))
+            var moduleManager = YafContext.Current.Get<ITaskModuleManager>();
+
+            if (moduleManager == null)
             {
-                YafContext.Current.Get<ITaskModuleManager>().StartTask(TaskName,
-                                                                       () =>
-                                                                       new CategoryDeleteTask
-                                                                           {
-                                                                               CategoryId = categoryId
-                                                                           });
-            }
-            else
-            {
-                failureMessage = "You can't delete category while some of the blocking {0} tasks are running.".FormatWith(BlockingTaskNames.ToDelimitedString(","));
                 return false;
             }
 
-		    return true;
-		}
+            if (!moduleManager.AreTasksRunning(BlockingTaskNames))
+            {
+                moduleManager.StartTask(TaskName, () => new CategoryDeleteTask { CategoryId = categoryId });
+            }
+            else
+            {
+                failureMessage =
+                    "You can't delete category while some of the blocking {0} tasks are running.".FormatWith(BlockingTaskNames.ToDelimitedString(","));
+                return false;
+            }
 
-		/// <summary>
-		/// The run once.
-		/// </summary>
-		public override void RunOnce()
-		{
+            return true;
+        }
+
+        /// <summary>
+        /// The run once.
+        /// </summary>
+        public override void RunOnce()
+        {
             try
             {
-                this.Logger.Info("Starting Category {0} delete task.",this.CategoryId);
-                LegacyDb.category_delete(this.CategoryId);
-                this.Logger.Info("Category (ID: {0}) Delete Task Complete.",this.CategoryId);
-				
-			}
-			catch (Exception x)
-			{
-                this.Logger.Error(x,"Error In Category (ID: {0}) Delete Task".FormatWith(this.CategoryId),x);
-			}
-		}
+                this.Logger.Info("Starting Category {0} delete task.", this.CategoryId);
+                this.GetRepository<Category>().Delete(this.CategoryId);
+                this.Logger.Info("Category (ID: {0}) Delete Task Complete.", this.CategoryId);
+            }
+            catch (Exception x)
+            {
+                this.Logger.Error(x, "Error In Category (ID: {0}) Delete Task".FormatWith(this.CategoryId), x);
+            }
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

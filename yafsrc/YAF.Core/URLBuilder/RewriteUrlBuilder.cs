@@ -30,8 +30,11 @@ namespace YAF.Core
 
     using YAF.Classes;
     using YAF.Classes.Data;
+    using YAF.Core.Model;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers.StringUtils;
 
@@ -158,35 +161,7 @@ namespace YAF.Core
                         if (parser["pg"].IsSet())
                         {
                             useKey = "pg";
-                            //// pageName += "pg";
-                            if (parser[useKey].ToType<int>() == YafRssFeeds.Active.ToInt())
-                            {
-                                description = "active";
-                            }
-                            else if (parser[useKey].ToType<int>() == YafRssFeeds.Favorite.ToInt())
-                            {
-                                description = "favorite";
-                            }
-                            else if (parser[useKey].ToType<int>() == YafRssFeeds.Forum.ToInt())
-                            {
-                                description = "forum";
-                            }
-                            else if (parser[useKey].ToType<int>() == YafRssFeeds.LatestAnnouncements.ToInt())
-                            {
-                                description = "latestannouncements";
-                            }
-                            else if (parser[useKey].ToType<int>() == YafRssFeeds.LatestPosts.ToInt())
-                            {
-                                description = "latestposts";
-                            }
-                            else if (parser[useKey].ToType<int>() == YafRssFeeds.Posts.ToInt())
-                            {
-                                description = "posts";
-                            }
-                            else if (parser[useKey].ToType<int>() == YafRssFeeds.Topics.ToInt())
-                            {
-                                description = "topics";
-                            }
+                            description = parser[useKey].ToEnum<YafRssFeeds>().ToString().ToLower();
                         }
 
                         if (parser["f"].IsSet())
@@ -491,7 +466,7 @@ namespace YAF.Core
             if (row == null)
             {
                 // get the section desired...
-                DataTable list = LegacyDb.category_simplelist(this.LowRange(id), this.CacheSize);
+                DataTable list = YafContext.Current.GetRepository<Category>().Simplelist(this.LowRange(id), this.CacheSize);
 
                 // set it up in the cache
                 row = this.SetupDataToCache(ref list, Type, id, PrimaryKey);
