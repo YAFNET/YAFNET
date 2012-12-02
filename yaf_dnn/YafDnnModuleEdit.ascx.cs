@@ -32,9 +32,11 @@ namespace YAF.DotNetNuke
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
@@ -202,7 +204,7 @@ namespace YAF.DotNetNuke
                 return;
             }
 
-            using (DataTable dt = LegacyDb.board_list(DBNull.Value))
+            using (DataTable dt = YafContext.Current.GetRepository<Board>().List())
             {
                 this.BoardID.DataSource = dt;
                 this.BoardID.DataTextField = "Name";

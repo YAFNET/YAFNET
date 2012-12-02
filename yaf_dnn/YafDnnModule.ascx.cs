@@ -30,24 +30,35 @@ namespace YAF.DotNetNuke
     using System.Web.Security;
     using System.Web.UI;
 
+    using YAF.Core.Model;
+
     using global::DotNetNuke.Entities.Modules;
+
     using global::DotNetNuke.Entities.Modules.Actions;
+
     using global::DotNetNuke.Entities.Portals;
+
     using global::DotNetNuke.Entities.Profile;
+
     using global::DotNetNuke.Entities.Users;
+
     using global::DotNetNuke.Framework;
+
     using global::DotNetNuke.Security;
+
     using global::DotNetNuke.Services.Exceptions;
+
     using global::DotNetNuke.Services.Localization;
+
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
     using YAF.DotNetNuke.Controller;
     using YAF.DotNetNuke.Utils;
-
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
 
     #endregion
 
@@ -343,18 +354,19 @@ namespace YAF.DotNetNuke
                 YafCultureInfo yafCultureInfo = GetYafCultureInfo(
                     Localization.GetPageLocale(this.CurrentPortalSettings));
 
-                int largestBoardId = LegacyDb.board_create(
-                    dnnUserInfo.Username,
-                    dnnUserInfo.Email,
-                    dnnUser.ProviderUserKey,
-                    newBoardName,
-                    yafCultureInfo.Culture,
-                    yafCultureInfo.LanguageFile,
-                    "DotNetNuke",
-                    "DotNetNuke",
-                    string.Empty,
-                    dnnUserInfo.IsSuperUser);
-
+                int largestBoardId = YafContext.Current.GetRepository<Board>()
+                                               .Create(
+                                                   newBoardName,
+                                                   yafCultureInfo.Culture,
+                                                   yafCultureInfo.LanguageFile,
+                                                   "DotNetNuke",
+                                                   "DotNetNuke",
+                                                   dnnUserInfo.Username,
+                                                   dnnUserInfo.Username,
+                                                   dnnUser.ProviderUserKey.ToString(),
+                                                   dnnUserInfo.IsSuperUser,
+                                                   string.Empty);
+                
                 // Assign the new forum to this module
                 ModuleController objForumSettings = new ModuleController();
 

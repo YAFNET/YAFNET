@@ -22,6 +22,7 @@ namespace YAF.DotNetNuke.Utils
     using System;
     using System.Linq;
 
+    using YAF.Core.Model;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
 
