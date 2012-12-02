@@ -387,13 +387,9 @@ namespace YAF.DotNetNuke
                     this.ResolveUrl("~/DesktopModules/YetAnotherForumDotNet/resources/js/jquery.timeago.js"));
 
                 var timeagoLoadJs =
-                    @"Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadTimeAgo);
-            function loadTimeAgo() {				      	
-            " +
-                    Localization.GetString("TIMEAGO_JS", this.LocalResourceFile) +
-                    @"
-              jQuery('abbr.timeago').timeago();	
-			      }";
+                    string.Format(
+                        @"Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadTimeAgo);function loadTimeAgo() {{ {0} jQuery('abbr.timeago').timeago();}}",
+                        Localization.GetString("TIMEAGO_JS", this.LocalResourceFile));
 
                 ScriptManager.RegisterStartupScript(this, csType, "timeagoloadjs", timeagoLoadJs, true);
             }
@@ -684,6 +680,8 @@ namespace YAF.DotNetNuke
         {
             var currentRow = (DataRowView)e.Item.DataItem;
 
+            var currentItem = this.itemTemplate;
+
             string sMessageUrl =
                 this.ResolveUrl(
                     "~/Default.aspx?tabid={1}&g=posts&m={0}#post{0}".FormatWith(
@@ -702,43 +700,44 @@ namespace YAF.DotNetNuke
 
             // Render [LASTPOSTICON]
             var lastPostedImage = new ThemeImage
-                {
-                    LocalizedTitlePage = "DEFAULT",
-                    LocalizedTitleTag = "GO_LAST_POST",
-                    LocalizedTitle = Localization.GetString("LastPost.Text", this.LocalResourceFile),
-                    ThemeTag = "TOPIC_NEW",
-                    Style = "width:16px;height:16px"
-                };
+            {
+                LocalizedTitlePage = "DEFAULT",
+                LocalizedTitleTag = "GO_LAST_POST",
+                LocalizedTitle = Localization.GetString("LastPost.Text", this.LocalResourceFile),
+                ThemeTag = "TOPIC_NEW",
+                Style = "width:16px;height:16px"
+            };
 
-            this.itemTemplate = this.itemTemplate.Replace("[LASTPOSTICON]", lastPostedImage.RenderToString());
+            currentItem = currentItem.Replace("[LASTPOSTICON]", lastPostedImage.RenderToString());
 
             // Render [TOPICLINK]
             var textMessageLink = new HyperLink
-                {
-                    Text = YafContext.Current.Get<IBadWordReplace>().Replace(currentRow["Topic"].ToString()),
-                    NavigateUrl = sMessageUrl
-                };
-            this.itemTemplate = this.itemTemplate.Replace("[TOPICLINK]", textMessageLink.RenderToString());
+            {
+                Text = YafContext.Current.Get<IBadWordReplace>().Replace(currentRow["Topic"].ToString()),
+                NavigateUrl = sMessageUrl
+            };
+
+            currentItem = currentItem.Replace("[TOPICLINK]", textMessageLink.RenderToString());
 
             // Render [FORUMLINK]
             var forumLink = new HyperLink
-                {
-                    Text = currentRow["Forum"].ToString(),
-                    NavigateUrl =
-                        Classes.Config.EnableURLRewriting
-                            ? Globals.ResolveUrl(
-                                "~/tabid/{0}/g/topics/f/{1}/{2}.aspx".FormatWith(
-                                    this.yafTabId,
-                                    currentRow["ForumID"],
-                                    this.GetForumName(currentRow["ForumID"].ToType<int>())))
-                            : this.ResolveUrl(
-                                "~/Default.aspx?tabid={1}&g=topics&f={0}".FormatWith(currentRow["ForumID"], this.yafTabId))
-                };
+            {
+                Text = currentRow["Forum"].ToString(),
+                NavigateUrl =
+                    Classes.Config.EnableURLRewriting
+                        ? Globals.ResolveUrl(
+                            "~/tabid/{0}/g/topics/f/{1}/{2}.aspx".FormatWith(
+                                this.yafTabId,
+                                currentRow["ForumID"],
+                                this.GetForumName(currentRow["ForumID"].ToType<int>())))
+                        : this.ResolveUrl(
+                            "~/Default.aspx?tabid={1}&g=topics&f={0}".FormatWith(currentRow["ForumID"], this.yafTabId))
+            };
 
-            this.itemTemplate = this.itemTemplate.Replace("[FORUMLINK]", forumLink.RenderToString());
+            currentItem = currentItem.Replace("[FORUMLINK]", forumLink.RenderToString());
 
             // Render [BYTEXT]
-            this.itemTemplate = this.itemTemplate.Replace(
+            currentItem = currentItem.Replace(
                 "[BYTEXT]", YafContext.Current.Get<IHaveLocalization>().GetText("SEARCH", "BY"));
 
             // Render [LASTUSERLINK]
@@ -752,28 +751,28 @@ namespace YAF.DotNetNuke
                 userName = this.HtmlEncode(userName);
 
                 var lastUserLink = new HyperLink
-                    {
-                        Text = userName,
-                        ToolTip = userName,
-                        NavigateUrl =
-                            Classes.Config.EnableURLRewriting
-                                ? Globals.ResolveUrl(
-                                    "~/tabid/{0}/g/profile/u/{1}/{2}.aspx".FormatWith(
-                                        this.yafTabId, currentRow["LastUserID"], userName))
-                                : this.ResolveUrl(
-                                    "~/Default.aspx?tabid={1}&g=profile&u={0}".FormatWith(
-                                        currentRow["LastUserID"], this.yafTabId))
-                    };
+                {
+                    Text = userName,
+                    ToolTip = userName,
+                    NavigateUrl =
+                        Classes.Config.EnableURLRewriting
+                            ? Globals.ResolveUrl(
+                                "~/tabid/{0}/g/profile/u/{1}/{2}.aspx".FormatWith(
+                                    this.yafTabId, currentRow["LastUserID"], userName))
+                            : this.ResolveUrl(
+                                "~/Default.aspx?tabid={1}&g=profile&u={0}".FormatWith(
+                                    currentRow["LastUserID"], this.yafTabId))
+                };
 
-                this.itemTemplate = this.itemTemplate.Replace("[LASTUSERLINK]", lastUserLink.RenderToString());
+                currentItem = currentItem.Replace("[LASTUSERLINK]", lastUserLink.RenderToString());
             }
 
             // Render [LASTPOSTEDDATETIME]
             var displayDateTime = new DisplayDateTime { DateTime = currentRow["LastPosted"].ToType<DateTime>() };
 
-            this.itemTemplate = this.itemTemplate.Replace("[LASTPOSTEDDATETIME]", displayDateTime.RenderToString());
+            currentItem = currentItem.Replace("[LASTPOSTEDDATETIME]", displayDateTime.RenderToString());
 
-            return this.itemTemplate;
+            return currentItem;
         }
 
         /// <summary>
