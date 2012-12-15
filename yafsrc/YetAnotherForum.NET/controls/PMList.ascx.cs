@@ -22,6 +22,7 @@ namespace YAF.Controls
     #region Using
 
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel;
     using System.Data;
     using System.IO;
@@ -284,9 +285,7 @@ namespace YAF.Controls
         /// <param name="sender">
         /// The source of the event.
         /// </param>
-        /// <param name="e">
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        /// </param>
         protected void DeleteSelected_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             ((ThemeButton)sender).Attributes["onclick"] =
@@ -299,12 +298,10 @@ namespace YAF.Controls
         /// <param name="source">
         /// The source of the event.
         /// </param>
-        /// <param name="e">
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        /// </param>
         protected void ExportAll_Click([NotNull] object source, [NotNull] EventArgs e)
         {
-            var messageList = this.GetMessagesForExport();
+            var messageList = this.GetMessagesForExport(null);
 
             // Return if No Messages are Available to Export
             if (messageList.Table.Rows.Count.Equals(0))
@@ -333,20 +330,16 @@ namespace YAF.Controls
         /// <param name="source">
         /// The source of the event.
         /// </param>
-        /// <param name="e">
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        /// </param>
         protected void ExportSelected_Click([NotNull] object source, [NotNull] EventArgs e)
         {
-            var messageList = this.GetMessagesForExport();
+            var exportPMIds =
+                this.MessagesView.Rows.Cast<GridViewRow>()
+                    .Where(item => ((CheckBox)item.FindControl("ItemCheck")).Checked)
+                    .Select(item => (int)this.MessagesView.DataKeys[item.RowIndex].Value)
+                    .ToList();
 
-            int itemCount = 0;
-
-            foreach (GridViewRow item in this.MessagesView.Rows.Cast<GridViewRow>().Where(item => !((CheckBox)item.FindControl("ItemCheck")).Checked))
-            {
-                messageList.Table.Rows.RemoveAt(item.RowIndex - itemCount);
-                itemCount++;
-            }
+            var messageList = this.GetMessagesForExport(exportPMIds);
             
             // Return if No Message Selected
             if (messageList.Table.Rows.Count.Equals(0))
@@ -375,17 +368,15 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// The format body.
+        /// Formats the body.
         /// </summary>
-        /// <param name="o">
-        /// The o.
-        /// </param>
+        /// <param name="dataRowView">The data row view.</param>
         /// <returns>
         /// The format body.
         /// </returns>
-        protected string FormatBody([NotNull] object o)
+        protected string FormatBody([NotNull] object dataRowView)
         {
-            var row = (DataRowView)o;
+            var row = (DataRowView)dataRowView;
             return (string)row["Body"];
         }
 
@@ -395,9 +386,7 @@ namespace YAF.Controls
         /// <param name="sender">
         /// The source of the event.
         /// </param>
-        /// <param name="e">
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        /// </param>
         protected void FromLink_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.SetSort(this.View == PMView.Outbox ? "ToUser" : "FromUser", true);
@@ -422,10 +411,10 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// Gets the localized text.
+        /// Gets the localized <paramref name="text"/>.
         /// </summary>
         /// <param name="text">The text.</param>
-        /// <param name="page">The rescource page.</param>
+        /// <param name="page">The resource page.</param>
         /// <returns>
         /// The get localized text.
         /// </returns>
@@ -516,9 +505,7 @@ namespace YAF.Controls
         /// <param name="source">
         /// The source of the event.
         /// </param>
-        /// <param name="e">
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        /// </param>
         protected void MarkAsRead_Click([NotNull] object source, [NotNull] EventArgs e)
         {
             if (this.View == PMView.Outbox)
@@ -616,9 +603,7 @@ namespace YAF.Controls
         /// <param name="sender">
         /// The source of the event.
         /// </param>
-        /// <param name="e">
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        /// </param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.ViewState["SortField"] == null)
@@ -653,9 +638,7 @@ namespace YAF.Controls
         /// <param name="sender">
         /// The source of the event.
         /// </param>
-        /// <param name="e">
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        /// </param>
         protected void PagerTop_PageChange([NotNull] object sender, [NotNull] EventArgs e)
         {
             // rebind
@@ -687,9 +670,7 @@ namespace YAF.Controls
         /// <param name="sender">
         /// The source of the event.
         /// </param>
-        /// <param name="e">
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        /// </param>
         protected void SubjectLink_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.SetSort("Subject", true);
@@ -699,8 +680,11 @@ namespace YAF.Controls
         /// <summary>
         /// Gets the messages for export.
         /// </summary>
-        /// <returns></returns>
-        private DataView GetMessagesForExport()
+        /// <param name="exportPmIds">The export pm ids.</param>
+        /// <returns>
+        /// Returns the filtered Messages
+        /// </returns>
+        private DataView GetMessagesForExport([CanBeNull] List<int> exportPmIds)
         {
             var messageList = (DataView)this.MessagesView.DataSource;
 
@@ -708,9 +692,48 @@ namespace YAF.Controls
             {
                 DataRow row = messageList.Table.Rows[i];
 
+                if (exportPmIds != null  && !exportPmIds.Contains(row["PMessageID"].ToType<int>()))
+                {
+                    messageList.Table.Rows.RemoveAt(i);
+                    continue;
+                }
+
                 if (row["IsDeleted"].ToType<bool>())
                 {
                     messageList.Table.Rows.RemoveAt(i);
+                }
+                else
+                {
+                    switch (this.View)
+                    {
+                        case PMView.Inbox:
+                            {
+                                if (row["IsArchived"].ToType<bool>())
+                                {
+                                    messageList.Table.Rows.RemoveAt(i);
+                                }
+                            }
+
+                            break;
+                        case PMView.Outbox:
+                            {
+                                if (!row["IsInOutbox"].ToType<bool>())
+                                {
+                                    messageList.Table.Rows.RemoveAt(i);
+                                }
+                            }
+
+                            break;
+                        case PMView.Archive:
+                            {
+                                if (!row["IsArchived"].ToType<bool>())
+                                {
+                                    messageList.Table.Rows.RemoveAt(i);
+                                }
+                            }
+
+                            break;
+                    }
                 }
             }
 
@@ -719,7 +742,7 @@ namespace YAF.Controls
             messageList.Table.Columns.Remove("IsArchived");
             messageList.Table.Columns.Remove("IsInOutbox");
             messageList.Table.Columns.Remove("Flags");
-
+            
             return messageList;
         }
 
