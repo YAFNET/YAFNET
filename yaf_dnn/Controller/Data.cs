@@ -1,5 +1,5 @@
 /* Yet Another Forum.NET
- * Copyright (C) 2006-2012 Jaben Cargman
+ * Copyright (C) 2006-2013 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -25,10 +25,14 @@ namespace YAF.DotNetNuke.Controller
     using System.Collections.Generic;
     using System.Data;
     using System.Data.SqlClient;
-    using global::DotNetNuke.Data;
-    using global::DotNetNuke.Security.Roles;
-    using YAF.Classes.Data;
+
     using YAF.Types.Extensions;
+
+    using global::DotNetNuke.Data;
+
+    using global::DotNetNuke.Security.Roles;
+
+    using YAF.Classes.Data;
 
     #endregion
 
@@ -49,7 +53,7 @@ namespace YAF.DotNetNuke.Controller
         /// <param name="showNoCountPosts">if set to <c>true</c> [show no count posts].</param>
         /// <param name="findLastRead">if set to <c>true</c> [find last read].</param>
         /// <returns>
-        /// Data Table of Latest Posts
+        /// Returns the Table of Latest Posts
         /// </returns>
         public static DataTable TopicLatest(
             object boardId,
@@ -74,13 +78,13 @@ namespace YAF.DotNetNuke.Controller
         }
 
         /// <summary>
-        /// Add active access row for the current user outside of yaf
+        /// Add active access row for the current user outside of YAF
         /// </summary>
         /// <param name="boardId">The board id.</param>
         /// <param name="userId">The user id.</param>
         /// <param name="isGuest">if set to <c>true</c> [is guest].</param>
         /// <returns>
-        /// Data Table of the Active Access User Table
+        /// Returns the Table of the Active Access User Table
         /// </returns>
         public static DataTable ActiveAccessUser(object boardId, object userId, bool isGuest)
         {
@@ -97,7 +101,7 @@ namespace YAF.DotNetNuke.Controller
         }
 
         /// <summary>
-        /// Get all Messages From The Forum
+        /// Get all <see cref="Messages"/> From The Forum
         /// </summary>
         /// <returns>
         /// Message List
@@ -126,7 +130,7 @@ namespace YAF.DotNetNuke.Controller
         }
 
         /// <summary>
-        /// Get all Messages From The Forum
+        /// Get all <see cref="Messages"/> From The Forum
         /// </summary>
         /// <returns>
         /// Topics List
@@ -181,10 +185,10 @@ namespace YAF.DotNetNuke.Controller
         }
 
         /// <summary>
-        /// Gets the yaf board roles.
+        /// Gets the YAF board roles.
         /// </summary>
         /// <param name="boardId">The board id.</param>
-        /// <returns>Returns the Yaf Board Roles</returns>
+        /// <returns>Returns the YAF Board Roles</returns>
         public static List<RoleInfo> GetYafBoardRoles(int boardId)
         {
             List<RoleInfo> roles = new List<RoleInfo>();
@@ -207,11 +211,11 @@ namespace YAF.DotNetNuke.Controller
         }
 
         /// <summary>
-        /// Gets the yaf user roles.
+        /// Gets the YAF user roles.
         /// </summary>
         /// <param name="boardId">The board id.</param>
-        /// <param name="yafUserId">The yaf user id.</param>
-        /// <returns>Returns List of yaf user roles</returns>
+        /// <param name="yafUserId">The YAF user id.</param>
+        /// <returns>Returns List of YAF user roles</returns>
         public static List<RoleInfo> GetYafUserRoles(int boardId, int yafUserId)
         {
             List<RoleInfo> roles = new List<RoleInfo>();

@@ -1,5 +1,5 @@
 /* Yet Another Forum.NET
- * Copyright (C) 2006-2012 Jaben Cargman
+ * Copyright (C) 2006-2013 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -49,12 +49,13 @@ namespace YAF.DotNetNuke
     using YAF.DotNetNuke.Controller;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Utils;
     using YAF.Utils.Helpers;
 
     #endregion
 
     /// <summary>
-    /// The yaf dnn whats new.
+    /// The YAF What's new Module Page.
     /// </summary>
     public partial class YafDnnWhatsNew : PortalModuleBase
     {
@@ -72,7 +73,7 @@ namespace YAF.DotNetNuke
         private bool useRelativeTime;
 
         /// <summary>
-        ///   The yaf board id.
+        ///   The YAF board id.
         /// </summary>
         private int boardId;
 
@@ -82,12 +83,12 @@ namespace YAF.DotNetNuke
         private int maxPosts;
 
         /// <summary>
-        ///   The yaf module id.
+        ///   The YAF module id.
         /// </summary>
         private int yafModuleId;
 
         /// <summary>
-        ///   The yaf tab id.
+        ///   The YAF tab id.
         /// </summary>
         private int yafTabId;
 
@@ -175,7 +176,7 @@ namespace YAF.DotNetNuke
         /// </returns>
         protected DataRow GetDataRowFromCache(string type, int id)
         {
-            // get the datatable and find the value
+            // get the data table and find the value
             var list = HttpContext.Current.Cache[this.GetCacheName(type, id)] as DataTable;
 
             if (list != null)
@@ -202,7 +203,7 @@ namespace YAF.DotNetNuke
         /// The id.
         /// </param>
         /// <returns>
-        /// Returns the Forum Name.
+        /// Returns the forum Name.
         /// </returns>
         protected string GetForumName(int id)
         {
@@ -344,13 +345,7 @@ namespace YAF.DotNetNuke
                     }
 
                     break;
-            }
-
-            /*// populate the controls here...
-            if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem)
-            {
-                return;
-            }*/            
+            }            
         }
 
         /// <summary>
@@ -387,9 +382,13 @@ namespace YAF.DotNetNuke
                     this.ResolveUrl("~/DesktopModules/YetAnotherForumDotNet/resources/js/jquery.timeago.js"));
 
                 var timeagoLoadJs =
-                    string.Format(
-                        @"Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadTimeAgo);function loadTimeAgo() {{ {0} jQuery('abbr.timeago').timeago();}}",
-                        Localization.GetString("TIMEAGO_JS", this.LocalResourceFile));
+                    @"Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadTimeAgo);
+            function loadTimeAgo() {				      	
+            " +
+                    Localization.GetString("TIMEAGO_JS", this.LocalResourceFile) +
+                    @"
+              jQuery('abbr.timeago').timeago();	
+			      }";
 
                 ScriptManager.RegisterStartupScript(this, csType, "timeagoloadjs", timeagoLoadJs, true);
             }
@@ -700,39 +699,39 @@ namespace YAF.DotNetNuke
 
             // Render [LASTPOSTICON]
             var lastPostedImage = new ThemeImage
-            {
-                LocalizedTitlePage = "DEFAULT",
-                LocalizedTitleTag = "GO_LAST_POST",
-                LocalizedTitle = Localization.GetString("LastPost.Text", this.LocalResourceFile),
-                ThemeTag = "TOPIC_NEW",
-                Style = "width:16px;height:16px"
-            };
+                {
+                    LocalizedTitlePage = "DEFAULT",
+                    LocalizedTitleTag = "GO_LAST_POST",
+                    LocalizedTitle = Localization.GetString("LastPost.Text", this.LocalResourceFile),
+                    ThemeTag = "TOPIC_NEW",
+                    Style = "width:16px;height:16px"
+                };
 
             currentItem = currentItem.Replace("[LASTPOSTICON]", lastPostedImage.RenderToString());
 
             // Render [TOPICLINK]
             var textMessageLink = new HyperLink
-            {
-                Text = YafContext.Current.Get<IBadWordReplace>().Replace(currentRow["Topic"].ToString()),
-                NavigateUrl = sMessageUrl
-            };
+                {
+                    Text = YafContext.Current.Get<IBadWordReplace>().Replace(currentRow["Topic"].ToString()),
+                    NavigateUrl = sMessageUrl
+                };
 
             currentItem = currentItem.Replace("[TOPICLINK]", textMessageLink.RenderToString());
 
             // Render [FORUMLINK]
             var forumLink = new HyperLink
-            {
-                Text = currentRow["Forum"].ToString(),
-                NavigateUrl =
-                    Classes.Config.EnableURLRewriting
-                        ? Globals.ResolveUrl(
-                            "~/tabid/{0}/g/topics/f/{1}/{2}.aspx".FormatWith(
-                                this.yafTabId,
-                                currentRow["ForumID"],
-                                this.GetForumName(currentRow["ForumID"].ToType<int>())))
-                        : this.ResolveUrl(
-                            "~/Default.aspx?tabid={1}&g=topics&f={0}".FormatWith(currentRow["ForumID"], this.yafTabId))
-            };
+                {
+                    Text = currentRow["Forum"].ToString(),
+                    NavigateUrl =
+                        Classes.Config.EnableURLRewriting
+                            ? Globals.ResolveUrl(
+                                "~/tabid/{0}/g/topics/f/{1}/{2}.aspx".FormatWith(
+                                    this.yafTabId,
+                                    currentRow["ForumID"],
+                                    this.GetForumName(currentRow["ForumID"].ToType<int>())))
+                            : this.ResolveUrl(
+                                "~/Default.aspx?tabid={1}&g=topics&f={0}".FormatWith(currentRow["ForumID"], this.yafTabId))
+                };
 
             currentItem = currentItem.Replace("[FORUMLINK]", forumLink.RenderToString());
 
@@ -751,18 +750,18 @@ namespace YAF.DotNetNuke
                 userName = this.HtmlEncode(userName);
 
                 var lastUserLink = new HyperLink
-                {
-                    Text = userName,
-                    ToolTip = userName,
-                    NavigateUrl =
-                        Classes.Config.EnableURLRewriting
-                            ? Globals.ResolveUrl(
-                                "~/tabid/{0}/g/profile/u/{1}/{2}.aspx".FormatWith(
-                                    this.yafTabId, currentRow["LastUserID"], userName))
-                            : this.ResolveUrl(
-                                "~/Default.aspx?tabid={1}&g=profile&u={0}".FormatWith(
-                                    currentRow["LastUserID"], this.yafTabId))
-                };
+                    {
+                        Text = userName,
+                        ToolTip = userName,
+                        NavigateUrl =
+                            Classes.Config.EnableURLRewriting
+                                ? Globals.ResolveUrl(
+                                    "~/tabid/{0}/g/profile/u/{1}/{2}.aspx".FormatWith(
+                                        this.yafTabId, currentRow["LastUserID"], userName))
+                                : this.ResolveUrl(
+                                    "~/Default.aspx?tabid={1}&g=profile&u={0}".FormatWith(
+                                        currentRow["LastUserID"], this.yafTabId))
+                    };
 
                 currentItem = currentItem.Replace("[LASTUSERLINK]", lastUserLink.RenderToString());
             }

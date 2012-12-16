@@ -136,7 +136,7 @@
     <value>YAF Import Scheduler</value>
   </data>
   <data name="lImport.Text" xml:space="preserve">
-    <value>Import all Users of your Portal and also syncronize Roles:</value>
+    <value>Import Users/Sync Roles</value>
   </data>
   <data name="RolesNotSynced.Text" xml:space="preserve">
     <value>, Roles already syncronized!</value>
@@ -149,5 +149,11 @@
   </data>
   <data name="UsersImported.Text" xml:space="preserve">
     <value>{0} User(s) Imported</value>
+  </data>
+  <data name="lblAddScheduler.Help" xml:space="preserve">
+    <value>Option to install or remove the YAF Scheduler for automatic User syncronization.</value>
+  </data>
+  <data name="lImport.Help" xml:space="preserve">
+    <value>Import all Users of your Portal and also syncronize Roles.</value>
   </data>
 </root>

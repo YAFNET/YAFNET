@@ -469,7 +469,7 @@ namespace YAF.Classes
             get
             {
                 return GetConfigValueAsString("YAF.JQueryUIFile") ??
-                       "http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js";
+                       "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js";
             }
         }
 

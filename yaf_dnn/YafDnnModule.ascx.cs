@@ -1,5 +1,5 @@
 ﻿/* Yet Another Forum.NET
- * Copyright (C) 2006-2012 Jaben Cargman
+ * Copyright (C) 2006-2013 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -30,8 +30,6 @@ namespace YAF.DotNetNuke
     using System.Web.Security;
     using System.Web.UI;
 
-    using YAF.Core.Model;
-
     using global::DotNetNuke.Entities.Modules;
 
     using global::DotNetNuke.Entities.Modules.Actions;
@@ -53,8 +51,10 @@ namespace YAF.DotNetNuke
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.DotNetNuke.Controller;
     using YAF.DotNetNuke.Utils;
+    using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
@@ -107,15 +107,16 @@ namespace YAF.DotNetNuke
                             Localization.GetString("EditYafSettings.Text", this.LocalResourceFile), 
                             ModuleActionType.AddContent, string.Empty, string.Empty, this.EditUrl(), 
                             false, 
-                            SecurityAccessLevel.Host, 
-                            true, 
+                            SecurityAccessLevel.Host,
+                            true,
                             false
                             },
                         {
                             this.GetNextActionID(), Localization.GetString("UserImporter.Text", this.LocalResourceFile),
                             ModuleActionType.AddContent, string.Empty, string.Empty, this.EditUrl("Import"), false,
-                            SecurityAccessLevel.Host, true, false
-                            }
+                            SecurityAccessLevel.Host,
+                            true,
+                            false }
                     };
 
                 return actions;
@@ -146,7 +147,7 @@ namespace YAF.DotNetNuke
         }
 
         /// <summary>
-        /// Gets YafCultures
+        /// Gets the YAF Cultures
         /// </summary>
         private static List<YafCultureInfo> YafCultures
         {
@@ -172,11 +173,9 @@ namespace YAF.DotNetNuke
         #region Methods
 
         /// <summary>
-        /// The on error.
+        /// Raises the <see cref="E:System.Web.UI.TemplateControl.Error" /> event.
         /// </summary>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="e">An <see cref="T:System.EventArgs" /> that contains the event data.</param>
         protected override void OnError(EventArgs e)
         {
             Exception x = this.Server.GetLastError();
@@ -194,18 +193,33 @@ namespace YAF.DotNetNuke
             this.InitializeComponent();
 
             base.OnInit(e);
-        }   
+        }
+
+        /// <summary>
+        /// The On PreRender event.
+        /// </summary>
+        /// <param name="e">
+        /// the Event Arguments
+        /// </param>
+        protected override void OnPreRender([NotNull] EventArgs e)
+        {
+            // setup jQuery and Jquery Ui Tabs.
+            jQuery.RequestRegistration();
+            jQuery.RequestUIRegistration();
+
+            base.OnPreRender(e);
+        }
 
         /// <summary>
         /// Get Default CDefault
         /// </summary>
-        /// <param name="c">
-        /// The Control c
-        /// </param>
-        /// <returns>The Control</returns>
-        private static CDefault GetDefault(Control c)
+        /// <param name="control">The <paramref name="control"/>.</param>
+        /// <returns>
+        /// The Control
+        /// </returns>
+        private static CDefault GetDefault(Control control)
         {
-            Control parent = c.Parent;
+            Control parent = control.Parent;
 
             if (parent != null)
             {
@@ -217,10 +231,10 @@ namespace YAF.DotNetNuke
         }
 
         /// <summary>
-        /// The get yaf cultures.
+        /// Gets the YAF cultures.
         /// </summary>
         /// <returns>
-        /// Dictonary with Yaf Cultures
+        /// Dictionary with YAF Cultures
         /// </returns>
         private static List<YafCultureInfo> GetYafCultures()
         {
@@ -250,22 +264,20 @@ namespace YAF.DotNetNuke
 
             return yafCultures;
         }
-        
+
         /// <summary>
-        /// The get yaf culture info.
+        /// Gets the YAF culture info.
         /// </summary>
-        /// <param name="cultureInfo">
-        /// The culture info.
-        /// </param>
+        /// <param name="cultureInfo">The culture info.</param>
         /// <returns>
-        /// The Yaf Culture
+        /// The YAF Culture
         /// </returns>
         private static YafCultureInfo GetYafCultureInfo(CultureInfo cultureInfo)
         {
-            string culture = "en";
-            string lngFile = "english.xml";
+            var culture = "en";
+            var lngFile = "english.xml";
 
-            YafCultureInfo yafCultureInfo = new YafCultureInfo();
+            var yafCultureInfo = new YafCultureInfo();
 
             if (cultureInfo != null)
             {
@@ -290,7 +302,7 @@ namespace YAF.DotNetNuke
 
         /// <summary>
         /// Change YAF Language based on DNN Language, 
-        ///   this will override the YAF Language Setting
+        ///   will <c>override</c> the YAF Language Setting
         /// </summary>
         private static void SetDnnLangToYaf()
         {
@@ -312,14 +324,10 @@ namespace YAF.DotNetNuke
         }
 
         /// <summary>
-        /// The create new board.
+        /// Creates the new board.
         /// </summary>
-        /// <param name="dnnUserInfo">
-        /// The dnn user info.
-        /// </param>
-        /// <param name="dnnUser">
-        /// The dnn user.
-        /// </param>
+        /// <param name="dnnUserInfo">The DNN user info.</param>
+        /// <param name="dnnUser">The DNN user.</param>
         private void CreateNewBoard(UserInfo dnnUserInfo, MembershipUser dnnUser)
         {
             // Add new admin users to group
@@ -331,7 +339,7 @@ namespace YAF.DotNetNuke
                 }
                 catch
                 {
-                    // TODO :Dont do anything when user is already in role ?!
+                    // TODO : Don't do anything when user is already in role ?!
                 }
             }*/
 
@@ -340,9 +348,11 @@ namespace YAF.DotNetNuke
                 // This is HOST and probably the first board.
                 // The install routine already created the first board.
                 // Make sure Module settings are in place
-                ModuleController objForumSettings = new ModuleController();
+                var objForumSettings = new ModuleController();
+
                 objForumSettings.UpdateModuleSetting(this.ModuleId, "forumboardid", "1");
                 objForumSettings.UpdateModuleSetting(this.ModuleId, "forumcategoryid", string.Empty);
+
                 this.forum1.BoardID = 1;
             }
             else
@@ -362,13 +372,13 @@ namespace YAF.DotNetNuke
                                                    "DotNetNuke",
                                                    "DotNetNuke",
                                                    dnnUserInfo.Username,
-                                                   dnnUserInfo.Username,
+                                                   dnnUserInfo.Email,
                                                    dnnUser.ProviderUserKey.ToString(),
                                                    dnnUserInfo.IsSuperUser,
                                                    string.Empty);
-                
+
                 // Assign the new forum to this module
-                ModuleController objForumSettings = new ModuleController();
+               var objForumSettings = new ModuleController();
 
                 objForumSettings.UpdateModuleSetting(this.ModuleId, "forumboardid", largestBoardId.ToString());
                 objForumSettings.UpdateModuleSetting(this.ModuleId, "forumcategoryid", string.Empty);
@@ -378,30 +388,28 @@ namespace YAF.DotNetNuke
         }
 
         /// <summary>
-        /// The create yaf host user.
+        /// Creates the YAF host user.
         /// </summary>
-        /// <param name="yafUserId">
-        /// The yaf user id.
-        /// </param>
+        /// <param name="yafUserId">The YAF user id.</param>
         private void CreateYafHostUser(int yafUserId)
         {
             // get this user information...
-            DataTable userInfo = LegacyDb.user_list(this.forum1.BoardID, yafUserId, null, null, null);
+            var userInfoTable = LegacyDb.user_list(this.forum1.BoardID, yafUserId, null, null, null);
 
-            if (userInfo.Rows.Count <= 0)
+            if (userInfoTable.Rows.Count <= 0)
             {
                 return;
             }
 
-            DataRow row = userInfo.Rows[0];
+            DataRow row = userInfoTable.Rows[0];
 
             if (Convert.ToBoolean(row["IsHostAdmin"]))
             {
                 return;
             }
 
-            // fix the ishostadmin flag...
-            UserFlags userFlags = new UserFlags(row["Flags"]) { IsHostAdmin = true };
+            // fix the IsHostAdmin flag...
+            var userFlags = new UserFlags(row["Flags"]) { IsHostAdmin = true };
 
             // update...
             LegacyDb.user_adminsave(
@@ -412,17 +420,13 @@ namespace YAF.DotNetNuke
                 row["Email"],
                 userFlags.BitValue,
                 row["RankID"]);
-        }        
+        }
 
         /// <summary>
-        /// The dotnetnuke module load.
+        /// Handles the Load event of the DotNetNukeModule control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         private void DotNetNukeModule_Load(object sender, EventArgs e)
         {
             if (this.Page.IsPostBack)
@@ -430,7 +434,7 @@ namespace YAF.DotNetNuke
                 return;
             }
 
-            // Check if Yaf Profile exists as dnn profile Definition
+            // Check if Yaf Profile exists as DNN profile Definition
             if (this.Session["{0}_profileproperties".FormatWith(this.CurrentPortalSettings.PortalId)] == null)
             {
                 if (
@@ -453,7 +457,7 @@ namespace YAF.DotNetNuke
 
             try
             {
-               this.VerifyUser();
+               this.CreateOrUpdateUser();
             }
             catch (Exception ex)
             {
@@ -462,29 +466,29 @@ namespace YAF.DotNetNuke
         }
 
         /// <summary>
-        /// Check if roles are syncronized and the user is added to them
+        /// Check if roles are synchronized and the user is added to them
         /// </summary>
         /// <param name="dnnUser">The Current DNN User</param>
-        /// <param name="yafUserId">The yaf user id.</param>
+        /// <param name="yafUserId">The YAF user id.</param>
         private void CheckForRoles(UserInfo dnnUser, int yafUserId)
         {
-            // see if the roles have been syncronized...
+            // see if the roles have been synchronized...
             if (this.Session["{0}_rolesloaded".FormatWith(this.SessionUserKeyName)] != null)
             {
                 return;
             }
 
-            RoleSyncronizer.SyncronizeUserRoles(this.forum1.BoardID, this.PortalSettings.PortalId, yafUserId, dnnUser);
+            RoleSyncronizer.SynchronizeUserRoles(this.forum1.BoardID, this.PortalSettings.PortalId, yafUserId, dnnUser);
 
             this.Session["{0}_rolesloaded".FormatWith(this.SessionUserKeyName)] = true;
         }
 
         /// <summary>
-        /// Check if the DNN User exists in yaf, and if the Profile is up to date.
+        /// Check if the DNN User exists in YAF, and if the Profile is up to date.
         /// </summary>
-        private void VerifyUser()
+        private void CreateOrUpdateUser()
         {
-            // Get current Dnn user
+            // Get current DNN user
             var dnnUserInfo = UserController.GetCurrentUserInfo();
 
             // get the user from the membership provider
@@ -513,29 +517,28 @@ namespace YAF.DotNetNuke
                     this.PortalSettings,
                     YafContext.Current.Get<YafBoardSettings>());
 
-                RoleMembershipHelper.UpdateForumUser(dnnMembershipUser, this.forum1.BoardID, dnnUserInfo.Roles);
-
                 // super admin check...
                 if (dnnUserInfo.IsSuperUser)
                 {
                     this.CreateYafHostUser(yafUserId);
                 }
-
-                this.Session["{0}_userSync".FormatWith(this.SessionUserKeyName)] = true;
             }
             else
             {
-                RoleMembershipHelper.UpdateForumUser(dnnMembershipUser, this.forum1.BoardID, dnnUserInfo.Roles);
-
                 this.CheckForRoles(dnnUserInfo, yafUserId);
-            }
 
-            // Has this user been registered in YAF already?);
-            if (this.Session["{0}_userSync".FormatWith(this.SessionUserKeyName)] != null)
-            {
-                return;
+                this.SyncUserProfile(yafUserId, dnnUserInfo, dnnMembershipUser);
             }
+        }
 
+        /// <summary>
+        /// Syncs the user profile.
+        /// </summary>
+        /// <param name="yafUserId">The YAF user id.</param>
+        /// <param name="dnnUserInfo">The DNN user info.</param>
+        /// <param name="dnnMembershipUser">The DNN membership user.</param>
+        private void SyncUserProfile(int yafUserId, UserInfo dnnUserInfo, MembershipUser dnnMembershipUser)
+        {
             // Load Auto Sync Setting
             bool autoSyncProfile = true;
 
@@ -545,6 +548,12 @@ namespace YAF.DotNetNuke
             }
 
             if (!autoSyncProfile)
+            {
+                return;
+            }
+
+            // Has this user been registered in YAF already?);
+            if (this.Session["{0}_userSync".FormatWith(this.SessionUserKeyName)] != null)
             {
                 return;
             }
@@ -563,8 +572,8 @@ namespace YAF.DotNetNuke
         /// <summary>
         /// Change Page Title
         /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The e.</param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="ForumPageTitleArgs" /> instance containing the event data.</param>
         private void Forum1_PageTitleSet(object sender, ForumPageTitleArgs e)
         {
             int removeTabName = 1;
@@ -627,7 +636,7 @@ namespace YAF.DotNetNuke
             this.forum1 = new Forum();
 
             this.pnlModuleContent.Controls.Add(this.forum1);
-            
+
             this.Load += this.DotNetNukeModule_Load;
             this.forum1.PageTitleSet += this.Forum1_PageTitleSet;
 
@@ -660,7 +669,7 @@ namespace YAF.DotNetNuke
                 }
 
                 // Override Theme?
-                bool overrideTheme = false;
+                /*bool overrideTheme = false;
 
                 if ((string)this.Settings["OverrideTheme"] != null)
                 {
@@ -674,10 +683,10 @@ namespace YAF.DotNetNuke
 
                 var forumThemeFile = this.Settings["forumtheme"].ToString();
 
-                if (!string.IsNullOrEmpty(forumThemeFile))
+                if (!string.IsNullOrEmpty(forumThemeFile) && YafContext.Current.Page != null)
                 {
                     YafContext.Current.Page["ForumTheme"] = forumThemeFile;
-                }
+                }*/
             }
             catch (Exception)
             {

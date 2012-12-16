@@ -76,33 +76,6 @@ namespace YAF.DotNetNuke {
         protected global::System.Web.UI.WebControls.DropDownList RemoveTabName;
         
         /// <summary>
-        /// Theme control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UserControl Theme;
-        
-        /// <summary>
-        /// OverrideTheme control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox OverrideTheme;
-        
-        /// <summary>
-        /// ThemeID control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ThemeID;
-        
-        /// <summary>
         /// InheritLanguage control.
         /// </summary>
         /// <remarks>

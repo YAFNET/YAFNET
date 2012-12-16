@@ -241,7 +241,7 @@ namespace YAF.Core.Services
             if (YafContext.Current.Get<YafBoardSettings>().JqueryUIThemeCDNHosted)
             {
                 this.RegisterCssInclude(
-                    "http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/{0}/jquery-ui.css".FormatWith(
+                    "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/{0}/jquery-ui.css".FormatWith(
                         YafContext.Current.Get<YafBoardSettings>().JqueryUITheme));
             }
             else
@@ -261,7 +261,7 @@ namespace YAF.Core.Services
         public void RegisterJQueryUI(Control element)
         {
             // If registered or told not to register, don't bother
-            if (this.PageElementExists("jqueryui") || Config.DisableJQuery)
+            if (this.PageElementExists("jqueryui") || Config.DisableJQuery || Config.IsDotNetNuke)
             {
                 return;
             }

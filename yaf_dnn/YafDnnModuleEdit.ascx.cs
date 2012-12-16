@@ -1,5 +1,5 @@
 ﻿/* Yet Another Forum.NET
- * Copyright (C) 2006-2012 Jaben Cargman
+ * Copyright (C) 2006-2013 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -29,7 +29,6 @@ namespace YAF.DotNetNuke
 
     using global::DotNetNuke.Services.Localization;
 
-    using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Core.Model;
@@ -49,11 +48,9 @@ namespace YAF.DotNetNuke
         #region Methods
 
         /// <summary>
-        /// The on init.
+        /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
         /// </summary>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnInit(EventArgs e)
         {
             this.Load += this.DotNetNukeModuleEdit_Load;
@@ -61,7 +58,6 @@ namespace YAF.DotNetNuke
             this.cancel.Click += CancelClick;
             this.create.Click += CreateClick;
             this.BoardID.SelectedIndexChanged += this.BoardIdSelectedIndexChanged;
-            this.OverrideTheme.CheckedChanged += this.OverrideThemeCheckedChanged;
             base.OnInit(e);
         }
 
@@ -69,7 +65,7 @@ namespace YAF.DotNetNuke
         /// Cancel Editing.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
         private static void CancelClick(object sender, EventArgs e)
         {
             YafBuildLink.Redirect(ForumPages.forum);
@@ -83,16 +79,6 @@ namespace YAF.DotNetNuke
         private static void CreateClick(object sender, EventArgs e)
         {
             YafBuildLink.Redirect(ForumPages.admin_editboard);
-        }
-
-        /// <summary>
-        /// Overrides the theme checked changed.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void OverrideThemeCheckedChanged(object sender, EventArgs e)
-        {
-            this.ThemeID.Enabled = this.OverrideTheme.Checked;
         }
 
         /// <summary>
@@ -126,55 +112,6 @@ namespace YAF.DotNetNuke
         }
 
         /// <summary>
-        /// Bind The Themes List
-        /// </summary>
-        private void BindThemes()
-        {
-            bool overrideTheme = false;
-
-            if ((string)this.Settings["OverrideTheme"] != null)
-            {
-                bool.TryParse((string)this.Settings["OverrideTheme"], out overrideTheme);
-            }
-
-            this.OverrideTheme.Checked = this.ThemeID.Enabled = overrideTheme;
-
-            this.ThemeID.DataSource = StaticDataHelper.Themes();
-            this.ThemeID.DataTextField = "Theme";
-            this.ThemeID.DataValueField = "FileName";
-            this.ThemeID.DataBind();
-
-            if (this.ThemeID.Items.Count <= 0)
-            {
-                return;
-            }
-
-            var themeFile = YafContext.Current.Get<YafBoardSettings>().Theme;
-
-            var themeItem = this.ThemeID.Items.FindByValue(themeFile);
-
-            if (themeItem != null)
-            {
-                themeItem.Selected = true;
-            }
-
-            if (this.Settings["forumtheme"] == null)
-            {
-                return;
-            }
-
-            ListItem item = this.ThemeID.Items.FindByValue(this.Settings["forumtheme"].ToString());
-
-            if (item == null)
-            {
-                return;
-            }
-
-            this.ThemeID.ClearSelection();
-            item.Selected = true;
-        }
-
-        /// <summary>
         /// Change the Categories if the Board is changed
         /// </summary>
         /// <param name="sender">The sender.</param>
@@ -194,7 +131,6 @@ namespace YAF.DotNetNuke
             this.update.Text = Localization.GetString("Update.Text", this.LocalResourceFile);
             this.cancel.Text = Localization.GetString("Cancel.Text", this.LocalResourceFile);
             this.create.Text = Localization.GetString("Create.Text", this.LocalResourceFile);
-            this.OverrideTheme.Text = Localization.GetString("OverrideTheme.Text", this.LocalResourceFile);
 
             this.update.Visible = this.IsEditable;
             this.create.Visible = this.IsEditable;
@@ -221,8 +157,6 @@ namespace YAF.DotNetNuke
             }
 
             this.BindCategories();
-
-            this.BindThemes();
 
             // Load Remove Tab Name Setting
             this.RemoveTabName.Items.Add(new ListItem(Localization.GetString("RemoveTabName0.Text", this.LocalResourceFile), "0"));
@@ -264,13 +198,7 @@ namespace YAF.DotNetNuke
             objModules.UpdateModuleSetting(this.ModuleId, "forumboardid", this.BoardID.SelectedValue);
             objModules.UpdateModuleSetting(this.ModuleId, "forumcategoryid", this.CategoryID.SelectedValue);
 
-            if (this.OverrideTheme.Checked)
-            {
-                objModules.UpdateModuleSetting(this.ModuleId, "forumtheme", this.ThemeID.SelectedValue);
-            }
-
             objModules.UpdateModuleSetting(this.ModuleId, "RemoveTabName", this.RemoveTabName.SelectedValue);
-            objModules.UpdateModuleSetting(this.ModuleId, "OverrideTheme", this.OverrideTheme.Checked.ToString());
             objModules.UpdateModuleSetting(
                 this.ModuleId, "InheritDnnLanguage", this.InheritDnnLanguage.Checked.ToString());
             objModules.UpdateModuleSetting(this.ModuleId, "AutoSyncProfile", this.AutoSyncProfile.Checked.ToString());
