@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+  <tools name="MainToolbar" enabled="true">
+    <tool name="Bold" Shortcut="Ctrl+B"/>
+    <tool name="Italic" Shortcut="Ctrl+I"/>
+    <tool name="Underline" Shortcut="Ctrl+U"/>
+    <tool name="Strikethrough" />
+    <tool separator="true" />
+    <tool name="Cut" Shortcut="Ctrl+X"/>
+    <tool name="Copy" Shortcut="Ctrl+C"/>
+    <tool name="Paste" Shortcut="Ctrl+V"/>
+    <tool separator="true" />
+    <tool name="InsertUnorderedList" />
+    <tool name="InsertOrderedList" />
+    <tool name="Indent"/>
+    <tool name="Outdent"/>
+    <tool separator="true" />
+    <tool name="JustifyLeft" />
+    <tool name="JustifyCenter" />
+    <tool name="JustifyRight" />
+    <tool name="JustifyFull" />
+    <tool name="JustifyNone" />
+    <tool separator="true" />
+    <tool name="FontSize"/>
+    <tool name="ForeColor"/>
+    <tool name="BackColor"/>
+    <tool separator="true" />
+    <tool name="AjaxSpellCheck" />
+    <tool name="LinkManager" />
+    <tool name="Unlink" />
+    <tool separator="true" />
+    <tool name="Undo" />
+    <tool name="Redo" />
+    <tool name="InsertTable" />
+  </tools>
+</root>

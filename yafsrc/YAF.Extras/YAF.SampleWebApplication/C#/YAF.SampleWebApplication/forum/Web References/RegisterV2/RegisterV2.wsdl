@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://yetanotherforum.net/RegisterV2" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://yetanotherforum.net/RegisterV2" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">YAF.NET Registration v2</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://yetanotherforum.net/RegisterV2">
+      <s:element name="LatestInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="currentVersion" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="culture" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LatestInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LatestInfoResult" type="tns:LatestVersionInformation" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="LatestVersionInformation">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Date" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Link" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Message" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Version" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsWarning" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="LatestVersion">
+        <s:complexType />
+      </s:element>
+      <s:element name="LatestVersionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="LatestVersionResult" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LatestVersionDate">
+        <s:complexType />
+      </s:element>
+      <s:element name="LatestVersionDateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="LatestVersionDateResult" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegisterForum">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="address" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegisterForumResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RegisterForumResult" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LatestVersionInformation" nillable="true" type="tns:LatestVersionInformation" />
+      <s:element name="long" type="s:long" />
+      <s:element name="dateTime" type="s:dateTime" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="LatestInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:LatestInfo" />
+  </wsdl:message>
+  <wsdl:message name="LatestInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:LatestInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="LatestVersionSoapIn">
+    <wsdl:part name="parameters" element="tns:LatestVersion" />
+  </wsdl:message>
+  <wsdl:message name="LatestVersionSoapOut">
+    <wsdl:part name="parameters" element="tns:LatestVersionResponse" />
+  </wsdl:message>
+  <wsdl:message name="LatestVersionDateSoapIn">
+    <wsdl:part name="parameters" element="tns:LatestVersionDate" />
+  </wsdl:message>
+  <wsdl:message name="LatestVersionDateSoapOut">
+    <wsdl:part name="parameters" element="tns:LatestVersionDateResponse" />
+  </wsdl:message>
+  <wsdl:message name="RegisterForumSoapIn">
+    <wsdl:part name="parameters" element="tns:RegisterForum" />
+  </wsdl:message>
+  <wsdl:message name="RegisterForumSoapOut">
+    <wsdl:part name="parameters" element="tns:RegisterForumResponse" />
+  </wsdl:message>
+  <wsdl:message name="LatestInfoHttpGetIn">
+    <wsdl:part name="currentVersion" type="s:string" />
+    <wsdl:part name="culture" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LatestInfoHttpGetOut">
+    <wsdl:part name="Body" element="tns:LatestVersionInformation" />
+  </wsdl:message>
+  <wsdl:message name="LatestVersionHttpGetIn" />
+  <wsdl:message name="LatestVersionHttpGetOut">
+    <wsdl:part name="Body" element="tns:long" />
+  </wsdl:message>
+  <wsdl:message name="LatestVersionDateHttpGetIn" />
+  <wsdl:message name="LatestVersionDateHttpGetOut">
+    <wsdl:part name="Body" element="tns:dateTime" />
+  </wsdl:message>
+  <wsdl:message name="RegisterForumHttpGetIn">
+    <wsdl:part name="id" type="s:string" />
+    <wsdl:part name="name" type="s:string" />
+    <wsdl:part name="address" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RegisterForumHttpGetOut">
+    <wsdl:part name="Body" element="tns:long" />
+  </wsdl:message>
+  <wsdl:portType name="RegisterV2Soap">
+    <wsdl:operation name="LatestInfo">
+      <wsdl:input message="tns:LatestInfoSoapIn" />
+      <wsdl:output message="tns:LatestInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LatestVersion">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get the latest version number.</wsdl:documentation>
+      <wsdl:input message="tns:LatestVersionSoapIn" />
+      <wsdl:output message="tns:LatestVersionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LatestVersionDate">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get the date of the last version.</wsdl:documentation>
+      <wsdl:input message="tns:LatestVersionDateSoapIn" />
+      <wsdl:output message="tns:LatestVersionDateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegisterForum">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Register YAF.NET</wsdl:documentation>
+      <wsdl:input message="tns:RegisterForumSoapIn" />
+      <wsdl:output message="tns:RegisterForumSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="RegisterV2HttpGet">
+    <wsdl:operation name="LatestInfo">
+      <wsdl:input message="tns:LatestInfoHttpGetIn" />
+      <wsdl:output message="tns:LatestInfoHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LatestVersion">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get the latest version number.</wsdl:documentation>
+      <wsdl:input message="tns:LatestVersionHttpGetIn" />
+      <wsdl:output message="tns:LatestVersionHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LatestVersionDate">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get the date of the last version.</wsdl:documentation>
+      <wsdl:input message="tns:LatestVersionDateHttpGetIn" />
+      <wsdl:output message="tns:LatestVersionDateHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegisterForum">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Register YAF.NET</wsdl:documentation>
+      <wsdl:input message="tns:RegisterForumHttpGetIn" />
+      <wsdl:output message="tns:RegisterForumHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="RegisterV2Soap" type="tns:RegisterV2Soap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="LatestInfo">
+      <soap:operation soapAction="http://yetanotherforum.net/RegisterV2/LatestInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LatestVersion">
+      <soap:operation soapAction="http://yetanotherforum.net/RegisterV2/LatestVersion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LatestVersionDate">
+      <soap:operation soapAction="http://yetanotherforum.net/RegisterV2/LatestVersionDate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegisterForum">
+      <soap:operation soapAction="http://yetanotherforum.net/RegisterV2/RegisterForum" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="RegisterV2Soap12" type="tns:RegisterV2Soap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="LatestInfo">
+      <soap12:operation soapAction="http://yetanotherforum.net/RegisterV2/LatestInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LatestVersion">
+      <soap12:operation soapAction="http://yetanotherforum.net/RegisterV2/LatestVersion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LatestVersionDate">
+      <soap12:operation soapAction="http://yetanotherforum.net/RegisterV2/LatestVersionDate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegisterForum">
+      <soap12:operation soapAction="http://yetanotherforum.net/RegisterV2/RegisterForum" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="RegisterV2HttpGet" type="tns:RegisterV2HttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="LatestInfo">
+      <http:operation location="/LatestInfo" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LatestVersion">
+      <http:operation location="/LatestVersion" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LatestVersionDate">
+      <http:operation location="/LatestVersionDate" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegisterForum">
+      <http:operation location="/RegisterForum" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="RegisterV2">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">YAF.NET Registration v2</wsdl:documentation>
+    <wsdl:port name="RegisterV2Soap" binding="tns:RegisterV2Soap">
+      <soap:address location="http://yetanotherforum.net/RegisterV2.asmx" />
+    </wsdl:port>
+    <wsdl:port name="RegisterV2Soap12" binding="tns:RegisterV2Soap12">
+      <soap12:address location="http://yetanotherforum.net/RegisterV2.asmx" />
+    </wsdl:port>
+    <wsdl:port name="RegisterV2HttpGet" binding="tns:RegisterV2HttpGet">
+      <http:address location="http://yetanotherforum.net/RegisterV2.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

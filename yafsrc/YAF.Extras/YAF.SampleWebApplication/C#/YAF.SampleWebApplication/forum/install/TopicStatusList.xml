@@ -1,0 +1,22 @@
+<YafTopicStatusList>
+  <YafTopicStatus>
+    <TopicStatusName>INFORMATIC</TopicStatusName>
+    <DefaultDescription>Informatic</DefaultDescription>
+  </YafTopicStatus>
+  <YafTopicStatus>
+    <TopicStatusName>SOLVED</TopicStatusName>
+    <DefaultDescription>Solved</DefaultDescription>
+  </YafTopicStatus>
+  <YafTopicStatus>
+    <TopicStatusName>QUESTION</TopicStatusName>
+    <DefaultDescription>Question</DefaultDescription>
+  </YafTopicStatus>
+  <YafTopicStatus>
+    <TopicStatusName>ISSUE</TopicStatusName>
+    <DefaultDescription>Issue</DefaultDescription>
+  </YafTopicStatus>
+  <YafTopicStatus>
+    <TopicStatusName>FIXED</TopicStatusName>
+    <DefaultDescription>Fixed</DefaultDescription>
+  </YafTopicStatus>
+</YafTopicStatusList>

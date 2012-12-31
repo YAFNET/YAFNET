@@ -1,0 +1,457 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Changelog - YetAnotherForum.NET</title>
+	<style type="text/css">
+	  #footer hr{height:1px;border:solid 1px gray;border-bottom:none;margin:10px 0 15px;} 
+	  #footer p{float:left;margin:0 10px 10px;} 
+	  #footer #copy{float:right;} 
+	  .FeatureHeader{color:#C00;font-family:Georgia;font-weight:700;font-size:150%;display:block;padding:20px 0 6px;} 
+	  #Content{width:90%;margin:20px auto;} 
+	  body{color:#000;font:80% Georgia;font-weight:400;} 
+	  h1,h2,h3,h4,h5,h6{letter-spacing:-1px;font-family:arial,verdana,sans-serif;color:#337;border-bottom:1px solid #eee;padding-bottom:.1em;margin:1.2em 0 .3em;} 
+	  h1{font-size:196%;margin-top:.6em;} 
+	  h2{font-size:136%;} 
+	  h3{font-size:126%;} 
+	  h4{font-size:116%;} 
+	  h5{font-size:106%;} 
+	  h6{font-size:96%;}
+	</style>
+</head>
+<body>
+<div id="Content">
+<h1>
+<a href="http://www.yetanotherforum.net"><img src="forumlogo.jpg" alt="YAF logo" style="border: 0"></a></h1>
+<h1>YetAnotherForum.NET Changelog </h1>
+	<span class="FeatureHeader">YAF.NET 1.9.6</span>
+    <p>New features:</p>
+	<ul>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/96c018fd4b52">96c018fd4b52</a> - Added Keystroke Support to the YAF BBCode Editor you can now use CTRL+B for making the text Bold, CTRL+I for making the text Italic and CTRL+U for underlining the text</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/63215c15029e">63215c15029e</a> - Added Album Image List DropDown to the YAF Editor to include an Album Image in a Post.</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/e97f83f02ee3">e97f83f02ee3</a> - Added Single Sign On via Twitter - Setting Enable Single Sign On in Host Settings Needs to be enabled and YAF.TwitterConsumerKey andYAF.TwitterConsumerSecret needs to be setup in app.config. Twitter Users can also Retweet Messages and Topics directly via the Twitter API.</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/e9fc44704e62">e9fc44704e62</a> - Added New Feature to Allow Topic Title Customization with CSS Styles for Mods and Admins.
+        </li>
+        <li> <a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/d6d136861018">d6d136861018</a> - Added One More Tab to the My Topics Page that shows all Unanswered Topics Topics.</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/b2be8a1d157a">b2be8a1d157a</a> - New Feature: Added Support for Farsi Calender (this feature needs to be verified by an persian/arabic developer)</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/f5d0815dc314">f5d0815dc314</a> - Added New Admin Page &quot;Delete Forum&quot; you have now the Option to delete a Forum including its content, or select a New Forum where all The Topics should be moved to before the deleting of the selected forum.</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/c744ff13c79b">c744ff13c79b</a> - The Current Points System is now Converted in to a Reputation System instead of Adding Points (Reputation) automatically when Users Posts a Message, a User can give Reputation to another User (once a Day). More Info <a href="http://forum.yetanotherforum.net/yaf_postsm51721_Karma-instead-of-points.aspx#51721">here</a></li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/bc1385ace914">bc1385ace914</a> - Added Admin Interface to Add/Edit/Delete and Import/Export Topic Status.</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/66d9b475d8d5">66d9b475d8d5</a> - Added an image to thanks list description.</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/ed05fd04a051">ed05fd04a051</a> - Added New Button to a Post &quot;Multi-Quote&quot;; Mark multiple Post as &quot;Multi-Quote&quot; and Click &quot;Quote&quot; and all Posts are Quoted.</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/916cfc3b145e">916cfc3b145e</a> - Added New Host Setting &quot;Show Todays Birthdays in Forum Info&quot;</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/407f9afdf381">407f9afdf381</a> - Added JS and CSS Compression via JSMin project, it autom. compresses all JavaScript and Css Blocks.</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/f754e6c34872">f754e6c34872</a> - An optional setting which places moderator list under forum description instead of a Separate Column.</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/34eec91d5070">34eec91d5070</a> - Added Download Button to the Attached Image inside The Modal Preview Window. of the Message Attached Preview Image</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/f2fde79416f3">f2fde79416f3</a> - Added Spell Checking to the Standard YAF Text Editor via jQuery Ajax thru Google Spellchecker API.</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/d003cb720b4d">d003cb720b4d</a> - Added New Topic Icons &quot;Hot Topic&quot; - In the Host Settings you can define how long (in Days) a Topic should stay active, and how many Replies or Views needed until a Topic becames Hot (Popular).</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/a892a37fe742">a892a37fe742</a> - Added Flags to the Country DropDown on the Edit Profile Page.</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/83f508015250">83f508015250</a> - New Feature: Topic Status, Users can now select from a list of available status options a topic status, if enabled in Host Settings</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/dbf9572dd9ee">dbf9572dd9ee</a> - New Feature: User can select his country and region in his Profile</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/da6b2ed42ff7">da6b2ed42ff7</a> - Added new BB Code [ALBUMIMG]1234[/ALBUMIMG] - To post user uploaded Album Images</li>
+		<li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/6348ef6e1b56">6348ef6e1b56</a> - Added the Topic Description (If available &amp; enabled) to the Topic Title.</li>
+		<li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/997fd993b374">997fd993b374</a> - Extending the My Topics Page, now contains two more Tabs &quot;Unread Topics&quot; and &quot;My Topics&quot; - Which only shows topics the user has posted in.</li>
+		<li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/867ac9d232f6">867ac9d232f6</a> - Finally added a Real Read tracking for topics and forum for a User. By Default it uses the Old System. New System Can be turned on in Host Settings -&gt;Features -&gt; &quot;Use User Read Tracking via Database&quot;</li>
+		<li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/5d8aab09d912">5d8aab09d912 </a> - Added User(s) Complete Export as XML and CSV</li>
+		<li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/5d8aab09d912">5d8aab09d912 </a> - Added User(s) Importer from XML or CSV</li>
+		<li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/06b0a19e73f9"> 06b0a19e73f9 </a> - Added Signature Preview to the Edit Signature Page.</li>
+		<li>#5032 - Added New Help Topic &quot;BB Codes List&quot;  that describes all BB Codes that can be used inside YAF.</li>
+		<li>#5025 - Added [GOOGLEMAPS] BBCode</li>
+		<li>#5025 - All List Types are now Support by BBCodes [list=1], [list=a], [list=A], [list=i], [list=I]</li>
+		<li>#5024 - Added new Core BBCode [NOPARSE] other BB Codes inside a [NOPARSE] [B]text[/B] [/NOPARSE] will be not parsed.</li>
+		<li>#5007 - Added &quot;Go to last post&quot;, and &quot;Go to last unread&quot; add the top of the posting list.</li>
+		<li>#4997 - Help Content is now much more flexible, Menu Items can be changed (from HelpMenuList.xml). Also all Menu Items have now tool tips, and current help topic is highlighted in the menu.</li>
+		<li>#4973 - Added New BBCodes HIDE-THANKS, HIDE-REPLY-THANKS, HIDE-REPLY and HIDE-POSTS more info <a href="http://forum.yetanotherforum.net/yaf_postsm50146_most-requested-feature-in-other-forum-software.aspx#post50146">here</a></li>
+		<li>#4944 - Added Simple &quot;Generate New Image&quot; Link Button to Refresh the Captcha on the Register Page</li>
+		<li>#4941 - Added Scrolling Animation to  'Back to Top' link</li>
+		<li>#4939 - Added link to user albums in posts. </li>
+		<li>#4939 - Added a dummy image for 'Back to Top' link in posts.</li>
+		<li>#4930 - Addes Single Sign On via Facebook - Setting Enable Single Sign On in Host Settings Needs to be enabled and YAF.FacebookAPIKey and YAF.FacebookSecretKey needs to be setup in app.config.</li>
+		<li>#4930 - Added New Host Setting &quot;Register New Facebook User automatically&quot; - Register User automatically that are trying to login thru Facebook</li>
+		<li>#4930 - Added &quot;Share on Facebook&quot; to the Share a Topic Menu</li>
+		<li>#4928 - Added an option in a poll to show who's voted can be enabled. Visible as a tooltip to the percentage image for the time being.</li>
+		<li>#4927 - Added &quot;Share on Tumblr&quot; to the Share a Topic Menu</li>
+		<li>#4905 - Added cutofftime NNTP function.</li>
+		<li>#4902 - User IP info for admins in activeusers list.</li>
+		<li>#4896 - Added List of Recent Users to Forum Info on the Board Index Page (Disabled by Default in Host Settings)</li>
+		<li>#4893 - Users can now login with User Name or Email Address or Display Name (If enabled) and Password</li>
+		<li>#4888 - Added a New BBCode [group-hide]Hidden Content[/group-hide] The Content is Hidden from Guests, or other roles if defined.</li>
+		<li>#4884 - New Host Setting to enable/disable Allow Avatar Gallery.</li>
+		<li>#4881 - New Feature: Topic Description, you can now enter a description to each topic if enabled in Host Settings</li>
+		<li>#4854 - New Board Setting: Email Moderators On a Reported Post</li>
+		<li>#4851 - Added User Profile Properties for Facebook and Twitter</li>
+		<li>#4841 - Added an Search Field bellow the Topics List to directly search through the current forum</li>
+		<li>#4832 - Youtube BBCode now supporting &quot;youtu.be/xyz&quot; urls</li>
+		<li>#4825 - New Host Setting &quot;Handling of as SPAM Detected Messages&quot; - Choose what to do when a Message was detected a SPAM, You can choose between Do Nothing, Flag Message as Unapproved, or reject the Message. Default is &quot;Flag Message as Unapproved&quot;.</li>
+		<li>#4814 - Akismet Spam Service can be used for SPAM Checking (Needs an API Key)</li>
+		<li>#4814 - SPAM Service can be selected in Host Settings between Disabled, BlogSpam.Net  or Akismet</li>
+		<li>#4804 - Added a New BBCode [hide]Hidden Content[/hide] The Content is Hidden until a User uses The Thank Button.</li>
+		<li>#4802 - Added optionally Icons for Private Message Read/Unread</li>
+		<li>#4787 - Added SPAM Protection to YAF via the Open Source SPAM Service BlogSpam.net every Post is checked for SPAM (Detection based on Post, IP, and Name)</li>
+		<li>#4787 - Added &quot;Report as SPAM&quot; Button to an Reported Message on the Report Messages Page</li>
+		<li>#4774 - Added a New &quot;Share&quot; PopMenu to the Topic Page where a User can Share a Topic via Email, Twitter, Buzz, Facebook, Digg or Reddit.</li>
+		<li>#4774 - Added a &quot;Retweet&quot; Button to every Post (can be Enabled/Disabled)</li>
+	</ul>
+<p><em>changes</em></p>
+	<ul>
+      <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/aaa6b59e58b4">aaa6b59e58b4</a> - Forum Search Box is now correctly working when pressing the Enter Key on the Topics Page.</li>
+      <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/ce13a68fe6cd">ce13a68fe6cd</a> - Changed the "Edit by user/moderator" to "Edited by user/moderator"</li>
+      <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/e5c455e833ee">e5c455e833ee</a> - Added a setting for MyTopics page size, mostly for those who wants kinda sort it on forums with a moderate post rate.</li>
+      <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/e5c455e833ee">e5c455e833ee</a> - Fixed Email Problem with Gravatars.</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/934e75aec9a5">934e75aec9a5</a> - Fixed an Issue on the Album Page when Creating a New Album</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/67652998c9a0">67652998c9a0</a> - Updated Tiny_MCE Editor to Version 3.4.9</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/0439e1a1b96b">0439e1a1b96b</a> - Mobile theme is now enabled by default for users in the user Profile.</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/757930c535f5">757930c535f5</a> - Fixed [YAF-182] - Logout Buttons where not localized</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/9c86f4db634c ">9c86f4db634c</a> - Individual moderators ot access mask for a forum could not be set if display names were enabled.</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/dd0617a9c153">dd0617a9c153</a> - Changed UserLink and UserLabel controls. if we already have DisplayName (ReplaceName in the controls) and IsGuest info in parent control it's required to give them to the controls, especially when we return lists. That was a problem with member list.</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/f298d54c5b54">f298d54c5b54</a> - Moved IP link in post view to other place.</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/3f514a3aeabb">3f514a3aeabb</a> - Updated the TaskModuleManager to be properly multi-threaded.</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/0b7809d7e4c2">0b7809d7e4c2</a> - Finally getting the annoying MaxPostSize feature worked out.</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/929a220162c4">929a220162c4</a> - Fixed an ArgumentOutOfRangeException on the Postmessage Page.</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/03f9bba011c0">03f9bba011c0</a> - Fixed SyntaxHighlighter Script in IE</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/9ea98fbab4b3">9ea98fbab4b3</a> - Scroll To Top Function should now work correctly in every situation</li>
+	  <li> <a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/8b5c6f140b4d">8b5c6f140b4d</a> - Moved user style to a column to improve perfomance</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/fa29dab8aaf8">fa29dab8aaf8</a> - Has moved Edited by link below a post text. The previous place is too congested in some cases.</li>
+	  <li></li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/44ad0e9ab0bd">44ad0e9ab0bd</a> - Fixed the problem when a topic link could not be removed. Now we can simply enter a number of days until the link will be removed. </li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/7b63aeb74969">7b63aeb74969</a> - Disabled the  delete button for YAF guest user in admin section. Periodicallly someone deletes him by a reason.</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/ab7b55f0b666">ab7b55f0b666</a> - Added Option to choose to automatically Upgrade the BBCode Extensions, File Extensions and Topic Status Lists when Upgrading YAF</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/a965a3afbc80">a965a3afbc80</a> - Cleaned up the read tracking system. Added a last visit cookie for the guests. Hopefully added proper db read tracking (can be better, though).</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/9396ebd7d12a">9396ebd7d12a</a> - Fixed Issue if the oldRoleName didn't exist/wasn't already in the DB. Not all role providers accept empty strings as valid role Names.</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/b2f94f3dc441">b2f94f3dc441</a> - Removed Irkoo Feature.</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/b2f94f3dc441">b2f94f3dc441</a> - Fix for file import issues with IE9 -- now accepts any file that starts with &quot;text&quot; and explains the issue a bit better.</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/d1c59cb13360">d1c59cb13360</a> - Added Standard ASP.NET providers as an option -- but the default is still YAF.NET Providers.</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/3729d4fcf59d">3729d4fcf59d</a> - Portugues Language file updated by Sebastian Andres.</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/f386ab3a67ab">f386ab3a67ab</a> - Fixed YAF Pager when inside jQuery UI Tabs.</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/0c9e76f1a3d9">0c9e76f1a3d9</a> - Added a db paging to the My Topics tabs</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/f42e51baeb1c">f42e51baeb1c</a> - A perfomance tweak for forums with very large number of PMs.</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/a5131f290429">a5131f290429</a> - Fixed Issue YAF-174 Login and Register Urls are now absolute Urls in order to use https</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/78f192d56a4d">78f192d56a4d</a> - Security fix: Host Admin Menu Items (In the Admin Menu) where shown to Regular Admins</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/25fe364c4381">25fe364c4381</a> - Bugfix: Removed Line Break when editing Album/Album Image Title when editing via ajax</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/832c816b0f6e">832c816b0f6e</a> - Bugfix: Added Validator to check if the new password is different then the old Password on the Change Password Page.</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/0dae4665037c">0dae4665037c</a> - Bugfixes: Error Message was not Visible behind the LoginBox, Modal Dialog now scrolls with the Page.</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/3b1551fad5de">3b1551fad5de</a> - Tabs on the My Topics Page are now loaded when selected, instead of loading all Tab content at the same time. </li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/894aa5a91213">894aa5a91213</a> - Bugfix: User Suspension or Remove Suspension is now executed immediately</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/0bc4a049fa21">0bc4a049fa21</a> - A fix for board polls for multi-boards. </li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/31d8d0c224a8">31d8d0c224a8</a> - Jquery-UI DatePicker on the Edit User Profile page can now handle Farsi Calender and Input. </li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/662fd847579c">662fd847579c</a> - Bugfix: Export Function was not working after Postback, on the PM Inbox Page.</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/089b699ea54e">089b699ea54e</a> - Enabled Sorting Members by Posts on the Members Page.</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/e9fc44704e62">e9fc44704e62</a> - Removed the html tags feature in topic titles completly</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/00f678d2666a">00f678d2666a</a> - Updated jQuery Library to Version 1.7.1</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/36565a3eb956">36565a3eb956</a> - Added Dummy &quot;Disabled&quot; Mobile Theme Item to allow disabling of the Mobile Theme for the Current Board.</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/62d3e3e8485a">62d3e3e8485a</a> - Bugfix: Board Delete Function thrown Exception</li>
+	  <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/a36e06f1a7f8">a36e06f1a7f8</a> - Bugfix: with next/prev topic and moved topics.</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/f423e45545b1">f423e45545b1</a> - Added A User Flag Indicating if the User is Logged in Via Facebook &quot;IsFacebookUser&quot;.</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/e9f637b013ee">e9f637b013ee</a> - Watch/Unwatch Function for Topics fixed.</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/c00af5433887">c00af5433887</a> - Assigned the Current Page Name as Css Class to every Page.</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/757fc0ba957e">757fc0ba957e</a> - Added Correct Forum Url to the Forum Logo Link</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/65a59eceeef7">65a59eceeef7</a> - Fixed a security issue. While guests are posting they can change/delete messages send with the same IP only.        </li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/65a59eceeef7">65a59eceeef7</a> - Added Guest group too in UserBox as users are
+          <pre>
+        alarmed by a false group info.</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/296314ae30bd">296314ae30bd</a> - A fix for correct birtday date.</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/089342e1eb25">089342e1eb25</a> - Added New Topic Icon &quot;TOPIC_STICKY_NEW, and added all Missing Topic Icons to the Topics Icon Legend.</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/1ee0ba0390f1">1ee0ba0390f1</a> - Fixed Issue when Compiling YAF Project, AutoFac.dll is not deleted anymore.</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/36583f323c84">36583f323c84</a> - Fix for 'user is not in active list after login'.</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/d63c13a89498">d63c13a89498</a> - Added imaged buttons to the Admin forum list Page. </li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/4b3c9eb7e948">4b3c9eb7e948</a> - Updated CKEditor  to Version 3.6.2</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/2cc34ebcf945">2cc34ebcf945</a> - Tiny_MCE and CKEditor now inherit Language from YAF, also added language files for Tiny_MCE Editor.</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/c583ce2b36c9">c583ce2b36c9</a> - Fixed Issue with the Delete Message Page when trying to delete the first Message of a Topic.</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/8a02caf74e0e">8a02caf74e0e2</a> - Added a Check to the Post Message Page, that Checks if the Entered Guest Username is not too long.</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/1a0c612cfc42">1a0c612cfc42</a> - Added Css3 Buttons to CleanSlate Theme</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/ec802e3e313d">ec802e3e313d</a> - Bugfix: Urls inside html formatted Messages, that are already formatted as html anchors are not reformatted anymore.</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/17cac0161688">17cac0161688</a> - Bugfix: All 3 Quote BBCodes should be rendered correctly now.</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/52c3c5db0f5b">52c3c5db0f5b</a> - Status Icon/Text added to Forum List Last Post Column.</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/8f5ff47d5a4b">8f5ff47d5a4b</a> - Topic Status can now be defined as Icon in the themes.</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/949b84a63fdf">949b84a63fdf</a> - Updated DNN Profile import/export with the new Location Properties.</li>
+        <li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/161b356a8364">161b356a8364</a> - Important! A required change in the YAF Membership Provider. An overridden 'Description' property shows that this is a YAF provider insted of class name reference. If you use a custom built-in YAF memebership provider you should implement it.</li>
+		<li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/23d9675ab35e">23d9675ab35e</a> - Made the GetText regex static and compiled for speed. GetText is a *very* common function. Even a slight increase in processing in it creates a ripple effect in performance.</li>
+		<li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/0fc59d167001">0fc59d167001</a> - Added Num. of Album Caching, Added a few more indexes to speed up user_list.</li>
+		<li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/a6c6b0b69244">a6c6b0b69244</a> - Fixed Modal PopUp Background Issue in IE8.</li>
+		<li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/0e5f29eb8b24">0e5f29eb8b24</a> - Two Missing Icons added to the YafMobile Theme.</li>
+		<li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/c080d75dfff0">c080d75dfff0</a> - A UTF-8 encoding fix for a poll question.</li>
+		<li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/d34d7fc942bf">d34d7fc942bf</a> - Fixed timezone issue in older Sql Server installs.</li>
+		<li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/5778f8b16208">5778f8b16208</a> - Added Button Tooltips and missing Title to move Message/Move Topic Pages</li>
+		<li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/51a5b8f882f8"> 51a5b8f882f8</a> - A bug in userFind was fixed</li>
+		<li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/607f4f2d2c56"> 607f4f2d2c56 </a> - MySQL compatibility patch.</li>
+		<li><a href="http://yafnet.codeplex.com/SourceControl/changeset/changes/cd8bdc20afed"> cd8bdc20afed </a> - Fixed Incorrect Activa User Table in Multiboard environment</li>
+		<li>#5037 - Fixed the Moderate Button on the Topics Listing Page</li>
+		<li>#5035 - Updated jQuery-UI Library to Version 1.8.14</li>
+		<li>#5031 - Proper multi-threading support added for the functions that migrate users and sync users. They are much, much faster now.</li>
+		<li>#5029 - Fixed IPv6 link on the Message History Page</li>
+		<li>#5026 - Buttons on the Report Post Page are now displayed correctly with the YAF Vision theme.</li>
+		<li>#5023 - Added Syntax Highlighting to Posts to the Last 10 Pages List on the Post Message Page and User Profile Page.</li>
+		<li>#5022 - Showing the File size in kb now on the Attachments and Edit Albums Page.</li>
+		<li>#5021 - Added A Check to Create the Uploads Folder (If not exists) before Uploading content.</li>
+		<li>#5019 - Fixed the Issue with showing the wrong Post Numbers</li>
+		<li>#5013 - Fixed RequireLogin.</li>
+		<li>#5010 - Extended the Allowed Email Length of User Email to 255 Chars.</li>
+		<li>#5009 - Recover Password now possible via UserName, Display Name or Email.</li>
+		<li>#5007 - Better Styling for the Options, Share and View Menu Items in all Themes.</li>
+		<li>#5003 - Page Title and Breadcrumb contains now current Help Topic.</li>
+		<li>#5001 - Now it auto generates SortOrder Value when you Create a New Category/Forum based on the currently highest Value used +1.</li>
+		<li>#5000 - Fixed an incorrect redirect when a new album was created. </li>
+		<li>#4996 - Fixed the problem with display names.</li>
+		<li>#4992 - A new IsDirty user flag. Used to check whether a user profile was changed. Used for portal integration and otherwise can be used by moderators to moderate user profile changes.</li>
+		<li>#4990 - Fixed Crash on bad formatted replace Word bad expressions. </li>
+		<li>#4990 - Added Check on the Add/Edit Word Replace Word Page if Expression is correct.</li>
+		<li>#4989 - Redesign of the AlphaSort Control Moved from Table to Definition List. Its now much more flexible and easier to style.</li>
+		<li>#4986 - &quot;New Forum&quot; Button is now hidden when there is now Category on the Admin Forums Page.</li>
+		<li>#4981 - IMG BBCode can now handle bmp files</li>
+		<li>#4980 - Updated Persian Language File (by User &quot;malekmakan&quot;)</li>
+		<li>#4979 - An IIS semicolon vulnerability fix.</li>
+		<li>#4978 - No avatar label was visible for some time at least, even if the avatar was already were.</li>
+		<li>#4970 - Facebook User auto registration checks no if new Registrations are disabled</li>
+		<li>#4970 - SSO will check no if the Rember Me Checkbox is checked or not</li>
+		<li>#4968 - The Signature is now displayed at the bottom of the message based on the UserBox height.</li>
+		<li>#4960 - Improved NNTP handling. Actually advances the lastMessage without downloading headers if the time &lt; cutOffDate.</li>
+		<li>#4957 - Added Fallback to Yaf BBCode Editor if User Browses with a Mobile Device</li>
+		<li>#4950 - Added MSBuild Skripts to generate YAF DotNetNuke Module Install and Source Zip File</li>
+		<li>#4943 - Fix Invalid object name 'sysfiles'</li>
+		<li>#4937 - Fixed Issue with the case-sensitive contains() Problem in UserAgentHelper.IsMobileDevice.</li>
+		<li>#4936 - Fixed issue with PipelinePreDeployCopyAllFilesToOneFolder publishing</li>
+		<li>#4931 - Unread PM in Header wasn't shown - fixed</li>
+		<li>#4931 - Unread PMs and Buddy Message in Header styled</li>
+		<li>#4929 - Fixed TypedUserList</li>
+		<li>#4918 - Added Email Validation to the Register User Page</li>
+		<li>#4892 - Fix for integration purposes. New users should be created with Guest/Board default TimeZone and while editing a Guest it changes too.</li>
+		<li>#4891 - Fixed jQuery Settings Loading</li>
+		<li>#4890 - Fixed &quot;Failed to load viewstate&quot; Exception when Config Setting ShowToolbar is disabled.</li>
+		<li>#4887 - Fixed Email Sending in DNN</li>
+		<li>#4884 -  If all Settings Avatar Gallery/Remote Avatars/Gravatars/Avatar Uploads are deactivated the Edit Avatar Menu Item is Hidden in the User Control Panel Menu.</li>
+		<li>#4883 - Added a Cancel Button to the Avatar Gallery Page.</li>
+		<li>#4880 - All Links in Header are now containing Tool Tips with a Description</li>
+		<li>#4876 - Basic Styling of Quote messages in CKEditor (Html) when Editing.</li>
+		<li>#4873 - Incorrect paging for topics fixed.</li>
+		<li>#4867 - improved the UI of the Event log</li>
+		<li>#4859 - Improved the Truncation routines.</li>
+		<li>#4857 - Improving the error handling in the NNTP implementation.</li>
+		<li>#4856 - Fix for NNTP.</li>
+		<li>#4855 - Added Tooltips to the Email and PM Button on the Team Page</li>
+		<li>#4854 - Moderator Mails are now correctly Localized</li>
+		<li>#4853 - Added Tool Tips with Description to The Buttons on the Post Footer (User Profile Buttons) and on the Profile Page.</li>
+		<li>#4846 - Added UserName support back into the project for &quot;Guests&quot; </li>
+		<li>#4846 - Improved NNTP to support replies. Thanks to lets-do-diy.com</li>
+		<li>#4845 - Security Fixes for the BBCode.</li>
+		<li>#4844 - Fixed My Albums Link in the Header</li>
+		<li>#4843 - Updated Italian Language file (Provided by User francoz)</li>
+		<li>#4840 - All Users that are in a Role that have an Moderator Flag are now listed as Moderators on the Team Page.</li>
+		<li>#4840 - Moderators now use Styled Usernames.</li>
+		<li>#4840 - Moderators are now excluded from the Admin List on the Team Page.</li>
+		<li>#4839 - Added 10 Seconds Refresh Time for Moderation Info Page, and if message is posted in existing topic it is redirected to the topic instead of the forum.</li>
+		<li>#4838 - Fixed [YAF-165] UserMembershipHelper.FindUsersByName bad page index default</li>
+		<li>#4837 - The Admin Menu Accordian now Selects the Correct Menu Item on a Third Level Page.</li>
+		<li>#4836 - Updated dutch Language file (Provided by bertb)</li>
+		<li>#4835 - Fix for 'Cannot create topic if time on sql server is ahead...' bug</li>
+		<li>#4833 - Fixed Issue with not Correctly formatted IMG BBCode Tags</li>
+		<li>#4827 - The Whitespace generated by the different Html Editors is now fully ignored for the extra Line Breaking (Which is only needed in BBCode Mode).</li>
+		<li>#4825 - br Tags for Line Breaking only added in BBCODE Editor Mode generated Messages now</li>
+		<li>#4822 - YAF.NET Converted to .NET 4.0</li>
+		<li>#4815 - Don't allow crawlers to follow user profile links.</li>
+		<li>#4813 - Fixed [YAF-106] ShoutBox - Unable to resize popup box </li>
+		<li>#4812 -   Fixed [YAF-156] Remove unwanted Custom BBCodes in Feeds</li>
+		<li>#4811 - Better Error Handling for Digest Sending</li>
+		<li>#4808 - Bug fix for the Digest</li>
+		<li>#4806 - Disable last post links for 'no access' forums.</li>
+		<li>#4801 - Added Check if Current (User) selected TextEditor is active - If not active it loads the Default Editor</li>
+		<li>#4800 - Fix for [img]...[/img] that contains spaces or parameter at the end of the url, also php generated image links can be used now</li>
+		<li>#4799 - Fix for Failed to send digest</li>
+		<li>#4797 - Logout Dialog is now correctly Correctly Positioned after Postback.</li>
+		<li>#4796 - Added an icon to post pager. It cuts down repeating text.</li>
+		<li>#4795 - A fix for the incorrect sort order in member list + Made group and rank lists to be displayed by sort order.</li>
+		
+		<li>#4793 - Fix for the YafIrkoo Exceptions</li>
+		<li>#4791 -  [YAF-123] Added Tooltips to Irkoo Buttons</li>
+		<li>#4789 - A possible fix for upgrade from very old versions.</li>
+		<li>#4786 - Report Post Page now uses User TextEditor</li>
+		<li>#4785 - Added &quot;Mark all As Read&quot; Link to My Topics Page</li>
+		<li>#4784 - Minor albums logic changes to avoid hangs in some rare hosting - specific situations.</li>
+		<li>#4783 - Fix by tommy382 to avoid ThreadAbortException on Send Email Page.</li>
+		<li>#4777 - Fixed Issue with creating Forums with a same name</li>
+		<li>#4776 - While deleting a board not all dependencies are deleted from tables. </li>
+		<li>#4774 - Added ToolTips to PopMenu Items</li>
+		<li>#4771 - Added the ability to add Icons to the PopMenu PostBack Items</li>
+		<li>#4768 - Fixed the Issue with some Localized Text wasn shown on some languages </li>
+		<li>#4765 - Display name fixes</li>
+		<li>#4765 - Fixed Incorrect poll choices count in the exact number of choices case.</li>
+		<li>#4763 - Fixed an issue with SendMailThreaded: FormatExceptions weren't being handled propertly.</li>
+		<li>#4762 - [YAF-158] Fix for Localization Text in BBCodes after user changes the language</li>
+		<li>#4756 - Fix for issue with YAF.Controls Style render throwing an out of bounds array exception.</li>
+		<li>#4754 - Added Message  to Post a Private Message Page when User doesn't exists after clicking &quot;Find User...&quot;</li>
+</ul>
+<span class="FeatureHeader">YAF.NET 1.9.5.5</span>
+<p><em>Change log starts at this release.</em></p>
+	<p>
+New features:</p>
+	<ul>
+		<li>#4714 - New Forum &amp; Topic Icons for the Color Grey Themes</li>
+		<li>#4677 - Allow users to select text editor in his forum posts. Can be completely disabled in host settings and should be harmless.</li>
+		<li>#4661 - Added &quot;Copy&quot; function to forum administration -- Now instead of having to manually re-enter all the access masks, etc, you can just duplicate an existing forum and modify after the fact.</li>
+		<li>#4642 - New Setting to Enable/Disable Last Unread posts links</li>
+		<li>#4641 - Added Arabic Language thx to &quot;Ahmadq&quot;</li>
+		<li>#4635 - Added a Setting to Show/Hide Team Page Link in Header</li>
+		<li>#4599 - Added Auto Synchronizing for Profile Synchronization between YAF and DNN.</li>
+		<li>#4528 - Added jQuery Sliding to the Smilies Box.</li>
+		<li>#4524 - Added CKEditor 3.5.1 as new Editor both as HTML and as real BBCode Editor.</li>
+		<li>#4502 - 	Admin localization.</li>
+		<li>#4500 - Added Setting to set the Refresh Rate of the TimeAgo Script.</li>
+		<li>#4494 - Added a possibility to switch off check for forums and topics with the same name. <br>
+	    #4494 - Added number counter for bots, like for guests.</li>
+		<li>#4493 - Added  new Core BBCode img Tags Supports now Description [img=http://mydomain.com/Image.jpg]Image Caption[/img]</li>
+		<li>#4492 - Added New Url BBCode [modalurl]...[/modalurl] Any Link or Linked Image will be displayed in the Modal Ceebox.</li>
+		<li>#4488 - Added sorting on unique fields (so far) for members list.</li>
+		<li>#4374 - Adding some free sample Medals</li>
+		<li>#4274 - Added Basic Member Search to Members Page</li>
+		<li>#4254 - Added Custom made Yaf Rank Images in the same style as the new Dialog Boxes.</li>
+		<li>#4231 - Some Basic IoC implementation.</li>
+		<li>#4227 - You can now select The Jquery UI Theme From the BoardSettings, also if you want to use Google Hosted or internal.</li>
+		<li>#4217 - Added New Config Option &quot;YAF.JQueryUILangFile&quot; to Set Url to jQuery UI DatePicker Language File</li>
+		<li>#4213 - Added New Lightbox replacement Script CeeBox, currently only used for Image Attachments</li>
+		<li>#4192 - Added styled nicks to forums list. Now it's harmless for performance.</li>
+		<li>#4187 - Added two new Controls the MessageBox and the new Dialog Box for all Kind of Messages (with Buttons)</li>
+		<li>#4185 - Added New DNN Setting &quot;Inherit YAF Language from DotNetNuke?&quot;</li>
+		<li>#4180 - Added a &quot;selection&quot; system to topic line.</li>
+		<li>#4180 - Added a way to do batch processing with moderate. Hopefully this will finally open up the floodgates to make moderate a useful page again.</li>
+		<li>#4171 - Admin Menu Localized</li>
+		<li>#4170 -  New Config Option &quot;YAF.OverrideTrustLevel&quot; (If you use any custom named trust configuration within YAF, the installer thinks its full trust and you will get a security exception if your not running under full trust.)</li>
+		<li>#4152 -  New LoginBox (Modal Jquery Dialog) by Default its turned off.</li>
+		<li>#4150 - New Team Page wich shows the Council Members Admins and Moderators (and their Moderating Forums)</li>
+		<li>Added <a href="http://alexgorbatchev.com/SyntaxHighlighter/">SyntaxHighligher Plugin</a> by Alex Gorbatchev for Syntax Highlighting in BB Code Tags [CODE=language]....[/CODE]</li>
+		<li>Syntax Highlighting Code Language Selection added to Yaf BBCode Editor.</li>
+	</ul>
+<p><em>changes</em></p>
+	<ul>
+		
+		<li>#4737 - Added copyright removal system to the footer with hashed domain key. (pretty simple)</li>
+		<li>#4728 - Added SyntaxHighlight &amp; YAF BBCode Selector Plugin to CKEditor Html Mode.</li>
+		<li>#4724 - Cleaned up the posts messagehistory page for a better Layout</li>
+		<li>#4723 - Added Tooltip to Medal Image in Userbox</li>
+		<li>#4722 - New Topic and Forum Icons for the Color Grey Themes.</li>
+		<li>#4721 - Now you can use BBCodes inside an Html Editor for Postings.</li>
+		<li>#4720 - YAF Dnn Url Rewriter now checks if the URL is too long and cuts it.</li>
+		<li>#4718 - Added smaller new posts icon in front of every item in the last posts control</li>
+		<li>#4700 - Yaf now uses Dnn to send Mail</li>
+		<li>#4663 - Added priority to startup services. Added ValidateTaskModule running startup service (runs before DB Init) testing that the module has been registered.</li>
+		<li>#4646 - The Welcome Guest Message in the Header now shows different info text based on if login and register is disabled or enabled.</li>
+		<li>#4645 - Loading Animation Gif is now preloaded on the Installer Page, otherwise it would been not shown properly</li>
+		<li>#4628 - The problem with subforum-subforums should be fixed.</li>
+		<li>#4627 - Added a very basic paging for activeUsers in admin. Too many entries on frequented forums.</li>
+		<li>#4626 - Resource Handler access check now contains referrer check, to allow linking inside portals to yaf</li>
+		<li>#4622 - Finally fixed the annoying javascript #hash tag issue with find=unread.</li>
+		<li>#4616 - [YAF-110] Yaf now converts BBCodes, that are saved in Html Editor mode, and reopened back in a  BBCode Editor,from Html back to bbcode. All Standard BB Codes are supported, and rest of html is stripped out.</li>
+		<li>#4615 - Fix for issues with Digest not getting sent.</li>
+		<li>#4601 - Fix for BBCode code tag that uses language=cs</li>
+		<li>#4591 - Has made roles in admin section to show all setting for better usability. Made more clear a service definition to know what it makes.</li>
+		<li>#4588 - Added support for definable mobile user agent string. Added &quot;Windows 7 Phone&quot; support.</li>
+		<li>#4581 - Fix for the board id issue with TreatCacheKey hopefully. I couldn't reproduce so it was hard to tell.</li>
+		<li>#4557 - Estonian Language file added.</li>
+		<li>#4550 - Added IHaveLocalization interface and associated extensions allowing for easier access to localization systems.</li>
+		<li>#4539 - Now posts paging logic works as expected. Only an unimportant issue still exists. Fixed rare issue with postmessage incorrect redirect too.</li>
+		<li>#4538 - Added support for a custom.sql file at the end of the sql upgrade.</li>
+		<li>#4529 - IDataCache&lt;T&gt; is now the real caching engine. YafCache is on its way out.</li>
+		<li>#4529 - Added some basic interfaces that will be used for various IO type activies: IReadValue, IWriteValue, IRemoveValue.<br>
+		</li>
+		<li>#4529 - Added IoC/DI caching engine and abstraction. Added simple Provider model. Added support for service location parameters.</li>
+		<li>#4514 - Improved ShoutBox considerably: now uses AJAX to detect if there are new messages and only refreshes if there are.<br>
+	  </li>
+		<li>      #4509 - Paging for posts is implemented.</li>
+		<li>#4508 - Fixed loading animation on install Page.</li>
+		<li>#4507 - Database paging for posts. Already boosted post feeds. Still not implemented for posts list, but data layer is already here and works. If implemented, no more real limits for posts number in a topic.</li>
+		<li>#4505 - Added Page Breaking to SyntaxHighlighter Code Text to prevent breaking themes structures.</li>
+		<li>#4504 - Avatar Image has now title and alt Tag, and Link to the User profile.</li>
+		<li>#4489 - Now crawlers should mostly have friendly names.</li>
+		<li>#4485 - Fixed feeds validation. </li>
+		<li>#4483 - Added ExportServiceAttribute to the project. Now modules that are named YAF.* can mark a class with [ExportService(Scope)] and the container will find them and bind them first.</li>
+		<li>#4476 - Added a CSS Class to the Ad Message, now the height of it can be overridden</li>
+		<li>#4470 - Upded jQuery UI Themes to Version 1.8.8</li>
+		<li>#4465 - Quick Fix for the Admin Accordion Menu for Subpages.</li>
+		<li>#4463 - Fixed Duplicated WhiteSpace in old BBCode CODE Tags.</li>
+		<li>#4456-60 - Performance fixes.</li>
+		<li>#4449 - Fixed [YAF-115] Nested BBCodes</li>
+		<li>#4438 - Added New Config Option &quot;YAF.CreateDistinctRoles&quot; Use it if distinct YAF role names are required. Used in integration environments only. </li>
+		<li>#4436 - No longer using &quot;jQuery.noConflict()&quot;</li>
+		<li>#4431 - Added proper Logging system.</li>
+		<li>#4420 - Fixed enable Setting 'Show crawlers in active users list'</li>
+		<li>#4419 - New Simple HelpLabel that is used for the Admin Pages.</li>
+		<li>#4418 - Pager Anchors are now better accessible.</li>
+		<li>#4417 - Fixed the Replies count in Watch Topics List.</li>
+		<li>#4381 - Updated CookComputing.XmlRpcV2</li>
+		<li>#4373 - Fixed [YAF-122] quotes in message abriged text now completly removed</li>
+		<li>#4372 - Fixed [YAF-140] NullReferenceException Switch normal to Threaded View.</li>
+		<li>#4361 - Added T-SQL 2000 compatible database paging as a complex, with a lot of redundancies, but working prototype for similar changes in other places required for other data layers. </li>
+		<li>#4354 - Fixed a Bad Entry in Norwegian Language File</li>
+		<li>#4300-4350 - New library layouts: YAF.Types, YAF.Core, YAF.Data (YAF.Classes.Data), YAF.Web, YAF.Util (Utilities -- only dependence is YAF.Types)</li>
+		<li>#4300 - New Custom Loading Gif Animation based on the Yaf Logo</li>
+		<li>#4296 - Replaced the AjaxPro  &quot;Change Album Title&quot; and &quot; Change Image Caption&quot; Function with jquery().ajax</li>
+		<li>#4295 - Replaced the AjaxPro  &quot;(Un)Tag as Favorite&quot; Function with jquery().ajax</li>
+		<li>#4294 - Replaced the AjaxPro ThankYou Function with jquery().ajax</li>
+		<li>#4290 - Fixed Handling when User try to enter an Email Adress that is already used by another user.</li>
+		<li>#4288 - Restyled the Pand Next Topic Links.</li>
+		<li>#4287 - Added Atom Feed Link to Topic Options Menu</li>
+		<li>#4286 -  PopMenus for Topic Options &amp; View Options and User name are better visualized as Menus.</li>
+		<li>#4279 - Fixed UA checker. Search Bots were virtually not detected.</li>
+		<li>#4278 - Data Layer compatibility patches. A minor performance tweak. </li>
+		<li>#4277 - Fixed Email Notification of new Private Messages. Email Subject is now Localized in the User Language.</li>
+		<li>#4271 - Fixing  Issues with  Colored CSS3 Skins in MSIE</li>
+		<li>#4269 - Minor things. Styles for custom forum images were missing.</li>
+		<li>#4267 - Fixed [YAF-138] DNA Controls Removed from Mobile Theme Pages.</li>
+		<li>#4266 - Fixed [YAF-135] Search Button Enter in Admin Search Users.</li>
+		<li>#4265 - Increased user signature allowed tags combined string length.</li>
+		<li>#4263 - Fixed [YAF-134] Mobile theme problem</li>
+		<li>#4262 - Fixed incorrect UA mobile detection for some laptop Macintoshes + some minor enhancements. </li>
+		<li>#4261 - Urls not forced to lower case anymore in Url Mode Unicode</li>
+		<li>#4260 - Now we can simply add ALL keyword to rank or to group fields to allow all bbcodes and html tags in a user signature.</li>
+		<li>#4259 - Fixed Issue with with images attached to poll objects.</li>
+		<li>#4258 - Faster sql scripts and to be more sure that no duplicates are in the activeaccess table &amp; tiny performance enhancements.</li>
+		<li>#4257 - Fixed Default Value of Users Notification Type</li>
+		<li>#4256 - Fixed Enter Button Problem on Search Page.</li>
+		<li>#4253 - Fixed [YAF-132] [ShoutBox] Javascript errors due to unescaped smilies</li>
+		<li>#4236 - Fixed a bug with the incorrect current user albums number.</li>
+		<li>#4236 - Moved ms sql server specific code to a separate folder. </li>
+		<li>#4235 - Fixed Avatar Gallery Page.</li>
+		<li>#4234 - Corrected Web.config IIS 7 Entry for AjaxPro</li>
+		<li>#4233 - Fixed Thanks Function</li>
+		<li>#4230 - Fixed [YAF-124] Board Settings - culture español(España) not selected</li>
+		<li>#4229 - Fixed [YAF-129] Link to most recent post problem</li>
+		<li>#4227 - Removed The Jquery UI Theme from the YAF Themes</li>
+		<li>#4224 - DotNetAge Controls Replaced with own Code, DotNetAge  removed from YAF.</li>
+		<li>#4221 - Search Links are now going to the Post that contains the searched Keyword instead of only the Topic.</li>
+		<li>#4219 - Lightbox Script completly removed in favor of Ceebox.</li>
+		<li>#4218 - Poll choices on Poll Edit Page are now separated for better viewing.</li>
+		<li>#4215 - Fixed Issue with TimeAgo Script and DNN YAF What's New Module</li>
+		<li>#4194 - Added styled nicks to team page, added a missing team page active location tag.</li>
+		<li>#4193 - Fixed User Counter on DNN User Import</li>
+		<li>#4191 - Replaced DNA DatePicker with direct JS Script.</li>
+		<li>#4190 - Setting YafFactoryProvider to the new MojoPortal URL Builder</li>
+		<li>#4185 - Optimized the Lanuage Switching based on Dnn Language.</li>
+		<li>#4184 - Fixed Exception that was thrown inside dnn when language was changed</li>
+		<li>#4183 - Fixed Display of UL list Elements that shouldn't be displaying the dots inside DotNetNuke.</li>
+		<li>#4182 - Fixed [YAF-131] Can't view/download message attachments</li>
+		<li>#4179 - Propertly fixed moderate without any &quot;band-aid&quot; solutions.</li>
+		<li>#4178 - Removed replacewords caching system. Too much hassle, not enough benefits.</li>
+		<li>#4177 - Fixed [YAF-129] Moderate button in forum's topic view thows an exeption.</li>
+		<li>#4176 - Minor things added some missing tool tips. </li>
+		<li>#4175 - Fixed Guests were not tracked in Active table. </li>
+		<li>#4172 - Changed Javascript Includes from Load to PreRender in order to ensure that controls are properly registered</li>
+		<li>#4168 - Fixed Topic View in Mobile Theme</li>
+		<li>#4165 - Fixed Correctly Deleting of a User</li>
+		<li>#4164 - Fixed [YAF-130] Email Notifications of new posts</li>
+		<li>#4159 - Updated Czech Language File</li>
+		<li>#4158 - Fixed Subscriptions Page was showing wrong Watch Forums and Topics</li>
+		<li>#4156 - Fixed LoginBox for Microsoft Internet Explorer 5-9</li>
+		<li>#4154 - A compatibility patch for other data layers.</li>
+		<li>#4151 - Fixed Font Size for ColorGrey Themes</li>
+		<li>#4149 - Fixed Album Cover Image Preview</li>
+</ul>
+</div>
+	<div id="footer">
+<hr />
+		<p>
+			YetAnotherForum.NET (YAF) the Open Source Discussion Forum for ASP.NET - <a href="http://yetanotherforum.net/">http://YetAnotherForum.NET</a>
+		</p>
+		<p id="copy">
+		YetAnotherForum.NET Copyright © 2012 <a href="http://www.tinygecko.com/">Tiny Gecko</a>. </p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,79 @@
+/*
+ * 
+ * jquery.spellchecker.js - a simple jQuery Spell Checker
+ * Copyright (c) 2009 Richard Willis
+ * MIT license  : http://www.opensource.org/licenses/mit-license.php
+ * Project      : http://jquery-spellchecker.googlecode.com
+ * Contact      : willis.rh@gmail.com
+ *
+ */
+.spellcheck-suggestbox {
+        position: absolute;
+        display: none;
+        z-index: 999999999;
+        padding: 0px 9px 9px 0px;
+        background: transparent url(../images/spellchecker_shadow.png) no-repeat scroll right bottom;
+        font: normal 13px arial;
+}
+.spellcheck-suggestbox em {
+        border-top: 1px solid #ccc;
+        border-left: 1px solid #bbb;
+        border-right: 1px solid #bbb;
+        padding: 3px 6px 3px 6px;
+        display: block;
+        margin: 0px;
+        text-decoration: none;
+        color: #333;
+        font-style: italic;
+}
+.spellcheck-suggestbox a, .spellcheck-suggestbox a:visited {
+        border-left: 1px solid #bbb;
+        border-right: 1px solid #bbb;
+        padding: 3px 6px 3px 6px;
+        display: block;
+        margin: 0px;
+        text-decoration: none;
+        color: #333;
+        outline: none;
+}
+.spellcheck-suggestbox a.first, .spellcheck-suggestbox a.first:visited {
+        border-top: 1px solid #ccc;
+}
+.spellcheck-suggestbox a:hover {
+        color: #000;
+        background: #ddd;
+}
+.spellcheck-suggestbox-words {
+        background: #fff;
+}
+.spellcheck-suggestbox-foot {
+        border-top: 1px solid #ddd;
+        background: #fff;
+}
+.spellcheck-suggestbox-foot a, .spellcheck-suggestbox-foot a:visited {
+        outline: none;
+} 
+.pellcheck-focus-helper {
+        position: absolute;
+        top: -2000px;
+        z-index: 0;
+}
+.spellcheck-word-highlight {
+        color: #d70303;
+        text-decoration: none;
+        background: url(../images/spellchecker_bg.gif) repeat-x 100% 100%;
+        cursor: pointer;
+}
+.spellcheck-badwords {
+        margin-bottom: 2em;
+        margin-top: 1em;
+        font-size: 12px;
+        border: 1px solid #bbb;
+        padding: 4px 6px;
+}
+.spellcheck-sep {
+        padding-right: 0.5em;
+}
+.spellcheck-sep-last {
+        display: none;
+}

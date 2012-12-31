@@ -1,0 +1,965 @@
+﻿.yafnet,
+.yafnet td {
+	font-family: Verdana,Arial,Helvetica,sans-serif;
+	font-size: 8pt;
+	color:#404040;
+}
+
+.yafnet .EditorDiv td
+{
+    padding: 0px !important;
+    border: 0 !important;
+}
+
+/* For BBCode Post Buttons */
+.yafnet .ButtonOut {
+	filter: alpha(opacity=70);
+	border: #7F9DB9 1px solid;
+}
+.yafnet .ButtonOver {
+	background-color: #FFE1AC;
+	border: #FFAD55 1px solid;
+}
+.yafnet .ButtonChecked {
+	background-color: #FFCB7E;
+	border: #FFAD55 1px solid;
+}
+.yafnet .ButtonOff {
+	filter: gray() alpha(opacity=30);
+	background-color: #C0C0C0;
+	border: #7F9DB9 1px solid;
+}
+
+.yafnet input,
+.yafnet select 
+{
+    font-family: verdana,sans-serif;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;		    
+    font-size: 8pt;
+    color: #3b3b3b;	
+    padding: 2px;
+    background-color: #fefefe;
+    border: 1px solid #999;	
+}
+
+.yafnet input[type="image"]
+{
+    padding: 0px;
+    border: 0px;
+}
+
+.yafnet input[type="checkbox"]
+{
+    border: 0px;
+    padding: 0px;
+    margin: 5px;
+}
+
+.yafnet input:hover,
+.yafnet select:hover
+{
+    background-color: #fee;
+    border: 1px solid #333;	
+}
+
+
+.yafnet img {
+	border: 0;
+}
+.yafnet ul {
+	margin: 4px;
+	padding: 0;
+}
+
+.yafnet .content td,
+.yafnet .content th
+{
+    padding: 5px;    
+}
+
+.yafnet li {
+	margin-left: 15px;
+}
+/* hyperlinks */
+.yafnet a		{ text-decoration: none; color: #E00000; }
+.yafnet a:hover		{ text-decoration: underline; }
+/* Header 1 - Main header */
+.yafnet .header1 {
+	background: url('bg_header1.png') #353535 repeat-x;
+	color: #FFFFFF;
+	font-weight: bold;
+	line-height: 22px;
+	font-size:12px;
+	text-align: left;
+}
+/* Links in header1 */
+.yafnet a.HeaderTopicLink,
+.yafnet tr.header1 a		{color:#FFFFFF!important;text-decoration:none}
+.yafnet a.HeaderTopicLink:hover,
+.yafnet tr.header1 a:hover	{color:#C0C0FF;text-decoration:underline}
+.yafnet .header1Title {
+	color: #FFFFFF;
+	font-weight: bold;
+	line-height: 18px;
+	font-size:12px;		
+}
+
+/* yaf header */
+.yafnet #yafheader
+{
+	margin-bottom: 10px;
+}
+.yafnet #yafheader .outerMenuContainer
+{
+    border: 1px solid #ddd;
+	line-height: 20px;
+	padding: 3px;
+	line-height: 30px;
+}
+.yafnet #yafheader ul li a
+{
+	font-weight: bold;
+	padding: 2px
+}
+.yafnet #yafheader ul.menuAdminList
+{
+    margin-left: 10px !important;
+}
+.yafnet #yafheader ul.menuAdminList li a
+{
+    color: #999;
+}
+.yafnet #yafheader ul li
+{
+	padding: 0 0px 0 5px;
+	margin: 0;
+	border-left: 1px solid #ddd;
+}
+.yafnet #yafheader ul li:first-child 
+{
+    border-left: none;
+}
+.yafnet .menuMyContainer
+{
+    float: none !important;
+    display: inline;
+}
+.yafnet .menuContainer
+{
+    float: right !important;
+    display: inline;
+}
+.yafnet .menuMyList
+{
+    margin-bottom: 10px;
+}
+.yafnet .menuMyList li a
+{
+	font-weight: bold;	
+}
+.yafnet .menuMyList li
+{
+    display: inline;
+    padding: 0;
+}
+.yafnet .menuContainer .menuList
+{
+    float: left;
+}
+.yafnet .menuAdminList
+{
+    float: none !important;
+}
+.yafnet #yafheader .loggedInUser
+{
+    float: left !important;
+    margin-right: 10px;
+}
+.yafnet #yafheader .currentUser
+{
+    font-weight: bold;
+}
+.yafnet #yafheader .guestUser  
+{    
+    background: url("error.png") #fdd no-repeat 8px 50%;
+    color: #281b1b;
+    font-size: 1em;
+    font-weight: bold;
+    line-height: 150%;
+    margin-left: 0 auto;
+    margin-right: 0 auto;
+    margin-bottom: 10px;
+    border: 1px solid #deb7b7;
+    padding: 5px 10px 5px 30px;
+    -webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+
+/* custom forum images special styles */
+.yafnet .forum_customimage_locked
+{
+    border: solid 2px #c93a4a;    
+}
+
+.yafnet .forum_customimage_newposts
+{
+    border: solid 2px #fe0300;
+}
+
+.yafnet .forum_customimage_nonewposts
+{
+
+}
+
+.yafnet tr.topicRow .topicLastPost .avatarimage,
+.yafnet tr.topicRow_Alt .topicLastPost .avatarimage,
+.YAF_Pages_members .avatarimage,
+.yafnet tr.topicRow .topicMain img.avatarimage,
+.yafnet tr.topicRow_Alt .topicMain img.avatarimage
+{
+	width: 40px;
+	height: 40px;
+	float: left;
+	padding: 3px;
+}
+
+.yafnet tr.topicRow .topicMain img.avatarimage,
+.yafnet tr.topicRow_Alt .topicMain img.avatarimage
+{
+	padding-right: 8px;
+}
+
+.yafnet tr.topicRow .topicMain .description,
+.yafnet tr.topicRow_Alt .topicMain .description
+{
+    color: #252525;
+    font-size: 9pt;
+    font-style:italic;
+    font-weight:lighter;  
+}
+
+
+.yafnet tr.topicRow .topicMain img.avatarimage,
+.yafnet tr.topicRow_Alt .topicMain img.avatarimage
+{
+	width: 40px;
+	height: 40px;
+	float: left;
+	padding: 3px;	
+	padding-right: 8px;
+}
+
+/* Header 2 - Sub header */
+.yafnet .header2 {
+	background-color: #DDDDDD;
+	color: #252525;
+	font-weight: bold;
+	line-height: 20px;
+}
+.yafnet a.header2 { height: auto; background-color: Transparent; border-style: none; background-image: none; }
+.yafnet td.header2links a	{color: #3A4F6C;text-decoration:none;font-size:7.5pt;}
+.yafnet td.header2links a:hover	{color: #3A4F6C;text-decoration:none;font-size:7.5pt;}
+/* Footer1 - Bottom of tables */
+.yafnet .footer1 {
+	font-size: 7pt;
+	background-color:#fbfbfb;
+}
+.yafnet .footer1 select,
+.yafnet .footer1 td {
+	font-size: 7pt;
+}
+.yafnet .UserBox {
+	font-size:7.5pt;	
+	color:#808080;
+}
+.yafnet .postformheader {
+	background-color: #D1D1D1;
+	font-weight:bold;
+}
+/* Header of posts */
+.yafnet .postheader {
+	background-color: #eaeaea;
+	color:#505050;
+}
+.yafnet .postheader a {
+	font-size:10pt;	
+}
+/* User info and post/article */
+.yafnet .post {
+	background-color: #F0F0F0;
+	color:#404040;
+}
+.yafnet .post_alt {
+	background-color: #F5F5F5;
+	color:#404040;	
+}
+/* Unresolved post in Moderation Reports */
+.yafnet .post_res
+{
+    background-color: #f4e941;
+    color:#404040;
+}
+.yafnet .post_priority {
+	font-weight:bold;
+}
+.yafnet .post_link {
+	font-size:10pt;
+	font-weight:bold;
+}
+/* Footer of posts */
+.yafnet .postfooter {
+    background-color: #eaeaea;
+}
+.yafnet .postfooter .editedinfo {
+	color:#FF0000;
+	font-weight:bold;
+}
+/* Area between posts */
+.yafnet .postsep {
+	background-color: #939393;
+	height: 2px 
+}
+.yafnet .yafactiveusers a.active_hidden {
+	font-style: italic;
+	color: #aaaaaa;
+}
+.yafnet .yafForumWelcome
+{
+	padding: 5px;
+}
+/* most tables are class 'content' */
+.yafnet table.content{
+	font-family: Verdana,Arial,Helvetica,sans-serif;
+	font-size: 8pt;
+	border: solid 1px #ddd;
+	color: #000;
+	padding: 0px;
+	border-collapse: collapse;
+	background-color: #FFFFFF;	
+}
+.yafnet .forumheading {
+	font-size:10pt;
+	font-weight:bold;
+}
+.yafnet .fileattach {
+	padding: 5px;
+	background-color: #eaeaea;
+	border: solid 1px #808080;
+}
+.yafnet .fileattach .filetitle,
+.yafnet .fileattach .imgtitle {
+	font-weight: bold;
+	color: #444444;
+	margin-bottom: 5px;
+	font-size: 1.1em;
+}
+.yafnet .fileattach .attachedimg,
+.yafnet .fileattach .attachedfile {
+	margin-left: 10px;
+}
+.yafnet .fileattach a {
+	font-weight: bold;
+}
+.yafnet .forumviewing {
+	font-size:8pt;
+	color:#a0a0a0;
+}
+.yafnet .forumsubheading {
+	font-size:7.5pt;
+}
+.yafnet #RichEdit td {
+	padding: 0px;
+}
+/* links inside content table*/
+.yafnet .content a		{ color: #C02020; text-decoration: none; }
+.yafnet .content a:hover	{ color: #C00000; text-decoration: underline; }
+/* used for quoting messages */
+.yafnet .quote {
+	margin-left: 16px;
+	padding-left: 16px;
+}
+.yafnet .innerquote {
+	padding: 4px;
+	background-color: #d1d1d1;
+	border: solid 1px #505050;
+}
+/* used for code */
+.yafnet .code {
+	margin-left: 16px;
+	padding-left: 16px;	
+}
+.yafnet span.highlight {
+	background-color: Yellow;
+	color: Black;
+}
+.yafnet .innercode {
+	padding: 4px;
+	background-color: #efefef;
+	border: solid 1px #808080;
+	color:#000000;
+	font-size:8pt;
+	font-family:Courier New,Courier;
+}
+/* font sizes */
+.yafnet .smallfont	{ font-size: 7.5pt; }
+.yafnet .largefont	{ font-size: 9pt; }
+/* Image Links */
+.yafnet a.imagelink {
+	font-size: 8pt;
+	font-weight: bold;
+	color: #000080;
+}
+.yafnet a:hover.imagelink {
+	text-decoration: underline;
+	color: #0000FF;
+	/*background-color: #D0D0D0;*/
+}
+/* Used for editor textarea */
+.yafnet .posteditor {
+	width: 100%;
+	height: 200px;
+	font-family: Verdana,Arial,Helvetica,sans-serif;
+	font-size: 8pt;
+}
+/* Table just above and below tables */
+.yafnet table.command {
+	/*border: solid 1px blue;*/
+	padding: 3px;
+}
+/* p-tag at the top of pages with navigation links */
+.yafnet .yafPageLink { font-weight: bold; color: #333333; font-size: 9pt; margin-top: 4px; margin-bottom: 8px; }
+.yafnet .yafPageLink a { color: #000000; text-decoration: none; }
+.yafnet .yafPageLink a:hover { color: #C00000; text-decoration: underline; }
+.yafnet .yafPageLink .currentPageLink { color: #900000; } 
+
+/* for printing */
+.yafnet .print {
+	border: solid 1px #C0C0C0;
+}
+.yafnet .printheader {
+	background-color: #DDDDDD;
+	color: #000000;
+	padding: 4px;
+}
+.yafnet .printbody {
+	background-color: #FFFFFF;
+	color: #000000;
+	padding: 4px;
+}
+/*
+Use this to setup overflow feature for your site.
+On IE that would mean specifying a width so that the overflow will work properly.
+This CSS already works on FireFox.
+*/
+/*Controls the look of Userbox Sections*/
+.yafnet div.section
+{
+	padding: 5px;
+	background-color:#f2f2f2;
+	border: solid 1px #ddd;
+	color: #888;
+	font-size: 9pt;
+	text-align: center;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;	
+}
+.yafnet div.postdiv {
+	width: 100%;
+	min-height: 100px;
+	overflow: auto;	
+}
+.yafnet div.AdMessage {
+	min-height: 10px;
+}
+.yafnet .yafsignature
+{
+	border-top: solid 1px #666666;
+	margin-top: 15px;
+	padding-top: 5px;
+}
+/* CSS Pagelinks */
+.yafnet .yafpager {
+	color: #555555;
+	margin: 6px 0px 6px 0px;
+}
+.yafnet a.pagelink,
+.yafnet a.pagelinkfirst,
+.yafnet a.pagelinklast,
+.yafnet .pagecurrent,
+.yafnet .pagecount
+{
+    text-decoration: none;
+	background: #F5F5F5;
+	border: 1px solid #444444;
+	padding: 1px 3px 1px 3px;
+	margin-right: 2px;
+}
+.yafnet .pagecount {
+	margin-right: 5px;
+}
+.yafnet a.pagelinkfirst,
+.yafnet a.pagelinklast{
+	background: #e0e0e0;
+}
+.yafnet .pagecurrent{
+	background: #dddddd;
+}
+.yafnet a.pagelink,
+.yafnet a.pagelinkfirst,
+.yafnet a.pagelinklast {
+	text-decoration: none;
+	color: #E00000;
+}
+/* CCS Buttons */
+.yafnet .MultiQuoteButton,
+.yafnet a.yaflittlebutton {
+	background: transparent url('ButtonEnd.gif') no-repeat scroll top right;
+    color: #FFFFFF;
+    display: block;
+    float: right;
+	font-size: 9px; 
+    height: 19px;
+    margin: 2px 0px 2px 2px;    
+    padding-right: 5px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: Arial;
+    font-weight: bold;
+}
+.yafnet .MultiQuoteButton label,
+.yafnet a.yaflittlebutton span {
+    background: transparent url('ButtonBack.gif') no-repeat;
+    display: block;
+    line-height: 11px;
+    padding: 4px 3px 4px 8px;
+}
+.yafnet a.yaflittlebutton img {
+	vertical-align: middle;
+	padding: 0px 4px 2px 0px;
+}
+.yafnet .MultiQuoteButton:hover,
+.yafnet a.yaflittlebutton:hover {
+	color: #000000;
+	text-decoration: none;
+}
+.yafnet .Checked,
+.yafnet a.yaflittlebutton:active {
+    background-position: bottom right;
+    outline: none;
+}
+.yafnet a.yaflittlebutton:active img {
+    padding: 0px 4px 2px 0px;
+}
+.yafnet .Checked label,
+.yafnet a.yaflittlebutton:active span{
+    background-position: bottom left;
+    padding: 5px 3px 3px 8px;
+}
+.yafnet a.yafcssbigbutton{
+	background: transparent url('ButtonEndBig.gif') no-repeat scroll top right;
+    color: #FFFFFF;
+    display: block;
+	font-size: 10px; 
+    height: 24px;
+    margin: 2px 0px 2px 2px;    
+    padding-right: 4px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: Arial;
+    font-weight: bold;
+}
+.yafnet a.yafcssbigbutton span{
+    background: transparent url('ButtonBackBig.gif') no-repeat;
+    display: block;
+    line-height: 14px;
+    padding: 5px 3px 5px 7px;
+}
+.yafnet a.yafcssbigbutton img{
+	vertical-align: middle;
+	padding: 0px 4px 2px 0px;
+}
+.yafnet a.yafcssbigbutton:hover {
+	color: #000000;
+	text-decoration: none;
+}
+.yafnet a.yafcssbigbutton:active{
+    background-position: bottom right;
+    outline: none; /* hide dotted outline in Firefox */
+}
+.yafnet a.yafcssbigbutton:active img{
+    padding: 0px 4px 2px 0px;
+}
+.yafnet a.yafcssbigbutton:active span{
+    background-position: bottom left;
+    padding: 6px 3px 4px 7px;
+}
+/* poll vote link */
+.yafnet a.pollvote:link {text-decoration: underline; color: #339;
+}
+/* css image button */
+.yafnet a.yafcssimagebutton{
+    background: transparent url('ButtonEnd.gif') no-repeat scroll top right;
+    color: #ffffff;
+    display: block;
+    float: left;
+	font-size: 9px; 
+    height: 19px;
+    margin: 2px 0px 2px 2px;
+    padding-right: 5px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: Arial;
+    font-weight: bold;
+}
+.yafnet a.yafcssimagebutton span{
+    background: transparent url('ButtonBack.gif') no-repeat;
+    display: block;
+    line-height: 14px;
+    padding: 3px 4px 2px 8px;
+}
+.yafnet a.yafcssimagebutton img{
+	vertical-align: top;
+	padding: 0px 4px 0px 0px;
+}
+.yafnet a.yafcssimagebutton:hover{
+	text-decoration: none;
+	color: #000000;
+}
+.yafnet a.yafcssimagebutton:active{
+    background-position: bottom right;
+    outline: none; /* hide dotted outline in Firefox */
+}
+.yafnet a.yafcssimagebutton:active img{
+    padding: 0px 4px 0px 0px;
+}
+.yafnet a.yafcssimagebutton:active span{
+    background-position: bottom left;
+    padding: 4px 4px 1px 8px; /* push text down 1px */
+}
+/* CSS Popupmenu */
+.yafnet .yafpopupmenu {
+	background-color: #ffffff;
+	border: solid 1px #333333;
+	
+}
+.yafnet .yafpopupmenu ul {	
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+.yafnet .yafpopupmenu li {
+	padding: 5px 10px 5px 10px;
+	margin: 0;
+}
+.yafnet .yafpopupmenu li.popupitemhover {
+	background-color: #cccccc;
+}
+/* ajax tabs */
+.yafnet .ajax__tab_yaf .ajax__tab_header 
+{
+    font-family:"Helvetica Neue", Arial, Sans-Serif;
+    background:url(tab-line.png) repeat-x bottom;
+    font-size:12px;
+    display:block;
+}
+.yafnet .ajax__tab_yaf .ajax__tab_header .ajax__tab_outer 
+{
+    background:url(tab.png) no-repeat left top;
+    border-color:#222;
+    color:#222;
+    padding-left:10px;
+    margin-right:3px;
+}
+.yafnet .ajax__tab_yaf .ajax__tab_header .ajax__tab_inner 
+{
+    background:url(tab.png) no-repeat right top;
+    border-color:#666;
+    color:#666;
+    padding:3px 10px 2px 0px;
+}
+.yafnet .ajax__tab_yaf .ajax__tab_hover .ajax__tab_inner 
+{
+    color:#000000;
+}
+.yafnet .ajax__tab_yaf .ajax__tab_active .ajax__tab_outer 
+{
+    background:url(tab.png) no-repeat 0pt -40px;
+    border-bottom-color:#ffffff;
+}
+.yafnet .ajax__tab_yaf .ajax__tab_active .ajax__tab_inner 
+{
+    background:url(tab.png) no-repeat right -40px;
+    color:#000000;
+    border-color:#333
+}
+.yafnet .ajax__tab_yaf .ajax__tab_body 
+{
+    font-family:verdana,tahoma,helvetica;
+    font-size:10pt;
+    padding:8px;
+    background-color:#ffffff;
+    border:solid 1px #d7d7d7;
+    border-top-width:0;
+}
+
+/* scrolling */
+.yafnet .ajax__scroll_horiz {overflow-x:scroll;}
+.yafnet .ajax__scroll_vert {overflow-y:scroll;}
+.yafnet .ajax__scroll_both {overflow:scroll}
+.yafnet .ajax__scroll_auto {overflow:auto}
+
+/*Modal Popup*/
+.modalBackground
+{
+	background-color:#000;
+	filter:alpha(opacity=80);
+	opacity:0.8;
+}
+
+.modalPopup
+{
+	background-color: #ffffff;
+	border: solid 1px #aaaaaa;
+	width: 400px;
+}
+
+.modalPopup .modalBase
+{
+	font-family: verdana,Arial,Helvetica,sans-serif;
+	font-size: 8pt;
+	border: solid 1px #505050;
+	color: #000000;
+	padding: 1px;
+}
+
+.modalPopup .modalHeader
+{
+	background: url('bg_header1.png');
+	background-color: #353535;
+	color: #FFFFFF;
+	font-weight: bold;
+	line-height: 22px;
+	font-size:12px;
+	padding: 5px;	
+}
+
+.modalPopup .modalInner
+{
+	padding: 10px;
+	text-align:center;
+}
+
+.modalPopup .modalInnerMain
+{
+	font-size: 9pt;
+	font-weight: bold;
+	color: #992222;
+	text-align: center;
+}
+
+.modalPopup .modalInnerSub
+{
+	font-size: 8pt;
+	color: #333333;
+	text-align: center;
+}
+
+.modalPopup .modalFooter
+{
+	padding: 5px;
+	font-size: 7pt;
+	background-color:#fbfbfb;
+}
+
+.modalPopup .modalFooter input
+{
+	display:block;
+	vertical-align: middle;
+	margin:0 auto;
+}
+
+/* Goto Page Form */
+.gotoPageForm
+{
+	background-color: #ffffff;
+	border: solid 1px #555555;
+	width: 80px;
+	margin: 1px;			
+}
+.gotoPageForm .gotoBase
+{
+	border: solid 1px #ffffff;
+}
+.gotoPageForm .gotoHeader
+{
+	background-color: #DDDDDD;
+	color: #252525;
+	font-weight: bold;	
+	padding: 2px;	
+}
+.gotoPageForm .gotoInner
+{
+	padding: 2px;
+}
+.gotoPageForm .gotoInner input
+{
+	margin: 2px;
+}
+/* Album */
+.yafnet .albumtitle:hover
+{
+	background-color: yellow;
+}
+.yafnet .content .albumtable td.albumimagebox
+{
+		padding-bottom:0;
+}
+.yafnet .content .albumtable td.albumtitlebox
+{
+		padding-top:0;
+}
+/* Irkoo Service styles */
+.irk-rating { font-family: Arial, Sans-Serif; color: #080; }
+.irk-negative { color: #c00; }
+.irk-count { font-size: 12px; font-weight: bold; padding: 0 4px; vertical-align: middle; }
+.irk-down, .irk-up { cursor: pointer; width: 16px; height: 16px; vertical-align: middle; }
+.irk-down { background: url(http://z.irkoo.com/down.png); }
+.irk-down:hover { background: url(http://z.irkoo.com/down-hover.png); }
+.irk-down-voted .irk-down { background: url(http://z.irkoo.com/down-voted.png); }
+.irk-up { background: url(http://z.irkoo.com/up.png); }
+.irk-up:hover { background: url(http://z.irkoo.com/up-hover.png); }
+.irk-up-voted .irk-up { background: url(http://z.irkoo.com/up-voted.png); }
+/* irk-vote should have relative positioning needed for popup to be positioned correctly */
+.irk-vote { position: relative; }
+.irk-count, .irk-rating { font-family: Arial, Sans-Serif; color: #680; }
+.irk-negative, .irk-negative .irk-count { color: #c4e; }
+/* End of Irkoo Service styles */
+
+/* Override jquery ui font-size */
+.ui-widget { font-size: 9pt!important; }
+
+.yafnet .PopMenuLink {
+	background: url("DownArrow.png") transparent no-repeat 100% 50%;
+}
+
+.yafnet .UserPopMenuLink {
+    background: url("DownArrow.png") transparent no-repeat 100% 50%;
+}
+
+.yafnet .PrevTopicLink {
+	background: url("LeftArrow.png") transparent no-repeat 0% 50%;
+}
+
+.yafnet .NextTopicLink {
+	background: url("RightArrow.png") transparent no-repeat 100% 50%;
+}
+
+.yafnet .pagination{
+	padding-top:4px;
+	margin-right:2px;
+}
+.yafnet .pagination a, .yafnet .pagination span {
+    text-decoration: none;
+	background: #F5F5F5;
+	border: 1px solid #444444;
+	-moz-border-radius: 0.4em; 
+	-webkit-border-radius: 0.4em;
+	border-radius: 0.4em;
+	padding: 1px 3px 1px 3px;
+	margin-right: 2px;
+}
+
+.yafnet .pagination .current {
+    background: #446bb8;
+    color: #fff;
+	border: solid 1px #AAE;
+}
+
+.yafnet .pagination .current.smiliesPagerPrev, .yafnet .pagination .current.smiliesPagerNext{
+	color:#999;
+	border-color:#999;
+	background:#fff;
+}
+
+.yafnet .pagination .current.smiliesPagerPrev, .yafnet .pagination .current.smiliesPagerNext{
+	color:#999;
+	border-color:#999;
+	background:#fff;
+}
+
+.yafnet .Unread {
+	margin-left: 2px;
+    padding:2px 4px 2px 4px;
+    background-color:red;
+	height:20px;
+    -webkit-border-radius: 0.4em;
+	border-radius: 0.4em;
+    box-shadow:1px 1px 1px gray;
+}
+.yafnet .Unread a {color:white!important;font-weight:bold!important;font-size:0.9em!important;}
+
+/* Alpha Sort Control */
+.yafnet dl.AlphaSort {border:1px solid #ddd;background-color: #f0f0f0;}
+.yafnet dl.AlphaSort dt {padding:4px 0 4px 5px;height:22px;}
+.yafnet dl.AlphaSort dd { background-color: white;color:#3b3b3b;border: 1px solid #aaa}
+.yafnet dl.AlphaSort .SelectedLetter {background-color: #e5e5e5;color:#3b3b3b;font-weight:bold}
+
+.yafnet dl.AlphaSort dd:hover { background-color: #f5f5f5;color:#3b3b3b;cursor:pointer;}
+.yafnet dl.AlphaSort dd:hover a { font-weight:bold}
+.yafnet dl.AlphaSort dd a {color:#3b3b3b;}
+
+/* clean up model dialog */
+.ModalDialog .DialogContent {
+  display:table;
+  width: 370px;
+  padding: 4px;
+  background: #eee;
+}
+.ModalDialog .modalHeader 
+{
+    padding: 4px;
+    border: 1px solid #999;
+  text-shadow: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  color: #fff;
+  background: #666;
+  -webkit-border-radius: 1px;
+  -moz-border-radius: 1px;
+  border-radius: 1px;
+  text-align:center;
+  
+  font-size: 10pt;
+}
+
+.ModalDialog .modalHeader h3
+{
+    display: inline;
+}
+
+.ModalDialog .modalFooter
+{
+    padding: 2px;
+    text-align: right;
+}
+
+.ModalDialog input, .ModalDialog select
+{
+    padding: 0px;
+}
+
+.ModalDialog hr
+{
+    height: 1px;
+    border: 0;
+    background-color: #aaa;
+    clear:both;
+}
+
+.ModalDialog .modalInner
+{
+    display: inline;
+}
