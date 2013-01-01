@@ -10,7 +10,7 @@ function CKEditor_Load() {
 		  config.scayt_autoStartup = true; 
 		  
 	      config.extraPlugins = 'syntaxhighlight,bbcodeselector';
-	      config.toolbar_Full = [
+	      config.toolbar = [
                                  ['Source'],
 		                         ['Cut', 'Copy', 'Paste'], ['Undo', 'Redo', '-', 'Find', 'Replace', '-', 'SelectAll', 'RemoveFormat'],
 								 ['-', 'NumberedList', 'BulletedList'],

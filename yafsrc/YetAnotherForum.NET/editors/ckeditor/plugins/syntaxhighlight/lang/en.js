@@ -1,6 +1,4 @@
 ﻿CKEDITOR.plugins.setLang("syntaxhighlight","en",{
-  syntaxhighlight:
-    {
 	 title:"Add or update a code snippet",
 	 sourceTab:"Source code",
 	 langLbl:"Select language",
@@ -18,5 +16,4 @@
 	 lineCount:"Default line count",
 	 highlight:"Highlight lines",
 	 highlightLbl:"Enter a comma seperated lines of lines you want to highlight, eg <em>3,10,15</em>."
-	}
 });

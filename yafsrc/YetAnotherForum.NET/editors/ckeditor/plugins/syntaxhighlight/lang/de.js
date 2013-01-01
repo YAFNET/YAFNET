@@ -1,12 +1,10 @@
-﻿CKEDITOR.plugins.setLang("syntaxhighlight","en",{
-  syntaxhighlight:
-    {
-	 title:"Add or update a code snippet",
-	 sourceTab:"Source code",
-	 langLbl:"Select language",
-	 advancedTab:"Advanced",
-	 hideGutter:"Hide gutter",
-	 hideGutterLbl:"Hide gutter & line numbers.",
+﻿CKEDITOR.plugins.setLang("syntaxhighlight","de",{
+	 title:"Code Schnipsel aktualisieren oder hinzufügen",
+	 sourceTab:"Quellcode",
+	 langLbl:"Sprache wählen",
+	 advancedTab:"Erweitert",
+	 hideGutter:"Gitter verstecken",
+	 hideGutterLbl:"Gitter und Liniennumern verstecken.",
 	 hideControls:"Hide controls",
 	 hideControlsLbl:"Hide code controls at the top of the code block.",
 	 collapse:"Collapse",
@@ -18,5 +16,4 @@
 	 lineCount:"Default line count",
 	 highlight:"Highlight lines",
 	 highlightLbl:"Enter a comma seperated lines of lines you want to highlight, eg <em>3,10,15</em>."
-	}
 });
