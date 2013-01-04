@@ -130,7 +130,7 @@ namespace YAF.Core.Model
         {
             CodeContracts.ArgumentNotNull(repository, "repository");
 
-            repository.DbFunction.Query.category_save(
+            int newId = repository.DbFunction.Scalar.category_save(
                 BoardID: boardId ?? repository.BoardID, CategoryID: categoryID ?? 0, Name: name, SortOrder: sortOrder, CategoryImage: categoryImage);
 
             if (categoryID.HasValue)
@@ -139,7 +139,7 @@ namespace YAF.Core.Model
             }
             else
             {
-                repository.FireNew();
+                repository.FireNew(newId);
             }
         }
 
@@ -158,7 +158,7 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="DataTable"/>.
         /// </returns>
-        public static DataTable SimpleList(this IRepository<Category> repository, int startID, int limit)
+        public static DataTable Simplelist(this IRepository<Category> repository, int startID, int limit)
         {
             CodeContracts.ArgumentNotNull(repository, "repository");
 

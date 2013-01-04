@@ -652,7 +652,7 @@ namespace YAF.Pages.Admin
 
                         // TODO: should return number of categories created 
                         this.GetRepository<Category>().Save(null, catName, null, 100, boardID);
-                        DataTable dt = this.GetRepository<Category>().SimpleList(0, 10000);
+                        DataTable dt = this.GetRepository<Category>().Simplelist(0, 10000);
 
                         foreach (DataRow dr in dt.Rows.Cast<DataRow>().Where(dr => dr["Name"].ToString() == catName))
                         {
