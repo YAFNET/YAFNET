@@ -226,7 +226,7 @@ namespace YAF.Pages.Admin
 
             this.TimeZones.DataSource = StaticDataHelper.TimeZones();
 
-            DataTable categories = LegacyDb.category_list(this.PageContext.PageBoardID, null);
+            DataTable categories = this.GetRepository<Category>().List();
 
             this.ForumsCategory.DataSource = categories;
             this.TopicsCategory.DataSource = categories;
@@ -651,8 +651,8 @@ namespace YAF.Pages.Admin
                         string catName = this.CategoryPrefixTB.Text.Trim() + Guid.NewGuid();
 
                         // TODO: should return number of categories created 
-                        LegacyDb.category_save(boardID, 0, catName, null, 100);
-                        DataTable dt = LegacyDb.category_simplelist(0, 10000);
+                        this.GetRepository<Category>().Save(null, catName, null, 100, boardID);
+                        DataTable dt = this.GetRepository<Category>().SimpleList(0, 10000);
 
                         foreach (DataRow dr in dt.Rows.Cast<DataRow>().Where(dr => dr["Name"].ToString() == catName))
                         {

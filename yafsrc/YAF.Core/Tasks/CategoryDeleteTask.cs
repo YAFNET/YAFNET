@@ -16,126 +16,118 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
-
-
 namespace YAF.Core.Tasks
 {
-	using System;
+    using System;
 
+    using YAF.Core.Model;
     using YAF.Types.Constants;
-	using YAF.Classes.Data;
-	using YAF.Types.Extensions;
-	using YAF.Types.Interfaces;
-	using YAF.Utils;
+    using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
+    using YAF.Types.Models;
 
-	/// <summary>
-	/// The forum delete task.
-	/// </summary>
-    public class CategoryDeleteTask : LongBackgroundTask,ICriticalBackgroundTask,IBlockableTask
-	{
-		#region Constants and Fields
-
-		/// <summary>
-		/// The _task name.
-		/// </summary>
-		private const string _TaskName = "CategoryDeleteTask";
-      
-
-		#endregion
-
-		#region Properties
-
-		/// <summary>
-		/// Gets TaskName.
-		/// </summary>
-		public static string TaskName
-		{
-			get
-			{
-				return _TaskName;
-			}
-		}
+    /// <summary>
+    ///     The forum delete task.
+    /// </summary>
+    public class CategoryDeleteTask : LongBackgroundTask, ICriticalBackgroundTask, IBlockableTask
+    {
+        #region Constants
 
         /// <summary>
-        /// The Blocking Task Names.
+        ///     The _task name.
+        /// </summary>
+        private const string _TaskName = "CategoryDeleteTask";
+
+        #endregion
+
+        #region Static Fields
+
+        /// <summary>
+        ///     The Blocking Task Names.
         /// </summary>
         private static readonly string[] BlockingTaskNames = Constants.ForumRebuild.BlockingTaskNames;
 
+        #endregion
 
-		/// <summary>
-		/// Gets or sets CategoryId.
-		/// </summary>
-		public int CategoryId { get; set; }
+        #region Public Properties
 
-		/// <summary>
-		/// Gets or sets Forum New Id.
-		/// </summary>
-		public int ForumNewId { get; set; }
-
-		#endregion
-
-		#region Public Methods
-
-	    /// <summary>
-	    /// Creates the Forum Delete Task
-	    /// </summary>
-	    /// <param name="boardId">
-	    /// The board id.
-	    /// </param>
-	    /// <param name="forumId">
-	    /// The forum id.
-	    /// </param>
-	    /// <param name="failureMessage"> 
-	    /// The failure message - is empty if task is launched successfully.
-	    /// </param>
-	    /// <returns>
-	    /// Returns if Task was Successfull
-	    /// </returns>
-	    public static bool Start(int categoryId, out string failureMessage)
-		{
-
-            failureMessage = string.Empty;
-			if (YafContext.Current.Get<ITaskModuleManager>() == null)
-			{
-				return false;
-			}
-            if (!YafContext.Current.Get<ITaskModuleManager>().AreTasksRunning(BlockingTaskNames))
+        /// <summary>
+        ///     Gets TaskName.
+        /// </summary>
+        public static string TaskName
+        {
+            get
             {
-                YafContext.Current.Get<ITaskModuleManager>().StartTask(TaskName,
-                                                                       () =>
-                                                                       new CategoryDeleteTask
-                                                                           {
-                                                                               CategoryId = categoryId
-                                                                           });
+                return _TaskName;
             }
-            else
+        }
+
+        /// <summary>
+        ///     Gets or sets CategoryId.
+        /// </summary>
+        public int CategoryId { get; set; }
+
+        /// <summary>
+        ///     Gets or sets Forum New Id.
+        /// </summary>
+        public int ForumNewId { get; set; }
+
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>
+        /// Creates the Forum Delete Task
+        /// </summary>
+        /// <param name="categoryId">
+        /// The category Id.
+        /// </param>
+        /// <param name="failureMessage">
+        /// The failure message - is empty if task is launched successfully.
+        /// </param>
+        /// <returns>
+        /// Returns if Task was Successfull
+        /// </returns>
+        public static bool Start(int categoryId, out string failureMessage)
+        {
+            failureMessage = string.Empty;
+
+            if (YafContext.Current.Get<ITaskModuleManager>() == null)
             {
-                failureMessage = "You can't delete category while some of the blocking {0} tasks are running.".FormatWith(BlockingTaskNames.ToDelimitedString(","));
                 return false;
             }
 
-		    return true;
-		}
+            if (!YafContext.Current.Get<ITaskModuleManager>().AreTasksRunning(BlockingTaskNames))
+            {
+                YafContext.Current.Get<ITaskModuleManager>().StartTask(TaskName, () => new CategoryDeleteTask { CategoryId = categoryId });
+            }
+            else
+            {
+                failureMessage =
+                    "You can't delete category while some of the blocking {0} tasks are running.".FormatWith(BlockingTaskNames.ToDelimitedString(","));
+                return false;
+            }
 
-		/// <summary>
-		/// The run once.
-		/// </summary>
-		public override void RunOnce()
-		{
+            return true;
+        }
+
+        /// <summary>
+        ///     The run once.
+        /// </summary>
+        public override void RunOnce()
+        {
             try
             {
-                this.Logger.Info("Starting Category {0} delete task.",this.CategoryId);
-                LegacyDb.category_delete(this.CategoryId);
-                this.Logger.Info("Category (ID: {0}) Delete Task Complete.",this.CategoryId);
-				
-			}
-			catch (Exception x)
-			{
-                this.Logger.Error(x,"Error In Category (ID: {0}) Delete Task".FormatWith(this.CategoryId),x);
-			}
-		}
+                this.Logger.Info("Starting Category {0} delete task.", this.CategoryId);
+                this.GetRepository<Category>().Delete(this.CategoryId);
+                this.Logger.Info("Category (ID: {0}) Delete Task Complete.", this.CategoryId);
+            }
+            catch (Exception x)
+            {
+                this.Logger.Error(x, "Error In Category (ID: {0}) Delete Task".FormatWith(this.CategoryId), x);
+            }
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

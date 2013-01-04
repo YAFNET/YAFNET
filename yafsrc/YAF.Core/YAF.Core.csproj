@@ -15,6 +15,10 @@
     <TargetFrameworkProfile />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <SccProjectName>&lt;Project Location In Database&gt;</SccProjectName>
+    <SccLocalPath>&lt;Local Binding Root of Project&gt;</SccLocalPath>
+    <SccAuxPath>&lt;Source Control Database&gt;</SccAuxPath>
+    <SccProvider>Mercurial Source Control Package</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -94,6 +98,7 @@
     <Compile Include="Data\MappingHelper.cs" />
     <Compile Include="Events\AttachmentEventHandleFileDelete.cs" />
     <Compile Include="Events\BannedIPEventCacheInvalidate.cs" />
+    <Compile Include="Events\CategoryEventHandleCacheInvalidate.cs" />
     <Compile Include="Events\InitDatabaseProviderEvent.cs" />
     <Compile Include="Data\TryInvokeMemberProxy.cs" />
     <Compile Include="Data\CommandTextHelpers.cs" />
@@ -110,6 +115,7 @@
     <Compile Include="Model\ActiveRepositoryExtensions.cs" />
     <Compile Include="Model\BBCodeRepositoryExtensions.cs" />
     <Compile Include="Model\BannedIpRepositoryExtensions.cs" />
+    <Compile Include="Model\CategoryRepositoryExtensions.cs" />
     <Compile Include="Model\MedalRepositoryExtensions.cs" />
     <Compile Include="Model\AttachmentRepositoryExtensions.cs" />
     <Compile Include="Model\SmileyRepositoryExtensions.cs" />
