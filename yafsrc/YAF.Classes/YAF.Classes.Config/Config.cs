@@ -29,6 +29,7 @@ namespace YAF.Classes
     using System.Web.Configuration;
 
     using YAF.Types;
+    using YAF.Types.Extensions;
 
     #endregion
 
@@ -181,7 +182,13 @@ namespace YAF.Classes
         {
             get
             {
-                return ConnectionStringSettings.ProviderName;
+                if (ConnectionStringSettings.ProviderName.IsSet())
+                {
+                    return ConnectionStringSettings.ProviderName;
+                }
+
+                // default to sql client for backwards compatibility.
+                return "System.Data.SqlClient";
             }
         }
 
