@@ -46,16 +46,16 @@
                                 <%# Eval("Emoticon") %>
                             </td>
                             <td class="post">
-                                <asp:LinkButton runat="server" CommandName="edit" CommandArgument='<%# Eval("SmileyID") %>'>
+                                <asp:LinkButton runat="server" CommandName="edit" CommandArgument='<%# Eval("ID") %>'>
                                   <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="EDIT" LocalizedPage="COMMON" />
                                 </asp:LinkButton>
                                 |
-                                <asp:LinkButton ID="MoveUp" runat="server" CommandName="moveup" CommandArgument='<%# Eval("SmileyID") %>'
+                                <asp:LinkButton ID="MoveUp" runat="server" CommandName="moveup" CommandArgument='<%# Eval("ID") %>'
                                     Text="▲" />
-                                <asp:LinkButton ID="MoveDown" runat="server" CommandName="movedown" CommandArgument='<%# Eval("SmileyID") %>'
+                                <asp:LinkButton ID="MoveDown" runat="server" CommandName="movedown" CommandArgument='<%# Eval("ID") %>'
                                     Text="▼" />
                                 |
-                                <asp:LinkButton runat="server" OnLoad="Delete_Load" CommandName="delete" CommandArgument='<%# Eval("SmileyID") %>'>
+                                <asp:LinkButton runat="server" OnLoad="Delete_Load" CommandName="delete" CommandArgument='<%# Eval("ID") %>'>
                                   <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="DELETE" LocalizedPage="COMMON" />
                                 </asp:LinkButton>
                             </td>

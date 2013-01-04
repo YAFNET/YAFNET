@@ -1,42 +1,24 @@
 ﻿<%@ Control language="c#" Inherits="YAF.DotNetNuke.YafDnnModuleImport" CodeBehind="YafDnnModuleImport.ascx.cs" AutoEventWireup="False" %>
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
 
-<table cellpadding="2" cellspacing="2" style="margin-left:20px">
-  <tr>
-    <td class="SubHead" style="width:50%">
-      <asp:Label ID="lImport" runat="server" ResourceKey="lImport"></asp:Label>
-    </td>
-    <td>
-      <asp:Button runat="server" id="btnImportUsers" CssClass="wizButton" />
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      <asp:Label ID="lInfo" runat="server" FontBold="true"></asp:Label>
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2">
+<div class="dnnForm">
+    <div class="dnnFormItem">
+        <dnn:label ID="lImport" runat="server" ResourceKey="lImport" Suffix=":"></dnn:label>
+        <asp:Button runat="server" id="btnImportUsers" />
+    </div>
+    <div class="dnnFormItem">
+        <asp:Label ID="lInfo" runat="server" FontBold="true"></asp:Label>
+    </div>
+    <div class="dnnFormItem">
       <div style="width:100%;height:10px;border-top: 1px dotted black"></div>
-    </td>
-  </tr>
-  <tr>
-    <td class="SubHead" style="width:50%">
-      <dnn:label id="lblAddScheduler" runat="server"  ResourceKey="lblAddScheduler" controlname="btnAddScheduler" suffix=":" CssClass="SubHead"></dnn:label>
-    </td>
-    <td>
-      <asp:Button id="btnAddScheduler" CommandArgument="add" runat="server" CssClass="wizButton" ></asp:Button>
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      <div style="width:100%;height:10px;border-top: 1px dotted black"></div>
-    </td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>
-      <asp:Button runat="server" id="Close"  CssClass="wizButton" />
-    </td>
-  </tr>
-</table>
+    </div>
+    <div class="dnnFormItem">
+      <dnn:label id="lblAddScheduler" runat="server"  ResourceKey="lblAddScheduler" controlname="btnAddScheduler" suffix=":"></dnn:label>
+      <asp:Button id="btnAddScheduler" CommandArgument="add" runat="server" ></asp:Button>
+    </div>
+    <ul class="dnnActions dnnClear">
+        <li>
+            <asp:Button runat="server" id="Close"  CssClass="dnnPrimaryAction" />
+        </li>
+    </ul>
+</div>

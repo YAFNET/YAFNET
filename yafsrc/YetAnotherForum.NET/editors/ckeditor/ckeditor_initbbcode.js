@@ -9,7 +9,7 @@
 		  config.disableNativeSpellChecker = false;
 		  config.scayt_autoStartup = true;  
 		  
-		  config.toolbar_Full = [
+		  config.toolbar = [
 		                         ['Source'],
 		                         ['Undo','Redo'],
 								 ['-','NumberedList','BulletedList'], 

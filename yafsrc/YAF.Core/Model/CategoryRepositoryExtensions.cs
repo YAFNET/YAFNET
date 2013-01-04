@@ -33,7 +33,7 @@ namespace YAF.Core.Model
         #region Public Methods and Operators
 
         /// <summary>
-        /// Delete a category only if there are no forums using it.
+        /// The delete.
         /// </summary>
         /// <param name="repository">
         /// The repository.
@@ -45,11 +45,12 @@ namespace YAF.Core.Model
         {
             CodeContracts.ArgumentNotNull(repository, "repository");
 
-            int flagValue = (int)repository.DbFunction.Scalar.category_delete(CategoryID: categoryID);
+            int success = repository.DbFunction.Scalar.category_delete(CategoryID: categoryID);
 
-            if (flagValue == 1)
+            if (success != 0)
             {
                 repository.FireDeleted(categoryID);
+
                 return true;
             }
 
@@ -96,7 +97,7 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="DataTable"/>.
         /// </returns>
-        public static DataTable Listread(this IRepository<Category> repository, int userID, int categoryID, int? boardId = null)
+        public static DataTable Listread(this IRepository<Category> repository, int userID, int? categoryID, int? boardId = null)
         {
             CodeContracts.ArgumentNotNull(repository, "repository");
 
@@ -124,19 +125,21 @@ namespace YAF.Core.Model
         /// <param name="categoryImage">
         /// The category image.
         /// </param>
-        public static void Save(this IRepository<Category> repository, int categoryID, string name, string categoryImage, short sortOrder, int? boardId = null)
+        public static void Save(
+            this IRepository<Category> repository, int? categoryID, string name, string categoryImage, short sortOrder, int? boardId = null)
         {
             CodeContracts.ArgumentNotNull(repository, "repository");
 
-            int newId = repository.DbFunction.Scalar.category_save(BoardID: boardId ?? repository.BoardID, CategoryID: categoryID, Name: name, SortOrder: sortOrder, CategoryImage: categoryImage);
+            repository.DbFunction.Query.category_save(
+                BoardID: boardId ?? repository.BoardID, CategoryID: categoryID ?? 0, Name: name, SortOrder: sortOrder, CategoryImage: categoryImage);
 
-            if (categoryID > 0)
+            if (categoryID.HasValue)
             {
-                repository.FireUpdated(categoryID);    
+                repository.FireUpdated(categoryID);
             }
             else
             {
-                repository.FireNew(newId);
+                repository.FireNew();
             }
         }
 
@@ -155,7 +158,7 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="DataTable"/>.
         /// </returns>
-        public static DataTable Simplelist(this IRepository<Category> repository, int startID, int limit)
+        public static DataTable SimpleList(this IRepository<Category> repository, int startID, int limit)
         {
             CodeContracts.ArgumentNotNull(repository, "repository");
 

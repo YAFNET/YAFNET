@@ -16,9 +16,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-// <copyright file="this.cs" company="Tiny Gecko">
-// 
-// </copyright>
 namespace YAF.Types.Models
 {
     using System;
@@ -30,7 +27,7 @@ namespace YAF.Types.Models
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
-    /// The category.
+    /// A class which represents the Category table.
     /// </summary>
     [Serializable]
     [Table(Name = "Category")]

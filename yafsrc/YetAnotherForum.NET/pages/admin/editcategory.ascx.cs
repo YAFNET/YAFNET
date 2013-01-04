@@ -214,8 +214,6 @@ namespace YAF.Pages.Admin
 
             if (this.Request.QueryString.GetFirstOrDefault("c") == null)
             {
-                
-
                 // Currently creating a New Category, and auto fill the Category Sort Order + 1
                 using (DataTable dt = this.GetRepository<Category>().List())
                 {

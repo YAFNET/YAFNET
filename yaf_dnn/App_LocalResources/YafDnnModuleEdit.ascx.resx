@@ -151,16 +151,16 @@
     <value>Override Theme?</value>
   </data>
   <data name="RemoveTabName0.Text" xml:space="preserve">
-    <value>Dont Remove</value>
+    <value>Don't Remove</value>
   </data>
   <data name="RemoveTabName1.Text" xml:space="preserve">
-    <value>Always Remove</value>
+    <value>Remove Tab Name/Title Matches the Forum Board Name</value>
   </data>
   <data name="RemoveTabName2.Text" xml:space="preserve">
-    <value>Remove only if matches the Board Name</value>
+    <value>Remove Tab Title(Name) if in the Page Title</value>
   </data>
   <data name="RemoveTabNameLabel.Help" xml:space="preserve">
-    <value>Option to Remove Tab Name or Tab Title from Page Title</value>
+    <value>Removes tab Name from Page Title if Page Name is the same as the Board Name</value>
   </data>
   <data name="RemoveTabNameLabel.Text" xml:space="preserve">
     <value>Remove Tab Name from Page Title</value>
@@ -170,12 +170,6 @@
   </data>
   <data name="SyncProfile.Text" xml:space="preserve">
     <value>Auto Sync Profiles</value>
-  </data>
-  <data name="Theme.Help" xml:space="preserve">
-    <value>Select a Theme if you want to override the Current Board Theme.</value>
-  </data>
-  <data name="Theme.Text" xml:space="preserve">
-    <value>Forum Theme</value>
   </data>
   <data name="Update.Text" xml:space="preserve">
     <value>Update</value>

@@ -41,7 +41,7 @@ namespace YAF.Pages.Admin
     #endregion
 
     /// <summary>
-    ///     Summary description for smilies_edit.
+    ///    The Admin Smilies Edit Page.
     /// </summary>
     public partial class smilies_edit : AdminPage
     {
@@ -124,7 +124,7 @@ namespace YAF.Pages.Admin
             if (this.Request["s"] != null)
             {
                 Smiley smiley =
-                    this.GetRepository<Smiley>().ListTyped(this.Request.QueryString.GetFirstOrDefaultAs<int>("s")).FirstOrDefault();
+                    this.GetRepository<Smiley>().ListTyped(this.Request.QueryString.GetFirstOrDefaultAs<int>("s"), this.PageContext.PageBoardID).FirstOrDefault();
 
                 if (smiley != null)
                 {

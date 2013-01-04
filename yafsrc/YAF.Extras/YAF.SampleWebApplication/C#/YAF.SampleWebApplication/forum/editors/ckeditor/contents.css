@@ -1,0 +1,7 @@
+﻿/* CKEditor Formats */
+
+/* Format Quote Message */
+blockquote {font-family: Helvetica, Arial, San-Serif;font-size: 10px;border: black 1px dotted;background: #F1F1F1;padding: 5px 10px;margin-bottom: 5px;}
+
+/* Code Block */
+code {display:block;border: black 1px dotted;background: #F1F1F1;padding: 5px 10px;margin-left:10px;}

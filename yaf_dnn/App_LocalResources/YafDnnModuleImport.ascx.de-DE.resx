@@ -136,7 +136,7 @@
     <value>YAF Zeitplandienst Importer</value>
   </data>
   <data name="lImport.Text" xml:space="preserve">
-    <value>Alle Benutzer von diesem Portal importieren und Gruppen syncronisieren.</value>
+    <value>Sync Benutzer &amp; Gruppen</value>
   </data>
   <data name="RolesNotSynced.Text" xml:space="preserve">
     <value>, Gruppen sind bereits syncronisiert!</value>
@@ -149,5 +149,11 @@
   </data>
   <data name="UsersImported.Text" xml:space="preserve">
     <value>{0} Benutzer Importiert</value>
+  </data>
+  <data name="lblAddScheduler.Help" xml:space="preserve">
+    <value>Option zum Installieren oder Entfernen des YAF Zeitplandienst zum autom. Benutzer &amp; Gruppen syncronisieren.</value>
+  </data>
+  <data name="lImport.Help" xml:space="preserve">
+    <value>Alle Benutzer von diesem Portal importieren und Gruppen syncronisieren.</value>
   </data>
 </root>

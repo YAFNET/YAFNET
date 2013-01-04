@@ -1,5 +1,5 @@
 ﻿/* Yet Another Forum.NET
- * Copyright (C) 2006-2012 Jaben Cargman
+ * Copyright (C) 2006-2013 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -33,28 +33,33 @@ namespace YAF.DotNetNuke.Utils
     using YAF.Utils;
 
     /// <summary>
-    /// Yaf User Importer
+    /// YAF User Importer
     /// </summary>
     public class UserImporter
     {
         /// <summary>
-        /// Creates the yaf user.
+        /// Creates the YAF user.
         /// </summary>
-        /// <param name="dnnUserInfo">The dnn user info.</param>
-        /// <param name="dnnUser">The dnn user.</param>
+        /// <param name="dnnUserInfo">The DNN user info.</param>
+        /// <param name="dnnUser">The DNN user.</param>
         /// <param name="boardID">The board ID.</param>
         /// <param name="portalSettings">The portal settings.</param>
         /// <param name="boardSettings">The board settings.</param>
         /// <returns>
         /// Returns the User ID of the new User
         /// </returns>
-        public static int CreateYafUser(UserInfo dnnUserInfo, MembershipUser dnnUser, int boardID, PortalSettings portalSettings, YafBoardSettings boardSettings)
+        public static int CreateYafUser(
+            UserInfo dnnUserInfo,
+            MembershipUser dnnUser,
+            int boardID,
+            PortalSettings portalSettings,
+            YafBoardSettings boardSettings)
         {
             // setup roles
             RoleMembershipHelper.SetupUserRoles(boardID, dnnUser.UserName);
 
-            // create the user in the YAF DB so profile can ge created...
-            var yafUserId = RoleMembershipHelper.CreateForumUser(dnnUser, boardID);
+            // create the user in the YAF DB so profile can gets created...
+            var yafUserId = RoleMembershipHelper.CreateForumUser(dnnUser, dnnUserInfo.DisplayName, boardID);
 
             if (yafUserId == null)
             {
@@ -64,7 +69,7 @@ namespace YAF.DotNetNuke.Utils
             // create profile
             var userProfile = YafUserProfile.GetProfile(dnnUser.UserName);
 
-            // setup their inital profile information
+            // setup their initial profile information
             userProfile.Initialize(dnnUser.UserName, true);
 
             userProfile.RealName = dnnUserInfo.Profile.FullName;
@@ -72,14 +77,14 @@ namespace YAF.DotNetNuke.Utils
             userProfile.Region = dnnUserInfo.Profile.Region;
             userProfile.City = dnnUserInfo.Profile.City;
             userProfile.Homepage = dnnUserInfo.Profile.Website;
-            
+
             userProfile.Save();
 
             // Save User
             LegacyDb.user_save(
                 yafUserId,
                 boardID,
-                dnnUserInfo.DisplayName,
+                dnnUserInfo.Username,
                 dnnUserInfo.DisplayName,
                 null,
                 ProfileSyncronizer.GetUserTimeZoneOffset(dnnUserInfo, portalSettings),
@@ -96,7 +101,7 @@ namespace YAF.DotNetNuke.Utils
                 null,
                 null);
 
-            bool autoWatchTopicsEnabled =
+            var autoWatchTopicsEnabled =
                 boardSettings.DefaultNotificationSetting.Equals(UserNotificationSetting.TopicsIPostToOrSubscribeTo);
 
             // save notification Settings
@@ -106,6 +111,8 @@ namespace YAF.DotNetNuke.Utils
                 autoWatchTopicsEnabled,
                 boardSettings.DefaultNotificationSetting,
                 boardSettings.DefaultSendDigestEmail);
+
+            RoleSyncronizer.SynchronizeUserRoles(boardID, portalSettings.PortalId, yafUserId.ToType<int>(), dnnUserInfo);
 
             return yafUserId.ToType<int>();
         }

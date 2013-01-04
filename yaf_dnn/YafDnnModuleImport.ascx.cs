@@ -1,5 +1,5 @@
 ﻿/* Yet Another Forum.NET
- * Copyright (C) 2006-2012 Jaben Cargman
+ * Copyright (C) 2006-2013 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -94,7 +94,7 @@ namespace YAF.DotNetNuke
         /// <summary>
         /// The add scheduler click.
         /// </summary>
-        /// <param name="sender">The sender.</param>
+        /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void AddSchedulerClick(object sender, EventArgs e)
         {
@@ -120,11 +120,9 @@ namespace YAF.DotNetNuke
         }
 
         /// <summary>
-        /// The on init.
+        /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
         /// </summary>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnInit(EventArgs e)
         {
             this.Load += this.DotNetNukeModuleImport_Load;
@@ -163,13 +161,11 @@ namespace YAF.DotNetNuke
         /// <summary>
         /// The remove schedule client.
         /// </summary>
-        /// <param name="id">
-        /// The id.
-        /// </param>
-        private static void RemoveScheduleClient(int id)
+        /// <param name="scheduleId">The schedule id.</param>
+        private static void RemoveScheduleClient(int scheduleId)
         {
             // get the item by id
-            ScheduleItem item = SchedulingProvider.Instance().GetSchedule(id);
+            var item = SchedulingProvider.Instance().GetSchedule(scheduleId);
 
             // tell the provider to remove the item
             SchedulingProvider.Instance().DeleteSchedule(item);
@@ -178,13 +174,13 @@ namespace YAF.DotNetNuke
         /// <summary>
         /// The update schedule item.
         /// </summary>
-        /// <param name="id">
-        /// The id.
+        /// <param name="scheduleId">
+        /// The schedule id.
         /// </param>
-        private static void UpdateScheduleItem(int id)
+        private static void UpdateScheduleItem(int scheduleId)
         {
             // get the item by id
-            ScheduleItem item = SchedulingProvider.Instance().GetSchedule(id);
+            ScheduleItem item = SchedulingProvider.Instance().GetSchedule(scheduleId);
 
             // set property on item
             item.TimeLapse = 60;
@@ -196,7 +192,7 @@ namespace YAF.DotNetNuke
         /// <summary>
         /// The close click.
         /// </summary>
-        /// <param name="sender">The sender.</param>
+        /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void CloseClick(object sender, EventArgs e)
         {
@@ -204,10 +200,10 @@ namespace YAF.DotNetNuke
         }
 
         /// <summary>
-        /// The create yaf host user.
+        /// The create YAF host user.
         /// </summary>
         /// <param name="yafUserId">
-        /// The yaf user id.
+        /// The YAF user id.
         /// </param>
         private void CreateYafHostUser(int yafUserId)
         {
@@ -226,7 +222,7 @@ namespace YAF.DotNetNuke
                 return;
             }
 
-            // fix the ishostadmin flag...
+            // fix the IsHostAdmin flag...
             var userFlags = new UserFlags(row["Flags"]) { IsHostAdmin = true };
 
             // update...
@@ -322,7 +318,7 @@ namespace YAF.DotNetNuke
         /// <summary>
         /// Import/Update Users and Sync Roles
         /// </summary>
-        /// <param name="sender">The sender.</param>
+        /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void ImportClick(object sender, EventArgs e)
         {
@@ -331,12 +327,10 @@ namespace YAF.DotNetNuke
             var users = UserController.GetUsers(this.PortalId);
             users.Sort(new UserComparer());
 
+            var rolesChanged = false;
+
             try
             {
-                // Sync Roles
-                var rolesChanged = RoleSyncronizer.SyncronizeAllRoles(this.boardId, this.PortalSettings.PortalId);
-
-                // Import Users
                 foreach (UserInfo dnnUserInfo in users)
                 {
                     // Get current Dnn user
@@ -379,7 +373,7 @@ namespace YAF.DotNetNuke
                             this.boardId);
                     }
 
-                    RoleSyncronizer.SyncronizeUserRoles(this.boardId, this.PortalSettings.PortalId, yafUserId, dnnUserInfo);
+                    rolesChanged = RoleSyncronizer.SynchronizeUserRoles(this.boardId, this.PortalSettings.PortalId, yafUserId, dnnUserInfo);
 
                     // super admin check...
                     if (dnnUserInfo.IsSuperUser)
@@ -391,14 +385,9 @@ namespace YAF.DotNetNuke
                 this.lInfo.Text =
                     Localization.GetString("UsersImported.Text", this.LocalResourceFile).FormatWith(this.NewUsers);
 
-                if (rolesChanged)
-                {
-                    this.lInfo.Text += Localization.GetString("RolesSynced.Text", this.LocalResourceFile);
-                }
-                else
-                {
-                    this.lInfo.Text += Localization.GetString("RolesNotSynced.Text", this.LocalResourceFile);
-                }
+                this.lInfo.Text += rolesChanged
+                                       ? Localization.GetString("RolesSynced.Text", this.LocalResourceFile)
+                                       : Localization.GetString("RolesNotSynced.Text", this.LocalResourceFile);
 
                 YafContext.Current.Get<IDataCache>().Clear();
 

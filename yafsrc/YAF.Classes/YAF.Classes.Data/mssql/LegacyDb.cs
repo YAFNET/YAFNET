@@ -1750,6 +1750,28 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
+        /// Lists categories very simply (for URL rewriting)
+        /// </summary>
+        /// <param name="startID">
+        /// The start ID.
+        /// </param>
+        /// <param name="limit">
+        /// The limit.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static DataTable category_simplelist(int startID, int limit)
+        {
+            using (var cmd = MsSqlDbAccess.GetCommand("category_simplelist"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("StartID", startID);
+                cmd.Parameters.AddWithValue("Limit", limit);
+                return MsSqlDbAccess.Current.GetData(cmd);
+            }
+        }
+
+        /// <summary>
         /// Gets a check email entry based on email or all if no email supplied
         /// </summary>
         /// <param name="email">

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Resources>
+	<provider name="MEMBERSHIP">
+		<Resource tag="CONFIGNOTFOUND">Membership Provider Configuration could not be located check Web.Config!</Resource>
+		<Resource tag="USERKEYNULL">User Provider key cannot be null</Resource>
+		<Resource tag="USERNAMENULL">User Name cannot be null</Resource>
+		<Resource tag="USERNAMEPASSWORDNULL">User Name or Password cannot be null</Resource>
+		<Resource tag="MEMBERSHIPUSERNULL">MembershipUser cannot be null</Resource>
+		<Resource tag="DUPLICATEEMAIL">Performing this operation would result in a duplicate email address</Resource>
+		<Resource tag="DECODEHASH">Cannot decode a hashed password</Resource>
+		<Resource tag="BADPASSWORDFORMAT">Bad PasswordFormat. Check Web.Config!</Resource>
+		<Resource tag="BADPAGEINDEX">Bad Page Index</Resource>
+		<Resource tag="BADPAGESIZE">Bad Page Size</Resource>
+		<Resource tag="PASSWORDRETRIEVALNOTSUPPORTED">Password Retrieval not supported in this configuration.</Resource>
+		<Resource tag="INVALIDPROVIDERKEY">Invalid Provider Key. Key is not a GUID.</Resource>
+		<Resource tag="EMAILNULL">Email cannot be null.</Resource>
+		<Resource tag="TOOMANYUSERNAMERETURNS">Too many Usernames returned for that email address.</Resource>
+		<Resource tag="RESETNOTSUPPORTED">Pasword Reset is not supported in this configuration.</Resource>			  
+		<Resource tag="EXAMPLE">Example Error Message.</Resource>
+</provider>
+	<provider name="ROLES">
+		<Resource tag="CONFIGNOTFOUND">Role Provider Configuration could not be located check Web.Config!</Resource>
+		<Resource tag="ROLENAMEBLANK">Role Name cannot be blank</Resource>
+		<Resource tag="USERNAMEBLANK">Username Blank</Resource>		
+		<Resource tag="EXAMPLE">Example Error Message</Resource>
+	</provider>
+	<provider name="PROFILE">
+    <Resource tag="PROFILESNULL">Profiles cannot be null</Resource>
+    <Resource tag="PROFILESEMPTY">Profiles collection cannot be empty</Resource>
+    <Resource tag="NOANONYMOUS">Anonymous authentication is not supported</Resource>
+    <Resource tag="PAGEINDEXTOOSMALL">Page index must be a positive integer</Resource>
+    <Resource tag="PAGESIZETOOSMALL">Page size must 1 or more</Resource>
+	</provider>
+</Resources>

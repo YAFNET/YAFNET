@@ -162,12 +162,10 @@ namespace YAF.Pages.Admin
             }
 
             this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
             this.PageLinks.AddLink(this.GetText("TEAM", "FORUMS"), string.Empty);
 
-            this.Page.Header.Title = "{0} - {1}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"), this.GetText("TEAM", "FORUMS"));
+            this.Page.Header.Title = "{0} - {1}".FormatWith(this.GetText("ADMIN_ADMIN", "Administration"), this.GetText("TEAM", "FORUMS"));
 
             this.NewCategory.Text = this.GetText("ADMIN_FORUMS", "NEW_CATEGORY");
             this.NewForum.Text = this.GetText("ADMIN_FORUMS", "NEW_FORUM");
@@ -208,10 +206,9 @@ namespace YAF.Pages.Admin
                     YafBuildLink.Redirect(ForumPages.admin_editcategory, "c={0}", e.CommandArgument);
                     break;
                 case "delete":
-                    if (this.GetRepository<Category>().Delete(e.CommandArgument.ToType<int>()))
+                    if (this.GetRepository<Category>().Delete((int)e.CommandArgument))
                     {
                         this.BindData();
-                        this.ClearCaches();
                     }
                     else
                     {
@@ -220,21 +217,6 @@ namespace YAF.Pages.Admin
 
                     break;
             }
-        }
-
-        /// <summary>
-        /// The clear caches.
-        /// </summary>
-        private void ClearCaches()
-        {
-            // clear moderatorss cache
-            this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
-
-            // clear category cache...
-            this.Get<IDataCache>().Remove(Constants.Cache.ForumCategory);
-
-            // clear active discussions cache..
-            this.Get<IDataCache>().Remove(Constants.Cache.ForumActiveDiscussions);
         }
 
         /// <summary>

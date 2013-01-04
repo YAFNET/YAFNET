@@ -1,5 +1,5 @@
 ﻿/* YetAnotherForum.NET
- * Copyright (C) 2006-2012 Jaben Cargman
+ * Copyright (C) 2006-2013 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -173,14 +173,10 @@ namespace YAF.Editors
     #region Methods
 
     /// <summary>
-    /// The editor_ load.
+    /// Handles the Load event of the Editor control.
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     protected virtual void Editor_Load(object sender, EventArgs e)
     {
       if (!this._editorLoaded || !this._editor.Visible)
@@ -197,11 +193,9 @@ namespace YAF.Editors
     }
 
     /// <summary>
-    /// The on init.
+    /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
     /// </summary>
-    /// <param name="e">
-    /// The e.
-    /// </param>
+    /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
     protected override void OnInit(EventArgs e)
     {
       if (!this._editorLoaded)
@@ -260,7 +254,7 @@ namespace YAF.Editors
     /// Init the DNN editor.
     /// </summary>
     /// <returns>
-    /// The init dnn editor.
+    /// The init DNN editor.
     /// </returns>
     private bool InitDnnEditor()
     {

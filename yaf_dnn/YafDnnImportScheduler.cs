@@ -1,5 +1,5 @@
 ﻿/* Yet Another Forum.NET
- * Copyright (C) 2006-2012 Jaben Cargman
+ * Copyright (C) 2006-2013 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -48,7 +48,7 @@ namespace YAF.DotNetNuke
     #endregion
 
     /// <summary>
-    /// The yaf dnn import scheduler.
+    /// The YAF DNN import scheduler.
     /// </summary>
     public class YafDnnImportScheduler : SchedulerClient
     {
@@ -66,12 +66,12 @@ namespace YAF.DotNetNuke
         /// <summary>
         /// Initializes a new instance of the <see cref="YafDnnImportScheduler"/> class.
         /// </summary>
-        /// <param name="objScheduleHistoryItem">
-        /// The obj schedule history item.
+        /// <param name="scheduleHistoryItem">
+        /// The schedule history item.
         /// </param>
-        public YafDnnImportScheduler(ScheduleHistoryItem objScheduleHistoryItem)
+        public YafDnnImportScheduler(ScheduleHistoryItem scheduleHistoryItem)
         {
-            this.ScheduleHistoryItem = objScheduleHistoryItem;
+            this.ScheduleHistoryItem = scheduleHistoryItem;
         }
 
         #endregion
@@ -106,13 +106,13 @@ namespace YAF.DotNetNuke
         #region Methods
 
         /// <summary>
-        /// The create yaf host user.
+        /// The create YAF host user.
         /// </summary>
         /// <param name="userId">
-        /// The yaf user id.
+        /// The YAF user id.
         /// </param>
         /// <param name="boardId">
-        /// The iboard id.
+        /// The board id.
         /// </param>
         private static void CreateYafHostUser(int userId, int boardId)
         {
@@ -131,7 +131,7 @@ namespace YAF.DotNetNuke
                 return;
             }
 
-            // fix the ishostadmin flag...
+            // fix the IsHostAdmin flag...
             var userFlags = new UserFlags(row["Flags"]) { IsHostAdmin = true };
 
             // update...
@@ -197,11 +197,10 @@ namespace YAF.DotNetNuke
                                     ? new YafLoadBoardSettings(boardId)
                                     : YafContext.Current.Get<YafBoardSettings>();
 
+            var rolesChanged = false;
+
             try
             {
-                // Sync Roles
-                var rolesChanged = RoleSyncronizer.SyncronizeAllRoles(boardId, portalId);
-
                 foreach (UserInfo dnnUserInfo in users)
                 {
                     MembershipUser dnnUser = Membership.GetUser(dnnUserInfo.Username, true);
@@ -230,7 +229,7 @@ namespace YAF.DotNetNuke
                             yafUserId, dnnUserInfo, dnnUser, portalId, portalGUID, boardId);
                     }
 
-                    RoleSyncronizer.SyncronizeUserRoles(boardId, portalId, yafUserId, dnnUserInfo);
+                    rolesChanged = RoleSyncronizer.SynchronizeUserRoles(boardId, portalId, yafUserId, dnnUserInfo);
 
                     // super admin check...
                     if (dnnUserInfo.IsSuperUser)
@@ -241,14 +240,9 @@ namespace YAF.DotNetNuke
 
                 this.sInfo = "{0} User(s) Imported".FormatWith(iNewUsers);
 
-                if (rolesChanged)
-                {
-                    this.sInfo += ", but all Roles are syncronized!";
-                }
-                else
-                {
-                    this.sInfo += ", Roles already syncronized!";
-                }
+                this.sInfo += rolesChanged
+                                  ? ", but all User Roles are synchronized!"
+                                  : ", User Roles already synchronized!";
 
                 YafContext.Current.Get<IDataCache>().Clear();
 

@@ -228,9 +228,9 @@ namespace YAF.Core.Tasks
     {
         try
         {
-            this.Logger.Info("Starting Category Save Task for CategoryID {0}.", this.CategoryId);
+            this.Logger.Info("Starting Category Save Task for CategoryID {0}.",this.CategoryId);
             this.GetRepository<Category>()
-                .Save((int)this.CategoryId, this.CategoryName.ToString(), this.CategoryImage.ToString(), (short)this.SortOrder, (int)this.BoardIdToSave);
+                .Save((int?)this.CategoryId, (string)this.CategoryName, (string)this.CategoryImage, (short)this.SortOrder, (int)this.BoardIdToSave);
             this.Logger.Info("Category Save Task for CategoryID {0} is completed.", CategoryId);
         }
         catch (Exception x)

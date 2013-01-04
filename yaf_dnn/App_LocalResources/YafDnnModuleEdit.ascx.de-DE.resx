@@ -154,28 +154,22 @@
     <value>Nicht entfernen</value>
   </data>
   <data name="RemoveTabName1.Text" xml:space="preserve">
-    <value>Immer Entfernen</value>
+    <value>Seitenname entfernen wenn identisch mit dem Boardnamen</value>
   </data>
   <data name="RemoveTabName2.Text" xml:space="preserve">
-    <value>Nur entfernen wenn mit Board Name übereinstimmt</value>
+    <value>Seitenname entfernen wenn im Seiten Titel vorhanden</value>
   </data>
   <data name="RemoveTabNameLabel.Help" xml:space="preserve">
-    <value>Option um den DNN Seiten Name oder Titel vom aktuellen Seiten Titel enfernen</value>
+    <value>Tab Name from Seiten Titel entfernen, falls der Seitenname identisch mit dem Board Namen ist</value>
   </data>
   <data name="RemoveTabNameLabel.Text" xml:space="preserve">
-    <value>Seiten Name von Seiten Title entfernen</value>
+    <value>Tab Name from Seiten Titel entfernen</value>
   </data>
   <data name="SyncProfile.Help" xml:space="preserve">
     <value>Automatisch die Profile zwischen YAF und DotNetNuke syncronisieren.</value>
   </data>
   <data name="SyncProfile.Text" xml:space="preserve">
     <value>Profile autom. syncronisieren</value>
-  </data>
-  <data name="Theme.Help" xml:space="preserve">
-    <value>Skin wählen falls das Board Skin überschrieben werden soll.</value>
-  </data>
-  <data name="Theme.Text" xml:space="preserve">
-    <value>Forum Skin</value>
   </data>
   <data name="Update.Text" xml:space="preserve">
     <value>Aktualisieren</value>

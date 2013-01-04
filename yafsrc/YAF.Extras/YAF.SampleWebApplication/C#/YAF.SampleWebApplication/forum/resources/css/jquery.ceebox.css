@@ -1,0 +1,20 @@
+/*ceebox*/
+/* CeeBox CSS Document */
+/* Minor change made for 2.0.6 */
+/* Works with 2.0.4 and up */
+/* ----------------------------------------------------------------------------------------------------------------*/
+/* ---------->>> ceebox specific background images <<<-----------------------------------------------------------*/
+/* ----------------------------------------------------------------------------------------------------------------*/
+
+#cee_closeBtn 		{ background-image: url(../images/ceebox/cee-close-btn.png); }
+#cee_next 			{ background-image: url(../images/ceebox/cee-next-btn.png); }
+#cee_prev 			{ background-image: url(../images/ceebox/cee-prev-btn.png); }
+* html #cee_next 	{ background-image: url(../images/ceebox/cee-next-btn.gif); } /* IE6 hack */
+* html #cee_prev 	{ background-image: url(../images/ceebox/cee-prev-btn.gif); } /* IE6 hack */
+#cee_load 			{ background-image: url(../images/ceebox/loader.gif);}
+/* ceebox border width controled as option in jquery.ceebox.js */
+/* colors for ceebox background and border can also be set as option in jquery.ceebox.js  */
+#cee_box			{background-color: #fff;border-color:#525252;border-style: solid; -moz-border-radius: 7px; -webkit-border-radius: 7px; border-radius: 7px; }
+
+/* ---------->>> ceebox specific css minimized <<<-----------------------------------------------------------*/
+#cee_box{font:12px Arial,Helvetica,sans-serif;color:#333;background-color:#fff}#cee_count{font:10px Arial,Helvetica,sans-serif;-moz-opacity:0.8;opacity:0.8;clear:left;float:left;padding:2px 0 4px}.cee_html #cee_title h2{float:left}.cee_html #cee_count{clear:none;padding-left:5px}* html #cee_count{zoom:1;padding-bottom:6px}#cee_next,#cee_prev{height:100%;width:49%;text-indent:-10000px;text-decoration:none;visibility:visible;background-repeat:no-repeat}#cee_box a{border:0;outline:none}#cee_box a:link{color:#666}#cee_box a:visited{color:#666}#cee_box a:hover{color:#000}#cee_box a:active{color:#666}#cee_box a:focus{color:#666}#cee_closeBtn{background-repeat:no-repeat;display: block;width:24px;height:23px;position:absolute;text-indent:-10000px} #cee_closeBtn{top:-3px;right:-3px}#cee_closeBtn,#ie8#hack{top:-10px;right:-10px}*:first-child+html #cee_closeBtn{top:-3px;right:-3px} * html #cee_closeBtn{top:-3px;right:-3px}#cee_closeBtn:hover{background-position:0px -23px}.cee_close{cursor:pointer}#cee_box{text-align:left;color:#000}#cee_box img#cee_img,#cee_vid,#cee_iframeContent,#cee_ajax{display:block;margin:15px 15px 0;border-right:1px solid #ccc;border-bottom:1px solid #ccc;border-top:1px solid #666;border-left:1px solid #666}#cee_title{padding:7px 15px 5px 15px;overflow:hidden}.cee_html #cee_title{background-color:#e8e8e8;height:18px;-moz-border-radius:7px 7px 0 0;-webkit-border-radius:7px 7px 0 0;border-radius:7px 7px 0 0}#cee_title h2{font-size:1em;font-weight:400;margin:0 0 1px}#cee_ajax{clear:both;padding:2px 15px 15px 15px;overflow:auto;text-align:left;line-height:1.4em}#cee_load{display:none;height:50px;width:50px;margin:-25px 0 0 -25px;background-position:center center;background-repeat:no-repeat}#cee_HideSelect{z-index:99;position:fixed;top:0;left:0;background-color:#fff;border:none;filter:alpha(opacity=0);-moz-opacity:0;opacity:0;height:100%;width:100%}* html #cee_HideSelect{ position:absolute; height:expression(document.body.scrollHeight >document.body.offsetHeight ? document.body.scrollHeight:document.body.offsetHeight+'px')}#cee_iframe{clear:both;border:none;margin-bottom:-1px;margin-top:1px}

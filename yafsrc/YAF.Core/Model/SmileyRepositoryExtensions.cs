@@ -24,8 +24,6 @@ namespace YAF.Core.Model
     using System.Data;
     using System.Linq;
 
-    using ServiceStack.OrmLite;
-
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Interfaces;
@@ -95,11 +93,18 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="List"/> . 
         /// </returns>
-        public static IList<Smiley> ListTyped(this IRepository<Smiley> repository, int? smileyID = null, int? boardId = null)
+        public static IList<Smiley> ListTyped(
+            this IRepository<Smiley> repository, int? smileyID = null, int? boardId = null)
         {
             CodeContracts.ArgumentNotNull(repository, "repository");
 
-            return smileyID.HasValue ? new List<Smiley>() { repository.GetByID(smileyID.Value) } : repository.GetByBoardID(boardId);
+            using (var session = repository.DbFunction.CreateSession())
+            {
+                return smileyID.HasValue
+                           ? session.GetTyped<Smiley>(
+                               r => r.smiley_list(BoardID: boardId ?? repository.BoardID, SmileyID: smileyID.Value))
+                           : repository.GetByBoardID(boardId);
+            }
         }
 
         /// <summary>

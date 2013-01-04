@@ -16,40 +16,43 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
-
-
 namespace YAF.Core.Tasks
 {
-	using System;
+    using System;
 
-	using YAF.Core.Extensions;
-	using YAF.Core.Model;
-	using YAF.Types.Constants;
-	using YAF.Classes.Data;
-	using YAF.Types.Extensions;
-	using YAF.Types.Interfaces;
-	using YAF.Types.Models;
-	using YAF.Utils;
+    using YAF.Core.Model;
+    using YAF.Types.Constants;
+    using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
+    using YAF.Types.Models;
 
     /// <summary>
-    /// The forum delete task.
+    ///     The forum delete task.
     /// </summary>
     public class CategoryDeleteTask : LongBackgroundTask, ICriticalBackgroundTask, IBlockableTask
     {
-        #region Constants and Fields
+        #region Constants
 
         /// <summary>
-        /// The _task name.
+        ///     The _task name.
         /// </summary>
         private const string _TaskName = "CategoryDeleteTask";
 
         #endregion
 
-        #region Properties
+        #region Static Fields
 
         /// <summary>
-        /// Gets TaskName.
+        ///     The Blocking Task Names.
+        /// </summary>
+        private static readonly string[] BlockingTaskNames = Constants.ForumRebuild.BlockingTaskNames;
+
+        #endregion
+
+        #region Public Properties
+
+        /// <summary>
+        ///     Gets TaskName.
         /// </summary>
         public static string TaskName
         {
@@ -60,35 +63,26 @@ namespace YAF.Core.Tasks
         }
 
         /// <summary>
-        /// The Blocking Task Names.
-        /// </summary>
-        private static readonly string[] BlockingTaskNames = Constants.ForumRebuild.BlockingTaskNames;
-
-
-        /// <summary>
-        /// Gets or sets CategoryId.
+        ///     Gets or sets CategoryId.
         /// </summary>
         public int CategoryId { get; set; }
 
         /// <summary>
-        /// Gets or sets Forum New Id.
+        ///     Gets or sets Forum New Id.
         /// </summary>
         public int ForumNewId { get; set; }
 
         #endregion
 
-        #region Public Methods
+        #region Public Methods and Operators
 
         /// <summary>
         /// Creates the Forum Delete Task
         /// </summary>
-        /// <param name="boardId">
-        /// The board id.
+        /// <param name="categoryId">
+        /// The category Id.
         /// </param>
-        /// <param name="forumId">
-        /// The forum id.
-        /// </param>
-        /// <param name="failureMessage"> 
+        /// <param name="failureMessage">
         /// The failure message - is empty if task is launched successfully.
         /// </param>
         /// <returns>
@@ -97,16 +91,15 @@ namespace YAF.Core.Tasks
         public static bool Start(int categoryId, out string failureMessage)
         {
             failureMessage = string.Empty;
-            var moduleManager = YafContext.Current.Get<ITaskModuleManager>();
 
-            if (moduleManager == null)
+            if (YafContext.Current.Get<ITaskModuleManager>() == null)
             {
                 return false;
             }
 
-            if (!moduleManager.AreTasksRunning(BlockingTaskNames))
+            if (!YafContext.Current.Get<ITaskModuleManager>().AreTasksRunning(BlockingTaskNames))
             {
-                moduleManager.StartTask(TaskName, () => new CategoryDeleteTask { CategoryId = categoryId });
+                YafContext.Current.Get<ITaskModuleManager>().StartTask(TaskName, () => new CategoryDeleteTask { CategoryId = categoryId });
             }
             else
             {
@@ -119,7 +112,7 @@ namespace YAF.Core.Tasks
         }
 
         /// <summary>
-        /// The run once.
+        ///     The run once.
         /// </summary>
         public override void RunOnce()
         {

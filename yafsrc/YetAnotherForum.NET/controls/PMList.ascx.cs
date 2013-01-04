@@ -22,6 +22,7 @@ namespace YAF.Controls
     #region Using
 
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel;
     using System.Data;
     using System.IO;
@@ -39,7 +40,6 @@ namespace YAF.Controls
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
-    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -78,14 +78,10 @@ namespace YAF.Controls
         #region Methods
 
         /// <summary>
-        /// The archive all_ click.
+        /// Archive All messages
         /// </summary>
-        /// <param name="source">
-        /// The source.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="source">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void ArchiveAll_Click([NotNull] object source, [NotNull] EventArgs e)
         {
             if (this.View != PMView.Inbox)
@@ -111,14 +107,10 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// The archive all_ load.
+        /// Handles the Load event of the ArchiveAll control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void ArchiveAll_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             ((ThemeButton)sender).Attributes["onclick"] =
@@ -129,7 +121,7 @@ namespace YAF.Controls
         /// Handles the Load event of the ExportAll control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void ExportAll_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             ((ThemeButton)sender).Attributes["onclick"] =
@@ -139,12 +131,8 @@ namespace YAF.Controls
         /// <summary>
         /// The archive selected_ click.
         /// </summary>
-        /// <param name="source">
-        /// The source.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="source">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void ArchiveSelected_Click([NotNull] object source, [NotNull] EventArgs e)
         {
             if (this.View != PMView.Inbox)
@@ -171,14 +159,10 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// The date link_ click.
+        /// Sort By Date
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void DateLink_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.SetSort("Created", false);
@@ -186,14 +170,12 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// The delete all_ click.
+        /// Delete All Messages.
         /// </summary>
         /// <param name="source">
-        /// The source.
+        /// The source of the event.
         /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void DeleteAll_Click([NotNull] object source, [NotNull] EventArgs e)
         {
             long nItemCount = 0;
@@ -251,11 +233,9 @@ namespace YAF.Controls
         /// The delete all_ load.
         /// </summary>
         /// <param name="sender">
-        /// The sender.
+        /// The source of the event.
         /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void DeleteAll_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             ((ThemeButton)sender).Attributes["onclick"] =
@@ -266,10 +246,10 @@ namespace YAF.Controls
         /// The delete selected_ click.
         /// </summary>
         /// <param name="source">
-        /// The source.
+        /// The source of the event.
         /// </param>
         /// <param name="e">
-        /// The e.
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         /// </param>
         protected void DeleteSelected_Click([NotNull] object source, [NotNull] EventArgs e)
         {
@@ -303,11 +283,9 @@ namespace YAF.Controls
         /// The delete selected_ load.
         /// </summary>
         /// <param name="sender">
-        /// The sender.
+        /// The source of the event.
         /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void DeleteSelected_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             ((ThemeButton)sender).Attributes["onclick"] =
@@ -315,17 +293,15 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// The delete all_ click.
+        /// Export All Messages
         /// </summary>
         /// <param name="source">
-        /// The source.
+        /// The source of the event.
         /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void ExportAll_Click([NotNull] object source, [NotNull] EventArgs e)
         {
-            var messageList = (DataView)this.MessagesView.DataSource;
+            var messageList = this.GetMessagesForExport(null);
 
             // Return if No Messages are Available to Export
             if (messageList.Table.Rows.Count.Equals(0))
@@ -349,28 +325,22 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// The delete all_ click.
+        /// Export Selected Messages
         /// </summary>
         /// <param name="source">
-        /// The source.
+        /// The source of the event.
         /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void ExportSelected_Click([NotNull] object source, [NotNull] EventArgs e)
         {
-            int nItemCount = 0;
+            var exportPMIds =
+                this.MessagesView.Rows.Cast<GridViewRow>()
+                    .Where(item => ((CheckBox)item.FindControl("ItemCheck")).Checked)
+                    .Select(item => (int)this.MessagesView.DataKeys[item.RowIndex].Value)
+                    .ToList();
 
-            var messageList = (DataView)this.MessagesView.DataSource;
-
-            foreach (GridViewRow item in
-                this.MessagesView.Rows.Cast<GridViewRow>().Where(
-                    item => !((CheckBox)item.FindControl("ItemCheck")).Checked))
-            {
-                messageList.Table.Rows.RemoveAt(item.RowIndex - nItemCount);
-                nItemCount++;
-            }
-
+            var messageList = this.GetMessagesForExport(exportPMIds);
+            
             // Return if No Message Selected
             if (messageList.Table.Rows.Count.Equals(0))
             {
@@ -398,17 +368,15 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// The format body.
+        /// Formats the body.
         /// </summary>
-        /// <param name="o">
-        /// The o.
-        /// </param>
+        /// <param name="dataRowView">The data row view.</param>
         /// <returns>
         /// The format body.
         /// </returns>
-        protected string FormatBody([NotNull] object o)
+        protected string FormatBody([NotNull] object dataRowView)
         {
-            var row = (DataRowView)o;
+            var row = (DataRowView)dataRowView;
             return (string)row["Body"];
         }
 
@@ -416,11 +384,9 @@ namespace YAF.Controls
         /// The from link_ click.
         /// </summary>
         /// <param name="sender">
-        /// The sender.
+        /// The source of the event.
         /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void FromLink_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.SetSort(this.View == PMView.Outbox ? "ToUser" : "FromUser", true);
@@ -445,10 +411,10 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// Gets the localized text.
+        /// Gets the localized <paramref name="text"/>.
         /// </summary>
         /// <param name="text">The text.</param>
-        /// <param name="page">The rescource page.</param>
+        /// <param name="page">The resource page.</param>
         /// <returns>
         /// The get localized text.
         /// </returns>
@@ -537,11 +503,9 @@ namespace YAF.Controls
         /// The mark as read_ click.
         /// </summary>
         /// <param name="source">
-        /// The source.
+        /// The source of the event.
         /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void MarkAsRead_Click([NotNull] object source, [NotNull] EventArgs e)
         {
             if (this.View == PMView.Outbox)
@@ -577,10 +541,10 @@ namespace YAF.Controls
         /// The messages view_ row created.
         /// </summary>
         /// <param name="sender">
-        /// The sender.
+        /// The source of the event.
         /// </param>
         /// <param name="e">
-        /// The e.
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         /// </param>
         protected void MessagesView_RowCreated([NotNull] object sender, [NotNull] GridViewRowEventArgs e)
         {
@@ -637,11 +601,9 @@ namespace YAF.Controls
         /// The page_ load.
         /// </summary>
         /// <param name="sender">
-        /// The sender.
+        /// The source of the event.
         /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.ViewState["SortField"] == null)
@@ -674,11 +636,9 @@ namespace YAF.Controls
         /// The pager top_ page change.
         /// </summary>
         /// <param name="sender">
-        /// The sender.
+        /// The source of the event.
         /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void PagerTop_PageChange([NotNull] object sender, [NotNull] EventArgs e)
         {
             // rebind
@@ -708,15 +668,82 @@ namespace YAF.Controls
         /// The subject link_ click.
         /// </summary>
         /// <param name="sender">
-        /// The sender.
+        /// The source of the event.
         /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void SubjectLink_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.SetSort("Subject", true);
             this.BindData();
+        }
+
+        /// <summary>
+        /// Gets the messages for export.
+        /// </summary>
+        /// <param name="exportPmIds">The export pm ids.</param>
+        /// <returns>
+        /// Returns the filtered Messages
+        /// </returns>
+        private DataView GetMessagesForExport([CanBeNull] List<int> exportPmIds)
+        {
+            var messageList = (DataView)this.MessagesView.DataSource;
+
+            for (int i = messageList.Table.Rows.Count - 1; i >= 0; i--)
+            {
+                DataRow row = messageList.Table.Rows[i];
+
+                if (exportPmIds != null  && !exportPmIds.Contains(row["PMessageID"].ToType<int>()))
+                {
+                    messageList.Table.Rows.RemoveAt(i);
+                    continue;
+                }
+
+                if (row["IsDeleted"].ToType<bool>())
+                {
+                    messageList.Table.Rows.RemoveAt(i);
+                }
+                else
+                {
+                    switch (this.View)
+                    {
+                        case PMView.Inbox:
+                            {
+                                if (row["IsArchived"].ToType<bool>())
+                                {
+                                    messageList.Table.Rows.RemoveAt(i);
+                                }
+                            }
+
+                            break;
+                        case PMView.Outbox:
+                            {
+                                if (!row["IsInOutbox"].ToType<bool>())
+                                {
+                                    messageList.Table.Rows.RemoveAt(i);
+                                }
+                            }
+
+                            break;
+                        case PMView.Archive:
+                            {
+                                if (!row["IsArchived"].ToType<bool>())
+                                {
+                                    messageList.Table.Rows.RemoveAt(i);
+                                }
+                            }
+
+                            break;
+                    }
+                }
+            }
+
+            // Remove Columns that are not needed
+            messageList.Table.Columns.Remove("IsDeleted");
+            messageList.Table.Columns.Remove("IsArchived");
+            messageList.Table.Columns.Remove("IsInOutbox");
+            messageList.Table.Columns.Remove("Flags");
+            
+            return messageList;
         }
 
         /// <summary>
@@ -783,7 +810,7 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// Export the Private Messages in messageList as CSV File
+        /// Export the Private Messages in message List as CSV File
         /// </summary>
         /// <param name="messageList">
         /// DataView that Contains the Private Messages
@@ -843,7 +870,7 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// Export the Private Messages in messageList as Text File
+        /// Export the Private Messages in message List as Text File
         /// </summary>
         /// <param name="messageList">
         /// DataView that Contains the Private Messages
@@ -888,7 +915,7 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// Export the Private Messages in messageList as Xml File
+        /// Export the Private Messages in message List as Xml File
         /// </summary>
         /// <param name="messageList">
         /// DataView that Contains the Private Messages

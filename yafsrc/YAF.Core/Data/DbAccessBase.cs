@@ -157,8 +157,9 @@ namespace YAF.Core.Data
                     result = execFunc(command);
                 }
 
+#if DEBUG
                 qc.CurrentSql = command.CommandText;
-
+#endif
                 return result;
             }
         }

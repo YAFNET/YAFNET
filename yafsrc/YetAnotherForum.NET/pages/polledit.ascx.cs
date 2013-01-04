@@ -668,7 +668,9 @@ namespace YAF.Pages
                 {
                     // categoryid should not be null here
                     pgidt =
-                        (int)this.GetRepository<Category>().Listread(this.PageContext.PageUserID, this._categoryId ?? 0, this.PageContext.PageBoardID).Rows[0]["PollGroupID"];
+                        this.GetRepository<Category>()
+                            .Listread(this.PageContext.PageUserID, this._categoryId)
+                            .GetFirstRowColumnAsValue<int>("PollGroupID", 0);
                 }
 
                 if (pgidt > 0)
@@ -709,11 +711,9 @@ namespace YAF.Pages
             this.PollRow1.Visible = true;
             this.PollRowExpire.Visible = true;
             this.IsClosedBound.Visible =
-                this.IsBound.Visible =
-                this.Get<YafBoardSettings>().AllowUsersHidePollResults || PageContext.IsAdmin ||
-                PageContext.IsForumModerator;
-            this.tr_AllowMultipleChoices.Visible = this.Get<YafBoardSettings>().AllowMultipleChoices ||
-                                                   PageContext.IsAdmin || PageContext.ForumModeratorAccess;
+                this.IsBound.Visible = this.Get<YafBoardSettings>().AllowUsersHidePollResults || PageContext.IsAdmin || PageContext.IsForumModerator;
+            this.tr_AllowMultipleChoices.Visible = this.Get<YafBoardSettings>().AllowMultipleChoices || PageContext.IsAdmin
+                                                   || PageContext.ForumModeratorAccess;
             this.tr_ShowVoters.Visible = true;
             this.tr_AllowSkipVote.Visible = false;
         }

@@ -78,8 +78,8 @@ function ConvertHtmlToBBCode(html) {
         html = html.replace(/<div style=\"margin-left:(.*?)\">(.*?)<\/div>/gi, '[indent]$2[/indent]');
 
         // [left], [center] and [right] 
-        html = html.replace(/<p style=\"text-align:(.*?)\">(.*?)<\/p>/gi, '[$1]$2[/$2]');
-        html = html.replace(/<div style=\"text-align:(.*?)\">(.*?)<\/div>/gi, '[$1]$2[/$1]');
+        html = html.replace(/<p style=\"text-align: (.*?);\">(.*?)<\/p>/gi, '[$1]$2[/$2]');
+        html = html.replace(/<div style=\"text-align: (.*?);\">(.*?)<\/div>/gi, '[$1]$2[/$1]');
 
         // [list=1]
         html = html.replace(/<ol style=\"list-style-type:number\">(.*?)<\/ol>/gi, '[list=1]$1[/list]');
@@ -178,9 +178,8 @@ CKEDITOR.htmlDataProcessor.prototype =
         // [code=language]
         data = data.replace(/\[code=(.+?)\]/gi, '<code title="brush:$1">');
         data = data.replace(/\[\/code\]/gi, '</code>');
-
         // [color]
-        data = data.replace(/\[color=(.*?)\](.*?)\[\/color\]/gi, '<span style="color: $1">$2</span>');
+        data = data.replace(/\[color=(.*?)\](.*?)\[\/color\]/gi, '<span style="color:$1;">$2</span>');
 
         // [youtube]
         /*		data = data.replace(/\[youtube\](.*?)\[\/youtube\]/gi, '<object width="425" height="350"><param name="movie" value="$1"></param><param name="wmode" value="transparent" /><embed src="$1" type="application/x-shockwave-flash" width="425" height="350" wmode="transparent"></embed></object>');*/
@@ -189,9 +188,17 @@ CKEDITOR.htmlDataProcessor.prototype =
         data = data.replace(/\[indent\]/gi, '<div style="margin-left:40px">');
         data = data.replace(/\[\/indent\]/gi, '</div>');
 
-        // [left]
-        data = data.replace(/\[(.*?)\](.*?)\[\/(.*?)\]/gi, '<div style="text-align:$1">$2</div>');
-        //data = data.replace(/\[\/left\]/gi, '</div>');
+        // [left] 
+        data = data.replace(/\[indent\]/gi, '<div style="text-align: left;">');
+        data = data.replace(/\[\/indent\]/gi, '</div>');
+		
+		// [center] 
+        data = data.replace(/\[center\]/gi, '<div style="text-align: center;">');
+        data = data.replace(/\[\/center\]/gi, '</div>');
+		
+		// [right] 
+        data = data.replace(/\[right\]/gi, '<div style="text-align: right;">');
+        data = data.replace(/\[\/right\]/gi, '</div>');
 
         // [list]
         data = data.replace(/\[list\](.*?)\[\/list\]/gi, '<ul>$1</ul>');

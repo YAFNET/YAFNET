@@ -29,6 +29,7 @@ namespace YAF.Classes
     using System.Web.Configuration;
 
     using YAF.Types;
+    using YAF.Types.Extensions;
 
     #endregion
 
@@ -181,7 +182,13 @@ namespace YAF.Classes
         {
             get
             {
-                return ConnectionStringSettings.ProviderName;
+                if (ConnectionStringSettings.ProviderName.IsSet())
+                {
+                    return ConnectionStringSettings.ProviderName;
+                }
+
+                // default to sql client for backwards compatibility.
+                return "System.Data.SqlClient";
             }
         }
 
@@ -469,7 +476,7 @@ namespace YAF.Classes
             get
             {
                 return GetConfigValueAsString("YAF.JQueryUIFile") ??
-                       "http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js";
+                       "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js";
             }
         }
 

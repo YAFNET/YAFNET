@@ -1,0 +1,731 @@
+﻿.yafnet {
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana;
+	font-size: 8pt;
+	color: #333333;
+}
+.yafnet a { color: #105cb6; text-decoration: none; }
+.yafnet a:link { color: #105cb6; text-decoration: none; }
+.yafnet a:visited { color: #105cb6; text-decoration: none; }
+.yafnet a:active { color: #105cb6; text-decoration: none; }
+.yafnet a:hover { color: #105cb6; text-decoration: underline; }
+
+.yafnet img {
+	border: 0;
+}
+.postfooter {
+	background-color: #CCCCCC;
+}
+.yafnet table.content {
+	padding: 0px;
+	margin: 5px 0px 5px 0px;
+	color: #333333;
+	border-collapse: collapse;
+	border: solid 1px #eee;
+}
+
+.yafnet tr.forumRowTitle,
+.yafnet dt.header1,
+.yafnet th.header1,
+.yafnet td.header1,
+.yafnet tr.header1
+{
+	background-color: #666666;
+	color: #FFFFFF;
+	font-weight: bold;
+	font-size: 9pt;
+}
+.yafnet a.HeaderTopicLink {
+	color: #ffffff;
+	font-weight: bold;
+	font-size: 9pt;
+	text-decoration:none;
+}
+
+.yafnet th
+{
+    text-align: left;
+}
+
+.yafnet tr.forumRowFoot,
+.yafnet td.footer1,
+.yafnet td.footer2
+{
+  background-color: #eeeeee;
+    color: #000000;
+}
+
+.yafnet table.content td,
+.yafnet table.content th
+ {
+	padding: 6px;
+	border: solid 1px #eeeeee;	
+}
+
+.yafnet tr.forumRowTitle th
+{
+    padding: 8px;
+}
+
+.yafnet tr.forumRowCat,
+.yafnet td.header2,
+.yafnet th.header2,
+.yafnet tr.header2,
+.yafnet .header
+{
+    background-color: #eeeeee;
+    font-weight: bold;    
+    padding: 5px;
+}
+
+.yafnet .forumLinkCol div.forumheading a,
+.yafnet .forumLinkCol_Alt div.forumheading a
+{
+    color: #000000;
+    font-weight: bold;
+    font-size: 11.5pt;    
+}
+
+.yafnet .outerMenuContainer
+{
+}
+
+/* custom forum images special styles */
+.yafnet .forum_customimage_locked
+{
+    border: solid 1px #c93a4a;    
+}
+
+.yafnet .forum_customimage_newposts
+{
+    border: solid 1px #fe0300;
+}
+
+.yafnet .forum_customimage_nonewposts
+{
+     width: 16px;
+     height: 16px;
+}
+
+
+.yafnet .MessageDetails span
+{
+	font-weight: bold;
+	font-size: 8pt;
+}
+
+.yafnet .forumLinkCol div.forumheading,
+.yafnet .forumLinkCol_Alt div.forumheading
+{
+    padding-bottom: 8px;
+}
+
+.yafnet .moderatorListCol,
+.yafnet .moderatorListCol a
+{
+    font-size: 8pt;
+    color: #000000;
+}
+
+.yafnet td.topicCountCol,
+.yafnet td.postCountCol,
+.yafnet td.lastPostCol
+{
+    background-color: #f8f8f8;
+    color: #333333;
+}
+
+.yafnet tr.topicRow,
+.yafnet tr.topicRow_Alt
+{
+    color: #333333;
+}
+
+.yafnet tr.topicRow .topicMain,
+.yafnet tr.topicRow_Alt .topicMain
+{
+    font-size: 9.5pt;
+    font-weight: bold;
+}
+
+.yafnet tr.topicRow .topicMain .post_priority,
+.yafnet tr.topicRow_Alt .topicMain .post_priority
+{
+    font-weight: normal;
+}
+
+.yafnet tr.topicRow .topicMain .description,
+.yafnet tr.topicRow_Alt .topicMain .description
+{
+    color: #000000;
+    font-size: 9pt;
+    font-style:italic;
+    font-weight:lighter;  
+}
+
+.yafnet tr.topicRow .topicMain .topicPager,
+.yafnet tr.topicRow_Alt .topicMain .topicPager
+{
+    font-size: 9pt;
+    font-weight: normal;
+}
+
+.yafnet tr.topicRow td.topicStarter,
+.yafnet tr.topicRow_Alt td.topicStarter,
+.yafnet tr.topicRow td.topicViews,
+.yafnet tr.topicRow_Alt td.topicViews
+{
+    background-color: #f8f8f8;
+    text-align: center;
+}
+
+.yafnet .postsep {
+	background-color: #e8e8e8;
+	height: 10px;
+	margin-bottom: 100px;
+}
+
+.yafnet table.postContainer,
+.yafnet table.postContainer_Alt
+{
+    margin-bottom: 15px;
+    border-collapse: collapse;
+}
+
+.yafnet table.postContainer td, 
+.yafnet table.postContainer_Alt td
+{
+    padding: 10px 15px 10px 15px;
+    margin: 0;
+}
+
+.yafnet div.postedLeft
+{
+    line-height: 30px;
+}
+
+.yafnet .postformheader
+{
+    font-weight: bold;
+}
+
+.yafnet .postContainer_Alt .postPosted,
+.yafnet .postContainer_Alt .message,
+.yafnet .postContainer_Alt .postTop,
+.yafnet .postContainer_Alt .postInfoBottom
+{
+    background-color: #f5f5f5;
+}
+
+.yafnet .postContainer_Deleted .postPosted,
+.yafnet .postContainer_Deleted .message,
+.yafnet .postContainer_Deleted .postTop,
+.yafnet .postContainer_Deleted .postInfoBottom
+{
+    background-color: #eaed0d;
+}
+
+.yafnet .postNavigation
+{
+    background-color: #f8f8f8;
+}
+
+.yafnet .postHeader .rightItem a
+{
+    color: #000000;
+}
+
+.yafnet div.section
+{
+	padding: 5px;
+	background-color:#f2f2f2;
+	border: solid 1px #ddd;
+	color: #888;
+	font-size: 9pt;
+	text-align: center;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;	
+}
+
+.yafnet div.postdiv {
+	width: 100%;
+	min-height: 100px;
+	overflow: auto;
+}
+.yafnet div.AdMessage {
+	min-height: 10px;
+}
+.yafnet .yafPageLink
+{
+	font-weight: bold;
+	color: #000000;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	padding: 2px;
+}
+
+.yafnet .edit
+{
+    width: 100%;
+}
+
+.yafnet input,
+.yafnet select {
+	font-family: verdana,sans-serif;
+	font-size: 9pt;
+	color: #3b3b3b;	
+	background-color: #f5f5f5;
+	border: 1px solid #aaaaaa;	
+}
+
+.yafnet .fileattach {
+	padding: 5px;
+	background-color: #eeeeee;
+	border: solid 1px #808080;
+}
+.yafnet .fileattach .filetitle,
+.yafnet .fileattach .imgtitle {
+	font-weight: bold;
+	color: #444444;
+	margin-bottom: 5px;
+	font-size: 1.1em;
+}
+.yafnet .fileattach .attachedimg,
+.yafnet .fileattach .attachedfile {
+	margin-left: 10px;
+}
+.yafnet .fileattach a {
+	font-weight: bold;
+}
+.yafnet .quote {
+	padding-left: 16px;
+	margin: 5px;
+}
+.yafnet .innerquote {
+	padding: 4px;
+	background-color: #fefefe;
+	border: 1px dashed #808080;
+}
+.yafnet .code {
+	padding-left: 16px;	
+	margin: 5px;
+}
+.yafnet .innercode {
+	padding: 4px;
+	background-color: #efefef;
+	border: solid 1px #808080;
+	color: #000000;
+	line-height: 1.3em;
+	font-family: "courier new", "times new roman", monospace;
+    overflow: scroll;
+    width: 600px;
+	white-space: nowrap;
+}
+.yafnet .smallfont	{ font-size: 10px; }
+.yafnet .largefont	{ font-size: 11px; }
+.yafnet a.imagelink {
+	font-weight: bold;
+	color: #000000;
+}
+.yafnet a:hover.imagelink {
+	text-decoration: none;
+}
+.yafnet .posteditor {
+	width: 100%;
+	height: 200px;
+}
+
+.yafnet .navlinks { font-weight: bold; color: #000000; }
+.yafnet .navlinks a { color: #000000; text-decoration: none }
+.yafnet .navlinks a:hover {color: #666666; }
+
+.yafnet table.print {
+	border: solid 1px #C0C0C0;
+}
+.yafnet .printheader {
+	background-color: #DDDDDD;
+	color: #000000;
+	padding: 4px;
+}
+.yafnet .printbody {
+	background-color: #FFFFFF;
+	color: #000000;
+	padding: 4px;
+}
+.yafnet .pbutton {
+	padding: 4px;
+	color: #105cc9;
+}
+.yafnet .textfield {
+	background-color: #FFFFFF;
+	border: 1px solid #3B3b3b;
+	width: 100%;
+}
+.yafnet .ButtonOut {
+	border: #888888 1px solid;
+}
+.yafnet .ButtonOver {
+	border: #000000 1px solid;
+	background-color: #ffffff;
+}
+.yafnet .ButtonChecked {
+	border: #000000 1px solid;
+}
+.yafnet .ButtonOff {
+	border: #888888 1px solid;
+}
+.yafnet #bbcodeFeatures {
+	border: #eeffee 1px solid;
+}
+.yafnet .yafsignature
+{
+	border-top: solid 1px #666666;
+	margin-top: 15px;
+	padding-top: 5px;
+}
+/* CSS Pagelinks */
+.yafnet .yafpager {
+	color: #555555;
+	margin: 6px 0px 6px 0px;
+}
+.yafnet a.pagelink,
+.yafnet a.pagelinkfirst,
+.yafnet a.pagelinklast,
+.yafnet .pagecurrent,
+.yafnet .pagecount
+{
+    text-decoration: none;
+	background: #F5F5F5;
+	border: 1px solid #444444;
+	padding: 1px 3px 1px 3px;
+	margin-right: 2px;
+}
+.yafnet .pagecount {
+	margin-right: 5px;
+}
+.yafnet a.pagelinkfirst,
+.yafnet a.pagelinklast{
+	background: #e0e0e0;
+}
+.yafnet .pagecurrent{
+	background: #dddddd;
+}
+.yafnet a.pagelink,
+.yafnet a.pagelinkfirst,
+.yafnet a.pagelinklast {
+	text-decoration: none;
+	color: #000090;
+}
+/* CCS Buttons */
+.yafnet .MultiQuoteButton,
+.yafnet a.yaflittlebutton 
+{
+	background-color: #eeeeee;
+	color: #105cc9;
+	display: block;
+	float: right;
+	font-size: 7.5pt;
+	margin: 2px 0px 2px 2px;
+	padding-right: 2px;
+	text-decoration: none;
+	font-family: Tahoma;
+	border: solid 1px #a0a0a0;
+}
+.yafnet .MultiQuoteButton label,
+.yafnet a.yaflittlebutton span {
+	display: block;
+	padding: 2px 3px 2px 4px;
+}
+.yafnet a.yaflittlebutton img {
+	vertical-align: middle;
+	padding: 0px 4px 2px 0px;
+}
+.yafnet .MultiQuoteButton:hover,
+.yafnet a.yaflittlebutton:hover {
+	color: #000000;
+	text-decoration: none;
+		background-color: #FFF3C6;
+
+}
+.yafnet .Checked {
+    color:red;
+	border: 1px solid black;
+}
+
+.yafnet .Checked,
+.yafnet a.yaflittlebutton:active {
+    background-position: bottom right;
+    outline: none;
+}
+.yafnet a.yaflittlebutton:active img {
+    padding: 0px 6px 4px 0px;
+}
+.yafnet .Checked label,
+.yafnet a.yaflittlebutton:active span{
+	background-position: bottom left;
+	padding: 3px 3px 1px 4px;
+}
+.yafnet a.yafcssbigbutton{
+	background-color: #eeeeee;
+	color: #105cc9;
+	display: block;
+	font-size: 7pt;
+	margin: 2px;
+	padding-right: 2px;
+	text-decoration: none;
+	text-transform: uppercase;
+	font-family: Tahoma;
+	border: solid 1px #a0a0a0;
+}
+.yafnet a.yafcssbigbutton span{
+	display: block;
+	padding: 2px 4px 2px 5px;
+}
+.yafnet a.yafcssbigbutton img{
+	vertical-align: top;
+	padding: 0px 4px 0px 0px;
+}
+.yafnet a.yafcssbigbutton:hover
+{
+	color: #000000;
+	text-decoration: none;
+	background-color: #FFF3C6;
+}
+.yafnet a.yafcssbigbutton:active{
+    background-position: bottom right;
+    outline: none; /* hide dotted outline in Firefox */
+}
+.yafnet a.yafcssbigbutton:active img{
+    padding: 0px 4px 0px 0px;
+}
+.yafnet a.yafcssbigbutton:active span{
+	background-position: bottom left;
+	padding: 3px 4px 1px 5px;
+}
+/* poll vote link */
+.yafnet a.pollvote:link {text-decoration: underline; color: #339;
+}
+/* css image button */
+.yafnet a.yafcssimagebutton
+{
+    background-color: #eeeeee;
+    color: #555555;
+    display: block;
+    float: left;
+	font-size: 10px; 
+    margin: 2px 0px 2px 2px;
+    padding-right: 2px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: Arial;
+    font-weight: bold;
+    border: solid 1px #a0a0a0;
+}
+.yafnet a.yafcssimagebutton span{
+    display: block;
+    line-height: 14px;
+    padding: 2px 6px 2px 8px;
+}
+.yafnet a.yafcssimagebutton img{
+	vertical-align: top;
+	padding: 0px 4px 0px 0px;
+}
+.yafnet a.yafcssimagebutton:hover{
+	text-decoration: none;
+	color: #105cc9;
+}
+.yafnet a.yafcssimagebutton:active{
+    background-position: bottom right;
+    outline: none; /* hide dotted outline in Firefox */
+}
+.yafnet a.yafcssimagebutton:active img{
+    padding: 0px 4px 0px 0px;
+}
+.yafnet a.yafcssimagebutton:active span{
+    background-position: bottom left;
+    padding: 3px 6px 1px 8px; /* push text down 1px */
+}
+/* CSS Popupmenu */
+.yafnet .yafpopupmenu {
+	background-color: #ffffff;
+	border: solid 1px #333333;
+	
+}
+.yafnet .yafpopupmenu ul {	
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+.yafnet .yafpopupmenu li {
+	padding: 5px 10px 5px 10px;
+	margin: 0;
+}
+.yafnet .yafpopupmenu li.popupitemhover {
+	background-color: #cccccc;
+}
+
+/* ajax tabs */
+.yafnet .ajax__tab_yaf .ajax__tab_header 
+{
+    font-family:"Helvetica Neue", Arial, Sans-Serif;
+    background:url(tab-line.png) repeat-x bottom;
+    font-size:12px;
+    display:block;
+}
+.yafnet .ajax__tab_yaf .ajax__tab_header .ajax__tab_outer 
+{
+    background:url(tab.png) no-repeat left top;
+    border-color:#222;
+    color:#222;
+    padding-left:10px;
+    margin-right:3px;
+}
+.yafnet .ajax__tab_yaf .ajax__tab_header .ajax__tab_inner 
+{
+    background:url(tab.png) no-repeat right top;
+    border-color:#666;
+    color:#666;
+    padding:3px 10px 2px 0px;
+}
+.yafnet .ajax__tab_yaf .ajax__tab_hover .ajax__tab_inner 
+{
+    color:#000000;
+}
+.yafnet .ajax__tab_yaf .ajax__tab_active .ajax__tab_outer 
+{
+    background:url(tab.png) no-repeat 0pt -40px;
+    border-bottom-color:#ffffff;
+}
+.yafnet .ajax__tab_yaf .ajax__tab_active .ajax__tab_inner 
+{
+    background:url(tab.png) no-repeat right -40px;
+    color:#000000;
+    border-color:#333
+}
+.yafnet .ajax__tab_yaf .ajax__tab_body 
+{
+    font-family:verdana,tahoma,helvetica;
+    font-size:10pt;
+    padding:8px;
+    background-color:#ffffff;
+    border:solid 1px #d7d7d7;
+    border-top-width:0;
+}
+
+/* scrolling */
+.yafnet .ajax__scroll_horiz {overflow-x:scroll;}
+.yafnet .ajax__scroll_vert {overflow-y:scroll;}
+.yafnet .ajax__scroll_both {overflow:scroll}
+.yafnet .ajax__scroll_auto {overflow:auto}
+
+/*Modal Popup*/
+.modalInner
+{
+	text-align:center;
+	display:block;
+	font-weight:bold;
+}
+
+.modalOuter
+{
+	margin:10px;
+	display:block;
+}
+
+/* Goto Page Form */
+.gotoPageForm
+{
+	font-family: Arial, Verdana, Tahoma;
+	background-color: #f0f0f0;
+	border: solid 1px #555555;
+	width: 80px;
+	margin: 1px;	
+	font-size: 9pt;		
+}
+.gotoPageForm .gotoBase
+{
+	border: solid 1px #ffffff;
+}
+.gotoPageForm .gotoHeader
+{
+  background-color: #aaa;
+	color: #000000;
+	font-weight: bold;	
+	padding: 2px;	
+}
+.gotoPageForm .gotoInner
+{
+	padding: 2px;
+}
+.gotoPageForm .gotoInner input
+{
+	margin: 2px;
+}
+/* Irkoo Service styles */
+.irk-rating { font-family: Arial, Sans-Serif; color: #080; }
+.irk-negative { color: #c00; }
+.irk-count { font-size: 12px; font-weight: bold; padding: 0 4px; vertical-align: middle; }
+.irk-down, .irk-up { cursor: pointer; width: 16px; height: 16px; vertical-align: middle; }
+.irk-down { background: url(http://z.irkoo.com/down.png); }
+.irk-down:hover { background: url(http://z.irkoo.com/down-hover.png); }
+.irk-down-voted .irk-down { background: url(http://z.irkoo.com/down-voted.png); }
+.irk-up { background: url(http://z.irkoo.com/up.png); }
+.irk-up:hover { background: url(http://z.irkoo.com/up-hover.png); }
+.irk-up-voted .irk-up { background: url(http://z.irkoo.com/up-voted.png); }
+/* irk-vote should have relative positioning needed for popup to be positioned correctly */
+.irk-vote { position: relative; }
+.irk-count, .irk-rating { font-family: Arial, Sans-Serif; color: #680; }
+.irk-negative, .irk-negative .irk-count { color: #c4e; }
+/* End of Irkoo Service styles */
+
+/* Override jquery ui font-size */
+.ui-widget { font-size: 7pt!important; }
+
+.yafnet .pagination{
+	padding-top:4px;
+	margin-right:2px;
+}
+.yafnet .pagination a, .yafnet .pagination span {
+    text-decoration: none;
+	background: #F5F5F5;
+	border: 1px solid #444444;
+	-moz-border-radius: 0.4em; 
+	-webkit-border-radius: 0.4em;
+	border-radius: 0.4em;
+	padding: 1px 3px 1px 3px;
+	margin-right: 2px;
+}
+
+.yafnet .pagination .current {
+    background: #446bb8;
+    color: #fff;
+	border: solid 1px #AAE;
+}
+
+.yafnet .pagination .current.prev, .yafnet .pagination .current.next{
+	color:#999;
+	border-color:#999;
+	background:#fff;
+}
+
+.yafnet .Unread {
+	margin-left: 2px;
+    padding:2px 4px 2px 4px;
+    background-color:red;
+	height:20px;
+    -webkit-border-radius: 0.4em;
+	border-radius: 0.4em;
+    box-shadow:1px 1px 1px gray;
+}
+.yafnet .Unread a {color:white!important;font-weight:bold!important;font-size:0.9em!important;}
+
+/* Alpha Sort Control */
+.yafnet dl.AlphaSort {border:1px solid #eee;background-color: white;}
+.yafnet dl.AlphaSort dt {padding-left:5px;padding-top:5px;height:23px}
+.yafnet dl.AlphaSort dd { background-color: white;color:#3b3b3b;border: 1px solid #aaa}
+.yafnet dl.AlphaSort .SelectedLetter {background-color: #e5e5e5;color:#3b3b3b;font-weight:bold}
+
+.yafnet dl.AlphaSort dd:hover { background-color: #f5f5f5;color:#3b3b3b;cursor:pointer;}
+.yafnet dl.AlphaSort dd:hover a { font-weight:bold}
+.yafnet dl.AlphaSort dd a {color:#3b3b3b;}
+
+.yafnet .yafsignature {position:relative;}

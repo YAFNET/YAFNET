@@ -87,6 +87,21 @@
               <name>Omu.ValueInjecter.dll</name>
             </assembly>
             <assembly>
+              <name>ServiceStack.Common.dll</name>
+            </assembly>
+            <assembly>
+              <name>ServiceStack.Interfaces.dll</name>
+            </assembly>
+            <assembly>
+              <name>ServiceStack.OrmLite.dll</name>
+            </assembly>
+            <assembly>
+              <name>ServiceStack.OrmLite.SqlServer.dll</name>
+            </assembly>
+            <assembly>
+              <name>ServiceStack.Text.dll</name>
+            </assembly>
+            <assembly>
               <name>YAF.Classes.Config.dll</name>
             </assembly>
             <assembly>

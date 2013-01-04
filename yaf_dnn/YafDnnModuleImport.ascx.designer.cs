@@ -19,7 +19,7 @@ namespace YAF.DotNetNuke {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lImport;
+        protected global::System.Web.UI.UserControl lImport;
         
         /// <summary>
         /// btnImportUsers control.

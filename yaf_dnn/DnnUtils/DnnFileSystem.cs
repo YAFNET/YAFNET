@@ -27,14 +27,14 @@ namespace YAF.DotNetNuke.DnnUtils
     using global::DotNetNuke.Services.FileSystem;
 
     /// <summary>
-    /// Imported and converted DNN Source, so it can be used in dnn from version 05.03.00 to current
+    /// Imported and converted DNN Source, so it can be used in DNN from version 05.03.00 to current
     /// </summary>
     public class DnnFileSystem
     {
         #region "Enums"
 
         /// <summary>
-        /// Enum UserFolder Element
+        /// UserFolder Element
         /// </summary>
         private enum EnumUserFolderElement
         {
@@ -51,10 +51,10 @@ namespace YAF.DotNetNuke.DnnUtils
         #endregion
 
         /// <summary>
-        /// Add the dnn User Folder
+        /// Add the DNN User Folder
         /// </summary>
         /// <param name="_portalSettings">
-        /// The _ portal settings.
+        /// The portal settings.
         /// </param>
         /// <param name="parentFolder">
         /// The parent folder.

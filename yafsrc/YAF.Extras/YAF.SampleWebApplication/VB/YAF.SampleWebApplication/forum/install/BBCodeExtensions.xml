@@ -1,0 +1,228 @@
+<YafBBCodeList>
+  <YafBBCode>
+    <Name>YOUTUBE</Name>
+    <Description>[YOUTUBE][localization=YOUTUBEMOD_DESCRIPTION]Put YouTube URL Here[/localization][/YOUTUBE]</Description>
+    <OnClickJS />
+    <DisplayJS />
+    <EditJS />
+    <DisplayCSS />
+    <SearchRegex>\[youtube\](?&lt;inner&gt;http://(?&lt;prefix&gt;[A-Za-z][A-Za-z][A-Za-z]?\.)?youtube.com/watch\?v=(?&lt;id&gt;[0-9A-Za-z-_]{11}))[^[]*\[/youtube\]|\[youtube\](?&lt;inner&gt;http://(?&lt;prefix&gt;[A-Za-z][A-Za-z][A-Za-z]?\.)?youtu.be/(?&lt;id&gt;[0-9A-Za-z-_]{11}))\[/youtube\]</SearchRegex>
+    <ReplaceRegex>&lt;iframe width="560" height="350" src="http://${prefix}youtube.com/embed/${id}?hd=1" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;</ReplaceRegex>
+    <Variables>id;prefix</Variables>
+    <UseModule>false</UseModule>
+    <ModuleClass />
+    <ExecOrder>1</ExecOrder>
+  </YafBBCode>
+  <YafBBCode>
+    <Name>GOOGLEMAPS</Name>
+    <Description>[GOOGLEMAPS]Enter Google Maps Url[/GOOGLEMAPS]</Description>
+    <OnClickJS />
+    <DisplayJS />
+    <EditJS />
+    <DisplayCSS />
+    <SearchRegex>\[googlemaps\](?&lt;inner&gt;.+?)\[/googlemaps\]</SearchRegex>
+    <ReplaceRegex>&lt;iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="${inner}&amp;amp;output=embed"&gt;&lt;/iframe&gt;</ReplaceRegex>
+    <Variables />
+    <UseModule>false</UseModule>
+    <ModuleClass />
+    <ExecOrder>2</ExecOrder>
+  </YafBBCode>
+  <YafBBCode>
+    <Name>GOOGLEWIDGET</Name>
+    <Description>[GOOGLEWIDGET]&amp;lt;script src=&amp;quot;url&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;[/GOOGLEWIDGET]</Description>
+    <OnClickJS />
+    <DisplayJS />
+    <EditJS />
+    <DisplayCSS />
+    <SearchRegex>\[googlewidget\]\&amp;lt\;script src\=\&amp;quot\;(?&lt;inner&gt;http://(?&lt;prefix&gt;[A-Za-z][A-Za-z][A-Za-z]?\.)?gmodules.com\/ig\/ifr\?(?&lt;url&gt;.+?))\&amp;quot\;\&amp;gt\;\&amp;lt\;/script\&amp;gt\;\[/googlewidget\]</SearchRegex>
+    <ReplaceRegex>&lt;!-- BEGIN Google Widget --&gt;
+&lt;script type="text/javascript" src="http://${prefix}gmodules.com/ig/ifr?${url}"&gt;&lt;/script&gt;
+&lt;!-- END Google Widget --&gt;</ReplaceRegex>
+    <Variables>url:decode;prefix</Variables>
+    <UseModule>false</UseModule>
+    <ModuleClass />
+    <ExecOrder>1</ExecOrder>
+  </YafBBCode>
+  <YafBBCode>
+    <Name>SPOILER</Name>
+    <Description>[SPOILER][localization=SPOILERMOD_DESCRIPTION]Put Spoiler Text Here[/localization][/SPOILER]</Description>
+    <OnClickJS />
+    <DisplayJS>      function toggleSpoiler(btn, elid)
+      {
+      var el = document.getElementById(elid);
+      if (el == null)
+      return;
+      if (el.style.display == '')
+      {
+      el.style.display = 'none';
+      btn.value='[localization=SPOILERMOD_SHOW]Show Spoiler[/localization]';
+      }
+      else
+      {
+      el.style.display = '';
+      btn.value='[localization=SPOILERMOD_HIDE]Hide Spoiler[/localization]';
+      }
+      }
+    </DisplayJS>
+    <EditJS />
+    <DisplayCSS>      .spoilerbox
+      {
+      margin: 5px;
+      padding: 4px;
+      background-color: #eeeeee;
+      border: solid 1px #808080;
+      color: #000000;
+      }
+    </DisplayCSS>
+    <SearchRegex>\[spoiler\](?&lt;inner&gt;.+?)\[\/spoiler\]</SearchRegex>
+    <ReplaceRegex />
+    <Variables />
+    <UseModule>true</UseModule>
+    <ModuleClass>YAF.Modules.SpoilerBBCodeModule</ModuleClass>
+    <ExecOrder>50</ExecOrder>
+  </YafBBCode>
+  <YafBBCode>
+    <Name>USERLINK</Name>
+    <Description>[USERLINK][localization=USERLINKMOD_DESCRIPTION]Put User Name Here[/localization][/USERLINK]</Description>
+    <OnClickJS />
+    <DisplayJS />
+    <EditJS />
+    <DisplayCSS>.yafnet .userLinkContainer
+{
+    background: url(resources/icons/user.png) #fff no-repeat 4px 50%;
+    border: 1px solid #eee;
+    padding: 4px 2px 4px 25px;
+    margin: 3px;
+    font-size: 80%;
+    font-weight: bold;    
+    background-color: #fff;
+    -webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;	    
+}
+
+.yafnet .userLinkContainer:hover
+{
+    border: 1px solid #ddd;
+    background-color: #eee;
+}</DisplayCSS>
+    <SearchRegex>\[userlink\](?&lt;inner&gt;.+?)\[\/userlink\]</SearchRegex>
+    <ReplaceRegex />
+    <Variables />
+    <UseModule>true</UseModule>
+    <ModuleClass>YAF.Modules.UserLinkBBCodeModule</ModuleClass>
+    <ExecOrder>75</ExecOrder>
+  </YafBBCode>
+  <YafBBCode>
+    <Name>VIMEO</Name>
+    <Description>[VIMEO]http://www.vimeo.com/xxxxxxx[/VIMEO]</Description>
+    <OnClickJS />
+    <DisplayJS />
+    <EditJS />
+    <DisplayCSS />
+    <SearchRegex>\[vimeo\](?&lt;inner&gt;http://(?&lt;prefix&gt;[A-Za-z][A-Za-z][A-Za-z]?\.)?vimeo.com/(?&lt;vimeoId&gt;[0-9]{8}))[^[]*\[/vimeo\]</SearchRegex>
+    <ReplaceRegex>&lt;iframe width="560" height="350" src="http://player.vimeo.com/video/${vimeoId}?show_title=1&amp;amp;show_byline=1&amp;amp;show_portrait=1&amp;amp;&amp;amp;fullscreen=1" frameborder="0"&gt;&lt;/iframe&gt;</ReplaceRegex>
+    <Variables>prefix;vimeoId</Variables>
+    <UseModule>false</UseModule>
+    <ModuleClass />
+    <ExecOrder>1</ExecOrder>
+  </YafBBCode>
+  <YafBBCode>
+    <Name>HIDE</Name>
+    <Description>[HIDE][localization=HIDEMOD_DESCRIPTION]The tag hides content from people until they press the thank you button for the post.[/localization][/HIDE]</Description>
+    <OnClickJS />
+    <DisplayJS />
+    <EditJS />
+    <DisplayCSS>.HiddenGuestBox {padding: 0 .7em;}.HiddenGuestBoxImage img {float: left; padding: 0 0 3px 3px;}.HiddenGuestBox br {clear:both}</DisplayCSS>
+    <SearchRegex>\[hide\](?&lt;inner&gt;(.|\n)*?)\[\/hide\]</SearchRegex>
+    <ReplaceRegex />
+    <Variables />
+    <UseModule>true</UseModule>
+    <ModuleClass>YAF.Modules.BBCode.HideBBCodeModule</ModuleClass>
+    <ExecOrder>60</ExecOrder>
+  </YafBBCode>
+   <YafBBCode>
+    <Name>GROUP-HIDE</Name>
+    <Description>[GROUP-HIDE][localization=HIDEGROUPMOD_DESCRIPTION]The tag hides from Guests[/localization][/GROUP-HIDE]</Description>
+    <OnClickJS />
+    <DisplayJS />
+    <EditJS />
+    <DisplayCSS>.HiddenGuestBox {padding: 0 .7em;}.HiddenGuestBoxImage {float: left; margin-right: .3em;}</DisplayCSS>
+    <SearchRegex>\[group-hide\](?&lt;inner&gt;(.|\n)*?)\[\/group-hide\]|\[group-hide=(?&lt;group&gt;([^""\r\n\]\[]*?))\](?&lt;inner&gt;(.|\n)*?)\[\/group-hide\]</SearchRegex>
+    <ReplaceRegex />
+    <Variables>group</Variables>
+    <UseModule>true</UseModule>
+    <ModuleClass>YAF.Modules.BBCode.GroupHide</ModuleClass>
+    <ExecOrder>1</ExecOrder>
+  </YafBBCode>
+  <YafBBCode>
+    <Name>HIDE-THANKS</Name>
+    <Description>[HIDE-THANKS=x][localization=HIDETHANKS_DESCRIPTION]The tag hides content from people who have below X thanks received.[/localization][/HIDE-THANKS]</Description>
+    <OnClickJS />
+    <DisplayJS />
+    <EditJS />
+    <DisplayCSS>.HiddenGuestBox {padding: 0 .7em;}.HiddenGuestBoxImage img {float: left; padding: 0 0 3px 3px;}.HiddenGuestBox br {clear:both}</DisplayCSS>
+    <SearchRegex>\[hide-thanks=(?&lt;thanks&gt;([0-9]*))\](?&lt;inner&gt;(.|\n)*?)\[\/hide-thanks\]</SearchRegex>
+    <ReplaceRegex />
+    <Variables>thanks</Variables>
+    <UseModule>true</UseModule>
+    <ModuleClass>YAF.Modules.BBCode.HideBBCodeModule</ModuleClass>
+    <ExecOrder>1</ExecOrder>
+  </YafBBCode>
+  <YafBBCode>
+    <Name>HIDE-REPLY-THANKS</Name>
+    <Description>[HIDE-REPLY-THANKS][localization=HIDEREPLYTHANKS_DESCRIPTION]The tag hides content from people until they either reply in the same thread or press the thank you button for the post.[/localization][/HIDE-REPLY-THANKS]</Description>
+    <OnClickJS />
+    <DisplayJS />
+    <EditJS />
+    <DisplayCSS>.HiddenGuestBox {padding: 0 .7em;}.HiddenGuestBoxImage img {float: left; padding: 0 0 3px 3px;}.HiddenGuestBox br {clear:both}</DisplayCSS>
+    <SearchRegex>\[hide-reply-thanks\](?&lt;inner&gt;(.|\n)*?)\[\/hide-reply-thanks\]</SearchRegex>
+    <ReplaceRegex />
+    <Variables />
+    <UseModule>true</UseModule>
+    <ModuleClass>YAF.Modules.BBCode.HideReplyThanksModule</ModuleClass>
+    <ExecOrder>1</ExecOrder>
+  </YafBBCode>
+  <YafBBCode>
+    <Name>HIDE-REPLY</Name>
+    <Description>[HIDE-REPLY][localization=HIDEREPLY_DESCRIPTION]The tag hides content from people until they reply in the same thread.[/localization][/HIDE-REPLY]</Description>
+    <OnClickJS />
+    <DisplayJS />
+    <EditJS />
+    <DisplayCSS>.HiddenGuestBox {padding: 0 .7em;}.HiddenGuestBoxImage img {float: left; padding: 0 0 3px 3px;}.HiddenGuestBox br {clear:both}</DisplayCSS>
+    <SearchRegex>\[hide-reply\](?&lt;inner&gt;(.|\n)*?)\[\/hide-reply\]</SearchRegex>
+    <ReplaceRegex />
+    <Variables />
+    <UseModule>true</UseModule>
+    <ModuleClass>YAF.Modules.BBCode.HideReplyModule</ModuleClass>
+    <ExecOrder>1</ExecOrder>
+  </YafBBCode>
+  <YafBBCode>
+    <Name>HIDE-POSTS</Name>
+    <Description>[HIDE-POSTS=x][localization=HIDEPOSTS_DESCRIPTION]The tag hides content from people who have below X posts.[/localization][/HIDE-POSTS]</Description>
+    <OnClickJS />
+    <DisplayJS />
+    <EditJS />
+    <DisplayCSS>.HiddenGuestBox {padding: 0 .7em;}.HiddenGuestBoxImage img {float: left; padding: 0 0 3px 3px;}.HiddenGuestBox br {clear:both}</DisplayCSS>
+    <SearchRegex>\[hide-posts=(?&lt;posts&gt;([0-9]*))\](?&lt;inner&gt;(.|\n)*?)\[\/hide-posts\]</SearchRegex>
+    <ReplaceRegex />
+    <Variables>posts</Variables>
+    <UseModule>true</UseModule>
+    <ModuleClass>YAF.Modules.BBCode.HideBBCodeModule</ModuleClass>
+    <ExecOrder>2</ExecOrder>
+  </YafBBCode>
+  <YafBBCode>
+    <Name>ALBUMIMG</Name>
+    <Description>[ALBUMIMG]Enter Album Image Number[/ALBUMIMG]</Description>
+    <OnClickJS />
+    <DisplayJS />
+    <EditJS />
+    <DisplayCSS />
+    <SearchRegex>\[albumimg\](?&lt;inner&gt;.+?)\[\/albumimg\]</SearchRegex>
+    <ReplaceRegex />
+    <Variables />
+    <UseModule>true</UseModule>
+    <ModuleClass>YAF.Modules.BBCode.AlbumImage</ModuleClass>
+    <ExecOrder>30</ExecOrder>
+  </YafBBCode>
+</YafBBCodeList>

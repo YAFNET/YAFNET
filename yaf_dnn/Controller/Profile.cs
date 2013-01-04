@@ -1,5 +1,5 @@
 /* Yet Another Forum.NET
- * Copyright (C) 2006-2012 Jaben Cargman
+ * Copyright (C) 2006-2013 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -23,9 +23,13 @@ namespace YAF.DotNetNuke.Controller
 
     using System;
     using System.Data;
+
     using global::DotNetNuke.Common.Lists;
+
     using global::DotNetNuke.Common.Utilities;
+
     using global::DotNetNuke.Data;
+
     using global::DotNetNuke.Entities.Profile;
 
     using YAF.Types.Extensions;
@@ -44,7 +48,7 @@ namespace YAF.DotNetNuke.Controller
         /// </summary>
         /// <param name="userID">The user ID.</param>
         /// <returns>
-        /// The DateTime when the dnn Profile was last updated.
+        /// The DateTime when the DNN Profile was last updated.
         /// </returns>
         public static DateTime YafDnnGetLastUpdatedProfile(int userID)
         {
@@ -62,7 +66,7 @@ namespace YAF.DotNetNuke.Controller
         }       
 
         /// <summary>
-        /// Adds the Yaf Profile property definitions for a portal
+        /// Adds the YAF Profile property definitions for a portal
         /// </summary>
         /// <param name="portalId">Id of the Portal</param>
         public static void AddYafProfileDefinitions(int portalId)
@@ -88,31 +92,19 @@ namespace YAF.DotNetNuke.Controller
         /// <summary>
         /// Adds a single default property definition
         /// </summary>
-        /// <param name="portalId">
-        /// Id of the Portal
-        /// </param>
-        /// <param name="category">
-        /// Category of the Property
-        /// </param>
-        /// <param name="name">
-        /// Name of the Property
-        /// </param>
-        /// <param name="type">
-        /// The str Type.
-        /// </param>
-        /// <param name="length">
-        /// The length.
-        /// </param>
-        /// <param name="types">
-        /// The types.
-        /// </param>
-        public static void AddYafProfileDefinition(int portalId, string category, string name, string type, int length, ListEntryInfoCollection types)
+        /// <param name="portalId">Id of the Portal</param>
+        /// <param name="category">Category of the Property</param>
+        /// <param name="name">Name of the Property</param>
+        /// <param name="listType">The list type.</param>
+        /// <param name="length">The length.</param>
+        /// <param name="types">The types.</param>
+        public static void AddYafProfileDefinition(int portalId, string category, string name, string listType, int length, ListEntryInfoCollection types)
         {
             var profileProperties = ProfileController.GetPropertyDefinitionsByPortal(portalId);
 
             var lastViewOrder = profileProperties[profileProperties.Count - 1].ViewOrder;
 
-            var typeInfo = types.ToGenericList<ListEntryInfo>().Find(item => item.Value.Equals(type));
+            var typeInfo = types.ToGenericList<ListEntryInfo>().Find(item => item.Value.Equals(listType));
 
             if (typeInfo == null)
             {

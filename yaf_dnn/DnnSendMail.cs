@@ -1,5 +1,5 @@
 ﻿/* Yet Another Forum.net
- * Copyright (C) 2006-2010 Jaben Cargman
+ * Copyright (C) 2006-2013 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -19,142 +19,142 @@
 
 namespace YAF.DotNetNuke
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.Collections.Generic;
-  using System.IO;
-  using System.Linq;
-  using System.Net.Mail;
-  using System.Threading;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Net.Mail;
+    using System.Threading;
 
-  using global::DotNetNuke.Entities.Host;
-  using global::DotNetNuke.Services.Mail;
+    using global::DotNetNuke.Entities.Host;
+    using global::DotNetNuke.Services.Mail;
 
-  using YAF.Types;
-  using YAF.Types.Attributes;
-  using YAF.Types.Interfaces;
-
+    using YAF.Types;
+    using YAF.Types.Attributes;
+    using YAF.Types.Interfaces;
 
     using MailPriority = global::DotNetNuke.Services.Mail.MailPriority;
 
-  #endregion
-
-  /// <summary>
-  /// Functions to send email via SMTP
-  /// </summary>
-  [ExportService(ServiceLifetimeScope.Singleton)]
-  public class DnnSendMail : ISendMail
-  {
-    #region Public Methods
+    #endregion
 
     /// <summary>
-    /// Creates a SmtpClient and sends a MailMessage.
+    /// Functions to send email via SMTP
     /// </summary>
-    /// <param name="mailMessage">
-    /// The message.
-    /// </param>
-      public void Send([NotNull] MailMessage mailMessage)
+    [ExportService(ServiceLifetimeScope.Singleton)]
+    public class DnnSendMail : ISendMail
     {
-        CodeContracts.ArgumentNotNull(mailMessage, "mailMessage");
+        #region Public Methods
 
-        var settings = Host.GetHostSettingsDictionary();
-
-        var body = string.Empty;
-
-        bool mailIsHtml = false;
-
-        if (mailMessage.AlternateViews.Count > 0)
+        /// <summary>
+        /// Creates a Smtp Client and sends a MailMessage.
+        /// </summary>
+        /// <param name="mailMessage">
+        /// The message.
+        /// </param>
+        public void Send([NotNull] MailMessage mailMessage)
         {
-            var altView = mailMessage.AlternateViews[mailMessage.AlternateViews.Count > 1 ? 1 : 0];
+            CodeContracts.ArgumentNotNull(mailMessage, "mailMessage");
 
-            mailIsHtml = altView.ContentType.MediaType.Equals("text/html");
+            var settings = Host.GetHostSettingsDictionary();
 
-            using (var reader = new StreamReader(altView.ContentStream))
+            var body = string.Empty;
+
+            bool mailIsHtml = false;
+
+            if (mailMessage.AlternateViews.Count > 0)
             {
-                body = reader.ReadToEnd();
+                var altView = mailMessage.AlternateViews[mailMessage.AlternateViews.Count > 1 ? 1 : 0];
+
+                mailIsHtml = altView.ContentType.MediaType.Equals("text/html");
+
+                using (var reader = new StreamReader(altView.ContentStream))
+                {
+                    body = reader.ReadToEnd();
+                }
+            }
+
+            Mail.SendMail(
+                mailMessage.From.Address,
+                mailMessage.To.ToString(),
+                string.Empty,
+                string.Empty,
+                MailPriority.Normal,
+                mailMessage.Subject,
+                mailIsHtml ? MailFormat.Html : MailFormat.Text,
+                mailMessage.BodyEncoding,
+                body,
+                string.Empty,
+                settings["SMTPServer"],
+                settings["SMTPAuthentication"],
+                settings["SMTPUsername"],
+                settings["SMTPPassword"]);
+        }
+
+        #endregion
+
+        #region Implemented Interfaces
+
+        #region ISendMail
+
+        /// <summary>
+        /// Sends all MailMessages via the SmtpClient. Doesn't handle any exceptions.
+        /// </summary>
+        /// <param name="messages">
+        /// The messages.
+        /// </param>
+        public void SendAll([NotNull] IEnumerable<MailMessage> messages)
+        {
+            CodeContracts.ArgumentNotNull(messages, "messages");
+
+            foreach (var mailMessage in messages)
+            {
+                this.Send(mailMessage);
+            }
+
+            /*  messages.ToList().ForEach(
+                      m => m.Send());*/
+        }
+
+        /// <summary>
+        /// The send all isolated.
+        /// </summary>
+        /// <param name="messages">
+        /// The messages.
+        /// </param>
+        /// <param name="handleExceptionAction">
+        /// The handle exception action.
+        /// </param>
+        public void SendAllIsolated(
+            [NotNull] IEnumerable<MailMessage> messages,
+            [CanBeNull] Action<MailMessage, Exception> handleExceptionAction)
+        {
+            CodeContracts.ArgumentNotNull(messages, "messages");
+
+            foreach (var mailMessage in messages.ToList())
+            {
+                try
+                {
+                    // send the message...
+                    // message.Send();
+                    this.Send(mailMessage);
+
+                    // sleep for a 1/20 of a second...
+                    Thread.Sleep(50);
+                }
+                catch (Exception ex)
+                {
+                    if (handleExceptionAction != null)
+                    {
+                        handleExceptionAction(mailMessage, ex);
+                    }
+                }
             }
         }
 
-        Mail.SendMail(
-            mailMessage.From.Address,
-            mailMessage.To.ToString(),
-            string.Empty,
-            string.Empty,
-            MailPriority.Normal,
-            mailMessage.Subject,
-            mailIsHtml ? MailFormat.Html : MailFormat.Text,
-            mailMessage.BodyEncoding,
-            body,
-            string.Empty,
-            settings["SMTPServer"],
-            settings["SMTPAuthentication"],
-            settings["SMTPUsername"],
-            settings["SMTPPassword"]);
+        #endregion
+
+        #endregion
     }
-
-      #endregion
-
-    #region Implemented Interfaces
-
-    #region ISendMail
-
-    /// <summary>
-    /// Sends all MailMessages via the SmtpClient. Doesn't handle any exceptions.
-    /// </summary>
-    /// <param name="messages">
-    /// The messages.
-    /// </param>
-    public void SendAll([NotNull] IEnumerable<MailMessage> messages)
-    {
-      CodeContracts.ArgumentNotNull(messages, "messages");
-
-      foreach (var mailMessage in messages)
-      {
-        this.Send(mailMessage);
-      }
-
-      /*  messages.ToList().ForEach(
-                m => m.Send());*/
-    }
-
-    /// <summary>
-    /// The send all isolated.
-    /// </summary>
-    /// <param name="messages">
-    /// The messages.
-    /// </param>
-    /// <param name="handleExceptionAction">
-    /// The handle exception action.
-    /// </param>
-    public void SendAllIsolated(
-      [NotNull] IEnumerable<MailMessage> messages, [CanBeNull] Action<MailMessage, Exception> handleExceptionAction)
-    {
-      CodeContracts.ArgumentNotNull(messages, "messages");
-
-      foreach (var mailMessage in messages.ToList())
-      {
-        try
-        {
-          // send the message...
-          // message.Send();
-          this.Send(mailMessage);
-
-          // sleep for a 1/20 of a second...
-          Thread.Sleep(50);
-        }
-        catch (Exception ex)
-        {
-          if (handleExceptionAction != null)
-          {
-            handleExceptionAction(mailMessage, ex);
-          }
-        }
-      }
-    }
-
-    #endregion
-
-    #endregion
-  }
 }

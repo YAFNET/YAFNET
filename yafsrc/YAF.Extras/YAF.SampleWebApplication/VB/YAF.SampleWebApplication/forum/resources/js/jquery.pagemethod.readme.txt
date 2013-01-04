@@ -1,0 +1,53 @@
+jQuery Plugin for calling Ajax Page Methods.
+Author: Kamyar Paykhan. (12/16/2010)
+
+Usage:
+ $.PageMethod('PageName', 'PageMethodName', successFunction, failFunction, 'param1', param1, 'param2', param2, ...);
+
+
+Example:
+
+Javascript: 
+
+var myName =  'TestName';
+var myId = '123';
+$.PageMethod('PageName', 'ReturnCustomData', onSuccess, onFail, 'MyName', myName,'MyID', myId);
+
+
+Code Behind:
+
+[ScriptService]
+public class CustomData
+    {
+        public string name;
+        public int id;
+    }
+
+    [WebMethod()]
+    public static CustomData ReturnCustomData(string MyName, int MyID)
+    {
+        CustomData MyData = new CustomData();
+        MyData.name = MyName;
+        MyData.id = MyID;
+        return MyData;
+    }
+------------------------------------------------------------------------------------
+The success function can have a serialized json object as a return value.
+in your callback function, you can access the CustomData
+
+     function onSuccess(response)
+      {
+          alert('Your Name: ' + response.d.name + ', Your ID: ' + response.d.id);
+      }
+      function onFail(response)
+      {
+          alert("An error occurred.");
+      }
+------------------------------------------------------------------------------------
+The number of parameters you pass to a page method has to be equal to the number
+of parameters accepted by your page method. parameter names should be the same too.
+
+e.g. you cannot define the above WebMethod with a parameter named "ID" instead of "MyID".
+It has to have the same name as the passed parameter. Also, you cannot define another 
+parameter in your code behind unless you pass a value for it from your js.
+------------------------------------------------------------------------------------

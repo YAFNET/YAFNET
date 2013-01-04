@@ -22,14 +22,10 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
-    using System.Data;
 
-    using YAF.Classes.Data;
+    using YAF.Classes;
     using YAF.Core;
-    using YAF.Core.BBCode;
-    using YAF.Core.Extensions;
     using YAF.Core.Model;
-    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -87,14 +83,10 @@ namespace YAF.Pages.Admin
         #region Methods
 
         /// <summary>
-        /// The add_ click.
+        /// Adds the New BB Code or saves the existing one
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void Add_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             short sortOrder;
@@ -142,7 +134,7 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            var bbCode = this.GetRepository<BBCode>().GetByID(this.BBCodeID.Value);
+            var bbCode = this.GetRepository<BBCode>().ListTyped(this.BBCodeID.Value, this.PageContext.PageBoardID)[0];
 
             // fill the control values...
             this.txtName.Text = bbCode.Name;
@@ -160,35 +152,27 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The cancel_ click.
+        /// Cancel Edit
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             YafBuildLink.Redirect(ForumPages.admin_bbcode);
         }
 
         /// <summary>
-        /// The page_ load.
+        /// Handles the Load event of the Page control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             string strAddEdit = (this.BBCodeID == null) ? this.GetText("COMMON", "ADD") : this.GetText("COMMON", "EDIT");
 
             if (!this.IsPostBack)
             {
-                this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+                this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
                 this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
                 this.PageLinks.AddLink(this.GetText("ADMIN_BBCODE", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_bbcode));
                 this.PageLinks.AddLink(this.GetText("ADMIN_BBCODE_EDIT", "TITLE").FormatWith(strAddEdit), string.Empty);
@@ -202,18 +186,19 @@ namespace YAF.Pages.Admin
                 this.BindData();
             }
 
+            // TODO : Remove Hardcoded Styles, and move them to css
             this.txtName.Attributes.Add("style", "width:99%");
 
-            string style = "width:99%;height:75px;";
+            const string Style = "width:99%;height:75px;";
 
-            this.txtDescription.Attributes.Add("style", style);
-            this.txtOnClickJS.Attributes.Add("style", style);
-            this.txtDisplayJS.Attributes.Add("style", style);
-            this.txtEditJS.Attributes.Add("style", style);
-            this.txtDisplayCSS.Attributes.Add("style", style);
-            this.txtSearchRegEx.Attributes.Add("style", style);
-            this.txtReplaceRegEx.Attributes.Add("style", style);
-            this.txtVariables.Attributes.Add("style", style);
+            this.txtDescription.Attributes.Add("style", Style);
+            this.txtOnClickJS.Attributes.Add("style", Style);
+            this.txtDisplayJS.Attributes.Add("style", Style);
+            this.txtEditJS.Attributes.Add("style", Style);
+            this.txtDisplayCSS.Attributes.Add("style", Style);
+            this.txtSearchRegEx.Attributes.Add("style", Style);
+            this.txtReplaceRegEx.Attributes.Add("style", Style);
+            this.txtVariables.Attributes.Add("style", Style);
             this.txtModuleClass.Attributes.Add("style", "width:99%");
         }
 
