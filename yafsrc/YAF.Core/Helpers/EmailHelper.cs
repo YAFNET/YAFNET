@@ -61,8 +61,7 @@ namespace YAF.Core
 
             var verifyEmail = new YafTemplateEmail("VERIFYEMAIL");
 
-            string subject = haveServiceLocator.Get<ILocalization>()
-                                               .FormatString("VERIFICATION_EMAIL_SUBJECT", haveServiceLocator.Get<YafBoardSettings>().Name);
+            string subject = haveServiceLocator.Get<ILocalization>().GetTextFormatted("VERIFICATION_EMAIL_SUBJECT", haveServiceLocator.Get<YafBoardSettings>().Name);
 
             verifyEmail.TemplateParams["{link}"] = YafBuildLink.GetLinkNotEscaped(ForumPages.approve, true, "k={0}", hash);
             verifyEmail.TemplateParams["{key}"] = hash;
