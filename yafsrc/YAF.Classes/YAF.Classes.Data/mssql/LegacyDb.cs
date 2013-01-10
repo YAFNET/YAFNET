@@ -1772,69 +1772,6 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
-        /// Gets a check email entry based on email or all if no email supplied
-        /// </summary>
-        /// <param name="email">
-        /// Associated email
-        /// </param>
-        /// <returns>
-        /// DataTable with check email information
-        /// </returns>
-        public static DataTable checkemail_list([NotNull] object email)
-        {
-            using (var cmd = MsSqlDbAccess.GetCommand("checkemail_list"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("Email", email);
-                return MsSqlDbAccess.Current.GetData(cmd);
-            }
-        }
-
-        /// <summary>
-        /// Saves a new email into the table for verification
-        /// </summary>
-        /// <param name="userID">
-        /// The user ID.
-        /// </param>
-        /// <param name="hash">
-        /// The hash.
-        /// </param>
-        /// <param name="email">
-        /// The email.
-        /// </param>
-        public static void checkemail_save([NotNull] object userID, [NotNull] object hash, [NotNull] object email)
-        {
-            using (var cmd = MsSqlDbAccess.GetCommand("checkemail_save"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("UserID", userID);
-                cmd.Parameters.AddWithValue("Hash", hash);
-                cmd.Parameters.AddWithValue("Email", email);
-                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
-                MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
-            }
-        }
-
-        /// <summary>
-        /// Updates a hash
-        /// </summary>
-        /// <param name="hash">
-        /// New hash
-        /// </param>
-        /// <returns>
-        /// DataTable with user information
-        /// </returns>
-        public static DataTable checkemail_update([NotNull] object hash)
-        {
-            using (var cmd = MsSqlDbAccess.GetCommand("checkemail_update"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("Hash", hash);
-                return MsSqlDbAccess.Current.GetData(cmd);
-            }
-        }
-
-        /// <summary>
         /// The choice_add.
         /// </summary>
         /// <param name="pollID">

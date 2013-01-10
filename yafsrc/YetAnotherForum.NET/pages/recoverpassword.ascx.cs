@@ -24,6 +24,7 @@ namespace YAF.Pages
 
     using System;
     using System.Data;
+    using System.Linq;
     using System.Net.Mail;
     using System.Web.Security;
     using System.Web.UI.WebControls;
@@ -31,11 +32,13 @@ namespace YAF.Pages
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
@@ -270,20 +273,17 @@ namespace YAF.Pages
             if (this.Get<YafBoardSettings>().EmailVerification)
             {
                 // get the hash from the db associated with this user...
-                DataTable dt = LegacyDb.checkemail_list(user.Email);
+                var checkTyped = this.GetRepository<CheckEmail>().ListTyped(user.Email).FirstOrDefault();
 
-                if (dt.Rows.Count > 0)
+                if (checkTyped != null)
                 {
-                    string hash = dt.Rows[0]["hash"].ToString();
-
                     // re-send verification email instead of lost password...
                     var verifyEmail = new YafTemplateEmail("VERIFYEMAIL");
 
                     string subject = this.GetTextFormatted("VERIFICATION_EMAIL_SUBJECT", this.Get<YafBoardSettings>().Name);
 
-                    verifyEmail.TemplateParams["{link}"] = YafBuildLink.GetLinkNotEscaped(
-                        ForumPages.approve, true, "k={0}", hash);
-                    verifyEmail.TemplateParams["{key}"] = hash;
+                    verifyEmail.TemplateParams["{link}"] = YafBuildLink.GetLinkNotEscaped(ForumPages.approve, true, "k={0}", checkTyped.Hash);
+                    verifyEmail.TemplateParams["{key}"] = checkTyped.Hash;
                     verifyEmail.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
                     verifyEmail.TemplateParams["{forumlink}"] = "{0}".FormatWith(YafForumInfo.ForumURL);
 

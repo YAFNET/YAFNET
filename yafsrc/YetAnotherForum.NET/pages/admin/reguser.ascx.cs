@@ -29,11 +29,13 @@ namespace YAF.Pages.Admin
   using YAF.Classes;
   using YAF.Classes.Data;
   using YAF.Core;
+  using YAF.Core.Model;
   using YAF.Core.Services;
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
+  using YAF.Types.Models;
   using YAF.Utils;
   using YAF.Utils.Helpers;
 
@@ -76,9 +78,6 @@ namespace YAF.Pages.Admin
             this.PageContext.AddLoadMessage(this.GetText("ADMIN_REGUSER", "MSG_NAME_EXISTS"));
             return;
         }
-
-        string hashinput = DateTime.UtcNow + newEmail + Security.CreatePassword(20);
-        string hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashinput, "md5");
 
         MembershipCreateStatus status;
         MembershipUser user = this.Get<MembershipProvider>().CreateUser(
@@ -135,22 +134,7 @@ namespace YAF.Pages.Admin
 
         if (this.Get<YafBoardSettings>().EmailVerification)
         {
-            // save verification record...
-            LegacyDb.checkemail_save(userID, hash, user.Email);
-
-            // send template email
-            var verifyEmail = new YafTemplateEmail("VERIFYEMAIL");
-
-            verifyEmail.TemplateParams["{link}"] = YafBuildLink.GetLink(ForumPages.approve, true, "k={0}", hash);
-            verifyEmail.TemplateParams["{key}"] = hash;
-            verifyEmail.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
-            verifyEmail.TemplateParams["{forumlink}"] = "{0}".FormatWith(this.ForumURL);
-
-            string subject =
-                this.GetText("COMMON", "EMAILVERIFICATION_SUBJECT").FormatWith(
-                    this.Get<YafBoardSettings>().Name);
-
-            verifyEmail.SendEmail(new MailAddress(newEmail, newUsername), subject, true);
+            this.SendVerificationEmail(user, newEmail, userID, newUsername);
         }
 
         bool autoWatchTopicsEnabled =

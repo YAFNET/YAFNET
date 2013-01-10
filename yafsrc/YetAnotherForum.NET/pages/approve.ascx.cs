@@ -29,9 +29,11 @@ namespace YAF.Pages
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
@@ -81,11 +83,10 @@ namespace YAF.Pages
         /// </param>
         public void ValidateKey_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            DataTable dt = LegacyDb.checkemail_update(this.key.Text);
-            DataRow row = dt.Rows[0];
-            string dbEmail = row["Email"].ToString();
+            DataRow userRow = this.GetRepository<CheckEmail>().Update(this.key.Text).Rows[0];
+            string userEmail = userRow["Email"].ToString();
 
-            bool keyVerified = row["ProviderUserKey"] != DBNull.Value;
+            bool keyVerified = userRow["ProviderUserKey"] != DBNull.Value;
 
             this.approved.Visible = keyVerified;
             this.error.Visible = !keyVerified;
@@ -96,16 +97,16 @@ namespace YAF.Pages
             }
 
             // approve and update e-mail in the membership as well...
-            MembershipUser user = UserMembershipHelper.GetMembershipUserByKey(row["ProviderUserKey"]);
+            MembershipUser user = UserMembershipHelper.GetMembershipUserByKey(userRow["ProviderUserKey"]);
             if (!user.IsApproved)
             {
                 user.IsApproved = true;
             }
 
             // update the email if anything was returned...
-            if (user.Email != dbEmail && dbEmail != string.Empty)
+            if (user.Email != userEmail && userEmail != string.Empty)
             {
-                user.Email = dbEmail;
+                user.Email = userEmail;
             }
 
             // tell the provider to update...

@@ -103,6 +103,7 @@
     <Compile Include="Data\TryInvokeMemberProxy.cs" />
     <Compile Include="Data\CommandTextHelpers.cs" />
     <Compile Include="Events\SmileyEventCacheInvalidate.cs" />
+    <Compile Include="Helpers\EmailHelper.cs" />
     <Compile Include="Model\BoardRepositoryExtensions.cs" />
     <Compile Include="Extensions\DbAccessExtensions.cs" />
     <Compile Include="Extensions\IRepositoryExtensions.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="Model\BBCodeRepositoryExtensions.cs" />
     <Compile Include="Model\BannedIpRepositoryExtensions.cs" />
     <Compile Include="Model\CategoryRepositoryExtensions.cs" />
+    <Compile Include="Model\CheckEmailRepositoryExtensions.cs" />
     <Compile Include="Model\MedalRepositoryExtensions.cs" />
     <Compile Include="Model\AttachmentRepositoryExtensions.cs" />
     <Compile Include="Model\SmileyRepositoryExtensions.cs" />

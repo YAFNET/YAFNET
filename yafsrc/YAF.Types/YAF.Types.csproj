@@ -102,6 +102,7 @@
     <Compile Include="Models\BBCode.cs" />
     <Compile Include="Models\Board.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\CheckEmail.cs" />
     <Compile Include="Models\Medal.cs" />
     <Compile Include="Models\Smiley.cs" />
     <Compile Include="Objects\MessageNotification.cs" />

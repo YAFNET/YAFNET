@@ -37,12 +37,14 @@ namespace YAF.Controls
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utilities;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -692,11 +694,10 @@ namespace YAF.Controls
             changeEmail.TemplateParams["{forumlink}"] = YafForumInfo.ForumURL;
 
             // save a change email reference to the db
-            LegacyDb.checkemail_save(this.currentUserID, hash, newEmail);
+            this.GetRepository<CheckEmail>().Save(this.currentUserID, hash, newEmail);
 
             // send a change email message...
-            changeEmail.SendEmail(
-              new MailAddress(newEmail), this.GetText("COMMON", "CHANGEEMAIL_SUBJECT"), true);
+            changeEmail.SendEmail(new MailAddress(newEmail), this.GetText("COMMON", "CHANGEEMAIL_SUBJECT"), true);
 
             // show a confirmation
             this.PageContext.AddLoadMessage(
@@ -797,7 +798,7 @@ namespace YAF.Controls
         }
 
         #endregion
-        
+
 
         /// <summary>
         /// Gets the culture.
