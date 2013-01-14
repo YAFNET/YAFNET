@@ -137,9 +137,12 @@ namespace YAF.DotNetNuke.Utils
             var yafBoardRoles = Data.GetYafBoardRoles(boardId);
 
             // Check If Dnn Roles Exists in Yaf
-            foreach (var role in from role in roles let any = yafBoardRoles.Any(yafRole => yafRole.RoleName.Equals(role)) where !any select role)
+            foreach (string role in from role in roles
+                                    where !string.IsNullOrEmpty(role)
+                                    let any = yafBoardRoles.Any(yafRole => yafRole.RoleName.Equals(role))
+                                    where !any
+                                    select role)
             {
-                // If not Create Role in YAF
                 CreateYafRole(role, boardId);
             }
         }
