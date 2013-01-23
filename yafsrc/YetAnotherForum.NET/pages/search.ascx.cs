@@ -31,6 +31,7 @@ namespace YAF.Pages
     using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
 
+    using YAF.Core.Extensions;
     using YAF.Core.Services;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces.Data;
@@ -679,7 +680,7 @@ namespace YAF.Pages
             }
             catch (Exception x)
             {
-                LegacyDb.eventlog_create(this.PageContext.PageUserID, this, x);
+                this.Logger.Log(this.PageContext.PageUserID, this, x);
 
                 this.PageContext.AddLoadMessage(
                     this.PageContext.IsAdmin ? "{0}".FormatWith(x) : "An error occurred while searching.");
