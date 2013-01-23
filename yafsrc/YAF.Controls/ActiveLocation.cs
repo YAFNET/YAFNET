@@ -30,6 +30,7 @@ namespace YAF.Controls
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -400,7 +401,7 @@ namespace YAF.Controls
                 {
                     if (this.Get<YafBoardSettings>().EnableActiveLocationErrorsLog)
                     {
-                        LegacyDb.eventlog_create(
+                        this.Logger.Log(
                             this.UserID,
                             this,
                             "Incorrect active location string: ForumID = {0}; ForumName= {1}; ForumPage={2}; TopicID={3}; TopicName={4}; UserID={5}; UserName={6}; Attributes={7}; ForumPageName={8}"

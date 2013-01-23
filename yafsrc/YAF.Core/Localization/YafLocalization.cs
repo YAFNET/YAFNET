@@ -30,6 +30,7 @@ namespace YAF.Core
 
   using YAF.Classes;
   using YAF.Classes.Data;
+  using YAF.Core.Extensions;
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Types.Extensions;
@@ -321,11 +322,13 @@ namespace YAF.Core
 
         HttpContext.Current.Cache.Remove( "Localizer.{0}".FormatWith(filename) );
 #endif
-        LegacyDb.eventlog_create(
-          YafContext.Current.PageUserID, 
-          page.ToLower() + ".ascx", 
-          "Missing Translation For {1}.{0}".FormatWith(tag.ToUpper(), page.ToUpper()), 
-          EventLogTypes.Error);
+          YafContext.Current.Get<ILogger>()
+                    .Log(
+                        YafContext.Current.PageUserID,
+                        page.ToLower() + ".ascx",
+                        "Missing Translation For {1}.{0}".FormatWith(tag.ToUpper(), page.ToUpper()),
+                        EventLogTypes.Error);
+
         return "[{1}.{0}]".FormatWith(tag.ToUpper(), page.ToUpper());
       }
       
@@ -397,11 +400,13 @@ namespace YAF.Core
 
             HttpContext.Current.Cache.Remove("Localizer." + filename);
 #endif
-        LegacyDb.eventlog_create(
-          YafContext.Current.PageUserID, 
-          page.ToLower() + ".ascx", 
-          "Missing Translation For {1}.{0}".FormatWith(tag.ToUpper(), page.ToUpper()), 
-          EventLogTypes.Error);
+          YafContext.Current.Get<ILogger>()
+                    .Log(
+                        YafContext.Current.PageUserID,
+                        page.ToLower() + ".ascx",
+                        "Missing Translation For {1}.{0}".FormatWith(tag.ToUpper(), page.ToUpper()),
+                        EventLogTypes.Error);
+
         return "[{1}.{0}]".FormatWith(tag.ToUpper(), page.ToUpper());
       }
 

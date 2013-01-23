@@ -627,7 +627,8 @@ begin
 	create table [{databaseOwner}].[{objectQualifier}EventLog](
 		EventLogID	int identity(1,1) not null,
 		EventTime	datetime not null constraint [DF_{objectQualifier}EventLog_EventTime] default GETUTCDATE() ,
-		UserID		int,
+		UserID		int, -- deprecated
+		UserName	nvarchar(100) not null,
 		[Source]	nvarchar(50) not null,
 		Description	ntext not null,
 		constraint [PK_{objectQualifier}EventLog] primary key(EventLogID)
@@ -2050,6 +2051,12 @@ if not exists(select top 1 1 from dbo.syscolumns where id = object_id(N'[{databa
 begin
 	alter table [{databaseOwner}].[{objectQualifier}EventLog] add Type int not null constraint [DF_{objectQualifier}EventLog_Type] default (0)
 	exec('update [{databaseOwner}].[{objectQualifier}EventLog] set Type = 0')
+end
+GO
+
+if not exists(select top 1 1 from dbo.syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}EventLog]') and name=N'UserName')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}EventLog] add UserName nvarchar(100) null
 end
 GO
 

@@ -22,8 +22,9 @@ namespace YAF.Core.Tasks
   using System.Threading;
 
   using YAF.Core;
+  using YAF.Types.Interfaces;
 
-  /// <summary>
+    /// <summary>
   /// The intermittent background task.
   /// </summary>
   public class IntermittentBackgroundTask : BaseBackgroundTask

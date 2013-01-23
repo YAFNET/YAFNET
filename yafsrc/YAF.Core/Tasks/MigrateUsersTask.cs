@@ -18,87 +18,87 @@
  */
 namespace YAF.Core.Tasks
 {
-  #region Using
+    #region Using
 
-  using System;
+    using System;
 
-  using YAF.Classes.Data;
-  using YAF.Types;
-  using YAF.Types.Extensions;
-  using YAF.Types.Interfaces;
-  using YAF.Utils;
-
-  #endregion
-
-  /// <summary>
-  /// Run when we want to do migration of users in the background...
-  /// </summary>
-  public class MigrateUsersTask : LongBackgroundTask
-  {
-    #region Constants and Fields
-
-    /// <summary>
-    ///   The _task name.
-    /// </summary>
-    private const string _taskName = "MigrateUsersTask";
+    using YAF.Classes.Data;
+    using YAF.Types;
+    using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
 
     #endregion
 
-    #region Properties
-
     /// <summary>
-    ///   Gets TaskName.
+    /// Run when we want to do migration of users in the background...
     /// </summary>
-    [NotNull]
-    public static string TaskName
+    public class MigrateUsersTask : LongBackgroundTask
     {
-      get
-      {
-        return _taskName;
-      }
+        #region Constants and Fields
+
+        /// <summary>
+        ///   The _task name.
+        /// </summary>
+        private const string _taskName = "MigrateUsersTask";
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        ///   Gets TaskName.
+        /// </summary>
+        [NotNull]
+        public static string TaskName
+        {
+            get
+            {
+                return _taskName;
+            }
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// The start.
+        /// </summary>
+        /// <param name="boardId">
+        /// The board id.
+        /// </param>
+        /// <returns>
+        /// The start.
+        /// </returns>
+        public static bool Start(int boardId)
+        {
+            if (YafContext.Current.Get<ITaskModuleManager>() == null)
+            {
+                return false;
+            }
+
+            YafContext.Current.Get<ITaskModuleManager>().StartTask(TaskName, () => new MigrateUsersTask { Data = boardId });
+
+            return true;
+        }
+
+        /// <summary>
+        /// The run once.
+        /// </summary>
+        public override void RunOnce()
+        {
+            try
+            {
+                // attempt to run the migration code...
+                RoleMembershipHelper.SyncUsers((int)this.Data);
+            }
+            catch (Exception x)
+            {
+                this.Logger.Error(x, "Error In {0} Task".FormatWith(TaskName));
+            }
+        }
+
+        #endregion
     }
-
-    #endregion
-
-    #region Public Methods
-
-    /// <summary>
-    /// The start.
-    /// </summary>
-    /// <param name="boardId">
-    /// The board id.
-    /// </param>
-    /// <returns>
-    /// The start.
-    /// </returns>
-    public static bool Start(int boardId)
-    {
-      if (YafContext.Current.Get<ITaskModuleManager>() == null)
-      {
-        return false;
-      }
-
-      YafContext.Current.Get<ITaskModuleManager>().StartTask(TaskName, () => new MigrateUsersTask { Data = boardId });
-
-			return true;
-    }
-
-    /// <summary>
-    /// The run once.
-    /// </summary>
-    public override void RunOnce()
-    {
-      try
-      {
-        // attempt to run the migration code...
-        RoleMembershipHelper.SyncUsers((int)this.Data);
-      }
-      catch (Exception x)
-      {
-        LegacyDb.eventlog_create(null, TaskName, "Error In MigrateUsers Task: {0}".FormatWith(x));
-      }
-    }
-
-    #endregion
-  }
 }

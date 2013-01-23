@@ -28,6 +28,7 @@ namespace YAF.Pages.Admin
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -155,14 +156,16 @@ namespace YAF.Pages.Admin
             this.GetRepository<BannedIP>().Save(
                 this.Request.QueryString.GetFirstOrDefaultAs<int>("i"), this.mask.Text.Trim(), this.BanReason.Text.Trim(), this.PageContext.PageUserID);
 
-            this.Get<ILogger>().IpBanSet(
-                this.PageContext.PageUserID,
-                "YAF.Pages.Admin.bannedip_edit",
-                "IP or mask {0} was saved by {1}.".FormatWith(
-                    this.mask.Text.Trim(),
-                    this.Get<YafBoardSettings>().EnableDisplayName
-                        ? this.PageContext.CurrentUserData.DisplayName
-                        : this.PageContext.CurrentUserData.UserName));
+            this.Get<ILogger>()
+                .Log(
+                    this.PageContext.PageUserID,
+                    "YAF.Pages.Admin.bannedip_edit",
+                    "IP or mask {0} was saved by {1}.".FormatWith(
+                        this.mask.Text.Trim(),
+                        this.Get<YafBoardSettings>().EnableDisplayName
+                            ? this.PageContext.CurrentUserData.DisplayName
+                            : this.PageContext.CurrentUserData.UserName),
+                    EventLogTypes.IpBanSet);
 
             // go back to banned IP's administration page
             YafBuildLink.Redirect(ForumPages.admin_bannedip);

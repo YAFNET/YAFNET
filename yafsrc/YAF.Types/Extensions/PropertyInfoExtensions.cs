@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2006-2012 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -16,54 +16,40 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Extensions
 {
-    #region Using
-
-    using System;
-
-    using YAF.Types.Constants;
-
-    #endregion
+    using System.Reflection;
 
     /// <summary>
-    ///     The logger interface
+    /// The property info extensions.
     /// </summary>
-    public interface ILogger
+    public static class PropertyInfoExtensions
     {
         #region Public Methods and Operators
 
         /// <summary>
-        /// The is log type enabled.
+        /// The get value as.
         /// </summary>
-        /// <param name="type">
-        /// The type.
+        /// <param name="propertyInfo">
+        /// The property info.
         /// </param>
+        /// <param name="obj">
+        /// The obj.
+        /// </param>
+        /// <param name="index">
+        /// The index.
+        /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
         /// <returns>
-        /// The <see cref="bool"/>.
+        /// The <see cref="T"/>.
         /// </returns>
-        bool IsLogTypeEnabled(EventLogTypes type);
+        public static T GetValueAs<T>([NotNull] this PropertyInfo propertyInfo, object obj, object[] index = null)
+        {
+            CodeContracts.ArgumentNotNull(propertyInfo, "propertyInfo");
 
-        /// <summary>
-        /// The log.
-        /// </summary>
-        /// <param name="message">
-        /// The message.
-        /// </param>
-        /// <param name="eventType">
-        /// The event type.
-        /// </param>
-        /// <param name="username">
-        /// The username.
-        /// </param>
-        /// <param name="source">
-        /// The source.
-        /// </param>
-        /// <param name="exception">
-        /// The exception.
-        /// </param>
-        void Log(
-            string message, EventLogTypes eventType = EventLogTypes.Error, string username = null, string source = null, Exception exception = null);
+            return propertyInfo.GetValue(obj, index).ToType<T>();
+        }
 
         #endregion
     }

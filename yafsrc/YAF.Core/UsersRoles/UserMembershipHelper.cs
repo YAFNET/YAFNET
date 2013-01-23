@@ -27,6 +27,7 @@ namespace YAF.Core
 
     using YAF.Classes;
     using YAF.Classes.Data;
+    using YAF.Core.Extensions;
     using YAF.Core.Services;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -215,7 +216,12 @@ namespace YAF.Core
                     // delete this user...
                     LegacyDb.user_delete(GetUserIDFromProviderUserKey(user.ProviderUserKey));
                     YafContext.Current.Get<MembershipProvider>().DeleteUser(user.UserName, true);
-                    YafContext.Current.Get<ILogger>().UserDeleted(YafContext.Current.PageUserID, "UserMembershipHelper.DeleteAllUnapproved", "User {0} was deleted by user id {1} as unapproved.".FormatWith(user.UserName, YafContext.Current.PageUserID));
+                    YafContext.Current.Get<ILogger>()
+                              .Log(
+                                  YafContext.Current.PageUserID,
+                                  "UserMembershipHelper.DeleteAllUnapproved",
+                                  "User {0} was deleted by user id {1} as unapproved.".FormatWith(user.UserName, YafContext.Current.PageUserID),
+                                  EventLogTypes.UserDeleted);
                 }
 
                 pageCount++;
@@ -250,7 +256,12 @@ namespace YAF.Core
 
                 YafContext.Current.Get<MembershipProvider>().DeleteUser(userName, true);
                 LegacyDb.user_delete(userID);
-                YafContext.Current.Get<ILogger>().UserDeleted(YafContext.Current.PageUserID, "UserMembershipHelper.DeleteUser", "User {0} was deleted by user id {1}.".FormatWith(userName, YafContext.Current.PageUserID));
+                YafContext.Current.Get<ILogger>()
+                          .Log(
+                              YafContext.Current.PageUserID,
+                              "UserMembershipHelper.DeleteUser",
+                              "User {0} was deleted by user id {1}.".FormatWith(userName, YafContext.Current.PageUserID),
+                              EventLogTypes.UserDeleted);
                 
                 // clear the cache
                 YafContext.Current.Get<IDataCache>().Remove(Constants.Cache.UsersOnlineStatus);

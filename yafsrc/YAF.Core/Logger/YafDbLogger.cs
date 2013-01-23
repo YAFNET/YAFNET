@@ -18,561 +18,200 @@
  */
 namespace YAF.Core
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.Web;
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Linq;
 
-  using YAF.Classes.Data;
-  using YAF.Types;
-  using YAF.Types.Attributes;
-  using YAF.Types.Constants;
-  using YAF.Types.Interfaces;
+    using YAF.Classes;
+    using YAF.Core.Extensions;
+    using YAF.Types;
+    using YAF.Types.Attributes;
+    using YAF.Types.Constants;
+    using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Data;
+    using YAF.Utils;
 
-  #endregion
+    using EventLog = YAF.Types.Models.EventLog;
 
-  /// <summary>
-  /// The yaf db logger.
-  /// </summary>
-  public class YafDbLogger : ILogger
-  {
+    #endregion
+
     /// <summary>
-    /// Initializes a new instance of the <see cref="YafDbLogger"/> class.
+    ///     The yaf db logger.
     /// </summary>
-    /// <param name="logType">
-    /// The log type.
-    /// </param>
-    public YafDbLogger([CanBeNull] Type logType)
+    public class YafDbLogger : ILogger, IHaveServiceLocator
     {
-      this.Type = logType;
-    }
+        /// <summary>
+        ///     The _event log repository.
+        /// </summary>
+        [Inject]
+        public IRepository<EventLog> EventLogRepository { get; set; }
+
+        [Inject]
+        public IServiceLocator ServiceLocator { get; set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="YafDbLogger"/> class.
+        /// </summary>
+        /// <param name="logType">
+        /// The log type.
+        /// </param>
+        public YafDbLogger([CanBeNull] Type logType)
+        {
+            this.Type = logType;
+        }
+
+        public YafBoardSettings TryGetBoardSettings()
+        {
+            YafBoardSettings boardSettings;
+
+            if (this.ServiceLocator.TryGet<YafBoardSettings>(out boardSettings))
+            {
+                return boardSettings;
+            }
+
+            return null;
+        }
 
 #if (DEBUG)
 
-    /// <summary>
-    /// The _is debug.
-    /// </summary>
-    private bool _isDebug = true;
+        /// <summary>
+        ///     The _is debug.
+        /// </summary>
+        private bool _isDebug = true;
 #else
     private bool _isDebug = false;
 #endif
 
-    #region Implemented Interfaces
+        /// <summary>
+        ///     Gets a value indicating the logging type.
+        /// </summary>
+        public Type Type { get; set; }
 
-    #region ILogger
+        /// <summary>
+        /// The _event log type lookup.
+        /// </summary>
+        private Dictionary<EventLogTypes, bool> _eventLogTypeLookup;
 
-    /// <summary>
-    ///   Gets a value indicating whether IsDebugEnabled.
-    /// </summary>
-    public bool IsDebugEnabled
-    {
-      get
-      {
-        return this._isDebug;
-      }
-    }
-
-    /// <summary>
-    ///   Gets a value indicating whether IsErrorEnabled.
-    /// </summary>
-    public bool IsErrorEnabled
-    {
-      get
-      {
-        return  YafContext.Current.BoardSettings.LogError;
-      }
-    }
-
-    /// <summary>
-    ///   Gets a value indicating whether IsFatalEnabled.
-    /// </summary>
-    public bool IsFatalEnabled
-    {
-      get
-      {
-        return true;
-      }
-    }
-
-    /// <summary>
-    ///   Gets a value indicating whether IsInfoEnabled.
-    /// </summary>
-    public bool IsInfoEnabled
-    {
-      get
-      {
-          return YafContext.Current.BoardSettings.LogInformation;
-      }
-    }
-
-    /// <summary>
-    ///   Gets a value indicating whether IsUserSuspendedeEnabled.
-    /// </summary>
-    public bool IsUserSuspendedEnabled
-    {
-        get
+        /// <summary>
+        /// The init lookup.
+        /// </summary>
+        private void InitLookup()
         {
-            return YafContext.Current.BoardSettings.LogUserSuspendedUnsuspended;
-        }
-    }
+            this._eventLogTypeLookup = new Dictionary<EventLogTypes, bool> { };
 
-    /// <summary>
-    ///   Gets a value indicating whether IsUserDeletedEnabled.
-    /// </summary>
-    public bool IsUserDeletedEnabled
-    {
-        get
-        {
-            return YafContext.Current.BoardSettings.LogUserDeleted;
-        }
-    }
+            var logProperties =
+                typeof(YafBoardSettings).GetProperties().Where(x => x.PropertyType == typeof(bool) && x.Name.StartsWith("Log")).ToList();
 
-    /// <summary>
-    ///   Gets a value indicating whether IsLogBannedIP.
-    /// </summary>
-    public bool IsLogBannedIP
-    {
-        get
-        {
-            return YafContext.Current.BoardSettings.LogBannedIP;
-        }
-    }
+            var boardSettings = this.TryGetBoardSettings();
 
-    /// <summary>
-    ///   Gets a value indicating whether IsTraceEnabled.
-    /// </summary>
-    public bool IsTraceEnabled
-    {
-      get
-      {
-        return this._isDebug;
-      }
-    }
+            foreach (var logType in EnumHelper.EnumToList<EventLogTypes>())
+            {
+                var property = logProperties.FirstOrDefault(x => string.Equals(x.Name, "Log{0}".FormatWith(logType.ToString())));
 
-    /// <summary>
-    ///   Gets a value indicating whether IsWarnEnabled.
-    /// </summary>
-    public bool IsWarnEnabled
-    {
-      get
-      {
-          return YafContext.Current.BoardSettings.LogWarning;
-      }
-    }
+                if (boardSettings != null && property != null)
+                {
+                    this._eventLogTypeLookup.Add(logType, property.GetValueAs<bool>(boardSettings));
+                }
+                else
+                {
+                    this._eventLogTypeLookup.Add(logType, false);
+                }
+            }
 
-    /// <summary>
-    ///   Gets a value indicating the logging type.
-    /// </summary>
-    public Type Type { get; set; }
+            this._eventLogTypeLookup.AddOrUpdate(EventLogTypes.Debug, this._isDebug);
+            this._eventLogTypeLookup.AddOrUpdate(EventLogTypes.Trace, this._isDebug);
 
-    /// <summary>
-    /// The log.
-    /// </summary>
-    /// <param name="message">
-    /// The message.
-    /// </param>
-    /// <param name="logTypes">
-    /// The log types.
-    /// </param>
-    private void Log([NotNull] string message, EventLogTypes logTypes)
-    {
-      string typeName = "Unknown";
-
-      if (this.Type != null)
-      {
-        typeName = this.Type.FullName;
-      }
-
-      // TODO: come up with userid if the database is available.
-      LegacyDb.eventlog_create(null, typeName, message, logTypes);
-    }
-
-      /// <summary>
-      /// The log.
-      /// </summary>
-      /// <param name="userId">
-      /// The userId.
-      ///  </param>
-      /// <param name="message">
-      /// The message.
-      /// </param>
-      /// <param name="logTypes">
-      /// The log types.
-      /// </param>
-      private void Log(int userId, [NotNull] string message, EventLogTypes logTypes)
-    {
-        string typeName = "Unknown";
-
-        if (this.Type != null)
-        {
-            typeName = this.Type.FullName;
+            if (boardSettings != null && boardSettings.LogBannedIP)
+            {
+                this._eventLogTypeLookup.AddOrUpdate(EventLogTypes.IpBanLifted, true);
+                this._eventLogTypeLookup.AddOrUpdate(EventLogTypes.IpBanSet, true);
+            }
         }
 
-        // TODO: come up with userid if the database is available.
-        LegacyDb.eventlog_create(userId, typeName, message, logTypes);
-    }
-
-    /// <summary>
-    /// The debug.
-    /// </summary>
-    /// <param name="format">
-    /// The format.
-    /// </param>
-    /// <param name="args">
-    /// The args.
-    /// </param>
-    public void Debug(string format, params object[] args)
-    {
-      if (this.IsDebugEnabled)
-      {
-        System.Diagnostics.Debug.WriteLine(String.Format(format, args));
-      }
-    }
-
-    /// <summary>
-    /// The debug.
-    /// </summary>
-    /// <param name="exception">
-    /// The exception.
-    /// </param>
-    /// <param name="format">
-    /// The format.
-    /// </param>
-    /// <param name="args">
-    /// The args.
-    /// </param>
-    public void Debug(Exception exception, string format, params object[] args)
-    {
-      if (this.IsDebugEnabled)
-      {
-        System.Diagnostics.Debug.WriteLine(String.Format(format, args));
-        System.Diagnostics.Debug.WriteLine(exception.ToString());
-      }
-    }
-
-    /// <summary>
-    /// The error.
-    /// </summary>
-    /// <param name="format">
-    /// The format.
-    /// </param>
-    /// <param name="args">
-    /// The args.
-    /// </param>
-    public void Error(string format, params object[] args)
-    {
-      if (this.IsErrorEnabled)
-      {
-        this.Log(String.Format(format, args), EventLogTypes.Error);
-      }
-    }
-
-    /// <summary>
-    /// The error.
-    /// </summary>
-    /// <param name="exception">
-    /// The exception.
-    /// </param>
-    /// <param name="format">
-    /// The format.
-    /// </param>
-    /// <param name="args">
-    /// The args.
-    /// </param>
-    public void Error(Exception exception, string format, params object[] args)
-    {
-      if (this.IsErrorEnabled)
-      {
-        this.Log(String.Format(format, args) + "\r\n" + exception, EventLogTypes.Error);
-      }
-    }
-
-    /// <summary>
-    /// The fatal.
-    /// </summary>
-    /// <param name="format">
-    /// The format.
-    /// </param>
-    /// <param name="args">
-    /// The args.
-    /// </param>
-    public void Fatal(string format, params object[] args)
-    {
-      if (this.IsFatalEnabled)
-      {
-        this.Log(String.Format(format, args), EventLogTypes.Error);
-      }
-    }
-
-    /// <summary>
-    /// The fatal.
-    /// </summary>
-    /// <param name="exception">
-    /// The exception.
-    /// </param>
-    /// <param name="format">
-    /// The format.
-    /// </param>
-    /// <param name="args">
-    /// The args.
-    /// </param>
-    public void Fatal(Exception exception, string format, params object[] args)
-    {
-      if (this.IsFatalEnabled)
-      {
-        this.Log(String.Format(format, args) + "\r\n" + exception, EventLogTypes.Error);
-      }
-    }
-
-    /// <summary>
-    /// The info.
-    /// </summary>
-    /// <param name="format">
-    /// The format.
-    /// </param>
-    /// <param name="args">
-    /// The args.
-    /// </param>
-    public void Info(string format, params object[] args)
-    {
-      if (this.IsInfoEnabled)
-      {
-        this.Log(String.Format(format, args), EventLogTypes.Information);
-      }
-    }
-
-      /// <summary>
-      /// The info.
-      /// </summary>
-      /// <param name="userId">
-      /// The userId.
-      ///  </param>
-      /// <param name="format">
-      /// The format.
-      /// </param>
-      /// <param name="args">
-      /// The args.
-      /// </param>
-      public void Info(int userId, string format, params object[] args)
-    {
-        if (this.IsInfoEnabled)
+        /// <summary>
+        /// The is log type enabled.
+        /// </summary>
+        /// <param name="type">
+        /// The type.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        public bool IsLogTypeEnabled(EventLogTypes type)
         {
-            this.Log(userId,String.Format(format, args), EventLogTypes.Information);
+            if (this._eventLogTypeLookup == null)
+            {
+                // create it...
+                this.InitLookup();
+            }
+
+            return this._eventLogTypeLookup[type];
+        }
+
+        /// <summary>
+        /// The log.
+        /// </summary>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        /// <param name="eventType">
+        /// The event type.
+        /// </param>
+        /// <param name="username">
+        /// The username.
+        /// </param>
+        /// <param name="source">
+        /// The source.
+        /// </param>
+        /// <param name="exception">
+        /// The exception.
+        /// </param>
+        public void Log(
+            string message, EventLogTypes eventType = EventLogTypes.Error, string username = null, string source = null, Exception exception = null)
+        {
+            if (!this.IsLogTypeEnabled(eventType))
+            {
+                return;
+            }
+
+            var exceptionDescription = string.Empty;
+
+            if (exception != null)
+            {
+                exceptionDescription = exception.ToString();
+            }
+
+            var formattedDescription = message + "\r\n" + exceptionDescription;
+
+            if (eventType == EventLogTypes.Debug)
+            {
+                Debug.WriteLine(formattedDescription, source);
+            }
+            else if (eventType == EventLogTypes.Trace)
+            {
+                Trace.TraceInformation(formattedDescription);
+                if (exception != null)
+                {
+                    Trace.TraceError(exception.ToString());
+                }
+            }
+            else
+            {
+                var log = new EventLog
+                              {
+                                  Type = eventType, 
+                                  UserName = username, 
+                                  Description = formattedDescription, 
+                                  Source = source ?? this.Type.FullName, 
+                                  EventTime = DateTime.UtcNow
+                              };
+
+                this.EventLogRepository.Insert(log);
+            }
         }
     }
-
-    /// <summary>
-    /// The info.
-    /// </summary>
-    /// <param name="exception">
-    /// The exception.
-    /// </param>
-    /// <param name="format">
-    /// The format.
-    /// </param>
-    /// <param name="args">
-    /// The args.
-    /// </param>
-    public void Info(Exception exception, string format, params object[] args)
-    {
-      if (this.IsInfoEnabled)
-      {
-        this.Log(String.Format(format, args) + "\r\n" + exception, EventLogTypes.Information);
-      }
-    }
-
-    /// <summary>
-    /// The UserUnsuspended.
-    /// </summary>
-    /// <param name="userId">
-    /// The user Id.
-    /// </param>
-    /// <param name="source">
-    /// The source.
-    /// </param>
-    /// <param name="format">
-    /// The format.
-    /// </param>
-    /// <param name="args">
-    /// The args.
-    /// </param> 
-    public void UserUnsuspended(int userId, string source,  string format, params object[] args)
-    {
-      if (this.IsUserSuspendedEnabled)
-      {
-          LegacyDb.eventlog_create(userId, source, String.Format(format, args), EventLogTypes.UserUnsuspended);
-      }
-    }
-
-    /// <summary>
-    /// The User Suspended.
-    /// </summary>
-    /// <param name="userId">
-    /// The user Id.
-    /// </param>
-    /// <param name="source">
-    /// The source.
-    /// </param>
-    /// <param name="format">
-    /// The format.
-    /// </param>
-    /// <param name="args">
-    /// The args.
-    /// </param> 
-    public void UserSuspended(int userId, string source, string format, params object[] args)
-    {
-        if (this.IsUserSuspendedEnabled)
-        {
-            LegacyDb.eventlog_create(userId, source, String.Format(format, args), EventLogTypes.UserSuspended);
-        }
-    }
-
-    /// <summary>
-    /// The User Deleted.
-    /// </summary>
-    /// <param name="userId">
-    /// The user Id.
-    /// </param>
-    /// <param name="source">
-    /// The source.
-    /// </param>
-    /// <param name="format">
-    /// The format.
-    /// </param>
-    /// <param name="args">
-    /// The args.
-    /// </param>
-    public void UserDeleted(int userId, string source, string format, params object[] args)
-    {
-        if (this.IsUserDeletedEnabled)
-        {
-            LegacyDb.eventlog_create(userId, source, String.Format(format, args), EventLogTypes.UserDeleted);
-        }
-    }
-
-    /// <summary>
-    /// The Ip Ban Set.
-    /// </summary>
-    /// <param name="userId">
-    /// The user Id.
-    /// </param>
-    /// <param name="source">
-    /// The source.
-    /// </param>
-    /// <param name="format">
-    /// The format.
-    /// </param>
-    /// <param name="args">
-    /// The args.
-    /// </param>
-    public void IpBanSet(int userId, string source, string format, params object[] args)
-    {
-        if (this.IsLogBannedIP)
-        {
-            LegacyDb.eventlog_create(userId, source, String.Format(format, args), EventLogTypes.IpBanSet);
-        }
-    }
-
-    /// <summary>
-    /// The Ip Ban Lifted.
-    /// </summary>
-    /// <param name="userId">
-    /// The user Id.
-    /// </param>
-    /// <param name="source">
-    /// The source.
-    /// </param>
-    /// <param name="format">
-    /// The format.
-    /// </param>
-    /// <param name="args">
-    /// The args.
-    /// </param>
-    public void IpBanLifted(int userId, string source, string format, params object[] args)
-    {
-        if (this.IsLogBannedIP)
-        {
-            LegacyDb.eventlog_create(userId, source, String.Format(format, args), EventLogTypes.IpBanLifted);
-        }
-    }
-
-    /// <summary>
-    /// The trace.
-    /// </summary>
-    /// <param name="format">
-    /// The format.
-    /// </param>
-    /// <param name="args">
-    /// The args.
-    /// </param>
-    public void Trace(string format, params object[] args)
-    {
-      if (this.IsTraceEnabled)
-      {
-        System.Diagnostics.Trace.TraceInformation(String.Format(format, args));
-      }
-    }
-
-    /// <summary>
-    /// The trace.
-    /// </summary>
-    /// <param name="exception">
-    /// The exception.
-    /// </param>
-    /// <param name="format">
-    /// The format.
-    /// </param>
-    /// <param name="args">
-    /// The args.
-    /// </param>
-    public void Trace(Exception exception, string format, params object[] args)
-    {
-      if (this.IsTraceEnabled)
-      {
-        System.Diagnostics.Trace.TraceInformation(String.Format(format, args));
-        System.Diagnostics.Trace.TraceError(exception.ToString());
-      }
-    }
-
-    /// <summary>
-    /// The warn.
-    /// </summary>
-    /// <param name="format">
-    /// The format.
-    /// </param>
-    /// <param name="args">
-    /// The args.
-    /// </param>
-    public void Warn(string format, params object[] args)
-    {
-      if (this.IsWarnEnabled)
-      {
-        this.Log(String.Format(format, args), EventLogTypes.Warning);
-      }
-    }
-
-    /// <summary>
-    /// The warn.
-    /// </summary>
-    /// <param name="exception">
-    /// The exception.
-    /// </param>
-    /// <param name="format">
-    /// The format.
-    /// </param>
-    /// <param name="args">
-    /// The args.
-    /// </param>
-    public void Warn(Exception exception, string format, params object[] args)
-    {
-      if (this.IsWarnEnabled)
-      {
-        this.Log(String.Format(format, args) + "\r\n" + exception, EventLogTypes.Warning);
-      }
-    }
-
-    #endregion
-
-    #endregion
-  }
 }

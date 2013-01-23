@@ -25,6 +25,7 @@ namespace YAF.Core
     using System.Web.Security;
     using YAF.Classes;
     using YAF.Classes.Data;
+    using YAF.Core.Extensions;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
@@ -244,14 +245,14 @@ namespace YAF.Core
       {
           if (this.Membership == null && !this.IsGuest)
           {
-              LegacyDb.eventlog_create(
-                  this.UserID,
-                  this,
-                  "ATTENTION! The user with id {0} and name {1} is very possibly is not in your Membership \r\n ".FormatWith(this.UserID, this.UserName)
-                  + "data but it's still in you YAF user table. The situation should not normally happen. \r\n "
-                  + "You should create a Membership data for the user first and "
-                  + "then delete him from YAF user table or leave him.",
-                  EventLogTypes.Error);
+              YafContext.Current.Get<ILogger>()
+                        .Log(
+                            (int)this.UserID,
+                            "CombinedUserDataHelper.get_Email",
+                            "ATTENTION! The user with id {0} and name {1} is very possibly is not in your Membership \r\n ".FormatWith(
+                                this.UserID, this.UserName)
+                            + "data but it's still in you YAF user table. The situation should not normally happen. \r\n "
+                            + "You should create a Membership data for the user first and " + "then delete him from YAF user table or leave him.");
           }
 
           return this.IsGuest ? this.RowConvert.AsString("Email") : this.Membership.Email;

@@ -35,6 +35,7 @@ namespace YAF.Pages
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Services;
     using YAF.Core.Services.Twitter;
     using YAF.Editors;
@@ -1282,7 +1283,7 @@ namespace YAF.Pages
             }
             catch (Exception x)
             {
-                LegacyDb.eventlog_create(this.PageContext.PageUserID, this, x);
+                this.Logger.Log(this.PageContext.PageUserID, this, x);
             }
 
             return findMessageId;

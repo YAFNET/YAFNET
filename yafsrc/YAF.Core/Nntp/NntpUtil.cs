@@ -29,10 +29,12 @@ namespace YAF.Core.Nntp
   using System.Web;
 
   using YAF.Core;
+  using YAF.Core.Extensions;
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Classes.Data;
   using YAF.Types.Extensions;
+  using YAF.Types.Interfaces;
   using YAF.Utils;
 
   #endregion
@@ -292,11 +294,8 @@ namespace YAF.Core.Nntp
       }
       catch (Exception ex)
       {
-        LegacyDb.eventlog_create(
-          YafContext.Current.PageUserID,
-          "NNTP Feature",
-          "Unhandled NNTP DateTime nntpDateTime '{0}': {1}".FormatWith(nntpDateTime, ex.ToString()),
-          EventLogTypes.Error);
+          YafContext.Current.Get<ILogger>()
+                    .Log(YafContext.Current.PageUserID, "NntpUtil", "Unhandled NNTP DateTime nntpDateTime '{0}': {1}".FormatWith(nntpDateTime, ex));
       }
 
       tzi = 0;

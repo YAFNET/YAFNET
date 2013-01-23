@@ -38,6 +38,7 @@ namespace YAF
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Types;
@@ -591,7 +592,7 @@ namespace YAF
             }
             catch (Exception x)
             {
-                LegacyDb.eventlog_create(null, this.GetType().ToString(), x, EventLogTypes.Information);
+                this.Get<ILogger>().Log(0, this, x, EventLogTypes.Information);
 
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
@@ -634,7 +635,7 @@ namespace YAF
             }
             catch (Exception x)
             {
-                LegacyDb.eventlog_create(null, this.GetType().ToString(), x, EventLogTypes.Information);
+                this.Get<ILogger>().Log(0, this, x, EventLogTypes.Information);
 
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
@@ -786,7 +787,7 @@ namespace YAF
             }
             catch (Exception x)
             {
-                LegacyDb.eventlog_create(null, this.GetType().ToString(), x, EventLogTypes.Information);
+                this.Get<ILogger>().Log(0, this, x, EventLogTypes.Information);
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
             }
@@ -854,7 +855,7 @@ namespace YAF
             }
             catch (Exception x)
             {
-                LegacyDb.eventlog_create(null, this.GetType().ToString(), x, EventLogTypes.Information);
+                this.Get<ILogger>().Log(null, this, x, EventLogTypes.Information);
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
             }
@@ -942,7 +943,7 @@ namespace YAF
             }
             catch (Exception x)
             {
-                LegacyDb.eventlog_create(null, this.GetType().ToString(), x, EventLogTypes.Information);
+                this.Get<ILogger>().Log(null, this, x, EventLogTypes.Information);
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
             }
@@ -1014,7 +1015,7 @@ namespace YAF
             }
             catch (Exception x)
             {
-                LegacyDb.eventlog_create(null, this.GetType().ToString(), x, EventLogTypes.Information);
+                this.Get<ILogger>().Log(0, this, x, EventLogTypes.Information);
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
             }
@@ -1130,7 +1131,7 @@ namespace YAF
             }
             catch (Exception x)
             {
-                LegacyDb.eventlog_create(null, this.GetType().ToString(), x, EventLogTypes.Information);
+                this.Get<ILogger>().Log(0, this, x, EventLogTypes.Information);
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
             }
@@ -1245,7 +1246,7 @@ namespace YAF
             }
             catch (Exception x)
             {
-                LegacyDb.eventlog_create(null, this.GetType().ToString(), x, EventLogTypes.Information);
+                this.Get<ILogger>().Log(0, this, x, EventLogTypes.Information);
 
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
@@ -1263,9 +1264,9 @@ namespace YAF
             if (General.GetCurrentTrustLevel() < AspNetHostingPermissionLevel.Medium)
             {
                 // don't bother... not supported.
-                LegacyDb.eventlog_create(
+                this.Get<ILogger>().Log(
                     null,
-                    this.GetType().ToString(),
+                    this,
                     "Remote Avatar is NOT supported on your Hosting Permission Level (must be High)",
                     EventLogTypes.Error);
                 return;

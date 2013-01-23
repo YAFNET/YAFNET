@@ -32,10 +32,12 @@ namespace YAF.Pages.Admin
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utilities;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -209,12 +211,12 @@ namespace YAF.Pages.Admin
                 }
             }
 
-           YafContext.Current.PageElements.RegisterJsBlockStartup(
-              "DatePickerJs",
-              JavaScriptBlocks.DatePickerLoadJs(
-                  "{0}, #{1}".FormatWith(this.ToDate.ClientID, this.SinceDate.ClientID),
-                  this.GetText("COMMON", "CAL_JQ_CULTURE_DFORMAT"),
-                  this.GetText("COMMON", "CAL_JQ_CULTURE")));
+            YafContext.Current.PageElements.RegisterJsBlockStartup(
+               "DatePickerJs",
+               JavaScriptBlocks.DatePickerLoadJs(
+                   "{0}, #{1}".FormatWith(this.ToDate.ClientID, this.SinceDate.ClientID),
+                   this.GetText("COMMON", "CAL_JQ_CULTURE_DFORMAT"),
+                   this.GetText("COMMON", "CAL_JQ_CULTURE")));
 
             YafContext.Current.PageElements.RegisterJsBlockStartup(
                 "ToggleEventLogItemJs",
@@ -256,9 +258,8 @@ namespace YAF.Pages.Admin
 
             foreach (int eventTypeId in Enum.GetValues(typeof(EventLogTypes)))
             {
-                var eventTypeName = this.GetText(
-                    "ADMIN_EVENTLOGROUPACCESS",
-                    "LT_{0}".FormatWith(Enum.GetName(typeof(EventLogTypes), eventTypeId).ToUpperInvariant()));
+                var eventTypeName = this.GetText("ADMIN_EVENTLOGROUPACCESS",
+                                                 "LT_{0}".FormatWith(Enum.GetName(typeof(EventLogTypes), eventTypeId).ToUpperInvariant()));
 
                 this.Types.Items.Add(
                     new ListItem(eventTypeName, eventTypeId.ToString()));
@@ -359,18 +360,15 @@ namespace YAF.Pages.Admin
             }
 
             // list event for this board
-            DataTable dt = LegacyDb.eventlog_list(
-                this.PageContext.PageBoardID,
-                this.PageContext.PageUserID,
-                this.Get<YafBoardSettings>().EventLogMaxMessages,
-                this.Get<YafBoardSettings>().EventLogMaxDays,
-                nCurrentPageIndex,
-                baseSize,
-                sinceDate,
-                toDate,
-                this.Types.SelectedValue.Equals("-1")
-                                  ? null
-                                  : this.Types.SelectedValue);
+            DataTable dt = this.GetRepository<EventLog>()
+                               .List(this.PageContext.PageUserID,
+                                     this.Get<YafBoardSettings>().EventLogMaxMessages,
+                                     this.Get<YafBoardSettings>().EventLogMaxDays,
+                                     nCurrentPageIndex,
+                                     baseSize,
+                                     sinceDate,
+                                     toDate,
+                                     this.Types.SelectedValue.Equals("-1") ? null : this.Types.SelectedValue);
 
             this.List.DataSource = dt;
 
@@ -392,11 +390,11 @@ namespace YAF.Pages.Admin
             // what command are we serving?
             switch (e.CommandName)
             {
-                    // delete log entry
+                // delete log entry
                 case "delete":
 
                     // delete just this particular log entry
-                    LegacyDb.eventlog_delete(e.CommandArgument, this.PageContext.PageUserID);
+                    this.GetRepository<EventLog>().Delete(e.CommandArgument.ToType<int?>(), this.PageContext.PageUserID);
 
                     // re-bind controls
                     this.BindData();
@@ -428,9 +426,7 @@ namespace YAF.Pages.Admin
 
             // Get first default full culture from a language file tag.
             string langFileCulture = StaticDataHelper.CultureDefaultFromFile(languageFile);
-            return langFileCulture.Substring(0, 2) == culture4tag.Substring(0, 2)
-                                          ? culture4tag
-                                          : langFileCulture;
+            return langFileCulture.Substring(0, 2) == culture4tag.Substring(0, 2) ? culture4tag : langFileCulture;
         }
 
         #endregion

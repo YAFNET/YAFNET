@@ -29,6 +29,7 @@ namespace YAF.Core
 
     using YAF.Classes;
     using YAF.Classes.Data;
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -112,7 +113,7 @@ namespace YAF.Core
             }
             catch (Exception x)
             {
-                LegacyDb.eventlog_create(DBNull.Value, "CreateForumUser", x);
+                YafContext.Current.Get<ILogger>().Error(x, "Error in CreateForumUser");
             }
 
             return userID;
@@ -373,11 +374,13 @@ namespace YAF.Core
             if (user.ProviderUserKey == null)
             {
                 // problem -- log and move on...
-                LegacyDb.eventlog_create(
-                    userId,
-                    "UpdateForumUser",
-                    "Null User Provider Key for UserName {0}. Please check your provider key settings for your ASP.NET membership provider.",
-                    user.UserName);
+                YafContext.Current.Get<ILogger>()
+                          .Log(
+                              userId,
+                              "UpdateForumUser",
+                              "Null User Provider Key for UserName {0}. Please check your provider key settings for your ASP.NET membership provider."
+                                  .FormatWith(user.UserName));
+
 
                 return userId;
             }
@@ -438,8 +441,8 @@ namespace YAF.Core
                 }
                 catch (Exception ex)
                 {
-                    LegacyDb.eventlog_create(
-                        userId, "UpdateForumUser", "Failed to save default notifications for new user: {0}".FormatWith(ex));
+                    YafContext.Current.Get<ILogger>()
+                              .Log(userId, "UpdateForumUser", "Failed to save default notifications for new user: {0}".FormatWith(ex));
                 }
             }
 
@@ -540,8 +543,7 @@ namespace YAF.Core
 
                             if (status != MembershipCreateStatus.Success)
                             {
-                                LegacyDb.eventlog_create(
-                                    0, "MigrateUsers", "Failed to create user {0}: {1}".FormatWith(name, status));
+                                YafContext.Current.Get<ILogger>().Log(0, "MigrateUsers", "Failed to create user {0}: {1}".FormatWith(name, status));
                             }
                             else
                             {

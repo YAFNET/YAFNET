@@ -123,14 +123,16 @@ namespace YAF.Pages.Admin
                     this.GetRepository<BannedIP>().DeleteByID(e.CommandArgument.ToType<int>());
                     this.BindData();
                     this.PageContext.AddLoadMessage(this.GetText("ADMIN_BANNEDIP", "MSG_REMOVEBAN"));
-                    this.Get<ILogger>().IpBanLifted(
-                        this.PageContext.PageUserID,
-                        " YAF.Pages.Admin.bannedip",
-                        "IP or mask {0} was deleted by {1}.".FormatWith(
-                            ip,
-                            this.Get<YafBoardSettings>().EnableDisplayName
-                                ? this.PageContext.CurrentUserData.DisplayName
-                                : this.PageContext.CurrentUserData.UserName));
+                    this.Get<ILogger>()
+                        .Log(
+                            this.PageContext.PageUserID,
+                            " YAF.Pages.Admin.bannedip",
+                            "IP or mask {0} was deleted by {1}.".FormatWith(
+                                ip,
+                                this.Get<YafBoardSettings>().EnableDisplayName
+                                    ? this.PageContext.CurrentUserData.DisplayName
+                                    : this.PageContext.CurrentUserData.UserName),
+                            EventLogTypes.IpBanLifted);
                     break;
             }
         }

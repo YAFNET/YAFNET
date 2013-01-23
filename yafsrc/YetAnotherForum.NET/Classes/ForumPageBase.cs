@@ -18,70 +18,72 @@
  */
 namespace YAF
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.Web;
-  using System.Web.UI;
+    using System;
+    using System.Web;
+    using System.Web.UI;
 
-  using YAF.Classes.Data;
-  using YAF.Core;
-  using YAF.Core.Services;
-  using YAF.Types;
-  using YAF.Types.Interfaces;
+    using YAF.Classes.Data;
+    using YAF.Core;
+    using YAF.Core.Extensions;
+    using YAF.Core.Services;
+    using YAF.Types;
+    using YAF.Types.Interfaces;
 
     #endregion
-
-  /// <summary>
-  /// Optional forum page base providing some helper functions.
-  /// </summary>
-  public class ForumPageBase : Page, IHaveServiceLocator, IRequireStartupServices
-  {
-    #region Properties
 
     /// <summary>
-    ///   Gets ServiceLocator.
+    /// Optional forum page base providing some helper functions.
     /// </summary>
-    public IServiceLocator ServiceLocator
+    public class ForumPageBase : Page, IHaveServiceLocator, IRequireStartupServices
     {
-      get
-      {
-        return YafContext.Current.ServiceLocator;
-      }
+        #region Properties
+
+        /// <summary>
+        ///   Gets ServiceLocator.
+        /// </summary>
+        public IServiceLocator ServiceLocator
+        {
+            get
+            {
+                return YafContext.Current.ServiceLocator;
+            }
+        }
+
+        public YafContext PageContext
+        {
+            get
+            {
+                return YafContext.Current;
+            }
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// The page_ error.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        public void Page_Error([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            if (!this.Get<StartupInitializeDb>().Initialized)
+            {
+                return;
+            }
+
+            Exception error = this.Get<HttpServerUtilityBase>().GetLastError();
+
+            this.Get<ILogger>().Log(YafContext.Current.PageUserID, this, error);
+        }
+
+        #endregion
     }
-
-    public YafContext PageContext
-    {
-      get
-      {
-        return YafContext.Current;
-      }
-    }
-
-    #endregion
-
-    #region Public Methods
-
-    /// <summary>
-    /// The page_ error.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    public void Page_Error([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      if (!this.Get<StartupInitializeDb>().Initialized)
-      {
-        return;
-      }
-
-      var error = this.Get<HttpServerUtilityBase>().GetLastError();
-      LegacyDb.eventlog_create((int?)YafContext.Current.PageUserID, this, error);
-    }
-
-    #endregion
-  }
 }

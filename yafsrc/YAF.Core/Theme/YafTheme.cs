@@ -218,11 +218,8 @@ namespace YAF.Core
                     {
                         if (this.LogMissingThemeItem)
                         {
-                            LegacyDb.eventlog_create(
-                                YafContext.Current.PageUserID,
-                                "{0}.ascx".FormatWith(page.ToLower()),
-                                "Missing Theme Item: {0}.{1}".FormatWith(page.ToUpper(), tag.ToUpper()),
-                                EventLogTypes.Error);
+                            YafContext.Current.Get<ILogger>()
+                                      .Error("Missing Theme Item: {0}.{1} in {2}.ascx".FormatWith(page.ToUpper(), tag.ToUpper(), page.ToLower()));
                         }
 
                         return defaultValue;

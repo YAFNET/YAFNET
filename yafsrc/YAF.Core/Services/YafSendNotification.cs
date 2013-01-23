@@ -199,7 +199,7 @@ namespace YAF.Core.Services
             catch (Exception x)
             {
                 // report exception to the forum's event log
-                LegacyDb.eventlog_create(YafContext.Current.PageUserID, "SendMessageReportNotification", x);
+                this.Get<ILogger>().Error(x, "Send Message Report Notification Error for UserID {0}".FormatWith(YafContext.Current.PageUserID));
             }
         }
 
@@ -273,7 +273,7 @@ namespace YAF.Core.Services
             catch (Exception x)
             {
                 // report exception to the forum's event log
-                LegacyDb.eventlog_create(YafContext.Current.PageUserID, "SendPmNotification", x);
+                this.Get<ILogger>().Error(x, "Send PM Notification Error for UserID {0}".FormatWith(YafContext.Current.PageUserID));
 
                 // tell user about failure
                 YafContext.Current.AddLoadMessage(

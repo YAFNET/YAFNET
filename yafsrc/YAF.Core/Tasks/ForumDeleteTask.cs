@@ -167,21 +167,18 @@ namespace YAF.Core.Tasks
 				{
 					LegacyDb.forum_delete(this.ForumId);
                     this.Logger.Info("Forum (ID: {0}) Delete Task Complete.".FormatWith(this.ForumId));
-					LegacyDb.eventlog_create(
-					null, TaskName, "Forum (ID: {0}) Delete Task Complete.".FormatWith(this.ForumId), 2);
 				}
 				else
 				{
 					LegacyDb.forum_move(this.ForumId, this.ForumNewId);
 
-					LegacyDb.eventlog_create(
-					null, TaskName, "Forum (ID: {0}) Delete Task Complete, and Topics has been moved to Forum (ID: {1})".FormatWith(this.ForumId, this.ForumNewId), 2);
+				    this.Logger.Info(
+				        "Forum (ID: {0}) Delete Task Complete, and Topics has been moved to Forum (ID: {1})".FormatWith(this.ForumId, this.ForumNewId));
 				}
 			}
 			catch (Exception x)
 			{
-				LegacyDb.eventlog_create(
-						null, TaskName, "Error In Forum (ID: {0}) Delete Task: {1}".FormatWith(this.ForumId, x));
+                this.Logger.Error(x, "Error In (ID: {0}) Delete Task".FormatWith(this.ForumId));
 			}
 		}
 

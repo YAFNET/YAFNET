@@ -30,6 +30,7 @@ namespace YAF.Pages
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -359,7 +360,7 @@ namespace YAF.Pages
             }
             catch (Exception x)
             {
-                LegacyDb.eventlog_create(this.PageContext.PageUserID, this, x);
+                this.Logger.Log(this.PageContext.PageUserID, this, x);
                 this.PageContext.AddLoadMessage(x.Message);
             }
         }

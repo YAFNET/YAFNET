@@ -42,7 +42,7 @@ namespace YAF.Core
 		/// <summary>
 		/// The _modules.
 		/// </summary>
-		private readonly IEnumerable<TModule> _modules;
+		private readonly IList<TModule> _modules;
 
 		#endregion
 
@@ -58,7 +58,7 @@ namespace YAF.Core
 		{
 			CodeContracts.ArgumentNotNull(modules, "modules");
 
-			this._modules = modules;
+		    this._modules = modules.ToList();
 		}
 
 		#endregion
@@ -77,7 +77,7 @@ namespace YAF.Core
 		/// </returns>
 		public IEnumerable<TModule> GetAll(bool getInactive)
 		{
-			return !getInactive ? this._modules.Where(m => m.Active) : this._modules;
+		    return !getInactive ? this._modules.Where(m => m.Active) : this._modules;
 		}
 
 		/// <summary>
@@ -96,9 +96,9 @@ namespace YAF.Core
 		{
 			CodeContracts.ArgumentNotNull(id, "id");
 
-			return !getInactive
-								 ? this._modules.SingleOrDefault(e => e.ModuleId.Equals(id) && e.Active)
-								 : this._modules.SingleOrDefault(e => e.ModuleId.Equals(id));
+		    return !getInactive
+		               ? this._modules.SingleOrDefault(e => e.ModuleId.Equals(id) && e.Active)
+		               : this._modules.SingleOrDefault(e => e.ModuleId.Equals(id));
 		}
 
 		/// <summary>

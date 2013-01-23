@@ -2473,7 +2473,7 @@ namespace YAF.Classes.Data
         /// <param name="type">
         /// The type.
         /// </param>
-        public static void eventlog_create([NotNull] object userID, [NotNull] object source, [NotNull] object description, [NotNull] object type)
+        private static void eventlog_create([NotNull] object userID, [NotNull] object source, [NotNull] object description, [NotNull] object type)
         {
             try
             {
@@ -2496,97 +2496,6 @@ namespace YAF.Classes.Data
             catch
             {
                 // Ignore any errors in this method
-            }
-        }
-
-        /// <summary>
-        /// The eventlog_create.
-        /// </summary>
-        /// <param name="userID">
-        /// The user id.
-        /// </param>
-        /// <param name="source">
-        /// The source.
-        /// </param>
-        /// <param name="description">
-        /// The description.
-        /// </param>
-        public static void eventlog_create([NotNull] object userID, [NotNull] object source, [NotNull] object description)
-        {
-            eventlog_create(userID, source.GetType().ToString(), description, 0);
-        }
-
-        /// <summary>
-        /// Deletes all event log entries for given board.
-        /// </summary>
-        /// <param name="boardID">
-        /// ID of board.
-        /// </param>
-        public static void eventlog_delete(int boardID, int pageUserId)
-        {
-            eventlog_delete(null, boardID, pageUserId);
-        }
-
-        /// <summary>
-        /// Deletes event log entry of given ID.
-        /// </summary>
-        /// <param name="eventLogID">
-        /// ID of event log entry.
-        /// </param>
-        public static void eventlog_delete([NotNull] object eventLogID, int pageUserId)
-        {
-            eventlog_delete(eventLogID, null,pageUserId);
-        }
-
-        /// <summary>
-        /// The eventlog_list.
-        /// </summary>
-        /// <param name="boardID">
-        /// The board id.
-        /// </param>
-        /// <param name="pageUserID"> 
-        /// The page user ID.
-        /// </param>
-        /// <param name="maxRows"> 
-        /// The max Rows.
-        /// </param>
-        /// <param name="maxDays"> 
-        /// The max Days. 
-        /// </param>
-        /// <param name="pageIndex"> 
-        /// The page index. 
-        /// </param>
-        /// <param name="pageSize"> 
-        /// The page size. 
-        /// </param>
-        /// <param name="sinceDate"> 
-        /// The since date. 
-        /// </param>
-        /// <param name="toDate"> 
-        /// The to date. 
-        /// </param>
-        /// <param name="eventIDs">
-        /// Comma delimited list event types.
-        /// </param>
-        /// <returns>
-        /// A list of events for the pageUserID access level. 
-        /// </returns>
-        public static DataTable eventlog_list([NotNull] object boardID, [NotNull] object pageUserID, [NotNull] object maxRows, [NotNull] object maxDays, [NotNull] object pageIndex, [NotNull] object pageSize, [NotNull] object sinceDate, [NotNull] object toDate, [NotNull] object eventIDs)
-        {
-            using (var cmd = MsSqlDbAccess.GetCommand("eventlog_list"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("BoardID", boardID);
-                cmd.Parameters.AddWithValue("PageUserID", pageUserID);
-                cmd.Parameters.AddWithValue("MaxRows", maxRows);
-                cmd.Parameters.AddWithValue("MaxDays", maxDays);
-                cmd.Parameters.AddWithValue("PageIndex", pageIndex);
-                cmd.Parameters.AddWithValue("PageSize", pageSize);
-                cmd.Parameters.AddWithValue("SinceDate", sinceDate);
-                cmd.Parameters.AddWithValue("ToDate", toDate);
-                cmd.Parameters.AddWithValue("EventIDs", eventIDs);
-                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
-                return MsSqlDbAccess.Current.GetData(cmd);
             }
         }
 

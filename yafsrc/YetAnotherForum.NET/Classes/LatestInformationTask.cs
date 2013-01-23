@@ -28,6 +28,7 @@ namespace YAF.Classes
   using YAF.RegisterV2;
   using YAF.Types;
   using YAF.Types.Attributes;
+  using YAF.Types.Constants;
   using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
   using YAF.Utils;
@@ -82,7 +83,7 @@ namespace YAF.Classes
       }
       catch (Exception x)
       {
-        LegacyDb.eventlog_create(null, _taskName, "Exception In {1}: {0}".FormatWith(x, _taskName));
+          this.Logger.Error(x, "Exception In {0}", _taskName);
       }
     }
 

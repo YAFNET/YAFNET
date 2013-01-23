@@ -31,6 +31,7 @@ namespace YAF.Pages
   using YAF.Classes;
   using YAF.Classes.Data;
   using YAF.Core;
+  using YAF.Core.Extensions;
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Types.Interfaces;
@@ -140,7 +141,7 @@ namespace YAF.Pages
       }
       catch (Exception x)
       {
-          LegacyDb.eventlog_create(this.PageContext.PageUserID, this, x);
+          this.Logger.Log(this.PageContext.PageUserID, this, x);
 
           this.PageContext.AddLoadMessage(this.PageContext.IsAdmin ? x.Message : this.GetText("ERROR"));
       }

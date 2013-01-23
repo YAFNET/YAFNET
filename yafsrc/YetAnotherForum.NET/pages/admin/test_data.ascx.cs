@@ -20,6 +20,7 @@ namespace YAF.Pages.Admin
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -135,8 +136,7 @@ namespace YAF.Pages.Admin
 
             string mesRetStr = sb.ToString();
 
-            LegacyDb.eventlog_create(
-                this.PageContext.PageUserID, this.GetType().ToString(), mesRetStr, EventLogTypes.Information);
+            this.Logger.Log(this.PageContext.PageUserID, this, mesRetStr, EventLogTypes.Information);
 
             this.PageContext.AddLoadMessage(mesRetStr);
             YafBuildLink.Redirect(ForumPages.admin_test_data);

@@ -18,103 +18,121 @@
  */
 namespace YAF.Utils
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.Collections.Generic;
-  using System.Reflection;
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Linq;
+    using System.Reflection;
 
-  using YAF.Types.Attributes;
-
-  #endregion
-
-  /// <summary>
-  /// The enum helper.
-  /// </summary>
-  public static class EnumHelper
-  {
-    #region Public Methods
-
-    /// <summary>
-    /// Converts an Enum to a Dictionary
-    /// </summary>
-    /// <typeparam name="T">
-    /// </typeparam>
-    /// <returns>
-    /// </returns>
-    public static Dictionary<int, string> EnumToDictionary<T>()
-    {
-      Type enumType = typeof(T);
-
-      if (enumType.BaseType != typeof(Enum))
-      {
-        throw new ApplicationException("EnumToDictionary does not support non-enum types");
-      }
-
-      var list = new Dictionary<int, string>();
-
-      foreach (FieldInfo field in enumType.GetFields(BindingFlags.Static | BindingFlags.GetField | BindingFlags.Public))
-      {
-        int value;
-        string display;
-        value = (int)field.GetValue(null);
-        display = Enum.GetName(enumType, value);
-
-        var attribs = field.GetCustomAttributes(typeof(StringValueAttribute), false) as StringValueAttribute[];
-
-        // Return the first if there was a match.
-        if (attribs != null && attribs.Length > 0)
-        {
-          display = attribs[0].StringValue;
-        }
-
-        // add the value...
-        list.Add(value, display);
-      }
-
-      return list;
-    }
-
-    /// <summary>
-    /// Converts an Enum to a Dictionary
-    /// </summary>
-    /// <typeparam name="T">
-    /// </typeparam>
-    /// <returns>
-    /// </returns>
-    public static Dictionary<byte, string> EnumToDictionaryByte<T>()
-    {
-      Type enumType = typeof(T);
-
-      if (enumType.BaseType != typeof(Enum))
-      {
-        throw new ApplicationException("EnumToDictionaryByte does not support non-enum types");
-      }
-
-      var list = new Dictionary<byte, string>();
-
-      foreach (FieldInfo field in enumType.GetFields(BindingFlags.Static | BindingFlags.GetField | BindingFlags.Public))
-      {
-        byte value;
-        string display;
-        value = (byte)field.GetValue(null);
-        display = Enum.GetName(enumType, value);
-
-        var attribs = field.GetCustomAttributes(typeof(StringValueAttribute), false) as StringValueAttribute[];
-
-        // Return the first if there was a match.
-        if (attribs != null && attribs.Length > 0)
-        {
-          display = attribs[0].StringValue;
-        }
-
-        // add the value...
-        list.Add(value, display);
-      }
-
-      return list;
-    }
+    using YAF.Types.Attributes;
 
     #endregion
-  }
+
+    /// <summary>
+    ///     The enum helper.
+    /// </summary>
+    public static class EnumHelper
+    {
+        #region Public Methods and Operators
+
+        /// <summary>
+        /// Converts an Enum to a Dictionary
+        /// </summary>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="IDictionary"/>.
+        /// </returns>
+        public static IDictionary<int, string> EnumToDictionary<T>()
+        {
+            return InternalToDictionary<T, int>();
+        }
+
+        /// <summary>
+        /// Converts an Enum to a Dictionary
+        /// </summary>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="IDictionary"/>.
+        /// </returns>
+        public static IDictionary<byte, string> EnumToDictionaryByte<T>()
+        {
+            return InternalToDictionary<T, byte>();
+        }
+
+        /// <summary>
+        /// Converts an Enum to a List
+        /// </summary>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
+        public static List<T> EnumToList<T>()
+        {
+            Type enumType = typeof(T);
+
+            // Can't use type constraints on value types, so have to do check like this
+            if (enumType.BaseType != typeof(Enum))
+            {
+                throw new ArgumentException("EnumToList does not support non-enum types");
+            }
+
+            Array enumValArray = Enum.GetValues(enumType);
+
+            return enumValArray.Cast<int>().Select(val => (T)Enum.Parse(enumType, val.ToString(CultureInfo.InvariantCulture))).ToList();
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// The internal to dictionary.
+        /// </summary>
+        /// <typeparam name="TEnum">
+        /// </typeparam>
+        /// <typeparam name="TValue">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="IDictionary"/>.
+        /// </returns>
+        /// <exception cref="ApplicationException">
+        /// </exception>
+        private static IDictionary<TValue, string> InternalToDictionary<TEnum, TValue>()
+        {
+            Type enumType = typeof(TEnum);
+
+            if (enumType.BaseType != typeof(Enum))
+            {
+                throw new ApplicationException("Enum To Dictionary conversion does not support non-enum types");
+            }
+
+            var list = new Dictionary<TValue, string>();
+
+            foreach (FieldInfo field in enumType.GetFields(BindingFlags.Static | BindingFlags.GetField | BindingFlags.Public))
+            {
+                var value = (TValue)field.GetValue(null);
+                string display = Enum.GetName(enumType, value);
+
+                var attribs = field.GetCustomAttributes(typeof(StringValueAttribute), false) as StringValueAttribute[];
+
+                // Return the first if there was a match.
+                if (attribs != null && attribs.Length > 0)
+                {
+                    display = attribs[0].StringValue;
+                }
+
+                // add the value...
+                list.Add(value, display);
+            }
+
+            return list;
+        }
+
+        #endregion
+    }
 }
