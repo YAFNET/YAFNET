@@ -247,10 +247,22 @@ namespace YAF.Types.Interfaces.Data
         {
             CodeContracts.ArgumentNotNull(dbAccess, "dbAccess");
 
-            using (var connection = dbAccess.CreateConnection())
+            if (transaction != null && transaction.Connection != null)
+            {
+                using (var command = OrmLiteConfig.DialectProvider.CreateParameterizedInsertStatement(insert, transaction.Connection))
+                {
+                    command.Populate(transaction);
+                    dbAccess.ExecuteNonQuery(command, transaction);
+                    return (int)OrmLiteConfig.DialectProvider.GetLastInsertId(command);
+                }
+            }
+
+            // no transaction
+            using (var connection = dbAccess.CreateConnectionOpen())
             {
                 using (var command = OrmLiteConfig.DialectProvider.CreateParameterizedInsertStatement(insert, connection))
                 {
+                    command.Connection = connection;
                     dbAccess.ExecuteNonQuery(command, transaction);
                     return (int)OrmLiteConfig.DialectProvider.GetLastInsertId(command);
                 }

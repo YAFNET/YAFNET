@@ -31,8 +31,6 @@ namespace YAF.Providers.Membership
 
   using YAF.Core;
   using YAF.Types.Extensions;
-  using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Utils;
   using YAF.Providers.Utils;
 
   /// <summary>
@@ -1607,16 +1605,9 @@ namespace YAF.Providers.Membership
       }
 
       // Count Non alphanumerics
-      int symbolCount = 0;
-      foreach (char checkChar in password.ToCharArray())
-      {
-        if (!char.IsLetterOrDigit(checkChar))
-        {
-          symbolCount++;
-        }
-      }
+      int symbolCount = password.ToCharArray().Count(checkChar => !char.IsLetterOrDigit(checkChar));
 
-      // Check password meets minimum alphanumeric criteria
+        // Check password meets minimum alphanumeric criteria
       if (!(symbolCount >= minNonAlphaNumerics))
       {
         return false;

@@ -140,14 +140,21 @@ namespace YAF.Core.Data
 
                 if (dbTransaction == null)
                 {
-                    using (var connection = this.CreateConnectionOpen())
+                    if (command.Connection != null && command.Connection.State == ConnectionState.Open)
                     {
-                        // get an open connection
-                        command.Connection = connection;
-
                         result = execFunc(command);
+                    }
+                    else
+                    {
+                        using (var connection = this.CreateConnectionOpen())
+                        {
+                            // get an open connection
+                            command.Connection = connection;
 
-                        connection.Close();
+                            result = execFunc(command);
+
+                            connection.Close();
+                        }
                     }
                 }
                 else

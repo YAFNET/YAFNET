@@ -116,7 +116,7 @@ namespace YAF.Core
             builder.RegisterType<AutoFacServiceLocatorProvider>().AsSelf().As<IServiceLocator>().As<IInjectServices>().InstancePerLifetimeScope();
 
             // register data bindings...
-            RegisterDataBindings(builder);
+            this.RegisterDataBindings(builder);
 
             // YafContext registration...
             builder.RegisterType<YafContextPageProvider>().AsSelf().As<IReadOnlyProvider<YafContext>>().SingleInstance().PreserveExistingDefaults();
@@ -135,26 +135,19 @@ namespace YAF.Core
             // optional defaults.
             builder.RegisterType<YafSendMail>().As<ISendMail>().SingleInstance().PreserveExistingDefaults();
 
-            builder.RegisterType<YafSendNotification>().As<ISendNotification>().InstancePerLifetimeScope().
-                PreserveExistingDefaults();
+            builder.RegisterType<YafSendNotification>().As<ISendNotification>().InstancePerLifetimeScope().PreserveExistingDefaults();
 
             builder.RegisterType<YafDigest>().As<IDigest>().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.RegisterType<DefaultUserDisplayName>().As<IUserDisplayName>().InstancePerLifetimeScope().
-                PreserveExistingDefaults();
-            builder.RegisterType<DefaultUrlBuilder>().As<IUrlBuilder>().InstancePerLifetimeScope().
-                PreserveExistingDefaults();
+            builder.RegisterType<DefaultUserDisplayName>().As<IUserDisplayName>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<DefaultUrlBuilder>().As<IUrlBuilder>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<YafBBCode>().As<IBBCode>().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.RegisterType<YafFormatMessage>().As<IFormatMessage>().InstancePerLifetimeScope().
-                PreserveExistingDefaults();
+            builder.RegisterType<YafFormatMessage>().As<IFormatMessage>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<YafDbBroker>().AsSelf().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<YafAvatars>().As<IAvatars>().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.RegisterType<TreatCacheKeyWithBoard>().As<ITreatCacheKey>().InstancePerLifetimeScope().
-                PreserveExistingDefaults();
-            builder.RegisterType<CurrentBoardId>().As<IHaveBoardID>().InstancePerLifetimeScope().
-                PreserveExistingDefaults();
+            builder.RegisterType<TreatCacheKeyWithBoard>().As<ITreatCacheKey>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<CurrentBoardId>().As<IHaveBoardID>().InstancePerLifetimeScope().PreserveExistingDefaults();
 
-            builder.RegisterType<YafReadTrackCurrentUser>().As<IReadTrackCurrentUser>().InstancePerYafContext().
-                PreserveExistingDefaults();
+            builder.RegisterType<YafReadTrackCurrentUser>().As<IReadTrackCurrentUser>().InstancePerYafContext().PreserveExistingDefaults();
 
             // cache bindings.
             builder.RegisterType<StaticLockObject>().As<IHaveLockObject>().SingleInstance().PreserveExistingDefaults();
@@ -166,22 +159,20 @@ namespace YAF.Core
             builder.RegisterType<YafSession>().As<IYafSession>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<YafBadWordReplace>().As<IBadWordReplace>().SingleInstance().PreserveExistingDefaults();
 
-            builder.RegisterType<YafPermissions>().As<IPermissions>().InstancePerLifetimeScope().
-                PreserveExistingDefaults();
+            builder.RegisterType<YafPermissions>().As<IPermissions>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<YafDateTime>().As<IDateTime>().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.RegisterType<YafFavoriteTopic>().As<IFavoriteTopic>().InstancePerLifetimeScope().
-                PreserveExistingDefaults();
-            builder.RegisterType<YafUserIgnored>().As<IUserIgnored>().InstancePerLifetimeScope().
-                PreserveExistingDefaults();
+            builder.RegisterType<YafFavoriteTopic>().As<IFavoriteTopic>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<YafUserIgnored>().As<IUserIgnored>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<YafBuddy>().As<IBuddy>().InstancePerLifetimeScope().PreserveExistingDefaults();
 
             // needs to be "instance per dependancy" so that each new request gets a new ScripBuilder.
-            builder.RegisterType<JavaScriptBuilder>().As<IScriptBuilder>().InstancePerDependency().
-                PreserveExistingDefaults();
+            builder.RegisterType<JavaScriptBuilder>().As<IScriptBuilder>().InstancePerDependency().PreserveExistingDefaults();
 
             // builder.RegisterType<RewriteUrlBuilder>().Named<IUrlBuilder>("rewriter").InstancePerLifetimeScope();
-            builder.RegisterType<YafStopWatch>().As<IStopWatch>().InstancePerMatchingLifetimeScope(
-                YafLifetimeScope.Context).PreserveExistingDefaults();
+            builder.RegisterType<YafStopWatch>()
+                   .As<IStopWatch>()
+                   .InstancePerMatchingLifetimeScope(YafLifetimeScope.Context)
+                   .PreserveExistingDefaults();
 
             // localization registration...
             builder.RegisterType<LocalizationProvider>().InstancePerLifetimeScope().PreserveExistingDefaults();
@@ -192,11 +183,13 @@ namespace YAF.Core
             builder.Register(k => k.Resolve<ThemeProvider>().Theme).PreserveExistingDefaults();
 
             // replace rules registration...
-            builder.RegisterType<ProcessReplaceRulesProvider>().AsSelf().As<IReadOnlyProvider<IProcessReplaceRules>>().
-                InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<ProcessReplaceRulesProvider>()
+                   .AsSelf()
+                   .As<IReadOnlyProvider<IProcessReplaceRules>>()
+                   .InstancePerLifetimeScope()
+                   .PreserveExistingDefaults();
 
-            builder.Register((k, p) => k.Resolve<ProcessReplaceRulesProvider>(p).Instance).InstancePerLifetimeScope().
-                PreserveExistingDefaults();
+            builder.Register((k, p) => k.Resolve<ProcessReplaceRulesProvider>(p).Instance).InstancePerLifetimeScope().PreserveExistingDefaults();
 
             // module resolution bindings...
             builder.RegisterGeneric(typeof(StandardModuleManager<>)).As(typeof(IModuleManager<>)).InstancePerLifetimeScope();
@@ -255,8 +248,9 @@ namespace YAF.Core
             var builder = new ContainerBuilder();
 
             var modules =
-                this.ExtensionAssemblies.Where(a => a != Assembly.GetExecutingAssembly()).FindModules<IModule>().Select(
-                    m => Activator.CreateInstance(m) as IModule);
+                this.ExtensionAssemblies.Where(a => a != Assembly.GetExecutingAssembly())
+                    .FindModules<IModule>()
+                    .Select(m => Activator.CreateInstance(m) as IModule);
 
             modules.ForEach(builder.RegisterModule);
 
@@ -302,7 +296,7 @@ namespace YAF.Core
                     // register all associated interfaces including inherited interfaces
                     typesToRegister = c.GetInterfaces().Where(i => !exclude.Contains(i)).ToArray();
                 }
-                
+
                 if (exportAttribute.Named.IsSet())
                 {
                     // register types as "Named"
@@ -355,10 +349,8 @@ namespace YAF.Core
             var builder = new ContainerBuilder();
 
             // membership
-            builder.RegisterType<CurrentMembershipProvider>().AsSelf().InstancePerLifetimeScope().
-                PreserveExistingDefaults();
-            builder.Register(x => x.Resolve<CurrentMembershipProvider>().Instance).ExternallyOwned().
-                PreserveExistingDefaults();
+            builder.RegisterType<CurrentMembershipProvider>().AsSelf().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.Register(x => x.Resolve<CurrentMembershipProvider>().Instance).ExternallyOwned().PreserveExistingDefaults();
 
             // roles
             builder.RegisterType<CurrentRoleProvider>().AsSelf().InstancePerLifetimeScope().PreserveExistingDefaults();
@@ -366,8 +358,7 @@ namespace YAF.Core
 
             // profiles
             builder.RegisterType<CurrentProfileProvider>().AsSelf().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.Register(x => x.Resolve<CurrentProfileProvider>().Instance).ExternallyOwned().
-                PreserveExistingDefaults();
+            builder.Register(x => x.Resolve<CurrentProfileProvider>().Instance).ExternallyOwned().PreserveExistingDefaults();
 
             this.UpdateRegistry(builder);
         }
@@ -380,12 +371,13 @@ namespace YAF.Core
             var builder = new ContainerBuilder();
 
             // forum modules...
-            builder.RegisterAssemblyTypes(this.ExtensionAssemblies.ToArray()).AssignableTo<IBaseForumModule>().As
-                <IBaseForumModule>().InstancePerLifetimeScope();
+            builder.RegisterAssemblyTypes(this.ExtensionAssemblies.ToArray())
+                   .AssignableTo<IBaseForumModule>()
+                   .As<IBaseForumModule>()
+                   .InstancePerLifetimeScope();
 
             // editor modules...
-            builder.RegisterAssemblyTypes(this.ExtensionAssemblies.ToArray()).AssignableTo<ForumEditor>().As
-                <ForumEditor>().InstancePerLifetimeScope();
+            builder.RegisterAssemblyTypes(this.ExtensionAssemblies.ToArray()).AssignableTo<ForumEditor>().As<ForumEditor>().InstancePerLifetimeScope();
 
             this.UpdateRegistry(builder);
         }
@@ -397,8 +389,10 @@ namespace YAF.Core
         {
             var builder = new ContainerBuilder();
 
-            builder.RegisterAssemblyTypes(this.ExtensionAssemblies.ToArray()).AssignableTo<ILocatablePage>().
-                AsImplementedInterfaces().SingleInstance();
+            builder.RegisterAssemblyTypes(this.ExtensionAssemblies.ToArray())
+                   .AssignableTo<ILocatablePage>()
+                   .AsImplementedInterfaces()
+                   .SingleInstance();
 
             this.UpdateRegistry(builder);
         }
@@ -410,12 +404,13 @@ namespace YAF.Core
         {
             var builder = new ContainerBuilder();
 
-            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AssignableTo<IStartupService>().As<IStartupService>().InstancePerLifetimeScope();
+            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
+                   .AssignableTo<IStartupService>()
+                   .As<IStartupService>()
+                   .InstancePerLifetimeScope();
 
-            builder.Register(
-                x =>
-                x.Resolve<IEnumerable<IStartupService>>().FirstOrDefault(t => t is StartupInitializeDb) as
-                StartupInitializeDb).InstancePerLifetimeScope();
+            builder.Register(x => x.Resolve<IEnumerable<IStartupService>>().FirstOrDefault(t => t is StartupInitializeDb) as StartupInitializeDb)
+                   .InstancePerLifetimeScope();
 
             this.UpdateRegistry(builder);
         }

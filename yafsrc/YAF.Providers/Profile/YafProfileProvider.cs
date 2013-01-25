@@ -30,12 +30,10 @@ namespace YAF.Providers.Profile
     using System.Web.Profile;
 
     using YAF.Classes.Data;
-    using YAF.Classes.Pattern;
     using YAF.Core;
+    using YAF.Providers.Utils;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
-    using YAF.Providers.Utils;
 
     /// <summary>
     /// YAF Custom Profile Provider
@@ -403,40 +401,37 @@ namespace YAF.Providers.Profile
                 // just use the cached version...
                 return this.UserProfileCache[username.ToLower()];
             }
-            else
+            // transfer properties regardless...
+            foreach (SettingsProperty prop in collection)
             {
-                // transfer properties regardless...
-                foreach (SettingsProperty prop in collection)
+                settingPropertyCollection.Add(new SettingsPropertyValue(prop));
+            }
+
+            // get this profile from the DB
+            DataSet profileDS = DB.Current.GetProfiles(this.ApplicationName, 0, 1, username, null);
+            DataTable profileDT = profileDS.Tables[0];
+
+            if (profileDT.Rows.Count > 0)
+            {
+                DataRow row = profileDT.Rows[0];
+
+                // load the data into the collection...
+                foreach (SettingsPropertyValue prop in settingPropertyCollection)
                 {
-                    settingPropertyCollection.Add(new SettingsPropertyValue(prop));
-                }
+                    object val = row[prop.Name];
 
-                // get this profile from the DB
-                DataSet profileDS = DB.Current.GetProfiles(this.ApplicationName, 0, 1, username, null);
-                DataTable profileDT = profileDS.Tables[0];
-
-                if (profileDT.Rows.Count > 0)
-                {
-                    DataRow row = profileDT.Rows[0];
-
-                    // load the data into the collection...
-                    foreach (SettingsPropertyValue prop in settingPropertyCollection)
+                    // Only initialize a SettingsPropertyValue for non-null values
+                    if (!(val is DBNull || val == null))
                     {
-                        object val = row[prop.Name];
-
-                        // Only initialize a SettingsPropertyValue for non-null values
-                        if (!(val is DBNull || val == null))
-                        {
-                            prop.PropertyValue = val;
-                            prop.IsDirty = false;
-                            prop.Deserialized = true;
-                        }
+                        prop.PropertyValue = val;
+                        prop.IsDirty = false;
+                        prop.Deserialized = true;
                     }
                 }
-
-                // save this collection to the cache
-                this.UserProfileCache.AddOrUpdate(username.ToLower(), (k) => settingPropertyCollection, (k, v) => settingPropertyCollection);
             }
+
+            // save this collection to the cache
+            this.UserProfileCache.AddOrUpdate(username.ToLower(), (k) => settingPropertyCollection, (k, v) => settingPropertyCollection);
 
             return settingPropertyCollection;
         }
@@ -510,19 +505,8 @@ namespace YAF.Providers.Profile
                 ExceptionReporter.ThrowArgument("PROFILE", "NOANONYMOUS");
             }
 
-            bool itemsToSave = false;
-
             // First make sure we have at least one item to save
-            foreach (SettingsPropertyValue pp in collection)
-            {
-                if (pp.IsDirty)
-                {
-                    itemsToSave = true;
-                    break;
-                }
-            }
-
-            if (!itemsToSave)
+            if (!collection.Cast<SettingsPropertyValue>().Any(pp => pp.IsDirty))
             {
                 return;
             }
@@ -553,48 +537,50 @@ namespace YAF.Providers.Profile
         /// </param>
         protected void LoadFromPropertyCollection(SettingsPropertyCollection collection)
         {
-            if (!this._propertiesSetup)
+            if (this._propertiesSetup)
             {
-                lock (this._propertyLock)
+                return;
+            }
+
+            lock (this._propertyLock)
+            {
+                // clear it out just in case something is still in there...
+                this._settingsColumnsList.Clear();
+
+                // validiate all the properties and populate the internal settings collection
+                foreach (SettingsProperty property in collection)
                 {
-                    // clear it out just in case something is still in there...
-                    this._settingsColumnsList.Clear();
+                    SqlDbType dbType;
+                    int size;
 
-                    // validiate all the properties and populate the internal settings collection
-                    foreach (SettingsProperty property in collection)
+                    // parse custom provider data...
+                    DB.GetDbTypeAndSizeFromString(property.Attributes["CustomProviderData"].ToString(), out dbType, out size);
+
+                    // default the size to 256 if no size is specified
+                    if (dbType == SqlDbType.NVarChar && size == -1)
                     {
-                        SqlDbType dbType;
-                        int size;
-
-                        // parse custom provider data...
-                        DB.GetDbTypeAndSizeFromString(property.Attributes["CustomProviderData"].ToString(), out dbType, out size);
-
-                        // default the size to 256 if no size is specified
-                        if (dbType == SqlDbType.NVarChar && size == -1)
-                        {
-                            size = 256;
-                        }
-
-                        this._settingsColumnsList.Add(new SettingsPropertyColumn(property, dbType, size));
+                        size = 256;
                     }
 
-                    // sync profile table structure with the db...
-                    DataTable structure = DB.Current.GetProfileStructure();
-
-                    // verify all the columns are there...
-                    foreach (SettingsPropertyColumn column in this._settingsColumnsList)
-                    {
-                        // see if this column exists
-                        if (!structure.Columns.Contains(column.Settings.Name))
-                        {
-                            // if not, create it...
-                            DB.Current.AddProfileColumn(column.Settings.Name, column.DataType, column.Size);
-                        }
-                    }
-
-                    // it's setup now...
-                    this._propertiesSetup = true;
+                    this._settingsColumnsList.Add(new SettingsPropertyColumn(property, dbType, size));
                 }
+
+                // sync profile table structure with the db...
+                DataTable structure = DB.Current.GetProfileStructure();
+
+                // verify all the columns are there...
+                foreach (SettingsPropertyColumn column in this._settingsColumnsList)
+                {
+                    // see if this column exists
+                    if (!structure.Columns.Contains(column.Settings.Name))
+                    {
+                        // if not, create it...
+                        DB.Current.AddProfileColumn(column.Settings.Name, column.DataType, column.Size);
+                    }
+                }
+
+                // it's setup now...
+                this._propertiesSetup = true;
             }
         }
 
@@ -732,8 +718,7 @@ namespace YAF.Providers.Profile
             }
 
             // get all the profiles...
-            DataSet allProfilesDS = DB.Current.GetProfiles(
-              this.ApplicationName, pageIndex, pageSize, userNameToMatch, inactiveSinceDate);
+            DataSet allProfilesDS = DB.Current.GetProfiles(this.ApplicationName, pageIndex, pageSize, userNameToMatch, inactiveSinceDate);
 
             // create an instance for the profiles...
             var profiles = new ProfileInfoCollection();
