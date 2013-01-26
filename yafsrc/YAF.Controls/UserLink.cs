@@ -52,9 +52,7 @@ namespace YAF.Controls
         {
             get
             {
-                return this.ViewState["EnableHoverCard"] != null
-                           ? Convert.ToBoolean(this.ViewState["EnableHoverCard"])
-                           : true;
+                return this.ViewState["EnableHoverCard"] == null || this.ViewState["EnableHoverCard"].ToType<bool>();
             }
 
             set
@@ -109,7 +107,8 @@ namespace YAF.Controls
         /// </param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            if (!this.Get<YafBoardSettings>().EnableUserInfoHoverCards && this.EnableHoverCard)
+            if (!this.Get<YafBoardSettings>().EnableUserInfoHoverCards && this.EnableHoverCard
+                || !this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ProfileViewPermissions))
             {
                 return;
             }
@@ -159,7 +158,8 @@ namespace YAF.Controls
 
                 output.WriteAttribute("href", YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.UserID));
 
-                if (this.Get<YafBoardSettings>().EnableUserInfoHoverCards && this.EnableHoverCard)
+                if (this.Get<YafBoardSettings>().EnableUserInfoHoverCards && this.EnableHoverCard
+                    || !this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ProfileViewPermissions))
                 {
                     if (this.CssClass.IsSet())
                     {
@@ -173,7 +173,9 @@ namespace YAF.Controls
                     output.WriteAttribute(
                         "data-hovercard",
                         "{0}resource.ashx?userinfo={1}&type=json&forumUrl={2}".FormatWith(
-                            YafForumInfo.ForumClientFileRoot, this.UserID, HttpUtility.UrlEncode(YafBuildLink.GetBasePath())));
+                            YafForumInfo.ForumClientFileRoot,
+                            this.UserID,
+                            HttpUtility.UrlEncode(YafBuildLink.GetBasePath())));
                 }
                 else
                 {
