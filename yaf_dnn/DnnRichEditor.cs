@@ -28,9 +28,9 @@ namespace YAF.Editors
     using global::DotNetNuke.Modules.HTMLEditorProvider;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
-    using YAF.Types.Constants;
+    using YAF.Core;
     using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
 
     #endregion
 
@@ -210,7 +210,7 @@ namespace YAF.Editors
     }
 
     /// <summary>
-    /// The register smiliey script.
+    /// The register smiley script.
     /// </summary>
     protected virtual void RegisterSmilieyScript()
     {
@@ -251,10 +251,10 @@ namespace YAF.Editors
     }
 
     /// <summary>
-    /// Init the DNN editor.
+    /// Initialize the DNN editor.
     /// </summary>
     /// <returns>
-    /// The init DNN editor.
+    /// Returns if the DNN Editor was initialized.
     /// </returns>
     private bool InitDnnEditor()
     {
@@ -270,7 +270,7 @@ namespace YAF.Editors
       }
       catch (Exception ex)
       {
-        LegacyDb.eventlog_create(null, this.GetType().ToString(), ex, EventLogTypes.Error);
+          YafContext.Current.Get<ILogger>().Error(ex, "Error in the DNN RichEditor");
       }
 
       return false;

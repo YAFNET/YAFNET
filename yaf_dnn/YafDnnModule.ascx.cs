@@ -179,7 +179,8 @@ namespace YAF.DotNetNuke
         protected override void OnError(EventArgs e)
         {
             Exception x = this.Server.GetLastError();
-            LegacyDb.eventlog_create(YafContext.Current.PageUserID, this, x);
+
+            YafContext.Current.Get<ILogger>().Error(x, "Error on the DNN Module");
 
             base.OnError(e);
         }
