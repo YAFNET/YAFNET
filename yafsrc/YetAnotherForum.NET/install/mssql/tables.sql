@@ -439,7 +439,7 @@ if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseO
 		[DailyDigest] [bit] NOT NULL CONSTRAINT [DF_{objectQualifier}User_DailyDigest] DEFAULT (0),
 		[NotificationType] [int] DEFAULT (10),
 		[Flags] [int]	NOT NULL CONSTRAINT [DF_{objectQualifier}User_Flags] DEFAULT (0),
-		[Points] [int]	NOT NULL CONSTRAINT [DF_{objectQualifier}User_Points] DEFAULT (0),		
+		[Points] [int]	NOT NULL CONSTRAINT [DF_{objectQualifier}User_Points] DEFAULT (1),		
 		[IsApproved]	AS (CONVERT([bit],sign([Flags]&(2)),(0))),
 		[IsGuest]	AS (CONVERT([bit],sign([Flags]&(4)),(0))),
 		[IsCaptchaExcluded]	AS (CONVERT([bit],sign([Flags]&(8)),(0))),
@@ -2346,4 +2346,11 @@ GO
 
 -- a deleted user was not previously deleted from here - clean-up possible needs a prefetch into temp table for perfomance 
 exec('delete from [{databaseOwner}].[{objectQualifier}UserMedal] where [UserID] NOT IN (select [UserID] from [{databaseOwner}].[{objectQualifier}User])')
+GO
+
+-- update default points from 0 to 1
+if exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Points')
+begin
+	update  [{databaseOwner}].[{objectQualifier}User] SET [Points]=1 WHERE [Points] = 0
+end
 GO
