@@ -1400,10 +1400,8 @@ namespace YAF.Classes.Data
             using (var cmd = MsSqlDbAccess.GetCommand("album_getstats"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                var paramAlbumNumber = new SqlParameter("AlbumNumber", 0);
-                paramAlbumNumber.Direction = ParameterDirection.Output;
-                var paramImageNumber = new SqlParameter("ImageNumber", 0);
-                paramImageNumber.Direction = ParameterDirection.Output;
+                var paramAlbumNumber = new SqlParameter("AlbumNumber", 0) { Direction = ParameterDirection.Output };
+                var paramImageNumber = new SqlParameter("ImageNumber", 0) { Direction = ParameterDirection.Output };
                 cmd.Parameters.AddWithValue("UserID", userID);
                 cmd.Parameters.AddWithValue("AlbumID", albumID);
 
@@ -1432,8 +1430,7 @@ namespace YAF.Classes.Data
             using (var cmd = MsSqlDbAccess.GetCommand("album_gettitle"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                var paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 255);
-                paramOutput.Direction = ParameterDirection.Output;
+                var paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 255) { Direction = ParameterDirection.Output };
                 cmd.Parameters.AddWithValue("AlbumID", albumID);
                 cmd.Parameters.Add(paramOutput);
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
@@ -1596,8 +1593,7 @@ namespace YAF.Classes.Data
             using (var cmd = MsSqlDbAccess.GetCommand("album_save"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                var paramOutput = new SqlParameter();
-                paramOutput.Direction = ParameterDirection.ReturnValue;
+                var paramOutput = new SqlParameter { Direction = ParameterDirection.ReturnValue };
                 cmd.Parameters.AddWithValue("AlbumID", albumID);
                 cmd.Parameters.AddWithValue("UserID", userID);
                 cmd.Parameters.AddWithValue("Title", title);
@@ -1627,10 +1623,8 @@ namespace YAF.Classes.Data
             using (var cmd = MsSqlDbAccess.GetCommand("buddy_addrequest"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                var paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 255);
-                var approved = new SqlParameter("approved", SqlDbType.Bit);
-                paramOutput.Direction = ParameterDirection.Output;
-                approved.Direction = ParameterDirection.Output;
+                var paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 255) { Direction = ParameterDirection.Output };
+                var approved = new SqlParameter("approved", SqlDbType.Bit) { Direction = ParameterDirection.Output };
                 cmd.Parameters.AddWithValue("FromUserID", FromUserID);
                 cmd.Parameters.AddWithValue("ToUserID", ToUserID);
                 cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
