@@ -26,13 +26,12 @@ namespace YAF.DotNetNuke.Controller
     using System.Data;
     using System.Data.SqlClient;
 
-    using YAF.Types.Extensions;
-
     using global::DotNetNuke.Data;
 
     using global::DotNetNuke.Security.Roles;
 
     using YAF.Classes.Data;
+    using YAF.Types.Extensions;
 
     #endregion
 
@@ -201,6 +200,33 @@ namespace YAF.DotNetNuke.Controller
                     {
                         RoleName = Convert.ToString(dr["Name"]),
                         RoleID = dr["GroupID"].ToType<int>(),
+                    };
+
+                    roles.Add(role);
+                }
+            }
+
+            return roles;
+        }
+
+        /// <summary>
+        /// Gets the YAF board access masks.
+        /// </summary>
+        /// <param name="boardId">The board id.</param>
+        /// <returns>Returns the YAF Board access masks</returns>
+        public static List<RoleInfo> GetYafBoardAccessMasks(int boardId)
+        {
+            List<RoleInfo> roles = new List<RoleInfo>();
+
+            using (IDataReader dr = DataProvider.Instance().ExecuteReader("yaf_accessmask_list", boardId, null))
+            {
+                while (dr.Read())
+                {
+                    RoleInfo role = new RoleInfo
+                    {
+                        RoleName = Convert.ToString(dr["Name"]),
+                        RoleID = dr["AccessMaskID"].ToType<int>(),
+                        RoleGroupID = dr["Flags"].ToType<int>()
                     };
 
                     roles.Add(role);

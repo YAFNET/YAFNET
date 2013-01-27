@@ -20,6 +20,7 @@
 namespace YAF.DotNetNuke.Utils
 {
     using System;
+    using System.Collections.Generic;
     using System.Data;
     using System.Linq;
 
@@ -135,6 +136,7 @@ namespace YAF.DotNetNuke.Utils
         public static void ImportDNNRoles(int boardId, string[] roles)
         {
             var yafBoardRoles = Data.GetYafBoardRoles(boardId);
+            var yafBoardAccessMasks = Data.GetYafBoardAccessMasks(boardId);
 
             // Check If Dnn Roles Exists in Yaf
             foreach (string role in from role in roles
@@ -143,7 +145,7 @@ namespace YAF.DotNetNuke.Utils
                                     where !any
                                     select role)
             {
-                CreateYafRole(role, boardId);
+                CreateYafRole(role, boardId, yafBoardAccessMasks);
             }
         }
 
@@ -152,13 +154,30 @@ namespace YAF.DotNetNuke.Utils
         /// </summary>
         /// <param name="roleName">Name of the role.</param>
         /// <param name="boardId">The board id.</param>
-        /// <returns>Returns the Role id of the created Role</returns>
-        public static long CreateYafRole(string roleName, int boardId)
+        /// <param name="yafBoardAccessMasks">The YAF board access masks.</param>
+        /// <returns>
+        /// Returns the Role id of the created Role
+        /// </returns>
+        public static long CreateYafRole(string roleName, int boardId, List<RoleInfo> yafBoardAccessMasks)
         {
             // If not Create Role in YAF
             if (!RoleMembershipHelper.RoleExists(roleName))
             {
                 RoleMembershipHelper.CreateRole(roleName);
+            }
+
+            int accessMaskId;
+
+            try
+            {
+                // Give the default DNN Roles Member Access, unknown roles get "Read Only Access"
+                accessMaskId = roleName.Equals("Registered Users") || roleName.Equals("Subscribers")
+                               ? yafBoardAccessMasks.Find(mask => mask.RoleName.Equals("Member Access")).RoleID
+                               : yafBoardAccessMasks.Find(mask => mask.RoleName.Equals("Read Only Access")).RoleID;
+            }
+            catch (Exception)
+            {
+                accessMaskId = yafBoardAccessMasks.Find(mask => mask.RoleGroupID.Equals(1)).RoleID;
             }
 
             // Role exists in membership but not in yaf itself simply add it to yaf
@@ -170,7 +189,7 @@ namespace YAF.DotNetNuke.Utils
                 false,
                 false,
                 false,
-                1,
+                accessMaskId,
                 0,
                 null,
                 100,
