@@ -35,3 +35,4 @@ _ReSharper.*
 **\bin\Release
 packages/*
 YAF.UnitTests/*/bin/*
+**\Bin
