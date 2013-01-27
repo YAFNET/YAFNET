@@ -22,7 +22,7 @@ Desktop.ini
 
 # c-sharp
 **\obj
-yafsrc\YAF.Classes\YAF.Classes.UnitTests\bin
+**\bin
 yafsrc\YetAnotherForum.NET\web.config
 yafsrc\YetAnotherForum.NET\remoteweb.config
 *.user
