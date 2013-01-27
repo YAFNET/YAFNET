@@ -308,10 +308,6 @@
     <Compile Include="Exceptions\YafTaskModuleNotRegisteredException.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FarsiLibrary\FarsiLibrary.csproj">
-      <Project>{ED29E567-C801-49E9-8C33-CFB66042B07B}</Project>
-      <Name>FarsiLibrary</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ServiceStack.OrmLite\src\ServiceStack.Interfaces\ServiceStack.Interfaces.csproj">
       <Project>{42e1c8c0-a163-44cc-92b1-8f416f2c0b01}</Project>
       <Name>ServiceStack.Interfaces</Name>
