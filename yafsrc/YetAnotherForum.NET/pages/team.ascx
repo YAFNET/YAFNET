@@ -44,7 +44,7 @@
 			                        <YAF:ThemeButton ID="Email" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS" TextLocalizedTag="EMAIL" ImageThemeTag="EMAIL" 
                                      TitleLocalizedPage="POSTS" TitleLocalizedTag="EMAIL_TITLE" />
 			                        <YAF:ThemeButton ID="AdminUserButton" runat="server" TitleLocalizedPage="PROFILE" TitleLocalizedTag="ADMIN_USER" CssClass="yaflittlebutton" Visible="false"
-				                     TextLocalizedTag="ADMIN_USER" NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", this.Eval("UserID").ToType<int>() ) %>'>
+				                     TextLocalizedTag="ADMIN_USER" TextLocalizedPage="PROFILE" NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", this.Eval("UserID").ToType<int>() ) %>'>
 			                        </YAF:ThemeButton>
 			  				    </ItemTemplate>
              		 	</asp:TemplateColumn>
