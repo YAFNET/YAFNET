@@ -79,14 +79,14 @@
 				<YAF:HelpLabel ID="HelpLabel10" runat="server" LocalizedTag="ALBUMS_NUMBER" LocalizedPage="ADMIN_EDITRANK" />
             </td>
 			<td class="post" colspan="6">
-				<asp:TextBox Style="width: 250px" ID="UsrAlbums" runat="server" /></td>
+				<asp:TextBox Style="width: 250px" ID="UsrAlbums" Text="0" runat="server" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="4">
 				<YAF:HelpLabel ID="HelpLabel11" runat="server" LocalizedTag="IMAGES_NUMBER" LocalizedPage="ADMIN_EDITRANK" />
             </td>
 			<td class="post" colspan="6">
-				<asp:TextBox Style="width: 250px" ID="UsrAlbumImages" runat="server" /></td>
+				<asp:TextBox Style="width: 250px" ID="UsrAlbumImages" Text="0" runat="server" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="4">
