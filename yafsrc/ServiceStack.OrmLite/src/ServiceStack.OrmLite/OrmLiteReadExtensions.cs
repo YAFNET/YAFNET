@@ -20,7 +20,12 @@ using ServiceStack.Text;
 
 namespace ServiceStack.OrmLite
 {
-	public delegate string GetQuotedValueDelegate(object value, Type fieldType);
+    using System.Linq;
+
+    using ServiceStack.Common.Extensions;
+    using ServiceStack.DataAnnotations;
+
+    public delegate string GetQuotedValueDelegate(object value, Type fieldType);
 	public delegate object ConvertDbValueDelegate(object value, Type type);
 	public delegate void PropertySetterDelegate(object instance, object value);
 	public delegate object PropertyGetterDelegate(object instance);
@@ -216,34 +221,49 @@ namespace ServiceStack.OrmLite
 
 		public static void SetFilters<T>(this IDbCommand dbCmd, object anonType, bool excludeNulls)
 		{
-			SetParameters(dbCmd, anonType, excludeNulls);
+			SetParameters<T>(dbCmd, anonType, excludeNulls);
 
 			dbCmd.CommandText = GetFilterSql<T>(dbCmd);
 		}
 
-		private static void SetParameters(this IDbCommand dbCmd, object anonType, bool excludeNulls)
-		{
-			dbCmd.Parameters.Clear();
-			lastQueryType = null;
-			if (anonType == null) return;
+        private static void SetParameters<T>(this IDbCommand dbCmd, object anonType, bool excludeNulls)
+        {
+            dbCmd.Parameters.Clear();
+            lastQueryType = null;
+            if (anonType == null) return;
 
-			var pis = anonType.GetType().GetSerializableProperties();
-			foreach (var pi in pis)
-			{
-				var mi = pi.GetGetMethod();
-				if (mi == null) continue;
+            var actualProperties = typeof(T).GetSerializableProperties();
+            var anonProperties = anonType.GetType().GetSerializableProperties();
 
-				var value = mi.Invoke(anonType, new object[0]);
-				if (excludeNulls && value == null) continue;
+            foreach (var pi in anonProperties)
+            {
+                var mi = pi.GetGetMethod();
+                if (mi == null) continue;
 
-				var p = dbCmd.CreateParameter();
-				p.ParameterName = pi.Name;
-				p.DbType = OrmLiteConfig.DialectProvider.GetColumnDbType(pi.PropertyType); ;
-				p.Direction = ParameterDirection.Input;
-				p.Value = value;
-				dbCmd.Parameters.Add(p);
-			}
-		}
+                var value = mi.Invoke(anonType, new object[0]);
+                if (excludeNulls && value == null) continue;
+
+                string name = pi.Name;
+
+                var prop = actualProperties.FirstOrDefault(x => x.Name == pi.Name);
+                if (prop != null)
+                {
+                    var alias = prop.FirstAttribute<AliasAttribute>();
+
+                    if (alias != null)
+                    {
+                        name = alias.Name;
+                    }
+                }
+
+                var p = dbCmd.CreateParameter();
+                p.ParameterName = name;
+                p.DbType = OrmLiteConfig.DialectProvider.GetColumnDbType(pi.PropertyType);
+                p.Direction = ParameterDirection.Input;
+                p.Value = value;
+                dbCmd.Parameters.Add(p);
+            }
+        }
 
 		private static void SetParameters(this IDbCommand dbCmd, Dictionary<string,object> dict, bool excludeNulls)
 		{
@@ -337,7 +357,7 @@ namespace ServiceStack.OrmLite
 		{
 			if (typeof(T).IsValueType) return QueryScalar<T>(dbCmd, sql, anonType);
 
-			dbCmd.SetParameters(anonType, true);
+			dbCmd.SetParameters<T>(anonType, true);
 			dbCmd.CommandText = sql;
 
 			using (var dbReader = dbCmd.ExecuteReader())
@@ -374,7 +394,7 @@ namespace ServiceStack.OrmLite
         public static List<T> Query<T>(this IDbCommand dbCmd, string sql, object anonType)
 			where T : new()
 		{
-            if (anonType != null) dbCmd.SetParameters(anonType, true);
+            if (anonType != null) dbCmd.SetParameters<T>(anonType, true);
 			dbCmd.CommandText = sql;
 
 			using (var dbReader = dbCmd.ExecuteReader())
@@ -408,7 +428,7 @@ namespace ServiceStack.OrmLite
         [Obsolete(UseDbConnectionExtensions)]
         public static T QueryScalar<T>(this IDbCommand dbCmd, string sql, object anonType = null)
 		{
-            if (anonType != null) dbCmd.SetParameters(anonType, true);
+            if (anonType != null) dbCmd.SetParameters<T>(anonType, true);
 			dbCmd.CommandText = sql;
 
 			using (var dbReader = dbCmd.ExecuteReader())
@@ -429,7 +449,7 @@ namespace ServiceStack.OrmLite
         public static List<T> QueryByExample<T>(this IDbCommand dbCmd, string sql, object anonType = null)
 			where T : new()
 		{
-            if (anonType != null) dbCmd.SetParameters(anonType, true);
+            if (anonType != null) dbCmd.SetParameters<T>(anonType, true);
 			dbCmd.CommandText = sql;
 
 			using (var dbReader = dbCmd.ExecuteReader())

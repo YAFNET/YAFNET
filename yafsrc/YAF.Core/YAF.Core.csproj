@@ -123,6 +123,7 @@
     <Compile Include="Model\BannedIpRepositoryExtensions.cs" />
     <Compile Include="Model\CategoryRepositoryExtensions.cs" />
     <Compile Include="Model\CheckEmailRepositoryExtensions.cs" />
+    <Compile Include="Model\FileExtensionRepositoryExtensions.cs" />
     <Compile Include="Model\EventLogRepositoryExtensions.cs" />
     <Compile Include="Model\MedalRepositoryExtensions.cs" />
     <Compile Include="Model\AttachmentRepositoryExtensions.cs" />

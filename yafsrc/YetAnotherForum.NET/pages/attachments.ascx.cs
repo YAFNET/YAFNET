@@ -248,7 +248,7 @@ namespace YAF.Pages
             this.Upload.Text = this.GetText("UPLOAD");
 
             // MJ : 10/14/2007 - list of allowed file extensions
-            DataTable extensionTable = LegacyDb.extension_list(this.PageContext.PageBoardID);
+            DataTable extensionTable = this.GetRepository<FileExtension>().List();
 
             string types = string.Empty;
             bool bFirst = true;
@@ -362,7 +362,7 @@ namespace YAF.Pages
             extension = extension.Replace(".", string.Empty);
 
             // If we don't get a match from the db, then the extension is not allowed
-            DataTable dt = LegacyDb.extension_list(this.PageContext.PageBoardID, extension);
+            DataTable dt = this.GetRepository<FileExtension>().List(extension);
 
             bool bInList = dt.Rows.Count > 0;
             bool bError = false;

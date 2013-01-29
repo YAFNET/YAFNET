@@ -28,10 +28,13 @@ namespace YAF.Pages.Admin
 
   using YAF.Classes.Data;
   using YAF.Core;
+  using YAF.Core.Extensions;
+  using YAF.Core.Model;
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
+  using YAF.Types.Models;
   using YAF.Utils;
   using YAF.Utils.Helpers;
 
@@ -168,7 +171,7 @@ namespace YAF.Pages.Admin
     /// </summary>
     private void BindData()
     {
-      this.list.DataSource = LegacyDb.extension_list(this.PageContext.PageBoardID);
+      this.list.DataSource = this.GetRepository<FileExtension>().List();
       this.DataBind();
     }
 
@@ -200,13 +203,13 @@ namespace YAF.Pages.Admin
                 YafBuildLink.Redirect(ForumPages.admin_extensions_edit, "i={0}", e.CommandArgument);
                 break;
             case "delete":
-                LegacyDb.extension_delete(e.CommandArgument);
+                this.GetRepository<FileExtension>().DeleteByID(e.CommandArgument.ToType<int>());
                 this.BindData();
                 break;
             case "export":
                 {
                     // export this list as XML...
-                    DataTable extensionList = LegacyDb.extension_list(this.PageContext.PageBoardID);
+                    var extensionList = this.GetRepository<FileExtension>().List();
                     extensionList.DataSet.DataSetName = "YafExtensionList";
                     extensionList.TableName = "YafExtension";
                     extensionList.Columns.Remove("ExtensionID");

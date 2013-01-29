@@ -18,6 +18,7 @@
  */
 namespace YAF.Core.Extensions
 {
+    using System;
     using System.Collections.Generic;
     using System.Data;
 
@@ -48,8 +49,9 @@ namespace YAF.Core.Extensions
         /// <returns>
         /// The <see cref="bool"/>.
         /// </returns>
-        public static bool Delete<T>([NotNull] this IRepository<T> repository, IHaveID haveId) where T : class, IEntity, IHaveID, new()
+        public static bool Delete<T>([NotNull] this IRepository<T> repository, [NotNull] IHaveID haveId) where T : class, IEntity, IHaveID, new()
         {
+            CodeContracts.ArgumentNotNull(haveId, "haveId");
             CodeContracts.ArgumentNotNull(repository, "repository");
 
             return repository.DeleteByID(haveId.ID);
@@ -123,7 +125,7 @@ namespace YAF.Core.Extensions
         {
             CodeContracts.ArgumentNotNull(repository, "repository");
 
-            return repository.DbAccess.Execute(db => db.QuerySingle<T>(new { ID = id }));
+            return repository.DbAccess.Execute(db => db.GetById<T>(id));
         }
 
         /// <summary>
@@ -143,9 +145,10 @@ namespace YAF.Core.Extensions
         /// <returns>
         /// The <see cref="bool"/> . 
         /// </returns>
-        public static bool Insert<T>([NotNull] this IRepository<T> repository, T entity, IDbTransaction transaction = null)
+        public static bool Insert<T>([NotNull] this IRepository<T> repository, [NotNull] T entity, IDbTransaction transaction = null)
             where T : class, IEntity, IHaveID, new()
         {
+            CodeContracts.ArgumentNotNull(entity, "entity");
             CodeContracts.ArgumentNotNull(repository, "repository");
 
             var insertId = repository.DbAccess.Insert(entity, transaction);
@@ -177,9 +180,10 @@ namespace YAF.Core.Extensions
         /// <returns>
         /// The <see cref="bool"/> . 
         /// </returns>
-        public static bool Upsert<T>([NotNull] this IRepository<T> repository, T entity, IDbTransaction transaction = null)
+        public static bool Upsert<T>([NotNull] this IRepository<T> repository, [NotNull] T entity, IDbTransaction transaction = null)
             where T : class, IEntity, IHaveID, new()
         {
+            CodeContracts.ArgumentNotNull(entity, "entity");
             CodeContracts.ArgumentNotNull(repository, "repository");
 
             return entity.ID > 0 ? repository.Update(entity) : repository.Insert(entity);
@@ -202,9 +206,10 @@ namespace YAF.Core.Extensions
         /// <returns>
         /// The <see cref="bool"/> . 
         /// </returns>
-        public static bool Update<T>([NotNull] this IRepository<T> repository, T entity, IDbTransaction transaction = null)
+        public static bool Update<T>([NotNull] this IRepository<T> repository, [NotNull] T entity, IDbTransaction transaction = null)
             where T : class, IEntity, IHaveID, new()
         {
+            CodeContracts.ArgumentNotNull(entity, "entity");
             CodeContracts.ArgumentNotNull(repository, "repository");
 
             var success = repository.DbAccess.Update(entity, transaction) > 0;

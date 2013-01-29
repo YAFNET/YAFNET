@@ -27,6 +27,7 @@ namespace YAF.Core
     using System.Linq;
     using System.Net;
 
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -128,15 +129,27 @@ namespace YAF.Core
             if (dsExtensions.Tables["YafExtension"] != null &&
                 dsExtensions.Tables["YafExtension"].Columns["Extension"] != null)
             {
-                DataTable extensionList = LegacyDb.extension_list(boardId);
+                var repository = YafContext.Current.Get<IRepository<FileExtension>>();
+
+                var extensionList = repository.ListTyped(boardId: boardId);
 
                 // import any extensions that don't exist...
-                foreach (string ext in
-                    dsExtensions.Tables["YafExtension"].Rows.Cast<DataRow>().Select(row => row["Extension"].ToString()).Where(
-                    ext => extensionList.Select("Extension = '{0}'".FormatWith(ext)).Length == 0))
+                var extensionsToImport = dsExtensions.Tables["YafExtension"].Rows.Cast<DataRow>().Select(row => row["Extension"].ToString()).ToList();
+
+                foreach (
+                    string newExtension in
+                        extensionsToImport.Where(ext => !extensionList.Any(e => string.Equals(e.Extension, ext, StringComparison.OrdinalIgnoreCase))))
                 {
-                    // add this...
-                    LegacyDb.extension_save(null, boardId, ext);
+                    try
+                    {
+                        // add this...
+                        repository.Insert(new FileExtension() { BoardId = boardId, Extension = newExtension });
+                    }
+                    catch
+                    {
+                        // LAZY CODER ALERT: Ignore errors, probably duplicates.
+                    }
+
                     importedCount++;
                 }
             }

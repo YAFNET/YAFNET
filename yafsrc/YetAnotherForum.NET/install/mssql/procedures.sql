@@ -2731,22 +2731,6 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}extension_delete] (@ExtensionID int) as
-begin
-        delete from [{databaseOwner}].[{objectQualifier}Extension] 
-    where ExtensionID = @ExtensionID
-end
-GO
-
-CREATE procedure [{databaseOwner}].[{objectQualifier}extension_edit] (@ExtensionID int=NULL) as
-BEGIN
-        SELECT * 
-    FROM [{databaseOwner}].[{objectQualifier}Extension] 
-    WHERE ExtensionID = @ExtensionID 
-    ORDER BY Extension
-END
-GO
-
 CREATE procedure [{databaseOwner}].[{objectQualifier}extension_list] (@BoardID int, @Extension nvarchar(10)) as
 BEGIN
     
@@ -2776,20 +2760,6 @@ BEGIN
                 a.Extension
         END
 END
-GO
-
-CREATE procedure [{databaseOwner}].[{objectQualifier}extension_save] (@ExtensionID int=null,@BoardID int,@Extension nvarchar(10)) as
-begin
-        if @ExtensionID is null or @ExtensionID = 0 begin
-        insert into [{databaseOwner}].[{objectQualifier}Extension] (BoardID,Extension) 
-        values(@BoardID,@Extension)
-    end
-    else begin
-        update [{databaseOwner}].[{objectQualifier}Extension] 
-        set Extension = @Extension 
-        where ExtensionID = @ExtensionID
-    end
-end
 GO
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}forum_delete](@ForumID int) as

@@ -31,12 +31,14 @@ namespace YAF.Pages
     using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Core.Extensions;
+    using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -419,7 +421,7 @@ namespace YAF.Pages
             string[] aImageExtensions = { "jpg", "gif", "png", "bmp" };
 
             // If we don't get a match from the db, then the extension is not allowed
-            DataTable dt = LegacyDb.extension_list(this.PageContext.PageBoardID, extension);
+            DataTable dt = this.GetRepository<FileExtension>().List(extension);
 
             // also, check to see an image is being uploaded.
             if (Array.IndexOf(aImageExtensions, extension) == -1 || dt.Rows.Count == 0)
