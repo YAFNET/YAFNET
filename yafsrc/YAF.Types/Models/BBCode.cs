@@ -30,7 +30,6 @@ namespace YAF.Types.Models
     /// A class which represents the BBCode table.
     /// </summary>
     [Serializable]
-    [Table(Name = "BBCode")]
     public partial class BBCode : IEntity, IHaveBoardID, IHaveID
     {
         partial void OnCreated();

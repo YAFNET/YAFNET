@@ -27,7 +27,6 @@ namespace YAF.Types.Models
     using YAF.Types.Interfaces.Data;
 
     [Serializable]
-    [Table(Name = "BannedIP")]
     public partial class BannedIP : IEntity, IHaveID, IHaveBoardID
     {
         partial void OnCreated();

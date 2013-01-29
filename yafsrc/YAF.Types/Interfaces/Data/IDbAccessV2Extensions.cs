@@ -35,13 +35,13 @@ namespace YAF.Types.Interfaces.Data
         /// The begin transaction.
         /// </summary>
         /// <param name="dbAccess">
-        /// The db access. 
+        /// The db access.
         /// </param>
         /// <param name="isolationLevel">
-        /// The isolation level. 
+        /// The isolation level.
         /// </param>
         /// <returns>
-        /// The <see cref="IDbTransaction"/> . 
+        /// The <see cref="IDbTransaction"/> .
         /// </returns>
         public static IDbTransaction BeginTransaction(
             [NotNull] this IDbAccessV2 dbAccess, IsolationLevel isolationLevel = IsolationLevel.ReadUncommitted)
@@ -55,10 +55,10 @@ namespace YAF.Types.Interfaces.Data
         /// The create connection.
         /// </summary>
         /// <param name="dbAccess">
-        /// The db access. 
+        /// The db access.
         /// </param>
         /// <returns>
-        /// The <see cref="DbConnection"/> . 
+        /// The <see cref="DbConnection"/> .
         /// </returns>
         [NotNull]
         public static DbConnection CreateConnection([NotNull] this IDbAccessV2 dbAccess)
@@ -75,10 +75,10 @@ namespace YAF.Types.Interfaces.Data
         /// Get an open db connection.
         /// </summary>
         /// <param name="dbAccess">
-        /// The db Access. 
+        /// The db Access.
         /// </param>
         /// <returns>
-        /// The <see cref="DbConnection"/> . 
+        /// The <see cref="DbConnection"/> .
         /// </returns>
         [NotNull]
         public static DbConnection CreateConnectionOpen([NotNull] this IDbAccessV2 dbAccess)
@@ -100,16 +100,16 @@ namespace YAF.Types.Interfaces.Data
         /// The execute non query.
         /// </summary>
         /// <param name="dbAccess">
-        /// The db access. 
+        /// The db access.
         /// </param>
         /// <param name="cmd">
-        /// The cmd. 
+        /// The cmd.
         /// </param>
         /// <param name="dbTransaction">
-        /// The db Transaction. 
+        /// The db Transaction.
         /// </param>
         /// <returns>
-        /// The <see cref="int"/> . 
+        /// The <see cref="int"/> .
         /// </returns>
         public static int ExecuteNonQuery(
             [NotNull] this IDbAccessV2 dbAccess, [NotNull] IDbCommand cmd, [CanBeNull] IDbTransaction dbTransaction = null)
@@ -124,16 +124,16 @@ namespace YAF.Types.Interfaces.Data
         /// The execute scalar.
         /// </summary>
         /// <param name="dbAccess">
-        /// The db access. 
+        /// The db access.
         /// </param>
         /// <param name="cmd">
-        /// The cmd. 
+        /// The cmd.
         /// </param>
         /// <param name="dbTransaction">
-        /// The db Transaction. 
+        /// The db Transaction.
         /// </param>
         /// <returns>
-        /// The execute scalar. 
+        /// The execute scalar.
         /// </returns>
         public static object ExecuteScalar(
             [NotNull] this IDbAccessV2 dbAccess, [NotNull] IDbCommand cmd, [CanBeNull] IDbTransaction dbTransaction = null)
@@ -148,15 +148,15 @@ namespace YAF.Types.Interfaces.Data
         /// The get data.
         /// </summary>
         /// <param name="dbAccess">
-        /// The db access. 
+        /// The db access.
         /// </param>
         /// <param name="cmd">
-        /// The cmd. 
+        /// The cmd.
         /// </param>
         /// <param name="dbTransaction">
         /// </param>
         /// <returns>
-        /// The <see cref="DataTable"/> . 
+        /// The <see cref="DataTable"/> .
         /// </returns>
         public static DataTable GetData(
             [NotNull] this IDbAccessV2 dbAccess, [NotNull] IDbCommand cmd, [CanBeNull] IDbTransaction dbTransaction = null)
@@ -171,15 +171,15 @@ namespace YAF.Types.Interfaces.Data
         /// The get dataset.
         /// </summary>
         /// <param name="dbAccess">
-        /// The db access. 
+        /// The db access.
         /// </param>
         /// <param name="cmd">
-        /// The cmd. 
+        /// The cmd.
         /// </param>
         /// <param name="dbTransaction">
         /// </param>
         /// <returns>
-        /// The <see cref="DataSet"/> . 
+        /// The <see cref="DataSet"/> .
         /// </returns>
         public static DataSet GetDataset(
             [NotNull] this IDbAccessV2 dbAccess, [NotNull] IDbCommand cmd, [CanBeNull] IDbTransaction dbTransaction = null)
@@ -189,20 +189,20 @@ namespace YAF.Types.Interfaces.Data
 
             return dbAccess.Execute(
                 (c) =>
+                {
+                    var ds = new DataSet();
+
+                    IDbDataAdapter dataAdapter = dbAccess.DbProviderFactory.CreateDataAdapter();
+
+                    if (dataAdapter != null)
                     {
-                        var ds = new DataSet();
+                        dataAdapter.SelectCommand = cmd;
+                        dataAdapter.Fill(ds);
+                    }
 
-                        IDbDataAdapter dataAdapter = dbAccess.DbProviderFactory.CreateDataAdapter();
-
-                        if (dataAdapter != null)
-                        {
-                            dataAdapter.SelectCommand = cmd;
-                            dataAdapter.Fill(ds);
-                        }
-
-                        return ds;
-                    }, 
-                cmd, 
+                    return ds;
+                },
+                cmd,
                 dbTransaction);
         }
 
@@ -210,16 +210,16 @@ namespace YAF.Types.Interfaces.Data
         /// The get reader.
         /// </summary>
         /// <param name="dbAccess">
-        /// The db access. 
+        /// The db access.
         /// </param>
         /// <param name="cmd">
-        /// The cmd. 
+        /// The cmd.
         /// </param>
         /// <param name="dbTransaction">
-        /// The db transaction. 
+        /// The db transaction.
         /// </param>
         /// <returns>
-        /// The <see cref="IDataReader"/> . 
+        /// The <see cref="IDataReader"/> .
         /// </returns>
         public static IDataReader GetReader([NotNull] this IDbAccessV2 dbAccess, [NotNull] IDbCommand cmd, [NotNull] IDbTransaction dbTransaction)
         {
@@ -234,14 +234,17 @@ namespace YAF.Types.Interfaces.Data
         /// Insert the entity using the model provided.
         /// </summary>
         /// <param name="dbAccess">
-        /// The db access. 
+        /// The db access.
         /// </param>
         /// <param name="insert">
         /// The insert.
         /// </param>
         /// <param name="transaction">
-        /// The transaction. 
+        /// The transaction.
         /// </param>
+        /// <returns>
+        /// The <see cref="int"/>.
+        /// </returns>
         public static int Insert<T>([NotNull] this IDbAccessV2 dbAccess, [NotNull] T insert, [CanBeNull] IDbTransaction transaction = null)
             where T : IEntity
         {
@@ -253,6 +256,7 @@ namespace YAF.Types.Interfaces.Data
                 {
                     command.Populate(transaction);
                     dbAccess.ExecuteNonQuery(command, transaction);
+
                     return (int)OrmLiteConfig.DialectProvider.GetLastInsertId(command);
                 }
             }
@@ -264,6 +268,7 @@ namespace YAF.Types.Interfaces.Data
                 {
                     command.Connection = connection;
                     dbAccess.ExecuteNonQuery(command, transaction);
+
                     return (int)OrmLiteConfig.DialectProvider.GetLastInsertId(command);
                 }
             }
@@ -273,15 +278,15 @@ namespace YAF.Types.Interfaces.Data
         /// The run.
         /// </summary>
         /// <param name="dbAccess">
-        /// The db access. 
+        /// The db access.
         /// </param>
         /// <param name="runFunc">
-        /// The run func. 
+        /// The run func.
         /// </param>
         /// <typeparam name="T">
         /// </typeparam>
         /// <returns>
-        /// The <see cref="T"/> . 
+        /// The <see cref="T"/> .
         /// </returns>
         public static T Run<T>([NotNull] this IDbAccessV2 dbAccess, Func<IDbConnection, T> runFunc)
         {
@@ -308,6 +313,9 @@ namespace YAF.Types.Interfaces.Data
         /// </param>
         /// <typeparam name="T">
         /// </typeparam>
+        /// <returns>
+        /// The <see cref="int"/>.
+        /// </returns>
         public static int Update<T>([NotNull] this IDbAccessV2 dbAccess, [NotNull] T update, [CanBeNull] IDbTransaction transaction = null)
             where T : IEntity
         {

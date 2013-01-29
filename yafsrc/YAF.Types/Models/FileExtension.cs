@@ -16,20 +16,26 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
 namespace YAF.Types.Models
 {
     using System;
+    using System.Data.Linq.Mapping;
 
     using ServiceStack.DataAnnotations;
 
     using YAF.Types.Interfaces.Data;
 
+    /// <summary>
+    /// A class which represents the Extension table.
+    /// </summary>
     [Serializable]
-    public partial class Board : IEntity, IHaveID
+    [Alias("Extension")]
+    public partial class FileExtension : IEntity, IHaveID
     {
         partial void OnCreated();
 
-        public Board()
+        public FileExtension()
         {
             OnCreated();
         }
@@ -37,16 +43,13 @@ namespace YAF.Types.Models
         #region Properties
 
         [AutoIncrement]
-        [Alias("BoardID")]
+        [Alias("ExtensionID")]
         public int ID { get; set; }
 
-        public string Name { get; set; }
+        public int BoardId { get; set; }
 
-        public bool AllowThreaded { get; set; }
+        public string Extension { get; set; }
 
-        public string MembershipAppName { get; set; }
-
-        public string RolesAppName { get; set; }
 
         #endregion
     }

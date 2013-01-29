@@ -31,7 +31,6 @@ namespace YAF.Types.Models
     /// A class which represents the EventLog table.
     /// </summary>
     [Serializable]
-    [Table(Name = "EventLog")]
     public partial class EventLog : IEntity, IHaveID
     {
         partial void OnCreated();

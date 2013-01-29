@@ -30,7 +30,6 @@ namespace YAF.Types.Models
     /// A class which represents the CheckEmail table.
     /// </summary>
     [Serializable]
-    [Table(Name = "CheckEmail")]
     public partial class CheckEmail : IEntity, IHaveID
     {
         partial void OnCreated();

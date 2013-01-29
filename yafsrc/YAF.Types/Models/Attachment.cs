@@ -8,7 +8,6 @@ namespace YAF.Types.Models
     using YAF.Types.Interfaces.Data;
 
     [Serializable]
-    [Table(Name = "Attachment")]
     public partial class Attachment : IEntity, IHaveID
     {
         partial void OnCreated();

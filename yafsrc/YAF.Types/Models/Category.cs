@@ -30,7 +30,6 @@ namespace YAF.Types.Models
     /// A class which represents the Category table.
     /// </summary>
     [Serializable]
-    [Table(Name = "Category")]
     public partial class Category : IEntity, IHaveID, IHaveBoardID
     {
         partial void OnCreated();

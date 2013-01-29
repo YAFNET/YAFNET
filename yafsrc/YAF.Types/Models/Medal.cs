@@ -30,7 +30,6 @@ namespace YAF.Types.Models
     ///     A class which represents the Medal table.
     /// </summary>
     [Serializable]
-    [Table(Name = "Medal")]
     public partial class Medal : IEntity, IHaveBoardID, IHaveID
     {
         #region Constructors and Destructors

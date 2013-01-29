@@ -30,7 +30,6 @@ namespace YAF.Types.Models
     ///     A class which represents the Active table.
     /// </summary>
     [Serializable]
-    [Table(Name = "Active")]
     public partial class Active : IEntity, IHaveBoardID
     {
         #region Constructors and Destructors

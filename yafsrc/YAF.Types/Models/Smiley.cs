@@ -34,7 +34,6 @@ namespace YAF.Types.Models
     ///     A class which represents the yaf_Smiley table in the Yaf Database.
     /// </summary>
     [Serializable]
-    [Table(Name = "Smiley")]
     public partial class Smiley : IEntity, IHaveID, IHaveBoardID
     {
         #region Constructors and Destructors

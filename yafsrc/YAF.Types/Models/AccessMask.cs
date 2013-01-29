@@ -34,7 +34,6 @@ namespace YAF.Types.Models
     ///     A class which represents the yaf_AccessMask table in the Yaf Database.
     /// </summary>
     [Serializable]
-    [Table(Name = "AccessMask")]
     public partial class AccessMask : IEntity, IHaveBoardID, IHaveID
     {
         #region Constructors and Destructors
