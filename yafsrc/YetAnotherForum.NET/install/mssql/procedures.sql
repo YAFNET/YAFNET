@@ -3477,8 +3477,12 @@ begin
         insert into [{databaseOwner}].[{objectQualifier}ForumAccess](GroupID,ForumID,AccessMaskID)
         select @GroupID,a.ForumID,@AccessMaskID from [{databaseOwner}].[{objectQualifier}Forum] a join [{databaseOwner}].[{objectQualifier}Category] b on b.CategoryID=a.CategoryID where b.BoardID=@BoardID
     end	 
-    -- group styles override rank styles	
-    EXEC [{databaseOwner}].[{objectQualifier}user_savestyle] @GroupID,null
+    -- group styles override rank styles
+    IF @Style IS NOT NULL AND len(@Style) > 2
+	  BEGIN
+      EXEC [{databaseOwner}].[{objectQualifier}user_savestyle] @GroupID,null
+	  END	
+ 
     
           
     select GroupID = @GroupID
@@ -5708,7 +5712,11 @@ begin
         -- select @RankID = RankID from [{databaseOwner}].[{objectQualifier}Rank] where RankID = @@Identity;
     end	
         -- group styles override rank styles
-    EXEC [{databaseOwner}].[{objectQualifier}user_savestyle] null,@RankID	
+ IF @Style IS NOT NULL AND len(@Style) > 2
+	  BEGIN
+      EXEC [{databaseOwner}].[{objectQualifier}user_savestyle] null,@RankID
+	  END	
+    	
 end
 GO
 
