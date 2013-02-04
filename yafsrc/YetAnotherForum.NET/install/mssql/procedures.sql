@@ -11579,30 +11579,32 @@ create procedure [{databaseOwner}].[{objectQualifier}user_savestyle](@GroupID in
 begin
 -- loop thru users to sync styles
  if @GroupID is not null or @RankID is not null or not exists (select 1 from [{databaseOwner}].[{objectQualifier}User] where UserStyle IS NOT NULL)
- begin
+ begin  
     declare @usridtmp int 
-    declare @styletmp varchar(255)
-    declare @rankidtmp int    
-      
+    declare @styletmp varchar(255)      
         declare c cursor for
-        select UserID,UserStyle,RankID from [{databaseOwner}].[{objectQualifier}User]    
+			select us.UserID, us.NewUserStyle from (
+				select uu.UserID, uu.UserStyle, NewUserStyle = ISNULL(
+					(SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e WITH (NOLOCK) join [{databaseOwner}].[{objectQualifier}Group] f WITH (NOLOCK) on f.GroupID=e.GroupID WHERE e.UserID=uu.UserID AND f.Style != '' ORDER BY f.SortOrder),
+					(SELECT TOP 1 r.Style FROM [{databaseOwner}].[{objectQualifier}Rank] r WITH (NOLOCK) where RankID = uu.RankID))
+				from [{databaseOwner}].[{objectQualifier}User] uu WITH (NOLOCK)
+				JOIN [{databaseOwner}].[{objectQualifier}UserGroup] ug WITH (NOLOCK) ON ug.UserID = uu.UserID
+				where
+				(@RankID IS NULL OR uu.RankID = @RankID) AND
+				(@GroupID IS NULL OR ug.GroupID = @GroupID)) us
+			where us.UserStyle != us.NewUserStyle 
         FOR UPDATE -- OF UserStyle
         open c
         
-        fetch next from c into @usridtmp,@styletmp,@rankidtmp
+        fetch next from c into @usridtmp, @styletmp
         while @@FETCH_STATUS = 0
         begin      
-        UPDATE [{databaseOwner}].[{objectQualifier}User] SET UserStyle= ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-            join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=@usridtmp AND LEN(f.Style) > 2 ORDER BY f.SortOrder), (SELECT TOP 1 r.Style FROM [{databaseOwner}].[{objectQualifier}Rank] r where RankID = @rankidtmp)) 
-        WHERE UserID = @usridtmp  -- CURRENT OF c 	
-             
-        fetch next from c into @usridtmp,@styletmp,@rankidtmp		
-        
+			UPDATE [{databaseOwner}].[{objectQualifier}User] SET UserStyle = @styletmp  WHERE UserID = @usridtmp  -- CURRENT OF c 	 			            
+			fetch next from c into @usridtmp, @styletmp     
         end
         close c
         deallocate c  
-        end   
-   
+	end
 end
 GO
 exec('[{databaseOwner}].[{objectQualifier}user_savestyle] null,null')

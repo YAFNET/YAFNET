@@ -103,6 +103,10 @@ if not exists(select top 1 1 from dbo.sysindexes where name=N'IX_{objectQualifie
  CREATE  INDEX [IX_{objectQualifier}User_Name] ON [{databaseOwner}].[{objectQualifier}User]([Name])
 go
 
+if not exists(select top 1 1 from dbo.sysindexes where name=N'IX_{objectQualifier}User_UserStyle' and id=object_id(N'[{databaseOwner}].[{objectQualifier}User]'))
+ CREATE INDEX [IX_{objectQualifier}User_UserStyle] ON [{databaseOwner}].[{objectQualifier}User]([UserStyle])
+go
+
 -- {objectQualifier}ForumAccess
 
 if not exists(select top 1 1 from dbo.sysindexes where name=N'IX_{objectQualifier}ForumAccess_ForumID' and id=object_id(N'[{databaseOwner}].[{objectQualifier}ForumAccess]'))
@@ -189,6 +193,13 @@ IF  NOT EXISTS (SELECT 1 FROM sys.indexes WHERE object_id = OBJECT_ID(N'[{databa
 CREATE NONCLUSTERED INDEX [IX_{objectQualifier}Group_SortOrder] ON [{databaseOwner}].[{objectQualifier}Group] 
 (
 	[SortOrder] ASC
+) ON [PRIMARY]
+GO
+
+IF  NOT EXISTS (SELECT 1 FROM sys.indexes WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Group]') AND name = N'IX_{objectQualifier}Group_Style')
+CREATE NONCLUSTERED INDEX [IX_{objectQualifier}Group_Style] ON [{databaseOwner}].[{objectQualifier}Group] 
+(
+	[Style] ASC
 ) ON [PRIMARY]
 GO
 
