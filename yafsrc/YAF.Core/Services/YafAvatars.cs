@@ -103,24 +103,26 @@ namespace YAF.Core.Services
         {
             CodeContracts.ArgumentNotNull(userData, "userData");
 
-            CodeContracts.ArgumentNotNull(userData, "userData");
-
-            string userEmail;
-
-            try
-            {
-                userEmail = userData.Email;
-            }
-            catch (Exception)
-            {
-                userEmail = string.Empty;
-            }
+            var getUserEmail = new Func<string>(
+                () =>
+                    {
+                        string userEmail;
+                        try
+                        {
+                            userEmail = userData.Email;
+                        }
+                        catch (Exception)
+                        {
+                            userEmail = string.Empty;
+                        }
+                        return userEmail;
+                    });
 
             return this.GetAvatarUrlForUser(
                 userData.UserID,
                 userData.Avatar,
                 userData.HasAvatarImage,
-                this._yafBoardSettings.AvatarGravatar ? userEmail : string.Empty);
+                this._yafBoardSettings.AvatarGravatar ? getUserEmail() : string.Empty);
         }
 
         /// <summary>
