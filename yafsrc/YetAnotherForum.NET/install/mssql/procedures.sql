@@ -11615,6 +11615,20 @@ begin
 	end
 end
 GO
+
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}init_styles]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}init_styles]
+GO
+
+create procedure [{databaseOwner}].[{objectQualifier}init_styles] as
+begin 
+-- if we have at least 1 value here - styles alredy were initialized - this is one time operation only - everything after is treated by YAF  
+if not exists (select top 1 1 from [{databaseOwner}].[{objectQualifier}User] where UserStyle IS NOT NULL AND LEN(UserStyle) > 2)
 exec('[{databaseOwner}].[{objectQualifier}user_savestyle] null,null')
+end
+GO
+
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}init_styles]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}init_styles]
 GO
 
