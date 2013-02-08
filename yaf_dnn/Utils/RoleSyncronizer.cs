@@ -1,5 +1,5 @@
 ﻿/* Yet Another Forum.NET
- * Copyright (C) 2006-2013 Jaben Cargman
+ * Copyright (C) 2006-2012 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -51,7 +51,7 @@ namespace YAF.DotNetNuke.Utils
         /// <param name="portalId">The portal id.</param>
         /// <param name="yafUserId">The YAF user id.</param>
         /// <param name="dnnUserInfo">The DNN user info.</param>
-        /// <returns>Returns if the users was synced or not</returns>
+        /// <returns>Returns if the Roles where synched or not</returns>
         public static bool SynchronizeUserRoles(int boardId, int portalId, int yafUserId, UserInfo dnnUserInfo)
         {
             // Make sure are roles exist
@@ -62,6 +62,8 @@ namespace YAF.DotNetNuke.Utils
             var yafBoardRoles = LegacyDb.group_list(boardId, DBNull.Value);
 
             var rolesChanged = false;
+
+            // TODO : Move code to sql SP
 
             // add yaf only roles to yaf
             foreach (DataRow row in yafBoardRoles.Rows)
@@ -120,7 +122,7 @@ namespace YAF.DotNetNuke.Utils
             }
 
             // empty out access table
-            if (rolesChanged)
+            if (rolesChanged && YafContext.Current != null)
             {
                 YafContext.Current.GetRepository<ActiveAccess>().Reset();
             }
@@ -136,6 +138,7 @@ namespace YAF.DotNetNuke.Utils
         public static void ImportDNNRoles(int boardId, string[] roles)
         {
             var yafBoardRoles = Data.GetYafBoardRoles(boardId);
+
             var yafBoardAccessMasks = Data.GetYafBoardAccessMasks(boardId);
 
             // Check If Dnn Roles Exists in Yaf
@@ -179,7 +182,7 @@ namespace YAF.DotNetNuke.Utils
             {
                 accessMaskId = yafBoardAccessMasks.Find(mask => mask.RoleGroupID.Equals(1)).RoleID;
             }
-
+            
             // Role exists in membership but not in yaf itself simply add it to yaf
             return LegacyDb.group_save(
                 DBNull.Value,

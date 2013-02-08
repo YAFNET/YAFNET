@@ -1,5 +1,5 @@
 ﻿/* Yet Another Forum.NET
- * Copyright (C) 2006-2013 Jaben Cargman
+ * Copyright (C) 2006-2012 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -55,9 +55,9 @@ namespace YAF.DotNetNuke
         #region Constants and Fields
 
         /// <summary>
-        /// The s info.
+        /// The info.
         /// </summary>
-        private string sInfo = string.Empty;
+        private string info = string.Empty;
 
         #endregion
 
@@ -90,13 +90,14 @@ namespace YAF.DotNetNuke
                 // report success to the scheduler framework
                 this.ScheduleHistoryItem.Succeeded = true;
 
-                this.ScheduleHistoryItem.AddLogNote(this.sInfo);
+                this.ScheduleHistoryItem.AddLogNote(this.info);
             }
             catch (Exception exc)
             {
                 this.ScheduleHistoryItem.Succeeded = false;
-                this.ScheduleHistoryItem.AddLogNote("EXCEPTION: " + exc);
+                this.ScheduleHistoryItem.AddLogNote("EXCEPTION: {0}".FormatWith(exc));
                 this.Errored(ref exc);
+
                 Exceptions.LogException(exc);
             }
         }
@@ -140,21 +141,21 @@ namespace YAF.DotNetNuke
         }
 
         /// <summary>
-        /// The get settings.
+        /// Gets the settings.
         /// </summary>
         private void GetSettings()
         {
             var dsSettings = new DataSet();
 
-            string sFile = "{0}App_Data/YafImports.xml".FormatWith(HttpRuntime.AppDomainAppPath);
+            string filePath = "{0}App_Data/YafImports.xml".FormatWith(HttpRuntime.AppDomainAppPath);
 
             try
             {
-                dsSettings.ReadXml(sFile);
+                dsSettings.ReadXml(filePath);
             }
             catch (Exception)
             {
-                var file = new FileStream(sFile, FileMode.Create);
+                var file = new FileStream(filePath, FileMode.Create);
                 var sw = new StreamWriter(file);
 
                 sw.WriteLine("<?xml version=\"1.0\" encoding=\"utf-8\" ?>");
@@ -165,20 +166,17 @@ namespace YAF.DotNetNuke
                 sw.Close();
                 file.Close();
 
-                dsSettings.ReadXml(sFile);
+                dsSettings.ReadXml(filePath);
             }
 
             foreach (DataRow dataRow in dsSettings.Tables[0].Rows)
             {
-                int iPortalId = dataRow["PortalId"].ToType<int>();
-                int iBoardId = dataRow["BoardId"].ToType<int>();
-
-                this.ImportUsers(iBoardId, iPortalId);
+                this.ImportUsers(dataRow["BoardId"].ToType<int>(), dataRow["PortalId"].ToType<int>());
             }
         }
 
         /// <summary>
-        /// The import users.
+        /// Imports the users.
         /// </summary>
         /// <param name="boardId">The board id.</param>
         /// <param name="portalId">The portal id.</param>
@@ -187,6 +185,7 @@ namespace YAF.DotNetNuke
             int iNewUsers = 0;
 
             var users = UserController.GetUsers(portalId);
+
             users.Sort(new UserComparer());
 
             // Load PortalSettings
@@ -203,7 +202,7 @@ namespace YAF.DotNetNuke
             {
                 foreach (UserInfo dnnUserInfo in users)
                 {
-                    MembershipUser dnnUser = Membership.GetUser(dnnUserInfo.Username, true);
+                    var dnnUser = Membership.GetUser(dnnUserInfo.Username, true);
 
                     if (dnnUser == null)
                     {
@@ -215,7 +214,7 @@ namespace YAF.DotNetNuke
                         continue;
                     }
 
-                    int yafUserId = LegacyDb.user_get(boardId, dnnUser.ProviderUserKey);
+                    var yafUserId = LegacyDb.user_get(boardId, dnnUser.ProviderUserKey);
 
                     if (yafUserId.Equals(0))
                     {
@@ -238,9 +237,9 @@ namespace YAF.DotNetNuke
                     }
                 }
 
-                this.sInfo = "{0} User(s) Imported".FormatWith(iNewUsers);
+                this.info = "{0} User(s) Imported".FormatWith(iNewUsers);
 
-                this.sInfo += rolesChanged
+                this.info += rolesChanged
                                   ? ", but all User Roles are synchronized!"
                                   : ", User Roles already synchronized!";
 

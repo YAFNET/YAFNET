@@ -1,5 +1,5 @@
 ﻿/* Yet Another Forum.NET
- * Copyright (C) 2006-2013 Jaben Cargman
+ * Copyright (C) 2006-2012 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -24,13 +24,13 @@ namespace YAF.DotNetNuke
     using System;
     using System.Linq;
 
-    using YAF.Types.Extensions;
-
     using global::DotNetNuke.Common.Utilities;
 
     using global::DotNetNuke.Entities.Modules;
 
     using global::DotNetNuke.Services.Search;
+
+    using YAF.Types.Extensions;
 
     #endregion
 
@@ -64,7 +64,7 @@ namespace YAF.DotNetNuke
             // Get Used Board Id for the Module Instance
             try
             {
-                if (!string.IsNullOrEmpty(this.Settings["forumboardid"].ToString()))
+                if (this.Settings["forumboardid"].ToString().IsSet())
                 {
                     this.boardId = this.Settings["forumboardid"].ToType<int>();
                 }
@@ -82,35 +82,46 @@ namespace YAF.DotNetNuke
             // Get all Topics
             var yafTopics = Controller.Data.YafDnnGetTopics();
 
+            // Get the forum name
+            var forumName = modInfo.ModuleTitle.IsSet() ? modInfo.ModuleTitle : "YAF-Forum";
+
             foreach (Messages message in yafMessages)
             {
                 // find the Topic of the message
                 var curMessage = message;
 
-                var curTopic = yafTopics.Find(topics => topics.TopicId.Equals(curMessage.TopicId) && topics.ForumId.Equals(this.boardId));
+                var curTopic =
+                    yafTopics.Find(
+                        topics => topics.TopicId.Equals(curMessage.TopicId) && topics.ForumId.Equals(this.boardId));
+
+                if (curTopic == null)
+                {
+                    continue;
+                }
 
                 // Format message
                 string sMessage = message.Message;
 
                 if (sMessage.Contains(" "))
                 {
-                    string[] sMessageC = sMessage.Split(' ');
+                    string[] messageWords = sMessage.Split(' ');
 
                     var message1 = message;
 
-                    foreach (var searchItem in
-                        sMessageC.Select(
-                            sNewMessage =>
-                            new SearchItemInfo(
-                                "{0} - {1}".FormatWith(modInfo.ModuleTitle, curTopic.TopicName),
-                                message1.Message,
-                                Null.NullInteger,
-                                message1.Posted,
-                                modInfo.ModuleID,
-                                "m{0}".FormatWith(message1.MessageId),
-                                sNewMessage,
-                                "&g=posts&t={0}&m={1}#post{1}".FormatWith(message1.TopicId, message1.MessageId),
-                                Null.NullInteger)))
+                    foreach (var searchItem in from word in messageWords
+                                               where !string.IsNullOrEmpty(word)
+                                               select
+                                                   new SearchItemInfo(
+                                                   "{0} - {1}".FormatWith(forumName, curTopic.TopicName),
+                                                   message1.Message,
+                                                   Null.NullInteger,
+                                                   message1.Posted,
+                                                   modInfo.ModuleID,
+                                                   "m{0}".FormatWith(message1.MessageId),
+                                                   word,
+                                                   "&g=posts&t={0}&m={1}#post{1}".FormatWith(
+                                                       message1.TopicId, message1.MessageId),
+                                                   Null.NullInteger))
                     {
                         searchItemCollection.Add(searchItem);
                     }
@@ -118,7 +129,7 @@ namespace YAF.DotNetNuke
                 else
                 {
                     var searchItem = new SearchItemInfo(
-                        "{0} - {1}".FormatWith(modInfo.ModuleTitle, curTopic.TopicName),
+                        "{0} - {1}".FormatWith(forumName, curTopic.TopicName),
                         message.Message,
                         Null.NullInteger,
                         message.Posted,
@@ -144,22 +155,23 @@ namespace YAF.DotNetNuke
 
                 if (sTopic.Contains(" "))
                 {
-                    string[] sTopicC = sTopic.Split(' ');
+                    string[] topicWords = sTopic.Split(' ');
 
                     Topics topic1 = topic;
-                    foreach (var searchItem in
-                        sTopicC.Select(
-                            sNewTopic =>
-                            new SearchItemInfo(
-                                "{0} - {1}".FormatWith(modInfo.ModuleTitle, topic1.TopicName),
-                                topic1.TopicName,
-                                Null.NullInteger,
-                                topic1.Posted,
-                                modInfo.ModuleID,
-                                "t{0}".FormatWith(topic1.TopicId),
-                                sNewTopic,
-                                "&g=posts&t={0}".FormatWith(topic1.TopicId),
-                                Null.NullInteger)))
+
+                    foreach (var searchItem in from topicWord in topicWords
+                                               where !string.IsNullOrEmpty(topicWord)
+                                               select
+                                                   new SearchItemInfo(
+                                                   "{0} - {1}".FormatWith(forumName, topic1.TopicName),
+                                                   topic1.TopicName,
+                                                   Null.NullInteger,
+                                                   topic1.Posted,
+                                                   modInfo.ModuleID,
+                                                   "t{0}".FormatWith(topic1.TopicId),
+                                                   topicWord,
+                                                   "&g=posts&t={0}".FormatWith(topic1.TopicId),
+                                                   Null.NullInteger))
                     {
                         searchItemCollection.Add(searchItem);
                     }
@@ -167,7 +179,7 @@ namespace YAF.DotNetNuke
                 else
                 {
                     var searchItem = new SearchItemInfo(
-                        "{0} - {1}".FormatWith(modInfo.ModuleTitle, topic.TopicName),
+                        "{0} - {1}".FormatWith(forumName, topic.TopicName),
                         topic.TopicName,
                         Null.NullInteger,
                         topic.Posted,
