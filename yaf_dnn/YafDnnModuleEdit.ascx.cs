@@ -86,7 +86,7 @@ namespace YAF.DotNetNuke
         /// </summary>
         private void BindCategories()
         {
-            using (DataTable dt = LegacyDb.category_list(this.BoardID.SelectedValue, DBNull.Value))
+            using (DataTable dt = YafContext.Current.GetRepository<Category>().List(this.BoardID.SelectedValue.ToType<int>()))
             {
                 DataRow row = dt.NewRow();
                 row["Name"] = Localization.GetString("AllCategories.Text", this.LocalResourceFile);
