@@ -9,7 +9,7 @@ function CKEditor_Load() {
 		  config.disableNativeSpellChecker = false;
 		  config.scayt_autoStartup = true; 
 		  
-	      config.extraPlugins = 'syntaxhighlight,bbcodeselector';
+	      config.extraPlugins = 'bbcodehtml,syntaxhighlight,bbcodeselector';
 	      config.toolbar = [
                                  ['Source'],
 		                         ['Cut', 'Copy', 'Paste'], ['Undo', 'Redo', '-', 'Find', 'Replace', '-', 'SelectAll', 'RemoveFormat'],

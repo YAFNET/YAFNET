@@ -60,7 +60,7 @@ function ConvertHtmlToBBCode(html) {
         // [code]
         html = html.replace(/<code>/gi, '[code]');
         // [code=language]
-        html = html.replace(/<code title=\"(.*?)\">/gi, "[code=$1]");
+        html = html.replace(/<code title=\"brush\:(.*?)\">/gi, "[code=$1]");
         html = html.replace(/<\/code>/gi, '[/code]');
 
         // [color]

@@ -86,7 +86,8 @@ CKEDITOR.dialog.add('syntaxhighlight', function(editor)
             var editor = this.getParentEditor();
             var selection = editor.getSelection();
             var element = selection.getStartElement();
-            var preElement = element && element.getAscendant('code', true);
+			
+			var preElement = element && element.getAscendant('code', true);
             
             // Set the content for the textarea
             var text = '';
@@ -104,6 +105,7 @@ CKEDITOR.dialog.add('syntaxhighlight', function(editor)
             var editor = this.getParentEditor();
             var selection = editor.getSelection();
             var element = selection.getStartElement();
+			
             var preElement = element && element.getAscendant('code', true);
             var data = getDefaultOptions();
             this.commitContent(data);
@@ -111,14 +113,14 @@ CKEDITOR.dialog.add('syntaxhighlight', function(editor)
             
             if (preElement) {
                 //preElement.setAttribute('title', optionsString);
+				
                 preElement.setText(data.code);
             } else {
                 /*var newElement = new CKEDITOR.dom.element('code');
                 newElement.setAttribute('title', optionsString);
                 newElement.setText(data.code);
                 editor.insertElement(newElement);*/
-				
-				editor.insertHtml("[code=" + optionsString + "]" + data.code + "[/code]");
+				editor.insertText("[code=" + optionsString + "]" + data.code + "[/code]");
             }
         },
         contents : [

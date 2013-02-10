@@ -6,5 +6,4 @@
 	 googlewidget:"<script src=\"Enter the Url to the Widget here\"></script>",
 	 vimeo:"http://www.vimeo.com/xxxxxxx",
 	 youtube:"http://www.youtube.com/watch?v=xxxxxxxx",
-     flash: "Add flash Url here"
 });
