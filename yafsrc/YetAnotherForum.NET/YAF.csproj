@@ -181,6 +181,7 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Classes\LatestInformationTask.cs" />
+    <Compile Include="Classes\MembershipUpgradeEvent.cs" />
     <Compile Include="Classes\Utilities\JavaScriptBlocks.cs" />
     <Compile Include="Classes\Utilities\MetaWeblog.cs">
       <SubType>Component</SubType>

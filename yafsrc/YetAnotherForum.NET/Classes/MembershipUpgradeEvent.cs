@@ -16,23 +16,31 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Core.Events
 {
+    using YAF.Providers.Membership;
+    using YAF.Types.Attributes;
+    using YAF.Types.EventProxies;
+    using YAF.Types.Interfaces;
+
     /// <summary>
-    /// The interface for DI classes that handle TEvent
+    ///     The membership upgrade event.
     /// </summary>
-    /// <typeparam name="TEvent">
-    /// The event class that is handled.
-    /// </typeparam>
-    public interface IHandleEvent<in TEvent>
-        where TEvent : IAmEvent
+    [ExportService(ServiceLifetimeScope.OwnedByContainer)]
+    public class MembershipUpgradeEvent : IHandleEvent<AfterUpgradeDatabaseEvent>
     {
         #region Public Properties
 
         /// <summary>
-        ///     Gets Order.
+        ///     Gets the order.
         /// </summary>
-        int Order { get; }
+        public int Order
+        {
+            get
+            {
+                return 1000;
+            }
+        }
 
         #endregion
 
@@ -44,7 +52,10 @@ namespace YAF.Types.Interfaces
         /// <param name="event">
         /// The event.
         /// </param>
-        void Handle(TEvent @event);
+        public void Handle(AfterUpgradeDatabaseEvent @event)
+        {
+            DB.Current.UpgradeMembership(@event.PreviousVersion, @event.CurrentVersion);
+        }
 
         #endregion
     }

@@ -22,6 +22,9 @@ namespace YAF.Core.Model
     using System.Collections.Generic;
     using System.Data;
 
+    using ServiceStack.OrmLite;
+
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
@@ -161,10 +164,9 @@ namespace YAF.Core.Model
         {
             CodeContracts.ArgumentNotNull(repository, "repository");
 
-            using (var session = repository.DbFunction.CreateSession())
-            {
-                return session.GetTyped<Board>(r => r.repository.DbFunction.GetData.board_list(BoardID: boardID));
-            }
+            return boardID.HasValue
+                       ? new List<Board>() { repository.GetByID(boardID.Value) }
+                       : repository.DbAccess.Execute(cmd => cmd.Select<Board>());
         }
 
         /// <summary>

@@ -18,28 +18,27 @@
  */
 namespace YAF.Types.Interfaces
 {
-  #region Using
+    #region Using
 
-  using System;
-
-  #endregion
-
-  /// <summary>
-  /// Fires an event globally hookable.
-  /// </summary>
-  /// <typeparam name="T">
-  /// </typeparam>
-  public interface IFireEvent<T> : IHandleEvent<T>
-    where T : IAmEvent
-  {
-    #region Events
-
-    /// <summary>
-    ///   The handle event.
-    /// </summary>
-    event EventHandler<EventConverterArgs<T>> HandleEvent;
+    using System;
 
     #endregion
- 
-  }
+
+    /// <summary>
+    /// Fires an event globally hookable.
+    /// </summary>
+    /// <typeparam name="T">
+    /// </typeparam>
+    public interface IFireEvent<T> : IHandleEvent<T>
+        where T : IAmEvent
+    {
+        #region Public Events
+
+        /// <summary>
+        ///     The handle event.
+        /// </summary>
+        event EventHandler<EventConverterArgs<T>> HandleEvent;
+
+        #endregion
+    }
 }

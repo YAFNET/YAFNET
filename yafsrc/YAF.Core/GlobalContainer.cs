@@ -87,7 +87,7 @@ namespace YAF.Core
         {
             var builder = new ContainerBuilder();
 
-            var mainModule = new YafBaseContainerModule();
+            var mainModule = new BaseModule();
             var logModule = new LoggingModule();
 
             builder.RegisterModule(mainModule);

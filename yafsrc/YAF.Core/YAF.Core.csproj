@@ -108,6 +108,7 @@
     <Compile Include="Data\CommandTextHelpers.cs" />
     <Compile Include="Events\SmileyEventCacheInvalidate.cs" />
     <Compile Include="Extensions\ILoggerExtensions.cs" />
+    <Compile Include="Extensions\IRegistrationBuilderExtension.cs" />
     <Compile Include="Helpers\EmailHelper.cs" />
     <Compile Include="Model\BoardRepositoryExtensions.cs" />
     <Compile Include="Extensions\DbAccessExtensions.cs" />
@@ -115,7 +116,7 @@
     <Compile Include="Extensions\MembershipUserExtensions.cs" />
     <Compile Include="Helpers\FileHelpers.cs" />
     <Compile Include="Helpers\IPLocator.cs" />
-    <Compile Include="Import\DataImport.cs" />
+    <Compile Include="Services\Import\DataImport.cs" />
     <Compile Include="Model\AccessMaskRepositoryExtensions.cs" />
     <Compile Include="Model\ActiveAccessRepositoryExtensions.cs" />
     <Compile Include="Model\ActiveRepositoryExtensions.cs" />
@@ -128,6 +129,7 @@
     <Compile Include="Model\MedalRepositoryExtensions.cs" />
     <Compile Include="Model\AttachmentRepositoryExtensions.cs" />
     <Compile Include="Model\SmileyRepositoryExtensions.cs" />
+    <Compile Include="Services\InstallUpgradeService.cs" />
     <Compile Include="Services\Twitter\OAuthBase.cs" />
     <Compile Include="Services\Twitter\OAuthTwitter.cs" />
     <Compile Include="Services\Twitter\TweetAPI.cs" />
@@ -308,7 +310,8 @@
     <Compile Include="UsersRoles\RoleMembershipHelper.cs" />
     <Compile Include="UsersRoles\UserHelper.cs" />
     <Compile Include="UsersRoles\UserMembershipHelper.cs" />
-    <Compile Include="YafBaseContainerModule.cs" />
+    <Compile Include="Modules\UtilitiesModule.cs" />
+    <Compile Include="Modules\BaseModule.cs" />
     <Compile Include="YAFTaskModule.cs" />
     <Compile Include="Exceptions\YafTaskModuleNotRegisteredException.cs" />
   </ItemGroup>

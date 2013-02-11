@@ -31,37 +31,27 @@ namespace YAF.Core.Data.Filters
     #endregion
 
     /// <summary>
-    /// The style filter.
+    ///     The style filter.
     /// </summary>
-    public class StyleFilter : IDbDataFilter
+    public class StyleFilter : IDbDataFilter, IHaveServiceLocator
     {
         #region Fields
 
         /// <summary>
-        /// The _board settings.
-        /// </summary>
-        private readonly YafBoardSettings _boardSettings;
-
-        /// <summary>
-        /// The _style transform.
-        /// </summary>
-        private readonly IStyleTransform _styleTransform;
-
-        /// <summary>
-        /// The _styled nick operations.
+        ///     The _styled nick operations.
         /// </summary>
         private readonly string[] _styledNickOperations = new[]
-            {
-                "active_list", 
-                "active_listtopic", 
-                "active_listforum", 
-                "forum_moderators", 
-                "topic_latest", 
-                "shoutbox_getmessages", 
-                "topic_latest", 
-                "active_list_user", 
-                "admin_list"
-            };
+                                                              {
+                                                                  "active_list", 
+                                                                  "active_listtopic", 
+                                                                  "active_listforum", 
+                                                                  "forum_moderators", 
+                                                                  "topic_latest", 
+                                                                  "shoutbox_getmessages", 
+                                                                  "topic_latest", 
+                                                                  "active_list_user", 
+                                                                  "admin_list"
+                                                              };
 
         #endregion
 
@@ -70,16 +60,12 @@ namespace YAF.Core.Data.Filters
         /// <summary>
         /// Initializes a new instance of the <see cref="StyleFilter"/> class.
         /// </summary>
-        /// <param name="styleTransform">
-        /// The style transform.
+        /// <param name="serviceLocator">
+        /// The service Locator.
         /// </param>
-        /// <param name="boardSettings">
-        /// The board settings.
-        /// </param>
-        public StyleFilter(IStyleTransform styleTransform, YafBoardSettings boardSettings)
+        public StyleFilter(IServiceLocator serviceLocator)
         {
-            this._styleTransform = styleTransform;
-            this._boardSettings = boardSettings;
+            this.ServiceLocator = serviceLocator;
         }
 
         #endregion
@@ -87,18 +73,40 @@ namespace YAF.Core.Data.Filters
         #region Public Properties
 
         /// <summary>
+        ///     The _board settings.
+        /// </summary>
+        public YafBoardSettings BoardSettings
+        {
+            get
+            {
+                return this.Get<YafBoardSettings>();
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the service locator.
         /// </summary>
         public IServiceLocator ServiceLocator { get; set; }
 
         /// <summary>
-        /// Gets the sort order.
+        ///     Gets the sort order.
         /// </summary>
         public int SortOrder
         {
             get
             {
                 return 100;
+            }
+        }
+
+        /// <summary>
+        ///     The _style transform.
+        /// </summary>
+        public IStyleTransform StyleTransform
+        {
+            get
+            {
+                return this.Get<IStyleTransform>();
             }
         }
 
@@ -137,16 +145,20 @@ namespace YAF.Core.Data.Filters
         /// </param>
         public void Run(DbFunctionType dbfunctionType, string operationName, IEnumerable<KeyValuePair<string, object>> parameters, object data)
         {
-            if (this._styledNickOperations.Contains(operationName.ToLower()) && this._boardSettings.UseStyledNicks)
+            if (!this._styledNickOperations.Contains(operationName.ToLower()) || !this.BoardSettings.UseStyledNicks)
             {
-                bool colorOnly = false;
-
-                if (dbfunctionType == DbFunctionType.DataTable)
-                {
-                    var dataTable = (DataTable)data;
-                    this._styleTransform.DecodeStyleByTable(dataTable, colorOnly);
-                }
+                return;
             }
+
+            bool colorOnly = false;
+
+            if (dbfunctionType != DbFunctionType.DataTable)
+            {
+                return;
+            }
+
+            var dataTable = (DataTable)data;
+            this.StyleTransform.DecodeStyleByTable(dataTable, colorOnly);
         }
 
         #endregion

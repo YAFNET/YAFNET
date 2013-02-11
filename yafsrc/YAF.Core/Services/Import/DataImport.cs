@@ -17,10 +17,10 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using YAF.Classes.Data;
-
-namespace YAF.Core
+namespace YAF.Core.Services.Import
 {
+    using YAF.Classes.Data;
+
     using System;
     using System.Data;
     using System.IO;

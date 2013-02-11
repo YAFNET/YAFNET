@@ -17,16 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
 namespace YAF.Install
 {
     #region Using
 
     using System;
     using System.Configuration;
-    using System.Data;
     using System.Drawing;
-    using System.IO;
     using System.Linq;
     using System.Security.Permissions;
     using System.Web;
@@ -37,57 +34,38 @@ namespace YAF.Install
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
-    using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Core.Tasks;
     using YAF.Types;
-    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Models;
-    using YAF.Utils;
     using YAF.Utils.Helpers;
 
     #endregion
 
     /// <summary>
-    /// The Install Page.
+    ///     The Install Page.
     /// </summary>
     public partial class _default : Page, IHaveServiceLocator
     {
-        #region Constants and Fields
+        #region Constants
 
         /// <summary>
-        ///   The _db version before upgrade.
-        /// </summary>
-        //private int _dbVersionBeforeUpgrade;
-
-        /// <summary>
-        ///   The _app password key.
+        ///     The _app password key.
         /// </summary>
         private const string _AppPasswordKey = "YAF.ConfigPassword";
 
-        /// <summary>
-        ///   The _bbcode import.
-        /// </summary>
-        private const string _BbcodeImport = "bbCodeExtensions.xml";
+        #endregion
+
+        #region Fields
 
         /// <summary>
-        ///   The _file import.
-        /// </summary>
-        private const string _FileImport = "fileExtensions.xml";
-
-        /// <summary>
-        ///   The Topic Status Import File.
-        /// </summary>
-        private const string _TopicStatusImport = "TopicStatusList.xml";
-
-        /// <summary>
-        ///   The _config.
+        ///     The _config.
         /// </summary>
         private readonly ConfigHelper _config = new ConfigHelper();
 
         /// <summary>
-        ///   The _load message.
+        ///     The _load message.
         /// </summary>
         private string _loadMessage = string.Empty;
 
@@ -96,32 +74,70 @@ namespace YAF.Install
         #region Enums
 
         /// <summary>
-        /// The update db failure type.
+        ///     The update db failure type.
         /// </summary>
         private enum UpdateDBFailureType
         {
             /// <summary>
-            ///   The none.
+            ///     The none.
             /// </summary>
-            None,
+            None, 
 
             /// <summary>
-            ///   The app settings write.
+            ///     The app settings write.
             /// </summary>
-            AppSettingsWrite,
+            AppSettingsWrite, 
 
             /// <summary>
-            ///   The connection string write.
+            ///     The connection string write.
             /// </summary>
             ConnectionStringWrite
         }
 
         #endregion
 
-        #region Properties
+        #region Public Properties
 
         /// <summary>
-        /// Gets ServiceLocator.
+        ///     Gets the install upgrade service.
+        /// </summary>
+        public InstallUpgradeService InstallUpgradeService
+        {
+            get
+            {
+                return this.Get<InstallUpgradeService>();
+            }
+        }
+
+        /// <summary>
+        /// The _is forum installed.
+        /// </summary>
+        private bool? _isForumInstalled = null;
+
+        /// <summary>
+        /// Gets a value indicating whether is forum installed.
+        /// </summary>
+        public bool IsForumInstalled
+        {
+            get
+            {
+                return (this._isForumInstalled ?? (this._isForumInstalled = this.InstallUpgradeService.IsForumInstalled)).Value;
+            }
+        }
+
+        /// <summary>
+        ///     Gets a value indicating whether IsInstalled.
+        /// </summary>
+        public bool IsInstalled
+        {
+            get
+            {
+                return this._config.GetConfigValueAsString(_AppPasswordKey).IsSet();
+            }
+        }
+
+        /// <summary>
+        ///     Gets ServiceLocator.
         /// </summary>
         public IServiceLocator ServiceLocator
         {
@@ -131,41 +147,12 @@ namespace YAF.Install
             }
         }
 
-        /// <summary>
-        /// Gets a value indicating whether this instance is forum installed.
-        /// </summary>
-        protected bool IsForumInstalled
-        {
-            get
-            {
-                try
-                {
-                    using (DataTable dt = this.GetRepository<Board>().List())
-                    {
-                        return dt.Rows.Count > 0;
-                    }
-                }
-                catch
-                {
-                }
+        #endregion
 
-                return false;
-            }
-        }
+        #region Properties
 
         /// <summary>
-        ///   Gets a value indicating whether IsInstalled.
-        /// </summary>
-        protected bool IsInstalled
-        {
-            get
-            {
-                return this._config.GetConfigValueAsString(_AppPasswordKey).IsSet();
-            }
-        }
-
-        /// <summary>
-        ///   Gets CurrentConnString.
+        ///     Gets CurrentConnString.
         /// </summary>
         private string CurrentConnString
         {
@@ -181,32 +168,32 @@ namespace YAF.Install
                 }
 
                 return MsSqlDbAccess.GetConnectionString(
-                    this.Parameter1_Value.Text.Trim(),
-                    this.Parameter2_Value.Text.Trim(),
-                    this.Parameter3_Value.Text.Trim(),
-                    this.Parameter4_Value.Text.Trim(),
-                    this.Parameter5_Value.Text.Trim(),
-                    this.Parameter6_Value.Text.Trim(),
-                    this.Parameter7_Value.Text.Trim(),
-                    this.Parameter8_Value.Text.Trim(),
-                    this.Parameter9_Value.Text.Trim(),
-                    this.Parameter10_Value.Text.Trim(),
-                    this.Parameter11_Value.Checked,
-                    this.Parameter12_Value.Checked,
-                    this.Parameter13_Value.Checked,
-                    this.Parameter14_Value.Checked,
-                    this.Parameter15_Value.Checked,
-                    this.Parameter16_Value.Checked,
-                    this.Parameter17_Value.Checked,
-                    this.Parameter18_Value.Checked,
-                    this.Parameter19_Value.Checked,
-                    this.txtDBUserID.Text.Trim(),
+                    this.Parameter1_Value.Text.Trim(), 
+                    this.Parameter2_Value.Text.Trim(), 
+                    this.Parameter3_Value.Text.Trim(), 
+                    this.Parameter4_Value.Text.Trim(), 
+                    this.Parameter5_Value.Text.Trim(), 
+                    this.Parameter6_Value.Text.Trim(), 
+                    this.Parameter7_Value.Text.Trim(), 
+                    this.Parameter8_Value.Text.Trim(), 
+                    this.Parameter9_Value.Text.Trim(), 
+                    this.Parameter10_Value.Text.Trim(), 
+                    this.Parameter11_Value.Checked, 
+                    this.Parameter12_Value.Checked, 
+                    this.Parameter13_Value.Checked, 
+                    this.Parameter14_Value.Checked, 
+                    this.Parameter15_Value.Checked, 
+                    this.Parameter16_Value.Checked, 
+                    this.Parameter17_Value.Checked, 
+                    this.Parameter18_Value.Checked, 
+                    this.Parameter19_Value.Checked, 
+                    this.txtDBUserID.Text.Trim(), 
                     this.txtDBPassword.Text.Trim());
             }
         }
 
         /// <summary>
-        ///   Gets or sets CurrentWizardStepID.
+        ///     Gets or sets CurrentWizardStepID.
         /// </summary>
         private string CurrentWizardStepID
         {
@@ -226,7 +213,7 @@ namespace YAF.Install
         }
 
         /// <summary>
-        ///   Gets PageBoardID.
+        ///     Gets PageBoardID.
         /// </summary>
         private int PageBoardID
         {
@@ -245,12 +232,14 @@ namespace YAF.Install
 
         #endregion
 
-        #region Public Methods
+        #region Public Methods and Operators
 
         /// <summary>
         /// Gets the membership error message.
         /// </summary>
-        /// <param name="status">The status.</param>
+        /// <param name="status">
+        /// The status.
+        /// </param>
         /// <returns>
         /// The get membership error message.
         /// </returns>
@@ -297,6 +286,18 @@ namespace YAF.Install
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// The On PreRender event.
+        /// </summary>
+        /// <param name="e">
+        /// the Event Arguments
+        /// </param>
+        protected override void OnPreRender(EventArgs e)
+        {
+            YafContext.Current.PageElements.RegisterJQueryUI(this.Page.Header);
+            base.OnPreRender(e);
+        }
 
         /// <summary>
         /// The page_ init.
@@ -347,6 +348,133 @@ namespace YAF.Install
             writer.WriteLine("	alert('{0}');", this._loadMessage);
             writer.WriteLine("}");
             writer.WriteLine("</script>");
+        }
+
+        /// <summary>
+        /// Handles the Click event of the TestDBConnectionManual control.
+        /// </summary>
+        /// <param name="sender">
+        /// The source of the event.
+        /// </param>
+        /// <param name="e">
+        /// The <see cref="System.EventArgs"/> instance containing the event data.
+        /// </param>
+        protected void TestDBConnectionManual_Click([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            // attempt to connect DB...
+            string message;
+
+            if (!this.InstallUpgradeService.TestDatabaseConnection(out message))
+            {
+                UpdateInfoPanel(
+                    this.ManualConnectionInfoHolder, 
+                    this.lblConnectionDetailsManual, 
+                    "Failed to connect:<br /><br />{0}".FormatWith(message), 
+                    "errorinfo");
+            }
+            else
+            {
+                UpdateInfoPanel(
+                    this.ManualConnectionInfoHolder, 
+                    this.lblConnectionDetailsManual, 
+                    "Connection Succeeded", 
+                    "successinfo");
+            }
+        }
+
+        /// <summary>
+        /// Handles the Click event of the TestDBConnection control.
+        /// </summary>
+        /// <param name="sender">
+        /// The source of the event.
+        /// </param>
+        /// <param name="e">
+        /// The <see cref="System.EventArgs"/> instance containing the event data.
+        /// </param>
+        protected void TestDBConnection_Click([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            // attempt to connect selected DB...
+            YafContext.Current["ConnectionString"] = this.CurrentConnString;
+            string message;
+
+            if (!this.InstallUpgradeService.TestDatabaseConnection(out message))
+            {
+                UpdateInfoPanel(
+                    this.ConnectionInfoHolder, 
+                    this.lblConnectionDetails, 
+                    "Failed to connect:<br /><br />{0}".FormatWith(message), 
+                    "errorinfo");
+            }
+            else
+            {
+                UpdateInfoPanel(
+                    this.ConnectionInfoHolder, this.lblConnectionDetails, "Connection Succeeded", "successinfo");
+            }
+
+            // we're done with it...
+            YafContext.Current.Vars.Remove("ConnectionString");
+        }
+
+        /// <summary>
+        /// Handles the Click event of the TestPermissions control.
+        /// </summary>
+        /// <param name="sender">
+        /// The source of the event.
+        /// </param>
+        /// <param name="e">
+        /// The <see cref="System.EventArgs"/> instance containing the event data.
+        /// </param>
+        protected void TestPermissions_Click([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            UpdateStatusLabel(this.lblPermissionApp, 1);
+            UpdateStatusLabel(this.lblPermissionUpload, 1);
+            UpdateStatusLabel(this.lblHostingTrust, 1);
+
+            UpdateStatusLabel(this.lblPermissionApp, DirectoryHasWritePermission(this.Server.MapPath("~/")) ? 2 : 0);
+            UpdateStatusLabel(
+                this.lblPermissionUpload, 
+                DirectoryHasWritePermission(this.Server.MapPath(YafBoardFolders.Current.Uploads)) ? 2 : 0);
+
+            UpdateStatusLabel(
+                this.lblHostingTrust, this._config.TrustLevel == AspNetHostingPermissionLevel.High ? 2 : 0);
+
+            this.lblHostingTrust.Text = this._config.TrustLevel.GetStringValue();
+        }
+
+        /// <summary>
+        /// Handles the Click event of the TestSmtp control.
+        /// </summary>
+        /// <param name="sender">
+        /// The source of the event.
+        /// </param>
+        /// <param name="e">
+        /// The <see cref="System.EventArgs"/> instance containing the event data.
+        /// </param>
+        protected void TestSmtp_Click([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            try
+            {
+                this.Get<ISendMail>().Send(
+                    this.txtTestFromEmail.Text.Trim(), 
+                    this.txtTestToEmail.Text.Trim(), 
+                    "Test Email From Yet Another Forum.NET", 
+                    "The email sending appears to be working from your YAF installation.");
+
+                // success
+                UpdateInfoPanel(
+                    this.SmtpInfoHolder, 
+                    this.lblSmtpTestDetails, 
+                    "Mail Sent. Verify it's received at your entered email address.", 
+                    "successinfo");
+            }
+            catch (Exception x)
+            {
+                UpdateInfoPanel(
+                    this.SmtpInfoHolder, 
+                    this.lblSmtpTestDetails, 
+                    "Failed to connect:<br /><br />{0}".FormatWith(x.Message), 
+                    "errorinfo");
+            }
         }
 
         /// <summary>
@@ -434,7 +562,7 @@ namespace YAF.Install
 
                     break;
                 case "WizCreateForum":
-                    if (this.IsForumInstalled)
+                    if (this.InstallUpgradeService.IsForumInstalled)
                     {
                         this.InstallWizard.ActiveStepIndex++;
                     }
@@ -551,14 +679,19 @@ namespace YAF.Install
       else
       {*/
             this.Response.Redirect("~/");
-            //}
+
+            // }
         }
 
         /// <summary>
         /// The wizard_ next button click.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.Web.UI.WebControls.WizardNavigationEventArgs"/> instance containing the event data.</param>
+        /// <param name="sender">
+        /// The source of the event.
+        /// </param>
+        /// <param name="e">
+        /// The <see cref="System.Web.UI.WebControls.WizardNavigationEventArgs"/> instance containing the event data.
+        /// </param>
         protected void Wizard_NextButtonClick([NotNull] object sender, [NotNull] WizardNavigationEventArgs e)
         {
             e.Cancel = true;
@@ -659,9 +792,16 @@ namespace YAF.Install
 
                     break;
                 case "WizInitDatabase":
-                    if (this.UpgradeDatabase(this.FullTextSupport.Checked))
+                    if (this.InstallUpgradeService.UpgradeDatabase(this.FullTextSupport.Checked, this.UpgradeExtensions.Checked))
                     {
                         e.Cancel = false;
+                    }
+
+                    var messages = this.InstallUpgradeService.Messages;
+
+                    if (messages.Any())
+                    {
+                        this._loadMessage += messages.ToDelimitedString("\r\n");
                     }
 
                     break;
@@ -714,121 +854,14 @@ namespace YAF.Install
         }
 
         /// <summary>
-        /// Handles the Click event of the TestDBConnectionManual control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void TestDBConnectionManual_Click([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            // attempt to connect DB...
-            string message;
-
-            if (!TestDatabaseConnection(out message))
-            {
-                UpdateInfoPanel(
-                    this.ManualConnectionInfoHolder,
-                    this.lblConnectionDetailsManual,
-                    "Failed to connect:<br /><br />{0}".FormatWith(message),
-                    "errorinfo");
-            }
-            else
-            {
-                UpdateInfoPanel(
-                    this.ManualConnectionInfoHolder,
-                    this.lblConnectionDetailsManual,
-                    "Connection Succeeded",
-                    "successinfo");
-            }
-        }
-
-        /// <summary>
-        /// Handles the Click event of the TestDBConnection control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void TestDBConnection_Click([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            // attempt to connect selected DB...
-            YafContext.Current["ConnectionString"] = this.CurrentConnString;
-            string message;
-
-            if (!TestDatabaseConnection(out message))
-            {
-                UpdateInfoPanel(
-                    this.ConnectionInfoHolder,
-                    this.lblConnectionDetails,
-                    "Failed to connect:<br /><br />{0}".FormatWith(message),
-                    "errorinfo");
-            }
-            else
-            {
-                UpdateInfoPanel(
-                    this.ConnectionInfoHolder, this.lblConnectionDetails, "Connection Succeeded", "successinfo");
-            }
-
-            // we're done with it...
-            YafContext.Current.Vars.Remove("ConnectionString");
-        }
-
-        /// <summary>
-        /// Handles the Click event of the TestPermissions control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void TestPermissions_Click([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            UpdateStatusLabel(this.lblPermissionApp, 1);
-            UpdateStatusLabel(this.lblPermissionUpload, 1);
-            UpdateStatusLabel(this.lblHostingTrust, 1);
-
-            UpdateStatusLabel(this.lblPermissionApp, DirectoryHasWritePermission(this.Server.MapPath("~/")) ? 2 : 0);
-            UpdateStatusLabel(
-                this.lblPermissionUpload,
-                DirectoryHasWritePermission(this.Server.MapPath(YafBoardFolders.Current.Uploads)) ? 2 : 0);
-
-            UpdateStatusLabel(
-                this.lblHostingTrust, this._config.TrustLevel == AspNetHostingPermissionLevel.High ? 2 : 0);
-
-            this.lblHostingTrust.Text = this._config.TrustLevel.GetStringValue();
-        }
-
-        /// <summary>
-        /// Handles the Click event of the TestSmtp control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void TestSmtp_Click([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            try
-            {
-                this.Get<ISendMail>().Send(
-                    this.txtTestFromEmail.Text.Trim(),
-                    this.txtTestToEmail.Text.Trim(),
-                    "Test Email From Yet Another Forum.NET",
-                    "The email sending appears to be working from your YAF installation.");
-
-                // success
-                UpdateInfoPanel(
-                    this.SmtpInfoHolder,
-                    this.lblSmtpTestDetails,
-                    "Mail Sent. Verify it's received at your entered email address.",
-                    "successinfo");
-            }
-            catch (Exception x)
-            {
-                UpdateInfoPanel(
-                    this.SmtpInfoHolder,
-                    this.lblSmtpTestDetails,
-                    "Failed to connect:<br /><br />{0}".FormatWith(x.Message),
-                    "errorinfo");
-            }
-        }
-
-        /// <summary>
         /// Handles the SelectedIndexChanged event of the YAFDatabase control.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        /// <param name="sender">
+        /// The source of the event.
+        /// </param>
+        /// <param name="e">
+        /// The <see cref="System.EventArgs"/> instance containing the event data.
+        /// </param>
         protected void YAFDatabase_SelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
         {
             switch (this.rblYAFDatabase.SelectedValue)
@@ -845,21 +878,11 @@ namespace YAF.Install
         }
 
         /// <summary>
-        /// The On PreRender event.
-        /// </summary>
-        /// <param name="e">
-        /// the Event Arguments
-        /// </param>
-        protected override void OnPreRender(EventArgs e)
-        {
-            YafContext.Current.PageElements.RegisterJQueryUI(this.Page.Header);
-            base.OnPreRender(e);
-        }
-
-        /// <summary>
         /// Validates write permission in a specific directory. Should be moved to YAF.Classes.Utils.
         /// </summary>
-        /// <param name="directory">The directory.</param>
+        /// <param name="directory">
+        /// The directory.
+        /// </param>
         /// <returns>
         /// The directory has write permission.
         /// </returns>
@@ -881,18 +904,6 @@ namespace YAF.Install
             }
 
             return hasWriteAccess;
-        }
-
-        /// <summary>
-        /// Tests database connection. Can probably be moved to DB class.
-        /// </summary>
-        /// <param name="exceptionMessage">The exception message.</param>
-        /// <returns>
-        /// The test database connection.
-        /// </returns>
-        private static bool TestDatabaseConnection([NotNull] out string exceptionMessage)
-        {
-            return MsSqlDbAccess.TestConnection(out exceptionMessage);
         }
 
         /// <summary>
@@ -963,14 +974,14 @@ namespace YAF.Install
         }
 
         /// <summary>
-        /// Creates the forum.
+        ///     Creates the forum.
         /// </summary>
         /// <returns>
-        /// The create forum.
+        ///     The create forum.
         /// </returns>
         private bool CreateForum()
         {
-            if (this.IsForumInstalled)
+            if (this.InstallUpgradeService.IsForumInstalled)
             {
                 this.AddLoadMessage("Forum is already installed.");
                 return false;
@@ -1019,13 +1030,13 @@ namespace YAF.Install
                 // create the admin user...
                 MembershipCreateStatus status;
                 user = this.Get<MembershipProvider>().CreateUser(
-                    this.UserName.Text,
-                    this.Password1.Text,
-                    this.AdminEmail.Text,
-                    this.SecurityQuestion.Text,
-                    this.SecurityAnswer.Text,
-                    true,
-                    null,
+                    this.UserName.Text, 
+                    this.Password1.Text, 
+                    this.AdminEmail.Text, 
+                    this.SecurityQuestion.Text, 
+                    this.SecurityAnswer.Text, 
+                    true, 
+                    null, 
                     out status);
                 if (status != MembershipCreateStatus.Success)
                 {
@@ -1041,8 +1052,7 @@ namespace YAF.Install
 
                 if (user == null)
                 {
-                    this.AddLoadMessage(
-                        "Existing user name is invalid and does not represent a current user in the membership store.");
+                    this.AddLoadMessage("Existing user name is invalid and does not represent a current user in the membership store.");
                     return false;
                 }
             }
@@ -1069,65 +1079,16 @@ namespace YAF.Install
 
                 // logout administrator...
                 FormsAuthentication.SignOut();
-                DataTable cult = StaticDataHelper.Cultures();
-                string langFile = "english.xml";
 
-                foreach (DataRow drow in
-                    cult.Rows.Cast<DataRow>().Where(drow => drow["CultureTag"].ToString() == this.Culture.SelectedValue)
-                    )
-                {
-                    langFile = (string)drow["CultureFile"];
-                }
-
-                LegacyDb.system_initialize(
-                    this.TheForumName.Text,
-                    this.TimeZones.SelectedValue,
-                    this.Culture.SelectedValue,
-                    langFile,
-                    this.ForumEmailAddress.Text,
-                    string.Empty,
-                    user.UserName,
-                    user.Email,
-                    user.ProviderUserKey,
-                    Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty);
-
-                LegacyDb.system_updateversion(YafForumInfo.AppVersion, YafForumInfo.AppVersionName);
-                LegacyDb.system_updateversion(YafForumInfo.AppVersion, YafForumInfo.AppVersionName);
-
-                // vzrus: uncomment it to not keep install/upgrade objects in db for a place and better security
-                // YAF.Classes.Data.DB.system_deleteinstallobjects();
-                // load default bbcode if available...
-                if (File.Exists(this.Request.MapPath(_BbcodeImport)))
-                {
-                    // import into board...
-                    using (var bbcodeStream = new StreamReader(this.Request.MapPath(_BbcodeImport)))
-                    {
-                        DataImport.BBCodeExtensionImport(this.PageBoardID, bbcodeStream.BaseStream);
-                        bbcodeStream.Close();
-                    }
-                }
-
-                // load default extensions if available...
-                if (File.Exists(this.Request.MapPath(_FileImport)))
-                {
-                    // import into board...
-                    using (var fileExtStream = new StreamReader(this.Request.MapPath(_FileImport)))
-                    {
-                        DataImport.FileExtensionImport(this.PageBoardID, fileExtStream.BaseStream);
-                        fileExtStream.Close();
-                    }
-                }
-
-                // load default topic status if available...
-                if (File.Exists(this.Request.MapPath(_TopicStatusImport)))
-                {
-                    // import into board...
-                    using (var topicStatusStream = new StreamReader(this.Request.MapPath(_TopicStatusImport)))
-                    {
-                        DataImport.TopicStatusImport(this.PageBoardID, topicStatusStream.BaseStream);
-                        topicStatusStream.Close();
-                    }
-                }
+                // init forum...
+                this.InstallUpgradeService.InitializeForum(
+                    this.TheForumName.Text, 
+                    this.TimeZones.SelectedValue, 
+                    this.Culture.SelectedValue, 
+                    this.ForumEmailAddress.Text, 
+                    user.UserName, 
+                    user.Email, 
+                    user.ProviderUserKey);
             }
             catch (Exception x)
             {
@@ -1139,39 +1100,7 @@ namespace YAF.Install
         }
 
         /// <summary>
-        /// The execute script.
-        /// </summary>
-        /// <param name="scriptFile">The script file.</param>
-        /// <param name="useTransactions">The use transactions.</param>
-        private void ExecuteScript([NotNull] string scriptFile, bool useTransactions)
-        {
-            string script;
-
-            string fileName = this.Request.MapPath(scriptFile);
-
-            try
-            {
-                using (var file = new StreamReader(fileName))
-                {
-                    script = "{0}\r\n".FormatWith(file.ReadToEnd());
-
-                    file.Close();
-                }
-            }
-            catch (FileNotFoundException)
-            {
-                return;
-            }
-            catch (Exception x)
-            {
-                throw new IOException("Failed to read {0}".FormatWith(fileName), x);
-            }
-
-            LegacyDb.system_initialize_executescripts(script, scriptFile, useTransactions);
-        }
-
-        /// <summary>
-        /// The fill with connection strings.
+        ///     The fill with connection strings.
         /// </summary>
         private void FillWithConnectionStrings()
         {
@@ -1194,20 +1123,11 @@ namespace YAF.Install
         }
 
         /// <summary>
-        /// The fix access.
-        /// </summary>
-        /// <param name="bGrant">
-        /// The b grant.
-        /// </param>
-        private void FixAccess(bool bGrant)
-        {
-            LegacyDb.system_initialize_fixaccess(bGrant);
-        }
-
-        /// <summary>
         /// Indexes the of wizard ID.
         /// </summary>
-        /// <param name="id">The id.</param>
+        /// <param name="id">
+        /// The id.
+        /// </param>
         /// <returns>
         /// The index of wizard id.
         /// </returns>
@@ -1356,8 +1276,8 @@ namespace YAF.Install
                 // Hide New User on DNN
                 if (Config.IsDotNetNuke)
                 {
-                    UserChoice.SelectedIndex = 1;
-                    UserChoice.Items[0].Enabled = false;
+                    this.UserChoice.SelectedIndex = 1;
+                    this.UserChoice.Items[0].Enabled = false;
 
                     this.ExistingUserHolder.Visible = true;
                     this.CreateAdminUserHolder.Visible = false;
@@ -1366,10 +1286,10 @@ namespace YAF.Install
         }
 
         /// <summary>
-        /// Updates the database connection.
+        ///     Updates the database connection.
         /// </summary>
         /// <returns>
-        /// The update database connection.
+        ///     The update database connection.
         /// </returns>
         private UpdateDBFailureType UpdateDatabaseConnection()
         {
@@ -1414,117 +1334,6 @@ namespace YAF.Install
             }
 
             return UpdateDBFailureType.None;
-        }
-
-        /// <summary>
-        /// Upgrades the database.
-        /// </summary>
-        /// <param name="fullText">The full text.</param>
-        /// <returns>
-        /// The upgrade database.
-        /// </returns>
-        private bool UpgradeDatabase(bool fullText)
-        {
-            {
-                // try
-                this.FixAccess(false);
-
-                foreach (string script in LegacyDb.ScriptList)
-                {
-                    this.ExecuteScript(script, true);
-                }
-
-                this.FixAccess(true);
-
-                int prevVersion = LegacyDb.GetDBVersion();
-
-                LegacyDb.system_updateversion(YafForumInfo.AppVersion, YafForumInfo.AppVersionName);
-
-                // Ederon : 9/7/2007
-                // resync all boards - necessary for propr last post bubbling
-                this.GetRepository<Board>().Resync();
-
-                // upgrade providers...
-                Providers.Membership.DB.Current.UpgradeMembership(prevVersion, YafForumInfo.AppVersion);
-
-                if (this.IsForumInstalled && prevVersion < 30 || this.IsForumInstalled && this.UpgradeExtensions.Checked)
-                {
-                    // load default bbcode if available...
-                    if (File.Exists(this.Request.MapPath(_BbcodeImport)))
-                    {
-                        // import into board...
-                        using (var bbcodeStream = new StreamReader(this.Request.MapPath(_BbcodeImport)))
-                        {
-                            DataImport.BBCodeExtensionImport(this.PageBoardID, bbcodeStream.BaseStream);
-                            bbcodeStream.Close();
-                        }
-                    }
-
-                    // load default extensions if available...
-                    if (File.Exists(this.Request.MapPath(_FileImport)))
-                    {
-                        // import into board...
-                        using (var fileExtStream = new StreamReader(this.Request.MapPath(_FileImport)))
-                        {
-                            DataImport.FileExtensionImport(this.PageBoardID, fileExtStream.BaseStream);
-                            fileExtStream.Close();
-                        }
-                    }
-
-                    // load default topic status if available...
-                    if (File.Exists(this.Request.MapPath(_TopicStatusImport)))
-                    {
-                        // import into board...
-                        using (var topicStatusStream = new StreamReader(this.Request.MapPath(_TopicStatusImport)))
-                        {
-                            DataImport.TopicStatusImport(this.PageBoardID, topicStatusStream.BaseStream);
-                            topicStatusStream.Close();
-                        }
-                    }
-                }
-
-                if (this.IsForumInstalled && prevVersion < 42)
-                {
-                    // un-html encode all topic subject names...
-                    LegacyDb.unencode_all_topics_subjects(t => Server.HtmlDecode(t));
-                }
-
-                if (this.IsForumInstalled && prevVersion < 49)
-                {
-                    // Reset The UserBox Template
-                    this.Get<YafBoardSettings>().UserBox = Constants.UserBox.DisplayTemplateDefault;
-
-                    ((YafLoadBoardSettings)this.Get<YafBoardSettings>()).SaveRegistry();
-                }
-
-                // vzrus: uncomment it to not keep install/upgrade objects in DB and for better security 
-                // DB.system_deleteinstallobjects();
-            }
-
-            /*catch ( Exception x )
-      {
-        AddLoadMessage( x.Message );
-        return false;
-      }*/
-
-            // attempt to apply fulltext support if desired
-            if (fullText && LegacyDb.FullTextSupported)
-            {
-                try
-                {
-                    this.ExecuteScript(LegacyDb.FullTextScript, false);
-                }
-                catch (Exception x)
-                {
-                    // just a warning...
-                    this.AddLoadMessage("Warning: FullText Support wasn't installed: {0}".FormatWith(x.Message));
-                }
-            }
-
-            // run custom script...
-            this.ExecuteScript("custom.sql", true);
-
-            return true;
         }
 
         #endregion

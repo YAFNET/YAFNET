@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+﻿/* Yet Another Forum.net
  * Copyright (C) 2006-2012 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -16,35 +16,45 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.EventProxies
 {
+    using YAF.Types.Interfaces;
+
     /// <summary>
-    /// The interface for DI classes that handle TEvent
+    /// The after upgrade database event.
     /// </summary>
-    /// <typeparam name="TEvent">
-    /// The event class that is handled.
-    /// </typeparam>
-    public interface IHandleEvent<in TEvent>
-        where TEvent : IAmEvent
+    public class AfterUpgradeDatabaseEvent : IAmEvent
     {
-        #region Public Properties
+        #region Constructors and Destructors
 
         /// <summary>
-        ///     Gets Order.
+        /// Initializes a new instance of the <see cref="AfterUpgradeDatabaseEvent"/> class.
         /// </summary>
-        int Order { get; }
+        /// <param name="previousVersion">
+        /// The previous version.
+        /// </param>
+        /// <param name="newVersion">
+        /// The new version.
+        /// </param>
+        public AfterUpgradeDatabaseEvent(int previousVersion, int newVersion)
+        {
+            this.PreviousVersion = previousVersion;
+            this.CurrentVersion = newVersion;
+        }
 
         #endregion
 
-        #region Public Methods and Operators
+        #region Public Properties
 
         /// <summary>
-        /// The handle.
+        /// Gets or sets the current version.
         /// </summary>
-        /// <param name="event">
-        /// The event.
-        /// </param>
-        void Handle(TEvent @event);
+        public int CurrentVersion { get; set; }
+
+        /// <summary>
+        /// Gets or sets the previous version.
+        /// </summary>
+        public int PreviousVersion { get; set; }
 
         #endregion
     }

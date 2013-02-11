@@ -25,6 +25,7 @@ namespace YAF.Pages.Admin
 
     using YAF.Classes;
     using YAF.Core;
+    using YAF.Core.Services.Import;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;

@@ -47,9 +47,17 @@ namespace YAF.Core
         /// <summary>
         ///     The _event log repository.
         /// </summary>
-        [Inject]
-        public IRepository<EventLog> EventLogRepository { get; set; }
+        public IRepository<EventLog> EventLogRepository
+        {
+            get
+            {
+                return this.GetRepository<EventLog>();
+            }
+        }
 
+        /// <summary>
+        /// Gets or sets the service locator.
+        /// </summary>
         [Inject]
         public IServiceLocator ServiceLocator { get; set; }
 
@@ -64,11 +72,17 @@ namespace YAF.Core
             this.Type = logType;
         }
 
+        /// <summary>
+        /// The try get board settings.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="YafBoardSettings"/>.
+        /// </returns>
         public YafBoardSettings TryGetBoardSettings()
         {
             YafBoardSettings boardSettings;
 
-            if (this.ServiceLocator.TryGet<YafBoardSettings>(out boardSettings))
+            if (this.ServiceLocator.TryGet(out boardSettings))
             {
                 return boardSettings;
             }
@@ -92,12 +106,12 @@ namespace YAF.Core
         public Type Type { get; set; }
 
         /// <summary>
-        /// The _event log type lookup.
+        ///     The _event log type lookup.
         /// </summary>
         private Dictionary<EventLogTypes, bool> _eventLogTypeLookup;
 
         /// <summary>
-        /// The init lookup.
+        ///     The init lookup.
         /// </summary>
         private void InitLookup()
         {

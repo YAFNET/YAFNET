@@ -203,7 +203,6 @@ namespace YAF.Core
         {
             using (var dt = new DataTable("Cultures"))
             {
-
                 dt.Columns.Add("CultureTag", typeof(string));
                 dt.Columns.Add("CultureFile", typeof(string));
                 dt.Columns.Add("CultureEnglishName", typeof(string));
@@ -211,13 +210,11 @@ namespace YAF.Core
                 dt.Columns.Add("CultureDisplayName", typeof(string));
 
                 // Get all language files info
-                var dir =
-                  new DirectoryInfo(
-                    YafContext.Current.Get<HttpRequestBase>().MapPath("{0}languages".FormatWith(YafForumInfo.ForumServerFileRoot)));
+                var dir = new DirectoryInfo(YafContext.Current.Get<HttpRequestBase>().MapPath("{0}languages".FormatWith(YafForumInfo.ForumServerFileRoot)));
                 FileInfo[] files = dir.GetFiles("*.xml");
 
                 // Create an array with tags
-                string[,] tags = new string[2, files.Length];
+                var tags = new string[2, files.Length];
 
                 // Extract availabe language tags into the array          
                 for (int i = 0; i < files.Length; i++)
@@ -249,22 +246,24 @@ namespace YAF.Core
                 {
                     for (int j = 0; j < files.Length; j++)
                     {
-                        if (!ci.IsNeutralCulture && tags[1, j].ToLower().Substring(0, 2).Contains(ci.TwoLetterISOLanguageName.ToLower()) /*&& ci.IetfLanguageTag.Length == 5*/)
+                        if (ci.IsNeutralCulture || !tags[1, j].ToLower().Substring(0, 2).Contains(ci.TwoLetterISOLanguageName.ToLower()))
                         {
-                            DataRow dr = dt.NewRow();
-                            dr["CultureTag"] = ci.IetfLanguageTag;
-                            dr["CultureFile"] = tags[0, j];
-                            dr["CultureEnglishName"] = ci.EnglishName;
-                            dr["CultureNativeName"] = ci.NativeName;
-                            dr["CultureDisplayName"] = ci.DisplayName;
-                            dt.Rows.Add(dr);
+                            continue;
                         }
+
+                        DataRow dr = dt.NewRow();
+                        dr["CultureTag"] = ci.IetfLanguageTag;
+                        dr["CultureFile"] = tags[0, j];
+                        dr["CultureEnglishName"] = ci.EnglishName;
+                        dr["CultureNativeName"] = ci.NativeName;
+                        dr["CultureDisplayName"] = ci.DisplayName;
+                        dt.Rows.Add(dr);
                     }
 
                 }
+
                 return dt;
             }
-
         }
 
         /// <summary>

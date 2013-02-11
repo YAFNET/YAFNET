@@ -59,6 +59,7 @@
     <Compile Include="Attributes\StringValueAttribute.cs" />
     <Compile Include="Attributes\YafModule.cs" />
     <Compile Include="BadWordReplaceItem.cs" />
+    <Compile Include="EventProxies\AfterUpgradeDatabaseEvent.cs" />
     <Compile Include="EventProxies\RepositoryEvent.cs" />
     <Compile Include="Extensions\ArrayExtensions.cs" />
     <Compile Include="Extensions\DataContainerExtensions.cs" />

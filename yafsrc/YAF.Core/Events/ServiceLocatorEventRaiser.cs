@@ -18,116 +18,129 @@
  */
 namespace YAF.Core
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.Collections.Generic;
-  using System.Linq;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
-  using YAF.Types;
-  using YAF.Types.Interfaces;
-
-    #endregion
-
-  /// <summary>
-  /// The autofac event raiser.
-  /// </summary>
-  public class ServiceLocatorEventRaiser : IRaiseEvent
-  {
-    #region Constants and Fields
-
-    /// <summary>
-    /// The _service locator.
-    /// </summary>
-    private readonly IServiceLocator _serviceLocator;
+    using YAF.Types;
+    using YAF.Types.Interfaces;
 
     #endregion
 
-    #region Constructors and Destructors
-
     /// <summary>
-    /// Initializes a new instance of the <see cref="ServiceLocatorEventRaiser"/> class.
+    /// The service locator event raiser.
     /// </summary>
-    /// <param name="serviceLocator">
-    /// The service Locator.
-    /// </param>
-    public ServiceLocatorEventRaiser([NotNull] IServiceLocator serviceLocator)
+    public class ServiceLocatorEventRaiser : IRaiseEvent
     {
-      this._serviceLocator = serviceLocator;
+        #region Fields
+
+        /// <summary>
+        ///     The _service locator.
+        /// </summary>
+        private readonly IServiceLocator _serviceLocator;
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ServiceLocatorEventRaiser"/> class.
+        /// </summary>
+        /// <param name="serviceLocator">
+        /// The service Locator.
+        /// </param>
+        /// <param name="logger">
+        /// The logger.
+        /// </param>
+        public ServiceLocatorEventRaiser([NotNull] IServiceLocator serviceLocator, ILogger logger)
+        {
+            this.Logger = logger;
+            this._serviceLocator = serviceLocator;
+        }
+
+        #endregion
+
+        #region Public Properties
+
+        /// <summary>
+        ///     Gets or sets the logger.
+        /// </summary>
+        public ILogger Logger { get; set; }
+
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>
+        /// The event raiser.
+        /// </summary>
+        /// <param name="eventObject">
+        /// The event object.
+        /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
+        public void Raise<T>(T eventObject) where T : IAmEvent
+        {
+            foreach (var x in this.GetAggregatedAndOrderedEventHandlers<T>())
+            {
+                x.Handle(eventObject);
+            }
+        }
+
+        /// <summary>
+        /// Raise all events using try/catch block.
+        /// </summary>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <param name="eventObject">
+        /// </param>
+        /// <param name="logExceptionAction">
+        /// </param>
+        public void RaiseIssolated<T>(T eventObject, [CanBeNull] Action<string, Exception> logExceptionAction)
+            where T : IAmEvent
+        {
+            foreach (var theHandler in this.GetAggregatedAndOrderedEventHandlers<T>())
+            {
+                try
+                {
+                    theHandler.Handle(eventObject);
+                }
+                catch (Exception ex)
+                {
+                    if (logExceptionAction != null)
+                    {
+                        logExceptionAction(theHandler.GetType().Name, ex);
+                    }
+                    else
+                    {
+                        this.Logger.Error(ex, "Exception Raising Event to Handler: {0}", theHandler.GetType().Name);
+                    }
+                }
+            }
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        ///     The get event handlers aggregated and ordered.
+        /// </summary>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <returns>
+        ///     The <see cref="IList" />.
+        /// </returns>
+        private IList<IHandleEvent<T>> GetAggregatedAndOrderedEventHandlers<T>() where T : IAmEvent
+        {
+            return this._serviceLocator.Get<IEnumerable<IHandleEvent<T>>>()
+                       .Concat(this._serviceLocator.Get<IEnumerable<IFireEvent<T>>>())
+                       .OrderBy(x => x.Order)
+                       .ToList();
+        }
+
+        #endregion
     }
-
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region IRaiseEvent
-
-    /// <summary>
-    /// The event raiser.
-    /// </summary>
-    /// <param name="eventObject">
-    /// The event object.
-    /// </param>
-    /// <typeparam name="T">
-    /// </typeparam>
-    public void Raise<T>(T eventObject) where T : IAmEvent
-    {
-      this._serviceLocator.Get<IEnumerable<IHandleEvent<T>>>().OrderBy(x => x.Order).ToList().ForEach(
-        x => x.Handle(eventObject));
-      this._serviceLocator.Get<IEnumerable<IFireEvent<T>>>().OrderBy(x => x.Order).ToList().ForEach(
-        x => x.Handle(eventObject));
-    }
-
-    /// <summary>
-    /// Raise all events using try/catch block.
-    /// </summary>
-    /// <typeparam name="T">
-    /// </typeparam>
-    /// <param name="eventObject">
-    /// </param>
-    /// <param name="logExceptionAction">
-    /// </param>
-    public void RaiseIssolated<T>(T eventObject, [CanBeNull] Action<string, Exception> logExceptionAction)
-      where T : IAmEvent
-    {
-      var eventItems = this._serviceLocator.Get<IEnumerable<IHandleEvent<T>>>().OrderBy(x => x.Order).ToList();
-
-      foreach (var theHandler in eventItems)
-      {
-        try
-        {
-          theHandler.Handle(eventObject);
-        }
-        catch (Exception ex)
-        {
-          if (logExceptionAction != null)
-          {
-            logExceptionAction(theHandler.GetType().Name, ex);
-          }
-        }
-      }
-
-      var fireEventItems =
-        this._serviceLocator.Get<IEnumerable<IFireEvent<T>>>().OrderBy(x => x.Order).ToList().ToList();
-
-      foreach (var theFireEventHandler in fireEventItems)
-      {
-        try
-        {
-          theFireEventHandler.Handle(eventObject);
-        }
-        catch (Exception ex)
-        {
-          if (logExceptionAction != null)
-          {
-            logExceptionAction(theFireEventHandler.GetType().Name, ex);
-          }
-        }
-      }
-    }
-
-    #endregion
-
-    #endregion
-  }
 }

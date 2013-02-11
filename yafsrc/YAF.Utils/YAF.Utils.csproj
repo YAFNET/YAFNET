@@ -63,7 +63,6 @@
     <Compile Include="Helpers\DateTimeHelper.cs" />
     <Compile Include="Helpers\HashHelper.cs" />
     <Compile Include="Helpers\ImageUtils\CaptchaImage.cs" />
-    <Compile Include="Extensions\IRegistrationBuilderExtension.cs" />
     <Compile Include="Helpers\EnumHelper.cs" />
     <Compile Include="Extensions\HtmlWriterExtensions.cs" />
     <Compile Include="General.cs" />
@@ -87,7 +86,6 @@
     <Compile Include="Structures\DoubleLinkedList.cs" />
     <Compile Include="Structures\MostRecentlyUsed.cs" />
     <Compile Include="StyleTransform.cs" />
-    <Compile Include="UtilitiesModule.cs" />
     <Compile Include="YafBuildLink.cs" />
     <Compile Include="YafForumInfo.cs" />
     <Compile Include="YafSystemInfo.cs" />
