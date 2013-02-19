@@ -520,9 +520,8 @@ namespace YAF.Pages
             using (
                 DataTable dt =
                     this.TabledCleanUpByDate(
-                        LegacyDb.topic_favorite_details(
-                            this.PageContext.PageBoardID,
-                            categoryActiveId,
+                        this.GetRepository<FavoriteTopic>().Details(
+                            categoryActiveId.ToType<int?>(),
                             this.PageContext.PageUserID,
                             toFavDate,
                             DateTime.UtcNow,
@@ -536,14 +535,14 @@ namespace YAF.Pages
                         toFavDate))
             {
                 string urlAlphaNum = FormatUrlForFeed(YafForumInfo.ForumBaseUrl);
-                string feedNameAlphaNum = new Regex(@"[^A-Za-z0-9]", RegexOptions.IgnoreCase).Replace(
-                    toFavText, string.Empty);
-                feed =
-                    new YafSyndicationFeed(
-                        "{0} - {1}".FormatWith(this.GetText("MYTOPICS", "FAVORITETOPICS"), toFavText),
-                        feedType,
-                        atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
-                        urlAlphaNum);
+                string feedNameAlphaNum =
+                    new Regex(@"[^A-Za-z0-9]", RegexOptions.IgnoreCase)
+                        .Replace(toFavText, string.Empty);
+                feed = new YafSyndicationFeed(
+                    "{0} - {1}".FormatWith(this.GetText("MYTOPICS", "FAVORITETOPICS"), toFavText),
+                    feedType,
+                    atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
+                    urlAlphaNum);
 
                 foreach (DataRow row in dt.Rows)
                 {
@@ -614,9 +613,8 @@ namespace YAF.Pages
             [NotNull] ref YafSyndicationFeed feed, YafRssFeeds feedType, bool atomFeedByVar, [NotNull] object categoryId)
         {
             var syndicationItems = new List<SyndicationItem>();
-            using (
-                DataTable dt = LegacyDb.forum_listread(
-                    this.PageContext.PageBoardID, this.PageContext.PageUserID, categoryId, null, false, false))
+
+            using (DataTable dt = LegacyDb.forum_listread(this.PageContext.PageBoardID, this.PageContext.PageUserID, categoryId, null, false, false))
             {
                 string urlAlphaNum = FormatUrlForFeed(BaseUrlBuilder.BaseUrl);
 
@@ -695,9 +693,8 @@ namespace YAF.Pages
             [NotNull] ref YafSyndicationFeed feed, YafRssFeeds feedType, bool atomFeedByVar)
         {
             var syndicationItems = new List<SyndicationItem>();
-            using (
-                DataTable dt = LegacyDb.topic_announcements(
-                    this.PageContext.PageBoardID, 10, this.PageContext.PageUserID))
+
+            using (DataTable dt = LegacyDb.topic_announcements(this.PageContext.PageBoardID, 10, this.PageContext.PageUserID))
             {
                 string urlAlphaNum = FormatUrlForFeed(BaseUrlBuilder.BaseUrl);
 
@@ -770,11 +767,7 @@ namespace YAF.Pages
                     attachementLinks.AddRange(
                         from DataRow attachLink in attList.Rows
                         where !attachLink["FileName"].IsNullOrEmptyDBField()
-                        select
-                            new SyndicationLink(
-                            new Uri(
-                            "{0}{1}resource.ashx?a={2}".FormatWith(
-                                YafForumInfo.ForumBaseUrl, YafForumInfo.ForumClientFileRoot.TrimStart('/'), attachLink["AttachmentID"])),
+                        select new SyndicationLink(new Uri("{0}{1}resource.ashx?a={2}".FormatWith(YafForumInfo.ForumBaseUrl, YafForumInfo.ForumClientFileRoot.TrimStart('/'), attachLink["AttachmentID"])),
                             "enclosure",
                             attachLink["FileName"].ToString(),
                             attachLink["ContentType"].ToString(),

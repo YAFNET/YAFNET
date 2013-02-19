@@ -106,6 +106,7 @@
     <Compile Include="Models\Board.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\CheckEmail.cs" />
+    <Compile Include="Models\FavoriteTopic.cs" />
     <Compile Include="Models\FileExtension.cs" />
     <Compile Include="Models\EventLog.cs" />
     <Compile Include="Models\Medal.cs" />

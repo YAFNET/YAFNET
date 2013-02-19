@@ -30,10 +30,12 @@ namespace YAF.Controls
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -249,11 +251,10 @@ namespace YAF.Controls
                         this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
                     break;
                 case TopicListMode.Favorite:
-                    topicList = LegacyDb.topic_favorite_details(
-                        this.PageContext.PageBoardID,
+                    topicList = this.GetRepository<FavoriteTopic>().Details(
                         (YafContext.Current.Settings.CategoryID == 0)
                             ? null
-                            : (object)YafContext.Current.Settings.CategoryID,
+                            : (int?)YafContext.Current.Settings.CategoryID,
                         this.PageContext.PageUserID,
                         this.sinceDate,
                         DateTime.UtcNow,

@@ -1145,26 +1145,6 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
-        /// Get the favorite count for a topic...
-        /// </summary>
-        /// <param name="topicId">
-        /// The topic Id.
-        /// </param>
-        /// <returns>
-        /// The topic favorite count.
-        /// </returns>
-        public static int TopicFavoriteCount(int topicId)
-        {
-            using (var cmd = MsSqlDbAccess.GetCommand("topic_favorite_count"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("TopicID", topicId);
-
-                return MsSqlDbAccess.Current.GetData(cmd).GetFirstRowColumnAsValue("FavoriteCount", 0);
-            }
-        }
-
-        /// <summary>
         /// The UserFind.
         /// </summary>
         /// <param name="boardID">
@@ -6886,104 +6866,6 @@ namespace YAF.Classes.Data
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("TopicID", topicID);
                 cmd.Parameters.AddWithValue("EraseTopic", eraseTopic);
-                MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
-            }
-        }
-
-        /// <summary>
-        /// The topic_favorite_add.
-        /// </summary>
-        /// <param name="userID">
-        /// The user id.
-        /// </param>
-        /// <param name="topicID">
-        /// The topic id.
-        /// </param>
-        public static void topic_favorite_add([NotNull] object userID, [NotNull] object topicID)
-        {
-            using (var cmd = MsSqlDbAccess.GetCommand("topic_favorite_add"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("UserID", userID);
-                cmd.Parameters.AddWithValue("TopicID", topicID);
-                MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
-            }
-        }
-
-        /// <summary>
-        /// The topic_ favorite_ details.
-        /// </summary>
-        /// <param name="boardID">
-        /// The board id.
-        /// </param>
-        /// <param name="pageUserId">
-        /// The user id.
-        /// </param>
-        /// <param name="since">
-        /// The since.
-        /// </param>
-        /// <param name="categoryID">
-        /// The category id.
-        /// </param>
-        /// <param name="useStyledNicks">
-        /// Set to true to get color nicks for last user and topic starter.
-        /// </param>
-        /// <returns>
-        /// a Data Table containing the current page user's favorite topics with details.
-        /// </returns>
-        public static DataTable topic_favorite_details([NotNull] object boardId, [CanBeNull] object categoryId, [NotNull] object pageUserId, [NotNull] object sinceDate, [NotNull] object toDate, [NotNull] object pageIndex, [NotNull] object pageSize, [NotNull] object useStyledNicks, [CanBeNull]bool findLastRead)
-        {
-            using (var cmd = MsSqlDbAccess.GetCommand("topic_favorite_details"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("BoardID", boardId);
-                cmd.Parameters.AddWithValue("CategoryID", categoryId);
-                cmd.Parameters.AddWithValue("PageUserID", pageUserId);
-                cmd.Parameters.AddWithValue("SinceDate", sinceDate);
-                cmd.Parameters.AddWithValue("ToDate", toDate);
-                cmd.Parameters.AddWithValue("PageIndex", pageIndex);
-                cmd.Parameters.AddWithValue("PageSize", pageSize);
-                cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
-                cmd.Parameters.AddWithValue("FindLastRead", findLastRead);
-
-                return MsSqlDbAccess.Current.GetData(cmd);
-            }
-        }
-
-        /// <summary>
-        /// The topic_favorite_list.
-        /// </summary>
-        /// <param name="userID">
-        /// The user id.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        public static DataTable topic_favorite_list([NotNull] object userID)
-        {
-            using (var cmd = MsSqlDbAccess.GetCommand("topic_favorite_list"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("UserID", userID);
-                return MsSqlDbAccess.Current.GetData(cmd);
-            }
-        }
-
-        /// <summary>
-        /// The topic_favorite_remove.
-        /// </summary>
-        /// <param name="userID">
-        /// The user id.
-        /// </param>
-        /// <param name="topicID">
-        /// The topic id.
-        /// </param>
-        public static void topic_favorite_remove([NotNull] object userID, [NotNull] object topicID)
-        {
-            using (var cmd = MsSqlDbAccess.GetCommand("topic_favorite_remove"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("UserID", userID);
-                cmd.Parameters.AddWithValue("TopicID", topicID);
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
             }
         }

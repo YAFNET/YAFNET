@@ -372,7 +372,6 @@ namespace YAF.Core
 
             builder.RegisterType<YafPermissions>().As<IPermissions>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<YafDateTime>().As<IDateTime>().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.RegisterType<YafFavoriteTopic>().As<IFavoriteTopic>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<YafUserIgnored>().As<IUserIgnored>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<YafBuddy>().As<IBuddy>().InstancePerLifetimeScope().PreserveExistingDefaults();
 
@@ -416,6 +415,9 @@ namespace YAF.Core
             // board settings...
             builder.RegisterType<CurrentBoardSettings>().AsSelf().InstancePerYafContext().PreserveExistingDefaults();
             builder.Register(k => k.Resolve<CurrentBoardSettings>().Instance).ExternallyOwned().PreserveExistingDefaults();
+
+            // favorite topic is based on YafContext
+            builder.RegisterType<YafFavoriteTopic>().As<IFavoriteTopic>().InstancePerYafContext().PreserveExistingDefaults();
 
             this.UpdateRegistry(builder);
         }

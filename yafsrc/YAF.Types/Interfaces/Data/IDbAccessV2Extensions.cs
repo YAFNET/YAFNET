@@ -43,8 +43,7 @@ namespace YAF.Types.Interfaces.Data
         /// <returns>
         /// The <see cref="IDbTransaction"/> .
         /// </returns>
-        public static IDbTransaction BeginTransaction(
-            [NotNull] this IDbAccessV2 dbAccess, IsolationLevel isolationLevel = IsolationLevel.ReadUncommitted)
+        public static IDbTransaction BeginTransaction([NotNull] this IDbAccessV2 dbAccess, IsolationLevel isolationLevel = IsolationLevel.ReadUncommitted)
         {
             CodeContracts.ArgumentNotNull(dbAccess, "dbAccess");
 
@@ -181,28 +180,27 @@ namespace YAF.Types.Interfaces.Data
         /// <returns>
         /// The <see cref="DataSet"/> .
         /// </returns>
-        public static DataSet GetDataset(
-            [NotNull] this IDbAccessV2 dbAccess, [NotNull] IDbCommand cmd, [CanBeNull] IDbTransaction dbTransaction = null)
+        public static DataSet GetDataset([NotNull] this IDbAccessV2 dbAccess, [NotNull] IDbCommand cmd, [CanBeNull] IDbTransaction dbTransaction = null)
         {
             CodeContracts.ArgumentNotNull(dbAccess, "dbAccess");
             CodeContracts.ArgumentNotNull(cmd, "cmd");
 
             return dbAccess.Execute(
                 (c) =>
-                {
-                    var ds = new DataSet();
-
-                    IDbDataAdapter dataAdapter = dbAccess.DbProviderFactory.CreateDataAdapter();
-
-                    if (dataAdapter != null)
                     {
-                        dataAdapter.SelectCommand = cmd;
-                        dataAdapter.Fill(ds);
-                    }
+                        var ds = new DataSet();
 
-                    return ds;
-                },
-                cmd,
+                        IDbDataAdapter dataAdapter = dbAccess.DbProviderFactory.CreateDataAdapter();
+
+                        if (dataAdapter != null)
+                        {
+                            dataAdapter.SelectCommand = cmd;
+                            dataAdapter.Fill(ds);
+                        }
+
+                        return ds;
+                    }, 
+                cmd, 
                 dbTransaction);
         }
 
@@ -228,6 +226,22 @@ namespace YAF.Types.Interfaces.Data
             CodeContracts.ArgumentNotNull(dbTransaction, "dbTransaction");
 
             return dbAccess.Execute((c) => c.ExecuteReader(), cmd, dbTransaction);
+        }
+
+        /// <summary>
+        /// The get table.
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The db access.
+        /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public static string GetTableName<T>(this IDbAccessV2 dbAccess)
+        {
+            return OrmLiteConfig.DialectProvider.GetQuotedTableName(ModelDefinition<T>.Definition);
         }
 
         /// <summary>
