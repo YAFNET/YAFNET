@@ -27,6 +27,7 @@ namespace YAF.Core.Services
 
     using YAF.Classes;
     using YAF.Classes.Data;
+    using YAF.Core.Model;
     using YAF.Core.Services.Twitter;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -34,6 +35,7 @@ namespace YAF.Core.Services
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
 
     /// <summary>
@@ -463,9 +465,6 @@ namespace YAF.Core.Services
                 // save avatar
                 LegacyDb.user_saveavatar(userId, "https://graph.facebook.com/{0}/picture".FormatWith(id), null, null);
 
-                // Clearing cache with old Active User Lazy Data ...
-                YafContext.Current.Get<IDataCache>().Remove(Constants.Cache.ActiveUserLazyData.FormatWith(userId));
-
                 YafContext.Current.Get<IRaiseEvent>().Raise(new NewUserRegisteredEvent(user, userId));
 
                 // Add Flag to User that indicates that the user is logged in via facebook
@@ -498,12 +497,14 @@ namespace YAF.Core.Services
         /// </param>
         private static void LoginTwitterSuccess([NotNull]bool newUser, [NotNull]OAuthTwitter oAuth, [NotNull]int userId, [CanBeNull]MembershipUser user)
         {
-            // Clearing cache with old Active User Lazy Data ...
-            YafContext.Current.Get<IDataCache>().Remove(Constants.Cache.ActiveUserLazyData.FormatWith(userId));
-
             if (newUser)
             {
                 YafContext.Current.Get<IRaiseEvent>().Raise(new NewUserRegisteredEvent(user, userId));
+            }
+            else
+            {
+                // Clearing cache with old Active User Lazy Data ...
+                YafContext.Current.Get<IDataCache>().Remove(Constants.Cache.ActiveUserLazyData.FormatWith(userId));
             }
 
             // Store Tokens in Session (Could Bes Stored in DB but it would be a Security Problem)
@@ -601,7 +602,8 @@ namespace YAF.Core.Services
 
             foreach (string email in emails.Where(email => email.Trim().IsSet()))
             {
-                YafContext.Current.Get<ISendMail>().Queue(YafContext.Current.Get<YafBoardSettings>().ForumEmail, email.Trim(), subject, emailBody);
+                YafContext.Current.GetRepository<Mail>()
+                          .Create(YafContext.Current.Get<YafBoardSettings>().ForumEmail, email.Trim(), subject, emailBody);
             }
         }
     }

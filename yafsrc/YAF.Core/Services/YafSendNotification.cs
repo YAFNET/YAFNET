@@ -31,11 +31,13 @@ namespace YAF.Core.Services
 
     using YAF.Classes;
     using YAF.Classes.Data;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
+    using YAF.Types.Models;
     using YAF.Types.Objects;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -68,6 +70,14 @@ namespace YAF.Core.Services
         /// Gets or sets ServiceLocator.
         /// </summary>
         public IServiceLocator ServiceLocator { get; set; }
+
+        public YafBoardSettings BoardSettings
+        {
+            get
+            {
+                return this.Get<YafBoardSettings>();
+            }
+        }
 
         #endregion
 
@@ -122,7 +132,7 @@ namespace YAF.Core.Services
 
                 notifyModerators.TemplateParams["{adminlink}"] =
                     YafBuildLink.GetLinkNotEscaped(ForumPages.moderate_unapprovedposts, true, "f={0}", forumId);
-                notifyModerators.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
+                notifyModerators.TemplateParams["{forumname}"] = this.BoardSettings.Name;
 
                 notifyModerators.SendEmail(
                     new MailAddress(membershipUser.Email, membershipUser.UserName), subject, true);
@@ -291,7 +301,7 @@ namespace YAF.Core.Services
         {
             IEnumerable<TypedUserFind> usersWithAll = new List<TypedUserFind>();
 
-            if (this.Get<YafBoardSettings>().AllowNotificationAllPostsAllTopics)
+            if (this.BoardSettings.AllowNotificationAllPostsAllTopics)
             {
                 // TODO: validate permissions!
                 usersWithAll = LegacyDb.UserFind(
@@ -305,9 +315,9 @@ namespace YAF.Core.Services
             }
 
             // TODO : Rewrite Watch Topic code to allow watch mails in the users language, as workaround send all messages in the default board language
-            string languageFile = this.Get<YafBoardSettings>().Language;
-            string boardName = this.Get<YafBoardSettings>().Name;
-            string forumEmail = this.Get<YafBoardSettings>().ForumEmail;
+            string languageFile = this.BoardSettings.Language;
+            string boardName = this.BoardSettings.Name;
+            string forumEmail = BoardSettings.ForumEmail;
 
             foreach (var message in LegacyDb.MessageList(newMessageId))
             {
@@ -389,18 +399,17 @@ namespace YAF.Core.Services
             var notifyUser = new YafTemplateEmail();
 
             var subject =
-                YafContext.Current.Get<ILocalization>().GetText("COMMON", "NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT").FormatWith(YafContext.Current.Get<YafBoardSettings>().Name);
+                this.Get<ILocalization>().GetText("COMMON", "NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT").FormatWith(YafContext.Current.Get<YafBoardSettings>().Name);
 
             notifyUser.TemplateParams["{user}"] = user.UserName;
             notifyUser.TemplateParams["{email}"] = user.Email;
             notifyUser.TemplateParams["{pass}"] = pass;
             notifyUser.TemplateParams["{answer}"] = securityAnswer;
-            notifyUser.TemplateParams["{forumname}"] = YafContext.Current.Get<YafBoardSettings>().Name;
+            notifyUser.TemplateParams["{forumname}"] = this.BoardSettings.Name;
 
             var emailBody = notifyUser.ProcessTemplate(templateName);
 
-            YafContext.Current.Get<ISendMail>().Queue(
-                YafContext.Current.Get<YafBoardSettings>().ForumEmail, user.Email, subject, emailBody);
+            this.GetRepository<Mail>().Create(this.BoardSettings.ForumEmail, user.Email, subject, emailBody);
         }
 
         /// <summary>
@@ -425,26 +434,20 @@ namespace YAF.Core.Services
 
             var languageFile = UserHelper.GetUserLanguageFile(toUser.UserID.ToType<int>());
 
-            var notifyUser = new YafTemplateEmail("NOTIFICATION_ON_MEDAL_AWARDED")
-                                 { TemplateLanguageFile = languageFile };
+            var notifyUser = new YafTemplateEmail("NOTIFICATION_ON_MEDAL_AWARDED") { TemplateLanguageFile = languageFile };
 
             var subject =
-                YafContext.Current.Get<ILocalization>().GetText(
-                    "COMMON", "NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT", languageFile).FormatWith(
-                        YafContext.Current.Get<YafBoardSettings>().Name);
+                this.Get<ILocalization>().GetText("COMMON", "NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT", languageFile).FormatWith(
+                    this.BoardSettings.Name);
 
-            notifyUser.TemplateParams["{user}"] = YafContext.Current.Get<YafBoardSettings>().EnableDisplayName
+            notifyUser.TemplateParams["{user}"] = this.BoardSettings.EnableDisplayName
                                                       ? toUser.DisplayName
                                                       : toUser.Name;
             notifyUser.TemplateParams["{medalname}"] = medalName;
-            notifyUser.TemplateParams["{forumname}"] = YafContext.Current.Get<YafBoardSettings>().Name;
+            notifyUser.TemplateParams["{forumname}"] = this.BoardSettings.Name;
 
             notifyUser.SendEmail(
-                new MailAddress(
-                    toUser.Email,
-                    YafContext.Current.Get<YafBoardSettings>().EnableDisplayName ? toUser.DisplayName : toUser.Name),
-                subject,
-                true);
+                new MailAddress(toUser.Email, this.BoardSettings.EnableDisplayName ? toUser.DisplayName : toUser.Name), subject, true);
         }
 
         #endregion

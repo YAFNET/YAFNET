@@ -21,6 +21,7 @@ namespace YAF.Core.Data
     #region Using
 
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Data;
     using System.Dynamic;
@@ -30,6 +31,7 @@ namespace YAF.Core.Data
 
     using YAF.Types;
     using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
     #endregion
@@ -46,15 +48,7 @@ namespace YAF.Core.Data
         /// </summary>
         private readonly IDbAccessProvider _dbAccessProvider;
 
-        /// <summary>
-        ///     The _db filter functions.
-        /// </summary>
-        private readonly Func<IEnumerable<IDbDataFilter>> _dbFilterFunctions;
-
-        /// <summary>
-        ///     The _db specific functions.
-        /// </summary>
-        private readonly Func<IEnumerable<IDbSpecificFunction>> _dbSpecificFunctions;
+        private readonly IServiceLocator _serviceLocator;
 
         /// <summary>
         ///     The _get data proxy.
@@ -104,12 +98,10 @@ namespace YAF.Core.Data
         /// </param>
         public DynamicDbFunction(
             [NotNull] IDbAccessProvider dbAccessProvider, 
-            Func<IEnumerable<IDbSpecificFunction>> dbSpecificFunctions, 
-            Func<IEnumerable<IDbDataFilter>> dbFilterFunctions)
+            IServiceLocator serviceLocator)
         {
             this._dbAccessProvider = dbAccessProvider;
-            this._dbSpecificFunctions = dbSpecificFunctions;
-            this._dbFilterFunctions = dbFilterFunctions;
+            this._serviceLocator = serviceLocator;
 
             this._getDataProxy = new TryInvokeMemberProxy(this.InvokeGetData);
             this._getDataSetProxy = new TryInvokeMemberProxy(this.InvokeGetDataSet);
@@ -208,10 +200,10 @@ namespace YAF.Core.Data
         /// </returns>
         public IDbFunctionSession CreateSession(IsolationLevel isolationLevel = IsolationLevel.ReadUncommitted)
         {
-            return new DynamicDbFunction(this._dbAccessProvider, this._dbSpecificFunctions, this._dbFilterFunctions)
-                {
-                    DbTransaction = this._dbAccessProvider.Instance.BeginTransaction(isolationLevel)
-                };
+            return new DynamicDbFunction(this._dbAccessProvider, this._serviceLocator)
+                       {
+                           DbTransaction = this._dbAccessProvider.Instance.BeginTransaction(isolationLevel)
+                       };
         }
 
         /// <summary>
@@ -306,7 +298,7 @@ namespace YAF.Core.Data
             var operationName = binder.Name;
 
             // see if there's a specific function override for the current provider...
-            var specificFunction = this._dbSpecificFunctions()
+            var specificFunction = this._serviceLocator.Get<IEnumerable<IDbSpecificFunction>>()
                 .WhereProviderName(this._dbAccessProvider.ProviderName)
                 .BySortOrder()
                 .WhereOperationSupported(operationName)
@@ -517,7 +509,7 @@ namespace YAF.Core.Data
         private void RunFilters(DbFunctionType functionType, IList<KeyValuePair<string, object>> parameters, string operationName, ref object result)
         {
             // execute filter...
-            var filterFunctions = this._dbFilterFunctions()
+            var filterFunctions = this._serviceLocator.Get<IEnumerable<IDbDataFilter>>()
                 .BySortOrder()
                 .WhereOperationSupported(operationName)
                 .ToList();

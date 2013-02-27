@@ -1042,27 +1042,6 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
-        /// The mail_list.
-        /// </summary>
-        /// <param name="processId">
-        /// The process id.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        [NotNull]
-        public static IEnumerable<TypedMailList> MailList(long processId)
-        {
-            using (var cmd = MsSqlDbAccess.GetCommand("mail_list"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("ProcessID", processId);
-                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
-
-                return MsSqlDbAccess.Current.GetData(cmd).SelectTypedList(x => new TypedMailList(x));
-            }
-        }
-
-        /// <summary>
         /// Retuns All the Thanks for the Message IDs which are in the 
         ///   delimited string variable MessageIDs
         /// </summary>
@@ -3816,104 +3795,6 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("UsrAlbumImages", usrAlbumImages);
 
                 return long.Parse(MsSqlDbAccess.Current.ExecuteScalar(cmd).ToString());
-            }
-        }
-
-        /// <summary>
-        /// The mail_create.
-        /// </summary>
-        /// <param name="from">
-        /// The from.
-        /// </param>
-        /// <param name="fromName">
-        /// The from name.
-        /// </param>
-        /// <param name="to">
-        /// The to.
-        /// </param>
-        /// <param name="toName">
-        /// The to name.
-        /// </param>
-        /// <param name="subject">
-        /// The subject.
-        /// </param>
-        /// <param name="body">
-        /// The body.
-        /// </param>
-        /// <param name="bodyHtml">
-        /// The body html.
-        /// </param>
-        public static void mail_create([NotNull] object from, [NotNull] object fromName, [NotNull] object to, [NotNull] object toName, [NotNull] object subject, [NotNull] object body, [NotNull] object bodyHtml)
-        {
-            using (var cmd = MsSqlDbAccess.GetCommand("mail_create"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("From", from);
-                cmd.Parameters.AddWithValue("FromName", fromName);
-                cmd.Parameters.AddWithValue("To", to);
-                cmd.Parameters.AddWithValue("ToName", toName);
-                cmd.Parameters.AddWithValue("Subject", subject);
-                cmd.Parameters.AddWithValue("Body", body);
-                cmd.Parameters.AddWithValue("BodyHtml", bodyHtml);
-                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
-                MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
-            }
-        }
-
-        /// <summary>
-        /// The mail_createwatch.
-        /// </summary>
-        /// <param name="topicID">
-        /// The topic id.
-        /// </param>
-        /// <param name="from">
-        /// The from.
-        /// </param>
-        /// <param name="fromName">
-        /// The from name.
-        /// </param>
-        /// <param name="subject">
-        /// The subject.
-        /// </param>
-        /// <param name="body">
-        /// The body.
-        /// </param>
-        /// <param name="bodyHtml">
-        /// The body html.
-        /// </param>
-        /// <param name="userID">
-        /// The user id.
-        /// </param>
-        public static void mail_createwatch([NotNull] object topicID, [NotNull] object from, [NotNull] object fromName, [NotNull] object subject, [NotNull] object body, [NotNull] object bodyHtml, [NotNull] object userID)
-        {
-            using (var cmd = MsSqlDbAccess.GetCommand("mail_createwatch"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("TopicID", topicID);
-                cmd.Parameters.AddWithValue("From", from);
-                cmd.Parameters.AddWithValue("FromName", fromName);
-                cmd.Parameters.AddWithValue("Subject", subject);
-                cmd.Parameters.AddWithValue("Body", body);
-                cmd.Parameters.AddWithValue("BodyHtml", bodyHtml);
-                cmd.Parameters.AddWithValue("UserID", userID);
-                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
-                MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
-            }
-        }
-
-        /// <summary>
-        /// The mail_delete.
-        /// </summary>
-        /// <param name="mailID">
-        /// The mail id.
-        /// </param>
-        public static void mail_delete([NotNull] object mailID)
-        {
-            using (var cmd = MsSqlDbAccess.GetCommand("mail_delete"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("MailID", mailID);
-                MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
             }
         }
 

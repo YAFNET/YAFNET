@@ -37,7 +37,7 @@ namespace YAF.Types.Interfaces
         /// The get.
         /// </summary>
         /// <param name="serviceLocator">
-        /// The service locator. 
+        /// The service locator.
         /// </param>
         /// <typeparam name="TService">
         /// </typeparam>
@@ -55,10 +55,10 @@ namespace YAF.Types.Interfaces
         /// The get.
         /// </summary>
         /// <param name="serviceLocator">
-        /// The service locator. 
+        /// The service locator.
         /// </param>
         /// <param name="named">
-        /// The named. 
+        /// The named.
         /// </param>
         /// <typeparam name="TService">
         /// </typeparam>
@@ -77,7 +77,7 @@ namespace YAF.Types.Interfaces
         /// The get.
         /// </summary>
         /// <param name="serviceLocator">
-        /// The service locator. 
+        /// The service locator.
         /// </param>
         /// <param name="parameters">
         /// </param>
@@ -99,10 +99,10 @@ namespace YAF.Types.Interfaces
         /// The get.
         /// </summary>
         /// <param name="serviceLocator">
-        /// The service locator. 
+        /// The service locator.
         /// </param>
         /// <param name="named">
-        /// The named. 
+        /// The named.
         /// </param>
         /// <param name="parameters">
         /// </param>
@@ -125,7 +125,7 @@ namespace YAF.Types.Interfaces
         /// The get.
         /// </summary>
         /// <param name="haveLocator">
-        /// The have locator. 
+        /// The have locator.
         /// </param>
         /// <typeparam name="TService">
         /// </typeparam>
@@ -143,10 +143,10 @@ namespace YAF.Types.Interfaces
         /// The get.
         /// </summary>
         /// <param name="haveLocator">
-        /// The have locator. 
+        /// The have locator.
         /// </param>
         /// <param name="named">
-        /// The named. 
+        /// The named.
         /// </param>
         /// <typeparam name="TService">
         /// </typeparam>
@@ -165,7 +165,7 @@ namespace YAF.Types.Interfaces
         /// The get.
         /// </summary>
         /// <param name="haveLocator">
-        /// The have locator. 
+        /// The have locator.
         /// </param>
         /// <param name="parameters">
         /// The parameters.
@@ -188,10 +188,10 @@ namespace YAF.Types.Interfaces
         /// The get.
         /// </summary>
         /// <param name="haveLocator">
-        /// The have locator. 
+        /// The have locator.
         /// </param>
         /// <param name="named">
-        /// The named. 
+        /// The named.
         /// </param>
         /// <param name="parameters">
         /// The parameters.
@@ -231,18 +231,34 @@ namespace YAF.Types.Interfaces
         }
 
         /// <summary>
+        /// The is yaf context.
+        /// </summary>
+        /// <param name="serviceLocator">
+        /// The service locator.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        public static bool IsYafContext([NotNull] this IServiceLocator serviceLocator)
+        {
+            CodeContracts.ArgumentNotNull(serviceLocator, "serviceLocator");
+
+            return serviceLocator.Tag == (object)YafLifetimeScope.Context;
+        }
+
+        /// <summary>
         /// The get.
         /// </summary>
         /// <param name="serviceLocator">
-        /// The service locator. 
+        /// The service locator.
         /// </param>
         /// <param name="instance">
-        /// The instance. 
+        /// The instance.
         /// </param>
         /// <typeparam name="TService">
         /// </typeparam>
         /// <returns>
-        /// The try get. 
+        /// The try get.
         /// </returns>
         public static bool TryGet<TService>([NotNull] this IServiceLocator serviceLocator, out TService instance)
         {
@@ -266,17 +282,17 @@ namespace YAF.Types.Interfaces
         /// The get.
         /// </summary>
         /// <param name="serviceLocator">
-        /// The service locator. 
+        /// The service locator.
         /// </param>
         /// <param name="named">
-        /// The named. 
+        /// The named.
         /// </param>
         /// <param name="instance">
         /// </param>
         /// <typeparam name="TService">
         /// </typeparam>
         /// <returns>
-        /// The try get. 
+        /// The try get.
         /// </returns>
         public static bool TryGet<TService>(
             [NotNull] this IServiceLocator serviceLocator, [NotNull] string named, out TService instance)
@@ -302,15 +318,15 @@ namespace YAF.Types.Interfaces
         /// The get.
         /// </summary>
         /// <param name="haveLocator">
-        /// The have locator. 
+        /// The have locator.
         /// </param>
         /// <param name="instance">
-        /// The instance. 
+        /// The instance.
         /// </param>
         /// <typeparam name="TService">
         /// </typeparam>
         /// <returns>
-        /// The try get. 
+        /// The try get.
         /// </returns>
         public static bool TryGet<TService>([NotNull] this IHaveServiceLocator haveLocator, out TService instance)
         {
@@ -323,18 +339,18 @@ namespace YAF.Types.Interfaces
         /// The get.
         /// </summary>
         /// <param name="haveLocator">
-        /// The have locator. 
+        /// The have locator.
         /// </param>
         /// <param name="named">
-        /// The named. 
+        /// The named.
         /// </param>
         /// <param name="instance">
-        /// The instance. 
+        /// The instance.
         /// </param>
         /// <typeparam name="TService">
         /// </typeparam>
         /// <returns>
-        /// The try get. 
+        /// The try get.
         /// </returns>
         public static bool TryGet<TService>(
             [NotNull] this IHaveServiceLocator haveLocator, [NotNull] string named, out TService instance)

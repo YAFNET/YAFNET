@@ -51,9 +51,16 @@ namespace YAF.Core.Data
 
             var props = target.GetProps();
 
+            var aliasMapping = props.OfType<PropertyDescriptor>()
+                                    .Where(p => p.Attributes.OfType<AliasAttribute>().Any())
+                                    .ToDictionary(k => k.Attributes.OfType<AliasAttribute>().FirstOrDefault().Name, v => v.Name);
+
+            var nameMap = new Func<string, string>(inputName => aliasMapping.ContainsKey(inputName) ? aliasMapping[inputName] : inputName);
+
             for (var i = 0; i < source.FieldCount; i++)
             {
-                var activeTarget = props.GetByName(source.GetName(i), true);
+                PropertyDescriptor activeTarget = props.GetByName(nameMap(source.GetName(i)), true);
+
                 if (activeTarget == null)
                 {
                     continue;

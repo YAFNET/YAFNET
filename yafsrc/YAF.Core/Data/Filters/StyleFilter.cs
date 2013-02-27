@@ -145,14 +145,14 @@ namespace YAF.Core.Data.Filters
         /// </param>
         public void Run(DbFunctionType dbfunctionType, string operationName, IEnumerable<KeyValuePair<string, object>> parameters, object data)
         {
-            if (!this._styledNickOperations.Contains(operationName.ToLower()) || !this.BoardSettings.UseStyledNicks)
+            if (!this.ServiceLocator.IsYafContext() || !this._styledNickOperations.Contains(operationName.ToLower()) || dbfunctionType != DbFunctionType.DataTable)
             {
                 return;
             }
 
             bool colorOnly = false;
 
-            if (dbfunctionType != DbFunctionType.DataTable)
+            if (!this.BoardSettings.UseStyledNicks)
             {
                 return;
             }
