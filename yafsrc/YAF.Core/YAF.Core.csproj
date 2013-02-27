@@ -41,11 +41,11 @@
   <ItemGroup>
     <Reference Include="Autofac, Version=3.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Autofac.3.0.0\lib\net40\Autofac.dll</HintPath>
+      <HintPath>..\packages\Autofac.3.0.1\lib\net40\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="Autofac.Configuration, Version=3.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Autofac.3.0.0\lib\net40\Autofac.Configuration.dll</HintPath>
+      <HintPath>..\packages\Autofac.3.0.1\lib\net40\Autofac.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="CookComputing.XmlRpcV2, Version=3.0.0.0, Culture=neutral, PublicKeyToken=a7d6e17aa302004d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -106,6 +106,7 @@
     <Compile Include="Events\InitDatabaseProviderEvent.cs" />
     <Compile Include="Data\TryInvokeMemberProxy.cs" />
     <Compile Include="Data\CommandTextHelpers.cs" />
+    <Compile Include="Events\NewUserClearActiveLazyEvent.cs" />
     <Compile Include="Events\SmileyEventCacheInvalidate.cs" />
     <Compile Include="Extensions\ILoggerExtensions.cs" />
     <Compile Include="Extensions\IRegistrationBuilderExtension.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="Extensions\MembershipUserExtensions.cs" />
     <Compile Include="Helpers\FileHelpers.cs" />
     <Compile Include="Helpers\IPLocator.cs" />
+    <Compile Include="Model\MailRepositoryExtensions.cs" />
     <Compile Include="Model\FavoriteTopicRepositoryExtensions.cs" />
     <Compile Include="Services\Import\DataImport.cs" />
     <Compile Include="Model\AccessMaskRepositoryExtensions.cs" />

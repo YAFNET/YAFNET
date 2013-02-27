@@ -18,63 +18,63 @@
  */
 namespace YAF.Core.Tasks
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.Diagnostics;
+    using System;
+    using System.Diagnostics;
 
-  using YAF.Types.Attributes;
-  using YAF.Types.Extensions;
-  using YAF.Types.Interfaces;
-  using YAF.Utils;
+    using YAF.Types.Attributes;
+    using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
 
-	#endregion
-
-  /// <summary>
-  /// Sends Email in the background.
-  /// </summary>
-  public class MailSendTask : IntermittentBackgroundTask
-  {
-    #region Constants and Fields
-
-    /// <summary>
-    ///   The _send mail threaded.
-    /// </summary>
-    [Inject]
-    public ISendMailThreaded SendMailThreaded { get; set; }
-    
     #endregion
 
-    #region Constructors and Destructors
-
     /// <summary>
-    ///   Initializes a new instance of the <see cref = "MailSendTask" /> class.
+    /// Sends Email in the background.
     /// </summary>
-    public MailSendTask()
+    public class MailSendTask : IntermittentBackgroundTask
     {
-      // set the unique value...
-      var rand = new Random();
+        #region Constants and Fields
 
-      // set interval values...
-      this.RunPeriodMs = (rand.Next(30) + 15) * 1000;
-      this.StartDelayMs = (rand.Next(30) + 15) * 1000;
+        /// <summary>
+        ///   The _send mail threaded.
+        /// </summary>
+        [Inject]
+        public IServiceLocator ServiceLocator { get; set; }
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        ///   Initializes a new instance of the <see cref = "MailSendTask" /> class.
+        /// </summary>
+        public MailSendTask()
+        {
+            // set the unique value...
+            var rand = new Random();
+
+            // set interval values...
+            this.RunPeriodMs = (rand.Next(30) + 15) * 1000;
+            this.StartDelayMs = (rand.Next(30) + 15) * 1000;
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// The run once.
+        /// </summary>
+        public override void RunOnce()
+        {
+            Debug.WriteLine("Running Send Mail Thread Under {0}...".FormatWith(Environment.UserName));
+
+            var newLifeTime = this.ServiceLocator.CreateScope();
+
+            newLifeTime.Get<ISendMailThreaded>().SendThreaded();
+        }
+
+        #endregion
     }
-
-    #endregion
-
-    #region Public Methods
-
-    /// <summary>
-    /// The run once.
-    /// </summary>
-    public override void RunOnce()
-    {
-      Debug.WriteLine("Running Send Mail Thread Under {0}...".FormatWith(Environment.UserName));
-
-      // send thread handles it's own exception...
-      this.SendMailThreaded.SendThreaded();
-    }
-
-    #endregion
-  }
 }

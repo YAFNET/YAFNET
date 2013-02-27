@@ -114,16 +114,17 @@ namespace YAF.Core
         {
             // data
             builder.RegisterType<DbAccessProvider>().As<IDbAccessProvider>().SingleInstance();
-            builder.Register(c => c.Resolve<IDbAccessProvider>().Instance).As<IDbAccessV2>().InstancePerDependency().PreserveExistingDefaults();
+            builder.Register(c => c.Resolve<IComponentContext>().Resolve<IDbAccessProvider>().Instance).As<IDbAccessV2>().InstancePerDependency().PreserveExistingDefaults();
             builder.Register((c, p) => DbProviderFactories.GetFactory(p.TypedAs<string>())).ExternallyOwned().PreserveExistingDefaults();
 
-            builder.RegisterType<DynamicDbFunction>().As<IDbFunction>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<DynamicDbFunction>().As<IDbFunction>().InstancePerDependency();
 
             // register generic IRepository handler, which can be easily overriden by more advanced repository handler
-            builder.RegisterGeneric(typeof(BasicRepository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope();
+            builder.RegisterGeneric(typeof(BasicRepository<>)).As(typeof(IRepository<>)).InstancePerDependency();
 
-            // register filters... Style filter depends on YafBoardSettings so it must be in the YafContext.
-            builder.RegisterType<StyleFilter>().As<IDbDataFilter>().InstancePerYafContext().PreserveExistingDefaults();
+            // register filters -- even if they require YafContext, they MUST BE REGISTERED UNDER GENERAL SCOPE
+            // Do the YafContext check inside the constructor and throw an exception if it's required.
+            builder.RegisterType<StyleFilter>().As<IDbDataFilter>();
         }
 
         /// <summary>
@@ -207,8 +208,6 @@ namespace YAF.Core
                         built.InstancePerMatchingLifetimeScope(YafLifetimeScope.Context);
                         break;
                 }
-
-                built.PreserveExistingDefaults();
             }
 
             this.UpdateRegistry(builder);
@@ -263,15 +262,15 @@ namespace YAF.Core
 
             // YafContext registration...
             builder.RegisterType<YafContextPageProvider>().AsSelf().As<IReadOnlyProvider<YafContext>>().SingleInstance().PreserveExistingDefaults();
-            builder.Register((k) => k.Resolve<YafContextPageProvider>().Instance).ExternallyOwned().PreserveExistingDefaults();
+            builder.Register((k) => k.Resolve<IComponentContext>().Resolve<YafContextPageProvider>().Instance).ExternallyOwned().PreserveExistingDefaults();
 
             // Http Application Base
             builder.RegisterType<CurrentHttpApplicationStateBaseProvider>().SingleInstance().PreserveExistingDefaults();
-            builder.Register(k => k.Resolve<CurrentHttpApplicationStateBaseProvider>().Instance).ExternallyOwned().PreserveExistingDefaults();
+            builder.Register(k => k.Resolve<IComponentContext>().Resolve<CurrentHttpApplicationStateBaseProvider>().Instance).ExternallyOwned().PreserveExistingDefaults();
 
             // Task Module
             builder.RegisterType<CurrentTaskModuleProvider>().SingleInstance().PreserveExistingDefaults();
-            builder.Register(k => k.Resolve<CurrentTaskModuleProvider>().Instance).ExternallyOwned().PreserveExistingDefaults();
+            builder.Register(k => k.Resolve<IComponentContext>().Resolve<CurrentTaskModuleProvider>().Instance).ExternallyOwned().PreserveExistingDefaults();
 
             builder.RegisterType<YafNntp>().As<INewsreader>().InstancePerLifetimeScope().PreserveExistingDefaults();
 
@@ -294,15 +293,15 @@ namespace YAF.Core
 
             // membership
             builder.RegisterType<CurrentMembershipProvider>().AsSelf().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.Register(x => x.Resolve<CurrentMembershipProvider>().Instance).ExternallyOwned().PreserveExistingDefaults();
+            builder.Register(x => x.Resolve<IComponentContext>().Resolve<CurrentMembershipProvider>().Instance).ExternallyOwned().PreserveExistingDefaults();
 
             // roles
             builder.RegisterType<CurrentRoleProvider>().AsSelf().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.Register(x => x.Resolve<CurrentRoleProvider>().Instance).ExternallyOwned().PreserveExistingDefaults();
+            builder.Register(x => x.Resolve<IComponentContext>().Resolve<CurrentRoleProvider>().Instance).ExternallyOwned().PreserveExistingDefaults();
 
             // profiles
             builder.RegisterType<CurrentProfileProvider>().AsSelf().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.Register(x => x.Resolve<CurrentProfileProvider>().Instance).ExternallyOwned().PreserveExistingDefaults();
+            builder.Register(x => x.Resolve<IComponentContext>().Resolve<CurrentProfileProvider>().Instance).ExternallyOwned().PreserveExistingDefaults();
 
             this.UpdateRegistry(builder);
         }
@@ -388,11 +387,11 @@ namespace YAF.Core
 
             // localization registration...
             builder.RegisterType<LocalizationProvider>().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.Register(k => k.Resolve<LocalizationProvider>().Localization).PreserveExistingDefaults();
+            builder.Register(k => k.Resolve<IComponentContext>().Resolve<LocalizationProvider>().Localization).PreserveExistingDefaults();
 
             // theme registration...
             builder.RegisterType<ThemeProvider>().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.Register(k => k.Resolve<ThemeProvider>().Theme).PreserveExistingDefaults();
+            builder.Register(k => k.Resolve<IComponentContext>().Resolve<ThemeProvider>().Theme).PreserveExistingDefaults();
 
             // replace rules registration...
             builder.RegisterType<ProcessReplaceRulesProvider>()
@@ -401,7 +400,7 @@ namespace YAF.Core
                    .InstancePerLifetimeScope()
                    .PreserveExistingDefaults();
 
-            builder.Register((k, p) => k.Resolve<ProcessReplaceRulesProvider>(p).Instance).InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.Register((k, p) => k.Resolve<IComponentContext>().Resolve<ProcessReplaceRulesProvider>(p).Instance).InstancePerLifetimeScope().PreserveExistingDefaults();
 
             // module resolution bindings...
             builder.RegisterGeneric(typeof(StandardModuleManager<>)).As(typeof(IModuleManager<>)).InstancePerLifetimeScope();
@@ -414,7 +413,7 @@ namespace YAF.Core
 
             // board settings...
             builder.RegisterType<CurrentBoardSettings>().AsSelf().InstancePerYafContext().PreserveExistingDefaults();
-            builder.Register(k => k.Resolve<CurrentBoardSettings>().Instance).ExternallyOwned().PreserveExistingDefaults();
+            builder.Register(k => k.Resolve<IComponentContext>().Resolve<CurrentBoardSettings>().Instance).ExternallyOwned().PreserveExistingDefaults();
 
             // favorite topic is based on YafContext
             builder.RegisterType<YafFavoriteTopic>().As<IFavoriteTopic>().InstancePerYafContext().PreserveExistingDefaults();
@@ -434,7 +433,11 @@ namespace YAF.Core
                    .As<IStartupService>()
                    .InstancePerLifetimeScope();
 
-            builder.Register(x => x.Resolve<IEnumerable<IStartupService>>().FirstOrDefault(t => t is StartupInitializeDb) as StartupInitializeDb)
+            builder.Register(
+                x => x.Resolve<IComponentContext>()
+                      .Resolve<IEnumerable<IStartupService>>()
+                      .FirstOrDefault(t => t is StartupInitializeDb) as
+                     StartupInitializeDb)
                    .InstancePerLifetimeScope();
 
             this.UpdateRegistry(builder);

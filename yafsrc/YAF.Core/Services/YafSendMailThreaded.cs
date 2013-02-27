@@ -16,7 +16,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
 namespace YAF.Core.Services
 {
     #region Using
@@ -27,24 +26,25 @@ namespace YAF.Core.Services
     using System.Net.Mail;
     using System.Threading;
 
-    using YAF.Classes.Data;
+    using YAF.Core.Extensions;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Objects;
-    using YAF.Utils;
+    using YAF.Types.Interfaces.Data;
+    using YAF.Types.Models;
 
     #endregion
 
     /// <summary>
-    /// Separate class since SendThreaded isn't needed functionality for any instance except the <see cref="HttpModule"/> instance.
+    ///     Separate class since SendThreaded isn't needed functionality for any instance except the <see cref="HttpModule" /> instance.
     /// </summary>
     public class YafSendMailThreaded : ISendMailThreaded
     {
-        #region Constants and Fields
+        #region Fields
 
         /// <summary>
-        ///   The _unique id.
+        ///     The _unique id.
         /// </summary>
         protected int _uniqueId;
 
@@ -56,17 +56,20 @@ namespace YAF.Core.Services
         /// Initializes a new instance of the <see cref="YafSendMailThreaded"/> class.
         /// </summary>
         /// <param name="sendMail">
-        /// The send mail. 
+        /// The send mail.
         /// </param>
         /// <param name="logger">
         /// The logger.
         /// </param>
-        public YafSendMailThreaded([NotNull] ISendMail sendMail, ILogger logger)
+        /// <param name="mailRepository">
+        /// The mail Repository.
+        /// </param>
+        public YafSendMailThreaded([NotNull] ISendMail sendMail, ILogger logger, IRepository<Mail> mailRepository)
         {
-            CodeContracts.ArgumentNotNull(sendMail, "sendMail");
-
             this.SendMail = sendMail;
             this.Logger = logger;
+            this.MailRepository = mailRepository;
+
             var rand = new Random();
             this._uniqueId = rand.Next();
         }
@@ -76,43 +79,50 @@ namespace YAF.Core.Services
         #region Public Properties
 
         /// <summary>
-        /// Gets or sets Logger.
+        ///     Gets or sets Logger.
         /// </summary>
         public ILogger Logger { get; set; }
 
         /// <summary>
-        ///   Gets or sets SendMail.
+        /// Gets or sets the mail repository.
+        /// </summary>
+        public IRepository<Mail> MailRepository { get; set; }
+
+        /// <summary>
+        ///     Gets or sets SendMail.
         /// </summary>
         public ISendMail SendMail { get; set; }
 
         #endregion
 
-        #region Public Methods
+        #region Public Methods and Operators
 
         /// <summary>
-        /// The send threaded.
+        ///     The send threaded.
         /// </summary>
         public void SendThreaded()
         {
-            var mailMessages = new Dictionary<MailMessage, TypedMailList>();
+            var mailMessages = new Dictionary<MailMessage, Mail>();
 
             try
             {
-                IEnumerable<TypedMailList> mailList = this.GetMailListSafe();
+                IEnumerable<Mail> mailList = this.GetMailListSafe();
 
                 this.ConstructMessageList(mailMessages, mailList);
 
                 this.SendMail.SendAllIsolated(
-                    mailMessages.Select(x => x.Key),
+                    mailMessages.Select(x => x.Key), 
                     (message, ex) =>
                         {
                             if (ex is FormatException)
                             {
 #if (DEBUG)
+
                                 // email address is no good -- delete this email...
                                 this.Logger.Debug("Invalid Email Address: {0}".FormatWith(ex.ToString()), ex.ToString());
 #else
-                                // email address is no good -- delete this email...
+    
+    // email address is no good -- delete this email...
                                 this.Logger.Warn("Invalid Email Address: {0}".FormatWith(ex.ToString()));
 #endif
                             }
@@ -137,10 +147,12 @@ namespace YAF.Core.Services
                             else
                             {
 #if (DEBUG)
-                                 // general exception...
+
+                                // general exception...
                                 this.Logger.Debug("SendMailThread General Exception", ex.ToString());
 #else
-                                // general exception...
+    
+    // general exception...
                                 this.Logger.Warn("Exception Thrown in SendMail Thread: {0}".FormatWith(ex.ToString()));
 #endif
                             }
@@ -149,17 +161,19 @@ namespace YAF.Core.Services
                 foreach (var message in mailMessages.Values)
                 {
                     // all is well, delete this message...
-                    this.Logger.Debug("Deleting email to {0} (ID: {1})".FormatWith(message.ToUser, message.MailID));
-                    LegacyDb.mail_delete(message.MailID);
+                    this.Logger.Debug("Deleting email to {0} (ID: {1})".FormatWith(message.ToUser, message.ID));
+                    this.MailRepository.Delete(message);
                 }
             }
             catch (Exception ex)
             {
 #if (DEBUG)
+
                 // general exception...
                 this.Logger.Debug("SendMailThread General Exception", ex.ToString());
 #else
-                // general exception...
+    
+    // general exception...
                 this.Logger.Warn("Exception Thrown in SendMail Thread: {0}".FormatWith(ex));
 #endif
             }
@@ -188,16 +202,15 @@ namespace YAF.Core.Services
         /// <param name="mailList">
         /// The mail list.
         /// </param>
-        private void ConstructMessageList(
-            IDictionary<MailMessage, TypedMailList> mailMessages, IEnumerable<TypedMailList> mailList)
+        private void ConstructMessageList(IDictionary<MailMessage, Mail> mailMessages, IEnumerable<Mail> mailList)
         {
             // construct mail message list...
-            foreach (var mail in mailList.Where(x => x.MailID.HasValue))
+            foreach (var mail in mailList.Where(x => x.ID > 0))
             {
                 // Build a MailMessage
                 if (mail.FromUser.IsNotSet() || mail.ToUser.IsNotSet())
                 {
-                    LegacyDb.mail_delete(mail.MailID.Value);
+                    this.MailRepository.Delete(mail);
                     continue;
                 }
 
@@ -217,7 +230,7 @@ namespace YAF.Core.Services
                 catch (FormatException ex)
                 {
                     // incorrect email format -- delete this message immediately
-                    LegacyDb.mail_delete(mail.MailID);
+                    this.MailRepository.Delete(mail);
 #if (DEBUG)
                     this.Logger.Debug("Invalid Email Address: {0}".FormatWith(ex.ToString()), ex.ToString());
 #else
@@ -228,23 +241,23 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        /// Gets the mail list safe.
+        ///     Gets the mail list safe.
         /// </summary>
         /// <returns>
-        /// The get mail list safe.
+        ///     The get mail list safe.
         /// </returns>
-        private IEnumerable<TypedMailList> GetMailListSafe()
+        private IEnumerable<Mail> GetMailListSafe()
         {
-            List<TypedMailList> mailList;
+            IList<Mail> mailList;
 
             try
             {
                 this.Logger.Debug("Retrieving queued mail...");
                 Thread.BeginCriticalRegion();
 
-                mailList = LegacyDb.MailList(this._uniqueId).ToList();
+                mailList = this.MailRepository.ListTyped(this._uniqueId);
 
-                this.Logger.Debug("Got {0} Messages...".FormatWith(mailList.Count()));
+                this.Logger.Debug("Retreived {0} Messages...".FormatWith(mailList.Count()));
             }
             finally
             {

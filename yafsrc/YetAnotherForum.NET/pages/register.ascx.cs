@@ -417,8 +417,6 @@ namespace YAF.Pages
                 this.Get<YafBoardSettings>().DefaultSendDigestEmail);
 
             // Clearing cache with old Active User Lazy Data ...
-            this.Get<IDataCache>().Remove(Constants.Cache.ActiveUserLazyData.FormatWith(userId));
-            this.Get<IDataCache>().Remove(Constants.Cache.ForumActiveDiscussions);
             this.Get<IRaiseEvent>().Raise(new NewUserRegisteredEvent(user, userId));
         }
 
@@ -633,7 +631,7 @@ namespace YAF.Pages
 
             foreach (string email in emails.Where(email => email.Trim().IsSet()))
             {
-                this.Get<ISendMail>().Queue(this.Get<YafBoardSettings>().ForumEmail, email.Trim(), subject, emailBody);
+                this.GetRepository<Mail>().Create(this.Get<YafBoardSettings>().ForumEmail, email.Trim(), subject, emailBody);
             }
         }
 

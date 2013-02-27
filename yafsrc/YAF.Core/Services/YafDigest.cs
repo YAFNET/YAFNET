@@ -24,9 +24,11 @@ namespace YAF.Core.Services
     using System.Text.RegularExpressions;
 
     using YAF.Classes;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
@@ -163,7 +165,7 @@ namespace YAF.Core.Services
             if (sendQueued)
             {
                 // queue to send...
-                this.Get<ISendMail>().Queue(
+                this.GetRepository<Mail>().Create(
                     forumEmail,
                     forumName,
                     toEmail,
