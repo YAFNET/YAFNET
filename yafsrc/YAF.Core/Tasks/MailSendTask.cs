@@ -70,9 +70,7 @@ namespace YAF.Core.Tasks
         {
             Debug.WriteLine("Running Send Mail Thread Under {0}...".FormatWith(Environment.UserName));
 
-            var newLifeTime = this.ServiceLocator.CreateScope();
-
-            newLifeTime.Get<ISendMailThreaded>().SendThreaded();
+            this.ServiceLocator.Get<ISendMailThreaded>().SendThreaded();
         }
 
         #endregion
