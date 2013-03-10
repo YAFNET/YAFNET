@@ -35,26 +35,26 @@ namespace YAF.Core.Services.Twitter
     #endregion
 
     /// <summary>
-    /// Twitter Oauth implementation by shannon whitley
+    /// Twitter OAUTH implementation by shannon whitley
     /// </summary>
     public class OAuthTwitter : OAuthBase
     {
         #region Constants and Fields
 
         /// <summary>
-        /// The acces s_ token.
+        /// The access token URL.
         /// </summary>
-        public const string ACCESSTOKEN = "http://twitter.com/oauth/access_token";
+        public const string ACCESSTOKEN = "https://api.twitter.com/oauth/access_token";
 
         /// <summary>
-        /// The authorize.
+        /// The Authorize URL
         /// </summary>
-        public const string AUTHORIZE = "http://twitter.com/oauth/authorize";
+        public const string AUTHORIZE = "https://api.twitter.com/oauth/authorize";
 
         /// <summary>
-        /// The reques t_ token.
+        /// The Request token URL
         /// </summary>
-        public const string REQUESTTOKEN = "http://twitter.com/oauth/request_token";
+        public const string REQUESTTOKEN = "https://api.twitter.com/oauth/request_token";
 
         /// <summary>
         /// The _call back url.
