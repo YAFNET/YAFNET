@@ -2507,7 +2507,7 @@
     <Resource tag="STATS">统计</Resource>
     <Resource tag="STATS_BIRTHDAYS">Today's Birthdays: </Resource>
     <Resource tag="STATS_LASTMEMBER">最新会员:</Resource>
-    <Resource tag="STATS_LASTPOST">最后由 {1} 发表于 {0}.</Resource>
+    <Resource tag="STATS_LASTPOST">最后由 发表于 {0}.</Resource>
     <Resource tag="STATS_MEMBERS">共有 {0:N0} 个注册会员.</Resource>
     <Resource tag="STATS_POSTS">共有 {0:N0} 个帖子，{1:N0} 个话题，{2:N0} 个论坛.</Resource>
     <Resource tag="TOPICS">话题数量</Resource>

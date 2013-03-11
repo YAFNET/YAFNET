@@ -2506,7 +2506,7 @@
     <Resource tag="STATS">Statistik</Resource>
     <Resource tag="STATS_BIRTHDAYS">Today's Birthdays: </Resource>
     <Resource tag="STATS_LASTMEMBER">Den senaste medlemmen är</Resource>
-    <Resource tag="STATS_LASTPOST">Senaste meddelandet {0} av {1}.</Resource>
+    <Resource tag="STATS_LASTPOST">Senaste meddelandet {0} av.</Resource>
     <Resource tag="STATS_MEMBERS">Vi har {0:N0} registrerade medlemmar.</Resource>
     <Resource tag="STATS_POSTS">Det finns {0:N0} meddelanden i {1:N0} konversationer i {2:N0} forum.</Resource>
     <Resource tag="TOPICS">Konversationer</Resource>

@@ -2489,7 +2489,7 @@
     <Resource tag="STATS">Statistikk</Resource>
     <Resource tag="STATS_BIRTHDAYS">Today's Birthdays: </Resource>
     <Resource tag="STATS_LASTMEMBER">Nyeste medlem er</Resource>
-    <Resource tag="STATS_LASTPOST">Siste innlegg {0} av {1}.</Resource>
+    <Resource tag="STATS_LASTPOST">Siste innlegg {0} av</Resource>
     <Resource tag="STATS_MEMBERS">Vi har {0:N0} registrerte medlemmer.</Resource>
     <Resource tag="STATS_POSTS">{0:N0} innlegg i {1:N0} emner i {2:N0} forum.</Resource>
     <Resource tag="TOPICS">Emner</Resource>

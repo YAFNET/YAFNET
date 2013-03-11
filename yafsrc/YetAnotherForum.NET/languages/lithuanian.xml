@@ -2577,7 +2577,7 @@
     <Resource tag="STATS">Statistika </Resource>
     <Resource tag="STATS_BIRTHDAYS">Today's Birthdays: </Resource>
     <Resource tag="STATS_LASTMEMBER">Naujausias narys yra</Resource>
-    <Resource tag="STATS_LASTPOST">Paskutiniai komentarai {0} iš {1}. </Resource>
+    <Resource tag="STATS_LASTPOST">Paskutiniai komentarai {0} iš</Resource>
     <Resource tag="STATS_MEMBERS">Mes {0:N0} registruoti nariai. </Resource>
     <Resource tag="STATS_POSTS">Yra {0:N0} postų {1:N0} temomis {2:N0} forumuose. </Resource>
     <Resource tag="TOPICS">Temos </Resource>

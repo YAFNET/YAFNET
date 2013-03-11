@@ -2490,7 +2490,7 @@
     <Resource tag="STATS">Statistici</Resource>
     <Resource tag="STATS_BIRTHDAYS">Today's Birthdays: </Resource>
     <Resource tag="STATS_LASTMEMBER">Cel mai nou membru este</Resource>
-    <Resource tag="STATS_LASTPOST">Ultima postare {0} de {1}.</Resource>
+    <Resource tag="STATS_LASTPOST">Ultima postare {0} de</Resource>
     <Resource tag="STATS_MEMBERS">Avem {0:N0} membrii inregistrati.</Resource>
     <Resource tag="STATS_POSTS">Sunt {0:N0} postari  in {1:N0} teme in {2:N0} forumuri.</Resource>
     <Resource tag="TOPICS">Teme</Resource>

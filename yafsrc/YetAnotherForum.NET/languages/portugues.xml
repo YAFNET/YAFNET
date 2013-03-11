@@ -2504,7 +2504,7 @@
     <Resource tag="STATS">Estatísticas</Resource>
     <Resource tag="STATS_BIRTHDAYS">Today's Birthdays: </Resource>
     <Resource tag="STATS_LASTMEMBER">O membro mais recente é</Resource>
-    <Resource tag="STATS_LASTPOST">Últimas participações {0} de {1}.</Resource>
+    <Resource tag="STATS_LASTPOST">Últimas participações {0} de</Resource>
     <Resource tag="STATS_MEMBERS">Há {0:N0} membros registrados.</Resource>
     <Resource tag="STATS_POSTS">Há {0:N0} participações em {1:N0} tópicos de {2:N0} fóruns.</Resource>
     <Resource tag="TOPICS">Tópicos</Resource>
