@@ -21,7 +21,7 @@ using YAF.Types.Attributes;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Tiny Gecko")]
 [assembly: AssemblyProduct("YAF.Core")]
-[assembly: AssemblyCopyright("Copyright © 2006-2012 Yet Another Forum.NET")]
+[assembly: AssemblyCopyright("Copyright © 2006-2013 Yet Another Forum.NET")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: AssemblyModuleSortOrder(10)]
@@ -41,8 +41,8 @@ using YAF.Types.Attributes;
 //      Revision
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("1.9.6.2")]
-[assembly: AssemblyFileVersion("1.9.6.2")]
+[assembly: AssemblyVersion("2.0.0.0")]
+[assembly: AssemblyFileVersion("2.0.0.0")]
 
 #if (!COMPACT_FRAMEWORK)
 
