@@ -166,6 +166,7 @@
     <Compile Include="BBCode\ReplaceRules\CodeRegexReplaceRule.cs" />
     <Compile Include="BBCode\ReplaceRules\FontSizeRegexReplaceRule.cs" />
     <Compile Include="BBCode\ReplaceRules\PostTopicRegexReplaceRule.cs" />
+    <Compile Include="BBCode\ReplaceRules\QuoteRegexReplaceRule.cs" />
     <Compile Include="BBCode\ReplaceRules\SimpleRegexReplaceRule.cs" />
     <Compile Include="BBCode\ReplaceRules\SimpleReplaceRule.cs" />
     <Compile Include="BBCode\ReplaceRules\SingleRegexReplaceRule.cs" />

@@ -213,23 +213,19 @@ namespace YAF.Core.BBCode
         private const string _RgxListUpperAlpha = @"\[list=A\](?<inner>(.*?))\[/list\]";
 
         /// <summary>
-        ///   The _rgx quote 1.
+        /// The open quote regex
         /// </summary>
-        private static readonly Regex _rgxQuote1 = new Regex(
-            @"\[quote\](?<inner>(.*?))\[/quote\]", _Options | RegexOptions.Compiled);
+        private const string OpenQuoteRegex = @"\[quote\]";
 
         /// <summary>
-        ///   The _rgx quote 2.
+        /// The close quote regex
         /// </summary>
-        private static readonly Regex _rgxQuote2 = new Regex(
-            @"\[quote=(?<quote>[^\]]*)(?!;)\](?<inner>(.*?))\[/quote\]", _Options | RegexOptions.Compiled);
+        private const string CloseQuoteRegex = @"\[/quote\]";
 
         /// <summary>
-        ///   The _rgx quote 3.
+        /// The open quote user id regex
         /// </summary>
-        private static readonly Regex _rgxQuote3 =
-            new Regex(
-                @"\[quote=(?<quote>(.*?));(?<id>([0-9]*))\](?<inner>(.*?))\[/quote\]", _Options | RegexOptions.Compiled);
+        private const string OpenQuoteUserIdRegex = @"\[quote=(?<quote>(.*?))]";
 
         /// <summary>
         ///   The _rgx size.
@@ -473,8 +469,6 @@ namespace YAF.Core.BBCode
 
             // pull localized strings
             string localQuoteStr = this.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTE");
-            string localQuoteWroteStr = this.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTEWROTE");
-            string localQuotePostedStr = this.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTEPOSTED");
             string localCodeStr = this.Get<ILocalization>().GetText("COMMON", "BBCODE_CODE");
 
             // handle font sizes -- this rule class internally handles the "size" variable
@@ -622,15 +616,6 @@ namespace YAF.Core.BBCode
                             },
                         new[] { "http://", string.Empty }) { RuleRank = 72 });
 
-                // tha_watcha : Easy Quote Disabled http://forum.yetanotherforum.net/yaf_postst13495_Addition-of-Easy-Quote-RegEx-in-Revision-4906.aspx
-                // Looks like it doesnt work as expected should be correctly implemented or else removed.
-                //
-                // add easy quoting...
-                /*var easyQuoteRule = new SimpleRegexReplaceRule(
-                    _RgxEasyQuote, 
-                    @"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=""easyquote"">${inner}</span>", 
-                    RegexOptions.IgnoreCase | RegexOptions.Multiline);*/
-
                 // basic hr and br rules
                 var hrRule = new SingleRegexReplaceRule(
                     _RgxHr, "<hr />", RegexOptions.IgnoreCase | RegexOptions.Multiline);
@@ -643,7 +628,6 @@ namespace YAF.Core.BBCode
                     };
 
                 // Ensure the newline rule is processed after the HR rule, otherwise the newline characters in the HR regex will never match
-                //ruleEngine.AddRule(easyQuoteRule);
                 ruleEngine.AddRule(hrRule);
                 ruleEngine.AddRule(brRule);
             }
@@ -671,29 +655,23 @@ namespace YAF.Core.BBCode
                         _rgxCode1, 
                         @"<div class=""code""><strong>{0}</strong><div class=""innercode"">${inner}</div></div>".Replace("{0}", localCodeStr)));
 
-                // "quote" handling...
-                string tmpReplaceStr3 =
-                    @"<div class=""quote""><span class=""quotetitle"">{0} <a href=""{1}""><img src=""{2}"" title=""{3}"" alt=""{3}"" /></a></span><div class=""innerquote"">{4}</div></div>"
-                        .FormatWith(
-                            localQuotePostedStr.Replace("{0}", "${quote}"),
-                            YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", "${id}"),
-                            this.Get<ITheme>().GetItem("ICONS", "ICON_LATEST"),
-                            this.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTEPOSTED_TT"),
-                            "${inner}");
+                ruleEngine.AddRule(
+                    new QuoteRegexReplaceRule(
+                        OpenQuoteUserIdRegex,
+                        @"<div class=""quote""><span class=""quotetitle"">${quote}</span><div class=""innerquote"">",
+                        _Options));
 
-                ruleEngine.AddRule(new VariableRegexReplaceRule(_rgxQuote3, tmpReplaceStr3, new[] { "quote", "id" }) { RuleRank = 60 });
+                // simple open quote tag
+                var simpleOpenQuoteReplace =
+                    @"<div class=""quote""><span class=""quotetitle"">{0}</span><div class=""innerquote"">"
+                        .FormatWith(localQuoteStr);
 
-                string tmpReplaceStr2 =
-                    @"<div class=""quote""><span class=""quotetitle"">{0}</span><div class=""innerquote"">{1}</div></div>"
-                        .FormatWith(localQuoteWroteStr.Replace("{0}", "${quote}"), "${inner}");
+                ruleEngine.AddRule(
+                    new SimpleRegexReplaceRule(OpenQuoteRegex, simpleOpenQuoteReplace, _Options) { RuleRank = 62 });
 
-                ruleEngine.AddRule(new VariableRegexReplaceRule(_rgxQuote2, tmpReplaceStr2, new[] { "quote" }) { RuleRank = 61 });
-
-                string tmpReplaceStr1 =
-                    @"<div class=""quote""><span class=""quotetitle"">{0}</span><div class=""innerquote"">{1}</div></div>"
-                        .FormatWith(localQuoteStr, "${inner}");
-
-                ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxQuote1, tmpReplaceStr1) { RuleRank = 62 });
+                // and finally the closing quote tag
+                ruleEngine.AddRule(
+                    new SingleRegexReplaceRule(CloseQuoteRegex, "</div></div>", _Options) { RuleRank = 63 });
             }
 
             // post and topic rules...
