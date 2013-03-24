@@ -19,6 +19,7 @@
 namespace YAF.Core.BBCode.ReplaceRules
 {
     using System;
+    using System.Text;
     using System.Text.RegularExpressions;
 
     using YAF.Types.Constants;
@@ -60,10 +61,22 @@ namespace YAF.Core.BBCode.ReplaceRules
         /// </param>
         public override void Replace(ref string text, IReplaceBlocks replacement)
         {
+            var sb = new StringBuilder(text);
+
             var match = this._regExSearch.Match(text);
 
             while (match.Success)
             {
+                var innerReplace = new StringBuilder(this._regExReplace);
+                int i = 0;
+
+                if (this._truncateLength > 0)
+                {
+                    // special handling to truncate urls
+                    innerReplace.Replace(
+                      "${innertrunc}", match.Groups["inner"].Value.TruncateMiddle(this._truncateLength));
+                }
+
                 var quote = match.Groups["quote"].Value;
 
                 var localQuoteWrote = YafContext.Current.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTEWROTE");
@@ -108,18 +121,49 @@ namespace YAF.Core.BBCode.ReplaceRules
                     quote = localQuoteWrote.Replace("{0}", quote);
                 }
 
-                var replaceItem = this._regExReplace.Replace("${quote}", quote);
+                innerReplace.Replace("${quote}", quote);
+
+                foreach (string tVar in this._variables)
+                {
+                    string varName = tVar;
+                    string handlingValue = string.Empty;
+
+                    if (varName.Contains(":"))
+                    {
+                        // has handling section
+                        string[] tmpSplit = varName.Split(':');
+                        varName = tmpSplit[0];
+                        handlingValue = tmpSplit[1];
+                    }
+
+                    string tValue = match.Groups[varName].Value;
+
+                    if (this._variableDefaults != null && tValue.Length == 0)
+                    {
+                        // use default instead
+                        tValue = this._variableDefaults[i];
+                    }
+
+                    innerReplace.Replace("${" + varName + "}", this.ManageVariableValue(varName, tValue, handlingValue));
+                    i++;
+                }
+
+                innerReplace.Replace("${inner}", match.Groups["inner"].Value);
 
                 // pulls the htmls into the replacement collection before it's inserted back into the main text
-                var replaceIndex = replacement.Add(replaceItem);
+                replacement.ReplaceHtmlFromText(ref innerReplace);
 
-                text = "{0}{1}{2}".FormatWith(
-                    text.Substring(0, match.Groups[0].Index),
-                    replacement.Get(replaceIndex),
-                    text.Substring(match.Groups[0].Index + match.Groups[0].Length));
+                // remove old bbcode...
+                sb.Remove(match.Groups[0].Index, match.Groups[0].Length);
 
-                match = this._regExSearch.Match(text);
+                // insert replaced value(s)
+                sb.Insert(match.Groups[0].Index, innerReplace.ToString());
+
+                // text = text.Substring( 0, m.Groups [0].Index ) + tStr + text.Substring( m.Groups [0].Index + m.Groups [0].Length );
+                match = this._regExSearch.Match(sb.ToString());
             }
+
+            text = sb.ToString();
         }
 
         #endregion
