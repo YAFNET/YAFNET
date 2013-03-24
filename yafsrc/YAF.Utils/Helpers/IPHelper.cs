@@ -91,7 +91,8 @@ namespace YAF.Utils.Helpers
             try
             {
                 // Loop through all address InterNetwork - Address for IP version 4))
-                foreach (var ipAddress in Dns.GetHostAddresses(addressIpv6).Where(ipAddress => ipAddress.AddressFamily == AddressFamily.InterNetwork))
+                foreach (var ipAddress in Dns.GetHostAddresses(addressIpv6)
+                    .Where(ipAddress => ipAddress.AddressFamily == AddressFamily.InterNetwork))
                 {
                     ip4Address = ipAddress.ToString();
                     break;
@@ -103,7 +104,8 @@ namespace YAF.Utils.Helpers
                 }
 
                 // to find by host name - is not in use so far. 
-                foreach (var ipAddress in Dns.GetHostAddresses(Dns.GetHostName()).Where(ipAddress => ipAddress.AddressFamily == AddressFamily.InterNetwork))
+                foreach (var ipAddress in Dns.GetHostAddresses(Dns.GetHostName())
+                    .Where(ipAddress => ipAddress.AddressFamily == AddressFamily.InterNetwork))
                 {
                     ip4Address = ipAddress.ToString();
                     break;
@@ -158,7 +160,7 @@ namespace YAF.Utils.Helpers
                 string[] ipAddresses = ipString.Split(',');
                 string firstNonLocalAddress =
                     ipAddresses.FirstOrDefault(ip => 
-                        IPAddress.TryParse(ipString.Split(',')[0].Trim(), out ipAddress) && ipAddress.IsNonRoutable());
+                        IPAddress.TryParse(ipString.Split(',')[0].Trim(), out ipAddress) && ipAddress.IsRoutable());
 
                 if (!string.IsNullOrEmpty(firstNonLocalAddress))
                 {
@@ -393,20 +395,24 @@ namespace YAF.Utils.Helpers
         /// <returns>
         /// The <see cref="bool"/>.
         /// </returns>
-        public static bool IsNonRoutable(this IPAddress ipAddress)
+        public static bool IsRoutable([NotNull] this IPAddress ipAddress)
         {
+            CodeContracts.ArgumentNotNull(ipAddress, "ipAddress");
+
             // Reference: http://en.wikipedia.org/wiki/Reserved_IP_addresses
             byte[] ipAddressBytes = ipAddress.GetAddressBytes();
 
-            switch (ipAddress.AddressFamily)
+            if (ipAddress.AddressFamily == AddressFamily.InterNetwork)
             {
-                case AddressFamily.InterNetwork:
-                    return nonRoutableIPv4Networks.Any(network => IsIpAddressInRange(ipAddressBytes, network));
-                case AddressFamily.InterNetworkV6:
-                    return nonRoutableIPv6Networks.Any(network => IsIpAddressInRange(ipAddressBytes, network));
-                default:
-                    return true;
+                return !nonRoutableIPv4Networks.Any(network => IsIpAddressInRange(ipAddressBytes, network));
             }
+
+            if (ipAddress.AddressFamily == AddressFamily.InterNetworkV6)
+            {
+                return !nonRoutableIPv6Networks.Any(network => IsIpAddressInRange(ipAddressBytes, network));
+            }
+
+            return false;
         }
 
         /// <summary>
