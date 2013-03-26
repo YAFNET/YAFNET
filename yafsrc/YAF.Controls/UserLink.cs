@@ -16,7 +16,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
 namespace YAF.Controls
 {
     #region Using
@@ -36,34 +35,15 @@ namespace YAF.Controls
     #endregion
 
     /// <summary>
-    /// Provides a basic "profile link" for a YAF User
+    ///     Provides a basic "profile link" for a YAF User
     /// </summary>
     public class UserLink : UserLabel
     {
-        #region Properties
+        #region Public Properties
 
         /// <summary>
-        /// Gets or sets a value indicating whether [enable hover card].
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [enable hover card]; otherwise, <c>false</c>.
-        /// </value>
-        public bool EnableHoverCard
-        {
-            get
-            {
-                return this.ViewState["EnableHoverCard"] == null || this.ViewState["EnableHoverCard"].ToType<bool>();
-            }
-
-            set
-            {
-                this.ViewState["EnableHoverCard"] = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether 
-        /// Make the link target "blank" to open in a new window.
+        ///     Gets or sets a value indicating whether
+        ///     Make the link target "blank" to open in a new window.
         /// </summary>
         public bool BlankTarget
         {
@@ -79,8 +59,27 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether 
-        /// User Is a Guest.
+        ///     Gets or sets a value indicating whether [enable hover card].
+        /// </summary>
+        /// <value>
+        ///     <c>true</c> if [enable hover card]; otherwise, <c>false</c>.
+        /// </value>
+        public bool EnableHoverCard
+        {
+            get
+            {
+                return this.ViewState["EnableHoverCard"] == null || this.ViewState["EnableHoverCard"].ToType<bool>();
+            }
+
+            set
+            {
+                this.ViewState["EnableHoverCard"] = value;
+            }
+        }
+
+        /// <summary>
+        ///     Gets or sets a value indicating whether
+        ///     User Is a Guest.
         /// </summary>
         public bool IsGuest
         {
@@ -97,6 +96,29 @@ namespace YAF.Controls
 
         #endregion
 
+        #region Properties
+
+        private bool CanViewProfile
+        {
+            get
+            {
+                return this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ProfileViewPermissions);
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether is hover card enabled.
+        /// </summary>
+        private bool IsHoverCardEnabled
+        {
+            get
+            {
+                return this.Get<YafBoardSettings>().EnableUserInfoHoverCards && this.EnableHoverCard;
+            }
+        }
+
+        #endregion
+
         #region Methods
 
         /// <summary>
@@ -107,8 +129,7 @@ namespace YAF.Controls
         /// </param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            if (!this.Get<YafBoardSettings>().EnableUserInfoHoverCards && this.EnableHoverCard
-                || !this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ProfileViewPermissions))
+            if (!this.CanViewProfile || !this.IsHoverCardEnabled)
             {
                 return;
             }
@@ -123,7 +144,7 @@ namespace YAF.Controls
             // Setup Hover Card JS
             YafContext.Current.PageElements.RegisterJsBlockStartup(
                 "yafhovercardtjs",
-                "{0}('.userHoverCard').hovercard({{showYafCard: true,width: 350,loadingHTML: '{1}',errorHTML: '{2}'}});"
+                "{0}('.userHoverCard').hovercard({{showYafCard: true, delay: 1500, width: 350,loadingHTML: '{1}',errorHTML: '{2}'}});"
                     .FormatWith(
                         Config.JQueryAlias,
                         this.GetText("DEFAULT", "LOADING_HOVERCARD"),
@@ -158,8 +179,7 @@ namespace YAF.Controls
 
                 output.WriteAttribute("href", YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.UserID));
 
-                if (this.Get<YafBoardSettings>().EnableUserInfoHoverCards && this.EnableHoverCard
-                    || !this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ProfileViewPermissions))
+                if (this.CanViewProfile && this.IsHoverCardEnabled)
                 {
                     if (this.CssClass.IsSet())
                     {
@@ -171,10 +191,10 @@ namespace YAF.Controls
                     }
 
                     output.WriteAttribute(
-                        "data-hovercard",
+                        "data-hovercard", 
                         "{0}resource.ashx?userinfo={1}&type=json&forumUrl={2}".FormatWith(
-                            YafForumInfo.ForumClientFileRoot,
-                            this.UserID,
+                            YafForumInfo.ForumClientFileRoot, 
+                            this.UserID, 
                             HttpUtility.UrlEncode(YafBuildLink.GetBasePath())));
                 }
                 else
