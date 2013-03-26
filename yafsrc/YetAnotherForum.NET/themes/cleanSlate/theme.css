@@ -58,8 +58,7 @@
 	padding: 6px;
 	border: 1px solid #708fff;
 	background-color: #e4e4ff;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;	
+	border-radius: 5px;
 }
 .yafForumWelcome div
 {
@@ -83,11 +82,9 @@
 {
 	border: 1px solid #ddd;
 	padding: 0px 8px 0px 8px;
-	-webkit-border-radius: 6px;
-	-moz-border-radius: 6px;
-	border-radius: 6px;	
 	background-color: #eee;
 	width: 98%;
+    border-radius: 6px;	
 }
 .yafnet #yafheader ul li a
 {
@@ -163,23 +160,8 @@
 	margin-bottom: 10px;
 	border: 1px solid #deb7b7;
 	padding: 5px 10px 5px 30px;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
 	border-radius: 10px;
 }
-
-/* custom forum images special styles */
-.yafnet .forum_customimage_locked
-{
-	border: solid 2px #c93a4a;    
-}
-
-.yafnet .forum_customimage_newposts
-{
-	border: solid 2px #fe0300;
-}
-
-
 
 .yafnet tr.forumRowFoot,
 .yafnet td.footer1,
