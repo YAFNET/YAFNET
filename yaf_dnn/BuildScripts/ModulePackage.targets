@@ -3,7 +3,7 @@
   
   <Import Project="MSBuild.Community.Tasks.Targets" />
   <Import Project="MSBuild.Extended.Tasks.Targets" />
-  <Import Project="$(MSBuildExtensionsPath)\Microsoft\MicrosoftAjax\AjaxMin.tasks" />
+  <Import Project="AjaxMin.tasks" />
     
   <Target Name="PackageModule" Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <XmlRead Prefix="n"
