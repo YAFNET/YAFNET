@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="MSBuild.Community.Tasks.Targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\MicrosoftAjax\AjaxMin.tasks" />
   <Target Name="PackageModule" Condition=" '$(Configuration)|$(Platform)' == 'Deploy|AnyCPU' ">
     <GetAssemblyIdentity AssemblyFiles="$(MSBuildProjectDirectory)\bin\YAF.dll">
       <Output TaskParameter="Assemblies" ItemName="AssemblyIdentities"/>
@@ -46,20 +47,29 @@
     </ItemGroup>
 
     <ItemGroup>
-      <yafsrcInclude Include="$(MSBuildProjectDirectory)\..\**\*.*" Exclude="$(MSBuildProjectDirectory)\..\**\*.ReSharper;$(MSBuildProjectDirectory)\..\**\*.testsettings;$(MSBuildProjectDirectory)\..\**\*.chm;$(MSBuildProjectDirectory)\..\**\*.psd;$(MSBuildProjectDirectory)\..\**\TestResults\**;$(MSBuildProjectDirectory)\..\**\nStuff.UpdateControls\**;$(MSBuildProjectDirectory)\..\**\Dependencies\**;$(MSBuildProjectDirectory)\..\**\CookComputing.XmlRpc\**;$(MSBuildProjectDirectory)\..\**\obj\**;$(MSBuildProjectDirectory)\..\**\_ReSharper*\**;$(MSBuildProjectDirectory)\..\**\bin\**;$(MSBuildProjectDirectory)\..\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;$(MSBuildProjectDirectory)\..\**\*.user;$(MSBuildProjectDirectory)\..\**\.svn\**;$(MSBuildProjectDirectory)\..\**\*.suo;" />
+      <yafsrcInclude Include="$(MSBuildProjectDirectory)\..\**\*.*" Exclude="$(MSBuildProjectDirectory)\..\.nuget\nuget.exe;$(MSBuildProjectDirectory)\..\packages\**\*.*;$(MSBuildProjectDirectory)\..\YAF.Extras\YAF.SampleWebApplication\**\*.*;$(MSBuildProjectDirectory)\..\**\*.ReSharper;$(MSBuildProjectDirectory)\..\**\*.testsettings;$(MSBuildProjectDirectory)\..\**\*.chm;$(MSBuildProjectDirectory)\..\**\*.psd;$(MSBuildProjectDirectory)\..\**\TestResults\**;$(MSBuildProjectDirectory)\..\**\nStuff.UpdateControls\**;$(MSBuildProjectDirectory)\..\**\Dependencies\**;$(MSBuildProjectDirectory)\..\**\CookComputing.XmlRpc\**;$(MSBuildProjectDirectory)\..\**\obj\**;$(MSBuildProjectDirectory)\..\**\_ReSharper*\**;$(MSBuildProjectDirectory)\..\**\bin\**;$(MSBuildProjectDirectory)\..\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;$(MSBuildProjectDirectory)\..\**\*.user;$(MSBuildProjectDirectory)\..\**\.svn\**;$(MSBuildProjectDirectory)\..\**\*.suo;" />
     </ItemGroup>
 
-   <CreateItem Include="$(MSBuildProjectDirectory)\recommended-NET-web.config">
+    <CreateItem Include="$(MSBuildProjectDirectory)\recommended-NET-web.config">
       <Output TaskParameter="Include" ItemName="InstallConfig" />
     </CreateItem>
 
     <CreateItem Include="$(MSBuildProjectDirectory)\bin\**\*.dll">
       <Output TaskParameter="Include" ItemName="LibaryFiles" />
     </CreateItem>
-
+    
     <Copy SourceFiles="@(yafInstall-Include)" DestinationFolder="$(MSBuildProjectDirectory)\Package\%(RecursiveDir)" />
     <Copy SourceFiles="@(LibaryFiles)" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
     <Copy SourceFiles="$(MSBuildProjectDirectory)\webconfigs\recommended-NET-web.config" DestinationFiles="$(MSBuildProjectDirectory)\Package\web.config"/>
+    
+    <!-- Minify JS and CSS Files -->
+    <ItemGroup>
+      <JS Include="$(MSBuildProjectDirectory)\Package\**\*.js" Exclude="**\*.min.js;**\*-min.js;**\*_src.js;$(MSBuildProjectDirectory)\Package\editors\ckeditor\**\*.js;$(MSBuildProjectDirectory)\Package\editors\tiny_mce\**\*.js;" />
+    </ItemGroup>
+    <ItemGroup>
+      <CSS Include="$(MSBuildProjectDirectory)\Package\**\*.css" Exclude="**\*.min.css;**\*_src.css;$(MSBuildProjectDirectory)\Package\themes\**\*.css;$(MSBuildProjectDirectory)\Package\editors\ckeditor\**\*.css;$(MSBuildProjectDirectory)\Package\editors\tiny_mce\**\*.css;" />
+    </ItemGroup>
+    <AjaxMin JsSourceFiles="@(JS)" JsSourceExtensionPattern="\.js$" JsTargetExtension=".js" CssSourceFiles="@(CSS)" CssSourceExtensionPattern="\.css$" CssTargetExtension=".css"  />
 
     <CreateItem Include="$(MSBuildProjectDirectory)\Package\**\*.*">
       <Output TaskParameter="Include" ItemName="OutputContentInstall" />
@@ -81,6 +91,7 @@
       <Output TaskParameter="Include" ItemName="OutputContentUpgrade" />
     </CreateItem>
 
+    <!-- Create the Upgrade package -->
     <Zip Files="@(OutputContentUpgrade)" WorkingDirectory="$(MSBuildProjectDirectory)\Package" ZipFileName="$(PackageName)-v%(AssemblyIdentities.Version)-RTW-Upgrade.$(Extension)" />
     
     <!-- Copy the Upgrade package to the Packages folder -->
@@ -88,10 +99,9 @@
 
     <RemoveDir Directories ="$(MSBuildProjectDirectory)\Package" />
 
-    <!-- Create SOURCE ZIP  -->
-
-    <!-- create the SOURCE RESOURCES.ZIP file -->
+    <!-- Create the Source package  -->
     <Copy SourceFiles="@(yafsrcInclude)" DestinationFolder="$(MSBuildProjectDirectory)\Package\%(RecursiveDir)" />
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\packages\repositories.config" DestinationFiles="$(MSBuildProjectDirectory)\Package\packages\repositories.config"/>
 
     <CreateItem Include="$(MSBuildProjectDirectory)\Package\**\*.*">
       <Output TaskParameter="Include" ItemName="OutputSource" />

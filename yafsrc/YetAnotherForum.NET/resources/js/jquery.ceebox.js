@@ -22,14 +22,16 @@
             return new RegExp(f + "\\.swf$", "i");
         }();
         l.userAgent = navigator.userAgent;
-        b(".cee_close").die().live("click", function () {
+		b(".cee_close").off()
+		b("body").on("click",".cee_close", function () {
             b.fn.ceebox.closebox();
             return false;
         });
+		
         d != false && b(c).each(function (f) {
             B(this, f, a, d);
         });
-        b(c).live("click", function (f) {
+        b(c).on("click",null, function (f) {
 			
             var e = b(f.target).closest("[href]"),
                 g = e.data("ceebox");

@@ -2,4 +2,425 @@
 	This File is for basic LAYOUT CSS -- Not for Color/Design which should stay in the theme.css file
 */
 
-.PopupBody .ShoutBoxPanel .content{position:absolute;top:5px;bottom:0;right:0;left:5px;height:97%;width:99%;min-height:300px;}#shoutBoxChatArea{overflow-y:auto;height:150px;min-width:500px;width:99%;margin:0;padding:0;}.yafnet .quickReplyLine{height:100%;padding:5px 10px 5px 5px;}.yafnet textarea.basicBBCodeEditor{width:100%;height:100%;}.yafnet textarea.BBCodeEditor{width:100%;height:350px;}.yafnet #ForumSearchDiv{display:inline;float:left;}.yafnet #DivPageAccess{clear:right;float:right;margin-top:10px;}.yafnet #DivIconLegend{float:left;margin-top:10px;}.yafnet .centerItem{margin:0 auto;}.yafnet .postNavigation td{text-align:right;}.yafnet .fileattach{margin:15px 0 0;}.yafnet #yafprofilemenu{width:19%;float:left;clear:left;margin:5px 5px 5px 0;}.yafnet .RssFeedIcon{margin-left:5px;}.yafnet #yafhelpmenu ul{list-style:none;}.yafnet .outerMenuContainer{float:left;width:100%;line-height:30px;}.yafnet #yafheader ul{display:inline;list-style:none;margin:0;padding:0;}.yafnet #yafheader li{display:inline;padding:2px 3px;}.yafnet .QuickSearch{display:inline;float:right;padding:0 4px;}.yafnet #yafprofilecontent{width:80%;float:right;margin:5px 0;}.yafnet td.forumIconCol{width:1%;}.yafnet .threadedRowCollapsed .avatarimage{vertical-align:middle;width:40px;height:40px;border:1px solid #666;margin-right:8px;padding:1px;}.yafnet .yafcodehighlighting .keytype{color:#F93;font-weight:400;}.yafnet .yafcodehighlighting .keyword{color:#224FFF;font-weight:400;}.yafnet .yafcodehighlighting .integer{color:#FF0032;}.yafnet .yafcodehighlighting .comment{color:#008100;}.yafnet .yafcodehighlighting .errors{color:red;font-weight:700;}.yafnet .yafcodehighlighting .string{color:#F02;}.yafnet .adminContainer{width:100%;}.yafnet .adminMenuAccordian{width:200px;}.yafnet .adminMenu li{white-space:nowrap;font-size:10pt;border-bottom:1px solid #eee;padding-bottom:4px;margin-bottom:5px;}.yafnet .helpContent,.yafnet .adminContent{width:100%;vertical-align:top;padding-left:5px;}.yafnet .yafpopupmenu ul,.yafnet .yafpopupmenu li,.yafnet .adminContent li,.yafnet .ui-helper-reset li,.yafnet .postOptions li{list-style-type:none;}.yafnet .PopMenuLink,.yafnet .UserPopMenuLink,.yafnet .GoToLink{cursor:pointer;margin:0 0 0 5px;padding:2px 15px 2px 4px;}.yafnet .PrevTopicLink{margin-left:5px;padding:2px 4px 2px 15px;}.yafnet .NextTopicLink{margin-left:5px;float:right;padding:2px 15px 2px 4px;}.yafnet .pagination{font-size:90%;text-align:center;margin-left:4px;}.yafnet .pagination a,.yafnet .pagination span{display:block;float:left;margin-right:5px;margin-bottom:5px;min-width:1em;text-align:center;padding:.3em .5em;}.yafnet #SmiliesBox{display:block;overflow:auto;min-width:180px;min-height:100px;}.yafnet .smilesBox{padding:0!important;}.yafnet .SmilieList{margin:4px;padding:4px;}.yafnet .SmilieList li{list-style:none;float:left;min-width:40px;min-height:40px;margin:0;padding:0;}.yafnet .SmilieList li img {max-width: 80px;max-height: 80px;}.yafnet .SmilieList li a{display:block;text-decoration:none;}.yafnet .edit{width:98%;}#yafpage_shoutbox{height:100%;}.yafnet .UnreadBox{position:relative;display:inline;}.yafnet .AlphaSort{width:100%;display:inline-block;}.yafnet dl.AlphaSort dt{padding-left:5px;height:30px;}.yafnet dl.AlphaSort dd{float:left;width:20px;height:15px;text-align:center;margin:10px 4px;}.yafnet dl.AlphaSort dd a{text-decoration:none;}.yafnet .MultiQuoteButton input{position:absolute;top:-9999px;}.yafnet .ReputationBar { margin-top: 5px;width: 98%;background-color:#ccc;background : -webkit-gradient(linear, left top, left bottom, from(#ccc), to(#9a9a9a));background: -moz-linear-gradient(top,  #ccc,  #9a9a9a);background: -o-linear-gradient(top,  #ccc,  #9a9a9a);text-align:center;border-color:black;text-shadow:0px 0px 3px #000;}.yafnet .ReputationBarText {margin-top:5px;color:white;}.yafnet .ReputationBarValue {background-image:none;}.yafnet .BarDarkRed {background-color: #8b0000; background : -webkit-gradient(linear, left top, left bottom, from(#8b0000), to(#560000));background: -moz-linear-gradient(top,  #8b0000,  #560000);background: -o-linear-gradient(top,  #8b0000,  #560000);border-color:black}.yafnet .BarRed {background-color: #ff0000; background : -webkit-gradient(linear, left top, left bottom, from(#ff0000), to(#bf0000));background: -moz-linear-gradient(top,  #ff0000,  #bf0000);background: -o-linear-gradient(top,  #ff0000,  #bf0000);border-color:black}.yafnet .BarOrangeRed {background-color: #ff4500; background : -webkit-gradient(linear, left top, left bottom, from(#ff4500), to(#c73600));background: -moz-linear-gradient(top,  #ff4500,  #c73600);background: -o-linear-gradient(top,  #ff4500,  #c73600);border-color:black}.yafnet .BarDarkOrange {background-color: #ff8c00; background : -webkit-gradient(linear, left top, left bottom, from(#ff8c00), to(#c96e00));background: -moz-linear-gradient(top,  #ff8c00,  #c96e00);background: -o-linear-gradient(top,  #ff8c00,  #c96e00);border-color:black}.yafnet .BarOrange {background-color: #ffa500; background : -webkit-gradient(linear, left top, left bottom, from(#ffa500), to(#c68000));	background: -moz-linear-gradient(top,  #ffa500,  #c68000);background: -o-linear-gradient(top,  #ffa500,  #c68000);border-color:black}.yafnet .BarYellow {background-color: #ffff00; background : -webkit-gradient(linear, left top, left bottom, from(#ffff00), to(#c2c200));background: -moz-linear-gradient(top,  #ffff00,  #c2c200);background: -o-linear-gradient(top,  #ffff00,  #c2c200);border-color:black}.yafnet .BarLightGreen {background-color: #06e906; background : -webkit-gradient(linear, left top, left bottom, from(#06e906), to(#00c500));background: -moz-linear-gradient(top,  #06e906,  #00c500);background: -o-linear-gradient(top,  #06e906,  #00c500);border-color:black}.yafnet .BarGreen {background-color: #008000; background : -webkit-gradient(linear, left top, left bottom, from(#008000), to(#014701));background: -moz-linear-gradient(top,  #008000,  #014701);background: -o-linear-gradient(top,  #008000,  #014701);border-color:black}.yafnet .BarDarkGreen {background-color: #006400; background : -webkit-gradient(linear, left top, left bottom, from(#006400), to(#013d01));background: -moz-linear-gradient(top,  #006400,  #013d01);background: -o-linear-gradient(top,  #006400,  #013d01);border-color:black}.yafnet .MessageHistoryLink{font-style:italic;}.PopupBody,.yafnet .adminMenu ul{margin:0;padding:0;}.yafnet,.yafnet .adminMenu{padding:5px;}.yafnet #DivForumJump,.yafnet .rightItem,.yafnet .loggedInUser,.yafnet .menuMyContainer,.yafnet .pagination .smiliesPagerNext{float:right;}.yafnet .leftItem,.yafnet .menuContainer{float:left;}.yafnet .clearItem,.yafnet #DivSmartScroller,.yafnet #yafheaderEnd{clear:both;}.yafnet .postsep td,.yafnet .yafpopupmenu{padding:0;}.yafnet #yafheader .loggedInUser,.yafnet #yafheader .menuContainer,.yafnet .forumLinkCol .forumheading,.yafnet .forumLinkCol .forumviewing{display:inline;}.yafnet .adminMenu li img,.yafnet .SignatureColumn{vertical-align:bottom;}.yafnet .quotetitle,.yafnet .ThanksInfo{font-weight:700;}.yafnet .AlbumImageList li {width:60px;height:80px;float:left;}.yafnet .AlbumImageList li img {max-width:60px;max-height:80px}.yafnet .ui-state-warning {border: 1px solid #ff5114; background: #fce3bb; color: #ffffff; }.yafnet .showEventItem, .yafnet .deleteEventItem {color: black!important; }.yafnet .EventDetails pre {padding:15px;word-wrap: break-word;white-space: pre; white-space: pre-wrap;white-space: pre-line;white-space: -pre-wrap;white-space: -o-pre-wrap;white-space: -moz-pre-wrap;white-space: -hp-pre-wrap;word-wrap: break-word;border: 1px solid #999; background-color:#eee;margin:10px}.yafnet .eventItem table td {border:none!important;padding:5px!important}.yafnet .forumIconLegend {padding: 2px; margin: 2px;width:100%}.yafnet .forumIconLegend li {list-style:none;float:left}.yafnet .forumIconLegend li img {vertical-align:middle}
+.PopupBody
+{
+	margin: 0;
+	padding: 0;
+}
+
+.PopupBody .ShoutBoxPanel .content
+{
+	position:absolute;
+	top: 5px;
+	bottom:0px;
+	right:0px;
+	left:5px;
+	height:97%;
+	width:99%;
+	min-height:300px;
+}
+#shoutBoxChatArea {
+	overflow-y: auto;
+	height:150px;
+	min-width:500px;
+	width: 99%; 
+	padding: 0; 
+	margin: 0;
+}
+.yafnet
+{
+	padding: 5px;
+}
+.yafnet .quickReplyLine
+{	
+	padding: 5px 10px 5px 5px;
+    height:100%;
+}
+.yafnet textarea.basicBBCodeEditor 
+{
+	width: 100%;
+	height: 100%;
+}
+.yafnet textarea.BBCodeEditor 
+{
+	width: 100%;
+	height: 350px;
+}
+.yafnet #DivForumJump
+{
+	float:right;
+}
+.yafnet #ForumSearchDiv
+{
+	display:inline;
+	float:left;
+}
+.yafnet #DivPageAccess
+{
+	clear:right;
+	float:right;
+	margin-top: 10px;
+}
+.yafnet #DivIconLegend
+{
+	float:left;
+	margin-top: 10px;
+}
+.yafnet .leftItem
+{
+    float:left;
+}
+.yafnet .rightItem
+{
+    float:right;
+}
+.yafnet .centerItem
+{
+   margin: 0 auto;
+}
+.yafnet .postNavigation td
+{
+    text-align:right;
+}
+.yafnet .clearItem
+{
+    clear:both;
+}
+.yafnet #DivSmartScroller
+{
+	clear:both;
+}
+.yafnet .postsep td
+{
+	padding:0px;
+}
+.yafnet .yafpopupmenu
+{
+	padding:0px;
+}
+.yafnet .fileattach
+{
+	margin: 15px 0px 0px 0px;
+}
+.yafnet #yafprofilemenu
+{
+	float:left;
+	width: 150px;
+	margin: 5px 5px 5px 0px;
+}
+.yafnet #yafprofilecontainer
+{
+
+}
+.yafnet .RssFeedIcon
+{
+	margin-left: 5px;
+}
+.yafnet #yafhelpmenu ul
+{
+    list-style: none;
+}
+.yafnet #yafprofilemenu
+{
+	width: 19%; float: left; clear: left;
+}
+.yafnet #yafheaderEnd
+{
+    clear:both;
+}
+.yafnet .loggedInUser
+{
+    float: right;
+}
+.yafnet .outerMenuContainer
+{
+    float: left;
+    width: 100%;
+    line-height:30px;
+}
+.yafnet .menuContainer
+{	
+    float: left;
+}
+.yafnet .menuMyContainer
+{
+	float: right;
+}
+.yafnet #yafheader ul
+{   
+    display: inline; 
+    list-style: none;
+    margin: 0;
+    padding:0;
+}
+.yafnet #yafheader .loggedInUser,
+.yafnet #yafheader .menuContainer
+{
+    display: inline;
+}
+
+.yafnet #yafheader li
+{
+    display: inline;
+    padding: 2px 3px 2px 3px;    
+}
+
+.yafnet .QuickSearch
+{
+	display:inline;
+	float:right;
+	padding: 0px 4px 0px 4px;
+}
+.yafnet #yafprofilecontent
+{
+	margin: 5px 0px 5px 0px;
+	width: 80%; float: right;
+}
+.yafnet td.forumIconCol
+{
+	width: 1%;
+}
+.yafnet .threadedRowCollapsed .avatarimage
+{
+    vertical-align: middle;
+    width: 40px;
+    height: 40px;
+    padding: 1px;	
+    border: 1px solid #666;
+    margin-right: 8px;    
+}
+.yafnet .forumLinkCol .forumheading,
+.yafnet .forumLinkCol .forumviewing
+{
+	display: inline;
+}
+/* Exception: Default CSS for Syntaxt Highlighting */
+.yafnet .yafcodehighlighting .keytype { color : #FF9933; font-weight : normal; }
+.yafnet .yafcodehighlighting .keyword { color : #224FFF; font-weight : normal; }
+.yafnet .yafcodehighlighting .integer { color : #FF0032; }
+.yafnet .yafcodehighlighting .comment { color : #008100; }
+.yafnet .yafcodehighlighting .errors { color : #FF0000; font-weight : bold; }
+.yafnet .yafcodehighlighting .string { color : #FF0022; }
+
+/* Exception: Admin Styling */
+.yafnet .adminContainer
+{
+	width: 100%;
+}
+.yafnet .adminMenu
+{
+	padding: 5px;
+}
+.yafnet .adminMenuAccordian
+{
+	width: 200px;	
+}
+.yafnet .adminMenu ul
+{
+	margin: 0;
+	padding: 0;	
+}
+.yafnet .adminMenu li img
+{
+	vertical-align: bottom;
+}
+.yafnet .adminMenu li
+{
+	white-space:nowrap;
+	font-size: 10pt;
+	border-bottom: 1px solid #eee;
+	padding-bottom: 4px;
+	margin-bottom: 5px;
+}
+.yafnet .helpContent,
+.yafnet .adminContent
+{
+	width: 100%;
+	vertical-align: top;
+	padding-left: 5px;
+}
+.yafnet .quotetitle {
+	font-weight:bold;
+}
+.yafnet .yafpopupmenu ul,
+.yafnet .yafpopupmenu li,
+.yafnet .adminContent li,
+.yafnet .ui-helper-reset li,
+.yafnet .postOptions li {
+	list-style-type: none;
+}
+.yafnet .PopMenuLink,
+.yafnet .UserPopMenuLink,
+.yafnet .GoToLink {
+	cursor: pointer;
+    margin: 0 0 0 5px;
+	padding: 2px 15px 2px 4px;
+}
+
+.yafnet .PrevTopicLink {
+    margin-left: 5px;
+    padding: 2px 4px 2px 15px;
+}
+
+.yafnet .NextTopicLink {
+    margin-left: 5px;
+    padding: 2px 15px 2px 4px;
+	float:right;
+}
+.yafnet .pagination { font-size: 90%;text-align:center;margin-lefT:4px}
+
+.yafnet .pagination .smiliesPagerNext {float:right}
+        
+.yafnet .pagination a, .yafnet .pagination span {
+    display: block;
+    float: left;
+    padding: 0.3em 0.5em;
+    margin-right: 5px;
+	margin-bottom: 5px;
+	min-width:1em;
+	text-align:center;
+}
+
+.yafnet #SmiliesBox {
+	display:block;
+	overflow:auto;
+	min-width:180px;
+	min-height:100px;
+}
+
+.yafnet .smilesBox
+{
+    padding: 0 !important;
+}
+.yafnet .SmilieList {
+	margin:4px;
+	padding:4px;
+}
+.yafnet .SmilieList li {
+	list-style:none;
+	float: left;
+	padding: 0px;
+	margin:0px;
+    min-width:40px;
+	min-height:40px;
+}
+.yafnet .SmilieList li img {
+	max-width: 80px;
+	max-height: 80px;
+}
+.yafnet .SmilieList li a{
+    display:block;
+    text-decoration:none;
+}
+.yafnet .edit
+{
+    width: 98%;
+}
+
+#yafpage_shoutbox {height:100%;}
+
+.yafnet .UnreadBox {position:relative;display:inline;}
+
+/* Alpha Sort Control */
+.yafnet .AlphaSort {width: 100%;display:inline-block;}
+
+.yafnet dl.AlphaSort dt {padding-left:5px;height:30px;}
+
+.yafnet dl.AlphaSort dd {float:left;width:20px;height:15px;text-align:center;margin:10px 4px 10px 4px}
+
+.yafnet dl.AlphaSort dd a {text-decoration:none}
+
+.yafnet .SignatureColumn {vertical-align:bottom;}
+
+.yafnet .MultiQuoteButton input{
+	position:absolute;
+	top:-9999px;
+}
+
+/* Reputation Progressbar Style */
+.yafnet .ReputationBar { margin-top: 5px;width: 98%;background-color:#ccc;background : -webkit-gradient(linear, left top, left bottom, from(#ccc), to(#9a9a9a));
+                   	background: -moz-linear-gradient(top,  #ccc,  #9a9a9a);background: -o-linear-gradient(top,  #ccc,  #9a9a9a);text-align:center;border-color:black;text-shadow:0px 0px 3px #000;}
+.yafnet .ReputationBarText {margin-top:5px;color:white;}
+.yafnet .ReputationBarValue {background-image:none;}
+
+.yafnet .BarDarkRed {background-color: #8b0000; background : -webkit-gradient(linear, left top, left bottom, from(#8b0000), to(#560000));
+                   	background: -moz-linear-gradient(top,  #8b0000,  #560000);background: -o-linear-gradient(top,  #8b0000,  #560000);border-color:black}
+
+.yafnet .BarRed {background-color: #ff0000; background : -webkit-gradient(linear, left top, left bottom, from(#ff0000), to(#bf0000));
+                   	background: -moz-linear-gradient(top,  #ff0000,  #bf0000);background: -o-linear-gradient(top,  #ff0000,  #bf0000);border-color:black}
+
+.yafnet .BarOrangeRed {background-color: #ff4500; background : -webkit-gradient(linear, left top, left bottom, from(#ff4500), to(#c73600));
+                   	background: -moz-linear-gradient(top,  #ff4500,  #c73600);background: -o-linear-gradient(top,  #ff4500,  #c73600);border-color:black}
+
+.yafnet .BarDarkOrange {background-color: #ff8c00; background : -webkit-gradient(linear, left top, left bottom, from(#ff8c00), to(#c96e00));
+                   	background: -moz-linear-gradient(top,  #ff8c00,  #c96e00);background: -o-linear-gradient(top,  #ff8c00,  #c96e00);border-color:black}
+					
+.yafnet .BarOrange {background-color: #ffa500; background : -webkit-gradient(linear, left top, left bottom, from(#ffa500), to(#c68000));
+                   	background: -moz-linear-gradient(top,  #ffa500,  #c68000);background: -o-linear-gradient(top,  #ffa500,  #c68000);border-color:black}
+
+.yafnet .BarYellow {background-color: #ffff00; background : -webkit-gradient(linear, left top, left bottom, from(#ffff00), to(#c2c200));
+                   	background: -moz-linear-gradient(top,  #ffff00,  #c2c200);background: -o-linear-gradient(top,  #ffff00,  #c2c200);border-color:black}
+
+.yafnet .BarLightGreen {background-color: #06e906; background : -webkit-gradient(linear, left top, left bottom, from(#06e906), to(#00c500));
+                   	background: -moz-linear-gradient(top,  #06e906,  #00c500);background: -o-linear-gradient(top,  #06e906,  #00c500);border-color:black}
+
+.yafnet .BarGreen {background-color: #008000; background : -webkit-gradient(linear, left top, left bottom, from(#008000), to(#014701));
+                   	background: -moz-linear-gradient(top,  #008000,  #014701);background: -o-linear-gradient(top,  #008000,  #014701);border-color:black}
+
+.yafnet .BarDarkGreen {background-color: #006400; background : -webkit-gradient(linear, left top, left bottom, from(#006400), to(#013d01));
+                   	background: -moz-linear-gradient(top,  #006400,  #013d01);background: -o-linear-gradient(top,  #006400,  #013d01);border-color:black}
+					
+/* Edit Message Link */
+.yafnet .MessageHistoryLink {
+	font-style:italic;
+}
+
+.yafnet .ThanksInfo {
+	font-weight: bold;
+}
+
+.yafnet .AlbumImageList li {width:60px;height:80px;float:left;}
+.yafnet .AlbumImageList li img {max-width:60px;max-height:80px}	
+
+/* event log styling */
+.yafnet .ui-state-warning {
+	border: 1px solid #ff5114; 
+	background: #fce3bb; color: #ffffff; 
+}
+.yafnet .showEventItem, .yafnet .deleteEventItem {
+	color: black!important; 
+}
+.yafnet .EventDetails pre {
+	padding:15px;
+	word-wrap: break-word;
+	white-space: pre; 
+	white-space: pre-wrap;
+	white-space: pre-line;
+	white-space: -pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -moz-pre-wrap;
+	white-space: -hp-pre-wrap;
+	word-wrap: break-word;
+	border: 1px solid #999; 
+	background-color:#eee;
+	margin:10px
+}
+.yafnet .eventItem table td {
+	border:none!important;
+	padding:5px!important
+}
+
+/* forum Icon Legend */
+.yafnet .forumIconLegend {
+	padding: 2px; 
+	margin: 2px;
+	width:100%
+}
+.yafnet .forumIconLegend li {
+	list-style:none;
+	float:left
+}
+
+.yafnet .forumIconLegend li img {
+	vertical-align:middle
+}

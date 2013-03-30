@@ -16,9 +16,8 @@
 	$.PaginationCalculator = function(maxentries, opts) {
 		this.maxentries = maxentries;
 		this.opts = opts;
-	}
-	
-	$.extend($.PaginationCalculator.prototype, {
+	};
+     $.extend($.PaginationCalculator.prototype, {
 		/**
 		 * Calculate the maximum number of pages
 		 * @method
@@ -43,17 +42,17 @@
 	});
 	
 	// Initialize jQuery object container for pagination renderers
-	$.PaginationRenderers = {}
-	
-	/**
+     $.PaginationRenderers = {};
+
+     /**
 	 * @class Default renderer for rendering pagination links
 	 */
 	$.PaginationRenderers.defaultRenderer = function(maxentries, opts) {
 		this.maxentries = maxentries;
 		this.opts = opts;
 		this.pc = new $.PaginationCalculator(maxentries, opts);
-	}
-	$.extend($.PaginationRenderers.defaultRenderer.prototype, {
+	};
+     $.extend($.PaginationRenderers.defaultRenderer.prototype, {
 		/**
 		 * Helper function for generating a single link (or a span tag if it's the current page)
 		 * @param {Number} page_id The page id for the new item
@@ -155,8 +154,7 @@
 		 * @param {int} page_id The new page number
 		 */
 		function paginationClickHandler(evt){
-			var links, 
-				new_current_page = $(evt.target).data('page_id'),
+			var new_current_page = $(evt.target).data('page_id'),
 				continuePropagation = selectPage(new_current_page);
 			if (!continuePropagation) {
 				evt.stopPropagation();
@@ -204,7 +202,7 @@
 					selectPage(page_id); return false;
 				}
 		});
-		containers.bind('prevPage', function(evt){
+		containers.bind('prevPage', function(){
 				var current_page = $(this).data('current_page');
 				if (current_page > 0) {
 					selectPage(current_page - 1);
@@ -225,6 +223,6 @@
 		links.appendTo(containers);
 		// call callback function
 		opts.callback(current_page, containers);
-	} // End of $.fn.pagination block
+	}; // End of $.fn.pagination block
 	
 })(jQuery);

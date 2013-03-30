@@ -1,1 +1,178 @@
-#LoginBox,.MessageBox{display:none}.ModalDialog{position:fixed;top:0;left:0;z-index:200;text-align:left}* html .ModalDialog{position:absolute}#LoginBox{z-index:100}.ModalDialog .yafpopup{position:relative;border:3px solid rgba(0,0,0,0);-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;-webkit-box-shadow:0 0 18px rgba(0,0,0,0.4);-moz-box-shadow:0 0 18px rgba(0,0,0,0.4);box-shadow:0 0 18px rgba(0,0,0,0.4)}.ModalDialog .DialogContent{display:table;width:370px;background:linear-gradient(top,#ffffff,#cccccc);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#cccccc',GradientType=0);-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;padding:10px 0 10px 0}#LoginBox .ModalDialog .DialogContent {padding:10px}.ModalDialog .modalHeader{text-shadow:0 1px 1px rgba(0,0,0,.3);color:black;text-align:center;font-size:12.5pt}* html .ModalDialog .modalHeader{width:340px;line-height:10px;padding-top:10px}:first-child+html .ModalDialog .modalHeader{width:340px;line-height:20px;padding-top:10px}.ModalDialog .close{position:absolute;top:5px;right:5px;background:#fff;padding:2px}.ModalDialog .close img{opacity:0.3}.ModalDialog .close:hover img{opacity:1.0}.ModalDialog_overlayBG{position:fixed;top:0;left:0;height:100%;width:100%;background-color:black;z-index:1!important;opacity:0.2}.ModalDialog input[type=text],.ModalDialog input[type=password]{display:block;-moz-border-radius:4px;-webkit-border-radius:4px;border-radius:4px;border:1px solid black;font-size:13px;width:370px;margin:0 0 5px;padding:5px}:first-child+html .ModalDialog input[type=text],:first-child+html .ModalDialog input[type=password]{width:360px}:first-child+html .RembemberMe{display:block}.LoginButton{vertical-align:baseline;cursor:pointer;text-align:center!important;text-decoration:none;font:1.3em Arial, Helvetica, sans-serif bold!important;text-shadow:0 1px 1px rgba(0,0,0,.3);-webkit-border-radius:.5em;-moz-border-radius:.5em;border-radius:.5em;-webkit-box-shadow:0 1px 2px rgba(0,0,0,.2);-moz-box-shadow:0 1px 2px rgba(0,0,0,.2);box-shadow:0 1px 2px rgba(0,0,0,.2);color:#fff!important;border:solid 1px #333;background:linear-gradient(top,#446bb8,#2a4985);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#446bb8',endColorstr='#2a4985',GradientType=0);height:40px;width:150px;margin:10px 2px;padding:.1em .5em}.StandardButton{vertical-align:baseline;cursor:pointer;text-align:center!important;text-decoration:none;font:1.2em Arial, Helvetica, sans-serif bold!important;text-shadow:0 1px 1px rgba(0,0,0,.3);-webkit-border-radius:.5em;-moz-border-radius:.5em;border-radius:.5em;-webkit-box-shadow:0 1px 2px rgba(0,0,0,.2);-moz-box-shadow:0 1px 2px rgba(0,0,0,.2);box-shadow:0 1px 2px rgba(0,0,0,.2);color:#fff!important;border:solid 1px #333;background:linear-gradient(top,#446bb8,#2a4985);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#446bb8',endColorstr='#2a4985',GradientType=0);height:25px;width:80px;margin:10px 2px;padding:.1em .5em}.StandardButtton:hover,.RecoveryButtton:hover,.LoginButton:hover{color:#ffffff;text-decoration:none;background-color:#000!important;background:linear-gradient(top,#444444,#000000);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#446bb8',endColorstr='#000000',GradientType=0)}.RecoveryButtton{display:inline-block;vertical-align:baseline;cursor:pointer;text-align:center!important;text-decoration:none;text-shadow:0 1px 1px rgba(0,0,0,.3);-webkit-border-radius:.5em;-moz-border-radius:.5em;border-radius:.5em;-webkit-box-shadow:0 1px 2px rgba(0,0,0,.2);-moz-box-shadow:0 1px 2px rgba(0,0,0,.2);box-shadow:0 1px 2px rgba(0,0,0,.2);color:#fff!important;border:solid 1px #333;background:linear-gradient(top,#446bb8,#2a4985);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#446bb8',endColorstr='#2a4985',GradientType=0);margin:10px 2px;padding:.1em .5em}* html .ModalDialog .modalInner,:first-child+html .ModalDialog .modalInner{padding-top:10px}
+#LoginBox, .MessageBox{  display:none;}  
+
+.ModalDialog {position: fixed;top: 0;left: 0;z-index: 200;text-align: left;}
+* html .ModalDialog {position: absolute;}
+#LoginBox{  z-index: 100;}  
+.ModalDialog .yafpopup{ position:relative;border:3px solid rgba(0,0,0,0);-webkit-border-radius:5px;-moz-border-radius:5px; border-radius:5px;-webkit-box-shadow:0 0 18px rgba(0,0,0,0.4);-moz-box-shadow:0 0 18px rgba(0,0,0,0.4);box-shadow:0 0 18px rgba(0,0,0,0.4);}
+
+.ModalDialog .DialogContent {
+	display:table;
+    width: 370px;
+    padding: 10px 0 10px 0;
+  
+    background: #fff;
+	
+	background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#cccccc));
+	background: -moz-linear-gradient(top,  #ffffff,  #cccccc);
+	background: -o-linear-gradient(top,#ffffff,  #cccccc);
+    background: -ms-linear-gradient(top,#ffffff,  #cccccc);
+    background: linear-gradient(top, #ffffff,  #cccccc);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#cccccc',GradientType=0 );
+  
+    -webkit-border-radius:4px;
+    -moz-border-radius:4px;
+    border-radius:4px;
+}
+#LoginBox .ModalDialog .DialogContent {
+	padding:10px
+}
+.ModalDialog .modalHeader {
+  text-shadow: 0 1px 1px rgba(0,0,0,.3);
+  color: black;
+
+  text-align:center;
+  
+  font-size: 12.5pt;
+}
+* html .ModalDialog .modalHeader {width:340px;line-height:10px;padding-top:10px}
+*:first-child+html .ModalDialog .modalHeader {width:340px;line-height:20px;padding-top:10px}
+
+* html .ModalDialog .modalInner {padding-top:10px}
+*:first-child+html .ModalDialog .modalInner {padding-top:10px}
+
+.ModalDialog .close{position:absolute; top:5px;right:5px;padding:2px;background:#fff;}
+.ModalDialog .close img{opacity:0.3;}
+.ModalDialog .close:hover img{opacity:1.0;}
+
+.ModalDialog_overlayBG { position: fixed;top: 0;left: 0;height:100%;width: 100%;background-color: black;z-index: 1!important;opacity: 0.2;}
+
+.ModalDialog input[type=text], .ModalDialog input[type=password] {
+	display:block;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	border-radius:4px;
+	border:1px solid black;
+	font-size:13px;
+	margin:0 0 5px;
+	padding:5px;
+	width:370px;
+}
+*:first-child+html .ModalDialog input[type=text],
+*:first-child+html .ModalDialog input[type=password] {width:360px}
+
+*:first-child+html .RembemberMe {display:block}
+
+.LoginButton {
+	border: none;
+
+	vertical-align: baseline;
+	margin: 10px 2px;
+	cursor: pointer;
+	text-align: center!important;
+	text-decoration: none;
+	font: 1.3em Arial, Helvetica, sans-serif bold!important;
+	padding: .1em 0.5em .1em;
+	text-shadow: 0 1px 1px rgba(0,0,0,.3);
+	
+	-webkit-border-radius: .5em; 
+	-moz-border-radius: .5em;
+	border-radius: .5em;
+	
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	
+	color: #fff!important;
+	border: solid 1px #333;
+	
+	background: #446bb8;
+	
+	background: -webkit-gradient(linear, left top, left bottom, from(#446bb8), to(#2a4985));
+	background: -moz-linear-gradient(top,  #446bb8,  #2a4985);
+	background: -o-linear-gradient(top,#446bb8,  #2a4985);
+    background: -ms-linear-gradient(top,#446bb8,  #2a4985);
+    background: linear-gradient(top, #446bb8,  #2a4985);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#446bb8', endColorstr='#2a4985',GradientType=0 );
+	
+    height:40px;
+	width:150px;
+}
+.StandardButton {
+	border: none;
+
+	vertical-align: baseline;
+	margin: 10px 2px;
+	cursor: pointer;
+	text-align: center!important;
+	text-decoration: none;
+	font: 1.2em Arial, Helvetica, sans-serif bold!important;
+	padding: .1em 0.5em .1em;
+	text-shadow: 0 1px 1px rgba(0,0,0,.3);
+	
+	-webkit-border-radius: .5em; 
+	-moz-border-radius: .5em;
+	border-radius: .5em;
+	
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	box-shadow: 0 1px 2px rgba(0,0,0,.2);
+
+	color: #fff!important;
+	border: solid 1px #333;
+	
+	background: #446bb8;
+	
+	background: -webkit-gradient(linear, left top, left bottom, from(#446bb8), to(#2a4985));
+	background: -moz-linear-gradient(top,  #446bb8,  #2a4985);
+	background: -o-linear-gradient(top,#446bb8,  #2a4985);
+    background: -ms-linear-gradient(top,#446bb8,  #2a4985);
+    background: linear-gradient(top, #446bb8,  #2a4985);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#446bb8', endColorstr='#2a4985',GradientType=0 );
+	
+    height:25px;
+	width:80px;
+}
+.StandardButtton:hover,
+.RecoveryButtton:hover,
+.LoginButton:hover {
+	color: #ffffff;
+	text-decoration: none;
+	background-color: #000!important;
+	
+	background: -webkit-gradient(linear, left top, left bottom, from(#444444), to(#000000));
+	background: -moz-linear-gradient(top,  #444444,  #000000);
+	background: -o-linear-gradient(top,#444444,  #000000);
+    background: -ms-linear-gradient(top,#444444,  #000000);
+    background: linear-gradient(top, #444444,  #000000);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#446bb8', endColorstr='#000000',GradientType=0 );
+	
+}
+.RecoveryButtton {
+	border: none;
+	display: inline-block;
+	vertical-align: baseline;
+	margin: 10px 2px;
+	cursor: pointer;
+	text-align: center!important;
+	text-decoration: none;
+	padding: .1em 0.5em .1em;
+	text-shadow: 0 1px 1px rgba(0,0,0,.3);
+	
+	-webkit-border-radius: .5em; 
+	-moz-border-radius: .5em;
+	border-radius: .5em;
+	
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	
+	color: #fff!important;
+	border: solid 1px #333;
+	
+	background: -webkit-gradient(linear, left top, left bottom, from(#446bb8), to(#2a4985));
+	background: -moz-linear-gradient(top,  #446bb8,  #2a4985);
+	background: -o-linear-gradient(top,#446bb8,  #2a4985);
+    background: -ms-linear-gradient(top,#446bb8,  #2a4985);
+    background: linear-gradient(top, #446bb8,  #2a4985);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#446bb8', endColorstr='#2a4985',GradientType=0 );
+}

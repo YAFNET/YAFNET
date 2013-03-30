@@ -1,7 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  
   <Import Project="MSBuild.Community.Tasks.Targets" />
   <Import Project="MSBuild.Extended.Tasks.Targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\MicrosoftAjax\AjaxMin.tasks" />
+    
   <Target Name="PackageModule" Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <XmlRead Prefix="n"
                     Namespace="http://schemas.microsoft.com/developer/msbuild/2003"
@@ -69,7 +72,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <yafsrcInclude Include="$(MSBuildProjectDirectory)\..\yafsrc\**\*.*" Exclude="$(MSBuildProjectDirectory)\..\**\*.ReSharper;$(MSBuildProjectDirectory)\..\**\*.testsettings;$(MSBuildProjectDirectory)\..\**\*.chm;$(MSBuildProjectDirectory)\..\**\*.psd;$(MSBuildProjectDirectory)\..\**\TestResults\**;$(MSBuildProjectDirectory)\..\**\nStuff.UpdateControls\**;$(MSBuildProjectDirectory)\..\**\Dependencies\**;$(MSBuildProjectDirectory)\..\**\CookComputing.XmlRpc\**;$(MSBuildProjectDirectory)\..\**\obj\**;$(MSBuildProjectDirectory)\..\**\_ReSharper*\**;$(MSBuildProjectDirectory)\..\**\bin\**;$(MSBuildProjectDirectory)\..\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;$(MSBuildProjectDirectory)\..\**\*.user;$(MSBuildProjectDirectory)\..\**\.svn\**;$(MSBuildProjectDirectory)\..\**\*.suo;" />
+      <yafsrcInclude Include="$(MSBuildProjectDirectory)\..\yafsrc\**\*.*" Exclude="$(MSBuildProjectDirectory)\.nuget\nuget.exe;$(MSBuildProjectDirectory)\..\yafsrc\.nuget\nuget.exe;$(MSBuildProjectDirectory)\..\yafsrc\packages\**\*.*;$(MSBuildProjectDirectory)\..\yafsrc\Tools\**\*.*;$(MSBuildProjectDirectory)\..\yafsrc\YAF.Extras\**\*.*;$(MSBuildProjectDirectory)\..\**\*.ReSharper;$(MSBuildProjectDirectory)\..\**\*.testsettings;$(MSBuildProjectDirectory)\..\**\*.chm;$(MSBuildProjectDirectory)\..\**\*.psd;$(MSBuildProjectDirectory)\..\**\TestResults\**;$(MSBuildProjectDirectory)\..\**\nStuff.UpdateControls\**;$(MSBuildProjectDirectory)\..\**\Dependencies\**;$(MSBuildProjectDirectory)\..\**\CookComputing.XmlRpc\**;$(MSBuildProjectDirectory)\..\**\obj\**;$(MSBuildProjectDirectory)\..\**\_ReSharper*\**;$(MSBuildProjectDirectory)\..\**\bin\**;$(MSBuildProjectDirectory)\..\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;$(MSBuildProjectDirectory)\..\**\*.user;$(MSBuildProjectDirectory)\..\**\.svn\**;$(MSBuildProjectDirectory)\..\**\*.suo;" />
     </ItemGroup>
 
     <ItemGroup>
@@ -108,9 +111,18 @@
     
     <Zip Files="@(YafDnnWhatsNewResourcesContent)" WorkingDirectory="$(MSBuildProjectDirectory)\YafDnnWhatsNewResources" ZipFileName="YafDnnWhatsNewResources.$(Extension)" />
     <Copy SourceFiles="$(MSBuildProjectDirectory)\YafDnnWhatsNewResources.$(Extension)" DestinationFolder="package/" />
-
+    
     <!-- create the INSTALL yafdnn-res.ZIP file -->
     <Copy SourceFiles="@(yafdnn-resInclude)" DestinationFolder="$(MSBuildProjectDirectory)\yafdnn-res\%(RecursiveDir)" />
+    
+    <!-- Minify JS and CSS Files -->
+    <ItemGroup>
+      <JS Include="$(MSBuildProjectDirectory)\yafdnn-res\**\*.js" Exclude="**\*.min.js;**\*-min.js;**\*_src.js;$(MSBuildProjectDirectory)\yafdnn-res\editors\ckeditor\**\*.js;$(MSBuildProjectDirectory)\yafdnn-res\editors\tiny_mce\**\*.js;" />
+    </ItemGroup>
+    <ItemGroup>
+      <CSS Include="$(MSBuildProjectDirectory)\yafdnn-res\**\*.css" Exclude="**\*.min.css;**\*_src.css;$(MSBuildProjectDirectory)\yafdnn-res\themes\**\*.css;$(MSBuildProjectDirectory)\yafdnn-res\editors\ckeditor\**\*.css;$(MSBuildProjectDirectory)\yafdnn-res\editors\tiny_mce\**\*.css;" />
+    </ItemGroup>
+    <AjaxMin JsSourceFiles="@(JS)" JsSourceExtensionPattern="\.js$" JsTargetExtension=".js" CssSourceFiles="@(CSS)" CssSourceExtensionPattern="\.css$" CssTargetExtension=".css"  />
 
     <CreateItem Include="$(MSBuildProjectDirectory)\yafdnn-res\**\*.*">
       <Output TaskParameter="Include" ItemName="yafdnn-resContent" />

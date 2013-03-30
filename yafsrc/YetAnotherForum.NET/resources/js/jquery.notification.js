@@ -1,1 +1,136 @@
-﻿eval(function(p,a,c,k,e,r){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)r[e(c)]=k[c]||e(c);k=[function(e){return r[e]}];e=function(){return'\\w+'};c=1};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p}('8 12(B){a 3={\'P\':0,\'2\':0,\'l\':19,\'9\':\'1h\',\'J\':\'\',\'F\':\'\',\'R\':\'\',\'T\':\'\'};$.15(N,3,B);a h=\'1l\';c(3[\'9\']==\'v\'){h=\'1d\'}r c(3[\'9\']==\'z\'){h=\'1p\'}r c(3[\'9\']==\'A\'){h=\'13\'}a k=\'1j.p\';c(3[\'9\']==\'v\'){k=\'v.p\'}r c(3[\'9\']==\'z\'){k=\'z.p\'}r c(3[\'9\']==\'A\'){k=\'A.p\'}a d=\'<4 1b="6" f="1r \'+h+\'" 1v="D x();" H="17 1n 1x 1B"><4 f="1F"><4 f="1J 1f">\';d+=\'<1z f="1H" 1t="\'+3[\'T\']+k+\'" 1K="\'+3[\'9\']+\'" H="\'+3[\'9\']+\'" />&1D;\';d+=3[\'J\'].L(\'\\\\n\',\'<1y />\');d+=\'</4><4 f="C"></4><4 f="1i"></4>\';d+=\'</4>\';$S=$(d);$(\'1G\').1a($S);a m=$(\'4#6\').K();$(\'4#6\').5({w:\'-\'+m+\'1q\'});$(\'4#6\').1C();G(3[\'P\'],3[\'l\'],3[\'2\']);a e=3[\'2\']+"s";a g=(3[\'2\']-1)+"s";$(\'4#6\').5("-O-7-2",e).5("-W-7-2",e).5("-o-7-2",e).5("-Z-7-2",e).5("7-2",e);$(\'#6 .C\').5("-O-7-2",g).5("-W-7-2",g).5("-o-7-2",g).5("-Z-7-2",g).5("7-2",g);$(\'.F\').16(\'1e\',8(){$(\'.1m\').1u(3[\'R\']).14(\'1w\')})}1E.1k.L=8(j,q,E){a b,i=-1,u;c((b=1c.1s())&&1A j==="1I"){u=E===N?j.I():V;18((i=(u!==V?b.I().Q(u,i>=0?i+q.y:0):b.Q(j,i>=0?i+q.y:0)))!==-1){b=b.Y(0,i).11(q).11(b.Y(i+j.y))}}D b};8 x(2){a m=$(\'4#6\').K();t(8(){$(\'4#6\').M({w:\'-\'+m});t(8(){$(\'4#6\').1g()},1o)},U(2*X))}8 G(10,l,2){t(8(){$(\'4#6\').M({w:0});c(l){t(8(){x(2)},2)}},U(10*X))}',62,109,'||duration|options|div|css|info_message|animation|function|type|var|str|if|container|animationDuration|class|progressDuration|msgclass||token|icon|autoClose|divHeight|||png|newToken|else||setTimeout|_token|error|top|closeNotification|length|information|warning|params|info_progress|return|ignoreCase|link_notification|slideDownNotification|title|toLowerCase|message|height|replaceAll|animate|true|webkit|showAfter|indexOf|description|notification|imagepath|parseInt|undefined|moz|1000|substring|ms|startAfter|concat|showNotification|warn_bg|slideDown|extend|live|Click|while|false|append|id|this|error_bg|click|message_area|remove|success|clearboth|tick|prototype|succ_bg|info_more_descrption|to|200|info_bg|px|notification_background|toString|src|html|onclick|fast|Hide|br|img|typeof|Notification|show|nbsp|String|center_auto|body|message_icon|string|info_message_text|alt'.split('|'),0,{}))
+﻿/**
+ * Javascript functions to show top nitification
+ * Error/Success/Info/Warning messages
+ * Developed By: Ravi Tamada
+ * url: http://androidhive.info
+ * © androidhive.info
+ * 
+ * Created On: 10/4/2011
+ * version 1.0
+ * 
+ * Usage: call this function with params 
+ showNotification(params);
+ **/
+
+function showNotification(params){
+    // options array
+    var options = { 
+        'showAfter': 0, // number of sec to wait after page loads
+        'duration': 0, // display duration
+        'autoClose' : false, // flag to autoClose notification message
+        'type' : 'success', // type of info message error/success/info/warning
+        'message': '', // message to dispaly
+        'link_notification' : '', // link flag to show extra description
+        'description' : '', // link to desciption to display on clicking link message
+		'imagepath' : ''
+    }; 
+    // Extending array from params
+    $.extend(true, options, params);
+    
+    var msgclass = 'succ_bg'; // default success message will shown
+    if(options['type'] == 'error'){
+        msgclass = 'error_bg'; // over write the message to error message
+    } else if(options['type'] == 'information'){
+        msgclass = 'info_bg'; // over write the message to information message
+    } else if(options['type'] == 'warning'){
+        msgclass = 'warn_bg'; // over write the message to warning message
+    } 
+	
+	var icon = 'tick.png';
+	if(options['type'] == 'error'){
+        icon = 'error.png'; // over write the message to error message
+    } else if(options['type'] == 'information'){
+        icon = 'information.png'; // over write the message to information message
+    } else if(options['type'] == 'warning'){
+        icon = 'warning.png'; // over write the message to warning message
+    } 
+	
+    // Parent Div container
+    var container = '<div id="info_message" class="notification_background '+msgclass+'" onclick="return closeNotification();" title="Click to Hide Notification"><div class="center_auto"><div class="info_message_text message_area">';
+	container += '<img class="message_icon" src="' + options['imagepath'] + icon + '" alt="'+ options['type'] + '" title="'+ options['type'] + '" />&nbsp;';
+    container += options['message'].replaceAll('\\n', '<br />');
+	container += '</div><div class="info_progress"></div><div class="clearboth"></div>';
+	container += '</div>';
+    
+    $notification = $(container);
+    
+    // Appeding notification to Body
+    $('body').append($notification);
+    
+    var divHeight = $('div#info_message').height();
+	
+    // see CSS top to minus of div height
+    $('div#info_message').css({
+        top : '-'+divHeight+'px'
+    });
+    
+    // showing notification message, default it will be hidden
+    $('div#info_message').show();
+    
+    // Slide Down notification message after startAfter seconds
+    slideDownNotification(options['showAfter'], options['autoClose'],options['duration']);
+	
+	var animationDuration = options['duration'] + "s";
+	var progressDuration = (options['duration'] -1) + "s";
+	
+	$('div#info_message').css("-webkit-animation-duration", animationDuration).css("-moz-animation-duration", animationDuration).css("-o-animation-duration", animationDuration).css("-ms-animation-duration", animationDuration).css("animation-duration", animationDuration);
+	
+	$('#info_message .info_progress').css("-webkit-animation-duration", progressDuration).css("-moz-animation-duration", progressDuration).css("-o-animation-duration", progressDuration).css("-ms-animation-duration", progressDuration).css("animation-duration", progressDuration);
+    
+	$('body').on('click', '.link_notification', function () {
+        $('.info_more_descrption').html(options['description']).slideDown('fast');
+    });
+    
+}
+String.prototype.replaceAll = function(token, newToken, ignoreCase) {
+    var str, i = -1, _token;
+    if((str = this.toString()) && typeof token === "string") {
+        _token = ignoreCase === true? token.toLowerCase() : undefined;
+        while((i = (
+            _token !== undefined? 
+                str.toLowerCase().indexOf(
+                            _token, 
+                            i >= 0? i + newToken.length : 0
+                ) : str.indexOf(
+                            token,
+                            i >= 0? i + newToken.length : 0
+                )
+        )) !== -1 ) {
+            str = str.substring(0, i)
+                    .concat(newToken)
+                    .concat(str.substring(i + token.length));
+        }
+    }
+return str;
+};
+// function to close notification message
+// slideUp the message
+function closeNotification(duration){
+    var divHeight = $('div#info_message').height();
+    setTimeout(function(){
+        $('div#info_message').animate({
+            top: '-'+divHeight
+        }); 
+        // removing the notification from body
+        setTimeout(function(){
+            $('div#info_message').remove();
+        },200);
+    }, parseInt(duration * 1000));   
+    
+
+    
+}
+
+// sliding down the notification
+function slideDownNotification(startAfter, autoClose, duration){    
+    setTimeout(function(){
+        $('div#info_message').animate({
+            top: 0
+        }); 
+        if(autoClose){
+            setTimeout(function(){
+                closeNotification(duration);
+            }, duration);
+        }
+    }, parseInt(startAfter * 1000));    
+}

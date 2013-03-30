@@ -1,6 +1,6 @@
 <dotnetnuke type="Package" version="5.0">
   <packages>
-    <package name="YetAnotherForumDotNet" type="Module" version="01.96.25374">
+    <package name="YetAnotherForumDotNet" type="Module" version="02.00.05374">
       <friendlyName>YetAnotherForumDotNet</friendlyName>
       <description>
         &lt;strong&gt;YetAnotherForum.NET&lt;/strong&gt; as DotNetNuke Module. Yet Another Forum.NET (YAF) is an open source ASP.NET forum system.&lt;br /&gt;
@@ -15,7 +15,7 @@
       <license src="License.html" />
       <releaseNotes src="ReadMe.html" />
       <dependencies>
-        <dependency type="CoreVersion">05.03.00</dependency>
+        <dependency type="CoreVersion">06.00.00</dependency>
       </dependencies>
       <components>
         <component type="Module">
@@ -387,7 +387,7 @@
         </component>
       </components>
     </package>
-    <package name="YAF.WhatsNew" type="Module" version="01.96.25374">
+    <package name="YAF.WhatsNew" type="Module" version="02.00.05374">
       <friendlyName>YAF What's New</friendlyName>
       <description>
         &lt;p&gt;This Module displays the Latest Posts from a  &lt;strong&gt;YetAnotherForum.NET&lt;/strong&gt; Module. Based on the Current Users Authorization Level. You can define Which Forum should been used, and how many Posts should displayed.
@@ -403,7 +403,7 @@
       <license src="License.html" />
       <releaseNotes />
       <dependencies>
-        <dependency type="CoreVersion">05.03.00</dependency>
+        <dependency type="CoreVersion">06.00.00</dependency>
       </dependencies>
       <components>
         <component type="Module">

@@ -2672,7 +2672,6 @@
     <Content Include="editors\tiny_mce\tiny_mce_init.js" />
     <Content Include="editors\tiny_mce\tiny_mce_initbbcode.js" />
     <Content Include="editors\tiny_mce\tiny_mce_popup.js" />
-    <Content Include="editors\tiny_mce\tiny_mce_src.js" />
     <Content Include="editors\tiny_mce\utils\editable_selects.js" />
     <Content Include="editors\tiny_mce\utils\form_utils.js" />
     <Content Include="editors\tiny_mce\utils\mctabs.js" />
@@ -3611,9 +3610,10 @@
     <Content Include="resources\images\loading-white.gif" />
     <Content Include="resources\images\spellchecker_bg.gif" />
     <Content Include="resources\images\spellchecker_shadow.png" />
+    <Content Include="resources\images\title-bg.gif" />
     <Content Include="resources\js\DataPanel.js" />
     <Content Include="resources\js\jquery.blockUI.js" />
-    <Content Include="resources\js\jquery.ceebox-min.js" />
+    <Content Include="resources\js\jquery.ceebox.js" />
     <Content Include="resources\js\jquery.hovercard.js" />
     <Content Include="resources\js\jquery.min.js" />
     <Content Include="resources\js\jquery.msDropDown.js" />
@@ -3627,7 +3627,6 @@
     <Content Include="resources\js\jquery.ui.datepicker-farsi.js" />
     <Content Include="resources\js\jquery.yafmodaldialog.js" />
     <Content Include="resources\js\yaf.js" />
-    <Content Include="resources\js\_src\jquery.spellchecker.js" />
     <Content Include="resources\ProviderExceptions.xml" />
     <Compile Include="controls\AlbumImageList.ascx.cs">
       <DependentUpon>AlbumImageList.ascx</DependentUpon>

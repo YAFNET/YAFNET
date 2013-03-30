@@ -70,7 +70,7 @@ namespace YAF.Pages
       YafContext.Current.PageElements.RegisterJsBlock("toggleMessageJs", JavaScriptBlocks.ToggleMessageJs);
 
       // ceebox Js
-      YafContext.Current.PageElements.RegisterJsResourceInclude("ceeboxjs", "js/jquery.ceebox-min.js");
+      YafContext.Current.PageElements.RegisterJsResourceInclude("ceeboxjs", "js/jquery.ceebox.js");
       YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.ceebox.css");
       YafContext.Current.PageElements.RegisterJsBlock("ceeboxloadjs", JavaScriptBlocks.CeeBoxLoadJs);
 
