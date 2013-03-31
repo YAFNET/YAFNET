@@ -1714,6 +1714,7 @@
     <Resource tag="ALBUMS_INFO">Сейчас у вас {0} альбомов. Вы можете создать {1} альбомов.</Resource>
     <Resource tag="ALBUMS_NOTALLOWED">Вам не разрешены альбомы.</Resource>
     <Resource tag="ALBUMS_TITLE">Альбом пользователя {0}: {1}</Resource>
+    <Resource tag="BACK_ALBUMS">Go Back to Albums</Resource>
     <Resource tag="TITLE">Изображения из альбома</Resource>
   </page>
   <page name="APPROVE">

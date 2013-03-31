@@ -1734,6 +1734,7 @@
     <Resource tag="ALBUMS_INFO">Currently you have {0} Album(s). You can have max. {1} Album(s).</Resource>
     <Resource tag="ALBUMS_NOTALLOWED">You are not allowed to have Albums.</Resource>
     <Resource tag="ALBUMS_TITLE">{0} Album: {1}</Resource>
+    <Resource tag="BACK_ALBUMS">Go Back to Albums</Resource>
     <Resource tag="TITLE">Album Images</Resource>
   </page>
   <page name="APPROVE">
@@ -2519,7 +2520,7 @@
     <Resource tag="STATS">Statystyki</Resource>
     <Resource tag="STATS_BIRTHDAYS">Today's Birthdays: </Resource>
     <Resource tag="STATS_LASTMEMBER">Najnowszy użytkownik to</Resource>
-    <Resource tag="STATS_LASTPOST">Ostatnie post o {0} przez</Resource>
+    <Resource tag="STATS_LASTPOST">Ostatnie post o {0} przez {1}.</Resource>
     <Resource tag="STATS_MEMBERS">Mamy {0:N0} zarejestrowanych użytkowników.</Resource>
     <Resource tag="STATS_POSTS">Jest {0:N0} postów w {1:N0} temacie w {2:N0} forum.</Resource>
     <Resource tag="TOPICS">Tematy</Resource>

@@ -1740,6 +1740,7 @@ http://wwww.IrKoo.Com/</Resource>
 شما حداکثر می توانید {1} آلبوم داشته باشید.</Resource>
     <Resource tag="ALBUMS_NOTALLOWED">شما مجاز به داشتن آلبوم نیستید.</Resource>
     <Resource tag="ALBUMS_TITLE">{0} آلبوم: {1}</Resource>
+    <Resource tag="BACK_ALBUMS">Go Back to Albums</Resource>
     <Resource tag="TITLE">تصاویر آلبوم</Resource>
   </page>
   <page name="APPROVE">

@@ -1717,6 +1717,7 @@
     <Resource tag="ALBUMS_INFO">Aktuell haben Sie {0} Alben. Sie können max. {1} Alben erstellen.</Resource>
     <Resource tag="ALBUMS_NOTALLOWED">Sie dürfen keine Alben haben.</Resource>
     <Resource tag="ALBUMS_TITLE">{0} Album: {1}</Resource>
+    <Resource tag="BACK_ALBUMS">Zurück zu den Alben</Resource>
     <Resource tag="TITLE">Album Bilder</Resource>
   </page>
   <page name="APPROVE">

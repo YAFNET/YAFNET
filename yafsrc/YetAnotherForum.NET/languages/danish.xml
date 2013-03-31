@@ -1734,6 +1734,7 @@
     <Resource tag="ALBUMS_INFO">Currently you have {0} Album(s). You can have max. {1} Album(s).</Resource>
     <Resource tag="ALBUMS_NOTALLOWED">You are not allowed to have Albums.</Resource>
     <Resource tag="ALBUMS_TITLE">{0} Album: {1}</Resource>
+    <Resource tag="BACK_ALBUMS">Go Back to Albums</Resource>
     <Resource tag="TITLE">Album billeder</Resource>
   </page>
   <page name="APPROVE">

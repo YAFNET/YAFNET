@@ -2662,6 +2662,7 @@ Spoiler Content
       <Resource tag="ALBUM_IMAGE_CHANGE_CAPTION">Add Caption</Resource>
       <Resource tag="ALBUMS_INFO">Currently you have {0} Album(s). You can have max. {1} Album(s).</Resource>
       <Resource tag="ALBUMS_NOTALLOWED">You are not allowed to have Albums.</Resource>
+      <Resource tag="BACK_ALBUMS">Go Back to Albums</Resource>
    </page>
    <page name="POSTS">
       <Resource tag="THANKSFROM">Thanks: {0} times</Resource>

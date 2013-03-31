@@ -1726,6 +1726,7 @@
     <Resource tag="ALBUMS_INFO">Je hebt nu {0} Album(s). Je mag er maximaal {1} hebben.</Resource>
     <Resource tag="ALBUMS_NOTALLOWED">Je mag geen albums hebben.</Resource>
     <Resource tag="ALBUMS_TITLE">{0} Album: {1}</Resource>
+    <Resource tag="BACK_ALBUMS">Go Back to Albums</Resource>
     <Resource tag="TITLE">Album Plaatjes</Resource>
   </page>
   <page name="APPROVE">
