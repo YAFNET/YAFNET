@@ -4419,7 +4419,7 @@ Spoiler Content
     <Resource tag="REALNAME">Echter Name:</Resource>
     <Resource tag="REGION">Region:</Resource>
     <Resource tag="REMOVESUSPENSION">Sperre aufheben</Resource>
-    <Resource tag="REPUTATION_RECEIVED">Numer of Reputation received from other users</Resource>
+    <Resource tag="REPUTATION_RECEIVED">Reputation</Resource>
     <Resource tag="SEARCHUSER">Alle Beiträge des Mitglieds anschauen</Resource>
     <Resource tag="SKYPE">Skype ID:</Resource>
     <Resource tag="STATISTICS">Statistik</Resource>

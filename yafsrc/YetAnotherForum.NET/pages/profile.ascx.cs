@@ -25,7 +25,6 @@ namespace YAF.Pages
     using System;
     using System.Data;
     using System.Text;
-    using System.Web;
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.UI.WebControls;
@@ -34,6 +33,7 @@ namespace YAF.Pages
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -120,7 +120,8 @@ namespace YAF.Pages
                 {
                     // Check if a user have permissions to have albums, even if he has no albums at all.
                     var usrAlbums =
-                        LegacyDb.user_getalbumsdata(albumUser, YafContext.Current.PageBoardID).GetFirstRowColumnAsValue<int?>("UsrAlbums", null);
+                        LegacyDb.user_getalbumsdata(albumUser, YafContext.Current.PageBoardID)
+                                .GetFirstRowColumnAsValue<int?>("UsrAlbums", null);
 
                     if (usrAlbums.HasValue && usrAlbums > 0)
                     {
@@ -200,7 +201,7 @@ namespace YAF.Pages
 
             if (this.UserId == 0)
             {
-                YafBuildLink.AccessDenied(/*No such user exists*/);
+                YafBuildLink.AccessDenied( /*No such user exists*/);
             }
 
             this.AlbumListTab.Visible = this.AlbumsTabIsVisible();
@@ -242,7 +243,7 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The add buddy.
+        /// Add user as Buddy
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.Web.UI.WebControls.CommandEventArgs"/> instance containing the event data.</param>
@@ -259,26 +260,28 @@ namespace YAF.Pages
                 if (Convert.ToBoolean(strBuddyRequest[1]))
                 {
                     this.PageContext.AddLoadMessage(
-                        this.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL").FormatWith(strBuddyRequest[0]));
+                        this.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL").FormatWith(strBuddyRequest[0]),
+                        MessageTypes.Success);
                 }
                 else
                 {
                     var literal = (Literal)this.ProfileTabs.FindControl("ltrApproval");
                     literal.Visible = true;
-                    this.PageContext.AddLoadMessage(this.GetText("NOTIFICATION_BUDDYREQUEST"));
+                    this.PageContext.AddLoadMessage(this.GetText("NOTIFICATION_BUDDYREQUEST"), MessageTypes.Success);
                 }
             }
             else
             {
                 this.PageContext.AddLoadMessage(
-                    this.GetText("REMOVEBUDDY_NOTIFICATION").FormatWith(this.Get<IBuddy>().Remove(this.UserId)));
+                    this.GetText("REMOVEBUDDY_NOTIFICATION").FormatWith(this.Get<IBuddy>().Remove(this.UserId)),
+                    MessageTypes.Success);
             }
 
             this.BindData();
         }
 
         /// <summary>
-        /// The lnk_ view thanks.
+        /// Go to the View Thanks Page
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.Web.UI.WebControls.CommandEventArgs"/> instance containing the event data.</param>
@@ -288,7 +291,7 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The add page links.
+        /// add page links.
         /// </summary>
         /// <param name="userDisplayName">
         /// The user display name.
@@ -343,8 +346,9 @@ namespace YAF.Pages
                 this.AlbumList1.Dispose();
             }
 
-            var userNameOrDisplayName =                
-                    this.Get<YafBoardSettings>().EnableDisplayName ? userData.DisplayName : userData.UserName;
+            var userNameOrDisplayName = this.Get<YafBoardSettings>().EnableDisplayName
+                                            ? userData.DisplayName
+                                            : userData.UserName;
 
             this.SetupUserProfileInfo(this.UserId, user, userData, userNameOrDisplayName);
 
@@ -367,11 +371,8 @@ namespace YAF.Pages
             if (this.LastPosts.Visible)
             {
                 this.LastPosts.DataSource =
-                    LegacyDb.post_alluser(
-                    this.PageContext.PageBoardID, 
-                    this.UserId, 
-                    this.PageContext.PageUserID, 
-                    10).AsEnumerable();
+                    LegacyDb.post_alluser(this.PageContext.PageBoardID, this.UserId, this.PageContext.PageUserID, 10)
+                            .AsEnumerable();
 
                 this.SearchUser.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
                     ForumPages.search,
@@ -599,10 +600,13 @@ namespace YAF.Pages
                     this.HtmlEncode(
                         this.Get<IBadWordReplace>().Replace(this.GetText("COUNTRY", userData.Profile.Country.Trim())));
 
-                this.CountryFlagImage.Src = this.Get<ITheme>().GetItem(
-                    "FLAGS",
-                    "{0}_MEDIUM".FormatWith(userData.Profile.Country.Trim()),
-                    YafForumInfo.GetURLToResource("images/flags/{0}.png".FormatWith(userData.Profile.Country.Trim())));
+                this.CountryFlagImage.Src = this.Get<ITheme>()
+                                                .GetItem(
+                                                    "FLAGS",
+                                                    "{0}_MEDIUM".FormatWith(userData.Profile.Country.Trim()),
+                                                    YafForumInfo.GetURLToResource(
+                                                        "images/flags/{0}.png".FormatWith(
+                                                            userData.Profile.Country.Trim())));
 
                 this.CountryFlagImage.Alt = userData.Profile.Country.Trim();
                 this.CountryFlagImage.Attributes.Add("title", this.CountryLabel.Text);
@@ -689,7 +693,7 @@ namespace YAF.Pages
             int[] thanksToArray = LegacyDb.user_getthanks_to(userData.DBRow["userID"], this.PageContext.PageUserID);
             this.ThanksToTimes.Text = thanksToArray[0].ToString();
             this.ThanksToPosts.Text = thanksToArray[1].ToString();
-            this.ReputationReceived.Text = userData.Points.ToString();
+            this.ReputationReceived.Text = YafReputation.GenerateReputationBar(userData.Points.Value, userData.UserID);
             this.OnlineStatusImage1.UserID = userID;
             this.OnlineStatusImage1.Visible = this.Get<YafBoardSettings>().ShowUserOnlineStatus;
 
@@ -789,12 +793,21 @@ namespace YAF.Pages
                 // Setup Hover Card JS
                 YafContext.Current.PageElements.RegisterJsBlockStartup(
                     "hovercardtwitterfacebookjs", hoverCardLoadJs.ToString());
+
+                if (this.Get<YafBoardSettings>().EnableUserReputation)
+                {
+                    // Setup UserBox Reputation Script Block
+                    YafContext.Current.PageElements.RegisterJsBlockStartup(
+                        "reputationprogressjs", JavaScriptBlocks.RepuatationProgressLoadJs);
+                }
             }
 
             if (this.User != null && userData.Profile.Birthday != DateTime.MinValue)
             {
                 this.BirthdayTR.Visible = true;
-                this.Birthday.Text = this.Get<IDateTime>().FormatDateLong(userData.Profile.Birthday.AddMinutes((double)(-userData.TimeZone)));               
+                this.Birthday.Text =
+                    this.Get<IDateTime>()
+                        .FormatDateLong(userData.Profile.Birthday.AddMinutes((double)(-userData.TimeZone)));
             }
             else
             {
