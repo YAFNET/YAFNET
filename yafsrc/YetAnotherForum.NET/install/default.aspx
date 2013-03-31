@@ -19,6 +19,9 @@
             jQuery('#YafLoader').css({ top: '40%', left: '50%', margin: '-' + (jQuery('#YafLoader').height() / 2) + 'px 0 0 -' + (jQuery('#YafLoader').width() / 2) + 'px' });
             jQuery('#YafLoader').show();
         });
+        jQuery(document).ready(function() {
+            jQuery(".wizMain td:eq(0)").addClass("wizHeader");
+        });
         (function ($) {
             var cache = [];
             $.preLoadImages = function() {
@@ -52,7 +55,7 @@
                         still use the installation wizard.
                     </p>
                     <ul>
-                        <li>Asp.Net Hosting Trust Level (if trust level is not "Full" you will need to manually
+                        <li>Asp.Net Hosting Trust Level (if trust level is not "Full" or "Unrestricted" you will need to manually
                             modify all configuration files)... <strong>
                                 <asp:Label ID="lblHostingTrust" runat="server" ForeColor="Gray">Unchecked</asp:Label></strong></li>
                         <li>YAF Has Write Access to Root Application Directory ("~/")... <strong>
@@ -395,8 +398,6 @@
                         Text="Finish" />
                 </div>
             </FinishNavigationTemplate>
-            <HeaderStyle BackColor="White" Font-Bold="True"
-                Font-Size="0.9em" ForeColor="Black" HorizontalAlign="Center" />
             <HeaderTemplate>
                 <img src="../images/YAFLogo.png" alt="YAF Logo" /><br />
                 Installation Wizard

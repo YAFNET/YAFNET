@@ -51,9 +51,14 @@ namespace YAF.Install
         #region Constants
 
         /// <summary>
-        ///     The _app password key.
+        ///     The app settings password key.
         /// </summary>
         private const string _AppPasswordKey = "YAF.ConfigPassword";
+
+        /// <summary>
+        /// The app settings base URL mask key
+        /// </summary>
+        private const string _AppBaseUrlMaskKey = "YAF.BaseUrlMask";
 
         #endregion
 
@@ -436,7 +441,7 @@ namespace YAF.Install
                 DirectoryHasWritePermission(this.Server.MapPath(YafBoardFolders.Current.Uploads)) ? 2 : 0);
 
             UpdateStatusLabel(
-                this.lblHostingTrust, this._config.TrustLevel == AspNetHostingPermissionLevel.High ? 2 : 0);
+                this.lblHostingTrust, this._config.TrustLevel >= AspNetHostingPermissionLevel.High ? 2 : 0);
 
             this.lblHostingTrust.Text = this._config.TrustLevel.GetStringValue();
         }
@@ -544,7 +549,7 @@ namespace YAF.Install
             switch (this.CurrentWizardStepID)
             {
                 case "WizCreatePassword":
-                    if (this._config.TrustLevel == AspNetHostingPermissionLevel.High
+                    if (this._config.TrustLevel >= AspNetHostingPermissionLevel.High
                         && this._config.AppSettingsFull != null)
                     {
                         this.lblConfigPasswordAppSettingFile.Text = this._config.AppSettingsFull.File;
@@ -603,7 +608,7 @@ namespace YAF.Install
                     this.FillWithConnectionStrings();
                     break;
                 case "WizManualDatabaseConnection":
-                    if (this._config.TrustLevel == AspNetHostingPermissionLevel.High
+                    if (this._config.TrustLevel >= AspNetHostingPermissionLevel.High
                         && this._config.AppSettingsFull != null)
                     {
                         this.lblAppSettingsFile.Text = this._config.AppSettingsFull.File;
@@ -616,7 +621,7 @@ namespace YAF.Install
                     previousVisible = true;
                     break;
                 case "WizManuallySetPassword":
-                    if (this._config.TrustLevel == AspNetHostingPermissionLevel.High
+                    if (this._config.TrustLevel >= AspNetHostingPermissionLevel.High
                         && this._config.AppSettingsFull != null)
                     {
                         this.lblAppSettingsFile2.Text = this._config.AppSettingsFull.File;
@@ -741,7 +746,7 @@ namespace YAF.Install
 
                     e.Cancel = false;
 
-                    if (this._config.TrustLevel == AspNetHostingPermissionLevel.High
+                    if (this._config.TrustLevel >= AspNetHostingPermissionLevel.High
                         && this._config.WriteAppSetting(_AppPasswordKey, this.txtCreatePassword1.Text))
                     {
                         // advance to the testing section since the password is now set...
@@ -795,6 +800,22 @@ namespace YAF.Install
                     if (this.InstallUpgradeService.UpgradeDatabase(this.FullTextSupport.Checked, this.UpgradeExtensions.Checked))
                     {
                         e.Cancel = false;
+                    }
+
+                    // Check if BaskeUrlMask is set and if not automatically write it
+                    if (this._config.GetConfigValueAsString(_AppBaseUrlMaskKey).IsNotSet() && this._config.TrustLevel >= AspNetHostingPermissionLevel.High)
+                    {
+                        var urlKey =
+                            "http://{0}{1}{2}".FormatWith(
+                                HttpContext.Current.Request.ServerVariables["SERVER_NAME"],
+                                HttpContext.Current.Request.ServerVariables["SERVER_PORT"].Equals("80")
+                                    ? string.Empty
+                                    : ":{0}".FormatWith(HttpContext.Current.Request.ServerVariables["SERVER_PORT"]),
+                                HttpContext.Current.Request.ApplicationPath.EndsWith("/")
+                                    ? HttpContext.Current.Request.ApplicationPath
+                                    : "{0}/".FormatWith(HttpContext.Current.Request.ApplicationPath));
+
+                        this._config.WriteAppSetting(_AppBaseUrlMaskKey, urlKey);
                     }
 
                     var messages = this.InstallUpgradeService.Messages;
