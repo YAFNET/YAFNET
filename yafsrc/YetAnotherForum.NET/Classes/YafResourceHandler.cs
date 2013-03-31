@@ -45,7 +45,6 @@ namespace YAF
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Extensions;
@@ -54,7 +53,7 @@ namespace YAF
     #endregion
 
     /// <summary>
-    /// Yaf Resource Handler for all kind of Stuff (Avatars, Attachments, Albums, etc.)
+    /// YAF Resource Handler for all kind of Stuff (Avatars, Attachments, Albums, etc.)
     /// </summary>
     public class YafResourceHandler : IHttpHandler, IReadOnlySessionState, IHaveServiceLocator
     {
@@ -111,17 +110,17 @@ namespace YAF
                 var previewCropped = false;
                 var localizationFile = "english.xml";
 
-                if (context.Session["imagePreviewCropped"] != null && context.Session["imagePreviewCropped"] is bool)
+                if (context.Session["imagePreviewCropped"] is bool)
                 {
                     previewCropped = (bool)context.Session["imagePreviewCropped"];
                 }
 
-                if (context.Session["localizationFile"] != null && context.Session["localizationFile"] is string)
+                if (context.Session["localizationFile"] is string)
                 {
                     localizationFile = context.Session["localizationFile"].ToString();
                 }
 
-                if (context.Session["localizationFile"] != null && context.Session["localizationFile"] is string)
+                if (context.Session["localizationFile"] is string)
                 {
                     localizationFile = context.Session["localizationFile"].ToString();
                 }
@@ -472,7 +471,7 @@ namespace YAF
         }
 
         /// <summary>
-        /// Gets the user info as json string
+        /// Gets the user info as JSON string for the hover cards
         /// </summary>
         /// <param name="context">The context.</param>
         private void GetUserInfo([NotNull] HttpContext context)
@@ -487,6 +486,14 @@ namespace YAF
                 {
                     context.Response.Write(
                    "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
+
+                    return;
+                }
+
+                // Check if user has access
+                if (!this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ProfileViewPermissions))
+                {
+                    context.Response.Write(string.Empty);
 
                     return;
                 }
@@ -1160,12 +1167,12 @@ namespace YAF
             var previewMaxWidth = 200;
             var previewMaxHeight = 200;
 
-            if (context.Session["imagePreviewWidth"] != null && context.Session["imagePreviewWidth"] is int)
+            if (context.Session["imagePreviewWidth"] is int)
             {
                 previewMaxWidth = (int)context.Session["imagePreviewWidth"];
             }
 
-            if (context.Session["imagePreviewHeight"] != null && context.Session["imagePreviewHeight"] is int)
+            if (context.Session["imagePreviewHeight"] is int)
             {
                 previewMaxHeight = (int)context.Session["imagePreviewHeight"];
             }
@@ -1267,8 +1274,7 @@ namespace YAF
                 this.Get<ILogger>().Log(
                     null,
                     this,
-                    "Remote Avatar is NOT supported on your Hosting Permission Level (must be High)",
-                    EventLogTypes.Error);
+                    "Remote Avatar is NOT supported on your Hosting Permission Level (must be High)");
                 return;
             }
 
