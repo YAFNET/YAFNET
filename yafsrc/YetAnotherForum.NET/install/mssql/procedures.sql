@@ -2985,58 +2985,31 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}forum_listpath](@ForumID int) as
 begin
-        -- supports up to 4 levels of nested forums
-    select
-        a.ForumID,
-        a.Name
-    from
-        (select
-            a.ForumID,
-            Indent = 0
+declare @tbllpath TABLE (ForumID int, Name nvarchar(255), Indent int);
+declare @Indent int;
+declare @CurrentParentID int ;
+declare @CurrentForumID int
+declare @CurrentForumName nvarchar(255);
+SET @CurrentParentID = 1000;
+
+SET @Indent = 0;
+      while (@CurrentParentID IS NOT NULL)
+	  begin                
+       select
+            @CurrentForumID =  a.ForumID,
+			@CurrentParentID = a.ParentID,
+			@CurrentForumName = a.Name			                      
         from
             [{databaseOwner}].[{objectQualifier}Forum] a
         where
-            a.ForumID=@ForumID
+            a.ForumID=@ForumID;
 
-        union
-
-        select
-            b.ForumID,
-            Indent = 1
-        from
-            [{databaseOwner}].[{objectQualifier}Forum] a
-            join [{databaseOwner}].[{objectQualifier}Forum] b on b.ForumID=a.ParentID
-        where
-            a.ForumID=@ForumID
-
-        union
-
-        select
-            c.ForumID,
-            Indent = 2
-        from
-            [{databaseOwner}].[{objectQualifier}Forum] a
-            join [{databaseOwner}].[{objectQualifier}Forum] b on b.ForumID=a.ParentID
-            join [{databaseOwner}].[{objectQualifier}Forum] c on c.ForumID=b.ParentID
-        where
-            a.ForumID=@ForumID
-
-        union 
-
-        select
-            d.ForumID,
-            Indent = 3
-        from
-            [{databaseOwner}].[{objectQualifier}Forum] a
-            join [{databaseOwner}].[{objectQualifier}Forum] b on b.ForumID=a.ParentID
-            join [{databaseOwner}].[{objectQualifier}Forum] c on c.ForumID=b.ParentID
-            join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ParentID
-        where
-            a.ForumID=@ForumID
-        ) as x	
-        join [{databaseOwner}].[{objectQualifier}Forum] a on a.ForumID=x.ForumID
-    order by
-        x.Indent desc
+			Insert into @tbllpath(ForumID, Name,Indent)
+			values (@CurrentForumID,@CurrentForumName,@Indent)
+			SET @ForumID = @CurrentParentID; 
+			SET @Indent = @Indent + 1;
+	 end     
+     select ForumID, Name from  @tbllpath order by Indent Desc; 
 end
 GO
 
