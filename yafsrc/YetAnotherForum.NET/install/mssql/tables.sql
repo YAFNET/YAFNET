@@ -2354,3 +2354,15 @@ begin
 	update  [{databaseOwner}].[{objectQualifier}User] SET [Points]=1 WHERE [Points] = 0
 end
 GO
+
+-- delete old stuff from registry
+grant delete on [{databaseOwner}].[{objectQualifier}Registry] to public
+grant update on [{databaseOwner}].[{objectQualifier}Registry] to public
+      -- fixe the problem when a user couldn't be registered
+      if not exists (select count(name) from [{databaseOwner}].[{objectQualifier}Registry] where [Name] LIKE 'timezone' and BoardID IS NULL)
+	  exec('insert into [{databaseOwner}].[{objectQualifier}Registry] (Name,Value) values (''timezone'',0)')
+	   
+      exec('delete from [{databaseOwner}].[{objectQualifier}Registry] where Name LIKE ''timezone'' and BoardID IS NOT NULL')
+revoke delete on [{databaseOwner}].[{objectQualifier}Registry] from public
+revoke update on [{databaseOwner}].[{objectQualifier}Registry] from public	
+GO

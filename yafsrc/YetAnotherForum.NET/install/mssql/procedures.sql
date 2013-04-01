@@ -11559,8 +11559,7 @@ create procedure [{databaseOwner}].[{objectQualifier}user_savestyle](@GroupID in
 
 begin
 -- loop thru users to sync styles
- if @GroupID is not null or @RankID is not null or not exists (select 1 from [{databaseOwner}].[{objectQualifier}User] where UserStyle IS NOT NULL)
- begin  
+
     declare @usridtmp int 
     declare @styletmp varchar(255)      
         declare c cursor for
@@ -11585,7 +11584,7 @@ begin
         end
         close c
         deallocate c  
-	end
+	
 end
 GO
 
@@ -11599,6 +11598,9 @@ begin
 if not exists (select top 1 1 from [{databaseOwner}].[{objectQualifier}User] where UserStyle IS NOT NULL AND LEN(UserStyle) > 2)
 exec('[{databaseOwner}].[{objectQualifier}user_savestyle] null,null')
 end
+GO
+
+exec('[{databaseOwner}].[{objectQualifier}init_styles]')
 GO
 
 IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}init_styles]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
