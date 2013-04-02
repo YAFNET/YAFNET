@@ -11560,7 +11560,7 @@ create procedure [{databaseOwner}].[{objectQualifier}user_savestyle](@GroupID in
 begin
 -- loop thru users to sync styles
 
-    declare @usridtmp int 
+ /*   declare @usridtmp int 
     declare @styletmp varchar(255)      
         declare c cursor for
 			select us.UserID, us.NewUserStyle from (
@@ -11584,6 +11584,12 @@ begin
         end
         close c
         deallocate c  
+		*/
+		update d
+        set    d.UserStyle = ISNULL((select top 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
+            join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE LEN(f.Style) > 2 and e.UserID = d.UserID order by f.SortOrder),(SELECT TOP 1 r.Style FROM [{databaseOwner}].[{objectQualifier}Rank] r 
+	   join [{databaseOwner}].[{objectQualifier}User] u on u.RankID = r.RankID where u.UserID = d.UserID ))	    
+	   from  [{databaseOwner}].[{objectQualifier}User] d; 
 	
 end
 GO
@@ -11594,8 +11600,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}init_styles] as
 begin 
--- if we have at least 1 value here - styles alredy were initialized - this is one time operation only - everything after is treated by YAF  
-if not exists (select top 1 1 from [{databaseOwner}].[{objectQualifier}User] where UserStyle IS NOT NULL AND LEN(UserStyle) > 2)
+-- previously it was mangled so it's desirable update styles every time to be sure
 exec('[{databaseOwner}].[{objectQualifier}user_savestyle] null,null')
 end
 GO
