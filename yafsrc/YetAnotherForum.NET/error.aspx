@@ -11,7 +11,7 @@
         prng.GetBytes(delay);
         Thread.Sleep((int)delay[0]);
 
-        IDisposable disposable = prng as IDisposable;
+        var disposable = prng as IDisposable;
         if (disposable != null) { disposable.Dispose(); }
     }
 </script>
@@ -36,9 +36,8 @@
                     </p>
                     <hr />
                     <p style="font-size: 9pt">
-                        Note: If you are the administrator, and need help with this problem, please visit
-                        this url: <a href="http://wiki.yetanotherforum.net/TroubleShooting%20CustomErrors.ashx">
-                            Turn off CustomErrors in your web.config</a>.
+                        Note: If you are the administrator, and need help with this problem, please
+                        Turn off CustomErrors in your web.config.
                     </p>
                 </td>
             </tr>

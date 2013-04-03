@@ -72,24 +72,6 @@ namespace YAF.Core
             this.Type = logType;
         }
 
-        /// <summary>
-        /// The try get board settings.
-        /// </summary>
-        /// <returns>
-        /// The <see cref="YafBoardSettings"/>.
-        /// </returns>
-        public YafBoardSettings TryGetBoardSettings()
-        {
-            YafBoardSettings boardSettings;
-
-            if (this.ServiceLocator.TryGet(out boardSettings))
-            {
-                return boardSettings;
-            }
-
-            return null;
-        }
-
 #if (DEBUG)
 
         /// <summary>
@@ -117,33 +99,16 @@ namespace YAF.Core
         {
             this._eventLogTypeLookup = new Dictionary<EventLogTypes, bool> { };
 
-            var logProperties =
-                typeof(YafBoardSettings).GetProperties().Where(x => x.PropertyType == typeof(bool) && x.Name.StartsWith("Log")).ToList();
-
-            var boardSettings = this.TryGetBoardSettings();
-
             foreach (var logType in EnumHelper.EnumToList<EventLogTypes>())
             {
-                var property = logProperties.FirstOrDefault(x => string.Equals(x.Name, "Log{0}".FormatWith(logType.ToString())));
-
-                if (boardSettings != null && property != null)
-                {
-                    this._eventLogTypeLookup.Add(logType, property.GetValueAs<bool>(boardSettings));
-                }
-                else
-                {
-                    this._eventLogTypeLookup.Add(logType, false);
-                }
+                this._eventLogTypeLookup.Add(logType, true);
             }
 
             this._eventLogTypeLookup.AddOrUpdate(EventLogTypes.Debug, this._isDebug);
             this._eventLogTypeLookup.AddOrUpdate(EventLogTypes.Trace, this._isDebug);
 
-            if (boardSettings != null && boardSettings.LogBannedIP)
-            {
-                this._eventLogTypeLookup.AddOrUpdate(EventLogTypes.IpBanLifted, true);
-                this._eventLogTypeLookup.AddOrUpdate(EventLogTypes.IpBanSet, true);
-            }
+            this._eventLogTypeLookup.AddOrUpdate(EventLogTypes.IpBanLifted, true);
+            this._eventLogTypeLookup.AddOrUpdate(EventLogTypes.IpBanSet, true);
         }
 
         /// <summary>
