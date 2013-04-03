@@ -25,6 +25,7 @@ namespace YAF.Types.Models
     using ServiceStack.DataAnnotations;
 
     using YAF.Types.Constants;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
@@ -55,8 +56,22 @@ namespace YAF.Types.Models
         public string Source { get; set; }
 
         public string Description { get; set; }
+        
+        public int Type { get; set; }
 
-        public EventLogTypes Type { get; set; }
+        [Ignore]
+        public EventLogTypes EventType
+        {
+            get
+            {
+                return this.Type.ToType<EventLogTypes>();
+            }
+
+            set
+            {
+                this.Type = (int)value;
+            }
+        }
 
         #endregion
     }

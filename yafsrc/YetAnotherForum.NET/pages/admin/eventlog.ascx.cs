@@ -367,7 +367,7 @@ namespace YAF.Pages.Admin
                                      nCurrentPageIndex,
                                      baseSize,
                                      sinceDate,
-                                     toDate,
+                                     toDate.AddDays(1).AddMinutes(-1),
                                      this.Types.SelectedValue.Equals("-1") ? null : this.Types.SelectedValue);
 
             this.List.DataSource = dt;

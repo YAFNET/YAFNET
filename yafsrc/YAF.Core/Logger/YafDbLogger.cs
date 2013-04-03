@@ -182,7 +182,7 @@ namespace YAF.Core
             {
                 var log = new EventLog
                               {
-                                  Type = eventType, 
+                                  EventType = eventType, 
                                   UserName = username, 
                                   Description = formattedDescription, 
                                   Source = source ?? this.Type.FullName, 
