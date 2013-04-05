@@ -1268,7 +1268,7 @@ namespace YAF
         /// </param>
         private void GetResponseRemoteAvatar([NotNull] HttpContext context)
         {
-            if (General.GetCurrentTrustLevel() < AspNetHostingPermissionLevel.Medium)
+            if (General.GetCurrentTrustLevel() <= AspNetHostingPermissionLevel.Medium)
             {
                 // don't bother... not supported.
                 this.Get<ILogger>().Log(

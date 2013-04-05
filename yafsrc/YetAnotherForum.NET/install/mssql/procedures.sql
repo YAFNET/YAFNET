@@ -3427,6 +3427,7 @@ begin
     if @IsGuest<>0 set @Flags = @Flags | 2
     if @IsStart<>0 set @Flags = @Flags | 4
     if @IsModerator<>0 set @Flags = @Flags | 8
+	if @Style IS NOT NULL AND LEN(@Style) <=2 set @Style = NULL
 
     if @GroupID>0 begin
         update [{databaseOwner}].[{objectQualifier}Group] set
@@ -5660,7 +5661,9 @@ begin
     set @Flags = 0
     if @IsStart<>0 set @Flags = @Flags | 1
     if @IsLadder<>0 set @Flags = @Flags | 2
-    
+
+    if @Style IS NOT NULL AND LEN(@Style) <=2 set @Style = NULL
+
     if @RankID>0 begin
         update [{databaseOwner}].[{objectQualifier}Rank] set
             Name = @Name,
@@ -8664,7 +8667,7 @@ begin
         select @UserID,@GroupID
         where not exists(select 1 from [{databaseOwner}].[{objectQualifier}UserGroup] where UserID=@UserID and GroupID=@GroupID)
         UPDATE [{databaseOwner}].[{objectQualifier}User] SET UserStyle= ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-        join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=@UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), (SELECT TOP 1 r.Style FROM [{databaseOwner}].[{objectQualifier}Rank] r where r.RankID = [{databaseOwner}].[{objectQualifier}User].RankID)) 
+        join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=@UserID AND f.Style IS NOT NULL ORDER BY f.SortOrder), (SELECT TOP 1 r.Style FROM [{databaseOwner}].[{objectQualifier}Rank] r where r.RankID = [{databaseOwner}].[{objectQualifier}User].RankID)) 
         WHERE UserID = @UserID    	
     end  
 end
@@ -11587,9 +11590,12 @@ begin
 		*/
 		update d
         set    d.UserStyle = ISNULL((select top 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-            join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE LEN(f.Style) > 2 and e.UserID = d.UserID order by f.SortOrder),(SELECT TOP 1 r.Style FROM [{databaseOwner}].[{objectQualifier}Rank] r 
-	   join [{databaseOwner}].[{objectQualifier}User] u on u.RankID = r.RankID where u.UserID = d.UserID ))	    
-	   from  [{databaseOwner}].[{objectQualifier}User] d; 
+                                     join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID 
+							         WHERE f.Style IS NOT NULL and e.UserID = d.UserID order by f.SortOrder),
+							        (SELECT TOP 1 r.Style FROM [{databaseOwner}].[{objectQualifier}Rank] r 
+	                                join [{databaseOwner}].[{objectQualifier}User] u on u.RankID = r.RankID 
+									where u.UserID = d.UserID ))	    
+	    from  [{databaseOwner}].[{objectQualifier}User] d; 
 	
 end
 GO
@@ -11607,8 +11613,3 @@ GO
 
 exec('[{databaseOwner}].[{objectQualifier}init_styles]')
 GO
-
-IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}init_styles]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [{databaseOwner}].[{objectQualifier}init_styles]
-GO
-
