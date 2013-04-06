@@ -205,7 +205,7 @@ namespace YAF.Tests.Utils
             this.browser.Link(Find.ById(new Regex("_Save"))).Click();
 
             // Check if MessageBox is Shown
-            return this.browser.ContainsText("New Private Message(s)");
+            return this.browser.ContainsText("unread message(s)");
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Tests.Utils", "YAF.Tests.Utils\YAF.Tests.Utils.csproj", "{E778E116-792B-4C78-8BD3-DE4844333C7D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Tests.BasicTests", "YAF.Tests.BasicTests\YAF.Tests.BasicTests.csproj", "{F21094EB-4723-4CDD-8EBC-F74B13A6124D}"
@@ -15,6 +15,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{CD7B91
 		.nuget\nuget.exe = .nuget\nuget.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Tests.CoreTests", "YAF.Tests.CoreTests\YAF.Tests.CoreTests.csproj", "{B071B62F-2A1F-4879-BD53-60676C5741FF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External Libaries", "External Libaries", "{D3EE5868-ADC6-4AF0-AFB3-F7F3D640D0F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpSimulator", "Externals\HttpSimulator\HttpSimulator.csproj", "{CE9FFE92-9A64-483C-9F11-A27F83C0E14C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,8 +53,23 @@ Global
 		{F8A2CFFE-99D6-44E3-A16F-0BD2F4EC8BBC}.Deploy|Any CPU.Build.0 = Deploy|Any CPU
 		{F8A2CFFE-99D6-44E3-A16F-0BD2F4EC8BBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8A2CFFE-99D6-44E3-A16F-0BD2F4EC8BBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B071B62F-2A1F-4879-BD53-60676C5741FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B071B62F-2A1F-4879-BD53-60676C5741FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B071B62F-2A1F-4879-BD53-60676C5741FF}.Deploy|Any CPU.ActiveCfg = Deploy|Any CPU
+		{B071B62F-2A1F-4879-BD53-60676C5741FF}.Deploy|Any CPU.Build.0 = Deploy|Any CPU
+		{B071B62F-2A1F-4879-BD53-60676C5741FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B071B62F-2A1F-4879-BD53-60676C5741FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE9FFE92-9A64-483C-9F11-A27F83C0E14C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE9FFE92-9A64-483C-9F11-A27F83C0E14C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE9FFE92-9A64-483C-9F11-A27F83C0E14C}.Deploy|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE9FFE92-9A64-483C-9F11-A27F83C0E14C}.Deploy|Any CPU.Build.0 = Debug|Any CPU
+		{CE9FFE92-9A64-483C-9F11-A27F83C0E14C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE9FFE92-9A64-483C-9F11-A27F83C0E14C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CE9FFE92-9A64-483C-9F11-A27F83C0E14C} = {D3EE5868-ADC6-4AF0-AFB3-F7F3D640D0F0}
 	EndGlobalSection
 EndGlobal
