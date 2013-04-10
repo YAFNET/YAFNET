@@ -199,10 +199,29 @@ namespace YAF.Core.Services
             using (var ds = new DataSet())
             {
                 // get the cached version of forum moderators if it's valid
-                var moderator = this.DataCache.GetOrSet(
-                    Constants.Cache.ForumModerators,
-                    this.GetModerators,
-                    TimeSpan.FromMinutes(this.BoardSettings.BoardModeratorsCacheTimeout));
+                DataTable moderator;
+                if (this.BoardSettings.ShowModeratorList)
+                {
+                    moderator = this.GetModerators();
+                }
+                else
+                {
+                    // add dummy table.
+                    moderator = new DataTable("Moderator");
+                    moderator.Columns.AddRange(
+                        new[]
+                            {
+                                new DataColumn("ForumID", typeof(int)), 
+                                new DataColumn("ForumName", typeof(string)),
+                                new DataColumn("ModeratorName", typeof(string)),
+                                new DataColumn("ModeratorDisplayName", typeof(string)),
+                                new DataColumn("ModeratorEmail", typeof(string)),
+                                new DataColumn("ModeratorAvatar", typeof(string)),
+                                new DataColumn("ModeratorAvatarImage", typeof(bool)),
+                                new DataColumn("Style", typeof(string)), 
+                                new DataColumn("IsGroup", typeof(bool))
+                            });
+                }
 
                 // insert it into this DataSet
                 ds.Tables.Add(moderator.Copy());
@@ -329,10 +348,7 @@ namespace YAF.Core.Services
         public List<SimpleModerator> GetAllModerators()
         {
             // get the cached version of forum moderators if it's valid
-            var moderator = this.DataCache.GetOrSet(
-                Constants.Cache.ForumModerators,
-                this.GetModerators,
-                TimeSpan.FromMinutes(this.BoardSettings.BoardModeratorsCacheTimeout));
+            var moderator = this.GetModerators();
 
             return
                 moderator.SelectTypedList(
@@ -409,10 +425,15 @@ namespace YAF.Core.Services
         /// <returns> Returns the Moderator List </returns>
         public DataTable GetModerators()
         {
-            DataTable moderator = this.DbFunction.GetAsDataTable(cdb => cdb.forum_moderators(this.BoardSettings.UseStyledNicks));
-            moderator.TableName = "Moderator";
-
-            return moderator;
+            return this.DataCache.GetOrSet(
+                Constants.Cache.ForumModerators,
+                () =>
+                {
+                    DataTable moderator = this.DbFunction.GetAsDataTable(cdb => cdb.forum_moderators(this.BoardSettings.UseStyledNicks));
+                    moderator.TableName = "Moderator";
+                    return moderator;
+                },
+                TimeSpan.FromMinutes(this.Get<YafBoardSettings>().BoardModeratorsCacheTimeout));
         }
 
         /// <summary>
