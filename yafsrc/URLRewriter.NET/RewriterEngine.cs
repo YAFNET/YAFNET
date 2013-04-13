@@ -244,26 +244,40 @@ namespace Intelligencia.UrlRewriter
             }
         }
 
+        /// <summary>
+        /// Handles the default document.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <returns></returns>
         private bool HandleDefaultDocument(RewriteContext context)
         {
-            Uri uri = new Uri(ContextFacade.GetRequestUrl(), context.Location);
+            Uri uri = new Uri(this.ContextFacade.GetRequestUrl(), context.Location);
             UriBuilder b = new UriBuilder(uri);
             b.Path += "/";
             uri = b.Uri;
-            if (uri.Host == ContextFacade.GetRequestUrl().Host)
+            if (uri.Host == this.ContextFacade.GetRequestUrl().Host)
             {
-                string filename = ContextFacade.MapPath(uri.AbsolutePath);
-                if (Directory.Exists(filename))
+                try
                 {
-                    foreach (string document in RewriterConfiguration.Current.DefaultDocuments)
+                    string filename = this.ContextFacade.MapPath(uri.AbsolutePath);
+
+                    if (Directory.Exists(filename))
                     {
-                        string pathName = Path.Combine(filename, document);
-                        if (File.Exists(pathName))
+                        foreach (
+                            string document in from string document in RewriterConfiguration.Current.DefaultDocuments
+                                               let pathName = Path.Combine(filename, document)
+                                               where File.Exists(pathName)
+                                               select document)
                         {
                             context.Location = new Uri(uri, document).AbsolutePath;
                             return true;
                         }
                     }
+                }
+                catch (PathTooLongException)
+                {
+                    // ignore if path to long
+                    return false;
                 }
             }
 
