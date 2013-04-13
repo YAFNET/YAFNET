@@ -805,6 +805,7 @@ namespace YAF.Install
                     // Check if BaskeUrlMask is set and if not automatically write it
                     if (this._config.GetConfigValueAsString(_AppBaseUrlMaskKey).IsNotSet() && this._config.TrustLevel >= AspNetHostingPermissionLevel.High)
                     {
+#if DEBUG
                         var urlKey =
                             "http://{0}{1}{2}".FormatWith(
                                 HttpContext.Current.Request.ServerVariables["SERVER_NAME"],
@@ -814,6 +815,15 @@ namespace YAF.Install
                                 HttpContext.Current.Request.ApplicationPath.EndsWith("/")
                                     ? HttpContext.Current.Request.ApplicationPath
                                     : "{0}/".FormatWith(HttpContext.Current.Request.ApplicationPath));
+#else
+                        var urlKey =
+                            "http://{0}{1}".FormatWith(
+                                HttpContext.Current.Request.ServerVariables["SERVER_NAME"],
+                                HttpContext.Current.Request.ApplicationPath.EndsWith("/")
+                                    ? HttpContext.Current.Request.ApplicationPath
+                                    : "{0}/".FormatWith(HttpContext.Current.Request.ApplicationPath));
+
+#endif
 
                         this._config.WriteAppSetting(_AppBaseUrlMaskKey, urlKey);
                     }
