@@ -1445,7 +1445,7 @@ AS
                 join [{databaseOwner}].[{objectQualifier}Message] c  on c.MessageID = t.MessageID		 
                 join [{databaseOwner}].[{objectQualifier}Topic] a on a.TopicID = c.TopicID
                 join [{databaseOwner}].[{objectQualifier}User] b on c.UserID = b.UserID
-                join [{databaseOwner}].[{objectQualifier}ActiveAccess] x on x.ForumID = a.ForumID
+                join [{databaseOwner}].[{objectQualifier}ActiveAccess] x with(nolock) on x.ForumID = a.ForumID
         WHERE	
 				c.IsDeleted = 0
                 AND c.IsApproved = 1     				
@@ -1695,7 +1695,7 @@ begin
             JOIN [{databaseOwner}].[{objectQualifier}Rank] r on r.RankID=a.RankID
             inner join [{databaseOwner}].[{objectQualifier}Active] c 
             ON c.UserID = a.UserID
-            inner join [{databaseOwner}].[{objectQualifier}ActiveAccess] x
+            inner join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  with(nolock)
             ON (x.ForumID = ISNULL(c.ForumID,0))						
         where		
             c.BoardID = @BoardID AND x.UserID = @UserID		
@@ -1732,7 +1732,7 @@ begin
             JOIN [{databaseOwner}].[{objectQualifier}Rank] r on r.RankID=a.RankID
             inner join [{databaseOwner}].[{objectQualifier}Active] c 
             ON c.UserID = a.UserID
-            inner join [{databaseOwner}].[{objectQualifier}ActiveAccess] x
+            inner join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  with(nolock)
             ON (x.ForumID = ISNULL(c.ForumID,0))						
         where		
             c.BoardID = @BoardID AND x.UserID = @UserID	     
@@ -1771,7 +1771,7 @@ begin
             JOIN [{databaseOwner}].[{objectQualifier}Rank] r on r.RankID=a.RankID
             INNER JOIN [{databaseOwner}].[{objectQualifier}Active] c 
             ON c.UserID = a.UserID
-            inner join [{databaseOwner}].[{objectQualifier}ActiveAccess] x
+            inner join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  with(nolock)
             ON (x.ForumID = ISNULL(c.ForumID,0))
             where		
             c.BoardID = @BoardID  AND x.UserID = @UserID				      
@@ -2401,7 +2401,7 @@ begin
     from 
         [{databaseOwner}].[{objectQualifier}Category] a
         join [{databaseOwner}].[{objectQualifier}Forum] b on b.CategoryID=a.CategoryID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] v on v.ForumID=b.ForumID
+        join [{databaseOwner}].[{objectQualifier}ActiveAccess] v  with(nolock) on v.ForumID=b.ForumID
     where
         a.BoardID=@BoardID and
         v.UserID=@UserID and
@@ -2846,7 +2846,7 @@ begin
     from
         [{databaseOwner}].[{objectQualifier}Forum] a
         join [{databaseOwner}].[{objectQualifier}Category] b on b.CategoryID=a.CategoryID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] c on c.ForumID=a.ForumID
+        join [{databaseOwner}].[{objectQualifier}ActiveAccess] c  with(nolock) on c.ForumID=a.ForumID
     where
         c.UserID=@UserID and
         b.BoardID=@BoardID and
@@ -2869,7 +2869,7 @@ begin
     from
         [{databaseOwner}].[{objectQualifier}Forum] a
         join [{databaseOwner}].[{objectQualifier}Category] b on b.CategoryID=a.CategoryID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] c on c.ForumID=a.ForumID
+        join [{databaseOwner}].[{objectQualifier}ActiveAccess] c  with(nolock) on c.ForumID=a.ForumID
     where
         c.UserID=@UserID and
         b.BoardID=@BoardID and
@@ -2894,7 +2894,7 @@ begin
     from
         [{databaseOwner}].[{objectQualifier}Forum] a
         join [{databaseOwner}].[{objectQualifier}Category] b on b.CategoryID=a.CategoryID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] c on c.ForumID=a.ForumID
+        join [{databaseOwner}].[{objectQualifier}ActiveAccess] c  with(nolock) on c.ForumID=a.ForumID
     where
         c.UserID=@UserID and
         b.BoardID=@BoardID and
@@ -2972,7 +2972,7 @@ begin
         ) as x
         join [{databaseOwner}].[{objectQualifier}Forum] a on a.ForumID=x.ForumID
         join [{databaseOwner}].[{objectQualifier}Category] b on b.CategoryID=a.CategoryID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] c on c.ForumID=a.ForumID
+        join [{databaseOwner}].[{objectQualifier}ActiveAccess] c  with(nolock) on c.ForumID=a.ForumID
     where
         c.UserID=@UserID and
         b.BoardID=@BoardID and
@@ -3147,7 +3147,7 @@ SELECT
         [{databaseOwner}].[{objectQualifier}Category] a
 
     JOIN [{databaseOwner}].[{objectQualifier}Forum] b ON b.CategoryID=a.CategoryID
-    JOIN [{databaseOwner}].[{objectQualifier}ActiveAccess] c ON c.ForumID=b.ForumID
+    JOIN [{databaseOwner}].[{objectQualifier}ActiveAccess] c  with(nolock) ON c.ForumID=b.ForumID
 
     WHERE
         a.BoardID=@BoardID AND
@@ -3927,7 +3927,7 @@ SELECT
         [{databaseOwner}].[{objectQualifier}Topic] t 
         join  [{databaseOwner}].[{objectQualifier}Message] m ON m.TopicID = t.TopicID
         join  [{databaseOwner}].[{objectQualifier}User] u ON u.UserID = t.UserID
-        left join [{databaseOwner}].[{objectQualifier}ActiveAccess] x on x.ForumID=IsNull(t.ForumID,0)
+        left join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  with(nolock) on x.ForumID=IsNull(t.ForumID,0)
     WHERE
         m.MessageID = @MessageID AND x.UserID=@PageUserID  AND  CONVERT(int,x.ReadAccess) > 0
 END
@@ -4473,7 +4473,7 @@ begin
     select   
         x.*
     from
-     [{databaseOwner}].[{objectQualifier}ActiveAccess] x 
+     [{databaseOwner}].[{objectQualifier}ActiveAccess] x  with(nolock)
     where
         x.UserID = @UserID
 end
@@ -4950,7 +4950,7 @@ begin
         if exists (select top 1
             UserID	
             from [{databaseOwner}].[{objectQualifier}ActiveAccess] WITH(NOLOCK) 
-            where UserID = @UserID and ReadAccess = 1)		
+            where UserID = @UserID and ForumID= @ForumID and ReadAccess = 1)		
             begin
             	 -- verify that there's not the sane session for other board and drop it if required. Test code for portals with many boards
      delete from [{databaseOwner}].[{objectQualifier}Active] where (SessionID=@SessionID  and (BoardID <> @BoardID or userid <> @UserID))
@@ -5067,7 +5067,7 @@ begin
         TopicName			= (select Topic from [{databaseOwner}].[{objectQualifier}Topic] where TopicID = @TopicID),
         ForumTheme			= (select ThemeURL from [{databaseOwner}].[{objectQualifier}Forum] where ForumID = @ForumID)	 
     from
-     [{databaseOwner}].[{objectQualifier}ActiveAccess] x 
+     [{databaseOwner}].[{objectQualifier}ActiveAccess] x  with(nolock)
     where
         x.UserID = @UserID and x.ForumID=IsNull(@ForumID,0)
 end
@@ -5350,7 +5350,7 @@ begin
         join [{databaseOwner}].[{objectQualifier}Topic] c on c.TopicID=a.TopicID
         join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
         join [{databaseOwner}].[{objectQualifier}Category] e on e.CategoryID=d.CategoryID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x on x.ForumID=d.ForumID
+        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  with(nolock) on x.ForumID=d.ForumID
     where
         a.UserID = @UserID and
         x.UserID = @PageUserID and
@@ -5968,7 +5968,7 @@ begin
         [{databaseOwner}].[{objectQualifier}Topic] c
         join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
         join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x on x.ForumID=d.ForumID
+        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  with(nolock) on x.ForumID=d.ForumID
         join [{databaseOwner}].[{objectQualifier}Category] cat on cat.CategoryID=d.CategoryID
     where
         (c.LastPosted between @SinceDate and @ToDate) and
@@ -5994,7 +5994,7 @@ begin
             [{databaseOwner}].[{objectQualifier}Topic] c
         join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
         join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x on x.ForumID=d.ForumID
+        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  with(nolock) on x.ForumID=d.ForumID
         join [{databaseOwner}].[{objectQualifier}Category] cat on cat.CategoryID=d.CategoryID
     where
         (c.LastPosted between @SinceDate and @ToDate) and
@@ -6063,7 +6063,7 @@ begin
         [{databaseOwner}].[{objectQualifier}Topic] c
         join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
         join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x on x.ForumID=d.ForumID
+        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  with(nolock) on x.ForumID=d.ForumID
         join [{databaseOwner}].[{objectQualifier}Category] cat on cat.CategoryID=d.CategoryID
     where
         c.LastPosted <= @firstselectposted and
@@ -6112,7 +6112,7 @@ begin
         [{databaseOwner}].[{objectQualifier}Topic] c
         join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
         join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x on x.ForumID=d.ForumID
+        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  with(nolock) on x.ForumID=d.ForumID
         join [{databaseOwner}].[{objectQualifier}Category] cat on cat.CategoryID=d.CategoryID
     where
         (c.LastPosted between @SinceDate and @ToDate) and
@@ -6138,7 +6138,7 @@ begin
             [{databaseOwner}].[{objectQualifier}Topic] c
         join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
         join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x on x.ForumID=d.ForumID
+        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  with(nolock) on x.ForumID=d.ForumID
         join [{databaseOwner}].[{objectQualifier}Category] cat on cat.CategoryID=d.CategoryID
     where
         (c.LastPosted between @SinceDate and @ToDate) and
@@ -6207,7 +6207,7 @@ begin
         [{databaseOwner}].[{objectQualifier}Topic] c
         join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
         join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x on x.ForumID=d.ForumID
+        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  with(nolock) on x.ForumID=d.ForumID
         join [{databaseOwner}].[{objectQualifier}Category] cat on cat.CategoryID=d.CategoryID
     where
         c.LastPosted <= @firstselectposted and
@@ -6484,7 +6484,7 @@ BEGIN
 
     SET @SQL = 'SELECT DISTINCT TOP ' + convert(varchar, @NumPosts) + ' t.Topic, t.LastPosted, t.Posted, t.TopicID, t.LastMessageID, t.LastMessageFlags FROM'
     SET @SQL = @SQL + ' [{databaseOwner}].[{objectQualifier}Topic] t INNER JOIN [{databaseOwner}].[{objectQualifier}Category] c INNER JOIN [{databaseOwner}].[{objectQualifier}Forum] f ON c.CategoryID = f.CategoryID ON t.ForumID = f.ForumID'
-    SET @SQL = @SQL + ' join [{databaseOwner}].[{objectQualifier}ActiveAccess] v on v.ForumID=f.ForumID'
+    SET @SQL = @SQL + ' join [{databaseOwner}].[{objectQualifier}ActiveAccess] v  with(nolock) on v.ForumID=f.ForumID'
     SET @SQL = @SQL + ' WHERE c.BoardID = ' + convert(varchar, @BoardID) + ' AND v.UserID=' + convert(varchar,@PageUserID) + ' AND (CONVERT(int,v.ReadAccess) <> 0 or (f.Flags & 2) = 0) AND t.IsDeleted=0 AND t.TopicMovedID IS NULL AND (t.Priority = 2) ORDER BY t.LastPosted DESC'
 
     EXEC(@SQL)	
@@ -6532,7 +6532,7 @@ BEGIN
     INNER JOIN
         [{databaseOwner}].[{objectQualifier}Category] c ON c.CategoryID = f.CategoryID
     JOIN
-        [{databaseOwner}].[{objectQualifier}ActiveAccess] v ON v.ForumID=f.ForumID
+        [{databaseOwner}].[{objectQualifier}ActiveAccess] v  with(nolock) ON v.ForumID=f.ForumID
     WHERE	
         c.BoardID = @BoardID
         AND t.TopicMovedID is NULL
@@ -6598,7 +6598,7 @@ BEGIN
     INNER JOIN
         [{databaseOwner}].[{objectQualifier}Category] c ON c.CategoryID = f.CategoryID
     JOIN
-        [{databaseOwner}].[{objectQualifier}ActiveAccess] v ON v.ForumID=f.ForumID
+        [{databaseOwner}].[{objectQualifier}ActiveAccess] v  with(nolock) ON v.ForumID=f.ForumID
     WHERE	
         c.BoardID = @BoardID
         AND t.TopicMovedID is NULL
@@ -10199,7 +10199,7 @@ begin
         [{databaseOwner}].[{objectQualifier}Topic] c
         join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
         join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x on x.ForumID=d.ForumID
+        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  with(nolock) on x.ForumID=d.ForumID
         join [{databaseOwner}].[{objectQualifier}Category] cat on cat.CategoryID=d.CategoryID
         JOIN [{databaseOwner}].[{objectQualifier}FavoriteTopic] z ON z.TopicID=c.TopicID AND z.UserID=@PageUserID
     where
@@ -10225,7 +10225,7 @@ begin
         [{databaseOwner}].[{objectQualifier}Topic] c
         join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
         join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x on x.ForumID=d.ForumID
+        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  with(nolock) on x.ForumID=d.ForumID
         join [{databaseOwner}].[{objectQualifier}Category] cat on cat.CategoryID=d.CategoryID
         JOIN [{databaseOwner}].[{objectQualifier}FavoriteTopic] z ON z.TopicID=c.TopicID AND z.UserID=@PageUserID
     where
@@ -10294,7 +10294,7 @@ select
         [{databaseOwner}].[{objectQualifier}Topic] c
         join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
         join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x on x.ForumID=d.ForumID
+        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  with(nolock) on x.ForumID=d.ForumID
         join [{databaseOwner}].[{objectQualifier}Category] cat on cat.CategoryID=d.CategoryID
         JOIN [{databaseOwner}].[{objectQualifier}FavoriteTopic] z ON z.TopicID=c.TopicID AND z.UserID=@PageUserID
     where
@@ -11048,7 +11048,7 @@ begin
         [{databaseOwner}].[{objectQualifier}Topic] c
         join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
         join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x on x.ForumID=d.ForumID
+        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  with(nolock) on x.ForumID=d.ForumID
         join [{databaseOwner}].[{objectQualifier}Category] cat on cat.CategoryID=d.CategoryID
     where
         (c.LastPosted between @SinceDate and @ToDate) and
@@ -11075,7 +11075,7 @@ begin
         [{databaseOwner}].[{objectQualifier}Topic] c
         join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
         join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x on x.ForumID=d.ForumID
+        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  with(nolock) on x.ForumID=d.ForumID
         join [{databaseOwner}].[{objectQualifier}Category] cat on cat.CategoryID=d.CategoryID
     where
         (c.LastPosted between @SinceDate and @ToDate) and
