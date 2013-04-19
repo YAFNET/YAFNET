@@ -119,7 +119,15 @@ namespace YAF.Core
 
                 int tries = 0;
                 DataRow pageRow;
+                string forumPage = this.Get<HttpRequestBase>().QueryString.ToString();
+                string location = this.Get<HttpRequestBase>().FilePath;
 
+                // resources are not handled by ActiveLocation control so far.
+                if (location.Contains("resource.ashx"))
+                {
+                    forumPage = string.Empty;
+                    location = string.Empty;
+                }
                 do
                 {
                     pageRow = LegacyDb.pageload(
@@ -127,8 +135,8 @@ namespace YAF.Core
                         YafContext.Current.PageBoardID,
                         userKey,
                         this.Get<HttpRequestBase>().GetUserRealIPAddress(),
-                        this.Get<HttpRequestBase>().FilePath,
-                        this.Get<HttpRequestBase>().QueryString.ToString(),
+                        location,
+                        forumPage,
                         @event.Data.Browser,
                         @event.Data.Platform,
                         @event.Data.CategoryID,
