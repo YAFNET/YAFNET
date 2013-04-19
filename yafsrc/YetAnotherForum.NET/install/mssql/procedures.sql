@@ -4950,7 +4950,7 @@ begin
         if exists (select top 1
             UserID	
             from [{databaseOwner}].[{objectQualifier}ActiveAccess] WITH(NOLOCK) 
-            where UserID = @UserID and ForumID= ISNULL(@ForumID,0) and ReadAccess = 1)		
+            where UserID = @UserID and ForumID= ISNULL(@ForumID,0) and (ISNULL(@ForumID,0) = 0 OR ReadAccess = 1))		
             begin
             	 -- verify that there's not the sane session for other board and drop it if required. Test code for portals with many boards
      delete from [{databaseOwner}].[{objectQualifier}Active] where (SessionID=@SessionID  and (BoardID <> @BoardID or userid <> @UserID))
