@@ -4750,9 +4750,8 @@ begin
     -- set IsActiveNow ActiveFlag - it's a default
     set @ActiveFlags = 1;
 
-
-    -- find a guest id should do it every time to be sure that guest access rights are in ActiveAccess table
-    select top 1 @GuestID = UserID from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and (Flags & 4)=4 ORDER BY Joined DESC
+	  -- find a guest id should do it every time to be sure that guest access rights are in ActiveAccess table
+    select top 1 @GuestID = UserID from [{databaseOwner}].[{objectQualifier}User] WITH(NOLOCK) where BoardID=@BoardID and (Flags & 4)=4 ORDER BY Joined DESC
         set @rowcount=@@rowcount
         if (@rowcount > 1)
         begin
@@ -4762,11 +4761,12 @@ begin
         begin
             raiserror('No candidates for a guest were found for the board %d.',16,1,@BoardID)
             end
+  
     
              
     if @UserKey is null
     begin
-    -- this is a guest
+    -- this is a guest	
         SET @UserID = @GuestID
         set @IsGuest = 1
         -- set IsGuest ActiveFlag  1 | 2
@@ -4787,10 +4787,7 @@ begin
         set @IsCrawler = 0
         -- set IsRegistered ActiveFlag
         set @ActiveFlags = @ActiveFlags | 4
-    end
-
-     -- verify that there's not the sane session for other board and drop it if required. Test code for portals with many boards
-     delete from [{databaseOwner}].[{objectQualifier}Active] where (SessionID=@SessionID  and (BoardID <> @BoardID or userid <> @UserID))
+    end    
 
     -- Check valid ForumID
     if @ForumID is not null and not exists(select 1 from [{databaseOwner}].[{objectQualifier}Forum] where ForumID=@ForumID) begin
@@ -4808,17 +4805,6 @@ begin
     if @TopicID is not null and not exists(select 1 from [{databaseOwner}].[{objectQualifier}Topic] where TopicID=@TopicID) begin
         set @TopicID = null
     end	
-    
-    -- get previous visit
-    if  @IsGuest = 0	 begin
-        select @PreviousVisit = LastVisit from [{databaseOwner}].[{objectQualifier}User] where UserID = @UserID
-    end
-    
-    -- update last visit
-    update [{databaseOwner}].[{objectQualifier}User] set 
-        LastVisit = @UTCTIMESTAMP,
-        IP = @IP
-    where UserID = @UserID
 
     -- find missing ForumID/TopicID
     if @MessageID is not null begin
@@ -4857,6 +4843,127 @@ begin
             a.ForumID = @ForumID and
             b.BoardID = @BoardID
     end
+
+	    
+	
+    -- update active access
+    -- ensure that access right are in place		
+        if not exists (select top 1
+            UserID	
+            from [{databaseOwner}].[{objectQualifier}ActiveAccess] WITH(NOLOCK) 
+            where UserID = @UserID )		
+            begin
+            insert into [{databaseOwner}].[{objectQualifier}ActiveAccess](
+            UserID,
+            BoardID,
+            ForumID,
+            IsAdmin, 
+            IsForumModerator,
+            IsModerator,
+            IsGuestX,
+            LastActive, 
+            ReadAccess,
+            PostAccess,
+            ReplyAccess,
+            PriorityAccess,
+            PollAccess,
+            VoteAccess,	
+            ModeratorAccess,
+            EditAccess,
+            DeleteAccess,
+            UploadAccess,
+            DownloadAccess)
+            select 
+            UserID, 
+            @BoardID, 
+            ForumID, 
+            IsAdmin,
+            IsForumModerator,
+            IsModerator,
+            @IsGuest,
+            @UTCTIMESTAMP,
+            ReadAccess,
+            (CONVERT([bit],sign([PostAccess]&(2)),(0))),
+            ReplyAccess,
+            PriorityAccess,
+            PollAccess,
+            VoteAccess,
+            ModeratorAccess,
+            EditAccess,
+            DeleteAccess,
+            UploadAccess,
+            DownloadAccess			
+            from [{databaseOwner}].[{objectQualifier}vaccess] 
+            where UserID = @UserID 
+            end
+
+                -- ensure that guest access right are in place		
+        if @UserID != @GuestID and not exists (select top 1
+            UserID	
+            from [{databaseOwner}].[{objectQualifier}ActiveAccess] WITH(NOLOCK) 
+            where UserID = @GuestID )		
+            begin
+            insert into [{databaseOwner}].[{objectQualifier}ActiveAccess](
+            UserID,
+            BoardID,
+            ForumID,
+            IsAdmin, 
+            IsForumModerator,
+            IsModerator,
+            IsGuestX,
+            LastActive, 
+            ReadAccess,
+            PostAccess,
+            ReplyAccess,
+            PriorityAccess,
+            PollAccess,
+            VoteAccess,	
+            ModeratorAccess,
+            EditAccess,
+            DeleteAccess,
+            UploadAccess,
+            DownloadAccess)
+            select 
+            UserID, 
+            @BoardID, 
+            ForumID, 
+            IsAdmin,
+            IsForumModerator,
+            IsModerator,
+            @IsGuest,
+            @UTCTIMESTAMP,
+            ReadAccess,
+            (CONVERT([bit],sign([PostAccess]&(2)),(0))),
+            ReplyAccess,
+            PriorityAccess,
+            PollAccess,
+            VoteAccess,
+            ModeratorAccess,
+            EditAccess,
+            DeleteAccess,
+            UploadAccess,
+            DownloadAccess			
+            from [{databaseOwner}].[{objectQualifier}vaccess] 
+            where UserID = @GuestID 
+            end
+
+        if exists (select top 1
+            UserID	
+            from [{databaseOwner}].[{objectQualifier}ActiveAccess] WITH(NOLOCK) 
+            where UserID = @UserID and ReadAccess = 1)		
+            begin
+            	 -- verify that there's not the sane session for other board and drop it if required. Test code for portals with many boards
+     delete from [{databaseOwner}].[{objectQualifier}Active] where (SessionID=@SessionID  and (BoardID <> @BoardID or userid <> @UserID))
+    -- get previous visit
+    if  @IsGuest = 0	 begin
+        select @PreviousVisit = LastVisit from [{databaseOwner}].[{objectQualifier}User] where UserID = @UserID
+    end
+    
+    -- update last visit
+    update [{databaseOwner}].[{objectQualifier}User] set 
+        LastVisit = @UTCTIMESTAMP,
+        IP = @IP
+    where UserID = @UserID
     
     if @DontTrack != 1 and @UserID is not null and @UserBoardID=@BoardID begin
       if exists(select 1 from [{databaseOwner}].[{objectQualifier}Active] where (SessionID=@SessionID OR ( Browser = @Browser AND (Flags & 8) = 8 )) and BoardID=@BoardID)
@@ -4945,108 +5052,7 @@ begin
         end
         
     end
-    -- update active access
-    -- ensure that access right are in place		
-        if not exists (select top 1
-            UserID	
-            from [{databaseOwner}].[{objectQualifier}ActiveAccess] WITH(NOLOCK) 
-            where UserID = @UserID )		
-            begin
-            insert into [{databaseOwner}].[{objectQualifier}ActiveAccess](
-            UserID,
-            BoardID,
-            ForumID,
-            IsAdmin, 
-            IsForumModerator,
-            IsModerator,
-            IsGuestX,
-            LastActive, 
-            ReadAccess,
-            PostAccess,
-            ReplyAccess,
-            PriorityAccess,
-            PollAccess,
-            VoteAccess,	
-            ModeratorAccess,
-            EditAccess,
-            DeleteAccess,
-            UploadAccess,
-            DownloadAccess)
-            select 
-            UserID, 
-            @BoardID, 
-            ForumID, 
-            IsAdmin,
-            IsForumModerator,
-            IsModerator,
-            @IsGuest,
-            @UTCTIMESTAMP,
-            ReadAccess,
-            (CONVERT([bit],sign([PostAccess]&(2)),(0))),
-            ReplyAccess,
-            PriorityAccess,
-            PollAccess,
-            VoteAccess,
-            ModeratorAccess,
-            EditAccess,
-            DeleteAccess,
-            UploadAccess,
-            DownloadAccess			
-            from [{databaseOwner}].[{objectQualifier}vaccess] 
-            where UserID = @UserID 
-            end
-
-                -- ensure that guest access right are in place		
-        if not exists (select top 1
-            UserID	
-            from [{databaseOwner}].[{objectQualifier}ActiveAccess] WITH(NOLOCK) 
-            where UserID = @GuestID )		
-            begin
-            insert into [{databaseOwner}].[{objectQualifier}ActiveAccess](
-            UserID,
-            BoardID,
-            ForumID,
-            IsAdmin, 
-            IsForumModerator,
-            IsModerator,
-            IsGuestX,
-            LastActive, 
-            ReadAccess,
-            PostAccess,
-            ReplyAccess,
-            PriorityAccess,
-            PollAccess,
-            VoteAccess,	
-            ModeratorAccess,
-            EditAccess,
-            DeleteAccess,
-            UploadAccess,
-            DownloadAccess)
-            select 
-            UserID, 
-            @BoardID, 
-            ForumID, 
-            IsAdmin,
-            IsForumModerator,
-            IsModerator,
-            @IsGuest,
-            @UTCTIMESTAMP,
-            ReadAccess,
-            (CONVERT([bit],sign([PostAccess]&(2)),(0))),
-            ReplyAccess,
-            PriorityAccess,
-            PollAccess,
-            VoteAccess,
-            ModeratorAccess,
-            EditAccess,
-            DeleteAccess,
-            UploadAccess,
-            DownloadAccess			
-            from [{databaseOwner}].[{objectQualifier}vaccess] 
-            where UserID = @GuestID 
-            end
-
-            
+	end
     -- return information
     select top 1
         ActiveUpdate        = ISNULL(@ActiveUpdate,0),
