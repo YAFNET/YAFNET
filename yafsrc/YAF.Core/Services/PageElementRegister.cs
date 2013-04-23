@@ -218,7 +218,7 @@ namespace YAF.Core.Services
             {
                 var url = Config.JQueryFile;
 
-                if (!url.StartsWith("http"))
+                if (!url.StartsWith("http") && !url.StartsWith("//"))
                 {
                     url = YafForumInfo.GetURLToResource(Config.JQueryFile);
                 }
@@ -231,7 +231,7 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        /// The register jquery ui.
+        /// Registers the J query UI.
         /// </summary>
         public void RegisterJQueryUI()
         {
@@ -241,7 +241,7 @@ namespace YAF.Core.Services
             if (YafContext.Current.Get<YafBoardSettings>().JqueryUIThemeCDNHosted)
             {
                 this.RegisterCssInclude(
-                    "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/{0}/jquery-ui.css".FormatWith(
+                    "//ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/{0}/jquery-ui.css".FormatWith(
                         YafContext.Current.Get<YafBoardSettings>().JqueryUITheme));
             }
             else
@@ -271,7 +271,7 @@ namespace YAF.Core.Services
 
             var url = Config.JQueryUIFile;
 
-            if (!url.StartsWith("http"))
+            if (!url.StartsWith("http") && !url.StartsWith("//"))
             {
                 url = YafForumInfo.GetURLToResource(Config.JQueryUIFile);
             }
@@ -281,6 +281,39 @@ namespace YAF.Core.Services
               ControlHelper.MakeJsIncludeControl(url));
 
             this.AddPageElement("jqueryui");
+        }
+
+        /// <summary>
+        /// Registers the J query UI.
+        /// </summary>
+        public void RegisterJQueryUILanguageFile()
+        {
+            this.RegisterJQueryUILanguageFile(YafContext.Current.CurrentForumPage.TopPageControl);
+        }
+
+        /// <summary>
+        /// Register the JQuery UI library in the header.
+        /// </summary>
+        /// <param name="element">
+        /// Control element to put in
+        /// </param>
+        public void RegisterJQueryUILanguageFile(Control element)
+        {
+            // If registered or told not to register, don't bother
+            if (this.PageElementExists("datepickerlang"))
+            {
+                return;
+            }
+
+            var url = !Config.JQueryUILangFile.StartsWith("http") && !Config.JQueryUILangFile.StartsWith("//")
+                      ? YafForumInfo.GetURLToResource(Config.JQueryUILangFile)
+                      : Config.JQueryUILangFile;
+
+            // load jQuery UI from google...
+            element.Controls.Add(
+              ControlHelper.MakeJsIncludeControl(url));
+
+            this.AddPageElement("datepickerlang");
         }
 
         /// <summary>

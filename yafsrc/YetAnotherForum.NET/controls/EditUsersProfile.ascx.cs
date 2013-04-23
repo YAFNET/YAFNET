@@ -115,18 +115,18 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// Gets UserData.
+        /// Gets or sets  UserData.
         /// </summary>
         [NotNull]
         private CombinedUserDataHelper UserData
         {
             get
             {
-                return _userData ?? (_userData = new CombinedUserDataHelper(this.currentUserID));
+                return this._userData ?? (this._userData = new CombinedUserDataHelper(this.currentUserID));
             }
             set
             {
-                _userData = value;
+                this._userData = value;
             }
         }
 
@@ -178,15 +178,12 @@ namespace YAF.Controls
 
             if (!string.IsNullOrEmpty(this.GetText("COMMON", "CAL_JQ_CULTURE")))
             {
-                var jqueryuiUrl = !Config.JQueryUILangFile.StartsWith("http")
-                                      ? YafForumInfo.GetURLToResource(Config.JQueryUILangFile)
-                                      : Config.JQueryUILangFile;
-
-                YafContext.Current.PageElements.RegisterJsInclude("datepickerlang", jqueryuiUrl);
+                YafContext.Current.PageElements.RegisterJQueryUILanguageFile();
 
                 if (ci.IsFarsiCulture())
                 {
-                    YafContext.Current.PageElements.RegisterJsResourceInclude("datepicker-farsi", "js/jquery.ui.datepicker-farsi.js");
+                    YafContext.Current.PageElements.RegisterJsResourceInclude(
+                        "datepicker-farsi", "js/jquery.ui.datepicker-farsi.js");
                 }
             }
 
@@ -200,7 +197,7 @@ namespace YAF.Controls
             YafContext.Current.PageElements.RegisterJsResourceInclude("msdropdown", "js/jquery.msDropDown.js");
 
             YafContext.Current.PageElements.RegisterJsBlockStartup(
-               "dropDownJs", JavaScriptBlocks.DropDownLoadJs(this.Country.ClientID));
+                "dropDownJs", JavaScriptBlocks.DropDownLoadJs(this.Country.ClientID));
 
             YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.msDropDown.css");
 
@@ -247,9 +244,9 @@ namespace YAF.Controls
             this.UpdateProfile.Text = this.GetText("COMMON", "SAVE");
             this.Cancel.Text = this.GetText("COMMON", "CANCEL");
 
-            this.ForumSettingsRows.Visible = this.Get<YafBoardSettings>().AllowUserTheme ||
-                                             this.Get<YafBoardSettings>().AllowUserLanguage ||
-                                             this.Get<YafBoardSettings>().AllowPMEmailNotification;
+            this.ForumSettingsRows.Visible = this.Get<YafBoardSettings>().AllowUserTheme
+                                             || this.Get<YafBoardSettings>().AllowUserLanguage
+                                             || this.Get<YafBoardSettings>().AllowPMEmailNotification;
 
             this.UserThemeRow.Visible = this.Get<YafBoardSettings>().AllowUserTheme;
             this.TrTextEditors.Visible = this.Get<YafBoardSettings>().AllowUsersTextEditor;
@@ -257,8 +254,8 @@ namespace YAF.Controls
             this.UserLoginRow.Visible = this.Get<YafBoardSettings>().AllowSingleSignOn;
             this.MetaWeblogAPI.Visible = this.Get<YafBoardSettings>().AllowPostToBlog;
             this.LoginInfo.Visible = this.Get<YafBoardSettings>().AllowEmailChange;
-            this.DisplayNamePlaceholder.Visible = this.Get<YafBoardSettings>().EnableDisplayName &&
-                                                  this.Get<YafBoardSettings>().AllowDisplayNameModification;
+            this.DisplayNamePlaceholder.Visible = this.Get<YafBoardSettings>().EnableDisplayName
+                                                  && this.Get<YafBoardSettings>().AllowDisplayNameModification;
 
             this.BindData();
         }
@@ -307,8 +304,8 @@ namespace YAF.Controls
                 return;
             }
 
-            if (this.ICQ.Text.IsSet() &&
-                !(ValidationHelper.IsValidEmail(this.ICQ.Text) || ValidationHelper.IsNumeric(this.ICQ.Text)))
+            if (this.ICQ.Text.IsSet()
+                && !(ValidationHelper.IsValidEmail(this.ICQ.Text) || ValidationHelper.IsNumeric(this.ICQ.Text)))
             {
                 this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_ICQ"));
                 return;
@@ -322,8 +319,8 @@ namespace YAF.Controls
 
             string displayName = null;
 
-            if (this.Get<YafBoardSettings>().EnableDisplayName &&
-                this.Get<YafBoardSettings>().AllowDisplayNameModification)
+            if (this.Get<YafBoardSettings>().EnableDisplayName
+                && this.Get<YafBoardSettings>().AllowDisplayNameModification)
             {
                 if (this.DisplayName.Text.Trim().Length < 2)
                 {
@@ -335,8 +332,7 @@ namespace YAF.Controls
                 {
                     if (this.Get<IUserDisplayName>().GetId(this.DisplayName.Text.Trim()).HasValue)
                     {
-                        this.PageContext.AddLoadMessage(
-                          this.GetText("REGISTER", "ALREADY_REGISTERED_DISPLAYNAME"));
+                        this.PageContext.AddLoadMessage(this.GetText("REGISTER", "ALREADY_REGISTERED_DISPLAYNAME"));
 
                         return;
                     }
@@ -409,32 +405,34 @@ namespace YAF.Controls
             else
             {
                 foreach (DataRow row in
-                  StaticDataHelper.Cultures().Rows.Cast<DataRow>().Where(
-                    row => culture.ToString() == row["CultureTag"].ToString()))
+                    StaticDataHelper.Cultures()
+                                    .Rows.Cast<DataRow>()
+                                    .Where(row => culture.ToString() == row["CultureTag"].ToString()))
                 {
                     language = row["CultureFile"].ToString();
                 }
             }
 
             // save remaining settings to the DB
-            LegacyDb.user_save(this.currentUserID,
-              this.PageContext.PageBoardID,
-              null,
-              displayName,
-              null,
-              this.TimeZones.SelectedValue.ToType<int>(),
-              language,
-              culture,
-              theme,
-              this.SingleSignOn.Checked,
-              editor,
-              this.UseMobileTheme.Checked,
-              null,
-              null,
-              null,
-              this.DSTUser.Checked,
-              this.HideMe.Checked,
-              null);
+            LegacyDb.user_save(
+                this.currentUserID,
+                this.PageContext.PageBoardID,
+                null,
+                displayName,
+                null,
+                this.TimeZones.SelectedValue.ToType<int>(),
+                language,
+                culture,
+                theme,
+                this.SingleSignOn.Checked,
+                editor,
+                this.UseMobileTheme.Checked,
+                null,
+                null,
+                null,
+                this.DSTUser.Checked,
+                this.HideMe.Checked,
+                null);
 
             // vzrus: If it's a guest edited by an admin registry value should be changed
             DataTable dt = LegacyDb.user_list(this.PageContext.PageBoardID, this.currentUserID, true, null, null, false);
@@ -533,15 +531,16 @@ namespace YAF.Controls
             {
                 if (this.Get<YafBoardSettings>().UseFarsiCalender && ci.IsFarsiCulture())
                 {
-                    this.Birthday.Text = this.UserData.Profile.Birthday > DateTime.MinValue ||
-                                         this.UserData.Profile.Birthday.IsNullOrEmptyDBField()
-                                         ? PersianDateConverter.ToPersianDate(this.UserData.Profile.Birthday).ToString("d")
+                    this.Birthday.Text = this.UserData.Profile.Birthday > DateTime.MinValue
+                                         || this.UserData.Profile.Birthday.IsNullOrEmptyDBField()
+                                             ? PersianDateConverter.ToPersianDate(this.UserData.Profile.Birthday)
+                                                                   .ToString("d")
                                              : PersianDateConverter.ToPersianDate(PersianDate.MinValue).ToString("d");
                 }
                 else
                 {
-                    this.Birthday.Text = this.UserData.Profile.Birthday > DateTime.MinValue ||
-                                         this.UserData.Profile.Birthday.IsNullOrEmptyDBField()
+                    this.Birthday.Text = this.UserData.Profile.Birthday > DateTime.MinValue
+                                         || this.UserData.Profile.Birthday.IsNullOrEmptyDBField()
                                              ? this.UserData.Profile.Birthday.Date.ToString(
                                                  ci.DateTimeFormat.ShortDatePattern, CultureInfo.InvariantCulture)
                                              : DateTime.MinValue.Date.ToString(
@@ -604,12 +603,12 @@ namespace YAF.Controls
             }
 
             this.DSTUser.Checked = this.UserData.DSTUser;
-            this.HideMe.Checked = this.UserData.IsActiveExcluded &&
-                                  (this.Get<YafBoardSettings>().AllowUserHideHimself || this.PageContext.IsAdmin);
+            this.HideMe.Checked = this.UserData.IsActiveExcluded
+                                  && (this.Get<YafBoardSettings>().AllowUserHideHimself || this.PageContext.IsAdmin);
 
-            if (this.Get<YafBoardSettings>().MobileTheme.IsSet() &&
-                UserAgentHelper.IsMobileDevice(HttpContext.Current.Request.UserAgent) ||
-                HttpContext.Current.Request.Browser.IsMobileDevice)
+            if (this.Get<YafBoardSettings>().MobileTheme.IsSet()
+                && UserAgentHelper.IsMobileDevice(HttpContext.Current.Request.UserAgent)
+                || HttpContext.Current.Request.Browser.IsMobileDevice)
             {
                 this.UseMobileThemeRow.Visible = true;
                 this.UseMobileTheme.Checked = this.UserData.UseMobileTheme;
@@ -687,7 +686,7 @@ namespace YAF.Controls
 
             changeEmail.TemplateParams["{user}"] = this.PageContext.PageUserName;
             changeEmail.TemplateParams["{link}"] =
-              "{0}\r\n\r\n".FormatWith(YafBuildLink.GetLinkNotEscaped(ForumPages.approve, true, "k={0}", hash));
+                "{0}\r\n\r\n".FormatWith(YafBuildLink.GetLinkNotEscaped(ForumPages.approve, true, "k={0}", hash));
             changeEmail.TemplateParams["{newemail}"] = this.Email.Text;
             changeEmail.TemplateParams["{key}"] = hash;
             changeEmail.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
@@ -700,8 +699,7 @@ namespace YAF.Controls
             changeEmail.SendEmail(new MailAddress(newEmail), this.GetText("COMMON", "CHANGEEMAIL_SUBJECT"), true);
 
             // show a confirmation
-            this.PageContext.AddLoadMessage(
-              this.GetText("PROFILE", "mail_sent").FormatWith(this.Email.Text));
+            this.PageContext.AddLoadMessage(this.GetText("PROFILE", "mail_sent").FormatWith(this.Email.Text));
         }
 
         /// <summary>
@@ -714,8 +712,13 @@ namespace YAF.Controls
         {
             YafUserProfile userProfile = YafUserProfile.GetProfile(userName);
 
-            userProfile.Country = this.Country.SelectedItem != null ? this.Country.SelectedItem.Value.Trim() : string.Empty;
-            userProfile.Region = this.Region.SelectedItem != null && this.Country.SelectedItem != null && this.Country.SelectedItem.Value.Trim().IsSet() ? this.Region.SelectedItem.Value.Trim() : string.Empty;
+            userProfile.Country = this.Country.SelectedItem != null
+                                      ? this.Country.SelectedItem.Value.Trim()
+                                      : string.Empty;
+            userProfile.Region = this.Region.SelectedItem != null && this.Country.SelectedItem != null
+                                 && this.Country.SelectedItem.Value.Trim().IsSet()
+                                     ? this.Region.SelectedItem.Value.Trim()
+                                     : string.Empty;
             userProfile.City = this.City.Text.Trim();
             userProfile.Location = this.Location.Text.Trim();
             userProfile.Homepage = this.HomePage.Text.Trim();
@@ -767,7 +770,11 @@ namespace YAF.Controls
 
             // Sync to User Profile Mirror table while it's dirty
             SettingsPropertyValueCollection settingsPropertyValueCollection = userProfile.PropertyValues;
-            LegacyDb.SetPropertyValues(PageContext.PageBoardID, UserMembershipHelper.ApplicationName(), this.currentUserID, settingsPropertyValueCollection);
+            LegacyDb.SetPropertyValues(
+                PageContext.PageBoardID,
+                UserMembershipHelper.ApplicationName(),
+                this.currentUserID,
+                settingsPropertyValueCollection);
 
             userProfile.Save();
         }
@@ -799,10 +806,10 @@ namespace YAF.Controls
 
         #endregion
 
-
         /// <summary>
         /// Gets the culture.
         /// </summary>
+        /// <param name="overrideByPageUserCulture">if set to <c>true</c> [override by page user culture].</param>
         /// <returns>
         /// The get culture.
         /// </returns>
@@ -838,10 +845,7 @@ namespace YAF.Controls
 
             // Get first default full culture from a language file tag.
             string langFileCulture = StaticDataHelper.CultureDefaultFromFile(languageFile);
-            return langFileCulture.Substring(0, 2) == culture4Tag.Substring(0, 2)
-                                          ? culture4Tag
-                                          : langFileCulture;
-
+            return langFileCulture.Substring(0, 2) == culture4Tag.Substring(0, 2) ? culture4Tag : langFileCulture;
         }
     }
 }

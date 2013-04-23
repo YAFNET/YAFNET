@@ -173,9 +173,9 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The on init.
+        /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
         /// </summary>
-        /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
+        /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
             this.List.ItemCommand += this.List_ItemCommand;
@@ -199,11 +199,7 @@ namespace YAF.Pages.Admin
 
             if (!string.IsNullOrEmpty(this.GetText("COMMON", "CAL_JQ_CULTURE")))
             {
-                var jqueryuiUrl = !Config.JQueryUILangFile.StartsWith("http")
-                                      ? YafForumInfo.GetURLToResource(Config.JQueryUILangFile)
-                                      : Config.JQueryUILangFile;
-
-                YafContext.Current.PageElements.RegisterJsInclude("datepickerlang", jqueryuiUrl);
+                YafContext.Current.PageElements.RegisterJQueryUILanguageFile();
 
                 if (ci.IsFarsiCulture())
                 {
@@ -258,8 +254,9 @@ namespace YAF.Pages.Admin
 
             foreach (int eventTypeId in Enum.GetValues(typeof(EventLogTypes)))
             {
-                var eventTypeName = this.GetText("ADMIN_EVENTLOGROUPACCESS",
-                                                 "LT_{0}".FormatWith(Enum.GetName(typeof(EventLogTypes), eventTypeId).ToUpperInvariant()));
+                var eventTypeName = this.GetText(
+                    "ADMIN_EVENTLOGROUPACCESS",
+                    "LT_{0}".FormatWith(Enum.GetName(typeof(EventLogTypes), eventTypeId).ToUpperInvariant()));
 
                 this.Types.Items.Add(
                     new ListItem(eventTypeName, eventTypeId.ToString()));
@@ -361,14 +358,15 @@ namespace YAF.Pages.Admin
 
             // list event for this board
             DataTable dt = this.GetRepository<EventLog>()
-                               .List(this.PageContext.PageUserID,
-                                     this.Get<YafBoardSettings>().EventLogMaxMessages,
-                                     this.Get<YafBoardSettings>().EventLogMaxDays,
-                                     nCurrentPageIndex,
-                                     baseSize,
-                                     sinceDate,
-                                     toDate.AddDays(1).AddMinutes(-1),
-                                     this.Types.SelectedValue.Equals("-1") ? null : this.Types.SelectedValue);
+                               .List(
+                                   this.PageContext.PageUserID,
+                                   this.Get<YafBoardSettings>().EventLogMaxMessages,
+                                   this.Get<YafBoardSettings>().EventLogMaxDays,
+                                   nCurrentPageIndex,
+                                   baseSize,
+                                   sinceDate,
+                                   toDate.AddDays(1).AddMinutes(-1),
+                                   this.Types.SelectedValue.Equals("-1") ? null : this.Types.SelectedValue);
 
             this.List.DataSource = dt;
 
