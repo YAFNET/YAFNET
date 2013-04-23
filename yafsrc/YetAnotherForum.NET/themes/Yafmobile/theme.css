@@ -249,7 +249,6 @@
 .yafnet div.postdiv {
 	width: 100%;
 	min-height: 100px;
-	overflow: auto;
 }
 .yafnet div.AdMessage {
 	min-height: 10px;

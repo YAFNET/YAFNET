@@ -462,7 +462,6 @@ This CSS already works on FireFox.
 .yafnet div.postdiv {
 	width: 100%;
 	min-height: 100px;
-	overflow: auto;	
 }
 .yafnet div.AdMessage {
 	min-height: 10px;
@@ -646,6 +645,10 @@ This CSS already works on FireFox.
 .yafnet .yafpopupmenu li {
 	padding: 5px 10px 5px 10px;
 	margin: 0;
+	font-family: Verdana,Arial,Helvetica,sans-serif;
+	font-size: 8pt;
+	color:#404040;
+	font-weight:normal;
 }
 .yafnet .yafpopupmenu li.popupitemhover {
 	background-color: #cccccc;

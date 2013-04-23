@@ -58,7 +58,7 @@
 	padding: 6px;
 	border: 1px solid #708fff;
 	background-color: #e4e4ff;
-	border-radius: 5px;
+	border-radius: 5px;	
 }
 .yafForumWelcome div
 {
@@ -82,9 +82,9 @@
 {
 	border: 1px solid #ddd;
 	padding: 0px 8px 0px 8px;
+	border-radius: 6px;	
 	background-color: #eee;
 	width: 98%;
-    border-radius: 6px;	
 }
 .yafnet #yafheader ul li a
 {
@@ -461,7 +461,6 @@
 .yafnet div.postdiv {
 	width: 100%;
 	min-height: 100px;
-	overflow: auto;
 }
 .yafnet div.AdMessage {
 	min-height: 10px;

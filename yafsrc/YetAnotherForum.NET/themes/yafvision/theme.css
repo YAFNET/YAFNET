@@ -238,8 +238,15 @@ padding-right: 5px !important;
 }
 /* Header 1 - Main header */
 .yafnet .header1 {
-	background: url('bg_header1.png') repeat-x;
-	color: #FFFFFF;
+	background: url("bg_header2.png") repeat-x bottom #5880c0;
+	background: -moz-linear-gradient(top, #85b8f5 0%, #5278b7 6%, #5880c0 31%, #6899d9 83%, #6899d9 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#85b8f5), color-stop(6%,#5278b7), color-stop(31%,#5880c0), color-stop(83%,#6899d9), color-stop(100%,#6899d9));
+	background: -webkit-linear-gradient(top, #85b8f5 0%,#5278b7 6%,#5880c0 31%,#6899d9 83%,#6899d9 100%);
+	background: -o-linear-gradient(top, #85b8f5 0%,#5278b7 6%,#5880c0 31%,#6899d9 83%,#6899d9 100%);
+	background: -ms-linear-gradient(top, #85b8f5 0%,#5278b7 6%,#5880c0 31%,#6899d9 83%,#6899d9 100%);
+	background: linear-gradient(to bottom, #85b8f5 0%,#5278b7 6%,#5880c0 31%,#6899d9 83%,#6899d9 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#5880c0, endColorstr=#6899d9);
+	color: white;
 	font-weight: bold;
 	line-height: 24px;
 	font-size:12px;
@@ -467,7 +474,6 @@ This CSS already works on FireFox.
 .yafnet div.postdiv {
 	width: 100%;
 	min-height: 100px;
-	overflow: auto;	
 }
 .yafnet div.AdMessage {
 	min-height: 10px;
