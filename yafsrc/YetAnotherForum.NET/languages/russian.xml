@@ -1052,6 +1052,8 @@
     <Resource tag="HOST_PERMISSION">Разрешения</Resource>
     <Resource tag="HOST_SEARCH">Поиск</Resource>
     <Resource tag="HOST_TEMPLATES">Шаблоны</Resource>
+    <Resource tag="HOVERCARD_DELAY">Hover Card opening Delay (Milliseconds):</Resource>
+    <Resource tag="HOVERCARD_DELAY_HELP">The Delay before opening the Hover Card when a user hovers over a user name.</Resource>
     <Resource tag="IMAGE_ATTACH_RESIZE">Разрешить изменение размеров вложенного изображение:</Resource>
     <Resource tag="IMAGE_ATTACH_RESIZE_HELP">Вложенные изображения будут уменьшены до thumbnails если они слишком большие.</Resource>
     <Resource tag="IMAGE_RESIZE_HEIGHT">Максимальная высота вложенного изменённого изображения:</Resource>

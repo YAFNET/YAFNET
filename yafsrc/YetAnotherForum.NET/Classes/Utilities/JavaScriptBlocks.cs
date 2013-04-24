@@ -831,12 +831,13 @@ namespace YAF.Utilities
             [NotNull] string clientId, [NotNull] string type, [NotNull] string loadingHtml, [NotNull] string errorHtml)
         {
             return
-                "{0}('{1}').hovercard({{{2}width: 350,loadingHTML: '{3}',errorHTML: '{4}'}});".FormatWith(
+                "{0}('{1}').hovercard({{{2}width: 350,loadingHTML: '{3}',errorHTML: '{4}', delay: {5} }});".FormatWith(
                     Config.JQueryAlias,
                     clientId,
                     !string.IsNullOrEmpty(type) ? "show{0}Card: true,".FormatWith(type) : string.Empty,
                     loadingHtml,
-                    errorHtml);
+                    errorHtml,
+                    YafContext.Current.Get<YafBoardSettings>().HoverCardOpenDelay);
         }
     }
 }

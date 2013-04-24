@@ -1052,6 +1052,8 @@
     <Resource tag="HOST_PERMISSION">Berechtigungen</Resource>
     <Resource tag="HOST_SEARCH">Suche</Resource>
     <Resource tag="HOST_TEMPLATES">Vorlagen</Resource>
+    <Resource tag="HOVERCARD_DELAY">Hover Karte Verzögerungs Öffnungszeit (Millisekunden):</Resource>
+    <Resource tag="HOVERCARD_DELAY_HELP">Die Verzögerungszeit vor dem Öffnen der Hoverkarte, whenn der Benutzer über einen Benutzer Namen mit der Maus fährt.</Resource>
     <Resource tag="IMAGE_ATTACH_RESIZE">Bildanhänge verkleinern aktivieren</Resource>
     <Resource tag="IMAGE_ATTACH_RESIZE_HELP">Angehängten Bilder werden zu den Thumbnails verkleinert, falls sie zu groß sind.</Resource>
     <Resource tag="IMAGE_RESIZE_HEIGHT">Bild Max. Höhe:</Resource>

@@ -1059,6 +1059,8 @@
     <Resource tag="HOST_PERMISSION">Permission</Resource>
     <Resource tag="HOST_SEARCH">Search</Resource>
     <Resource tag="HOST_TEMPLATES">Templates</Resource>
+    <Resource tag="HOVERCARD_DELAY">Hover Card opening Delay (Milliseconds):</Resource>
+    <Resource tag="HOVERCARD_DELAY_HELP">The Delay before opening the Hover Card when a user hovers over a user name.</Resource>
     <Resource tag="IMAGE_ATTACH_RESIZE">Enable Image Attachment Resize:</Resource>
     <Resource tag="IMAGE_ATTACH_RESIZE_HELP">Attached images will be resized to thumbnails if they are too large.</Resource>
     <Resource tag="IMAGE_RESIZE_HEIGHT">Image Resize Max Height:</Resource>

@@ -5056,6 +5056,8 @@ Visit {forumname} at {forumlink}
      <Resource tag="ENABLE_HOVERCARDS">Enable User Info Hover Cards:</Resource>
      <Resource tag="ENABLE_HOVERCARDS_HELP">If enabled it shows an Hover Card (Which shows some quick info about the user) when you hover an user name. This will also show an Hover Card on the Twitter &amp; Facebook Profile Button.
      </Resource>
+     <Resource tag="HOVERCARD_DELAY">Hover Card opening Delay (Milliseconds):</Resource>
+     <Resource tag="HOVERCARD_DELAY_HELP">The Delay before opening the Hover Card when a user hovers over a user name.</Resource>
      <Resource tag="TOPICFEED_COUNT">Max. Topics on the Forum Feed:</Resource>
      <Resource tag="TOPICFEED_COUNT_HELP">The maximum Amount of Topics to show on the Atom/Rss Feed.</Resource>
    </page>

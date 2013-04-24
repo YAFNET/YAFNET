@@ -98,6 +98,12 @@ namespace YAF.Controls
 
         #region Properties
 
+        /// <summary>
+        /// Gets a value indicating whether the user has Profile View Permission
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if the user can view profiles; otherwise, <c>false</c>.
+        /// </value>
         private bool CanViewProfile
         {
             get
@@ -144,9 +150,10 @@ namespace YAF.Controls
             // Setup Hover Card JS
             YafContext.Current.PageElements.RegisterJsBlockStartup(
                 "yafhovercardtjs",
-                "{0}('.userHoverCard').hovercard({{showYafCard: true, delay: 1500, width: 350,loadingHTML: '{1}',errorHTML: '{2}'}});"
+                "{0}('.userHoverCard').hovercard({{showYafCard: true, delay: {1}, width: 350,loadingHTML: '{2}',errorHTML: '{3}'}});"
                     .FormatWith(
                         Config.JQueryAlias,
+                        this.Get<YafBoardSettings>().HoverCardOpenDelay,
                         this.GetText("DEFAULT", "LOADING_HOVERCARD"),
                         this.GetText("DEFAULT", "ERROR_HOVERCARD")));
         }

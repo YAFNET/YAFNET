@@ -1059,6 +1059,8 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="HOST_PERMISSION">مجوزها</Resource>
     <Resource tag="HOST_SEARCH">جستجو</Resource>
     <Resource tag="HOST_TEMPLATES">شما ها</Resource>
+    <Resource tag="HOVERCARD_DELAY">Hover Card opening Delay (Milliseconds):</Resource>
+    <Resource tag="HOVERCARD_DELAY_HELP">The Delay before opening the Hover Card when a user hovers over a user name.</Resource>
     <Resource tag="IMAGE_ATTACH_RESIZE">فعال سازی تغییر اندازه تصاویر ضمیمه:</Resource>
     <Resource tag="IMAGE_ATTACH_RESIZE_HELP">تصاویر ضمیمه در صورت بزرگی زیاد به تصاویر بندانگشتی تبدیل می شوند.</Resource>
     <Resource tag="IMAGE_RESIZE_HEIGHT">حداکثر ارتفاع تصویر کوچک شده ضمیمه :</Resource>
