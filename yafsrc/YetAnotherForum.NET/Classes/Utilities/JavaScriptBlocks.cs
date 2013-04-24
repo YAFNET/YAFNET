@@ -639,7 +639,7 @@ namespace YAF.Utilities
             string heightTransitionJs = hightTransition ? ", fx:{height:'toggle'}" : string.Empty;
 
             string selectFunctionJs = addSelectedFunction
-                                          ? ", select: function(event, ui) {{ {0}('#{1}').val(ui.index);{0}('#{2}').val(ui.panel.id);{3} }}"
+                                          ? ", beforeActivate: function(event, ui) {{ {0}('#{1}').val(ui.newTab.index());{0}('#{2}').val(ui.newPanel.selector.replace('#', ''));{3} }}"
                                                 .FormatWith(Config.JQueryAlias, hiddenId, hiddenTabId, postbackJs)
                                           : string.Empty;
 
@@ -648,10 +648,11 @@ namespace YAF.Utilities
 					{3}('#{0}').tabs(
                     {{
             show: function() {{
-                var sel = {3}('#{0}').tabs('option', 'selected');
+                var sel = {3}('#{0}').tabs('option', 'active');
+
                 {3}('#{1}').val(sel);
             }},
-            selected: {3}('#{1}').val()
+            active: {3}('#{1}').val()
             {2}
             {4}
         }});
