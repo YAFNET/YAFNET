@@ -231,7 +231,7 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        /// Registers the J query UI.
+        /// Registers the jQuery-UI Library and Loads the jQuery-UI Theme CSS File.
         /// </summary>
         public void RegisterJQueryUI()
         {
@@ -241,13 +241,13 @@ namespace YAF.Core.Services
             if (YafContext.Current.Get<YafBoardSettings>().JqueryUIThemeCDNHosted)
             {
                 this.RegisterCssInclude(
-                    "//ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/{0}/jquery-ui.css".FormatWith(
+                    "//ajax.googleapis.com/ajax/libs/jqueryui/1/themes/{0}/jquery-ui.min.css".FormatWith(
                         YafContext.Current.Get<YafBoardSettings>().JqueryUITheme));
             }
             else
             {
                 this.RegisterCssIncludeResource(
-                     "css/jquery-ui-themes/{0}/jquery-ui.css".FormatWith(
+                     "css/jquery-ui-themes/{0}/jquery-ui.min.css".FormatWith(
                          YafContext.Current.Get<YafBoardSettings>().JqueryUITheme));
             }
         }
