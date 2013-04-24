@@ -1082,6 +1082,8 @@ height:80em;
     color: Black;
 }
 
+.yafnet #yafheader ul {display:inline-block}
+
 .yafnet .menuList li a,
 .yafnet .menuAdminList li a
 {
