@@ -30,11 +30,14 @@ namespace YAF.Pages
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Extensions;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
@@ -250,15 +253,19 @@ namespace YAF.Pages
 
       for (int i = 0; i < this.TopicList.Items.Count; i++)
       {
-        var ctrl = (CheckBox)this.TopicList.Items[i].FindControl("unsubx");
-        var lbl = (Label)this.TopicList.Items[i].FindControl("ttid");
+        var unsubscribe = (CheckBox)this.TopicList.Items[i].FindControl("unsubx");
+        var idLabel = (Label)this.TopicList.Items[i].FindControl("ttid");
           
-          if (!ctrl.Checked)
+          if (!unsubscribe.Checked)
           {
               continue;
           }
 
-          LegacyDb.watchtopic_delete(lbl.Text);
+          var watchId = idLabel.Text.ToTypeOrDefault<int?>(null);
+          if (watchId.HasValue)
+          {
+              this.GetRepository<WatchTopic>().DeleteByID(watchId.Value);
+          }
           noneChecked = false;
       }
 
@@ -292,7 +299,7 @@ namespace YAF.Pages
       this.ForumList.DataSource = LegacyDb.watchforum_list(this.PageContext.PageUserID).AsEnumerable();
 
       // we are going to page results
-      var dt = LegacyDb.watchtopic_list(this.PageContext.PageUserID);
+      var dt = this.GetRepository<WatchTopic>().List(this.PageContext.PageUserID);
 
       // set pager and datasource
       this.PagerTop.Count = dt.Rows.Count;
@@ -309,8 +316,7 @@ namespace YAF.Pages
       }
 
       // bind list
-      this.TopicList.DataSource =
-        dt.AsEnumerable().Skip(currentPageIndex * this.PagerTop.PageSize).Take(this.PagerTop.PageSize);
+      this.TopicList.DataSource = dt.AsEnumerable().Skip(currentPageIndex * this.PagerTop.PageSize).Take(this.PagerTop.PageSize);
 
       this.PMNotificationEnabled.Checked = this.PageContext.CurrentUserData.PMNotification;
       this.DailyDigestEnabled.Checked = this.PageContext.CurrentUserData.DailyDigest;

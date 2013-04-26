@@ -32,12 +32,15 @@ namespace YAF.Pages
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Extensions;
+    using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Types.Objects;
     using YAF.Utilities;
     using YAF.Utils;
@@ -1515,7 +1518,7 @@ namespace YAF.Pages
         /// </returns>
         private int? TopicWatchedId(int userId, int topicId)
         {
-            return LegacyDb.watchtopic_check(userId, topicId).GetFirstRowColumnAsValue<int?>("WatchTopicID", null);
+            return this.GetRepository<WatchTopic>().Check(userId, topicId);
         }
 
         /// <summary>
@@ -1534,7 +1537,7 @@ namespace YAF.Pages
             if (topicWatchedID.HasValue && !this.PostOptions1.WatchChecked)
             {
                 // unsubscribe...
-                LegacyDb.watchtopic_delete(topicWatchedID.Value);
+                this.GetRepository<WatchTopic>().DeleteByID(topicWatchedID.Value);
             }
             else if (!topicWatchedID.HasValue && this.PostOptions1.WatchChecked)
             {
@@ -1556,8 +1559,7 @@ namespace YAF.Pages
         {
             if (!this.TopicWatchedId(userId, topicId).HasValue)
             {
-                // subscribe to this forum
-                LegacyDb.watchtopic_add(userId, topicId);
+                this.GetRepository<WatchTopic>().Add(userId, topicId);
             }
         }
 

@@ -236,7 +236,7 @@ namespace YAF.Core.Services
         /// </returns>
         private int? TopicWatchedId(int userId, int topicId)
         {
-            return LegacyDb.watchtopic_check(userId, topicId).GetFirstRowColumnAsValue<int?>("WatchTopicID", null);
+            return this.GetRepository<WatchTopic>().Check(userId, topicId);
         }
 
         /// <summary>
@@ -253,8 +253,7 @@ namespace YAF.Core.Services
 
             if (watchedId.HasValue)
             {
-                // subscribe to this forum
-                LegacyDb.watchtopic_delete(watchedId);
+                this.GetRepository<WatchTopic>().DeleteByID(watchedId.Value);
             }
         }
 
@@ -270,8 +269,7 @@ namespace YAF.Core.Services
         {
             if (!this.TopicWatchedId(userId, topicId).HasValue)
             {
-                // subscribe to this forum
-                LegacyDb.watchtopic_add(userId, topicId);
+                this.GetRepository<WatchTopic>().Add(userId, topicId);
             }
         }
 

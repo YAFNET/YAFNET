@@ -36,6 +36,7 @@ namespace YAF.Pages
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
+    using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Core.Services.Twitter;
     using YAF.Editors;
@@ -45,6 +46,7 @@ namespace YAF.Pages
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
+    using YAF.Types.Models;
     using YAF.Utilities;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -843,14 +845,14 @@ namespace YAF.Pages
 
             if (this.WatchTopicID.InnerText == string.Empty)
             {
-                LegacyDb.watchtopic_add(this.PageContext.PageUserID, this.PageContext.PageTopicID);
+                this.GetRepository<WatchTopic>().Add(this.PageContext.PageUserID, this.PageContext.PageTopicID);
                 this.PageContext.AddLoadMessage(this.GetText("INFO_WATCH_TOPIC"));
             }
             else
             {
                 int tmpID = this.WatchTopicID.InnerText.ToType<int>();
 
-                LegacyDb.watchtopic_delete(tmpID);
+                this.GetRepository<WatchTopic>().DeleteByID(tmpID);
 
                 this.PageContext.AddLoadMessage(this.GetText("INFO_UNWATCH_TOPIC"));
             }
@@ -1302,27 +1304,21 @@ namespace YAF.Pages
                 return false;
             }
 
-            // check if this forum is being watched by this user
-            using (DataTable dt = LegacyDb.watchtopic_check(this.PageContext.PageUserID, this.PageContext.PageTopicID))
-            {
-                if (dt.Rows.Count > 0)
-                {
-                    // subscribed to this forum
-                    this.TrackTopic.Text = this.GetText("UNWATCHTOPIC");
+            var watchTopicId = this.GetRepository<WatchTopic>().Check(this.PageContext.PageUserID, this.PageContext.PageTopicID);
 
-                    foreach (DataRow row in dt.Rows)
-                    {
-                        this.WatchTopicID.InnerText = row["WatchTopicID"].ToString();
-                        return true;
-                    }
-                }
-                else
-                {
-                    // not subscribed
-                    this.WatchTopicID.InnerText = string.Empty;
-                    this.TrackTopic.Text = this.GetText("WATCHTOPIC");
-                }
+            // check if this forum is being watched by this user
+            if (watchTopicId.HasValue)
+            {
+                // subscribed to this forum
+                this.TrackTopic.Text = this.GetText("UNWATCHTOPIC");
+                this.WatchTopicID.InnerText = watchTopicId.Value.ToString();
+
+                return true;
             }
+
+            // not subscribed
+            this.WatchTopicID.InnerText = string.Empty;
+            this.TrackTopic.Text = this.GetText("WATCHTOPIC");
 
             return false;
         }
@@ -1649,14 +1645,12 @@ namespace YAF.Pages
             // Check to see if the user has enabled "auto watch topic" option in his/her profile.
             if (this.PageContext.CurrentUserData.AutoWatchTopics)
             {
-                using (
-                    DataTable dt = LegacyDb.watchtopic_check(this.PageContext.PageUserID, this.PageContext.PageTopicID))
+                var watchTopicId = this.GetRepository<WatchTopic>().Check(this.PageContext.PageUserID, this.PageContext.PageTopicID);
+
+                if (!watchTopicId.HasValue)
                 {
-                    if (dt.Rows.Count == 0)
-                    {
-                        // subscribe to this forum
-                        LegacyDb.watchtopic_add(this.PageContext.PageUserID, this.PageContext.PageTopicID);
-                    }
+                    // subscribe to this topic
+                    this.GetRepository<WatchTopic>().Add(this.PageContext.PageUserID, this.PageContext.PageTopicID);
                 }
             }
 

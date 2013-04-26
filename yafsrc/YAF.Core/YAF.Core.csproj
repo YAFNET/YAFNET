@@ -117,6 +117,7 @@
     <Compile Include="Extensions\MembershipUserExtensions.cs" />
     <Compile Include="Helpers\FileHelpers.cs" />
     <Compile Include="Helpers\IPLocator.cs" />
+    <Compile Include="Model\WatchTopicRepositoryExtensions.cs" />
     <Compile Include="Model\MailRepositoryExtensions.cs" />
     <Compile Include="Model\FavoriteTopicRepositoryExtensions.cs" />
     <Compile Include="Services\Import\DataImport.cs" />
