@@ -80,30 +80,29 @@ namespace YAF.Classes
         [WebMethod(EnableSession = true)]
         public YafAlbum.ReturnClass HandleMultiQuote([NotNull]string buttonId, [NotNull]bool multiquoteButton, [NotNull]int messageId, [NotNull]string buttonCssClass)
         {
+            var yafSession = this.Get<IYafSession>();
+
             if (multiquoteButton)
             {
-                if (this.Get<IYafSession>().MultiQuoteIds != null)
+                if (yafSession.MultiQuoteIds != null)
                 {
-                    if (!this.Get<IYafSession>().MultiQuoteIds.Contains(messageId))
+                    if (!yafSession.MultiQuoteIds.Contains(messageId))
                     {
-                        this.Get<IYafSession>().MultiQuoteIds.Add(messageId);
+                        yafSession.MultiQuoteIds.Add(messageId);
                     }
                 }
                 else
                 {
-                    this.Get<IYafSession>().MultiQuoteIds = new ArrayList { messageId };
+                    yafSession.MultiQuoteIds = new ArrayList { messageId };
                 }
 
                 buttonCssClass += " Checked";
             }
             else
             {
-                if (this.Get<IYafSession>().MultiQuoteIds != null)
+                if (yafSession.MultiQuoteIds != null && yafSession.MultiQuoteIds.Contains(messageId))
                 {
-                    if (this.Get<IYafSession>().MultiQuoteIds.Contains(messageId))
-                    {
-                        this.Get<IYafSession>().MultiQuoteIds.Remove(messageId);
-                    }
+                    yafSession.MultiQuoteIds.Remove(messageId);
                 }
 
                 buttonCssClass = "MultiQuoteButton";

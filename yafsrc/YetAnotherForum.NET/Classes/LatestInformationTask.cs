@@ -77,13 +77,15 @@ namespace YAF.Classes
 
           if (latestInfo != null)
           {
-            this.Get<HttpApplicationStateBase>().Set("YafRegistrationLatestInformation", latestInfo);
+              this.Get<HttpApplicationStateBase>().Set("YafRegistrationLatestInformation", latestInfo);
           }
         }
       }
       catch (Exception x)
       {
+#if DEBUG
           this.Logger.Error(x, "Exception In {0}", _taskName);
+#endif
       }
     }
 
