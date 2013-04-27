@@ -529,6 +529,9 @@ Global
 		{982416DB-C143-4028-A0C3-CF41892D18D3} = {1ECD5170-F9EA-43B7-956E-3CD3E6667784}
 		{579B3FDB-CDAD-44E1-8417-885C38E49A0E} = {1ECD5170-F9EA-43B7-956E-3CD3E6667784}
 	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = ServiceStack.OrmLite.Sqlite\ServiceStack.OrmLite.Sqlite.csproj
 	EndGlobalSection
