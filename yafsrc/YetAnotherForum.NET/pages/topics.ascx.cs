@@ -30,6 +30,8 @@ namespace YAF.Pages
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Extensions;
+    using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -37,6 +39,7 @@ namespace YAF.Pages
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -310,14 +313,14 @@ namespace YAF.Pages
 
             if (this.WatchForumID.InnerText == string.Empty)
             {
-                LegacyDb.watchforum_add(this.PageContext.PageUserID, this.PageContext.PageForumID);
+                this.GetRepository<WatchForum>().Add(this.PageContext.PageUserID, this.PageContext.PageForumID);
 
                 this.PageContext.AddLoadMessage(this.GetText("INFO_WATCH_FORUM"));
             }
             else
             {
                 var tmpID = this.WatchForumID.InnerText.ToType<int>();
-                LegacyDb.watchforum_delete(tmpID);
+               this.GetRepository<WatchForum>().DeleteByID(tmpID);
 
                 this.PageContext.AddLoadMessage(this.GetText("INFO_UNWATCH_FORUM"));
             }
@@ -453,25 +456,18 @@ namespace YAF.Pages
             }
 
             // check if this forum is being watched by this user
-            using (DataTable dt = LegacyDb.watchforum_check(this.PageContext.PageUserID, this.PageContext.PageForumID))
+            var watchForumId = this.GetRepository<WatchForum>().Check(this.PageContext.PageUserID, this.PageContext.PageForumID);
+            if (watchForumId.HasValue)
             {
-                if (dt.Rows.Count > 0)
-                {
-                    // subscribed to this forum
-                    this.WatchForum.Text = this.GetText("unwatchforum");
-
-                    foreach (DataRow row in dt.Rows)
-                    {
-                        this.WatchForumID.InnerText = row["WatchForumID"].ToString();
-                        break;
-                    }
-                }
-                else
-                {
-                    // not subscribed
-                    this.WatchForumID.InnerText = string.Empty;
-                    this.WatchForum.Text = this.GetText("watchforum");
-                }
+                // subscribed to this forum
+                this.WatchForum.Text = this.GetText("unwatchforum");
+                this.WatchForumID.InnerText = watchForumId.Value.ToString();
+            }
+            else
+            {
+                // not subscribed
+                this.WatchForumID.InnerText = string.Empty;
+                this.WatchForum.Text = this.GetText("watchforum");
             }
         }
 
