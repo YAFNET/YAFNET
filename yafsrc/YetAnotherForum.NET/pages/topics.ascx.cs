@@ -320,7 +320,7 @@ namespace YAF.Pages
             else
             {
                 var tmpID = this.WatchForumID.InnerText.ToType<int>();
-               this.GetRepository<WatchForum>().DeleteByID(tmpID);
+                this.GetRepository<WatchForum>().DeleteByID(tmpID);
 
                 this.PageContext.AddLoadMessage(this.GetText("INFO_UNWATCH_FORUM"));
             }

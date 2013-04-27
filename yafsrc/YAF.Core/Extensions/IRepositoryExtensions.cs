@@ -21,10 +21,12 @@ namespace YAF.Core.Extensions
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
 
     using ServiceStack.OrmLite;
 
     using YAF.Types;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
@@ -79,6 +81,27 @@ namespace YAF.Core.Extensions
             if (success)
             {
                 repository.FireDeleted(id);
+            }
+
+            return success;
+        }
+
+        /// <summary>
+        /// Deletes all typeof `T with ids in the list
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="repository"></param>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        public static bool DeleteByIDs<T>([NotNull] this IRepository<T> repository, IEnumerable<int> ids) where T : class, IEntity, IHaveID, new()
+        {
+            CodeContracts.ArgumentNotNull(repository, "repository");
+
+            var success = repository.DbAccess.Execute(db => db.Delete<T>(x => ids.Contains(x.ID))) == 1;
+
+            if (success)
+            {
+                ids.ForEach(id => repository.FireDeleted(id));
             }
 
             return success;

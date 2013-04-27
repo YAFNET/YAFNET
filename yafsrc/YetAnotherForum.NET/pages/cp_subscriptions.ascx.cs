@@ -24,6 +24,7 @@ namespace YAF.Pages
     #region Using
 
     using System;
+    using System.Collections.Generic;
     using System.Data;
     using System.Linq;
     using System.Web.UI.WebControls;
@@ -39,6 +40,7 @@ namespace YAF.Pages
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -206,6 +208,30 @@ namespace YAF.Pages
             this.PageContext.AddLoadMessage(this.GetText("SAVED_NOTIFICATION_SETTING"), MessageTypes.Success);
         }
 
+        private static List<int> GetCheckedIds(Repeater repeater, string checkBoxId, string idLabelId)
+        {
+            var ids = new List<int>();
+
+            foreach (var item in repeater.Items.OfType<RepeaterItem>())
+            {
+                var checkBox = item.FindControlAs<CheckBox>(checkBoxId);
+                var idLabel = item.FindControlAs<Label>(idLabelId);
+
+                if (!checkBox.Checked)
+                {
+                    continue;
+                }
+
+                var id = idLabel.Text.ToTypeOrDefault<int?>(null);
+                if (id.HasValue)
+                {
+                    ids.Add(id.Value);
+                }
+            }
+
+            return ids;
+        }
+
         /// <summary>
         /// Unwatch Forums
         /// </summary>
@@ -213,29 +239,11 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void UnsubscribeForums_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            bool noneChecked = true;
+            var ids = GetCheckedIds(this.ForumList, "unsubf", "tfid");
 
-            for (int i = 0; i < this.ForumList.Items.Count; i++)
+            if (ids.Any())
             {
-                var ctrl = (CheckBox)this.ForumList.Items[i].FindControl("unsubf");
-                var lbl = (Label)this.ForumList.Items[i].FindControl("tfid");
-
-                if (!ctrl.Checked)
-                {
-                    continue;
-                }
-
-                var watchId = lbl.Text.ToTypeOrDefault<int?>(null);
-                if (watchId.HasValue)
-                {
-                    this.GetRepository<WatchForum>().DeleteByID(watchId.Value);
-                }
-
-                noneChecked = false;
-            }
-
-            if (noneChecked)
-            {
+                this.GetRepository<WatchForum>().DeleteByIDs(ids);
                 this.PageContext.AddLoadMessage(this.GetText("WARN_SELECTFORUMS"), MessageTypes.Warning);
             }
             else
@@ -251,28 +259,11 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void UnsubscribeTopics_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            bool noneChecked = true;
+            var ids = GetCheckedIds(this.TopicList, "unsubx", "ttid");
 
-            for (int i = 0; i < this.TopicList.Items.Count; i++)
+            if (ids.Any())
             {
-                var unsubscribe = (CheckBox)this.TopicList.Items[i].FindControl("unsubx");
-                var idLabel = (Label)this.TopicList.Items[i].FindControl("ttid");
-
-                if (!unsubscribe.Checked)
-                {
-                    continue;
-                }
-
-                var watchId = idLabel.Text.ToTypeOrDefault<int?>(null);
-                if (watchId.HasValue)
-                {
-                    this.GetRepository<WatchTopic>().DeleteByID(watchId.Value);
-                }
-                noneChecked = false;
-            }
-
-            if (noneChecked)
-            {
+                this.GetRepository<WatchTopic>().DeleteByIDs(ids);
                 this.PageContext.AddLoadMessage(this.GetText("WARN_SELECTTOPICS"), MessageTypes.Warning);
             }
             else
