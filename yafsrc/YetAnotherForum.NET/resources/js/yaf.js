@@ -178,7 +178,12 @@ function mouseHover(cell, hover) {
     }
 }
 
-jQuery(document).ready(function() {
+// Generic Functions
+jQuery(document).ready(function () {
+    
+    /// <summary>
+    /// Convert user posted image to modal images
+    /// </summary>
     jQuery(".postContainer .UserPostedImage,.postContainer_Alt .UserPostedImage").each(function() {
         var image = jQuery(this);
         if (!image.parents('a').length) {

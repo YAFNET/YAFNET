@@ -42,6 +42,7 @@ namespace YAF.Pages.Admin
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
+    using YAF.Utilities;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -255,6 +256,32 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
+        /// Registers the needed Java Scripts
+        /// </summary>
+        /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
+        protected override void OnPreRender([NotNull] EventArgs e)
+        {
+            // setup jQuery and YAF JS...
+            YafContext.Current.PageElements.RegisterJQuery();
+            YafContext.Current.PageElements.RegisterJQueryUI();
+
+            YafContext.Current.PageElements.RegisterJsResourceInclude(
+                 "tablesorter", "js/jquery.tablesorter.js");
+
+            YafContext.Current.PageElements.RegisterJsBlock(
+                "spinnerJs",
+                JavaScriptBlocks.LoadSpinnerWidget());
+
+            YafContext.Current.PageElements.RegisterJsBlock(
+                "tablesorterLoadJs",
+                JavaScriptBlocks.LoadTableSorter(".sortable", "headers: { 4: { sorter: false }},sortList: [[3,0],[0,0]]"));
+
+            YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.tablesorter.css");
+
+            base.OnPreRender(e);
+        }
+        
+        /// <summary>
         /// Handles the Load event of the Page control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -381,9 +408,9 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
+            // bind list
             this.UserList.DataSource = LegacyDb.user_list(this.PageContext.PageBoardID, null, false);
-
-            // this.DataBind();
+            this.UserList.DataBind();
 
             // get stats for current board, selected board or all boards (see function)
             DataRow row = this.GetRepository<Board>().Stats(this.GetSelectedBoardID());

@@ -3351,7 +3351,10 @@
     <Content Include="resources\icons\WarningBig.png" />
     <Content Include="resources\icons\wrench.png" />
     <Content Include="resources\images\closelabel.png" />
+    <Content Include="resources\images\asc.gif" />
+    <Content Include="resources\images\bg.gif" />
     <Content Include="resources\images\dd_arrow.gif" />
+    <Content Include="resources\images\desc.gif" />
     <Content Include="resources\images\DialogBackground.png" />
     <Content Include="resources\images\flags\ad.png" />
     <Content Include="resources\images\flags\ae.png" />
@@ -3623,6 +3626,7 @@
     <Content Include="resources\js\jquery.spellchecker.min.js" />
     <Content Include="resources\js\jquery.syntaxhighligher.js" />
     <Content Include="resources\js\jquery.pagemethod.readme.txt" />
+    <Content Include="resources\js\jquery.tablesorter.js" />
     <Content Include="resources\js\jquery.timeago.js" />
     <Content Include="resources\js\jquery.ui.datepicker-farsi.js" />
     <Content Include="resources\js\jquery.yafmodaldialog.js" />

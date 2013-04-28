@@ -23,33 +23,40 @@
 			</div>
     </asp:PlaceHolder>
     <table width="100%" cellspacing="1" cellpadding="0" class="content">
+        <tr>
+             <td class="header1">
+                        <YAF:LocalizedLabel ID="LocalizedLabel19" runat="server" LocalizedTag="HEADER2" LocalizedPage="ADMIN_ADMIN" />
+                    </td>
+        </tr>
+        <tr>
+            <td style="padding:0">
+                
         <asp:Repeater ID="UserList" runat="server" OnItemCommand="UserList_ItemCommand">
             <HeaderTemplate>
+                <table style="width:100%"  cellspacing="1" cellpadding="0" class="sortable tablesorter">
+                <thead>
                 <tr>
-                    <td class="header1" colspan="5">
-                        <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER2" LocalizedPage="ADMIN_ADMIN" />
-                    </td>
-                </tr>
-                <tr>
-                    <td class="header2">
+                    <th class="header2">
                         <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="ADMIN_NAME"
                             LocalizedPage="ADMIN_ADMIN" />
-                    </td>
-                    <td class="header2">
+                    </th>
+                    <th class="header2">
                         <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="ADMIN_EMAIL"
                             LocalizedPage="ADMIN_ADMIN" />
-                    </td>
-                    <td class="header2">
+                    </th>
+                    <th class="header2">
                         <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="LOCATION" />
-                    </td>
-                    <td class="header2">
+                    </th>
+                    <th class="header2">
                         <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="ADMIN_JOINED"
                             LocalizedPage="ADMIN_ADMIN" />
-                    </td>
-                    <td class="header2">
+                    </th>
+                    <th class="header2">
                         &nbsp;
-                    </td>
+                    </th>
                 </tr>
+                    </thead>
+                <tbody>
             </HeaderTemplate>
             <ItemTemplate>
                 <tr>
@@ -81,12 +88,15 @@
                 </tr>
             </ItemTemplate>
             <FooterTemplate>
+                </tbody>
+                </table>
+                </td>
                 <tr>
-                    <td class="footer1" colspan="5">
+                    <td class="footer1">
                         <asp:Button OnLoad="ApproveAll_Load" CommandName="approveall" CssClass="pbutton"
                             runat="server" />
                         <asp:Button OnLoad="DeleteAll_Load" CommandName="deleteall" CssClass="pbutton" runat="server" />
-                        <asp:TextBox ID="DaysOld" runat="server" Width="40px" MaxLength="5" Text="14"></asp:TextBox>
+                        <asp:TextBox ID="DaysOld" runat="server" MaxLength="5" Text="14" CssClass="Numeric"></asp:TextBox>
                     </td>
                 </tr>
             </FooterTemplate>

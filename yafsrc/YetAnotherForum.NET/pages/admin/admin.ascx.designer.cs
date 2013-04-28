@@ -67,6 +67,15 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.HyperLink UpdateLinkWarning;
         
         /// <summary>
+        /// LocalizedLabel19 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel19;
+        
+        /// <summary>
         /// UserList control.
         /// </summary>
         /// <remarks>
