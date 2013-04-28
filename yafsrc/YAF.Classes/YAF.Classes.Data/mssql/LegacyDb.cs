@@ -9069,27 +9069,6 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
-        /// Add Or Update Read Tracking for the Current User and Topic
-        /// </summary>
-        /// <param name="userID">
-        /// The user id.
-        /// </param>
-        /// <param name="topicID">
-        /// The topic id.
-        /// </param>
-        public static void Readtopic_AddOrUpdate([NotNull] object userID, [NotNull] object topicID)
-        {
-            using (var cmd = MsSqlDbAccess.GetCommand("readtopic_addorupdate"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("UserID", userID);
-                cmd.Parameters.AddWithValue("TopicID", topicID);
-                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
-                MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
-            }
-        }
-
-        /// <summary>
         /// Delete the Read Tracking
         /// </summary>
         /// <param name="userID">The user id</param>
@@ -9104,95 +9083,6 @@ namespace YAF.Classes.Data
                 var tableLastRead = MsSqlDbAccess.Current.ExecuteScalar(cmd);
 
                 return tableLastRead.ToType<DateTime?>();
-            }
-        }
-
-        /// <summary>
-        /// Get the Last Read DateTime for the Current Topic and User
-        /// </summary>
-        /// <param name="userID">
-        /// The user ID.
-        /// </param>
-        /// <param name="topicID">
-        /// The topic ID.
-        /// </param>
-        /// <returns>
-        /// Returns the Last Read DateTime
-        /// </returns>
-        public static DateTime? Readtopic_lastread([NotNull] object userID, [NotNull] object topicID)
-        {
-            using (var cmd = MsSqlDbAccess.GetCommand("readtopic_lastread"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("UserID", userID);
-                cmd.Parameters.AddWithValue("TopicID", topicID);
-
-                var tableLastRead = MsSqlDbAccess.Current.ExecuteScalar(cmd);
-
-                return tableLastRead.ToType<DateTime?>();
-            }
-        }
-
-        /// <summary>
-        /// Add Or Update Read Tracking for the forum and Topic
-        /// </summary>
-        /// <param name="userID">
-        /// The user id.
-        /// </param>
-        /// <param name="forumID">
-        /// The forum id.
-        /// </param>
-        public static void ReadForum_AddOrUpdate([NotNull] object userID, [NotNull] object forumID)
-        {
-            using (var cmd = MsSqlDbAccess.GetCommand("readforum_addorupdate"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("UserID", userID);
-                cmd.Parameters.AddWithValue("ForumID", forumID);
-                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
-                MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
-            }
-        }
-
-        /// <summary>
-        /// Delete the Read Tracking
-        /// </summary>
-        /// <param name="userID">
-        /// The user id.
-        /// </param>
-        /*public static void ReadForum_delete([NotNull] object userID)
-        {
-            using (var cmd = MsSqlDbAccess.GetCommand("readforum_delete"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("UserID", userID);
-                MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
-            }
-        }*/
-
-        /// <summary>
-        /// Get the Last Read DateTime for the Forum and User
-        /// </summary>
-        /// <param name="userID">
-        /// The user ID.
-        /// </param>
-        /// <param name="forumID">
-        /// The forum ID.
-        /// </param>
-        /// <returns>
-        /// Returns the Last Read DateTime
-        /// </returns>
-        public static DateTime? ReadForum_lastread([NotNull] object userID, [NotNull] object forumID)
-        {
-            using (var cmd = MsSqlDbAccess.GetCommand("readforum_lastread"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("UserID", userID);
-                cmd.Parameters.AddWithValue("ForumID", forumID);
-
-                var tableLastRead = MsSqlDbAccess.Current.ExecuteScalar(cmd);
-
-            	return tableLastRead.ToType<DateTime?>();
             }
         }
 
