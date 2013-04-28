@@ -1,5 +1,5 @@
 /* Yet Another Forum.NET
- * Copyright (C) 2006-2012 Jaben Cargman
+ * Copyright (C) 2006-2013 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -155,32 +155,6 @@ namespace YAF.DotNetNuke.Controller
             }
 
             return topicsList;
-        }
-
-        /// <summary>
-        /// Gets the DNN portal roles.
-        /// </summary>
-        /// <param name="portalId">The portal id.</param>
-        /// <returns>Returns List with DNN Portal Roles.</returns>
-        public static List<RoleInfo> GetDnnPortalRoles(int portalId)
-        {
-            List<RoleInfo> roles = new List<RoleInfo>();
-
-            using (IDataReader dr = DataProvider.Instance().ExecuteReader("YafDnn_GetPortalRoles", portalId))
-            {
-                while (dr.Read())
-                {
-                    RoleInfo role = new RoleInfo
-                    {
-                        RoleName = Convert.ToString(dr["RoleName"]),
-                        RoleID = dr["RoleID"].ToType<int>(),
-                    };
-
-                    roles.Add(role);
-                }
-            }
-
-            return roles;
         }
 
         /// <summary>
