@@ -274,7 +274,7 @@ namespace YAF.Pages.Admin
 
             YafContext.Current.PageElements.RegisterJsBlock(
                 "tablesorterLoadJs",
-                JavaScriptBlocks.LoadTableSorter(".sortable", "headers: { 4: { sorter: false }},sortList: [[3,0],[0,0]]"));
+                JavaScriptBlocks.LoadTableSorter(".sortable", "headers: { 4: { sorter: false }},sortList: [[3,1],[0,0]]"));
 
             YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.tablesorter.css");
 
