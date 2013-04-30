@@ -1094,6 +1094,23 @@ namespace YAF.Pages
             if (findMessageId > 0)
             {
                 this.Pager.CurrentPageIndex = rowList.First().Field<int>(columnName: "PageIndex");
+                // move to this message on load...
+                if (!this.PageContext.IsCrawler)
+                {
+                    PageContext.PageElements.RegisterJsBlockStartup(
+                        this, "GotoAnchorJs", JavaScriptBlocks.LoadGotoAnchor("post{0}".FormatWith(findMessageId)));
+                }
+            }
+            else
+            {
+                // move to this message on load...
+                if (!this.PageContext.IsCrawler)
+                {
+                    PageContext.PageElements.RegisterJsBlockStartup(
+                        this,
+                        "GotoAnchorJs",
+                        JavaScriptBlocks.LoadGotoAnchor("post{0}".FormatWith(rowList.First().Field<int>(columnName: "MessageID"))));
+                }
             }
 
             var pagedData = rowList; // .Skip(this.Pager.SkipIndex).Take(this.Pager.PageSize);
@@ -1181,11 +1198,8 @@ namespace YAF.Pages
 
             try
             {
-                if (this._ignoreQueryString)
-                {
-                }
-                else
-                {
+                if (!this._ignoreQueryString)
+                {                
                     // temporary find=lastpost code until all last/unread post links are find=lastpost and find=unread
                     if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find") == null)
                     {
@@ -1238,15 +1252,6 @@ namespace YAF.Pages
                                 {
                                     findMessageId = unreadFirst.Field<int>("MessageID");
                                     messagePosition = unreadFirst.Field<int>("MessagePosition");
-
-                                    // move to this message on load...
-                                    if (!this.PageContext.IsCrawler)
-                                    {
-                                        PageContext.PageElements.RegisterJsBlockStartup(
-                                            this,
-                                            "GotoAnchorJs",
-                                            JavaScriptBlocks.LoadGotoAnchor("post{0}".FormatWith(findMessageId)));
-                                    }
                                 }
                             }
                         }
@@ -1268,15 +1273,6 @@ namespace YAF.Pages
                                 {
                                     findMessageId = unreadFirst.Field<int>("MessageID");
                                     messagePosition = unreadFirst.Field<int>("MessagePosition");
-
-                                    // move to this message on load...
-                                    if (!this.PageContext.IsCrawler)
-                                    {
-                                        PageContext.PageElements.RegisterJsBlockStartup(
-                                            this,
-                                            "GotoAnchorJs",
-                                            JavaScriptBlocks.LoadGotoAnchor("post{0}".FormatWith(findMessageId)));
-                                    }
                                 }
                             }
                         }
