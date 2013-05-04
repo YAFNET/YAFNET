@@ -31,6 +31,7 @@ namespace YAF.Controls
 
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Types;
@@ -163,6 +164,23 @@ namespace YAF.Controls
         /// </summary>
         private void BanUserIps()
         {
+            var usr =
+                LegacyDb.UserList(this.PageContext.PageBoardID, this.CurrentUserID.ToType<int?>(), null, null, null, false).FirstOrDefault();
+
+            if (usr != null)
+            {
+                this.Get<ILogger>()
+                    .Log(
+                        this.PageContext.PageUserID,
+                        "YAF.Controls.EditUsersKill",
+                        "User {0} was killed by {1}".FormatWith(
+                            this.Get<YafBoardSettings>().EnableDisplayName ? usr.DisplayName : usr.Name,
+                            this.Get<YafBoardSettings>().EnableDisplayName
+                                ? this.PageContext.CurrentUserData.DisplayName
+                                : this.PageContext.CurrentUserData.UserName),
+                        EventLogTypes.UserSuspended);
+            }
+
             var allIps = this.GetRepository<BannedIP>().ListTyped().Select(x => x.Mask).ToList();
 
             // ban user ips...
@@ -178,6 +196,11 @@ namespace YAF.Controls
                 string linkUserBan = this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "LINK_USER_BAN").FormatWith(this.CurrentUserID, YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.CurrentUserID), this.HtmlEncode(name));
 
                 this.GetRepository<BannedIP>().Save(null, ip, linkUserBan, this.PageContext.PageUserID);
+            }
+
+            if (this.SuspendUser.Checked && this.CurrentUserID > 0)
+            {
+                LegacyDb.user_suspend(this.CurrentUserID, DateTime.UtcNow.AddYears(5));
             }
         }
 

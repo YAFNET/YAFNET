@@ -873,9 +873,10 @@
 	   <Resource tag="PASS_OPTION">Option:</Resource>
 	   <Resource tag="PASS_OPTION_RESET">Reset Password and Email New Password to User</Resource>
 	   <Resource tag="PASS_OPTION_CHANGE">Manually Change Password and Optionally Email New Password to User</Resource>
-	   <Resource tag="IP_ADRESSES">IP Addresses:</Resource>
+	   <Resource tag="IP_ADDRESSES">IP Addresses:</Resource>
 	   <Resource tag="BAN_IP_OFUSER">Ban IP Addresses of User?</Resource>
 	   <Resource tag="DELETE_POSTS_USER">Delete all Posts for User?</Resource>
+       <Resource tag="SUSPEND_ACCOUNT_USER">Suspend this account for 5 years?</Resource>
 	   <Resource tag="CURRENT_POINTS">Current Points:</Resource>
 	   <Resource tag="SET_POINTS">Set Points:</Resource>
 	   <Resource tag="ADD_POINTS">Add Points:</Resource>
@@ -914,7 +915,7 @@
 	   <Resource tag="MSG_PASS_RESET">User Password Reset and Notification Email Sent</Resource>
 	   <Resource tag="MSG_PASS_CHANGED_NOTI">User Password Changed and Notification Email Sent.</Resource>
 	   <Resource tag="MSG_PASS_CHANGED">User Password Changed</Resource>
-	   <Resource tag="MSG_GUEST_APPROVED">The Guest user must be marked as Approved or your forum will be unstable.</Resource>
+	   <Resource tag="MSG_GUEST_APPROVED">The Guest user must Approved or your forum will be unstable.</Resource>
 	 </page>
 	 <page name="ADMIN_REGUSER">
 	   <Resource tag="TITLE">New User</Resource>

@@ -67,6 +67,24 @@ namespace YAF.Controls {
         protected global::System.Web.UI.WebControls.CheckBox BanIps;
         
         /// <summary>
+        /// LocalizedLabel6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel6;
+        
+        /// <summary>
+        /// SuspendUser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox SuspendUser;
+        
+        /// <summary>
         /// LocalizedLabel4 control.
         /// </summary>
         /// <remarks>

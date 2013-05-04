@@ -421,12 +421,14 @@ namespace YAF.Providers.Profile
                     object val = row[prop.Name];
 
                     // Only initialize a SettingsPropertyValue for non-null values
-                    if (!(val is DBNull || val == null))
+                    if (val is DBNull || val == null)
                     {
-                        prop.PropertyValue = val;
-                        prop.IsDirty = false;
-                        prop.Deserialized = true;
+                        continue;
                     }
+
+                    prop.PropertyValue = val;
+                    prop.IsDirty = false;
+                    prop.Deserialized = true;
                 }
             }
 

@@ -129,15 +129,9 @@ namespace YAF.Pages.Admin
                   {
                       finalList.Add(item1);
                   }*/
-            foreach (T item1 in
+            finalList.AddRange(
                 list.Where(
-                    item1 =>
-                    finalList.Find(
-                        check => check.PageName.Equals(item1.PageName) && check.ResourceName.Equals(item1.ResourceName))
-                    == null))
-            {
-                finalList.Add(item1);
-            }
+                    item1 => finalList.Find(check => check.PageName.Equals(item1.PageName) && check.ResourceName.Equals(item1.ResourceName)) == null));
 
             return finalList;
         }
@@ -358,9 +352,6 @@ namespace YAF.Pages.Admin
 
             try
             {
-                new StringBuilder();
-                new StringBuilder();
-
                 var docSrc = new XmlDocument();
                 var docDst = new XmlDocument();
 

@@ -213,14 +213,10 @@ namespace YAF.Pages
             {
                 // setup jQuery and Facebook Scripts.
                 YafContext.Current.PageElements.RegisterJQuery();
-
                 YafContext.Current.PageElements.RegisterJsResourceInclude("yafPageMethodjs", "js/jquery.pagemethod.js");
-
                 YafContext.Current.PageElements.RegisterJsBlockStartup(
                     "facebookInitJs", JavaScriptBlocks.FacebookInitJs);
-
                 var rememberMe = this.Login1.FindControlAs<CheckBox>("RememberMe");
-
                 YafContext.Current.PageElements.RegisterJsBlockStartup(
                     "facebookLoginJs", JavaScriptBlocks.FacebookLoginJs(rememberMe.ClientID));
 
@@ -319,7 +315,6 @@ namespace YAF.Pages
                 singleSignOnRow.Visible = true;
 
                 facebookHolder.Visible = Config.FacebookAPIKey.IsSet() && Config.FacebookSecretKey.IsSet();
-
                 twitterHolder.Visible = Config.TwitterConsumerKey.IsSet() && Config.TwitterConsumerSecret.IsSet();
 
                 if (twitterHolder.Visible)
@@ -330,7 +325,7 @@ namespace YAF.Pages
                         YafSingleSignOnUser.GenerateTwitterLoginUrl(true));
 
                     twitterLogin.InnerHtml =
-                        "<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" style=\"margin:0;\">".FormatWith(
+                        @"<img src=""{0}"" alt=""{1}"" title=""{1}"" style=""margin:0;"">".FormatWith(
                             "{0}images/twitter_signin.png".FormatWith(YafForumInfo.ForumClientFileRoot),
                             this.GetText("LOGIN", "TWITTER_LOGIN"));
                 }
