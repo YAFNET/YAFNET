@@ -703,6 +703,7 @@
     <Resource tag="HEAD_USER_GROUPS">گروهای کاربر</Resource>
     <Resource tag="HEAD_USER_POINTS">نمرات کاربر</Resource>
     <Resource tag="HEAD_USER_RESETPASS">بازنشانی/تغییر کلمه عبور</Resource>
+    <Resource tag="IP_ADDRESSES">IP Addresses:</Resource>
     <Resource tag="IP_ADRESSES">آدرس های آی پی :</Resource>
     <Resource tag="LINK_USER_BAN">کاربر &lt;a id="usr{0}" href="{1}"&gt;{2}&lt;/a&gt;  بوسیله آی پی بلاک شده</Resource>
     <Resource tag="MEMBER">عضو</Resource>
@@ -719,6 +720,7 @@
     <Resource tag="REMOVE_POINTS">حذف نمرات:</Resource>
     <Resource tag="RESET_PASS">بازنشانی کلمه عبور</Resource>
     <Resource tag="SET_POINTS">تنظیم نمره:</Resource>
+    <Resource tag="SUSPEND_ACCOUNT_USER">Suspend this account for 5 years?</Resource>
     <Resource tag="TITLE">ویرایش کاربر "{0}"</Resource>
     <Resource tag="TWITTER_USER">Twitter User:</Resource>
     <Resource tag="USER_AVATAR">آواتار کاربر</Resource>

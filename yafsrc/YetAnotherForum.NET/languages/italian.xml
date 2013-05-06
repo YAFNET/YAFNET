@@ -703,6 +703,7 @@
     <Resource tag="HEAD_USER_GROUPS">User Groups</Resource>
     <Resource tag="HEAD_USER_POINTS">User Points</Resource>
     <Resource tag="HEAD_USER_RESETPASS">Reset/Change User Password</Resource>
+    <Resource tag="IP_ADDRESSES">IP Addresses:</Resource>
     <Resource tag="IP_ADRESSES">IP Addresses:</Resource>
     <Resource tag="LINK_USER_BAN">User &lt;a id="usr{0}" href="{1}"&gt;{2}&lt;/a&gt;  is banned by IP</Resource>
     <Resource tag="MEMBER">Member</Resource>
@@ -719,6 +720,7 @@
     <Resource tag="REMOVE_POINTS">Remove Points:</Resource>
     <Resource tag="RESET_PASS">Reset Password</Resource>
     <Resource tag="SET_POINTS">Set Points:</Resource>
+    <Resource tag="SUSPEND_ACCOUNT_USER">Suspend this account for 5 years?</Resource>
     <Resource tag="TITLE">Edit User "{0}"</Resource>
     <Resource tag="TWITTER_USER">Twitter User:</Resource>
     <Resource tag="USER_AVATAR">User Avatar</Resource>

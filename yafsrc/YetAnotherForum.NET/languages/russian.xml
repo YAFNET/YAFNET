@@ -703,6 +703,7 @@
     <Resource tag="HEAD_USER_GROUPS">Группы пользователя</Resource>
     <Resource tag="HEAD_USER_POINTS">Очки пользователя</Resource>
     <Resource tag="HEAD_USER_RESETPASS">Сбросить/Изменить пароль пользователя</Resource>
+    <Resource tag="IP_ADDRESSES">IP Addresses:</Resource>
     <Resource tag="IP_ADRESSES">Адреса IP:</Resource>
     <Resource tag="LINK_USER_BAN">Пользователь &lt;a id="usr{0}" href="{1}"&gt;{2}&lt;/a&gt;  забанен по IP</Resource>
     <Resource tag="MEMBER">Участник</Resource>
@@ -719,6 +720,7 @@
     <Resource tag="REMOVE_POINTS">Удалить очки:</Resource>
     <Resource tag="RESET_PASS">Сброс пароля</Resource>
     <Resource tag="SET_POINTS">Ввести очки:</Resource>
+    <Resource tag="SUSPEND_ACCOUNT_USER">Suspend this account for 5 years?</Resource>
     <Resource tag="TITLE">Редактирование пользователя "{0}"</Resource>
     <Resource tag="TWITTER_USER">Пользователь Twitter:</Resource>
     <Resource tag="USER_AVATAR">Аватар пользователя</Resource>

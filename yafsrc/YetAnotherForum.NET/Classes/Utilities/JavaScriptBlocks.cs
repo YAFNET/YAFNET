@@ -167,13 +167,15 @@ namespace YAF.Utilities
                 return
                     @"function multiQuoteSuccess(res){{
                   var multiQuoteButton = {0}('#' + res.d.Id).parent('span');
-                  multiQuoteButton.removeClass(multiQuoteButton.attr('class')).addClass(res.d.NewTitle);}}"
+                  multiQuoteButton.removeClass(multiQuoteButton.attr('class')).addClass(res.d.NewTitle);
+                  {0}(document).scrollTop(multiQuoteButton.offset().top - 20);
+                      }}"
                         .FormatWith(Config.JQueryAlias);
             }
         }
 
         /// <summary>
-        /// Gets the multi quote button js.
+        /// Gets the multi quote button JS.
         /// </summary>
         [NotNull]
         public static string MultiQuoteButtonJs

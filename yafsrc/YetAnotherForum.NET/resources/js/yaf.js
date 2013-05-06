@@ -54,11 +54,7 @@ function ChangeReputationBarColor(value, text, selector) {
     }
         // 90-100%
     else {
-        jQuery(selector).html('<div class="ui-progressbar-value ui-widget-header ui-corner-left ui-corner-right ReputationBarValue" style="width: ' + value + '%; "></div>');
-
-        $repbar.addClass("BarDarkGreen");
-
-        $repbar.prepend('<p class="ReputationBarText">' + text + '</p>');
+        jQuery(selector).html('<div class="ui-progressbar-value ui-widget-header ui-corner-left ui-corner-right ReputationBarValue BarDarkGreen" style="width: ' + value + '%; "><p class="ReputationBarText">' + text + '</p></div>');
     }
 }
 
