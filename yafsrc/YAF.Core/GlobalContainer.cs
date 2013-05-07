@@ -22,6 +22,7 @@ namespace YAF.Core
 
     using Autofac;
 
+    using YAF.Core.Helpers;
     using YAF.Types;
     using YAF.Types.Interfaces;
 
@@ -35,16 +36,18 @@ namespace YAF.Core
         #region Constants and Fields
 
         /// <summary>
-        /// The _sync object.
-        /// </summary>
-        private static readonly object _syncObject = new object();
-
-        /// <summary>
         ///   The _container.
         /// </summary>
-        private static IContainer _container;
+        private static readonly IContainer _container;
 
         #endregion
+
+        static GlobalContainer()
+        {
+            var container = CreateContainer();
+            ServiceLocatorAccess.CurrentServiceProvider = container.Resolve<IServiceLocator>();
+            _container = container;
+        }
 
         #region Properties
 
@@ -55,20 +58,6 @@ namespace YAF.Core
         {
             get
             {
-                if (_container == null)
-                {
-                    lock (_syncObject)
-                    {
-                        if (_container == null)
-                        {
-                            _container = CreateContainer();
-
-                            // immediately setup the static service locator...
-                            ServiceLocatorAccess.CurrentServiceProvider = _container.Resolve<IServiceLocator>();
-                        }
-                    }
-                }
-
                 return _container;
             }
         }
