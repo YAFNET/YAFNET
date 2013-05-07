@@ -123,6 +123,7 @@
     <Compile Include="Model\WatchTopicRepositoryExtensions.cs" />
     <Compile Include="Model\MailRepositoryExtensions.cs" />
     <Compile Include="Model\FavoriteTopicRepositoryExtensions.cs" />
+    <Compile Include="Helpers\SafeReadWriteProvider.cs" />
     <Compile Include="Services\Import\DataImport.cs" />
     <Compile Include="Model\AccessMaskRepositoryExtensions.cs" />
     <Compile Include="Model\ActiveAccessRepositoryExtensions.cs" />

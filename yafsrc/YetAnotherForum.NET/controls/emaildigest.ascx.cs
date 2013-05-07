@@ -187,11 +187,8 @@ namespace YAF.Controls
     /// </returns>
     protected string GetMessageFormattedAndTruncated([NotNull] string lastMessage, int maxlength)
     {
-      return
-        StringExtensions.Truncate(
-          StringExtensions.RemoveMultipleWhitespace(
-            BBCodeHelper.StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(lastMessage)))), 
-          maxlength);
+        return
+            BBCodeHelper.StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(lastMessage))).RemoveMultipleWhitespace().Truncate(maxlength);
     }
 
     /// <summary>
