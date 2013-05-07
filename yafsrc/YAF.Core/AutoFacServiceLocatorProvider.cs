@@ -57,8 +57,8 @@ namespace YAF.Core
         /// <summary>
         ///     The _injection cache.
         /// </summary>
-        private static readonly ConcurrentDictionary<KeyValuePair<Type, Type>, IList<PropertyInfo>> _injectionCache =
-            new ConcurrentDictionary<KeyValuePair<Type, Type>, IList<PropertyInfo>>();
+        private static readonly ConcurrentDictionary<KeyValuePair<Type, Type>, IList<Tuple<Type, Type, Action<object, object>>>> _injectionCache =
+            new ConcurrentDictionary<KeyValuePair<Type, Type>, IList<Tuple<Type, Type, Action<object, object>>>>();
 
         #endregion
 
@@ -247,27 +247,28 @@ namespace YAF.Core
 
             var keyPair = new KeyValuePair<Type, Type>(type, attributeType);
 
-            IList<PropertyInfo> properties;
+            IList<Tuple<Type, Type, Action<object, object>>> properties;
 
             if (!_injectionCache.TryGetValue(keyPair, out properties))
             {
                 // find them...
                 properties =
-                    type.GetProperties(DefaultFlags).Where(
-                        p =>
-                        p.GetSetMethod(false) != null && !p.GetIndexParameters().Any() && p.IsDefined(attributeType, true)).ToList();
+                    type.GetProperties(DefaultFlags)
+                        .Where(p => p.GetSetMethod(false) != null && !p.GetIndexParameters().Any() && p.IsDefined(attributeType, true))
+                        .Select(p => Tuple.Create(p.PropertyType, p.DeclaringType, new Action<object, object>((i, v) => p.SetValue(i, v, null))))
+                        .ToList();
 
                 _injectionCache.AddOrUpdate(keyPair, k => properties, (k, v) => properties);
             }
 
             foreach (var injectProp in properties)
             {
-                object serviceInstance = injectProp.PropertyType == typeof(ILogger)
-                                             ? this.Container.Resolve<ILoggerProvider>().Create(injectProp.DeclaringType)
-                                             : this.Container.Resolve(injectProp.PropertyType);
+                object serviceInstance = injectProp.Item1 == typeof(ILogger)
+                                             ? this.Container.Resolve<ILoggerProvider>().Create(injectProp.Item2)
+                                             : this.Container.Resolve(injectProp.Item1);
 
                 // set value is super slow... best not to use it very much.
-                injectProp.SetValue(instance, serviceInstance, null);
+                injectProp.Item3(instance, serviceInstance);
             }
         }
 
