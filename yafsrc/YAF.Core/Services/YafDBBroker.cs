@@ -502,14 +502,11 @@ namespace YAF.Core.Services
                 SimpleForum forum1 = forum;
 
                 // add topics
-                var topics =
-                    this.DbFunction.GetAsDataTable(
-                        cdb => cdb.topic_list(forum1.ForumID, userId, timeFrame, DateTime.UtcNow, 0, maxCount, false, false, false))
-                        .SelectTypedList(x => this.LoadSimpleTopic(x, forum1))
-                        .Where(x => x.LastPostDate >= timeFrame)
-                        .ToList();
+                var topics = LegacyDb.topic_list(forum1.ForumID, userId, timeFrame, DateTime.UtcNow, 0, maxCount, false, false, false);
 
-                forum.Topics = topics;
+                forum.Topics = topics.SelectTypedList(x => this.LoadSimpleTopic(x, forum1))
+                                     .Where(x => x.LastPostDate >= timeFrame)
+                                     .ToList();
             }
 
             return forumData;

@@ -202,12 +202,17 @@ namespace YAF.Utils.Helpers
 
             try
             {
-                if (command.Parameters != null)
+                if (command.Parameters != null && command.Parameters.Count > 0)
                 {
-                    debugString = command.Parameters.Cast<DbParameter>().Aggregate(
-                        debugString,
-                        (current, p) =>
-                        "{0}{1}".FormatWith(current, ("\n[" + p.ParameterName + "] - [" + p.DbType + "] - [" + p.Value + "]")));
+                    var parameters = command.Parameters.Cast<DbParameter>().ToList();
+
+                    var sqlParams =
+                        parameters.Select(
+                            p =>
+                            @"@{0} = {1}".FormatWith(
+                                p.ParameterName, p.Value == null ? "NULL" : "'{0}'".FormatWith(p.Value.ToString().Replace("'", "''"))));
+
+                    debugString += " " + sqlParams.ToDelimitedString(", ");
                 }
             }
             catch (Exception ex)
