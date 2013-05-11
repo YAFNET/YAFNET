@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
+using System.Security;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
@@ -34,6 +35,11 @@ using System.Runtime.Serialization;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("3.9.18.0")]
+
+#if (!COMPACT_FRAMEWORK)
+
+[assembly: AllowPartiallyTrustedCallers]
+#endif
 
 // CCB Custom
 [assembly: ContractNamespace("http://schemas.servicestack.net/types",
