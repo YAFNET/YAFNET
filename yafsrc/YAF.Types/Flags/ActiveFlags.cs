@@ -136,13 +136,12 @@ namespace YAF.Types.Flags
       /// <summary>
       /// The Is Registered.
       /// </summary>
-      IsRegistered = 3, 
+      IsRegistered = 4, 
 
       /// <summary>
       /// The Is Crawler.
       /// </summary>
-      IsCrawler = 4
-
+      IsCrawler = 8
     }
 
     #endregion

@@ -93,13 +93,13 @@ namespace YAF.Pages.Admin
             switch (e.CommandName)
             {
                 case "edit":
-                    YafBuildLink.Redirect(ForumPages.admin_editforum, "f={0}", e.CommandArgument);
+                    YafBuildLink.Redirect(ForumPages.admin_editforum, "fa={0}", e.CommandArgument);
                     break;
                 case "copy":
                     YafBuildLink.Redirect(ForumPages.admin_editforum, "copy={0}", e.CommandArgument);
                     break;
                 case "delete":
-                    YafBuildLink.Redirect(ForumPages.admin_deleteforum, "f={0}", e.CommandArgument);
+                    YafBuildLink.Redirect(ForumPages.admin_deleteforum, "fa={0}", e.CommandArgument);
                     break;
             }
         }
