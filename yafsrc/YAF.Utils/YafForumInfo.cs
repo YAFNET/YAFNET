@@ -130,6 +130,16 @@ namespace YAF.Utils
             }
         }
 
+        private enum ReleaseType
+        {
+            Regular = 0,
+            Alpha,
+            BETA,
+            RC,
+            RTM,
+            CTM
+        }
+
         /// <summary>
         /// Gets the Current YAF Application Version
         /// </summary>
@@ -137,7 +147,30 @@ namespace YAF.Utils
         {
             get
             {
-                return 0x02000022;
+                int major = 2;
+                byte minor = 0;
+                byte build = 0;
+                byte sub = 0;
+
+                var releaseType = ReleaseType.BETA;
+                byte releaseNumber = 2;
+                
+                long version = (long)major << 24;
+                version |= (long)minor << 16;
+                version |= (long)(build & 0x0F) << 12;
+
+                if (sub > 0)
+                {
+                    version |= ((long)sub << 8);
+                }
+
+                if (releaseType != ReleaseType.Regular)
+                {
+                    version |= (long)releaseType << 4;
+                    version |= (long)(releaseNumber & 0x0F) + 1;
+                }
+
+                return version;
             }
         }
 
@@ -148,7 +181,7 @@ namespace YAF.Utils
         {
             get
             {
-                return new DateTime(2013, 2, 4);
+                return new DateTime(2013, 5, 13);
             }
         }
 
