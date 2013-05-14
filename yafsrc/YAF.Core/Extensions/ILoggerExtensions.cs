@@ -69,7 +69,7 @@ namespace YAF.Core.Extensions
             }
             else if (source != null)
             {
-                sourceDescription = source.ToString();
+                sourceDescription = source.ToString().Truncate(50);
             }
 
             logger.Log(description, eventType, username.IsNotSet() ? "N/A" : username, sourceDescription);
@@ -117,7 +117,7 @@ namespace YAF.Core.Extensions
             }
             else if (source != null)
             {
-                sourceDescription = source.ToString();
+                sourceDescription = source.ToString().Truncate(50);
             }
 
             logger.Log("Exception", eventType, username, sourceDescription, exception);
