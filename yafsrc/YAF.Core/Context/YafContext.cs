@@ -170,8 +170,7 @@ namespace YAF.Core
         /// <summary>
         /// Gets or sets the Current Board Settings
         /// </summary>
-        [Obsolete("Use ServiceLocation or DI directly: this.Get<YafBoardSettings>().")]
-        public virtual YafBoardSettings BoardSettings
+        public YafBoardSettings BoardSettings
         {
             get
             {
@@ -208,18 +207,6 @@ namespace YAF.Core
             get
             {
                 return this._combinedUserData ?? (this._combinedUserData = new CombinedUserDataHelper());
-            }
-        }
-
-        /// <summary>
-        /// Gets the current Page Instance of the Module Manager
-        /// </summary>
-        [Obsolete("Use Service Location or Dependency Injection to get interface: IModuleManager<ForumEditor>")]
-        public IModuleManager<ForumEditor> EditorModuleManager
-        {
-            get
-            {
-                return this.Get<IModuleManager<ForumEditor>>();
             }
         }
 
@@ -325,18 +312,6 @@ namespace YAF.Core
             get
             {
                 return YafControlSettings.Current;
-            }
-        }
-
-        /// <summary>
-        /// Gets Theme.
-        /// </summary>
-        [Obsolete("Use Service Location or Dependency Injection to get interface: ITheme")]
-        public ITheme Theme
-        {
-            get
-            {
-                return this.Get<ITheme>();
             }
         }
 

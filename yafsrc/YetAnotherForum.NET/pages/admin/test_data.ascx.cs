@@ -1262,7 +1262,7 @@ namespace YAF.Pages.Admin
         /// </returns>
         private int GetMessageFlags()
         {
-            var editorModule = this.PageContext.EditorModuleManager.GetBy(this.Get<YafBoardSettings>().ForumEditor);
+            var editorModule = this.PageContext.Get<IModuleManager<ForumEditor>>().GetBy(this.Get<YafBoardSettings>().ForumEditor);
 
             var topicFlags = new MessageFlags
                 {

@@ -192,7 +192,7 @@ namespace YAF.Controls
     protected override void OnPreRender([NotNull] EventArgs e)
     {
       // setup inital image state...
-      this.ImageUrl = this.PageContext.Theme.GetCollapsiblePanelImageURL(this.PanelID, this.DefaultState);
+      this.ImageUrl = this.PageContext.Get<ITheme>().GetCollapsiblePanelImageURL(this.PanelID, this.DefaultState);
       this.UpdateAttachedVisibility();
 
       base.OnPreRender(e);

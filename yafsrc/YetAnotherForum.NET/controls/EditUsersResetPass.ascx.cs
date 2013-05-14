@@ -25,6 +25,7 @@ namespace YAF.Controls
   using System.Web.Security;
   using System.Web.UI.WebControls;
 
+  using YAF.Classes;
   using YAF.Core;
   using YAF.Core.Services;
   using YAF.Types;
@@ -163,7 +164,7 @@ namespace YAF.Controls
 
             passwordRetrieval.TemplateParams["{username}"] = user.UserName;
             passwordRetrieval.TemplateParams["{password}"] = newPass;
-            passwordRetrieval.TemplateParams["{forumname}"] = this.PageContext.BoardSettings.Name;
+            passwordRetrieval.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
             passwordRetrieval.TemplateParams["{forumlink}"] = "{0}".FormatWith(YafForumInfo.ForumURL);
 
             passwordRetrieval.SendEmail(new MailAddress(user.Email, user.UserName), subject, true);
@@ -213,7 +214,7 @@ namespace YAF.Controls
 
           passwordRetrieval.TemplateParams["{username}"] = user.UserName;
           passwordRetrieval.TemplateParams["{password}"] = newPassword;
-          passwordRetrieval.TemplateParams["{forumname}"] = this.PageContext.BoardSettings.Name;
+          passwordRetrieval.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
           passwordRetrieval.TemplateParams["{forumlink}"] = "{0}".FormatWith(YafForumInfo.ForumURL);
 
           passwordRetrieval.SendEmail(new MailAddress(user.Email, user.UserName), subject, true);
