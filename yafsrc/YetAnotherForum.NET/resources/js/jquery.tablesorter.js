@@ -322,7 +322,7 @@
             function appendToTable(table, cache) {
 
                 if (table.config.debug) {
-                    var appendTime = new Date()
+                    var appendTime = new Date();
                 }
 
                 var c = cache,
@@ -433,7 +433,7 @@
                         var rowIndex = c.parentNode.rowIndex;
                         var cellId = rowIndex + "-" + c.cellIndex;
                         var rowSpan = c.rowSpan || 1;
-                        var colSpan = c.colSpan || 1
+                        var colSpan = c.colSpan || 1;
                         var firstAvailCol;
                         if (typeof(matrix[rowIndex]) == "undefined") {
                             matrix[rowIndex] = [];
@@ -779,7 +779,7 @@
                     }).mousedown(function () {
                         if (config.cancelSelection) {
                             this.onselectstart = function () {
-                                return false
+                                return false;
                             };
                             return false;
                         }
@@ -1021,7 +1021,7 @@
                 odd = (row % 2 == 0);
                 $tr.removeClass(
                 table.config.widgetZebra.css[odd ? 0 : 1]).addClass(
-                table.config.widgetZebra.css[odd ? 1 : 0])
+                table.config.widgetZebra.css[odd ? 1 : 0]);
             });
             if (table.config.debug) {
                 $.tablesorter.benchmark("Applying Zebra widget", time);
