@@ -157,7 +157,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        ///     Gets a value indicating whether Css Blocks should be compressed (minified)? -- default is true.
+        ///     Gets a value indicating whether CSS Blocks should be compressed (minified)? -- default is true.
         /// </summary>
         public static bool CompressCSSBlocks
         {
@@ -168,7 +168,8 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        ///     Gets a value indicating whether Javascript Blocks should be compressed (minified) -- default is true.
+        ///     Gets a value indicating whether Java Script Blocks should be compressed (minified) 
+        ///     Default is true.
         /// </summary>
         public static bool CompressJSBlocks
         {
@@ -178,17 +179,20 @@ namespace YAF.Classes
             }
         }
 
+        /// <summary>
+        /// Gets the name of the connection provider.
+        /// </summary>
+        /// <value>
+        /// The name of the connection provider.
+        /// </value>
         public static string ConnectionProviderName
         {
             get
             {
-                if (ConnectionStringSettings.ProviderName.IsSet())
-                {
-                    return ConnectionStringSettings.ProviderName;
-                }
-
                 // default to sql client for backwards compatibility.
-                return "System.Data.SqlClient";
+                return ConnectionStringSettings.ProviderName.IsSet()
+                           ? ConnectionStringSettings.ProviderName
+                           : "System.Data.SqlClient";
             }
         }
 
@@ -215,6 +219,12 @@ namespace YAF.Classes
             }
         }
 
+        /// <summary>
+        /// Gets the connection string settings.
+        /// </summary>
+        /// <value>
+        /// The connection string settings.
+        /// </value>
         public static ConnectionStringSettings ConnectionStringSettings
         {
             get
@@ -264,7 +274,10 @@ namespace YAF.Classes
         {
             get
             {
-                return GetConfigValueAsString("YAF.DatabaseObjectQualifier") ?? "yaf_";
+                var value = GetConfigValueAsString("YAF.DatabaseObjectQualifier");
+                return value != null
+                           ? (value.IsSet() ? GetConfigValueAsString("YAF.DatabaseObjectQualifier") : "yaf_")
+                           : "yaf_";
             }
         }
 
@@ -293,7 +306,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        ///     Gets a value indicating whether Is Jquery Registration disabled? -- default is false.
+        ///     Gets a value indicating whether Is jQuery Registration disabled? -- default is false.
         /// </summary>
         public static bool DisableJQuery
         {
@@ -337,7 +350,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        ///     Gets a value indicating whether Used for Url Rewriting -- default is null -- used to define what the forum file name is for urls.
+        ///     Gets a value indicating whether Used for Url Rewriting -- default is null -- used to define what the forum file name is for URLs.
         /// </summary>
         public static string ForceScriptName
         {
@@ -404,7 +417,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        ///     Gets a value indicating whether IsPortalomatic.
+        ///     Gets a value indicating whether Is Portalomatic.
         /// </summary>
         public static bool IsPortalomatic
         {
@@ -475,8 +488,8 @@ namespace YAF.Classes
         {
             get
             {
-                return GetConfigValueAsString("YAF.JQueryUIFile") ??
-                       "//ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js";
+                return GetConfigValueAsString("YAF.JQueryUIFile")
+                       ?? "//ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js";
             }
         }
 
@@ -488,8 +501,8 @@ namespace YAF.Classes
         {
             get
             {
-                return GetConfigValueAsString("YAF.JQueryUILangFile") ??
-                       "//ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery-ui-i18n.min.js";
+                return GetConfigValueAsString("YAF.JQueryUILangFile")
+                       ?? "//ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery-ui-i18n.min.js";
             }
         }
 
@@ -537,8 +550,8 @@ namespace YAF.Classes
         {
             get
             {
-                return GetConfigValueAsString("YAF.MobileUserAgents") ??
-                       "iphone,ipad,midp,windows ce,windows phone,android,blackberry,opera mini,mobile,palm,portable,webos,htc,armv,lg/u,elaine,nokia,playstation,symbian,sonyericsson,mmp,hd_mini";
+                return GetConfigValueAsString("YAF.MobileUserAgents")
+                       ?? "iphone,ipad,midp,windows ce,windows phone,android,blackberry,opera mini,mobile,palm,portable,webos,htc,armv,lg/u,elaine,nokia,playstation,symbian,sonyericsson,mmp,hd_mini";
             }
         }
 
@@ -620,8 +633,8 @@ namespace YAF.Classes
         {
             get
             {
-                return GetConfigValueAsString("YAF.RadEditorToolsFile") ??
-                       string.Format("{0}/editors/RadEditor/ToolsFile.xml", ServerFileRoot);
+                return GetConfigValueAsString("YAF.RadEditorToolsFile")
+                       ?? "{0}/editors/RadEditor/ToolsFile.xml".FormatWith(ServerFileRoot);
             }
         }
 
@@ -656,7 +669,8 @@ namespace YAF.Classes
         {
             get
             {
-                return GetConfigValueAsString("YAF.FileRoot") ?? GetConfigValueAsString("YAF.ServerFileRoot") ?? string.Empty;
+                return GetConfigValueAsString("YAF.FileRoot")
+                       ?? GetConfigValueAsString("YAF.ServerFileRoot") ?? string.Empty;
             }
         }
 
@@ -795,11 +809,11 @@ namespace YAF.Classes
         #region Public Methods and Operators
 
         /// <summary>
-        ///     Gets the config value as bool.
+        ///     Gets the config value as Boolean.
         /// </summary>
         /// <param name="configKey"> The config key. </param>
         /// <param name="defaultValue"> if set to <c>true</c> [default value]. </param>
-        /// <returns> Returns Bool Value </returns>
+        /// <returns> Returns Boolean Value </returns>
         public static bool GetConfigValueAsBool([NotNull] string configKey, bool defaultValue)
         {
             string value = GetConfigValueAsString(configKey);
@@ -826,7 +840,7 @@ namespace YAF.Classes
         /// <returns> Provider type string or <see langword="null" /> if none exist. </returns>
         public static string GetProvider([NotNull] string providerName)
         {
-            string key = string.Format("YAF.Provider.{0}", providerName);
+            string key = "YAF.Provider.{0}".FormatWith(providerName);
             return GetConfigValueAsString(key);
         }
 

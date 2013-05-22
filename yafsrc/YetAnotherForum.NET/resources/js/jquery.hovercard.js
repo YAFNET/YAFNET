@@ -128,14 +128,23 @@
 
                         LoadSocialProfile("facebook", "", fbUsername, curHCDetails);
                     }
+                    
+                    $("body").on("keydown", function (event) {
+                        if (event.keyCode === 27) {
+                            closeHoverCard($(this));
+                        }
+                    });
 
                     //Callback function                    
                     options.onHoverIn.call(this);
                 }
 
-            }, function() {
-                var $this = $(this);
-                $this.find(".hc-details").eq(0).stop(true, true).fadeOut(300, function() {
+            }, function () {
+                 closeHoverCard($(this));
+            });
+
+            function closeHoverCard(card) {
+                card.find(".hc-details").eq(0).stop(true, true).fadeOut(300, function () {
 
                     //Undo the z indices 
                     obj.css("zIndex", "50");
@@ -144,7 +153,9 @@
                         options.onHoverOut.call(this);
                     }
                 });
-            });
+                
+                $("body").off("keydown");
+            }
 
             //Opening Directions adjustment
 
@@ -306,7 +317,7 @@
                 }
 
                 if ($.isEmptyObject(customCardJSON)) {
-                    $.ajax({
+					$.ajax({
                         url: urlToRequest,
                         type: 'GET',
                         dataType: dataType, //jsonp for cross domain request
