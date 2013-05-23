@@ -6,9 +6,13 @@
 .hc-details-open-left > .hc-pic { float:left; } 
 .hc-details-open-top { bottom:-10px; top:auto; padding: 10px 10px 2em;} 
 .hc-details-open-top > .hc-pic { margin-top:10px; float:right;  }
-.hc-details .s-action{ position: absolute; top:5px; right:8px; } 
-.hc-details-open-left .s-action{ top:5px; left:8px;right:auto; } 
-.hc-details-open-top .s-action{ top:auto; bottom:5px; right:8px; } 
+.hc-details .s-action{ position: absolute; top:5px; right:20px; } 
+.hc-details .s-close { position: absolute; top:11px; right:8px;background:url("../images/closelabel.png") no-repeat;width:8px;height:8px } 
+.hc-details .s-close:hover {cursor:hand;}
+.hc-details-open-left .s-action{ top:5px; left:20px;right:auto; } 
+.hc-details-open-top .s-action{ top:auto; bottom:5px; right:20px; } 
+.hc-details-open-left .s-close{ top:11px; left:9px;right:auto; } 
+.hc-details-open-top .s-close{ top:auto; bottom:11px; right:9px; } 
 .hc-details .s-card-pad{ border-top: solid 1px #eee; margin-top:10px; padding-top:10px; overflow:hidden; } 
 .hc-details-open-top .s-card-pad { border:none; border-bottom: solid 1px #eee; margin-top:0;padding-top:0; margin-bottom:10px;padding-bottom:10px; }
 .hc-details .s-card .s-strong{ font-weight:bold; color: #555; } 
