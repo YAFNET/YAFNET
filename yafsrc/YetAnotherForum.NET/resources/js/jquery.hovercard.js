@@ -137,8 +137,6 @@
 					
 					var closeButton = curHCDetails.find(".s-close").eq(0);
 					
-					console.log(closeButton);
-					
 					closeButton.click(function() {
 						closeHoverCard($this);
 					});
