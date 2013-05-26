@@ -4797,7 +4797,13 @@
     <Content Include="themes\cleanSlate\status_solved.png" />
     <Content Include="themes\cleanSlate\tab-line.png" />
     <Content Include="themes\cleanSlate\tab.png" />
-    <Content Include="themes\cleanSlate\theme.css" />
+    <None Include="themes\cleanSlate\theme.less" />
+    <Content Include="themes\cleanSlate\theme.css">
+      <DependentUpon>theme.less</DependentUpon>
+    </Content>
+    <Content Include="themes\cleanSlate\theme.min.css">
+      <DependentUpon>theme.less</DependentUpon>
+    </Content>
     <Content Include="themes\cleanSlate\titleBack.gif" />
     <Content Include="themes\cleanSlate\titlebg.jpg" />
     <Content Include="themes\cleanSlate\topic.gif" />
