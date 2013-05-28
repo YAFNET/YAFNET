@@ -530,7 +530,7 @@ namespace YAF.Pages.Admin
             }
             else
             {
-                YafBuildLink.Redirect(ForumPages.admin_editforum, "f={0}", newForumId);
+                YafBuildLink.Redirect(ForumPages.admin_editforum, "fa={0}", newForumId);
             }
         }
 
