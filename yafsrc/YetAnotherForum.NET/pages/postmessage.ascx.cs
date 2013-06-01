@@ -1356,7 +1356,8 @@ namespace YAF.Pages
                 // The user used this post to blog
                 this.BlogPostID.Value = blogPostID;
                 this.PostToBlog.Checked = true;
-                this.BlogRow.Visible = true;
+                
+                this.BlogRow.Visible = this.Get<YafBoardSettings>().AllowPostToBlog;
             }
 
             this.TopicSubjectTextBox.Text = this.Server.HtmlDecode(currentMessage.Topic);
