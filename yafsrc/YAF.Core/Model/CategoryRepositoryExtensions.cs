@@ -35,12 +35,9 @@ namespace YAF.Core.Model
         /// <summary>
         /// The delete.
         /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="categoryID">
-        /// The category id.
-        /// </param>
+        /// <param name="repository">The repository.</param>
+        /// <param name="categoryID">The category id.</param>
+        /// <returns>Returns if Category was deleted or not</returns>
         public static bool Delete(this IRepository<Category> repository, int categoryID)
         {
             CodeContracts.ArgumentNotNull(repository, "repository");
@@ -60,17 +57,11 @@ namespace YAF.Core.Model
         /// <summary>
         /// The list.
         /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="boardID">
-        /// The board id.
-        /// </param>
-        /// <param name="categoryID">
-        /// The category id.
-        /// </param>
+        /// <param name="repository">The repository.</param>
+        /// <param name="categoryID">The category id.</param>
+        /// <param name="boardId">The board id.</param>
         /// <returns>
-        /// The <see cref="DataTable"/>.
+        /// The <see cref="DataTable" />.
         /// </returns>
         public static DataTable List(this IRepository<Category> repository, int? categoryID = null, int? boardId = null)
         {
@@ -80,22 +71,14 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The listread.
+        /// The list read.
         /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="boardID">
-        /// The board id.
-        /// </param>
-        /// <param name="userID">
-        /// The user id.
-        /// </param>
-        /// <param name="categoryID">
-        /// The category id.
-        /// </param>
+        /// <param name="repository">The repository.</param>
+        /// <param name="userID">The user id.</param>
+        /// <param name="categoryID">The category id.</param>
+        /// <param name="boardId">The board id.</param>
         /// <returns>
-        /// The <see cref="DataTable"/>.
+        /// The <see cref="DataTable" />.
         /// </returns>
         public static DataTable Listread(this IRepository<Category> repository, int userID, int? categoryID, int? boardId = null)
         {
@@ -107,30 +90,18 @@ namespace YAF.Core.Model
         /// <summary>
         /// The save.
         /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="boardID">
-        /// The board id.
-        /// </param>
-        /// <param name="categoryID">
-        /// The category id.
-        /// </param>
-        /// <param name="name">
-        /// The name.
-        /// </param>
-        /// <param name="sortOrder">
-        /// The sort order.
-        /// </param>
-        /// <param name="categoryImage">
-        /// The category image.
-        /// </param>
+        /// <param name="repository">The repository.</param>
+        /// <param name="categoryID">The category id.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="categoryImage">The category image.</param>
+        /// <param name="sortOrder">The sort order.</param>
+        /// <param name="boardId">The board id.</param>
         public static void Save(
             this IRepository<Category> repository, int? categoryID, string name, string categoryImage, short sortOrder, int? boardId = null)
         {
             CodeContracts.ArgumentNotNull(repository, "repository");
 
-            int newId = repository.DbFunction.Scalar.category_save(
+            repository.DbFunction.Scalar.category_save(
                 BoardID: boardId ?? repository.BoardID, CategoryID: categoryID ?? 0, Name: name, SortOrder: sortOrder, CategoryImage: categoryImage);
 
             if (categoryID.HasValue)
@@ -139,12 +110,12 @@ namespace YAF.Core.Model
             }
             else
             {
-                repository.FireNew(newId);
+                repository.FireNew();
             }
         }
 
         /// <summary>
-        /// The simplelist.
+        /// Get Category as simple list
         /// </summary>
         /// <param name="repository">
         /// The repository.

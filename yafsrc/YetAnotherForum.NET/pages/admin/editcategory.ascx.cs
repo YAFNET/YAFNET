@@ -29,7 +29,6 @@ namespace YAF.Pages.Admin
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Core.Model;
     using YAF.Types;
@@ -177,21 +176,21 @@ namespace YAF.Pages.Admin
 
             if (!ValidationHelper.IsValidPosShort(this.SortOrder.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITCATEGORY", "MSG_POSITIVE_VALUE"));
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITCATEGORY", "MSG_POSITIVE_VALUE"), MessageTypes.Error);
                 return;
             }
 
             if (!short.TryParse(this.SortOrder.Text.Trim(), out sortOrder))
             {
                 // error...
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITCATEGORY", "MSG_NUMBER"));
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITCATEGORY", "MSG_NUMBER"), MessageTypes.Error);
                 return;
             }
 
             if (string.IsNullOrEmpty(name))
             {
                 // error...
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITCATEGORY", "MSG_VALUE"));
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITCATEGORY", "MSG_VALUE"), MessageTypes.Error);
                 return;
             }
 

@@ -48,14 +48,10 @@ namespace YAF.Pages.Admin
         #region Methods
 
         /// <summary>
-        /// The delete category_ load.
+        /// Add Confirm Dialog to the Category Delete Button
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void DeleteCategory_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             ((ThemeButton)sender).Attributes["onclick"] =
@@ -63,14 +59,10 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The delete forum_ load.
+        /// Add Confirm Dialog to the Forum Delete Button
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void DeleteForum_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             ((ThemeButton)sender).Attributes["onclick"] =
@@ -82,12 +74,8 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// The forum list_ item command.
         /// </summary>
-        /// <param name="source">
-        /// The source.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="source">The source of the event.</param>
+        /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
         protected void ForumList_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
         {
             switch (e.CommandName)
@@ -107,12 +95,8 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// The new category_ click.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void NewCategory_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             YafBuildLink.Redirect(ForumPages.admin_editcategory);
@@ -121,23 +105,17 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// The new forum_ click.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void NewForum_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             YafBuildLink.Redirect(ForumPages.admin_editforum);
         }
 
         /// <summary>
-        /// The on init.
+        /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
         /// </summary>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
             // CODEGEN: This call is required by the ASP.NET Web Form Designer.
@@ -146,14 +124,10 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The page_ load.
+        /// Handles the Load event of the Page control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.IsPostBack)
@@ -174,7 +148,7 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The bind data.
+        /// Binds the data.
         /// </summary>
         private void BindData()
         {
@@ -192,12 +166,8 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// The category list_ item command.
         /// </summary>
-        /// <param name="source">
-        /// The source.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="source">The source of the event.</param>
+        /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
         private void CategoryList_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
         {
             switch (e.CommandName)
@@ -206,7 +176,7 @@ namespace YAF.Pages.Admin
                     YafBuildLink.Redirect(ForumPages.admin_editcategory, "c={0}", e.CommandArgument);
                     break;
                 case "delete":
-                    if (this.GetRepository<Category>().Delete((int)e.CommandArgument))
+                    if (this.GetRepository<Category>().Delete(e.CommandArgument.ToType<int>()))
                     {
                         this.BindData();
                     }
