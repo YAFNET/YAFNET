@@ -264,30 +264,20 @@ namespace YAF.Pages.Admin
 
             var ci = CultureInfo.CreateSpecificCulture(this.GetCulture());
 
-            if (this.Get<YafBoardSettings>().EnableDNACalendar) // <-- Should be removed legacy settting not needed anymore.
+            if (this.Get<YafBoardSettings>().UseFarsiCalender && ci.IsFarsiCulture())
             {
-                if (this.Get<YafBoardSettings>().UseFarsiCalender && ci.IsFarsiCulture())
-                {
-                    this.SinceDate.Text = PersianDateConverter.ToPersianDate(PersianDate.MinValue).ToString("d");
-                    this.ToDate.Text = PersianDateConverter.ToPersianDate(PersianDate.Now).ToString("d");
-                }
-                else
-                {
-                    this.SinceDate.Text = DateTime.UtcNow.AddDays(-this.Get<YafBoardSettings>().EventLogMaxDays).ToString(
-                                                 ci.DateTimeFormat.ShortDatePattern, CultureInfo.InvariantCulture);
-                    this.ToDate.Text = DateTime.UtcNow.Date.ToString(
-                                                 ci.DateTimeFormat.ShortDatePattern, CultureInfo.InvariantCulture);
-                }
-
-                this.ToDate.ToolTip = this.SinceDate.ToolTip = this.GetText("COMMON", "CAL_JQ_TT");
+                this.SinceDate.Text = PersianDateConverter.ToPersianDate(PersianDate.MinValue).ToString("d");
+                this.ToDate.Text = PersianDateConverter.ToPersianDate(PersianDate.Now).ToString("d");
             }
             else
             {
-                this.SinceDate.Visible = false;
-                this.SinceDateLabel.Visible = false;
-                this.ToDate.Visible = false;
-                this.ToDateLabel.Visible = false;
+                this.SinceDate.Text = DateTime.UtcNow.AddDays(-this.Get<YafBoardSettings>().EventLogMaxDays).ToString(
+                                             ci.DateTimeFormat.ShortDatePattern, CultureInfo.InvariantCulture);
+                this.ToDate.Text = DateTime.UtcNow.Date.ToString(
+                                             ci.DateTimeFormat.ShortDatePattern, CultureInfo.InvariantCulture);
             }
+
+            this.ToDate.ToolTip = this.SinceDate.ToolTip = this.GetText("COMMON", "CAL_JQ_TT");
 
             // bind data to controls
             this.BindData();
