@@ -649,7 +649,9 @@ namespace YAF.Classes
         /// which Spam Service Type should been used
         /// 0 = No Service
         /// 1 = BlogSpam.NET Service
-        /// 2 = Akismet.com Servive
+        /// 2 = Akismet.com Service
+        /// 3 = StopForumSpam.com Service
+        /// 4 = BotScout.com Service
         /// </summary>
         public int SpamServiceType
         {
@@ -697,6 +699,22 @@ namespace YAF.Classes
             set
             {
                 this._reg.SetValue("AkismetApiKey", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to Use BotScout.com Service.
+        /// </summary>
+        public string BotScoutApiKey
+        {
+            get
+            {
+                return this._reg.GetValue("BotScoutApiKey", string.Empty);
+            }
+
+            set
+            {
+                this._reg.SetValue("BotScoutApiKey", value);
             }
         }
 
@@ -3123,24 +3141,6 @@ namespace YAF.Classes
             set
             {
                 this._reg.SetValue("EnableBuddyList", value);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether EnableDNACalendar.
-        /// This is temporary feature to disable calendar 
-        /// if it causes troubles with different cultures
-        /// </summary>
-        public bool EnableDNACalendar
-        {
-            get
-            {
-                return this._reg.GetValue("EnableDNACalendar", true);
-            }
-
-            set
-            {
-                this._reg.SetValue("EnableDNACalendar", value);
             }
         }
 

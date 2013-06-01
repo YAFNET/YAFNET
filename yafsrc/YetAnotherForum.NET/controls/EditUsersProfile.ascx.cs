@@ -115,7 +115,7 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// Gets or sets  UserData.
+        /// Gets the User Data.
         /// </summary>
         [NotNull]
         private CombinedUserDataHelper UserData
@@ -123,10 +123,6 @@ namespace YAF.Controls
             get
             {
                 return this._userData ?? (this._userData = new CombinedUserDataHelper(this.currentUserID));
-            }
-            set
-            {
-                this._userData = value;
             }
         }
 
@@ -281,39 +277,39 @@ namespace YAF.Controls
 
                 if (!ValidationHelper.IsValidURL(this.HomePage.Text))
                 {
-                    this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_HOME"));
+                    this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_HOME"), MessageTypes.Warning);
                     return;
                 }
             }
 
             if (this.Weblog.Text.IsSet() && !ValidationHelper.IsValidURL(this.Weblog.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_WEBLOG"));
+                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_WEBLOG"), MessageTypes.Warning);
                 return;
             }
 
             if (this.MSN.Text.IsSet() && !ValidationHelper.IsValidEmail(this.MSN.Text))
             {
-                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_MSN"));
+                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_MSN"), MessageTypes.Warning);
                 return;
             }
 
             if (this.Xmpp.Text.IsSet() && !ValidationHelper.IsValidXmpp(this.Xmpp.Text))
             {
-                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_XMPP"));
+                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_XMPP"), MessageTypes.Warning);
                 return;
             }
 
             if (this.ICQ.Text.IsSet()
                 && !(ValidationHelper.IsValidEmail(this.ICQ.Text) || ValidationHelper.IsNumeric(this.ICQ.Text)))
             {
-                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_ICQ"));
+                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_ICQ"), MessageTypes.Warning);
                 return;
             }
 
             if (this.Facebook.Text.IsSet() && !ValidationHelper.IsNumeric(this.Facebook.Text))
             {
-                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_FACEBOOK"));
+                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_FACEBOOK"), MessageTypes.Warning);
                 return;
             }
 
@@ -324,7 +320,7 @@ namespace YAF.Controls
             {
                 if (this.DisplayName.Text.Trim().Length < 2)
                 {
-                    this.PageContext.AddLoadMessage(this.GetText("PROFILE", "INVALID_DISPLAYNAME"));
+                    this.PageContext.AddLoadMessage(this.GetText("PROFILE", "INVALID_DISPLAYNAME"), MessageTypes.Warning);
                     return;
                 }
 
@@ -332,7 +328,7 @@ namespace YAF.Controls
                 {
                     if (this.Get<IUserDisplayName>().GetId(this.DisplayName.Text.Trim()).HasValue)
                     {
-                        this.PageContext.AddLoadMessage(this.GetText("REGISTER", "ALREADY_REGISTERED_DISPLAYNAME"));
+                        this.PageContext.AddLoadMessage(this.GetText("REGISTER", "ALREADY_REGISTERED_DISPLAYNAME"), MessageTypes.Warning);
 
                         return;
                     }
@@ -348,14 +344,14 @@ namespace YAF.Controls
 
                 if (!ValidationHelper.IsValidEmail(newEmail))
                 {
-                    this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_EMAIL"));
+                    this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.Warning);
                     return;
                 }
 
                 string userNameFromEmail = this.Get<MembershipProvider>().GetUserNameByEmail(this.Email.Text.Trim());
                 if (userNameFromEmail.IsSet() && userNameFromEmail != userName)
                 {
-                    this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_EMAIL"));
+                    this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.Warning);
                     return;
                 }
 
@@ -372,7 +368,7 @@ namespace YAF.Controls
                     }
                     catch (ApplicationException)
                     {
-                        this.PageContext.AddLoadMessage(this.GetText("PROFILE", "DUPLICATED_EMAIL"));
+                        this.PageContext.AddLoadMessage(this.GetText("PROFILE", "DUPLICATED_EMAIL"), MessageTypes.Warning);
 
                         return;
                     }
@@ -527,33 +523,26 @@ namespace YAF.Controls
             this.DataBind();
 
             var ci = CultureInfo.CreateSpecificCulture(currentCultureLocal);
-            if (this.Get<YafBoardSettings>().EnableDNACalendar)
-            {
-                if (this.Get<YafBoardSettings>().UseFarsiCalender && ci.IsFarsiCulture())
-                {
-                    this.Birthday.Text = this.UserData.Profile.Birthday > DateTime.MinValue
-                                         || this.UserData.Profile.Birthday.IsNullOrEmptyDBField()
-                                             ? PersianDateConverter.ToPersianDate(this.UserData.Profile.Birthday)
-                                                                   .ToString("d")
-                                             : PersianDateConverter.ToPersianDate(PersianDate.MinValue).ToString("d");
-                }
-                else
-                {
-                    this.Birthday.Text = this.UserData.Profile.Birthday > DateTime.MinValue
-                                         || this.UserData.Profile.Birthday.IsNullOrEmptyDBField()
-                                             ? this.UserData.Profile.Birthday.Date.ToString(
-                                                 ci.DateTimeFormat.ShortDatePattern, CultureInfo.InvariantCulture)
-                                             : DateTime.MinValue.Date.ToString(
-                                                 ci.DateTimeFormat.ShortDatePattern, CultureInfo.InvariantCulture);
-                }
 
-                this.Birthday.ToolTip = this.GetText("COMMON", "CAL_JQ_TT");
+            if (this.Get<YafBoardSettings>().UseFarsiCalender && ci.IsFarsiCulture())
+            {
+                this.Birthday.Text = this.UserData.Profile.Birthday > DateTime.MinValue
+                                     || this.UserData.Profile.Birthday.IsNullOrEmptyDBField()
+                                         ? PersianDateConverter.ToPersianDate(this.UserData.Profile.Birthday)
+                                                               .ToString("d")
+                                         : PersianDateConverter.ToPersianDate(PersianDate.MinValue).ToString("d");
             }
             else
             {
-                this.Birthday.Visible = false;
-                this.BirthdayLabel.Visible = false;
+                this.Birthday.Text = this.UserData.Profile.Birthday > DateTime.MinValue
+                                     || this.UserData.Profile.Birthday.IsNullOrEmptyDBField()
+                                         ? this.UserData.Profile.Birthday.Date.ToString(
+                                             ci.DateTimeFormat.ShortDatePattern, CultureInfo.InvariantCulture)
+                                         : DateTime.MinValue.Date.ToString(
+                                             ci.DateTimeFormat.ShortDatePattern, CultureInfo.InvariantCulture);
             }
+
+            this.Birthday.ToolTip = this.GetText("COMMON", "CAL_JQ_TT");
 
             this.DisplayName.Text = this.UserData.DisplayName;
             this.City.Text = this.UserData.Profile.City;
@@ -737,7 +726,7 @@ namespace YAF.Controls
             userProfile.Gender = this.Gender.SelectedIndex;
             userProfile.Blog = this.Weblog.Text.Trim();
 
-            if (this.Get<YafBoardSettings>().EnableDNACalendar && this.Birthday.Text.IsSet())
+            if (this.Birthday.Text.IsSet())
             {
                 DateTime userBirthdate;
                 var ci = CultureInfo.CreateSpecificCulture(this.GetCulture(true));
