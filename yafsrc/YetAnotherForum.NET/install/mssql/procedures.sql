@@ -2029,7 +2029,7 @@ declare @LastSelectRowNumber int
 		   with BannedIps  as 
 		   (
 		     select ROW_NUMBER() over (order by Mask) as RowNum, Mask 
-			 from  [{databaseOwner}].[{objectQualifier}BannedIP]
+			 from  [{databaseOwner}].[{objectQualifier}BannedIP] where BoardID=@BoardID
 		   )
 		   select
 		    a.*,
@@ -2038,7 +2038,7 @@ declare @LastSelectRowNumber int
 			BannedIps c
 			inner join [{databaseOwner}].[{objectQualifier}BannedIP] a	
 			on 	c.Mask = a.Mask	
-			where BoardID=@BoardID and  c.RowNum between (@FirstSelectRowNumber) and (@LastSelectRowNumber)
+			where c.RowNum between (@FirstSelectRowNumber) and (@LastSelectRowNumber)
 			order by c.RowNum asc
   end
   else
@@ -2050,7 +2050,7 @@ create procedure [{databaseOwner}].[{objectQualifier}bannedip_save](@ID int=null
 begin
         if (@ID is null or @ID = 0 ) 
         begin
-        insert into [{databaseOwner}].[{objectQualifier}BannedIP](BoardID,Mask,Since,Reason,UserID) values(@BoardID,@Mask,@UTCTIMESTAMP ,@Reason,@UserID)
+        insert into [{databaseOwner}].[{objectQualifier}BannedIP](BoardID,Mask,Since,Reason,UserID) values(@BoardID,@Mask,@UTCTIMESTAMP,@Reason,@UserID)
     end
     else begin
         update [{databaseOwner}].[{objectQualifier}BannedIP] set Mask = @Mask,Reason = @Reason, UserID = @UserID where ID = @ID
@@ -6615,62 +6615,36 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}announcements_list]
 )
 AS
 begin
-   declare @post_totalrowsnumber int 
-   declare @firstselectrownum int   
-   declare @firstselectposted datetime
-   declare @ceiling decimal  
-   declare @offset int 
-
-    set nocount on	
-
-    -- find total returned count
-        select
-        @post_totalrowsnumber = COUNT(c.TopicID)
-    FROM [{databaseOwner}].[{objectQualifier}Topic] c JOIN [{databaseOwner}].[{objectQualifier}User] b 
-        ON b.UserID=c.UserID 
-    JOIN [{databaseOwner}].[{objectQualifier}Forum] d 
-        ON d.ForumID=c.ForumID
-    WHERE c.ForumID = @ForumID
-        AND  c.Priority=2 
-        AND	c.IsDeleted=0
-        AND	(c.TopicMovedID IS NOT NULL OR c.NumPosts > 0) 
-        AND
-        ((@ShowMoved = 1)
-        or
-        (@ShowMoved <> 1 AND  c.TopicMovedID IS NULL))
-
-      select @PageIndex = @PageIndex+1;
-      select @firstselectrownum = (@PageIndex - 1) * @PageSize + 1 
-        -- find first selectedrowid 
-   if (@firstselectrownum > 0)   
-   set rowcount @firstselectrownum
-   else
-   -- should not be 0
-   set rowcount 1
-    
-   select		
-        @firstselectposted = c.LastPosted
-    from
-    [{databaseOwner}].[{objectQualifier}Topic] c 
-    JOIN [{databaseOwner}].[{objectQualifier}User] b 
-        ON b.UserID=c.UserID 
-    JOIN [{databaseOwner}].[{objectQualifier}Forum] d 
-        ON d.ForumID=c.ForumID
-    WHERE c.ForumID = @ForumID
-        AND  c.Priority=2 
-        AND	c.IsDeleted=0
-        AND	(c.TopicMovedID IS NOT NULL OR c.NumPosts > 0) 
-        AND
-        ((@ShowMoved = 1)
-        or
-        (@ShowMoved <> 1 AND  c.TopicMovedID IS NULL))		
-    order by
-         c.Priority DESC,	c.LastPosted DESC		
-    
-    set rowcount @PageSize	
-
-    select
-    c.ForumID,
+   declare @TotalRows int
+   declare @FirstSelectRowNumber int
+   declare @LastSelectRowNumber int
+   
+   -- find total returned count
+   select  @TotalRows = COUNT(c.TopicID)
+   FROM [{databaseOwner}].[{objectQualifier}Topic] c 
+   WHERE c.ForumID = @ForumID
+   AND	c.[Priority] = 2
+   AND	c.IsDeleted = 0
+    AND	(c.TopicMovedID IS NOT NULL OR c.NumPosts > 0) 
+	AND
+	(@ShowMoved = 1 or (@ShowMoved <> 1 AND  c.TopicMovedID IS NULL))
+	
+	select @PageIndex = @PageIndex+1;
+	select @FirstSelectRowNumber = (@PageIndex - 1) * @PageSize + 1;
+	select @LastSelectRowNumber = (@PageIndex - 1) * @PageSize + @PageSize;
+	
+	with TopicIds  as
+	 (
+	 select ROW_NUMBER() over (order by tt.[Priority] desc,tt.LastPosted desc) as RowNum, tt.TopicID
+	 from  [{databaseOwner}].[{objectQualifier}Topic] tt
+	 where tt.ForumID = @ForumID and tt.[Priority] = 2
+	  AND	tt.IsDeleted = 0
+	  AND	((tt.TopicMovedID IS NOT NULL) OR (tt.NumPosts > 0))
+	  AND
+	  (@ShowMoved = 1 or (@ShowMoved <> 1 AND  TopicMovedID IS NULL))
+	  )	  
+	  select
+		    c.ForumID,
             c.TopicID,
             c.Posted,
             LinkTopicID = IsNull(c.TopicMovedID,c.TopicID),
@@ -6692,6 +6666,7 @@ begin
             LastUserDisplayName = IsNull(c.LastUserDisplayName,(SELECT x.DisplayName FROM [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
             LastMessageID = c.LastMessageID,
             LastTopicID = c.TopicID,
+            LinkDate = c.LinkDate,
             TopicFlags = c.Flags,
             c.Priority,
             c.PollID,
@@ -6700,36 +6675,31 @@ begin
             StarterStyle = case(@StyledNicks)
             when 1 then  b.UserStyle
             else ''	 end,
-                    LastUserStyle= case(@StyledNicks)
+            LastUserStyle= case(@StyledNicks)
             when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr with(nolock) where usr.UserID = c.LastUserID)
             else ''	 end,
             LastForumAccess = case(@FindLastRead)
              when 1 then
-               (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x WHERE x.ForumID=c.ForumID AND x.UserID = c.UserID)
+               (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x WHERE x.ForumID=c.ForumID AND x.UserID = @UserID)
              else ''	 end,
             LastTopicAccess = case(@FindLastRead)
              when 1 then
-               (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=c.TopicID AND y.UserID = c.UserID)
-             else ''	 end,	
-            TotalRows = @post_totalrowsnumber,
-            PageIndex = @PageIndex
-    from	
-        [{databaseOwner}].[{objectQualifier}Topic] c
-        JOIN [{databaseOwner}].[{objectQualifier}User] b 
-        ON b.UserID=c.UserID
-        join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID	
-        WHERE c.ForumID = @ForumID		
-        AND  c.Priority=2 
-        AND	c.IsDeleted=0
-        AND	(c.TopicMovedID IS NOT NULL OR c.NumPosts > 0) 
-        AND
-        ((@ShowMoved = 1)
-        or
-        (@ShowMoved <> 1 AND  c.TopicMovedID IS NULL))		
-    order by
-         c.Priority DESC,	c.LastPosted DESC		
-
-        SET ROWCOUNT 0		
+               (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=c.TopicID AND y.UserID = @UserID)
+             else ''	 end,         
+             c.TopicImage,           
+             0 as HasAttachments,           
+            PageIndex = @PageIndex,   	
+			@TotalRows as TotalRows			       
+			from
+			TopicIds ti
+			inner join [{databaseOwner}].[{objectQualifier}Topic] c	
+			ON c.TopicID = ti.TopicID
+			JOIN [{databaseOwner}].[{objectQualifier}User] b 
+			ON b.UserID=c.UserID
+			join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
+			WHERE ti.RowNum between @FirstSelectRowNumber and @LastSelectRowNumber
+		order by
+            RowNum ASC 
     
 end
 GO
@@ -6747,14 +6717,13 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}topic_list]
     @FindLastRead bit = 0
 )
 AS
-begin
-   declare @post_totalrowsnumber int 
+begin   
    declare @TotalRows int
    declare @FirstSelectRowNumber int
    declare @LastSelectRowNumber int
    
    -- find total returned count
-   select  @post_totalrowsnumber = COUNT(c.TopicID)
+   select  @TotalRows = COUNT(c.TopicID)
    FROM [{databaseOwner}].[{objectQualifier}Topic] c 
    WHERE c.ForumID = @ForumID
    AND	((c.Priority = 1) OR (c.Priority <=0 AND c.LastPosted>=@Date )) 
@@ -6764,7 +6733,6 @@ begin
 	(@ShowMoved = 1 or (@ShowMoved <> 1 AND  c.TopicMovedID IS NULL))
 	
 	select @PageIndex = @PageIndex+1;
-	select @TotalRows = @post_totalrowsnumber;
 	select @FirstSelectRowNumber = (@PageIndex - 1) * @PageSize + 1;
 	select @LastSelectRowNumber = (@PageIndex - 1) * @PageSize + @PageSize;
 	
@@ -6822,8 +6790,7 @@ begin
                (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=c.TopicID AND y.UserID = @UserID)
              else ''	 end,
              c.TopicImage,         
-             0 as HasAttachments,
-            TotalRows = @post_totalrowsnumber,
+            0 as HasAttachments,          
             PageIndex = @PageIndex,   	
 			@TotalRows as TotalRows			       
 			from
