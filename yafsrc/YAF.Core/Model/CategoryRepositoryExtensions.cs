@@ -101,7 +101,7 @@ namespace YAF.Core.Model
         {
             CodeContracts.ArgumentNotNull(repository, "repository");
 
-            repository.DbFunction.Scalar.category_save(
+            int newId = repository.DbFunction.Scalar.category_save(
                 BoardID: boardId ?? repository.BoardID, CategoryID: categoryID ?? 0, Name: name, SortOrder: sortOrder, CategoryImage: categoryImage);
 
             if (categoryID.HasValue)
@@ -110,7 +110,7 @@ namespace YAF.Core.Model
             }
             else
             {
-                repository.FireNew();
+                repository.FireNew(newId);
             }
         }
 
