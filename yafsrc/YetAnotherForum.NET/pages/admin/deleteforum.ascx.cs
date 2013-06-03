@@ -46,13 +46,13 @@ namespace YAF.Pages.Admin
         #region Methods
 
         /// <summary>
-        /// Get query string as int.
+        /// Get query string as integer.
         /// </summary>
         /// <param name="name">
         /// The name.
         /// </param>
         /// <returns>
-        /// The get query string as int.
+        /// The get query string as integer
         /// </returns>
         protected int? GetQueryStringAsInt([NotNull] string name)
         {
@@ -119,7 +119,7 @@ namespace YAF.Pages.Admin
 
             this.BindData();
 
-            var forumId = this.GetQueryStringAsInt("f");
+            var forumId = this.GetQueryStringAsInt("fa");
 
             using (DataTable dt = LegacyDb.forum_list(this.PageContext.PageBoardID, forumId.Value))
             {
@@ -240,7 +240,7 @@ namespace YAF.Pages.Admin
             if (this.MoveTopics.Checked)
             {
                 // Simply Delete the Forum with all of its Content
-                var forumId = this.GetQueryStringAsInt("f");
+                var forumId = this.GetQueryStringAsInt("fa");
 
                 // schedule...
                 ForumDeleteTask.Start(
@@ -258,7 +258,7 @@ namespace YAF.Pages.Admin
             else
             {
                 // Simply Delete the Forum with all of its Content
-                var forumId = this.GetQueryStringAsInt("f");
+                var forumId = this.GetQueryStringAsInt("fa");
 
                 // schedule...
                 ForumDeleteTask.Start(this.PageContext.PageBoardID, forumId.Value, out errorMessage);
