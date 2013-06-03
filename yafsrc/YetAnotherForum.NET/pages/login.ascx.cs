@@ -331,8 +331,10 @@ namespace YAF.Pages
                                 "{0}images/twitter_signin.png".FormatWith(YafForumInfo.ForumClientFileRoot),
                                 this.GetText("LOGIN", "TWITTER_LOGIN"));
                     }
-                    catch (Exception)
+                    catch (Exception exception)
                     {
+                        this.Logger.Warn(exception, "YAF encountered an error when loading the Twitter Login Link");
+
                         twitterHolder.Visible = false;
                     }
                 }
