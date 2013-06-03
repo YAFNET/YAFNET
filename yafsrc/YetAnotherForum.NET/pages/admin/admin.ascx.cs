@@ -272,11 +272,7 @@ namespace YAF.Pages.Admin
                 "spinnerJs",
                 JavaScriptBlocks.LoadSpinnerWidget());
 
-            YafContext.Current.PageElements.RegisterJsBlock(
-                "tablesorterLoadJs",
-                JavaScriptBlocks.LoadTableSorter(".sortable", "headers: { 4: { sorter: false }},sortList: [[3,1],[0,0]]"));
-
-            base.OnPreRender(e);
+           base.OnPreRender(e);
         }
         
         /// <summary>
@@ -406,8 +402,16 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
+            var unverifiedUsers = LegacyDb.user_list(this.PageContext.PageBoardID, null, false);
+
+            YafContext.Current.PageElements.RegisterJsBlock(
+                "tablesorterLoadJs",
+                JavaScriptBlocks.LoadTableSorter(
+                    ".sortable",
+                    unverifiedUsers.Rows.Count > 0 ? "headers: { 4: { sorter: false }},sortList: [[3,1],[0,0]]" : null));
+
             // bind list
-            this.UserList.DataSource = LegacyDb.user_list(this.PageContext.PageBoardID, null, false);
+            this.UserList.DataSource = unverifiedUsers;
             this.UserList.DataBind();
 
             // get stats for current board, selected board or all boards (see function)
