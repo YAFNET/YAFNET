@@ -5373,49 +5373,47 @@ create procedure [{databaseOwner}].[{objectQualifier}post_list](
                  @MessagePosition int = 0,
                  @UTCTIMESTAMP datetime) as
 begin
-   declare @post_totalrowsnumber int 
-   declare @firstselectrownum int 
+   declare @TotalRows int
+   declare @FirstSelectRowNumber int
+   declare @LastSelectRowNumber int
   
-   declare @firstselectposted datetime
-   declare @firstselectedited datetime
+   declare @firstselectrownum int 
 
    declare @floor decimal
    declare @ceiling decimal
   
-   declare @offset int 
-   
-   declare @pagecorrection int
+   declare @offset int   
+ 
    declare @pageshift int;
 
-    set nocount on
     if @UpdateViewCount>0
         update [{databaseOwner}].[{objectQualifier}Topic] set [Views] = [Views] + 1 where TopicID = @TopicID
     -- find total returned count
         select
-        @post_totalrowsnumber = COUNT(m.MessageID)
+        @TotalRows = COUNT(m.MessageID)
     from
         [{databaseOwner}].[{objectQualifier}Message] m
     where
         m.TopicID = @TopicID
         AND m.IsApproved = 1
-        AND (m.IsDeleted = 0 OR ((@ShowDeleted = 1 AND m.IsDeleted = 1) OR (@AuthorUserID > 0 AND m.UserID = @AuthorUserID)))
+		 -- is deleted
+       AND (@ShowDeleted = 1 OR m.IsDeleted = 0 OR (@AuthorUserID > 0 AND m.UserID = @AuthorUserID))
         AND m.Posted BETWEEN
-         @SincePostedDate AND @ToPostedDate
+        @SincePostedDate AND @ToPostedDate
          /*
         AND 
         m.Edited >= SinceEditedDate
-        */
-  
-   -- number of messages on the last page @post_totalrowsnumber - @floor*@PageSize
-   if (@MessagePosition > 0)
+        */ 
+
+ if (@MessagePosition > 0)
  begin
 
        -- round to ceiling - total number of pages  
-       SELECT @ceiling = CEILING(CONVERT(decimal,@post_totalrowsnumber)/@PageSize) 
+       SELECT @ceiling = CEILING(CONVERT(decimal,@TotalRows)/@PageSize) 
        -- round to floor - a number of full pages
-       SELECT @floor = FLOOR(CONVERT(decimal,@post_totalrowsnumber)/@PageSize)
+       SELECT @floor = FLOOR(CONVERT(decimal,@TotalRows)/@PageSize)
 
-       SET @pageshift = @MessagePosition - (@post_totalrowsnumber - @floor*@PageSize)
+       SET @pageshift = @MessagePosition - (@TotalRows - @floor*@PageSize)
             if  @pageshift < 0
                begin
                   SET @pageshift = 0
@@ -5432,55 +5430,47 @@ begin
    
    SET @PageIndex = @ceiling - @pageshift 
    if @ceiling != @floor
-   SET @PageIndex = @PageIndex - 1	      
-
-   select @firstselectrownum = (@PageIndex) * @PageSize + 1    
+   SET @PageIndex = @PageIndex - 1	 
   
+   select @FirstSelectRowNumber = @PageIndex * @PageSize + 1;
+   select @LastSelectRowNumber = @FirstSelectRowNumber + @PageSize;  
  end  
  else
  begin
    select @PageIndex = @PageIndex+1;
-   select @firstselectrownum = (@PageIndex - 1) * @PageSize + 1 
- end 
-  
-   -- find first selectedrowid 
-   if (@firstselectrownum > 0)   
-   set rowcount @firstselectrownum
-   else
-   -- should not be 0
-   set rowcount 1
-    
-   select		
-        @firstselectposted = m.Posted,
-        @firstselectedited = m.Edited
-    from
-        [{databaseOwner}].[{objectQualifier}Message] m
-    where
-        m.TopicID = @TopicID
-        AND m.IsApproved = 1
-        AND (m.IsDeleted = 0 OR ((@ShowDeleted = 1 AND m.IsDeleted = 1) OR (@AuthorUserID > 0 AND m.UserID = @AuthorUserID)))
-        AND m.Posted BETWEEN
-         @SincePostedDate AND @ToPostedDate
-         /*
-        AND m.Edited > @SinceEditedDate
-        */
-        
-    order by
+   select @FirstSelectRowNumber = (@PageIndex - 1) * @PageSize + 1;
+   select @LastSelectRowNumber = (@PageIndex - 1) * @PageSize + @PageSize;
+ end; 	
+	with MessageIds  as
+	 (
+	 select ROW_NUMBER() over (order by (case 
+        when @SortPosition = 1 then tt.Position end) ASC,	
         (case 
-        when @SortPosition = 1 then m.Position end) ASC,	
+        when @SortPosted = 2 then tt.Posted end) DESC,
         (case 
-        when @SortPosted = 2 then m.Posted end) DESC,
+        when @SortPosted = 1 then tt.Posted end) ASC, 
         (case 
-        when @SortPosted = 1 then m.Posted end) ASC, 
+        when @SortEdited = 2 then tt.Edited end) DESC,
         (case 
-        when @SortEdited = 2 then m.Edited end) DESC,
-        (case 
-        when @SortEdited = 1 then m.Edited end) ASC  	 		
-            
-    
-    set rowcount @PageSize	
-        
-    select
+        when @SortEdited = 1 then tt.Edited end) ASC) as RowNum, tt.MessageID, tt.Position, tt.Posted, tt.Edited
+	 from  [{databaseOwner}].[{objectQualifier}Message] tt
+	 where    tt.TopicID = @TopicID
+        AND tt.IsApproved = 1
+       AND (@ShowDeleted = 1 OR tt.IsDeleted = 0 OR (@AuthorUserID > 0 AND tt.UserID = @AuthorUserID))
+        AND (tt.Posted is null OR (tt.Posted is not null AND
+        tt.Posted between @SincePostedDate and @ToPostedDate)) 
+        /*
+        AND (m.Edited is null OR (m.Edited is not null AND
+        (m.Edited >= (case 
+        when @SortEdited = 1 then @firstselectedited end) 
+        OR m.Edited <= (case 
+        when @SortEdited = 2 then @firstselectedited end) OR
+        m.Edited >= (case 
+        when @SortEdited = 0 then 0
+        end)))) 
+        */	
+	  )	  
+	     select
         d.TopicID,
         d.Topic,
         d.Priority,
@@ -5515,63 +5505,35 @@ begin
         Posts		= b.NumPosts,
         b.Points,
         ReputationVoteDate = (CASE WHEN @ShowReputation = 1 THEN CAST(ISNULL((select top 1 VoteDate from [{databaseOwner}].[{objectQualifier}ReputationVote] repVote where repVote.ReputationToUserID=b.UserID and repVote.ReputationFromUserID=@PageUserID), null) as datetime) ELSE @UTCTIMESTAMP END),
-        IsGuest	= IsNull(SIGN(b.Flags & 4),0),
+        IsGuest	= CONVERT(bit,IsNull(SIGN(b.Flags & 4),0)),
         d.[Views],
         d.ForumID,
         RankName = c.Name,		
         c.RankImage,
+        c.Style as RankStyle,
         Style = case(@StyledNicks)
             when 1 then  b.UserStyle
             else ''	 end, 
         Edited = IsNull(m.Edited,m.Posted),
         HasAttachments	= ISNULL((select top 1 1 from [{databaseOwner}].[{objectQualifier}Attachment] x where x.MessageID=m.MessageID),0),
         HasAvatarImage = ISNULL((select top 1 1 from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=b.UserID and AvatarImage is not null),0),
-        TotalRows = @post_totalrowsnumber,
+        TotalRows = @TotalRows,
         PageIndex = @PageIndex,
         up.*
     from
-        [{databaseOwner}].[{objectQualifier}Message] m
+	    MessageIds ti
+		inner join [{databaseOwner}].[{objectQualifier}Message] m
+		ON m.MessageID = ti.MessageID
         join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=m.UserID
         left join [{databaseOwner}].[{objectQualifier}UserProfile] up on up.UserID=b.UserID
         join [{databaseOwner}].[{objectQualifier}Topic] d on d.TopicID=m.TopicID
         join [{databaseOwner}].[{objectQualifier}Forum] g on g.ForumID=d.ForumID
         join [{databaseOwner}].[{objectQualifier}Category] h on h.CategoryID=g.CategoryID
-        join [{databaseOwner}].[{objectQualifier}Rank] c on c.RankID=b.RankID
-    where
-        m.TopicID = @TopicID
-        AND m.IsApproved = 1
-        AND (m.IsDeleted = 0 OR ((@ShowDeleted = 1 AND m.IsDeleted = 1) OR (@AuthorUserID > 0 AND m.UserID = @AuthorUserID)))
-        AND (m.Posted is null OR (m.Posted is not null AND
-        (m.Posted >= (case 
-        when @SortPosted = 1 then
-         @firstselectposted end) OR m.Posted <= (case 
-        when @SortPosted = 2 then @firstselectposted end) OR
-        m.Posted >= (case 
-        when @SortPosted = 0 then 0 end))))	AND
-        (m.Posted <= @ToPostedDate)	
-        /*
-        AND (m.Edited is null OR (m.Edited is not null AND
-        (m.Edited >= (case 
-        when @SortEdited = 1 then @firstselectedited end) 
-        OR m.Edited <= (case 
-        when @SortEdited = 2 then @firstselectedited end) OR
-        m.Edited >= (case 
-        when @SortEdited = 0 then 0
-        end)))) 
-        */
-    order by		
-        (case 
-        when @SortPosition = 1 then m.Position end) ASC,	
-        (case 
-        when @SortPosted = 2 then m.Posted end) DESC,
-        (case 
-        when @SortPosted = 1 then m.Posted end) ASC, 
-        (case 
-        when @SortEdited = 2 then m.Edited end) DESC,
-        (case 
-        when @SortEdited = 1 then m.Edited end) ASC  
+        join [{databaseOwner}].[{objectQualifier}Rank] c on c.RankID=b.RankID        
 
-        SET ROWCOUNT 0
+		WHERE ti.RowNum between @FirstSelectRowNumber and @LastSelectRowNumber
+		order by
+            RowNum ASC  
 end
 GO
 
