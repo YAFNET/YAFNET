@@ -11,13 +11,13 @@
         $('.yafnet .postContainer, .yafnet .postContainer_Alt').hover(function () {
             var $select = $(this);
             $select.find('.avatarimage').stop(true, true).fadeTo('fast', 1.0);
-            $select.find('.postPosted .postedRight, .postInfoBottom div').stop(true, true).delay(500).fadeIn('fast');
+            $select.find('.postPosted .postedRight, .postInfoBottom .displayPostFooter').stop(true, true).delay(500).fadeIn('fast');
         }, function() {
             var $select = $(this);
             $select.find('.avatarimage').stop().fadeTo('fast', 0.5);
-            $select.find('.postPosted .postedRight, .postInfoBottom div').stop(true, true).delay(500).hide(0);
+            $select.find('.postPosted .postedRight, .postInfoBottom .displayPostFooter').stop(true, true).delay(500).hide(0);
         });
 
-        $('.yafnet').find('.postPosted .postedRight, .postInfoBottom div').hide();
+        $('.yafnet').find('.postPosted .postedRight, .postInfoBottom .displayPostFooter').hide();
     });
 })(jQuery);
