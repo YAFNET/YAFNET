@@ -3719,8 +3719,6 @@ create procedure [{databaseOwner}].[{objectQualifier}message_findunread](
 @AuthorUserID int) as
 begin
 
-declare @firstmessageid int
-
 declare @tbl_msglunr table 
 (
 cntrt int IDENTITY(1,1) NOT NULL,
@@ -3729,14 +3727,6 @@ TopicID int,
 Posted datetime,
 Edited datetime
 )
--- find first message id
-select top 1	  
-        @firstmessageid = m.MessageID
-    from
-        [{databaseOwner}].[{objectQualifier}Message] m	
-    where
-        m.TopicID = @TopicID ORDER BY m.Posted
-
 
    -- we return last 100 messages ONLY if we look for first unread or lastpost(Messageid = 0)
    if (@MessageID > 0)
@@ -3753,7 +3743,7 @@ select top 1
     where
         m.TopicID = @TopicID			
         AND m.IsApproved = 1
-        AND (m.IsDeleted = 0 OR ((@ShowDeleted = 1 AND m.IsDeleted = 1) OR (@AuthorUserID > 0 AND m.UserID = @AuthorUserID)))
+       AND (@ShowDeleted = 1 OR m.IsDeleted = 0 OR (@AuthorUserID > 0 AND m.UserID = @AuthorUserID))
          AND m.Posted >	 @LastRead
     order by		
         m.Posted DESC
@@ -3772,7 +3762,7 @@ select top 1
     where
         m.TopicID = @TopicID			
         AND m.IsApproved = 1
-        AND (m.IsDeleted = 0 OR ((@ShowDeleted = 1 AND m.IsDeleted = 1) OR (@AuthorUserID > 0 AND m.UserID = @AuthorUserID)))
+       AND (@ShowDeleted = 1 OR m.IsDeleted = 0 OR (@AuthorUserID > 0 AND m.UserID = @AuthorUserID))
         AND m.Posted >	@LastRead
     order by		
         m.Posted DESC
@@ -3787,14 +3777,14 @@ select top 1
        if EXISTS (SELECT TOP 1 1 FROM @tbl_msglunr WHERE TopicID = @TopicID and MessageID = @MessageID)
         begin
          -- return first unread		
-           select top 1 MessageID, MessagePosition = cntrt, FirstMessageID = @firstmessageid 
+           select top 1 MessageID, MessagePosition = cntrt
            from @tbl_msglunr
            where TopicID=@TopicID and  MessageID = @MessageID 		
         end
         else
         begin
          -- simply return last post if no unread message is found
-           select top 1 MessageID, MessagePosition = 1, FirstMessageID = @firstmessageid 
+           select top 1 MessageID, MessagePosition = 1
            from @tbl_msglunr
            where TopicID=@TopicID and Posted> @LastRead
            order by Posted DESC
@@ -3803,17 +3793,17 @@ select top 1
     else
     begin
        -- simply return last message as no MessageID was supplied 
-       if EXISTS (SELECT TOP 1 1 FROM @tbl_msglunr WHERE Posted> @LastRead)
+       if EXISTS (SELECT TOP 1 1 FROM @tbl_msglunr WHERE Posted > @LastRead)
         begin
          -- return first unread		
-           select top 1 MessageID, MessagePosition = cntrt, FirstMessageID = @firstmessageid 
+           select top 1 MessageID, MessagePosition = cntrt
            from @tbl_msglunr
            where TopicID=@TopicID and Posted>@LastRead  
            order by Posted  ASC
         end
         else
         begin
-           select top 1 MessageID, MessagePosition = 1, FirstMessageID = @firstmessageid 
+           select top 1 MessageID, MessagePosition = 1
            from @tbl_msglunr
            where TopicID=@TopicID
            order by Posted DESC  
@@ -3822,13 +3812,13 @@ select top 1
 end
     else
 begin
-        select top 1 m.MessageID, MessagePosition = 1, FirstMessageID = @firstmessageid 
+        select top 1 m.MessageID, MessagePosition = 1
     from
         [{databaseOwner}].[{objectQualifier}Message] m	
     where
         m.TopicID = @TopicID			
         AND m.IsApproved = 1
-        AND (m.IsDeleted = 0 OR ((@ShowDeleted = 1 AND m.IsDeleted = 1) OR (@AuthorUserID > 0 AND m.UserID = @AuthorUserID)))	
+       AND (@ShowDeleted = 1 OR m.IsDeleted = 0 OR (@AuthorUserID > 0 AND m.UserID = @AuthorUserID))
     order by		
         m.Posted DESC
 end
