@@ -976,36 +976,38 @@ namespace YAF.Pages
         /// </summary>
         private void BindData()
         {
+            if (this._topic == null)
+            {
+                YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
+            }
+
             this._dataBound = true;
 
             bool showDeleted = false;
-            int userId = 0;
-            if (this.Get<YafBoardSettings>().ShowDeletedMessagesToAll || this.PageContext.IsAdmin
-                || this.PageContext.ForumModeratorAccess)
+            int userId = this.PageContext.PageUserID;
+
+            if ((this.PageContext.IsAdmin
+                || this.PageContext.ForumModeratorAccess) || this.Get<YafBoardSettings>().ShowDeletedMessagesToAll)
             {
                 showDeleted = true;
             }
 
-            if (this.Get<YafBoardSettings>().ShowDeletedMessages)
-            {
-                userId = this.PageContext.PageUserID;
-            }
-
-            this.Pager.PageSize = this.Get<YafBoardSettings>().PostsPerPage;
-            int messagePosition;
+           int messagePosition;
             int findMessageId = this.GetFindMessageId(showDeleted, userId, out messagePosition);
             if (findMessageId > 0)
             {
                 this.CurrentMessage = findMessageId;
             }
 
-            if (this._topic == null)
+            if (!this.Get<YafBoardSettings>().ShowDeletedMessages || !this.Get<YafBoardSettings>().ShowDeletedMessagesToAll)
             {
-                YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
+                // normally, users can always see own deleted topics or stubs we set a false id to hide them.
+                userId = -1;
             }
 
             // Mark topic read
             this.Get<IReadTrackCurrentUser>().SetTopicRead(this.PageContext.PageTopicID);
+            this.Pager.PageSize = this.Get<YafBoardSettings>().PostsPerPage;
 
             DataTable postListDataTable = LegacyDb.post_list(
                 this.PageContext.PageTopicID,
