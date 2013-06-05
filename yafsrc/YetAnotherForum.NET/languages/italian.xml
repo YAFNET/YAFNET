@@ -1868,19 +1868,19 @@
     <Resource tag="CAL_JQ_CULTURE">it</Resource>
     <Resource tag="CAL_JQ_CULTURE_DFORMAT">dd/MM/YY</Resource>
     <Resource tag="CAL_JQ_TT">Click per selezionare la data</Resource>
-    <Resource tag="CAN_DELETE">Tu [b]puoi[/b] cancellare i tuoi messaggi in questo forum.</Resource>
-    <Resource tag="CAN_EDIT">Tu [b]puoi[/b] modificare i tuoi messaggi in questo forum.</Resource>
+    <Resource tag="CAN_DELETE">Tu [b]puoi[/b] cancellare messaggi in questo forum.</Resource>
+    <Resource tag="CAN_EDIT">Tu [b]puoi[/b] modificare messaggi in questo forum.</Resource>
     <Resource tag="CAN_POLL">Tu [b]puoi[/b] creare sondaggi in questo forum.</Resource>
-    <Resource tag="CAN_POST">Tu [b]puoi[/b] inviare nuovi topic in questo forum.</Resource>
-    <Resource tag="CAN_REPLY">Tu [b]puoi[/b] rispondere ai topics in this forum.</Resource>
-    <Resource tag="CAN_VOTE">Tu [b]puoi[/b] votare nei sondaggi di questo forum.</Resource>
+    <Resource tag="CAN_POST">Tu [b]puoi[/b] creare discussioni in questo forum.</Resource>
+    <Resource tag="CAN_REPLY">Tu [b]puoi[/b] rispondere alle discussioni in questo forum.</Resource>
+    <Resource tag="CAN_VOTE">Tu [b]puoi[/b] votare nei sondaggi in questo forum.</Resource>
     <Resource tag="CANCEL">Annulla</Resource>
-    <Resource tag="CANNOT_DELETE">Tu [b]NON puoi[/b] cancellare i tuoi messaggi in questo forum.</Resource>
-    <Resource tag="CANNOT_EDIT">Tu [b]NON puoi[/b] modificare i tuoi messaggi in questo forum.</Resource>
+    <Resource tag="CANNOT_DELETE">Tu [b]NON puoi[/b] cancellare messaggi in questo forum.</Resource>
+    <Resource tag="CANNOT_EDIT">Tu [b]NON puoi[/b] modificare messaggi in questo forum.</Resource>
     <Resource tag="CANNOT_POLL">Tu [b]NON puoi[/b] creare sondaggi in questo forum.</Resource>
-    <Resource tag="CANNOT_POST">Tu [b]NON puoi[/b] inviare nuovi topic in questo forum.</Resource>
-    <Resource tag="CANNOT_REPLY">Tu [b]NON puoi[/b] rispondere ai topics in this forum.</Resource>
-    <Resource tag="CANNOT_VOTE">Tu [b]NON puoi[/b] votare nei sondaggi di questo forum.</Resource>
+    <Resource tag="CANNOT_POST">Tu [b]NON puoi[/b] creare discussioni in questo forum.</Resource>
+    <Resource tag="CANNOT_REPLY">Tu [b]NON puoi[/b] rispondere alle discussioni in questo forum.</Resource>
+    <Resource tag="CANNOT_VOTE">Tu [b]NON puoi[/b] votare nei sondaggi in questo forum.</Resource>
     <Resource tag="CAPTCHA_ENTER">Inserisci i caratteri presenti nella immagine di sicurezza:</Resource>
     <Resource tag="CAPTCHA_IMAGE">Immagine di sicurezza:</Resource>
     <Resource tag="CHANGEEMAIL_SUBJECT">Nuova email</Resource>
@@ -2449,7 +2449,7 @@
     <Resource tag="TITLE">Impostazioni notifiche e-mail</Resource>
     <Resource tag="TOPIC">Topic</Resource>
     <Resource tag="TOPICS">Discussioni</Resource>
-    <Resource tag="TOPICSIPOSTTOORSUBSCRIBETO"> Ricevi notifiche per le discussioni [b]in cui posterai d'ora in avanti[/b] o che sono incluse in forum che stai controllando o che hai aggiunto alle preferite (elenco qui sotto)</Resource>
+    <Resource tag="TOPICSIPOSTTOORSUBSCRIBETO"> Ricevi notifiche per le discussioni [b]che aprirai d'ora in avanti[/b] o che sono incluse in forum che stai controllando o che hai aggiunto alle preferite (elenco qui sotto)</Resource>
     <Resource tag="TOPICSISUBSCRIBETO"> Ricevi notifiche per le discussioni che sono incluse in forum che stai controllando o che hai aggiunto alle preferite (elenco qui sotto) </Resource>
     <Resource tag="UNSUBSCRIBE">Elimina</Resource>
     <Resource tag="VIEWS">Visite</Resource>
@@ -3597,7 +3597,7 @@ Spoiler Content
 &lt;ul&gt;
   &lt;li&gt;&lt;strong&gt;Approve&lt;/strong&gt; - You Become Buddy of the User who requests it &lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;Deny&lt;/strong&gt; - Reject the request&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt; Approve and Add - &lt;/strong&gt;You become Buddy of the User who requests it, and also the User becomes a Friend in your List.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt; Approve and Add - &lt;/strong&gt;You become Buddy of the User who requests it, and also the User becomes a Body in your List.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;Remove Buddy&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;To remove a Buddy from Your List go to your 'My Buddies' page. On the Tab 'Buddy List' Click on the Button 'Remove Buddy' of the User you want to remove&lt;/p&gt;
@@ -4034,7 +4034,7 @@ Spoiler Content
     <Resource tag="EDITED">Modificato:</Resource>
     <Resource tag="EDITEDBY">Modificato da:</Resource>
     <Resource tag="EDITEREASON">Motivo della modifica:</Resource>
-    <Resource tag="GOMODERATE">Continua moderato</Resource>
+    <Resource tag="GOMODERATE">Continua la moderazione</Resource>
     <Resource tag="HISTORYSTART">Storico versioni</Resource>
     <Resource tag="ORIGINALMESSAGE">Versione originale</Resource>
     <Resource tag="POSTED">Inviato:</Resource>
@@ -4204,11 +4204,11 @@ Spoiler Content
     <Resource tag="POLL_EXPIRE_EXPLAIN">[b]Giorni[/b] [Lasciare vuoto per tenere il sondaggio aperto per sempre]</Resource>
     <Resource tag="POLL_EXPIRED">Il sondaggio e' chiuso.</Resource>
     <Resource tag="POLL_IMGWIDTH">Larghezza immagine in pixel:</Resource>
-    <Resource tag="POLL_MULTIPLECHOICES">Allow to vote for many choices</Resource>
+    <Resource tag="POLL_MULTIPLECHOICES">Permetti scelta multipla.</Resource>
     <Resource tag="POLL_MULTIPLECHOICES_INFO">You can vote for many choices.</Resource>
     <Resource tag="POLL_NOPERM_GUEST">Gli ospiti non possono votare. Prova a registrarti.</Resource>
     <Resource tag="POLL_PLEASEVOTE">Clicca per votare</Resource>
-    <Resource tag="POLL_SHOWVOTERS">Show who voted</Resource>
+    <Resource tag="POLL_SHOWVOTERS">Mostra chi ha votato.</Resource>
     <Resource tag="POLL_SHOWVOTERS_INFO">Show who has voted.</Resource>
     <Resource tag="POLL_VOTED">Hai gia' votato.</Resource>
     <Resource tag="POLL_WILLEXPIRE">Il sondaggio sara' chiuso fra {0} giorni.</Resource>
@@ -4222,7 +4222,7 @@ Spoiler Content
     <Resource tag="POLLGROUPISBOUND">Il tuo voto sarà aggiunto ai risultati quando avrai votato in tutti i sondaggi.</Resource>
     <Resource tag="POLLHEADER">Crea o modifica sondaggio</Resource>
     <Resource tag="POLLIMAGE_INVALID">L'immagine oppure il suo percorso non e' valido per {0}.</Resource>
-    <Resource tag="POLLIMAGE_TEXT">Percorso immagine:</Resource>
+    <Resource tag="POLLIMAGE_TEXT">URL immagine (comprensivo di http://):</Resource>
     <Resource tag="POLLIMAGE_TOOBIG">Your image file size is {0} KB, it  should not be more than  {1}  KB.  Image path: {2}. </Resource>
     <Resource tag="POLLOPTIONSHIDDEN_GUEST">Gli ospiti non possono vedere le scelte e i risultati dei sondaggi. Prova a registrarti.</Resource>
     <Resource tag="POLLQUESTION">Domanda sondaggio:</Resource>
@@ -4368,9 +4368,9 @@ Spoiler Content
     <Resource tag="SKYPE">Skype</Resource>
     <Resource tag="SKYPE_TITLE">Contata {0} tramite Skype</Resource>
     <Resource tag="STATISTICS">Statistiche</Resource>
-    <Resource tag="THANKSFROM">Ringraziato: {0} volte</Resource>
-    <Resource tag="THANKSFROM_FEM">Ringraziata: {0} volte</Resource>
-    <Resource tag="THANKSFROM_MUSC">Ringraziato: {0} volte</Resource>
+    <Resource tag="THANKSFROM">Ha ringraziato: {0} volte</Resource>
+    <Resource tag="THANKSFROM_FEM">Ha ringraziato: {0} volte</Resource>
+    <Resource tag="THANKSFROM_MUSC">Ha ringraziato: {0} volte</Resource>
     <Resource tag="THANKSINFO">{0} utenti hanno ringraziato {1} per questo utile messaggio.</Resource>
     <Resource tag="THANKSINFOSINGLE">Un utente ha ringraziato {0} per questo utile messaggio</Resource>
     <Resource tag="THANKSTO">E' stato ringraziato: {0} volte in {1} messaggi</Resource>
@@ -4396,7 +4396,7 @@ Spoiler Content
     <Resource tag="USEROFFLINESTATUS">L'utente non è in linea</Resource>
     <Resource tag="USERONLINESTATUS">L'utente è in linea</Resource>
     <Resource tag="USERPROFILE">Profilo utente</Resource>
-    <Resource tag="USERSUSPENDED">L'utente è sospeso fino a {0}</Resource>
+    <Resource tag="USERSUSPENDED">L'utente è sospeso fino al {0}</Resource>
     <Resource tag="VIEW">Visualizza</Resource>
     <Resource tag="VIEW_TOOLTIP">Cambia visualizzazione discussioni fra normale e gerarchica.</Resource>
     <Resource tag="VOTES">Voti</Resource>
