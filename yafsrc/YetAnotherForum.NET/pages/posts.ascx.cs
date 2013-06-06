@@ -993,17 +993,17 @@ namespace YAF.Pages
             }
 
            int messagePosition;
+           if (!this.Get<YafBoardSettings>().ShowDeletedMessages || !this.Get<YafBoardSettings>().ShowDeletedMessagesToAll)
+           {
+               // normally, users can always see own deleted topics or stubs we set a false id to hide them.
+               userId = -1;
+           }
+
             int findMessageId = this.GetFindMessageId(showDeleted, userId, out messagePosition);
             if (findMessageId > 0)
             {
                 this.CurrentMessage = findMessageId;
-            }
-
-            if (!this.Get<YafBoardSettings>().ShowDeletedMessages || !this.Get<YafBoardSettings>().ShowDeletedMessagesToAll)
-            {
-                // normally, users can always see own deleted topics or stubs we set a false id to hide them.
-                userId = -1;
-            }
+            }         
 
             // Mark topic read
             this.Get<IReadTrackCurrentUser>().SetTopicRead(this.PageContext.PageTopicID);
@@ -1258,10 +1258,7 @@ namespace YAF.Pages
                             }
                         }
 
-                        // find last post
-                        if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find").ToLower() == "lastpost")
-                        {
-                            // Find next unread
+                 
                             using (
                                 DataTable unread = LegacyDb.message_findunread(
                                     topicID: this.PageContext.PageTopicID,
@@ -1276,8 +1273,7 @@ namespace YAF.Pages
                                     findMessageId = unreadFirst.Field<int>("MessageID");
                                     messagePosition = unreadFirst.Field<int>("MessagePosition");
                                 }
-                            }
-                        }
+                            }                      
                     }
                 }
             }
