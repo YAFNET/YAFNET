@@ -3718,7 +3718,7 @@ create procedure [{databaseOwner}].[{objectQualifier}message_findunread](
 @ShowDeleted bit = 0,
 @AuthorUserID int) as
 begin
-   declare @MessagePosition int,@MessageID1 int
+   declare @MessagePosition int
 
    if (@MessageID > 0)
    begin
@@ -5371,7 +5371,7 @@ begin
  begin
    select @PageIndex = @PageIndex+1;
    select @FirstSelectRowNumber = (@PageIndex - 1) * @PageSize + 1;
-   select @LastSelectRowNumber = (@PageIndex - 1) * @PageSize + @PageSize;
+   select @LastSelectRowNumber = (@PageIndex - 1) * @PageSize + @PageSize - 1;
  end; 	
 	with MessageIds  as
 	 (
