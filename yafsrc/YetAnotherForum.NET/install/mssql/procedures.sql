@@ -3718,114 +3718,56 @@ create procedure [{databaseOwner}].[{objectQualifier}message_findunread](
 @ShowDeleted bit = 0,
 @AuthorUserID int) as
 begin
+   declare @MessagePosition int,@MessageID1 int
 
-declare @tbl_msglunr table 
-(
-cntrt int IDENTITY(1,1) NOT NULL,
-MessageID int,
-TopicID int,
-Posted datetime,
-Edited datetime
-)
-
-   -- we return last 100 messages ONLY if we look for first unread or lastpost(Messageid = 0)
    if (@MessageID > 0)
    begin
-   -- fill in the table variable with all topic's messages(slow). It's used in cases when we forced to find a particular message. 		
-    insert into @tbl_msglunr (MessageID,TopicID,Posted,Edited) 
-    select  
-        m.MessageID,
-        m.TopicID,
-        m.Posted,
-        Edited = IsNull(m.Edited,m.Posted)
+   Select top 1 @MessagePosition = CONVERT(int,RowNum), @MessageID = tbl.MessageID  from 
+   (
+   Select ROW_NUMBER() OVER ( order by Posted desc) as RowNum, m.MessageID
+   from yaf_Message m  
+   where m.TopicID = @TopicID			
+        AND m.IsApproved = 1
+        AND (@ShowDeleted = 1 OR m.IsDeleted = 0 OR (@AuthorUserID > 0 AND m.UserID = @AuthorUserID))        
+   ) as tbl
+   Where tbl.MessageID = @MessageID
+   order by tbl.RowNum ASC;
+   end
+-- a message with the id was not found or we are looking for first unread or last post 
+  if (@MessageID <= 0)
+   begin  
+   -- if value > yaf db min value (1-1-1902) we are looking for first unread 
+   if (@LastRead > CONVERT(datetime,'1/1/1903'))  
+   begin
+   Select top 1 @MessagePosition = CONVERT(int,RowNum), @MessageID = tbl.MessageID  from 
+   (
+   Select ROW_NUMBER() OVER ( order by m.Posted asc) as RowNum, m.MessageID, m.Posted
+   from yaf_Message m  
+   where m.TopicID = @TopicID			
+        AND m.IsApproved = 1
+        AND (@ShowDeleted = 1 OR m.IsDeleted = 0 OR (@AuthorUserID > 0 AND m.UserID = @AuthorUserID))		     
+   ) as tbl
+   Where tbl.Posted > @LastRead 
+   order by tbl.RowNum ASC;
+   end
+   -- if first unread was not found or we looking for last posted
+   if (@LastRead < CONVERT(datetime,'1/1/1903') OR @MessagePosition IS NULL) 
+   begin    
+        select top 1 @MessageID = m.MessageID, @MessagePosition = 1
     from
         [{databaseOwner}].[{objectQualifier}Message] m	
     where
         m.TopicID = @TopicID			
         AND m.IsApproved = 1
        AND (@ShowDeleted = 1 OR m.IsDeleted = 0 OR (@AuthorUserID > 0 AND m.UserID = @AuthorUserID))
-         AND m.Posted >	 @LastRead
     order by		
-        m.Posted DESC
-        end
-    else
-        begin
-    -- fill in the table variable with last 100 values from topic's messages		
-    insert into @tbl_msglunr (MessageID,TopicID,Posted,Edited) 
-    select  top 100	  
-        m.MessageID,
-        m.TopicID,
-        m.Posted,
-        Edited = IsNull(m.Edited,m.Posted)
-    from
-        [{databaseOwner}].[{objectQualifier}Message] m	
-    where
-        m.TopicID = @TopicID			
-        AND m.IsApproved = 1
-       AND (@ShowDeleted = 1 OR m.IsDeleted = 0 OR (@AuthorUserID > 0 AND m.UserID = @AuthorUserID))
-        AND m.Posted >	@LastRead
-    order by		
-        m.Posted DESC
-        end
-
-         -- simply return last post if no unread message is found
-  if EXISTS (SELECT TOP 1 1 FROM @tbl_msglunr) 
-  begin
-    -- the messageid was already supplied, find a particular message
-    if (@MessageID > 0)
-    begin
-       if EXISTS (SELECT TOP 1 1 FROM @tbl_msglunr WHERE TopicID = @TopicID and MessageID = @MessageID)
-        begin
-         -- return first unread		
-           select top 1 MessageID, MessagePosition = cntrt
-           from @tbl_msglunr
-           where TopicID=@TopicID and  MessageID = @MessageID 		
-        end
-        else
-        begin
-         -- simply return last post if no unread message is found
-           select top 1 MessageID, MessagePosition = 1
-           from @tbl_msglunr
-           where TopicID=@TopicID and Posted> @LastRead
-           order by Posted DESC
-        end
-    end
-    else
-    begin
-       -- simply return last message as no MessageID was supplied 
-       if EXISTS (SELECT TOP 1 1 FROM @tbl_msglunr WHERE Posted > @LastRead)
-        begin
-         -- return first unread		
-           select top 1 MessageID, MessagePosition = cntrt
-           from @tbl_msglunr
-           where TopicID=@TopicID and Posted>@LastRead  
-           order by Posted  ASC
-        end
-        else
-        begin
-           select top 1 MessageID, MessagePosition = 1
-           from @tbl_msglunr
-           where TopicID=@TopicID
-           order by Posted DESC  
-        end	
-    end
+        m.Posted DESC;    
 end
-    else
-begin
-        select top 1 m.MessageID, MessagePosition = 1
-    from
-        [{databaseOwner}].[{objectQualifier}Message] m	
-    where
-        m.TopicID = @TopicID			
-        AND m.IsApproved = 1
-       AND (@ShowDeleted = 1 OR m.IsDeleted = 0 OR (@AuthorUserID > 0 AND m.UserID = @AuthorUserID))
-    order by		
-        m.Posted DESC
 end
-
+  
+select @MessageID as MessageID, @MessagePosition as MessagePosition;
 end
 GO
-
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_getReplies](@MessageID int) as
 BEGIN
     SELECT MessageID FROM [{databaseOwner}].[{objectQualifier}Message] WHERE ReplyTo = @MessageID
