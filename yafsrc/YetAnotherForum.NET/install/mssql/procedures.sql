@@ -5978,17 +5978,12 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}topic_active]
 )
 AS
 begin
-   declare @post_totalrowsnumber int 
-   declare @firstselectrownum int   
-   declare @firstselectposted datetime
-  -- declare @ceiling decimal  
-  -- declare @offset int 
-
-    set nocount on	
-
-    -- find total returned count
-        select
-        @post_totalrowsnumber = count(1)		
+declare @TotalRows int
+   declare @FirstSelectRowNumber int
+   declare @LastSelectRowNumber int
+   
+   -- find total returned count
+   select  @TotalRows = count(1)		
         from
         [{databaseOwner}].[{objectQualifier}Topic] c
         join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
@@ -6003,25 +5998,19 @@ begin
         (@CategoryID is null or cat.CategoryID=@CategoryID) and
         c.IsDeleted = 0
         and	c.TopicMovedID is null	
-
-      select @PageIndex = @PageIndex+1;
-      select @firstselectrownum = (@PageIndex - 1) * @PageSize + 1 
-        -- find first selectedrowid 
-   if (@firstselectrownum > 0)   
-   set rowcount @firstselectrownum
-   else
-   -- should not be 0
-   set rowcount 1
-    
-   select		
-        @firstselectposted = c.LastPosted		
-    from
-            [{databaseOwner}].[{objectQualifier}Topic] c
-        join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
-        join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
+	
+	select @PageIndex = @PageIndex+1;
+	select @FirstSelectRowNumber = (@PageIndex - 1) * @PageSize + 1;
+	select @LastSelectRowNumber = (@PageIndex - 1) * @PageSize + @PageSize;
+	
+	with TopicIds  as
+	 (
+	 select ROW_NUMBER() over (order by cat.SortOrder asc, d.SortOrder asc, c.LastPosted desc) as RowNum, c.TopicID
+	 from  [{databaseOwner}].[{objectQualifier}Topic] c
+	 	join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
         join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  with(nolock) on x.ForumID=d.ForumID
         join [{databaseOwner}].[{objectQualifier}Category] cat on cat.CategoryID=d.CategoryID
-    where
+	 where
         (c.LastPosted between @SinceDate and @ToDate) and
         x.UserID = @PageUserID and
         CONVERT(int,x.ReadAccess) <> 0 and
@@ -6029,16 +6018,9 @@ begin
         (@CategoryID is null or cat.CategoryID=@CategoryID) and
         c.IsDeleted = 0
         and	c.TopicMovedID is null	
-    order by
-        c.LastPosted desc ,
-        cat.SortOrder asc,
-        d.SortOrder asc,
-        d.Name asc,
-        c.Priority desc		
-    
-    set rowcount @PageSize	
-            select
-        c.ForumID,
+	  )	  
+	  select
+		c.ForumID,
         c.TopicID,
         c.TopicMovedID,		
         c.Posted,
@@ -6082,30 +6064,17 @@ begin
              when 1 then
                (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=c.TopicID AND y.UserID = @PageUserID)
              else ''	 end,
-        TotalRows = @post_totalrowsnumber,
+        TotalRows = @TotalRows,
         PageIndex = @PageIndex
     from
-        [{databaseOwner}].[{objectQualifier}Topic] c
+	    TopicIds ti
+        inner join [{databaseOwner}].[{objectQualifier}Topic] c on c.TopicID = ti.TopicID
         join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
-        join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  with(nolock) on x.ForumID=d.ForumID
+        join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID	  
         join [{databaseOwner}].[{objectQualifier}Category] cat on cat.CategoryID=d.CategoryID
-    where
-        c.LastPosted <= @firstselectposted and
-        x.UserID = @PageUserID and
-        CONVERT(int,x.ReadAccess) <> 0 and
-        cat.BoardID = @BoardID and
-        (@CategoryID is null or cat.CategoryID=@CategoryID) and
-        c.IsDeleted = 0
-        and	c.TopicMovedID is null
-    order by
-        c.LastPosted desc,
-        cat.SortOrder asc,
-        d.SortOrder asc,
-        d.Name asc,
-        c.Priority desc	
-
-        SET ROWCOUNT 0		
+    where ti.RowNum between @FirstSelectRowNumber and @LastSelectRowNumber
+		order by
+            RowNum ASC   	
     
 end
 GO
