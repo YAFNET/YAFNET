@@ -61,7 +61,6 @@ namespace YAF.Pages.Admin
             // add confirmation method on click
             ((ThemeButton)sender).Attributes["onclick"] =
                 "return confirm('{0}')".FormatWith(this.GetText("ADMIN_USERS", "CONFIRM_DELETE"));
-         
         }
 
         /// <summary>
@@ -230,8 +229,9 @@ namespace YAF.Pages.Admin
                 new ListItem(
                     this.GetTextFormatted(
                         "last_visit",
-                        this.Get<IDateTime>().FormatDateTime(
-                                lastVisit.HasValue && lastVisit.Value != DateTime.MinValue
+                        this.Get<IDateTime>()
+                            .FormatDateTime(
+                                lastVisit.HasValue && lastVisit.Value != DateTimeHelper.SqlDbMinTime()
                                     ? lastVisit.Value
                                     : DateTime.UtcNow)),
                     "0"));

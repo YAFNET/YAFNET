@@ -28,7 +28,7 @@ namespace YAF.Core
     using YAF.Classes;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
-    using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -363,7 +363,7 @@ namespace YAF.Core
             get
             {
                 return this.Page["LastPendingBuddies"].ToString().IsNotSet()
-                           ? DateTime.MinValue
+                           ? DateTimeHelper.SqlDbMinTime()
                            : Convert.ToDateTime(this.Page["LastPendingBuddies"]);
             }
         }
@@ -376,7 +376,7 @@ namespace YAF.Core
             get
             {
                 return this.Page["LastUnreadPm"].ToString().IsNotSet()
-                           ? DateTime.MinValue
+                           ? DateTimeHelper.SqlDbMinTime()
                            : Convert.ToDateTime(this.Page["LastUnreadPm"]);
             }
         }
@@ -562,12 +562,7 @@ namespace YAF.Core
         {
             get
             {
-                if (this.IsSuspended)
-                {
-                    return Convert.ToDateTime(this.Page["Suspended"]);
-                }
-
-                return DateTime.MinValue;
+                return this.IsSuspended ? Convert.ToDateTime(this.Page["Suspended"]) : DateTimeHelper.SqlDbMinTime();
             }
         }
 
@@ -683,13 +678,13 @@ namespace YAF.Core
         }
 
         /// <summary>
-        /// Internal helper function used for redundant page variable access (bool)
+        /// Internal helper function used for redundant page variable access (boolean)
         /// </summary>
         /// <param name="field">
         /// The field.
         /// </param>
         /// <returns>
-        /// The page value as bool.
+        /// The page value as boolean.
         /// </returns>
         private bool PageValueAsBool(string field)
         {
@@ -702,13 +697,13 @@ namespace YAF.Core
         }
 
         /// <summary>
-        /// Internal helper function used for redundant page variable access (int)
+        /// Internal helper function used for redundant page variable access (integer)
         /// </summary>
         /// <param name="field">
         /// The field.
         /// </param>
         /// <returns>
-        /// The page value as int.
+        /// The page value as integer.
         /// </returns>
         private int PageValueAsInt(string field)
         {

@@ -504,7 +504,7 @@ namespace YAF.Pages
                         out toFavDate))
                 {
                     toFavDate = this.PageContext.CurrentUserData.Joined == null
-                                    ? DateTime.MinValue + TimeSpan.FromDays(2)
+                                    ? DateTimeHelper.SqlDbMinTime() + TimeSpan.FromDays(2)
                                     : (DateTime)this.PageContext.CurrentUserData.Joined;
                     toFavText = this.GetText("MYTOPICS", "SHOW_ALL");
                 }
@@ -512,7 +512,7 @@ namespace YAF.Pages
             else
             {
                 toFavDate = this.PageContext.CurrentUserData.Joined == null
-                                ? DateTime.MinValue + TimeSpan.FromDays(2)
+                                ? DateTimeHelper.SqlDbMinTime() + TimeSpan.FromDays(2)
                                 : (DateTime)this.PageContext.CurrentUserData.Joined;
                 toFavText = this.GetText("MYTOPICS", "SHOW_ALL");
             }

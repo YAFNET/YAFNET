@@ -113,7 +113,7 @@ namespace YAF.Controls
         #region Public Properties
 
         /// <summary>
-        ///   Gets or sets a value indicating whether Auto Databind.
+        ///   Gets or sets a value indicating whether Auto Data bind.
         /// </summary>
         public bool AutoDatabind { get; set; }
 
@@ -187,11 +187,6 @@ namespace YAF.Controls
             // we'll hold topics in this table
             DataTable topicList = null;
             
-            if (this.sinceDate == DateTime.MinValue)
-            {
-                this.sinceDate = DateTimeHelper.SqlDbMinTime();
-            }
-
             // set the page size here
             int basePageSize = this.Get<YafBoardSettings>().MyTopicsListPageSize;
             this.PagerTop.PageSize = basePageSize;
@@ -328,10 +323,11 @@ namespace YAF.Controls
                     this.GetTextFormatted(
                         "last_visit",
                         !this.PageContext.IsMobileDevice
-                            ? this.Get<IDateTime>().FormatDateTime(
-                                lastVisit.HasValue && lastVisit.Value != DateTime.MinValue
-                                    ? lastVisit.Value
-                                    : DateTime.UtcNow)
+                            ? this.Get<IDateTime>()
+                                  .FormatDateTime(
+                                      lastVisit.HasValue && lastVisit.Value != DateTimeHelper.SqlDbMinTime()
+                                          ? lastVisit.Value
+                                          : DateTime.UtcNow)
                             : string.Empty),
                     "0"));
 
@@ -349,7 +345,7 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// Mark all Topis in the List as Read
+        /// Mark all Topics in the List as Read
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>

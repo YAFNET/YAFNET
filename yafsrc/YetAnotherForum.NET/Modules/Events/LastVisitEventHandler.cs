@@ -28,6 +28,7 @@ namespace YAF.Modules
     using YAF.Types.Attributes;
     using YAF.Types.EventProxies;
     using YAF.Types.Interfaces;
+    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -37,8 +38,14 @@ namespace YAF.Modules
     [ExportService(ServiceLifetimeScope.InstancePerScope)]
     public class LastVisitEventHandler : IHandleEvent<ForumPagePreLoadEvent>, IHandleEvent<ForumPageUnloadEvent>
     {
+        /// <summary>
+        /// The _request base
+        /// </summary>
         private readonly HttpRequestBase _requestBase;
 
+        /// <summary>
+        /// The _response base
+        /// </summary>
         private readonly HttpResponseBase _responseBase;
 
         #region Constructors and Destructors
@@ -46,7 +53,7 @@ namespace YAF.Modules
         /// <summary>
         /// Initializes a new instance of the <see cref="LastVisitEventHandler"/> class.
         /// </summary>
-        /// <param name="yafSession">The yaf session.</param>
+        /// <param name="yafSession">The YAF session.</param>
         /// <param name="requestBase">The request base.</param>
         /// <param name="responseBase">The response base.</param>
         public LastVisitEventHandler(
@@ -83,7 +90,7 @@ namespace YAF.Modules
         /// <param name="event">The @event.</param>
         public void Handle(ForumPageUnloadEvent @event)
         {
-            /*/if (YafContext.Current.IsGuest && (!this.YafSession.LastVisit.HasValue || this.YafSession.LastVisit.Value == DateTime.MinValue))
+            /*/if (YafContext.Current.IsGuest && (!this.YafSession.LastVisit.HasValue || this.YafSession.LastVisit.Value == DateTimeHelper.SqlDbMinTime()))
             //{
             //  // update last visit going forward...
             //  this.YafSession.LastVisit = DateTime.UtcNow;
@@ -126,7 +133,7 @@ namespace YAF.Modules
                 }
                 else
                 {
-                    this.YafSession.LastVisit = DateTime.MinValue;
+                    this.YafSession.LastVisit = DateTimeHelper.SqlDbMinTime();
                 }
 
                 // set the last visit cookie...

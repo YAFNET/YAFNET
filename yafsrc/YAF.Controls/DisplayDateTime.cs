@@ -18,123 +18,122 @@
  */
 namespace YAF.Controls
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.Web.UI;
+    using System;
+    using System.Web.UI;
 
-  using YAF.Core;
-  using YAF.Types.Extensions;
-  using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Utils;
-  using YAF.Types;
-  using YAF.Types.Constants;
-  using YAF.Types.Interfaces;
-
-  #endregion
-
-  /// <summary>
-  /// The display date time.
-  /// </summary>
-  public class DisplayDateTime : BaseControl
-  {
-    #region Constants and Fields
-
-    /// <summary>
-    ///   The _controlHtml.
-    /// </summary>
-    protected string _controlHtml = @"<abbr class=""timeago"" title=""{0}"">{1}</abbr>";
+    using YAF.Core;
+    using YAF.Types;
+    using YAF.Types.Constants;
+    using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
+    using YAF.Utils.Helpers;
 
     #endregion
 
-    #region Properties
-
     /// <summary>
-    ///   Gets or sets DateTime.
+    /// The display date time.
     /// </summary>
-    public object DateTime
+    public class DisplayDateTime : BaseControl
     {
-      get
-      {
-        if (this.ViewState["DateTime"] == null)
+        #region Constants and Fields
+
+        /// <summary>
+        ///   The _controlHtml.
+        /// </summary>
+        protected string _controlHtml = @"<abbr class=""timeago"" title=""{0}"">{1}</abbr>";
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        ///   Gets or sets DateTime.
+        /// </summary>
+        public object DateTime
         {
-          return null;
+            get
+            {
+                if (this.ViewState["DateTime"] == null)
+                {
+                    return null;
+                }
+
+                return this.ViewState["DateTime"];
+            }
+
+            set
+            {
+                this.ViewState["DateTime"] = value;
+            }
         }
 
-        return this.ViewState["DateTime"];
-      }
-
-      set
-      {
-        this.ViewState["DateTime"] = value;
-      }
-    }
-
-    /// <summary>
-    ///   Gets or sets Format.
-    /// </summary>
-    public DateTimeFormat Format
-    {
-      get
-      {
-        if (this.ViewState["Format"] == null)
+        /// <summary>
+        ///   Gets or sets Format.
+        /// </summary>
+        public DateTimeFormat Format
         {
-          return DateTimeFormat.Both;
+            get
+            {
+                return this.ViewState["Format"] == null
+                           ? DateTimeFormat.Both
+                           : this.ViewState["Format"].ToEnum<DateTimeFormat>();
+            }
+
+            set
+            {
+                this.ViewState["Format"] = value;
+            }
         }
 
-        return this.ViewState["Format"].ToEnum<DateTimeFormat>();
-      }
-
-      set
-      {
-        this.ViewState["Format"] = value;
-      }
-    }
-
-    /// <summary>
-    ///   Gets AsDateTime.
-    /// </summary>
-    protected DateTime AsDateTime
-    {
-      get
-      {
-        if (this.DateTime != null)
+        /// <summary>
+        ///   Gets AsDateTime.
+        /// </summary>
+        protected DateTime AsDateTime
         {
-          try
-          {
-            return Convert.ToDateTime(this.DateTime);
-          }
-          catch (InvalidCastException)
-          {
-            // not useable...            
-          }
+            get
+            {
+                if (this.DateTime != null)
+                {
+                    try
+                    {
+                        return Convert.ToDateTime(this.DateTime);
+                    }
+                    catch (InvalidCastException)
+                    {
+                        // not useable...            
+                    }
+                }
+
+                return DateTimeHelper.SqlDbMinTime();
+            }
         }
 
-        return System.DateTime.MinValue;
-      }
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// The render.
+        /// </summary>
+        /// <param name="writer">
+        /// The writer.
+        /// </param>
+        protected override void Render([NotNull] HtmlTextWriter writer)
+        {
+            if (!this.Visible || this.DateTime == null)
+            {
+                return;
+            }
+
+            writer.Write(
+                this._controlHtml.FormatWith(
+                    this.AsDateTime.ToString("yyyy-MM-ddTHH:mm:ssZ"),
+                    this.Get<IDateTime>().Format(this.Format, this.DateTime)));
+            writer.WriteLine();
+        }
+
+        #endregion
     }
-
-    #endregion
-
-    #region Methods
-
-    /// <summary>
-    /// The render.
-    /// </summary>
-    /// <param name="writer">
-    /// The writer.
-    /// </param>
-    protected override void Render([NotNull] HtmlTextWriter writer)
-    {
-      if (this.Visible && this.DateTime != null)
-      {
-        writer.Write(
-          this._controlHtml.FormatWith(
-            this.AsDateTime.ToString("yyyy-MM-ddTHH:mm:ssZ"), this.Get<IDateTime>().Format(this.Format, this.DateTime)));
-        writer.WriteLine();
-      }
-    }
-
-    #endregion
-  }
 }

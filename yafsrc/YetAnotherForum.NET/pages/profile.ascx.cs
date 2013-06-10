@@ -802,7 +802,7 @@ namespace YAF.Pages
                 }
             }
 
-            if (this.User != null && userData.Profile.Birthday != DateTime.MinValue)
+            if (this.User != null && userData.Profile.Birthday != DateTimeHelper.SqlDbMinTime())
             {
                 this.BirthdayTR.Visible = true;
                 this.Birthday.Text =

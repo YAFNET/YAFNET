@@ -17,8 +17,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using YAF.Utils.Helpers;
-
 namespace YAF.Core.Services
 {
     #region Using
@@ -30,6 +28,7 @@ namespace YAF.Core.Services
 
     using YAF.Types;
     using YAF.Types.Interfaces;
+    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -256,7 +255,7 @@ namespace YAF.Core.Services
                     return (DateTime)this.SessionState["lastpendingbuddies"];
                 }
 
-                return DateTime.MinValue;
+                return DateTimeHelper.SqlDbMinTime();
             }
 
             set
@@ -277,7 +276,7 @@ namespace YAF.Core.Services
                     return (DateTime)this.SessionState["lastpm"];
                 }
 
-                return DateTime.MinValue;
+                return DateTimeHelper.SqlDbMinTime();
             }
 
             set
@@ -298,7 +297,7 @@ namespace YAF.Core.Services
                     return (DateTime)this.SessionState["lastpost"];
                 }
 
-                return DateTime.MinValue;
+                return DateTimeHelper.SqlDbMinTime();
             }
 
             set

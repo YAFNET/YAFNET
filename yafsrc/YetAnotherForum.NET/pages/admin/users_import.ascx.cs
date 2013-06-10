@@ -30,12 +30,12 @@ namespace YAF.Pages.Admin
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
-    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -132,11 +132,9 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The on init.
+        /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
         /// </summary>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
             base.OnInit(e);
@@ -182,7 +180,7 @@ namespace YAF.Pages.Admin
         /// Import Users from the InputStream
         /// </summary>
         /// <param name="imputStream">
-        /// The imput stream.
+        /// The input stream.
         /// </param>
         /// <param name="isXml">
         /// Indicates if input Stream is Xml file
@@ -206,8 +204,9 @@ namespace YAF.Pages.Admin
                 {
                     importedCount =
                         usersDataSet.Tables["YafUser"].Rows.Cast<DataRow>().Where(
-                            row => this.Get<MembershipProvider>().GetUser((string)row["Name"], false) == null).Aggregate
-                            (importedCount, (current, row) => this.ImportUser(row, current));
+                            row => this.Get<MembershipProvider>().GetUser((string)row["Name"], false) == null)
+                                                      .Aggregate(
+                                                          importedCount, (current, row) => this.ImportUser(row, current));
                 }
                 else
                 {
@@ -330,7 +329,7 @@ namespace YAF.Pages.Admin
 
                 DateTime.TryParse((string)row["Birthday"], out userBirthdate);
 
-                if (userBirthdate > DateTime.MinValue.Date)
+                if (userBirthdate > DateTimeHelper.SqlDbMinTime())
                 {
                     userProfile.Birthday = userBirthdate;
                 }

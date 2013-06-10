@@ -4022,6 +4022,12 @@ namespace YAF.Classes.Data
         /// </returns>
         public static DataTable message_findunread([NotNull] object topicID, [NotNull] object messageId, [NotNull] object lastRead, [NotNull] object showDeleted, [NotNull] object authorUserID)
         {
+            // Make sure there are no more DateTime.MinValues coming from db.
+            if ((DateTime)lastRead == DateTime.MinValue)
+            {
+                lastRead = DateTimeHelper.SqlDbMinTime();
+            }
+
             using (var cmd = MsSqlDbAccess.GetCommand("message_findunread"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;

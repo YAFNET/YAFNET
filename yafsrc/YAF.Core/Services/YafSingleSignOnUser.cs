@@ -37,6 +37,7 @@ namespace YAF.Core.Services
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     /// <summary>
     /// Single Sign On User Class to handle Twitter and Facebook Logins
@@ -393,7 +394,7 @@ namespace YAF.Core.Services
                     var ci = CultureInfo.CreateSpecificCulture("en-US");
                     DateTime.TryParse(birthday, ci, DateTimeStyles.None, out userBirthdate);
 
-                    if (userBirthdate > DateTime.MinValue.Date)
+                    if (userBirthdate > DateTimeHelper.SqlDbMinTime().Date)
                     {
                         userProfile.Birthday = userBirthdate;
                     }

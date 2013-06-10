@@ -7094,7 +7094,6 @@ BEGIN
         END
 
         UPDATE [{databaseOwner}].[{objectQualifier}User] SET 
-            [Name] = @UserName,
             DisplayName = @DisplayName,
             Email = @Email,
             [ProviderUserKey] = @ProviderUserKey,

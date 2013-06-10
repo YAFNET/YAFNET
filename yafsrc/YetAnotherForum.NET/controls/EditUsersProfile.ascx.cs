@@ -526,7 +526,7 @@ namespace YAF.Controls
 
             if (this.Get<YafBoardSettings>().UseFarsiCalender && ci.IsFarsiCulture())
             {
-                this.Birthday.Text = this.UserData.Profile.Birthday > DateTime.MinValue
+                this.Birthday.Text = this.UserData.Profile.Birthday > DateTimeHelper.SqlDbMinTime()
                                      || this.UserData.Profile.Birthday.IsNullOrEmptyDBField()
                                          ? PersianDateConverter.ToPersianDate(this.UserData.Profile.Birthday)
                                                                .ToString("d")
@@ -534,11 +534,11 @@ namespace YAF.Controls
             }
             else
             {
-                this.Birthday.Text = this.UserData.Profile.Birthday > DateTime.MinValue
+                this.Birthday.Text = this.UserData.Profile.Birthday > DateTimeHelper.SqlDbMinTime()
                                      || this.UserData.Profile.Birthday.IsNullOrEmptyDBField()
                                          ? this.UserData.Profile.Birthday.Date.ToString(
                                              ci.DateTimeFormat.ShortDatePattern, CultureInfo.InvariantCulture)
-                                         : DateTime.MinValue.Date.ToString(
+                                         : DateTimeHelper.SqlDbMinTime().Date.ToString(
                                              ci.DateTimeFormat.ShortDatePattern, CultureInfo.InvariantCulture);
             }
 
@@ -726,30 +726,27 @@ namespace YAF.Controls
             userProfile.Gender = this.Gender.SelectedIndex;
             userProfile.Blog = this.Weblog.Text.Trim();
 
-            if (this.Birthday.Text.IsSet())
+            DateTime userBirthdate;
+            var ci = CultureInfo.CreateSpecificCulture(this.GetCulture(true));
+
+            if (this.Get<YafBoardSettings>().UseFarsiCalender && ci.IsFarsiCulture())
             {
-                DateTime userBirthdate;
-                var ci = CultureInfo.CreateSpecificCulture(this.GetCulture(true));
+                var persianDate = new PersianDate(this.Birthday.Text);
+                userBirthdate = PersianDateConverter.ToGregorianDateTime(persianDate);
 
-                if (this.Get<YafBoardSettings>().UseFarsiCalender && ci.IsFarsiCulture())
+                if (userBirthdate > DateTime.MinValue.Date)
                 {
-                    var persianDate = new PersianDate(this.Birthday.Text);
-                    userBirthdate = PersianDateConverter.ToGregorianDateTime(persianDate);
-
-                    if (userBirthdate > DateTime.MinValue.Date)
-                    {
-                        userProfile.Birthday = userBirthdate.Date;
-                    }
+                    userProfile.Birthday = userBirthdate.Date;
                 }
-                else
-                {
-                    DateTime.TryParse(this.Birthday.Text, ci, DateTimeStyles.None, out userBirthdate);
+            }
+            else
+            {
+                DateTime.TryParse(this.Birthday.Text, ci, DateTimeStyles.None, out userBirthdate);
 
-                    if (userBirthdate > DateTime.MinValue.Date)
-                    {
-                        // Attention! This is stored in profile in the user timezone date
-                        userProfile.Birthday = userBirthdate.Date;
-                    }
+                if (userBirthdate > DateTime.MinValue.Date)
+                {
+                    // Attention! This is stored in profile in the user timezone date
+                    userProfile.Birthday = userBirthdate.Date;
                 }
             }
 
