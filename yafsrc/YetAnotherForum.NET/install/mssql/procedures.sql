@@ -3738,8 +3738,8 @@ begin
 -- a message with the id was not found or we are looking for first unread or last post 
   if (@MessageID <= 0)
    begin  
-   -- if value > yaf db min value (1-1-1902) we are looking for first unread 
-   if (@LastRead > CONVERT(datetime,'1/1/1903'))  
+   -- if value > yaf db min value (1-1-1903) we are looking for first unread 
+   if (@LastRead > CONVERT(datetime,'2/1/1903'))  
    begin
    Select top 1 @MessagePosition = CONVERT(int,RowNum), @MessageID = tbl.MessageID  from 
    (
@@ -3752,8 +3752,8 @@ begin
    Where tbl.Posted > @LastRead 
    order by tbl.RowNum ASC;
    end
-   -- if first unread was not found or we looking for last posted
-   if (@LastRead < CONVERT(datetime,'1/1/1903') OR @MessagePosition IS NULL) 
+   -- if first unread was not found or we looking for last posted 
+   if (@LastRead < CONVERT(datetime,'2/1/1903') OR @MessagePosition IS NULL) 
    begin    
         select top 1 @MessageID = m.MessageID, @MessagePosition = 1
     from
@@ -7778,19 +7778,13 @@ create procedure [{databaseOwner}].[{objectQualifier}user_listmembers](
                 @SortLastVisit int = 0,
                 @NumPosts int = 0,
                 @NumPostsCompare int = 0) as
-begin
-  
-   declare @user_totalrowsnumber int 
-   declare @firstselectrownum int 
-   declare @firstselectuserid nvarchar(255)
-   declare @firstselectrankid int
-   declare @firstselectlastvisit datetime
-   declare @firstselectjoined datetime
-   declare @firstselectposts int
+begin  
+    declare @TotalRows int
+    declare @FirstSelectRowNumber int
+    declare @LastSelectRowNumber int
+    -- find total returned count
 
-   set nocount on
-   -- get total number of users in the db
-   select @user_totalrowsnumber = count(a.UserID) 
+	select @TotalRows = count(a.UserID) 
     from [{databaseOwner}].[{objectQualifier}User] a  with(nolock) 
       join [{databaseOwner}].[{objectQualifier}Rank] b with(nolock)
       on b.RankID=a.RankID 
@@ -7813,49 +7807,15 @@ begin
         OR a.NumPosts <= (case 
         when @NumPostsCompare = 2 then @NumPosts end) OR
         a.NumPosts = (case 
-        when @NumPostsCompare = 1 then @NumPosts end)) 
-                
+        when @NumPostsCompare = 1 then @NumPosts end)); 
 
-    --	SET @user_totalrowsnumber = @@ROWCOUNT    
-
-   select @PageIndex = @PageIndex+1;   
-   select @firstselectrownum = (@PageIndex - 1) * @PageSize + 1 
-      
-      -- fined first selectedrowid  
-      if (@firstselectrownum > 0)
-      set rowcount @firstselectrownum
-      else
-      set rowcount	1 
-
-      select @firstselectuserid = a.[Name] ,  
-             @firstselectlastvisit = a.LastVisit, 
-             @firstselectjoined = a.Joined, 
-             @firstselectrankid = a.RankID, 
-             @firstselectposts = a.NumPosts
-      from [{databaseOwner}].[{objectQualifier}User] a with(nolock)
-      join [{databaseOwner}].[{objectQualifier}Rank] b with(nolock)
-      on b.RankID=a.RankID 
-      where
-       a.BoardID = @BoardID	   
-       and
-        (@Approved is null or (@Approved=0 and (a.Flags & 2)=0) or (@Approved=1 and (a.Flags & 2)=2)) and
-        (@GroupID is null or exists(select 1 from [{databaseOwner}].[{objectQualifier}UserGroup] x where x.UserID=a.UserID and x.GroupID=@GroupID)) and
-        (@RankID is null or a.RankID=@RankID) AND
-        ISNULL(a.Flags & 4,0) <> 4
-            AND
-        LOWER(a.DisplayName) LIKE CASE 
-            WHEN (@BeginsWith = 0 AND @Literals IS NOT NULL AND LEN(@Literals) > 0) THEN '%' + LOWER(@Literals) + '%' 
-            WHEN (@BeginsWith = 1 AND @Literals IS NOT NULL AND LEN(@Literals) > 0) THEN LOWER(@Literals) + '%'
-            ELSE '%' END 
-        and
-        (a.NumPosts >= (case 
-        when @NumPostsCompare = 3 then  @NumPosts end) 
-        OR a.NumPosts <= (case 
-        when @NumPostsCompare = 2 then @NumPosts end) OR
-        a.NumPosts = (case 
-        when @NumPostsCompare = 1 then @NumPosts end)) 
-     order by  	 
-        (case 
+	select @PageIndex = @PageIndex+1;
+	select @FirstSelectRowNumber = (@PageIndex - 1) * @PageSize + 1;
+	select @LastSelectRowNumber = (@PageIndex - 1) * @PageSize + @PageSize;	
+	
+	with UserIds  as
+	 (
+	 select ROW_NUMBER() over (order by    (case 
         when @SortName = 2 then a.[Name] end) DESC,
         (case 
         when @SortName = 1 then a.[Name] end) ASC, 
@@ -7874,17 +7834,31 @@ begin
         (case
          when @SortPosts = 2 then a.NumPosts end) DESC, 
         (case
-         when @SortPosts = 1 then a.NumPosts end) ASC 
- /* select  @firstselectlastvisit = a.LastVisit
-      from [{databaseOwner}].[{objectQualifier}User] a	
-      where
-        a.UserID = @firstselectuserid   */
-    -- if (@firstselectrownum is not null)
-     set rowcount @PageSize
-    -- else
-    -- set rowcount 10
-
-      select
+         when @SortPosts = 1 then a.NumPosts end) ASC ) as RowNum, a.UserID
+	 from [{databaseOwner}].[{objectQualifier}User] a with(nolock)
+            join [{databaseOwner}].[{objectQualifier}Rank] b with(nolock) on b.RankID=a.RankID	
+     where
+       a.BoardID = @BoardID	   
+       and
+        (@Approved is null or (@Approved=0 and (a.Flags & 2)=0) or (@Approved=1 and (a.Flags & 2)=2)) and
+        (@GroupID is null or exists(select 1 from [{databaseOwner}].[{objectQualifier}UserGroup] x where x.UserID=a.UserID and x.GroupID=@GroupID)) and
+        (@RankID is null or a.RankID=@RankID) AND
+        -- user is not guest
+        ISNULL(a.Flags & 4,0) <> 4
+            AND
+        LOWER(a.DisplayName) LIKE CASE 
+            WHEN (@BeginsWith = 0 AND @Literals IS NOT NULL AND LEN(@Literals) > 0) THEN '%' + LOWER(@Literals) + '%' 
+            WHEN (@BeginsWith = 1 AND @Literals IS NOT NULL AND LEN(@Literals) > 0) THEN LOWER(@Literals) + '%'
+            ELSE '%' END  
+        and
+        (a.NumPosts >= (case 
+        when @NumPostsCompare = 3 then  @NumPosts end) 
+        OR a.NumPosts <= (case 
+        when @NumPostsCompare = 2 then @NumPosts end) OR
+        a.NumPosts = (case 
+        when @NumPostsCompare = 1 then @NumPosts end))
+	  )	  
+	  select 
             a.*,			
             CultureUser = a.Culture,
             IsAdmin = (select COUNT(1) from [{databaseOwner}].[{objectQualifier}UserGroup] x join [{databaseOwner}].[{objectQualifier}Group] y on y.GroupID=x.GroupID where x.UserID=a.UserID and (y.Flags & 1)<>0),
@@ -7894,81 +7868,16 @@ begin
             Style = case(@StyledNicks)
             when 1 then  a.UserStyle
             else ''	 end,
-            TotalCount =  @user_totalrowsnumber 
-            from [{databaseOwner}].[{objectQualifier}User] a with(nolock)
+            TotalCount =  @TotalRows 
+            from 
+			UserIds ti inner join
+			[{databaseOwner}].[{objectQualifier}User] a with(nolock)
+			on a.UserID = ti.UserID
             join [{databaseOwner}].[{objectQualifier}Rank] b with(nolock) on b.RankID=a.RankID	
-      where (a.[Name] >= (case 
-        when @SortName = 1 then @firstselectuserid end) OR a.[Name] <= (case 
-        when @SortName = 2 then @firstselectuserid end) OR
-        a.[Name] >= (case 
-        when @SortName = 0 then '' end)) and
-        (a.Joined >= (case 
-        when @SortJoined = 1 then @firstselectjoined end) 
-        OR a.Joined <= (case 
-        when @SortJoined = 2 then @firstselectjoined end) OR
-        a.Joined >= (case 
-        when @SortJoined = 0 then 0 end)) and
-        (a.LastVisit >= (case 
-        when @SortLastVisit = 1 then  @firstselectlastvisit end) 
-        OR a.LastVisit <= (case 
-        when @SortLastVisit = 2 then @firstselectlastvisit end) OR
-        a.LastVisit >= (case 
-        when @SortLastVisit = 0 then 0 end))  and
-        (a.NumPosts >= (case 
-        when @NumPostsCompare = 3 then  @NumPosts end) 
-        OR a.NumPosts <= (case 
-        when @NumPostsCompare = 2 then @NumPosts end) OR
-        a.NumPosts = (case 
-        when @NumPostsCompare = 1 then @NumPosts end))  and
-        /*
-        (a.NumPosts >= (case 
-        when @SortPosts = 1 then @firstselectposts end) 
-        OR a.NumPosts <= (case 
-        when @SortPosts = 2 then @firstselectposts end) OR
-        a.NumPosts >= (case 
-        when @SortPosts = 0 then 0 end))   and
-        (a.RankID >= (case 
-        when @SortRank = 1 then @firstselectrankid end) 
-        OR a.RankID <= (case 
-        when @SortRank = 2 then @firstselectrankid end) OR
-        a.RankID >= (case 
-        when @SortRank = 0 then 0 end)) and */
     
-             a.BoardID = @BoardID and
-            (@Approved is null or (@Approved=0 and (a.Flags & 2)=0) or (@Approved=1 and (a.Flags & 2)=2)) and
-            (@GroupID is null or exists(SELECT 1 FROM [{databaseOwner}].[{objectQualifier}UserGroup] x where x.UserID=a.UserID and x.GroupID=@GroupID)) and
-            (@RankID is null or a.RankID=@RankID) AND
-            ISNULL(a.Flags & 4,0) <> 4
-            AND
-            LOWER(a.DisplayName) LIKE CASE 
-            WHEN (@BeginsWith = 0 AND @Literals IS NOT NULL AND LEN(@Literals) > 0) THEN '%' + LOWER(@Literals) + '%' 
-            WHEN (@BeginsWith = 1 AND @Literals IS NOT NULL AND LEN(@Literals) > 0) THEN LOWER(@Literals) + '%'
-            ELSE '%' END 
-    ORDER BY 	
-     (case 
-        when @SortName = 2 then a.[Name] end) DESC,
-        (case 
-        when @SortName = 1 then a.[Name] end) ASC, 
-        (case 
-        when @SortRank = 2 then a.RankID end) DESC,
-        (case 
-        when @SortRank = 1 then a.RankID end) ASC,		
-        (case 
-        when @SortJoined = 2 then a.Joined end) DESC,
-        (case 
-        when @SortJoined = 1 then a.Joined end) ASC,
-        (case 
-        when @SortLastVisit = 2 then a.LastVisit end) DESC,
-        (case 
-        when @SortLastVisit = 1 then a.LastVisit end) ASC,
-        (case
-         when @SortPosts = 2 then a.NumPosts end) DESC, 
-        (case
-         when @SortPosts = 1 then a.NumPosts end) ASC 
-      SET ROWCOUNT 0
-   set nocount off
-
-  
+    where ti.RowNum between @FirstSelectRowNumber and @LastSelectRowNumber
+		order by
+            RowNum ASC;  
 end
 GO
 
