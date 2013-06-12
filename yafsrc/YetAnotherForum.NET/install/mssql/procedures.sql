@@ -5368,13 +5368,13 @@ begin
    SET @PageIndex = @PageIndex - 1	 
   
    select @FirstSelectRowNumber = @PageIndex * @PageSize + 1;
-   select @LastSelectRowNumber = @FirstSelectRowNumber + @PageSize;  
+   select @LastSelectRowNumber = @FirstSelectRowNumber + @PageSize - 1;  
  end  
  else
  begin
    select @PageIndex = @PageIndex+1;
    select @FirstSelectRowNumber = (@PageIndex - 1) * @PageSize + 1;
-   select @LastSelectRowNumber = (@PageIndex - 1) * @PageSize + @PageSize - 1;
+   select @LastSelectRowNumber = (@PageIndex - 1) * @PageSize + @PageSize;
  end; 	
 	with MessageIds  as
 	 (
