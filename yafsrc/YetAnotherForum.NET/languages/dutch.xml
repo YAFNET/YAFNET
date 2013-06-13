@@ -922,6 +922,14 @@
     <Resource tag="ALLOW_USERS_POLLIMAGES_HELP">Als deze is aangevinkt, kunnen gebruikers plaatjes als keuzes gebruiken.</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR">Gebruikers mogen tekstverwerker kiezen</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR_HELP">Gebruikers kunnen kiezen tussen verschillende tekstverwerkers in hun profiel.</Resource>
+    <Resource tag="APP_CORES">Processor Cores:</Resource>
+    <Resource tag="APP_CORES_HELP">Number of Processor cores.</Resource>
+    <Resource tag="APP_MEMORY">Application memory:</Resource>
+    <Resource tag="APP_MEMORY_HELP">Application memory used.</Resource>
+    <Resource tag="APP_OS_NAME">Operating System:</Resource>
+    <Resource tag="APP_OS_NAME_HELP">What version of operating system is running.</Resource>
+    <Resource tag="APP_RUNTIME">.NET Runtime Version:</Resource>
+    <Resource tag="APP_RUNTIME_HELP">What .NET Runtime is running.</Resource>
     <Resource tag="AVATAR_GALLERY">Laat Avatar Gallery toe:</Resource>
     <Resource tag="AVATAR_GALLERY_HELP">Gebruikers kunnen een Avatar kiezen uit de lokale Avatar Gallerij.</Resource>
     <Resource tag="AVATAR_HEIGHT">Avatar Hoogte:</Resource>

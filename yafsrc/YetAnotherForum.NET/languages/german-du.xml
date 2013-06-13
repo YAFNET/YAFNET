@@ -922,6 +922,14 @@
     <Resource tag="ALLOW_USERS_POLLIMAGES_HELP">Wen aktiviert können Benutzer Bilder als Umfrage Optionen verwenden</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR">Benutzern erlauben, Text-Editor auszuwählen</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR_HELP">Benutzern erlauben, Text-Editor in den Profileinstellungen auszuwählen</Resource>
+    <Resource tag="APP_CORES">Processor Cores:</Resource>
+    <Resource tag="APP_CORES_HELP">Number of Processor cores.</Resource>
+    <Resource tag="APP_MEMORY">Application memory:</Resource>
+    <Resource tag="APP_MEMORY_HELP">Application memory used.</Resource>
+    <Resource tag="APP_OS_NAME">Operating System:</Resource>
+    <Resource tag="APP_OS_NAME_HELP">What version of operating system is running.</Resource>
+    <Resource tag="APP_RUNTIME">.NET Runtime Version:</Resource>
+    <Resource tag="APP_RUNTIME_HELP">What .NET Runtime is running.</Resource>
     <Resource tag="AVATAR_GALLERY">Avatar Galerie erlauben:</Resource>
     <Resource tag="AVATAR_GALLERY_HELP">Benutzer erlauben Avatare aus der Lokalen Avatar Galerie auszuwählen.</Resource>
     <Resource tag="AVATAR_HEIGHT">Avatar Höhe:</Resource>

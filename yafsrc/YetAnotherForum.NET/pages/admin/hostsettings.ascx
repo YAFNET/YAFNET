@@ -32,6 +32,38 @@
                             <asp:Label ID="SQLVersion" runat="server" CssClass="smallfont"></asp:Label>
                         </td>
                     </tr>
+             <tr>
+                        <td class="postheader" style="width:50%">
+                            <YAF:HelpLabel ID="HelpLabel231" runat="server" LocalizedTag="APP_OS_NAME" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:Label ID="AppOSName" runat="server" CssClass="smallfont"></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader" style="width:50%">
+                            <YAF:HelpLabel ID="HelpLabel232" runat="server" LocalizedTag="APP_RUNTIME" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:Label ID="AppRuntime" runat="server" CssClass="smallfont"></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader" style="width:50%">
+                            <YAF:HelpLabel ID="HelpLabel233" runat="server" LocalizedTag="APP_CORES" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:Label ID="AppCores" runat="server" CssClass="smallfont"></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader" style="width:50%">
+                            <YAF:HelpLabel ID="HelpLabel234" runat="server" LocalizedTag="APP_MEMORY" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:Label ID="AppMemory" runat="server" CssClass="smallfont"></asp:Label>
+                        </td>
+                    </tr>
                     <tr>
                         <td class="postheader">
                             <YAF:HelpLabel ID="HelpLabel2" runat="server" LocalizedTag="SERVERTIME_CORRECT" LocalizedPage="ADMIN_HOSTSETTINGS" />

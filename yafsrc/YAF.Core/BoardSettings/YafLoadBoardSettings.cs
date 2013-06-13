@@ -206,7 +206,7 @@ namespace YAF.Core
         /// The board.
         /// </param>
         /// <returns>
-        /// The <see cref="YafLegacyBoardSettings"/>.
+        /// The <see cref="YafBoardSettings.YafLegacyBoardSettings"/>.
         /// </returns>
         private YafLegacyBoardSettings SetupLegacyBoardSettings([NotNull] DataRow board)
         {

@@ -1234,6 +1234,14 @@
   <Resource tag="SEO_CACHE_TIMEOUT_HELP">First Post "Title" for SEO Cache Timeout (in minutes)</Resource>
   <Resource tag="SERVER_VERSION">SQL Server Version:</Resource>
   <Resource tag="SERVER_VERSION_HELP">What version of SQL Server is running.</Resource>
+  <Resource tag="APP_OS_NAME">Operating System:</Resource>
+  <Resource tag="APP_OS_NAME_HELP">What version of operating system is running.</Resource>
+  <Resource tag="APP_RUNTIME">.NET Runtime Version:</Resource>
+  <Resource tag="APP_RUNTIME_HELP">What .NET Runtime is running.</Resource>
+  <Resource tag="APP_CORES">Processor Cores:</Resource>
+  <Resource tag="APP_CORES_HELP">Number of Processor cores.</Resource>
+  <Resource tag="APP_MEMORY">Application memory:</Resource>
+  <Resource tag="APP_MEMORY_HELP">Application memory used.</Resource> 
   <Resource tag="SERVERTIME_CORRECT">Server Time Zone Correction:</Resource>
   <Resource tag="SERVERTIME_CORRECT_HELP">Enter a positive or a negative value in minutes between -720 and 720, if the server UTC time value is incorrect: </Resource>
   <Resource tag="SHOUTBOX_COUNT">Shoutbox Message Count:</Resource>

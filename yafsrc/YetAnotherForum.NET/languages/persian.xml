@@ -928,6 +928,14 @@
     <Resource tag="ALLOW_USERS_POLLIMAGES_HELP">با انتخاب این گزینه کاربران می توانند به جای گزینه ها از تص.یر استفاده کنند.</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR">به کاربر مجوز بکارگیری ویرایشگر متنی را می دهد</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR_HELP">به کاربر مجوز بکارگیری ویرایشگر متنی را در پروفایلشان می دهد</Resource>
+    <Resource tag="APP_CORES">Processor Cores:</Resource>
+    <Resource tag="APP_CORES_HELP">Number of Processor cores.</Resource>
+    <Resource tag="APP_MEMORY">Application memory:</Resource>
+    <Resource tag="APP_MEMORY_HELP">Application memory used.</Resource>
+    <Resource tag="APP_OS_NAME">Operating System:</Resource>
+    <Resource tag="APP_OS_NAME_HELP">What version of operating system is running.</Resource>
+    <Resource tag="APP_RUNTIME">.NET Runtime Version:</Resource>
+    <Resource tag="APP_RUNTIME_HELP">What .NET Runtime is running.</Resource>
     <Resource tag="AVATAR_GALLERY">Allow Avatar Gallery:</Resource>
     <Resource tag="AVATAR_GALLERY_HELP">Can users select an Avatar from the local Avatar Gallery.</Resource>
     <Resource tag="AVATAR_HEIGHT">ارتفاع آواتار:</Resource>

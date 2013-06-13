@@ -24,6 +24,7 @@ namespace YAF.Pages.Admin
 
     using System;
     using System.Linq;
+    using System.Web;
     using System.Web.UI;
     using System.Web.UI.WebControls;
 
@@ -473,6 +474,16 @@ namespace YAF.Pages.Admin
                                         : string.Empty;
 
             this.SQLVersion.Text = this.HtmlEncode(this.Get<YafBoardSettings>().SQLVersion);
+
+            if (General.GetCurrentTrustLevel() <= AspNetHostingPermissionLevel.Medium)
+            {
+                return;
+            }
+
+            this.AppCores.Text = Platform.Processors;
+            this.AppMemory.Text = "{0} MB".FormatWith(Platform.AllocatedMemory.ToType<int>() / 1000000);
+            this.AppOSName.Text = Platform.VersionString;
+            this.AppRuntime.Text = "{0} {1}".FormatWith(Platform.RuntimeName, Platform.RuntimeString);
         }
 
         /// <summary>

@@ -922,6 +922,14 @@
     <Resource tag="ALLOW_USERS_POLLIMAGES_HELP">Пользователи могут добавлять изображения как опции опроса или как вопрос.</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR">Разрешить выбор текстового редактора</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR_HELP">Пользователи смогут выбирать текстовой редактор в своих профилях.</Resource>
+    <Resource tag="APP_CORES">Processor Cores:</Resource>
+    <Resource tag="APP_CORES_HELP">Number of Processor cores.</Resource>
+    <Resource tag="APP_MEMORY">Application memory:</Resource>
+    <Resource tag="APP_MEMORY_HELP">Application memory used.</Resource>
+    <Resource tag="APP_OS_NAME">Operating System:</Resource>
+    <Resource tag="APP_OS_NAME_HELP">What version of operating system is running.</Resource>
+    <Resource tag="APP_RUNTIME">.NET Runtime Version:</Resource>
+    <Resource tag="APP_RUNTIME_HELP">What .NET Runtime is running.</Resource>
     <Resource tag="AVATAR_GALLERY">Разрешить галерею аваторов:</Resource>
     <Resource tag="AVATAR_GALLERY_HELP">Пользователи могут выбирать аватар из локальной галереи на сервере.</Resource>
     <Resource tag="AVATAR_HEIGHT">Высота аватара:</Resource>
