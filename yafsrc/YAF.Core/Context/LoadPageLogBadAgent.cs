@@ -26,7 +26,6 @@ namespace YAF.Core
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
     using YAF.Utils.Helpers;
 
     /// <summary>
@@ -120,15 +119,13 @@ namespace YAF.Core
                  || @event.Data.Browser.ToLower().Contains("unknown"))
                 && (!UserAgentHelper.IsSearchEngineSpider(@event.Data.UserAgent)))
             {
-                this.Logger.Error(
-                    "Unhandled UserAgent string:'{0}' /r/nPlatform:'{1}' /r/nBrowser:'{2}' /r/nSupports cookies='{3}' /r/nSupports EcmaScript='{4}' /r/nUserID='{5}'."
-                        .FormatWith(
-                            (string)@event.Data.UserAgent,
-                            this.HttpRequestBase.Browser.Platform,
-                            this.HttpRequestBase.Browser.Browser,
-                            this.HttpRequestBase.Browser.Cookies,
-                            this.HttpRequestBase.Browser.EcmaScriptVersion,
-                            YafContext.Current.User != null ? YafContext.Current.User.UserName : string.Empty));
+                this.Logger.Log(
+                    YafContext.Current.User != null ? YafContext.Current.User.UserName : string.Empty,
+                    this,
+                    "Unhandled UserAgent string:'{0}'<br />Platform:'{1}'<br />Browser:'{2}'".FormatWith(
+                        (string)@event.Data.UserAgent,
+                        this.HttpRequestBase.Browser.Platform,
+                        this.HttpRequestBase.Browser.Browser));
             }
         }
 
