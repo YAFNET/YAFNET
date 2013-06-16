@@ -9,8 +9,6 @@
 //  Note: clear button removes message more than 24hrs old from db
  */
 
-using YAF.Utils.Helpers;
-
 namespace YAF.Controls
 {
     #region Using
@@ -31,9 +29,8 @@ namespace YAF.Controls
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
-    using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -77,7 +74,7 @@ namespace YAF.Controls
         #region Methods
 
         /// <summary>
-        /// Formats the smilies on click string.
+        /// Formats the Smilies on click string.
         /// </summary>
         /// <param name="code">The code.</param>
         /// <param name="path">The path.</param>
@@ -92,7 +89,7 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// Changes The CollapsiblePanelState of the Shoutbox
+        /// Changes The CollapsiblePanelState of the ShoutBox
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.Web.UI.ImageClickEventArgs"/> instance containing the event data.</param>
@@ -107,6 +104,8 @@ namespace YAF.Controls
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
+            this.CollapsibleImageShoutBox.DefaultState = (CollapsiblePanelState)this.Get<YafBoardSettings>().ShoutboxDefaultState;
+            
             base.OnPreRender(e);
         }
 
@@ -117,16 +116,19 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.PageContext.User != null)
+            if (!this.Get<YafBoardSettings>().ShowShoutbox
+                                         && !this.Get<IPermissions>()
+                                                .Check(this.Get<YafBoardSettings>().ShoutboxViewPermissions))
             {
-                // phShoutText.Visible = true;
-                this.shoutBoxPanel.Visible = true;
-
-                if (this.PageContext.IsAdmin)
-                {
-                    this.btnClear.Visible = true;
-                }
+                return;
             }
+
+            if (this.PageContext.IsAdmin)
+            {
+                this.btnClear.Visible = true;
+            }
+
+            this.shoutBoxPanel.Visible = true;
 
             YafContext.Current.PageElements.RegisterJsResourceInclude("yafPageMethodjs", "js/jquery.pagemethod.js");
 
@@ -178,7 +180,7 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// Clears the Shoutbox
+        /// Clears the ShoutBox
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
@@ -192,7 +194,7 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// Refreshes the Shoutbox
+        /// Refreshes the ShoutBox
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>

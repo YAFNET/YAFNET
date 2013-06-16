@@ -959,6 +959,7 @@
     <Resource tag="CHECK_FOR_SPAM">Choose a SPAM Service for Automatically SPAM Checking:</Resource>
     <Resource tag="CHECK_FOR_SPAM_HELP">Enables/disables automatically SPAM Checking via the &lt;a href="http://blogspam.net/"&gt;BlogSpam.net API&lt;/a&gt; or Akismet.com. If enabled SPAM Post gets rejected if detected.</Resource>
     <Resource tag="CLEAR_CACHE">پاکسازی حافظه موقت</Resource>
+    <Resource tag="COLLAPSED">Collapsed</Resource>
     <Resource tag="COUNTRYIMAGE_TEMPLATE">Country image template:</Resource>
     <Resource tag="COUNTRYIMAGE_TEMPLATE_HELP">Template for rendering country image.</Resource>
     <Resource tag="CREATE_NNTPNAMES">ساخت نام های کاربری NNTP:</Resource>
@@ -1008,6 +1009,7 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="EVENTLOG_MAX_DAYS_HELP">Max number of days for event log. Older ones will be deleted</Resource>
     <Resource tag="EVENTLOG_MAX_MESSAGES">Max event log message</Resource>
     <Resource tag="EVENTLOG_MAX_MESSAGES_HELP">Max number of event log messages. Outdated will be deleted.</Resource>
+    <Resource tag="EXPANDED">Expanded</Resource>
     <Resource tag="EXTERN_NEWWINDOW">نتایج جستجوی خارجی در پنجره ای جدید:</Resource>
     <Resource tag="EXTERN_NEWWINDOW_HELP">نتایج جستجوی خارجی در را پنجره ای جدید نمایش می دهد.</Resource>
     <Resource tag="EXTERN_SEARCH_PERMISS">مجوز های جستجوی خارجی :</Resource>
@@ -1254,6 +1256,8 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="SERVERTIME_CORRECT_HELP">در صورت اشتباه بودن UTC سرور عددی بین 720- تا 720 وارد کنید.</Resource>
     <Resource tag="SHOUTBOX_COUNT">Shoutbox Message Count:</Resource>
     <Resource tag="SHOUTBOX_COUNT_HELP">The Number of Messages that will be shown in the shoutbox.</Resource>
+    <Resource tag="SHOUTBOX_DEFAULTSTATE">Shout Box Default State:</Resource>
+    <Resource tag="SHOUTBOX_DEFAULTSTATE_HELP">The Default State for the Shout Box if it should be collapsed or expanded (Note: the State is saved as cookie, if you change the value you need to delete the cookie to see the changes).</Resource>
     <Resource tag="SHOW_ACTIVE_DISCUSSION">نمایش بحث های فعال:</Resource>
     <Resource tag="SHOW_ACTIVE_DISCUSSION_HELP">فعال یا غیر فعال کردن نمایش فهرست بحث های فعال در صفحه شاخص تابلو.</Resource>
     <Resource tag="SHOW_ATOM_LINKS">نمایش پیوندهای اتم :</Resource>
@@ -1374,6 +1378,8 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="VIEWMEMBERLIST_PERMISSION_HELP">مجوز دیدن فهرست های کاربری به:</Resource>
     <Resource tag="VIEWPROFILE_PERMISSION">مجوز های نمایش پروفایل :</Resource>
     <Resource tag="VIEWPROFILE_PERMISSION_HELP">اعطای مجوز بازدید از پروفایل سایر کاربران به :</Resource>
+    <Resource tag="VIEWSHOUTBOX_PERMISSION">Shout Box View Permission:</Resource>
+    <Resource tag="VIEWSHOUTBOX_PERMISSION_HELP">View Permission for the Shout Box to allow for all Users (Including Guests) or only registered users.</Resource>
     <Resource tag="WSERVICE_TOKEN">نشانه سرویس وب:</Resource>
     <Resource tag="WSERVICE_TOKEN_HELP">نشانه برای فراخوانی امن سرویس وب استفاده می شود. و مدام در خال تغییر است تا زمانی که شما تنظمیات میزبان را ذخیره کنید.</Resource>
   </page>

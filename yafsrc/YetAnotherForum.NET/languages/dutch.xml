@@ -953,6 +953,7 @@
     <Resource tag="CHECK_FOR_SPAM">Kies een SPAM Service voor Automatische SPAM Controle:</Resource>
     <Resource tag="CHECK_FOR_SPAM_HELP">Zet automatische SPAM Controle aan/uit via de &lt;a href="http://blogspam.net/"&gt;BlogSpam.net API&lt;/a&gt; of Akismet.com. Wanneer actief, worden berichten automatisch geblokkeerd als ze herkend worden als SPAM.</Resource>
     <Resource tag="CLEAR_CACHE">Leeg de Cache</Resource>
+    <Resource tag="COLLAPSED">Collapsed</Resource>
     <Resource tag="COUNTRYIMAGE_TEMPLATE">Land afbeelding sjabloon:</Resource>
     <Resource tag="COUNTRYIMAGE_TEMPLATE_HELP">Sjabloon om het Landenplaatje op te maken.</Resource>
     <Resource tag="CREATE_NNTPNAMES">Maak NNTP Gebruikersnamen:</Resource>
@@ -1002,6 +1003,7 @@
     <Resource tag="EVENTLOG_MAX_DAYS_HELP">Max number of days for event log. Older ones will be deleted</Resource>
     <Resource tag="EVENTLOG_MAX_MESSAGES">Max event log message</Resource>
     <Resource tag="EVENTLOG_MAX_MESSAGES_HELP">Max number of event log messages. Outdated will be deleted.</Resource>
+    <Resource tag="EXPANDED">Expanded</Resource>
     <Resource tag="EXTERN_NEWWINDOW">Externe Zoekopdrachtresultaten in een nieuw Venster:</Resource>
     <Resource tag="EXTERN_NEWWINDOW_HELP">Geef de resultaten van een externe zoekopdracht weer in een nieuw venster.</Resource>
     <Resource tag="EXTERN_SEARCH_PERMISS">Machtingingen om Extern te mogen zoeken:</Resource>
@@ -1247,6 +1249,8 @@
     <Resource tag="SERVERTIME_CORRECT_HELP">Vul een positieve of negatieve waarde in (in minuten tussen -720 en 720, als de UTC waarde niet goed is): </Resource>
     <Resource tag="SHOUTBOX_COUNT">Shoutbox Message Count:</Resource>
     <Resource tag="SHOUTBOX_COUNT_HELP">The Number of Messages that will be shown in the shoutbox.</Resource>
+    <Resource tag="SHOUTBOX_DEFAULTSTATE">Shout Box Default State:</Resource>
+    <Resource tag="SHOUTBOX_DEFAULTSTATE_HELP">The Default State for the Shout Box if it should be collapsed or expanded (Note: the State is saved as cookie, if you change the value you need to delete the cookie to see the changes).</Resource>
     <Resource tag="SHOW_ACTIVE_DISCUSSION">Laat Actieve Topics zien:</Resource>
     <Resource tag="SHOW_ACTIVE_DISCUSSION_HELP">Zet de Actieve Topics aan of uit op de startpagina.</Resource>
     <Resource tag="SHOW_ATOM_LINKS">Laat Atom Links zien:</Resource>
@@ -1367,6 +1371,8 @@
     <Resource tag="VIEWMEMBERLIST_PERMISSION_HELP">Sta het bekijken van de ledenlijst toe aan:</Resource>
     <Resource tag="VIEWPROFILE_PERMISSION">Machtigingen voor het Bekijken van Profielen:</Resource>
     <Resource tag="VIEWPROFILE_PERMISSION_HELP">Sta het bekijken van andere profielen toe aan:</Resource>
+    <Resource tag="VIEWSHOUTBOX_PERMISSION">Shout Box View Permission:</Resource>
+    <Resource tag="VIEWSHOUTBOX_PERMISSION_HELP">View Permission for the Shout Box to allow for all Users (Including Guests) or only registered users.</Resource>
     <Resource tag="WSERVICE_TOKEN">Web Service Merkteken:</Resource>
     <Resource tag="WSERVICE_TOKEN_HELP">Merkteken om beveiligde web service calls te maken. Wijzigt voortdurend totdat je de host settings hebt opgeslagen.</Resource>
   </page>

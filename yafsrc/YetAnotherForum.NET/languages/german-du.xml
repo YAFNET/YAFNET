@@ -922,14 +922,14 @@
     <Resource tag="ALLOW_USERS_POLLIMAGES_HELP">Wen aktiviert können Benutzer Bilder als Umfrage Optionen verwenden</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR">Benutzern erlauben, Text-Editor auszuwählen</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR_HELP">Benutzern erlauben, Text-Editor in den Profileinstellungen auszuwählen</Resource>
-    <Resource tag="APP_CORES">Processor Cores:</Resource>
-    <Resource tag="APP_CORES_HELP">Number of Processor cores.</Resource>
-    <Resource tag="APP_MEMORY">Application memory:</Resource>
-    <Resource tag="APP_MEMORY_HELP">Application memory used.</Resource>
-    <Resource tag="APP_OS_NAME">Operating System:</Resource>
-    <Resource tag="APP_OS_NAME_HELP">What version of operating system is running.</Resource>
+    <Resource tag="APP_CORES">Prozessorkerne:</Resource>
+    <Resource tag="APP_CORES_HELP">Anzahl der Prozessorkerne.</Resource>
+    <Resource tag="APP_MEMORY">Anwendungspeicher:</Resource>
+    <Resource tag="APP_MEMORY_HELP">Verwendeter Anwendungspeicher.</Resource>
+    <Resource tag="APP_OS_NAME">Betriebssystem:</Resource>
+    <Resource tag="APP_OS_NAME_HELP">Betriebssystem des Servers.</Resource>
     <Resource tag="APP_RUNTIME">.NET Runtime Version:</Resource>
-    <Resource tag="APP_RUNTIME_HELP">What .NET Runtime is running.</Resource>
+    <Resource tag="APP_RUNTIME_HELP">Die .NET Runtime Version mit der die Anwendung läuft.</Resource>
     <Resource tag="AVATAR_GALLERY">Avatar Galerie erlauben:</Resource>
     <Resource tag="AVATAR_GALLERY_HELP">Benutzer erlauben Avatare aus der Lokalen Avatar Galerie auszuwählen.</Resource>
     <Resource tag="AVATAR_HEIGHT">Avatar Höhe:</Resource>
@@ -953,6 +953,7 @@
     <Resource tag="CHECK_FOR_SPAM">SPAM Dienst für das automatische Checken von Beitragspam:</Resource>
     <Resource tag="CHECK_FOR_SPAM_HELP">Aktiviert / deaktiviert die automatisch SPAM Kontrolle über das &lt;a href="http://blogspam.net/"&gt; BlogSpam.net API &lt;/a&gt; oder Akismet.com Service. Wenn diese Option aktiviert ist, können SPAM Beiträge abgelehnt werden oder als nicht bestätigt markiert werden.</Resource>
     <Resource tag="CLEAR_CACHE">Cache löschen</Resource>
+    <Resource tag="COLLAPSED">Zusammengeklappt</Resource>
     <Resource tag="COUNTRYIMAGE_TEMPLATE">Land Flagge Vorlage:</Resource>
     <Resource tag="COUNTRYIMAGE_TEMPLATE_HELP">Vorlage für die Darstellung der Landesflagge.</Resource>
     <Resource tag="CREATE_NNTPNAMES">NNTP Benutzernamen erstellen:</Resource>
@@ -1001,6 +1002,7 @@
     <Resource tag="EVENTLOG_MAX_DAYS_HELP">Anzahl An Tagen wie lange Eintrag im Ereignis Log bleiben soll, alte Einträge werden automatisch gelöscht.</Resource>
     <Resource tag="EVENTLOG_MAX_MESSAGES">Max. Anzahl an Ereignis Log Einträgen</Resource>
     <Resource tag="EVENTLOG_MAX_MESSAGES_HELP">Max. Anzahl an Event Log Einträge, ältere werden automatisch gelöscht.</Resource>
+    <Resource tag="EXPANDED">Ausgeklappt</Resource>
     <Resource tag="EXTERN_NEWWINDOW">Externe Suchergebnisse in einem neuen Fenster:</Resource>
     <Resource tag="EXTERN_NEWWINDOW_HELP">Externe Suchergebnisse in einem neuen Fenster öffnen.</Resource>
     <Resource tag="EXTERN_SEARCH_PERMISS">Externe Suchberechtigungen:</Resource>
@@ -1246,6 +1248,8 @@
     <Resource tag="SERVERTIME_CORRECT_HELP">Geben Sie einen positiven oder einen negativen Wert in Minuten zwischen -720 und 720 ein. Wenn der Server UTC Zeit falsch ist:</Resource>
     <Resource tag="SHOUTBOX_COUNT">Anzahl der Shoutbox Einträge:</Resource>
     <Resource tag="SHOUTBOX_COUNT_HELP">Max. Anzahl an Einträgen die in der Shoutbox angezeigt werden sollen.</Resource>
+    <Resource tag="SHOUTBOX_DEFAULTSTATE">Shout Box Grundzustand:</Resource>
+    <Resource tag="SHOUTBOX_DEFAULTSTATE_HELP">Grundzustand der Shout Box Eingeklappt oder ausgeklappt.</Resource>
     <Resource tag="SHOW_ACTIVE_DISCUSSION">Aktive Diskussionen Anzeigen:</Resource>
     <Resource tag="SHOW_ACTIVE_DISCUSSION_HELP">Aktivieren oder Deaktivieren Anzeige der aktiven Diskussionen Liste in der Bord Hauptseite.</Resource>
     <Resource tag="SHOW_ATOM_LINKS">Atom Links anzeigen</Resource>
@@ -1366,6 +1370,8 @@
     <Resource tag="VIEWMEMBERLIST_PERMISSION_HELP">Folgenden Erlauben die Mitgliederliste anzusehen:</Resource>
     <Resource tag="VIEWPROFILE_PERMISSION">Profil Anzeigen Berechtigungen:</Resource>
     <Resource tag="VIEWPROFILE_PERMISSION_HELP">Damit können andere Benutzer Profile ansehen:</Resource>
+    <Resource tag="VIEWSHOUTBOX_PERMISSION">Shout Box Anzeigeberechtigung:</Resource>
+    <Resource tag="VIEWSHOUTBOX_PERMISSION_HELP">Anzeigeberechtigung für die Shout Box um sie für alle Benutzer (inkl. Gäste), oder nur für Registrierte Benutzer zu erlauben.</Resource>
     <Resource tag="WSERVICE_TOKEN">Web-Service-Token:</Resource>
     <Resource tag="WSERVICE_TOKEN_HELP">Token die verwendet werden, um sichere Web-Service-Anrufe zu tätigen. Ständig wechselnde, bis Sie Ihren Host Einstellungen  speichern.</Resource>
   </page>

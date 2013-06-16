@@ -137,7 +137,7 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// Registers the needed Javascripts
+        /// Registers the needed Java Scripts
         /// </summary>
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnPreRender([NotNull] EventArgs e)
@@ -149,6 +149,8 @@ namespace YAF.Pages.Admin
             YafContext.Current.PageElements.RegisterJsBlock(
                 "yafTabsJs",
                 JavaScriptBlocks.JqueryUITabsLoadJs(this.HostSettingsTabs.ClientID, this.hidLastTab.ClientID, false));
+
+            YafContext.Current.PageElements.RegisterJsBlock("spinnerJs", JavaScriptBlocks.LoadSpinnerWidget());
 
             base.OnPreRender(e);
         }
@@ -231,7 +233,7 @@ namespace YAF.Pages.Admin
             {
                 Control control = this.HostSettingsTabs.FindControlRecursive(name);
 
-                if (control != null && control is CheckBox && settingCollection.SettingsBool[name].CanWrite)
+                if (control is CheckBox && settingCollection.SettingsBool[name].CanWrite)
                 {
                     settingCollection.SettingsBool[name].SetValue(
                         this.Get<YafBoardSettings>(), ((CheckBox)control).Checked, null);
@@ -243,12 +245,12 @@ namespace YAF.Pages.Admin
             {
                 Control control = this.HostSettingsTabs.FindControlRecursive(name);
 
-                if (control != null && control is TextBox && settingCollection.SettingsString[name].CanWrite)
+                if (control is TextBox && settingCollection.SettingsString[name].CanWrite)
                 {
                     settingCollection.SettingsString[name].SetValue(
                         this.Get<YafBoardSettings>(), ((TextBox)control).Text.Trim(), null);
                 }
-                else if (control != null && control is DropDownList && settingCollection.SettingsString[name].CanWrite)
+                else if (control is DropDownList && settingCollection.SettingsString[name].CanWrite)
                 {
                     settingCollection.SettingsString[name].SetValue(
                         this.Get<YafBoardSettings>(),
@@ -262,7 +264,7 @@ namespace YAF.Pages.Admin
             {
                 Control control = this.HostSettingsTabs.FindControlRecursive(name);
 
-                if (control != null && control is TextBox && settingCollection.SettingsInt[name].CanWrite)
+                if (control is TextBox && settingCollection.SettingsInt[name].CanWrite)
                 {
                     string value = ((TextBox)control).Text.Trim();
                     int i;
@@ -278,7 +280,7 @@ namespace YAF.Pages.Admin
 
                     settingCollection.SettingsInt[name].SetValue(this.Get<YafBoardSettings>(), i, null);
                 }
-                else if (control != null && control is DropDownList && settingCollection.SettingsInt[name].CanWrite)
+                else if (control is DropDownList && settingCollection.SettingsInt[name].CanWrite)
                 {
                     settingCollection.SettingsInt[name].SetValue(
                         this.Get<YafBoardSettings>(), ((DropDownList)control).SelectedItem.Value.ToType<int>(), null);
@@ -290,7 +292,7 @@ namespace YAF.Pages.Admin
             {
                 Control control = this.HostSettingsTabs.FindControlRecursive(name);
 
-                if (control != null && control is TextBox && settingCollection.SettingsDouble[name].CanWrite)
+                if (control is TextBox && settingCollection.SettingsDouble[name].CanWrite)
                 {
                     string value = ((TextBox)control).Text.Trim();
                     double i;
@@ -306,7 +308,7 @@ namespace YAF.Pages.Admin
 
                     settingCollection.SettingsDouble[name].SetValue(this.Get<YafBoardSettings>(), i, null);
                 }
-                else if (control != null && control is DropDownList && settingCollection.SettingsDouble[name].CanWrite)
+                else if (control is DropDownList && settingCollection.SettingsDouble[name].CanWrite)
                 {
                     settingCollection.SettingsDouble[name].SetValue(
                         this.Get<YafBoardSettings>(),
@@ -336,7 +338,7 @@ namespace YAF.Pages.Admin
                     this.PostsFeedAccess, this.AllowCreateTopicsSameName, this.PostLatestFeedAccess, this.ForumFeedAccess, this.TopicsFeedAccess,
                     this.ActiveTopicFeedAccess, this.FavoriteTopicFeedAccess, this.ReportPostPermissions, this.ProfileViewPermissions,
                     this.MembersListViewPermissions, this.ActiveUsersViewPermissions, this.ExternalSearchPermissions, this.SearchPermissions,
-                    this.ShowHelpTo, this.ShowTeamTo, this.ShowRetweetMessageTo, this.ShowShareTopicTo
+                    this.ShowHelpTo, this.ShowTeamTo, this.ShowRetweetMessageTo, this.ShowShareTopicTo, this.ShoutboxViewPermissions
                 };
 
             foreach (var ddl in dropDownLists)
@@ -359,6 +361,9 @@ namespace YAF.Pages.Admin
 
             this.MessageNotificationSystem.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "MODAL_DIALOG"), "0"));
             this.MessageNotificationSystem.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "NOTIFICATION_BAR"), "1"));
+
+            this.ShoutboxDefaultState.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "EXPANDED"), "0")); 
+            this.ShoutboxDefaultState.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "COLLAPSED"), "1"));
         }
 
         /// <summary>
@@ -379,7 +384,7 @@ namespace YAF.Pages.Admin
             {
                 Control control = this.HostSettingsTabs.FindControlRecursive(name);
 
-                if (control != null && control is CheckBox && settingCollection.SettingsBool[name].CanRead)
+                if (control is CheckBox && settingCollection.SettingsBool[name].CanRead)
                 {
                     // get the value from the property...
                     ((CheckBox)control).Checked =
@@ -395,7 +400,7 @@ namespace YAF.Pages.Admin
             {
                 Control control = this.HostSettingsTabs.FindControlRecursive(name);
 
-                if (control != null && control is TextBox && settingCollection.SettingsString[name].CanRead)
+                if (control is TextBox && settingCollection.SettingsString[name].CanRead)
                 {
                     // get the value from the property...
                     ((TextBox)control).Text =
@@ -404,7 +409,7 @@ namespace YAF.Pages.Admin
                             settingCollection.SettingsString[name].GetValue(this.Get<YafBoardSettings>(), null),
                             typeof(string));
                 }
-                else if (control != null && control is DropDownList && settingCollection.SettingsString[name].CanRead)
+                else if (control is DropDownList && settingCollection.SettingsString[name].CanRead)
                 {
                     ListItem listItem =
                         ((DropDownList)control).Items.FindByValue(
@@ -422,13 +427,15 @@ namespace YAF.Pages.Admin
             {
                 Control control = this.HostSettingsTabs.FindControlRecursive(name);
 
-                if (control != null && control is TextBox && settingCollection.SettingsInt[name].CanRead)
+                if (control is TextBox && settingCollection.SettingsInt[name].CanRead)
                 {
+                    ((TextBox)control).CssClass = "Numeric";
+
                     // get the value from the property...
                     ((TextBox)control).Text =
                         settingCollection.SettingsInt[name].GetValue(this.Get<YafBoardSettings>(), null).ToString();
                 }
-                else if (control != null && control is DropDownList && settingCollection.SettingsInt[name].CanRead)
+                else if (control is DropDownList && settingCollection.SettingsInt[name].CanRead)
                 {
                     ListItem listItem =
                         ((DropDownList)control).Items.FindByValue(
@@ -446,13 +453,15 @@ namespace YAF.Pages.Admin
             {
                 Control control = this.HostSettingsTabs.FindControlRecursive(name);
 
-                if (control != null && control is TextBox && settingCollection.SettingsDouble[name].CanRead)
+                if (control is TextBox && settingCollection.SettingsDouble[name].CanRead)
                 {
+                    ((TextBox)control).CssClass = "Numeric";
+
                     // get the value from the property...
                     ((TextBox)control).Text =
                         settingCollection.SettingsDouble[name].GetValue(this.Get<YafBoardSettings>(), null).ToString();
                 }
-                else if (control != null && control is DropDownList && settingCollection.SettingsDouble[name].CanRead)
+                else if (control is DropDownList && settingCollection.SettingsDouble[name].CanRead)
                 {
                     ListItem listItem =
                         ((DropDownList)control).Items.FindByValue(

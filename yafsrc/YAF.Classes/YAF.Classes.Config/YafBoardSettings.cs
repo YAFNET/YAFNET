@@ -19,11 +19,9 @@
 namespace YAF.Classes
 {
     using System;
-    using System.Data;
     using System.Web.Security;
 
     using YAF.Classes.Pattern;
-    using YAF.Types;
     using YAF.Types.Constants;
 
     /// <summary>
@@ -1725,6 +1723,44 @@ namespace YAF.Classes
         }
 
         /// <summary>
+        /// Gets or sets the ShoutBox view permissions.
+        /// </summary>
+        /// <value>
+        /// The ShoutBox view permissions.
+        /// </value>
+        public int ShoutboxViewPermissions
+        {
+            get
+            {
+                return this._reg.GetValue("ShoutboxViewPermission", (int)ViewPermissions.RegisteredUsers);
+            }
+
+            set
+            {
+                this._reg.SetValue("ShoutboxViewPermission", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the default state of the ShoutBox.
+        /// </summary>
+        /// <value>
+        /// The default state of the ShoutBox.
+        /// </value>
+        public int ShoutboxDefaultState
+        {
+            get
+            {
+                return this._reg.GetValue("ShoutboxDefaultState", (int)CollapsiblePanelState.Collapsed);
+            }
+
+            set
+            {
+                this._reg.SetValue("ShoutboxDefaultState", value);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets ActiveListTime.
         /// </summary>
         public int ActiveListTime
@@ -2985,7 +3021,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether Show Shoutbox.
+        /// Gets or sets a value indicating whether Show ShoutBox.
         /// </summary>
         public bool ShowShoutbox
         {
@@ -3001,7 +3037,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether Show smiles in Shoutbox.
+        /// Gets or sets a value indicating whether Show smiles in ShoutBox.
         /// </summary>
         public bool ShowShoutboxSmiles
         {

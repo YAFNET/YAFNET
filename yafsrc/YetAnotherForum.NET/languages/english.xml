@@ -1368,6 +1368,12 @@
   <Resource tag="VIEWPROFILE_PERMISSION_HELP">Allow viewing of other users' profiles to:</Resource>
   <Resource tag="WSERVICE_TOKEN">Web Service Token:</Resource>
   <Resource tag="WSERVICE_TOKEN_HELP">Token used to make secure web service calls. Constantly changing until you save your host settings.</Resource>
+  <Resource tag="EXPANDED">Expanded</Resource>
+  <Resource tag="COLLAPSED">Collapsed</Resource>
+  <Resource tag="VIEWSHOUTBOX_PERMISSION">Shout Box View Permission:</Resource>
+  <Resource tag="VIEWSHOUTBOX_PERMISSION_HELP">View Permission for the Shout Box to allow for all Users (Including Guests) or only registered users.</Resource>
+  <Resource tag="SHOUTBOX_DEFAULTSTATE">Shout Box Default State:</Resource>
+  <Resource tag="SHOUTBOX_DEFAULTSTATE_HELP">The Default State for the Shout Box if it should be collapsed or expanded (Note: the State is saved as cookie, if you change the value you need to delete the cookie to see the changes).</Resource>
  </page>
  <page name="ADMIN_LANGUAGES">
   <Resource tag="CULTURE_TAG">Culture Tag</Resource>

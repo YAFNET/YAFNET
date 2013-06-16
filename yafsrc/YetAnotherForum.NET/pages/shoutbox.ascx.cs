@@ -19,50 +19,49 @@
  */
 namespace YAF.Pages
 {
-  #region Using
+    #region Using
 
-  using System;
+    using System;
 
-  using YAF.Core;
-  using YAF.Types;
-
-  #endregion
-
-  /// <summary>
-  /// The shoutbox.
-  /// </summary>
-  public partial class shoutbox : ForumPage
-  {
-    #region Constructors and Destructors
-
-    /// <summary>
-    ///   Initializes a new instance of the <see cref = "shoutbox" /> class.
-    /// </summary>
-    public shoutbox()
-      : base("SHOUTBOX")
-    {
-      this.AllowAsPopup = true;
-    }
+    using YAF.Classes;
+    using YAF.Core;
+    using YAF.Types;
+    using YAF.Types.Interfaces;
 
     #endregion
 
-    #region Methods
-
     /// <summary>
-    /// The page_ load.
+    /// The shoutbox popup page.
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    public partial class shoutbox : ForumPage
     {
-      this.ShoutBox1.Visible = this.PageContext.BoardSettings.ShowShoutbox && !this.PageContext.IsGuest;
-      this.MustBeLoggedIn.Visible = this.PageContext.IsGuest;
-    }
+        #region Constructors and Destructors
 
-    #endregion
-  }
+        /// <summary>
+        ///   Initializes a new instance of the <see cref = "shoutbox" /> class.
+        /// </summary>
+        public shoutbox()
+            : base("SHOUTBOX")
+        {
+            this.AllowAsPopup = true;
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Handles the Load event of the Page control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            this.ShoutBox1.Visible = this.Get<YafBoardSettings>().ShowShoutbox
+                                     && this.Get<IPermissions>()
+                                            .Check(this.Get<YafBoardSettings>().ShoutboxViewPermissions);
+        }
+
+        #endregion
+    }
 }

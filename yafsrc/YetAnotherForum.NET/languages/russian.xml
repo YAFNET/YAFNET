@@ -953,6 +953,7 @@
     <Resource tag="CHECK_FOR_SPAM">Служба анти-СПАМА.</Resource>
     <Resource tag="CHECK_FOR_SPAM_HELP">Включает/отключает автоматичсекую проверку спама при помощи &lt;a href="http://blogspam.net/"&gt;BlogSpam.net API&lt;/a&gt; или Akismet.com. Если включено, то спам автоматически отвергается.</Resource>
     <Resource tag="CLEAR_CACHE">Очистить кэш</Resource>
+    <Resource tag="COLLAPSED">Collapsed</Resource>
     <Resource tag="COUNTRYIMAGE_TEMPLATE">Шаблон иконки страны:</Resource>
     <Resource tag="COUNTRYIMAGE_TEMPLATE_HELP">Шаблон для отображения иконки страны.</Resource>
     <Resource tag="CREATE_NNTPNAMES">Создавать имена пользователей NNTP:</Resource>
@@ -1001,6 +1002,7 @@
     <Resource tag="EVENTLOG_MAX_DAYS_HELP">Максимальное число дней для хранения записей, устаревшие удаляются.</Resource>
     <Resource tag="EVENTLOG_MAX_MESSAGES">Максимальное число записей журнала</Resource>
     <Resource tag="EVENTLOG_MAX_MESSAGES_HELP">Максимальное число записей журнала, устаревшие удаляются.</Resource>
+    <Resource tag="EXPANDED">Expanded</Resource>
     <Resource tag="EXTERN_NEWWINDOW">Показывать результаты внешнего поиска в новом окне:</Resource>
     <Resource tag="EXTERN_NEWWINDOW_HELP">Показывать результаты внешнего поиска в новом окне.</Resource>
     <Resource tag="EXTERN_SEARCH_PERMISS">Разрешения для внешнего поиска:</Resource>
@@ -1246,6 +1248,8 @@
     <Resource tag="SERVERTIME_CORRECT_HELP">Введите целое число (минуты) между -720 и 720, только если это время UTC неверно: </Resource>
     <Resource tag="SHOUTBOX_COUNT">Shoutbox Message Count:</Resource>
     <Resource tag="SHOUTBOX_COUNT_HELP">The Number of Messages that will be shown in the shoutbox.</Resource>
+    <Resource tag="SHOUTBOX_DEFAULTSTATE">Shout Box Default State:</Resource>
+    <Resource tag="SHOUTBOX_DEFAULTSTATE_HELP">The Default State for the Shout Box if it should be collapsed or expanded (Note: the State is saved as cookie, if you change the value you need to delete the cookie to see the changes).</Resource>
     <Resource tag="SHOW_ACTIVE_DISCUSSION">Показывать активные обсуждения:</Resource>
     <Resource tag="SHOW_ACTIVE_DISCUSSION_HELP">Включить или отключить отображение активных обсуждений.</Resource>
     <Resource tag="SHOW_ATOM_LINKS">Отображать ссылки на ленты Atom:</Resource>
@@ -1366,6 +1370,8 @@
     <Resource tag="VIEWMEMBERLIST_PERMISSION_HELP">Разрешить просмотр списка пользователей:</Resource>
     <Resource tag="VIEWPROFILE_PERMISSION">Разрешения просмотра профиля:</Resource>
     <Resource tag="VIEWPROFILE_PERMISSION_HELP">Разрешить просмотр профилей других пользователей:</Resource>
+    <Resource tag="VIEWSHOUTBOX_PERMISSION">Shout Box View Permission:</Resource>
+    <Resource tag="VIEWSHOUTBOX_PERMISSION_HELP">View Permission for the Shout Box to allow for all Users (Including Guests) or only registered users.</Resource>
     <Resource tag="WSERVICE_TOKEN">Токен веб-службы:</Resource>
     <Resource tag="WSERVICE_TOKEN_HELP">Токен для безопасного вызова веб-служб. Чтобы зафиксировать его вы должны сохранить настроийки хоста хотя бы раз.</Resource>
   </page>
