@@ -340,7 +340,7 @@ namespace YAF.Core
         {
             get
             {
-                return this.Page != null && this.Page["Suspended"] != null;
+                return this.Page != null && this.Page["Suspended"] is DateTime;
             }
         }
 
@@ -562,7 +562,7 @@ namespace YAF.Core
         {
             get
             {
-                return this.IsSuspended ? Convert.ToDateTime(this.Page["Suspended"]) : DateTimeHelper.SqlDbMinTime();
+                return this.IsSuspended ? Convert.ToDateTime(this.Page["Suspended"]).ToUniversalTime() : DateTime.UtcNow;
             }
         }
 

@@ -17,23 +17,21 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System.Linq;
-using YAF.Classes;
-using YAF.Types.Constants;
-using YAF.Types.Objects;
-
 namespace YAF.Controls
 {
     #region Using
 
     using System;
     using System.Data;
+    using System.Linq;
     using System.Web.UI.WebControls;
 
+    using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -161,7 +159,8 @@ namespace YAF.Controls
             // un-suspend user
             LegacyDb.user_suspend(this.CurrentUserID, null);
             var usr =
-                LegacyDb.UserList(this.PageContext.PageBoardID,  (int?) this.CurrentUserID, null, null, null, false).ToList();
+                LegacyDb.UserList(this.PageContext.PageBoardID,  (int?)this.CurrentUserID, null, null, null, false).ToList();
+
             if (usr.Any())
             {
                 this.Get<ILogger>()
@@ -203,7 +202,7 @@ namespace YAF.Controls
                     if (row["IsAdmin"] != DBNull.Value && row["IsAdmin"].ToType<int>() > 0)
                     {
                         // tell user he can't suspend admin
-                        this.PageContext.AddLoadMessage(this.GetText("PROFILE", "ERROR_ADMINISTRATORS"));
+                        this.PageContext.AddLoadMessage(this.GetText("PROFILE", "ERROR_ADMINISTRATORS"), MessageTypes.Error);
                         return;
                     }
 
@@ -211,7 +210,7 @@ namespace YAF.Controls
                     if (!this.PageContext.IsAdmin && int.Parse(row["IsForumModerator"].ToString()) > 0)
                     {
                         // tell user he can't suspend forum moderator when he's not admin
-                        this.PageContext.AddLoadMessage(this.GetText("PROFILE", "ERROR_FORUMMODERATORS"));
+                        this.PageContext.AddLoadMessage(this.GetText("PROFILE", "ERROR_FORUMMODERATORS"), MessageTypes.Error);
                         return;
                     }
 
@@ -220,7 +219,7 @@ namespace YAF.Controls
                     // verify the user isn't guest...
                     if (isGuest != DBNull.Value && isGuest.ToType<int>() > 0)
                     {
-                        this.PageContext.AddLoadMessage(this.GetText("PROFILE", "ERROR_GUESTACCOUNT"));
+                        this.PageContext.AddLoadMessage(this.GetText("PROFILE", "ERROR_GUESTACCOUNT"), MessageTypes.Error);
                         return;
                     }
                 }
