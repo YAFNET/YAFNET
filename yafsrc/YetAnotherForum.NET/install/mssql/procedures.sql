@@ -2049,9 +2049,14 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}bannedip_save](@ID int=null,@BoardID int,@Mask varchar(57), @Reason nvarchar(128), @UserID int, @UTCTIMESTAMP datetime) as
 begin
-        if (@ID is null or @ID = 0 ) 
-        begin
-        insert into [{databaseOwner}].[{objectQualifier}BannedIP](BoardID,Mask,Since,Reason,UserID) values(@BoardID,@Mask,@UTCTIMESTAMP,@Reason,@UserID)
+    if (@ID is null or @ID = 0 ) 
+	begin
+	    declare @IPExistsRow int
+	    select @IPExistsRow = count(1) from [{databaseOwner}].[{objectQualifier}BannedIP] where BoardID=@BoardID and Mask=@Mask;
+		if (@IPExistsRow  is null or @IPExistsRow = 0)
+		begin
+			insert into [{databaseOwner}].[{objectQualifier}BannedIP](BoardID,Mask,Since,Reason,UserID) values(@BoardID,@Mask,@UTCTIMESTAMP,@Reason,@UserID)
+		end
     end
     else begin
         update [{databaseOwner}].[{objectQualifier}BannedIP] set Mask = @Mask,Reason = @Reason, UserID = @UserID where ID = @ID
