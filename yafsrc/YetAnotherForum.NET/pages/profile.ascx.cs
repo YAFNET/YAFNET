@@ -201,7 +201,7 @@ namespace YAF.Pages
 
             if (this.UserId == 0)
             {
-                YafBuildLink.AccessDenied( /*No such user exists*/);
+                YafBuildLink.AccessDenied(/*No such user exists*/);
             }
 
             this.AlbumListTab.Visible = this.AlbumsTabIsVisible();
@@ -802,7 +802,7 @@ namespace YAF.Pages
                 }
             }
 
-            if (this.User != null && userData.Profile.Birthday != DateTimeHelper.SqlDbMinTime())
+            if (this.User != null && userData.Profile.Birthday >= DateTimeHelper.SqlDbMinTime())
             {
                 this.BirthdayTR.Visible = true;
                 this.Birthday.Text =
