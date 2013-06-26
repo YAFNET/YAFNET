@@ -2,6 +2,8 @@
 <%@ Register TagPrefix="YAF" TagName="ReportedPosts" Src="../../controls/ReportedPosts.ascx" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
+<%@ Import Namespace="YAF.Utils" %>
+<%@ Import Namespace="YAF.Types.Extensions" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <asp:Repeater ID="List" runat="server">
     <HeaderTemplate>
@@ -26,7 +28,7 @@
             </tr>
             <tr class="postheader">
                 <td class="postformheader">
-                    <YAF:UserLink ID="UserLink1" runat="server" UserID='<%# Convert.ToInt32(Eval("UserID")) %>' />
+                    <YAF:UserLink ID="UserLink1" runat="server" UserID='<%# this.Eval("UserID").ToType<int>() %>' />
                 </td>
                 <td>
                     <strong>

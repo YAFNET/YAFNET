@@ -1,4 +1,5 @@
 ﻿function pageLoad() {
+    jQuery('.menuMyContainer').hide();
     jQuery('.content, .yafPageLink').addClass('contentShadow roundShadow');
     jQuery('#DivIconLegend, #DivPageAccess').addClass('content contentShadow roundShadow');
     jQuery('.menuContainer').addClass('contentShadow raisedShadow');
@@ -41,6 +42,8 @@
         });
         jQuery(this).find('.arrow').eq(0).text('l');
     });
+
+    jQuery('.menuMyContainer').show();
 }
 
 jQuery.fn.onImagesLoaded = function(_cb) {
