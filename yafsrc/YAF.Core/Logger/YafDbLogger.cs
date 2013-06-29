@@ -25,7 +25,6 @@ namespace YAF.Core
     using System.Diagnostics;
     using System.Linq;
 
-    using YAF.Classes;
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Attributes;
@@ -40,13 +39,27 @@ namespace YAF.Core
     #endregion
 
     /// <summary>
-    ///     The yaf db logger.
+    ///     The YAF Data Base logger.
     /// </summary>
     public class YafDbLogger : ILogger, IHaveServiceLocator
     {
         /// <summary>
-        ///     The _event log repository.
+        /// Initializes a new instance of the <see cref="YafDbLogger"/> class.
         /// </summary>
+        /// <param name="logType">
+        /// The log type.
+        /// </param>
+        public YafDbLogger([CanBeNull] Type logType)
+        {
+            this.Type = logType;
+        }
+
+        /// <summary>
+        /// Gets the event log repository.
+        /// </summary>
+        /// <value>
+        /// The event log repository.
+        /// </value>
         public IRepository<EventLog> EventLogRepository
         {
             get
@@ -59,18 +72,7 @@ namespace YAF.Core
         /// Gets or sets the service locator.
         /// </summary>
         [Inject]
-        public IServiceLocator ServiceLocator { get; set; }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="YafDbLogger"/> class.
-        /// </summary>
-        /// <param name="logType">
-        /// The log type.
-        /// </param>
-        public YafDbLogger([CanBeNull] Type logType)
-        {
-            this.Type = logType;
-        }
+        public IServiceLocator ServiceLocator { get; set; }        
 
 #if (DEBUG)
 
@@ -83,33 +85,9 @@ namespace YAF.Core
 #endif
 
         /// <summary>
-        ///     Gets a value indicating the logging type.
+        ///     Gets or sets the logging type.
         /// </summary>
         public Type Type { get; set; }
-
-        /// <summary>
-        ///     The _event log type lookup.
-        /// </summary>
-        private Dictionary<EventLogTypes, bool> _eventLogTypeLookup;
-
-        /// <summary>
-        ///     The init lookup.
-        /// </summary>
-        private void InitLookup()
-        {
-            this._eventLogTypeLookup = new Dictionary<EventLogTypes, bool> { };
-
-            foreach (var logType in EnumHelper.EnumToList<EventLogTypes>())
-            {
-                this._eventLogTypeLookup.Add(logType, true);
-            }
-
-            this._eventLogTypeLookup.AddOrUpdate(EventLogTypes.Debug, this._isDebug);
-            this._eventLogTypeLookup.AddOrUpdate(EventLogTypes.Trace, this._isDebug);
-
-            this._eventLogTypeLookup.AddOrUpdate(EventLogTypes.IpBanLifted, true);
-            this._eventLogTypeLookup.AddOrUpdate(EventLogTypes.IpBanSet, true);
-        }
 
         /// <summary>
         /// The is log type enabled.
@@ -166,31 +144,59 @@ namespace YAF.Core
 
             var formattedDescription = message + "\r\n" + exceptionDescription;
 
-            if (eventType == EventLogTypes.Debug)
+            switch (eventType)
             {
-                Debug.WriteLine(formattedDescription, source);
-            }
-            else if (eventType == EventLogTypes.Trace)
-            {
-                Trace.TraceInformation(formattedDescription);
-                if (exception != null)
-                {
-                    Trace.TraceError(exception.ToString());
-                }
-            }
-            else
-            {
-                var log = new EventLog
-                              {
-                                  EventType = eventType, 
-                                  UserName = username, 
-                                  Description = formattedDescription, 
-                                  Source = source ?? this.Type.FullName, 
-                                  EventTime = DateTime.UtcNow
-                              };
+                case EventLogTypes.Debug:
+                    Debug.WriteLine(formattedDescription, source);
+                    break;
+                case EventLogTypes.Trace:
+                    Trace.TraceInformation(formattedDescription);
+                    if (exception != null)
+                    {
+                        Trace.TraceError(exception.ToString());
+                    }
 
-                this.EventLogRepository.Insert(log);
+                    break;
+                default:
+                    {
+                        var log = new EventLog
+                                      {
+                                          EventType = eventType, 
+                                          UserName = username, 
+                                          Description = formattedDescription, 
+                                          Source = source ?? this.Type.FullName, 
+                                          EventTime = DateTime.UtcNow
+                                      };
+
+                        this.EventLogRepository.Insert(log);
+                    }
+
+                    break;
             }
+        }
+
+        /// <summary>
+        ///     The _event log type lookup.
+        /// </summary>
+        private Dictionary<EventLogTypes, bool> _eventLogTypeLookup;
+
+        /// <summary>
+        /// Inits. the lookup.
+        /// </summary>
+        private void InitLookup()
+        {
+            this._eventLogTypeLookup = new Dictionary<EventLogTypes, bool> { };
+
+            foreach (var logType in EnumHelper.EnumToList<EventLogTypes>().Where(logType => !this._eventLogTypeLookup.ContainsKey(logType)))
+            {
+                this._eventLogTypeLookup.Add(logType, true);
+            }
+
+            this._eventLogTypeLookup.AddOrUpdate(EventLogTypes.Debug, this._isDebug);
+            this._eventLogTypeLookup.AddOrUpdate(EventLogTypes.Trace, this._isDebug);
+
+            this._eventLogTypeLookup.AddOrUpdate(EventLogTypes.IpBanLifted, true);
+            this._eventLogTypeLookup.AddOrUpdate(EventLogTypes.IpBanSet, true);
         }
     }
 }
