@@ -67,7 +67,7 @@ function dd(element, settings) {
 		style: '',
 		disabledOpacity: 0.7,
 		disabledOptionEvents: true,
-		childWidth:0,
+		childWidth:300,
 		enableCheckbox:false, //this needs to multiple or it will set element to multiple
 		checkboxNameSuffix:'_mscheck',
 		append:'',
@@ -247,6 +247,7 @@ function dd(element, settings) {
 	};	 
 	var createElement = function(nm, attr, html) {
 		var tag = doc.createElement(nm);
+		
 		if (attr) {
 		 for(var i in attr) {
 			 switch(i) {
@@ -285,8 +286,16 @@ function dd(element, settings) {
 			className: css.dd + " ddcommon"+brdRds
 		};
 		var intcss = getInternalStyle(getElement(element));
+
 		var w = $("#" + element).outerWidth();
-		obj.style = "width: " + w + "px;";
+		
+		if (w === 0) {
+			obj.style = "width: auto";
+		}
+		else {
+			obj.style = "width: " + w + "px;";
+		}
+		
 		if (intcss.length > 0) {
 			obj.style = obj.style + "" + intcss;
 		};
@@ -340,6 +349,7 @@ function dd(element, settings) {
 		oTitle.appendChild(oTitleText);
 		var oDescription = createElement("span", {className: css.description}, parsed.description);
 		oTitleText.appendChild(oDescription);
+		
 		return oTitle;
 	};
 	var createFilterBox = function () {
@@ -687,7 +697,7 @@ function dd(element, settings) {
 				isMultiple = false; //set multiple off if this is not a list
 			};
 			$("#" + id + " ." + css.ddTitle).show();
-			$("#" + childid).css({display: 'none', position: 'absolute'});
+			$("#" + childid).css({display: 'none', position: 'absolute', width: 'auto'});
 			//set value
 			var first = $("#" + childid + " li." + css.selected)[0];
 			$("#" + childid + " li." + css.selected).removeClass(css.selected);
@@ -726,6 +736,7 @@ function dd(element, settings) {
 		var oChildren = createChildren();
 		oDiv.appendChild(oChildren);
 		$("#" + element).after(oDiv);
+
 		hideOriginal(); //hideOriginal
 		fixedSomeUI();
 		applyEvents();

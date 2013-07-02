@@ -1,5 +1,5 @@
 ﻿function pageLoad() {
-    jQuery('.menuMyContainer').hide();
+    jQuery('.yafnet').hide();
     jQuery('.content, .yafPageLink').addClass('contentShadow roundShadow');
     jQuery('#DivIconLegend, #DivPageAccess').addClass('content contentShadow roundShadow');
     jQuery('.menuContainer').addClass('contentShadow raisedShadow');
@@ -28,8 +28,6 @@
     jQuery('.QuickSearchButton').text('A');
     jQuery('select').not('[id*="ProfileEditor_Country"]').each(function() {
         jQuery(this).msDropDown();
-
-
     });
 
     jQuery('.dd').each(function() {
@@ -43,7 +41,7 @@
         jQuery(this).find('.arrow').eq(0).text('l');
     });
 
-    jQuery('.menuMyContainer').show();
+    jQuery('.yafnet').show();
 }
 
 jQuery.fn.onImagesLoaded = function(_cb) {
