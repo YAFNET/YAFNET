@@ -29,6 +29,7 @@ namespace YAF.Core.Services
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
@@ -122,8 +123,14 @@ namespace YAF.Core.Services
                                 this.Logger.Debug("Invalid Email Address: {0}".FormatWith(ex.ToString()), ex.ToString());
 #else
     
-    // email address is no good -- delete this email...
-                                this.Logger.Warn("Invalid Email Address: {0}".FormatWith(ex.ToString()));
+                                // email address is no good -- delete this email...
+                                this.Logger.Log(
+                                    null,
+                                    this,
+                                    "Invalid Email Address: {0}".FormatWith(ex.ToString()),
+                                    EventLogTypes.Warning);
+
+                                //this.Logger.Warn("Invalid Email Address: {0}".FormatWith(ex.ToString()));
 #endif
                             }
                             else if (ex is SmtpException)
@@ -131,7 +138,12 @@ namespace YAF.Core.Services
 #if (DEBUG)
                                 this.Logger.Debug("SendMailThread SmtpException", ex.ToString());
 #else
-                                this.Logger.Warn("Send Exception: {0}".FormatWith(ex.ToString()));
+                                this.Logger.Log(
+                                    null,
+                                    this,
+                                    "Send Exception: {0}".FormatWith(ex.ToString()),
+                                    EventLogTypes.Warning);
+                                //this.Logger.Warn("Send Exception: {0}".FormatWith(ex.ToString()));
 
 #endif
                                 if (mailMessages.ContainsKey(message) && mailMessages[message].SendTries < 2)
@@ -141,7 +153,13 @@ namespace YAF.Core.Services
                                 }
                                 else
                                 {
-                                    this.Logger.Warn("SendMailThread Failed for the 2nd time:", ex.ToString());
+                                    this.Logger.Log(
+                                        null,
+                                        this,
+                                        "SendMailThread Failed for the 2nd time:".FormatWith(ex.ToString()),
+                                        EventLogTypes.Warning);
+
+                                    //this.Logger.Warn("SendMailThread Failed for the 2nd time:", ex.ToString());
                                 }
                             }
                             else
@@ -153,7 +171,13 @@ namespace YAF.Core.Services
 #else
     
     // general exception...
-                                this.Logger.Warn("Exception Thrown in SendMail Thread: {0}".FormatWith(ex.ToString()));
+                                this.Logger.Log(
+                                    null,
+                                    this,
+                                    "Exception Thrown in SendMail Thread: {0}".FormatWith(ex.ToString()),
+                                    EventLogTypes.Warning);
+
+                                //this.Logger.Warn("Exception Thrown in SendMail Thread: {0}".FormatWith(ex.ToString()));
 #endif
                             }
                         });
@@ -174,7 +198,13 @@ namespace YAF.Core.Services
 #else
     
     // general exception...
-                this.Logger.Warn("Exception Thrown in SendMail Thread: {0}".FormatWith(ex));
+                this.Logger.Log(
+                    null,
+                    this,
+                    "Exception Thrown in SendMail Thread: {0}".FormatWith(ex.ToString()),
+                    EventLogTypes.Warning);
+
+                //this.Logger.Warn("Exception Thrown in SendMail Thread: {0}".FormatWith(ex));
 #endif
             }
             finally
@@ -234,7 +264,10 @@ namespace YAF.Core.Services
 #if (DEBUG)
                     this.Logger.Debug("Invalid Email Address: {0}".FormatWith(ex.ToString()), ex.ToString());
 #else
-                    this.Logger.Warn("Invalid Email Address: {0}".FormatWith(ex.ToString()));
+                    this.Logger.Log(
+                        null, this, "Invalid Email Address: {0}".FormatWith(ex.ToString()), EventLogTypes.Warning);
+
+                    //this.Logger.Warn("Invalid Email Address: {0}".FormatWith(ex.ToString()));
 #endif
                 }
             }
