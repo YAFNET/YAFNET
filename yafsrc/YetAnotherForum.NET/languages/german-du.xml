@@ -1038,6 +1038,8 @@
     <Resource tag="HEADER_FEATURES">Funktionseinstellungen</Resource>
     <Resource tag="HEADER_GEOLOCATION">Geolocation Einstellungen</Resource>
     <Resource tag="HEADER_HOTTOPICS">Beliebte Themen Einstellungen</Resource>
+    <Resource tag="HEADER_HOVERCARD">Hover Cards Einstellungen</Resource>
+    <Resource tag="HEADER_HOVERCARD">Hover Cards Einstellungen</Resource>
     <Resource tag="HEADER_IMAGE_ATTACH">Bildanhang Einstellungen</Resource>
     <Resource tag="HEADER_IRKOO">Irkoo Reputation Service</Resource>
     <Resource tag="HEADER_LOG">Log-Einstellungen</Resource>
@@ -1049,6 +1051,7 @@
     <Resource tag="HEADER_POLL">Abstimmungseinstellungen</Resource>
     <Resource tag="HEADER_REPUTATION">Reputation Einstellungen</Resource>
     <Resource tag="HEADER_SEARCH">Sucheinstellungen</Resource>
+    <Resource tag="HEADER_SERVER_INFO">Server Info</Resource>
     <Resource tag="HEADER_SETUP">Host Konfiguration</Resource>
     <Resource tag="HEADER_SHOUT">Shoutboxeinstellungen</Resource>
     <Resource tag="HEADER_SPAM">Spam Einstellungen</Resource>
@@ -2328,6 +2331,7 @@
     <Resource tag="EDIT_ALBUMS">Alben bearbeiten</Resource>
     <Resource tag="EMAIL">Du musst immer eine gültige E-Mail-Adresse angeben.</Resource>
     <Resource tag="FACEBOOK">Facebook Profil ID:</Resource>
+    <Resource tag="FIELD_TOOLONG">{0} Länge darf nicht länder als {1} Zeichen lang sein.</Resource>
     <Resource tag="FORUM_SETTINGS">Einstellungen des Forums</Resource>
     <Resource tag="HIDEME">Verstecken Sie mich aus der aktiven Nutzerliste</Resource>
     <Resource tag="HOMEPAGE">Webseite</Resource>

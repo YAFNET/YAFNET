@@ -1045,6 +1045,7 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="HEADER_FEATURES">تنظیم ویژگی ها</Resource>
     <Resource tag="HEADER_GEOLOCATION">Geolocation Settings</Resource>
     <Resource tag="HEADER_HOTTOPICS">Hot (Popular) Topic Settings</Resource>
+    <Resource tag="HEADER_HOVERCARD">Hover Cards Settings</Resource>
     <Resource tag="HEADER_IMAGE_ATTACH">تنظیمات تصاویر ضمیمه</Resource>
     <Resource tag="HEADER_IRKOO">خدمات Irkoo</Resource>
     <Resource tag="HEADER_LOG">تنظیمات سیاهه</Resource>
@@ -1056,6 +1057,7 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="HEADER_POLL">گزینه های آمار</Resource>
     <Resource tag="HEADER_REPUTATION">Reputation Settings</Resource>
     <Resource tag="HEADER_SEARCH">تنظیمات جستجو</Resource>
+    <Resource tag="HEADER_SERVER_INFO">Server Info</Resource>
     <Resource tag="HEADER_SETUP">نصب میزبان</Resource>
     <Resource tag="HEADER_SHOUT">Shoutbox Settings</Resource>
     <Resource tag="HEADER_SPAM">Spam Settings</Resource>
@@ -2334,6 +2336,7 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="EDIT_ALBUMS">ویرایش آلبومها</Resource>
     <Resource tag="EMAIL">شما باید یک آدرس ایمیل معتبر داشته باشید.</Resource>
     <Resource tag="FACEBOOK">Your Facebook Profile ID:</Resource>
+    <Resource tag="FIELD_TOOLONG">{0} length cannot be more than {1} characters.</Resource>
     <Resource tag="FORUM_SETTINGS">تنظیمات انجمن</Resource>
     <Resource tag="HIDEME">مرا از دید کاربران فعال مخفی کن</Resource>
     <Resource tag="HOMEPAGE">صفحه اینترنتی خانگی</Resource>

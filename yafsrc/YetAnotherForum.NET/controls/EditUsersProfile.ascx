@@ -68,7 +68,7 @@
                 LocalizedTag="INTERESTS" />
         </td>
         <td class="post">
-            <asp:TextBox ID="Interests" runat="server" CssClass="edit" />
+            <asp:TextBox ID="Interests" runat="server" CssClass="edit" TextMode="MultiLine" MaxLength="400" Rows="5" />
         </td>
     </tr>
     <tr>

@@ -300,14 +300,14 @@
                                 (profileData.avatar ? ('<img class="s-img" style="' + online + '" src=' + profileData.avatar + ' />') : '') +
                                 (profileData.realname ? ('<label class="s-name">' + profileData.realname + ' </label>') : ('<label class="s-name">' + profileData.name + ' </label>')) +
                                 (href ? ('(<a class="s-username" title="Visit full profile for ' + profileData.name + '" href="' + href + '">' + profileData.name + '</a>)<br/>') : '') +
-                                (profileData.location ? ('<label class="s-loc">' + profileData.location + '</label><br />') : '') +
-                                (profileData.rank ? ('<label class="s-loc">' + profileData.rank + '</label>') : '') +
-                                (profileData.interests ? ('<p class="s-desc">' + profileData.interests + '</p>') : '') +
-                                (profileData.joined ? ('<p class="s-desc"><span class="s-strong">Member since:</span><br/>' + profileData.joined + '</p>') : '') +
+                                (profileData.location ? ('<label class="s-location">' + profileData.location + '</label><br />') : '') +
+                                (profileData.rank ? ('<label class="s-rank">' + profileData.rank + '</label>') : '') +
+                                (profileData.interests ? ('<p class="s-interests">' + profileData.interests + '</p>') : '') +
+                                (profileData.joined ? ('<p class="s-joined"><span class="s-strong">Member since:</span><br/>' + profileData.joined + '</p>') : '') +
                                 (profileData.homepage ? ('<a class="s-href" href="' + profileData.homepage + '">' + profileData.homepage + '</a><br/>') : '') +
                                 '<ul class="s-stats">' +
-                                (profileData.posts ? ('<li>Posts<br /><span class="s-count">' + profileData.posts + '</span></li>') : '') +
-                                (profileData.points ? ('<li>Reputation<br /><span class="s-count">' + profileData.points + '</span></li>') : '') +
+                                (profileData.posts ? ('<li>Posts<br /><span class="s-posts">' + profileData.posts + '</span></li>') : '') +
+                                (profileData.points ? ('<li>Reputation<br /><span class="s-points">' + profileData.points + '</span></li>') : '') +
                                 '</ul>' +
                                 (profileData.actionButtons ? ('<span class="s-action">' + profileData.actionButtons + '</span>') : '') +
                                 '</div>';

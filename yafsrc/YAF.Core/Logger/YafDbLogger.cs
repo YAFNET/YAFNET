@@ -192,9 +192,14 @@ namespace YAF.Core
         {
             this._eventLogTypeLookup = new Dictionary<EventLogTypes, bool> { };
 
-            foreach (var logType in EnumHelper.EnumToList<EventLogTypes>().Where(logType => !this._eventLogTypeLookup.ContainsKey(logType)))
+            foreach (var logType in EnumHelper.EnumToList<EventLogTypes>())
             {
-                this._eventLogTypeLookup.Add(logType, true);
+                /*if (!this._eventLogTypeLookup.ContainsKey(logType))
+                {
+                    this._eventLogTypeLookup.Add(logType, true);
+                }*/
+
+                this._eventLogTypeLookup.AddOrUpdate(logType, true);
             }
 
             this._eventLogTypeLookup.AddOrUpdate(EventLogTypes.Debug, this._isDebug);

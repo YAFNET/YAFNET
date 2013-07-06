@@ -21,7 +21,7 @@
 		<table class="content" cellspacing="2" width="100%" cellpadding="2" align="center">
                     <tr>
                         <td class="header1" colspan="2">
-                           <YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="HEADER_SETUP" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                           <YAF:LocalizedLabel ID="LocalizedLabel37" runat="server" LocalizedTag="HEADER_SERVER_INFO" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                     </tr>
                     <tr>
@@ -32,7 +32,7 @@
                             <asp:Label ID="SQLVersion" runat="server" CssClass="smallfont"></asp:Label>
                         </td>
                     </tr>
-             <tr>
+                    <tr>
                         <td class="postheader" style="width:50%">
                             <YAF:HelpLabel ID="HelpLabel231" runat="server" LocalizedTag="APP_OS_NAME" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
@@ -62,6 +62,11 @@
                         </td>
                         <td class="post">
                             <asp:Label ID="AppMemory" runat="server" CssClass="smallfont"></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="header1" colspan="2">
+                           <YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="HEADER_SETUP" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                     </tr>
                     <tr>
@@ -564,6 +569,11 @@
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="EnableTopicStatus" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="header1" colspan="2">
+                            <YAF:LocalizedLabel ID="LocalizedLabel38" runat="server" LocalizedTag="HEADER_HOVERCARD" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                     </tr>
                     <tr>

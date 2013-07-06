@@ -1039,6 +1039,7 @@
     <Resource tag="HEADER_FEATURES">Functie instellingen</Resource>
     <Resource tag="HEADER_GEOLOCATION">Geolocatie Instellingen</Resource>
     <Resource tag="HEADER_HOTTOPICS">Hot (Populaire) Topic Instellingen</Resource>
+    <Resource tag="HEADER_HOVERCARD">Hover Cards Settings</Resource>
     <Resource tag="HEADER_IMAGE_ATTACH">Fotobijlage instellingen</Resource>
     <Resource tag="HEADER_IRKOO">Irkoo Reputatie Service</Resource>
     <Resource tag="HEADER_LOG">Log instellingen</Resource>
@@ -1050,6 +1051,7 @@
     <Resource tag="HEADER_POLL">Poll Opties</Resource>
     <Resource tag="HEADER_REPUTATION">Reputatie Instellingen</Resource>
     <Resource tag="HEADER_SEARCH">Zoek instellingen</Resource>
+    <Resource tag="HEADER_SERVER_INFO">Server Info</Resource>
     <Resource tag="HEADER_SETUP">Host Installatie</Resource>
     <Resource tag="HEADER_SHOUT">Shoutbox Settings</Resource>
     <Resource tag="HEADER_SPAM">Spam Instellingen</Resource>
@@ -2335,6 +2337,7 @@
     <Resource tag="EDIT_ALBUMS">Bewerk Albums</Resource>
     <Resource tag="EMAIL">Je dient altijd over een geldig e-mail adres te beschikken:</Resource>
     <Resource tag="FACEBOOK">Je Facebook Profiel ID:</Resource>
+    <Resource tag="FIELD_TOOLONG">{0} length cannot be more than {1} characters.</Resource>
     <Resource tag="FORUM_SETTINGS">Forum-instellingen</Resource>
     <Resource tag="HIDEME">Laat me niet zien aan andere gebruikers</Resource>
     <Resource tag="HOMEPAGE">Homepage</Resource>

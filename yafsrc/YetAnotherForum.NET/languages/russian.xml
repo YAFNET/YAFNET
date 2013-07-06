@@ -1038,6 +1038,7 @@
     <Resource tag="HEADER_FEATURES">Настройки возможностей</Resource>
     <Resource tag="HEADER_GEOLOCATION">Настройки геолокации</Resource>
     <Resource tag="HEADER_HOTTOPICS">Популярные темы</Resource>
+    <Resource tag="HEADER_HOVERCARD">Hover Cards Settings</Resource>
     <Resource tag="HEADER_IMAGE_ATTACH">Настройки вложенных изображений</Resource>
     <Resource tag="HEADER_IRKOO">Службы Irkoo</Resource>
     <Resource tag="HEADER_LOG">Настройки журнала</Resource>
@@ -1049,6 +1050,7 @@
     <Resource tag="HEADER_POLL">Опции опроса</Resource>
     <Resource tag="HEADER_REPUTATION">Настройки репутации</Resource>
     <Resource tag="HEADER_SEARCH">Настройки поиска</Resource>
+    <Resource tag="HEADER_SERVER_INFO">Server Info</Resource>
     <Resource tag="HEADER_SETUP">Настройки хоста</Resource>
     <Resource tag="HEADER_SHOUT">Shoutbox Settings</Resource>
     <Resource tag="HEADER_SPAM">Настройки анти-спама</Resource>
@@ -2341,6 +2343,7 @@
     <Resource tag="EDIT_ALBUMS">Изменить альбомы</Resource>
     <Resource tag="EMAIL">Ваш адрес электронной почты должен быть всегда действительным.</Resource>
     <Resource tag="FACEBOOK">Ваше имя в Facebook:</Resource>
+    <Resource tag="FIELD_TOOLONG">{0} length cannot be more than {1} characters.</Resource>
     <Resource tag="FORUM_SETTINGS">Настройки форума</Resource>
     <Resource tag="HIDEME">Не отображать в активных</Resource>
     <Resource tag="HOMEPAGE">Домашняя страница</Resource>

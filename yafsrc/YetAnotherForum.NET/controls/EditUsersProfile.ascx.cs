@@ -259,12 +259,8 @@ namespace YAF.Controls
         /// <summary>
         /// The update profile_ click.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
         protected void UpdateProfile_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.HomePage.Text.IsSet())
@@ -349,6 +345,7 @@ namespace YAF.Controls
                 }
 
                 string userNameFromEmail = this.Get<MembershipProvider>().GetUserNameByEmail(this.Email.Text.Trim());
+
                 if (userNameFromEmail.IsSet() && userNameFromEmail != userName)
                 {
                     this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.Warning);
@@ -373,6 +370,24 @@ namespace YAF.Controls
                         return;
                     }
                 }
+            }
+
+            if (this.Interests.Text.Trim().Length > 400)
+            {
+                this.PageContext.AddLoadMessage(
+                    this.GetTextFormatted("FIELD_TOOLONG", this.GetText("CP_EDITPROFILE", "INTERESTS"), 400),
+                    MessageTypes.Warning);
+
+                return;
+            }
+
+            if (this.Occupation.Text.Trim().Length > 400)
+            {
+                this.PageContext.AddLoadMessage(
+                    this.GetTextFormatted("FIELD_TOOLONG", this.GetText("CP_EDITPROFILE", "OCCUPATION"), 400),
+                    MessageTypes.Warning);
+
+                return;
             }
 
             this.UpdateUserProfile(userName);
