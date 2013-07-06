@@ -1825,6 +1825,22 @@ namespace YAF.Classes
         }
 
         /// <summary>
+        /// Gets or sets Display Name Min Length.
+        /// </summary>
+        public int DisplayNameMinLength
+        {
+            get
+            {
+                return this._reg.GetValue("DisplayNameMinLength", 3);
+            }
+
+            set
+            {
+                this._reg.SetValue("DisplayNameMinLength", value);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets Event Log Max Messages.
         /// </summary>
         public int EventLogMaxMessages
