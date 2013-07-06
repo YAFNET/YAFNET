@@ -956,6 +956,8 @@
   <Resource tag="DISABLE_NOFOLLOW_ONOLDERPOSTS_HELP">If "NoFollow" is enabled above, this is disable no follow for links on messages older then X days old (which takes into consideration last edited).</Resource>
   <Resource tag="DISABLE_REGISTER">Disable New Registrations:</Resource>
   <Resource tag="DISABLE_REGISTER_HELP">New users won't be able to register.</Resource>
+  <Resource tag="DISPLAYNAME_MIN_LENGTH">Display Name Min. Length</Resource>
+  <Resource tag="DISPLAYNAME_MIN_LENGTH_HELP">Minium Length for Display Names.</Resource>
   <Resource tag="DISCUSSIONS_CACHE_TIMEOUT">Active Discussions Cache Timeout:</Resource>
   <Resource tag="DISCUSSIONS_CACHE_TIMEOUT_HELP">In minutes</Resource>
   <Resource tag="DISPLAY_POINTS">Display Reputation Bar:</Resource>

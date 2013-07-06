@@ -972,6 +972,8 @@
     <Resource tag="DISPLAY_POINTS_HELP">Если включено, то будет отображаться общая репутация каждого пользователя.</Resource>
     <Resource tag="DISPLAY_TRESHOLD_IMGATTACH">Вложения изображений - максимальный порог отображения:</Resource>
     <Resource tag="DISPLAY_TRESHOLD_IMGATTACH_HELP">Максимальный размер изображения, до тех пор пока она будет отображаться как изображение в боксе вложений, в противном случае это будет ссылка.</Resource>
+    <Resource tag="DISPLAYNAME_MIN_LENGTH">Display Name Min. Length</Resource>
+    <Resource tag="DISPLAYNAME_MIN_LENGTH_HELP">Minium Length for Display Names.</Resource>
     <Resource tag="DYNAMIC_METATAGS">Добавить динамические метатеги к странице:</Resource>
     <Resource tag="DYNAMIC_METATAGS_HELP">Если включено, то описание и ключевые слова будут для метаданных будет добавлены динамически к страницам сообщений.</Resource>
     <Resource tag="EMAIL_VERIFICATION">Требовать подтверждения по Email:</Resource>

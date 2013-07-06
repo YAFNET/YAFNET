@@ -1001,6 +1001,8 @@
     <Resource tag="DISPLAY_POINTS_HELP">If checked, the Reputation of the User will be displayed for each user.</Resource>
     <Resource tag="DISPLAY_TRESHOLD_IMGATTACH">Image Attachment Display Threshold:</Resource>
     <Resource tag="DISPLAY_TRESHOLD_IMGATTACH_HELP">Maximum size of picture attachment to display as picture. Pictures over this size will be displayed as links.</Resource>
+    <Resource tag="DISPLAYNAME_MIN_LENGTH">Display Name Min. Length</Resource>
+    <Resource tag="DISPLAYNAME_MIN_LENGTH_HELP">Minium Length for Display Names.</Resource>
     <Resource tag="DYNAMIC_METATAGS">Add Dynamic Page Meta Tags:</Resource>
     <Resource tag="DYNAMIC_METATAGS_HELP">If checked, description and keywords meta tags will be created dynamically on the post pages.</Resource>
     <Resource tag="EMAIL_VERIFICATION">Require Email Verification:</Resource>

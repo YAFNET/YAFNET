@@ -972,6 +972,8 @@
     <Resource tag="DISPLAY_POINTS_HELP">Als deze is aangevinkt, wordt de reputatie als een staaf weergegeven.</Resource>
     <Resource tag="DISPLAY_TRESHOLD_IMGATTACH">Maximale grootte van de Foto-bijlage voor verkleinen:</Resource>
     <Resource tag="DISPLAY_TRESHOLD_IMGATTACH_HELP">De maximale grootte die een foto-bijlage mag hebben. Wanneer deze groter zijn, worden ze weergegeven als een link.</Resource>
+    <Resource tag="DISPLAYNAME_MIN_LENGTH">Display Name Min. Length</Resource>
+    <Resource tag="DISPLAYNAME_MIN_LENGTH_HELP">Minium Length for Display Names.</Resource>
     <Resource tag="DYNAMIC_METATAGS">Voeg dynamische Meta Tags toe:</Resource>
     <Resource tag="DYNAMIC_METATAGS_HELP">Als deze is aangevinkt, worden de Description en Keywords meta tags dynamisch gevuld op de berichtenpagina.</Resource>
     <Resource tag="EMAIL_VERIFICATION">E-mail verificatie verplichten:</Resource>

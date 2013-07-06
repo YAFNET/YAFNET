@@ -403,6 +403,22 @@
                     </tr>
                     <tr>
                         <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel97" runat="server" LocalizedTag="ALLOW_MODIFY_DISPLAYNAME" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="AllowDisplayNameModification" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel223" runat="server" LocalizedTag="DISPLAYNAME_MIN_LENGTH" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:TextBox Style="width:350px" runat="server" ID="DisplayNameMinLength" />                          
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
                             <YAF:HelpLabel ID="HelpLabel85" runat="server" LocalizedTag="STYLED_NICKS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
@@ -415,14 +431,6 @@
                         </td>
                         <td class="post">
                             <asp:CheckBox runat="server" ID="UseStyledTopicTitles" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="postheader">
-                            <YAF:HelpLabel ID="HelpLabel97" runat="server" LocalizedTag="ALLOW_MODIFY_DISPLAYNAME" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </td>
-                        <td class="post">
-                            <asp:CheckBox ID="AllowDisplayNameModification" runat="server"></asp:CheckBox>
                         </td>
                     </tr>
                     <tr>

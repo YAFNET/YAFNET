@@ -972,6 +972,8 @@
     <Resource tag="DISPLAY_POINTS_HELP">Wenn aktiviert, wird die Reputation von jedem Benutzer angezeigt.</Resource>
     <Resource tag="DISPLAY_TRESHOLD_IMGATTACH">Bildanhangs Maximale Anzeige Größe</Resource>
     <Resource tag="DISPLAY_TRESHOLD_IMGATTACH_HELP">Maximale Größe des Angehangen Bildes das Angezeigt wird. Bilder über dieser Größe werden als Links angezeigt.</Resource>
+    <Resource tag="DISPLAYNAME_MIN_LENGTH">Anzeigename Min. Länge</Resource>
+    <Resource tag="DISPLAYNAME_MIN_LENGTH_HELP">Minimale länge für Anzeigenamen.</Resource>
     <Resource tag="DYNAMIC_METATAGS">Dynamic Seiten Meta-Tags hinzufügen:</Resource>
     <Resource tag="DYNAMIC_METATAGS_HELP">Wenn diese Option aktiviert, Beschreibung und Schlüsselwörter Meta-Tags werden dynamisch für die Beitragsseiten erstellt aus den Daten des aktuellen Themas.</Resource>
     <Resource tag="EMAIL_VERIFICATION">Erfordert E-Mail Verifizierung:</Resource>

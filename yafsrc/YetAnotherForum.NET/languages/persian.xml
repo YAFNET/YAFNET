@@ -978,6 +978,8 @@
     <Resource tag="DISPLAY_POINTS_HELP">If checked, the Reputation of the User will be displayed for each user.</Resource>
     <Resource tag="DISPLAY_TRESHOLD_IMGATTACH">آستانه نمایش تصویر ضمیمه:</Resource>
     <Resource tag="DISPLAY_TRESHOLD_IMGATTACH_HELP">حداکثر اندازه تصویر ضمیمه برای نمایش به عنوان عکس. تصاویر بزرگتر از این به عنوان لینک نمایش داده می شوند.</Resource>
+    <Resource tag="DISPLAYNAME_MIN_LENGTH">Display Name Min. Length</Resource>
+    <Resource tag="DISPLAYNAME_MIN_LENGTH_HELP">Minium Length for Display Names.</Resource>
     <Resource tag="DYNAMIC_METATAGS">افزودن ابر تگ ها به صورت پویا:</Resource>
     <Resource tag="DYNAMIC_METATAGS_HELP">توضیحات و کلمات کلیدی به صورت خودکار در صفحات ارسال تولید می شود.</Resource>
     <Resource tag="EMAIL_VERIFICATION">تائید پست الکترونیکی الزامی است:</Resource>

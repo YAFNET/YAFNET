@@ -967,6 +967,42 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox EnableDisplayName;
         
         /// <summary>
+        /// HelpLabel97 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel97;
+        
+        /// <summary>
+        /// AllowDisplayNameModification control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox AllowDisplayNameModification;
+        
+        /// <summary>
+        /// HelpLabel223 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel223;
+        
+        /// <summary>
+        /// DisplayNameMinLength control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox DisplayNameMinLength;
+        
+        /// <summary>
         /// HelpLabel85 control.
         /// </summary>
         /// <remarks>
@@ -1001,24 +1037,6 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox UseStyledTopicTitles;
-        
-        /// <summary>
-        /// HelpLabel97 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel97;
-        
-        /// <summary>
-        /// AllowDisplayNameModification control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox AllowDisplayNameModification;
         
         /// <summary>
         /// HelpLabel98 control.
