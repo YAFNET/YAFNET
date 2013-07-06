@@ -159,12 +159,17 @@ namespace YAF.Core
                     break;
                 default:
                     {
+                        if (source.IsNotSet())
+                        {
+                            source = this.Type != null ? this.Type.FullName : string.Empty;
+                        }
+
                         var log = new EventLog
                                       {
                                           EventType = eventType, 
                                           UserName = username, 
-                                          Description = formattedDescription, 
-                                          Source = source ?? this.Type.FullName, 
+                                          Description = formattedDescription,
+                                          Source = source, 
                                           EventTime = DateTime.UtcNow
                                       };
 

@@ -405,6 +405,9 @@
 	background-color:#eee;
 	margin:10px
 }
+.yafnet .eventItem {
+	cursor: pointer;
+}
 .yafnet .eventItem table td {
 	border:none!important;
 	padding:5px!important

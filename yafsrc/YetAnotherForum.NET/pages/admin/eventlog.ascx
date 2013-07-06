@@ -77,7 +77,7 @@ function toggleItem(detailId)
             <ItemTemplate>
                 <tr>
                     <td colspan="5">
-                      <div class="<%# EventCssClass(Container.DataItem) %> ui-corner-all eventItem">
+                      <div class="<%# EventCssClass(Container.DataItem) %> ui-corner-all eventItem" onclick="javascript:toggleItem(<%# Eval("EventLogID") %>);">
                         <table style="padding:0;margin:0;">
                           <tr>
                             <td width="1%">
@@ -95,7 +95,7 @@ function toggleItem(detailId)
                               <%# HtmlEncode(Eval( "Source")) %>
                             </td>
                             <td class="rightItem">
-                              <a class="showEventItem" href="#event<%# Eval("EventLogID")%>" id="Show<%# Eval("EventLogID") %>" onclick="javascript:toggleItem(<%# Eval("EventLogID") %>);"><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="SHOW" LocalizedPage="ADMIN_EVENTLOG" /></a>&nbsp;|&nbsp;<asp:LinkButton runat="server" OnLoad="Delete_Load" CssClass="deleteEventItem" CommandName="delete" CommandArgument='<%# Eval( "EventLogID") %>'>
+                              <a class="showEventItem" href="#event<%# Eval("EventLogID")%>" id="Show<%# Eval("EventLogID") %>"><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="SHOW" LocalizedPage="ADMIN_EVENTLOG" /></a>&nbsp;|&nbsp;<asp:LinkButton runat="server" OnLoad="Delete_Load" CssClass="deleteEventItem" CommandName="delete" CommandArgument='<%# Eval( "EventLogID") %>'>
                                   <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="DELETE" />
                                 </asp:LinkButton>
                             </td>
