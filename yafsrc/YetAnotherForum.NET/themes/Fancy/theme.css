@@ -141,7 +141,7 @@ html { min-height: 100%; }
   *line-height: 18px;
 }
 .yafnet .ui-tabs-nav li,
-.yafnet li.ui-tabs-selected,
+.yafnet li.ui-tabs-active,
 .yafnet .yafcssbigbutton span {
   padding: 4px 10px 4px;
   margin:2px 2px 2px 2px;
@@ -275,7 +275,7 @@ html { min-height: 100%; }
 .yafnet .pagination .current.smiliesPagerPrev:active, 
 .yafnet .pagination .current.smiliesPagerNext:active,
 .yafnet .ui-tabs-nav li:active,
-.yafnet li.ui-tabs-selected,
+.yafnet li.ui-tabs-active,
 .yafnet .dd:active,
 .yafnet dl.AlphaSort dd:active,
 .yafnet .dd-select:active,
@@ -1298,9 +1298,9 @@ box-shadow:         0px 0px 2px rgba(0, 0, 0, 0.62);
 
 
  }
-.ui-tabs .ui-tabs-nav li.ui-tabs-selected { margin-bottom: 0; padding-bottom: 0px; outline:none;}
+.ui-tabs .ui-tabs-nav li.ui-tabs-active { margin-bottom: 0; padding-bottom: 0px; outline:none;}
 
-.ui-tabs .ui-tabs-nav li.ui-tabs-selected a, .ui-tabs .ui-tabs-nav li.ui-state-disabled a, .ui-tabs .ui-tabs-nav li.ui-state-processing a {
+.ui-tabs .ui-tabs-nav li.ui-tabs-active a, .ui-tabs .ui-tabs-nav li.ui-state-disabled a, .ui-tabs .ui-tabs-nav li.ui-state-processing a {
 
   background-color: #ffffff;
   border: 1px solid #ddd;
@@ -1311,12 +1311,12 @@ box-shadow:         0px 0px 2px rgba(0, 0, 0, 0.62);
 }
 
 
-.ui-tabs .ui-tabs-nav li.ui-tabs-selected:hover{
+.ui-tabs .ui-tabs-nav li.ui-tabs-active:hover{
   background:#ffffff;
   outline:none;
 }
 
-.ui-tabs .ui-tabs-nav li a, .ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a { cursor: pointer; color:#0069D6; background:none; font-weight:normal; margin-bottom:-1px;} 
+.ui-tabs .ui-tabs-nav li a, .ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-active a { cursor: pointer; color:#0069D6; background:none; font-weight:normal; margin-bottom:-1px;} 
 /* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... */
 .ui-tabs .ui-tabs-panel { display: block; border-width: 0; padding: 1em 1.4em; background: none; }
 .ui-tabs-panel .ui-button{text-decoration:none;}
