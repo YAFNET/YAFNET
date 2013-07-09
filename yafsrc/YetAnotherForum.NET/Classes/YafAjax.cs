@@ -37,11 +37,13 @@ namespace YAF.Classes
 
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
@@ -280,14 +282,15 @@ namespace YAF.Classes
         [WebMethod]
         public int RefreshShoutBox(int boardId)
         {
-            var messages = this.Get<IDataCache>().GetOrSet(
-                "{0}_basic".FormatWith(Constants.Cache.Shoutbox),
-                () => LegacyDb.shoutbox_getmessages(boardId, 1, false).AsEnumerable(),
-                TimeSpan.FromMilliseconds(1000));
+            var messages = this.Get<IDataCache>()
+                               .GetOrSet(
+                                   "{0}_basic".FormatWith(Constants.Cache.Shoutbox),
+                                   () => this.GetRepository<ShoutboxMessage>().GetMessages(1, false, boardId),
+                                   TimeSpan.FromMilliseconds(1000));
 
             var message = messages.FirstOrDefault();
 
-            return message != null ? message.Field<int>("ShoutBoxMessageID") : 0;
+            return message != null ? message.ID : 0;
         }
 
         #region Favorite Topic Function

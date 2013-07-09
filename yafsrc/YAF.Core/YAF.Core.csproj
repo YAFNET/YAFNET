@@ -56,7 +56,8 @@
       <HintPath>..\packages\Farsi.Library.2.5.1.5\lib\net35\FarsiLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Omu.ValueInjecter">
+    <Reference Include="Omu.ValueInjecter, Version=2.3.3.0, Culture=neutral, PublicKeyToken=c7694541b0ac80e4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\valueinjecter.2.3.3\lib\net35\Omu.ValueInjecter.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -107,6 +108,7 @@
     <Compile Include="Data\TryInvokeMemberProxy.cs" />
     <Compile Include="Data\CommandTextHelpers.cs" />
     <Compile Include="Events\NewUserClearActiveLazyEvent.cs" />
+    <Compile Include="Events\ShoutboxMessageCacheInvalidate.cs" />
     <Compile Include="Events\SmileyEventCacheInvalidate.cs" />
     <Compile Include="Extensions\ILoggerExtensions.cs" />
     <Compile Include="Extensions\IRegistrationBuilderExtension.cs" />
@@ -117,6 +119,7 @@
     <Compile Include="Extensions\MembershipUserExtensions.cs" />
     <Compile Include="Helpers\FileHelpers.cs" />
     <Compile Include="Helpers\IPLocator.cs" />
+    <Compile Include="Model\ShoutboxRepositoryExtensions.cs" />
     <Compile Include="Model\ForumReadTrackingRepositoryExtensions.cs" />
     <Compile Include="Model\TopicReadTrackingRepositoryExtensions.cs" />
     <Compile Include="Model\WatchForumRepositoryExtensions.cs" />

@@ -110,8 +110,10 @@
     <Compile Include="Models\FileExtension.cs" />
     <Compile Include="Models\EventLog.cs" />
     <Compile Include="Models\ForumReadTracking.cs" />
+    <Compile Include="Models\IgnoreUser.cs" />
     <Compile Include="Models\Mail.cs" />
     <Compile Include="Models\Medal.cs" />
+    <Compile Include="Models\ShoutboxMessage.cs" />
     <Compile Include="Models\Smiley.cs" />
     <Compile Include="Models\TopicReadTracking.cs" />
     <Compile Include="Models\WatchForum.cs" />

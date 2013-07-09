@@ -51,7 +51,7 @@ namespace YAF.Controls
         /// <summary>
         /// Gets ShoutBoxMessages.
         /// </summary>
-        public IEnumerable<DataRow> ShoutBoxMessages
+        public IList<ShoutboxMessage> ShoutBoxMessages
         {
             get
             {
@@ -156,14 +156,11 @@ namespace YAF.Controls
 
             if (username != null && this.messageTextBox.Text != string.Empty)
             {
-                LegacyDb.shoutbox_savemessage(
-                    this.PageContext.PageBoardID,
+                this.GetRepository<ShoutboxMessage>().SaveMessage(
                     this.messageTextBox.Text,
                     username,
                     this.PageContext.PageUserID,
                     this.Get<HttpRequestBase>().GetUserRealIPAddress());
-
-                this.Get<IDataCache>().Remove(Constants.Cache.Shoutbox);
             }
 
             this.DataBind();
@@ -184,10 +181,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Clear_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            LegacyDb.shoutbox_clearmessages(this.PageContext.PageBoardID);
-
-            // cleared... re-load from cache...
-            this.Get<IDataCache>().Remove(Constants.Cache.Shoutbox);
+            this.GetRepository<ShoutboxMessage>().ClearMessages();
             this.DataBind();
         }
 

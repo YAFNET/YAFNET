@@ -454,31 +454,29 @@ namespace YAF.Core.Services
         /// </summary>
         /// <param name="boardId"> The board id. </param>
         /// <returns> Retuns the shout box messages. </returns>
-        public IEnumerable<DataRow> GetShoutBoxMessages(int boardId)
+        public IList<ShoutboxMessage> GetShoutBoxMessages(int boardId)
         {
             return this.DataCache.GetOrSet(
                 Constants.Cache.Shoutbox,
                 () =>
                     {
-                        var messages =
-                            this.DbFunction.GetAsDataTable(
-                                cdb =>
-                                cdb.shoutbox_getmessages(boardId, this.BoardSettings.ShoutboxShowMessageCount, this.BoardSettings.UseStyledNicks));
+                        var messages = this.GetRepository<ShoutboxMessage>()
+                                           .GetMessages(this.BoardSettings.ShoutboxShowMessageCount, this.BoardSettings.UseStyledNicks, boardId);
+
                         var flags = new MessageFlags { IsBBCode = true, IsHtml = false };
 
-                        foreach (var row in messages.AsEnumerable())
+                        foreach (var message in messages)
                         {
-                            string formattedMessage =
-                                this.Get<IFormatMessage>().FormatMessage(row.Field<string>("Message"), flags);
+                            string formattedMessage = this.Get<IFormatMessage>().FormatMessage(message.Message, flags);
 
                             // Extra Formating not needed already done tru this.Get<IFormatMessage>().FormatMessage
                             // formattedMessage = FormatHyperLink(formattedMessage);
-                            row["Message"] = formattedMessage;
+                            message.Message = formattedMessage;
                         }
 
                         return messages;
                     },
-                TimeSpan.FromMilliseconds(30000)).AsEnumerable();
+                TimeSpan.FromMilliseconds(30000));
         }
 
         /// <summary>
