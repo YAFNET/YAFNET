@@ -116,7 +116,6 @@ namespace YAF.Controls
                 this.topicLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
                     ForumPages.posts, "t={0}", this.DataRow["LastTopicID"]);
 
-
                 this.topicLink.ToolTip = this.GetText("COMMON", "VIEW_TOPIC");
 
                 var styles = this.Get<YafBoardSettings>().UseStyledTopicTitles
@@ -138,7 +137,7 @@ namespace YAF.Controls
                     if (topicStatusIcon.IsSet() && !topicStatusIcon.Contains("[TOPIC_STATUS."))
                     {
                         this.topicLink.Text =
-                            "<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" style=\"border: 0;width:16px;height:16px\" />&nbsp;{2}"
+                            "<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" class=\"topicStatusIcon\" />&nbsp;{2}"
                                 .FormatWith(
                                     this.Get<ITheme>().GetItem(
                                         "TOPIC_STATUS", this.DataRow["LastTopicStatus"].ToString()),
@@ -166,8 +165,8 @@ namespace YAF.Controls
                                                      this.DataRow["Style"].ToString(), false)
                                                  : string.Empty;
                 this.ProfileUserLink.ReplaceName =
-                    this.DataRow[this.Get<YafBoardSettings>().EnableDisplayName ? "LastUserDisplayName" : "LastUser"].
-                        ToString();
+                    this.DataRow[this.Get<YafBoardSettings>().EnableDisplayName ? "LastUserDisplayName" : "LastUser"]
+                        .ToString();
 
                 if (string.IsNullOrEmpty(this.Alt))
                 {

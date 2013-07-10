@@ -464,3 +464,10 @@ table.tablesorter thead tr .headerSortDown {
 table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
 	text-decoration:underline;
 }
+
+/* Topic Status Icons */
+.yafnet .topicStatusIcon {
+	border: 0;
+	width:16px;
+	height:16px
+}

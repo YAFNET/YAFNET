@@ -17,8 +17,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using YAF.Utils.Helpers;
-
 namespace YAF.Controls
 {
     #region Using
@@ -35,6 +33,7 @@ namespace YAF.Controls
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -116,7 +115,7 @@ namespace YAF.Controls
                 if (topicStatusIcon.IsSet() && !topicStatusIcon.Contains("[TOPIC_STATUS."))
                 {
                     textMessageLink.Text =
-                        @"<img src=""{0}"" alt=""{1}"" title=""{1}"" style=""border: 0;width:16px;height:16px"" />&nbsp;{2}"
+                        @"<img src=""{0}"" alt=""{1}"" title=""{1}"" class=""topicStatusIcon"" />&nbsp;{2}"
                             .FormatWith(
                                 this.Get<ITheme>().GetItem("TOPIC_STATUS", currentRow["Status"].ToString()),
                                 this.GetText("TOPIC_STATUS", currentRow["Status"].ToString()),

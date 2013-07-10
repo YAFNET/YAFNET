@@ -615,7 +615,7 @@ namespace YAF.Pages
                     if (topicStatusIcon.IsSet() && !topicStatusIcon.Contains("[TOPIC_STATUS."))
                     {
                         topicSubject =
-                            "<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" style=\"border: 0;width:16px;height:16px\" />&nbsp;{2}"
+                            "<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" class=\"topicStatusIcon\" />&nbsp;{2}"
                                 .FormatWith(
                                     this.Get<ITheme>().GetItem("TOPIC_STATUS", this._topic["Status"].ToString()),
                                     this.GetText("TOPIC_STATUS", this._topic["Status"].ToString()),

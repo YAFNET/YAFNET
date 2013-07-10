@@ -378,7 +378,7 @@
                 if (topicStatusIcon.IsSet() && !topicStatusIcon.Contains("[TOPIC_STATUS."))
                 {
                     return
-                        "<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" style=\"border: 0;width:16px;height:16px\" />&nbsp;{2}"
+                        "<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" class=\"topicStatusIcon\" />&nbsp;{2}"
                             .FormatWith(
                                 this.Get<ITheme>().GetItem("TOPIC_STATUS", this.TopicRow["Status"].ToString()),
                                 this.GetText("TOPIC_STATUS", this.TopicRow["Status"].ToString()),
