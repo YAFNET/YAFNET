@@ -67,8 +67,11 @@
 	border: 0;
 }
 .yafnet ul {
-	margin: 2px 2px 2px 2px;
+	margin: 2px;
 	padding: 0;
+}
+.yafnet .postdiv ul {
+	padding: 0 0 0 40px;
 }
 .yafnet li {
 	margin-left: 15px;
