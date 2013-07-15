@@ -329,10 +329,11 @@ namespace YAF.Pages.Admin
             // TODO : page size difinable?
             this.PagerTop.PageSize = 25;
 
-            // Hide "New User" Button on DotNetNuke
+            // Hide "New User" & Sync Button on DotNetNuke
             if (Config.IsDotNetNuke)
             {
                 this.NewUser.Visible = false;
+                this.SyncUsers.Visible = false;
             }
         }
 
