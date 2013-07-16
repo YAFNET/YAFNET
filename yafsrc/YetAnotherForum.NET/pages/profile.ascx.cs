@@ -593,7 +593,7 @@ namespace YAF.Pages
                 this.Location.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.Location));
             }
 
-            if (this.User != null && !string.IsNullOrEmpty(userData.Profile.Country.Trim()))
+            if (this.User != null && userData.Profile.Country.Trim().IsSet() && !userData.Profile.Country.Equals("N/A"))
             {
                 this.CountryTR.Visible = true;
                 this.CountryLabel.Text =

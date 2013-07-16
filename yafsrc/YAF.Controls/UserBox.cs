@@ -856,7 +856,7 @@ namespace YAF.Controls
             string filler = string.Empty;
             var rx = this.GetRegex(Constants.UserBox.CountryImage);
 
-            if (this.Get<YafBoardSettings>().ShowCountryInfoInUserBox && this.UserProfile.Country.IsSet())
+            if (this.Get<YafBoardSettings>().ShowCountryInfoInUserBox && this.UserProfile.Country.IsSet() && !this.UserProfile.Country.Equals("N/A"))
             {
                 string imagePath = this.PageContext.Get<ITheme>().GetItem(
                     "FLAGS",

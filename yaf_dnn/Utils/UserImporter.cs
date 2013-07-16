@@ -73,7 +73,12 @@ namespace YAF.DotNetNuke.Utils
             userProfile.Initialize(dnnUser.UserName, true);
 
             userProfile.RealName = dnnUserInfo.Profile.FullName;
-            userProfile.Country = dnnUserInfo.Profile.Country;
+            
+            if (dnnUserInfo.Profile.Country.IsSet() && !dnnUserInfo.Profile.Country.Equals("N/A"))
+            {
+                userProfile.Country = ProfileSyncronizer.GetRegionInfoFromCountryName(dnnUserInfo.Profile.Country).TwoLetterISORegionName;
+            }
+
             userProfile.Region = dnnUserInfo.Profile.Region;
             userProfile.City = dnnUserInfo.Profile.City;
             userProfile.Homepage = dnnUserInfo.Profile.Website;
