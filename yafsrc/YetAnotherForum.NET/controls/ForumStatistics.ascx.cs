@@ -34,7 +34,6 @@ namespace YAF.Controls
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -67,7 +66,7 @@ namespace YAF.Controls
         /// The active stats.
         /// </param>
         /// <returns>
-        /// Returns the formated active users.
+        /// Returns the formatted active users.
         /// </returns>
         [NotNull]
         protected string FormatActiveUsers([NotNull] DataRow activeStats)
@@ -91,7 +90,7 @@ namespace YAF.Controls
                                    this.Get<YafBoardSettings>().ShowCrawlersInActiveList);
             bool showActiveHidden = (activeHidden > 0) && this.PageContext.IsAdmin;
             if (canViewActive &&
-                (showGuestTotal || (activeMembers > 0 && (showGuestTotal || activeGuests <= 0)) ||
+                (showGuestTotal || (activeMembers > 0 && (activeGuests <= 0)) ||
                  (showActiveHidden && (activeMembers > 0) && showGuestTotal)))
             {
                 // always show active users...       
@@ -202,7 +201,10 @@ namespace YAF.Controls
             {
                 DateTime birth;
 
-                if (!DateTime.TryParse(user["Birthday"].ToString(), out birth)) continue;
+                if (!DateTime.TryParse(user["Birthday"].ToString(), out birth))
+                {
+                    continue;
+                }
 
                 int tz;
 
@@ -215,8 +217,11 @@ namespace YAF.Controls
                 var dtt = birth.AddYears(DateTime.UtcNow.Year - birth.Year);
 
                 // The user can be congratulated. The time zone in profile is saved in the list user timezone
-                if (DateTime.UtcNow <= dtt.AddMinutes(-tz).ToUniversalTime() ||
-                    DateTime.UtcNow >= dtt.AddMinutes(-tz + 1440).ToUniversalTime()) continue;
+                if (DateTime.UtcNow <= dtt.AddMinutes(-tz).ToUniversalTime()
+                    || DateTime.UtcNow >= dtt.AddMinutes(-tz + 1440).ToUniversalTime())
+                {
+                    continue;
+                }
 
                 this.BirthdayUsers.Controls.Add(
                     new UserLink
@@ -243,7 +248,6 @@ namespace YAF.Controls
                 this.BirthdayUsers.Controls.RemoveAt(this.BirthdayUsers.Controls.Count - 1);
             }
         }
-
 
         /// <summary>
         /// The forum statistics_ load.
@@ -283,17 +287,26 @@ namespace YAF.Controls
                         activeUsers30Day.Select("LastVisit >= '{0}'".FormatWith(DateTime.UtcNow.AddDays(-1)));
                     this.RecentUsersCount.Text = this.GetTextFormatted(
                         "RECENT_ONLINE_USERS", activeUsers1Day1.Length, activeUsers30Day.Rows.Count);
+
                     if (activeUsers1Day1.Length > 0)
                     {
-                        this.RecentUsers.ActiveUserTable = activeUsers1Day1.CopyToDataTable();
-                        RecentUsers.Visible = true;
+                        try
+                        {
+                            this.RecentUsers.ActiveUserTable = activeUsers1Day1.CopyToDataTable();
+                            this.RecentUsers.Visible = true;
+                        }
+                        catch (Exception)
+                        {
+                            this.RecentUsers.Visible = false;
+                        }
                     }
-                    RecentUsersPlaceHolder.Visible = true;
+
+                    this.RecentUsersPlaceHolder.Visible = true;
                 }
             }
             else
             {
-                RecentUsersPlaceHolder.Visible = false;
+                this.RecentUsersPlaceHolder.Visible = false;
             }
 
             // Forum Statistics
