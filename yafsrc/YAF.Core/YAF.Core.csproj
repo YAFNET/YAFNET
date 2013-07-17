@@ -313,6 +313,7 @@
     <Compile Include="Tasks\UserCleanUpTaskForumModule.cs" />
     <Compile Include="Theme\YafTheme.cs" />
     <Compile Include="URLBuilder\RewriteUrlBuilder.cs" />
+    <Compile Include="URLBuilder\FriendlyUrlBuilder.cs" />
     <Compile Include="UsersRoles\CombinedUserDataHelper.cs" />
     <Compile Include="UsersRoles\DefaultUserDisplayName.cs" />
     <Compile Include="UsersRoles\NoValidGuestUserForBoardException.cs" />
