@@ -141,10 +141,11 @@ namespace YAF.Core.Services
                                 this.Logger.Log(
                                     null,
                                     this,
-                                    "Send Exception: {0}".FormatWith(ex.ToString()),
+                                    "Email ({1}) Send Exception: {0}".FormatWith(ex.ToString(), mailMessages[message].ToUser),
                                     EventLogTypes.Warning);
                                 //this.Logger.Warn("Send Exception: {0}".FormatWith(ex.ToString()));
 
+                                ////mailMessages[message].SendTries++;
 #endif
                                 if (mailMessages.ContainsKey(message) && mailMessages[message].SendTries < 2)
                                 {
