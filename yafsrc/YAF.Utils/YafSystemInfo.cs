@@ -48,14 +48,25 @@ namespace YAF.Utils
     #region Properties
 
     /// <summary>
-    /// Gets AllocatedMemory.
+    /// Gets the number of memory bytes currently thought to be allocated.
     /// </summary>
     public static long AllocatedMemory
     {
       get
       {
-        return Environment.WorkingSet;
+          return GC.GetTotalMemory(false);
       }
+    }
+
+    /// <summary>
+    /// Gets the amount of physical memory mapped to the process context.
+    /// </summary>
+    public static long MappedMemory
+    {
+        get
+        {
+            return Environment.WorkingSet;
+        }
     }
 
     /// <summary>
