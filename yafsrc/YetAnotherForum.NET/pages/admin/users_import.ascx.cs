@@ -47,14 +47,10 @@ namespace YAF.Pages.Admin
         #region Methods
 
         /// <summary>
-        /// The cancel_ on click.
+        /// Cancel import and Return to the Admin Users Page.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Cancel_OnClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             YafBuildLink.Redirect(ForumPages.admin_users);
@@ -63,12 +59,8 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// Import the Users from the provided File
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Import_OnClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             try
@@ -108,10 +100,17 @@ namespace YAF.Pages.Admin
                         }
 
                         break;
+                    case "application/vnd.ms-excel":
+                        {
+                            importedCount = this.UsersImport(this.importFile.PostedFile.InputStream, false);
+                        }
+
+                        break;
 
                     default:
                         {
-                            this.PageContext.AddLoadMessage(this.GetText("ADMIN_USERS_IMPORT", "IMPORT_FAILED_FORMAT"), MessageTypes.Error);
+                            this.PageContext.AddLoadMessage(
+                                this.GetText("ADMIN_USERS_IMPORT", "IMPORT_FAILED_FORMAT"), MessageTypes.Error);
                             return;
                         }
                 }
@@ -146,14 +145,10 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The page_ load.
+        /// Handles the Load event of the Page control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.IsPostBack)
