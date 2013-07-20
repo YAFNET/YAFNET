@@ -386,7 +386,7 @@
                 <asp:WizardStep runat="server" StepType="Finish" Title="Finished" ID="WizFinished">
                     <strong><%# IsForumInstalled ? "Upgrade" : "Setup"%> Finished</strong><br />
                     <br />
-                    Your forum has now been <%# IsForumInstalled ? "upgraded" : "sSetup"%> to the latest version.
+                    Your forum has now been <%# IsForumInstalled ? "upgraded" : "Setup"%> to the latest version.
                 </asp:WizardStep>
             </WizardSteps>
             <SideBarButtonStyle BackColor="#507CD1" Font-Names="Verdana" ForeColor="White" />
