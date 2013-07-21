@@ -32,7 +32,8 @@
             </td>
             <td class="post">
                 <asp:CheckBox runat="server" ID="AllowThreaded" /></td>
-        </tr>                  
+        </tr>  
+        <asp:PlaceHolder runat="server" ID="BoardMembershipAppNameHolder">                
         <tr>
             <td width="50%" class="postheader">
                 <YAF:HelpLabel ID="HelpLabel4" runat="server" LocalizedTag="MEMBSHIP_APP_NAME" LocalizedPage="ADMIN_EDITBOARD" />
@@ -40,6 +41,7 @@
             <td width="50%" class="post">
                 <asp:TextBox ID="BoardMembershipAppName" runat="server"  Width="350"></asp:TextBox></td>
         </tr>
+        </asp:PlaceHolder>
         <asp:PlaceHolder runat="server" ID="CreateNewAdminHolder">
         <tr>
             <td class="postheader">

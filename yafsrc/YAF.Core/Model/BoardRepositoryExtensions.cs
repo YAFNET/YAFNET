@@ -165,30 +165,19 @@ namespace YAF.Core.Model
             CodeContracts.ArgumentNotNull(repository, "repository");
 
             return boardID.HasValue
-                       ? new List<Board>() { repository.GetByID(boardID.Value) }
-                       : repository.DbAccess.Execute(cmd => cmd.Select<Board>());
+                ? new List<Board> { repository.GetByID(boardID.Value) }
+                : repository.DbAccess.Execute(cmd => cmd.Select<Board>());
         }
 
         /// <summary>
         /// The poststats.
         /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="boardID">
-        /// The board id.
-        /// </param>
-        /// <param name="styledNicks">
-        /// The styled nicks.
-        /// </param>
-        /// <param name="showNoCountPosts">
-        /// The show no count posts.
-        /// </param>
-        /// <param name="getDefaults">
-        /// The get defaults.
-        /// </param>
+        /// <param name="repository">The repository.</param>
+        /// <param name="boardID">The board id.</param>
+        /// <param name="styledNicks">The styled nicks.</param>
+        /// <param name="showNoCountPosts">The show no count posts.</param>
         /// <returns>
-        /// The <see cref="DataTable"/>.
+        /// The <see cref="DataTable" />.
         /// </returns>
         public static DataRow Poststats(this IRepository<Board> repository, int boardID, bool styledNicks, bool showNoCountPosts)
         {
@@ -209,12 +198,7 @@ namespace YAF.Core.Model
                 repository.DbFunction.GetData.board_poststats(
                     BoardID: boardID, StyledNicks: styledNicks, ShowNoCountPosts: showNoCountPosts, GetDefaults: 1);
 
-            if (dt.Rows.Count > 0)
-            {
-                return dt.Rows[0];
-            }
-
-            return null;
+            return dt.Rows.Count > 0 ? dt.Rows[0] : null;
         }
 
         /// <summary>
@@ -236,30 +220,28 @@ namespace YAF.Core.Model
         /// <summary>
         /// The save.
         /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="boardID">
-        /// The board id.
-        /// </param>
-        /// <param name="name">
-        /// The name.
-        /// </param>
-        /// <param name="languageFile">
-        /// The language file.
-        /// </param>
-        /// <param name="culture">
-        /// The culture.
-        /// </param>
-        /// <param name="allowThreaded">
-        /// The allow threaded.
-        /// </param>
-        public static void Save(this IRepository<Board> repository, int boardID, string name, string languageFile, string culture, bool allowThreaded)
+        /// <param name="repository">The repository.</param>
+        /// <param name="boardID">The board id.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="languageFile">The language file.</param>
+        /// <param name="culture">The culture.</param>
+        /// <param name="allowThreaded">The allow threaded.</param>
+        public static void Save(
+            this IRepository<Board> repository,
+            int boardID,
+            string name,
+            string languageFile,
+            string culture,
+            bool allowThreaded)
         {
             CodeContracts.ArgumentNotNull(repository, "repository");
 
             repository.DbFunction.Query.board_save(
-                BoardID: boardID, Name: name, LanguageFile: languageFile, Culture: culture, AllowThreaded: allowThreaded);
+                BoardID: boardID,
+                Name: name,
+                LanguageFile: languageFile,
+                Culture: culture,
+                AllowThreaded: allowThreaded);
 
             repository.FireUpdated(boardID);
         }
