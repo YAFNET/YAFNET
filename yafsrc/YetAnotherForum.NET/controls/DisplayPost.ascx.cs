@@ -700,8 +700,7 @@ namespace YAF.Controls
             }
 
             var username =
-                this.HtmlEncode(
-                    this.DataRow[this.Get<YafBoardSettings>().EnableDisplayName ? "DisplayName" : "UserName"].ToString());
+                this.HtmlEncode(this.Get<YafBoardSettings>().EnableDisplayName ? UserMembershipHelper.GetDisplayNameFromID(userId) : UserMembershipHelper.GetUserNameFromID(userId));
 
             var thanksLabelText = thanksNumber == 1
                                   ? this.Get<ILocalization>().GetText("THANKSINFOSINGLE").FormatWith(username)
