@@ -88,25 +88,25 @@ namespace YAF.Pages
         {
             var row = o as DataRow;
 
-            if (row != null)
+            if (row == null)
             {
-                if (row["LastPosted"].ToString().Length == 0)
-                {
-                    return "&nbsp;";
-                }
-
-                string link = @"<a href=""{0}"">{1}</a>".FormatWith(YafBuildLink.GetLink(ForumPages.profile, "u={0}", row["LastUserID"]), this.Get<YafBoardSettings>().EnableDisplayName ? HtmlEncode(row["LastUserDisplayName"]) : HtmlEncode(row["LastUserName"]));
-                string by = this.GetTextFormatted("lastpostlink", this.Get<IDateTime>().FormatDateTime((DateTime)row["LastPosted"]), link);
-
-                string html = @"{0} <a href=""{1}""><img src=""{2}"" alt="""" /></a>".FormatWith(
-                    by,
-                    YafBuildLink.GetLink(ForumPages.posts, "m={0}&find=lastpost", row["LastMessageID"]),
-                    this.GetThemeContents("ICONS", "ICON_LATEST"));
-
-                return html;
+                return string.Empty;
             }
 
-            return string.Empty;
+            if (row["LastPosted"].ToString().Length == 0)
+            {
+                return "&nbsp;";
+            }
+
+            string link = @"<a href=""{0}"">{1}</a>".FormatWith(YafBuildLink.GetLink(ForumPages.profile, "u={0}", row["LastUserID"]), this.Get<YafBoardSettings>().EnableDisplayName ? this.HtmlEncode(row["LastUserDisplayName"]) : this.HtmlEncode(row["LastUserName"]));
+            string by = this.GetTextFormatted("lastpostlink", this.Get<IDateTime>().FormatDateTime((DateTime)row["LastPosted"]), link);
+
+            string html = @"{0} <a href=""{1}""><img src=""{2}"" alt="""" /></a>".FormatWith(
+                @by,
+                YafBuildLink.GetLink(ForumPages.posts, "m={0}&find=lastpost", row["LastMessageID"]),
+                this.GetThemeContents("ICONS", "ICON_LATEST"));
+
+            return html;
         }
 
         /// <summary>
@@ -208,28 +208,23 @@ namespace YAF.Pages
             this.PageContext.AddLoadMessage(this.GetText("SAVED_NOTIFICATION_SETTING"), MessageTypes.Success);
         }
 
+        /// <summary>
+        /// Gets the checked ids.
+        /// </summary>
+        /// <param name="repeater">The repeater.</param>
+        /// <param name="checkBoxId">The check box id.</param>
+        /// <param name="idLabelId">The id label id.</param>
+        /// <returns></returns>
         private static List<int> GetCheckedIds(Repeater repeater, string checkBoxId, string idLabelId)
         {
-            var ids = new List<int>();
-
-            foreach (var item in repeater.Items.OfType<RepeaterItem>())
-            {
-                var checkBox = item.FindControlAs<CheckBox>(checkBoxId);
-                var idLabel = item.FindControlAs<Label>(idLabelId);
-
-                if (!checkBox.Checked)
-                {
-                    continue;
-                }
-
-                var id = idLabel.Text.ToTypeOrDefault<int?>(null);
-                if (id.HasValue)
-                {
-                    ids.Add(id.Value);
-                }
-            }
-
-            return ids;
+            return (from item in repeater.Items.OfType<RepeaterItem>()
+                let checkBox = item.FindControlAs<CheckBox>(checkBoxId)
+                let idLabel = item.FindControlAs<Label>(idLabelId)
+                where checkBox.Checked
+                select idLabel.Text.ToTypeOrDefault<int?>(null)
+                into id
+                where id.HasValue
+                select id.Value).ToList();
         }
 
         /// <summary>
@@ -244,11 +239,11 @@ namespace YAF.Pages
             if (ids.Any())
             {
                 this.GetRepository<WatchForum>().DeleteByIDs(ids);
-                this.PageContext.AddLoadMessage(this.GetText("WARN_SELECTFORUMS"), MessageTypes.Warning);
+                this.BindData();
             }
             else
             {
-                this.BindData();
+                this.PageContext.AddLoadMessage(this.GetText("WARN_SELECTFORUMS"), MessageTypes.Warning);
             }
         }
 
@@ -264,11 +259,11 @@ namespace YAF.Pages
             if (ids.Any())
             {
                 this.GetRepository<WatchTopic>().DeleteByIDs(ids);
-                this.PageContext.AddLoadMessage(this.GetText("WARN_SELECTTOPICS"), MessageTypes.Warning);
+                this.BindData();
             }
             else
             {
-                this.BindData();
+                this.PageContext.AddLoadMessage(this.GetText("WARN_SELECTTOPICS"), MessageTypes.Warning);
             }
         }
 
@@ -289,7 +284,11 @@ namespace YAF.Pages
         /// </summary>
         private void BindData()
         {
-            this.ForumList.DataSource = this.GetRepository<WatchForum>().List(this.PageContext.PageUserID).AsEnumerable();
+            var watchForums = this.GetRepository<WatchForum>().List(this.PageContext.PageUserID).AsEnumerable();
+
+            this.ForumList.DataSource = watchForums;
+
+            this.UnsubscribeForums.Visible = watchForums.Count() != 0;
 
             // we are going to page results
             var dt = this.GetRepository<WatchTopic>().List(this.PageContext.PageUserID);
@@ -309,8 +308,12 @@ namespace YAF.Pages
             }
 
             // bind list
-            this.TopicList.DataSource = dt.AsEnumerable().Skip(currentPageIndex * this.PagerTop.PageSize).Take(this.PagerTop.PageSize);
+            var topicList = dt.AsEnumerable().Skip(currentPageIndex * this.PagerTop.PageSize).Take(this.PagerTop.PageSize);
 
+            this.TopicList.DataSource = topicList;
+
+            this.UnsubscribeTopics.Visible = topicList.Count() != 0;
+            
             this.PMNotificationEnabled.Checked = this.PageContext.CurrentUserData.PMNotification;
             this.DailyDigestEnabled.Checked = this.PageContext.CurrentUserData.DailyDigest;
 

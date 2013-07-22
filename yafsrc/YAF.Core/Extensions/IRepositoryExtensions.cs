@@ -18,10 +18,8 @@
  */
 namespace YAF.Core.Extensions
 {
-    using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Linq;
 
     using ServiceStack.OrmLite;
 
@@ -97,7 +95,12 @@ namespace YAF.Core.Extensions
         {
             CodeContracts.ArgumentNotNull(repository, "repository");
 
-            var success = repository.DbAccess.Execute(db => db.Delete<T>(x => ids.Contains(x.ID))) == 1;
+            var success = false;
+
+            ids.ForEach(id =>
+            {
+                success = repository.DbAccess.Execute(db => db.Delete<T>(x => x.ID == id)) == 1;
+            });
 
             if (success)
             {
@@ -175,6 +178,7 @@ namespace YAF.Core.Extensions
             CodeContracts.ArgumentNotNull(repository, "repository");
 
             var insertId = repository.DbAccess.Insert(entity, transaction);
+            
             if (insertId > 0)
             {
                 entity.ID = insertId;
