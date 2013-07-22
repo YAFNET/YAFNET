@@ -203,9 +203,7 @@ namespace YAF.Controls
                     this.LastUnreadImage.ThemeTag = showNewIcon ? "ICON_NEWEST_UNREAD" : "ICON_LATEST_UNREAD";
                 }
 
-                this.LastTopicImgLink.Enabled = this.ImageLastUnreadMessageLink.Enabled = showLastLinks;
-
-                this.LastPostedHolder.Visible = true;
+                this.LastPostedHolder.Visible = showLastLinks;
                 this.NoPostsLabel.Visible = false;
             }
             else
