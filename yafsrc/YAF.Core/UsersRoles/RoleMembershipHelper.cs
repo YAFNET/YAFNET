@@ -422,28 +422,30 @@ namespace YAF.Core
                 LegacyDb.usergroup_save(userId, row["GroupID"], 0);
             }
 
-            if (isNewUser && userId > 0)
+            if (!isNewUser || userId <= 0)
             {
-                try
-                {
-                    UserNotificationSetting defaultNotificationSetting =
-                        YafContext.Current.Get<YafBoardSettings>().DefaultNotificationSetting;
+                return userId;
+            }
 
-                    bool defaultSendDigestEmail = YafContext.Current.Get<YafBoardSettings>().DefaultSendDigestEmail;
+            try
+            {
+                UserNotificationSetting defaultNotificationSetting =
+                    YafContext.Current.Get<YafBoardSettings>().DefaultNotificationSetting;
 
-                    // setup default notifications...
-                    bool autoWatchTopicsEnabled = defaultNotificationSetting
-                                                  == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
+                bool defaultSendDigestEmail = YafContext.Current.Get<YafBoardSettings>().DefaultSendDigestEmail;
 
-                    // save the settings...
-                    LegacyDb.user_savenotification(
-                        userId, true, autoWatchTopicsEnabled, defaultNotificationSetting, defaultSendDigestEmail);
-                }
-                catch (Exception ex)
-                {
-                    YafContext.Current.Get<ILogger>()
-                              .Log(userId, "UpdateForumUser", "Failed to save default notifications for new user: {0}".FormatWith(ex));
-                }
+                // setup default notifications...
+                bool autoWatchTopicsEnabled = defaultNotificationSetting
+                                              == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
+
+                // save the settings...
+                LegacyDb.user_savenotification(
+                    userId, true, autoWatchTopicsEnabled, defaultNotificationSetting, defaultSendDigestEmail);
+            }
+            catch (Exception ex)
+            {
+                YafContext.Current.Get<ILogger>()
+                    .Log(userId, "UpdateForumUser", "Failed to save default notifications for new user: {0}".FormatWith(ex));
             }
 
             return userId;
@@ -511,7 +513,7 @@ namespace YAF.Core
                 row =>
                     {
                         // skip the guest user
-                        if (row.Field<int>("IsGuest") > 0)
+                        if (row.Field<bool>("IsGuest"))
                         {
                             return;
                         }
@@ -567,72 +569,74 @@ namespace YAF.Core
                                 }
                             }
 
-                            if (isLegacyYafDB)
+                            if (!isLegacyYafDB)
                             {
-                                // copy profile data over...
-                                YafUserProfile userProfile = YafUserProfile.GetProfile(name);
-                                if (dataTable.Columns.Contains("AIM") && !row["AIM"].IsNullOrEmptyDBField())
-                                {
-                                    userProfile.AIM = row["AIM"].ToString();
-                                }
-
-                                if (dataTable.Columns.Contains("YIM") && !row["YIM"].IsNullOrEmptyDBField())
-                                {
-                                    userProfile.YIM = row["YIM"].ToString();
-                                }
-
-                                if (dataTable.Columns.Contains("MSN") && !row["MSN"].IsNullOrEmptyDBField())
-                                {
-                                    userProfile.MSN = row["MSN"].ToString();
-                                }
-
-                                if (dataTable.Columns.Contains("ICQ") && !row["ICQ"].IsNullOrEmptyDBField())
-                                {
-                                    userProfile.ICQ = row["ICQ"].ToString();
-                                }
-
-                                if (dataTable.Columns.Contains("RealName")
-                                    && !row["RealName"].IsNullOrEmptyDBField())
-                                {
-                                    userProfile.RealName = row["RealName"].ToString();
-                                }
-
-                                if (dataTable.Columns.Contains("Occupation")
-                                    && !row["Occupation"].IsNullOrEmptyDBField())
-                                {
-                                    userProfile.Occupation = row["Occupation"].ToString();
-                                }
-
-                                if (dataTable.Columns.Contains("Location")
-                                    && !row["Location"].IsNullOrEmptyDBField())
-                                {
-                                    userProfile.Location = row["Location"].ToString();
-                                }
-
-                                if (dataTable.Columns.Contains("Homepage")
-                                    && !row["Homepage"].IsNullOrEmptyDBField())
-                                {
-                                    userProfile.Homepage = row["Homepage"].ToString();
-                                }
-
-                                if (dataTable.Columns.Contains("Interests")
-                                    && !row["Interests"].IsNullOrEmptyDBField())
-                                {
-                                    userProfile.Interests = row["Interests"].ToString();
-                                }
-
-                                if (dataTable.Columns.Contains("Weblog") && !row["Weblog"].IsNullOrEmptyDBField())
-                                {
-                                    userProfile.Blog = row["Weblog"].ToString();
-                                }
-
-                                if (dataTable.Columns.Contains("Gender") && !row["Gender"].IsNullOrEmptyDBField())
-                                {
-                                    userProfile.Gender = row["Gender"].ToType<int>();
-                                }
-
-                                userProfile.Save();
+                                return;
                             }
+
+                            // copy profile data over...
+                            YafUserProfile userProfile = YafUserProfile.GetProfile(name);
+                            if (dataTable.Columns.Contains("AIM") && !row["AIM"].IsNullOrEmptyDBField())
+                            {
+                                userProfile.AIM = row["AIM"].ToString();
+                            }
+
+                            if (dataTable.Columns.Contains("YIM") && !row["YIM"].IsNullOrEmptyDBField())
+                            {
+                                userProfile.YIM = row["YIM"].ToString();
+                            }
+
+                            if (dataTable.Columns.Contains("MSN") && !row["MSN"].IsNullOrEmptyDBField())
+                            {
+                                userProfile.MSN = row["MSN"].ToString();
+                            }
+
+                            if (dataTable.Columns.Contains("ICQ") && !row["ICQ"].IsNullOrEmptyDBField())
+                            {
+                                userProfile.ICQ = row["ICQ"].ToString();
+                            }
+
+                            if (dataTable.Columns.Contains("RealName")
+                                && !row["RealName"].IsNullOrEmptyDBField())
+                            {
+                                userProfile.RealName = row["RealName"].ToString();
+                            }
+
+                            if (dataTable.Columns.Contains("Occupation")
+                                && !row["Occupation"].IsNullOrEmptyDBField())
+                            {
+                                userProfile.Occupation = row["Occupation"].ToString();
+                            }
+
+                            if (dataTable.Columns.Contains("Location")
+                                && !row["Location"].IsNullOrEmptyDBField())
+                            {
+                                userProfile.Location = row["Location"].ToString();
+                            }
+
+                            if (dataTable.Columns.Contains("Homepage")
+                                && !row["Homepage"].IsNullOrEmptyDBField())
+                            {
+                                userProfile.Homepage = row["Homepage"].ToString();
+                            }
+
+                            if (dataTable.Columns.Contains("Interests")
+                                && !row["Interests"].IsNullOrEmptyDBField())
+                            {
+                                userProfile.Interests = row["Interests"].ToString();
+                            }
+
+                            if (dataTable.Columns.Contains("Weblog") && !row["Weblog"].IsNullOrEmptyDBField())
+                            {
+                                userProfile.Blog = row["Weblog"].ToString();
+                            }
+
+                            if (dataTable.Columns.Contains("Gender") && !row["Gender"].IsNullOrEmptyDBField())
+                            {
+                                userProfile.Gender = row["Gender"].ToType<int>();
+                            }
+
+                            userProfile.Save();
                         }
                         else
                         {
