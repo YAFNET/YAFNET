@@ -161,7 +161,15 @@ namespace YAF.Core
                     {
                         if (source.IsNotSet())
                         {
-                            source = this.Type != null ? this.Type.FullName : string.Empty;
+                            if (this.Type != null)
+                            {
+                                source = this.Type.FullName.Length > 50 ? this.Type.FullName.Truncate(47) : this.Type.FullName;
+
+                            }
+                            else
+                            {
+                                source = string.Empty;
+                            }
                         }
 
                         var log = new EventLog
@@ -194,12 +202,12 @@ namespace YAF.Core
 
             foreach (var logType in EnumHelper.EnumToList<EventLogTypes>())
             {
-                /*if (!this._eventLogTypeLookup.ContainsKey(logType))
+                if (!this._eventLogTypeLookup.ContainsKey(logType))
                 {
                     this._eventLogTypeLookup.Add(logType, true);
-                }*/
+                }
 
-                this._eventLogTypeLookup.AddOrUpdate(logType, true);
+                //this._eventLogTypeLookup.AddOrUpdate(logType, true);
             }
 
             this._eventLogTypeLookup.AddOrUpdate(EventLogTypes.Debug, this._isDebug);
