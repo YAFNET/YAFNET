@@ -17,40 +17,51 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-
 namespace YAF.Utils.Helpers
 {
-  using System.Text.RegularExpressions;
-
-  /// <summary>
-  /// The bb code helper.
-  /// </summary>
-  public static class BBCodeHelper
-  {
-    /// <summary>
-    /// The strip bb code.
-    /// </summary>
-    /// <param name="text">
-    /// The text.
-    /// </param>
-    /// <returns>
-    /// The strip bb code.
-    /// </returns>
-    public static string StripBBCode(string text)
-    {
-      return Regex.Replace(text, @"\[(.|\n)*?\]", string.Empty);
-    }
+    using System.Text.RegularExpressions;
 
     /// <summary>
-    /// Strip Quote BB Code Quotes including the quoted text
+    /// The bb code helper.
     /// </summary>
-    /// <param name="text">Text to check
-    /// </param>
-    /// <returns>The Cleaned Text
-    /// </returns>
-    public static string StripBBCodeQuotes(string text)
+    public static class BBCodeHelper
     {
-        return Regex.Replace(text, @"\[quote\b[^>]*](.|\n)*?\[/quote\]", string.Empty, RegexOptions.Multiline);
+        /// <summary>
+        /// The strip bb code.
+        /// </summary>
+        /// <param name="text">
+        /// The text.
+        /// </param>
+        /// <returns>
+        /// The strip bb code.
+        /// </returns>
+        public static string StripBBCode(string text)
+        {
+            return Regex.Replace(text, @"\[(.|\n)*?\]", string.Empty);
+        }
+
+        /// <summary>
+        /// Strip Quote BB Code Quotes including the quoted text
+        /// </summary>
+        /// <param name="text">Text to check
+        /// </param>
+        /// <returns>The Cleaned Text
+        /// </returns>
+        public static string StripBBCodeQuotes(string text)
+        {
+            return Regex.Replace(text, @"\[quote[^\]]*](.|\n)*?\[/quote\]", string.Empty, RegexOptions.Multiline);
+        }
+
+        /// <summary>
+        /// Strip BB Code Urls
+        /// </summary>
+        /// <param name="text">Text to check
+        /// </param>
+        /// <returns>The Cleaned Text
+        /// </returns>
+        public static string StripBBCodeUrls(string text)
+        {
+            return Regex.Replace(text, @"\[url[^\]]*](.|\n)*?\[/url\]", string.Empty, RegexOptions.Singleline);
+        }
     }
-  }
 }
