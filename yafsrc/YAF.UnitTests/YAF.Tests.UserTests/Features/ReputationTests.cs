@@ -47,7 +47,7 @@ namespace YAF.Tests.UserTests.Features
         [TestFixtureSetUp]
         public void SetUpTest()
         {
-            this.browser = !TestConfig.UseExistingInstallation ? TestSetup.IEInstance : new IE();
+            this.browser = !TestConfig.UseExistingInstallation ? TestSetup._testBase.IEInstance : new IE();
 
             this.browser.ShowWindow(NativeMethods.WindowShowStyle.Maximize);
 

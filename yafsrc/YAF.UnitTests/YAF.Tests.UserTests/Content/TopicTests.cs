@@ -47,7 +47,7 @@ namespace YAF.Tests.UserTests.Content
         [TestFixtureSetUp]
         public void SetUpTest()
         {
-            this.browser = !TestConfig.UseExistingInstallation ? TestSetup.IEInstance : new IE();
+            this.browser = !TestConfig.UseExistingInstallation ? TestSetup._testBase.IEInstance : new IE();
 
             this.browser.ShowWindow(NativeMethods.WindowShowStyle.Maximize);
 
@@ -70,7 +70,11 @@ namespace YAF.Tests.UserTests.Content
         public void Create_New_Topic_Test()
         {
             // Go to Post New Topic
-            this.browser.GoTo("{0}yaf_postmessage.aspx?f={1}".FormatWith(TestConfig.TestForumUrl, TestConfig.TestForumID));
+            this.browser.GoTo(
+                "{0}{2}postmessage.aspx?f={1}".FormatWith(
+                    TestConfig.TestForumUrl,
+                    TestConfig.TestForumID,
+                    TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(this.browser.ContainsText("Post New Topic"), "Post New Topic not possible");
 
@@ -87,7 +91,8 @@ namespace YAF.Tests.UserTests.Content
                 this.browser.SelectList(Find.ById(new Regex("_TopicStatus"))).SelectByValue("INFORMATIC");
             }
 
-            this.browser.TextField(Find.ById(new Regex("_YafTextEditor"))).TypeText("This is a Test Message Created by an automated Unit Test");
+            this.browser.TextField(Find.ById(new Regex("_YafTextEditor")))
+                .TypeText("This is a Test Message Created by an automated Unit Test");
 
             // Post New Topic
             this.browser.Link(Find.ById(new Regex("_PostReply"))).Click();

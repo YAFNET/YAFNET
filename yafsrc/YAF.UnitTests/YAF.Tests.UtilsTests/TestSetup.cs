@@ -18,11 +18,16 @@
  * DEALINGS IN THE SOFTWARE.
 */
 
-namespace YAF.Tests.UserTests
+namespace YAF.Tests.CoreTests
 {
-    using NUnit.Framework;
+    using System.IO;
+    using System.Web.Security;
 
-    using YAF.Tests.Utils.SetUp;
+    using HttpSimulator;
+
+    using Moq;
+
+    using NUnit.Framework;
 
     /// <summary>
     /// Testing a YAF Installation
@@ -31,31 +36,37 @@ namespace YAF.Tests.UserTests
     public class TestSetup
     {
         /// <summary>
-        /// Gets or sets the install base.
-        /// </summary>
-        /// <value>
-        /// The install base.
-        /// </value>
-        public static InstallBase _testBase { get; set; }
-
-        /// <summary>
-        /// Download YAF, Create Application and setup the Database
+        /// Sets up the mocked YAF Forum instance
         /// </summary>
         [SetUp]
-        public void SetUp()
+        public void Preparations()
         {
-            _testBase = new InstallBase();
+            var _factory = new MockRepository(MockBehavior.Strict);
+            var _membership = _factory.Create<MembershipProvider>();
+            var _roleProvider = _factory.Create<RoleProvider>();
 
-            _testBase.SetUp();
+            Membership.ApplicationName = "YetAnotherForum";
+
+            Membership.Providers.AddMembershipProvider("MyMembershipProvider", _membership.Object);
+
+            Roles.Providers.AddRoleProvider("MyRoleProvider", _roleProvider.Object);
+
+            var currentPath = Path.GetFullPath(@"..\..\testfiles\forum\");
+
+            HttpSimulator simulator = new HttpSimulator("yaf/", currentPath);
+
+            simulator.SimulateRequest();
         }
 
         /// <summary>
-        /// The Tear Down
+        /// Removes the fake providers.
         /// </summary>
         [TearDown]
         public void TearDown()
         {
-            _testBase.TearDown();
+            Membership.Providers.RemoveMembershipProvider("MyMembershipProvider");
+
+            Roles.Providers.RemoveRoleProvider("MyRoleProvider");
         }
     }
 }

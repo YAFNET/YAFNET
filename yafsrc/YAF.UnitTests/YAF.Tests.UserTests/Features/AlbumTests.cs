@@ -49,7 +49,7 @@ namespace YAF.Tests.UserTests.Features
         [TestFixtureSetUp]
         public void SetUpTest()
         {
-            this.browser = !TestConfig.UseExistingInstallation ? TestSetup.IEInstance : new IE();
+            this.browser = !TestConfig.UseExistingInstallation ? TestSetup._testBase.IEInstance : new IE();
 
             this.browser.ShowWindow(NativeMethods.WindowShowStyle.Maximize);
 
@@ -71,7 +71,8 @@ namespace YAF.Tests.UserTests.Features
         [Test]
         public void Add_New_User_Album_Test()
         {
-            this.browser.GoTo("{0}yaf_cp_profile.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}cp_profile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(this.browser.ContainsText("Edit Albums"), "Albums Feature is not available for that User");
 
@@ -108,7 +109,8 @@ namespace YAF.Tests.UserTests.Features
         [Test]
         public void Delete_User_Album_Test()
         {
-            this.browser.GoTo("{0}yaf_cp_profile.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}cp_profile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(this.browser.ContainsText("Edit Albums"), "Albums Feature is not available for that User");
 
@@ -145,7 +147,8 @@ namespace YAF.Tests.UserTests.Features
         [Test]
         public void Add_Additional_Image_Test()
         {
-            this.browser.GoTo("{0}yaf_cp_profile.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}cp_profile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(this.browser.ContainsText("Edit Albums"), "Albums Feature is not available for that User");
 
@@ -174,7 +177,8 @@ namespace YAF.Tests.UserTests.Features
         [Test]
         public void Delete_Image_From_Album_Test()
         {
-            this.browser.GoTo("{0}yaf_cp_profile.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}cp_profile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(this.browser.ContainsText("Edit Albums"), "Albums Feature is not available for that User");
 
@@ -214,7 +218,8 @@ namespace YAF.Tests.UserTests.Features
         [Test]
         public void Set_Image_As_Cover_Test()
         {
-            this.browser.GoTo("{0}yaf_cp_profile.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}cp_profile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(this.browser.ContainsText("Edit Albums"), "Albums Feature is not available for that User");
 
@@ -232,11 +237,17 @@ namespace YAF.Tests.UserTests.Features
             // Set First Album Image as Cover
             var setCoverButton = this.browser.Button(Find.ById(new Regex("_AlbumImages_SetCover_0")));
 
-            Assert.AreEqual("Set as Cover", this.browser.Button(Find.ById(new Regex("_AlbumImages_SetCover_0"))).Text, "Image is already Cover");
+            Assert.AreEqual(
+                "Set as Cover",
+                this.browser.Button(Find.ById(new Regex("_AlbumImages_SetCover_0"))).Text,
+                "Image is already Cover");
 
             setCoverButton.Click();
 
-            Assert.AreEqual("Remove Cover", this.browser.Button(Find.ById(new Regex("_AlbumImages_SetCover_0"))).Text, "Set as Cover Failed");
+            Assert.AreEqual(
+                "Remove Cover",
+                this.browser.Button(Find.ById(new Regex("_AlbumImages_SetCover_0"))).Text,
+                "Set as Cover Failed");
         }
 
         /// <summary>
@@ -245,7 +256,8 @@ namespace YAF.Tests.UserTests.Features
         [Test]
         public void Remove_Image_As_Cover_Test()
         {
-            this.browser.GoTo("{0}yaf_cp_profile.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}cp_profile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(this.browser.ContainsText("Edit Albums"), "Albums Feature is not available for that User");
 
@@ -263,11 +275,17 @@ namespace YAF.Tests.UserTests.Features
             // Set First Album Image as Cover
             var setCoverButton = this.browser.Button(Find.ById(new Regex("_AlbumImages_SetCover_0")));
 
-            Assert.AreEqual("Remove Cover", this.browser.Button(Find.ById(new Regex("_AlbumImages_SetCover_0"))).Text, "Image is not set as Cover");
+            Assert.AreEqual(
+                "Remove Cover",
+                this.browser.Button(Find.ById(new Regex("_AlbumImages_SetCover_0"))).Text,
+                "Image is not set as Cover");
 
             setCoverButton.Click();
 
-            Assert.AreEqual("Set as Cover", this.browser.Button(Find.ById(new Regex("_AlbumImages_SetCover_0"))).Text, "Remove as Cover Failed");
+            Assert.AreEqual(
+                "Set as Cover",
+                this.browser.Button(Find.ById(new Regex("_AlbumImages_SetCover_0"))).Text,
+                "Remove as Cover Failed");
         }
 
         /// <summary>
@@ -276,7 +294,8 @@ namespace YAF.Tests.UserTests.Features
         [Test]
         public void Edit_Image_Caption_Test()
         {
-            this.browser.GoTo("{0}yaf_cp_profile.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}cp_profile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(this.browser.ContainsText("Edit Albums"), "Albums Feature is not available for that User");
 
@@ -310,7 +329,8 @@ namespace YAF.Tests.UserTests.Features
         [Test]
         public void Edit_Album_Name_Test()
         {
-            this.browser.GoTo("{0}yaf_cp_profile.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}cp_profile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(this.browser.ContainsText("Edit Albums"), "Albums Feature is not available for that User");
 

@@ -21,6 +21,7 @@
 namespace YAF.Tests.UserTests.Content
 {
     using System.Text.RegularExpressions;
+    using System.Threading;
 
     using NUnit.Framework;
 
@@ -47,7 +48,7 @@ namespace YAF.Tests.UserTests.Content
         [TestFixtureSetUp]
         public void SetUpTest()
         {
-            this.browser = !TestConfig.UseExistingInstallation ? TestSetup.IEInstance : new IE();
+            this.browser = !TestConfig.UseExistingInstallation ? TestSetup._testBase.IEInstance : new IE();
 
             this.browser.ShowWindow(NativeMethods.WindowShowStyle.Maximize);
 
@@ -71,12 +72,19 @@ namespace YAF.Tests.UserTests.Content
         public void Post_Reply_Test()
         {
             // Go to Post New Topic
-            this.browser.GoTo("{0}yaf_postst{1}.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.TestTopicID));
+            this.browser.GoTo(
+                "{0}{2}postst{1}.aspx".FormatWith(
+                    TestConfig.TestForumUrl,
+                    TestConfig.TestTopicID,
+                    TestConfig.ForumUrlRewritingPrefix));
 
             if (this.browser.ContainsText("You've passed an invalid value to the forum."))
             {
                 // Topic doesnt exist create a topic first
                 Assert.IsTrue(this.CreateNewTestTopic(), "Topic Creating failed");
+
+                // Wait 60 seconds to avoid post flood
+                Thread.Sleep(31000);
             }
 
             this.browser.Link(Find.ById(new Regex("_PostReplyLink1"))).Click();
@@ -84,12 +92,15 @@ namespace YAF.Tests.UserTests.Content
             Assert.IsTrue(this.browser.ContainsText("Post a reply"), "Post Reply not possible");
 
             // Create New Reply
-            this.browser.TextField(Find.ById(new Regex("_YafTextEditor"))).TypeText("This is a Test Reply in an Test Topic Created by an automated Unit Test");
+            this.browser.TextField(Find.ById(new Regex("_YafTextEditor")))
+                .TypeText("This is a Test Reply in an Test Topic Created by an automated Unit Test");
 
             // Post New Topic
             this.browser.Link(Find.ById(new Regex("_PostReply"))).Click();
 
-            Assert.IsTrue(this.browser.ContainsText("This is a Test Reply in an Test Topic Created by an automated Unit Test"), "Reply Message failed");
+            Assert.IsTrue(
+                this.browser.ContainsText("This is a Test Reply in an Test Topic Created by an automated Unit Test"),
+                "Reply Message failed");
         }
 
         /// <summary>
@@ -100,15 +111,22 @@ namespace YAF.Tests.UserTests.Content
         public void Post_Reply_With_Quote_Test()
         {
             // Go to Post New Topic
-            this.browser.GoTo("{0}yaf_postst{1}.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.TestTopicID));
+            this.browser.GoTo(
+                "{0}{2}postst{1}.aspx".FormatWith(
+                    TestConfig.TestForumUrl,
+                    TestConfig.TestTopicID,
+                    TestConfig.ForumUrlRewritingPrefix));
 
             if (this.browser.ContainsText("You've passed an invalid value to the forum."))
             {
                 // Topic doesnt exist create a topic first
                 Assert.IsTrue(this.CreateNewTestTopic(), "Topic Creating failed");
+
+                // Wait 60 seconds to avoid post flood
+                Thread.Sleep(60000);
             }
 
-            this.browser.Link(Find.ById(new Regex("DisplayPost1_Quote"))).Click();
+            this.browser.Link(Find.ById(new Regex("_Quote_0"))).Click();
 
             Assert.IsTrue(this.browser.ContainsText("Post a reply"), "Post Reply not possible");
 
@@ -125,11 +143,15 @@ namespace YAF.Tests.UserTests.Content
         /// Post 3 Replies and try to quote them with Multi Quoting via the "Multi Quote" Button test.
         /// </summary>
         [Test]
-        [NUnit.Framework.Description("Post 3 Replies and try to quote them with Multi Quoting via the \"Multi Quote\" Button test.")]
+        [NUnit.Framework.Description(
+            "Post 3 Replies and try to quote them with Multi Quoting via the \"Multi Quote\" Button test.")]
         public void Post_Reply_With_Multi_Quote_Test()
         {
             // First Creating a new test topic with the test user
             Assert.IsTrue(this.CreateNewTestTopic(), "Topic Creating failed");
+
+            // Wait 30 seconds to avoid post flood
+            Thread.Sleep(60000);
 
             // Post Replay A
             this.browser.Link(Find.ById(new Regex("_PostReplyLink1"))).Click();
@@ -143,6 +165,9 @@ namespace YAF.Tests.UserTests.Content
             this.browser.Link(Find.ById(new Regex("_PostReply"))).Click();
 
             Assert.IsTrue(this.browser.ContainsText("Test Reply A"), "Reply Message failed");
+
+            // Wait 30 seconds to avoid post flood
+            Thread.Sleep(60000);
             /////
 
             // Post Replay B
@@ -157,8 +182,11 @@ namespace YAF.Tests.UserTests.Content
             this.browser.Link(Find.ById(new Regex("_PostReply"))).Click();
 
             Assert.IsTrue(this.browser.ContainsText("Test Reply B"), "Reply Message failed");
+
+            // Wait 30 seconds to avoid post flood
+            Thread.Sleep(60000);
             /////
-            
+
             // Post Replay C
             this.browser.Link(Find.ById(new Regex("_PostReplyLink1"))).Click();
 
@@ -171,9 +199,10 @@ namespace YAF.Tests.UserTests.Content
             this.browser.Link(Find.ById(new Regex("_PostReply"))).Click();
 
             Assert.IsTrue(this.browser.ContainsText("Test Reply C"), "Reply Message failed");
-            /////
 
-            browser.GoTo("http://192.168.2.10/yaf/yaf_postst66_Auto-Created-Test-Topic.aspx");
+            // Wait 30 seconds to avoid post flood
+            Thread.Sleep(60000);
+            /////
 
             // Find the MultiQuote Buttons for Post Replac A,B,C
             Assert.IsTrue(

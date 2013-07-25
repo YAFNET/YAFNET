@@ -47,7 +47,7 @@ namespace YAF.Tests.UserTests.UserSettings
         [TestFixtureSetUp]
         public void SetUpTest()
         {
-            this.browser = !TestConfig.UseExistingInstallation ? TestSetup.IEInstance : new IE();
+            this.browser = !TestConfig.UseExistingInstallation ? TestSetup._testBase.IEInstance : new IE();
 
             this.browser.ShowWindow(NativeMethods.WindowShowStyle.Maximize);
 
@@ -69,46 +69,52 @@ namespace YAF.Tests.UserTests.UserSettings
         [Test]
         public void Change_User_Password_Test()
         {
-            this.browser.GoTo("{0}yaf_cp_changepassword.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}cp_changepassword.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
-            Assert.IsTrue(this.browser.ContainsText("Change Password"), "Change Password is not available for that User");
+            Assert.IsTrue(
+                this.browser.ContainsText("Change Password"),
+                "Change Password is not available for that User");
 
             // Enter Old Password
-            this.browser.TextField(Find.ById(new Regex("_ChangePasswordContainerID_CurrentPassword"))).TypeText(
-                TestConfig.TestUserPassword);
+            this.browser.TextField(Find.ById(new Regex("_ChangePasswordContainerID_CurrentPassword")))
+                .TypeText(TestConfig.TestUserPassword);
 
             // Enter New Password
-            this.browser.TextField(Find.ById(new Regex("_ChangePasswordContainerID_NewPassword"))).TypeText(
-                "{0}ABCDEF".FormatWith(TestConfig.TestUserPassword));
-            this.browser.TextField(Find.ById(new Regex("_ChangePasswordContainerID_ConfirmNewPassword"))).TypeText(
-                "{0}ABCDEF".FormatWith(TestConfig.TestUserPassword));
+            this.browser.TextField(Find.ById(new Regex("_ChangePasswordContainerID_NewPassword")))
+                .TypeText("{0}ABCDEF".FormatWith(TestConfig.TestUserPassword));
+            this.browser.TextField(Find.ById(new Regex("_ChangePasswordContainerID_ConfirmNewPassword")))
+                .TypeText("{0}ABCDEF".FormatWith(TestConfig.TestUserPassword));
 
             // Submit
             this.browser.Button(Find.ById(new Regex("_ChangePasswordContainerID_ChangePasswordPushButton"))).Click();
 
             Assert.IsTrue(
-                this.browser.ContainsText("Password has been successfully changed."), "Changing Password Failed");
+                this.browser.ContainsText("Password has been successfully changed."),
+                "Changing Password Failed");
 
             this.browser.Button(Find.ById(new Regex("_SuccessContainerID_ContinuePushButton"))).Click();
 
             // Now Change Password Back to Default Password
-            this.browser.GoTo("{0}yaf_cp_changepassword.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}cp_changepassword.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             // Enter Old Password
-            this.browser.TextField(Find.ById(new Regex("_ChangePasswordContainerID_CurrentPassword"))).TypeText(
-                "{0}ABCDEF".FormatWith(TestConfig.TestUserPassword));
+            this.browser.TextField(Find.ById(new Regex("_ChangePasswordContainerID_CurrentPassword")))
+                .TypeText("{0}ABCDEF".FormatWith(TestConfig.TestUserPassword));
 
             // Enter New Password
-            this.browser.TextField(Find.ById(new Regex("_ChangePasswordContainerID_NewPassword"))).TypeText(
-                TestConfig.TestUserPassword);
-            this.browser.TextField(Find.ById(new Regex("_ChangePasswordContainerID_ConfirmNewPassword"))).TypeText(
-                TestConfig.TestUserPassword);
+            this.browser.TextField(Find.ById(new Regex("_ChangePasswordContainerID_NewPassword")))
+                .TypeText(TestConfig.TestUserPassword);
+            this.browser.TextField(Find.ById(new Regex("_ChangePasswordContainerID_ConfirmNewPassword")))
+                .TypeText(TestConfig.TestUserPassword);
 
             // Submit
             this.browser.Button(Find.ById(new Regex("_ChangePasswordContainerID_ChangePasswordPushButton"))).Click();
 
             Assert.IsTrue(
-                this.browser.ContainsText("Password has been successfully changed."), "Changing Password Failed");
+                this.browser.ContainsText("Password has been successfully changed."),
+                "Changing Password Failed");
         }
     }
 }

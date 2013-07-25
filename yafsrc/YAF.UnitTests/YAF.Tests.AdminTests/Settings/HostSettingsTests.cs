@@ -46,7 +46,7 @@ namespace YAF.Tests.AdminTests.Settings
         [TestFixtureSetUp]
         public void SetUpTest()
         {
-            this.browser = !TestConfig.UseExistingInstallation ? TestSetup.IEInstance : new IE();
+            this.browser = !TestConfig.UseExistingInstallation ? TestSetup._testBase.IEInstance : new IE();
 
             Assert.IsTrue(this.LoginAdminUser(), "Login failed");
         }
@@ -66,7 +66,8 @@ namespace YAF.Tests.AdminTests.Settings
         [Test]
         public void HostSettings_Saved_Correctly_Test()
         {
-            this.browser.GoTo("{0}yaf_admin_hostsettings.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}admin_hostsettings.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             // Modify a random setting
             var width = this.browser.TextField(Find.ById(new Regex("_ImageAttachmentResizeWidth"))).Text;
@@ -75,9 +76,11 @@ namespace YAF.Tests.AdminTests.Settings
 
             this.browser.Button(Find.ById(new Regex("_Save"))).Click();
 
-            this.browser.GoTo("{0}yaf_admin_hostsettings.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}admin_hostsettings.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
-            Assert.IsTrue(this.browser.TextField(Find.ById(new Regex("_ImageAttachmentResizeWidth"))).Text.Equals("350"));
+            Assert.IsTrue(
+                this.browser.TextField(Find.ById(new Regex("_ImageAttachmentResizeWidth"))).Text.Equals("350"));
 
             // Restore old Setting
             this.browser.TextField(Find.ById(new Regex("_ImageAttachmentResizeWidth"))).TypeText(width);

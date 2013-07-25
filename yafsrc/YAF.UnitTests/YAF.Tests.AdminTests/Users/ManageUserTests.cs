@@ -47,7 +47,7 @@ namespace YAF.Tests.AdminTests.Users
         [TestFixtureSetUp]
         public void SetUpTest()
         {
-            this.browser = !TestConfig.UseExistingInstallation ? TestSetup.IEInstance : new IE();
+            this.browser = !TestConfig.UseExistingInstallation ? TestSetup._testBase.IEInstance : new IE();
 
             Assert.IsTrue(this.LoginAdminUser(), "Login failed");
         }
@@ -67,7 +67,8 @@ namespace YAF.Tests.AdminTests.Users
         [Test]
         public void Delete_Random_Test_User_Test()
         {
-            this.browser.GoTo("{0}yaf_admin_users.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}admin_users.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             // Search for TestUser
             this.browser.TextField(Find.ById(new Regex("_name"))).TypeText(TestConfig.TestUserName);
@@ -90,10 +91,11 @@ namespace YAF.Tests.AdminTests.Users
         }
 
         [Test]
+        [Ignore]
         // TODO
         public void Add_User_To_Test_Role_Test()
         {
-            /*this.browser.GoTo("{0}yaf_admin_users.aspx".FormatWith(TestConfig.TestForumUrl));
+            /*this.browser.GoTo("{0}{1}admin_users.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             // Search for TestUser
             this.browser.TextField(Find.ById(new Regex("_name"))).TypeText(TestConfig.TestUserName);

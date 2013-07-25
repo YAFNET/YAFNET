@@ -278,6 +278,20 @@ namespace YAF.Tests.Utils
         }
 
         /// <summary>
+        /// Gets the forum URL rewriting prefix.
+        /// </summary>
+        /// <value>
+        /// The forum URL rewriting prefix.
+        /// </value>
+        public static string ForumUrlRewritingPrefix
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.UrlRewritingPrefix") ?? "yaf_";
+            }
+        }
+
+        /// <summary>
         /// Gets a value indicating whether [use test mail server].
         /// </summary>
         /// <value>

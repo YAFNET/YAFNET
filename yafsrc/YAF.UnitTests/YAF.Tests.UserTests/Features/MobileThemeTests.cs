@@ -47,7 +47,7 @@ namespace YAF.Tests.UserTests.Features
         [TestFixtureSetUp]
         public void SetUpTest()
         {
-            this.browser = !TestConfig.UseExistingInstallation ? TestSetup.IEInstance : new IE();
+            this.browser = !TestConfig.UseExistingInstallation ? TestSetup._testBase.IEInstance : new IE();
 
             this.browser.ShowWindow(NativeMethods.WindowShowStyle.Maximize);
 
@@ -60,7 +60,8 @@ namespace YAF.Tests.UserTests.Features
         [TestFixtureTearDown]
         public void TearDownTest()
         {
-            this.browser.GoTo("{0}yaf_cp_editprofile.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}cp_editprofile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             // Switch Theme Back to Clean Slate
             this.browser.SelectList(Find.ById(new Regex("_ProfileEditor_Theme"))).SelectByValue("cleanSlate.xml");
@@ -78,11 +79,14 @@ namespace YAF.Tests.UserTests.Features
         [NUnit.Framework.Description("Check if all Mobile Pages work without throwing an Error Test.")]
         public void Check_Mobile_Pages_Test()
         {
-            this.browser.GoTo("{0}yaf_cp_editprofile.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}cp_editprofile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(this.browser.ContainsText("Edit Profile"), "Edit Profile is not available for that User");
 
-            Assert.IsTrue(this.browser.ContainsText("Select your preferred theme"), "Changing the Theme is disabled for Users");
+            Assert.IsTrue(
+                this.browser.ContainsText("Select your preferred theme"),
+                "Changing the Theme is disabled for Users");
 
             // Switch Theme to "Black Grey"
             this.browser.SelectList(Find.ById(new Regex("_ProfileEditor_Theme"))).SelectByValue("YafMobile.xml");
@@ -92,7 +96,9 @@ namespace YAF.Tests.UserTests.Features
 
             this.browser.Refresh();
 
-            Assert.IsNotNull(this.browser.Link(Find.ByUrl(new Regex("Themes/Yafmobile/theme.css"))), "Changing Forum Theme failed");
+            Assert.IsNotNull(
+                this.browser.Link(Find.ByUrl(new Regex("Themes/Yafmobile/theme.css"))),
+                "Changing Forum Theme failed");
 
             // Now Check if each mobile page is displayed correctly
             // Check the main Page
@@ -103,21 +109,30 @@ namespace YAF.Tests.UserTests.Features
                 "There is something wrong with the mobile forum page");
 
             // Check the forum Category Page
-            this.browser.GoTo("{0}yaf_mytopics.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}mytopics.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(
                 !this.browser.ContainsText("Server Error") && !this.browser.ContainsText("Forum Error"),
                 "There is something wrong with the Forums Category page");
 
             // Check the forum topic view Page
-            this.browser.GoTo("{0}yaf_postst{1}.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.TestTopicID));
+            this.browser.GoTo(
+                "{0}{2}postst{1}.aspx".FormatWith(
+                    TestConfig.TestForumUrl,
+                    TestConfig.TestTopicID,
+                    TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(
                 !this.browser.ContainsText("Server Error") && !this.browser.ContainsText("Forum Error"),
                 "There is something wrong with the posts page");
 
             // Check My Topics Page
-            this.browser.GoTo("{0}yaf_topics{1}.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.TestForumID));
+            this.browser.GoTo(
+                "{0}{2}topics{1}.aspx".FormatWith(
+                    TestConfig.TestForumUrl,
+                    TestConfig.TestForumID,
+                    TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(
                 !this.browser.ContainsText("Server Error") && !this.browser.ContainsText("Forum Error"),
@@ -125,21 +140,26 @@ namespace YAF.Tests.UserTests.Features
 
             // Check the Post Message Page
             this.browser.GoTo(
-                "{0}yaf_postmessage.aspx?f={1}".FormatWith(TestConfig.TestForumUrl, TestConfig.TestForumID));
+                "{0}{2}postmessage.aspx?f={1}".FormatWith(
+                    TestConfig.TestForumUrl,
+                    TestConfig.TestForumID,
+                    TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(
                 !this.browser.ContainsText("Server Error") && !this.browser.ContainsText("Forum Error"),
                 "There is something wrong with the mobile post message page");
 
             // Check the Send PM Page
-            this.browser.GoTo("{0}yaf_pmessage.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}pmessage.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(
                 !this.browser.ContainsText("Server Error") && !this.browser.ContainsText("Forum Error"),
                 "There is something wrong with the mobile send private message page");
 
             // Check the Profile Page
-            this.browser.GoTo("{0}yaf_profile2.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}profile2.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(
                 !this.browser.ContainsText("Server Error") && !this.browser.ContainsText("Forum Error"),

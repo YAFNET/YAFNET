@@ -136,7 +136,11 @@ namespace YAF.Tests.Utils
         /// </returns>
         protected bool CreateNewTestTopic()
         {
-            this.browser.GoTo("{0}yaf_postmessage.aspx?f={1}".FormatWith(TestConfig.TestForumUrl, TestConfig.TestForumID));
+            this.browser.GoTo(
+                "{0}{2}postmessage.aspx?f={1}".FormatWith(
+                    TestConfig.TestForumUrl,
+                    TestConfig.TestForumID,
+                    TestConfig.ForumUrlRewritingPrefix));
 
             if (!this.browser.ContainsText("Post New Topic"))
             {
@@ -164,7 +168,11 @@ namespace YAF.Tests.Utils
         protected bool CreateNewReplyInTestTopic(string message)
         {
             // Go to Post New Topic
-            this.browser.GoTo("{0}yaf_postst{1}.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.TestTopicID));
+            this.browser.GoTo(
+                "{0}{2}postst{1}.aspx".FormatWith(
+                    TestConfig.TestForumUrl,
+                    TestConfig.TestTopicID,
+                    TestConfig.ForumUrlRewritingPrefix));
 
             if (this.browser.ContainsText("You've passed an invalid value to the forum."))
             {
@@ -194,7 +202,8 @@ namespace YAF.Tests.Utils
         /// <returns>If the Message was sent or not</returns>
         protected bool SendPrivateMessage(string testMessage)
         {
-            this.browser.GoTo("{0}yaf_pmessage.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}pmessage.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             // Send a Message to Myself
             this.browser.TextField(Find.ById(new Regex("_To"))).TypeText(TestConfig.TestUserName);

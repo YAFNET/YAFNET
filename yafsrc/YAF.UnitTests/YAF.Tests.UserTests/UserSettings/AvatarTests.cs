@@ -48,7 +48,7 @@ namespace YAF.Tests.UserTests.UserSettings
         [TestFixtureSetUp]
         public void SetUpTest()
         {
-            this.browser = !TestConfig.UseExistingInstallation ? TestSetup.IEInstance : new IE();
+            this.browser = !TestConfig.UseExistingInstallation ? TestSetup._testBase.IEInstance : new IE();
 
             this.browser.ShowWindow(NativeMethods.WindowShowStyle.Maximize);
 
@@ -71,12 +71,15 @@ namespace YAF.Tests.UserTests.UserSettings
         public void Select_Avatar_From_Collection_Test()
         {
             // Go to Modify Avatar Page
-            this.browser.GoTo("{0}yaf_cp_editavatar.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}cp_editavatar.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(this.browser.ContainsText("Modify Avatar"), "Modify Avatar is not available for that User");
 
             // Select an Avatar from the Avatar Collection
-            Assert.IsTrue(this.browser.ContainsText("Select your Avatar from our Collection"), "Avatar Collection not available");
+            Assert.IsTrue(
+                this.browser.ContainsText("Select your Avatar from our Collection"),
+                "Avatar Collection not available");
 
             this.browser.Link(Find.ById(new Regex("_ProfileEditor_OurAvatar"))).Click();
 
@@ -96,14 +99,18 @@ namespace YAF.Tests.UserTests.UserSettings
         public void Select_Avatar_From_Remote_Server_Test()
         {
             // Go to Modify Avatar Page
-            this.browser.GoTo("{0}yaf_cp_editavatar.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}cp_editavatar.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(this.browser.ContainsText("Modify Avatar"), "Modify Avatar is not available for that User");
 
-            Assert.IsTrue(this.browser.ContainsText("Enter URL of Avatar on Remote Server to Use"), "Remote Avatar Url disabled");
+            Assert.IsTrue(
+                this.browser.ContainsText("Enter URL of Avatar on Remote Server to Use"),
+                "Remote Avatar Url disabled");
 
             // Enter Test Avatar
-            this.browser.TextField(Find.ById(new Regex("_ProfileEditor_Avatar"))).TypeText("http://www.gravatar.com/avatar/00000000000000000000000000000000");
+            this.browser.TextField(Find.ById(new Regex("_ProfileEditor_Avatar")))
+                .TypeText("http://www.gravatar.com/avatar/00000000000000000000000000000000");
 
             this.browser.Button(Find.ById(new Regex("_ProfileEditor_UpdateRemote"))).Click();
 
@@ -117,7 +124,8 @@ namespace YAF.Tests.UserTests.UserSettings
         public void Upload_Avatar_From_Computer_Test()
         {
             // Go to Modify Avatar Page
-            this.browser.GoTo("{0}yaf_cp_editavatar.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}cp_editavatar.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(this.browser.ContainsText("Modify Avatar"), "Modify Avatar is not available for that User");
 

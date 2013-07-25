@@ -51,7 +51,7 @@ namespace YAF.Tests.UserTests.UserSettings
         [TestFixtureSetUp]
         public void SetUpTest()
         {
-            this.browser = !TestConfig.UseExistingInstallation ? TestSetup.IEInstance : new IE();
+            this.browser = !TestConfig.UseExistingInstallation ? TestSetup._testBase.IEInstance : new IE();
 
             this.browser.ShowWindow(NativeMethods.WindowShowStyle.Maximize);
 
@@ -73,16 +73,20 @@ namespace YAF.Tests.UserTests.UserSettings
         [Test]
         public void Send_Private_Message_Test()
         {
-            this.browser.GoTo("{0}yaf_cp_pm.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}cp_pm.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
-            Assert.IsTrue(this.browser.ContainsText("Archive"), "Private Message Function is not available for that User, or is disabled");
+            Assert.IsTrue(
+                this.browser.ContainsText("Archive"),
+                "Private Message Function is not available for that User, or is disabled");
 
             var testMessage = "This is an automated Test Message generated at {0}".FormatWith(DateTime.UtcNow);
 
             Assert.IsTrue(this.SendPrivateMessage(testMessage), "Test Message Send Failed");
 
             // Read Message
-            this.browser.GoTo("{0}yaf_cp_pm.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}cp_pm.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             // Get First Message
             this.browser.Link(Find.ByText("Testmessage")).Click();
@@ -96,9 +100,12 @@ namespace YAF.Tests.UserTests.UserSettings
         [Test]
         public void Archive_Private_Message_Test()
         {
-            this.browser.GoTo("{0}yaf_cp_pm.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}cp_pm.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
-            Assert.IsTrue(this.browser.ContainsText("Archive"), "Private Message Function is not available for that User, or is disabled");
+            Assert.IsTrue(
+                this.browser.ContainsText("Archive"),
+                "Private Message Function is not available for that User, or is disabled");
 
             // Select the First Message
             this.browser.CheckBox(Find.ById(new Regex("_ItemCheck_0"))).Click();
@@ -116,9 +123,12 @@ namespace YAF.Tests.UserTests.UserSettings
         [Test]
         public void Export_Private_Message_Test()
         {
-            this.browser.GoTo("{0}yaf_cp_pm.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}cp_pm.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
-            Assert.IsTrue(this.browser.ContainsText("Archive"), "Private Message Function is not available for that User, or is disabled");
+            Assert.IsTrue(
+                this.browser.ContainsText("Archive"),
+                "Private Message Function is not available for that User, or is disabled");
 
             this.browser.Link(Find.ByText("Sent Items")).Click();
 
@@ -145,7 +155,7 @@ namespace YAF.Tests.UserTests.UserSettings
             {
                 Assert.Pass("Test Currently doesn't work in IE9");
             }
-            
+
             var file = new FileStream(Path.Combine(filePath, "textExport.txt"), FileMode.Open, FileAccess.Read);
             var sr = new StreamReader(file);
             var fileContent = sr.ReadToEnd();
@@ -153,7 +163,9 @@ namespace YAF.Tests.UserTests.UserSettings
             sr.Close();
             file.Close();
 
-            Assert.IsTrue(fileContent.Contains("This is an automtated Test Message generated at ."), "Message Export Failed");
+            Assert.IsTrue(
+                fileContent.Contains("This is an automtated Test Message generated at ."),
+                "Message Export Failed");
         }
 
         /// <summary>
@@ -162,9 +174,12 @@ namespace YAF.Tests.UserTests.UserSettings
         [Test]
         public void Delete_Private_Message_Test()
         {
-            this.browser.GoTo("{0}yaf_cp_pm.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}cp_pm.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
-            Assert.IsTrue(this.browser.ContainsText("Archive"), "Private Message Function is not available for that User, or is disabled");
+            Assert.IsTrue(
+                this.browser.ContainsText("Archive"),
+                "Private Message Function is not available for that User, or is disabled");
 
             // Select the First Message
             this.browser.CheckBox(Find.ById(new Regex("_ItemCheck_0"))).Click();

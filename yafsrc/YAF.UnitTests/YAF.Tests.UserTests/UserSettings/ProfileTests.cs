@@ -47,7 +47,7 @@ namespace YAF.Tests.UserTests.UserSettings
         [TestFixtureSetUp]
         public void SetUpTest()
         {
-            this.browser = !TestConfig.UseExistingInstallation ? TestSetup.IEInstance : new IE();
+            this.browser = !TestConfig.UseExistingInstallation ? TestSetup._testBase.IEInstance : new IE();
 
             this.browser.ShowWindow(NativeMethods.WindowShowStyle.Maximize);
 
@@ -69,11 +69,14 @@ namespace YAF.Tests.UserTests.UserSettings
         [Test]
         public void Change_Forum_Language_Test()
         {
-            this.browser.GoTo("{0}yaf_cp_editprofile.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}cp_editprofile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(this.browser.ContainsText("Edit Profile"), "Edit Profile is not available for that User");
 
-            Assert.IsTrue(this.browser.ContainsText("What language do you want to use"), "Changing the Language is disabled for Users");
+            Assert.IsTrue(
+                this.browser.ContainsText("What language do you want to use"),
+                "Changing the Language is disabled for Users");
 
             // Switch Language to German
             this.browser.SelectList(Find.ById(new Regex("_ProfileEditor_Culture"))).SelectByValue("de-DE");
@@ -85,7 +88,8 @@ namespace YAF.Tests.UserTests.UserSettings
 
             Assert.IsTrue(this.browser.ContainsText("Angemeldet als"), "Changing Language failed");
 
-            this.browser.GoTo("{0}yaf_cp_editprofile.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}cp_editprofile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             // Switch Language Back to English
             this.browser.SelectList(Find.ById(new Regex("_ProfileEditor_Culture"))).SelectByValue("en-US");
@@ -100,11 +104,14 @@ namespace YAF.Tests.UserTests.UserSettings
         [Test]
         public void Change_Forum_Theme_Test()
         {
-            this.browser.GoTo("{0}yaf_cp_editprofile.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}cp_editprofile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(this.browser.ContainsText("Edit Profile"), "Edit Profile is not available for that User");
 
-            Assert.IsTrue(this.browser.ContainsText("Select your preferred theme"), "Changing the Theme is disabled for Users");
+            Assert.IsTrue(
+                this.browser.ContainsText("Select your preferred theme"),
+                "Changing the Theme is disabled for Users");
 
             // Switch Theme to "Black Grey"
             this.browser.SelectList(Find.ById(new Regex("_ProfileEditor_Theme"))).SelectByValue("BlackGrey.xml");
@@ -114,9 +121,12 @@ namespace YAF.Tests.UserTests.UserSettings
 
             this.browser.Refresh();
 
-            Assert.IsNotNull(this.browser.Link(Find.ByUrl(new Regex("Themes/BlackGrey/theme.css"))), "Changing Forum Theme failed");
+            Assert.IsNotNull(
+                this.browser.Link(Find.ByUrl(new Regex("Themes/BlackGrey/theme.css"))),
+                "Changing Forum Theme failed");
 
-            this.browser.GoTo("{0}yaf_cp_editprofile.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}cp_editprofile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             // Switch Theme Back to Clean Slate
             this.browser.SelectList(Find.ById(new Regex("_ProfileEditor_Theme"))).SelectByValue("cleanSlate.xml");
@@ -124,7 +134,9 @@ namespace YAF.Tests.UserTests.UserSettings
             // Save the Profile Changes
             this.browser.Button(Find.ById(new Regex("_ProfileEditor_UpdateProfile"))).Click();
 
-            Assert.IsNotNull(this.browser.Link(Find.ByUrl(new Regex("Themes/cleanSlate/theme.css"))), "Changing Forum Theme failed");
+            Assert.IsNotNull(
+                this.browser.Link(Find.ByUrl(new Regex("Themes/cleanSlate/theme.css"))),
+                "Changing Forum Theme failed");
         }
 
         /// <summary>
@@ -133,12 +145,14 @@ namespace YAF.Tests.UserTests.UserSettings
         [Test]
         public void Change_Forum_User_TextEditor_Test()
         {
-            this.browser.GoTo("{0}yaf_cp_editprofile.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}cp_editprofile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(this.browser.ContainsText("Edit Profile"), "Edit Profile is not available for that User");
 
             Assert.IsTrue(
-                this.browser.ContainsText("Select your text editor"), "Changing the TextEditor is disabled for Users");
+                this.browser.ContainsText("Select your text editor"),
+                "Changing the TextEditor is disabled for Users");
 
             // Switch Editor to CKEditor (BBCode)
             this.browser.SelectList(Find.ById(new Regex("ProfileEditor_ForumEditor"))).SelectByValue("-1743422651");
@@ -147,12 +161,17 @@ namespace YAF.Tests.UserTests.UserSettings
             this.browser.Button(Find.ById(new Regex("_ProfileEditor_UpdateProfile"))).Click();
 
             // Check if Editor Is Correct
-            this.browser.GoTo("{0}yaf_postmessage.aspx?f={1}".FormatWith(TestConfig.TestForumUrl, TestConfig.TestForumID));
+            this.browser.GoTo(
+                "{0}{2}postmessage.aspx?f={1}".FormatWith(
+                    TestConfig.TestForumUrl,
+                    TestConfig.TestForumID,
+                    TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsNotNull(this.browser.Table(Find.ByClass("cke_editor")), "Changing Text Editor Failed failed");
 
             // Switch Editor Back
-            this.browser.GoTo("{0}yaf_cp_editprofile.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}cp_editprofile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             this.browser.SelectList(Find.ById(new Regex("ProfileEditor_ForumEditor"))).SelectByValue("1");
 
@@ -169,11 +188,14 @@ namespace YAF.Tests.UserTests.UserSettings
         [Test]
         public void Change_User_Email_Address_Test()
         {
-            this.browser.GoTo("{0}yaf_cp_editprofile.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}cp_editprofile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(this.browser.ContainsText("Edit Profile"), "Edit Profile is not available for that User");
 
-            Assert.IsTrue(this.browser.ContainsText("Change Email Address"), "Changing the Email Address is disabled for Users");
+            Assert.IsTrue(
+                this.browser.ContainsText("Change Email Address"),
+                "Changing the Email Address is disabled for Users");
 
             // Switch Theme to "Black Grey"
             var emailInput = this.browser.TextField(Find.ById(new Regex("_ProfileEditor_Email")));
@@ -186,11 +208,13 @@ namespace YAF.Tests.UserTests.UserSettings
             // Save the Profile Changes
             this.browser.Button(Find.ById(new Regex("_ProfileEditor_UpdateProfile"))).Click();
 
-            this.browser.GoTo("{0}yaf_cp_profile.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}cp_profile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(this.browser.ContainsText(NewEmailAddress), "Email Address Changing failed");
 
-            this.browser.GoTo("{0}yaf_cp_editprofile.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}cp_editprofile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             // Switch Email Address back
             this.browser.TextField(Find.ById(new Regex("_ProfileEditor_Email"))).TypeText(oldEmailAddress);
@@ -198,7 +222,8 @@ namespace YAF.Tests.UserTests.UserSettings
             // Save the Profile Changes
             this.browser.Button(Find.ById(new Regex("_ProfileEditor_UpdateProfile"))).Click();
 
-            this.browser.GoTo("{0}yaf_cp_profile.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}cp_profile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(this.browser.ContainsText(oldEmailAddress), "Email Address Changing back failed");
         }
@@ -209,7 +234,8 @@ namespace YAF.Tests.UserTests.UserSettings
         [Test]
         public void Set_User_Birthday_Test()
         {
-            this.browser.GoTo("{0}yaf_cp_editprofile.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}cp_editprofile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(this.browser.ContainsText("Edit Profile"), "Edit Profile is not available for that User");
 
@@ -236,9 +262,11 @@ namespace YAF.Tests.UserTests.UserSettings
 
             this.browser.Refresh();
 
-            this.browser.GoTo("{0}yaf_cp_editprofile.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}cp_editprofile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
-            Assert.IsTrue(this.browser.TextField(Find.ById(new Regex("_ProfileEditor_Birthday"))).Text.Equals("10/12/1982"));
+            Assert.IsTrue(
+                this.browser.TextField(Find.ById(new Regex("_ProfileEditor_Birthday"))).Text.Equals("10/12/1982"));
 
             // Change Back
             birthdayInput.TypeText("1/1/2001");
@@ -251,7 +279,8 @@ namespace YAF.Tests.UserTests.UserSettings
         [Test]
         public void Set_User_Country_And_Region_Test()
         {
-            this.browser.GoTo("{0}yaf_cp_editprofile.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0{1}cp_editprofile.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(this.browser.ContainsText("Edit Profile"), "Edit Profile is not available for that User");
 

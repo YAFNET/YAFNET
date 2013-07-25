@@ -48,7 +48,7 @@ namespace YAF.Tests.UserTests.Features
         [TestFixtureSetUp]
         public void SetUpTest()
         {
-            this.browser = !TestConfig.UseExistingInstallation ? TestSetup.IEInstance : new IE();
+            this.browser = !TestConfig.UseExistingInstallation ? TestSetup._testBase.IEInstance : new IE();
 
             this.browser.ShowWindow(NativeMethods.WindowShowStyle.Maximize);
         }
@@ -71,14 +71,20 @@ namespace YAF.Tests.UserTests.Features
         {
             this.LoginAdminUser();
 
-            this.browser.GoTo("{0}yaf_cp_editbuddies.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}cp_editbuddies.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
-            Assert.IsTrue(this.browser.ContainsText("Pending Requests"), "My Buddies function is not available for that User, or is disabled for that Forum");
+            Assert.IsTrue(
+                this.browser.ContainsText("Pending Requests"),
+                "My Buddies function is not available for that User, or is disabled for that Forum");
 
             // Go to Members Page and Find the Test User 
-            this.browser.GoTo("{0}yaf_members.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}members.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
-            Assert.IsTrue(this.browser.ContainsText("Search Members"), "Members List View Permissions needs to be disabled.");
+            Assert.IsTrue(
+                this.browser.ContainsText("Search Members"),
+                "Members List View Permissions needs to be disabled.");
 
             this.browser.TextField(Find.ById(new Regex("_UserSearchName"))).TypeText(TestConfig.TestUserName);
 
@@ -90,7 +96,9 @@ namespace YAF.Tests.UserTests.Features
 
             Assert.IsFalse(this.browser.ContainsText("Remove Buddy"), "User is already a Buddy");
 
-            Assert.IsTrue(this.browser.ContainsText("Add as buddy"), "My Buddies function is not available for that User, or is disabled for that Forum");
+            Assert.IsTrue(
+                this.browser.ContainsText("Add as buddy"),
+                "My Buddies function is not available for that User, or is disabled for that Forum");
 
             this.browser.Link(Find.ById(new Regex("_lnkBuddy"))).Click();
 
@@ -107,16 +115,22 @@ namespace YAF.Tests.UserTests.Features
         {
             Assert.IsTrue(this.LoginUser(), "Login failed");
 
-            this.browser.GoTo("{0}yaf_cp_editbuddies.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}cp_editbuddies.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
-            Assert.IsTrue(this.browser.ContainsText("Pending Requests"), "My Buddies function is not available for that User, or is disabled for that Forum");
+            Assert.IsTrue(
+                this.browser.ContainsText("Pending Requests"),
+                "My Buddies function is not available for that User, or is disabled for that Forum");
 
             this.browser.Link(Find.ByText("Pending Requests")).Click();
 
             // Select the First Request
             this.browser.Link(Find.ByText("Approve")).Click();
 
-            Assert.IsTrue(this.browser.ContainsText("You have been added to {0}'s buddy list.".FormatWith(TestConfig.AdminUserName)), "Approve Buddy Failed");
+            Assert.IsTrue(
+                this.browser.ContainsText(
+                    "You have been added to {0}'s buddy list.".FormatWith(TestConfig.AdminUserName)),
+                "Approve Buddy Failed");
 
             this.browser.Button(Find.ById(new Regex("_OkButton"))).Click();
         }
@@ -129,9 +143,12 @@ namespace YAF.Tests.UserTests.Features
         {
             Assert.IsTrue(this.LoginUser(), "Login failed");
 
-            this.browser.GoTo("{0}yaf_cp_editbuddies.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}cp_editbuddies.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
-            Assert.IsTrue(this.browser.ContainsText("Pending Requests"), "My Buddies function is not available for that User, or is disabled for that Forum");
+            Assert.IsTrue(
+                this.browser.ContainsText("Pending Requests"),
+                "My Buddies function is not available for that User, or is disabled for that Forum");
 
             this.browser.Link(Find.ByText("Pending Requests")).Click();
 
@@ -160,16 +177,21 @@ namespace YAF.Tests.UserTests.Features
         {
             Assert.IsTrue(this.LoginUser(), "Login failed");
 
-            this.browser.GoTo("{0}yaf_cp_editbuddies.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}cp_editbuddies.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
-            Assert.IsTrue(this.browser.ContainsText("Pending Requests"), "My Buddies function is not available for that User, or is disabled for that Forum");
+            Assert.IsTrue(
+                this.browser.ContainsText("Pending Requests"),
+                "My Buddies function is not available for that User, or is disabled for that Forum");
 
             this.browser.Link(Find.ByText("Pending Requests")).Click();
 
             // Select the First Request
             this.browser.Link(Find.ByText("Approve and Add")).Click();
 
-            Assert.IsTrue(this.browser.ContainsText("You and {0} are now buddies.".FormatWith(TestConfig.AdminUserName)), "Approve and Add Buddy Failed");
+            Assert.IsTrue(
+                this.browser.ContainsText("You and {0} are now buddies.".FormatWith(TestConfig.AdminUserName)),
+                "Approve and Add Buddy Failed");
 
             this.browser.Button(Find.ById(new Regex("_OkButton"))).Click();
         }
@@ -182,9 +204,12 @@ namespace YAF.Tests.UserTests.Features
         {
             Assert.IsTrue(this.LoginUser(), "Login failed");
 
-            this.browser.GoTo("{0}yaf_cp_editbuddies.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}cp_editbuddies.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
-            Assert.IsTrue(this.browser.ContainsText("Pending Requests"), "My Buddies function is not available for that User, or is disabled for that Forum");
+            Assert.IsTrue(
+                this.browser.ContainsText("Pending Requests"),
+                "My Buddies function is not available for that User, or is disabled for that Forum");
 
             // Select the Newest Buddy
             var delete = this.browser.Link(Find.ById(new Regex("_BuddyList1_rptBuddy_lnkRemove_0")));

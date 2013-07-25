@@ -52,7 +52,7 @@ namespace YAF.Tests.UserTests.Authentification
         [TestFixtureSetUp]
         public void SetUp()
         {
-            this.browser = !TestConfig.UseExistingInstallation ? TestSetup.IEInstance : new IE();
+            this.browser = !TestConfig.UseExistingInstallation ? TestSetup._testBase.IEInstance : new IE();
 
             this.browser.ShowWindow(NativeMethods.WindowShowStyle.Maximize);
         }
@@ -72,7 +72,8 @@ namespace YAF.Tests.UserTests.Authentification
         [Test]
         public void Login_Page_User_Test()
         {
-            this.browser.GoTo("{0}yaf_login.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}login.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             if (this.browser.Link(Find.ById(new Regex("_LogOutButton"))).Exists)
             {
@@ -82,7 +83,8 @@ namespace YAF.Tests.UserTests.Authentification
                 this.browser.Button(Find.ById(new Regex("_OkButton"))).Click();
             }
 
-            this.browser.GoTo("{0}yaf_login.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}login.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             this.browser.TextField(Find.ById(new Regex("Login1_UserName"))).TypeText(TestConfig.TestUserName);
             this.browser.TextField(Find.ById(new Regex("Login1_Password"))).TypeText(TestConfig.TestUserPassword);

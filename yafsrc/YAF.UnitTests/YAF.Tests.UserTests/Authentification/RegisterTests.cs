@@ -80,9 +80,10 @@ namespace YAF.Tests.UserTests.Authentification
         [Test]
         public void Register_Random_New_User_Test()
         {
-            this.browser = !TestConfig.UseExistingInstallation ? TestSetup.IEInstance : new IE();
+            this.browser = !TestConfig.UseExistingInstallation ? TestSetup._testBase.IEInstance : new IE();
 
-            this.browser.GoTo("{0}yaf_register.aspx".FormatWith(TestConfig.TestForumUrl));
+            this.browser.GoTo(
+                "{0}{1}register.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             // Create New Random Test User
             var random = new Random();
@@ -127,6 +128,55 @@ namespace YAF.Tests.UserTests.Authentification
             this.browser.Button(Find.ById(new Regex("ProfileNextButton"))).Click();
 
             Assert.IsTrue(this.browser.ContainsText("Logged in as:"), "Registration failed");
+        }
+
+        /// <summary>
+        /// Register Random Test User Test
+        /// </summary>
+        [Test]
+        public void Register_Bot_User_Test()
+        {
+            this.browser = !TestConfig.UseExistingInstallation ? TestSetup._testBase.IEInstance : new IE();
+
+            this.browser.GoTo(
+                "{0}{1}register.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+
+            var userName = "aqiuliqemi";
+            var email = "ikocec@coveryourpills.org";
+
+            this.browser.ShowWindow(NativeMethods.WindowShowStyle.Maximize);
+
+            // Check if Registrations are Disabled
+            Assert.IsFalse(this.browser.ContainsText("You tried to enter an area where you didn't have access"), "Registrations are disabled");
+
+            // Accept the Rules
+            if (this.browser.ContainsText("Forum Rules"))
+            {
+                this.browser.Button(Find.ById("forum_ctl04_Login1_LoginButton")).Click();
+                this.browser.Refresh();
+            }
+
+            Assert.IsFalse(this.browser.ContainsText("Security Image"), "Captchas needs to be disabled in order to run the tests");
+
+            // Fill the Register Page
+            this.browser.TextField(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_UserName"))).TypeText(
+                userName);
+
+            if (this.browser.ContainsText("Display Name"))
+            {
+                this.browser.TextField(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_DisplayName"))).TypeText(userName);
+            }
+
+            this.browser.TextField(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_Password"))).TypeText(TestConfig.TestUserPassword);
+            this.browser.TextField(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_ConfirmPassword"))).TypeText(TestConfig.TestUserPassword);
+            this.browser.TextField(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_Email"))).TypeText(email);
+            this.browser.TextField(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_Question"))).TypeText(TestConfig.TestUserPassword);
+            this.browser.TextField(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_Answer"))).TypeText(TestConfig.TestUserPassword);
+
+            // Create User
+            this.browser.Button(Find.ById(new Regex("CreateUserWizard1_CreateUserStepContainer_StepNextButton"))).Click();
+
+            Assert.IsTrue(this.browser.ContainsText("Sorry Spammers are not allowed in the Forum!"), "Spam Check Failed");
         }
     }
 }

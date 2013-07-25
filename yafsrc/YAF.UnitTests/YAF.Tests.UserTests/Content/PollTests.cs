@@ -53,7 +53,7 @@ namespace YAF.Tests.UserTests.Content
         [TestFixtureSetUp]
         public void SetUpTest()
         {
-            this.browser = !TestConfig.UseExistingInstallation ? TestSetup.IEInstance : new IE();
+            this.browser = !TestConfig.UseExistingInstallation ? TestSetup._testBase.IEInstance : new IE();
 
             this.browser.ShowWindow(NativeMethods.WindowShowStyle.Maximize);
 
@@ -139,7 +139,9 @@ namespace YAF.Tests.UserTests.Content
             }
 
             // Now Login with Test User 2
-            Assert.IsTrue(this.LoginUser(TestConfig.TestUserName2, TestConfig.TestUser2Password), "Login with test user 2 failed");
+            Assert.IsTrue(
+                this.LoginUser(TestConfig.TestUserName2, TestConfig.TestUser2Password),
+                "Login with test user 2 failed");
 
             // Go To New Test Topic Url
             this.browser.GoTo(this.testPollTopicUrl);
@@ -165,7 +167,9 @@ namespace YAF.Tests.UserTests.Content
             }
 
             // Now Login with Test User 2
-            Assert.IsTrue(this.LoginUser(TestConfig.TestUserName2, TestConfig.TestUser2Password), "Login with test user 2 failed");
+            Assert.IsTrue(
+                this.LoginUser(TestConfig.TestUserName2, TestConfig.TestUser2Password),
+                "Login with test user 2 failed");
 
             // Go To New Test Topic Url
             this.browser.GoTo(this.testPollTopicUrl);
@@ -222,7 +226,8 @@ namespace YAF.Tests.UserTests.Content
         /// and Answer Choices contains images test.
         /// </summary>
         [Test]
-        [NUnit.Framework.Description("Create a new Topic with Poll where the Poll Question and Answer Choices contains images test.")]
+        [NUnit.Framework.Description(
+            "Create a new Topic with Poll where the Poll Question and Answer Choices contains images test.")]
         public void Create_Poll_With_Image_Options_Test()
         {
             // Now Login with Test User 2
@@ -230,14 +235,14 @@ namespace YAF.Tests.UserTests.Content
                 this.LoginUser(TestConfig.AdminUserName, TestConfig.AdminPassword),
                 "Login with admin user failed failed");
 
-            this.browser.GoTo("http://192.168.2.10/yaf/yaf_postst75_Auto-Created-Test-Topic-with-Poll.aspx");
-
             this.CreatePollTopicTest(allowMultiVote: false, addPollImages: true);
 
             Assert.IsTrue(this.browser.Image(Find.ById(new Regex("_ChoiceImage_2"))).Exists, "Image Not Found");
+
+            var choiceImage2 = this.browser.Image(Find.ById(new Regex("_ChoiceImage_2"))).Uri.ToType<string>();
+
             Assert.IsTrue(
-                this.browser.Image(Find.ById(new Regex("_ChoiceImage_2"))).Uri.Equals(
-                    "http://ssl.bulix.org/projects/tig/raw-attachment/wiki/WikiStart/tig.png"),
+                choiceImage2.Equals("http://ssl.bulix.org/projects/tig/raw-attachment/wiki/WikiStart/tig.png"),
                 "Image Url does not match");
         }
 
@@ -249,7 +254,11 @@ namespace YAF.Tests.UserTests.Content
         private void CreatePollTopicTest(bool allowMultiVote, bool addPollImages)
         {
             // Go to Post New Topic
-            this.browser.GoTo("{0}yaf_postmessage.aspx?f={1}".FormatWith(TestConfig.TestForumUrl, TestConfig.TestForumID));
+            this.browser.GoTo(
+                "{0}{2}postmessage.aspx?f={1}".FormatWith(
+                    TestConfig.TestForumUrl,
+                    TestConfig.TestForumID,
+                    TestConfig.ForumUrlRewritingPrefix));
 
             Assert.IsTrue(this.browser.ContainsText("Post New Topic"), "Post New Topic not possible");
 
@@ -259,7 +268,8 @@ namespace YAF.Tests.UserTests.Content
             this.browser.CheckBox(Find.ById(new Regex("_AddPollCheckBox"))).Click();
 
             // Create New Poll Topic
-            this.browser.TextField(Find.ById(new Regex("_TopicSubjectTextBox"))).TypeText("Auto Created Test Topic with Poll");
+            this.browser.TextField(Find.ById(new Regex("_TopicSubjectTextBox")))
+                .TypeText("Auto Created Test Topic with Poll");
 
             if (this.browser.ContainsText("Description"))
             {
@@ -271,7 +281,8 @@ namespace YAF.Tests.UserTests.Content
                 this.browser.SelectList(Find.ById(new Regex("_TopicStatus"))).SelectByValue("QUESTION");
             }
 
-            this.browser.TextField(Find.ById(new Regex("_YafTextEditor"))).TypeText("This is a test topic to test the Poll Creating");
+            this.browser.TextField(Find.ById(new Regex("_YafTextEditor")))
+                .TypeText("This is a test topic to test the Poll Creating");
 
             // Post New Topic
             this.browser.Link(Find.ById(new Regex("_PostReply"))).Click();
@@ -284,8 +295,8 @@ namespace YAF.Tests.UserTests.Content
             // Enter Poll Question Image if exists
             if (this.browser.TextField(Find.ById(new Regex("_QuestionObjectPath"))).Exists && addPollImages)
             {
-                this.browser.TextField(Find.ById(new Regex("_QuestionObjectPath"))).TypeText(
-                    "http://download.codeplex.com/Download?ProjectName=yafnet&DownloadId=167900&Build=18559");
+                this.browser.TextField(Find.ById(new Regex("_QuestionObjectPath")))
+                    .TypeText("http://download.codeplex.com/Download?ProjectName=yafnet&DownloadId=167900&Build=18559");
             }
 
             // Enter Poll Answer Choice 1
@@ -294,8 +305,8 @@ namespace YAF.Tests.UserTests.Content
             // Enter Poll Question Image if exists
             if (this.browser.TextField(Find.ById(new Regex("_ObjectPath_0"))).Exists)
             {
-                this.browser.TextField(Find.ById(new Regex("_ObjectPath_0"))).TypeText(
-                    "http://ssl.bulix.org/projects/tig/raw-attachment/wiki/WikiStart/tig.png");
+                this.browser.TextField(Find.ById(new Regex("_ObjectPath_0")))
+                    .TypeText("http://ssl.bulix.org/projects/tig/raw-attachment/wiki/WikiStart/tig.png");
             }
 
             // Enter Poll Answer Choice 2
@@ -304,8 +315,8 @@ namespace YAF.Tests.UserTests.Content
             // Enter Poll Question Image if exists
             if (this.browser.TextField(Find.ById(new Regex("_ObjectPath_1"))).Exists && addPollImages)
             {
-                this.browser.TextField(Find.ById(new Regex("_ObjectPath_1"))).TypeText(
-                    "http://ssl.bulix.org/projects/tig/raw-attachment/wiki/WikiStart/tig.png");
+                this.browser.TextField(Find.ById(new Regex("_ObjectPath_1")))
+                    .TypeText("http://ssl.bulix.org/projects/tig/raw-attachment/wiki/WikiStart/tig.png");
             }
 
             // Enter Poll Answer Choice 3
@@ -314,8 +325,8 @@ namespace YAF.Tests.UserTests.Content
             // Enter Poll Question Image if exists
             if (this.browser.TextField(Find.ById(new Regex("_ObjectPath_2"))).Exists && addPollImages)
             {
-                this.browser.TextField(Find.ById(new Regex("_ObjectPath_2"))).TypeText(
-                    "http://ssl.bulix.org/projects/tig/raw-attachment/wiki/WikiStart/tig.png");
+                this.browser.TextField(Find.ById(new Regex("_ObjectPath_2")))
+                    .TypeText("http://ssl.bulix.org/projects/tig/raw-attachment/wiki/WikiStart/tig.png");
             }
 
             // Enter Poll Answer Choice 4
@@ -324,8 +335,8 @@ namespace YAF.Tests.UserTests.Content
             // Enter Poll Question Image if exists
             if (this.browser.TextField(Find.ById(new Regex("_ObjectPath_3"))).Exists && addPollImages)
             {
-                this.browser.TextField(Find.ById(new Regex("_ObjectPath_3"))).TypeText(
-                    "http://ssl.bulix.org/projects/tig/raw-attachment/wiki/WikiStart/tig.png");
+                this.browser.TextField(Find.ById(new Regex("_ObjectPath_3")))
+                    .TypeText("http://ssl.bulix.org/projects/tig/raw-attachment/wiki/WikiStart/tig.png");
             }
 
             // Enter Poll Answer Choice 5
@@ -334,8 +345,8 @@ namespace YAF.Tests.UserTests.Content
             // Enter Poll Question Image if exists
             if (this.browser.TextField(Find.ById(new Regex("_ObjectPath_4"))).Exists && addPollImages)
             {
-                this.browser.TextField(Find.ById(new Regex("_ObjectPath_5"))).TypeText(
-                    "http://ssl.bulix.org/projects/tig/raw-attachment/wiki/WikiStart/tig.png");
+                this.browser.TextField(Find.ById(new Regex("_ObjectPath_5")))
+                    .TypeText("http://ssl.bulix.org/projects/tig/raw-attachment/wiki/WikiStart/tig.png");
             }
 
             if (allowMultiVote)

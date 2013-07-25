@@ -63,6 +63,7 @@ namespace YAF.Tests.BasicTests
         /// </summary>
         [TestMethod]
         [Description("The container is available to send digest in background.")]
+        [Ignore]
         public void Container_Is_Available_To_Send_Digest_In_Background()
         {
             var sendTask = new DigestSendTask();

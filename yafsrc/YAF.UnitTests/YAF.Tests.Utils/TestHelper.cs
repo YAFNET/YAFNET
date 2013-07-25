@@ -43,7 +43,7 @@ namespace YAF.Tests.Utils
         /// </returns>
         public static bool RegisterStandardTestUser(IE browser, string userName, string password)
         {
-            browser.GoTo("{0}yaf_register.aspx".FormatWith(TestConfig.TestForumUrl));
+            browser.GoTo("{0}{1}register.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             var email = "{0}@test.com".FormatWith(userName.ToLower());
 
@@ -107,7 +107,7 @@ namespace YAF.Tests.Utils
         public static bool LoginUser(IE browser, string userName, string userPassword)
         {
             // Login User
-            browser.GoTo("{0}yaf_login.aspx".FormatWith(TestConfig.TestForumUrl));
+            browser.GoTo("{0}{1}login.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
 
             // Check If User is already Logged In
             if (browser.Link(Find.ById(new Regex("_LogOutButton"))).Exists)
@@ -115,9 +115,9 @@ namespace YAF.Tests.Utils
                 browser.Link(Find.ById("forum_ctl01_LogOutButton")).Click();
 
                 browser.Button(Find.ById("forum_ctl02_OkButton")).Click();
-            }
 
-            browser.GoTo("{0}yaf_login.aspx".FormatWith(TestConfig.TestForumUrl));
+                browser.GoTo("{0}{1}login.aspx".FormatWith(TestConfig.TestForumUrl, TestConfig.ForumUrlRewritingPrefix));
+            }
 
             browser.ShowWindow(NativeMethods.WindowShowStyle.Maximize);
 
