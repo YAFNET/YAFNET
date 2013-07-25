@@ -50,7 +50,7 @@ if not exists(select top 1 1 from dbo.sysindexes where name=N'IX_{objectQualifie
  CREATE  INDEX [IX_{objectQualifier}Message_Flags] ON [{databaseOwner}].[{objectQualifier}Message]([Flags])
 go
 
-IF  NOT EXISTS (SELECT 1 FROM dbo.sys.indexes WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Message]') AND name = N'IX_{objectQualifier}Message_Posted_Desc')
+IF  NOT EXISTS (SELECT 1 FROM sys.indexes WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Message]') AND name = N'IX_{objectQualifier}Message_Posted_Desc')
 CREATE NONCLUSTERED INDEX [IX_{objectQualifier}Message_Posted_Desc] ON [{databaseOwner}].[{objectQualifier}Message] 
 (
 	[Posted] DESC
@@ -182,28 +182,28 @@ CREATE  INDEX [IX_{objectQualifier}FavoriteTopic_UserID] ON [{databaseOwner}].[{
 )
 GO
 
-IF  NOT EXISTS (SELECT 1 FROM dbo.sys.indexes WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Topic]') AND name = N'IX_{objectQualifier}Topic_LastPosted_Desc')
+IF  NOT EXISTS (SELECT 1 FROM sys.indexes WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Topic]') AND name = N'IX_{objectQualifier}Topic_LastPosted_Desc')
 CREATE NONCLUSTERED INDEX [IX_{objectQualifier}Topic_LastPosted_Desc] ON [{databaseOwner}].[{objectQualifier}Topic] 
 (
 	[LastPosted] DESC
 ) ON [PRIMARY]
 GO
 
-IF  NOT EXISTS (SELECT 1 FROM dbo.sys.indexes WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Group]') AND name = N'IX_{objectQualifier}Group_SortOrder')
+IF  NOT EXISTS (SELECT 1 FROM sys.indexes WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Group]') AND name = N'IX_{objectQualifier}Group_SortOrder')
 CREATE NONCLUSTERED INDEX [IX_{objectQualifier}Group_SortOrder] ON [{databaseOwner}].[{objectQualifier}Group] 
 (
 	[SortOrder] ASC
 ) ON [PRIMARY]
 GO
 
-IF  NOT EXISTS (SELECT 1 FROM dbo.sys.indexes WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Group]') AND name = N'IX_{objectQualifier}Group_Style')
+IF  NOT EXISTS (SELECT 1 FROM sys.indexes WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Group]') AND name = N'IX_{objectQualifier}Group_Style')
 CREATE NONCLUSTERED INDEX [IX_{objectQualifier}Group_Style] ON [{databaseOwner}].[{objectQualifier}Group] 
 (
 	[Style] ASC
 ) ON [PRIMARY]
 GO
 
-IF  NOT EXISTS (SELECT 1 FROM dbo.sys.indexes WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}User]') AND name = N'IX_{objectQualifier}User_DisplayName')
+IF  NOT EXISTS (SELECT 1 FROM sys.indexes WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}User]') AND name = N'IX_{objectQualifier}User_DisplayName')
 CREATE NONCLUSTERED INDEX [IX_{objectQualifier}User_DisplayName] ON [{databaseOwner}].[{objectQualifier}User] 
 (
 	[DisplayName] ASC
