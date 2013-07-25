@@ -8,25 +8,31 @@
 				<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_LANGUAGES" />
 			</td>
 		</tr>
+        <tr>
+            <td style="padding:0">
 		<asp:Repeater runat="server" ID="List">
 			<HeaderTemplate>
-				<tr class="header2">
-                    <td>
-						<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="LANG_NAME" LocalizedPage="ADMIN_LANGUAGES" />
-					</td>
-                    <td>
-						<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="CULTURE_TAG" LocalizedPage="ADMIN_LANGUAGES" />
-					</td>
-                     <td>
-						<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="NATIVE_NAME" LocalizedPage="ADMIN_LANGUAGES" />
-					</td>
-					<td>
-						<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="FILENAME" />
-					</td>
-                    <td>
-						&nbsp;
-					</td>
-				</tr>
+			    <table style="width:100%"  cellspacing="1" cellpadding="0" class="sortable tablesorter">
+                    <thead>
+                        <tr class="header2">
+                            <th>
+                                <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="LANG_NAME" LocalizedPage="ADMIN_LANGUAGES" />
+                            </th>
+                            <th>
+                                <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="CULTURE_TAG" LocalizedPage="ADMIN_LANGUAGES" />
+                            </th>
+                            <th>
+                                <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="NATIVE_NAME" LocalizedPage="ADMIN_LANGUAGES" />
+                            </th>
+                            <th>
+                                <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="FILENAME" />
+                            </th>
+                            <th>
+                                &nbsp;
+                            </th>
+                        </tr>
+                    </thead>
+                <tbody>
 			</HeaderTemplate>
 			<ItemTemplate>
 				<tr class="post">
@@ -43,11 +49,25 @@
 						<%# Eval("CultureFile")%>
 					</td>
                     <td>
-						<asp:LinkButton runat="server" CommandName="edit" CommandArgument='<%# Eval("CultureFile")%>'><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="EDIT" /></asp:LinkButton>
+                        <YAF:ThemeButton ID="btnEdit" 
+                            CssClass="yaflittlebutton" 
+                            CommandName='edit' 
+                            CommandArgument='<%# Eval("CultureFile")%>' 
+                            TitleLocalizedTag="EDIT" 
+                            ImageThemePage="ICONS" 
+                            ImageThemeTag="EDIT_SMALL_ICON" 
+                            runat="server">
+                        </YAF:ThemeButton>
 					</td>
 				</tr>
 			</ItemTemplate>
+            <FooterTemplate>
+                </tbody>
+        </table>
+                </FooterTemplate>
 		</asp:Repeater>
+                </td>
+         </tr>
          <tr>
            <td class="footer1" align="center" colspan="8" style="height:30px"></td>
          </tr>

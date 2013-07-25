@@ -31,6 +31,7 @@ namespace YAF.Pages.Admin
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Utilities;
     using YAF.Utils;
 
     #endregion
@@ -56,10 +57,21 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The page_ load.
+        /// Registers the needed Java Scripts
+        /// </summary>
+        /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
+        protected override void OnPreRender([NotNull] EventArgs e)
+        {
+            this.PageContext.PageElements.RegisterJsResourceInclude("tablesorter", "js/jquery.tablesorter.js");
+
+            base.OnPreRender(e);
+        }
+
+        /// <summary>
+        /// Handles the Load event of the Page control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.IsPostBack)
@@ -83,7 +95,17 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            this.List.DataSource = StaticDataHelper.Cultures();
+            var cultureTable = StaticDataHelper.Cultures();
+
+            this.List.DataSource = cultureTable;
+
+            YafContext.Current.PageElements.RegisterJsBlock(
+               "tablesorterLoadJs",
+               JavaScriptBlocks.LoadTableSorter(
+                   ".sortable",
+                   cultureTable.Rows.Count > 0 ? "headers: { 4: { sorter: false }}" : null));
+
+
             this.DataBind();
         }
 
