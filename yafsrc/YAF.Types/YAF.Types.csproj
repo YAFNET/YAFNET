@@ -110,6 +110,7 @@
     <Compile Include="Models\FileExtension.cs" />
     <Compile Include="Models\EventLog.cs" />
     <Compile Include="Models\ForumReadTracking.cs" />
+    <Compile Include="Models\Group.cs" />
     <Compile Include="Models\Mail.cs" />
     <Compile Include="Models\Medal.cs" />
     <Compile Include="Models\Smiley.cs" />

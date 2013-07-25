@@ -78,6 +78,19 @@ namespace YAF.Classes
         // Board/Override properties...
         // Future stuff... still in progress.
 
+        public int? GuestUserIdBackup
+        {
+            get
+            {
+                return this._regBoard.GetValue<int?>("GuestUserIdBackup", null);
+            }
+
+            set
+            {
+                this._regBoard.SetValue("GuestUserIdBackup", value);
+            }
+        }
+
         /// <summary>
         /// Gets or sets a value indicating whether SetBoardRegistryOnly.
         /// </summary>

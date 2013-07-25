@@ -33,24 +33,23 @@ namespace YAF.Types.Interfaces
   {
     #region Public Methods
 
-    /// <summary>
-    /// The get page.
-    /// </summary>
-    /// <param name="locatablePages">
-    /// The locatable pages.
-    /// </param>
-    /// <param name="pageName">
-    /// The page name.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    public static ILocatablePage GetPage([NotNull] this IEnumerable<ILocatablePage> locatablePages, [NotNull] string pageName)
-    {
-      return
-        locatablePages.FirstOrDefault(
-          p => String.Compare(p.PageName, pageName, StringComparison.CurrentCultureIgnoreCase) == 0);
-    }
+      /// <summary>
+      /// The get page.
+      /// </summary>
+      /// <param name="locatablePages">
+      /// The locatable pages.
+      /// </param>
+      /// <param name="pageName">
+      /// The page name.
+      /// </param>
+      /// <returns>
+      /// </returns>
+      public static ILocatablePage GetPage([NotNull] this IEnumerable<ILocatablePage> locatablePages, [NotNull] string pageName)
+      {
+          return
+              locatablePages.FirstOrDefault(p => String.Equals(p.PageName, pageName, StringComparison.CurrentCultureIgnoreCase));
+      }
 
-    #endregion
+      #endregion
   }
 }
