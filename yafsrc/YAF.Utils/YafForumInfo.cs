@@ -152,8 +152,8 @@ namespace YAF.Utils
                 byte build = 0;
                 byte sub = 0;
 
-                var releaseType = ReleaseType.BETA;
-                byte releaseNumber = 2;
+                var releaseType = ReleaseType.RC;
+                byte releaseNumber = 1;
                 
                 long version = (long)major << 24;
                 version |= (long)minor << 16;
@@ -181,7 +181,7 @@ namespace YAF.Utils
         {
             get
             {
-                return new DateTime(2013, 5, 13);
+                return new DateTime(2013, 7, 24);
             }
         }
 
