@@ -288,7 +288,7 @@ namespace YAF.Core
         {
             CodeContracts.ArgumentNotNull(serviceType, "serviceType");
 
-            return this.Container.TryResolve(out instance);
+            return this.Container.TryResolve(serviceType, out instance);
         }
 
         /// <summary>
@@ -311,7 +311,7 @@ namespace YAF.Core
             CodeContracts.ArgumentNotNull(serviceType, "serviceType");
             CodeContracts.ArgumentNotNull(named, "named");
 
-            return this.Container.TryResolve(out instance);
+            return this.Container.TryResolveNamed(named, serviceType, out instance);
         }
 
         #endregion

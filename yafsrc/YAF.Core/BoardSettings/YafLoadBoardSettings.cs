@@ -167,6 +167,19 @@ namespace YAF.Core
             }
         }
 
+        /// <summary>
+        /// Saves just the guest user id backup setting for this board.
+        /// </summary>
+        public void SaveGuestUserIdBackup()
+        {
+            var key = "GuestUserIdBackup";
+
+            if (this._regBoard.ContainsKey(key))
+            {
+                LegacyDb.registry_save(key, this._regBoard[key], this._boardID);
+            }
+        }
+
         #endregion
 
         #region Methods

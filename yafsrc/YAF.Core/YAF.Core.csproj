@@ -41,11 +41,7 @@
   <ItemGroup>
     <Reference Include="Autofac, Version=3.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Autofac.3.0.1\lib\net40\Autofac.dll</HintPath>
-    </Reference>
-    <Reference Include="Autofac.Configuration, Version=3.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Autofac.3.0.1\lib\net40\Autofac.Configuration.dll</HintPath>
+      <HintPath>..\packages\Autofac.3.1.1\lib\net40\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="CookComputing.XmlRpcV2, Version=3.0.0.0, Culture=neutral, PublicKeyToken=a7d6e17aa302004d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -117,6 +113,7 @@
     <Compile Include="Extensions\MembershipUserExtensions.cs" />
     <Compile Include="Helpers\FileHelpers.cs" />
     <Compile Include="Helpers\IPLocator.cs" />
+    <Compile Include="Model\GroupRepositoryExtensions.cs" />
     <Compile Include="Model\ForumReadTrackingRepositoryExtensions.cs" />
     <Compile Include="Model\TopicReadTrackingRepositoryExtensions.cs" />
     <Compile Include="Model\WatchForumRepositoryExtensions.cs" />

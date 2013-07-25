@@ -25,13 +25,17 @@ namespace YAF.Core
     using System.Web;
     using System.Web.Security;
 
+    using Autofac;
+
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core.Extensions;
+    using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
     using YAF.Utils.Structures;
@@ -52,23 +56,24 @@ namespace YAF.Core
         {
             get
             {
-                int? guestUserID = YafContext.Current.Get<IDataCache>().GetOrSet(
+                int? guestUserId = YafContext.Current.Get<IDataCache>().GetOrSet(
                     Constants.Cache.GuestUserID,
                     () =>
                         {
                             // get the guest user for this board...
-                            guestUserID = LegacyDb.user_guest(YafContext.Current.PageBoardID);
+                            int? guestId = LegacyDb.user_guest(YafContext.Current.PageBoardID);
 
-                            if (!guestUserID.HasValue)
+                            if (!guestId.HasValue)
                             {
-                                //// attempt to fix the guest user by re-associating them with the guest group...
-                                // FixGuestUserForBoard(YafContext.Current.PageBoardID);
-
-                                // attempt to get the guestUser again...
-                                guestUserID = LegacyDb.user_guest(YafContext.Current.PageBoardID);
+                                // attempt to fix the guest user
+                                guestId = AttemptFixGuestUser();
+                            }
+                            else
+                            {
+                                UpdateGuestUserIdBackup(guestId);
                             }
 
-                            if (!guestUserID.HasValue)
+                            if (!guestId.HasValue)
                             {
                                 // failure...
                                 throw new NoValidGuestUserForBoardException(
@@ -76,25 +81,51 @@ namespace YAF.Core
                                         .FormatWith(YafContext.Current.PageBoardID));
                             }
 
-                            return guestUserID.Value;
+                            return guestId.Value;
                         });
 
-                return guestUserID ?? -1;
+                return guestUserId ?? -1;
             }
         }
 
-        /*public static void FixGuestUserForBoard(int boardId)
-        //{
-        //  // find the most likely guest user...
-        //  var users = DB.UserFind(boardId, false, null, null, null, null, null);
-        //  var guestGroup = DB.group_list(boardId, null).AsEnumerable().Where(x => x.Field<int>("Flags").Equals(2));
+        private static int? AttemptFixGuestUser()
+        {
+            YafBoardSettings boardSettings;
 
-        //  if (users.Any(x => x.IsGuest) && guestGroup.Any())
-        //  {
-        //    // add guest user to guest group...
-        //    DB.usergroup_save(users.First(), guestGroup.First().Field<int>("GroupID"), 1);
-        //  }
-        }*/
+            // attempt to fix the guest user by re-associating them with the guest group...
+            if (YafContext.Current.TryGet<YafBoardSettings>(out boardSettings)
+                && boardSettings.GuestUserIdBackup.HasValue)
+            {
+                var guestId = boardSettings.GuestUserIdBackup;
+                var guestGroup = YafContext.Current.GetRepository<Group>().ListTyped().FirstOrDefault(x => x.GroupFlags.IsGuest);
+
+                if (guestGroup != null)
+                {
+                   // re-add user to guest group...
+                    LegacyDb.usergroup_save(guestId, guestGroup.ID, 1);
+
+                    return guestId;
+                }
+            }
+
+            return null;
+        }
+
+        private static void UpdateGuestUserIdBackup(int? guestId)
+        {
+            YafBoardSettings boardSettings;
+
+            if (YafContext.Current.TryGet(out boardSettings)
+                && boardSettings is YafLoadBoardSettings
+                && boardSettings.GuestUserIdBackup != guestId)
+            {
+                var loadSettings = boardSettings as YafLoadBoardSettings;
+
+                // update & save guest user id just in case...
+                loadSettings.GuestUserIdBackup = guestId;
+                loadSettings.SaveGuestUserIdBackup();
+            }
+        }
 
         /// <summary>
         /// Gets the Username of the Guest user for the current board.
