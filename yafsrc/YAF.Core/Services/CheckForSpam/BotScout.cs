@@ -26,51 +26,75 @@ namespace YAF.Core.Services.CheckForSpam
     using System.Net;
 
     using YAF.Classes;
+    using YAF.Types;
     using YAF.Types.Extensions;
-    using YAF.Utils;
+    using YAF.Types.Interfaces;
 
     #endregion
 
     /// <summary>
     /// Spam Checking Class for the BotScout.com API
     /// </summary>
-    public class BotScout : IBotCheck
+    public class BotScout : ICheckForBot
     {
         /// <summary>
         /// Checks if user is a Bot.
         /// </summary>
-        /// <param name="ipAddress">
-        /// The ip address.
-        /// </param>
-        /// <param name="emailAddress">
-        /// The email Address.
-        /// </param>
-        /// <param name="userName">
-        /// Name of the user.
-        /// </param>
+        /// <param name="ipAddress">The IP Address.</param>
+        /// <param name="emailAddress">The email Address.</param>
+        /// <param name="userName">Name of the user.</param>
         /// <returns>
         /// Returns if user is a possible Bot or not
         /// </returns>
-        public bool CheckForBot(object ipAddress, object emailAddress, object userName)
+        public bool IsBot([CanBeNull] string ipAddress, [CanBeNull] string emailAddress, [CanBeNull] string userName)
         {
+            string responseText;
+            return this.IsBot(ipAddress, emailAddress, userName, out responseText);
+        }
+
+        /// <summary>
+        /// Checks if user is a Bot.
+        /// </summary>
+        /// <param name="ipAddress">The IP Address.</param>
+        /// <param name="emailAddress">The email Address.</param>
+        /// <param name="userName">Name of the user.</param>
+        /// <param name="responseText">The response text.</param>
+        /// <returns>
+        /// Returns if user is a possible Bot or not
+        /// </returns>
+        public bool IsBot(
+            [CanBeNull] string ipAddress,
+            [CanBeNull] string emailAddress,
+            [CanBeNull] string userName,
+            out string responseText)
+        {
+            responseText = string.Empty;
+
             try
             {
-                var apiKey = Config.BotScoutApiKey.IsSet() ? "&key={0}".FormatWith(Config.BotScoutApiKey) : string.Empty;
+                var url =
+                    "http://www.botscout.com/test/?{0}{1}{2}{3}".FormatWith(
+                        ipAddress.IsSet() ? "ip={0}".FormatWith(ipAddress) : string.Empty,
+                        emailAddress.IsSet() ? "&mail={0}".FormatWith(emailAddress) : string.Empty,
+                        userName.IsSet() ? "&name={0}".FormatWith(userName) : string.Empty,
+                        YafContext.Current.Get<YafBoardSettings>().BotScoutApiKey.IsSet()
+                            ? "&key={0}".FormatWith(YafContext.Current.Get<YafBoardSettings>().BotScoutApiKey)
+                            : string.Empty);
 
-                var url = "http://botscout.com/test/?multi&ip={0}&mail={1}&name={2}{3}".FormatWith(
-                    ipAddress, emailAddress, userName, apiKey);
+                var webRequest = (HttpWebRequest)WebRequest.Create(url);
 
-                var req = (HttpWebRequest)WebRequest.Create(url);
+                var response = (HttpWebResponse)webRequest.GetResponse();
 
-                var res = (HttpWebResponse)req.GetResponse();
-                var sr = new StreamReader(res.GetResponseStream());
+                var streamReader = new StreamReader(response.GetResponseStream());
 
-                var value = sr.ReadToEnd();
+                responseText = streamReader.ReadToEnd();
 
-                return value.StartsWith("Y|");
+                return responseText.StartsWith("Y|");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                YafContext.Current.Get<ILogger>().Error(ex, "Error while Checking for Bot");
+
                 return false;
             }
         }

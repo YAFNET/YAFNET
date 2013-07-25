@@ -942,6 +942,13 @@
     <Resource tag="AVATAR_UPLOAD_HELP">Gebruikers mogen avatars uploaden naar hun profiel.</Resource>
     <Resource tag="AVATAR_WIDTH">Avatar Breedte:</Resource>
     <Resource tag="AVATAR_WIDTH_HELP">Maximale breedte voor avatars.</Resource>
+    <Resource tag="BOT_CHECK_ONREGISTER">Handling of Bots during Registration:</Resource>
+    <Resource tag="BOT_CHECK_ONREGISTER_HELP">If enabled it detects Spammers during the Registration, you can set to Block that user or simply log it and send a Message to the Admins.</Resource>
+    <Resource tag="BOT_MESSAGE_0">Do nothing</Resource>
+    <Resource tag="BOT_MESSAGE_1">Approve User &amp; Log User &amp; Send Admin an Email</Resource>
+    <Resource tag="BOT_MESSAGE_2">Block User</Resource>
+    <Resource tag="BOTSCOUT_KEY">BotScout.com API Key:</Resource>
+    <Resource tag="BOTSCOUT_KEY_HELP">To Use the BotScout Bot Service you need an API Key &lt;a href="http://botscout.com/getkey.htm"&gt;Sign Up here&lt;a&gt;</Resource>
     <Resource tag="CAPTCHA_FOR_REGISTER">Gebruik CAPTCHA/reCAPTCHA bij het Registratieproces:</Resource>
     <Resource tag="CAPTCHA_FOR_REGISTER_HELP">Eis dat gebruikers de CAPTCHA invullen wanneer ze het registratieproces doorlopen.</Resource>
     <Resource tag="CAPTCHA_GUEST_POSTING">Gebruik CAPTCHA voor berichten door Gasten:</Resource>
@@ -950,6 +957,8 @@
     <Resource tag="CAPTCHA_SIZE_HELP">Grootte (lengte) van de CAPTCHA willekeurige tekenreeks.</Resource>
     <Resource tag="CAT_CACHE_TIMEOUT">s Cache Timeout:</Resource>
     <Resource tag="CAT_CACHE_TIMEOUT_HELP">In minuten</Resource>
+    <Resource tag="CHECK_FOR_BOTSPAM">Choose a Service for Automatically User Bot Checking:</Resource>
+    <Resource tag="CHECK_FOR_BOTSPAM_HELP">Enables/disables automatically Bot SPAM Checking via the &lt;a href="http://stopforumspam.com/"&gt;StopForumSpam.com API&lt;/a&gt; , BotScout.com API, or both together.</Resource>
     <Resource tag="CHECK_FOR_SPAM">Kies een SPAM Service voor Automatische SPAM Controle:</Resource>
     <Resource tag="CHECK_FOR_SPAM_HELP">Zet automatische SPAM Controle aan/uit via de &lt;a href="http://blogspam.net/"&gt;BlogSpam.net API&lt;/a&gt; of Akismet.com. Wanneer actief, worden berichten automatisch geblokkeerd als ze herkend worden als SPAM.</Resource>
     <Resource tag="CLEAR_CACHE">Leeg de Cache</Resource>
@@ -1034,6 +1043,7 @@
     <Resource tag="HEADER_ADVERTS">Advertentie instellingen</Resource>
     <Resource tag="HEADER_ALBUM">Album instellingen</Resource>
     <Resource tag="HEADER_AVATARS">Avatar instellingen</Resource>
+    <Resource tag="HEADER_BOTSPAM">Bot Spam Settings (User Checking)</Resource>
     <Resource tag="HEADER_CACHE">Cache instellingen</Resource>
     <Resource tag="HEADER_CAPTCHA">CAPTCHA instellingen</Resource>
     <Resource tag="HEADER_DISPLAY">Weergave instellingen</Resource>
@@ -1940,6 +1950,7 @@
     <Resource tag="NAME">Naam</Resource>
     <Resource tag="NO">Nee</Resource>
     <Resource tag="NONE">Geen</Resource>
+    <Resource tag="NOTIFICATION_ON_BOT_USER_REGISTER_EMAIL_SUBJECT">New SPAM BOT User Registered on {0} Forum</Resource>
     <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT">You have been award on the {0} Forum</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">Nieuw bericht op {0} Forum heeft goedkeuring nodig</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE">Er is een Bericht gerapporteerd op {0} Forum.</Resource>
@@ -4611,6 +4622,7 @@ Spoiler Inhoud
     <Resource tag="ALREADY_REGISTERED_DISPLAYNAME">Deze gebruikersnaam bestaat al.</Resource>
     <Resource tag="BAD_EMAIL">Je hebt een ongeldig e-mail adres opgegeven.</Resource>
     <Resource tag="BAD_PASSWORD">Kies a.u.b. een complexer wachtwoord dat ook leestekens of cijfers bevat.</Resource>
+    <Resource tag="BOT_MESSAGE">Sorry Spammers are not allowed in the Forum!</Resource>
     <Resource tag="CONFIRM_PASSWORD">Bevestig wachtwoord</Resource>
     <Resource tag="CONTINUE">Verder</Resource>
     <Resource tag="CREATE_USER">Maak gebruiker aan</Resource>
@@ -4799,6 +4811,16 @@ Als je je e-mail niet wilde wijzigen, dan kun je deze mail negeren.
 
 {link}
 </Resource>
+    <Resource tag="NOTIFICATION_ON_BOT_USER_REGISTER">
+      Hello!
+
+      A new user has registered on the {forumname} forum (Be Aware the SPAM BOT Protection System has detected the user as possible BOT!):
+
+      User Name: {user}
+      User Email: {email}
+
+      Administration Link: {adminlink}
+    </Resource>
     <Resource tag="NOTIFICATION_ON_FACEBOOK_REGISTER">
       Hallo {user}.
 

@@ -17,76 +17,76 @@
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.* 
 */
 
-namespace YAF.Core.Services
+namespace YAF.Core.Services.CheckForSpam
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.Collections.Specialized;
-  using System.Net;
-
-  #endregion
-
-  /// <summary>
-  /// Defines the base information about a comment submitted to the client.
-  /// </summary>
-  public interface IComment
-  {
-    #region Properties
-
-    /// <summary>
-    ///   The name submitted with the comment.
-    /// </summary>
-    string Author { get; }
-
-    /// <summary>
-    ///   The email submitted with the comment.
-    /// </summary>
-    string AuthorEmail { get; }
-
-    /// <summary>
-    ///   The url submitted if provided.
-    /// </summary>
-    Uri AuthorUrl { get; }
-
-    /// <summary>
-    ///   May be one of the following: {blank}, "comment", "trackback", "pingback", or a made-up value 
-    ///   like "registration".
-    /// </summary>
-    string CommentType { get; }
-
-    /// <summary>
-    ///   Content of the comment
-    /// </summary>
-    string Content { get; }
-
-    /// <summary>
-    ///   IPAddress of the submitter
-    /// </summary>
-    IPAddress IPAddress { get; }
-
-    /// <summary>
-    ///   Permanent location of the entry the comment was 
-    ///   submitted to.
-    /// </summary>
-    Uri Permalink { get; }
-
-    /// <summary>
-    ///   The HTTP_REFERER header value of the 
-    ///   originating comment.
-    /// </summary>
-    string Referrer { get; }
-
-    /// <summary>
-    ///   Optional collection of various server environment variables.
-    /// </summary>
-    NameValueCollection ServerEnvironmentVariables { get; }
-
-    /// <summary>
-    ///   User agent of the requester. (Required)
-    /// </summary>
-    string UserAgent { get; }
+    using System;
+    using System.Collections.Specialized;
+    using System.Net;
 
     #endregion
-  }
+
+    /// <summary>
+    /// Defines the base information about a comment submitted to the client.
+    /// </summary>
+    public interface IComment
+    {
+        #region Properties
+
+        /// <summary>
+        ///   The name submitted with the comment.
+        /// </summary>
+        string Author { get; }
+
+        /// <summary>
+        ///   The email submitted with the comment.
+        /// </summary>
+        string AuthorEmail { get; }
+
+        /// <summary>
+        ///   The url submitted if provided.
+        /// </summary>
+        Uri AuthorUrl { get; }
+
+        /// <summary>
+        ///   May be one of the following: {blank}, "comment", "trackback", "pingback", or a made-up value 
+        ///   like "registration".
+        /// </summary>
+        string CommentType { get; }
+
+        /// <summary>
+        ///   Content of the comment
+        /// </summary>
+        string Content { get; }
+
+        /// <summary>
+        ///   IPAddress of the submitter
+        /// </summary>
+        IPAddress IPAddress { get; }
+
+        /// <summary>
+        ///   Permanent location of the entry the comment was 
+        ///   submitted to.
+        /// </summary>
+        Uri Permalink { get; }
+
+        /// <summary>
+        ///   The HTTP_REFERER header value of the 
+        ///   originating comment.
+        /// </summary>
+        string Referrer { get; }
+
+        /// <summary>
+        ///   Optional collection of various server environment variables.
+        /// </summary>
+        NameValueCollection ServerEnvironmentVariables { get; }
+
+        /// <summary>
+        ///   User agent of the requester. (Required)
+        /// </summary>
+        string UserAgent { get; }
+
+        #endregion
+    }
 }

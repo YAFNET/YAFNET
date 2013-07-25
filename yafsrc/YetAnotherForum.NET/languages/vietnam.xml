@@ -949,6 +949,13 @@
     <Resource tag="AVATAR_UPLOAD_HELP">Can users upload avatars to their profile.</Resource>
     <Resource tag="AVATAR_WIDTH">Avatar Width:</Resource>
     <Resource tag="AVATAR_WIDTH_HELP">Maximum width for avatars.</Resource>
+    <Resource tag="BOT_CHECK_ONREGISTER">Handling of Bots during Registration:</Resource>
+    <Resource tag="BOT_CHECK_ONREGISTER_HELP">If enabled it detects Spammers during the Registration, you can set to Block that user or simply log it and send a Message to the Admins.</Resource>
+    <Resource tag="BOT_MESSAGE_0">Do nothing</Resource>
+    <Resource tag="BOT_MESSAGE_1">Approve User &amp; Log User &amp; Send Admin an Email</Resource>
+    <Resource tag="BOT_MESSAGE_2">Block User</Resource>
+    <Resource tag="BOTSCOUT_KEY">BotScout.com API Key:</Resource>
+    <Resource tag="BOTSCOUT_KEY_HELP">To Use the BotScout Bot Service you need an API Key &lt;a href="http://botscout.com/getkey.htm"&gt;Sign Up here&lt;a&gt;</Resource>
     <Resource tag="CAPTCHA_FOR_REGISTER">Enable CAPTCHA/reCAPTCHA for Register:</Resource>
     <Resource tag="CAPTCHA_FOR_REGISTER_HELP">Require users to enter the CAPTCHA when they register for the forum.</Resource>
     <Resource tag="CAPTCHA_GUEST_POSTING">Enable CAPTCHA for Guest Posting:</Resource>
@@ -957,6 +964,8 @@
     <Resource tag="CAPTCHA_SIZE_HELP">Size (length) of the CAPTCHA random alphanumeric string.</Resource>
     <Resource tag="CAT_CACHE_TIMEOUT">Board Categories Cache Timeout:</Resource>
     <Resource tag="CAT_CACHE_TIMEOUT_HELP">In minutes</Resource>
+    <Resource tag="CHECK_FOR_BOTSPAM">Choose a Service for Automatically User Bot Checking:</Resource>
+    <Resource tag="CHECK_FOR_BOTSPAM_HELP">Enables/disables automatically Bot SPAM Checking via the &lt;a href="http://stopforumspam.com/"&gt;StopForumSpam.com API&lt;/a&gt; , BotScout.com API, or both together.</Resource>
     <Resource tag="CHECK_FOR_SPAM">Choose a SPAM Service for Automatically SPAM Checking:</Resource>
     <Resource tag="CHECK_FOR_SPAM_HELP">Enables/disables automatically SPAM Checking via the &lt;a href="http://blogspam.net/"&gt;BlogSpam.net API&lt;/a&gt; or Akismet.com. If enabled SPAM Post gets rejected if detected.</Resource>
     <Resource tag="CLEAR_CACHE">Clear Cache</Resource>
@@ -1040,6 +1049,7 @@
     <Resource tag="HEADER_ADVERTS">Advert Settings</Resource>
     <Resource tag="HEADER_ALBUM">Album Settings</Resource>
     <Resource tag="HEADER_AVATARS">Avatar Settings</Resource>
+    <Resource tag="HEADER_BOTSPAM">Bot Spam Settings (User Checking)</Resource>
     <Resource tag="HEADER_CACHE">Cache Settings</Resource>
     <Resource tag="HEADER_CAPTCHA">CAPTCHA Settings</Resource>
     <Resource tag="HEADER_DISPLAY">Display Settings</Resource>
@@ -1062,7 +1072,7 @@
     <Resource tag="HEADER_SERVER_INFO">Server Info</Resource>
     <Resource tag="HEADER_SETUP">Host Setup</Resource>
     <Resource tag="HEADER_SHOUT">Shoutbox Settings</Resource>
-    <Resource tag="HEADER_SPAM">Spam Settings</Resource>
+    <Resource tag="HEADER_SPAM">Spam Settings (Content Checking)</Resource>
     <Resource tag="HEADER_SYNDICATION">Syndication Feed Settings</Resource>
     <Resource tag="HEADER_TEMPLATES">Template Settings</Resource>
     <Resource tag="HOST_ADVERTS">Adverts</Resource>
@@ -1949,6 +1959,7 @@
     <Resource tag="NAME">Name</Resource>
     <Resource tag="NO">No</Resource>
     <Resource tag="NONE">None</Resource>
+    <Resource tag="NOTIFICATION_ON_BOT_USER_REGISTER_EMAIL_SUBJECT">New SPAM BOT User Registered on {0} Forum</Resource>
     <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT">You have been award on the {0} Forum</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">New Message on {0} Forum Needs to be Approved</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE">A Message on {0} Forum was reported</Resource>
@@ -4648,6 +4659,7 @@ Spoiler Content
     <Resource tag="ALREADY_REGISTERED_DISPLAYNAME">Your display name is already registered.</Resource>
     <Resource tag="BAD_EMAIL">Địa chỉ email bạn cung cấp không hợp lệ.</Resource>
     <Resource tag="BAD_PASSWORD">Xin chọn một mật khẩu an toàn hơn,bao gồm cả các ký tự (!?) hoặc số.</Resource>
+    <Resource tag="BOT_MESSAGE">Sorry Spammers are not allowed in the Forum!</Resource>
     <Resource tag="CONFIRM_PASSWORD">Xác nhận lại mật khẩu</Resource>
     <Resource tag="CONTINUE">Tiếp tục</Resource>
     <Resource tag="CREATE_USER">Đăng ký</Resource>
@@ -4853,6 +4865,16 @@ Spoiler Content
       {user} thought you might be interested in reading this:
 
       {link}
+    </Resource>
+    <Resource tag="NOTIFICATION_ON_BOT_USER_REGISTER">
+      Hello!
+
+      A new user has registered on the {forumname} forum (Be Aware the SPAM BOT Protection System has detected the user as possible BOT!):
+
+      User Name: {user}
+      User Email: {email}
+
+      Administration Link: {adminlink}
     </Resource>
     <Resource tag="NOTIFICATION_ON_FACEBOOK_REGISTER">
       Hello {user}.

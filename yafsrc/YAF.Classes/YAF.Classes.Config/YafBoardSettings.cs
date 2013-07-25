@@ -78,13 +78,18 @@ namespace YAF.Classes
         // Board/Override properties...
         // Future stuff... still in progress.
 
+        /// <summary>
+        /// Gets or sets the guest user id backup.
+        /// </summary>
+        /// <value>
+        /// The guest user id backup.
+        /// </value>
         public int? GuestUserIdBackup
         {
             get
             {
                 return this._regBoard.GetValue<int?>("GuestUserIdBackup", null);
             }
-
             set
             {
                 this._regBoard.SetValue("GuestUserIdBackup", value);
@@ -661,8 +666,6 @@ namespace YAF.Classes
         /// 0 = No Service
         /// 1 = BlogSpam.NET Service
         /// 2 = Akismet.com Service
-        /// 3 = StopForumSpam.com Service
-        /// 4 = BotScout.com Service
         /// </summary>
         public int SpamServiceType
         {
@@ -679,6 +682,27 @@ namespace YAF.Classes
 
         /// <summary>
         /// Gets or sets a value indicating whether 
+        /// which Spam Service Type should been used
+        /// 0 = No Service
+        /// 1 = StopForumSpam.com Service
+        /// 2 = BotScout.com Service
+        /// 3 = StopForumSpam.com and BotScout.com Service
+        /// </summary>
+        public int BotSpamServiceType
+        {
+            get
+            {
+                return this._reg.GetValue("BotSpamServiceType", 0);
+            }
+
+            set
+            {
+                this._reg.SetValue("BotSpamServiceType", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether 
         /// what to to with a SPAM Message
         /// 0 = Do nothing
         /// 1 = Flag Message as Unapproved
@@ -688,12 +712,32 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue("SpamMessageHandling", 1);
+                return this._reg.GetValue("SpamMessageHandling", 0);
             }
 
             set
             {
                 this._reg.SetValue("SpamMessageHandling", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether 
+        /// what to to with Bots during Registration
+        /// 0 = Disabled
+        /// 1 = Log & Send Message to Admins
+        /// 2 = Block user from Registration
+        /// </summary>
+        public int BotHandlingOnRegister
+        {
+            get
+            {
+                return this._reg.GetValue("BotHandlingOnRegister", 0);
+            }
+
+            set
+            {
+                this._reg.SetValue("BotHandlingOnRegister", value);
             }
         }
 

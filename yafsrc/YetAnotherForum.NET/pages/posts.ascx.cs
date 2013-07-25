@@ -45,7 +45,6 @@ namespace YAF.Pages
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
     using YAF.Utilities;
     using YAF.Utils;
@@ -218,7 +217,7 @@ namespace YAF.Pages
         {
             if (this.User == null)
             {
-                this.PageContext.AddLoadMessage(this.GetText("WARN_EMAILLOGIN"));
+                this.PageContext.AddLoadMessage(this.GetText("WARN_EMAILLOGIN"), MessageTypes.Warning);
                 return;
             }
 
@@ -785,7 +784,7 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The prev topic_ click.
+        /// The Previous topic click.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
@@ -1096,6 +1095,7 @@ namespace YAF.Pages
             if (findMessageId > 0)
             {
                 this.Pager.CurrentPageIndex = rowList.First().Field<int>(columnName: "PageIndex");
+                
                 // move to this message on load...
                 if (!this.PageContext.IsCrawler)
                 {
@@ -1235,9 +1235,10 @@ namespace YAF.Pages
                         if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find").ToLower() == "unread")
                         {
                             DateTime lastRead = !this.PageContext.IsCrawler
-                                                    ? this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
-                                                        forumId: this.PageContext.PageForumID,
-                                                        topicId: this.PageContext.PageTopicID)
+                                                    ? this.Get<IReadTrackCurrentUser>()
+                                                          .GetForumTopicRead(
+                                                              forumId: this.PageContext.PageForumID,
+                                                              topicId: this.PageContext.PageTopicID)
                                                     : DateTime.UtcNow;
 
                             // Find next unread
@@ -1258,22 +1259,21 @@ namespace YAF.Pages
                             }
                         }
 
-                 
-                            using (
-                                DataTable unread = LegacyDb.message_findunread(
-                                    topicID: this.PageContext.PageTopicID,
-                                    messageId: 0,
-                                    lastRead: DateTime.UtcNow,
-                                    showDeleted: showDeleted,
-                                    authorUserID: userId))
+                        using (
+                            DataTable unread = LegacyDb.message_findunread(
+                                topicID: this.PageContext.PageTopicID,
+                                messageId: 0,
+                                lastRead: DateTime.UtcNow,
+                                showDeleted: showDeleted,
+                                authorUserID: userId))
+                        {
+                            var unreadFirst = unread.AsEnumerable().FirstOrDefault();
+                            if (unreadFirst != null)
                             {
-                                var unreadFirst = unread.AsEnumerable().FirstOrDefault();
-                                if (unreadFirst != null)
-                                {
-                                    findMessageId = unreadFirst.Field<int>("MessageID");
-                                    messagePosition = unreadFirst.Field<int>("MessagePosition");
-                                }
-                            }                      
+                                findMessageId = unreadFirst.Field<int>("MessageID");
+                                messagePosition = unreadFirst.Field<int>("MessagePosition");
+                            }
+                        }
                     }
                 }
             }
@@ -1334,10 +1334,7 @@ namespace YAF.Pages
         /// The options menu_ item click.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">
-        /// The Pop Event Arguments.
-        /// </param>
-        /// <exception cref="ApplicationException"></exception>
+        /// <param name="e">The Pop Event Arguments.</param>
         private void ShareMenu_ItemClick([NotNull] object sender, [NotNull] PopEventArgs e)
         {
             var topicUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", this.PageContext.PageTopicID);
@@ -1520,7 +1517,7 @@ namespace YAF.Pages
 
             if (this._quickReplyEditor.Text.Length <= 0)
             {
-                this.PageContext.AddLoadMessage(this.GetText("EMPTY_MESSAGE"));
+                this.PageContext.AddLoadMessage(this.GetText("EMPTY_MESSAGE"), MessageTypes.Warning);
                 return;
             }
 
@@ -1528,7 +1525,7 @@ namespace YAF.Pages
             if (this.Get<YafBoardSettings>().MaxPostSize > 0
                 && this._quickReplyEditor.Text.Length >= this.Get<YafBoardSettings>().MaxPostSize)
             {
-                this.PageContext.AddLoadMessage(this.GetText("ISEXCEEDED"));
+                this.PageContext.AddLoadMessage(this.GetText("ISEXCEEDED"), MessageTypes.Warning);
                 return;
             }
 
@@ -1536,7 +1533,7 @@ namespace YAF.Pages
                  || (this.Get<YafBoardSettings>().EnableCaptchaForPost && !this.PageContext.IsCaptchaExcluded))
                 && !CaptchaHelper.IsValid(this.tbCaptcha.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(this.GetText("BAD_CAPTCHA"));
+                this.PageContext.AddLoadMessage(this.GetText("BAD_CAPTCHA"), MessageTypes.Warning);
                 return;
             }
 
@@ -1550,7 +1547,7 @@ namespace YAF.Pages
                         this.GetTextFormatted(
                             "wait",
                             (YafContext.Current.Get<IYafSession>().LastPost
-                             - DateTime.UtcNow.AddSeconds(-this.Get<YafBoardSettings>().PostFloodDelay)).Seconds));
+                             - DateTime.UtcNow.AddSeconds(-this.Get<YafBoardSettings>().PostFloodDelay)).Seconds), MessageTypes.Warning);
                     return;
                 }
             }
@@ -1582,23 +1579,75 @@ namespace YAF.Pages
             bool spamApproved = true;
 
             // Check for SPAM
-            if (!this.PageContext.IsAdmin || !this.PageContext.ForumModeratorAccess)
+            if (!this.PageContext.IsAdmin || !this.PageContext.ForumModeratorAccess || !this.Get<YafBoardSettings>().SpamServiceType.Equals(0))
             {
-                if (YafSpamCheck.IsPostSpam(
-                    this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
-                    this.PageContext.PageTopicName,
-                    this._quickReplyEditor.Text))
+                var spamChecker = new YafSpamCheck();
+                string spamResult;
+
+                // Check content for spam
+                if (
+                    spamChecker.CheckPostForSpam(
+                        this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
+                        YafContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress(),
+                        this._quickReplyEditor.Text,
+                        this.PageContext.IsGuest ? null : this.PageContext.User.Email,
+                        out spamResult))
                 {
                     if (this.Get<YafBoardSettings>().SpamMessageHandling.Equals(1))
                     {
                         spamApproved = false;
+
+                        this.Get<ILogger>()
+                            .Info(
+                                "Spam Check detected possible SPAM ({2}) posted by User: {0}, it was flagged as unapproved post. Content was: {1}",
+                                this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
+                                this._quickReplyEditor.Text,
+                                spamResult);
                     }
                     else if (this.Get<YafBoardSettings>().SpamMessageHandling.Equals(2))
                     {
-                        this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"));
+                        this.Get<ILogger>()
+                            .Info(
+                                "Spam Check detected possible SPAM ({2}) posted by User: {0}, post was rejected. Content was: {1}",
+                                this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
+                                this._quickReplyEditor.Text,
+                                spamResult);
+                        
+                        this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.Error);
+
                         return;
                     }
                 }
+                /*
+                // check user for spam bot
+                if (spamChecker.CheckUserForSpamBot(
+                    this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
+                    this.PageContext.IsGuest ? null : this.PageContext.User.Email,
+                    this.Get<HttpRequestBase>().GetUserRealIPAddress()))
+                {
+                    if (this.Get<YafBoardSettings>().SpamMessageHandling.Equals(1))
+                    {
+                        spamApproved = false;
+
+                        this.Get<ILogger>()
+                            .Info(
+                                "Spam Check detected possible SPAM posted by User: {0}, it was flagged as unapproved post. Content was: {1}",
+                                this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
+                                this._quickReplyEditor.Text);
+                    }
+                    else if (this.Get<YafBoardSettings>().SpamMessageHandling.Equals(2))
+                    {
+                        this.Get<ILogger>()
+                           .Info(
+                               "Spam Check detected possible SPAM posted by User: {0}, post was rejected. Content was: {1}",
+                               this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
+                               this._quickReplyEditor.Text);
+
+                        this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.Error);
+
+                        return;
+                    }
+                }*/
             }
 
             // If Forum is Moderated

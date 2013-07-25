@@ -17,106 +17,106 @@
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.* 
 */
 
-namespace YAF.Core.Services
+namespace YAF.Core.Services.CheckForSpam
 {
-  #region Using
+    #region Using
 
-  using System;
+    using System;
 
-  using YAF.Types;
-
-  #endregion
-
-  /// <summary>
-  /// The AntiSpam TypePad client: http://antispam.typepad.com
-  /// </summary>
-  public class AntiSpamTypePadClient : CheckForSpamClientBase
-  {
-    #region Constructors and Destructors
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="AntiSpamTypePadClient"/> class.
-    /// </summary>
-    /// <param name="apiKey">
-    /// The api key.
-    /// </param>
-    /// <param name="blogUrl">
-    /// The blog url.
-    /// </param>
-    /// <param name="httpClient">
-    /// The http client.
-    /// </param>
-    public AntiSpamTypePadClient([NotNull] string apiKey, [NotNull] Uri blogUrl, [NotNull] HttpClient httpClient)
-      : base(apiKey, blogUrl, httpClient)
-    {
-    }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="AntiSpamTypePadClient"/> class.
-    /// </summary>
-    /// <param name="apiKey">
-    /// The api key.
-    /// </param>
-    /// <param name="rootUrl">
-    /// The root url.
-    /// </param>
-    public AntiSpamTypePadClient([NotNull] string apiKey, [NotNull] Uri rootUrl)
-      : base(apiKey, rootUrl)
-    {
-    }
+    using YAF.Types;
 
     #endregion
 
-    #region Properties
-
     /// <summary>
-    /// Gets CheckUrlFormat.
+    /// The AntiSpam TypePad client: http://antispam.typepad.com
     /// </summary>
-    [NotNull]
-    protected override string CheckUrlFormat
+    public class AntiSpamTypePadClient : CheckForSpamClientBase
     {
-      get
-      {
-        return "http://{0}.api.antispam.typepad.com/1.1/comment-check";
-      }
-    }
+        #region Constructors and Destructors
 
-    /// <summary>
-    /// Gets SubmitHamUrlFormat.
-    /// </summary>
-    [NotNull]
-    protected override string SubmitHamUrlFormat
-    {
-      get
-      {
-        return "http://{0}.api.antispam.typepad.com/1.1/submit-ham";
-      }
-    }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AntiSpamTypePadClient"/> class.
+        /// </summary>
+        /// <param name="apiKey">
+        /// The api key.
+        /// </param>
+        /// <param name="blogUrl">
+        /// The blog url.
+        /// </param>
+        /// <param name="httpClient">
+        /// The http client.
+        /// </param>
+        public AntiSpamTypePadClient([NotNull] string apiKey, [NotNull] Uri blogUrl, [NotNull] HttpClient httpClient)
+            : base(apiKey, blogUrl, httpClient)
+        {
+        }
 
-    /// <summary>
-    /// Gets SubmitSpamUrlFormat.
-    /// </summary>
-    [NotNull]
-    protected override string SubmitSpamUrlFormat
-    {
-      get
-      {
-        return "http://{0}.api.antispam.typepad.com/1.1/submit-spam";
-      }
-    }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AntiSpamTypePadClient"/> class.
+        /// </summary>
+        /// <param name="apiKey">
+        /// The api key.
+        /// </param>
+        /// <param name="rootUrl">
+        /// The root url.
+        /// </param>
+        public AntiSpamTypePadClient([NotNull] string apiKey, [NotNull] Uri rootUrl)
+            : base(apiKey, rootUrl)
+        {
+        }
 
-    /// <summary>
-    /// Gets SubmitVerifyKeyFormat.
-    /// </summary>
-    [NotNull]
-    protected override string SubmitVerifyKeyFormat
-    {
-      get
-      {
-        return "http://api.antispam.typepad.com/1.1/verify-key";
-      }
-    }
+        #endregion
 
-    #endregion
-  }
+        #region Properties
+
+        /// <summary>
+        /// Gets CheckUrlFormat.
+        /// </summary>
+        [NotNull]
+        protected override string CheckUrlFormat
+        {
+            get
+            {
+                return "http://{0}.api.antispam.typepad.com/1.1/comment-check";
+            }
+        }
+
+        /// <summary>
+        /// Gets SubmitHamUrlFormat.
+        /// </summary>
+        [NotNull]
+        protected override string SubmitHamUrlFormat
+        {
+            get
+            {
+                return "http://{0}.api.antispam.typepad.com/1.1/submit-ham";
+            }
+        }
+
+        /// <summary>
+        /// Gets SubmitSpamUrlFormat.
+        /// </summary>
+        [NotNull]
+        protected override string SubmitSpamUrlFormat
+        {
+            get
+            {
+                return "http://{0}.api.antispam.typepad.com/1.1/submit-spam";
+            }
+        }
+
+        /// <summary>
+        /// Gets SubmitVerifyKeyFormat.
+        /// </summary>
+        [NotNull]
+        protected override string SubmitVerifyKeyFormat
+        {
+            get
+            {
+                return "http://api.antispam.typepad.com/1.1/verify-key";
+            }
+        }
+
+        #endregion
+    }
 }

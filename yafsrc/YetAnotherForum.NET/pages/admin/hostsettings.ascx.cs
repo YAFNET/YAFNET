@@ -355,9 +355,18 @@ namespace YAF.Pages.Admin
             this.SpamServiceType.Items.Add(new ListItem("BlogSpam.NET API", "1"));
             this.SpamServiceType.Items.Add(new ListItem("Akismet API (Needs Registration)", "2"));
 
+            this.BotSpamServiceType.Items.Add(new ListItem(this.GetText("ADMIN_COMMON", "DISABLED"), "0"));
+            this.BotSpamServiceType.Items.Add(new ListItem("StopForumSpam.com", "1"));
+            this.BotSpamServiceType.Items.Add(new ListItem("BotScout.com (Needs Registration)", "2"));
+            this.BotSpamServiceType.Items.Add(new ListItem("StopForumSpam.com & BotScout.com (Needs Registration)", "3"));
+
             this.SpamMessageHandling.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "SPAM_MESSAGE_0"), "0"));
             this.SpamMessageHandling.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "SPAM_MESSAGE_1"), "1"));
             this.SpamMessageHandling.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "SPAM_MESSAGE_2"), "2"));
+
+            this.BotHandlingOnRegister.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "BOT_MESSAGE_0"), "0"));
+            this.BotHandlingOnRegister.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "BOT_MESSAGE_1"), "1"));
+            this.BotHandlingOnRegister.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "BOT_MESSAGE_2"), "2"));
 
             this.MessageNotificationSystem.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "MODAL_DIALOG"), "0"));
             this.MessageNotificationSystem.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "NOTIFICATION_BAR"), "1"));
@@ -491,7 +500,8 @@ namespace YAF.Pages.Admin
 
             this.AppCores.Text = Platform.Processors;
             this.AppMemory.Text = "{0} MB of {1} MB".FormatWith(
-                Platform.AllocatedMemory.ToType<int>() / 1000000, Platform.MappedMemory.ToType<int>() / 1000000);this.AppOSName.Text = Platform.VersionString;
+                Platform.AllocatedMemory.ToType<int>() / 1000000, Platform.MappedMemory.ToType<int>() / 1000000);
+            this.AppOSName.Text = Platform.VersionString;
             this.AppRuntime.Text = "{0} {1}".FormatWith(Platform.RuntimeName, Platform.RuntimeString);
         }
 

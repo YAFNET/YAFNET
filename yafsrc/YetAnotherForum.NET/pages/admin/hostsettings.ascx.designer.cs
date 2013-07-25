@@ -526,6 +526,24 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.DropDownList SpamServiceType;
         
         /// <summary>
+        /// HelpLabel187 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel187;
+        
+        /// <summary>
+        /// SpamMessageHandling control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList SpamMessageHandling;
+        
+        /// <summary>
         /// HelpLabel186 control.
         /// </summary>
         /// <remarks>
@@ -544,22 +562,67 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.TextBox AkismetApiKey;
         
         /// <summary>
-        /// HelpLabel187 control.
+        /// LocalizedLabel39 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel187;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel39;
         
         /// <summary>
-        /// SpamMessageHandling control.
+        /// HelpLabel224 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList SpamMessageHandling;
+        protected global::YAF.Controls.HelpLabel HelpLabel224;
+        
+        /// <summary>
+        /// BotSpamServiceType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList BotSpamServiceType;
+        
+        /// <summary>
+        /// HelpLabel225 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel225;
+        
+        /// <summary>
+        /// BotScoutApiKey control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox BotScoutApiKey;
+        
+        /// <summary>
+        /// HelpLabel226 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel226;
+        
+        /// <summary>
+        /// BotHandlingOnRegister control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList BotHandlingOnRegister;
         
         /// <summary>
         /// LocalizedLabel21 control.

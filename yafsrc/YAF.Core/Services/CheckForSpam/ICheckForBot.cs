@@ -24,23 +24,33 @@ namespace YAF.Core.Services.CheckForSpam
     /// <summary>
     /// Bot Check Interface
     /// </summary>
-    public interface IBotCheck
+    public interface ICheckForBot
     {
         /// <summary>
         /// Checks if user is a Bot.
         /// </summary>
-        /// <param name="ipAddress">
-        /// The ip address.
-        /// </param>
-        /// <param name="emailAddress">
-        /// The email Address.
-        /// </param>
-        /// <param name="userName">
-        /// Name of the user.
-        /// </param>
+        /// <param name="ipAddress">The IP Address.</param>
+        /// <param name="emailAddress">The email Address.</param>
+        /// <param name="userName">Name of the user.</param>
         /// <returns>
         /// Returns if user is a possible Bot or not
         /// </returns>
-        bool CheckForBot([NotNull]object ipAddress, [NotNull]object emailAddress, [NotNull]object userName);
+        bool IsBot([CanBeNull] string ipAddress, [CanBeNull] string emailAddress, [CanBeNull] string userName);
+
+        /// <summary>
+        /// Checks if user is a Bot.
+        /// </summary>
+        /// <param name="ipAddress">The IP Address.</param>
+        /// <param name="emailAddress">The email Address.</param>
+        /// <param name="userName">Name of the user.</param>
+        /// <param name="responseText">The response text.</param>
+        /// <returns>
+        /// Returns if user is a possible Bot or not
+        /// </returns>
+        bool IsBot(
+            [CanBeNull] string ipAddress,
+            [CanBeNull] string emailAddress,
+            [CanBeNull] string userName,
+            out string responseText);
     }
 }

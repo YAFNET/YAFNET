@@ -199,6 +199,15 @@
                     </tr>
                     <tr>
                         <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel187" runat="server" LocalizedTag="SPAM_MESSAGE_HANDLING" LocalizedPage="ADMIN_HOSTSETTINGS" Suffix=":" />
+                        </td>
+                        <td class="post">
+                            <asp:DropDownList Style="width:350px" ID="SpamMessageHandling" runat="server">
+                            </asp:DropDownList>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
                             <YAF:HelpLabel ID="HelpLabel186" runat="server" LocalizedTag="AKISMET_KEY" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
@@ -206,12 +215,33 @@
                         </td>
                     </tr>
                     <tr>
+                        <td class="header1" colspan="2">
+                            <YAF:LocalizedLabel ID="LocalizedLabel39" runat="server" LocalizedTag="HEADER_BOTSPAM" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                    </tr>
+                    <tr>
                         <td class="postheader">
-                            <YAF:HelpLabel ID="HelpLabel187" runat="server" LocalizedTag="SPAM_MESSAGE_HANDLING" LocalizedPage="ADMIN_HOSTSETTINGS" Suffix=":" />
+                            <YAF:HelpLabel ID="HelpLabel224" runat="server" LocalizedTag="CHECK_FOR_BOTSPAM" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
-                            <asp:DropDownList Style="width:350px" ID="SpamMessageHandling" runat="server">
+                            <asp:DropDownList Style="width:350px" ID="BotSpamServiceType" runat="server">
                             </asp:DropDownList>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel225" runat="server" LocalizedTag="BOTSCOUT_KEY" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:TextBox ID="BotScoutApiKey" Style="width:350px" runat="server"></asp:TextBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel226" runat="server" LocalizedTag="BOT_CHECK_ONREGISTER" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:DropDownList ID="BotHandlingOnRegister" runat="server" Style="width:350px"></asp:DropDownList>
                         </td>
                     </tr>
                     <tr>

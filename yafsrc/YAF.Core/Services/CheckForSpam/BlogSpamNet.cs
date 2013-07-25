@@ -16,7 +16,10 @@ namespace YAF.Core.Services.CheckForSpam
     #region
 
     using System;
+
     using CookComputing.XmlRpc;
+
+    using YAF.Types.Interfaces;
 
     #endregion
 
@@ -102,18 +105,17 @@ namespace YAF.Core.Services.CheckForSpam
         /// <summary>
         /// Test a Comment for SPAM
         /// </summary>
-        /// <param name="comment">
-        /// The comment.
-        /// </param>
-        /// <param name="ignoreInternalIp">
-        /// Ignore Internal Ip
-        /// </param>
+        /// <param name="comment">The comment.</param>
+        /// <param name="ignoreInternalIp">Ignore Internal Ip</param>
+        /// <param name="answer">The answer.</param>
         /// <returns>
         /// Returns if Comment is SPAM
         /// </returns>
-        public static bool CommentIsSpam(BlogSpamComment comment, bool ignoreInternalIp)
+        public static bool CommentIsSpam(BlogSpamComment comment, bool ignoreInternalIp, out string answer)
         {
-            string answer = GetProxy().testComment(comment);
+            answer = GetProxy().testComment(comment);
+
+            string result = answer;
 
             // Handle interal Ips not as spam
             if (answer.Equals("SPAM:Internal Only IP") && ignoreInternalIp)
@@ -121,12 +123,18 @@ namespace YAF.Core.Services.CheckForSpam
                 return false;
             }
 
-            if (answer.Contains(":"))
+            // Handle interal Ips not as spam
+            if (answer.Equals("SPAM:No reverse DNS entry for ::1") && ignoreInternalIp)
             {
-                answer = answer.Remove(answer.IndexOf(":"));
+                return false;
             }
 
-            switch (answer)
+            if (result.Contains(":"))
+            {
+                result = result.Remove(result.IndexOf(":"));
+            }
+
+            switch (result)
             {
                 case "OK":
                     return false;

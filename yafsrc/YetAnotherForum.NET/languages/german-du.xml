@@ -942,6 +942,13 @@
     <Resource tag="AVATAR_UPLOAD_HELP">Wenn aktiviert können Benutzer Avatare Hochladen.</Resource>
     <Resource tag="AVATAR_WIDTH">Avatar Breite:</Resource>
     <Resource tag="AVATAR_WIDTH_HELP">Maximale Breite für Avatare.</Resource>
+    <Resource tag="BOT_CHECK_ONREGISTER">Beim Registrieren auf Bots prüfen:</Resource>
+    <Resource tag="BOT_CHECK_ONREGISTER_HELP">Wenn aktivieren wird während der Regstrierung gechecked ob der Benutzer ein SPAM Bot ist, Sie haben die Auswahl was dann passieren soll endweder wird der Benutzer blockiert oder es wird nur geloggt und der Admin per Email benachrichtigt.</Resource>
+    <Resource tag="BOT_MESSAGE_0">Deaktiviert</Resource>
+    <Resource tag="BOT_MESSAGE_1">Benutzer registrien aber loggen und Admin benachrichtigen</Resource>
+    <Resource tag="BOT_MESSAGE_2">Benutzer nicht registrieren</Resource>
+    <Resource tag="BOTSCOUT_KEY">BotScout.com API Schlüssel:</Resource>
+    <Resource tag="BOTSCOUT_KEY_HELP">Um den BotScout.com Bot Service benutzen zu können benötigen Sie einen API Schlüssel  &lt;a href="http://botscout.com/getkey.htm"&gt;Hier anmelden&lt;a&gt;</Resource>
     <Resource tag="CAPTCHA_FOR_REGISTER">CAPTCHA/reCAPTCHA für die Registrierung aktivieren:</Resource>
     <Resource tag="CAPTCHA_FOR_REGISTER_HELP">Wenn der Benutzer sich im Forum registrieren will muss er ein CAPTCHA eingeben.</Resource>
     <Resource tag="CAPTCHA_GUEST_POSTING">CAPTCHA für Gastbeiträge aktivieren:</Resource>
@@ -950,8 +957,10 @@
     <Resource tag="CAPTCHA_SIZE_HELP">Größe (Länge) des CAPTCHA zufällige alphanumerische Zeichenfolge.</Resource>
     <Resource tag="CAT_CACHE_TIMEOUT">Board Kategorien Speicher Ablaufzeit:</Resource>
     <Resource tag="CAT_CACHE_TIMEOUT_HELP">In Minuten</Resource>
+    <Resource tag="CHECK_FOR_BOTSPAM">Dienst für das automatische Checken von automatischen Spammern:</Resource>
+    <Resource tag="CHECK_FOR_BOTSPAM_HELP">Aktiviert / deaktiviert die automatisch Bot SPAM Kontrolle über die &lt;a href="http://stopforumspam.com/"&gt; StopForumSpam.com API &lt;/a&gt; , die BotScout.com API, oder beides zusammen. Wenn diese Option aktiviert ist, können SPAM Beiträge abgelehnt werden oder als nicht bestätigt markiert werden.</Resource>
     <Resource tag="CHECK_FOR_SPAM">SPAM Dienst für das automatische Checken von Beitragspam:</Resource>
-    <Resource tag="CHECK_FOR_SPAM_HELP">Aktiviert / deaktiviert die automatisch SPAM Kontrolle über das &lt;a href="http://blogspam.net/"&gt; BlogSpam.net API &lt;/a&gt; oder Akismet.com Service. Wenn diese Option aktiviert ist, können SPAM Beiträge abgelehnt werden oder als nicht bestätigt markiert werden.</Resource>
+    <Resource tag="CHECK_FOR_SPAM_HELP">Aktiviert / deaktiviert die automatisch SPAM Kontrolle über die &lt;a href="http://blogspam.net/"&gt; BlogSpam.net API &lt;/a&gt; oder den Akismet.com Service. Wenn diese Option aktiviert ist, können SPAM Beiträge abgelehnt werden oder als nicht bestätigt markiert werden.</Resource>
     <Resource tag="CLEAR_CACHE">Cache löschen</Resource>
     <Resource tag="COLLAPSED">Zusammengeklappt</Resource>
     <Resource tag="COUNTRYIMAGE_TEMPLATE">Land Flagge Vorlage:</Resource>
@@ -1033,6 +1042,7 @@
     <Resource tag="HEADER_ADVERTS">Werbeeinstellungen</Resource>
     <Resource tag="HEADER_ALBUM">Albumeinstellungen</Resource>
     <Resource tag="HEADER_AVATARS">Avatar Einstellungen</Resource>
+    <Resource tag="HEADER_BOTSPAM">Bot Spam Einstellungen (Benuzterüberprüfung)</Resource>
     <Resource tag="HEADER_CACHE">Speichereinstellungen</Resource>
     <Resource tag="HEADER_CAPTCHA">CAPTCHA Einstellungen</Resource>
     <Resource tag="HEADER_DISPLAY">Darstellungs-Einstellungen</Resource>
@@ -1056,7 +1066,7 @@
     <Resource tag="HEADER_SERVER_INFO">Server Info</Resource>
     <Resource tag="HEADER_SETUP">Host Konfiguration</Resource>
     <Resource tag="HEADER_SHOUT">Shoutboxeinstellungen</Resource>
-    <Resource tag="HEADER_SPAM">Spam Einstellungen</Resource>
+    <Resource tag="HEADER_SPAM">Spam Einstellungen (Beitragsüberprüfung)</Resource>
     <Resource tag="HEADER_SYNDICATION">Syndication-Feed Einstellungen</Resource>
     <Resource tag="HEADER_TEMPLATES">Vorlageneinstellungen</Resource>
     <Resource tag="HOST_ADVERTS">Werbung</Resource>
@@ -1321,9 +1331,9 @@
     <Resource tag="SHOWHELP_HELP">Aktivieren oder deaktivieren Sie den Hilfe-Link im Kopf der Seite, die die Hilfeseiten anzeigt.</Resource>
     <Resource tag="SHOWTEAM">Teamseite zeigen:</Resource>
     <Resource tag="SHOWTEAM_HELP">Aktivieren oder deaktivieren der Teamseite.</Resource>
-    <Resource tag="SPAM_MESSAGE_0">Nichts tun</Resource>
-    <Resource tag="SPAM_MESSAGE_1">Beitrag als nicht genehmigt markieren</Resource>
-    <Resource tag="SPAM_MESSAGE_2">Beitrag ablehnen</Resource>
+    <Resource tag="SPAM_MESSAGE_0">Do nothing</Resource>
+    <Resource tag="SPAM_MESSAGE_1">Flag Message as Unapproved</Resource>
+    <Resource tag="SPAM_MESSAGE_2">Reject Message</Resource>
     <Resource tag="SPAM_MESSAGE_HANDLING">Handhabung von als Spam erkannten Nachrichten</Resource>
     <Resource tag="SPAM_MESSAGE_HANDLING_HELP">Wählen Sie, was mit einem Beitrag passiert der als SPAM erkannt wurde. Sie können wählen zwischen nichts tun, Beiträge als nicht genehmigt markieren, oder den Beitrag ablehnen.</Resource>
     <Resource tag="SQL_FULLTEXT">SQL Volltext-Suche verwenden:</Resource>
@@ -1932,11 +1942,12 @@
     <Resource tag="NAME">Name</Resource>
     <Resource tag="NO">Nein</Resource>
     <Resource tag="NONE">Keine</Resource>
+    <Resource tag="NOTIFICATION_ON_BOT_USER_REGISTER_EMAIL_SUBJECT">Ein SPAM BOT Benutzer hat sich im Forum {0} registriert</Resource>
     <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT">Sie haben eine Auszeichnung erhalten im {0} Forum</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">Neue Nachricht im Forum {0} Forum muss genehmigt werden.</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE">Ein Beitrag im {0} Forum wurde gemeldet</Resource>
     <Resource tag="NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT">Registrierung im {0} Forum erfolgreich</Resource>
-    <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">Neuer Benutzer in Forum {0} angemeldet</Resource>
+    <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">Ein Benutzer hat sich im Forum {0} registriert</Resource>
     <Resource tag="OK">OK</Resource>
     <Resource tag="OR">oder</Resource>
     <Resource tag="PAGES">Seiten</Resource>
@@ -4584,6 +4595,7 @@ Spoiler Content
     <Resource tag="ALREADY_REGISTERED_DISPLAYNAME">Ihr Anzeigename wird bereits verwendet.</Resource>
     <Resource tag="BAD_EMAIL">Die E-Mailadresse hat ein falsches Format.</Resource>
     <Resource tag="BAD_PASSWORD">Wähle bitte ein komplexeres Passwort mit Sonderzeichen und Zahlen</Resource>
+    <Resource tag="BOT_MESSAGE">Entschuldigen Sie bitte aber Spammer sind nicht erlaubt im Forum!</Resource>
     <Resource tag="CONFIRM_PASSWORD">Passwortbestätigung</Resource>
     <Resource tag="CONTINUE">Weiter</Resource>
     <Resource tag="CREATE_USER">Benutzer registrieren</Resource>
@@ -4776,6 +4788,16 @@ Hallo!
 {user}, dachte dies hier könnte Dich vielleicht interessieren:
 
 {link}
+    </Resource>
+    <Resource tag="NOTIFICATION_ON_BOT_USER_REGISTER">
+      Hallo,
+
+      ein neuer Benutzer hat sich im Forum {forumname} angemeldet (ACHTUNG der Benutzer wurde vom System als möglichen SPAM BOT identifiziert):
+
+      Benutzername: {user}
+      E-Mail: {email}
+
+      Admin-Link: {adminlink}
     </Resource>
     <Resource tag="NOTIFICATION_ON_FACEBOOK_REGISTER">
       Hallo {user}.
