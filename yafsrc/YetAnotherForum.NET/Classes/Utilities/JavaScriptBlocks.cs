@@ -399,7 +399,21 @@ namespace YAF.Utilities
             return
                 @"function postToFacebook() {{
 
-                   FB.login(function(response) {{
+                   FB.getLoginStatus(function(response) {{
+  if (response.status === 'connected') {{
+    
+    FB.ui(
+                                {{ method: 'feed', name: '{0}', link: '{2}', picture: '{3}', caption: '{4}', description: '{1}', message: '{0}'
+                                }},
+                                function(response) {{
+                                  if (response && response.post_id) {{
+                                    alert('Post was published.');
+                                  }} else {{
+                                    alert('Post was not published.');
+                                  }}
+                                }});
+  }} else {{
+     FB.login(function(response) {{
                        if (response.authResponse) {{
                              FB.ui(
                                 {{ method: 'feed', name: '{0}', link: '{2}', picture: '{3}', caption: '{4}', description: '{1}', message: '{0}'
@@ -415,6 +429,9 @@ namespace YAF.Utilities
                                  alert('Not Logged in on Facebook!');
                                 }}
                              }});
+  }}
+ }});
+
                          }}"
                     .FormatWith(message, description, link, picture, caption);
         }
