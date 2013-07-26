@@ -40,10 +40,6 @@ namespace YAF.Core.Services.Twitter
     using System.Web;
 
     using YAF.Types.Extensions;
-    using YAF.Utils;
-
-    using ObjectExtensions = YAF.Types.Extensions.ObjectExtensions;
-    using StringExtensions = YAF.Types.Extensions.StringExtensions;
 
     #endregion
 
@@ -318,7 +314,7 @@ namespace YAF.Core.Services.Twitter
             switch (signatureType)
             {
                 case SignatureTypes.PLAINTEXT:
-                    return HttpUtility.UrlEncode(StringExtensions.FormatWith("{0}&{1}", consumerSecret, tokenSecret));
+                    return HttpUtility.UrlEncode("{0}&{1}".FormatWith(consumerSecret, tokenSecret));
                 case SignatureTypes.HMACSHA1:
                     string signatureBase = this.GenerateSignatureBase(
                         url,
@@ -335,11 +331,15 @@ namespace YAF.Core.Services.Twitter
                         out normalizedRequestParameters);
 
                     HMACSHA1 hmacsha1 = new HMACSHA1
-                        {
-                            Key =
-                                Encoding.ASCII.GetBytes(
-                                    StringExtensions.FormatWith("{0}&{1}", this.UrlEncode(consumerSecret), string.IsNullOrEmpty(tokenSecret) ? string.Empty : this.UrlEncode(tokenSecret)))
-                        };
+                                        {
+                                            Key =
+                                                Encoding.ASCII.GetBytes(
+                                                    "{0}&{1}".FormatWith(
+                                                        this.UrlEncode(consumerSecret),
+                                                        string.IsNullOrEmpty(tokenSecret)
+                                                            ? string.Empty
+                                                            : this.UrlEncode(tokenSecret)))
+                                        };
 
                     return this.GenerateSignatureUsingHash(signatureBase, hmacsha1);
                 default:
@@ -409,11 +409,6 @@ namespace YAF.Core.Services.Twitter
                 token = string.Empty;
             }
 
-            if (tokenSecret == null)
-            {
-                tokenSecret = string.Empty;
-            }
-
             if (string.IsNullOrEmpty(consumerKey))
             {
                 throw new ArgumentNullException("consumerKey");
@@ -454,10 +449,10 @@ namespace YAF.Core.Services.Twitter
 
             parameters.Sort(new QueryParameterComparer());
 
-            normalizedUrl = StringExtensions.FormatWith("{0}://{1}", url.Scheme, url.Host);
+            normalizedUrl = "{0}://{1}".FormatWith(url.Scheme, url.Host);
             if (!((url.Scheme == "http" && url.Port == 80) || (url.Scheme == "https" && url.Port == 443)))
             {
-                normalizedUrl += ":" + url.Port;
+                normalizedUrl += ":{0}".FormatWith(url.Port);
             }
 
             normalizedUrl += url.AbsolutePath;
@@ -497,7 +492,7 @@ namespace YAF.Core.Services.Twitter
         public virtual string GenerateTimeStamp()
         {
             TimeSpan ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
-            return ObjectExtensions.ToType<long>(ts.TotalSeconds).ToString();
+            return ts.TotalSeconds.ToType<long>().ToString();
         }
 
         #endregion
@@ -552,7 +547,7 @@ namespace YAF.Core.Services.Twitter
                 }
                 else
                 {
-                    result.Append('%' + "{0:X2}".FormatWith((int)symbol));
+                    result.AppendFormat("{0}{1}", '%', "{0:X2}".FormatWith((int)symbol));
                 }
             }
 
@@ -608,20 +603,22 @@ namespace YAF.Core.Services.Twitter
 
             List<QueryParameter> result = new List<QueryParameter>();
 
-            if (!string.IsNullOrEmpty(parameters))
+            if (string.IsNullOrEmpty(parameters))
             {
-                string[] p = parameters.Split('&');
-                foreach (string s in p.Where(s => !string.IsNullOrEmpty(s) && !s.StartsWith(OAuthParameterPrefix)))
+                return result;
+            }
+
+            string[] p = parameters.Split('&');
+            foreach (string s in p.Where(s => !string.IsNullOrEmpty(s) && !s.StartsWith(OAuthParameterPrefix)))
+            {
+                if (s.IndexOf('=') > -1)
                 {
-                    if (s.IndexOf('=') > -1)
-                    {
-                        string[] temp = s.Split('=');
-                        result.Add(new QueryParameter(temp[0], temp[1]));
-                    }
-                    else
-                    {
-                        result.Add(new QueryParameter(s, string.Empty));
-                    }
+                    string[] temp = s.Split('=');
+                    result.Add(new QueryParameter(temp[0], temp[1]));
+                }
+                else
+                {
+                    result.Add(new QueryParameter(s, string.Empty));
                 }
             }
 
@@ -718,7 +715,9 @@ namespace YAF.Core.Services.Twitter
             /// </returns>
             public int Compare(QueryParameter x, QueryParameter y)
             {
-                return x.Name == y.Name ? string.Compare(x.Value, y.Value) : string.Compare(x.Name, y.Name);
+                return x.Name == y.Name
+                    ? String.CompareOrdinal(x.Value, y.Value)
+                    : String.CompareOrdinal(x.Name, y.Name);
             }
 
             #endregion

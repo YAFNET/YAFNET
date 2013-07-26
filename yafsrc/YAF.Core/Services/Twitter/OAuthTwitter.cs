@@ -32,6 +32,8 @@ namespace YAF.Core.Services.Twitter
     using System.Net;
     using System.Web;
 
+    using YAF.Types.Extensions;
+
     #endregion
 
     /// <summary>
@@ -103,7 +105,7 @@ namespace YAF.Core.Services.Twitter
             /// <summary>
             /// The get.
             /// </summary>
-            GET, 
+            GET,
 
             /// <summary>
             /// The post.
@@ -276,22 +278,23 @@ namespace YAF.Core.Services.Twitter
         /// </returns>
         public string AuthorizationLinkGet()
         {
-            string ret = null;
-
             // First let's get a REQUEST token.
             string response = this.OAuthWebRequest(Method.GET, REQUESTTOKEN, string.Empty);
-            if (response.Length > 0)
+
+            if (response.Length <= 0)
             {
-                // response contains token and token secret.  We only need the token.
-                NameValueCollection qs = HttpUtility.ParseQueryString(response);
-                if (qs["oauth_token"] != null)
-                {
-                    this.OAuthToken = qs["oauth_token"]; // tuck this away for later
-                    ret = AUTHORIZE + "?oauth_token=" + qs["oauth_token"]; // +"&oauth_callback=oob";
-                }
+                return null;
             }
 
-            return ret;
+            // response contains token and token secret.  We only need the token.
+            NameValueCollection qs = HttpUtility.ParseQueryString(response);
+            if (qs["oauth_token"] == null)
+            {
+                return null;
+            }
+            this.OAuthToken = qs["oauth_token"]; // tuck this away for later
+
+            return "{0}?oauth_token={1}".FormatWith(AUTHORIZE, qs["oauth_token"]);
         }
 
         /// <summary>
@@ -329,8 +332,8 @@ namespace YAF.Core.Services.Twitter
 
             if (method == Method.POST)
             {
-                webRequest.ContentType = "application/x-www-form-urlencoded";
-                
+                webRequest.ContentType = "application/x-www-form-urlencoded;charset=UTF-8";
+
                 // POST the data.
                 StreamWriter requestWriter = new StreamWriter(webRequest.GetRequestStream());
                 try
@@ -341,7 +344,19 @@ namespace YAF.Core.Services.Twitter
                 {
                     requestWriter.Close();
                 }
+
+                /*using (Stream stream = webRequest.GetRequestStream())
+                {
+
+                    byte[] content = ASCIIEncoding.ASCII.GetBytes(postData);
+
+                    stream.Write(content, 0, content.Length);
+
+                }*/
+
             }
+
+            //webRequest.Headers.Add("Accept-Encoding", "gzip");
 
             string responseData = this.WebResponseGet(webRequest);
 
@@ -418,7 +433,7 @@ namespace YAF.Core.Services.Twitter
 
                         qs[key] = HttpUtility.UrlDecode(qs[key]);
                         qs[key] = this.UrlEncode(qs[key]);
-                        postData += key + "=" + qs[key];
+                        postData += "{0}={1}".FormatWith(key, qs[key]);
                     }
 
                     if (url.IndexOf("?") > 0)
@@ -435,7 +450,7 @@ namespace YAF.Core.Services.Twitter
             }
             else if (method == Method.GET && !string.IsNullOrEmpty(postData))
             {
-                url += "?" + postData;
+                url += "?{0}".FormatWith(postData);
             }
 
             Uri uri = new Uri(url);
@@ -445,20 +460,20 @@ namespace YAF.Core.Services.Twitter
 
             // Generate Signature
             string sig = this.GenerateSignature(
-                uri, 
-                this.ConsumerKey, 
-                this.ConsumerSecret, 
-                this.Token, 
-                this.TokenSecret, 
-                this.CallBackUrl, 
-                method.ToString(), 
-                timeStamp, 
-                nonce, 
-                this.PIN, 
-                out outUrl, 
+                uri,
+                this.ConsumerKey,
+                this.ConsumerSecret,
+                this.Token,
+                this.TokenSecret,
+                this.CallBackUrl,
+                method.ToString(),
+                timeStamp,
+                nonce,
+                this.PIN,
+                out outUrl,
                 out querystring);
 
-            querystring += "&oauth_signature=" + HttpUtility.UrlEncode(sig);
+            querystring += "&oauth_signature={0}".FormatWith(HttpUtility.UrlEncode(sig));
 
             // Convert the querystring to postData
             if (method == Method.POST)
@@ -472,7 +487,7 @@ namespace YAF.Core.Services.Twitter
                 outUrl += "?";
             }
 
-            string ret = this.WebRequest(method, outUrl + querystring, postData);
+            string ret = this.WebRequest(method, "{0}{1}".FormatWith(outUrl, querystring), postData);
 
             return ret;
         }
