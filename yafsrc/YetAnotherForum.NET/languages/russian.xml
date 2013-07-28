@@ -782,11 +782,13 @@
     <Resource tag="GRANTALLDELETE">Разрешить удалять всё</Resource>
     <Resource tag="GROUPNAME">Роль</Resource>
     <Resource tag="HEADER">Доступ к журналу событий для</Resource>
+    <Resource tag="LT_DEBUG">Debug</Resource>
     <Resource tag="LT_ERROR">Ошибки</Resource>
     <Resource tag="LT_INFORMATION">Информация</Resource>
     <Resource tag="LT_IPBANLIFTED">Отмена бана по IP</Resource>
     <Resource tag="LT_IPBANSET">Установка бана по IP </Resource>
     <Resource tag="LT_SQLERROR">Ошибки Sql</Resource>
+    <Resource tag="LT_TRACE">Trace</Resource>
     <Resource tag="LT_USERDELETED">Удаление пользователей</Resource>
     <Resource tag="LT_USERSUSPENDED">Временное отстранение пользователей</Resource>
     <Resource tag="LT_USERUNSUSPENDED">Возвращение временно отстранённых пользователей</Resource>

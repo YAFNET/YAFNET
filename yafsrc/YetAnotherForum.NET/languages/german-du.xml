@@ -782,11 +782,13 @@
     <Resource tag="GRANTALLDELETE">Alle Löschen erlauben</Resource>
     <Resource tag="GROUPNAME">Gruppe</Resource>
     <Resource tag="HEADER">Ereignisprotokoll Zugriff für</Resource>
+    <Resource tag="LT_DEBUG">Debug</Resource>
     <Resource tag="LT_ERROR">Fehler</Resource>
     <Resource tag="LT_INFORMATION">Information</Resource>
     <Resource tag="LT_IPBANLIFTED">IP-Verbot Abbrechen </Resource>
     <Resource tag="LT_IPBANSET">Festlegen von einem IP-Verbot</Resource>
     <Resource tag="LT_SQLERROR">SQL Fehler</Resource>
+    <Resource tag="LT_TRACE">Trace</Resource>
     <Resource tag="LT_USERDELETED">Löschen von Benutzern</Resource>
     <Resource tag="LT_USERSUSPENDED">Benutzer sperren</Resource>
     <Resource tag="LT_USERUNSUSPENDED">Entsperren von Benutzern</Resource>

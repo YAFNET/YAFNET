@@ -67,12 +67,8 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// Handles load event for delete all button.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         /// <remarks>
         /// Adds confirmation popup to click event of this button.
         /// </remarks>
@@ -85,12 +81,8 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// Handles load event for log entry delete link button.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         /// <remarks>
         /// Adds confirmation popup to click event of this button.
         /// </remarks>
@@ -254,7 +246,7 @@ namespace YAF.Pages.Admin
 
             foreach (int eventTypeId in Enum.GetValues(typeof(EventLogTypes)))
             {
-                var eventTypeName = this.GetText(
+                var eventTypeName = this.Get<ILocalization>().GetText(
                     "ADMIN_EVENTLOGROUPACCESS",
                     "LT_{0}".FormatWith(Enum.GetName(typeof(EventLogTypes), eventTypeId).ToUpperInvariant()));
 
