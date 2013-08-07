@@ -9,7 +9,7 @@ go
 -- {objectQualifier}Registry
 
 if exists(select top 1 1 from dbo.sysindexes where name=N'IX_Name' and id=object_id(N'[{databaseOwner}].[{objectQualifier}Registry]'))
-	drop index [{databaseOwner}].[{objectQualifier}Registry].[IX_Name]
+	drop index [IX_Name] ON [{databaseOwner}].[{objectQualifier}Registry]
 go
 
 if not exists(select top 1 1 from dbo.sysindexes where name=N'IX_{objectQualifier}Registry_Name' and id=object_id(N'[{databaseOwner}].[{objectQualifier}Registry]'))

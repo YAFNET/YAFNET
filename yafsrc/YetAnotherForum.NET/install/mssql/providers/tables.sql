@@ -108,7 +108,7 @@ begin
 	-- drop the provider user key index if it exists...
 	if exists(select 1 from dbo.sysindexes where name=N'IX_{objectQualifier}prov_RoleMembership_UserID' and id=object_id(N'[{databaseOwner}].[{objectQualifier}prov_RoleMembership]'))
 	begin
-		DROP INDEX [{databaseOwner}].[{objectQualifier}prov_RoleMembership].[IX_{objectQualifier}prov_RoleMembership_UserID]
+		DROP INDEX [IX_{objectQualifier}prov_RoleMembership_UserID] ON [{databaseOwner}].[{objectQualifier}prov_RoleMembership]
 	end
 	-- alter the column
 	ALTER TABLE [{databaseOwner}].[{objectQualifier}prov_RoleMembership] ALTER COLUMN UserID nvarchar(64) NOT NULL

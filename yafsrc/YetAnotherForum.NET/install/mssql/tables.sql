@@ -995,7 +995,7 @@ begin
 	-- drop the provider user key index if it exists...
 	if exists(select 1 from dbo.sysindexes where name=N'IX_{objectQualifier}User_ProviderUserKey' and id=object_id(N'[{databaseOwner}].[{objectQualifier}User]'))
 	begin
-		DROP INDEX [{databaseOwner}].[{objectQualifier}User].[IX_{objectQualifier}User_ProviderUserKey]
+		DROP INDEX [IX_{objectQualifier}User_ProviderUserKey] ON [{databaseOwner}].[{objectQualifier}User]
 	end
 	-- alter the column
 	ALTER TABLE [{databaseOwner}].[{objectQualifier}User] ALTER COLUMN ProviderUserKey nvarchar(64)
@@ -2130,7 +2130,7 @@ if exists(select top 1 1 from dbo.syscolumns where id = object_id(N'[{databaseOw
     if exists(select * from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}PollVote]') and name='IX_{objectQualifier}PollVote_RemoteIP')
     begin
     begin
-    drop index [{databaseOwner}].[{objectQualifier}PollVote].[IX_{objectQualifier}PollVote_RemoteIP]
+    drop index [IX_{objectQualifier}PollVote_RemoteIP] ON [{databaseOwner}].[{objectQualifier}PollVote]
     end
 	alter table [{databaseOwner}].[{objectQualifier}PollVote] alter column [RemoteIP] varchar(39) null
 	end

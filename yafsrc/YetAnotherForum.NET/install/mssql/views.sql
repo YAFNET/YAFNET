@@ -2,17 +2,17 @@
   
 /****** Object:  Index [{objectQualifier}vaccess_user_UserForum]    Script Date: 09/28/2009 22:30:20 ******/
 IF  exists (select top 1 1 from dbo.sysindexes WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}vaccess_user]') AND name = N'{objectQualifier}vaccess_user_UserForum_PK')
-DROP INDEX  [{databaseOwner}].[{objectQualifier}vaccess_user].[{objectQualifier}vaccess_user_UserForum_PK]
+DROP INDEX  [{objectQualifier}vaccess_user_UserForum_PK] ON [{databaseOwner}].[{objectQualifier}vaccess_user]
 GO
 
 /****** Object:  Index [{objectQualifier}vaccess_null_UserForum]    Script Date: 09/28/2009 22:30:36 ******/
 IF  exists (select top 1 1 from dbo.sysindexes WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}vaccess_null]') AND name = N'{objectQualifier}vaccess_null_UserForum_PK')
-DROP INDEX  [{databaseOwner}].[{objectQualifier}vaccess_null].[{objectQualifier}vaccess_null_UserForum_PK]
+DROP INDEX  [{objectQualifier}vaccess_null_UserForum_PK] ON [{databaseOwner}].[{objectQualifier}vaccess_null]
 GO
 
 /****** Object:  Index [{objectQualifier}vaccess_group_UserGroup]    Script Date: 09/28/2009 22:30:55 ******/
 IF  exists (select top 1 1 from dbo.sysindexes WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}vaccess_group]') AND name = N'{objectQualifier}vaccess_group_UserForum_PK')
-DROP INDEX [{databaseOwner}].[{objectQualifier}vaccess_group].[{objectQualifier}vaccess_group_UserForum_PK]
+DROP INDEX [{objectQualifier}vaccess_group_UserForum_PK] ON [{databaseOwner}].[{objectQualifier}vaccess_group]
 GO
 
 -- drop views
