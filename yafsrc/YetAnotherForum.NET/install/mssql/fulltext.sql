@@ -7,7 +7,7 @@ GO
 
 if (select DATABASEPROPERTY(DB_NAME(), N'IsFullTextEnabled')) = 1
 BEGIN
-	if not exists (select * from dbo.sysfulltextcatalogs where name = N'YafSearch')
+	if not exists (select * from sys.sysfulltextcatalogs where name = N'YafSearch')
 	BEGIN
 		EXEC sp_fulltext_catalog N'YafSearch', N'create'
 		EXEC sp_fulltext_table N'[{databaseOwner}].[{objectQualifier}Message]', N'create', N'YafSearch', N'PK_yaf_Message'	

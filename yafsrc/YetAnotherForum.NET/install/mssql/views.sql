@@ -1,54 +1,54 @@
  -- vzrus: drop indexes on views here
   
 /****** Object:  Index [{objectQualifier}vaccess_user_UserForum]    Script Date: 09/28/2009 22:30:20 ******/
-IF  exists (select top 1 1 from dbo.sysindexes WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}vaccess_user]') AND name = N'{objectQualifier}vaccess_user_UserForum_PK')
+IF  exists (select top 1 1 from sys.indexes WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}vaccess_user]') AND name = N'{objectQualifier}vaccess_user_UserForum_PK')
 DROP INDEX  [{objectQualifier}vaccess_user_UserForum_PK] ON [{databaseOwner}].[{objectQualifier}vaccess_user]
 GO
 
 /****** Object:  Index [{objectQualifier}vaccess_null_UserForum]    Script Date: 09/28/2009 22:30:36 ******/
-IF  exists (select top 1 1 from dbo.sysindexes WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}vaccess_null]') AND name = N'{objectQualifier}vaccess_null_UserForum_PK')
+IF  exists (select top 1 1 from sys.indexes WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}vaccess_null]') AND name = N'{objectQualifier}vaccess_null_UserForum_PK')
 DROP INDEX  [{objectQualifier}vaccess_null_UserForum_PK] ON [{databaseOwner}].[{objectQualifier}vaccess_null]
 GO
 
 /****** Object:  Index [{objectQualifier}vaccess_group_UserGroup]    Script Date: 09/28/2009 22:30:55 ******/
-IF  exists (select top 1 1 from dbo.sysindexes WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}vaccess_group]') AND name = N'{objectQualifier}vaccess_group_UserForum_PK')
+IF  exists (select top 1 1 from sys.indexes WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}vaccess_group]') AND name = N'{objectQualifier}vaccess_group_UserForum_PK')
 DROP INDEX [{objectQualifier}vaccess_group_UserForum_PK] ON [{databaseOwner}].[{objectQualifier}vaccess_group]
 GO
 
 -- drop views
 
 /****** Object:  View [{databaseOwner}].[{objectQualifier}vaccess]    Script Date: 10/27/2009 21:42:29 ******/
-IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}vaccess]') AND OBJECTPROPERTY(id, N'IsView') = 1)
+IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}vaccess]') AND type in (N'V'))
 DROP VIEW [{databaseOwner}].[{objectQualifier}vaccess]
 GO
 
 /****** Object:  View [{databaseOwner}].[{objectQualifier}vaccessfull]    Script Date: 10/27/2009 21:42:29 ******/
-IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}vaccessfull]') AND OBJECTPROPERTY(id, N'IsView') = 1)
+IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}vaccessfull]') AND type in (N'V'))
 DROP VIEW [{databaseOwner}].[{objectQualifier}vaccessfull]
 GO
 
 /****** Object:  View [{databaseOwner}].[{objectQualifier}vaccess_group]    Script Date: 10/27/2009 21:42:29 ******/
-IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}vaccess_group]') AND OBJECTPROPERTY(id, N'IsView') = 1)
+IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}vaccess_group]') AND type in (N'V'))
 DROP VIEW [{databaseOwner}].[{objectQualifier}vaccess_group]
 GO
 
 /****** Object:  View [{databaseOwner}].[{objectQualifier}vaccess_null]    Script Date: 10/27/2009 21:42:29 ******/
-IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}vaccess_null]') AND OBJECTPROPERTY(id, N'IsView') = 1)
+IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}vaccess_null]') AND type in (N'V'))
 DROP VIEW [{databaseOwner}].[{objectQualifier}vaccess_null]
 GO
 
 /****** Object:  View [{databaseOwner}].[{objectQualifier}vaccess_user]    Script Date: 10/27/2009 21:42:29 ******/
-IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}vaccess_user]') AND OBJECTPROPERTY(id, N'IsView') = 1)
+IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}vaccess_user]') AND type in (N'V'))
 DROP VIEW [{databaseOwner}].[{objectQualifier}vaccess_user]
 GO
 
 /****** Object:  View [{databaseOwner}].[{objectQualifier}PMessageView]    Script Date: 10/27/2009 21:42:29 ******/
-IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}PMessageView]') AND OBJECTPROPERTY(id, N'IsView') = 1)
+IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}PMessageView]') AND type in (N'V'))
 DROP VIEW [{databaseOwner}].[{objectQualifier}PMessageView]
 GO
 
-IF NOT exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}vaccess_group]') AND OBJECTPROPERTY(id, N'IsView') = 1)
-EXEC dbo.sp_executesql @statement = N'CREATE VIEW [{databaseOwner}].[{objectQualifier}vaccess_group]
+IF NOT exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}vaccess_group]') AND type in (N'V'))
+EXEC sys.sp_executesql @statement = N'CREATE VIEW [{databaseOwner}].[{objectQualifier}vaccess_group]
 WITH SCHEMABINDING
 AS
         select
@@ -75,8 +75,8 @@ AS
             INNER JOIN [{databaseOwner}].[{objectQualifier}Group] e on e.GroupID=b.GroupID' 
 GO
 
-IF NOT exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}vaccess_null]') AND OBJECTPROPERTY(id, N'IsView') = 1)
-EXEC dbo.sp_executesql @statement = N'CREATE VIEW [{databaseOwner}].[{objectQualifier}vaccess_null]
+IF NOT exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}vaccess_null]') AND type in (N'V'))
+EXEC sys.sp_executesql @statement = N'CREATE VIEW [{databaseOwner}].[{objectQualifier}vaccess_null]
 WITH SCHEMABINDING
 AS
         select
@@ -101,8 +101,8 @@ AS
 GO
 
 
-IF NOT exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}vaccess_user]') AND OBJECTPROPERTY(id, N'IsView') = 1)
-EXEC dbo.sp_executesql @statement = N'CREATE VIEW [{databaseOwner}].[{objectQualifier}vaccess_user]
+IF NOT exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}vaccess_user]') AND type in (N'V'))
+EXEC sys.sp_executesql @statement = N'CREATE VIEW [{databaseOwner}].[{objectQualifier}vaccess_user]
 WITH SCHEMABINDING
 AS
     SELECT
@@ -128,8 +128,8 @@ AS
 GO
 
 
-IF NOT exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}vaccessfull]') AND OBJECTPROPERTY(id, N'IsView') = 1)
-EXEC dbo.sp_executesql @statement = N'CREATE VIEW [{databaseOwner}].[{objectQualifier}vaccessfull]
+IF NOT exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}vaccessfull]') AND type in (N'V'))
+EXEC sys.sp_executesql @statement = N'CREATE VIEW [{databaseOwner}].[{objectQualifier}vaccessfull]
 WITH SCHEMABINDING
 AS
 
@@ -203,8 +203,8 @@ select
 GO
 
 
-IF NOT exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}vaccess]') AND OBJECTPROPERTY(id, N'IsView') = 1)
-EXEC dbo.sp_executesql @statement = N'/****** Object:  View [{databaseOwner}].[{objectQualifier}vaccess]    Script Date: 09/28/2009 22:26:00 ******/
+IF NOT exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}vaccess]') AND type in (N'V'))
+EXEC sys.sp_executesql @statement = N'/****** Object:  View [{databaseOwner}].[{objectQualifier}vaccess]    Script Date: 09/28/2009 22:26:00 ******/
 CREATE VIEW [{databaseOwner}].[{objectQualifier}vaccess]
 AS
     SELECT
