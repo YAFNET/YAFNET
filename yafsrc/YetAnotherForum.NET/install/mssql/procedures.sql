@@ -5792,7 +5792,7 @@ create procedure [{databaseOwner}].[{objectQualifier}system_initialize](
     @SmtpServer	nvarchar(50),
     @User		nvarchar(255),
     @UserEmail	nvarchar(255),
-    @Userkey	nvarchar(64),
+    @UserKey	nvarchar(64),
     @RolePrefix nvarchar(255),
     @UTCTIMESTAMP datetime
     
@@ -7085,7 +7085,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_aspnet](@BoardID int,@
 BEGIN
         SET NOCOUNT ON
 
-    DECLARE @UserID int, @RankID int, @approvedFlag int, @timezone int
+    DECLARE @UserID int, @RankID int, @approvedFlag int, @TimeZone int
 
     SET @approvedFlag = 0;
     IF (@IsApproved = 1) SET @approvedFlag = 2;	
@@ -7118,7 +7118,7 @@ BEGIN
         SET @TimeZone = (SELECT ISNULL(CAST([{databaseOwner}].[{objectQualifier}registry_value]('TimeZone', @BoardID) as int), 0))
 
         INSERT INTO [{databaseOwner}].[{objectQualifier}User](BoardID,RankID,[Name],DisplayName,Password,Email,Joined,LastVisit,NumPosts,TimeZone,Flags,ProviderUserKey) 
-        VALUES(@BoardID,@RankID,@UserName,@DisplayName,'-',@Email,@UTCTIMESTAMP ,@UTCTIMESTAMP ,0, @timezone,@approvedFlag,@ProviderUserKey)
+        VALUES(@BoardID,@RankID,@UserName,@DisplayName,'-',@Email,@UTCTIMESTAMP ,@UTCTIMESTAMP ,0, @TimeZone,@approvedFlag,@ProviderUserKey)
     
         SET @UserID = SCOPE_IDENTITY()	
     END
@@ -8245,12 +8245,12 @@ begin
     if (@Flags & 2) = 0 return
 
     -- retrieve board current user's rank beling to	
-    select @RankBoardId = BoardID
+    select @RankBoardID = BoardID
     from   [{databaseOwner}].[{objectQualifier}Rank]
     where  RankID = @RankID
 
     -- does user have rank from his board?
-    IF @RankBoardId <> @BoardId begin
+    IF @RankBoardID <> @BoardId begin
         -- get highest rank user can get
         select top 1
                @RankID = RankID
@@ -9501,30 +9501,30 @@ GO
 /* User Ignore Procedures */
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_addignoreduser]
-    @UserId int,
+    @UserID int,
     @IgnoredUserId int
 AS BEGIN
-        IF NOT EXISTS (SELECT * FROM [{databaseOwner}].[{objectQualifier}IgnoreUser] WHERE UserID = @userId AND IgnoredUserID = @IgnoredUserId)
+        IF NOT EXISTS (SELECT * FROM [{databaseOwner}].[{objectQualifier}IgnoreUser] WHERE UserID = @UserID AND IgnoredUserID = @IgnoredUserId)
     BEGIN
-        INSERT INTO [{databaseOwner}].[{objectQualifier}IgnoreUser] (UserID, IgnoredUserID) VALUES (@UserId, @IgnoredUserId)
+        INSERT INTO [{databaseOwner}].[{objectQualifier}IgnoreUser] (UserID, IgnoredUserID) VALUES (@UserID, @IgnoredUserId)
     END
 END
 GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_removeignoreduser]
-    @UserId int,
+    @UserID int,
     @IgnoredUserId int
 AS BEGIN
-        DELETE FROM [{databaseOwner}].[{objectQualifier}IgnoreUser] WHERE UserID = @userId AND IgnoredUserID = @IgnoredUserId
+        DELETE FROM [{databaseOwner}].[{objectQualifier}IgnoreUser] WHERE UserID = @UserID AND IgnoredUserID = @IgnoredUserId
     
 END
 GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_isuserignored]
-    @UserId int,
+    @UserID int,
     @IgnoredUserId int
 AS BEGIN
-        IF EXISTS(SELECT * FROM [{databaseOwner}].[{objectQualifier}IgnoreUser] WHERE UserID = @userId AND IgnoredUserID = @IgnoredUserId)
+        IF EXISTS(SELECT * FROM [{databaseOwner}].[{objectQualifier}IgnoreUser] WHERE UserID = @UserID AND IgnoredUserID = @IgnoredUserId)
     BEGIN
         RETURN 1
     END
@@ -9537,10 +9537,10 @@ END
 GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_ignoredlist]
-    @UserId int
+    @UserID int
 AS
 BEGIN
-        SELECT * FROM [{databaseOwner}].[{objectQualifier}IgnoreUser] WHERE UserID = @userId
+        SELECT * FROM [{databaseOwner}].[{objectQualifier}IgnoreUser] WHERE UserID = @UserID
 END	
 GO
 
