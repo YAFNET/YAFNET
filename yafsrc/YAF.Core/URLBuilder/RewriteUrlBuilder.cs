@@ -25,6 +25,7 @@ namespace YAF.Core
     using System.Data;
     using System.Globalization;
     using System.Text;
+    using System.Text.RegularExpressions;
     using System.Web;
     using System.Web.Caching;
 
@@ -300,56 +301,39 @@ namespace YAF.Core
         #region Methods
 
         /// <summary>
-        /// High range.
-        /// </summary>
-        /// <param name="id">The id.</param>
-        /// <returns>
-        /// The high range.
-        /// </returns>
-        protected int HighRange(int id)
-        {
-            return (int)(Math.Ceiling((double)(id / this._cacheSize)) * this._cacheSize);
-        }
-
-        /// <summary>
-        /// Low range.
-        /// </summary>
-        /// <param name="id">The id.</param>
-        /// <returns>
-        /// The low range.
-        /// </returns>
-        protected int LowRange(int id)
-        {
-            return (int)(Math.Floor((double)(id / this._cacheSize)) * this._cacheSize);
-        }
-
-        /// <summary>
         /// Cleans the string for URL.
         /// </summary>
-        /// <param name="str">The str.</param>
+        /// <param name="inputString">The input String.</param>
         /// <returns>
-        /// The clean string for url.
+        /// The cleaned string
         /// </returns>
-        protected static string CleanStringForURL(string str)
+        protected static string CleanStringForURL(string inputString)
         {
             var sb = new StringBuilder();
 
             // trim...
-            str = Config.UrlRewritingMode == "Unicode"
-                      ? HttpUtility.UrlDecode(str.Trim())
-                      : HttpContext.Current.Server.HtmlDecode(str.Trim());
+            inputString = Config.UrlRewritingMode == "Unicode"
+                      ? HttpUtility.UrlDecode(inputString.Trim())
+                      : HttpContext.Current.Server.HtmlDecode(inputString.Trim());
 
             // fix ampersand...
-            str = str.Replace("&", "and");
+            inputString = inputString.Replace("&", "and");
 
             // normalize the Unicode
-            str = str.Normalize(NormalizationForm.FormD);
+            inputString = inputString.Normalize(NormalizationForm.FormD);
+
+            // captcha fix
+            if (inputString.EndsWith("captcha", StringComparison.InvariantCultureIgnoreCase) && Config.IsDotNetNuke)
+            {
+                Regex rgx = new Regex("captcha", RegexOptions.IgnoreCase);
+                inputString = rgx.Replace(inputString, string.Empty);
+            }
 
             switch (Config.UrlRewritingMode)
             {
                 case "Unicode":
                     {
-                        foreach (char currentChar in str)
+                        foreach (char currentChar in inputString)
                         {
                             if (char.IsWhiteSpace(currentChar) || char.IsPunctuation(currentChar))
                             {
@@ -378,11 +362,11 @@ namespace YAF.Core
 
                         try
                         {
-                            strUnidecode = str.Unidecode().Replace(" ", "-");
+                            strUnidecode = inputString.Unidecode().Replace(" ", "-");
                         }
                         catch (Exception)
                         {
-                            strUnidecode = str;
+                            strUnidecode = inputString;
                         }
 
                         foreach (char currentChar in strUnidecode)
@@ -410,7 +394,7 @@ namespace YAF.Core
 
                 default:
                     {
-                        foreach (char currentChar in str)
+                        foreach (char currentChar in inputString)
                         {
                             if (char.IsWhiteSpace(currentChar) || char.IsPunctuation(currentChar))
                             {
@@ -433,6 +417,30 @@ namespace YAF.Core
                         return strNew.Length.Equals(0) ? "Default" : strNew;
                     }
             }
+        }
+
+        /// <summary>
+        /// High range.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        /// <returns>
+        /// The high range.
+        /// </returns>
+        protected int HighRange(int id)
+        {
+            return (int)(Math.Ceiling((double)(id / this._cacheSize)) * this._cacheSize);
+        }
+
+        /// <summary>
+        /// Low range.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        /// <returns>
+        /// The low range.
+        /// </returns>
+        protected int LowRange(int id)
+        {
+            return (int)(Math.Floor((double)(id / this._cacheSize)) * this._cacheSize);
         }
 
         /// <summary>
@@ -661,32 +669,32 @@ namespace YAF.Core
         /// </returns>
         protected DataRow SetupDataToCache(ref DataTable list, string type, int id, string primaryKey)
         {
-            DataRow row = null;
-
-            if (list != null)
+            if (list == null)
             {
-                list.Columns[primaryKey].Unique = true;
-                list.PrimaryKey = new[] { list.Columns[primaryKey] };
+                return null;
+            }
 
-                // store it for the future
-                var randomValue = new Random();
-                HttpContext.Current.Cache.Insert(
-                    this.GetCacheName(type, id),
-                    list,
-                    null,
-                    DateTime.UtcNow.AddMinutes(randomValue.Next(5, 15)),
-                    Cache.NoSlidingExpiration,
-                    CacheItemPriority.Low,
-                    null);
+            list.Columns[primaryKey].Unique = true;
+            list.PrimaryKey = new[] { list.Columns[primaryKey] };
 
-                // find and return profile..
-                row = list.Rows.Find(id);
+            // store it for the future
+            var randomValue = new Random();
+            HttpContext.Current.Cache.Insert(
+                this.GetCacheName(type, id),
+                list,
+                null,
+                DateTime.UtcNow.AddMinutes(randomValue.Next(5, 15)),
+                Cache.NoSlidingExpiration,
+                CacheItemPriority.Low,
+                null);
 
-                if (row == null)
-                {
-                    // invalidate this cache section
-                    HttpContext.Current.Cache.Remove(this.GetCacheName(type, id));
-                }
+            // find and return profile..
+            DataRow row = list.Rows.Find(id);
+
+            if (row == null)
+            {
+                // invalidate this cache section
+                HttpContext.Current.Cache.Remove(this.GetCacheName(type, id));
             }
 
             return row;

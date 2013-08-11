@@ -211,7 +211,7 @@ namespace YAF.DotNetNuke
             break;
         }
 
-         newUrl.Append(".aspx");
+        //newUrl.Append(".aspx");
 
         if (newUrl.Length >= 260)
         {
