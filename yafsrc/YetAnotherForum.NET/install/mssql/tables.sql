@@ -431,7 +431,6 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 		Suspended		[datetime] NULL,
 		LanguageFile	nvarchar(50) NULL,
 		ThemeFile		nvarchar(50) NULL,
-		[UseSingleSignOn][bit] NOT NULL CONSTRAINT [DF_{objectQualifier}User_UseSingleSignOn] DEFAULT (0),
 		TextEditor		nvarchar(50) NULL,
 		OverrideDefaultThemes	bit NOT NULL CONSTRAINT [DF_{objectQualifier}User_OverrideDefaultThemes] DEFAULT (1),
 		[PMNotification] [bit] NOT NULL CONSTRAINT [DF_{objectQualifier}User_PMNotification] DEFAULT (1),
@@ -448,7 +447,8 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 		[IsDirty]	AS (CONVERT([bit],sign([Flags]&(64)),(0))),
 		[Culture] varchar (10) DEFAULT (10),
 		[IsFacebookUser][bit] NOT NULL CONSTRAINT [DF_{objectQualifier}User_IsFacebookUser] DEFAULT (0),
-		[IsTwitterUser][bit] NOT NULL CONSTRAINT [DF_{objectQualifier}User_IsTwitterUser] DEFAULT (0)
+		[IsTwitterUser][bit] NOT NULL CONSTRAINT [DF_{objectQualifier}User_IsTwitterUser] DEFAULT (0),
+		[IsGoogleUser][bit] NOT NULL CONSTRAINT [DF_{objectQualifier}User_IsGoogleUser] DEFAULT (0)
 )
 GO
 
@@ -931,11 +931,6 @@ begin
 	alter table [{databaseOwner}].[{objectQualifier}User] add TextEditor nvarchar(50) NULL
 end
 GO
-if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='UseSingleSignOn')
-begin
-	alter table [{databaseOwner}].[{objectQualifier}User] add [UseSingleSignOn][bit] NOT NULL CONSTRAINT [DF_{objectQualifier}User_UseSingleSignOn] DEFAULT (0)
-end
-GO
 
 if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='AnswerMessageId')
 begin
@@ -1167,6 +1162,12 @@ GO
 if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='IsTwitterUser')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}User] add [IsTwitterUser][bit] NOT NULL CONSTRAINT [DF_{objectQualifier}IsTwitterUser] DEFAULT (0)
+end
+GO
+
+if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='IsGoogleUser')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}User] add [IsGoogleUser][bit] NOT NULL CONSTRAINT [DF_{objectQualifier}IsGoogleUser] DEFAULT (0)
 end
 GO
 

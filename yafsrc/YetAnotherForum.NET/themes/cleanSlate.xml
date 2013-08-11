@@ -215,6 +215,7 @@
     <Resource tag="VKONTAKTE">~/vkontakte.png</Resource>
     <Resource tag="LINKBACK">~/icon_linkback.png</Resource>
 	  <Resource tag="GOOGLEPLUS">~/icon_googleplus.png</Resource>
+    <Resource tag="GOOGLE2">~/icon_googleplus2.png</Resource>
     <Resource tag="PRINT">~/icon_print.png</Resource>
     <Resource tag="PM_READ">~/topic.gif</Resource>
     <Resource tag="PM_NEW">~/topic_new.gif</Resource>

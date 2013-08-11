@@ -34,14 +34,22 @@
                                  <asp:LinkButton ID="PasswordRecovery" CssClass="RecoveryButtton" runat="server" CausesValidation="false"
                                                 OnClick="PasswordRecovery_Click" />
                                  <asp:PlaceHolder ID="FaceBookHolder" runat="server" Visible="false">
-                                    <div class="fb-login-button" data-onlogin="LoginUser()" 
-                                         data-scope="email,user_birthday,status_update,publish_stream,user_hometown,user_location">
-                                        <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="FACEBOOK_LOGIN" />
-                                    </div>
-                                    <div id="fb-root"></div>
+                                    <asp:LinkButton runat="server" ID="FacebookRegister" 
+                                        CssClass="authLogin facebookLogin" Visible="False" 
+                                        OnClick="FacebookRegisterClick">
+                                    </asp:LinkButton>
                                  </asp:PlaceHolder>
                                  <asp:PlaceHolder id="TwitterHolder" runat="server" Visible="false">
-                                   <button id="TwitterLogin" runat="server" style="background:none;border:none;cursor:pointer;padding:3px;"></button>
+                                   <asp:LinkButton runat="server" ID="TwitterRegister" 
+                                        CssClass="authLogin twitterLogin" Visible="False" 
+                                        OnClick="TwitterRegisterClick">
+                                    </asp:LinkButton>
+                                 </asp:PlaceHolder>
+                                 <asp:PlaceHolder id="GoogleHolder" runat="server" Visible="false">
+                                     <asp:LinkButton runat="server" ID="GoogleRegister" 
+                                        CssClass="authLogin googleLogin" Visible="False" 
+                                        OnClick="GoogleRegisterClick">
+                                     </asp:LinkButton>
                                  </asp:PlaceHolder>
                                </div>
                                 

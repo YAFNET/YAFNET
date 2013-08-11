@@ -139,6 +139,15 @@ namespace YAF.Controls {
         protected global::YAF.Controls.ThemeButton Twitter;
         
         /// <summary>
+        /// Google control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.ThemeButton Google;
+        
+        /// <summary>
         /// ReportPost control.
         /// </summary>
         /// <remarks>

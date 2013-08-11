@@ -26,6 +26,8 @@ namespace YAF.Types.Objects
     using System.Xml.Schema;
     using System.Xml.Serialization;
 
+    using YAF.Types.Extensions;
+
     #endregion
 
     /// <summary>
@@ -111,7 +113,7 @@ namespace YAF.Types.Objects
         {
             get
             {
-                return Convert.ToInt32(this.followers_count);
+                return this.followers_count.ToType<int>();
             }
 
             set
@@ -213,7 +215,7 @@ namespace YAF.Types.Objects
         {
             get
             {
-                return Convert.ToInt32(this.id);
+                return this.id.ToType<int>();
             }
 
             set

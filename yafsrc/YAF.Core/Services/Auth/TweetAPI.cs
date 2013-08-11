@@ -18,7 +18,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace YAF.Core.Services.Twitter
+namespace YAF.Core.Services.Auth
 {
     using YAF.Types;
     using YAF.Types.Extensions;
@@ -31,7 +31,7 @@ namespace YAF.Core.Services.Twitter
     public class TweetAPI
     {
         /// <summary>
-        /// The authorized and authenticated oAuth token
+        /// The authorized and authenticated OAUTH token
         /// </summary>
         private readonly OAuthTwitter oAuth;
 
@@ -40,7 +40,7 @@ namespace YAF.Core.Services.Twitter
         /// Create, Update, retrieve, delete tweets(status messages) using this class
         /// </summary>
         /// <param name="_oauth">
-        /// An authorized and authenticated oAuth token
+        /// An authorized and authenticated OAUTH token
         /// </param>
         public TweetAPI(OAuthTwitter _oauth)
         {
@@ -48,12 +48,12 @@ namespace YAF.Core.Services.Twitter
         }
 
         /// <summary>
-        /// The Response Forumat for the oAuth Request
+        /// The Response Format for the OAUTH Request
         /// </summary>
         public enum ResponseFormat
         {
             /// <summary>
-            /// json Format Type
+            /// JSON Format Type
             /// </summary>
             json,
 
@@ -72,7 +72,7 @@ namespace YAF.Core.Services.Twitter
         /// </summary>
         /// <param name="response_format">The format in which you want twitter to respond</param>
         /// <param name="statusid">The numerical ID of the desired status.</param>
-        /// <param name="optionalparameters">Any other optional parameters.Use an empty string if you dont want to pass any optional parameters</param>
+        /// <param name="optionalparameters">Any other optional parameters.Use an empty string if you don't want to pass any optional parameters</param>
         /// <returns>Response string from twitter in user selected format</returns>
         public string ShowByID(
             [NotNull] ResponseFormat response_format,
@@ -80,7 +80,7 @@ namespace YAF.Core.Services.Twitter
             [NotNull] string optionalparameters)
         {
             return this.oAuth.OAuthWebRequest(
-                OAuthTwitter.Method.GET,
+                AuthUtilities.Method.GET,
                 "https://api.twitter.com/1.1/statuses/show/{0}.{1}".FormatWith(statusid, response_format.ToString()),
                 optionalparameters);
         }
@@ -101,7 +101,7 @@ namespace YAF.Core.Services.Twitter
         /// The text of your status update, up to 140 characters.
         /// </param>
         /// <param name="optionalparameters">
-        /// Any optional paramters you want to pass
+        /// Any optional parameters you want to pass
         /// </param>
         /// <returns>
         /// Response string from twitter in user selected format 
@@ -112,7 +112,7 @@ namespace YAF.Core.Services.Twitter
             [NotNull] string optionalparameters)
         {
             return this.oAuth.OAuthWebRequest(
-                OAuthTwitter.Method.POST,
+                AuthUtilities.Method.POST,
                 "https://api.twitter.com/1.1/statuses/update.{0}".FormatWith(reponse_format.ToString()),
                 "status={0}{1}".FormatWith(tweet_message, optionalparameters));
         }
@@ -122,7 +122,7 @@ namespace YAF.Core.Services.Twitter
         #region Direct Message
 
         /// <summary>
-        /// Send a Direct Message to the Specifc User Screen Name
+        /// Send a Direct Message to the Specific User Screen Name
         /// </summary>
         /// <param name="reponse_format">
         /// The format in which you want twitter to respond
@@ -142,13 +142,13 @@ namespace YAF.Core.Services.Twitter
             [NotNull] string message)
         {
             return this.oAuth.OAuthWebRequest(
-                OAuthTwitter.Method.POST,
+                AuthUtilities.Method.POST,
                 "https://api.twitter.com/1.1/direct_messages/new.{0}".FormatWith(reponse_format.ToString()),
                 "screen_name={0}&text={1}".FormatWith(screen_name, message));
         }
 
         /// <summary>
-        /// Send a Direct Message to the Specifc User Name
+        /// Send a Direct Message to the Specific User Name
         /// </summary>
         /// <param name="reponse_format">
         /// The format in which you want twitter to respond
@@ -168,7 +168,7 @@ namespace YAF.Core.Services.Twitter
             [NotNull] string message)
         {
             return this.oAuth.OAuthWebRequest(
-                OAuthTwitter.Method.POST,
+                AuthUtilities.Method.POST,
                 "https://api.twitter.com/1.1/direct_messages/new.{0}".FormatWith(reponse_format.ToString()),
                 "user_id={0}&text={1}".FormatWith(user_id, message));
         }
@@ -183,7 +183,7 @@ namespace YAF.Core.Services.Twitter
         /// </summary>
         /// <param name="response_format">The format in which you want twitter to respond</param>
         /// <param name="statusid">The numerical ID of the desired status.</param>
-        /// <param name="optionalparameters">Any other optional parameters.Use an empty string if you dont want to pass any optional parameters</param>
+        /// <param name="optionalparameters">Any other optional parameters.Use an empty string if you don't want to pass any optional parameters</param>
         /// <returns>Response string from twitter in user selected format</returns>
         public string DestroyById(
             [NotNull] ResponseFormat response_format,
@@ -191,7 +191,7 @@ namespace YAF.Core.Services.Twitter
             [NotNull] string optionalparameters)
         {
             return this.oAuth.OAuthWebRequest(
-                OAuthTwitter.Method.POST,
+                AuthUtilities.Method.POST,
                 "https://api.twitter.com/1.1/statuses/destroy/{0}.{1}".FormatWith(statusid, response_format.ToString()),
                 optionalparameters);
         }
@@ -201,12 +201,12 @@ namespace YAF.Core.Services.Twitter
         #region Retweet:Id
 
         /// <summary>
-        /// Retweets a tweet. Returns the original tweet with retweet details embedded.
+        /// Re-tweets a tweet. Returns the original tweet with re-tweet details embedded.
         /// Does not require authentication, and rate limited is false
         /// </summary>
         /// <param name="response_format">The format in which you want twitter to respond</param>
         /// <param name="statusid">The numerical ID of the desired status.</param>
-        /// <param name="optionalparameters">Any other optional parameters.Use an empty string if you dont want to pass any optional parameters</param>
+        /// <param name="optionalparameters">Any other optional parameters.Use an empty string if you don't want to pass any optional parameters</param>
         /// <returns>Response string from twitter in user selected format</returns>
         public string RetweetById(
             [NotNull] ResponseFormat response_format,
@@ -214,7 +214,7 @@ namespace YAF.Core.Services.Twitter
             [NotNull] string optionalparameters)
         {
             return this.oAuth.OAuthWebRequest(
-                OAuthTwitter.Method.POST,
+                AuthUtilities.Method.POST,
                 "https://api.twitter.com/1.1/statuses/retweet/{0}.{1}".FormatWith(statusid, response_format.ToString()),
                 optionalparameters);
         }
@@ -224,12 +224,12 @@ namespace YAF.Core.Services.Twitter
         #region Show Retweets:Id
 
         /// <summary>
-        /// Returns up to 100 of the first retweets of a given tweet.
+        /// Returns up to 100 of the first RETWEETs of a given tweet.
         /// Does not require authentication, and rate limited is false
         /// </summary>
         /// <param name="response_format">The format in which you want twitter to respond</param>
         /// <param name="statusid">The numerical ID of the desired status.</param>
-        /// <param name="optionalparameters">Any other optional parameters.Use an empty string if you dont want to pass any optional parameters</param>
+        /// <param name="optionalparameters">Any other optional parameters.Use an empty string if you don't want to pass any optional parameters</param>
         /// <returns>Response string from twitter in user selected format</returns>
         public string ShowRetweetsById(
             [NotNull] ResponseFormat response_format,
@@ -237,7 +237,7 @@ namespace YAF.Core.Services.Twitter
             [NotNull] string optionalparameters)
         {
             return this.oAuth.OAuthWebRequest(
-                OAuthTwitter.Method.GET,
+                AuthUtilities.Method.GET,
                 "https://api.twitter.com/1.1/statuses/retweets/{0}.{1}".FormatWith(statusid, response_format.ToString()),
                 optionalparameters);
         }
@@ -247,12 +247,12 @@ namespace YAF.Core.Services.Twitter
         #region Show Retweeted By:Id
 
         /// <summary>
-        /// Show user objects of up to 100 members who retweeted the status.
+        /// Show user objects of up to 100 members who re-tweeted the status.
         /// Requires authentication, and rate limited
         /// </summary>
         /// <param name="response_format">The format in which you want twitter to respond</param>
         /// <param name="statusid">The numerical ID of the desired status.</param>
-        /// <param name="optionalparameters">Any other optional parameters.Use an empty string if you dont want to pass any optional parameters</param>
+        /// <param name="optionalparameters">Any other optional parameters.Use an empty string if you don't want to pass any optional parameters</param>
         /// <returns>Response string from twitter in user selected format</returns>
         public string ShowRetweetedbyById(
             [NotNull] ResponseFormat response_format,
@@ -260,7 +260,7 @@ namespace YAF.Core.Services.Twitter
             [NotNull] string optionalparameters)
         {
             return this.oAuth.OAuthWebRequest(
-                OAuthTwitter.Method.GET,
+                AuthUtilities.Method.GET,
                 "https://api.twitter.com/1.1/statuses/{0}/retweeted_by.{1}".FormatWith(
                     statusid,
                     response_format.ToString()),
@@ -281,7 +281,7 @@ namespace YAF.Core.Services.Twitter
         {
             return
                 this.oAuth.OAuthWebRequest(
-                    OAuthTwitter.Method.GET,
+                    AuthUtilities.Method.GET,
                     "https://api.twitter.com/1.1/account/verify_credentials.json",
                     string.Empty).FromJson<TwitterUser>();
         }

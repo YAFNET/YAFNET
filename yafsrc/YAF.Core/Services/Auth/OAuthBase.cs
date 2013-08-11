@@ -28,7 +28,7 @@
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace YAF.Core.Services.Twitter
+namespace YAF.Core.Services.Auth
 {
     #region
 

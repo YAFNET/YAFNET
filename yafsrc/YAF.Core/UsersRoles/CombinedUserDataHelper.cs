@@ -121,17 +121,6 @@ namespace YAF.Core
     #region Properties
 
     /// <summary>
-    ///   Gets a value indicating whether Use Single Sign On.
-    /// </summary>
-    public bool UseSingleSignOn
-    {
-        get
-        {
-            return this.RowConvert.AsBool("UseSingleSignOn") ?? false;
-        }
-    }
-
-    /// <summary>
     ///   Gets a value indicating whether AutoWatchTopics.
     /// </summary>
     public bool AutoWatchTopics

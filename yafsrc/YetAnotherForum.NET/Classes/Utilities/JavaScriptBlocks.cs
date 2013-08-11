@@ -44,46 +44,12 @@ namespace YAF.Utilities
         {
             get
             {
-                return
-                    @"window.fbAsyncInit = function() {{
-                       FB.init({{
-                             appId: '{0}',
-                             status: true,
-                             cookie: true,
-                             xfbml: true
-                            }}); 
-                     }};
-                     (function(d){{
-                                   var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {{return;}}
-                                   js = d.createElement('script'); js.id = id; js.async = true;
-                                   js.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
-                                   d.getElementsByTagName('head')[0].appendChild(js);
-                     }}(document));".FormatWith(Config.FacebookAPIKey, YafForumInfo.ForumBaseUrl);
-            }
-        }
-
-        /// <summary>
-        ///   Gets the script for login callback.
-        /// </summary>
-        /// <returns>
-        ///   the callback success js.
-        /// </returns>
-        [NotNull]
-        public static string LoginCallSuccessJS
-        {
-            get
-            {
-                return
-                    @"function loginCallSuccess(res){{
-                    if (res.d != null && res.d == ""OK"") {{
-                    window.location = ""{0}"";
-                    }}
-                    else {{
-                      // Show MessageBox
-                      {1}('span[id$=_YafPopupErrorMessageInner]').html(res.d);
-                      {1}().YafModalDialog.Show({{Dialog : '#' + {1}('div[id$=_YafForumPageErrorPopup1]').attr('id'),ImagePath : '{2}resources/images/'}});
-                    }} }}"
-                        .FormatWith(YafBuildLink.GetLink(ForumPages.forum), Config.JQueryAlias, YafForumInfo.ForumClientFileRoot);
+               return
+                   @"{1}(document).ready(function() {{
+                         {1}.getScript('//connect.facebook.net/en_US/all.js', function(data, textStatus, jqxhr) {{
+                            FB.init({{appId:'{0}',status:true,cookie:true,xfbml:true}});
+                         }});
+                     }});".FormatWith(Config.FacebookAPIKey, Config.JQueryAlias);
             }
         }
 
@@ -333,43 +299,6 @@ namespace YAF.Utilities
         #endregion
 
         #region Public Methods
-
-        /// <summary>
-        /// Gets the script for logging in thru facebook.
-        /// </summary>
-        /// <param name="remberMeId">
-        /// The rember Me Checkbox Client Id.
-        /// </param>
-        /// <returns>
-        /// The facebook login js.
-        /// </returns>
-        [NotNull]
-        public static string FacebookLoginJs(string remberMeId)
-        {
-            return
-                @"function LoginUser() {{
-
-                    var Remember = {1}('#{2}').is(':checked');
-
-                    FB.api('/me', function (response) {{
-                    
-                    {1}.PageMethod('{0}YafAjax.asmx', 'LoginFacebookUser', loginCallSuccess, LoginCallFailed,
-                              'id', response.id,
-                              'name', response.name,
-                              'first_name', response.first_name,
-                              'last_name', response.last_name,
-                              'link', response.link,
-                              'username', response.username === undefined ? response.name : response.username,
-                              'birthday', response.birthday,
-                              'hometown', response.hometown === undefined ? '' : response.hometown.name,
-                              'gender', response.gender === undefined ? '0' : response.gender,
-                              'email', response.email,
-                              'timezone', response.timezone === undefined ? '' : response.timezone,
-                              'locale', '',
-                              'remember', Remember);
-                     }});}}"
-                    .FormatWith(YafForumInfo.ForumClientFileRoot, Config.JQueryAlias, remberMeId);
-        }
 
         /// <summary>
         /// The Post to Facebook Js

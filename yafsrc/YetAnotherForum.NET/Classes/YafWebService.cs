@@ -173,7 +173,6 @@ public class YafWebService : WebService, IHaveServiceLocator
                 userFields["LanguageFile"],
                 userFields["Culture"],
                 userFields["ThemeFile"],
-                userFields["UseSingleSignOn"],
                 userFields["TextEditor"],
                 null,
                 null,

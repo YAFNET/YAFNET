@@ -352,9 +352,14 @@ namespace YAF.Pages.Admin
                 userProfile.AIM = (string)row["AIM"];
             }
 
-            if (row.Table.Columns.Contains("GoogleTalk") && !string.IsNullOrEmpty((string)row["GoogleTalk"]))
+            if (row.Table.Columns.Contains("Google") && !string.IsNullOrEmpty((string)row["Google"]))
             {
-                userProfile.GoogleTalk = (string)row["GoogleTalk"];
+                userProfile.Google = (string)row["Google"];
+            }
+
+            if (row.Table.Columns.Contains("GoogleId") && !string.IsNullOrEmpty((string)row["GoogleId"]))
+            {
+                userProfile.GoogleId = (string)row["GoogleId"];
             }
 
             if (row.Table.Columns.Contains("Location") && !string.IsNullOrEmpty((string)row["Location"]))
@@ -427,6 +432,11 @@ namespace YAF.Pages.Admin
                 userProfile.Facebook = (string)row["Facebook"];
             }
 
+            if (row.Table.Columns.Contains("FacebookId") && !string.IsNullOrEmpty((string)row["FacebookId"]))
+            {
+                userProfile.FacebookId = (string)row["FacebookId"];
+            }
+
             userProfile.Save();
 
             if (userID == null)
@@ -466,7 +476,6 @@ namespace YAF.Pages.Admin
                 row.Table.Columns.Contains("LanguageFile") ? row["LanguageFile"] : null,
                 row.Table.Columns.Contains("Culture") ? row["Culture"] : null,
                 row.Table.Columns.Contains("ThemeFile") ? row["ThemeFile"] : null,
-                null,
                 row.Table.Columns.Contains("TextEditor") ? row["TextEditor"] : null,
                 null,
                 null,

@@ -142,10 +142,25 @@
 					    </td>
 					    </tr>
 					    </asp:PlaceHolder>
-						<tr align="right">
+						<tr>
 							<td align="center" colspan="2" class="postfooter">
 								<asp:Button ID="StepNextButton" runat="server" CssClass="pbutton" CommandName="MoveNext" Text="Create User"
 									ValidationGroup="CreateUserWizard1" />
+                                <u><asp:LinkButton runat="server" ID="LoginButton" Visible="False" OnClick="LoginClick"></asp:LinkButton></u>
+                                <asp:Panel runat="server" Visible="False" ID="AuthPanel">
+                                    <asp:LinkButton runat="server" ID="FacebookRegister" 
+                                        CssClass="authLogin facebookLogin" Visible="False" 
+                                        OnClick="FacebookRegisterClick">
+                                    </asp:LinkButton>
+                                    <asp:LinkButton runat="server" ID="TwitterRegister" 
+                                        CssClass="authLogin twitterLogin" Visible="False" 
+                                        OnClick="TwitterRegisterClick">
+                                    </asp:LinkButton>
+                                    <asp:LinkButton runat="server" ID="GoogleRegister" 
+                                        CssClass="authLogin googleLogin" Visible="False" 
+                                        OnClick="GoogleRegisterClick">
+                                     </asp:LinkButton>
+                                </asp:Panel>
 							</td>
 						</tr>
 					</table>

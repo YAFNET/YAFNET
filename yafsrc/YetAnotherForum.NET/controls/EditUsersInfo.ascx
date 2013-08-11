@@ -115,6 +115,14 @@
         </td>
     </tr>
     <tr>
+        <td class="postheader">
+            <YAF:HelpLabel ID="HelpLabel14" runat="server" LocalizedTag="Google_USER" LocalizedPage="ADMIN_EDITUSER" />
+        </td>
+        <td class="post">
+            <asp:CheckBox runat="server" ID="IsGoogleUser" Enabled="false" />
+        </td>
+    </tr>
+    <tr>
         <td class="postfooter" colspan="2" align="center">
             <asp:Button ID="Save" runat="server" CssClass="pbutton" OnClick="Save_Click" />
         </td>

@@ -161,21 +161,39 @@ namespace YAF.Utils
     }
 
     /// <summary>
-    /// Gets or sets GoogleTalk.
+    /// Gets or sets Google+ URL
     /// </summary>
     [SettingsAllowAnonymous(false)]
-    [CustomProviderData("GoogleTalk;nvarchar;255")]
-    public string GoogleTalk
+    [CustomProviderData("Google;nvarchar;400")]
+    public string Google
     {
       get
       {
-        return base["GoogleTalk"] as string;
+        return base["Google"] as string;
       }
 
       set
       {
-        base["GoogleTalk"] = value;
+        base["Google"] = value;
       }
+    }
+
+    /// <summary>
+    /// Gets or sets Google Id
+    /// </summary>
+    [SettingsAllowAnonymous(false)]
+    [CustomProviderData("GoogleId;nvarchar;255")]
+    public string GoogleId
+    {
+        get
+        {
+            return base["GoogleId"] as string;
+        }
+
+        set
+        {
+            base["GoogleId"] = value;
+        }
     }
 
     /// <summary>
@@ -229,6 +247,24 @@ namespace YAF.Utils
         set
         {
             base["Facebook"] = value;
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets Facebook.
+    /// </summary>
+    [SettingsAllowAnonymous(false)]
+    [CustomProviderData("FacebookId;nvarchar;400")]
+    public string FacebookId
+    {
+        get
+        {
+            return base["FacebookId"] as string;
+        }
+
+        set
+        {
+            base["FacebookId"] = value;
         }
     }
 

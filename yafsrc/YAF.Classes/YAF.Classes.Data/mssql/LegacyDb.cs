@@ -8605,10 +8605,6 @@ namespace YAF.Classes.Data
         /// </param>
         /// <param name="themeFile">
         /// The theme file.
-        /// </param>
-        /// <param name="useSingleSignOn">
-        /// The use Single Sign On.
-        /// </param>
         /// <param name="textEditor">
         /// The text Editor.
         /// </param>
@@ -8643,7 +8639,6 @@ namespace YAF.Classes.Data
             [NotNull] object languageFile, 
             [NotNull] object culture, 
             [NotNull] object themeFile, 
-            [NotNull] object useSingleSignOn, 
             [NotNull] object textEditor, 
             [NotNull] object useMobileTheme, 
             [NotNull] object approved, 
@@ -8665,7 +8660,6 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("LanguageFile", languageFile);
                 cmd.Parameters.AddWithValue("Culture", culture);
                 cmd.Parameters.AddWithValue("ThemeFile", themeFile);
-                cmd.Parameters.AddWithValue("UseSingleSignOn", useSingleSignOn);
                 cmd.Parameters.AddWithValue("TextEditor", textEditor);
                 cmd.Parameters.AddWithValue("OverrideDefaultTheme", useMobileTheme);
                 cmd.Parameters.AddWithValue("Approved", approved);
@@ -8772,23 +8766,34 @@ namespace YAF.Classes.Data
         /// <summary>
         /// Update the single Sign on Status
         /// </summary>
-        /// <param name="userID">
-        /// The user id.
-        /// </param>
-        /// <param name="isFacebookUser">
-        /// The is Facebook User
-        /// </param>
-        /// <param name="isTwitterUser">
-        /// The is Twitter User.
-        /// </param>
-        public static void user_update_single_sign_on_status([NotNull] object userID, [NotNull] object isFacebookUser, [NotNull] object isTwitterUser)
+        /// <param name="userID">The user ID.</param>
+        /// <param name="authService">The AUTH service.</param>
+        public static void user_update_single_sign_on_status([NotNull] int userID, [NotNull]AuthService authService)
         {
+            bool isFacebookUser = false, isTwitterUser = false, isGoogleUser = false;
+
+            switch (authService)
+            {
+                case AuthService.facebook:
+                    isFacebookUser = true;
+                    break;
+                case AuthService.twitter:
+                    isTwitterUser = true;
+                    break;
+                case AuthService.google:
+                    isGoogleUser = true;
+                    break;
+            }
+
             using (var cmd = MsSqlDbAccess.GetCommand("user_update_single_sign_on_status"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
+
                 cmd.Parameters.AddWithValue("UserID", userID);
                 cmd.Parameters.AddWithValue("IsFacebookUser", isFacebookUser);
                 cmd.Parameters.AddWithValue("IsTwitterUser", isTwitterUser);
+                cmd.Parameters.AddWithValue("IsGoogleUser", isGoogleUser);
+
                 MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
             }
         }

@@ -69,13 +69,12 @@ namespace YAF.Types.Objects
             this.UseMobileTheme = row.Field<bool?>("OverrideDefaultThemes");
             this.AvatarImageType = row.Field<string>("AvatarImageType");
             this.AutoWatchTopics = row.Field<bool?>("AutoWatchTopics");
-            this.UseSingleSignOn = row.Field<bool>("UseSingleSignOn");
             this.TextEditor = row.Field<string>("TextEditor");
             this.DisplayName = row.Field<string>("DisplayName");
             this.Culture = row.Field<string>("Culture");
             this.NotificationType = row.Field<int?>("NotificationType");
             this.DailyDigest = row.Field<bool?>("DailyDigest");
-            this.IsGuest =row.Field<bool>("IsGuest");
+            this.IsGuest = row.Field<bool>("IsGuest");
             this.ProviderUserKey = this.IsGuest ? null : ObjectExtensions.ConvertObjectToType(
               row.Field<string>("ProviderUserKey"), Config.ProviderKeyType);
         }
@@ -88,11 +87,6 @@ namespace YAF.Types.Objects
         /// Gets or sets AutoWatchTopics.
         /// </summary>
         public bool? AutoWatchTopics { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether UseSingleSignOn.
-        /// </summary>
-        public bool UseSingleSignOn { get; set; }
 
         /// <summary>
         /// Gets or sets TextEditor.

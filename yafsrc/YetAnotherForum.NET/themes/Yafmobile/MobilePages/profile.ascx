@@ -43,6 +43,8 @@
 				TextLocalizedTag="FACEBOOK" TitleLocalizedTag="FACEBOOK_TITLE" TitleLocalizedPage="POSTS" />
             <YAF:ThemeButton ID="Twitter" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS"
 				TextLocalizedTag="TWITTER" TitleLocalizedTag="TWITTER_TITLE" TitleLocalizedPage="POSTS" />
+			<YAF:ThemeButton ID="Google" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS"
+				TextLocalizedTag="GOOGLE" ImageThemeTag="Google2" TitleLocalizedTag="GOOGLE_TITLE" TitleLocalizedPage="POSTS" />
 			<YAF:ThemeButton ID="AdminUserButton" runat="server" CssClass="yaflittlebutton" Visible="false"
 				TextLocalizedTag="ADMIN_USER" NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", this.UserId ) %>'>
 			</YAF:ThemeButton>

@@ -481,8 +481,10 @@ namespace YAF.Pages
 
             if (userData.Profile.Facebook.IsSet())
             {
-                this.Facebook.NavigateUrl =
-                    "https://www.facebook.com/profile.php?id={0}".FormatWith(userData.Profile.Facebook);
+                this.Facebook.NavigateUrl = ValidationHelper.IsNumeric(userData.Profile.Facebook)
+                                                ? "https://www.facebook.com/profile.php?id={0}".FormatWith(
+                                                    userData.Profile.Facebook)
+                                                : userData.Profile.Facebook;
             }
 
             this.Facebook.ParamTitle0 = userName;
@@ -490,6 +492,10 @@ namespace YAF.Pages
             this.Twitter.Visible = this.User != null && userData.Profile.Twitter.IsSet();
             this.Twitter.NavigateUrl = "http://twitter.com/{0}".FormatWith(userData.Profile.Twitter);
             this.Twitter.ParamTitle0 = userName;
+
+            this.Google.Visible = this.User != null && userData.Profile.Google.IsSet();
+            this.Google.NavigateUrl = userData.Profile.Google;
+            this.Google.ParamTitle0 = userName;
 
             if (userData.UserID == this.PageContext.PageUserID)
             {

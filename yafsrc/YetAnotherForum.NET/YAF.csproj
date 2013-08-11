@@ -2724,7 +2724,6 @@
     <Content Include="images\medals\medal_silver_2.png" />
     <Content Include="images\medals\medal_silver_2_small.png" />
     <Content Include="images\medals\medal_small.png" />
-    <Content Include="images\twitter_signin.png" />
     <Content Include="images\YafLogo.png" />
     <Content Include="install\TopicStatusList.xml" />
     <Content Include="install\wizard.css" />
@@ -2754,6 +2753,7 @@
     <Content Include="resources\css\jquery.notification.css" />
     <Content Include="resources\css\jquery.spellchecker.css" />
     <Content Include="resources\HelpMenuList.xml" />
+    <Content Include="resources\icons\authIcons.png" />
     <Content Include="resources\icons\ipbanlifted.png" />
     <Content Include="resources\icons\ipbanset.png" />
     <Content Include="resources\icons\userdeleted.png" />
@@ -4264,6 +4264,7 @@
     <Content Include="themes\BlackGrey\icon_facebook.png" />
     <Content Include="themes\BlackGrey\icon_facebook2.png" />
     <Content Include="themes\BlackGrey\icon_file.gif" />
+    <Content Include="themes\BlackGrey\icon_googleplus2.png" />
     <Content Include="themes\BlackGrey\icon_home.png" />
     <Content Include="themes\BlackGrey\icon_icq.png" />
     <Content Include="themes\BlackGrey\icon_latest_reply.png" />
@@ -4381,6 +4382,7 @@
     <Content Include="themes\BlueGrey\icon_facebook.png" />
     <Content Include="themes\BlueGrey\icon_facebook2.png" />
     <Content Include="themes\BlueGrey\icon_file.gif" />
+    <Content Include="themes\BlueGrey\icon_googleplus2.png" />
     <Content Include="themes\BlueGrey\icon_home.png" />
     <Content Include="themes\BlueGrey\icon_icq.png" />
     <Content Include="themes\BlueGrey\icon_latest_reply.png" />
@@ -4748,6 +4750,7 @@
     <Content Include="themes\cleanSlate\icon_facebook.png" />
     <Content Include="themes\cleanSlate\icon_facebook2.png" />
     <Content Include="themes\cleanSlate\icon_file.gif" />
+    <Content Include="themes\cleanSlate\icon_googleplus2.png" />
     <Content Include="themes\cleanSlate\icon_home.png" />
     <Content Include="themes\cleanSlate\icon_icq.png" />
     <Content Include="themes\cleanSlate\icon_latest_reply.gif" />
@@ -4872,6 +4875,7 @@
     <Content Include="themes\Fancy\images\icon_facebook2.png" />
     <Content Include="themes\Fancy\images\icon_file.gif" />
     <Content Include="themes\Fancy\images\icon_googleplus.png" />
+    <Content Include="themes\Fancy\images\icon_googleplus2.png" />
     <Content Include="themes\Fancy\images\icon_home.png" />
     <Content Include="themes\Fancy\images\icon_icq.png" />
     <Content Include="themes\Fancy\images\icon_latest_reply.png" />
@@ -4953,6 +4957,7 @@
     <Content Include="themes\Fancy\images\vote_rcap.gif" />
     <Content Include="themes\Fancy\images\vote_refuse.gif" />
     <Content Include="themes\Fancy\images\voting_bar.gif" />
+    <Content Include="themes\Fancy\jquery.msDropDown.css" />
     <Content Include="themes\Fancy\js\Fancy.js" />
     <Content Include="themes\Fancy\js\jquery.msDropDown.js" />
     <Content Include="themes\Fancy\js\jquery.tipTip.minified.js" />
@@ -4993,6 +4998,7 @@
     <Content Include="themes\GreenGrey\icon_facebook.png" />
     <Content Include="themes\GreenGrey\icon_facebook2.png" />
     <Content Include="themes\GreenGrey\icon_file.gif" />
+    <Content Include="themes\GreenGrey\icon_googleplus2.png" />
     <Content Include="themes\GreenGrey\icon_home.png" />
     <Content Include="themes\GreenGrey\icon_icq.png" />
     <Content Include="themes\GreenGrey\icon_latest_reply.png" />
@@ -5110,6 +5116,7 @@
     <Content Include="themes\GreyGrey\icon_facebook.png" />
     <Content Include="themes\GreyGrey\icon_facebook2.png" />
     <Content Include="themes\GreyGrey\icon_file.gif" />
+    <Content Include="themes\GreyGrey\icon_googleplus2.png" />
     <Content Include="themes\GreyGrey\icon_home.png" />
     <Content Include="themes\GreyGrey\icon_icq.png" />
     <Content Include="themes\GreyGrey\icon_latest_reply.png" />
@@ -5225,6 +5232,7 @@
     <Content Include="themes\OrangeGrey\icon_facebook.png" />
     <Content Include="themes\OrangeGrey\icon_facebook2.png" />
     <Content Include="themes\OrangeGrey\icon_file.gif" />
+    <Content Include="themes\OrangeGrey\icon_googleplus2.png" />
     <Content Include="themes\OrangeGrey\icon_home.png" />
     <Content Include="themes\OrangeGrey\icon_icq.png" />
     <Content Include="themes\OrangeGrey\icon_latest_reply.png" />
@@ -5342,6 +5350,7 @@
     <Content Include="themes\RedGrey\icon_facebook.png" />
     <Content Include="themes\RedGrey\icon_facebook2.png" />
     <Content Include="themes\RedGrey\icon_file.gif" />
+    <Content Include="themes\RedGrey\icon_googleplus2.png" />
     <Content Include="themes\RedGrey\icon_home.png" />
     <Content Include="themes\RedGrey\icon_icq.png" />
     <Content Include="themes\RedGrey\icon_latest_reply.png" />
@@ -5442,6 +5451,7 @@
     <Content Include="themes\soclean\icon_digg.png" />
     <Content Include="themes\soclean\icon_facebook.png" />
     <Content Include="themes\soclean\icon_facebook2.png" />
+    <Content Include="themes\soclean\icon_googleplus2.png" />
     <Content Include="themes\soclean\icon_linkback.png" />
     <Content Include="themes\soclean\icon_print.png" />
     <Content Include="themes\soclean\icon_reddit.png" />
@@ -5507,6 +5517,7 @@
     <Content Include="themes\Yafmobile\icon_facebook.png" />
     <Content Include="themes\Yafmobile\icon_facebook2.png" />
     <Content Include="themes\Yafmobile\icon_file.gif" />
+    <Content Include="themes\Yafmobile\icon_googleplus2.png" />
     <Content Include="themes\Yafmobile\icon_latest_reply.gif" />
     <Content Include="themes\Yafmobile\icon_newest_reply.gif" />
     <Content Include="themes\Yafmobile\icon_pm.png" />
@@ -5590,6 +5601,7 @@
     <Content Include="themes\yafpro\icon_digg.png" />
     <Content Include="themes\yafpro\icon_facebook.png" />
     <Content Include="themes\yafpro\icon_facebook2.png" />
+    <Content Include="themes\yafpro\icon_googleplus2.png" />
     <Content Include="themes\yafpro\icon_linkback.png" />
     <Content Include="themes\yafpro\icon_print.png" />
     <Content Include="themes\yafpro\icon_reddit.png" />
@@ -5656,6 +5668,7 @@
     <Content Include="themes\yafvision\icon_digg.png" />
     <Content Include="themes\yafvision\icon_facebook.png" />
     <Content Include="themes\yafvision\icon_facebook2.png" />
+    <Content Include="themes\yafvision\icon_googleplus2.png" />
     <Content Include="themes\yafvision\icon_linkback.png" />
     <Content Include="themes\yafvision\icon_print.png" />
     <Content Include="themes\yafvision\icon_reddit.png" />

@@ -7497,7 +7497,6 @@ begin
         a.Suspended,
         a.LanguageFile,
         a.ThemeFile,
-        a.[UseSingleSignOn],
         a.TextEditor,
         a.OverrideDefaultThemes,
         a.[PMNotification],
@@ -7514,6 +7513,7 @@ begin
         a.[IsDirty],
         a.[IsFacebookUser],
         a.[IsTwitterUser],
+        a.[IsGoogleUser],
         a.[Culture],		
             CultureUser = a.Culture,						
             RankName = b.Name,
@@ -7562,7 +7562,6 @@ begin
         a.Suspended,
         a.LanguageFile,
         a.ThemeFile,
-        a.[UseSingleSignOn],
         a.TextEditor,
         a.OverrideDefaultThemes,
         a.[PMNotification],
@@ -7579,6 +7578,7 @@ begin
         a.[IsDirty],
         a.[IsFacebookUser],
         a.[IsTwitterUser],
+        a.[IsGoogleUser],
         a.[Culture],			
             CultureUser = a.Culture,	
             Style = case(@StyledNicks)
@@ -7618,7 +7618,6 @@ begin
         a.Suspended,
         a.LanguageFile,
         a.ThemeFile,
-        a.[UseSingleSignOn],
         a.TextEditor,
         a.OverrideDefaultThemes,
         a.[PMNotification],
@@ -7635,6 +7634,7 @@ begin
         a.[IsDirty],
         a.[IsFacebookUser],
         a.[IsTwitterUser],
+        a.[IsGoogleUser],
         a.[Culture],		
             CultureUser = a.Culture,
             IsAdmin = (select count(1) from [{databaseOwner}].[{objectQualifier}UserGroup] x join [{databaseOwner}].[{objectQualifier}Group] y on y.GroupID=x.GroupID where x.UserID=a.UserID and (y.Flags & 1)<>0),
@@ -7681,7 +7681,6 @@ begin
         a.Suspended,
         a.LanguageFile,
         a.ThemeFile,
-        a.[UseSingleSignOn],
         a.TextEditor,
         a.OverrideDefaultThemes,
         a.[PMNotification],
@@ -7698,6 +7697,7 @@ begin
         a.[IsDirty],
         a.[IsFacebookUser],
         a.[IsTwitterUser],
+        a.[IsGoogleUser],
         a.[Culture],
             a.NumPosts,
             CultureUser = a.Culture,			
@@ -8019,7 +8019,6 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}user_save](
     @LanguageFile		nvarchar(50) = null,
     @Culture		    varchar(10) = null,
     @ThemeFile			nvarchar(50) = null,
-    @UseSingleSignOn    bit = null,
     @TextEditor			nvarchar(50) = null,
     @OverrideDefaultTheme	bit = null,
     @Approved			bit = null,
@@ -8042,7 +8041,6 @@ begin
     if @PMNotification is null SET @PMNotification = 1
     if @AutoWatchTopics is null SET @AutoWatchTopics = 0
     if @OverrideDefaultTheme is null SET @OverrideDefaultTheme=0
-    if @UseSingleSignOn is null SET @UseSingleSignOn=0
 
     if @UserID is null or @UserID<1 begin
         
@@ -8079,7 +8077,6 @@ begin
             LanguageFile = @LanguageFile,
             ThemeFile = @ThemeFile,
             Culture = @Culture,
-            UseSingleSignOn = @UseSingleSignOn,
             TextEditor = @TextEditor,
             OverrideDefaultThemes = @OverrideDefaultTheme,
             PMNotification = (CASE WHEN (@PMNotification is not null) THEN  @PMNotification ELSE PMNotification END),
@@ -10380,7 +10377,6 @@ begin
         Suspended			= a.Suspended,
         ThemeFile			= a.ThemeFile,
         LanguageFile		= a.LanguageFile,
-        UseSingleSignOn     = a.UseSingleSignOn,
         TextEditor		    = a.TextEditor,
         TimeZoneUser		= a.TimeZone,
         CultureUser		    = a.Culture,		
@@ -10875,10 +10871,10 @@ end
 
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}user_update_single_sign_on_status](@UserID int,@IsFacebookUser bit,@IsTwitterUser bit) as
+create procedure [{databaseOwner}].[{objectQualifier}user_update_single_sign_on_status](@UserID int,@IsFacebookUser bit,@IsTwitterUser bit,@IsGoogleUser bit) as
 begin
     
-    update [{databaseOwner}].[{objectQualifier}User] set IsFacebookUser = @IsFacebookUser , IsTwitterUser = @IsTwitterUser where UserID = @UserID
+    update [{databaseOwner}].[{objectQualifier}User] set IsFacebookUser = @IsFacebookUser , IsTwitterUser = @IsTwitterUser, IsGoogleUser = @IsGoogleUser where UserID = @UserID
 end
 GO
 

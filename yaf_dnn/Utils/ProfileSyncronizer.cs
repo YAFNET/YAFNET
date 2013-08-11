@@ -228,9 +228,6 @@ namespace YAF.DotNetNuke.Utils
             dnnUserInfo.Profile.SetProfileProperty("YIM", yafUserProfile.YIM);
             dnnUserInfo.Profile.SetProfileProperty("AIM", yafUserProfile.AIM);
             dnnUserInfo.Profile.SetProfileProperty("ICQ", yafUserProfile.ICQ);
-            dnnUserInfo.Profile.SetProfileProperty("Facebook", yafUserProfile.Facebook);
-            dnnUserInfo.Profile.SetProfileProperty("Twitter", yafUserProfile.Twitter);
-            dnnUserInfo.Profile.SetProfileProperty("Twitter1", yafUserProfile.TwitterId);
             dnnUserInfo.Profile.SetProfileProperty("XMPP", yafUserProfile.XMPP);
             dnnUserInfo.Profile.SetProfileProperty("Skype", yafUserProfile.Skype);
 
@@ -309,7 +306,6 @@ namespace YAF.DotNetNuke.Utils
                 userCuluture.LanguageFile,
                 userCuluture.Culture,
                 yafUserData.ThemeFile,
-                yafUserData.UseSingleSignOn,
                 yafUserData.TextEditor,
                 yafUserData.UseMobileTheme,
                 null,
@@ -346,7 +342,6 @@ namespace YAF.DotNetNuke.Utils
                 yafUserProfile.YIM = dnnUserInfo.Profile.GetPropertyValue("YIM");
                 yafUserProfile.AIM = dnnUserInfo.Profile.GetPropertyValue("AIM");
                 yafUserProfile.ICQ = dnnUserInfo.Profile.GetPropertyValue("ICQ");
-                yafUserProfile.Facebook = dnnUserInfo.Profile.GetPropertyValue("Facebook");
                 yafUserProfile.Twitter = dnnUserInfo.Profile.GetPropertyValue("Twitter");
                 yafUserProfile.TwitterId = dnnUserInfo.Profile.GetPropertyValue("TwitterId");
                 yafUserProfile.XMPP = dnnUserInfo.Profile.GetPropertyValue("XMPP");

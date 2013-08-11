@@ -2341,22 +2341,6 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether Register New Facebook User
-        /// </summary>
-        public bool RegisterNewFacebookUser
-        {
-            get
-            {
-                return this._reg.GetValue("RegisterNewFacebookUser", false);
-            }
-
-            set
-            {
-                this._reg.SetValue("RegisterNewFacebookUser", value);
-            }
-        }
-
-        /// <summary>
         /// Gets or sets a value indicating whether AllowModeratorsViewIPs.
         /// </summary>
         public bool AllowModeratorsViewIPs

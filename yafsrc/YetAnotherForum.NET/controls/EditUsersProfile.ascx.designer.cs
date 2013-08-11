@@ -499,22 +499,22 @@ namespace YAF.Controls {
         protected global::System.Web.UI.WebControls.TextBox Twitter;
         
         /// <summary>
-        /// LocalizedLabel37 control.
+        /// LocalizedLabel36 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel37;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel36;
         
         /// <summary>
-        /// TwitterId control.
+        /// Google control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TwitterId;
+        protected global::System.Web.UI.WebControls.TextBox Google;
         
         /// <summary>
         /// LocalizedLabel32 control.
@@ -722,33 +722,6 @@ namespace YAF.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList Culture;
-        
-        /// <summary>
-        /// UserLoginRow control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow UserLoginRow;
-        
-        /// <summary>
-        /// LocalizedLabel36 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel36;
-        
-        /// <summary>
-        /// SingleSignOn control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox SingleSignOn;
         
         /// <summary>
         /// LoginInfo control.

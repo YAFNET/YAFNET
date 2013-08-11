@@ -328,6 +328,34 @@ namespace YAF.Classes
         }
 
         /// <summary>
+        /// Gets the google client ID.
+        /// </summary>
+        /// <value>
+        /// The google client ID.
+        /// </value>
+        public static string GoogleClientID
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.GoogleClientID");
+            }
+        }
+
+        /// <summary>
+        /// Gets the google client secret.
+        /// </summary>
+        /// <value>
+        /// The google client secret.
+        /// </value>
+        public static string GoogleClientSecret
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.GoogleClientSecret");
+            }
+        }
+
+        /// <summary>
         ///     Gets Facebook API Key.
         /// </summary>
         public static string FacebookAPIKey

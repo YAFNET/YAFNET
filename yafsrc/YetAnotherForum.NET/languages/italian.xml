@@ -697,6 +697,8 @@
     <Resource tag="ERROR_PASS_NOTMATCH">Confirmation password does not match</Resource>
     <Resource tag="FACEBOOK_USER">Facebook User:</Resource>
     <Resource tag="FACEBOOK_USER_HELP">Indicates if the User is logged in via Facebook.</Resource>
+    <Resource tag="GOOGLE_USER">Google User:</Resource>
+    <Resource tag="GOOGLE_USER_HELP">Indicates if the User is logged in via Google.</Resource>
     <Resource tag="HEAD_KILL_USER">Kill User's Activity</Resource>
     <Resource tag="HEAD_USER_CHANGEPASS">Change Password</Resource>
     <Resource tag="HEAD_USER_DETAILS">User Details</Resource>
@@ -723,6 +725,7 @@
     <Resource tag="SUSPEND_ACCOUNT_USER">Suspend this account for 5 years?</Resource>
     <Resource tag="TITLE">Edit User "{0}"</Resource>
     <Resource tag="TWITTER_USER">Twitter User:</Resource>
+    <Resource tag="TWITTER_USER_HELP">Indicates if the User is logged in via Twitter.</Resource>
     <Resource tag="USER_AVATAR">User Avatar</Resource>
     <Resource tag="USER_DETAILS">User Details</Resource>
     <Resource tag="USER_KILL">User Kill Activity</Resource>
@@ -1344,8 +1347,6 @@
     <Resource tag="SSL_LOGIN_HELP">Enforce a secure connection for users to log in.</Resource>
     <Resource tag="SSL_REGISTER">Use SSL while registering:</Resource>
     <Resource tag="SSL_REGISTER_HELP">Enforce a secure connection for users to register.</Resource>
-    <Resource tag="SSO_AUTO_REGISTER">Register New Facebook/Twitter User automatically:</Resource>
-    <Resource tag="SSO_AUTO_REGISTER_HELP">Register User automatically that are trying to login thru Facebook or Twitter</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT">Forum Statistics Cache Timeout:</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT_HELP">In minutes</Resource>
     <Resource tag="STYLED_NICKS">Use styled nicks:</Resource>
@@ -2341,7 +2342,8 @@
     <Resource tag="AIM">Il tuo nome AIM:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Vuoi seguire tutte le discussioni in cui hai scritto e ricevere un'e-mail di notifica ad ogni nuovo messaggio in esse?</Resource>
     <Resource tag="BAD_EMAIL">Hai inserito una e-mail non valida.</Resource>
-    <Resource tag="BAD_FACEBOOK">Hai inserito un valore non corretto come tuo ID del profilo Facebook.</Resource>
+    <Resource tag="BAD_FACEBOOK">Hai inserito un valore non corretto come tuo URL del profilo Facebook.</Resource>
+    <Resource tag="BAD_GOOGLE">You have entered an illegal value as Google Profile URL.</Resource>
     <Resource tag="BAD_HOME">Hai inserito un indirizzo non valido per la tua home page.</Resource>
     <Resource tag="BAD_ICQ">Hai inserito un valore non valido come numero ICQ.</Resource>
     <Resource tag="BAD_MSN">Hai inserito un indirizzo e-mail non valido per il tuo account MSN.</Resource>
@@ -2359,6 +2361,7 @@
     <Resource tag="FACEBOOK">L'ID del tuo profilo Facebook:</Resource>
     <Resource tag="FIELD_TOOLONG">{0} length cannot be more than {1} characters.</Resource>
     <Resource tag="FORUM_SETTINGS">Impostazioni forum</Resource>
+    <Resource tag="GOOGLE">Your Google Profile URL:</Resource>
     <Resource tag="HIDEME">Invisibile</Resource>
     <Resource tag="HOMEPAGE">Home page:</Resource>
     <Resource tag="HOMEPAGE2">Home page personale:</Resource>
@@ -4016,24 +4019,39 @@ Spoiler Content
     <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ</Resource>
   </page>
   <page name="LOGIN">
+    <Resource tag="AUTH_CONNECT">Login or Register with {0}</Resource>
+    <Resource tag="AUTH_CONNECT_ACCOUNT">Connect an Existing forums account with your {0} account You need to login thru the forums first. {1}</Resource>
+    <Resource tag="AUTH_CONNECT_FACEBOOK">&lt;strong&gt;The Facebook email address must match the forum user email address to connect the user.&lt;/strong&gt;</Resource>
+    <Resource tag="AUTH_CONNECT_GOOGLE">&lt;strong&gt;The Google email address must match the forum user email address to connect the user.&lt;/strong&gt;</Resource>
+    <Resource tag="AUTH_CONNECT_HELP">Login or Register with {0} or connect an existing User Account with {0}.</Resource>
+    <Resource tag="AUTH_CONNECT_TWITTER">&lt;strong&gt;The Twitter user name must match the forum user name to connect the user.&lt;/strong&gt;</Resource>
+    <Resource tag="AUTH_LOGIN_EXISTING">Login with an user Account that is connected with {0}. Or if no account is found a new account will be automatically created in the forums.</Resource>
+    <Resource tag="AUTH_NO_ACCESS_TOKEN">Could not get access_token!</Resource>
     <Resource tag="AUTO">Ricordami</Resource>
     <Resource tag="BOTH_USERNAME_EMAIL">E' necessario indicare sia il nome utente sia l'indirizzo e-mail.</Resource>
     <Resource tag="EMAIL">Indirizzo e-mail</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">E' stata inviata un'e-ail con la tua nuova password.</Resource>
     <Resource tag="FACEBOOK_LOGIN">Accedi tramite Facebook</Resource>
     <Resource tag="FORUM_LOGIN">Autenticazione forum</Resource>
+    <Resource tag="GOOGLE_LOGIN">Login with Google</Resource>
     <Resource tag="LOSTPASSWORD">Password perduta</Resource>
     <Resource tag="PASSWORD">Password:</Resource>
     <Resource tag="PASSWORD_ERROR">Nome utente o password non corretti. Per favore riprova.</Resource>
     <Resource tag="RECOVER">Recupera password</Resource>
     <Resource tag="RECOVER_ERROR">Si è verificato un errore nella creazione della nuova password.</Resource>
+    <Resource tag="REGISTER_INSTEAD">Neuen Benuzter erstellen</Resource>
     <Resource tag="SENDPASSWORD">Invia password</Resource>
     <Resource tag="SSO_DEACTIVATED">Il single sign-on è stato disabilitato dall'amministratore.</Resource>
     <Resource tag="SSO_DEACTIVATED_BYUSER">Il single sign-on è disabilitato per questo utente, devi abilitarlo nelle impostazioni del tuo profilo..</Resource>
-    <Resource tag="SSO_FAILED">Accesso tramite Facebook non riuscito, non esiste un utente con l'indirizzo e-mail indicato.</Resource>
+    <Resource tag="SSO_FACEBOOK_FAILED">The Facebook Login failed, User does not exists, or the account is not connected.</Resource>
+    <Resource tag="SSO_FACEBOOKNAME_NOTMATCH">The Facebook email address must match the Forum email adress!</Resource>
+    <Resource tag="SSO_FAILED">New Registrations are disabled.</Resource>
+    <Resource tag="SSO_GOOGLE_FAILED">The Google Login failed, User does not exists, or the account is not connected.</Resource>
+    <Resource tag="SSO_GOOGLENAME_NOTMATCH">The Google email address must match the Forum email adress!</Resource>
     <Resource tag="SSO_ID_NOTMATCH">L'ID utente Facebook non corrisponde!</Resource>
     <Resource tag="SSO_TWITTER_FAILED">Accesso tramite Twitter non riuscito, l'utente non esiste.</Resource>
     <Resource tag="SSO_TWITTERID_NOTMATCH">L'ID ed il nome Twitter non corrispondono!</Resource>
+    <Resource tag="SSO_TWITTERNAME_NOTMATCH">The Twitter User Name must match the Forum Username!</Resource>
     <Resource tag="TITLE">Login</Resource>
     <Resource tag="TWITTER_DM">Hai ricevuto nuove informazioni sul tuo account tramite un messaggio privato sul forum.</Resource>
     <Resource tag="TWITTER_DM_ACCOUNT">Le tue informazioni sull'account {0}: Nome utente "{1}"; password "{2}".</Resource>
@@ -4341,6 +4359,8 @@ Spoiler Content
     <Resource tag="FACEBOOK_TITLE">Visita il profilo Facebook di {0}</Resource>
     <Resource tag="FACEBOOK_TOPIC">Mi piace</Resource>
     <Resource tag="FORUM_JUMP">Vai al forum</Resource>
+    <Resource tag="GOOGLE">Google+</Resource>
+    <Resource tag="GOOGLE_TITLE">Visit {0}'s Google+ Profile</Resource>
     <Resource tag="GOOGLEPLUS_TOPIC">Condividi discussione su Google+</Resource>
     <Resource tag="GROUPS">Gruppi</Resource>
     <Resource tag="HOME">WWW</Resource>
@@ -4469,6 +4489,7 @@ Spoiler Content
     <Resource tag="GENDER0">Non specificato</Resource>
     <Resource tag="GENDER1">Maschile</Resource>
     <Resource tag="GENDER2">Femminile</Resource>
+    <Resource tag="GOOGLE">Google+ Profile:</Resource>
     <Resource tag="GROUPS">Gruppi:</Resource>
     <Resource tag="HOURS">Ore</Resource>
     <Resource tag="ICQ">Numero ICQ:</Resource>
@@ -4648,6 +4669,7 @@ Spoiler Content
     <Resource tag="INVALID_QUESTION">Per favore scegli un'altra domanda.</Resource>
     <Resource tag="INVALID_USERNAME">Per favore scegli un altro nome utente.</Resource>
     <Resource tag="LOCATION">Da dove scrivi?</Resource>
+    <Resource tag="LOGIN_INSTEAD">Login instead with an existing Account</Resource>
     <Resource tag="NEED_ANSWER">La risposta di sicurezza è obbligatoria.</Resource>
     <Resource tag="NEED_DISPLAYNAME">Il nome visualizzato è obbligatorio.</Resource>
     <Resource tag="NEED_EMAIL">L'e-mail è obbligatoria.</Resource>
@@ -4663,6 +4685,7 @@ Spoiler Content
     <Resource tag="RECAPTCHA_BADSETTING">Le impostazioni Captcha sono errate. Per favore segnala il problema agli amministratori.</Resource>
     <Resource tag="RECATCHA_BADWORDS">Sbagliato! Prova di nuovo.</Resource>
     <Resource tag="REGISTER">Registrati</Resource>
+    <Resource tag="REGISTER_AUTH">Register with {0}</Resource>
     <Resource tag="RETYPE_PASSWORD">La password di conferma è obbligatoria.</Resource>
     <Resource tag="SECURITY_ANSWER">Risposta di sicurezza</Resource>
     <Resource tag="SECURITY_QUESTION">Domanda di sicurezza</Resource>
@@ -4890,6 +4913,17 @@ Ciao!
 	  Password generata automaticamente: {pass}
 	  Risposta di sicurezza generata automaticamente: {answer}
       E-mail: {email} (Per favore non modificare la tua e-mail, altrimenti non potrai più accedere tramite Facebook)
+	  
+    </Resource>
+    <Resource tag="NOTIFICATION_ON_GOOGLE_REGISTER">
+      Hello {user}.
+
+      You have been successfully Registred on the {forumname} forum thru Google:
+
+      User Name: {user}
+	  Auto Generated Password: {pass}
+	  Auto Generated Security Answer: {answer}
+      User Email: {email} (Please dont change your email, or you are unable to login with Google)
 	  
     </Resource>
     <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_TEXT">

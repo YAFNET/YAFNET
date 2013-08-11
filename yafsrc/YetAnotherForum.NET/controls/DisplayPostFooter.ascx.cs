@@ -278,7 +278,10 @@ namespace YAF.Controls
                 if (this.PostData.UserProfile.Facebook.IsSet())
                 {
                     this.Facebook.NavigateUrl =
-                        "https://www.facebook.com/profile.php?id={0}".FormatWith(this.PostData.UserProfile.Facebook);
+                        ValidationHelper.IsNumeric(this.PostData.UserProfile.Facebook)
+                                                ? "https://www.facebook.com/profile.php?id={0}".FormatWith(
+                                                    this.PostData.UserProfile.Facebook)
+                                                : this.PostData.UserProfile.Facebook;
                 }
 
                 this.Facebook.ParamTitle0 = userName;
@@ -306,6 +309,14 @@ namespace YAF.Controls
 
                     loadHoverCardJs = true;
                 }
+            }
+
+            // Google+
+            if (this.PostData.UserProfile.Google.IsSet())
+            {
+                this.Google.Visible = this.PostData.UserProfile.Google.IsSet();
+                this.Google.NavigateUrl = this.PostData.UserProfile.Google;
+                this.Google.ParamTitle0 = userName;
             }
 
             if (!loadHoverCardJs || !this.Get<YafBoardSettings>().EnableUserInfoHoverCards)

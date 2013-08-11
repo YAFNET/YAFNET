@@ -26,13 +26,11 @@ namespace YAF.Controls
     using System;
     using System.Web;
     using System.Web.Security;
-    using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
-    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
@@ -52,19 +50,15 @@ namespace YAF.Controls
         #region Methods
 
         /// <summary>
-        /// The login 1_ authenticate.
+        /// Handles the Authenticate event of the Login1 control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="AuthenticateEventArgs"/> instance containing the event data.</param>
         protected void Login1_Authenticate([NotNull] object sender, [NotNull] AuthenticateEventArgs e)
         {
             e.Authenticated = false;
 
-            var realUserName = this.GetValidUsername(Login1.UserName, Login1.Password);
+            var realUserName = this.GetValidUsername(this.Login1.UserName, this.Login1.Password);
 
             if (!realUserName.IsSet())
             {
@@ -126,14 +120,10 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// The login 1_ login error.
+        /// Handles the LoginError event of the Login1 control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Login1_LoginError([NotNull] object sender, [NotNull] EventArgs e)
         {
             bool emptyFields = false;
@@ -174,41 +164,14 @@ namespace YAF.Controls
               "yafmodaldialogJs", JavaScriptBlocks.YafModalDialogLoadJs(".LoginLink", "#LoginBox"));
             YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.yafmodaldialog.css");
 
-            var rememberMe = this.Login1.FindControlAs<CheckBox>("RememberMe");
-
-            if (this.Get<YafBoardSettings>().AllowSingleSignOn && Config.FacebookAPIKey.IsSet())
-            {
-                // setup jQuery and Facebook Scripts.
-                YafContext.Current.PageElements.RegisterJQuery();
-
-                YafContext.Current.PageElements.RegisterJsResourceInclude("yafPageMethodjs", "js/jquery.pagemethod.js");
-
-                YafContext.Current.PageElements.RegisterJsBlockStartup("facebookInitJs", JavaScriptBlocks.FacebookInitJs);
-
-                YafContext.Current.PageElements.RegisterJsBlockStartup("facebookLoginJs", JavaScriptBlocks.FacebookLoginJs(rememberMe.ClientID));
-
-                YafContext.Current.PageElements.RegisterJsBlockStartup(
-                    "LoginCallSuccessJS", JavaScriptBlocks.LoginCallSuccessJS);
-
-                var asynchCallFailedJs =
-                    this.Get<IScriptBuilder>().CreateStatement().AddFunc(
-                        f => f.Name("LoginCallFailed").WithParams("res").Func(s => s.Add("alert('Error Occurred');")));
-
-                YafContext.Current.PageElements.RegisterJsBlockStartup("LoginCallFailedJs", asynchCallFailedJs);
-            }
-
             base.OnPreRender(e);
         }
 
         /// <summary>
-        /// The page_ load.
+        /// Handles the Load event of the Page control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.IsPostBack)
@@ -224,10 +187,10 @@ namespace YAF.Controls
             this.Login1.PasswordRecoveryUrl = YafBuildLink.GetLink(ForumPages.recoverpassword);
             this.Login1.FailureText = this.GetText("password_error");
 
-            this.Login1.DestinationPageUrl = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("ReturnUrl").IsSet()
-                                               ? this.Server.UrlDecode(
-                                                 this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("ReturnUrl"))
-                                               : YafBuildLink.GetLink(ForumPages.forum);
+            this.Login1.DestinationPageUrl =
+                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("ReturnUrl").IsSet()
+                    ? this.Server.UrlDecode(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("ReturnUrl"))
+                    : YafBuildLink.GetLink(ForumPages.forum);
 
             // localize controls
             var rememberMe = this.Login1.FindControlAs<CheckBox>("RememberMe");
@@ -235,9 +198,15 @@ namespace YAF.Controls
             var password = this.Login1.FindControlAs<TextBox>("Password");
             var forumLogin = this.Login1.FindControlAs<Button>("LoginButton");
             var passwordRecovery = this.Login1.FindControlAs<LinkButton>("PasswordRecovery");
+
             var faceBookHolder = this.Login1.FindControlAs<PlaceHolder>("FaceBookHolder");
+            var facebookRegister = this.Login1.FindControlAs<LinkButton>("FacebookRegister");
+            
             var twitterHolder = this.Login1.FindControlAs<PlaceHolder>("TwitterHolder");
-            var twitterLogin = this.Login1.FindControlAs<HtmlButton>("TwitterLogin");
+            var twitterRegister = this.Login1.FindControlAs<LinkButton>("TwitterRegister");
+
+            var googleHolder = this.Login1.FindControlAs<PlaceHolder>("GoogleHolder");
+            var googleRegister = this.Login1.FindControlAs<LinkButton>("GoogleRegister");
 
             userName.Focus();
 
@@ -276,29 +245,28 @@ namespace YAF.Controls
             if (this.Get<YafBoardSettings>().AllowSingleSignOn)
             {
                 faceBookHolder.Visible = Config.FacebookAPIKey.IsSet() && Config.FacebookSecretKey.IsSet();
-
                 twitterHolder.Visible = Config.TwitterConsumerKey.IsSet() && Config.TwitterConsumerSecret.IsSet();
+                googleHolder.Visible = Config.GoogleClientID.IsSet() && Config.GoogleClientSecret.IsSet();
 
                 if (twitterHolder.Visible)
                 {
-                    try
-                    {
-                        var twitterLoginUrl = YafSingleSignOnUser.GenerateTwitterLoginUrl(true);
+                    twitterRegister.Visible = true;
+                    twitterRegister.Text = this.GetTextFormatted("AUTH_CONNECT", "Twitter");
+                    twitterRegister.ToolTip = this.GetTextFormatted("AUTH_CONNECT_HELP", "Twitter");
+                }
 
-                        // Redirect the user to Twitter for authorization.
-                        twitterLogin.Attributes.Add("onclick", twitterLoginUrl);
+                if (faceBookHolder.Visible)
+                {
+                    facebookRegister.Visible = true;
+                    facebookRegister.Text = this.GetTextFormatted("AUTH_CONNECT", "Facebook");
+                    facebookRegister.ToolTip = this.GetTextFormatted("AUTH_CONNECT_HELP", "Facebook");
+                }
 
-                        twitterLogin.InnerHtml =
-                            "<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" style=\"margin:0;\">".FormatWith(
-                                "{0}images/twitter_signin.png".FormatWith(YafForumInfo.ForumClientFileRoot),
-                                this.GetText("LOGIN", "TWITTER_LOGIN"));
-                    }
-                    catch (Exception exception)
-                    {
-                        this.Logger.Warn(exception, "YAF encountered an error when loading the Twitter Login Link");
-
-                        twitterHolder.Visible = false;
-                    }
+                if (googleHolder.Visible)
+                {
+                    googleRegister.Visible = true;
+                    googleRegister.Text = this.GetTextFormatted("AUTH_CONNECT", "Google");
+                    googleRegister.ToolTip = this.GetTextFormatted("AUTH_CONNECT_HELP", "Google");
                 }
             }
 
@@ -322,19 +290,45 @@ namespace YAF.Controls
         #endregion
 
         /// <summary>
-        /// The LoggedIn Event
+        /// Handles the LoggedIn event of the Login1 control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Login1_LoggedIn(object sender, EventArgs e)
         {
             this.Get<IRaiseEvent>().Raise(new SuccessfulUserLoginEvent(this.PageContext.PageUserID));
 
-            LegacyDb.user_update_single_sign_on_status(this.PageContext.PageUserID, false, false);
+            LegacyDb.user_update_single_sign_on_status(this.PageContext.PageUserID, AuthService.none);
+        }
+
+        /// <summary>
+        /// Redirects to the Facebook login/register page.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void FacebookRegisterClick(object sender, EventArgs e)
+        {
+            YafBuildLink.Redirect(ForumPages.login, "auth={0}", AuthService.facebook);
+        }
+
+        /// <summary>
+        /// Redirects to the Twitter login/register page.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void TwitterRegisterClick(object sender, EventArgs e)
+        {
+            YafBuildLink.Redirect(ForumPages.login, "auth={0}", AuthService.twitter);
+        }
+
+        /// <summary>
+        /// Redirects to the Google login/register page.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void GoogleRegisterClick(object sender, EventArgs e)
+        {
+            YafBuildLink.Redirect(ForumPages.login, "auth={0}", AuthService.google);
         }
     }
 }

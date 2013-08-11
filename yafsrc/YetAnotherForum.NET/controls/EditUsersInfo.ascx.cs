@@ -38,7 +38,7 @@ namespace YAF.Controls
     #endregion
 
     /// <summary>
-    /// The edit users info.
+    /// The edit users info
     /// </summary>
     public partial class EditUsersInfo : BaseUserControl
     {
@@ -169,6 +169,7 @@ namespace YAF.Controls
                 this.Joined.Text = row["Joined"].ToString();
                 this.IsFacebookUser.Checked = row["IsFacebookUser"].ToType<bool>();
                 this.IsTwitterUser.Checked = row["IsTwitterUser"].ToType<bool>();
+                this.IsGoogleUser.Checked = row["IsGoogleUser"].ToType<bool>();
                 this.LastVisit.Text = row["LastVisit"].ToString();
                 ListItem item = this.RankID.Items.FindByValue(row["RankID"].ToString());
 

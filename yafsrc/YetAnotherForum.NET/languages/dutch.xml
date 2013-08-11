@@ -697,6 +697,8 @@
     <Resource tag="ERROR_PASS_NOTMATCH">De wachtwoorden komen niet overeen</Resource>
     <Resource tag="FACEBOOK_USER">Facebook Gebruiker:</Resource>
     <Resource tag="FACEBOOK_USER_HELP">Geeft een indicatie of de gebruiker is ingelogd via Facebook.</Resource>
+    <Resource tag="GOOGLE_USER">Google User:</Resource>
+    <Resource tag="GOOGLE_USER_HELP">Indicates if the User is logged in via Google.</Resource>
     <Resource tag="HEAD_KILL_USER">Stop alle activiteiten van de gebruiker</Resource>
     <Resource tag="HEAD_USER_CHANGEPASS">Wijzig wachtwoord</Resource>
     <Resource tag="HEAD_USER_DETAILS">Gebruiker Details</Resource>
@@ -723,6 +725,7 @@
     <Resource tag="SUSPEND_ACCOUNT_USER">Suspend this account for 5 years?</Resource>
     <Resource tag="TITLE">Bewerk Gebruiker "{0}"</Resource>
     <Resource tag="TWITTER_USER">Twitter Gebruiker:</Resource>
+    <Resource tag="TWITTER_USER_HELP">Indicates if the User is logged in via Twitter.</Resource>
     <Resource tag="USER_AVATAR">Avatar</Resource>
     <Resource tag="USER_DETAILS">Details van gebruiker</Resource>
     <Resource tag="USER_KILL">Kill Activiteit</Resource>
@@ -1344,8 +1347,6 @@
     <Resource tag="SSL_LOGIN_HELP">Forceer een beveiligde verbinding bij het inloggen van de gebruikers.</Resource>
     <Resource tag="SSL_REGISTER">Gebruik SSL bij het registratieproces:</Resource>
     <Resource tag="SSL_REGISTER_HELP">Forceer een beveiligde verbinding bij het registreren van nieuwe gebruikers.</Resource>
-    <Resource tag="SSO_AUTO_REGISTER">Nieuwe Facebook/Twitter gebruikers automatisch registreren:</Resource>
-    <Resource tag="SSO_AUTO_REGISTER_HELP">Gebruikers die via Facebook of twitter proberen in te loggen automatisch registreren.</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT">Forum Statistieken Cache Timeout:</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT_HELP">In minuten</Resource>
     <Resource tag="STYLED_NICKS">Gebruik opgemaakte aliassen:</Resource>
@@ -2337,6 +2338,7 @@
 </Resource>
     <Resource tag="BAD_EMAIL">Je hebt een ongeldig e-mail adres ingevoerd.</Resource>
     <Resource tag="BAD_FACEBOOK">Je hebt een ongeldig Faceboek-profiel opgegeven.</Resource>
+    <Resource tag="BAD_GOOGLE">You have entered an illegal value as Google Profile URL.</Resource>
     <Resource tag="BAD_HOME">Je hebt een ongeldig homepage adres ingevoerd.</Resource>
     <Resource tag="BAD_ICQ">Je hebt een ongeldig ICQ-nummer ingevoerd.</Resource>
     <Resource tag="BAD_MSN">Je hebt een ongeldig e-mail adres ingevoerd voor je MSN-account.</Resource>
@@ -2351,9 +2353,10 @@
     <Resource tag="DUPLICATED_EMAIL">Dit e-mail adres wordt al door iemand gebruikt.</Resource>
     <Resource tag="EDIT_ALBUMS">Bewerk Albums</Resource>
     <Resource tag="EMAIL">Je dient altijd over een geldig e-mail adres te beschikken:</Resource>
-    <Resource tag="FACEBOOK">Je Facebook Profiel ID:</Resource>
+    <Resource tag="FACEBOOK">Je Facebook Profiel URL:</Resource>
     <Resource tag="FIELD_TOOLONG">{0} length cannot be more than {1} characters.</Resource>
     <Resource tag="FORUM_SETTINGS">Forum-instellingen</Resource>
+    <Resource tag="GOOGLE">Your Google Profile URL:</Resource>
     <Resource tag="HIDEME">Laat me niet zien aan andere gebruikers</Resource>
     <Resource tag="HOMEPAGE">Homepage</Resource>
     <Resource tag="HOMEPAGE2">Jouw internet homepage:</Resource>
@@ -3991,24 +3994,38 @@ Spoiler Inhoud
     <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ</Resource>
   </page>
   <page name="LOGIN">
+    <Resource tag="AUTH_CONNECT">Login or Register with {0}</Resource>
+    <Resource tag="AUTH_CONNECT_ACCOUNT">Connect an Existing forums account with your {0} account You need to login thru the forums first. {1}</Resource>
+    <Resource tag="AUTH_CONNECT_FACEBOOK">&lt;strong&gt;The Facebook email address must match the forum user email address to connect the user.&lt;/strong&gt;</Resource>
+    <Resource tag="AUTH_CONNECT_GOOGLE">&lt;strong&gt;The Google email address must match the forum user email address to connect the user.&lt;/strong&gt;</Resource>
+    <Resource tag="AUTH_CONNECT_HELP">Login or Register with {0} or connect an existing User Account with {0}.</Resource>
+    <Resource tag="AUTH_CONNECT_TWITTER">&lt;strong&gt;The Twitter user name must match the forum user name to connect the user.&lt;/strong&gt;</Resource>
+    <Resource tag="AUTH_LOGIN_EXISTING">Login with an user Account that is connected with {0}. Or if no account is found a new account will be automatically created in the forums.</Resource>
+    <Resource tag="AUTH_NO_ACCESS_TOKEN">Could not get access_token!</Resource>
     <Resource tag="AUTO">Automatisch inloggen</Resource>
     <Resource tag="BOTH_USERNAME_EMAIL">Graag zowel je gebruikersnaam als je e-mail adres in te vullen.</Resource>
     <Resource tag="EMAIL">E-mail adres</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">Er is een e-mail verzonden met je nieuwe wachtwoord.</Resource>
     <Resource tag="FACEBOOK_LOGIN">Login met Facebook</Resource>
     <Resource tag="FORUM_LOGIN">Inloggen op forum</Resource>
+    <Resource tag="GOOGLE_LOGIN">Login with Google</Resource>
     <Resource tag="LOSTPASSWORD">Wachtwoord vergeten?</Resource>
     <Resource tag="PASSWORD">Wachtwoord:</Resource>
     <Resource tag="PASSWORD_ERROR">De ingevoerde gebruikersnaam of wachtwoord is ongeldig. Probeer het opnieuw.</Resource>
     <Resource tag="RECOVER">Wachtwoord opvragen</Resource>
     <Resource tag="RECOVER_ERROR">Er is een fout opgetreden bij het aanmaken van je nieuwe wachtwoord.</Resource>
+    <Resource tag="REGISTER_INSTEAD">Neuen Benuzter erstellen</Resource>
     <Resource tag="SENDPASSWORD">Wachtwoord verzenden</Resource>
     <Resource tag="SSO_DEACTIVATED">Single Sign On is momenteel uitgeschakeld door de Beheerder!</Resource>
     <Resource tag="SSO_DEACTIVATED_BYUSER">Single Sign On is uitgeschakeld voor die gebruiker, je moet het in je profiel activeren..</Resource>
-    <Resource tag="SSO_FAILED">Facebook Login is niet gelukt, een gebuiker met dat e-mail adres bestaat niet.</Resource>
+    <Resource tag="SSO_FACEBOOK_FAILED">The Facebook Login failed, User does not exists, or the account is not connected.</Resource>
+    <Resource tag="SSO_FACEBOOKNAME_NOTMATCH">The Facebook email address must match the Forum email adress!</Resource>
+    <Resource tag="SSO_FAILED">New Registrations are disabled.</Resource>
+    <Resource tag="SSO_GOOGLE_FAILED">The Google Login failed, User does not exists, or the account is not connected.</Resource>
+    <Resource tag="SSO_GOOGLENAME_NOTMATCH">The Google email address must match the Forum email adress!</Resource>
     <Resource tag="SSO_ID_NOTMATCH">Het Facebook ID komt niet overeen!</Resource>
     <Resource tag="SSO_TWITTER_FAILED">Twitter Login is niet gelukt, de gebruiker bestaat niet.</Resource>
-    <Resource tag="SSO_TWITTERID_NOTMATCH">De Twitter ID en Twitter Naam komen niet overeen!</Resource>
+    <Resource tag="SSO_TWITTERNAME_NOTMATCH">The Twitter User Name must match the Forum Username!</Resource>
     <Resource tag="TITLE">Inloggen</Resource>
     <Resource tag="TWITTER_DM">Je hebt nieuwe informatie over je account gekregen per PM.</Resource>
     <Resource tag="TWITTER_DM_ACCOUNT">je {0} Forum Account Informatie: Gebruikersnaam "{1}" Wachtwoord "{2}"</Resource>
@@ -4316,6 +4333,8 @@ Spoiler Inhoud
     <Resource tag="FACEBOOK_TITLE">Boek {0} op Facebook</Resource>
     <Resource tag="FACEBOOK_TOPIC">Like dit Topic op Facebook</Resource>
     <Resource tag="FORUM_JUMP">Spring naar forum</Resource>
+    <Resource tag="GOOGLE">Google+</Resource>
+    <Resource tag="GOOGLE_TITLE">Visit {0}'s Google+ Profile</Resource>
     <Resource tag="GOOGLEPLUS_TOPIC">Deel dit topic op Google+</Resource>
     <Resource tag="GROUPS">Groep</Resource>
     <Resource tag="HOME">WWW</Resource>
@@ -4444,6 +4463,7 @@ Spoiler Inhoud
     <Resource tag="GENDER0">Niet opgegeven</Resource>
     <Resource tag="GENDER1">Man</Resource>
     <Resource tag="GENDER2">Vrouw</Resource>
+    <Resource tag="GOOGLE">Google+ Profile:</Resource>
     <Resource tag="GROUPS">Groepen:</Resource>
     <Resource tag="HOURS">uren</Resource>
     <Resource tag="ICQ">ICQ-nummer:</Resource>
@@ -4638,6 +4658,7 @@ Spoiler Inhoud
     <Resource tag="INVALID_QUESTION">Kies a.u.b. een andere vraag.</Resource>
     <Resource tag="INVALID_USERNAME">Kies a.u.b. een andere gebruikersnaam.</Resource>
     <Resource tag="LOCATION">Locatie</Resource>
+    <Resource tag="LOGIN_INSTEAD">Login instead with an existing Account</Resource>
     <Resource tag="NEED_ANSWER">Beveiligings-antwoord is verplicht.</Resource>
     <Resource tag="NEED_DISPLAYNAME">Naam is verplicht.</Resource>
     <Resource tag="NEED_EMAIL">E-mail is verplicht.</Resource>
@@ -4653,6 +4674,7 @@ Spoiler Inhoud
     <Resource tag="RECAPTCHA_BADSETTING">Captcha configuratie is fout. meld het aan de beheerder.</Resource>
     <Resource tag="RECATCHA_BADWORDS">Fout! Probeer opnieuw.</Resource>
     <Resource tag="REGISTER">Registreren</Resource>
+    <Resource tag="REGISTER_AUTH">Register with {0}</Resource>
     <Resource tag="RETYPE_PASSWORD">Wachtwoordbevestiging is verplicht.</Resource>
     <Resource tag="SECURITY_ANSWER">Veiligheidsantwoord</Resource>
     <Resource tag="SECURITY_QUESTION">Veiligheidsvraag</Resource>
@@ -4832,6 +4854,17 @@ Als je je e-mail niet wilde wijzigen, dan kun je deze mail negeren.
 	  Automatisch gemaakt wachtwoord: {pass}
 	  Automatisch gemaakte veiligheidsantwoord: {answer}
       E-mail: {email} (Aub niet wijzigen, anders kun je niet meer inloggen met Facebook)</Resource>
+    <Resource tag="NOTIFICATION_ON_GOOGLE_REGISTER">
+      Hello {user}.
+
+      You have been successfully Registred on the {forumname} forum thru Google:
+
+      User Name: {user}
+	  Auto Generated Password: {pass}
+	  Auto Generated Security Answer: {answer}
+      User Email: {email} (Please dont change your email, or you are unable to login with Google)
+	  
+    </Resource>
     <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_TEXT">
     Hello {user}.
 

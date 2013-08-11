@@ -38,7 +38,7 @@ namespace YAF.Pages
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.Services;
-    using YAF.Core.Services.Twitter;
+    using YAF.Core.Services.Auth;
     using YAF.Editors;
     using YAF.Types;
     using YAF.Types.Constants;

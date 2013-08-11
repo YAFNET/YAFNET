@@ -103,7 +103,6 @@ namespace YAF.DotNetNuke.Utils
                 null,
                 null,
                 null,
-                null,
                 null);
 
             var autoWatchTopicsEnabled =

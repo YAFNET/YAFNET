@@ -247,7 +247,6 @@ namespace YAF.Controls
             this.UserThemeRow.Visible = this.Get<YafBoardSettings>().AllowUserTheme;
             this.TrTextEditors.Visible = this.Get<YafBoardSettings>().AllowUsersTextEditor;
             this.UserLanguageRow.Visible = this.Get<YafBoardSettings>().AllowUserLanguage;
-            this.UserLoginRow.Visible = this.Get<YafBoardSettings>().AllowSingleSignOn;
             this.MetaWeblogAPI.Visible = this.Get<YafBoardSettings>().AllowPostToBlog;
             this.LoginInfo.Visible = this.Get<YafBoardSettings>().AllowEmailChange;
             this.DisplayNamePlaceholder.Visible = this.Get<YafBoardSettings>().EnableDisplayName
@@ -303,9 +302,15 @@ namespace YAF.Controls
                 return;
             }
 
-            if (this.Facebook.Text.IsSet() && !ValidationHelper.IsNumeric(this.Facebook.Text))
+            if (this.Facebook.Text.IsSet() && !ValidationHelper.IsValidURL(this.Facebook.Text))
             {
                 this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_FACEBOOK"), MessageTypes.Warning);
+                return;
+            }
+
+            if (this.Google.Text.IsSet() && !ValidationHelper.IsValidURL(this.Google.Text))
+            {
+                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_GOOGLE"), MessageTypes.Warning);
                 return;
             }
 
@@ -314,7 +319,7 @@ namespace YAF.Controls
             if (this.Get<YafBoardSettings>().EnableDisplayName
                 && this.Get<YafBoardSettings>().AllowDisplayNameModification)
             {
-                if (this.DisplayName.Text.Trim().Length < 2)
+                if (this.DisplayName.Text.Trim().Length < this.Get<YafBoardSettings>().DisplayNameMinLength)
                 {
                     this.PageContext.AddLoadMessage(this.GetText("PROFILE", "INVALID_DISPLAYNAME"), MessageTypes.Warning);
                     return;
@@ -435,7 +440,6 @@ namespace YAF.Controls
                 language,
                 culture,
                 theme,
-                this.SingleSignOn.Checked,
                 editor,
                 this.UseMobileTheme.Checked,
                 null,
@@ -575,9 +579,14 @@ namespace YAF.Controls
             this.YIM.Text = this.UserData.Profile.YIM;
             this.AIM.Text = this.UserData.Profile.AIM;
             this.ICQ.Text = this.UserData.Profile.ICQ;
-            this.Facebook.Text = this.UserData.Profile.Facebook;
+
+            this.Facebook.Text = ValidationHelper.IsNumeric(this.UserData.Profile.Facebook)
+                                     ? "https://www.facebook.com/profile.php?id={0}".FormatWith(
+                                         this.UserData.Profile.Facebook)
+                                     : this.UserData.Profile.Facebook;
+
             this.Twitter.Text = this.UserData.Profile.Twitter;
-            this.TwitterId.Text = this.UserData.Profile.TwitterId;
+            this.Google.Text = this.UserData.Profile.Google;
             this.Xmpp.Text = this.UserData.Profile.XMPP;
             this.Skype.Text = this.UserData.Profile.Skype;
             this.Gender.SelectedIndex = this.UserData.Profile.Gender;
@@ -648,11 +657,6 @@ namespace YAF.Controls
                 {
                     editorItem.Selected = true;
                 }
-            }
-
-            if (this.Get<YafBoardSettings>().AllowSingleSignOn)
-            {
-                this.SingleSignOn.Checked = this.UserData.UseSingleSignOn;
             }
 
             if (!this.Get<YafBoardSettings>().AllowUserLanguage || this.Culture.Items.Count <= 0)
@@ -732,7 +736,7 @@ namespace YAF.Controls
             userProfile.ICQ = this.ICQ.Text.Trim();
             userProfile.Facebook = this.Facebook.Text.Trim();
             userProfile.Twitter = this.Twitter.Text.Trim();
-            userProfile.TwitterId = this.TwitterId.Text.Trim();
+            userProfile.Google = this.Google.Text.Trim();
             userProfile.XMPP = this.Xmpp.Text.Trim();
             userProfile.Skype = this.Skype.Text.Trim();
             userProfile.RealName = this.Realname.Text.Trim();

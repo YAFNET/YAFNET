@@ -37,7 +37,6 @@ namespace YAF.Pages
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utilities;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -164,7 +163,8 @@ namespace YAF.Pages
         protected void Login1_LoggedIn([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.Get<IRaiseEvent>().Raise(new SuccessfulUserLoginEvent(this.PageContext.PageUserID));
-            LegacyDb.user_update_single_sign_on_status(this.PageContext.PageUserID, false, false);
+
+            LegacyDb.user_update_single_sign_on_status(this.PageContext.PageUserID, AuthService.none);
         }
 
         /// <summary>
@@ -199,38 +199,6 @@ namespace YAF.Pages
             {
                 this.PageContext.AddLoadMessage(this.Login1.FailureText);
             }
-        }
-
-        /// <summary>
-        /// The On PreRender event.
-        /// </summary>
-        /// <param name="e">
-        /// the Event Arguments 
-        /// </param>
-        protected override void OnPreRender([NotNull] EventArgs e)
-        {
-            if (this.Get<YafBoardSettings>().AllowSingleSignOn && Config.FacebookAPIKey.IsSet())
-            {
-                // setup jQuery and Facebook Scripts.
-                YafContext.Current.PageElements.RegisterJQuery();
-                YafContext.Current.PageElements.RegisterJsResourceInclude("yafPageMethodjs", "js/jquery.pagemethod.js");
-                YafContext.Current.PageElements.RegisterJsBlockStartup(
-                    "facebookInitJs", JavaScriptBlocks.FacebookInitJs);
-                var rememberMe = this.Login1.FindControlAs<CheckBox>("RememberMe");
-                YafContext.Current.PageElements.RegisterJsBlockStartup(
-                    "facebookLoginJs", JavaScriptBlocks.FacebookLoginJs(rememberMe.ClientID));
-
-                YafContext.Current.PageElements.RegisterJsBlockStartup(
-                    "LoginCallSuccessJS", JavaScriptBlocks.LoginCallSuccessJS);
-
-                var asynchCallFailedJs =
-                    this.Get<IScriptBuilder>().CreateStatement().AddFunc(
-                        f => f.Name("LoginCallFailed").WithParams("res").Func(s => s.Add("alert('Error Occurred');")));
-
-                YafContext.Current.PageElements.RegisterJsBlockStartup("LoginCallFailedJs", asynchCallFailedJs);
-            }
-
-            base.OnPreRender(e);
         }
 
         /// <summary>
@@ -271,11 +239,31 @@ namespace YAF.Pages
             var password = this.Login1.FindControlAs<TextBox>("Password");
             var forumLogin = this.Login1.FindControlAs<Button>("LoginButton");
             var passwordRecovery = this.Login1.FindControlAs<Button>("PasswordRecovery");
+            var cancelAuthLogin = this.Login1.FindControlAs<Button>("Cancel");
+
+            var userNameRow = this.Login1.FindControlAs<HtmlTableRow>("UserNameRow");
+            var passwordRow = this.Login1.FindControlAs<HtmlTableRow>("PasswordRow");
+
+            var singleSignOnOptionsRow = this.Login1.FindControlAs<HtmlTableRow>("SingleSignOnOptionsRow");
+            var singleSignOnOptions = this.Login1.FindControlAs<RadioButtonList>("SingleSignOnOptions");
+
+            var registerLink = this.Login1.FindControlAs<LinkButton>("RegisterLink");
+            var registerLinkPlaceHolder = this.Login1.FindControlAs<PlaceHolder>("RegisterLinkPlaceHolder");
 
             var singleSignOnRow = this.Login1.FindControlAs<HtmlTableRow>("SingleSignOnRow");
+
             var facebookHolder = this.Login1.FindControlAs<PlaceHolder>("FacebookHolder");
+            var facebookLogin = this.Login1.FindControlAs<HtmlAnchor>("FacebookLogin");
+
             var twitterHolder = this.Login1.FindControlAs<PlaceHolder>("TwitterHolder");
-            var twitterLogin = this.Login1.FindControlAs<HtmlButton>("TwitterLogin");
+            var twitterLogin = this.Login1.FindControlAs<HtmlAnchor>("TwitterLogin");
+
+            var googleHolder = this.Login1.FindControlAs<PlaceHolder>("GoogleHolder");
+            var googleLogin = this.Login1.FindControlAs<HtmlAnchor>("GoogleLogin");
+
+            var facebookRegister = this.Login1.FindControlAs<LinkButton>("FacebookRegister");
+            var twitterRegister = this.Login1.FindControlAs<LinkButton>("TwitterRegister");
+            var googleRegister = this.Login1.FindControlAs<LinkButton>("GoogleRegister");
 
             userName.Focus();
 
@@ -309,33 +297,207 @@ namespace YAF.Pages
                         .FormatWith(forumLogin.ClientID));
             }
 
-            if (this.Get<YafBoardSettings>().AllowSingleSignOn &&
-                (Config.FacebookAPIKey.IsSet() || Config.TwitterConsumerKey.IsSet()))
+            if (registerLinkPlaceHolder != null && this.PageContext.IsGuest
+                && !this.Get<YafBoardSettings>().DisableRegistrations && !Config.IsAnyPortal)
+            {
+                registerLinkPlaceHolder.Visible = true;
+
+                registerLink.Text = this.GetText("REGISTER_INSTEAD");
+            }
+
+            if (this.Get<YafBoardSettings>().AllowSingleSignOn
+                && (Config.FacebookAPIKey.IsSet() || Config.TwitterConsumerKey.IsSet() || Config.GoogleClientID.IsSet()))
             {
                 singleSignOnRow.Visible = true;
 
-                facebookHolder.Visible = Config.FacebookAPIKey.IsSet() && Config.FacebookSecretKey.IsSet();
-                twitterHolder.Visible = Config.TwitterConsumerKey.IsSet() && Config.TwitterConsumerSecret.IsSet();
+                var facebookEnabled = Config.FacebookAPIKey.IsSet() && Config.FacebookSecretKey.IsSet();
+                var twitterEnabled = Config.TwitterConsumerKey.IsSet() && Config.TwitterConsumerSecret.IsSet();
+                var googleEnabled = Config.GoogleClientID.IsSet() && Config.GoogleClientSecret.IsSet();
 
-                if (twitterHolder.Visible)
+                string loginAuth = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("auth");
+
+                if (loginAuth.IsNotSet())
                 {
-                    try
+                    if (facebookEnabled)
                     {
-                        var twitterLoginUrl = YafSingleSignOnUser.GenerateTwitterLoginUrl(true);
-
-                        // Redirect the user to Twitter for authorization.
-                        twitterLogin.Attributes.Add("onclick", twitterLoginUrl);
-
-                        twitterLogin.InnerHtml =
-                            "<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" style=\"margin:0;\">".FormatWith(
-                                "{0}images/twitter_signin.png".FormatWith(YafForumInfo.ForumClientFileRoot),
-                                this.GetText("LOGIN", "TWITTER_LOGIN"));
+                        facebookRegister.Visible = true;
+                        facebookRegister.Text = this.GetTextFormatted("AUTH_CONNECT", "Facebook");
+                        facebookRegister.ToolTip = this.GetTextFormatted("AUTH_CONNECT_HELP", "Facebook");
                     }
-                    catch (Exception exception)
-                    {
-                        this.Logger.Warn(exception, "YAF encountered an error when loading the Twitter Login Link");
 
-                        twitterHolder.Visible = false;
+                    if (twitterEnabled)
+                    {
+                        twitterRegister.Visible = true;
+                        twitterRegister.Text = this.GetTextFormatted("AUTH_CONNECT", "Twitter");
+                        twitterRegister.ToolTip = this.GetTextFormatted("AUTH_CONNECT_HELP", "Twitter");
+                    } 
+                    
+                    if (googleEnabled)
+                    {
+                        googleRegister.Visible = true;
+                        googleRegister.Text = this.GetTextFormatted("AUTH_CONNECT", "Google");
+                        googleRegister.ToolTip = this.GetTextFormatted("AUTH_CONNECT_HELP", "Google");
+                    }
+                }
+                else
+                {
+                    singleSignOnOptionsRow.Visible = true;
+
+                    facebookRegister.Visible = false;
+                    twitterRegister.Visible = false;
+                    googleRegister.Visible = false;
+
+                    userNameRow.Visible = false;
+                    passwordRow.Visible = false;
+                    registerLinkPlaceHolder.Visible = false;
+                    passwordRecovery.Visible = false;
+                    forumLogin.Visible = false;
+                    rememberMe.Visible = false;
+
+                    cancelAuthLogin.Visible = true;
+                    cancelAuthLogin.Text = this.GetText("CANCEL");
+
+                    switch ((AuthService)Enum.Parse(typeof(AuthService), loginAuth, true))
+                    {
+                        case AuthService.twitter:
+                            {
+                                twitterHolder.Visible = twitterEnabled;
+
+                                singleSignOnOptions.Items.Clear();
+
+                                singleSignOnOptions.Items.Add(
+                                    new ListItem
+                                        {
+                                            Value = "login",
+                                            Text = this.GetTextFormatted("AUTH_LOGIN_EXISTING", "Twitter"),
+                                            Selected = true
+                                        });
+                                singleSignOnOptions.Items.Add(
+                                    new ListItem
+                                        {
+                                            Value = "connect",
+                                            Text =
+                                                this.GetTextFormatted(
+                                                    "AUTH_CONNECT_ACCOUNT",
+                                                    "Twitter",
+                                                    this.GetText("AUTH_CONNECT_TWITTER"))
+                                        });
+
+                                if (twitterEnabled)
+                                {
+                                    try
+                                    {
+                                        var twitterLoginUrl = YafSingleSignOnUser.GenerateLoginUrl(AuthService.twitter, true);
+
+                                        // Redirect the user to Twitter for authorization.
+                                        twitterLogin.Attributes.Add("onclick", twitterLoginUrl);
+                                    }
+                                    catch (Exception exception)
+                                    {
+                                        this.Logger.Warn(
+                                            exception,
+                                            "YAF encountered an error when loading the Twitter Login Link");
+
+                                        twitterHolder.Visible = false;
+                                    }
+                                }
+                            }
+
+                            break;
+                        case AuthService.facebook:
+                            {
+                                facebookHolder.Visible = facebookEnabled;
+
+                                singleSignOnOptions.Items.Clear();
+
+                                singleSignOnOptions.Items.Add(
+                                    new ListItem
+                                        {
+                                            Value = "login",
+                                            Text = this.GetTextFormatted("AUTH_LOGIN_EXISTING", "Facebook"),
+                                            Selected = true
+                                        });
+                                singleSignOnOptions.Items.Add(
+                                    new ListItem
+                                        {
+                                            Value = "connect",
+                                            Text =
+                                                this.GetTextFormatted(
+                                                    "AUTH_CONNECT_ACCOUNT",
+                                                    "Facebook",
+                                                    this.GetText("AUTH_CONNECT_FACEBOOK"))
+                                        });
+
+                                if (facebookEnabled)
+                                {
+                                    try
+                                    {
+                                        var facebookLoginUrl = YafSingleSignOnUser.GenerateLoginUrl(AuthService.facebook, true);
+
+                                        // Redirect the user to Twitter for authorization.
+                                        facebookLogin.Attributes.Add(
+                                            "onclick",
+                                            "location.href='{0}'".FormatWith(facebookLoginUrl));
+                                    }
+                                    catch (Exception exception)
+                                    {
+                                        this.Logger.Warn(
+                                            exception,
+                                            "YAF encountered an error when loading the facebook Login Link");
+
+                                        facebookHolder.Visible = false;
+                                    }
+                                }
+                            }
+
+                            break;
+                        case AuthService.google:
+                            {
+                                googleHolder.Visible = googleEnabled;
+
+                                singleSignOnOptions.Items.Clear();
+
+                                singleSignOnOptions.Items.Add(
+                                    new ListItem
+                                    {
+                                        Value = "login",
+                                        Text = this.GetTextFormatted("AUTH_LOGIN_EXISTING", "Google"),
+                                        Selected = true
+                                    });
+                                singleSignOnOptions.Items.Add(
+                                    new ListItem
+                                    {
+                                        Value = "connect",
+                                        Text =
+                                            this.GetTextFormatted(
+                                                "AUTH_CONNECT_ACCOUNT",
+                                                "Facebook",
+                                                this.GetText("AUTH_CONNECT_GOOGLE"))
+                                    });
+
+                                if (googleEnabled)
+                                {
+                                    try
+                                    {
+                                        var googleLoginUrl = YafSingleSignOnUser.GenerateLoginUrl(AuthService.google, true);
+
+                                        // Redirect the user to Twitter for authorization.
+                                        googleLogin.Attributes.Add(
+                                            "onclick",
+                                            "location.href='{0}'".FormatWith(googleLoginUrl));
+                                    }
+                                    catch (Exception exception)
+                                    {
+                                        this.Logger.Warn(
+                                            exception,
+                                            "YAF encountered an error when loading the Google Login Link");
+
+                                        googleHolder.Visible = false;
+                                    }
+                                }
+                            }
+
+                            break;
                     }
                 }
             }
@@ -356,6 +518,156 @@ namespace YAF.Pages
         {
             YafBuildLink.Redirect(ForumPages.recoverpassword);
         }
+
+        /// <summary>
+        /// Show the Facebook Login/Register Form
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void FacebookFormClick(object sender, EventArgs e)
+        {
+            YafBuildLink.Redirect(ForumPages.login, "auth={0}", "facebook");
+        }
+
+        /// <summary>
+        /// Show the Twitter Login/Register Form
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void TwitterFormClick(object sender, EventArgs e)
+        {
+            YafBuildLink.Redirect(ForumPages.login, "auth={0}", "twitter");
+        }
+
+        /// <summary>
+        /// Show the Google Login/Register Form
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void GoogleFormClick(object sender, EventArgs e)
+        {
+            YafBuildLink.Redirect(ForumPages.login, "auth={0}", "google");
+        }
+
+        /// <summary>
+        /// Redirects to the Register Page
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void RegisterLinkClick(object sender, EventArgs e)
+        {
+            YafBuildLink.Redirect(ForumPages.register);
+        }
+
+        /// <summary>
+        /// Show the normal login Form
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void CancelAuthLoginClick(object sender, EventArgs e)
+        {
+            YafBuildLink.Redirect(ForumPages.login);
+        }
+
+        /// <summary>
+        /// Check if we need to display the Login form
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void SingleSignOnOptionsChanged(object sender, EventArgs e)
+        {
+            var singleSignOnOptions = this.Login1.FindControlAs<RadioButtonList>("SingleSignOnOptions");
+
+            var userNameRow = this.Login1.FindControlAs<HtmlTableRow>("UserNameRow");
+            var passwordRow = this.Login1.FindControlAs<HtmlTableRow>("PasswordRow");
+            var forumLogin = this.Login1.FindControlAs<Button>("LoginButton");
+
+            var facebookHolder = this.Login1.FindControlAs<PlaceHolder>("FacebookHolder");
+            var twitterHolder = this.Login1.FindControlAs<PlaceHolder>("TwitterHolder");
+            var googleHolder = this.Login1.FindControlAs<PlaceHolder>("GoogleHolder");
+
+            var loginAuth =
+                (AuthService)
+                Enum.Parse(typeof(AuthService), this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<string>("auth"), true);
+
+            switch (singleSignOnOptions.SelectedValue)
+            {
+                case "connect":
+                    {
+                        userNameRow.Visible = true;
+                        passwordRow.Visible = true;
+                        forumLogin.Visible = true;
+
+                        facebookHolder.Visible = false;
+                        twitterHolder.Visible = false;
+                        googleHolder.Visible = false;
+
+                        switch (loginAuth)
+                        {
+                            case AuthService.twitter:
+                                {
+                                    this.Login1.DestinationPageUrl = YafSingleSignOnUser.GenerateLoginUrl(
+                                        AuthService.twitter,
+                                        false,
+                                        true);
+                                }
+
+                                break;
+                            case AuthService.facebook:
+                                {
+                                    this.Login1.DestinationPageUrl = YafSingleSignOnUser.GenerateLoginUrl(
+                                        AuthService.facebook,
+                                        false,
+                                        true);
+                                }
+
+                                break;
+                            case AuthService.google:
+                                {
+                                    this.Login1.DestinationPageUrl = YafSingleSignOnUser.GenerateLoginUrl(
+                                        AuthService.google,
+                                        false,
+                                        true);
+                                }
+
+                                break;
+                        }
+                    }
+
+                    break;
+                default:
+                    {
+                        userNameRow.Visible = false;
+                        passwordRow.Visible = false;
+                        forumLogin.Visible = false;
+
+                        switch (loginAuth)
+                        {
+                            case AuthService.twitter:
+                                {
+                                    twitterHolder.Visible = true;
+                                }
+
+                                break;
+                            case AuthService.facebook:
+                                {
+                                    facebookHolder.Visible = true;
+                                }
+
+                                break;
+                            case AuthService.google:
+                                {
+                                    googleHolder.Visible = true;
+                                }
+
+                                break;
+                        }
+                    }
+
+                    break;
+            }
+        }
+
         #endregion
     }
 }

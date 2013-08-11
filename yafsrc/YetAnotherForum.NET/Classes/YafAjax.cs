@@ -1,4 +1,4 @@
-﻿/* YetAnotherForum.NET
+﻿ /* YetAnotherForum.NET
  * Copyright (C) 2006-2013 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -42,7 +42,6 @@ namespace YAF.Classes
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
 
     #endregion
 
@@ -73,7 +72,7 @@ namespace YAF.Classes
         /// Handles the multi quote Button.
         /// </summary>
         /// <param name="buttonId">The button id.</param>
-        /// <param name="multiquoteButton">The Multiquote Button Checkbox checked</param>
+        /// <param name="multiquoteButton">The Multi quote Button Checkbox checked</param>
         /// <param name="messageId">The message id.</param>
         /// <param name="buttonCssClass">The button CSS class.</param>
         /// <returns>Returns the Message Id and the Updated CSS Class for the Button</returns>
@@ -112,13 +111,13 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Spell check via google api.
+        /// Spell check via google API.
         /// </summary>
         /// <param name="text">
         /// The text to check.
         /// </param>
         /// <param name="lang">
-        /// The langauage of the text.
+        /// The language of the text.
         /// </param>
         /// <param name="engine">
         /// The engine.
@@ -153,83 +152,6 @@ namespace YAF.Classes
             }
 
             return new JavaScriptSerializer().Serialize(result);
-        }
-
-        /// <summary>
-        /// SSO Login From Facebook
-        /// </summary>
-        /// <param name="id">
-        /// The id.
-        /// </param>
-        /// <param name="name">
-        /// The name.
-        /// </param>
-        /// <param name="first_name">
-        /// The first name.
-        /// </param>
-        /// <param name="last_name">
-        /// The last name.
-        /// </param>
-        /// <param name="link">
-        /// The link.
-        /// </param>
-        /// <param name="username">
-        /// The user name.
-        /// </param>
-        /// <param name="birthday">
-        /// The birthday.
-        /// </param>
-        /// <param name="hometown">
-        /// The hometown.
-        /// </param>
-        /// <param name="gender">
-        /// The gender.
-        /// </param>
-        /// <param name="email">
-        /// The email.
-        /// </param>
-        /// <param name="timezone">
-        /// The timezone.
-        /// </param>
-        /// <param name="locale">
-        /// The locale.
-        /// </param>
-        /// <param name="remember">
-        /// The remember.
-        /// </param>
-        /// <returns>
-        /// Returns the Login Status
-        /// </returns>
-        [WebMethod(EnableSession = true)]
-        public string LoginFacebookUser(
-            string id,
-            string name,
-            string first_name,
-            string last_name,
-            string link,
-            string username,
-            string birthday,
-            string hometown,
-            string gender,
-            string email,
-            string timezone,
-            string locale,
-            bool remember)
-        {
-            return YafSingleSignOnUser.LoginFacebookUser(
-                id,
-                name,
-                first_name,
-                last_name,
-                link,
-                username,
-                birthday,
-                hometown,
-                gender,
-                email,
-                timezone,
-                locale,
-                remember); 
         }
 
         /// <summary>
@@ -275,7 +197,7 @@ namespace YAF.Classes
         /// The board id.
         /// </param>
         /// <returns>
-        /// The refresh shout box js.
+        /// The refresh shout box JS.
         /// </returns>
         [WebMethod]
         public int RefreshShoutBox(int boardId)
@@ -299,7 +221,7 @@ namespace YAF.Classes
         /// The topic ID.
         /// </param>
         /// <returns>
-        /// The add favorite topic js.
+        /// The add favorite topic JS.
         /// </returns>
         [WebMethod(EnableSession = true)]
         public int AddFavoriteTopic(int topicId)
@@ -314,7 +236,7 @@ namespace YAF.Classes
         /// The favorite topic id.
         /// </param>
         /// <returns>
-        /// The remove favorite topic js.
+        /// The remove favorite topic JS.
         /// </returns>
         [WebMethod(EnableSession = true)]
         public int RemoveFavoriteTopic(int topicId)
@@ -328,7 +250,7 @@ namespace YAF.Classes
         /// Add Thanks to post
         /// </summary>
         /// <param name="msgID">
-        /// The msg id.
+        /// The message id.
         /// </param>
         /// <returns>
         /// Returns ThankYou Info
@@ -340,23 +262,24 @@ namespace YAF.Classes
             var messageId = msgID.ToType<int>();
 
             var membershipUser = Membership.GetUser();
-            if (membershipUser != null)
-            {
-                var username =
-                    LegacyDb.message_AddThanks(
-                        UserMembershipHelper.GetUserIDFromProviderUserKey(membershipUser.ProviderUserKey), messageId, this.Get<YafBoardSettings>().EnableDisplayName);
 
-                // if the user is empty, return a null object...
-                return username.IsNotSet()
-                           ? null
-                           : YafThankYou.CreateThankYou(
-                               this.Get<HttpServerUtilityBase>().HtmlEncode(username),
-                               "BUTTON_THANKSDELETE",
-                               "BUTTON_THANKSDELETE_TT",
-                               messageId);
+            if (membershipUser == null)
+            {
+                return null;
             }
 
-            return null;
+            var username =
+                LegacyDb.message_AddThanks(
+                    UserMembershipHelper.GetUserIDFromProviderUserKey(membershipUser.ProviderUserKey), messageId, this.Get<YafBoardSettings>().EnableDisplayName);
+
+            // if the user is empty, return a null object...
+            return username.IsNotSet()
+                       ? null
+                       : YafThankYou.CreateThankYou(
+                           this.Get<HttpServerUtilityBase>().HtmlEncode(username),
+                           "BUTTON_THANKSDELETE",
+                           "BUTTON_THANKSDELETE_TT",
+                           messageId);
         }
 
         /// <summary>

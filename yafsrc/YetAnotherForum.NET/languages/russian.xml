@@ -697,6 +697,8 @@
     <Resource tag="ERROR_PASS_NOTMATCH">Подтвержение и пароль не совпадают</Resource>
     <Resource tag="FACEBOOK_USER">Пользователь Facebook:</Resource>
     <Resource tag="FACEBOOK_USER_HELP">Показывает, что пользователь зашёл через Facebook.</Resource>
+    <Resource tag="GOOGLE_USER">Google User:</Resource>
+    <Resource tag="GOOGLE_USER_HELP">Indicates if the User is logged in via Google.</Resource>
     <Resource tag="HEAD_KILL_USER">Уничтожить следы активности пользователя</Resource>
     <Resource tag="HEAD_USER_CHANGEPASS">Изменить пароль</Resource>
     <Resource tag="HEAD_USER_DETAILS">Данные пользователя</Resource>
@@ -723,6 +725,7 @@
     <Resource tag="SUSPEND_ACCOUNT_USER">Suspend this account for 5 years?</Resource>
     <Resource tag="TITLE">Редактирование пользователя "{0}"</Resource>
     <Resource tag="TWITTER_USER">Пользователь Twitter:</Resource>
+    <Resource tag="TWITTER_USER_HELP">Indicates if the User is logged in via Twitter.</Resource>
     <Resource tag="USER_AVATAR">Аватар пользователя</Resource>
     <Resource tag="USER_DETAILS">Данные пользователя</Resource>
     <Resource tag="USER_KILL">Подавление активности</Resource>
@@ -1343,8 +1346,6 @@
     <Resource tag="SSL_LOGIN_HELP">Требовать безопасного соединения при входе пользователей на форум.</Resource>
     <Resource tag="SSL_REGISTER">Использовать SSL при регистрации:</Resource>
     <Resource tag="SSL_REGISTER_HELP">Требовать безопасного соединения при регистрации пользователей.</Resource>
-    <Resource tag="SSO_AUTO_REGISTER">Автоматически регистрировать нового пользователя Facebook/Twitter:</Resource>
-    <Resource tag="SSO_AUTO_REGISTER_HELP">Автоматически регистрировать пользователя, который старается зайти через логин Facebook / Twitter</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT">Таймаут кэша статистики форума:</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT_HELP">В минутах</Resource>
     <Resource tag="STYLED_NICKS">Использовать стилизированные ники:</Resource>
@@ -2343,6 +2344,7 @@
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Желаете ли Вы получать уведомление по электронной почте каждый раз, когда кто-либо оставляет сообщение во [b]всех[/b] обсуждениях с вашим участием?</Resource>
     <Resource tag="BAD_EMAIL">Вы ввели недопустимый адрес электронной почты.</Resource>
     <Resource tag="BAD_FACEBOOK">Вы вели недопустимый идентификатор профиля Facebook.</Resource>
+    <Resource tag="BAD_GOOGLE">You have entered an illegal value as Google Profile URL.</Resource>
     <Resource tag="BAD_HOME">Вы ввели неработающий адрес своей домашней страницы.</Resource>
     <Resource tag="BAD_ICQ">Вы ввели недопустимое значение для вашего номера ICQ.</Resource>
     <Resource tag="BAD_MSN">Вы ввели неверный адрес электронной почты для учётной записи MSN.</Resource>
@@ -2360,6 +2362,7 @@
     <Resource tag="FACEBOOK">Ваше имя в Facebook:</Resource>
     <Resource tag="FIELD_TOOLONG">{0} length cannot be more than {1} characters.</Resource>
     <Resource tag="FORUM_SETTINGS">Настройки форума</Resource>
+    <Resource tag="GOOGLE">Your Google Profile URL:</Resource>
     <Resource tag="HIDEME">Не отображать в активных</Resource>
     <Resource tag="HOMEPAGE">Домашняя страница</Resource>
     <Resource tag="HOMEPAGE2">Ваш веб-сайт (публичный):</Resource>
@@ -4017,24 +4020,39 @@ Spoiler Content
     <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ/АБВГДЕЁЖЗИКЛМНОПРСТУФХЦЧШЩЭЮЯ</Resource>
   </page>
   <page name="LOGIN">
+    <Resource tag="AUTH_CONNECT">Login or Register with {0}</Resource>
+    <Resource tag="AUTH_CONNECT_ACCOUNT">Connect an Existing forums account with your {0} account You need to login thru the forums first. {1}</Resource>
+    <Resource tag="AUTH_CONNECT_FACEBOOK">&lt;strong&gt;The Facebook email address must match the forum user email address to connect the user.&lt;/strong&gt;</Resource>
+    <Resource tag="AUTH_CONNECT_GOOGLE">&lt;strong&gt;The Google email address must match the forum user email address to connect the user.&lt;/strong&gt;</Resource>
+    <Resource tag="AUTH_CONNECT_HELP">Login or Register with {0} or connect an existing User Account with {0}.</Resource>
+    <Resource tag="AUTH_CONNECT_TWITTER">&lt;strong&gt;The Twitter user name must match the forum user name to connect the user.&lt;/strong&gt;</Resource>
+    <Resource tag="AUTH_LOGIN_EXISTING">Login with an user Account that is connected with {0}. Or if no account is found a new account will be automatically created in the forums.</Resource>
+    <Resource tag="AUTH_NO_ACCESS_TOKEN">Could not get access_token!</Resource>
     <Resource tag="AUTO">Запомните меня</Resource>
     <Resource tag="BOTH_USERNAME_EMAIL">Должны быть введены как адрес почты пользователя, так и его имя.</Resource>
     <Resource tag="EMAIL">Адрес Email</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">Было послано сообщение по почте с вашим новым паролем.</Resource>
     <Resource tag="FACEBOOK_LOGIN">Войти через Facebook</Resource>
     <Resource tag="FORUM_LOGIN">Войти</Resource>
+    <Resource tag="GOOGLE_LOGIN">Login with Google</Resource>
     <Resource tag="LOSTPASSWORD">Восстановить пароль</Resource>
     <Resource tag="PASSWORD">Пароль:</Resource>
     <Resource tag="PASSWORD_ERROR">Введённые пароль или имя пользователя неверны. Попытайтесь снова.</Resource>
     <Resource tag="RECOVER">Восстановление пароля</Resource>
     <Resource tag="RECOVER_ERROR">Произошла ошибка во время создания Вашего нового пароля.</Resource>
+    <Resource tag="REGISTER_INSTEAD">Neuen Benuzter erstellen</Resource>
     <Resource tag="SENDPASSWORD">Отправить пароль</Resource>
     <Resource tag="SSO_DEACTIVATED">Единая регистрация выключена администратором форума!</Resource>
     <Resource tag="SSO_DEACTIVATED_BYUSER">Единая регистрация отключена, Вам необходимо включить её в своём профиле.</Resource>
-    <Resource tag="SSO_FAILED">Логин через Facebook не удался. Нет пользователя с таким адресом Email .</Resource>
+    <Resource tag="SSO_FACEBOOK_FAILED">The Facebook Login failed, User does not exists, or the account is not connected.</Resource>
+    <Resource tag="SSO_FACEBOOKNAME_NOTMATCH">The Facebook email address must match the Forum email adress!</Resource>
+    <Resource tag="SSO_FAILED">New Registrations are disabled.</Resource>
+    <Resource tag="SSO_GOOGLE_FAILED">The Google Login failed, User does not exists, or the account is not connected.</Resource>
+    <Resource tag="SSO_GOOGLENAME_NOTMATCH">The Google email address must match the Forum email adress!</Resource>
     <Resource tag="SSO_ID_NOTMATCH">Неверный ID пользователя Facebook !</Resource>
     <Resource tag="SSO_TWITTER_FAILED">Вход через Twitter не удался, такой пользователь не существует.</Resource>
     <Resource tag="SSO_TWITTERID_NOTMATCH"> Twitter ID и/или имя в Twitter неверны!</Resource>
+    <Resource tag="SSO_TWITTERNAME_NOTMATCH">The Twitter User Name must match the Forum Username!</Resource>
     <Resource tag="TITLE">Вход</Resource>
     <Resource tag="TWITTER_DM">Вы получили дальнейшие инструкции в личные сообщения на форуме.</Resource>
     <Resource tag="TWITTER_DM_ACCOUNT">Ваша информация об аккаунте форума {0} : Имя пользователя "{1}" Пароль "{2}"</Resource>
@@ -4343,6 +4361,8 @@ Spoiler Content
     <Resource tag="FACEBOOK_TITLE">Посетите профиль пользователя {0} в Facebook</Resource>
     <Resource tag="FACEBOOK_TOPIC">Смотреть в этой теме</Resource>
     <Resource tag="FORUM_JUMP">Быстрый переход</Resource>
+    <Resource tag="GOOGLE">Google+</Resource>
+    <Resource tag="GOOGLE_TITLE">Visit {0}'s Google+ Profile</Resource>
     <Resource tag="GOOGLEPLUS_TOPIC">Расшарить тему в Google+</Resource>
     <Resource tag="GROUPS">Группы</Resource>
     <Resource tag="HOME">WWW</Resource>
@@ -4471,6 +4491,7 @@ Spoiler Content
     <Resource tag="GENDER0">Не указан</Resource>
     <Resource tag="GENDER1">Мужской</Resource>
     <Resource tag="GENDER2">Женский</Resource>
+    <Resource tag="GOOGLE">Google+ Profile:</Resource>
     <Resource tag="GROUPS">Группы:</Resource>
     <Resource tag="HOURS">часов</Resource>
     <Resource tag="ICQ">Номер ICQ:</Resource>
@@ -4650,6 +4671,7 @@ Spoiler Content
     <Resource tag="INVALID_QUESTION">Пожалуйста, выберите другой вопрос.</Resource>
     <Resource tag="INVALID_USERNAME">Пожалуйста, выберите другое имя пользователя.</Resource>
     <Resource tag="LOCATION">Место нахождения</Resource>
+    <Resource tag="LOGIN_INSTEAD">Login instead with an existing Account</Resource>
     <Resource tag="NEED_ANSWER">Ответ на контрольный вопрос обязателен.</Resource>
     <Resource tag="NEED_DISPLAYNAME">Отображаемое имя обязательно.</Resource>
     <Resource tag="NEED_EMAIL">E-mail обязателен.</Resource>
@@ -4665,6 +4687,7 @@ Spoiler Content
     <Resource tag="RECAPTCHA_BADSETTING">Настройки ReCAPTURE неверны. Сообщите это администрации форума.</Resource>
     <Resource tag="RECATCHA_BADWORDS">Неверный ответ! Попробуйте снова.</Resource>
     <Resource tag="REGISTER">Регистрация</Resource>
+    <Resource tag="REGISTER_AUTH">Register with {0}</Resource>
     <Resource tag="RETYPE_PASSWORD">Подтверждение пароля обязательно.</Resource>
     <Resource tag="SECURITY_ANSWER">Контрольный ответ</Resource>
     <Resource tag="SECURITY_QUESTION">Контрольный вопрос</Resource>
@@ -4848,6 +4871,17 @@ Spoiler Content
 	  Авто пароль: {pass}
 	  Авто ответ на секретный вопрос: {answer}
       Ваша эл. почта: {email} (Пожалуйста не меняйте, иначе Вы не сможете войти через Facebook)
+	  
+    </Resource>
+    <Resource tag="NOTIFICATION_ON_GOOGLE_REGISTER">
+      Hello {user}.
+
+      You have been successfully Registred on the {forumname} forum thru Google:
+
+      User Name: {user}
+	  Auto Generated Password: {pass}
+	  Auto Generated Security Answer: {answer}
+      User Email: {email} (Please dont change your email, or you are unable to login with Google)
 	  
     </Resource>
     <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_TEXT">

@@ -706,24 +706,6 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox AllowSingleSignOn;
         
         /// <summary>
-        /// HelpLabel192 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel192;
-        
-        /// <summary>
-        /// RegisterNewFacebookUser control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox RegisterNewFacebookUser;
-        
-        /// <summary>
         /// HelpLabel20 control.
         /// </summary>
         /// <remarks>

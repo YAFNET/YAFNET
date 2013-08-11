@@ -697,6 +697,8 @@
     <Resource tag="ERROR_PASS_NOTMATCH">Bestätigungs Passwort stimmt nicht überein</Resource>
     <Resource tag="FACEBOOK_USER">Facebook Benutzer:</Resource>
     <Resource tag="FACEBOOK_USER_HELP">Gibt an ob der Benutzer über Facebook angemeldet ist.</Resource>
+    <Resource tag="GOOGLE_USER">Google Benutzer:</Resource>
+    <Resource tag="GOOGLE_USER_HELP">Gibt an ob der Benutzer über Google angemeldet ist.</Resource>
     <Resource tag="HEAD_KILL_USER">Benutzeraktivität löschen</Resource>
     <Resource tag="HEAD_USER_CHANGEPASS">Passwort ändern</Resource>
     <Resource tag="HEAD_USER_DETAILS">Benutzer-Details</Resource>
@@ -723,6 +725,7 @@
     <Resource tag="SUSPEND_ACCOUNT_USER">Suspend this account for 5 years?</Resource>
     <Resource tag="TITLE">Benutzer "{0}" bearbeiten</Resource>
     <Resource tag="TWITTER_USER">Twitter Benutzer:</Resource>
+    <Resource tag="TWITTER_USER_HELP">Gibt an ob der Benutzer über Twitter angemeldet ist.</Resource>
     <Resource tag="USER_AVATAR">Benutzer Avatar</Resource>
     <Resource tag="USER_DETAILS">Benutzer-Details</Resource>
     <Resource tag="USER_KILL">User Kill Aktivität</Resource>
@@ -1344,8 +1347,6 @@
     <Resource tag="SSL_LOGIN_HELP">Erzwingen einer sicheren Verbindung für die Benutzer Anmeldung</Resource>
     <Resource tag="SSL_REGISTER">SSL bei der Registrierung verwenden:</Resource>
     <Resource tag="SSL_REGISTER_HELP">Erzwingen einer sicheren Verbindung für die Benutzer Registrierung.</Resource>
-    <Resource tag="SSO_AUTO_REGISTER">Neue Facebook/Twitter Benutzer autom. registrieren:</Resource>
-    <Resource tag="SSO_AUTO_REGISTER_HELP">Benutzer automatisch Registrieren wenn sie nicht existieren wenn sich jemand über Facebook oder Twitter versucht anzumelden.</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT">Forum Statistiken Speicher Ablaufzeit:</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT_HELP">In Minuten</Resource>
     <Resource tag="STYLED_NICKS">Gestylte Nicks verwenden:</Resource>
@@ -2330,7 +2331,8 @@
     <Resource tag="AIM">AIM Name:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Beobachten Sie jedes Thema, in dem Sie einen Beitrag gemacht haben und empfangen E-Mail-Benachrichtigungen der Aktivitäten in diesen Themen?</Resource>
     <Resource tag="BAD_EMAIL">E-Mail-Adresse nicht zulässig.</Resource>
-    <Resource tag="BAD_FACEBOOK">Unzulässige Facebook Profile ID.</Resource>
+    <Resource tag="BAD_FACEBOOK">Unzulässige Facebook Profile URL.</Resource>
+    <Resource tag="BAD_GOOGLE">Unzulässige Google Profile URL.</Resource>
     <Resource tag="BAD_HOME">Keine zulässige Adresse für Deine Homepage.</Resource>
     <Resource tag="BAD_ICQ">Unzulässige ICQ-Daten.</Resource>
     <Resource tag="BAD_MSN">E-Mail-Adresse nicht zulässig für Dein MSN Konto.</Resource>
@@ -2345,9 +2347,10 @@
     <Resource tag="DUPLICATED_EMAIL">Die E-Mail-Adresse eingegeben haben, ist bereits im Einsatz.</Resource>
     <Resource tag="EDIT_ALBUMS">Alben bearbeiten</Resource>
     <Resource tag="EMAIL">Du musst immer eine gültige E-Mail-Adresse angeben.</Resource>
-    <Resource tag="FACEBOOK">Facebook Profil ID:</Resource>
+    <Resource tag="FACEBOOK">Facebook Profil URL:</Resource>
     <Resource tag="FIELD_TOOLONG">{0} Länge darf nicht länder als {1} Zeichen lang sein.</Resource>
     <Resource tag="FORUM_SETTINGS">Einstellungen des Forums</Resource>
+    <Resource tag="Google">Google Profil URL:</Resource>
     <Resource tag="HIDEME">Verstecken Sie mich aus der aktiven Nutzerliste</Resource>
     <Resource tag="HOMEPAGE">Webseite</Resource>
     <Resource tag="HOMEPAGE2">Deine Webseite:</Resource>
@@ -2373,9 +2376,7 @@
     <Resource tag="TIMEZONE2">Damit Daten und Uhrzeiten im Forum richtig angezeigt werden, musst du Deine Zeitzone angeben.</Resource>
     <Resource tag="TITLE">Profil bearbeiten</Resource>
     <Resource tag="TWITTER">Twittername:</Resource>
-    <Resource tag="TWITTER_ID">Twitter ID:</Resource>
     <Resource tag="USE_MOBILE_THEME">Mobile Forum Skin benutzen:</Resource>
-    <Resource tag="USE_SINGLESIGNON">Möchten Sie Single Sign On verwenden?&lt;br /&gt;Sie müssen oben ihre Facebook ID angeben um Sie via Facebook anzumelden, und ihren Titter Namen + Id für Twitter.</Resource>
     <Resource tag="WEBLOG2">Dein Blog:</Resource>
     <Resource tag="WHERE">Wo lebst du?</Resource>
     <Resource tag="XMPP">Jabber ID:</Resource>
@@ -3978,24 +3979,38 @@ Spoiler Content
     <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ</Resource>
   </page>
   <page name="LOGIN">
+    <Resource tag="AUTH_CONNECT">Anmelden oder registrieren über {0}</Resource>
+    <Resource tag="AUTH_CONNECT_ACCOUNT">Einen vorhandes Forumkonto mit einem {0} Konto Verbinden. Sie müssen Sich dazu zunächst im Forum anmelden.</Resource>
+    <Resource tag="AUTH_CONNECT_FACEBOOK">&lt;strong&gt;Die Facebook Benutzer Email Adress muss mit der Forum Benutzer Email Adresse übereinstimmen um das Konto zu verbinden.&lt;/strong&gt;</Resource>
+    <Resource tag="AUTH_CONNECT_GOOGLE">&lt;strong&gt;Die Google Benutzer Email Adress muss mit der Forum Benutzer Email Adresse übereinstimmen um das Konto zu verbinden.&lt;/strong&gt;</Resource>
+    <Resource tag="AUTH_CONNECT_HELP">Anmelden oder registrieren über {0} oder ein bestehendes Konto mit {0} verbinden.</Resource>
+    <Resource tag="AUTH_CONNECT_TWITTER">&lt;strong&gt;Der Twitter Benutzer Name muss mit dem Forum Benutzer Namen übereinstimmen um das Konto zu verbinden.&lt;/strong&gt; {1}</Resource>
+    <Resource tag="AUTH_LOGIN_EXISTING">Mit einem Konto anmelden das mit {0} verbunden ist. Oder wenn kein Konto gefunden wurde wird automatisch ein neues Erstellt.</Resource>
+    <Resource tag="AUTH_NO_ACCESS_TOKEN">Zugriffstoken nicht erhalten!</Resource>
     <Resource tag="AUTO">Login merken</Resource>
     <Resource tag="BOTH_USERNAME_EMAIL">Sowohl E-Mail-Adresse als auch Benutzername müssen eingegeben werden.</Resource>
     <Resource tag="EMAIL">E-Mail-Adresse</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">Eine E-Mail mit einem neuen Passwort wurde versandt.</Resource>
     <Resource tag="FACEBOOK_LOGIN">Mit Facebook anmelden</Resource>
     <Resource tag="FORUM_LOGIN">Ins Forum einloggen</Resource>
+    <Resource tag="GOOGLE_LOGIN">Mit Google anmelden</Resource>
     <Resource tag="LOSTPASSWORD">Passwort vergessen</Resource>
     <Resource tag="PASSWORD">Passwort:</Resource>
     <Resource tag="PASSWORD_ERROR">Der eingegebene Benutzername oder das Passwort ist nicht korrekt, probiere es noch ein Mal.</Resource>
     <Resource tag="RECOVER">Passwort wiederherstellen</Resource>
     <Resource tag="RECOVER_ERROR">Fehler beim Erstellen eines neuen Passworts.</Resource>
+    <Resource tag="REGISTER_INSTEAD">Register Instead as new User</Resource>
     <Resource tag="SENDPASSWORD">Passwort zusenden</Resource>
     <Resource tag="SSO_DEACTIVATED">Single Sign On ist derzeit vom Administrator deaktiviert!</Resource>
     <Resource tag="SSO_DEACTIVATED_BYUSER">Single Sign On ist deaktiviert für diesen Benutzer, um diese Funktion zu aktivieren müssen Sie diese in den Profil Einstellungen aktivieren.</Resource>
-    <Resource tag="SSO_FAILED">Die Facebook Anmeldung ist fehlgeschlagen, ein Benutzer mit dieser E-Mail Adresse existiert nicht.</Resource>
-    <Resource tag="SSO_ID_NOTMATCH">Die Facebook Benutzer ID stimmt nicht überein!</Resource>
-    <Resource tag="SSO_TWITTER_FAILED">Die Twitter Anmeldung ist fehlgeschlagen, ein Benutzer mit diesem Namen existiert nicht.</Resource>
-    <Resource tag="SSO_TWITTERID_NOTMATCH">Der Twitter Name und Twitter ID stimmt nicht überein!</Resource>
+    <Resource tag="SSO_FACEBOOK_FAILED">Die Facebook Anmeldung ist fehlgeschlagen, ein Benutzer mit diesem Namen existiert nicht, oder das Konto ist nicht verbunden.</Resource>
+    <Resource tag="SSO_FACEBOOKNAME_NOTMATCH">Die Email adress muss mit der Forum Email Adress identisch sein!</Resource>
+    <Resource tag="SSO_FAILED">Registrierungen sind nicht erlaubt.</Resource>
+    <Resource tag="SSO_GOOGLE_FAILED">Die Google Anmeldung ist fehlgeschlagen, ein Benutzer mit diesem Namen existiert nicht, oder das Konto ist nicht verbunden.</Resource>
+    <Resource tag="SSO_GOOGLENAME_NOTMATCH">Die Email adress muss mit der Forum Email Adress identisch sein!</Resource>
+    <Resource tag="SSO_ID_NOTMATCH">Die Facebook Benutzer is nicht verbunden oder wurde nicht gefunden!</Resource>
+    <Resource tag="SSO_TWITTER_FAILED">Die Twitter Anmeldung ist fehlgeschlagen, ein Benutzer mit diesem Namen existiert nicht, oder das Konto ist nicht verbunden.</Resource>
+    <Resource tag="SSO_TWITTERNAME_NOTMATCH">Der Twitter Benutzer Namen muss mit dem Forum Benutzernamen identisch sein!</Resource>
     <Resource tag="TITLE">Einloggen</Resource>
     <Resource tag="TWITTER_DM">Sie haben weitere Informationen für Ihr Benutzerkonto als Private Nachricht im Forum erhalten.</Resource>
     <Resource tag="TWITTER_DM_ACCOUNT">Ihr Konto im Forum {0}: Username "{1}" Password "{2}"</Resource>
@@ -4304,6 +4319,8 @@ Spoiler Content
     <Resource tag="FACEBOOK_TITLE">{0}'s Facebook Profil besuchen</Resource>
     <Resource tag="FACEBOOK_TOPIC">Thema mögen</Resource>
     <Resource tag="FORUM_JUMP">Das Forum wechseln</Resource>
+    <Resource tag="GOOGLE">Google+</Resource>
+    <Resource tag="GOOGLE_TITLE">{0}'s Google+ Profil besuchen</Resource>
     <Resource tag="GOOGLEPLUS_TOPIC">Thema auf Google+ teilen</Resource>
     <Resource tag="GROUPS">Gruppe</Resource>
     <Resource tag="HOME">www</Resource>
@@ -4432,6 +4449,7 @@ Spoiler Content
     <Resource tag="GENDER0">nicht angegeben</Resource>
     <Resource tag="GENDER1">Männlich</Resource>
     <Resource tag="GENDER2">Weiblich</Resource>
+    <Resource tag="GOOGLE">Google+ Profil:</Resource>
     <Resource tag="GROUPS">Gruppen:</Resource>
     <Resource tag="HOURS">Stunden</Resource>
     <Resource tag="ICQ">ICQ-Nummer:</Resource>
@@ -4611,6 +4629,7 @@ Spoiler Content
     <Resource tag="INVALID_QUESTION">Bitte gib eine andere Frage ein.</Resource>
     <Resource tag="INVALID_USERNAME">Bitte wähle eine anderen Benutzernamen</Resource>
     <Resource tag="LOCATION">Wohnort</Resource>
+    <Resource tag="LOGIN_INSTEAD">Mit einenem Bestehenden Benutzer anmelden</Resource>
     <Resource tag="NEED_ANSWER">Die Antwort für die Sicherheitsfrage wird benötigt.</Resource>
     <Resource tag="NEED_DISPLAYNAME">Anzeigename wird benötigt.</Resource>
     <Resource tag="NEED_EMAIL">E-Mail-Adresse wird benötigt</Resource>
@@ -4626,6 +4645,7 @@ Spoiler Content
     <Resource tag="RECAPTCHA_BADSETTING">Recapture Einstellungen sind falsch. Bitte Informieren Sie die Administratoren darüber.</Resource>
     <Resource tag="RECATCHA_BADWORDS">Eingabe Falsch! Bitte erneut versuchen.</Resource>
     <Resource tag="REGISTER">Registrieren</Resource>
+    <Resource tag="REGISTER_AUTH">Über {0} registrieren</Resource>
     <Resource tag="RETYPE_PASSWORD">Passwort Wiederholung</Resource>
     <Resource tag="SECURITY_ANSWER">Antwort auf diese Frage</Resource>
     <Resource tag="SECURITY_QUESTION">Sicherheitsfrage (bei Passwortverlust)</Resource>
@@ -4811,6 +4831,17 @@ Hallo!
 	  Automatisch generierte Sicherheits Antwort: {answer}
       E-Mail: {email} (Bitte ändern Sie nicht ihre E-Mail Adresse, ansonsten können Sie sich nicht mehr über Facebook anmelden)
 	  
+    </Resource>
+    <Resource tag="NOTIFICATION_ON_GOOGLE_REGISTER">
+      Hallo {user}.
+
+      Sie haben sich erfolgreich im forum {forumname} über Google registriert:
+
+      Benutzername: {user}
+      Automatisch generiertes Passwort: {pass}
+      Automatisch generierte Sicherheits Antwort: {answer}
+      E-Mail: {email} (Bitte ändern Sie nicht ihre E-Mail Adresse, ansonsten können Sie sich nicht mehr über Google anmelden)
+
     </Resource>
     <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_TEXT">
       Hallo {user}.

@@ -576,7 +576,8 @@ namespace YAF.Pages.Admin
                 user["BlogServiceUsername"] = userProfile.BlogServiceUsername;
                 user["BlogServicePassword"] = userProfile.BlogServicePassword;
                 user["AIM"] = userProfile.AIM;
-                user["GoogleTalk"] = userProfile.GoogleTalk;
+                user["Google"] = userProfile.Google;
+                user["GoogleId"] = userProfile.GoogleId;
                 user["Location"] = userProfile.Location;
                 user["Country"] = userProfile.Country;
                 user["Region"] = userProfile.Region;
@@ -591,6 +592,7 @@ namespace YAF.Pages.Admin
                 user["Twitter"] = userProfile.Twitter;
                 user["TwitterId"] = userProfile.TwitterId;
                 user["Facebook"] = userProfile.Facebook;
+                user["FacebookId"] = userProfile.FacebookId;
 
                 user["Roles"] = this.Get<RoleProvider>().GetRolesForUser((string)user["Name"]).ToDelimitedString(",");
 

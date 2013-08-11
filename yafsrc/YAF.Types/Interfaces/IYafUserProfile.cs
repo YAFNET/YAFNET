@@ -63,9 +63,14 @@ namespace YAF.Types.Interfaces
     int Gender { get; set; }
 
     /// <summary>
-    /// Gets or sets GoogleTalk.
+    /// Gets or sets Google.
     /// </summary>
-    string GoogleTalk { get; set; }
+    string Google { get; set; }
+
+    /// <summary>
+    /// Gets or sets Google ID.
+    /// </summary>
+    string GoogleId { get; set; }
 
     /// <summary>
     /// Gets or sets Homepage.
@@ -83,12 +88,22 @@ namespace YAF.Types.Interfaces
     string Facebook { get; set; }
 
     /// <summary>
+    /// Gets or sets the facebook Id, 
+    /// private Field only for SSO
+    /// </summary>
+    /// <value>
+    /// The facebook Id.
+    /// </value>
+    string FacebookId { get; set; }
+
+    /// <summary>
     /// Gets or sets Twitter.
     /// </summary>
     string Twitter { get; set; }
 
     /// <summary>
-    /// Gets or sets Twitter Id.
+    /// Gets or sets Twitter Id, 
+    /// private Field only for SSO
     /// </summary>
     string TwitterId { get; set; }
 

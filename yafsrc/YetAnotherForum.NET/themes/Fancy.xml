@@ -78,6 +78,7 @@
 	  <Resource tag="REDDIT">~/images/icon_reddit.png</Resource>
 	  <Resource tag="FACEBOOK">~/images/icon_facebook.png</Resource>
 	  <Resource tag="GOOGLEPLUS">~/images/icon_googleplus.png</Resource>
+    <Resource tag="GOOGLE2">~/images/icon_googleplus2.png</Resource>
     <Resource tag="LIVEJOURNAL">~/images/livejournal.png</Resource>
     <Resource tag="VKONTAKTE">~/images/vkontakte.png</Resource>
 	  <Resource tag="LINKBACK">~/images/icon_linkback.png</Resource>

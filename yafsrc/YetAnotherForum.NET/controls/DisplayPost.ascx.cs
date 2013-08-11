@@ -31,7 +31,7 @@ namespace YAF.Controls
     using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Core.Services;
-    using YAF.Core.Services.Twitter;
+    using YAF.Core.Services.Auth;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;

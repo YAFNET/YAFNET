@@ -40,6 +40,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -54,6 +55,7 @@
     <Compile Include="Attributes\AssemblyModuleSortOrder.cs" />
     <Compile Include="Attributes\ExcludeAttribute.cs" />
     <Compile Include="Attributes\ExportServiceAttribute.cs" />
+    <Compile Include="Constants\AuthService.cs" />
     <Compile Include="Constants\MessageTypes.cs" />
     <Compile Include="Attributes\InjectAttribute.cs" />
     <Compile Include="Attributes\StringValueAttribute.cs" />
@@ -117,6 +119,8 @@
     <Compile Include="Models\TopicReadTracking.cs" />
     <Compile Include="Models\WatchForum.cs" />
     <Compile Include="Models\WatchTopic.cs" />
+    <Compile Include="Objects\FacebookUser.cs" />
+    <Compile Include="Objects\GoogleUser.cs" />
     <Compile Include="Objects\MessageNotification.cs" />
     <Compile Include="ThemeResources.cs" />
     <Compile Include="CodeContracts.cs" />

@@ -254,11 +254,11 @@
     </tr>
     <tr>
         <td class="postheader">
-            <YAF:LocalizedLabel ID="LocalizedLabel37" runat="server" LocalizedPage="CP_EDITPROFILE"
-                LocalizedTag="TWITTER_ID" />
+            <YAF:LocalizedLabel ID="LocalizedLabel36" runat="server" LocalizedPage="CP_EDITPROFILE"
+                LocalizedTag="Google" />
         </td>
         <td class="post">
-            <asp:TextBox runat="server" ID="TwitterId" CssClass="edit" />
+            <asp:TextBox runat="server" ID="Google" CssClass="edit" />
         </td>
     </tr>
     <tr>
@@ -348,15 +348,6 @@
         </td>
         <td class="post">
              <asp:DropDownList runat="server" ID="Culture" CssClass="edit" />
-        </td>
-    </tr>
-    <tr runat="server" id="UserLoginRow">
-        <td class="postheader">
-            <YAF:LocalizedLabel ID="LocalizedLabel36" runat="server" LocalizedPage="CP_EDITPROFILE"
-                LocalizedTag="USE_SINGLESIGNON" />
-        </td>
-        <td class="post">
-             <asp:CheckBox id="SingleSignOn" runat="server" />
         </td>
     </tr>
     <asp:PlaceHolder runat="server" ID="LoginInfo" Visible="false">

@@ -334,6 +334,17 @@ namespace YAF.Core
         }
 
         /// <summary>
+        ///   Gets a value indicating whether the current user is logged in via Google
+        /// </summary>
+        public bool IsGoogleUser
+        {
+            get
+            {
+                return this.PageValueAsBool("IsGoogleUser");
+            }
+        }
+
+        /// <summary>
         ///   Gets a value indicating whether the current user is suspended (True).
         /// </summary>
         public bool IsSuspended

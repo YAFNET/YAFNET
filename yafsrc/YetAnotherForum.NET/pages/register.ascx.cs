@@ -439,24 +439,23 @@ namespace YAF.Pages
             int userId = UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey);
 
             LegacyDb.user_save(
-                userId,
-                this.PageContext.PageBoardID,
-                null,
-                null,
-                null,
-                timeZones.SelectedValue.ToType<int>(),
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                dstUser.Checked,
-                null,
-                null);
+                userID: userId,
+                boardID: this.PageContext.PageBoardID,
+                userName: null,
+                displayName: null,
+                email: null,
+                timeZone: timeZones.SelectedValue.ToType<int>(),
+                languageFile: null,
+                culture: null,
+                themeFile: null,
+                textEditor: null,
+                useMobileTheme: null,
+                approved: null,
+                pmNotification: null,
+                autoWatchTopics: null,
+                dSTUser: dstUser.Checked,
+                hideUser: null,
+                notificationType: null);
 
             bool autoWatchTopicsEnabled = this.Get<YafBoardSettings>().DefaultNotificationSetting
                                           == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
@@ -513,14 +512,10 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The page_ load.
+        /// Handles the Load event of the Page control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (!this.IsPostBack)
@@ -538,6 +533,38 @@ namespace YAF.Pages
                     this.GetText("SAVE");
                 ((Button)this.CreateUserWizard1.FindWizardControlRecursive("ContinueButton")).Text =
                     this.GetText("CONTINUE");
+
+                var facebookRegister = (LinkButton)this.CreateUserWizard1.FindWizardControlRecursive("FacebookRegister");
+                var twitterRegister = (LinkButton)this.CreateUserWizard1.FindWizardControlRecursive("TwitterRegister");
+                var googleRegister = (LinkButton)this.CreateUserWizard1.FindWizardControlRecursive("GoogleRegister");
+
+                var loginButton = (LinkButton)this.CreateUserWizard1.FindWizardControlRecursive("LoginButton");
+
+                var authPanel = (Panel)this.CreateUserWizard1.FindWizardControlRecursive("AuthPanel");
+
+                if (this.PageContext.IsGuest && !Config.IsAnyPortal && Config.AllowLoginAndLogoff)
+                {
+                    loginButton.Visible = true;
+                    loginButton.Text = this.GetText("LOGIN_INSTEAD");
+                }
+
+                if (Config.FacebookAPIKey.IsSet() && Config.FacebookSecretKey.IsSet())
+                {
+                    facebookRegister.Visible = authPanel.Visible = true;
+                    facebookRegister.Text = this.GetTextFormatted("REGISTER_AUTH", "Facebook");
+                }
+
+                if (Config.TwitterConsumerKey.IsSet() && Config.TwitterConsumerSecret.IsSet())
+                {
+                    twitterRegister.Visible = authPanel.Visible = true;
+                    twitterRegister.Text = this.GetTextFormatted("REGISTER_AUTH", "Twitter");
+                }
+
+                if (Config.GoogleClientID.IsSet() && Config.GoogleClientSecret.IsSet())
+                {
+                    googleRegister.Visible = authPanel.Visible = true;
+                    googleRegister.Text = this.GetTextFormatted("REGISTER_AUTH", "Google");
+                }
 
                 // get the time zone data source
                 var timeZones = (DropDownList)this.CreateUserWizard1.FindWizardControlRecursive("TimeZones");
@@ -670,6 +697,46 @@ namespace YAF.Pages
             imgCaptcha.ImageUrl = "{0}resource.ashx?c=1&t=".FormatWith(
                 YafForumInfo.ForumClientFileRoot,
                 DateTime.UtcNow);
+        }
+
+        /// <summary>
+        /// Redirects to the Facebook login/register page.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void FacebookRegisterClick(object sender, EventArgs e)
+        {
+            YafBuildLink.Redirect(ForumPages.login, "auth={0}", AuthService.facebook);
+        }
+
+        /// <summary>
+        /// Redirects to the Twitter login/register page.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void TwitterRegisterClick(object sender, EventArgs e)
+        {
+            YafBuildLink.Redirect(ForumPages.login, "auth={0}", AuthService.twitter);
+        }
+
+        /// <summary>
+        /// Redirects to the Google login/register page.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void GoogleRegisterClick(object sender, EventArgs e)
+        {
+            YafBuildLink.Redirect(ForumPages.login, "auth={0}", AuthService.google);
+        }
+
+        /// <summary>
+        /// Logins the click.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void LoginClick(object sender, EventArgs e)
+        {
+            YafBuildLink.Redirect(ForumPages.login);
         }
 
         /// <summary>
@@ -869,6 +936,7 @@ namespace YAF.Pages
             this.recPH.Controls.Add(this.Recupt);
             this.recPH.Visible = true;
         }
+
 
         #endregion
     }

@@ -699,6 +699,8 @@
     <Resource tag="ERROR_PASS_NOTMATCH">Confirmation password does not match</Resource>
     <Resource tag="FACEBOOK_USER">Facebook User:</Resource>
     <Resource tag="FACEBOOK_USER_HELP">Indicates if the User is logged in via Facebook.</Resource>
+    <Resource tag="GOOGLE_USER">Google User:</Resource>
+    <Resource tag="GOOGLE_USER_HELP">Indicates if the User is logged in via Google.</Resource>
     <Resource tag="HEAD_KILL_USER">Kill User's Activity</Resource>
     <Resource tag="HEAD_USER_CHANGEPASS">Change Password</Resource>
     <Resource tag="HEAD_USER_DETAILS">User Details</Resource>
@@ -725,6 +727,7 @@
     <Resource tag="SUSPEND_ACCOUNT_USER">Suspend this account for 5 years?</Resource>
     <Resource tag="TITLE">Edit User "{0}"</Resource>
     <Resource tag="TWITTER_USER">Twitter User:</Resource>
+    <Resource tag="TWITTER_USER_HELP">Indicates if the User is logged in via Twitter.</Resource>
     <Resource tag="USER_AVATAR">User Avatar</Resource>
     <Resource tag="USER_DETAILS">User Details</Resource>
     <Resource tag="USER_KILL">User Kill Activity</Resource>
@@ -1350,8 +1353,6 @@
     <Resource tag="SSL_LOGIN_HELP">Enforce a secure connection for users to log in.</Resource>
     <Resource tag="SSL_REGISTER">Use SSL while registering:</Resource>
     <Resource tag="SSL_REGISTER_HELP">Enforce a secure connection for users to register.</Resource>
-    <Resource tag="SSO_AUTO_REGISTER">Register New Facebook/Twitter User automatically:</Resource>
-    <Resource tag="SSO_AUTO_REGISTER_HELP">Register User automatically that are trying to login thru Facebook or Twitter</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT">Forum Statistics Cache Timeout:</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT_HELP">In minutes</Resource>
     <Resource tag="STYLED_NICKS">Use styled nicks:</Resource>
@@ -2330,7 +2331,8 @@
     <Resource tag="AIM">Your AIM Name:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Watch every topic in which you have made a post and receive email notifications of activities in those topics?</Resource>
     <Resource tag="BAD_EMAIL">Bạn đã nhập địa chỉ email không hợp lệ.</Resource>
-    <Resource tag="BAD_FACEBOOK">You have entered an illegal value as Facebook Profile ID.</Resource>
+    <Resource tag="BAD_FACEBOOK">You have entered an illegal value as Facebook Profile URL.</Resource>
+    <Resource tag="BAD_GOOGLE">You have entered an illegal value as Google Profile URL.</Resource>
     <Resource tag="BAD_HOME">Bạn đã nhập địa chỉ không hợp lệ cho trang chủ của bạn.</Resource>
     <Resource tag="BAD_ICQ">Bạn đã nhập không hợp lệ cho số ICQ.</Resource>
     <Resource tag="BAD_MSN">Bạn đã nhập địa chỉ email không hợp lệ cho tài khoản MSN.</Resource>
@@ -2345,9 +2347,10 @@
     <Resource tag="DUPLICATED_EMAIL">The e-mail address you have entered is already in use.</Resource>
     <Resource tag="EDIT_ALBUMS">Edit Albums</Resource>
     <Resource tag="EMAIL">Bạn phải nhập địa chỉ email chính xác.</Resource>
-    <Resource tag="FACEBOOK">Your Facebook Profile ID:</Resource>
+    <Resource tag="FACEBOOK">Your Facebook Profile URL:</Resource>
     <Resource tag="FIELD_TOOLONG">{0} length cannot be more than {1} characters.</Resource>
     <Resource tag="FORUM_SETTINGS">Thiết lập diễn đàn</Resource>
+    <Resource tag="GOOGLE">Your Google Profile URL:</Resource>
     <Resource tag="HIDEME">Hide me from active users</Resource>
     <Resource tag="HOMEPAGE">Trang chủ</Resource>
     <Resource tag="HOMEPAGE2">Trang chủ của bạn:</Resource>
@@ -2373,9 +2376,7 @@
     <Resource tag="TIMEZONE2">Chọn múi giờ của bạn.</Resource>
     <Resource tag="TITLE">Sửa lý lịch</Resource>
     <Resource tag="TWITTER">Your Twitter Name:</Resource>
-    <Resource tag="TWITTER_ID">Your Twitter Id:</Resource>
     <Resource tag="USE_MOBILE_THEME">Use Mobile Forum Theme:</Resource>
-    <Resource tag="USE_SINGLESIGNON">Did you want to Use Single Sign On?&lt;br /&gt;You need to have Set Up the Facebook Profile ID above for Facebook Login and Twitter Id + Twitter Name for Twitter Login.</Resource>
     <Resource tag="WEBLOG2">Weblog:</Resource>
     <Resource tag="WHERE">Bạn đang ở đâu?</Resource>
     <Resource tag="XMPP">Your Jabber ID:</Resource>
@@ -4036,24 +4037,38 @@ Spoiler Content
     <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ</Resource>
   </page>
   <page name="LOGIN">
+    <Resource tag="AUTH_CONNECT">Login or Register with {0}</Resource>
+    <Resource tag="AUTH_CONNECT_ACCOUNT">Connect an Existing forums account with your {0} account You need to login thru the forums first. {1}</Resource>
+    <Resource tag="AUTH_CONNECT_FACEBOOK">&lt;strong&gt;The Facebook email address must match the forum user email address to connect the user.&lt;/strong&gt;</Resource>
+    <Resource tag="AUTH_CONNECT_GOOGLE">&lt;strong&gt;The Google email address must match the forum user email address to connect the user.&lt;/strong&gt;</Resource>
+    <Resource tag="AUTH_CONNECT_HELP">Login or Register with {0} or connect an existing User Account with {0}.</Resource>
+    <Resource tag="AUTH_CONNECT_TWITTER">&lt;strong&gt;The Twitter user name must match the forum user name to connect the user.&lt;/strong&gt;</Resource>
+    <Resource tag="AUTH_LOGIN_EXISTING">Login with an user Account that is connected with {0}. Or if no account is found a new account will be automatically created in the forums.</Resource>
+    <Resource tag="AUTH_NO_ACCESS_TOKEN">Could not get access_token!</Resource>
     <Resource tag="AUTO">Ghi nhớ</Resource>
     <Resource tag="BOTH_USERNAME_EMAIL">Bạn cần phải nhập cả tên đăng nhập và email.</Resource>
     <Resource tag="EMAIL">Email</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">Email đã được gửi cho bạn vơi mật khẩu mới.</Resource>
     <Resource tag="FACEBOOK_LOGIN">Login with Facebook</Resource>
     <Resource tag="FORUM_LOGIN">Đăng nhập diễn đàn</Resource>
+    <Resource tag="GOOGLE_LOGIN">Login with Google</Resource>
     <Resource tag="LOSTPASSWORD">Quên mật khẩu</Resource>
     <Resource tag="PASSWORD">Mật khẩu:</Resource>
     <Resource tag="PASSWORD_ERROR">Tên đăng nhập hoặc mật khẩu không hợp lệ.</Resource>
     <Resource tag="RECOVER">Nhận lại mật khẩu</Resource>
     <Resource tag="RECOVER_ERROR">Lỗi tạo mật khẩu mới.</Resource>
+    <Resource tag="REGISTER_INSTEAD">Neuen Benuzter erstellen</Resource>
     <Resource tag="SENDPASSWORD">gửi mật khẩu</Resource>
     <Resource tag="SSO_DEACTIVATED">Single Sign On is currently deactivated by the Administrator!</Resource>
     <Resource tag="SSO_DEACTIVATED_BYUSER">Single Sign On is deactivated for that User, you need to activate it in your Profile Settings to use that feature.</Resource>
-    <Resource tag="SSO_FAILED">The Facebook Login failed, a User with that Email Address doesn't  exists.</Resource>
-    <Resource tag="SSO_ID_NOTMATCH">The Facebook User ID does not match!</Resource>
+    <Resource tag="SSO_FACEBOOK_FAILED">The Facebook Login failed, User does not exists, or the account is not connected.</Resource>
+    <Resource tag="SSO_FACEBOOKNAME_NOTMATCH">The Facebook email address must match the Forum email adress!</Resource>
+    <Resource tag="SSO_FAILED">New Registrations are disabled.</Resource>
+    <Resource tag="SSO_GOOGLE_FAILED">The Google Login failed, User does not exists, or the account is not connected.</Resource>
+    <Resource tag="SSO_GOOGLENAME_NOTMATCH">The Google email address must match the Forum email adress!</Resource>
+    <Resource tag="SSO_ID_NOTMATCH">The User Account is not connected or not found</Resource>
     <Resource tag="SSO_TWITTER_FAILED">The Twitter Login failed, User does not exists.</Resource>
-    <Resource tag="SSO_TWITTERID_NOTMATCH">The Twitter ID and Twitter Name does not match!</Resource>
+    <Resource tag="SSO_TWITTERNAME_NOTMATCH">The Twitter User Name must match the Forum Username!</Resource>
     <Resource tag="TITLE">Đăng nhập</Resource>
     <Resource tag="TWITTER_DM">You have received further Information to your new Account as Private Message on the Forum.</Resource>
     <Resource tag="TWITTER_DM_ACCOUNT">Your {0} Forum Account Information: Username "{1}" Password "{2}"</Resource>
@@ -4368,6 +4383,8 @@ Spoiler Content
     <Resource tag="FACEBOOK_TITLE">Visit {0}'s Facebook Profile</Resource>
     <Resource tag="FACEBOOK_TOPIC">Like this Topic</Resource>
     <Resource tag="FORUM_JUMP">Di chuyển</Resource>
+    <Resource tag="GOOGLE">Google+</Resource>
+    <Resource tag="GOOGLE_TITLE">Visit {0}'s Google+ Profile</Resource>
     <Resource tag="GOOGLEPLUS_TOPIC">Share Topic on Google+</Resource>
     <Resource tag="GROUPS">Nhóm</Resource>
     <Resource tag="HOME">WWW</Resource>
@@ -4496,6 +4513,7 @@ Spoiler Content
     <Resource tag="GENDER0">Chưa chọn</Resource>
     <Resource tag="GENDER1">Nam</Resource>
     <Resource tag="GENDER2">Nữ</Resource>
+    <Resource tag="GOOGLE">Google+ Profile:</Resource>
     <Resource tag="GROUPS">Nhóm:</Resource>
     <Resource tag="HOURS">giờ</Resource>
     <Resource tag="ICQ">ICQ-Number:</Resource>
@@ -4675,6 +4693,7 @@ Spoiler Content
     <Resource tag="INVALID_QUESTION">Vui lòng chọn một câu hỏi khác.</Resource>
     <Resource tag="INVALID_USERNAME">Vui lòng chọn một Username khác.</Resource>
     <Resource tag="LOCATION">Đến từ</Resource>
+    <Resource tag="LOGIN_INSTEAD">Login instead with an existing Account</Resource>
     <Resource tag="NEED_ANSWER">Bạn chưa trả lời Câu hỏi bảo mật.</Resource>
     <Resource tag="NEED_DISPLAYNAME">Display Name is required.</Resource>
     <Resource tag="NEED_EMAIL">Bạn chưa nhập Email</Resource>
@@ -4690,6 +4709,7 @@ Spoiler Content
     <Resource tag="RECAPTCHA_BADSETTING">Recapture settings are bad. Report it to administration.</Resource>
     <Resource tag="RECATCHA_BADWORDS">You are wrong! Try again.</Resource>
     <Resource tag="REGISTER">Đăng ký</Resource>
+    <Resource tag="REGISTER_AUTH">Register with {0}</Resource>
     <Resource tag="RETYPE_PASSWORD">Bạn chưa nhập Mật khẩu xác nhận.</Resource>
     <Resource tag="SECURITY_ANSWER">Trả lời</Resource>
     <Resource tag="SECURITY_QUESTION">Câu hỏi bảo mật</Resource>
@@ -4887,6 +4907,17 @@ Spoiler Content
 	  Auto Generated Password: {pass}
 	  Auto Generated Security Answer: {answer}
       User Email: {email} (Please dont change your email, or you are unable to login with facebook)
+	  
+    </Resource>
+    <Resource tag="NOTIFICATION_ON_GOOGLE_REGISTER">
+      Hello {user}.
+
+      You have been successfully Registred on the {forumname} forum thru Google:
+
+      User Name: {user}
+	  Auto Generated Password: {pass}
+	  Auto Generated Security Answer: {answer}
+      User Email: {email} (Please dont change your email, or you are unable to login with Google)
 	  
     </Resource>
     <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_TEXT">
