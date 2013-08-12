@@ -4039,7 +4039,7 @@ Spoiler Content
     <Resource tag="PASSWORD_ERROR">Nome utente o password non corretti. Per favore riprova.</Resource>
     <Resource tag="RECOVER">Recupera password</Resource>
     <Resource tag="RECOVER_ERROR">Si è verificato un errore nella creazione della nuova password.</Resource>
-    <Resource tag="REGISTER_INSTEAD">Neuen Benuzter erstellen</Resource>
+    <Resource tag="REGISTER_INSTEAD">Register Instead as new User</Resource>
     <Resource tag="SENDPASSWORD">Invia password</Resource>
     <Resource tag="SSO_DEACTIVATED">Il single sign-on è stato disabilitato dall'amministratore.</Resource>
     <Resource tag="SSO_DEACTIVATED_BYUSER">Il single sign-on è disabilitato per questo utente, devi abilitarlo nelle impostazioni del tuo profilo..</Resource>
@@ -4918,12 +4918,12 @@ Ciao!
     <Resource tag="NOTIFICATION_ON_GOOGLE_REGISTER">
       Hello {user}.
 
-      You have been successfully Registred on the {forumname} forum thru Google:
+      You have been successfully registered on the {forumname} forum using Google Login:
 
       User Name: {user}
 	  Auto Generated Password: {pass}
 	  Auto Generated Security Answer: {answer}
-      User Email: {email} (Please dont change your email, or you are unable to login with Google)
+      User Email: {email} (Please don't change your email, or you are unable to login with Google)
 	  
     </Resource>
     <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_TEXT">

@@ -2349,7 +2349,7 @@
     <Resource tag="AIM">Your AIM Name:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Watch every topic in which you have made a post and receive email notifications of activities in those topics?</Resource>
     <Resource tag="BAD_EMAIL">您输入了一个无效的电子邮件地址.</Resource>
-    <Resource tag="BAD_FACEBOOK">You have entered an illegal value as Facebook Profile URL.</Resource>
+    <Resource tag="BAD_FACEBOOK">You have entered an incorrect URL as Facebook Profile.</Resource>
     <Resource tag="BAD_GOOGLE">You have entered an illegal value as Google Profile URL.</Resource>
     <Resource tag="BAD_HOME">You have entered an invalid address for your home page.</Resource>
     <Resource tag="BAD_ICQ">You have entered an illegal value as your ICQ number.</Resource>
@@ -2536,7 +2536,7 @@
     <Resource tag="NO_POSTS">无新贴</Resource>
     <Resource tag="ONDATE">on {0}</Resource>
     <Resource tag="POSTS">贴子数量</Resource>
-    <Resource tag="RECENT_ONLINE_USERS">{0} Users where online within the last 24 hours, and {1} within the last 30 days.</Resource>
+    <Resource tag="RECENT_ONLINE_USERS">{0} Users were online within the last 24 hours, and {1} within the last 30 days.</Resource>
     <Resource tag="RECENT_USERS">Recent Users</Resource>
     <Resource tag="RSSICONTOOLTIPACTIVE">Subscribe to active topics via RSS.</Resource>
     <Resource tag="RSSICONTOOLTIPFAVORITE">Subscribe to your favorite topics via RSS.</Resource>
@@ -4075,7 +4075,7 @@ Spoiler Content
     <Resource tag="PASSWORD_ERROR">用户名或密码输入有误，请重新输入.</Resource>
     <Resource tag="RECOVER">恢复密码</Resource>
     <Resource tag="RECOVER_ERROR">创建新密码时出错.</Resource>
-    <Resource tag="REGISTER_INSTEAD">Neuen Benuzter erstellen</Resource>
+    <Resource tag="REGISTER_INSTEAD">Register Instead as new User</Resource>
     <Resource tag="SENDPASSWORD">发送密码</Resource>
     <Resource tag="SSO_DEACTIVATED">Single Sign On is currently deactivated by the Administrator!</Resource>
     <Resource tag="SSO_DEACTIVATED_BYUSER">Single Sign On is deactivated for that User, you need to activate it in your Profile Settings to use that feature.</Resource>
@@ -4905,23 +4905,23 @@ Hello!
     <Resource tag="NOTIFICATION_ON_FACEBOOK_REGISTER">
       Hello {user}.
 
-      You have been successfully Registred on the {forumname} forum thru Facebook:
+      You have been successfully registered on the {forumname} forum using Facebook Login:
 
       User Name: {user}
 	  Auto Generated Password: {pass}
 	  Auto Generated Security Answer: {answer}
-      User Email: {email} (Please dont change your email, or you are unable to login with facebook)
+      User Email: {email} (Please don't change your email, or you are unable to login with facebook)
 	  
     </Resource>
     <Resource tag="NOTIFICATION_ON_GOOGLE_REGISTER">
       Hello {user}.
 
-      You have been successfully Registred on the {forumname} forum thru Google:
+      You have been successfully registered on the {forumname} forum using Google Login:
 
       User Name: {user}
 	  Auto Generated Password: {pass}
 	  Auto Generated Security Answer: {answer}
-      User Email: {email} (Please dont change your email, or you are unable to login with Google)
+      User Email: {email} (Please don't change your email, or you are unable to login with Google)
 	  
     </Resource>
     <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_TEXT">
@@ -4955,7 +4955,7 @@ The Message was posted in the {forumname} forum.
     <Resource tag="NOTIFICATION_ON_TWITTER_REGISTER">
       Hello {user}.
 
-      You have been successfully Registred on the {forumname} forum thru Twitter:
+      You have been successfully registered on the {forumname} forum using Twitter Login:
 
       User Name: {user}
 	  Auto Generated Password: {pass}

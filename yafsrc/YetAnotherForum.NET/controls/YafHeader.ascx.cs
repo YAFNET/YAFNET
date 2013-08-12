@@ -38,7 +38,7 @@ namespace YAF.Controls
     #endregion
 
     /// <summary>
-    /// The yaf header.
+    /// The Header.
     /// </summary>
     public partial class YafHeader : BaseUserControl
     {
@@ -91,11 +91,11 @@ namespace YAF.Controls
               DialogBox.DialogIcon.Question,
               new DialogBox.DialogButton
                 {
-                    Text = this.GetText("COMMON", "YES"),
+                    Text = this.GetText("TOOLBAR", "LOGOUT"),
                     CssClass = "StandardButton OkButton",
                     ForumPageLink = new DialogBox.ForumLink { ForumPage = ForumPages.logout }
                 },
-              new DialogBox.DialogButton { Text = this.GetText("COMMON", "NO"), CssClass = "StandardButton CancelButton" });
+              new DialogBox.DialogButton { Text = this.GetText("COMMON", "CANCEL"), CssClass = "StandardButton CancelButton" });
         }
 
         /// <summary>
@@ -157,10 +157,10 @@ namespace YAF.Controls
         /// The holder.
         /// </param>
         /// <param name="liCssClass">
-        /// The li Css Class.
+        /// The li CSS Class.
         /// </param>
         /// <param name="linkCssClass">
-        /// The link Css Class.
+        /// The link CSS Class.
         /// </param>
         /// <param name="linkText">
         /// The link text.
@@ -293,7 +293,7 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// Render the Admin/Moderater Menu Links
+        /// Render the Admin/Moderator Menu Links
         /// </summary>
         private void RenderAdminModMenu()
         {

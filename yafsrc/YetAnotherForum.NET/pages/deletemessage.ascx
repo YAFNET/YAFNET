@@ -119,9 +119,7 @@
         </tr>
     </AlternatingItemTemplate>
 </asp:Repeater>
-<!--
-<iframe runat="server" Visible="false" id="LastPostsIFrame" name="lastposts" width="100%" height="300" frameborder="0" marginheight="2" marginwidth="2" scrolling="yes"></iframe>
--->
+
 <div id="DivSmartScroller">
     <YAF:SmartScroller ID="SmartScroller1" runat="server" />
 </div>

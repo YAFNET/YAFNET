@@ -4014,7 +4014,7 @@ Spoiler Inhoud
     <Resource tag="PASSWORD_ERROR">De ingevoerde gebruikersnaam of wachtwoord is ongeldig. Probeer het opnieuw.</Resource>
     <Resource tag="RECOVER">Wachtwoord opvragen</Resource>
     <Resource tag="RECOVER_ERROR">Er is een fout opgetreden bij het aanmaken van je nieuwe wachtwoord.</Resource>
-    <Resource tag="REGISTER_INSTEAD">Neuen Benuzter erstellen</Resource>
+    <Resource tag="REGISTER_INSTEAD">Register Instead as new User</Resource>
     <Resource tag="SENDPASSWORD">Wachtwoord verzenden</Resource>
     <Resource tag="SSO_DEACTIVATED">Single Sign On is momenteel uitgeschakeld door de Beheerder!</Resource>
     <Resource tag="SSO_DEACTIVATED_BYUSER">Single Sign On is uitgeschakeld voor die gebruiker, je moet het in je profiel activeren..</Resource>
@@ -4857,12 +4857,12 @@ Als je je e-mail niet wilde wijzigen, dan kun je deze mail negeren.
     <Resource tag="NOTIFICATION_ON_GOOGLE_REGISTER">
       Hello {user}.
 
-      You have been successfully Registred on the {forumname} forum thru Google:
+      You have been successfully registered on the {forumname} forum using Google Login:
 
       User Name: {user}
 	  Auto Generated Password: {pass}
 	  Auto Generated Security Answer: {answer}
-      User Email: {email} (Please dont change your email, or you are unable to login with Google)
+      User Email: {email} (Please don't change your email, or you are unable to login with Google)
 	  
     </Resource>
     <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_TEXT">

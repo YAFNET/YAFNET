@@ -29,6 +29,14 @@ namespace YAF.Types.Objects
     public class FacebookUser
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="FacebookUser"/> class.
+        /// </summary>
+        public FacebookUser()
+        {
+            this.Hometown = string.Empty;
+        }
+
+        /// <summary>
         /// Gets or sets the first name.
         /// </summary>
         /// <value>

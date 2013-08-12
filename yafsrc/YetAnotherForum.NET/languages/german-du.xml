@@ -3999,7 +3999,7 @@ Spoiler Content
     <Resource tag="PASSWORD_ERROR">Der eingegebene Benutzername oder das Passwort ist nicht korrekt, probiere es noch ein Mal.</Resource>
     <Resource tag="RECOVER">Passwort wiederherstellen</Resource>
     <Resource tag="RECOVER_ERROR">Fehler beim Erstellen eines neuen Passworts.</Resource>
-    <Resource tag="REGISTER_INSTEAD">Register Instead as new User</Resource>
+    <Resource tag="REGISTER_INSTEAD">Neuen Benuzter erstellen</Resource>
     <Resource tag="SENDPASSWORD">Passwort zusenden</Resource>
     <Resource tag="SSO_DEACTIVATED">Single Sign On ist derzeit vom Administrator deaktiviert!</Resource>
     <Resource tag="SSO_DEACTIVATED_BYUSER">Single Sign On ist deaktiviert für diesen Benutzer, um diese Funktion zu aktivieren müssen Sie diese in den Profil Einstellungen aktivieren.</Resource>
