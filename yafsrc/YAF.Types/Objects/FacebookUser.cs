@@ -29,14 +29,6 @@ namespace YAF.Types.Objects
     public class FacebookUser
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="FacebookUser"/> class.
-        /// </summary>
-        public FacebookUser()
-        {
-            this.Hometown = string.Empty;
-        }
-
-        /// <summary>
         /// Gets or sets the first name.
         /// </summary>
         /// <value>
@@ -80,7 +72,8 @@ namespace YAF.Types.Objects
         /// </value>
         [DataMember(Name = "link")]
         public string ProfileURL { get; set; }
-
+        
+        /*
         /// <summary>
         /// Gets or sets the hometown.
         /// </summary>
@@ -89,6 +82,7 @@ namespace YAF.Types.Objects
         /// </value>
         [DataMember(Name = "hometown")]
         public string Hometown { get; set; }
+        */
 
         /// <summary>
         /// Gets or sets the time zone.

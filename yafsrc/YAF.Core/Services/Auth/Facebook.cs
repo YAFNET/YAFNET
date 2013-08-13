@@ -272,10 +272,10 @@ namespace YAF.Core.Services.Auth
                 userProfile.RealName = facebookUser.Name;
                 userProfile.Gender = userGender;
 
-                if (facebookUser.Hometown.IsSet())
+                /*if (facebookUser.Hometown.IsSet())
                 {
                     userProfile.Location = facebookUser.Hometown;
-                }
+                }*/
 
                 userProfile.Save();
 
@@ -387,10 +387,10 @@ namespace YAF.Core.Services.Auth
             userProfile.RealName = facebookUser.Name;
             userProfile.Gender = userGender;
 
-            if (facebookUser.Hometown.IsSet())
+            /*if (facebookUser.Hometown.IsSet())
             {
                 userProfile.Location = facebookUser.Hometown;
-            }
+            }*/
 
             userProfile.Save();
 

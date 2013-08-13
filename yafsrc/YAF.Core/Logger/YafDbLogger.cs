@@ -92,11 +92,9 @@ namespace YAF.Core
         /// <summary>
         /// The is log type enabled.
         /// </summary>
-        /// <param name="type">
-        /// The type.
-        /// </param>
+        /// <param name="type">The type.</param>
         /// <returns>
-        /// The <see cref="bool"/>.
+        /// The <see cref="bool" />.
         /// </returns>
         public bool IsLogTypeEnabled(EventLogTypes type)
         {
@@ -106,7 +104,7 @@ namespace YAF.Core
                 this.InitLookup();
             }
 
-            return this._eventLogTypeLookup[type];
+            return this._eventLogTypeLookup.ContainsKey(type) && this._eventLogTypeLookup[type];
         }
 
         /// <summary>
@@ -200,21 +198,21 @@ namespace YAF.Core
         {
             this._eventLogTypeLookup = new Dictionary<EventLogTypes, bool> { };
 
-            foreach (var logType in EnumHelper.EnumToList<EventLogTypes>())
+            foreach (var logType in EnumHelper.EnumToList<EventLogTypes>().Where(logType => !this._eventLogTypeLookup.ContainsKey(logType)))
             {
-                if (!this._eventLogTypeLookup.ContainsKey(logType))
+                switch (logType)
                 {
-                    this._eventLogTypeLookup.Add(logType, true);
+                    case EventLogTypes.Debug:
+                        this._eventLogTypeLookup.AddOrUpdate(logType, this._isDebug);
+                        break;
+                    case EventLogTypes.Trace:
+                        this._eventLogTypeLookup.AddOrUpdate(logType, this._isDebug);
+                        break;
+                    default:
+                        this._eventLogTypeLookup.AddOrUpdate(logType, true);
+                        break;
                 }
-
-                //this._eventLogTypeLookup.AddOrUpdate(logType, true);
             }
-
-            this._eventLogTypeLookup.AddOrUpdate(EventLogTypes.Debug, this._isDebug);
-            this._eventLogTypeLookup.AddOrUpdate(EventLogTypes.Trace, this._isDebug);
-
-            this._eventLogTypeLookup.AddOrUpdate(EventLogTypes.IpBanLifted, true);
-            this._eventLogTypeLookup.AddOrUpdate(EventLogTypes.IpBanSet, true);
         }
     }
 }
