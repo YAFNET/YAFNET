@@ -116,6 +116,7 @@
     <Compile Include="Helpers\IPLocator.cs" />
     <Compile Include="Model\GroupRepositoryExtensions.cs" />
     <Compile Include="Model\ForumReadTrackingRepositoryExtensions.cs" />
+    <Compile Include="Model\ShoutboxRepositoryExtensions.cs" />
     <Compile Include="Model\TopicReadTrackingRepositoryExtensions.cs" />
     <Compile Include="Model\WatchForumRepositoryExtensions.cs" />
     <Compile Include="Model\WatchTopicRepositoryExtensions.cs" />

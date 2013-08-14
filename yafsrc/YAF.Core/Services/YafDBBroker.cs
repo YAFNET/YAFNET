@@ -460,10 +460,7 @@ namespace YAF.Core.Services
                 Constants.Cache.Shoutbox,
                 () =>
                     {
-                        var messages =
-                            this.DbFunction.GetAsDataTable(
-                                cdb =>
-                                cdb.shoutbox_getmessages(boardId, this.BoardSettings.ShoutboxShowMessageCount, this.BoardSettings.UseStyledNicks));
+                        var messages = this.GetRepository<ShoutboxMessage>().GetMessages(this.BoardSettings.ShoutboxShowMessageCount, this.BoardSettings.UseStyledNicks, boardId);
                         var flags = new MessageFlags { IsBBCode = true, IsHtml = false };
 
                         foreach (var row in messages.AsEnumerable())
