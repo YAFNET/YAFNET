@@ -104,6 +104,7 @@
     <Compile Include="Data\TryInvokeMemberProxy.cs" />
     <Compile Include="Data\CommandTextHelpers.cs" />
     <Compile Include="Events\NewUserClearActiveLazyEvent.cs" />
+    <Compile Include="Events\ShoutboxMessageCacheInvalidate.cs" />
     <Compile Include="Events\SmileyEventCacheInvalidate.cs" />
     <Compile Include="Extensions\ILoggerExtensions.cs" />
     <Compile Include="Extensions\IRegistrationBuilderExtension.cs" />
