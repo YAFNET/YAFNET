@@ -1,10 +1,10 @@
-![YAFNET](http://static.yetanotherforum.net/images/logos/YAFNET-Logo-200px.png)
+![YAFNET](https://yaf.s3.amazonaws.com/images/logos/YAFNET-Logo-200px.png)
 
-*YetAnotherForum.NET* _(YAF.NET)_ is The Open Source Discussion Forum for sites running ASP.NET. 100% written in C#. YAF.NET runs on any web server that supports ASP.NET v4.0 and SQL Server 2005 or above.
+*YetAnotherForum.NET* _(YAF.NET)_ is an Open Source Discussion Forum for sites running ASP.NET. 100% written in C#. YAF.NET runs on any web server that supports ASP.NET v4.0 and SQL Server 2005 or above.
 
-*YAF.NET* is a feature rich communication platform combining an International Open Source community and the Microsoft's technologies. Lead by Jaben Cargman with plenty of help from [url:Ingo (tha_watcha)|http://www.codeplex.com/site/users/view/tha_watcha] and [url:Vladimir (vzrus)|http://www.codeplex.com/site/users/view/vzrus], the YAF.NET project has been going strong for 9 years!
+*YAF.NET* is a feature rich communication platform combining an International Open Source community and the Microsoft's technologies.
 
-[image:http://www.ohloh.net/p/yaf/widgets/project_partner_badge.gif]
+![projectbadge](http://www.ohloh.net/p/yaf/widgets/project_partner_badge.gif)
 
 ## Features
 
@@ -205,20 +205,21 @@
 
 ### Support
  
-* Free Community based Support Forum here: [url:http://forum.yetanotherforum.net/].
+* Free Community based Support Forum here: http://forum.yetanotherforum.net/.
 
-## DotNetNuke® Module
+## DotNetNukeï¿½ Module
 
-YAF is also available as an DotNetNuke Module, you can download it on the [url:CodePlex Page|http://dnnyafnet.codeplex.com]
+YAF is also available as an DotNetNuke Module, you can download it on the [CodePlex Page](http://dnnyafnet.codeplex.com)
 
 ## Demo Forum
 
-A "sandbox" test forum is available here: [url:http://testforum.yetanotherforum.net/]. 
+A "sandbox" test forum is available here: http://testforum.yetanotherforum.net/.
 
 ## Community Support Forum
 
-See a real live YAF Forum by visiting the Yet Another Forum.NET community support forum: [url:http://forum.yetanotherforum.net]. Also, get your questions answered by the YAF community.
+See a real live YAF Forum by visiting the Yet Another Forum.NET community support forum: http://forum.yetanotherforum.net. Also, get your questions answered by the YAF community.
 
 ## License
 
-[url:Yet Another Forum.NET is licensed under GPLv2|http://yetanotherforum.net/License.aspx]. If this license does not fit your business, [url:please visit our site|http://yetanotherforum.net/purchase.aspx]. 
+[Yet Another Forum.NET is licensed under GPLv2](http://yetanotherforum.net/License.aspx).
+If this license does not fit your business, [please visit our site](http://yetanotherforum.net/purchase.aspx). 
