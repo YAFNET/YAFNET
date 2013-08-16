@@ -628,7 +628,7 @@ begin
 		EventLogID	int identity(1,1) not null,
 		EventTime	datetime not null constraint [DF_{objectQualifier}EventLog_EventTime] default GETUTCDATE() ,
 		UserID		int, -- deprecated
-		UserName	nvarchar(100) not null,
+		UserName	nvarchar(100) null,
 		[Source]	nvarchar(50) not null,
 		Description	ntext not null,
 		constraint [PK_{objectQualifier}EventLog] primary key(EventLogID)
@@ -2059,6 +2059,10 @@ if not exists(select top 1 1 from sys.columns where object_id =  object_id(N'[{d
 begin
 	alter table [{databaseOwner}].[{objectQualifier}EventLog] add UserName nvarchar(100) null
 end
+GO
+
+if exists(select top 1 1 from sys.columns where object_id =  object_id(N'[{databaseOwner}].[{objectQualifier}EventLog]') and name=N'UserName' and is_nullable=0)
+	alter table [{databaseOwner}].[{objectQualifier}EventLog] alter column UserName nvarchar(100) null
 GO
 
 if exists(select top 1 1 from sys.columns where object_id =  object_id(N'[{databaseOwner}].[{objectQualifier}EventLog]') and name=N'UserID' and is_nullable=0)
