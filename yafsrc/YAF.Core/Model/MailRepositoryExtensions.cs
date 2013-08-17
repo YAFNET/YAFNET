@@ -187,6 +187,22 @@ namespace YAF.Core.Model
             }
         }
 
+        /// <summary>
+        /// Save Updated Mail
+        /// </summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="mailMessage">The mail message.</param>
+        public static void Save(
+            this IRepository<Mail> repository, Mail mailMessage)
+        {
+            CodeContracts.ArgumentNotNull(repository, "repository");
+
+            repository.DbFunction.Scalar.mail_save(
+                MailID: mailMessage.ID, SendTries: mailMessage.SendTries, SendAttempt: DateTime.UtcNow);
+
+            repository.FireUpdated(mailMessage.ID);
+        }
+
         #endregion
     }
 }

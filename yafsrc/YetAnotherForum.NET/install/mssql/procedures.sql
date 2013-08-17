@@ -433,6 +433,10 @@ IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{data
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}mail_create]
 GO
 
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}mail_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}mail_save]
+GO
+
 IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}mail_createwatch]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}mail_createwatch]
 GO
@@ -3448,6 +3452,21 @@ BEGIN
         (FromUser,FromUserName,ToUser,ToUserName,Created,Subject,Body,BodyHtml)
     values
         (@From,@FromName,@To,@ToName,@UTCTIMESTAMP ,@Subject,@Body,@BodyHtml)	
+END
+GO
+
+create procedure [{databaseOwner}].[{objectQualifier}mail_save]
+(
+    @MailID int,
+    @SendTries int,
+    @SendAttempt datetime
+)
+AS 
+BEGIN
+    update [{databaseOwner}].[{objectQualifier}Mail] set 
+	SendAttempt = @SendAttempt,
+	SendTries = @SendTries
+    where MailID = @MailID
 END
 GO
 
