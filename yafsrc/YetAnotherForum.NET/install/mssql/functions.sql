@@ -437,31 +437,13 @@ END
 GO
 
 -- Gets the Thanks info which will be formatted and then placed in "dvThanksInfo" Div Tag in displaypost.ascx.
-#IFSRVVER>8#create function [{databaseOwner}].[{objectQualifier}message_getthanksinfo]
+create function [{databaseOwner}].[{objectQualifier}message_getthanksinfo]
 (
 @MessageID INT,
 @ShowThanksDate bit
 ) returns VARCHAR(MAX)
 BEGIN
     DECLARE @Output VARCHAR(MAX)
-        SELECT @Output = COALESCE(@Output+',', '') + CAST(i.ThanksFromUserID AS varchar) + 
-    CASE @ShowThanksDate WHEN 1 THEN ',' + CAST (i.ThanksDate AS varchar)  ELSE '' end
-            FROM	[{databaseOwner}].[{objectQualifier}Thanks] i
-            WHERE	i.MessageID = @MessageID	ORDER BY i.ThanksDate
-    -- Add the last comma if @Output has data.
-    IF @Output <> ''
-        SELECT @Output = @Output + ','
-    RETURN @Output
-END
-GO
-
-#IFSRVVER=8#create function [{databaseOwner}].[{objectQualifier}message_getthanksinfo]
-(
-@MessageID INT,
-@ShowThanksDate bit
-) returns VARCHAR(8000)
-BEGIN
-    DECLARE @Output VARCHAR(8000)
         SELECT @Output = COALESCE(@Output+',', '') + CAST(i.ThanksFromUserID AS varchar) + 
     CASE @ShowThanksDate WHEN 1 THEN ',' + CAST (i.ThanksDate AS varchar)  ELSE '' end
             FROM	[{databaseOwner}].[{objectQualifier}Thanks] i

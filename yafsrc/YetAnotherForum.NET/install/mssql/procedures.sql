@@ -6,6 +6,17 @@
   Remove Extra Stuff: SET ANSI_NULLS ON\nGO\nSET QUOTED_IDENTIFIER ON\nGO\n\n\n 
  
 */
+
+#IFSRVVER>8#CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}exampleserverversion] as
+BEGIN
+ SELECT 'sqlserver version variant example for mssqlserver 2005 and higher'   
+END
+ GO
+
+IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}exampleserverversion]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}exampleserverversion]
+GO
+
 IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}db_handle_computedcolumns]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}db_handle_computedcolumns]
 GO
@@ -1292,7 +1303,7 @@ BEGIN
 END
 GO
 
-#IFSRVVER>8#CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_getallthanks] 
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_getallthanks] 
     @MessageIDs varchar(max)
 AS
 BEGIN
@@ -1329,55 +1340,6 @@ END
     FROM @ParsedMessageIDs a
     INNER JOIN [{databaseOwner}].[{objectQualifier}Message] d ON (d.MessageID=a.MessageID)
     LEFT JOIN [{databaseOwner}].[{objectQualifier}Thanks] b ON (b.MessageID = a.MessageID)
-END
-GO
-
-#IFSRVVER=8#CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_getallthanks] 
-    @MessageIDs ntext
-AS
-BEGIN
-DECLARE @ParsedMessageIDs TABLE
-      (
-            MessageID int
-      )
-    DECLARE @MessageIDsChunk NVARCHAR(4000), @MessageID varchar(11), @Pos INT, @Itr INT, @trimindex int
-    SET @Itr = 0
-    SET @MessageIDsChunk  = SUBSTRING( @MessageIDs, @Itr, @Itr + 4000 )
-    WHILE LEN(@MessageIDsChunk) > 0
-    BEGIN
-            SET @trimindex = CHARINDEX(',',REVERSE( @MessageIDsChunk ), 1 );
-            SET @MessageIDsChunk = SUBSTRING(@MessageIDsChunk,0, 4000-@trimindex)
-            SET @Itr = @Itr - @trimindex
-            SET @MessageIDsChunk = LTRIM(RTRIM(@MessageIDsChunk))+ ','
-            SET @Pos = CHARINDEX(',', @MessageIDsChunk, 1)
-            IF REPLACE(@MessageIDsChunk, ',', '') <> ''
-            BEGIN
-                  WHILE @Pos > 0
-                  BEGIN
-                        SET @MessageID = LTRIM(RTRIM(LEFT(@MessageIDsChunk, @Pos - 1)))
-                        IF @MessageID <> ''
-                        BEGIN
-                              INSERT INTO @ParsedMessageIDs (MessageID) VALUES (CAST(@MessageID AS int)) --Use Appropriate conversion
-                        END
-                        SET @MessageIDsChunk = RIGHT(@MessageIDsChunk, LEN(@MessageIDsChunk) - @Pos)
-                        SET @Pos = CHARINDEX(',', @MessageIDsChunk, 1)
-                  END
-
-                   -- to be sure that last value is inserted
-                    IF (LEN(@MessageIDsChunk) > 0)
-                           INSERT INTO @ParsedMessageIDs (MessageID) VALUES (CAST(@MessageIDsChunk AS int))  
-            END    
-            SET @Itr = @Itr + 4000;
-            SET @MessageIDsChunk  = SUBSTRING( @MessageIDs, @Itr, @Itr + 4000 )
-      END	   
-
-    SELECT a.MessageID, b.ThanksFromUserID AS FromUserID, b.ThanksDate,
-    (SELECT COUNT(ThanksID) FROM [{databaseOwner}].[{objectQualifier}Thanks] b WHERE b.ThanksFromUserID=d.UserID) AS ThanksFromUserNumber,
-    (SELECT COUNT(ThanksID) FROM [{databaseOwner}].[{objectQualifier}Thanks] b WHERE b.ThanksToUserID=d.UserID) AS ThanksToUserNumber,
-    (SELECT COUNT(DISTINCT(MessageID)) FROM [{databaseOwner}].[{objectQualifier}Thanks] b WHERE b.ThanksToUserID=d.userID) AS ThanksToUserPostsNumber
-    FROM @ParsedMessageIDs a
-    INNER JOIN [{databaseOwner}].[{objectQualifier}Message] d ON (d.MessageID=a.MessageID)
-    LEFT JOIN [{databaseOwner}].[{objectQualifier}thanks] b ON (b.MessageID = a.MessageID)
 END
 GO
 
@@ -6338,15 +6300,13 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}topic_announcements]
 )
 AS
 BEGIN
-        DECLARE @SQL nvarchar(500)
-
-    SET @SQL = 'SELECT DISTINCT TOP ' + convert(varchar, @NumPosts) + ' t.Topic, t.LastPosted, t.Posted, t.TopicID, t.LastMessageID, t.LastMessageFlags FROM'
-    SET @SQL = @SQL + ' [{databaseOwner}].[{objectQualifier}Topic] t INNER JOIN [{databaseOwner}].[{objectQualifier}Category] c INNER JOIN [{databaseOwner}].[{objectQualifier}Forum] f ON c.CategoryID = f.CategoryID ON t.ForumID = f.ForumID'
-    SET @SQL = @SQL + ' join [{databaseOwner}].[{objectQualifier}ActiveAccess] v  with(nolock) on v.ForumID=f.ForumID'
-    SET @SQL = @SQL + ' WHERE c.BoardID = ' + convert(varchar, @BoardID) + ' AND v.UserID=' + convert(varchar,@PageUserID) + ' AND (CONVERT(int,v.ReadAccess) <> 0 or (f.Flags & 2) = 0) AND t.IsDeleted=0 AND t.TopicMovedID IS NULL AND (t.Priority = 2) ORDER BY t.LastPosted DESC'
-
-    EXEC(@SQL)	
-
+    SELECT DISTINCT TOP (@NumPosts) t.Topic, t.LastPosted, t.Posted, t.TopicID, t.LastMessageID, t.LastMessageFlags FROM
+    [{databaseOwner}].[{objectQualifier}Topic] t 
+    INNER JOIN [{databaseOwner}].[{objectQualifier}Forum] f ON t.ForumID = f.ForumID
+    INNER JOIN [{databaseOwner}].[{objectQualifier}Category] c 
+    ON c.CategoryID = f.CategoryID 
+    join [{databaseOwner}].[{objectQualifier}ActiveAccess] v  with(nolock) on v.ForumID=f.ForumID
+    WHERE c.BoardID = @BoardID AND v.UserID=@PageUserID AND (CONVERT(int,v.ReadAccess) <> 0 or (f.Flags & 2) = 0) AND t.IsDeleted=0 AND t.TopicMovedID IS NULL AND (t.Priority = 2) ORDER BY t.LastPosted DESC;
 END
 GO
 
@@ -10404,7 +10364,7 @@ begin
      end
 GO
 
-#IFSRVVER>8#CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_gettextbyids] (@MessageIDs varchar(max))
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_gettextbyids] (@MessageIDs varchar(max))
 AS 
     BEGIN
     -- vzrus says: the server version > 2000 ntext works too slowly with substring in the 2005 
@@ -10439,50 +10399,6 @@ AS
             FROM @ParsedMessageIDs a
             INNER JOIN [{databaseOwner}].[{objectQualifier}Message] d ON (d.MessageID = a.MessageID)
     END
-GO
-
-#IFSRVVER=8#CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_gettextbyids] 
-    @MessageIDs ntext
-AS
-BEGIN
-DECLARE @ParsedMessageIDs TABLE
-      (
-            MessageID int
-      )
-    DECLARE @MessageIDsChunk VARCHAR(8000), @MessageID varchar(11), @Pos INT, @Itr INT, @trimindex int
-    SET @Itr = 0
-    SET @MessageIDsChunk  = SUBSTRING( @MessageIDs, @Itr, @Itr + 8000 )
-    WHILE LEN(@MessageIDsChunk) > 0
-    BEGIN
-            SET @trimindex = CHARINDEX(',',REVERSE( @MessageIDsChunk ), 1 );
-            SET @MessageIDsChunk = SUBSTRING(@MessageIDsChunk,0, 8000-@trimindex)
-            SET @Itr = @Itr - @trimindex
-            SET @MessageIDsChunk = LTRIM(RTRIM(@MessageIDsChunk))+ ','
-            SET @Pos = CHARINDEX(',', @MessageIDsChunk, 1)
-            IF REPLACE(@MessageIDsChunk, ',', '') <> ''
-            BEGIN
-                  WHILE @Pos > 0
-                  BEGIN
-                        SET @MessageID = LTRIM(RTRIM(LEFT(@MessageIDsChunk, @Pos - 1)))
-                        IF @MessageID <> ''
-                        BEGIN
-                              INSERT INTO @ParsedMessageIDs (MessageID) VALUES (CAST(@MessageID AS int)) --Use Appropriate conversion
-                        END
-                        SET @MessageIDsChunk = RIGHT(@MessageIDsChunk, LEN(@MessageIDsChunk) - @Pos)
-                        SET @Pos = CHARINDEX(',', @MessageIDsChunk, 1)
-                  END
-                    -- to be sure that last value is inserted
-                    IF (LEN(@MessageIDsChunk) > 0)
-                           INSERT INTO @ParsedMessageIDs (MessageID) VALUES (CAST(@MessageIDsChunk AS int))  
-            END      
-            SET @Itr = @Itr + 8000;
-            SET @MessageIDsChunk  = SUBSTRING( @MessageIDs, @Itr, @Itr + 8000 )
-      END
-      
-        SELECT a.MessageID, d.Message
-            FROM @ParsedMessageIDs a
-            INNER JOIN [{databaseOwner}].[{objectQualifier}Message] d ON (d.MessageID = a.MessageID)
-END
 GO
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}user_thankfromcount]
@@ -10995,7 +10911,7 @@ end
 GO
 
 
-#IFSRVVER>8#create procedure [{databaseOwner}].[{objectQualifier}db_handle_computedcolumns]( @SetOnDisk bit )  
+create procedure [{databaseOwner}].[{objectQualifier}db_handle_computedcolumns]( @SetOnDisk bit )  
 as
 begin
     declare @tmpC nvarchar(255)
