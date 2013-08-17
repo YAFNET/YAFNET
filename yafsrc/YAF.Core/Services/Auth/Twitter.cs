@@ -202,7 +202,7 @@ namespace YAF.Core.Services.Auth
                                 null);
                         }
 
-                        YafSingleSignOnUser.LoginSuccess(AuthService.twitter, null, YafContext.Current.PageUserID, true);
+                        YafSingleSignOnUser.LoginSuccess(AuthService.twitter, null, YafContext.Current.PageUserID, false);
 
                         message = string.Empty;
 

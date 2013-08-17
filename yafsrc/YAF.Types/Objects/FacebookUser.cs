@@ -29,6 +29,14 @@ namespace YAF.Types.Objects
     public class FacebookUser
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="FacebookUser"/> class.
+        /// </summary>
+        public FacebookUser()
+        {
+            this.Location = new Location { Name = string.Empty };
+        }
+
+        /// <summary>
         /// Gets or sets the first name.
         /// </summary>
         /// <value>
@@ -73,17 +81,15 @@ namespace YAF.Types.Objects
         [DataMember(Name = "link")]
         public string ProfileURL { get; set; }
         
-        /*
         /// <summary>
-        /// Gets or sets the hometown.
+        /// Gets or sets the location.
         /// </summary>
         /// <value>
-        /// The hometown.
+        /// The location.
         /// </value>
-        [DataMember(Name = "hometown")]
-        public string Hometown { get; set; }
-        */
-
+        [DataMember(Name = "location")]
+        public Location Location { get; set; }
+        
         /// <summary>
         /// Gets or sets the time zone.
         /// </summary>
@@ -120,6 +126,22 @@ namespace YAF.Types.Objects
         [DataMember(Name = "username")]
         public string UserName { get; set; }
 
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
+        [DataMember(Name = "name")]
+        public string Name { get; set; }
+    }
+
+    /// <summary>
+    /// The Location class
+    /// </summary>
+    [DataContract(Namespace = "location")]
+    public class Location
+    {
         /// <summary>
         /// Gets or sets the name.
         /// </summary>

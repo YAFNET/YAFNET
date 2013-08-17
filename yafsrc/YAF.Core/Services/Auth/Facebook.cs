@@ -50,7 +50,7 @@ namespace YAF.Core.Services.Auth
         /// <returns>Returns the Authorize URL</returns>
         public string GetAuthorizeUrl(HttpRequest request)
         {
-            const string SCOPE = "email,user_birthday,status_update,publish_stream,user_hometown,user_location";
+            const string SCOPE = "email,user_birthday,status_update,publish_stream,user_location";
 
             var redirectUrl = this.GetRedirectURL(request);
 
@@ -151,26 +151,26 @@ namespace YAF.Core.Services.Auth
                 facebookUser.UserName = facebookUser.Name;
             }
 
-            var userGender = 0;
-
-            if (facebookUser.Gender.IsSet())
-            {
-                switch (facebookUser.Gender)
-                {
-                    case "male":
-                        userGender = 1;
-                        break;
-                    case "female":
-                        userGender = 2;
-                        break;
-                }
-            }
-
-            // Check if user exists
+           // Check if user exists
             var userName = YafContext.Current.Get<MembershipProvider>().GetUserNameByEmail(facebookUser.Email);
 
             if (userName.IsNotSet())
             {
+                var userGender = 0;
+
+                if (facebookUser.Gender.IsSet())
+                {
+                    switch (facebookUser.Gender)
+                    {
+                        case "male":
+                            userGender = 1;
+                            break;
+                        case "female":
+                            userGender = 2;
+                            break;
+                    }
+                }
+
                 // Create User if not exists?!
                 return this.CreateFacebookUser(facebookUser, userGender, out message);
             }
@@ -272,10 +272,10 @@ namespace YAF.Core.Services.Auth
                 userProfile.RealName = facebookUser.Name;
                 userProfile.Gender = userGender;
 
-                /*if (facebookUser.Hometown.IsSet())
+                if (facebookUser.Location != null && facebookUser.Location.Name.IsSet())
                 {
-                    userProfile.Location = facebookUser.Hometown;
-                }*/
+                    userProfile.Location = facebookUser.Location.Name;
+                }
 
                 userProfile.Save();
 
@@ -286,7 +286,7 @@ namespace YAF.Core.Services.Auth
                     null,
                     null);
 
-                YafSingleSignOnUser.LoginSuccess(AuthService.facebook, null, YafContext.Current.PageUserID, true);
+                YafSingleSignOnUser.LoginSuccess(AuthService.facebook, null, YafContext.Current.PageUserID, false);
 
                 message = string.Empty;
 
@@ -387,10 +387,10 @@ namespace YAF.Core.Services.Auth
             userProfile.RealName = facebookUser.Name;
             userProfile.Gender = userGender;
 
-            /*if (facebookUser.Hometown.IsSet())
+            if (facebookUser.Location != null && facebookUser.Location.Name.IsSet())
             {
-                userProfile.Location = facebookUser.Hometown;
-            }*/
+                userProfile.Location = facebookUser.Location.Name;
+            }
 
             userProfile.Save();
 

@@ -291,9 +291,7 @@ namespace YAF
                     return;
                 }
 
-                if (YafContext.Current.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("state") != null
-                    && YafContext.Current.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("state")
-                    == "connectCurrent")
+                if (YafContext.Current.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<bool>("connectCurrent"))
                 {
                     string message;
 

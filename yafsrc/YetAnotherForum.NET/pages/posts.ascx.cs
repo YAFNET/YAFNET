@@ -1579,7 +1579,7 @@ namespace YAF.Pages
             bool spamApproved = true;
 
             // Check for SPAM
-            if (!this.PageContext.IsAdmin || !this.PageContext.ForumModeratorAccess || !this.Get<YafBoardSettings>().SpamServiceType.Equals(0))
+            if (!this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess && !this.Get<YafBoardSettings>().SpamServiceType.Equals(0))
             {
                 var spamChecker = new YafSpamCheck();
                 string spamResult;
