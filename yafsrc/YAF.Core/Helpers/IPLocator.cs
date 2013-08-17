@@ -26,11 +26,9 @@ namespace YAF.Core
     using System.Net;
     using System.Xml.Serialization;
     using YAF.Classes;
-    using YAF.Classes.Pattern;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
 
     #endregion
 
@@ -77,28 +75,30 @@ namespace YAF.Core
                 return res;
             }
 
-            if (YafContext.Current.Get<YafBoardSettings>().EnableIPInfoService)
+            if (!YafContext.Current.Get<YafBoardSettings>().EnableIPInfoService)
             {
-                try
+                return res;
+            }
+
+            try
+            {
+                string path = YafContext.Current.Get<YafBoardSettings>().IPLocatorUrlPath.FormatWith(Utils.Helpers.IPHelper.GetIp4Address(ip));
+                var client = new WebClient();
+                string[] result = client.DownloadString(path).Split(';');
+                string[] sray = YafContext.Current.Get<YafBoardSettings>().IPLocatorResultsMapping.Trim().Split(',');
+                if (result.Length > 0 && result.Length == sray.Length)
                 {
-                    string path = YafContext.Current.Get<YafBoardSettings>().IPLocatorUrlPath.FormatWith(Utils.Helpers.IPHelper.GetIp4Address(ip));
-                    var client = new WebClient();
-                    string[] result = client.DownloadString(path).Split(';');
-                    string[] sray = YafContext.Current.Get<YafBoardSettings>().IPLocatorResultsMapping.Trim().Split(',');
-                    if (result.Length > 0 && result.Length == sray.Length)
+                    int i = 0;
+                    foreach (string str in result)
                     {
-                        int i = 0;
-                        foreach (string str in result)
-                        {
-                            res.Add(sray[i].Trim(), str);
-                            i++;
-                        }
+                        res.Add(sray[i].Trim(), str);
+                        i++;
                     }
                 }
-                catch
-                {
-                    return res;
-                }
+            }
+            catch
+            {
+                return res;
             }
 
             return res;
@@ -185,7 +185,7 @@ namespace YAF.Core
       public string Longitude { get; set; }
 
       /// <summary>
-      /// Gets or sets TimezoneName.
+      /// Gets or sets Time zone Name.
       /// </summary>
       public string TimezoneName { get; set; }
 

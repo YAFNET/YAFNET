@@ -20,8 +20,6 @@
 
 namespace YAF.Pages
 {
-    // YAF.Pages
-
     #region Using
 
     using System;
@@ -61,14 +59,14 @@ namespace YAF.Pages
         #region Constants and Fields
 
         /// <summary>
-        ///   Gets User IP Info.
-        /// </summary>
-        public IDictionary<string, string> _UserIpLocator;
-
-        /// <summary>
         ///   The recPH.
         /// </summary>
         private PlaceHolder recPH;
+
+        /// <summary>
+        ///   Gets User IP Info.
+        /// </summary>
+        public IDictionary<string, string> _UserIpLocator { get; set; }
 
         #endregion
 
@@ -614,7 +612,7 @@ namespace YAF.Pages
 
                 // fill location field 
                 // Trying to consume data about user IP whereabouts
-                if (this.Get<YafBoardSettings>().EnableIPInfoService && this._UserIpLocator["StatusCode"] != "OK")
+                if (this.Get<YafBoardSettings>().EnableIPInfoService && this._UserIpLocator == null || this._UserIpLocator["StatusCode"] != "OK")
                 {
                     this.Logger.Log(
                         null,
@@ -628,25 +626,25 @@ namespace YAF.Pages
                 {
                     var location = new StringBuilder();
 
-                    if (this._UserIpLocator["CountryName"].IsSet())
+                    if (this._UserIpLocator["CountryName"] != null && this._UserIpLocator["CountryName"].IsSet())
                     {
                         country.Items.FindByValue(this.Get<ILocalization>().Culture.Name.Substring(2, 2)).Selected =
                             true;
                     }
 
-                    if (this._UserIpLocator["RegionName"].IsSet())
+                    if (this._UserIpLocator["RegionName"] != null && this._UserIpLocator["RegionName"].IsSet())
                     {
                         location.AppendFormat(", {0}", this._UserIpLocator["RegionName"]);
                     }
 
-                    if (this._UserIpLocator["CityName"].IsSet())
+                    if (this._UserIpLocator["CityName"] != null && this._UserIpLocator["CityName"].IsSet())
                     {
                         location.AppendFormat(", {0}", this._UserIpLocator["CityName"]);
                     }
 
                     this.CreateUserWizard1.FindControlRecursiveAs<TextBox>("Location").Text = location.ToString();
 
-                    if (this._UserIpLocator["TimeZone"].IsSet())
+                    if (this._UserIpLocator["TimeZone"] != null && this._UserIpLocator["TimeZone"].IsSet())
                     {
                         try
                         {
@@ -681,17 +679,11 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// Refresh the Captcha Image
+        /// Handles the Click event of the RefreshCaptcha control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        /// <exception cref="NotImplementedException">
-        /// </exception>
-        protected void refreshCaptcha_Click(object sender, EventArgs e)
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void RefreshCaptcha_Click(object sender, EventArgs e)
         {
             var imgCaptcha = this.CreateUserStepContainer.FindControlAs<Image>("imgCaptcha");
             imgCaptcha.ImageUrl = "{0}resource.ashx?c=1&t=".FormatWith(
@@ -871,7 +863,7 @@ namespace YAF.Pages
 
                 refreshCaptcha.Text = this.GetText("GENERATE_CAPTCHA");
 
-                refreshCaptcha.Click += this.refreshCaptcha_Click;
+                refreshCaptcha.Click += this.RefreshCaptcha_Click;
 
                 captchaPlaceHolder.Visible = true;
             }
