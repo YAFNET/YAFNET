@@ -9513,10 +9513,9 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}shoutbox_getmessages]
   @NumberOfMessages int, @StyledNicks bit = 0
 )  
 AS
-BEGIN	
-    SET ROWCOUNT @NumberOfMessages
+BEGIN
 
-    SELECT
+    SELECT TOP(@NumberOfMessages)
         sh.[ShoutBoxMessageID],
         sh.Username,
         sh.UserID,
@@ -9532,9 +9531,6 @@ BEGIN
     WHERE 
         sh.BoardId = @BoardId
     ORDER BY sh.Date DESC
-    
-    SET ROWCOUNT 0
-    set nocount off
 END
 GO
 
