@@ -9,7 +9,7 @@
 
 #IFSRVVER>8#CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}exampleserverversion] as
 BEGIN
- SELECT 'sqlserver version variant example for mssqlserver 2005 and higher'   
+SELECT 'sqlserver version variant example for mssqlserver 2005 and higher'   
 END
  GO
 
@@ -1899,13 +1899,11 @@ declare @FirstSelectRowID int
         where 
             a.AttachmentID=@AttachmentID
     else
-    begin
-
-               set nocount on
-           set @PageIndex = @PageIndex + 1
-           set @FirstSelectRowNumber = 0
-           set @FirstSelectRowID = 0
-           set @TotalRows = 0
+    begin          
+           select @PageIndex = @PageIndex + 1;
+           select @FirstSelectRowNumber = 0;
+           select @FirstSelectRowID = 0;
+           select @TotalRows = 0;
            
            select @TotalRows = count(1) from [{databaseOwner}].[{objectQualifier}Attachment] a
             inner join [{databaseOwner}].[{objectQualifier}Message] b on b.MessageID = a.MessageID
@@ -1914,32 +1912,9 @@ declare @FirstSelectRowID int
             inner join [{databaseOwner}].[{objectQualifier}Category] e on e.CategoryID = d.CategoryID			
         where
             e.BoardID = @BoardID
-           select @FirstSelectRowNumber = (@PageIndex - 1) * @PageSize + 1
-           
-           if (@FirstSelectRowNumber <= @TotalRows)
-           begin
-           -- find first selectedrowid 
-           set rowcount @FirstSelectRowNumber
-           end
-           else
-           begin  
-           set rowcount 1
-           end
-      -- find first row id for a current page 
-      select @FirstSelectRowID = AttachmentID 
-     from 
-            [{databaseOwner}].[{objectQualifier}Attachment] a
-            inner join [{databaseOwner}].[{objectQualifier}Message] b on b.MessageID = a.MessageID
-            inner join [{databaseOwner}].[{objectQualifier}Topic] c on c.TopicID = b.TopicID
-            inner join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID = c.ForumID
-            inner join [{databaseOwner}].[{objectQualifier}Category] e on e.CategoryID = d.CategoryID			
-        where
-            e.BoardID = @BoardID
-        order by
-            a.AttachmentID
 
-      -- display page 
-      set rowcount @PageSize
+           select @FirstSelectRowNumber = (@PageIndex - 1) * @PageSize
+		   -- display page 
      select 
             a.*,
             BoardID		= @BoardID,
@@ -1956,13 +1931,9 @@ declare @FirstSelectRowID int
             inner join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID = c.ForumID
             inner join [{databaseOwner}].[{objectQualifier}Category] e on e.CategoryID = d.CategoryID			
         where
-            a.AttachmentID >= @FirstSelectRowID  and e.BoardID = @BoardID
+            e.BoardID = @BoardID
         order by
-            a.AttachmentID
-            set rowcount 0 
-   set nocount off
-
-        
+            a.AttachmentID OFFSET (@FirstSelectRowNumber) ROWS FETCH NEXT (@PageSize) ROWS ONLY      
     end
 end
 GO
@@ -6338,10 +6309,8 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}rss_topic_latest]
     @ShowNoCountPosts  bit = 0
 )
 AS
-BEGIN	
-    
-    SET ROWCOUNT @NumPosts
-    SELECT
+BEGIN 
+    SELECT TOP(@NumPosts)
         LastMessage = m.[Message],
         t.LastPosted,
         t.ForumID,
@@ -6394,10 +6363,9 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}topic_latest]
     @FindLastRead bit = 0
 )
 AS
-BEGIN	
-    
-    SET ROWCOUNT @NumPosts
-    SELECT
+BEGIN  
+  
+    SELECT TOP(@NumPosts)
         t.LastPosted,
         t.ForumID,
         f.Name as Forum,
@@ -6939,9 +6907,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_activity_rank]
 AS
 BEGIN
         
-    DECLARE @GuestUserID int
-
-    SET ROWCOUNT @DisplayNumber
+    DECLARE @GuestUserID int  
 
     SET @GuestUserID =
     (SELECT top 1
@@ -6955,7 +6921,7 @@ BEGIN
         (c.Flags & 2)<>0
     )
 
-    SELECT
+    SELECT TOP(@DisplayNumber)
         counter.[ID],
         u.[Name],
         counter.[NumOfPosts]
@@ -6969,13 +6935,9 @@ BEGIN
     WHERE
         u.BoardID = @BoardID and u.UserID != @GuestUserID
     ORDER BY
-        NumOfPosts DESC
-
-    SET ROWCOUNT 0
-    set nocount off
+        NumOfPosts DESC  
 END
 GO
-
 
 create PROCEDURE [{databaseOwner}].[{objectQualifier}user_addpoints] (@UserID int,@FromUserID int = null, @UTCTIMESTAMP datetime, @Points int) AS
 BEGIN
@@ -8731,16 +8693,13 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}category_simplelist](
                 @StartID INT  = 0,
                 @Limit   INT  = 500)
 AS
-    BEGIN
-            
-        SET ROWCOUNT  @Limit
-        SELECT   c.[CategoryID],
+    BEGIN       
+        SELECT TOP(@Limit) c.[CategoryID],
                  c.[Name]
         FROM     [{databaseOwner}].[{objectQualifier}Category] c
         WHERE    c.[CategoryID] >= @StartID
         AND c.[CategoryID] < (@StartID + @Limit)
-        ORDER BY c.[CategoryID]
-        SET ROWCOUNT  0
+        ORDER BY c.[CategoryID]       
     END
 GO
 
@@ -8749,15 +8708,13 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}forum_simplelist](
                 @Limit   INT  = 500)
 AS
     BEGIN
-                SET ARITHABORT ON				
-        SET ROWCOUNT  @Limit
-        SELECT   f.[ForumID],
+        SET ARITHABORT ON        
+        SELECT TOP(@Limit)  f.[ForumID],
                  f.[Name]
         FROM     [{databaseOwner}].[{objectQualifier}Forum] f
         WHERE    f.[ForumID] >= @StartID
         AND f.[ForumID] < (@StartID + @Limit)
-        ORDER BY f.[ForumID]
-        SET ROWCOUNT  0
+        ORDER BY f.[ForumID]    
     END
 GO
 
@@ -8766,16 +8723,14 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_simplelist](
                 @Limit   INT  = 1000)
 AS
     BEGIN
-                SET ARITHABORT ON				
-        SET ROWCOUNT  @Limit
-        SELECT   m.[MessageID],
+        SET ARITHABORT ON       
+        SELECT TOP(@Limit)  m.[MessageID],
                  m.[TopicID]
         FROM     [{databaseOwner}].[{objectQualifier}Message] m
         WHERE    m.[MessageID] >= @StartID
         AND m.[MessageID] < (@StartID + @Limit)
         AND m.[TopicID] IS NOT NULL
-        ORDER BY m.[MessageID]
-        SET ROWCOUNT  0
+        ORDER BY m.[MessageID]   
     END
 GO
 
@@ -8784,15 +8739,13 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}topic_simplelist](
                 @Limit   INT  = 500)
 AS
     BEGIN
-            SET ARITHABORT ON				
-        SET ROWCOUNT  @Limit
-        SELECT   t.[TopicID],
+        SET ARITHABORT ON      
+        SELECT TOP(@Limit)  t.[TopicID],
                  t.[Topic]
         FROM     [{databaseOwner}].[{objectQualifier}Topic] t
         WHERE    t.[TopicID] >= @StartID
         AND t.[TopicID] < (@StartID + @Limit)
-        ORDER BY t.[TopicID]
-        SET ROWCOUNT  0
+        ORDER BY t.[TopicID]        
     END
 GO
 
@@ -8800,16 +8753,14 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_simplelist](
                 @StartID INT  = 0,
                 @Limit   INT  = 500)
 AS
-    BEGIN
-                
-        SET ROWCOUNT  @Limit
-        SELECT   a.[UserID],
+    BEGIN               
+       
+        SELECT TOP(@Limit)  a.[UserID],
                  a.[Name]
         FROM     [{databaseOwner}].[{objectQualifier}User] a
         WHERE    a.[UserID] >= @StartID
         AND a.[UserID] < (@StartID + @Limit)
-        ORDER BY a.[UserID]
-        SET ROWCOUNT  0
+        ORDER BY a.[UserID]     
     END
 GO
 
