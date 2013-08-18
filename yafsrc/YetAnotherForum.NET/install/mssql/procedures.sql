@@ -1899,11 +1899,13 @@ declare @FirstSelectRowID int
         where 
             a.AttachmentID=@AttachmentID
     else
-    begin          
-           select @PageIndex = @PageIndex + 1;
-           select @FirstSelectRowNumber = 0;
-           select @FirstSelectRowID = 0;
-           select @TotalRows = 0;
+    begin
+
+               set nocount on
+           set @PageIndex = @PageIndex + 1
+           set @FirstSelectRowNumber = 0
+           set @FirstSelectRowID = 0
+           set @TotalRows = 0
            
            select @TotalRows = count(1) from [{databaseOwner}].[{objectQualifier}Attachment] a
             inner join [{databaseOwner}].[{objectQualifier}Message] b on b.MessageID = a.MessageID
@@ -1912,9 +1914,32 @@ declare @FirstSelectRowID int
             inner join [{databaseOwner}].[{objectQualifier}Category] e on e.CategoryID = d.CategoryID			
         where
             e.BoardID = @BoardID
+           select @FirstSelectRowNumber = (@PageIndex - 1) * @PageSize + 1
+           
+           if (@FirstSelectRowNumber <= @TotalRows)
+           begin
+           -- find first selectedrowid 
+           set rowcount @FirstSelectRowNumber
+           end
+           else
+           begin  
+           set rowcount 1
+           end
+      -- find first row id for a current page 
+      select @FirstSelectRowID = AttachmentID 
+     from 
+            [{databaseOwner}].[{objectQualifier}Attachment] a
+            inner join [{databaseOwner}].[{objectQualifier}Message] b on b.MessageID = a.MessageID
+            inner join [{databaseOwner}].[{objectQualifier}Topic] c on c.TopicID = b.TopicID
+            inner join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID = c.ForumID
+            inner join [{databaseOwner}].[{objectQualifier}Category] e on e.CategoryID = d.CategoryID			
+        where
+            e.BoardID = @BoardID
+        order by
+            a.AttachmentID
 
-           select @FirstSelectRowNumber = (@PageIndex - 1) * @PageSize
-		   -- display page 
+      -- display page 
+      set rowcount @PageSize
      select 
             a.*,
             BoardID		= @BoardID,
@@ -1931,9 +1956,13 @@ declare @FirstSelectRowID int
             inner join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID = c.ForumID
             inner join [{databaseOwner}].[{objectQualifier}Category] e on e.CategoryID = d.CategoryID			
         where
-            e.BoardID = @BoardID
+            a.AttachmentID >= @FirstSelectRowID  and e.BoardID = @BoardID
         order by
-            a.AttachmentID OFFSET (@FirstSelectRowNumber) ROWS FETCH NEXT (@PageSize) ROWS ONLY      
+            a.AttachmentID
+            set rowcount 0 
+   set nocount off
+
+        
     end
 end
 GO
@@ -3435,8 +3464,8 @@ create procedure [{databaseOwner}].[{objectQualifier}mail_save]
 AS 
 BEGIN
     update [{databaseOwner}].[{objectQualifier}Mail] set 
-	SendAttempt = @SendAttempt,
-	SendTries = @SendTries
+    SendAttempt = @SendAttempt,
+    SendTries = @SendTries
     where MailID = @MailID
 END
 GO
