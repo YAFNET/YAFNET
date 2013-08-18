@@ -4210,7 +4210,6 @@
     <Content Include="editors\ckeditor\LICENSE.md" />
     <Content Include="editors\ckeditor\plugins\scayt\LICENSE.md" />
     <Content Include="editors\ckeditor\plugins\scayt\README.md" />
-    <Content Include="editors\ckeditor\plugins\syntaxhighlight\images\Thumbs.db" />
     <Content Include="editors\ckeditor\plugins\wsc\LICENSE.md" />
     <Content Include="editors\ckeditor\plugins\wsc\README.md" />
     <Content Include="editors\ckeditor\README.md" />
