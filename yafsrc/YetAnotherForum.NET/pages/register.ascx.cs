@@ -63,11 +63,6 @@ namespace YAF.Pages
         /// </summary>
         private PlaceHolder recPH;
 
-        /// <summary>
-        ///   Gets User IP Info.
-        /// </summary>
-        public IDictionary<string, string> _UserIpLocator { get; set; }
-
         #endregion
 
         #region Constructors and Destructors
@@ -83,6 +78,11 @@ namespace YAF.Pages
         #endregion
 
         #region Properties
+
+        /// <summary>
+        ///   Gets or sets the User IP Info.
+        /// </summary>
+        public IDictionary<string, string> _UserIpLocator { get; set; }
 
         /// <summary>
         ///   Gets a value indicating whether IsProtected.
@@ -107,7 +107,7 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        ///   Gets or sets a value indicating whether Recaptcha Control.
+        ///   Gets or sets a value indicating whether Re-Captcha Control.
         /// </summary>
         private RecaptchaControl Recupt { get; set; }
 
@@ -350,7 +350,6 @@ namespace YAF.Pages
                                 this.CreateUserWizard1.Email,
                                 this.Get<HttpRequestBase>().GetUserRealIPAddress(),
                                 result);
-
                     }
                     else if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(2))
                     {
@@ -608,56 +607,12 @@ namespace YAF.Pages
 
                 this.DataBind();
 
-                decimal hours = 0;
-
                 // fill location field 
-                // Trying to consume data about user IP whereabouts
-                if (this.Get<YafBoardSettings>().EnableIPInfoService && this._UserIpLocator == null || this._UserIpLocator["StatusCode"] != "OK")
+                if (this.Get<YafBoardSettings>().EnableIPInfoService)
                 {
-                    this.Logger.Log(
-                        null,
-                        this,
-                        "Geolocation Service reports: {0}".FormatWith(this._UserIpLocator["StatusMessage"]),
-                        EventLogTypes.Information);
+                    this.FillLocationData(country, timeZones);
                 }
 
-                if (this.Get<YafBoardSettings>().EnableIPInfoService && this._UserIpLocator.Count > 0
-                    && this._UserIpLocator["StatusCode"] == "OK")
-                {
-                    var location = new StringBuilder();
-
-                    if (this._UserIpLocator["CountryName"] != null && this._UserIpLocator["CountryName"].IsSet())
-                    {
-                        country.Items.FindByValue(this.Get<ILocalization>().Culture.Name.Substring(2, 2)).Selected =
-                            true;
-                    }
-
-                    if (this._UserIpLocator["RegionName"] != null && this._UserIpLocator["RegionName"].IsSet())
-                    {
-                        location.AppendFormat(", {0}", this._UserIpLocator["RegionName"]);
-                    }
-
-                    if (this._UserIpLocator["CityName"] != null && this._UserIpLocator["CityName"].IsSet())
-                    {
-                        location.AppendFormat(", {0}", this._UserIpLocator["CityName"]);
-                    }
-
-                    this.CreateUserWizard1.FindControlRecursiveAs<TextBox>("Location").Text = location.ToString();
-
-                    if (this._UserIpLocator["TimeZone"] != null && this._UserIpLocator["TimeZone"].IsSet())
-                    {
-                        try
-                        {
-                            hours = this._UserIpLocator["TimeZone"].ToType<decimal>() * 60;
-                        }
-                        catch (FormatException)
-                        {
-                            hours = 0;
-                        }
-                    }
-                }
-
-                timeZones.Items.FindByValue(hours.ToString()).Selected = true;
                 this.CreateUserWizard1.FindWizardControlRecursive("UserName").Focus();
             }
 
@@ -780,8 +735,7 @@ namespace YAF.Pages
                     .Rows.Cast<DataRow>()
                     .Where(
                         dataRow =>
-                            !dataRow["Name"].IsNullOrEmptyDBField() && dataRow.Field<string>("Name") == "Administrators")
-                )
+                        !dataRow["Name"].IsNullOrEmptyDBField() && dataRow.Field<string>("Name") == "Administrators"))
             {
                 adminGroupID = dataRow["GroupID"].ToType<int>();
                 break;
@@ -882,7 +836,7 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The setup display name ui.
+        /// The setup display name UI.
         /// </summary>
         /// <param name="startControl">
         /// The start control.
@@ -897,7 +851,7 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The setup recaptcha control.
+        /// The setup RE-Captcha control.
         /// </summary>
         private void SetupRecaptchaControl()
         {
@@ -929,6 +883,63 @@ namespace YAF.Pages
             this.recPH.Visible = true;
         }
 
+        /// <summary>
+        /// Fills the location data.
+        /// </summary>
+        /// <param name="country">The country.</param>
+        /// <param name="timeZones">The time zones.</param>
+        private void FillLocationData([NotNull]DropDownList country, [NotNull]DropDownList timeZones)
+        {
+            decimal hours = 0;
+
+            if (this._UserIpLocator == null || this._UserIpLocator["StatusCode"] != "OK")
+            {
+                this.Logger.Log(
+                    null,
+                    this,
+                    "Geolocation Service reports: {0}".FormatWith(this._UserIpLocator["StatusMessage"]),
+                    EventLogTypes.Information);
+            }
+
+            if (this._UserIpLocator.Count <= 0 || this._UserIpLocator["StatusCode"] != "OK")
+            {
+                return;
+            }
+
+            var location = new StringBuilder();
+
+            if (this._UserIpLocator["CountryName"] != null && this._UserIpLocator["CountryName"].IsSet())
+            {
+                country.Items.FindByValue(this.Get<ILocalization>().Culture.Name.Substring(2, 2)).Selected =
+                    true;
+            }
+
+            if (this._UserIpLocator["RegionName"] != null && this._UserIpLocator["RegionName"].IsSet())
+            {
+                location.AppendFormat(", {0}", this._UserIpLocator["RegionName"]);
+            }
+
+            if (this._UserIpLocator["CityName"] != null && this._UserIpLocator["CityName"].IsSet())
+            {
+                location.AppendFormat(", {0}", this._UserIpLocator["CityName"]);
+            }
+
+            this.CreateUserWizard1.FindControlRecursiveAs<TextBox>("Location").Text = location.ToString();
+
+            if (this._UserIpLocator["TimeZone"] != null && this._UserIpLocator["TimeZone"].IsSet())
+            {
+                try
+                {
+                    hours = this._UserIpLocator["TimeZone"].ToType<decimal>() * 60;
+                }
+                catch (FormatException)
+                {
+                    hours = 0;
+                }
+            }
+
+            timeZones.Items.FindByValue(hours.ToString()).Selected = true;
+        }
 
         #endregion
     }
