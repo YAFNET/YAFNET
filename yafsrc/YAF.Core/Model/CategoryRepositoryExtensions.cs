@@ -44,14 +44,14 @@ namespace YAF.Core.Model
 
             int success = repository.DbFunction.Scalar.category_delete(CategoryID: categoryID);
 
-            if (success != 0)
+            if (success == 0)
             {
-                repository.FireDeleted(categoryID);
-
-                return true;
+                return false;
             }
 
-            return false;
+            repository.FireDeleted(categoryID);
+
+            return true;
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The save.
+        /// Save a Category
         /// </summary>
         /// <param name="repository">The repository.</param>
         /// <param name="categoryID">The category id.</param>
@@ -101,7 +101,7 @@ namespace YAF.Core.Model
         {
             CodeContracts.ArgumentNotNull(repository, "repository");
 
-            int newId = repository.DbFunction.Scalar.category_save(
+            int newId = (int)repository.DbFunction.Scalar.category_save(
                 BoardID: boardId ?? repository.BoardID, CategoryID: categoryID ?? 0, Name: name, SortOrder: sortOrder, CategoryImage: categoryImage);
 
             if (categoryID.HasValue)
