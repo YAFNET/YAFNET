@@ -299,7 +299,7 @@
                   <table align="center" width="100%" cellspacing="1" cellpadding="0">
 							<tr>
 								<td class="post" colspan="2" align="center">
-									<asp:Image ID="Avatar" runat="server" CssClass="avatarimage" />
+									<asp:Image ID="Avatar" runat="server" CssClass="avatarimage img-rounded" />
 								</td>
 							</tr>
 						</table>

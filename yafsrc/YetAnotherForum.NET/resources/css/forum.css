@@ -189,6 +189,11 @@
     border: 1px solid #666;
     margin-right: 8px;    
 }
+.YAF_Pages_members .avatarimage,
+.YAF_Pages_team .avatarimage {
+	width: 40px;
+	height: 40px
+}
 .yafnet .forumLinkCol .forumheading,
 .yafnet .forumLinkCol .forumviewing
 {

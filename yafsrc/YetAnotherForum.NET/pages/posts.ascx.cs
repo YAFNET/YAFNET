@@ -298,7 +298,7 @@ namespace YAF.Pages
             }
 
             html.Append(@"<span class=""threadedRowCollapsed"">");
-            html.AppendFormat(@"<img src=""{0}"" alt="""" class=""avatarimage"" />", avatarUrl);
+            html.AppendFormat(@"<img src=""{0}"" alt="""" class=""avatarimage img-rounded"" />", avatarUrl);
             html.AppendFormat(
                 @"<a href=""{0}"" class=""threadUrl"">{1}</a>",
                 YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", messageId),

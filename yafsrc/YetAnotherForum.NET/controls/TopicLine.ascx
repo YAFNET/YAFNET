@@ -32,7 +32,7 @@
                         ToString()));
         %>
         <img src="<%=avatarUrl%>" alt="<%= avatarTitle %>" title="<%= avatarTitle %>"
-            class="avatarimage" />
+            class="avatarimage img-rounded" />
         <%}
 
             string priorityMessage = this.GetPriorityMessage(this.TopicRow);
@@ -132,7 +132,7 @@
                 if (this.Get<YafBoardSettings>().ShowAvatarsInTopic)
                 {%>
         <img src="<%=this.GetAvatarUrlFromID(userID)%>" alt="<%=lastAvatarTitle%>" title="<%=lastAvatarTitle%>"
-            class="avatarimage" />
+            class="avatarimage img-rounded" />
         <%
             }
 

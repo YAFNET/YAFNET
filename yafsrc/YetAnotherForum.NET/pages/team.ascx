@@ -18,7 +18,7 @@
 			  			    <HeaderStyle HorizontalAlign="Center" CssClass="header2"></HeaderStyle>
                             <ItemStyle HorizontalAlign="Center" CssClass="post" Width="40px"></ItemStyle>
 			  				    <ItemTemplate>
-                                    <asp:Image ID="AdminAvatar" runat="server" CssClass="avatarimage" Width="40px" Height="40px" />
+                                    <asp:Image ID="AdminAvatar" runat="server" CssClass="avatarimage img-rounded" Width="40px" Height="40px" />
 			  				    </ItemTemplate>
              		 	</asp:TemplateColumn>
              		 	<asp:TemplateColumn>
@@ -67,7 +67,7 @@
 			  			    <HeaderStyle HorizontalAlign="Center" CssClass="header2"></HeaderStyle>
                             <ItemStyle HorizontalAlign="Center" CssClass="post" Width="40px"></ItemStyle>
 			  				    <ItemTemplate>
-                                    <asp:Image ID="ModAvatar" runat="server" CssClass="avatarimage" Width="40px" Height="40px" />
+                                    <asp:Image ID="ModAvatar" runat="server" CssClass="avatarimage img-rounded" Width="40px" Height="40px" />
 			  				    </ItemTemplate>
              		 	</asp:TemplateColumn>
              		 	<asp:TemplateColumn>

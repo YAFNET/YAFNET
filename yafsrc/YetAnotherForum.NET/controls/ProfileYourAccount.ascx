@@ -14,7 +14,7 @@
             <asp:Label ID="Name" runat="server" />
         </td>
         <td rowspan="6" align="center" class="post">
-            <asp:Image runat="server" ID="AvatarImage" CssClass="avatarimage" AlternateText="avatar" />
+            <asp:Image runat="server" ID="AvatarImage" CssClass="avatarimage img-rounded" AlternateText="avatar" />
         </td>
     </tr>
     <asp:PlaceHolder ID="DisplayNameHolder" runat="server">
