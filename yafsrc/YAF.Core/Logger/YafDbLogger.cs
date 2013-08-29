@@ -189,29 +189,23 @@ namespace YAF.Core
         /// <summary>
         ///     The _event log type lookup.
         /// </summary>
-        private Dictionary<EventLogTypes, bool> _eventLogTypeLookup;
+        private Dictionary<EventLogTypes, bool> _eventLogTypeLookup = null;
 
         /// <summary>
         /// Inits. the lookup.
         /// </summary>
         private void InitLookup()
         {
-            this._eventLogTypeLookup = new Dictionary<EventLogTypes, bool> { };
-
-            foreach (var logType in EnumHelper.EnumToList<EventLogTypes>().Where(logType => !this._eventLogTypeLookup.ContainsKey(logType)))
+            if (this._eventLogTypeLookup == null)
             {
-                switch (logType)
+                var logTypes = EnumHelper.EnumToList<EventLogTypes>().ToDictionary(t => t, v => true);
+
+                foreach (var debugTypes in new[] {EventLogTypes.Debug, EventLogTypes.Trace})
                 {
-                    case EventLogTypes.Debug:
-                        this._eventLogTypeLookup.AddOrUpdate(logType, this._isDebug);
-                        break;
-                    case EventLogTypes.Trace:
-                        this._eventLogTypeLookup.AddOrUpdate(logType, this._isDebug);
-                        break;
-                    default:
-                        this._eventLogTypeLookup.AddOrUpdate(logType, true);
-                        break;
+                    this._eventLogTypeLookup.AddOrUpdate(debugTypes, this._isDebug);
                 }
+
+                this._eventLogTypeLookup = logTypes;
             }
         }
     }
