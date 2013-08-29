@@ -202,7 +202,7 @@ namespace YAF.Core
 
                 foreach (var debugTypes in new[] {EventLogTypes.Debug, EventLogTypes.Trace})
                 {
-                    this._eventLogTypeLookup.AddOrUpdate(debugTypes, this._isDebug);
+                    logTypes.AddOrUpdate(debugTypes, this._isDebug);
                 }
 
                 this._eventLogTypeLookup = logTypes;
