@@ -299,9 +299,16 @@
   font-size: 10pt;
   font-weight: normal;
 }
+.yafnet .MessageDetails {
+  background-color: rgba(25, 25, 25, 0.1);
+  border: 1px inset rgba(25, 25, 25, 0.1);
+  font-family: Consolas, "Lucida Console", Monaco, monospace;
+  font-size: 0.9em;
+  margin-top: 2em;
+  padding: 5px;
+}
 .yafnet .MessageDetails span {
   font-weight: bold;
-  font-size: 8pt;
 }
 .yafnet .moderatorListCol {
   font-size: 8pt;

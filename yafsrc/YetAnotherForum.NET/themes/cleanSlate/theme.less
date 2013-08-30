@@ -78,63 +78,63 @@
         color: #333333;
     }
 
-    tr.topicRow .topicMain, tr.topicRow_Alt .topicMain
-    {
-        font-size: 11pt;
-        font-weight: bold;
-    }
+        tr.topicRow .topicMain, tr.topicRow_Alt .topicMain
+        {
+            font-size: 11pt;
+            font-weight: bold;
+        }
 
-    tr.topicRow a.post_link, tr.topicRow_Alt a.post_link
-    {
-        color: @lowcolor;
-    }
+        tr.topicRow a.post_link, tr.topicRow_Alt a.post_link
+        {
+            color: @lowcolor;
+        }
 
-    tr.topicRow .topicMain .description, tr.topicRow_Alt .topicMain .description
-    {
-        color: @lowcolor;
-        font-size: 9pt;
-        font-style: italic;
-        font-weight: lighter;
-    }
+        tr.topicRow .topicMain .description, tr.topicRow_Alt .topicMain .description
+        {
+            color: @lowcolor;
+            font-size: 9pt;
+            font-style: italic;
+            font-weight: lighter;
+        }
 
-    tr.topicRow .topicMain .post_priority, tr.topicRow_Alt .topicMain .post_priority
-    {
-        font-weight: normal;
-    }
+        tr.topicRow .topicMain .post_priority, tr.topicRow_Alt .topicMain .post_priority
+        {
+            font-weight: normal;
+        }
 
-    tr.topicRow .topicMain .topicPager, tr.topicRow_Alt .topicMain .topicPager, tr.topicRow .topicMain .topicPosted, tr.topicRow_Alt .topicMain .topicPosted, tr.topicRow .topicMain .topicStarter, tr.topicRow_Alt .topicMain .topicStarter
-    {
-        font-size: 9pt;
-        font-weight: normal;
-    }
+        tr.topicRow .topicMain .topicPager, tr.topicRow_Alt .topicMain .topicPager, tr.topicRow .topicMain .topicPosted, tr.topicRow_Alt .topicMain .topicPosted, tr.topicRow .topicMain .topicStarter, tr.topicRow_Alt .topicMain .topicStarter
+        {
+            font-size: 9pt;
+            font-weight: normal;
+        }
 
-    tr.topicRow .topicMain img.avatarimage, tr.topicRow_Alt .topicMain img.avatarimage
-    {
-        width: 40px;
-        height: 40px;
-        float: left;
-        padding: 3px;
-        padding-right: 8px;
-    }
+        tr.topicRow .topicMain img.avatarimage, tr.topicRow_Alt .topicMain img.avatarimage
+        {
+            width: 40px;
+            height: 40px;
+            float: left;
+            padding: 3px;
+            padding-right: 8px;
+        }
 
-    tr.topicRow .topicReplies, tr.topicRow_Alt .topicReplies
-    {
-        text-align: right;
-    }
+        tr.topicRow .topicReplies, tr.topicRow_Alt .topicReplies
+        {
+            text-align: right;
+        }
 
-    tr.topicRow .topicViews, tr.topicRow_Alt .topicViews
-    {
-        text-align: right;
-    }
+        tr.topicRow .topicViews, tr.topicRow_Alt .topicViews
+        {
+            text-align: right;
+        }
 
-    tr.topicRow .topicRepiles, tr.topicRow_Alt .topicRepiles
-    {
-    }
+        tr.topicRow .topicRepiles, tr.topicRow_Alt .topicRepiles
+        {
+        }
 
-    tr.topicRow td.topicStarter, tr.topicRow_Alt td.topicStarter, tr.topicRow td.topicViews, tr.topicRow_Alt td.topicViews
-    {
-        background-color: #f8f8f8;
-    }
+        tr.topicRow td.topicStarter, tr.topicRow_Alt td.topicStarter, tr.topicRow td.topicViews, tr.topicRow_Alt td.topicViews
+        {
+            background-color: #f8f8f8;
+        }
 
     table.postContainer, table.postContainer_Alt
     {
@@ -142,11 +142,11 @@
         border-collapse: collapse;
     }
 
-    table.postContainer td, table.postContainer_Alt td
-    {
-        padding: 10px 15px 10px 15px;
-        margin: 0;
-    }
+        table.postContainer td, table.postContainer_Alt td
+        {
+            padding: 10px 15px 10px 15px;
+            margin: 0;
+        }
 
     input, select
     {
@@ -373,10 +373,19 @@
         font-weight: normal;
     }
 
-    .MessageDetails span
+    .MessageDetails
     {
-        font-weight: bold;
-        font-size: 8pt;
+        background-color: rgba(25, 25, 25, 0.1);
+        border: 1px inset rgba(25, 25, 25, 0.1);
+        font-family: Consolas,"Lucida Console",Monaco,monospace;
+        font-size: 0.9em;
+        margin-top: 2em;
+        padding: 5px;
+
+        span
+        {
+            font-weight: bold;
+        }
     }
 
     .moderatorListCol
@@ -621,7 +630,7 @@
     {
         width: 100%;
         height: 200px;
-    }  
+    }
 
     .navlinks
     {
@@ -875,31 +884,31 @@
         }
     }
 
-    a.yafcssbigbutton:hover
-    {
-        background: -webkit-gradient(linear,left top,left bottom,color-stop(0.05,#378de5),color-stop(1,#79bbff));
-        background: -moz-linear-gradient(center top,#378de5 5%,#79bbff 100%);
-        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#378de5',endColorstr='#79bbff');
-        background-color: #378de5;
-        text-decoration: none;
-    }
-
-    a.yafcssbigbutton:active
-    {
-        background-position: bottom right;
-        outline: none;
-
-        img
+        a.yafcssbigbutton:hover
         {
-            padding: 0px 4px 0px 0px;
+            background: -webkit-gradient(linear,left top,left bottom,color-stop(0.05,#378de5),color-stop(1,#79bbff));
+            background: -moz-linear-gradient(center top,#378de5 5%,#79bbff 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#378de5',endColorstr='#79bbff');
+            background-color: #378de5;
+            text-decoration: none;
         }
 
-        span
+        a.yafcssbigbutton:active
         {
-            background-position: bottom left;
-            padding: 7px 10px 5px 12px;
+            background-position: bottom right;
+            outline: none;
+
+            img
+            {
+                padding: 0px 4px 0px 0px;
+            }
+
+            span
+            {
+                background-position: bottom left;
+                padding: 7px 10px 5px 12px;
+            }
         }
-    }
 
     a.pollvote:link
     {
@@ -939,29 +948,29 @@
         }
     }
 
-    a.yafcssimagebutton:hover
-    {
-        text-decoration: none;
-        background-color: #ffffff;
-        color: #105cc9;
-    }
-
-    a.yafcssimagebutton:active
-    {
-        background-position: bottom right;
-        outline: none;
-
-        img
+        a.yafcssimagebutton:hover
         {
-            padding: 0px 4px 0px 0px;
+            text-decoration: none;
+            background-color: #ffffff;
+            color: #105cc9;
         }
 
-        span
+        a.yafcssimagebutton:active
         {
-            background-position: bottom left;
-            padding: 3px 6px 1px 8px;
+            background-position: bottom right;
+            outline: none;
+
+            img
+            {
+                padding: 0px 4px 0px 0px;
+            }
+
+            span
+            {
+                background-position: bottom left;
+                padding: 3px 6px 1px 8px;
+            }
         }
-    }
 
     .yafpopupmenu
     {
@@ -985,10 +994,10 @@
             font-weight: normal;
         }
 
-        li.popupitemhover
-        {
-            background-color: #cccccc;
-        }
+            li.popupitemhover
+            {
+                background-color: #cccccc;
+            }
     }
 
     .albumtitle:hover
